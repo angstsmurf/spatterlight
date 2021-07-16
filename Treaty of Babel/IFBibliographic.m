@@ -51,7 +51,8 @@ typedef enum kForgiveness : NSInteger {
             keyVal = node.stringValue;
             for (NSString *key in allKeys) {
 
-                if ([node.name compare:key] == 0) {
+                if ([node.name compare:key] == 0 ||
+                    ([key isEqualToString:@"firstpublished"] && [node.name compare:@"year"] == 0)) {
                     if ([key isEqualToString:@"firstpublished"])
                     {
                         if (dateFormatter == nil)
@@ -101,7 +102,7 @@ typedef enum kForgiveness : NSInteger {
                         }
                     }
 
-                } else if ([node.name compare:@"description"] == 0) {
+                } else if ([node.name compare:@"description"] == 0 || [node.name compare:@"teaser"] == 0) {
                     metadata.blurb =
                         [self renderDescriptionElement:(NSXMLElement *)node];
                     // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.

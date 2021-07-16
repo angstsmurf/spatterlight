@@ -15,6 +15,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 #import "IFStory.h"
 #import "IFIdentification.h"
+#import "IFZoomID.h"
 #import "IFBibliographic.h"
 #import "IFCoverDescription.h"
 #import "IFDB.h"
@@ -30,15 +31,31 @@ fprintf(stderr, "%s\n",                                                    \
         NSXMLElement *idElement;
         if ([element elementsForName:@"identification"].count) {
             idElement = [element elementsForName:@"identification"][0];
+            _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
+        } else if ([element elementsForName:@"id"].count) {
+            NSArray<NSXMLElement *> *elements = [element elementsForName:@"id"];
+            _identification = [[IFZoomID alloc] initWithElements:elements andContext:context];
         } else {
             NSLog(@"Unsupported iFiction file!");
             return nil;
         }
-        _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
 
         Metadata *metadata = _identification.metadata;
 
-        NSXMLElement *biblioElement = [element elementsForName:@"bibliographic"][0];
+        if (!metadata)
+            return nil;
+
+        NSArray *biblioElements = [element elementsForName:@"bibliographic"];
+        NSXMLElement *biblioElement;
+        if (biblioElements.count == 0) {
+            if ([_identification isKindOfClass:[IFZoomID class]]) {
+                biblioElement = element;
+            } else {
+                biblioElement = nil;
+            }
+        } else {
+            biblioElement = biblioElements.firstObject;
+        }
         _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement andMetadata:metadata];
 
         NSArray *elements = [element elementsForLocalName:@"ifdb"

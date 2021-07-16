@@ -9,84 +9,54 @@
 #import "Ifid.h"
 #import "Game.h"
 
-
 @implementation IFIdentification
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context {
-  self = [super init];
-  if (self) {
-    NSMutableArray *ifids = [[NSMutableArray alloc] init];
-    NSMutableSet *games = [[NSMutableSet alloc] init];
-    NSMutableSet *ifidObjs = [[NSMutableSet alloc] init];
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)aContext {
+    self = [super init];
+    if (self) {
+        _context = aContext;
+        NSMutableArray *ifids = [[NSMutableArray alloc] init];
 
-      Ifid *ifidObj;
-    _format = @"";
+        _format = @"";
 
-    NSEnumerator *enumChildren = [element.children objectEnumerator];
-    NSXMLNode *node;
-    while ((node = [enumChildren nextObject])) {
-      if ([node.name compare:@"ifid"] == 0)
-        [ifids addObject:node.stringValue];
-      else if ([node.name compare:@"format"] == 0) {
-        _format = node.stringValue;
-      } else if ([node.name compare:@"bafn"] == 0)
-        _bafn = node.stringValue;
+        NSEnumerator *enumChildren = [element.children objectEnumerator];
+        NSXMLNode *node;
+        while ((node = [enumChildren nextObject])) {
+            if ([node.name compare:@"ifid"] == 0)
+                [ifids addObject:node.stringValue];
+            else if ([node.name compare:@"format"] == 0) {
+                _format = node.stringValue;
+            } else if ([node.name compare:@"bafn"] == 0)
+                _bafn = node.stringValue;
+        }
+        if (ifids.count == 0) {
+            NSLog(@"IFIdentification: no Ifids found in document! Bailing!");
+            return nil;
+        }
+        _ifids = ifids;
+        _metadata = [self metadataFromIfids:ifids];
+        
+        if (!_metadata.format)
+            _metadata.format = _format;
+        _metadata.bafn = _bafn;
     }
-      if (ifids.count == 0) {
-          NSLog(@"IFIdentification: no Ifids found in document! Bailing!");
-          return nil;
-      }
-      _ifids = ifids;
-      for (NSString *ifid in ifids) {
-          if ([ifid isEqualToString:@"DUMMYmanySelected"]  || [ifid isEqualToString:@"DUMMYnoneSelected"]) {
-              continue;
-          }
-          ifidObj = [self fetchIfid:ifid inContext:context];
-          if (!ifidObj) {
-              ifidObj = (Ifid *) [NSEntityDescription
-                                  insertNewObjectForEntityForName:@"Ifid"
-                                  inManagedObjectContext:context];
-              ifidObj.ifidString = ifid;
-//              NSLog(@"Created new Ifid object with ifid %@", ifid);
-          }
-//          else NSLog(@"Ifid object with ifid %@ already exists", ifid);
-
-          [ifidObjs addObject:ifidObj];
-          if (!_metadata)
-              _metadata = ifidObj.metadata;
-          [games unionSet:ifidObj.metadata.games];
-      }
-
-      if (!_metadata) {
-          _metadata = (Metadata *) [NSEntityDescription
-                                    insertNewObjectForEntityForName:@"Metadata"
-                                    inManagedObjectContext:context];
-      }
-
-      [_metadata addIfids:[NSSet setWithSet:ifidObjs]];
-      [_metadata addGames:[NSSet setWithSet:games]];
-
-      if (!_metadata.format)
-          _metadata.format = _format;
-      _metadata.bafn = _bafn;
-  }
-  return self;
+    return self;
 }
 
-- (Ifid *)fetchIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+- (Ifid *)fetchIfid:(NSString *)ifid {
     NSError *error = nil;
     NSArray *fetchedObjects;
     NSPredicate *predicate;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:self.context];
 
     fetchRequest.entity = entity;
 
     predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
     fetchRequest.predicate = predicate;
 
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"fetchMetadataForIFID: Problem! %@",error);
     }
@@ -101,6 +71,74 @@
     }
 
     return fetchedObjects[0];
+}
+
+- (Metadata *)metadataFromIfids:(NSArray<NSString *> *)ifids {
+    Ifid *ifidObj;
+    Metadata *metadata;
+    NSMutableSet *games = [[NSMutableSet alloc] init];
+    NSMutableSet *ifidObjs = [[NSMutableSet alloc] init];
+
+    for (NSString *ifid in ifids) {
+        if ([ifid isEqualToString:@"DUMMYmanySelected"]  || [ifid isEqualToString:@"DUMMYnoneSelected"]) {
+            continue;
+        }
+        ifidObj = [self fetchIfid:ifid];
+        if (!ifidObj) {
+            ifidObj = (Ifid *) [NSEntityDescription
+                                insertNewObjectForEntityForName:@"Ifid"
+                                inManagedObjectContext:self.context];
+            ifidObj.ifidString = ifid;
+//            NSLog(@"Created new Ifid object with ifid %@", ifid);
+        }
+//        else NSLog(@"Ifid object with ifid %@ already exists. Title: %@", ifid, ifidObj.metadata.title);
+
+        [ifidObjs addObject:ifidObj];
+        if (!metadata) {
+            metadata = ifidObj.metadata;
+        } else if (ifidObj.metadata && ifidObj.metadata != metadata) {
+            NSLog(@"Competing metadata objects found!");
+            metadata = [self selectBestMetadataOf:metadata and:ifidObj.metadata];
+            if (metadata != ifidObj.metadata) {
+                Metadata *leftover = ifidObj.metadata;
+                ifidObj.metadata = metadata;
+                if (leftover.ifids.count == 0) {
+                    [games unionSet:leftover.games];
+                    NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
+                    [self.context deleteObject:leftover];
+                }
+            }
+        }
+        [games unionSet:ifidObj.metadata.games];
+    }
+
+    if (!metadata) {
+        metadata = (Metadata *) [NSEntityDescription
+                                  insertNewObjectForEntityForName:@"Metadata"
+                                  inManagedObjectContext:self.context];
+    }
+
+    [metadata addIfids:[NSSet setWithSet:ifidObjs]];
+    [metadata addGames:[NSSet setWithSet:games]];
+
+    return metadata;
+}
+
+- (Metadata *)selectBestMetadataOf:(Metadata *)metadataA and:(Metadata *)metadataB {
+    if (!metadataA)
+        return metadataB;
+    if (!metadataB)
+        return metadataA;
+    if (metadataB.games.count > metadataA.games.count) {
+        return metadataB;
+    }
+    if (metadataB.games.count == metadataA.games.count) {
+        if (metadataB.ifids.count > metadataA.ifids.count) {
+            return metadataB;
+        }
+    }
+
+    return metadataA;
 }
 
 @end

@@ -420,6 +420,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [_managedObjectContext deleteObject:img];
         }
 
+        // And then any orphaned ifids
+        NSArray *ifidEntriesToDelete = [self fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
+
+        counter += ifidEntriesToDelete.count;
+        for (Ifid *ifid in ifidEntriesToDelete) {
+            NSLog(@"Pruning ifid %@", ifid.ifidString);
+            [_managedObjectContext deleteObject:ifid];
+        }
+
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
