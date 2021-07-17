@@ -8,7 +8,9 @@
 #include "header.h"
 #include "advint.h"
 #include "advdbs.h"
+#if defined(SPATTERLIGHT)
 #include "glkimp.h"
+#endif
 
 /* external variables */
 extern char line[];
@@ -349,9 +351,11 @@ int getrand(int n)
 /* setrand - set the random number seed */
 void setrand(long n)
 {
+#if defined(SPATTERLIGHT)
     if (gli_determinism)
         rseed = 1234;
     else
-        rseed = n;
+#endif
+    rseed = n;
 }
 

@@ -49,6 +49,12 @@
 
 #include "glk.h"
 
+#if defined (SPATTERLIGHT)
+
+extern glui32 gli_determinism;
+
+#endif
+
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
  * them early, so we'll define them here too.  We also need NULL, but that's
@@ -6242,6 +6248,17 @@ glkunix_startup_code (glkunix_startup_t * data)
 }
 #endif /* _unix */
 
+#if defined (SPATTERLIGHT)
+
+type32 spatterlight_rseed(type32 seed)
+{
+    if (gli_determinism)
+       return 1234;
+    else
+        return seed;
+}
+
+#endif
 
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the Mac platform                      */

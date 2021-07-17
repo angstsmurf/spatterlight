@@ -39,7 +39,8 @@
 #ifdef GLK
 #include "glk.h"
 #include "glkio.h"
-#include "glkimp.h"
+
+extern glui32 gli_determinism;
 #endif
 
 /* PUBLIC DATA */

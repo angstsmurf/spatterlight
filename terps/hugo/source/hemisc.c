@@ -2658,6 +2658,7 @@ static int rand_index1, rand_index2;
 
 int random()
 {
+    fprintf(stderr, "random()\n");
     rand_index1 = (rand_index1 + 1) % 55;
     rand_index2 = (rand_index2 + 1) % 55;
     rand_table[rand_index1] = rand_table[rand_index1] - rand_table[rand_index2];

@@ -35,6 +35,10 @@
 #include "scare.h"
 #include "glk.h"
 
+#if defined (SPATTERLIGHT)
+extern glui32 gli_determinism;
+#endif
+
 #include "scprotos.h" /* for SCARE_VERSION */
 
 #undef _WIN32   /* Gargoyle */
@@ -3473,7 +3477,11 @@ glkunix_startup_code (glkunix_startup_t * data)
   else
     trace_flags = 0;
   enable_debugger = (getenv ("SC_DEBUGGER_ENABLED") != NULL);
+#if defined (SPATTERLIGHT)
+  stable_random = gli_determinism;
+#else
   stable_random = (getenv ("SC_STABLE_RANDOM_ENABLED") != NULL);
+#endif
   locale = getenv ("SC_LOCALE");
 
 #ifdef LINUX_GRAPHICS

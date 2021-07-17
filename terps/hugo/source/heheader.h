@@ -359,6 +359,13 @@ void heglk_printfatalerror(char *err);
 
 #endif /* defined (GLK) */
 
+#if defined (SPATTERLIGHT)
+#define SRANDOM my_srandom
+#define RANDOM random
+
+extern void my_srandom(int);
+
+#endif /* defined (SPATTERLIGHT) */
 
 /*---------------------------------------------------------------------------
 	Definitions for Palm OS (built with CodeWarrior)

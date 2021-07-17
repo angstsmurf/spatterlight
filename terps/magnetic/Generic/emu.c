@@ -444,7 +444,11 @@ type16 read_w2(type8 * ptr)
 
 void ms_seed(type32 seed)
 {
+#if !defined(SPATTERLIGHT)
+    rseed = spatterlight_rseed(seed);
+#else
 	rseed = seed;
+#endif
 }
 
 type32 rand_emu(void)

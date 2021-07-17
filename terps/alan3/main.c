@@ -44,7 +44,9 @@
 #ifdef HAVE_GLK
 #include "glk.h"
 #include "glkio.h"
-#include "glkimp.h"
+
+extern glui32 gli_determinism;
+
 #ifdef HAVE_WINGLK
 #include "WinGlk.h"
 #endif

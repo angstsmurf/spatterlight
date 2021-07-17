@@ -2882,3 +2882,12 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 void PromptMore(void)
 {
 }
+
+void my_srandom(int seed)
+{
+    if (gli_determinism) {
+        srandom(1234);
+    } else {
+        srandom(seed);
+    }
+}
