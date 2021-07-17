@@ -327,12 +327,8 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/x-zmachine</string>
-			</array>
 			<key>CFBundleTypeName</key>
-			<string>Z-code Story File</string>
+			<string>Legacy Z-code Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -798,7 +794,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Z-code Story File</string>
+			<string>Legacy Z-code Story File</string>
 			<key>UTTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
@@ -820,10 +816,6 @@
 				<array>
 					<string>z1</string>
 					<string>z2</string>
-				</array>
-				<key>public.mime-type</key>
-				<array>
-					<string>application/x-zmachine</string>
 				</array>
 			</dict>
 		</dict>
@@ -895,7 +887,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -931,7 +923,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="glulx"</string>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
 				</array>
 			</dict>
 		</dict>
