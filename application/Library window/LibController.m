@@ -2609,6 +2609,10 @@ ofDividerAtIndex:0];
 
 // DoubleAction
 - (void)doDoubleClick:(id)sender {
+    if (_gameTableView.clickedRow == -1) {
+        return;
+    }
+
     [self enableClickToRenameAfterDelay];
     [self play:sender];
 }
