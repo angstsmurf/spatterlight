@@ -153,13 +153,6 @@ static bool is_story(const char *id)
     return strcmp(story_id, id) == 0;
 }
 
-bool is_lurking_horror(void)
-{
-    return is_story("203-870506") ||
-           is_story("219-870912") ||
-           is_story("221-870918");
-}
-
 bool is_journey(void)
 {
     return is_story("46-880603") ||
@@ -168,9 +161,31 @@ bool is_journey(void)
     is_story("79-890627") || is_story("83-890706");
 }
 
+bool is_lurking_horror(void)
+{
+    return is_story("203-870506") ||
+    is_story("219-870912") ||
+    is_story("221-870918");
+}
+
 bool is_mad_bomber(void)
 {
     return is_story("3-971123-caad");
+}
+
+bool is_stationfall(void)
+{
+    return is_story("107-870430") ||
+    is_story("1-861017") ||
+    is_story("87-870326") ||
+    is_story("63-870218") ||
+    // Planetfall, pre-Solid Gold versions
+    is_story("1-830517") ||
+    is_story("20-830708") ||
+    is_story("26-831014") ||
+    is_story("29-840118") ||
+    is_story("37-851003") ||
+    is_story("39-880501");
 }
 
 bool is_infocom_v1234;

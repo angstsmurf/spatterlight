@@ -2287,7 +2287,11 @@ void zshow_status(void)
             snprintf(rhs, sizeof rhs, "%02ld:%02ld", first, second);
         }
     } else {
-        snprintf(rhs, sizeof rhs, "Score: %ld  Moves: %ld ", first, second);
+        if (is_stationfall()) {
+            snprintf(rhs, sizeof rhs, "Score: %ld  Time: %ld ", first, second);
+        } else {
+            snprintf(rhs, sizeof rhs, "Score: %ld  Moves: %ld ", first, second);
+        }
         if (strlen(rhs) > width) {
             snprintf(rhs, sizeof rhs, "%ld/%ld", first, second);
         }

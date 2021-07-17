@@ -107,9 +107,10 @@ extern bool is_infocom_v1234;
 
 const char *get_story_id(void);
 
-bool is_lurking_horror(void);
 bool is_journey(void);
+bool is_lurking_horror(void);
 bool is_mad_bomber(void);
+bool is_stationfall(void);
 
 void write_header(void);
 
