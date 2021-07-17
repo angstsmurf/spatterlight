@@ -3169,8 +3169,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         case PRINT:
             if (!_gwindows.count && shouldRestoreUI) {
-                NSLog(@"Restoring UI at PRINT");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at PRINT");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
