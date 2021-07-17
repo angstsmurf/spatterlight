@@ -149,6 +149,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     NSManagedObjectContext *importContext;
     BOOL sideViewUpdatePending;
+    NSMenuItem *enabledThemeItem;
 }
 @end
 
@@ -811,8 +812,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 - (void)rebuildThemesSubmenu {
 
+    enabledThemeItem = nil;
     NSMenu *themesMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Apply Theme", nil)];
-    
+
+    themesMenu.showsStateColumn = YES;
+
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
@@ -912,6 +916,21 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         (![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])) {
         count = 1;
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+    }
+
+    if (action == @selector(applyTheme:)) {
+        if (enabledThemeItem != nil) {
+            for (NSMenuItem *item in _themesSubMenu.submenu.itemArray) {
+                item.state = NSOffState;
+            }
+            enabledThemeItem = nil;
+        }
+        if (count == 1) {
+            Game *clickedGame = _gameTableModel[(NSUInteger)_gameTableView.clickedRow];
+            enabledThemeItem = [_themesSubMenu.submenu itemWithTitle:clickedGame.theme.name];
+            if (enabledThemeItem)
+                enabledThemeItem.state = NSOnState;
+        }
     }
 
     if (action == @selector(performFindPanelAction:)) {
