@@ -1,12 +1,18 @@
 # Change log
 
-## Unreleased
+## Release 0.8.4
+- Fixes a bug that could add an extra file extension to downloaded Z-machine story files
 - Reinstates Bocfel 1.3.2
-- Fixes broken determinism in Bocfel and Glulxe
-- Fixes broken command script handling in Bocfel and Glulxe
 - Fixes the autorestore bug that made Bocfel 1.3.2 unstable
-- Improves determinism in AdvSys, Alan 2, Alan 3 and UnQuill
+- Fixes determinism after autorestore in Bocfel and Glulxe
+- Fixes command script handling in Bocfel and Glulxe
+- Determinism support in all supported interpreters
+- Improved look for bezels displaying two-figure numbers
+- Status bar in Stationfall and Planetfall correctly shows "Time" instead of "Moves"
 - Reset should work more reliably after a game crashes
+- Support for IFID-less Zoom iFiction files
+- In "Apply theme" contextual menu, currently selected theme now has a checkmark
+- Double clicking table view header no longer starts selected game
 
 ## Release 0.8.3
 - QuickLook plugin blorb support was broken
