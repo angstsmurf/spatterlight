@@ -6,7 +6,7 @@
 - Fixes the autorestore bug that made Bocfel 1.3.2 unstable
 - Fixes determinism after autorestore in Bocfel and Glulxe
 - Fixes command script handling in Bocfel and Glulxe
-- Determinism support in all supported interpreters
+- Determinism support in all interpreters
 - Improved look for bezels displaying two-figure numbers
 - Status bar in Stationfall and Planetfall correctly shows "Time" instead of "Moves"
 - Reset should work more reliably after a game crashes
