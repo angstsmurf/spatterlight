@@ -177,7 +177,7 @@
     if (cachedimage) {
         _lastimage = cachedimage;
         _lastimageresno = resno;
-        NSLog(@"Image found in cache!");
+//        NSLog(@"Image found in cache!");
         return YES;
     }
     ImageResource *resource = _resources[@(resno)];
