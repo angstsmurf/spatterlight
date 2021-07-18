@@ -28,7 +28,18 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
-#include "glkimp.h"
+
+#ifdef SPATTERLIGHT
+extern glui32 gli_error_handling;
+extern void win_showerror(char *);
+
+enum
+{
+    IGNORE_ERRORS,
+    DISPLAY_ERRORS,
+    ERRORS_ARE_FATAL
+};
+#endif // SPATTERLIGHT
 #endif
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
@@ -43,10 +54,13 @@ void assert_fail(const char *fmt, ...)
 
     snprintf(str + strlen(str), sizeof str - strlen(str), " (pc = 0x%lx)", current_instruction);
 
+#ifdef SPATTERLIGHT
     win_showerror(str);
     if (gli_error_handling == ERRORS_ARE_FATAL)
         glk_exit();
-//    die("%s", str);
+#else
+    die("%s", str);
+#endif
 }
 #endif
 
@@ -88,8 +102,7 @@ void help(void)
     // Simulate a glkunix_argumentlist_t structure so help can be shared.
     const struct {
         const char *flag;
-//        enum { glkunix_arg_NoValue, glkunix_arg_NumberValue, glkunix_arg_ValueFollows } arg;
-        int arg;
+        enum { glkunix_arg_NoValue, glkunix_arg_NumberValue, glkunix_arg_ValueFollows } arg;
         const char *description;
     }
     flags[] = {
