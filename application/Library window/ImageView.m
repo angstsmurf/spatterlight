@@ -85,9 +85,7 @@
 
 + (NSMenu *)defaultMenu {
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
-    menu.autoenablesItems = YES;
-    menu.showsStateColumn = YES;
-
+    
     NSMenuItem *reload = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload from Blorb" , nil) action:@selector(reloadFromBlorb:) keyEquivalent:@""];
     NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select image file", nil) action:@selector(selectImageFile:) keyEquivalent:@""];
     NSMenuItem *filter = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Filter", nil) action:@selector(toggleFilter:) keyEquivalent:@""];
