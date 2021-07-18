@@ -47,6 +47,4 @@
 
 - (NSSize)currentSizeInChars;
 
-- (void)saveAsRTF;
-
 @end

@@ -52,8 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)padWithNewlines:(NSUInteger)lines;
 
-- (IBAction)saveAsRTF:(id)sender;
-
 - (void)scrollWheelchanged:(NSEvent *)event;
 
 - (NSRange)editableRange;

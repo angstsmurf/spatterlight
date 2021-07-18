@@ -4272,6 +4272,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (!_voiceOverActive && (menuItem.action == @selector(speakMostRecent:) || menuItem.action == @selector(speakPrevious:) || menuItem.action == @selector(speakNext:) || menuItem.action == @selector(speakStatus:))) {
         return NO;
     }
+    if (menuItem.action == @selector(saveAsRTF:)) {
+        for (GlkWindow *win in _gwindows.allValues) {
+            if ([win isKindOfClass:[GlkTextGridWindow class]] || [win isKindOfClass:[GlkTextBufferWindow class]])
+                return YES;
+        }
+        return NO;
+    }
     return YES;
 }
 
@@ -4325,13 +4332,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)saveAsRTF:(id)sender {
     GlkWindow *largest = [self largestWithMoves];
     if (largest && [largest isKindOfClass:[GlkTextBufferWindow class]] ) {
-        [(GlkTextBufferWindow *)largest saveAsRTF:self];
+        [largest saveAsRTF:self];
         return;
     }
     largest = nil;
     NSUInteger longestTextLength = 0;
     for (GlkWindow *win in _gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
             GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
             NSUInteger length = bufWin.textview.string.length;
             if (length > longestTextLength) {
@@ -4342,23 +4349,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 
     if (largest) {
-        [(GlkTextBufferWindow *)largest saveAsRTF:self];
+        [largest saveAsRTF:self];
         return;
-    }
-
-    for (GlkWindow *win in _gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-            GlkTextGridWindow *gridWin = (GlkTextGridWindow *)win;
-            NSUInteger length = gridWin.textview.string.length;
-            if (length > longestTextLength) {
-                longestTextLength = length;
-                largest = win;
-            }
-        }
-    }
-
-    if (largest) {
-        [(GlkTextGridWindow *)largest saveAsRTF];
     }
 }
 

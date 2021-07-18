@@ -2,6 +2,12 @@
 
 struct fillrect;
 
+typedef enum kSaveTextFormatType : int32_t {
+    kRTF,
+    kRTFD,
+    kPlainText,
+} kSaveTextFormatType;
+
 @interface GlkWindow : NSView <NSSecureCoding> {
 
     ZColor *currentZColor;
@@ -101,5 +107,13 @@ struct fillrect;
 - (void)speakNext;
 - (BOOL)setLastMove;
 - (void)adjustBZTerminators:(NSMutableDictionary *)terminators;
+
+- (NSView *)saveScrollbackAccessoryViewHasImages:(BOOL)hasImages;
+- (void)selectFormat:(id)sender;
+
+- (IBAction)saveAsRTF:(id)sender;
+
+@property NSSavePanel *savePanel;
+@property NSPopUpButton *accessoryPopUp;
 
 @end

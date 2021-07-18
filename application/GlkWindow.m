@@ -351,6 +351,172 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (IBAction)saveAsRTF:(id)sender {
+    [self flushDisplay];
+    NSWindow *window = self.glkctl.window;
+
+    NSString *newName = window.title.stringByDeletingPathExtension;
+
+    // Set the default name for the file and show the panel.
+
+    self.savePanel = [NSSavePanel savePanel];
+    NSSavePanel *panel = self.savePanel;
+    panel.nameFieldLabel = NSLocalizedString(@"Save text: ", nil);
+    panel.extensionHidden = NO;
+    panel.canCreateDirectories = YES;
+
+    panel.nameFieldStringValue = newName;
+
+    NSTextView *localTextView = (NSTextView *)((GlkTextGridWindow *)self).textview;
+    NSAttributedString *localTextStorage = localTextView.textStorage;
+
+    panel.accessoryView = [self saveScrollbackAccessoryViewHasImages:localTextStorage.containsAttachments];
+    NSPopUpButton *popUp = self.accessoryPopUp;
+
+    [self selectFormat:popUp];
+
+    if (!localTextView || !localTextStorage)
+        return;
+
+    [panel
+     beginSheetModalForWindow:window
+     completionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSURL *theFile = panel.URL;
+
+            kSaveTextFormatType fileFormat = popUp.selectedItem.tag;
+            [[NSUserDefaults standardUserDefaults] setInteger:fileFormat forKey:@"ScrollbackSaveFormat"];
+
+            NSError *error = nil;
+            BOOL writeResult = NO;
+            if (fileFormat == kPlainText) {
+                writeResult = [localTextStorage.string writeToURL:theFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
+            } else {
+
+                NSMutableAttributedString *mutattstr =
+                [localTextStorage mutableCopy];
+
+                if (localTextView.backgroundColor)
+                    [mutattstr
+                     enumerateAttribute:NSBackgroundColorAttributeName
+                     inRange:NSMakeRange(0, mutattstr.length)
+                     options:0
+                     usingBlock:^(id value, NSRange range, BOOL *stop) {
+                        if (!value || [value isEqual:[NSColor textBackgroundColor]]) {
+                            [mutattstr
+                             addAttribute:NSBackgroundColorAttributeName
+                             value:localTextView.backgroundColor
+                             range:range];
+                        }
+                    }];
+
+
+                if (fileFormat == kRTFD) {
+                    NSFileWrapper *wrapper;
+                    wrapper = [mutattstr
+                               RTFDFileWrapperFromRange:NSMakeRange(0, mutattstr.length)
+                               documentAttributes:@{
+                                   NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType
+                               }];
+
+                    writeResult = [wrapper writeToURL:theFile
+                                              options:
+                                   NSFileWrapperWritingAtomic |
+                                   NSFileWrapperWritingWithNameUpdating
+                                  originalContentsURL:nil
+                                                error:&error];
+
+                } else {
+                    NSData *data;
+                    data = [mutattstr
+                            RTFFromRange:NSMakeRange(0,
+                                                     mutattstr.length)
+                            documentAttributes:@{
+                                NSDocumentTypeDocumentAttribute :
+                                    NSRTFTextDocumentType
+                            }];
+                    writeResult = [data writeToURL:theFile options:NSDataWritingAtomic error:&error];
+                }
+            }
+            if (!writeResult || error)
+                NSLog(@"Error writing file: %@", error);
+        }
+    }];
+}
+
+- (NSView *)saveScrollbackAccessoryViewHasImages:(BOOL)hasImages {
+
+    NSArray *buttonItems;
+    if (hasImages)
+        buttonItems = @[@"Rich Text Format with images", @"Rich Text Format without images", @"Plain Text"];
+    else
+        buttonItems = @[@"Rich Text Format", @"Plain Text"];
+
+    NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 300, 32.0)];
+
+    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 60, 22)];
+    label.editable = NO;
+    label.stringValue = @"Format:";
+    label.bordered = NO;
+    label.bezeled = NO;
+    label.drawsBackground = NO;
+
+    _accessoryPopUp = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(50.0, 2, 240, 22.0) pullsDown:NO];
+    [_accessoryPopUp addItemsWithTitles:buttonItems];
+
+    if (hasImages) {
+        NSMenuItem *rtfd = [_accessoryPopUp itemAtIndex:0];
+        rtfd.tag = kRTFD;
+        NSMenuItem *rtf = [_accessoryPopUp itemAtIndex:1];
+        rtf.tag = kRTF;
+        NSMenuItem *plainText = [_accessoryPopUp itemAtIndex:2];
+        plainText.tag = kPlainText;
+    } else {
+        NSMenuItem *rtf = [_accessoryPopUp itemAtIndex:0];
+        rtf.tag = kRTF;
+        NSMenuItem *plainText = [_accessoryPopUp itemAtIndex:1];
+        plainText.tag = kPlainText;
+    }
+
+    kSaveTextFormatType defaultType = [[NSUserDefaults standardUserDefaults] integerForKey:@"ScrollbackSaveFormat"];
+    if (defaultType == kRTFD && !hasImages)
+        defaultType = kRTF;
+
+    _accessoryPopUp.target = self;
+    _accessoryPopUp.action = @selector(selectFormat:);
+
+    [accessoryView addSubview:label];
+    [accessoryView addSubview:_accessoryPopUp];
+    [_accessoryPopUp selectItemWithTag:defaultType];
+
+    return accessoryView;
+}
+
+- (void)selectFormat:(id)sender
+{
+    NSPopUpButton       *button =                 (NSPopUpButton *)sender;
+    kSaveTextFormatType selectedItemTag =         [button selectedItem].tag;
+    NSString            *nameFieldString =        self.savePanel.nameFieldStringValue;
+    NSString            *trimmedNameFieldString = nameFieldString.stringByDeletingPathExtension;
+    NSString            *extension;
+
+    NSDictionary *tagToString = @{@(kRTFD) : @"rtfd",
+                                  @(kRTF) : @"rtf",
+                                  @(kPlainText) : @"txt"};
+    extension = tagToString[@(selectedItemTag)];
+
+    NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
+    [self.savePanel setNameFieldStringValue:nameFieldStringWithExt];
+
+    // If the Finder Preference "Show all filename extensions" is false or the
+    // panel's extensionHidden property is YES (the default), then the
+    // nameFieldStringValue will not include the extension we just changed/added.
+    // So, in order to ensure that the panel's URL has the extension we've just
+    // specified, the workaround is to restrict the allowed file types to only
+    // the specified one.
+    self.savePanel.allowedFileTypes = @[extension];
+}
+
 #pragma mark -
 #pragma mark Windows restoration
 

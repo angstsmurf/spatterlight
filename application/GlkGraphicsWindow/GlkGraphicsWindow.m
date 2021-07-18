@@ -684,4 +684,13 @@
     _workQueue = workQueue;
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(saveAsRTF:)) return NO;
+    return YES;
+}
+
+- (IBAction)saveAsRTF:(id)sender {
+    NSLog(@"saveAsRTF in graphics windows not supported");
+}
+
 @end
