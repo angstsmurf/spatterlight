@@ -87,15 +87,15 @@
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     
     NSMenuItem *reload = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload from Blorb" , nil) action:@selector(reloadFromBlorb:) keyEquivalent:@""];
-    NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select image file", nil) action:@selector(selectImageFile:) keyEquivalent:@""];
+    NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select Image File…", nil) action:@selector(selectImageFile:) keyEquivalent:@""];
     NSMenuItem *filter = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Filter", nil) action:@selector(toggleFilter:) keyEquivalent:@""];
-    NSMenuItem *download = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Download image", nil) action:@selector(downloadImage:) keyEquivalent:@""];
+    NSMenuItem *download = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Download Image", nil) action:@selector(downloadImage:) keyEquivalent:@""];
     NSMenuItem *cut = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Cut", nil) action:@selector(cut:) keyEquivalent:@""];
     NSMenuItem *copy = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", nil) action:@selector(copy:) keyEquivalent:@""];
     NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste", nil) action:@selector(paste:) keyEquivalent:@""];
     NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(delete:) keyEquivalent:@""];
-    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save image", nil) action:@selector(saveImage:) keyEquivalent:@""];
-    NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add description", nil) action:@selector(addDescription:) keyEquivalent:@""];
+    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Image…", nil) action:@selector(saveImage:) keyEquivalent:@""];
+    NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Description…", nil) action:@selector(addDescription:) keyEquivalent:@""];
 
     [menu addItem:open];
     [menu addItem:download];
@@ -135,7 +135,6 @@
     }
 
     if (_isSelected || _isReceivingDrag) {
-
         if (shapeLayer && NSEqualRects(shapeLayer.frame, self.bounds))
             return;
         if (self.frame.size.width * self.frame.size.height == 0)
@@ -251,7 +250,8 @@
 
     self.accessibilityLabel = _game.metadata.coverArtDescription;
     if (!self.accessibilityLabel.length)
-        self.accessibilityLabel = [NSString stringWithFormat:@"cover image for %@", _game.metadata.title];
+        self.accessibilityLabel =
+        [NSString stringWithFormat:@"cover image for %@", _game.metadata.title];
 }
 
 - (BOOL)acceptsFirstResponder {

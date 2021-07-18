@@ -91,7 +91,7 @@ fprintf(stderr, "%s\n",                                                    \
 + (NSMenu *)defaultMenu {
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
 
-    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste image", nil) action:@selector(paste:) keyEquivalent:@""];
+    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste Image", nil) action:@selector(paste:) keyEquivalent:@""];
 
     [menu addItem:paste];
 
