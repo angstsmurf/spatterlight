@@ -94,7 +94,7 @@
     NSMenuItem *copy = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", nil) action:@selector(copy:) keyEquivalent:@""];
     NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste", nil) action:@selector(paste:) keyEquivalent:@""];
     NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(delete:) keyEquivalent:@""];
-    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Image…", nil) action:@selector(saveImage:) keyEquivalent:@""];
+    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Image As…", nil) action:@selector(saveImage:) keyEquivalent:@""];
     NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Description…", nil) action:@selector(addDescription:) keyEquivalent:@""];
 
     [menu addItem:open];
