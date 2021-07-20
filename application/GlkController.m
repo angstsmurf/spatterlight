@@ -3677,6 +3677,10 @@ again:
 - (void)setBorderColor:(NSColor *)color {
     if (_theme.borderBehavior == kUserOverride)
         color = _theme.borderColor;
+    if (!color) {
+        NSLog(@"setBorderColor called with a nil color!");
+        return;
+    }
     self.bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
     if (_narcolepsy && _theme.doStyles && _theme.doGraphics) {
