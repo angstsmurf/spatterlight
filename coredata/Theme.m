@@ -7,13 +7,14 @@
 //
 
 #import "Constants.h"
-#import "Glk.h"
 #import "Theme.h"
 #import "Game.h"
 #import "GlkStyle.h"
 #import "Interpreter.h"
 #import "Theme.h"
 
+#include "glk.h"
+#include "glkimp.h"
 
 @implementation Theme
 
@@ -324,6 +325,10 @@
     self.zMachineTerp = 4; // Amiga
     self.nohacks = NO;
     self.determinism = NO;
+    self.errorHandling = IGNORE_ERRORS;
+    self.borderBehavior = kAutomatic;
+    if (!self.borderColor)
+        self.borderColor = NSColor.whiteColor;
 
 // These values are not currently used
 
@@ -331,9 +336,7 @@
 //    self.maxRows = 1000;
 //    self.minCols = 32;
 //    self.minRows = 5;
-//    self.borderBehavior = 0;
 //    self.cursorShape = 0;
-//    self.errorHandling = NO;
 //    self.imageSizing = NO;
 //    self.justify = NO;
 //    self.vOExtraElements = NO;

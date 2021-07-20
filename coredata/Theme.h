@@ -48,7 +48,6 @@ typedef enum kBZArrowsPrefsType : int32_t {
     kBZArrowsOriginal,
 } kBZArrowsPrefsType;
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
