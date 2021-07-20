@@ -390,6 +390,8 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
         TempLibrary *library = [[TempLibrary alloc] init];
         /* When the save file is autorestored, the VM will restart the @glk opcode. That means that the Glk argument (the event structure address) must be waiting on the stack. Possibly also the @glk opcode's operands -- these might or might not have come off the stack. */
 
+        glui32 oldmode, oldrock;
+        
         int res;
         int opmodes[3];
         res = parse_partial_operand(opmodes);
@@ -468,7 +470,13 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
         StkW4(stackptr+12, frameptr);
         stackptr += 16;
 
+        /* temporarily set I/O system to GLK, which perform_save() needs */
+        stream_get_iosys(&oldmode, &oldrock);
+        stream_set_iosys(2, 0);
+
         res = perform_save(savefile);
+
+        stream_set_iosys(oldmode, oldrock);
 
         stackptr -= 16; // discard the temporary callstub
         stackptr -= 4 * stackvals; // discard the temporary arguments

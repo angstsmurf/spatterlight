@@ -803,6 +803,16 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
+    
+    if (!str.length) {
+        NSLog(@"Null string!");
+        return;
+    }
+    if ([str characterAtIndex:(str.length - 1)] == '\0')
+        NSLog(@"Null terminated string!");
+    if ([str characterAtIndex:0] == '\0')
+        NSLog(@"Null prefixed string!");
+
     if (bufferTextstorage.length > 50000)
         bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
 
