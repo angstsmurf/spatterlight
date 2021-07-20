@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifindex version="1.0" xmlns="http://babel.ifarchive.org/protocol/iFiction/">
+<story>
+<identification>
+<ifid>ZCODE-2-951111-2084</ifid>
+<format>zcode</format>
+</identification>
+<bibliographic>
+<title>Tetris</title>
+<author>Alexey Pajitnov</author>
+</bibliographic>
+<annotation>
+<yazmin>
+<story>freefall.z5</story>
+</yazmin>
+</annotation>
+</story>
+</ifindex>
