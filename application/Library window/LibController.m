@@ -1479,7 +1479,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         fetchRequest.includesPropertyValues = NO;
         fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
-        if (fetchedObjects.count == 0)
+        if (fetchedObjects.count < 5)
             return;
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasAskedToDownload"];
