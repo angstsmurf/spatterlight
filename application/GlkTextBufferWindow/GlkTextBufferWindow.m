@@ -824,7 +824,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.glkctl.deadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
-        // There should be a setting to turn this on or off.
+        // Turn this off by disabling game specific hacks in preferences.
         NSString *line = [textstorage.string substringFromIndex:fence];
         [self sendInputLine:line withTerminator:0];
     }
