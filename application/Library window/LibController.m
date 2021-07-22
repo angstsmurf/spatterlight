@@ -1587,7 +1587,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             fetchRequest.predicate = [NSPredicate predicateWithFormat: @"(userEdited == YES)"];
             break;
         case X_LIBRARY:
-            fetchRequest.predicate = [NSPredicate predicateWithFormat: @"(game != nil)"];
+            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY games != NIL"];
             break;
         case X_DATABASE:
             // No fetchRequest - we want all of them
