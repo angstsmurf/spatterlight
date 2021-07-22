@@ -390,7 +390,10 @@ fprintf(stderr, "%s\n",                                                    \
             NSError *error = nil;
             BOOL writeResult = NO;
             if (fileFormat == kPlainText) {
-                writeResult = [localTextStorage.string writeToURL:theFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
+                unichar nc = '\0';
+                NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
+                NSString *string = [localTextStorage.string stringByReplacingOccurrencesOfString:nullChar withString:@""];
+                writeResult = [string writeToURL:theFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
             } else {
 
                 NSMutableAttributedString *mutattstr =
