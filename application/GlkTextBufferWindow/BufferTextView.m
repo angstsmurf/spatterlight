@@ -166,10 +166,13 @@
     BOOL waseditable = self.editable;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
+    if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
         return NO;
 
-    if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:)) {
+    if (menuItem.action == @selector(changeLayoutOrientation:) || menuItem.action == NSSelectorFromString(@"addLinksInSelection:") || menuItem.action == NSSelectorFromString(@"replaceTextInSelection:") || menuItem.action == NSSelectorFromString(@"replaceQuotesInSelection:") || menuItem.action == NSSelectorFromString(@"replaceDashesInSelection:"))
+        return NO;
+
+    if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:) || menuItem.action == @selector(uppercaseWord:) || menuItem.action == @selector(lowercaseWord:) || menuItem.action == @selector(capitalizeWord:)) {
         NSRange editableRange = [delegate editableRange];
 
         // If no line request, return NO
@@ -226,6 +229,21 @@ if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuI
 - (void)deleteBackward:(id)sender {
     self.selectedRange = [self adjustedRange];
     [super deleteBackward:sender];
+}
+
+- (void)uppercaseWord:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super uppercaseWord:sender];
+}
+
+- (void)lowercaseWord:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super lowercaseWord:sender];
+}
+
+- (void)capitalizeWord:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super capitalizeWord:sender];
 }
 
 - (void)paste:(id)sender {
