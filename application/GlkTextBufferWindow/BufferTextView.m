@@ -58,7 +58,7 @@
 
 - (void)drawRect:(NSRect)rect {
     [NSGraphicsContext currentContext].imageInterpolation =
-        NSImageInterpolationHigh;
+    NSImageInterpolationHigh;
     [super drawRect:rect];
     [(MarginContainer *)self.textContainer drawRect:rect];
 }
@@ -401,7 +401,7 @@
 }
 
 - (NSArray *)accessibilityCustomRotors  {
-   return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
+    return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
 }
 
 - (NSArray *)accessibilityChildren {
