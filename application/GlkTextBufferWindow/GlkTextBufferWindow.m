@@ -983,6 +983,7 @@ fprintf(stderr, "%s\n",                                                    \
     else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
              commandKeyOnly) {
         if (!scrollview.findBarVisible) {
+            _restoredFindBarVisible = YES;
             [self restoreTextFinder];
             return;
         }
