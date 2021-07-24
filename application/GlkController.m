@@ -2359,7 +2359,7 @@ fprintf(stderr, "%s\n",                                                    \
     panel.directoryURL = directory;
 
     panel.extensionHidden = NO;
-    [panel setCanCreateDirectories:YES];
+    panel.canCreateDirectories = YES;
 
     if (fileusage == fileusage_Transcript || fileusage == fileusage_InputRecord)
         filename =
