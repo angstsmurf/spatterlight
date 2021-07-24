@@ -453,7 +453,7 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = NO;
     panel.canChooseDirectories = NO;
-    panel.prompt = NSLocalizedString(@"Select an image", nil);
+    panel.prompt = NSLocalizedString(@"Open", nil);
 
     panel.allowedFileTypes = imageTypes;
 
