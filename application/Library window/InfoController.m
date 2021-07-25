@@ -316,15 +316,16 @@ fprintf(stderr, "%s\n",                                                    \
     } else self.window.title = NSLocalizedString(@"Game Info", nil);
 
     if (_meta) {
-        _titleField.stringValue = _meta.title;
+        if (_meta.title.length)
+            _titleField.stringValue = _meta.title;
         if (_meta.author.length)
             authorField.stringValue = _meta.author;
         if (_meta.headline.length)
             headlineField.stringValue = _meta.headline;
         if (_meta.blurb.length)
             descriptionText.stringValue = _meta.blurb;
-        
-        ifidField.stringValue = _game.ifid;
+        if (_game.ifid.length)
+            ifidField.stringValue = _game.ifid;
     }
 }
 
