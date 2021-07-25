@@ -294,7 +294,7 @@
                        relativeToURL:nil
                                error:&theError];
         if (theError || !bookmark)
-            NSLog(@"Error when encoding bookmark: %@", theError);
+            NSLog(@"Error when encoding bookmark %@: %@", URL.path, theError);
     }
 
     if (bookmark)

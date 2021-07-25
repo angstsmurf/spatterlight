@@ -26,7 +26,7 @@
                                          relativeToURL:nil
                                                  error:&theError];
         if (theError || !_bookmark)
-            NSLog(@"Imagefile error when encoding bookmark: %@", theError);
+            NSLog(@"Imagefile error when encoding bookmark %@: %@", path, theError);
     }
     return self;
 }
