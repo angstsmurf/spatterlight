@@ -926,7 +926,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             enabledThemeItem = nil;
         }
         if (count == 1) {
-            Game *clickedGame = _gameTableModel[(NSUInteger)_gameTableView.clickedRow];
+            NSUInteger index = rows.firstIndex;
+            Game *clickedGame = _gameTableModel[index];
             enabledThemeItem = [_themesSubMenu.submenu itemWithTitle:clickedGame.theme.name];
             if (enabledThemeItem)
                 enabledThemeItem.state = NSOnState;
