@@ -393,6 +393,8 @@ fprintf(stderr, "%s\n",                                                    \
                 unichar nc = '\0';
                 NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
                 NSString *string = [localTextStorage.string stringByReplacingOccurrencesOfString:nullChar withString:@""];
+                if (![string hasSuffix:@"\n"])
+                    string = [string stringByAppendingString:@"\n"];
                 writeResult = [string writeToURL:theFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
             } else {
 
