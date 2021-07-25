@@ -251,7 +251,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
     [window setTitle:[state decodeObjectOfClass:[NSString class] forKey:@"title"]];
     NSString *searchString = [state decodeObjectOfClass:[NSString class] forKey:@"searchString"];
-    NSLog(@"Decoded search string %@", searchString);
     if (searchString) {
         NSTextFinder *newFinder = _textView.textFinder;
         [newFinder performAction:NSTextFinderActionShowFindInterface];
