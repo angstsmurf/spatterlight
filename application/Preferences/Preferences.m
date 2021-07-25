@@ -193,6 +193,8 @@ static Preferences *prefs = nil;
 }
 
 + (Theme *)currentTheme {
+    if (!theme)
+        theme = [Preferences instance].defaultTheme;
     return theme;
 }
 
