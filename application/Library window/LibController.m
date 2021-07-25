@@ -521,7 +521,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     _lookForCoverImagesCheckBox.state = [defaults boolForKey:@"LookForImagesWhenImporting"];
     _downloadGameInfoCheckBox.state = [defaults boolForKey:@"DownloadInfoWhenImporting"];
     
-
     panel.accessoryView = _downloadCheckboxView;
     panel.allowedFileTypes = gGameFileTypes;
 
