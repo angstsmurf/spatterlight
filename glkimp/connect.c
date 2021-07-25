@@ -32,14 +32,14 @@ int bufferlen = 0;
 int gli_utf8output = TRUE;
 int gli_utf8input = TRUE;
 
-int gli_enable_graphics = 0;
-int gli_enable_sound = 0;
-int gli_enable_styles = 0;
-int gli_enable_quoteboxes = 0;
+int gli_enable_graphics = 1;
+int gli_enable_sound = 1;
+int gli_enable_styles = 1;
+int gli_enable_quoteboxes = 1;
 int gli_determinism = 0;
 int gli_error_handling = IGNORE_ERRORS;
-int gli_enable_autosave = 0;
-int gli_enable_autosave_on_timer = 0;
+int gli_enable_autosave = 1;
+int gli_enable_autosave_on_timer = 1;
 
 int gscreenw = 1;
 int gscreenh = 1;
