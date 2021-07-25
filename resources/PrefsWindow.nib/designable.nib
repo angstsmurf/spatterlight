@@ -443,7 +443,7 @@
                                                         <fragment content="0"/>
                                                     </attributedString>
                                                     <real key="minimum" value="0.0"/>
-                                                    <real key="maximum" value="500"/>
+                                                    <real key="maximum" value="100"/>
                                                 </numberFormatter>
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -463,7 +463,7 @@
                                                         <fragment content="0"/>
                                                     </attributedString>
                                                     <real key="minimum" value="0.0"/>
-                                                    <real key="maximum" value="500"/>
+                                                    <real key="maximum" value="300"/>
                                                 </numberFormatter>
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -700,7 +700,7 @@
                                                     <attributedString key="attributedStringForZero">
                                                         <fragment content="0"/>
                                                     </attributedString>
-                                                    <real key="minimum" value="5"/>
+                                                    <real key="minimum" value="10"/>
                                                     <real key="maximum" value="200"/>
                                                 </numberFormatter>
                                                 <font key="font" metaFont="smallSystem"/>
@@ -724,6 +724,14 @@
                                             <rect key="frame" x="315" y="104" width="40" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="24" drawsBackground="YES" id="28s-l8-0zk">
+                                                <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="aKn-Bd-Dhe">
+                                                    <textAttributesForNegativeValues/>
+                                                    <attributedString key="attributedStringForZero">
+                                                        <fragment content="0"/>
+                                                    </attributedString>
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="200"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1599,6 +1607,7 @@
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="sH0-Tu-r5O">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="mMD-FT-UTL">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="100"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1614,6 +1623,7 @@
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="5Ph-if-zsd">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="3Ib-C2-u2I">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="100"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1629,6 +1639,7 @@
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="HKy-2t-KPg">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="IZ7-xC-PIW">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="300"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1644,6 +1655,7 @@
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="lmd-19-mjS">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="pRA-Mc-vbJ">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="300"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
