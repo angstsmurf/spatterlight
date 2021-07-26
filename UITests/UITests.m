@@ -364,7 +364,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
-    if ([alertSheet waitForExistenceWithTimeout:5]) {
+    if ([alertSheet waitForExistenceWithTimeout:10]) {
         [alertSheet.checkBoxes[@"Remember this choice."] click];
         [alertSheet.buttons[@"Continue"] click];
     }
@@ -591,14 +591,14 @@
 
     [menuBarsQuery.menuBarItems[@"File"] click];
 
-    NSArray *menuItemTitles = @[@"Rich Text Format with images", @"Rich Text Format without images", @"Plain Text"];
+    NSArray *menuItemTitles = @[@"Rich Text Format with images", @"Rich Text Format without images", @"Rich Text Format", @"Plain Text"];
 
     [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
-    XCUIElement *savePanel = gameWindow.sheets[@"save-panel"];
+    XCUIElement *savePanel = gameWindow.sheets.firstMatch;
     XCUIElement *popUp;
     for (NSString *popupTitle in menuItemTitles) {
         popUp = savePanel.popUpButtons[popupTitle];
-        if (popUp.exists) {
+        if ([popUp waitForExistenceWithTimeout:5]) {
             break;
         }
     }
@@ -926,7 +926,9 @@
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Undo"]/*[[".menuBarItems[@\"Edit\"]",".menus.menuItems[@\"Undo\"]",".menuItems[@\"Undo\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
     [menuBarsQuery.menuBarItems[@"File"] click];
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Open Recent"].menuItems[@"curses.z5"]/*[[".menuBarItems[@\"File\"]",".menuItems[@\"Open Recent\"]",".menus.menuItems[@\"curses.z5\"]",".menuItems[@\"curses.z5\"]",".menus.menuItems[@\"Open Recent\"]"],[[[-1,1,2],[-1,4,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
+    XCUIElement *cursesItem = menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Open Recent"].menuItems[@"curses.z5"]/*[[".menuBarItems[@\"File\"]",".menuItems[@\"Open Recent\"]",".menus.menuItems[@\"curses.z5\"]",".menuItems[@\"curses.z5\"]",".menus.menuItems[@\"Open Recent\"]"],[[[-1,1,2],[-1,4,2],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/;
+    if (cursesItem.exists)
+        [cursesItem click];
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     [fileMenuBarItem click];
@@ -1347,7 +1349,7 @@
     [searchField click];
 
     XCUIElement *cancelButton = searchField.buttons[@"cancel"];
-    if ([cancelButton waitForExistenceWithTimeout:5])
+    if ([cancelButton waitForExistenceWithTimeout:10])
         [cancelButton click];
 
     [searchField click];
