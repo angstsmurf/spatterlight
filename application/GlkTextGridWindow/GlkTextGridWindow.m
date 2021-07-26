@@ -605,6 +605,11 @@
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
 
+//    CGFloat lineSpacing = self.theme.gridNormal.lineSpacing;
+//    if (lineSpacing < 1)
+//        lineSpacing = 0;
+//    NSUInteger newrows = (NSUInteger)floor((frame.size.height // + lineSpacing // We cut off the lowest linespaceing gap in order to center text vertically
+
     NSUInteger newrows = (NSUInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing // We cut off the lowest linespaceing gap in order to center text vertically
                                             - (_textview.textContainerInset.height * 2) ) /
                                            self.theme.cellHeight);

@@ -65,11 +65,13 @@
 
     NSFont *font = self.font;
     NSSize size = [@"W" sizeWithAttributes:self.attributeDict];
+//    NSSize heightSize = [@"ÅXyg" sizeWithAttributes:self.attributeDict];
 
     CGFloat baselineOffset = fabs([self.attributeDict[NSBaselineOffsetAttributeName] floatValue]);
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    size.height = [layoutManager defaultLineHeightForFont:font] + self.lineSpacing + baselineOffset;
+    size.height = [layoutManager defaultLineHeightForFont:font] + baselineOffset + self.lineSpacing;
+//    size.height = heightSize.height + baselineOffset + self.lineSpacing; // ((self.lineSpacing > -3) ? self.lineSpacing : 0);
 
     return size;
 }
@@ -77,7 +79,6 @@
 -(void)createDefaultAttributeDictionary {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-
     NSFont *font;
     
     if ([self testGridStyle]) {
