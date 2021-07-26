@@ -1,5 +1,15 @@
 # Change log
 
+## Release 0.8.5
+- New [Automap](https://intfiction.org/t/unicode-characters-in-textgrid-windows/51825) theme.
+- Setting to switch off hyperlink underline
+- Plain text option when saving scrollback
+- Find bar would only appear half the time when pressing Command + F
+- Disables Change orientation in text view
+- Exporting metadata for games in library only was broken
+- Select same theme action would crash when only one game was visible
+- More sensible limits to text margins in preferences panel
+
 ## Release 0.8.4
 - Fixes a bug that could add an extra file extension to downloaded Z-machine story files
 - Reinstates Bocfel 1.3.2
