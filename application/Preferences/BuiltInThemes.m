@@ -177,6 +177,8 @@
     defaultTheme.winSpacingX = 0;
     defaultTheme.winSpacingY = 0;
 
+    defaultTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     defaultTheme.gridBackground = [NSColor blackColor];
     defaultTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
 
@@ -228,6 +230,8 @@
     classicTheme.winSpacingX = 0;
     classicTheme.winSpacingY = 0;
 
+    classicTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     classicTheme.gridBackground = [NSColor blackColor];
     classicTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
     classicTheme.bufferBackground = [NSColor whiteColor];
@@ -276,6 +280,8 @@
 
     gargoyleTheme.winSpacingX = 0;
     gargoyleTheme.winSpacingY = 0;
+
+    gargoyleTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
     gargoyleTheme.gridBackground = [NSColor whiteColor];
     gargoyleTheme.bufferBackground = [NSColor whiteColor];
@@ -339,6 +345,8 @@
     lectroteTheme.winSpacingX = 0;
     lectroteTheme.winSpacingY = 10;
 
+    lectroteTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     lectroteTheme.gridBackground = [NSColor colorWithCalibratedRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
     lectroteTheme.bufferBackground = [NSColor whiteColor];
 
@@ -394,6 +402,8 @@
     lectroteDarkTheme.winSpacingX = 0;
     lectroteDarkTheme.winSpacingY = 10;
 
+    lectroteDarkTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     lectroteDarkTheme.gridBackground = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
     lectroteDarkTheme.bufferBackground = [NSColor blackColor];
 
@@ -448,6 +458,8 @@
 
     zoomTheme.winSpacingX = 0;
     zoomTheme.winSpacingY = 0;
+
+    zoomTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
     zoomTheme.gridBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
     zoomTheme.bufferBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
@@ -531,6 +543,8 @@
     dosTheme.winSpacingX = 0;
     dosTheme.winSpacingY = 0;
 
+    dosTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     dosTheme.gridBackground =  [NSColor blackColor];
     dosTheme.bufferBackground = [NSColor blackColor];
 
@@ -594,6 +608,8 @@
 
     dosBoxTheme.winSpacingX = 0;
     dosBoxTheme.winSpacingY = 0;
+
+    dosBoxTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
     dosBoxTheme.gridBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
     dosBoxTheme.bufferBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
@@ -720,12 +736,13 @@
     montserratTheme.winSpacingX = 0;
     montserratTheme.winSpacingY = 0;
 
+    montserratTheme.gridLinkStyle = NSUnderlineStyleSingle;
+
     montserratTheme.gridBackground = [NSColor whiteColor];
     montserratTheme.bufferBackground = [NSColor whiteColor];
 
     montserratTheme.gridNormal.font = [NSFont fontWithName:@"PT Sans Narrow" size:15];
     montserratTheme.gridNormal.color = [NSColor blackColor];
-
 
     montserratTheme.bufferNormal.font = [NSFont fontWithName:@"Montserrat Regular" size:15];
     montserratTheme.bufferNormal.lineSpacing = 15;
