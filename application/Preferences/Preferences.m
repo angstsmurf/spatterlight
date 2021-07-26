@@ -410,6 +410,9 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Update panels
 
 - (void)updatePrefsPanel {
+    if (!theme) {
+        theme = _currentGame.theme;
+    }
     if (!theme)
         theme = self.defaultTheme;
     if (!theme.gridNormal.attributeDict)
@@ -1180,16 +1183,26 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
 
     for (Theme *t in fetchedObjects) {
-        [orphanedGames unionSet:t.games];
+        if (t.games.count) {
+            NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
+            NSString *baseName = @"";
+            if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
+                baseName = [t.name substringToIndex:modifiedRange.location];
+                Theme *newTheme = [_arrayController findThemeByName:baseName];
+                [newTheme addGames:t.games];
+                if (t == theme) {
+                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:t];
+                    [_arrayController setSelectionIndex:row];
+                }
+            }
+            [orphanedGames unionSet:t.games];
+        }
     }
 
     [_arrayController removeObjects:fetchedObjects];
 
-    NSArray *remainingThemes = [_arrayController arrangedObjects];
-    Theme *lastTheme = remainingThemes[remainingThemes.count - 1];
-    NSLog(@"lastRemainingTheme: %@", lastTheme.name);
-    [lastTheme addGames:orphanedGames];
-    _arrayController.selectedObjects = @[lastTheme];
+    [theme addGames:orphanedGames];
+    _arrayController.selectedObjects = @[theme];
 }
 
 - (IBAction)togglePreview:(id)sender {
