@@ -371,6 +371,7 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
 
     if (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer)
     {
+        NSLog(@"Skipping autosave on timer!");
         return;
     }
 
