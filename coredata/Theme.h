@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
+@property (nullable, nonatomic, retain) NSColor *bufLinkColor;
+@property (nonatomic) int32_t bufLinkStyle;
 @property (nonatomic) int32_t bZAdjustment;
 @property (nonatomic) kBZArrowsPrefsType bZTerminator;
 @property (nonatomic) double cellHeight;
@@ -80,6 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL editable;
 @property (nonatomic) int32_t errorHandling;
 @property (nullable, nonatomic, retain) NSColor *gridBackground;
+@property (nullable, nonatomic, retain) NSColor *gridLinkColor;
+@property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
 @property (nonatomic) int32_t imageSizing;

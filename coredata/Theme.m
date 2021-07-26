@@ -30,6 +30,8 @@
 @dynamic bufferCellWidth;
 @dynamic bufferMarginX;
 @dynamic bufferMarginY;
+@dynamic bufLinkColor;
+@dynamic bufLinkStyle;
 @dynamic bZAdjustment;
 @dynamic bZTerminator;
 @dynamic cellHeight;
@@ -46,6 +48,8 @@
 @dynamic editable;
 @dynamic errorHandling;
 @dynamic gridBackground;
+@dynamic gridLinkColor;
+@dynamic gridLinkStyle;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
 @dynamic imageSizing;
@@ -329,6 +333,9 @@
     self.borderBehavior = kAutomatic;
     if (!self.borderColor)
         self.borderColor = NSColor.whiteColor;
+    self.bufLinkStyle = NSUnderlineStyleSingle;
+    self.bufLinkColor = nil;
+    self.gridLinkColor = nil;
 
 // These values are not currently used
 

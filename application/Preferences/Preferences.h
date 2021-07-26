@@ -127,6 +127,9 @@ typedef enum kImageReplacementPrefsType : int32_t {
 @property (weak) IBOutlet NSColorWell *borderColorWell;
 @property (weak) IBOutlet NSButton *btnShowBezels;
 
+@property (weak) IBOutlet NSPopUpButton *hyperlinksPopup;
+@property (weak) IBOutlet NSButton *btnUnderlineLinks;
+
 @property DummyTextView *dummyTextView;
 
 - (void)changeAttributes:(id)sender;

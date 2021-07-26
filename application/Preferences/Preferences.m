@@ -458,6 +458,26 @@ NSString *fontToString(NSFont *font) {
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
 
+    wint_t windowType = [defaults integerForKey:@"SelectedHyperlinkWindowType"];
+    if (windowType != wintype_TextGrid && windowType != wintype_TextBuffer) {
+        windowType = wintype_TextGrid;
+        [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
+    }
+
+    [_hyperlinksPopup selectItemWithTag:windowType];
+
+    switch (windowType) {
+        case wintype_TextGrid:
+            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+            break;
+        case wintype_TextBuffer:
+            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+            break;
+        default:
+            NSLog(@"Unhandled link window type");
+            break;
+    }
+
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
     [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
@@ -1446,6 +1466,40 @@ textShouldEndEditing:(NSText *)fieldEditor {
     theme.gridBackground : theme.bufferBackground;
     [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
+}
+
+- (IBAction)changeHyperlinkPopup:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger windowType = [_hyperlinksPopup selectedTag];
+    if ([defaults integerForKey:@"SelectedHyperlinkWindowType"] == windowType)
+        return;
+    [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
+    switch (windowType) {
+        case wintype_TextGrid:
+            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+            break;
+        case wintype_TextBuffer:
+            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+            break;
+        default:
+            NSLog(@"Unhandled hyperlink window type");
+            break;
+    }
+}
+
+- (IBAction)changeUnderlineLinks:(id)sender {
+    NSInteger windowType = [_hyperlinksPopup selectedTag];
+    switch (windowType) {
+        case wintype_TextGrid:
+            theme.gridLinkStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+            break;
+        case wintype_TextBuffer:
+            theme.bufLinkStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+            break;
+        default:
+            NSLog(@"Unhandled hyperlink window type");
+            break;
+    }
 }
 
 #pragma mark Margin Popover

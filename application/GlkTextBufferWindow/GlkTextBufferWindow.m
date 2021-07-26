@@ -170,6 +170,7 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
+        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 

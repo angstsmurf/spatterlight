@@ -410,7 +410,7 @@
         [textstorage setAttributedString:_bufferTextStorage];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        linkAttributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleNone);
+        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.gridLinkStyle);
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
