@@ -61,6 +61,8 @@
     [BuiltInThemes createLectroteDarkThemeInContext:context forceRebuild:force];
     [BuiltInThemes createGargoyleThemeInContext:context forceRebuild:force];
     [BuiltInThemes createMontserratThemeInContext:context forceRebuild:force];
+    [BuiltInThemes createAutomapThemeInContext:context forceRebuild:force];
+
     //    [BuiltInThemes createSTThemeInContext:managedObjectContext forceRebuild:force];
     //    [BuiltInThemes checkThemesInContext:context];
 }
@@ -786,6 +788,65 @@
     montserratTheme.bufferCellWidth = size.width;
 
     return montserratTheme;
+}
+
++ (Theme *)createAutomapThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
+    BOOL exists = NO;
+    Theme *autoMapTheme = [BuiltInThemes findOrCreateTheme:@"Automap" inContext:context alreadyExists:&exists];
+
+    [autoMapTheme resetCommonValues];
+
+    if (exists && !force)
+        return autoMapTheme;
+
+    autoMapTheme.dashes = YES;
+    autoMapTheme.defaultRows = 59;
+    autoMapTheme.defaultCols = 80;
+
+    autoMapTheme.doStyles = YES;
+    autoMapTheme.smartQuotes = YES;
+    autoMapTheme.spaceFormat = TAG_SPACES_ONE;
+    autoMapTheme.border = 0;
+
+    autoMapTheme.gridMarginX = 20;
+    autoMapTheme.gridMarginY = 10;
+
+    autoMapTheme.bufferMarginX = 20;
+    autoMapTheme.bufferMarginY = 30;
+
+    autoMapTheme.winSpacingX = 0;
+    autoMapTheme.winSpacingY = 0;
+
+    autoMapTheme.gridLinkStyle = NSUnderlineStyleNone;
+
+    autoMapTheme.gridBackground = [NSColor whiteColor];
+    autoMapTheme.bufferBackground = [NSColor whiteColor];
+
+    autoMapTheme.gridNormal.font = [NSFont fontWithName:@"Free Monospaced" size:16];
+    autoMapTheme.gridNormal.color = [NSColor blackColor];
+
+    autoMapTheme.gridNormal.lineSpacing = -2;
+
+    NSMutableDictionary *dict = autoMapTheme.gridNormal.attributeDict.mutableCopy;
+    dict[NSKernAttributeName] = @(-0.2);
+
+    autoMapTheme.gridNormal.attributeDict = dict;
+
+    autoMapTheme.bufferNormal.font = [NSFont fontWithName:@"Helvetica" size:13];
+
+    [autoMapTheme populateStyles];
+
+    NSSize size = [autoMapTheme.gridNormal cellSize];
+
+    autoMapTheme.cellHeight = size.height;
+    autoMapTheme.cellWidth = size.width;
+
+    size = [autoMapTheme.bufferNormal cellSize];
+
+    autoMapTheme.bufferCellHeight = size.height;
+    autoMapTheme.bufferCellWidth = size.width;
+
+    return autoMapTheme;
 }
 
 + (Theme *)findOrCreateTheme:(NSString *)themeName inContext:(NSManagedObjectContext *)context alreadyExists:(BOOL *)existsFlagPointer {
