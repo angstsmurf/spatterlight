@@ -185,7 +185,9 @@
 
         XCUIElement *alert = app.sheets.firstMatch;
         if (alert.exists) {
-            [alert.buttons[@"Replace"] click];
+            XCUIElement *replaceButton = alert.buttons[@"Replace"];
+            if (replaceButton.exists)
+                [replaceButton click];
         }
         alert = app.dialogs.firstMatch;
 
@@ -360,6 +362,7 @@
 //
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
 //    CGRect scrollFrame = scrollView.frame;
+//    [scrollView click];
 
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
@@ -368,6 +371,15 @@
         [alertSheet.checkBoxes[@"Remember this choice."] click];
         [alertSheet.buttons[@"Continue"] click];
     }
+
+    [app/*@START_MENU_TOKEN@*/.windows[@"library"].tables[@"Games"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]",".windows[@\"library\"]"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
+    XCUIElement *themesTab = app.tabs[@"Themes"];
+    if (themesTab.exists)
+        [themesTab click];
+    [app/*@START_MENU_TOKEN@*/.tables.staticTexts[@"Zoom"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".scrollViews.tables",".tableRows",".cells.staticTexts[@\"Zoom\"]",".staticTexts[@\"Zoom\"]",".tables",".dialogs[@\"preferences\"]"],[[[-1,6,3],[-1,2,3],[-1,1,2],[-1,7,1],[-1,0,1]],[[-1,6,3],[-1,2,3],[-1,1,2]],[[-1,6,3],[-1,2,3]],[[-1,5],[-1,4],[-1,3,4]],[[-1,5],[-1,4]]],[0,0]]@END_MENU_TOKEN@*/ click];
+    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Animate scrolling"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Animate scrolling\"]",".checkBoxes[@\"Animate scrolling\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     // Reset any autorestored game running
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
@@ -403,21 +415,22 @@
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"\r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     NSDate *date = [NSDate date];
+
+    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"q"];
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"r"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     NSTimeInterval interval1 = [date timeIntervalSinceNow];
     NSLog(@"Time taken: %f", interval1);
 
     date = [NSDate date];
+
+    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"s"];
@@ -425,12 +438,13 @@
 
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"t"];
-    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     NSTimeInterval interval2 = [date timeIntervalSinceNow];
 
-    NSLog(@"Time taken: %f Diff: %f", interval2, fabs(interval1) - fabs(interval2));
-    XCTAssert(fabs(interval1) > fabs(interval2));
+    NSLog(@"Time taken: %f (accelerated) Previous unaccelerated time taken: %f Diff: %f", fabs(interval2), fabs(interval1), fabs(interval1) - fabs(interval2));
+    // There might be a way to measure this, but this is not it.
+//    XCTAssert(fabs(interval1) > fabs(interval2));
+    [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"\r"];
@@ -534,12 +548,40 @@
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"\r"];
 
+    NSError *error = nil;
+
     [menuBarsQuery.menuBarItems[@"File"] click];
 
-    NSArray *menuItemTitles = @[@"Rich Text Format", @"Plain Text"];
+    NSArray *menuItemTitles = @[@"Plain Text", @"Rich Text Format"];
+
+    error = nil;
+
+    NSURL *desktopURL = [NSURL fileURLWithPath:@"/Users"
+                                   isDirectory:YES];
+
+    NSURL *url = [[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
+                                                 inDomain:NSUserDomainMask
+                                        appropriateForURL:desktopURL
+                                                   create:YES
+                                                    error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
 
     [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
+
     XCUIElement *savePanel = gameWindow.sheets.firstMatch;
+
+    [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
+
+    XCUIElement *sheet = savePanel.sheets.firstMatch;
+    XCUIElement *goButton = savePanel.buttons[@"Go"];
+    XCUIElement *input = sheet.comboBoxes.firstMatch;
+    XCTAssert(goButton.exists);
+    XCTAssert(input.exists);
+
+    [input typeText:url.path];
+    [goButton click];
+
     XCUIElement *popUp;
     for (NSString *popupTitle in menuItemTitles) {
         popUp = savePanel.popUpButtons[popupTitle];
@@ -558,11 +600,18 @@
         [alert.buttons[@"Replace"] click];
     }
 
-    NSURL *url = [testBundle URLForResource:@"autosavetest_ideal"
+    error = nil;
+
+    url = [url URLByAppendingPathComponent:@"autosavetest.txt"];
+
+    NSString *comparison = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    url = [testBundle URLForResource:@"autosavetest_ideal"
                               withExtension:@"txt"
                                subdirectory:nil];
-
-    NSError *error = nil;
 
     NSString *facit = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 
@@ -570,15 +619,6 @@
         NSLog(@"Error: %@", error);
 
     error = nil;
-
-    url = [testBundle URLForResource:@"autosavetest"
-                       withExtension:@"txt"
-                        subdirectory:nil];
-
-    NSString *comparison = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
 
     // Replace the parts that vary randomly
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(?<=Array: 0!=)(.*)(?=\n\nPassed.)" options:0 error:&error];
@@ -603,10 +643,8 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app/*@START_MENU_TOKEN@*/.windows[@"gameWinZCODE-16-951024-4DE6"]/*[[".windows[@\"curses.z5\"]",".windows[@\"gameWinZCODE-16-951024-4DE6\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
-    //    CGRect windowFrame = gameWindow.frame;
 
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
-    //    CGRect scrollFrame = scrollView.frame;
 
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
@@ -909,7 +947,11 @@
 
     XCUIElement *searchField = libraryWindow.searchFields[@"Search"];
 
-    [searchField.buttons[@"cancel"] click];
+    [searchField click];
+    
+    XCUIElement *cancelButton = searchField.buttons[@"cancel"];
+    if (cancelButton.exists)
+        [cancelButton click];
     [searchField typeText:@"imagetest"];
 
     [textField click];
@@ -989,11 +1031,8 @@
     [tables.staticTexts[@"MS-DOS"] click];
     [tables.staticTexts[@"Spatterlight Classic"] click];
     [tables.staticTexts[@"Zoom"] click];
-    [[[[[app.tables containingType:XCUIElementTypeTableColumn identifier:@"AutomaticTableColumnIdentifier.0"] childrenMatchingType:XCUIElementTypeTableRow] elementBoundByIndex:9].cells childrenMatchingType:XCUIElementTypeTextField].element click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *stylesTab = app.tabs[@"Styles"];
-    NSLog(@"%@", stylesTab.debugDescription);
+    [preferences/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     
     XCUIElementQuery *tabGroupsQuery = app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
@@ -1006,7 +1045,7 @@
     [[buttonQuery elementBoundByIndex:1] click];
     [xcuiClosewindowButton click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0] click];
-    [app/*@START_MENU_TOKEN@*/.menuItems[@"Buffer"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Buffer\"]",".menuItems[@\"Buffer\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.menuItems[@"Grid"] click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1] click];
     [app.menuItems[@"Normal"] click];
     [[buttonQuery elementBoundByIndex:4] click];

@@ -6,8 +6,11 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CoreDataManager.h"
 
 @interface Tests : XCTestCase
+
+@property (readonly) CoreDataManager *coreDataManager;
 
 @end
 
@@ -32,5 +35,22 @@
         // Put the code you want to measure the time of here.
     }];
 }
+
+#pragma mark - Core Data stack
+
+@synthesize coreDataManager = _coreDataManager;
+
+- (CoreDataManager *)coreDataManager {
+    // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
+    @synchronized (self) {
+        if (_coreDataManager == nil) {
+            _coreDataManager = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
+        }
+    }
+
+    return _coreDataManager;
+}
+
+
 
 @end
