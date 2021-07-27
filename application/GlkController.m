@@ -1265,7 +1265,7 @@ fprintf(stderr, "%s\n",                                                    \
             [data writeToFile:autosaveLate options:NSDataWritingAtomic error:&error];
 
             if (error) {
-                NSLog(@"Write returned error: %@", [error localizedDescription]);
+                NSLog(@"autoSaveOnExit: Write returned error: %@", [error localizedDescription]);
                 return;
             }
 
@@ -1490,38 +1490,41 @@ fprintf(stderr, "%s\n",                                                    \
 
     _autosaveTag = hash;
 
-    NSString *tmplibpath =
-    [self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"];
-
     NSInteger res;
 
     @autoreleasepool {
         if (@available(macOS 10.13, *)) {
             NSError *error = nil;
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-            [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
-            if (error)
-                NSLog(@"Write returned error: %@", [error localizedDescription]);
+            [data writeToFile:self.autosaveFileGUI options:NSDataWritingAtomic error:&error];
+            if (error) {
+                NSLog(@"handleAutosave: Write returned error: %@", [error localizedDescription]);
+                return;
+            }
         } else {
             // Fallback on earlier versions
+            NSString *tmplibpath =
+            [self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"];
+
             res = [NSKeyedArchiver archiveRootObject:self
                                               toFile:tmplibpath];
             if (!res) {
                 NSLog(@"Window serialize failed!");
                 return;
             }
+
+
+            /* This is not really atomic, but we're already past the serious failure modes. */
+            [[NSFileManager defaultManager] removeItemAtPath:self.autosaveFileGUI error:nil];
+
+            NSError *error;
+            res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath
+                                                          toPath:self.autosaveFileGUI error:&error];
+            if (!res) {
+                NSLog(@"could not move window autosave to final position! %@", error);
+                return;
+            }
         }
-    }
-
-    /* This is not really atomic, but we're already past the serious failure modes. */
-    [[NSFileManager defaultManager] removeItemAtPath:self.autosaveFileGUI error:nil];
-
-    NSError *error;
-    res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath
-                                                  toPath:self.autosaveFileGUI error:&error];
-    if (!res) {
-        NSLog(@"could not move window autosave to final position! %@", error);
-        return;
     }
 
     _hasAutoSaved = YES;
