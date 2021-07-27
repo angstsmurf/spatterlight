@@ -360,8 +360,10 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
     if (!gli_enable_autosave)
         return;
 
-    if ([lastAutosaveTimestamp timeIntervalSinceNow] > -0.25)
+    if ([lastAutosaveTimestamp timeIntervalSinceNow] > -0.05) {
+        NSLog(@"last autosave was less than 0.05 seconds ago. skipping this one.");
         return;
+    }
 
     if (lasteventtype == 0xFFFFFFFF
       || lasteventtype == 0xFFFFFFFE)
@@ -371,7 +373,6 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
 
     if (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer)
     {
-        NSLog(@"Skipping autosave on timer!");
         return;
     }
 
