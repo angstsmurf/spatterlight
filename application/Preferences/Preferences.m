@@ -1502,12 +1502,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeUnderlineLinks:(id)sender {
     NSInteger windowType = [_hyperlinksPopup selectedTag];
+    Theme *themeToChange = theme;
+    NSUnderlineStyle selectedStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
         case wintype_TextGrid:
-            theme.gridLinkStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+            if (theme.gridLinkStyle == selectedStyle)
+                return;
+            themeToChange = [self cloneThemeIfNotEditable];
+            themeToChange.gridLinkStyle = selectedStyle;
             break;
         case wintype_TextBuffer:
-            theme.bufLinkStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+            if (theme.bufLinkStyle == selectedStyle)
+                return;
+            themeToChange = [self cloneThemeIfNotEditable];
+            themeToChange.bufLinkStyle = selectedStyle;
             break;
         default:
             NSLog(@"Unhandled hyperlink window type");

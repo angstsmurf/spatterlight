@@ -153,6 +153,8 @@
 
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
+
+        underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
     }
     return self;
 }
@@ -327,9 +329,14 @@
             attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
         }
 
-        if (_usingStyles != self.theme.doStyles) {
+        if (usingStyles != self.theme.doStyles) {
             different = YES;
-            _usingStyles = self.theme.doStyles;
+            usingStyles = self.theme.doStyles;
+        }
+
+        if (underlineLinks != (self.theme.gridLinkStyle != NSUnderlineStyleNone)) {
+            different = YES;
+            underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
         }
 
         if (attributes) {
@@ -618,11 +625,21 @@
         newrows = 1;
     if (newcols == 0 && frame.size.width > 0)
         newcols = 1;
-    
+
+    // Because our quote box hack assumes that the status line is 1 row
+    // and Curses status line has 2 rows, we need a Curses-specific hack
+    // to prevent the lower line from being cut off.
     if (newrows == 1 && glkctl.curses && glkctl.quoteBoxes.count) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
         self.pendingFrame = frame;
+        // As we extend the height of the status line, we also need to
+        // reduce the height of the buffer window below.
+        NSTextView *textView = glkctl.quoteBoxes.firstObject.quoteboxParent.documentView;
+        GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)textView.delegate;
+        NSRect newBufFrame = bufWin.frame;
+        newBufFrame.size.height -= self.theme.cellHeight;
+        bufWin.frame = newBufFrame;
     }
 
     // Don't cut off lines while zooming

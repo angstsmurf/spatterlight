@@ -20,6 +20,9 @@ typedef enum kSaveTextFormatType : int32_t {
     BOOL char_request;
     BOOL dirty;
 
+    BOOL usingStyles;
+    BOOL underlineLinks;
+
     /* For command history */
     InputHistory *history;
 

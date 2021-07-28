@@ -27,7 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
-@property BOOL usingStyles;
 @property BOOL pendingScroll;
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;

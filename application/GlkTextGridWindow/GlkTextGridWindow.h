@@ -21,7 +21,6 @@
 
 @property NSString *enteredTextSoFar;
 
-@property BOOL usingStyles;
 @property BOOL hasNewText;
 
 // For Bureacracy form accessibility

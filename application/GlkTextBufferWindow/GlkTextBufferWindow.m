@@ -99,8 +99,6 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
 
-        _usingStyles = self.theme.doStyles;
-
         echo = YES;
 
         _lastchar = '\n';
@@ -183,6 +181,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (self.glkctl.usesFont3)
         [self createBeyondZorkStyle];
+
+    underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
 
     return self;
 }
@@ -373,7 +373,6 @@ fprintf(stderr, "%s\n",                                                    \
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
         storedNewline = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"storedNewline"];
 
-        _usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
         _pendingScroll = [decoder decodeBoolForKey:@"pendingScroll"];
         _pendingClear = [decoder decodeBoolForKey:@"pendingClear"];
         _pendingScrollRestore = NO;
@@ -422,7 +421,6 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
     [encoder encodeObject:storedNewline forKey:@"storedNewline"];
 
-    [encoder encodeBool:_usingStyles forKey:@"usingStyles"];
     [encoder encodeBool:_pendingScroll forKey:@"pendingScroll"];
     [encoder encodeBool:_pendingClear forKey:@"pendingClear"];
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
@@ -579,9 +577,14 @@ fprintf(stderr, "%s\n",                                                    \
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
 
-        if (_usingStyles != self.theme.doStyles) {
+        if (usingStyles != self.theme.doStyles) {
             different = YES;
-            _usingStyles = self.theme.doStyles;
+            usingStyles = self.theme.doStyles;
+        }
+
+        if (underlineLinks != (self.theme.bufLinkStyle != NSUnderlineStyleNone)) {
+            different = YES;
+            underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
         }
 
         if (attributes) {
@@ -687,6 +690,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (different) {
             // Set style for hyperlinks
             NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
+            linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
             linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
             _textview.linkTextAttributes = linkAttributes;
 

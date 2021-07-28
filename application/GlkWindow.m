@@ -73,6 +73,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         _currentTerminators = _pendingTerminators;
         self.canDrawConcurrently = YES;
+        usingStyles = self.theme.doStyles;
     }
 
     return self;
@@ -97,6 +98,8 @@ fprintf(stderr, "%s\n",                                                    \
         _moveRanges = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"moveRanges"];
         moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
+        usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
+        underlineLinks = [decoder decodeBoolForKey:@"underlineLinks"];
     }
     return self;
 }
@@ -121,6 +124,8 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_moveRanges forKey:@"moveRanges"];
     [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeObject:history forKey:@"history"];
+    [encoder encodeBool:usingStyles forKey:@"usingStyles"];
+    [encoder encodeBool:underlineLinks forKey:@"underlineLinks"];
 }
 
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
