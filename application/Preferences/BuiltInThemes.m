@@ -839,13 +839,17 @@
     autoMapTheme.gridBackground = [NSColor whiteColor];
     autoMapTheme.bufferBackground = [NSColor whiteColor];
 
-    autoMapTheme.gridNormal.font = [NSFont fontWithName:@"Free Monospaced" size:16];
+    autoMapTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:16];
     autoMapTheme.gridNormal.color = [NSColor blackColor];
 
-    autoMapTheme.gridNormal.lineSpacing = -2;
-
     NSMutableDictionary *dict = autoMapTheme.gridNormal.attributeDict.mutableCopy;
-    dict[NSKernAttributeName] = @(-0.2);
+    dict[NSKernAttributeName] = @(0);
+
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+
+    para.maximumLineHeight = 16;
+    para.lineSpacing = 0;
+    dict[NSParagraphStyleAttributeName] = para;
 
     autoMapTheme.gridNormal.attributeDict = dict;
 
