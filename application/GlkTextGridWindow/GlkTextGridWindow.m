@@ -495,7 +495,7 @@
     // and if so, uses this color for the window background color.
     // It is complicated by the fact that some games have a status line in reverse video, but leaves
     // a single character at the end non-reversed. Also, our setFrame implementation inserts newline
-    // charaters at the end of every row, at those may not have the right background color. So we have
+    // charaters at the end of every row, and those may not have the right background color. So we have
     // to check on a row by row basis.
 
     if (!_bufferTextStorage.length) {
