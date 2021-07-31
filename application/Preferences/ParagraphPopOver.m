@@ -28,6 +28,8 @@
 
     CGFloat characterSpacing = [style.attributeDict[NSKernAttributeName] doubleValue];
     _characterSpacingTextField.doubleValue = characterSpacing;
+    if ([_characterSpacingTextField.stringValue isEqualToString:@"-0"])
+        _characterSpacingTextField.stringValue = @"0";
     _characterSpacingStepper.doubleValue = characterSpacing;
 
     _spacingBeforeTextField.doubleValue = _para.paragraphSpacingBefore;
@@ -127,6 +129,8 @@
 
     attDict[NSKernAttributeName] = @([sender doubleValue]);
     _characterSpacingTextField.doubleValue = [sender doubleValue];
+    if ([_characterSpacingTextField.stringValue isEqualToString:@"-0"])
+        _characterSpacingTextField.stringValue = @"0";
     _characterSpacingStepper.doubleValue = [sender doubleValue];
 
     [self saveNonParagraphChange:attDict];
@@ -178,6 +182,8 @@
     }
     _para.tailIndent = -[sender doubleValue];
     _indentTrailingTextField.doubleValue = -_para.tailIndent;
+    if ([_indentTrailingTextField.stringValue isEqualToString:@"-0"])
+        _indentTrailingTextField.stringValue = @"0";
     _indentTrailingStepper.doubleValue = -_para.tailIndent;
     [self saveChange];
 }
