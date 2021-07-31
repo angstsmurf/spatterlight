@@ -49,6 +49,23 @@
 
     _indentFirstLineTextField.doubleValue = _para.firstLineHeadIndent;
     _indentFirstLineStepper.doubleValue = _para.firstLineHeadIndent;
+
+    _lineMultipleTextField.doubleValue = _para.lineHeightMultiple;
+    _lineMultipleStepper.doubleValue = _para.lineHeightMultiple;
+
+    CGFloat baselineOffset = [style.attributeDict[NSBaselineOffsetAttributeName] doubleValue];
+
+    _baseLineOffsetTextField.doubleValue = baselineOffset;
+    _baseLineOffsetStepper.doubleValue = baselineOffset;
+
+    _maxLineHeightTextField.doubleValue = _para.maximumLineHeight;
+    _maxLineHeightStepper.doubleValue = _para.maximumLineHeight;
+
+    _minLineHeightTextField.doubleValue = _para.minimumLineHeight;
+    _minLineHeightStepper.doubleValue = _para.minimumLineHeight;
+
+    _hyphenationTextField.doubleValue = _para.hyphenationFactor;
+    _hyphenationStepper.doubleValue = _para.hyphenationFactor;
 }
 
 - (void)refreshAlignmentButtons {
