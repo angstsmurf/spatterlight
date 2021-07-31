@@ -188,8 +188,27 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)setFrame:(NSRect)frame {
-    //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
-    //        NSStringFromRect(frame));
+//    if (!self.glkctl.previewDummy)
+//      NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
+//      NSStringFromRect(frame));
+
+    GlkController *glkctl = self.glkctl;
+    
+    if (glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
+        // When we extend the height of the status
+        // line in Curses in order to make the second line
+        // visible when showing quote boxes, we also need to
+        // reduce the height of the buffer window below it.
+        // This is mainly to prevent the search bar from
+        // being partially hidden under the status window.
+        for (GlkTextGridWindow *grid in glkctl.contentView.subviews) {
+            if ([grid isKindOfClass:[GlkTextGridWindow class]]) {
+                frame.size.height = glkctl.contentView.frame.size.height - grid.pendingFrame.size.height;
+                frame.origin.y = NSMaxY(grid.pendingFrame);
+                break;
+            }
+        }
+    }
 
     if (self.framePending && NSEqualRects(self.pendingFrame, frame)) {
         //        NSLog(@"Same frame as last frame, returning");
