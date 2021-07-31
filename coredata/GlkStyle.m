@@ -63,16 +63,24 @@
     if (!self.attributeDict)
         [self createDefaultAttributeDictionary];
 
-    NSFont *font = self.font;
     NSSize size = [@"W" sizeWithAttributes:self.attributeDict];
-//    NSSize heightSize = [@"ÅXyg" sizeWithAttributes:self.attributeDict];
 
-    CGFloat baselineOffset = fabs([self.attributeDict[NSBaselineOffsetAttributeName] floatValue]);
-
+    // By measuring line height in this way we include
+    // line spacing and baseline offset
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    size.height = [layoutManager defaultLineHeightForFont:font] + baselineOffset + self.lineSpacing;
-//    size.height = heightSize.height + baselineOffset + self.lineSpacing; // ((self.lineSpacing > -3) ? self.lineSpacing : 0);
 
+    NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq/nÅWQyjgq" attributes:self.attributeDict];
+
+    [textstorage addLayoutManager:layoutManager];
+
+    NSTextContainer *container = [[NSTextContainer alloc]
+                 initWithContainerSize:NSMakeSize(MAXFLOAT, MAXFLOAT)];
+
+    [layoutManager addTextContainer:container];
+
+    [layoutManager ensureLayoutForTextContainer:container];
+    NSRect frag = [layoutManager lineFragmentUsedRectForGlyphAtIndex:0 effectiveRange:nil];
+    size.height = frag.size.height;
     return size;
 }
 

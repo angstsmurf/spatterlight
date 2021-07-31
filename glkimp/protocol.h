@@ -40,7 +40,6 @@ struct settings_struct
     int buffer_background;
     int grid_foreground;
     int grid_background;
-    float leading;
     int do_styles;
     int quote_boxes;
     int determinism;

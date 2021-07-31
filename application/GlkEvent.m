@@ -235,7 +235,6 @@ unsigned chartokeycode(unsigned ch) {
         settings->cell_height = (float)theme.cellHeight;
         settings->buffer_cell_width = (float)theme.bufferCellWidth;
         settings->buffer_cell_height = (float)theme.bufferCellHeight;
-        settings->leading = (float)theme.gridNormal.lineSpacing;
         settings->buffer_foreground = [theme.bufferNormal.color integerColor];
         settings->buffer_background = [theme.bufferBackground integerColor];
         settings->grid_foreground = [theme.gridNormal.color integerColor];

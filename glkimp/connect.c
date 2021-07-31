@@ -51,7 +51,6 @@ float gcellw = 8;
 float gcellh = 12;
 float gbufcellw = 8;
 float gbufcellh = 12;
-float gleading = 0;
 
 uint32_t gtimerinterval = 0;
 
@@ -756,7 +755,6 @@ again:
                 gcellh == settings->cell_height &&
                 gbufcellw == settings->buffer_cell_width &&
                 gbufcellh == settings->buffer_cell_height &&
-				gleading == settings->leading &&
                 gfgcol == settings->buffer_foreground &&
                 gbgcol == settings->buffer_background &&
                 gsfgcol == settings->grid_foreground &&
@@ -780,7 +778,6 @@ again:
             gcellh = settings->cell_height;
             gbufcellw = settings->buffer_cell_width;
             gbufcellh = settings->buffer_cell_height;
-            gleading = settings->leading;
             gfgcol = settings->buffer_foreground;
             gbgcol = settings->buffer_background;
             gsfgcol = settings->grid_foreground;

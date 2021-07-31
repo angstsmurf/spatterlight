@@ -50,7 +50,6 @@ extern uint32_t gfgcol;
 extern uint32_t gbgcol;
 extern uint32_t gsfgcol;
 extern uint32_t gsbgcol;
-extern float gleading;
 
 extern glui32 tagcounter;
 extern glui32 lasteventtype;

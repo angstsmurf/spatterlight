@@ -511,9 +511,9 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
             if (win->bbox.x0 + ggridmarginx * 2 + LINE_FRAGMENT_PADDING <= win->bbox.x1)
                 wid = round(((win->bbox.x1 - win->bbox.x0) - ggridmarginx * 2 - LINE_FRAGMENT_PADDING) / gcellw);
             if (win->bbox.y0 + ggridmarginy * 2 <= win->bbox.y1)
+            {
                 hgt = round(((win->bbox.y1 - win->bbox.y0) - ggridmarginy * 2) / gcellh);
-//            fprintf(stderr, "wintype_TextGrid: width: bbox.x1(%d) - bbox.x0:(%d) / gcellw (%f) = %d\n", win->bbox.x1, win->bbox.x0, gcellw, wid);
-//            fprintf(stderr, "height: ( bbox.y1(%d) - bbox.y0:(%d) ) - ggridmarginy (%d) * 2 / gcellh (%f) = %d\n", win->bbox.y1, win->bbox.y0, ggridmarginy, gcellh, hgt);
+            }
             break;
         case wintype_TextBuffer:
             if (win->bbox.x0 + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING <= win->bbox.x1)
@@ -775,12 +775,13 @@ void gli_window_rearrange(window_t *win, grect_t *box)
                                     split = win->pair.size * gbufcellh + gbuffermarginy * 2;
                                 break;
                             case wintype_TextGrid:
-                                if (win->pair.size == 0)
+                                if (win->pair.size == 0) {
                                     split = 0;
-                                else if (win->pair.vertical)
+                                } else if (win->pair.vertical) {
                                     split = win->pair.size * gcellw + ggridmarginx * 2 + LINE_FRAGMENT_PADDING;
-                                else
+                                } else {
                                     split = win->pair.size * gcellh + ggridmarginy * 2;
+                                }
                                 break;
                             case wintype_Graphics:
                                 split = win->pair.size;
