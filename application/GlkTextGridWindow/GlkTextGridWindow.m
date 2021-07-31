@@ -140,6 +140,7 @@
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.gridLinkStyle);
         _textview.linkTextAttributes = linkAttributes;
 
         _textview.editable = NO;
