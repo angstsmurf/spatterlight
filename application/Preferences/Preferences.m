@@ -1922,6 +1922,28 @@ textShouldEndEditing:(NSText *)fieldEditor {
             style.font = [NSFont fontWithDescriptor:style.font.fontDescriptor
                                                size:fontSize];
         }
+        NSMutableDictionary *dict = style.attributeDict.mutableCopy;
+        if (dict[NSKernAttributeName]) {
+            CGFloat newValue = ((NSNumber *)dict[NSKernAttributeName]).doubleValue * scalefactor;
+            dict[NSKernAttributeName] = @(newValue);
+        }
+        if (dict[NSBaselineOffsetAttributeName]) {
+            CGFloat newValue = ((NSNumber *)dict[NSBaselineOffsetAttributeName]).doubleValue * scalefactor;
+            dict[NSBaselineOffsetAttributeName] = @(newValue);
+        }
+        NSMutableParagraphStyle *para = ((NSParagraphStyle *)dict[NSParagraphStyleAttributeName]).mutableCopy;
+        para.lineSpacing = para.lineSpacing * scalefactor;
+        para.paragraphSpacing = para.paragraphSpacing * scalefactor;
+        para.paragraphSpacingBefore = para.paragraphSpacingBefore * scalefactor;
+        para.headIndent = para.headIndent * scalefactor;
+        para.tailIndent = para.tailIndent * scalefactor;
+        para.firstLineHeadIndent = para.firstLineHeadIndent * scalefactor;
+        para.maximumLineHeight = para.maximumLineHeight * scalefactor;
+        para.minimumLineHeight = para.minimumLineHeight * scalefactor;
+
+        dict[NSParagraphStyleAttributeName] = para;
+
+        style.attributeDict = dict;
     }
 
     [Preferences rebuildTextAttributes];
@@ -2050,7 +2072,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing font style there
 
 - (void)changeAttributes:(id)sender {
-    NSLog(@"Prefs: changeAttributes:%@", sender);
+//    NSLog(@"Prefs: changeAttributes:%@", sender);
 
     if (sender != self.dummyTextView) {
         [self.dummyTextView changeAttributes:sender];
