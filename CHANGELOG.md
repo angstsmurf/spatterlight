@@ -1,5 +1,15 @@
 # Change log
 
+## Unreleased
+- Fixed some paragraph settings not getting properly updated
+- Adjusted limits of many paragraph settings
+- Paragraph settings will scale along with text when zooming in or out
+- Fixes to Automap theme. This may require rebuilding themes after upgrading
+- Hyperlink underline setting was not working in buffer windows
+- Hyperlink underline setting in grid windows was not working when starting a new game
+- Top of main window was covered by status bar in Curses when showing quote box. This was only apparent when displaying a Find bar
+- 
+
 ## Release 0.8.5
 - New [Automap](https://intfiction.org/t/unicode-characters-in-textgrid-windows/51825) theme.
 - Setting to switch off hyperlink underline
