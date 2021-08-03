@@ -166,12 +166,10 @@ PasteboardFilePasteLocation;
 
 - (IBAction)showHelpFile:(id)sender {
     //    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
-    id title = [sender title];
-    id pathname = [NSBundle mainBundle].resourcePath;
-    id filename =
-    [NSString stringWithFormat:@"%@/docs/%@.rtf", pathname, title];
-
-    NSURL *url = [NSURL fileURLWithPath:filename];
+    NSString *title = [sender title];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:title
+                 withExtension:@"rtf"
+                  subdirectory:@"docs"];
     NSError *error;
 
     if (!_helpLicenseWindow) {
@@ -186,7 +184,7 @@ PasteboardFilePasteLocation;
                                    error:&error];
 
     [_helpLicenseWindow showHelpFile:content withTitle:title];
-    _helpLicenseWindow.window.representedFilename = filename;
+    _helpLicenseWindow.window.representedFilename = url.path;
 }
 
 #pragma mark -
