@@ -1148,15 +1148,30 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)removeTheme:(id)sender {
-    if (!_arrayController.selectedTheme.editable) {
+    Theme *themeToRemove = _arrayController.selectedTheme;
+    if (!themeToRemove.editable) {
         NSBeep();
         return;
     }
-    NSSet *orphanedGames = _arrayController.selectedTheme.games;
-    NSInteger row = (NSInteger)[_arrayController selectionIndex] - 1;
+//    NSLog(@"Deleting theme %@", themeToRemove.name);
+    Theme *grandParent = themeToRemove.defaultParent;
+    if (!grandParent)
+        grandParent = [self findGrandparentThemeOf:themeToRemove];
+    NSSet *orphanedGames = themeToRemove.games;
+    NSSet *orphanedThemes = themeToRemove.defaultChild;
+    NSUInteger row = 0;
     [_arrayController remove:sender];
-    _arrayController.selectionIndex = (NSUInteger)row;
-    [_arrayController.selectedTheme addGames:orphanedGames];
+    if (grandParent) {
+        row = [_arrayController.arrangedObjects indexOfObject:grandParent];
+    } else {
+        if (_arrayController.selectionIndex > 0)
+            row = _arrayController.selectionIndex - 1;
+        grandParent = _arrayController.selectedTheme;
+    }
+//    NSLog(@"Moving its games (%ld) and default child themes (%ld) to %@", orphanedGames.count, orphanedThemes.count, grandParent.name);
+    [grandParent addGames:orphanedGames];
+    [grandParent addDefaultChild:orphanedThemes];
+    _arrayController.selectionIndex = row;
 }
 
 - (IBAction)applyToSelected:(id)sender {
@@ -1183,15 +1198,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
 
     for (Theme *t in fetchedObjects) {
-        if (t.games.count) {
-            NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
-            NSString *baseName = @"";
-            if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
-                baseName = [t.name substringToIndex:modifiedRange.location];
-                Theme *newTheme = [_arrayController findThemeByName:baseName];
-                [newTheme addGames:t.games];
+//        NSLog(@"Deleting theme %@", t.name);
+        if (t.games.count || t.defaultChild.count) {
+            Theme *grandParent = [self findGrandparentThemeOf:t];
+            if (grandParent && !grandParent.editable) {
+//                NSLog(@"Moving its games (%ld) and children (%ld) to %@", t.games.count, t.defaultChild.count, grandParent.name);
+                [grandParent addGames:t.games];
+                [grandParent addDefaultChild:t.defaultChild];
                 if (t == theme) {
-                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:t];
+                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:grandParent];
                     [_arrayController setSelectionIndex:row];
                 }
             }
@@ -1203,6 +1218,30 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     [theme addGames:orphanedGames];
     _arrayController.selectedObjects = @[theme];
+}
+
+- (nullable Theme *)findGrandparentThemeOf:(Theme *)t {
+//    NSLog(@"Looking for grandparent of theme %@", t.name);
+    NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
+    NSString *baseName = @"";
+    if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
+        baseName = [t.name substringToIndex:modifiedRange.location];
+        Theme *newTheme = [_arrayController findThemeByName:baseName];
+        if (newTheme != nil) {
+//            NSLog(@"Found grandparent theme %@ by looking at base name", newTheme.name);
+            return newTheme;
+        }
+    }
+    if (t.defaultParent != nil) {
+        Theme *t2 = t;
+        while (t2.defaultParent != nil) {
+            t2 = t2.defaultParent;
+        }
+//        NSLog(@"Found grandparent theme %@ by looking at defaultParent", t2.name);
+        return t2;
+    }
+    NSLog(@"Found no grandparent theme!");
+    return nil;
 }
 
 - (IBAction)togglePreview:(id)sender {
