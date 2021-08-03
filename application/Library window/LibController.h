@@ -67,7 +67,7 @@
 - (void)endImporting;
 
 - (NSWindow *)playGame:(Game *)game;
-- (NSWindow *)playGame:(Game *)game winRestore:(BOOL)restoreflag;
+- (NSWindow *)playGame:(Game *)game winRestore:(BOOL)systemWindowRestoration;
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 

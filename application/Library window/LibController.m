@@ -1691,13 +1691,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (NSWindow *)playGame:(Game *)game
-            winRestore:(BOOL)restoreflag {
+            winRestore:(BOOL)systemWindowRestoration {
 
-// The winRestore flag is just to let us know whether
-// this is called from restoreWindowWithIdentifier in
-// AppDelegate.m. It really should be called 
-// systemWindowRestoration or something like that.
-// The playGameWithIFID method will pass this flag on
+// The systemWindowRestoration flag is just to let us know
+// if this is called from restoreWindowWithIdentifier in
+// AppDelegate.m.
+// The playGameWithIFID method passes this flag on
 // to the GlkController runTerp method.
 
 // The main difference is that then we will enter
@@ -1721,13 +1720,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (![fileManager fileExistsAtPath:path]) {
         game.found = NO;
-        if (!restoreflag) // Everything will break if we throw up a dialog during system window restoration
+        if (!systemWindowRestoration) // Everything will break if we throw up a dialog during system window restoration
             [self lookForMissingFile:game];
         return nil;
     } else game.found = YES;
 
     if (![fileManager isReadableFileAtPath:path]) {
-        if (!restoreflag) { // Everything will break if we throw up a dialog during system window restoration
+        if (!systemWindowRestoration) { // Everything will break if we throw up a dialog during system window restoration
             NSError *error = nil;
             //Check if the file is in trash
             NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path] create:NO error:&error];
@@ -1779,11 +1778,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     _gameSessions[game.ifid] = gctl;
 
-    [gctl runTerp:terp withGame:game reset:NO winRestore:restoreflag];
+    [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
 
-    
     game.lastPlayed = [NSDate date];
-    [self addURLtoRecents: game.urlForBookmark];
+    [self addURLtoRecents: url];
 
     [Preferences changeCurrentGame:game];
 
