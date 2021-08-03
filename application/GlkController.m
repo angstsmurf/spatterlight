@@ -1660,7 +1660,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
-        if (libcontroller.gameSessions.count)
+        if (libcontroller && libcontroller.gameSessions.count)
             remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
         [Preferences changeCurrentGame:remainingGameSession];
     }
@@ -1679,7 +1679,8 @@ fprintf(stderr, "%s\n",                                                    \
         [task terminate];
     }
 
-    [libcontroller releaseGlkControllerSoon:self];
+    if (libcontroller)
+        [libcontroller releaseGlkControllerSoon:self];
 
     libcontroller = nil;
 }
