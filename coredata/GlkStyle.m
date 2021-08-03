@@ -405,6 +405,12 @@
         NSLog(@"Error! No theme found!");
         NSUInteger styleValue = (NSUInteger)((NSNumber *)(self.attributeDict)[@"GlkStyle"]).integerValue;
 
+        if (styleValue >= style_NUMSTYLES) {
+            NSLog(@"Error! Broken attributeDict!");
+            [self createDefaultAttributeDictionary];
+            styleValue = 0;
+        }
+        
         NSString *styleName = [self testGridStyle]?gGridStyleNames[styleValue]:gBufferStyleNames[styleValue];
         NSLog(@"GlkStyle attribute: %ld (%@), count: %ld", styleValue, styleName, count);
     }
