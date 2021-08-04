@@ -69,7 +69,7 @@
     // line spacing and baseline offset
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 
-    NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq/nÅWQyjgq" attributes:self.attributeDict];
+    NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq\nÅWQyjgq" attributes:self.attributeDict];
 
     [textstorage addLayoutManager:layoutManager];
 
