@@ -99,7 +99,13 @@
         gamewin = app.windows[@"Tetris"];
     XCTAssert(gamewin.exists);
 
-    [libraryWindow/*@START_MENU_TOKEN@*/.searchFields[@"Search"]/*[[".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[@"cancel"] click];
+    [app typeKey:@"1" modifierFlags:XCUIKeyModifierCommand];
+
+    XCUIElement *searchSearchField = libraryWindow/*@START_MENU_TOKEN@*/.searchFields[@"Search"]/*[[".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *cancelButton = searchSearchField.buttons[@"cancel"];
+    if (cancelButton.exists)
+        [cancelButton click];
+    [searchSearchField click];
 }
 
 - (void)testFileMenu {
@@ -1202,6 +1208,7 @@
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Automatic"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Automatic\"]",".checkBoxes[@\"Automatic\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [colorWell click];
     [app.windows[@"Colors"]/*@START_MENU_TOKEN@*/.radioButtons[@"Licorice"]/*[[".splitGroups",".radioGroups[@\"Pencils\"].radioButtons[@\"Licorice\"]",".radioButtons[@\"Licorice\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.windows[@"Colors"].buttons[XCUIIdentifierCloseWindow] click];
 
     textField3 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
     [textField3 click];
