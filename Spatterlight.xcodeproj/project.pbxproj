@@ -134,7 +134,6 @@
 		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
-		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2D22BE57790035FA99 /* SideInfoView.m */; };
 		6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD7679B23E45FB7003B605C /* ThemeArrayController.m */; };
@@ -245,7 +244,7 @@
 		961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */; };
 		961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2309F2940F00528FF9 /* Credits.rtf */; };
 		961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2909F2940F00528FF9 /* GNU Public License.rtf */; };
-		961CCF4609F2947700528FF9 /* HUGO License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* HUGO License.rtf */; };
+		961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* Hugo License.rtf */; };
 		961CCF4709F2947700528FF9 /* SDL License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2B09F2940F00528FF9 /* SDL License.rtf */; };
 		961DC9370A108DE10044A0D4 /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 961DC9360A108DE10044A0D4 /* quill.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; };
@@ -1092,7 +1091,7 @@
 				6D85C899218BE4AC0088D849 /* Glulxe License.rtf in Copy Documentation Files */,
 				6D70DA80218B3F210022E13B /* Alan License.rtf in Copy Documentation Files */,
 				961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */,
-				961CCF4609F2947700528FF9 /* HUGO License.rtf in Copy Documentation Files */,
+				961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */,
 				961CCF4709F2947700528FF9 /* SDL License.rtf in Copy Documentation Files */,
 			);
 			name = "Copy Documentation Files";
@@ -1764,7 +1763,7 @@
 		961CCF2409F2940F00528FF9 /* IconApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconApp.icns; sourceTree = "<group>"; };
 		961CCF2509F2940F00528FF9 /* IconGame.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconGame.icns; sourceTree = "<group>"; };
 		961CCF2909F2940F00528FF9 /* GNU Public License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "GNU Public License.rtf"; sourceTree = "<group>"; };
-		961CCF2A09F2940F00528FF9 /* HUGO License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "HUGO License.rtf"; sourceTree = "<group>"; };
+		961CCF2A09F2940F00528FF9 /* Hugo License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Hugo License.rtf"; sourceTree = "<group>"; };
 		961CCF2B09F2940F00528FF9 /* SDL License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "SDL License.rtf"; sourceTree = "<group>"; };
 		961CCF2C09F2940F00528FF9 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
 		961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PrefsWindow.nib; sourceTree = "<group>"; };
@@ -3856,7 +3855,7 @@
 				6D70DA7C218B3EFC0022E13B /* Alan License.rtf */,
 				6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */,
 				961CCF2909F2940F00528FF9 /* GNU Public License.rtf */,
-				961CCF2A09F2940F00528FF9 /* HUGO License.rtf */,
+				961CCF2A09F2940F00528FF9 /* Hugo License.rtf */,
 				961CCF2B09F2940F00528FF9 /* SDL License.rtf */,
 			);
 			path = docs;
@@ -6084,7 +6083,6 @@
 				6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */,
 				6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */,
 				6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */,
-				6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
