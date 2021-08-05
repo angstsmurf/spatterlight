@@ -877,7 +877,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     NSSet *gamesWithTheme = selectedGame.theme.games;
     
-    NSIndexSet *matchingIndexes = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+    NSIndexSet *matchingIndexes = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(Game *obj, NSUInteger idx, BOOL *stop) {
         return [gamesWithTheme containsObject:obj];
     }];
 
@@ -924,12 +924,21 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
             enabledThemeItem = nil;
         }
-        if (count == 1) {
-            NSUInteger index = rows.firstIndex;
-            Game *clickedGame = _gameTableModel[index];
-            enabledThemeItem = [_themesSubMenu.submenu itemWithTitle:clickedGame.theme.name];
-            if (enabledThemeItem)
-                enabledThemeItem.state = NSOnState;
+        if (count > 0 && count < 10000) {
+            __block NSMutableSet *themeNamesToSelect = [NSMutableSet new];
+            [rows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                NSString *name = _gameTableModel[idx].theme.name;
+                if (name)
+                    [themeNamesToSelect addObject:name];
+            }];
+            NSControlStateValue state = NSOnState;
+            if (themeNamesToSelect.count > 1)
+                state = NSMixedState;
+            for (NSString *name in themeNamesToSelect) {
+                enabledThemeItem = [_themesSubMenu.submenu itemWithTitle:name];
+                if (enabledThemeItem)
+                    enabledThemeItem.state = state;
+            }
         }
     }
 
@@ -1975,7 +1984,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     //NSLog(@"selectGames called with %ld games", games.count);
 
     if (games.count) {
-        NSIndexSet *indexSet = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+        NSIndexSet *indexSet = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(Game *obj, NSUInteger idx, BOOL *stop) {
             return [games containsObject:obj];
         }];
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];

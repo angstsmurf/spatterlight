@@ -28,7 +28,7 @@
 @property NSURL *homepath;
 @property NSURL *imageDir;
 
-@property NSMutableArray *gameTableModel;
+@property NSMutableArray<Game *> *gameTableModel;
 
 @property BOOL currentlyAddingGames;
 @property BOOL nestedDownload;
