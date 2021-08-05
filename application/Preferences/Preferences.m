@@ -1136,8 +1136,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)addTheme:(id)sender {
-    NSInteger row = (NSInteger)[_arrayController selectionIndex];
-    NSTableCellView *cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
+    NSUInteger row = [_arrayController selectionIndex];
+    if (row == NSNotFound)
+        row = [_arrayController.arrangedObjects count] - 1;
+    if (row >= [_arrayController.arrangedObjects count])
+        row = 0;
+    NSTableCellView *cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
     if ([self notDuplicate:cellView.textField.stringValue]) {
         // For some reason, tableViewSelectionDidChange will be called twice here,
         // so we disregard the first call
@@ -1154,24 +1158,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 //    NSLog(@"Deleting theme %@", themeToRemove.name);
-    Theme *grandParent = themeToRemove.defaultParent;
-    if (!grandParent)
-        grandParent = [self findGrandparentThemeOf:themeToRemove];
+    Theme *ancestor = themeToRemove.defaultParent;
+    if (!ancestor)
+        ancestor = [self findAncestorThemeOf:themeToRemove];
     NSSet *orphanedGames = themeToRemove.games;
     NSSet *orphanedThemes = themeToRemove.defaultChild;
-    NSUInteger row = 0;
+    NSUInteger row = _arrayController.selectionIndex - 1;
+    if (row >= [_arrayController.arrangedObjects count])
+        row = 0;
     [_arrayController remove:sender];
-    if (grandParent) {
-        row = [_arrayController.arrangedObjects indexOfObject:grandParent];
-    } else {
-        if (_arrayController.selectionIndex > 0)
-            row = _arrayController.selectionIndex - 1;
-        grandParent = _arrayController.selectedTheme;
-    }
-//    NSLog(@"Moving its games (%ld) and default child themes (%ld) to %@", orphanedGames.count, orphanedThemes.count, grandParent.name);
-    [grandParent addGames:orphanedGames];
-    [grandParent addDefaultChild:orphanedThemes];
     _arrayController.selectionIndex = row;
+    if (!ancestor)
+        ancestor = _arrayController.selectedTheme;
+
+//    NSLog(@"Moving its games (%ld) and default child themes (%ld) to %@", orphanedGames.count, orphanedThemes.count, ancestor.name);
+    [ancestor addGames:orphanedGames];
+    [ancestor addDefaultChild:orphanedThemes];
 }
 
 - (IBAction)applyToSelected:(id)sender {
@@ -1200,14 +1202,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     for (Theme *t in fetchedObjects) {
 //        NSLog(@"Deleting theme %@", t.name);
         if (t.games.count || t.defaultChild.count) {
-            Theme *grandParent = [self findGrandparentThemeOf:t];
-            if (grandParent && !grandParent.editable) {
-//                NSLog(@"Moving its games (%ld) and children (%ld) to %@", t.games.count, t.defaultChild.count, grandParent.name);
-                [grandParent addGames:t.games];
-                [grandParent addDefaultChild:t.defaultChild];
+            Theme *ancestor = [self findAncestorThemeOf:t];
+            if (ancestor && !ancestor.editable) {
+//                NSLog(@"Moving its games (%ld) and children (%ld) to %@", t.games.count, t.defaultChild.count, ancestor.name);
+                [ancestor addGames:t.games];
+                [ancestor addDefaultChild:t.defaultChild];
                 if (t == theme) {
-                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:grandParent];
-                    [_arrayController setSelectionIndex:row];
+                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:t];
+                    _arrayController.selectionIndex = row;
                 }
             }
             [orphanedGames unionSet:t.games];
@@ -1220,15 +1222,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     _arrayController.selectedObjects = @[theme];
 }
 
-- (nullable Theme *)findGrandparentThemeOf:(Theme *)t {
-//    NSLog(@"Looking for grandparent of theme %@", t.name);
+- (nullable Theme *)findAncestorThemeOf:(Theme *)t {
+//    NSLog(@"Looking for ancestor of theme %@", t.name);
     NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
     NSString *baseName = @"";
     if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
         baseName = [t.name substringToIndex:modifiedRange.location];
         Theme *newTheme = [_arrayController findThemeByName:baseName];
         if (newTheme != nil) {
-//            NSLog(@"Found grandparent theme %@ by looking at base name", newTheme.name);
+//            NSLog(@"Found ancestor theme %@ by looking at base name", newTheme.name);
             return newTheme;
         }
     }
@@ -1237,10 +1239,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         while (t2.defaultParent != nil) {
             t2 = t2.defaultParent;
         }
-//        NSLog(@"Found grandparent theme %@ by looking at defaultParent", t2.name);
+//        NSLog(@"Found ancestor theme %@ by looking at defaultParent", t2.name);
         return t2;
     }
-    NSLog(@"Found no grandparent theme!");
+    NSLog(@"Found no ancestor theme!");
     return nil;
 }
 
@@ -1258,8 +1260,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)editNewEntry:(id)sender {
-    NSInteger row = (NSInteger)[_arrayController selectionIndex];
-    NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
+    NSUInteger row = [_arrayController selectionIndex];
+    if (row == NSNotFound)
+        row = [_arrayController.arrangedObjects count] - 1;
+    if (row >= [_arrayController.arrangedObjects count])
+        row = 0;
+
+    NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
     if ([cellView.textField acceptsFirstResponder]) {
         [cellView.window makeFirstResponder:cellView.textField];
         [themesTableView scrollRowToVisible:(NSInteger)row];
