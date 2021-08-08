@@ -867,6 +867,13 @@ fprintf(stderr, "%s\n",                                                    \
         task.arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:task.arguments];
     }
 
+    if ([_game.detectedFormat isEqualToString:@"tads3"]) {
+        if (_theme.determinism) {
+            NSArray *extraTadsOptions = @[@"-norandomize"];
+            task.arguments = [extraTadsOptions arrayByAddingObjectsFromArray:task.arguments];
+        }
+    }
+
 #endif // TEE_TERP_OUTPUT
 
     GlkController * __unsafe_unretained weakSelf = self;
