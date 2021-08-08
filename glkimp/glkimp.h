@@ -138,6 +138,8 @@ void win_setreverse(int name, int reverse);
 void win_quotebox(int name, int height);
 void win_showerror(char *str);
 void win_reset(void);
+int win_cols(int name);
+int win_lines(int name);
 
 
 /* unicode case mapping */

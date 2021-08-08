@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollWheelchanged:(NSEvent *)event;
 
 - (NSRange)editableRange;
+- (NSUInteger)numberOfColumns;
+- (NSUInteger)numberOfLines;
 
 @end
 

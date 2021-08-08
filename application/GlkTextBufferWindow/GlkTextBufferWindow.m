@@ -1441,6 +1441,31 @@ replacementString:(id)repl {
     return NSMakeRange(fence, textstorage.length - fence);
 }
 
+// Assumes a fixed-width style is used,
+// as in Tads status bars.
+- (NSUInteger)numberOfColumns {
+    NSRect frame = self.frame;
+    if (self.framePending)
+        frame = self.pendingFrame;
+    CGFloat charwidth = [@"W" sizeWithAttributes:styles[style_Normal]].width;
+    NSUInteger cols = (NSUInteger)round((frame.size.width -
+                                         (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
+                                        charwidth);
+    return cols;
+}
+
+- (NSUInteger)numberOfLines {
+    [self flushDisplay];
+    NSUInteger numberOfLines, index, numberOfGlyphs =
+    [layoutmanager numberOfGlyphs];
+    NSRange lineRange;
+    for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
+        [layoutmanager lineFragmentRectForGlyphAtIndex:index
+                                               effectiveRange:&lineRange];
+        index = NSMaxRange(lineRange);
+    }
+    return numberOfLines;
+}
 
 #pragma mark Text finder
 

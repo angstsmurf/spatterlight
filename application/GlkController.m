@@ -55,7 +55,8 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
 //    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+//    "RESET",           "BANNERCOLS",       "BANNERLINES"  "TIMER",
+//    "INITCHAR",        "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
 //    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
@@ -3435,6 +3436,26 @@ fprintf(stderr, "%s\n",                                                    \
             // Used if an autorestore fails.
         case RESET:
             [self reset:nil];
+            break;
+
+        // Used by Tads 3 to adapt the banner width.
+        case BANNERCOLS:
+            ans->cmd = OKAY;
+            ans->a1 = 0;
+            if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
+                GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
+                ans->a1 = [banner numberOfColumns];
+            }
+            break;
+
+        // Used by Tads 3 to adapt the banner height.
+        case BANNERLINES:
+            ans->cmd = OKAY;
+            ans->a1 = 0;
+            if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
+                GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
+                ans->a1 = [banner numberOfLines];
+            }
             break;
 
             /*

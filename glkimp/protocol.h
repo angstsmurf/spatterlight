@@ -76,6 +76,8 @@ enum
     SETTITLE,
     AUTOSAVE,
     RESET,
+    BANNERCOLS,
+    BANNERLINES,
 
     TIMER,
     INITCHAR,

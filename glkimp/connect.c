@@ -712,6 +712,22 @@ void win_reset()
     sendmsg(RESET, 0, 0, 0, 0, 0, 0, NULL);
 }
 
+int win_lines(int name)
+{
+    win_flush();
+    sendmsg(BANNERLINES, name, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
+int win_cols(int name)
+{
+    win_flush();
+    sendmsg(BANNERCOLS, name, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
 void win_select(event_t *event, int block)
 {
     int i;
