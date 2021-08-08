@@ -1,0 +1,1219 @@
+Glk transcript is now on.
+
+>REMOVE WRISTBAND
+
+The wristband steadfastly refuses to be moved 
+>S
+
+On The Path 
+You are on the gravel path. To the east is a vast, grassy wilderness and the dying forest is westward. The path also continues south. 
+>S
+
+On The Path 
+You are on the gravel path. To the east is a vast, grassy plain and the dying forest is westward. The path also continues south to a dotted red line on the ground, beyond which is a dense, swirling fog. Just in front of the line is a notice board. 
+>READ NOTICE
+
+The writing says:
+Warning
+-------
+This is the southern edge of the adventure.
+No artefacts may be taken past this line.
+>E
+
+Grassy Plain 
+This is an extensive area of grassy plain. Looking westward you can recognise the gravel path. To the south, there is a dotted red line on the ground with a dense, swirling fog beyond. Just in front of the line stands a notice board. 
+Kronos the magician zooms past on a circular stone platform that hovers above the ground, executes a steep, banked turn and glides to a halt in front of you.
+"Greetings, stranger", Kronos says in a deep, rich voice.
+>SAY "HELLO"
+
+The magician says, Hello.
+"I am having great trouble in finding someone to perform an extremely simple task and I wonder if you would help me out. If you deliver this sealed letter to King Erik of Kerovnia, you will be well rewarded when I next meet you on your travels and I would be forever indebted to you."
+The magician then offers you a sealed note.
+>TAKE NOTE
+
+You have now got the note 
+>ASK KRONOS ABOUT WRISTBAND
+
+Pointing at the silver wristband he says, I can remove that pretty bangle, but my services do not come free of charge - I will exact a deed of service. If you kill the man who rides the horse with no legs and bring his dead body to my room in the northernmost mountain I will remove this wristband and set you free from all worldly bondage. I fully realise that this is a difficult task and so I will lend you some help in the form of this small chest. Be careful, it is lethal when opened, so make sure that only he is the one to open it.
+>TAKE CHEST
+
+You have now got the chest 
+Kronos glides off on his stone platform, whistling to himself.
+>E
+
+Bank 
+You find yourself at the edge of a cliff. To the east, far below, a fast flowing river runs south along a ravine. Westward leads into a vast, grassy wilderness. Looking south, you can see a red dotted line on the floor beyond which is a dense, swirling fog. Just in front of the line is a notice board. 
+>N
+
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep ravine at the bottom of which runs a fast flowing river. Westward leads onto an extensive, grassy plain. 
+>E
+
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south, and eastward you can see a high wall with an open gateway leading to the gardens of the golden palace. 
+>E
+
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are neatly arranged around a central fountain. Surrounding the gardens is a high wall through which there are two exits: east to the gatehouse and west to the stone bridge. Standing in the southwest corner of the gardens is a small toolshed. 
+There is a mat here.
+>SW
+
+The door is closed!
+>INVENTORY EXAMINE JEANS
+
+You are carrying a chest and a note 
+You are wearing a shirt, some jeans and a wristband 
+The jeans are made of blue denim and have a pocket in the front.
+>EXAMINE POCKET
+
+The pocket is a small bag inserted into your jeans in order to carry handkerchiefs, loose change and the like.
+It contains a key 
+>TAKE KEY
+
+You have now got the key 
+>UNLOCK DOOR WITH KEY
+
+The door is now unlocked
+>OPEN DOOR
+
+The door is now open.
+>SW
+
+In The Shed 
+Inside the toolshed you are confronted by a profusion of old pieces of gardening equipment. Against the north wall stands a wooden workbench and a door leads northeast back into the gardens. 
+There is a hoe, a rake and a wheelbarrow here.
+>DROP KEY
+
+Key dropped.
+>TAKE HOE AND RAKE
+
+You have now got the hoe 
+Rake taken.
+>EXAMINE BENCH
+
+The workbench is made of wood, stands about a metre off the ground and is the length of one of the shed walls.
+There is a trowel on it 
+>TAKE TROWEL AND EXAMINE IT
+
+You have now got the trowel 
+The trowel is used for planting flowers in the garden.
+>LOOK UNDER BENCH
+
+You find a pot 
+>EXAMINE POT
+
+The pot is made of clay and has a hole in the bottom to allow excess water to drain away.
+It contains a plant 
+>EXAMINE PLANT
+
+The plant closely resembles the design on your t-shirt.
+>PLANT POT PLANT IN POT WITH TROWEL
+
+The plant seems much happier now
+>NE
+
+Palace Gardens 
+There is a mat here.
+>LOOK UNDER MAT
+
+You find a key 
+>TAKE KEY
+
+You have now got the key 
+>E
+
+Gateway 
+You are at the gatehouse which consists of an archway leading through to the courtyard of the main palace. Some guards are here. Two burly guards, armed with pikes, block your entrance.
+>SHOW NOTE TO GUARDS
+
+The guards lead you into the palace courtyard for an audience with the king, who stands in front of you looking very pensive. He takes the note and studies it intently before giving you his reply:
+"Get out of my palace!", he rants, his countenance ablaze with apoplectic fury. "I will not give in to that evil lizard Kronos."
+He screws the note up and stomps off in an abominable rage. The guards lift you off the ground and unceremoniously dump you outside the palace walls.
+>W
+
+Palace Gardens 
+There is a mat here.
+>EXAMINE FOUNTAIN
+
+The fountain consists of four ornate stone rats that are supposed to spout water into a shallow basin. However, it is out of order at the moment (typical Kerovnian maintenance).
+>LOOK IN FOUNTAIN
+
+The fountain contains a chit 
+>TAKE CHIT AND EXAMINE IT
+
+You have now got the chit 
+The chit has 'IOU One Ferg' written on it, signed by Honest John.
+>W
+
+On The Bridge 
+>W
+
+Stone Bridge 
+>N
+
+Cliff 
+You are at the edge of a cliff. To the east, far below, a fast flowing river runs south along a ravine. Westward is the vast wilderness and northwards the terrain becomes rocky and dangerous. 
+>W
+
+Grassy Plain 
+This is a vast expanse of grassy plain. To the west is the gravel path, and the plain extends as far as you can see to the east. Northward, the terrain becomes rocky and dangerous. Honest John the travelling salesman is here. He has a friendly air as he tries to sell you his goods from the back of a wooden cart pulled by a mangy old donkey.
+"Ah, here's a likely customer", he says with a confident patter, "Are you on a quest?" and without waiting for an answer, "Then you'll need to get kitted out and I've got just the things:
+Some iron rations for those peckish moments on dungeon journeys, for only 1 ferg. Some silver armour worthy of any true adventurer, for only 2 fergs. A bottle of whisky distilled by the highly acclaimed Roobikyoub tribe of dwarfs, for only 2 fergs. Some sparkling spring water from the exclusive Obakanga valley in southern Kerovnia, for only 1 ferg. A bottle of Farthington's real ale (complete with twigs and sediment), for only 1 ferg. I don't accept credit even if it's good (it's a matter of principle).
+>W
+
+As you pass, Honest John complains, "Not going to buy anything, eh? Well, you're hardly going to succeed in your quest without any equipment, are you?"
+On The Path 
+You are on the gravel path. Directly north are foothills leading up to the southernmost mountain. Westward is the mountainous region and the expanse of grassy plain is to the east. 
+>NW
+
+Mountainous Hills 
+You are in a mountainous region to the north of the dying forest, where there are many mounds and small hills. Northward, the terrain becomes rocky and dangerous. To the west are more rolling hills but northwestward stands the most eminent hill in the area. 
+>NW
+
+Large Hill 
+You are on a large hill covered in clumps of wild heather atop which is a small hut. To the north, the terrain becomes dangerously rocky. However, in every other direction there are more hills. From within, a voice says, "Come in, my child, the way is clear."
+>ENTER HUT
+
+Inside The Hut 
+You are now inside a dingy old mud hut. A shaven-headed guru wearing an orange robe sits cross-legged in the centre of the floor with a cupboard behind him. Also, a small bowl, full of rice, is on the floor in front of the guru. As you enter, he stands, bows to you and sits again.
+The guru notices your wristband and breaks out into uncontrollable laughter.
+>REMOVE SHIRT
+
+You take off the shirt 
+>COVER WRISTBAND WITH SHIRT
+
+The shirt is now fixed to the wristband 
+The guru stifles a giggle then empties his bowl and gives it to you saying, "Fetch me the essential nourishment of all mortals and I will answer your questions, my child."
+>E
+
+Large Hill 
+>E
+
+Mountainous Hills 
+>NE
+
+Foothills 
+You find yourself in the foothills below the nearest of the snow-capped mountains which looms up ominously in front of you. Around you, the floor is strewn with massive boulders. The only exits are south, along the gravel path, and a track leading northwest up the side of the mountain. Which is blocked by a particularly large boulder.
+>REMOVE SHIRT
+
+(From the wristband)
+>TIE RAKE AND HOE TOGETHER WITH SHIRT
+
+The rake is now fixed to the hoe 
+An adventurer has just arrived, riding a horse
+>EXAMINE ADVENTURER
+
+The adventurer is a tall, handsome man dressed in gleaming armour. He occasionally says things like 'go north', 'get sword' and 'unlight lamp'.
+An adventurer in gleaming armour is here, riding a horse with no legs.
+>GIVE CHEST TO ADVENTURER
+
+He takes the chest, holds it at arms length and cautiously opens it. As it is opened a faint vapour flows from it, down the adventurers arm and envelops him. Gradually the vapour grows denser until his grimacing face is no longer visible. When the vapour clears the adventurer's body is lying on the ground.
+>LEVER BOULDER WITH RAKE AND HOE
+
+Together the hoe and the rake are strong enough to move the boulder. Using all your strength the boulder crunches slowly to one side - revealing a path to the northwest.
+>REMOVE SHIRT
+
+(From the hoe)
+The rake and the hoe fall apart.
+>WEAR SHIRT
+
+You put on the shirt 
+>DROP RAKE AND HOE
+
+Rake dropped.
+Hoe dropped.
+>NW
+
+Narrow Track 
+You are on a narrow track which winds its way up the side of the mountain. As you round one of the corners the track comes to an abrupt halt, blocked by a rockfall. However, it continues above the pile of rocks that block your way. 
+>CLIMB ROCKS
+
+Narrow Track 
+At this point on the track is an awesome cave-like opening leading east into the heart of the mountain. The track also continues northeastward further up the mountain. 
+>UP
+
+Narrow Track 
+You are at the end of the track. A stairway cut into the rock leads up from here to a snow-covered plateau in the centre of which is a cylindrical tower made of ice. 
+>UP
+
+Plateau 
+This is the snow-covered plateau, brilliant and pure. The stairway leads down from here to the mountain track and the rest of the plateau is to your south and west. The ice tower is southwestward but you can't see an entrance here. 
+>FILL BOWL WITH SNOW
+
+The snow is now inside the bowl 
+>DOWN
+
+Narrow Track 
+>DOWN
+
+Narrow Track 
+>DOWN
+
+Narrow Track 
+>SE
+
+Foothills 
+There is a hoe and a rake here. An adventurer and a horse are here.
+>S
+
+On The Path 
+>W
+
+Mountainous Hills 
+>NW
+
+Large Hill 
+>EXAMINE BOWL
+
+The bowl is made of bone china and has a willow-pattern motif on the outside surface.
+It contains some water 
+>ENTER HUT
+
+Inside The Hut 
+There is some rice here.
+>GIVE BOWL TO GURU
+
+He thanks you 
+The guru smiles and says, "Some light in the forest would help you and the trees. We must live in harmony with nature, you know."
+>TAKE RICE
+
+You have now got the rice 
+>E
+
+Large Hill 
+>S
+
+Rolling Hills 
+This is a bleak area of rolling hills to the north of the forest, where there are many mounds and knolls. Northward is the largest hill in the region and behind that looms the nearest of the snow-capped mountains. There are many more hills to the east and west. 
+>S
+
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just out of the forest you can see an area of moorland and to the east there is a gravel path running along the edge of the forest. 
+>S
+
+Forest Clearing 
+You have stumbled upon a clearing in the forest, the middle of which is covered in a vibrant, green turf. However, the trees around the edge of the clearing have no leaves and all seem dead or dying. 
+There is a tree stump here.
+>EXAMINE STUMP
+
+The tree stump is gnarled and rotten.
+It contains a pouch 
+>TAKE POUCH AND OPEN IT
+
+You have now got the pouch 
+The pouch is now open.
+>LOOK IN POUCH
+
+The pouch contains a blue, a green and a red 
+>FEEL BLUE
+
+The blue is cold 
+>FEEL GREEN
+
+The green is clammy 
+>FEEL RED
+
+The red is warm 
+>MIX COLOURS
+
+The colours meld together forming a single new colour, white, that shines brilliantly.
+>FEEL WHITE
+
+The white is warm 
+>N
+
+Rank Forest 
+>NE
+
+On The Path 
+>N
+
+Foothills 
+There is a hoe and a rake here. An adventurer and a horse are here.
+>NW
+
+Narrow Track 
+>CLIMB ROCKS
+
+Narrow Track 
+>E
+
+Cavemouth 
+You find yourself in the mouth of a high-ceilinged cave. The sunlight from outside just reaches far enough in to reveal a low passage in the east wall. The only other exit is west onto the mountain track. 
+>E
+
+Cavern 
+This is a large, dim cavern where you can hear the high pitched squeaking of many bats. There is a shallow pool near the centre of the cavern and an ominous opening in the east wall leading into another cavern. The only other exit is west to the cavemouth. 
+>E
+
+Cavern 
+You find yourself in a fascinating cavern where there are many weird and wonderful stalagmites and stalactites, whose constant dripping becomes irritating after a while. The floor of the cavern by the north wall has a deep fracture in it which leads down into a thick blanket of darkness, the only other exit being an opening in the west wall. 
+>DOWN
+
+Small Cave 
+This is a small, bare cave far below the level of the cave-entrance, the only points of interest being the four exits north, south, east and leading up. 
+>E
+
+Corridor 
+You find yourself in a long, winding east-west corridor hewn out of the mountain rock by some ancient delvers. On the south wall is a REM statement. 
+>READ REM
+
+The rem says:
+This is where the player falls down the trap-door.
+>DROP ALL
+
+Pouch dropped.
+Trowel dropped.
+Rice dropped.
+Key dropped.
+Chit dropped.
+White dropped.
+>E
+
+Lava River 
+This is a large cavern, the northern half of which is taken up by a lava river which runs east to west. A vertical shaft leads upwards and there is a passage to the west. Even though the cavern is quite high, it is still very hot in here and you vaguely recognise the smell of sulphur in the atmosphere. 
+>UP
+
+Vertical Shaft 
+This is an extremely tight shaft, its primary function is probably to supply air to the fires of hell, rather than allowing mortals pot-holing practice. 
+>UP
+
+Riverside Chamber 
+This chamber has been cut into the rock by the river, which is now kept out by a low, fragile looking wall. 
+>EXAMINE WALL
+
+The wall looks paricularly fragile. The river flows within inches of the top of it.
+>PUSH WALL
+
+The wall breaks easily, allowing the river water to flood into the chamber, sweeping you down the shaft with it.
+>LOOK
+
+Corridor 
+You find yourself in a long, winding east-west corridor hewn out of the mountain rock by some ancient delvers. On the south wall is a REM statement. 
+There is a pouch, a trowel, some rice, a key, a chit and a white here.
+>TAKE ALL
+
+You have now got the pouch 
+Trowel taken.
+Rice taken.
+Key taken.
+Chit taken.
+White taken.
+>E
+
+Lava River 
+>N
+
+Cavern 
+You are on the north bank of the solidified lava river. There is a cubic stone pedestal here painted pale blue. Also, in the northeast wall, is an exit with a notice above it. 
+There is a pedestal here.
+>EXAMINE PEDESTAL
+
+The pedestal has an image of a key on the top surface.
+>MOVE PEDESTAL
+
+Using all your strength, you just manage to shift the pedestal a little. Below it you can now see a small niche.
+>EXAMINE NICHE
+
+The niche is a small depression in the floor under the pedestal.
+It contains a blue key 
+>TAKE BLUE KEY AND EXAMINE IT
+
+You have now got the blue key 
+The blue key is a short rod without jagged bumps on the end.
+>READ NOTICE
+
+The notice reads:
+Warning
+---------
+This maze is totally irrelevant to the adventure.
+Hear Dante! Oh, beware yon open hell.
+>S
+
+Lava River 
+>W
+
+Corridor 
+>W
+
+Small Cave 
+>N
+
+Damp Passage 
+This a damp, murky passage which runs north to south, its only notable feature is a political poster. 
+>READ POSTER
+
+The poster has a picture of a grey haired (and bearded) dwarf with a political slogan underneath that reads:
+Vote for Gringo Baconburger
+Help him in his campaign to rid dungeons of phosphorescent moss, magic teleporting words, unrealistic use of verbs and mazes of any form or description.
+Remember, a vote for Baconburger is a vote for sensible, no-nonsense dungeons.
+>S
+
+Small Cave 
+>UP
+
+Cavern 
+>W
+
+Cavern 
+>W
+
+Cavemouth 
+>W
+
+Narrow Track 
+>UP
+
+Narrow Track 
+>UP
+
+Plateau 
+>S
+
+Plateau 
+This is the plateau, covered in crisp snow. The ice tower is to the northwest and there is more snow both northward and westward. 
+>W
+
+Plateau 
+You are on the snow-covered plateau which extends to the north and east. Northeastward is an entrance to the ice tower. A snowman is here.
+>EXAMINE SNOWMAN
+
+The snowman is made of snow but seems to possess human facial expressions that seem tortured and sad.
+>MELT SNOWMAN WITH WHITE
+
+The snowman has melted and is no longer blocking your way. However, he is slowly re-forming using snow from just outside the tower.
+>NE
+
+Inside The Tower 
+This is the ground floor of the ice tower. From here there is an opening in the west wall and a slope (made of ice) spirals in a helical path up the inside wall of the tower to a landing. Southwest leads back to the plateau. 
+>W
+
+Store 
+This is the store-room of the tower. There is a crude table hacked out of ice against the west wall and an exit east to the ground floor of the tower. 
+There are some spiky boots here.
+>EXAMINE TABLE
+
+The ice table has four legs, one in each corner.
+There is a prism on it 
+>WEAR BOOTS
+
+You put on the spiky boots 
+>E
+
+Inside The Tower 
+>UP
+
+Landing 
+You are on the landing at the top of the ice tower. To the north is a heavy wooden door. From the edge of the landing, the helical slope leads down to the ground floor. 
+>DOWN
+
+Inside The Tower 
+>DROP BOOTS
+
+Spiky boots dropped.
+>SW
+
+Plateau 
+There is a white here. A snowman is here.
+>TAKE WHITE AND PUT IT IN POUCH
+
+You have now got the white 
+The white is now inside the pouch 
+>E
+
+Plateau 
+>N
+
+Plateau 
+>DOWN
+
+Narrow Track 
+>DOWN
+
+Narrow Track 
+>DOWN
+
+Narrow Track 
+>SE
+
+Foothills 
+There is a hoe and a rake here. An adventurer and a horse are here.
+>S
+
+On The Path 
+>SW
+
+Rank Forest 
+>S
+
+Forest Clearing 
+There is a tree stump here.
+>S
+
+Rank Forest 
+This is a part of the forest where the humidity has caused the undergrowth to be covered in a thin layer of mildew. The overpowering odour fills your nostrils, prompting nausea. Looking southward, you can see a dotted red line on the ground, beyond which is a dense, swirling fog. Just in front of the line is a notice board. There is also a large tree here that looks climbable. 
+>CLIMB TREE
+
+Up The Tree 
+You find yourself a long way up the ancient tree. There are an abundance of twigs and branches that all seem to be brushing against your face. The branches extend even further above your head but you cannot climb any higher as there are no more footholds. Set into the west side of the tree trunk is a small wooden door. 
+>OPEN DOOR WITH WOODEN KEY
+
+The door is now open.
+>DROP WOODEN KEY
+
+Wooden key dropped.
+>E
+
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered with varnished wooden planks and light filters through the various knots and holes further up the trunk. 
+There are some boards here. One of the floorboards seems quite loose.
+>CLOSE DOOR
+
+The door is now closed.
+>MOVE BOARDS
+
+A dark forbidding opening is revealed leading down...
+>DOWN
+
+Staircase Room 
+You are on an old, wooden staircase whose steps have been worn down over the years so that they are now smooth and shiny. The only ways to go from here are up and down. 
+>DOWN
+
+Low Ceiling Room 
+You find yourself in a low ceilinged room that has been hewn out of the earth by some ingenious gnomes. Passages lead off in every direction, but they have obviously been built for people much smaller than yourself. The only passages tall enough for you to enter are the ones in the east and west walls and up the spiral staircase. 
+>E
+
+White Room 
+You find yourself in a small room that has a very clinical air about it. The walls are white and there are three exits - north, east and west. 
+>N
+
+Office 
+This is a dimly lit office which may have been used as Gringo Baconburger's election campaign headquarters. A wooden desk stands in one corner and on the floor is an old rug. The only exit from here is south. 
+>MOVE RUG
+
+You succeed in moving the rug, you find a safe 
+>EXAMINE SAFE
+
+The safe is set into the floor.
+It is locked 
+>UNLOCK SAFE WITH BLUE KEY
+
+The key vanishes.
+The safe is now unlocked
+>OPEN SAFE
+
+The safe is now open.
+>LOOK IN SAFE
+
+The safe contains nothing 
+>LOOK UNDER SAFE
+
+You find a ballot paper 
+>TAKE PAPER AND EXAMINE IT
+
+You have now got the ballot paper 
+The ballot paper is the original, written by Gringo. It appears that you can either vote for or against him.
+>S
+
+White Room 
+>E
+
+Voting Booth 
+You find yourself in a shabbily constructed room currently being used as a voting booth. There is an exit west which leads to the white room. Fixed to the wall are two ballot boxes, one considerably larger than the other. 
+There is a table here.
+>EXAMINE LARGE BOX
+
+The large box has 'Vote for Gringo!' Pasted across it.
+>EXAMINE SMALL BOX
+
+The small box is where the citizens of Kerovnia must put their ballot papers to vote against Gringo.
+>PUT PAPER IN LARGE BOX
+
+The ballot paper is now inside the large box 
+>W
+
+White Room 
+>W
+
+Low Ceiling Room 
+>W
+
+Crossroads 
+You are at a junction in the passage. There are three exits, northwest, southwest and east. Some writing on the wall tells you that the northwest exit leads to a mine and the southwest exit leads to a residential area. 
+>SW
+
+Passage 
+You find yourself in a northeast-southwest passage. Northeast takes you to the crossroads and southwestward the passage ends when it meets the front door of a small underground abode (to the west). 
+>OPEN DOOR
+
+The door is now open.
+>W
+
+Lounge 
+This is the lounge of the small house whose owner is absent at the moment. There is a settee against the north wall and some hooks on which to put coats are beside the door. There are exits east and west. Hanging from a hook is a bright yellow hard hat.
+>WEAR HAT
+
+You put on the hat 
+>EXAMINE SETTEE
+
+The settee can seat about two human-sized people or three gnomes.
+There are some cushions on it 
+>MOVE CUSHIONS
+
+You succeed in moving the cushions, you find a coin 
+>TAKE COIN
+
+You have now got the coin 
+>W
+
+Kitchen 
+You are in the kitchen of the small house which is extremely clean and very hygenic. An exit in the east wall leads into the lounge and a large stove stands against the south wall with a worktop next to it. 
+>EXAMINE STOVE
+
+The stove is an archaic contraption probably here for its antique value rather than its ability to cook well.
+There is a teapot on it 
+>EXAMINE WORKTOP
+
+The worktop is what the owner prepares his or her meals on.
+There is a carrot on it 
+>E
+
+Lounge 
+>E
+
+Passage 
+>NE
+
+Crossroads 
+>NW
+
+Passage 
+This passage leads southeast to the crossroads and north to a lift door, next to which is a button. On the lift door is a message that says "Are you wearing your hard hat?". 
+>PRESS BUTTON
+
+Click
+In the distance you hear a faint whirring of machinery.
+>WAIT
+
+Time passes 
+>WAIT
+
+Time passes 
+>WAIT
+
+Time passes 
+>WAIT
+
+Time passes 
+The whirring stops and there is a loud 'clunk' as the lift arrives.
+>SLIDE DOOR
+
+The door is now open.
+>N
+
+Lift 
+You are in the lift which is a small cubicle about five feet by five feet by ten feet high. There is a small metal plaque bolted to the wall above two buttons. The door is in the south wall of the lift. 
+There is a rope here.
+>SLIDE DOOR
+
+The door is now closed.
+>EXAMINE PLAQUE
+
+The plaque has a message on it which reads
+Max. Load
+Eight persons.
+>EXAMINE BUTTONS
+
+The first button will make the lift go up if pressed.
+The second button must be pressed to make the lift go down.
+>PRESS SECOND BUTTON
+
+Click
+Slowly the lift descends, making extremely unhealthy mechanical noises.
+>SLIDE DOOR
+
+The door is now open.
+>S
+
+As you step from the lift part of the roof collapses, fortunately your hard hat completely protects your delicate head.
+Rockface 
+You are confronted by a rockface at which the gnomes have obviously been mining for precious metals (lead in fact). The only exit from here is north into the lift. 
+There are some lumps here.
+>SCRAPE LEAD WITH TROWEL
+
+You have now got the lumps 
+>N
+
+Lift 
+There is a rope here.
+>TAKE ROPE
+
+You have now got the rope 
+>SLIDE DOOR
+
+The door is now closed.
+>PRESS FIRST BUTTON
+
+Click
+With a great deal of groaning and grinding the lift ascends.
+>SLIDE DOOR
+
+The door is now open.
+>S
+
+Passage 
+>DROP HAT
+
+Hat dropped.
+>SE
+
+Crossroads 
+>E
+
+Low Ceiling Room 
+>UP
+
+Staircase Room 
+>UP
+
+Tree Trunk Room 
+There are some boards here.
+>OPEN DOOR
+
+The door is now open.
+>W
+
+Up The Tree 
+There is a key here.
+>DOWN
+
+Rank Forest 
+>N
+
+Forest Clearing 
+There is a tree stump here.
+>N
+
+Rank Forest 
+>NE
+
+On The Path 
+>E
+
+Grassy Plain 
+>LOOK
+
+Grassy Plain 
+This is a vast expanse of grassy plain. To the west is the gravel path, and the plain extends as far as you can see to the east. Northward, the terrain becomes rocky and dangerous. Honest John is here.
+>BUY WHISKY AND ALE WITH COIN
+
+You have now got the whisky bottle 
+You have now got the beer bottle 
+>DROP CHIT
+
+Chit dropped.
+>W
+
+Honest John says,"Thank you very much, sir. It was nice doing business with you."
+On The Path 
+>N
+
+Foothills 
+There is a hoe and a rake here. An adventurer and a horse are here.
+>NW
+
+Narrow Track 
+>CLIMB ROCKS
+
+Narrow Track 
+>E
+
+Cavemouth 
+>E
+
+Cavern 
+>E
+
+Cavern 
+>DOWN
+
+Small Cave 
+>N
+
+Damp Passage 
+>N
+
+Laboratory 
+This seems to be some sort of laboratory. There are many interconnected limbecks, flasks and tubes with a strangely coloured liquid flowing through them and bubbling clouds of vapour appearing at irregular intervals. Exits lead south, northwest and northeast. Some alchemists are here.
+The three alchemists are sitting on the floor hotly debating who should go outside to get some dinner as they are scared that whoever leaves will sell the secret of turning lead into gold to the rest of the world and not cut the rest of them in on the deal. Suddenly, the alchemists break off from their discussion as they notice you. One of them stands up and speaks, "We are having a bit of a disagreement as to who should leave and get us all lunch. If you would be so kind as to do this for us we could turn any lead you have into ... Gold."
+>GIVE RICE TO ALCHEMISTS
+
+The alchemists gorge themselves on the lunch that you brought them. When they have finished one of them says, "Thank you very much. Now, if you have any lead that you wish to be turned into gold.."
+>GIVE LEAD TO ALCHEMISTS
+
+The alchemists each grab a piece of lead and run out of separate exits, leaving you alone in their room.
+>NE
+
+Store Room 
+This is the alchemist's store room full of dusty old rubbish. In the south wall is an opening leading into a tubular corridor and a doorway in the southwest corner of the room leads to the laboratory. 
+There are some tomes and an aerosoul here.
+>TAKE TOMES
+
+You have now got the tomes 
+>EXAMINE TOMES
+
+The tomes are works of ancient lore which would crumble to dust if you tried to open them without a spell.
+They are closed 
+>CAST SPELL ON TOMES
+
+It works! - The book opens!
+>READ BOOK
+
+The tomes tell of an ancient contract between Kronos and the Devil, giving Kronos his evil powers in return for his soul. When Kronos' mortal life expires, his soul must suffer the most horrendous agony for eternity.
+You skip through a few paragraphs of small print and find a sub-clause near the end stating that Kronos can avoid this torture by exchanging three good souls for his own.
+Once read, the tomes crumble to nothing.
+>TAKE AEROSOUL AND EXAMINE IT
+
+You have now got the aerosoul 
+The aerosoul has a nozzle on the top which sucks instead of spraying when pressed.
+>SW
+
+Laboratory 
+>NW
+
+Passage 
+You find yourself in a small cavern which is lit by a source of sunlight coming from the west through a wide gap in the wall. The only other exit here is southeast to the alchemist's lab. 
+>W
+
+High Ledge 
+You are now on a ledge roughly one third of the way up the side of the mountain. A rickety old rope bridge leads out northward across a deep ravine to another mountain - it doesn't look too safe! Hundreds of feet down, at the bottom of the ravine is a fast flowing river. The only other exit is east, into the mountain. 
+>N
+
+Rope Bridge 
+The bridge here is swaying from side to side, creaking and groaning alarmingly. However, it manages to take your weight (just). 
+>N
+
+Rope Bridge 
+You are now about ten yards away from the north side of the rope bridge - the air is fresh and clear and not a sound can be heard apart from the creaking of the rope bridge. 
+>N
+
+High Ledge 
+You find yourself on a ledge halfway up the northernmost mountain. Southward, a hazardous looking rope bridge traverses a deep ravine, and two passages, one to the northwest and one to the northeast, lead into the depths of the mountain. 
+>NE
+
+Tunnel 
+This is a particularly dusty tunnel, running north-south, which is supported along its length by wooden posts that are under great stress from the load they bear. 
+>N
+
+Room 
+You find yourself in a room with freshly papered walls. There is a small cupboard against the west wall and some graffiti on the north wall. An exit south leads to a dusty tunnel. 
+There is some paste and some wallpaper here.
+>OPEN CUPBOARD
+
+The cupboard is now open.
+>EXAMINE CUPBOARD
+
+The cupboard has two handles that you must pull to open it.
+It is open 
+It contains a hook 
+>TIE ROPE TO HOOK
+
+The rope is now fixed to the hook 
+>EXAMINE WALLS
+
+The stone wall is standard issue Kerovnian dungeon wall, to be found thoughout Kerovnia keeping adventurers within the substance of the universe.
+The paper wall consists of a large sheet of paper, written upon which is some graffiti.
+>READ GRAFFITI
+
+The graffiti reads:
+ 
+Do not lean on this wall.
+>TEAR PAPER WALL WITH TROWEL
+
+You tear the paper wall to shreds. The paper wall tears easily, creating a large hole in the middle, beyond which is a deep chasm from which emanates the smell of sulphur.
+>TAKE ROPE
+
+But you are already carrying the rope 
+>CLIMB DOWN ROPE
+
+Ledge 
+You find yourself on a ledge about ten feet below the papered room. Far below, the pit descends into a disconcerting red glow and southward is a tight, narrow passageway sloping gently down. 
+>DROP ROPE
+
+Rope dropped.
+>S
+
+Passage 
+This is a tight, meandering passage leading west to a ledge and east to some tall, double doors. 
+>KNOCK ON DOUBLE DOORS
+
+A voice from behind the door says, "Here's a knocking indeed! If a man were porter of hell gate he should have old turning the key. "
+>KNOCK ON DOUBLE DOORS
+
+"Knock, knock, knock! Who's there i'the name of Belzebub? Here's a farmer that hanged himself on the expectation of plenty. Come in time! Have napkins enow about you; here you'll sweat for't."
+>KNOCK ON DOUBLE DOORS
+
+"Knock, knock! Who's there in the other devil's name? Faith, here's an equivocator that could swear in both the scales against either scale, who committed treason enough for God's sake, yet could not equivocate to heaven. O, come in, equivocator."
+>KNOCK ON DOUBLE DOORS
+
+"Knock, knock, knock! Who's there? Faith, here's an English tailor come hither for stealing out of a French hose. Come in, tailor; here you may roast your goose."
+>KNOCK ON DOUBLE DOORS
+
+"Knock, knock! Never at quiet! What are you? - But this place is too cold for hell. I'll devil-porter it no further. I had thought to have let in some of all professions that go the primrose way to the everlasting bonfire."
+Finally, the porter opens the gate.
+"I pray you, remember the porter."
+The double doors are now open.
+>GIVE WHISKY TO PORTER
+
+"Thank you kindly, may God be with you."
+>EXAMINE PORTER
+
+The porter is a drunken old scotsman who possesses an almost empty hip flask. He smells strongly of cheap whisky.
+He seems drunk
+>E
+
+Shaft 
+This is a dark cylindrical shaft with an iron ladder leading down into a wispy, yellow cloud and up to some double doors. The stench of sulphur here and the growing heat make you feel quite queasy. 
+>DOWN
+
+Shaft 
+You are in the vertical shaft where the heat is becoming almost unbearable. The bottom of the shaft leads off north into an annexe and has another exit east. The ladder is almost too hot to touch. You can hear strains of music coming from the north exit.
+>N
+
+Annexe 
+This is a small room with a piano in its centre. Jerry Lee Lewis is sitting at the piano singing his hit song 'Great Balls of Fire' - he looks very hot and uncomfortable. 
+>GIVE ALE TO JERRY
+
+He takes the drink, knocks it back in one and says, "Cheers, pal. I needed that- it's a bit hot down here."
+>S
+
+Shaft 
+>E
+
+As you enter the light you are carrying is reflected back from every direction, forcing you to return lest you be blinded.
+>CLOSE POUCH
+
+The pouch is now closed.
+>E
+
+Chamber 
+This chamber is painted white and shaped like a regular pentagon. There are many small pieces of crystal set into the walls which make the most efficient use of all available light, creating shimmering images in the room and down the connecting passages, which lead north, south and west. 
+>S
+
+Circular Room 
+This is a circular room, the southern half of which is taken up by the lava river flow. In the north wall is a wide, open corridor, faintly lit by the deep red glow from the lava. 
+>N
+
+Chamber 
+>N
+
+Cavern 
+This cavern is the home of a mob of powerful demons. There is a heavy stench of rotting carrion coming from headless corpses hung on nooses (?!?) Against the north wall. The demons are busy feeding at the moment, making too much noise to notice your entrance. A fridge is embedded in the south wall near one exit, the only other exit being down a steep passage in the east wall. 
+>EXAMINE FRIDGE
+
+The fridge is under great strain in this heat.
+It is closed 
+>E
+
+Hell 
+You are in the bubbling fire-pit of hell. Small geysers dotted at irregular intervals randomly spout their vitriol into the crackling atmosphere. Sharp, shining scythes, making deadly sweeping motions at head height, hang in front of you, suspended by some indiscernible force. Amongst this chaos stands an immense throne sitting upon which is a horrible being covered in thick black fur with terrible fiery eyes. 
+The terrible eyes seem to be speaking to you in some sort of empathic transmission. It takes you a while to figure out what they are trying to say but eventually you get the message - they are saying "Hello".
+>EXAMINE THRONE
+
+The throne is ingeniously constructed from human skulls.
+There is a Devil on it 
+>ASK DEVIL ABOUT WRISTBAND
+
+The Devil says,"I will remove that wristband for you, but I need a sacrifice - that of the soul of the magician Kronos- no other will do. This is a difficult task, for Kronos is a very powerful mortal, and so I will aid you in this quest. This potion is your aid- you will not be able to open it, but be extremely careful with it, for the bottle is made of the finest crystal and is very brittle. Now you must leave this land of the dead and return to that of the living where I hope you will do my work well until I call again. Farewell." A bolt of fire issues forth from the eyes and...
+>LOOK
+
+Rope Bridge 
+The bridge here is swaying from side to side, creaking and groaning alarmingly. However, it manages to take your weight (just). 
+There is a potion bottle here.
+>TAKE BOTTLE AND EXAMINE IT
+
+You have now got the potion bottle 
+The potion bottle contains a sizzling black potion that smells like burnt toast.
+>N
+
+Rope Bridge 
+>N
+
+High Ledge 
+>OPEN POUCH
+
+The pouch is now open.
+>NW
+
+Chamber 
+This is an immense, roomy chamber which echoes every noise you make. A fierce and hungry-looking dragon sits against the east wall on a glittering pile of treasure obviously collected over many centuries of senseless slaughter. The outermost limits of the chamber are bathed in hazy shadows. Passages north and in the southeast corner of the chamber provide access. A dragon is here.
+The dragon looks at you and says, "Ah, my lunch at last - some tasty human flesh. It's a bit of a mouthful but I suppose I'll be able to manage it."
+>EXAMINE SHADOWS
+
+The shadows have some small (about half man-size) humanoid shapes hiding in them.
+>POINT AT SHAPES
+
+The dragon looks around, squinting all the time, and then says, "I can't see anything so I'll just have to eat you instead."
+>SHINE WHITE AT SHAPES
+
+"Ah ha", he says, "I see them now." The dragon then proceeds to fry the thirteen hobbits before eating them, taking quite a while because frying hobbits when you are the size of a dragon is a very fiddly business.
+>N
+
+You manage to get past the dragon whilst he is enjoying his tasty little snack.
+Workshop 
+This is the magician's workshop. A large table stands in the centre of the room and bookcases, laden with dust, line the walls along with a storage rack. In the south wall is a corridor with an oil lantern fixed above, which sways in a steady breeze coming from a niche in the north wall. This motion makes flickering images flit around the room and lights the murk and gloom of the corridor. A magician is here.
+As you enter the room the magician stares at you
+>THROW BOTTLE AT KRONOS
+
+The bottle smashes and the potion splashes onto Kronos's face, causing his skin to boil and bubble. He clutches his eyes and screams out in agony as the black liquid eats into his flesh. With one last defiant cry he slumps to the floor.
+>PRESS NOZZLE ON AEROSOUL
+
+The aerosoul quickly devours the scarred soul of the evil magician with little resistance.
+Kronos's body is sizzling away, the black liquid slowly devouring his flesh.
+>EXAMINE KRONOS
+
+The magician is as dead as a doornail.
+The liquid is now gnawing away at Kronos's bones, the last remnants of his existence.
+>LOOK
+
+Workshop 
+This is the magician's workshop. A large table stands in the centre of the room and bookcases, laden with dust, line the walls along with a storage rack. In the south wall is a corridor with an oil lantern fixed above, which sways in a steady breeze coming from a niche in the north wall. This motion makes flickering images flit around the room and lights the murk and gloom of the corridor. A magician is here.
+There is nothing left of Kronos now except an ugly memory and a pile of clothes on the floor.
+>EXAMINE CLOTHES
+
+The shirt is black with a green design of a plant that has seven jagged edged leaves.
+The jeans are made of blue denim and have a pocket in the front.
+The cloak is made from a black material of exceptional quality adorned with mystic symbols.
+The pointy hat has silver stars and moons stitched onto it.
+>WEAR CLOAK
+
+You put on the cloak 
+>WEAR POINTY HAT
+
+You put on the pointy hat 
+>TAKE WAND
+
+You have now got the wand 
+>DROP TROWEL
+
+Trowel dropped.
+>EXAMINE RACK
+
+The rack is the ideal place to keep wands when you're a forgetful magician.
+There are some wands on it 
+>TAKE WANDS
+
+You have now got the wands 
+>N
+
+As you step on it the platform issues a mechanical groan.
+Circular Platform 
+You recognise this platform as the one used by Kronos, although it's doubtful whether you can use it with as much agility. 
+>DOWN
+
+The platform accelerates downwards at an incredible rate, leaving your stomach battling with your tonsils and your feet wondering if gravity might return. Abruptly the platform slows its descent, halts and dumps you in a disheveled heap. It then departs - whistling to itself.
+Circular Room 
+>CLOSE POUCH
+
+The pouch is now closed.
+>N
+
+Chamber 
+>N
+
+Cavern 
+The demons are busy gorging themselves, making a lot of mess in the process.
+>E
+
+Hell 
+>GIVE AEROSOUL TO DEVIL
+
+The devil's eyes turn on you, showing a hint of gratitude mixed with a patronising condemnation of your weakness of spirit. Imperceptibly, the silver wristband falls to the ground and melts into a blob of useless metal in a matter of seconds.
+The devil signals you to leave the chamber, your contract fulfilled.
+>W
+
+Cavern 
+The demons are busy gorging themselves, making a lot of mess in the process.
+>S
+
+Chamber 
+>W
+
+Shaft 
+>UP
+
+Shaft 
+>OPEN POUCH
+
+The pouch is now open.
+>W
+
+Passage 
+A porter is here.
+>W
+
+Ledge 
+There is a rope here.
+>TAKE ROPE
+
+Rope taken.
+>CLIMB UP ROPE
+
+Room 
+There is some paste and some wallpaper here.
+>DROP ROPE
+
+Rope dropped.
+>S
+
+Tunnel 
+>S
+
+High Ledge 
+>S
+
+Rope Bridge 
+>S
+
+Rope Bridge 
+>S
+
+High Ledge 
+>E
+
+Passage 
+>SE
+
+Laboratory 
+>S
+
+Damp Passage 
+>S
+
+Small Cave 
+>S
+
+Entrance 
+This is a narrow corridor that gets brighter and brighter to the south, ending when it meets two freely swinging perspex doors. Beyond the doors, you can see it continues, bathed in a hazy light. 
+>OPEN DOOR
+
+The perspex doors are now open.
+>S
+
+Corridor 
+You are in a long, straight corridor running north-south which is lit by fluorescent lamps. On either side of the corridor are clear glass windows set into white walls, reminding you of home. At the south end of the corridor is a cream coloured door. 
+>KNOCK ON DOOR
+
+The voice says,"Who is it? Are you wearing a silver wristband?"
+>SAY "NO"
+
+The door is now open.
+>S
+
+Room 
+You are in a strange room totally alien to the rest of the adventure. The walls and floor are covered in listing paper and a large fan blows cigarette ash onto the many computers and peripherals that inhabit this weird abode. As you enter the room, a bunch of bleary eyed, extremely tired looking programmers literally fall out of the door. One, looking particularly harrassed, hands you a listing and says "Fix this will you? - We're off to the pub to celebrate someone finishing this game.." 
+>EXAMINE LISTING
+
+The listing is of a chunk of code called 'Debugbits' - It looks like it might let you wander around the game without dying....
+>glk script off
+

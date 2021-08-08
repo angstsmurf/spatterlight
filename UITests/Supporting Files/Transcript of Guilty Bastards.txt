@@ -1,0 +1,952 @@
+Transcription on.
+
+>GET ENVELOPE
+You scoop the envelope up off the floor.
+
+>OPEN ENVELOPE
+Opened.
+
+Inside the envelope are a small note and a studio pass.
+
+>READ NOTE
+Handwritten, again, but this time on Rocket Pictures stationery.
+
+"8:30 at the studio.
+
+           --MW"
+
+(which of course stands for Milt Walker)
+
+(Footnote 1)
+
+>EXAMINE PASS
+It's a drive-on parking pass for the Rocket Pictures Studios lot dated today.
+
+>EXAMINE TABLE
+The night table is off to the left of the door, set along the wall.  Sitting on the night table are your cousin's car keys.
+
+>GET KEYS
+You grab the keys off the night table.
+
+>D
+You open the door and leave, closing the door behind you, then head down the stairs and outside to the street.
+
+Pelican Hotel
+  The exterior of the Pelican has been painted so many times that its peeling shell is probably suitable protection against radioactive fallout.  Warm Los Angeles sunlight glows through the hazy blue-gray of the summer sky.  The rather quiet street outside the hotel runs south toward Sunset Blvd.
+  Your cousin's Volvo is parked here.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO STUDIO
+You drive midtown to the main gate of Rocket Pictures Studios and park in Visitor Parking.
+
+Studio gate, in your cousin's Volvo
+  Welcome to Rocket Pictures Studios.  It's everything a Hollywood studio should be:  it has a bold, impressive gate; the grounds of the lot extending to the north are lined with rows of pale hangar-like soundstage buildings and ceramic-roofed bungalows; there's a staggering abundance of motorhomes; it has its own watertower; and it's not actually in Hollywood at all.
+  (This last is demonstrated by the fact that there are one- and two-story shopping plazas and office buildings stretching as far as the eye can see instead of souvenir shops and T-shirt stands.)
+
+(Footnote 8)
+
+>GET OUT
+You get out of the Volvo.
+
+>N
+
+Studio backlot
+  It wouldn't be the hardest thing in the world to get lost back here among the soundstages, each of them nearly identical to the next except for the identifying number stenciled on it in faded white paint.  If you keep going straight to the north, eventually you'll get to the main building.  Or you could turn around and head back to the parking lot.  More buildings of an administrative flavor are over to the west.
+
+>N
+
+Main building
+You're just in front of the main administrative building.  Somewhere behind these walls are the executive offices of Rocket Pictures:  a motley assemblage of manic creative near-genius, mediocre posturing, epidemic insecurity, monumental bravado, white-knuckle risk-taking, milquetoast acquiescence, stark paranoia, and great leather furniture.
+  Milt Walker is here, standing outside the building.
+
+Milt speaks in a fairly low voice, straight and to the point, looking around, careful not to be overheard.  "Maybe you already guessed this, but I asked you here to talk about Cindy Painter's death.  I don't know if there's anything that you can find out that the cops haven't or won't, but I'm willing to give you twelve hours to see what you can do."
+
+>ASK MILT ABOUT PAINTER
+"It's such a goddamned tragedy," Milt says, pulling his glasses down and rubbing his eyes.  "I've known her for years, since long before she came here, tried to break in.  Knew her father, her parents are in Detroit.  She was just on the verge; she was making a picture for us--Stuart Fina was the executive on it."  He points over toward the side building.
+
+"Here," Milt says.  He hands you a report marked "LAPD Homicide Report".  "A contact of mine at the Police Department managed to procure this.  I don't know if it will be of any help."
+
+>READ REPORT
+The report is titled "LAPD HOMICIDE REPORT".  It describes how on May 23, Cindy Painter, a twenty-four year-old actress, was found strangled in her apartment on National Boulevard.  Forensics suggest that she opened the door to have the intruder burst in on her.  The body was found in the bedroom; there were no signs of assault other than strangulation.
+
+>EXAMINE MILT
+Milt Walker looks like a serious person.  People take him seriously in exactly the way they don't you.  And it's not just that he looks like he could buy and sell anybody he wanted; it's that everything about him seems done right.  His haircut.  The cut of his suit.  The fact that there's not even so much as a smudge on his glasses.  It's like the world just kind of bends to the way he wants it to be.
+
+"You might want to go to her apartment--I don't know if the police are still there or not.  Maybe you can find something they're missing."  He hands you a single apartment key.
+
+>ASK MILT ABOUT KEY
+"Never mind where I got that key," Milt says offhandedly.  "Just use it."
+
+"I'm going to be in and out today--I've still got a damned studio to run, even with all this mess going on.  I'll try to keep checking back out here for you after an hour or so."
+
+>S
+
+Studio backlot
+
+>S
+
+Studio gate
+  Your cousin's Volvo is parked here.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO APARTMENT
+You drive south to National Blvd. and pull over to the curb next to Cindy Painter's apartment building.
+
+National Boulevard, in your cousin's Volvo
+  The sidewalk leads south from the street to Cindy Painter's building, which is a three-story apartment complex.  Maybe it's not Beverly Hills, but you know, it's not bad.  National extends to the east, and also to the west before curving away to the north.
+
+>GET OUT
+You get out of the Volvo.
+
+>S
+
+Cindy Painter's apartment building
+  The sidewalk leads south from the street and under the thick greenery hanging lazily from a concrete overhang to the base of the stairs leading up.
+
+>U
+
+Apartment stairs
+  You stand on the cool cement steps outside Cindy Painter's apartment.  At least you assume it's hers on account of all the yellow "POLICE LINE--DO NOT CROSS" tape crisscrossing the door, which is closed.  The doors to the other apartments are closed, too.  You can go back down to the ground from here.
+
+>ENTER APARTMENT
+You unlock the door and go in, ducking under the tape and closing the door quietly behind you.
+
+(Now keep in mind that this is a crime scene, and you may want to be fairly judicious about what you disturb--or at least leave disturbed.)
+
+Cindy Painter's living room
+  Rather sparsely decorated:  a fairly new sofa sitting in the middle of the hardwood floor commands your attention.  There's a television in the corner.  The sole bedroom is to the north.  East takes you into the kitchen, or you can go back out into the stairwell.
+
+>LOOK UNDER SOFA
+A cassette tape is half-sticking out from under the sofa, probably overlooked by the police.
+
+>GET TAPE
+Taken.
+
+>EXAMINE TAPE
+Handwritten on the cassette label is "New Songs - May 15".  If the the tape player in the Volvo worked, you'd even be able to give it a listen.  The contact address on the tape is in Santa Monica.
+
+>E
+
+Kitchen
+  Refrigerator, stove, sink, kitchen window.  An empty carton of grapefruit juice sitting on the counter.  The living room is back out to the west.
+
+>EXAMINE WINDOW
+Through the window you can see behind the building, where a narrow alley plays host to a garbage dumpster.
+
+>EXAMINE SINK
+It's pretty much your average stainless-steel kitchen sink and faucet combo.  Entirely appropriate for washing dishes or rinsing vegetables or anything like that.  The boring tangle of plumbing is likely concealed in the cupboard beneath the sink.
+
+>OPEN CUPBOARD
+Opened.
+
+You can see the kitchen sink's plumbing in the cupboard.
+Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away in the cupboard in the space around and behind the plumbing.
+
+>LOOK BEHIND PLUMBING
+You find a box of garbage bags tucked away behind the pipes.
+
+>EXAMINE BAGS
+The garbage bags are stretchy plastic and dull orange in color.
+
+>CLOSE CUPBOARD
+Closed.
+
+>W
+
+Cindy Painter's living room
+
+>S
+You go out, ducking under the police tape before closing and locking the door behind you again.
+
+Apartment stairs
+
+>D
+
+Cindy Painter's apartment building
+
+>N
+
+National Boulevard
+  Your cousin's Volvo is parked here.
+
+>GO BEHIND BUILDING
+
+Back alley
+  A narrow sliver of pavement between two buildings, one of them being Cindy Painter's.  The kind of narrow sliver that would be hell trying to maneuver through for parking, not to mention the miracle that the guys driving the garbage truck to get that dumpster must have to perform.
+
+>EXAMINE DUMPSTER
+Dented and beaten-up and closed at the moment.  Scattered on the ground around the dumpster are sundry bits and traces of garbage.
+
+>OPEN DUMPSTER
+With a bit of effort you manage to force the lid of the dumpster open.
+
+>LOOK IN DUMPSTER
+The dumpster contains, well, a lot of garbage, including an ordinary green garbage bag, a bright green garbage bag, a bright red garbage bag, a black garbage bag, a dark gray garbage bag, a bright yellow garbage bag, a reddish brown garbage bag, a white garbage bag, a light gray garbage bag, a bright orange garbage bag, a olive garbage bag, a dull orange garbage bag, a dark brown garbage bag, a light brown garbage bag, a bluish-green garbage bag, a yellowy brown garbage bag, a charcoal-colored garbage bag, a maroon garbage bag, a dark blue garbage bag, and an ordinary red garbage bag.  
+
+>OPEN DULL ORANGE BAG
+Opened.
+
+Inside the dull orange garbage bag are a birthday card and a torn business card.
+
+>GET BIRTHDAY CARD AND BUSINESS CARD
+birthday card:  Taken.
+torn business card:  Taken.
+
+>CLOSE DUMPSTER
+You let the lid fall with a noisy clang.
+
+>EXAMINE BIRTHDAY CARD
+A birthday card with bright cartoon balloons drawn all over the front.  Inside:
+
+      "Cindy Baby,
+
+      Happy birthday, baby!  You're a real inspiration for me and my music and the whole band.  Me and Funkzilla wouldn't be the same without you.
+
+      Billy xoxo"
+
+>EXAMINE BUSINESS CARD
+More like the tattered corner of what used to be a business card.  The only word you can really make out is "...Bixby".
+
+>LEAVE
+
+National Boulevard
+  Your cousin's Volvo is parked here.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO STUDIO
+You drive midtown to the main gate of Rocket Pictures Studios and park in Visitor Parking.
+
+Studio gate, in your cousin's Volvo
+
+>GET OUT
+You get out of the Volvo.
+
+>N
+
+Studio backlot
+
+>N
+
+Main building
+
+>WAIT FOR MILT
+Time passes...
+
+Milt Walker comes out of the Main Building.  He looks at his watch.  "I've only got a few minutes, then I'm going to have to go back in," he says.
+
+(Milt has arrived.  It is now 9:59 a.m.)
+
+>SHOW BUSINESS CARD TO WALKER
+Milt looks at the card for a second.  "Might be Chuck Bixby.  He was Cindy's agent.  Got an office out on Wilshire."
+
+>SHOW BIRTHDAY CARD TO WALKER
+Milt nods.  "Van Earl must've given that to her.  Good for her for throwing it out."
+
+Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing this...this Billy Van Earl.  But he's not capable of murder.  What he is is a goddamned deadbeat, and I just wanted to...show some respect for Cindy and not have this kind of thing get out.  He's not capable of murder."  Milt pauses.  "Or do you think he is?"
+
+>ASK MILT ABOUT CINDY'S MOVIE
+"It's a little black comedy called Hugs and Kisses," he tells you.  "But Fina is talking about it like it's going to be a huge hit.  He told me the results from test screenings are just fantastic--we paid a bundle for the script, I know.  It's about a woman who catches her lover cheating on her and comes up with all sorts of ways to kill him.  We were planning to release it this summer..."
+
+>ASK MILT ABOUT FINA
+"He's a pretty sharp kid," he says.  "Been with us about a year, worked on a couple of medium-sized pictures.  This picture Cindy was doing--Hugs and Kisses--was his first as Executive in Charge of Production.  Sounds like he's done a good job on it."
+
+>S
+
+Studio backlot
+Johnny LaFleure, French-Canadian movie star, is outside one of the soundstages having a smoke.
+
+>S
+
+Studio gate
+  Your cousin's Volvo is parked here.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO SANTA MONICA
+You drive to Santa Monica and park along Ocean Avenue.
+
+Santa Monica, in your cousin's Volvo
+  This is about as far west as you can get on the mainland United States and not be driving on the sand.  Ocean Avenue extends north and south, lined with palm trees and brightly colored, Santa Monica-ish buildings.  You can get a better view of the beach to the west.
+
+>GET OUT
+You get out of the Volvo.
+
+>W
+
+Overlooking the beach
+  From here you can see the hazy mist hanging over the Pacific Ocean and the long curve of the coastline north past Malibu.  A cement stairway descends to the beach from here, or you can go back east to where the Volvo is parked.
+
+>D
+You climb down the cement steps to the sandy beach below.
+
+Beach
+  You're facing south on a walking/running/rollerblading/whatever path that parallels the beach north-south along the ocean.  Quite a few people are involved in beach-ish activities.  You could follow the coastline further to the south, or go back up to the higher ground overlooking the beach.
+
+>S
+
+Billy Van Earl's house
+  The house is archetypically tall and thin--the norm for houses along this row on the Santa Monica beach.  A balcony looks out from the second story--you can hear music from above.  There's a doorbell here at path level.
+
+>RING BELL
+You push the doorbell and hear a muffled ring indoors.
+
+>EXAMINE BILLY
+The house is archetypically tall and thin--the norm for houses along this row on the Santa Monica beach.  A balcony looks out from the second story--you can hear music from above.  There's a doorbell here at path level.
+
+After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.  "Hey," he says, squinting.  He obviously doesn't know you.
+
+>ASK BILLY ABOUT PAINTER
+Billy raises his eyebrows.  "Geez...I never heard of her, you know?  Wish I could help you out."
+
+>SHOW BIRTHDAY CARD TO BILLY
+Billy looks at the card, surprised.  Then not-so-surprised.  Then he swallows.  "Well, that could be any Billy, right?"  He reconsiders.  Deep breath.  "Well...okay, so I did know her.  Look, can you blame me?  For lying, I mean?  I'm pretty freaked out here."
+
+>SHOW TAPE TO BILLY
+Billy says:  "I made it for Holly--it was some of our new stuff."  He looks genuinely sad.  "She really was important to me, you know.  My music was the best gift I had."
+
+>ASK BILLY ABOUT BIXBY
+"Oh, I know who you're talking about," Billy says, "but I don't know much about him.  Other than he was Cindy's agent and she talked about him once in a while.  I think he may've liked her, too.  In a way that's more than just her agent, you know?  Like, she said something once about how he said something that made her uncomfortable.  I don't really remember, though..."
+
+>ASK BILLY ABOUT HOLLY
+"You mean Holly Golden the movie star?  The actress?  I've never met her," Billy says, shaking his head.
+
+>N
+
+Beach
+
+>U
+
+Overlooking the beach
+
+>E
+
+Santa Monica
+  Your cousin's Volvo is parked here.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO WILSHIRE
+You drive east along Wilshire, away from Beverly Hills and toward downtown.  You pull off onto a quiet side street and park.
+
+Just off Wilshire Blvd., in your cousin's Volvo
+  This quiet, palm-tree-lined street runs south toward Wilshire Blvd. and the old office building at the corner.
+
+>GET OUT
+You get out of the Volvo.
+
+>S
+
+Wilshire Blvd. building lobby
+  You're standing right in the entrance to an old sunwashed stone office building at the corner of Wilshire and, well, somewhere just west of La Brea.  The lobby is about what you'd expect to find:  office directory on one wall, small maintenance closet, fire alarm, ventilation grill.  Actually, of some interest but little use is the out-of-commission movie theater here on the ground level.  Other than that, you can go up and in to the offices.
+
+>U
+You climb the stairs until you find the door to "Chuck Bixby - Talent Agent".
+
+Chuck Bixby's office
+The office is fairly bright--lots of windows.  The most notable thing in it is a big wooden desk on which, along with a bunch of other stuff, sits a computer.  The other most notable thing is a small, solid-looking safe visible under one side of the desk--notable in that "Hey, there's a safe here" sort of way.
+  Chuck Bixby is sitting at his desk.
+
+>EXAMINE DESK
+It's a big, wooden desk set at one end of the office.  A computer sits on it along with a whole mess of papers and files spread over the blotter.
+
+>EXAMINE BIXBY
+Chuck is in his late thirties, graying hair clipped short, hanging onto cool for as long as he can.  He regards you for the most part with a bemused raised eyebrow--but then you get the impression he regards pretty much everyone this way.
+
+>ASK BIXBY ABOUT PAINTER
+"Cindy?  I thought the world of her," Chuck says.  "I still do.  I was as proud of her as of anybody I've ever represented.  She was going to go far--and she was such a good person, too."
+
+>ASK BIXBY ABOUT CINDY'S MOVIE
+"Well, I've never seen it--not even a test screening," Chuck says.  "The studio's really, really close-lipped about it.  What, do I think she would've moved on, got a new agent?  Maybe."  Chuck shrugs.  "These things happen.  You lose clients, you get new clients.  You can't let it really affect you one way or the other."  A beat.  "Waitasec--you weren't really asking about me, were you?"
+
+>D
+
+Wilshire Blvd. building lobby
+
+>ENTER CLOSET
+
+Maintenance closet
+  This is a dingy little room without a whole hell of a lot to offer the world except a mop, a bucket, and a door leading out.  There's a ventilation grill set low along the outside wall.
+
+>DROP REPORT
+Dropped.
+
+>DROP BIRTHDAY CARD
+Dropped.
+
+>DROP BUSINESS CARD
+Dropped.
+
+>DROP TAPE
+Dropped.
+
+>LOOK IN BUCKET
+It's just a dirty old mop plopped in a rusty old bucket.  A grimy length of string is half-entwined in the dirty mophead.
+
+>TAKE STRING
+Taken.
+
+>PUSH STRING THROUGH GRILL
+With a little difficulty, you manage to thread the head of the length of string through the grill.
+
+>LEAVE
+
+Wilshire Blvd. building lobby
+  The head of the string is threaded through the ventilation grill.
+
+>TIE STRING TO ALARM
+There's not a lot of slack, but you manage to loosely tie the head of the string to the fire alarm.
+
+>ENTER CLOSET
+
+Maintenance closet
+  The tail of the string is threaded through the ventilation grill in the wall.
+  A police report, a birthday card, a torn business card, and a cassette tape are here.
+
+>PULL STRING
+You give the tail of the string a solid yank.  You feel it give as it pulls the fire alarm.  The string pulls free of the ventilation grill as the alarm starts to ring.
+
+You can here voices of people in the lobby as the building is emptied out.
+
+>WAIT
+Time passes...
+
+You can here voices of people in the lobby as the building is emptied out.
+
+Do you want to keep waiting (YES or NO)? YES
+
+You can here voices of people in the lobby as the building is emptied out.
+
+Do you want to keep waiting (YES or NO)? YES
+
+You can here voices of people in the lobby as the building is emptied out.
+
+The fire alarm keeps ringing.
+
+>LEAVE
+
+Wilshire Blvd. building lobby
+
+>UP
+You climb the stairs until you find the door to "Chuck Bixby - Talent Agent".
+
+Chuck Bixby's office
+
+>LOOK UNDER BLOTTER
+You find a scrap of paper tucked under the blotter.
+
+The fire alarm keeps ringing.
+
+>GET SCRAP
+Taken.
+
+>READ SCRAP
+It reads:  "30-6-51".
+
+(Footnote 21)
+
+>TURN DIAL TO 30
+The dial spins smoothly as you turn it to 30.
+
+>TURN DIAL TO 6
+The dial spins smoothly as you turn it to 6.
+
+>TURN DIAL TO 51
+The dial spins smoothly as you turn it to 51.
+
+>OPEN SAFE
+The safe opens with a soft click.
+
+The fire alarm keeps ringing.
+
+>LOOK IN SAFE
+Some compromising photographs are lying on top of the other stuff in the safe.
+
+>GET PHOTOS
+Taken.
+
+>CLOSE SAFE
+The safe closes with a solid click.
+
+The fire alarm keeps ringing.
+
+>EXAMINE PHOTOS
+The pictures are of Billy Van Earl and Holly Golden the movie star.  They're not...ah, well, they're not wearing a whole lot.  Either of them.  Although for the activity which has here been caught on Kodak, clothes are more a hindrance than anything.
+
+>LEAVE
+
+Wilshire Blvd. building lobby
+
+>N
+
+Just off Wilshire Blvd.
+Chuck Bixby is standing around, like everyone else, waiting for the fire alarm to stop ringing.
+  A crowd of people--some from the building, some who have just stopped on the street--watches the spectacle of fire trucks and firefighters.
+  Your cousin's Volvo is parked here.
+
+The fire alarm keeps ringing.
+
+>SHOW PHOTOS TO BIXBY
+Chuck is flabbergasted.  "What...?  How...?   How did you...?  Did you--?"  He stops himself from sputtering any further.  Then:  
+
+(Footnote 23)
+
+"I guess you've found, well..."  He raises his eyebrows.  "I guess you've found just about everything."
+
+>ASK BIXBY ABOUT PHOTOS
+"She asked me to keep them," Chuck tells you.  "Cindy--she asked me.  I don't know where she got them, but she asked me to keep them and not tell anybody.  I don't know if she was embarrassed or what, but she didn't want anybody to know.  You didn't know Cindy, but believe me, you wouldn't have expected her to react like that.   She seemed sad as much as every thing.  I guess...I guess she really loved that jerk."
+
+Chuck produces a folded note and hands it to you.  "She said this came with the photos."
+
+>READ FOLDED NOTE
+It's handwritten and short:  "They look like they're enjoying themselves, now, don't they?"
+
+The fire alarm keeps ringing.
+
+>GET IN CAR
+You climb into the Volvo.
+
+>DRIVE TO SANTA MONICA
+You drive to Santa Monica and park along Ocean Avenue.
+
+Santa Monica, in your cousin's Volvo
+
+>GET OUT
+You get out of the Volvo.
+
+>W
+
+Overlooking the beach
+
+>D
+You climb down the cement steps to the sandy beach below.
+
+Beach
+
+>S
+
+Billy Van Earl's house
+
+>RING BELL
+You push the doorbell and hear a muffled ring indoors.
+
+>WAIT FOR BILLY
+Time passes...
+
+After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.  "Hey," he says, squinting.
+
+(Billy has arrived.  It is now 11:41 a.m.)
+
+>SHOW PHOTOS TO BILLY
+"Where did you get those, man?" Billy asks.  "Oh man, I can't believe it.  Who took pictures of us?  I mean, if Cindy had ever found out, she woulda killed me.  Like, seriously."  And Billy's nodding as if, yes, she woulda killed him.  "She was a cute, sweet little thing, but when it came to something like that she had a temper like you wouldn't believe."
+
+>ASK BILLY ABOUT HOLLY
+"Aw, geez, man..." Billy begins.  "Yeah, right--it sounds great to have all these chicks, right?  But it's a nightmare, you know?  I'm lying to Cindy, I'm making up excuses for where I've been, where I'm going, I'm sitting there in Malibu listening to Holly bitch and whine--and God, she can bitch and whine--all the time thinking 'Cindy's gonna kill me...Cindy's gonna kill me...'"  Really trying his best to get your sympathy.  "But what was I supposed to do?  Dump Holly?  She's Holly Golden, man."
+
+>FOLLOW ME
+Billy sighs grudgingly.  "Okay.  But only because I want to find out what happened to Cindy."
+
+>N
+
+Beach
+
+Billy follows you north up the beach, away from his house.
+
+>U
+
+Overlooking the beach
+
+Billy climbs up the stairs after you.
+
+>E
+
+Santa Monica
+  Your cousin's Volvo is parked here.
+
+Billy follows you back to where you parked.
+
+>GET IN CAR
+You climb into the Volvo.
+
+Billy gets into the passenger seat of the Volvo.
+
+>DRIVE TO MALIBU
+After driving north of Los Angeles, you turn off the Pacific Coast Highway, climb for a minute or two, then pull off to the side of the road and park.
+
+Malibu, in your cousin's Volvo
+  Climbing up into the hills here over Malibu is a reminder that Los Angeles is built on a desert.  With no irrigation or water sprinklers, the grass is dry and the yellowy-brown of straw.  The road itself weaves in and around the hills--although you can go on foot north from here to one of the reclusive residential areas.  Far below you to the west is the Pacific Ocean.
+
+>GET OUT
+You get out of the Volvo.
+
+Billy gets out of the Volvo, too.
+
+>N
+
+Below the house
+  You're down the hill from what must be Holly Golden's house, overlooking the Pacific Ocean behind you.  Continuing north will take you in the direction of the driveway; you parked the Volvo just south of here.
+
+"Oh, man..." Billy complains, "I don't know if I wanna go up there..."  But he reluctantly follows you anyway.
+
+>N
+
+Driveway
+  You're standing at the top of the driveway that leads east (that is, away from the ocean) in toward the house itself.  There's a small sign just to the right of the driveway.
+
+Billy follows you north.
+
+>E
+
+Holly Golden's house
+  The bottom of the driveway is secluded and shaded by the thick greenery around it.  The garage is attached to the house, which stretches out along the hillside to the south.  An old, disused basketball hoop hangs over the garage.  You can walk back out to the street to the west.
+
+"Uh-oh," Billy mutters, taking a deep breath.
+
+>EXAMINE GREENERY
+Thick, professionally groomed shrubbery surrounds driveway, giving it a great deal of privacy.  Nestled at the base of the bushes is a basketball.
+
+>GET BASKETBALL
+Taken.
+
+>SHOOT BASKET
+You miss the basket.  Hell, you miss the backboard.
+
+>GET BASKETBALL
+Taken.
+
+>SHOOT BASKET
+You shoot, but you're a little wide and the basketball makes a rubbery thump against the backboard before bouncing away from the basket.
+
+>SHOOT BASKET
+You miss the basket.  Hell, you miss the backboard.
+
+>SHOOT BASKET
+You have nothing to shoot baskets with (like, say, a basketball).
+
+After a few minutes, Holly Golden appears around the corner, having come out of the house to see what's going on.  She frowns.  "Who are you, and what are you doing here?" she asks.  Then she turns to Billy:  "And what are you doing here?"
+
+>EXAMINE HOLLY
+Holly Golden is a beautiful woman.  It's easy to imagine thinking "Oh, of course she's a movie star," even if you didn't know she was.  But there's something else about her, something about the way she looks at you, something behind her dazzling smile and thinly veiled sarcasm, something that puts you on your guard.  It may just be the way she looks at you like she wouldn't care if you were dead or alive, even if she were the one to tip the scale one way or the other.
+
+>ASK HOLLY ABOUT PAINTER
+"Yes, I knew she was Billy's girlfriend," Holly says, shaking her head distastefully.  Distastefully at you, that is.  "What do you take me for, an idiot?  Look, it's a real shame somebody killed her, but I don't know what that's got to do with me or Billy or anything else.  And besides, she wasn't so sweet, either.  You just ask Billy what she would've done if she knew about us."
+
+>ASK HOLLY ABOUT BIXBY
+Holly shakes her head.  "I don't know who that is.  You can't swing your arms in this town without hitting an agent--I can't be expected to know all of them."
+
+>ASK HOLLY ABOUT FINA
+"I really don't know much about him," she says, shrugging.  "He's a ladder-climber at Rocket Pictures, been there about a year, got his first picture that he's spearheading all by himself with Cindy Painter.  Hugs and Kisses.  And then his star gets murdered before they open.  Other than that, I met him once, wasn't too impressed with him."
+
+>ASK HOLLY ABOUT WALKER
+"Milt Walker is the Godfather," Holly says.  "I don't like him--I don't make any apologies for that.  I mean, in this town, you have to pay him respect, but I don't like the way he does business:  he's ruthless and he's unyielding and he comes off as such a solid, untouchable, noble guy that you don't realize that he has everything and you have nothing until it's too late.  He gets what he wants."
+
+>SHOW PHOTOS TO HOLLY
+Holly is speechless as she looks at the photographs.  She even looks slightly sick.  "What...?  How did...?"  She looks up at you.  "Did you take these?  Who took these?  Who else did you show them to?"  She grabs the photos.  She looks accusingly at Billy.  "Did you know about these?"
+
+>GET PHOTOS
+You tug the photographs out of Holly's hand--she gives them up reluctantly.
+
+>SHOW FOLDED NOTE TO HOLLY
+"Nice sense of humor, whoever it is," Holly says bitterly.  "But you know..."  Then she trails off with a thoughtful look on her face.
+
+>DROP STRING
+Dropped.
+
+>W
+
+Driveway
+
+Billy follows you west.
+
+>S
+
+Below the house
+
+Billy follows you back down away from the house.
+
+>S
+
+Malibu
+  Your cousin's Volvo is parked here.
+
+Billy follows you south.
+
+>GET IN CAR
+You climb into the Volvo.
+
+Billy gets into the passenger seat of the Volvo.
+
+>DRIVE TO STUDIO
+You drive midtown to the main gate of Rocket Pictures Studios and park in Visitor Parking.
+
+Studio gate, in your cousin's Volvo
+
+>GET OUT
+You get out of the Volvo.
+
+Billy gets out of the Volvo, too.
+
+>N
+
+Studio backlot
+
+Billy follows you north.
+
+>N
+
+Main building
+Milt Walker is here, standing outside the building.
+
+Billy follows you north toward the main building.  He sees Milt and cringes.  Under his breath:  "Oh, man...this guy hates me."
+
+>SHOW PHOTOS TO WALKER
+Milt looks at the photos.  He can't believe it.  "That son of a bitch..." he mutters.  Milt shakes his head.  "I knew that little bastard was a creep.  And here he is, proving it for the scrapbook.  Holly Golden wouldn't be happy to have pictures like those around.  And as for Cindy--"  Milt exhales.  "--well, she could be a bit excitable.  Had quite a temper.  Who knows what would've happened if she and Billy and those photos had ended up in the same room together."  He pauses.  "Actually, I do know.  She would've killed him.  Killed him, killed him."
+
+Milt looks at Billy like he's been painted blue.  "What the hell is he doing here?"
+
+>S
+
+Studio backlot
+
+Billy follows you south.
+
+>W
+
+Side building
+  The people who work in this building are the people who all hope that one day they'll end up working in the other building.  Not that this building is bad--not that it's a fire hazard or anything like that--although the budget allocated for repairs to the roof probably went into new oak paneling inside the main building.  And maybe this place someone like you could at least get into.  Probably just by leaving the shade of this tree and climbing up the set of three stairs that leads to the door.
+
+Billy follows you west.
+
+>N
+
+Reception area
+  You could plunk yourself down in one of the two comfy-looking high-backed chairs while waiting for someone.  The minty-blue hospital tint to the walls could take some getting used to, though.  A hallway of office doors extends to the west, or you can go back outside to the south.
+  The building's receptionist is sitting at her desk.  Her nameplate says her name is Anne.
+
+Billy hangs around the door to the reception area.
+
+>EXAMINE ANNE
+Anne is young, maybe twenty-one, and got this job either on some kind of summer-intern program or because she's someone's niece.  Either way, she looks cheerful enough with life, but not exceptionally thrilled to be here in particular.  I'm sure she does her job without major complaint--I just wouldn't expect her to jump at the chance to make friends with you or anything.
+
+>ASK ANNE ABOUT FINA
+"Who shall I say is here?" Anne asks, looking you up and down.  "Um...forget it.  I'll just buzz him."  She punches a couple of buttons on her phone and speaks very briefly into it before hanging up.
+
+>WAIT FOR FINA
+Time passes...
+
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
+Do you want to keep waiting (YES or NO)? Y
+
+Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recognize you, but he manages to greet you with one of those practised smiles that suggests you're the best thing that's happened to him all day.  "Hi there.  Stuart Fina."
+
+(Stuart has arrived.  It is now 12:34 p.m.)
+
+>EXAMINE FINA
+Stuart is a young guy, maybe only twenty-seven or twenty-eight.  His look is carefully constructed:  he sports a trendy Van Dyke beard to show the artists he's not a suit, and a crisply pressed white shirt and red power-tie to show the suits that the Van Dyke is just camouflage.
+
+>ASK FINA ABOUT WALKER
+"Milt?  I idolize Milt," Stuart says.  "You know what he is in this business?  The godfather.  The king.  Milt talks and people don't even question it.  If there's one guy you don't want to look like an idiot in front of it's Milt Walker."
+
+>ASK FINA ABOUT BILLY
+Stuart looks over at Billy, and says quietly to you:  "I don't know anything about him."
+
+>ASK FINA ABOUT PAINTER
+"Yeah, well, geez..."  Stuart trails off, shaking his head.  "God, I really don't know what to say...I mean it's terrible, absolutely terrible.  She had such a bright future.  She was going to be a huge star.  Her picture, the one she was doing with us--it's going to be a hit.  A huge hit.  When people see it they're going to think about James Dean and Marilyn Monroe and all wonder 'What if...?'"
+
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
+>ASK FINA ABOUT BIXBY
+"He's Cindy's agent.  He was, I mean.  I never really had any dealings with him."
+
+>ASK FINA ABOUT HOLLY
+"Holly Golden was the hot thing for quite a while," Stuart tells you.  "But, you know, people always want a new hot thing.  She even tried for the role in Hugs and Kisses, but we went with Cindy Painter."
+
+>SHOW PHOTOS TO FINA
+Stuart's eyes widen.  "I can't believe that.  I mean...where did you get those?"
+
+The phone rings.  Anne answers it and takes down a message.
+
+>WAIT
+Time passes...
+
+The phone rings.  Anne answers it and takes down a message.
+
+Do you want to keep waiting (YES or NO)? YES
+
+Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Would you excuse me?  Anne, let anyone who calls know I've gone out to a meeting."  He smiles and heads outside.
+
+>S
+
+Side building
+
+Billy follows you south.
+
+>HIDE BEHIND TREE
+You slip out of sight around the far side of the big, green tree.
+
+Behind the tree
+  You're crouching in the shadows of the big, green tree with a fairly clear view of the side building and parking lot.
+
+Billy follows you.
+
+>WAIT
+Time passes...
+
+From your vantage point behind the tree, you can see Stuart as he drives up to the side building in his sporty Mazda convertible.  He gets out and goes inside.
+
+Billy follows you.
+
+Do you want to keep waiting (YES or NO)? YES
+
+Billy follows you.
+
+Billy follows you.
+
+>WAIT
+Time passes...
+
+Peeking out from behind the tree, you can see Stuart as he comes out of the building and goes to his car.  He puts something in the trunk and closes it.  Then he suddenly looks like he's remembered something.  He looks around, doesn't see anybody--including you--and quickly decides to go back inside.
+
+Billy follows you.
+
+Do you want to keep waiting (YES or NO)? NO
+
+>LEAVE
+You step out from behind the tree.
+
+Side building
+  Stuart Fina's Mazda is parked in front of the side building.
+
+Billy follows you.
+
+>OPEN TRUNK
+(There must be something wrong with the lock:  you're able to pop the trunk open without a key.)
+
+Opened.
+
+Inside the trunk of the Mazda are a screening report and some negatives.
+
+Billy follows you.
+
+>GET NEGATIVES
+Taken.
+
+Billy follows you.
+
+>CLOSE TRUNK
+Closed.
+
+Billy follows you.
+
+>E
+
+Studio backlot
+
+Billy follows you east.
+
+>S
+
+Studio gate
+  Your cousin's Volvo is parked here.
+
+Billy follows you south.
+
+>GET IN CAR
+You climb into the Volvo.
+
+Billy gets into the passenger seat of the Volvo.
+
+>DRIVE TO APARTMENT
+You drive south to National Blvd. and pull over to the curb next to Cindy Painter's apartment building.
+
+National Boulevard, in your cousin's Volvo
+
+>GET OUT
+You get out of the Volvo.
+
+Billy gets out of the Volvo, too.
+
+>S
+
+Cindy Painter's apartment building
+
+Billy follows you away from National, toward Cindy's apartment building.  "This place kinda makes me nervous," he says, stuffing his hands in his pockets.
+
+>U
+
+Apartment stairs
+
+Billy follows you up.
+
+>N
+You unlock the door and go in, ducking under the tape and closing the door quietly behind you.
+
+Cindy Painter's living room
+
+Billy chickens out.  "You know, I hope you'll understand if I don't want to, like, hang around in here.  I'll just be outside..."  And he slips out the door again.
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+>WAIT
+Time passes...
+
+The apartment door opens.  You turn to look, expecting to see Billy standing there--
+
+--but instead you're greeted by the snarling face of Stuart Fina.  Stuart bursts in on you.  And he's got a gun that he's pointing right at you.  Not everyday that happens.  It's maybe worth pointing out just briefly that the guy with the gun is crazed.  A moment of surprising clarity ensues where 

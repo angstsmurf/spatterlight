@@ -1,0 +1,516 @@
+howl
+take nickel
+i
+x wallet
+open wallet
+x clipping
+read it
+x photo
+x wrapper
+w
+x rack
+read rack
+open rack
+n
+x window
+x spectacles
+x eyes
+ n
+take crowbar
+x crowbar
+x crates
+s
+i
+attack mugger with crowbar
+look
+x knife
+x dollars
+take all
+ s
+ s
+ s
+ z
+ s
+ e
+ s
+ s
+ s
+ s
+ howl
+ i
+ s
+ untie parcel
+cut cord
+i
+n
+open chest
+e
+x scrip
+open pouch
+x censure
+open vial
+tie rope to bucket
+fix bucket
+tie rope to bucket
+x mother
+talk to mother
+x well
+x house
+e
+x grave
+read stone
+x coffin
+cry
+ n
+ i
+ w
+unlock chest with key
+read scroll
+e
+e
+e
+x jugglers
+x bear
+x people
+x tent
+read sign
+n
+read posters
+s
+s
+x headstones
+e
+x registry
+read registry
+talk to priest
+wait
+wait
+i
+wait
+i
+z
+z
+z
+z
+z
+z
+z
+i
+w
+e
+z
+z
+z
+w
+n
+n
+s
+ s
+ e
+ x book
+ read book
+l
+x silver
+take it
+w
+n
+e
+ washington
+ october
+ 1957
+ austin
+ garriot
+talk to lady.
+ask lady about soul.
+ask lady about charm.
+ask lady about gift.
+ask lady about golem.
+ask lady about tarot.
+give charm to lady.
+x deck.
+think of love
+shuffle deck
+x hermit. ask lady about hermit.
+x fool. ask lady about fool.
+x moon. ask lady about moon.
+x devil. ask lady about devil.
+x lovers. ask lady about lovers.
+x tower. ask lady about tower.
+x judgment. ask lady about judgment.
+x world. ask lady about world.
+x justice. ask lady about justice.
+x magician. ask lady about magician.
+x wheel. ask lady about wheel.
+ask lady about cards
+concentrate on hermit.
+concentrate on fool.
+concentrate on devil.
+concentrate on lovers
+concentrate on tower
+x rocks. x soldier.
+i.
+open knapsack.
+load rifle.
+x watch.
+take shovel. dig ground.
+move rocks.
+enter hole.
+z
+z
+z
+z
+z
+wait
+shoot soldier
+
+ i
+ n
+ n
+x soldier. x bulge
+x clothes
+take clothes
+put clothes in knapsack
+n
+w
+get torch
+e
+ne
+get rag
+sw
+e
+ take crowbar
+ put rag in hole
+ w
+ n
+ salute
+ wait
+ open box
+take rope
+light torch
+s
+e
+ light rag with torch
+ take all
+e
+e
+e
+e
+e
+enter train
+
+ remove uniform
+ open knapsack
+ wear new clothes
+put uniform in knapsack
+close knapsack
+ wait
+ z
+ n
+ x glass. x sign. read sign
+ s
+ n
+take paper
+read it
+s
+se
+e
+s
+e
+knock on door
+s
+x plants
+take plant
+take key
+w
+unlock door
+e
+x furniture
+i
+u
+x boy
+talk to boy
+tie rope to beam
+swing rope
+talk to boy
+
+ look
+ concentrate on judgment
+
+ look
+ concentrate on world
+
+ x myself. i.
+ x Marion. x fire. x twigs. x Nazir.
+put twigs in fire.
+talk to Nazir.
+talk to Marion.
+x woman. talk to woman.
+x Will.
+put twigs in fire.
+talk to Will.
+talk to woman.
+x eyes.
+tell Will about vision.
+follow Katherine.
+w. s.
+e.
+x glass. take it.
+x shovel. take it.
+w. s. s. s.
+x tree. climb tree.
+x rope.
+take rope.
+n. w.
+x fountain. take key.
+push fountain.
+x hole.
+tie rope to fountain. put rope in hole.
+climb rope
+d.
+s. sw. n. d. se. e.
+dig landslide with shovel
+x rocks. take rock.
+e
+x stream. x portcullis. x door
+unlock door with key. e. u. e.
+throw rock at guard
+take keys. unlock door. s
+talk to Elizabeth. x Elizabeth.
+n. n.
+u.
+w.
+x box. push box.
+hold glass in sunlight
+w
+s
+ look
+
+ concentrate on justice.
+ x myself.
+i.
+x curtain. move curtain.
+s.
+take torch. n. n.
+x chest. open chest. x coin. take coin.
+s.
+move curtain.
+s. w.
+x cell.
+e. s.
+w.
+drop torch.
+w. w.
+x shovel. take it.
+n. w. w.
+x sticks. take sticks.
+se. se. se. s.
+x leaves. take leaves.
+w. w. w. n. n.
+x rope. take rope.
+s. e.
+x fisherman. talk to fisherman.
+buy net
+x net.
+w. sw.
+pull branches.
+tie rope to willow. pull rope.
+hide.
+wait.
+wait
+wait
+ne. ne. ne. e. e. n.
+take torch. w.
+put marion in cell.
+e. drop torch. s. w.
+dig hole
+put sticks in hole.
+put leaves on sticks.
+hide.
+wait.
+e. n. take torch. w.
+put nazir in cell
+e. drop torch. s. w.
+climb tree.
+wait.
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+z
+wait
+wait
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+drop net
+
+ e. n. take torch. w.
+put will in cell.
+e
+n
+ wait
+ wait
+ hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+hit Robin with torch
+
+ look
+ think about magician.
+ i
+ x floor
+ read floor
+x post. x mirror. x table. x candle. x drum.
+x box. x matches. x jug. read jug. x paper.
+read paper.
+take matches. take jug. take paper.
+light candle
+open jug
+pour liquid on floor
+play drum
+talk to Legba
+speak words
+x mirror
+ask Legba about mirror.
+n
+take basket. x basket. open it. look in it.
+x orange. x lemon. x banana.
+x mirror
+x blossoms. list exits
+sw
+sw
+take case. x case
+e.
+x building. s.
+x fellow. x carving. read writing
+x fountain. ask Legba about Ghede.
+give case to Ghede
+ y
+ n
+ nw
+ take weapon. x weapon
+ n.
+w
+x officer. x painting. read painting
+x monitor. ask Legba about Ogoun.
+give weapon to officer.
+ y
+ e. nw.
+ take orchids. x orchids. ask Legba about orchids.
+ nw. nw.
+ s.
+x beauty. x carpet. read carpet
+ask Legba about Erzulie.
+give orchids to beauty.
+ y
+ n. n.
+ take dagger. x dagger. read dagger
+ask Legba about dagger
+ask Legba about SB
+e.
+take sack. x sack. read sack
+open sack. look in sack.
+x corn. ask Legba about corn
+e.
+x hen. x nest
+give corn to hen
+throw corn
+x nest. take egg. x egg.
+ask Legba about egg
+ask Legba about Damballah
+e.
+n.
+x serpent. x pool. x soil. read soil
+ give egg to serpent.
+ y
+ s. e.
+ e
+ take shell. x shell.
+ask Legba about shell
+blow in shell
+ask Legba about Agwe
+ n.
+ e.
+ x drawing. read it
+x porthole. x seaman.
+give conch to seaman.
+ y
+ w. n. n. n. n. n.
+ x barrier. read message
+ask Legba about barrier
+ask Legba about aviatrix.
+ask Legba about Hercules.
+ask Legba about entomologist
+ hit barrier with dagger
+ look.
+ think on wheel.
+ 
+ 
+ i.
+ 
+ wait
+ wait
+ hail cab
+ x cabbie. talk to cabbie.
+ give dollars to cabbie.
+ knock on door
+ x Hilary. kiss Hilary. x briefcase. x telephone.
+call police. call FBI.
+take briefcase. open it.
+x papers. 
+x folder.
+read folder.
+x documents.
+read documents.
+x David. x Charles. x Smith. x Wesson.
+talk to David. talk to Charles. talk to Smith.
+ask David about Haiti. ask Charles about Haiti.
+ask Smith about Haiti.
+ask David about Fignole. ask Charles about Fignole.
+ask David about Charles. ask David about FBI.
+ask Charles about David. ask Charles about FBI.
+ask Smith about David. ask Smith about Charles.
+ask David about documents. ask Smith about documents.
+ask David about Duvalier. ask Charles about Duvalier.
+ask Smith about Duvalier.
+ask David about Michel. ask Charles about Michel.
+ask Smith about Michel.
+ask David about Shibley. ask Charles about Shibley.
+ask Smith about Shibley.
+ask David about Raimone. ask Smith about Raimone.
+ ask David about serunim.
+ s.
+ x Michel. talk to Michel. ask Michel about Haiti.
+ask Michel about Shibley. ask Michel about Raimone.
+ask Michel about Duvalier. ask Michel about Fignole.
+ask Michel about documents. ask Michel about FBI.
+ ask Michel about David. ask Michel about Charles.
+ n.
+ give folder to david.
+kiss Hilary.
+ ask Hilary about marriage.
+  
+  

@@ -1,0 +1,626 @@
+Known bugs and differences from Infocom games? say 'news'. Unfamiliar with certain words? say 'jargon'. License information? say 'license'
+ 
+                     THE SOUND OF ONE HAND CLAPPING 
+                          A RIDDLE IN SUBTLETY 
+                  Copyright (C) 1993, by Erica Sadun 
+                           ALL RIGHTS RESERVED 
+
+Think thou subtle thoughts
+As does the clever dragon
+In quiet circles
+
+Windswept Field
+You are standing amidst the tall grasses in a windswept field. Above the sky is blue. A small kill winds its way around granite boulders down the mountain. Purple and white peaks surround you on all sides, as does the forest. Within the greens of the summer mountain are the brown scores where loggers were and will be again. Blue herons pass occasionally overhead and gentle deer stop -- to eat the summer berries or drink from the kill water. Small frogs jump in and out of the kill and insects skim over the top, never breaking the surface. There are grey and silvery fish darting below the sun bleached rocks. You are surrounded on all sides by wild bushes. A narrow thorny gap lies to the west.  
+>w
+Thorny Path
+Thorns and thistles surround you on a path that veers to the east and west. Brambles, in full flower, lie hither and fro and wait-a-minutes tug at your way. Sticklers and stickies cling to your shoes and raspberries lie just out of reach.  
+>w
+Temple Clearing
+You are standing in a small clearing before a vine-covered temple. Its obvious age and antiquity cast a serene air to this quiet setting. The temple welcomes you to the west.   
+>w
+Serene Temple
+You have entered a beautiful, serene temple through a door to the east. Misty light filters in from vine-covered skylights above you. Before you, sits an aged grey woman in apparent repose. However, as you approach she opens her eyes; dark, glimmering, alert. 'Ginseng,' she greets you. 'We have been waiting for you arrive. Black Dragon has returned to the World Beyond. The folk of the beyond have been banished and dragons, both kind and cruel, fair and subtle, have re-entered the World. They hold the keys which will aid the folk, the keys that will restore hope. Still, they must be dealt with slyly for they do not cooperate eagerly with us humans. It is your task, Ginseng, to enter the World Beyond and to restore the hope which has been lost. Walk gently lest you mis-step and imperil those who dare not lose their last link to life. Tell me, Ginseng,' her eyes bore into yours. 'Do you accept this task that I lay before you?'  
+>yes
+
+
+The world dissolves around you.... 
+
+A voice whispers: 'Be strong and be wise.' 
+
+A wind hovers near your ear: 'Think subtle thoughts.' 
+
+A breeze rests on your shoulder: 'Luck be with you, Ginseng.'
+
+Moon Gate
+Beneath the graceful curve of a stone hewn Moon Gate, you stand quietly. Within the gate, sound reverberates to give new patterns to listening and thoughts are focused onto the inner self in a cleansing of destinies. A stony path leads away to the south.  A worn silk headband is lying here.  Your old sturdy walking staff is here, leaning against the gate; what a pleasant surprise! 
+>get staff
+walking staff taken.
+>get headband
+headband taken.
+>wear headband
+You put the headband on. You feel more suitably dressed for the task at hand.
+>s
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin and all empty.  Your eyes are inextricably drawn to a small smooth stone resting here on the fountain. 
+>get stone
+smooth stone taken.
+>examine stone
+As you examine it carefully, you suddenly realize that this is a contemplation stone; that rare and treasured mineral which grants insight when its privileged owner uses it in meditation. 
+>meditate
+After a few seconds, the world seems to slip away... a few short images of a young girl flash before your eyes, but the images are not very clear.
+>se
+Rocky Path
+A rocky path winds from the southeast to the northwest. The path is in poor repair, but not disfigured -- as if it had been suddenly neglected after long use. You can see a small break in the bushes to the north.  
+>se
+End of the Road
+You are standing at the southeast end of a roughly cobbled road in bad repair. A tiny walk leads to the southwest. A large sign stands here. It says 'End of the Road. Go Back.'  A small Fire Iguana cavorts at your feet. Every now and then he notices you; at other times he seems unaware that you even exist. 
+>l
+You are standing at the southeast end of a roughly cobbled road in bad repair. A tiny walk leads to the southwest. A large sign stands here. It says 'End of the Road. Go Back.'  A small Fire Iguana cavorts at your feet. Every now and then he notices you; at other times he seems unaware that you even exist. 
+>nw
+The Fire Iguana walks along with you.
+Rocky Path
+A rocky path winds from the southeast to the northwest. The path is in poor repair, but not disfigured -- as if it had been suddenly neglected after long use. You can see a small break in the bushes to the north. The Fire Iguana is running in wild circles, chasing its tail.  
+>nw
+The Fire Iguana walks along with you.
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions. 'Yellow,' says the Iguana suddenly. 'Everything is a Suffusion of Yellow.'  On the circling edge of the fountain lie six shallow depressions, each the size of a coin and all empty. 
+>s
+The Fire Iguana walks along with you.
+Stone Path
+A gentle stone path winds from a beautiful wooden bridge to the south to a large fountain to the north. Small decorative statues line this walk coming only to the height of your calf. The designer of this delightful way based his motif on whimsical geckos, prancing lizards and other small reptiles shown here at play. The Fire Iguana decides he probably likes you and begins to follow the existing you in a relaxed fashion.  A cardboard box is lying here. 
+>s
+The Fire Iguana walks along with you.
+Teak Bridge
+You are standing on a beautiful bridge, made entirely of highly varnished teakwood. Below you, you can hear the soft noises of a fountain-fed pond. From here, you can see beautiful goldfish performing dances of orange within the cool waters. To your south stands a formal tea-house, to the north lies a winding path and a small side walkway leads down to the pond. A Fire Iguana cavorts at your feet.  
+>s
+The Fire Iguana walks along with you.
+Outside of Tea House
+You are standing in a small garden outside of an elegant teahouse. A formal bridge lies to the north and a tiny path leads to the northeast. Doubt suffuses the Iguana and he wanders away from your feet.  
+>wait
+Time passes...
+>wait
+Time passes...
+You feel observed.
+>s
+The Fire Iguana walks along with you.
+Tea House
+You are within an elegant teak tea house. Jade and wood carvings line the ceiling boards. An elegant rug depicting victories and battles adorns the floor. Crimson Dragon is lying on the rug, curled around a tea table, sipping tea and softly strumming a many-stringed zither in strange eastern melodies. A small doorway leads to the east and a larger arch leads outside. The Fire Iguana is running in wild circles, chasing its tail.   
+>e
+The Fire Iguana walks along with you.
+Tea House Nook
+You are standing within a small nook. A small doorway leads west to the Tea Room. A passage slopes down to the south into the older stone part of the building. The Fire Iguana decides he probably likes you and begins to follow the existing you in a relaxed fashion.  
+>s
+The Fire Iguana walks along with you.
+Shrine
+You are in the vestibule before a shrine. The cool air in here wafts around ornate stone work and above a smooth tiled floor. There is a sense of great age here. Two statues guard this shrine. To the left is a small Buddha, and to the right a goddess holding a small child to breast. Both statues give an air of happiness and peace to this quiet room. Incense wafts through this small shrine from the flower covered altar. The room seems to glow crimson and gold although there is no apparent light source. You feel happy and peaceful here.  'Yellow,' says the Iguana suddenly. 'Everything is a Suffusion of Yellow.'  Some fake money is lying upon the altar. 
+>burn money
+The fake money disappears with a startling >>P O O F<<! (Good thing you had that iguana around. Better than a book of matches any day.) You feel a sudden surge of strength, of chi, running through your body. Powerful magic has just taken place. A shimmering crimson gateway now leads off to the east.
+You feel observed.
+>e
+Dark Corridor
+You find yourself at a sharp bend in a dark hallway. The hallway continues to the west and to the southeast, where you hear humming and clacking sounds. A gleam emerges from the eyes of the fiery Iguana. He suddenly begins to study you more closely and draws near. In his mind, you do exist.  
+>se
+You are in an enormous vaulted chamber covered in turning prayer wheels. Wheels lie within wheels lie within wheels. Every sort of wood, every sort of metal has been used here. Straight overhead is a giant skylight, lighting every corner of the room, allowing prayers from every wheel to rise towards the heavens. An exit leads to the northwest.
+As you enter the room, the Fire Iguana begins to shiver and shake. When you turn to comfort him, you notice he actually seems to have become more fiery than ever before. You realize with a start that he is engaged in an epiphany of enlightenment. 'Wheels within wheels,' he mutters. 'Wheels within wheels within wheels!' His excitement grows. 'Of course!' he shouts (as loudly as a five-inch fiery iguana can shout), 'I don't exist after all...' His body begins to shimmer, pulsing in and out of reality. You are caught by the amazement of the moment, finding you can not move, drawn in as you are by the change occurring. Suddenly, the whole room fills with a bright suffusion of yellow light. When it fades away, the iguana has gone, replaced by a small golden wheel.
+Wheel Room
+You are in an enormous vaulted chamber covered in turning prayer wheels. Wheels lie within wheels lie within wheels. Every sort of wood, every sort of metal has been used here. Straight overhead is a giant skylight, lighting every corner of the room, allowing prayers from every wheel to rise towards the heavens. An exit leads to the northwest. A small golden wheel is affixed here to the floor.  
+>turn wheel
+A surge runs from your arm to the wheel as you turn it. A graceful golden stairway now leads up to the skylight.
+>u
+Cupola
+You are standing on a widows walk surrounding a golden domed cupola. Below you, through a skylight you see the top of an ephemeral golden stairway. As you look around, you can see flat plains in almost all directions. If you squint, you can just make out peasants working in the low fields.  High, high above you at the very tip of the Cupola, you can see a flash of crimson. A young, eager and almost imbecilic drake preens himself in the light of the afternoon sun. Every now and then he makes yipping noises and drools on you a little. 
+>pet drake
+The drake yips.
+>d
+Wheel Room
+You are in an enormous vaulted chamber covered in turning prayer wheels. Wheels lie within wheels lie within wheels. Every sort of wood, every sort of metal has been used here. Straight overhead is a giant skylight, lighting every corner of the room, allowing prayers from every wheel to rise towards the heavens. An exit leads to the northwest.  A graceful golden stairway leads up to the skylight. A small golden wheel is affixed here to the floor. 
+>nw
+Dark Corridor
+You find yourself at a sharp bend in a dark hallway. The hallway continues to the west and to the southeast, where you hear humming and clacking sounds.  
+>w
+Shrine
+You are in the vestibule before a shrine. The cool air in here wafts around ornate stone work and above a smooth tiled floor. There is a sense of great age here. Two statues guard the way into the shrine. To the left is a small Buddha, and to the right a goddess holding a small child to breast. Both statues give an air of happiness and peace to this quiet room. Incense wafts through this small shrine from the flower covered altar. The room seems to glow crimson and gold although there is no apparent light source. You feel happy and peaceful here. A shimmering crimson gateway leads to the east.  
+>n
+Tea House Nook
+You are standing within a small nook. A small doorway leads west to the Tea Room. A passage slopes down to the south into the older stone part of the building.  
+>w
+Tea House
+You are within an elegant teak tea house. Jade and wood carvings line the ceiling boards. An elegant rug depicting victories and battles adorns the floor. Crimson Dragon is lying on the rug, curled around a tea table, sipping tea and softly strumming a many-stringed zither in strange eastern melodies. A small doorway leads to the east and a larger arch leads outside.   
+>n
+Outside of Tea House
+You are standing in a small garden outside of an elegant teahouse. A formal bridge lies to the north and a tiny path leads to the northeast.  
+>n
+Teak Bridge
+You are standing on a beautiful bridge, made entirely of highly varnished teakwood. Below you, you can hear the soft noises of a fountain-fed pond. From here, you can see beautiful goldfish performing dances of orange within the cool waters. To your south stands a formal tea-house, to the north lies a winding path and a small side walkway leads down to the pond.  
+>n
+Stone Path
+A gentle stone path winds from a beautiful wooden bridge to the south to a large fountain to the north. Small decorative statues line this walk coming only to the height of your calf. The designer of this delightful way based his motif on whimsical geckos, prancing lizards and other small reptiles shown here at play.  A cardboard box is lying here. 
+>open box
+cardboard box open.
+>look in box
+The cardboard box contains:
+  Magic Rubberbands
+>get rubberbands
+Magic Rubberbands taken.
+>n
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin and all empty. 
+>nw
+Stone Path
+A gentle stone path winds from the northwest to the southeast. Small bushes line the edges of this road, stepping stones lead you forward into a quiet retreat. The pebbles which surround this path have been newly raked and form pretty wave patterns, enhancing the beauty of this path.  
+>nw
+Imperial Gardens
+You are within the Imperial Gardens. A wooden walkway curves hither and fro leading to the west through some box yews and to the southeast towards a raked stone path in the distance. On boulders lining the path are small Bonsai trees, placed in loving, beautiful configurations.  A small potted bonsai tree is growing here serenely. The potted bonsai tree contains: green coin. 
+>get tree
+potted bonsai tree taken.
+>w
+Small Alcove
+You are standing in a small alcove surrounded on three sides by heavy shrubbery. To the west you can enter the Stables of the Imperial Gardens. Small paths lead through the bushes to the north, the south and the east.  
+>w
+Imperial Gardens Stables
+You are standing within a large wooden structure which at one time housed rental mounts. The structure is sturdy and well-built but empty in its abandonment.  Several wooden bins are attached to the walls of the stable. Hay is scattered on the floor. Straw bales are stacked neatly against one wall. 
+>look in bin
+But it is closed!
+>open it
+I don't know to which it you refer!
+>open bin
+bin open.
+The bin contains:
+  a bag of drake yums
+>get yums
+bag of drake yums taken.
+>e
+Small Alcove
+You are standing in a small alcove surrounded on three sides by heavy shrubbery. To the west you can enter the Stables of the Imperial Gardens. Small paths lead through the bushes to the north, the south and the east.  
+>n
+Herb Garden
+All around you are small well-tended plots of herbs. Each plot is carefully marked and separated by white shell paths. Smells of rosemary, jasmine and, yes, ginseng fill the air. A small road leads down west to the river.  Green Dragon is carefully tending to the weeds in this beautiful garden. A pair of smelly old gardening boots lies here in an unattractive mound. 
+>get boots
+pair of boots taken.
+>wear boots
+You put the pair of boots on.
+>w
+South Side of River
+You stand on the south bank of quick-moving river which flows east to west. A winding road leads east up a sharp slope towards a garden.  A big white boulder is lying on the bank of the river. A big black boulder is lying on the bank of the river. 
+>remove boots
+You take off the pair of boots.
+>remove headband
+You take off the headband.
+>drop all
+pair of boots dropped.
+bag of drake yums dropped.
+potted bonsai tree dropped.
+Magic Rubberbands dropped.
+smooth stone dropped.
+headband dropped.
+walking staff dropped.
+>get black boulder
+big black boulder taken.
+>throw black boulder
+You forcefully hurl the big black boulder to the north where it lands with a splash and sinks slightly into the ground.
+>get white boulder
+big white boulder taken.
+>n
+On River
+You are standing on a stone in the middle of the river  There is a big black boulder resting here. 
+>throw white boulder
+You forcefully hurl the big white boulder to the north where it lands with a splash and sinks slightly into the ground.
+>n
+On River
+You are standing on a stone in the middle of the river  There is a big white boulder resting here. 
+>n
+North Side of River
+You stand on the north bank of quick-moving river which flows east to west. A small hole is found to the north.  
+>n
+The Mine
+You stand within the fabled Imperial Mines. All is quiet. All is still. The thunderous hammering you would expect to hear is absent. The resulting peace is somewhat unsettling.  A forgotten jewel lies in the corner. 
+>get jewel
+large emerald taken.
+>s
+North Side of River
+You stand on the north bank of quick-moving river which flows east to west. A small hole is found to the north.  
+>s
+On River
+You are standing on a stone in the middle of the river  There is a big white boulder resting here. 
+>s
+On River
+You are standing on a stone in the middle of the river  There is a big black boulder resting here. 
+>s
+South Side of River
+You stand on the south bank of quick-moving river which flows east to west. A winding road leads east up a sharp slope towards a garden.  Your walking staff is resting here on the ground. A worn silk headband is lying here. A smooth stone lies here off to one side. There are some Magic Rubberbands lying here. A small potted bonsai tree is growing here serenely. The potted bonsai tree contains: green coin. A bag of drake yums lies on the ground. A pair of boots lies here. 
+>get all
+walking staff taken.
+headband taken.
+smooth stone taken.
+Magic Rubberbands taken.
+potted bonsai tree taken.
+bag of drake yums taken.
+pair of boots taken.
+>wear headband
+You put the headband on. You feel more suitably dressed for the task at hand.
+>e
+Herb Garden
+All around you are small well-tended plots of herbs. Each plot is carefully marked and separated by white shell paths. Smells of rosemary, jasmine and, yes, ginseng fill the air. A small road leads down west to the river.  Green Dragon is carefully tending to the weeds in this beautiful garden. 
+>show bonsai tree to dragon
+You wave things around a bit, finally catching the attention of Green Dragon whose eyes open up widely. Before you have a chance to react, the dragon takes the emerald and the bonsai tree from your hands.
+Green Dragon bends down between some bushes and performs some quick maneuvers. With astonish deftness you see him exchange the green coin for the radiant emerald in the limbs of the bonsai tree. He hands you the coin and suddenly images appear in your mind. You sense greenness and growing things. You sense the winds of time and change; seasons are palpable moments. Human children and bonsai trees are lovingly tended and shaped by both human parents and by Green Dragon. You feel his question as the images flash by: after your quest is done, will there be a place for dragons in the World? An image of ginseng fills your mind and you have returned to the garden. The dragon goes back to tending the soil.
+>s
+Small Alcove
+You are standing in a small alcove surrounded on three sides by heavy shrubbery. To the west you can enter the Stables of the Imperial Gardens. Small paths lead through the bushes to the north, the south and the east.  
+>e
+Imperial Gardens
+You are within the Imperial Gardens. A wooden walkway curves hither and fro leading to the west through some box yews and to the southeast towards a raked stone path in the distance. On boulders lining the path are small Bonsai trees, placed in loving, beautiful configurations.  
+>e
+There is no exit in that direction.
+>se
+Stone Path
+A gentle stone path winds from the northwest to the southeast. Small bushes line the edges of this road, stepping stones lead you forward into a quiet retreat. The pebbles which surround this path have been newly raked and form pretty wave patterns, enhancing the beauty of this path.  
+>se
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin and all empty. 
+>put green coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and one of the depressions on the edge of the fountain becomes filled.
+>e
+East Nook
+You are standing within a quiet nook. The only exit is to the west.  A simple but large marble box rests on the ground. 
+>open box
+marble box open.
+The marble box contains:
+  a barely fiery green magic sphere
+  a slightly illuminated yellow magic sphere
+  a dimly glowing red magic sphere
+>get green sphere
+barely fiery green magic sphere taken.
+>get yellow sphere
+slightly illuminated yellow magic sphere taken.
+>get red sphere
+dimly glowing red magic sphere taken.
+>w
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin. Some are empty. Others are not. 
+>ne
+Stone Path
+A gentle stone path winds from the northeast to the southwest. The stones along this path shimmer and sparkle; many seem to be made of crystal and of mica. It creates a very pretty shimmering effect as you walk along this way. You can crawl through the bushes to the south.  In a small nook, you can just barely see some curled and weathered paper. 
+>get paper
+torn scroll taken.
+>ne
+Outside the Crystal Palace
+You are standing in front of a large, ornate crystal palace. The sun strikes directly onto the shining walls and creates myriads of reflections and sparkles. It is very bright out here. You may enter the castle to the east or wander southwest along a small stone path.  
+>e
+Crystal Palace
+You find yourself in a hall of mists, shimmer and sparkle. Mirrors and ornaments abound around you creating a true visual chaos. The only exit you can see lies to your west.   You hear the faint rustling of...wings? Whatever it is, it's somewhere nearby. 
+>close eyes
+Your eyes are covered with the headband. What a relief! Afterimages of the crystal glare still dance before you but slowly fade away. Sounds now seem to be more distinct than before.
+>listen
+You hear a faint rustle from the northwest.
+>nw
+You stumble in that direction towards the sound.
+You hear a quiet rustle from the northeast.
+>ne
+You stumble in that direction towards the sound.
+You hear a distinct rustle from the south.
+>s
+You stumble in that direction towards the sound.
+You hear a loud rustle from the north.
+>n
+
+A voice fills your head. 'You may have found my lair, Ginseng, but you must come to visit me in person. I will await you at the top of the hill.' You hear a mental chuckle. 'You will not find the road...easy.'
+You can see again.
+Bottom of the Hill
+You find yourself at the bottom of an enormous Crystal mountain. Sheer, almost invisible, slopes reach out beyond you to a high, distant peak. A small one-way magic portal leads out to the east.  
+>put rubberbands on boots
+You stretch a few of the rubberbands around the boots. They collapse around the soles and melt in, making the soles very sticky. You have used up all the rubberbands.
+>wear boots
+You put the pair of boots on.
+>u
+(Good thing you were wearing those sticky boots! You climb the glass mountain easily.)
+As you go, your boots make sticky sucking noises. (yuk!)
+Atop of Mount Crystal
+Crystal Dragon is curled against a crystal rock making traceries in a small box of glass beads. He is smiling, which may be a bad sign at the best of times. 'Ginseng,' he says. 'I see you have made it up my mountain. I am certainly impressed. The days of heroes, perhaps, has returned. I owe you a reward, I suppose for meeting hardships. Well enough. I will trade you the Coin of Crystal for your headband.'   
+>trade
+Crystal Dragon very prettily takes your headband, wraps it around his own head and hands you a small crystal coin. 'I suppose you will use this for your great task, Ginseng.' He frowns. 'I don't quite like that. I would envision a time when both dragons and humans could live within this world with mutual disassociation and peace. When you have finished your task, Ginseng, and ousted Black Dragon, will you let the rest of us stay in peace?' You shake your head sadly, 'I do not know. I cannot guarantee that.' 'Well enough,' says Crystal Dragon. 'I will have to trust in your good nature.'
+
+ There is a flash of light, a shimmer of crystals and the world dissolves...
+
+Outside the Crystal Palace
+You are standing in front of a large, ornate crystal palace. The sun strikes directly onto the shining walls and creates myriads of reflections and sparkles. It is very bright out here. You may enter the castle to the east or wander southwest along a small stone path.  
+>sw
+As you go, your boots make sticky sucking noises. (yuk!)
+Stone Path
+A gentle stone path winds from the northeast to the southwest. The stones along this path shimmer and sparkle; many seem to be made of crystal and of mica. It creates a very pretty shimmering effect as you walk along this way. You can crawl through the bushes to the south.  
+>s
+As you go, your boots make sticky sucking noises. (yuk!)
+Rocky Path
+A rocky path winds from the southeast to the northwest. The path is in poor repair, but not disfigured -- as if it had been suddenly neglected after long use. You can see a small break in the bushes to the north.  
+>se
+As you go, your boots make sticky sucking noises. (yuk!)
+End of the Road
+You are standing at the southeast end of a roughly cobbled road in bad repair. A tiny walk leads to the southwest. A large sign stands here. It says 'End of the Road. Go Back.'  
+>go back
+As you go, your boots make sticky sucking noises. (yuk!)
+Other End of the Road
+You are standing at the southeast end of a roughly cobbled road in bad repair. A sign is standing here. It says 'End of the Road. Go Back.'  
+>nw
+As you go, your boots make sticky sucking noises. (yuk!)
+Forest Road
+You are walking down a road which leads from the southeast to the north. The road is badly overgrown by weeds and roots.  
+>n
+As you go, your boots make sticky sucking noises. (yuk!)
+Forest Clearing near House
+You are standing in the middle of a forest clearing. The ground is covered with loose pebbles. It looks as if you can take a few of them. A forest road leads to the south.   You are standing on the south side of a large white house. There is no entrance on this side. 
+>get pebbles
+handful of pebbles taken.
+>throw pebble
+You throw some of the pebbles. There are plenty left. Suddenly, the ground starts to shake... the forest begins to sway... The house begins to move--in the same direction as what you've thrown!
+
+You are standing on the south side of a large white dwelling. You face the right side of the house. There is no entrance on this side.
+>throw pebble
+You throw some of the pebbles. There are plenty left. Suddenly, the ground starts to shake... the forest begins to sway... The house begins to move--in the same direction as what you've thrown!
+
+You are standing on the south side of a large white dwelling. You face the wide, welcoming entrance of this residence.
+>n
+As you go, your boots make sticky sucking noises. (yuk!)
+Within the White Granite House
+You are standing within a large, elegant home made completely of white granite. Beautiful ornamentation lines the hall, the floor is a mosaic in shades of white. Granite Dragon lies here in apparent repose -- or maybe she's simply a granite statue of a dragon.  In the corner stands a magnificent white granite harp.  
+>meditate
+After a few seconds, the world seems to slip away... You see in great clarity, a young girl playing harp music. The music sits on a antique granite stand of great beauty. It is in the shape of a singing white dragon! You can feel the strains of music performing some great magic. You can see the notes of the music quite clearly and they seem to bond to your mind in an expression of the melody.
+>play harp
+You begin to play the harp. The melody you remember from your recent meditations flows from instrument as a necessity of destiny. Strains of hope, of beauty, of glory fill the air and your spirit. Granite Dragon begins to stir, opening grey marble eyes. She moves slowly, cautiously, with the glacial determination of time itself. Cold solid thoughts fill your head. Humans, seeming like butterflies and humming-birds move swiftly through the world, adding beauty to it in some places, removing it from others. Seen from this viewpoint, ages clarify into palpable moments. A distinct sense of longing fills you; a longing to watch the sunsets flicker by, a longing to feel the earth warm and cool in rhythmic patterns, a longing to remain within the World. The music quiets around you, leaving behind that sense of deep desire and a smooth coin within your hand. The scroll has disappeared.
+>s
+You feel strains of a haunting melody slipping from your mind.
+As you go, your boots make sticky sucking noises. (yuk!)
+Forest Clearing near House
+You are standing in the middle of a forest clearing. The ground is covered with loose pebbles. It looks as if you can take a few of them. A forest road leads to the south.  You are standing on the south side of a large white dwelling. You face the wide, welcoming entrance of this residence. 
+>s
+As you go, your boots make sticky sucking noises. (yuk!)
+Forest Road
+You are walking down a road which leads from the southeast to the north. The road is badly overgrown by weeds and roots.  
+>se
+As you go, your boots make sticky sucking noises. (yuk!)
+Other End of the Road
+You are standing at the southeast end of a roughly cobbled road in bad repair. A sign is standing here. It says 'End of the Road. Go Back.'  
+>go back
+As you go, your boots make sticky sucking noises. (yuk!)
+End of the Road
+You are standing at the southeast end of a roughly cobbled road in bad repair. A tiny walk leads to the southwest. A large sign stands here. It says 'End of the Road. Go Back.'  
+>nw
+As you go, your boots make sticky sucking noises. (yuk!)
+Rocky Path
+A rocky path winds from the southeast to the northwest. The path is in poor repair, but not disfigured -- as if it had been suddenly neglected after long use. You can see a small break in the bushes to the north.  
+>nw
+As you go, your boots make sticky sucking noises. (yuk!)
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin. Some are empty. Others are not. 
+>i
+You are carrying:
+  a granite coin
+  a handful of pebbles
+  a crystal coin
+  a dimly glowing red magic sphere
+  a slightly illuminated yellow magic sphere
+  a barely fiery green magic sphere
+  a pair of boots (being worn)
+  a bag of drake yums
+  a smooth stone
+  a walking staff
+>put granite coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and one of the depressions on the edge of the fountain becomes filled.
+>put crystal coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and one of the depressions on the edge of the fountain becomes filled.
+>remove boots
+You take off the pair of boots.
+>sw
+Stone Path
+A stone path winds sharply from the northeast down to the west. A steep dirt road leads north through some hedges and continues southeast past a gate.  
+>w
+Mouth of Tunnel
+You are standing at the bottom of a steep stone east-west path. Before you looms large craggy tunnel.  
+>w
+It's too dark to see!
+>drop red sphere
+The sphere melds into the ground and begins to glow very, very brightly. You are in a deep, craggy tunnel. Exits lead further within the tunnel to the north and west. You can leave the tunnel to the east. You hear something grumbling nearby.
+>n
+You hear some heavy stomping nearby.
+It's too dark to see!
+>drop blue sphere
+It's too dark to see.
+>drop green sphere
+The sphere melds into the ground and begins to glow very, very brightly. You are in a deep, craggy tunnel. Exits lead further within the tunnel to the south and west. You hear something grumbling nearby.
+>w
+Something is making loud, annoyed tramping noises nearby.
+It's too dark to see!
+>drop yellow sphere
+The sphere melds into the ground and begins to glow very, very brightly. You are in a deep, craggy tunnel. Exits lead further within the tunnel to the south and east. You hear some very loud, exasperated, even angry grumbling nearby.
+>s
+The tunnel starts to glow with an amazing blue light which grows and grows. You find the effect quite beautiful until you realize that the glow is coming from the large, ugly and furious Blue Dragon. 'What is it with humans and light? Can you not leave me in peace?' The tunnels shake with his anger. 'I tire of heroes and magic spheres and lanterns and all else which draws the away the beauty of the dark and sullies it. The dark is a special and gentle place; yet you cut it with beams slashing across its delicate veil. Get away from me, Ginseng. Yes, I know who you are. Leave the tunnels and me in peace and let me find my repose.' The walls of the tunnel are shaking rather strongly; I would get out of here if I were you.
+
+Tunnel
+You are in a deep, craggy tunnel. Exits lead further within the tunnel to the north and east.  Furious and glowing, Blue Dragon is standing here waiting for you to leave.  
+>e
+You hear some rumbling.
+Tunnel
+You are in a deep, craggy tunnel. Exits lead further within the tunnel to the north and west. You can leave the tunnel to the east.   A red magic sphere glows with a brilliant light. 
+>e
+You feel a bit shaky.
+Mouth of Tunnel
+You are standing at the bottom of a steep stone east-west path. Before you looms large craggy tunnel.  
+>z
+Time passes...
+You have a bad, bad, bad feeling.
+>z
+Time passes...
+
+
+******KA-BOOOOOOOM******
+
+You see the tunnel collapse in an enormous explosion. A small blue bit of debris flies from the rocks and lands near the collapsed tunnel.
+>get blue coin
+blue coin taken.
+>e
+Stone Path
+A stone path winds sharply from the northeast down to the west. A steep dirt road leads north through some hedges and continues southeast past a gate.  
+>ne
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin. Some are empty. Others are not. 
+>put blue coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and one of the depressions on the edge of the fountain becomes filled.
+>w
+West Nook
+You are standing within a quiet nook. The fountain lies to the east. You may enter the Arch of Seeming to the west.  A bed of freshly raked gravel lies to the side. The gravel bed contains: water figurine, cobble figurine, pondlily figurine, goldfish figurine. 
+>drop all
+handful of pebbles dropped.
+pair of boots dropped.
+bag of drake yums dropped.
+smooth stone dropped.
+walking staff dropped.
+>get cobble figurine
+cobble figurine taken.
+>w
+You have turned into a cobblestone.
+In Pond [within Arch of Seeming]
+You are in an enormous Goldfish Pond. You feel strange. You are a cobble. Around you, water flows gently, goldfish swim hither and fro and pondlilies occasionally sink and dip below the surface. 
+>slip
+With great exertion you begin to rock back and forth moving molecules first this way then that. Silicon shifts in planar forms transferring your weight to one side and then the other. However, by the time a gold coin emerges from under your edge the sheer exertion of your efforts has caused the world to fade away...
+West Nook
+You are standing within a quiet nook. The fountain lies to the east. You may enter the Arch of Seeming to the west.  Your walking staff is resting here on the ground. A smooth stone lies here off to one side. A bag of drake yums lies on the ground. A pair of boots lies here. A handful of pebbles lies on the ground. A bed of freshly raked gravel lies to the side. The gravel bed contains: water figurine, pondlily figurine, goldfish figurine. 
+>get water figurine
+water figurine taken.
+>w
+You have turned into water.
+In Pond [within Arch of Seeming]
+You are in an enormous Goldfish Pond. You feel strange. You are water. Around you, goldfish swim hither and fro, some pondlilies sink and dip below the surface and cobblestones occasionally slip and shift along the bottom. A gold coin is lying here at the bottom of the pond. 
+>flow
+You begin to flow, gently lifting the coin off the bottom of the pond. However, your exertion makes the world start to fade away.
+West Nook
+You are standing within a quiet nook. The fountain lies to the east. You may enter the Arch of Seeming to the west.  Your walking staff is resting here on the ground. A smooth stone lies here off to one side. A bag of drake yums lies on the ground. A pair of boots lies here. A handful of pebbles lies on the ground. A bed of freshly raked gravel lies to the side. The gravel bed contains: pondlily figurine, goldfish figurine. 
+>get pondlily figurine
+pondlily figurine taken.
+>w
+You have turned into a pondlily.
+In Pond [within Arch of Seeming]
+You are in an enormous Goldfish Pond. You feel strange. You are a pondlily. Around you, water flows gently, goldfish swim hither and fro and cobblestones occasionally slip and shift along the bottom. 
+>sink
+With great exertion you begin to push yourself lower and lower into the water. Finally you are a few inches below the surface, however the sheer exertion has made the world start to fade away...
+West Nook
+You are standing within a quiet nook. The fountain lies to the east. You may enter the Arch of Seeming to the west.  Your walking staff is resting here on the ground. A smooth stone lies here off to one side. A bag of drake yums lies on the ground. A pair of boots lies here. A handful of pebbles lies on the ground. A bed of freshly raked gravel lies to the side. The gravel bed contains: goldfish figurine. 
+>get goldfish figurine
+goldfish figurine taken.
+>w
+You have turned into a goldfish.
+In Pond [within Arch of Seeming]
+You are in an enormous Goldfish Pond. You feel strange. You are a goldfish. Around you, water flows gently, pondlilies sink and dip below the surface and cobblestones occasionally slip and shift along the bottom. A pondlily leaf floats here in the middle of the pond. A gold coin floats here in the middle of the pond. 
+>swim
+As you begin to swim, currents force the gold coin onto the pond lily. The lily strained at being submerged begins to rise to the surface. You swimming exertion makes the world start to fade away.
+West Nook
+You are standing within a quiet nook. The fountain lies to the east. You may enter the Arch of Seeming to the west.  Your walking staff is resting here on the ground. A smooth stone lies here off to one side. A bag of drake yums lies on the ground. A pair of boots lies here. A handful of pebbles lies on the ground. A bed of freshly raked gravel lies to the side. 
+>get all
+walking staff taken.
+smooth stone taken.
+bag of drake yums taken.
+pair of boots taken.
+handful of pebbles taken.
+>e
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin. Some are empty. Others are not. 
+>s
+Stone Path
+A gentle stone path winds from a beautiful wooden bridge to the south to a large fountain to the north. Small decorative statues line this walk coming only to the height of your calf. The designer of this delightful way based his motif on whimsical geckos, prancing lizards and other small reptiles shown here at play.  A cardboard box is lying here. 
+>s
+Teak Bridge
+You are standing on a beautiful bridge, made entirely of highly varnished teakwood. Below you, you can hear the soft noises of a fountain-fed pond. From here, you can see beautiful goldfish performing dances of orange within the cool waters. To your south stands a formal tea-house, to the north lies a winding path and a small side walkway leads down to the pond.  
+>d
+Goldfish Pond
+You are standing next to a small goldfish pond within a carefully maintained rock garden. Large red and brown stepping stones contrast against the grey pebbles. A small fountain cascades over a large boulder hitting it perfectly and precisely four times, creating four little waterfalls; each after the other, flowing into the pond with gentle trills of sound. Within the dark, clear water above smooth grey cobbles, orange goldfish dart to and fro in mystic patterns. Lovely pond-lilies float here and there on the surface; occasionally ducking beneath the water-line and re-emerging with a glistening veneer. A teak walkway leads up to a bridge and a gate leads to the northwest through some large rocks.  A gold coin is floating on top of a pond-lily. 
+>get gold coin
+golden coin taken.
+>u
+Teak Bridge
+You are standing on a beautiful bridge, made entirely of highly varnished teakwood. Below you, you can hear the soft noises of a fountain-fed pond. From here, you can see beautiful goldfish performing dances of orange within the cool waters. To your south stands a formal tea-house, to the north lies a winding path and a small side walkway leads down to the pond.  
+>s
+Outside of Tea House
+You are standing in a small garden outside of an elegant teahouse. A formal bridge lies to the north and a tiny path leads to the northeast.  
+>s
+Tea House
+You are within an elegant teak tea house. Jade and wood carvings line the ceiling boards. An elegant rug depicting victories and battles adorns the floor. Crimson Dragon is lying on the rug, curled around a tea table, sipping tea and softly strumming a many-stringed zither in strange eastern melodies. A small doorway leads to the east and a larger arch leads outside.   
+>e
+Tea House Nook
+You are standing within a small nook. A small doorway leads west to the Tea Room. A passage slopes down to the south into the older stone part of the building.  
+>s
+Shrine
+You are in the vestibule before a shrine. The cool air in here wafts around ornate stone work and above a smooth tiled floor. There is a sense of great age here. Two statues guard the way into the shrine. To the left is a small Buddha, and to the right a goddess holding a small child to breast. Both statues give an air of happiness and peace to this quiet room. Incense wafts through this small shrine from the flower covered altar. The room seems to glow crimson and gold although there is no apparent light source. You feel happy and peaceful here. A shimmering crimson gateway leads to the east.  
+>e
+Dark Corridor
+You find yourself at a sharp bend in a dark hallway. The hallway continues to the west and to the southeast, where you hear humming and clacking sounds.  
+>se
+Wheel Room
+You are in an enormous vaulted chamber covered in turning prayer wheels. Wheels lie within wheels lie within wheels. Every sort of wood, every sort of metal has been used here. Straight overhead is a giant skylight, lighting every corner of the room, allowing prayers from every wheel to rise towards the heavens. An exit leads to the northwest.  A graceful golden stairway leads up to the skylight. A small golden wheel is affixed here to the floor. 
+>u
+Cupola
+You are standing on a widows walk surrounding a golden domed cupola. Below you, through a skylight you see the top of an ephemeral golden stairway. As you look around, you can see flat plains in almost all directions. If you squint, you can just make out peasants working in the low fields.  High, high above you at the very tip of the Cupola, you can see a flash of crimson. A young, eager and almost imbecilic drake preens himself in the light of the afternoon sun. Every now and then he makes yipping noises and drools on you a little. 
+>feed drake
+You reach into the bag and give the drake a yum. The drake yips with glee and drools over your shoes as he wolfs the yum down. Suddenly he launches into the air with a rather pathetic 'scrreeeeeee, screeeeee...urp' call. He wings his way to the point of the cupola and returns with a beautiful birdcage in his mouth. You take it, carefully wiping it off. You pat the drake on its head. The drake peeps and turns over on its back to have his tummy rubbed.
+>d
+Wheel Room
+You are in an enormous vaulted chamber covered in turning prayer wheels. Wheels lie within wheels lie within wheels. Every sort of wood, every sort of metal has been used here. Straight overhead is a giant skylight, lighting every corner of the room, allowing prayers from every wheel to rise towards the heavens. An exit leads to the northwest.  A graceful golden stairway leads up to the skylight. A small golden wheel is affixed here to the floor. 
+>nw
+Dark Corridor
+You find yourself at a sharp bend in a dark hallway. The hallway continues to the west and to the southeast, where you hear humming and clacking sounds.  
+>w
+Shrine
+You are in the vestibule before a shrine. The cool air in here wafts around ornate stone work and above a smooth tiled floor. There is a sense of great age here. Two statues guard the way into the shrine. To the left is a small Buddha, and to the right a goddess holding a small child to breast. Both statues give an air of happiness and peace to this quiet room. Incense wafts through this small shrine from the flower covered altar. The room seems to glow crimson and gold although there is no apparent light source. You feel happy and peaceful here. A shimmering crimson gateway leads to the east.  
+>n
+Tea House Nook
+You are standing within a small nook. A small doorway leads west to the Tea Room. A passage slopes down to the south into the older stone part of the building.  
+>w
+Tea House
+You are within an elegant teak tea house. Jade and wood carvings line the ceiling boards. An elegant rug depicting victories and battles adorns the floor. Crimson Dragon is lying on the rug, curled around a tea table, sipping tea and softly strumming a many-stringed zither in strange eastern melodies. A small doorway leads to the east and a larger arch leads outside.   
+>show cage to dragon
+You show the birdcage to Crimson Dragon. Her eyes begin to glow bright and she gently takes the cage from your hand. With deft movements, she unlocks the cage and a small nightingale flies out to her hand to sing in dulcet tones. You both stand and listen to the heart-wrenching tune of captivity and loss of freedom until the bird launches herself into the air and flies out of a window. Crimson Dragon looks directly at you, handing back the cage. 'Do not,' she says 'think to cage us, Ginseng. We will not take to it well.'
+>get crimson coin
+crimson coin taken.
+>n
+Outside of Tea House
+You are standing in a small garden outside of an elegant teahouse. A formal bridge lies to the north and a tiny path leads to the northeast.  
+>n
+Teak Bridge
+You are standing on a beautiful bridge, made entirely of highly varnished teakwood. Below you, you can hear the soft noises of a fountain-fed pond. From here, you can see beautiful goldfish performing dances of orange within the cool waters. To your south stands a formal tea-house, to the north lies a winding path and a small side walkway leads down to the pond.  
+>n
+Stone Path
+A gentle stone path winds from a beautiful wooden bridge to the south to a large fountain to the north. Small decorative statues line this walk coming only to the height of your calf. The designer of this delightful way based his motif on whimsical geckos, prancing lizards and other small reptiles shown here at play.  A cardboard box is lying here. 
+>n
+The Rainbow Fountain
+You are standing before a large granite fountain. A rainbow of colors is formed by the water's constant spray. Gentle paths lead off in many directions.  On the circling edge of the fountain lie six shallow depressions, each the size of a coin. Some are empty. Others are not. 
+>put crimson coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and one of the depressions on the edge of the fountain becomes filled.
+>put gold coin in fountain
+The coin is drawn down, down, down into the fountain where it hurtles around in a veritable maelstrom. The coin seems to explode and dissolve all at once. You step back and watch the waterworks for a time until the movement dies down and the final depression on the edge of the fountain fills.
+There is a heavy flash of Lightning followed by a dark ripple of Thunder. The world begins to shake. People fade back into the World Beyond as you start to dissolve out of it...
+
+The voice of Black Dragon booms: 'FIND ME, GINSENG, AND I WILL GIVE YOU HONEST BATTLE.'
+
+Land of Mists
+You are standing in the land of mists.  A smooth stone lies here off to one side. Your walking staff is resting here on the ground. 
+>get smooth stone
+smooth stone taken.
+>get staff
+walking staff taken.
+>meditate
+After a few seconds, the mists seems to slip away... You open your eyes to find yourself in a large black chamber, stretching out in many directions. Before you, on an obsidian throne sits an amused Black Dragon. Next to him on a small stool sits a striking young woman with black hair and black eyes. As Black Dragon realizes you are no longer caught in the illusions of mist, he stands up enraged. 'Defend yourself,' he sneers pulling out a large sword.
+Black Throne Room
+You find yourself in a large black chamber, stretching out in many directions. Before you is an empty obsidian throne. Next to the throne on a small stool sits a striking young woman with black hair and black eyes.    Black Dragon looms over you with a large and evil sword in his hand. 
+>x woman
+The woman has dark eyes, dark hair and looks VERY familiar. 
+>kill dragon
+You hold off Black Dragon's attack by the sweat of your brow and the sturdiness of your trusty walking staff. But soon you begin to think you can no longer repel his slashing sword. You start to give up hope when...behind Black Dragon arrives the beautiful dark haired woman. She holds up the wooden stool and with a sharp blow brings it down upon Black Dragon's head. You do not pause but pick up Black Dragon's sword and deal his death blow. The woman smiles shyly at you. She looks very, very familiar. 'My name,' she says, 'is Jasmine.'
+
+An old woman enters the throne room; the same woman who greeted you at the temple. 'Well well,' she says. 'Ginseng and Jasmine have completed their tasks, haven't they?' Jasmine is staring in particular surprise at the old priestess. You realize that the priestess looks quite a lot like her. Before you can comment on this, an elderly priest arrives. His face is yours, or as it will be when many years have passed. 'Hello Ginseng,' he says smiling, his arm put warmly around the priestess. 'The World Beyond has been saved and the two of you will have much to talk about.' He laughs. 'For many, many years....'
+
+[press return to continue] 
+
+The Hall of the Black Dragon fades away as you and Jasmine are magically transported back to the World Beyond. People are running to and fro, hugging and greeting each other as if long separated. Many dragons small and large weave in and among them, welcome although almost ignored in the enormous bustle of return. Jasmine takes your hand and smiles at you. 'Well,' you begin awkwardly. 'I suppose that...' Before you have a chance to continue you are blindsided with an enthusiastic tackle from your happy drooling friend the drake. As you lie on the ground trying to preserve the shreds of dignity left to you, the drake licks your face and yaps. Jasmine giggles.
+ 
+[YOU HAVE WON THE GAME. WELL DONE, GINSENG. THE WORLD BEYOND THANKS YOU]
+
+In 200 turns you've earned 1500 out of a possible 1500 points.
+
+Do you want to try again? 

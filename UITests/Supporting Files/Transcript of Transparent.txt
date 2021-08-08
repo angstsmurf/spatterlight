@@ -1,0 +1,125 @@
+Start of a transcript of
+
+Transparent
+An interactive exploration by Hanon Ondricek
+Release 7 / Serial number 150401 / Inform 7 build 6L38 (I6/v6.33 lib 6/12N) 
+Identification number: //73E32658-3590-41F4-9234-9BC3EC9E405C//
+Interpreter version 0.5.4 / VM 3.1.2 / Library serial number 080126
+Standard Rules version 3/120430 by Graham Nelson
+Music by Daniel Stelzer (based on code by Massimo Stella and Wade Clarke (Glulx sound), Erik Temple (Glulx timing), and Eliuk Blau (DAMUSIX for I6))
+Easy Doors version 1/140902 by Hanon Ondricek
+Postures version 2 by Emily Short
+Epistemology version 8 by Eric Eve
+
+>open van
+(your van)
+You open your van, revealing your equipment bag.
+
+>get bag
+Taken.
+
+>open it
+You open your equipment bag, revealing your camera, a spare battery and a charger.
+
+>wear camera
+(first taking your camera)
+You loop the camera strap over your head and let it hang.
+
+>n
+You open the wooden gate.
+
+You step through the gate.
+
+Peristyle
+Just inside the manor property, you find yourself sheltered by the roof over the southern colonnade of a peristyle that surrounds an overgrown courtyard on three sides.  The colonnade leads east and west over crooked slate tiles.
+
+The huge, wrought-iron gates that would lead north into the courtyard are overgrown by vines the size of a man's arm, which have lifted them crooked slightly off their hinges.
+
+A folksy, jigsawed sign points east, which is to your right.
+
+The gate leading back outside to your van stands to the south.
+
+>photograph sign
+You take a photo of the arrow.
+
+>photograph gates
+You take a photo of the interior gates.
+
+>e
+
+Pergola
+The colonnade here turns a corner to the left under a stone pergola with domed roof held up by columns.  From here, through the bars to the northwest, the manor is framed from the front perfectly, architecturally symmetrical on both sides if not for the uneven pattern of vines climbing the walls.
+
+The front entrance to the property is west, and visitors entering the tour would be shepherded into the stable building by low fences through the dim archway to the north.
+
+The domed roof of the pergola curves above you.
+
+>photograph roof
+(the domed roof)
+You take a photo of the domed roof.
+
+>n
+
+Visitor Entrance
+The front half of the barn has been modernized with drywall and an information and ticket counter.  In the past, visitors would pay to take a tour and then assemble in the stable to the north.  The way out of the visitor center is to the south.
+
+You notice a framed map of the property behind the counter.
+
+A squiggle of 1980s track lighting and some ceiling fans are suspended above from the rafters in an attempt to brighten and modernize the Visitor Entrance.
+
+A W-shaped information desk is positioned in the corner against the wall as to prevent visitors from going behind it.
+
+A framed plaque hangs crookedly on the wall next to the north exit.
+
+>read plaque
+(the framed plaque)
+A crystally glass and brass metallic thing with images of engraved angels touching lightly.  The text reads The Thorne Manor Historical Society acknowledges the extremely generous and knowledgeable efforts of ELIZABETH McDONALD, whose insights have contributed greatly to the aesthetic and educational elements of the Thorne Manor Historical House Tour.
+
+You hear a phone ringing in here somewhere.  Behind the counter most likely.
+
+>go desk
+Since the ends of the W-shaped desk have been shoved against a wall, you have to climb over it to check out the other side.
+
+Ticket Counter
+You are inside the W-shaped ticket counter in the visitor's entrance.  Since it's been pushed completely against the wall, you'll need to climb back over it to leave.
+
+There is a framed map of the property on the wall.
+
+A squiggle of 1980s track lighting and some ceiling fans are suspended above from the rafters.
+
+There are some knee-high shelves behind the counter.
+
+On the low shelves are a crumpled leaflet and a faded memo.
+
+A ceiling fan suspended above collects dust.
+
+The counter prevents you from walking around it normally.
+
+You spy an unoccupied electrical outlet for the battery charger under the counter.
+
+You can also see a concealed wall switch here.
+
+An answering machine picks up:  You have reached the offices of the Thorne Manor Historical Society.  At this time, we are currently closed.  You may reach us by phone, or visit Thorne Manor in person during our regularly scheduled tour hours.  Our current hours of operation are.
+
+If you are interested in hosting your wedding or reception at Thorne Manor, please dial 516-555-4183 and leave a message for Jill.  Thank you for your interest in Historic Thorne Manor.
+
+Then there is a beep.
+
+>switch on switch
+The lights above (some of them at least) illuminate the ticket counter warmly, and the ceiling fans begin to spin.
+
+>photograph map
+You take a photo of the map of the property.
+
+>x memo
+~~~The Thorne Manor Historical Society~~~
+
+To All Staff and Volunteers:
+ 2nd Time I've had to write this: Your smoke breaks must be taken off-property (in the parking lot outside the main gate is fine, you don't have to go all the way down to the road)  The ticket counter and the garden and the colonnade (all exterior fenced areas touching the courtyard) are not considered off property. Please do not leave cigarette butts to pile up in the parking lot or anywhere else where visitors will see them as trash or where they might ignite brush or leaves.  Use the customer ashtrays outside the gate.
+
+Carol V.E. Towne.
+
+>
+You stand idly for a bit, considering what to do next.
+
+>

@@ -1,0 +1,190 @@
+w
+w
+w
+yes
+get staff
+get headband
+wear headband
+s
+get stone
+examine stone
+meditate
+se
+se
+l
+nw
+nw
+s
+s
+s
+wait
+wait
+s
+e
+s
+burn money
+e
+se
+turn wheel
+u
+pet drake
+d
+nw
+w
+n
+w
+n
+n
+n
+open box
+look in box
+get rubberbands
+n
+nw
+nw
+get tree
+w
+w
+look in bin
+open it
+open bin
+get yums
+e
+n
+get boots
+wear boots
+w
+remove boots
+remove headband
+drop all
+get black boulder
+throw black boulder
+get white boulder
+n
+throw white boulder
+n
+n
+n
+get jewel
+s
+s
+s
+s
+get all
+wear headband
+e
+show bonsai tree to dragon
+s
+e
+e
+se
+se
+put green coin in fountain
+e
+open box
+get green sphere
+get yellow sphere
+get red sphere
+w
+ne
+get paper
+ne
+e
+close eyes
+listen
+nw
+ne
+s
+n
+put rubberbands on boots
+wear boots
+u
+trade
+sw
+s
+se
+go back
+nw
+n
+get pebbles
+throw pebble
+throw pebble
+n
+meditate
+play harp
+s
+s
+se
+go back
+nw
+nw
+i
+put granite coin in fountain
+put crystal coin in fountain
+remove boots
+sw
+w
+w
+drop red sphere
+n
+drop blue sphere
+drop green sphere
+w
+drop yellow sphere
+s
+e
+e
+z
+z
+get blue coin
+e
+ne
+put blue coin in fountain
+w
+drop all
+get cobble figurine
+w
+slip
+get water figurine
+w
+flow
+get pondlily figurine
+w
+sink
+get goldfish figurine
+w
+swim
+get all
+e
+s
+s
+d
+get gold coin
+u
+s
+s
+e
+s
+e
+se
+u
+feed drake
+d
+nw
+w
+n
+w
+show cage to dragon
+get crimson coin
+n
+n
+n
+n
+put crimson coin in fountain
+put gold coin in fountain
+get smooth stone
+get staff
+meditate
+x woman
+kill dragon
+ 

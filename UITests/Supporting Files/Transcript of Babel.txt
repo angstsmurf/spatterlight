@@ -1,0 +1,2319 @@
+All text will now be saved to the script file.  Type UNSCRIPT at any time to
+discontinue scripting.
+
+>s
+North Hall
+   This is the middle of a dark hallway that runs to the north and to the
+south.  What little light there is comes from the south.
+
+>s
+Center
+   Grey light drips in from an octagonal skylight in the ceiling of this room,
+making the room look as cold as it feels.  To the north, east, and south,
+doorways lead into unlit halls.  The metal door frame of the east hall glows
+faintly with an eerie blue light.
+
+You are attracted to the light and reach out to touch it.  You experience what
+feels like a strong shock of static electricity, and freeze as you hear a
+terrified scream coming from the east hall.  As you watch, your body frozen in
+place, the light in the room becomes much brighter, and a thin man with
+streaming black hair rushes in from the hall, panting wretchedly.  He skids on
+the slick tile and crashes to the ground.  There's a distinct 'crack' as he
+falls, and you see his left leg bent impossibly behind him, metal sticking out
+of the kneecap.  Yet the image is wrong.  The whole room seems blurred, and
+fades away if you try to focus on any particular thing.  The sound seems off
+too, just slightly out of sync with the action.  Suddenly, a woman runs in from
+the north, and kneels by the man.
+
+"What's happened?"  she asks, rapidly examining the man's wounded leg.
+
+Still piled on the floor, gasping, the man mumbles, "That thing... the
+Jabberwocky... it's out... broke the vial right there... slammed the door..."
+As he continues gasping, you hear the sound of more feet rushing in from the
+north, but the picture begins to fade, and you are again standing alone in the
+dim, silent room.
+
+>s
+South Hall
+   At this point in the long hall, the drab metal walls are interrupted by an
+opening on the east side of the passage.  You can see light far back to the
+north, but only icy darkness to the south.
+
+>e
+Communications Room
+   Around you, you can sense the shapes of hulking masses:  some harshly
+angled, some weirdly curved.  All are faintly outlined by the half-light from
+the hall.  A motion catches your eye and, coming closer, you see it's the door
+of a cabinet, swinging slowly back and forth.
+
+>turn on power
+You flip the switch and are nearly knocked back, your eyes dazzled, as
+fluorescent light floods the room.  All through the station you hear humming
+and pulsing as machines come to life.  In a moment the noises fade and your
+eyes adjust.  An electronic voice echoes through the room.  "Returned to main
+power supply from auxiliary power supply.  All station functions returning to
+normal."
+
+You are in some sort of communications center.  Tall machines, barnacled with
+speakers and keyboards, crowd the tight space.  The largest machine in the room
+stands directly in front of you and bears a screen covered in flashing figures.
+On the west wall, next to the door, the power box hangs open.
+
+>l at screen
+The screen reads:  last message out:  PROBLEMS REACHED CRITICAL LEVEL--COMPLETE
+EVACUATION ARRANGED--DO NOT ATTEMPT FURTHER CONTACT IN ANY MANNER--RESEARCH
+MUST BE CONSIDERED DESTROYED--TELERUS PROJECT FAILED--PROJECT 'BABEL' FAILED--
+OUT.
+
+>w
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>s
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>touch bulkhead
+The wind is knocked out of you as your fingers come in contact with the ice
+cold steel of the door frame.  You hear voices behind you and turn to see four
+people taking shape in the hall.  Three of them, the man and woman from the
+scene in the center room and another, older man, seem to be greeting the fourth
+person, a young man with blond hair.
+
+"We're very glad to welcome you, Dr. Telurien," says the older man, addressing
+the newcomer, his tone cordial but uninflected.  The sound is garbled though,
+and the people flicker in and out, like an old and deteriorating movie.  "You
+and I have met," he continues, "but I believe you know our other two colleagues
+through correspondence alone.  May I introduce, then, Dr. Brett Owen, the
+station technologist, and Dr. Alexis Stevansen, our bio-technologist."
+
+At this, Dr. Stevansen, the woman you saw in the first vision, moves forward to
+shake the young man's hand.  "I've taken some interest in your work, Dr.
+Telurien.  Your hypotheses are very un-conventional.  Not necessarily workable,
+but still quite intriguing."  Her voice is relaxed, far from the first
+speaker's tone.  "And, despite Jonas here," she continues, throwing a glance at
+the older man, "we're not always this formal.  Call me Alexis."
+
+"Then call me David," replies the young man.  You notice he has still not let
+go of Alexis' hand.
+
+Also noticing this, the black haired man--Dr. Owen apparently--quickly breaks
+in.  As he steps forward to shake David's hand, you see he has a slight limp. 
+"I'm guessing Jonas will want to show you your room and give you a quick de-
+briefing," he says softly.  "Then I'll show you around the station.  I believe
+you'll find our facilities more than adequate and--"
+
+"Well, I believe that will do for introductions," says Jonas, casually
+steamrolling over the quieter scientist.  "If you'll follow me I'll show you
+your room."  He presses a small panel on the wall that you had previously
+thought was just a tile, and the northwest door opens.  He goes through the
+door, with David following obediently.  Alexis' eyes follow him out as the view
+crackles and fades.
+
+>push button
+The door slides open.
+
+>nw
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>nw
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>e
+(Opening the east door)
+Brett's Room
+   This room is a complete wreck.  The sheets are torn from the bare mattress,
+the bedding thrown on the floor.  A dresser and a glass-doored bookcase, its
+panes shattered, lay on their sides, their contents flung in wild piles over
+the floor.  You can barely see a path through the books and other junk to the
+bathroom door on the north wall or the hall door to the west.
+
+>l at junk
+Strewn all over are various objects:  pieces of clothing, books (including a
+handsome copy of the Bible), papers, sheets from the bed, etc.  The only
+explanation you can imagine for this sort of mess is that this room has been
+very thoroughly searched, for something.  You notice, with some surprise, a
+white card is lying near the bed, almost covered by a fallen pillow.
+
+>take bible and card
+bible:  Taken.
+ID card:  Taken.
+
+>w
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>w
+(Opening the west door)
+Jonas' Room
+   This room conveys the same hard sense of cleanliness and exactness you've
+felt in the rest of the station, despite the soft cream sheets on the bed and a
+graceful, antique roll-top desk in the corner.  Next to the desk are a simple
+dresser and a bookshelf.  To the south is the bathroom door, and to the east
+the round room.
+
+>l at desk
+The desk, the only piece of wooden furniture you've seen anywhere here, is a
+convoluted mass of drawers and pigeonholes, ranging in size from folio holders
+to pencil nooks the size of a dime.  Usually when you imagine a desk like this,
+it's covered with books and papers and other instruments of study.  This desk,
+however, is completely barren, all its drawers empty, on its surface only a
+fading green blotter.
+
+>l at blotter
+On one corner of the blotter you see what appears to be the number 80, hastily
+scribbled in orange ink.
+
+>e
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>se
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>se
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>n
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>n
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>n
+North Hall
+   This is the middle of a silent tunnel that continues to the north and south.
+
+>n
+North End
+   White light glares off steel and sanitary tile at the end of this hall.  To
+the west is a door with a small slot next to it and to the north is another
+door, with an odd object connected to the handle and the door frame.  The
+northeast corner is filled with an imposing bulkhead covered with various bio-
+hazard labels.  The hall continues to the south.
+
+>put card in slot
+The door slides open and you remove the card.
+
+>w
+Records II
+   This small, high-ceilinged room contains a c-shaped ledge that juts from the
+wall and is set with various data entry devices and covered with papers.  Three
+chairs are set in front of the ledge for people working here.  Set in the south
+wall, above the ledge, is a wide screen, and, directly beneath it, under the
+ledge, is a small safe.  The only way out is a door to the east.
+
+>l at safe
+The small safe looks very sturdy and bears a red dial on its door, which is
+currently closed.
+
+>turn dial to 80
+Okay, it's now turned to 80.  The door pops open.  Sitting on a glowing shelf
+in the safe is a metal key.
+
+>take metal key
+Taken.
+
+>touch shelf
+The shock that pricks your fingers as you touch the shelf is slight, but sharp.
+Jonas and Alexis resolve into the room with you, and you sense immediately that
+this scene is the clearest of all the visions you've seen so far.  As Jonas
+closes the safe and spins the dial, his grey eyes look directly at you for a
+moment.  He suddenly appears very, very old.  But his voice is strong and
+authoritative as he turns back to Alexis.  "There," he says.  "I belive I have
+everything ready.  The doors are closed and the water's turned off.  You go out
+to the courtyard now, the helicopter is prepared.  I'll send out one last
+message and turn off the power then set the lock when I come out."
+
+"But what about--"
+
+"No, this is the only way.  It's too late now, the damage has been done.  We
+must escape--and I do not use that word lightly--and we must do it now.  I wish
+I had had the foresight to stop this while I still could, but the danger now is
+too great.  Our only option is to seal off the Babel project and do our best to
+forget it ever happened."  Alexis makes no reply, only stands in the doorway,
+her eyes meeting Jonas' glare.  Silence squeezes the room, until finally Jonas
+whispers, "There are two devils loose now.  Blame me if you like, but go." 
+Alexis turns rigidly and walks away.  The sound of sobbing comes in from the
+hall as the image fades.
+
+>ask hosea about babel
+The screen reads:  Babel Project:  Station constructed by the Administrative
+Agency for the development of biological experimentation, for the purpose of
+bettering mankind.  Station is manned by four scientists, who will stay in
+residence, with provisions air-dropped monthly.  Station is subdivided into a
+residential area, a lab hall, and a specimen gallery.
+
+>ask hosea about gallery
+The screen reads:  Gallery:  The Babel Station contains an extensive atrium
+gallery of cages, for the maintenance of study specimens.  The amount of light
+entering the gallery from the dome over it can be adjusted by aligning large
+polarizing filters, controlled near the door.  A second gallery, containing
+toxins and viruses, is located nearby.
+
+>ask hosea about filters
+The screen reads:  Gallery Lenses:  Illumination to the atrium gallery can be
+controlled by adjusting the alignment of the polarizing lenses over the dome
+and completely blocked by setting any two of the three lenses to the same
+alignment.
+
+>e
+North End
+   White light glares off steel and sanitary tile at the end of this hall.  To
+the west is a door with a small slot next to it and to the north is another
+door, with an odd object connected to the handle and the door frame.  The
+northeast corner is filled with an imposing bulkhead covered with various bio-
+hazard labels.  The hall continues to the south.
+
+>s
+North Hall
+   This is the middle of a silent tunnel that continues to the north and south.
+
+>s
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>s
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>s
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>nw
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>nw
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>unlock south door with metal key
+Unlocked.
+
+>s
+(Opening the south door)
+Alexis' Room
+   This appears to be a actual "room," that is, it feels like a real person
+lived here.  The nondescript furniture--a metal desk, a bookcase, a dresser and
+a short bed--through the most subtle alterations, give the room a warm feeling.
+Everything from the fading smell of lilacs to the small, glowing bud vase on
+the table, speak of an occupant determined to make a home in this sterile
+building.  The bathroom door is to the west and a second door to the north
+leads out.
+
+>touch vase
+As your fingers touch the crystal, you hear the voices of David and Alexis
+behind you, but the sound fades in and out.  You turn and see them lounging on
+the bed, the air of tension and discipline you've sensed in the other scenes
+completely absent here.
+
+"You know, I think Jonas would kill us if he found out I was here," says David,
+grinning slowly.
+
+"Look at us," laughs Alexis, "Acting like two frightened teenagers."
+
+"With the girl's father in the next room," finishes David, as he gently tickles
+Alexis.  She giggles like a child and bats David away.  He laughs, but somehow
+the tickling bodies embrace.  The pair lies silently on the bed, comfortable,
+then the loud latch of the door snaps open.  Alexis and David bolt up and you
+turn to face the newcomer, but the image instantly disappears.
+
+>n
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>unlock north door
+(with the metal key)
+Unlocked.
+
+>n
+(Opening the north door)
+David's Room
+   There is something off-center and deeply disturbing about this small space. 
+While the dresser, bed, table and bookshelf that comprise the only furnishings
+of the room are normal enough, rather featureless in fact, certain details are
+wrong.  The thick glass doors on the bookshelf are cracked and shattered in
+places, the sheets of the bed are in terrible disarray, and, most disturbing, a
+thin trail of blood leads across the carpet from the bathroom door to the east
+out the south door.  You also notice the table glows with an unearthly light.
+
+>touch table
+You touch the surface and a "ghost" image of David appears sitting on the
+table, right next to your hand.  Across the room, Jonas is pacing and talking,
+but the image quality is terrible and you can only just make out the
+conversation.
+
+"It should be clear," intones Jonas, "that our work here is of the most
+confidential nature.  While we are working for their benefit, the general
+populace are a superstitious and ignorant lot, easily given over to panic.  For
+these reasons, whatever discoveries we make here, if and when they are revealed
+to the masses, must be camouflaged in such a way as to give no hint that we
+created them.  It was here that the cancer vaccine and the first viable organic
+fuel were formulated.  Yet you will never hear our name mentioned.  This is the
+most thankless of jobs, David."  Here he pauses and then continues with
+measured emotion.  "But the true reward working here comes from the work
+itself.  A knowledge of duty and ability fufilled.  You are brilliant, David;
+only the sharpest minds in the world have the ability to be one of the four
+here.  But that's not all it takes.  It requires an unselfish, single-minded
+obedience to the spirit of science.  Perhaps this sounds harsh, but one working
+here would do well to consider his life forfeit should it come to a choice
+between one's personal situation and the demands of science and position." 
+Jonas turns to face David, who sits, mesmerized by the speech.
+
+"I believe I understand," he replies.  He looks directly at Jonas, almost as
+one in a trance.  "I will not disappoint you, sir.  I came here for love of
+science, and I shall do whatever is required of me."  Jonas smiles and nods,
+fatherly in his attitude toward the younger scientist.
+
+"As I'm sure it will come up," says Jonas after a brief pause, "there is one
+more issue to deal with.  You should be made aware of the circumstances
+surrounding the death of your predecessor here, Dr. Brian Thorne.  As you may
+have heard, our esteemed colleague did die while working here, and his death
+was not of natural causes."  Jonas slows here, judging his words carefully. 
+"We work in miracles here, David, and occasionally a mind, no matter how
+brilliant, is too narrow to accept these wonders.  Dr. Thorne was a
+conservative man in the realm of the fantastic, and his mind suffered.  In the
+end, assuredly mad, he leapt from the top balcony of the specimen gallery to
+the floor below, and to his death."  Jonas pauses here, the obligatory sign of
+respect.  "And now that that skeleton is out of the closet as it were, I
+believe we've covered everything.  If you would be so kind as to..."  They
+continue the conversation, but it is enveloped by the increasing static, and
+eventually fades out altogether.
+
+>open east door
+You attempt to open the door, but find it stuck fast.  Looking closer, you see
+that the door has been slammed shut so violently that it has become embedded in
+the dented steel of the door frame.  You wonder at the inhuman strength that
+could have done this.
+
+>s
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>unlock nw door
+(with the metal key)
+Unlocked.
+
+>nw
+(Opening the northwest door)
+Dining Room
+   This sizable octagonal chamber is the dining/meeting room of the residential
+section.  In one corner a counter--which is glowing oddly--and a few appliances
+and cabinets designate the kitchenette.  The only other fixture in the room is
+a metal table with four chairs, which seems dwarfed and isolated in the middle
+of the floor.  An arch in the southeast wall leads to the round room and
+another door by the kitchenette in the southwest wall leads to a storage area.
+   You see a calendar here.
+
+>touch counter
+There is a brief flash of blue-white light, the sharp tingle you've grown
+accustomed to, and the image appears.  Brett is slumped in one of the kitchen
+chairs while Jonas, stooping, examines the scientist's knee.  The pant leg has
+been cut away, revealing a prosthetic limb in place of his left leg.  The
+artificial appendage is damaged, steel pins sticking out from the joint.  Jonas
+carefully begins to repair the leg using a set of extremely sharp tools. 
+Alexis paces over the room, rubbing her palms, not looking at the other two.
+
+"I couldn't believe it," Brett says, his eyes closed, in exhaustion more than
+pain.  "Just slipped in behind me, grabbed the vial, threw it down, and ran. 
+David is not safe out there either.  I made that toxin, I know what it can
+do..."
+
+"Obviously," states Jonas, his eyes never leaving his work, "the mental
+deterioration is much faster than we presumed.  To attack with such deadly
+means, and unprovoked--"
+
+"Unprovoked?!"  Alexis stops short, glaring at Jonas.  "You refused to
+administer the anti-toxin.  What further provocation does he need?  If you
+hadn't--"
+
+"Oh, it's my fault is it?  Really?"  Jonas' sarcasm turns the air sour and he
+slowly stands to stare at Alexis, ignoring his patient.  "Dr.  Stevansen, you
+were in charge of seeing that the creature--" He pauses momentarily as Alexis
+gasps in indignation.  "Yes, I believe creature would be the correct term at
+the moment.  You were in charge of making sure it was confined."
+
+"And I did, against every natural impulse I had."
+
+"Then how did it get out?"  The pause is expectant, hard.
+
+"It is possible that I did not check the lock when I brought him his last
+meal."  Alexis' tone in this confession is flat, her face betraying nothing.
+
+Brett breaks the silence, sensing violence in the air.  "There's no point
+wasting time arguing about that."  Unable to stand with his damaged leg, he
+sits straighter in his chair, trying, unsuccessfully, to be commanding.  "We
+don't know how secure the seal around the viral gallery is, so we've got to act
+quickly to nullify the Jabberwocky formula, then administer the anti-toxin as
+soon--"
+
+"We will do no such thing.  I have orders to allow the test to run full cycle,
+and this incident will not stop that."  Both Alexis and Brett stare at Jonas,
+stunned.  Violently, Brett reaches up and grabs the older man's lab coat.
+
+"Listen, Jonas," he half whispers, pulling him down, "You're crazy.  There is a
+fatal toxin in this building, and a homicidal...  thing roaming the halls.  We
+will all die if you insist on this insane course."
+
+"We will not die, you idiot," says Jonas, pushing Brett's hands away from him. 
+"We are capable of dealing with this crisis without breaching the integrity of
+the experiment.  While David is almost certainly lost, our orders have not
+changed.  If you will listen now..."  But it is obvious that Brett is not
+listening.  Instead, staring at Jonas in something like horror, he is slowly
+staggering out of the room, having obvious difficulty with his still damaged
+leg, unable to fully stand.
+
+"God have mercy on you," he mumbles as he backs away, his tall frame now
+reduced to that of a shuffling hunchback.  "God have mercy on your poor,
+twisted soul..."  As he stumbles out the door, the image fades away.
+
+>sw
+Residential Storage
+   The storage area is a tiny rectangle, illuminated by one flickering panel
+light.  A filter in the ceiling blows in chilly, damp air, which forms a slimy
+layer on your bare skin.  Rudimentary metal shelves, some showing signs of
+rust, line the walls, covered with canned goods and sealed containers of food. 
+Nothing perishable, and certainly nothing exceptional.  In the northeast corner
+is the door, opposite which is a pegboard for hanging tools.  The board is
+glowing faint blue.  You also note one segment of shelves has collapsed, its
+contents lying on the floor.
+   The pegboard seems to contain a screwdriver.
+
+>touch pegboard
+The pegboard shimmers at your touch, and tools appear, neatly hanging in their
+outlines.  You hear a soft clatter behind you and turn to see Alexis carefully
+stacking cans from a cardboard box onto the shelves.  She fades in and out
+every time she places a can; the image quality is horrible.  David enters
+quietly, looking around him in vague awe.
+
+"Hello David," Alexis says, setting down the box of cans and smiling.  "Brett
+give you the full tour?"
+
+"Oh, yes," says David.  "I have never in my life imagined some of the things
+you're doing here.  It's amazing."  He pauses, then continues, becoming more
+and more excited.  "I have always dreamed of being able to work purely with
+science, no guidelines or strictures blocking the way.  I can finally do that
+here, be able to work to my full potential.  Alexis, I'm so excited."
+
+"Obviously," she replies, laughing.  "It's not always that amazing, though.  We
+have as much of the mundane here as the fantastic."  Ruefully, she points to
+the air vent.  "That, for example.  Here we are, four of the most brilliant
+scientists on the planet, but we still can't seem to stop the air filter from
+getting wet and rusting the shelves and then spoiling the food."  She smiles
+wryly, and goes back to stacking cans.  David hesitates for a moment, then
+grabs a can and starts working along side of her.
+
+"I think I'm going to like it here, Alexis."
+
+"Well... I'm glad you came."
+
+The image fades out, leaving harsh static in your ears, which slowly disappears
+as well.
+
+>l at segment
+The bolts connecting the corner of these shelves to the supporting bar seem to
+have rusted through, causing the shelves to fall.  The six foot support bar
+lies on the floor along with the rest of the contents of the broken shelves.
+
+>take bar and screwdriver
+metal pole:  Taken.
+screwdriver:  Taken.
+
+>ne
+Dining Room
+   This sizable octagonal chamber is the dining/meeting room of the residential
+section.  In one corner a counter--which is glowing oddly--and a few appliances
+and cabinets designate the kitchenette.  The only other fixture in the room is
+a metal table with four chairs, which seems dwarfed and isolated in the middle
+of the floor.  An arch in the southeast wall leads to the round room and
+another door by the kitchenette in the southwest wall leads to a storage area.
+   You see a calendar here.
+
+>se
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>se
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>se
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>n
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>n
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>e
+East Hall
+   Your nose is bitten by the scent of cleaning alcohol, present in all the
+halls, and especially here.  The stainless corridor continues to the east and
+west.
+
+>e
+East End
+   You're standing at the eastern extremity of an abandoned hall, which
+continues back to the west.  In front of you is a large bulkhead with a
+flashing red beacon on it.  Almost drowned out by the red glare of the beacon,
+you see the bulkhead itself has a vague blue glow about it.  To the north is
+another door, with a card slot next to it.
+
+>l at bulkhead
+The steel bulkhead, about six feet square, is covered with large warning
+labels, and is illuminated both by a garish red beacon and by a weird glow of
+its own.  There's also a panel in the bottom corner of the bulkhead which seems
+loose.
+
+>touch bulkhead
+You experience a mild shock as you touch the door frame.  Instantly, you hear
+voices around you, and three people--Brett, David, and Alexis--appear, in mid-
+conversation.  They stare right through you at the bulkhead, which is now open,
+letting a wash of light into the hall.
+
+"But you must see the need for some restraint in experimentation," says Brett,
+peering at David.
+
+"Why?"  he replies, almost indignant.
+
+"Research must have a directed purpose.  On our level, it's dangerous to do
+something just because we can.  If there is no need for the product of a study,
+then there is no need for the study at all."
+
+"No."  says David, cold.  "That's what I'm saying.  The things which come out
+of research, good or bad, aren't the point.  They're just the by-products. 
+What are important are the answers, and the further questions they create. 
+It's a cycle.  "
+
+"What do you mean?"  asks Alexis, who had been listening quietly.
+
+"Knowledge is the only thing.  The careful unraveling of what we percive as the
+world to discover the thread it's made of.  "
+
+"David," says Alexis, taking his hand.  "Always ambitious and--"
+
+"Foolish," mumbles Brett, looking at his feet.
+
+"Now listen..."  says David, taking a step forward, his eyes dark.  "If you
+insist on being--"
+
+"Please, David," Alexis says, putting a hand on his shoulder and quietly
+forcing him to calm.  Silently, Brett and David stare at each other, like
+mirrors.  The picture fades away.
+
+>open panel with screwdriver
+The panel pops off.  In the space it covered is a lever marked "MANUAL
+OVERRIDE".
+
+>w
+East Hall
+   Your nose is bitten by the scent of cleaning alcohol, present in all the
+halls, and especially here.  The stainless corridor continues to the east and
+west.
+
+>w
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>s
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>e
+Communications Room
+   You are in some sort of communications center.  Tall machines, barnacled
+with speakers and keyboards, crowd the tight space.  The largest machine in the
+room stands directly in front of you and bears a screen covered in flashing
+figures.  On the west wall, next to the door, the power box hangs open.
+
+>flip switch
+You flip the switch off and darkness engulfs you.  The machines in the room
+make almost animal whimpers as power drains from them.  A monotone voice
+states, "Station now on auxiliary power only.  All station functions except
+sectional doorway mechanisms disabled," then clicks itself into silence.
+
+Around you, you can sense the shapes of hulking masses:  some harshly angled,
+some weirdly curved.  All are faintly outlined by the half-light from the hall.
+
+>w
+South Hall
+   At this point in the long hall, the drab metal walls are interrupted by an
+opening on the east side of the passage.  You can see light far back to the
+north, but only icy darkness to the south.
+
+>n
+Center
+   Grey light drips in from an octagonal skylight in the ceiling of this room,
+making the room look as cold as it feels.  To the north, east, and south,
+doorways lead into unlit halls.  The metal door frame of the east hall glows
+faintly with an eerie blue light.
+
+>n
+North Hall
+   This is the middle of a dark hallway that runs to the north and to the
+south.  What little light there is comes from the south.
+
+>s
+Center
+   Grey light drips in from an octagonal skylight in the ceiling of this room,
+making the room look as cold as it feels.  To the north, east, and south,
+doorways lead into unlit halls.  The metal door frame of the east hall glows
+faintly with an eerie blue light.
+
+>e
+East Hall
+   The darkness in this hall amplifies the odd echoes of your feet on the tile.
+The only light comes from down the hall to the west; to the east it is darker
+still.
+
+>e
+East End
+   In almost absolute darkness, you can just see the outlines of a door on the
+north wall and what appears to be a bulkhead to the east.  Oddly, a faint glow
+is coming from the bulkhead.  To the west there seems to be more light.
+
+>pull lever
+You move the lever and the bulkhead slides up into the ceiling.
+
+>put bar in door
+You wedge the bar into the groove on the left side of the bulkhead.
+
+>w
+East Hall
+   The darkness in this hall amplifies the odd echoes of your feet on the tile.
+The only light comes from down the hall to the west; to the east it is darker
+still.
+
+>w
+Center
+   Grey light drips in from an octagonal skylight in the ceiling of this room,
+making the room look as cold as it feels.  To the north, east, and south,
+doorways lead into unlit halls.  The metal door frame of the east hall glows
+faintly with an eerie blue light.
+
+>s
+South Hall
+   At this point in the long hall, the drab metal walls are interrupted by an
+opening on the east side of the passage.  You can see light far back to the
+north, but only icy darkness to the south.
+
+>e
+Communications Room
+   Around you, you can sense the shapes of hulking masses:  some harshly
+angled, some weirdly curved.  All are faintly outlined by the half-light from
+the hall.  You can make out the shape of the power box on the west wall.
+
+>flip switch
+You flip the switch and are nearly knocked back, your eyes dazzled, as
+fluorescent light floods the room.  All through the station you hear humming
+and pulsing as machines come to life.  In a moment the noises fade and your
+eyes adjust.  An electronic voice echoes through the room.  "Returned to main
+power supply from auxiliary power supply.  All station functions returning to
+normal."  There's a short pause, a click, and then the voice says, "Warning: 
+Safety breach at Gallery Junction entrance.  Security systems now closing and
+sealing door."  Some distance away in the station, you hear an odd noise, then
+the metal voice says, "Warning:  Safety breach at Gallery Junction entrance. 
+Security systems unable to close door."
+
+You are in some sort of communications center.  Tall machines, barnacled with
+speakers and keyboards, crowd the tight space.  The largest machine in the room
+stands directly in front of you and bears a screen covered in flashing figures.
+On the west wall, next to the door, the power box hangs open.
+
+>w
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>n
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>e
+East Hall
+   Your nose is bitten by the scent of cleaning alcohol, present in all the
+halls, and especially here.  The stainless corridor continues to the east and
+west.
+
+>e
+East End
+   You're standing at the eastern extremity of an abandoned hall, which
+continues back to the west.  A flashing red beacon on the bulkhead at the east
+end of the hall screams over the subtle blue glow of the door, but the warning
+does little good, as the door has been blocked open with a pole.  To the north
+is another door, with a card slot next to it.
+
+>e
+Gallery Junction
+   This smallish chamber is apparently a junction of hallways and rooms. 
+Through a sliding glass door on the east wall you see a huge, dark room.  A
+second sliding glass door, glowing with faint blue fire, is to the south, but a
+large warning flashes over it.  Next to each of the glass doors is a card slot,
+identical to the ones in the halls.  To the west is a large bulkhead, propped
+open with a metal pole, and flashing a red warning beacon similar to one on the
+south door.  An open passage leads north.  The only other feature of the room
+besides the doors is a small recess on the east wall.
+
+>touch south door
+You touch the door and misty reflections form in the glass.  Brett stands in
+the junction, while Jonas looks thoughtfully through the south door.
+
+"Jonas, you've got to accept the data.  The Telerus is essentially worthless,"
+says Brett, as if he had been repeating himself for a long time.
+
+Jonas slowly turns to glare at the other scientist.  "It will be a boon to
+mankind," he commands.  "The Telerus, in the area of espionage alone, could
+give the Administrative Agency unimaginable power."
+
+"By the time an agent had developed tellurgic abilities of any useful power,
+his mind would be so twisted--"
+
+"Hypothesis," snaps Jonas, severing the argument.  "We can't be sure of any of
+those side effects until a human trial is run.  The Agency believes it
+imperative."
+
+"The Agency would never allow some volunteer to enter the station for the
+testing."
+
+They start up the hall to the north, still arguing.  As the image fades you
+hear Jonas' voice, echoing in the hall.  "They must, eventually.  They'll send
+someone.  They demand a human trial...demand a human trial...human trial..."
+
+>n
+Hall
+   This is another empty hall of steel and tile, identical to the others in its
+cold construction.  It continues to the north and ends in a junction to the
+south.  Due perhaps to the utter silence in the hall, or simply the unbearable
+cold worming up through your feet, you find yourself, without thinking, walking
+on your tiptoes here.
+
+You hear a distant, metallic voice say, "Warning.  Main Power Supply Low."
+
+>n
+Lab Entrance
+   At this end of the hall are a pair of large, swinging doors which lead
+north.  Through portholes in the doors, you can see an odd collection of
+scientific and medical equipment.  A smaller door is set in the east wall and
+the hall continues to the south.
+
+>e
+(Opening the east door)
+Supply Closet
+   This small circular room holds all manner of boxes and bottles on its
+recessed shelves.  In some of the open boxes you see new test tubes, vials of
+unknown chemicals and the like.  One flask in particular catches your eye,
+emblazoned with the words "HS1:  HORMONE" in stunning red letters.  There are
+doors on both the west and north walls.
+   The flask seems to contain some dark liquid.
+
+>take flask
+Taken.
+
+>n
+(Opening the north door)
+Medical Alcove
+   The dominating element of this small cube is the color white.  The walls are
+white, the stiff bed by the east wall is covered in white sheets, the counter
+sticking out of the wall in the corner looks as though it were carved from
+snow.  Set into the counter is a pale, porcelain sink.  Even the air smells as
+if it has been scoured bare.  Enameled doors lead to the south and west.
+   You see a red syringe here.
+
+>take syringe
+Taken.
+
+>w
+(Opening the west door)
+Lab Hall III
+   You are standing at the eastern end of a long vaulted room filled with
+scientific equipment:  the lab hall, the heart of the Babel station.  A large
+steel table here, identical to other tables farther down the hall, is half
+covered with various instruments and papers in a jumbled mess.  A portion of
+the table is cleared except for three small cages, which glow blue.  Against
+the north wall is a white metal cabinet and swinging double doors in the south
+wall lead out of the lab.  A smaller door is to the east, while the lab hall
+continues to the west.
+
+>touch cage
+You touch the cage, not minding the sharp tingle.  The silence in the room
+changes from the dead, abandoned silence of before to a busy quiet.  Animals
+move in cages, computers hum.  Jonas, sitting by the table, observes the mice
+skittering about their cages and takes notes.
+
+"Additional notes on Telerus toxin..."  he mumbles as he writes, his silver
+hair swept back.  "After a short period, the toxin causes the eyes to dilate
+unevenly, mildly skewing sight.  Further, both tellurgic abilities and periods
+of..."  he pauses, hunting for the right word, even for these private notes,
+"...of instability increase together over time, and can be advanced in large
+increments if the target is subjected to some traumatic event."  Apparently
+finished, he neatly piles his notes and leaves.  The mice race about madly in
+their cages, flinging themselves against the bars and each other, their seed-
+like eyes dilated to the point of deformation.  You stare with detached
+revulsion as one mouse throws itself on the other in its cage, shredding the
+victim's fur with movements too rapid to follow.  The second mouse seems too
+exhausted to react, and lies motionless while the aggressor sinks its teeth
+deep into its leg.  The image fades.
+
+>w
+Lab Hall II
+   This is the center of a large, grey hall; something like a cross between a
+hospital operating room and a chemistry lab.  Along the north wall is a bank of
+dark computers, while what you think is an electron microscope sits next to the
+south wall, silently glowing blue.  In the center of the room is another large
+metal table, covered with balances, tubes and scales.  The lab extends away to
+the east and west.
+
+>touch microscope
+As you touch the machine, its screen fills with static, which slowly resolves
+to images of tightly coiled, cone-shaped helices.  David and Brett stare at the
+screen, adjusting the focus.
+
+"Well, that's it," says Brett.  "The thing we've concentrated on for several
+months, since before you came here.  The Telerus."
+
+"Why is it pointed at one end like that?"  asks David, zooming in on one
+twisted shape.
+
+"It's an endless progression.  Each twist of the helix is smaller than the
+last, down and down, to a point that not even an electron scope can sense."
+
+"So where does it end?"
+
+"There's no reason to believe it ever does."
+
+"Why must you be so cryptic?"  asks David, a hint of petulance in his demand.
+
+Brett sighs quietly.  "I don't want to fight with you, David.  We've had enough
+of that.  Let's just accept that we have different reasons for being here, and
+try to live with it."
+
+"Why are you here if you hate it so much?"
+
+"Because I want to know."  says Brett, frustrated.  David raises his eyebrows
+and Brett nods.  "I would like to say that I came here for purely altruistic
+reasons, the bettering of mankind, and that is partly true.  But only partly. 
+I came here because I, more than anyone, I think, have a desire to Know.  To
+stare God in the face and see what his powers truly are, and what powers we
+have given him."
+
+David stares at the man, stunned by his vehemence.  "I thought you were afraid
+of God," he says.
+
+"I am afraid of man," answers Brett.  "I am awed by God, but not humbled.  I
+designed this station.  I named it Babel, certain that the original tower had
+fallen due to human error.  I thought we could reach heaven."
+
+"Then why do you hold back?"  asks David.
+
+"Because it is a fool's errand.  To define God is impossible.  Like the helix,
+it is an infinite path and every step we take on it makes it longer.  WIth
+every move we make to outline the powers of God, He becomes that much more
+powerful.  I know there is no end, but something in me, some demonic curiosity,
+drives me forward, holding out the vain hope that this time will be different. 
+And so the tower grows taller, and less stable."  Brett sinks into a nearby
+chair, weary.  He looks towards the microscope and says, "You see, the tower
+has grown heavy with futility.  And I fear it may fall."  Suddenly, the
+microscope screen goes black and the two doctors are gone.
+
+>w
+Lab Hall I
+   You are standing at the far western end of the lab hall, which runs back
+east.  A heavy bulkhead dominates the southwest corner of the room, while a
+staircase along the south wall leads down.  In the middle of the room, two
+steel tables have been pushed together to form a larger surface, apparently
+used for dissection.  At the moment, two frogs lay opened on the table, the
+formaldehyde barely keeping away the dying scent of decay.  Over the rest of
+the table are various dissecting implements and a pair of simple microscopes
+that are glowing blue.
+   You see an amber marked syringe here.
+
+>d
+Landing
+   Despite the fluorescent tubes set into the walls, this landing on the
+staircase seems quite dark.  Stairs go both up and down from this landing, and
+a door leads west.
+
+>w
+(Opening the west door)
+Changing Room
+   This is a drab, low-ceilinged rectangle, its west end becoming an open
+shower area, its east end bearing a heavy steel door.  A metal bench runs along
+the north side of the room, while on the opposite wall are steel clothing
+hooks.  The scent of sweat and water sticks in the corners of the room, at once
+familiar and squalid.
+   You see a radiation suit here.
+
+>take suit
+As you pick up the suit, a green plastic card that was in the pocket falls to
+the floor.
+
+>take green card
+Taken.
+
+>e
+Landing
+   Despite the fluorescent tubes set into the walls, this landing on the
+staircase seems quite dark.  Stairs go both up and down from this landing, and
+a door leads west.
+
+>u
+Lab Hall I
+   You are standing at the far western end of the lab hall, which runs back
+east.  A heavy bulkhead dominates the southwest corner of the room, while a
+staircase along the south wall leads down.  In the middle of the room, two
+steel tables have been pushed together to form a larger surface, apparently
+used for dissection.  At the moment, two frogs lay opened on the table, the
+formaldehyde barely keeping away the dying scent of decay.  Over the rest of
+the table are various dissecting implements and a pair of simple microscopes
+that are glowing blue.
+   You see an amber marked syringe here.
+
+>pull lever
+Done.  The bulkhead slides open.
+
+>sw
+North End
+   White light glares off steel and sanitary tile at the end of this hall.  To
+the west is a door with a small slot next to it and to the north is another
+door, with an odd object connected to the handle and the door frame.  The
+northeast corner is filled with an imposing bulkhead covered with various bio-
+hazard labels.  The hall continues to the south.
+
+>s
+North Hall
+   This is the middle of a silent tunnel that continues to the north and south.
+
+>s
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>s
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>s
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>nw
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>nw
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>open flask
+Opened.
+
+>pour fluid into syringe
+You pour the fluid into the red syringe, leaving a thin, dark film still inside
+the flask.
+
+>inject fluid
+You ease the needle into your arm and depress the plunger.  Almost immediately,
+you feel a writhing burn in your nerves as your heart beat speeds up.  You find
+yourself taking unnaturally deep breaths and blinking rapidly.  The world slows
+down a bit after the initial shock, but you notice that your hand is clenched
+in a fist so strong it could probably twist steel.
+
+>n
+David's Room
+   There is something off-center and deeply disturbing about this small space. 
+While the dresser, bed, table and bookshelf that comprise the only furnishings
+of the room are normal enough, rather featureless in fact, certain details are
+wrong.  The thick glass doors on the bookshelf are cracked and shattered in
+places, the sheets of the bed are in terrible disarray, and, most disturbing, a
+thin trail of blood leads across the carpet from the bathroom door to the east
+out the south door.  You also notice the table glows with an unearthly light.
+
+>open east door
+The door sticks a bit, but you are able to push it open with the added strength
+from the hormone injection.
+
+>e
+Bathroom
+   As you enter the room, you feel an almost physical shock.  Your stomach
+tenses.  Your hair stands along your neck.  What is it?  The only furnishings
+of the room are a toilet, a sink, and a tiny shower, all in white.  But there's
+something missing.  On the tile wall, where the mirror ought to be, is a
+ragged, blood stained frame.  Something, with apparently great force, must have
+ripped the mirror right off the wall, and cut itself in the process.  Your eyes
+follow the bloody trail across the pristine tile and see the mirror on the
+floor, partially hidden by the toilet, its surface smeared with dried blood. 
+The tension in your body increases and you notice a steady ache in your hand,
+slowly radiating out from a long cut you hadn't noticed before.  You feel a
+need to move back west into the bedroom and out of this tight space.
+
+>l in mirror
+Your body trembles as you kneel on the icy tiles and look down into the blood-
+misted depths of the mirror.  For a moment, all you can make out are streaks
+and shadows, then the image clears with terrible recognition.  Staring back at
+you from beneath the blood is a terrified young man, with blond hair framing a
+face itself stained red.  Suspicions crystalize into facts.  You recognize the
+face from the visions:  David Telurien, the new arrival.  You.  Your eyes,
+widely and unevenly dilated, gaze with empty horror.  You are this man, and yet
+you do not know him.  Your mind searches desperately for one memory to connect
+you with this pale and blood-spattered face.  Nothing comes.  Shock.  The void
+opens before you.  Your head falls back onto the tile.
+
+
+
+
+
+
+
+
+
+
+
+
+Memory.  You remember boiling with rage and power.  Seeing your face in the
+mirror, the face of a lunatic.  Ripping the mirror from the wall.  Cutting your
+hand and smearing the blood.  Shattering every other mirror you could find. 
+Pacing.  Waiting.
+
+
+
+
+
+
+
+
+
+
+You awake on the hard tile floor, dazzled by the whiteness of the walls.  Your
+head pulses with pain, each bone in you trembles.  Slowly, you stand.
+
+>w
+David's Room
+   There is something off-center and deeply disturbing about this small space. 
+While the dresser, bed, table and bookshelf that comprise the only furnishings
+of the room are basically the same as you've seen them in the rest of the
+residential quarters, certain details are wrong.  The thick glass doors on the
+bookshelf are cracked and shattered in places, the sheets of the bed are in
+terrible disarray, and, most disturbing, a thin trail of blood leads across the
+carpet from the bathroom door to the east out the south door.
+
+You are surprised to see that, besides the table, which was glowing earlier,
+the shattered glass of the bookcase also drips with blue light.  You assume
+that the incident with the mirror somehow increased your tellurgic powers. 
+What other things in this place might now have visions linked to them?
+
+>touch bookcase
+The glass shards sparkle as the cracks disappear and the glass is made whole
+again.  You hear weeping and look up to see David on the bed, his body
+trembling with quiet sobs.  Alexis is beside him, her arm on his shoulders. 
+The look on her face though, unseen by David, is filled with the same
+frustration and sorrow.
+
+"It's gone so wrong," he says, his voice distorted by his tears.  "I wanted to
+make it work, to prove my worth, to do something, but now...  I don't know what
+I am.  More and more, I just black out, and there's such power and rage and...
+God!"  Alexis bites her lip and tries to grasp his hands, but he keeps talking,
+fast and oblivious.  "The worst part is finding out.  I don't know what I've
+done, and then I see the damage I've caused and it comes back to me, in
+fragments like little needles.  Brett was right.  We've gone too far.  I've
+crossed the line."  The silence is embarassing after the torrent of words. 
+"We've got to make it stop."  Mute, Alexis nods slowly.  "The anti-toxin?"  he
+asks.  "They've got to be ready now; they can't need more proof."
+
+Alexis opens her mouth, and tries to say something, but only a dry rattle comes
+out.  She coughs harshly and starts again, her speech very slow and cautious. 
+"That's what I came here to tell you, David.  Jonas decided..."  She stops,
+David's eyes on her.  She forces her head down and mumbles, "Jonas decided that
+the tests were sufficient, we should be able to administer in a few days." 
+David's entire body is melts with relief; he reaches out to embrace Alexis, but
+she stands and turns away.  David looks up at her, a question forming on his
+lips.
+
+"No," she says suddenly, cutting him off.  "This wasn't it.  Jonas can't..." 
+She pauses, breathes deeply and continues, her voice mechanical, her eyes
+locked on the wall.  "Jonas says that the experiment has to be finished no
+matter what the results are."  Silence.  "He refuses to formulate the anti-
+toxin."  She turns slowly to see David, who has stood up in shock.  "He sent me
+to tell you, and..."  She stands frozen, as though David's wide eyes had turned
+her into stone.  She forces out the words, "And to lock you in your room until
+he needs you."  David stands, motionless, while Alexis trembles by the door. 
+She takes David's key and ID card from his dresser, and backs into the hall,
+her eyes never leaving the figure by the bed.  "I'm sorry," she whispers.  Then
+again, whispering at every step back, never getting louder.  She leaves the
+room and shuts the door.  You hear the lock click and Alexis suddenly crying
+through the steel door, "I'm sorry!"  David shudders, then, like a thread
+breaking, swings around and puts his fist through the glass doors of the
+bookcase.  The glass shatters, and you stand alone in the room.
+
+>s
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>e
+Brett's Room
+   This room is a complete wreck.  The sheets are torn from the bare mattress,
+the bedding thrown on the floor.  A dresser and a glass-doored bookcase lay on
+their sides, their contents flung in wild piles over the floor.  You can barely
+see a path through the books and other junk to the bathroom door on the north
+wall or the hall door to the west.
+
+The mattress now glows blue amid the tangled sheets.
+
+>touch mattress
+Your vision is filled by a flapping flash of white as someone rips the sheets
+from the bed.  As the sheets fall to the floor, you see Jonas searching the bed
+with unnatural haste.  Behind him, Alexis is systematically going through piles
+of books.
+
+"It must be here, he must have written it down," mutters Jonas.  "He could
+never remember anything."
+
+"He knew his Bible to the letter," answers Alexis, not looking up.
+
+Without pausing in his search, Jonas replies, "Alexis, do not mock me.  You
+have ruined everything.  We must work together now to get out of this
+situation, but do not think I have forgiven you."
+
+"Why do we need to find the combination anyway?  So the main gate is locked. 
+If we're leaving we won't need to use it anymore."
+
+"Because Brett might want to use it again.  Unless we change the combination,
+which we can't do until we know what the current combination is, he could fly
+up here any time and have access to all of this.  This is a dangerous place, we
+can not have it in the hands of a lunatic."
+
+"It is in the hands of a lunatic," says Alexis, making a sound you might
+mistake for a laugh.  "Brett was probably the sanest of all of us, he got out. 
+I should have followed while I had the chance."
+
+Apparently giving up on his search of the bed, Jonas rounds sharply on Alexis. 
+"Show me the note again."  Alexis hands him a slip of paper, which he reads
+quickly and then throws into the corner.  "And he said nothing more when he
+came to you?"
+
+"I told you already.  He came in in the middle of the night, woke me, gave me
+the letter, and left without saying anything."
+
+"It is still hard for me to believe that you let him go without alerting me. 
+If you hadn't waited until this morning to tell me we might have had a chance
+of detaining him here."
+
+"That's why I didn't tell you."
+
+Finally the thin ice of the conversation cracks and Jonas violently pushes over
+the dresser, shouting.  "Everything is ruined now!  If we still had the three
+of us here we could have cleared things up and gone on.  It would have been
+difficult, but possible.  With only the two of us here, however, we are not
+enough to deal with the problems that have arisen.  We have no option but to
+flee, leaving all our precious work behind in this ice bound casket!"
+
+"There are more important things than these experiments!  What about US?" 
+shouts Alexis, standing eye to eye with Jonas.  There is a pause, Jonas almost
+spilling over with rage.  Alexis does not back down however, and he slowly
+seems to regain his composure, his malice gone.  His lip trembles slightly, but
+Alexis does not seem to notice.
+
+"All I know are my orders now, that is all I have to go on.  To seal off Babel
+and bring both of us home, unharmed."  There is another pause before the
+implication settles.
+
+"And what of David?"  Alexis asks, suddenly griping the old man's arm.
+
+Jonas gently removes her hand and replies, "The Agency has decided, and I agree
+with them, that it is not an acceptable risk to aid him.  There is no way we
+can safely take him out of here, he has degenerated too far."
+
+"What do you mean?"  asks Alexis, open-mouthed.  "All we need to do is mix the
+components, radiate the anti-toxin, and administer it."
+
+Jonas answers evenly, "We don't have the time to find out the necessary
+intensity of radiation to activate it."
+
+"It's at setting 414.  I've been testing."
+
+"Against my direct orders?"  His irritation is readily apparent, but his
+control shows that he expected this.  "Even so, there is too much risk
+involved," he continues, unabashed.  "Attempting to administer the formula
+while he is in this state could prove fatal, and the anti-toxin is
+intrinsically unstable, it would probably degenerate by the time you could get
+near him.  Moreover, have you considered how we are to get a sample of the
+Telerus, since the Jabberwocky toxin has been released in the sample gallery?"
+
+"There is a way.  There has got to be."
+
+"Perhaps.  However, it is not a viable solution in this crisis situation. 
+There is no time.  And, because I knew you would try this, you should know that
+I have destroyed the key to the cabinet containing the anti-toxin base and its
+formula.  It would have been too dangerous any other way.  There is no choice
+now.  He too must be entombed here, with the rest of the monsters."
+
+Alexis' eyes distort and she opens her mouth to scream.  You see her start to
+lunge forward, poised to attack.  But the image, clear up to this point,
+suddenly cuts off, before the sound can escape her lips.
+
+>take note
+Taken.
+
+>read note
+You can just barely make out the ghastly handwriting.  It reads:  "I cannot
+bring myself to stay here an hour more.  I am taking one of the helicopters and
+leaving immediately.  If you desire to join me and escape this madhouse you are
+surely welcome.  Meet me by the main entrance within 30 minutes.  If you are
+not there at the end of that time I must leave without you, for I fear not only
+my sanity here, but my very life.  We have reached too close to the heavens and
+God has struck us down.  I wish I had never begun on this path of lunacy, nor
+allowed Jonas to prod me further down it once I realized the hell to which it
+leads.  May God show mercy on you."
+
+>w
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>w
+Jonas' Room
+   This room conveys the same hard sense of cleanliness and formal chill you've
+felt in the rest of the station, despite the soft cream sheets on the bed and a
+graceful, antique roll-top desk in the corner.  Next to the desk are a simple
+dresser and a bookshelf.  To the south is the bathroom door, and to the east
+the round room.
+
+You notice the blotter on the desk is now glowing faintly.
+
+>touch blotter
+You feel a strong surge up your arm and the figures of Jonas, Alexis and Brett
+form in the room with you, clear and well defined.  You feel tension pulling
+the air and realize you're witnessing the middle of a fight.
+
+"Exactly what are you saying?"  Brett says, taking one slow step towards Jonas.
+
+"Don't look at me like that," he replies, staring the taller man down.  "The
+decision is not mine, it never was mine."  The words aren't even out of his
+mouth when Alexis explodes in rage.
+
+"You could have at least told us!"  she shouts.  "And you were obligated to
+tell David.  You have deceived him as well as Brett and me, and it could mean
+his death.  You have no right to refuse him the anti-toxin!"
+
+"I disagree, Dr. Stevansen.  I am under direct orders from the Administrative
+Agency, which, unquestionably, gives me the right.  While I understand your
+point, there is nothing to be done about it now, so please lower your voice." 
+His tone is as solid as ice and he stares at Alexis with eyes of Arctic calm. 
+Brett takes half a step back.  Alexis seethes, but holds her tongue.  "What is
+imperative now," continues Jonas, "is that David must not find out what is
+going on.  He is already markedly dangerous.  An inflammation such as this
+could be disastrous."
+
+Brett moves to reply, but Alexis' voice flatly cuts him off.  "And how long are
+we to allow this to go on?"
+
+"Until the toxin runs its complete course.  The tests indicate that can not be
+any longer than a few weeks."
+
+Brett speaks, nearly babbling, his panic showing through, "But if he's slid
+this far in eight days, who knows what--"
+
+He stops short as Alexis, in a voice that allows no others, asks, "And if, as
+the tests suggest, complete mental breakdown or death will occur once the toxin
+is allowed to run full course...?"
+
+"Then our results will be proved and we will be able to move on with the
+project."  Here Jonas pauses for argument, but none comes, the others shocked
+into silence.  He calmly begins to gather together the papers on his desk. 
+"So, to summarize, despite David's requests, we are not to formulate nor
+administer any anti-toxin.  If his pleas do become violent we may inject a
+placebo, but nothing more.  Those are our orders.  Hate me if you will, but it
+is my responsibility, as leader of this project, to obey."
+
+He turns to face Alexis but she has already started out the door, her face
+slack as if anaesthetized.  "Keep a close watch on her, and report to me,"
+Jonas whispers to Brett, who turns and limps out of the room.  The vision
+fades.
+
+>e
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>nw
+Dining Room
+   This sizable octagonal chamber is the dining/meeting room of the residential
+section.  In one corner a counter and a few appliances and cabinets designate
+the kitchenette.  The only other fixture in the room is a metal table with four
+chairs, which seems dwarfed and isolated in the middle of the floor.  An arch
+in the southeast wall leads to the round room and another door by the
+kitchenette in the southwest wall leads to a storage area.
+
+Both the kitchenette counter and the table glow blue.
+   You see a calendar here.
+
+>touch table
+You press your fingers to the hard metal of the table, which flashes to life on
+contact.  On each of the four sides sits one of the scientists, looking serious
+and tense.  Jonas speaks, covering the tension with authority.
+
+"As you all know, the Telerus toxin, easily the most unique and perhaps the
+most astounding development to come from this lab, has finally been perfected. 
+The anti-toxin too has been completed.  However, there is a major obstacle in
+our path."  He looks at the faces around the table.  It is obvious they know
+all this, that he is recapping for formality's sake.  "We must learn exactly
+what the effects on tellurgic capacity are from this drug before we can send it
+to other facilities outside this station, but we simply can not get this
+information from animal testing alone.  We need to perform a human trial."  He
+looks again from face to face, pacing himself.  "The Administrative Agency,
+unwilling to allow a test subject to enter the Babel station, has been quite
+clear regarding the necessary course of action."  Another pause.  Another look.
+"I am asking, doctors, for a volunteer."
+
+No one moves for a long moment.  Finally, his face betraying nothing, David
+says, "All right.  There is no other way around it.  I'll do it."  Alexis
+gasps, but he does not respond, staring straight ahead at Jonas.
+
+Brett turns to him, his calm shattered.  "Are you insane?  Do you realize--"
+
+"Be quiet, Dr. Owen," states Jonas, his voice pushing down the speaker, while
+his eyes never leave David's.
+
+"I will not be quiet!"  yells Brett, standing so abruptly you hear the joint of
+his left leg squeak.  "Of all the cracked designs you've engaged us in--"
+
+"Please Brett, let me talk," says David, calmly.  Brett nods, but remains
+standing.  "You all know how I've dreamed to truly do something for science. 
+This is my chance, finally.  Obviously, I see it's dangerous, but we all need
+something that we're willing to risk our lives for.  Something we can honestly
+believe in, and this is what I believe.  Please, don't take it from me.  I
+volunteer."  Neither Jonas or Brett see it, but you catch in your peripheral
+vision as David reaches over, under the table, and takes Alexis' hand.  Her
+face staying solemn, as it has through all of this, she desperately grabs his
+hand with hers.  Jonas nods, and she shudders.
+
+"Thank you David," says Jonas, his tone flat as always.  "Everything is
+prepared.  We shall begin the trial tomorrow."  His voice takes on a hint of
+inflection, almost grandeur, as he continues, rising.  "What we do here will be
+a boon to humanity beyond all reckoning, a marvel of true science for the
+future and for the purpose of bettering mankind--"
+
+The vision abruptly ends, the table deserted.
+
+>se
+Round Room
+   Despite the blank white walls and the colorless light from the skylight
+above you, this circular chamber almost seems hospitable.  The thin shag carpet
+that would be an abomination in any other setting soothes your feet after the
+freezing tiles of the hallway, and the air here is only cold, instead of the
+bone scratching chill you were growing accustomed to in the rest of the
+station.  To the north, south, east, and west are identical steel doors, each
+bearing a name plate.  A pair of wide arches, the only attempt that you've seen
+at form rather than function in the design of this building, lead out to the
+southeast and northwest, though the second arch is blocked by a steel door.
+
+>se
+Antechamber
+   This is a small diamond-shaped room that provides a transition from the
+sharp, metal cold of the hall to the residential quarters beyond.  Southeast
+and down a step is the entry area of the station, northwest and up a step are
+the quarters for the station crew.
+
+>se
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>look up babel in bible
+Here it is, Genesis, 11:4.  Babel was a huge tower built to reach the very
+heavens.  When God saw this, and the power of those building it, he was angered
+and destroyed the tower and its makers.  Strangely, the chapter and verse
+numbers have been circled.
+
+>type "11:4" on pad
+The figures flash on the small screen and you hear a hiss as the hydraulic lock
+of the door unseals.
+
+>open bulkhead
+You push the door open and reel from a blast of frigid air in your face.
+
+>w
+Entry Steps
+   You're standing at the base of a steeply angled stairwell which leads up to
+the west towards a square of grey light.  Cold, white air seems to be sucked
+through the passage from that opening to the station entrance to the east,
+searing your face as it rushes past.
+
+>w
+Outside the Station
+   The arctic, just past dawn, is more of a study in geometry than a landscape.
+The horizon is a white line between planes of grey, stretching out, undisturbed
+forever, brushed clean by the screeching wind.  You see a few bumps and ridges
+in the tundra a short distance away, deformations made by the station hiding
+under the frost, but the only real alteration in the horizon is a square bulk
+far off to the north.  Anchoring you in this vast space is a small structure a
+few steps to the east, a metal arch covering the stairs down into the station. 
+Just to the southeast is also a small shed.  However, this stark imagery is all
+but lost to you, nearly blinded as you are by the cold.  It attacks in many
+ways; lancing at your eyes with the wind, seeping slowly into your skin to gnaw
+your bones, setting blue fire to your ears and face with the beginnings of
+frostbite.  The cold is everywhere, and it wants you dead.
+
+>se
+Shed
+   You are standing, huddled into yourself against the cold, in a tiny metal
+shed, the wind shaking the thin metal walls and pushing in around you from the
+exit to the northwest.  Around you are various machine parts, oil cans, and the
+like.  The walls might as well not be there, for all the protection they give
+from the attack of wind.  The only piece of equipment in here that seems to
+have any practical value is a large battery sitting under a shelf.  The shelf
+it is under glows a faint, tell-tale blue.
+
+>touch shelf
+The air itself seems to snap as you touch the shelf.  Brett stands next to you,
+returning a gas can, his face bone white with fear.  He turns to the door,
+crosses himself twice, and hobbles out.  You see his left leg, an artificial
+limb, is horribly mangled, causing him to walk half stooping, dragging his leg
+behind as he exits.  You hear a helicopter start up and take off, then the
+image is gone.
+
+>take battery
+Taken.
+
+>nw
+Outside the Station
+   The arctic, just past dawn, is more of a study in geometry than a landscape.
+The horizon is a white line between planes of grey, stretching out, undisturbed
+forever, brushed clean by the screeching wind.  You see a few bumps and ridges
+in the tundra a short distance away, deformations made by the station hiding
+under the frost, but the only real alteration in the horizon is a square bulk
+far off to the north.  Anchoring you in this vast space is a small structure a
+few steps to the east, a metal arch covering the stairs down into the station. 
+Just to the southeast is also a small shed.  However, this stark imagery is all
+but lost to you, nearly blinded as you are by the cold.  It attacks in many
+ways; lancing at your eyes with the wind, seeping slowly into your skin to gnaw
+your bones, setting blue fire to your ears and face with the beginnings of
+frostbite.  The cold is everywhere, and it wants you dead.
+
+You rub your arms, trying to keep the blood flowing in them.
+
+>e
+Entry Steps
+   You're standing at the base of a steeply angled stairwell which leads up to
+the west towards a square of grey light.  Cold, white air seems to be sucked
+through the passage from that opening to the station entrance to the east,
+searing your face as it rushes past.
+
+>e
+Entry Area
+   This is the southern end of a hall, which continues back to the north.  To
+the east is a door with a card slot on the wall next to it, and opposite it, on
+the west wall, is a much larger door, a bulkhead, which glows blue.  Next to
+the bulkhead, to the northwest, is another door, smaller than the other two,
+where the wall juts out slightly.  The cold here is even stronger than in the
+rest of the building, and you shiver violently.
+
+>n
+South Hall
+   This hall extends far to the north and south, illuminated by white lights
+bright enough to make your head throb.  To the east is the communications room.
+
+>n
+Center
+   Three halls, to the north, south, and east, converge here.  Each hall is
+framed with an identical metal door frame.  Identical except for the east
+hall's door, which glows slightly.
+
+>e
+East Hall
+   Your nose is bitten by the scent of cleaning alcohol, present in all the
+halls, and especially here.  The stainless corridor continues to the east and
+west.
+
+>e
+East End
+   You're standing at the eastern extremity of an abandoned hall, which
+continues back to the west.  A flashing red beacon on the bulkhead at the east
+end of the hall screams over the subtle blue glow of the door, but the warning
+does little good, as the door has been blocked open with a pole.  To the north
+is another door, with a card slot next to it.
+
+>e
+Gallery Junction
+   This smallish chamber is apparently a junction of hallways and rooms. 
+Through a sliding glass door on the east wall you see a huge, dark room.  A
+second sliding glass door, glowing with faint blue fire, is to the south, but a
+large warning flashes over it.  Next to each of the glass doors is a card slot,
+identical to the ones in the halls.  To the west is a large bulkhead, propped
+open with a metal pole, and flashing a red warning beacon similar to one on the
+south door.  An open passage leads north.  The only other feature of the room
+besides the doors is a small recess on the east wall.
+
+>wear suit
+Okay, you're now wearing the radiation suit.
+
+>put ID card in south slot
+The door slides open and you remove the card.
+
+>s
+As you step into the small room, you notice an open vial on the floor marked
+"Jabberwocky Toxin:  DANGER--FATAL".  That must have been the cause of the
+warning lights.  You make sure your suit is carefully sealed, and look around.
+
+Toxin Gallery
+   This room is quite dim, illuminated only by red lights above and the light
+coming through the glass door to the north, the room's only exit.  Inset in the
+walls are row upon row of brackets, holding small glass vials, scores of them,
+which glitter like stars in the artificial night of the room.  Large glass
+panels slide on tracks over the brackets to protect the fragile-looking
+objects.  One open section of brackets, right in front of you, is surrounded by
+a sort of metal frame to set it off from the rest.
+
+>l at frame
+Among the rows of vials is a prominent section containing about twelve brackets
+and surrounded by a frame to separate it from the rest.  The frame is engraved
+with the words "CURRENT PROJECTS".  In the framed section there is only one
+vial, marked "Telerus Toxin".
+
+>take telerus vial
+Taken.
+
+>n
+(Opening the door)
+Gallery Junction
+   This smallish chamber is apparently a junction of hallways and rooms. 
+Through a sliding glass door on the east wall you see a huge, dark room.  A
+second sliding glass door, glowing with faint blue fire, is to the south, but a
+large warning flashes over it.  Next to each of the glass doors is a card slot,
+identical to the ones in the halls.  To the west is a large bulkhead, propped
+open with a metal pole, and flashing a red warning beacon similar to one on the
+south door.  An open passage leads north.  The only other feature of the room
+besides the doors is a small recess on the east wall.
+
+>l at recess
+A transparent panel with the words "POL. FILTERS ALIGNMENT" etched on it covers
+the small recess next to the east door.  In the recess are three colored
+sliders which can be set to positions marked 1, 2, and 3.  The red slider is
+currently set at 1, the green slider at 1, and the blue slider at 2.  Below the
+recess is a small, blinking button.
+
+>press button
+The transparent door over the sliders moves away into the wall.
+
+>set red slider to 3
+Okay, it's now set to 3.  As you slide the switch into position, the polarizing
+filters on the dome in the gallery open, filling the room with dazzling light
+that washes through the glass door of the gallery into the junction.
+
+>put id card in east slot
+The door slides open and you remove the card.
+
+>e
+Terran Gallery
+   You are standing on a circular metal walkway midway between the floor and
+ceiling of a vast, cylindrical room.  Staircases down to the floor and up to
+another walkway curve along the walls to your left and your right, and a
+sliding glass door leads west into the hall.  Easily the most stunning thing
+about the room is the light, which cascades down from above and trickles over
+the matrices of glass and steel that make up the walls.  Looking closer, you
+see that these are cages; hundreds of cages of every size and geometry.  Most
+appear empty, but some have their odd inmates.  You see both recognizable lab
+animals, like rabbits and dogs, as well as other creatures.  You stare at
+slithering shadows from out of your nightmares and blue balls of fur huddled in
+clusters.  All the creatures seem to be emaciated and ill from neglect.  You
+realize that those you thought were only sleeping are probably dead.
+
+>u
+Avian Gallery
+   The cages here bend up towards the large dome of the ceiling, and appear to
+be made for flying creatures.  This is an aviary out of a twisted dream:  pale
+dactylic creatures, as large as a man, scratch about their empty cages, while a
+dozen violet hummingbirds lie dead in their adjacent cubicle.  You notice that
+the railing along the walkway here flickers pale blue in one spot.  A staircase
+curves down to the mid-level, and the door to one large cage hangs open to the
+north.
+
+>touch spot
+As you touch the railing and experience a mild shock, there is a subtle shift
+in the room.  The light softens from morning to evening glow, the birds in
+their cages flit gracefully from branch to branch.  A nightingale sings. 
+Across the room from you, David and Alexis stand, hand in hand, gazing through
+the dome.
+
+"What if we had wings, David?"  murmurs Alexis.  "Silver angel wings, to fly
+into that cold night.  Leave all this behind us."
+
+"Why?"  he asks, looking down to her.  "What do you want to leave behind?"
+
+"The fear," she says, staring into the sky.  "Haven't you noticed it here?"
+
+"You've been listening to Brett again, haven't you?"  chides David.  His voice
+is gentle, but there is a harsh edge to it.  "Of course I'm afraid.  There are
+nights I wake up in the dark and stare at the walls in terror."  He sighs and
+gazes up into the appearing stars.  "But," he says, "There are truths that must
+be dealt with and we were chosen to be here because we can handle that
+responsibility."  He kisses her slowly, and the room fades back to the glaring
+morning, the singing nightingale dead in her cage.
+
+>n
+Cage
+   You peer cautiously around the open cage, trying not to breathe the musky,
+rotting air.  Matted hair covers the ground, and lying in one corner, is a
+large, shadowy bulk.  You make out a mass of wings covering the heap and
+realize it is the dead body of whatever creature lived in this cage.  Judging
+by the bones and dark stains on the floor, it was a carnivore.  To the south is
+the door of the cage, smashed open, next to which is a large bowl of water.
+
+>clean flask
+(with the bowl of water)
+You rinse and polish the flask clean.
+
+>s
+Avian Gallery
+   The cages here bend up towards the large dome of the ceiling, and appear to
+be made for flying creatures.  This is an aviary out of a twisted dream:  pale
+dactylic creatures, as large as a man, scratch about their empty cages, while a
+dozen violet hummingbirds lie dead in their adjacent cubicle.  You notice that
+the railing along the walkway here flickers pale blue in one spot.  A staircase
+curves down to the mid-level, and the door to one large cage hangs open to the
+north.
+
+>d
+Terran Gallery
+   You are standing on a circular metal walkway midway between the floor and
+ceiling of a vast, cylindrical room.  Staircases down to the floor and up to
+another walkway curve along the walls to your left and your right, and a
+sliding glass door leads west into the hall.  Easily the most stunning thing
+about the room is the light, which cascades down from above and trickles over
+the matrices of glass and steel that make up the walls.  Looking closer, you
+see that these are cages; hundreds of cages of every size and geometry.  Most
+appear empty, but some have their odd inmates.  You see both recognizable lab
+animals, like rabbits and dogs, as well as other creatures.  You stare at
+slithering shadows from out of your nightmares and blue balls of fur huddled in
+clusters.  All the creatures seem to be emaciated and ill from neglect.  You
+realize that those you thought were only sleeping are probably dead.
+
+>d
+Aquatic Gallery
+   You are standing at the bottom of a large, well-like room, its shimmering
+walls stretching to a shining dome far above.  The walls here are made not of
+cages but tanks, filled with water and other liquids.  This is not a normal
+aquarium however, for among the familiar anemones are other creatures, half
+organic and half mechanical by their looks.  A stairway curves up past a dark
+tank to the level above.
+
+In the center of the floor you see a faint patch of blue light.
+
+>touch patch
+As you come in contact with the strangely shaped patch of light, it resolves
+itself into a spreading pool of dark liquid, then fades altogether.  From far
+above you, you hear voices in heated argument.  Though the voices are garbled
+horribly, you recognize the metal monotone of the first speaker as Jonas.  You
+don't think you've ever heard the second speaker.
+
+"And just what," says Jonas, "do you intend on doing, Dr. Thorne?  Disregarding
+direct orders from the Administration Agency?"
+
+"Jonas, what you are suggesting is not only completely amoral, it is
+fundamentally against natural law."
+
+"It is a direct order.  We are not to judge such things, only to carry them
+out."
+
+"I've had enough of just carrying things out.  Listen to Brett for once.  We've
+developed things here that could wreak absolute chaos on mankind.  It has to
+stop somewhere, and human tests for the Telerus toxin, which we haven't even
+perfected yet, will be that line for me."
+
+"Will it now?"  Silence falls down the shaft.  "In that case, it is my absolute
+duty to this project, and to the Administrative Agency, to replace you with
+someone who will be more conducive to our goals."
+
+"You don't have that power."
+
+"Don't I?"  There is the sound of a sudden struggle, muffled in static, and
+then a scream as a man's shadow plummets through the light of the dome, and
+fades out just before it smashes into the steel floor.
+
+>u
+Terran Gallery
+   You are standing on a circular metal walkway midway between the floor and
+ceiling of a vast, cylindrical room.  Staircases down to the floor and up to
+another walkway curve along the walls to your left and your right, and a
+sliding glass door leads west into the hall.  Easily the most stunning thing
+about the room is the light, which cascades down from above and trickles over
+the matrices of glass and steel that make up the walls.  Looking closer, you
+see that these are cages; hundreds of cages of every size and geometry.  Most
+appear empty, but some have their odd inmates.  You see both recognizable lab
+animals, like rabbits and dogs, as well as other creatures.  You stare at
+slithering shadows from out of your nightmares and blue balls of fur huddled in
+clusters.  All the creatures seem to be emaciated and ill from neglect.  You
+realize that those you thought were only sleeping are probably dead.
+
+>w
+(Opening the door)
+Gallery Junction
+   This smallish chamber, apparently a junction of hallways and rooms, is
+filled with light which washes in from a sliding glass door to the east. 
+Through this door you see a huge, sparkling room.  A second sliding glass door,
+glowing with faint blue fire, is to the south, but a large warning flashes over
+it.  Next to each of the glass doors is a card slot, identical to the ones in
+the halls.  To the west is a large bulkhead, propped open with a metal pole,
+and flashing a red warning beacon similar to one on the south door.  An open
+passage leads north.  The only other feature of the room besides the doors is a
+small recess on the east wall.
+
+>n
+Hall
+   This is another empty hall of steel and tile, identical to the others in its
+cold construction.  It continues to the north and ends in a junction to the
+south.  Due perhaps to the utter silence in the hall, or simply the unbearable
+cold worming up through your feet, you find yourself, without thinking, walking
+on your tiptoes here.
+
+>n
+Lab Entrance
+   At this end of the hall are a pair of large, swinging doors which lead
+north.  Through portholes in the doors, you can see an odd collection of
+scientific and medical equipment.  A smaller door is set in the east wall and
+the hall continues to the south.
+
+>n
+Lab Hall III
+   You are standing at the eastern end of a long vaulted room filled with
+scientific equipment:  the lab hall, the heart of the Babel station.  A large
+steel table here, identical to other tables farther down the hall, is half
+covered with various instruments and papers in a jumbled mess.  A portion of
+the table is cleared except for three small cages, which glow blue.  Against
+the north wall is a white metal cabinet and swinging double doors in the south
+wall lead out of the lab.  A smaller door is to the east, while the lab hall
+continues to the west.
+
+>e
+Medical Alcove
+   The dominating element of this small cube is the color white.  The walls are
+white, the stiff bed by the east wall is covered in white sheets, and the
+counter sticking out of the wall in the corner looks as though it were carved
+from snow.  Even the air smells as if it has been scoured bare.  Enameled doors
+lead to the south and west.
+
+The only hint of color in the room is the large sink set into the counter,
+which glows a silky blue.
+
+>touch sink
+There's a sharp tingle in your fingers, and you see that the sink is now filled
+with water.  Brett stands right next to you, drying his trembling hands while
+David, in a loose hospital gown, sits on the bed, with Alexis to one side. 
+Jonas is facing him, talking low.
+
+"You mustn't be afraid, David," he says.  "We have everything planned out, as
+you know.  After the toxin is introduced, you will continue a light series of
+duties here, while we watch your reaction over time, and test your tellurgic
+abilities."  He pauses, as David's eyes are drawn to Brett, who wordlessly
+fills a syringe from a vial marked "TELERUS TOXIN."  Jonas continues,
+commanding David's attention.  "We are all aware of the potential dangers of
+this, it's no use denying that.  However, as it will only take a matter of
+minutes to formulate the anti-toxin when it's needed, and we have planned for
+every possible reaction to the toxin, the danger has been minimized to a
+fraction.  Think of the boon you'll be giving to mankind.  The ability to see
+the past, to--"
+
+Brett steps forward silently.  Jonas stops.  All is ready.  David holds out his
+left arm for the needle.  Alexis grasps his right hand, tight, a movement which
+Jonas coldly ignores.  You see Alexis try to get David to look at her, but his
+eyes are caught on something in Brett's eyes that you can't see.  The needle
+sinks in and you feel a pain in your left arm.  The memory of the sting.  The
+image fades.
+
+>w
+Lab Hall III
+   You are standing at the eastern end of a long vaulted room filled with
+scientific equipment:  the lab hall, the heart of the Babel station.  A large
+steel table here, identical to other tables farther down the hall, is half
+covered with various instruments and papers in a jumbled mess.  A portion of
+the table is cleared except for three small cages, which glow blue.  Against
+the north wall is a white metal cabinet and swinging double doors in the south
+wall lead out of the lab.  A smaller door is to the east, while the lab hall
+continues to the west.
+
+>open battery with screwdriver
+You pry the top corner of the battery back, revealing the greenish acid inside.
+
+>pour acid on hinges
+The acid eats away the flimsy hinges, and soon the door of the cabinet falls to
+the side, swinging from the still sturdy lock.  In the safe are some notes, a
+glowing shelf, and the base vial.
+
+>take base vial
+Taken.
+
+You hear a distant, metallic voice say, "Warning.  Main Power Supply Low."
+
+>touch shelf
+As you bend and touch the metal shelf, you instantly see two people in your
+periphery.  Without standing up, fearing it would disrupt the image, you can
+make out Jonas' angled frame to your left and David's smaller one to your
+right.  His hands are down, holding the vial and the notes that were in the
+cabinet when you first opened it.  You notice the cabinet door is back on its
+hinges.
+
+"Well, that's basically all there is," says David, shuffling slowly through his
+notes.  "We've perfected the Telerus toxin, and all the anti-toxin needs is to
+combine this base with a sample of the toxin and radiate it--I'll figure out at
+what level tomorrow--and that too will be done."
+
+"Do I detect displeasure in your voice, Dr. Telurien?"  asks Jonas.
+
+"In a way, yes," says David, putting the base and the notes in the cabinet and
+shutting the door, which passes through your bent body without any effect. 
+"I'm upset that we won't see it go any farther.  If the Administrative Agency
+won't send a subject for human tests, which they may be justified in doing, all
+this development will have been a dead end."
+
+"At my behest, the Agency is reconsidering human testing.  With the anti-toxin
+now completed, they may allow it.  And even if not, they are still greatly
+interested in the capabilities of the Telerus.  We shall continue on.  One way
+or another."  He slides the lock solidly into the rings on the cabinet and the
+vision is gone, the cabinet door hanging open again.
+
+>open telerus vial and base vial
+Telerus vial:  Opened.
+base vial:  Opened.
+
+>pour telerus and base into flask
+Telerus toxin:  Done.
+anti-toxin base:  Done.
+
+>mix telerus with base
+The Telerus toxin and the anti-toxin base bubble violently as they are
+combined.  The reaction lasts only a few seconds, creating the inactive Telerus
+anti-toxin.
+
+>close flask
+Closed.
+
+>w
+Lab Hall II
+   This is the center of a large, grey hall; something like a cross between a
+hospital operating room and a chemistry lab.  Along the north wall is a bank of
+dark computers, while what you think is an electron microscope sits next to the
+south wall, silently glowing blue.  In the center of the room is another large
+metal table, covered with balances, tubes and scales.  The lab extends away to
+the east and west.
+
+>w
+Lab Hall I
+   You are standing at the far western end of the lab hall, which runs back
+east.  A heavy bulkhead dominates the southwest corner of the room, while a
+staircase along the south wall leads down.  In the middle of the room, two
+steel tables have been pushed together to form a larger surface, apparently
+used for dissection.  At the moment, two frogs lay opened on the table, the
+formaldehyde barely keeping away the dying scent of decay.  Over the rest of
+the table are various dissecting implements and a pair of simple microscopes
+that are glowing blue.
+   You see an amber marked syringe here.
+
+>d
+Landing
+   Despite the fluorescent tubes set into the walls, this landing on the
+staircase seems quite dark.  Stairs go both up and down from this landing, and
+a door leads west.
+
+>w
+Changing Room
+   This is a drab, low-ceilinged rectangle, its west end becoming an open
+shower area, its east end bearing a heavy steel door.  A metal bench runs along
+the north side of the room, while on the opposite wall are steel clothing
+hooks.  The scent of sweat and water sticks in the corners of the room, at once
+familiar and squalid.
+
+Oddly, the bench is shining in the dim light.
+
+>touch bench
+You touch the bench, the shock so usual by now that you hardly notice it, and
+in the room with you are Brett and David, slipping out of silver radiation
+suits into their lab uniforms.  Then, something happens.  Out of the blue,
+without a sound, David crumples to the ground, his lab coat spread around him
+on the floor.
+
+"Are you okay?"  asks Brett, kneeling, frantic.  It seems this is not the first
+time this has happened.  David does not reply, at least for a moment.  Then,
+the growling begins.  It seems to come from David's body but its deep, manic
+resonance is not human.  Brett begins to back towards the door, his shirt still
+unbuttoned.  "David... David?"
+
+For a moment there is silence, then David jerks back, his hands over his eyes,
+screaming.  The sound is amplified by the odd acoustics of the room and you
+reach up instinctively to cover your ears from the inhuman sound, but it
+continues on inside your head, unchanged.  The scream seems to go on far longer
+than could be possible, then David collapses again, heaving and growling.
+
+Frozen, Brett crouches, one hand on the door.  "God have mercy, for we have
+sinned.  The tower is falling, we have--" He does not finish, as David, his
+eyes dilated and twisted, lunges at the other scientist.  With frantic speed,
+Brett scurries out, slamming the steel door.  David hits it direct, hard, and
+slumps to the ground.  "What is happening to me?  Oh my God, what is
+happening?"  And then the room is empty.
+
+>e
+Landing
+   Despite the fluorescent tubes set into the walls, this landing on the
+staircase seems quite dark.  Stairs go both up and down from this landing, and
+a door leads west.
+
+>d
+Radiation Area
+   This room is an elongated oval, with a staircase leading up at one end and a
+glass hatch at the other.  Rather than the fluorescent tubes you've seen in the
+rest of the station, the room is lit by incandescent bulbs, each surrounded by
+a mesh cage.  Many of these bulbs have burned out, leaving the room prey to
+milky shadows.  The room is empty except for a large, slanted control panel
+near the steps.
+
+>open hatch
+Opened.
+
+>put flask in chamber
+Done.
+
+>close hatch
+Closed.
+
+>flip switch
+You flip the switch and a hissing noise comes from the hatch.
+
+>put green card in slot
+Done.  As you insert the card, there is a loud hissing noise as two panels of
+Plexiglas slide over the hatch at the other end of the room.
+
+>set dial to 414
+Okay, it's now turned to 414.
+
+>press radiation button
+You hear a loud humming noise and a sharp light pierces the room from behind
+the hatch.  In a moment it fades and a mechanical voice says, "Radiation
+complete."
+
+>press blue button
+As you press the button, you hear a hiss and see the glass door mist up.
+
+>flip switch
+You flip the switch and a hissing noise comes from the hatch.
+
+>take green card
+Taken.  As you remove the card from the slot, the Plexiglas panels over the
+hatch slide slowly back into the walls.
+
+>open hatch
+Opened.
+
+>take flask
+You take the flask out of the chamber, and stare at the emerald liquid inside. 
+This is the anti-toxin, the cure.
+
+>open flask
+Opened.
+
+>pour cure into syringe
+Done.
+
+>inject cure
+You look warily at the fluid in the syringe.  Is this indeed the solution, the
+cure which will return you to your normal self and give you back your memories?
+Or is it possible that you've missed a step in the formulation, overlooked some
+necessary compound?  There is only one way to find out.  Not noticing the pain,
+you push the needle into your arm and depress the plunger.
+
+
+Immediately, an itching fire starts spreading along your arm.  It flows through
+your bloodstream towards your head, burning nerves as it travels.  You sense it
+coming, know it will reach your brain in a matter of minutes.  You feel it
+slowly explode through your chest, and then your neck.  Minutes lengthen, and
+then your eyes begin to fade.  The pain, coursing through your body, is
+numbing.  You feel an itching darkness come, and the ground pulls you towards
+it.  Darkness.
+
+
+
+
+
+
+
+
+Darkness.  You hear a voice talking to someone miles away.  The voice whispers,
+"Main power supply failing.  Switching to auxiliary power supply.  Switching to
+auxiliary power supply."  The pain is not gone.
+
+
+
+
+
+
+Darkness.  But it is a different darkness; colder but without suffering.  One
+by one, you feel yourself opening eyes within you.  Memories tip-toe back. 
+Your revolutionary treatise on biological memory.  Your invitation to work
+here, at this mysterious and wonderful place.  Your meeting Alexis, and falling
+in love with her gentle hands and honeyed hair.  The need for the human trial,
+the volunteering.  The nightmare.  Your slow loss of memories, sanity.  Blocks
+of black time that you could not recall, periods of uncontrollable anger and
+power.  Being locked in your room.  Sneaking out.  Releasing the Jabberwocky in
+a wild, mindless fit.  Hiding, half mad, half starved.  Something else...
+
+
+
+
+Darkness, but your eyes are open.  The floor is hard and cold with reality.  It
+takes all your strength to return to your feet in the gloom.  The power must
+have gone off again.  You breathe slowly.  You look over your body, familiar
+now.  You are yourself again, sane and safe.  But you are still abandoned
+somewhere in the Arctic.  What now?
+
+
+>u
+Landing
+   The darkness floods down like water from above and puddles at the bottom of
+the stairs below you.  By memory you know that staircases from here lead up and
+down.
+
+>u
+Lab Hall I
+   The room is high and overflowing with darkness.  The hall continues off to
+the east.  You feel its vastness and shiver in the darkness.  To the southwest
+a small, flashing, green light next to the bulkhead periodically pricks the
+blackness.
+   You see an amber marked syringe here.
+
+>sw
+You step through the door into the north end of the main hall, where you first
+woke up.  The power off, it seems darker now than before.  However, your eye
+falls on the bulky lock on the north door.  At the sight, a fragment of memory
+returns to you.  You remember lying on the floor, looking up, as the door swung
+closed and a pattern of colored lights flashed on the device.  A moment later
+you were unconscious.  With eerie clarity, you remember the sequence of lights,
+and press the colored buttons in that pattern.  The lock falls aside, and the
+door swings open.
+
+North End
+   The cold air gushing in from the north fills you with a sense of dread and
+urgency.  Behind the north door is a ladder leading up, and some vague memory
+impels you to climb.
+
+>u
+Courtyard
+   You clamber up the ladder against the rush of grey wind.  Midway up, you
+stop, clinging to the rungs with white knuckles.  Your mind reels as if it were
+falling into itself.  Part of you feels pushed onward toward the top, nagged on
+by the edge of memory.  But that same urge makes your stomach turn in fear and
+revulsion.  What is it?  The memory itself escapes you.  You've come this far
+though.  You plow upward into the light.
+
+You come out into a courtyard, surrounded by high cinderblock walls and filled
+with sun reflected off the white ground.  You shudder with relief when you see
+in the center of the small enclosure a sleek black helicopter.  A way out. 
+Relief does not last long.  You glimpse in the corner of your eye a shape on
+the ground.  No, two shapes.  Prostrate on the earth.  Sick blue grey with
+frost.  Chests covered in something matted dark brown and black.  You can not
+make out the faces under the ice forming there, but you know who they are.  The
+last memory oozes into focus.
+
+
+Anger.  Such uncontrollable anger.  And power with it, like you'd never known. 
+They poisoned you.  They locked you in your room.  Left you to die.  But you
+got out.  You would get even.  You waited, you hid, you listened.  Brett left. 
+But Jonas was still here.  Jonas who must die.  You listened.  They were about
+to escape, Alexis had gone to the courtyard, Jonas to turn off the power.  You
+climbed up the ladder.
+
+How could you have forgotten the look on her face when you came up into the
+yard?  Her bottomless brown eyes, crushed with emotion.  Confusion, pity, love,
+terror.  She half gasped, half cried, but no sound came out.  Only now do you
+realize what you must have looked like to her.  Your clothes torn and dirty,
+reeking with furious sweat.  Your posture more simian than human, and your
+eyes, dilated so crazily that their white was hardly visible any more.  But her
+revulsion confused you then, wild as you were with anger and insanity.  Why did
+she look at you like that?  Where was the love, the warm embrace?  Why were
+there tears?  Then she screamed, clearly this time.  Why?  Why did she scream? 
+You heard panting behind you.  Jonas came into the yard.  His whole body shook
+when he saw you.  He nearly fell back down the ladder.  But he did not.  He was
+here now.  And he must die.
+
+You leapt.  There were more screams.  You did not hear them.  He ran, but could
+not run.  You pinned him and pummeled his chest until it caved in.  His eyes
+bulged.  Blood ran.  She was still screaming.  And crying.  Louder and louder. 
+Why?  Why?  Louder.  Why?  Her face was crazed.  Terrified.  You walked over to
+her.  She did not stop crying.  Why?  You hit her to make her stop.  It got
+louder.  You hit her again.  And again.  And again.  She stopped.  It was
+quiet.  You took a few steps back.  You did not see the opening.  You fell down
+the well and out into the hall.  You were hurt.  Before you went into darkness,
+an draft blew the door closed.  Lights flashed.  Darkness.
+
+
+You find yourself on the ground, your hands against your ears, the tears cold
+as acid on your cheeks.  This is what it came to.  At your hand.  Slowly you
+stand, trying hard not to look at the bodies.  The keys are in the helicopter,
+and you turn them mechanically.  You realize that you are gasping for breath. 
+A distant part of your mind explains you are probably going into shock.  You
+turn on the guidance system and drift upwards from the yard.  You feel the
+machine turn and head south, away from the fallen ruins of Babel.
+
+
+You have finished Babel
+
+In a total of 217 turns, you have achieved a score of 22 points out of a
+possible 25.
+
+You may restore a saved game, start over, quit, or undo the current command.
+Please enter RESTORE, RESTART, QUIT, or UNDO:  >

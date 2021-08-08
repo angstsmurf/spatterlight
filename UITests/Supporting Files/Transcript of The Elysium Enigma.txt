@@ -1,0 +1,3483 @@
+Text will now be saved to the script file.  Type SCRIPT OFF to discontinue
+scripting.
+
+>X PILOT
+The shuttle pilot, Sublieutenant Soolin is an attractive, dark-haired young
+woman of oriental extraction.  She is sitting on the pilot’s seat.  She’s
+looking at you, waiting for you to speak.
+
+Sublieutenant Soolin is wearing a dark blue uniform.
+
+>X ME
+Women seem to find you attractive, and you find no reason to challenge their
+opinion.  Tall, slender, and athletically built, with aristocratic features and
+short blond hair you are just a month over twenty-eight Earth standard years of
+age.
+
+You are carrying nothing, and are wearing a purple belt and a white uniform.
+The purple belt contains a drik.  Your left pocket contains an ID card.  Your
+right pocket contains a crumpled piece of paper.
+
+>I
+You are carrying nothing, and are wearing a purple belt and a white uniform.
+The purple belt contains a drik.  Your left pocket contains an ID card.  Your
+right pocket contains a crumpled piece of paper.
+
+>ASK SOOLIN ABOUT YOURSELF
+“Sublieutenant, I’ve been meaning to ask you about...” you begin.
+
+“Beg pardon, sir, but I thought we were both anxious to get out of here, sir,”
+she interrupts you, “So can we talk about that on the way back to the ship once
+you’ve finished here?”
+
+“Okay,” you nod.
+
+>A HERSELF
+“What’s your first name, sublieutenant?” you ask.
+
+“Samantha, sir,” she replies, “But my friends call me Sam.”
+
+>TOPICS
+You could ask her about herself, your orders, Elysium, or the Federation
+crisis.
+
+>A ORDERS
+“What did I do with my orders?” you wonder.
+
+“I think you put them in your pocket, sir,” she tells you.
+
+>LOOK IN POCKETS
+right pocket: Your right pocket contains a crumpled piece of paper.
+
+left pocket: Your left pocket contains an ID card.
+
+>X PAPER
+(first taking the crumpled piece of paper from your right pocket)
+It’s a white piece of paper bearing the orders that brought you here.
+
+>READ ORDERS
+After the standard preamble, it goes on:
+
+“I’m sorry to dump this on you, but the Federation crisis means that we’ve had
+to pull all but skeleton resources out of this sector, and you’re the nearest
+Legion officer to hand.  As a result, we need you to include Elysium in your
+rounds.  It’s a sensitive planet – probably one of the most sensitive
+settlements in the Empire – but provided you go straight in and straight out
+and stick strictly to these orders you shouldn’t have any problems.
+
+The purpose of your visit is simply to remind the local leadership that they
+are still part of the Empire and that we are still keeping tabs on them; quite
+literally, you’re just there to ‘show the flag’.  To do this you’ll need to
+make your way to the Legion office in what passes for the settlement’s capital,
+and, once there, hoist the imperial flag above the building to show the local
+Elders that you’re open for business.  One or more of them should then come to
+call on you within the hour.  When they do, be as diplomatic and courteous as
+possible, but otherwise keep the conversation to a minimum.  Inform them in the
+simplest possible terms of the nature of the Federation crisis, emphasising
+that the Empire will continue to guard them from intrusion.  Ask them if they
+have anything they want to raise with you.  Almost certainly they won’t, apart
+from their standard grumbles about imperial interference.  Say as little as
+possible in reply beyond promising to pass their comments on.  Once you have
+completed this conversation get out of there as quickly as you can.
+
+The most important thing to understand about the Elysians is that they have
+made a religion of technophobia.  Their idea of a paradisal society is a pre-
+industrial society, so try not to flaunt any technology you bring with you; the
+less the settlers see of any thirtieth-century technology, the better you’ll
+get on with them.
+
+Finally, I cannot stress too strongly that you should on no account get
+involved in any of the internal affairs of Elysium, and that you should if at
+all possible avoid any contact with any of the settlers apart from the Elders
+who come to meet you.  Terrible mistakes have been made on Elysium in the past,
+and any problems that come up in the present must be left to officers with a
+deep understanding of the situation there, which does not include you.  So, get
+in, keep the chat nice and short, and get straight out again.
+
+I look forward to receiving your report in due course.
+Subtribune G.F.  Booker (C/O Sect PP12, ISL)
+13-Sep-2980.
+
+[Auth Code: ISL-GF-PPn342]”
+
+(Your score has just increased by one point.)
+(If you’d prefer not to be notified about score changes in the future, type
+NOTIFY OFF.)
+
+>A PLANET
+“What do you know about this place?” you ask her.
+
+“Only what I’ve heard, sir,” she replies, “I’ve never been here before.  It
+does have quite an odd reputation, though, as I’m sure you know.  Something
+went horribly wrong in the past, but no-one wants to talk about it.  And now
+the natives refuse to use any technology that’s much more advanced than the
+wheel.”
+
+>G
+“Do you know anything else about Elysium, sublieutenant?” you ask.
+
+“I thought the Sovereign Legion was meant to be the experts on that kind of
+thing, sir,” she replies pertly.
+
+>OUT
+(first standing up)
+“Goodbye, sir,” Sublieutenant Soolin calls after you.
+
+You clamber out of the shuttle.
+
+Hollow
+You step out of the shuttle and feel the soil of Elysium pressing against your
+boots.  It feels good to be back on the surface of a planet once more, and at
+first glance this planet looks welcoming enough.  The early autumn air is
+comfortably warm, and smells fresh, if a little earthy, while the grass
+underfoot looks springy and green.  But what really strikes you is how quiet it
+is.
+
+Looking around, you speculate that your shuttle has just landed in what was
+originally an impact crater.  To the west the ground rises quite sharply – more
+sharply than you care to climb – but there seems to be a usable trail running
+north and south, and from what Sublieutenant Soolin said, it’s the southern one
+you want.
+
+Your shuttle rests in the middle of the hollow.
+
+>X SHUTTLE
+The small white four-seater shuttle is little more than a space-reinforced
+flyer.  It’s roughly wedge-shaped in deference to aerodynamic efficiency, and
+has an imperial eagle painted on either side.
+
+>X DRIK
+You have no idea where the name “drik” came from; so far as you know that’s
+what it’s been called for centuries.  The drik is a multipurpose device that’s
+issued to all Legion officers as standard.  Despite the natives’ dislike of
+modern technology, this is one item you’re not prepared to go without – it was
+drummed into you at the Legion Training School that a Legion Officer’s drik is
+an integral part of his uniform, never to be lost or surrendered under any
+circumstances.
+
+The drik is vaguely dagger-shaped, with a black handle, on which are four small
+coloured studs, and a slightly longer “blade”, a flat plastimetal strip that is
+not actually sharp enough to cut anything.
+
+The drik has one further function in addition to that provided by its four
+studs: although you’re unlikely to encounter much strange technology on
+Elysium, if you do encounter something you’re suspicious of, pointing your drik
+at it may reveal something about its function.
+
+>X STUDS
+There are four small studs round the base of the handle: one red, one yellow,
+one green, and one blue.
+
+>PRESS RED STUD
+Pushing the red button will send an emergency distress signal which will bring
+a squad of marines rushing to your rescue.  If there isn’t actually an
+emergency you’ll be in real trouble for wasting their time.  If there is a real
+emergency the marines can’t possibly get here in time, since they’d need to
+come down in a shuttle from the orbiting frigate.  So either way, you may as
+well leave that stud alone.
+
+Don’t forget, if you just want to test something with your drik, just point the
+drik at it.
+
+>PRESS YELLOW STUD
+Do you really want to shoot yourself in the foot?  You should only press the
+yellow stud when the drik is aimed at someone you want to stun.
+
+>PRESS GREEN STUD
+The drik lights up.
+
+>PRESS BLUE STUD
+A short beep indicates that you have opened a communications link with your
+pilot.
+
+“Hello, do you read me?” you ask.
+
+“I read you, praefect,” the pilot’s voice replies.
+
+(You could ask her about herself, or the Federation crisis, or tell her about
+yourself.)
+
+>A CRISIS
+“So, what do you make of this Federation business, Sam?” you ask her, “Will it
+be war do you think?”
+
+“I don’t know, sir.” she replies, “But if it is, at least we’re well out of it
+here!”
+
+>A CRISIS
+“I don’t think the Empire has faced a crisis this big in a quarter of a
+millenium,” you remark.
+
+“Since the Border War, you mean, sir?” she replies, “But the Federation is much
+more powerful than the Free World League ever was!”
+
+“Quite,” you agree grimly.
+
+The drik light goes out to conserve power.
+
+>BYE
+“Over and out,” you say.
+
+“Over and out, sir,” she confirms, just before the comms link goes dead.
+
+>S
+Dirt Track
+You leave the hollow and follow the dirt track down a ridge onto level ground,
+where it runs on south between untended fields towards the forest.  This area
+looks like it may have been farmland once, but now the fields are reverting to
+wilderness, and even the track is starting to become overgrown.  As you pause
+to take stock of your surroundings, you wonder why the land has been allowed to
+go to waste.
+
+>X FIELDS
+The fields on either side of the track are so overgrown as to be impenetrable.
+They look as if they may once have been valuable arable land, but now they are
+rapidly reverting to wilderness.
+
+>S
+You set off down the track and after a few minutes’ walk you find yourself deep
+in the heart of the forest.
+
+Heart of the Forest
+You stop to look round and try to reassure yourself that you’re still on the
+path Sublieutenant Soolin told you about.  You can’t see any side trails
+(though there may be the odd gap in the trees through which you could leave the
+main path) so it’s hard to see how you could have gone wrong; and yet it
+doesn’t quite feel right – but perhaps that’s just because you find it so
+disconcerting being forced to walk through a forest for a routine meeting with
+local officialdom.
+
+Although the path has been straight enough so far, a short way ahead it starts
+to twist.
+
+>S
+The path twists and turns through the trees, but broadly continues south.
+
+Edge of the Forest
+The track becomes straighter and wider here as the trees become sparser.  They
+are now so widely spaced that you could easily wander among them to east and
+west, and since they continue to thin out to the south you surmise that you
+must be coming to the edge of the forest.
+
+While you are taking stock of your surroundings, you hear a sudden rustling in
+the undergrowth.  Your heart misses a beat as you see a figure emerge from the
+trees and walk rapidly towards you.  Under the dirt and the tattered rags you
+recognize it as a young woman, and you wonder if this is how all the settlers
+live.
+
+“Excuse me!” she cries, as she hurries up to you, “You’re an offworlder, aren’t
+you?  From the Empire?”
+
+(You could say yes, or ask her who she is.)
+
+>ASK HER WHO SHE IS
+“Who are you?” you ask.
+
+“My name’s Leela.  I’m just one of the local farm girls.  Or rather, I was –
+now I’m not even that, I’m just a nobody.  And if someone doesn’t help me soon
+I’ll be even worse off,” she tells you.  “As you can see, my clothes are
+falling to rags, and I’m starving!  I’m an outcast – no one from round here
+will help me, and I daren’t be caught stealing.  But you’re an offworlder – so
+maybe – please, can you try to find me some new clothes and something to eat?”
+
+(You could say yes or no, refuse politely, offer to get help, or ask her about
+food or clothes.)
+
+>ASK HER ABOUT FOOD
+“Where can I find food and clothes for you?” you want to know.
+
+“You could try the town – it’s not far away,” she suggests.  “So, is that a
+yes?  Are you going to get me some food and clothing?”
+
+>REFUSE POLITELY
+“Look, I’d like to help, but I really can’t,” you tell her, “I have my orders
+you see – I’m not even meant to be talking with you, let alone getting
+involved.  Besides, I won’t be here more than an hour or so.”
+
+“Oh, but it won’t take you more than an hour or two to find me something,” she
+assures you, “The town isn’t far away, and I’m sure you can find something for
+me there.”
+
+>ASK LEELA ABOUT HERSELF
+“What happened to you?  Why are you wandering around half-naked in the forest?”
+you want to know.
+
+“I asked too many questions,” she replied, “the Elders don’t like you asking
+too many questions, so when I asked one too many they decided I wasn’t fit for
+Elysian society – so now I’m an outcast.”
+
+>G
+“How long will you be an outcast for, Leela?” you inquire.
+
+“Goodness knows!” she replies, “This present bunch of Elders isn’t in any hurry
+to take me back.  Maybe once they’ve all dropped dead their replacements will
+be more forgiving – but I’m not counting on it.”
+
+>G
+“So how long have you been an outcast?” you wonder.
+
+“Months and months,” she shrugs, “I’ve lost count.”
+
+>A ELDERS
+“What can you tell me about these elders?” you ask.
+
+“They’re terrible old men,” she tells you, “they regard themselves as the only
+people entitled to any opinion, and they can’t stand anyone questioning them.”
+
+>G
+“What function are the Elders meant to perform?” you enquire.
+
+“They’re meant to be the guardians and co-ordinators of our community,” she
+sniffs.
+
+>G
+“You don’t care for the Elders much, I take it,” you surmise.
+
+“No, they’re a bunch of pompous, backward-looking stick-in-the-muds,” she
+declares.
+
+>A TOWN
+“What will I find in the town?” you wonder.
+
+“Not much,” she shrugs, “No one actually lives there; it’s just for meetings
+and markets.  But that means things get stored there, so you should be able to
+find me some food and clothes, without anyone there to stop you.”
+
+>A MEETINGS
+“Tell me about these markets and meetings in town,” you request.
+
+“Well,” she replies, “the markets are where people get together to exchange
+things – food they’ve grown and the like.  The meetings are when people get
+together to talk about things.”
+
+>S
+Leela waves to you, then turns and walks away, deeper into the forest.
+
+Hillside above the Town
+Emerging from the forest you catch sight of the pathetic cluster of buildings
+at the foot of the slope, and realize that this must be the town where you’re
+meant to be meeting with the Elders; on any other world it wouldn’t even rate
+as a hamlet.  The centre of the town lies straight down the slope to the south.
+Beyond the western edge of the hillside you catch a glimpse of the river that
+flows on past the town, while at your back is the forest.
+
+>X RIVER
+The river flows down from the forest and runs along the western edge of the
+town, before disappearing across the distant fields to the south.
+
+>S
+You walk down the slope into the centre of the town.
+
+Town Centre
+The centre of Elysium’s sole town looks no more impressive than it did from a
+distance.  The main street, running east-west, is simply the baked mud space
+between buildings you could count on your fingers.  The track you’ve just
+walked down continues south between a neat white building (to the east) and a
+large barn (to the west).  Across the street from the barn is an enclosed area
+that has the look of a primitive market, while opposite the single-storey white
+building a large wooden hall has shed most of its red paint.  Overall this
+place is more like your idea of some frontier trading post than a planetary
+capital, and it seems totally deserted.
+
+>X NEAT WHITE BUILDING
+It’s a small, square, single-storey flat-roofed building, with a flagpole
+jutting up from the roof.
+
+>E
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+>N
+Inside the Hall
+This seems to be a meeting hall of some sort, with rows of plain wooden benches
+facing a crude stage at the northern end.  It’s unclear whether this place is
+intended for religious or secular purposes; quite possibly it does duty for
+both.  The overall effect is decidedly gloomy, even though a fair amount of
+sunlight steals in through the unglazed windows and the open doorway to the
+south.
+
+>S
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+>S
+(first trying to open the purple door)
+The purple door seems to be locked.
+
+>X ID CARD
+(first taking your ID card from your left pocket)
+Your ID card is a rectangle of white data-plastic about two centimetres wide by
+four long.  It bears a small photograph of you and identifies you as Praefect
+Andrew Holt of the Imperial Sovereign Legion.
+
+>PUT ID CARD IN SLOT
+A sharp click from the door indicates that it has just unlocked itself.
+
+>S
+(first opening the purple door, then taking your ID card)
+
+Sovereign Legion Office
+You look round the clean, white office with a flood of relief, feeling that you
+are at last back in civilization.  Everything here looks clean and neat and
+Legion-fashion.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+>X DESK
+The desk is the familiar model you’ve seen in many Legion offices, with a
+built-in console and a single shallow drawer.
+
+>X CONSOLE
+It’s a standard model console, with a 50 cm screen and a datatab slot.  On an
+ordinary world it would be connected to the planet-wide datanet, but you doubt
+that such a thing exists on Elysium.
+
+>OPEN DRAWER
+Opening the drawer reveals a purple datatab and a pair of safety pins.
+
+>TAKE DATATAB AND PINS
+purple datatab: Taken.
+pair of safety pins: Taken.
+
+>PUT DATATAB IN SLOT
+The screen displays: “Please enter your Authorization Code: ”
+
+>READ ORDERS
+After the standard preamble, it goes on:
+
+“I’m sorry to dump this on you, but the Federation crisis means that we’ve had
+to pull all but skeleton resources out of this sector, and you’re the nearest
+Legion officer to hand.  As a result, we need you to include Elysium in your
+rounds.  It’s a sensitive planet – probably one of the most sensitive
+settlements in the Empire – but provided you go straight in and straight out
+and stick strictly to these orders you shouldn’t have any problems.
+
+The purpose of your visit is simply to remind the local leadership that they
+are still part of the Empire and that we are still keeping tabs on them; quite
+literally, you’re just there to ‘show the flag’.  To do this you’ll need to
+make your way to the Legion office in what passes for the settlement’s capital,
+and, once there, hoist the imperial flag above the building to show the local
+Elders that you’re open for business.  One or more of them should then come to
+call on you within the hour.  When they do, be as diplomatic and courteous as
+possible, but otherwise keep the conversation to a minimum.  Inform them in the
+simplest possible terms of the nature of the Federation crisis, emphasising
+that the Empire will continue to guard them from intrusion.  Ask them if they
+have anything they want to raise with you.  Almost certainly they won’t, apart
+from their standard grumbles about imperial interference.  Say as little as
+possible in reply beyond promising to pass their comments on.  Once you have
+completed this conversation get out of there as quickly as you can.
+
+The most important thing to understand about the Elysians is that they have
+made a religion of technophobia.  Their idea of a paradisal society is a pre-
+industrial society, so try not to flaunt any technology you bring with you; the
+less the settlers see of any thirtieth-century technology, the better you’ll
+get on with them.
+
+Finally, I cannot stress too strongly that you should on no account get
+involved in any of the internal affairs of Elysium, and that you should if at
+all possible avoid any contact with any of the settlers apart from the Elders
+who come to meet you.  Terrible mistakes have been made on Elysium in the past,
+and any problems that come up in the present must be left to officers with a
+deep understanding of the situation there, which does not include you.  So, get
+in, keep the chat nice and short, and get straight out again.
+
+I look forward to receiving your report in due course.
+Subtribune G.F.  Booker (C/O Sect PP12, ISL)
+13-Sep-2980.
+
+[Auth Code: ISL-GF-PPn342]”
+
+>TYPE ISL-GF-PPn342 ON CONSOLE
+The screen displays: “Authorization Code Correct!  Access permitted.  ”
+
+The console screen displays a recent report on the status of Elysium.
+
+The summary page tells you that the current population of the planet is a mere
+11,345 (as of the latest count, last year), and that Elysium has the lowest GDP
+per head of any planet of the Empire by a very long way.  The population
+apparently peaked at around fifteen thousand about a century ago and has been
+declining slowly ever since (there’s a link to a lengthy social-scientific
+analysis of this, but you’re content with the summary, which suggests that the
+society has simply become too stagnant).  The prognosis is that within a
+century or two Elysian society will have become non-viable and the Empire will
+be able (and obliged) to move in with a fresh bunch of settlers and make
+something of the world (though this is not to be communicated to any of the
+current inhabitants) but in the meanwhile, the Elysians are to be left alone to
+decay as they wish, since there must be no repetition of past tragedies
+(there’s a link to a file explaining this in more detail, but it turns out you
+don’t have the security clearance to read it).  The summary ends with an
+instruction to all imperial personnel operating on Elysium to keep contact and
+interference to the bare minimum required to monitor the status of Elysian
+society and ensure no outside interference.
+
+>TAKE PURPLE DATATAB
+As you remove the purple datatab, the console screen goes blank.
+
+>UP
+(first unlocking the hatch, then opening it)
+
+Roof
+Although the roof is not that high up, it affords you a reasonably good view
+over the town.  A low parapet runs round the edge of the roof, at one end of
+which is a tall white flagpole with a white locker at its base.  At the far end
+is an array of solar panels, while in between a narrow staircase leads back
+down through an open hatch.
+
+>OPEN LOCKER
+Opening the locker reveals a white pillowcase.
+
+>TAKE PILLOWCASE
+Taken.
+
+>LOOK IN PILLOWCASE
+(first unfolding the white pillowcase)
+The white pillowcase contains a tiny black object.
+
+>TAKE BLACK OBJECT
+Taken.
+
+>X IT
+You almost missed it, it’s so tiny.  It’s round and black and smaller than a
+pea, and could easily be mistaken for an innocuous piece of dirt. But it also
+looks suspiciously artificial.
+
+>POINT DRIK AT BLACK OBJECT
+(first taking the drik from the purple belt)
+The drik blade flashes red and emits a little beep, indicating that you have
+discovered a listening device.  The next question is where the receiver is;
+given the limited range of such a tiny listening device it can’t be too far
+away from where the bug was planted – somewhere else in the town perhaps.
+
+(Your score has just increased by one point.)
+
+>PRESS BLUE STUD
+A short beep indicates that you have opened a communications link with your
+pilot.
+
+Sublieutenant Soolin does not appear to hear you.
+
+>T BUG
+(telling Sublieutenant Soolin)
+Sublieutenant Soolin does not appear to hear you.
+
+>G
+(telling Sublieutenant Soolin)
+Sublieutenant Soolin does not appear to hear you.
+
+>BYE
+Sublieutenant Soolin does not appear to hear you.
+
+>X BARN
+The large wooden barn dominates the view to the west, towering over the roof
+you’re standing on, and blocking much of the view of the far end of the town.
+
+>DOWN
+Sovereign Legion Office
+This office is the about the only place on Elysium that resembles your idea of
+civilization.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+>E
+(first opening the east door)
+
+Bedroom
+This small bedroom is presumably provided in case a visiting Legion officer
+needs to stay overnight, but there’s not much here apart from a single bed hard
+against the wall, a small wardrobe, and a small chest of drawers.  There’s a
+door to the west back into the office, and a tiny bathroom to the south.
+
+>LOOK IN WARDROBE
+(first opening the wardrobe)
+
+Inside the wardrobe is a small domestic robot.
+
+>X ROBOT
+It’s one of those small cylindrical jobs, basic but robust.  Presumably it
+carries out the routine maintenance and cleaning in this building.  There’s a
+yellow sticker attached to it.  It’s currently plugged into the wall, charging.
+
+>X CHEST
+It’s made of some dark wood and has three drawers.  It’s of fairly basic,
+though robust design, its somewhat old-fashioned appearance suggesting that it
+may be of local manufacture.
+
+>OPEN TOP DRAWER
+Opening the top drawer reveals a duvet.
+
+>PUT DUVET ON BED
+(first taking the duvet)
+Done.
+
+>OPEN MIDDLE DRAWER
+Opening the middle drawer reveals a fluffy pink towel.
+
+>TAKE TOWEL
+Taken.
+
+>OPEN BOTTOM DRAWER
+Opening the bottom drawer reveals a plain white sheet.
+
+>TAKE SHEET
+Taken.  Moving the plain white sheet reveals an imperial flag underneath.
+
+>TAKE FLAG
+Taken.
+
+>X FLAG
+You know that the imperial flag depicts a large golden eagle on a purple
+background, though it’s a little difficult to tell that while it’s folded.
+
+>W
+Sovereign Legion Office
+This office is the about the only place on Elysium that resembles your idea of
+civilization.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+>UP
+Roof
+Although the roof is not that high up, it affords you a reasonably good view
+over the town.  A low parapet runs round the edge of the roof, at one end of
+which is a tall white flagpole with a white locker at its base.  At the far end
+is an array of solar panels, while in between a narrow staircase leads back
+down through an open hatch.
+
+>ATTACH FLAG TO ROPE
+(first unfolding the imperial flag)
+Done.
+
+>PULL ROPE
+You hoist the flag to the top of the pole, where it flutters gamely in the
+breeze.
+
+(Your score has just increased by two points.)
+
+>X PARAPET
+The parapet running round the edge of the roof is only about a metre high, and
+so would not provide much of a barrier to someone determined to jump off or
+clumsy enough to fall over.  In common with the rest of the building it’s
+covered in white plaster.  A close examination of the parapet reveals what
+looks like a fresh scratch.
+
+>X SOLAR PANELS
+The array of four solar panels at the east end of the roof is arranged to catch
+as much sunlight as possible during the course of the day.  You suspect that
+they convert the sun’s energy into electricity using photovoltaic cells, and
+that the power is then stored in batteries.  These panels wouldn’t give enough
+power for continuous use all the year round, but they probably generate enough
+for the few days a year on which this building is actually used.
+
+>X SCRATCH
+It’s a short vertical scratch on the inside near the top, as though someone had
+recently dragged a sharp object up the plaster.
+
+>Z
+Time passes...
+
+An old man enters the town centre from the south.
+
+>DOWN
+Sovereign Legion Office
+This office is the about the only place on Elysium that resembles your idea of
+civilization.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+The old man enters the east end of the town from the west.
+
+>Z
+Time passes...
+
+The old man enters the Sovereign Legion Office.  Since you don’t want one of
+the natives to see you talking over the drik you surreptitiously cut the
+connection.  “I’m Petroc, Chief Elder of Elysium,” the old man introduces
+himself, “I saw your flag flying, so I came – but you look even greener than
+the last one they sent.  So what have you come to bother about us this time?”
+
+>A PETROC
+“Did you say you’re the Chief Elder?” you ask.
+
+“I sure did,” he affirms, “but that just makes me the first among equals – the
+Chairman of the Council of Elders, I’m not some petty emperor.”
+
+>A ELDERS
+“How many Elders are there?” you ask.
+
+“Twelve,” he tells you, “We each take responsibility for one district, but once
+a month we come together to discuss matters of common concern.”
+
+>T FEDERATION
+“I’ve been instructed to tell you something about the Federation crisis,” you
+explain, “Ever since Relda, tension between the Empire and the Federation has
+been growing, and now there’s a real risk of war.  I’m instructed to inform you
+that, in the event of hostilities, the Empire will continue to protect Elysium
+from outside interference as it has always done, even though much of our
+attention will of necessity be diverted to, ah, other matters.”
+
+“Empire or Federation, what difference does it make to us?”  Petroc shrugs; but
+then his curiosity gets the better of him, “Who or what was Relda?  And why is
+your mighty Empire so worried about this Federation?”
+
+>T RELDA
+“It was what happened on Relda that revealed the real nature of the
+Federation,” you explain, “Relda was one of the Federation’s wealthier worlds –
+it may still be, for all we know.  It used to be self-governing, but the
+Federation took more and more power away from the planetary government, and
+bought up more and more of the planet’s assets.  Then, a few years ago, the
+Reldans elected a new Planetary Council on a platform of wresting control of
+their world back from the Federation.  The Federation responded by blowing up
+the Council and blaming it on terrorists; then they took over the planetary
+government themselves.  Relda went from being a member-world to being a
+subject-world, a pattern that’s been repeated all over the Federation.”
+
+“That is where riches and greed and human ambition always lead,” Petroc opines,
+“to injustice and oppression.  That is why we have forsworn all such things
+here.”
+
+>T FEDERATION
+“The Paranian Federation has grown nearly as strong as the Empire – it too now
+numbers more than sixty worlds over a comparable volume of space,” you explain,
+“Over the last two decades or so they’ve become more and more of a tyranny – as
+events on Relda showed – and they’re also becoming more and more aggressive,
+looking for new worlds to conquer.  We can’t stand by and just watch this
+happen, so sooner or later we seem bound to clash.  In any case, there’s every
+danger they’ll try to attack us!”
+
+“That’s what your ‘progress’ and ‘technology’ does for you,” Petroc grunts,
+“Our ancestors were right to turn their backs on all that rubbish!”
+
+>A PLANET
+“This is just one of our regular visits to check up on how things are going
+here,” you tell him, “So, how are things going here?  Any problems?”
+
+“The harvest is not plentiful, children are not respectful to their parents,
+and parents do not produce enough children to make our numbers increase,” he
+shrugs, “Nothing changes.”
+
+>G
+“Is there anything you need to report, any outside interference or anything
+like that?” you enquire.
+
+“The only outside interference comes from your empire,” Petroc grunts.  But
+then he relents to the extent of adding, “You haven’t been talking with old
+Jeb, have you?  You don’t want to take any notice of anything he says – he’s
+full of addle-witted fool-guff.”
+
+>A OLD JEB
+“Who or what is old Jeb?” you wonder.
+
+“Oh, he’s just the old fool who owns the farm just across the river.”  Petroc
+tells you, “He’s not such a bad fellow, but he’s so full of bumble-rot.  He
+says he saw something last week – or was it the week before?  He’s such a
+muddle-wit he probably doesn’t even know himself!”
+
+>G
+“What exactly did this old Jeb character think he saw?” you ask.
+
+“Something in the sky,” Petroc grunts, “at the dead of night, he says.  He went
+out to check on a mare that was in foal, and says he saw something blotting out
+some stars.  Sounds to me like it was just a passing cloud if it was anything
+at all, but the old fool swears blind it was more like something floating down
+from heaven.  I ask you – he’ll be saying it was the second coming next!”
+
+>G
+“What else did Jeb say about this object he saw at night?” you want to know.
+
+“Well – he reckons what it was came down a little way to the north of his farm.
+That would make it to the northwest of here, somewhere across the river running
+through the forest.  But that’s just crazy nonsense, of course – there aint
+nothing there but trees and grass!”
+
+>G
+“This thing that old Jeb says came down to the northwest, what could it have
+been?” you wonder.
+
+“Hell, I don’t suppose it was anything,” Petroc replies scornfully, “Like I
+said, he probably just saw a cloud after having a mite too much to drink.  I
+wouldn’t have mentioned it at all except to warn you not to take no notice of
+it.  Old Jeb is such an addle-wit I’d not set much store by anything he said.”
+
+>G
+“So you haven’t checked old Jeb’s story out?” you ask.
+
+“Of course not,” Petroc snaps, “No one else has mentioned anything strange, and
+I’ve better things to do than waste my time checking on drunken ghost stories –
+and so, I imagine, have you!”
+
+>G
+“Is there anything else you can tell me about old Jeb?”  you ask.
+
+“No, not really” he replies, “I mean, he’s a decent enough farmer and all that,
+and he don’t generally create any trouble, but he is such an addlepated old
+fool.  Like I said, you don’t want to take any notice of him.”
+
+>G
+He’s already indicated that he has nothing more to say about old Jeb, and you
+remember perfectly well what he told you: old Jeb is a bumble-wit who owns a
+farm just over the river.  He went out in the dead of night to check on a mare
+in foal a week or two ago and thought he saw something come down out of the
+sky, a short way north of his farm.
+
+>A LEELA
+“I met a young woman called Leela in the forest on the way here,” you inform
+him, “She says she’s an outcast - that you elders cast her out.”
+
+“I know of no Leela,” he tells you stiffly, “And we do not cast people out.  We
+take care of our own on Elysium.”
+
+>G
+“Leela’s a young woman with long dark hair, about twenty standard Earth years
+or so old, I’d say,” you remark, “Do you not know of such a woman?”
+
+“Your description would match any of a score of young women I know,” Petroc
+complains, “But none of them have been ‘cast out’.  We do not do such things.”
+
+>G
+“Leela is half-starved and half-naked, and says none of you will feed her or
+clothe her,” you tell him.
+
+“That is nonsense; if any young woman was in such a plight, any of our people
+would give her food and clothing,” Petroc replies.
+
+“But she says you have forbidden it!” you protest.
+
+“That is a lie!” he declares fiercely, “We would never do such a thing!”
+
+>A ELDERS
+“What do the Elders do?” you inquire, “What is your function?”
+
+“To guide our people and preserve our ancestral ways,” he replies, “In
+particular we preserve the memory of the worlds we left behind, the greed and
+oppression and misery that goes with ‘technology’ and ‘progress’, so that each
+generation can be taught what we have escaped and why we must preserve our
+simple way of living.”
+
+>BYE
+“Well, I think that’s about it, then; I needn’t detain you any longer,” you
+say.
+
+“You’ve already detained me quite long enough,” Petroc concurs gruffy, “So I
+shall bid you good day.”
+
+Petroc leaves through the street door.
+
+>N
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+Petroc is standing here.
+
+Petroc goes inside the large wooden hall.
+
+>W
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+>W
+West End of Town
+The muddy street from the centre of the town to the east ends at a ramshackle
+wooden bridge that has unfortunately fallen into a terminal state of disrepair,
+leaving no other means of crossing the river.  A large wooden barn stands
+immediately to the south, next to a pair of tumbledown shacks, while on the
+north side of the street is a rough enclosed area that looks like it’s probably
+some sort of market.  Behind the market the land climbs up towards the distant
+forest.
+
+The imperial flag flies over the white building.
+
+>X BARN
+It’s the largest building at this end of the town, perhaps some nine or ten
+metres high; it’s basically a plain wooden structure with its gable end
+presented to the street.  Since it’s just across the street from the market
+area, you surmise that it’s probably used to store produce for the market.
+
+>ENTER BARN
+(first trying to open the barn door)
+The barn door seems to be locked.
+
+>N
+Market Area
+This fenced-in area of a few dozen square metres looks like it might be used
+for a market, both from the rubbish that’s been left lying around, and the
+impress in the muddy ground of what might be stalls or tables.  A small shed
+stands near the centre of the area, with a trestle table off to one side.  Gaps
+in the fence allow egress to the south and southeast, as well as north along
+the bank of the river.
+
+On the trestle table are a carrot and a parsnip.
+
+A large black dog is sniffing around, scavenging for food.  The dog charges up
+to you and starts snapping at your heels.
+
+>TAKE CARROT
+The dog growls at you so fiercely as your hand approaches the carrot that you
+decide you’d better leave it alone.
+
+>SHOOT THE DOG
+(with the drik)
+The dog lets out a startled whine, then topples over with legs splaying.  His
+legs give a final couple of twitches, and then he lies still.
+
+>TAKE CARROT
+Taken.
+
+>TAKE PARSNIP
+Taken.
+
+>ENTER SHED
+(first opening the hut door)
+
+Inside the hut
+Two people standing inside this tiny hut would be cramped; three would be
+excessively intimate.  It is almost completely bare apart from a small hook
+fixed to the west wall.
+
+A folded piece of cloth lies on the floor of the hut.
+
+A fishing rod is leaning against the wall.
+
+On the small hook is a small iron key.
+
+There’s a faint cheesy smell from somewhere.
+
+>TAKE CLOTH
+Taken.
+
+There’s a faint cheesy smell from somewhere.
+
+>UNFOLD CLOTH
+You unfold the piece of cloth.  Inside the cloth you find a small wedge of
+cheese.
+
+You can smell the cheese.
+
+>TAKE ROD
+Taken.
+
+>X IT
+It’s quite crude, comprising a long wooden pole with a line attached.
+
+You can smell the cheese.
+
+>PUSH BLUE STUD
+A short beep indicates that you have opened a communications link with your
+pilot.
+
+“Hello, do you read me?” you ask.
+
+“I read you, praefect,” the pilot’s voice replies.
+
+(You could ask her about herself, or the Federation crisis, or tell her about
+yourself, old Jeb, Leela, the town, the Elder, or the bug.)
+
+>T ELDER
+“I’ve had my meeting with the Elder,” you tell her, “He wasn’t all that
+bothered about the Federation crisis, and he didn’t have much to say about how
+things were going here, but he did mention something some old farmer said, and
+I think it might be worth looking into.”
+
+“What was that, sir?”  Sublieutenant Soolin inquires.
+
+“Well, the Elder seemed inclined to dismiss it, and it could be rubbish, but it
+sounded like the old farmer saw something that could just possibly have been an
+unauthorised shuttle landing,” you tell her.
+
+“If someone is making an unauthorised visit here, I suppose that’s something
+you need to investigate, sir,” Sublieutenant Soolin acknowledges dubiously.
+
+“Quite,” you concur.
+
+You can smell the cheese.
+
+>T OLD JEB
+“I’m not sure how much credence I should give to the Elder’s report of what the
+old farmer thought he saw, but maybe I should see if I can find out any more,”
+you say.
+
+“Whatever you think, sir,” she agrees.
+
+>BYE
+“Over and out,” you say.
+
+“Over and out, sir,” she confirms, just before the comms link goes dead.
+
+>TAKE KEY
+Taken.
+
+>X IT
+It’s an old-fashioned key, with teeth.
+
+You can smell the cheese.
+
+>UNSCREW HOOK
+You unscrew the hook from the wall of the hut and take it.
+
+>ATTACH HOOK TO LINE
+You attach the hook to the line.
+
+>OUT
+Market Area
+This fenced-in area of a few dozen square metres looks like it might be used
+for a market, both from the rubbish that’s been left lying around, and the
+impress in the muddy ground of what might be stalls or tables.  A small shed
+stands near the centre of the area, with a trestle table off to one side.  Gaps
+in the fence allow egress to the south and southeast, as well as north along
+the bank of the river.
+
+The dog is lying unconscious on the ground.
+
+>X RUBBISH
+Scraps of rotten fruit and vegetables mingle with bits of straw and mud, none
+of it any use for anyone but worms.
+
+You can smell the cheese.
+
+>SEARCH RUBBISH
+You find a little worm wriggling among the scraps.
+
+>TAKE WORM
+Taken.
+
+>ATTACH WORM TO HOOK
+Done.
+
+>S
+West End of Town
+The muddy street from the centre of the town to the east ends at a ramshackle
+wooden bridge that has unfortunately fallen into a terminal state of disrepair,
+leaving no other means of crossing the river.  A large wooden barn stands
+immediately to the south, next to a pair of tumbledown shacks, while on the
+north side of the street is a rough enclosed area that looks like it’s probably
+some sort of market.  Behind the market the land climbs up towards the distant
+forest.
+
+The imperial flag flies over the white building.
+
+>W
+No one can cross the bridge in its present state, and there doesn’t seem to be
+any other way across the river.
+
+>FISH IN RIVER WITH ROD
+What good luck!  After a few minutes you get a bite and manage to land a small
+trout.
+
+>UNLOCK DOOR WITH IRON KEY
+Unlocked.
+
+>S
+(first opening the barn door)
+
+Inside the Barn (in the dark)
+Hardly any light finds its way in here, apart the little that leaks in through
+the doorway to the north, so you can discern little except vague shapes in the
+large dark space.
+
+There’s a faint cheesy smell from somewhere.
+
+>PUSH GREEN STUD
+The drik lights up.
+
+Inside the Barn
+This vast barn looks like it might be used as storage space for the market
+opposite.  A ladder leads up to a high platform at the south end.  On the east
+wall is a large shutter.
+
+An old brown sack lies abandoned by the wall.
+
+>X SACK
+It’s just a rough old brown sack, but it is quite large.
+
+>LOOK IN SACK
+The old brown sack contains an apple.
+
+>PUT FOOD IN SACK
+parsnip: Done.
+
+small wedge of cheese:
+(first taking the small wedge of cheese from the piece of cloth)
+Done.
+
+carrot: Done.
+
+>PUT ID CARD AND BUG IN LEFT POCKET
+ID card: Done.
+tiny black bug: Done.
+
+>OPEN SHUTTER
+Opened.
+
+>UP
+You start to climb the ladder, but as you’re about half way up, a rung gives
+way beneath you; you fall onto the next one down and that breaks too, and then
+you tumble back down to the ground, bringing the bottom half of the ladder with
+you as it crumbles into a heap of fragments.
+
+>N
+West End of Town
+The muddy street from the centre of the town to the east ends at a ramshackle
+wooden bridge that has unfortunately fallen into a terminal state of disrepair,
+leaving no other means of crossing the river.  A large wooden barn stands
+immediately to the south, next to a pair of tumbledown shacks, while on the
+north side of the street is a rough enclosed area that looks like it’s probably
+some sort of market.  Behind the market the land climbs up towards the distant
+forest.
+
+The imperial flag flies over the white building.
+
+>N
+Market Area
+This fenced-in area of a few dozen square metres looks like it might be used
+for a market, both from the rubbish that’s been left lying around, and the
+impress in the muddy ground of what might be stalls or tables.  A small shed
+stands near the centre of the area, with a trestle table off to one side.  Gaps
+in the fence allow egress to the south and southeast, as well as north along
+the bank of the river.
+
+The dog is lying unconscious on the ground.
+
+The drik light goes out to conserve power.
+
+>PUSH TABLE S
+West End of Town
+The muddy street from the centre of the town to the east ends at a ramshackle
+wooden bridge that has unfortunately fallen into a terminal state of disrepair,
+leaving no other means of crossing the river.  A large wooden barn stands
+immediately to the south, next to a pair of tumbledown shacks, while on the
+north side of the street is a rough enclosed area that looks like it’s probably
+some sort of market.  Behind the market the land climbs up towards the distant
+forest.
+
+The imperial flag flies over the white building.
+
+You push the trestle table into the west end of the town.
+
+>PUSH TABLE S
+Inside the Barn
+This vast barn looks like it might be used as storage space for the market
+opposite.  The top half of a broken ladder is attached to a high platform at
+the south end.  On the east wall is a large shutter.
+
+An old brown sack lies abandoned by the wall.
+
+The old brown sack contains an apple, a parsnip, a small wedge of cheese, and a
+carrot.
+
+You can smell the cheese.
+
+You push the trestle table into the barn.
+
+>STAND ON TABLE
+Okay, you’re now standing on the trestle table.
+
+You can smell the cheese.
+
+>UP
+From the trestle table you manage to reach the bottom rung of the remaining
+part of the ladder and haul yourself up onto the platform.
+
+Loft
+The loft is little more than a storage platform running the width of the barn,
+about three metres deep, in the space under the rafters.  At the eastern end of
+the platform a large wooden box is fixed to the wall, next to a pile of hay in
+the corner.
+
+A black cat is lying on top of the box.
+
+>X CAT
+It’s a large cat, black all over.  It is lying on the large wooden box.
+
+>TAKE CAT
+The cat hisses at you, scratches your hands, and wriggles out of your grasp.
+
+>OPEN BOX
+The cat hisses and scratches at your hand as you try to open the box.
+
+>GIVE TROUT TO CAT
+The cat snatches the trout from your grasp and leaps onto the floor.
+
+(Your score has just increased by two points.)
+
+>OPEN BOX
+Opening the large wooden box reveals a lettuce, a piece of ham, a small loaf of
+bread, and two tomatoes.
+
+>TAKE FOOD
+small loaf of bread: Taken.
+tomato: Taken.
+tomato: Taken.
+piece of ham: Taken.
+lettuce: Taken.
+
+>X HAY
+The hay is all piled up in the corner.
+
+>SEARCH HAY
+Under the pile of hay is a pear.
+
+>TAKE PEAR
+Taken.
+
+>X RAFTERS
+The rafters are simply wooden beams running east to west above your head.  The
+southernmost one looks a little misshapen.
+
+>X SOUTHERNMOST RAFTER
+There’s a lump near the east end of the southernmost rafter.
+
+>X LUMP
+It’s roughly cube-shaped but it’s hard to make out without better light.
+
+>POINT DRIK AT LUMP
+Okay, you point the drik at the lump.
+
+>PRESS GREEN STUD
+The drik lights up.  In the direct light of the drik you can see that the lump
+is actually a black cube placed on the rafter.
+
+>X CUBE
+All you can see from here is that it’s a black cube.
+
+>TAKE CUBE
+The small black cube is out of reach.
+
+>THROW PEAR AT CUBE
+The pear strikes the small black cube and both pear and small black cube fall
+to the floor.
+
+The drik light goes out to conserve power.
+
+>TAKE PEAR AND CUBE
+pear: Taken.
+small black cube: Taken.
+
+>X CUBE
+The small black cube looks like it’s made of some kind of shiny plastic, and
+seems featureless apart from the small slot in the side.  Whatever it is, it
+looks more like the product of offworld technology than something that belongs
+on Elysium.
+
+>POINT DRIK AT CUBE
+The drik blade emits a short series of rapid amber flashes, confirming your
+suspicions: the cube is some sort of receiving device.
+
+(Your score has just increased by two points.)
+
+>X SLOT
+It’s about 8mm long.  It contains a black datatab.
+
+>DOWN
+Inside the Barn
+This vast barn looks like it might be used as storage space for the market
+opposite.  The top half of a broken ladder is attached to a high platform at
+the south end.  On the east wall is a large shutter.
+
+The trestle table is positioned next to the ladder.
+
+An old brown sack lies abandoned by the wall.
+
+The old brown sack contains an apple, a parsnip, a small wedge of cheese, and a
+carrot.
+
+You can smell the cheese.
+
+>PUT FOOD IN SACK
+pear: Done.
+tomato: Done.
+tomato: Done.
+lettuce: Done.
+small loaf of bread: Done.
+piece of ham: Done.
+
+You can smell the cheese.
+
+>TAKE SACK
+Taken.
+
+You can smell the cheese.
+
+>N
+West End of Town
+The muddy street from the centre of the town to the east ends at a ramshackle
+wooden bridge that has unfortunately fallen into a terminal state of disrepair,
+leaving no other means of crossing the river.  A large wooden barn stands
+immediately to the south, next to a pair of tumbledown shacks, while on the
+north side of the street is a rough enclosed area that looks like it’s probably
+some sort of market.  Behind the market the land climbs up towards the distant
+forest.
+
+The imperial flag flies over the white building.
+
+>E
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+You can smell the cheese.
+
+>N
+Hillside above the Town
+The grassy hillside slopes gently down towards the small town below, which is
+surrounded by farmland and bordered by a river to the west.  The centre of the
+town lies straight down the slope to the south. Just up the slope to the north
+is the edge of the forest, which can also be entered to the northwest.
+
+>N
+Edge of the Forest
+The main north-south track runs wide and straight here.  The trees are more
+widely spaced, so that you could easily wander among them on either side of the
+main track.  To the south they become sparser still, indicating that the edge
+of the forest lies that way.
+
+You can smell the cheese.
+
+>W
+Thinning Forest
+Dappled light plays through the sparsely spaced trees that thin out even more
+towards the southeast, where the forest ends.  In principle you could walk in
+any direction amongst these autumnal trees, but one direction looks much the
+same as any other, so you could all too easily get lost, except that you know
+that the way back to the main path is to the east.
+
+>E
+Edge of the Forest
+The main north-south track runs wide and straight here.  The trees are more
+widely spaced, so that you could easily wander among them on either side of the
+main track.  To the south they become sparser still, indicating that the edge
+of the forest lies that way.
+
+>N
+Heart of the Forest
+Alien foliage clogs the ground between the trees that crowd around you on every
+side.  The main trail heads straight off to the north and snakes through the
+trees to the south.  You can’t see any side trails as such, but there may be
+the odd gap in the trees through which you could pass.
+
+>X TREES
+You never were much of a country boy, so you can’t identify the types of trees
+with any precision.  So far as you can tell most of the trees in this part of
+the forest are some variety of conifer; in any case they are tall and green and
+apparently untouched by the onset of autumn.  As you examine the trees more
+closely, you see a narrow gap to the west you could just squeeze through.
+
+You can smell the cheese.
+
+(Your score has just increased by one point.)
+
+>W
+You squeeze through the gap, and then blunder around in the undergrowth for a
+while before hitting on another path.
+
+Narrow Path
+You seem to have found your way onto a different path from the one you just
+left.  For one thing it looks narrower, and for another it leads west and
+southeast from here.  The trees also look different from the ones you saw
+before; there’s a gap through them just to the east, through which you’ve just
+emerged.
+
+>W
+Clearing
+It looks as if the forest is gradually encroaching on this clearing, with the
+line of trees advancing slowly but steadily towards its centre year by year.
+Right now, it’s still quite large, with a clear path running out to the east,
+and another to the west.  A closer examination reveals what looks like the
+rotting remains of several buildings, now heavily overgrown and scarcely
+jutting about ground level, apart from the remains of a white stone building,
+the walls of which are more or less still standing.  This building stands just
+to the south, while the clearing continues a short way to the north.
+
+>S
+Inside the Stone Building
+The single room inside the building is open to the sky and mostly full of
+rubble.  In the one corner that remains reasonably accessible, the southwest
+corner, a triangular light fitting remains near what would once have been the
+ceiling.  The doorless exit lies to the north.
+
+An old metal crate sits in the southwest corner.
+
+A battered cabinet lies half-buried under the rubble in the northeast corner of
+the room.
+
+>X CABINET
+Most of it is buried under the rubble, but the parts you can make out are
+painted blue.  It’s closed.
+
+You can smell the cheese.
+
+>OPEN CABINET
+The rubble prevents you getting at the cabinet to open it.
+
+>MOVE RUBBLE
+There’s far too much rubble to shift it all, and the pieces of rubble covering
+the cabinet are too large to move.
+
+>X CRATE
+The large metal crate was once painted dark green, and some of the paint
+remains between the patches of rust.  The dust on the floor round the crate
+looks as if it may have been recently disturbed.  It’s closed.
+
+>OPEN CRATE
+Opening the metal crate reveals a mallet and some smelly rags.
+
+>TAKE RAGS AND MALLET
+smelly rags: Taken.
+mallet: Taken.
+
+>BREAK RUBBLE WITH MALLET
+You smash the larger pieces of rubble covering the cabinet with the mallet.
+
+>MOVE RUBBLE
+You manage to move the shattered pieces of rubble off the cabinet.
+
+>OPEN CABINET
+Opening the battered cabinet reveals a small book.
+
+You can smell the cheese.
+
+>TAKE BOOK
+Taken.
+
+>X BOOK
+It’s a leather-covered diary, mouldering a bit at the edges, but still
+readable.
+
+>READ DIARY
+It appears to be the diary of one Subcenturion Mark Villiers, who served as the
+representative of the Imperial Police Corps on this planet in the early twenty-
+eighth century, about a quarter of a millenium ago, when Elysium was newly
+colonized.  It seems that Villiers was posted here to enforce a modicum of
+imperial law and order on the new settlement, but that the settlers proved as
+difficult back then as they have done ever since.
+
+As you flick over the pages you find a series of accounts of ongoing friction
+between the uncooperative Elders and the increasingly frustrated Villiers.
+Some of the other natives seemed to have been reasonable enough, and as
+Villiers’s account progresses it becomes clear that he was becoming
+increasingly friendly with one young woman in particular, but the Elders were
+consistently obstructive, insisting that the maintenance of law on Elysium was
+their job and theirs alone, and no business of the Empire.  Even when news of
+some petty crime did come Villiers’s way, the Elders would frustrate every
+attempt the subcenturion made to investigate it.
+
+On the last few pages the tone becomes even darker.  Villiers apparently
+believed that someone – one of the settlers called Natasha with whom he had
+become quite friendly – had been murdered, and he was determined to bring the
+killer to justice.  The Elders proved particularly intransigent, denying that
+any crime had taken place that they weren’t perfectly capable of taking care
+of.  It’s clear from the diary that this made Villiers increasingly angry: if a
+murder had been committed it was clearly a matter for the imperial authorities,
+and all the settlers, Elders included, were duty-bound to co-operate.
+
+On the final page, the entry for July 14 2722, the diary concludes with the
+words, “I am now morally certain that Natasha was murdered, and I now have a
+pretty good idea where to find her body and the proof I need to bring her
+killers to justice.  Poor Natasha!  Always too much of a free spirit for this
+narrow little planet, and now she’s paid the ultimate price for her broad-
+mindedness and her enquiring mind.  But I am determined to bring matters to a
+head, despite veiled threats from the Elders.
+
+And now, I’m just off to follow up my latest lead; I’ll fill in the details on
+my return.”
+
+But it seems Subcenturion Villiers never did return, for there his account
+ends.
+
+(Your score has just increased by one point.)
+
+>CLOSE CRATE
+Closed.
+
+>MOVE CRATE
+You move the metal crate aside, revealing a trapdoor beneath.
+
+>X TRAPDOOR
+It’s about 0.8 metres square, and currently closed.  Although the trapdoor is
+as old and scuffed as the surrounding floor, the maglock fitted to it looks
+new.
+
+>OPEN TRAPDOOR
+The trapdoor seems to be locked.
+
+>N
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+You can smell the cheese.
+
+>W
+You set off down the path to the west, and quickly arrive at the banks of a
+river.
+
+East Bank of River
+The path from the east comes to an abrupt end on the bank of a sluggish river.
+A couple of rotting posts sticking out of the ground are all that remains of
+what may once have been a bridge, the former existence of which is also
+suggested by a path disappearing into the trees on the opposite bank.  It may
+once have been possible to walk south along the riverbank, but that direction
+has become so overgrown that this would be quite impossible now, and though you
+could walk a short distance north, it looks like the climb might quickly become
+too steep.
+
+Leela is bathing in the river.
+
+Leela waves at you and laughs gaily.
+
+>X LEELA
+She’s a young woman of about twenty standard Earth years of age.  She is
+swimming in the river.  So far as you can see she’s completely naked.
+
+Leela swims a little nearer.
+
+>TALK TO LEELA
+Leela does not appear to hear you.
+
+Leela splashes herself.
+
+>Z
+Time passes...
+
+Leela gives a cheerful wave then ducks beneath the surface.
+
+>Z
+Time passes...
+
+Leela swims a little closer to the shore.
+
+>Z
+Time passes...
+
+Leela finally swims towards the bank and hauls herself ashore, standing naked
+and dripping before you.  “Haven’t you ever seen a naked woman before?” she
+laughs, seeing the startled expression on your face, “It’s perfectly natural,
+you know – don’t tell me you sophisticated offworlders have a problem with
+nudity!”  As you try not to blush, she continues, “But if it is a problem –
+well, I was so sure you would bring me some new clothes I threw the old ones
+away.  And I then managed to make myself some soap out of guba-bark and peka-
+leaves, and I thought I’d give myself a good wash.  So – you did bring me some
+food and clothes, didn’t you?”
+
+>YES
+“Yes, I’ve found something for you to wear and something for you to eat,” you
+announce proudly.
+
+“Well, let me see then, show me!” she asks eagerly.
+
+>GIVE CHEESE TO LEELA
+(first taking the small wedge of cheese from the old brown sack)
+You give Leela the small wedge of cheese.  She smiles at you in gratitude, and
+then starts chewing it hungrily.  Pretty soon, she has eaten it all.
+
+“I really needed that!” she declares, “But to be honest, I’m still pretty
+ravenous!”
+
+>GIVE PEAR TO LEELA
+(first taking the pear from the old brown sack)
+You give Leela the pear.  She smiles at you in gratitude, and then starts
+chewing it hungrily.  Pretty soon, she has eaten it all.
+
+“That was good,” she tells you, “but I’m still quite hungry.”
+
+>GIVE APPLE TO LEELA
+(first taking the apple from the old brown sack)
+You give Leela the apple.  She smiles at you in gratitude, and then starts
+chewing it hungrily.  Pretty soon, she has eaten it all.
+
+“I enjoyed that,” she smiles, “but to tell you the truth, I am still a little
+peckish.”
+
+>GIVE HAM TO LEELA
+(first taking the piece of ham from the old brown sack)
+You give Leela the piece of ham.  She smiles at you in gratitude, and then
+starts chewing it hungrily.  Pretty soon, she has eaten it all.
+
+“That’s better,” she announces, “I feel quite full now!”
+
+(Your score has just increased by one point.)
+
+>E
+Leela follows close behind you.  You walk a short way down to the path and
+arrive back in the clearing.
+
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+Leela enters the clearing with you.
+
+“Whatever is that thing?”  Leela asks, pointing to the black cube.
+
+>T CUBE
+“This is a receiving device,” you tell her, “I found it in the big barn in
+town.”
+
+“What’s a receiving device?” she wonders, “Some sort of strange offworld
+gadget?”
+
+“That’s right,” you nod, “It lets people listen to what you’re saying from a
+long way off – this one lets you record what someone’s saying.  It’s a piece of
+offworld technology used to spy on people.”
+
+Leela frowns at the black cube with a mixture of puzzlement and distaste, “But
+who could have put it there?  Did you see anyone in town?”
+
+>NO
+“No – no one but the Chief Elder, that is,” you reply.
+
+“I don’t suppose he’d have anything to do with it,” Leela frowns.
+
+>T CUBE
+“This cube can only have been put there by someone from offworld,” you tell
+her.
+
+“Then it looks like you’ve got a problem,” she remarks.
+
+>X LEELA
+She’s a young woman of about twenty standard Earth years of age.  She’s stark
+naked and dripping wet, but at least she looks a lot cleaner than before.  She
+looks far from unattractive, but you’re more struck by how lean and athletic
+her body looks.
+
+“You haven’t told me anything about yourself,” Leela complains.  “Who are you?
+What are you doing here?”
+
+(You could tell her about yourself, or ask why she wants to know.)
+
+>T YOURSELF
+“My name’s Andrew Holt,” you tell her, “I’m a praefect in the Imperial
+Sovereign Legion.  I’m just here to check on the Emperor’s behalf that
+everything’s okay here.”
+
+“Oh, right,” she frowns, “But what’s the Imperial Sovereign Legion, and who’s
+the Emperor, and why’s he bothered about us anyway?”
+
+(You could tell her about the Empire, or ask why she wants to know.)
+
+>T EMPIRE
+“The Emperor rules the Empire,” you begin, “well – he helps to, at any rate,
+because there’s also the Senate...” seeing her begin to look a bit blank you
+hastily move on, “There are lots of worlds like this, inhabited worlds I mean,
+and the Empire rules all of them within a sphere a hundred parsecs in diameter.
+That’s ...” you notice she looks puzzled again, so you explain vaguely, “That’s
+a very big volume of space.  The population of the Empire is currently about
+sixty-five billion.  Most of them live on our sixty-three major worlds, but
+there are also hundreds of worlds like this one – we call them colonies and
+settlements – where the population is much smaller.”
+
+Leela frowns deeply, “But if the Empire has all those hundreds worlds, and all
+those billions of people, why is it interested in the few thousand people who
+live on Elysium?  Why are you bothering with us, Andrew?”
+
+(You could explain imperial policy, or complain about her curiosity.)
+
+>COMPLAIN
+“You keep asking so many questions, Leela!” you complain.
+
+“That’s me,” she grins, “Curiosity is my middle name!”
+
+>N
+Leela follows close behind you.
+
+North Side of Clearing
+Here the clearing is more overgrown than the main part of the clearing to the
+south, and among the undergrowth you can see a series of mounds.
+
+Leela enters the north side of the clearing with you.
+
+“Something terrible happened here long ago,” Leela shudders, “I can feel it.
+And just look at all those graves.” she turns to you with a sombre look, “We
+heard stories...”
+
+(You could tell her about yourself, the town, or Petroc, or ask her about
+herself, her questions, the stories, the town, the market, meetings, Elysium,
+old Jeb, or the mallet.)
+
+>A STORIES
+“Tell me about the stories you heard; what have they to do with the graves?”
+you ask.
+
+“Many years ago, before the time of our grandparents’ grandparents, men from
+your Empire killed many of our people here – or so the old story goes.” she
+tells you, “It was terrible – my people had nothing but sticks and stones,
+while yours had magical weapons that killed people just by being pointed at
+them – or so the old tales say.  I can still feel the terror when I walk near
+these graves; it must have been ghastly!”
+
+>X MOUNDS
+The mounds are remarkably regular, all just under two metres long and set out
+in straight rows.  These rows seem to continue among the trees to the north,
+but there the ground has become too overgrown to allow close investigation.  A
+closer inspection of the mounds suggests that they could well be old graves,
+and including those that are starting to be concealed by the ever-encroaching
+forest, there must be well over three dozen of them.  On one of the graves you
+can just make out a weathered headstone.  One or two of the others nearby look
+suspiciously bumpy.
+
+“Tell me honestly,” Leela says suddenly, “Do you find me attractive?”
+
+(You could say yes or no, or equivocate.)
+
+>YES
+“Yes, I do, Leela,” you tell her frankly, “In fact I think you’re absolutely
+gorgeous!”
+
+“Why, thank you, kind sir!” she beams, “That’s good, because you’re not so bad
+yourself!”
+
+>KISS LEELA
+She lets you kiss her, then laughs, “Is that the best you can do?” and promptly
+kisses you back.
+
+>X HEADSTONE
+The headstone is covered with dirt and moss, making it virtually impossible to
+read the faded lettering that was once incised on it.
+
+>CLEAN HEADSTONE
+You wipe some of the dirt off the headstone, revealing most of the lettering
+beneath.  The rather crude lettering reads:
+
+SUBCENTURION MARK VILLIERS IPC
+
+b.  4th April 2687
+d.  14th July 2722
+
+Slain in the Service of Justice and Empire
+
+R.I.P.
+
+“Mark Villiers,” Leela reads, “He’s been here a long time.  What do IPC and RIP
+mean?”
+
+“Imperial Police Corps and Rest in Peace,” you tell her.
+
+“I wonder who he was and what he did to end up here, among all these other
+graves,” she muses.
+
+(Your score has just increased by one point.)
+
+(You could ask her where she learned to read, tell her about yourself, the
+town, or Petroc, or ask her about herself, her questions, the stories, the
+town, the market, meetings, Elysium, old Jeb, or the mallet.)
+
+>ASK HER WHERE SHE LEARNED TO READ
+“Just as a matter of interest, Leela, where did you learn to read?” you ask, a
+little suspiciously.
+
+“My parents taught me,” she replies, laughing, “I know Elysium must seem very
+backward to you, Andrew, but we’re not so backward that we don’t have reading
+and writing!”
+
+>T PETROC
+“I met the Chief Elder and he denies any knowledge of you,” you say.
+
+“That doesn’t surprise me,” she remarks, “I’m probably an embarrassment to him.
+The Elders wouldn’t want you thinking there was any dissent in their primitive
+paradise!”
+
+>G
+“The Chief Elder was very insistent that his people would never cast anyone
+out,” you tell her.
+
+“Well, he would say that, wouldn’t he!” she retorts, “The Elders don’t want you
+to know how they really run this place!”
+
+>A HERSELF
+“How have you been surviving all this time?” you ask her.
+
+“From the fruit and nuts I can gather from the forest, mainly,” she tells you,
+“but there wasn’t that much here to start with, and I’m finding it harder and
+harder to find enough.”
+
+>X MALLET
+The handle has a rubber grip to enable you to get a firm hold, while the head
+is wood tipped with steel.
+
+>A MALLET
+“This mallet I found in the crate, along with your old rags – how did it get
+there?” you ask.
+
+Looking momentarily shamefaced, Leela confesses, “I put it there because I
+didn’t want anyone to know I had it.  It’s obviously too well made to have been
+made on this world, and using offworld technology is regarded as a great crime
+among my people, but it looked so useful I took it anyway.  I’ll be in terrible
+trouble if anyone finds out I’ve got it, so you won’t tell anyone, will you?”
+
+>NO
+“No, I won’t tell anyone,” you promise.
+
+“Thank you” she smiles tenderly, “I knew you looked kind, Andrew.”
+
+>X MALLET HANDLE
+The rubber grip is orange, and covers most of the handle.  A closer inspection
+of the end of the handle shows the words “Made on Paran” inscribed there.
+
+“I feel nice and clean now,” Leela remarks, “but I don’t seem to be drying off
+as fast as I’d hoped.  I don’t suppose you’ve found anything I could dry myself
+with?”
+
+>GIVE LEELA THE TOWEL
+Leela grabs the towel off you eagerly, saying, “Hey, thanks, this is just what
+I need!”
+
+She gives herself a good rubbing over with the towel from head to foot, and in
+less than a minute she’s completely dry.
+
+(Your score has just increased by one point.)
+
+>SHOW HER THE DIARY
+Leela takes the diary off you, and reads through it with a deepening frown.
+“How sad!” she declares as she reaches the last page, “that poor Natasha – she
+sounds a bit like me, really – I wonder what the Elders did to her.  And Mark
+Villiers, the person who wrote this, that’s the man whose grave we just found,
+isn’t it?  So we know how he ended up.  I wonder if he found justice for
+Natasha first.”
+
+She closes the diary and hands it back to you.
+
+>SEARCH MOUNDS
+You find the rim of an old steel helmet poking out of the top of one of the
+mounds, and the end of a piece of wood jutting out of another.
+
+“I hope you don’t make a habit of digging up graves!”  Leela remarks, “What did
+you find?  Show me!”
+
+(Your score has just increased by one point.)
+
+>TAKE HELMET
+You manage to pull the helmet clear of the burial mound.
+
+“Now I’m dry I could really do with something to wear,” Leela remarks.
+
+>X HELMET
+It’s battered and rusty, and obviously old.  It looks as if it was once green,
+and on the front you can just make out a very faded golden eagle.  It looks
+like it might have been an Imperial Marines helmet, but it’s certainly not the
+current pattern.  If the helmet were in better condition, it would belong in a
+military museum.
+
+>S
+Leela follows close behind you.
+
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+Leela enters the clearing with you.
+
+>X LEELA
+She’s a young woman of about twenty standard Earth years of age.  Since,
+freshly washed and dried, she’s clearly an attractive woman, you wouldn’t be a
+normal red-blooded adult male if you weren’t at least a little aroused at the
+sight of her naked body, but you’re also struck by her athletic poise and the
+lean, muscular tone of her limbs.  The simple outdoor life of her farm has
+obviously left her very fit, and her body clearly hasn’t suffered too much from
+the deprivations she must have undergone since becoming an outcast.
+
+Leela is carrying a fluffy pink towel.
+
+>GIVE LEELA THE SHEET
+“I couldn’t find any clothes, but I thought you might be able to make something
+out of this,” you say, handing her the sheet.
+
+She takes the sheet and tries folding it and wrapping it round her, but each
+time she walks a few places, the sheet slips off again.
+
+“It’s no good!” she laughs, “I can’t make it stay on!  But I’ll keep it anyway
+– perhaps I can tear a hole it in and slip it over my head, or perhaps we can
+come up with a way to fasten it.”
+
+>GIVE LEELA THE PINS
+“Here, I thought you could use these to pin the sheet round you somehow,” you
+suggest, handing her the safety pins.
+
+After a couple of tries, Leela apparently works out how to operate the safety
+pins, then she folds the sheet and, with your help, manages to drape it round
+her and over one shoulder, pinning it together in a couple of places so that it
+stays in place.  Finally she does a little twirl to demonstrate her success –
+and the sheet still remains in place.
+
+“There, that’s better!” she beams.
+
+(Your score has just increased by one point.)
+
+>X HER
+She’s a young woman of about twenty standard Earth years of age.  Now that
+she’s cleaned up and clothed in something better than filthy rags, she looks a
+lot better than when you first saw her.  Indeed, she’s a remarkably attractive
+young woman, with a beautifully formed oval face framed by a cascade of long
+dark hair.
+
+Leela is carrying a fluffy pink towel, and she’s wearing a sheet.
+
+“You have really been very good to me,” Leela remarks, “You hardly know me, and
+you’re obviously someone very important, and yet you’ve found the time to feed
+me and clothe me.  I’m very grateful, of course, but it’s such a long time
+since anyone’s been kind to me, and I feel – I feel more than gratitude.  But
+what can I possibly do for a great man like you in return?”
+
+(You could offer to take her offworld, or ask her for a relationship.)
+
+>OFFER TO TAKE HER OFFWORLD
+“I could do more for you,” you point out, “I could take you with me, offworld,
+and find you a new home in the Empire.  There doesn’t seem to be much future
+for you here!”
+
+“Could you?” she asks, her eyes lighting up, “How?”
+
+“I have a shuttle waiting nearby – that’s a kind of flying machine that can
+take us off this planet.  Come with me and I’ll show you.”
+
+“All right, then; whenever you’re ready to leave, I’ll come with you,” she
+declares.
+
+>S
+Leela follows you inside.
+
+Inside the Stone Building
+The single room inside the building is open to the sky and mostly full of
+rubble.  In the one corner that remains reasonably accessible, the southwest
+corner, a triangular light fitting remains near what would once have been the
+ceiling.  The doorless exit lies to the north.
+
+An old metal crate sits by the wall, next to the trapdoor in the corner.
+
+A battered steel cabinet squats in the northeast corner of the room.
+
+Leela enters the building with you.
+
+Leela walks over to the trapdoor, “Oh look!” she says, “There was a hatch under
+that crate all the time!”  She tries to open the trapdoor, but without success,
+“It’s no good,” she says, “I can’t budge it!  I wonder what’s down there!”
+
+>X TRAPDOOR
+It’s about 0.8 metres square, and currently closed.  Although the trapdoor is
+as old and scuffed as the surrounding floor, the maglock fitted to it looks
+new.
+
+>X MAGLOCK
+It’s basically a small square of steel in two halves, one half fixed to the
+trapdoor and the other to the floor.  It looks like it’s been newly fitted.
+
+“Will I ever see you again, Andrew?”  Leela asks you, a little sadly, “How
+often do you come here?”
+
+(You could explain imperial visits, ask why she wants to know, or complain
+about her curiosity.)
+
+>TELL LEELA ABOUT MAGLOCK
+“You’re trying to change the subject again, Andrew,” she complains, “I was
+asking how often you came here!”
+
+>X LIGHT FITTING
+All that’s left of the light fitting is a small metal triangle – not much more
+than a bare shelf – high up in the southwest corner.
+
+>EXPLAIN IMPERIAL VISITS
+“I don’t know if I’ll ever come back to Elysium again, Leela,” you tell her,
+“The Empire sends someone about once every four months, but I don’t know if
+it’ll be me next time.”
+
+“I see,” she says, “Just my luck – the first decent man I’ve seen for months
+comes along, and then he just walks out of my life again.”  She frowns
+thoughtfully for a moment, then adds, “But you don’t really come alone, do you?
+I suspect you have lots of soldiers with you up in that big ship of yours,
+ready to pounce on us if we get out of line!”
+
+(You could tell her about your ship, ask why she wants to know, or complain
+about her curiosity.)
+
+>T YOUR SHIP
+“The ship that brought me here – the one that’s still oribiting, I mean – is
+only a small one, a frigate,” you tell her, “It can’t carry very many marines –
+no more than a squad, about a dozen men.”
+
+“What’s a frigate?” she asks.
+
+(You could explain what a frigate is.)
+
+>EXPLAIN WHAT A FRIGATE IS
+“It’s basically a patrol vessel,” you tell her, “It can travel very fast, but
+it’s only lightly armed.  It’s a bit bigger than the smallest class of patrol
+vessel, the corvette, but it’s small as warships go, and not very powerful.”
+
+“Why did you come in something so small?” she wants to know.
+
+“This job doesn’t need anything bigger,” you shrug, “Besides, our line-of-
+battle warships have better things to do.”
+
+“Such as?” she asks.
+
+“Well, there’s a bit of a crisis on at the moment,” you point out.
+
+“What crisis?”  Leela wants to know.
+
+>T CRISIS
+“The so-called Free Trade Federation of Paran is another large grouping of
+worlds, a bit like the Empire,” you explain, “Except that they’ve taking a
+somewhat sinister turn.  Tension between the Empire and the Federation has been
+growing for years, but now it looks like it might come to war.”
+
+“And with this big bad threat hovering over you, you’re still bothering with
+poor little Elysium?”  Leela asks.
+
+“We’re doing our best to maintain our regular visits, though our resources are
+a little stretched,” you tell her.
+
+“I see,” she says.
+
+>STAND ON CRATE
+When you stand on the crate you catch sight of something sitting on the light
+fitting.
+
+>X LIGHT FITTING
+All that’s left of the light fitting is a small metal triangle – not much more
+than a bare shelf – high up in the southwest corner.  On the light fitting is a
+small silver key.
+
+>TAKE KEY
+“Maybe you’d be able to reach whatever you’re after if you moved the crate back
+into the corner,” Leela suggests.  You can’t quite reach the key from where
+you’re standing.
+
+>DOWN
+Okay, you’re no longer on the metal crate.
+
+>PUSH CRATE
+You push the metal crate back into the corner, concealing the trapdoor once
+more.
+
+>STAND ON CRATE
+(first getting in the southwest corner)
+Okay, you’re now standing on the metal crate.
+
+>TAKE KEY
+“Have you found something?”  Leela calls up to you as you take the key, “What
+is it?  Do let me have a look!”
+
+>DOWN
+Okay, you’re no longer on the metal crate.
+
+“So have you finished what you came here to do?” asks Leela.
+
+>NO
+“No, there’s a few more things I need to do here before I’m through,” you tell
+her.
+
+>SHOW SILVER KEY TO LEELA
+“This looks like it could be the key to the trapdoor!” you tell her, “Strange
+that it should have been left so close by!”
+
+“Try it, go on!”  Leela urges you.
+
+>PUSH CRATE
+You push the metal crate aside, revealing a trapdoor beneath.
+
+>UNLOCK MAGLOCK WITH SILVER KEY
+Unlocked.
+
+>DOWN
+(first opening the trapdoor)
+
+“Oh!  You’ve managed to open it!”  Leela declares excitedly as the trapdoor
+swings open, “I wonder what’s down there – let’s take a look!”
+
+Leela stands in the southwest corner.
+
+Leela follows close behind you.
+
+Darkened Cellar
+The light stealing in through the open trapdoor above reveals a steel ladder
+leading back up, but the rest of this space is shrouded in gloom.
+
+>LIGHT DRIK
+The drik lights up.
+
+“Gosh, that’s clever!”  Leela declares, “How did you manage that?”
+
+Cellar
+The cellar is about the same size as the room above, but in slightly better
+condition.  The walls have suffered from centuries of damp, so that little of
+the original white paint shows through the dark mould and damp stains.  The
+only things of any significance to have survived the ravages of the years are a
+tall metal cabinet in one corner and the ladder leading up to an open trapdoor
+in another.
+
+A large mattress lies on the floor in the middle of the room.
+
+A rubber raft, currenly deflated, lies on the floor.
+
+You see a dark green knapsack here.
+
+Leela is standing nearby.
+
+Leela walks round the cellar with an expression of considerable curiosity on
+her face.  “This place looks old, really old,” she remarks, “I suppose it must
+have been part of the original building, all those generations ago.”  She
+pauses, with a thoughtful expression on her face, “But some of this stuff must
+be newer than that, mustn’t it?  Take this mattress, it looks almost new!
+Wouldn’t it have rotted away by now if it had been put here all those
+generations ago when the building upstairs was still standing?  How curious!
+Hm, I think I’ll give it a try.”
+
+So saying, she lies down on the mattress, placing her hands behind her head.
+
+“Gosh, this is comfy!” she declares, “Much nicer than the scratchy old straw
+thing I had to use back home!  You want to know what I think?”
+
+>YES
+“Yes, I do; what do you think?,” you reply.
+
+“Well, what I think is this,” she explains, “I reckon that building upstairs
+was originally built for use by the Empire, right?”
+
+“I reckon, so,” you agree, “It looks like it was abandoned centuries ago, but
+it has the look of some sort of imperial office.”
+
+“Right,” she continues, “But the Empire is still interested in Elysium, isn’t
+it?  Obviously, otherwise you wouldn’t be here.  But maybe the Empire doesn’t
+always want the Elders to know when they’re checking up on us, so it uses this
+place as a secret base – that’s why they kitted out this basement.  What do you
+think?”
+
+(You could agree, or disagree.)
+
+>DISAGREE
+“No,” you shake your head, “I don’t buy it.  If the Empire were carrying out
+clandestine operations here, I’d’ve been briefed about it.”
+
+“Are you sure?” she asks.  When you merely grunt in reply, she continues, “As I
+understand it, the only people you imperial offworlders are ever meant to see
+here are the Elders; is that right?”
+
+“Yes,” you nod, “But how did you know that?”
+
+“Because I never met anyone but an Elder who’s ever spoken to an offworlder,”
+she replies, “So that means the Elders get to control the way your people see
+this world, and what they think is going on here.  Well, maybe it is just
+wishful thinking on my part, but I’d like to think that your people are not
+quite so easily duped.  But because there seems to be some kind of
+understanding that the only people your people are meant to meet on this world
+are the Elders – no doubt to spare the rest of us from offworld ‘corruption’ –
+the only way you people are ever going to learn how things really are here is
+by sending people to watch us in secret.  What do you think?”
+
+(You could agree with her ideas, tell her that you suspect illegal settlers,
+say you don’t know, or say you suspect her.)
+
+>SAY YOU DON'T KNOW
+“I don’t know,” you confess, “I’m keeping an open mind about it.”
+
+“If you were keeping an open mind, you would accept my theory,” she retorts.
+
+>LOOK UNDER MATTRESS
+The floor under the mattress looks much the same as it does in the rest of the
+room.
+
+>TAKE KNAPSACK
+Taken.
+
+Leela yawns and then stands up again.  “Well, I can’t lie around all day,” she
+remarks, “Found anything else interesting down here?”
+
+>X IT
+It looks reasonably new and of modern design.  There are no obvious identifying
+marks but it looks like it could be either standard military issue or the sort
+of thing sold in camping shops anywhere round the known galaxy, though the lack
+of any trademark makes it seem unlikely that this is a consumer item.  It’s
+closed.
+
+>OPEN IT
+Opening the dark green knapsack reveals a ration pack, a small round mirror,
+and a small black comb.
+
+>X MIRROR
+It’s just a small round hand-mirror, in which you can see your face.  Its
+casing is made of a rather tasteless shade of orange plastic, and there’s a
+serial number stamped on the back.  A closer look at the casing reveals a
+narrow crack running round its rim, suggesting there may be some way to open it
+up.
+
+>X COMB
+It’s just an ordinary small black comb; but a closer inspection reveals a
+couple of long dark hairs attached to it.
+
+>X HAIRS
+There’s only a couple of them, and they’re very fine, so it’s difficult to be
+precise about their colour, but they’re both fairly long.
+
+>GIVE COMB TO LEELA
+(first taking the small black comb from the dark green knapsack)
+Leela takes the comb off you and at once starts combing her hair with it as you
+say, “That comb had a couple of long dark hairs on it – they looked like they
+might be yours!”
+
+She stops combing her hair and glances at the comb, then laughs, “Well, it
+would have a few of my hairs on it now, wouldn’t it!”
+
+>X RAFT
+The raft, which is currently deflated, is made of some dark green rubbery
+material.  The only marking is a small label bearing the manufacturer’s name.
+Attached to the raft are a small red handle and a small green handle.
+
+>X LABEL
+The label on the raft reads “Relda Raft Corp. – Mark IV Inflatable”
+
+>X GREEN HANDLE
+It’s marked “Pull to inflate”.
+
+>X RED HANDLE
+It’s marked “Pull to deflate”.
+
+>LOOK
+Cellar
+The cellar is about the same size as the room above, but in slightly better
+condition.  The walls have suffered from centuries of damp, so that little of
+the original white paint shows through the dark mould and damp stains.  The
+only things of any significance to have survived the ravages of the years are a
+tall metal cabinet in one corner and the ladder leading up to an open trapdoor
+in another.
+
+A large mattress lies on the floor in the middle of the room.
+
+A rubber raft, currenly deflated, lies on the floor.
+
+Leela is standing nearby.
+
+>X CABINET
+It looks old and battered enough to be part of the original furnishings,
+although it’s still basically sound.  It’s closed.
+
+>OPEN IT
+A plain black jumpsuit hangs in the cabinet.
+
+>TAKE JUMPSUIT
+(first putting the drik in the purple belt to make room, putting the crumpled
+piece of paper in your right pocket to make room, then putting the fishing rod
+in the old brown sack to make room)
+Taken.
+
+>X IT
+It’s a plain black jumpsuit of a modern cut, rather too small for you and
+probably made for a woman.  A closer inspection reveals that it has a single
+small pocket.
+
+>LOOK IN JUMPSUIT POCKET
+(first opening the jumpsuit pocket)
+The jumpsuit pocket contains an orange datatab.
+
+>TAKE ORANGE DATATAB
+Taken.
+
+>X IT
+It’s a small square of orange plastic or polymer, about 7mm to a side.  By some
+kind of molecular wizardry, the precise technical details of which escape you,
+it’s capable of holding several terabytes of data.
+
+>SHOW IT TO LEELA
+“I found this in the pocket of the jumpsuit I found here,” you tell her,
+holding out the little orange datatab.
+
+“What a funny little thing!” she declares, taking it and turning it over in her
+palm.  She tries putting it between her teeth and biting it, “It’s no good for
+eating, is it?  Oops!” she fumbles with it and it falls from her grasp.
+
+>TAKE ORANGE DATATAB
+Taken.
+
+>LOOK BEHIND CABINET
+Behind the tall metal cabinet is a paddle.
+
+>TAKE PADDLE
+(first putting the dark green knapsack in the old brown sack to make room)
+Taken.
+
+>TAKE RAFT
+(first putting the black jumpsuit in the old brown sack to make room)
+Taken.
+
+>GIVE JUMPSUIT TO LEELA
+(first putting the small black cube in the old brown sack to make room, putting
+the mallet in the old brown sack to make room, then taking the black jumpsuit
+from the old brown sack)
+“I found this; it should be better than that sheet,” you tell her, handing her
+the jumpsuit.
+
+She takes it and fumbles with it a bit, evidently not having seen a garment
+quite like it before.  She’s on the point of handing back when you insist, “No,
+do try it on.  It’ll keep you nice and warm, and it’ll be much harder wearing
+than anything else you’ll find on this planet.”
+
+“Well...” she begins.
+
+“That sheet will soon be torn and dirty,” you point out, “and it can’t be that
+warm.  This will wear much better and keep you nice and snug.”
+
+Just to encourage her along, you start to unfasten one of the safety pins
+securing her sheet.  She pushes your hand aside and completes the job herself,
+dropping the pins and shrugging the sheet off onto the ground.  Then she picks
+up the jumpsuit again and stares at it in some bemusement.
+
+“Here, let me help,” you offer, showing her where to put her arms and legs.
+
+After a bit of a struggle and a lot of laughs, you help her into the jumpsuit.
+She twists round a few times as if trying the garment out, then turns to you
+and smiles, “Well, at least it fits quite well!”
+
+>UP
+Leela follows you up the ladder.
+
+Inside the Stone Building (standing in the southwest corner)
+The single room inside the building is open to the sky and mostly full of
+rubble.  In the one corner that remains reasonably accessible, the southwest
+corner, a triangular light fitting remains near what would once have been the
+ceiling.  The doorless exit lies to the north.
+
+A battered steel cabinet squats in the northeast corner of the room.
+
+An old metal crate sits by the wall, next to the trapdoor in the corner.
+
+Leela scrambles up through the trapdoor after you.
+
+>NORTH
+(first getting out of the southwest corner)
+
+Leela gets out of the southwest corner.
+
+Leela follows close behind you.
+
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+Leela enters the clearing with you.
+
+>W
+Leela follows close behind you.  You set off down the path to the west, and
+quickly arrive at the banks of a river.
+
+East Bank of River
+The path from the east comes to an abrupt end on the bank of a sluggish river.
+A couple of rotting posts sticking out of the ground are all that remains of
+what may once have been a bridge, the former existence of which is also
+suggested by a path disappearing into the trees on the opposite bank.  It may
+once have been possible to walk south along the riverbank, but that direction
+has become so overgrown that this would be quite impossible now, and though you
+could walk a short distance north, it looks like the climb might quickly become
+too steep.
+
+Leela reaches the east bank of the river with you.
+
+>DROP RAFT
+Dropped.
+
+The drik light goes out to conserve power.
+
+>INFLATE RAFT
+There’s a hiss of rushing air as the raft inflates.
+
+>PUT RAFT IN RIVER
+(first putting the helmet in the old brown sack to make room, putting the white
+pillowcase in the old brown sack to make room, putting the diary in the old
+brown sack to make room, putting the purple datatab in your left pocket to make
+room, putting the piece of cloth in your left pocket to make room, putting the
+paddle in the old brown sack to make room, then taking the inflated rubber
+raft)
+You lower the raft into the water.
+
+“You’re not planning to go anywhere in that thing, are you, Andrew?”  Leela
+protests in horror, “It looks so flimsy!  Look, you’re the first decent guy
+I’ve met in ages, so I’m not going to let you drown yourself!”
+
+So saying, she takes the raft back out of the water.
+
+>T RAFT
+“Don’t be silly, Leela,” you plead, “I need to cross the river and I’m sure the
+raft is a perfectly safe way to do it – it’s not that far across, after all!”
+
+“You’re the one being silly, Andrew!” she complains, “Maybe that toy raft would
+be safe in a millpond or a paddling-pool, but there’s a strong current on that
+river – it’s much more dangerous than you realize!”
+
+>E
+Leela follows close behind you.  You walk a short way down to the path and
+arrive back in the clearing.
+
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+Leela enters the clearing with you.
+
+Leela lets the raft fall to the ground.
+
+>E
+Leela follows close behind you.  You set off down the path to the east, and
+continue straight on until the point where it starts to bend.
+
+Narrow Path
+A narrow path, rather faint to the southeast but becoming clearer to the west,
+bends through the trees at this point.  It may also be possible to squeeze
+through the gap to the east.
+
+Leela walks along the narrow path with you.
+
+>E
+Leela follows close behind you.
+
+Heart of the Forest
+Alien foliage clogs the ground between the trees that crowd around you on every
+side.  The main trail heads straight off to the north and snakes through the
+trees to the south.  You can’t see any side trails as such, but apart from the
+main path, the only gap through the trees that looks passable here is the one
+directly to the west.  It’s pretty narrow, but you could just squeeze through
+it.
+
+Leela enters the heart of the forest with you.
+
+>N
+Leela follows close behind you.
+
+Dirt Track
+The dirt track runs a short way north up to a ridge, just beyond which lies the
+hollow where your shuttle landed; to the south the track disappears into a
+sizeable forest.  There are fields either side of the track, but they look
+overgrown and untended.
+
+Leela walks along the dirt track with you.
+
+>N
+Leela follows close behind you.  You walk back up over the ridge, and descend
+into the hollow on the far side.
+
+Hollow
+This grassy hollow, about thirty metres across, looks like it might once have
+been an impact crater.  A steep slope rises just to the west, while a trail of
+sorts leads north and south.
+
+Your shuttle rests in the middle of the hollow.
+
+Leela enters the hollow with you.
+
+Leela clutches at you in alarm at the sight of the white shuttle.
+
+>ENTER SHUTTL
+Leela clasps your hand, looking at you anxiously, “I don’t think I can do
+this,” she says, “That big machine scares me – and so does leaving this world –
+it’s the only world I know!”
+
+>PUSH LEELA INTO SHUTTLE
+Leela wrestles herself free of your clumsy attempts to force her into the
+shuttle with surprising strength and dexterity.
+
+“No, Andrew!” she cries, “What do you think you’re doing?”
+
+>T SHUTTLE
+“That shuttle is perfectly safe, Leela,” you assure her, “It brought me here
+safely enough!”
+
+“No, Andrew,” she shakes her head vigorously, “it’s not right, it’s not
+natural, it’s a horrid, horrid – machine!”
+
+>A SHUTTLE
+“Why are you so bothered by the shuttle because it’s a machine, Leela?” you
+asked, “I didn’t think you were so sold on the Elders’ technophobic
+propaganda!”
+
+“I’m not, Andrew,” she assures you, “but that machine – the very idea of a
+machine that flies – it’s contrary to everything I know, everything I’ve been
+brought up with!”
+
+>S
+Leela follows close behind you.
+
+Dirt Track
+The dirt track runs a short way north up to a ridge, just beyond which lies the
+hollow where your shuttle landed; to the south the track disappears into a
+sizeable forest.  There are fields either side of the track, but they look
+overgrown and untended.
+
+Leela walks along the dirt track with you.
+
+>S
+Leela follows close behind you.  You set off down the track and after a few
+minutes’ walk you find yourself deep in the heart of the forest.
+
+Heart of the Forest
+Alien foliage clogs the ground between the trees that crowd around you on every
+side.  The main trail heads straight off to the north and snakes through the
+trees to the south.  You can’t see any side trails as such, but apart from the
+main path, the only gap through the trees that looks passable here is the one
+directly to the west.  It’s pretty narrow, but you could just squeeze through
+it.
+
+Leela enters the heart of the forest with you.
+
+>S
+Leela follows close behind you.  The path twists and turns through the trees,
+but broadly continues south.
+
+Edge of the Forest
+The main north-south track runs wide and straight here.  The trees are more
+widely spaced, so that you could easily wander among them on either side of the
+main track.  To the south they become sparser still, indicating that the edge
+of the forest lies that way.
+
+Leela reaches the edge of the forest with you.
+
+>S
+“I can’t follow you into the town,” says Leela, “I daren’t be spotted there.
+I’ll have to wait for you here.”  She stands still and gives you a little wave
+as you walk away.
+
+Hillside above the Town
+The grassy hillside slopes gently down towards the small town below, which is
+surrounded by farmland and bordered by a river to the west.  The centre of the
+town lies straight down the slope to the south. Just up the slope to the north
+is the edge of the forest, which can also be entered to the northwest.
+
+>S
+You walk down the slope into the centre of the town.
+
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+>E
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+>S
+Sovereign Legion Office
+This office is the about the only place on Elysium that resembles your idea of
+civilization.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+>PUT ORANGE DATATAB IN SLOT
+(the slot)
+The screen displays: “Enter Password: ”
+
+>X ORANGE MIRROR
+It’s just a small round hand-mirror, in which you can see your face.  Its
+casing is made of a rather tasteless shade of orange plastic, and there’s a
+serial number stamped on the back.  A closer look at the casing reveals a
+narrow crack running round its rim, suggesting there may be some way to open it
+up.
+
+>X BACK OF MIRROR
+The serial number stamped on the back of the mirror is “IOHop80Advx”.
+
+>ENTER IOHop80Advx ON CONSOLE
+The console beeps and displays:
+
+“ACCESS DENIED
+
+Enter Password: ”
+
+>ENTER xvbA08qoHOI ON CONSOLE
+The screen displays: “Correct!”
+
+The console screen displays
+
+“My initial survey of the small inhabited district of Elysium indicates that
+this world could well serve our interests in the event of war with the Empire.
+The imperial authorities take a minimal interest in the inhabitants, and their
+allegiance to the Empire appears equally minimal.  Moreover, the inhabitants
+are unbelievably primitive in their lifestyle, and have no significant military
+capacity.  An invasion by a single company of our troops would suffice to
+conquer and hold this world.  The inhabitants could be forced into slave labour
+(see below) and also used as hostages against any attempt by imperial forces to
+retake the world.  Any slaughter of Elysians could then be represented as the
+consequence of a bungled imperial military operation – indications are that
+this would not be the Empire’s first military blunder on Elysium.
+
+Elysium has no industry beyond the bare minimum required to support their
+primitive farming methods.  Nevertheless, its agricultural assets would be
+capable of sustaining a moderate-sized Federation force if placed under
+Federation management and equipped with modern machinery.  Increased
+productivity would allow us to employ the surplus native labour thereby created
+in munitions factories to supply our forces; needless to say we should have to
+set up such factories ourselves, but the natives, though primitive, do not seem
+unduly stupid and could certainly be trained to work in such factories.
+
+Such a scheme would enable us to sustain a sizeable fleet in the Elysium system
+indefinitely, apart from an imperial counter-attack.  Holding an imperial world
+deep in imperial space may be of both strategic and propaganda value to us.
+
+Whether the capture of Elysium would in fact be strategically worthwhile is
+beyond my brief to determine.  My initial survey indicates that it would be
+tactically feasible.
+
+Two further items of intelligence need to be determined before my investigation
+is complete, however:
+(1) How often the Empire comes to check up on Elysium.
+(2) In what strength the Empire comes to check up on Elysium.
+
+Squadleader Anita Johnson, FFIS.”
+
+(Your score has just increased by four points.)
+
+>TAKE ORANGE DATATAB
+As you remove the orange datatab, the console screen goes blank.
+
+>PUT BLACK TAB IN CONSOLE
+(first taking the black datatab from the small slot)
+The screen displays: “Enter Password: ”
+
+>TAKE BLACK TAB
+As you remove the black datatab, the console screen goes blank.
+
+>PUT BLACK TAB IN BLACK CUBE
+Done.
+
+>N
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+>W
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+>N
+Hillside above the Town
+The grassy hillside slopes gently down towards the small town below, which is
+surrounded by farmland and bordered by a river to the west.  The centre of the
+town lies straight down the slope to the south. Just up the slope to the north
+is the edge of the forest, which can also be entered to the northwest.
+
+>NW
+Thinning Forest
+Dappled light plays through the sparsely spaced trees that thin out even more
+towards the southeast, where the forest ends.  In principle you could walk in
+any direction amongst these autumnal trees, but one direction looks much the
+same as any other, so you could all too easily get lost, except that you know
+that the way back to the main path is to the east, and that there’s another
+path to the northwest.
+
+>NW
+You wander through the trees a short way, and then manage to pick up the path.
+
+Narrow Path
+A narrow path, rather faint to the southeast but becoming clearer to the west,
+bends through the trees at this point.  It may also be possible to squeeze
+through the gap to the east.
+
+>W
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+You see an inflated rubber raft here.
+
+>TAKE RAFT
+Taken.
+
+>W
+You set off down the path to the west, and quickly arrive at the banks of a
+river.
+
+East Bank of River
+The path from the east comes to an abrupt end on the bank of a sluggish river.
+A couple of rotting posts sticking out of the ground are all that remains of
+what may once have been a bridge, the former existence of which is also
+suggested by a path disappearing into the trees on the opposite bank.  It may
+once have been possible to walk south along the riverbank, but that direction
+has become so overgrown that this would be quite impossible now, and though you
+could walk a short distance north, it looks like the climb might quickly become
+too steep.
+
+>PUT RAFT IN RIVER
+You lower the raft into the water.
+
+>ENTER RAFT
+You clamber aboard the raft.  Okay, you’re now sitting in the inflated rubber
+raft.
+
+>PADDLE RAFT
+(with the paddle)
+(first taking the paddle from the old brown sack)
+You paddle the raft with the paddle over to the west bank of the river.
+
+On the River (sitting in the inflated rubber raft)
+You are sitting in an inflatable raft that’s floating near the west bank of the
+river.
+
+>W
+(first standing up, then getting out of the inflated rubber raft)
+
+West Bank of River
+There’s a clear view up and down the river from here, and it seems you could
+walk some way along the bank to north and south, while an overgrown path
+disappears off through the trees to the west.  A solitary wooden post sticking
+out of the ground is all that remains of what may once have been a bridge.
+
+The river contains an inflated rubber raft.
+
+>X WOODEN POST
+It’s a round post, about ten centimetres in diameter, broken off about half a
+metre from the ground.
+
+>TAKE POST
+You manage to pull the post out of the ground.  Moving the solitary wooden post
+reveals a plastic bottle (which contains a bright green liquid) underneath.
+
+>DROP POST
+Dropped.
+
+>TAKE BOTTLE
+Taken.
+
+>X BOTTLE
+It’s a clear plastic bottle of the sort that would be quite unremarkable on any
+human-occupied world but here.  According to the label it contains “Magiclean
+All-In-One Conditioning Shampoo and Body Cleanser (manufactured by Stellarchem,
+a Harcourt Research Company)”.  It contains a bright green liquid.
+
+(Your score has just increased by one point.)
+
+>X LIQUID
+It’s bright green.
+
+>DRINK IT
+It might be toxic, for all you know.
+
+>W
+You battle your way along the overgrown path for a dozen metres or so, then
+suddenly emerge into a field.
+
+Overgrown Field
+The path from the east emerges in an overgrown field bounded by forest to east
+and south, a stream to the west, and a slope rising to the north.  The most
+striking feature, however, is the strange green structure half-hidden next to
+the trees to the south.
+
+>X GREEN STRUCTURE
+It’s hard to make out exactly what it is, since it’s covered by a dark green
+tarpaulin.  Whatever it is it’s about three metres long and stands about two
+metres high at its highest point.  If this was your homeworld you’d guess it
+was a piece of farm machinery covered up to protect it from the elements, but
+you don’t expect to find such things on Elysium.  On the other hand it looks
+the wrong shape for a hayrick and a distinctly odd shape for a farm building.
+
+>X TARPAULIN
+You’re rather vague on what kind of materials are available to a society that
+has deliberately turned its back on all post-industrial technology, but the
+tarpaulin looks suspiciously like it’s been made out of one large piece of some
+modern weatherproof fabric, and its dark green colour makes you think of
+possible military applications.  Indeed, while not technically camouflage, its
+colour hardly helps it stand out from its surroundings, and would make it quite
+hard to spot from the air.  The tarpaulin is securely fastened to the ground
+with a series of steel spikes leaving only a narrow gap between the tarpaulin
+and the ground, far too small to crawl under.
+
+>X SPIKES
+There’s nothing particularly hi-tech about the spikes, they’re simply steel
+rods with a flat head to which a mallet could be applied, a loop for securing
+the tarpaulin ties, and (presumably) a spike on the end that’s been driven into
+the ground.  Still, they all seem more-or-less identical, and look to you more
+like the product of modern factory than of some backwoods blacksmith.
+
+>UNTIE TIES
+You unfasten three of the ties from their spikes; that should be enough.
+
+>CRAWL UNDER TARPAULIN
+You crawl under the tarpaulin.
+
+Under the Tarpaulin (in the dark)
+You can’t see much, but you’re aware that a large object is taking up most of
+the space here.
+
+>PRESS GREEN STUD
+The drik lights up.
+
+Under the Tarpaulin
+Most of the space here is taken up with a large black object.  Otherwise you
+are completely surrounded by the tarpaulin.
+
+>X LARGE BLACK OBJECT
+Although it’s a large object, nearly three metres long, it’s quite small for
+what it is – a single-person shuttle (i.e. a craft for conveying someone
+between an orbiting spaceship and the planetary surface).  Apart from a cryptic
+sequence of tiny letters under the door, it is unmarked and painted black all
+over, suggesting a desire for stealth.  You can’t immediately identify the
+model, but you don’t think it’s an imperial one.
+
+(Your score has just increased by three points.)
+
+>X TINY LETTERS
+The letters stencilled under the shuttle door are almost too tiny to make out.
+By shining your drik directly at them you just manage to decipher them as
+AHAYWEH.
+
+>PRESS BLUE STUD
+A short beep indicates that you have opened a communications link with your
+pilot.
+
+“Hello, do you read me?” you ask.
+
+“I read you, praefect,” the pilot’s voice replies.
+
+(You could ask her about herself, or tell her about the orange datatab,
+yourself, the Federation crisis, Leela, the robot, the town, the Elder, old
+Jeb, the black shuttle, the mallet, the raft, the plastic bottle, the receiving
+device, the black datatab, or the bug.)
+
+>T ORANGE DATATAB
+“I found a datatab,” you say, “in the pocket of a black jumpsuit I found in the
+basement of an old ruin in the forest.”
+
+“Do you know what’s on it, sir?”
+
+“Yes,” you reply,“It’s a report from a Federation agent working on Elysium,
+suggesting that it would be tactically feasible for the Federation to invade
+and use this planet as a base behind our lines in the event of war.”
+
+“Goodness!”  Sublieutenant Soolin’s voice declares.
+
+>T BLACK SHUTTLE
+“I think I’ve just found how the spy who wrote the report I found on that
+orange datatab got here,” you announce, “I’ve just found an unmarked black
+shuttle parked in the middle of a field – hidden under a green tarpaulin.”
+
+“Gosh!”  Sublieutenant Soolin declares, “That does seem pretty suspicious;
+there’s certainly no one else scheduled to be visiting this world, so it must
+be an illegal.”
+
+>T MALLET
+“I found this mallet in a ruined building in the forest,” you tell her, “the
+handle is stamped ‘Made in Paran’!”
+
+“That’s very suspicious, sir,” Sublieutenant Soolin replies, “what in seven
+score solar systems is a mallet made on the Federation capital doing on
+Elysium?”
+
+“Quite, sublieutenant,” you agree.
+
+>T RECEIVING DEVICE
+“I found a receiving device in the barn in town,” you tell her, “It’s clearly
+not Elysian technology.”
+
+“Indeed not, sir,” she agrees, “And it raises the question of whether there’s a
+transmitter nearby.”
+
+>BYE
+“Over and out,” you say.
+
+“Over and out, sir,” she confirms, just before the comms link goes dead.
+
+>OUT
+Overgrown Field
+The path from the east emerges in an overgrown field bounded by forest to east
+and south, a stream to the west, and a slope rising to the north.  The most
+striking feature, however, is the strange green structure half-hidden next to
+the trees to the south.
+
+>E
+West Bank of River
+There’s a clear view up and down the river from here, and it seems you could
+walk some way along the bank to north and south, while an overgrown path
+disappears off through the trees to the west.
+
+You see a solitary wooden post here.  The river contains an inflated rubber
+raft.
+
+>ENTER RAFT
+You clamber aboard the raft.  Okay, you’re now sitting in the inflated rubber
+raft.
+
+>E
+You paddle the raft with the paddle over to the east bank of the river.
+
+On the River (sitting in the inflated rubber raft)
+You are sitting in an inflatable raft that’s floating near the east bank of the
+river.
+
+The drik light goes out to conserve power.
+
+>E
+(first standing up, then getting out of the inflated rubber raft)
+
+East Bank of River
+The path from the east comes to an abrupt end on the bank of a sluggish river.
+A couple of rotting posts sticking out of the ground are all that remains of
+what may once have been a bridge, the former existence of which is also
+suggested by a path disappearing into the trees on the opposite bank.  It may
+once have been possible to walk south along the riverbank, but that direction
+has become so overgrown that this would be quite impossible now, and though you
+could walk a short distance north, it looks like the climb might quickly become
+too steep.
+
+The river contains an inflated rubber raft.
+
+>E
+You walk a short way down to the path and arrive back in the clearing.
+
+Clearing
+The trees that surround this large clearing seem to be gradually encroaching
+upon it, though it will be a century or two yet before they finally overwhelm
+it.  For now, the overgrown remains of several buildings are still visible,
+with one solitary white stone building to the south still just about standing.
+The clearing continues to the north, while paths lead out to east and west.
+
+Leela is walking towards you.
+
+“Ah, there you are!” says Leela, “I wondered where you had got to!”
+
+>SHOW BOTTLE TO LEELA
+“Now look here, Leela,” you say sternly, “I found this bottle hidden just
+across the river; I thought you said you washed yourself with some soap you
+made out of grubby bark and puke leaves!”
+
+“Guba-bark and peka-leaves,” she corrects you, “That’s right: so I did; you
+don’t think I’d use that disgusting green goo, do you!”
+
+>G
+“It seems a pretty strange coincidence that I found this bottle hidden on the
+other side of the river near the spot you were washing yourself,” you insist.
+
+“So?  Coincidences happen, Andrew,” she shrugs, “I wouldn’t use anything on my
+hair and body I hadn’t made myself – I value them too much!”
+
+>T MALLET
+“Where did you get the mallet?” you want to know.
+
+Leela lets out a heavy sigh, then tells you, “I stole it.  It was just after I
+was made an outcast, before I came to the forest.  I was on the run, moving
+only by night, scrounging what I could from the farms I passed through.  I
+found that mallet in an outbuilding, and thought it might come in useful, so I
+took it.”
+
+>SHOW HANDLE
+Which handle do you mean, the drik handle, or the mallet handle?
+
+>T MALLET
+“Where was this farm where you found the mallet?” you ask.
+
+Leela frowns thoughtfully, then points roughly to the southeast, “About a dozen
+miles or so over that way, I think.”
+
+>SHOW HER THE ORANGE TAB
+“I’ve managed to read the orange datatab I found in the basement of the white
+building,” you tell her.
+
+“Really?” she asks, suddenly wary, “What did it tell you?”
+
+>T BLACK SHUTTLE
+“I found a black shuttle across the river,” you tell her, “I don’t think it
+should be there – do you happen to know anything about it?”
+
+Leela frowns, looks away for a moment, and repeatedly clenches and unclenches
+her fists, as if trying to resolve a quandry.  Then at length she lets out a
+heavy sigh and turns back to you, her manner suddenly different, as if she has
+just grown older and taller.
+
+“Okay,” she admits, “There’s no point in keeping up this pretence, is there?
+That’s my shuttle you found, and I’m not an Elysian farm-girl, as I’m sure you
+realize by now.  But it’s not as bad as you think, really it’s not.  I’m not a
+– well, I’m an anthropologist from Earth.”  Before you can protest, she cuts
+you off with a gesture, saying, “Yes – I know – I have no business being here.
+But this is about the only place in the known galaxy where I can study such a
+primitive culture in the field. so – what happens now?”
+
+(You could ask why she lied before, ask which university she’s from, ask how
+long she’s been here, say you don’t believe her, or show her the orange
+datatab.)
+
+>ASK HER WHY SHE LIED BEFORE
+“Why did you lie to me before?” you ask.
+
+“Because I shouldn’t be here, obviously,” she shrugs, “I’ve been trying to
+learn about the natives by living like one of them, and I hoped I could get
+away with passing myself off as one, but obviously it didn’t work.  So, as I
+said: what happens now?”
+
+(You could ask why she lied before, ask which university she’s from, ask how
+long she’s been here, say you don’t believe her, or show her the orange
+datatab.)
+
+>ASK HER HOW LONG SHE'S BEEN HERE
+“How long have you been here, Leela?” you want to know.
+
+“Only a couple of weeks, praefect,” she assures you, “Not long enough to do any
+harm to the natives, if that’s what you’re thinking.  In any case, that’s the
+first rule of any anthropologist working in the field – don’t interfere with
+the indigenous society you’re meant to be studying.  So, does that mean I get
+off lightly?  You could just let me go, couldn’t you?  So, how about it?”
+
+(You could ask why she lied before, ask which university she’s from, ask how
+long she’s been here, say you don’t believe her, show her the orange datatab,
+let her go, or arrest her.)
+
+>ARREST HER
+“I’m sorry, Leela, but I’m afraid I’m going to have to place you under arrest,”
+you tell her, “We both know you shouldn’t be here, and my duty is plain: I have
+to take you in for questioning.”
+
+“Okay, I’ll come quietly...” she assures you, spreading her hands in a gesture
+of surrender, and approaching as if to follow you back to your shuttle.  Then,
+suddenly, she leaps at you, her hands clutching at your throat.  “...after hell
+freezes over,” she rasps, as her grip tightens on your windpipe.
+
+Leela makes a grab for your throat but you manage to throw her off.
+
+“Is that the best you can do?  You’re a dead man!” she sneers.
+
+>HIT HER
+You fly at Leela with your fists, but she has no difficulty warding off your
+blows.  She’s obviously much more adept at unarmed combat than you are.
+
+Leela grabs the mallet from your grasp.
+
+>SHOOT HER
+(with the drik)
+(first taking the drik from the purple belt)
+Leela stiffens, an expression of momentary astonishment on her face, then with
+a little moan she tumbles to the ground.
+
+>TAKE LEELA
+You manage to lift the unconscious Leela up and hoist her over your shoulder.
+
+>E
+You set off down the path to the east, and continue straight on until the point
+where it starts to bend.
+
+Narrow Path
+A narrow path, rather faint to the southeast but becoming clearer to the west,
+bends through the trees at this point.  It may also be possible to squeeze
+through the gap to the east.
+
+>E
+Heart of the Forest
+Alien foliage clogs the ground between the trees that crowd around you on every
+side.  The main trail heads straight off to the north and snakes through the
+trees to the south.  You can’t see any side trails as such, but apart from the
+main path, the only gap through the trees that looks passable here is the one
+directly to the west.  It’s pretty narrow, but you could just squeeze through
+it.
+
+>DROP LEELA
+You lower Leela gently on to the main trail.
+
+>S
+The path twists and turns through the trees, but broadly continues south.
+
+Edge of the Forest
+The main north-south track runs wide and straight here.  The trees are more
+widely spaced, so that you could easily wander among them on either side of the
+main track.  To the south they become sparser still, indicating that the edge
+of the forest lies that way.
+
+>S
+Hillside above the Town
+The grassy hillside slopes gently down towards the small town below, which is
+surrounded by farmland and bordered by a river to the west.  The centre of the
+town lies straight down the slope to the south. Just up the slope to the north
+is the edge of the forest, which can also be entered to the northwest.
+
+>S
+You walk down the slope into the centre of the town.
+
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+>E
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+>N
+Inside the Hall
+This seems to be a meeting hall of some sort, with rows of plain wooden benches
+facing a crude stage at the northern end.  It’s unclear whether this place is
+intended for religious or secular purposes; quite possibly it does duty for
+both.  The overall effect is decidedly gloomy, even though a fair amount of
+sunlight steals in through the unglazed windows and the open doorway to the
+south.
+
+Petroc is pacing up and down on the stage.
+
+>SHOW DIARY TO PETROC
+(first taking the diary from the old brown sack)
+“Hello again!” you say.
+
+“Oh, it’s you,” he grunts.
+
+“I found this diary in the forest; I thought you might find it interesting,”
+you tell him.
+
+Petroc hesitates for a moment, then takes the diary from you and reads it
+slowly.  At length, he looks up at you again, and remarks, “If you’re as clever
+as you think you are, you should be able guess the rest.  This man Villiers
+poked his nose in where it wasn’t welcome.  He came to a sticky end.
+Eventually your people sent someone else along to find out what had happened to
+him.  My ancestors believed justice had been done, but yours didn’t, so they
+sent a gang of warriors here.  Things quickly got out of hand – some of our
+young men went along to the old town with sticks and stones to chase your
+warriors away, and your warriors retaliated with their weapons of terror.  It
+was a massacre, a terrible bloody massacre, so terrible that even your
+ancestors were ashamed of it.  Anyway, no one wanted the old town after that,
+it had too many bad memories for all of us, so we abandoned it, and rebuilt
+here – but still you wouldn’t leave us alone.”  He pauses, and looks at you
+with something like pity as he hands the diary back to you, “So now you know –
+all your great empire has done for us.”
+
+(Your score has just increased by one point.)
+
+>A VILLIERS
+“Why do you blame the Empire for that ancient massacre?” you want to know,
+“From what Subcenturion Villiers says in his diary he was investigating a
+murder!  And you say your ancestors killed him for that and that this was
+justified?  No wonder the Empire sent in the marines!”
+
+“You think so?” he asks, “You think these ‘marines’ of yours were justified in
+massacring the folks that came to protest?  All right, maybe Villiers thought
+he was doing his duty, maybe there were some misunderstandings, maybe our young
+men got a bit overheated – but that doesn’t justify massacring them!”
+
+>G
+“How many people were killed in the massacre?” you ask.
+
+“Only one or two of yours,” he tells you, “Several dozen of ours were killed
+that day, and that’s before you start counting the wounded.  Infernal weaponry
+against sticks and stones – what do you expect?”
+
+>A MASSACRE
+“What happened after the massacre?” you want to know.
+
+“We abandoned the old town and dispersed,” the old man shrugs, “Your men left –
+but we hadn’t seen the last of you.”
+
+>G
+“And you still remember that massacre?” you ask.
+
+“It is one of the solemn traditions handed down among the Elders,” he tells
+you, “lest we forget what your empire is really like.  But we do not trouble
+our people with it.”
+
+>G
+Your Legion training tells you that it would be more diplomatic to let the
+matter drop, now that you’ve ascertained Petroc’s version of the basic facts.
+It sounds like Subcenturion Villiers was murdered in the course of
+investigating another murder, and the Empire over-reacted – or at least the
+marine commander on the spot did in the face of minor provocation.  The
+incident reflects no credit on either Elysium or the Empire, but even though it
+all happened over two centuries ago, it helps explain why relations between the
+two are so awkward.
+
+>T LEELA
+“That woman I was telling you about, the one I came across in the forest.  You
+remember, she claimed she was an outcast.  Actually, I now have reason to
+believe she’s a Federation spy.  I found a strange shuttle just across the
+river from the old town, which I think she was using as her camp. I’ve also
+read a report, which I assume she wrote for her superiors, suggesting how the
+Federation might come and take over this world and use your people for slave
+labour. So it seems that the Federation may be planning to meddle on this
+world.  Obviously we shall do all we can to prevent it, but in the meantime I
+thought you should be warned.  At the very least, you might want to be on the
+lookout for intruders.”
+
+“We shall certainly do that, praefect,” he assures you.  “As for the rest –
+imperial politics are not my concern.”
+
+(Your score has just increased by one point.)
+
+>S
+Petroc resumes pacing around the stage.
+
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+>S
+Sovereign Legion Office
+This office is the about the only place on Elysium that resembles your idea of
+civilization.  A large white desk, with a standard built-in console, rests
+under the great golden eagle mounted on the east wall.  Behind the desk sits a
+comfortable mock-leather chair, while a pair of smaller chairs, one red, the
+other white, are positioned in front of the desk, presumably for the benefit of
+visitors.  The main door is next to the window overlooking the street to the
+north, while a staircase runs up against the south wall to a hatch in the
+ceiling.  A second door is set in the east wall, to the left of the eagle,
+while a large portrait of the Emperor hangs opposite.
+
+>TAKE BLACK TAB
+Taken.
+
+>PUT BLACK TAB IN SLOT
+(the slot)
+The screen displays: “Enter Password: ”
+
+>ENTER AHAYWEH ON CONSOLE
+The screen displays: “Correct!”
+
+The console plays back a clear recording of you talking with Petroc, and with
+Sublieutenant Soolin, and with the large black cat, and with Leela.  After a
+brief pause you hear Leela effectively give herself away as she attacks you.
+
+(Your score has just increased by three points.)
+
+>TAKE BLACK TAB
+As you remove the black datatab, the console screen goes blank.
+
+>N
+East End of Town
+The north side of the street is occupied by a large wooden hall.  On the south
+side is a neat single-storey white building (directly south) next to a two-
+storey green house (to the southeast).  The street continues eastwards but
+quickly peters out into a narrow farmtrack as it leaves the town, while to the
+west it runs back towards the town centre.
+
+The imperial flag flies over the white building.
+
+>W
+Town Centre
+This is the centre of the town, such as it is.  The main street, if it can be
+called a street, runs east and west from here, crossing a track that runs north
+and south.  To the northwest is a market area, opposite a large barn on the
+south side of the street, while to the east the street runs between a small
+white building (on its south side) and a large wooden hall (on its north).
+
+The imperial flag flies over the white building.
+
+>N
+Hillside above the Town
+The grassy hillside slopes gently down towards the small town below, which is
+surrounded by farmland and bordered by a river to the west.  The centre of the
+town lies straight down the slope to the south. Just up the slope to the north
+is the edge of the forest, which can also be entered to the northwest.
+
+>N
+Edge of the Forest
+The main north-south track runs wide and straight here.  The trees are more
+widely spaced, so that you could easily wander among them on either side of the
+main track.  To the south they become sparser still, indicating that the edge
+of the forest lies that way.
+
+>N
+Heart of the Forest
+Alien foliage clogs the ground between the trees that crowd around you on every
+side.  The main trail heads straight off to the north and snakes through the
+trees to the south.  You can’t see any side trails as such, but apart from the
+main path, the only gap through the trees that looks passable here is the one
+directly to the west.  It’s pretty narrow, but you could just squeeze through
+it.
+
+The unconscious Leela is lying on the main trail.
+
+>TAKE LEELA
+You manage to lift the unconscious Leela up and hoist her over your shoulder.
+
+>N
+Dirt Track
+The dirt track runs a short way north up to a ridge, just beyond which lies the
+hollow where your shuttle landed; to the south the track disappears into a
+sizeable forest.  There are fields either side of the track, but they look
+overgrown and untended.
+
+>N
+You walk back up over the ridge, and descend into the hollow on the far side.
+
+Hollow
+This grassy hollow, about thirty metres across, looks like it might once have
+been an impact crater.  A steep slope rises just to the west, while a trail of
+sorts leads north and south.
+
+Your shuttle rests in the middle of the hollow.
+
+>ENTER SHUTTLE
+Inside the Shuttle
+The inside of the shuttle is not exactly spacious; there’s room for the pilot
+and three passengers, one beside the pilot and two behind.  The seats are
+comfortable enough, but otherwise it’s all pretty basic.  There’s not much in
+front of you except the forward window; the pilot has a bank of instruments.
+
+Sublieutenant Soolin is sitting in the pilot seat.  Opening the passenger door,
+you first set Leela down on the rear seat.
+
+As you clamber into the flyer you sit yourself down on the front passenger
+seat, next to the pilot.
+
+“What in seven score solar systems are you doing with that young woman?”
+Sublieutenant Soolin asks in astonishment.
+
+(Your score has just increased by two points.)
+
+(You could tell her about Leela, or refuse to answer.)
+
+>T LEELA
+“I met her in the forest,” you explain, “She asked me to find her some food and
+clothing, but later on she attacked me.  I have reason to believe she’s a
+Federation spy and she thought I was getting too near the truth.  Anyway, I
+shot her with my drik, and I thought it would be a good idea to take her back
+for questioning.”
+
+“A Federation spy!  Great galaxies!”  Sublieutenant Soolin declares, “but why
+do you think that, sir?”
+
+“Well, Sam,” you reply, “First, finding the bug in the pillow-case, second
+finding the receiver in the barn, third the fact that her old clothes were in
+the crate when she said she had thrown them away, fourth the new maglock on the
+trapdoor, fifth the mallet made on Paran, sixth finding the maglock key so
+close to the trapdoor, seventh the Reldan-made raft, eighth the fact that the
+jumpsuit fit her so well, ninth what the report on the orange datatab said,
+tenth the bottle of shampoo/cleansing lotion I found hidden by the river, near
+where she was bathing, eleventh the black shuttle parked in the field across
+the river, and finally the recording of my bugged conversations.”
+
+“I see, sir; then that’s quite a catch!”  Sublieutenant Soolin remarks.
+
+>SOOLIN, FLY
+“It’s time to fly, sublieutenant,” you announce.
+
+“Where do you want to go, sir?” she asks.
+
+(You could tell her to return to the ship, tell her to fly over the river, ask
+her about herself, or the Federation crisis, tell her about the orange datatab,
+Leela, the robot, the town, the Elder, old Jeb, the black shuttle, the mallet,
+the raft, the plastic bottle, the receiving device, the black datatab, or the
+bug, or tell her to leave.)
+
+>RETURN TO THE SHIP
+“Let’s go back to the ship,” you say, “I’ve finished here.”
+
+“Right you are, sir,” she replies.
+
+Sublieutenant Soolin turns to the controls and starts up the shuttle.  Within
+seconds the argoms cut in and the shuttle lifts effortlessly up into the air.
+You glance down at the forest and the tiny town below for one last time, but
+they shrink rapidly out of sight as the shuttle speeds skywards towards the
+orbiting frigate.
+
+Once she has put the shuttle on autopilot, Sublieutenant Soolin turns to you
+and says, glancing at the figure lying on the back seat, “I wonder if she’ll
+talk, sir?  I can’t imagine it’ll be too easy to persuade her to confess to
+being a spy!”
+
+With a triumphant little smile you show her the black datatab, “Oh but she
+already has, Sam,” you tell her, “she effectively confessed when she attacked
+me, and I’ve got it all on here – recorded by her own bugging device!”
+
+Sublieutenant Soolin smiles and nods, “That was well done, sir – our superiors
+will be pleased!”
+
+“One can but hope,” you concur.
+
+For a moment, you wonder whether you’ll ever see Elysium again, but then
+Sublieutenant Soolin starts chatting with you, and your thoughts turn to the
+more immediate future.
+
+*** YOU HAVE WON ***
+
+In 422 moves, you have scored 30 of a possible 30 points.
+
+Would you like to RESTORE a saved position, RESTART the story, UNDO the last
+move, see your FULL SCORE, see some AMUSING things to try, or QUIT?
+
+>

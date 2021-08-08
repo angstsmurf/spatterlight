@@ -1,0 +1,15 @@
+open van
+get bag
+open it
+wear camera
+n
+photograph sign
+photograph gates
+e
+photograph roof
+n
+read plaque
+go desk
+switch on switch
+photograph map
+x memo

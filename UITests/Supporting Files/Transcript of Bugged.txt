@@ -1,0 +1,537 @@
+As a fan of interactive fiction, you promised to your cousin, who also has taken an interest in text adventures, to try out his latest creation, even if his earlier attempts, honestly said, have left rather a lot to wish for. Nevertheless, the “I’ve implemented ten rooms and I bet you can’t make it through!” was a downright Challenge, a slap in the face with a glove; and of course you couldn’t back up anymore. So, here you are in the startroom, looking around with a certain reservation, hoping that this time your cousin would have succeeded in creating something you could perhaps even enjoy a bit... 
+
+BUGGED 
+(c) 2001 by Anssi Raisanen 
+Programmed with ALAN v2.8 
+Version 1.2 
+Please type ‘help’ for instructions and other background info.
+
+Startroom.
+Dark stone walls surround you in every direction. It is not clear what kind of building you are supposed to be in, but it looks like the setting is the not-too-original prison cell you are to get out of, in order to start the adventure for real. A sturdy door in the southern wall blocks the only obvious exit from the room. A window, up close to the ceiling, breaks the monotony of the wall opposite. In the middle of the room there is a wooden table.
+
+> examine window
+You can’t see any such thing. 
+
+ You raise your eyebrows a bit: a bug. You could see this coming.
+
+>  n
+The window is too high for you.
+
+>  x table
+It is a rectangular, wooden table of heavy build, with four legs. On closer inspection, you notice a small, round dent on its otherwise smooth surface.
+
+>  x dent
+It looks too regular to be a natural one.
+
+>  push dent
+There is a silent click, and a secret drawer slides open from one side of the table! There seems to be something inside.
+
+> x drawer
+In the drawer you see a small iron key, an apple and a white flute.
+
+>  x key
+It is a small iron key.
+
+>  x apple
+It is a fresh, red-cheeked apple.
+
+>  x flute
+It is a white, ordinary-looking flute.
+
+> take key
+A ring in the key’s left ring finger indicates she’s already taken. 
+
+  Sigh. Another one... Somehow you have the feeling that the worst is yet to come.
+
+>  take apple
+A ring in the apple’s left ring finger indicates she’s already taken.
+
+>  take flute
+A ring in the flute’s left ring finger indicates she’s already taken.
+
+> take drawer
+The drawer doesn’t come loose, as much as you try.
+
+>  stand on table
+You climb on the table, but seeing you still can’t reach the window, climb back down again.
+
+> take table
+Taken.
+
+>  take door
+Taken. 
+
+   Well, a convenient one for a change, too...
+
+>  s
+You exit the cell.
+
+Second Room.
+You are in a long north-south corridor. Torches set in the walls at regular distances from one another illuminate the place. Your cell is at the end of the corridor to the north, and there are other cells to both sides. About in the middle of the corridor there is a dark chasm in the floor, too wide for you to jump over. A ladder leans against the wall on your side of the chasm.
+
+> empty table into me
+You empty the contents of the table into yourself.
+
+> x torches
+That’s just scenery.
+
+>  x chasm
+It looks dark and foreboding.
+
+>  x ladder
+There is nothing special about the ladder.
+
+>  take ladder
+A ring in the ladder’s left ring finger indicates she’s already taken.
+
+> u
+The ladder doesn’t lead anywhere, it just leans against the wall here.
+
+>  d
+Believe me, there is nothing interesting there.
+
+>  s
+The chasm is too wide for you to jump over.
+
+>  jump over chasm
+I think I mentioned you can’t do that.
+
+> put door across chasm
+Done.
+
+>  s
+You walk across the chasm.
+
+Third Room.
+The corridor from the north ends in a rather large and spacious room, with walls of red stone. Light is provided by burning torches high up on the walls. A suit of armour stands in one corner of the room and in another one is a chesstable. A heavy-looking stone door blocks further southward movement. Five levers protrude out of the western wall.
+
+> x suit
+There is nothing special about the suit.
+
+>  take suit
+Taken.
+
+>  wear suit
+On second thought, the suit is not your idea of the latest fashion.
+
+> x door
+The door is made of one smooth piece of stone. There are no handles or other knobs visible on its surface or in the vicinity.
+
+>  take door
+You try to get hold of the surface of the door, but it being smooth stone, you fail.
+
+> x chesstable
+A normal chesstable, with a chessboard and a complete set of pieces.
+
+>  x chessboard
+A normal chessboard, with a complete set of pieces.
+
+>  x pieces
+A complete set of white and black pieces.
+
+>  play chess
+You play the chess for a while. You are surprised at how good you are, since you’ve actually played very little at all.
+
+>  take chesstable
+Taken.
+
+> x levers
+Five crude iron levers protrude out of the wall. From the holes in the wall which they jut out of, you gather that they can be pulled up or down. Initially, they are all up. 
+   [You can refer to the individual levers by calling them the first (lever), the second (lever), etc.]
+
+> push fourth
+You lower the third lever. 
+
+   Great! Your cousin really messed up again...
+
+>  push third
+You lower the second lever.
+
+>  push second
+You lower the first lever.
+
+>  push fifth
+You lower the fourth lever.
+
+>  push first
+You lower the fifth lever. 
+   There is a loud click, and the stone door on the southern wall slides almost quietly aside, revealing a passage to the south.
+
+> s
+You proceed south.
+
+Fourth Room.
+This room looks very similar to the one to the north. However, the only decoration here seem to be beautiful wall paintings on all of the four walls. The door to the south even has a knob this time. 
+   The only thing that would seem to hinder your progress is a dragon guarding the door, but you guess there had to be something.
+
+> x door
+There is nothing special about the door. It is currently closed.
+
+>  open door
+The dragon is in the way.
+
+>  take door
+The dragon is in the way.
+
+>  x dragon
+It is, er, huge, fierce and green.
+
+>  take dragon
+The dragon manages to look dangerous enough for you to decide you don’t want to get too close to it.
+
+>  kill dragon
+No dragons were harmed in the making of this game. Now, don’t YOU start!
+
+> x paintings
+They are a series of paintings, depicting a story where a warrior confronts a dragon guarding a cave. The warrior plays a tune with an instrument that looks like a flute, the dragon falls asleep and the warrior enters the cave.
+
+>  take paintings
+They are painted straight onto the walls and cannot be taken.
+
+>  xyzzy
+[Note to self: insert witty answer here.]
+
+> play chess
+You play the chess for a while. You are surprised at how good you are, since you’ve actually played very little at all. The music has a clear effect on the dragon; it gets drowsy, lies down on the ground and is soon fast asleep.
+
+> s
+You open the door and walk south. After the doorway, a short flight of stairs leads upwards, and you climb it duly.
+
+Antechamber.
+This room is considerably bigger and lighter than the previous ones. Daylight streams in from a big window. A beautiful, ornamented door leads south, giving you a hint that you must be in an antechamber of some sort, leading to more central parts of the castle (for you have gathered by now that this must be a castle). 
+ There is a princess here. 
+   “Hey, you came from the prison wing and I haven’t seen you before, you must be an escaped prisoner”, she says. “But you don’t look that dangerous to me at all...”
+
+> x princess
+She is a young, actually rather pretty princess. You can tell she’s a princess from the royal clothes and ornaments she’s wearing, and the little tiara on her head.
+
+>  x clothes
+There is nothing special about the clothes.
+
+>  x ornaments
+There is nothing special about the ornaments.
+
+>  x tiara
+There is nothing special about the tiara.
+
+>  x ring
+It is a beautiful, golden ring.
+
+> take clothes
+She slaps you at the hand, but with a grace that is fit for a princess. “Keep off!”
+
+> x window
+That’s just scenery.
+
+>  x door
+It is a beautifully ornamented door, with a small hatch at about eye-level. The door is currently closed.
+
+>  open door
+It seems to be locked.
+
+>  knock on door
+The hatch opens, and a guard’s face peaks in. “You must be accompanied by a royal person in order to get access to this side”, he utters politely but firmly, closing the hatch again.
+
+>  take door
+“Why would you want to have the door?” the princess asks, “the guard on the other side would just get alarmed if you tried to take it.”
+
+>  take hatch
+You try to grab hold of the hatch, but to no avail. It really seems to be openable only from the outside.
+
+> ask princess about princess
+“I am the king’s eldest daughter, and some day this all is going to be under my rule!”
+
+>  ask princess about castle
+“Well, I know it’s not very present-day, but you’ve got to live somewhere...”
+
+> ask princess about door
+“You want to go through that door? The guard on the other side won’t let you pass without me. I could take you with me there if you give me an apple - I feel a bit hungry.”
+
+>  ask princess about apple
+“Any apple would do.”
+
+> ask princess about chess
+“Oh, I am not into chess that much myself.”
+
+>  ask princess about dragon
+“Oh, isn’t he cute? He is my favourite dragon, always ready to protect me.”
+
+> ask princess about prison
+“I’m really sorry if it was an inconvenient one - even if I am not in any way in charge of maintaining the cells.”
+
+>  ask princess about chasm
+“Yes, they are working with the plumbing downstairs, but the amount of time it takes is ridiculous. Unneeded holes in the floor and all that...”
+
+>  ask princess about suit
+“Ah, that’s just an ornament.”
+
+> take princess
+Taken. 
+
+ How convenient.
+
+>  knock on door
+The hatch opens, and a guard’s face peaks in. At first he sees only you. “You must be accompanied by a royal person...” Then he notices the princess accompanies you. “I’m sorry, mademoiselle, just a moment, I’ll let you and your companion through.” 
+  The guard’s face disappears, a rattling noise is heard as he unlocks the door, and before you realise, the door stands wide open.
+
+>  s
+Throne Room.
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor. 
+   Nobody seems to take any special notice of you, presumably because you entered the room in the princess’s company.
+
+> x guards
+There are six guards here, one at each door leading out of the throne room. The guards look very dedicated to their job. 
+   The double doors to the east swing suddenly open. It seems the king is entering the throne room now. Trumpets sound his arrival, and a crowd of servants, lackeys, advisors and other attendants follow him. The king climbs a couple of steps leading up to the throne and sits down.
+
+>  x king
+The king is rather tall and not at all old yet; he has a golden beard, piercing grey eyes, and a red cloak on his shoulders. 
+   The king starts talking. 
+    “My dear subjects! Two alarming matters have come to my attention. It has been reported to me that one of the prisoners has succeeded in escaping from the northern prison wing. You know, the one who was caught the other day after arousing suspicions by sneaking around in the castle’s premises. The fact that the said offender has managed to break through our foolproof security systems, proves that we are dealing with a dangerous and cunning criminal who is to be searched for and captured as soon as possible.”
+
+>  x throne
+You gasp as you realise that it is overlaid with gold. 
+   The king continues his speech. 
+    “Secondly, I noticed my golden sceptre is missing. I don’t know if these two things are in any way connected with each other, but in any case it is a very unfortunate thing, as the sceptre is a symbol of the prosperity of our country, not to mention a symbol of my power. I appeal to each and every one of you to keep your eyes open, in order that these two matters could be settled and got over with for good. Now, begone!” 
+    The king stands up impatiently and walks out of the room with swift steps, some of his attendants following him, while others scatter hastily in different directions, trying to locate either the escapee (you try to look as small as possible) or the sceptre. 
+    Happening to glance at the princess, you notice that she is looking at you with an amused, knowing look, as if she was enjoying the situation.
+
+> ask princess about guards
+“Thanks to them, I feel safe in this big building.”
+
+>  ask princess about sceptre
+“Oh, he’s so fussy about that old sceptre. You know, I will be married to the prince of the neighboring country shortly, we’re very much in love, but right now my fiance is attending to businesses in his own country, and I feel so lonely while he is away from me... so I decided to play a little prank on my father and hide the sceptre. - I like you, and would like to help you to leave the castle without problems, since I realise that my father has been once more over-sensitive about people who venture too near the castle... so if you should *find* the sceptre, he would be very grateful and not ask any questions.” 
+   “Here, let me show you.” 
+   The princess walks to the southwest, and the guard standing at the door duly opens it for her.
+
+> sw
+You approach the door. The guard is about to stop you, when the princess says from inside: “It is ok, Edwin, a friend only.” 
+   The guard steps aside.
+
+Southern Sidechamber.
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the southern wall. An exit leads north. 
+   The princess is here. 
+   “I’ll help you only if you agree to do something in return... some time ago, I was throwing my ball against the wall here in this room, when it accidentally flew out of the window to the garden. In this part of the garden, the king has some rare and precious flowers growing, and therefore the access there is restricted. The only way to pick up the ball would be through that window, but it is too high for me... but surely, it is no problem for someone as agile as you, is it?”
+
+> ask princess about ball
+“You give me the ball, I’ll help you get out of here.”
+
+>  ask princess about garden
+“My father likes gardening, but I am not so much keen on it.”
+
+> x window
+The window is too high for you to reach even if you jumped, but given the unevenness of the walls, you could probably climb to it. 
+    You can only see a small patch of the sky outside.
+
+>  x walls
+The walls are rather uneven here.
+
+>  climb wall
+You start climbing the wall, but your foot slips soon after, and you fall back down. 
+   The princess points at some exotic fruits in a bowl on a sidetable here: “You should taste these, they really are good for your dexterity.”
+
+> x fruit
+You don’t recognise the species, but they sure look delicious.
+
+>  eat fruit
+You’ll have to be holding the fruit first.
+
+>  take fruit
+A ring in the fruit’s left ring finger indicates she’s already taken.
+
+>  taste fruit
+You lick the fruit but taste nothing unexpected.
+
+>  climb wall
+You start climbing the wall, but your foot slips soon after, and you fall back down. 
+   The princess points at some exotic fruits in a bowl on a sidetable here: “You should taste these, they really are good for your dexterity.”
+
+> x bowl
+The bowl is full of exotic fruit.
+
+>  take bowl
+There’s no point in taking the whole bowl.
+
+>  x sidetable
+That’s just scenery.
+
+>  take sidetable
+That’s just scenery.
+
+> u
+The window is too high for you.
+
+>  take window
+Taken. 
+
+   Cool...
+
+>  enter window
+“Good luck”, the princess says, “I’ll be waiting for you here.”
+    You exit through the window and drop down to the garden outside.
+
+Small Garden.
+You are in a secluded part of the garden surrounding the castle. The castle wall, with a small window some way up, is to the north. Colourful flowers and bushes surround you everywhere, bathing in the light of the afternoon sun. 
+   A ball lies in the grass.
+
+> x ball
+It is quite round.
+
+>  take ball
+The ring in the ball’s left ring finger indicates she’s already taken. 
+
+   This is really getting tedious, dear cousin...
+
+>  x flowers
+The flowers here are very colourful and exotic. Bees, flies and other bugs fly busily  from one flower to another.
+
+>  take flower
+Better let them grow.
+
+> x bushes
+The bushes are very thick-growing.
+
+>  search bushes
+Looking closer at the bushes, you find a coil of rope in one of them.
+
+>  x rope
+The coil of rope looks long enough for you to use it to climb back up, but the problem is how you can climb the rope if you are holding the ball in one hand.
+
+>  take rope
+A ring in the rope’s left ring finger indicates she’s already taken.
+
+> kick ball
+You kick the ball gently. It rolls to a different spot in the grass.
+
+>  kick ball at window
+You kick the ball, aiming at the window, but the ball hits the wall and bounces back down. Maybe another try would yield better results.
+
+>  kick ball at window
+Being better able to calculate your strength and adjust your aim at the second attempt, you manage to kick the ball through the window, into the room.
+
+> look
+Small Garden.
+You are in a secluded part of the garden surrounding the castle. The castle wall, with a small window some way up, is to the north. Colourful flowers and bushes surround you everywhere, bathing in the light of the afternoon sun.
+
+>  x sun
+There is nothing special about the sun.
+
+>  take sun
+Taken.
+
+>  u
+You climb back up and into the room.
+
+Southern Sidechamber.
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the southern wall. An exit leads north. 
+ The princess is here, bouncing her ball against the wall. 
+   The princess is extremely happy after getting her ball back. 
+    “Oh, thank you so very much...! Well, I promised to help you, so listen: the sceptre is in the cellar which you can access through the door behind the throne, to the west. You’ll need a lamp - here...” She bends down and pulls a lamp from some unknown nook or cranny in the wall and hands it to you. “Now, good luck!”
+
+> x lamp
+There is nothing special about the lamp. It is currently turned off.
+
+>  turn on lamp
+You turn off the lamp.
+
+>  turn off lamp
+You turn off the lamp.
+
+> s
+You can’t go that way.
+
+> ask princess about lamp
+“You’ll need some light if you go to the cellar.”
+
+>  take princess
+Taken.
+
+>  n
+Throne Room.
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor.
+
+>  nw
+You approach the door. The guard is about to stop you, when the princess remarks: “It is ok, Hank, just a friend.” 
+ The guard steps aside.
+
+Northern Sidechamber.
+You are in a small sidechamber, adjacent to the throne room. The chamber is very barely furnished. There is a little window high up on the northern wall. An exit leads south. 
+   You see a rubber bone here.
+
+> x bone
+There is nothing special about the bone.
+
+>  take it
+A ring in the rubber bone’s left ring finger indicates she’s already taken.
+
+>  ask princess about bone
+“The rubber bone? That is one of my cute little pug’s favourite toys. I wonder where Rufus is right now...”
+
+>  ask princess about rufus
+“He’s my favourite dog, so nice and lovable...”
+
+> s
+Throne Room.
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor.
+
+>  w
+The princess orders the guard out of the way, and you open the door leading west and step to a dark stairway leading down. 
+  “Good luck!” you hear the princess say, “I’ll be waiting for you here.”
+
+Cellar.
+The air is very fusty here, and cobwebs hang in the dark corners of the room. Otherwise, there is not much to tell; seems like your cousin has used most of his creative energy by now. 
+   A fat, ugly, growling pug is here, holding a golden sceptre in its teeth as if it was a bone and watching you keenly.
+
+> x dog
+On the basis of the short acquaintance you have had with the dog so far, you can only tell that it is very well-fed and fierce-tempered, but nevertheless probably a very dear and loved pet of the royal family.
+
+>  x sceptre
+It is a beautiful, golden sceptre.
+
+>  x cobwebs
+There is nothing special about the cobwebs.
+
+>  take cobwebs
+What on earth for?
+
+>  take sceptre
+The dog would seem to disagree with you.
+
+> take dog
+You grab the dog, and manage to hold on to it. However, it is surprisingly strong and vigorous, wriggling in your grasp, and you won’t be able to hold it much longer.
+
+>  empty dog
+
+   You pause to think. If you use this command, the sceptre will end up on the floor and you won’t be able to pick it up. You’ll have to modify your command in some way. 
+   You can’t hold on to the pug any longer. It squirms itself free from your grasp.
+
+>  take dog
+You grab the dog, and manage to hold on to it. However, it is surprisingly strong and vigorous, wriggling in your grasp, and you won’t be able to hold it much longer.
+
+>  empty dog into me
+You empty the contents of the fat growling pug into yourself. 
+ You can’t hold on to the pug any longer. It squirms itself free from your grasp. 
+
+   You try to think what might help. Maybe your cousin programmed the dog to be a container, containing the sceptre. Perhaps that would be something to experiment with.
+
+> e
+Throne Room.
+You are in a huge, rectangular room, very apparently the main room of the castle. Daylight pours in from windows in the ceiling. A throne stands in the middle of the floor, towards the western end of the room. There are two doors to the north and two to the south (the directions to be referred are northwest, northeast, southwest and southeast). A door to the east is more majestic than the others; you gather that escape lies that way, while a door to the west, behind the throne, is the plainest one of them all. In front of every door there stands a guard, alert and erect, and in one hand resting a spear against the floor. 
+   There is a princess here. 
+
+   One of the guards sees you are carrying the sceptre and shouts: “Summon the king! Summon the king! The sceptre has been found!” 
+    There is a lot of excitement and commotion, as the king and his attendants soon afterwards hurry into the throne room. 
+    “I am extremely relieved and happy”, he says, “please accept this little token of my deep gratitude, before you leave.” He reaches into his pocket and gives you a handful of golden coins. “And welcome back here anytime, as you seem to be a good friend to our dear princess.” The princess smiles at you sweetly. 
+    An extra fanfare is blown in your honour, and you are escorted out of the castle and to the outer gates, from where you start walking along the road, into the next adventure. 
+
+    Suddenly, you feel a tap on your shoulder. Frightened, thinking one of the guards recognised you after all, you turn abruptly around, but only to see your cousin looking at the computer screen from behind your back. 
+    “Great, so I see you’ve finished it, well congratulations for that! How did you like it?” 
+    For a while, you think of a diplomatic answer and finally say: “Er.. it needs some polishing yet... but I am not sure if that will actually help it get any better than what it is now”, leaving your cousin wondering whether that was a complaint or a compliment. 
+    Anyway, 
+
+     *** You have successfully escaped from the castle. ***
+
+Thank you for playing Bugged.
+
+
+Do you want to RESTART, RESTORE a saved game, or QUIT?
+>> 

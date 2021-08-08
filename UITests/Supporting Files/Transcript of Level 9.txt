@@ -1,0 +1,1778 @@
+Glk transcript is now on.
+
+> 
+
+
+> IN
+
+You are in the building. Steps lead down a well in the centre of the floor. A white dot is marked over the door.
+A bottle lies nearby. It is full of water.
+A bunch of keys is here.
+Some fruit is lying here.
+A small sling is here.
+A small table is here.
+What next? GET TABLE
+
+OK. 
+What next? OUT
+
+You are at the end of a road from the north, outside a small brick building. A river flows south through a narrow valley and there is dense woodland all around.
+What next? S
+
+You are in a narrow north-south valley through the forest. A small stream, clogged by dead vegetation, seeps sluggishly south. A miasma of decay pervades the scene.
+What next? S
+
+You are in a north-south valley. A small stream flows from the north and seeps away into the swampy ground.
+What next? S
+
+You are in a twenty foot deep depression in the floor of a steep valley. The remains of an iron grate can just be made out, set into the ground, but it is blocked by concrete and has almost rusted away.
+What next? W
+
+You are lost in the forest.
+What next? S
+
+You are lost in the forest.
+What next? S
+
+You are lost in the forest beside a huge oak tree with branches resting on the ground.
+What next? DROP TABLE
+
+OK. 
+What next? U
+
+You are sitting on a gnarled tree-branch which is half-split from its parent trunk and resting on the ground.
+A silver ball is here.
+What next? GET BALL
+
+OK. 
+What next? D
+
+You are lost in the forest beside a huge oak tree with branches resting on the ground.
+A small table is here.
+What next? GET TABLE
+
+OK. 
+What next? N
+
+You are lost in the forest.
+What next? N
+
+You are lost in the forest.
+What next? E
+
+You are in a north-south valley. A small stream flows from the north and seeps away into the swampy ground.
+What next? S
+
+You are in a twenty foot deep depression in the floor of a steep valley. The remains of an iron grate can just be made out, set into the ground, but it is blocked by concrete and has almost rusted away.
+What next? S
+
+You are stumbling over sharp stones in a steeply sloping gulley.
+There is a rare orchid here.
+The orchid is two foot above your reach. 
+What next? DROP TABLE
+
+OK. 
+What next? GET ORCHID
+
+OK. A pack of wolves emerges from the trees! 
+What next? U
+
+You are on the steep east side of a valley, overgrown with brambles and stinging plants.
+An onion rolls on the ground.
+A pack of wolves is stalking you. 
+What next? GET ONION
+
+OK. 
+What next? EAT IT
+
+The 'onion' tastes very odd: it is garlic! However as you are obviously ravenous (why else would anyone want to eat an entire onion) you gulp it down. Then you notice movement nearby and turn in fascination: all the vegetation down-wind has curled up. 
+What next? E
+
+You are at the base of a stone pinnacle which rises from the gloom of the trees into the sunlight above. A narrow path spirals round it, climbing upwards.
+A pack of wolves is stalking you. 
+What next? U
+
+You are on a path winding round the rock pinnacle.
+What next? U
+
+A robed wizard is standing waiting. She hands you a scroll, smiles and fades away. 
+What next? READ SCROLL
+
+"Take the Talisman to the Black Tower through the four elements twice. It can defeat the Demon Lord, but only a companion can bring victory at the end. The Talisman is nearby, but you will also need four Stones to gain entry and these are guarded by servants of the Demon. The blesssing of Typo, god of Adventures, goes with you. Good Luck!" 
+What next? DROP IT
+
+OK. 
+What next? D
+
+You are on a path winding round the rock pinnacle.
+What next? D
+
+You are at the base of a stone pinnacle which rises from the gloom of the trees into the sunlight above. A narrow path spirals round it, climbing upwards.
+What next? W
+
+You are on the steep east side of a valley, overgrown with brambles and stinging plants.
+What next? W
+
+You are in a north-south valley. A small stream flows from the north and seeps away into the swampy ground.
+What next? N
+
+You are in a narrow north-south valley through the forest. A small stream, clogged by dead vegetation, seeps sluggishly south. A miasma of decay pervades the scene.
+What next? E
+
+You are in woodland above the valley. A path leads north into dense forest.
+A unicorn stands in the clearing. 
+What next? GIVE ORCHID TO UNICORN
+
+The unicorn takes the orchid, nods and walks off north. It gestures for you to follow. 
+What next? N
+
+You are on a path through dense forest.
+What next? N
+
+You are in a grove of tall trees, relics of the original "Great Forest" which covered this area before the coming of the Desolation.
+What next? N
+
+You are in a small woodland clearing carpetted with buttercups and sweet grasses.
+An ancient medallion lies on the ground.
+Pan pipes lie on the ground.
+What next? GET MEDALLION AND PIPES
+
+The Talisman Amulet of Life: OK. 
+A set of pan pipes: OK. 
+What next? S
+
+You are in a grove of tall trees, relics of the original "Great Forest" which covered this area before the coming of the Desolation.
+What next? S
+
+You are on a path through dense forest.
+What next? S
+
+You are in woodland above the valley. A path leads north into dense forest.
+What next? W
+
+You are in a narrow north-south valley through the forest. A small stream, clogged by dead vegetation, seeps sluggishly south. A miasma of decay pervades the scene.
+What next? N
+
+You are at the end of a road from the north, outside a small brick building. A river flows south through a narrow valley and there is dense woodland all around.
+What next? IN
+
+You are in the building. Steps lead down a well in the centre of the floor. A white dot is marked over the door.
+A bottle lies nearby. It is full of water.
+A bunch of keys is here.
+Some fruit is lying here.
+A small sling is here.
+What next? GET BOTTLE
+
+OK. 
+What next? OUT
+
+You are at the end of a road from the north, outside a small brick building. A river flows south through a narrow valley and there is dense woodland all around.
+What next? N
+
+You are on a road north of the building. All around is desolate scrub-land where sparse weeds strive for life in the poisoned ground.
+What next? N
+
+You are at the edge of the 'fertile' land. Nothing grows in the desert which stretches north as far as the eye can see. Heat haze blurs your vision, but you can just make out the shape of a high mountain within it.
+What next? N
+
+You are at the southern edge of a vast desert, baked by the burning sun. Great lines of dunes seem to march north.
+What next? N
+
+You are on trackless desert.
+What next? N
+
+You are on trackless desert.
+What next? W
+
+You are on trackless desert.
+You can hear sand sliding softly in the distance. 
+What next? N
+
+You are on trackless desert above a deep canyon. A small oasis sits in the bottom of the canyon, nestling at the foot of the southern cliffs below.
+Sand is sliding nearby. 
+What next? WAIT
+
+You are on trackless desert above a deep canyon. A small oasis sits in the bottom of the canyon, nestling at the foot of the southern cliffs below.
+You can hear sand sliding softly in the distance. 
+What next? E
+
+You are on trackless desert south of a canyon.
+Sand is sliding nearby. 
+What next? E
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+A sphinx guards the pyramid. A rushing noise is nearly upon you! 
+What next? WAIT
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+A sphinx guards the pyramid. Sand is sliding nearby. 
+What next? E
+
+You are on a rocky outcrop overlooking the desert and the pyramid. A path leads down to the north into a chasm between the outcrop and its parent mountain.
+A sphinx guards the pyramid. A rushing noise is nearly upon you! 
+What next? N
+
+You are in a sheltered wadi with oil seeping from the rocks.
+A gigantic worm rises from the sand, swallowing all in its path! Fortunately, you are safe on rocky ground. 
+What next? WAIT
+
+You are in a sheltered wadi with oil seeping from the rocks.
+What next? DROP TALISMAN AND BALL
+
+The Talisman Amulet of Life: OK. 
+A small silver ball: OK. 
+What next? S
+
+You are on a rocky outcrop overlooking the desert and the pyramid. A path leads down to the north into a chasm between the outcrop and its parent mountain.
+What next? W
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+What next? W
+
+You are on trackless desert south of a canyon.
+You can hear sand sliding softly in the distance. 
+What next? W
+
+You are on trackless desert above a deep canyon. A small oasis sits in the bottom of the canyon, nestling at the foot of the southern cliffs below.
+Sand is sliding nearby. 
+What next? S
+
+You are on trackless desert.
+A rushing noise is nearly upon you! 
+What next? WAIT
+
+You are on trackless desert.
+Sand is sliding nearby. You are very thirsty. 
+What next? E
+
+You are on trackless desert.
+A rushing noise is nearly upon you! 
+What next? WAIT
+
+You are on trackless desert.
+Sand is sliding nearby. 
+What next? S
+
+You are on trackless desert.
+A rushing noise is nearly upon you! 
+What next? WAIT
+
+You are on trackless desert.
+Sand is sliding nearby. 
+What next? S
+
+You are at the southern edge of a vast desert, baked by the burning sun. Great lines of dunes seem to march north.
+A rushing noise is nearly upon you! 
+What next? S
+
+You are at the edge of the 'fertile' land. Nothing grows in the desert which stretches north as far as the eye can see. Heat haze blurs your vision, but you can just make out the shape of a high mountain within it.
+What next? S
+
+You are on a road north of the building. All around is desolate scrub-land where sparse weeds strive for life in the poisoned ground.
+What next? S
+
+You are at the end of a road from the north, outside a small brick building. A river flows south through a narrow valley and there is dense woodland all around.
+What next? IN
+
+You are in the building. Steps lead down a well in the centre of the floor. A white dot is marked over the door.
+A bunch of keys is here.
+Some fruit is lying here.
+A small sling is here.
+What next? GET KEYS AND SLING
+
+A bunch of keys: OK. 
+A sling: OK. 
+What next? DRINK WATER
+
+That was just what you needed. 
+What next? D
+
+It is dark, you cannot see. 
+You are underwater. You cannot breathe! 
+What next? FILL BOTTLE
+
+It is full of water
+you are underwater. You cannot breathe! 
+What next? U
+
+You are in the building. Steps lead down a well in the centre of the floor. A white dot is marked over the door.
+Some fruit is lying here.
+What next? OUT
+
+You are at the end of a road from the north, outside a small brick building. A river flows south through a narrow valley and there is dense woodland all around.
+What next? N
+
+You are on a road north of the building. All around is desolate scrub-land where sparse weeds strive for life in the poisoned ground.
+What next? N
+
+You are at the edge of the 'fertile' land. Nothing grows in the desert which stretches north as far as the eye can see. Heat haze blurs your vision, but you can just make out the shape of a high mountain within it.
+What next? N
+
+You are at the southern edge of a vast desert, baked by the burning sun. Great lines of dunes seem to march north.
+What next? N
+
+You are on trackless desert.
+What next? N
+
+You are on trackless desert.
+What next? W
+
+You are on trackless desert.
+You can hear sand sliding softly in the distance. 
+What next? N
+
+You are on trackless desert above a deep canyon. A small oasis sits in the bottom of the canyon, nestling at the foot of the southern cliffs below.
+Sand is sliding nearby. 
+What next? WAIT
+
+You are on trackless desert above a deep canyon. A small oasis sits in the bottom of the canyon, nestling at the foot of the southern cliffs below.
+You can hear sand sliding softly in the distance. 
+What next? E
+
+You are on trackless desert south of a canyon.
+Sand is sliding nearby. 
+What next? E
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+A rushing noise is nearly upon you! 
+What next? E
+
+You are on a rocky outcrop overlooking the desert and the pyramid. A path leads down to the north into a chasm between the outcrop and its parent mountain.
+A gigantic worm rises from the sand, swallowing all in its path! Fortunately, you are safe on rocky ground. 
+What next? N
+
+You are in a sheltered wadi with oil seeping from the rocks.
+An ancient medallion lies on the ground.
+A silver ball is here.
+What next? DROP SLING
+
+OK. 
+What next? W
+
+You are in a sheltered east-west valley, protected from the burning sun by high rocky walls.
+What next? W
+
+You are in a dry canyon. Huge cliffs tower overhead and you can see an oasis to the south.
+What next? W
+
+You are in a dry east-west canyon with sheer rocky walls.
+A stone slab blocks the way north. 
+What next? SAY OPEN SESAME
+
+A cavern opens to the north. 
+What next? N
+
+You are in a looted treasure cave. It has been cleaned out completely and on one wall is written "Ali wuz here"!.
+The Sacred Sun-Dial is here.
+What next? GET SUNDIAL
+
+OK. 
+What next? S
+
+You are in a dry east-west canyon with sheer rocky walls.
+A cavern opens to the north. 
+What next? E
+
+You are in a dry canyon. Huge cliffs tower overhead and you can see an oasis to the south.
+What next? E
+
+You are in a sheltered east-west valley, protected from the burning sun by high rocky walls.
+You are very thirsty. 
+What next? E
+
+You are in a sheltered wadi with oil seeping from the rocks.
+An ancient medallion lies on the ground.
+A silver ball is here.
+A small sling is here.
+What next? S
+
+You are on a rocky outcrop overlooking the desert and the pyramid. A path leads down to the north into a chasm between the outcrop and its parent mountain.
+What next? W
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+What next? U
+
+You are on top of the pyramid outside a small temple.
+Poisonous snakes cover the pyramid. You can hear sand sliding softly in the distance. 
+What next? PLAY PIPES
+
+The pipes play oriental music. And the snakes dance away into holes. 
+What next? DROP PIPES
+
+OK. 
+What next? IN
+
+A priestess greets you: "I can help your quest if you return my sun-dial", she says, "It was stolen and hidden in a cave near the oasis. Without it I am powerless and dare not leave the temple!" 
+You are inside a small temple to the sun god on the pyramid. It is surrounded by stone pillars and has a large central altar, but is roofless of course.
+The priestess gives you a small ruby in exchange for the sun-dial. She vanishes, mouthing "Be careful!" You are very thirsty and will die without water. 
+What next? DRINK WATER
+
+That was just what you needed. 
+What next? OUT
+
+You are on top of the pyramid outside a small temple.
+Pan pipes lie on the ground.
+What next? D
+
+You are on trackless desert south of a canyon. A large flat-topped pyramid with steps on all sides rises from the desert, and to the east an outcrop of polished rock resists the shifting sands.
+You can hear sand sliding softly in the distance. 
+What next? E
+
+You are on a rocky outcrop overlooking the desert and the pyramid. A path leads down to the north into a chasm between the outcrop and its parent mountain.
+Sand is sliding nearby. 
+What next? N
+
+You are in a sheltered wadi with oil seeping from the rocks.
+An ancient medallion lies on the ground.
+A silver ball is here.
+A small sling is here.
+A rushing noise is nearly upon you! 
+What next? DROP BOTTLE
+
+OK. 
+What next? GET SLING AND BALL
+
+A sling: OK. 
+A small silver ball: OK. 
+What next? E
+
+You are where the wadi ends at a mountain. You could climb up.
+What next? U
+
+You are on the side of a mountain rising from the desert.
+What next? U
+
+You are on a stone staircase zig-zagging up the mountain.
+What next? U
+
+You are on a stone staircase up the mountain.
+What next? U
+
+You are on a wide stone staircase climbing up the mountain. A narrow uneven path joins it from the west and leads round the mountain.
+What next? W
+
+You are on an east-west track round the mountain.
+What next? W
+
+You are on a climbing path up the mountain.
+A giant sits in the middle of the path, blocking it. He is picking at the bones of some unfortunate creature. 
+What next? WAVE SLING
+
+OK. You swing the silver ball around in the sling and release it. The giant dodges and runs off: "Stay there, I'm just off to fetch my helmet", he booms. 
+What next? DROP SLING
+
+OK. 
+What next? U
+
+You are on a track up the mountain.
+What next? U
+
+You are on a sheep-track leading upwards.
+What next? U
+
+You are on a sheep-track looping back round the mountain.
+What next? U
+
+You are on stone steps some way above a stone tower. A narrow path joins the stairway from the west.
+The tower is surrounded by orcs. 
+What next? U
+
+You are on steps leading upwards.
+A pile of giant rocks lies beside the steps. 
+What next? U
+
+You are on a bleak rocky mountainside buffeted by cruel winds which whistle round the peak. A wide stone staircase leads down to the lower slopes.
+What next? U
+
+You are on a steep path through sparse vegetation hung with tatters of bleached lichen.
+What next? U
+
+You are standing on a snowfield outside a small dark mountain cave.
+An abominable snowman lurks nearby.
+The snowman is chained to the mountain. 
+What next? UNLOCK SNOWMAN
+
+The snowman is free and leaps about joyfully. 
+What next? DROP KEYS
+
+OK. 
+What next? GET SNOWMAN
+
+OK. 
+What next? D
+
+You are on a steep path through sparse vegetation hung with tatters of bleached lichen.
+What next? D
+
+You are on a bleak rocky mountainside buffeted by cruel winds which whistle round the peak. A wide stone staircase leads down to the lower slopes.
+What next? D
+
+You are on steps leading upwards.
+A pile of giant rocks lies beside the steps. 
+What next? PUSH ROCKS
+
+You aren't strong enough to move the rocks. But with the snowman's help they move! The orcs in the tower flee as the giant stones bounce towards them followed by the abominable snowman. Eventually the dust settles: the mountain seems to be deserted. 
+What next? D
+
+You are on stone steps some way above a stone tower. A narrow path joins the stairway from the west.
+What next? D
+
+You are outside the north door of the tower.
+What next? IN
+
+You are in the north tower room. Huge doors lead north and south.
+What next? S
+
+You are in the south tower room. A spiral staircase leads upwards and there are doors to south and east.
+What next? U
+
+You are on a tight spiral staircase up the inside of the tower.
+What next? U
+
+You are on a spiral staircase half-way up the tower.
+What next? U
+
+You are outside a small door. A foul smell seeps from behind it.
+What next? IN
+
+You are in a small gloomy room with an alcove in the north wall.
+A fearsome dark shape flies at you: claws and tentacles flail the air! 
+What next? THROW RUBY
+
+OK. The ruby explodes as it lands, destroying everything nearby in a ball of fire. 
+You are in a small gloomy room with an alcove in the north wall.
+What next? N
+
+You are in a tiny alcove at the back of a squalid room.
+An emerald eye is here.
+A small leather bag lies here.
+What next? GET EMERALD AND BAG
+
+An emerald eye: OK. 
+An inflated leather bag: OK. 
+What next? S
+
+You are in a small gloomy room with an alcove in the north wall.
+What next? OUT
+
+You are outside a small door. A foul smell seeps from behind it.
+What next? D
+
+You are on a spiral staircase half-way up the tower.
+What next? D
+
+You are on a tight spiral staircase up the inside of the tower.
+What next? D
+
+You are in the south tower room. A spiral staircase leads upwards and there are doors to south and east.
+What next? E
+
+You are in a small room used by the orc guards.
+There is a coil of rope here.
+What next? GET ROPE
+
+OK. 
+What next? W
+
+You are in the south tower room. A spiral staircase leads upwards and there are doors to south and east.
+What next? N
+
+You are in the north tower room. Huge doors lead north and south.
+What next? N
+
+You are outside the north door of the tower.
+What next? U
+
+You are on stone steps some way above a stone tower. A narrow path joins the stairway from the west.
+What next? U
+
+You are on steps leading upwards.
+What next? U
+
+You are on a bleak rocky mountainside buffeted by cruel winds which whistle round the peak. A wide stone staircase leads down to the lower slopes.
+What next? U
+
+You are on a steep path through sparse vegetation hung with tatters of bleached lichen.
+What next? U
+
+You are standing on a snowfield outside a small dark mountain cave.
+A bunch of keys is here.
+What next? DROP EMERALD AND ROPE
+
+An emerald eye: OK. 
+A coil of rope: OK. 
+What next? D
+
+You are on a steep path through sparse vegetation hung with tatters of bleached lichen.
+What next? D
+
+You are on a bleak rocky mountainside buffeted by cruel winds which whistle round the peak. A wide stone staircase leads down to the lower slopes.
+What next? D
+
+You are on steps leading upwards.
+What next? D
+
+You are on stone steps some way above a stone tower. A narrow path joins the stairway from the west.
+What next? D
+
+You are outside the north door of the tower.
+What next? IN
+
+You are in the north tower room. Huge doors lead north and south.
+What next? S
+
+You are in the south tower room. A spiral staircase leads upwards and there are doors to south and east.
+What next? S
+
+You are outside the south door of a stone tower which stands astride the stairway.
+What next? D
+
+You are on the stone staircase some distance below a stone tower. A body hangs from a gallows in warning and a notice reads, "KEEP AWAY OR YOU WILL DIE".
+What next? D
+
+You are on a wide stone staircase climbing up the mountain. A narrow uneven path joins it from the west and leads round the mountain.
+What next? D
+
+You are on a stone staircase up the mountain.
+What next? D
+
+You are on a stone staircase zig-zagging up the mountain.
+What next? D
+
+You are on the side of a mountain rising from the desert.
+What next? D
+
+You are where the wadi ends at a mountain. You could climb up.
+What next? W
+
+You are in a sheltered wadi with oil seeping from the rocks.
+An ancient medallion lies on the ground.
+A bottle lies nearby.
+What next? W
+
+You are in a sheltered east-west valley, protected from the burning sun by high rocky walls.
+What next? W
+
+You are in a dry canyon. Huge cliffs tower overhead and you can see an oasis to the south.
+What next? S
+
+You are at the north edge of an oasis.
+A Djinn stands before you, guarding the oasis to the south. 
+What next? OPEN BAG
+
+A blast of air roars from the bag. The Djinn is blown towards a nearby lamp. 
+What next? DROP BAG
+
+OK. 
+What next? S
+
+You are in an oasis beside a deep pool of cool water.
+An oriental lamp is here.
+What next? IN
+
+You are swimming in a clear desert pool.
+A trident is here.
+You are underwater. You cannot breathe! You are very thirsty. 
+What next? DRINK WATER
+
+That was just what you needed. 
+You are underwater. You cannot breathe! 
+What next? GET TRIDENT
+
+OK. 
+You are underwater. You cannot breathe! 
+What next? OUT
+
+You are in an oasis beside a deep pool of cool water.
+An oriental lamp is here.
+What next? GET LAMP
+
+OK. 
+What next? N
+
+You are at the north edge of an oasis.
+A small leather bag lies here.
+What next? N
+
+You are in a dry canyon. Huge cliffs tower overhead and you can see an oasis to the south.
+What next? E
+
+You are in a sheltered east-west valley, protected from the burning sun by high rocky walls.
+What next? E
+
+You are in a sheltered wadi with oil seeping from the rocks.
+An ancient medallion lies on the ground.
+A bottle lies nearby.
+What next? GET BOTTLE AND MEDALLION
+
+A bottle: OK. 
+The Talisman Amulet of Life: OK. 
+What next? FILL BOTTLE
+
+It is full of oil
+What next? E
+
+You are where the wadi ends at a mountain. You could climb up.
+What next? U
+
+You are on the side of a mountain rising from the desert.
+What next? U
+
+You are on a stone staircase zig-zagging up the mountain.
+What next? U
+
+You are on a stone staircase up the mountain.
+What next? U
+
+You are on a wide stone staircase climbing up the mountain. A narrow uneven path joins it from the west and leads round the mountain.
+What next? U
+
+You are on the stone staircase some distance below a stone tower. A body hangs from a gallows in warning and a notice reads, "KEEP AWAY OR YOU WILL DIE".
+What next? U
+
+You are outside the south door of a stone tower which stands astride the stairway.
+What next? IN
+
+You are in the south tower room. A spiral staircase leads upwards and there are doors to south and east.
+What next? N
+
+You are in the north tower room. Huge doors lead north and south.
+What next? N
+
+You are outside the north door of the tower.
+What next? U
+
+You are on stone steps some way above a stone tower. A narrow path joins the stairway from the west.
+What next? U
+
+You are on steps leading upwards.
+What next? U
+
+You are on a bleak rocky mountainside buffeted by cruel winds which whistle round the peak. A wide stone staircase leads down to the lower slopes.
+What next? U
+
+You are on a steep path through sparse vegetation hung with tatters of bleached lichen.
+What next? U
+
+You are standing on a snowfield outside a small dark mountain cave.
+A bunch of keys is here.
+An emerald eye is here.
+There is a coil of rope here.
+What next? DROP LAMP
+
+OK. 
+What next? IN
+
+It is dark, you cannot see. 
+What next? THROW ALL
+
+A three-pronged trident: OK. It lands with a splash in the distance. Water bubbles from the ground! 
+A bottle: OK. It lands with a splash in the distance. 
+The Talisman Amulet of Life: OK. It lands with a splash in the distance. 
+What next? OUT
+
+You are standing on a snowfield outside a small dark mountain cave.
+A bunch of keys is here.
+An emerald eye is here.
+An oriental lamp is here.
+There is a coil of rope here.
+What next? GET ALL
+
+A coil of rope: OK. 
+A little lamp: OK. 
+An emerald eye: OK. 
+A bunch of keys: OK. 
+What next? IN
+
+It is dark, you cannot see. 
+What next? LIGHT LAMP
+
+Your lamp is lit and shines brightly. 
+You are in a smelly cave: the sound of running water reverberates from the walls. A white dot is marked on the roof, and at the back of the cave is a sheer drop down into darkness.
+There is a small stalagmite near the edge. 
+What next? TIE ROPE
+
+You are in a smelly cave: the sound of running water reverberates from the walls. A white dot is marked on the roof, and at the back of the cave is a sheer drop down into darkness.
+A rope hangs down into the darkness below. 
+What next? OFF LAMP
+
+Your lamp is off. 
+It is dark, you cannot see. 
+What next? D
+
+You are on a ledge. It collapses, hurling you into a fast-flowing underground river! You are swept along helplessly.
+What next? DROP ALL
+
+A little lamp: OK. 
+You are in a raging torrent.
+An emerald eye: OK. 
+You are buffeted by the swift current.
+A bunch of keys: OK. 
+You are swept round a bend in the river.
+What next? U
+
+You are on a ledge along the side of a deep chasm, above a swift river.
+What next? E
+
+You are on a ledge above a series of rapids.
+A model of a lung-fish lies on the ground.
+What next? GET LUNGFISH
+
+OK. You cannot breathe! 
+What next? D
+
+You are tossed around by the rapids.
+You cannot breathe! You are swept over the rapids. 
+What next? WAIT
+
+You are in a quiet pool below the rapids and near a gravel beach.
+You are underwater. 
+What next? U
+
+You are on a small gravel beach to the south of a lake in a volcanic crater. You can see a door on the opposite shore, almost hidden in deep shadows.
+An ancient medallion lies on the ground.
+A bottle lies nearby. It is full of oil.
+A bunch of keys is here.
+An emerald eye is here.
+An oriental lamp is here.
+There is a fishing net here.
+A trident is here.
+You cannot breathe! 
+What next? DROP LUNGFISH
+
+OK. You cannot breathe! 
+What next? GET LAMP, BOTTLE AND NET
+
+A little lamp: OK. You cannot breathe! 
+A bottle: OK. You cannot breathe! 
+A fishing net: OK. You cannot breathe! 
+What next? D
+
+You are in a quiet pool below the rapids and near a gravel beach.
+You are underwater. 
+What next? N
+
+You are on the lake-bed. A huge clam is firmly rooted to the rocks.
+You are underwater. 
+What next? N
+
+You are on the lake bed.
+You are underwater. 
+What next? W
+
+You are safe in a thick mass of water weed.
+You are underwater. 
+What next? W
+
+You are in a drowned grave yard, outside a church. A ringing sound can be heard.
+You are underwater. 
+What next? W
+
+You are inside the drowned church. A slow ringing can be heard from the west, behind the pulpit.
+A luminous jelly-fish floats overhead.
+You are underwater. 
+What next? CATCH JELLYFISH
+
+OK. 
+You are underwater. 
+What next? E
+
+You are in a drowned grave yard, outside a church. A ringing sound can be heard.
+You are underwater. 
+What next? E
+
+You are safe in a thick mass of water weed.
+You are underwater. 
+What next? E
+
+You are on the lake bed.
+You are underwater. 
+What next? N
+
+You are on the lake bed above a deep dark trench.
+You are underwater. 
+What next? D
+
+You are at the east end of an underwater trench, outside a small cave. You think that there may be movement in the cave.
+You are underwater. 
+What next? W
+
+You are at the west end of an underwater trench. A swift current flows away through a small gap in the rocks.
+You are underwater. 
+What next? U
+
+You are in shallow water at the edge of the lake.
+You are underwater. 
+What next? DROP JELLYFISH
+
+OK. 
+You are underwater. 
+What next? U
+
+It is dark, you cannot see. You cannot breathe! 
+What next? DROP BOTTLE AND LAMP
+
+A bottle: OK. You cannot breathe! 
+A little lamp: OK. You cannot breathe! 
+What next? D
+
+You are in shallow water at the edge of the lake.
+A luminous jelly-fish floats overhead.
+You are underwater. 
+What next? CATCH JELLYFISH
+
+OK. 
+You are underwater. 
+What next? E
+
+You are on the lake bed above a deep dark trench.
+You are underwater. 
+What next? S
+
+You are in a drowned grave yard, outside a church. A ringing sound can be heard.
+You are underwater. 
+What next? E
+
+You are safe in a thick mass of water weed.
+You are underwater. 
+What next? S
+
+You are on the lake-bed. A huge clam is firmly rooted to the rocks.
+You are underwater. 
+What next? S
+
+You are in a quiet pool below the rapids and near a gravel beach.
+You are underwater. 
+What next? DROP JELLYFISH AND NET
+
+A luminous jelly-fish: OK. 
+You are underwater. 
+A fishing net: OK. 
+You are underwater. 
+What next? U
+
+You are on a small gravel beach to the south of a lake in a volcanic crater. You can see a door on the opposite shore, almost hidden in deep shadows.
+An ancient medallion lies on the ground.
+A bunch of keys is here.
+An emerald eye is here.
+A model of a lung-fish lies on the ground.
+A trident is here.
+You cannot breathe! 
+What next? GET KEYS, MEDALLION AND EYE
+
+A bunch of keys: OK. You cannot breathe! 
+The Talisman Amulet of Life: OK. You cannot breathe! 
+An emerald eye: OK. You cannot breathe! 
+What next? GET LUNGFISH
+
+OK. 
+What next? DROP IT
+
+OK. 
+What next? GET IT
+
+OK. You cannot breathe! 
+What next? D
+
+You are in a quiet pool below the rapids and near a gravel beach.
+A luminous jelly-fish floats overhead.
+There is a fishing net here.
+You are underwater. 
+What next? N
+
+You are on the lake-bed. A huge clam is firmly rooted to the rocks.
+You are underwater. 
+What next? N
+
+You are on the lake bed.
+You are underwater. 
+What next? W
+
+You are safe in a thick mass of water weed.
+You are underwater. 
+What next? N
+
+You are on the lake bed above a deep dark trench.
+You are underwater. 
+What next? D
+
+It is dark, you cannot see. 
+You are underwater. 
+What next? U
+
+You are in shallow water at the edge of the lake.
+You are underwater. 
+What next? DROP LUNGFISH
+
+OK. 
+You are underwater. 
+What next? GET IT
+
+OK. 
+You are underwater. You cannot breathe! 
+What next? DROP IT
+
+OK. 
+You are underwater. You cannot breathe! 
+What next? U
+
+It is dark, you cannot see. 
+What next? GET LAMP
+
+OK. 
+What next? LIGHT IT
+
+Your lamp is lit and shines brightly. 
+You are south of a huge door on the north shore of the crater lake. A host of carved stone heads glare at you from above the door, seeming to follow your every move. To the east is a second, smaller entrance, marked with a black dot.
+A bottle lies nearby. It is full of oil.
+The door is rusted solid. 
+What next? DROP TALISMAN
+
+OK. 
+What next? GET BOTTLE
+
+OK. 
+What next? OIL DOOR
+
+You oil the door and think that it might open now. 
+What next? UNLOCK IT
+
+The door swings open. 
+What next? DROP KEYS
+
+OK. 
+What next? N
+
+You are at the south of a magnificence cave with holes all around. A huge door stands open behind you.
+What next? N
+
+You are in the centre of a magnificent cave. A web-covered stalagmite reaches upwards towards the sculpted roof.
+An arrow lands nearby. 
+What next? N
+
+You are at the north of a magnificent cave with holes all around.
+An arrow lands nearby. 
+What next? N
+
+You are in a small dead-end room. An ancient statue of a warrior elf stands in the centre. One of his eyes is covered by a jewelled patch - the other is missing.
+What next? S
+
+You are at the north of a magnificent cave with holes all around.
+An arrow lands nearby. 
+What next? S
+
+You are in the centre of a magnificent cave. A web-covered stalagmite reaches upwards towards the sculpted roof.
+An arrow is fired. It gets you! A cry of triumph echoes round the hall "A head for my lord, Agaliarept!" 
+Oh dear! You got yourself killed. 
+Do you want to be resurrected? UNDO
+
+You are in a small dead-end room. An ancient statue of a warrior elf stands in the centre. One of his eyes is covered by a jewelled patch - the other is missing.
+What next? S
+
+You are at the north of a magnificent cave with holes all around.
+An arrow is fired. It gets you! A cry of triumph echoes round the hall "A head for my lord, Agaliarept!" 
+Oh dear! You got yourself killed. 
+Do you want to be resurrected? UNDO
+
+You are at the north of a magnificent cave with holes all around.
+An arrow lands nearby. 
+What next? N
+
+You are in a small dead-end room. An ancient statue of a warrior elf stands in the centre. One of his eyes is covered by a jewelled patch - the other is missing.
+What next? GIVE EYE TO STATUE
+
+The statue nods in thanks and gives you its rune-encrusted sword. It uses the eye to look around for a while and then hides it in one marble fist. 
+What next? S
+
+You are at the north of a magnificent cave with holes all around.
+An arrow lands nearby. 
+What next? S
+
+You are in the centre of a magnificent cave. A web-covered stalagmite reaches upwards towards the sculpted roof.
+An arrow lands nearby. 
+What next? U
+
+You are clinging to a web-covered stalagmite. The cavern floor is far below.
+What next? U
+
+You are in the middle of a huge web at the top of the stalagmite. A thick web walkway continues upwards.
+What next? U
+
+You are in the lair of a giant spider, surrounded by a maze of web strands.
+The Earth-Stone is here.
+What next? GET EARTHSTONE
+
+OK. An enormous spider leaps out as you reach for the stone! You fight it off with your sword but the Earth-Stone is lost! Far below, an orc snatches a small object and runs away south-west. 
+What next? D
+
+You are in the middle of a huge web at the top of the stalagmite. A thick web walkway continues upwards.
+What next? D
+
+You are clinging to a web-covered stalagmite. The cavern floor is far below.
+What next? D
+
+You are in the centre of a magnificent cave. A web-covered stalagmite reaches upwards towards the sculpted roof.
+An arrow lands nearby. 
+What next? S
+
+You are at the south of a magnificence cave with holes all around. A huge door stands open behind you.
+What next? W
+
+You are in a steeply-sloping east-west passage which winds upwards through the rock.
+What next? W
+
+You are at a junction between north-south and east-west passages.
+What next? N
+
+You are on a ledge clinging to the west wall of a huge cavern. The cavern floor is just visible, far below.
+An orc archer is crouched, peering down into the gloom. When he sees you he jumps up and runs north to his kin standing there. 
+What next? N
+
+You are on a ledge which clings to the west wall of a large cavern.
+A rope bridge spans the chasm from east to west. 
+What next? E
+
+You are at the entrance to an orc lair. Crude passages are hacked to east and south and an opening looks out over the east side of an immense cavern. The lair is unguarded.
+A rope bridge spans the chasm from east to west. 
+What next? S
+
+You are in a jagged north-south passage. The roof is supported by rotting tree-trunks. The noise of a celebration comes from an opening to the east.
+What next? S
+
+You are at the end of the passage: it is blocked by a cave-in. A narrow opening leads west.
+What next? W
+
+You are in a tiny store-room.
+The Earth-Stone is here.
+What next? GET EARTHSTONE
+
+OK. 
+What next? E
+
+You are at the end of the passage: it is blocked by a cave-in. A narrow opening leads west.
+What next? N
+
+You are in a jagged north-south passage. The roof is supported by rotting tree-trunks. The noise of a celebration comes from an opening to the east.
+What next? N
+
+You are at the entrance to an orc lair. Crude passages are hacked to east and south and an opening looks out over the east side of an immense cavern. The lair is unguarded.
+A rope bridge spans the chasm from east to west. 
+What next? W
+
+As you cross the bridge the alarm is raised! A host of orcs rush onto the bridge after you. 
+You are on a ledge which clings to the west wall of a large cavern.
+A rope bridge spans the chasm from east to west. The orcs are closing in. 
+What next? CUT BRIDGE
+
+You sever the rope bridge, preventing pursuit. 
+What next? S
+
+You are on a ledge clinging to the west wall of a huge cavern. The cavern floor is just visible, far below.
+What next? S
+
+You are at a junction between north-south and east-west passages.
+What next? E
+
+You are in a steeply-sloping east-west passage which winds upwards through the rock.
+What next? E
+
+You are at the south of a magnificence cave with holes all around. A huge door stands open behind you.
+What next? DROP SWORD
+
+OK. 
+What next? S
+
+You are south of a huge door on the north shore of the crater lake. A host of carved stone heads glare at you from above the door, seeming to follow your every move. To the east is a second, smaller entrance, marked with a black dot.
+An ancient medallion lies on the ground.
+A bunch of keys is here.
+What next? OFF LAMP
+
+Your lamp is off. 
+It is dark, you cannot see. 
+What next? DROP IT
+
+OK. 
+What next? GET MEDALLION
+
+OK. 
+What next? D
+
+You are in shallow water at the edge of the lake.
+A model of a lung-fish lies on the ground.
+You are underwater. You cannot breathe! 
+What next? D
+
+It is dark, you cannot see. 
+You are underwater. You cannot breathe! 
+What next? DROP MEDALLION AND EARTHSTONE
+
+The Talisman Amulet of Life: OK. The current sucks it down a hole! 
+You are underwater. You cannot breathe! 
+The Earth-Stone: OK. The current sucks it down a hole! 
+You are underwater. You cannot breathe! 
+What next? U
+
+You are in shallow water at the edge of the lake.
+A model of a lung-fish lies on the ground.
+You are underwater. You cannot breathe! 
+What next? U
+
+It is dark, you cannot see. 
+What next? D
+
+You are in shallow water at the edge of the lake.
+A model of a lung-fish lies on the ground.
+You are underwater. You cannot breathe! 
+What next? FILL BOTTLE
+
+It is full of water
+you are underwater. You cannot breathe! 
+What next? U
+
+It is dark, you cannot see. 
+What next? GET LAMP
+
+OK. 
+What next? LIGHT IT
+
+Your lamp is lit and shines brightly. 
+You are south of a huge door on the north shore of the crater lake. A host of carved stone heads glare at you from above the door, seeming to follow your every move. To the east is a second, smaller entrance, marked with a black dot.
+A bunch of keys is here.
+What next? N
+
+You are at the south of a magnificence cave with holes all around. A huge door stands open behind you.
+A fine sword is here.
+What next? GET SWORD
+
+OK. 
+What next? N
+
+You are in the centre of a magnificent cave. A web-covered stalagmite reaches upwards towards the sculpted roof.
+What next? N
+
+You are at the north of a magnificent cave with holes all around.
+What next? W
+
+You are in an east-west passage decorated with carvings.
+What next? W
+
+You are in a sloping corridor warmed by rising hot air.
+What next? W
+
+You are in a sloping corridor lit from the west by a weird flickering light. The floor and walls feel warm to the touch.
+What next? W
+
+You are in a round smooth cave with several exits.
+A dragon fills the cave! 
+What next? THROW BOTTLE
+
+OK. The dragon stretches and swallows it in one gulp! A belch of steam explodes from the dragon's mouth. It hiccups and backs away, coughing smoke. 
+What next? N
+
+You are in the dragon's lair. The floor is covered in gold coins but, sadly for you, the dragon's breath has fused them solid. "Why don't all dragons do this", you wonder.
+There is a bird's egg here.
+What next? GET EGG
+
+OK. 
+What next? S
+
+You are in a round smooth cave with several exits.
+What next? W
+
+You are in a cave overlooking a huge volcanic crater.
+What next? D
+
+You are on a ledge over the crater. A path spirals anticlockwise to a cave far below.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge over the crater. A path spirals anticlockwise to a cave far below.
+Fires leap from the crater to the west and east and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge over the crater. A path spirals anticlockwise to a cave far below.
+Fires leap from the crater to the northwest and southeast and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge over the crater. A path spirals anticlockwise to a cave far below.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? D
+
+You are on a ledge northeast of the crater.
+Fires leap from the crater to the west and east and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge northeast of the crater.
+Fires leap from the crater to the northwest and southeast and narrowly miss you! 
+What next? D
+
+You are on a ledge northwest of the crater.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge northwest of the crater.
+Fires leap from the crater to the west and east and narrowly miss you! 
+What next? D
+
+You are on a ledge west of the crater, opposite two caves on the far side. The path slopes up towards one cave and down to the other.
+Fires leap from the crater to the northwest and southeast and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge west of the crater, opposite two caves on the far side. The path slopes up towards one cave and down to the other.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? D
+
+You are on a ledge southwest of the crater.
+A cloak of insulation material lies nearby.
+Fires leap from the crater to the west and east and narrowly miss you! 
+What next? GET CLOAK
+
+OK. Fires leap from the crater to the northwest and southeast and narrowly miss you! 
+What next? D
+
+You are on a ledge southeast of the crater.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? WAIT
+
+You are on a ledge southeast of the crater.
+Fires leap from the crater to the west and east and narrowly miss you! 
+What next? D
+
+You are on a ledge east of the volcanic crater, beside a cave entrance. The heat from the bubbling lava just below is immense. A path slopes up clockwise to another cave high above.
+Fires leap from the crater to the northwest and southeast and narrowly miss you! 
+What next? E
+
+You are in a cave opening onto a volcanic crater. A huge hole almost fills the cave floor and a ramp spirals down into it. Warning runes are carved at the top of the ramp.
+Fires leap from the crater to the northeast and southwest and narrowly miss you! 
+What next? D
+
+You are on a spiral ramp at the top of Hell-Well. The walls of the well are inset with small niches containing small flickering lights.
+A sheet of living flame is attacking you. But the insulation cloak does its job. 
+What next? D
+
+You are on a spiral ramp half way up Hell-Well. The walls are inset with small niches containing trapped flames.
+A sheet of living flame is attacking you. But the insulation cloak does its job. 
+What next? D
+
+You are on a spiral ramp near the bottom of Hell-Well. The walls of the well are inset with small niches holding tiny flames.
+A sheet of living flame is attacking you. But the insulation cloak does its job. 
+What next? D
+
+You are standing on shattered rocks at the bottom of Hell-Well. A broken door leads west.
+A sheet of living flame is attacking you. But the insulation cloak does its job. 
+What next? W
+
+You are in a very hot passage. The floor is covered by hot coals to the west.
+What next? THROW CLOAK
+
+OK. The cloak covers the coals, shutting off their heat. 
+What next? W
+
+Fortunately your feet are protected. 
+You are at a crossing between passages. The floor is made up of red-hot coals.
+A cloak of insulation material lies nearby.
+What next? S
+
+You are in an ornate room decorated with symbols of infinity. A nest burns on a marble plinth in the centre of the room: yet it is not consumed, and neither does it give off any smoke or heat.
+What next? DROP EGG IN NEST
+
+OK. The egg falls into the nest which burns brighter, throwing up a pillar of sparks which rises to the ceiling. Then a shape seems to come together within the flames, getting ever clearer. A proud bird flies from the now-fading fire: the PHOENIX is born again! 
+What next? N
+
+Fortunately your feet are protected. 
+You are at a crossing between passages. The floor is made up of red-hot coals.
+A cloak of insulation material lies nearby.
+What next? W
+
+You are in a hot east-west corridor. To the east is a bed of glowing coals.
+What next? W
+
+You are on the east side of a bottomless chasm.
+A rock bridge spans the chasm. 
+What next? W
+
+You are on a narrow stone bridge poised over the chasm.
+What next? W
+
+You are on the west of the chasm. Steps lead up to an altar above you.
+A rock bridge spans the chasm. 
+What next? U
+
+Out of the shadows jumps a smelly old troll. He grabs you by the neck and bellows, "Er hang on mate. I've been told to make sure that yer game is legit. So yer'll, er, what was it? Oh that's it, yer've got to answer a question. I want yer to tell me, just one word from his Lordship's favourite book, "The Darkness Rises", by Peter McBride." What is the seventh word from the tenth paragraph of chapter 16."
+
+> WAIT
+
+The troll, looking somewhat uncomfortable, flicks slowly through his copy of the book. "Er, yep you got it right." The troll shambles away.
+You are standing by the altar.
+The Sun-Stone is here.
+What next? GET SUNSTONE
+
+OK. 
+What next? D
+
+You are on the west of the chasm. Steps lead up to an altar above you.
+A rock bridge spans the chasm. 
+What next? DROP LAMP
+
+OK. 
+What next? WAIT
+
+The stately phoenix perches nearby, watching you. 
+You are on the west of the chasm. Steps lead up to an altar above you.
+An oriental lamp is here.
+A rock bridge spans the chasm. 
+What next? E
+
+You are on a narrow stone bridge poised over the chasm.
+A Balrog stands astride the bridge, holding its whip of flames. You are trapped! 
+What next? HIT BRIDGE WITH SWORD
+
+You smite the bridge asunder and the Balrog plummets into the chasm. But its whip catches you even as it falls and you are dragged down. You fall for hours, it seems, but then a thick mist gently slows your speed...
+You are on a bleak moor.
+What next? W
+
+You are on a bleak moor overlooking a deep ravine.
+What next? N
+
+You are on a bleak moor.
+What next? N
+
+You are on a bleak moor south of a barrow-topped hill.
+What next? N
+
+You are on a hill-top outside a long barrow. The lintel over the door of the barrow is marked with a black dot. The hill is surrounded on three sides by sheer cliffs and from the other orcs are closing in.
+The Star-Stone is here.
+A cool brazier sits, glowing like a commercial.
+The orcs are closing in. 
+What next? GET BRAZIER AND STARSTONE
+
+A tiny brazier: OK. The brazier shrinks into a tiny ornament. The orcs are closing in. 
+The Star-Stone: OK. The orcs are closing in. You are severely chilled and must have warmth. 
+What next? JUMP
+
+You slide down a scree slope. The orcs daren't follow... 
+You are on a tiny ledge clinging to a steep cliff.
+You are severely chilled and must have warmth. 
+What next? DROP BRAZIER
+
+OK. The brazier expands, giving out a welcome warmth. 
+What next? GET IT
+
+OK. The brazier shrinks into a tiny ornament. 
+What next? S
+
+You are on a bleak moor between mists and a deep ravine.
+What next? S
+
+You are on a bleak moor above a deep ravine.
+What next? S
+
+You are on a bleak moor.
+What next? S
+
+You are on a bleak moor above swirling mists. A black tower rises above the fog to the south.
+What next? E
+
+You are on a bleak moor. A path leads down into a ravine.
+What next? D
+
+You are on a steep path in a deep ravine. A black tower rises above the fog to the south.
+What next? D
+
+You are on steps leading behind a waterfall. A dark tower shows to the south, briefly.
+What next? D
+
+You are on steps behind a waterfall. Water drips from every stone.
+What next? D
+
+You are on slippery steps behind falling mists.
+What next? D
+
+You are at the foot of a flight of steps leading upwards through the mist.
+What next? S
+
+You are on a north-south path winding through a dank marsh. Bubbles of gas pop round you.
+What next? S
+
+You are surrounded by a circle of thirteen standing stones on a small hill in the marsh. There is a dead silence.
+You are surrounded by cold shadowy ghosts which are feeding from your very life energy. 
+What next? THROW BRAZIER
+
+OK. The brazier expands, giving out a welcome warmth. The blast of heat banishes the shadows. 
+What next? E
+
+You are on a narrow east-west path between pools of stinking water.
+What next? E
+
+You are lost in the marsh. A light beckons in the east.
+What next? S
+
+You are on a north-south path through the marsh.
+What next? S
+
+You are on a path deep in the marsh.
+What next? S
+
+You are lost in the marsh.
+What next? W
+
+You are on an east-west causeway through the marsh.
+What next? W
+
+You are on an island outside the door of an ancient house. Lightning flashes, illuminating bats flying overhead, and gusts of wind rattle the flapping shutters.
+What next? IN
+
+You are in a ancient panelled entrance hall of a decaying house. Rats scurry behind the walls. There are doors to the south and back out.
+What next? S
+
+A cloaked figure stands at the back of the hall. It walks slowly forwards and then springs! 'Ugh! Garlic! I'm leaving!' The vampire flees. 
+You are in the main hall. Steps lead upwards.
+What next? U
+
+You are in a high room. A window looks out onto the marsh to the south, and you catch a glimpse of a huge black tower nearby.
+A pair of boots lies nearby.
+What next? DROP SUNSTONE
+
+OK. 
+What next? GET BOOTS
+
+OK. 
+What next? D
+
+You are in the main hall. Steps lead upwards.
+What next? N
+
+You are in a ancient panelled entrance hall of a decaying house. Rats scurry behind the walls. There are doors to the south and back out.
+A skeletal hand is gripping your leg and dragging you into the marsh! 
+What next? ATTACK HAND WITH SWORD
+
+You sever the hand which falls back into the marsh. A skeletal hand is gripping your leg and dragging you into the marsh! 
+What next? ATTACK HAND WITH SWORD
+
+You sever the hand which falls back into the marsh. 
+What next? OUT
+
+You are on an island outside the door of an ancient house. Lightning flashes, illuminating bats flying overhead, and gusts of wind rattle the flapping shutters.
+A skeletal hand is gripping your leg and dragging you into the marsh! 
+What next? ATTACK HAND WITH SWORD
+
+You sever the hand which falls back into the marsh. 
+What next? E
+
+You are on an east-west causeway through the marsh.
+What next? E
+
+You are lost in the marsh.
+What next? N
+
+You are on a path deep in the marsh.
+What next? N
+
+You are on a north-south path through the marsh.
+What next? N
+
+You are lost in the marsh. A light beckons in the east.
+What next? E
+
+You are lost in the marsh. A light flickers from the east.
+What next? E
+
+You are deep in the marsh. You can see a lantern in the east.
+What next? E
+
+You are deep in the marsh with no way out. Every way you look seems blocked by areas of quicksand. A Will o'Wisp dances overhead in triumph.
+The Mist-Stone is here.
+What next? GET MISTSTONE
+
+OK. 
+What next? W
+
+You are deep in the marsh. You can see a lantern in the east.
+What next? W
+
+You are lost in the marsh. A light flickers from the east.
+What next? S
+
+You are in deadly quicksand.
+What next? W
+
+You are lost in the marsh.
+What next? S
+
+You are lost in the marsh. A light beckons in the east.
+What next? S
+
+You are on a north-south path through the marsh.
+What next? S
+
+You are on a path deep in the marsh.
+What next? S
+
+You are lost in the marsh.
+What next? W
+
+You are on an east-west causeway through the marsh.
+What next? W
+
+You are on an island outside the door of an ancient house. Lightning flashes, illuminating bats flying overhead, and gusts of wind rattle the flapping shutters.
+What next? IN
+
+You are in a ancient panelled entrance hall of a decaying house. Rats scurry behind the walls. There are doors to the south and back out.
+What next? S
+
+You are in the main hall. Steps lead upwards.
+What next? U
+
+You are in a high room. A window looks out onto the marsh to the south, and you catch a glimpse of a huge black tower nearby.
+The Sun-Stone is here.
+What next? DROP SWORD
+
+OK. 
+What next? GET SUNSTONE
+
+OK. 
+What next? OUT
+
+You are on a small ledge south of a small door marked with a black dot. There is a window in the wall above.
+What next? S
+
+You are in deadly quicksand.
+The Earth-Stone is here.
+An ancient medallion lies on the ground.
+What next? S
+
+You are on a dark granite ramp at the foot of the black tower.
+What next? DROP STARSTONE AND MISTSTONE
+
+The Star-Stone: OK. 
+The Mist-Stone: OK. 
+What next? N
+
+You are in deadly quicksand.
+The Earth-Stone is here.
+An ancient medallion lies on the ground.
+What next? GET EARTHSTONE AND MEDALLION
+
+The Earth-Stone: OK. 
+The Talisman Amulet of Life: OK. 
+What next? S
+
+You are on a dark granite ramp at the foot of the black tower.
+The Mist-Stone is here.
+The Star-Stone is here.
+What next? DROP BOOTS
+
+OK. 
+What next? GET STARSTONE
+
+OK. 
+What next? U
+
+You are on a wide ramp up the side of the black tower.
+What next? U
+
+You are below the Door of Rock. A small opening in the door is just large enough to take one of the Stones.
+The door is locked. 
+What next? INSERT EARTHSTONE
+
+The door swings open. 
+What next? D
+
+You are on a wide ramp up the side of the black tower.
+What next? D
+
+You are on a dark granite ramp at the foot of the black tower.
+The Mist-Stone is here.
+A pair of boots lies nearby.
+What next? GET MISTSTONE
+
+OK. 
+What next? U
+
+You are on a wide ramp up the side of the black tower.
+What next? U
+
+You are below the Door of Rock. A small opening in the door is just large enough to take one of the Stones.
+What next? IN
+
+You are below the Door of Gold. A small opening in the door is just large enough to take one of the Stones.
+The door is locked. 
+What next? INSERT SUNSTONE
+
+The door swings open. 
+What next? IN
+
+You are below the Door of Silver. A small opening is just large enough to take one of the Stones.
+The door is locked. 
+What next? INSERT STARSTONE
+
+The door swings open. 
+What next? IN
+
+You are below the Door of Glass. You can see nothing behind the door. An opening is large enough for a Stone.
+The door is locked. 
+What next? INSERT MISTSTONE
+
+The door swings open. 
+What next? IN
+
+You are at the south of a magnificent throne-room.
+"Come in!", Sneers an evil voice, "I have watched your pitiful efforts against MY servants. Surely you did not expect to defeat ME!!". Dozens of orcs surround you and herd you north. 
+What next? WAVE MEDALLION
+
+OK. The Talisman shines with a clear blue light and you seem to hear triumphal music. The Demon shrieks in terror, struggles through the skins lining the north wall and is gone. 
+What next? N
+
+You are at a crossing of passages.
+What next? W
+
+You are in an east-west corridor.
+What next? W
+
+You are in an east-west passage by a narrow entrance to the north.
+Orcs block the way north. 
+What next? W
+
+You are at a crossover between passages.
+The orcs are closing in. 
+What next? S
+
+You are surrounded by doorways. To the east is a curtained alcove.
+The orcs are closing in. 
+What next? E
+
+The orcs run past and the sound of pursuit dies away. 
+You are hidden in a curtained alcove.
+What next? W
+
+You are surrounded by doorways. To the east is a curtained alcove.
+What next? N
+
+You are at a crossover between passages.
+What next? E
+
+You are in an east-west passage by a narrow entrance to the north.
+What next? N
+
+You are at an open doorway in a narrow north-south corridor.
+What next? N
+
+You are in a long dusty north-south passage.
+What next? N
+
+You are at the top of a stairway.
+What next? D
+
+You are on gloomy stairs leading downwards.
+What next? D
+
+You are at the south of the Pit. The Demon Lord AGALIAREPT crouches over a green Bane-fire in the middle of the room, shrieking curses.
+What next? N
+
+You are standing by the Bane-fire. But you can't get near enough to use the Amulet because of the evil radiance from the flames!.
+The Demon Lord freezes you with a look: "You will still fail!", He snarls, "No amulet can work so close to the centre of my power." But the PHOENIX dives at the fire, destroying it completely! The Demon Lord screams and implodes to nothing: your mission is successful!!
+ 
+You scored 6189 out of about 6000.
+Well done! You have defeated the Demon Lord with considerable style, bringing the tower crashing about His ears long before the army of orcs could start their final attack. All Valaii hails you "Grandmaster Adventurer". The Wizards' Council even rescue you from the collapsed tower and pay half your hospital bill. To get enough for the other half, I'm afraid you will have to complete the final Jewel of Darkness, "Dungeon Adventure", but for now, congratulations on your great achievement! 
+Which do you want to do, RESTART or RESTORE? glk script off
+

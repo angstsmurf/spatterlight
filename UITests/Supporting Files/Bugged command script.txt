@@ -1,0 +1,142 @@
+examine window
+ n
+ x table
+ x dent
+ push dent
+x drawer
+ x key
+ x apple
+ x flute
+take key
+ take apple
+ take flute
+take drawer
+ stand on table
+take table
+ take door
+ s
+empty table into me
+x torches
+ x chasm
+ x ladder
+ take ladder
+u
+ d
+ s
+ jump over chasm
+put door across chasm
+ s
+x suit
+ take suit
+ wear suit
+x door
+ take door
+x chesstable
+ x chessboard
+ x pieces
+ play chess
+ take chesstable
+x levers
+push fourth
+ push third
+ push second
+ push fifth
+ push first
+s
+x door
+ open door
+ take door
+ x dragon
+ take dragon
+ kill dragon
+x paintings
+ take paintings
+ xyzzy
+play chess
+s
+x princess
+ x clothes
+ x ornaments
+ x tiara
+ x ring
+take clothes
+x window
+ x door
+ open door
+ knock on door
+ take door
+ take hatch
+ask princess about princess
+ ask princess about castle
+ask princess about door
+ ask princess about apple
+ask princess about chess
+ ask princess about dragon
+ask princess about prison
+ ask princess about chasm
+ ask princess about suit
+take princess
+ knock on door
+ s
+x guards
+ x king
+ x throne
+ask princess about guards
+ ask princess about sceptre
+sw
+ask princess about ball
+ ask princess about garden
+x window
+ x walls
+ climb wall
+x fruit
+ eat fruit
+ take fruit
+ taste fruit
+ climb wall
+x bowl
+ take bowl
+ x sidetable
+ take sidetable
+u
+ take window
+ enter window
+x ball
+ take ball
+ x flowers
+ take flower
+x bushes
+ search bushes
+ x rope
+ take rope
+kick ball
+ kick ball at window
+ kick ball at window
+look
+ x sun
+ take sun
+ u
+x lamp
+ turn on lamp
+ turn off lamp
+s
+ask princess about lamp
+ take princess
+ n
+ nw
+x bone
+ take it
+ ask princess about bone
+ ask princess about rufus
+s
+ w
+x dog
+ x sceptre
+ x cobwebs
+ take cobwebs
+ take sceptre
+take dog
+ empty dog
+ take dog
+ empty dog into me
+e
