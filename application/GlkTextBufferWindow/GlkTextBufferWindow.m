@@ -1447,7 +1447,7 @@ replacementString:(id)repl {
     NSRect frame = self.frame;
     if (self.framePending)
         frame = self.pendingFrame;
-    CGFloat charwidth = [@"W" sizeWithAttributes:styles[style_Normal]].width;
+    CGFloat charwidth = [@"l" sizeWithAttributes:styles[style_Normal]].width;
     NSUInteger cols = (NSUInteger)round((frame.size.width -
                                          (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                         charwidth);
