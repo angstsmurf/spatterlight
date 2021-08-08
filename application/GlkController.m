@@ -3341,7 +3341,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow]  < -0.5) {
+                    if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow] < -0.5) {
                        [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
                         lastKeyTimestamp = [NSDate date];
                     }
@@ -3432,8 +3432,8 @@ fprintf(stderr, "%s\n",                                                    \
             [self handleAutosave:req->a2];
             break;
 
-            // This just kills the interpreter process and restarts it from scratch.
-            // Used if an autorestore fails.
+        // This just kills the interpreter process and restarts it from scratch.
+        // Used if an autorestore fails.
         case RESET:
             [self reset:nil];
             break;
