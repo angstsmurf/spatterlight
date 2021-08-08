@@ -534,17 +534,19 @@ void os_banner_size_to_contents(void *banner_handle)
 
     if (!banner || !banner->valid || !banner->win)
         return;
-#if 0
-//#ifdef SPATTERLIGHT
-   // if (banner->type == wintype_TextBuffer)
-    //{
-      //  winid_t win = banner->win;
-       // window_textbuffer_t *dwin = win->data;
-        //int size = dwin->scrollmax;
-        //if (dwin->numchars)
-          //  size ++;
-        //os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
-    //}
+//#if 0
+#ifdef SPATTERLIGHT
+    if (banner->type == wintype_TextBuffer)
+    {
+        winid_t win = banner->win;
+//        window_textbuffer_t *dwin = win->data;
+        float size = (win->bbox.y1 - win->bbox.y0 - gbuffermarginy) / gbufcellh;
+//        if (dwin->numchars)
+//            size ++;
+
+        if (size < 0) size = 0;
+        os_banner_set_size(banner, floor(size), OS_BANNER_SIZE_ABS, 0);
+    }
 #endif /* SPATTERLIGHT */
 }
 
