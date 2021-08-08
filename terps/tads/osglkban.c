@@ -243,23 +243,25 @@ void os_banner_styles_apply (osbanid_t banner)
     glk_stylehint_set(banner->type, style_Normal, stylehint_Proportional, propval);
     glk_stylehint_set(banner->type, style_User1, stylehint_Proportional, propval);
     glk_stylehint_set(banner->type, style_User2, stylehint_Proportional, propval);
+    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_Proportional, propval);
 
-    /* foreground color: user1 reverse, user2 custom */
+    /* foreground color: user1 reverse, user2 custom, blockquote same as background, i.e. invisible */
     glk_stylehint_set(banner->type, style_Alert, stylehint_TextColor, banner->fgcolor);
     glk_stylehint_set(banner->type, style_Subheader, stylehint_TextColor, banner->fgcolor);
     glk_stylehint_set(banner->type, style_Emphasized, stylehint_TextColor, banner->fgcolor);
     glk_stylehint_set(banner->type, style_Normal, stylehint_TextColor, banner->fgcolor);
     glk_stylehint_set(banner->type, style_User1, stylehint_TextColor, banner->bgcolor);
     glk_stylehint_set(banner->type, style_User2, stylehint_TextColor, banner->fgcustom);
+    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_TextColor, banner->bgcolor);
 
-    /* background color: user1 reverse, user2 custom */
+    /* background color: user1 reverse, user2 custom, blockquote same as background, i.e. invisible */
     glk_stylehint_set(banner->type, style_Alert, stylehint_BackColor, banner->bgcolor);
     glk_stylehint_set(banner->type, style_Subheader, stylehint_BackColor, banner->bgcolor);
     glk_stylehint_set(banner->type, style_Emphasized, stylehint_BackColor, banner->bgcolor);
     glk_stylehint_set(banner->type, style_Normal, stylehint_BackColor, banner->bgcolor);
     glk_stylehint_set(banner->type, style_User1, stylehint_BackColor, banner->fgcolor);
     glk_stylehint_set(banner->type, style_User2, stylehint_BackColor, bgcustom);
-
+    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_BackColor, banner->bgcolor);
 }
 
 void os_banner_styles_reset (void)
@@ -270,6 +272,7 @@ void os_banner_styles_reset (void)
     glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_Proportional);
     glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_Proportional);
     glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_Proportional);
+    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_Proportional);
 
     glk_stylehint_clear(wintype_AllTypes, style_Alert, stylehint_TextColor);
     glk_stylehint_clear(wintype_AllTypes, style_Subheader, stylehint_TextColor);
@@ -277,6 +280,7 @@ void os_banner_styles_reset (void)
     glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_TextColor);
     glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_TextColor);
     glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_TextColor);
+    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_TextColor);
 
     glk_stylehint_clear(wintype_AllTypes, style_Alert, stylehint_BackColor);
     glk_stylehint_clear(wintype_AllTypes, style_Subheader, stylehint_BackColor);
@@ -284,6 +288,7 @@ void os_banner_styles_reset (void)
     glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_BackColor);
     glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_BackColor);
     glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_BackColor);
+    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_BackColor);
 
 #ifdef SPATTERLIGHT
     /* reset our default colors with a superfluous hint */
@@ -734,6 +739,7 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
     glui32 reversed = 0;
     glui32 normal = 0;
     glui32 transparent = 0;
+    glui32 invisible = 0;
 
     /* evaluate parameters */
 
@@ -742,6 +748,10 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
         switch(fg)
         {
             case OS_COLOR_P_TEXTBG:
+                if (bg == OS_COLOR_P_TRANSPARENT) {
+                    invisible = 1;
+                    break;
+                }
             case OS_COLOR_P_STATUSBG:
                 reversed = 1;
                 break;
@@ -776,6 +786,8 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
         banner->style = style_Normal;
     else if (reversed)
         banner->style = style_User1;
+    else if (invisible)
+        banner->style = style_BlockQuote;
     else
         banner->style = style_User2;
 
