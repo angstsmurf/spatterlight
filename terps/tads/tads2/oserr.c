@@ -27,7 +27,7 @@ Modified
 
 osfildef *oserrop(const char *arg0)
 {
-    char  buf[128];
+    char  buf[256];
 
     if ( !os_locate("tadserr.msg", 11, arg0, buf, sizeof(buf)) )
         return((osfildef *)0);
