@@ -1280,12 +1280,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (_oneThemeForAll || _libcontroller.selectedGames.count == 0) {
             return NO;
         } else {
-            return YES;
+            for (Game *game in _libcontroller.selectedGames) {
+                if (game.theme != theme)
+                    return YES;
+            }
+            return NO;
         }
     }
 
-    if (action == @selector(selectUsingTheme:))
-        return (theme.games.count > 0);
+    if (action == @selector(selectUsingTheme:)) {
+        if (theme.games.count == 0)
+            return NO;
+        for (Game *game in theme.games) {
+            if ([_libcontroller.selectedGames indexOfObject:game] == NSNotFound)
+                return YES;
+        }
+        return NO;
+    }
 
     if (action == @selector(deleteUserThemes:)) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
