@@ -168,7 +168,7 @@
     defaultTheme.doStyles = YES;
     defaultTheme.smartQuotes = YES;
     defaultTheme.spaceFormat = TAG_SPACES_GAME;
-    defaultTheme.border = 10;
+    defaultTheme.border = 0;
     defaultTheme.bufferMarginX = 15;
     defaultTheme.bufferMarginY = 15;
     defaultTheme.gridMarginX = 5;
@@ -534,7 +534,7 @@
     dosTheme.doStyles = YES;
     dosTheme.smartQuotes = NO;
     dosTheme.spaceFormat = TAG_SPACES_GAME;
-    dosTheme.border = 0;
+    dosTheme.border = 20;
     dosTheme.bufferMarginX = 0;
     dosTheme.bufferMarginY = 0;
     dosTheme.gridMarginX = 0;
@@ -600,7 +600,7 @@
     dosBoxTheme.doStyles = YES;
     dosBoxTheme.smartQuotes = NO;
     dosBoxTheme.spaceFormat = TAG_SPACES_GAME;
-    dosBoxTheme.border = 0;
+    dosBoxTheme.border = 20;
     dosBoxTheme.bufferMarginX = 0;
     dosBoxTheme.bufferMarginY = 0;
     dosBoxTheme.gridMarginX = 0;
