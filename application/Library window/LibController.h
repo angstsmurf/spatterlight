@@ -61,7 +61,7 @@
 @property (strong) IBOutlet NSMenuItem *themesSubMenu;
 
 @property (strong) IBOutlet NSLayoutConstraint *leftViewConstraint;
-@property NSArray *selectedGames;
+@property NSArray<Game *> *selectedGames;
 
 - (void)beginImporting;
 - (void)endImporting;
