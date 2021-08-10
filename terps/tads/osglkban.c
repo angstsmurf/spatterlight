@@ -399,7 +399,7 @@ void banner_contents_display(contentid_t contents)
 
     if (contents->newline)
     {
-        char ch = '\n';
+        unsigned char ch = '\n';
         os_put_buffer((unsigned char *)&ch, 1);
     }
     
