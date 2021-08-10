@@ -177,12 +177,12 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview.accessibilityLabel = @"buffer scroll view";
 
         [self addSubview:scrollview];
+
+        if (self.glkctl.usesFont3)
+            [self createBeyondZorkStyle];
+        
+        underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
     }
-
-    if (self.glkctl.usesFont3)
-        [self createBeyondZorkStyle];
-
-    underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
 
     return self;
 }
