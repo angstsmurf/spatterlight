@@ -58,6 +58,4 @@
     return result;
 }
 
-/// Registers the transformer by calling `ValueTransformer.setValueTransformer(_:forName:)`.
-
 @end

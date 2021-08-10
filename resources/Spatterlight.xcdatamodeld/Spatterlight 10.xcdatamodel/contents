@@ -114,7 +114,7 @@
         <attribute name="bufferCellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="bufferMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="bufferMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="bufLinkColor" optional="YES" attributeType="Transformable"/>
+        <attribute name="bufLinkColor" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
         <attribute name="bufLinkStyle" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="bZAdjustment" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="bZTerminator" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -132,7 +132,7 @@
         <attribute name="editable" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="errorHandling" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="gridBackground" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
-        <attribute name="gridLinkColor" optional="YES" attributeType="Transformable"/>
+        <attribute name="gridLinkColor" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
         <attribute name="gridLinkStyle" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="gridMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="gridMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
