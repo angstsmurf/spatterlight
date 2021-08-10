@@ -466,7 +466,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 60, 22)];
     label.editable = NO;
-    label.stringValue = @"Format:";
+    label.stringValue = NSLocalizedString(@"Format:", nil);
     label.bordered = NO;
     label.bezeled = NO;
     label.drawsBackground = NO;
