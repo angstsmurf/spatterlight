@@ -1559,7 +1559,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeUnderlineLinks:(id)sender {
     NSInteger windowType = [_hyperlinksPopup selectedTag];
-    Theme *themeToChange = theme;
+    Theme *themeToChange;
     NSUnderlineStyle selectedStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
         case wintype_TextGrid:
