@@ -151,9 +151,9 @@ Ensure(ParameterArray, dontCrashOnCopyNullToNull) {
     copyParameterArray(NULL, NULL);
 }
 
-static bool syserrCalled = FALSE;
+static bool syserrCalled = false;
 static void syserrHandler(char *message) {
-    syserrCalled = TRUE;
+    syserrCalled = true;
 }
 
 /*----------------------------------------------------------------------*/
@@ -282,23 +282,15 @@ Ensure(ParameterArray, canCompactSparseArray)
 }
 
 /*----------------------------------------------------------------------*/
-xEnsure(ParameterArray, freesSubordinateParameterArrays) {
+Ensure(ParameterArray, freesSubordinateParameterArrays) {
     Parameter *parameter = newParameter(7);
-#ifndef __APPLE__
-    struct mallinfo mallocinfo;
-    size_t used = mallinfo().uordblks;
-#endif
-
     Parameter *parameterArray = newParameterArray();
     addParameterToParameterArray(parameterArray, parameter);
     parameterArray[0].candidates = newParameterArray();
 
     freeParameterArray(parameterArray);
 
-#ifndef __APPLE__
-    mallocinfo = mallinfo();
-    assert_that(mallocinfo.uordblks, is_equal_to(used));
-#endif
+    /* TODO: Find a way to ensure that everything has been deallocated... */
 }
 
 /*----------------------------------------------------------------------*/

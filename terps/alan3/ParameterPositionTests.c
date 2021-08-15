@@ -36,11 +36,11 @@ Ensure(ParameterPosition, canFindMultipleParameterPosition) {
     int i;
 
     for (i=0; i<10; i++) {
-        parameterPositions[i].endOfList = FALSE;
-        parameterPositions[i].explicitMultiple = FALSE;
+        parameterPositions[i].endOfList = false;
+        parameterPositions[i].explicitMultiple = false;
     }
-    parameterPositions[7].explicitMultiple = TRUE;
-    parameterPositions[9].endOfList = TRUE;
+    parameterPositions[7].explicitMultiple = true;
+    parameterPositions[9].endOfList = true;
 
     assert_equal(findMultipleParameterPosition(parameterPositions), 7);
 }
@@ -51,12 +51,12 @@ Ensure(ParameterPosition, copyParameterPositionsCopyTheWholeListIncludingTheEndM
     ParameterPosition original[2];
     ParameterPosition copy[2];
 
-    original[0].endOfList = FALSE;
-    original[0].all = TRUE;
-    original[0].explicitMultiple = FALSE;
-    original[1].endOfList = TRUE;
-    copy[0].endOfList = FALSE;
-    copy[1].endOfList = FALSE;
+    original[0].endOfList = false;
+    original[0].all = true;
+    original[0].explicitMultiple = false;
+    original[1].endOfList = true;
+    copy[0].endOfList = false;
+    copy[1].endOfList = false;
 
     copyParameterPositions(original, copy);
 
@@ -70,8 +70,8 @@ static ParameterPosition *givenAnyParameterPositionArrayOfLength(int length) {
     ParameterPosition *parameterPositionArray = allocate(sizeof(ParameterPosition)*(length+1));
     int i;
     for (i=0; i<length; i++)
-        parameterPositionArray[i].endOfList = FALSE;
-    parameterPositionArray[length].endOfList = TRUE;
+        parameterPositionArray[i].endOfList = false;
+    parameterPositionArray[length].endOfList = true;
     return parameterPositionArray;
 }
 
@@ -89,29 +89,15 @@ Ensure(ParameterPosition, parameterPositionsOfEqualLengthWithUnequalLengthParame
     ParameterPosition parameterPosition1[2];
     ParameterPosition parameterPosition2[2];
 
-    parameterPosition1[0].endOfList = FALSE;
+    parameterPosition1[0].endOfList = false;
     parameterPosition1[0].parameters = allocate(sizeof(Parameter)*5);
     setEndOfArray(&parameterPosition1[0].parameters[5-1]);
-    parameterPosition1[1].endOfList = TRUE;
+    parameterPosition1[1].endOfList = true;
 
-    parameterPosition2[0].endOfList = FALSE;
+    parameterPosition2[0].endOfList = false;
     parameterPosition2[0].parameters = allocate(sizeof(Parameter)*4);
     setEndOfArray(&parameterPosition2[0].parameters[4-1]);
-    parameterPosition2[1].endOfList = TRUE;
+    parameterPosition2[1].endOfList = true;
 
     assert_false(equalParameterPositions(parameterPosition1, parameterPosition2));
-}
-
-/*======================================================================*/
-TestSuite *parameterPositionTests(void)
-{
-    TestSuite *suite = create_test_suite();
-
-    add_test_with_context(suite, ParameterPosition, canUncheckAllParameterPositions);
-    add_test_with_context(suite, ParameterPosition, canFindMultipleParameterPosition);
-    add_test_with_context(suite, ParameterPosition, copyParameterPositionsCopyTheWholeListIncludingTheEndMarker);
-    add_test_with_context(suite, ParameterPosition, parameterPositionsOfUnequalLengthAreNotEqual);
-    add_test_with_context(suite, ParameterPosition, parameterPositionsOfEqualLengthWithUnequalLengthParametersAreNotEqual);
-
-    return suite;
 }

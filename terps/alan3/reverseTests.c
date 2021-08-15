@@ -45,10 +45,3 @@ Ensure(Reverse, reverseTableProhibitsTableElementsNotMultipleOfAword) {
 
     reverseTable(0, 4*sizeof(Aword)+1);
 }
-
-TestSuite *reverseTests()
-{
-  TestSuite *suite = create_test_suite();
-  add_test_with_context(suite, Reverse, canSeeIfReversalIsAlreadyDone);
-  return suite;
-}

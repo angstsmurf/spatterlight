@@ -4,33 +4,24 @@
 #define ACODEEXTENSION ".a3c"
 
 /* Basic types */
-#include <limits.h>
 #include <stddef.h>
 #include <stdint.h>
 
 typedef uint32_t Aptr;       /* Type for an ACODE pointer used in the structures */
-/* TODO: Here's the major 32->64bit problem: Aptrs are 32 bit to fit
-   into the 32-bit structure of the Amachine, but sometimes this is
-   used to store a *real* pointer value, which on 64-bit machines are
-   64bits. So for now we'll compile for 32bits to achieve complete
-   cross-platform compatibility of game files.
+/* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
+   but represents a *real* pointer value, which on 64-bit machines are
+   64bits. So an Aptr is a symbolic value for the actual address and
+   has to be translated through fromAptr() in memory.c
  */
 
 typedef uint32_t Aword;      /* Type for an ACODE word */
 typedef uint32_t Aaddr;      /* Type for an ACODE address in Amemory */
 typedef uint32_t Aid;        /* Type for an ACODE Instance Id value */
-typedef int32_t Abool;       /* Type for an ACODE Boolean value */
+typedef uint32_t Abool;      /* Type for an ACODE Boolean value */
+typedef uint32_t Aset;       /* Type for an ACODE Set value */
 typedef int32_t Aint;        /* Type for an ACODE Integer value */
-typedef int32_t Aset;        /* Type for an ACODE Set value */
 typedef int32_t CodeValue;   /* Definition for the packing process */
 
-
-#ifndef TRUE
-#define TRUE (0==0)
-#endif
-#ifndef FALSE
-#define FALSE (!TRUE)
-#endif
 
 /* Constants for the Acode file, words/block & bytes/block */
 #define BLOCKLEN 256L

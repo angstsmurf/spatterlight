@@ -28,13 +28,13 @@ Ensure(Stack, allocatesCorrectSpaceInNewFrame) {
 /*----------------------------------------------------------------------*/
 Ensure(Stack, testNewFrameInStack) {
     Aword previous_fp = theStack->framePointer;
-    
+
     /* Add a block with four local variables */
     newFrame(theStack, 4);
     assert_that(stackDepth(theStack), is_equal_to(1/*old fp*/ + 4/*Locals*/));
     assert_that(theStack->framePointer, is_equal_to(1));
     assert_that( getLocal(theStack, 0,1), is_equal_to(0));
-  
+
     setLocal(theStack, 0,1,14);
     assert_that(getLocal(theStack, 0,1), is_equal_to(14));
     assert_that(theStack->stack[theStack->stackp - 4], is_equal_to(14));
@@ -75,20 +75,4 @@ Ensure(Stack, testPushAndPop) {
   assert_equal(2, pop(myStack));
   assert_equal(1, pop(myStack));
   assert_equal(0, stackDepth(myStack));
-}
-
-
-TestSuite *stackTests()
-{
-    TestSuite *suite = create_test_suite();
-
-    set_setup(suite, setup);
-    set_teardown(suite, teardown);
-
-    add_test_with_context(suite, Stack, allocatesCorrectSpaceInNewFrame);
-    add_test_with_context(suite, Stack, testNewFrameInStack);
-    add_test_with_context(suite, Stack, testFrameInFrame);
-    add_test_with_context(suite, Stack, testPushAndPop);
-
-    return suite;
 }

@@ -46,3 +46,13 @@ Ensure(Memory, will_not_return_same_aptr_for_different_pointers) {
     }
 
 }
+
+Ensure(Memory, will_forget_aptr_for_deallocated_memory) {
+    void *allocated = allocate(5);
+    Aptr aptr = toAptr(allocated);
+
+    assert_that(fromAptr(aptr), is_equal_to(allocated));
+    deallocate(allocated);
+    expect(syserr);
+    fromAptr(aptr);
+}

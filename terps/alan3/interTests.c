@@ -4,7 +4,7 @@
 
 
 static void syserrHandler(char *message) {
-    assert_true_with_message(FALSE, "Unexpected call to syserr()");
+    assert_true_with_message(false, "Unexpected call to syserr()");
 }
 
 static Stack theStack;
@@ -26,19 +26,19 @@ AfterEach(Inter) {
 Ensure(Inter, testBlockInstructions)
 {
   Aword blockInstructionCode[] = {4, /* Dummy to not execute at zero */
-				  4,
-				  INSTRUCTION(I_FRAME),
-				  4,
-				  INSTRUCTION(I_RETURN)};
+                  4,
+                  INSTRUCTION(I_FRAME),
+                  4,
+                  INSTRUCTION(I_RETURN)};
   Aword localsInstructionCode[] = {4, /* Dummy to not execute at zero */
-				   33, /* Value */
-				   1, /* Local variable (starts at 1) */
-				   0, /* Number of blocks down */
-				   INSTRUCTION(I_SETLOCAL),
-				   1, /* Local variable (starts at 1) */
-				   0, /* Number of blocks down */
-				   INSTRUCTION(I_GETLOCAL),
-				   INSTRUCTION(I_RETURN)};
+                   33, /* Value */
+                   1, /* Local variable (starts at 1) */
+                   0, /* Number of blocks down */
+                   INSTRUCTION(I_SETLOCAL),
+                   1, /* Local variable (starts at 1) */
+                   0, /* Number of blocks down */
+                   INSTRUCTION(I_GETLOCAL),
+                   INSTRUCTION(I_RETURN)};
 
   memory = blockInstructionCode;
 
@@ -57,11 +57,11 @@ Ensure(Inter, testBlockInstructions)
 Ensure(Inter, testLoopInstruction)
 {
   Aword loopInstructionCode1[] = {4, /* Dummy to not execute at zero */
-				  43, /* Marker */
-				  12, /* Limit */
-				  1, /* Index */
-				  INSTRUCTION(I_LOOP),
-				  INSTRUCTION(I_RETURN)};
+                  43, /* Marker */
+                  12, /* Limit */
+                  1, /* Index */
+                  INSTRUCTION(I_LOOP),
+                  INSTRUCTION(I_RETURN)};
   memory = loopInstructionCode1;
   interpret(1);			/* Should not do anything */
   assert_true(pop(theStack) == 1 && pop(theStack) == 12); /* Index and limit untouched */
@@ -73,18 +73,18 @@ Ensure(Inter, testLoopInstruction)
 Ensure(Inter, testLoopEndInstruction)
 {
   Aword loopEndInstructionCode[] = {4, /* Dummy to not execute at zero */
-				  1,
-				  INSTRUCTION(I_FRAME),
-				  4, /* Marker on the stack */
-				  12, /* End value */
-				  9, /* Start value */
-				  INSTRUCTION(I_LOOP),
-				  INSTRUCTION(I_DUP),
-				  1,
-				  0,
-				  INSTRUCTION(I_SETLOCAL),
-				  INSTRUCTION(I_LOOPEND),
-				  INSTRUCTION(I_RETURN)};
+                  1,
+                  INSTRUCTION(I_FRAME),
+                  4, /* Marker on the stack */
+                  12, /* End value */
+                  9, /* Start value */
+                  INSTRUCTION(I_LOOP),
+                  INSTRUCTION(I_DUP),
+                  1,
+                  0,
+                  INSTRUCTION(I_SETLOCAL),
+                  INSTRUCTION(I_LOOPEND),
+                  INSTRUCTION(I_RETURN)};
   memory = loopEndInstructionCode;
   interpret(1);
   assert_true(getLocal(theStack, 0, 1) == 12);
@@ -95,15 +95,15 @@ Ensure(Inter, testLoopEndInstruction)
 /*----------------------------------------------------------------------*/
 Ensure(Inter, testGoToLoop) {
   Aword testGoToLoopCode[] = {0,
-			      INSTRUCTION(I_LOOP), /* 1 */
-			      4,
-			      INSTRUCTION(I_LOOP),
-			      4,
-			      INSTRUCTION(I_LOOPNEXT),
-			      INSTRUCTION(I_LOOPNEXT),
-			      INSTRUCTION(I_LOOPEND),
-			      5,
-			      INSTRUCTION(I_LOOPEND)}; /* 9 */
+                  INSTRUCTION(I_LOOP), /* 1 */
+                  4,
+                  INSTRUCTION(I_LOOP),
+                  4,
+                  INSTRUCTION(I_LOOPNEXT),
+                  INSTRUCTION(I_LOOPNEXT),
+                  INSTRUCTION(I_LOOPEND),
+                  5,
+                  INSTRUCTION(I_LOOPEND)}; /* 9 */
   memory = testGoToLoopCode;
   pc = 9;
   jumpBackToStartOfMatchingLOOP();
@@ -114,15 +114,15 @@ Ensure(Inter, testGoToLoop) {
 /*----------------------------------------------------------------------*/
 Ensure(Inter, testLoopNext) {
   Aword testLoopNextCode[] = {0,
-			      INSTRUCTION(I_LOOP),
-			      4, /* 2 */
-			      INSTRUCTION(I_LOOP),
-			      4,
-			      INSTRUCTION(I_LOOPNEXT),
-			      INSTRUCTION(I_LOOPNEXT),
-			      INSTRUCTION(I_LOOPEND),
-			      5,
-			      INSTRUCTION(I_LOOPEND)}; /* 9 */
+                  INSTRUCTION(I_LOOP),
+                  4, /* 2 */
+                  INSTRUCTION(I_LOOP),
+                  4,
+                  INSTRUCTION(I_LOOPNEXT),
+                  INSTRUCTION(I_LOOPNEXT),
+                  INSTRUCTION(I_LOOPEND),
+                  5,
+                  INSTRUCTION(I_LOOPEND)}; /* 9 */
   memory = testLoopNextCode;
   pc = 2;
   nextLoop();
@@ -134,8 +134,8 @@ Ensure(Inter, testLoopNext) {
 Ensure(Inter, testCountInstruction)
 {
   Aword testCountInstructionCode[] = {0,
-				      INSTRUCTION(I_COUNT), /* 7 */
-				      INSTRUCTION(I_RETURN)}; /* 8 */
+                      INSTRUCTION(I_COUNT), /* 7 */
+                      INSTRUCTION(I_RETURN)}; /* 8 */
   memory = testCountInstructionCode;
 
   /* Execute an I_COUNT */
@@ -152,8 +152,8 @@ Ensure(Inter, testCountInstruction)
 /*----------------------------------------------------------------------*/
 Ensure(Inter, testMaxInstruction) {
   Aword testMaxInstructionCode[] = {0,
-				    INSTRUCTION(I_MAX),
-				    INSTRUCTION(I_RETURN)};
+                    INSTRUCTION(I_MAX),
+                    INSTRUCTION(I_RETURN)};
 
   push(theStack, 3);			/* Previous aggregate value */
   push(theStack, 11);			/* Limit */
@@ -180,8 +180,8 @@ Ensure(Inter, testMaxInstruction) {
 /*----------------------------------------------------------------------*/
 Ensure(Inter, MaxInstanceForBeta3DoesDetractTheLiteralInstance) {
   Aword testMaxInstanceCode[] = {0,
-				 CURVAR(V_MAX_INSTANCE),
-				 INSTRUCTION(I_RETURN)};
+                 CURVAR(V_MAX_INSTANCE),
+                 INSTRUCTION(I_RETURN)};
   header->instanceMax = 12;
   memory = testMaxInstanceCode;
   interpret(1);
@@ -192,8 +192,8 @@ Ensure(Inter, MaxInstanceForBeta3DoesDetractTheLiteralInstance) {
 /*----------------------------------------------------------------------*/
 Ensure(Inter, MaxInstanceInstructionForPreBeta3ReturnsNumberOfInstances) {
   Aword testMaxInstanceCode[] = {0,
-				 CURVAR(V_MAX_INSTANCE),
-				 INSTRUCTION(I_RETURN)};
+                 CURVAR(V_MAX_INSTANCE),
+                 INSTRUCTION(I_RETURN)};
   header->instanceMax = 12;
   header->version[3] = 3;
   header->version[2] = 0;
@@ -202,23 +202,4 @@ Ensure(Inter, MaxInstanceInstructionForPreBeta3ReturnsNumberOfInstances) {
   memory = testMaxInstanceCode;
   interpret(1);
   assert_that(pop(theStack), is_equal_to(header->instanceMax));
-}
-
-
-/*----------------------------------------------------------------------*/
-TestSuite *interTests(void)
-{
-  TestSuite *suite = create_test_suite();
-
-  add_test_with_context(suite, Inter, testBlockInstructions);
-  add_test_with_context(suite, Inter, testGoToLoop);
-  add_test_with_context(suite, Inter, testLoopNext);
-  add_test_with_context(suite, Inter, testLoopInstruction);
-  add_test_with_context(suite, Inter, testLoopEndInstruction);
-  add_test_with_context(suite, Inter, testMaxInstruction);
-  add_test_with_context(suite, Inter, testCountInstruction);
-  add_test_with_context(suite, Inter, MaxInstanceInstructionForPreBeta3ReturnsNumberOfInstances);
-  add_test_with_context(suite, Inter, MaxInstanceForBeta3DoesDetractTheLiteralInstance);
-
-  return suite;
 }

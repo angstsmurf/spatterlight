@@ -160,7 +160,7 @@ Ensure(Exe, canGetString)
   char testString[] = "hejhopp";
 
   writeAndOpenGetStringTestFile(fpos, testString);
-  header->pack = FALSE;
+  header->pack = false;
   header->stringOffset = 0;
   assert_true(strcmp(getStringFromFile(fpos, strlen(testString)), testString)==0);
   header->stringOffset = 1;
@@ -191,9 +191,9 @@ jmp_buf syserrLabel;
 
 
 static void syserrHandler(char *message) {
-  syserrHandlerCalled = TRUE;
+  syserrHandlerCalled = true;
   printf("%s\n", message);
-  longjmp(syserrLabel, TRUE);
+  longjmp(syserrLabel, true);
 }
 
 
@@ -204,17 +204,17 @@ static void syserrHandler(char *message) {
 // compiler unit tests
 static int triedAndNoSyserrCaught() {
   setSyserrHandler(syserrHandler);
-  syserrHandlerCalled = FALSE;
+  syserrHandlerCalled = false;
   if (setjmp(syserrLabel) == 0)
-    return FALSE;
+    return false;
   else {
     assert_true(syserrHandlerCalled);
-    return TRUE;
+    return true;
   }
 }
 
 static void failAssertion(void) {
-	assert_true(FALSE);
+    assert_true(false);
 }
 
 /*----------------------------------------------------------------------*/
@@ -238,12 +238,12 @@ Ensure(Exe, syserrOnHereForIllegalId) {
   header->instanceMax = 1;
 
   if (triedAndNoSyserrCaught()) {
-    isHere(0, FALSE);
+    isHere(0, false);
     failAssertion();
   }
 
   if (triedAndNoSyserrCaught()) {
-    isHere(2, FALSE);
+    isHere(2, false);
     failAssertion();
   }
 }
@@ -324,8 +324,8 @@ Ensure(Exe, callingWhereReturnsExpectedValues) {
 Ensure(Exe, canGetMembersOfASet) {
   Set *set = newSet(0);
   Aword code[] = {0,	/* Dummy to not start at address 0 */
-		  INSTRUCTION(I_SETSIZE),
-		  INSTRUCTION(I_RETURN)};
+          INSTRUCTION(I_SETSIZE),
+          INSTRUCTION(I_RETURN)};
 
   Stack stack = createStack(50);
   setInterpreterStack(stack);
@@ -359,7 +359,7 @@ Ensure(Exe, canGetContainerSize) {
 
 /*----------------------------------------------------------------------*/
 Ensure(Exe, canGenerateRandomInOrderIfRegressionTestOption) {
-    regressionTestOption = TRUE;
+    regressionTestOption = true;
 
     /* Should generate next value within interval, if exceeded, restart */
     assert_that(randomInteger(0, 1), is_equal_to(0)); /* First value in range */

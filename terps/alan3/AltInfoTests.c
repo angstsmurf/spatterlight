@@ -30,10 +30,10 @@ Ensure(AltInfo, canDuplicateAltInfoArray) {
   int i;
 
   for (i = 0; i < COPYSIZE; i++) {
-	  original[i].instance = i;
-	  original[i].end = FALSE;
+      original[i].instance = i;
+      original[i].end = false;
   }
-  original[COPYSIZE].end = TRUE;
+  original[COPYSIZE].end = true;
 
   duplicate = duplicateAltInfoArray(original);
   for (i = 0; i < COPYSIZE; i++) {
@@ -52,8 +52,8 @@ Ensure(AltInfo, canFindLastAltInfoIndex) {
   int i;
 
   for (i = 0; i < SIZE; i++)
-    array[i].end = FALSE;
-  array[SIZE].end = TRUE;
+    array[i].end = false;
+  array[SIZE].end = true;
 
   assert_equal(lastAltInfoIndex(array), SIZE-1);
 }
@@ -65,8 +65,8 @@ Ensure(AltInfo, canFindNextFreeAltInfo) {
   int i;
 
   for (i = 0; i < SIZE; i++)
-    array[i].end = FALSE;
-  array[SIZE].end = TRUE;
+    array[i].end = false;
+  array[SIZE].end = true;
 
   assert_equal(nextFreeAltInfo(array), &array[SIZE]);
 }
@@ -80,7 +80,7 @@ AltEntry *finder(int verb, int parameterNumber, int theInstance, int theClass) {
 
 Ensure(AltInfo, canAddGlobalAlternatives) {
     AltInfo altInfos[10];
-    altInfos[0].end = TRUE;
+    altInfos[0].end = true;
 
     addGlobalAlternatives(altInfos, current.verb, &finder);
 
@@ -118,19 +118,4 @@ Ensure(AltInfo, findVerbEntryCanMatchNegativeVerbCode) {
     /* Meta verbs have negative codes in the entry, but since EOF is -1
      * a verb with code 1 has -2 in the entry */
     assert_that(findVerbEntry(2, entries), is_equal_to(&entries[1]));
-}
-
-
-TestSuite *altInfoTests() {
-  TestSuite *suite = create_test_suite();
-
-  add_test_with_context(suite, AltInfo, canPrimeAltInfo);
-  add_test_with_context(suite, AltInfo, canDuplicateAltInfoArray);
-  add_test_with_context(suite, AltInfo, canFindLastAltInfoIndex);
-  add_test_with_context(suite, AltInfo, canFindNextFreeAltInfo);
-  add_test_with_context(suite, AltInfo, canAddGlobalAlternatives);
-  add_test_with_context(suite, AltInfo, possibleIndicatesFalseOnEmptyAlternatives);
-  add_test_with_context(suite, AltInfo, canFindExistingVerbEntriesAndReturnsNullForOthers);
-
-  return suite;
 }

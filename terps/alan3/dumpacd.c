@@ -569,7 +569,7 @@ static void dumpStatements(Aword pc)
     Aword i;
     InstClass stm;
 
-    while(TRUE) {
+    while(true) {
         printf("\n0x%04lx (%ld):\t0x%08lx =\t ", (unsigned long)pc, (unsigned long)pc, (unsigned long)memory[pc]);
         if (pc > memTop)
             syserr("Dumping outside program memory.");
@@ -948,18 +948,18 @@ static SPA_DECLARE(arguments)
 
     static SPA_DECLARE(options)
     SPA_HELP("help", "this help", usage, xit)
-    SPA_FLAG("dictionary", "dump details on dictionary entries", dictionaryFlag, FALSE, NULL)
-    SPA_FLAG("classes", "dump details on class entries", classesFlag, FALSE, NULL)
+    SPA_FLAG("dictionary", "dump details on dictionary entries", dictionaryFlag, false, NULL)
+    SPA_FLAG("classes", "dump details on class entries", classesFlag, false, NULL)
     SPA_INTEGER("instance", "dump details on instance entry, use 0 for all", instanceFlag, -1, NULL)
-    SPA_FLAG("init", "dump string and set initialization tables", initFlag, FALSE, NULL)
-    SPA_FLAG("syntax", "dump details on syntax table entries", syntaxFlag, FALSE, NULL)
-    SPA_FLAG("parameter", "dump details on parameter mapping entries", parameterMapFlag, FALSE, NULL)
-    SPA_FLAG("verbs", "dump details on verb entries", verbsFlag, FALSE, NULL)
-    SPA_FLAG("events", "dump details on event entries", eventsFlag, FALSE, NULL)
-SPA_FLAG("containers", "dump details on container entries", containersFlag, FALSE, NULL)
-SPA_FLAG("messages", "dump details on messages entries", messagesFlag, FALSE, NULL)
-    SPA_FLAG("scripts", "dump details on script entries", scriptFlag, FALSE, NULL)
-SPA_FLAG("exits", "dump details on exits in any instance having exits", exitsFlag, FALSE, NULL)
+    SPA_FLAG("init", "dump string and set initialization tables", initFlag, false, NULL)
+    SPA_FLAG("syntax", "dump details on syntax table entries", syntaxFlag, false, NULL)
+    SPA_FLAG("parameter", "dump details on parameter mapping entries", parameterMapFlag, false, NULL)
+    SPA_FLAG("verbs", "dump details on verb entries", verbsFlag, false, NULL)
+    SPA_FLAG("events", "dump details on event entries", eventsFlag, false, NULL)
+SPA_FLAG("containers", "dump details on container entries", containersFlag, false, NULL)
+SPA_FLAG("messages", "dump details on messages entries", messagesFlag, false, NULL)
+    SPA_FLAG("scripts", "dump details on script entries", scriptFlag, false, NULL)
+SPA_FLAG("exits", "dump details on exits in any instance having exits", exitsFlag, false, NULL)
 SPA_INTEGER("statements <address>", "dump statement opcodes starting at <address>", statementsFlag, 0, NULL)
 SPA_END
 

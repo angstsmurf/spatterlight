@@ -11,10 +11,10 @@ BOOL CALLBACK AboutDialogProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM 
             {
                 case IDOK:
                     EndDialog(hwndDlg, wParam);
-                    return TRUE;
+                    return true;
             }
     }
-    return FALSE;
+    return false;
 }
 
 /* Entry point for all Glk applications */
