@@ -2,9 +2,7 @@
 #include <fcntl.h>
 
 #include "glkimp.h"
-
-extern char gli_workdir[];
-
+#include "fileref.h"
 
 static int loadimage(int image)
 {
@@ -20,9 +18,10 @@ static int loadimage(int image)
 
     if (!giblorb_is_resource_map())
     {
-        sprintf(filename, "%s/PIC%d", gli_workdir, image);
+        getworkdir();
+        sprintf(filename, "%s/PIC%d", workingdir, image);
         
-        fprintf(stderr, "loadimage %s\n", filename);
+        fprintf(stderr, "loadimage %s in %s\n", filename, workingdir);
         
         file = fopen(filename, "rb");
         if (!file)
