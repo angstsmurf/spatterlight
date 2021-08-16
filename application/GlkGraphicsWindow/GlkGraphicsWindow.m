@@ -185,7 +185,7 @@
         NSInteger pw = bitmap.pixelsWide;
         NSInteger ph = bitmap.pixelsHigh;
 
-        memset(pd, 0x00, ps * ph);
+        memset(pd, 0x00, (unsigned long)(ps * ph));
 
         for (i = 0; i < count; i++) {
             unsigned char ca = 0xff; //((rects[i].color >> 24) & 0xff);
