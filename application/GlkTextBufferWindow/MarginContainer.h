@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarginContainer : NSTextContainer <NSSecureCoding>
 
-@property NSMutableArray *marginImages;
+@property NSMutableArray<MarginImage *> *marginImages;
 
 - (id)initWithContainerSize:(NSSize)size;
 - (void)clearImages;

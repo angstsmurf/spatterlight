@@ -13,7 +13,7 @@
 #include "glk.h"
 
 @interface MarginContainer () <NSSecureCoding> {
-    NSMutableArray *flowbreaks;
+    NSMutableArray<FlowBreak *> *flowbreaks;
 }
 @end
 
@@ -124,8 +124,11 @@
             // I'm not quite sure why, but this prevents the flowbreaks from
             // jumping to incorrect positions when resizing the window
             for (f in flowbreaks)
-                if (f.pos > image.pos)
+                if (f.pos > image.pos) {
+                    if (f.pos - image.pos > 1000)
+                        break;
                     [f boundsWithLayout:self.layoutManager];
+                }
 
             bounds = [image boundsWithLayout:self.layoutManager];
 
@@ -198,6 +201,10 @@
 
     NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
     while (f = [breakenumerator nextObject]) {
+        if (_marginImages.count == 1) {
+            if (f.pos - _marginImages.firstObject.pos > 1000)
+                continue;
+        }
         flowrect = [f boundsWithLayout:self.layoutManager];
 
         if (NSIntersectsRect(flowrect, rect)) {
