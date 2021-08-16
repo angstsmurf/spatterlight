@@ -586,20 +586,21 @@ fprintf(stderr, "%s\n",                                                    \
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.toValue = [NSNumber numberWithFloat:0.5];
     fadeInAnimation.additive = NO;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.beginTime = 0.0;
-    fadeInAnimation.duration = .3;
+    fadeInAnimation.duration = 0.3;
+    fadeInAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     fadeInAnimation.fillMode = kCAFillModeForwards;
 
-    [rowLayer addAnimation:fadeInAnimation forKey:nil];
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.3;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         [[localSnapshot animator] setFrame:targetFrame display:YES];
+        [rowLayer addAnimation:fadeInAnimation forKey:nil];
     }
      completionHandler:^{
         self.inAnimation = NO;
