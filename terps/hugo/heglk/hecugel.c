@@ -1558,7 +1558,8 @@ void heglk_adjust_guilty_bastards_windows(void)
         heglk_sizeifexists(mainwin);
     }
 
-glk_window_set_background_color(wins[guilty_bastards_graphics_win].win, hugo_color(wins[guilty_bastards_graphics_win].bg));
+    if (wins[guilty_bastards_graphics_win].win)
+        glk_window_set_background_color(wins[guilty_bastards_graphics_win].win, hugo_color(wins[guilty_bastards_graphics_win].bg));
 
     heglk_sizeifexists(guilty_bastards_graphics_win);
     heglk_sizeifexists(guilty_bastards_aux_win);
