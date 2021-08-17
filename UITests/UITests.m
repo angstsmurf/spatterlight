@@ -171,14 +171,14 @@
     [app.checkBoxes[@"Determinism"] click];
 
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierControl];
+    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 }
 
 - (void)openCommandScript:(NSString *)name {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElementQuery *menuBarsQuery = app.menuBars;
     [menuBarsQuery.menuBarItems[@"File"] click];
-    [menuBarsQuery.menuItems[@"Open Game…"] click];
+    [menuBarsQuery.menuItems[@"Open…"] click];
     name = [NSString stringWithFormat:@"%@ command script", name];
 
     NSURL *url = [testBundle URLForResource:name
@@ -304,7 +304,7 @@
         fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     }
     [fileMenuBarItem click];
-    [menuBarsQuery.menuItems[@"Open Game…"] click];
+    [menuBarsQuery.menuItems[@"Open…"] click];
     XCUIElement *openDialog = app.dialogs.firstMatch;
     XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
@@ -368,7 +368,7 @@
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     [fileMenuBarItem click];
-    [menuBarsQuery.menuItems[@"Open Game…"] click];
+    [menuBarsQuery.menuItems[@"Open…"] click];
     XCUIElement *openDialog = app.dialogs.firstMatch;
     XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
@@ -830,9 +830,6 @@
 
     [UITests turnOnDeterminism:@"Zoom"];
 
-    // Reset any autorestored game running
-    [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
-
     // Wait for initial text to show
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'The Elysium Enigma by Eric Eve; version 2.03 (2007-03-05)'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
@@ -979,7 +976,6 @@
     XCUIElement *gameWindow = app.windows[@"Guilty Bastards"];
 
     [UITests turnOnDeterminism:@"Default"];
-
     [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:1];
@@ -1023,7 +1019,6 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"DOSBox"];
-    [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     [self openCommandScript:@"The Sound of One Hand Clapping"];
 
@@ -1175,7 +1170,6 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
-    [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     [app typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [app typeKey:@" " modifierFlags:XCUIKeyModifierNone];
@@ -1494,7 +1488,7 @@
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     [fileMenuBarItem click];
-    [menuBarsQuery.menuItems[@"Open Game…"] click];
+    [menuBarsQuery.menuItems[@"Open…"] click];
     XCUIElement *openDialog = app.dialogs.firstMatch;
     XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
