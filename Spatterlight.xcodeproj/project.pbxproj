@@ -2521,7 +2521,7 @@
 		96A9BA2B0A064C9C001B5B9B /* adrift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adrift.c; sourceTree = "<group>"; };
 		96A9BA2C0A064C9C001B5B9B /* advsys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = advsys.c; sourceTree = "<group>"; };
 		96A9BA2D0A064C9C001B5B9B /* agt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = agt.c; sourceTree = "<group>"; };
-		96A9BA2E0A064C9C001B5B9B /* alan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alan.c; sourceTree = "<group>"; };
+		96A9BA2E0A064C9C001B5B9B /* alan.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = alan.c; sourceTree = "<group>"; tabWidth = 2; };
 		96A9BA300A064C9C001B5B9B /* babel-get.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "babel-get.c"; sourceTree = "<group>"; };
 		96A9BA310A064C9C001B5B9B /* get_dir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = get_dir.c; sourceTree = "<group>"; };
 		96A9BA320A064C9C001B5B9B /* get_ifiction.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = get_ifiction.c; sourceTree = "<group>"; };
