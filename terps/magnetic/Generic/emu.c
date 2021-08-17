@@ -359,6 +359,10 @@ FILE *dbg_log;
 type32 read_reg(int, int);
 void write_reg(int, int, type32);
 
+#if defined (SPATTERLIGHT)
+type32 spatterlight_rseed(type32 seed);
+#endif
+
 #define MAX_STRING_SIZE  0xFF00
 #define MAX_PICTURE_SIZE 0xC800
 #define MAX_MUSIC_SIZE   0x4E20
@@ -444,7 +448,7 @@ type16 read_w2(type8 * ptr)
 
 void ms_seed(type32 seed)
 {
-#if !defined(SPATTERLIGHT)
+#if defined(SPATTERLIGHT)
     rseed = spatterlight_rseed(seed);
 #else
 	rseed = seed;
