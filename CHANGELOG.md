@@ -1,14 +1,21 @@
 # Change log
 
 ## Unreleased
-- Fixed some paragraph settings not getting properly updated
+- Some paragraph settings were not being properly updated in Preferences panel
 - Adjusted limits of many paragraph settings
-- Paragraph settings will scale along with text when zooming in or out
-- Fixes to Automap theme. This may require rebuilding themes after upgrading
+- Paragraph settings will scale along with text size when zooming in or out
+- Adjustments to Automap theme. This may require rebuilding themes after upgrading
+- Border adjustments in some of the built-in themes
 - Hyperlink underline setting was not working in buffer windows
 - Hyperlink underline setting in grid windows was not working when starting a new game
-- Top of main window was covered by status bar in Curses when showing quote box. This was only apparent when displaying a Find bar
-- 
+- The top of the main window was covered by the status bar in Curses when showing a quote box. This was only visible when displaying a Find bar
+- Determinism is working properly in Tads 3 and Magnetic Scrolls
+- Improved performance in Alan 3. The Wyldkynd Project now has playable speed and can be resized without beachballing
+- The SCRIPT command works as intended in Alan 3
+- All Alan 3 games are recognized and playable
+- Tads 3 status bars have correct width and height
+- Characters in Tads 3 menus are now invisible when they should be
+- Apply Theme context menu item shows which themes the selected games uses
 
 ## Release 0.8.5
 - New [Automap](https://intfiction.org/t/unicode-characters-in-textgrid-windows/51825) theme.
