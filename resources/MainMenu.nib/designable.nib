@@ -70,7 +70,7 @@
                 <menuItem title="File" id="250">
                     <menu key="submenu" title="File" id="251">
                         <items>
-                            <menuItem title="Open Game…" keyEquivalent="o" id="252">
+                            <menuItem title="Open…" keyEquivalent="o" id="252">
                                 <connections>
                                     <action selector="openDocument:" target="-1" id="254"/>
                                 </connections>
