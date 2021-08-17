@@ -1423,8 +1423,8 @@ replacementString:(id)repl {
 - (void)showInsertionPoint {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
-        if (textstorage.length) {
-            if (fence < textstorage.length && fence > 0)
+        if (textstorage.length && [color isEqualToColor:_textview.backgroundColor]) {
+            if (fence <= textstorage.length && fence > 0)
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:fence - 1 effectiveRange:nil];
             else
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil];
