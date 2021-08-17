@@ -122,12 +122,24 @@ static int32 claim_story_file(void *story_file, int32 extent_in_bytes)
       return VALID_STORY_FILE_RV;
     }
   else
-    { /* Identify Alan 3 */
-      size_in_awords=read_alan_int_at(sf+3*4); /* hdr.size @ 3 */
-
-      if (!crc_is_correct(sf, size_in_awords))
-        return INVALID_STORY_FILE_RV;
-
-      return VALID_STORY_FILE_RV;
+  { /* Identify Alan 3 */
+    size_in_awords=read_alan_int_at(sf+3*4); /* hdr.size @ 3 */
+    
+    if (!crc_is_correct(sf, size_in_awords))
+    {
+      switch (read_alan_int_at(sf+152))
+      {
+        case 12828: /* Enter The Dark */
+        case 33523: /* A Very Hairy Fish-Mess */
+        case 18143: /* The Ngah Angah School of Forbidden Wisdom */
+        case 43630: /* Room 206 */
+        case 30038: /* IN-D-I-GO SOUL */
+        case 16387: /* The Christmas Party */
+        case 100603: /* Waldo’s Pie */
+          return VALID_STORY_FILE_RV;
+        default:
+          fprintf(stderr, "Detected crc: %d\n", read_alan_int_at(sf+152));
+          return INVALID_STORY_FILE_RV;
+      }
     }
 }
