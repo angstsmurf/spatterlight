@@ -1,13 +1,14 @@
 # Change log
 
-## Unreleased
+## Release 0.8.6
 - Some paragraph settings were not being properly updated in the Preferences panel
 - Adjusted the limits of many paragraph settings
 - The paragraph settings will scale along with text size when zooming in or out
-- Adjustments to the Automap theme. This may require rebuilding themes after upgrading
+- Adjustments to the Automap theme. This may require rebuilding default themes after upgrading
 - Border adjustments in some of the built-in themes
 - Hyperlink underline setting was not working in buffer windows
 - Hyperlink underline setting in grid windows was not working when starting a new game
+- Improved calculation of character height and status window height
 - The top of the main window was covered by the status bar in Curses when showing a quote box. This was visible when the main window had a Find bar
 - Determinism is working properly in Tads 3 and Magnetic Scrolls
 - Improved performance in Alan 3. The Wyldkynd Project now has playable speed and can be resized without beachballing
