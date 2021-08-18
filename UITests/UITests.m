@@ -88,7 +88,34 @@
 }
 
 + (NSString *)transcriptFromFile:(NSString *)fileName {
+     NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
+
+    url = [url URLByAppendingPathComponent:fileName];
+
     NSError *error = nil;
+    NSString *comparison = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    return comparison;
+}
+
++ (NSAttributedString *)attributedTranscriptFromFile:(NSString *)fileName {
+    NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
+
+    url = [url URLByAppendingPathComponent:fileName];
+
+    NSError *error = nil;
+    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    return comparison;
+}
+
++ (NSURL *)transcriptWithFormat:(NSString *)format {
 
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElementQuery *menuBarsQuery = app.menuBars;
@@ -110,13 +137,13 @@
     XCUIElement *popUp;
     for (NSString *popupTitle in menuItemTitles) {
         popUp = savePanel.popUpButtons[popupTitle];
-        if ([popUp waitForExistenceWithTimeout:5]) {
+        if ([popUp waitForExistenceWithTimeout:2]) {
             break;
         }
     }
     [popUp click];
 
-    [popUp.menuItems[@"Plain Text"] click];
+    [popUp.menuItems[format] click];
     XCUIElement *saveButton = savePanel.buttons[@"Save"];
     [saveButton click];
 
@@ -125,16 +152,7 @@
         [alert.buttons[@"Replace"] click];
     }
 
-    url = [url URLByAppendingPathComponent:fileName];
-
-    error = nil;
-
-    NSString *comparison = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    return comparison;
+    return url;
 }
 
 + (NSURL *)saveTranscriptInWindow:(XCUIElement *)gameWin {
@@ -158,6 +176,13 @@
 }
 
 + (void)turnOnDeterminism:(nullable NSString *)theme {
+    [UITests selectTheme:theme];
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
+}
+
++ (void)selectTheme:(nullable NSString *)theme {
     if (!theme.length)
         theme = @"Default";
     XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -166,12 +191,6 @@
     if (themesTab.exists)
         [themesTab click];
     [app.tables.staticTexts[theme] click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app.checkBoxes[@"Animate scrolling"] click];
-    [app.checkBoxes[@"Determinism"] click];
-
-    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 }
 
 - (void)openCommandScript:(NSString *)name {
@@ -730,6 +749,12 @@
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
+    XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
+    if ([alertSheet waitForExistenceWithTimeout:2]) {
+        [alertSheet.checkBoxes[@"Remember this choice."] click];
+        [alertSheet.buttons[@"Continue"] click];
+    }
+
     [app/*@START_MENU_TOKEN@*/.windows[@"library"].tables[@"Games"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]",".windows[@\"library\"]"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
     XCUIElement *themesTab = app.tabs[@"Themes"];
     if (themesTab.exists)
@@ -976,10 +1001,18 @@
     XCUIElement *gameWindow = app.windows[@"Guilty Bastards"];
 
     [UITests turnOnDeterminism:@"Default"];
+
+    [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:1];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    // Wait for initial text to show
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'Guilty Bastards'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+
+    [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeText:@"script\r"];
 
@@ -991,8 +1024,8 @@
 
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:08 p.m.'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
+    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:08 p.m.'"];
+    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
     [self waitForExpectations:@[expectation] timeout:80];
 
     NSError *error = nil;
@@ -1048,6 +1081,12 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    // Wait for initial text to show
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'or <other> to start the game'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+
+    [self waitForExpectations:@[expectation] timeout:5];
+
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"glk script on\r"];
@@ -1060,8 +1099,8 @@
 
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Moves: 654'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
+    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Moves: 654'"];
+    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
     [self waitForExpectations:@[expectation] timeout:80];
 
     [textView typeText:@"glk script off\r"];
@@ -1206,6 +1245,107 @@
 
     XCTAssert([transcript isEqualToString:facit]);
 }
+
+- (void)testCzech {
+    XCUIElement *textField = [self addAndSelectGame:@"czech.z5"];
+
+    [textField doubleClick];
+
+    [UITests selectTheme:@"Default"];
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
+
+    NSURL *url = [testBundle URLForResource:@"Transcript of CZECH"
+                              withExtension:@"rtf"
+                               subdirectory:nil];
+
+    NSError *error = nil;
+    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"czech.z5 (finished).rtf"];
+
+    error = nil;
+    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([comparison isEqual:facit]);
+}
+
+- (void)testPraxix {
+    XCUIElement *textField = [self addAndSelectGame:@"praxix.z5"];
+
+    [textField doubleClick];
+
+    [UITests selectTheme:@"Default"];
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
+
+    XCUIElement *gameWindow = app.windows[@"praxix.z5"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    [textView typeText:@"all\n"];
+
+    NSURL *url = [testBundle URLForResource:@"Transcript of Praxix"
+                              withExtension:@"rtf"
+                               subdirectory:nil];
+
+    NSError *error = nil;
+    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"praxix.rtf"];
+
+    error = nil;
+    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([comparison isEqual:facit]);
+}
+
+- (void)testTerpEtude {
+    XCUIElement *textField = [self addAndSelectGame:@"etude.z5"];
+
+    [textField doubleClick];
+
+    [UITests selectTheme:@"Default"];
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
+    [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
+
+    [self openCommandScript:@"TerpEtude"];
+
+    NSURL *url = [testBundle URLForResource:@"Transcript of TerpEtude"
+                              withExtension:@"rtf"
+                               subdirectory:nil];
+
+    NSError *error = nil;
+    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"etude.rtf"];
+
+    error = nil;
+    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([comparison isEqual:facit]);
+}
+
 
 - (void)testEditMenu {
     XCUIApplication *app = [[XCUIApplication alloc] init];

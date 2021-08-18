@@ -549,6 +549,13 @@
 		C3191A9E266CDAF300528F6E /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3191A9D266CDAF300528F6E /* ImageView.m */; };
 		C3191AA4266D3A1F00528F6E /* NSBitmapImageRep+retro.m in Sources */ = {isa = PBXBuildFile; fileRef = C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */; };
 		C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C321419426CEA6D600B49504 /* czech.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C321419326CEA6D600B49504 /* czech.z5 */; };
+		C321419626CEA75A00B49504 /* praxix.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C321419526CEA75A00B49504 /* praxix.z5 */; };
+		C321419826CEA7B100B49504 /* etude.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C321419726CEA7B100B49504 /* etude.z5 */; };
+		C321419A26CEBAA000B49504 /* Transcript of CZECH.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */; };
+		C321419C26CEC55B00B49504 /* Transcript of Praxix.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */; };
+		C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */; };
+		C32141A026CECD9000B49504 /* TerpEtude command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C321419E26CECD9000B49504 /* TerpEtude command script.txt */; };
 		C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */; };
 		C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C322714F25CC214A0083BD5B /* ThumbnailProvider.m */; };
@@ -2614,6 +2621,13 @@
 		C3191A9D266CDAF300528F6E /* ImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		C3191AA2266D3A1F00528F6E /* NSBitmapImageRep+retro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBitmapImageRep+retro.h"; sourceTree = "<group>"; };
 		C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBitmapImageRep+retro.m"; sourceTree = "<group>"; };
+		C321419326CEA6D600B49504 /* czech.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = czech.z5; sourceTree = "<group>"; };
+		C321419526CEA75A00B49504 /* praxix.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = praxix.z5; sourceTree = "<group>"; };
+		C321419726CEA7B100B49504 /* etude.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = etude.z5; sourceTree = "<group>"; };
+		C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of CZECH.rtf"; sourceTree = "<group>"; };
+		C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix.rtf"; sourceTree = "<group>"; };
+		C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude.rtf"; sourceTree = "<group>"; };
+		C321419E26CECD9000B49504 /* TerpEtude command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TerpEtude command script.txt"; sourceTree = "<group>"; };
 		C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightThumbnailer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C322714E25CC214A0083BD5B /* ThumbnailProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThumbnailProvider.h; sourceTree = "<group>"; };
 		C322714F25CC214A0083BD5B /* ThumbnailProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThumbnailProvider.m; sourceTree = "<group>"; };
@@ -5369,6 +5383,13 @@
 				C3CEC2C126A6D1F900120469 /* freefall.z5 */,
 				C3CEC2C326A6D1F900120469 /* test_stories.iFiction */,
 				C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */,
+				C321419326CEA6D600B49504 /* czech.z5 */,
+				C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */,
+				C321419526CEA75A00B49504 /* praxix.z5 */,
+				C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */,
+				C321419726CEA7B100B49504 /* etude.z5 */,
+				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
+				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -6204,6 +6225,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C321419626CEA75A00B49504 /* praxix.z5 in Resources */,
 				C3D7CB2326CA9B4A006DE4CC /* Q.CGA in Resources */,
 				C3D7CB2426CA9B4A006DE4CC /* Q.L9 in Resources */,
 				C3D7CB2526CA9B4A006DE4CC /* mag.gfx in Resources */,
@@ -6212,6 +6234,7 @@
 				C3D7CB2126CA9B4A006DE4CC /* GBDATA in Resources */,
 				C3D7CB2226CA9B4A006DE4CC /* guilty.hex in Resources */,
 				C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */,
+				C321419C26CEC55B00B49504 /* Transcript of Praxix.rtf in Resources */,
 				C3D7CB2026CA9A7F006DE4CC /* Transcript of Guilty Bastards.txt in Resources */,
 				C3D7CB1926CA8B59006DE4CC /* AGT-03201-0000E16C.agx in Resources */,
 				C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */,
@@ -6230,10 +6253,12 @@
 				C3CC7FF926C01F33009B0B25 /* The Elysium Enigma command script.txt in Resources */,
 				C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */,
 				C3998E3526C9845A002C1E5D /* To Hell in a Hamper command script.txt in Resources */,
+				C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */,
 				C3CEC2C426A6D1F900120469 /* freefall.z5 in Resources */,
 				C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */,
 				C3CEC2C526A6D1F900120469 /* curses.z5 in Resources */,
 				C326B13F26C182BF006C398F /* onehand.dat in Resources */,
+				C32141A026CECD9000B49504 /* TerpEtude command script.txt in Resources */,
 				C326B14126C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt in Resources */,
 				C326B13D26C18280006C398F /* The Sound of One Hand Clapping command script.txt in Resources */,
 				C3D7CB2926CA9F00006DE4CC /* Transcript of Level 9.txt in Resources */,
@@ -6243,11 +6268,14 @@
 				C3D7CB1E26CA9049006DE4CC /* Transcript of Bugged.txt in Resources */,
 				C3CC800226C078FF009B0B25 /* Transcript of Babel.txt in Resources */,
 				C3998E2E26C9836E002C1E5D /* Level 9 command script.txt in Resources */,
+				C321419826CEA7B100B49504 /* etude.z5 in Resources */,
 				C3D7CB2D26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt in Resources */,
 				C30451C226A9A8A5006E3D51 /* Transcript of autosavetest.txt in Resources */,
 				C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */,
 				C3D7CB1826CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt in Resources */,
+				C321419A26CEBAA000B49504 /* Transcript of CZECH.rtf in Resources */,
 				C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */,
+				C321419426CEA6D600B49504 /* czech.z5 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
