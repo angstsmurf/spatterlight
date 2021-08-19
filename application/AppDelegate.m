@@ -229,7 +229,7 @@ PasteboardFilePasteLocation;
             // here in order to make it less likely
             // that a game opens in fullscreen and then
             // switches to the library window
-            double delayInSeconds = 0.5;
+            double delayInSeconds = 0.3;
             void(^completionHandlerCopy)(NSWindow *, NSError *);
             completionHandlerCopy = completionHandler;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
