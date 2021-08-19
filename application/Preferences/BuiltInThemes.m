@@ -161,7 +161,7 @@
     if (exists && !force)
         return defaultTheme;
 
-    defaultTheme.bZAdjustment = -7;
+    defaultTheme.bZAdjustment = 0;
     defaultTheme.dashes = YES;
     defaultTheme.defaultRows = 50;
     defaultTheme.defaultCols = 80;
