@@ -179,6 +179,7 @@
 
     defaultTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
+    defaultTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:11];
     defaultTheme.gridBackground = [NSColor blackColor];
     defaultTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
 

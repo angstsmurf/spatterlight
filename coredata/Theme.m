@@ -244,9 +244,9 @@
     bufheader = [mgr convertFont:bufbold toSize:bufbold.pointSize + 2];
     bufFixed = [mgr convertFont:gridroman toHaveTrait:NSFixedPitchFontMask];
 
-    // If this does not work, we hack it to use Monaco
+    // If this does not work, we hack it to use Source Code Pro
     if (([mgr traitsOfFont:bufFixed] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
-        bufFixed = [NSFont fontWithName:@"Monaco" size:bufroman.pointSize];
+        bufFixed = [NSFont fontWithName:@"Source Code Pro" size:bufroman.pointSize];
         NSFontTraitMask mask = [mgr traitsOfFont:bufroman];
         if (mask & NSItalicFontMask)
             bufFixed = [mgr convertFont:bufFixed toHaveTrait:NSItalicFontMask];
