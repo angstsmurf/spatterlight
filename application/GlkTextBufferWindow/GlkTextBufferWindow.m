@@ -181,7 +181,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
         
-        underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
+        underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
     }
 
     return self;
