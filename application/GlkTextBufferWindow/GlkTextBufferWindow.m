@@ -1771,7 +1771,7 @@ replacementString:(id)repl {
             BOOL zcolorValue = (dict[@"ZColor"] != nil);
             if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
                 NSMutableDictionary *mutDict = [dict mutableCopy];
-                mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.gridBackground];
+                mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.bufferBackground];
                 [attStr addAttributes:mutDict range:range2];
             }
         }];
