@@ -76,6 +76,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @property(readonly) BOOL supportsAutorestore;
 
+@property NSColor *lastAutoBGColor;
 @property NSColor *bgcolor;
 
 @property NSInteger eventcount;

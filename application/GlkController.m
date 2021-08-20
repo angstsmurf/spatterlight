@@ -397,7 +397,11 @@ fprintf(stderr, "%s\n",                                                    \
     _borderView.wantsLayer = YES;
 //    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    [self setBorderColor:_theme.bufferBackground];
+    _lastAutoBGColor = _theme.bufferBackground;
+    if (_theme.borderBehavior == kUserOverride)
+        [self setBorderColor:_theme.borderColor];
+    else
+        [self setBorderColor:_theme.bufferBackground];
 
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -2062,6 +2066,12 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    if (_theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:_theme.borderColor]) {
+        [self setBorderColor:_theme.borderColor];
+    } else if (_theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
+        [self setBorderColor:_lastAutoBGColor];
+    }
+
     GlkEvent *gevent;
 
     CGFloat width = _contentView.frame.size.width;
@@ -3147,6 +3157,7 @@ fprintf(stderr, "%s\n",                                                    \
             else
                 bg = [NSColor colorFromInteger:req->a2];
             if (req->a1 == -1) {
+                _lastAutoBGColor = bg;
                 [self setBorderColor:bg];
             }
 
@@ -3694,6 +3705,8 @@ again:
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
     //         NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
 
+    if (_previewDummy)
+        return;
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
@@ -3707,16 +3720,22 @@ again:
 }
 
 - (void)setBorderColor:(NSColor *)color {
-    if (_theme.borderBehavior == kUserOverride)
-        color = _theme.borderColor;
     if (!color) {
         NSLog(@"setBorderColor called with a nil color!");
         return;
     }
-    self.bgcolor = color;
+    if (_theme.borderBehavior == kAutomatic) {
+        _lastAutoBGColor = color;
+    } else {
+        color = _theme.borderColor;
+        if (_lastAutoBGColor == nil)
+            _lastAutoBGColor = color;
+    }
+
+    _bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
     if (_narcolepsy && _theme.doStyles && _theme.doGraphics) {
-        self.bgcolor = [NSColor clearColor];
+//        self.bgcolor = [NSColor clearColor];
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }

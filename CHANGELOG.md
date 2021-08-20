@@ -21,6 +21,7 @@
 - When changing any setting, buffer reverse style text color would switch from the correct buffer background color to grid background color
 - Changed default fixed-width font from Monaco to Source Code Pro. This may require rebuilding themes after upgrading
 - Hacked around Hugo Tetris breaking at small window sizes
+- Changing border color manually was not working in some Hugo games without buffer text windows
 
 ## Release 0.8.5
 - New [Automap](https://intfiction.org/t/unicode-characters-in-textgrid-windows/51825) theme.
