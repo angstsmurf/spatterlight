@@ -2292,8 +2292,10 @@ static void hugo_mapcurwin()
                     quartz = 1;
             }
         }
-        else if (istetris) {
-            quartz = 1;
+
+        // Make all grid windows in Tetris transparent
+        if (istetris) {
+            win_maketransparent(wins[curwin].win->peer);
         }
 
         if (quartz)
