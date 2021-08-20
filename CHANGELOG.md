@@ -18,7 +18,9 @@
 - Characters in Tads 3 menus are now invisible when they should be
 - The Apply Theme context menu item indicates which themes the selected games currently use
 - Spatterlight now tries to use the normal style color for the text cursor, which tends to look better than the input style color
+- When changing any setting, buffer reverse style text color would switch from the correct buffer background color to grid background color
 - Changed default fixed-width font from Monaco to Source Code Pro. This may require rebuilding themes after upgrading
+- Hacked around Hugo Tetris breaking at small window sizes
 
 ## Release 0.8.5
 - New [Automap](https://intfiction.org/t/unicode-characters-in-textgrid-windows/51825) theme.
