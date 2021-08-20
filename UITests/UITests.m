@@ -178,6 +178,11 @@
 + (void)turnOnDeterminism:(nullable NSString *)theme {
     [UITests selectTheme:theme];
     XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.checkBoxes[@"Animate scrolling"] click];
+    [app.checkBoxes[@"Determinism"] click];
+
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 }
@@ -1253,6 +1258,18 @@
 
     [UITests selectTheme:@"Default"];
     XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    [app/*@START_MENU_TOKEN@*/.tabs[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Details\"]",".tabs[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+
+    XCUIElement *field = [[app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    NSString *value = field.value;
+    [field doubleClick];
+    [field typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
+    [field typeText:@"70\r"];
+    [field doubleClick];
+    [field typeText:value];
+    [field typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
+
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
@@ -1318,8 +1335,15 @@
 
     [textField doubleClick];
 
-    [UITests selectTheme:@"Default"];
     XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElement *gameWindow = app.windows[@"etude.z5"];
+    XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
+    if ([alertSheet waitForExistenceWithTimeout:2]) {
+        [alertSheet.checkBoxes[@"Remember this choice."] click];
+        [alertSheet.buttons[@"Continue"] click];
+    }
+
+    [UITests selectTheme:@"Default"];
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
