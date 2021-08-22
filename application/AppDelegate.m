@@ -332,6 +332,7 @@ PasteboardFilePasteLocation;
     NSString *extension = path.pathExtension.lowercaseString;
 
     if ([extension isEqualToString:@"ifiction"]) {
+        [_libctl waitToReportMetadataImport];
         [_libctl importMetadataFromFile:path];
     } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl runCommandsFromFile:path];

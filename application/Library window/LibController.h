@@ -116,6 +116,8 @@
 - (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
 
+- (void)waitToReportMetadataImport;
+
 @property (strong) IBOutlet NSView *forceQuitView;
 @property (weak) IBOutlet NSButton *forceQuitCheckBox;
 

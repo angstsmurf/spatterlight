@@ -150,6 +150,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSManagedObjectContext *importContext;
     BOOL sideViewUpdatePending;
     NSMenuItem *enabledThemeItem;
+
+    BOOL countingMetadataChanges;
+    NSUInteger insertedMetadataCount, updatedMetadataCount;
 }
 @end
 
@@ -482,6 +485,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
             [weakSelf.managedObjectContext performBlock:^{
+                [weakSelf waitToReportMetadataImport];
                 [weakSelf beginImporting];
                 [weakSelf importMetadataFromFile:url.path];
                 [weakSelf.coreDataManager saveChanges];
@@ -1530,6 +1534,32 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return YES;
 }
 
+- (void)waitToReportMetadataImport {
+    insertedMetadataCount = 0;
+    updatedMetadataCount = 0;
+    countingMetadataChanges = YES;
+    [self performSelector:@selector(reportChangedMetadata:) withObject:nil afterDelay:1];
+}
+
+- (void)reportChangedMetadata:(id)sender {
+    countingMetadataChanges = NO;
+    NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+    if (insertedMetadataCount || updatedMetadataCount == 0) {
+        NSLog(@"reportChangedMetadata: %ld inserted", insertedMetadataCount);
+        [notification showStandardWithText:[NSString stringWithFormat:@"%ld entr%@ imported", insertedMetadataCount, insertedMetadataCount == 1 ? @"y" : @"ies"]];
+    }
+    if (updatedMetadataCount) {
+        NSLog(@"reportChangedMetadata: %ld updated", updatedMetadataCount);
+        double delayInSeconds = 0;
+        if (insertedMetadataCount)
+            delayInSeconds = 2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [notification showStandardWithText:[NSString stringWithFormat:@"%ld entr%@ updated", self->updatedMetadataCount, self->updatedMetadataCount == 1 ? @"y" : @"ies"]];
+        });
+    }
+}
+
 static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *val;
     const char *tagname;
@@ -1883,8 +1913,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             return;
         strongSelf.currentlyAddingGames = NO;
         [strongSelf selectGamesWithIfids:select scroll:YES];
-        for (NSString *path in strongSelf.iFictionFiles) {
-            [strongSelf importMetadataFromFile:path];
+
+        if (strongSelf.iFictionFiles.count) {
+            [self waitToReportMetadataImport];
+            for (NSString *path in strongSelf.iFictionFiles) {
+                [strongSelf importMetadataFromFile:path];
+            }
         }
         strongSelf.iFictionFiles = nil;
         // Fix metadata entities with no ifids
@@ -2321,11 +2355,26 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
 
     for (id obj in updatedObjects) {
+        if (countingMetadataChanges && [obj isKindOfClass:[Metadata class]]) {
+            updatedMetadataCount++;
+        }
+
         if ([obj isKindOfClass:[Theme class]]) {
             [self rebuildThemesSubmenu];
             break;
         }
     }
+
+    if (countingMetadataChanges) {
+        NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
+
+        for (id obj in insertedObjects) {
+            if ([obj isKindOfClass:[Metadata class]]) {
+                insertedMetadataCount++;
+            }
+        }
+    }
+
     if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
