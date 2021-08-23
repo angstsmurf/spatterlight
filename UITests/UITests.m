@@ -164,8 +164,6 @@
 
     XCUIElement *savePanel = gameWin.sheets.firstMatch;
 
-    [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
-
     [UITests typeURL:transcriptURL intoFileDialog:savePanel andPressButtonWithText:@"Save"];
 
     XCUIElement *alert = app.sheets.firstMatch;
@@ -376,9 +374,10 @@
             if (replaceButton.exists)
                 [replaceButton click];
         }
-        alert = app.dialogs.firstMatch;
 
-        if (alert.exists && alert.buttons.firstMatch.hittable) {
+        alert = app.dialogs[@"alert"];
+
+        if ([alert waitForExistenceWithTimeout:1] && alert.buttons.firstMatch.hittable) {
             [alert.buttons.firstMatch click];
         }
     }
@@ -893,38 +892,32 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testBabel {
+- (void)testTilDeath {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    XCUIElement *textField = [self addAndSelectGame:@"Babel31.gam"];
+    XCUIElement *textField = [self addAndSelectGame:@"tildeath.gam"];
 
     [textField doubleClick];
 
-    XCUIElement *gameWindow = app.windows[@"Babel"];
-    if (![gameWindow exists])
-        gameWindow = app.windows[@"Babel31.gam"];
+    XCUIElement *gameWindow = app.windows[@"tildeath.gam"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
 
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"script\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
 
-    [self openCommandScript:@"Babel"];
+    [self openCommandScript:@"Till Death Makes a Monk-Fish out of Me"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Babel"];
+    NSString *facit = [self comparisonTranscriptFor:@"Till Death Makes a Monk-Fish out of Me"];
 
-    NSLog(@"%@", gameWindow.debugDescription);
-    XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '22/217'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Please enter RESTORE, RESTART, QUIT, UNDO or AMUSING:  >'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
     [self waitForExpectations:@[expectation] timeout:80];
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of Babel31.gam.txt"];
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tildeath.gam.txt"];
 
     NSError *error = nil;
 
@@ -974,21 +967,17 @@
     XCUIElement *gameWindow = app.windows[@"The Wyldkynd Project"];
     if (![gameWindow exists])
         gameWindow = app.windows[@"00 Wyldkynd Project.a3c"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
-
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
     [self openCommandScript:@"The Wyldkynd Project"];
 
     NSString *facit = [self comparisonTranscriptFor:@"The Wyldkynd Project"];
 
-    XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
+    XCUIElement *textView = [gameWindow.staticTexts elementBoundByIndex:0];
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '175 moves'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
     [self waitForExpectations:@[expectation] timeout:80];
 
     NSString *transcript = [UITests transcriptFromFile:@"00 Wyldkynd Project.txt"];
@@ -1007,17 +996,19 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
-    [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    XCUIElement *staticText = [gameWindow.staticTexts elementBoundByIndex:0];
+
+    // Wait for initial text to show
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'One of these four'"];
+
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:staticText];
+
+    [self waitForExpectations:@[expectation] timeout:5];
+
     [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:1];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-
-    // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'Guilty Bastards'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-
-    [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeText:@"script\r"];
 

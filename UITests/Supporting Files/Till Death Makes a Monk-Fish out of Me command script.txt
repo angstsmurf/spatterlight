@@ -1,0 +1,300 @@
+help
+review
+talk
+x note
+write in condensation
+write "help"
+write "kurner"
+write "get me out"
+write "redrum"
+write xyzzy
+write "xyzzy"
+l
+x foot
+remove tag
+x me
+get up
+x drawers
+i
+open jenny
+open jeremy
+x peg-leg
+get leg
+x jeremy
+open jack
+x jack
+wake jack
+x leg
+poke jeremy
+open jenny with peg-leg
+d
+x jenny
+x floor
+kiss jenny
+down
+x hatch
+x compartments
+x recess
+look in recess
+open kathleen
+open Victoria
+open charlotte
+open rosalind
+x trolley
+enter rosalind
+west
+n
+x window
+x device
+push button
+x device
+s
+e
+push trolley w
+get on trolley
+z
+z
+z
+x window
+x portholes
+write "fuck" on window
+x airlock
+x mechanism
+x wiring
+connect wiring
+yes
+x hand
+e
+x panel
+look under panel
+x rosalind
+get panel
+enter hole
+z
+z
+x robot
+search debris
+x arm
+up
+x wiring
+pull it
+l
+e
+w
+w
+put arm in recess
+put arm in circular recess
+put arm in recess
+put arm in dented recess
+w
+open airlock
+x airlock
+x mechanism
+e
+n
+put arm in circular recess
+s
+x door
+x scanner
+touch scanner
+x arm
+put arm in recess
+e
+x coffin
+x computer
+i
+x switch
+x cylinder
+get in coffin
+pull switch
+x hatch
+x computer
+touch scanner
+x palm
+press brand
+x computer
+x blood
+l
+x oblong
+take bomb
+w
+push brand
+w
+e
+put arm in circular recess
+e
+w
+x door
+touch palm-scanner
+s
+w
+put arm in recess
+x portholes
+e
+x computer
+x recess
+put arm in recess
+x screen
+x computer
+touch scanner
+push switch
+put arm in recess
+x recess
+pull arm
+i
+press button
+put arm in recess
+x screen
+get arm. put arm in recess
+pull switch
+x computer
+z
+get arm
+z. z. z. z
+z
+z
+z
+listen
+put arm in recess
+x recess
+x screen
+turn arm
+turn arm
+turn arm
+push arm
+turn arm
+take arm
+z
+z
+z
+z
+z
+z
+z
+z
+get leg
+open hatch
+get leg
+x sludge
+push trolley
+get in coffin
+wait
+push button
+z
+push catch with leg
+wait
+w
+unlock door
+put hand on reader
+look in scanner
+talk to detector
+say "hello" to microphone
+x microphone
+yell "scarecrow"
+n
+x paper
+x paper
+x paper
+x paper
+x books
+x computer
+read biography
+s
+e
+e
+e
+open door
+w
+n
+up
+get screwdriver
+x panel
+x wiring
+s
+x terminal
+look in it
+get box
+x cylinder
+enter cylinder
+x grille
+x switch
+pull switch
+out
+n
+d
+s
+w
+n
+x computer
+s
+e
+e
+x curtains
+look behind curtains
+get metal detector
+get waxer
+x machine
+touch panel
+w
+w
+n
+x detector
+turn it on
+point it at clothes
+point it at bed
+unlock drawer with key
+open drawer
+x notepad
+x pill-bottle
+get bottle
+get notepad
+read notepad
+open bottle
+eat tablets
+x notepad
+type "dog" on computer
+w
+eat tablet
+write "dog"
+x mirror
+z
+breathe on mirror
+e
+type "chyne"
+x screen
+touch screen
+type "chyne"
+touch top left
+x screen
+touch bottom left
+type "chyne"
+touch top right
+s
+e
+n
+up
+s
+x box
+tell zak about me
+open box
+x me
+s
+x rocks
+s
+x dome
+e
+s
+x window
+e
+x dome
+e
+e
+u
+x chimney
+s
+e
+x me
+look
+out
+x screen
+push button
