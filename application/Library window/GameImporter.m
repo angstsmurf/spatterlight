@@ -252,6 +252,11 @@ extern NSArray *gGameFileTypes;
 
     //NSLog(@"libctl: import game %@ (%s)", path, format);
 
+    if (ifid == nil) {
+        NSLog(@"Error! Ifid nil!");
+        return nil;
+    }
+
     metadata = [_libController fetchMetadataForIFID:ifid inContext:context];
 
     if (!metadata)
