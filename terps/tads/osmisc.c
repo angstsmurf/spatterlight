@@ -79,12 +79,25 @@ void os_gen_charmap_filename(char *filename, char *internal_id, char *argv0)
  *   seed value 
  */
 
+#ifdef SPATTERLIGHT
+
+#include "glk.h"
+extern glui32 gli_determinism;
+
+#endif
+
 time_t time(time_t *);
 
 void os_rand(long *seed)
 {
     time_t t;
     time( &t );
+    
+#ifdef SPATTERLIGHT
+    if (gli_determinism)
+        *seed = 1234;
+    else
+#endif
     *seed = (long)t;
 }
 

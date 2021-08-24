@@ -73,9 +73,6 @@
 #include <dirent.h>
 #include <limits.h>
 #include "glk.h"
-
-extern glui32 gli_determinism;
-
 #define HAVE_GETTIMEOFDAY
 #include <sys/time.h>
 #define HAVE_MKDIR 1
@@ -710,11 +707,6 @@ os_resolve_symlink( const char *fname, char *target, size_t target_size )
 void
 os_rand( long* val )
 {
-#if defined(SPATTERLIGHT)
-    if (gli_determinism)
-        srand(1234);
-    else
-#endif
     //assert(val != 0);
     // Use the current time as the first seed.
     srand(static_cast(unsigned int)(time(0)));
