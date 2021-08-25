@@ -1821,7 +1821,9 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     /* unmap old unused windows that are cleared */
     hugo_unmapcleared();
 
-    if ((top != 1 || bottom >= physical_windowbottom/FIXEDLINEHEIGHT+1)
+    // We assume that no status window is more than 10 chars high
+    // This fixes Cryptozookeeper when starting with a small window
+    if ((top != 1 || bottom > 10)
         /* Pre-v2.4 didn't support proper windowing */
         && (game_version >= 24 || !inwindow))
     {
