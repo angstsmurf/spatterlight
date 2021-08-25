@@ -2679,6 +2679,15 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         else
             showing_futureboy_title = false;
 
+        // Hack to clear old picture in A Crimson Spring after restore
+        if (iscrimson) {
+            for (int i = 1; i < nwins; i++) {
+                if (wins[i].win && wins[i].win->type == wintype_Graphics) {
+                    wins[i].clear = 1;
+                }
+            }
+        }
+
         LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
         float aspect = (float) height / width;
 
