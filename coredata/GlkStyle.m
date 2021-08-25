@@ -65,9 +65,22 @@
 
     NSSize size = [@"W" sizeWithAttributes:self.attributeDict];
 
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+
+    // Unfortunately it seems we have to special-case
+    // Monaco (or some Hugo status bars will be blank)
+    if ([self.font.displayName isEqualToString:@"Monaco"]) {
+        CGFloat baselineOffset = fabs([self.attributeDict[NSBaselineOffsetAttributeName] floatValue]);
+        NSParagraphStyle *para = self.attributeDict[NSParagraphStyleAttributeName];
+        
+        size.height = MAX(para.maximumLineHeight, [layoutManager defaultLineHeightForFont:self.font] + baselineOffset + para.lineSpacing);
+        if (para.minimumLineHeight != 0)
+            size.height = MIN(para.minimumLineHeight, size.height);
+        return size;
+    }
+
     // By measuring line height in this way we include
     // line spacing and baseline offset
-    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 
     NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq\nÅWQyjgq" attributes:self.attributeDict];
 
