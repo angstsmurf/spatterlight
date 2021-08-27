@@ -20,7 +20,8 @@
 - Spatterlight now tries to use the normal style color for the text cursor, which tends to look better than the input style color
 - When changing any setting, buffer reverse style text color would switch from the correct buffer background color to grid background color
 - Changed default fixed-width font from Monaco to Source Code Pro. This may require rebuilding themes after upgrading
-- Hacked around Hugo Tetris breaking at small window sizes
+- Hacked around Hugo Tetris and Cryptozookeeper breaking at small window sizes
+- A Crimson Spring would not always clear old pictures after restore
 - Changing border color manually was not working in some Hugo games without buffer text windows
 
 ## Release 0.8.5
