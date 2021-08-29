@@ -41,7 +41,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include <limits.h>
 
 /* Platform-specific configuration info */
 #include "config.h"
