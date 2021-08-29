@@ -13,11 +13,21 @@
 #import "CommandScriptHandler.h"
 #import "Preferences.h"
 #import "Game.h"
+#import "Theme.h"
 
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
 }
+
+@property CGFloat overscrollY;
+//@property NSPoint textContainerOrigin;
+//
+//override var textContainerOrigin: NSPoint {
+//    return super
+//    .textContainerOrigin
+//    .applying(.init(translationX: 0, y: -overscrollY))
+//}
 @end
 
 @implementation BufferTextView
@@ -417,6 +427,40 @@
         mi.accessibilityFrame = bounds;
     }
     return children;
+}
+
+//func scrollViewDidResize(_ scrollView: NSScrollView) {
+//    let lineHeight: CGFloat = 14 // compute this instead
+//    let offset = (scrollView.bounds.height - lineHeight) / 2
+//    textContainerInset = NSSize(width: 0, height: offset)
+//    overscrollY = offset
+//}
+//
+//var overscrollY: CGFloat = 0
+//
+//override var textContainerOrigin: NSPoint {
+//    return super
+//    .textContainerOrigin
+//    .applying(.init(translationX: 0, y: -overscrollY))
+//}
+
+- (NSPoint)textContainerOrigin {
+    NSPoint superOrigin = [super textContainerOrigin];
+    superOrigin.y -= _overscrollY;
+    NSLog(@"_overscrollY: %f", _overscrollY);
+    NSLog(@"superOrigin: %@", NSStringFromPoint(superOrigin));
+    return superOrigin;
+}
+
+
+- (void)scrollViewDidResize:(NSScrollView *)scrollView {
+    NSLog(@"scrollViewDidResize");
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    CGFloat xMargin = delegate.theme.bufferMarginX;
+    CGFloat yMargin = delegate.theme.bufferMarginY;
+    CGFloat offset = yMargin + floor((scrollView.bounds.size.height - 14) / 2) - 1;
+    [super setTextContainerInset:NSMakeSize(xMargin, offset)];
+    _overscrollY = offset;
 }
 
 @end
