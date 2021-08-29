@@ -253,7 +253,10 @@ extern NSArray *gGameFileTypes;
     //NSLog(@"libctl: import game %@ (%s)", path, format);
 
     if (ifid == nil) {
-        NSLog(@"Error! Ifid nil!");
+        // If this happens, it means the Babel tool did not
+        // work as it should. It detected the game but returned
+        // an invalid IFID.
+        NSLog(@"Error! Ifid nil! buf:%s (%x%x%x%x)", buf, buf[0], buf[1], buf[2], buf[3]);
         return nil;
     }
 
