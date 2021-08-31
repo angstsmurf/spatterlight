@@ -618,7 +618,19 @@ fprintf(stderr, "%s\n",                                                    \
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
+        BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
+        CGFloat heightDiff = marginY - _textview.textContainerInset.height;
+
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
+
+        // If the Y margin has changed, we must adjust the text view
+        // here to make the scrollview aware of this, otherwise we might
+        // not be able to scroll to the bottom.
+        if (marginHeightChanged) {
+            NSRect newTextviewFrame = _textview.frame;
+            newTextviewFrame.size.height += heightDiff * 2;
+            _textview.frame = newTextviewFrame;
+        }
     }
 
     // We can think of attributes as special characters in the mutable attributed
@@ -2021,7 +2033,7 @@ replacementString:(id)repl {
     lastAtBottom = NO;
 
     [scrollview.contentView scrollToPoint:NSZeroPoint];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
+//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 #pragma mark Speech
