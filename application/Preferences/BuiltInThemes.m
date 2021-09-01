@@ -476,7 +476,7 @@
     zoomTheme.gridNormal.color = [NSColor blackColor];
 
     NSMutableDictionary *dict = [zoomTheme.gridNormal.attributeDict mutableCopy];
-    dict[NSBaselineOffsetAttributeName] = @(-2);
+    dict[NSBaselineOffsetAttributeName] = @(1);
     zoomTheme.gridNormal.attributeDict = dict;
 
     NSSize size = [zoomTheme.gridNormal cellSize];
