@@ -335,7 +335,12 @@
                 textview.bottomPadding =
                     NSMaxY(bounds) - textview.frame.size.height + inset.height;
                 extendneeded = textview.bottomPadding;
-                [textview setFrameSize:textview.frame.size];
+//                [textview setFrameSize:textview.frame.size];
+//                NSRect newFrame =
+                bufwin.framePending = YES;
+                NSRect newFrame = textview.frame;
+                newFrame.size.height += extendneeded;
+                bufwin.pendingFrame = newFrame;
                 extendflag = YES;
             }
             // Check if padding is still needed
@@ -362,14 +367,17 @@
     // If we were at the bottom before, scroll to bottom of extended area so
     // that we are still at bottom
     if (extendflag && bufwin.scrolledToBottom) {
-        NSScrollView *scrollview = textview.enclosingScrollView;
-        CGFloat newY = NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds);
-        NSRect newbounds = scrollview.contentView.bounds;
-        newbounds.origin.y = newY;
-        scrollview.contentView.bounds = newbounds;
+//        NSScrollView *scrollview = textview.enclosingScrollView;
+//        CGFloat newY = NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds);
+//        NSRect newbounds = scrollview.contentView.bounds;
+//        newbounds.origin.y = newY;
+//        scrollview.contentView.bounds = newbounds;
+//        [bufwin scrollToBottomAnimated:YES];
+        bufwin.pendingScroll = YES;
     }
 
     // Remove bottom padding if it is not needed any more
+    bufwin.framePending = (textview.bottomPadding != extendneeded);
     textview.bottomPadding = extendneeded;
 }
 
