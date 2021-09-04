@@ -2028,7 +2028,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 }
 
-- (NSInteger)stringcompare:(NSString *)a with:(NSString *)b {
++ (NSInteger)stringcompare:(NSString *)a with:(NSString *)b {
     if ([a hasPrefix: @"The "] || [a hasPrefix: @"the "])
         a = [a substringFromIndex: 4];
     if ([b hasPrefix: @"The "] || [b hasPrefix: @"the "])
@@ -2036,21 +2036,21 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [a localizedCaseInsensitiveCompare: b];
 }
 
-- (NSInteger)compareGame:(Metadata *)a with:(Metadata *)b key:(id)key ascending:(BOOL)ascending {
++ (NSInteger)compareGame:(Metadata *)a with:(Metadata *)b key:(id)key ascending:(BOOL)ascending {
     NSString * ael = [a valueForKey:key];
     NSString * bel = [b valueForKey:key];
-    return [self compareString:ael withString:bel ascending:ascending];
+    return [LibController compareString:ael withString:bel ascending:ascending];
 }
 
-- (NSInteger)compareString:(NSString *)ael withString:(NSString *)bel ascending:(BOOL)ascending {
++ (NSInteger)compareString:(NSString *)ael withString:(NSString *)bel ascending:(BOOL)ascending {
     if ((!ael || ael.length == 0) && (!bel || bel.length == 0))
         return NSOrderedSame;
     if (!ael || ael.length == 0) return ascending ? NSOrderedDescending :  NSOrderedAscending;
     if (!bel || bel.length == 0) return ascending ? NSOrderedAscending : NSOrderedDescending;
-    return [self stringcompare:ael with:bel];
+    return [LibController stringcompare:ael with:bel];
 }
 
-- (NSInteger)compareDate:(NSDate *)ael withDate:(NSDate *)bel ascending:(BOOL)ascending {
++ (NSInteger)compareDate:(NSDate *)ael withDate:(NSDate *)bel ascending:(BOOL)ascending {
     if ((!ael) && (!bel))
         return NSOrderedSame;
     if (!ael) return ascending ? NSOrderedDescending : NSOrderedAscending;
@@ -2059,7 +2059,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 
-- (NSPredicate *)searchPredicateForWord:(NSString *)word {
++ (NSPredicate *)searchPredicateForWord:(NSString *)word {
     return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
 }
 
@@ -2081,7 +2081,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         // First we search using the entire search string as a phrase
         // such as "beyond Zork"
 
-        fetchRequest.predicate = [self searchPredicateForWord:searchString];
+        fetchRequest.predicate = [LibController searchPredicateForWord:searchString];
         searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
         // If this gives zero results, search for each word
@@ -2096,7 +2096,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             for (NSString *word in searchStrings) {
                 if (word.length)
                 [predicateArr addObject:
-                 [self searchPredicateForWord:word]];
+                 [LibController searchPredicateForWord:word]];
             }
 
             NSCompoundPredicate *comp = (NSCompoundPredicate *)[NSCompoundPredicate andPredicateWithSubpredicates: predicateArr];
@@ -2118,50 +2118,52 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:_sortAscending comparator:^(Game *aid, Game *bid) {
 
+        LibController *strongSelf = weakSelf;
+
         Metadata *a = aid.metadata;
         Metadata *b = bid.metadata;
         NSInteger cmp;
-        if ([weakSelf.gameSortColumn isEqual:@"firstpublishedDate"])
+        if ([strongSelf.gameSortColumn isEqual:@"firstpublishedDate"])
         {
-            cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
+            cmp = [LibController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([weakSelf.gameSortColumn isEqual:@"added"] || [weakSelf.gameSortColumn isEqual:@"lastPlayed"])
+        else if ([strongSelf.gameSortColumn isEqual:@"added"] || [strongSelf.gameSortColumn isEqual:@"lastPlayed"])
         {
-            cmp = [weakSelf compareDate:[aid valueForKey:weakSelf.gameSortColumn] withDate:[bid valueForKey:weakSelf.gameSortColumn] ascending:weakSelf.sortAscending];
+            cmp = [LibController compareDate:[aid valueForKey:strongSelf.gameSortColumn] withDate:[bid valueForKey:strongSelf.gameSortColumn] ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([weakSelf.gameSortColumn isEqual:@"lastModified"]) {
-            cmp = [weakSelf compareDate:[a valueForKey:weakSelf.gameSortColumn] withDate:[b valueForKey:weakSelf.gameSortColumn] ascending:weakSelf.sortAscending];
+        else if ([strongSelf.gameSortColumn isEqual:@"lastModified"]) {
+            cmp = [LibController compareDate:[a valueForKey:strongSelf.gameSortColumn] withDate:[b valueForKey:strongSelf.gameSortColumn] ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([weakSelf.gameSortColumn isEqual:@"found"]) {
+        else if ([strongSelf.gameSortColumn isEqual:@"found"]) {
             NSString *string1 = aid.found?nil:@"A";
             NSString *string2 = bid.found?nil:@"A";
-            cmp = [weakSelf compareString:string1 withString:string2 ascending:weakSelf.sortAscending];
+            cmp = [LibController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([weakSelf.gameSortColumn isEqual:@"forgivenessNumeric"]) {
+        else if ([strongSelf.gameSortColumn isEqual:@"forgivenessNumeric"]) {
             NSString *string1 = a.forgivenessNumeric ? [NSString stringWithFormat:@"%@", a.forgivenessNumeric] : nil;
             NSString *string2 = b.forgivenessNumeric ? [NSString stringWithFormat:@"%@", b.forgivenessNumeric] : nil;
-            cmp = [weakSelf compareString:string1 withString:string2 ascending:weakSelf.sortAscending];
+            cmp = [LibController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
 
             if (cmp) return cmp;
         }
-        else if (weakSelf.gameSortColumn)
+        else if (strongSelf.gameSortColumn)
         {
-            cmp = [weakSelf compareGame:a with:b key:weakSelf.gameSortColumn ascending:weakSelf.sortAscending];
+            cmp = [LibController compareGame:a with:b key:strongSelf.gameSortColumn ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
-        cmp = [weakSelf compareGame:a with:b key:@"title" ascending:weakSelf.sortAscending];
+        cmp = [LibController compareGame:a with:b key:@"title" ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareGame:a with:b key:@"author" ascending:weakSelf.sortAscending];
+        cmp = [LibController compareGame:a with:b key:@"author" ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareGame:a with:b key:@"seriesnumber" ascending:weakSelf.sortAscending];
+        cmp = [LibController compareGame:a with:b key:@"seriesnumber" ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
+        cmp = [LibController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:strongSelf.sortAscending];
         if (cmp) return cmp;
-        return [weakSelf compareString:aid.detectedFormat withString:bid.detectedFormat ascending:weakSelf.sortAscending];
+        return [LibController compareString:aid.detectedFormat withString:bid.detectedFormat ascending:strongSelf.sortAscending];
     }];
 
     [_gameTableModel sortUsingDescriptors:@[sort]];
