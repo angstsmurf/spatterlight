@@ -1069,13 +1069,6 @@
 			remoteGlobalIDString = 3210AB9017B9C05A00743639;
 			remoteInfo = SFBAudioEngine;
 		};
-		C3A3563026E4F4DD00BB753B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3210AB8D17B9BF8000743639;
-			remoteInfo = SimplePlayer;
-		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1243,7 +1236,6 @@
 		6D73051D22BFA9EB00DFC73C /* NSDate+relative.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "NSDate+relative.h"; sourceTree = "<group>"; };
 		6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "NSDate+relative.m"; sourceTree = "<group>"; };
 		6D73E55621873509009CD59A /* LibraryWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryWindow.xib; sourceTree = "<group>"; };
-		6D76353422C4F113000873F3 /* CoreDataManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = CoreDataManager.h; path = ../application/CoreDataManager.h; sourceTree = "<group>"; };
 		6D76353522C4F113000873F3 /* CoreDataManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = CoreDataManager.m; path = ../application/CoreDataManager.m; sourceTree = "<group>"; };
 		6D7673D7239FFB0900FB24C0 /* IFBibliographic.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = IFBibliographic.h; sourceTree = "<group>"; };
 		6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = IFBibliographic.m; sourceTree = "<group>"; };
@@ -2692,7 +2684,7 @@
 		C386D52F263F55930066BF5B /* ParagraphPopOver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ParagraphPopOver.h; sourceTree = "<group>"; };
 		C38784F226582AE200B4D886 /* ImageCompareViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ImageCompareViewController.h; sourceTree = "<group>"; };
 		C38784F326582AE200B4D886 /* ImageCompareViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ImageCompareViewController.m; sourceTree = "<group>"; };
-		C38784F426582AE200B4D886 /* ImageCompareViewController.xib */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ImageCompareViewController.xib; sourceTree = "<group>"; };
+		C38784F426582AE200B4D886 /* ImageCompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCompareViewController.xib; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
@@ -2839,6 +2831,7 @@
 		C3D7CB2C26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of To Hell in a Hamper.txt"; sourceTree = "<group>"; };
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = InputTextField.m; sourceTree = "<group>"; };
 		C3D8177A256CBA20005DBC1F /* InputTextField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = InputTextField.h; sourceTree = "<group>"; };
+		C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = CoreDataManager.h; path = application/CoreDataManager.h; sourceTree = SOURCE_ROOT; };
 		C3E2EAAE25D08EEC0012B7FB /* UKSyntaxColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColor.h; sourceTree = "<group>"; };
 		C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
 		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
@@ -3446,7 +3439,7 @@
 				6DC1FAEE252A5A5900540C6E /* Metadata.m */,
 				6DD7679A23E45FB7003B605C /* ThemeArrayController.h */,
 				6DD7679B23E45FB7003B605C /* ThemeArrayController.m */,
-				6D76353422C4F113000873F3 /* CoreDataManager.h */,
+				C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */,
 				6D76353522C4F113000873F3 /* CoreDataManager.m */,
 				6DC520A823BAD54B0004923A /* Game.h */,
 				6DC520A923BAD54B0004923A /* Game.m */,
@@ -5228,7 +5221,6 @@
 			isa = PBXGroup;
 			children = (
 				C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */,
-				C3A3563126E4F4DD00BB753B /* SimplePlayer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6191,13 +6183,6 @@
 			fileType = wrapper.framework;
 			path = SFBAudioEngine.framework;
 			remoteRef = C344B2C826E4D9B4004B0A8F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3A3563126E4F4DD00BB753B /* SimplePlayer.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SimplePlayer.app;
-			remoteRef = C3A3563026E4F4DD00BB753B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -7728,14 +7713,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
-					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
+				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -7761,13 +7744,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
-					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
+				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
@@ -7838,11 +7819,7 @@
 				CURRENT_PROJECT_VERSION = 0.8.6;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
-					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -7906,11 +7883,7 @@
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
-					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 3;
