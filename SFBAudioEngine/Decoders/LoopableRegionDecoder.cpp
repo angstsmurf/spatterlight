@@ -126,6 +126,9 @@ SFB::CFString SFB::Audio::LoopableRegionDecoder::_GetSourceFormatDescription() c
 
 UInt32 SFB::Audio::LoopableRegionDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
+    if (mRepeatCount == SFB_INFINITE_LOOP && mCompletedPasses > mRepeatCount - 2)
+        mCompletedPasses = mRepeatCount - 2;
+
 	// If the repeat count is N then (N + 1) passes must be completed to read all the frames
 	if((1 + mRepeatCount) == mCompletedPasses) {
 		for(UInt32 bufferIndex = 0; bufferIndex < bufferList->mNumberBuffers; ++bufferIndex)
@@ -137,7 +140,7 @@ UInt32 SFB::Audio::LoopableRegionDecoder::_ReadAudio(AudioBufferList *bufferList
 	AudioBufferList *bufferListAlias = (AudioBufferList *)alloca(offsetof(AudioBufferList, mBuffers) + (sizeof(AudioBuffer) * bufferList->mNumberBuffers));
 
 	if(nullptr == bufferListAlias) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to allocate memory");
+		fprintf(stderr, "Unable to allocate memory\n");
 		return 0;
 	}
 

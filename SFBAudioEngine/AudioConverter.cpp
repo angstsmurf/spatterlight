@@ -12,6 +12,13 @@
 #include "CFWrapper.h"
 #include "SFBCStringForOSType.h"
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
+#else
+#define NSLog(...)
+#endif
+
 namespace {
 
 	// AudioConverter input callback
@@ -50,16 +57,17 @@ bool SFB::Audio::Converter::Open(UInt32 preferredBufferSizeFrames, CFErrorRef *e
 
 	// Open the decoder if necessary
 	if(!mDecoder->IsOpen() && !mDecoder->Open(error)) {
-		if(error)
-			os_log_error(OS_LOG_DEFAULT, "Error opening decoder: %{public}@", *error);
-
+        if(error) {
+            const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(*error), kCFStringEncodingMacRoman) ;
+            NSLog("Error opening decoder: %s", cs);
+        }
 		return false;
 	}
 
 	AudioStreamBasicDescription inputFormat = mDecoder->GetFormat();
 	OSStatus result = AudioConverterNew(&inputFormat, &mFormat, &mConverter);
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioConverterNew failed: %d '%{public}.4s", result, SFBCStringForOSType(result));
+		NSLog("AudioConverterNew failed: %d '%.4s\n", result, SFBCStringForOSType(result));
 
 		if(error)
 			*error = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainOSStatus, result, nullptr);
@@ -72,11 +80,11 @@ bool SFB::Audio::Converter::Open(UInt32 preferredBufferSizeFrames, CFErrorRef *e
 	UInt32 dataSize = sizeof(inputBufferSize);
 	result = AudioConverterGetProperty(mConverter, kAudioConverterPropertyCalculateInputBufferSize, &dataSize, &inputBufferSize);
 	if(noErr != result)
-		os_log_error(OS_LOG_DEFAULT, "AudioConverterGetProperty (kAudioConverterPropertyCalculateInputBufferSize) failed: %d", result);
+		NSLog("AudioConverterGetProperty (kAudioConverterPropertyCalculateInputBufferSize) failed: %d\n", result);
 
 	UInt32 inputBufferSizeFrames = noErr == result ? (UInt32)mDecoder->GetFormat().ByteCountToFrameCount(inputBufferSize) : preferredBufferSizeFrames;
 	if(!mBufferList.Allocate(mDecoder->GetFormat(), inputBufferSizeFrames)) {
-		os_log_error(OS_LOG_DEFAULT, "Error allocating conversion buffer");
+		NSLog("Error allocating conversion buffer\n");
 
 		if(error)
 			*error = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainPOSIX, ENOMEM, nullptr);
@@ -88,7 +96,7 @@ bool SFB::Audio::Converter::Open(UInt32 preferredBufferSizeFrames, CFErrorRef *e
 	if(mDecoder->GetChannelLayout()) {
 		result = AudioConverterSetProperty(mConverter, kAudioConverterInputChannelLayout, (UInt32)mDecoder->GetChannelLayout().GetACLSize(), mDecoder->GetChannelLayout().GetACL());
 		if(noErr != result) {
-			os_log_error(OS_LOG_DEFAULT, "AudioConverterSetProperty (kAudioConverterInputChannelLayout) failed: %d '%{public}.4s", result, SFBCStringForOSType(result));
+			NSLog("AudioConverterSetProperty (kAudioConverterInputChannelLayout) failed: %d '%.4s\n", result, SFBCStringForOSType(result));
 
 			if(error)
 				*error = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainOSStatus, result, nullptr);
@@ -100,7 +108,7 @@ bool SFB::Audio::Converter::Open(UInt32 preferredBufferSizeFrames, CFErrorRef *e
 	if(mChannelLayout) {
 		result = AudioConverterSetProperty(mConverter, kAudioConverterOutputChannelLayout, (UInt32)mChannelLayout.GetACLSize(), mChannelLayout.GetACL());
 		if(noErr != result) {
-			os_log_error(OS_LOG_DEFAULT, "AudioConverterSetProperty (kAudioConverterOutputChannelLayout) failed: %d '%{public}.4s", result, SFBCStringForOSType(result));
+			NSLog("AudioConverterSetProperty (kAudioConverterOutputChannelLayout) failed: %d '%.4s\ns", result, SFBCStringForOSType(result));
 
 			if(error)
 				*error = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainOSStatus, result, nullptr);
@@ -118,7 +126,7 @@ bool SFB::Audio::Converter::Close(CFErrorRef *error)
 #pragma unused(error)
 
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "Close() called on an AudioConverter that hasn't been opened");
+		NSLog("Close() called on an AudioConverter that hasn't been opened\n");
 		return true;
 	}
 
@@ -147,7 +155,7 @@ CFStringRef SFB::Audio::Converter::CreateFormatDescription() const
 																		 &sourceFormatDescription);
 
 	if(noErr != result)
-		os_log_debug(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		NSLog("AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%.4s'\n", result, SFBCStringForOSType(result));
 
 	return sourceFormatDescription;
 }
@@ -166,7 +174,7 @@ CFStringRef SFB::Audio::Converter::CreateChannelLayoutDescription() const
 																		 &channelLayoutDescription);
 
 	if(noErr != result)
-		os_log_debug(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_ChannelLayoutName) failed: %d '%{public}.4s", result, SFBCStringForOSType(result));
+		NSLog("AudioFormatGetProperty (kAudioFormatProperty_ChannelLayoutName) failed: %d '%.4s\n", result, SFBCStringForOSType(result));
 
 	return channelLayoutDescription;
 }
@@ -191,7 +199,7 @@ bool SFB::Audio::Converter::Reset()
 
 	OSStatus result = AudioConverterReset(mConverter);
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioConverterReset failed: %d '%{public}.4s", result, SFBCStringForOSType(result));
+		NSLog("AudioConverterReset failed: %d '%.4s\n", result, SFBCStringForOSType(result));
 		return false;
 	}
 

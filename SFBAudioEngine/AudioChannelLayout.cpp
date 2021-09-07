@@ -286,7 +286,7 @@ size_t SFB::Audio::ChannelLayout::GetChannelCount() const
 
 	if(noErr != result)
 		return 0;
-	//os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_NumberOfChannelsForLayout) failed: %d", result);
+	//fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_NumberOfChannelsForLayout) failed: %d\n", result);
 
 	return channelCount;
 }
@@ -312,7 +312,7 @@ bool SFB::Audio::ChannelLayout::MapToLayout(const ChannelLayout& outputLayout, s
 
 	if(noErr != result)
 		return false;
-	//os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_ChannelMap) failed: %d", result);
+	//fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_ChannelMap) failed: %d\n", result);
 
 	auto start = (SInt32 *)rawChannelMap;
 	channelMap.assign(start, start + outputChannelCount);
@@ -348,7 +348,7 @@ bool SFB::Audio::ChannelLayout::operator==(const ChannelLayout& rhs) const
 
 	if(noErr != result)
 		return false;
-		//os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_AreChannelLayoutsEquivalent) failed: %d", result);
+		//fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_AreChannelLayoutsEquivalent) failed: %d\n", result);
 
 	return layoutsEqual;
 }

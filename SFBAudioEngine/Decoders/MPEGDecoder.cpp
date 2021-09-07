@@ -32,7 +32,7 @@ namespace {
 		// What happens if this fails?
 		int result = mpg123_init();
 		if(MPG123_OK != result)
-			os_log_debug(OS_LOG_DEFAULT, "Unable to initialize mpg123: %s", mpg123_plain_strerror(result));
+			fprintf(stderr, "Unable to initialize mpg123: %s", mpg123_plain_strerror(result));
 	}
 
 	void Teardownmpg123() __attribute__ ((destructor));
@@ -294,7 +294,7 @@ SFB::CFString SFB::Audio::MPEGDecoder::_GetSourceFormatDescription() const
 UInt32 SFB::Audio::MPEGDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(bufferList->mNumberBuffers != mFormat.mChannelsPerFrame) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -341,7 +341,7 @@ UInt32 SFB::Audio::MPEGDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 f
 		if(MPG123_DONE == result)
 			break;
 		else if(MPG123_OK != result) {
-			os_log_error(OS_LOG_DEFAULT, "mpg123_decode_frame failed: %s", mpg123_strerror(mDecoder.get()));
+			fprintf(stderr, "mpg123_decode_frame failed: %s", mpg123_strerror(mDecoder.get()));
 			break;
 		}
 

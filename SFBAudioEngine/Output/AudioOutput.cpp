@@ -37,7 +37,7 @@ void SFB::Audio::Output::SetPrepareForFormatBlock(FormatBlock block)
 
 bool SFB::Audio::Output::Open()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Opening output");
+	fprintf(stderr, "Opening output\n");
 
 	if(_IsOpen())
 		return true;
@@ -47,7 +47,7 @@ bool SFB::Audio::Output::Open()
 
 bool SFB::Audio::Output::Close()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Closing output");
+	fprintf(stderr, "Closing output\n");
 
 	if(!_IsOpen())
 		return true;
@@ -58,7 +58,7 @@ bool SFB::Audio::Output::Close()
 
 bool SFB::Audio::Output::Start()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Starting output");
+	fprintf(stderr, "Starting output\n");
 
 	if(!_IsOpen())
 		return false;
@@ -71,7 +71,7 @@ bool SFB::Audio::Output::Start()
 
 bool SFB::Audio::Output::Stop()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Stopping output");
+	fprintf(stderr, "Stopping output\n");
 
 	if(!_IsOpen())
 		return false;
@@ -84,7 +84,7 @@ bool SFB::Audio::Output::Stop()
 
 bool SFB::Audio::Output::RequestStop()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Requesting output stop");
+	fprintf(stderr, "Requesting output stop\n");
 
 	if(!_IsOpen())
 		return false;
@@ -97,7 +97,7 @@ bool SFB::Audio::Output::RequestStop()
 
 bool SFB::Audio::Output::Reset()
 {
-	os_log_debug(OS_LOG_DEFAULT, "Resetting output");
+	fprintf(stderr, "Resetting output\n");
 
 	if(!_IsOpen())
 		return false;
@@ -123,7 +123,8 @@ bool SFB::Audio::Output::CreateDeviceUID(CFStringRef& deviceUID) const
 
 bool SFB::Audio::Output::SetDeviceUID(CFStringRef deviceUID)
 {
-	os_log_debug(OS_LOG_DEFAULT, "Setting device UID to %{public}@", deviceUID);
+    const char *deviceString = CFStringGetCStringPtr( deviceUID, kCFStringEncodingMacRoman ) ;
+	fprintf(stderr, "Setting device UID to %s\n", deviceString);
 	return _SetDeviceUID(deviceUID);
 }
 
@@ -134,7 +135,7 @@ bool SFB::Audio::Output::GetDeviceSampleRate(Float64& sampleRate) const
 
 bool SFB::Audio::Output::SetDeviceSampleRate(Float64 sampleRate)
 {
-	os_log_debug(OS_LOG_DEFAULT, "Setting device sample rate to %f", sampleRate);
+	fprintf(stderr, "Setting device sample rate to %f\n", sampleRate);
 	return _SetDeviceSampleRate(sampleRate);
 }
 

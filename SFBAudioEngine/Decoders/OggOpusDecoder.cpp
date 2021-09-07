@@ -141,7 +141,7 @@ bool SFB::Audio::OggOpusDecoder::_Open(CFErrorRef *error)
 	}
 
 	if(0 != op_test_open(mOpusFile.get())) {
-		os_log_error(OS_LOG_DEFAULT, "op_test_open failed");
+		fprintf(stderr, "op_test_open failed");
 		return false;
 	}
 
@@ -213,7 +213,7 @@ SFB::CFString SFB::Audio::OggOpusDecoder::_GetSourceFormatDescription() const
 UInt32 SFB::Audio::OggOpusDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(bufferList->mBuffers[0].mNumberChannels != mFormat.mChannelsPerFrame) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -225,7 +225,7 @@ UInt32 SFB::Audio::OggOpusDecoder::_ReadAudio(AudioBufferList *bufferList, UInt3
 		int framesRead = op_read_float(mOpusFile.get(), buffer, (int)(framesRemaining * mFormat.mChannelsPerFrame), nullptr);
 
 		if(0 > framesRead) {
-			os_log_error(OS_LOG_DEFAULT, "Ogg Opus decoding error: %d", framesRead);
+			fprintf(stderr, "Ogg Opus decoding error: %d\n", framesRead);
 			return 0;
 		}
 
@@ -248,7 +248,7 @@ UInt32 SFB::Audio::OggOpusDecoder::_ReadAudio(AudioBufferList *bufferList, UInt3
 SInt64 SFB::Audio::OggOpusDecoder::_SeekToFrame(SInt64 frame)
 {
 	if(0 != op_pcm_seek(mOpusFile.get(), frame)) {
-		os_log_error(OS_LOG_DEFAULT, "op_pcm_seek() failed");
+		fprintf(stderr, "op_pcm_seek() failed");
 		return -1;
 	}
 

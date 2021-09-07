@@ -168,8 +168,10 @@ void SFB::HTTPInputSource::HandleNetworkEvent(CFReadStreamRef stream, CFStreamEv
 		case kCFStreamEventErrorOccurred:
 		{
 			SFB::CFError error(CFReadStreamCopyError(stream));
-			if(error)
-				os_log_error(OS_LOG_DEFAULT, "Error: %{public}@", error.Object());
+            if(error) {
+                const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+				fprintf(stderr, "Error: %s", cs);
+            }
 			break;
 		}
 

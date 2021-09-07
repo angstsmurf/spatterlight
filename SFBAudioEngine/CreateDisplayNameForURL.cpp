@@ -16,6 +16,9 @@
 CFStringRef
 SFB::CreateDisplayNameForURL(CFURLRef url)
 {
+    if (nullptr == url)
+        return CFStringRef("");
+
 	assert(nullptr != url);
 
 	CFStringRef displayName = nullptr;
@@ -29,7 +32,7 @@ SFB::CreateDisplayNameForURL(CFURLRef url)
 			Boolean result = CFURLCopyResourcePropertyForKey(url, kCFURLLocalizedNameKey, &displayName, nullptr);
 
 			if(!result) {
-				os_log_info(OS_LOG_DEFAULT, "CFURLCopyResourcePropertyForKey(kCFURLLocalizedNameKey) failed: %d", result);
+				fprintf(stderr, "CFURLCopyResourcePropertyForKey(kCFURLLocalizedNameKey) failed: %d\n", result);
 				displayName = CFURLCopyLastPathComponent(url);
 			}
 		}

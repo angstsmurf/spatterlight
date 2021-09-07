@@ -11,7 +11,7 @@
 
 #include <AudioToolbox/AudioToolbox.h>
 
-#include "CFWrapper.h"
+#include <SFBAudioEngine/CFWrapper.h>
 
 /*! @file AudioChannelLayout.h @brief A Core %Audio \c AudioChannelLayout wrapper  */
 

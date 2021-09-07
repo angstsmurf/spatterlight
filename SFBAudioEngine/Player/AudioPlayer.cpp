@@ -21,6 +21,13 @@
 #include "CreateDisplayNameForURL.h"
 #include "SFBCStringForOSType.h"
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n");
+#else
+#define NSLog(...)
+#endif
+
 // ========================================
 // Macros
 // ========================================
@@ -136,7 +143,7 @@ namespace {
 												THREAD_EXTENDED_POLICY_COUNT);
 
 		if(KERN_SUCCESS != error) {
-			os_log_debug(OS_LOG_DEFAULT, "Couldn't set thread's extended policy: %{public}s", mach_error_string(error));
+			NSLog("Couldn't set thread's extended policy: %s", mach_error_string(error));
 			return false;
 		}
 
@@ -150,7 +157,7 @@ namespace {
 								  THREAD_PRECEDENCE_POLICY_COUNT);
 
 		if (error != KERN_SUCCESS) {
-			os_log_debug(OS_LOG_DEFAULT, "Couldn't set thread's precedence policy: %{public}s", mach_error_string(error));
+			NSLog("Couldn't set thread's precedence policy: %s", mach_error_string(error));
 			return false;
 		}
 
@@ -205,7 +212,7 @@ SFB::Audio::Player::Player()
 
 	mQueue = dispatch_queue_create("org.sbooth.AudioEngine.Player", DISPATCH_QUEUE_SERIAL);
 	if(nullptr == mQueue) {
-		os_log_error(OS_LOG_DEFAULT, "dispatch_queue_create failed");
+		NSLog("dispatch_queue_create failed");
 		throw std::runtime_error("Unable to create the dispatch queue");
 	}
 
@@ -216,7 +223,7 @@ SFB::Audio::Player::Player()
 	}
 
 	catch(const std::exception& e) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to create decoder thread: %{public}s", e.what());
+		NSLog("Unable to create decoder thread: %s", e.what());
 
 		throw;
 	}
@@ -241,7 +248,9 @@ SFB::Audio::Player::Player()
 			bool swapSucceeded = mActiveDecoders[bufferIndex].compare_exchange_strong(decoderState, nullptr);
 
 			if(swapSucceeded) {
-				os_log_debug(OS_LOG_DEFAULT, "Collecting decoder: \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoderState->mDecoder->GetURL())));
+//                const char *decoderString = CFStringGetCStringPtr( CreateDisplayNameForURL(decoderState->mDecoder->GetURL()), kCFStringEncodingMacRoman);
+//				NSLog("Collecting decoder: \"%s\"", decoderString);
+                NSLog("Collecting decoder");
 				delete decoderState;
 				decoderState = nullptr;
 			}
@@ -255,7 +264,7 @@ SFB::Audio::Player::Player()
 	// Set up output
 	mOutput->SetPlayer(this);
 	if(!mOutput->Open()) {
-		os_log_error(OS_LOG_DEFAULT, "OpenOutput() failed");
+		NSLog("OpenOutput() failed");
 		throw std::runtime_error("OpenOutput() failed");
 	}
 }
@@ -266,7 +275,7 @@ SFB::Audio::Player::~Player()
 
 	// Stop the processing graph and reclaim its resources
 	if(!mOutput->Close())
-		os_log_error(OS_LOG_DEFAULT, "CloseOutput() failed");
+		NSLog("CloseOutput() failed");
 
 	// End the decoding thread
 	mFlags.fetch_or(eAudioPlayerFlagStopDecoding);
@@ -277,7 +286,7 @@ SFB::Audio::Player::~Player()
 	}
 
 	catch(const std::exception& e) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to join decoder thread: %{public}s", e.what());
+		NSLog("Unable to join decoder thread: %s", e.what());
 	}
 
 	// Stop collecting
@@ -755,7 +764,7 @@ bool SFB::Audio::Player::Enqueue(Decoder::unique_ptr& decoder)
 	if(!decoder)
 		return false;
 
-	os_log_info(OS_LOG_DEFAULT, "Enqueuing \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoder->GetURL())));
+//	NSLog("Enqueuing \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoder->GetURL())));
 
 	// The lock is held for the entire method, because enqueuing a track is an inherently
 	// sequential operation.  Without the lock, if Enqueue() is called from multiple
@@ -797,7 +806,7 @@ bool SFB::Audio::Player::SkipToNextTrack()
 	if(nullptr == currentDecoderState)
 		return false;
 
-	os_log_info(OS_LOG_DEFAULT, "Skipping \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(currentDecoderState->mDecoder->GetURL())));
+//	NSLog("Skipping \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(currentDecoderState->mDecoder->GetURL())));
 
 	if(mOutput->IsRunning()) {
 		mFlags.fetch_or(eAudioPlayerFlagRequestMute);
@@ -844,7 +853,7 @@ bool SFB::Audio::Player::SetRingBufferCapacity(uint32_t bufferCapacity)
 	if(0 == bufferCapacity || mRingBufferWriteChunkSize > bufferCapacity)
 		return false;
 
-	os_log_info(OS_LOG_DEFAULT, "Setting ring buffer capacity to %u", bufferCapacity);
+	NSLog("Setting ring buffer capacity to %u", bufferCapacity);
 
 	mRingBufferCapacity.store(bufferCapacity);
 	return true;
@@ -855,7 +864,7 @@ bool SFB::Audio::Player::SetRingBufferWriteChunkSize(uint32_t chunkSize)
 	if(0 == chunkSize || mRingBufferCapacity < chunkSize)
 		return false;
 
-	os_log_info(OS_LOG_DEFAULT, "Setting ring buffer write chunk size to %u", chunkSize);
+	NSLog("Setting ring buffer write chunk size to %u", chunkSize);
 
 	mRingBufferWriteChunkSize.store(chunkSize);
 	return true;
@@ -870,7 +879,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 	// ========================================
 	// Make ourselves a high priority thread
 	if(!setThreadPolicy(DECODER_THREAD_IMPORTANCE))
-		os_log_debug(OS_LOG_DEFAULT, "Couldn't set decoder thread importance");
+		NSLog("Couldn't set decoder thread importance");
 
 	int64_t decoderCounter = 0;
 
@@ -897,8 +906,10 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				if(mDecoderErrorBlock)
 					mDecoderErrorBlock(*decoder, error);
 
-				if(error)
-					os_log_error(OS_LOG_DEFAULT, "Error opening decoder: %{public}@", error.Object());
+                if(error) {
+                    const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+					NSLog("Error opening decoder: %s", cs);
+                }
 			}
 		}
 
@@ -909,7 +920,10 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				decoderState->mTimeStamp = decoderCounter++;
 			}
 			else {
-				os_log_error(OS_LOG_DEFAULT, "Format not supported: %{public}@}", (CFStringRef)decoder->GetFormat().Description());
+#ifdef DEBUG
+                const char *cs = CFStringGetCStringPtr(decoder->GetFormat().Description(), kCFStringEncodingMacRoman) ;
+				NSLog("Format not supported: %s", cs);
+#endif
 
 				if(mErrorBlock) {
 					SFB::CFString description(CFCopyLocalizedString(CFSTR("The format of the file “%@” is not supported."), ""));
@@ -935,21 +949,21 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 			bool formatsMatch = true;
 
 			if(nextFormat.mFormatID != outputFormat.mFormatID) {
-				os_log_debug(OS_LOG_DEFAULT, "Gapless join failed: Output format ('%{public}.4s') and decoder format ('%{public}.4s') don't match", SFBCStringForOSType(outputFormat.mFormatID), SFBCStringForOSType(nextFormat.mFormatID));
+//				NSLog("Gapless join failed: Output format ('%{public}.4s') and decoder format ('%{public}.4s') don't match", SFBCStringForOSType(outputFormat.mFormatID), SFBCStringForOSType(nextFormat.mFormatID));
 				formatsMatch = false;
 			}
 			else if(nextFormat.mSampleRate != outputFormat.mSampleRate) {
-				os_log_debug(OS_LOG_DEFAULT, "Gapless join failed: Output sample rate (%.2f Hz) and decoder sample rate (%.2f Hz) don't match", outputFormat.mSampleRate, nextFormat.mSampleRate);
+				NSLog("Gapless join failed: Output sample rate (%.2f Hz) and decoder sample rate (%.2f Hz) don't match", outputFormat.mSampleRate, nextFormat.mSampleRate);
 				formatsMatch = false;
 			}
 			else if(nextFormat.mChannelsPerFrame != outputFormat.mChannelsPerFrame) {
-				os_log_debug(OS_LOG_DEFAULT, "Gapless join failed: Output channel count (%u) and decoder channel count (%u) don't match", outputFormat.mChannelsPerFrame, nextFormat.mChannelsPerFrame);
+				NSLog("Gapless join failed: Output channel count (%u) and decoder channel count (%u) don't match", outputFormat.mChannelsPerFrame, nextFormat.mChannelsPerFrame);
 				formatsMatch = false;
 			}
 
 			// Enqueue the decoder if its channel layout matches the ring buffer's channel layout (so the channel map in the output will remain valid)
 			if(nextChannelLayout != outputChannelLayout) {
-				os_log_debug(OS_LOG_DEFAULT, "Gapless join failed: Output channel layout (%{public}@) and decoder channel layout (%{public}@) don't match", (CFStringRef)outputChannelLayout.Description(), (CFStringRef)nextChannelLayout.Description());
+//				NSLog("Gapless join failed: Output channel layout (%{public}@) and decoder channel layout (%{public}@) don't match", (CFStringRef)outputChannelLayout.Description(), (CFStringRef)nextChannelLayout.Description());
 				formatsMatch = false;
 			}
 
@@ -993,16 +1007,16 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				if(mActiveDecoders[bufferIndex].compare_exchange_strong(current, decoderState))
 					break;
 				else
-					os_log_debug(OS_LOG_DEFAULT, "compare_exchange_strong() failed");
+					NSLog("compare_exchange_strong() failed");
 			}
 		}
 
 		// ========================================
 		// If a decoder was found at the head of the queue, process it
 		if(decoderState) {
-			os_log_info(OS_LOG_DEFAULT, "Decoding starting for \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoderState->mDecoder->GetURL())));
-			os_log_info(OS_LOG_DEFAULT, "Decoder format: %{public}@", (CFStringRef)decoderState->mDecoder->GetFormat().Description());
-			os_log_info(OS_LOG_DEFAULT, "Decoder channel layout: %{public}@", (CFStringRef)decoderState->mDecoder->GetChannelLayout().Description());
+//			NSLog("Decoding starting for \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoderState->mDecoder->GetURL())));
+//			NSLog("Decoder format: %{public}@", (CFStringRef)decoderState->mDecoder->GetFormat().Description());
+//			NSLog("Decoder channel layout: %{public}@", (CFStringRef)decoderState->mDecoder->GetChannelLayout().Description());
 
 //			const AudioFormat& decoderFormat = decoderState->mDecoder->GetFormat();
 			AudioFormat decoderFormat = decoderState->mDecoder->GetFormat();
@@ -1026,7 +1040,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 
 				OSStatus result = AudioConverterNew(&decoderFormat, &outputFormat, &audioConverter);
 				if(noErr != result) {
-					os_log_error(OS_LOG_DEFAULT, "AudioConverterNew failed: %d", result);
+					NSLog("AudioConverterNew failed: %d", result);
 
 					// If this happens, output will be impossible
 					if(mErrorBlock) {
@@ -1057,7 +1071,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 //					auto decoderACL = decoderChannelLayout.GetACL();
 //					result = AudioConverterSetProperty(audioConverter, kAudioConverterInputChannelLayout, sizeof(*decoderACL), decoderACL);
 //					if(noErr != result)
-//						os_log_error(OS_LOG_DEFAULT, "AudioConverterSetProperty (kAudioConverterInputChannelLayout) failed: %d", result);
+//						NSLog("AudioConverterSetProperty (kAudioConverterInputChannelLayout) failed: %d", result);
 //				}
 //
 //				auto& outputChannelLayout = mOutput->GetChannelLayout();
@@ -1065,7 +1079,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 //					auto outputACL = outputChannelLayout.GetACL();
 //					result = AudioConverterSetProperty(audioConverter, kAudioConverterOutputChannelLayout, sizeof(*outputACL), outputACL);
 //					if(noErr != result)
-//						os_log_error(OS_LOG_DEFAULT, "AudioConverterSetProperty (kAudioConverterOutputChannelLayout) failed: %d", result);
+//						NSLog("AudioConverterSetProperty (kAudioConverterOutputChannelLayout) failed: %d", result);
 //				}
 
 				// ========================================
@@ -1074,7 +1088,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				UInt32 dataSize = sizeof(inputBufferSize);
 				result = AudioConverterGetProperty(audioConverter, kAudioConverterPropertyCalculateInputBufferSize, &dataSize, &inputBufferSize);
 				if(noErr != result)
-					os_log_error(OS_LOG_DEFAULT, "AudioConverterGetProperty (kAudioConverterPropertyCalculateInputBufferSize) failed: %d", result);
+					NSLog("AudioConverterGetProperty (kAudioConverterPropertyCalculateInputBufferSize) failed: %d", result);
 
 				// ========================================
 				// Allocate the buffer lists which will serve as the transport between the decoder and the ring buffer
@@ -1114,7 +1128,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 						if(audioConverter) {
 							auto result = AudioConverterReset(audioConverter);
 							if(noErr != result)
-								os_log_error(OS_LOG_DEFAULT, "AudioConverterReset failed: %d", result);
+								NSLog("AudioConverterReset failed: %d", result);
 						}
 
 						// Reset() is not thread safe but the rendering thread is outputting silence
@@ -1134,7 +1148,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 
 						// Seek to the specified frame
 						if(-1 != frameToSeek) {
-							os_log_debug(OS_LOG_DEFAULT, "Seeking to frame %lld", frameToSeek);
+							NSLog("Seeking to frame %lld", frameToSeek);
 
 							// Ensure output is muted before performing operations that aren't thread safe
 							if(mOutput->IsRunning()) {
@@ -1150,7 +1164,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 							SInt64 newFrame = decoderState->mDecoder->SeekToFrame(frameToSeek);
 
 							if(newFrame != frameToSeek)
-								os_log_debug(OS_LOG_DEFAULT, "Inaccurate seek to frame %lld, got frame %lld", frameToSeek, newFrame);
+								NSLog("Inaccurate seek to frame %lld, got frame %lld", frameToSeek, newFrame);
 
 							// Update the seek request
 							decoderState->mFrameToSeek.store(-1);
@@ -1165,7 +1179,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 								if(audioConverter) {
 									auto result = AudioConverterReset(audioConverter);
 									if(noErr != result)
-										os_log_error(OS_LOG_DEFAULT, "AudioConverterReset failed: %d", result);
+										NSLog("AudioConverterReset failed: %d", result);
 								}
 
 								// Reset the ring buffer and output
@@ -1180,7 +1194,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 						SInt64 startingFrameNumber = decoderState->mDecoder->GetCurrentFrame();
 
 						if(-1 == startingFrameNumber) {
-							os_log_error(OS_LOG_DEFAULT, "Unable to determine starting frame number");
+							NSLog("Unable to determine starting frame number");
 							break;
 						}
 
@@ -1198,7 +1212,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 						if(audioConverter) {
 							auto result = AudioConverterFillComplexBuffer(audioConverter, myAudioConverterComplexInputDataProc, decoderState, &framesDecoded, bufferList, nullptr);
 							if(noErr != result)
-								os_log_error(OS_LOG_DEFAULT, "AudioConverterFillComplexBuffer failed: %d", result);
+								NSLog("AudioConverterFillComplexBuffer failed: %d", result);
 						}
 						else {
 							framesDecoded = decoderState->ReadAudio(framesDecoded);
@@ -1222,14 +1236,14 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 						if(0 != framesDecoded) {
 							UInt32 framesWritten = (UInt32)mRingBuffer->WriteAudio(audioConverter ? bufferList : decoderState->mBufferList, framesDecoded);
 							if(framesWritten != framesDecoded)
-								os_log_error(OS_LOG_DEFAULT, "RingBuffer::Store failed");
+								NSLog("RingBuffer::Store failed");
 
 							mFramesDecoded.fetch_add(framesWritten);
 						}
 
 						// If no frames were returned, this is the end of stream
 						if(0 == framesDecoded/* && !(eDecoderStateDataFlagDecodingFinished & decoderState->mFlags.load())*/) {
-							os_log_info(OS_LOG_DEFAULT, "Decoding finished for \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoderState->mDecoder->GetURL())));
+//							NSLog("Decoding finished for \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(decoderState->mDecoder->GetURL())));
 
 							// Some formats (MP3) may not know the exact number of frames in advance
 							// without processing the entire file, which is a potentially slow operation
@@ -1261,7 +1275,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 						// We don't want to start output in the middle of a buffer modification
 						dispatch_sync(mQueue, ^{
 							if(!mOutput->Start())
-								os_log_error(OS_LOG_DEFAULT, "Unable to start output");
+								NSLog("Unable to start output");
 						});
 					}
 				}
@@ -1285,7 +1299,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 			if(audioConverter) {
 				auto result = AudioConverterDispose(audioConverter);
 				if(noErr != result)
-					os_log_error(OS_LOG_DEFAULT, "AudioConverterDispose failed: %d", result);
+					NSLog("AudioConverterDispose failed: %d", result);
 				audioConverter = nullptr;
 			}
 		}
@@ -1294,7 +1308,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 		mDecoderSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
 	}
 
-	os_log_info(OS_LOG_DEFAULT, "Decoding thread terminating");
+	NSLog("Decoding thread terminating");
 
 	return nullptr;
 }
@@ -1378,14 +1392,16 @@ bool SFB::Audio::Player::SetupOutputAndRingBufferForDecoder(Decoder& decoder)
 		if(mDecoderErrorBlock)
 			mDecoderErrorBlock(decoder, error);
 
-		if(error)
-			os_log_error(OS_LOG_DEFAULT, "Error opening decoder: %{public}@", error.Object());
-
+        if(error) {
+            const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+            NSLog("Error opening decoder: %s", cs);
+        }
 		return false;
 	}
 
 	if(!mOutput->SupportsFormat(decoder.GetFormat())) {
-		os_log_error(OS_LOG_DEFAULT, "Format not supported: %{public}@", (CFStringRef)decoder.GetFormat().Description());
+        const char *cs = CFStringGetCStringPtr(decoder.GetFormat().Description(), kCFStringEncodingMacRoman) ;
+		NSLog("Format not supported: %s", cs);
 
 		if(mErrorBlock) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The format of the file “%@” is not supported."), ""));
@@ -1406,7 +1422,7 @@ bool SFB::Audio::Player::SetupOutputAndRingBufferForDecoder(Decoder& decoder)
 
 	// Allocate enough space in the ring buffer for the new format
 	if(!mRingBuffer->Allocate(mOutput->GetFormat(), mRingBufferCapacity)) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to allocate ring buffer");
+		NSLog("Unable to allocate ring buffer");
 		return false;
 	}
 
@@ -1427,10 +1443,10 @@ bool SFB::Audio::Player::SetOutput(Output::unique_ptr output)
 		return false;
 
 	if(!mOutput->Close())
-		os_log_error(OS_LOG_DEFAULT, "Unable to close output");
+		NSLog("Unable to close output");
 
 	if(!output->Open()) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to open output");
+		NSLog("Unable to open output");
 		return false;
 	}
 
@@ -1478,7 +1494,7 @@ bool SFB::Audio::Player::ProvideAudio(AudioBufferList *bufferList, UInt32 frameC
 	size_t framesToRead = std::min((UInt32)framesAvailableToRead, frameCount);
 	UInt32 framesRead = (UInt32)mRingBuffer->ReadAudio(bufferList, framesToRead);
 	if(framesRead != framesToRead) {
-		os_log_error(OS_LOG_DEFAULT, "RingBuffer::ReadAudio failed: Requested %zu frames, got %d", framesToRead, framesRead);
+		NSLog("RingBuffer::ReadAudio failed: Requested %zu frames, got %d", framesToRead, framesRead);
 		return false;
 	}
 
@@ -1486,7 +1502,7 @@ bool SFB::Audio::Player::ProvideAudio(AudioBufferList *bufferList, UInt32 frameC
 
 	// If the ring buffer didn't contain as many frames as were requested, fill the remainder with silence
 	if(framesRead != frameCount) {
-		os_log_debug(OS_LOG_DEFAULT, "Insufficient audio in ring buffer: %d frames available, %d requested", framesRead, frameCount);
+		NSLog("Insufficient audio in ring buffer: %d frames available, %d requested", framesRead, frameCount);
 
 		size_t framesOfSilence = frameCount - framesRead;
 		size_t byteCountToSkip = outputFormat.FrameCountToByteCount(framesRead);

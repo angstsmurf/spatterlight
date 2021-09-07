@@ -5,7 +5,9 @@
 
 #pragma once
 
-#include "AudioDecoder.h"
+#define SFB_INFINITE_LOOP 0xFFFFFFFE
+
+#include <SFBAudioEngine/AudioDecoder.h>
 
 /*! @file LoopableRegionDecoder.h @brief Support for decoding specific audio regions */
 

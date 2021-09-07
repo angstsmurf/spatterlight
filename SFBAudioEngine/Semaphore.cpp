@@ -15,7 +15,7 @@ SFB::Semaphore::Semaphore()
 	mSemaphore = dispatch_semaphore_create(0);
 
 	if(nullptr == mSemaphore) {
-		os_log_error(OS_LOG_DEFAULT, "dispatch_semaphore_create failed");
+		fprintf(stderr, "dispatch_semaphore_create failed\n");
 		throw std::runtime_error("Unable to create the semaphore");
 	}
 }

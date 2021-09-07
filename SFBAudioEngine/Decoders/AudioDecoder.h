@@ -12,9 +12,9 @@
 #include <CoreAudio/CoreAudioTypes.h>
 #include <CoreFoundation/CoreFoundation.h>
 
-#include "AudioChannelLayout.h"
-#include "AudioFormat.h"
-#include "InputSource.h"
+#include <SFBAudioEngine/AudioChannelLayout.h>
+#include <SFBAudioEngine/AudioFormat.h>
+#include <SFBAudioEngine/InputSource.h>
 
 /*! @file AudioDecoder.h @brief Support for decoding audio to PCM */
 

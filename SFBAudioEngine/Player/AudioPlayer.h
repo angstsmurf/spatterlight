@@ -15,11 +15,11 @@
 
 #include <CoreAudio/CoreAudioTypes.h>
 
-#include "AudioChannelLayout.h"
-#include "AudioDecoder.h"
-#include "AudioOutput.h"
-#include "AudioRingBuffer.h"
-#include "Semaphore.h"
+#include <SFBAudioEngine/AudioChannelLayout.h>
+#include <SFBAudioEngine/AudioDecoder.h>
+#include <SFBAudioEngine/AudioOutput.h>
+#include <SFBAudioEngine/AudioRingBuffer.h>
+#include <SFBAudioEngine/Semaphore.h>
 
 /*! @file AudioPlayer.h @brief Audio playback functionality */
 

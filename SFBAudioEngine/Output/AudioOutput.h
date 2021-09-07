@@ -9,7 +9,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-#include "AudioDecoder.h"
+#include <SFBAudioEngine/AudioDecoder.h>
 
 /*! @file AudioOutput.h @brief Audio output functionality */
 

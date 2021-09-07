@@ -231,7 +231,7 @@ SFB::CFString SFB::Audio::MusepackDecoder::_GetSourceFormatDescription() const
 UInt32 SFB::Audio::MusepackDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(bufferList->mNumberBuffers != mFormat.mChannelsPerFrame) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -275,7 +275,7 @@ UInt32 SFB::Audio::MusepackDecoder::_ReadAudio(AudioBufferList *bufferList, UInt
 
 		mpc_status result = mpc_demux_decode(mDemux, &frame);
 		if(MPC_STATUS_OK != result) {
-			os_log_error(OS_LOG_DEFAULT, "Musepack decoding error");
+			fprintf(stderr, "Musepack decoding error");
 			break;
 		}
 

@@ -9,7 +9,7 @@
 
 #include <CoreAudio/CoreAudioTypes.h>
 
-#include "AudioFormat.h"
+#include <SFBAudioEngine/AudioFormat.h>
 
 /*! @file AudioRingBuffer.h @brief An audio ring buffer */
 

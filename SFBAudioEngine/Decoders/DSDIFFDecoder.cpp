@@ -67,13 +67,13 @@ namespace {
 		char chunkIDBytes [4];
 		auto bytesRead = inputSource.Read(chunkIDBytes, 4);
 		if(4 != bytesRead) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read chunk ID");
+			fprintf(stderr, "Unable to read chunk ID");
 			return false;
 		}
 
 		chunkID = BytesToID(chunkIDBytes);
 		if(0 == chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Illegal chunk ID");
+			fprintf(stderr, "Illegal chunk ID");
 			return false;
 		}
 
@@ -230,7 +230,7 @@ namespace {
 			return false;
 
 		if(!inputSource.ReadBE<uint64_t>(chunkDataSize)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read chunk data size");
+			fprintf(stderr, "Unable to read chunk data size");
 			return false;
 		}
 
@@ -240,7 +240,7 @@ namespace {
 	std::shared_ptr<FormatVersionChunk> ParseFormatVersionChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('FVER' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'FVER' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'FVER' chunk");
 			return nullptr;
 		}
 
@@ -251,12 +251,12 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!inputSource.ReadBE<uint32_t>(result->mFormatVersion)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read format version in 'FVER' chunk");
+			fprintf(stderr, "Unable to read format version in 'FVER' chunk");
 			return nullptr;
 		}
 
 		if(0x01050000 < result->mFormatVersion) {
-			os_log_error(OS_LOG_DEFAULT, "Unsupported format version in 'FVER': %u", result->mFormatVersion);
+			fprintf(stderr, "Unsupported format version in 'FVER': %u", result->mFormatVersion);
 			return nullptr;
 		}
 
@@ -266,7 +266,7 @@ namespace {
 	std::shared_ptr<SampleRateChunk> ParseSampleRateChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('FS  ' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'FS  ' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'FS  ' chunk");
 			return nullptr;
 		}
 
@@ -277,7 +277,7 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!inputSource.ReadBE<uint32_t>(result->mSampleRate)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read sample rate in 'FS  ' chunk");
+			fprintf(stderr, "Unable to read sample rate in 'FS  ' chunk");
 			return nullptr;
 		}
 
@@ -287,7 +287,7 @@ namespace {
 	std::shared_ptr<ChannelsChunk> ParseChannelsChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('CHNL' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'CHNL' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'CHNL' chunk");
 			return nullptr;
 		}
 
@@ -298,14 +298,14 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!inputSource.ReadBE<uint16_t>(result->mNumberChannels)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read number channels in 'CHNL' chunk");
+			fprintf(stderr, "Unable to read number channels in 'CHNL' chunk");
 			return nullptr;
 		}
 
 		for(uint16_t i = 0; i < result->mNumberChannels; ++i) {
 			uint32_t channelID;
 			if(!ReadID(inputSource, channelID)) {
-				os_log_error(OS_LOG_DEFAULT, "Unable to read channel ID in 'CHNL' chunk");
+				fprintf(stderr, "Unable to read channel ID in 'CHNL' chunk");
 				return nullptr;
 			}
 			result->mChannelIDs.push_back(channelID);
@@ -317,7 +317,7 @@ namespace {
 	std::shared_ptr<CompressionTypeChunk> ParseCompressionTypeChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('CMPR' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'CMPR' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'CMPR' chunk");
 			return nullptr;
 		}
 
@@ -328,19 +328,19 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!ReadID(inputSource, result->mCompressionType)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read compression type in 'CMPR' chunk");
+			fprintf(stderr, "Unable to read compression type in 'CMPR' chunk");
 			return nullptr;
 		}
 
 		uint8_t count;
 		if(!inputSource.ReadBE<uint8_t>(count)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read count in 'CMPR' chunk");
+			fprintf(stderr, "Unable to read count in 'CMPR' chunk");
 			return nullptr;
 		}
 
 		char compressionName [count];
 		if(!inputSource.Read(compressionName, count)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read compressionName in 'CMPR' chunk");
+			fprintf(stderr, "Unable to read compressionName in 'CMPR' chunk");
 			return nullptr;
 		}
 
@@ -350,7 +350,7 @@ namespace {
 		if(1 == inputSource.GetOffset() % 2) {
 			uint8_t unused;
 			if(!inputSource.Read(&unused, 1)) {
-				os_log_error(OS_LOG_DEFAULT, "Unable to read dummy byte in 'CMPR' chunk");
+				fprintf(stderr, "Unable to read dummy byte in 'CMPR' chunk");
 				return nullptr;
 			}
 
@@ -362,7 +362,7 @@ namespace {
 	std::shared_ptr<AbsoluteStartTimeChunk> ParseAbsoluteStartTimeChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('ABSS' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'ABSS' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'ABSS' chunk");
 			return nullptr;
 		}
 
@@ -373,22 +373,22 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!inputSource.ReadBE<uint16_t>(result->mHours)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read hours in 'ABSS' chunk");
+			fprintf(stderr, "Unable to read hours in 'ABSS' chunk");
 			return nullptr;
 		}
 
 		if(!inputSource.ReadBE<uint8_t>(result->mMinutes)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read minutes in 'ABSS' chunk");
+			fprintf(stderr, "Unable to read minutes in 'ABSS' chunk");
 			return nullptr;
 		}
 
 		if(!inputSource.ReadBE<uint8_t>(result->mSeconds)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read seconds in 'ABSS' chunk");
+			fprintf(stderr, "Unable to read seconds in 'ABSS' chunk");
 			return nullptr;
 		}
 
 		if(!inputSource.ReadBE<uint32_t>(result->mSamples)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read samples in 'ABSS' chunk");
+			fprintf(stderr, "Unable to read samples in 'ABSS' chunk");
 			return nullptr;
 		}
 
@@ -398,7 +398,7 @@ namespace {
 	std::shared_ptr<LoudspeakerConfigurationChunk> ParseLoudspeakerConfigurationChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('LSCO' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'LSCO' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'LSCO' chunk");
 			return nullptr;
 		}
 
@@ -409,7 +409,7 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!inputSource.ReadBE<uint16_t>(result->mLoudspeakerConfiguration)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read loudspeaker configuration in 'LSCO' chunk");
+			fprintf(stderr, "Unable to read loudspeaker configuration in 'LSCO' chunk");
 			return nullptr;
 		}
 
@@ -419,7 +419,7 @@ namespace {
 	std::shared_ptr<PropertyChunk> ParsePropertyChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('PROP' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'PROP' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'PROP' chunk");
 			return nullptr;
 		}
 
@@ -430,12 +430,12 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!ReadID(inputSource, result->mPropertyType)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read property type in 'PROP' chunk");
+			fprintf(stderr, "Unable to read property type in 'PROP' chunk");
 			return nullptr;
 		}
 
 		if('SND ' != result->mPropertyType) {
-			os_log_error(OS_LOG_DEFAULT, "Unexpected property type in 'PROP' chunk: %u", result->mPropertyType);
+			fprintf(stderr, "Unexpected property type in 'PROP' chunk: %u", result->mPropertyType);
 			return nullptr;
 		}
 
@@ -498,7 +498,7 @@ namespace {
 				chunkDataSizeRemaining -= localChunkDataSize;
 			}
 			else {
-				os_log_error(OS_LOG_DEFAULT, "Error reading local chunk in 'PROP' chunk");
+				fprintf(stderr, "Error reading local chunk in 'PROP' chunk");
 				return nullptr;
 			}
 		}
@@ -509,7 +509,7 @@ namespace {
 	std::shared_ptr<DSDSoundDataChunk> ParseDSDSoundDataChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('DSD ' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Invalid chunk ID for 'DSD ' chunk");
+			fprintf(stderr, "Invalid chunk ID for 'DSD ' chunk");
 			return nullptr;
 		}
 
@@ -528,7 +528,7 @@ namespace {
 	std::unique_ptr<FormDSDChunk> ParseFormDSDChunk(SFB::InputSource& inputSource, const uint32_t chunkID, const uint64_t chunkDataSize)
 	{
 		if('FRM8' != chunkID) {
-			os_log_error(OS_LOG_DEFAULT, "Missing 'FRM8' chunk");
+			fprintf(stderr, "Missing 'FRM8' chunk");
 			return nullptr;
 		}
 
@@ -539,12 +539,12 @@ namespace {
 		result->mDataOffset = inputSource.GetOffset();
 
 		if(!ReadID(inputSource, result->mFormType)) {
-			os_log_error(OS_LOG_DEFAULT, "Unable to read formType in 'FRM8' chunk");
+			fprintf(stderr, "Unable to read formType in 'FRM8' chunk");
 			return nullptr;
 		}
 
 		if('DSD ' != result->mFormType) {
-			os_log_error(OS_LOG_DEFAULT, "Unexpected formType in 'FRM8' chunk: '%{public}.4s'", SFBCStringForOSType(result->mFormType));
+			fprintf(stderr, "Unexpected formType in 'FRM8' chunk: '%.4s'\n", SFBCStringForOSType(result->mFormType));
 			return nullptr;
 		}
 
@@ -591,7 +591,7 @@ namespace {
 				chunkDataSizeRemaining -= localChunkDataSize;
 			}
 			else {
-				os_log_error(OS_LOG_DEFAULT, "Error reading local chunk in 'FRM8' chunk");
+				fprintf(stderr, "Error reading local chunk in 'FRM8' chunk");
 				return nullptr;
 			}
 		}
@@ -680,7 +680,7 @@ bool SFB::Audio::DSDIFFDecoder::_Open(CFErrorRef *error)
 
 	auto chunks = ParseDSDIFF(GetInputSource());
 	if(!chunks) {
-		os_log_error(OS_LOG_DEFAULT, "Error parsing file");
+		fprintf(stderr, "Error parsing file");
 		if(error)
 			*error = CreateInvalidDSDIFFFileError(mInputSource->GetURL());
 
@@ -692,7 +692,7 @@ bool SFB::Audio::DSDIFFDecoder::_Open(CFErrorRef *error)
 	auto channelsChunk = std::static_pointer_cast<ChannelsChunk>(propertyChunk->mLocalChunks['CHNL']);
 
 	if(!propertyChunk || !sampleRateChunk || !channelsChunk) {
-		os_log_error(OS_LOG_DEFAULT, "Missing chunk in file");
+		fprintf(stderr, "Missing chunk in file");
 		if(error)
 			*error = CreateInvalidDSDIFFFileError(mInputSource->GetURL());
 
@@ -737,7 +737,7 @@ bool SFB::Audio::DSDIFFDecoder::_Open(CFErrorRef *error)
 
 	auto soundDataChunk = std::static_pointer_cast<DSDSoundDataChunk>(chunks->mLocalChunks['DSD ']);
 	if(!soundDataChunk) {
-		os_log_error(OS_LOG_DEFAULT, "Missing chunk in file");
+		fprintf(stderr, "Missing chunk in file");
 		if(error)
 			*error = CreateInvalidDSDIFFFileError(mInputSource->GetURL());
 
@@ -769,7 +769,7 @@ UInt32 SFB::Audio::DSDIFFDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32
 {
 	// Only multiples of 8 frames can be read (8 frames equals one byte)
 	if(bufferList->mNumberBuffers != mFormat.mChannelsPerFrame || 0 != frameCount % 8) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -790,7 +790,7 @@ UInt32 SFB::Audio::DSDIFFDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32
 		auto bytesRead = GetInputSource().Read(buffer, bytesToRead);
 
 		if(bytesRead != bytesToRead) {
-			os_log_debug(OS_LOG_DEFAULT, "Error reading audio: requested %u bytes, got %lld", bytesToRead, bytesRead);
+			fprintf(stderr, "Error reading audio: requested %u bytes, got %lld", bytesToRead, bytesRead);
 			break;
 		}
 
@@ -829,7 +829,7 @@ SInt64 SFB::Audio::DSDIFFDecoder::_SeekToFrame(SInt64 frame)
 
 	SInt64 frameOffset = (SInt64)mFormat.FrameCountToByteCount((size_t)frame);
 	if(!GetInputSource().SeekToOffset(mAudioOffset + frameOffset)) {
-		os_log_debug(OS_LOG_DEFAULT, "_SeekToFrame() failed for offset: %lld", mAudioOffset + frameOffset);
+		fprintf(stderr, "_SeekToFrame() failed for offset: %lld", mAudioOffset + frameOffset);
 		return -1;
 	}
 

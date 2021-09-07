@@ -104,7 +104,7 @@ bool SFB::Audio::TrueAudioDecoder::_Open(CFErrorRef *error)
 		mDecoder->init_get_info(&streamInfo, 0);
 	}
 	catch(const tta::tta_exception& e) {
-		os_log_error(OS_LOG_DEFAULT, "Error creating True Audio decoder: %d", e.code());
+		fprintf(stderr, "Error creating True Audio decoder: %d\n", e.code());
 	}
 
 	if(!mDecoder) {
@@ -151,7 +151,7 @@ bool SFB::Audio::TrueAudioDecoder::_Open(CFErrorRef *error)
 
 		default:
 		{
-			os_log_error(OS_LOG_DEFAULT, "Unsupported bit depth: %d", mFormat.mBitsPerChannel);
+			fprintf(stderr, "Unsupported bit depth: %d\n", mFormat.mBitsPerChannel);
 
 			if(error) {
 				SFB::CFString description(CFCopyLocalizedString(CFSTR("The file “%@” is not a supported True Audio file."), ""));
@@ -205,7 +205,7 @@ SFB::CFString SFB::Audio::TrueAudioDecoder::_GetSourceFormatDescription() const
 UInt32 SFB::Audio::TrueAudioDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(bufferList->mBuffers[0].mNumberChannels != mFormat.mChannelsPerFrame) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -238,7 +238,7 @@ UInt32 SFB::Audio::TrueAudioDecoder::_ReadAudio(AudioBufferList *bufferList, UIn
 		}
 	}
 	catch(const tta::tta_exception& e) {
-		os_log_error(OS_LOG_DEFAULT, "True Audio decoding error: %d", e.code());
+		fprintf(stderr, "True Audio decoding error: %d\n", e.code());
 		return 0;
 	}
 
@@ -261,7 +261,7 @@ SInt64 SFB::Audio::TrueAudioDecoder::_SeekToFrame(SInt64 frame)
 		mDecoder->set_position(seconds, &frame_start);
 	}
 	catch(const tta::tta_exception& e) {
-		os_log_error(OS_LOG_DEFAULT, "True Audio seek error: %d", e.code());
+		fprintf(stderr, "True Audio seek error: %d\n", e.code());
 		return -1;
 	}
 

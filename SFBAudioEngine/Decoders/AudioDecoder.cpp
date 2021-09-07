@@ -3,8 +3,6 @@
  * See https://github.com/sbooth/SFBAudioEngine/blob/master/LICENSE.txt for license information
  */
 
-#include <os/log.h>
-
 #include <AudioToolbox/AudioFormat.h>
 #include <CoreFoundation/CoreFoundation.h>
 
@@ -14,6 +12,13 @@
 #include "HTTPInputSource.h"
 #include "LoopableRegionDecoder.h"
 #include "SFBCStringForOSType.h"
+
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n");
+#else
+#define NSLog(...)
+#endif
 
 // ========================================
 // Error Codes
@@ -229,7 +234,7 @@ void SFB::Audio::Decoder::SetRepresentedObjectCleanupBlock(RepresentedObjectClea
 bool SFB::Audio::Decoder::Open(CFErrorRef *error)
 {
 	if(IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "Open() called on a Decoder that is already open");
+		NSLog("Open() called on a Decoder that is already open");
 		return true;
 	}
 
@@ -246,7 +251,7 @@ bool SFB::Audio::Decoder::Open(CFErrorRef *error)
 bool SFB::Audio::Decoder::Close(CFErrorRef *error)
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "Close() called on a Decoder that hasn't been opened");
+		NSLog("Close() called on a Decoder that hasn't been opened");
 		return true;
 	}
 
@@ -265,7 +270,7 @@ bool SFB::Audio::Decoder::Close(CFErrorRef *error)
 CFStringRef SFB::Audio::Decoder::CreateFormatDescription() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "CreateFormatDescription() called on a Decoder that hasn't been opened");
+		NSLog("CreateFormatDescription() called on a Decoder that hasn't been opened");
 		return nullptr;
 	}
 
@@ -278,7 +283,7 @@ CFStringRef SFB::Audio::Decoder::CreateFormatDescription() const
 																		 &sourceFormatDescription);
 
 	if(noErr != result)
-		os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		NSLog("AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%.4s'", result, SFBCStringForOSType(result));
 
 	return sourceFormatDescription;
 }
@@ -286,7 +291,7 @@ CFStringRef SFB::Audio::Decoder::CreateFormatDescription() const
 CFStringRef SFB::Audio::Decoder::CreateSourceFormatDescription() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "CreateSourceFormatDescription() called on a Decoder that hasn't been opened");
+		NSLog("CreateSourceFormatDescription() called on a Decoder that hasn't been opened");
 		return nullptr;
 	}
 
@@ -296,7 +301,7 @@ CFStringRef SFB::Audio::Decoder::CreateSourceFormatDescription() const
 CFStringRef SFB::Audio::Decoder::CreateChannelLayoutDescription() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "CreateChannelLayoutDescription() called on a Decoder that hasn't been opened");
+		NSLog("CreateChannelLayoutDescription() called on a Decoder that hasn't been opened");
 		return nullptr;
 	}
 
@@ -309,7 +314,7 @@ CFStringRef SFB::Audio::Decoder::CreateChannelLayoutDescription() const
 																		 &channelLayoutDescription);
 
 	if(noErr != result)
-		os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_ChannelLayoutName) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		NSLog("AudioFormatGetProperty (kAudioFormatProperty_ChannelLayoutName) failed: %d '%.4s'", result, SFBCStringForOSType(result));
 
 	return channelLayoutDescription;
 }
@@ -317,12 +322,12 @@ CFStringRef SFB::Audio::Decoder::CreateChannelLayoutDescription() const
 UInt32 SFB::Audio::Decoder::ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "ReadAudio() called on a Decoder that hasn't been opened");
+		NSLog("ReadAudio() called on a Decoder that hasn't been opened");
 		return 0;
 	}
 
 	if(nullptr == bufferList || 0 == frameCount) {
-		os_log_debug(OS_LOG_DEFAULT, "ReadAudio() called with invalid parameters");
+		NSLog("ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -332,7 +337,7 @@ UInt32 SFB::Audio::Decoder::ReadAudio(AudioBufferList *bufferList, UInt32 frameC
 SInt64 SFB::Audio::Decoder::GetTotalFrames() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "GetTotalFrames() called on a Decoder that hasn't been opened");
+		NSLog("GetTotalFrames() called on a Decoder that hasn't been opened");
 		return -1;
 	}
 
@@ -342,7 +347,7 @@ SInt64 SFB::Audio::Decoder::GetTotalFrames() const
 SInt64 SFB::Audio::Decoder::GetCurrentFrame() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "GetCurrentFrame() called on a Decoder that hasn't been opened");
+		NSLog("GetCurrentFrame() called on a Decoder that hasn't been opened");
 		return -1;
 	}
 
@@ -352,7 +357,7 @@ SInt64 SFB::Audio::Decoder::GetCurrentFrame() const
 bool SFB::Audio::Decoder::SupportsSeeking() const
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "SupportsSeeking() called on a Decoder that hasn't been opened");
+		NSLog("SupportsSeeking() called on a Decoder that hasn't been opened");
 		return false;
 	}
 
@@ -362,12 +367,12 @@ bool SFB::Audio::Decoder::SupportsSeeking() const
 SInt64 SFB::Audio::Decoder::SeekToFrame(SInt64 frame)
 {
 	if(!IsOpen()) {
-		os_log_info(OS_LOG_DEFAULT, "SeekToFrame() called on a Decoder that hasn't been opened");
+		NSLog("SeekToFrame() called on a Decoder that hasn't been opened");
 		return -1;
 	}
 
 	if(0 > frame || frame >= GetTotalFrames()) {
-		os_log_debug(OS_LOG_DEFAULT, "SeekToFrame() called with invalid parameters");
+		NSLog("SeekToFrame() called with invalid parameters");
 		return -1;
 	}
 

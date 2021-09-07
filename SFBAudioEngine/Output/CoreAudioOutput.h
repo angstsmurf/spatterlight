@@ -8,7 +8,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <CoreAudio/CoreAudioTypes.h>
 
-#include "AudioOutput.h"
+#include <SFBAudioEngine/AudioOutput.h>
 
 /*! @file CoreAudioOutput.h @brief Core %Audio output functionality */
 

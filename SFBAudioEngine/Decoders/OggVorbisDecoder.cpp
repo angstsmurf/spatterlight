@@ -148,20 +148,20 @@ bool SFB::Audio::OggVorbisDecoder::_Open(CFErrorRef *error)
 	}
 
 	if(0 != ov_test_open(&mVorbisFile)) {
-		os_log_error(OS_LOG_DEFAULT, "ov_test_open failed");
+		fprintf(stderr, "ov_test_open failed");
 
 		if(0 != ov_clear(&mVorbisFile))
-			os_log_error(OS_LOG_DEFAULT, "ov_clear failed");
+			fprintf(stderr, "ov_clear failed");
 
 		return false;
 	}
 
 	vorbis_info *ovInfo = ov_info(&mVorbisFile, -1);
 	if(nullptr == ovInfo) {
-		os_log_error(OS_LOG_DEFAULT, "ov_info failed");
+		fprintf(stderr, "ov_info failed");
 
 		if(0 != ov_clear(&mVorbisFile))
-			os_log_error(OS_LOG_DEFAULT, "ov_clear failed");
+			fprintf(stderr, "ov_clear failed");
 
 		return false;
 	}
@@ -218,7 +218,7 @@ bool SFB::Audio::OggVorbisDecoder::_Open(CFErrorRef *error)
 bool SFB::Audio::OggVorbisDecoder::_Close(CFErrorRef */*error*/)
 {
 	if(0 != ov_clear(&mVorbisFile))
-		os_log_error(OS_LOG_DEFAULT, "ov_clear failed");
+		fprintf(stderr, "ov_clear failed");
 
 	return true;
 }
@@ -234,7 +234,7 @@ SFB::CFString SFB::Audio::OggVorbisDecoder::_GetSourceFormatDescription() const
 UInt32 SFB::Audio::OggVorbisDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
 	if(bufferList->mNumberBuffers != mFormat.mChannelsPerFrame) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 
@@ -257,7 +257,7 @@ UInt32 SFB::Audio::OggVorbisDecoder::_ReadAudio(AudioBufferList *bufferList, UIn
 										&currentSection);
 
 		if(0 > framesRead) {
-			os_log_error(OS_LOG_DEFAULT, "Ogg Vorbis decoding error");
+			fprintf(stderr, "Ogg Vorbis decoding error");
 			return 0;
 		}
 
@@ -282,7 +282,7 @@ UInt32 SFB::Audio::OggVorbisDecoder::_ReadAudio(AudioBufferList *bufferList, UIn
 SInt64 SFB::Audio::OggVorbisDecoder::_SeekToFrame(SInt64 frame)
 {
 	if(0 != ov_pcm_seek(&mVorbisFile, frame)) {
-		os_log_error(OS_LOG_DEFAULT, "Ogg Vorbis seek error");
+		fprintf(stderr, "Ogg Vorbis seek error");
 		return -1;
 	}
 

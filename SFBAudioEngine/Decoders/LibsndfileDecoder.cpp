@@ -93,7 +93,7 @@ CFArrayRef SFB::Audio::LibsndfileDecoder::CreateSupportedFileExtensions()
 				CFArrayAppendValue(supportedExtensions, extension);
 		}
 		else
-			os_log_debug(OS_LOG_DEFAULT, "sf_command (SFC_GET_FORMAT_MAJOR) %d failed", i);
+			fprintf(stderr, "sf_command (SFC_GET_FORMAT_MAJOR) %d failed", i);
 	}
 
 	return supportedExtensions;
@@ -157,7 +157,7 @@ bool SFB::Audio::LibsndfileDecoder::_Open(CFErrorRef *error)
 	mFile = unique_SNDFILE_ptr(sf_open_virtual(&virtualIO, SFM_READ, &mFileInfo, this), sf_close);
 
 	if(!mFile) {
-		os_log_error(OS_LOG_DEFAULT, "sf_open_virtual failed: %{public}s", sf_error_number(sf_error(nullptr)));
+		fprintf(stderr, "sf_open_virtual failed: %{public}s", sf_error_number(sf_error(nullptr)));
 
 		if(nullptr != error) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The format of the file “%@” was not recognized."), ""));
@@ -335,7 +335,7 @@ SFB::CFString SFB::Audio::LibsndfileDecoder::_GetSourceFormatDescription() const
 	formatInfo.format = mFileInfo.format;
 
 	if(0 != sf_command(nullptr, SFC_GET_FORMAT_INFO, &formatInfo, sizeof(formatInfo))) {
-		os_log_debug(OS_LOG_DEFAULT, "sf_command (SFC_GET_FORMAT_INFO) failed");
+		fprintf(stderr, "sf_command (SFC_GET_FORMAT_INFO) failed");
 		return CFString();
 	}
 

@@ -72,7 +72,7 @@ SFB::InputSource::InputSource(CFURLRef url)
 bool SFB::InputSource::Open(CFErrorRef *error)
 {
 	if(IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "Open() called on an InputSource that is already open");
+		fprintf(stderr, "Open() called on an InputSource that is already open");
 		return true;
 	}
 
@@ -85,7 +85,7 @@ bool SFB::InputSource::Open(CFErrorRef *error)
 bool SFB::InputSource::Close(CFErrorRef *error)
 {
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "Close() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "Close() called on an InputSource that hasn't been opened");
 		return true;
 	}
 
@@ -98,7 +98,7 @@ bool SFB::InputSource::Close(CFErrorRef *error)
 SInt64 SFB::InputSource::Read(void *buffer, SInt64 byteCount)
 {
 	if(!IsOpen() || nullptr == buffer || 0 > byteCount) {
-		os_log_debug(OS_LOG_DEFAULT, "Read() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "Read() called on an InputSource that hasn't been opened");
 		return -1;
 	}
 
@@ -108,7 +108,7 @@ SInt64 SFB::InputSource::Read(void *buffer, SInt64 byteCount)
 bool SFB::InputSource::AtEOF() const
 {
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "AtEOF() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "AtEOF() called on an InputSource that hasn't been opened");
 		return true;
 	}
 
@@ -118,7 +118,7 @@ bool SFB::InputSource::AtEOF() const
 SInt64 SFB::InputSource::GetOffset() const
 {
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "GetOffset() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "GetOffset() called on an InputSource that hasn't been opened");
 		return -1;
 	}
 
@@ -128,7 +128,7 @@ SInt64 SFB::InputSource::GetOffset() const
 SInt64 SFB::InputSource::GetLength() const
 {
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "GetLength() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "GetLength() called on an InputSource that hasn't been opened");
 		return 0;
 	}
 
@@ -138,7 +138,7 @@ SInt64 SFB::InputSource::GetLength() const
 bool SFB::InputSource::SupportsSeeking() const
 {
 	if(!IsOpen()) {
-		os_log_debug(OS_LOG_DEFAULT, "SupportsSeeking() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "SupportsSeeking() called on an InputSource that hasn't been opened");
 		return false;
 	}
 
@@ -148,7 +148,7 @@ bool SFB::InputSource::SupportsSeeking() const
 bool SFB::InputSource::SeekToOffset(SInt64 offset)
 {
 	if(!IsOpen() || 0 > offset) {
-		os_log_debug(OS_LOG_DEFAULT, "Close() called on an InputSource that hasn't been opened");
+		fprintf(stderr, "Close() called on an InputSource that hasn't been opened");
 		return false;
 	}
 

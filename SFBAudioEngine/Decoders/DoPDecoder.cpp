@@ -79,7 +79,7 @@ bool SFB::Audio::DoPDecoder::_Open(CFErrorRef *error)
 	}
 
 	if(std::end(sSupportedSampleRates) == std::find(std::begin(sSupportedSampleRates), std::end(sSupportedSampleRates), decoderFormat.mSampleRate)) {
-		os_log_error(OS_LOG_DEFAULT, "Unsupported sample rate: %f", decoderFormat.mSampleRate);
+		fprintf(stderr, "Unsupported sample rate: %f", decoderFormat.mSampleRate);
 
 		if(error) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The file “%@” is not supported."), ""));
@@ -93,7 +93,7 @@ bool SFB::Audio::DoPDecoder::_Open(CFErrorRef *error)
 	}
 
 	if(!mBufferList.Allocate(decoderFormat, 4096)) {
-		os_log_error(OS_LOG_DEFAULT, "Unable to allocate memory");
+		fprintf(stderr, "Unable to allocate memory");
 
 		if(error)
 			*error = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainPOSIX, ENOMEM, nullptr);
@@ -141,7 +141,7 @@ UInt32 SFB::Audio::DoPDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 fr
 {
 	// Only multiples of 16 frames can be read (16 frames equals two bytes)
 	if(bufferList->mNumberBuffers != mFormat.mChannelsPerFrame || 0 != frameCount % 16) {
-		os_log_debug(OS_LOG_DEFAULT, "_ReadAudio() called with invalid parameters");
+		fprintf(stderr, "_ReadAudio() called with invalid parameters");
 		return 0;
 	}
 

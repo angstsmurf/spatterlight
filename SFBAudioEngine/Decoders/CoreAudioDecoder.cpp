@@ -78,7 +78,7 @@ CFArrayRef SFB::Audio::CoreAudioDecoder::CreateSupportedFileExtensions()
 																		 &supportedExtensions);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioFileGetGlobalInfo (kAudioFileGlobalInfo_AllExtensions) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		fprintf(stderr, "AudioFileGetGlobalInfo (kAudioFileGlobalInfo_AllExtensions) failed: %d '%.4s'\n", result, SFBCStringForOSType(result));
 
 		return nullptr;
 	}
@@ -97,7 +97,7 @@ CFArrayRef SFB::Audio::CoreAudioDecoder::CreateSupportedMIMETypes()
 																		 &supportedMIMETypes);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioFileGetGlobalInfo (kAudioFileGlobalInfo_AllMIMETypes) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		fprintf(stderr, "AudioFileGetGlobalInfo (kAudioFileGlobalInfo_AllMIMETypes) failed: %d '%.4s'\n", result, SFBCStringForOSType(result));
 
 		return nullptr;
 	}
@@ -168,7 +168,7 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	OSStatus result = AudioFileOpenWithCallbacks(this, myAudioFile_ReadProc, nullptr, myAudioFile_GetSizeProc, nullptr, 0, &mAudioFile);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioFileOpenWithCallbacks failed: %d", result);
+		fprintf(stderr, "AudioFileOpenWithCallbacks failed: %d\n", result);
 
 		if(error) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The format of the file “%@” was not recognized."), ""));
@@ -184,7 +184,7 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	result = ExtAudioFileWrapAudioFileID(mAudioFile, false, &mExtAudioFile);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileWrapAudioFileID failed: %d", result);
+		fprintf(stderr, "ExtAudioFileWrapAudioFileID failed: %d\n", result);
 
 		if(error) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The format of the file “%@” was not recognized."), ""));
@@ -196,7 +196,7 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 
 		result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 
@@ -208,15 +208,15 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	result = ExtAudioFileGetProperty(mExtAudioFile, kExtAudioFileProperty_FileDataFormat, &dataSize, &mSourceFormat);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileDataFormat) failed: %d", result);
+		fprintf(stderr, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileDataFormat) failed: %d\n", result);
 
 		result = ExtAudioFileDispose(mExtAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+			fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 		result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 		mExtAudioFile = nullptr;
@@ -272,15 +272,15 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	result = ExtAudioFileSetProperty(mExtAudioFile, kExtAudioFileProperty_ClientDataFormat, sizeof(mFormat), &mFormat);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileSetProperty (kExtAudioFileProperty_ClientDataFormat) failed: %d", result);
+		fprintf(stderr, "ExtAudioFileSetProperty (kExtAudioFileProperty_ClientDataFormat) failed: %d\n", result);
 
 		result = ExtAudioFileDispose(mExtAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+			fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 		result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 		mExtAudioFile = nullptr;
@@ -295,17 +295,17 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 		result = ExtAudioFileGetProperty(mExtAudioFile, kExtAudioFileProperty_FileChannelLayout, &dataSize, channelLayout);
 
 		if(noErr != result) {
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileChannelLayout) failed: %d", result);
+			fprintf(stderr, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileChannelLayout) failed: %d\n", result);
 
             free(channelLayout);
 
 			result = ExtAudioFileDispose(mExtAudioFile);
 			if(noErr != result)
-				os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+				fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 			result = AudioFileClose(mAudioFile);
 			if(noErr != result)
-				os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+				fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 			mAudioFile = nullptr;
 			mExtAudioFile = nullptr;
@@ -318,8 +318,8 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 		free(channelLayout);
 	}
 	else
-//		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileGetPropertyInfo (kExtAudioFileProperty_FileChannelLayout) failed: %d", result);
-		os_log_error(OS_LOG_DEFAULT, "AudioFileGetPropertyInfo (kAudioFilePropertyChannelLayout) failed: %d", result);
+//		fprintf(stderr, "ExtAudioFileGetPropertyInfo (kExtAudioFileProperty_FileChannelLayout) failed: %d\n", result);
+		fprintf(stderr, "AudioFileGetPropertyInfo (kAudioFilePropertyChannelLayout) failed: %d\n", result);
 
 	// Work around bugs in ExtAudioFile: http://lists.apple.com/archives/coreaudio-api/2009/Nov/msg00119.html
 	// Synopsis: ExtAudioFileTell() and ExtAudioFileSeek() are broken for m4a files
@@ -328,15 +328,15 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	result = ExtAudioFileGetProperty(mExtAudioFile, kExtAudioFileProperty_AudioFile, &dataSize, &audioFile);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileGetProperty (kExtAudioFileProperty_AudioFile) failed: %d", result);
+		fprintf(stderr, "ExtAudioFileGetProperty (kExtAudioFileProperty_AudioFile) failed: %d\n", result);
 
 		result = ExtAudioFileDispose(mExtAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+			fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 		result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 		mExtAudioFile = nullptr;
@@ -349,15 +349,15 @@ bool SFB::Audio::CoreAudioDecoder::_Open(CFErrorRef *error)
 	result = AudioFileGetProperty(audioFile, kAudioFilePropertyFileFormat, &dataSize, &fileFormat);
 
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "AudioFileGetProperty (kAudioFilePropertyFileFormat) failed: %d", result);
+		fprintf(stderr, "AudioFileGetProperty (kAudioFilePropertyFileFormat) failed: %d\n", result);
 
 		result = ExtAudioFileDispose(mExtAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+			fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 		result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 		mExtAudioFile = nullptr;
@@ -374,7 +374,7 @@ bool SFB::Audio::CoreAudioDecoder::_Close(CFErrorRef */*error*/)
 	if(mExtAudioFile) {
 		OSStatus result = ExtAudioFileDispose(mExtAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "ExtAudioFileDispose failed: %d", result);
+			fprintf(stderr, "ExtAudioFileDispose failed: %d\n", result);
 
 		mExtAudioFile = nullptr;
 	}
@@ -382,7 +382,7 @@ bool SFB::Audio::CoreAudioDecoder::_Close(CFErrorRef */*error*/)
 	if(mAudioFile) {
 		OSStatus result = AudioFileClose(mAudioFile);
 		if(noErr != result)
-			os_log_error(OS_LOG_DEFAULT, "AudioFileClose failed: %d", result);
+			fprintf(stderr, "AudioFileClose failed: %d\n", result);
 
 		mAudioFile = nullptr;
 	}
@@ -401,7 +401,7 @@ SFB::CFString SFB::Audio::CoreAudioDecoder::_GetSourceFormatDescription() const
 																		 &sourceFormatDescription);
 
 	if(noErr != result)
-		os_log_error(OS_LOG_DEFAULT, "AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%{public}.4s'", result, SFBCStringForOSType(result));
+		fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_FormatName) failed: %d '%.4s'\n", result, SFBCStringForOSType(result));
 
 	return CFString(sourceFormatDescription);
 }
@@ -410,7 +410,7 @@ UInt32 SFB::Audio::CoreAudioDecoder::_ReadAudio(AudioBufferList *bufferList, UIn
 {
 	OSStatus result = ExtAudioFileRead(mExtAudioFile, &frameCount, bufferList);
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileRead failed: %d", result);
+		fprintf(stderr, "ExtAudioFileRead failed: %d\n", result);
 		return 0;
 	}
 
@@ -424,7 +424,7 @@ SInt64 SFB::Audio::CoreAudioDecoder::_GetTotalFrames() const
 
 	OSStatus result = ExtAudioFileGetProperty(mExtAudioFile, kExtAudioFileProperty_FileLengthFrames, &dataSize, &totalFrames);
 	if(noErr != result)
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileLengthFrames) failed: %d", result);
+		fprintf(stderr, "ExtAudioFileGetProperty (kExtAudioFileProperty_FileLengthFrames) failed: %d\n", result);
 
 	return totalFrames;
 }
@@ -435,7 +435,7 @@ SInt64 SFB::Audio::CoreAudioDecoder::_GetCurrentFrame() const
 
 	OSStatus result = ExtAudioFileTell(mExtAudioFile, &currentFrame);
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileTell failed: %d", result);
+		fprintf(stderr, "ExtAudioFileTell failed: %d\n", result);
 		return -1;
 	}
 
@@ -446,7 +446,7 @@ SInt64 SFB::Audio::CoreAudioDecoder::_SeekToFrame(SInt64 frame)
 {
 	OSStatus result = ExtAudioFileSeek(mExtAudioFile, frame);
 	if(noErr != result) {
-		os_log_error(OS_LOG_DEFAULT, "ExtAudioFileSeek failed: %d", result);
+		fprintf(stderr, "ExtAudioFileSeek failed: %d\n", result);
 		return -1;
 	}
 

@@ -7,7 +7,7 @@
 
 #include <CoreAudio/CoreAudioTypes.h>
 
-#include "CFWrapper.h"
+#include <SFBAudioEngine/CFWrapper.h>
 
 /*! @file AudioFormat.h @brief A Core %Audio \c AudioStreamBasicDescription wrapper */
 

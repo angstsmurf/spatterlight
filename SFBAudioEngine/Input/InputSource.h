@@ -9,7 +9,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-#include "CFWrapper.h"
+#include <SFBAudioEngine/CFWrapper.h>
 
 /*! @file InputSource.h @brief Support for arbitrary bytestream input to \c AudioDecoder */
 
