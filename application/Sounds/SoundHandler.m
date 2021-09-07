@@ -1,14 +1,11 @@
 //
-//  SoundHandler.m
+//  SoundHandler.mm
 //  Spatterlight
 //
 //  Created by Administrator on 2021-01-24.
 //
 
 #import "SoundHandler.h"
-
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
 
 #import "GlkSoundChannel.h"
 #import "GlkController.h"
@@ -73,7 +70,7 @@
     return YES;
 }
 
-- (instancetype)initWithFilename:(NSString *)filename  offset:(NSUInteger)offset length:(NSUInteger)length {
+- (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length {
     self = [super init];
     if (self) {
         _filename = filename;
@@ -87,7 +84,7 @@
     _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
     _length = (size_t)[decoder decodeIntForKey:@"length"];
     _offset = (size_t)[decoder decodeIntForKey:@"offset"];
-    _type = [decoder decodeIntForKey:@"type"];
+    _type = (kBlorbSoundFormatType)[decoder decodeIntForKey:@"type"];
     return self;
 }
 
@@ -95,7 +92,7 @@
     [encoder encodeObject:_filename forKey:@"filename"];
     [encoder encodeInt:_length forKey:@"length"];
     [encoder encodeInt:_offset forKey:@"offset"];
-    [encoder encodeInt:_type forKey:@"type"];
+    [encoder encodeInt:(NSInteger)_type forKey:@"type"];
 }
 
 -(BOOL)load {
@@ -124,7 +121,7 @@
     return YES;
 }
 
-- (NSInteger)detect_sound_format
+- (kBlorbSoundFormatType)detect_sound_format
 {
     char *buf = (char *)_data.bytes;
     char str[30];
@@ -153,11 +150,11 @@
 
     /* s3m */
     if (_length > 0x30 && !memcmp(buf + 0x2c, "SCRM", 4))
-        return giblorb_ID_MOD;
+        return giblorb_ID_S3M;
 
     /* XM */
     if (_length > 20 && !memcmp(buf, "Extended Module: ", 17))
-        return giblorb_ID_MOD;
+        return giblorb_ID_XM;
 
     /* MOD */
     if (_length > 1084)
@@ -187,11 +184,10 @@
     self = [super init];
     if (self) {
         _resources = [NSMutableDictionary new];
-        _sdlchannels = [NSMutableDictionary new];
+        _sfbplayers = [NSMutableDictionary new];
         _glkchannels = [NSMutableDictionary new];
         _files = [NSMutableDictionary new];
         _lastsoundresno = -1;
-        [self initializeSound];
     }
     return self;
 }
@@ -219,26 +215,6 @@
     [encoder encodeInt:_music_channel.name forKey:@"music_channel"];
     [encoder encodeObject:_glkchannels forKey:@"gchannels"];
     [encoder encodeInt:_lastsoundresno forKey:@"lastsoundresno"];
-}
-
-- (void)initializeSound
-{
-    if (SDL_Init(SDL_INIT_AUDIO) == -1)
-    {
-        NSLog(@"SDL init failed\n");
-        NSLog(@"%s", SDL_GetError());
-        return;
-    }
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-    {
-        NSLog(@"SDL Mixer init failed\n");
-        NSLog(@"%s", Mix_GetError());
-        return;
-    }
-
-    int channels = Mix_AllocateChannels(SDL_CHANNELS);
-    Mix_GroupChannels(0, channels - 1 , FREE);
-    Mix_ChannelFinished(NULL);
 }
 
 - (BOOL)soundIsLoaded:(NSInteger)soundId {
@@ -370,12 +346,9 @@
 - (void)stopAllAndCleanUp {
     if (!_glkchannels.count)
         return;
-    Mix_ChannelFinished(NULL);
-    Mix_HookMusicFinished(NULL);
     for (GlkSoundChannel* chan in _glkchannels.allValues) {
         [chan stop];
     }
-    Mix_CloseAudio();
 }
 
 #pragma mark Called from GlkSoundChannel
@@ -386,8 +359,12 @@
 }
 
 - (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
-    GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
-    [_glkctl queueEvent:gev];
+    GlkController *blockController = _glkctl;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
+        [blockController queueEvent:gev];
+    });
+
 }
 
 -(NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char **)buf {
