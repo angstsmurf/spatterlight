@@ -6,8 +6,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <SDL/SDL_timer.h>
-
 #include "glk.h"
 #include "gi_dispa.h"
 #include "gi_blorb.h"

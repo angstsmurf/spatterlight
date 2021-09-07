@@ -1,1 +1,0 @@
-../../Frameworks/SDL2.framework/Versions/A/Headers/SDL_video.h
