@@ -1,6 +1,23 @@
-@class SoundResource, SoundHandler;
+@class SoundHandler, MIDIChannel;
 
-@interface GlkSoundChannel : NSObject
+@interface GlkSoundChannel : NSObject {
+    NSInteger loop;
+    NSInteger notify;
+    NSUInteger paused;
+
+    NSInteger resid; /* for notifies */
+    int status;
+
+    NSString *mimeString;
+
+    /* for volume fades */
+    NSInteger volume_notify;
+    NSUInteger volume_timeout;
+    CGFloat target_volume;
+    CGFloat volume;
+    CGFloat volume_delta;
+    NSTimer *timer;
+}
 
 @property NSUInteger name;
 @property (weak) SoundHandler *handler;
@@ -13,7 +30,13 @@
 - (void)unpause;
 - (void)cleanup;
 
+- (void)copyValues:(GlkSoundChannel *)otherChannel;
+
 - (void)restartInternal;
-- (void)postInit;
+
+- (instancetype)initWithCoder:(NSCoder *)decoder;
+- (void) encodeWithCoder:(NSCoder *)encoder;
+
+//- (void)postInit;
 
 @end

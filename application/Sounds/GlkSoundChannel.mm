@@ -1,5 +1,6 @@
 #import "GlkSoundChannel.h"
 #import "SoundHandler.h"
+#import "MIDIChannel.h"
 
 #include <atomic>
 
@@ -17,28 +18,12 @@
 enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 
 @interface GlkSoundChannel () {
-    NSInteger loop;
-    NSInteger notify;
-    NSUInteger paused;
-
-    NSInteger resid; /* for notifies */
-    int status;
-
-    NSString *mimeString;
-
-    /* for volume fades */
-    NSInteger volume_notify;
-    NSUInteger volume_timeout;
-    CGFloat target_volume;
-    CGFloat volume;
-    CGFloat volume_delta;
-    NSTimer *timer;
-    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdlchannels;
-    NSMutableDictionary <NSNumber *, SoundResource *> *resources;
-
 @private
     SFB::Audio::Player    *_player;        // The player instance
 }
+
+//@property MIDIChannel *midiChannel;
+
 @end
 
 @implementation GlkSoundChannel
@@ -63,17 +48,18 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     volume_delta = 0;
     timer = nil;
     
-    [self postInit];
+//    [self postInit];
     return self;
 }
 
-- (void)postInit {
-    resources = _handler.resources;
-}
+//- (void)postInit {
+//}
 
 
 - (void)play:(NSInteger)snd repeats:(NSInteger)areps notify:(NSInteger)anot
 {
+    status = CHANNEL_SOUND;
+
     size_t len = 0;
     NSInteger type;
 
@@ -143,15 +129,16 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
         _player = new SFB::Audio::Player();
     }
 
-    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
-    output.SetVolume((float)volume);
+    [self setVolume];
 
-    if (notify) {
+    if (notify && areps != -1) {
         SoundHandler *blockSoundHandler = _handler;
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;
         _player->SetRenderingFinishedBlock(^(const SFB::Audio::Decoder& /*decoder*/){
-            [blockSoundHandler handleSoundNotification:blocknotify withSound:blockresid];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [blockSoundHandler handleSoundNotification:blocknotify withSound:blockresid];
+            });
         });
     }
 
@@ -213,7 +200,6 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 /** Start a fade timer */
 - (void)init_fade:(NSUInteger)glk_volume duration:(NSUInteger)duration notify:(NSInteger)notification
 {
-
     volume_notify = notification;
     target_volume = (CGFloat)glk_volume / GLK_MAXVOLUME;
 
@@ -233,9 +219,6 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     if (volume < 0)
         volume = 0;
 
-    if (!_player)
-        return;
-    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
     volume_timeout--;
 
     /* If the timer has fired FADE_GRANULARITY times, kill it */
@@ -261,12 +244,10 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
         if (volume != target_volume)
         {
             volume = target_volume;
-            output.SetVolume((float)volume);
-            return;
         }
     }
 
-    output.SetVolume((float)volume);
+    [self setVolume];
 }
 
 - (void) setVolume:(NSUInteger)glk_volume duration:(NSUInteger)duration notify:(NSInteger)notification
@@ -274,15 +255,19 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     if (!duration)
     {
         volume = (CGFloat)glk_volume / GLK_MAXVOLUME;
-        if (!_player)
-            return;
-        auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
-        output.SetVolume((float)volume);
+        [self setVolume];
     }
     else
     {
         [self init_fade:glk_volume duration:duration notify:notification];
     }
+}
+
+- (void)setVolume {
+    if (!_player)
+        return;
+    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
+    output.SetVolume((float)volume);
 }
 
 
@@ -296,13 +281,13 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
  */
 - (void)restartInternal {
 
-    [self postInit];
+//    [self postInit];
     
     if (status == CHANNEL_IDLE) {
         return;
     }
 
-    if (paused == TRUE) {
+    if (paused == YES) {
         [self pause];
     }
 
@@ -312,11 +297,11 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 
         NSUInteger duration = (volume_timeout * FADE_GRANULARITY);
 
-        CGFloat sdl_volume = target_volume;
+        CGFloat float_volume = target_volume;
         NSUInteger glk_target_volume = GLK_MAXVOLUME;
 
-        if (sdl_volume < MIX_MAX_VOLUME)
-           glk_target_volume = (NSUInteger)(sdl_volume * GLK_MAXVOLUME);
+        if (float_volume < MIX_MAX_VOLUME)
+           glk_target_volume = (NSUInteger)(float_volume * GLK_MAXVOLUME);
 
         [self setVolume:glk_target_volume duration:duration notify:volume_notify];
 
@@ -326,6 +311,30 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
         }
     }
     return;
+}
+
+- (void)copyValues:(GlkSoundChannel *)otherChannel {
+    if (paused)
+        [otherChannel pause];
+    [self stop];
+    otherChannel.name = self.name;
+
+    if (timer)
+        [timer invalidate];
+
+    NSUInteger duration = 0;
+    NSUInteger glk_target_volume = (NSUInteger)(volume * GLK_MAXVOLUME);
+
+    if (volume_timeout > 0) {
+        CGFloat float_volume = target_volume;
+        duration = (volume_timeout * FADE_GRANULARITY);
+        if (float_volume < MIX_MAX_VOLUME)
+            glk_target_volume = (NSUInteger)(float_volume * GLK_MAXVOLUME);
+        else
+            glk_target_volume = GLK_MAXVOLUME;
+    }
+
+    [otherChannel setVolume:glk_target_volume duration:duration notify:volume_notify];
 }
 
 + (BOOL) supportsSecureCoding {

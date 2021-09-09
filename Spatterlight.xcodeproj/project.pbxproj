@@ -600,6 +600,10 @@
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
+		C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.mm */; };
+		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
+		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
+		C37E676426E992590005873E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676326E992590005873E /* AudioUnit.framework */; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C386D530263F55930066BF5B /* ParagraphPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = C386D52E263F55920066BF5B /* ParagraphPopOver.m */; };
 		C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38784F426582AE200B4D886 /* ImageCompareViewController.xib */; };
@@ -2679,6 +2683,12 @@
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
+		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
+		C37E675C26E9844D0005873E /* MIDIChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MIDIChannel.mm; sourceTree = "<group>"; };
+		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
+		C37E675F26E987FF0005873E /* MIDIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIPlayer.h; sourceTree = "<group>"; };
+		C37E676126E992440005873E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C37E676326E992590005873E /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = GlkController.m; sourceTree = "<group>"; };
 		C386D52E263F55920066BF5B /* ParagraphPopOver.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ParagraphPopOver.m; sourceTree = "<group>"; };
 		C386D52F263F55930066BF5B /* ParagraphPopOver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ParagraphPopOver.h; sourceTree = "<group>"; };
@@ -2913,8 +2923,10 @@
 			files = (
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
 				6D76780022B17AB200C80DDE /* QuartzCore.framework in Frameworks */,
+				C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */,
 				6D5C1BD222BC2456009E03F2 /* CoreData.framework in Frameworks */,
 				C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */,
+				C37E676426E992590005873E /* AudioUnit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3960,6 +3972,8 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C37E676326E992590005873E /* AudioUnit.framework */,
+				C37E676126E992440005873E /* AudioToolbox.framework */,
 				C38C226025CC7EB3004C4D68 /* QuickLook.framework */,
 				6D79B0D9223262CA008C9CB7 /* Cocoa.framework */,
 				6D7677FE22B1430700C80DDE /* QuartzCore.framework */,
@@ -5149,6 +5163,10 @@
 				C311875225BD8F1E00739D7B /* SoundHandler.m */,
 				C31186DA25BD500700739D7B /* GlkSoundChannel.h */,
 				C31186D925BD500700739D7B /* GlkSoundChannel.mm */,
+				C37E675A26E9844D0005873E /* MIDIChannel.h */,
+				C37E675C26E9844D0005873E /* MIDIChannel.mm */,
+				C37E675F26E987FF0005873E /* MIDIPlayer.h */,
+				C37E675E26E987FF0005873E /* MIDIPlayer.m */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -6496,6 +6514,7 @@
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
+				C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
 				C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */,
@@ -6530,6 +6549,7 @@
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
+				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
