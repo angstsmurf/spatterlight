@@ -132,12 +132,13 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     [self setVolume];
 
     if (notify && areps != -1) {
-        SoundHandler *blockSoundHandler = _handler;
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;
+        __unsafe_unretained GlkSoundChannel *weakSelf = self;
         _player->SetRenderingFinishedBlock(^(const SFB::Audio::Decoder& /*decoder*/){
             dispatch_async(dispatch_get_main_queue(), ^{
-                [blockSoundHandler handleSoundNotification:blocknotify withSound:blockresid];
+                weakSelf->status = CHANNEL_IDLE;
+                [weakSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
             });
         });
     }

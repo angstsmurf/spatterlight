@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -599,6 +599,8 @@
 		C359797025DA19DA004B1448 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
+		C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; };
+		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.mm */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
@@ -1159,6 +1161,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */,
 				C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -2682,6 +2685,7 @@
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
+		C363030B26ECF4CF0028FBC8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
 		C37E675C26E9844D0005873E /* MIDIChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MIDIChannel.mm; sourceTree = "<group>"; };
@@ -2924,6 +2928,7 @@
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
 				6D76780022B17AB200C80DDE /* QuartzCore.framework in Frameworks */,
 				C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */,
+				C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */,
 				6D5C1BD222BC2456009E03F2 /* CoreData.framework in Frameworks */,
 				C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */,
 				C37E676426E992590005873E /* AudioUnit.framework in Frameworks */,
@@ -3972,6 +3977,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C363030B26ECF4CF0028FBC8 /* Ogg.framework */,
 				C37E676326E992590005873E /* AudioUnit.framework */,
 				C37E676126E992440005873E /* AudioToolbox.framework */,
 				C38C226025CC7EB3004C4D68 /* QuickLook.framework */,
@@ -6142,7 +6148,7 @@
 				};
 			};
 			buildConfigurationList = 961CCE6109F2375A00528FF9 /* Build configuration list for PBXProject "Spatterlight" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -7413,7 +7419,10 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src $(PROJECT_DIR)/terps/fizmo/libglkif/src";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(PROJECT_DIR)/terps/fizmo/libglkif/src",
+				);
 			};
 			name = Debug;
 		};
@@ -7444,7 +7453,10 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src $(PROJECT_DIR)/terps/fizmo/libglkif/src";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(PROJECT_DIR)/terps/fizmo/libglkif/src",
+				);
 			};
 			name = Release;
 		};
@@ -7655,7 +7667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -7709,11 +7721,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -7729,19 +7741,15 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				EXECUTABLE_PREFIX = lib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -7760,18 +7768,14 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				EXECUTABLE_PREFIX = lib;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -7839,7 +7843,7 @@
 				CURRENT_PROJECT_VERSION = 0.8.6;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -7859,11 +7863,11 @@
 				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(LIBRARY_SEARCH_PATHS)",
-					"$(PROJECT_DIR)/Frameworks",
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(LIBRARY_SEARCH_PATHS)";
 				MARKETING_VERSION = 0.8.6;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -7903,7 +7907,7 @@
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -7922,11 +7926,11 @@
 				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(LIBRARY_SEARCH_PATHS)",
-					"$(PROJECT_DIR)/Frameworks",
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(LIBRARY_SEARCH_PATHS)";
 				MARKETING_VERSION = 0.8.6;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -8960,7 +8964,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = SpatterlightQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -9004,7 +9012,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = SpatterlightQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9052,7 +9064,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = SpatterlightThumbnailer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -9095,7 +9111,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = SpatterlightThumbnailer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9143,7 +9163,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = iFictionQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -9186,7 +9210,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = iFictionQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.8.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9228,7 +9256,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -9263,7 +9295,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -9303,7 +9339,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -9339,7 +9379,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

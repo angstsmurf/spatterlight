@@ -9,7 +9,7 @@
 #include "CFWrapper.h"
 #include "MODDecoder.h"
 
-#define DUMB_SAMPLE_RATE	65536
+#define DUMB_SAMPLE_RATE    65536
 #define DUMB_CHANNELS		2
 #define DUMB_BIT_DEPTH		16
 
@@ -23,7 +23,7 @@ namespace {
 
 #pragma mark Callbacks
 
-	int skip_callback(void *f, long n)
+	int skip_callback(void *f, dumb_off_t n)
 	{
 		assert(nullptr != f);
 
@@ -41,16 +41,37 @@ namespace {
 		return (1 == decoder->GetInputSource().Read(&value, 1) ? value : -1);
 	}
 
-	long getnc_callback(char *ptr, long n, void *f)
+	long getnc_callback(char *ptr, size_t n, void *f)
 	{
 		assert(nullptr != f);
 
 		auto decoder = static_cast<SFB::Audio::MODDecoder *>(f);
-		return static_cast<long>(decoder->GetInputSource().Read(ptr, n));
+		return static_cast<long>(decoder->GetInputSource().Read(ptr, (SInt64)n));
 	}
 
 	void close_callback(void */*f*/)
 	{}
+
+    static int seek_callback(void *f, dumb_off_t offset)
+    {
+        assert(nullptr != f);
+
+        auto decoder = static_cast<SFB::Audio::MODDecoder *>(f);
+
+        if(!decoder->GetInputSource().SeekToOffset(offset))
+            return -1;
+        return 0;
+    }
+
+    static dumb_off_t get_size_callback(void *f)
+    {
+        assert(nullptr != f);
+
+        auto decoder = static_cast<SFB::Audio::MODDecoder *>(f);
+
+        dumb_off_t length = decoder->GetInputSource().GetLength();
+        return length;
+    }
 
 }
 
@@ -58,16 +79,14 @@ namespace {
 
 CFArrayRef SFB::Audio::MODDecoder::CreateSupportedFileExtensions()
 {
-//	CFStringRef supportedExtensions [] = { CFSTR("it"), CFSTR("xm"), CFSTR("s3m"), CFSTR("mod") };
-    CFStringRef supportedExtensions [] = { CFSTR("it"), CFSTR("mod") };
-	return CFArrayCreate(kCFAllocatorDefault, (const void **)supportedExtensions, 2, &kCFTypeArrayCallBacks);
+	CFStringRef supportedExtensions [] = { CFSTR("it"), CFSTR("xm"), CFSTR("s3m"), CFSTR("mod") };
+	return CFArrayCreate(kCFAllocatorDefault, (const void **)supportedExtensions, 4, &kCFTypeArrayCallBacks);
 }
 
 CFArrayRef SFB::Audio::MODDecoder::CreateSupportedMIMETypes()
 {
-//	CFStringRef supportedMIMETypes [] = { CFSTR("audio/it"), CFSTR("audio/xm"), CFSTR("audio/s3m"), CFSTR("audio/mod"), CFSTR("audio/x-mod") };
-    CFStringRef supportedMIMETypes [] = { CFSTR("audio/it"), CFSTR("audio/mod"), CFSTR("audio/x-mod") };
-	return CFArrayCreate(kCFAllocatorDefault, (const void **)supportedMIMETypes, 3, &kCFTypeArrayCallBacks);
+	CFStringRef supportedMIMETypes [] = { CFSTR("audio/it"), CFSTR("audio/xm"), CFSTR("audio/s3m"), CFSTR("audio/mod"), CFSTR("audio/x-mod") };
+	return CFArrayCreate(kCFAllocatorDefault, (const void **)supportedMIMETypes, 5, &kCFTypeArrayCallBacks);
 }
 
 bool SFB::Audio::MODDecoder::HandlesFilesWithExtension(CFStringRef extension)
@@ -77,10 +96,10 @@ bool SFB::Audio::MODDecoder::HandlesFilesWithExtension(CFStringRef extension)
 
 	if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("it"), kCFCompareCaseInsensitive))
 		return true;
-//	else if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("xm"), kCFCompareCaseInsensitive))
-//		return true;
-//	else if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("s3m"), kCFCompareCaseInsensitive))
-//		return true;
+	else if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("xm"), kCFCompareCaseInsensitive))
+		return true;
+	else if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("s3m"), kCFCompareCaseInsensitive))
+		return true;
 	else if(kCFCompareEqualTo == CFStringCompare(extension, CFSTR("mod"), kCFCompareCaseInsensitive))
 		return true;
 
@@ -94,10 +113,10 @@ bool SFB::Audio::MODDecoder::HandlesMIMEType(CFStringRef mimeType)
 
 	if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/it"), kCFCompareCaseInsensitive))
 		return true;
-//	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/xm"), kCFCompareCaseInsensitive))
-//		return true;
-//	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/s3m"), kCFCompareCaseInsensitive))
-//		return true;
+	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/xm"), kCFCompareCaseInsensitive))
+		return true;
+	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/s3m"), kCFCompareCaseInsensitive))
+		return true;
 	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/mod"), kCFCompareCaseInsensitive))
 		return true;
 	else if(kCFCompareEqualTo == CFStringCompare(mimeType, CFSTR("audio/x-mod"), kCFCompareCaseInsensitive))
@@ -125,29 +144,16 @@ bool SFB::Audio::MODDecoder::_Open(CFErrorRef *error)
 	dfs.skip = skip_callback;
 	dfs.getc = getc_callback;
 	dfs.getnc = getnc_callback;
-	dfs.close = close_callback;
+    dfs.close = close_callback;
+    dfs.seek = seek_callback;
+    dfs.get_size = get_size_callback;
 
 	df = unique_DUMBFILE_ptr(dumbfile_open_ex(this, &dfs), dumbfile_close);
 	if(!df) {
 		return false;
 	}
 
-    if(GetURL() != nullptr) {
-
-	SFB::CFString pathExtension(CFURLCopyPathExtension(GetURL()));
-
-	// Attempt to create the appropriate decoder based on the file's extension
-	if(kCFCompareEqualTo == CFStringCompare(pathExtension, CFSTR("it"), kCFCompareCaseInsensitive))
-		duh = unique_DUH_ptr(dumb_read_it(df.get()), unload_duh);
-//	else if(kCFCompareEqualTo == CFStringCompare(pathExtension, CFSTR("xm"), kCFCompareCaseInsensitive))
-//		duh = unique_DUH_ptr(dumb_read_xm(df.get()), unload_duh);
-//	else if(kCFCompareEqualTo == CFStringCompare(pathExtension, CFSTR("s3m"), kCFCompareCaseInsensitive))
-//		duh = unique_DUH_ptr(dumb_read_s3m(df.get()), unload_duh);
-	else if(kCFCompareEqualTo == CFStringCompare(pathExtension, CFSTR("mod"), kCFCompareCaseInsensitive))
-		duh = unique_DUH_ptr(dumb_read_mod(df.get()), unload_duh);
-    } else {
-        duh = unique_DUH_ptr(dumb_read_mod(df.get()), unload_duh);
-    }
+    duh = unique_DUH_ptr(dumb_read_any(df.get(), 0, 0), unload_duh);
 
 	if(!duh) {
 		if(error) {
