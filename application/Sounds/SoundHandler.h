@@ -18,8 +18,6 @@ typedef enum kBlorbSoundFormatType : NSInteger {
     giblorb_ID_MP3,
     giblorb_ID_WAVE,
     giblorb_ID_MIDI,
-    giblorb_ID_XM,
-    giblorb_ID_S3M
 } kBlorbSoundFormatType;
 
 #define FREE 1

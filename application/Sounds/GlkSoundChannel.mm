@@ -2,20 +2,16 @@
 #import "SoundHandler.h"
 #import "MIDIChannel.h"
 
-#include <atomic>
-
 #include <SFBAudioEngine/AudioPlayer.h>
 #include <SFBAudioEngine/AudioDecoder.h>
 #include <SFBAudioEngine/LoopableRegionDecoder.h>
 #include <SFBAudioEngine/CoreAudioOutput.h>
 
-#import <SFBAudioEngine/SFBAudioFile.h>
-
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
 #define MIX_MAX_VOLUME 1.0f
 
-enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
+enum { CHANNEL_IDLE, CHANNEL_SOUND };
 
 @interface GlkSoundChannel () {
 @private
@@ -103,16 +99,9 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
         case giblorb_ID_MOD:
             mimeString = @"mod";
             break;
-        case giblorb_ID_S3M:
-            mimeString = @"s3m";
-            break;
-        case giblorb_ID_XM:
-            mimeString = @"xm";
-            break;
         case giblorb_ID_MIDI:
-//            formatString = @"mod";
-//            result = [self play_mod:len];
-//            break;
+            mimeString = @"midi";
+            break;
             
         default:
             NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
