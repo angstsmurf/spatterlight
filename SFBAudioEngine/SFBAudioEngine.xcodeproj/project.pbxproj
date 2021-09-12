@@ -75,11 +75,8 @@
 		32E73B0210B9D8AC00094C8A /* OggVorbisDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E7376C10B913AE00094C8A /* OggVorbisDecoder.cpp */; };
 		C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9126ECD2BA008D8B3F /* libvorbis.a */; };
 		C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9526ECD2BA008D8B3F /* libvorbisfile.a */; };
-		C34B272226EAD8C5001A1714 /* MIDIDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C34B272026EAD8C5001A1714 /* MIDIDecoder.h */; };
-		C34B272326EAD8C5001A1714 /* MIDIDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34B272126EAD8C5001A1714 /* MIDIDecoder.cpp */; };
 		C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C34B271E26EAC168001A1714 /* libdumb.a */; };
 		C374D1C126EE4DC6006F430E /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C374D1BE26EE4CC2006F430E /* Ogg.framework */; };
-		C374D1EF26EE50CA006F430E /* libtimidity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36302F826ECE1BD0028FBC8 /* libtimidity.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,13 +114,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = C3B854F826E7B136001059B8;
 			remoteInfo = dumb;
-		};
-		C36302F726ECE1BD0028FBC8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C34B26ED26EABAFD001A1714 /* timidity.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 63A00BC51D9B09CA00C50EA5;
-			remoteInfo = timidity;
 		};
 		C374D1BD26EE4CC2006F430E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -229,10 +219,7 @@
 		32E7376C10B913AE00094C8A /* OggVorbisDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = OggVorbisDecoder.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		32E7376D10B913AE00094C8A /* OggVorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggVorbisDecoder.h; sourceTree = "<group>"; };
 		C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
-		C34B26ED26EABAFD001A1714 /* timidity.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = timidity.xcodeproj; path = Libraries/libtimidity/src/XCode/timidity.xcodeproj; sourceTree = "<group>"; };
 		C34B271326EAC168001A1714 /* dumb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = dumb.xcodeproj; path = Libraries/dumb/dumb.xcodeproj; sourceTree = "<group>"; };
-		C34B272026EAD8C5001A1714 /* MIDIDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIDecoder.h; sourceTree = "<group>"; };
-		C34B272126EAD8C5001A1714 /* MIDIDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIDecoder.cpp; sourceTree = "<group>"; };
 		C374D1B926EE4CC2006F430E /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,7 +230,6 @@
 			files = (
 				C374D1C126EE4DC6006F430E /* Ogg.framework in Frameworks */,
 				C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */,
-				C374D1EF26EE50CA006F430E /* libtimidity.a in Frameworks */,
 				C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */,
 				C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */,
 				32A1012116A50C2400EC1F9C /* Accelerate.framework in Frameworks */,
@@ -264,7 +250,6 @@
 				32AEB27B1409AC84001F9A60 /* SFBAudioEngine */,
 				C34B271326EAC168001A1714 /* dumb.xcodeproj */,
 				C374D1B926EE4CC2006F430E /* ogg.xcodeproj */,
-				C34B26ED26EABAFD001A1714 /* timidity.xcodeproj */,
 				C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				3210AB8E17B9BF8000743639 /* Products */,
@@ -346,8 +331,6 @@
 				32E0FDCE21473B86009189FB /* DSFDecoder.cpp */,
 				3203A6191346E0ED00A7A22E /* MODDecoder.h */,
 				3203A61A1346E0ED00A7A22E /* MODDecoder.cpp */,
-				C34B272026EAD8C5001A1714 /* MIDIDecoder.h */,
-				C34B272126EAD8C5001A1714 /* MIDIDecoder.cpp */,
 				32E7376D10B913AE00094C8A /* OggVorbisDecoder.h */,
 				32E7376C10B913AE00094C8A /* OggVorbisDecoder.cpp */,
 			);
@@ -425,14 +408,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C36302F126ECE1BC0028FBC8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C36302F826ECE1BD0028FBC8 /* libtimidity.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C374D1BA26EE4CC2006F430E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,7 +451,6 @@
 				3292489118CEAA96004365FF /* AudioRingBuffer.h in Headers */,
 				325116A424239A4600B02926 /* InMemoryFileInputSource.h in Headers */,
 				325116A124239A4600B02926 /* MemoryInputSource.h in Headers */,
-				C34B272226EAD8C5001A1714 /* MIDIDecoder.h in Headers */,
 				3250B42E190B439F00C28CA8 /* CoreAudioOutput.h in Headers */,
 				3230A939182E698900D630CF /* AudioBufferList.h in Headers */,
 				325116A324239A4600B02926 /* HTTPInputSource.h in Headers */,
@@ -536,10 +510,6 @@
 					ProjectRef = C374D1B926EE4CC2006F430E /* ogg.xcodeproj */;
 				},
 				{
-					ProductGroup = C36302F126ECE1BC0028FBC8 /* Products */;
-					ProjectRef = C34B26ED26EABAFD001A1714 /* timidity.xcodeproj */;
-				},
-				{
 					ProductGroup = C3224D8826ECD2BA008D8B3F /* Products */;
 					ProjectRef = C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */;
 				},
@@ -585,13 +555,6 @@
 			fileType = archive.ar;
 			path = libdumb.a;
 			remoteRef = C34B271D26EAC168001A1714 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C36302F826ECE1BD0028FBC8 /* libtimidity.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libtimidity.a;
-			remoteRef = C36302F726ECE1BD0028FBC8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C374D1BE26EE4CC2006F430E /* Ogg.framework */ = {
@@ -647,7 +610,6 @@
 				3292489418CEAB48004365FF /* RingBuffer.cpp in Sources */,
 				32C3BEAC1C152E61006A4E6B /* MemoryInputSource.cpp in Sources */,
 				32DFA2F314FA7FD400D1FB58 /* CFErrorUtilities.cpp in Sources */,
-				C34B272326EAD8C5001A1714 /* MIDIDecoder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
