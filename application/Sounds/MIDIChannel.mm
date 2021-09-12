@@ -2,12 +2,6 @@
 #import "SoundHandler.h"
 #import "MIDIPlayer.h"
 
-#define FADE_GRANULARITY 100
-#define GLK_MAXVOLUME 0x10000
-#define MIX_MAX_VOLUME 1.0f
-
-enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
-
 @interface MIDIChannel () {
 
 @private

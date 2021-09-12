@@ -431,10 +431,6 @@ extern glui32 generate_tag(void);
 
 extern void gli_stop_all_sound_channels(void);
 
-
-
-enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
-
 struct glk_schannel_struct
 {
     glui32 magicnum;
