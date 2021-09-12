@@ -75,8 +75,10 @@
         [_player addCallback:(^(void){
             dispatch_async(dispatch_get_main_queue(), ^{
                 MIDIChannel *strongSelf = weakSelf;
-                if (!strongSelf || --strongSelf->loop < 1)
+                if (!strongSelf || --strongSelf->loop < 1) {
+                    strongSelf->status = CHANNEL_IDLE;
                     [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
+                }
             });
         })];
     }
