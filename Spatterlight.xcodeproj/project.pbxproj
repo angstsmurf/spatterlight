@@ -541,7 +541,6 @@
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
 		C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.mm */; };
-		C311875325BD8F1E00739D7B /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C311875225BD8F1E00739D7B /* SoundHandler.m */; };
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; };
@@ -602,6 +601,7 @@
 		C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; };
 		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
+		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
 		C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.mm */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
 		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
@@ -2618,7 +2618,7 @@
 		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
 		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = GlkSoundChannel.h; sourceTree = "<group>"; };
 		C311875125BD8F1E00739D7B /* SoundHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = SoundHandler.h; sourceTree = "<group>"; };
-		C311875225BD8F1E00739D7B /* SoundHandler.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
+		C311875225BD8F1E00739D7B /* ogg.xcodeproj */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; name = ogg.xcodeproj; path = /Users/administrator/spatterlight/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<absolute>"; };
 		C311DE2925C4383100484639 /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = twine.c; sourceTree = "<group>"; };
 		C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C311DEF625C472E500484639 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -2686,6 +2686,7 @@
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
 		C363030B26ECF4CF0028FBC8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
 		C37E675C26E9844D0005873E /* MIDIChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MIDIChannel.mm; sourceTree = "<group>"; };
@@ -5166,7 +5167,7 @@
 			isa = PBXGroup;
 			children = (
 				C311875125BD8F1E00739D7B /* SoundHandler.h */,
-				C311875225BD8F1E00739D7B /* SoundHandler.m */,
+				C374D1C226EE4E75006F430E /* SoundHandler.m */,
 				C31186DA25BD500700739D7B /* GlkSoundChannel.h */,
 				C31186D925BD500700739D7B /* GlkSoundChannel.mm */,
 				C37E675A26E9844D0005873E /* MIDIChannel.h */,
@@ -5271,6 +5272,11 @@
 				C35978CA25DA14A6004B1448 /* iFictionQuickLook.entitlements */,
 			);
 			path = iFictionQuickLook;
+			sourceTree = "<group>";
+		};
+		C374D19726EE4B4F006F430E /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C3AD639F2617642F008614C5 /* GlkTextBufferWindow */ = {
@@ -6163,6 +6169,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = C374D19726EE4B4F006F430E /* Products */;
+					ProjectRef = C311875225BD8F1E00739D7B /* ogg.xcodeproj */;
+				},
+				{
 					ProductGroup = C344B2C426E4D9B4004B0A8F /* Products */;
 					ProjectRef = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
 				},
@@ -6512,7 +6522,6 @@
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
 				C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */,
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
-				C311875325BD8F1E00739D7B /* SoundHandler.m in Sources */,
 				C3191A9E266CDAF300528F6E /* ImageView.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
 				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
@@ -6555,6 +6564,7 @@
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
+				C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */,
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
