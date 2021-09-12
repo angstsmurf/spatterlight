@@ -311,19 +311,19 @@
     if (_lastsoundresno != -1) {
         GlkSoundChannel *glkchan = _glkchannels[@(channel)];
         if (glkchan) {
-            if (_resources[@(_lastsoundresno)].type == giblorb_ID_MIDI) {
-                if (![glkchan isKindOfClass:[MIDIChannel class]]) {
-                    _glkchannels[@(channel)] = [[MIDIChannel alloc] initWithHandler:self
-                                                                               name:(NSUInteger)channel volume:0x10000];
-                    [glkchan copyValues:_glkchannels[@(channel)]];
-                    glkchan = _glkchannels[@(channel)];
-                }
-            } else if ([glkchan isKindOfClass:[MIDIChannel class]]) {
-                _glkchannels[@(channel)] = [[GlkSoundChannel alloc] initWithHandler:self
-                                                                           name:(NSUInteger)channel volume:0x10000];
-                [glkchan copyValues:_glkchannels[@(channel)]];
-                glkchan = _glkchannels[@(channel)];
-            }
+//            if (_resources[@(_lastsoundresno)].type == giblorb_ID_MIDI) {
+//                if (![glkchan isKindOfClass:[MIDIChannel class]]) {
+//                    _glkchannels[@(channel)] = [[MIDIChannel alloc] initWithHandler:self
+//                                                                               name:(NSUInteger)channel volume:0x10000];
+//                    [glkchan copyValues:_glkchannels[@(channel)]];
+//                    glkchan = _glkchannels[@(channel)];
+//                }
+//            } else if ([glkchan isKindOfClass:[MIDIChannel class]]) {
+//                _glkchannels[@(channel)] = [[GlkSoundChannel alloc] initWithHandler:self
+//                                                                           name:(NSUInteger)channel volume:0x10000];
+//                [glkchan copyValues:_glkchannels[@(channel)]];
+//                glkchan = _glkchannels[@(channel)];
+//            }
 
             [glkchan play:_lastsoundresno repeats:repeats notify:notify];
         }
