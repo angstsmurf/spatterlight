@@ -1,6 +1,9 @@
 # Change log
 
 ## Release 0.8.6
+- Replaced SDL audio with a modified version of SFBAudioEngine
+- Beachballing at the beginning of *Renegade Brainwave* fixed
+- Spatterlight is now a universal app, with completely untested Apple Silicon support
 - Some paragraph settings were not being properly updated in the Preferences panel
 - Adjusted the limits of many paragraph settings
 - The paragraph settings will scale along with text size when zooming in or out
@@ -10,7 +13,7 @@
 - Hyperlink underline setting in grid windows was not working when starting a new game
 - Improved calculation of character height and status window height
 - The top of the main window was covered by the status bar in *Curses* when showing a quote box. This was visible when the main window had a Find bar
-- Determinism is working properly in Tads 3 and Magnetic Scrolls
+- Determinism now works in Tads 3 and Magnetic Scrolls
 - Improved performance in Alan 3. *The Wyldkynd Project* now has playable speed and can be resized without beachballing
 - The SCRIPT command works as intended in Alan 3
 - All Alan 3 games should be recognized and playable
