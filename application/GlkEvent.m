@@ -168,6 +168,14 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
+- (instancetype)initRedrawEvent {
+    self = [super init];
+    if (self) {
+        _type = EVTREDRAW;
+    }
+    return self;
+}
+
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound {
     self = [super init];
     if (self) {

@@ -52,7 +52,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     if (!gli_enable_autosave)
         return;
     
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange || (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer))
+    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange || lasteventtype == evtype_Redraw || (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer))
     {
         return;
     }

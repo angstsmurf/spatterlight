@@ -61,11 +61,11 @@ fprintf(stderr, "%s\n",                                                    \
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
 //    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
 //    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",    "PAUSE",
+//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
 //    "UNPAUSE",         "BEEP",
-//    "SETLINK",         "INITLINK",         "CANCELLINK",
-//    "SETZCOLOR",       "SETREVERSE",       "QUOTEBOX",    "SHOWERROR",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+//    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
+//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "NEXTEVENT",
+//    "EVTARRANGE",      "EVTREDRAW",        "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
 //    "EVTVOLUME",       "EVTPREFS"};
 
@@ -3585,6 +3585,7 @@ static BOOL pollMoreData(int fd) {
 }
 
 - (void)queueEvent:(GlkEvent *)gevent {
+    GlkEvent *redrawEvent = nil;
     if (gevent.type == EVTARRANGE) {
         Theme *theme = _theme;
         NSDictionary *newArrangeValues = @{
@@ -3604,6 +3605,8 @@ static BOOL pollMoreData(int fd) {
         }
 
         lastArrangeValues = newArrangeValues;
+        // Some Inform 7 games only resize graphics on evtype_Redraw
+        redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
     if (waitforfilename) {
         [_queue addObject:gevent];
@@ -3614,6 +3617,8 @@ static BOOL pollMoreData(int fd) {
     } else {
         [_queue addObject:gevent];
     }
+    if (redrawEvent)
+        [self queueEvent:redrawEvent];
 }
 
 - (void)noteDataAvailable: (id)sender

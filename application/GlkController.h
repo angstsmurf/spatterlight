@@ -103,7 +103,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL trinity;
 @property BOOL usesFont3;
 
-
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;

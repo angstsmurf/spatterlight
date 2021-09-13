@@ -376,7 +376,7 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
         return;
     }
 
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange)
+    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange || lasteventtype == evtype_Redraw)
     {
 		return;
     }

@@ -120,6 +120,7 @@ enum
     
     NEXTEVENT,
     EVTARRANGE,
+    EVTREDRAW,
     EVTLINE,
     EVTKEY,
     EVTMOUSE,

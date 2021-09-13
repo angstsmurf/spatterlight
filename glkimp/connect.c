@@ -806,6 +806,10 @@ again:
             gli_windows_rearrange();
             break;
 
+        case EVTREDRAW:
+            event->type = evtype_Redraw;
+            break;
+
         case EVTLINE:
 #ifdef DEBUG
             //fprintf(stderr, "line input event\n");
