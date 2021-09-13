@@ -61,13 +61,11 @@
     resid = snd;
     loop = areps;
 
-//    if (_player) {
-        _player = [[MIDIPlayer alloc] initWithData:[NSData dataWithBytes:buf length:len]];
-//    }
+    _player = [[MIDIPlayer alloc] initWithData:[NSData dataWithBytes:buf length:len]];
 
     [_player setVolume:volume];
 
-    if (notify && areps != -1) {
+    if (areps != -1) {
         __unsafe_unretained MIDIChannel *weakSelf = self;
         SoundHandler *blockHandler = self.handler;
         NSInteger blocknotify = notify;
@@ -77,7 +75,8 @@
                 MIDIChannel *strongSelf = weakSelf;
                 if (!strongSelf || --strongSelf->loop < 1) {
                     strongSelf->status = CHANNEL_IDLE;
-                    [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
+                    if (blocknotify)
+                        [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
                 }
             });
         })];

@@ -114,14 +114,15 @@
 
     [self setVolume];
 
-    if (notify && areps != -1) {
+    if (areps != -1) {
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;
         __unsafe_unretained GlkSoundChannel *weakSelf = self;
         _player->SetRenderingFinishedBlock(^(const SFB::Audio::Decoder& /*decoder*/){
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf->status = CHANNEL_IDLE;
-                [weakSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
+                if (blocknotify)
+                    [weakSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
             });
         });
     }
