@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -528,7 +528,7 @@
 				LastUpgradeCheck = 1250;
 			};
 			buildConfigurationList = 730F23F3091827B200AB638C /* Build configuration list for PBXProject "Vorbis" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -677,6 +677,7 @@
 				PRODUCT_NAME = Vorbis;
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
+				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -691,7 +692,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
@@ -705,6 +706,7 @@
 				PRODUCT_NAME = Vorbis;
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
+				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -820,6 +822,7 @@
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -828,13 +831,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -855,6 +859,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -863,7 +868,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -873,6 +878,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -893,6 +899,8 @@
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "";
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -901,8 +909,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../ogg/include,
@@ -911,6 +919,8 @@
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
