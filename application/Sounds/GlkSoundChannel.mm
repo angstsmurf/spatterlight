@@ -126,24 +126,17 @@
         });
     }
 
-   if (areps != 1) {
-       if (areps == -1)
-           areps = SFB_INFINITE_LOOP + 1;
-       CFErrorRef error = nullptr;
-       if (!decoder->Open(&error))
-           NSLog(@"GlkSoundChannel: Could not open decoder");
-       SInt64 frames = decoder->GetTotalFrames();
-       auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, frames, areps - 1);
-       if (paused)
-           _player->Enqueue(loopableRegionDecoder);
-       else
-           _player->Play(loopableRegionDecoder);
-   } else {
-       if (paused)
-           _player->Enqueue(decoder);
-       else
-           _player->Play(decoder);
-   }
+    if (areps == -1)
+        areps = SFB_INFINITE_LOOP + 1;
+    CFErrorRef error = nullptr;
+    if (!decoder->Open(&error))
+        NSLog(@"GlkSoundChannel: Could not open decoder (format:%@) %@", mimeString, error);
+    SInt64 frames = decoder->GetTotalFrames();
+    auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, frames, areps - 1);
+    if (paused)
+        _player->Enqueue(loopableRegionDecoder);
+    else
+        _player->Play(loopableRegionDecoder);
 }
 
 - (void)stop
