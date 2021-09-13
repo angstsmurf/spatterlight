@@ -911,11 +911,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self queueEvent:gevent];
 
     if (!(_inFullscreen && windowRestoredBySystem)) {
-        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
-                                             height:(NSInteger)_contentView.frame.size.height
-                                              theme:_theme
-                                              force:NO];
-        [self queueEvent:gevent];
+        [self sendArrangeEventWithFrame:_contentView.frame force:NO];
     }
 
     restartingAlready = NO;
@@ -1086,11 +1082,11 @@ fprintf(stderr, "%s\n",                                                    \
     // to re-send us window sizes. The player may have changed settings that
     // affect window size since the autosave was created.
 
-    [self performSelector:@selector(sendArrangeEvent:) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0];
 }
 
 
-- (void)sendArrangeEvent:(id)sender {
+- (void)postRestoreArrange:(id)sender {
     if (shouldShowAutorestoreAlert && !_startingInFullscreen) {
         shouldShowAutorestoreAlert = NO;
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
@@ -1105,11 +1101,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
 
-    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
-                                                   height:(NSInteger)_contentView.frame.size.height
-                                                    theme:_theme
-                                                    force:YES];
-    [self queueEvent:gevent];
+    [self sendArrangeEventWithFrame:_contentView.frame force:YES];
+
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
@@ -1990,6 +1983,15 @@ fprintf(stderr, "%s\n",                                                    \
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     NSNotification *notification = [[NSNotification alloc] initWithName:@"PreferencesChanged" object:_theme userInfo:nil];
     [self notePreferencesChanged:notification];
+}
+
+- (void)sendArrangeEventWithFrame:(NSRect)frame force:(BOOL)force {
+    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
+
+                                                   height:(NSInteger)frame.size.height
+                                                    theme:_theme
+                                                    force:force];
+    [self queueEvent:gevent];
 }
 
 
@@ -4011,13 +4013,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
              runAnimationGroup:^(NSAnimationContext *context) {
                 context.duration = duration / 5;
                 [localContentView setFrame:newContentFrame];
-                GlkEvent *gevent = [[GlkEvent alloc]
-                                    initArrangeWidth:(NSInteger)localContentView.frame.size.width
-                                    height:(NSInteger)localContentView.frame.size.height
-                                    theme:self.theme
-                                    force:NO];
-
-                [weakSelf queueEvent:gevent];
+                [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
                 [weakSelf flushDisplay];
             }
              completionHandler:^{
@@ -4044,13 +4040,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                         // Send an arrangement event to fill
                         // the new extended area
-                        GlkEvent *gevent = [[GlkEvent alloc]
-                                            initArrangeWidth:(NSInteger)localContentView.frame.size.width
-                                            height:(NSInteger)localContentView.frame.size.height
-                                            theme:self.theme
-                                            force:NO];
-
-                        [weakSelf queueEvent:gevent];
+                        [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
                         [weakSelf restoreScrollOffsets];
                         for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
                         {
@@ -4089,7 +4079,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += screen.frame.origin.x;
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
-    NSView __weak *localContentView = _contentView;
     GlkController * __unsafe_unretained weakSelf = self;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
@@ -4116,14 +4105,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             GlkController *strongSelf = weakSelf;
             // Finally, we get the content view into position ...
             [strongSelf enableArrangementEvents];
-            localContentView.frame = [strongSelf contentFrameForFullscreen];
-            GlkEvent *gevent = [[GlkEvent alloc]
-                                initArrangeWidth:(NSInteger)localContentView.frame.size.width
-                                height:(NSInteger)localContentView.frame.size.height
-                                theme:strongSelf.theme
-                                force:NO];
-
-            [strongSelf queueEvent:gevent];
+            [strongSelf sendArrangeEventWithFrame:[strongSelf contentFrameForFullscreen] force:NO];
 
             if (stashShouldShowAlert && strongSelf)
                 [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
