@@ -3,8 +3,6 @@
  * See https://github.com/sbooth/SFBAudioEngine/blob/master/LICENSE.txt for license information
  */
 
-#include <os/log.h>
-
 #include "AudioFormat.h"
 #include "AudioPlayer.h"
 #include "CoreAudioOutput.h"
@@ -12,7 +10,7 @@
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
-fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n");
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
 #else
 #define NSLog(...)
 #endif
@@ -81,13 +79,13 @@ bool SFB::Audio::CoreAudioOutput::GetVolumeForChannel(UInt32 channel, Float32& v
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitGetParameter(au, kHALOutputParam_Volume, kAudioUnitScope_Global, channel, &volume);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetParameter (kHALOutputParam_Volume, kAudioUnitScope_Global, %u) failed: %d\n", channel, result);
+		NSLog("AudioUnitGetParameter (kHALOutputParam_Volume, kAudioUnitScope_Global, %u) failed: %d", channel, result);
 		return false;
 	}
 
@@ -102,17 +100,17 @@ bool SFB::Audio::CoreAudioOutput::SetVolumeForChannel(UInt32 channel, Float32 vo
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-//		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+//		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitSetParameter(au, kHALOutputParam_Volume, kAudioUnitScope_Global, channel, volume, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetParameter (kHALOutputParam_Volume, kAudioUnitScope_Global, %u) failed: %d\n", channel, result);
+		NSLog("AudioUnitSetParameter (kHALOutputParam_Volume, kAudioUnitScope_Global, %u) failed: %d", channel, result);
 		return false;
 	}
 
-	fprintf(stderr, "Volume for channel %u set to %f\n", channel, volume);
+	NSLog("Volume for channel %u set to %f", channel, volume);
 
 	return true;
 }
@@ -122,13 +120,13 @@ bool SFB::Audio::CoreAudioOutput::GetPreGain(Float32& preGain) const
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mMixerNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitGetParameter(au, kMultiChannelMixerParam_Volume, kAudioUnitScope_Input, 0, &preGain);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitGetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d", result);
 		return false;
 	}
 
@@ -143,17 +141,17 @@ bool SFB::Audio::CoreAudioOutput::SetPreGain(Float32 preGain)
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mMixerNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitSetParameter(au, kMultiChannelMixerParam_Volume, kAudioUnitScope_Input, 0, preGain, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d", result);
 		return false;
 	}
 
-	fprintf(stderr, "Pregain set to %f", preGain);
+	NSLog("Pregain set to %f", preGain);
 
 	return true;
 }
@@ -163,7 +161,7 @@ bool SFB::Audio::CoreAudioOutput::IsPerformingSampleRateConversion() const
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
@@ -171,7 +169,7 @@ bool SFB::Audio::CoreAudioOutput::IsPerformingSampleRateConversion() const
 	UInt32 dataSize = sizeof(sampleRate);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_SampleRate, kAudioUnitScope_Global, 0, &sampleRate, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_SampleRate) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_SampleRate) failed: %d", result);
 		return false;
 	}
 
@@ -183,14 +181,14 @@ bool SFB::Audio::CoreAudioOutput::GetSampleRateConverterComplexity(UInt32& compl
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	UInt32 dataSize = sizeof(complexity);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_SampleRateConverterComplexity, kAudioUnitScope_Global, 0, &complexity, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_SampleRateConverterComplexity) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_SampleRateConverterComplexity) failed: %d", result);
 		return false;
 	}
 
@@ -199,18 +197,18 @@ bool SFB::Audio::CoreAudioOutput::GetSampleRateConverterComplexity(UInt32& compl
 
 bool SFB::Audio::CoreAudioOutput::SetSampleRateConverterComplexity(UInt32 complexity)
 {
-	fprintf(stderr, "Setting sample rate converter complexity to '%.4s'\n", SFBCStringForOSType(complexity));
+	NSLog("Setting sample rate converter complexity to '%.4s'", SFBCStringForOSType(complexity));
 
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitSetProperty(au, kAudioUnitProperty_SampleRateConverterComplexity, kAudioUnitScope_Global, 0, &complexity, (UInt32)sizeof(complexity));
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioUnitProperty_SampleRateConverterComplexity) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioUnitProperty_SampleRateConverterComplexity) failed: %d", result);
 		return false;
 	}
 
@@ -222,14 +220,14 @@ bool SFB::Audio::CoreAudioOutput::GetSampleRateConverterQuality(UInt32& quality)
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	UInt32 dataSize = sizeof(quality);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_RenderQuality, kAudioUnitScope_Global, 0, &quality, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_RenderQuality) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_RenderQuality) failed: %d", result);
 		return false;
 	}
 
@@ -238,18 +236,18 @@ bool SFB::Audio::CoreAudioOutput::GetSampleRateConverterQuality(UInt32& quality)
 
 bool SFB::Audio::CoreAudioOutput::SetSampleRateConverterQuality(UInt32 quality)
 {
-	fprintf(stderr, "Setting sample rate converter quality to %u", quality);
+	NSLog("Setting sample rate converter quality to %u", quality);
 
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	result = AudioUnitSetProperty(au, kAudioUnitProperty_RenderQuality, kAudioUnitScope_Global, 0, &quality, (UInt32)sizeof(quality));
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioUnitProperty_RenderQuality) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioUnitProperty_RenderQuality) failed: %d", result);
 		return false;
 	}
 
@@ -265,13 +263,13 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType subType, OSType manufacturer,
 
 bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType, OSType manufacturer, UInt32 flags, UInt32 mask, AudioUnit *effectUnit1)
 {
-	fprintf(stderr, "Adding DSP: '%.4s' '%.4s' '%.4s'\n", SFBCStringForOSType(componentType), SFBCStringForOSType(subType), SFBCStringForOSType(manufacturer));
+	NSLog("Adding DSP: '%.4s' '%.4s' '%.4s'", SFBCStringForOSType(componentType), SFBCStringForOSType(subType), SFBCStringForOSType(manufacturer));
 
 	// Get the source node for the graph's output node
 	UInt32 numInteractions = 0;
 	auto result = AUGraphCountNodeInteractions(mAUGraph, mOutputNode, &numInteractions);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphCountNodeInteractions failed: %d\n", result);
+		NSLog("AUGraphCountNodeInteractions failed: %d", result);
 		return false;
 	}
 
@@ -279,7 +277,7 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 
 	result = AUGraphGetNodeInteractions(mAUGraph, mOutputNode, &numInteractions, interactions);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeInteractions failed: %d\n", result);
+		NSLog("AUGraphGetNodeInteractions failed: %d", result);
 		return false;
 	}
 
@@ -295,7 +293,7 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 
 	// Unable to determine the preceding node, so bail
 	if(-1 == sourceNode) {
-		fprintf(stderr, "Unable to determine input node");
+		NSLog("Unable to determine input node");
 		return false;
 	}
 
@@ -311,18 +309,18 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 	AUNode effectNode = -1;
 	result = AUGraphAddNode(mAUGraph, &componentDescription, &effectNode);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphAddNode failed: %d\n", result);
+		NSLog("AUGraphAddNode failed: %d", result);
 		return false;
 	}
 
 	AudioUnit effectUnit = nullptr;
 	result = AUGraphNodeInfo(mAUGraph, effectNode, nullptr, &effectUnit);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 
 		result = AUGraphRemoveNode(mAUGraph, effectNode);
 		if(noErr != result)
-			fprintf(stderr, "AUGraphRemoveNode failed: %d\n", result);
+			NSLog("AUGraphRemoveNode failed: %d", result);
 
 		return false;
 	}
@@ -333,11 +331,11 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 	UInt32 framesPerSlice = 4096;
 	result = AudioUnitSetProperty(effectUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &framesPerSlice, (UInt32)sizeof(framesPerSlice));
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d", result);
 
 		result = AUGraphRemoveNode(mAUGraph, effectNode);
 		if(noErr != result)
-			fprintf(stderr, "AUGraphRemoveNode failed: %d\n", result);
+			NSLog("AUGraphRemoveNode failed: %d", result);
 
 		return false;
 	}
@@ -371,11 +369,11 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 	result = AUGraphDisconnectNodeInput(mAUGraph, mOutputNode, 0);
 
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphDisconnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphDisconnectNodeInput failed: %d", result);
 
 		result = AUGraphRemoveNode(mAUGraph, effectNode);
 		if(noErr != result)
-			fprintf(stderr, "AUGraphRemoveNode failed: %d\n", result);
+			NSLog("AUGraphRemoveNode failed: %d", result);
 
 		return false;
 	}
@@ -383,24 +381,24 @@ bool SFB::Audio::CoreAudioOutput::AddEffect(OSType componentType, OSType subType
 	// Reconnect the nodes
 	result = AUGraphConnectNodeInput(mAUGraph, sourceNode, 0, effectNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphConnectNodeInput failed: %d", result);
 		return false;
 	}
 
 	result = AUGraphConnectNodeInput(mAUGraph, effectNode, 0, mOutputNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphConnectNodeInput failed: %d", result);
 		return false;
 	}
 
 	result = AUGraphUpdate(mAUGraph, nullptr);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphUpdate failed: %d\n", result);
+		NSLog("AUGraphUpdate failed: %d", result);
 
 		// If the update failed, restore the previous node state
 		result = AUGraphConnectNodeInput(mAUGraph, sourceNode, 0, mOutputNode, 0);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+			NSLog("AUGraphConnectNodeInput failed: %d", result);
 			return false;
 		}
 	}
@@ -420,14 +418,14 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
     CFStringRef compName;
     AudioComponentCopyName((AudioComponent)effectUnit, &compName);
     const char *cs = CFStringGetCStringPtr(compName, kCFStringEncodingMacRoman) ;
-	fprintf(stderr, "Removing DSP effect: %s", cs);
+	NSLog("Removing DSP effect: %s", cs);
     CFRelease(compName);
 #endif
 
 	UInt32 nodeCount = 0;
 	auto result = AUGraphGetNodeCount(mAUGraph, &nodeCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeCount failed: %d\n", result);
+		NSLog("AUGraphGetNodeCount failed: %d", result);
 		return false;
 	}
 
@@ -436,14 +434,14 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 		AUNode node = -1;
 		result = AUGraphGetIndNode(mAUGraph, nodeIndex, &node);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetIndNode failed: %d\n", result);
+			NSLog("AUGraphGetIndNode failed: %d", result);
 			return false;
 		}
 
 		AudioUnit au = nullptr;
 		result = AUGraphNodeInfo(mAUGraph, node, nullptr, &au);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+			NSLog("AUGraphNodeInfo failed: %d", result);
 			return false;
 		}
 
@@ -455,7 +453,7 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 	}
 
 	if(-1 == effectNode) {
-		fprintf(stderr, "Unable to find the AUNode for the specified AudioUnit");
+		NSLog("Unable to find the AUNode for the specified AudioUnit");
 		return false;
 	}
 
@@ -463,7 +461,7 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 	UInt32 numInteractions = 0;
 	result = AUGraphCountNodeInteractions(mAUGraph, effectNode, &numInteractions);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphCountNodeInteractions failed: %d\n", result);
+		NSLog("AUGraphCountNodeInteractions failed: %d", result);
 		return false;
 	}
 
@@ -471,7 +469,7 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 
 	result = AUGraphGetNodeInteractions(mAUGraph, effectNode, &numInteractions, interactions);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeInteractions failed: %d\n", result);
+		NSLog("AUGraphGetNodeInteractions failed: %d", result);
 
 		return false;
 	}
@@ -489,38 +487,38 @@ bool SFB::Audio::CoreAudioOutput::RemoveEffect(AudioUnit effectUnit)
 	}
 
 	if(-1 == sourceNode || -1 == destNode) {
-		fprintf(stderr, "Unable to find the source or destination nodes");
+		NSLog("Unable to find the source or destination nodes");
 		return false;
 	}
 
 	result = AUGraphDisconnectNodeInput(mAUGraph, effectNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphDisconnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphDisconnectNodeInput failed: %d", result);
 		return false;
 	}
 
 	result = AUGraphDisconnectNodeInput(mAUGraph, destNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphDisconnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphDisconnectNodeInput failed: %d", result);
 		return false;
 	}
 
 	result = AUGraphRemoveNode(mAUGraph, effectNode);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphRemoveNode failed: %d\n", result);
+		NSLog("AUGraphRemoveNode failed: %d", result);
 		return false;
 	}
 
 	// Reconnect the nodes
 	result = AUGraphConnectNodeInput(mAUGraph, sourceNode, 0, destNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphConnectNodeInput failed: %d", result);
 		return false;
 	}
 
 	result = AUGraphUpdate(mAUGraph, nullptr);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphUpdate failed: %d\n", result);
+		NSLog("AUGraphUpdate failed: %d", result);
 		return false;
 	}
 
@@ -549,7 +547,7 @@ bool SFB::Audio::CoreAudioOutput::DeviceIsHogged() const
 
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &hogPID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d", result);
 		return false;
 	}
 
@@ -562,7 +560,7 @@ bool SFB::Audio::CoreAudioOutput::StartHoggingDevice()
 	if(!GetDeviceID(deviceID))
 		return false;
 
-	fprintf(stderr, "Taking hog mode for device 0x%x", deviceID);
+	NSLog("Taking hog mode for device 0x%x", deviceID);
 
 	// Is it hogged already?
 	AudioObjectPropertyAddress propertyAddress = {
@@ -576,13 +574,13 @@ bool SFB::Audio::CoreAudioOutput::StartHoggingDevice()
 
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &hogPID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d", result);
 		return false;
 	}
 
 	// The device is already hogged
 	if(hogPID != (pid_t)-1) {
-		fprintf(stderr, "Device is already hogged by pid: %d\n", hogPID);
+		NSLog("Device is already hogged by pid: %d", hogPID);
 		return false;
 	}
 
@@ -594,7 +592,7 @@ bool SFB::Audio::CoreAudioOutput::StartHoggingDevice()
 
 	result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(hogPID), &hogPID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyHogMode) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyHogMode) failed: %d", result);
 		return false;
 	}
 
@@ -611,7 +609,7 @@ bool SFB::Audio::CoreAudioOutput::StopHoggingDevice()
 	if(!GetDeviceID(deviceID))
 		return false;
 
-	fprintf(stderr, "Releasing hog mode for device 0x%x", deviceID);
+	NSLog("Releasing hog mode for device 0x%x", deviceID);
 
 	// Is it hogged by us?
 	AudioObjectPropertyAddress propertyAddress = {
@@ -625,7 +623,7 @@ bool SFB::Audio::CoreAudioOutput::StopHoggingDevice()
 
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &hogPID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyHogMode) failed: %d", result);
 		return false;
 	}
 
@@ -642,7 +640,7 @@ bool SFB::Audio::CoreAudioOutput::StopHoggingDevice()
 
 	result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(hogPID), &hogPID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyHogMode) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyHogMode) failed: %d", result);
 		return false;
 	}
 
@@ -671,7 +669,7 @@ bool SFB::Audio::CoreAudioOutput::DeviceIsMuted() const
 
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &isMuted);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyMute) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyMute) failed: %d", result);
 		return false;
 	}
 
@@ -694,7 +692,7 @@ bool SFB::Audio::CoreAudioOutput::MuteDevice()
 
 	auto result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(mute), &mute);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyMute) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyMute) failed: %d", result);
 		return false;
 	}
 
@@ -717,7 +715,7 @@ bool SFB::Audio::CoreAudioOutput::UnmuteDevice()
 
 	auto result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(mute), &mute);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyMute) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyMute) failed: %d", result);
 		return false;
 	}
 
@@ -747,7 +745,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceVolumeForChannel(UInt32 channel, Floa
 	};
 
 	if(!AudioObjectHasProperty(deviceID, &propertyAddress)) {
-		fprintf(stderr, "AudioObjectHasProperty (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) is false", channel);
+		NSLog("AudioObjectHasProperty (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) is false", channel);
 		return false;
 	}
 
@@ -755,7 +753,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceVolumeForChannel(UInt32 channel, Floa
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &volume);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) failed: %d\n", channel, result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) failed: %d", channel, result);
 		return false;
 	}
 
@@ -768,7 +766,7 @@ bool SFB::Audio::CoreAudioOutput::SetDeviceVolumeForChannel(UInt32 channel, Floa
 	if(!GetDeviceID(deviceID))
 		return false;
 
-	fprintf(stderr, "Setting output device 0x%x channel %u volume to %f", deviceID, channel, volume);
+	NSLog("Setting output device 0x%x channel %u volume to %f", deviceID, channel, volume);
 
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector	= kAudioDevicePropertyVolumeScalar,
@@ -777,14 +775,14 @@ bool SFB::Audio::CoreAudioOutput::SetDeviceVolumeForChannel(UInt32 channel, Floa
 	};
 
 	if(!AudioObjectHasProperty(deviceID, &propertyAddress)) {
-		fprintf(stderr, "AudioObjectHasProperty (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) is false", channel);
+		NSLog("AudioObjectHasProperty (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) is false", channel);
 		return false;
 	}
 
 	auto result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(volume), &volume);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) failed: %d\n", channel, result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyVolumeScalar, kAudioObjectPropertyScopeOutput, %u) failed: %d", channel, result);
 		return false;
 	}
 
@@ -804,7 +802,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceChannelCount(UInt32& channelCount) co
 	};
 
 	if(!AudioObjectHasProperty(deviceID, &propertyAddress)) {
-		fprintf(stderr, "AudioObjectHasProperty (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) is false");
+		NSLog("AudioObjectHasProperty (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) is false");
 		return false;
 	}
 
@@ -812,21 +810,21 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceChannelCount(UInt32& channelCount) co
 	auto result = AudioObjectGetPropertyDataSize(deviceID, &propertyAddress, 0, nullptr, &dataSize);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyDataSize (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyDataSize (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) failed: %d", result);
 		return false;
 	}
 
 	AudioBufferList *bufferList = (AudioBufferList *)malloc(dataSize);
 
 	if(nullptr == bufferList) {
-		fprintf(stderr, "Unable to allocate %u bytes", dataSize);
+		NSLog("Unable to allocate %u bytes", dataSize);
 		return false;
 	}
 
 	result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, bufferList);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyStreamConfiguration, kAudioObjectPropertyScopeOutput) failed: %d", result);
 		free(bufferList);
 		bufferList = nullptr;
 		return false;
@@ -854,7 +852,7 @@ bool SFB::Audio::CoreAudioOutput::GetDevicePreferredStereoChannels(std::pair<UIn
 	};
 
 	if(!AudioObjectHasProperty(deviceID, &propertyAddress)) {
-		fprintf(stderr, "AudioObjectHasProperty (kAudioDevicePropertyPreferredChannelsForStereo, kAudioObjectPropertyScopeOutput) failed is false");
+		NSLog("AudioObjectHasProperty (kAudioDevicePropertyPreferredChannelsForStereo, kAudioObjectPropertyScopeOutput) failed is false");
 		return false;
 	}
 
@@ -863,7 +861,7 @@ bool SFB::Audio::CoreAudioOutput::GetDevicePreferredStereoChannels(std::pair<UIn
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &preferredChannels);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyPreferredChannelsForStereo, kAudioObjectPropertyScopeOutput) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyPreferredChannelsForStereo, kAudioObjectPropertyScopeOutput) failed: %d", result);
 		return false;
 	}
 
@@ -888,14 +886,14 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceAvailableNominalSampleRates(std::vect
 	};
 
 	if(!AudioObjectHasProperty(deviceID, &propertyAddress)) {
-		fprintf(stderr, "AudioObjectHasProperty (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
+		NSLog("AudioObjectHasProperty (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
 		return false;
 	}
 
 	UInt32 dataSize = 0;
 	OSStatus result = AudioObjectGetPropertyDataSize(deviceID, &propertyAddress, 0, nullptr, &dataSize);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyDataSize (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
+		NSLog("AudioObjectGetPropertyDataSize (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
 		return false;
 	}
 
@@ -904,7 +902,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceAvailableNominalSampleRates(std::vect
 
 	result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &nominalSampleRates[0]);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyAvailableNominalSampleRates, kAudioObjectPropertyScopeOutput) failed is false");
 		return false;
 	}
 
@@ -918,7 +916,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceID(AudioDeviceID& deviceID) const
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
@@ -926,7 +924,7 @@ bool SFB::Audio::CoreAudioOutput::GetDeviceID(AudioDeviceID& deviceID) const
 
 	result = AudioUnitGetProperty(au, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &deviceID, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioOutputUnitProperty_CurrentDevice) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioOutputUnitProperty_CurrentDevice) failed: %d", result);
 		return false;
 	}
 
@@ -941,14 +939,14 @@ bool SFB::Audio::CoreAudioOutput::SetDeviceID(AudioDeviceID deviceID)
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	// Update our output AU to use the specified device
 	result = AudioUnitSetProperty(au, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &deviceID, (UInt32)sizeof(deviceID));
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioOutputUnitProperty_CurrentDevice) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_CurrentDevice) failed: %d", result);
 		return false;
 	}
 
@@ -977,7 +975,7 @@ bool SFB::Audio::CoreAudioOutput::GetAvailableDataSources(std::vector<UInt32>& d
 													 &dataSize);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyDataSize (kAudioDevicePropertyDataSources) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyDataSize (kAudioDevicePropertyDataSources) failed: %d", result);
 		return false;
 	}
 
@@ -987,7 +985,7 @@ bool SFB::Audio::CoreAudioOutput::GetAvailableDataSources(std::vector<UInt32>& d
 	result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &dataSources[0]);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyDataSources) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyDataSources) failed: %d", result);
 		return false;
 	}
 
@@ -1016,7 +1014,7 @@ bool SFB::Audio::CoreAudioOutput::GetActiveDataSources(std::vector<UInt32>& data
 													 &dataSize);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyDataSize (kAudioDevicePropertyDataSources) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyDataSize (kAudioDevicePropertyDataSources) failed: %d", result);
 		return false;
 	}
 
@@ -1026,7 +1024,7 @@ bool SFB::Audio::CoreAudioOutput::GetActiveDataSources(std::vector<UInt32>& data
 	result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &dataSources[0]);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyDataSources) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyDataSources) failed: %d", result);
 		return false;
 	}
 
@@ -1050,7 +1048,7 @@ bool SFB::Audio::CoreAudioOutput::SetActiveDataSources(const std::vector<UInt32>
 
 	OSStatus result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, (UInt32)(dataSources.size() * sizeof(UInt32)), &dataSources[0]);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyDataSource) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyDataSource) failed: %d", result);
 		return false;
 	}
 
@@ -1076,7 +1074,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 	UInt32 dataSize;
 	OSStatus result = AudioObjectGetPropertyDataSize(deviceID, &propertyAddress, 0, nullptr, &dataSize);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyDataSize (kAudioDevicePropertyStreams) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyDataSize (kAudioDevicePropertyStreams) failed: %d", result);
 		return false;
 	}
 
@@ -1085,7 +1083,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 
 	result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &streams[0]);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyStreams) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyStreams) failed: %d", result);
 		return false;
 	}
 
@@ -1099,7 +1097,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 //		return false;
 //
 //	if(std::end(streams) == std::find(std::begin(streams), std::end(streams), streamID)) {
-//		fprintf(stderr, "Unknown AudioStreamID: %x", streamID);
+//		NSLog("Unknown AudioStreamID: %x", streamID);
 //		return false;
 //	}
 //
@@ -1119,7 +1117,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 //												 &virtualFormat);
 //
 //	if(kAudioHardwareNoError != result) {
-//		fprintf(stderr, "AudioObjectGetPropertyData (kAudioStreamPropertyVirtualFormat) failed: %d\n", result);
+//		NSLog("AudioObjectGetPropertyData (kAudioStreamPropertyVirtualFormat) failed: %d", result);
 //		return false;
 //	}
 //
@@ -1128,14 +1126,14 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 //
 //bool SFB::Audio::CoreAudioOutput::SetOutputStreamVirtualFormat(AudioStreamID streamID, const AudioStreamBasicDescription& virtualFormat)
 //{
-//	fprintf(stderr, "Setting stream 0x" << std::hex << streamID << " virtual format to: " << virtualFormat);
+//	NSLog("Setting stream 0x" << std::hex << streamID << " virtual format to: " << virtualFormat);
 //
 //	std::vector<AudioStreamID> streams;
 //	if(!GetOutputStreams(streams))
 //		return false;
 //
 //	if(std::end(streams) == std::find(std::begin(streams), std::end(streams), streamID)) {
-//		fprintf(stderr, "Unknown AudioStreamID: %x", streamID);
+//		NSLog("Unknown AudioStreamID: %x", streamID);
 //		return false;
 //	}
 //
@@ -1153,7 +1151,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreams(std::vector<AudioStreamID>& s
 //												 &virtualFormat);
 //
 //	if(kAudioHardwareNoError != result) {
-//		fprintf(stderr, "AudioObjectSetPropertyData (kAudioStreamPropertyVirtualFormat) failed: %d\n", result);
+//		NSLog("AudioObjectSetPropertyData (kAudioStreamPropertyVirtualFormat) failed: %d", result);
 //		return false;
 //	}
 //
@@ -1167,7 +1165,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreamPhysicalFormat(AudioStreamID st
 		return false;
 
 	if(std::end(streams) == std::find(std::begin(streams), std::end(streams), streamID)) {
-		fprintf(stderr, "Unknown AudioStreamID: %x", streamID);
+		NSLog("Unknown AudioStreamID: %x", streamID);
 		return false;
 	}
 
@@ -1187,7 +1185,7 @@ bool SFB::Audio::CoreAudioOutput::GetOutputStreamPhysicalFormat(AudioStreamID st
 												 &physicalFormat);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioStreamPropertyPhysicalFormat) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioStreamPropertyPhysicalFormat) failed: %d", result);
 		return false;
 	}
 
@@ -1207,7 +1205,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputStreamPhysicalFormat(AudioStreamID st
 		return false;
 
 	if(std::end(streams) == std::find(std::begin(streams), std::end(streams), streamID)) {
-		fprintf(stderr, "Unknown AudioStreamID: %x", streamID);
+		NSLog("Unknown AudioStreamID: %x", streamID);
 		return false;
 	}
 
@@ -1225,7 +1223,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputStreamPhysicalFormat(AudioStreamID st
 												 &physicalFormat);
 
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioStreamPropertyPhysicalFormat) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioStreamPropertyPhysicalFormat) failed: %d", result);
 		return false;
 	}
 
@@ -1243,7 +1241,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphLatency(Float64& latency) const
 	UInt32 nodeCount = 0;
 	auto result = AUGraphGetNodeCount(mAUGraph, &nodeCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeCount failed: %d\n", result);
+		NSLog("AUGraphGetNodeCount failed: %d", result);
 		return false;
 	}
 
@@ -1251,14 +1249,14 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphLatency(Float64& latency) const
 		AUNode node = 0;
 		result = AUGraphGetIndNode(mAUGraph, nodeIndex, &node);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetIndNode failed: %d\n", result);
+			NSLog("AUGraphGetIndNode failed: %d", result);
 			return false;
 		}
 
 		AudioUnit au = nullptr;
 		result = AUGraphNodeInfo(mAUGraph, node, nullptr, &au);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+			NSLog("AUGraphNodeInfo failed: %d", result);
 			return false;
 		}
 
@@ -1266,7 +1264,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphLatency(Float64& latency) const
 		UInt32 dataSize = sizeof(auLatency);
 		result = AudioUnitGetProperty(au, kAudioUnitProperty_Latency, kAudioUnitScope_Global, 0, &auLatency, &dataSize);
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_Latency, kAudioUnitScope_Global) failed: %d\n", result);
+			NSLog("AudioUnitGetProperty (kAudioUnitProperty_Latency, kAudioUnitScope_Global) failed: %d", result);
 			return false;
 		}
 
@@ -1283,7 +1281,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphTailTime(Float64& tailTime) const
 	UInt32 nodeCount = 0;
 	auto result = AUGraphGetNodeCount(mAUGraph, &nodeCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeCount failed: %d\n", result);
+		NSLog("AUGraphGetNodeCount failed: %d", result);
 		return false;
 	}
 
@@ -1291,14 +1289,14 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphTailTime(Float64& tailTime) const
 		AUNode node = 0;
 		result = AUGraphGetIndNode(mAUGraph, nodeIndex, &node);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetIndNode failed: %d\n", result);
+			NSLog("AUGraphGetIndNode failed: %d", result);
 			return false;
 		}
 
 		AudioUnit au = nullptr;
 		result = AUGraphNodeInfo(mAUGraph, node, nullptr, &au);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+			NSLog("AUGraphNodeInfo failed: %d", result);
 			return false;
 		}
 
@@ -1306,7 +1304,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphTailTime(Float64& tailTime) const
 		UInt32 dataSize = sizeof(auTailTime);
 		result = AudioUnitGetProperty(au, kAudioUnitProperty_TailTime, kAudioUnitScope_Global, 0, &auTailTime, &dataSize);
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_TailTime, kAudioUnitScope_Global) failed: %d\n", result);
+			NSLog("AudioUnitGetProperty (kAudioUnitProperty_TailTime, kAudioUnitScope_Global) failed: %d", result);
 			return false;
 		}
 
@@ -1338,7 +1336,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphMixer(AudioUnit& au) const
 {
 	auto result = AUGraphNodeInfo(mAUGraph, mMixerNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
@@ -1349,7 +1347,7 @@ bool SFB::Audio::CoreAudioOutput::GetAUGraphOutput(AudioUnit& au) const
 {
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
@@ -1373,7 +1371,7 @@ bool SFB::Audio::CoreAudioOutput::_GetDeviceSampleRate(Float64& sampleRate) cons
 	UInt32 dataSize = sizeof(sampleRate);
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &sampleRate);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d", result);
 		return false;
 	}
 
@@ -1398,7 +1396,7 @@ bool SFB::Audio::CoreAudioOutput::_SetDeviceSampleRate(Float64 sampleRate)
 
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &currentSampleRate);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d", result);
 		return false;
 	}
 
@@ -1410,7 +1408,7 @@ bool SFB::Audio::CoreAudioOutput::_SetDeviceSampleRate(Float64 sampleRate)
 	dataSize = sizeof(sampleRate);
 	result = AudioObjectSetPropertyData(deviceID, &propertyAddress, 0, nullptr, sizeof(sampleRate), &sampleRate);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectSetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d\n", result);
+		NSLog("AudioObjectSetPropertyData (kAudioDevicePropertyNominalSampleRate) failed: %d", result);
 		return false;
 	}
 
@@ -1422,7 +1420,7 @@ size_t SFB::Audio::CoreAudioOutput::_GetPreferredBufferSize() const
 	AudioUnit au = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return 0;
 	}
 
@@ -1430,7 +1428,7 @@ size_t SFB::Audio::CoreAudioOutput::_GetPreferredBufferSize() const
 	UInt32 dataSize = sizeof(maxFramesPerSlice);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d", result);
 		return 0;
 	}
 
@@ -1443,7 +1441,7 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 {
 	auto result = NewAUGraph(&mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "NewAUGraph failed: %d\n", result);
+		NSLog("NewAUGraph failed: %d", result);
 		return false;
 	}
 
@@ -1460,11 +1458,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 
 	result = AUGraphAddNode(mAUGraph, &desc, &mMixerNode);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphAddNode failed: %d\n", result);
+		NSLog("AUGraphAddNode failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1484,11 +1482,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 
 	result = AUGraphAddNode(mAUGraph, &desc, &mOutputNode);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphAddNode failed: %d\n", result);
+		NSLog("AUGraphAddNode failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1496,11 +1494,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 
 	result = AUGraphConnectNodeInput(mAUGraph, mMixerNode, 0, mOutputNode, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+		NSLog("AUGraphConnectNodeInput failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1510,11 +1508,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	AURenderCallbackStruct cbs = { myAURenderCallback, this };
 	result = AUGraphSetNodeInputCallback(mAUGraph, mMixerNode, 0, &cbs);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphSetNodeInputCallback failed: %d\n", result);
+		NSLog("AUGraphSetNodeInputCallback failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1523,11 +1521,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	// Open the graph
 	result = AUGraphOpen(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphOpen failed: %d\n", result);
+		NSLog("AUGraphOpen failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1537,11 +1535,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	AudioUnit au = nullptr;
 	result = AUGraphNodeInfo(mAUGraph, mMixerNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1549,22 +1547,22 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 
 	result = AudioUnitSetParameter(au, kMultiChannelMixerParam_Volume, kAudioUnitScope_Input, 0, 1.f, 0);
 	if(noErr != result)
-		fprintf(stderr, "AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Input) failed: %d", result);
 
 	result = AudioUnitSetParameter(au, kMultiChannelMixerParam_Volume, kAudioUnitScope_Output, 0, 1.f, 0);
 	if(noErr != result)
-		fprintf(stderr, "AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Output) failed: %d\n", result);
+		NSLog("AudioUnitSetParameter (kMultiChannelMixerParam_Volume, kAudioUnitScope_Output) failed: %d", result);
 
 #if TARGET_OS_IPHONE
 	// All AudioUnits on iOS except RemoteIO require kAudioUnitProperty_MaximumFramesPerSlice to be 4096
 	// See http://developer.apple.com/library/ios/#documentation/AudioUnit/Reference/AudioUnitPropertiesReference/Reference/reference.html#//apple_ref/c/econst/kAudioUnitProperty_MaximumFramesPerSlice
 	result = AUGraphNodeInfo(mAUGraph, mMixerNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1573,11 +1571,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	UInt32 framesPerSlice = 4096;
 	result = AudioUnitSetProperty(au, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &framesPerSlice, (UInt32)sizeof(framesPerSlice));
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1586,11 +1584,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	// Save the default value of kAudioUnitProperty_MaximumFramesPerSlice for use when performing sample rate conversion
 	result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1599,11 +1597,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	UInt32 dataSize = sizeof(mDefaultMaximumFramesPerSlice);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &mDefaultMaximumFramesPerSlice, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1613,11 +1611,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	// Initialize the graph
 	result = AUGraphInitialize(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphInitialize failed: %d\n", result);
+		NSLog("AUGraphInitialize failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1626,11 +1624,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	// Store the graph's format
 	result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1639,11 +1637,11 @@ bool SFB::Audio::CoreAudioOutput::_Open()
 	UInt32 propertySize = sizeof(mFormat);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &mFormat, &propertySize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input) failed: %d", result);
 
 		result = DisposeAUGraph(mAUGraph);
 		if(noErr != result)
-			fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+			NSLog("DisposeAUGraph failed: %d", result);
 
 		mAUGraph = nullptr;
 		return false;
@@ -1657,14 +1655,14 @@ bool SFB::Audio::CoreAudioOutput::_Close()
 	Boolean graphIsRunning = false;
 	auto result = AUGraphIsRunning(mAUGraph, &graphIsRunning);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsRunning failed: %d\n", result);
+		NSLog("AUGraphIsRunning failed: %d", result);
 		return false;
 	}
 
 	if(graphIsRunning) {
 		result = AUGraphStop(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphStop failed: %d\n", result);
+			NSLog("AUGraphStop failed: %d", result);
 			return false;
 		}
 	}
@@ -1672,27 +1670,27 @@ bool SFB::Audio::CoreAudioOutput::_Close()
 	Boolean graphIsInitialized = false;
 	result = AUGraphIsInitialized(mAUGraph, &graphIsInitialized);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsInitialized failed: %d\n", result);
+		NSLog("AUGraphIsInitialized failed: %d", result);
 		return false;
 	}
 
 	if(graphIsInitialized) {
 		result = AUGraphUninitialize(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphUninitialize failed: %d\n", result);
+			NSLog("AUGraphUninitialize failed: %d", result);
 			return false;
 		}
 	}
 
 	result = AUGraphClose(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphClose failed: %d\n", result);
+		NSLog("AUGraphClose failed: %d", result);
 		return false;
 	}
 
 	result = DisposeAUGraph(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "DisposeAUGraph failed: %d\n", result);
+		NSLog("DisposeAUGraph failed: %d", result);
 		return false;
 	}
 
@@ -1707,7 +1705,7 @@ bool SFB::Audio::CoreAudioOutput::_Start()
 {
 	auto result = AUGraphStart(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphStart failed: %d\n", result);
+		NSLog("AUGraphStart failed: %d", result);
 		return false;
 	}
 
@@ -1718,7 +1716,7 @@ bool SFB::Audio::CoreAudioOutput::_Stop()
 {
 	auto result = AUGraphStop(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphStop failed: %d\n", result);
+		NSLog("AUGraphStop failed: %d", result);
 		return false;
 	}
 
@@ -1740,7 +1738,7 @@ bool SFB::Audio::CoreAudioOutput::_IsRunning() const
 	Boolean isRunning = false;
 	auto result = AUGraphIsRunning(mAUGraph, &isRunning);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsRunning failed: %d\n", result);
+		NSLog("AUGraphIsRunning failed: %d", result);
 		return false;
 	}
 
@@ -1752,7 +1750,7 @@ bool SFB::Audio::CoreAudioOutput::_Reset()
 	UInt32 nodeCount = 0;
 	auto result = AUGraphGetNodeCount(mAUGraph, &nodeCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsRunning failed: %d\n", result);
+		NSLog("AUGraphIsRunning failed: %d", result);
 		return false;
 	}
 
@@ -1760,20 +1758,20 @@ bool SFB::Audio::CoreAudioOutput::_Reset()
 		AUNode node = 0;
 		result = AUGraphGetIndNode(mAUGraph, i, &node);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetIndNode failed: %d\n", result);
+			NSLog("AUGraphGetIndNode failed: %d", result);
 			return false;
 		}
 
 		AudioUnit au = nullptr;
 		result = AUGraphNodeInfo(mAUGraph, node, nullptr, &au);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+			NSLog("AUGraphNodeInfo failed: %d", result);
 			return false;
 		}
 
 		result = AudioUnitReset(au, kAudioUnitScope_Global, 0);
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitReset failed: %d\n", result);
+			NSLog("AudioUnitReset failed: %d", result);
 			return false;
 		}
 	}
@@ -1802,14 +1800,14 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	Boolean graphIsRunning = FALSE;
 	auto result = AUGraphIsRunning(mAUGraph, &graphIsRunning);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsRunning failed: %d\n", result);
+		NSLog("AUGraphIsRunning failed: %d", result);
 		return false;
 	}
 
 	if(graphIsRunning) {
 		result = AUGraphStop(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphStop failed: %d\n", result);
+			NSLog("AUGraphStop failed: %d", result);
 			return false;
 		}
 	}
@@ -1819,14 +1817,14 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	Boolean graphIsInitialized = FALSE;
 	result = AUGraphIsInitialized(mAUGraph, &graphIsInitialized);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphIsInitialized failed: %d\n", result);
+		NSLog("AUGraphIsInitialized failed: %d", result);
 		return false;
 	}
 
 	if(graphIsInitialized) {
 		result = AUGraphUninitialize(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphUninitialize failed: %d\n", result);
+			NSLog("AUGraphUninitialize failed: %d", result);
 			return false;
 		}
 	}
@@ -1836,7 +1834,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	UInt32 interactionCount = 0;
 	result = AUGraphGetNumberOfInteractions(mAUGraph, &interactionCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNumberOfInteractions failed: %d\n", result);
+		NSLog("AUGraphGetNumberOfInteractions failed: %d", result);
 		return false;
 	}
 
@@ -1845,14 +1843,14 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	for(UInt32 i = 0; i < interactionCount; ++i) {
 		result = AUGraphGetInteractionInfo(mAUGraph, i, &interactions[i]);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetInteractionInfo failed: %d\n", result);
+			NSLog("AUGraphGetInteractionInfo failed: %d", result);
 			return false;
 		}
 	}
 
 	result = AUGraphClearConnections(mAUGraph);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphClearConnections failed: %d\n", result);
+		NSLog("AUGraphClearConnections failed: %d", result);
 		return false;
 	}
 
@@ -1874,7 +1872,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 			mFormat.mFormatID = kAudioFormatLinearPCM;
 
 		if(!SetPropertyOnAUGraphNodes(kAudioUnitProperty_StreamFormat, &mFormat, sizeof(mFormat))) {
-			fprintf(stderr, "Unable to restore AUGraph format: %d\n", result);
+			NSLog("Unable to restore AUGraph format: %d", result);
 		}
 
 		if(wasDoP)
@@ -1903,7 +1901,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 												 interactions[i].nodeInteraction.connection.destInputNumber);
 
 				if(noErr != result) {
-					fprintf(stderr, "AUGraphConnectNodeInput failed: %d\n", result);
+					NSLog("AUGraphConnectNodeInput failed: %d", result);
 					return false;
 				}
 
@@ -1919,7 +1917,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 													 &interactions[i].nodeInteraction.inputCallback.cback);
 
 				if(noErr != result) {
-					fprintf(stderr, "AUGraphSetNodeInputCallback failed: %d\n", result);
+					NSLog("AUGraphSetNodeInputCallback failed: %d", result);
 					return false;
 				}
 
@@ -1940,7 +1938,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	AudioUnit au = nullptr;
 	result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &au);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
@@ -1948,7 +1946,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	UInt32 dataSize = sizeof(inputSampleRate);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_SampleRate, kAudioUnitScope_Input, 0, &inputSampleRate, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_SampleRate, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_SampleRate, kAudioUnitScope_Input) failed: %d", result);
 		return false;
 	}
 
@@ -1956,7 +1954,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	dataSize = sizeof(outputSampleRate);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_SampleRate, kAudioUnitScope_Output, 0, &outputSampleRate, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_SampleRate, kAudioUnitScope_Output) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_SampleRate, kAudioUnitScope_Output) failed: %d", result);
 		return false;
 	}
 
@@ -1964,7 +1962,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 
 	// If the output unit's input and output sample rates don't match, calculate a working maximum number of frames per slice
 	if(inputSampleRate != outputSampleRate) {
-		fprintf(stderr, "Input sample rate (%.2f Hz) and output sample rate (%.2f Hz) don't match\n", inputSampleRate, outputSampleRate);
+		NSLog("Input sample rate (%.2f Hz) and output sample rate (%.2f Hz) don't match", inputSampleRate, outputSampleRate);
 
 		Float64 ratio = inputSampleRate / outputSampleRate;
 		Float64 multiplier = std::max(1.0, ratio);
@@ -1979,16 +1977,16 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	dataSize = sizeof(currentMaxFrames);
 	result = AudioUnitGetProperty(au, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &currentMaxFrames, &dataSize);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d\n", result);
+		NSLog("AudioUnitGetProperty (kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global) failed: %d", result);
 		return false;
 	}
 
 	// Adjust the maximum frames per slice if necessary
 	if(newMaxFrames != currentMaxFrames) {
-		fprintf(stderr, "Adjusting kAudioUnitProperty_MaximumFramesPerSlice to %u", newMaxFrames);
+		NSLog("Adjusting kAudioUnitProperty_MaximumFramesPerSlice to %u", newMaxFrames);
 
 		if(!SetPropertyOnAUGraphNodes(kAudioUnitProperty_MaximumFramesPerSlice, &newMaxFrames, sizeof(newMaxFrames))) {
-			fprintf(stderr, "SetPropertyOnAUGraphNodes (kAudioUnitProperty_MaximumFramesPerSlice) failed");
+			NSLog("SetPropertyOnAUGraphNodes (kAudioUnitProperty_MaximumFramesPerSlice) failed");
 			return false;
 		}
 	}
@@ -1998,7 +1996,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	if(graphIsInitialized) {
 		result = AUGraphInitialize(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphInitialize failed: %d\n", result);
+			NSLog("AUGraphInitialize failed: %d", result);
 			return false;
 		}
 	}
@@ -2007,7 +2005,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	if(graphIsRunning) {
 		result = AUGraphStart(mAUGraph);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphStart failed: %d\n", result);
+			NSLog("AUGraphStart failed: %d", result);
 			return false;
 		}
 	}
@@ -2015,7 +2013,7 @@ bool SFB::Audio::CoreAudioOutput::_SetupForDecoder(const Decoder& decoder)
 	// Attempt to set the output audio unit's channel map
 	const ChannelLayout& decoderChannelLayout = decoder.GetChannelLayout();
 	if(!SetOutputUnitChannelMap(decoderChannelLayout))
-		fprintf(stderr, "Unable to set output unit channel map");
+		NSLog("Unable to set output unit channel map");
 
 	// The decoder's channel layout becomes our channel layout
 	mChannelLayout = decoderChannelLayout;
@@ -2040,7 +2038,7 @@ bool SFB::Audio::CoreAudioOutput::_CreateDeviceUID(CFStringRef& deviceUID) const
 	UInt32 dataSize = sizeof(deviceUID);
 	auto result = AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, nullptr, &dataSize, &deviceUID);
 	if(kAudioHardwareNoError != result) {
-		fprintf(stderr, "AudioObjectGetPropertyData (kAudioDevicePropertyDeviceUID) failed: %d\n", result);
+		NSLog("AudioObjectGetPropertyData (kAudioDevicePropertyDeviceUID) failed: %d", result);
 		return false;
 	}
 
@@ -2063,7 +2061,7 @@ bool SFB::Audio::CoreAudioOutput::_SetDeviceUID(CFStringRef deviceUID)
 
 		auto result = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &specifierSize, &deviceID);
 		if(kAudioHardwareNoError != result) {
-			fprintf(stderr, "AudioObjectGetPropertyData (kAudioHardwarePropertyDefaultOutputDevice) failed: %d\n", result);
+			NSLog("AudioObjectGetPropertyData (kAudioHardwarePropertyDefaultOutputDevice) failed: %d", result);
 			return false;
 		}
 	}
@@ -2083,7 +2081,7 @@ bool SFB::Audio::CoreAudioOutput::_SetDeviceUID(CFStringRef deviceUID)
 
 		auto result = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &specifierSize, &translation);
 		if(kAudioHardwareNoError != result) {
-			fprintf(stderr, "AudioObjectGetPropertyData (kAudioHardwarePropertyDeviceForUID) failed: %d\n", result);
+			NSLog("AudioObjectGetPropertyData (kAudioHardwarePropertyDeviceForUID) failed: %d", result);
 			return false;
 		}
 	}
@@ -2107,7 +2105,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 	UInt32 nodeCount = 0;
 	auto result = AUGraphGetNodeCount(mAUGraph, &nodeCount);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphGetNodeCount failed: %d\n", result);
+		NSLog("AUGraphGetNodeCount failed: %d", result);
 		return false;
 	}
 
@@ -2116,7 +2114,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 		AUNode node;
 		result = AUGraphGetIndNode(mAUGraph, i, &node);
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetIndNode failed: %d\n", result);
+			NSLog("AUGraphGetIndNode failed: %d", result);
 			return false;
 		}
 
@@ -2124,7 +2122,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 		result = AUGraphNodeInfo(mAUGraph, node, nullptr, &au);
 
 		if(noErr != result) {
-			fprintf(stderr, "AUGraphGetNodeCount failed: %d\n", result);
+			NSLog("AUGraphGetNodeCount failed: %d", result);
 			return false;
 		}
 
@@ -2132,7 +2130,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 			// For AUHAL as the output node, you can't set the device side, so just set the client side
 			result = AudioUnitSetProperty(au, propertyID, kAudioUnitScope_Input, 0, propertyData, propertyDataSize);
 			if(noErr != result) {
-				fprintf(stderr, "AudioUnitSetProperty (%.4s, kAudioUnitScope_Input) failed: %d\n", SFBCStringForOSType(propertyID), result);
+				NSLog("AudioUnitSetProperty (%.4s, kAudioUnitScope_Input) failed: %d", SFBCStringForOSType(propertyID), result);
 				return false;
 			}
 		}
@@ -2141,7 +2139,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 			UInt32 dataSize = sizeof(elementCount);
 			result = AudioUnitGetProperty(au, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &elementCount, &dataSize);
 			if(noErr != result) {
-				fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_ElementCount, kAudioUnitScope_Input) failed: %d\n", result);
+				NSLog("AudioUnitGetProperty (kAudioUnitProperty_ElementCount, kAudioUnitScope_Input) failed: %d", result);
 				return false;
 			}
 
@@ -2149,7 +2147,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 //				Boolean writable;
 //				result = AudioUnitGetPropertyInfo(au, propertyID, kAudioUnitScope_Input, j, &dataSize, &writable);
 //				if(noErr != result && kAudioUnitErr_InvalidProperty != result) {
-//					fprintf(stderr, "AudioUnitGetPropertyInfo (%{public}.4s, kAudioUnitScope_Input) failed: %d\n", SFBCStringForOSType(propertyID), result);
+//					NSLog("AudioUnitGetPropertyInfo (%{public}.4s, kAudioUnitScope_Input) failed: %d", SFBCStringForOSType(propertyID), result);
 //					return false;
 //				}
 //
@@ -2158,7 +2156,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 
 				result = AudioUnitSetProperty(au, propertyID, kAudioUnitScope_Input, j, propertyData, propertyDataSize);
 				if(noErr != result) {
-					fprintf(stderr, "AudioUnitSetProperty (%.4s, kAudioUnitScope_Input) failed: %d\n", SFBCStringForOSType(propertyID), result);
+					NSLog("AudioUnitSetProperty (%.4s, kAudioUnitScope_Input) failed: %d", SFBCStringForOSType(propertyID), result);
 					return false;
 				}
 			}
@@ -2167,7 +2165,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 			dataSize = sizeof(elementCount);
 			result = AudioUnitGetProperty(au, kAudioUnitProperty_ElementCount, kAudioUnitScope_Output, 0, &elementCount, &dataSize);
 			if(noErr != result) {
-				fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_ElementCount, kAudioUnitScope_Output) failed: %d\n", result);
+				NSLog("AudioUnitGetProperty (kAudioUnitProperty_ElementCount, kAudioUnitScope_Output) failed: %d", result);
 				return false;
 			}
 
@@ -2175,7 +2173,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 //				Boolean writable;
 //				result = AudioUnitGetPropertyInfo(au, propertyID, kAudioUnitScope_Output, j, &dataSize, &writable);
 //				if(noErr != result && kAudioUnitErr_InvalidProperty != result) {
-//					fprintf(stderr, "AudioUnitGetPropertyInfo (%{public}.4s, kAudioUnitScope_Output) failed: %d\n", SFBCStringForOSType(propertyID), result);
+//					NSLog("AudioUnitGetPropertyInfo (%{public}.4s, kAudioUnitScope_Output) failed: %d", SFBCStringForOSType(propertyID), result);
 //					return false;
 //				}
 //
@@ -2184,7 +2182,7 @@ bool SFB::Audio::CoreAudioOutput::SetPropertyOnAUGraphNodes(AudioUnitPropertyID 
 
 				result = AudioUnitSetProperty(au, propertyID, kAudioUnitScope_Output, j, propertyData, propertyDataSize);
 				if(noErr != result) {
-					fprintf(stderr, "AudioUnitSetProperty (%.4s, kAudioUnitScope_Output) failed: %d\n", SFBCStringForOSType(propertyID), result);
+					NSLog("AudioUnitSetProperty (%.4s, kAudioUnitScope_Output) failed: %d", SFBCStringForOSType(propertyID), result);
 					return false;
 				}
 			}
@@ -2200,14 +2198,14 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 	AudioUnit outputUnit = nullptr;
 	auto result = AUGraphNodeInfo(mAUGraph, mOutputNode, nullptr, &outputUnit);
 	if(noErr != result) {
-		fprintf(stderr, "AUGraphNodeInfo failed: %d\n", result);
+		NSLog("AUGraphNodeInfo failed: %d", result);
 		return false;
 	}
 
 	// Clear the existing channel map
 	result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, nullptr, 0);
 	if(noErr != result) {
-		fprintf(stderr, "AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d\n", result);
+		NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d", result);
 		return false;
 	}
 
@@ -2220,7 +2218,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		UInt32 preferredChannelsForStereoSize = sizeof(preferredChannelsForStereo);
 		result = AudioUnitGetProperty(outputUnit, kAudioDevicePropertyPreferredChannelsForStereo, kAudioUnitScope_Output, 0, preferredChannelsForStereo, &preferredChannelsForStereoSize);
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitGetProperty (kAudioDevicePropertyPreferredChannelsForStereo) failed: %d\n", result);
+			NSLog("AudioUnitGetProperty (kAudioDevicePropertyPreferredChannelsForStereo) failed: %d", result);
 			return false;
 		}
 
@@ -2229,7 +2227,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		UInt32 propertySize = sizeof(outputFormat);
 		result = AudioUnitGetProperty(outputUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &outputFormat, &propertySize);
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitGetProperty (kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output) failed: %d\n", result);
+			NSLog("AudioUnitGetProperty (kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output) failed: %d", result);
 			return false;
 		}
 
@@ -2250,7 +2248,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		// Set the channel map
 		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap, (UInt32)sizeof(channelMap));
 		if(noErr != result) {
-			NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d\n", result);
+			NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d", result);
 			return false;
 		}
 	}
@@ -2309,7 +2307,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		}
 
 		if(noErr != result) {
-			fprintf(stderr, "AudioFormatGetProperty (kAudioFormatProperty_ChannelMap) failed: %d\n", result);
+			NSLog("AudioFormatGetProperty (kAudioFormatProperty_ChannelMap) failed: %d", result);
 			return false;
 		}
 
@@ -2321,7 +2319,7 @@ bool SFB::Audio::CoreAudioOutput::SetOutputUnitChannelMap(const ChannelLayout& c
 		// Set the channel map
 		result = AudioUnitSetProperty(outputUnit, kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input, 0, channelMap, (UInt32)sizeof(channelMap));
 		if(noErr != result) {
-			fprintf(stderr, "AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d\n", result);
+			NSLog("AudioUnitSetProperty (kAudioOutputUnitProperty_ChannelMap, kAudioUnitScope_Input) failed: %d", result);
 			return false;
 		}
 	}

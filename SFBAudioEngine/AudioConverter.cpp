@@ -58,8 +58,10 @@ bool SFB::Audio::Converter::Open(UInt32 preferredBufferSizeFrames, CFErrorRef *e
 	// Open the decoder if necessary
 	if(!mDecoder->IsOpen() && !mDecoder->Open(error)) {
         if(error) {
-            const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(*error), kCFStringEncodingMacRoman) ;
+            CFStringRef stringRef = CFErrorCopyDescription(*error);
+            const char *cs = CFStringGetCStringPtr(stringRef, kCFStringEncodingMacRoman) ;
             NSLog("Error opening decoder: %s", cs);
+            CFRelease(stringRef);
         }
 		return false;
 	}

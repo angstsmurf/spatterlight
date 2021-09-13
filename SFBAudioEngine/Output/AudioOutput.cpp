@@ -3,7 +3,12 @@
  * See https://github.com/sbooth/SFBAudioEngine/blob/master/LICENSE.txt for license information
  */
 
-#include <os/log.h>
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
+#else
+#define NSLog(...)
+#endif
 
 #include "AudioOutput.h"
 
@@ -37,7 +42,7 @@ void SFB::Audio::Output::SetPrepareForFormatBlock(FormatBlock block)
 
 bool SFB::Audio::Output::Open()
 {
-	fprintf(stderr, "Opening output\n");
+	NSLog("Opening output");
 
 	if(_IsOpen())
 		return true;
@@ -47,7 +52,7 @@ bool SFB::Audio::Output::Open()
 
 bool SFB::Audio::Output::Close()
 {
-	fprintf(stderr, "Closing output\n");
+	NSLog("Closing output");
 
 	if(!_IsOpen())
 		return true;
@@ -58,7 +63,7 @@ bool SFB::Audio::Output::Close()
 
 bool SFB::Audio::Output::Start()
 {
-	fprintf(stderr, "Starting output\n");
+	NSLog("Starting output");
 
 	if(!_IsOpen())
 		return false;
@@ -71,7 +76,7 @@ bool SFB::Audio::Output::Start()
 
 bool SFB::Audio::Output::Stop()
 {
-	fprintf(stderr, "Stopping output\n");
+	NSLog("Stopping output");
 
 	if(!_IsOpen())
 		return false;
@@ -84,7 +89,7 @@ bool SFB::Audio::Output::Stop()
 
 bool SFB::Audio::Output::RequestStop()
 {
-	fprintf(stderr, "Requesting output stop\n");
+	NSLog("Requesting output stop");
 
 	if(!_IsOpen())
 		return false;
@@ -97,7 +102,7 @@ bool SFB::Audio::Output::RequestStop()
 
 bool SFB::Audio::Output::Reset()
 {
-	fprintf(stderr, "Resetting output\n");
+	NSLog("Resetting output");
 
 	if(!_IsOpen())
 		return false;
@@ -124,7 +129,7 @@ bool SFB::Audio::Output::CreateDeviceUID(CFStringRef& deviceUID) const
 bool SFB::Audio::Output::SetDeviceUID(CFStringRef deviceUID)
 {
     const char *deviceString = CFStringGetCStringPtr( deviceUID, kCFStringEncodingMacRoman ) ;
-	fprintf(stderr, "Setting device UID to %s\n", deviceString);
+	NSLog("Setting device UID to %s", deviceString);
 	return _SetDeviceUID(deviceUID);
 }
 
@@ -135,7 +140,7 @@ bool SFB::Audio::Output::GetDeviceSampleRate(Float64& sampleRate) const
 
 bool SFB::Audio::Output::SetDeviceSampleRate(Float64 sampleRate)
 {
-	fprintf(stderr, "Setting device sample rate to %f\n", sampleRate);
+	NSLog("Setting device sample rate to %f", sampleRate);
 	return _SetDeviceSampleRate(sampleRate);
 }
 

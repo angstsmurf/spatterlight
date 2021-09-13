@@ -15,7 +15,7 @@
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
-fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n");
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
 #else
 #define NSLog(...)
 #endif

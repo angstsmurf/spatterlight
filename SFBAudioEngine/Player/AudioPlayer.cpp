@@ -23,7 +23,7 @@
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
-fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n");
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
 #else
 #define NSLog(...)
 #endif
@@ -907,8 +907,10 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 					mDecoderErrorBlock(*decoder, error);
 
                 if(error) {
-                    const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+                    CFStringRef stringRef = CFErrorCopyDescription(error.Object());
+                    const char *cs = CFStringGetCStringPtr(stringRef, kCFStringEncodingMacRoman) ;
 					NSLog("Error opening decoder: %s", cs);
+                    CFRelease(stringRef);
                 }
 			}
 		}
@@ -1393,8 +1395,10 @@ bool SFB::Audio::Player::SetupOutputAndRingBufferForDecoder(Decoder& decoder)
 			mDecoderErrorBlock(decoder, error);
 
         if(error) {
-            const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+            CFStringRef stringRef = CFErrorCopyDescription(error.Object());
+            const char *cs = CFStringGetCStringPtr(stringRef, kCFStringEncodingMacRoman) ;
             NSLog("Error opening decoder: %s", cs);
+            CFRelease(stringRef);
         }
 		return false;
 	}

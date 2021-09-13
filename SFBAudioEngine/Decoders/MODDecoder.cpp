@@ -3,7 +3,12 @@
  * See https://github.com/sbooth/SFBAudioEngine/blob/master/LICENSE.txt for license information
  */
 
-#include <os/log.h>
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+{ fprintf(stderr, FORMAT, ##__VA_ARGS__); fprintf(stderr, "\n"); }
+#else
+#define NSLog(...)
+#endif
 
 #include "CFErrorUtilities.h"
 #include "CFWrapper.h"

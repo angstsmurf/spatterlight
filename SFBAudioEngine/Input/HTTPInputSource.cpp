@@ -169,8 +169,10 @@ void SFB::HTTPInputSource::HandleNetworkEvent(CFReadStreamRef stream, CFStreamEv
 		{
 			SFB::CFError error(CFReadStreamCopyError(stream));
             if(error) {
-                const char *cs = CFStringGetCStringPtr(CFErrorCopyDescription(error.Object()), kCFStringEncodingMacRoman) ;
+                CFStringRef stringRef = CFErrorCopyDescription(error.Object());
+                const char *cs = CFStringGetCStringPtr(stringRef, kCFStringEncodingMacRoman) ;
 				fprintf(stderr, "Error: %s", cs);
+                CFRelease(stringRef);
             }
 			break;
 		}
