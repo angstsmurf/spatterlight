@@ -944,7 +944,7 @@
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0g5-lC-Zw4">
                                             <rect key="frame" x="173" y="92" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <string key="toolTip">Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games.</string>
+                                            <string key="toolTip">Sets the Z-code interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of some Infocom games.</string>
                                             <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="54H-tw-KQJ" id="Zkt-jU-7kg">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
@@ -1198,7 +1198,7 @@
                                             </connections>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-24-eXW">
-                                            <rect key="frame" x="351" y="57" width="19" height="28"/>
+                                            <rect key="frame" x="349" y="57" width="19" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="i5s-sq-NcL"/>
                                             <connections>
@@ -1716,7 +1716,7 @@
                     </connections>
                 </stepper>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKQ-fN-oen">
-                    <rect key="frame" x="172" y="6" width="19" height="30"/>
+                    <rect key="frame" x="172" y="5" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="U5c-6A-rfy"/>
                     <connections>
