@@ -62,6 +62,7 @@ namespace SFB {
 			unique_DUMBFILE_ptr					df;
 			unique_DUH_ptr						duh;
 			unique_DUH_SIGRENDERER_ptr			dsr;
+            sample_t                            **_samples;
 
 			SInt64								mTotalFrames;
 			SInt64								mCurrentFrame;

@@ -15,8 +15,9 @@
 #include "MODDecoder.h"
 
 #define DUMB_SAMPLE_RATE    65536
-#define DUMB_CHANNELS		2
-#define DUMB_BIT_DEPTH		16
+#define DUMB_CHANNELS        2
+#define DUMB_BIT_DEPTH        16
+#define DUMB_BUF_FRAMES        512
 
 namespace {
 
@@ -138,7 +139,7 @@ SFB::Audio::Decoder::unique_ptr SFB::Audio::MODDecoder::CreateDecoder(InputSourc
 #pragma mark Creation and Destruction
 
 SFB::Audio::MODDecoder::MODDecoder(InputSource::unique_ptr inputSource)
-	: Decoder(std::move(inputSource)), df(nullptr, nullptr), duh(nullptr, nullptr), dsr(nullptr, nullptr), mTotalFrames(0), mCurrentFrame(0)
+	: Decoder(std::move(inputSource)), df(nullptr, nullptr), duh(nullptr, nullptr), dsr(nullptr, nullptr), _samples(nullptr), mTotalFrames(0), mCurrentFrame(0)
 {}
 
 #pragma mark Functionality
@@ -175,7 +176,7 @@ bool SFB::Audio::MODDecoder::_Open(CFErrorRef *error)
 	// NB: This must change if the sample rate changes because it is based on 65536 Hz
 	mTotalFrames = duh_get_length(duh.get());
 
-	dsr = unique_DUH_SIGRENDERER_ptr(duh_start_sigrenderer(duh.get(), 0, 2, 0), duh_end_sigrenderer);
+	dsr = unique_DUH_SIGRENDERER_ptr(duh_start_sigrenderer(duh.get(), 0, DUMB_CHANNELS, 0), duh_end_sigrenderer);
 	if(!dsr) {
 		if(error) {
 			SFB::CFString description(CFCopyLocalizedString(CFSTR("The file “%@” is not a valid MOD file."), ""));
@@ -211,6 +212,11 @@ bool SFB::Audio::MODDecoder::_Open(CFErrorRef *error)
 	// Setup the channel layout
 	mChannelLayout = ChannelLayout::ChannelLayoutWithTag(kAudioChannelLayoutTag_Stereo);
 
+    _samples = allocate_sample_buffer(DUMB_CHANNELS, DUMB_BUF_FRAMES);
+    if(!_samples) {
+        return false;
+    }
+
 	return true;
 }
 
@@ -219,6 +225,11 @@ bool SFB::Audio::MODDecoder::_Close(CFErrorRef */*error*/)
 	dsr.reset();
 	duh.reset();
 	df.reset();
+
+    if(_samples) {
+        destroy_sample_buffer(_samples);
+        _samples = nullptr;
+    }
 
 	return true;
 }
@@ -244,14 +255,45 @@ UInt32 SFB::Audio::MODDecoder::_ReadAudio(AudioBufferList *bufferList, UInt32 fr
 		return 0;
 	}
 
-	long framesRendered = duh_render(dsr.get(), DUMB_BIT_DEPTH, 0, 1, 65536.0f / DUMB_SAMPLE_RATE, frameCount, bufferList->mBuffers[0].mData);
+    UInt32 maxFrames = bufferList->mBuffers[0].mDataByteSize / mFormat.mBytesPerFrame;
 
-	mCurrentFrame += framesRendered;
+    if(frameCount > maxFrames) {
+        NSLog("frameCount (%d) greater than maxFrames (%d). Reducing.", frameCount, maxFrames);
+        frameCount = maxFrames;
+    }
 
-	bufferList->mBuffers[0].mDataByteSize = (UInt32)(framesRendered * mFormat.mBytesPerFrame);
+    if(frameCount == 0)
+        return 0;
+
+    // Reset output buffer data size
+    bufferList->mBuffers[0].mDataByteSize = 0;
+
+    UInt32 framesProcessed = 0;
+
+    for(;;) {
+        UInt32 framesRemaining = frameCount - framesProcessed;
+        UInt32 framesToCopy = MIN(framesRemaining, DUMB_BUF_FRAMES);
+
+        long samplesSize = framesToCopy;
+
+        int16_t *buffer = (int16_t *)bufferList->mBuffers[0].mData;
+        long framesCopied = duh_render_int(dsr.get(), &_samples, &samplesSize, DUMB_BIT_DEPTH, 0, 1, 65536.0f / DUMB_SAMPLE_RATE, framesToCopy, buffer + (framesProcessed * DUMB_CHANNELS));
+        if(framesCopied != framesToCopy)
+            NSLog("duh_render_int() returned short frame count: requested %d, got %ld", framesToCopy, framesCopied);
+
+        framesProcessed += framesCopied;
+
+        // All requested frames were read or EOS reached
+        if(framesProcessed == frameCount || framesCopied == 0 || duh_sigrenderer_get_position(dsr.get()) > mTotalFrames)
+            break;
+    }
+
+    mCurrentFrame += framesProcessed;
+
+    bufferList->mBuffers[0].mDataByteSize = (UInt32)(framesProcessed * mFormat.mBytesPerFrame);
 	bufferList->mBuffers[0].mNumberChannels = mFormat.mChannelsPerFrame;
 
-	return (UInt32)framesRendered;
+	return (UInt32)framesProcessed;
 }
 
 SInt64 SFB::Audio::MODDecoder::_SeekToFrame(SInt64 frame)
