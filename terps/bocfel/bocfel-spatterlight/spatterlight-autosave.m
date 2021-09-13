@@ -44,8 +44,6 @@ static library_state_data library_state; /* used by the archive/unarchive hooks 
 /* Do an auto-save of the game state, to an macOS-appropriate location. This also saves the Glk library state.
  
  The game goes into ~Library/Application Support/Spatterlight/Bocfel Files/Autosaves/(FILE HASH)/autosave.glksave; the library state into autosave.plist. However, we do this as atomically as possible -- we write to temp files and then rename.
- 
- This is called in the VM thread, just before setting up line input and calling glk_select(). (So no window will actually be requesting line input at this time.)
  */
 void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     
