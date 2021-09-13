@@ -160,13 +160,14 @@
     /* MOD */
     if (_length > 1084)
     {
-        char resname[4];
+        char resname[5];
         memcpy(resname, (buf) + 1080, 4);
-        if (!strcmp(resname+1, "CHN") ||        /* 4CHN, 6CHN, 8CHN */
-            !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
-            !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
-            !strcmp(resname, "FLT4") || !strcmp(resname, "CD81") ||
-            !strcmp(resname, "OKTA") || !strcmp(resname, "    "))
+        resname[4] = '\0';
+        if (!strncmp(resname+1, "CHN", 3) ||        /* 4CHN, 6CHN, 8CHN */
+            !strncmp(resname+2, "CN", 2) ||         /* 16CN, 32CN */
+            !strncmp(resname, "M.K.", 4) || !strncmp(resname, "M!K!", 4) ||
+            !strncmp(resname, "FLT4", 4) || !strncmp(resname, "CD81", 4) ||
+            !strncmp(resname, "OKTA", 4) || !strncmp(resname, "    ", 4))
             return giblorb_ID_MOD;
     }
 
