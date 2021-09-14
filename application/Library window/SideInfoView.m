@@ -751,22 +751,22 @@ fprintf(stderr, "%s\n",                                                    \
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:self
                                                    attribute:NSLayoutAttributeCenterY
-                                                  multiplier:1
-                                                    constant:65];
+                                                  multiplier:1.07
+                                                    constant:25];
 
             NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeWidth
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:nil
                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                   multiplier:1.0
-                                                    constant:40];
+                                                    constant:25];
 
             NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeHeight
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:nil
                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                   multiplier:1.0
-                                                    constant:40];
+                                                    constant:25];
 
 
             [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
@@ -780,7 +780,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSButton *)createDownloadButton {
     // The actual size and position of the button is taken care of
     // by the constraints added in the caller above
-    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0,0, 40, 40)];
+    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0,0, 25, 25)];
     button.buttonType = NSPushOnPushOffButton;
     NSImage *image = [NSImage imageNamed:@"Download"];
     if (@available(macOS 10.14, *)) {
