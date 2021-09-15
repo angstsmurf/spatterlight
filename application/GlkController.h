@@ -127,12 +127,31 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @property RotorHandler *rotorHandler;
 
+@property NSURL *secureBookmark;
+
+
+// Flag to prevent things from moving around
+// when adjusting content size and position after
+// border change
+@property BOOL movingBorder;
+
+// Command scripts
+@property CommandScriptHandler *commandScriptHandler;
+@property BOOL commandScriptRunning;
+@property NSString *pendingSaveFilePath;
+
+@property CoverImageHandler *coverController;
+
+
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem;
 
 - (void)deleteAutosaveFilesForGame:(Game *)game;
+
+- (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block;
+
 
 - (IBAction)reset:(id)sender;
 
@@ -148,17 +167,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 - (void)adjustContentView;
 - (void)cleanup;
 
-// Flag to prevent things from moving around
-// when adjusting content size and position after
-// border change
-@property BOOL movingBorder;
-
-// Command scripts
-@property CommandScriptHandler *commandScriptHandler;
-@property BOOL commandScriptRunning;
-@property NSString *pendingSaveFilePath;
-
-@property CoverImageHandler *coverController;
 
 // VoiceOver
 - (IBAction)speakMostRecent:(id)sender;

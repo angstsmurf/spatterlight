@@ -11,6 +11,7 @@
 #import "ColorTransformer.h"
 #import "HelpPanelController.h"
 #import "InfoController.h"
+#import "FolderAccess.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -39,6 +40,8 @@ NSArray *gGridStyleNames;
 
 NSDictionary *gExtMap;
 NSDictionary *gFormatMap;
+NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
+
 
 NSPasteboardType PasteboardFileURLPromise,
 PasteboardFilePromiseContent,
@@ -130,6 +133,8 @@ PasteboardFilePasteLocation;
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
     PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
     PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
+
+    [FolderAccess loadBookmarks];
 
     addToRecents = YES;
 
@@ -491,6 +496,8 @@ PasteboardFilePasteLocation;
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
+
+    [FolderAccess listActiveSecurityBookmarks];
 }
 
 

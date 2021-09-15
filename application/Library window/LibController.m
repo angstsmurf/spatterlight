@@ -34,6 +34,8 @@
 #import "CommandScriptHandler.h"
 #import "NotificationBezel.h"
 
+#import "FolderAccess.h"
+
 #import "Blorb.h"
 
 #ifdef DEBUG
@@ -541,12 +543,16 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [defaults setBool:lookForImages forKey:@"LookForImagesWhenImporting"];
             [defaults setBool:downloadInfo forKey:@"DownloadInfoWhenImporting"];
 
-            [weakSelf addInBackground:urls lookForImages:lookForImages downloadInfo:downloadInfo];
+            [FolderAccess askForAccessToURL:urls.firstObject andThenRunBlock:^() {
+                [weakSelf addInBackground:urls lookForImages:lookForImages downloadInfo:downloadInfo];
+            }];
+            return;
         }
+
     }];
 }
 
-- (void)addInBackground:(NSArray *)files lookForImages:(BOOL)lookForImages downloadInfo:(BOOL)downloadInfo {
+- (void)addInBackground:(NSArray<NSURL *> *)files lookForImages:(BOOL)lookForImages downloadInfo:(BOOL)downloadInfo {
     NSLog(@"addInBackground %ld files lookForImages:%@ downloadInfo:%@", files.count, lookForImages ? @"YES" : @"NO", downloadInfo ? @"YES" : @"NO");
 
     if (_currentlyAddingGames)
@@ -577,6 +583,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (strongSelf) {
             [strongSelf addFiles:files options:options];
             [strongSelf endImporting];
+            [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:files.firstObject]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 strongSelf.addButton.enabled = YES;
                 strongSelf.currentlyAddingGames = NO;
@@ -1764,28 +1771,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         return nil;
     } else game.found = YES;
 
-    if (![fileManager isReadableFileAtPath:path]) {
-        if (!systemWindowRestoration) { // Everything will break if we throw up a dialog during system window restoration
-            NSError *error = nil;
-            //Check if the file is in trash
-            NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path] create:NO error:&error];
-            NSString *fileInTrash = [trashUrl.path stringByAppendingPathComponent:path.lastPathComponent];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:fileInTrash]) {
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);
-                alert.informativeText = NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil);
-                [alert runModal];
-                return nil;
-            }
-
-            NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-            openPanel.message = NSLocalizedString(@"An error has occurred. Spatterlight is no longer able to open this file!", nil);
-            openPanel.prompt = NSLocalizedString(@"Re-authorize", nil);
-            openPanel.canChooseFiles = YES;
-            openPanel.canChooseDirectories = NO;
-            openPanel.canCreateDirectories = NO;
-            openPanel.directoryURL = url;
-            [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {}];
+    //Check if the file is in trash
+    NSError *error = nil;
+    NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path] create:NO error:&error];
+    if (error)
+        NSLog(@"Error getting Trash path: %@", error);
+    if (trashUrl && [path hasPrefix:trashUrl.path]) {
+        if (!systemWindowRestoration) {
+            NSAlert *alert = [[NSAlert alloc] init];
+            alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);
+            alert.informativeText = NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil);
+            [alert runModal];
         }
         return nil;
     }
@@ -1815,14 +1811,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     } else
         gctl.window.restorable = NO;
 
-    _gameSessions[game.ifid] = gctl;
+    gctl.window.title = game.metadata.title;
 
-    [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
+    __unsafe_unretained LibController *weakSelf = self;
 
-    game.lastPlayed = [NSDate date];
-    [self addURLtoRecents: url];
-
-    [Preferences changeCurrentGame:game];
+    [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
+        [weakSelf addURLtoRecents: url];
+        weakSelf.gameSessions[game.ifid] = gctl;
+        game.lastPlayed = [NSDate date];
+        [Preferences changeCurrentGame:game];
+        [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
+    }];
 
     return gctl.window;
 }
@@ -1867,7 +1866,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     _nestedDownload = NO;
 }
 
-- (void)addFiles:(NSArray*)urls options:(NSDictionary *)options {
+- (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {
 
     NSManagedObjectContext *context = options[@"context"];
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];

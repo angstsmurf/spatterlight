@@ -482,7 +482,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                     imgFileName = [imgFileName substringToIndex:imgFileName.length - 1];
                 return [imgFileName isEqualToString:gameFileName];
             }]];
-        } else if ([gameNames containsObject:@"screen"] && [gameNames containsObject:@"story"]) {
+        }
+
+        if (!imageFiles.count &&[gameNames containsObject:@"screen"] && [gameNames containsObject:@"story"]) {
             // The original Beyond Zork cover image is named SCREEN.DAT, but is in fact
             // a Neochrome image. We cheat and create a renamed copy with a .neo file extension
             // (SCREEN.neo) in a temp folder.

@@ -37,6 +37,7 @@
 #import "CoverImageHandler.h"
 #import "CoverImageView.h"
 #import "NotificationBezel.h"
+#include "FolderAccess.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -266,6 +267,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSURL *url = [game urlForBookmark];
     _gamefile = url.path;
+
+    if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
+        [self.window performClose:nil];
+        return;
+    }
+
     [_imageHandler cacheImagesFromBlorb:url];
 
     _terpname = terpname_;
@@ -902,6 +909,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     dead = NO;
 
+    if (_secureBookmark == nil) {
+        _secureBookmark = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:_gamefile]];
+    }
+
     [task launch];
 
     /* Send a prefs and an arrange event first thing */
@@ -916,6 +927,59 @@ fprintf(stderr, "%s\n",                                                    \
 
     restartingAlready = NO;
     [readfh waitForDataInBackgroundAndNotify];
+}
+
+- (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block {
+
+    NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
+    if (bookmarkURL) {
+        if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+            [FolderAccess storeBookmark:bookmarkURL];
+            [FolderAccess saveBookmarks];
+        } else {
+            [FolderAccess restoreURL:bookmarkURL];
+            if (![[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+
+                if (!dialogFlag) {
+                    double delayInSeconds = 0.5;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                        // Closing game window as we have no security scoped bookmark
+                        // and we don't want to show a file dialog during window
+                        // restoration.
+                        [self close];
+                    });
+
+                    return;
+                }
+
+                NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+                openPanel.message = @"Spatterlight would like to access files in this folder";
+                openPanel.prompt = @"Authorize";
+                openPanel.canChooseFiles = NO;
+                openPanel.canChooseDirectories = YES;
+                openPanel.canCreateDirectories = NO;
+                openPanel.directoryURL = bookmarkURL;
+
+                [openPanel beginWithCompletionHandler:^(NSInteger result) {
+                    if (result == NSModalResponseOK) {
+                        NSURL *blockURL = openPanel.URL;
+                        [FolderAccess storeBookmark:blockURL];
+                        [FolderAccess saveBookmarks];
+                        block();
+                    } else {
+                        NSLog(@"GlkController askForAccessToURL: closing window because user would not grant access");
+                        [self close];
+                    }
+                }];
+                return;
+            } else {
+                _secureBookmark = bookmarkURL;
+            }
+        }
+    }
+
+    block();
 }
 
 #pragma mark Autorestore
@@ -1685,6 +1749,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (libcontroller)
         [libcontroller releaseGlkControllerSoon:self];
+
+    if (_secureBookmark)
+        [FolderAccess releaseBookmark:_secureBookmark];
 
     libcontroller = nil;
 }
