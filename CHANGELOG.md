@@ -1,6 +1,6 @@
 # Change log
 
-## Release 0.8.7
+## 0.8.7 (unreleased)
 - Improves graphics resizing on window resize in many Glulx games
 
 ## Release 0.8.6
@@ -22,9 +22,9 @@
 - All Alan 3 games should be recognized and playable
 - Tads 3 status bars have correct width and height
 - Characters in Tads 3 menus are now invisible when they should be
-- The Apply Theme context menu item indicates which themes the selected games currently use
+- When targeting multiple games with the Apply Theme context menu item, all currently used themes have a checkmark
 - Spatterlight now tries to use the normal style color for the text cursor, which tends to look better than the input style color
-- When changing any setting, buffer reverse style text color would switch from the correct buffer background color to grid background color
+- When changing any setting, reverse style text color in buffer windows would switch from buffer background color to *grid* background color
 - Changes default fixed-width font from Monaco to Source Code Pro. This may require rebuilding themes after upgrading
 - Hacks around Hugo *Tetris* and *Cryptozookeeper* breaking at small window sizes
 - *A Crimson Spring* did not erase old pictures after restore
