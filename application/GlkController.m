@@ -583,10 +583,10 @@ fprintf(stderr, "%s\n",                                                    \
             }
 
 
-            //            NSLog(@"Only restore UI state at first turn");
-            //            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-            //                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
-            //            restoredUIOnly = YES;
+            NSLog(@"Only restore UI state at first turn");
+            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+            restoredUIOnly = YES;
 
         } else {
             // Only show the alert about autorestoring if this is not a system
@@ -615,12 +615,12 @@ fprintf(stderr, "%s\n",                                                    \
         }
     } else {
         NSLog(@"No interpreter autorestore file exists");
-//        NSLog(@"Only restore UI state at first turn");
-//        restoredUIOnly = YES;
-//    }
-//
-//    if (restoredUIOnly && restoredControllerLate.hasAutoSaved) {
-//        NSLog(@"restoredControllerLate was not saved at the first turn!");
+        NSLog(@"Only restore UI state at first turn");
+        restoredUIOnly = YES;
+    }
+
+    if (restoredUIOnly && restoredControllerLate.hasAutoSaved) {
+        NSLog(@"restoredControllerLate was not saved at the first turn!");
         restoredUIOnly = NO;
         [self deleteAutosaveFiles];
         _game.autosaved = NO;
