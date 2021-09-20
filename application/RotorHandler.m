@@ -194,9 +194,9 @@
         allWindows = [allWindows arrayByAddingObject:_glkctl.quoteBoxes.lastObject];
 
     allWindows = [allWindows sortedArrayUsingComparator:
-                  ^NSComparisonResult(id obj1, id obj2){
-        CGFloat y1 = ((NSView *)obj1).frame.origin.y;
-        CGFloat y2 = ((NSView *)obj2).frame.origin.y;
+                  ^NSComparisonResult(NSView * obj1, NSView * obj2){
+        CGFloat y1 = obj1.frame.origin.y;
+        CGFloat y2 = obj2.frame.origin.y;
         if (y1 > y2) {
             return (NSComparisonResult)NSOrderedDescending;
         }

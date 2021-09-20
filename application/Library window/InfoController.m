@@ -363,9 +363,9 @@ fprintf(stderr, "%s\n",                                                    \
         // and sort them alphabetically
         windowArray =
         [windowArray sortedArrayUsingComparator:
-                      ^NSComparisonResult(id obj1, id obj2){
-            NSString *title1 = ((InfoController *)obj1).titleField.stringValue;
-            NSString *title2 = ((InfoController *)obj2).titleField.stringValue;
+                      ^NSComparisonResult(InfoController * obj1, InfoController * obj2){
+            NSString *title1 = obj1.titleField.stringValue;
+            NSString *title2 = obj2.titleField.stringValue;
             return [title1 localizedCaseInsensitiveCompare:title2];
         }];
         NSUInteger index = [windowArray indexOfObject:self];

@@ -438,7 +438,9 @@ PasteboardFilePasteLocation;
                     restorable++;
                 } else {
                     alive++;
-                    [games addObject:((GlkController *)glkctl).game];
+                    Game *game = ((GlkController *)glkctl).game;
+                    if (game)
+                        [games addObject:game];
                 }
             }
         }
