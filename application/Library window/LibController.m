@@ -1906,12 +1906,22 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     LibController * __unsafe_unretained weakSelf = self;
 
-    [_managedObjectContext performBlock:^{
+    NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
+    private.undoManager = nil;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backgroundManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:private];
+
+    [private performBlock:^{
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
         strongSelf.currentlyAddingGames = NO;
-        [strongSelf selectGamesWithIfids:select scroll:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [strongSelf selectGamesWithIfids:select scroll:YES];
+        });
 
         if (strongSelf.iFictionFiles.count) {
             [self waitToReportMetadataImport];
