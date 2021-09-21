@@ -780,8 +780,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             game.hasDownloaded = YES;
 
             //It makes some kind of sense to also check if the game file still exists while downloading metadata
-            if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
+            if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
+                ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path])
                 game.found = NO;
+            else
+                game.found = YES;
 
             NSLog(@"downloadGames: downloading metadata for game %@", game.metadata.title);
             result = [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
