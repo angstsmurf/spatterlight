@@ -188,6 +188,19 @@ bool is_stationfall(void)
     is_story("39-880501");
 }
 
+bool is_beyond_zork(void)
+{
+    return
+    is_story("1-870412") ||
+    is_story("1-870715") ||
+    is_story("47-870915") ||
+    is_story("49-870917") ||
+    is_story("51-870923") ||
+    is_story("57-871221") ||
+    is_story("60-880610");
+}
+
+
 bool is_infocom_v1234;
 static void check_infocom(void)
 {
