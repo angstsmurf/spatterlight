@@ -39,8 +39,12 @@
     NSError* theError = nil;
     if (!self.fileLocation) {
         NSLog(@"Game urlForBookmark: Error! File location for game %@ is nil!", self.metadata.title);
-        self.found = NO;
-        return nil;
+        if (self.path.length && [[NSFileManager defaultManager] fileExistsAtPath:self.path])
+            [self bookmarkForPath:self.path];
+        if (!self.fileLocation) {
+            self.found = NO;
+            return nil;
+        }
     }
     NSURL* bookmarkURL = [NSURL URLByResolvingBookmarkData:(NSData *)self.fileLocation
                                                    options:NSURLBookmarkResolutionWithoutUI
