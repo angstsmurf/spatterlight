@@ -1940,7 +1940,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         for (Metadata *meta in noTitles) {
             Game *game = meta.games.anyObject;
             if (game) {
-                meta.title = [game urlForBookmark].path.lastPathComponent;
+                meta.title = [game urlForBookmark].lastPathComponent;
             }
         }
         [strongSelf.coreDataManager saveChanges];
