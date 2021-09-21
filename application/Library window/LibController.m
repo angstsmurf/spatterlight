@@ -336,6 +336,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (choice == NSAlertFirstButtonReturn) {
 
+        [self cancel:nil];
+
         BOOL forceQuit = _forceQuitCheckBox.state == NSOnState;
 
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
@@ -407,6 +409,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
+
+        [self cancel:nil];
+
         NSArray *metadataEntriesToDelete =
         [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
         NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
