@@ -98,13 +98,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		730F23F0091827B100AB638C /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; fileEncoding = 4; path = Info.plist; sourceTree = "<group>"; };
 		730F23F1091827B100AB638C /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		738835E40B18F870005C7A69 /* libvorbis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbis.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		738836130B190488005C7A69 /* libvorbisenc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisenc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		738836220B1905E5005C7A69 /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3224D9726ECD304008D8B3F /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3EF566F26FBE0D9006BC38A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F58520B90191D12B01A802FE /* codec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = codec.h; sourceTree = "<group>"; };
 		F58520BA0191D12B01A802FE /* vorbisenc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vorbisenc.h; sourceTree = "<group>"; };
 		F58520BB0191D12B01A802FE /* vorbisfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vorbisfile.h; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 			};
 			buildConfigurationList = 730F23F3091827B200AB638C /* Build configuration list for PBXProject "Vorbis" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -534,7 +534,6 @@
 			knownRegions = (
 				en,
 				Base,
-				English,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* vorbis */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -649,7 +648,7 @@
 		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C1667FE841158C02AAC07 /* English */,
+				C3EF566F26FBE0D9006BC38A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -661,7 +660,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -696,7 +695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
