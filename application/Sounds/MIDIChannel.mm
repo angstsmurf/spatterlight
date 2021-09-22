@@ -73,7 +73,7 @@
         [_player addCallback:(^(void){
             dispatch_async(dispatch_get_main_queue(), ^{
                 MIDIChannel *strongSelf = weakSelf;
-                if (!strongSelf || --strongSelf->loop < 1) {
+                if (strongSelf && --strongSelf->loop < 1) {
                     strongSelf->status = CHANNEL_IDLE;
                     if (blocknotify)
                         [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
@@ -118,46 +118,6 @@
         return;
     [_player setVolume:volume];
 }
-
-
-/* Restart the sound channel after a deserialize, and also any fade timer.
- This primitive implementation disregards how much of the sound that had
- played when the game was autosaved or killed.
- Fade timers remember this, however, so a clip halfway through a 10
- second fade out will restart from the beginning but fade out in 10 seconds.
- Well, except that it counts from last glk_select and not from when the process
- was actually terminated.
- */
-//- (void)restartInternal {
-//    if (status == CHANNEL_IDLE) {
-//        return;
-//    }
-//
-//    if (paused == TRUE) {
-//        [self pause];
-//    }
-//
-//    [self play:resid repeats:loop notify:notify];
-//
-//    if (volume_timeout > 0) {
-//
-//        NSUInteger duration = (volume_timeout * FADE_GRANULARITY);
-//
-//        CGFloat float_volume = target_volume;
-//        NSUInteger glk_target_volume = GLK_MAXVOLUME;
-//
-//        if (float_volume < MIX_MAX_VOLUME)
-//           glk_target_volume = (NSUInteger)(float_volume * GLK_MAXVOLUME);
-//
-//        [self setVolume:glk_target_volume duration:duration notify:volume_notify];
-//
-//        if (!timer)
-//        {
-//           NSLog(@"restartInternal: failed to create volume change timer.");
-//        }
-//    }
-//    return;
-//}
 
 + (BOOL) supportsSecureCoding {
     return YES;

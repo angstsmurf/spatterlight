@@ -954,8 +954,8 @@ fprintf(stderr, "%s\n",                                                    \
                 }
 
                 NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-                openPanel.message = @"Spatterlight would like to access files in this folder";
-                openPanel.prompt = @"Authorize";
+                openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
+                openPanel.prompt = NSLocalizedString(@"Authorize", nil);
                 openPanel.canChooseFiles = NO;
                 openPanel.canChooseDirectories = YES;
                 openPanel.canCreateDirectories = NO;

@@ -32,18 +32,15 @@
 
 - (instancetype)initWithData:(NSData *)data {
     if (self = [super init]) {
-		
 		[self createGraph];
 		[self startGraph];
-//		[self loadPreset:0];
         [self loadData:data];
     }
     return self;
 }
 
 - (void)createGraph {
-    OSStatus err = noErr;
-    err = NewAUGraph(&graph);
+    NewAUGraph(&graph);
 	
 	AudioComponentDescription sampleDesc = {};
 	sampleDesc.componentType			= kAudioUnitType_MusicDevice;
@@ -51,7 +48,7 @@
 	sampleDesc.componentManufacturer	= kAudioUnitManufacturer_Apple;
 	sampleDesc.componentFlags			= 0;
 	sampleDesc.componentFlagsMask		= 0;
-    err = AUGraphAddNode(graph, &sampleDesc, &sampleNode);
+    AUGraphAddNode(graph, &sampleDesc, &sampleNode);
 	
     AudioComponentDescription ioUnitDesc;
     ioUnitDesc.componentType			= kAudioUnitType_Output;
@@ -59,7 +56,7 @@
     ioUnitDesc.componentManufacturer	= kAudioUnitManufacturer_Apple;
     ioUnitDesc.componentFlags			= 0;
     ioUnitDesc.componentFlagsMask		= 0;
-    err = AUGraphAddNode(graph, &ioUnitDesc, &ioNode);
+    AUGraphAddNode(graph, &ioUnitDesc, &ioNode);
 
     // A description of the mixer unit
     AudioComponentDescription mixerDescription;
@@ -69,21 +66,18 @@
     mixerDescription.componentFlags = 0;
     mixerDescription.componentFlagsMask = 0;
 
-    err = AUGraphAddNode(graph, &mixerDescription, &mixerNode);
+    AUGraphAddNode(graph, &mixerDescription, &mixerNode);
+    AUGraphOpen(graph);
+    AUGraphNodeInfo(graph, sampleNode, NULL, &sampleUnit);
+    AUGraphNodeInfo(graph, ioNode, NULL, &ioUnit);
+    AUGraphNodeInfo(graph, mixerNode, NULL, &mixerUnit);
 
-    err = AUGraphOpen(graph);
-
-    err = AUGraphNodeInfo(graph, sampleNode, NULL, &sampleUnit);
-    err = AUGraphNodeInfo(graph, ioNode, NULL, &ioUnit);
-    err = AUGraphNodeInfo(graph, mixerNode, NULL, &mixerUnit);
-
-    err = AUGraphConnectNodeInput(graph, sampleNode, 0, mixerNode, 0);
-    err = AUGraphConnectNodeInput(graph, mixerNode, 0, ioNode, 0);
+    AUGraphConnectNodeInput(graph, sampleNode, 0, mixerNode, 0);
+    AUGraphConnectNodeInput(graph, mixerNode, 0, ioNode, 0);
 
     [self setVolume:1.0];
 
-    err = AUGraphInitialize(graph);
-//	CAShow(graph);
+    AUGraphInitialize(graph);
 }
 
 - (void)setVolume:(CGFloat)volume {
@@ -112,17 +106,6 @@
 		}
 	}
 }
-
-//- (void)loadPreset:(UInt8)preset {
-//	AUSamplerInstrumentData data;
-//	data.fileURL		= (__bridge CFURLRef)bankURL;
-//	data.instrumentType	= kInstrumentType_SF2Preset;
-//	data.bankMSB		= kAUSampler_DefaultMelodicBankMSB;
-//	data.bankLSB		= kAUSampler_DefaultBankLSB;
-//	data.presetID		= preset;
-//    CheckError(AudioUnitSetProperty(sampleUnit, kAUSamplerProperty_LoadInstrument, kAudioUnitScope_Global, 0, &data, sizeof(data)),
-//			   "kAUSamplerProperty_LoadInstrument");
-//}
 
 - (void)loadData:(NSData *)data {
     NewMusicSequence(&sequence);
