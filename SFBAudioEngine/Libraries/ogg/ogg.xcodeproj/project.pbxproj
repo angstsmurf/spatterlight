@@ -22,6 +22,7 @@
 		C3224D7626ECD147008D8B3F /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = ogg/src/ogg.h; sourceTree = "<group>"; };
 		C3224D7826ECD156008D8B3F /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = ogg/src/os_types.h; sourceTree = "<group>"; };
 		C3224D7A26ECD182008D8B3F /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config_types.h; path = ogg/src/config_types.h; sourceTree = "<group>"; };
+		C3B636CF26FBE7B80026ABBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ogg/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		5BAC836F1A0A4DA988E61F8D /* ogg */ = {
 			isa = PBXGroup;
 			children = (
+				C3B636CF26FBE7B80026ABBE /* Info.plist */,
 				478DB117C2D54ED0A1457BCD /* Header Files */,
 				F90A5A41659340A1A40B284D /* Source Files */,
 			);
@@ -200,7 +202,7 @@
 					/Users/administrator/ogg/include,
 					/Users/administrator/ogg/build/include,
 				);
-				INFOPLIST_FILE = /Users/administrator/ogg/build/CMakeFiles/ogg.dir/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
 				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_STYLE = DYNAMIC;
@@ -257,7 +259,7 @@
 					/Users/administrator/ogg/include,
 					/Users/administrator/ogg/build/include,
 				);
-				INFOPLIST_FILE = /Users/administrator/ogg/build/CMakeFiles/ogg.dir/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
 				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_STYLE = DYNAMIC;
@@ -314,7 +316,7 @@
 					/Users/administrator/ogg/include,
 					/Users/administrator/ogg/build/include,
 				);
-				INFOPLIST_FILE = /Users/administrator/ogg/build/CMakeFiles/ogg.dir/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
 				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_STYLE = DYNAMIC;
@@ -358,7 +360,7 @@
 					/Users/administrator/ogg/include,
 					/Users/administrator/ogg/build/include,
 				);
-				INFOPLIST_FILE = /Users/administrator/ogg/build/CMakeFiles/ogg.dir/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
 				INSTALL_PATH = "@rpath";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_STYLE = DYNAMIC;
