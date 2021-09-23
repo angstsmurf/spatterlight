@@ -59,7 +59,7 @@ static int loadimage(int image)
         }
     }
     
-    win_loadimage(image, filename, pos, len);
+    win_loadimage(image, filename, (int)pos, (int)len);
 
     return TRUE;
 }

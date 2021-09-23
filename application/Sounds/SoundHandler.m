@@ -91,9 +91,9 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_filename forKey:@"filename"];
-    [encoder encodeInt:_length forKey:@"length"];
-    [encoder encodeInt:_offset forKey:@"offset"];
-    [encoder encodeInt:(NSInteger)_type forKey:@"type"];
+    [encoder encodeInteger:(NSInteger)_length forKey:@"length"];
+    [encoder encodeInteger:(NSInteger)_offset forKey:@"offset"];
+    [encoder encodeInteger:(NSInteger)_type forKey:@"type"];
 }
 
 -(BOOL)load {
@@ -214,9 +214,9 @@
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_files forKey:@"files"];
     [encoder encodeObject:_resources forKey:@"resources"];
-    [encoder encodeInt:_music_channel.name forKey:@"music_channel"];
+    [encoder encodeInteger:(NSInteger)_music_channel.name forKey:@"music_channel"];
     [encoder encodeObject:_glkchannels forKey:@"gchannels"];
-    [encoder encodeInt:_lastsoundresno forKey:@"lastsoundresno"];
+    [encoder encodeInteger:_lastsoundresno forKey:@"lastsoundresno"];
 }
 
 - (BOOL)soundIsLoaded:(NSInteger)soundId {
@@ -282,7 +282,7 @@
 }
 
 - (int)handleNewSoundChannel:(int)volume {
-    NSUInteger i;
+    int i;
     for (i = 0; i < MAXSND; i++)
     if (_glkchannels[@(i)] == nil)
         break;
@@ -291,7 +291,8 @@
         return -1;
 
     _glkchannels[@(i)] = [[GlkSoundChannel alloc] initWithHandler:self
-                                                             name:i volume:(NSUInteger)volume];
+                                                             name:(NSUInteger)i
+                                                           volume:(NSUInteger)volume];
     return i;
 }
 

@@ -133,7 +133,7 @@
         MusicSequenceGetIndTrack(sequence, i, &track);
 
         MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen);
-        MusicTrackLoopInfo loopInfo = { trackLen, repeats };
+        MusicTrackLoopInfo loopInfo = { trackLen, (SInt32)repeats };
         MusicTrackSetProperty(track, kSequenceTrackProperty_LoopInfo, &loopInfo, sizeof(loopInfo));
     }
 }

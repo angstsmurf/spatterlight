@@ -228,9 +228,9 @@
             if (buf && buflen) {
                 bufaddr = (*gli_locate_arr)(buf, buflen, "&+#!Cn", arrayrock, &elemsize);
                 [encoder encodeInt64:bufaddr forKey:@"buf"];
-                [encoder encodeInt32:(bufptr - buf) forKey:@"bufptr"];
-                [encoder encodeInt32:(bufeof - buf) forKey:@"bufeof"];
-                [encoder encodeInt32:(bufend - buf) forKey:@"bufend"];
+                [encoder encodeInt32:(int32_t)(bufptr - buf) forKey:@"bufptr"];
+                [encoder encodeInt32:(int32_t)(bufeof - buf) forKey:@"bufeof"];
+                [encoder encodeInt32:(int32_t)(bufend - buf) forKey:@"bufend"];
                 if (elemsize) {
                     NSAssert(elemsize == 1, @"GlkStreamMemory encoding char array: wrong elemsize");
                     // could trim trailing zeroes here
@@ -244,9 +244,9 @@
             if (ubuf && buflen) {
                 bufaddr = (*gli_locate_arr)(ubuf, buflen, "&+#!Iu", arrayrock, &elemsize);
                 [encoder encodeInt64:bufaddr forKey:@"ubuf"];
-                [encoder encodeInt32:(ubufptr - ubuf) forKey:@"ubufptr"];
-                [encoder encodeInt32:(ubufeof - ubuf) forKey:@"ubufeof"];
-                [encoder encodeInt32:(ubufend - ubuf) forKey:@"ubufend"];
+                [encoder encodeInt32:(int32_t)(ubufptr - ubuf) forKey:@"ubufptr"];
+                [encoder encodeInt32:(int32_t)(ubufeof - ubuf) forKey:@"ubufeof"];
+                [encoder encodeInt32:(int32_t)(ubufend - ubuf) forKey:@"ubufend"];
                 if (elemsize) {
                     NSAssert(elemsize == 4, @"GlkStreamMemory encoding uni array: wrong elemsize");
                     // could trim trailing zeroes here
@@ -266,9 +266,9 @@
     }
     else if (_type == strtype_Resource) {
         if (buf && buflen) {
-            [encoder encodeInt32:(bufptr - buf) forKey:@"bufptr"];
-            [encoder encodeInt32:(bufeof - buf) forKey:@"bufeof"];
-            [encoder encodeInt32:(bufend - buf) forKey:@"bufend"];
+            [encoder encodeInt32:(int32_t)(bufptr - buf) forKey:@"bufptr"];
+            [encoder encodeInt32:(int32_t)(bufeof - buf) forKey:@"bufeof"];
+            [encoder encodeInt32:(int32_t)(bufend - buf) forKey:@"bufend"];
         }
     }
     else {

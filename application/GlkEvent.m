@@ -243,10 +243,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->cell_height = (float)theme.cellHeight;
         settings->buffer_cell_width = (float)theme.bufferCellWidth;
         settings->buffer_cell_height = (float)theme.bufferCellHeight;
-        settings->buffer_foreground = [theme.bufferNormal.color integerColor];
-        settings->buffer_background = [theme.bufferBackground integerColor];
-        settings->grid_foreground = [theme.gridNormal.color integerColor];
-        settings->grid_background = [theme.gridBackground integerColor];
+        settings->buffer_foreground = (int)[theme.bufferNormal.color integerColor];
+        settings->buffer_background = (int)[theme.bufferBackground integerColor];
+        settings->grid_foreground = (int)[theme.gridNormal.color integerColor];
+        settings->grid_background = (int)[theme.gridBackground integerColor];
         settings->do_styles = (int)theme.doStyles;
         settings->quote_boxes = (int)theme.quoteBox;
         settings->determinism = (int)theme.determinism;

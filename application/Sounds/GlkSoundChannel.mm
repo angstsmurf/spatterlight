@@ -133,7 +133,7 @@
     if (!decoder->Open(&error))
         NSLog(@"GlkSoundChannel: Could not open decoder (format:%@) %@", mimeString, error);
     SInt64 frames = decoder->GetTotalFrames();
-    auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, frames, areps - 1);
+    auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, (UInt32)frames, (UInt32)areps - 1);
     if (paused)
         _player->Enqueue(loopableRegionDecoder);
     else
@@ -343,19 +343,19 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
 
-    [encoder encodeInt:_name forKey:@"name"];
-    [encoder encodeInt:resid forKey:@"resid"];
+    [encoder encodeInteger:(NSInteger)_name forKey:@"name"];
+    [encoder encodeInteger:resid forKey:@"resid"];
     [encoder encodeInt:status forKey:@"status"];
     [encoder encodeDouble:volume forKey:@"volume"];
-    [encoder encodeInt:loop forKey:@"loop"];
-    [encoder encodeInt:notify forKey:@"notify"];
-    [encoder encodeInt:paused forKey:@"paused"];
+    [encoder encodeInteger:loop forKey:@"loop"];
+    [encoder encodeInteger:notify forKey:@"notify"];
+    [encoder encodeInteger:(NSInteger)paused forKey:@"paused"];
 
 //    [encoder encodeInt:sdl_channel forKey:@"sdl_channel"];
 
     /* for volume fades */
-    [encoder encodeInt:volume_notify forKey:@"volume_notify"];
-    [encoder encodeInt:volume_timeout forKey:@"volume_timeout"];
+    [encoder encodeInteger:volume_notify forKey:@"volume_notify"];
+    [encoder encodeInteger:(NSInteger)volume_timeout forKey:@"volume_timeout"];
     [encoder encodeDouble:target_volume forKey:@"target_volume"];
     [encoder encodeDouble:volume_delta forKey:@"volume_delta"];
 }

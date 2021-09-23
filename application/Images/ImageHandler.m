@@ -85,8 +85,8 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_filename forKey:@"filename"];
-    [encoder encodeInt:_length forKey:@"length"];
-    [encoder encodeInt:_offset forKey:@"offset"];
+    [encoder encodeInteger:(NSInteger)_length forKey:@"length"];
+    [encoder encodeInteger:(NSInteger)_offset forKey:@"offset"];
 }
 
 -(BOOL)load {
@@ -166,7 +166,7 @@
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_files forKey:@"files"];
     [encoder encodeObject:_resources forKey:@"resources"];
-    [encoder encodeInt:_lastimageresno forKey:@"lastimageresno"];
+    [encoder encodeInteger:_lastimageresno forKey:@"lastimageresno"];
 }
 
 - (BOOL)imageIsLoaded:(NSInteger)resno {

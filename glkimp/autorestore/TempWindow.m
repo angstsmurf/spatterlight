@@ -336,7 +336,7 @@
 
     win->line.len = len;
     win->line.cap = cap;
-    win->termct = line_terminators.count;
+    win->termct = (glui32)line_terminators.count;
     win->line.buf = buf;
     win->line.inarrayrock = inarrayrock;
 

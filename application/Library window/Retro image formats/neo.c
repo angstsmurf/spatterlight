@@ -76,7 +76,7 @@ z_image * get_neo_picture(char *neo_filename)
         return NULL;
 
     // Load 32128 bytes:
-    iLoadSize = fread(bNeoPic, 1, 32128, neo_file);
+    iLoadSize = (int)fread(bNeoPic, 1, 32128, neo_file);
 
     if (iLoadSize != 32128) {
         return NULL;

@@ -64,7 +64,7 @@ static int loadsound(int sound)
         }
     }
     
-    win_loadsound(sound, filename, pos, len);
+    win_loadsound(sound, filename, (int)pos, (int)len);
 
     return TRUE;
 }

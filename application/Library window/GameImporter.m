@@ -371,9 +371,9 @@ extern NSArray *gGameFileTypes;
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
             found = YES;
-            game.checksum = blorb.checkSum;
+            game.checksum = (int32_t)blorb.checkSum;
             game.serialString = blorb.serialNumber;
-            game.releaseNumber = blorb.releaseNumber;
+            game.releaseNumber = (int32_t)blorb.releaseNumber;
         }
         if (!found) {
             BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;

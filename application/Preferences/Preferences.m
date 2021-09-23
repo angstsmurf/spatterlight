@@ -461,7 +461,7 @@ NSString *fontToString(NSFont *font) {
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
 
-    wint_t windowType = [defaults integerForKey:@"SelectedHyperlinkWindowType"];
+    wint_t windowType = (wint_t)[defaults integerForKey:@"SelectedHyperlinkWindowType"];
     if (windowType != wintype_TextGrid && windowType != wintype_TextBuffer) {
         windowType = wintype_TextGrid;
         [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
@@ -1472,7 +1472,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeMargin:(id)sender  {
     NSString *key = nil;
-    NSInteger val = 0;
+    int32_t val = 0;
     Theme *themeToChange;
     val = [sender intValue];
 
@@ -1566,13 +1566,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
             if (theme.gridLinkStyle == selectedStyle)
                 return;
             themeToChange = [self cloneThemeIfNotEditable];
-            themeToChange.gridLinkStyle = selectedStyle;
+            themeToChange.gridLinkStyle = (int32_t)selectedStyle;
             break;
         case wintype_TextBuffer:
             if (theme.bufLinkStyle == selectedStyle)
                 return;
             themeToChange = [self cloneThemeIfNotEditable];
-            themeToChange.bufLinkStyle = selectedStyle;
+            themeToChange.bufLinkStyle = (int32_t)selectedStyle;
             break;
         default:
             NSLog(@"Unhandled hyperlink window type");
@@ -1602,7 +1602,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (theme.gridMarginX == [sender integerValue])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.gridMarginX = [sender integerValue];
+    themeToChange.gridMarginX = [sender intValue];
     _marginHorizontalGridTextField.integerValue = themeToChange.gridMarginX;
     _marginHorizontalGridStepper.integerValue = themeToChange.gridMarginX;
 }
@@ -1611,7 +1611,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (theme.gridMarginY == [sender integerValue])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.gridMarginY = [sender integerValue];
+    themeToChange.gridMarginY = [sender intValue];
     _marginVerticalGridTextField.integerValue = themeToChange.gridMarginY;
     _marginVerticalGridStepper.integerValue = themeToChange.gridMarginY;
 }
@@ -1620,7 +1620,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (theme.bufferMarginX == [sender integerValue])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bufferMarginX = [sender integerValue];
+    themeToChange.bufferMarginX = [sender intValue];
     _marginHorizontalBufferTextField.integerValue = themeToChange.bufferMarginX;
     _marginHorizontalBufferStepper.integerValue = themeToChange.bufferMarginX;
 }
@@ -1628,7 +1628,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (theme.bufferMarginY == [sender integerValue])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bufferMarginY = [sender integerValue];
+    themeToChange.bufferMarginY = [sender intValue];
     _marginVerticalBufferTextField.integerValue = themeToChange.bufferMarginY;
     _marginVerticalBufferStepper.integerValue = themeToChange.bufferMarginY;
 }
@@ -1729,7 +1729,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bZAdjustment = [sender integerValue];
+    themeToChange.bZAdjustment = [sender intValue];
     _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
     _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
 }

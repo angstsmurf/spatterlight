@@ -3252,7 +3252,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FILLRECT:
             if (reqWin) {
-                int realcount = req->len / sizeof(struct fillrect);
+                NSInteger realcount = req->len / sizeof(struct fillrect);
                 if (realcount == req->a2) {
                     [reqWin fillRects:(struct fillrect *)buf count:req->a2];
                 }
@@ -3280,7 +3280,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             ans->a2 = 0;
             if (reqWin && req->len) {
-                ans->a1 = [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
+                ans->a1 = (int)[self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
             break;
 
@@ -3532,7 +3532,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = [banner numberOfColumns];
+                ans->a1 = (int)[banner numberOfColumns];
             }
             break;
 
@@ -3542,7 +3542,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = [banner numberOfLines];
+                ans->a1 = (int)[banner numberOfLines];
             }
             break;
 
