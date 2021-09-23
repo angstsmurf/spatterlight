@@ -3269,6 +3269,12 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case UNPRINT:
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                //                NSLog(@"Restoring UI at UNPRINT");
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
@@ -3332,6 +3338,7 @@ fprintf(stderr, "%s\n",                                                    \
             [self performScroll];
 
             if (!_gwindows.count && shouldRestoreUI) {
+                buf = "\0";
 //              NSLog(@"Restoring UI at INITLINE");
 //              NSLog(@"at eventcount %ld", _eventcount);
                 if (restoredController.commandScriptRunning) {
@@ -3344,7 +3351,7 @@ fprintf(stderr, "%s\n",                                                    \
                         restoredController = restoredControllerLate;
                     }
                 }
-                _windowsToRestore = restoredController.gwindows.allValues;
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
