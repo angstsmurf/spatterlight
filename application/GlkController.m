@@ -583,17 +583,11 @@ fprintf(stderr, "%s\n",                                                    \
                 [fileManager moveItemAtPath:oldGlkSaveTerp toPath:glkSaveTerp error:nil];
                 NSLog(@"Successfully used previous terp save");
             } else {
-                [self deleteAutosaveFiles];
-                _game.autosaved = NO;
-                [self runTerpNormal];
-                return;
+                NSLog(@"Only restore UI state at first turn");
+                [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+                                     [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+                restoredUIOnly = YES;
             }
-
-
-            NSLog(@"Only restore UI state at first turn");
-            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
-            restoredUIOnly = YES;
 
         } else {
             // Only show the alert about autorestoring if this is not a system
