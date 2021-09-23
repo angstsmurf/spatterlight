@@ -2185,7 +2185,7 @@ void CVmBifTADS::toIntOrNum(VMG_ uint argc, int int_only)
         /* the value for "nil" is 0 */
         retval_int(vmg_ 0);
     }
-    else if (len2 == 4 && memcmp(p2, "true", 3) == 0)
+    else if (len2 == 4 && memcmp(p2, "true", 4) == 0)
     {
         /* the value for "true" is 1 */
         retval_int(vmg_ 1);

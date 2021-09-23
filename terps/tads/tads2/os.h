@@ -75,11 +75,15 @@ extern "C" {
 #ifdef __ppc__
 #define _M_PPC
 #else
-#ifdef __x86_64__
+#if defined (__x86_64__)
 #define _M_IX86_64
+#else
+#if defined (__aarch64__)
+#define _M_AARCH64
 #else
 #ifndef _M_IX86
 #define _M_IX86
+#endif
 #endif
 #endif
 #endif
@@ -115,6 +119,13 @@ extern "C" {
  */
 #ifdef _M_QT
 #include "h_qt.h"
+#endif
+
+/*
+ *   Little-endian processors - 32-bit and 64-bit
+ */
+#ifdef _M_AARCH64
+#include "h_le_c11.h"
 #endif
 
 /* add others here */
