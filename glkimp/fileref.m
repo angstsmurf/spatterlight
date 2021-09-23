@@ -4,7 +4,8 @@
 #include "fileref.h"
 #include "glkimp.h"
 
-char autosavedir[1024] = "";
+char autosavedir[BUFLEN] = "";
+char tempdir[BUFLEN] = "";
 
 void setdefaultworkdir(char *string)
 {
@@ -89,4 +90,34 @@ void getautosavedir(char *file)
     }
     
 	autosavedir[sizeof autosavedir-1] = 0;
+}
+
+void gettempdir()
+{
+    /* if we have already set an autosave dir path, we return right away */
+    if (strcmp(tempdir, "")) {
+        return;
+    }
+
+    @autoreleasepool {
+        getworkdir();
+
+        NSString *string = [NSString stringWithUTF8String:workingdir];
+        NSURL *desktopURL = [NSURL fileURLWithPath:string
+                                       isDirectory:YES];
+        NSError *error = nil;
+
+        NSURL *temporaryDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
+                   inDomain:NSUserDomainMask
+          appropriateForURL:desktopURL
+                     create:YES
+                      error:&error];
+
+        if (error) {
+            NSLog(@"gettempdir error: %@", error);
+        }
+
+        strncpy(tempdir, temporaryDirectoryURL.path.UTF8String, sizeof tempdir);
+
+    }
 }

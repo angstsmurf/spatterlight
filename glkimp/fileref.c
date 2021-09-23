@@ -3,10 +3,10 @@
 #include <unistd.h> /* for unlink() */
 #include <sys/stat.h> /* for stat() */
 
-char gli_workdir[1024] = ".";
-char gli_workfile[1024] = "";
+char gli_workdir[BUFLEN] = ".";
+char gli_workfile[BUFLEN] = "";
 
-char workingdir[256] = "";
+char workingdir[BUFLEN] = "";
 
 char *glkext_fileref_get_name(fileref_t *fref)
 {
@@ -113,18 +113,23 @@ static char *gli_suffix_for_usage(glui32 usage)
 
 frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
 {
-	char filename[BUFLEN];
-	fileref_t *fref;
+    gettempdir();
 
-    sprintf(filename, "/tmp/glktempfref-XXXXXX");
-    mkstemp(filename);
-	fref = gli_new_fileref(filename, usage, rock);
+    char *temppath = malloc(sizeof(tempdir) + 19);
+    sprintf(temppath, "%s", tempdir);
+    strcat(temppath, "/glktempfref-XXXXXX");
+
+    mkstemp(temppath);
+
+    fileref_t *fref = gli_new_fileref(temppath, usage, rock);
 	if (!fref)
 	{
 		gli_strict_warning("fileref_create_temp: unable to create fileref.");
+        free(temppath);
 		return NULL;
 	}
 
+    free(temppath);
 	return fref;
 }
 
