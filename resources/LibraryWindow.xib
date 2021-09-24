@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,7 +40,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="117" y="394" width="739" height="285"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
@@ -365,51 +365,51 @@
                                             <action selector="searchForGames:" target="-2" id="155"/>
                                         </connections>
                                     </searchField>
-                                    <button toolTip="Add games to library" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
-                                        <rect key="frame" x="12" y="8" width="60" height="24"/>
+                                    <button toolTip="Add games to library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                                        <rect key="frame" x="18" y="8" width="30" height="23"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="301"/>
+                                            <constraint firstAttribute="width" constant="30" id="301"/>
                                             <constraint firstAttribute="height" constant="22" id="424"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="smallSquare" title="Add" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="150">
+                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" image="plus" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="150">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                         <accessibility description="Add games to library"/>
                                         <connections>
                                             <action selector="addGamesToLibrary:" target="-1" id="156"/>
                                         </connections>
                                     </button>
-                                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                                        <rect key="frame" x="80" y="8" width="60" height="24"/>
-                                        <buttonCell key="cell" type="smallSquare" title="Info" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="151">
+                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
+                                        <rect key="frame" x="56" y="8" width="30" height="23"/>
+                                        <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" image="eye" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="151">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                         <accessibility description="Show info for selected game"/>
                                         <connections>
                                             <action selector="showGameInfo:" target="-1" id="154"/>
                                         </connections>
                                     </button>
-                                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="148" y="8" width="60" height="24"/>
-                                        <buttonCell key="cell" type="smallSquare" title="Play" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="152">
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
+                                        <rect key="frame" x="327" y="12" width="16" height="16"/>
+                                    </progressIndicator>
+                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
+                                        <rect key="frame" x="94" y="8" width="30" height="23"/>
+                                        <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" image="play" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                         <accessibility description="Play selected game"/>
                                         <connections>
                                             <action selector="play:" target="-2" id="177"/>
                                         </connections>
                                     </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
-                                        <rect key="frame" x="327" y="12" width="16" height="16"/>
-                                    </progressIndicator>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="128" firstAttribute="leading" secondItem="129" secondAttribute="trailing" constant="8" symbolic="YES" id="310"/>
                                     <constraint firstItem="129" firstAttribute="baseline" secondItem="130" secondAttribute="baseline" id="311"/>
-                                    <constraint firstItem="130" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="12" id="312"/>
+                                    <constraint firstItem="130" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="18" id="312"/>
                                     <constraint firstItem="129" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="313"/>
                                     <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" priority="999" constant="8" symbolic="YES" id="314"/>
                                     <constraint firstItem="132" firstAttribute="leading" secondItem="127" secondAttribute="leading" priority="999" id="318"/>
@@ -455,7 +455,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="234" y="498" width="200" height="56"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="200" height="44"/>
             <value key="maxSize" type="size" width="400" height="94"/>
             <view key="contentView" id="42">
@@ -743,4 +743,9 @@ CA
             <point key="canvasLocation" x="-63" y="-325"/>
         </customView>
     </objects>
+    <resources>
+        <image name="eye.fill" catalog="system" width="21" height="13"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="plus" catalog="system" width="14" height="13"/>
+    </resources>
 </document>
