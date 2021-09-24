@@ -2,10 +2,10 @@
 
 #define BUFLEN (1024)
 
-extern char workingdir[BUFLEN];
-extern char autosavedir[BUFLEN];
 extern char tempdir[BUFLEN];
 
+extern char *autosavedir;
+extern char *gli_parentdir;
 
 extern void getworkdir(void);
 extern void getautosavedir(char *file);

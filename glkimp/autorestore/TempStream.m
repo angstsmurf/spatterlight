@@ -50,38 +50,37 @@
 }
 
 - (instancetype) initWithCStruct:(stream_t *)str {
-
+    
     self = [super init];
-
-	if (self) {
-
+    
+    if (self) {
+        
         _type = str->type;
         _rock = str->rock;
         _tag = str->tag;
-
+        
         unicode = str->unicode;
         readable = str->readable;
         writable = str->writable;
-
+        
         readcount = str->readcount;
         writecount = str->writecount;
         lastop = str->lastop;
-
+        
         isbinary = str->isbinary;
         resfilenum = str->resfilenum;
-
+        
         if (str->win && str->type == strtype_Window) {
             wintag = str->win->tag;
-//            NSLog(@"Set wintag for window %d to %u", str->win->peer, wintag);
         } else wintag = 0;
-
+        
         URL = nil;
         if (str->filename)
             URL = [NSURL fileURLWithPath:@(str->filename)];
         _file = str->file;
-
-        //    /* for strtype_Memory and strtype_Resource. Separate pointers for
-        //     one-byte and four-byte streams */
+        
+        /* for strtype_Memory and strtype_Resource. Separate pointers for
+         one-byte and four-byte streams */
         buf = str->buf;
         bufptr = str->bufptr;
         bufend = str->bufend;
@@ -90,19 +89,19 @@
         ubufptr = str->ubufptr;
         ubufend = str->ubufend;
         ubufeof = str->ubufeof;
-
+        
         buflen = str->buflen;
-
+        
         if (_type == strtype_Memory && !unicode && ubuf)
             NSLog(@"TempStream initiWithCStruct: memory stream %d is not unicode, but has ubuf", str->tag);
-
+        
         _next = _prev = 0;
-
+        
         if (str->next)
             _next = (str->next)->tag;
         if (str->prev)
             _prev = (str->prev)->tag;
-
+        
         arrayrock = str->arrayrock;
     }
     return self;
@@ -393,10 +392,10 @@
     if (URL)
     {
         const char *path = [URL.path UTF8String];
-        char *urlpath = malloc(1 + strlen(path));
-        strncpy(urlpath, path, strlen(path));
-
-        urlpath[strlen(path)] = '\0';
+        size_t len = strlen(path);
+        char *urlpath = malloc(1 + len);
+        strncpy(urlpath, path, len);
+        urlpath[len] = '\0';
         str->filename = urlpath;
     }
     else
@@ -415,14 +414,29 @@
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:URL.path]) {
 
-        str->file = fopen(path,"w");
-        if (!str->file)
-        {
-            NSLog(@"TempStream reopenInternal: Could not create file at %@ for stream %d.", URL.path, _tag);
-            return NO;
+        NSString *parent = [NSString stringWithCString:gli_parentdir encoding:NSUTF8StringEncoding];
+        NSString *filename = URL.path.lastPathComponent;
+        NSString *newPath = [parent stringByAppendingPathComponent:filename];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+            NSLog(@"TempStream reopenInternal: Changed path from %@ to %@ for stream %d.", URL.path, newPath, _tag);
+            path = newPath.UTF8String;
+            if (str->filename != NULL)
+                free(str->filename);
+            size_t len = strlen(path);
+            char *urlpath = malloc(1 + len);
+            strncpy(urlpath, path, len);
+            urlpath[len] = '\0';
+            str->filename = urlpath;
+        } else {
+            str->file = fopen(path,"w");
+            if (!str->file)
+            {
+                NSLog(@"TempStream reopenInternal: Could not create file at %@ for stream %d.", URL.path, _tag);
+                return NO;
+            }
+            NSLog(@"TempStream reopenInternal: Could not find file at %@ for stream %d, so created a new one.", URL.path, _tag);
+            fclose(str->file);
         }
-        NSLog(@"TempStream reopenInternal: Could not find file at %@ for stream %d, so created a new one.", URL.path, _tag);
-        fclose(str->file);
     }
 
     str->file = NULL;
@@ -513,45 +527,5 @@
         }
     }
 }
-
-/* Here we implement some low-level read/write functions, which put an internal byte buffer on top of the underlying NSFileHandle.
-
- If the buffer is live, the filehandle's real mark (seek position) is always bufferpos+buffertruepos.
-
- For read-only files, the buffer can be an NSData of up to maxbuffersize bytes. The bufferrtruepos will always be at the end (equal to buffer.length). A caller can read until the buffer is used up; the next call will trigger a filehandle read. (Note that if you keep reading repeatedly after EOF, you'll trigger repeated filehandle reads, which is slow. Don't do that.)
-
- For writable files, the buffer can be an NSMutableData of up to maxbuffersize bytes. If the caller writes past buffertruepos, the buffer will get longer.
-
- This isn't the greatest buffering implementation in the world; it doesn't really try to cope with the possibility that some other process might diddle the file while we have it open. Fortunately, on iOS, no other process *will* diddle the file while we have it open.
- */
-
-
-/* Flush and clear the internal buffer. */
-//- (void) flush {
-//	if (!(readbuffer || writebuffer))
-//		return;
-//
-//	if (writable && writebuffer && bufferdirtystart < bufferdirtyend) {
-//		/* Write out the dirty part of the buffer. */
-//		[handle seekToFileOffset:bufferpos+bufferdirtystart];
-//		glui32 len = bufferdirtyend - bufferdirtystart;
-//		void *bytes = ((char *)writebuffer.bytes) + bufferdirtystart;
-//		NSData *data = [NSData dataWithBytesNoCopy:bytes length:len freeWhenDone:NO];
-//		[handle writeData:data];
-//		/* Adjust buffertruepos, which we will need in a moment to be correct. */
-//		buffertruepos = bufferdirtyend;
-//	}
-//	if (buffermark != buffertruepos) {
-//		/* Seek the filehandle pos to where the buffer thinks it ought to be. (We need this to be correct, because we might be doing a relative seek next.) */
-//		[handle seekToFileOffset:bufferpos+buffermark];
-//	}
-//	self.writebuffer = nil;
-//	self.readbuffer = nil;
-//	bufferpos = 0;
-//	buffermark = 0;
-//	buffertruepos = 0;
-//	bufferdirtystart = maxbuffersize;
-//	bufferdirtyend = 0;
-//}
 
 @end

@@ -1,12 +1,13 @@
 #include <sys/syslimits.h>
 #include <fcntl.h>
 #include "glkimp.h"
+#include "fileref.h"
 
 #define GLK_MAXVOLUME 0x10000
 
 static channel_t *gli_channellist = NULL;
 
-extern char gli_workdir[];
+extern char *gli_workdir;
 
 static int loadsound(int sound)
 {
@@ -24,7 +25,7 @@ static int loadsound(int sound)
     {
         char filename[1024];
 
-        sprintf(filename, "%s/SND%d", gli_workdir, sound);
+        sprintf(filename, "%s/SND%d", gli_parentdir, sound);
 
         fprintf(stderr, "loadsound %s\n", filename);
 

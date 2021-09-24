@@ -55,10 +55,13 @@ extern glui32 lasteventtype;
 extern glui32 gtimerinterval;
 
 /* more Gargoyle glue */
-extern char gli_program_name[256];
-extern char gli_program_info[256];
-extern char gli_story_name[256];
-extern char gli_story_title[256];
+extern char *gli_program_name;
+extern char *gli_program_info;
+extern char *gli_story_name;
+extern char *gli_story_title;
+extern char *gli_game_path;
+extern char *gli_parentdir;
+
 void wintitle(void);
 
 /* window server connection */
@@ -290,8 +293,7 @@ struct glk_window_struct {
 
 };
 
-extern char gli_workdir[];
-extern char gli_workfile[];
+extern char *gli_workdir;
 
 /* Global but internal functions */
 

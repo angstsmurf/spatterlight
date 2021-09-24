@@ -1,4 +1,5 @@
 #include "glkimp.h"
+#include "fileref.h"
 
 glui32 tagcounter = 0;
 
@@ -34,6 +35,23 @@ void glk_tick()
 
 void glk_exit()
 {
+    if (gli_program_info != NULL)
+        free(gli_program_info);
+    if (gli_game_path != NULL)
+        free(gli_game_path);
+    if (gli_story_name != NULL)
+        free(gli_story_name);
+    if (gli_story_title != NULL)
+        free(gli_story_title);
+    if (gli_program_name != NULL)
+        free(gli_program_name);
+    if (gli_workdir != NULL)
+        free(gli_workdir);
+    if (autosavedir != NULL)
+        free(autosavedir);
+    if (gli_parentdir != NULL)
+        free(gli_parentdir);
+
     win_flush();
     close(0);
     close(1);
@@ -115,34 +133,45 @@ glui32 generate_tag(void)
 }
 
 /* Some dirty fixes for Gargoyle compatibility */
-char gli_program_name[256] = "Unknown";
-char gli_program_info[256] = "";
-char gli_story_name[256] = "";
-char gli_story_title[256] = "";
+char *gli_program_name = NULL;
+char *gli_program_info = NULL;
+char *gli_story_name = NULL;
+char *gli_story_title = NULL;
+
+void malloc_and_set_string(char **variable, const char *string)
+{
+    size_t length = strlen(string);
+
+    if (*variable != NULL)
+        free(*variable);
+
+    *variable = malloc(length + 1);
+    strncpy(*variable, string, length);
+    (*variable)[length] = 0;
+}
 
 void garglk_set_program_name(const char *name)
 {
-    strncpy(gli_program_name, name, sizeof gli_program_name);
-    gli_program_name[sizeof gli_program_name-1] = 0;
-    wintitle();
+    malloc_and_set_string(&gli_program_name, name);
 }
 
 void garglk_set_program_info(const char *info)
 {
-    strncpy(gli_program_info, info, sizeof gli_program_info);
-    gli_program_info[sizeof gli_program_info-1] = 0;
+    malloc_and_set_string(&gli_program_info, info);
 }
 
 void garglk_set_story_name(const char *name)
 {
-    strncpy(gli_story_name, name, sizeof gli_story_name);
-    gli_story_name[sizeof gli_story_name-1] = 0;
-    wintitle();
+    malloc_and_set_string(&gli_story_name, name);
 }
 
 void garglk_set_story_title(const char *title)
 {
-    strncpy(gli_story_title, title, sizeof gli_story_title);
-    gli_story_title[sizeof gli_story_title-1] = 0;
+    malloc_and_set_string(&gli_story_title, title);
     wintitle();
+}
+
+void spatterlight_set_game_path(const char *path)
+{
+    malloc_and_set_string(&gli_game_path, path);
 }

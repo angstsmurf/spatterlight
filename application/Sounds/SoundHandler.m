@@ -59,6 +59,21 @@
     }
     if (error) {
         NSLog(@"Soundfile resolveBookmark: %@", error);
+        if (error.code == 4) {
+            NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
+                                               fromBookmarkData:_bookmark];
+            NSString *oldfilename = values[NSURLPathKey];
+            oldfilename = oldfilename.lastPathComponent;
+            NSString *newPath =
+            [[_handler.glkctl.gamefile stringByDeletingLastPathComponent] stringByAppendingPathComponent:oldfilename];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+                _URL = [NSURL fileURLWithPath:newPath];
+                _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
+                           includingResourceValuesForKeys:nil
+                                            relativeToURL:nil
+                                                    error:&error];
+            }
+        }
     }
 }
 
@@ -200,6 +215,8 @@
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
+    for (SoundFile *file in _files.allValues)
+        file.handler = self;
     _resources = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"resources"];
     if (_resources)
         for (SoundResource *res in _resources.allValues) {
@@ -274,6 +291,7 @@
         res.soundFile = _files[filename];
         if (!res.soundFile) {
             res.soundFile = [[SoundFile alloc] initWithPath:filename];
+            res.soundFile.handler = self;
             _files[filename] = res.soundFile;
         }
     } else return;

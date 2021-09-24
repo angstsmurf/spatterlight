@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GlkSoundChannel, GlkController;
+@class GlkSoundChannel, GlkController, SoundHandler;
 
 typedef enum kBlorbSoundFormatType : NSInteger {
     NONE,
@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) NSData *bookmark;
 @property (nullable) NSURL *URL;
+@property (weak) SoundHandler *handler;
 
 @end;
 
