@@ -23,8 +23,12 @@ static int loadimage(int image)
         fprintf(stderr, "loadimage %s in %s\n", filename, gli_parentdir);
         
         file = fopen(filename, "rb");
-        if (!file)
-            return FALSE;
+        if (!file) {
+            sprintf(filename, "%s.jpg", filename);
+            file = fopen(filename, "rb");
+            if (!file)
+                return FALSE;
+        }
         
         fseek(file, 0, 2);
         len = ftell(file);
