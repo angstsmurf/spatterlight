@@ -1703,7 +1703,7 @@
     [self addAndSelectGame:@"curses.z5"];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-    XCUIElement *playButton = libraryWindow.buttons[@"Play"];
+    XCUIElement *playButton = libraryWindow.buttons[@"Play selecter game"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
@@ -1996,7 +1996,7 @@
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
 
-        XCUIElement *addButton = libraryWindow.buttons[@"Add"];
+        XCUIElement *addButton = libraryWindow.buttons[@"Add games to library"];
 
         XCTAssert(addButton.exists);
         [addButton click];
