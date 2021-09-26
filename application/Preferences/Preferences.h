@@ -2,6 +2,8 @@
  * Preferences is a combined singleton / window controller.
  */
 
+#import <AppKit/AppKit.h>
+
 typedef enum kZoomDirectionType : NSUInteger {
     ZOOMRESET,
     ZOOMIN,

@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AppKit/NSTextContainer.h>
 
 @class MarginImage;
 

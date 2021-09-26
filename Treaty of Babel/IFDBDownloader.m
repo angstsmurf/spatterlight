@@ -5,6 +5,8 @@
 //  Created by Administrator on 2019-12-11.
 //
 
+#import <Foundation/Foundation.h>
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \

@@ -2,7 +2,7 @@
  * Launcher -- the main application controller
  */
 
-#import <CoreData/CoreData.h>
+#import <Cocoa/Cocoa.h>
 
 @class HelpPanelController, LibController, CoreDataManager;
 

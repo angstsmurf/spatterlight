@@ -6,6 +6,7 @@
 //
 
 #import "InputHistory.h"
+#import <AppKit/AppKit.h>
 
 #define HISTORYLEN 100
 

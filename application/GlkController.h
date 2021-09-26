@@ -9,6 +9,8 @@
  *
  */
 
+#import <AppKit/AppKit.h>
+
 @class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController;
 
 #define MAXWIN 64

@@ -7,6 +7,7 @@
 //
 
 #import "HelpPanelController.h"
+#import <AppKit/AppKit.h>
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
