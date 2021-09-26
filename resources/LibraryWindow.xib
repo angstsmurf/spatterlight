@@ -371,7 +371,7 @@
                                             <constraint firstAttribute="width" constant="30" id="301"/>
                                             <constraint firstAttribute="height" constant="22" id="424"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" image="plus" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="150">
+                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" image="plus" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="150">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
@@ -381,7 +381,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                                        <rect key="frame" x="56" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="58" y="8" width="30" height="23"/>
                                         <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" image="eye" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="151">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
@@ -395,7 +395,7 @@
                                         <rect key="frame" x="327" y="12" width="16" height="16"/>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="94" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="96" y="8" width="30" height="23"/>
                                         <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" image="play" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
@@ -744,8 +744,8 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="eye.fill" catalog="system" width="21" height="13"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
-        <image name="plus" catalog="system" width="14" height="13"/>
+        <image name="eye" width="16" height="10"/>
+        <image name="play" width="9" height="10"/>
+        <image name="plus" width="10" height="10"/>
     </resources>
 </document>
