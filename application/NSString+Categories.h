@@ -8,21 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
+@class Game;
+
 @interface NSString (Categories)
 
 @property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
-+ (NSString *)stringWithSummaryOf:(NSArray *)games;
++ (NSString *)stringWithSummaryOf:(NSArray<Game*> *)games;
 - (NSString *)signatureFromFile;
 - (NSString *)scrubInvalidCharacters;
-// Returns an NSArray of range values representing the lines in the string, including leading and trailing spaces (but optionally strips leading and trailing blank lines)
-- (NSArray *)lineRanges;
-- (NSArray *)lineRangesKeepEmptyLines:(BOOL)keepEmpty;
+//! Returns an \c NSArray of range values representing the lines in the string, including leading and trailing spaces (but optionally strips leading and trailing blank lines)
+- (NSArray<NSValue*> *)lineRanges;
+- (NSArray<NSValue*> *)lineRangesKeepEmptyLines:(BOOL)keepEmpty;
 
-// Returns yes if range only consists of white space or new lines
+//! Returns \c YES if range only consists of white space or new lines
 - (BOOL)rangeIsEmpty:(NSValue *)rangeValue;
 
-// Converts range value to range and trims newlines and whitespace
+//! Converts range value to range and trims newlines and whitespace
 - (NSString *)substringWithRangeValue:(NSValue *)value;
 
 @end
