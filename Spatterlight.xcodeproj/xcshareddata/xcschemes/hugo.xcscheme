@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C37EC5982847AA040084B841"
-               BuildableName = "plus"
-               BlueprintName = "plus"
+               BlueprintIdentifier = "9650387D09F2CC4E0083E64E"
+               BuildableName = "hugo"
+               BlueprintName = "hugo"
                ReferencedContainer = "container:Spatterlight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C37EC5982847AA040084B841"
-            BuildableName = "plus"
-            BlueprintName = "plus"
+            BlueprintIdentifier = "9650387D09F2CC4E0083E64E"
+            BuildableName = "hugo"
+            BlueprintName = "hugo"
             ReferencedContainer = "container:Spatterlight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C37EC5982847AA040084B841"
-            BuildableName = "plus"
-            BlueprintName = "plus"
+            BlueprintIdentifier = "9650387D09F2CC4E0083E64E"
+            BuildableName = "hugo"
+            BlueprintName = "hugo"
             ReferencedContainer = "container:Spatterlight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
