@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55773FB72700293900F0B9E7 /* iFictionQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55773FBA2700293900F0B9E7 /* SpatterlightQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55773FBD2700293900F0B9E7 /* SpatterlightThumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D212737246BDC4E00D775A8 /* NSColor+integer.m */; };
 		6D2C869C225E5291004A5A75 /* filesys.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8688225E5291004A5A75 /* filesys.c */; };
 		6D2C869D225E5291004A5A75 /* filesys_c.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C868A225E5291004A5A75 /* filesys_c.c */; };
@@ -739,6 +742,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55773FB82700293900F0B9E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C35978BF25DA14A6004B1448;
+			remoteInfo = iFictionQuickLook;
+		};
+		55773FBB2700293900F0B9E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C311DEF425C472E500484639;
+			remoteInfo = SpatterlightQuickLook;
+		};
+		55773FBE2700293900F0B9E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C322714925CC214A0083BD5B;
+			remoteInfo = SpatterlightThumbnailer;
+		};
 		6D2C86EE225E898A004A5A75 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1106,6 +1130,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		55773FC02700293900F0B9E7 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				55773FBA2700293900F0B9E7 /* SpatterlightQuickLook.appex in Embed App Extensions */,
+				55773FB72700293900F0B9E7 /* iFictionQuickLook.appex in Embed App Extensions */,
+				55773FBD2700293900F0B9E7 /* SpatterlightThumbnailer.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6DB774A02458B95E00EDC671 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5626,6 +5663,7 @@
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
 				C344B2CE26E4DA87004B0A8F /* Embed Frameworks */,
+				55773FC02700293900F0B9E7 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -5647,6 +5685,9 @@
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
+				55773FB92700293900F0B9E7 /* PBXTargetDependency */,
+				55773FBC2700293900F0B9E7 /* PBXTargetDependency */,
+				55773FBF2700293900F0B9E7 /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -7116,6 +7157,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55773FB92700293900F0B9E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C35978BF25DA14A6004B1448 /* iFictionQuickLook */;
+			targetProxy = 55773FB82700293900F0B9E7 /* PBXContainerItemProxy */;
+		};
+		55773FBC2700293900F0B9E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
+			targetProxy = 55773FBB2700293900F0B9E7 /* PBXContainerItemProxy */;
+		};
+		55773FBF2700293900F0B9E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
+			targetProxy = 55773FBE2700293900F0B9E7 /* PBXContainerItemProxy */;
+		};
 		6D2C86EF225E898A004A5A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
