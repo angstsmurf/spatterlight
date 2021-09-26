@@ -499,7 +499,7 @@
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
-		C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C317CE4B278DB5AD00D85288 /* layouttext.c */; };
 		C318F76F2741AA5B006D626A /* scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76A2741AA5B006D626A /* scott.c */; };
 		C318F7702741AA5B006D626A /* bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76E2741AA5B006D626A /* bsd.c */; };
@@ -544,7 +544,7 @@
 		C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */; };
 		C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C322714F25CC214A0083BD5B /* ThumbnailProvider.m */; };
-		C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C322718C25CC224F0083BD5B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C32271A625CC22530083BD5B /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
@@ -1265,19 +1265,19 @@
 			remoteGlobalIDString = 961CCEC309F239C100528FF9;
 			remoteInfo = Spatterlight;
 		};
-		C3824B4E2CAE7FAA00D58EFC /* PBXContainerItemProxy */ = {
+		C3AE85B8271B09D400C96126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
-			remoteInfo = glkimp;
+			remoteGlobalIDString = C311DEF425C472E500484639;
+			remoteInfo = SpatterlightQuickLook;
 		};
-		C3824B502CAE7FB200D58EFC /* PBXContainerItemProxy */ = {
+		C3AE85BA271B09D700C96126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 961CCEB609F2396500528FF9;
-			remoteInfo = glkmain;
+			remoteGlobalIDString = C322714925CC214A0083BD5B;
+			remoteInfo = SpatterlightThumbnailer;
 		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1415,7 +1415,27 @@
 			name = "Copy Documentation Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C311DED625C472C000484639 /* Embed App Extensions */ = {
+		C311DED625C472C000484639 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstSubfolderSpec = 13;
+			files = (
+				C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed Foundation Extensions */,
+				C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318F7602741AA2F006D626A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C344B2CE26E4DA87004B0A8F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -2712,6 +2732,8 @@
 		C308E68C2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCoreDataCoreSpotlightDelegate.h; sourceTree = "<group>"; };
 		C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCoreDataCoreSpotlightDelegate.m; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
+		C309F89627430D0100F89FFE /* htmltadsr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = htmltadsr.entitlements; sourceTree = "<group>"; };
+		C309F89827430D0C00F89FFE /* fizmo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = fizmo.entitlements; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30C57D52C68C31800C2AAAF /* options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = options.cpp; sourceTree = "<group>"; };
 		C30C57D62C68C31800C2AAAF /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
@@ -2792,6 +2814,7 @@
 		C318F7BC2741BD91006D626A /* scott.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = scott.entitlements; sourceTree = "<group>"; };
 		C318F7BE2741C2F6006D626A /* jacl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jacl.c; sourceTree = "<group>"; };
 		C318F7C02741C302006D626A /* scott.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scott.c; sourceTree = "<group>"; };
+		C318F81E27430C9A006D626A /* frotz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = frotz.entitlements; sourceTree = "<group>"; };
 		C3191A9D266CDAF300528F6E /* ImageView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		C3191AA2266D3A1F00528F6E /* NSBitmapImageRep+retro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBitmapImageRep+retro.h"; sourceTree = "<group>"; };
 		C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSBitmapImageRep+retro.m"; sourceTree = "<group>"; };
@@ -6270,7 +6293,7 @@
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
 				C344B2CE26E4DA87004B0A8F /* Embed Frameworks */,
-				C311DED625C472C000484639 /* Embed App Extensions */,
+				C311DED625C472C000484639 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -6613,6 +6636,7 @@
 			buildPhases = (
 				C318F75E2741AA2F006D626A /* Sources */,
 				C318F75F2741AA2F006D626A /* Frameworks */,
+				C318F7602741AA2F006D626A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -6933,7 +6957,6 @@
 			);
 			mainGroup = 961CCE5E09F2375A00528FF9;
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
-			projectDirPath = "";
 			projectReferences = (
 				{
 					ProductGroup = C374D19726EE4B4F006F430E /* Products */;
@@ -6944,7 +6967,6 @@
 					ProjectRef = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
 				},
 			);
-			projectRoot = "";
 			targets = (
 				961CCEC309F239C100528FF9 /* Spatterlight */,
 				96A9BA780A06558F001B5B9B /* babel */,
@@ -8295,15 +8317,15 @@
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = C318F7AB2741B33D006D626A /* PBXContainerItemProxy */;
 		};
-		C3824B4F2CAE7FAA00D58EFC /* PBXTargetDependency */ = {
+		C3AE85B9271B09D400C96126 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 961CCE7A09F237E700528FF9 /* glkimp */;
-			targetProxy = C3824B4E2CAE7FAA00D58EFC /* PBXContainerItemProxy */;
+			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
+			targetProxy = C3AE85B8271B09D400C96126 /* PBXContainerItemProxy */;
 		};
-		C3824B512CAE7FB200D58EFC /* PBXTargetDependency */ = {
+		C3AE85BB271B09D700C96126 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 961CCEB609F2396500528FF9 /* glkmain */;
-			targetProxy = C3824B502CAE7FB200D58EFC /* PBXContainerItemProxy */;
+			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
+			targetProxy = C3AE85BA271B09D700C96126 /* PBXContainerItemProxy */;
 		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8596,7 +8618,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 1.3;
+				APP_BUILD = 9.5;
 				APP_VERSION = 1.3;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
@@ -8647,7 +8669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -8657,7 +8679,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 1.3;
+				APP_BUILD = 9.5;
 				APP_VERSION = 1.3;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
@@ -8687,7 +8709,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
@@ -8708,7 +8729,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -9934,6 +9955,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9974,6 +9996,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10255,7 +10278,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.UITests;
@@ -10297,7 +10320,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.UITests;
@@ -10342,7 +10365,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
@@ -10383,7 +10406,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
@@ -10568,7 +10591,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10602,7 +10625,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10642,7 +10665,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/unp64\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10678,7 +10701,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/unp64\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10709,7 +10732,6 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -10769,7 +10791,6 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
