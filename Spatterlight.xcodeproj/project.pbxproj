@@ -7792,7 +7792,6 @@
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/../Frameworks",
-					"@executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
 					"@executable_path",
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -7818,7 +7817,6 @@
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/../Frameworks",
-					"@executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
 					"@executable_path",
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -8856,7 +8854,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
@@ -8901,7 +8898,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
@@ -8952,7 +8948,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
@@ -9002,7 +8997,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
