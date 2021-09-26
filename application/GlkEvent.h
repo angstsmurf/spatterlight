@@ -1,5 +1,7 @@
 /* Glk events to stick in the GlkController queue */
 
+#import <Foundation/Foundation.h>
+
 @class Theme;
 
 unsigned chartokeycode(unsigned ch);

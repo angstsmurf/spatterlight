@@ -6,6 +6,7 @@
 //
 
 #import "ColorTransformer.h"
+#import <AppKit/AppKit.h>
 
 @implementation ColorTransformer
 

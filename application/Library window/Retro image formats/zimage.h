@@ -33,6 +33,8 @@
 #ifndef zimage_h_INCLUDED
 #define zimage_h_INCLUDED
 
+#include <stdint.h>
+
 typedef struct
 {
   uint32_t width;

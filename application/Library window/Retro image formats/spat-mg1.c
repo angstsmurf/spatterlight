@@ -43,6 +43,7 @@
 #define mg1_c_INCLUDED
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <inttypes.h>
 
 #include "spat-mg1.h"

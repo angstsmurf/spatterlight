@@ -5,7 +5,7 @@
 //  Created by Administrator on 2021-04-02.
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

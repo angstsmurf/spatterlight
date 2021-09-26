@@ -1,5 +1,7 @@
 @class SoundHandler, MIDIChannel;
 
+#import <Foundation/Foundation.h>
+
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
 #define MIX_MAX_VOLUME 1.0f

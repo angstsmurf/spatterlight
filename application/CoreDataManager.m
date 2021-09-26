@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataManager.h"
+#import <AppKit/AppKit.h>
 
 @interface CoreDataManager () {
     NSString *modelName;

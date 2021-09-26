@@ -1,3 +1,6 @@
+#import <AppKit/AppKit.h>
+
+
 @class GlkController, Theme, ZColor, InputTextField, InputHistory;
 
 struct fillrect;

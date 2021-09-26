@@ -66,7 +66,7 @@
     [_player setVolume:volume];
 
     if (areps != -1) {
-        __unsafe_unretained MIDIChannel *weakSelf = self;
+        __weak MIDIChannel *weakSelf = self;
         SoundHandler *blockHandler = self.handler;
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;

@@ -772,6 +772,10 @@
 			<string>http://inform-fiction.org/zmachine/standards/z1point1/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>IFRS</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>z3</string>
@@ -844,6 +848,10 @@
 			<string>http://eblong.com/zarf/blorb/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>ZCOD</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>blb</string>
@@ -887,7 +895,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -923,7 +931,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="glulx"</string>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -1018,6 +1026,10 @@
 			<string>http://www.tads.org/howto/mediatypes.htm</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>TADG</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>gam</string>
@@ -1053,6 +1065,10 @@
 			<string>http://www.tads.org/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>.T3X</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>t3x</string>
@@ -1125,7 +1141,8 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.level9</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Level 9 game</string>

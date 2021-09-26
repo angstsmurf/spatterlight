@@ -6,6 +6,8 @@
 //
 //
 
+#import <AppKit/AppKit.h>
+
 @interface HelpTextView : NSTextView <NSTextFinderClient>
 
 @property(readonly) NSTextFinder *textFinder;

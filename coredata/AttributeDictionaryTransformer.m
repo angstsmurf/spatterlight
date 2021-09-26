@@ -6,6 +6,7 @@
 //
 
 #import "AttributeDictionaryTransformer.h"
+#import <AppKit/AppKit.h>
 
 @implementation AttributeDictionaryTransformer
 
