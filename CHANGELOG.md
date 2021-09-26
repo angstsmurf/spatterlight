@@ -1,7 +1,15 @@
 # Change log
 
 ## 0.8.7 (unreleased)
+- TADS games work on Apple Silicon
 - Improves graphics resizing on window resize in many Glulx games
+- Navigation with numeric pad works again in *Beyond Zork*
+- Navigation with mouse now works in all versions of *Beyond Zork*
+- Images in *Waldo's Pie* are now shown if the image files are in the game folder 
+- Autosaved games would break if the game file was moved to a different disk drive
+- Autorestoring when preloaded input is shown works properly
+- The project can be compiled on other computers than mine again
+- Replaced the text buttons (Add, Info, Play) in the library window with symbols
 
 ## Release 0.8.6
 - Replaces SDL audio with a modified version of SFBAudioEngine
