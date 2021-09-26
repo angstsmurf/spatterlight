@@ -9,7 +9,7 @@
 
 @class GlkSoundChannel, GlkController, SoundHandler;
 
-typedef enum kBlorbSoundFormatType : NSInteger {
+typedef NS_ENUM(NSInteger, kBlorbSoundFormatType) {
     NONE,
     giblorb_ID_MOD,
     giblorb_ID_OGG,
@@ -18,7 +18,7 @@ typedef enum kBlorbSoundFormatType : NSInteger {
     giblorb_ID_MP3,
     giblorb_ID_WAVE,
     giblorb_ID_MIDI,
-} kBlorbSoundFormatType;
+};
 
 #define FREE 1
 #define BUSY 2

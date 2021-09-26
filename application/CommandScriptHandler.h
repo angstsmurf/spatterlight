@@ -9,10 +9,10 @@
 
 @class GlkController, GlkWindow;
 
-typedef enum kLastCommandType : NSUInteger {
+typedef NS_ENUM(NSUInteger, kLastCommandType) {
     kCommandTypeLine,
     kCommandTypeChar,
-} kLastCommandType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -13,13 +13,13 @@
 
 #define kSource @".source"
 
-typedef enum kMetadataSourceType : int32_t {
+typedef NS_ENUM(int32_t, kMetadataSourceType) {
     kDefault = 1,
     kInternal = 2,
     kExternal = 3,
     kUser = 4,
     kIfdb = 5
-} kMetadataSourceType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

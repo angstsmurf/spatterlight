@@ -11,11 +11,11 @@
 
 @class Metadata;
 
-typedef enum kImageInterpolationType : int32_t {
+typedef NS_ENUM(int32_t, kImageInterpolationType) {
     kUnset,
     kNearestNeighbor,
     kTrilinear,
-} kImageInterpolationType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

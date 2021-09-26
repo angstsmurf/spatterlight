@@ -4,11 +4,11 @@
 
 #import <AppKit/AppKit.h>
 
-typedef enum kZoomDirectionType : NSUInteger {
+typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
     ZOOMRESET,
     ZOOMIN,
     ZOOMOUT
-} kZoomDirectionType;
+};
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516,
@@ -16,11 +16,11 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefsLowerViewHeight = 350
 } kDefaultPrefWindowSize;
 
-typedef enum kImageReplacementPrefsType : int32_t {
+typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
     kAlwaysReplace,
     kNeverReplace,
     kAskIfReplace,
-} kImageReplacementPrefsType;
+};
 
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver;

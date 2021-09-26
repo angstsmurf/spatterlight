@@ -4,11 +4,11 @@
 
 struct fillrect;
 
-typedef enum kSaveTextFormatType : int32_t {
+typedef NS_ENUM(int32_t, kSaveTextFormatType) {
     kRTF,
     kRTFD,
     kPlainText,
-} kSaveTextFormatType;
+};
 
 @interface GlkWindow : NSView <NSSecureCoding> {
 

@@ -7,16 +7,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum kImageComparisonSource : NSUInteger {
+typedef NS_ENUM(NSUInteger, kImageComparisonSource) {
     kImageComparisonDownloaded,
     kImageComparisonLocalFile
-} kImageComparisonSource;
+};
 
-typedef enum kImageComparisonResult : NSUInteger {
+typedef NS_ENUM(NSUInteger, kImageComparisonResult ) {
     kImageComparisonResultA,
     kImageComparisonResultB,
     kImageComparisonResultWantsUserInput,
-} kImageComparisonResult;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,14 +9,14 @@
 #import "Metadata.h"
 #import "NSString+Categories.h"
 
-typedef enum kForgiveness : NSInteger {
+typedef NS_ENUM(NSInteger, kForgiveness) {
     FORGIVENESS_NONE,
     FORGIVENESS_CRUEL,
     FORGIVENESS_NASTY,
     FORGIVENESS_TOUGH,
     FORGIVENESS_POLITE,
     FORGIVENESS_MERCIFUL
-} kForgiveness;
+};
 
 @interface IFBibliographic ()
 
