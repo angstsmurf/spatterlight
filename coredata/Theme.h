@@ -11,42 +11,42 @@
 
 @class Game, GlkStyle, Interpreter, Theme, NSColor;
 
-typedef enum kSpacesFormatType : int32_t {
+typedef NS_ENUM(int32_t, kSpacesFormatType) {
     TAG_SPACES_GAME,
     TAG_SPACES_ONE,
     TAG_SPACES_TWO
-} kSpacesFormatType;
+};
 
-typedef enum kCoverImagePrefsType : int32_t {
+typedef NS_ENUM(int32_t, kCoverImagePrefsType) {
     kDontShow,
     kShowAndWait,
     kShowAndFade,
     kShowAsBezel
-} kCoverImagePrefsType;
+};
 
-typedef enum kBorderColorPrefsType : int32_t {
+typedef NS_ENUM(int32_t, kBorderColorPrefsType) {
     kAutomatic,
     kUserOverride
-} kBorderColorPrefsType;
+};
 
-typedef enum kVOMenuPrefsType : int32_t {
+typedef NS_ENUM(int32_t, kVOMenuPrefsType) {
     kVOMenuNone,
     kVOMenuTextOnly,
     kVOMenuIndex,
     kVOMenuTotal
-} kVOMenuPrefsType;
+};
 
-typedef enum kVOImagePrefsType : int32_t {
+typedef NS_ENUM(int32_t, kVOImagePrefsType) {
     kVOImageWithDescriptionOnly,
     kVOImageNone,
     kVOImageAll
-} kVOImagePrefsType;
+};
 
-typedef enum kBZArrowsPrefsType : int32_t {
+typedef NS_ENUM(int32_t, kBZArrowsPrefsType) {
     kBZArrowsCompromise,
     kBZArrowsSwapped,
     kBZArrowsOriginal,
-} kBZArrowsPrefsType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

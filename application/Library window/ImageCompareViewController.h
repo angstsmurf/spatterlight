@@ -7,10 +7,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum kImageComparisonType : NSUInteger {
+typedef NS_ENUM(NSUInteger, kImageComparisonType) {
     DOWNLOADED,
     LOCAL,
-} kImageComparisonType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

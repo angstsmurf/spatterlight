@@ -8,11 +8,11 @@
 #import <Cocoa/Cocoa.h>
 #import "Image.h"
 
-typedef enum kBezelType : NSUInteger {
+typedef NS_ENUM(NSUInteger, kBezelType) {
     kStandard,
     kGameOver,
     kCoverImage
-} kBezelType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
