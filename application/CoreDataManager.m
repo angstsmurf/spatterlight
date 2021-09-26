@@ -141,17 +141,17 @@
     *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
     *groupURL = [*groupURL URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
-    NSURL *targetURL = oldURL;
+    NSURL *targetURL = *groupURL;
 
-//    if ([fileManager fileExistsAtPath:[groupURL path]]) {
-//        needMigrate = NO;
-//        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
-//        //            needDeleteOld = YES;
-//        //        }
-//    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
-//        targetURL = oldURL;
-//        needMigrate = YES;
-//    }
+    if ([fileManager fileExistsAtPath:[*groupURL path]]) {
+        *needMigrate = NO;
+        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
+        //            needDeleteOld = YES;
+        //        }
+    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
+        targetURL = oldURL;
+        *needMigrate = YES;
+    }
 
     return targetURL;
 }

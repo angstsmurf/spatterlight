@@ -556,6 +556,7 @@
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
+		C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C318F76F2741AA5B006D626A /* scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76A2741AA5B006D626A /* scott.c */; };
 		C318F7702741AA5B006D626A /* bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76E2741AA5B006D626A /* bsd.c */; };
 		C318F7882741AA7B006D626A /* loader.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F7722741AA7B006D626A /* loader.c */; };
@@ -596,6 +597,7 @@
 		C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */; };
 		C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C322714F25CC214A0083BD5B /* ThumbnailProvider.m */; };
+		C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C322718C25CC224F0083BD5B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C32271A625CC22530083BD5B /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
@@ -1134,6 +1136,20 @@
 			remoteGlobalIDString = 96FE875F09F3A11900D41D78;
 			remoteInfo = tads2;
 		};
+		C309F89927430D5800F89FFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318F7612741AA2F006D626A;
+			remoteInfo = scott;
+		};
+		C309F89B27430D6000F89FFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318F7552741AA10006D626A;
+			remoteInfo = jacl;
+		};
 		C318F79F2741B13D006D626A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1175,6 +1191,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 961CCEC309F239C100528FF9;
 			remoteInfo = Spatterlight;
+		};
+		C3AE85B8271B09D400C96126 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C311DEF425C472E500484639;
+			remoteInfo = SpatterlightQuickLook;
+		};
+		C3AE85BA271B09D700C96126 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C322714925CC214A0083BD5B;
+			remoteInfo = SpatterlightThumbnailer;
 		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1251,6 +1281,36 @@
 			);
 			name = "Copy Documentation Files";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C311DED625C472C000484639 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed App Extensions */,
+				C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318F7542741AA10006D626A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C318F7602741AA2F006D626A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 		C344B2CE26E4DA87004B0A8F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -2729,6 +2789,8 @@
 		C3075511265C2D2E00931D5B /* NSData+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Categories.h"; sourceTree = "<group>"; };
 		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
+		C309F89627430D0100F89FFE /* htmltadsr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = htmltadsr.entitlements; sourceTree = "<group>"; };
+		C309F89827430D0C00F89FFE /* fizmo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = fizmo.entitlements; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
 		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -2777,8 +2839,11 @@
 		C318F7852741AA7B006D626A /* logging.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = logging.c; sourceTree = "<group>"; };
 		C318F7862741AA7B006D626A /* errors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = errors.c; sourceTree = "<group>"; };
 		C318F7872741AA7B006D626A /* glk_startup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glk_startup.c; sourceTree = "<group>"; };
+		C318F7BB2741BD82006D626A /* jacl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = jacl.entitlements; sourceTree = "<group>"; };
+		C318F7BC2741BD91006D626A /* scott.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = scott.entitlements; sourceTree = "<group>"; };
 		C318F7BE2741C2F6006D626A /* jacl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jacl.c; sourceTree = "<group>"; };
 		C318F7C02741C302006D626A /* scott.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scott.c; sourceTree = "<group>"; };
+		C318F81E27430C9A006D626A /* frotz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = frotz.entitlements; sourceTree = "<group>"; };
 		C3191A9D266CDAF300528F6E /* ImageView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		C3191AA2266D3A1F00528F6E /* NSBitmapImageRep+retro.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSBitmapImageRep+retro.h"; sourceTree = "<group>"; };
 		C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSBitmapImageRep+retro.m"; sourceTree = "<group>"; };
@@ -2834,6 +2899,19 @@
 		C35978C425DA14A6004B1448 /* iFictionPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iFictionPreviewController.m; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
+		C35D51F926F221B2002E2F59 /* advsys.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = advsys.entitlements; sourceTree = "<group>"; };
+		C35D51FA26F221C4002E2F59 /* agility.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = agility.entitlements; sourceTree = "<group>"; };
+		C35D51FB26F221C8002E2F59 /* agt2agx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = agt2agx.entitlements; sourceTree = "<group>"; };
+		C35D51FC26F221CB002E2F59 /* alan2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = alan2.entitlements; sourceTree = "<group>"; };
+		C35D51FD26F221D1002E2F59 /* alan3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = alan3.entitlements; sourceTree = "<group>"; };
+		C35D51FE26F221D5002E2F59 /* bocfel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bocfel.entitlements; sourceTree = "<group>"; };
+		C35D51FF26F221DA002E2F59 /* glulxe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = glulxe.entitlements; sourceTree = "<group>"; };
+		C35D520026F221DD002E2F59 /* hugo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hugo.entitlements; sourceTree = "<group>"; };
+		C35D520126F221E1002E2F59 /* level9.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = level9.entitlements; sourceTree = "<group>"; };
+		C35D520226F221E4002E2F59 /* magnetic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = magnetic.entitlements; sourceTree = "<group>"; };
+		C35D520326F221E8002E2F59 /* scare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = scare.entitlements; sourceTree = "<group>"; };
+		C35D520426F221ED002E2F59 /* tadsr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tadsr.entitlements; sourceTree = "<group>"; };
+		C35D520526F221F1002E2F59 /* unquill.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = unquill.entitlements; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
 		C35D520726F24142002E2F59 /* FolderAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderAccess.m; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
@@ -4033,6 +4111,24 @@
 		961CCE5E09F2375A00528FF9 = {
 			isa = PBXGroup;
 			children = (
+				C35D51F926F221B2002E2F59 /* advsys.entitlements */,
+				C35D51FA26F221C4002E2F59 /* agility.entitlements */,
+				C35D51FB26F221C8002E2F59 /* agt2agx.entitlements */,
+				C35D51FC26F221CB002E2F59 /* alan2.entitlements */,
+				C35D51FD26F221D1002E2F59 /* alan3.entitlements */,
+				C35D51FE26F221D5002E2F59 /* bocfel.entitlements */,
+				C35D51FF26F221DA002E2F59 /* glulxe.entitlements */,
+				C35D520026F221DD002E2F59 /* hugo.entitlements */,
+				C318F7BB2741BD82006D626A /* jacl.entitlements */,
+				C35D520126F221E1002E2F59 /* level9.entitlements */,
+				C35D520226F221E4002E2F59 /* magnetic.entitlements */,
+				C35D520326F221E8002E2F59 /* scare.entitlements */,
+				C318F7BC2741BD91006D626A /* scott.entitlements */,
+				C35D520426F221ED002E2F59 /* tadsr.entitlements */,
+				C35D520526F221F1002E2F59 /* unquill.entitlements */,
+				C309F89827430D0C00F89FFE /* fizmo.entitlements */,
+				C309F89627430D0100F89FFE /* htmltadsr.entitlements */,
+				C318F81E27430C9A006D626A /* frotz.entitlements */,
 				C399292E25C99F2C0069E73A /* Spatterlight.entitlements */,
 				961CCECA09F239E700528FF9 /* application */,
 				961CCE8109F2381B00528FF9 /* glkimp */,
@@ -5958,11 +6054,16 @@
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
 				C344B2CE26E4DA87004B0A8F /* Embed Frameworks */,
+				C311DED625C472C000484639 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C309F89C27430D6000F89FFE /* PBXTargetDependency */,
+				C309F89A27430D5800F89FFE /* PBXTargetDependency */,
 				55368B7B272BF28800740A0A /* PBXTargetDependency */,
+				C3AE85BB271B09D700C96126 /* PBXTargetDependency */,
+				C3AE85B9271B09D400C96126 /* PBXTargetDependency */,
 				96A9BA7B0A0655BE001B5B9B /* PBXTargetDependency */,
 				9650316609F2974A0083E64E /* PBXTargetDependency */,
 				9650316409F2974A0083E64E /* PBXTargetDependency */,
@@ -6293,6 +6394,7 @@
 			buildPhases = (
 				C318F7522741AA10006D626A /* Sources */,
 				C318F7532741AA10006D626A /* Frameworks */,
+				C318F7542741AA10006D626A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -6311,6 +6413,7 @@
 			buildPhases = (
 				C318F75E2741AA2F006D626A /* Sources */,
 				C318F75F2741AA2F006D626A /* Frameworks */,
+				C318F7602741AA2F006D626A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -7770,6 +7873,16 @@
 			target = 96FE875F09F3A11900D41D78 /* tads2 */;
 			targetProxy = 96FE87D809F3A1BC00D41D78 /* PBXContainerItemProxy */;
 		};
+		C309F89A27430D5800F89FFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318F7612741AA2F006D626A /* scott */;
+			targetProxy = C309F89927430D5800F89FFE /* PBXContainerItemProxy */;
+		};
+		C309F89C27430D6000F89FFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318F7552741AA10006D626A /* jacl */;
+			targetProxy = C309F89B27430D6000F89FFE /* PBXContainerItemProxy */;
+		};
 		C318F7A02741B13D006D626A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCE7A09F237E700528FF9 /* glkimp */;
@@ -7789,6 +7902,16 @@
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = C318F7AB2741B33D006D626A /* PBXContainerItemProxy */;
+		};
+		C3AE85B9271B09D400C96126 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
+			targetProxy = C3AE85B8271B09D400C96126 /* PBXContainerItemProxy */;
+		};
+		C3AE85BB271B09D700C96126 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
+			targetProxy = C3AE85BA271B09D700C96126 /* PBXContainerItemProxy */;
 		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7830,12 +7953,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -7853,12 +7976,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
@@ -7875,10 +7998,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = fizmo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				ENABLE_HARDENED_RUNTIME = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -7912,11 +8037,13 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = fizmo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -7945,10 +8072,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = bocfel.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				ENABLE_HARDENED_RUNTIME = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -7980,10 +8108,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = bocfel.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
-				ENABLE_HARDENED_RUNTIME = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8044,11 +8174,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = htmltadsr.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8067,11 +8198,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = htmltadsr.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					COCO,
@@ -8108,12 +8240,14 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
@@ -8156,11 +8290,14 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEBUG_INFORMATION_FORMAT = "";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -8259,13 +8396,15 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8312,15 +8451,17 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -8358,11 +8499,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = frotz.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8378,11 +8520,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = frotz.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
@@ -8398,11 +8541,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = scare.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8426,11 +8570,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = scare.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8452,11 +8597,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = level9.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8482,11 +8628,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = level9.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8511,11 +8658,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = magnetic.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8538,11 +8686,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = magnetic.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8564,11 +8713,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = unquill.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8585,11 +8735,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = unquill.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -8604,11 +8755,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = glulxe.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -8632,11 +8784,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = glulxe.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8659,11 +8812,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = agility.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8685,11 +8839,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = agility.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8711,11 +8866,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = hugo.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
@@ -8742,11 +8898,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = hugo.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -8773,11 +8930,12 @@
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = alan2.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -8808,11 +8966,12 @@
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = alan2.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -8841,11 +9000,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = alan3.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -8868,11 +9028,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_ENTITLEMENTS = alan3.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -8893,11 +9054,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = advsys.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8918,11 +9080,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = advsys.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8942,11 +9105,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = agt2agx.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8963,11 +9127,12 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = agt2agx.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
@@ -9017,11 +9182,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = tadsr.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9064,11 +9230,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = tadsr.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
@@ -9266,13 +9433,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9316,13 +9484,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9364,11 +9533,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = jacl.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9383,7 +9552,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9409,11 +9578,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = jacl.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -9423,7 +9592,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9447,11 +9616,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = scott.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9462,7 +9631,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9486,17 +9655,17 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = scott.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9519,13 +9688,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9569,13 +9739,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "$(APP_BUILD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9613,10 +9784,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9656,11 +9828,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -9696,10 +9869,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9740,11 +9914,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -9780,12 +9955,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -9833,12 +10010,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
