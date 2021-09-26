@@ -1276,7 +1276,7 @@
 		6D7673E2239FFB0900FB24C0 /* IFIdentification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFIdentification.m; sourceTree = "<group>"; };
 		6D7673E3239FFB0900FB24C0 /* IFStory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFStory.h; sourceTree = "<group>"; };
 		6D7673E4239FFB0900FB24C0 /* IFStory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IFStory.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		6D7677FE22B1430700C80DDE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6D7677FE22B1430700C80DDE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6D794357224A2D2E0071EB3D /* NSString+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Categories.h"; sourceTree = "<group>"; };
 		6D794358224A2D2E0071EB3D /* NSString+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Categories.m"; sourceTree = "<group>"; };
 		6D79B0D9223262CA008C9CB7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
