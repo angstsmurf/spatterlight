@@ -9,7 +9,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 
 #pragma mark - NSData Category
 

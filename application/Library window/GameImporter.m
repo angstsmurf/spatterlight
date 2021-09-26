@@ -371,9 +371,9 @@ extern NSArray *gGameFileTypes;
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
             found = YES;
-            game.checksum = blorb.checkSum;
+            game.checksum = (int32_t)blorb.checkSum;
             game.serialString = blorb.serialNumber;
-            game.releaseNumber = blorb.releaseNumber;
+            game.releaseNumber = (int32_t)blorb.releaseNumber;
         }
         if (!found) {
             BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
@@ -482,7 +482,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                     imgFileName = [imgFileName substringToIndex:imgFileName.length - 1];
                 return [imgFileName isEqualToString:gameFileName];
             }]];
-        } else if ([gameNames containsObject:@"screen"] && [gameNames containsObject:@"story"]) {
+        }
+
+        if (!imageFiles.count &&[gameNames containsObject:@"screen"] && [gameNames containsObject:@"story"]) {
             // The original Beyond Zork cover image is named SCREEN.DAT, but is in fact
             // a Neochrome image. We cheat and create a renamed copy with a .neo file extension
             // (SCREEN.neo) in a temp folder.

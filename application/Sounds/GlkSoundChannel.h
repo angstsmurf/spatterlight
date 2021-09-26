@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 @class SoundHandler, MIDIChannel;
 
 #import <Foundation/Foundation.h>

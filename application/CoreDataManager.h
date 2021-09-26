@@ -6,8 +6,7 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import <Cocoa/Cocoa.h>
 
 
 @interface CoreDataManager : NSObject

@@ -18,14 +18,17 @@ static int loadimage(int image)
 
     if (!giblorb_is_resource_map())
     {
-        getworkdir();
-        sprintf(filename, "%s/PIC%d", workingdir, image);
+        sprintf(filename, "%s/PIC%d", gli_parentdir, image);
         
-        fprintf(stderr, "loadimage %s in %s\n", filename, workingdir);
+        fprintf(stderr, "loadimage %s in %s\n", filename, gli_parentdir);
         
         file = fopen(filename, "rb");
-        if (!file)
-            return FALSE;
+        if (!file) {
+            sprintf(filename, "%s.jpg", filename);
+            file = fopen(filename, "rb");
+            if (!file)
+                return FALSE;
+        }
         
         fseek(file, 0, 2);
         len = ftell(file);
@@ -59,7 +62,7 @@ static int loadimage(int image)
         }
     }
     
-    win_loadimage(image, filename, pos, len);
+    win_loadimage(image, filename, (int)pos, (int)len);
 
     return TRUE;
 }

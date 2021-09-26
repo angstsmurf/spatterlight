@@ -389,7 +389,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
 
-            kSaveTextFormatType fileFormat = popUp.selectedItem.tag;
+            kSaveTextFormatType fileFormat = (kSaveTextFormatType)popUp.selectedItem.tag;
             [[NSUserDefaults standardUserDefaults] setInteger:fileFormat forKey:@"ScrollbackSaveFormat"];
 
             NSError *error = nil;
@@ -488,7 +488,7 @@ fprintf(stderr, "%s\n",                                                    \
         plainText.tag = kPlainText;
     }
 
-    kSaveTextFormatType defaultType = [[NSUserDefaults standardUserDefaults] integerForKey:@"ScrollbackSaveFormat"];
+    kSaveTextFormatType defaultType = (kSaveTextFormatType)[[NSUserDefaults standardUserDefaults] integerForKey:@"ScrollbackSaveFormat"];
     if (defaultType == kRTFD && !hasImages)
         defaultType = kRTF;
 
@@ -505,8 +505,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)selectFormat:(id)sender
 {
     NSPopUpButton       *button =                 (NSPopUpButton *)sender;
-    kSaveTextFormatType selectedItemTag =         [button selectedItem].tag;
-    NSString            *nameFieldString =        self.savePanel.nameFieldStringValue;
+    kSaveTextFormatType selectedItemTag = (kSaveTextFormatType)[button selectedItem].tag;
+    NSString            *nameFieldString = self.savePanel.nameFieldStringValue;
     NSString            *trimmedNameFieldString = nameFieldString.stringByDeletingPathExtension;
     NSString            *extension;
 

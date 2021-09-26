@@ -2926,7 +2926,7 @@ static void oss_lay_out_window(osgen_win_t *win)
          *   mode: shrink the window one line from the top, to make room for
          *   the scrollback-mode status line.  
          */
-        if (win == &S_sbmode_win->base)
+        if (S_sbmode_win != 0 && win == &S_sbmode_win->base)
         {
             /* it's the scrollback window - take out the mode line */
             win->winy += 1;

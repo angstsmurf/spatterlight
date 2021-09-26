@@ -457,12 +457,17 @@ extern void garglk_set_story_name(const char *name);
 extern void garglk_set_story_title(const char *title);
 extern void garglk_set_config(const char *name);
 
+extern void spatterlight_set_game_path(const char *name);
+
 /* garglk_unput_string - removes the specified string from the end of the output buffer, if
  * indeed it is there. */
 extern void garglk_unput_string(char *str);
 extern void garglk_unput_string_uni(glui32 *str);
 extern glui32 garglk_unput_string_count(char *str);
 extern glui32 garglk_unput_string_count_uni(glui32 *str);
+
+extern frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name,
+                                           glui32 rock);
 
 #define zcolor_Transparent   ((glui32)0xfffffffc)
 #define zcolor_Cursor        ((glui32)0xfffffffd)

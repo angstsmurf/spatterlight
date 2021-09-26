@@ -160,6 +160,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
         terminate(1);
     }
 
+    glkunix_set_base_file(adventureFileName);
+
     /* Open any possible blorb resource file */
     openResourceFile();
 

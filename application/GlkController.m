@@ -37,6 +37,7 @@
 #import "CoverImageHandler.h"
 #import "CoverImageView.h"
 #import "NotificationBezel.h"
+#include "FolderAccess.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -266,6 +267,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSURL *url = [game urlForBookmark];
     _gamefile = url.path;
+
+    if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
+        [self.window performClose:nil];
+        return;
+    }
+
     [_imageHandler cacheImagesFromBlorb:url];
 
     _terpname = terpname_;
@@ -576,17 +583,11 @@ fprintf(stderr, "%s\n",                                                    \
                 [fileManager moveItemAtPath:oldGlkSaveTerp toPath:glkSaveTerp error:nil];
                 NSLog(@"Successfully used previous terp save");
             } else {
-                [self deleteAutosaveFiles];
-                _game.autosaved = NO;
-                [self runTerpNormal];
-                return;
+                NSLog(@"Only restore UI state at first turn");
+                [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+                                     [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+                restoredUIOnly = YES;
             }
-
-
-            NSLog(@"Only restore UI state at first turn");
-            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
-            restoredUIOnly = YES;
 
         } else {
             // Only show the alert about autorestoring if this is not a system
@@ -902,6 +903,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     dead = NO;
 
+    if (_secureBookmark == nil) {
+        _secureBookmark = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:_gamefile]];
+    }
+
     [task launch];
 
     /* Send a prefs and an arrange event first thing */
@@ -916,6 +921,59 @@ fprintf(stderr, "%s\n",                                                    \
 
     restartingAlready = NO;
     [readfh waitForDataInBackgroundAndNotify];
+}
+
+- (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block {
+
+    NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
+    if (bookmarkURL) {
+        if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+            [FolderAccess storeBookmark:bookmarkURL];
+            [FolderAccess saveBookmarks];
+        } else {
+            [FolderAccess restoreURL:bookmarkURL];
+            if (![[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+
+                if (!dialogFlag) {
+                    double delayInSeconds = 0.5;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                        // Closing game window as we have no security scoped bookmark
+                        // and we don't want to show a file dialog during window
+                        // restoration.
+                        [self close];
+                    });
+
+                    return;
+                }
+
+                NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+                openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
+                openPanel.prompt = NSLocalizedString(@"Authorize", nil);
+                openPanel.canChooseFiles = NO;
+                openPanel.canChooseDirectories = YES;
+                openPanel.canCreateDirectories = NO;
+                openPanel.directoryURL = bookmarkURL;
+
+                [openPanel beginWithCompletionHandler:^(NSInteger result) {
+                    if (result == NSModalResponseOK) {
+                        NSURL *blockURL = openPanel.URL;
+                        [FolderAccess storeBookmark:blockURL];
+                        [FolderAccess saveBookmarks];
+                        block();
+                    } else {
+                        NSLog(@"GlkController askForAccessToURL: closing window because user would not grant access");
+                        [self close];
+                    }
+                }];
+                return;
+            } else {
+                _secureBookmark = bookmarkURL;
+            }
+        }
+    }
+
+    block();
 }
 
 #pragma mark Autorestore
@@ -1244,7 +1302,6 @@ fprintf(stderr, "%s\n",                                                    \
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
@@ -1685,6 +1742,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (libcontroller)
         [libcontroller releaseGlkControllerSoon:self];
+
+    if (_secureBookmark)
+        [FolderAccess releaseBookmark:_secureBookmark];
 
     libcontroller = nil;
 }
@@ -3185,7 +3245,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FILLRECT:
             if (reqWin) {
-                int realcount = req->len / sizeof(struct fillrect);
+                NSInteger realcount = req->len / sizeof(struct fillrect);
                 if (realcount == req->a2) {
                     [reqWin fillRects:(struct fillrect *)buf count:req->a2];
                 }
@@ -3209,11 +3269,17 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case UNPRINT:
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                //                NSLog(@"Restoring UI at UNPRINT");
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
             if (reqWin && req->len) {
-                ans->a1 = [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
+                ans->a1 = (int)[self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
             break;
 
@@ -3272,6 +3338,7 @@ fprintf(stderr, "%s\n",                                                    \
             [self performScroll];
 
             if (!_gwindows.count && shouldRestoreUI) {
+                buf = "\0";
 //              NSLog(@"Restoring UI at INITLINE");
 //              NSLog(@"at eventcount %ld", _eventcount);
                 if (restoredController.commandScriptRunning) {
@@ -3284,7 +3351,7 @@ fprintf(stderr, "%s\n",                                                    \
                         restoredController = restoredControllerLate;
                     }
                 }
-                _windowsToRestore = restoredController.gwindows.allValues;
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -3465,7 +3532,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = [banner numberOfColumns];
+                ans->a1 = (int)[banner numberOfColumns];
             }
             break;
 
@@ -3475,7 +3542,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = [banner numberOfLines];
+                ans->a1 = (int)[banner numberOfLines];
             }
             break;
 
@@ -3580,8 +3647,6 @@ static BOOL pollMoreData(int fd) {
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir
-                                                 stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }

@@ -6745,7 +6745,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the Mac platform                      */
 /*---------------------------------------------------------------------*/
-#if TARGET_OS_MAC
+#ifdef TARGET_OS_MAC
 
 #include "macglk_startup.h"
 

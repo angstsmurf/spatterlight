@@ -5,14 +5,6 @@
 
 #import "TempLibrary.h"
 
-@interface TempLibrary () <NSSecureCoding> {
-    NSString *program_name;
-    NSString *program_info;
-    NSString *story_name;
-    NSString *story_title;
-}
-@end
-
 @implementation TempLibrary
 
 //static TempLibrary *singleton = nil;
@@ -40,15 +32,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     self = [super init];
 
     if (self) {
-        // gli_program_name should always be interpreter name or Unknown
-        program_name = [NSString stringWithUTF8String:gli_program_name];
-        if (gli_program_info[0] != '\0')
-            program_info = [NSString stringWithUTF8String:gli_program_info];
-        if (gli_story_name[0] != '\0')
-            story_name = [NSString stringWithUTF8String:gli_story_name];
-        if (gli_story_name[0] != '\0')
-            story_title = [NSString stringWithUTF8String:gli_story_title];
-
         _timerInterval = gtimerinterval;
 
         _windows = [NSMutableArray arrayWithCapacity:8];
@@ -109,19 +92,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         return nil;
     }
 
-    program_name = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_name"];
-    program_info = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_info"];
-    story_name = [decoder decodeObjectOfClass:[NSString class]  forKey:@"story_name"];
-    story_title = [decoder decodeObjectOfClass:[NSString class]  forKey:@"story_title"];
-    if (program_name)
-        garglk_set_program_name([program_name UTF8String]);
-    if (program_info)
-        garglk_set_program_info([program_info UTF8String]);
-    if (story_name)
-        garglk_set_story_name([story_name UTF8String]);
-    if (story_title)
-        garglk_set_story_title([story_title UTF8String]);
-
 	_windows = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"windows"];
     if (!_windows)
         NSLog(@"TempLibrary initWithCoder: No windows in archive file!");
@@ -180,13 +150,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 //    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
     int serial_version = AUTOSAVE_SERIAL_VERSION;
 	[encoder encodeInt:serial_version forKey:@"version"];
-
-    [encoder encodeObject:program_name forKey:@"program_name"];
-    [encoder encodeObject:program_info forKey:@"program_info"];
-    if (story_name)
-        [encoder encodeObject:story_name forKey:@"story_name"];
-    if (story_title)
-        [encoder encodeObject:story_title forKey:@"story_title"];
 
 	[encoder encodeObject:_windows forKey:@"windows"];
 	[encoder encodeObject:_streams forKey:@"streams"];

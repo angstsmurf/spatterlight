@@ -370,6 +370,8 @@
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
+			<key>NSIsRelatedItemType</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>

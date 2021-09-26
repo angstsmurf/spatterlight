@@ -379,10 +379,8 @@ long FindResource(char *filename, char *resname)
 		}
 #else
 	/* Glk implementation */
-	fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode,
+	fref = garglk_fileref_create_in_game_dir(fileusage_Data | fileusage_BinaryMode,
 		filename, 0);
-
-    strip_extension(fref->filename);
 
     if (glk_fileref_does_file_exist(fref))
 		resource_file = glk_stream_open_file(fref, filemode_Read, 0);

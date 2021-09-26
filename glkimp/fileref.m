@@ -4,9 +4,10 @@
 #include "fileref.h"
 #include "glkimp.h"
 
-char autosavedir[1024] = "";
+char *autosavedir = NULL;
+char tempdir[BUFLEN] = "";
 
-void setdefaultworkdir(char *string)
+void setdefaultworkdir(char **string)
 {
     size_t length;
     @autoreleasepool {
@@ -47,27 +48,28 @@ void setdefaultworkdir(char *string)
         [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
 
         length = appSupportDir.path.length;
-        strncpy(string, [appSupportDir.path UTF8String], length);
+        *string = malloc(length + 1);
+        strncpy(*string, [appSupportDir.path UTF8String], length);
 
     }
 
-    string[length] = 0;
+    (*string)[length] = 0;
 }
 
 void getworkdir()
 {
-    /* if we have already set a working dir path, we return right away */
-    if (strcmp(workingdir, "")) {
+    /* if we have already set a work dir path, we return right away */
+    if (gli_workdir != NULL) {
         return;
     }
 
-    setdefaultworkdir(workingdir);
+    setdefaultworkdir(&gli_workdir);
 }
 
 void getautosavedir(char *file)
 {
     /* if we have already set an autosave dir path, we return right away */
-    if (strcmp(autosavedir, "")) {
+    if (autosavedir != NULL) {
         return;
     }
 
@@ -75,7 +77,7 @@ void getautosavedir(char *file)
 
         NSError *error = nil;
 
-        setdefaultworkdir(autosavedir);
+        setdefaultworkdir(&autosavedir);
         NSString *gamepath = [NSString stringWithUTF8String:file];
         NSString *dirname = [NSString stringWithUTF8String:autosavedir];
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
@@ -85,8 +87,39 @@ void getautosavedir(char *file)
         if (error)
             NSLog(@"Could not create autosave directory at %@. Error:%@",dirname,error);
 
-        strncpy(autosavedir, [dirname UTF8String], sizeof autosavedir);
+        NSUInteger length = dirname.length;
+        autosavedir = malloc(length + 1);
+        strncpy(autosavedir, [dirname UTF8String], length);
+        autosavedir[length] = 0;
     }
-    
-	autosavedir[sizeof autosavedir-1] = 0;
+}
+
+void gettempdir()
+{
+    /* if we have already set an autosave dir path, we return right away */
+    if (strcmp(tempdir, "")) {
+        return;
+    }
+
+    @autoreleasepool {
+        getworkdir();
+
+        NSString *string = [NSString stringWithUTF8String:gli_workdir];
+        NSURL *desktopURL = [NSURL fileURLWithPath:string
+                                       isDirectory:YES];
+        NSError *error = nil;
+
+        NSURL *temporaryDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
+                   inDomain:NSUserDomainMask
+          appropriateForURL:desktopURL
+                     create:YES
+                      error:&error];
+
+        if (error) {
+            NSLog(@"gettempdir error: %@", error);
+        }
+
+        strncpy(tempdir, temporaryDirectoryURL.path.UTF8String, sizeof tempdir);
+
+    }
 }

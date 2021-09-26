@@ -5,7 +5,8 @@
 //  Created by Administrator on 2021-04-19.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @class Theme;
 

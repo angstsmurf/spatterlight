@@ -600,6 +600,7 @@
 		C359795525DA19BF004B1448 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
 		C359797025DA19DA004B1448 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
+		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; };
 		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -742,21 +743,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		55773FB82700293900F0B9E7 /* PBXContainerItemProxy */ = {
+		55773FC927003F6300F0B9E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C35978BF25DA14A6004B1448;
 			remoteInfo = iFictionQuickLook;
 		};
-		55773FBB2700293900F0B9E7 /* PBXContainerItemProxy */ = {
+		55773FCC27003F6300F0B9E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C311DEF425C472E500484639;
 			remoteInfo = SpatterlightQuickLook;
 		};
-		55773FBE2700293900F0B9E7 /* PBXContainerItemProxy */ = {
+		55773FCF27003F6300F0B9E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
@@ -1099,19 +1100,19 @@
 			remoteGlobalIDString = 3210AB9017B9C05A00743639;
 			remoteInfo = SFBAudioEngine;
 		};
+		C35D51F426F21D18002E2F59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEC309F239C100528FF9;
+			remoteInfo = Spatterlight;
+		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 96FE876409F3A12B00D41D78;
 			remoteInfo = tads3;
-		};
-		C3CEC2BB26A6D0A200120469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 961CCEC309F239C100528FF9;
-			remoteInfo = Spatterlight;
 		};
 		C3CEC2D026A6D66800120469 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2102,8 +2103,6 @@
 		9650332F09F29EE20083E64E /* os_glk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_glk.h; sourceTree = "<group>"; };
 		9650333009F29EE20083E64E /* oss_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oss_glk.c; sourceTree = "<group>"; };
 		9650333109F29EE20083E64E /* oss_glk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oss_glk.h; sourceTree = "<group>"; };
-		9650333209F29EE20083E64E /* h_ix86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_ix86.h; sourceTree = "<group>"; };
-		9650333309F29EE20083E64E /* h_ppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_ppc.h; sourceTree = "<group>"; };
 		9650333409F29EE20083E64E /* indlg_os.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = indlg_os.c; sourceTree = "<group>"; };
 		9650333509F29EE20083E64E /* indlg_tx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = indlg_tx.c; sourceTree = "<group>"; };
 		9650333609F29EE20083E64E /* ler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ler.c; sourceTree = "<group>"; };
@@ -2652,7 +2651,7 @@
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
 		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; tabWidth = 4; };
 		C311866725BD3B1800739D7B /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
-		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
+		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
 		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
 		C311875125BD8F1E00739D7B /* SoundHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundHandler.h; sourceTree = "<group>"; };
 		C311875225BD8F1E00739D7B /* ogg.xcodeproj */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; name = ogg.xcodeproj; path = /Users/administrator/spatterlight/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<absolute>"; };
@@ -2665,6 +2664,8 @@
 		C311DEFF25C472E500484639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C311DF0025C472E500484639 /* SpatterlightQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpatterlightQuickLook.entitlements; sourceTree = "<group>"; };
 		C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
+		C313318626FD48CD00593EF6 /* osspatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = osspatter.h; sourceTree = "<group>"; };
+		C313318826FD493300593EF6 /* osfrobtads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = osfrobtads.h; sourceTree = "<group>"; };
 		C3191A9C266CDAF300528F6E /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		C3191A9D266CDAF300528F6E /* ImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		C3191AA2266D3A1F00528F6E /* NSBitmapImageRep+retro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBitmapImageRep+retro.h"; sourceTree = "<group>"; };
@@ -2720,6 +2721,8 @@
 		C35978CA25DA14A6004B1448 /* iFictionQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFictionQuickLook.entitlements; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
+		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
+		C35D520726F24142002E2F59 /* FolderAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderAccess.m; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
 		C363030B26ECF4CF0028FBC8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2776,6 +2779,8 @@
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
+		C3B31056270097B6002929F4 /* htmltadsr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = htmltadsr.entitlements; sourceTree = "<group>"; };
+		C3B31057270097D2002929F4 /* frotz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = frotz.entitlements; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -2822,6 +2827,7 @@
 		C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttributeDictionaryTransformer.m; sourceTree = "<group>"; };
 		C3B9EB6625FA3AEF002A406E /* ColorTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTransformer.h; sourceTree = "<group>"; };
 		C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTransformer.m; sourceTree = "<group>"; };
+		C3BB6A7026FC93FE009BE6DE /* h_le_c11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = h_le_c11.h; sourceTree = "<group>"; };
 		C3BD71E32630E3350061E55C /* Spatterlight 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 7.xcdatamodel"; sourceTree = "<group>"; };
 		C3C1807A25C70F2F0040AE79 /* BlorbResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorbResource.h; sourceTree = "<group>"; };
 		C3C1807B25C70F2F0040AE79 /* Blorb.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = Blorb.m; sourceTree = "<group>"; tabWidth = 2; };
@@ -3842,6 +3848,8 @@
 		961CCE5E09F2375A00528FF9 = {
 			isa = PBXGroup;
 			children = (
+				C3B31057270097D2002929F4 /* frotz.entitlements */,
+				C3B31056270097B6002929F4 /* htmltadsr.entitlements */,
 				C399292E25C99F2C0069E73A /* Spatterlight.entitlements */,
 				961CCECA09F239E700528FF9 /* application */,
 				961CCE8109F2381B00528FF9 /* glkimp */,
@@ -3969,6 +3977,8 @@
 				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
+				C35D520626F24142002E2F59 /* FolderAccess.h */,
+				C35D520726F24142002E2F59 /* FolderAccess.m */,
 			);
 			path = application;
 			sourceTree = "<group>";
@@ -4450,6 +4460,8 @@
 				C343E48B1ECC6776000F15B6 /* osextra.c */,
 				C343E48C1ECC6776000F15B6 /* osglk.c */,
 				C343E48D1ECC6776000F15B6 /* osglkban.c */,
+				C313318826FD493300593EF6 /* osfrobtads.h */,
+				C313318626FD48CD00593EF6 /* osspatter.h */,
 				C343E48E1ECC6776000F15B6 /* osmisc.c */,
 				C343E48F1ECC6776000F15B6 /* osparse.c */,
 				C343E4851ECC5E81000F15B6 /* osportable.cc */,
@@ -4471,6 +4483,7 @@
 			isa = PBXGroup;
 			children = (
 				9650338609F29EE20083E64E /* os.h */,
+				C3BB6A7026FC93FE009BE6DE /* h_le_c11.h */,
 				965032F909F29EE20083E64E /* argize.c */,
 				965032FB09F29EE20083E64E /* askf_os.c */,
 				9650330D09F29EE20083E64E /* bif.c */,
@@ -4535,8 +4548,6 @@
 				9650332309F29EE20083E64E /* fio.h */,
 				9650332409F29EE20083E64E /* fiowrt.c */,
 				9650332609F29EE20083E64E /* gameinfo.t */,
-				9650333209F29EE20083E64E /* h_ix86.h */,
-				9650333309F29EE20083E64E /* h_ppc.h */,
 				9650333409F29EE20083E64E /* indlg_os.c */,
 				9650333709F29EE20083E64E /* ler.h */,
 				9650333809F29EE20083E64E /* lermsg.c */,
@@ -5685,9 +5696,9 @@
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
-				55773FB92700293900F0B9E7 /* PBXTargetDependency */,
-				55773FBC2700293900F0B9E7 /* PBXTargetDependency */,
-				55773FBF2700293900F0B9E7 /* PBXTargetDependency */,
+				55773FCA27003F6300F0B9E7 /* PBXTargetDependency */,
+				55773FCD27003F6300F0B9E7 /* PBXTargetDependency */,
+				55773FD027003F6300F0B9E7 /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -6076,94 +6087,87 @@
 				TargetAttributes = {
 					6D8BCAD5225E4ACF00696057 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					6DB774A12458B95E00EDC671 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9611535E0A4F35EE00BB7FF2 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9611541F0A4F3F8B00BB7FF2 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					961CCE7A09F237E700528FF9 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					961CCEB609F2396500528FF9 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
-					};
-					961CCEC309F239C100528FF9 = {
-						ProvisioningStyle = Manual;
-					};
-					965036FF09F29F020083E64E = {
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650376609F2A2CE0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037AF09F2A4120083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037D009F2A41F0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037F109F2A4430083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650384809F2AF280083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650386F09F2CC450083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650387D09F2CC4E0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965038E809F2D3DC0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650391209F2D4A10083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650396509F2D6C40083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96A9B9F00A064A4E001B5B9B = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96A9BA780A06558F001B5B9B = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE866509F38BF600D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE875F09F3A11900D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE876409F3A12B00D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					C311DEF425C472E500484639 = {
 						CreatedOnToolsVersion = 12.3;
@@ -6577,6 +6581,7 @@
 				C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
+				C35D520826F24142002E2F59 /* FolderAccess.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
 				C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */,
 				C35ED515256DD37A00C14847 /* InputHistory.m in Sources */,
@@ -7157,20 +7162,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		55773FB92700293900F0B9E7 /* PBXTargetDependency */ = {
+		55773FCA27003F6300F0B9E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C35978BF25DA14A6004B1448 /* iFictionQuickLook */;
-			targetProxy = 55773FB82700293900F0B9E7 /* PBXContainerItemProxy */;
+			targetProxy = 55773FC927003F6300F0B9E7 /* PBXContainerItemProxy */;
 		};
-		55773FBC2700293900F0B9E7 /* PBXTargetDependency */ = {
+		55773FCD27003F6300F0B9E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
-			targetProxy = 55773FBB2700293900F0B9E7 /* PBXContainerItemProxy */;
+			targetProxy = 55773FCC27003F6300F0B9E7 /* PBXContainerItemProxy */;
 		};
-		55773FBF2700293900F0B9E7 /* PBXTargetDependency */ = {
+		55773FD027003F6300F0B9E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
-			targetProxy = 55773FBE2700293900F0B9E7 /* PBXContainerItemProxy */;
+			targetProxy = 55773FCF27003F6300F0B9E7 /* PBXContainerItemProxy */;
 		};
 		6D2C86EF225E898A004A5A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7415,7 +7420,7 @@
 		C3CEC2BC26A6D0A200120469 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCEC309F239C100528FF9 /* Spatterlight */;
-			targetProxy = C3CEC2BB26A6D0A200120469 /* PBXContainerItemProxy */;
+			targetProxy = C35D51F426F21D18002E2F59 /* PBXContainerItemProxy */;
 		};
 		C3CEC2D126A6D66800120469 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7456,7 +7461,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -7496,7 +7501,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -7530,8 +7535,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = bocfel.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -7566,8 +7572,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = bocfel.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = "";
@@ -7594,11 +7601,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -7619,11 +7622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -7642,8 +7641,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = htmltadsr.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -7667,8 +7667,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = htmltadsr.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -7691,8 +7692,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "";
+				CLANG_CXX_LIBRARY = "";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -7712,9 +7713,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7722,9 +7723,9 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
@@ -7744,8 +7745,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "";
+				CLANG_CXX_LIBRARY = "";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -7766,7 +7767,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "";
@@ -7775,10 +7776,10 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
@@ -7797,12 +7798,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -7811,7 +7808,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
+					"@executable_path",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
 				SDKROOT = macosx;
@@ -7824,12 +7825,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -7837,7 +7834,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
+					"@executable_path",
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
 				SDKROOT = macosx;
@@ -7850,12 +7851,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -7871,12 +7868,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INSTALL_PATH = /usr/local/lib;
@@ -7923,7 +7916,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				INFOPLIST_FILE = resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
+				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -7959,10 +7952,10 @@
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "";
@@ -7984,7 +7977,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				INFOPLIST_FILE = resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
+				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -8011,8 +8004,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = frotz.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8033,8 +8027,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = frotz.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8055,8 +8050,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = scare.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8068,6 +8064,7 @@
 					GARGLK,
 					SPATTERLIGHT,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = "-lz";
@@ -8083,8 +8080,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = scare.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8095,6 +8093,7 @@
 					GARGLK,
 					SPATTERLIGHT,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = "-lz";
@@ -8109,8 +8108,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = level9.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8126,6 +8126,7 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -8140,8 +8141,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = level9.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8156,6 +8158,7 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -8170,8 +8173,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = magnetic.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8183,6 +8187,7 @@
 					GARGLK,
 					SPATTERLIGHT,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
@@ -8198,8 +8203,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = magnetic.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8210,6 +8216,7 @@
 					GARGLK,
 					SPATTERLIGHT,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
@@ -8225,8 +8232,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = unquill.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8235,6 +8243,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8247,14 +8256,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = unquill.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8267,8 +8278,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = glulxe.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8282,6 +8294,7 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -8296,8 +8309,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = glulxe.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8310,6 +8324,7 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -8324,8 +8339,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = agility.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8338,6 +8354,7 @@
 					__unix,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
@@ -8352,8 +8369,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = agility.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8365,6 +8383,7 @@
 					__unix,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
@@ -8379,8 +8398,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = hugo.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8397,6 +8418,7 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
@@ -8411,8 +8433,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = hugo.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8428,6 +8452,7 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
@@ -8444,8 +8469,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = alan2.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8459,6 +8485,7 @@
 					GLK,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = (
@@ -8480,8 +8507,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = alan2.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8494,6 +8522,7 @@
 					GLK,
 					GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = (
@@ -8514,8 +8543,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = alan3.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8529,6 +8559,7 @@
 					GLK,
 					HAVE_GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
@@ -8543,8 +8574,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CODE_SIGN_ENTITLEMENTS = alan3.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8557,6 +8589,7 @@
 					GLK,
 					HAVE_GARGLK,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
@@ -8570,8 +8603,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = advsys.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8597,8 +8631,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = advsys.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8623,8 +8658,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = agt2agx.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -8633,6 +8669,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8645,8 +8682,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = agt2agx.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
@@ -8654,6 +8692,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8666,15 +8705,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
@@ -8686,14 +8722,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
@@ -8705,16 +8738,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CODE_SIGN_ENTITLEMENTS = tadsr.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -8728,6 +8764,7 @@
 					GLK_TIMERS,
 					GLK_UNICODE,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
@@ -8755,16 +8792,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CODE_SIGN_ENTITLEMENTS = tadsr.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8776,6 +8816,7 @@
 					GLK_TIMERS,
 					GLK_UNICODE,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
@@ -8803,17 +8844,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
@@ -8824,6 +8865,7 @@
 					GLK_TIMERS,
 					TC_TARGET_T3,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -8849,16 +8891,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
 					RUNTIME,
@@ -8868,6 +8910,7 @@
 					GLK_TIMERS,
 					TC_TARGET_T3,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -8893,19 +8936,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_INFINITE_RECURSION = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					VMGLOB_STRUCT,
@@ -8917,6 +8961,7 @@
 					RUNTIME,
 				);
 				GCC_THREADSAFE_STATICS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -8943,18 +8988,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_INFINITE_RECURSION = NO;
 				CLANG_WARN_UNREACHABLE_CODE = NO;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INPUT_FILETYPE = automatic;
+				GCC_INPUT_FILETYPE = "";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					VMGLOB_STRUCT,
 					TC_TARGET_T3,
@@ -8965,6 +9011,7 @@
 					RUNTIME,
 				);
 				GCC_THREADSAFE_STATICS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -9006,7 +9053,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -9028,8 +9075,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightQuickLook;
@@ -9059,7 +9106,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -9076,8 +9123,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightQuickLook;
@@ -9107,7 +9154,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -9128,8 +9175,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightThumbnailer;
@@ -9159,7 +9206,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -9175,8 +9222,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightThumbnailer;
@@ -9206,7 +9253,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -9227,8 +9274,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.iFictionQuickLook;
@@ -9258,7 +9305,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.6;
+				CURRENT_PROJECT_VERSION = 0.8.7;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -9274,8 +9321,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.8.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.8.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.iFictionQuickLook;

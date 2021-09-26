@@ -52,11 +52,13 @@ void os_put_buffer (unsigned char *buf, size_t len);
 void os_get_buffer (unsigned char *buf, size_t len, size_t init);
 unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
 
-#define OS_MAXWIDTH 255
+#ifndef OS_MAXWIDTH
+#define OS_MAXWIDTH 2048
+#endif
 
-#define OS_ATTR_HILITE  OS_ATTR_BOLD
-#define OS_ATTR_EM      OS_ATTR_ITALIC
-#define OS_ATTR_STRONG  OS_ATTR_BOLD
+//#define OS_ATTR_HILITE  OS_ATTR_BOLD
+//#define OS_ATTR_EM      OS_ATTR_ITALIC
+//#define OS_ATTR_STRONG  OS_ATTR_BOLD
 
 #define OS_DECLARATIVE_TLS
 #define OS_DECL_TLS(t, v) t v

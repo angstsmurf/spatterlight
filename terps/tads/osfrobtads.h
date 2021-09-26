@@ -293,15 +293,14 @@ typedef DIR* osdirhdl_t;
 int osfmode( const char* fname, int follow_links, unsigned long* mode,
              unsigned long* attr );
 
-#if 0
 /* The maximum width of a line of text.
  *
  * We ignore this, but the base code needs it defined.  If the
  * interpreter is run inside a console or terminal with more columns
  * than the value defined here, weird things will happen, so we go safe
- * and use a large value. */
-#define OS_MAXWIDTH 255
-#endif
+ * and use a large value. It can't be arbitrarily large though, since
+ * it is used as the size of stack-allocated buffers. */
+#define OS_MAXWIDTH 2048
 
 /* Disable the Tads swap file; computers have plenty of RAM these days.
  */

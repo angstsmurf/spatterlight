@@ -424,16 +424,15 @@
 
     CoverImageHandler __unsafe_unretained *weakSelf = self;
 
-    // Our animation will be broken into two steps.
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         // We enlarge the window to fill the screen
         context.duration = duration;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [[imageWindow animator] setFrame:imageFrame display:YES];
         [[window animator]
          setFrame:[window frameRectForContentRect:borderFinalFrame]
          display:YES];
-        [[imageWindow animator] setFrame:imageFrame display:YES];
     } completionHandler:^{
         weakSelf.imageView.inFullscreenResize = NO;
         borderview.frame = borderFinalFrame;

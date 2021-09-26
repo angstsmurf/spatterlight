@@ -424,7 +424,7 @@ void win_cancelline(int name, int cap, int *len, char *buf)
     win_flush();
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, buf);
-    *len = wmsg.len / sizeof(unsigned short);
+    *len = (int)wmsg.len / sizeof(unsigned short);
 }
 
 void win_setlink(int name, int val)
@@ -495,7 +495,7 @@ void win_loadimage(int resno, char *filename, int offset, int reslen)
     win_flush();
     if (gli_enable_graphics)
     {
-        int len = strlen(filename);
+        int len = (int)strlen(filename);
         if (len)
         {
             char *buf = malloc(len + 1);
@@ -574,7 +574,7 @@ void win_loadsound(int resno, char *filename, int offset, int reslen)
     win_flush();
     if (gli_enable_sound)
     {
-        int len = strlen(filename);
+        int len = (int)strlen(filename);
         if (len)
         {
             char *buf = malloc(len + 1);

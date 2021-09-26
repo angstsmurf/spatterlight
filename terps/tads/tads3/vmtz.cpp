@@ -1994,7 +1994,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
              *   the transition in terms of the local time that was in effect
              *   up until that moment
              */
-            result->set(tcur > (void*)0 ? tcur - 1 : tcur);
+            result->set(cur > 0 ? tcur - 1 : tcur);
             return;
         }
     }

@@ -44,8 +44,14 @@
         "  -u size       set undo size (0 to disable; default 60000)"
 
 
-/* maximum width (in characters) of a line of text */
-#define OS_MAXWIDTH  255
+/* The maximum width of a line of text.
+ *
+ * We ignore this, but the base code needs it defined.  If the
+ * interpreter is run inside a console or terminal with more columns
+ * than the value defined here, weird things will happen, so we go safe
+ * and use a large value. It can't be arbitrarily large though, since
+ * it is used as the size of stack-allocated buffers. */
+#define OS_MAXWIDTH 2048
 
 /* By default, don't use a swapfile */
 #define OS_DEFAULT_SWAP_ENABLED 0

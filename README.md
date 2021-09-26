@@ -4,7 +4,7 @@
 
 ## Interactive Fiction for macOS
 
-Spatterlight is a native Cocoa application that plays most parser-based interactive fiction game files: AGT, Adrift (except v5), AdvSys, Alan, Glulx, Hugo, Level 9, Magnetic Scrolls, TADS (text-only), Quill, and Z-code (except v6). See [Credits.rtf][credits] for more details.
+Spatterlight is a native Cocoa application that plays most parser-based interactive fiction game files: AGT, Adrift (except v5), AdvSys, Alan, Glulx, Hugo, Level 9, Magnetic Scrolls, TADS (text-only), and Z-code (except v6). See [Credits.rtf][credits] for more details.
 
 [credits]: https://github.com/angstsmurf/spatterlight/blob/master/resources/Credits.txt "Credits.rtf: Credits for Spatterlight libraries"
 
@@ -22,7 +22,7 @@ Then report bugs on the [issues tracker][issues].
 - Per-game settings
 - Easy download of game info from Ifdb
 - Sounds, images and text colours
-- Glulxe autosave and autorestore
+- Autosave and autorestore for Glulx and Z-code games
 
 #
 

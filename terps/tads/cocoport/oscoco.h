@@ -120,8 +120,9 @@ typedef DIR* osdirhdl_t;
  * We ignore this, but the base code needs it defined.  If the
  * interpreter is run inside a console or terminal with more columns
  * than the value defined here, weird things will happen, so we go safe
- * and use a large value. */
-#define OS_MAXWIDTH 255
+ * and use a large value. It can't be arbitrarily large though, since
+ * it is used as the size of stack-allocated buffers. */
+#define OS_MAXWIDTH 2048
 
 /* Disable the Tads swap file; computers have plenty of RAM these days.
  */

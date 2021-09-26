@@ -3,14 +3,13 @@
 #include <unistd.h> /* for unlink() */
 #include <sys/stat.h> /* for stat() */
 
-char gli_workdir[1024] = ".";
-char gli_workfile[1024] = "";
-
-char workingdir[256] = "";
+char *gli_workdir = NULL;
+char *gli_game_path = NULL;
+char *gli_parentdir = NULL;
 
 char *glkext_fileref_get_name(fileref_t *fref)
 {
-	return fref->filename;
+    return fref->filename;
 }
 
 char * garglk_fileref_get_name(frefid_t fref)
@@ -113,18 +112,23 @@ static char *gli_suffix_for_usage(glui32 usage)
 
 frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
 {
-	char filename[BUFLEN];
-	fileref_t *fref;
+    gettempdir();
 
-    sprintf(filename, "/tmp/glktempfref-XXXXXX");
-    mkstemp(filename);
-	fref = gli_new_fileref(filename, usage, rock);
+    char *temppath = malloc(sizeof(tempdir) + 19);
+    sprintf(temppath, "%s", tempdir);
+    strcat(temppath, "/glktempfref-XXXXXX");
+
+    mkstemp(temppath);
+
+    fileref_t *fref = gli_new_fileref(temppath, usage, rock);
 	if (!fref)
 	{
 		gli_strict_warning("fileref_create_temp: unable to create fileref.");
+        free(temppath);
 		return NULL;
 	}
 
+    free(temppath);
 	return fref;
 }
 
@@ -146,6 +150,19 @@ frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t oldfref, glui32 
 	}
 
 	return fref;
+}
+
+frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name,
+                                           glui32 rock)
+{
+    fileref_t *fref = glk_fileref_create_by_name(usage, name, rock);
+    size_t len = strlen(gli_parentdir) + strlen(name) + 2;
+    char *newname = malloc(len);
+    sprintf(newname, "%s/%s", gli_parentdir, name);
+    free(fref->filename);
+    fref->filename = newname;
+
+    return fref;
 }
 
 frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
@@ -189,7 +206,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
 
     getworkdir();
     suffix = gli_suffix_for_usage(usage);
-    sprintf(buf2, "%s/%s%s", workingdir, buf, suffix);
+    sprintf(buf2, "%s/%s%s", gli_workdir, buf, suffix);
 
     fref = gli_new_fileref(buf2, usage, rock);
     if (!fref) {
@@ -306,6 +323,11 @@ void glkunix_set_base_file(char *filename)
 {
     int ix;
 
+    size_t len = strlen(filename);
+    gli_game_path = malloc(len+1);
+    strncpy(gli_game_path, filename, len);
+    gli_game_path[len] = '\0';
+
     getworkdir();
 
     for (ix=(int)(strlen(filename)-1); ix >= 0; ix--)
@@ -314,13 +336,14 @@ void glkunix_set_base_file(char *filename)
 
     if (ix >= 0) {
         /* There is a slash. */
-        strncpy(workingdir, filename, ix);
-        workingdir[ix] = '\0';
-        ix++;
+        gli_parentdir = malloc(ix + 1);
+        strncpy(gli_parentdir, filename, ix);
+        gli_parentdir[ix] = '\0';
     }
     else {
         /* No slash, just a filename. */
-//        ix = 0;
+        gli_parentdir = malloc(2);
+        strncpy(gli_parentdir, ".\0", 2);
     }
 }
 
