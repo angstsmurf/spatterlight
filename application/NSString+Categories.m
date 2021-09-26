@@ -220,7 +220,7 @@ finish:
     return result;
 }
 
-+ (NSString *)stringWithSummaryOf:(NSArray *)games {
++ (NSString *)stringWithSummaryOf:(NSArray<Game*> *)games {
 
     if (!games || games.count == 0)
         return nil;
