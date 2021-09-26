@@ -44,6 +44,7 @@
 #define neo_c_INCLUDED
 
 #include "neo.h"
+#include <stdio.h>
 
 #define IMAGE_TYPE_RGB 1
 #define IMAGE_TYPE_GRAYSCALE 2

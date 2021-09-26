@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 @class SoundHandler, MIDIChannel;
 
 #define FADE_GRANULARITY 100

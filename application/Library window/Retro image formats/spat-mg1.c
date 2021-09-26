@@ -44,6 +44,7 @@
 
 #include <stdlib.h>
 #include <inttypes.h>
+#include <stdio.h>
 
 #include "spat-mg1.h"
 

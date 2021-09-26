@@ -4,6 +4,8 @@
 //  See https://github.com/dcsch/yazmin
 //
 
+#import <Foundation/Foundation.h>
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \

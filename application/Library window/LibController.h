@@ -13,7 +13,7 @@
  *
  */
 
-#import <CoreData/CoreData.h>
+#import <Cocoa/Cocoa.h>
 
 @class CoreDataManager, Metadata, GlkController, InfoController, Game;
 

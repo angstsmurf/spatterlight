@@ -4,7 +4,7 @@
  * Eventually, this might become the metadata editor.
  */
 
-#import <CoreData/CoreData.h>
+#import <Cocoa/Cocoa.h>
 
 @class Game, Metadata;
 

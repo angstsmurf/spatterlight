@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9611535E0A4F35EE00BB7FF2"
-               BuildableName = "libhtmltads.a"
-               BlueprintName = "htmltads"
+               BlueprintIdentifier = "961CCEC309F239C100528FF9"
+               BuildableName = "Spatterlight.app"
+               BlueprintName = "Spatterlight"
                ReferencedContainer = "container:Spatterlight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3CEC2B526A6D0A200120469"
+               BuildableName = "UITests.xctest"
+               BlueprintName = "UITests"
+               ReferencedContainer = "container:Spatterlight.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -40,15 +50,23 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9611535E0A4F35EE00BB7FF2"
-            BuildableName = "libhtmltads.a"
-            BlueprintName = "htmltads"
+            BlueprintIdentifier = "961CCEC309F239C100528FF9"
+            BuildableName = "Spatterlight.app"
+            BlueprintName = "Spatterlight"
             ReferencedContainer = "container:Spatterlight.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "CUGELWAIT"
+            value = "30"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -56,15 +74,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9611535E0A4F35EE00BB7FF2"
-            BuildableName = "libhtmltads.a"
-            BlueprintName = "htmltads"
+            BlueprintIdentifier = "961CCEC309F239C100528FF9"
+            BuildableName = "Spatterlight.app"
+            BlueprintName = "Spatterlight"
             ReferencedContainer = "container:Spatterlight.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
