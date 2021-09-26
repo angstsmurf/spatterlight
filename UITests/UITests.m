@@ -1703,7 +1703,7 @@
     [self addAndSelectGame:@"curses.z5"];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-    XCUIElement *playButton = libraryWindow.buttons[@"Play selecter game"];
+    XCUIElement *playButton = libraryWindow.buttons[@"Play selected game"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
