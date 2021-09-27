@@ -74,17 +74,13 @@ extern "C" {
 
 #ifdef __ppc__
 #define _M_PPC
-#else
-#if defined (__x86_64__)
+#elif defined (__x86_64__)
 #define _M_IX86_64
-#else
-#if defined (__aarch64__)
+#elif defined (__aarch64__)
 #define _M_AARCH64
 #else
 #ifndef _M_IX86
 #define _M_IX86
-#endif
-#endif
 #endif
 #endif
 
