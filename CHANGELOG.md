@@ -11,6 +11,7 @@
 - Autorestoring when preloaded input is shown works properly
 - The project can be compiled on other computers than mine again
 - Replaced the text buttons (Add, Info, Play) in the library window with symbols
+- The center and right paragraph justification buttons were mixed up
 
 ## Release 0.8.6
 - Replaces SDL audio with a modified version of SFBAudioEngine
