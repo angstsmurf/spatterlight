@@ -78,10 +78,8 @@ extern "C" {
 #define _M_IX86_64
 #elif defined (__aarch64__)
 #define _M_AARCH64
-#else
-#ifndef _M_IX86
+#elif !defined (_M_IX86)
 #define _M_IX86
-#endif
 #endif
 
 /*
