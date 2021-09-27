@@ -824,8 +824,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -840,8 +842,10 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -858,12 +862,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../lib,
 					../../ogg/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -877,12 +883,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../lib,
 					../../ogg/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -898,12 +906,14 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../ogg/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -919,12 +929,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../ogg/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
