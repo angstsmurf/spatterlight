@@ -161,9 +161,21 @@ static Preferences *prefs = nil;
         }
     } else theme = fetchedObjects[0];
 
+    // Rebuild default themes the first time a new Spatterlight version is run (or the preferences are deleted.)
+    // Rebuilding is so quick that this may be overkill. Perhaps we should just rebuild on every run?
+    BOOL forceRebuild = NO;
+    NSString *appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+
+    NSString *lastThemesRebuild = [defaults objectForKey:@"LastThemesRebuild"];
+
+    if (![lastThemesRebuild isEqualToString:appBuildString]) {
+        forceRebuild = YES;
+        [defaults setObject:appBuildString forKey:@"LastThemesRebuild"];
+    }
+
     // We may or may not have created the Default and Old themes already above.
     // Then these won't be recreated below.
-    [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:NO];
+    [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
 }
 
 
