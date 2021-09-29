@@ -181,11 +181,11 @@
 
     defaultTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:11];
     defaultTheme.gridBackground = [NSColor blackColor];
-    defaultTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+    defaultTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
 
     defaultTheme.bufferBackground = [NSColor whiteColor];
 
-    defaultTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.137 green:0.431 blue:0.145 alpha:1.0];
+    defaultTheme.bufInput.color = [NSColor colorWithDeviceRed:0.137 green:0.431 blue:0.145 alpha:1.0];
 
     defaultTheme.bufferNormal.lineSpacing = 1;
 
@@ -234,10 +234,10 @@
     classicTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
     classicTheme.gridBackground = [NSColor blackColor];
-    classicTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+    classicTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
     classicTheme.bufferBackground = [NSColor whiteColor];
 
-    classicTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.137 green:0.431 blue:0.145 alpha:1.0];
+    classicTheme.bufInput.color = [NSColor colorWithDeviceRed:0.137 green:0.431 blue:0.145 alpha:1.0];
 
     [classicTheme populateStyles];
 
@@ -291,10 +291,10 @@
     gargoyleTheme.bufferNormal.lineSpacing = 2;
 
     gargoyleTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:gargoyleTheme.bufferNormal.font];
-    gargoyleTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.291 green:0.501 blue:0.192 alpha:1.0];
+    gargoyleTheme.bufInput.color = [NSColor colorWithDeviceRed:0.291 green:0.501 blue:0.192 alpha:1.0];
 
     gargoyleTheme.gridNormal.font = [NSFont fontWithName:@"Liberation Mono" size:12.5];
-    gargoyleTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.376 green:0.376 blue:0.376 alpha:1.0];
+    gargoyleTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.376 green:0.376 blue:0.376 alpha:1.0];
 
     NSMutableDictionary *dict = [gargoyleTheme.gridNormal.attributeDict mutableCopy];
     dict[NSBaselineOffsetAttributeName] = @(-2);
@@ -348,7 +348,7 @@
 
     lectroteTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
-    lectroteTheme.gridBackground = [NSColor colorWithCalibratedRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
+    lectroteTheme.gridBackground = [NSColor colorWithDeviceRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
     lectroteTheme.bufferBackground = [NSColor whiteColor];
 
     lectroteTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
@@ -356,10 +356,10 @@
 
     lectroteTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteTheme.bufferNormal.font];
 
-    lectroteTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.042041 green:0.333368 blue:0.011031 alpha:1];
+    lectroteTheme.bufInput.color = [NSColor colorWithDeviceRed:0.042041 green:0.333368 blue:0.011031 alpha:1];
 
     lectroteTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
-    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
+    lectroteTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
 
     NSSize size = [lectroteTheme.gridNormal cellSize];
 
@@ -405,18 +405,18 @@
 
     lectroteDarkTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
-    lectroteDarkTheme.gridBackground = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
+    lectroteDarkTheme.gridBackground = [NSColor colorWithDeviceRed:0.991 green:0.957 blue:0.937 alpha:1];
     lectroteDarkTheme.bufferBackground = [NSColor blackColor];
 
     lectroteDarkTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
-    lectroteDarkTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.258 green:0.205 blue:0.145 alpha:1];
+    lectroteDarkTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.258 green:0.205 blue:0.145 alpha:1];
     lectroteDarkTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
-    lectroteDarkTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
+    lectroteDarkTheme.bufferNormal.color = [NSColor colorWithDeviceRed:0.991 green:0.957 blue:0.937 alpha:1];
 
     lectroteDarkTheme.bufferNormal.lineSpacing = 3.2;
 
     lectroteDarkTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteDarkTheme.bufferNormal.font];
-    lectroteDarkTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.842 green:0.994 blue:0.820 alpha:1];
+    lectroteDarkTheme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1];
 
     NSSize size = [lectroteDarkTheme.gridNormal cellSize];
 
@@ -462,8 +462,8 @@
 
     zoomTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
-    zoomTheme.gridBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
-    zoomTheme.bufferBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
+    zoomTheme.gridBackground = [NSColor colorWithDeviceRed:1 green:1 blue:0.8 alpha:1];
+    zoomTheme.bufferBackground = [NSColor colorWithDeviceRed:1 green:1 blue:0.8 alpha:1];
 
     zoomTheme.bufferNormal.font = [NSFont fontWithName:@"Gill Sans" size:12];
 
@@ -550,12 +550,12 @@
     dosTheme.bufferBackground = [NSColor blackColor];
 
     dosTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
-    dosTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
 
     dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
-    dosTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.bufferNormal.color = [NSColor colorWithDeviceRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
     dosTheme.bufInput.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
-    dosTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.bufInput.color = [NSColor colorWithDeviceRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
 
     NSSize size = [dosTheme.gridNormal cellSize];
 
@@ -612,17 +612,17 @@
 
     dosBoxTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
-    dosBoxTheme.gridBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
-    dosBoxTheme.bufferBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
+    dosBoxTheme.gridBackground = [NSColor colorWithDeviceRed:0.008897 green:0  blue:0.633764 alpha:1];
+    dosBoxTheme.bufferBackground = [NSColor colorWithDeviceRed:0.008897 green:0  blue:0.633764 alpha:1];
 
     dosBoxTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
-    dosBoxTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+    dosBoxTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
 
     dosBoxTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
-    dosBoxTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+    dosBoxTheme.bufferNormal.color = [NSColor colorWithDeviceRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
 
     dosBoxTheme.bufInput.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
-    dosBoxTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+    dosBoxTheme.bufInput.color = [NSColor colorWithDeviceRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
 
     [dosBoxTheme populateStyles];
 

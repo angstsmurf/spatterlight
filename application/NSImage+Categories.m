@@ -68,7 +68,7 @@
                              samplesPerPixel:4
                              hasAlpha:YES
                              isPlanar:NO
-                             colorSpaceName:NSCalibratedRGBColorSpace
+                             colorSpaceName:NSDeviceRGBColorSpace
                              bytesPerRow:0
                              bitsPerPixel:0];
     rep.size = newSize;
