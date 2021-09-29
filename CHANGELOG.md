@@ -1,6 +1,6 @@
 # Change log
 
-## 0.8.7 (unreleased)
+## Release 0.8.7
 - TADS games work on Apple Silicon
 - Improves graphics resizing on window resize in many Glulx games
 - Navigation with numeric pad works again in *Beyond Zork*
