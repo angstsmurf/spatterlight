@@ -186,6 +186,14 @@
     [NSKeyedArchiver archiveRootObject:globalBookmarks toFile:path];
 }
 
+
++ (void)deleteBookmarks {
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:[FolderAccess bookmarkPath] error:&error];
+    if (error)
+        NSLog(@"deleteBookmarks: error: %@", error);
+}
+
 + (void)storeBookmark:(NSURL *)url {
     if (!globalBookmarks)
         globalBookmarks = [NSMutableDictionary new];

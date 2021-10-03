@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)loadBookmarks;
 + (void)saveBookmarks;
++ (void)deleteBookmarks;
 + (void)storeBookmark:(NSURL *)url;
 + (void)releaseBookmark:(NSURL *)url;
 

@@ -148,6 +148,11 @@ PasteboardFilePasteLocation;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
     _prefctl.libcontroller = _libctl;
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
+        [FolderAccess deleteBookmarks];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
+    }
 }
 
 #pragma mark -
