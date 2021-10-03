@@ -130,7 +130,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property RotorHandler *rotorHandler;
 
 @property NSURL *secureBookmark;
-
+@property BOOL showingDialog;
 
 // Flag to prevent things from moving around
 // when adjusting content size and position after

@@ -925,6 +925,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block {
 
+    _showingDialog = NO;
+
     NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
     if (bookmarkURL) {
         if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
@@ -955,6 +957,10 @@ fprintf(stderr, "%s\n",                                                    \
                 openPanel.canCreateDirectories = NO;
                 openPanel.directoryURL = bookmarkURL;
 
+                _showingDialog = YES;
+
+                __unsafe_unretained GlkController *weakSelf = self;
+
                 [openPanel beginWithCompletionHandler:^(NSInteger result) {
                     if (result == NSModalResponseOK) {
                         NSURL *blockURL = openPanel.URL;
@@ -963,8 +969,9 @@ fprintf(stderr, "%s\n",                                                    \
                         block();
                     } else {
                         NSLog(@"GlkController askForAccessToURL: closing window because user would not grant access");
-                        [self close];
+                        [weakSelf close];
                     }
+                    weakSelf.showingDialog = NO;
                 }];
                 return;
             } else {
