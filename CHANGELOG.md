@@ -1,5 +1,9 @@
 # Change log
 
+## Release 0.8.8
+- Security scoped bookmarks were stored with write-only access. This broke some TADS games, which try to to write external files
+- When starting Spatterlight by double clicking on a game file, a blank game window would sometimes obscure the file access dialog
+
 ## Release 0.8.7
 - TADS games work on Apple Silicon
 - Improves graphics resizing on window resize in many Glulx games
@@ -10,7 +14,7 @@
 - Autosaved games would break if the game file was moved to a different disk drive
 - Autorestoring when preloaded input is shown works properly
 - The project can be compiled on other computers than mine again
-- Replaced the text buttons (Add, Info, Play) in the library window with symbols
+- Replaces the text buttons (Add, Info, Play) in the library window with symbols
 - The center and right paragraph justification buttons were mixed up
 - The DOSBox theme background blue color differed between text and images
 
