@@ -1739,12 +1739,13 @@
     [[buttonQuery elementBoundByIndex:1] click];
     [xcuiClosewindowButton click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0] click];
-    [app.menuItems[@"Grid"] click];
+    [app.menuItems[@"Buffer"] click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1] click];
     [app.menuItems[@"Normal"] click];
     [[buttonQuery elementBoundByIndex:4] click];
     [xcuiClosewindowButton click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypeColorWell] elementBoundByIndex:4] click];
+    [app.windows[@"Colors"].toolbars.buttons[@"Pencils"] click];
     [app.windows[@"Colors"]/*@START_MENU_TOKEN@*/.radioButtons[@"Lavender"]/*[[".splitGroups",".radioGroups[@\"Pencils\"].radioButtons[@\"Lavender\"]",".radioButtons[@\"Lavender\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app.windows[@"Colors"].buttons[XCUIIdentifierCloseWindow] click];
 
@@ -1890,6 +1891,10 @@
     textField2 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
     [textField2 doubleClick];
     [textField2 typeText:@"200\r"];
+
+    XCUIElement *textField5 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
+    [textField5 click];
+    [textField5 typeText:@"1\r"];
 
     XCUIElement *colorWell = [tabGroupsQuery childrenMatchingType:XCUIElementTypeColorWell].element;
     [colorWell click];
