@@ -925,6 +925,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)askForAccessToURL:(NSURL *)url showDialog:(BOOL)dialogFlag andThenRunBlock:(void (^)(void))block {
 
+    _showingDialog = NO;
+
     NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
     if (bookmarkURL) {
         if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
@@ -955,6 +957,10 @@ fprintf(stderr, "%s\n",                                                    \
                 openPanel.canCreateDirectories = NO;
                 openPanel.directoryURL = bookmarkURL;
 
+                _showingDialog = YES;
+
+                __unsafe_unretained GlkController *weakSelf = self;
+
                 [openPanel beginWithCompletionHandler:^(NSInteger result) {
                     if (result == NSModalResponseOK) {
                         NSURL *blockURL = openPanel.URL;
@@ -963,8 +969,9 @@ fprintf(stderr, "%s\n",                                                    \
                         block();
                     } else {
                         NSLog(@"GlkController askForAccessToURL: closing window because user would not grant access");
-                        [self close];
+                        [weakSelf close];
                     }
+                    weakSelf.showingDialog = NO;
                 }];
                 return;
             } else {
@@ -1383,8 +1390,6 @@ fprintf(stderr, "%s\n",                                                    \
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
-        _previewDummy = [decoder decodeBoolForKey:@"previewDummy"];
-
         _turns = [decoder decodeIntegerForKey:@"turns"];
 
         _oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
@@ -1448,7 +1453,6 @@ fprintf(stderr, "%s\n",                                                    \
                          NSFullScreenWindowMask)
                  forKey:@"fullscreen"];
 
-    [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
     [encoder encodeInteger:_turns forKey:@"turns"];
     [encoder encodeObject:_theme.name forKey:@"oldThemeName"];
 
@@ -1643,11 +1647,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
-    if (_previewDummy)
-        return;
     [Preferences changeCurrentGame:_game];
     if (!dead) {
-        if (_eventcount > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
+        if (_eventcount > 1 && !shouldShowAutorestoreAlert)
             _mustBeQuiet = NO;
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
@@ -2069,7 +2071,7 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     NSUInteger lastVOSpeakMenu = (NSUInteger)theme.vOSpeakMenu;
 
-    if (_game && !_previewDummy) {
+    if (_game) {
         if (!_stashedTheme) {
             _theme = _game.theme;
             theme = _theme;
@@ -2226,6 +2228,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
     } else {
         sizeAfterZoom = [self defaultContentSize];
+        NSLog(@"noteDefaultSizeChanged: New default size: %@", NSStringFromSize(sizeAfterZoom));
     }
     NSRect oldframe = _contentView.frame;
 
@@ -2233,11 +2236,15 @@ fprintf(stderr, "%s\n",                                                    \
     // zooming out, which might otherwise happen at edge cases
     if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
         (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
+        NSLog(@"noteDefaultSizeChanged: This would change the size in the wrong direction, so skip");
         return;
     }
 
+    NSLog(@"noteDefaultSizeChanged: Old contentView size: %@", NSStringFromSize(_contentView.frame.size));
+
     if ((self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) {
+
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
         NSRect contentRect = NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
@@ -2255,7 +2262,10 @@ fprintf(stderr, "%s\n",                                                    \
 
         winrect.origin.y -= offset;
 
+
         [self.window setFrame:winrect display:NO animate:NO];
+        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
+
     } else {
         NSUInteger borders = (NSUInteger)_theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
@@ -2271,6 +2281,8 @@ fprintf(stderr, "%s\n",                                                    \
         newframe.origin.y -= offset;
 
         _contentView.frame = newframe;
+        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
+
     }
 }
 
@@ -2924,7 +2936,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (_eventcount > 1 && !shouldShowAutorestoreAlert && !_previewDummy) {
+            if (_eventcount > 1 && !shouldShowAutorestoreAlert) {
                 _mustBeQuiet = NO;
             }
 
@@ -3776,9 +3788,6 @@ again:
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
     //         NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
-
-    if (_previewDummy)
-        return;
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
@@ -3956,7 +3965,7 @@ again:
 }
 
 - (void)storeScrollOffsets {
-    if (_previewDummy || _ignoreResizes)
+    if (_ignoreResizes)
         return;
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
@@ -3967,8 +3976,6 @@ again:
 }
 
 - (void)restoreScrollOffsets {
-    if (_previewDummy)
-        return;
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
@@ -4394,8 +4401,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
-    if (_previewDummy)
-        return @[];
     NSAccessibilityCustomAction *speakMostRecent = [[NSAccessibilityCustomAction alloc]
                                                     initWithName:NSLocalizedString(@"repeat the text output of the last move", nil) target:self selector:@selector(speakMostRecent:)];
     NSAccessibilityCustomAction *speakPrevious = [[NSAccessibilityCustomAction alloc]
@@ -4563,8 +4568,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 #pragma mark Speak previous moves
 
 - (IBAction)speakMostRecent:(id)sender {
-    if (_previewDummy)
-        return;
     if (_zmenu) {
         [_zmenu deferredSpeakSelectedLine:self];
         return;
@@ -4616,8 +4619,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakString:(NSString *)string {
-    if (_previewDummy)
-        return;
     if (!string || string.length == 0 || !_voiceOverActive) {
         return;
     }

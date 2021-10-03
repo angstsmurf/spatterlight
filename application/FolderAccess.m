@@ -31,7 +31,7 @@
         accessCount = 0;
         _active = NO;
         NSError *error = nil;
-        _bookmark = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope  | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
+        _bookmark = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
         if (error)
             NSLog(@"FolderAccess create bookmark error: %@", error);
     }
@@ -179,13 +179,19 @@
 + (void)loadBookmarks {
     NSString *path = [FolderAccess bookmarkPath];
     globalBookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    NSURL *downloadsFolder = [[NSFileManager defaultManager] URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask].firstObject;
-    [FolderAccess storeBookmark:downloadsFolder];
 }
 
 + (void)saveBookmarks {
     NSString *path = [FolderAccess bookmarkPath];
     [NSKeyedArchiver archiveRootObject:globalBookmarks toFile:path];
+}
+
+
++ (void)deleteBookmarks {
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:[FolderAccess bookmarkPath] error:&error];
+    if (error)
+        NSLog(@"deleteBookmarks: error: %@", error);
 }
 
 + (void)storeBookmark:(NSURL *)url {
@@ -245,7 +251,7 @@
 - (NSURL *)startAccessing {
     NSError *error = nil;
     BOOL isStale = NO;
-    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithSecurityScope | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
+    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
 
     if (error)
         NSLog(@"FolderAccess restoreBookmark error: %@", error);

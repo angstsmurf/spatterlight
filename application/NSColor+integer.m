@@ -34,7 +34,7 @@
     g = (c >> 8 & 0xFF) / 255.0;
     b = (c & 0xFF) / 255.0;
 
-    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+    color = [NSColor colorWithDeviceRed:r green:g blue:b alpha:1.0];
 
     if (!color)
         color = [NSColor whiteColor];
@@ -54,7 +54,8 @@
         b = buf[2] / 255.0;
     }
 
-    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+    color = [NSColor colorWithDeviceRed:r green:g blue:b alpha:1.0];
+//    color = [NSColor colorWithDeviceRed:r green:g blue:b alpha:1.0];
     return color;
 }
 

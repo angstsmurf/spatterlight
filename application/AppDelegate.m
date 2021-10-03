@@ -126,8 +126,6 @@ PasteboardFilePasteLocation;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel"
-//                   @"zcode" : @"frotz"
-//                   @"zcode": @"fizmo"
                    };
 
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
@@ -148,6 +146,11 @@ PasteboardFilePasteLocation;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
     _prefctl.libcontroller = _libctl;
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
+        [FolderAccess deleteBookmarks];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
+    }
 }
 
 #pragma mark -
@@ -345,7 +348,7 @@ PasteboardFilePasteLocation;
         [_libctl restoreFromSaveFile:path];
     } else {
         __block NSWindow *win = [_libctl importAndPlayGame:path];
-        if (win) {
+        if (win && !((GlkController *)win.delegate).showingDialog) {
             double delayInSeconds = 1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){

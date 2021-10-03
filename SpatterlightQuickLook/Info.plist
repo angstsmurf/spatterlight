@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(APP_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(APP_BUILD)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSMinimumSystemVersion</key>

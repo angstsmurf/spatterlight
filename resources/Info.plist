@@ -368,10 +368,10 @@
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
 			<key>NSIsRelatedItemType</key>
 			<true/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -506,11 +506,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(APP_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(APP_BUILD)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSApplicationCategoryType</key>
