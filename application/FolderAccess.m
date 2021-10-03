@@ -179,8 +179,6 @@
 + (void)loadBookmarks {
     NSString *path = [FolderAccess bookmarkPath];
     globalBookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    NSURL *downloadsFolder = [[NSFileManager defaultManager] URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask].firstObject;
-    [FolderAccess storeBookmark:downloadsFolder];
 }
 
 + (void)saveBookmarks {
