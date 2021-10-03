@@ -31,7 +31,7 @@
         accessCount = 0;
         _active = NO;
         NSError *error = nil;
-        _bookmark = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope  | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
+        _bookmark = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
         if (error)
             NSLog(@"FolderAccess create bookmark error: %@", error);
     }
@@ -245,7 +245,7 @@
 - (NSURL *)startAccessing {
     NSError *error = nil;
     BOOL isStale = NO;
-    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithSecurityScope | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
+    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
 
     if (error)
         NSLog(@"FolderAccess restoreBookmark error: %@", error);
