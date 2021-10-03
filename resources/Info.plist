@@ -368,10 +368,10 @@
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
 			<key>NSIsRelatedItemType</key>
 			<true/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -889,7 +889,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -925,7 +925,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+					<string>application/x-blorb;profile="glulx"</string>
 				</array>
 			</dict>
 		</dict>
