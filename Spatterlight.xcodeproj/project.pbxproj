@@ -611,6 +611,7 @@
 		C386D530263F55930066BF5B /* ParagraphPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = C386D52E263F55920066BF5B /* ParagraphPopOver.m */; };
 		C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38784F426582AE200B4D886 /* ImageCompareViewController.xib */; };
 		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
+		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
@@ -2724,6 +2725,8 @@
 		C38784F226582AE200B4D886 /* ImageCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCompareViewController.h; sourceTree = "<group>"; };
 		C38784F326582AE200B4D886 /* ImageCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCompareViewController.m; sourceTree = "<group>"; };
 		C38784F426582AE200B4D886 /* ImageCompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCompareViewController.xib; sourceTree = "<group>"; };
+		C38A9202270A036A00B969A4 /* DummyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DummyController.h; sourceTree = "<group>"; };
+		C38A9203270A036A00B969A4 /* DummyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyController.m; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
@@ -3937,6 +3940,8 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
 				C38101291EDA297E00B87B68 /* GlkController.m */,
+				C38A9202270A036A00B969A4 /* DummyController.h */,
+				C38A9203270A036A00B969A4 /* DummyController.m */,
 				C3CF3694265FA461004D0F7B /* CoverImageView.h */,
 				C3CF3693265FA461004D0F7B /* CoverImageView.m */,
 				C3CB504A2662606600A95BE2 /* CoverImageHandler.h */,
@@ -6542,6 +6547,7 @@
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
 				C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
+				C38A9204270A036A00B969A4 /* DummyController.m in Sources */,
 				C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
 				C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */,

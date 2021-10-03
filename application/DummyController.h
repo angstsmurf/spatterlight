@@ -2,8 +2,9 @@
 //  DummyController.h
 //  Spatterlight
 //
-//  Created by Administrator on 2021-10-03.
-//
+//  This subclass of GlkController is used for the text style preview in the preferences panel.
+//  We simply redefine all public methods to do nothing, to prevent any calls meant for running games
+//  from having any effect.
 
 #import "GlkController.h"
 

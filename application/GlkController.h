@@ -90,8 +90,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
 
-@property BOOL previewDummy;
-
 @property BOOL adrianMole;
 @property BOOL anchorheadOrig;
 @property BOOL beyondZork;

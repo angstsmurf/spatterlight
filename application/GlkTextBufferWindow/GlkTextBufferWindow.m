@@ -4,6 +4,7 @@
 
 #import "Constants.h"
 #import "GlkController.h"
+#import "DummyController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"
@@ -188,10 +189,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)setFrame:(NSRect)frame {
-//    if (!self.glkctl.previewDummy)
-//      NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
-//      NSStringFromRect(frame));
-
     GlkController *glkctl = self.glkctl;
     
     if (glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
@@ -614,7 +611,7 @@ fprintf(stderr, "%s\n",                                                    \
             [newstyles addObject:[NSNull null]];
     }
 
-    if (!glkctl.previewDummy) {
+    if (![glkctl isKindOfClass:[DummyController class]]) {
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
@@ -716,7 +713,7 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.selectedRange = selectedRange;
     }
 
-    if (!glkctl.previewDummy && self.glkctl.isAlive) {
+    if (![glkctl isKindOfClass:[DummyController class]] && self.glkctl.isAlive) {
 
         if (different) {
             // Set style for hyperlinks

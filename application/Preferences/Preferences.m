@@ -1,6 +1,6 @@
 #import "Preferences.h"
 #import "AppDelegate.h"
-#import "GlkController.h"
+#import "DummyController.h"
 #import "GlkTextBufferWindow.h"
 
 #import "CoreDataManager.h"
@@ -84,7 +84,7 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet NSTableView *themesTableView;
     IBOutlet GlkHelperView *sampleTextView;
 
-    GlkController *glkcntrl;
+    DummyController *glkcntrl;
 
     NSButton *selectedFontButton;
 
@@ -331,12 +331,10 @@ NSString *fontToString(NSFont *font) {
         theme = self.defaultTheme;
 
     // Sample text view
-    glkcntrl = [[GlkController alloc] init];
+    glkcntrl = [[DummyController alloc] init];
     glkcntrl.theme = theme;
-    glkcntrl.previewDummy = YES;
     glkcntrl.borderView = _sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
-    glkcntrl.ignoreResizes = YES;
     sampleTextView.glkctrl = glkcntrl;
 
     _sampleTextBorderView.fillColor = theme.bufferBackground;
@@ -1353,31 +1351,32 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeDefaultSize:(id)sender {
+    Theme *themeToChange = nil;
     if (sender == txtCols) {
         if (theme.defaultCols == [sender intValue])
             return;
-        theme = [self cloneThemeIfNotEditable];
-        theme.defaultCols  = [sender intValue];
-        if (theme.defaultCols  < 5)
-            theme.defaultCols  = 5;
-        if (theme.defaultCols  > 200)
-            theme.defaultCols  = 200;
-        txtCols.intValue = theme.defaultCols ;
+        themeToChange = [self cloneThemeIfNotEditable];
+        themeToChange.defaultCols  = [sender intValue];
+        if (themeToChange.defaultCols  < 5)
+            themeToChange.defaultCols  = 5;
+        if (themeToChange.defaultCols  > 200)
+            themeToChange.defaultCols  = 200;
+        txtCols.intValue = themeToChange.defaultCols ;
     }
     if (sender == txtRows) {
         if (theme.defaultRows == [sender intValue])
             return;
-        theme = [self cloneThemeIfNotEditable];
-        theme.defaultRows  = [sender intValue];
-        if (theme.defaultRows  < 5)
-            theme.defaultRows  = 5;
-        if (theme.defaultRows  > 200)
-            theme.defaultRows  = 200;
-        txtRows.intValue = theme.defaultRows ;
+        themeToChange = [self cloneThemeIfNotEditable];
+        themeToChange.defaultRows  = [sender intValue];
+        if (themeToChange.defaultRows  < 5)
+            themeToChange.defaultRows  = 5;
+        if (themeToChange.defaultRows  > 200)
+            themeToChange.defaultRows  = 200;
+        txtRows.intValue = themeToChange.defaultRows ;
     }
 
     /* send notification that default size has changed -- resize all windows */
-    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:theme];
+    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:themeToChange];
     [[NSNotificationCenter defaultCenter]
      postNotification:notification];
 }
