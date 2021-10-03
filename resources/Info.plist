@@ -506,11 +506,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(APP_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(APP_BUILD)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSApplicationCategoryType</key>
@@ -889,7 +889,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -925,7 +925,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="glulx"</string>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
 				</array>
 			</dict>
 		</dict>
