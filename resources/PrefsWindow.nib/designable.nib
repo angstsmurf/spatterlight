@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="Preferences">
             <connections>
                 <outlet property="actionButton" destination="877" id="885"/>
+                <outlet property="addToLibraryCheckbox" destination="AnY-t2-MkG" id="2dA-z5-hGl"/>
                 <outlet property="arrayController" destination="784" id="821"/>
                 <outlet property="bZArrowsMenu" destination="YnP-Bi-3m9" id="0Tu-dG-49U"/>
                 <outlet property="bZVerticalStepper" destination="VFA-24-eXW" id="PGk-Ws-sJ8"/>
@@ -33,7 +34,7 @@
                 <outlet property="btnOneThemeForAll" destination="955" id="964"/>
                 <outlet property="btnOverwriteStyles" destination="6ft-uq-np9" id="MAn-bX-kla"/>
                 <outlet property="btnRemove" destination="907" id="910"/>
-                <outlet property="btnShowBezels" destination="z06-U7-Bqt" id="AwI-rg-XGa"/>
+                <outlet property="btnShowBezels" destination="PGB-mP-7ST" id="88S-WY-Rh7"/>
                 <outlet property="btnSmartQuotes" destination="GZN-VA-ah9" id="VeW-NV-0KQ"/>
                 <outlet property="btnSmoothScroll" destination="bXQ-kH-vl0" id="73Q-Ib-D2E"/>
                 <outlet property="btnSpaceFormat" destination="1e9-sG-Gtu" id="NIM-Qt-9gO"/>
@@ -50,7 +51,7 @@
                 <outlet property="divider" destination="926" id="927"/>
                 <outlet property="errorHandlingPopup" destination="KHT-r6-CgA" id="fER-hD-rGE"/>
                 <outlet property="hyperlinksPopup" destination="sVx-EC-LaZ" id="Npa-sj-9Oy"/>
-                <outlet property="imageReplacePopup" destination="c9J-1h-Raa" id="pKi-gv-HAZ"/>
+                <outlet property="libraryAtStartCheckbox" destination="aaB-f3-jTz" id="Ho4-fG-qKb"/>
                 <outlet property="marginHorizontalBufferStepper" destination="Ga3-o5-Ocm" id="hvu-sd-KQ8"/>
                 <outlet property="marginHorizontalBufferTextField" destination="yB9-OX-32B" id="1gw-Ra-aue"/>
                 <outlet property="marginHorizontalGridStepper" destination="dCc-8W-ciK" id="am9-M7-Bjg"/>
@@ -62,6 +63,8 @@
                 <outlet property="marginsPopover" destination="tlb-eP-erI" id="sE4-m1-zIt"/>
                 <outlet property="miscHeader" destination="vuA-ft-mAo" id="HWP-xI-lSk"/>
                 <outlet property="quoteBoxCheckBox" destination="xo0-td-lWm" id="GxB-gd-ROL"/>
+                <outlet property="recheckFrequencyTextfield" destination="4cd-Gt-luS" id="YpS-ea-IRH"/>
+                <outlet property="recheckMissingCheckbox" destination="aRK-sP-Woa" id="pnW-Sr-MKw"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
@@ -95,23 +98,23 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="prefsPanel" animationBehavior="default" id="407" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="155" y="449" width="1263" height="486"/>
+            <rect key="contentRect" x="155" y="449" width="516" height="500"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="516" height="355"/>
             <value key="maxSize" type="size" width="516" height="500"/>
             <view key="contentView" id="408">
-                <rect key="frame" x="0.0" y="0.0" width="1263" height="486"/>
+                <rect key="frame" x="0.0" y="0.0" width="516" height="500"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="948" userLabel="Preview Box">
-                        <rect key="frame" x="0.0" y="351" width="1263" height="135"/>
+                        <rect key="frame" x="0.0" y="351" width="516" height="149"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" id="zxo-go-so3">
-                            <rect key="frame" x="0.0" y="0.0" width="1263" height="135"/>
+                            <rect key="frame" x="0.0" y="0.0" width="516" height="149"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="773" customClass="GlkHelperView">
-                                    <rect key="frame" x="20" y="-162" width="1223" height="145"/>
+                                    <rect key="frame" x="20" y="-162" width="476" height="159"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </customView>
                             </subviews>
@@ -119,7 +122,7 @@
                         <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </box>
                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="926">
-                        <rect key="frame" x="0.0" y="348" width="1263" height="5"/>
+                        <rect key="frame" x="0.0" y="348" width="516" height="5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </box>
                     <tabView fixedFrame="YES" initialItem="410" translatesAutoresizingMaskIntoConstraints="NO" id="409">
@@ -1364,7 +1367,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k43-6L-rYq">
-                                            <rect key="frame" x="436" y="2" width="19" height="218"/>
+                                            <rect key="frame" x="436" y="2" width="24" height="218"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Some games use timers for real-time effects. Setting this to a low value may improve performance and autosave reliability in some games, but may possibly cause glitches.</string>
                                             <sliderCell key="cell" continuous="YES" alignment="left" minValue="5" maxValue="1000" doubleValue="200" tickMarkPosition="right" sliderType="linear" id="EeW-cF-5k4">
@@ -1374,7 +1377,7 @@
                                             </sliderCell>
                                         </slider>
                                         <popUpButton toolTip="Errors can be switched on for debugging purposes. Only implemented for Z-code and Glulx games." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHT-r6-CgA">
-                                            <rect key="frame" x="191" y="140" width="212" height="25"/>
+                                            <rect key="frame" x="191" y="110" width="212" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Ignore errors" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M5i-PH-YLg" id="5Kh-KN-IIp">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1391,35 +1394,8 @@
                                                 <action selector="changeErrorHandlingPopup:" target="-2" id="Zm8-OA-EFl"/>
                                             </connections>
                                         </popUpButton>
-                                        <popUpButton toolTip="Whether to replace any existing cover images when downloading new metadata." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9J-1h-Raa" userLabel="Image replacement popup">
-                                            <rect key="frame" x="191" y="114" width="212" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Don't replace images" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="bmY-pg-Bhf" id="Kc8-cm-DiO">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="Cte-jk-UVF">
-                                                    <items>
-                                                        <menuItem title="Don't replace images" state="on" tag="1" id="bmY-pg-Bhf" userLabel="Don't replace"/>
-                                                        <menuItem title="Always replace images" id="LfT-Jm-YdF" userLabel="Always replace"/>
-                                                        <menuItem title="Ask about images" tag="2" id="cbV-Ai-FlI" userLabel="Ask"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="changeImageReplacePopup:" target="-2" id="Ywq-FC-9uv"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kl5-Sg-sjU">
-                                            <rect key="frame" x="53" y="110" width="135" height="26"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="When importing data:" id="Vl8-G0-YIg">
-                                                <font key="font" usesAppearanceFont="YES"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-WX-E6M">
-                                            <rect key="frame" x="95" y="136" width="93" height="26"/>
+                                            <rect key="frame" x="95" y="106" width="93" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Error handling:" id="U5w-yr-h4U">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1428,7 +1404,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMY-xH-RGv" userLabel="Cover image popup">
-                                            <rect key="frame" x="191" y="166" width="212" height="25"/>
+                                            <rect key="frame" x="191" y="143" width="212" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Don't show" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="dRl-4v-mav" id="7c1-3Z-lEB">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1447,7 +1423,7 @@
                                             </connections>
                                         </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="774-oi-2NY">
-                                            <rect key="frame" x="104" y="165" width="84" height="24"/>
+                                            <rect key="frame" x="104" y="142" width="84" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Cover image:" id="9fH-6F-ur6">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1455,19 +1431,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button toolTip="Clear all &quot;Remember this choice&quot; and &quot;Don't show again&quot; check boxes in alert dialogs." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
-                                            <rect key="frame" x="163" y="2" width="113" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="561-WV-aip">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
-                                            </connections>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zY-JQ-KBc">
-                                            <rect key="frame" x="335" y="203" width="72" height="16"/>
+                                            <rect key="frame" x="335" y="195" width="72" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="per second" id="enO-J8-uVD">
                                                 <font key="font" metaFont="system"/>
@@ -1476,7 +1441,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXw-Vw-tGV">
-                                            <rect key="frame" x="288" y="200" width="42" height="21"/>
+                                            <rect key="frame" x="288" y="192" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Some games use timers for real-time effects. Setting this to a low value may improve performance and autosave reliability in some games, but may also cause glitches.</string>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="200" drawsBackground="YES" id="pq3-ZL-OXQ">
@@ -1491,7 +1456,7 @@
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6Z-uy-hma">
-                                            <rect key="frame" x="151" y="203" width="133" height="16"/>
+                                            <rect key="frame" x="151" y="195" width="133" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title=" Max timer frequency" id="9w9-2I-gIw">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1499,19 +1464,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button toolTip="Whether to show fading alerts such as Game Over." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z06-U7-Bqt">
-                                            <rect key="frame" x="202" y="84" width="169" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Show bezel notifications" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="nKf-rB-8cV">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="changeShowBezel:" target="-2" id="rBS-co-QvE"/>
-                                            </connections>
-                                        </button>
                                         <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uJE-EW-bHw">
-                                            <rect key="frame" x="40" y="41" width="161" height="18"/>
+                                            <rect key="frame" x="250" y="46" width="161" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Detect which game is running and change behavior to avoid known bugs. Turning this off is useful for debugging, but will  disable some game-specific settings and functions.</string>
                                             <buttonCell key="cell" type="check" title="Game specific hacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="U8l-rU-Wfe">
@@ -1523,7 +1477,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
-                                            <rect key="frame" x="202" y="62" width="187" height="18"/>
+                                            <rect key="frame" x="40" y="70" width="187" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Autosave on every turn. Removes the need to save manually. Can sometimes affect performance. Only available for Glulx and Z-code games.</string>
                                             <buttonCell key="cell" type="check" title="Autosave and autorestore" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rok-Vo-ZHA">
@@ -1535,7 +1489,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" allowsExpansionToolTips="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clv-YA-NP0">
-                                            <rect key="frame" x="223" y="41" width="174" height="18"/>
+                                            <rect key="frame" x="40" y="46" width="174" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Turning this off may improve performance and autosave reliability in games with high timer frequency, but can cause glitches like stuck sounds.</string>
                                             <buttonCell key="cell" type="check" title="Autosave on timer events" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="JJt-62-HcI">
@@ -1547,7 +1501,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Turn on and off smooth text scrolling." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-kH-vl0">
-                                            <rect key="frame" x="40" y="62" width="141" height="18"/>
+                                            <rect key="frame" x="250" y="70" width="141" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Animate scrolling" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5jQ-wj-4JH">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1558,7 +1512,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Make random functions always return the same numbers in the same order. Useful for debugging." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k0h-Aw-qLS">
-                                            <rect key="frame" x="40" y="84" width="98" height="18"/>
+                                            <rect key="frame" x="250" y="22" width="98" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Determinism" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="cGJ-GR-t8a">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1571,11 +1525,151 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="Global" identifier="6" id="chg-ng-KFz" userLabel="Global">
+                                <view key="view" id="gp8-uy-BLS">
+                                    <rect key="frame" x="10" y="33" width="468" height="286"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="34O-T6-SMo">
+                                            <rect key="frame" x="9" y="227" width="450" height="5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XtR-qb-17L">
+                                            <rect key="frame" x="18" y="263" width="440" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="These settings apply to all themes " usesSingleLineMode="YES" id="9DC-aS-4zU">
+                                                <font key="font" metaFont="smallSystemBold"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIr-pG-CAg">
+                                            <rect key="frame" x="7" y="238" width="454" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Global settings" usesSingleLineMode="YES" id="16M-w5-PwU">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton toolTip="Whether to replace any existing cover images when downloading new metadata." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V1K-2z-Mkm" userLabel="Image replacement popup">
+                                            <rect key="frame" x="168" y="66" width="212" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Don't replace images" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HKu-8f-3e4" id="KZM-2n-QrN">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="Myr-OP-2Hf">
+                                                    <items>
+                                                        <menuItem title="Don't replace images" state="on" tag="1" id="HKu-8f-3e4" userLabel="Don't replace"/>
+                                                        <menuItem title="Always replace images" id="R46-ld-KhG" userLabel="Always replace"/>
+                                                        <menuItem title="Ask about images" tag="2" id="e8N-1W-Rdc" userLabel="Ask"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="changeImageReplacePopup:" target="-2" id="jL9-FY-FCR"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5S-lK-8Af">
+                                            <rect key="frame" x="30" y="63" width="135" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="When importing data:" id="9SX-qC-xEF">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button toolTip="Clear all &quot;Remember this choice&quot; and &quot;Don't show again&quot; check boxes in alert dialogs." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKX-Bm-Nro">
+                                            <rect key="frame" x="164" y="12" width="113" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HeY-le-W2G">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="resetDialogs:" target="-2" id="Tlx-bo-YGF"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Whether to show fading alerts such as Game Over." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGB-mP-7ST">
+                                            <rect key="frame" x="112" y="189" width="169" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Show bezel notifications" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="s0D-gU-Tbt">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeShowBezel:" target="-2" id="Xtk-tY-r54"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Whether to show the library window when Spatterlight's dock icon is clicked and no game windows are shown." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaB-f3-jTz">
+                                            <rect key="frame" x="112" y="167" width="196" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Always show the library window when Spatterlight is started. This will not affect whether the window is restored if it was open when quitting.</string>
+                                            <buttonCell key="cell" type="check" title="Show library window at startup" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="r5H-LC-Wuw">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeShowLibrary:" target="-2" id="bDB-vW-5Ha"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnY-t2-MkG">
+                                            <rect key="frame" x="112" y="142" width="232" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Whether games will be automatically added to the library when they are opened from the Open menu or by double clicking the game file.</string>
+                                            <buttonCell key="cell" type="check" title="Add games to library when opened" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="AhX-wR-QJV">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeAddToLibrary:" target="-2" id="seb-qN-DwA"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRK-sP-Woa">
+                                            <rect key="frame" x="112" y="117" width="230" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Check the library in the background to see if all game files are still there. May affect performance if the library is large and spread across external disks or network volumes.</string>
+                                            <buttonCell key="cell" type="check" title="Re-check for missing games every" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Lw4-xO-R2S">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeCheckMissing:" target="-2" id="UEL-wR-G5p"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-Gt-luS">
+                                            <rect key="frame" x="346" y="113" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="30" drawsBackground="YES" id="b7S-IS-pf7">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hsN-Rx-cVh">
+                                                    <real key="minimum" value="1"/>
+                                                    <real key="maximum" value="10000"/>
+                                                </numberFormatter>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="changeCheckFrequency:" target="-2" id="SMx-WQ-M2K"/>
+                                            </connections>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6A-iG-CEh">
+                                            <rect key="frame" x="395" y="117" width="53" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="minutes" id="FhH-rJ-jNm">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
                         </tabViewItems>
                     </tabView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-184.5" y="139"/>
+            <point key="canvasLocation" x="-185" y="139"/>
         </window>
         <arrayController mode="entity" entityName="Theme" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="784" userLabel="Themes" customClass="ThemeArrayController">
             <connections>

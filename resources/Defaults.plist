@@ -32,4 +32,8 @@
 	SelectedStyle = 8;
 	ShowBezels = YES;
 	"SelectedHyperlinkWindowType" = 4;
+	ShowLibrary = YES;
+	AddToLibrary = YES;
+	RecheckForMissing = NO;
+	RecheckFrequency = 30;
 }

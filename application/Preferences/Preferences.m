@@ -541,6 +541,12 @@ NSString *fontToString(NSFont *font) {
         }
     }
 
+    _libraryAtStartCheckbox.state = [defaults boolForKey:@"ShowLibrary"] ? NSOnState : NSOffState;
+    _addToLibraryCheckbox.state = [defaults boolForKey:@"AddToLibrary"] ? NSOnState : NSOffState;
+    _recheckMissingCheckbox.state = [defaults boolForKey:@"RecheckForMissing"] ? NSOnState : NSOffState;
+    _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
+    _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;
+
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         if (!selectedFontButton)
             selectedFontButton = btnBufferFont;
@@ -1803,19 +1809,40 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeErrorHandlingPopup:(id)sender {
     [self changeMenuAttribute:@"errorHandling" fromPopUp:sender];
 }
-- (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
-        [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedTag forKey:@"ImageReplacement"];
-}
 
 - (IBAction)changeShowCoverImage:(id)sender {
     [self changeMenuAttribute:@"coverArtStyle" fromPopUp:sender];
 }
 
+#pragma mark Global menu
+
 - (IBAction)changeShowBezel:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"ShowBezels"];
 }
 
-#pragma mark End of Misc menu
+- (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
+    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedTag forKey:@"ImageReplacement"];
+}
+
+- (IBAction)changeShowLibrary:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"ShowLibrary"];
+}
+
+- (IBAction)changeAddToLibrary:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"AddToLibrary"];
+}
+
+- (IBAction)changeCheckMissing:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"RecheckForMissing"];
+    _recheckFrequencyTextfield.enabled = ([sender state] == NSOnState);
+}
+
+- (IBAction)changeCheckFrequency:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setInteger:[sender intValue] forKey:@"RecheckFrequency"];
+    _recheckFrequencyTextfield.integerValue = (NSInteger)round([sender floatValue]);
+}
+
+#pragma mark End of Global menu
 
 - (IBAction)changeOverwriteStyles:(id)sender {
     if ([sender state] == NSOnState) {
