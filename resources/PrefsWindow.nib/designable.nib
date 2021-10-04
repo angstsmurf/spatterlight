@@ -1553,7 +1553,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton toolTip="Whether to replace any existing cover images when downloading new metadata." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V1K-2z-Mkm" userLabel="Image replacement popup">
-                                            <rect key="frame" x="168" y="66" width="212" height="25"/>
+                                            <rect key="frame" x="168" y="64" width="212" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Don't replace images" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="HKu-8f-3e4" id="KZM-2n-QrN">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1571,7 +1571,7 @@
                                             </connections>
                                         </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5S-lK-8Af">
-                                            <rect key="frame" x="30" y="63" width="135" height="26"/>
+                                            <rect key="frame" x="30" y="61" width="135" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="When importing data:" id="9SX-qC-xEF">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -1591,7 +1591,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Whether to show fading alerts such as Game Over." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGB-mP-7ST">
-                                            <rect key="frame" x="112" y="189" width="169" height="18"/>
+                                            <rect key="frame" x="112" y="188" width="169" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Show bezel notifications" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="s0D-gU-Tbt">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1602,7 +1602,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Whether to show the library window when Spatterlight's dock icon is clicked and no game windows are shown." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaB-f3-jTz">
-                                            <rect key="frame" x="112" y="167" width="196" height="16"/>
+                                            <rect key="frame" x="112" y="166" width="196" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Always show the library window when Spatterlight is started. This will not affect whether the window is restored if it was open when quitting.</string>
                                             <buttonCell key="cell" type="check" title="Show library window at startup" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="r5H-LC-Wuw">
@@ -1614,7 +1614,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnY-t2-MkG">
-                                            <rect key="frame" x="112" y="142" width="232" height="16"/>
+                                            <rect key="frame" x="112" y="141" width="232" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Whether games will be automatically added to the library when they are opened from the Open menu or by double clicking the game file.</string>
                                             <buttonCell key="cell" type="check" title="Add games to library when opened" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="AhX-wR-QJV">
@@ -1626,7 +1626,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRK-sP-Woa">
-                                            <rect key="frame" x="112" y="117" width="230" height="16"/>
+                                            <rect key="frame" x="112" y="116" width="230" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Check the library in the background to see if all game files are still there. May affect performance if the library is large and spread across external disks or network volumes.</string>
                                             <buttonCell key="cell" type="check" title="Re-check for missing games every" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Lw4-xO-R2S">
@@ -1638,7 +1638,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-Gt-luS">
-                                            <rect key="frame" x="346" y="113" width="44" height="21"/>
+                                            <rect key="frame" x="346" y="112" width="44" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="30" drawsBackground="YES" id="b7S-IS-pf7">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hsN-Rx-cVh">
@@ -1654,7 +1654,7 @@
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6A-iG-CEh">
-                                            <rect key="frame" x="395" y="117" width="53" height="16"/>
+                                            <rect key="frame" x="395" y="116" width="53" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="minutes" id="FhH-rJ-jNm">
                                                 <font key="font" usesAppearanceFont="YES"/>

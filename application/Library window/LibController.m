@@ -1854,7 +1854,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (NSWindow *)importAndPlayGame:(NSString *)path {
 
-    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure: YES];
+    BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
+
+    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
     if (game)
     {
         [self selectGames:[NSSet setWithArray:@[game]]];
@@ -1863,10 +1865,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return nil;
 }
 
-- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
+- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [GameImporter new];
     importer.libController = self;
-    return [importer importGame:path inContext:context reportFailure:report];
+    return [importer importGame:path inContext:context reportFailure:report hide:hide];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -2106,7 +2108,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (searchString.length)
     {
         // First we search using the entire search string as a phrase
-        // such as "beyond Zork"
+        // such as "beyond zork"
 
         [predicateArray addObject:[LibController searchPredicateForWord:searchString]];
 
@@ -2134,10 +2136,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                          [LibController searchPredicateForWord:word]];
                 }
             }
-
-            comp = [NSCompoundPredicate andPredicateWithSubpredicates: predicateArray];
-            fetchRequest.predicate = comp;
-            error = nil;
         }
     }
 
@@ -2147,7 +2145,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         error = nil;
         searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     }
-    
+
     _gameTableModel = searchResult.mutableCopy;
     if (_gameTableModel == nil)
         NSLog(@"Problem! %@",error);

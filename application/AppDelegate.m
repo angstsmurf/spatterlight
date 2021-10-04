@@ -310,10 +310,23 @@ PasteboardFilePasteLocation;
         }
         panel.allowedFileTypes = allowedTypes;
         panel.directoryURL = directory;
-        NSLog(@"directory = %@", directory);
+
+        NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+        checkbox.buttonType = NSSwitchButton;
+        checkbox.title = NSLocalizedString(@"Add to library", @"");
+        checkbox.state = [[NSUserDefaults standardUserDefaults]
+                          boolForKey:@"AddToLibrary"];
+        panel.accessoryView = checkbox;
+
         [panel beginWithCompletionHandler:^(NSInteger result) {
             if (result == NSModalResponseOK) {
-                NSURL *theDoc = (panel.URLs)[0];
+                NSButton *finalButton = (NSButton*)panel.accessoryView;
+                BOOL addToLibrary = (finalButton.state == NSOnState); ;
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:addToLibrary forKey:@"AddToLibrary"];
+                [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
+
+                NSURL *theDoc = panel.URLs.firstObject;
                 if (theDoc) {
                     NSString *pathString =
                     theDoc.path.stringByDeletingLastPathComponent;
