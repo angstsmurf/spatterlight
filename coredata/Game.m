@@ -24,6 +24,7 @@
 @dynamic group;
 @dynamic hasDownloaded;
 @dynamic hashTag;
+@dynamic hidden;
 @dynamic ifid;
 @dynamic lastPlayed;
 @dynamic path;

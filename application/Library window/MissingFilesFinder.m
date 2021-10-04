@@ -68,7 +68,7 @@ extern NSArray *gGameFileTypes;
                     NSInteger response = [anAlert runModal];
                     if (response == NSAlertFirstButtonReturn) {
 
-                        if ([libController importGame:newPath inContext:game.managedObjectContext reportFailure:YES]) {
+                        if ([libController importGame:newPath inContext:game.managedObjectContext reportFailure:YES hide:NO]) {
                             [game.managedObjectContext deleteObject:game];
                         }
                     }

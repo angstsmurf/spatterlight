@@ -2748,6 +2748,7 @@
 		C3998E3726C984C2002C1E5D /* Bugged command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Bugged command script.txt"; sourceTree = "<group>"; };
 		C3998E3926C984CE002C1E5D /* bugged.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bugged.dat; sourceTree = "<group>"; };
 		C3998E3B26C9A680002C1E5D /* 00 Wyldkynd Project.a3c */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00 Wyldkynd Project.a3c"; sourceTree = "<group>"; };
+		C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 11.xcdatamodel"; sourceTree = "<group>"; };
 		C39D803826BDEE8200500E1C /* Transparent.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Transparent.gblorb; sourceTree = "<group>"; };
 		C39D803A26BDF7C300500E1C /* Transparent command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transparent command script.txt"; sourceTree = "<group>"; };
 		C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Transparent.txt"; sourceTree = "<group>"; };
@@ -9755,6 +9756,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */,
 				C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */,
 				C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */,
 				C3C4D295264C6F7A0042C616 /* Spatterlight 8.xcdatamodel */,
@@ -9766,7 +9768,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */;
+			currentVersion = C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
