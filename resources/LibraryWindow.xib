@@ -121,7 +121,7 @@
                                                     <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="found" editable="NO" width="15" minWidth="15" maxWidth="15" id="442" userLabel="Table Column - Found">
+                                                        <tableColumn identifier="found" editable="NO" width="15" minWidth="15" maxWidth="15" id="442" userLabel="Found">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -381,7 +381,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                                        <rect key="frame" x="58" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="56" y="8" width="30" height="23"/>
                                         <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" image="eye" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="151">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
@@ -395,7 +395,7 @@
                                         <rect key="frame" x="327" y="12" width="16" height="16"/>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="96" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="94" y="8" width="30" height="23"/>
                                         <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" image="play" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
@@ -694,6 +694,15 @@ CA
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="toggleColumn:" target="-2" id="230"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Found" state="on" identifier="found" id="PK9-cV-QNb" userLabel="Found">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="found"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="toggleColumn:" target="-2" id="NGf-dS-yWJ"/>
                     </connections>
                 </menuItem>
             </items>
