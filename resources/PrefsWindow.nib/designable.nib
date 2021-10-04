@@ -1604,8 +1604,7 @@
                                         <button toolTip="Whether to show the library window when Spatterlight's dock icon is clicked and no game windows are shown." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaB-f3-jTz">
                                             <rect key="frame" x="112" y="166" width="196" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <string key="toolTip">Always show the library window when Spatterlight is started. This will not affect whether the window is restored if it was open when quitting.</string>
-                                            <buttonCell key="cell" type="check" title="Show library window at startup" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="r5H-LC-Wuw">
+                                            <buttonCell key="cell" type="check" title="Show library window on click" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="r5H-LC-Wuw">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>

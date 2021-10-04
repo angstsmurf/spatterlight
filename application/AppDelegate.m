@@ -375,8 +375,12 @@ PasteboardFilePasteLocation;
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApp {
     NSLog(@"appdel: applicationOpenUntitledFile");
-    [self showLibrary:nil];
-    return YES;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
+        [self showLibrary:nil];
+        return YES;
+    }
+    return NO;
 }
 
 - (NSWindow *)preferencePanel {
