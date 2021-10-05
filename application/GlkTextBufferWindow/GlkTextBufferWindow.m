@@ -62,6 +62,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL pauseScrolling;
     BOOL commandScriptWasRunning;
+
+    BOOL scrolling;
+    NSMutableArray *bufferedEvents;
 }
 @end
 
@@ -1025,7 +1028,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSNumber *key = @(ch);
     BOOL scrolled = NO;
 
-    if (![self scrolledToBottom]) {
+    if (!scrolling && !_pendingScroll && ![self scrolledToBottom]) {
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
             case keycode_PageUp:
@@ -1100,6 +1103,14 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (self.window.firstResponder != _textview)
             [self.window makeFirstResponder:_textview];
+
+        // If there is no input request, buffer keyDown events
+        // and reissue them on the next line input request
+        if (!self.wantsFocus) {
+            if (!bufferedEvents)
+                bufferedEvents = [NSMutableArray new];
+            [bufferedEvents addObject:evt];
+        }
         [_textview superKeyDown:evt];
     }
 }
@@ -1217,6 +1228,12 @@ fprintf(stderr, "%s\n",                                                    \
     [self showInsertionPoint];
 
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
+    if (bufferedEvents.count)  {
+        for (NSEvent *event in bufferedEvents) {
+            [self keyDown:event];
+        }
+        bufferedEvents = [NSMutableArray new];
+    }
 }
 
 - (void)recalcInputAttributes {
@@ -2003,10 +2020,13 @@ replacementString:(id)repl {
     NSRect newBounds = clipView.bounds;
     newBounds.origin.y = position;
     if (animate && self.theme.smoothScroll) {
+        scrolling = YES;
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
             context.duration = 0.3;
             clipView.animator.boundsOrigin = newBounds.origin;
-        } completionHandler:nil];
+        } completionHandler:^{
+            self->scrolling = NO;
+        }];
     } else {
         clipView.bounds = newBounds;
     }
