@@ -533,15 +533,17 @@ PasteboardFilePasteLocation;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
+    double delayInSeconds = 0.4;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         NSApplication *app = (NSApplication *)notification.object;
         BOOL visibleWindows = NO;
         for (NSWindow *win in app.windows)
             if (win.visible)
                 visibleWindows = YES;
-
         if (!visibleWindows)
             [self openDocument:nil];
-
+    });
 }
 
 @end
