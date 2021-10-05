@@ -310,6 +310,7 @@ PasteboardFilePasteLocation;
         }
         panel.allowedFileTypes = allowedTypes;
         panel.directoryURL = directory;
+        panel.message = NSLocalizedString(@"Select a game", nil);
 
         NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
         checkbox.buttonType = NSSwitchButton;
@@ -379,6 +380,8 @@ PasteboardFilePasteLocation;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
         [self showLibrary:nil];
         return YES;
+    } else {
+        [self openDocument:nil];
     }
     return NO;
 }
@@ -527,6 +530,18 @@ PasteboardFilePasteLocation;
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
     return [_coreDataManager.mainManagedObjectContext undoManager];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+        NSApplication *app = (NSApplication *)notification.object;
+        BOOL visibleWindows = NO;
+        for (NSWindow *win in app.windows)
+            if (win.visible)
+                visibleWindows = YES;
+
+        if (!visibleWindows)
+            [self openDocument:nil];
+
 }
 
 @end
