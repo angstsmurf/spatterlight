@@ -64,7 +64,7 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL commandScriptWasRunning;
 
     BOOL scrolling;
-    NSMutableArray *bufferedEvents;
+    NSMutableArray<NSEvent *> *bufferedEvents;
 }
 @end
 
