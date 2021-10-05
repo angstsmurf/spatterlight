@@ -2,11 +2,11 @@
 
 ## Release 0.8.9
 - Keypresses could be lost between commands
-- Adds preference to not add games to library when opening them through the Open menu or by double clicking a file associated with Spatterlight. This option is added both to the Open file dialog and to the preferences panel
-- Adds preference to re-check the library periodically for game files that have been deleted. This may be annoying if your game library is spread across external disks and network volumes, so it is off by default
+- Adds a preference to not add games to library when opening them through the Open menu or by double clicking a file associated with Spatterlight. This option is added both to the Open file dialog and to the preferences panel
+- Adds a preference to re-check the library periodically for game files that have been deleted. This may be annoying if your game library is spread across external disks and network volumes, so it is off by default
 - Adds a Verify Library menu item, shortcut ⌘L, to immediately check for and optionally delete library entries with missing files
 - In previous versions, the library window would open by default if no other window were open and the Spatterlight dock icon was clicked. This behaviour is now off by default, but can be re-enabled in the preferences panel
-- The preferences panel has a new tab, Global, to accomodate all these new settings. All settings here are independent of the currently selected theme
+- The preferences panel has a new tab, Global, to accommodate all these new settings. All settings here are independent of the currently selected theme
 - The Found table column, the leftmost column that shows an exclamation mark if a game file is missing, can now be hidden in the header contextual menu
 
 ## Release 0.8.8
