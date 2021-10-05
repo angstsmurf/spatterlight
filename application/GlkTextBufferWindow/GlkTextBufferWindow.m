@@ -761,6 +761,7 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = YES;
     storedNewline = nil;
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
+    [self flushDisplay];
 }
 
 - (void)reallyClear {
