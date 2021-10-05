@@ -1583,6 +1583,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [weakSelf askToDownload];
         });
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
+        [[NSNotificationCenter defaultCenter] removeObserver:weakSelf name:NSManagedObjectContextObjectsDidChangeNotification object:private];
     }];
 }
 
@@ -2058,6 +2059,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 meta.title = [game urlForBookmark].lastPathComponent;
             }
         }
+        [[NSNotificationCenter defaultCenter] removeObserver:strongSelf name:NSManagedObjectContextObjectsDidChangeNotification object:private];
         [strongSelf.coreDataManager saveChanges];
     }];
 }
