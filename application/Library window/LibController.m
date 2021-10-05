@@ -926,15 +926,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 weakSelf.currentlyAddingGames = NO;
                 weakSelf.addButton.enabled = YES;
             }
-            if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
-
-                [weakSelf.coreDataManager saveChanges];
-                for (Game *aGame in games) {
-                    [weakSelf.managedObjectContext refreshObject:aGame.metadata
-                                                    mergeChanges:YES];
-                }
-                [weakSelf updateSideViewForce:YES];
-            }
         });
 
         [weakSelf endImporting];
