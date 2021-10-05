@@ -155,7 +155,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     BOOL countingMetadataChanges;
     NSUInteger insertedMetadataCount, updatedMetadataCount;
+
+    BOOL verifyIsCancelled;
+    NSTimer *verifyTimer;
 }
+
 @end
 
 @implementation LibController
@@ -307,6 +311,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
         [self.window setValue:@2 forKey:@"tabbingMode"];
     }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RecheckForMissing"]) {
+        [self startVerifyTimer];
+        [self verifyInBackground:nil];
+    }
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
@@ -447,10 +456,121 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 }
 
+#pragma mark Check library for missing files
+- (IBAction)verifyLibrary:(id)sender{
+    if ([self verifyAlert] == NSAlertFirstButtonReturn) {
+        [self verifyInBackground:nil];
+    }
+}
+
+- (NSModalResponse)verifyAlert {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults boolForKey:@"VerifyAlertSuppression"])
+        return NSAlertFirstButtonReturn;
+
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = NSLocalizedString(@"Verify Library", nil);
+    alert.informativeText = NSLocalizedString(@"Check the library for missing game files.", nil);
+    alert.showsSuppressionButton = YES;
+    alert.suppressionButton.title = NSLocalizedString(@"Remember these choices", nil);
+
+    _verifyDeleteMissingCheckbox.state = [defaults boolForKey:@"DeleteMissing"];
+    _verifyReCheckbox.state = [defaults boolForKey:@"RecheckForMissing"];
+    _verifyFrequencyTextField.integerValue = [defaults integerForKey:@"RecheckFrequency"];
+
+    alert.accessoryView = _verifyView;
+    [alert addButtonWithTitle:NSLocalizedString(@"Check", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
+        [defaults setBool:alert.suppressionButton.state ? YES : NO forKey:@"VerifyAlertSuppression"];
+        [defaults setBool:_verifyReCheckbox.state ? YES : NO forKey:@"RecheckForMissing"];
+        if (_verifyReCheckbox.state)
+            [self startVerifyTimer];
+        else
+            [self stopVerifyTimer];
+        [defaults setBool:_verifyDeleteMissingCheckbox.state ? YES : NO forKey:@"DeleteMissing"];
+        [defaults setInteger:_verifyFrequencyTextField.integerValue forKey:@"RecheckFrequency"];
+    }
+    return choice;
+}
+
+- (void)verifyInBackground:(id)sender {
+    verifyIsCancelled = NO;
+
+    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    childContext.undoManager = nil;
+
+    LibController * __unsafe_unretained weakSelf = self;
+
+    [childContext performBlock:^{
+        LibController *strongSelf = weakSelf;
+        BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
+        for (Game *gameInMain in strongSelf.gameTableModel) {
+            if (strongSelf->verifyIsCancelled) {
+                strongSelf->verifyIsCancelled = NO;
+                return;
+            }
+            NSError *error = nil;
+            Game *game = [childContext existingObjectWithID:[gameInMain objectID] error:&error];
+            if (error)
+                NSLog(@"verifyInBackground: childContext existingObjectWithID (game %@): %@", gameInMain.metadata.title, error);
+            if (game) {
+                if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
+                    ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path]) {
+                    if (deleteMissing) {
+                        [childContext deleteObject:game];
+                    } else if (game.found) {
+                        game.found = NO;
+                    }
+                } else {
+                    if (!game.found)
+                        game.found = YES;
+                }
+            }
+            error = nil;
+            if (childContext.hasChanges) {
+                [childContext save:&error];
+                if (error) {
+                    NSLog(@"verifyInBackground: childContext save: %@", error);
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.coreDataManager saveChanges];
+                    });
+                }
+            }
+        }
+    }];
+}
+
+- (void)startVerifyTimer {
+    if (verifyTimer)
+        [verifyTimer invalidate];
+    verifyIsCancelled = NO;
+    NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:@"RecheckFrequency"];
+    NSTimeInterval seconds = minutes * 60;
+    verifyTimer = [NSTimer scheduledTimerWithTimeInterval:seconds
+                                     target:self
+                                   selector:@selector(verifyInBackground:)
+                                   userInfo:nil
+                                    repeats:YES];
+    verifyTimer.tolerance = 10;
+}
+
+- (void)stopVerifyTimer {
+    if (verifyTimer)
+        [verifyTimer invalidate];
+    verifyIsCancelled = YES;
+}
+
 - (void)lookForMissingFile:(Game *)game {
     MissingFilesFinder *look = [MissingFilesFinder new];
     [look lookForMissingFile:game libController:self];
 }
+
+#pragma mark End of check for missing files
 
 - (void)beginImporting {
     LibController * __unsafe_unretained weakSelf = self;
@@ -513,13 +633,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSModalResponseOK) {
-                          NSURL *url = panel.URL;
-                          [self exportMetadataToFile:url.path
-                                                what:localExportTypeControl
-                                                         .indexOfSelectedItem];
-                      }
-                  }];
+        if (result == NSModalResponseOK) {
+            NSURL *url = panel.URL;
+            [self exportMetadataToFile:url.path
+                                  what:localExportTypeControl
+             .indexOfSelectedItem];
+        }
+    }];
 }
 
 - (IBAction)addGamesToLibrary:(id)sender {
@@ -783,13 +903,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [weakSelf beginImporting];
 
             game.hasDownloaded = YES;
-
-            //It makes some kind of sense to also check if the game file still exists while downloading metadata
-            if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
-                ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path])
-                game.found = NO;
-            else
-                game.found = YES;
 
             NSLog(@"downloadGames: downloading metadata for game %@", game.metadata.title);
             result = [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
@@ -1392,7 +1505,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 // import it again, creating new metadata. This could happen if the user has deleted
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
                 // have gone out of sync somehow.
-                game = [weakSelf importGame:[games valueForKey:ifid] inContext:private reportFailure: NO];
+                game = [weakSelf importGame:[games valueForKey:ifid] inContext:private reportFailure:NO hide:NO];
                 if (game)
                     meta = game.metadata;
             } else {
@@ -1874,6 +1987,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (IBAction)cancel:(id)sender {
     _currentlyAddingGames = NO;
     _nestedDownload = NO;
+    verifyIsCancelled = YES;
 }
 
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {

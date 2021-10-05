@@ -1760,7 +1760,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)resetDialogs:(NSButton *)sender {
     NSUInteger counter = 0;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSSet *keys = [[NSSet alloc] initWithObjects:@"TerminationAlertSuppression", @"UseForAllAlertSuppression", @"OverwriteStylesAlertSuppression", @"AutorestoreAlertSuppression", @"CloseAlertSuppression", @"CommandScriptAlertSuppression", @"SaveFileAlertSuppression", @"ImageComparisonSuppression", nil];
+    NSSet *keys = [[NSSet alloc] initWithObjects:@"TerminationAlertSuppression", @"UseForAllAlertSuppression", @"OverwriteStylesAlertSuppression", @"AutorestoreAlertSuppression", @"CloseAlertSuppression", @"CommandScriptAlertSuppression", @"SaveFileAlertSuppression", @"ImageComparisonSuppression", @"VerifyAlertSuppression", nil];
 
     for (NSString *key in keys) {
         if ([defaults boolForKey:key])
@@ -1835,6 +1835,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeCheckMissing:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"RecheckForMissing"];
     _recheckFrequencyTextfield.enabled = ([sender state] == NSOnState);
+    if (_recheckMissingCheckbox.state == NSOnState) {
+        [_libcontroller startVerifyTimer];
+    } else {
+        [_libcontroller stopVerifyTimer];
+    }
 }
 
 - (IBAction)changeCheckFrequency:(id)sender {

@@ -72,7 +72,7 @@
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 
 - (NSWindow *)importAndPlayGame:(NSString *)path;
-- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report;
+- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
 - (BOOL)hasActiveGames;
 - (void)runCommandsFromFile:(NSString *)filename;
@@ -84,6 +84,7 @@
 - (IBAction)addGamesToLibrary:(id)sender;
 - (IBAction)deleteLibrary:(id)sender;
 - (IBAction)pruneLibrary:(id)sender;
+- (IBAction)verifyLibrary:(id)sender;
 
 - (IBAction)importMetadata:(id)sender;
 - (IBAction)exportMetadata:(id)sender;
@@ -124,5 +125,13 @@
 @property (strong) IBOutlet NSView *downloadCheckboxView;
 @property (weak) IBOutlet NSButton *lookForCoverImagesCheckBox;
 @property (weak) IBOutlet NSButton *downloadGameInfoCheckBox;
+
+@property (strong) IBOutlet NSView *verifyView;
+@property (weak) IBOutlet NSButton *verifyReCheckbox;
+@property (weak) IBOutlet NSTextField *verifyFrequencyTextField;
+@property (weak) IBOutlet NSButton *verifyDeleteMissingCheckbox;
+
+- (void)startVerifyTimer;
+- (void)stopVerifyTimer;
 
 @end
