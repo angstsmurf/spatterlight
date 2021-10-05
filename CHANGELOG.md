@@ -8,6 +8,8 @@
 - In previous versions, the library window would open by default if no other window were open and the Spatterlight dock icon was clicked. This behaviour is now off by default, but can be re-enabled in the preferences panel
 - The preferences panel has a new tab, Global, to accommodate all these new settings. All settings here are independent of the currently selected theme
 - The Found table column, the leftmost column that shows an exclamation mark if a game file is missing, can now be hidden in the header contextual menu
+- If no windows are shown at startup, a file dialog will open
+- Fixes a color issue in *Codex Sadistica*
 
 ## Release 0.8.8
 - Security scoped bookmarks were stored with write-only access. This broke some TADS games, which try to to write external files
