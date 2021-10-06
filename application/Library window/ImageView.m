@@ -750,11 +750,22 @@
 
 - (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {
 
-    if (!_game.metadata.cover.data) {
+    if (!_game.managedObjectContext)
+        return NO;
+
+    __block NSData *gameData;
+    __block NSString *gamePath;
+
+    [_game.managedObjectContext performBlockAndWait:^{
+        gameData = (NSData *)_game.metadata.cover.data;
+        gamePath = _game.path;
+    }];
+
+    if (!gameData) {
         return NO;
     }
 
-    NSString *gameBaseName = _game.path.lastPathComponent.stringByDeletingPathExtension;
+    NSString *gameBaseName = gamePath.lastPathComponent.stringByDeletingPathExtension;
 
     NSString *fileBaseName = path.lastPathComponent.stringByDeletingPathExtension;
 
@@ -765,7 +776,7 @@
     }
 
     if ([gameBaseName isEqualToString:fileBaseName]) {
-        SInt64 distance = [[OSImageHashing sharedInstance] hashDistance:(NSData *)_game.metadata.cover.data to:data];
+        SInt64 distance = [[OSImageHashing sharedInstance] hashDistance:gameData to:data];
         NSLog(@"distance: %lld", distance);
         if (distance < 11) {
             return YES;
