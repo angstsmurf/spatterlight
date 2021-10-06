@@ -161,13 +161,7 @@
         exit(0);
     }
     privateManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [privateManagedObjectContext setPersistentStoreCoordinator:coordinator];
-
-    if (privateManagedObjectContext.undoManager == nil) {
-        NSUndoManager *newManager = [[NSUndoManager alloc] init];
-        [newManager setLevelsOfUndo:10];
-        privateManagedObjectContext.undoManager = newManager;
-    }
+    privateManagedObjectContext.persistentStoreCoordinator = coordinator;
 
     return privateManagedObjectContext;
 }
@@ -200,7 +194,6 @@
 
 - (void)saveChanges {
     //    NSLog(@"CoreDataManagar saveChanges");
-    CoreDataManager * __unsafe_unretained weakSelf = self;
 
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
@@ -216,12 +209,16 @@
 
     }];
 
+    CoreDataManager * __unsafe_unretained weakSelf = self;
+
     [privateManagedObjectContext performBlock:^{
         BOOL result = NO;
         NSError *error = nil;
-        if (weakSelf.privateManagedObjectContext.hasChanges) {
+        if (weakSelf->privateManagedObjectContext.hasChanges) {
             @try {
-                result = [weakSelf.privateManagedObjectContext save:&error];
+                result = [weakSelf->privateManagedObjectContext save:&error];
+                if (error)
+                    NSLog(@"Error: %@", error);
             }
             @catch (NSException *ex) {
                 // Ususally because we have deleted the core data files
@@ -246,7 +243,7 @@
     // Initialize Managed Object Context
     NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     // Configure Managed Object Context
-    [managedObjectContext setParentContext:self.mainManagedObjectContext];
+    managedObjectContext.parentContext = self.mainManagedObjectContext;
     
     return managedObjectContext;
 }

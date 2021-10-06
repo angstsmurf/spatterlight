@@ -88,7 +88,7 @@
 
 - (IBAction)importMetadata:(id)sender;
 - (IBAction)exportMetadata:(id)sender;
-- (BOOL)importMetadataFromFile:(NSString *)filename;
+- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context;
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what;
 
 - (IBAction)searchForGames:(id)sender;

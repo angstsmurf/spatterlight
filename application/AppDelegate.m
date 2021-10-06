@@ -355,7 +355,7 @@ PasteboardFilePasteLocation;
 
     if ([extension isEqualToString:@"ifiction"]) {
         [_libctl waitToReportMetadataImport];
-        [_libctl importMetadataFromFile:path];
+        [_libctl importMetadataFromFile:path inContext:_libctl.managedObjectContext];
     } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl runCommandsFromFile:path];
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {

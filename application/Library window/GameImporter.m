@@ -9,6 +9,8 @@
 #import "Metadata.h"
 #import "Image.h"
 
+#import "CoreDataManager.h"
+
 #import "IFDBDownloader.h"
 #import "ImageCompareViewController.h"
 
@@ -68,6 +70,10 @@ extern NSArray *gGameFileTypes;
                         [[NSApplication sharedApplication] presentError:error];
                     }
                 }
+                __unsafe_unretained CoreDataManager *blockmanager = _libController.coreDataManager;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [blockmanager saveChanges];
+                });
             }
             timestamp = [NSDate date];
         }

@@ -194,15 +194,21 @@ fprintf(stderr, "%s\n",                                                    \
     {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
+
+            NSData *oldData = (NSData *)metadata.cover.data;
             dispatch_sync(dispatch_get_main_queue(), ^{
                 ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-
-                if ([imageCompare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:DOWNLOADED]) {
-                    [self insertImageData:data inMetadata:metadata];
+                if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
                     accepted = YES;
                 }
             });
-
+            if (accepted) {
+                [self insertImageData:data inMetadata:metadata];
+                error = nil;
+                [metadata.managedObjectContext save:&error];
+                if (error)
+                    NSLog(@"%@", error);
+            }
         }
     }
     return accepted;
@@ -214,9 +220,9 @@ fprintf(stderr, "%s\n",                                                    \
         return [self findPlaceHolderInMetadata:metadata imageData:data];
     }
 
-   Image *img = (Image *) [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Image"
-                     inManagedObjectContext:metadata.managedObjectContext];
+    Image *img = (Image *) [NSEntityDescription
+                            insertNewObjectForEntityForName:@"Image"
+                            inManagedObjectContext:metadata.managedObjectContext];
     img.data = [data copy];
     img.originalURL = metadata.coverArtURL;
     img.imageDescription = metadata.coverArtDescription;
