@@ -761,7 +761,8 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = YES;
     storedNewline = nil;
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
-    [self flushDisplay];
+    if (self.glkctl.usesFont3)
+        [self flushDisplay];
 }
 
 - (void)reallyClear {
