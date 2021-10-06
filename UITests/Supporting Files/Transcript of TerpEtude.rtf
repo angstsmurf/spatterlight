@@ -2,12 +2,13 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fswiss\fcharset0 Helvetica-Oblique;
 \f3\fnil\fcharset0 SourceCodePro-Regular;\f4\fswiss\fcharset0 Helvetica-BoldOblique;\f5\fnil\fcharset0 SourceCodePro-Bold;
 \f6\fnil\fcharset0 SourceCodePro-It;\f7\fnil\fcharset0 SourceCodePro-BoldIt;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;
-\red239\green0\blue0;\red0\green214\blue0;\red239\green239\blue0;\red0\green107\blue181;\red255\green0\blue255;
-\red0\green239\blue239;\red255\green255\blue255;}
-{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;\csgenericrgb\c0\c0\c0;
-\csgenericrgb\c93725\c0\c0;\csgenericrgb\c0\c83922\c0;\csgenericrgb\c93725\c93725\c0;\csgenericrgb\c0\c41961\c70980;\csgenericrgb\c100000\c0\c100000;
-\csgenericrgb\c0\c93725\c93725;\csgenericrgb\c100000\c100000\c100000;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red29\green93\blue28;
+\red0\green0\blue0;\red232\green0\blue6;\red28\green211\blue4;\red235\green239\blue10;\red10\green85\blue166;
+\red251\green0\blue255;\red30\green238\blue235;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;\cssrgb\c13700\c43100\c14500;
+\cspthree\c0\c0\c0;\cspthree\c85968\c18504\c12704;\cspthree\c38028\c82669\c24447;\cspthree\c93733\c93721\c30796;\cspthree\c17600\c41294\c68828;
+\cspthree\c91751\c20012\c96758;\cspthree\c42798\c92334\c93026;\cspthree\c100000\c99994\c100000;}
+\vieww11520\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f0\fs26 \cf2 \cb3 \
@@ -38,9 +39,9 @@ Options: (hit Enter by itself to display this menu)\
   14: Printing before quitting\
 \
 > 
-\f1\b 1\
+\f1\b \cf4 1\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 TerpEtude: A Z-machine Interpreter Exerciser\
 By Andrew Plotkin (erkyrath@netcom.com)\
 Release 2 / built with Inform v6.11\
@@ -51,9 +52,9 @@ NOTE: This program does not test everything in the Z-Spec. Passing all the tests
 For that matter, this program may have mistakes in it. I don\'92t think it does, but you should not assume it is the Fount of All Z-Machineness. If you find something strange, check the Z-Spec, check existing interpreters, check Infocom\'92s interpreters, and then send me mail if you\'92re still confused.\
 \
 > 
-\f1\b 2\
+\f1\b \cf4 2\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 In the beginning, TerpEtude was written. That was release DRAFT-1.\
 \
    Release 2:\
@@ -72,9 +73,9 @@ Title: Jon Ferro\
 Spec Aid: Graham, SJ, PDD, and the rest of the crowd\
 \
 > 
-\f1\b 3\
+\f1\b \cf4 3\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 Your interpreter claims to follow revision 1.1 of the Z-Spec.\
 \
 Interpreter claims that colored text IS available.\
@@ -87,9 +88,9 @@ Interpreter claims that timed input IS available.\
 Interpreter claims that \'93undo\'94 IS available.\
 \
 > 
-\f1\b 4\
+\f1\b \cf4 4\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 Interpreter claims that emphasized (bold) text IS available.\
 Interpreter claims that italic (or underlined) text IS available.\
 Interpreter claims that fixed-width text IS available.\
@@ -168,9 +169,9 @@ The following are all printed with \'93font off\'94 (that is, the header bit rem
 End of styles test.\
 \
 > 
-\f1\b 5\
+\f1\b \cf4 5\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 Interpreter claims that colored text IS available.\
 \
 In the square below, you should see vertical stripes of background color (matching the column headers) and horizontal rows of foreground color (that is, all # marks in a row the same color.)\
@@ -178,21 +179,22 @@ In the square below, you should see vertical stripes of background color (matchi
 
 \f3 \
 Bk Rd Gr Yl Bl Mg Cy Wh\
-\cf4 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Black\
-\cf5 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Red\
-\cf6 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Green\
-\cf7 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Yellow\
-\cf8 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Blue\
-\cf9 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Magenta\
-\cf10 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : Cyan\
-\cf11 \cb4 ## \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cf2 \cb3 : White\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
+\cf5 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Black\
+\cf6 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Red\
+\cf7 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Green\
+\cf8 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Yellow\
+\cf9 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Blue\
+\cf10 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Magenta\
+\cf11 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : Cyan\
+\cf12 \cb5 ## \cb6 ## \cb7 ## \cb8 ## \cb9 ## \cb10 ## \cb11 ## \cb12 ## \cf2 \cb3 : White\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
 \f0 \
 > 
-\f1\b 6\
+\f1\b \cf4 6\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 This tests signed multiplication, division, and modulo operations. All these operations are supposed to be signed. (The Z-Spec 0.2 erroneously says they are unsigned; this is corrected in 0.99.)\
 \
 I am assuming the convention that division always rounds towards zero (not towards negative infinity), and (A % B) always has the same sign as A. These conventions seem to be common among existing C/C++ compilers. The Infocom interpreters also follow these conventions. (But they are not guaranteed by the C and C++ standards. Those only require that (A/B)*B + (A%B) == A, for all A and all nonzero B.)\
@@ -213,9 +215,9 @@ I am assuming the convention that division always rounds towards zero (not towar
 This aspect of your interpreter appears to behave according to spec.\
 \
 > 
-\f1\b 7\
+\f1\b \cf4 7\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 This displays all the accented characters (encoding values 155 to 223). You will have to inspect your interpreter\'92s display to make sure they appear correctly.\
 \
 For the record, an umlaut is two dots; an acute accent is the one that slants up to the right; a grave accent is the one that slants down to the right; a circumflex is a pointy hat; a tilde is a squiggly hat; a ring is a ring; a cedilla is the little hook that hangs down below the C. Thorn looks like a capital D whose vertical bar extends both up and down, and Eth looks like a D with a little cross-stroke.\
@@ -460,10 +462,10 @@ Options: 0: normal; 1: bold; 2: italic; 3: bold italic; 4: fixed-width; 5: fixed
 Accents> \
 \
 > 
-\f1\b 8\
+\f1\b \cf4 8\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading20\pardirnatural\partightenfactor0
 
-\f0\b0 \
+\f0\b0 \cf2 \
 This tests input of accented (actually, all) characters. Type characters; you will see what characters your interpreter thought you typed. Hit \'93.\'94 to return to the main menu.\
 \
 AccentedInput> \
@@ -479,17 +481,17 @@ AccentedInput> \
 Test finished.\
 \
 > 
-\f1\b 9\
+\f1\b \cf4 9\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 This tests input of accented (actually, all) characters. Enter a line of text; it will be broken down, and you will see a list of what characters your interpreter thought you typed. Remember that the interpreter is supposed to reduce everything to lower-case.\
 \
 Hit Enter by itself to return to the main menu.\
 \
 AccentedInput> 
-\f1\b \'e9\'c5\'c4\'d6\'c9\'fc\'db\
+\f1\b \cf4 \'e9\'c5\'c4\'d6\'c9\'fc\'db\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 code=170: e-acute:\'e9\
 code=201: a-ring:\'e5\
 code=155: a-umlaut:\'e4\
@@ -499,14 +501,14 @@ code=157: u-umlaut:\'fc\
 code=195: u-circumflex:\'fb\
 \
 AccentedInput> 
-\f1\b \
+\f1\b \cf4 \
 
-\f0\b0 \
+\f0\b0 \cf2 \
 \
 > 
-\f1\b 12\
+\f1\b \cf4 12\
 
-\f0\b0 \
+\f0\b0 \cf2 \
 This tests whether your interpreter supports being handed input by the game file. (For example, after a function key is hit in Beyond Zork, the command prompt appears with text already in place \'96 whatever text you had typed before you interrupted it with the function key.)\
 \
 The command prompt below should appear with the word \'93Given\'94 already visible after it. You should be able to type more characters, or go back and edit the given character as if you had typed them yourself.\
@@ -514,4 +516,4 @@ The command prompt below should appear with the word \'93Given\'94 already visib
 If you see the word \'93Given\'94 twice, your interpreter is printing the given characters, which it shouldn\'92t (that\'92s the responsibility of the game file.)\
 \
 Preload> 
-\f1\b Given}
+\f1\b \cf4 Given}
