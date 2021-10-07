@@ -9,6 +9,8 @@
 #import "Metadata.h"
 #import "Image.h"
 
+#import "CoreDataManager.h"
+
 #import "IFDBDownloader.h"
 #import "ImageCompareViewController.h"
 
@@ -68,6 +70,10 @@ extern NSArray *gGameFileTypes;
                         [[NSApplication sharedApplication] presentError:error];
                     }
                 }
+                __unsafe_unretained CoreDataManager *blockmanager = _libController.coreDataManager;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [blockmanager saveChanges];
+                });
             }
             timestamp = [NSDate date];
         }
@@ -83,7 +89,7 @@ extern NSArray *gGameFileTypes;
     NSManagedObjectContext *context = options[@"context"];
 
 
-    Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure];
+    Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure hide:NO];
 
     if (game) {
         [_libController beginImporting];
@@ -108,7 +114,7 @@ extern NSArray *gGameFileTypes;
         [_libController.iFictionFiles addObject:file];
 }
 
-- (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
+- (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     char buf[TREATY_MINIMUM_EXTENT];
     Metadata *metadata;
     Game *game;
@@ -295,6 +301,8 @@ extern NSArray *gGameFileTypes;
                 game.detectedFormat = @(format);
             }
             game.found = YES;
+            if (!hide)
+                game.hidden = NO;
             return game;
         }
     }
@@ -350,6 +358,7 @@ extern NSArray *gGameFileTypes;
     [game bookmarkForPath:path];
 
     game.added = [NSDate date];
+    game.hidden = hide;
     game.metadata = metadata;
     game.ifid = ifid;
     game.detectedFormat = @(format);

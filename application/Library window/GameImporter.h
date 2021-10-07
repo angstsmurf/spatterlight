@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GameImporter : NSObject
 
-- (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report;
+- (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
 - (void)addFiles:(NSArray*)urls options:(NSDictionary *)options;
 

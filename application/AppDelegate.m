@@ -310,10 +310,24 @@ PasteboardFilePasteLocation;
         }
         panel.allowedFileTypes = allowedTypes;
         panel.directoryURL = directory;
-        NSLog(@"directory = %@", directory);
+        panel.message = NSLocalizedString(@"Select a game", nil);
+
+        NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+        checkbox.buttonType = NSSwitchButton;
+        checkbox.title = NSLocalizedString(@"Add to library", @"");
+        checkbox.state = [[NSUserDefaults standardUserDefaults]
+                          boolForKey:@"AddToLibrary"];
+        panel.accessoryView = checkbox;
+
         [panel beginWithCompletionHandler:^(NSInteger result) {
             if (result == NSModalResponseOK) {
-                NSURL *theDoc = (panel.URLs)[0];
+                NSButton *finalButton = (NSButton*)panel.accessoryView;
+                BOOL addToLibrary = (finalButton.state == NSOnState); ;
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:addToLibrary forKey:@"AddToLibrary"];
+                [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
+
+                NSURL *theDoc = panel.URLs.firstObject;
                 if (theDoc) {
                     NSString *pathString =
                     theDoc.path.stringByDeletingLastPathComponent;
@@ -341,7 +355,7 @@ PasteboardFilePasteLocation;
 
     if ([extension isEqualToString:@"ifiction"]) {
         [_libctl waitToReportMetadataImport];
-        [_libctl importMetadataFromFile:path];
+        [_libctl importMetadataFromFile:path inContext:_libctl.managedObjectContext];
     } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl runCommandsFromFile:path];
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
@@ -362,8 +376,14 @@ PasteboardFilePasteLocation;
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApp {
     NSLog(@"appdel: applicationOpenUntitledFile");
-    [self showLibrary:nil];
-    return YES;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
+        [self showLibrary:nil];
+        return YES;
+    } else {
+        [self openDocument:nil];
+    }
+    return NO;
 }
 
 - (NSWindow *)preferencePanel {
@@ -510,6 +530,20 @@ PasteboardFilePasteLocation;
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
     return [_coreDataManager.mainManagedObjectContext undoManager];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    double delayInSeconds = 0.4;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSApplication *app = (NSApplication *)notification.object;
+        BOOL visibleWindows = NO;
+        for (NSWindow *win in app.windows)
+            if (win.visible)
+                visibleWindows = YES;
+        if (!visibleWindows)
+            [self openDocument:nil];
+    });
 }
 
 @end

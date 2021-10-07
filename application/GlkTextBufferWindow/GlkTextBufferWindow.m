@@ -64,7 +64,7 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL commandScriptWasRunning;
 
     BOOL scrolling;
-    NSMutableArray *bufferedEvents;
+    NSMutableArray<NSEvent *> *bufferedEvents;
 }
 @end
 
@@ -761,6 +761,8 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = YES;
     storedNewline = nil;
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
+    if (currentZColor && currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default)
+        bgnd = currentZColor.bg;
 }
 
 - (void)reallyClear {
@@ -773,10 +775,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
-
-    if (currentZColor && currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default)
-        bgnd = currentZColor.bg;
-
     [self recalcBackground];
     [container invalidateLayout:nil];
     _pendingClear = NO;

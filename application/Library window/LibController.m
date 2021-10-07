@@ -155,7 +155,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     BOOL countingMetadataChanges;
     NSUInteger insertedMetadataCount, updatedMetadataCount;
+
+    BOOL verifyIsCancelled;
+    NSTimer *verifyTimer;
 }
+
 @end
 
 @implementation LibController
@@ -307,6 +311,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
         [self.window setValue:@2 forKey:@"tabbingMode"];
     }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RecheckForMissing"]) {
+        [self startVerifyTimer];
+        [self verifyInBackground:nil];
+    }
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
@@ -447,10 +456,120 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 }
 
+#pragma mark Check library for missing files
+- (IBAction)verifyLibrary:(id)sender{
+    if ([self verifyAlert] == NSAlertFirstButtonReturn) {
+        [self verifyInBackground:nil];
+    }
+}
+
+- (NSModalResponse)verifyAlert {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults boolForKey:@"VerifyAlertSuppression"])
+        return NSAlertFirstButtonReturn;
+
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = NSLocalizedString(@"Verify Library", nil);
+    alert.informativeText = NSLocalizedString(@"Check the library for missing game files.", nil);
+    alert.showsSuppressionButton = YES;
+    alert.suppressionButton.title = NSLocalizedString(@"Remember these choices", nil);
+
+    _verifyDeleteMissingCheckbox.state = [defaults boolForKey:@"DeleteMissing"];
+    _verifyReCheckbox.state = [defaults boolForKey:@"RecheckForMissing"];
+    _verifyFrequencyTextField.integerValue = [defaults integerForKey:@"RecheckFrequency"];
+
+    alert.accessoryView = _verifyView;
+    [alert addButtonWithTitle:NSLocalizedString(@"Check", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
+        [defaults setBool:alert.suppressionButton.state ? YES : NO forKey:@"VerifyAlertSuppression"];
+        [defaults setBool:_verifyReCheckbox.state ? YES : NO forKey:@"RecheckForMissing"];
+        if (_verifyReCheckbox.state)
+            [self startVerifyTimer];
+        else
+            [self stopVerifyTimer];
+        [defaults setBool:_verifyDeleteMissingCheckbox.state ? YES : NO forKey:@"DeleteMissing"];
+        [defaults setInteger:_verifyFrequencyTextField.integerValue forKey:@"RecheckFrequency"];
+    }
+    return choice;
+}
+
+- (void)verifyInBackground:(id)sender {
+    verifyIsCancelled = NO;
+
+    [_coreDataManager saveChanges];
+
+    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    childContext.undoManager = nil;
+
+    LibController * __unsafe_unretained weakSelf = self;
+
+    [childContext performBlock:^{
+        LibController *strongSelf = weakSelf;
+        BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
+        for (Game *gameInMain in strongSelf.gameTableModel) {
+            if (strongSelf->verifyIsCancelled) {
+                strongSelf->verifyIsCancelled = NO;
+                return;
+            }
+            Game *game = [childContext objectWithID:[gameInMain objectID]];
+            if (game) {
+                if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
+                    ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path]) {
+                    if (deleteMissing) {
+                        [childContext deleteObject:game];
+                    } else if (game.found) {
+                        game.found = NO;
+                    }
+                } else {
+                    if (!game.found)
+                        game.found = YES;
+                }
+            }
+            NSError *error = nil;
+            if (childContext.hasChanges) {
+                [childContext save:&error];
+                if (error) {
+                    NSLog(@"verifyInBackground: childContext save: %@", error);
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.coreDataManager saveChanges];
+                    });
+                }
+            }
+        }
+    }];
+}
+
+- (void)startVerifyTimer {
+    if (verifyTimer)
+        [verifyTimer invalidate];
+    verifyIsCancelled = NO;
+    NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:@"RecheckFrequency"];
+    NSTimeInterval seconds = minutes * 60;
+    verifyTimer = [NSTimer scheduledTimerWithTimeInterval:seconds
+                                     target:self
+                                   selector:@selector(verifyInBackground:)
+                                   userInfo:nil
+                                    repeats:YES];
+    verifyTimer.tolerance = 10;
+}
+
+- (void)stopVerifyTimer {
+    if (verifyTimer)
+        [verifyTimer invalidate];
+    verifyIsCancelled = YES;
+}
+
 - (void)lookForMissingFile:(Game *)game {
     MissingFilesFinder *look = [MissingFilesFinder new];
     [look lookForMissingFile:game libController:self];
 }
+
+#pragma mark End of check for missing files
 
 - (void)beginImporting {
     LibController * __unsafe_unretained weakSelf = self;
@@ -494,7 +613,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [weakSelf.managedObjectContext performBlock:^{
                 [weakSelf waitToReportMetadataImport];
                 [weakSelf beginImporting];
-                [weakSelf importMetadataFromFile:url.path];
+                [weakSelf importMetadataFromFile:url.path inContext:weakSelf.managedObjectContext];
                 [weakSelf.coreDataManager saveChanges];
                 [weakSelf endImporting];
             }];
@@ -513,13 +632,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSModalResponseOK) {
-                          NSURL *url = panel.URL;
-                          [self exportMetadataToFile:url.path
-                                                what:localExportTypeControl
-                                                         .indexOfSelectedItem];
-                      }
-                  }];
+        if (result == NSModalResponseOK) {
+            NSURL *url = panel.URL;
+            [self exportMetadataToFile:url.path
+                                  what:localExportTypeControl
+             .indexOfSelectedItem];
+        }
+    }];
 }
 
 - (IBAction)addGamesToLibrary:(id)sender {
@@ -563,13 +682,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (_currentlyAddingGames)
         return;
 
+    [_coreDataManager saveChanges];
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:childContext];
 
     [self beginImporting];
     
@@ -759,14 +874,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)downloadMetadataForGames:(NSArray<Game *> *)games {
+    [_coreDataManager saveChanges];
     LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:childContext];
 
     _nestedDownload = _currentlyAddingGames;
 
@@ -774,22 +885,18 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     _addButton.enabled = NO;
 
     [childContext performBlock:^{
+        LibController *strongSelf = weakSelf;
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
         BOOL result = NO;
         BOOL reportFailure = (games.count == 1);
-        for (Game *game in games) {
-            if (!weakSelf.currentlyAddingGames)
+        for (Game *gameInMain in games) {
+            if (!strongSelf.currentlyAddingGames)
                 break;
-            [weakSelf beginImporting];
+            [strongSelf beginImporting];
+
+            Game *game = [childContext objectWithID:[gameInMain objectID]];
 
             game.hasDownloaded = YES;
-
-            //It makes some kind of sense to also check if the game file still exists while downloading metadata
-            if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
-                ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path])
-                game.found = NO;
-            else
-                game.found = YES;
 
             NSLog(@"downloadGames: downloading metadata for game %@", game.metadata.title);
             result = [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
@@ -801,30 +908,24 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                         if (error) {
                             [[NSApplication sharedApplication] presentError:error];
                         }
-                        game.metadata.source = @(kIfdb);
                     }
+                    game.metadata.source = @(kIfdb);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.coreDataManager saveChanges];
+                    });
                 }
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (weakSelf.nestedDownload) {
-                weakSelf.nestedDownload = NO;
+            if (strongSelf.nestedDownload) {
+                strongSelf.nestedDownload = NO;
             } else {
-                weakSelf.currentlyAddingGames = NO;
-                weakSelf.addButton.enabled = YES;
-            }
-            if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
-
-                [weakSelf.coreDataManager saveChanges];
-                for (Game *aGame in games) {
-                    [weakSelf.managedObjectContext refreshObject:aGame.metadata
-                                                    mergeChanges:YES];
-                }
-                [weakSelf updateSideViewForce:YES];
+                strongSelf.currentlyAddingGames = NO;
+                strongSelf.addButton.enabled = YES;
             }
         });
 
-        [weakSelf endImporting];
+        [strongSelf endImporting];
     }];
 }
 
@@ -1354,45 +1455,44 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
     private.undoManager = nil;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:private];
     [self beginImporting];
     _addButton.enabled = NO;
     _currentlyAddingGames = YES;
 
     [private performBlock:^{
+
+        LibController *strongSelf = weakSelf;
+
         // First, we try to load the Metadata.plist and add all entries as Metadata entities
-        NSMutableDictionary *metadata = [weakSelf load_mutable_plist:[weakSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]];
+        NSMutableDictionary *metadata = [strongSelf load_mutable_plist:[strongSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]];
 
         NSString *ifid;
 
         NSEnumerator *enumerator = [metadata keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
-            [weakSelf addMetadata:metadata[ifid] forIFID:ifid inContext:private];
+            [strongSelf addMetadata:metadata[ifid] forIFID:ifid inContext:private];
         }
 
         // Second, we try to load the Games.plist and add all entries as Game entities
-        NSDictionary *games = [weakSelf load_mutable_plist:[weakSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]];
+        NSDictionary *games = [strongSelf load_mutable_plist:[strongSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]];
 
         NSDate *timestamp = [NSDate date];
         
         enumerator = [games keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
-            [weakSelf beginImporting];
-            Metadata *meta = [weakSelf fetchMetadataForIFID:ifid inContext:private];
+            [strongSelf beginImporting];
+            Metadata *meta = [strongSelf fetchMetadataForIFID:ifid inContext:private];
 
             Game *game;
 
             if (!meta || meta.games.count) {
-                // If we did not create a matching Metadata entity for this Game above, we simply
+                // If we did not create a matching Metadata entity for this Game above, we just
                 // import it again, creating new metadata. This could happen if the user has deleted
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
                 // have gone out of sync somehow.
-                game = [weakSelf importGame:[games valueForKey:ifid] inContext:private reportFailure: NO];
+                game = [strongSelf importGame:[games valueForKey:ifid] inContext:private reportFailure:NO hide:NO];
                 if (game)
                     meta = game.metadata;
             } else {
@@ -1416,7 +1516,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 game.path = [games valueForKey:ifid];
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
-                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:weakSelf.imageDir];
+                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:strongSelf.imageDir];
                 NSData *imgdata;
 
                 if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
@@ -1473,10 +1573,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         } else NSLog(@"No changes to save in private");
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf endImporting];
-            weakSelf.addButton.enabled = YES;
-            weakSelf.currentlyAddingGames = NO;
-            [weakSelf askToDownload];
+            [strongSelf.coreDataManager saveChanges];
+            [strongSelf endImporting];
+            strongSelf.addButton.enabled = YES;
+            strongSelf.currentlyAddingGames = NO;
+            [strongSelf askToDownload];
         });
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
     }];
@@ -1535,14 +1636,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return ((IFStory *)(metadata.stories)[0]).identification.metadata;
 }
 
-- (BOOL)importMetadataFromFile:(NSString *)filename {
+- (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context{
     NSLog(@"libctl: importMetadataFromFile %@", filename);
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
     if (!data)
         return NO;
 
-    Metadata *metadata = [self importMetadataFromXML:data inContext:_managedObjectContext];
+    Metadata *metadata = [self importMetadataFromXML:data inContext:context];
     if (!metadata)
         return NO;
     metadata.source = @(kExternal);
@@ -1553,7 +1654,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     insertedMetadataCount = 0;
     updatedMetadataCount = 0;
     countingMetadataChanges = YES;
-    [self performSelector:@selector(reportChangedMetadata:) withObject:nil afterDelay:1];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSelector:@selector(reportChangedMetadata:) withObject:nil afterDelay:1];
+    });
 }
 
 - (void)reportChangedMetadata:(id)sender {
@@ -1854,7 +1957,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (NSWindow *)importAndPlayGame:(NSString *)path {
 
-    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure: YES];
+    BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
+
+    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
     if (game)
     {
         [self selectGames:[NSSet setWithArray:@[game]]];
@@ -1863,15 +1968,16 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return nil;
 }
 
-- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
+- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [GameImporter new];
     importer.libController = self;
-    return [importer importGame:path inContext:context reportFailure:report];
+    return [importer importGame:path inContext:context reportFailure:report hide:hide];
 }
 
 - (IBAction)cancel:(id)sender {
     _currentlyAddingGames = NO;
     _nestedDownload = NO;
+    verifyIsCancelled = YES;
 }
 
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {
@@ -1912,46 +2018,50 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (!_currentlyAddingGames)
         return;
 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self selectGamesWithIfids:select scroll:YES];
+    });
+
     LibController * __unsafe_unretained weakSelf = self;
 
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
     private.undoManager = nil;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:private];
 
     [private performBlock:^{
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
         strongSelf.currentlyAddingGames = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf selectGamesWithIfids:select scroll:YES];
-        });
 
         if (strongSelf.iFictionFiles.count) {
             [self waitToReportMetadataImport];
             for (NSString *path in strongSelf.iFictionFiles) {
-                [strongSelf importMetadataFromFile:path];
+                [strongSelf importMetadataFromFile:path inContext:private];
             }
         }
         strongSelf.iFictionFiles = nil;
         // Fix metadata entities with no ifids
-        NSArray *noIfids = [self fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:strongSelf.managedObjectContext];
+        NSArray *noIfids = [self fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:private];
         for (Metadata *meta in noIfids) {
-            [strongSelf.managedObjectContext deleteObject:meta];
+            [private deleteObject:meta];
         }
         // Fix metadata entities with empty titles
-        NSArray *noTitles = [self fetchObjects:@"Metadata" predicate:@"title = nil OR title = ''" inContext:strongSelf.managedObjectContext];
+        NSArray *noTitles = [self fetchObjects:@"Metadata" predicate:@"title = nil OR title = ''" inContext:private];
         for (Metadata *meta in noTitles) {
             Game *game = meta.games.anyObject;
             if (game) {
                 meta.title = [game urlForBookmark].lastPathComponent;
             }
         }
-        [strongSelf.coreDataManager saveChanges];
+        if (private.hasChanges) {
+            NSError *blockError = nil;
+            [private save:&blockError];
+            if (blockError)
+                NSLog(@"%@", blockError);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.coreDataManager saveChanges];
+            });
+        }
     }];
 }
 
@@ -2088,42 +2198,59 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     //NSLog(@"Updating table view");
 
     NSError *error = nil;
-    NSArray *searchResult = nil;
+    NSArray<Game *> *searchResult = nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
     fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
 
+    NSMutableArray<NSPredicate *> *predicateArray = [NSMutableArray new];
+
+    NSPredicate *notHidden = [NSPredicate predicateWithFormat:@"hidden == NO"];
+
+    [predicateArray addObject:notHidden];
+
+    NSCompoundPredicate *comp;
+
+    BOOL alreadySearched = NO;
+
     if (searchString.length)
     {
         // First we search using the entire search string as a phrase
-        // such as "beyond Zork"
+        // such as "beyond zork"
 
-        fetchRequest.predicate = [LibController searchPredicateForWord:searchString];
+        [predicateArray addObject:[LibController searchPredicateForWord:searchString]];
+
+        comp = [NSCompoundPredicate andPredicateWithSubpredicates: predicateArray];
+
+        fetchRequest.predicate = comp;
+        error = nil;
         searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (error)
+            NSLog(@"executeFetchRequest for searchString: %@", error);
+
+        alreadySearched = YES;
 
         // If this gives zero results, search for each word
         // separately, all matches for "beyond" AND "zork"
         if (searchResult.count == 0) {
-
             NSArray *searchStrings = [searchString componentsSeparatedByString:@" "];
-            NSUInteger searchcount = searchStrings.count;
+            if (searchStrings.count > 1) {
+                alreadySearched = NO;
+                [predicateArray removeLastObject];
 
-            NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
-
-            for (NSString *word in searchStrings) {
-                if (word.length)
-                [predicateArr addObject:
-                 [LibController searchPredicateForWord:word]];
+                for (NSString *word in searchStrings) {
+                    if (word.length)
+                        [predicateArray addObject:
+                         [LibController searchPredicateForWord:word]];
+                }
             }
-
-            NSCompoundPredicate *comp = (NSCompoundPredicate *)[NSCompoundPredicate andPredicateWithSubpredicates: predicateArr];
-
-            fetchRequest.predicate = comp;
-            error = nil;
-
-            searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
         }
-    } else {
+    }
+
+    if (!searchResult.count && !alreadySearched) {
+        comp = [NSCompoundPredicate andPredicateWithSubpredicates: predicateArray];
+        fetchRequest.predicate = comp;
+        error = nil;
         searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     }
 
@@ -2142,7 +2269,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSInteger cmp;
         if ([strongSelf.gameSortColumn isEqual:@"firstpublishedDate"])
         {
-            cmp = [LibController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
+            cmp = [LibController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
         else if ([strongSelf.gameSortColumn isEqual:@"added"] || [strongSelf.gameSortColumn isEqual:@"lastPlayed"])
@@ -2360,11 +2487,6 @@ objectValueForTableColumn: (NSTableColumn*)column
         } else _selectedGames = nil;
         [self updateSideViewForce:NO];
     }
-}
-
-- (void)backgroundManagedObjectContextDidChange:(id)sender {
-//    NSLog(@"backgroundManagedObjectContextDidChange");
-    [_coreDataManager saveChanges];
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {

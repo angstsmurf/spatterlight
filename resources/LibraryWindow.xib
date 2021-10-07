@@ -31,6 +31,10 @@
                 <outlet property="sideIfid" destination="163" id="171"/>
                 <outlet property="splitView" destination="124" id="170"/>
                 <outlet property="themesSubMenu" destination="454" id="478"/>
+                <outlet property="verifyDeleteMissingCheckbox" destination="UHw-m3-F13" id="BSh-ub-M2Y"/>
+                <outlet property="verifyFrequencyTextField" destination="J0R-Wk-Uqi" id="h0J-vp-VGH"/>
+                <outlet property="verifyReCheckbox" destination="jBY-Vi-gPF" id="Y5W-9w-ojK"/>
+                <outlet property="verifyView" destination="tjJ-bc-Jr2" id="1rK-Hr-5Fd"/>
                 <outlet property="window" destination="5" id="16"/>
             </connections>
         </customObject>
@@ -750,6 +754,52 @@ CA
                 </button>
             </subviews>
             <point key="canvasLocation" x="-63" y="-325"/>
+        </customView>
+        <customView id="tjJ-bc-Jr2" userLabel="Verify View">
+            <rect key="frame" x="0.0" y="0.0" width="311" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBY-Vi-gPF">
+                    <rect key="frame" x="12" y="19" width="189" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Check the library in the background to see if all game files are still there. May affect performance if the library is large and spread across external disks or network volumes.</string>
+                    <buttonCell key="cell" type="check" title="Re-check for missing files every" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="D6T-tG-iUU">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J0R-Wk-Uqi">
+                    <rect key="frame" x="204" y="17" width="44" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="30" drawsBackground="YES" id="eWZ-aW-v6L">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="GXJ-7T-88r">
+                            <real key="minimum" value="1"/>
+                            <real key="maximum" value="10000"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UHw-m3-F13">
+                    <rect key="frame" x="12" y="41" width="208" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Remove missing games from library" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="OON-zH-5UG">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMy-u7-VgF">
+                    <rect key="frame" x="253" y="20" width="46" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="minutes" id="Fx4-7C-duc">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-122.5" y="-306"/>
         </customView>
     </objects>
     <resources>

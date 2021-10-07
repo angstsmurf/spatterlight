@@ -1954,12 +1954,11 @@
     [textField4 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
     [textField4 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
     [textField4 typeText:@"\r"];
-    [popUpButton click];
+
+    [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Show and wait for key"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show and wait for key\"]",".menuItems[@\"Show and wait for key\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
-    [popUpButton2 click];
-    [app/*@START_MENU_TOKEN@*/.menuItems[@"Quit on errors"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Quit on errors\"]",".menuItems[@\"Quit on errors\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
-    [popUpButton3 click];
-    [app/*@START_MENU_TOKEN@*/.menuItems[@"Always replace images"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Always replace images\"]",".menuItems[@\"Always replace images\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
+    [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0] click];
+    [app/*@START_MENU_TOKEN@*/.menuItems[@"Show errors"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show errors\"]",".menuItems[@\"Show errors\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
     XCUIElement *autosaveAndAutorestoreCheckBox = app/*@START_MENU_TOKEN@*/.checkBoxes[@"Autosave and autorestore"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Autosave and autorestore\"]",".checkBoxes[@\"Autosave and autorestore\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
     [autosaveAndAutorestoreCheckBox click];
@@ -1969,13 +1968,9 @@
     [autosaveOnTimerEventsCheckBox click];
     [autosaveOnTimerEventsCheckBox click];
 
-    XCUIElement *showBezelNotificationsCheckBox = app/*@START_MENU_TOKEN@*/.checkBoxes[@"Show bezel notifications"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Show bezel notifications\"]",".checkBoxes[@\"Show bezel notifications\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    [showBezelNotificationsCheckBox click];
-    [showBezelNotificationsCheckBox click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Game specific hacks"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Game specific hacks\"]",".checkBoxes[@\"Game specific hacks\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Determinism"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Determinism\"]",".checkBoxes[@\"Determinism\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Animate scrolling"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Animate scrolling\"]",".checkBoxes[@\"Animate scrolling\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.buttons[@"Reset alerts"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.buttons[@\"Reset alerts\"]",".buttons[@\"Reset alerts\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Changes apply to all games in library"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Changes apply to all games in library\"]",".checkBoxes[@\"Changes apply to all games in library\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     alert = app.sheets[@"alert"];
