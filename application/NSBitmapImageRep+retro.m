@@ -13,7 +13,7 @@
 @implementation NSBitmapImageRep (retro)
 
 + (NSBitmapImageRep *)repFromURL:(NSURL *)url {
-    if ([url.path.lastPathComponent.lowercaseString isEqualToString:@"screen.dat"])
+    if ([url.lastPathComponent.lowercaseString isEqualToString:@"screen.dat"])
         return [NSBitmapImageRep repFromNeoURL:url];
 
     NSString *extension = url.pathExtension.lowercaseString;
@@ -26,7 +26,7 @@
 }
 
 + (NSBitmapImageRep *)repFromNeoURL:(NSURL *)url {
-    char *filename = (char *)[url.path UTF8String];
+    char *filename = (char *)[url fileSystemRepresentation];
 
     z_image *zimg = get_neo_picture(filename);
 
