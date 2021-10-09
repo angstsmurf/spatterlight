@@ -1245,6 +1245,8 @@ long ScanV1(L9BYTE* StartFile,L9UINT32 FileSize)
 	printf("V1scan found code at %ld size %ld",MaxPos,MaxCount);
 #endif
 
+    dictOff1 = 0;
+
 	/* V1 dictionary detection from L9Cut by Paul David Doherty */
 	for (i=0;i<FileSize-20;i++)
 	{
