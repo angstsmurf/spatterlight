@@ -649,6 +649,7 @@
     if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
         NSLog(@"Error: Could not write PNG data to url %@: %@", url.path, error);
         completionHandler(error);
+        return;
     }
 
     completionHandler(nil);
