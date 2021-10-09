@@ -32,7 +32,7 @@ extern NSArray *gGameFileTypes;
 
 @implementation GameImporter
 
-- (void)addFiles:(NSArray*)urls options:(NSDictionary *)options;
+- (void)addFiles:(NSArray*)urls options:(NSDictionary *)options
 {
     NSManagedObjectContext *context = options[@"context"];
 
