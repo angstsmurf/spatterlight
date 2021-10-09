@@ -63,7 +63,7 @@
 
             _persistentContainer.persistentStoreDescriptions = @[ description ];
 
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *description, NSError *error) {
+            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
                 if (error != nil) {
                     NSLog(@"Failed to load Core Data stack: %@", error);
                 }
@@ -370,7 +370,7 @@
     frame.size = imageView.image.size;
     NSRect scrollFrame = _textview.enclosingScrollView.frame;
     CGFloat textHeight = scrollFrame.size.height;
-    if (textHeight && frame.size.height < textHeight) {
+    if (textHeight != 0 && frame.size.height < textHeight) {
         frame.origin.y = NSMaxY(scrollFrame) - frame.size.height;
     } else {
         frame.origin.y = round((viewSize.height - frame.size.height) / 2);
@@ -739,7 +739,7 @@
             if (_ifid) {
                 metaDict[@"ifid"] = _ifid;
             } else {
-                NSXMLElement *idElement = [story elementsForName:@"identification"].firstObject;
+                idElement = [story elementsForName:@"identification"].firstObject;
                 for (NSXMLNode *node in idElement.children) {
                     if ([node.name compare:@"ifid"] == 0 && node.stringValue.length) {
                         metaDict[@"ifid"] = node.stringValue;

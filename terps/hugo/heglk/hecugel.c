@@ -346,7 +346,7 @@ static int loadres(HUGO_FILE infile, int reslen)
 {
     char *buf, *origbuf;
     long offset, suboffset;
-    int id;
+    int index;
     int i;
 
     offset = glk_stream_get_position(infile);
@@ -359,9 +359,9 @@ static int loadres(HUGO_FILE infile, int reslen)
     if (numres + 1 == MAXRES)
         return -1;
 
-    id = numres++;
+    index = numres++;
 
-    resids[id] = offset;
+    resids[index] = offset;
     origbuf = malloc(reslen);
     buf = origbuf;
 
@@ -383,10 +383,10 @@ static int loadres(HUGO_FILE infile, int reslen)
         }
     }
 
-    win_loadsound(id, infile->filename, offset + suboffset, reslen);
+    win_loadsound(index, infile->filename, offset + suboffset, reslen);
 
     free(origbuf);
-    return id;
+    return index;
 }
 
 void initsound(void)
@@ -405,19 +405,19 @@ void initmusic(void)
 
 int hugo_playmusic(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int id;
+    int index;
 
     if (!mchannel)
         initmusic();
     if (mchannel)
     {
-        id = loadres(infile, reslen);
-        if (id < 0)
+        index = loadres(infile, reslen);
+        if (index < 0)
         {
             glk_stream_close(infile, NULL);
             return false;
         }
-        glk_schannel_play_ext(mchannel, id, loop_flag ? -1 : 1, 0);
+        glk_schannel_play_ext(mchannel, index, loop_flag ? -1 : 1, 0);
     }
 
     glk_stream_close(infile, NULL);
@@ -440,17 +440,17 @@ void hugo_stopmusic(void)
 
 int hugo_playsample(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int id;
+    int index;
 
     if (schannel)
     {
-        id = loadres(infile, reslen);
-        if (id < 0)
+        index = loadres(infile, reslen);
+        if (index < 0)
         {
             glk_stream_close(infile, NULL);
             return false;
         }
-        glk_schannel_play_ext(schannel, id, loop_flag ? -1 : 1, 0);
+        glk_schannel_play_ext(schannel, index, loop_flag ? -1 : 1, 0);
     }
 
     glk_stream_close(infile, NULL);

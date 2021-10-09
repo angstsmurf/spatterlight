@@ -572,15 +572,15 @@ giblorb_err_t giblorb_load_image_info(giblorb_map_t *map,
     
     auxpict = &(map->auxpict[chu->auxdatnum]);
     if (!auxpict->loaded) {
-        giblorb_result_t res;
-        giblorb_err_t err = giblorb_load_chunk_by_number(map, giblorb_method_Memory, &res, chunknum);
+        giblorb_result_t result;
+        giblorb_err_t err = giblorb_load_chunk_by_number(map, giblorb_method_Memory, &result, chunknum);
         if (err)
             return err;
         
         if (chu->type == giblorb_ID_JPEG)
-            err = giblorb_image_get_size_jpeg(res.data.ptr, res.length, auxpict);
+            err = giblorb_image_get_size_jpeg(result.data.ptr, result.length, auxpict);
         else if (chu->type == giblorb_ID_PNG)
-            err = giblorb_image_get_size_png(res.data.ptr, res.length, auxpict);
+            err = giblorb_image_get_size_png(result.data.ptr, result.length, auxpict);
         else
             err = giblorb_err_Format;
         
