@@ -484,9 +484,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (CALayer *)takeRowSnapshotFocused:(BOOL)focused {
-    NSRect rowrect = [_libcontroller rectForLineWithIfid:_game.ifid];
+    LibController *libcontroller = _libcontroller;
+    NSRect rowrect = [libcontroller rectForLineWithIfid:_game.ifid];
 
-    NSWindow *keyWindow = _libcontroller.window;
+    NSWindow *keyWindow = libcontroller.window;
     if (focused) {
         for (NSWindow *win in NSApplication.sharedApplication.windows) {
             if (win.isKeyWindow) {
@@ -494,11 +495,11 @@ fprintf(stderr, "%s\n",                                                    \
                 break;
             }
         }
-        [_libcontroller.window makeKeyWindow];
+        [libcontroller.window makeKeyWindow];
     }
 
-    NSView *view = _libcontroller.window.contentView;
-    NSRect winrect = [_libcontroller.window convertRectFromScreen:rowrect];
+    NSView *view = libcontroller.window.contentView;
+    NSRect winrect = [libcontroller.window convertRectFromScreen:rowrect];
 
     NSBitmapImageRep *bitmap = [view bitmapImageRepForCachingDisplayInRect:winrect];
     [view cacheDisplayInRect:winrect toBitmapImageRep:bitmap];

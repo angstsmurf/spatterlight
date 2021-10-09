@@ -74,7 +74,7 @@
         
         NSDictionary *styleDict = nil;
 
-        self.styleHints = [self deepCopyOfStyleHintsArray:self.glkctl.gridStyleHints];
+        self.styleHints = [self deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
@@ -464,8 +464,10 @@
 
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+    GlkController *glkctl = self.glkctl;
 
-    if (!([self.glkctl.game.detectedFormat isEqualToString:@"glulx"] || [self.glkctl.game.detectedFormat isEqualToString:@"hugo"] || [self.glkctl.game.detectedFormat isEqualToString:@"zcode"])) {
+    NSString *detectedFormat = glkctl.game.detectedFormat;
+    if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
         bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
     }
 
@@ -479,7 +481,7 @@
     if (transparent)
         bgcolor = [NSColor clearColor];
     else
-        [self.glkctl setBorderColor:bgcolor fromWindow:self];
+        [glkctl setBorderColor:bgcolor fromWindow:self];
 
     _pendingBackgroundCol = bgcolor;
     _textview.insertionPointColor = bgcolor;
@@ -625,7 +627,7 @@
     // Because our quote box hack assumes that the status line is 1 row
     // and Curses status line has 2 rows, we need a Curses-specific hack
     // to prevent the lower line from being cut off.
-    if (newrows == 1 && glkctl.curses && glkctl.quoteBoxes.count && self.glkctl.turns > 0) {
+    if (newrows == 1 && glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
         self.pendingFrame = frame;
@@ -861,6 +863,8 @@
     NSUInteger startpos;
     NSUInteger pos = 0;
 
+    GlkController *glkctl = self.glkctl;
+
     NSUInteger textstoragelength = _bufferTextStorage.length;
 
     if (textstoragelength == 0) {
@@ -880,15 +884,15 @@
         NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
         string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
     // Speak each letter when typing in Bureaucracy form
-    } else if (self.glkctl.form
+    } else if (glkctl.form
                && string.length == 1
                && [_keyPressTimeStamp timeIntervalSinceNow] > -0.5
                && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
         // Don't echo keys if speak command setting is off
-        if (self.glkctl.theme.vOSpeakCommand) {
-            [self.glkctl speakString:string];
+        if (glkctl.theme.vOSpeakCommand) {
+            [glkctl speakString:string];
         }
-        self.glkctl.form.dontSpeakField = YES;
+        glkctl.form.dontSpeakField = YES;
     }
 
     if (xpos > cols) {
@@ -1742,19 +1746,22 @@
 }
 
 - (void)quoteboxAdjustSize:(id)sender {
-    if (_quoteboxParent == nil) {
+    NSScrollView *quoteboxParent = _quoteboxParent;
+    GlkController *glkctl = self.glkctl;
+
+    if (quoteboxParent == nil) {
         NSLog(@"_quoteboxParent nil!");
         return;
     }
-    NSTextView *textView = _quoteboxParent.documentView;
+    NSTextView *textView = quoteboxParent.documentView;
     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)textView.delegate;
     NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
 
     NSRect frame = self.frame;
     frame.size = boxSize;
-    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
-    frame.origin.y = ceil(_quoteboxParent.contentView.frame.origin.y +
-                          (_quoteboxVerticalOffset + 2 * (self.glkctl.curses == YES)) * self.theme.cellHeight);
+    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y +
+                          (_quoteboxVerticalOffset + 2 * (glkctl.curses == YES)) * self.theme.cellHeight);
 
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
     if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {
@@ -1775,7 +1782,7 @@
     self.bufferTextStorage = nil;
     [self flushDisplay];
 
-    [_quoteboxParent addFloatingSubview:self forAxis:NSEventGestureAxisVertical];
+    [quoteboxParent addFloatingSubview:self forAxis:NSEventGestureAxisVertical];
 
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.5;

@@ -69,17 +69,18 @@ fprintf(stderr, "%s\n",                                                    \
     [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"No", nil)];
 
+    NSButton *checkbox = _imageSelectDialogSuppressionButton;
     if (type == LOCAL) {
         [alert layout];
-        _imageSelectDialogSuppressionButton.title = NSLocalizedString(@"Don't ask again", nil);
-        NSRect frame = _imageSelectDialogSuppressionButton.frame;
+        checkbox.title = NSLocalizedString(@"Don't ask again", nil);
+        NSRect frame = checkbox.frame;
         frame.origin.x += 25;
-        _imageSelectDialogSuppressionButton.frame = frame;
+        checkbox.frame = frame;
     }
 
     NSModalResponse choice = [alert runModal];
 
-    if (_imageSelectDialogSuppressionButton.state == NSOnState) {
+    if (checkbox.state == NSOnState) {
         if (type == DOWNLOADED) {
             [defaults setInteger:(choice == NSAlertFirstButtonReturn) ? kAlwaysReplace : kNeverReplace forKey:@"ImageReplacement"];
             if (Preferences.instance)

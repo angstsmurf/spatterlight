@@ -222,7 +222,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
-    NSString *language = self.glkctl.game.metadata.language;
+    GlkController *glkctl = self.glkctl;
+    NSString *language = glkctl.game.metadata.language;
     if (!language.length)
         language = @"en";
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
@@ -239,8 +240,8 @@ fprintf(stderr, "%s\n",                                                    \
             if ([container hasMarginImages])
                 [container invalidateLayout:nil];
 
-            if (NSMaxX(self.pendingFrame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
             super.frame = self.pendingFrame;
@@ -257,7 +258,7 @@ fprintf(stderr, "%s\n",                                                    \
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
     if (_pendingScroll) {
-        if (self.glkctl.commandScriptRunning) {
+        if (glkctl.commandScriptRunning) {
             if (!commandScriptWasRunning) {
                 // A command script just started
                 pauseScrolling = NO;

@@ -355,17 +355,19 @@
     shadow.shadowOffset = NSMakeSize(2, -2);
     shadow.shadowColor = [NSColor controlShadowColor];
     shadow.shadowBlurRadius = 2;
-    _imageView.wantsLayer = YES;
-    _imageView.superview.wantsLayer = YES;
-    _imageView.shadow = shadow;
+    NSImageView *imageView = _imageView;
+    imageView.wantsLayer = YES;
+    imageView.superview.wantsLayer = YES;
+    imageView.shadow = shadow;
 }
 
 - (void)sizeImageHorizontally {
-    NSSize viewSize = _imageView.superview.frame.size;
+    NSImageView *imageView = _imageView;
+    NSSize viewSize = imageView.superview.frame.size;
 
     [self sizeImageToFitWidth:round(viewSize.width / 2 - 40) height:viewSize.height - 40];
-    NSRect frame = _imageView.frame;
-    frame.size = _imageView.image.size;
+    NSRect frame = imageView.frame;
+    frame.size = imageView.image.size;
     NSRect scrollFrame = _textview.enclosingScrollView.frame;
     CGFloat textHeight = scrollFrame.size.height;
     if (textHeight && frame.size.height < textHeight) {
@@ -383,23 +385,24 @@
     if (frame.size.height < 1)
         frame.size.width = 40;
 
-    _imageView.frame = frame;
+    imageView.frame = frame;
 }
 
 - (void)sizeImageVertically {
-    NSSize viewSize = _imageView.superview.frame.size;
+    NSImageView *imageView = _imageView;
+    NSSize viewSize = imageView.superview.frame.size;
 
     //We want the image to be at most two thirds of the view height
     [self sizeImageToFitWidth:viewSize.width - 40 height:round(viewSize.height - 40)];
 
-    NSRect frame = _imageView.frame;
-    frame.size.height = _imageView.image.size.height;
+    NSRect frame = imageView.frame;
+    frame.size.height = imageView.image.size.height;
     frame.size.width = viewSize.width - 40;
     frame.origin.y = round((viewSize.height - frame.size.height) / 2);
     frame.origin.x = 20;
-    if (!NSEqualRects(frame, _imageView.frame))
-        _imageView.frame = frame;
-    _imageView.imageAlignment =  NSImageAlignCenter;
+    if (!NSEqualRects(frame, imageView.frame))
+        imageView.frame = frame;
+    imageView.imageAlignment =  NSImageAlignCenter;
 }
 
 - (void)sizeText {
@@ -420,6 +423,7 @@
 }
 
 - (void)sizeTextHorizontally {
+    NSImageView *imageView = _imageView;
     //    NSLog(@"sizeTextHorizontally");
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSRect frame = scrollView.frame;
@@ -427,7 +431,7 @@
 
     // Icon images usually has horizontal padding built-in
     // so we use a little less space here
-    frame.origin.x = round(NSMaxX(_imageView.frame) + (_showingIcon ? 10 : 20));
+    frame.origin.x = round(NSMaxX(imageView.frame) + (_showingIcon ? 10 : 20));
     frame.size.width = round(viewSize.width - frame.origin.x - 20);
 
     CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:frame.size.width];
@@ -452,12 +456,12 @@
     if (!NSEqualRects(frame, _textview.frame))
         _textview.frame = frame;
 
-    if (_imageView.image.size.height < textHeight && NSMaxY(_imageView.frame) < NSMaxY(scrollView.frame)) {
-        frame = _imageView.frame;
+    if (imageView.image.size.height < textHeight && NSMaxY(imageView.frame) < NSMaxY(scrollView.frame)) {
+        frame = imageView.frame;
         frame.origin.y = NSMaxY(scrollView.frame) - frame.size.height;
-        if (!NSEqualRects(frame, _imageView.frame)) {
-            _imageView.frame = frame;
-            _imageView.imageAlignment = NSImageAlignTop;
+        if (!NSEqualRects(frame, imageView.frame)) {
+            imageView.frame = frame;
+            imageView.imageAlignment = NSImageAlignTop;
         }
     }
     _textview.hidden = NO;

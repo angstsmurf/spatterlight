@@ -389,13 +389,15 @@ NSString *fontToString(NSFont *font) {
     prefs = self;
     [self updatePrefsPanel];
 
-    _scrollView.scrollerStyle = NSScrollerStyleOverlay;
-    _scrollView.drawsBackground = YES;
-    _scrollView.hasHorizontalScroller = NO;
-    _scrollView.hasVerticalScroller = YES;
-    _scrollView.verticalScroller.alphaValue = 100;
-    _scrollView.autohidesScrollers = YES;
-    _scrollView.borderType = NSNoBorder;
+    NSScrollView *scrollView = _scrollView;
+
+    scrollView.scrollerStyle = NSScrollerStyleOverlay;
+    scrollView.drawsBackground = YES;
+    scrollView.hasHorizontalScroller = NO;
+    scrollView.hasVerticalScroller = YES;
+    scrollView.verticalScroller.alphaValue = 100;
+    scrollView.autohidesScrollers = YES;
+    scrollView.borderType = NSNoBorder;
 
     themeDuplicationTimestamp = [NSDate date];
 
@@ -520,7 +522,7 @@ NSString *fontToString(NSFont *font) {
     _btnSmoothScroll.state = theme.smoothScroll;
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
-    _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
+    _btnAutosaveOnTimer.enabled = theme.autosave ? YES : NO;
     [_errorHandlingPopup selectItemWithTag:theme.errorHandling];
 
     _btnDeterminism.state = theme.determinism;
@@ -574,8 +576,8 @@ NSString *fontToString(NSFont *font) {
         NSLog(@"Preferences currentGame was set to nil");
         return;
     }
-    if (_currentGame.theme != theme) {
-        [self restoreThemeSelection:_currentGame.theme];
+    if (currentGame.theme != theme) {
+        [self restoreThemeSelection:currentGame.theme];
     }
 }
 
@@ -921,11 +923,12 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Themes Table View Magic
 
 - (void)restoreThemeSelection:(id)sender {
-    if (_arrayController.selectedTheme == sender) {
+    ThemeArrayController *arrayController = _arrayController;
+    if (arrayController.selectedTheme == sender) {
 //        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
         return;
     }
-    NSArray *themes = _arrayController.arrangedObjects;
+    NSArray *themes = arrayController.arrangedObjects;
     theme = sender;
     if (![themes containsObject:sender]) {
         theme = themes.lastObject;
@@ -935,7 +938,7 @@ NSString *fontToString(NSFont *font) {
 
     disregardTableSelection = NO;
 
-    [_arrayController setSelectionIndex:row];
+    arrayController.selectionIndex = row;
     themesTableView.allowsEmptySelection = NO;
     [themesTableView scrollRowToVisible:(NSInteger)row];
 }
@@ -976,17 +979,19 @@ NSString *fontToString(NSFont *font) {
 
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
-    _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
-    _miscHeader.stringValue = _detailsHeader.stringValue;
-    _stylesHeader.stringValue = _detailsHeader.stringValue;
-    _zcodeHeader.stringValue = _detailsHeader.stringValue;
-    _vOHeader.stringValue = _detailsHeader.stringValue;
+    NSString *themeString = [NSString stringWithFormat:@"Settings for theme %@", name];
+    _detailsHeader.stringValue = themeString;
+    _miscHeader.stringValue = themeString;
+    _stylesHeader.stringValue = themeString;
+    _zcodeHeader.stringValue = themeString;
+    _vOHeader.stringValue = themeString;
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
-    NSArray *themes = [_arrayController arrangedObjects];
+    ThemeArrayController *arrayController = _arrayController;
+    NSArray *themes = [arrayController arrangedObjects];
     for (Theme *aTheme in themes) {
-        if ([aTheme.name isEqualToString:string] && [themes indexOfObject:aTheme] != [themes indexOfObject:_arrayController.selectedTheme])
+        if ([aTheme.name isEqualToString:string] && [themes indexOfObject:aTheme] != [themes indexOfObject:arrayController.selectedTheme])
             return NO;
     }
     return YES;
@@ -1152,23 +1157,25 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)addTheme:(id)sender {
-    NSUInteger row = [_arrayController selectionIndex];
+    ThemeArrayController *arrayController = _arrayController;
+    NSUInteger row = [arrayController selectionIndex];
     if (row == NSNotFound)
-        row = [_arrayController.arrangedObjects count] - 1;
-    if (row >= [_arrayController.arrangedObjects count])
+        row = [arrayController.arrangedObjects count] - 1;
+    if (row >= [arrayController.arrangedObjects count])
         row = 0;
     NSTableCellView *cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
     if ([self notDuplicate:cellView.textField.stringValue]) {
         // For some reason, tableViewSelectionDidChange will be called twice here,
         // so we disregard the first call
         disregardTableSelection = YES;
-        [_arrayController add:sender];
+        [arrayController add:sender];
         [self performSelector:@selector(editNewEntry:) withObject:nil afterDelay:0.1];
     } else NSBeep();
 }
 
 - (IBAction)removeTheme:(id)sender {
-    Theme *themeToRemove = _arrayController.selectedTheme;
+    ThemeArrayController *arrayController = _arrayController;
+    Theme *themeToRemove = arrayController.selectedTheme;
     if (!themeToRemove.editable) {
         NSBeep();
         return;
@@ -1179,13 +1186,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
         ancestor = [self findAncestorThemeOf:themeToRemove];
     NSSet *orphanedGames = themeToRemove.games;
     NSSet *orphanedThemes = themeToRemove.defaultChild;
-    NSUInteger row = _arrayController.selectionIndex - 1;
-    if (row >= [_arrayController.arrangedObjects count])
+    NSUInteger row = arrayController.selectionIndex - 1;
+    if (row >= [arrayController.arrangedObjects count])
         row = 0;
-    [_arrayController remove:sender];
-    _arrayController.selectionIndex = row;
+    [arrayController remove:sender];
+    arrayController.selectionIndex = row;
     if (!ancestor)
-        ancestor = _arrayController.selectedTheme;
+        ancestor = arrayController.selectedTheme;
 
 //    NSLog(@"Moving its games (%ld) and default child themes (%ld) to %@", orphanedGames.count, orphanedThemes.count, ancestor.name);
     [ancestor addGames:orphanedGames];
@@ -1202,6 +1209,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)deleteUserThemes:(id)sender {
+    ThemeArrayController *arrayController = _arrayController;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSArray *fetchedObjects;
     NSError *error;
@@ -1224,18 +1232,18 @@ textShouldEndEditing:(NSText *)fieldEditor {
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
                 if (t == theme) {
-                    NSUInteger row = [_arrayController.arrangedObjects indexOfObject:t];
-                    _arrayController.selectionIndex = row;
+                    NSUInteger row = [arrayController.arrangedObjects indexOfObject:t];
+                    arrayController.selectionIndex = row;
                 }
             }
             [orphanedGames unionSet:t.games];
         }
     }
 
-    [_arrayController removeObjects:fetchedObjects];
+    [arrayController removeObjects:fetchedObjects];
 
     [theme addGames:orphanedGames];
-    _arrayController.selectedObjects = @[theme];
+    arrayController.selectedObjects = @[theme];
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
@@ -1276,10 +1284,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)editNewEntry:(id)sender {
-    NSUInteger row = [_arrayController selectionIndex];
+    ThemeArrayController *arrayController = _arrayController;
+    NSUInteger row = [arrayController selectionIndex];
     if (row == NSNotFound)
-        row = [_arrayController.arrangedObjects count] - 1;
-    if (row >= [_arrayController.arrangedObjects count])
+        row = [arrayController.arrangedObjects count] - 1;
+    if (row >= [arrayController.arrangedObjects count])
         row = 0;
 
     NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
@@ -1292,11 +1301,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
 
+    NSArray *selectedGames = _libcontroller.selectedGames;
+
     if (action == @selector(applyToSelected:)) {
-        if (_oneThemeForAll || _libcontroller.selectedGames.count == 0) {
+        if (_oneThemeForAll || selectedGames.count == 0) {
             return NO;
         } else {
-            for (Game *game in _libcontroller.selectedGames) {
+            for (Game *game in selectedGames) {
                 if (game.theme != theme)
                     return YES;
             }
@@ -1308,7 +1319,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (theme.games.count == 0)
             return NO;
         for (Game *game in theme.games) {
-            if ([_libcontroller.selectedGames indexOfObject:game] == NSNotFound)
+            if ([selectedGames indexOfObject:game] == NSNotFound)
                 return YES;
         }
         return NO;
@@ -1935,9 +1946,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.borderBehavior = ([sender state] == NSOffState);
     if (themeToChange.borderBehavior == kUserOverride) {
-        themeToChange.borderColor = _borderColorWell.color;
+        NSColorWell *colorWell = _borderColorWell;
+        themeToChange.borderColor = colorWell.color;
         if ([[NSColorPanel sharedColorPanel] isVisible])
-            [_borderColorWell activate:YES];
+            [colorWell activate:YES];
     }
 }
 

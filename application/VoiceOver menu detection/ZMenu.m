@@ -334,7 +334,9 @@
     _viewStrings = [[NSMutableArray alloc] init];
     NSString *viewString;
     GlkWindow *viewWithCluster;
-    for (GlkWindow *view in _glkctl.gwindows.allValues) {
+    GlkController *glkctl = _glkctl;
+    BOOL isHugo = [glkctl.game.detectedFormat isEqualToString:@"hugo"];
+    for (GlkWindow *view in glkctl.gwindows.allValues) {
         if ([view isKindOfClass:[GlkTextGridWindow class]] || [view isKindOfClass:[GlkTextBufferWindow class]]) {
             viewString = ((GlkTextBufferWindow *)view).textview.string;
         } else {
@@ -354,7 +356,7 @@
                 if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
                     ABS([self leftMarginInRange:currentCluster.firstObject andString:viewString] -
                         [self leftMarginInRange:lastCluster.lastObject andString:viewString]) < 3 ) {
-                    if (![_glkctl.game.detectedFormat isEqualToString:@"hugo"]) {
+                    if (!isHugo) {
                         lastCluster = [lastCluster arrayByAddingObject:lines[line]];
                     }
                     currentCluster =
@@ -626,6 +628,7 @@
         _haveSpokenMenu = NO;
     _lastNumberOfItems = _lines.count;
 
+    GlkController *glkctl = _glkctl;
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
         if (titleString.length) {
@@ -637,13 +640,13 @@
         _haveSpokenMenu = YES;
         [self speakString:selectedLineString];
         return;
-    } else if (sender == self.glkctl) {
+    } else if (sender == glkctl) {
         selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
     } else {
-        selectedLineString = [self menuLineStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
+        selectedLineString = [self menuLineStringWithIndex:(glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
-        if (_glkctl.beyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
-            for (GlkWindow *view in _glkctl.gwindows.allValues) {
+        if (glkctl.beyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
+            for (GlkWindow *view in glkctl.gwindows.allValues) {
                 if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
                     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)view;
                     NSString *string = bufWin.textview.string;
@@ -824,7 +827,7 @@
     string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([string rangeOfString:@"    "].location != NSNotFound)
         string = @"";
-    if (self.glkctl.beyondZork && string.length == 0) {
+    if (_glkctl.beyondZork && string.length == 0) {
         NSRange range = _lines.firstObject.rangeValue;
         NSString *topString = [_attrStr.string substringWithRange:range];
         topString = [topString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

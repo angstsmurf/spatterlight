@@ -266,7 +266,9 @@ extern NSArray *gGameFileTypes;
         return nil;
     }
 
-    metadata = [_libController fetchMetadataForIFID:ifid inContext:context];
+    LibController *libController = _libController;
+
+    metadata = [libController fetchMetadataForIFID:ifid inContext:context];
 
     if (!metadata)
     {
@@ -274,7 +276,7 @@ extern NSArray *gGameFileTypes;
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
             NSData *mdbufData = [blorb metaData];
             if (mdbufData) {
-                metadata = [_libController importMetadataFromXML: mdbufData inContext:context];
+                metadata = [libController importMetadataFromXML: mdbufData inContext:context];
                 metadata.source = @(kInternal);
                 NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
             }
@@ -283,7 +285,7 @@ extern NSArray *gGameFileTypes;
     }
     else
     {
-        game = [_libController fetchGameForIFID:ifid inContext:context];
+        game = [libController fetchGameForIFID:ifid inContext:context];
         if (game)
         {
             if ([game.detectedFormat isEqualToString:@"glulx"])
@@ -325,7 +327,7 @@ extern NSArray *gGameFileTypes;
 
     if (!metadata.cover)
     {
-        NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_libController.imageDir];
+        NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
         NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
         if (img)
         {

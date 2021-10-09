@@ -126,6 +126,7 @@
 }
 
 - (void)forkInterpreterTask {
+    GlkController *glkctl = _glkctl;
     if (_waitingforkey) {
         _waitingforkey = NO;
 
@@ -136,12 +137,12 @@
         NSWindow *backgroundColorWin  = [self backgroundColorWindow];
         backgroundColorWin.alphaValue = 0;
 
-        if (!(_glkctl.narcolepsy && _glkctl.theme.doStyles && _glkctl.theme.doGraphics))
-            [_glkctl.window addChildWindow: backgroundColorWin
+        if (!(glkctl.narcolepsy && glkctl.theme.doStyles && glkctl.theme.doGraphics))
+            [glkctl.window addChildWindow: backgroundColorWin
                                    ordered: NSWindowAbove];
 
         NSWindow *imageWindow = [self takeSnapshot];
-        [_glkctl.window addChildWindow: imageWindow
+        [glkctl.window addChildWindow: imageWindow
                                ordered: NSWindowAbove];
 
         [imageWindow orderFront:nil];
@@ -152,13 +153,13 @@
         _backgroundView = nil;
         _imageView = nil;
 
-        NSArray<NSView *> *subviews = _glkctl.borderView.subviews.copy;
+        NSArray<NSView *> *subviews = glkctl.borderView.subviews.copy;
         for (NSView *view in subviews) {
             [view removeFromSuperview];
         }
 
-        [_glkctl.borderView addSubview:_glkctl.contentView];
-        [_glkctl adjustContentView];
+        [glkctl.borderView addSubview:glkctl.contentView];
+        [glkctl adjustContentView];
 
         CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
         fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
@@ -169,12 +170,12 @@
         fadeOutAnimation.duration = 0.5;
         fadeOutAnimation.fillMode = kCAFillModeForwards;
 
-        _glkctl.showingCoverImage = NO;
+        glkctl.showingCoverImage = NO;
         // FIXME: Just fork the interpreter NSTask here instead
-        _glkctl.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        _glkctl.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        glkctl.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        glkctl.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-        [_glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
+        [glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
 
         double delayInSeconds = 0.3;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -204,15 +205,16 @@
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
-    if ([updatedObjects containsObject:_glkctl.game.metadata] ||
-        [updatedObjects containsObject:_glkctl.game.metadata.cover])
+    Metadata *metadata = _glkctl.game.metadata;
+    if ([updatedObjects containsObject:metadata] ||
+        [updatedObjects containsObject:metadata.cover])
     {
-        if (_glkctl.game.metadata.cover == nil) {
+        if (metadata.cover == nil) {
             [self forkInterpreterTask];
             return;
         }
 
-        NSImage *image = [[NSImage alloc] initWithData:(NSData *)_glkctl.game.metadata.cover.data];
+        NSImage *image = [[NSImage alloc] initWithData:(NSData *)metadata.cover.data];
         if (image) {
             CoverImageHandler __unsafe_unretained *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -365,36 +367,38 @@
 }
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    if (_glkctl.theme.coverArtStyle != kShowAndWait) {
+    GlkController *glkctl = _glkctl;
+    if (glkctl.theme.coverArtStyle != kShowAndWait) {
         if (_waitingforkey)
             [self forkInterpreterTask];
         return;
     }
-    if (_glkctl.theme.borderBehavior == kUserOverride)
-        [_glkctl setBorderColor:_glkctl.theme.borderColor];
+    if (glkctl.theme.borderBehavior == kUserOverride)
+        [glkctl setBorderColor:_glkctl.theme.borderColor];
     else
-        [_glkctl setBorderColor:_glkctl.theme.bufferBackground];
+        [glkctl setBorderColor:_glkctl.theme.bufferBackground];
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {
     _imageView.inFullscreenResize = YES;
-    NSWindow *window = _glkctl.window;
+    GlkController *glkctl = _glkctl;
+    NSWindow *window = glkctl.window;
     NSScreen *screen = window.screen;
-    NSInteger border = _glkctl.theme.border;
+    NSInteger border = glkctl.theme.border;
 
     NSWindow *imageWindow = self.enterFullscreenWindow;
 
     // The final, full screen frame
     NSRect borderFinalFrame = screen.frame;
 
-    if (!NSEqualSizes(_glkctl.borderFullScreenSize, NSZeroSize))
-        borderFinalFrame.size = _glkctl.borderFullScreenSize;
+    if (!NSEqualSizes(glkctl.borderFullScreenSize, NSZeroSize))
+        borderFinalFrame.size = glkctl.borderFullScreenSize;
 
     CGFloat fullScreenWidth = borderFinalFrame.size.width;
     CGFloat fullScreenHeight = borderFinalFrame.size.height;
 
-    NSView *borderview = _glkctl.borderView;
-    NSView *gameContentView = _glkctl.contentView;
+    NSView *borderview = glkctl.borderView;
+    NSView *gameContentView = glkctl.contentView;
     borderview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     gameContentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
@@ -413,8 +417,8 @@
         imageFrame.origin.y = floor((fullScreenHeight - imageFrame.size.height) / 2);
     }
 
-    NSRect contentRect = _glkctl.windowPreFullscreenFrame;
-    contentRect.origin.x = floor((fullScreenWidth - _glkctl.windowPreFullscreenFrame.size.width) / 2);
+    NSRect contentRect = glkctl.windowPreFullscreenFrame;
+    contentRect.origin.x = floor((fullScreenWidth - glkctl.windowPreFullscreenFrame.size.width) / 2);
     contentRect.origin.y = border;
     contentRect.size.height = fullScreenHeight - 2 * border;
 
