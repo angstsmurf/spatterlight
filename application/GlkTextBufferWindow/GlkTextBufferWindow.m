@@ -2276,7 +2276,7 @@ replacementString:(id)repl {
     return images;
 }
 
-- (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray **)keys {
+- (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray * __autoreleasing *)keys {
     __block NSMutableDictionary <NSNumber *, NSTextAttachment *> *attachments = [NSMutableDictionary new];
     __block NSMutableArray *mutKeys = [NSMutableArray new];
     [textstorage
