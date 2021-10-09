@@ -258,7 +258,8 @@
     }
 
     // If no match, look for a unique foreground color
-    if (guess == NSNotFound && (_lines.count >= 3 || _isTads3)) { // Does not work with less than 3 items
+    // Does not work with less than 3 items except in TADS 3
+    if (guess == NSNotFound && (_lines.count >= 3 || _isTads3)) {
         NSMutableArray *foregroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
         NSMutableArray *backgroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
 
@@ -281,6 +282,10 @@
             else
                 [backgroundColors addObject:lineBackground];
 
+            // TADS 3 menus lines usually begin with a ">" which is made invisible in non-selected lines
+            // by giving the text and background the same color.
+            // In a two-line TADS 3 menu, we assume that the line where foreground and background don't match
+            // (and thus the ">" is visible) is the selected line.
             if (_isTads3 && _lines.count == 2 && lineBackground != nil && ![lineBackground isEqual:lineForeground]) {
                 return [_lines indexOfObject:rangeVal];
             }
