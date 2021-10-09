@@ -33,9 +33,11 @@
     NSString *format = glkctl.game.detectedFormat;
     unichar initialChar;
 
+    _isTads3 = [format isEqualToString:@"tads3"];
+
     if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"] || [format isEqualToString:@"hugo"]) {
         initialChar = ' ';
-    } else if ([format isEqualToString:@"tads3"]) {
+    } else if (_isTads3) {
         // If Tads 3: look for a cluster of lines where all start with a '>'.
         // '•' is only used in Thaumistry: Charm's Way.
         if (glkctl.thaumistry)
@@ -248,7 +250,7 @@
     }];
 
     // In Tads 3 menus, the above code always picks the wrong one if there are two items.
-    if (guess != NSNotFound && [_glkctl.game.detectedFormat isEqualToString:@"tads3"] && _lines.count == 2) {
+    if (guess != NSNotFound && _isTads3 && _lines.count == 2) {
         if (guess == 0)
             guess = 1;
         else
@@ -256,7 +258,7 @@
     }
 
     // If no match, look for a unique foreground color
-    if (guess == NSNotFound && _lines.count >= 3) { // Does not work with less than 3 items
+    if (guess == NSNotFound && (_lines.count >= 3 || _isTads3)) { // Does not work with less than 3 items
         NSMutableArray *foregroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
         NSMutableArray *backgroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
 
@@ -267,17 +269,21 @@
             range = NSIntersectionRange(allText, range);
             NSDictionary *attrDict = [_attrStr attributesAtIndex:range.location effectiveRange:nil];
 
-            NSColor *lineColor = attrDict[NSForegroundColorAttributeName];
-            if (lineColor == nil)
+            NSColor *lineForeground = attrDict[NSForegroundColorAttributeName];
+            if (lineForeground == nil)
                 [foregroundColors addObject:[NSNull null]];
             else
-                [foregroundColors addObject:lineColor];
+                [foregroundColors addObject:lineForeground];
 
-            lineColor = attrDict[NSBackgroundColorAttributeName];
-            if (lineColor == nil)
+            NSColor *lineBackground = attrDict[NSBackgroundColorAttributeName];
+            if (lineBackground == nil)
                 [backgroundColors addObject:[NSNull null]];
             else
-                [backgroundColors addObject:lineColor];
+                [backgroundColors addObject:lineBackground];
+
+            if (_isTads3 && _lines.count == 2 && lineBackground != nil && ![lineBackground isEqual:lineForeground]) {
+                return [_lines indexOfObject:rangeVal];
+            }
         }
         NSCountedSet *colorsSet = [[NSCountedSet alloc] initWithArray:foregroundColors];
 
