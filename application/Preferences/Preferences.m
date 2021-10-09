@@ -2007,7 +2007,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 //    NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
 
-    CGFloat scale;
+    CGFloat scale = 12;
     Theme *parent = theme.defaultParent;
     while (parent.defaultParent)
         parent = parent.defaultParent;
