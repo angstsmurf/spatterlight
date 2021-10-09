@@ -688,12 +688,16 @@ int heglk_get_linelength(void)
     glui32 width = gscreenw;
     width -= 2 * ggridmarginx;
     width = width / gcellw;
+    if (width < 0)
+        width = 0;
     return width - 2; /* -2 to trigger automatic line wrapping */
 }
 
 int heglk_get_screenheight(void)
 {
     glui32 height = (gscreenh - 2 * ggridmarginy) / gcellh;
+    if (height < 0)
+        height = 0;
     return height;
 }
 
@@ -773,6 +777,9 @@ void heglk_record_physical(struct winctx ctx) {
         physical_windowwidth = (ctx.r-ctx.l+1)*FIXEDCHARWIDTH;
     if (ctx.isaux && ctx.l > 3 && ctx.r > screenwidth_in_chars - 2)
         physical_windowwidth = SCREENWIDTH;
+
+    if (physical_windowwidth < 0)
+        physical_windowwidth = 0;
 
 //    LOG("physical_windowwidth: %d\n", physical_windowwidth);
     physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;
