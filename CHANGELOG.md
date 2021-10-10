@@ -1,5 +1,9 @@
 # Change log
 
+## 0.9.0 (Unreleased)
+- Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
+- Core Data concurrency fixes should improve both speed and stability when importing games and downloading metadata in the background
+
 ## Release 0.8.9
 - Keypresses could be lost between commands
 - Adds a preference to not add games to library when opening them through the Open menu or by double clicking a file associated with Spatterlight. This option is added both to the Open file dialog and to the preferences panel
