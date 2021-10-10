@@ -7680,8 +7680,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 0.8.9;
-				APP_VERSION = 0.8.9;
+				APP_BUILD = 0.9.0;
+				APP_VERSION = 0.9.0;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "";
 				CLANG_CXX_LIBRARY = "";
@@ -7735,8 +7735,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 0.8.9;
-				APP_VERSION = 0.8.9;
+				APP_BUILD = 0.9.0;
+				APP_VERSION = 0.9.0;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "";
 				CLANG_CXX_LIBRARY = "";
