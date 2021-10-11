@@ -346,7 +346,7 @@ static int loadres(HUGO_FILE infile, int reslen)
 {
     char *buf, *origbuf;
     long offset, suboffset;
-    int id;
+    int index;
     int i;
 
     offset = glk_stream_get_position(infile);
@@ -359,9 +359,9 @@ static int loadres(HUGO_FILE infile, int reslen)
     if (numres + 1 == MAXRES)
         return -1;
 
-    id = numres++;
+    index = numres++;
 
-    resids[id] = offset;
+    resids[index] = offset;
     origbuf = malloc(reslen);
     buf = origbuf;
 
@@ -383,10 +383,10 @@ static int loadres(HUGO_FILE infile, int reslen)
         }
     }
 
-    win_loadsound(id, infile->filename, offset + suboffset, reslen);
+    win_loadsound(index, infile->filename, offset + suboffset, reslen);
 
     free(origbuf);
-    return id;
+    return index;
 }
 
 void initsound(void)
@@ -405,19 +405,19 @@ void initmusic(void)
 
 int hugo_playmusic(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int id;
+    int index;
 
     if (!mchannel)
         initmusic();
     if (mchannel)
     {
-        id = loadres(infile, reslen);
-        if (id < 0)
+        index = loadres(infile, reslen);
+        if (index < 0)
         {
             glk_stream_close(infile, NULL);
             return false;
         }
-        glk_schannel_play_ext(mchannel, id, loop_flag ? -1 : 1, 0);
+        glk_schannel_play_ext(mchannel, index, loop_flag ? -1 : 1, 0);
     }
 
     glk_stream_close(infile, NULL);
@@ -440,17 +440,17 @@ void hugo_stopmusic(void)
 
 int hugo_playsample(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int id;
+    int index;
 
     if (schannel)
     {
-        id = loadres(infile, reslen);
-        if (id < 0)
+        index = loadres(infile, reslen);
+        if (index < 0)
         {
             glk_stream_close(infile, NULL);
             return false;
         }
-        glk_schannel_play_ext(schannel, id, loop_flag ? -1 : 1, 0);
+        glk_schannel_play_ext(schannel, index, loop_flag ? -1 : 1, 0);
     }
 
     glk_stream_close(infile, NULL);
@@ -688,12 +688,16 @@ int heglk_get_linelength(void)
     glui32 width = gscreenw;
     width -= 2 * ggridmarginx;
     width = width / gcellw;
+    if (width < 0)
+        width = 0;
     return width - 2; /* -2 to trigger automatic line wrapping */
 }
 
 int heglk_get_screenheight(void)
 {
     glui32 height = (gscreenh - 2 * ggridmarginy) / gcellh;
+    if (height < 0)
+        height = 0;
     return height;
 }
 
@@ -773,6 +777,9 @@ void heglk_record_physical(struct winctx ctx) {
         physical_windowwidth = (ctx.r-ctx.l+1)*FIXEDCHARWIDTH;
     if (ctx.isaux && ctx.l > 3 && ctx.r > screenwidth_in_chars - 2)
         physical_windowwidth = SCREENWIDTH;
+
+    if (physical_windowwidth < 0)
+        physical_windowwidth = 0;
 
 //    LOG("physical_windowwidth: %d\n", physical_windowwidth);
     physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;

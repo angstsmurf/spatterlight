@@ -1433,13 +1433,12 @@ static glui32 gli_get_line(stream_t *str, char *cbuf, glui32 *ubuf,
                         return 0;
                     }
                     else {
-                        glui32 lx = (glui32)strlen(cbuf);
+                        lx = (glui32)strlen(cbuf);
                         str->readcount += lx;
                         return lx;
                     }
                 }
                 else {
-                    glui32 lx;
                     if (len == 0)
                         return 0;
                     len -= 1; /* for the terminal null */
@@ -1461,7 +1460,6 @@ static glui32 gli_get_line(stream_t *str, char *cbuf, glui32 *ubuf,
             }
             else if (str->isbinary) {
                 /* cheap big-endian stream */
-                glui32 lx;
                 if (len == 0)
                     return 0;
                 len -= 1; /* for the terminal null */
@@ -1504,7 +1502,6 @@ static glui32 gli_get_line(stream_t *str, char *cbuf, glui32 *ubuf,
             }
             else {
                 /* slightly less cheap UTF-8 stream */
-                glui32 lx;
                 if (len == 0)
                     return 0;
                 len -= 1; /* for the terminal null */

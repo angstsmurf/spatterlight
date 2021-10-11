@@ -386,16 +386,16 @@
     if (@available(macOS 10.13, *)) {
         [super accessibilityPerformAction:action];
     } else {
-        GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+        GlkController *glkctl = ((GlkTextBufferWindow *)self.delegate).glkctl;
 
         if ([action isEqualToString:@"Repeat last move"])
-            [delegate.glkctl speakMostRecent:nil];
+            [glkctl speakMostRecent:nil];
         else if ([action isEqualToString:@"Speak move before"])
-            [delegate.glkctl speakPrevious:nil];
+            [glkctl speakPrevious:nil];
         else if ([action isEqualToString:@"Speak move after"])
-            [delegate.glkctl speakNext:nil];
+            [glkctl speakNext:nil];
         else if ([action isEqualToString:@"Speak status bar"])
-            [delegate.glkctl speakStatus:nil];
+            [glkctl speakStatus:nil];
         else
             [super accessibilityPerformAction:action];
     }

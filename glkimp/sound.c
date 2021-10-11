@@ -23,8 +23,6 @@ static int loadsound(int sound)
     
     if (!giblorb_is_resource_map())
     {
-        char filename[1024];
-
         sprintf(filename, "%s/SND%d", gli_parentdir, sound);
 
         fprintf(stderr, "loadsound %s\n", filename);

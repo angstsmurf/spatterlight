@@ -55,9 +55,10 @@
 
     if (searchString.length) {
         BOOL searchFound = NO;
-        NSArray<GlkWindow *> *allWindows = _glkctl.gwindows.allValues;
-        if (_glkctl.quoteBoxes.count)
-            allWindows = [allWindows arrayByAddingObject:_glkctl.quoteBoxes.lastObject];
+        GlkController *glkctl = _glkctl;
+        NSArray<GlkWindow *> *allWindows = glkctl.gwindows.allValues;
+        if (glkctl.quoteBoxes.count)
+            allWindows = [allWindows arrayByAddingObject:glkctl.quoteBoxes.lastObject];
         for (GlkWindow *view in allWindows) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
                 NSString *contentString = ((GlkTextGridWindow *)view).textview.string;
@@ -104,10 +105,11 @@
     NSMutableArray *linkTargetViews = [[NSMutableArray alloc] init];
 
     NSUInteger currentItemIndex = NSNotFound;
+    GlkController *glkctl = _glkctl;
 
-    NSArray *allWindows = _glkctl.gwindows.allValues;
-    if (_glkctl.colderLight && allWindows.count == 5) {
-        allWindows = @[_glkctl.gwindows[@(3)], _glkctl.gwindows[@(4)], _glkctl.gwindows[@(0)], _glkctl.gwindows[@(1)]];
+    NSArray *allWindows = glkctl.gwindows.allValues;
+    if (glkctl.colderLight && allWindows.count == 5) {
+        allWindows = @[glkctl.gwindows[@(3)], glkctl.gwindows[@(4)], glkctl.gwindows[@(0)], glkctl.gwindows[@(1)]];
     }
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
@@ -164,7 +166,7 @@
         NSRange allText = NSMakeRange(0, string.length);
         textRange = NSIntersectionRange(allText, textRange);
         unichar firstChar = [string characterAtIndex:textRange.location];
-        if (_glkctl.colderLight && firstChar == '<' && textRange.length == 1) {
+        if (glkctl.colderLight && firstChar == '<' && textRange.length == 1) {
             searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
         } else if (firstChar == NSAttachmentCharacter) {
             NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
@@ -187,11 +189,12 @@
 
     NSMutableArray *children = [[NSMutableArray alloc] init];
     NSMutableArray *strings = [[NSMutableArray alloc] init];
+    
+    GlkController *glkctl = _glkctl;
+    NSArray *allWindows = glkctl.gwindows.allValues;
 
-    NSArray *allWindows = _glkctl.gwindows.allValues;
-
-    if (_glkctl.quoteBoxes.count)
-        allWindows = [allWindows arrayByAddingObject:_glkctl.quoteBoxes.lastObject];
+    if (glkctl.quoteBoxes.count)
+        allWindows = [allWindows arrayByAddingObject:glkctl.quoteBoxes.lastObject];
 
     allWindows = [allWindows sortedArrayUsingComparator:
                   ^NSComparisonResult(NSView * obj1, NSView * obj2){
@@ -521,8 +524,9 @@
 
         BOOL hasLinks = NO;
         BOOL hasImages = NO;
+        GlkController *glkctl = _glkctl;
 
-        for (GlkWindow *view in _glkctl.gwindows.allValues) {
+        for (GlkWindow *view in glkctl.gwindows.allValues) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
                 hasLinks = YES;
             }
@@ -538,7 +542,7 @@
         }
 
         // Create the images rotor
-        if (hasImages && _glkctl.theme.vOSpeakImages != kVOImageNone) {
+        if (hasImages && glkctl.theme.vOSpeakImages != kVOImageNone) {
             NSAccessibilityCustomRotor *imagesRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeImage itemSearchDelegate:self];
             [rotorsArray addObject:imagesRotor];
         }
@@ -547,12 +551,12 @@
         NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
         [rotorsArray addObject:textSearchRotor];
         // Create the command history rotor
-        if ([_glkctl largestWithMoves]) {
+        if ([glkctl largestWithMoves]) {
             NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
             [rotorsArray addObject:commandHistoryRotor];
         }
         // Create the Glk windows rotor
-        if (_glkctl.gwindows.count) {
+        if (glkctl.gwindows.count) {
             NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
             [rotorsArray addObject:glkWindowRotor];
         }

@@ -122,25 +122,28 @@ fprintf(stderr, "%s\n",                                                    \
     //          NSStringFromRect(frame), NSStringFromRect(self.frame));
 
     super.frame = frame;
+    GlkController *glkctl = _glkctrl;
 
-    if ([_glkctrl isAlive] && !self.inLiveResize && !_glkctrl.ignoreResizes) {
-        [_glkctrl contentDidResize:frame];
+    if ([glkctl isAlive] && !self.inLiveResize && !glkctl.ignoreResizes) {
+        [glkctl contentDidResize:frame];
     }
 }
 
 - (void)viewWillStartLiveResize {
-    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !_glkctrl.ignoreResizes)
-        [_glkctrl storeScrollOffsets];
+    GlkController *glkctl = _glkctrl;
+    if ((glkctl.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask && !glkctl.ignoreResizes)
+        [glkctl storeScrollOffsets];
 }
 
 - (void)viewDidEndLiveResize {
+    GlkController *glkctl = _glkctrl;
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
-    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !_glkctrl.ignoreResizes) {
-        [_glkctrl contentDidResize:self.frame];
-        [_glkctrl restoreScrollOffsets];
+    if ((glkctl.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask && !glkctl.ignoreResizes) {
+        [glkctl contentDidResize:self.frame];
+        [glkctl restoreScrollOffsets];
     }
 }
 
@@ -248,18 +251,20 @@ fprintf(stderr, "%s\n",                                                    \
 
     Game *game = _game;
     _theme = game.theme;
+    Theme *theme = _theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
-    if (!_theme.name) {
+    if (!theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
         game.theme = [Preferences currentTheme];
         _theme = game.theme;
+        theme = _theme;
     }
 
-    if (_theme.nohacks) {
+    if (theme.nohacks) {
         [self resetGameDetection];
     } else {
         [self detectGame:game.ifid];
@@ -397,29 +402,29 @@ fprintf(stderr, "%s\n",                                                    \
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
-     object:_game.managedObjectContext];
+     object:game.managedObjectContext];
 
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
 //    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    _lastAutoBGColor = _theme.bufferBackground;
-    if (_theme.borderBehavior == kUserOverride)
-        [self setBorderColor:_theme.borderColor];
+    _lastAutoBGColor = theme.bufferBackground;
+    if (theme.borderBehavior == kUserOverride)
+        [self setBorderColor:theme.borderColor];
     else
-        [self setBorderColor:_theme.bufferBackground];
+        [self setBorderColor:theme.bufferBackground];
 
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
     lastKeyTimestamp = [NSDate distantPast];
 
-    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+    if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
-    if (_supportsAutorestore && _theme.autosave &&
+    if (_supportsAutorestore && theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
@@ -522,6 +527,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     Game *game = _game;
+    Theme *theme = _theme;
 
     if (!restoredController) {
         if (restoredControllerLate) {
@@ -593,7 +599,7 @@ fprintf(stderr, "%s\n",                                                    \
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
             if (!windowRestoredBySystem) {
-                if (_theme.autosave == NO) {
+                if (theme.autosave == NO) {
                     game.autosaved = NO;
                     [self runTerpNormal];
                     return;
@@ -624,16 +630,17 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"restoredControllerLate was not saved at the first turn!");
         restoredUIOnly = NO;
         [self deleteAutosaveFiles];
-        _game.autosaved = NO;
+        game.autosaved = NO;
         [self runTerpNormal];
         return;
     }
 
     // Temporarily switch to the theme used in the autosaved GUI
-    _stashedTheme = _theme;
+    _stashedTheme = theme;
     Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
-    if (restoredTheme && restoredTheme != _theme) {
+    if (restoredTheme && restoredTheme != theme) {
         _theme = restoredTheme;
+        theme = _theme;
     } else _stashedTheme = nil;
 
     // If this is not a window restoration done by the system,
@@ -819,6 +826,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)forkInterpreterTask {
     /* Fork the interpreter process */
 
+    Theme *theme = _theme;
+
     NSString *terppath;
     NSPipe *readpipe;
     NSPipe *sendpipe;
@@ -862,18 +871,18 @@ fprintf(stderr, "%s\n",                                                    \
     task.arguments = @[ _gamefile ];
     if ([_terpname isEqualToString:@"bocfel"]) {
         NSArray *extraBocfelOptions =
-        @[@"-n", [NSString stringWithFormat:@"%d", _theme.zMachineTerp],
-          @"-N", _theme.zMachineLetter];
-        if (_theme.determinism)
+        @[@"-n", [NSString stringWithFormat:@"%d", theme.zMachineTerp],
+          @"-N", theme.zMachineLetter];
+        if (theme.determinism)
             extraBocfelOptions = [extraBocfelOptions arrayByAddingObjectsFromArray:@[@"-z", @"1234"]];
-        if (_theme.nohacks)
+        if (theme.nohacks)
             extraBocfelOptions = [extraBocfelOptions arrayByAddingObject:@"-p"];
 
         task.arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:task.arguments];
     }
 
     if ([_game.detectedFormat isEqualToString:@"tads3"]) {
-        if (_theme.determinism) {
+        if (theme.determinism) {
             NSArray *extraTadsOptions = @[@"-norandomize"];
             task.arguments = [extraTadsOptions arrayByAddingObjectsFromArray:task.arguments];
         }
@@ -912,7 +921,7 @@ fprintf(stderr, "%s\n",                                                    \
     /* Send a prefs and an arrange event first thing */
     GlkEvent *gevent;
 
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
 
     if (!(_inFullscreen && windowRestoredBySystem)) {
@@ -2011,8 +2020,9 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSSize)charCellsToContentSize:(NSSize)cells {
     // Only _contentView, does not take border into account
     NSSize size;
-    size.width = round(_theme.cellWidth * cells.width + (_theme.gridMarginX + 5.0) * 2.0);
-    size.height = round(_theme.cellHeight * cells.height + (_theme.gridMarginY) * 2.0);
+    Theme *theme = _theme;
+    size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
+    size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
     //    NSLog(@"charCellsToContentSize: %@ in character cells is %@ in points", NSStringFromSize(cells), NSStringFromSize(size));
     return size;
 }
@@ -2020,8 +2030,9 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSSize)contentSizeToCharCells:(NSSize)points {
     // Only _contentView, does not take border into account
     NSSize size;
-    size.width = round((points.width - (_theme.gridMarginX + 5.0) * 2.0) / _theme.cellWidth);
-    size.height = round((points.height - (_theme.gridMarginY) * 2.0) / _theme.cellHeight);
+    Theme *theme = _theme;
+    size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
+    size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
     //    NSLog(@"contentSizeToCharCells: %@ in points is %@ in character cells ", NSStringFromSize(points), NSStringFromSize(size));
     return size;
 }
@@ -2086,7 +2097,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    if (_theme.nohacks) {
+    if (theme.nohacks) {
         [self resetGameDetection];
     } else {
         [self detectGame:_game.ifid];
@@ -2130,9 +2141,9 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    if (_theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:_theme.borderColor]) {
-        [self setBorderColor:_theme.borderColor];
-    } else if (_theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
+    if (theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:theme.borderColor]) {
+        [self setBorderColor:theme.borderColor];
+    } else if (theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
         [self setBorderColor:_lastAutoBGColor];
     }
 
@@ -2172,7 +2183,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Reset any Narcolepsy window mask
     _contentView.layer.mask = nil;
 
-    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+    if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
@@ -2652,22 +2663,23 @@ fprintf(stderr, "%s\n",                                                    \
     //              @"Value:%ld",
     //              (long)styleval[1][style_Normal][stylehint_TextColor]);
 
+    Theme *theme = _theme;
     if ([gwindow getStyleVal:style hint:hint value:result])
         return YES;
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = [_theme.bufferNormal.color integerColor];
+                *result = [theme.bufferNormal.color integerColor];
             else
-                *result = [_theme.gridNormal.color integerColor];
+                *result = [theme.gridNormal.color integerColor];
 
             return YES;
         }
         if (hint == stylehint_BackColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = [_theme.bufferBackground integerColor];
+                *result = [theme.bufferBackground integerColor];
             else
-                *result = [_theme.gridBackground integerColor];
+                *result = [theme.gridBackground integerColor];
 
             return YES;
         }
@@ -2905,8 +2917,8 @@ fprintf(stderr, "%s\n",                                                    \
     switch (req->cmd) {
         case HELLO:
             ans->cmd = OKAY;
-            ans->a1 = _theme.doGraphics;
-            ans->a2 = _theme.doSound;
+            ans->a1 = theme.doGraphics;
+            ans->a2 = theme.doSound;
             break;
 
         case NEXTEVENT:
@@ -3805,23 +3817,25 @@ again:
         NSLog(@"setBorderColor called with a nil color!");
         return;
     }
-    if (_theme.borderBehavior == kAutomatic) {
+
+    Theme *theme = _theme;
+    if (theme.borderBehavior == kAutomatic) {
         _lastAutoBGColor = color;
     } else {
-        color = _theme.borderColor;
+        color = theme.borderColor;
         if (_lastAutoBGColor == nil)
             _lastAutoBGColor = color;
     }
 
     _bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
-    if (_narcolepsy && _theme.doStyles && _theme.doGraphics) {
+    if (_narcolepsy && theme.doStyles && theme.doGraphics) {
 //        self.bgcolor = [NSColor clearColor];
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
     //    NSLog(@"GlkController setBorderColor: %@", color);
-    if (_theme.doStyles || [color isEqualToColor:_theme.bufferBackground] || [color isEqualToColor:_theme.gridBackground] || _theme.borderBehavior == kUserOverride) {
+    if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         CGFloat components[[color numberOfComponents]];
         CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
         [color getComponents:(CGFloat *)&components];

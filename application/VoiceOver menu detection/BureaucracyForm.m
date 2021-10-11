@@ -242,6 +242,8 @@
 
     NSString *selectedFieldString = @"";
 
+    Theme *theme = self.glkctl.theme;
+
     if (!_haveSpokenForm || sender == self.glkctl) {
         selectedFieldString =
         [self constructFieldStringWithIndex:YES andTotal:YES];
@@ -252,13 +254,13 @@
             _haveSpokenForm = YES;
         }
     } else {
-        if (self.glkctl.theme.vOSpeakCommand)
+        if (theme.vOSpeakCommand)
             selectedFieldString = [self constructInputString];
 
         if (!_didNotMove)
             selectedFieldString =
             [selectedFieldString stringByAppendingString:
-             [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex)  andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
+             [self constructFieldStringWithIndex:(theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
     [self speakString:selectedFieldString];

@@ -33,9 +33,11 @@
     NSString *format = glkctl.game.detectedFormat;
     unichar initialChar;
 
+    _isTads3 = [format isEqualToString:@"tads3"];
+
     if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"] || [format isEqualToString:@"hugo"]) {
         initialChar = ' ';
-    } else if ([format isEqualToString:@"tads3"]) {
+    } else if (_isTads3) {
         // If Tads 3: look for a cluster of lines where all start with a '>'.
         // '•' is only used in Thaumistry: Charm's Way.
         if (glkctl.thaumistry)
@@ -248,7 +250,7 @@
     }];
 
     // In Tads 3 menus, the above code always picks the wrong one if there are two items.
-    if (guess != NSNotFound && [_glkctl.game.detectedFormat isEqualToString:@"tads3"] && _lines.count == 2) {
+    if (guess != NSNotFound && _isTads3 && _lines.count == 2) {
         if (guess == 0)
             guess = 1;
         else
@@ -256,7 +258,8 @@
     }
 
     // If no match, look for a unique foreground color
-    if (guess == NSNotFound && _lines.count >= 3) { // Does not work with less than 3 items
+    // Does not work with less than 3 items except in TADS 3
+    if (guess == NSNotFound && (_lines.count >= 3 || _isTads3)) {
         NSMutableArray *foregroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
         NSMutableArray *backgroundColors = [[NSMutableArray alloc] initWithCapacity:_lines.count];
 
@@ -267,17 +270,25 @@
             range = NSIntersectionRange(allText, range);
             NSDictionary *attrDict = [_attrStr attributesAtIndex:range.location effectiveRange:nil];
 
-            NSColor *lineColor = attrDict[NSForegroundColorAttributeName];
-            if (lineColor == nil)
+            NSColor *lineForeground = attrDict[NSForegroundColorAttributeName];
+            if (lineForeground == nil)
                 [foregroundColors addObject:[NSNull null]];
             else
-                [foregroundColors addObject:lineColor];
+                [foregroundColors addObject:lineForeground];
 
-            lineColor = attrDict[NSBackgroundColorAttributeName];
-            if (lineColor == nil)
+            NSColor *lineBackground = attrDict[NSBackgroundColorAttributeName];
+            if (lineBackground == nil)
                 [backgroundColors addObject:[NSNull null]];
             else
-                [backgroundColors addObject:lineColor];
+                [backgroundColors addObject:lineBackground];
+
+            // TADS 3 menus lines usually begin with a ">" which is made invisible in non-selected lines
+            // by giving the text and background the same color.
+            // In a two-line TADS 3 menu, we assume that the line where foreground and background don't match
+            // (and thus the ">" is visible) is the selected line.
+            if (_isTads3 && _lines.count == 2 && lineBackground != nil && ![lineBackground isEqual:lineForeground]) {
+                return [_lines indexOfObject:rangeVal];
+            }
         }
         NSCountedSet *colorsSet = [[NSCountedSet alloc] initWithArray:foregroundColors];
 
@@ -323,7 +334,9 @@
     _viewStrings = [[NSMutableArray alloc] init];
     NSString *viewString;
     GlkWindow *viewWithCluster;
-    for (GlkWindow *view in _glkctl.gwindows.allValues) {
+    GlkController *glkctl = _glkctl;
+    BOOL isHugo = [glkctl.game.detectedFormat isEqualToString:@"hugo"];
+    for (GlkWindow *view in glkctl.gwindows.allValues) {
         if ([view isKindOfClass:[GlkTextGridWindow class]] || [view isKindOfClass:[GlkTextBufferWindow class]]) {
             viewString = ((GlkTextBufferWindow *)view).textview.string;
         } else {
@@ -343,7 +356,7 @@
                 if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
                     ABS([self leftMarginInRange:currentCluster.firstObject andString:viewString] -
                         [self leftMarginInRange:lastCluster.lastObject andString:viewString]) < 3 ) {
-                    if (![_glkctl.game.detectedFormat isEqualToString:@"hugo"]) {
+                    if (!isHugo) {
                         lastCluster = [lastCluster arrayByAddingObject:lines[line]];
                     }
                     currentCluster =
@@ -615,6 +628,7 @@
         _haveSpokenMenu = NO;
     _lastNumberOfItems = _lines.count;
 
+    GlkController *glkctl = _glkctl;
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
         if (titleString.length) {
@@ -626,13 +640,13 @@
         _haveSpokenMenu = YES;
         [self speakString:selectedLineString];
         return;
-    } else if (sender == self.glkctl) {
+    } else if (sender == glkctl) {
         selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
     } else {
-        selectedLineString = [self menuLineStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
+        selectedLineString = [self menuLineStringWithIndex:(glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
-        if (_glkctl.beyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
-            for (GlkWindow *view in _glkctl.gwindows.allValues) {
+        if (glkctl.beyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
+            for (GlkWindow *view in glkctl.gwindows.allValues) {
                 if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
                     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)view;
                     NSString *string = bufWin.textview.string;
@@ -813,7 +827,7 @@
     string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([string rangeOfString:@"    "].location != NSNotFound)
         string = @"";
-    if (self.glkctl.beyondZork && string.length == 0) {
+    if (_glkctl.beyondZork && string.length == 0) {
         NSRange range = _lines.firstObject.rangeValue;
         NSString *topString = [_attrStr.string substringWithRange:range];
         topString = [topString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

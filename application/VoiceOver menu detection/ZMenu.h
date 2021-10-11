@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSUInteger selectedLine;
 @property BOOL haveSpokenMenu;
 @property BOOL recheckNeeded;
+@property BOOL isTads3;
 @property NSString *lastSpokenString;
 @property NSUInteger lastNumberOfItems;
 

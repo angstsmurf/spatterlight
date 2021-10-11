@@ -44,7 +44,7 @@
 
             NSLog(@"persistentContainer url path:%@", url.path);
 
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *description, NSError *error) {
+            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
                 if (error != nil) {
                     NSLog(@"Failed to load Core Data stack: %@", error);
                     abort();
@@ -79,7 +79,7 @@
 
     [context performBlockAndWait:^{
 
-        NSError *error = nil;
+        NSError *blockerror = nil;
         NSArray *fetchedObjects;
 
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -87,10 +87,10 @@
         fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
 
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
         if (fetchedObjects == nil) {
-            NSLog(@"ThumbnailProvider: %@",error);
-            handler(nil, error);
+            NSLog(@"ThumbnailProvider: %@",blockerror);
+            handler(nil, blockerror);
             return;
         }
 
@@ -98,7 +98,7 @@
             NSString *ifid = [self ifidFromFile:url.path];
             if (ifid.length) {
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
-                fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+                fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
             }
         }
 
@@ -115,7 +115,7 @@
         }
 
         if (!imgdata || imgdata.length == 0) {
-            handler(nil, error);
+            handler(nil, blockerror);
             return;
         }
 

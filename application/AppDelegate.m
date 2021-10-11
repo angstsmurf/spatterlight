@@ -310,7 +310,7 @@ PasteboardFilePasteLocation;
         }
         panel.allowedFileTypes = allowedTypes;
         panel.directoryURL = directory;
-        panel.message = NSLocalizedString(@"Select a game", nil);
+        panel.message = NSLocalizedString(@"Please select a game", nil);
 
         NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
         checkbox.buttonType = NSSwitchButton;
