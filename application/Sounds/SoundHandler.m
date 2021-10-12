@@ -37,8 +37,10 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _URL =  [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
-    _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+	if (self = [super init]) {
+		_URL =  [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
+		_bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+	}
     return self;
 }
 
@@ -97,10 +99,12 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+	if (self = [super init]) {
     _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
     _length = (size_t)[decoder decodeIntForKey:@"length"];
     _offset = (size_t)[decoder decodeIntForKey:@"offset"];
     _type = (kBlorbSoundFormatType)[decoder decodeIntForKey:@"type"];
+	}
     return self;
 }
 

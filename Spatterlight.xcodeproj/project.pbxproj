@@ -7490,7 +7490,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
@@ -7524,7 +7523,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
@@ -7618,7 +7616,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -7637,7 +7634,6 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -7663,7 +7659,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -7687,7 +7682,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -7824,7 +7818,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -7849,7 +7842,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = glkimp;
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -7867,7 +7859,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -7882,7 +7873,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -7929,7 +7919,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
 				STRIP_PNG_TEXT = YES;
 				WRAPPER_EXTENSION = app;
@@ -7979,7 +7968,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
 				STRIP_PNG_TEXT = YES;
 				WRAPPER_EXTENSION = app;
@@ -8004,7 +7992,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8026,7 +8013,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8056,7 +8042,6 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8085,7 +8070,6 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8118,7 +8102,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8150,7 +8133,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8180,7 +8162,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8209,7 +8190,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8233,7 +8213,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8255,7 +8234,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8286,7 +8264,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8316,7 +8293,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8346,7 +8322,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8375,7 +8350,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8409,7 +8383,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = "-Wmost";
 			};
@@ -8443,7 +8416,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = "-Wmost";
 			};
@@ -8482,7 +8454,6 @@
 				);
 				PRODUCT_NAME = alan2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8519,7 +8490,6 @@
 				);
 				PRODUCT_NAME = alan2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8550,7 +8520,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8580,7 +8549,6 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8608,7 +8576,6 @@
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8635,7 +8602,6 @@
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8659,7 +8625,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8682,7 +8647,6 @@
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8699,7 +8663,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8715,7 +8678,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8769,7 +8731,6 @@
 				PRODUCT_NAME = tadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8821,7 +8782,6 @@
 				PRODUCT_NAME = tadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8867,7 +8827,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8911,7 +8870,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8962,7 +8920,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -9011,7 +8968,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
