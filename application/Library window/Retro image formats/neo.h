@@ -44,7 +44,7 @@
 
 #include "zimage.h"
 
-z_image *get_neo_picture(char *neo_filename);
+z_image *get_neo_picture(const char *neo_filename);
 int end_neo_graphics(void);
 
 #endif /* neo_h_INCLUDED */

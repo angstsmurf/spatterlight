@@ -15,7 +15,7 @@
 @implementation NSData (MD5)
 
 - (NSString *)md5String {
-    unsigned char resultCString[16];
+    unsigned char resultCString[CC_MD5_DIGEST_LENGTH];
     CC_MD5(self.bytes, (unsigned int)self.length, resultCString);
     
     return [NSString stringWithFormat:

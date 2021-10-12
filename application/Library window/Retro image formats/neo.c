@@ -60,7 +60,7 @@ uint8_t * imgPic = NULL;
 z_image *neo_zimage = NULL;
 
 
-z_image * get_neo_picture(char *neo_filename)
+z_image * get_neo_picture(const char *neo_filename)
 {
     int               iLoadSize;
     unsigned char     bNeoPic[32768];
