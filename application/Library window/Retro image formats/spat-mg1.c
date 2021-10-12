@@ -227,7 +227,7 @@ int end_mg1_graphics()
 }
 
 
-int init_mg1_graphics(char *mg1_filename)
+int init_mg1_graphics(const char *mg1_filename)
 {
   int image_index;
   struct mg1_image_entry *image;
