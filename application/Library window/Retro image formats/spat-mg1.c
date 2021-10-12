@@ -95,7 +95,7 @@ struct mg1_colormap {
 
 // The colormap data for the default EGA color palette was taken from
 // http://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter.
-static uint8_t ega_colormap[16][3] =
+static const uint8_t ega_colormap[16][3] =
 {
   {   0,  0,  0 },
   {   0,  0,170 },
@@ -115,7 +115,7 @@ static uint8_t ega_colormap[16][3] =
   { 255,255,255 }
 };
 
-static short mask[16] = { 
+static const short mask[16] = { 
   0x0000, 0x0001, 0x0003, 0x0007,
   0x000f, 0x001f, 0x003f, 0x007f,
   0x00ff, 0x01ff, 0x03ff, 0x07ff,
