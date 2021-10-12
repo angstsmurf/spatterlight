@@ -2093,7 +2093,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {
 
     NSManagedObjectContext *context = options[@"context"];
-    NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
+    NSMutableArray *select = nil;
+
+    //Don't select every game after import if we start with no games
+    if (_gameTableModel.count)
+        select = [NSMutableArray arrayWithCapacity: urls.count];
 
     BOOL reportFailure = NO;
 

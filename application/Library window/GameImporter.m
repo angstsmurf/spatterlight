@@ -96,7 +96,8 @@ extern NSArray *gGameFileTypes;
 
     if (game) {
         [_libController beginImporting];
-        [select addObject:game.ifid];
+        if (select)
+            [select addObject:game.ifid];
         if (downloadInfo) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
             [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
