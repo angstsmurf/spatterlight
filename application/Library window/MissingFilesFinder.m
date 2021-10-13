@@ -73,12 +73,6 @@ extern NSArray *gGameFileTypes;
                             [game.managedObjectContext deleteObject:game];
                         }
                     }
-
-                } else {
-                    NSAlert *anAlert = [[NSAlert alloc] init];
-                    anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
-                    anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.", nil), game.metadata.title];
-                    [anAlert runModal];
                 }
             }
         }
