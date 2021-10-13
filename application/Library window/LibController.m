@@ -2015,7 +2015,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (context.hasChanges) {
         if (![context save:&error]) {
             if (error) {
-                [[NSApplication sharedApplication] presentError:error];
+                NSLog(@"Error: %@", error);
             }
         }
     }

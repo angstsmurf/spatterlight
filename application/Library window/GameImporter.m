@@ -67,7 +67,8 @@ extern NSArray *gGameFileTypes;
             if (context.hasChanges) {
                 if (![context save:&error]) {
                     if (error) {
-                        [[NSApplication sharedApplication] presentError:error];
+                        NSLog(@"Error! %@", error);
+                        continue;
                     }
                 }
                 __unsafe_unretained CoreDataManager *blockmanager = _libController.coreDataManager;
