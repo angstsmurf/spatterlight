@@ -1892,7 +1892,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             NSAlert *alert = [[NSAlert alloc] init];
             alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);
             alert.informativeText = NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil);
-            [alert runModal];
+            [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+            [alert addButtonWithTitle:NSLocalizedString(@"Delete entry", nil)];
+            NSInteger choice = [alert runModal];
+            if (choice == NSAlertSecondButtonReturn) {
+                [game.managedObjectContext deleteObject:game];
+            }
         }
         return nil;
     }

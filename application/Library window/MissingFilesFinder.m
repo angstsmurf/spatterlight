@@ -25,8 +25,9 @@ extern NSArray *gGameFileTypes;
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = NSLocalizedString(@"Cannot find the file.", nil);
     alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title];
-    [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Look for game", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Delete game", nil)];
 
     NSModalResponse choice = [alert runModal];
 
@@ -81,6 +82,8 @@ extern NSArray *gGameFileTypes;
                 }
             }
         }
+    } else  if (choice == NSAlertThirdButtonReturn) {
+        [game.managedObjectContext deleteObject:game];
     }
 }
 
