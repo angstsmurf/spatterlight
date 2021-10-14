@@ -97,6 +97,8 @@ fprintf(stderr, "%s\n",                                                    \
 @implementation TempLibrary
 
 - (id) initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     int version = [decoder decodeIntForKey:@"version"];
     if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
     {
@@ -105,7 +107,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _autosaveTag = (glui32)[decoder decodeInt32ForKey:@"autosaveTag"];
-
+    }
     return self;
 }
 @end

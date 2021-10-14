@@ -33,10 +33,12 @@
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     _bounds = [decoder decodeRectForKey:@"bounds"];
     recalc = [decoder decodeBoolForKey:@"recalc"];
-
+    }
     return self;
 }
 

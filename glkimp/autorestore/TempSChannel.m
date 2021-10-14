@@ -30,14 +30,15 @@
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
-
+    self = [super init];
+    if (self) {
     _rock = [decoder decodeInt32ForKey:@"rock"];
     _tag = [decoder decodeInt32ForKey:@"tag"];
     _peer = [decoder decodeInt32ForKey:@"peer"];
 
     _prev = [decoder decodeInt32ForKey:@"prev"];
     _next = [decoder decodeInt32ForKey:@"next"];
-
+    }
     return self;
 }
 

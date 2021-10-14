@@ -318,7 +318,8 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-
+    self = [super init];
+    if (self) {
     _name = (NSUInteger)[decoder decodeIntForKey:@"name"];
 
     resid =  [decoder decodeIntForKey:@"resid"]; /* for notifies */
@@ -335,7 +336,7 @@
     volume_timeout = (NSUInteger)[decoder decodeIntForKey:@"volume_timeout"];
     target_volume = [decoder decodeDoubleForKey:@"target_volume"];
     volume_delta = [decoder decodeDoubleForKey:@"volume_delta"];
-
+    }
     return self;
 }
 

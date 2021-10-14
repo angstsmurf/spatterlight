@@ -56,6 +56,8 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
     _alignment = [decoder decodeIntegerForKey:@"alignment"];
     _bounds = [decoder decodeRectForKey:@"bounds"];
@@ -63,6 +65,7 @@
     _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     recalc = [decoder decodeBoolForKey:@"recalc"];
     self.accessibilityRoleDescription = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityRoleDescription"];
+    }
     return self;
 }
 

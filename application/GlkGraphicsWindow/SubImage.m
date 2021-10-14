@@ -15,9 +15,11 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     self.accessibilityLabel = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityLabel"];
     _frameRect = [decoder decodeRectForKey:@"frameRect"];
-
+    }
     return self;
 }
 
