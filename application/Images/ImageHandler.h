@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageFile : NSObject
 
 - (instancetype)initWithPath:(NSString *)path;
+- (instancetype)initWithURL:(NSURL *)path;
 - (void)resolveBookmark;
 
 @property (nullable) NSData *bookmark;
@@ -23,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageResource : NSObject
 
 - (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length;
-- (BOOL)load;
+- (BOOL)load NS_SWIFT_UNAVAILABLE("Use the throwing method instead");
+- (BOOL)loadWithError:(NSError**)outError;
 - (nullable NSImage *)createImage;
 
 @property (nullable) NSData *data;
@@ -46,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableDictionary <NSString *, ImageFile *> *files;
 
 - (void)cacheImagesFromBlorb:(NSURL *)file;
-- (NSString *)lastImageLabel;
+@property (readonly, nonatomic, copy) NSString *lastImageLabel;
 
 - (BOOL)handleFindImageNumber:(NSInteger)resno;
 - (void)handleLoadImageNumber:(NSInteger)resno
