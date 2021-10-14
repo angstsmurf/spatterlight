@@ -3851,6 +3851,7 @@
 				C3CEC2B726A6D0A200120469 /* UITests */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		961CCE7C09F237E700528FF9 /* Products */ = {
 			isa = PBXGroup;

@@ -635,7 +635,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
             imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:&error];
 
-            NSString *imgExtension = url.path.pathExtension.lowercaseString;
+            NSString *imgExtension = url.pathExtension.lowercaseString;
 
             if ([imgExtension isEqualToString:@"mg1"]) {
                 imageData = [NSData imageDataFromMG1URL:imageFiles.firstObject];

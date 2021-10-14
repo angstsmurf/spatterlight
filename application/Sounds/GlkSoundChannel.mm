@@ -101,9 +101,7 @@
 
     mimeString = [NSString stringWithFormat:@"audio/%@", mimeString];
 
-    CFStringRef formatRef = (__bridge CFStringRef)mimeString;
-
-    auto decoder = SFB::Audio::Decoder::CreateForInputSource(SFB::InputSource::CreateWithMemory(buf, (SInt64)len, false), formatRef);
+    auto decoder = SFB::Audio::Decoder::CreateForInputSource(SFB::InputSource::CreateWithMemory(buf, (SInt64)len, false), (__bridge CFStringRef)mimeString);
 
     if (!_player) {
         _player = new SFB::Audio::Player();
