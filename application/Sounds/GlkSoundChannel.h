@@ -1,15 +1,13 @@
 #import <Foundation/Foundation.h>
 @class SoundHandler, MIDIChannel;
 
-#import <Foundation/Foundation.h>
-
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
 #define MIX_MAX_VOLUME 1.0f
 
 enum { CHANNEL_IDLE, CHANNEL_SOUND };
 
-@interface GlkSoundChannel : NSObject {
+@interface GlkSoundChannel : NSObject <NSSecureCoding> {
     NSInteger loop;
     NSInteger notify;
     NSUInteger paused;
