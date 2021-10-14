@@ -49,8 +49,7 @@ void setdefaultworkdir(char **string)
 
         length = appSupportDir.path.length;
         *string = malloc(length + 1);
-        strncpy(*string, [appSupportDir fileSystemRepresentation], length);
-
+        strncpy(*string, appSupportDir.fileSystemRepresentation, length);
     }
 
     (*string)[length] = 0;
@@ -89,7 +88,7 @@ void getautosavedir(char *file)
 
         NSUInteger length = dirname.length;
         autosavedir = malloc(length + 1);
-        strncpy(autosavedir, [dirname UTF8String], length);
+        strncpy(autosavedir, dirname.fileSystemRepresentation, length);
         autosavedir[length] = 0;
     }
 }
@@ -119,7 +118,7 @@ void gettempdir()
             NSLog(@"gettempdir error: %@", error);
         }
 
-        strncpy(tempdir, temporaryDirectoryURL.path.UTF8String, sizeof tempdir);
+        strncpy(tempdir, temporaryDirectoryURL.fileSystemRepresentation, sizeof tempdir);
 
     }
 }
