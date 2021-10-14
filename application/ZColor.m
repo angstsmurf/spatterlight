@@ -30,8 +30,11 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _fg = [decoder decodeIntegerForKey:@"fg"];
     _bg = [decoder decodeIntegerForKey:@"bg"];
+    }
     return self;
 }
 

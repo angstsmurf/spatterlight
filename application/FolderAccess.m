@@ -39,9 +39,12 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
     accessCount = 0;
     _active = NO;
+    }
     return self;
 }
 

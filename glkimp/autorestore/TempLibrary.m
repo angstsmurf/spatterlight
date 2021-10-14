@@ -84,7 +84,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
-
+    self = [super init];
+    if (self) {
 	int version = [decoder decodeIntForKey:@"version"];
     if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
     {
@@ -142,7 +143,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
     _timerInterval = [decoder decodeInt32ForKey:@"timerInterval"];
     _autosaveTag = [decoder decodeInt32ForKey:@"autosaveTag"];
-
+    }
 	return self;
 }
 

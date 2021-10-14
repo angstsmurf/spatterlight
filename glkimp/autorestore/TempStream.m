@@ -108,7 +108,8 @@
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
-
+    self = [super init];
+    if (self) {
     buf = 0;
     bufptr = 0;
     bufeof = 0;
@@ -186,7 +187,7 @@
     lastop = [decoder decodeInt32ForKey:@"lastop"];
 
     offsetinfile = [decoder decodeInt64ForKey:@"offsetinfile"];
-
+    }
     return self;
 }
 

@@ -22,12 +22,15 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _type = [decoder decodeIntegerForKey:@"type"];
     win = [decoder decodeIntegerForKey:@"win"];
     _val1 = [decoder decodeIntegerForKey:@"val1"];
     _val2 = [decoder decodeIntegerForKey:@"val2"];
     ln = [decoder decodeObjectOfClass:[NSString class] forKey:@"ln"];
     _forced = [decoder decodeBoolForKey:@"forced"];
+    }
     return self;
 }
 

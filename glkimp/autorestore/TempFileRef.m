@@ -67,6 +67,8 @@
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
 	_tag = [decoder decodeInt32ForKey:@"tag"];
 	_rock = [decoder decodeInt32ForKey:@"rock"];
 
@@ -79,7 +81,7 @@
         URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
     _filetype = [decoder decodeInt32ForKey:@"filetype"];
     _textmode = [decoder decodeInt32ForKey:@"textmode"];
-
+    }
 	return self;
 }
 

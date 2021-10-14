@@ -797,10 +797,12 @@ static void recover_library_state(LibraryState *library_state)
 
 - (id) initWithCoder:(NSCoder *)decoder
 {
+    self = [super init];
+    if (self) {
 	_objclass = [decoder decodeInt32ForKey:@"objclass"];
 	_tag = [decoder decodeInt32ForKey:@"tag"];
 	_dispid = [decoder decodeInt32ForKey:@"dispid"];
-
+    }
     return self;
 }
 
@@ -833,8 +835,11 @@ static void recover_library_state(LibraryState *library_state)
 
 - (id) initWithCoder:(NSCoder *)decoder
 {
+    self = [super init];
+    if (self) {
 	index = [decoder decodeInt32ForKey:@"index"];
 	addr = [decoder decodeInt32ForKey:@"addr"];
+    }
 	return self;
 }
 

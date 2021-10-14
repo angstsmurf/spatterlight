@@ -37,8 +37,11 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _URL =  [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
-    _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+    self = [super init];
+    if (self) {
+        _URL =  [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
+        _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+    }
     return self;
 }
 
@@ -97,10 +100,13 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
-    _length = (size_t)[decoder decodeIntForKey:@"length"];
-    _offset = (size_t)[decoder decodeIntForKey:@"offset"];
-    _type = (kBlorbSoundFormatType)[decoder decodeIntForKey:@"type"];
+    self = [super init];
+    if (self) {
+        _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
+        _length = (size_t)[decoder decodeIntForKey:@"length"];
+        _offset = (size_t)[decoder decodeIntForKey:@"offset"];
+        _type = (kBlorbSoundFormatType)[decoder decodeIntForKey:@"type"];
+    }
     return self;
 }
 
@@ -214,6 +220,8 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
     for (SoundFile *file in _files.allValues)
         file.handler = self;
@@ -225,6 +233,7 @@
     _restored_music_channel_id = (NSUInteger)[decoder decodeIntForKey:@"music_channel"];
     _glkchannels = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gchannels"];
     _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
+    }
     return self;
 }
 

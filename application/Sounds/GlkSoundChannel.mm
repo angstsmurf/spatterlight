@@ -329,15 +329,12 @@
         notify = [decoder decodeIntForKey:@"notify"];
         paused = (NSUInteger)[decoder decodeIntForKey:@"paused"];
 
-        //    sdl_channel = [decoder decodeIntForKey:@"sdl_channel"];
-
         /* for volume fades */
         volume_notify = [decoder decodeInt32ForKey:@"volume_notify"];
         volume_timeout = (NSUInteger)[decoder decodeIntForKey:@"volume_timeout"];
         target_volume = [decoder decodeDoubleForKey:@"target_volume"];
         volume_delta = [decoder decodeDoubleForKey:@"volume_delta"];
     }
-
     return self;
 }
 

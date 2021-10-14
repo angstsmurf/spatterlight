@@ -141,7 +141,8 @@
 
 
 - (id) initWithCoder:(NSCoder *)decoder {
-
+    self = [super init];
+    if (self) {
     _tag = [decoder decodeInt32ForKey:@"tag"];
 	_type = [decoder decodeInt32ForKey:@"type"];
 	_rock = [decoder decodeInt32ForKey:@"rock"];
@@ -217,7 +218,7 @@
 
 	_streamtag = [decoder decodeInt32ForKey:@"streamtag"];
 	_echostreamtag = [decoder decodeInt32ForKey:@"echostreamtag"];
-
+    }
 	return self;
 }
 

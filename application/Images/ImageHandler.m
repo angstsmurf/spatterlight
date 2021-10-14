@@ -34,8 +34,11 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _URL =  [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
     _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+    }
     return self;
 }
 
@@ -79,9 +82,12 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
     _length = (size_t)[decoder decodeIntForKey:@"length"];
     _offset = (size_t)[decoder decodeIntForKey:@"offset"];
+    }
     return self;
 }
 
@@ -164,6 +170,8 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
     _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
     _resources = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"resources"];
     if (_resources)
@@ -171,6 +179,7 @@
             res.imageFile = _files[res.filename];
         }
     _lastimageresno = [decoder decodeIntForKey:@"lastimageresno"];
+    }
     return self;
 }
 
