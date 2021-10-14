@@ -15,9 +15,13 @@
 }
 
 - (instancetype)initWithPath:(NSString *)path {
+    return [self initWithURL:[NSURL fileURLWithPath:path]];
+}
+
+- (instancetype)initWithURL:(NSURL *)path {
     self = [super init];
     if (self) {
-        _URL = [NSURL fileURLWithPath:path];
+        _URL = path;
         NSError *theError;
         _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
                         includingResourceValuesForKeys:nil
@@ -88,10 +92,14 @@
 }
 
 -(BOOL)load {
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:_imageFile.URL.path];
+    return [self loadWithError:NULL];
+}
+
+- (BOOL)loadWithError:(NSError**)outError {
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_imageFile.URL error:outError];
     if (!fileHandle) {
         [_imageFile resolveBookmark];
-        fileHandle = [NSFileHandle fileHandleForReadingAtPath:_imageFile.URL.path];
+        fileHandle = [NSFileHandle fileHandleForReadingFromURL:_imageFile.URL error:outError];
         if (!fileHandle)
             return NO;
     }
@@ -99,6 +107,11 @@
     _data = [fileHandle readDataOfLength:_length];
     if (!_data) {
         NSLog(@"Could not read image resource from file %@, length %ld, offset %ld\n", _imageFile.URL.path, _length, _offset);
+        if (outError) {
+            *outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not read image resource from file %@, length %ld, offset %ld\n", _imageFile.URL.path, _length, _offset]}
+            ];
+        }
         return NO;
     }
 
@@ -209,7 +222,7 @@
     BOOL result = [self imageIsLoaded:resno];
 
     if (!result) {
-        [_resources[@(resno)] load];
+        [_resources[@(resno)] loadWithError:NULL];
         result = [self imageIsLoaded:resno];
     }
     if (!result)
@@ -255,7 +268,7 @@
         }
     } else return;
     res.offset = offset;
-    [res load];
+    [res loadWithError:NULL];
 }
 
 - (NSString *)lastImageLabel {

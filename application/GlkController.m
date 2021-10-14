@@ -3084,7 +3084,7 @@ fprintf(stderr, "%s\n",                                                    \
         case LOADIMAGE:
             buf[req->len] = 0;
             [_imageHandler handleLoadImageNumber:req->a1
-                                            from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                            from:@(buf)
                                           offset:(NSUInteger)req->a2
                                           length:(NSUInteger)req->a3];
             break;
@@ -3838,14 +3838,7 @@ again:
     }
     //    NSLog(@"GlkController setBorderColor: %@", color);
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
-        CGFloat components[[color numberOfComponents]];
-        CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
-        [color getComponents:(CGFloat *)&components];
-        CGColorRef cgcol = CGColorCreate(colorSpace, components);
-
-        _borderView.layer.backgroundColor = cgcol;
-        //        self.window.backgroundColor = color;
-        CFRelease(cgcol);
+        _borderView.layer.backgroundColor = color.CGColor;
 
         [Preferences instance].borderColorWell.color = color;
     }
