@@ -23,6 +23,7 @@
 #import "Blorb.h"
 #import "BlorbResource.h"
 #import "NotificationBezel.h"
+#import "FolderAccess.h"
 
 #import "OSImageHashing.h"
 
@@ -470,23 +471,29 @@
 }
 
 - (IBAction)reloadFromBlorb:(id)sender {
-    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:_game.path]];
-    NSData *data = [blorb coverImageData];
-    BOOL success = NO;
-    if (data) {
-        [self processImageData:data sourceUrl:_game.path dontAsk:YES];
-        success = YES;
-        NSData *metadata = [blorb metaData];
-        if (metadata) {
-            NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
-            if (imageDescription.length)
-                _game.metadata.coverArtDescription = imageDescription;
+    NSString *path = _game.path;
+    if (!path)
+        path = [_game urlForBookmark].path;
+    __unsafe_unretained ImageView *weakSelf = self;
+    [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path] andThenRunBlock:^{
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        NSData *data = [blorb coverImageData];
+        BOOL success = NO;
+        if (data) {
+            [weakSelf processImageData:data sourceUrl:path dontAsk:YES];
+            success = YES;
+            NSData *metadata = [blorb metaData];
+            if (metadata) {
+                NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
+                if (imageDescription.length)
+                    weakSelf.game.metadata.coverArtDescription = imageDescription;
+            }
         }
-    }
-    if (!success) {
-        NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
-        [bezel showStandardWithText:@"? No image found"];
-    }
+        if (!success) {
+            NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+            [bezel showStandardWithText:@"? No image found"];
+        }
+    }];
 }
 
 + (NSString *)coverArtDescriptionFromXMLData:(NSData *)data {
