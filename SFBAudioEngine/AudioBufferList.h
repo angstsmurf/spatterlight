@@ -20,7 +20,7 @@ namespace SFB {
 	namespace Audio {
 
 		/*! @brief A class wrapping a Core %Audio \c AudioBufferList */
-		class BufferList
+		class BufferList final
 		{
 		public:
 			// ========================================

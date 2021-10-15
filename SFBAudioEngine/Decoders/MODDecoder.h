@@ -16,7 +16,7 @@ namespace SFB {
 		// ========================================
 		// A Decoder subclass supporting MOD files
 		// ========================================
-		class MODDecoder : public Decoder
+		class MODDecoder final : public Decoder
 		{
 
 		public:

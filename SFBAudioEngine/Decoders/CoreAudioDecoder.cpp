@@ -46,11 +46,7 @@ namespace {
 		*actualCount = (UInt32)inputSource.Read(buffer, requestCount);
 
 		if(0 == *actualCount)
-#if !TARGET_OS_IPHONE
-			return (inputSource.AtEOF() ? eofErr : ioErr);
-#else
-		return (inputSource.AtEOF() ? kAudioFileEndOfFileError : kAudioFilePositionError);
-#endif
+			return (inputSource.AtEOF() ? kAudioFileEndOfFileError : kAudioFilePositionError);
 
 		return noErr;
 	}

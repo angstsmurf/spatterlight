@@ -21,7 +21,7 @@ namespace SFB {
 		// ========================================
 		// A Decoder subclass supporting Ogg Vorbis
 		// ========================================
-		class OggVorbisDecoder : public Decoder
+		class OggVorbisDecoder final : public Decoder
 		{
 
 		public:
