@@ -18,7 +18,7 @@ namespace SFB {
 	namespace Audio {
 
 		/*! @brief A wrapper around a Decoder that decodes a specific region */
-		class LoopableRegionDecoder : public Decoder
+		class LoopableRegionDecoder final : public Decoder
 		{
 
 		public:

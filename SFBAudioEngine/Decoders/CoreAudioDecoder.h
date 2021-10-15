@@ -18,7 +18,7 @@ namespace SFB {
 		// ========================================
 		// A Decoder subclass supporting all formats handled by Core Audio
 		// ========================================
-		class CoreAudioDecoder : public Decoder
+		class CoreAudioDecoder final : public Decoder
 		{
 
 		public:

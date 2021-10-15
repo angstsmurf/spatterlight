@@ -47,18 +47,18 @@ struct z_sound_interface
   // "absolute_story_file_name" only needs to be set during test cases, if
   // it's NULL, "active_z_story->absolute_file_name" is used instead.
   void (*init_sound)(char * absolute_story_file_name);
-  void (*close_sound)();
+  void (*close_sound)(void);
   void (*prepare_sound)(int sound_nr, int volume, int repeats);
   void (*play_sound)(int sound_nr, int volume, int repeats, uint16_t routine);
   void (*stop_sound)(int sound_nr);
   void (*finish_sound)(int sound_nr);
-  void (*keyboard_input_has_occurred)();
-  uint16_t (*get_next_sound_end_routine)();
-  char* (*get_interface_name)();
-  char* (*get_interface_version)();
+  void (*keyboard_input_has_occurred)(void);
+  uint16_t (*get_next_sound_end_routine)(void);
+  char* (*get_interface_name)(void);
+  char* (*get_interface_version)(void);
   int (*parse_config_parameter)(char *key, char *value);
   char* (*get_config_value)(char *key);
-  char **(*get_config_option_names)();
+  char **(*get_config_option_names)(void);
 };
 
 #endif /* sound_interface_h_INCLUDED */

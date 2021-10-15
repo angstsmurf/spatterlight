@@ -9,7 +9,7 @@
 
 #include <AudioToolbox/AudioToolbox.h>
 
-#include "AudioFormat.h"
+#include <SFBAudioEngine/AudioFormat.h>
 
 /*! @file AudioBufferList.h @brief A Core Audio \c AudioBufferList wrapper  */
 
@@ -20,7 +20,7 @@ namespace SFB {
 	namespace Audio {
 
 		/*! @brief A class wrapping a Core %Audio \c AudioBufferList */
-		class BufferList
+		class BufferList final
 		{
 		public:
 			// ========================================
