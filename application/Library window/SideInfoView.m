@@ -781,7 +781,7 @@ fprintf(stderr, "%s\n",                                                    \
     // The actual size and position of the button is taken care of
     // by the constraints added in the caller above
     NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0,0, 25, 25)];
-    button.buttonType = NSPushOnPushOffButton;
+    button.buttonType = NSButtonTypePushOnPushOff;
     NSImage *image = [NSImage imageNamed:@"Download"];
     if (@available(macOS 10.14, *)) {
         button.image = image;
@@ -793,9 +793,9 @@ fprintf(stderr, "%s\n",                                                    \
     }
     button.imageScaling = NSImageScaleProportionallyUpOrDown;
     button.imagePosition = NSImageOnly;
-    button.alignment = NSCenterTextAlignment;
+    button.alignment = NSTextAlignmentCenter;
     button.bordered = NO;
-    button.bezelStyle = NSShadowlessSquareBezelStyle;
+    button.bezelStyle = NSBezelStyleShadowlessSquare;
     button.toolTip = NSLocalizedString(@"Download game info", nil);
     button.accessibilityLabel = NSLocalizedString(@"download info", nil);
 
