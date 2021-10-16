@@ -109,7 +109,7 @@
 
         if (!imgdata || imgdata.length == 0) {
             if ([Blorb isBlorbURL:url]) {
-                Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
+                Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
                 imgdata = [blorb coverImageData];
             }
         }

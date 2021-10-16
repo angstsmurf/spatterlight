@@ -210,7 +210,7 @@
         _imageView.image = [[NSImage alloc] initWithData:(NSData *)metadata[@"cover"]];
         _imageView.accessibilityLabel = metadata[@"coverArtDescription"];
     } else {
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         _imageView.image = [[NSImage alloc] initWithData:[blorb coverImageData]];
         if (!_imageView.image) {
             _showingIcon = YES;
@@ -720,7 +720,7 @@
     if (![Blorb isBlorbURL:url])
         return nil;
 
-    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
+    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
     metaDict[@"cover"] = [blorb coverImageData];
 
     metaDict[@"IFhd"] = [blorb ifidFromIFhd];

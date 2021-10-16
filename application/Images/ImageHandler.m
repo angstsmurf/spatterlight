@@ -191,7 +191,7 @@
 - (void)cacheImagesFromBlorb:(NSURL *)file {
     if (![Blorb isBlorbURL:file])
         return;
-    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:file.path]];
+    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:file]];
     NSArray *resources = [blorb resourcesForUsage:PictureResource];
     for (BlorbResource *res in resources) {
         NSInteger resno = res.number;
