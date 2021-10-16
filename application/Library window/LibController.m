@@ -193,8 +193,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                        create:YES
                         error:&error];
         if (error)
-            NSLog(@"libctl: Could not find Application Support directory! "
-                  @"Error: %@",
+            NSLog(@"libctl: Could not find Application Support directory! %@",
                   error);
 
         _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
@@ -1597,7 +1596,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        NSLog(@"Error: %@",error);
+        NSLog(@"askToDownload: Could not fetch Game entities: %@",error);
         return;
     }
 

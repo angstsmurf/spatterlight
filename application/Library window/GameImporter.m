@@ -66,15 +66,18 @@ extern NSArray *gGameFileTypes;
             NSError *error = nil;
             if (context.hasChanges) {
                 if (![context save:&error]) {
-                    if (error) {
-                        NSLog(@"Error! %@", error);
-                        continue;
-                    }
+                    NSLog(@"GameImporter addFiles context save error: %@", error);
+                    continue;
                 }
-                __unsafe_unretained CoreDataManager *blockmanager = _libController.coreDataManager;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [blockmanager saveChanges];
-                });
+
+                NSManagedObjectContext *maincontext = _libController.managedObjectContext;
+                [maincontext performBlock:^{
+                    NSError *blockerror = nil;
+                    if (maincontext.hasChanges)
+                        if (![maincontext save:&blockerror]) {
+                            NSLog(@"GameImporter addFiles main context save error: %@", blockerror);
+                        }
+                }];
             }
             timestamp = [NSDate date];
         }

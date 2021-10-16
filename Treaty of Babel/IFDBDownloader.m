@@ -59,23 +59,24 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)downloadMetadataFor:(Game*)game reportFailure:(BOOL)reportFailure imageOnly:(BOOL)imageOnly {
-    BOOL result = NO;
-    if (game.metadata.tuid) {
-        result = [self downloadMetadataForTUID:game.metadata.tuid  imageOnly:imageOnly];
-    } else {
-        result = [self downloadMetadataForIFID:game.ifid imageOnly:imageOnly];
-        if (!result) {
-            for (Ifid *ifidObj in game.metadata.ifids) {
-                result = [self downloadMetadataForIFID:ifidObj.ifidString  imageOnly:imageOnly];
-               if (result)
-                   break;
+    __block BOOL result = NO;
+    [game.managedObjectContext performBlockAndWait:^{
+        if (game.metadata.tuid) {
+            result = [self downloadMetadataForTUID:game.metadata.tuid  imageOnly:imageOnly];
+        } else {
+            result = [self downloadMetadataForIFID:game.ifid imageOnly:imageOnly];
+            if (!result) {
+                for (Ifid *ifidObj in game.metadata.ifids) {
+                    result = [self downloadMetadataForIFID:ifidObj.ifidString  imageOnly:imageOnly];
+                    if (result)
+                        break;
+                }
             }
         }
-    }
-    if (result && imageOnly) {
-        game.metadata.coverArtURL = coverArtUrl;
-    }
-
+        if (result && imageOnly) {
+            game.metadata.coverArtURL = coverArtUrl;
+        }
+    }];
     if (reportFailure && !result)
         [IFDBDownloader showNoDataFoundBezel];
     return result;
@@ -146,35 +147,61 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (BOOL)downloadImageFor:(Metadata *)metadata
 {
-//    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
+    //    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
+    NSManagedObjectContext *localcontext = metadata.managedObjectContext;
 
-    if (!metadata.coverArtURL)
+    __block NSString *coverArtURL;
+    __block BOOL giveup = NO;
+
+    [localcontext performBlockAndWait:^{
+        coverArtURL = metadata.coverArtURL;
+        if (!coverArtURL.length) {
+            giveup = YES;
+        }
+    }];
+
+    if (giveup)
         return NO;
-
-    Image *img = [self fetchImageForURL:metadata.coverArtURL];
 
     __block BOOL accepted = NO;
 
+
+    __block Image *img = [self fetchImageForURL:coverArtURL];
+
     if (img) {
+        __block NSData *newData;
+        __block NSData *oldData;
+
+        [localcontext performBlockAndWait:^{
+            // Replace img with corresponding Image object in localcontext
+            img = [localcontext objectWithID:[img objectID]];
+
+            newData = (NSData *)img.data;
+            oldData = (NSData *)metadata.cover.data;
+        }];
 
         dispatch_sync(dispatch_get_main_queue(), ^{
-
             ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
 
-            if ([imageCompare userWantsImage:(NSData *)img.data ratherThanImage:(NSData *)metadata.cover.data type:DOWNLOADED]) {
-                metadata.cover = img;
-                metadata.coverArtDescription = img.imageDescription;
+            if ([imageCompare userWantsImage:newData ratherThanImage:oldData type:DOWNLOADED]) {
                 accepted = YES;
             }
         });
 
+        if (accepted) {
+            [localcontext performBlockAndWait:^{
+                metadata.cover = img;
+                metadata.coverArtDescription = img.imageDescription;
+            }];
+        }
+
         return accepted;
     }
 
-    NSURL *url = [NSURL URLWithString:metadata.coverArtURL];
+    NSURL *url = [NSURL URLWithString:coverArtURL];
 
     if (!url) {
-        NSLog(@"Could not create url from %@", metadata.coverArtURL);
+        NSLog(@"Could not create url from %@", coverArtURL);
         return NO;
     }
 
@@ -195,7 +222,11 @@ fprintf(stderr, "%s\n",                                                    \
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
 
-            NSData *oldData = (NSData *)metadata.cover.data;
+            __block NSData *oldData;
+            [localcontext performBlockAndWait:^{
+                oldData = (NSData *)metadata.cover.data;
+            }];
+
             dispatch_sync(dispatch_get_main_queue(), ^{
                 ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
                 if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
@@ -204,10 +235,12 @@ fprintf(stderr, "%s\n",                                                    \
             });
             if (accepted) {
                 [self insertImageData:data inMetadata:metadata];
-                error = nil;
-                [metadata.managedObjectContext save:&error];
-                if (error)
-                    NSLog(@"%@", error);
+                [localcontext performBlock:^{
+                    NSError *blockerror = nil;
+                    [localcontext save:&blockerror];
+                    if (blockerror)
+                        NSLog(@"%@", blockerror);
+                }];
             }
         }
     }
@@ -220,14 +253,23 @@ fprintf(stderr, "%s\n",                                                    \
         return [self findPlaceHolderInMetadata:metadata imageData:data];
     }
 
-    Image *img = (Image *) [NSEntityDescription
-                            insertNewObjectForEntityForName:@"Image"
-                            inManagedObjectContext:metadata.managedObjectContext];
-    img.data = [data copy];
-    img.originalURL = metadata.coverArtURL;
-    img.imageDescription = metadata.coverArtDescription;
-    metadata.cover = img;
-    [metadata.managedObjectContext save:nil];
+    __block Image *img;
+
+    NSManagedObjectContext *localcontext = metadata.managedObjectContext;
+
+    [localcontext performBlockAndWait:^{
+        img = (Image *) [NSEntityDescription
+                         insertNewObjectForEntityForName:@"Image"
+                         inManagedObjectContext:localcontext];
+        img.data = [data copy];
+        img.originalURL = metadata.coverArtURL;
+        img.imageDescription = metadata.coverArtDescription;
+        metadata.cover = img;
+        NSError *error = nil;
+        [localcontext save:&error];
+        if (error)
+            NSLog(@"IFDBDownloader insertImageData context save error:%@", error);
+    }];
     return img;
 }
 
@@ -235,8 +277,8 @@ fprintf(stderr, "%s\n",                                                    \
     Image *placeholder = [self fetchImageForURL:@"Placeholder"];
     if (!placeholder) {
         placeholder = (Image *) [NSEntityDescription
-                          insertNewObjectForEntityForName:@"Image"
-                          inManagedObjectContext:metadata.managedObjectContext];
+                                 insertNewObjectForEntityForName:@"Image"
+                                 inManagedObjectContext:metadata.managedObjectContext];
         placeholder.data = [data copy];
         placeholder.originalURL = @"Placeholder";
         placeholder.imageDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";
@@ -247,29 +289,30 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (Image *)fetchImageForURL:(NSString *)imgurl {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
+    __block NSArray *fetchedObjects;
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [_context performBlockAndWait:^{
+        NSError *error = nil;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
 
-    fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
+        fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
 
-    fetchedObjects = [_context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@",error);
-    }
+        fetchedObjects = [_context executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects == nil) {
+            NSLog(@"Problem! %@",error);
+        }
+    }];
 
     if (fetchedObjects.count > 1) {
         NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }
     else if (fetchedObjects.count == 0) {
-    // Found no previously loaded Image object with url imgurl
+        // Found no previously loaded Image object with url imgurl
         return nil;
     }
-
     return fetchedObjects[0];
 }
 

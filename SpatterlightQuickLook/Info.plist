@@ -51,6 +51,7 @@
 				<string>public.glkdata</string>
 				<string>public.glksave</string>
 				<string>public.qut</string>
+				<string>public.ifiction</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

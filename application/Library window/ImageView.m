@@ -11,6 +11,8 @@
 
 #import "Constants.h"
 
+#import "AppDelegate.h"
+#import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -514,16 +516,25 @@
 }
 
 - (IBAction)downloadImage:(id)sender {
-    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:_game.managedObjectContext];
-    Game *game = _game;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    CoreDataManager *coreDataManager = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
+    NSManagedObjectContext *childContext = coreDataManager.privateChildManagedObjectContext;
+
+    NSManagedObjectID *objectID = _game.objectID;
+    [childContext performBlock:^{
+        Game *game = [childContext objectWithID:objectID];
+        if (!game)
+            return;
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
         if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
             [downloader downloadImageFor:game.metadata];
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [game.metadata.managedObjectContext save:nil];
-            });
+            if ([childContext hasChanges]) {
+                NSError *error = nil;
+                [childContext save:&error];
+                if (error)
+                    NSLog(@"ImageView downloadImage context save error: %@", error);
+            }
         }
-    });
+    }];
 }
 
 - (IBAction)toggleFilter:(id)sender {
@@ -731,11 +742,13 @@
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
 
         if (askFlag) {
-            metadata.coverArtURL = URLPath;
-            metadata.coverArtDescription = nil;
-            [downloader insertImageData:data inMetadata:metadata];
-            metadata.userEdited = @YES;
-            metadata.source = @(kUser);
+            [metadata.managedObjectContext performBlockAndWait:^{
+                metadata.coverArtURL = URLPath;
+                metadata.coverArtDescription = nil;
+                [downloader insertImageData:data inMetadata:metadata];
+                metadata.userEdited = @YES;
+                metadata.source = @(kUser);
+            }];
             return;
         }
 
@@ -745,11 +758,13 @@
             ImageCompareViewController *compare = [ImageCompareViewController new];
             // We always replace when pasting
             if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
-                metadata.coverArtURL = URLPath;
-                metadata.coverArtDescription = nil;
-                [downloader insertImageData:data inMetadata:metadata];
-                metadata.userEdited = @YES;
-                metadata.source = @(kUser);
+                [metadata.managedObjectContext performBlockAndWait:^{
+                    metadata.coverArtURL = URLPath;
+                    metadata.coverArtDescription = nil;
+                    [downloader insertImageData:data inMetadata:metadata];
+                    metadata.userEdited = @YES;
+                    metadata.source = @(kUser);
+                }];
             }
         });
     }];
