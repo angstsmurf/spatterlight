@@ -11,6 +11,7 @@
 #import "Ifid.h"
 #import "Image.h"
 #import "Tag.h"
+#import <CoreSpotlight/CoreSpotlight.h>
 
 
 @implementation Metadata
@@ -83,6 +84,23 @@
     [self addIfidsObject:ifid];
     
     return ifid;
+}
+
+- (void)willSave {
+    if (@available(macOS 10.11, *)) {
+        if (!self.deleted)
+            return;
+        CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
+        NSString *identifier = self.objectID.URIRepresentation.path;
+        if (!identifier)
+            return;
+        [index deleteSearchableItemsWithIdentifiers:@[identifier]
+                                  completionHandler:^(NSError *blockerror){
+            if (blockerror) {
+                NSLog(@"Deleting searchable item for Metadata failed: %@", blockerror);
+            }
+        }];
+    }
 }
 
 @end

@@ -3,6 +3,7 @@
  */
 
 #import <BlorbFramework/Blorb.h>
+#import <CoreSpotlight/CoreSpotlight.h>
 
 #import "LibController.h"
 #import "AppDelegate.h"
@@ -348,6 +349,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         BOOL forceQuit = _forceQuitCheckBox.state == NSOnState;
 
+        CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
+        [index deleteSearchableItemsWithDomainIdentifiers:@[@"net.ccxvii.spatterlight"] completionHandler:^(NSError *blockerror){
+            if (blockerror) {
+                NSLog(@"Deleting all searchable items failed: %@", blockerror);
+            }
+        }];
+
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
 
         NSMutableSet *gamesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
@@ -402,7 +410,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
         }
 
-        [_coreDataManager saveChanges];
+        [self saveMainContext];
     }
 }
 
@@ -451,7 +459,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
-        [_coreDataManager saveChanges];
+        [self saveMainContext];
     }
 }
 
@@ -499,8 +507,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 - (void)verifyInBackground:(id)sender {
     verifyIsCancelled = NO;
 
-    [_coreDataManager saveChanges];
-
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
 
@@ -508,6 +514,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [childContext performBlock:^{
         LibController *strongSelf = weakSelf;
+        [[NSNotificationCenter defaultCenter] addObserver:strongSelf
+                                                 selector:@selector(noteBackgroundManagedObjectContextDidChange:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:childContext];
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
         for (Game *gameInMain in strongSelf.gameTableModel) {
             if (strongSelf->verifyIsCancelled) {
@@ -533,13 +543,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 [childContext save:&error];
                 if (error) {
                     NSLog(@"verifyInBackground: childContext save: %@", error);
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [strongSelf.coreDataManager saveChanges];
-                    });
                 }
             }
         }
+        [[NSNotificationCenter defaultCenter] removeObserver:strongSelf
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:childContext];
     }];
 }
 
@@ -610,11 +619,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
             [weakSelf.managedObjectContext performBlock:^{
-                [weakSelf waitToReportMetadataImport];
-                [weakSelf beginImporting];
-                [weakSelf importMetadataFromFile:url.path inContext:weakSelf.managedObjectContext];
-                [weakSelf.coreDataManager saveChanges];
-                [weakSelf endImporting];
+                LibController *strongSelf = weakSelf;
+                [strongSelf waitToReportMetadataImport];
+                [strongSelf beginImporting];
+                [strongSelf importMetadataFromFile:url.path inContext:strongSelf.managedObjectContext];
+                [strongSelf saveMainContext];
+                [strongSelf endImporting];
             }];
         }
     }];
@@ -671,7 +681,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }];
             return;
         }
-
     }];
 }
 
@@ -681,7 +690,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (_currentlyAddingGames)
         return;
 
-    [_coreDataManager saveChanges];
+    [self saveMainContext];
+
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
 
@@ -706,6 +716,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             dispatch_async(dispatch_get_main_queue(), ^{
                 strongSelf.addButton.enabled = YES;
                 strongSelf.currentlyAddingGames = NO;
+                [[NSNotificationCenter defaultCenter]
+                 removeObserver:self
+                 name:NSManagedObjectContextDidSaveNotification
+                 object:weakSelf.managedObjectContext];
             });
         }
     }];
@@ -873,27 +887,42 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)downloadMetadataForGames:(NSArray<Game *> *)games {
-    [_coreDataManager saveChanges];
+    [self saveMainContext];
     LibController * __unsafe_unretained weakSelf = self;
-    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
-    childContext.undoManager = nil;
+
+    if (games.count == _gameTableModel.count)
+        [_gameTableView selectRowIndexes:[NSIndexSet new] byExtendingSelection:NO];
 
     _nestedDownload = _currentlyAddingGames;
 
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
+    __block NSMutableArray<NSManagedObjectID *> *blockGames = [NSMutableArray new];
+
+    for (Game *gameInMain in games) {
+        [blockGames addObject:gameInMain.objectID];
+    }
+
+    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
+
     [childContext performBlock:^{
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteBackgroundManagedObjectContextDidChange:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:childContext];
+
         LibController *strongSelf = weakSelf;
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
         BOOL result = NO;
         BOOL reportFailure = (games.count == 1);
-        for (Game *gameInMain in games) {
+        for (NSManagedObjectID *objectID in blockGames) {
             if (!strongSelf.currentlyAddingGames)
                 break;
             [strongSelf beginImporting];
 
-            Game *game = [childContext objectWithID:[gameInMain objectID]];
+            Game *game = [childContext objectWithID:objectID];
 
             game.hasDownloaded = YES;
 
@@ -905,16 +934,18 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 if (childContext.hasChanges) {
                     if (![childContext save:&error]) {
                         if (error) {
-                            [[NSApplication sharedApplication] presentError:error];
+                            NSLog(@"Error: %@", error);
                         }
                     }
                     game.metadata.source = @(kIfdb);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [strongSelf.coreDataManager saveChanges];
-                    });
                 }
             }
         }
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSManagedObjectContextDidSaveNotification
+                                                      object:childContext];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             if (strongSelf.nestedDownload) {
                 strongSelf.nestedDownload = NO;
@@ -1261,7 +1292,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
  * and can be exported.
  */
 
-- (void) addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+- (void)addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSDateFormatter *dateFormatter;
     Metadata *entry;
     NSString *key;
@@ -1572,7 +1603,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         } else NSLog(@"No changes to save in private");
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf.coreDataManager saveChanges];
+            [strongSelf saveMainContext];
             [strongSelf endImporting];
             strongSelf.addButton.enabled = YES;
             strongSelf.currentlyAddingGames = NO;
@@ -1829,10 +1860,81 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return YES;
 }
 
-/*
- * The list of games is kept separate from metadata.
- * We save them as dictionaries mapping IFIDs to filenames.
- */
+- (void)handleSpotlightSearchResult:(id)object {
+    Metadata *meta = nil;
+    Game *game = nil;
+
+    NSManagedObjectContext *context = [object managedObjectContext];
+
+    if (!context)
+        return;
+
+    if (context.hasChanges)
+        [context save:nil];
+
+    if ([object isKindOfClass:[Metadata class]]) {
+        meta = (Metadata *)object;
+        game = meta.games.anyObject;
+    } else if ([object isKindOfClass:[Game class]]) {
+        game = (Game *)object;
+        meta = game.metadata;
+    } else if ([object isKindOfClass:[Image class]]) {
+        Image *image = (Image *)object;
+        meta = image.metadata.anyObject;
+        game = meta.games.anyObject;
+    } else {
+        NSLog(@"Object: %@", [object class]);
+    }
+
+    if (game && [_gameTableModel indexOfObject:game] == NSNotFound) {
+        _searchField.stringValue = @"";
+        [self searchForGames:nil];
+    }
+
+    if (game) {
+        [self selectAndPlayGame:game];
+    } else if (meta) {
+        [self createDummyGameForMetadata:meta];
+    }
+}
+
+- (void)createDummyGameForMetadata:(Metadata *)metadata {
+
+    Game *game = [NSEntityDescription
+     insertNewObjectForEntityForName:@"Game"
+     inManagedObjectContext:metadata.managedObjectContext];
+
+    game.ifid = metadata.ifids.anyObject.ifidString;
+    game.metadata = metadata;
+    game.added = [NSDate date];
+    game.detectedFormat = metadata.format;
+    game.found = NO;
+
+    [self updateTableViews];
+
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self selectGames:[NSSet setWithObject:game]];
+
+        if ([self.splitView isSubviewCollapsed:self.leftView]) {
+            [self uncollapseLeftView];
+        }
+    });
+}
+
+- (void)saveMainContext {
+    if (!_managedObjectContext.hasChanges)
+        return;
+    if (@available(macOS 10.13, *)) {
+        NSError *error = nil;
+        [_managedObjectContext save:&error];
+        if (error)
+            NSLog(@"LibController saveMainContext error: %@", error);
+    } else {
+        [self.coreDataManager saveChanges];
+    }
+}
 
 #pragma mark Actually starting the game
 
@@ -1966,10 +2068,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
     if (game)
     {
-        [self selectGames:[NSSet setWithArray:@[game]]];
-        return [self playGame:game];
+        [self selectAndPlayGame:game];
     }
     return nil;
+}
+
+- (NSWindow *)selectAndPlayGame:(Game *)game {
+    [self selectGames:[NSSet setWithArray:@[game]]];
+    return [self playGame:game];
 }
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
@@ -2063,7 +2169,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             if (blockError)
                 NSLog(@"%@", blockError);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [strongSelf.coreDataManager saveChanges];
+                [strongSelf saveMainContext];
             });
         }
     }];
@@ -2377,7 +2483,7 @@ objectValueForTableColumn: (NSTableColumn*)column
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
 
-    CGFloat offset = 3; // Seems to look okay
+    CGFloat offset = 2; // Seems to look okay
 
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
@@ -2493,11 +2599,22 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
 }
 
+- (void)noteBackgroundManagedObjectContextDidChange:(NSNotification *)notification {
+    NSManagedObjectContext *mainContext = _managedObjectContext;
+    [mainContext performBlock:^{
+        [mainContext mergeChangesFromContextDidSaveNotification: notification];
+        [self noteManagedObjectContextDidChange:notification];
+    }];
+}
+
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     //NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
-    [self updateTableViews];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateTableViews];
+    });
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSMutableArray *correspondingObjects = [[NSMutableArray alloc] initWithCapacity:updatedObjects.count];
 
     for (id obj in updatedObjects) {
         if (countingMetadataChanges && [obj isKindOfClass:[Metadata class]]) {
@@ -2508,6 +2625,7 @@ objectValueForTableColumn: (NSTableColumn*)column
             [self rebuildThemesSubmenu];
             break;
         }
+        [correspondingObjects addObject:[_managedObjectContext objectWithID:[obj objectID]]];
     }
 
     if (countingMetadataChanges) {
@@ -2520,7 +2638,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         }
     }
 
-    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
+    if ([correspondingObjects containsObject:currentSideView.metadata] || [correspondingObjects containsObject:currentSideView.metadata.cover])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateSideViewForce:YES];

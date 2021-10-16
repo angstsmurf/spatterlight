@@ -165,7 +165,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     __block BOOL accepted = NO;
 
-
     __block Image *img = [self fetchImageForURL:coverArtURL];
 
     if (img) {

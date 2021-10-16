@@ -8,7 +8,6 @@
 #import <XCTest/XCTest.h>
 #import "CoreDataManager.h"
 
-#import "CoreDataManager.h"
 #import "GlkController.h"
 #import "GlkWindow.h"
 #import "GlkGraphicsWindow.h"

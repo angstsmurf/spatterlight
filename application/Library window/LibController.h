@@ -119,6 +119,8 @@
 
 - (void)waitToReportMetadataImport;
 
+- (void)handleSpotlightSearchResult:(id)object;
+
 @property (strong) IBOutlet NSView *forceQuitView;
 @property (weak) IBOutlet NSButton *forceQuitCheckBox;
 

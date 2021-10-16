@@ -15,6 +15,8 @@
 *managedObjectModel;
 @property (strong, nonatomic) NSPersistentStoreCoordinator
 *persistentStoreCoordinator;
+@property (strong, nonatomic) NSPersistentContainer
+*persistentContainer;
 @property (strong, nonatomic) NSManagedObjectContext
 *mainManagedObjectContext;
 

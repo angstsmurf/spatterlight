@@ -291,7 +291,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger i;
     for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
-    [nullarray addObject:[NSNull null]];
+        [nullarray addObject:[NSNull null]];
     _gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     _bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (i = 0 ; i < style_NUMSTYLES ; i ++) {
@@ -407,7 +407,7 @@ fprintf(stderr, "%s\n",                                                    \
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
-//    _borderView.canDrawSubviewsIntoLayer = YES;
+    //    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     _lastAutoBGColor = theme.bufferBackground;
     if (theme.borderBehavior == kUserOverride)
@@ -720,7 +720,7 @@ fprintf(stderr, "%s\n",                                                    \
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
         restoredController = nil;
-         _coverController = [[CoverImageHandler alloc] initWithController:self];
+        _coverController = [[CoverImageHandler alloc] initWithController:self];
         [_coverController showLogoWindow];
     } else
         [self forkInterpreterTask];
@@ -740,7 +740,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSSize defsize = [self.window
                       contentRectForFrameRect:restoredController.storedWindowFrame]
-    .size;
+        .size;
     [self.window setContentSize:defsize];
     _borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
     _contentView.frame = restoredController.storedContentFrame;
@@ -766,7 +766,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)detectGame:(NSString *)ifid {
     NSString *l9Substring = nil;
     if (ifid.length >= 10)
-         l9Substring = [ifid substringToIndex:10];
+        l9Substring = [ifid substringToIndex:10];
     if ([l9Substring isEqualToString:@"LEVEL9-001"] || // The Secret Diary of Adrian Mole
         [l9Substring isEqualToString:@"LEVEL9-002"] || // The Growing Pains of Adrian Mole
         [l9Substring isEqualToString:@"LEVEL9-019"]) { // The Archers
@@ -1262,7 +1262,7 @@ fprintf(stderr, "%s\n",                                                    \
 
             NSString *dummytext = [NSString
                                    stringWithFormat:
-                                   @"This file, %@, was placed here by Spatterlight in order to make "
+                                       @"This file, %@, was placed here by Spatterlight in order to make "
                                    @"it easier for humans to guess what game these autosave files belong "
                                    @"to. Any files in this folder are for the game %@, or possibly "
                                    @"a game with a different name but identical contents.",
@@ -1603,7 +1603,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _hasAutoSaved = YES;
-//    NSLog(@"UI autosaved successfully on turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
+    //    NSLog(@"UI autosaved successfully on turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
 }
 
 -(void)cleanup {
@@ -1940,7 +1940,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)contentDidResize:(NSRect)frame {
     if (NSEqualRects(frame, lastContentResize)) {
-//        NSLog(@"contentDidResize called with same frame as last time. Skipping.");
+        //        NSLog(@"contentDidResize called with same frame as last time. Skipping.");
         return;
     }
 
@@ -2195,8 +2195,8 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
-     if (_showingCoverImage && _inFullscreen)
-         return;
+    if (_showingCoverImage && _inFullscreen)
+        return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomIn];
     if (Preferences.instance)
@@ -2330,7 +2330,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSPasteboard *pboard = [sender draggingPasteboard];
 
     if ( [[pboard types] containsObject:NSStringPboardType] ||
-         [[pboard types] containsObject:NSURLPboardType] ) {
+        [[pboard types] containsObject:NSURLPboardType] ) {
         return NSDragOperationCopy;
     }
 
@@ -2382,7 +2382,7 @@ fprintf(stderr, "%s\n",                                                    \
 
             [[NSUserDefaults standardUserDefaults]
              setObject:theDoc.path
-             .stringByDeletingLastPathComponent
+                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theDoc.path).UTF8String;
         } else
@@ -2500,7 +2500,7 @@ fprintf(stderr, "%s\n",                                                    \
             NSURL *theFile = panel.URL;
             [[NSUserDefaults standardUserDefaults]
              setObject:theFile.path
-             .stringByDeletingLastPathComponent
+                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theFile.path).UTF8String;
         } else
@@ -2532,8 +2532,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     for (i = 0; i < MAXWIN; i++)
-    if (_gwindows[@(i)] == nil)
-        break;
+        if (_gwindows[@(i)] == nil)
+            break;
 
     if (i == MAXWIN)
         return -1;
@@ -2726,7 +2726,7 @@ fprintf(stderr, "%s\n",                                                    \
                          (style & 0xff) != style_Preformatted &&
                          style != style_BlockQuote &&
                          ([styleHintProportional isEqualTo:[NSNull null]] ||
-                         styleHintProportional.integerValue == 1));
+                          styleHintProportional.integerValue == 1));
 
     if (proportional) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
@@ -2897,7 +2897,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    //    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2932,11 +2932,11 @@ fprintf(stderr, "%s\n",                                                    \
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
-//                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
-//                    if (handler.commandIndex > 0) {
-//                        handler.commandIndex--;
-//                        handler.lastCommandType = handler.nextToLastCommandType;
-//                    }
+                    //                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
+                    //                    if (handler.commandIndex > 0) {
+                    //                        handler.commandIndex--;
+                    //                        handler.lastCommandType = handler.nextToLastCommandType;
+                    //                    }
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
@@ -3278,8 +3278,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         case PRINT:
             if (!_gwindows.count && shouldRestoreUI) {
-//                NSLog(@"Restoring UI at PRINT");
-//                NSLog(@"at eventcount %ld", _eventcount);
+                //                NSLog(@"Restoring UI at PRINT");
+                //                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
@@ -3363,8 +3363,8 @@ fprintf(stderr, "%s\n",                                                    \
 
             if (!_gwindows.count && shouldRestoreUI) {
                 buf = "\0";
-//              NSLog(@"Restoring UI at INITLINE");
-//              NSLog(@"at eventcount %ld", _eventcount);
+                //              NSLog(@"Restoring UI at INITLINE");
+                //              NSLog(@"at eventcount %ld", _eventcount);
                 if (restoredController.commandScriptRunning) {
                     CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
                     if (handler.commandIndex >= handler.commandArray.count - 1) {
@@ -3454,7 +3454,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [reqWin initChar];
                 if (_commandScriptRunning) {
                     if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow] < -0.5) {
-                       [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
+                        [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
                         lastKeyTimestamp = [NSDate date];
                     }
                 }
@@ -3472,7 +3472,7 @@ fprintf(stderr, "%s\n",                                                    \
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-//                NSLog(@"Restoring UI at INITMOUSE");
+                //                NSLog(@"Restoring UI at INITMOUSE");
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -3499,13 +3499,13 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINK:
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
-//            if (!_gwindows.count && shouldRestoreUI) {
-//                //                NSLog(@"Restoring UI at INITLINK");
-//                //                NSLog(@"at eventcount %ld", _eventcount);
-//                _windowsToRestore = restoredControllerLate.gwindows.allValues;
-//                [self restoreUI];
-//                reqWin = _gwindows[@(req->a1)];
-//            }
+            //            if (!_gwindows.count && shouldRestoreUI) {
+            //                //                NSLog(@"Restoring UI at INITLINK");
+            //                //                NSLog(@"at eventcount %ld", _eventcount);
+            //                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+            //                [self restoreUI];
+            //                reqWin = _gwindows[@(req->a1)];
+            //            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -3544,13 +3544,13 @@ fprintf(stderr, "%s\n",                                                    \
             [self handleAutosave:req->a2];
             break;
 
-        // This just kills the interpreter process and restarts it from scratch.
-        // Used if an autorestore fails.
+            // This just kills the interpreter process and restarts it from scratch.
+            // Used if an autorestore fails.
         case RESET:
             [self reset:nil];
             break;
 
-        // Used by Tads 3 to adapt the banner width.
+            // Used by Tads 3 to adapt the banner width.
         case BANNERCOLS:
             ans->cmd = OKAY;
             ans->a1 = 0;
@@ -3560,7 +3560,7 @@ fprintf(stderr, "%s\n",                                                    \
             }
             break;
 
-        // Used by Tads 3 to adapt the banner height.
+            // Used by Tads 3 to adapt the banner height.
         case BANNERLINES:
             ans->cmd = OKAY;
             ans->a1 = 0;
@@ -3830,7 +3830,7 @@ again:
     _bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
     if (_narcolepsy && theme.doStyles && theme.doGraphics) {
-//        self.bgcolor = [NSColor clearColor];
+        //        self.bgcolor = [NSColor clearColor];
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
@@ -3842,7 +3842,7 @@ again:
         CGColorRef cgcol = CGColorCreate(colorSpace, components);
 
         _borderView.layer.backgroundColor = cgcol;
-//        self.window.backgroundColor = color;
+        //        self.window.backgroundColor = color;
         CFRelease(cgcol);
 
         [Preferences instance].borderColorWell.color = color;

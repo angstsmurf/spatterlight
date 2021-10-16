@@ -644,7 +644,13 @@ NSString *fontToString(NSFont *font) {
     Preferences * __unsafe_unretained weakSelf = self;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.coreDataManager saveChanges];
+        NSManagedObjectContext *main = weakSelf.coreDataManager.mainManagedObjectContext;
+        if (main.hasChanges) {
+            NSError *error = nil;
+            [main save:&error];
+            if (error)
+                NSLog(@"%@", error);
+        }
     });
 
     if (!_previewShown)

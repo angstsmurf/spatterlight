@@ -2,6 +2,9 @@
  * Application -- the main application controller
  */
 
+#import <CoreData/CoreData.h>
+#import <CoreSpotlight/CoreSpotlight.h>
+
 #import "main.h"
 #import "Constants.h"
 #import "CoreDataManager.h"
@@ -386,6 +389,42 @@ PasteboardFilePasteLocation;
     return NO;
 }
 
+- (BOOL)application:(NSApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray<id<NSUserActivityRestoring>> *restorableObjects))restorationHandler {
+    if (@available(macOS 10.13, *)) {
+
+        NSLog(@"continueUserActivity");
+
+        // We're coming from a search result
+        NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+
+        if (searchableItemIdentifier.length) {
+            NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
+
+            NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
+            if (!context) {
+                NSLog(@"Could not create new context!");
+                return NO;
+            }
+
+            NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
+            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+
+            id object = [context objectWithID:objectID];
+
+            if (!object) {
+                return NO;
+            }
+
+            [_libctl handleSpotlightSearchResult:object];
+        }
+
+    }
+
+    return YES;
+}
+
 - (NSWindow *)preferencePanel {
     return _prefctl.window;
 }
@@ -511,7 +550,13 @@ PasteboardFilePasteLocation;
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    [_coreDataManager saveChanges];
+    NSManagedObjectContext *main = _coreDataManager.mainManagedObjectContext;
+    if ([main hasChanges]) {
+        NSError *error = nil;
+        [main save:&error];
+        if (error)
+            NSLog(@"Error: %@", error);
+    }
 
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];

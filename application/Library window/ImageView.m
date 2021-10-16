@@ -13,7 +13,6 @@
 #import "Constants.h"
 
 #import "AppDelegate.h"
-#import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -28,6 +27,8 @@
 #import "FolderAccess.h"
 
 #import "OSImageHashing.h"
+
+#import "CoreDataManager.h"
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
@@ -473,16 +474,16 @@
 }
 
 - (IBAction)reloadFromBlorb:(id)sender {
-    NSString *path = _game.path;
-    if (!path)
-        path = [_game urlForBookmark].path;
+    NSURL *url = [_game urlForBookmark];
+    if (!url)
+        return;
     __unsafe_unretained ImageView *weakSelf = self;
-    [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path] andThenRunBlock:^{
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+    [FolderAccess askForAccessToURL:url andThenRunBlock:^{
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         NSData *data = [blorb coverImageData];
         BOOL success = NO;
         if (data) {
-            [weakSelf processImageData:data sourceUrl:path dontAsk:YES];
+            [weakSelf processImageData:data sourceUrl:url.path dontAsk:YES];
             success = YES;
             NSData *metadata = [blorb metaData];
             if (metadata) {
@@ -524,6 +525,10 @@
         Game *game = [childContext objectWithID:objectID];
         if (!game)
             return;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteBackgroundManagedObjectContextDidChange:)
+                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+                                                   object:childContext];
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
         if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
             [downloader downloadImageFor:game.metadata];
@@ -534,8 +539,22 @@
                     NSLog(@"ImageView downloadImage context save error: %@", error);
             }
         }
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+                                                   object:childContext];
     }];
 }
+
+- (void)noteBackgroundManagedObjectContextDidChange:(NSNotification *)notification {
+    Game *game = _game;
+    NSManagedObjectContext *mainContext = game.managedObjectContext;
+    [mainContext performBlock:^{
+        [mainContext mergeChangesFromContextDidSaveNotification:notification];
+        Image *image = game.metadata.cover;
+        [self processImageData:(NSData *)image.data sourceUrl:image.originalURL dontAsk:YES];
+    }];
+}
+
 
 - (IBAction)toggleFilter:(id)sender {
     _game.metadata.cover.interpolation = (_game.metadata.cover.interpolation == kTrilinear) ? kNearestNeighbor : kTrilinear;
