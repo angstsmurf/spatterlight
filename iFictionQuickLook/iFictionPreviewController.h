@@ -9,10 +9,16 @@
 
 @class UKSyntaxColor;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface iFictionPreviewController : NSViewController
 
-@property UKSyntaxColor *syntaxColorer;
+@property UKSyntaxColor * syntaxColorer;
 
-@property (unsafe_unretained) IBOutlet NSTextView *textview;
+@property NSTextView * textview;
+
+- (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler;
 
 @end
+
+NS_ASSUME_NONNULL_END

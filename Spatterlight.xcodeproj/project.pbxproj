@@ -543,7 +543,6 @@
 		C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.mm */; };
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
-		C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
 		C3191A9E266CDAF300528F6E /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3191A9D266CDAF300528F6E /* ImageView.m */; };
 		C3191AA4266D3A1F00528F6E /* NSBitmapImageRep+retro.m in Sources */ = {isa = PBXBuildFile; fileRef = C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */; };
@@ -570,6 +569,9 @@
 		C326B13D26C18280006C398F /* The Sound of One Hand Clapping command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */; };
 		C326B13F26C182BF006C398F /* onehand.dat in Resources */ = {isa = PBXBuildFile; fileRef = C326B13E26C182BF006C398F /* onehand.dat */; };
 		C326B14126C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */; };
+		C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; };
+		C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
+		C32A3D882719F34B0049C777 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -590,12 +592,6 @@
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
-		C35978C125DA14A6004B1448 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
-		C35978C525DA14A6004B1448 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
-		C35978C825DA14A6004B1448 /* iFictionPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35978C625DA14A6004B1448 /* iFictionPreviewController.xib */; };
-		C359791F25DA19B7004B1448 /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
-		C359795525DA19BF004B1448 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
-		C359797025DA19DA004B1448 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -729,7 +725,6 @@
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
 		C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
-		C3EEF5C125F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
 		C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
@@ -741,27 +736,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		55773FC927003F6300F0B9E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C35978BF25DA14A6004B1448;
-			remoteInfo = iFictionQuickLook;
-		};
-		55773FCC27003F6300F0B9E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C311DEF425C472E500484639;
-			remoteInfo = SpatterlightQuickLook;
-		};
-		55773FCF27003F6300F0B9E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C322714925CC214A0083BD5B;
-			remoteInfo = SpatterlightThumbnailer;
-		};
 		6D2C86EE225E898A004A5A75 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -2698,12 +2672,8 @@
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
 		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
 		C353EFE126263DD7006D17E3 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
-		C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iFictionQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35978C325DA14A6004B1448 /* iFictionPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFictionPreviewController.h; sourceTree = "<group>"; };
 		C35978C425DA14A6004B1448 /* iFictionPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iFictionPreviewController.m; sourceTree = "<group>"; };
-		C35978C725DA14A6004B1448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iFictionPreviewController.xib; sourceTree = "<group>"; };
-		C35978C925DA14A6004B1448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C35978CA25DA14A6004B1448 /* iFictionQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFictionQuickLook.entitlements; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
@@ -3123,14 +3093,6 @@
 				C32271DA25CC22A20083BD5B /* CoreData.framework in Frameworks */,
 				C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */,
 				C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C35978BD25DA14A6004B1448 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C35978C125DA14A6004B1448 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3841,8 +3803,8 @@
 				96A9BA2A0A064C9C001B5B9B /* babel */,
 				961CCF2109F2940F00528FF9 /* resources */,
 				C311DEF825C472E500484639 /* SpatterlightQuickLook */,
-				C322714D25CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C35978C225DA14A6004B1448 /* iFictionQuickLook */,
+				C322714D25CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */,
 				961CCF6509F295CA00528FF9 /* Frameworks */,
 				961CCE7C09F237E700528FF9 /* Products */,
@@ -3879,7 +3841,6 @@
 				6DB774A22458B95E00EDC671 /* bocfel */,
 				C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */,
 				C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */,
-				C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */,
 				C3CEC2B626A6D0A200120469 /* UITests.xctest */,
 				C3CEC2CB26A6D66800120469 /* Tests.xctest */,
 			);
@@ -5301,9 +5262,6 @@
 				C3E2EAAC25D08EEC0012B7FB /* SyntaxColor */,
 				C35978C325DA14A6004B1448 /* iFictionPreviewController.h */,
 				C35978C425DA14A6004B1448 /* iFictionPreviewController.m */,
-				C35978C625DA14A6004B1448 /* iFictionPreviewController.xib */,
-				C35978C925DA14A6004B1448 /* Info.plist */,
-				C35978CA25DA14A6004B1448 /* iFictionQuickLook.entitlements */,
 			);
 			path = iFictionQuickLook;
 			sourceTree = "<group>";
@@ -5681,9 +5639,6 @@
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
-				55773FCA27003F6300F0B9E7 /* PBXTargetDependency */,
-				55773FCD27003F6300F0B9E7 /* PBXTargetDependency */,
-				55773FD027003F6300F0B9E7 /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -6009,23 +5964,6 @@
 			productReference = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		C35978BF25DA14A6004B1448 /* iFictionQuickLook */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C35978D025DA14A6004B1448 /* Build configuration list for PBXNativeTarget "iFictionQuickLook" */;
-			buildPhases = (
-				C35978BC25DA14A6004B1448 /* Sources */,
-				C35978BD25DA14A6004B1448 /* Frameworks */,
-				C35978BE25DA14A6004B1448 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = iFictionQuickLook;
-			productName = iFictionQuickLook;
-			productReference = C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		C3CEC2B526A6D0A200120469 /* UITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3CEC2BF26A6D0A200120469 /* Build configuration list for PBXNativeTarget "UITests" */;
@@ -6156,29 +6094,16 @@
 					};
 					C311DEF425C472E500484639 = {
 						CreatedOnToolsVersion = 12.3;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
 					};
 					C322714925CC214A0083BD5B = {
 						CreatedOnToolsVersion = 12.3;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
-					};
-					C35978BF25DA14A6004B1448 = {
-						CreatedOnToolsVersion = 12.4;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
 					};
 					C3CEC2B526A6D0A200120469 = {
 						CreatedOnToolsVersion = 12.5.1;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
 						TestTargetID = 961CCEC309F239C100528FF9;
 					};
 					C3CEC2CA26A6D66800120469 = {
 						CreatedOnToolsVersion = 12.5.1;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
 						TestTargetID = 961CCEC309F239C100528FF9;
 					};
 				};
@@ -6234,7 +6159,6 @@
 				6D8BCAD5225E4ACF00696057 /* fizmo */,
 				C311DEF425C472E500484639 /* SpatterlightQuickLook */,
 				C322714925CC214A0083BD5B /* SpatterlightThumbnailer */,
-				C35978BF25DA14A6004B1448 /* iFictionQuickLook */,
 				C3CEC2CA26A6D66800120469 /* Tests */,
 				C3CEC2B526A6D0A200120469 /* UITests */,
 			);
@@ -6281,6 +6205,7 @@
 			files = (
 				C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */,
 				C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */,
+				C32A3D882719F34B0049C777 /* iFiction.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6288,16 +6213,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C35978BE25DA14A6004B1448 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3EEF5C125F2D8F000FA19CE /* Quicklook.xcassets in Resources */,
-				C35978C825DA14A6004B1448 /* iFictionPreviewController.xib in Resources */,
-				C359797025DA19DA004B1448 /* iFiction.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7098,9 +7013,10 @@
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
-				C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */,
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
 				C3CAC15C2699C72600FCB7BF /* NSData+Categories.m in Sources */,
+				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
+				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,
 				C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7118,16 +7034,6 @@
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */,
 				C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C35978BC25DA14A6004B1448 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C359795525DA19BF004B1448 /* NSScanner+SkipUpToCharset.m in Sources */,
-				C35978C525DA14A6004B1448 /* iFictionPreviewController.m in Sources */,
-				C359791F25DA19B7004B1448 /* UKSyntaxColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7151,21 +7057,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		55773FCA27003F6300F0B9E7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C35978BF25DA14A6004B1448 /* iFictionQuickLook */;
-			targetProxy = 55773FC927003F6300F0B9E7 /* PBXContainerItemProxy */;
-		};
-		55773FCD27003F6300F0B9E7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
-			targetProxy = 55773FCC27003F6300F0B9E7 /* PBXContainerItemProxy */;
-		};
-		55773FD027003F6300F0B9E7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
-			targetProxy = 55773FCF27003F6300F0B9E7 /* PBXContainerItemProxy */;
-		};
 		6D2C86EF225E898A004A5A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
@@ -7430,14 +7321,6 @@
 				C311DEFD25C472E500484639 /* Base */,
 			);
 			name = PreviewViewController.xib;
-			sourceTree = "<group>";
-		};
-		C35978C625DA14A6004B1448 /* iFictionPreviewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C35978C725DA14A6004B1448 /* Base */,
-			);
-			name = iFictionPreviewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -7708,8 +7591,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -7764,8 +7647,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
@@ -9036,15 +8919,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 0.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9089,15 +8972,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 0.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9137,14 +9020,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 0.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9189,14 +9072,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 0.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9221,105 +9104,6 @@
 			};
 			name = Release;
 		};
-		C35978CE25DA14A6004B1448 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = iFictionQuickLook/iFictionQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.8;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = iFictionQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.8.8;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.iFictionQuickLook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = all;
-			};
-			name = Debug;
-		};
-		C35978CF25DA14A6004B1448 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = iFictionQuickLook/iFictionQuickLook.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.8.8;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = iFictionQuickLook/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.8.8;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.iFictionQuickLook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				STRIP_STYLE = all;
-			};
-			name = Release;
-		};
 		C3CEC2BD26A6D0A200120469 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9334,10 +9118,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9359,6 +9144,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_TARGET_NAME = Spatterlight;
 			};
 			name = Debug;
@@ -9377,11 +9163,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -9398,6 +9185,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_TARGET_NAME = Spatterlight;
 			};
 			name = Release;
@@ -9417,10 +9205,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9442,6 +9231,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/Contents/MacOS/Spatterlight";
 			};
 			name = Debug;
@@ -9461,11 +9251,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -9482,6 +9273,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.petter.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spatterlight.app/Contents/MacOS/Spatterlight";
 			};
 			name = Release;
@@ -9719,15 +9511,6 @@
 			buildConfigurations = (
 				C322715725CC214A0083BD5B /* Debug */,
 				C322715825CC214A0083BD5B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C35978D025DA14A6004B1448 /* Build configuration list for PBXNativeTarget "iFictionQuickLook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C35978CE25DA14A6004B1448 /* Debug */,
-				C35978CF25DA14A6004B1448 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

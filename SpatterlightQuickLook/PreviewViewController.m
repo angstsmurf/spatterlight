@@ -16,6 +16,7 @@
 
 #import "NSDate+relative.h"
 
+#import "iFictionPreviewController.h"
 #import "PreviewViewController.h"
 #import "Blorb.h"
 #include "iff.h"
@@ -24,6 +25,9 @@
 #include "babel_handler.h"
 
 @interface PreviewViewController () <QLPreviewingController>
+{
+    BOOL iFiction;
+}
 
 @end
 
@@ -36,7 +40,13 @@
 - (void)loadView {
     [super loadView];
     if (@available(macOS 11, *)) {
-        self.preferredContentSize = NSMakeSize(575, 285);
+        NSSize size;
+        if (iFiction)
+            size = NSMakeSize(820, 846);
+        else
+            size = NSMakeSize(575, 285);
+
+        self.preferredContentSize = size;
     }
 }
 
@@ -96,6 +106,7 @@
     _addedFileInfo = NO;
     _showingIcon = NO;
     _showingView = NO;
+    iFiction = NO;
     // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
     
     // Perform any setup necessary in order to prepare the view.
@@ -104,6 +115,25 @@
     // Quick Look will display a loading spinner while the completion handler is not called.
 
     NSString *extension = url.pathExtension.lowercaseString;
+
+    if ([extension isEqualToString:@"ifiction"]) {
+        iFiction = YES;
+        [_imageView removeFromSuperview];
+        iFictionPreviewController *iFictionController = [iFictionPreviewController new];
+        iFictionController.textview  = _textview;
+        NSScrollView *scrollView = _textview.enclosingScrollView;
+        scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollView.frame = self.view.bounds;
+        _textview.frame = self.view.bounds;
+
+        if (@available(macOS 11, *)) {
+            self.preferredContentSize = NSMakeSize(820, 846);
+        }
+
+        [iFictionController preparePreviewOfFileAtURL:url completionHandler:handler];
+        return;
+    }
+
     if ([extension isEqualToString:@"glkdata"] || [extension isEqualToString:@"glksave"] || [extension isEqualToString:@"qut"] || [extension isEqualToString:@"d$$"]) {
         [self noPreviewForURL:url handler:handler];
         return;
@@ -176,28 +206,25 @@
         }
     }];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        PreviewViewController *strongSelf = weakSelf;
-        if (metadata[@"cover"]) {
-            strongSelf.imageView.image = [[NSImage alloc] initWithData:(NSData *)metadata[@"cover"]];
-            strongSelf.imageView.accessibilityLabel = metadata[@"coverArtDescription"];
-        } else {
-            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
-            strongSelf.imageView.image = [[NSImage alloc] initWithData:[blorb coverImageData]];
-            if (!strongSelf.imageView.image) {
-                strongSelf.showingIcon = YES;
-                strongSelf.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
-            }
+    if (metadata[@"cover"]) {
+        _imageView.image = [[NSImage alloc] initWithData:(NSData *)metadata[@"cover"]];
+        _imageView.accessibilityLabel = metadata[@"coverArtDescription"];
+    } else {
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
+        _imageView.image = [[NSImage alloc] initWithData:[blorb coverImageData]];
+        if (!_imageView.image) {
+            _showingIcon = YES;
+            _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
         }
+    }
 
-        [strongSelf updateWithMetadata:metadata url:url];
-        if (metadata.count <= 2) {
-            [strongSelf addFileInfo:url];
-        }
+    [self updateWithMetadata:metadata url:url];
+    if (metadata.count <= 2 && url) {
+        [self addFileInfo:url];
+    }
 
-        [strongSelf finalAdjustments:handler];
+    [self finalAdjustments:handler];
 
-    });
 }
 
 - (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
@@ -290,7 +317,7 @@
 
 
 -(void)viewWillLayout {
-    if (!_showingView)
+    if (!_showingView || iFiction)
         return;
     NSSize viewSize = self.view.frame.size;
     _vertical = (viewSize.width - viewSize.height <= 20);
@@ -491,8 +518,7 @@
     return proposedRect.size.height + 10;
 }
 
-- (void)updateWithMetadata:(NSDictionary *)metadict url:(NSURL *)url {
-
+- (void)updateWithMetadata:(NSDictionary *)metadict url:(nullable NSURL *)url {
     if (metadict && metadict.count) {
         NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
         NSMutableDictionary *attrDict = [NSMutableDictionary new];

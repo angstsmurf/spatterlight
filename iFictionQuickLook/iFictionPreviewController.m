@@ -4,20 +4,15 @@
 //
 //  Created by Administrator on 2021-02-15.
 //
-#import <Quartz/Quartz.h>
 
 #import "iFictionPreviewController.h"
 #import "UKSyntaxColor.h"
 
-@interface iFictionPreviewController () <QLPreviewingController>
+@interface iFictionPreviewController ()
     
 @end
 
 @implementation iFictionPreviewController
-
-- (NSString *)nibName {
-    return @"iFictionPreviewController";
-}
 
 - (void)loadView {
     [super loadView];
@@ -41,10 +36,6 @@
 */
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
-
-    // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
-    
-    // Perform any setup necessary in order to prepare the view.
 
     if (@available(macOS 10.15, *)) {
         NSError *error = nil;
@@ -89,17 +80,11 @@
         [_syntaxColorer recolorCompleteFile:nil];
 
         [_textview.textStorage setAttributedString:_syntaxColorer.coloredString];
-
-        // Call the completion handler so Quick Look knows that the preview is fully loaded.
-        // Quick Look will display a loading spinner while the completion handler is not called.
     }
-    handler(nil);
-//    [self printFinalLayout];
-}
 
-- (void)printFinalLayout{
-    NSScrollView *scrollview = _textview.enclosingScrollView;
-    NSLog(@"Final layout: window frame: %@ view frame: %@ scroll view frame %@ content view frame:%@ text view frame:%@", NSStringFromRect(self.view.window.frame), NSStringFromRect(self.view.frame), NSStringFromRect(scrollview.frame), NSStringFromRect(scrollview.contentView.frame),  NSStringFromRect(_textview.frame));
+    // Call the completion handler so Quick Look knows that the preview is fully loaded.
+    // Quick Look will display a loading spinner while the completion handler is not called.
+    handler(nil);
 }
 
 @end
