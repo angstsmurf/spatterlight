@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55773FBA2700293900F0B9E7 /* SpatterlightQuickLook.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		55773FBD2700293900F0B9E7 /* SpatterlightThumbnailer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D212737246BDC4E00D775A8 /* NSColor+integer.m */; };
 		6D2C869C225E5291004A5A75 /* filesys.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8688225E5291004A5A75 /* filesys.c */; };
@@ -1106,18 +1104,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		55773FC02700293900F0B9E7 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				55773FBA2700293900F0B9E7 /* SpatterlightQuickLook.appex in Embed App Extensions */,
-				55773FBD2700293900F0B9E7 /* SpatterlightThumbnailer.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6DB774A02458B95E00EDC671 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5635,7 +5621,6 @@
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
 				C344B2CE26E4DA87004B0A8F /* Embed Frameworks */,
-				55773FC02700293900F0B9E7 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
