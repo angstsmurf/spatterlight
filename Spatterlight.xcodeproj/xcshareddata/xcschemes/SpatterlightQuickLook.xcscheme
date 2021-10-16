@@ -80,7 +80,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "net.ccxvii.spatterlight"
-         RemotePath = "/Applications/Spatterlight.app">
+         RemotePath = "/Users/administrator/Library/Developer/Xcode/DerivedData/Spatterlight-aaaxipizdtogdqgzrqyiafjywwqp/Build/Products/Debug/Spatterlight.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
@@ -91,6 +91,12 @@
             ReferencedContainer = "container:Spatterlight.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-com.apple.CoreData.ConcurrencyDebug 1"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
