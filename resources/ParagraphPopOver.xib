@@ -61,7 +61,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Left" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S8k-cA-iAy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align left" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.alignleft" catalog="system" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="HQZ-df-gEz"/>
@@ -73,7 +73,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Right" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5jE-hM-0Y2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align right" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.alignright" catalog="system" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="zpU-Nu-n59"/>
@@ -85,7 +85,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Center" bezelStyle="texturedRounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JsI-5x-6mx">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align center" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.aligncenter" catalog="system" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="Gfl-cq-HCj"/>
@@ -94,9 +94,10 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="4r1-PY-a6P" userLabel="Alignment justified">
                     <rect key="frame" x="149" y="367" width="32" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundTextured" title="Justified" bezelStyle="texturedRounded" image="Align justified" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DCD-tP-ccA">
+                    <buttonCell key="cell" type="roundTextured" title="Justified" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DCD-tP-ccA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
+                        <imageReference key="image" image="text.justifyleft" catalog="system" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="3Lj-nX-FNq"/>
@@ -128,7 +129,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XQJ-H3-Hty" userLabel="Line Spacing Stepper">
-                    <rect key="frame" x="92" y="328" width="19" height="28"/>
+                    <rect key="frame" x="92" y="327" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="100" id="bDh-g1-RVG"/>
                     <connections>
@@ -166,7 +167,7 @@
                     </connections>
                 </textField>
                 <stepper toolTip="Can be negative. Any value other than 0 will disable ligatures." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFF-ib-dZn" userLabel="Char Spacing Stepper">
-                    <rect key="frame" x="201" y="329" width="19" height="28"/>
+                    <rect key="frame" x="201" y="328" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" increment="0.10000000000000001" minValue="-100" maxValue="100" id="mh1-Ec-9SQ"/>
                     <connections>
@@ -203,7 +204,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper toolTip="The closer this is to 1, the more words will be hyphenated. Will always use system language." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9f-CP-Nae" userLabel="Hypenation Stepper">
-                    <rect key="frame" x="201" y="280" width="19" height="28"/>
+                    <rect key="frame" x="201" y="279" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" increment="0.10000000000000001" maxValue="1" id="e6D-Ig-Xdo"/>
                     <connections>
@@ -254,7 +255,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRM-dc-vQX" userLabel="Before Stepper">
-                    <rect key="frame" x="92" y="216" width="19" height="28"/>
+                    <rect key="frame" x="92" y="215" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" minValue="-100" maxValue="100" id="fYD-Tg-6De"/>
                     <connections>
@@ -292,7 +293,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJF-AZ-W5f" userLabel="After Stepper">
-                    <rect key="frame" x="201" y="216" width="19" height="28"/>
+                    <rect key="frame" x="201" y="215" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" minValue="-100" maxValue="100" id="L7d-kY-vGc"/>
                     <connections>
@@ -343,7 +344,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lPx-bg-sVf" userLabel="Head Stepper">
-                    <rect key="frame" x="92" y="157" width="19" height="28"/>
+                    <rect key="frame" x="92" y="156" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="K5x-Wo-KjJ"/>
                     <connections>
@@ -381,7 +382,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xm2-qp-iFG" userLabel="Tail Stepper">
-                    <rect key="frame" x="201" y="156" width="19" height="28"/>
+                    <rect key="frame" x="201" y="155" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="GH6-ke-75o"/>
                     <connections>
@@ -419,7 +420,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pSb-sY-kmz" userLabel="First Line Stepper">
-                    <rect key="frame" x="92" y="119" width="19" height="28"/>
+                    <rect key="frame" x="92" y="118" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="eTv-EK-6r3"/>
                     <connections>
@@ -461,7 +462,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-iV-ukN" userLabel="Baseline Stepper">
-                    <rect key="frame" x="92" y="68" width="19" height="28"/>
+                    <rect key="frame" x="92" y="67" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" minValue="-200" maxValue="200" id="eue-KZ-3X9"/>
                     <connections>
@@ -494,7 +495,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wul-kv-tz4" userLabel="Line Multiple Stepper">
-                    <rect key="frame" x="201" y="68" width="19" height="28"/>
+                    <rect key="frame" x="201" y="67" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="II0-6a-FDA"/>
                     <connections>
@@ -527,7 +528,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wm3-uA-VhT" userLabel="Max Line Stepper">
-                    <rect key="frame" x="92" y="25" width="19" height="28"/>
+                    <rect key="frame" x="92" y="24" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="500" id="U6r-Mx-bp5"/>
                     <connections>
@@ -560,7 +561,7 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROd-YQ-gJ2" userLabel="Min Line Stepper">
-                    <rect key="frame" x="201" y="25" width="19" height="28"/>
+                    <rect key="frame" x="201" y="24" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="500" doubleValue="100" id="EzN-E8-rXF"/>
                     <connections>
@@ -581,10 +582,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="Align center" width="14" height="15"/>
-        <image name="Align justified" width="14" height="15"/>
-        <image name="Align left" width="15" height="15"/>
-        <image name="Align right" width="14" height="15"/>
         <image name="Baseline offset" width="17" height="18"/>
         <image name="Character spacing" width="22" height="21"/>
         <image name="First line" width="25" height="15"/>
@@ -593,5 +590,9 @@
         <image name="Space after" width="26" height="16"/>
         <image name="Space before" width="26" height="16"/>
         <image name="Trailing margin" width="25" height="14"/>
+        <image name="text.aligncenter" catalog="system" width="16" height="13"/>
+        <image name="text.alignleft" catalog="system" width="16" height="13"/>
+        <image name="text.alignright" catalog="system" width="16" height="13"/>
+        <image name="text.justifyleft" catalog="system" width="16" height="13"/>
     </resources>
 </document>
