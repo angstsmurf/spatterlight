@@ -892,7 +892,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 #endif // TEE_TERP_OUTPUT
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
 
     [task setTerminationHandler:^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
