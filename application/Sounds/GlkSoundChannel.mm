@@ -20,6 +20,7 @@
 
 - (instancetype)initWithHandler:(SoundHandler*)handler name:(NSUInteger)channelname volume:(NSUInteger)vol
 {
+    if (self = [super init]) {
     _handler = handler;
     loop = 0;
     notify = 0;
@@ -37,6 +38,7 @@
     target_volume = 0;
     volume_delta = 0;
     timer = nil;
+    }
     
     return self;
 }

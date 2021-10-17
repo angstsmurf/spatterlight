@@ -250,7 +250,7 @@ finish:
 
     if (number <= 12) {
         //convert to words
-        NSNumber *numberValue = [NSNumber numberWithUnsignedLong:number]; //needs to be NSNumber!
+        NSNumber *numberValue = @(number); //needs to be NSNumber!
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         numberFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         numberFormatter.numberStyle = NSNumberFormatterSpellOutStyle;

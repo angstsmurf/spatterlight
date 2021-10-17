@@ -28,7 +28,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @interface GlkController : NSWindowController <NSSecureCoding, NSDraggingDestination>
 
-@property NSMutableDictionary *gwindows;
+@property NSMutableDictionary<NSNumber*,GlkWindow*> *gwindows;
 @property SoundHandler *soundHandler;
 @property ImageHandler *imageHandler;
 @property NSMutableArray *imagesToSpeak;
