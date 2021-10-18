@@ -9,7 +9,7 @@
 
 #include <AudioToolbox/AudioToolbox.h>
 
-#include "AudioFormat.h"
+#include <SFBAudioEngine/AudioFormat.h>
 
 /*! @file AudioBufferList.h @brief A Core Audio \c AudioBufferList wrapper  */
 
