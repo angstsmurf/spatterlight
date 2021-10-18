@@ -2,6 +2,8 @@
  *
  */
 
+#import <BlorbFramework/Blorb.h>
+
 #import "LibController.h"
 #import "AppDelegate.h"
 #import "GlkController.h"
@@ -35,8 +37,6 @@
 #import "NotificationBezel.h"
 
 #import "FolderAccess.h"
-
-#import "Blorb.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \

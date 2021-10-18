@@ -8,12 +8,11 @@
 #import "ThumbnailProvider.h"
 #import <Cocoa/Cocoa.h>
 #import <CoreData/CoreData.h>
+#import <BlorbFramework/Blorb.h>
 
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-
-#import "Blorb.h"
 
 #include "babel_handler.h"
 

@@ -14,8 +14,7 @@
 #import "IFDBDownloader.h"
 #import "ImageCompareViewController.h"
 
-#import "Blorb.h"
-#import "BlorbResource.h"
+#import <BlorbFramework/BlorbFramework.h>
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"

@@ -6,6 +6,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <BlorbFramework/BlorbFramework.h>
 
 #import "ImageView.h"
 
@@ -22,8 +23,7 @@
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
 #import "MyFilePromiseProvider.h"
-#import "Blorb.h"
-#import "BlorbResource.h"
+
 #import "NotificationBezel.h"
 #import "FolderAccess.h"
 

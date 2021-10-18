@@ -5,10 +5,12 @@
 //  Created by Administrator on 2021-01-29.
 //
 #import <Cocoa/Cocoa.h>
-#import <QuickLookThumbnailing/QuickLookThumbnailing.h>
+#import <CoreSpotlight/CoreSpotlight.h>
 
 #import <Quartz/Quartz.h>
 #import <CoreData/CoreData.h>
+
+#import <BlorbFramework/BlorbFramework.h>
 
 #import "Game.h"
 #import "Metadata.h"
@@ -18,8 +20,6 @@
 
 #import "iFictionPreviewController.h"
 #import "PreviewViewController.h"
-#import "Blorb.h"
-#include "iff.h"
 
 /* the treaty of babel headers */
 #include "babel_handler.h"
