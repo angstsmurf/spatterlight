@@ -62,7 +62,7 @@ fprintf(stderr, "%s\n",                                                    \
     __block BOOL result = NO;
     [game.managedObjectContext performBlockAndWait:^{
         if (game.metadata.tuid) {
-            result = [self downloadMetadataForTUID:game.metadata.tuid  imageOnly:imageOnly];
+            result = [self downloadMetadataForTUID:game.metadata.tuid imageOnly:imageOnly];
         } else {
             result = [self downloadMetadataForIFID:game.ifid imageOnly:imageOnly];
             if (!result) {
@@ -121,7 +121,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 + (void)showNoDataFoundBezel {
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:NSScreen.screens.firstObject];
         [bezel showStandardWithText:@"? No data found"];
     });
@@ -179,13 +179,19 @@ fprintf(stderr, "%s\n",                                                    \
             oldData = (NSData *)metadata.cover.data;
         }];
 
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        if ([NSThread isMainThread]) {
             ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-
             if ([imageCompare userWantsImage:newData ratherThanImage:oldData type:DOWNLOADED]) {
                 accepted = YES;
             }
-        });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                if ([imageCompare userWantsImage:newData ratherThanImage:oldData type:DOWNLOADED]) {
+                    accepted = YES;
+                }
+            });
+        }
 
         if (accepted) {
             [localcontext performBlockAndWait:^{
@@ -226,12 +232,19 @@ fprintf(stderr, "%s\n",                                                    \
                 oldData = (NSData *)metadata.cover.data;
             }];
 
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            if ([NSThread isMainThread]) {
                 ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
                 if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
                     accepted = YES;
                 }
-            });
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                    if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
+                        accepted = YES;
+                    }
+                });
+            }
             if (accepted) {
                 [self insertImageData:data inMetadata:metadata];
                 [localcontext performBlock:^{

@@ -176,33 +176,6 @@
     }
 }
 
-- (void)positionLayer {
-    if (_ratio == 0)
-        return;
-    NSView *superview = [self superview];
-    NSSize windowSize = superview.frame.size;
-
-    NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / _ratio);
-    if (imageFrame.size.height > windowSize.height) {
-        imageFrame = NSMakeRect(0,0, windowSize.height * _ratio, windowSize.height);
-        imageFrame.origin.x = (windowSize.width - imageFrame.size.width) / 2;
-    } else {
-        imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2;
-        if (NSMaxY(imageFrame) > NSMaxY(superview.frame))
-            imageFrame.origin.y = NSMaxY(superview.frame) - imageFrame.size.height;
-    }
-
-    self.frame = imageFrame;
-
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    self.layer.frame = imageFrame;
-    imageFrame.origin = NSZeroPoint;
-    for (CALayer *layer in self.layer.sublayers)
-        layer.frame = imageFrame;
-    [CATransaction commit];
-}
 
 - (BOOL)wantsUpdateLayer {
     return YES;
@@ -446,7 +419,10 @@
 }
 
 - (void)keyDown:(NSEvent *)event {
-    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+    NSString *characters = [event charactersIgnoringModifiers];
+    unichar key = '\0';
+    if (characters.length)
+        key = [characters characterAtIndex:0];
     if (!_isPlaceholder && (key == NSDeleteCharacter || key == NSBackspaceCharacter))
         [self delete:nil];
     else
@@ -517,44 +493,14 @@
 }
 
 - (IBAction)downloadImage:(id)sender {
-    CoreDataManager *coreDataManager = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
-    NSManagedObjectContext *childContext = coreDataManager.privateChildManagedObjectContext;
-
-    NSManagedObjectID *objectID = _game.objectID;
-    [childContext performBlock:^{
-        Game *game = [childContext objectWithID:objectID];
-        if (!game)
-            return;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(noteBackgroundManagedObjectContextDidChange:)
-                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-                                                   object:childContext];
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
+    Game *game = _game;
+    [game.managedObjectContext performBlock:^{
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:game.managedObjectContext];
         if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
             [downloader downloadImageFor:game.metadata];
-            if ([childContext hasChanges]) {
-                NSError *error = nil;
-                [childContext save:&error];
-                if (error)
-                    NSLog(@"ImageView downloadImage context save error: %@", error);
-            }
         }
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-                                                   object:childContext];
     }];
 }
-
-- (void)noteBackgroundManagedObjectContextDidChange:(NSNotification *)notification {
-    Game *game = _game;
-    NSManagedObjectContext *mainContext = game.managedObjectContext;
-    [mainContext performBlock:^{
-        [mainContext mergeChangesFromContextDidSaveNotification:notification];
-        Image *image = game.metadata.cover;
-        [self processImageData:(NSData *)image.data sourceUrl:image.originalURL dontAsk:YES];
-    }];
-}
-
 
 - (IBAction)toggleFilter:(id)sender {
     _game.metadata.cover.interpolation = (_game.metadata.cover.interpolation == kTrilinear) ? kNearestNeighbor : kTrilinear;
@@ -739,15 +685,23 @@
 }
 
 -(void)processImageData:(NSData *)imageData sourceUrl:(NSString *)URLPath dontAsk:(BOOL)dontAsk {
-    if (!imageData)
+    if (!imageData || !URLPath.length)
         return;
+
+    Metadata *metadata = _game.metadata;
+
+    Image *oldImageObj = [ImageView findImageObjectWithURL:URLPath inContext:_game.managedObjectContext];
+    if (oldImageObj && [oldImageObj.data isEqualTo:imageData]) {
+        metadata.cover = oldImageObj;
+        metadata.coverArtURL = URLPath;
+        return;
+    }
 
     if ([URLPath isEqualToString:@"pasteboard"] ||
         [self compareByFileNames:URLPath data:imageData]) {
         dontAsk = YES;
     }
 
-    Metadata *metadata = _game.metadata;
     __block NSData *data = imageData;
     __block BOOL askFlag = dontAsk;
     [self.workQueue addOperationWithBlock:^{
@@ -787,6 +741,26 @@
             }
         });
     }];
+}
+
++ (nullable Image *)findImageObjectWithURL:(NSString *)path inContext:(NSManagedObjectContext *)context {
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL = %@", path];
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil || error) {
+        NSLog(@"findImageObjectWithURL error: %@",error);
+        return nil;
+    }
+
+    if (!fetchedObjects.count) {
+        return nil;
+    }
+
+    return fetchedObjects.firstObject;
 }
 
 - (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {
