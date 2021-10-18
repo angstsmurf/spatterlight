@@ -594,7 +594,7 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
         CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
-        if (topConstraintConstant < 0)
+        if (topConstraintConstant < 40)
             topConstraintConstant = 0;
 
         topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
