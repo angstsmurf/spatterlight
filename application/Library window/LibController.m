@@ -2487,7 +2487,7 @@ objectValueForTableColumn: (NSTableColumn*)column
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
 
-    CGFloat offset = 2; // Seems to look okay
+    CGFloat offset = 3; // Seems to look okay
 
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
