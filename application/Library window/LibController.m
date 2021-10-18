@@ -438,14 +438,19 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [_managedObjectContext deleteObject:meta];
         }
 
+        [self saveMainContext];
+
         // Now we removed any orphaned images
         NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
 
         NSLog(@"Pruning %ld image entities", imageEntriesToDelete.count);
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
+            NSLog(@"Pruning image with original URL %@", img.originalURL);
             [_managedObjectContext deleteObject:img];
         }
+
+        [self saveMainContext];
 
         // And then any orphaned ifids
         NSArray *ifidEntriesToDelete = [self fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
@@ -455,6 +460,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             NSLog(@"Pruning ifid %@", ifid.ifidString);
             [_managedObjectContext deleteObject:ifid];
         }
+
+        [self saveMainContext];
 
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
