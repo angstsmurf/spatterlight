@@ -511,6 +511,8 @@
 	<string>Spat</string>
 	<key>CFBundleVersion</key>
 	<string>$(APP_BUILD)</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.15</string>	
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSApplicationCategoryType</key>
