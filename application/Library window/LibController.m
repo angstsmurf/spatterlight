@@ -2081,7 +2081,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (NSWindow *)selectAndPlayGame:(Game *)game {
-    [self selectGames:[NSSet setWithArray:@[game]]];
+    [self selectGames:[NSSet setWithObject:game]];
     return [self playGame:game];
 }
 
