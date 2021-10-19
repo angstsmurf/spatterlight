@@ -586,8 +586,13 @@ continueUserActivity:(NSUserActivity *)userActivity
         for (NSWindow *win in app.windows)
             if (win.visible)
                 visibleWindows = YES;
-        if (!visibleWindows)
-            [self openDocument:nil];
+        if (!visibleWindows) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
+                [self showLibrary:nil];
+            } else {
+                [self openDocument:nil];
+            }
+        }
     });
 }
 
