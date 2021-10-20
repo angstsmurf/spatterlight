@@ -29,6 +29,7 @@
 #import "OSImageHashing.h"
 
 #import "CoreDataManager.h"
+#import "Preferences.h"
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
@@ -495,10 +496,16 @@
 - (IBAction)downloadImage:(id)sender {
     Game *game = _game;
     [game.managedObjectContext performBlock:^{
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
+        if (setting == kNeverReplace) {
+            [defaults setInteger:kAlwaysReplace forKey:@"ImageReplacement"];
+        }
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:game.managedObjectContext];
         if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
             [downloader downloadImageFor:game.metadata];
         }
+        [defaults setInteger:setting forKey:@"ImageReplacement"];
     }];
 }
 
