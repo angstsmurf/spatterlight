@@ -1109,34 +1109,6 @@
 			remoteGlobalIDString = 96FE866509F38BF600D41D78;
 			remoteInfo = tadsr;
 		};
-		C3F53C75271CAADF00538393 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C3F53C59271BB8BE00538393;
-			remoteInfo = BlorbFramework;
-		};
-		C3F53C77271CAAE400538393 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C311DEF425C472E500484639;
-			remoteInfo = SpatterlightQuickLook;
-		};
-		C3F53C79271CAAE800538393 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C322714925CC214A0083BD5B;
-			remoteInfo = SpatterlightThumbnailer;
-		};
-		C3F53C7B271CABF000538393 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 32C212D41091116D00BA2493;
-			remoteInfo = SFBAudioEngine;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -5346,19 +5318,6 @@
 			path = GlkTextGridWindow;
 			sourceTree = "<group>";
 		};
-		C3C1809625C70F3A0040AE79 /* Blorb */ = {
-			isa = PBXGroup;
-			children = (
-				C3C180AD25C70FD80040AE79 /* iff.h */,
-				C3C180AE25C70FD80040AE79 /* iff.c */,
-				C3C1807C25C70F2F0040AE79 /* Blorb.h */,
-				C3C1807B25C70F2F0040AE79 /* Blorb.m */,
-				C3C1807A25C70F2F0040AE79 /* BlorbResource.h */,
-				C3C1807D25C70F2F0040AE79 /* BlorbResource.m */,
-			);
-			path = Blorb;
-			sourceTree = "<group>";
-		};
 		C3C2053F268D306800DB7AE0 /* NotificationBezel */ = {
 			isa = PBXGroup;
 			children = (
@@ -6077,8 +6036,6 @@
 			buildPhases = (
 				C3F53C55271BB8BE00538393 /* Headers */,
 				C3F53C56271BB8BE00538393 /* Sources */,
-				C3F53C57271BB8BE00538393 /* Frameworks */,
-				C3F53C58271BB8BE00538393 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -7115,10 +7072,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C322720D25CC23980083BD5B /* iff.c in Sources */,
-				C322722725CC239C0083BD5B /* Blorb.m in Sources */,
 				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
-				C322724125CC23A00083BD5B /* BlorbResource.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
@@ -7413,26 +7367,6 @@
 			target = 96FE866509F38BF600D41D78 /* tadsr */;
 			targetProxy = C3D6AD6F1ECF372000ADB69C /* PBXContainerItemProxy */;
 		};
-		C3F53C76271CAADF00538393 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C3F53C59271BB8BE00538393 /* BlorbFramework */;
-			targetProxy = C3F53C75271CAADF00538393 /* PBXContainerItemProxy */;
-		};
-		C3F53C78271CAAE400538393 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C311DEF425C472E500484639 /* SpatterlightQuickLook */;
-			targetProxy = C3F53C77271CAAE400538393 /* PBXContainerItemProxy */;
-		};
-		C3F53C7A271CAAE800538393 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C322714925CC214A0083BD5B /* SpatterlightThumbnailer */;
-			targetProxy = C3F53C79271CAAE800538393 /* PBXContainerItemProxy */;
-		};
-		C3F53C7C271CABF000538393 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SFBAudioEngine;
-			targetProxy = C3F53C7B271CABF000538393 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7707,9 +7641,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
@@ -7763,9 +7697,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = "";
