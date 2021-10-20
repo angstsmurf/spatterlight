@@ -51,6 +51,7 @@
                 <outlet property="divider" destination="926" id="927"/>
                 <outlet property="errorHandlingPopup" destination="KHT-r6-CgA" id="fER-hD-rGE"/>
                 <outlet property="hyperlinksPopup" destination="sVx-EC-LaZ" id="Npa-sj-9Oy"/>
+                <outlet property="imageReplacePopup" destination="V1K-2z-Mkm" id="POJ-16-w0c"/>
                 <outlet property="libraryAtStartCheckbox" destination="aaB-f3-jTz" id="Ho4-fG-qKb"/>
                 <outlet property="marginHorizontalBufferStepper" destination="Ga3-o5-Ocm" id="hvu-sd-KQ8"/>
                 <outlet property="marginHorizontalBufferTextField" destination="yB9-OX-32B" id="1gw-Ra-aue"/>
