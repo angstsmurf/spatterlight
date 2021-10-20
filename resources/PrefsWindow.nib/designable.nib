@@ -1601,7 +1601,7 @@
                                                 <action selector="changeShowBezel:" target="-2" id="Xtk-tY-r54"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Whether to show the library window when Spatterlight's dock icon is clicked and no game windows are shown." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaB-f3-jTz">
+                                        <button toolTip="Whether to show the library window no other windows are open. If this is off, a file picker dialog is shown instead." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaB-f3-jTz">
                                             <rect key="frame" x="112" y="166" width="230" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Show library window automatically" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="r5H-LC-Wuw">
