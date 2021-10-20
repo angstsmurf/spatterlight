@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #ifdef ZTERP_GLK
-#include "glk.h"
+#include <glk.h>
 #endif
 
 #include "iff.h"

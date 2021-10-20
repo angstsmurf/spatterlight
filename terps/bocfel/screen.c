@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <ctype.h>
 #include <stdio.h>
@@ -24,16 +24,7 @@
 #include <inttypes.h>
 
 #ifdef ZTERP_GLK
-#include "glk.h"
-#ifdef SPATTERLIGHT
-#include "random.h"
-#include "glkimp.h"
-#include "spatterlight-autosave.h"
-
-extern long last_random_seed;
-extern int random_calls_count;
-
-#endif
+#include <glk.h>
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
 // rpcndr.h, eventually included via WinGlk.h, defines a type “byte”
@@ -146,7 +137,7 @@ struct input {
     uint8_t len;
     uint8_t preloaded;
 
-    // Character used to terminate input.  If terminating keys are not
+    // Character used to terminate input. If terminating keys are not
     // supported by the Glk implementation being used (or if Glk is not
     // used at all) this will be ZSCII_NEWLINE; or in the case of
     // cancellation, 0.
@@ -267,7 +258,7 @@ static void set_window_style(struct window *win)
 
     // Glk can’t mix other styles with fixed-width, but the upper window
     // is always fixed, so if it is selected, there is no need to
-    // explicitly request it here.  In addition, the user can disable
+    // explicitly request it here. In addition, the user can disable
     // fixed-width fonts or tell Bocfel to assume that the output font is
     // already fixed (e.g. in an xterm); in either case, there is no need
     // to request a fixed font.
@@ -429,7 +420,7 @@ void screen_set_header_bit(bool set)
     }
 }
 
-// Print out a character.  The character is in “c” and is either Unicode
+// Print out a character. The character is in “c” and is either Unicode
 // or ZSCII; if the former, “unicode” is true. This is meant for any
 // output produced by the game, as opposed to output produced by the
 // interpreter, which should use Glk (or standard I/O) calls only, to
@@ -465,11 +456,6 @@ static void put_char_base(uint16_t c, bool unicode)
             // newline, and this makes the most sense, so don’t do any
             // translation in that case.
             if (curwin->font == FONT_CHARACTER && !options.disable_graphics_font && c != UNICODE_LINEFEED) {
-#ifdef SPATTERLIGHT
-                // Spatterlight uses a real Font 3 and does not need any conversion.
-                // We use the BlockQuote style to mark Font 3 because it has no other special use.
-                glk_set_style(style_BlockQuote);
-#else
                 zscii = unicode_to_zscii[c];
 
                 // These four characters have a “built-in” reverse video (see §16).
@@ -479,16 +465,15 @@ static void put_char_base(uint16_t c, bool unicode)
                 }
 
                 c = zscii_to_font3[zscii];
-#endif
             }
 #ifdef ZTERP_GLK
             if ((streams & STREAM_SCREEN) && curwin->id != NULL) {
                 if (curwin == upperwin) {
                     // Interpreters seem to have differing ideas about what
                     // happens when the cursor reaches the end of a line in the
-                    // upper window.  Some wrap, some let it run off the edge (or,
-                    // at least, stop the text at the edge).  The standard, from
-                    // what I can see, says nothing on this issue.  Follow Windows
+                    // upper window. Some wrap, some let it run off the edge (or,
+                    // at least, stop the text at the edge). The standard, from
+                    // what I can see, says nothing on this issue. Follow Windows
                     // Frotz and don’t wrap.
 
                     if (c == UNICODE_LINEFEED) {
@@ -612,7 +597,7 @@ void show_message(const char *fmt, ...)
         glui32 w, h;
 
         // Allow multiple messages to stack, but force at least 5 lines to
-        // always be visible in the main window.  This is less than perfect
+        // always be visible in the main window. This is less than perfect
         // because it assumes that each message will be less than the width
         // of the screen, but it’s not a huge deal, really; even if the
         // lines are too long, at least Gargoyle and glktermw are graceful
@@ -629,7 +614,7 @@ void show_message(const char *fmt, ...)
     }
 
     // If windows are not supported (e.g. in cheapglk or no Glk), messages
-    // will not get displayed.  If this is the case, print to the main
+    // will not get displayed. If this is the case, print to the main
     // window.
     if (errorwin != NULL) {
         strid_t stream = glk_window_get_stream(errorwin);
@@ -766,7 +751,7 @@ static void set_current_window(struct window *window)
     set_current_style();
 }
 
-// Find and validate a window.  If window is -3 and the story is V6,
+// Find and validate a window. If window is -3 and the story is V6,
 // return the current window.
 static struct window *find_window(uint16_t window)
 {
@@ -802,16 +787,16 @@ static void perform_upper_window_resize(long new_height)
 
 // When resizing the upper window, the screen’s contents should not
 // change (§8.6.1); however, the way windows are handled with Glk makes
-// this slightly impossible.  When an Inform game tries to display
+// this slightly impossible. When an Inform game tries to display
 // something with “box”, it expands the upper window, displays the quote
-// box, and immediately shrinks the window down again.  This is a
-// problem under Glk because the window immediately disappears.  Other
+// box, and immediately shrinks the window down again. This is a
+// problem under Glk because the window immediately disappears. Other
 // games, such as Bureaucracy, expect the upper window to shrink as soon
-// as it has been requested.  Thus the following system is used:
+// as it has been requested. Thus the following system is used:
 //
 // If a request is made to shrink the upper window, it is granted
 // immediately if there has been user input since the last window resize
-// request.  If there has not been user input, the request is delayed
+// request. If there has not been user input, the request is delayed
 // until after the next user input is read.
 static long delayed_window_shrink = -1;
 static bool saw_input;
@@ -843,16 +828,6 @@ static void resize_upper_window(long nlines, bool from_game)
         return;
     }
 
-#ifdef SPATTERLIGHT
-// Hack to clear upper window when its height is set to 0.
-// This probably shouldn't be here, but there is currently an incompatibility
-// with Hugo when this is implemented in the GUI code.
-    if(nlines == 0)
-    {
-        glk_window_clear(upperwin->id);
-    }
-#endif
-
     long previous_height = upper_window_height;
 
     if (from_game) {
@@ -860,12 +835,6 @@ static void resize_upper_window(long nlines, bool from_game)
         if (upper_window_height <= nlines || saw_input) {
             update_delayed();
         }
-#ifdef SPATTERLIGHT
-        else if (!is_mad_bomber()) {
-            win_quotebox(upperwin->id->peer, (int)nlines);
-            update_delayed();
-        }
-#endif
         saw_input = false;
 
         // §8.6.1.1.2
@@ -915,9 +884,9 @@ void get_screen_size(unsigned int *width, unsigned int *height)
 
     // The main window can be proportional, and if so, its width is not
     // generally useful because games tend to care about width with a
-    // fixed font.  If a status window is available, or if an upper window
+    // fixed font. If a status window is available, or if an upper window
     // is available, use that to calculate the width, because these
-    // windows will have a fixed-width font.  The height is the combined
+    // windows will have a fixed-width font. The height is the combined
     // height of all windows.
     glk_window_get_size(mainwin->id, &w, &h);
     *height = h;
@@ -944,9 +913,9 @@ void get_screen_size(unsigned int *width, unsigned int *height)
 
     // Terrible hack: Because V6 is not properly supported, the window to
     // which Journey writes its story is completely covered up by window
-    // 1.  For the same reason, only the bottom 6 lines of window 1 are
+    // 1. For the same reason, only the bottom 6 lines of window 1 are
     // actually useful, even though the game expands it to cover the whole
-    // screen.  By pretending that the screen height is only 6, the main
+    // screen. By pretending that the screen height is only 6, the main
     // window, where text is actually sent, becomes visible.
     if (is_journey() && *height > 6) {
         *height = 6;
@@ -1003,25 +972,11 @@ void term_keys_add(uint8_t key)
     case ZSCII_F11:   insert_key(keycode_Func11); break;
     case ZSCII_F12:   insert_key(keycode_Func12); break;
 
-#ifdef SPATTERLIGHT
-    // Spatterlight supports keypad 0–9
-    case ZSCII_KEY0:  insert_key(keycode_Pad0); break;
-    case ZSCII_KEY1:  insert_key(keycode_Pad1); break;
-    case ZSCII_KEY2:  insert_key(keycode_Pad2); break;
-    case ZSCII_KEY3:  insert_key(keycode_Pad3); break;
-    case ZSCII_KEY4:  insert_key(keycode_Pad4); break;
-    case ZSCII_KEY5:  insert_key(keycode_Pad5); break;
-    case ZSCII_KEY6:  insert_key(keycode_Pad6); break;
-    case ZSCII_KEY7:  insert_key(keycode_Pad7); break;
-    case ZSCII_KEY8:  insert_key(keycode_Pad8); break;
-    case ZSCII_KEY9:  insert_key(keycode_Pad9); break;
-#else
     // Keypad 0–9 should be here, but Glk doesn’t support that.
     case ZSCII_KEY0: case ZSCII_KEY1: case ZSCII_KEY2: case ZSCII_KEY3:
     case ZSCII_KEY4: case ZSCII_KEY5: case ZSCII_KEY6: case ZSCII_KEY7:
     case ZSCII_KEY8: case ZSCII_KEY9:
         break;
-#endif
 
     case ZSCII_CLICK_SINGLE:
         term_mouse = true;
@@ -1071,7 +1026,7 @@ static void check_terminators(struct window *window)
 }
 #endif
 
-// Decode and print a zcode string at address “addr”.  This can be
+// Decode and print a zcode string at address “addr”. This can be
 // called recursively thanks to abbreviations; the initial call should
 // have “in_abbr” set to false.
 // Each time a character is decoded, it is passed to the function
@@ -1169,7 +1124,7 @@ static int print_zcode(uint32_t addr, bool in_abbr, void (*outc)(uint8_t))
 
 // Prints the string at addr “addr”.
 //
-// Returns the number of bytes the string took up.  “outc” is passed as
+// Returns the number of bytes the string took up. “outc” is passed as
 // the character-print function to print_zcode(); if it is NULL,
 // put_char is used.
 int print_handler(uint32_t addr, void (*outc)(uint8_t))
@@ -1209,7 +1164,7 @@ void zerase_window(void)
     case 0:
         // 8.7.3.2.1 says V5+ should have the cursor set to 1, 1 of the
         // erased window; V4 the lower window goes bottom left, the upper
-        // to 1, 1.  Glk doesn’t give control over the cursor when
+        // to 1, 1. Glk doesn’t give control over the cursor when
         // clearing, and that doesn’t really seem to be an issue; so just
         // call glk_window_clear().
         clear_window(mainwin);
@@ -1221,11 +1176,7 @@ void zerase_window(void)
         break;
     }
 
-    // glk_window_clear() kills reverse video in Gargoyle.  Reapply style.
-#ifdef SPATTERLIGHT
-    // Hack to set upper window background to current background color.
-    win_setbgnd(upperwin->id->peer, gargoyle_color(&style_window->bg_color));
-#endif
+    // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
     set_current_style();
 #endif
 }
@@ -1510,7 +1461,7 @@ static void window_change(void)
 {
     // When a textgrid (the upper window) in Gargoyle is rearranged, it
     // forgets about reverse video settings, so reapply any styles to the
-    // current window (it doesn’t hurt if the window is a textbuffer).  If
+    // current window (it doesn’t hurt if the window is a textbuffer). If
     // the current window is not the upper window that’s OK, because
     // set_current_style() is called when a @set_window is requested.
     set_current_style();
@@ -1666,7 +1617,7 @@ static void restart_read_events(struct line *line, const struct input *input, bo
 
 #define special_zscii(c) ((c) >= 129 && (c) <= 154)
 
-// This is called when input stream 1 (read from file) is selected.  If
+// This is called when input stream 1 (read from file) is selected. If
 // it succefully reads a character/line from the file, it fills the
 // struct at “input” with the appropriate information and returns true.
 // If it fails to read (likely due to EOF) then it sets the input stream
@@ -1740,7 +1691,7 @@ static bool istream_read_from_file(struct input *input)
     event_t ev;
 
     // It’s possible that output is buffered, meaning that until
-    // glk_select() is called, output will not be displayed.  When reading
+    // glk_select() is called, output will not be displayed. When reading
     // from a command-script, flush on each command so that output is
     // visible while the script is being replayed.
     glk_select_poll(&ev);
@@ -1761,7 +1712,7 @@ static bool istream_read_from_file(struct input *input)
         break;
 #endif
     default:
-        // No other events should arrive.  Timers are only started in
+        // No other events should arrive. Timers are only started in
         // get_input() and are stopped before that function returns.
         // Input events will not happen with glk_select_poll(), and no
         // other event type is expected to be raised.
@@ -1776,9 +1727,9 @@ static bool istream_read_from_file(struct input *input)
 
 #ifdef GLK_MODULE_LINE_TERMINATORS
 // Glk returns terminating characters as keycode_*, but we need them as
-// ZSCII.  This should only ever be called with values that are matched
+// ZSCII. This should only ever be called with values that are matched
 // in the switch, because those are the only ones that Glk was told are
-// terminating characters.  In the event that another keycode comes
+// terminating characters. In the event that another keycode comes
 // through, though, treat it as Enter.
 static uint8_t zscii_from_glk(glui32 key)
 {
@@ -1800,27 +1751,17 @@ static uint8_t zscii_from_glk(glui32 key)
     case keycode_Func10: return ZSCII_F10;
     case keycode_Func11: return ZSCII_F11;
     case keycode_Func12: return ZSCII_F12;
-    case keycode_Pad0: return ZSCII_KEY0;
-    case keycode_Pad1: return ZSCII_KEY1;
-    case keycode_Pad2: return ZSCII_KEY2;
-    case keycode_Pad3: return ZSCII_KEY3;
-    case keycode_Pad4: return ZSCII_KEY4;
-    case keycode_Pad5: return ZSCII_KEY5;
-    case keycode_Pad6: return ZSCII_KEY6;
-    case keycode_Pad7: return ZSCII_KEY7;
-    case keycode_Pad8: return ZSCII_KEY8;
-    case keycode_Pad9: return ZSCII_KEY9;
     }
 
     return ZSCII_NEWLINE;
 }
 #endif
 
-// Attempt to read input from the user.  The input type can be either a
-// single character or a full line.  If “timer” is not zero, a timer is
+// Attempt to read input from the user. The input type can be either a
+// single character or a full line. If “timer” is not zero, a timer is
 // started that fires off every “timer” tenths of a second (if the value
-// is 1, it will timeout 10 times a second, etc.).  Each time the timer
-// times out the routine at address “routine” is called.  If the routine
+// is 1, it will timeout 10 times a second, etc.). Each time the timer
+// times out the routine at address “routine” is called. If the routine
 // returns true, the input is canceled.
 //
 // The function returns true if input was stored, false if there was a
@@ -1843,7 +1784,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
     zterp_io_flush(transio);
 
     // Generally speaking, newline will be the reason the line input
-    // stopped, so set it by default.  It will be overridden where
+    // stopped, so set it by default. It will be overridden where
     // necessary.
     input->term = ZSCII_NEWLINE;
 
@@ -1866,7 +1807,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                          (input->type == INPUT_LINE && term_mouse)) &&
                         upperwin->id != NULL;
 
-    // In V6, input might be requested on an unsupported window.  If so,
+    // In V6, input might be requested on an unsupported window. If so,
     // switch to the main window temporarily.
     if (curwin->id == NULL) {
         saved = curwin;
@@ -1977,17 +1918,6 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                 default:
                     if (ev.val1 >= 32 && ev.val1 <= 126) {
                         input->key = ev.val1;
-
-#ifdef SPATTERLIGHT
-// I want to retain the ability to enter my name
-// in the Bureaucracy forms
-                    } else if (ev.val1 <= UINT16_MAX) {
-                        uint8_t c = unicode_to_zscii[ev.val1];
-
-                        if (c != 0) {
-                            input->key = c;
-                        }
-#endif
                     } else {
                         status = InputWaiting;
                         request_char();
@@ -2014,16 +1944,6 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                 case keycode_Func10: input->key = ZSCII_F10; break;
                 case keycode_Func11: input->key = ZSCII_F11; break;
                 case keycode_Func12: input->key = ZSCII_F12; break;
-                case keycode_Pad0: input->key = ZSCII_KEY0; break;
-                case keycode_Pad1: input->key = ZSCII_KEY1; break;
-                case keycode_Pad2: input->key = ZSCII_KEY2; break;
-                case keycode_Pad3: input->key = ZSCII_KEY3; break;
-                case keycode_Pad4: input->key = ZSCII_KEY4; break;
-                case keycode_Pad5: input->key = ZSCII_KEY5; break;
-                case keycode_Pad6: input->key = ZSCII_KEY6; break;
-                case keycode_Pad7: input->key = ZSCII_KEY7; break;
-                case keycode_Pad8: input->key = ZSCII_KEY8; break;
-                case keycode_Pad9: input->key = ZSCII_KEY9; break;
 
                 default:
                     input->key = ZSCII_QUESTIONMARK;
@@ -2214,11 +2134,7 @@ void zread_char(void)
     struct input input = { .type = INPUT_CHAR };
 
     if (options.autosave && !in_interrupt()) {
-#ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcodeReadChar);
-#else
         do_save(SaveTypeAutosave, SaveOpcodeReadChar);
-#endif
     }
 
     if (zversion >= 4 && znargs > 1) {
@@ -2307,11 +2223,7 @@ void zshow_status(void)
             snprintf(rhs, sizeof rhs, "%02ld:%02ld", first, second);
         }
     } else {
-        if (is_stationfall()) {
-            snprintf(rhs, sizeof rhs, "Score: %ld  Time: %ld ", first, second);
-        } else {
-            snprintf(rhs, sizeof rhs, "Score: %ld  Moves: %ld ", first, second);
-        }
+        snprintf(rhs, sizeof rhs, "Score: %ld  Moves: %ld ", first, second);
         if (strlen(rhs) > width) {
             snprintf(rhs, sizeof rhs, "%ld/%ld", first, second);
         }
@@ -2333,7 +2245,7 @@ void zshow_status(void)
 static long starting_x, starting_y;
 #endif
 
-// Attempt to read and parse a line of input.  On success, return true.
+// Attempt to read and parse a line of input. On success, return true.
 // Otherwise, return false to indicate that input should be requested
 // again.
 static bool read_handler(void)
@@ -2504,13 +2416,13 @@ static bool read_handler(void)
         // called.
         //
         // Although V5 introduced @save_undo, not all games make use of it
-        // (e.g. Hitchhiker’s Guide).  Until @save_undo is called, simulate
-        // it each @read, just like in V1–4.  If @save_undo is called, all
+        // (e.g. Hitchhiker’s Guide). Until @save_undo is called, simulate
+        // it each @read, just like in V1–4. If @save_undo is called, all
         // of these interpreter-generated save states are forgotten and the
         // game’s calls to @save_undo take over.
         //
         // Because V1–4 games will never call @save_undo, seen_save_undo
-        // will never be true.  Thus there is no need to test zversion.
+        // will never be true. Thus there is no need to test zversion.
         if (!seen_save_undo) {
             push_save(SaveStackGame, SaveTypeMeta, SaveOpcodeRead, NULL);
         }
@@ -2580,12 +2492,7 @@ static bool read_handler(void)
 void zread(void)
 {
     if (options.autosave && !in_interrupt()) {
-
-#ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcodeRead);
-#else
         do_save(SaveTypeAutosave, SaveOpcodeRead);
-#endif
     }
 
     while (!read_handler()) {
@@ -2607,7 +2514,7 @@ void zcheck_unicode(void)
 
     // valid_unicode() will tell which Unicode characters can be printed;
     // and if the Unicode character is in the Unicode input table, it can
-    // also be read.  If Unicode is not available, then any character >255
+    // also be read. If Unicode is not available, then any character >255
     // is invalid for both reading and writing.
     if (have_unicode || zargs[0] < 256) {
         // §3.8.5.4.5: “Unicode characters U+0000 to U+001F and U+007F to
@@ -2615,9 +2522,9 @@ void zcheck_unicode(void)
         //
         // Even though control characters can be read (e.g. delete and
         // linefeed), when they are looked at through a Unicode lens, they
-        // should be considered invalid.  I don’t know if this is the right
+        // should be considered invalid. I don’t know if this is the right
         // approach, but nobody seems to use @check_unicode, so it’s not
-        // especially important.  One implication of this is that it’s
+        // especially important. One implication of this is that it’s
         // impossible for this implementation of @check_unicode to return 2,
         // since a character must be valid for output before it’s even
         // checked for input, and all printable characters are also
@@ -2632,7 +2539,7 @@ void zcheck_unicode(void)
         // • Frotz 2.44 and Nitfol 0.5 return 0 for all control characters.
         // • Filfre 1.1.1 returns 3 for all control characters.
         // • Windows Frotz 1.19 returns 2 for characters 8, 13, and 27, 0
-        //   for other control characters in the range 00 to 1f.  It returns
+        //   for other control characters in the range 00 to 1f. It returns
         //   a mixture of 2 and 3 for control characters in the range 7F to
         //   9F based on whether the specified glyph is available.
         if (valid_unicode(zargs[0])) {
@@ -2744,7 +2651,7 @@ void zget_wind_prop(void)
 // somewhat useful.
 //
 // Output should be to the currently-selected window, but since V6 is
-// only marginally supported, other windows are not active.  Send to the
+// only marginally supported, other windows are not active. Send to the
 // main window for the time being.
 void zprint_form(void)
 {
@@ -2779,10 +2686,10 @@ void zbuffer_screen(void)
 
 #ifdef GLK_MODULE_GARGLKTEXT
 // Glk does not guarantee great control over how various styles are
-// going to look, but Gargoyle does.  Abusing the Glk “style hints”
+// going to look, but Gargoyle does. Abusing the Glk “style hints”
 // functions allows for quite fine-grained control over style
-// appearance.  First, clear the (important) attributes for each style,
-// and then recreate each in whatever mold is necessary.  Re-use some
+// appearance. First, clear the (important) attributes for each style,
+// and then recreate each in whatever mold is necessary. Re-use some
 // that are expected to be correct (emphasized for italic, subheader for
 // bold, and so on).
 static void set_default_styles(void)
@@ -3240,89 +3147,3 @@ end:
     *mainwin = saved;
     set_window_style(mainwin);
 }
-
-#ifdef SPATTERLIGHT
-// This is called during an autosave. It saves the relations
-// between Bocfel specific structures and Glk objects, and also
-// any active sound commands.
-void stash_library_state(library_state_data *dat)
-{
-    if (dat) {
-        if ( windows[0].id)
-            dat->wintag0 = windows[0].id->tag;
-        if ( windows[1].id)
-            dat->wintag1 = windows[1].id->tag;
-        if ( windows[2].id)
-            dat->wintag2 = windows[2].id->tag;
-        if ( windows[3].id)
-            dat->wintag3 = windows[3].id->tag;
-        if ( windows[4].id)
-            dat->wintag4 = windows[4].id->tag;
-        if ( windows[5].id)
-            dat->wintag5 = windows[5].id->tag;
-        if ( windows[6].id)
-            dat->wintag6 = windows[6].id->tag;
-        if ( windows[7].id)
-            dat->wintag7 = windows[7].id->tag;
-
-        if (curwin->id)
-            dat->curwintag = curwin->id->tag;
-        if (mainwin->id)
-            dat->mainwintag = mainwin->id->tag;
-        if (statuswin.id)
-            dat->statuswintag = statuswin.id->tag;
-        if (errorwin && errorwin->tag)
-            dat->errorwintag = errorwin->tag;
-        if (upperwin->id)
-            dat->upperwintag = upperwin->id->tag;
-
-        dat->last_random_seed = last_random_seed;
-        dat->random_calls_count = random_calls_count;
-
-        stash_library_sound_state(dat);
-    }
-}
-
-// This is called during an autorestore. It recreatets the relations
-// between Bocfel specific structures and Glk objects, and any
-// active sound commands.
-void recover_library_state(library_state_data *dat)
-{
-    if (dat) {
-        windows[0].id = gli_window_for_tag(dat->wintag0);
-        windows[1].id = gli_window_for_tag(dat->wintag1);
-        windows[2].id = gli_window_for_tag(dat->wintag2);
-        windows[3].id = gli_window_for_tag(dat->wintag3);
-        windows[4].id = gli_window_for_tag(dat->wintag4);
-        windows[5].id = gli_window_for_tag(dat->wintag5);
-        windows[6].id = gli_window_for_tag(dat->wintag6);
-        windows[7].id = gli_window_for_tag(dat->wintag7);
-        statuswin.id = gli_window_for_tag(dat->statuswintag);
-        errorwin = gli_window_for_tag(dat->errorwintag);
-        for (int i = 0; i < 8; i++)
-        {
-            if (windows[i].id) {
-                if (windows[i].id->tag == dat->mainwintag) {
-                    mainwin = &windows[i];
-                }
-                if (windows[i].id->tag == dat->curwintag) {
-                    curwin = &windows[i];
-                }
-                if (windows[i].id->tag == dat->upperwintag)
-                {
-                    upperwin = &windows[i];
-                    if (mouse_available())
-                        glk_request_mouse_event(upperwin->id);
-                }
-            }
-        }
-
-        seed_random((uint32_t)last_random_seed);
-        random_calls_count = 0;
-        for (int i = 0; i < dat->random_calls_count; i++)
-            zterp_rand();
-
-        recover_library_sound_state(dat);
-    }
-}
-#endif

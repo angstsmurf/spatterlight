@@ -79,7 +79,7 @@ extern struct options options;
 
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
-#define mouse_available()	(zversion == 5 && ((word(0x10) & FLAGS2_MOUSE) || is_beyond_zork() ))
+#define mouse_available()	(zversion == 5 && (word(0x10) & FLAGS2_MOUSE))
 
 struct header {
     uint16_t pc;
@@ -107,11 +107,8 @@ extern bool is_infocom_v1234;
 
 const char *get_story_id(void);
 
-bool is_journey(void);
 bool is_lurking_horror(void);
-bool is_mad_bomber(void);
-bool is_stationfall(void);
-bool is_beyond_zork(void);
+bool is_journey(void);
 
 void write_header(void);
 

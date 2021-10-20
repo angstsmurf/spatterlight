@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,7 +39,7 @@
 #include "util.h"
 
 #ifdef ZTERP_GLK
-#include "glk.h"
+#include <glk.h>
 #endif
 
 #define MAX_LINE	2048
@@ -83,11 +83,8 @@ struct options options = {
     .override_undo = false,
     .random_seed = -1,
     .random_device = NULL,
-#ifdef SPATTERLIGHT
-    .autosave = true,
-#else
+
     .autosave = false,
-#endif
 };
 
 static char story_id[64];
@@ -100,7 +97,7 @@ const char *get_story_id(void)
 // zversion stores the Z-machine version of the story: 1–6.
 //
 // Z-machine versions 7 and 8 are identical to version 5 but for a
-// couple of tiny details.  They are thus classified as version 5.
+// couple of tiny details. They are thus classified as version 5.
 //
 // zwhich stores the actual version (1–8) for the few rare times where
 // this knowledge is necessary.
@@ -153,53 +150,17 @@ static bool is_story(const char *id)
     return strcmp(story_id, id) == 0;
 }
 
-bool is_journey(void)
-{
-    return is_story("46-880603") ||
-    is_story("26-890316") || is_story("30-890322") ||
-    is_story("54-890526") || is_story("77-890616") ||
-    is_story("79-890627") || is_story("83-890706");
-}
-
 bool is_lurking_horror(void)
 {
     return is_story("203-870506") ||
-    is_story("219-870912") ||
-    is_story("221-870918");
+           is_story("219-870912") ||
+           is_story("221-870918");
 }
 
-bool is_mad_bomber(void)
+bool is_journey(void)
 {
-    return is_story("3-971123-caad");
+    return is_story("83-890706");
 }
-
-bool is_stationfall(void)
-{
-    return is_story("107-870430") ||
-    is_story("1-861017") ||
-    is_story("87-870326") ||
-    is_story("63-870218") ||
-    // Planetfall, pre-Solid Gold versions
-    is_story("1-830517") ||
-    is_story("20-830708") ||
-    is_story("26-831014") ||
-    is_story("29-840118") ||
-    is_story("37-851003") ||
-    is_story("39-880501");
-}
-
-bool is_beyond_zork(void)
-{
-    return
-    is_story("1-870412") ||
-    is_story("1-870715") ||
-    is_story("47-870915") ||
-    is_story("49-870917") ||
-    is_story("51-870923") ||
-    is_story("57-871221") ||
-    is_story("60-880610");
-}
-
 
 bool is_infocom_v1234;
 static void check_infocom(void)
@@ -805,7 +766,7 @@ static void process_story(zterp_io *io, long offset)
     }
 
     // Most options directly set their respective variables, but a few
-    // require intervention.  Delay that intervention until here so that
+    // require intervention. Delay that intervention until here so that
     // the configuration file is taken into account.
     if (options.escape_string == NULL) {
         options.escape_string = xstrdup("1m");
@@ -1068,7 +1029,7 @@ int main(int argc, char **argv)
             die("unknown story type: %s (0x%08lx)", chunk->name, (unsigned long)chunk->type);
         }
 
-        if ((uint64_t)chunk->offset > LONG_MAX) {
+        if (chunk->offset > LONG_MAX) {
             die("zcode offset too large");
         }
 
@@ -1093,25 +1054,25 @@ int main(int argc, char **argv)
     if (memory_size < 64) {
         die("story file too small");
     }
-    if ((uint64_t)memory_size > SIZE_MAX - 22) {
+    if (memory_size > SIZE_MAX - 22) {
         die("story file too large");
     }
 
     // It’s possible for a story to be cut short in the middle of an
-    // instruction.  If so, the processing loop will run past the end of
-    // memory.  Either pc needs to be checked each and every time it is
+    // instruction. If so, the processing loop will run past the end of
+    // memory. Either pc needs to be checked each and every time it is
     // incremented, or a small guard needs to be placed at the end of
-    // memory that will trigger an illegal instruction error.  The latter
+    // memory that will trigger an illegal instruction error. The latter
     // is done by filling the end of memory with zeroes, which do not
     // represent a valid instruction.
     //
     // There need to be at least 22 bytes for the worst case: 0xec
-    // (call_vs2) as the last byte in memory.  The next two bytes, which
+    // (call_vs2) as the last byte in memory. The next two bytes, which
     // will be zeroes, indicate that 8 large constants, or 16 bytes, will
-    // be next.  This is a store instruction, so one more byte will be
-    // read to determine where to store.  Another byte is read to
+    // be next. This is a store instruction, so one more byte will be
+    // read to determine where to store. Another byte is read to
     // determine the next opcode; this will be zero, which is nominally a
-    // 2OP, requiring two more bytes to be read.  At this point the opcode
+    // 2OP, requiring two more bytes to be read. At this point the opcode
     // will be looked up, resulting in an illegal instruction error.
     memory = malloc(memory_size + 22);
     if (memory == NULL) {

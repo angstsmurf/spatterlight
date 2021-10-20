@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -23,17 +23,18 @@
 #include "zterp.h"
 
 #ifdef ZTERP_GLK
-#include "glk.h"
-#ifdef SPATTERLIGHT
-#include "glkimp.h"
+#include <glk.h>
 #endif
-#endif
-
 
 #ifdef GLK_MODULE_SOUND
 static schanid_t sound_channel = NULL;
+static bool sound_playing;
 uint16_t sound_routine;
-static uint16_t queued_sound = 0;
+
+static struct {
+    uint16_t number;
+    uint8_t volume;
+} queued;
 #endif
 
 void init_sound(void)
@@ -59,12 +60,32 @@ bool sound_loaded(void)
 }
 
 #ifdef GLK_MODULE_SOUND
+static void start_sound(uint16_t number, uint8_t repeats, uint8_t volume)
+{
+    static uint32_t vols[8] = {
+        0x02000, 0x04000, 0x06000, 0x08000,
+        0x0a000, 0x0c000, 0x0e000, 0x10000
+    };
+
+    queued.number = 0;
+
+    glk_schannel_set_volume(sound_channel, vols[volume - 1]);
+
+    if (glk_schannel_play_ext(sound_channel, number, repeats == 255 ? -1 : repeats, 1)) {
+        sound_playing = true;
+    } else {
+        sound_playing = false;
+        sound_routine = 0;
+    }
+}
+
 void sound_stopped(void)
 {
-    if (queued_sound) {
-        glk_schannel_set_volume(sound_channel, 0x10000);
-        glk_schannel_play_ext(sound_channel, queued_sound, 1, 0);
-        queued_sound = 0;
+    sound_playing = false;
+
+    if (queued.number != 0) {
+        start_sound(queued.number, 1, queued.volume);
+        queued.number = 0;
     }
 }
 #endif
@@ -86,8 +107,8 @@ void zsound_effect(void)
     number = zargs[0];
     effect = zargs[1];
 
+    // Beeps and boops aren’t supported.
     if (number == 1 || number == 2) {
-        win_beep(number);
         return;
     }
 
@@ -104,10 +125,19 @@ void zsound_effect(void)
     case SOUND_EFFECT_START: {
         uint8_t repeats = zargs[2] >> 8;
         uint8_t volume = zargs[2] & 0xff;
-        static uint32_t vols[8] = {
-            0x02000, 0x04000, 0x06000, 0x08000,
-            0x0a000, 0x0c000, 0x0e000, 0x10000
-        };
+
+        // V3 doesn’t support repeats, but in The Lurking Horror,
+        // repeating sounds are achieved by encoding repeats into the
+        // sound files themselves. According to sounds.txt from The
+        // Lurking Horror’s source code, the following sounds are
+        // “looping sounds”, so force that here.
+        if (is_lurking_horror()) {
+            switch (number) {
+            case 4: case 10: case 13: case 15: case 16: case 17: case 18:
+                repeats = 255;
+                break;
+            }
+        }
 
         // Illegal, but expected to work by “The Spy Who Came In From The
         // Garden” and recommended by standard 1.1.
@@ -146,26 +176,14 @@ void zsound_effect(void)
         // This seems to be the only place S-CRETIN is used so it
         // probably doesn’t even need to be tagged as a repeating sound,
         // but there’s no harm in doing so.
-
-        if (is_lurking_horror()) {
-            switch (number) {
-            case 4: case 10: case 13: case 15: case 16: case 17: case 18:
-                repeats = 255;
-                break;
-            }
-            if (number == 9 || number == 16) {
-                queued_sound = number;
-                return;
-            }
+        if (is_lurking_horror() && sound_playing && (number == 9 || number == 16)) {
+            queued.number = number;
+            queued.volume = volume;
+            return;
         }
-
-        glk_schannel_set_volume(sound_channel, vols[volume - 1]);
 
         sound_routine = znargs >= 4 ? zargs[3] : 0;
-
-        if (!glk_schannel_play_ext(sound_channel, number, repeats == 255 ? -1 : repeats, 1)) {
-            sound_routine = 0;
-        }
+        start_sound(number, repeats, volume);
 
         break;
     }
@@ -190,11 +208,7 @@ void zsound_effect(void)
         // play. A queued sound will only play once, so ignoring this
         // stop request is effectively just delaying it till the queued
         // sound finishes.
-        //
-        // (Also, a stopped sound will issue no notification, which would
-        // complicate the code.)
-
-        if (queued_sound == 0) {
+        if (queued.number == 0) {
             glk_schannel_stop(sound_channel);
             sound_routine = 0;
         }
@@ -205,24 +219,3 @@ void zsound_effect(void)
     }
 #endif
 }
-
-#ifdef SPATTERLIGHT
-void stash_library_sound_state(library_state_data *dat)
-{
-    if (!dat)
-        return;
-    dat->routine = sound_routine;
-    dat->queued_sound = queued_sound;
-    if (sound_loaded())
-        dat->sound_channel_tag = sound_channel->tag;
-}
-
-void recover_library_sound_state(library_state_data *dat)
-{
-    if (!dat)
-        return;
-    sound_routine = dat->routine;
-    queued_sound = dat->queued_sound;
-    sound_channel = gli_schan_for_tag(dat->sound_channel_tag);
-}
-#endif

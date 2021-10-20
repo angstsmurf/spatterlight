@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 #include <stdlib.h>
@@ -20,17 +20,17 @@
 #include "util.h"
 #include "zterp.h"
 
-#include "glk.h"
+#include <glk.h>
 
 #ifdef ZTERP_GLK_BLORB
-#include "gi_blorb.h"
+#include <gi_blorb.h>
 #endif
 
 static void load_resources(void);
 
 // Both Gargoyle (regardless of platform) and DOSGlk provide a Unix startup.
 #if defined(ZTERP_UNIX) || defined(GARGLK) || defined(ZTERP_DOS)
-#include "glkstart.h"
+#include <glkstart.h>
 
 glkunix_argumentlist_t glkunix_arguments[] =
 {

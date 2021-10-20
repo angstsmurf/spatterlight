@@ -12,7 +12,4 @@ void random_read_rand(zterp_io *io);
 
 void zrandom(void);
 
-uint32_t zterp_rand(void);
-void seed_random(uint32_t seed);
-
 #endif

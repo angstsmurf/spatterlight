@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <errno.h>
 #include <stdio.h>
@@ -64,9 +64,6 @@ static enum mode {
 // The PRNG used here is Xorshift32.
 static uint32_t xstate;
 
-long last_random_seed = 0;
-int random_calls_count = 0;
-
 static void zterp_srand(uint32_t s)
 {
     if (s == 0) {
@@ -78,8 +75,7 @@ static void zterp_srand(uint32_t s)
 
 static FILE *random_fp;
 
-
-uint32_t zterp_rand(void)
+static uint32_t zterp_rand(void)
 {
     if (mode == Random && random_fp != NULL) {
         uint32_t value;
@@ -97,8 +93,6 @@ uint32_t zterp_rand(void)
     xstate ^= xstate >> 17;
     xstate ^= xstate <<  5;
 
-    random_calls_count++;
-
     return xstate;
 }
 
@@ -109,10 +103,8 @@ uint32_t zterp_rand(void)
 //
 // Otherwise, set the PRNG to predictable mode and seed with the
 // provided value.
-void seed_random(uint32_t seed)
+static void seed_random(uint32_t seed)
 {
-    random_calls_count = 0;
-    
     if (seed == 0) {
         mode = Random;
 
@@ -126,15 +118,13 @@ void seed_random(uint32_t seed)
                 s = s * (UCHAR_MAX + 2U) + p[i];
             }
 
-            last_random_seed = s;
             zterp_srand(s);
         } else {
-            last_random_seed = options.random_seed;
-            zterp_srand((uint32_t)options.random_seed);
+            zterp_srand(options.random_seed);
         }
     } else {
         mode = Predictable;
-        last_random_seed = seed;
+
         zterp_srand(seed);
     }
 }
