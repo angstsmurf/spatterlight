@@ -550,13 +550,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    NSManagedObjectContext *main = _coreDataManager.mainManagedObjectContext;
-    if ([main hasChanges]) {
-        NSError *error = nil;
-        [main save:&error];
-        if (error)
-            NSLog(@"Error: %@", error);
-    }
+    [_coreDataManager saveChanges];
 
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];

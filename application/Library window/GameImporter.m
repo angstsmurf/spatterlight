@@ -69,14 +69,7 @@ extern NSArray *gGameFileTypes;
                     continue;
                 }
 
-                NSManagedObjectContext *maincontext = _libController.managedObjectContext;
-                [maincontext performBlock:^{
-                    NSError *blockerror = nil;
-                    if (maincontext.hasChanges)
-                        if (![maincontext save:&blockerror]) {
-                            NSLog(@"GameImporter addFiles main context save error: %@", blockerror);
-                        }
-                }];
+                [_libController.coreDataManager saveChanges];
             }
             timestamp = [NSDate date];
         }

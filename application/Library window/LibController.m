@@ -410,7 +410,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
         }
 
-        [self saveMainContext];
+        [self.coreDataManager saveChanges];
     }
 }
 
@@ -438,7 +438,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [_managedObjectContext deleteObject:meta];
         }
 
-        [self saveMainContext];
+        [self.coreDataManager saveChanges];
 
         // Now we removed any orphaned images
         NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
@@ -450,7 +450,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [_managedObjectContext deleteObject:img];
         }
 
-        [self saveMainContext];
+        [self.coreDataManager saveChanges];
 
         // And then any orphaned ifids
         NSArray *ifidEntriesToDelete = [self fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
@@ -461,13 +461,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [_managedObjectContext deleteObject:ifid];
         }
 
-        [self saveMainContext];
+        [self.coreDataManager saveChanges];
 
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
-        [self saveMainContext];
-    }
+        [self.coreDataManager saveChanges];    }
 }
 
 #pragma mark Check library for missing files
@@ -630,7 +629,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 [strongSelf waitToReportMetadataImport];
                 [strongSelf beginImporting];
                 [strongSelf importMetadataFromFile:url.path inContext:strongSelf.managedObjectContext];
-                [strongSelf saveMainContext];
+                [strongSelf.coreDataManager saveChanges];
                 [strongSelf endImporting];
             }];
         }
@@ -697,7 +696,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (_currentlyAddingGames)
         return;
 
-    [self saveMainContext];
+    [self.coreDataManager saveChanges];
 
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
@@ -894,7 +893,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)downloadMetadataForGames:(NSArray<Game *> *)games {
-    [self saveMainContext];
+    [self.coreDataManager saveChanges];
     LibController * __unsafe_unretained weakSelf = self;
 
     if (games.count == _gameTableModel.count)
@@ -1610,7 +1609,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         } else NSLog(@"No changes to save in private");
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf saveMainContext];
+            [strongSelf.coreDataManager saveChanges];
             [strongSelf endImporting];
             strongSelf.addButton.enabled = YES;
             strongSelf.currentlyAddingGames = NO;
@@ -1930,19 +1929,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     });
 }
 
-- (void)saveMainContext {
-    if (!_managedObjectContext.hasChanges)
-        return;
-    if (@available(macOS 10.13, *)) {
-        NSError *error = nil;
-        [_managedObjectContext save:&error];
-        if (error)
-            NSLog(@"LibController saveMainContext error: %@", error);
-    } else {
-        [self.coreDataManager saveChanges];
-    }
-}
-
 #pragma mark Actually starting the game
 
 - (NSWindow *) playGame:(Game *)game {
@@ -2180,7 +2166,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             if (blockError)
                 NSLog(@"%@", blockError);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [strongSelf saveMainContext];
+                [strongSelf.coreDataManager saveChanges];
             });
         }
     }];

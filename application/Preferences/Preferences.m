@@ -641,17 +641,7 @@ NSString *fontToString(NSFont *font) {
 
     [_glktxtbuf prefsDidChange];
 
-    Preferences * __unsafe_unretained weakSelf = self;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSManagedObjectContext *main = weakSelf.coreDataManager.mainManagedObjectContext;
-        if (main.hasChanges) {
-            NSError *error = nil;
-            [main save:&error];
-            if (error)
-                NSLog(@"%@", error);
-        }
-    });
+    [self.coreDataManager saveChanges];
 
     if (!_previewShown)
         return;
