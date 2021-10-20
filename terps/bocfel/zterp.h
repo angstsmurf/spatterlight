@@ -81,7 +81,7 @@ extern struct options options;
 
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
-#define mouse_available()	(zversion == 5 && (word(0x10) & FLAGS2_MOUSE))
+#define mouse_available()	(zversion == 5 && ((word(0x10) & FLAGS2_MOUSE) || is_game(GameBeyondZork)))
 
 struct header {
     uint16_t pc;
@@ -114,6 +114,10 @@ enum Game {
     GameLurkingHorror,
     GamePlanetfall,
     GameStationfall,
+#ifdef SPATTERLIGHT
+    GameBeyondZork,
+    GameMadBomber,
+#endif
     GameCount,
 };
 

@@ -23,7 +23,7 @@
 #include <limits.h>
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #include "io.h"

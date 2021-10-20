@@ -64,6 +64,9 @@ static enum mode {
 // The PRNG used here is Xorshift32.
 static uint32_t xstate;
 
+long last_random_seed = 0;
+int random_calls_count = 0;
+
 static void zterp_srand(uint32_t s)
 {
     if (s == 0) {
@@ -75,7 +78,7 @@ static void zterp_srand(uint32_t s)
 
 static FILE *random_fp;
 
-static uint32_t zterp_rand(void)
+uint32_t zterp_rand(void)
 {
     if (mode == Random && random_fp != NULL) {
         uint32_t value;
@@ -93,6 +96,8 @@ static uint32_t zterp_rand(void)
     xstate ^= xstate >> 17;
     xstate ^= xstate <<  5;
 
+    random_calls_count++;
+
     return xstate;
 }
 
@@ -103,8 +108,10 @@ static uint32_t zterp_rand(void)
 //
 // Otherwise, set the PRNG to predictable mode and seed with the
 // provided value.
-static void seed_random(uint32_t seed)
+void seed_random(uint32_t seed)
 {
+    random_calls_count = 0;
+    
     if (seed == 0) {
         mode = Random;
 
@@ -118,13 +125,15 @@ static void seed_random(uint32_t seed)
                 s = s * (UCHAR_MAX + 2U) + p[i];
             }
 
+            last_random_seed = s;
             zterp_srand(s);
         } else {
-            zterp_srand(options.random_seed);
+            last_random_seed = options.random_seed;
+            zterp_srand((uint32_t)options.random_seed);
         }
     } else {
         mode = Predictable;
-
+        last_random_seed = seed;
         zterp_srand(seed);
     }
 }

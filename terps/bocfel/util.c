@@ -27,7 +27,18 @@
 #include "zterp.h"
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
+#ifdef SPATTERLIGHT
+extern glui32 gli_error_handling;
+extern void win_showerror(char *);
+
+enum
+{
+    IGNORE_ERRORS,
+    DISPLAY_ERRORS,
+    ERRORS_ARE_FATAL
+};
+#endif // SPATTERLIGHT
 #endif
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
@@ -42,7 +53,13 @@ void assert_fail(const char *fmt, ...)
 
     snprintf(str + strlen(str), sizeof str - strlen(str), " (pc = 0x%lx)", current_instruction);
 
+#ifdef SPATTERLIGHT
+    win_showerror(str);
+    if (gli_error_handling == ERRORS_ARE_FATAL)
+        glk_exit();
+#else
     die("%s", str);
+#endif
 }
 #endif
 
@@ -76,7 +93,9 @@ void die(const char *fmt, ...)
     glk_exit();
 #endif
 
+#ifndef SPATTERLIGHT
     exit(EXIT_FAILURE);
+#endif
 }
 
 void help(void)

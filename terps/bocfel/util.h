@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #if defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7))
@@ -50,9 +50,14 @@ static inline int16_t as_signed(uint16_t n)
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
 zprintflike(1, 2)
+#ifdef SPATTERLIGHT
+void assert_fail(const char *fmt, ...);
+#define ZASSERT(expr, ...) if(!(expr)) assert_fail(__VA_ARGS__);
+#else
 znoreturn
 void assert_fail(const char *fmt, ...);
-#define ZASSERT(expr, ...)	do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
+#define ZASSERT(expr, ...)    do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
+#endif
 #else
 #define ZASSERT(expr, ...)	((void)0)
 #endif

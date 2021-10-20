@@ -25,6 +25,9 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
+#ifdef SPATTERLIGHT
+#include "fileref.h"
+#endif
 #endif
 
 #include "io.h"
@@ -820,6 +823,21 @@ void zterp_os_set_style(int style, const struct color *fg, const struct color *b
 }
 #define zterp_os_set_style
 #endif
+
+#endif
+
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║ SPATTERLIGHT functions                                                       ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+#ifdef SPATTERLIGHT
+
+bool zterp_os_autosave_name(char (*name)[ZTERP_OS_PATH_SIZE])
+{
+    getautosavedir((char *)game_file);
+    checked_snprintf(*name, sizeof *name, "%s/autosave.glksave", autosavedir);
+    return true;
+}
+#define zterp_os_autosave_name
 
 #endif
 

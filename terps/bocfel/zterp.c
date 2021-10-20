@@ -40,7 +40,7 @@
 #include "util.h"
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #define MAX_LINE	2048
@@ -83,8 +83,11 @@ struct options options = {
     .override_undo = false,
     .random_seed = -1,
     .random_device = NULL,
-
+#ifdef SPATTERLIGHT
+    .autosave = true,
+#else
     .autosave = false,
+#endif
     .persistent_transcript = false,
     .notes_editor = NULL,
 };
@@ -172,18 +175,30 @@ static void initialize_games(void)
     const char *lurking_horror[] = { "203-870506", "219-870912", "221-870918" };
     const char *planetfall[] = { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" };
     const char *stationfall[] = { "1-861017", "63-870218", "87-870326", "107-870430" };
+#ifdef SPATTERLIGHT
+    const char *beyondzork[] = {    "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" };
+    const char *madbomber[] = { "3-971123-caad" };
+#endif
 
     games[GameInfocom1234] = is_story(infocom1234, ASIZE(infocom1234));
     games[GameJourney] = is_story(journey, ASIZE(journey));
     games[GameLurkingHorror] = is_story(lurking_horror, ASIZE(lurking_horror));
     games[GamePlanetfall] = is_story(planetfall, ASIZE(planetfall));
     games[GameStationfall] = is_story(stationfall, ASIZE(stationfall));
+#ifdef SPATTERLIGHT
+    games[GameBeyondZork] = is_story(beyondzork, ASIZE(beyondzork));
+    games[GameMadBomber] = is_story(madbomber, ASIZE(madbomber));
+#endif
 }
 
 bool is_game(enum Game game)
 {
     switch(game) {
     case GameInfocom1234: case GameJourney: case GameLurkingHorror: case GamePlanetfall: case GameStationfall:
+#ifdef SPATTERLIGHT
+        case GameBeyondZork:
+        case GameMadBomber:
+#endif
         return games[game];
     default:
         return false;

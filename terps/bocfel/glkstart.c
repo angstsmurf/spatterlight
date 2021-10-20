@@ -20,17 +20,17 @@
 #include "util.h"
 #include "zterp.h"
 
-#include <glk.h>
+#include "glk.h"
 
 #ifdef ZTERP_GLK_BLORB
-#include <gi_blorb.h>
+#include "gi_blorb.h"
 #endif
 
 static void load_resources(void);
 
 // Both Gargoyle (regardless of platform) and DOSGlk provide a Unix startup.
 #if defined(ZTERP_UNIX) || defined(GARGLK) || defined(ZTERP_DOS)
-#include <glkstart.h>
+#include "glkstart.h"
 
 glkunix_argumentlist_t glkunix_arguments[] =
 {
