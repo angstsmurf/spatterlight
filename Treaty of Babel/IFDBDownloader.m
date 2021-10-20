@@ -26,10 +26,19 @@ fprintf(stderr, "%s\n",                                                    \
 #import "ImageCompareViewController.h"
 #import "IFDB.h"
 #import "NotificationBezel.h"
+#import "AppDelegate.h"
+#import "LibController.h"
+#import "DownloadOperation.h"
 
 @interface IFDBDownloader () {
-    NSString *coverArtUrl;
+    NSURLSession *defaultSession;
+    NSURLSessionDataTask *dataTask;
+    NSOperation *lastImageDownloadOperation;
 }
+
+@property NSMutableDictionary *groups;
+@property NSString *coverArtUrl;
+
 @end
 
 @implementation IFDBDownloader
@@ -38,87 +47,138 @@ fprintf(stderr, "%s\n",                                                    \
     self = [super init];
     if (self) {
         _context = context;
+        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        lastImageDownloadOperation = nil;
+        _groups = nil;
     }
     return self;
 }
 
-- (BOOL)downloadMetadataForTUID:(NSString*)tuid imageOnly:(BOOL)imageOnly {
-    if (!tuid || tuid.length == 0)
-        return NO;
-
-    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
-    return [self downloadMetadataFromURL:url imageOnly:imageOnly];
-}
-
-- (BOOL)downloadMetadataForIFID:(NSString*)ifid imageOnly:(BOOL)imageOnly {
-    if (!ifid || ifid.length == 0)
-        return NO;
-
-    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-    return [self downloadMetadataFromURL:url imageOnly:imageOnly];
-}
-
-- (BOOL)downloadMetadataFor:(Game*)game reportFailure:(BOOL)reportFailure imageOnly:(BOOL)imageOnly {
-    __block BOOL result = NO;
-    [game.managedObjectContext performBlockAndWait:^{
-        if (game.metadata.tuid) {
-            result = [self downloadMetadataForTUID:game.metadata.tuid imageOnly:imageOnly];
-        } else {
-            result = [self downloadMetadataForIFID:game.ifid imageOnly:imageOnly];
-            if (!result) {
-                for (Ifid *ifidObj in game.metadata.ifids) {
-                    result = [self downloadMetadataForIFID:ifidObj.ifidString  imageOnly:imageOnly];
-                    if (result)
-                        break;
-                }
-            }
-        }
-        if (result && imageOnly) {
-            game.metadata.coverArtURL = coverArtUrl;
-        }
-    }];
-    if (reportFailure && !result)
-        [IFDBDownloader showNoDataFoundBezel];
-    return result;
-}
-
-- (BOOL)downloadMetadataFromURL:(NSURL*)url imageOnly:(BOOL)imageOnly {
-
-    if (!url)
-        return NO;
-
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-
-    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
-                                                     error:&error];
-    if (error) {
-        if (!data) {
-            NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
-            return NO;
-        }
++ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
+    if (!ifid || ifid.length == 0) {
+        return nil;
     }
-    else
-    {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && data) {
+    
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:handler];
+    
+    return operation;
+}
 
-            if (imageOnly) {
-                coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
-                if (!coverArtUrl.length) {
-                    return NO;
++ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
+    if (tuid.length == 0) {
+        return nil;
+    }
+    
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
+    ;
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:handler];
+    
+    return operation;
+}
+
+- (nullable NSOperation *)downloadMetadataForGames:(NSArray<Game *> *)games onQueue:(NSOperationQueue *)queue imageOnly:(BOOL)imageOnly reportFailure:(BOOL)reportFailure completionHandler:(nullable void (^)(void))completionHandler {
+    if (!games.count)
+        return nil;
+    
+    _context = games.firstObject.managedObjectContext;
+    
+    NSOperation __block *lastoperation = nil;
+    
+    IFDBDownloader __weak *weakSelf = self;
+    
+    [_context performBlockAndWait:^{
+        IFDBDownloader *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        void (^internalHandler)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable) = ^void(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            if (error) {
+                if (!data) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                        NSLog(@"Error connecting: %@", [error localizedDescription]);
+                        if (reportFailure)
+                            [IFDBDownloader showNoDataFoundBezel];
+                    }];
                 }
             } else {
-                IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
-                if (!result || result.stories.count == 0) {
-                    return NO;
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if (httpResponse.statusCode == 200 && data) {
+                    [strongSelf.context performBlock:^{
+                        BOOL success = NO;
+                        
+                        if (imageOnly) {
+                            strongSelf.coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
+                            if (strongSelf.coverArtUrl.length) {
+                                success = YES;
+                            }
+                        } else {
+                            
+                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:strongSelf.context andQueue:queue];
+                            
+                            if (!result || result.stories.count == 0) {
+                                NSLog(@"No metadata found!");
+                            } else {
+                                NSLog(@"Downloaded metadata successfully!");
+                                success = YES;
+                            }
+                        }
+                        
+                        if (strongSelf.context.hasChanges) {
+                            NSError *blockError = nil;
+                            [strongSelf.context save:&blockError];
+                            if (blockError) {
+                                NSLog(@"Error when saving context: %@", blockError);
+                            } else {
+                                NSLog(@"Saved context!");
+                            }
+                        }
+                        
+                        
+                        if (!success && reportFailure) {
+                            [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                                [IFDBDownloader showNoDataFoundBezel];
+                            }];
+                        }
+                    }];
                 }
             }
-        } else return NO;
-    }
-    return YES;
+        };
+        
+        NSMutableSet *downloadedMetadata = [NSMutableSet new];
+        
+        for (Game *game in games) {
+            if ([downloadedMetadata containsObject:game.metadata])
+                continue;
+            [downloadedMetadata addObject:game.metadata];
+            DownloadOperation *operation;
+            if (game.metadata.tuid.length) {
+                operation = [IFDBDownloader operationForTUID:game.metadata.tuid completionHandler:internalHandler];
+                [queue addOperation:operation];
+                lastoperation = operation;
+            } else {
+                for (Ifid *ifid in game.metadata.ifids) {
+                    operation = [IFDBDownloader operationForIFID:ifid.ifidString completionHandler:internalHandler];
+                    [queue addOperation:operation];
+                    lastoperation = operation;
+                }
+            }
+        }
+        
+        if (completionHandler && lastoperation) {
+            NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:completionHandler];
+            [finisher addDependency:lastoperation];
+            
+            [queue addOperation:finisher];
+            lastoperation = finisher;
+        }
+    }];
+    if (lastImageDownloadOperation)
+        lastoperation = lastImageDownloadOperation;
+    lastImageDownloadOperation = nil;
+    return lastoperation;
 }
+
 
 + (void)showNoDataFoundBezel {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -145,121 +205,129 @@ fprintf(stderr, "%s\n",                                                    \
     return result;
 }
 
-- (BOOL)downloadImageFor:(Metadata *)metadata
-{
-    //    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
+- (void)downloadImageFor:(Metadata *)metadata onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force {
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
-
-    __block NSString *coverArtURL;
-    __block BOOL giveup = NO;
-
-    [localcontext performBlockAndWait:^{
-        coverArtURL = metadata.coverArtURL;
-        if (!coverArtURL.length) {
-            giveup = YES;
-        }
-    }];
-
+    
+    NSString __block *coverArtURL = _coverArtUrl;
+    BOOL __block giveup = NO;
+    
+    if (!coverArtURL.length) {
+        [localcontext performBlockAndWait:^{
+            coverArtURL = metadata.coverArtURL;
+            if (!coverArtURL.length)
+                giveup = YES;
+        }];
+    }
+    
     if (giveup)
-        return NO;
-
-    __block BOOL accepted = NO;
-
-    __block Image *img = [self fetchImageForURL:coverArtURL];
-
+        return;
+    
+    Image __block *img = [self fetchImageForURL:coverArtURL];
+    
     if (img) {
-        __block NSData *newData;
-        __block NSData *oldData;
-
+        NSData __block *newData;
+        NSData __block *oldData;
+        
         [localcontext performBlockAndWait:^{
             // Replace img with corresponding Image object in localcontext
             img = [localcontext objectWithID:[img objectID]];
-
+            
             newData = (NSData *)img.data;
             oldData = (NSData *)metadata.cover.data;
         }];
-
-        if ([NSThread isMainThread]) {
-            ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-            if ([imageCompare userWantsImage:newData ratherThanImage:oldData type:DOWNLOADED]) {
-                accepted = YES;
-            }
-        } else {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                if ([imageCompare userWantsImage:newData ratherThanImage:oldData type:DOWNLOADED]) {
-                    accepted = YES;
-                }
-            });
-        }
-
-        if (accepted) {
-            [localcontext performBlockAndWait:^{
+        
+        [self checkIfUserWants:newData ratherThan:oldData force:force completionHandler:^{
+            [localcontext performBlock:^{
                 metadata.cover = img;
                 metadata.coverArtDescription = img.imageDescription;
+                if (localcontext.hasChanges) {
+                    NSError *error = nil;
+                    [localcontext save:&error];
+                    if (error) {
+                        NSLog(@"%@", error);
+                    }
+                }
             }];
-        }
-
-        return accepted;
+        }];
+        
+        return;
     }
-
+    
     NSURL *url = [NSURL URLWithString:coverArtURL];
-
+    
     if (!url) {
         NSLog(@"Could not create url from %@", coverArtURL);
-        return NO;
+        return;
     }
 
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
+    IFDBDownloader __weak *weakSelf = self;
 
-    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
-                                                     error:&error];
-    if (error) {
-        if (!data) {
-            NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
-            return NO;
-        }
-    }
-    else
-    {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && data) {
-
-            __block NSData *oldData;
-            [localcontext performBlockAndWait:^{
-                oldData = (NSData *)metadata.cover.data;
-            }];
-
-            if ([NSThread isMainThread]) {
-                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
-                    accepted = YES;
-                }
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                    if ([imageCompare userWantsImage:data ratherThanImage:oldData type:DOWNLOADED]) {
-                        accepted = YES;
-                    }
-                });
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+        IFDBDownloader *strongSelf = weakSelf;
+        if (!strongSelf)
+            strongSelf = [[IFDBDownloader alloc] initWithContext:localcontext];
+        if (error) {
+            if (!data) {
+                NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
+                return;
             }
-            if (accepted) {
-                [self insertImageData:data inMetadata:metadata];
-                [localcontext performBlock:^{
-                    NSError *blockerror = nil;
-                    [localcontext save:&blockerror];
-                    if (blockerror)
-                        NSLog(@"%@", blockerror);
+        }
+        else
+        {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            if (httpResponse.statusCode == 200 && data) {
+                
+                NSData __block *oldData;
+                [localcontext performBlockAndWait:^{
+                    oldData = (NSData *)metadata.cover.data;
+                }];
+                
+                [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
+                    [strongSelf insertImageData:data inMetadata:metadata];
+                    [localcontext performBlock:^{
+                        NSError *blockerror = nil;
+                        [localcontext save:&blockerror];
+                        if (blockerror)
+                            NSLog(@"%@", blockerror);
+                    }];
                 }];
             }
         }
-    }
-    return accepted;
+    }];
+    
+    [queue addOperation:operation];
+    lastImageDownloadOperation = operation;
 }
 
-- (Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
+- (void)checkIfUserWants:(NSData *)newData ratherThan:(NSData *)oldData force:(BOOL)force completionHandler:(nullable void (^)(void))completionHandler {
+    kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newData orB:oldData source:kImageComparisonDownloaded force:force];
+    
+    if (comparisonResult == kImageComparisonResultA) {
+        completionHandler();
+    } else if (comparisonResult == kImageComparisonResultWantsUserInput) {
+        NSBlockOperation *comparisonOperation = [NSBlockOperation blockOperationWithBlock:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                if ([imageCompare userWantsImage:newData ratherThanImage:oldData source:kImageComparisonDownloaded force:force]) {
+                    completionHandler();
+                }
+            });
+        }];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+            if (!force && [libController.lastImageComparisonData isEqual:newData])
+                return;
+            NSOperationQueue *alertQueue = libController.alertQueue;
+            [alertQueue addOperation:comparisonOperation];
+            libController.lastImageComparisonData = newData;
+        });
+    }
+}
+
+- (nullable Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
+    if (!data)
+        return nil;
     if ([data isPlaceHolderImage]) {
         NSLog(@"insertImage: image is placeholder!");
         return [self findPlaceHolderInMetadata:metadata imageData:data];
@@ -268,8 +336,8 @@ fprintf(stderr, "%s\n",                                                    \
     __block Image *img;
 
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
-
-    [localcontext performBlockAndWait:^{
+    
+    [localcontext performBlock:^{
         img = (Image *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Image"
                          inManagedObjectContext:localcontext];
@@ -306,18 +374,18 @@ fprintf(stderr, "%s\n",                                                    \
     [_context performBlockAndWait:^{
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
+        
         fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
-
+        
         fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
-
+        
         fetchedObjects = [_context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects == nil) {
             NSLog(@"Problem! %@",error);
         }
     }];
-
+    
     if (fetchedObjects.count > 1) {
         NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }

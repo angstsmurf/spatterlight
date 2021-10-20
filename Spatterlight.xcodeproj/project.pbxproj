@@ -523,6 +523,7 @@
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
 		C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IFDBDownloader.m */; };
+		C30135BF27219AC60006B85C /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30135BD27219AC60006B85C /* DownloadOperation.m */; };
 		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C326A6D1F900120469 /* test_stories.iFiction */; };
@@ -2605,6 +2606,8 @@
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C300D48223A11786000B2165 /* IFDBDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IFDBDownloader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C300D48323A11786000B2165 /* IFDBDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IFDBDownloader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C30135BC27219AC60006B85C /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
+		C30135BD27219AC60006B85C /* DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadOperation.m; sourceTree = "<group>"; };
 		C301D30C25D35E9300DC4A2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		C30451BF26A971DD006E3D51 /* imagetest.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = imagetest.gblorb; sourceTree = "<group>"; };
 		C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of autosavetest.txt"; sourceTree = "<group>"; };
@@ -5168,6 +5171,15 @@
 			path = extras;
 			sourceTree = "<group>";
 		};
+		C30135BB27219AC60006B85C /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C30135BC27219AC60006B85C /* DownloadOperation.h */,
+				C30135BD27219AC60006B85C /* DownloadOperation.m */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
 		C30BCAA425AC976C00F8C4E2 /* VoiceOver menu detection */ = {
 			isa = PBXGroup;
 			children = (
@@ -5252,6 +5264,7 @@
 			children = (
 				C3F9D8812675FCBD0076EAFB /* ImageHashing */,
 				C3C2863A26596A9400D83926 /* Retro image formats */,
+				C30135BB27219AC60006B85C /* Operations */,
 				96A9C0F10A07AE31001B5B9B /* LibController.h */,
 				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
 				C3CF3696265FB2FA004D0F7B /* GameImporter.h */,
@@ -6599,6 +6612,7 @@
 				6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */,
 				6DC1FAEF252A5A5900540C6E /* Metadata.m in Sources */,
 				6DC1FAF5252A5C8A00540C6E /* Theme.m in Sources */,
+				C30135BF27219AC60006B85C /* DownloadOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

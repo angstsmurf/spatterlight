@@ -205,6 +205,10 @@
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
+    if (insertedObjects.count)
+        updatedObjects = [updatedObjects arrayByAddingObjectsFromArray:insertedObjects];
+
     Metadata *metadata = _glkctl.game.metadata;
     if ([updatedObjects containsObject:metadata] ||
         [updatedObjects containsObject:metadata.cover])

@@ -297,7 +297,7 @@
     
     __block NSMutableDictionary *metadata = nil;
     
-    __unsafe_unretained PreviewViewController *weakSelf = self;
+    PreviewViewController __weak *weakSelf = self;
     [context performBlockAndWait:^{
         PreviewViewController *strongSelf = weakSelf;
         NSError *error = nil;
@@ -419,8 +419,8 @@
 -(void)finalAdjustments:(void (^)(NSError * _Nullable))handler  {
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSView *superView = _imageView.superview;
-    __block NSSize viewSize = superView.frame.size;
-    __unsafe_unretained PreviewViewController *weakSelf = self;
+    NSSize __block viewSize = superView.frame.size;
+    PreviewViewController __weak *weakSelf = self;
     
     double delayInSeconds = 0.2;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

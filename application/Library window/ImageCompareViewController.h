@@ -7,10 +7,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum kImageComparisonType : NSUInteger {
-    DOWNLOADED,
-    LOCAL,
-} kImageComparisonType;
+typedef enum kImageComparisonSource : NSUInteger {
+    kImageComparisonDownloaded,
+    kImageComparisonLocalFile
+} kImageComparisonSource;
+
+typedef enum kImageComparisonResult : NSUInteger {
+    kImageComparisonResultA,
+    kImageComparisonResultB,
+    kImageComparisonResultWantsUserInput,
+} kImageComparisonResult;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
 
-- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB type:(kImageComparisonType)type;
++ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force;
+
+- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB source:(kImageComparisonSource)type force:(BOOL)force;
 
 @end
 

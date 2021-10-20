@@ -13,6 +13,6 @@
 @property(readonly) NSArray *stories;
 @property(readonly) NSString *xmlString;
 
-- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context;
+- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue;
 
 @end

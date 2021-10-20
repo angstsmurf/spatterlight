@@ -63,6 +63,10 @@
 @property (strong) IBOutlet NSLayoutConstraint *leftViewConstraint;
 @property NSArray<Game *> *selectedGames;
 
+@property (readonly) NSOperationQueue *downloadQueue;
+@property (readonly) NSOperationQueue *alertQueue;
+@property NSData *lastImageComparisonData;
+
 - (void)beginImporting;
 - (void)endImporting;
 
@@ -103,6 +107,7 @@
 - (void)showInfoForGame:(Game *)game;
 
 - (void)selectGames:(NSSet*)games;
+- (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll;
 
 - (void)updateTableViews; /* must call this after -importGame: */
 - (void)updateSideViewForce:(BOOL)force;

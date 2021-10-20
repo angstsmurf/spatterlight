@@ -27,7 +27,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation IFStory
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue {
     self = [super init];
     if (self) {
         NSXMLElement *idElement;
@@ -66,7 +66,7 @@ fprintf(stderr, "%s\n",                                                    \
             _ifdb = [[IFDB alloc] initWithXMLElement:elements[0] andMetadata:metadata];
             if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
                 IFDBDownloader *downLoader = [[IFDBDownloader alloc] initWithContext:context];
-                [downLoader downloadImageFor:metadata];
+                [downLoader downloadImageFor:metadata onQueue:queue forceDialog:NO];
             }
         }
 

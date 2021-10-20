@@ -8,16 +8,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Metadata, Image, Game;
+@class Metadata, Image, Game, DownloadOperation;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface IFDBDownloader : NSObject
 
 - (instancetype)initWithContext:(NSManagedObjectContext *)context;
-- (BOOL)downloadMetadataFor:(Game*)game reportFailure:(BOOL)reportFailure imageOnly:(BOOL)imageOnly;
-- (BOOL)downloadImageFor:(Metadata *)metadata;
-- (Image *)fetchImageForURL:(NSString *)imgurl;
-- (Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata;
+- (nullable NSOperation *)downloadMetadataForGames:(NSArray<Game *> *)games onQueue:(NSOperationQueue *)queue imageOnly:(BOOL)imageOnly reportFailure:(BOOL)reportFailure completionHandler:(nullable void (^)(void))completionHandler;
+- (void)downloadImageFor:(Metadata *)metadata onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force;
+- (nullable Image *)fetchImageForURL:(NSString *)imgurl;
+- (nullable Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata;
 
 @property (strong) NSManagedObjectContext *context;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -13,6 +13,7 @@
 #import "Constants.h"
 
 #import "AppDelegate.h"
+#import "LibController.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -454,23 +455,26 @@
     NSURL *url = [_game urlForBookmark];
     if (!url)
         return;
-    __unsafe_unretained ImageView *weakSelf = self;
+    ImageView __weak *weakSelf = self;
     [FolderAccess askForAccessToURL:url andThenRunBlock:^{
+        ImageView *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         NSData *data = [blorb coverImageData];
         BOOL success = NO;
         if (data) {
-            [weakSelf processImageData:data sourceUrl:url.path dontAsk:YES];
+            [strongSelf processImageData:data sourceUrl:url.path dontAsk:YES];
             success = YES;
             NSData *metadata = [blorb metaData];
             if (metadata) {
                 NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
                 if (imageDescription.length)
-                    weakSelf.game.metadata.coverArtDescription = imageDescription;
+                    strongSelf.game.metadata.coverArtDescription = imageDescription;
             }
         }
         if (!success) {
-            NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+            NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:strongSelf.window.screen];
             [bezel showStandardWithText:@"? No image found"];
         }
     }];
@@ -495,17 +499,23 @@
 
 - (IBAction)downloadImage:(id)sender {
     Game *game = _game;
+    NSOperationQueue *queue = self.workQueue;
+
+    LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+    libController.lastImageComparisonData = nil;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
+
     [game.managedObjectContext performBlock:^{
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
-        if (setting == kNeverReplace) {
-            [defaults setInteger:kAlwaysReplace forKey:@"ImageReplacement"];
-        }
+
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:game.managedObjectContext];
-        if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
-            [downloader downloadImageFor:game.metadata];
-        }
-        [defaults setInteger:setting forKey:@"ImageReplacement"];
+        
+        [downloader downloadMetadataForGames:@[game] onQueue:queue imageOnly:YES reportFailure:YES completionHandler:^{
+            [game.managedObjectContext performBlock:^{
+                [downloader downloadImageFor:game.metadata onQueue:queue forceDialog:(setting == kNeverReplace)];
+            }];
+        }];
     }];
 }
 
@@ -737,7 +747,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
             ImageCompareViewController *compare = [ImageCompareViewController new];
             // We always replace when pasting
-            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
+            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data source:kImageComparisonLocalFile force:NO]) {
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;

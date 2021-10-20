@@ -271,18 +271,20 @@
 
 - (void)saveChanges {
     //    NSLog(@"CoreDataManagar saveChanges");
-    
+    CoreDataManager * __unsafe_unretained weakSelf = self;
+
     if (@available(macOS 10.13, *)) {
-        if (!_mainManagedObjectContext.hasChanges)
-            return;
-        NSError *error = nil;
-        [_mainManagedObjectContext save:&error];
-        if (error) {
-            NSLog(@"CoreDataManager saveMainContext error: %@", error);
-        }
+        [_mainManagedObjectContext performBlock:^{
+            NSError *error = nil;
+            if (weakSelf.mainManagedObjectContext.hasChanges)
+                [weakSelf.mainManagedObjectContext save:&error];
+            if (error) {
+                NSLog(@"CoreDataManager saveMainContext error: %@", error);
+            }
+        }];
     } else {
         [_mainManagedObjectContext performBlockAndWait:^{
-            NSError *error;
+            NSError *error = nil;
             if (_mainManagedObjectContext.hasChanges) {
                 if (![_mainManagedObjectContext save:&error]) {
                     NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
@@ -295,8 +297,7 @@
             
         }];
         
-        CoreDataManager * __unsafe_unretained weakSelf = self;
-        
+
         [privateManagedObjectContext performBlock:^{
             BOOL result = NO;
             NSError *error = nil;
