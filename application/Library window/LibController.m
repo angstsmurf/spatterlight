@@ -2086,9 +2086,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
 
     Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
-    if (game)
-    {
-        [self selectAndPlayGame:game];
+    if (game) {
+        return [self selectAndPlayGame:game];
     }
     return nil;
 }
