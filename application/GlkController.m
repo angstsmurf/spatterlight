@@ -168,7 +168,6 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL windowRestoredBySystem;
     BOOL shouldRestoreUI;
     BOOL restoredUIOnly;
-    BOOL shouldShowAutorestoreAlert;
 
     NSWindowController *snapshotController;
 
@@ -195,6 +194,9 @@ fprintf(stderr, "%s\n",                                                    \
     NSDate *lastKeyTimestamp;
     NSDate *lastResetTimestamp;
 }
+
+@property BOOL shouldShowAutorestoreAlert;
+
 @end
 
 @implementation GlkController
@@ -309,7 +311,7 @@ fprintf(stderr, "%s\n",                                                    \
     game.autosaved = _supportsAutorestore;
     windowRestoredBySystem = windowRestoredBySystem_;
 
-    shouldShowAutorestoreAlert = NO;
+    _shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
     _eventcount = 0;
     _turns = 0;
@@ -616,7 +618,7 @@ fprintf(stderr, "%s\n",                                                    \
                         return;
                     }
                 } else {
-                    shouldShowAutorestoreAlert = YES;
+                    _shouldShowAutorestoreAlert = YES;
                 }
             }
         }
@@ -749,7 +751,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
     NSScreen *screen = self.window.screen;
     NSString *title = [NSString stringWithFormat:@"%@ has finished.", _game.metadata.title];
     double delayInSeconds = 1.5;
@@ -890,7 +892,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 #endif // TEE_TERP_OUTPUT
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
 
     [task setTerminationHandler:^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
@@ -968,7 +970,7 @@ fprintf(stderr, "%s\n",                                                    \
 
                 _showingDialog = YES;
 
-                __unsafe_unretained GlkController *weakSelf = self;
+                GlkController __weak *weakSelf = self;
 
                 [openPanel beginWithCompletionHandler:^(NSInteger result) {
                     if (result == NSModalResponseOK) {
@@ -1044,7 +1046,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (restoredUIOnly) {
         restoredController = restoredControllerLate;
-        shouldShowAutorestoreAlert = NO;
+        _shouldShowAutorestoreAlert = NO;
     }
 
     shouldRestoreUI = NO;
@@ -1161,8 +1163,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (void)postRestoreArrange:(id)sender {
-    if (shouldShowAutorestoreAlert && !_startingInFullscreen) {
-        shouldShowAutorestoreAlert = NO;
+    if (_shouldShowAutorestoreAlert && !_startingInFullscreen) {
+        _shouldShowAutorestoreAlert = NO;
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
     }
 
@@ -1485,7 +1487,7 @@ fprintf(stderr, "%s\n",                                                    \
     [anAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
     [anAlert addButtonWithTitle:NSLocalizedString(@"Restart", nil)];
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
 
     [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
 
@@ -1513,7 +1515,7 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
 
-        weakSelf->shouldShowAutorestoreAlert = NO;
+        weakSelf.shouldShowAutorestoreAlert = NO;
     }];
 }
 
@@ -1658,7 +1660,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGame:_game];
     if (!dead) {
-        if (_eventcount > 1 && !shouldShowAutorestoreAlert)
+        if (_eventcount > 1 && !_shouldShowAutorestoreAlert)
             _mustBeQuiet = NO;
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
@@ -2948,7 +2950,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (_eventcount > 1 && !shouldShowAutorestoreAlert) {
+            if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
                 _mustBeQuiet = NO;
             }
 
@@ -4066,7 +4068,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSView *localBorderView = _borderView;
     NSWindow *localSnapshot = snapshotController.window;
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
     // Hide contentview
     _contentView.alphaValue = 0;
 
@@ -4169,10 +4171,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += screen.frame.origin.x;
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
 
-    BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
-    shouldShowAutorestoreAlert = NO;
+    BOOL stashShouldShowAlert = _shouldShowAutorestoreAlert;
+    _shouldShowAutorestoreAlert = NO;
 
     // Our animation will be broken into three steps.
     [NSAnimationContext
@@ -4225,10 +4227,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
-    NSWindow __unsafe_unretained *localWindow = self.window;
+    NSWindow __weak *localWindow = self.window;
     NSView __weak *localBorderView = _borderView;
     NSView __weak *localContentView =_contentView;
-    GlkController * __unsafe_unretained weakSelf = self;
+    GlkController * __weak weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -4304,8 +4306,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
 - (void)deferredEnterFullscreen:(id)sender {
     [self.window toggleFullScreen:nil];
-    if (self->shouldShowAutorestoreAlert) {
-        self->shouldShowAutorestoreAlert = NO;
+    if (_shouldShowAutorestoreAlert) {
+        _shouldShowAutorestoreAlert = NO;
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
     }
 }

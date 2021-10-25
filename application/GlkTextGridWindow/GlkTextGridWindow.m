@@ -293,8 +293,9 @@
     _enteredTextSoFar = restoredWin.enteredTextSoFar;
 
     if (line_request) {
-        GlkTextGridWindow * __unsafe_unretained weakSelf = self;
-        __block NSString *inputString = _enteredTextSoFar;
+        GlkTextGridWindow * __weak weakSelf = self;
+
+        NSString __block *inputString = _enteredTextSoFar;
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf performSelector:@selector(deferredInitLine:) withObject:inputString afterDelay:0.5];
         });
@@ -364,7 +365,7 @@
         // We create a copy of the text storage
         _bufferTextStorage = [textstorage mutableCopy];
 
-        GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+        GlkTextGridWindow * __weak weakSelf = self;
 
          NSArray<NSDictionary *> __block *blockStyles = styles;
 
@@ -1483,7 +1484,7 @@
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
 
-    GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+    GlkTextGridWindow * __weak weakSelf = self;
 
     [attStr
      enumerateAttribute:@"ZColor"
@@ -1543,7 +1544,7 @@
 - (NSMutableAttributedString *)applyReverseOnly:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
 
-    GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+    GlkTextGridWindow * __weak weakSelf = self;
 
     [attStr
      enumerateAttribute:@"ReverseVideo"

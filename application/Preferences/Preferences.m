@@ -92,7 +92,6 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL zooming;
     CGFloat previewTextHeight;
     CGFloat defaultWindowHeight;
-    BOOL previewUpdatePending;
     NSString *lastSelectedTheme;
 
     NSDate *themeDuplicationTimestamp;
@@ -101,6 +100,9 @@ fprintf(stderr, "%s\n",                                                    \
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
 }
+
+@property BOOL previewUpdatePending;
+
 @end
 
 @implementation Preferences
@@ -741,13 +743,13 @@ NSString *fontToString(NSFont *font) {
 
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
-    if (!previewUpdatePending) {
-        Preferences * __unsafe_unretained weakSelf = self;
-        previewUpdatePending = YES;
+    if (!_previewUpdatePending) {
+        Preferences * __weak weakSelf = self;
+        _previewUpdatePending = YES;
         double delayInSeconds = 0.2;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            weakSelf->previewUpdatePending = NO;
+            weakSelf.previewUpdatePending = NO;
             [weakSelf adjustPreview:nil];
         });
     }
@@ -837,9 +839,10 @@ NSString *fontToString(NSFont *font) {
     if (NSMinY(winrect) < 0)
         winrect.origin.y = NSMinY(screenframe);
 
-    Preferences * __unsafe_unretained weakSelf = self;
+    Preferences * __weak weakSelf = self;
     [self adjustPreview:nil];
 
+    CGFloat blockDefaultWindowHeight = defaultWindowHeight;
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.3;
@@ -849,7 +852,7 @@ NSString *fontToString(NSFont *font) {
      } completionHandler:^{
          //We need to reset the _sampleTextBorderView here, otherwise some of it will still show when hiding the preview.
          NSRect newFrame = weakSelf.window.frame;
-         weakSelf.sampleTextBorderView.frame = NSMakeRect(0, weakSelf->defaultWindowHeight, newFrame.size.width, newFrame.size.height - weakSelf->defaultWindowHeight);
+         weakSelf.sampleTextBorderView.frame = NSMakeRect(0, blockDefaultWindowHeight, newFrame.size.width, newFrame.size.height - blockDefaultWindowHeight);
 
          if (weakSelf.previewShown) {
              [weakSelf adjustPreview:nil];
@@ -913,7 +916,7 @@ NSString *fontToString(NSFont *font) {
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
     if ([updatedObjects containsObject:theme]) {
-        Preferences * __unsafe_unretained weakSelf = self;
+        Preferences * __weak weakSelf = self;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf updatePrefsPanel];
@@ -1128,7 +1131,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
     [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
-    Preferences * __unsafe_unretained weakSelf = self;
+    Preferences * __weak weakSelf = self;
     [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -1895,7 +1898,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
     [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
-    Preferences * __unsafe_unretained weakSelf = self;
+    Preferences * __weak weakSelf = self;
 
     [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
 

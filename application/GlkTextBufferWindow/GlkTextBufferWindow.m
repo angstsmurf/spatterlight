@@ -1749,7 +1749,7 @@ replacementString:(id)repl {
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
 
-    GlkTextBufferWindow * __unsafe_unretained weakSelf = self;
+    GlkTextBufferWindow * __weak weakSelf = self;
 
     if (self.theme.doStyles) {
         [attStr
@@ -2235,7 +2235,7 @@ replacementString:(id)repl {
 }
 
 - (NSArray <NSValue *> *)linksInRange:(NSRange)range {
-    __block NSMutableArray <NSValue *> *links = [[NSMutableArray alloc] init];
+    NSMutableArray <NSValue *> __block *links = [[NSMutableArray alloc] init];
     [textstorage
      enumerateAttribute:NSLinkAttributeName
      inRange:range
