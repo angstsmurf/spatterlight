@@ -111,13 +111,13 @@
         return;
     }
     
-    __block NSURL *url = nil;
+    NSURL __block *url = nil;
     
-    __block Game *game = nil;
-    __block Metadata *metadata = nil;
-    __block Image *image = nil;
+    Game __block *game = nil;
+    Metadata __block *metadata = nil;
+    Image __block *image = nil;
     
-    __block bool giveUp = NO;
+    BOOL __block giveUp = NO;
     
     [context performBlockAndWait:^{
         
@@ -295,7 +295,7 @@
         return;
     }
     
-    __block NSMutableDictionary *metadata = nil;
+    NSMutableDictionary __block *metadata = nil;
     
     PreviewViewController __weak *weakSelf = self;
     [context performBlockAndWait:^{
@@ -944,7 +944,7 @@
         NSLog(@"Could not create new context!");
         return nil;
     }
-    __block Game *game = nil;
+    Game __block *game = nil;
     
     [context performBlockAndWait:^{
         NSError *error = nil;
@@ -983,7 +983,7 @@
         NSLog(@"context is nil!");
         return nil;
     }
-    __block Game *game = nil;
+    Game __block *game = nil;
     
     [context performBlockAndWait:^{
         NSError *error = nil;
@@ -1087,7 +1087,7 @@
                 NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
                 
                 // See if we can find a path to the game file as well
-                __block NSString *path = nil;
+                NSString __block *path = nil;
                 ptr += paddedLength(length) + 8;
                 length = chunkIDAndLength(ptr, &chunkID);
                 if (chunkID == IFFID('I', 'n', 't', 'D')) {
@@ -1098,7 +1098,7 @@
                 
                 NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
                 if (context) {
-                    __block Game *game = nil;
+                    Game __block *game = nil;
                     
                     [context performBlockAndWait:^{
                         NSError *error = nil;

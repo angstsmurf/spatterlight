@@ -230,9 +230,9 @@ extern NSArray *gGameFileTypes;
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     char buf[TREATY_MINIMUM_EXTENT];
-    __block Metadata *metadata;
-    __block Game *game;
-    __block Blorb *blorb = nil;
+    Metadata __block *metadata;
+    Game __block *game;
+    Blorb __block *blorb = nil;
     NSString *ifid;
     char *format;
     char *s;

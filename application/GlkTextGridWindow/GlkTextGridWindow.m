@@ -366,7 +366,7 @@
 
         GlkTextGridWindow * __unsafe_unretained weakSelf = self;
 
-        __block NSArray *blockStyles = styles;
+         NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
@@ -507,9 +507,9 @@
         } else return;
     }
 
-    __block NSColor *bgCol;
-    __block NSUInteger blocCols = cols;
-    __block NSAttributedString *blockTextStorage = _bufferTextStorage;
+    NSColor __block *bgCol;
+    NSUInteger __block blocCols = cols;
+    NSAttributedString __block *blockTextStorage = _bufferTextStorage;
 
     [blockTextStorage
      enumerateAttribute:NSBackgroundColorAttributeName
@@ -1685,10 +1685,10 @@
 
 - (void)quotebox:(NSUInteger)linesToSkip {
     NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
-    __block NSUInteger changes = 0;
-    __block NSUInteger width;
-    __block NSUInteger height = 0;
-    __block NSAttributedString *blockTextStorage = _bufferTextStorage;
+    NSUInteger __block changes = 0;
+    NSUInteger __block width;
+    NSUInteger __block height = 0;
+    NSAttributedString __block *blockTextStorage = _bufferTextStorage;
     if (blockTextStorage.length < charactersToSkip)
         blockTextStorage = textstorage;
     if (blockTextStorage.length < charactersToSkip)
@@ -1696,7 +1696,7 @@
 
     NSRange quoteBoxRange = NSMakeRange(charactersToSkip, blockTextStorage.length - charactersToSkip);
 
-    __block NSMutableAttributedString *quoteAttStr = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString __block *quoteAttStr = [[NSMutableAttributedString alloc] init];
 
     [blockTextStorage
      enumerateAttribute:NSBackgroundColorAttributeName
@@ -1863,7 +1863,7 @@
 }
 
 - (NSArray *)links {
-    __block NSMutableArray *links = [[NSMutableArray alloc] init];
+    NSMutableArray<NSValue *> __block *links = [[NSMutableArray alloc] init];
     [textstorage
      enumerateAttribute:NSLinkAttributeName
      inRange:NSMakeRange(0, textstorage.length)

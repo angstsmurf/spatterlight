@@ -822,8 +822,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    __block NSMutableArray *running = [NSMutableArray new];
-    __block Game *game;
+    NSMutableArray __block *running = [NSMutableArray new];
+    Game __block *game;
 
     LibController * __weak weakSelf = self;
 
@@ -866,8 +866,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    __block Game *game;
-    __block NSString *urlString;
+    Game __block *game;
+    NSString __block *urlString;
 
     LibController * __weak weakSelf = self;
 
@@ -933,7 +933,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
-    __block NSMutableArray<NSManagedObjectID *> *blockGames = [NSMutableArray new];
+    NSMutableArray<NSManagedObjectID *> __block *blockGames = [NSMutableArray new];
 
     for (Game *gameInMain in games) {
         [blockGames addObject:gameInMain.objectID];
@@ -1058,7 +1058,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 - (IBAction)deleteSaves:(id)sender {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
-    LibController * __unsafe_unretained weakSelf = self;
+    LibController * __weak weakSelf = self;
 
     // If we clicked outside selected rows, only show info for clicked row
     if (_gameTableView.clickedRow != -1 &&
@@ -1097,7 +1097,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             enabledThemeItem = nil;
         }
         if (count > 0 && count < 10000) {
-            __block NSMutableSet *themeNamesToSelect = [NSMutableSet new];
+            NSMutableSet<NSString *> __block *themeNamesToSelect = [NSMutableSet new];
             [rows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
                 NSString *name = _gameTableModel[idx].theme.name;
                 if (name)
@@ -1484,7 +1484,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 - (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
 
-    __block NSArray *fetchedObjects;
+    NSArray __block *fetchedObjects;
 
     [context performBlockAndWait:^{
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

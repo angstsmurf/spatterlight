@@ -364,7 +364,7 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
-        __block NSWindow *win = [_libctl importAndPlayGame:path];
+        NSWindow __block *win = [_libctl importAndPlayGame:path];
         if (win && !((GlkController *)win.delegate).showingDialog) {
             double delayInSeconds = 1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -444,7 +444,7 @@ continueUserActivity:(NSUserActivity *)userActivity
         theDocCont = [NSDocumentController sharedDocumentController];
     }
 
-    __weak NSDocumentController *localDocCont = theDocCont;
+    NSDocumentController __weak *localDocCont = theDocCont;
 
     [URLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [localDocCont noteNewRecentDocumentURL:obj];

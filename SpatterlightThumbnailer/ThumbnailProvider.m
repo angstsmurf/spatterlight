@@ -58,12 +58,12 @@
 
     // There are three ways to provide a thumbnail through a QLThumbnailReply. Only one of them should be used.
 
-    __block NSData *imgdata = nil;
-    __block NSImage *image;
+    NSData __block *imgdata = nil;
+    NSImage __block *image;
 
-    __block NSURL *url = request.fileURL;
-    __block NSSize newImageSize;
-    __block NSSize contextSize;
+    NSURL __block *url = request.fileURL;
+    NSSize __block newImageSize;
+    NSSize __block contextSize;
 
 
     NSError *error;

@@ -719,8 +719,8 @@
         dontAsk = YES;
     }
 
-    __block NSData *data = imageData;
-    __block BOOL askFlag = dontAsk;
+    NSData __block *data = imageData;
+    BOOL __block askFlag = dontAsk;
     [self.workQueue addOperationWithBlock:^{
         if (data.length > MAX_SPATTERLIGHT_IMAGE_FILE_SIZE)
             data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
@@ -785,8 +785,8 @@
     if (!_game.managedObjectContext)
         return NO;
 
-    __block NSData *gameData;
-    __block NSString *gamePath;
+    NSData __block *gameData;
+    NSString __block *gamePath;
 
     [_game.managedObjectContext performBlockAndWait:^{
         gameData = (NSData *)_game.metadata.cover.data;
@@ -868,7 +868,7 @@
 
     NSDate *mouseTime = [NSDate date];
 
-    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
 
     NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
     NSTimeInterval timeout = NSEventDurationForever;

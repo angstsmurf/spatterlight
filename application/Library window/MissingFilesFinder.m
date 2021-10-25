@@ -231,7 +231,7 @@ extern NSArray *gGameFileTypes;
     if (!filenames.count)
         return;
 
-    __block NSArray<NSString *> *matchedPaths = filenames.allKeys;
+    NSArray<NSString *> __block *matchedPaths = filenames.allKeys;
 
     matchedPaths = [matchedPaths sortedArrayUsingComparator:
                   ^NSComparisonResult(NSString * obj1, NSString * obj2){

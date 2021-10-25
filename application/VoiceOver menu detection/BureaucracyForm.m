@@ -97,8 +97,8 @@
     NSString *string = _attrStr.string;
     NSUInteger startpos = NSMaxRange([string rangeOfString:_titlestring]);
     NSUInteger endpos = [string rangeOfString:@"Last name:"].location;
-    __block NSRange fieldrange;
-    __block NSUInteger counter = 0;
+    NSRange __block fieldrange;
+    NSUInteger __block counter = 0;
 
     [_attrStr
      enumerateAttribute:NSBackgroundColorAttributeName
@@ -119,10 +119,10 @@
     NSString *string = _attrStr.string;
     NSUInteger endpos = [string rangeOfString:@"Last name:"].location;
 
-    __block NSRange fieldrange = NSMakeRange(NSNotFound, 0);
+    NSRange __block fieldrange = NSMakeRange(NSNotFound, 0);
     if (endpos == NSNotFound)
         return fieldrange;
-    __block NSUInteger counter = 0;
+    NSUInteger __block counter = 0;
 
     [_attrStr
      enumerateAttribute:NSBackgroundColorAttributeName

@@ -23,7 +23,11 @@
         [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
     NSXMLElement *child;
     while ((child = [enumerator nextObject])) {
-        IFStory *story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue];
+        IFStory __block *story = nil;
+        [context performBlockAndWait:^{
+            story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue];
+        }];
+
         if (story)
             [stories addObject:story];
     }

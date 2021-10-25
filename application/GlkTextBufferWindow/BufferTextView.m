@@ -72,7 +72,7 @@
     NSDate *mouseTime = [NSDate date];
 
     [self temporarilyHideCaret];
-    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView:nil];
+    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView:nil];
     NSPoint adjustedPoint = location;
     adjustedPoint.x -= self.textContainerInset.width;
     adjustedPoint.y -= self.textContainerInset.height;

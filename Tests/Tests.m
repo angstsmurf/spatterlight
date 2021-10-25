@@ -118,7 +118,7 @@
 
     for (Game *game in fetchedObjects) {
         XCTestExpectation *exp = [[XCTestExpectation alloc] initWithDescription:@"Test passed"];
-        __block GlkController *glkctl = [self startGame:game];
+        GlkController __block *glkctl = [self startGame:game];
         if (glkctl) {
             double delayInSeconds = 2;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

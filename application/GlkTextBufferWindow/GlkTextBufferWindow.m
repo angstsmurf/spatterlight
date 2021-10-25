@@ -659,7 +659,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSRange selectedRange = _textview.selectedRange;
 
-        __block NSArray *blockStyles = styles;
+        NSArray __block *blockStyles = styles;
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
@@ -1533,14 +1533,14 @@ replacementString:(id)repl {
 - (NSSearchField *)findSearchFieldIn:
 (NSView *)theView // search the subviews for a view of class NSSearchField
 {
-    __block __weak NSSearchField * (^weak_findSearchField)(NSView *);
+    NSSearchField __block __weak *(^weak_findSearchField)(NSView *);
 
     NSSearchField * (^findSearchField)(NSView *);
 
     weak_findSearchField = findSearchField = ^(NSView *view) {
         if ([view isKindOfClass:[NSSearchField class]])
             return (NSSearchField *)view;
-        __block NSSearchField *foundView = nil;
+        NSSearchField __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(
                                                     NSView *subview, NSUInteger idx, BOOL *stop) {
             foundView = weak_findSearchField(subview);
@@ -2257,7 +2257,7 @@ replacementString:(id)repl {
 }
 
 - (NSArray<NSValue *> *)imagesInRange:(NSRange)range {
-    __block NSMutableArray<NSValue *> *images = [NSMutableArray new];
+    NSMutableArray<NSValue *> __block *images = [NSMutableArray new];
     BOOL withDescOnly = (self.theme.vOSpeakImages == kVOImageWithDescriptionOnly);
 
     [textstorage
@@ -2277,8 +2277,8 @@ replacementString:(id)repl {
 }
 
 - (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray * __autoreleasing *)keys {
-    __block NSMutableDictionary <NSNumber *, NSTextAttachment *> *attachments = [NSMutableDictionary new];
-    __block NSMutableArray *mutKeys = [NSMutableArray new];
+    NSMutableDictionary <NSNumber *, NSTextAttachment *> __block *attachments = [NSMutableDictionary new];
+    NSMutableArray __block *mutKeys = [NSMutableArray new];
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:range

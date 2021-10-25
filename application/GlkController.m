@@ -997,14 +997,14 @@ fprintf(stderr, "%s\n",                                                    \
 - (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView
 {
     // search the subviews for a view of class GlkTextGridWindow
-    __block __weak GlkTextGridWindow * (^weak_findGridWindow)(NSView *);
+    GlkTextGridWindow __block __weak *(^weak_findGridWindow)(NSView *);
 
     GlkTextGridWindow * (^findGridWindow)(NSView *);
 
     weak_findGridWindow = findGridWindow = ^(NSView *view) {
         if ([view isKindOfClass:[GlkTextGridWindow class]])
             return (GlkTextGridWindow *)view;
-        __block GlkTextGridWindow *foundView = nil;
+        GlkTextGridWindow __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(NSView *subview, NSUInteger idx, BOOL *stop) {
             foundView = weak_findGridWindow(subview);
             if (foundView)

@@ -332,9 +332,9 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"insertImage: image is placeholder!");
         return [self findPlaceHolderInMetadata:metadata imageData:data];
     }
-
-    __block Image *img;
-
+    
+    Image __block *img;
+    
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
     
     [localcontext performBlock:^{
@@ -369,8 +369,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (Image *)fetchImageForURL:(NSString *)imgurl {
-    __block NSArray *fetchedObjects;
-
+    NSArray __block *fetchedObjects;
+    
     [_context performBlockAndWait:^{
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
