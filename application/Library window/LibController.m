@@ -2567,20 +2567,10 @@ objectValueForTableColumn: (NSTableColumn*)column
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateTableViews];
     });
-    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
-    //    NSLog(@"updatedObjects.count:%ld", updatedObjects.count);
+    NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
+    NSSet *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
 
-    NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
-    //    NSLog(@"insertedObjects.count:%ld", insertedObjects.count);
-
-    //    NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
-    //    NSLog(@"refreshedObjects.count:%ld", refreshedObjects.count);
-    //
-    //    NSArray *invalidatedObject = (notification.userInfo)[NSInvalidatedObjectsKey];
-    //    NSLog(@"invalidatedObject.count:%ld", invalidatedObject.count);
-
-
-    NSMutableArray *correspondingObjects = [NSMutableArray new];
 
     for (id obj in updatedObjects) {
         if (countingMetadataChanges && [obj isKindOfClass:[Metadata class]]) {
@@ -2591,29 +2581,21 @@ objectValueForTableColumn: (NSTableColumn*)column
             [self rebuildThemesSubmenu];
             break;
         }
-        NSManagedObjectContext *sideViewContext = currentSideView.metadata.managedObjectContext;
-        if (sideViewContext) {
-            NSManagedObject *corresponding = [sideViewContext objectWithID:[obj objectID]];
-            if (corresponding) {
-                [correspondingObjects addObject:corresponding];
-            }
-        } else {
-            NSLog(@"No sideview context!");
+    }
+
+    for (id obj in insertedObjects) {
+        if (countingMetadataChanges &&
+            [obj isKindOfClass:[Metadata class]]) {
+            insertedMetadataCount++;
         }
     }
 
-    if (countingMetadataChanges) {
-        for (id obj in insertedObjects) {
-            if ([obj isKindOfClass:[Metadata class]]) {
-                insertedMetadataCount++;
-            }
-        }
-    }
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:insertedObjects];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
-    if (insertedObjects.count)
-        [correspondingObjects addObjectsFromArray:insertedObjects];
-
-    if ([correspondingObjects containsObject:currentSideView.metadata] || [correspondingObjects containsObject:currentSideView.metadata.cover])
+    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateSideViewForce:YES];

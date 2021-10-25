@@ -3879,7 +3879,11 @@ again:
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
     if ([updatedObjects containsObject:_game.metadata])
     {

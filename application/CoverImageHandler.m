@@ -204,10 +204,12 @@
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
-    NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
-    if (insertedObjects.count)
-        updatedObjects = [updatedObjects arrayByAddingObjectsFromArray:insertedObjects];
+    NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
+
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
     Metadata *metadata = _glkctl.game.metadata;
     if ([updatedObjects containsObject:metadata] ||
@@ -220,7 +222,7 @@
 
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)metadata.cover.data];
         if (image) {
-            CoverImageHandler __unsafe_unretained *weakSelf = self;
+            CoverImageHandler __weak *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
 
             [weakSelf.imageView processImage:image];
@@ -430,7 +432,7 @@
 
     [window makeFirstResponder:_imageView];
 
-    CoverImageHandler __unsafe_unretained *weakSelf = self;
+    CoverImageHandler __weak *weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {

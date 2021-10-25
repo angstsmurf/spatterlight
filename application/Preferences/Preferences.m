@@ -903,7 +903,14 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
-    NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
+    NSSet *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
+    NSSet *insertedObjects = (notify.userInfo)[NSInsertedObjectsKey];
+    NSSet *refreshedObjects = (notify.userInfo)[NSRefreshedObjectsKey];
+
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:insertedObjects];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
     if ([updatedObjects containsObject:theme]) {
         Preferences * __unsafe_unretained weakSelf = self;
