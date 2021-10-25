@@ -383,8 +383,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         for (NSString *entity in entitiesToDelete) {
             NSFetchRequest *fetchEntities = [[NSFetchRequest alloc] init];
-            [fetchEntities setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:_managedObjectContext]];
-            [fetchEntities setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+            fetchEntities.entity = [NSEntityDescription entityForName:entity inManagedObjectContext:_managedObjectContext];
+            fetchEntities.includesPropertyValues = NO; //only fetch the managedObjectID
 
             NSError *error = nil;
             NSArray *objectsToDelete = [_managedObjectContext executeFetchRequest:fetchEntities error:&error];
@@ -429,25 +429,27 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         [self cancel:nil];
 
-        NSArray *metadataEntriesToDelete =
-        [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
-        NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
-        counter = metadataEntriesToDelete.count;
-
-        for (Metadata *meta in metadataEntriesToDelete) {
-            NSLog(@"Pruning metadata for %@", meta.title);
-            [_managedObjectContext deleteObject:meta];
+        NSArray *gameEntriesToDelete =
+        [self fetchObjects:@"Game" predicate:@"hidden == YES" inContext:_managedObjectContext];
+        NSUInteger counter = gameEntriesToDelete.count;
+        for (Game *game in gameEntriesToDelete) {
+            [_managedObjectContext deleteObject:game];
         }
 
-        [self.coreDataManager saveChanges];
+        NSArray *metadataEntriesToDelete =
+        [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
+        counter += metadataEntriesToDelete.count;
+
+        for (Metadata *meta in metadataEntriesToDelete) {
+            [_managedObjectContext deleteObject:meta];
+        }
 
         // Now we removed any orphaned images
         NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
 
-        NSLog(@"Pruning %ld image entities", imageEntriesToDelete.count);
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
-            NSLog(@"Pruning image with original URL %@", img.originalURL);
+//            NSLog(@"Pruning image with original URL %@", img.originalURL);
             [_managedObjectContext deleteObject:img];
         }
 
@@ -458,7 +460,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         counter += ifidEntriesToDelete.count;
         for (Ifid *ifid in ifidEntriesToDelete) {
-            NSLog(@"Pruning ifid %@", ifid.ifidString);
+//            NSLog(@"Pruning ifid %@", ifid.ifidString);
             [_managedObjectContext deleteObject:ifid];
         }
 
@@ -467,7 +469,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
-        [self.coreDataManager saveChanges];    }
+        [self.coreDataManager saveChanges];
+    }
 }
 
 #pragma mark Check library for missing files
