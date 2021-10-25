@@ -384,17 +384,17 @@
     [self addInfoLine:url.lastPathComponent attributes:attrDict linebreak:NO];
     
     attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-    
-    if ([url.path.pathExtension.lowercaseString isEqualToString:@"d$$"]) {
+
+    if ([url.pathExtension.lowercaseString isEqualToString:@"d$$"]) {
         [self addInfoLine:@"Possibly an AGT game. Try opening in Spatterlight to convert to AGX format." attributes:attrDict linebreak:YES];
-    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glksave"] || [url.path.pathExtension.lowercaseString isEqualToString:@"qut"]) {
+    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glksave"] || [url.pathExtension.lowercaseString isEqualToString:@"qut"]) {
         NSString *saveTitle = [self titleFromSave:url.path];
         if (saveTitle.length)
             [self addInfoLine:[NSString stringWithFormat:@"Save file associated with game %@.", saveTitle] attributes:attrDict linebreak:YES];
         else {
             [self addInfoLine:@"Interactive fiction save file." attributes:attrDict linebreak:YES];
         }
-    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glkdata"]) {
+    } else if ([url.pathExtension.lowercaseString isEqualToString:@"glkdata"]) {
         NSString *dataTitle = [self titleFromDataFile:url.path];
         if (dataTitle.length)
             [self addInfoLine:[NSString stringWithFormat:@"Data file associated with game %@.", dataTitle] attributes:attrDict linebreak:YES];

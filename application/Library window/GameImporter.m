@@ -751,7 +751,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     void *ctx = get_babel_ctx();
 
-    format = babel_init_ctx((char *)tempFilePath.UTF8String, ctx);
+    format = babel_init_ctx((char *)tempFilePath.fileSystemRepresentation, ctx);
     if (!strcmp(format, "agt")) {
         char buf[TREATY_MINIMUM_EXTENT];
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
