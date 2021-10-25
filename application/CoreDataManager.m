@@ -187,20 +187,24 @@
 
     _persistentContainer.persistentStoreDescriptions = @[ description ];
 
-    [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
+    NSPersistentContainer *blockContainer = _persistentContainer;
+    [blockContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
         if (error != nil) {
             NSLog(@"Failed to load Core Data stack: %@", error);
         }
-        if (self->_persistentContainer.viewContext.undoManager == nil) {
+        if (blockContainer.viewContext.undoManager == nil) {
             NSUndoManager *newManager = [[NSUndoManager alloc] init];
             [newManager setLevelsOfUndo:10];
-            self->_persistentContainer.viewContext.undoManager = newManager;
+            blockContainer.viewContext.undoManager = newManager;
         }
+
+        blockContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+        blockContainer.viewContext.automaticallyMergesChangesFromParent = YES;
 
         // do the migrate job from local store to a group store.
         if (needMigrate) {
             error = nil;
-            NSPersistentStoreCoordinator *coordinator = self->_persistentContainer.persistentStoreCoordinator;
+            NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
             NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
             [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
             if (error != nil) {
@@ -209,9 +213,6 @@
             }
         }
     }];
-
-    self->_persistentContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-    self->_persistentContainer.viewContext.automaticallyMergesChangesFromParent = YES;
 
     return _persistentContainer;
 }
@@ -271,22 +272,22 @@
 
 - (void)saveChanges {
     //    NSLog(@"CoreDataManagar saveChanges");
-    CoreDataManager * __unsafe_unretained weakSelf = self;
+    NSManagedObjectContext *mainContext = _mainManagedObjectContext;
 
     if (@available(macOS 10.13, *)) {
-        [_mainManagedObjectContext performBlock:^{
+        [mainContext performBlock:^{
             NSError *error = nil;
-            if (weakSelf.mainManagedObjectContext.hasChanges)
-                [weakSelf.mainManagedObjectContext save:&error];
+            if (mainContext.hasChanges)
+                [mainContext save:&error];
             if (error) {
                 NSLog(@"CoreDataManager saveMainContext error: %@", error);
             }
         }];
     } else {
-        [_mainManagedObjectContext performBlockAndWait:^{
+        [mainContext performBlockAndWait:^{
             NSError *error = nil;
-            if (_mainManagedObjectContext.hasChanges) {
-                if (![_mainManagedObjectContext save:&error]) {
+            if (mainContext.hasChanges) {
+                if (![mainContext save:&error]) {
                     NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
                     if (error) {
                         [[NSApplication sharedApplication] presentError:error];
@@ -298,12 +299,14 @@
         }];
         
 
-        [privateManagedObjectContext performBlock:^{
+        NSManagedObjectContext *privateContext = privateManagedObjectContext;
+
+        [privateContext performBlock:^{
             BOOL result = NO;
             NSError *error = nil;
-            if (weakSelf->privateManagedObjectContext.hasChanges) {
+            if (privateContext.hasChanges) {
                 @try {
-                    result = [weakSelf->privateManagedObjectContext save:&error];
+                    result = [privateContext save:&error];
                     if (error)
                         NSLog(@"Error: %@", error);
                 }
