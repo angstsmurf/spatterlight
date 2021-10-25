@@ -19,7 +19,7 @@
     notify = 0;
     self.name = channelname;
     
-    status = CHANNEL_IDLE;
+    self.status = CHANNEL_IDLE;
     volume = (CGFloat)vol / GLK_MAXVOLUME;
     resid = -1;
     loop = 0;
@@ -37,7 +37,7 @@
 
 - (void)play:(NSInteger)snd repeats:(NSInteger)areps notify:(NSInteger)anot
 {
-    status = CHANNEL_SOUND;
+    self.status = CHANNEL_SOUND;
 
     char *buf = nil;
     size_t len = 0;
@@ -66,7 +66,7 @@
     [_player setVolume:volume];
 
     if (areps != -1) {
-        __unsafe_unretained MIDIChannel *weakSelf = self;
+        MIDIChannel __weak *weakSelf = self;
         SoundHandler *blockHandler = self.handler;
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;
@@ -74,7 +74,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 MIDIChannel *strongSelf = weakSelf;
                 if (strongSelf && --strongSelf->loop < 1) {
-                    strongSelf->status = CHANNEL_IDLE;
+                    strongSelf.status = CHANNEL_IDLE;
                     if (blocknotify)
                         [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
                 }

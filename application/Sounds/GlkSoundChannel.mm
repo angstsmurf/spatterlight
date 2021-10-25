@@ -25,7 +25,7 @@
     notify = 0;
     _name = channelname;
     
-    status = CHANNEL_IDLE;
+    _status = CHANNEL_IDLE;
     volume = (CGFloat)vol / GLK_MAXVOLUME;
     resid = -1;
     loop = 0;
@@ -38,17 +38,12 @@
     volume_delta = 0;
     timer = nil;
     
-//    [self postInit];
     return self;
 }
 
-//- (void)postInit {
-//}
-
-
 - (void)play:(NSInteger)snd repeats:(NSInteger)areps notify:(NSInteger)anot
 {
-    status = CHANNEL_SOUND;
+    _status = CHANNEL_SOUND;
 
     size_t len = 0;
     NSInteger type;
@@ -117,10 +112,10 @@
     if (areps != -1) {
         NSInteger blocknotify = notify;
         NSInteger blockresid = resid;
-        __unsafe_unretained GlkSoundChannel *weakSelf = self;
+        GlkSoundChannel __weak *weakSelf = self;
         _player->SetRenderingFinishedBlock(^(const SFB::Audio::Decoder& /*decoder*/){
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf->status = CHANNEL_IDLE;
+                weakSelf.status = CHANNEL_IDLE;
                 if (blocknotify)
                     [weakSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
             });
@@ -168,7 +163,7 @@
 
 - (void)cleanup
 {
-   status = CHANNEL_IDLE;
+   _status = CHANNEL_IDLE;
    if (timer)
         [timer invalidate];
     timer = nil;
@@ -261,7 +256,7 @@
 
 //    [self postInit];
     
-    if (status == CHANNEL_IDLE) {
+    if (_status == CHANNEL_IDLE) {
         return;
     }
 
@@ -320,23 +315,26 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
 
-    _name = (NSUInteger)[decoder decodeIntForKey:@"name"];
+    if (self) {
+        _name = (NSUInteger)[decoder decodeIntForKey:@"name"];
 
-    resid =  [decoder decodeIntForKey:@"resid"]; /* for notifies */
-    status =  [decoder decodeIntForKey:@"status"];
-    volume = [decoder decodeDoubleForKey:@"volume"];
-    loop = [decoder decodeIntForKey:@"loop"];
-    notify = [decoder decodeIntForKey:@"notify"];
-    paused = (NSUInteger)[decoder decodeIntForKey:@"paused"];
+        resid =  [decoder decodeIntForKey:@"resid"]; /* for notifies */
+        _status =  [decoder decodeIntForKey:@"status"];
+        volume = [decoder decodeDoubleForKey:@"volume"];
+        loop = [decoder decodeIntForKey:@"loop"];
+        notify = [decoder decodeIntForKey:@"notify"];
+        paused = (NSUInteger)[decoder decodeIntForKey:@"paused"];
 
-//    sdl_channel = [decoder decodeIntForKey:@"sdl_channel"];
+        //    sdl_channel = [decoder decodeIntForKey:@"sdl_channel"];
 
-    /* for volume fades */
-    volume_notify = [decoder decodeInt32ForKey:@"volume_notify"];
-    volume_timeout = (NSUInteger)[decoder decodeIntForKey:@"volume_timeout"];
-    target_volume = [decoder decodeDoubleForKey:@"target_volume"];
-    volume_delta = [decoder decodeDoubleForKey:@"volume_delta"];
+        /* for volume fades */
+        volume_notify = [decoder decodeInt32ForKey:@"volume_notify"];
+        volume_timeout = (NSUInteger)[decoder decodeIntForKey:@"volume_timeout"];
+        target_volume = [decoder decodeDoubleForKey:@"target_volume"];
+        volume_delta = [decoder decodeDoubleForKey:@"volume_delta"];
+    }
 
     return self;
 }
@@ -345,13 +343,11 @@
 
     [encoder encodeInteger:(NSInteger)_name forKey:@"name"];
     [encoder encodeInteger:resid forKey:@"resid"];
-    [encoder encodeInt:status forKey:@"status"];
+    [encoder encodeInteger:_status forKey:@"status"];
     [encoder encodeDouble:volume forKey:@"volume"];
     [encoder encodeInteger:loop forKey:@"loop"];
     [encoder encodeInteger:notify forKey:@"notify"];
     [encoder encodeInteger:(NSInteger)paused forKey:@"paused"];
-
-//    [encoder encodeInt:sdl_channel forKey:@"sdl_channel"];
 
     /* for volume fades */
     [encoder encodeInteger:volume_notify forKey:@"volume_notify"];

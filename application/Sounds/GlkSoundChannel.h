@@ -7,13 +7,12 @@
 
 enum { CHANNEL_IDLE, CHANNEL_SOUND };
 
-@interface GlkSoundChannel : NSObject {
+@interface GlkSoundChannel : NSObject <NSSecureCoding> {
     NSInteger loop;
     NSInteger notify;
     NSUInteger paused;
 
     NSInteger resid; /* for notifies */
-    int status;
 
     NSString *mimeString;
 
@@ -26,6 +25,7 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND };
     NSTimer *timer;
 }
 
+@property NSInteger status;
 @property NSUInteger name;
 @property (weak) SoundHandler *handler;
 
@@ -43,7 +43,5 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND };
 
 - (instancetype)initWithCoder:(NSCoder *)decoder;
 - (void) encodeWithCoder:(NSCoder *)encoder;
-
-//- (void)postInit;
 
 @end
