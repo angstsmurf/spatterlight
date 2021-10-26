@@ -43,20 +43,20 @@
     return self;
 }
 
-- (Ifid *)fetchIfid:(NSString *)ifid {
++ (Ifid *)fetchIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
     NSPredicate *predicate;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:self.context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
 
     fetchRequest.entity = entity;
 
     predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
     fetchRequest.predicate = predicate;
 
-    fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"fetchMetadataForIFID: Problem! %@",error);
     }
@@ -83,22 +83,20 @@
         if ([ifid isEqualToString:@"DUMMYmanySelected"]  || [ifid isEqualToString:@"DUMMYnoneSelected"]) {
             continue;
         }
-        ifidObj = [self fetchIfid:ifid];
+        ifidObj = [IFIdentification fetchIfid:ifid inContext:self.context];
         if (!ifidObj) {
             ifidObj = (Ifid *) [NSEntityDescription
                                 insertNewObjectForEntityForName:@"Ifid"
                                 inManagedObjectContext:self.context];
             ifidObj.ifidString = ifid;
-//            NSLog(@"Created new Ifid object with ifid %@", ifid);
         }
-//        else NSLog(@"Ifid object with ifid %@ already exists. Title: %@", ifid, ifidObj.metadata.title);
 
         [ifidObjs addObject:ifidObj];
         if (!metadata) {
             metadata = ifidObj.metadata;
         } else if (ifidObj.metadata && ifidObj.metadata != metadata) {
             NSLog(@"Competing metadata objects found!");
-            metadata = [self selectBestMetadataOf:metadata and:ifidObj.metadata];
+            metadata = [IFIdentification selectBestMetadataOf:metadata and:ifidObj.metadata];
             if (metadata != ifidObj.metadata) {
                 Metadata *leftover = ifidObj.metadata;
                 ifidObj.metadata = metadata;
@@ -114,8 +112,8 @@
 
     if (!metadata) {
         metadata = (Metadata *) [NSEntityDescription
-                                  insertNewObjectForEntityForName:@"Metadata"
-                                  inManagedObjectContext:self.context];
+                                 insertNewObjectForEntityForName:@"Metadata"
+                                 inManagedObjectContext:self.context];
     }
 
     [metadata addIfids:[NSSet setWithSet:ifidObjs]];
@@ -124,7 +122,7 @@
     return metadata;
 }
 
-- (Metadata *)selectBestMetadataOf:(Metadata *)metadataA and:(Metadata *)metadataB {
++ (Metadata *)selectBestMetadataOf:(Metadata *)metadataA and:(Metadata *)metadataB {
     if (!metadataA)
         return metadataB;
     if (!metadataB)

@@ -384,7 +384,7 @@ extern NSArray *gGameFileTypes;
 
     [context performBlockAndWait:^{
 
-        metadata = [libController fetchMetadataForIFID:ifid inContext:context];
+        metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
 
         if (!metadata)
         {
@@ -401,7 +401,7 @@ extern NSArray *gGameFileTypes;
         }
         else
         {
-            game = [libController fetchGameForIFID:ifid inContext:context];
+            game = [LibController fetchGameForIFID:ifid inContext:context];
             if (game)
             {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
@@ -449,7 +449,7 @@ extern NSArray *gGameFileTypes;
             {
                 NSLog(@"Found cover image in image directory for game %@", metadata.title);
                 metadata.coverArtURL = imgURL.path;
-                [self addImage:img toMetadata:metadata];
+                [IFDBDownloader insertImageData:img inMetadata:metadata];
             }
             else
             {
@@ -457,7 +457,7 @@ extern NSArray *gGameFileTypes;
                     NSData *imageData = blorb.coverImageData;
                     if (imageData) {
                         metadata.coverArtURL = path;
-                        [self addImage:imageData toMetadata:metadata];
+                        [IFDBDownloader insertImageData:imageData inMetadata:metadata];
                         NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
                         NSLog(@"Image md5: %@", [imageData md5String]);
                         // 26BFA026324DC9C5B3080EA9769B29DE
@@ -671,7 +671,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
-        [self addImage:imageData toMetadata:game.metadata];
+        [IFDBDownloader insertImageData:imageData inMetadata:game.metadata];
     }
 }
 
@@ -712,11 +712,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         return @[newURL];
     }
     return @[];
-}
-
-- (void)addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata {
-    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-    [downloader insertImageData:rawImageData inMetadata:metadata];
 }
 
 // Converts AGT D$$ files to the AGX format

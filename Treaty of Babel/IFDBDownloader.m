@@ -222,7 +222,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (giveup)
         return;
     
-    Image __block *img = [self fetchImageForURL:coverArtURL];
+    Image __block *img = [IFDBDownloader fetchImageForURL:coverArtURL inContext:localcontext];
     
     if (img) {
         NSData __block *newData;
@@ -283,7 +283,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }];
                 
                 [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
-                    [strongSelf insertImageData:data inMetadata:metadata];
+                    [IFDBDownloader insertImageData:data inMetadata:metadata];
                     [localcontext performBlock:^{
                         NSError *blockerror = nil;
                         [localcontext save:&blockerror];
@@ -325,16 +325,13 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (nullable Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
-    if (!data)
-        return nil;
-    if ([data isPlaceHolderImage]) {
-        NSLog(@"insertImage: image is placeholder!");
-        return [self findPlaceHolderInMetadata:metadata imageData:data];
++ (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
+    NSLog(@"insertImageData: inMetadata:");
+    if (!data) {
+        NSLog(@"No data");
+        return;
     }
-    
     Image __block *img;
-    
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
     
     [localcontext performBlock:^{
@@ -350,37 +347,42 @@ fprintf(stderr, "%s\n",                                                    \
         if (error)
             NSLog(@"IFDBDownloader insertImageData context save error:%@", error);
     }];
-    return img;
 }
 
-- (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
-    Image *placeholder = [self fetchImageForURL:@"Placeholder"];
-    if (!placeholder) {
-        placeholder = (Image *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Image"
-                                 inManagedObjectContext:metadata.managedObjectContext];
-        placeholder.data = [data copy];
-        placeholder.originalURL = @"Placeholder";
-        placeholder.imageDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";
-        metadata.cover = placeholder;
-        metadata.coverArtDescription = placeholder.imageDescription;
-    }
++ (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
+    NSLog(@"findPlaceHolderInMetadata");
+    Image __block *placeholder;
+    NSManagedObjectContext *context = metadata.managedObjectContext;
+    [context performBlockAndWait:^{
+        placeholder = [IFDBDownloader fetchImageForURL:@"Placeholder" inContext:context];
+        if (!placeholder) {
+            placeholder = (Image *) [NSEntityDescription
+                                     insertNewObjectForEntityForName:@"Image"
+                                     inManagedObjectContext:metadata.managedObjectContext];
+            placeholder.data = [data copy];
+            placeholder.originalURL = @"Placeholder";
+            placeholder.imageDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";
+            metadata.cover = placeholder;
+            metadata.coverArtDescription = placeholder.imageDescription;
+        }
+    }];
+
     return placeholder;
 }
 
-- (Image *)fetchImageForURL:(NSString *)imgurl {
++ (Image *)fetchImageForURL:(NSString *)imgurl inContext:(NSManagedObjectContext *)context {
     NSArray __block *fetchedObjects;
     
-    [_context performBlockAndWait:^{
+    [context performBlockAndWait:^{
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
         
         fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
         
-        fetchedObjects = [_context executeFetchRequest:fetchRequest error:&error];
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects == nil) {
             NSLog(@"Problem! %@",error);
         }

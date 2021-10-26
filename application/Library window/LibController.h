@@ -118,8 +118,8 @@
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
 
-- (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
-- (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
++ (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
++ (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
 
 - (void)waitToReportMetadataImport;

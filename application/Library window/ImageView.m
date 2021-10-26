@@ -729,13 +729,12 @@
             [self compareByFileNames:URLPath data:imageData]) {
             askFlag = YES;
         }
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
 
         if (askFlag) {
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [downloader insertImageData:data inMetadata:metadata];
+                [IFDBDownloader insertImageData:data inMetadata:metadata];
                 metadata.userEdited = @YES;
                 metadata.source = @(kUser);
             }];
@@ -751,7 +750,7 @@
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [downloader insertImageData:data inMetadata:metadata];
+                    [IFDBDownloader insertImageData:data inMetadata:metadata];
                     metadata.userEdited = @YES;
                     metadata.source = @(kUser);
                 }];

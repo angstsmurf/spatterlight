@@ -299,7 +299,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                                                object:_managedObjectContext];
 
 
-    _gameTableModel = [[self fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
+    _gameTableModel = [[LibController fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
     if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
@@ -429,14 +429,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         [self cancel:nil];
 
         NSArray *gameEntriesToDelete =
-        [self fetchObjects:@"Game" predicate:@"hidden == YES" inContext:_managedObjectContext];
+        [LibController fetchObjects:@"Game" predicate:@"hidden == YES" inContext:_managedObjectContext];
         NSUInteger counter = gameEntriesToDelete.count;
         for (Game *game in gameEntriesToDelete) {
             [_managedObjectContext deleteObject:game];
         }
 
         NSArray *metadataEntriesToDelete =
-        [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
+        [LibController fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
         counter += metadataEntriesToDelete.count;
 
         for (Metadata *meta in metadataEntriesToDelete) {
@@ -444,7 +444,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         }
 
         // Now we removed any orphaned images
-        NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
+        NSArray *imageEntriesToDelete = [LibController fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
 
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
@@ -455,7 +455,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         [self.coreDataManager saveChanges];
 
         // And then any orphaned ifids
-        NSArray *ifidEntriesToDelete = [self fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
+        NSArray *ifidEntriesToDelete = [LibController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
 
         counter += ifidEntriesToDelete.count;
         for (Ifid *ifid in ifidEntriesToDelete) {
@@ -523,10 +523,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [childContext performBlock:^{
         LibController *strongSelf = weakSelf;
-        [[NSNotificationCenter defaultCenter] addObserver:strongSelf
-                                                 selector:@selector(noteBackgroundManagedObjectContextDidChange:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:childContext];
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
         for (Game *gameInMain in strongSelf.gameTableModel) {
             if (strongSelf->verifyIsCancelled) {
@@ -1020,7 +1016,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     NSString *name = ((NSMenuItem *)sender).title;
 
-    Theme *theme = [self findTheme:name inContext:self.managedObjectContext];
+    Theme *theme = [LibController findTheme:name inContext:self.managedObjectContext];
 
     if (!theme) {
         NSLog(@"applyTheme: found no theme with name %@", name);
@@ -1340,7 +1336,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     };
 
 
-    entry = [self fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
+    entry = [LibController fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
     if (!entry)
     {
         entry = (Metadata *) [NSEntityDescription
@@ -1414,7 +1410,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 }
 
-- (Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
++ (Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
 
     NSError *error = nil;
 
@@ -1440,7 +1436,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 
-- (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
++ (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
