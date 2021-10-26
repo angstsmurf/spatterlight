@@ -97,7 +97,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Justified" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DCD-tP-ccA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="text.justifyleft" catalog="system" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.justify.left" catalog="system" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="3Lj-nX-FNq"/>
@@ -593,6 +593,6 @@
         <image name="text.aligncenter" catalog="system" width="16" height="13"/>
         <image name="text.alignleft" catalog="system" width="16" height="13"/>
         <image name="text.alignright" catalog="system" width="16" height="13"/>
-        <image name="text.justifyleft" catalog="system" width="16" height="13"/>
+        <image name="text.justify.left" catalog="system" width="16" height="13"/>
     </resources>
 </document>
