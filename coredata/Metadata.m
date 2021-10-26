@@ -91,7 +91,7 @@
         if (!self.deleted)
             return;
         CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
-        NSString *identifier = self.objectID.URIRepresentation.path;
+        NSString *identifier = self.objectID.URIRepresentation.absoluteString;
         if (!identifier)
             return;
         [index deleteSearchableItemsWithIdentifiers:@[identifier]
