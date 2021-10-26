@@ -57,6 +57,7 @@
 
 @property (strong) IBOutlet NSTextFieldCell *foundIndicatorCell;
 @property (strong) IBOutlet NSProgressIndicator *progressCircle;
+@property NSProgressIndicator *spinner;
 
 @property (strong) IBOutlet NSMenuItem *themesSubMenu;
 

@@ -592,7 +592,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (!strongSelf)
             return;
         if (!strongSelf.spinnerSpinning) {
-            [strongSelf.progressCircle startAnimation:strongSelf];
+            [strongSelf makeNewSpinner];
             strongSelf.spinnerSpinning = YES;
         }
     });
@@ -609,7 +609,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (!strongSelf)
             return;
         if (strongSelf.spinnerSpinning) {
-            [strongSelf.progressCircle stopAnimation:strongSelf];
+            [strongSelf.spinner removeFromSuperview];
+            strongSelf.spinner = nil;
             strongSelf.spinnerSpinning = NO;
         }
         
@@ -620,6 +621,20 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (rows.count)
             [strongSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     });
+}
+
+- (void)makeNewSpinner {
+    if (_spinner)
+        [_spinner removeFromSuperview];
+    NSView *superview = _progressCircle.superview;
+    _spinner = [[NSProgressIndicator alloc] initWithFrame:_progressCircle.frame];
+    _spinner.style = NSProgressIndicatorSpinningStyle;
+    _spinner.indeterminate = YES;
+    _spinner.usesThreadedAnimation = YES;
+    [superview addSubview:_spinner];
+    [superview addConstraint:[NSLayoutConstraint constraintWithItem:_spinner attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_searchField attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [superview addConstraint:[NSLayoutConstraint constraintWithItem:_searchField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:_spinner attribute:NSLayoutAttributeTrailing multiplier:1 constant:6]];
+    [_spinner startAnimation:self];
 }
 
 - (IBAction)importMetadata:(id)sender {
