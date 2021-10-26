@@ -404,9 +404,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 [set minusSet:ifidsToKeep];
             }
 
-            objectsToDelete = [set allObjects];
-
-            for (NSManagedObject *object in objectsToDelete) {
+            for (NSManagedObject *object in set) {
+                if ([object isKindOfClass:[Game class]])
                 [_managedObjectContext deleteObject:object];
             }
         }
@@ -818,6 +817,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (IBAction)deleteGame:(id)sender {
+    if (_currentlyAddingGames) {
+        NSBeep();
+        return;
+    }
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     // If we clicked outside selected rows, only delete game in clicked row
@@ -1090,6 +1093,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         (![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])) {
         count = 1;
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+    }
+
+    if (action == @selector(delete:) || action == @selector(deleteGame:)) {
+        return !_currentlyAddingGames;
     }
 
     if (action == @selector(applyTheme:)) {
@@ -1459,7 +1466,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return ((Ifid *)fetchedObjects[0]).metadata;
 }
 
-- (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
++ (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
 
@@ -1485,7 +1492,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return fetchedObjects[0];
 }
 
-- (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
++ (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
 
     NSArray __block *fetchedObjects;
 
@@ -1544,7 +1551,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         while ((ifid = [enumerator nextObject]))
         {
             [strongSelf beginImporting];
-            Metadata *meta = [strongSelf fetchMetadataForIFID:ifid inContext:private];
+            Metadata *meta = [LibController fetchMetadataForIFID:ifid inContext:private];
 
             Game *game;
 
@@ -1603,8 +1610,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 }
 
                 if (imgdata) {
-                    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:private];
-                    [downloader insertImageData:imgdata inMetadata:meta];
+                    [IFDBDownloader insertImageData:imgdata inMetadata:meta];
                 }
 
             } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
@@ -1959,6 +1965,49 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     });
 }
 
++ (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context {
+    NSLog(@"fixMetadataWithNoIfidsInContext:");
+    [context performBlock:^{
+        NSArray<Metadata *> *noIfids = [LibController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
+        for (Metadata *meta in noIfids) {
+            if (meta.games.count == 0) {
+                [context deleteObject:meta];
+                NSLog(@"Deleted leftover metadata object");
+            } else {
+                NSLog(@"Metadata without ifid has attached game object");
+                NSString *ifidString = meta.games.anyObject.ifid;
+                if (ifidString.length) {
+                    Ifid *ifid = [IFIdentification fetchIfid:ifidString inContext:context];
+                    if (ifid) {
+                        NSLog(@"The game object's ifid exists in store");
+                        if (ifid.metadata) {
+                            NSLog(@"And it has metadata");
+                        } else {
+                            NSLog(@"But it has no metadata");
+                        }
+                        [context deleteObject:meta];
+                    } else {
+                        NSLog(@"Created new Ifid object with ifid %@ and attached it to metadata", ifidString);
+                        ifid = (Ifid *) [NSEntityDescription
+                                         insertNewObjectForEntityForName:@"Ifid"
+                                         inManagedObjectContext:context];
+                        ifid.ifidString = ifidString;
+                        ifid.metadata = meta;
+                        if (!meta.title.length) {
+                            meta.title = meta.games.anyObject.path.lastPathComponent;
+                        }
+                    }
+
+                } else {
+                    NSLog(@"But the game object has no ifid");
+                    [context deleteObject:meta];
+                    NSLog(@"Deleted leftover metadata object");
+                }
+            }
+        }
+    }];
+}
+
 #pragma mark Actually starting the game
 
 - (NSWindow *) playGame:(Game *)game {
@@ -1966,7 +2015,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (NSWindow *)playGameWithIFID:(NSString *)ifid {
-    Game *game = [self fetchGameForIFID:ifid inContext:_managedObjectContext];
+    Game *game = [LibController fetchGameForIFID:ifid inContext:_managedObjectContext];
     if (!game) return nil;
     return [self playGame:game winRestore:YES];
 }
@@ -2154,7 +2203,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
 
     if (ifid.length) {
-        game = [self fetchGameForIFID:ifid inContext:_managedObjectContext];
+        game = [LibController fetchGameForIFID:ifid inContext:_managedObjectContext];
         if ([_gameTableModel containsObject:game]) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
@@ -2169,7 +2218,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (ifids.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
         for (NSString *ifid in ifids) {
-            Game *game = [self fetchGameForIFID:ifid inContext:_managedObjectContext];
+            Game *game = [LibController fetchGameForIFID:ifid inContext:_managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
                 //NSLog(@"Selecting game with ifid %@", ifid);
@@ -2554,16 +2603,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     return nil;
 }
 
-- (void)noteBackgroundManagedObjectContextDidChange:(NSNotification *)notification {
-    NSLog(@"noteBackgroundManagedObjectContextDidChange");
-    //    NSManagedObjectContext *mainContext = _managedObjectContext;
-    //    [mainContext performBlock:^{
-    //        [mainContext mergeChangesFromContextDidSaveNotification: notification];
-    //        [self.coreDataManager saveChanges];
-    ////        [self noteManagedObjectContextDidChange:notification];
-    //    }];
-}
-
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
@@ -2573,7 +2612,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSSet *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
     NSSet *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
-
 
     for (id obj in updatedObjects) {
         if (countingMetadataChanges && [obj isKindOfClass:[Metadata class]]) {
@@ -2598,7 +2636,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:insertedObjects];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
-    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
+    if (currentSideView.metadata && ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover]))
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateSideViewForce:YES];
