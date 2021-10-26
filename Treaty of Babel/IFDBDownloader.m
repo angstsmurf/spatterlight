@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -30,13 +31,12 @@ fprintf(stderr, "%s\n",                                                    \
 #import "LibController.h"
 #import "DownloadOperation.h"
 
-@interface IFDBDownloader () {
+@interface IFDBDownloader () <NSURLSessionDelegate> {
     NSURLSession *defaultSession;
     NSURLSessionDataTask *dataTask;
     NSOperation *lastImageDownloadOperation;
 }
 
-@property NSMutableDictionary *groups;
 @property NSString *coverArtUrl;
 
 @end
@@ -47,32 +47,80 @@ fprintf(stderr, "%s\n",                                                    \
     self = [super init];
     if (self) {
         _context = context;
-        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+
         lastImageDownloadOperation = nil;
-        _groups = nil;
     }
     return self;
 }
 
-+ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
+- (void)URLSession:(NSURLSession *)session
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
+    NSLog(@"URLSession:didReceiveChallenge:");
+
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+        if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
+            SecTrustRef trust = [protectionSpace serverTrust];
+
+            /***** Make specific changes to the trust policy here. *****/
+
+            /* Re-evaluate the trust policy. */
+            SecTrustResultType secresult = kSecTrustResultInvalid;
+            if (SecTrustEvaluate(trust, &secresult) != errSecSuccess) {
+                /* Trust evaluation failed. */
+
+                // Perform other cleanup here, as needed.
+                return;
+            }
+
+            NSLog(@"secresult: %u", secresult);
+
+            switch (secresult) {
+                case kSecTrustResultUnspecified: // The OS trusts this certificate implicitly.
+                    NSLog(@"kSecTrustResultUnspecified");
+                case kSecTrustResultRecoverableTrustFailure:
+                    NSLog(@"kSecTrustResultRecoverableTrustFailure");
+                case kSecTrustResultProceed: // The user explicitly told the OS to trust it.
+                {
+                    NSLog(@"kSecTrustResultProceed");
+                    NSURLCredential *credential =
+                    [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+                    completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+                    return;
+                }
+                default: ;
+                    /* It's somebody else's key. Fall through. */
+            }
+            /* The server sent a key other than the trusted key. */
+
+            // Perform other cleanup here, as needed.
+
+        }
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+    });
+}
+
++ (nullable DownloadOperation *)operationForIFID:(NSString*)ifid session:(NSURLSession *)session completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
     if (!ifid || ifid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:handler];
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url completionHandler:handler];
     
     return operation;
 }
 
-+ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
++ (nullable DownloadOperation *)operationForTUID:(NSString*)tuid session:(NSURLSession *)session completionHandler:(void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))handler {
     if (tuid.length == 0) {
         return nil;
     }
     
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
     ;
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:handler];
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:session dataTaskURL:url completionHandler:handler];
     
     return operation;
 }
@@ -133,8 +181,7 @@ fprintf(stderr, "%s\n",                                                    \
                                 NSLog(@"Saved context!");
                             }
                         }
-                        
-                        
+
                         if (!success && reportFailure) {
                             [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
                                 [IFDBDownloader showNoDataFoundBezel];
@@ -153,12 +200,12 @@ fprintf(stderr, "%s\n",                                                    \
             [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
             if (game.metadata.tuid.length) {
-                operation = [IFDBDownloader operationForTUID:game.metadata.tuid completionHandler:internalHandler];
+                operation = [IFDBDownloader operationForTUID:game.metadata.tuid session:defaultSession completionHandler:internalHandler];
                 [queue addOperation:operation];
                 lastoperation = operation;
             } else {
                 for (Ifid *ifid in game.metadata.ifids) {
-                    operation = [IFDBDownloader operationForIFID:ifid.ifidString completionHandler:internalHandler];
+                    operation = [IFDBDownloader operationForIFID:ifid.ifidString session:defaultSession completionHandler:internalHandler];
                     [queue addOperation:operation];
                     lastoperation = operation;
                 }
@@ -262,7 +309,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     IFDBDownloader __weak *weakSelf = self;
 
-    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:[NSURLSession sharedSession] dataTaskURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+    DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
             strongSelf = [[IFDBDownloader alloc] initWithContext:localcontext];
@@ -333,6 +380,36 @@ fprintf(stderr, "%s\n",                                                    \
     }
     Image __block *img;
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
+
+    if (!localcontext) {
+        NSLog(@"Error! No context!");
+        return;
+    }
+
+//    // Check if the metadata object has been deleted
+//    if ([localcontext respondsToSelector:@selector(existingObjectWithID:error:)]) {
+//        NSManagedObjectID *objectID = metadata.objectID;
+//        NSError *error = nil;
+//        NSManagedObject *managedObjectClone = [localcontext existingObjectWithID:objectID error:&error];
+//
+//        if (error)
+//            NSLog(@"Error: %@", error);
+//
+//        if (!managedObjectClone) {
+//            NSLog(@"Metadata object is deleted");
+//            return; // Deleted.
+//        }
+//    }
+
+    if ([data isPlaceHolderImage]) {
+        [localcontext performBlock:^{
+            NSLog(@"insertImage: image is placeholder!");
+            img = [IFDBDownloader findPlaceHolderInMetadata:metadata imageData:data];
+            metadata.cover = img;
+        }];
+
+        return;
+    }
     
     [localcontext performBlock:^{
         img = (Image *) [NSEntityDescription
@@ -343,9 +420,22 @@ fprintf(stderr, "%s\n",                                                    \
         img.imageDescription = metadata.coverArtDescription;
         metadata.cover = img;
         NSError *error = nil;
-        [localcontext save:&error];
-        if (error)
-            NSLog(@"IFDBDownloader insertImageData context save error:%@", error);
+
+        @try {
+            [localcontext save:&error];
+            if (error) {
+                NSLog(@"IFDBDownloader insertImageData context save error:%@", error);
+            } else {
+                NSLog(@"Inserted image from \"%@\" in metadata for game %@", metadata.coverArtURL, metadata.title);
+            }
+        }
+        @catch (NSException *ex) {
+            // Ususally because we have deleted the core data files
+            // while the program is running
+            NSLog(@"Unable to save changes after inserting image. %@", ex);
+            [localcontext deleteObject:img];
+        }
+
     }];
 }
 

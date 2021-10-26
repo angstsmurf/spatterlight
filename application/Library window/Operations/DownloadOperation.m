@@ -62,7 +62,7 @@ typedef enum OperationState : NSUInteger {
     if (self) {
         DownloadOperation __weak *weakSelf = self;
         // use weak self to prevent retain cycle
-        _task = [[NSURLSession sharedSession] dataTaskWithURL:dataTaskURL
+        _task = [session dataTaskWithURL:dataTaskURL
                                             completionHandler:^(NSData * _Nullable localData, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             /*
              if there is a custom completionHandler defined,
