@@ -935,7 +935,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     _lastImageComparisonData = nil;
 
-    if (games.count == _gameTableModel.count)
+    // This deselects all games
+    if (games.count > 10 && games.count == _gameTableModel.count)
         [_gameTableView selectRowIndexes:[NSIndexSet new] byExtendingSelection:NO];
 
     _nestedDownload = _currentlyAddingGames;
