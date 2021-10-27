@@ -625,6 +625,7 @@
 		C39D803D26BDFA4000500E1C /* Transcript of Transparent.txt in Resources */ = {isa = PBXBuildFile; fileRef = C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3A2079A2727B1BE00BAAA24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A207982727B1BE00BAAA24 /* Security.framework */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
 		C3AD640926176589008614C5 /* MarginContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD640826176589008614C5 /* MarginContainer.m */; };
 		C3AD642526176737008614C5 /* BufferTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD642426176737008614C5 /* BufferTextView.m */; };
@@ -668,6 +669,7 @@
 		C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3779E1ECBA3DD006432BE /* vmtz.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
@@ -725,7 +727,6 @@
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
 		C3F53C45271B509900538393 /* MyCoreDataCoreSpotlightDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F53C42271B509800538393 /* MyCoreDataCoreSpotlightDelegate.m */; };
-		C3F53C5E271BB8BE00538393 /* BlorbFramework.docc in Sources */ = {isa = PBXBuildFile; fileRef = C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */; };
 		C3F53C5F271BB8BE00538393 /* BlorbFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F53C5C271BB8BE00538393 /* BlorbFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F53C64271BB93300538393 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
 		C3F53C65271BB94C00538393 /* Blorb.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1807B25C70F2F0040AE79 /* Blorb.m */; };
@@ -2744,6 +2745,7 @@
 		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; };
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
+		C3A207982727B1BE00BAAA24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C3AD63D22617648D008614C5 /* MyAttachmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttachmentCell.h; sourceTree = "<group>"; };
 		C3AD63D32617648D008614C5 /* MyAttachmentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttachmentCell.m; sourceTree = "<group>"; };
 		C3AD640726176589008614C5 /* MarginContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarginContainer.h; sourceTree = "<group>"; };
@@ -2796,6 +2798,8 @@
 		C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmtzobj.cpp; sourceTree = "<group>"; };
 		C3B377A21ECBA41B006432BE /* vmconhtm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconhtm.cpp; sourceTree = "<group>"; };
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconnom.cpp; sourceTree = "<group>"; };
+		C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+safeSave.h"; sourceTree = "<group>"; };
+		C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+safeSave.m"; sourceTree = "<group>"; };
 		C3B7280E2667934100E9B08D /* NSImage+Categories.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSImage+Categories.h"; sourceTree = "<group>"; };
 		C3B7280F2667934100E9B08D /* NSImage+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSImage+Categories.m"; sourceTree = "<group>"; };
 		C3B9EB4925FA29F4002A406E /* AttributeDictionaryTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -2949,6 +2953,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A2079A2727B1BE00BAAA24 /* Security.framework in Frameworks */,
 				C3F53C6D271BBAC200538393 /* BlorbFramework.framework in Frameworks */,
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
 				C31AF2F427165168007B7120 /* CoreData.framework in Frameworks */,
@@ -3159,6 +3164,8 @@
 				C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */,
 				C35C54022676613800294FE7 /* NSFont+Categories.h */,
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
+				C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */,
+				C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -4004,6 +4011,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
 				C31AF2F5271651C4007B7120 /* CoreServices.framework */,
@@ -6582,6 +6590,7 @@
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
 				6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */,
 				C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */,
+				C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */,
 				C305EA1E264B014D009DC78C /* CommandScriptHandler.m in Sources */,
 				C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */,
 				6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */,
@@ -7139,7 +7148,6 @@
 				C3F53C64271BB93300538393 /* iff.c in Sources */,
 				C3F53C65271BB94C00538393 /* Blorb.m in Sources */,
 				C3F53C66271BB95A00538393 /* BlorbResource.m in Sources */,
-				C3F53C5E271BB8BE00538393 /* BlorbFramework.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

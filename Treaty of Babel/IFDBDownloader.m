@@ -30,6 +30,7 @@ fprintf(stderr, "%s\n",                                                    \
 #import "AppDelegate.h"
 #import "LibController.h"
 #import "DownloadOperation.h"
+#import "NSManagedObjectContext+safeSave.h"
 
 @interface IFDBDownloader () <NSURLSessionDelegate> {
     NSURLSession *defaultSession;
@@ -129,13 +130,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (!games.count)
         return nil;
     
-    _context = games.firstObject.managedObjectContext;
+    NSManagedObjectContext *localContext = games.firstObject.managedObjectContext;
     
     NSOperation __block *lastoperation = nil;
     
     IFDBDownloader __weak *weakSelf = self;
     
-    [_context performBlockAndWait:^{
+    [localContext performBlockAndWait:^{
         IFDBDownloader *strongSelf = weakSelf;
         if (!strongSelf)
             return;
@@ -152,7 +153,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             } else {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                 if (httpResponse.statusCode == 200 && data) {
-                    [strongSelf.context performBlock:^{
+                    [localContext performBlock:^{
                         BOOL success = NO;
                         
                         if (imageOnly) {
@@ -162,7 +163,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             }
                         } else {
                             
-                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:strongSelf.context andQueue:queue];
+                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue];
                             
                             if (!result || result.stories.count == 0) {
                                 NSLog(@"No metadata found!");
@@ -171,16 +172,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                 success = YES;
                             }
                         }
-                        
-                        if (strongSelf.context.hasChanges) {
-                            NSError *blockError = nil;
-                            [strongSelf.context save:&blockError];
-                            if (blockError) {
-                                NSLog(@"Error when saving context: %@", blockError);
-                            } else {
-                                NSLog(@"Saved context!");
-                            }
-                        }
+                        [localContext safeSave];
 
                         if (!success && reportFailure) {
                             [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
@@ -287,13 +279,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             [localcontext performBlock:^{
                 metadata.cover = img;
                 metadata.coverArtDescription = img.imageDescription;
-                if (localcontext.hasChanges) {
-                    NSError *error = nil;
-                    [localcontext save:&error];
-                    if (error) {
-                        NSLog(@"%@", error);
-                    }
-                }
+                [localcontext safeSave];
             }];
         }];
         
@@ -331,12 +317,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 
                 [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
                     [IFDBDownloader insertImageData:data inMetadata:metadata];
-                    [localcontext performBlock:^{
-                        NSError *blockerror = nil;
-                        [localcontext save:&blockerror];
-                        if (blockerror)
-                            NSLog(@"%@", blockerror);
-                    }];
+                    [localcontext safeSave];
                 }];
             }
         }
@@ -419,23 +400,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         img.originalURL = metadata.coverArtURL;
         img.imageDescription = metadata.coverArtDescription;
         metadata.cover = img;
-        NSError *error = nil;
-
-        @try {
-            [localcontext save:&error];
-            if (error) {
-                NSLog(@"IFDBDownloader insertImageData context save error:%@", error);
-            } else {
-                NSLog(@"Inserted image from \"%@\" in metadata for game %@", metadata.coverArtURL, metadata.title);
-            }
-        }
-        @catch (NSException *ex) {
-            // Ususally because we have deleted the core data files
-            // while the program is running
-            NSLog(@"Unable to save changes after inserting image. %@", ex);
-            [localcontext deleteObject:img];
-        }
-
+        [localcontext safeSave];
     }];
 }
 

@@ -330,8 +330,6 @@
 
     if (@available(macOS 10.13, *)) {
         NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
-//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-//        context.automaticallyMergesChangesFromParent = YES;
         return context;
     } else {
         // Initialize Managed Object Context

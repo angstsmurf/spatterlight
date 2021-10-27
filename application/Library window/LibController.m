@@ -40,6 +40,8 @@
 #import "FolderAccess.h"
 #import "DownloadOperation.h"
 
+#import "NSManagedObjectContext+safeSave.h"
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \
@@ -390,7 +392,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             NSArray *objectsToDelete = [_managedObjectContext executeFetchRequest:fetchEntities error:&error];
             if (error)
                 NSLog(@"deleteLibrary: %@", error);
-            //error handling goes here
 
             NSMutableSet *set = [NSMutableSet setWithArray:objectsToDelete];
 
@@ -543,13 +544,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                         game.found = YES;
                 }
             }
-            NSError *error = nil;
-            if (childContext.hasChanges) {
-                [childContext save:&error];
-                if (error) {
-                    NSLog(@"verifyInBackground: childContext save: %@", error);
-                }
-            }
+            [childContext safeSave];
         }
         [[NSNotificationCenter defaultCenter] removeObserver:strongSelf
                                                         name:NSManagedObjectContextDidSaveNotification

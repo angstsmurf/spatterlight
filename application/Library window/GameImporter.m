@@ -28,6 +28,7 @@
 #import "GameImporter.h"
 
 #import "FolderAccess.h"
+#import "NSManagedObjectContext+safeSave.h"
 
 extern NSArray *gGameFileTypes;
 
@@ -91,18 +92,9 @@ extern NSArray *gGameFileTypes;
         //        }
         //        libController.iFictionFiles = nil;
 
-        [context performBlockAndWait:^{
-            NSError *error = nil;
-            if (context.hasChanges) {
-                if (![context save:&error]) {
-                    if (error) {
-                        NSLog(@"Error: %@", error);
-                    }
-                }
-            }
-        }];
-
-        [libController.coreDataManager saveChanges];
+        [context safeSaveAndWait];
+        //
+//        [libController.coreDataManager saveChanges];
 
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
@@ -112,14 +104,15 @@ extern NSArray *gGameFileTypes;
                 libController.currentlyAddingGames = NO;
                 [libController endImporting];
             });
+            [LibController fixMetadataWithNoIfidsInContext:context];
         }];
     };
-
+    
     // End of the long block
 #pragma mark End of long completion handler
-
+    
     newOptions[@"completionHandler"] = internalHandler;
-
+    
     [libController beginImporting];
     [self addGamesFromURLsRecursively:urls options:newOptions];
 }
@@ -155,25 +148,26 @@ extern NSArray *gGameFileTypes;
 
         if (isDirectory.boolValue) {
             NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
-                                       includingPropertiesForKeys:@[NSURLIsDirectoryKey]
-                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                            error:nil];
+                                            includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                                               options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                 error:nil];
             lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
         } else {
             lastOperation = [self addSingleFile:url options:options];
         }
 
-        if ([timestamp timeIntervalSinceNow] < -0.5) {
+        if ([timestamp timeIntervalSinceNow] < -0.3) {
 
-            NSError *error = nil;
-            if (context.hasChanges) {
-                if (![context save:&error]) {
-                    NSLog(@"GameImporter addFiles context save error: %@", error);
-                    continue;
-                }
+            [context safeSaveAndWait];
+//            NSError *error = nil;
+//            if (context.hasChanges) {
+//                if (![context save:&error]) {
+//                    NSLog(@"GameImporter addFiles context save error: %@", error);
+//                    continue;
+//                }
 
                 [_libController.coreDataManager saveChanges];
-            }
+//            }
             timestamp = [NSDate date];
         }
     }
@@ -208,7 +202,7 @@ extern NSArray *gGameFileTypes;
             [select addObject:game.ifid];
         if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
-            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:reportFailure completionHandler:nil];
+            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:nil];
             [_downloadedMetadata addObject:game.metadata];
         }
         // We only look for images on the HDD if the game has
@@ -302,7 +296,7 @@ extern NSArray *gGameFileTypes;
                     [alert runModal];
                 });
             } else {
-               NSLog(@"Adrift 5 games are not supported.");
+                NSLog(@"Adrift 5 games are not supported.");
             }
             return nil;
         }
@@ -352,9 +346,9 @@ extern NSArray *gGameFileTypes;
         ifid = @"ZCODE-5-830222";
 
     if (([extension isEqualToString:@"dat"] &&
-        !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-          [@(format) isEqualToString:@"level9"] ||
-          [@(format) isEqualToString:@"advsys"])) ||
+         !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
+           [@(format) isEqualToString:@"level9"] ||
+           [@(format) isEqualToString:@"advsys"])) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -550,20 +544,20 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
        objects + propsize > static_start)
     {
         // corrupted story: object table is not in dynamic memory
-            return NO;
+        return NO;
     }
     return YES;
 }
 
 - (void)lookForImagesForGame:(Game *)game {
-//    NSLog(@"lookForImagesForGame %@", game.metadata.title);
+    //    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSURL *dirUrl = [NSURL fileURLWithPath:[game.path stringByDeletingLastPathComponent] isDirectory:YES];
     // First check if there are other games in this folder
     NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
-                               includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
-                                                  options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                    error:nil];
+                                    includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                         error:nil];
 
     NSMutableSet<NSString *> *gameNames = [[NSMutableSet alloc] initWithCapacity:contentsOfDir.count];
 
@@ -635,9 +629,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             if ([currentDir isEqualToString:@"Data"]) {
                 dirUrl = [NSURL fileURLWithPath:game.path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent isDirectory:YES];
                 contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
-                                           includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
-                                                              options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                error:nil];
+                                       includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                            error:nil];
                 imageFiles = [contentsOfDir filteredArrayUsingPredicate:imageFilesFilter];
             }
         }
@@ -698,7 +692,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 
     NSString *screenDatPath = [path.stringByDeletingLastPathComponent
-                          stringByAppendingPathComponent:@"SCREEN.DAT"];
+                               stringByAppendingPathComponent:@"SCREEN.DAT"];
 
     if ([filemanager fileExistsAtPath:screenDatPath]) {
         NSURL *oldURL = [NSURL fileURLWithPath:screenDatPath];
@@ -706,9 +700,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         NSURL *newURL =  [NSURL fileURLWithPath:newURLpath];
 
         [filemanager
-            copyItemAtURL:oldURL
-                    toURL:newURL
-                     error:&error];
+         copyItemAtURL:oldURL
+         toURL:newURL
+         error:&error];
         return @[newURL];
     }
     return @[];
@@ -743,7 +737,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
 
     NSString *exepath =
-        [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
+    [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
+    if (!exepath.length)
+        return nil;
     NSURL *dirURL;
     NSURL *cvtURL;
 
@@ -771,7 +767,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
             dirURL =
-                [_libController.homepath URLByAppendingPathComponent:@"Converted"];
+            [_libController.homepath URLByAppendingPathComponent:@"Converted"];
 
             [filemanager createDirectoryAtURL:dirURL
                   withIntermediateDirectories:YES
@@ -779,8 +775,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                         error:&error];
 
             cvtURL =
-                [dirURL URLByAppendingPathComponent:
-                 [@(buf) stringByAppendingPathExtension:@"agx"]];
+            [dirURL URLByAppendingPathComponent:
+             [@(buf) stringByAppendingPathExtension:@"agx"]];
 
             babel_release_ctx(ctx);
 
@@ -817,9 +813,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                 [filemanager removeItemAtURL:newIconURL error:nil];
 
                 [filemanager
-                    copyItemAtURL:oldIconURL
-                            toURL:newIconURL
-                             error:&error];
+                 copyItemAtURL:oldIconURL
+                 toURL:newIconURL
+                 error:&error];
             }
 
             return cvtURL.path;
