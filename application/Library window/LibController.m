@@ -523,6 +523,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [childContext performBlock:^{
         LibController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
         for (Game *gameInMain in strongSelf.gameTableModel) {
             if (strongSelf->verifyIsCancelled) {
