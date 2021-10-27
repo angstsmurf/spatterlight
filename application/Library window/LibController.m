@@ -546,9 +546,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
             [childContext safeSave];
         }
-        [[NSNotificationCenter defaultCenter] removeObserver:strongSelf
-                                                        name:NSManagedObjectContextDidSaveNotification
-                                                      object:childContext];
     }];
 }
 
@@ -842,10 +839,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         game = weakSelf.gameTableModel[idx];
-        if (weakSelf.gameSessions[game.ifid] == nil)
+        if (weakSelf.gameSessions[game.ifid] == nil) {
             [weakSelf.managedObjectContext deleteObject:game];
-        else
+        } else {
             [running addObject:game];
+        }
     }];
 
     NSUInteger count = running.count;
