@@ -35,7 +35,7 @@
     NSDictionary *result = nil;
     
     if ([value isKindOfClass:[NSData class]]) {
-        result = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[ [NSDictionary class], [NSParagraphStyle class], [NSFont class], [NSColor class], [NSValue class], [NSNumber class], [NSImage class] ]] fromData:data error:&error];
+        result = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[ [NSDictionary class], [NSParagraphStyle class], [NSFont class], [NSColor class], [NSValue class], [NSNumber class], [NSImage class], [NSString class] ]] fromData:data error:&error];
         NSImage *cursorImage = result[@"cursorImage"];
         if (cursorImage) {
             NSMutableDictionary *mutDict = result.mutableCopy;
