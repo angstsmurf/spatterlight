@@ -406,7 +406,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
 
             for (NSManagedObject *object in set) {
-                if ([object isKindOfClass:[Game class]])
                 [_managedObjectContext deleteObject:object];
             }
         }
