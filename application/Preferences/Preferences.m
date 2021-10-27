@@ -1151,10 +1151,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (NSString *)themeScopeTitle {
     if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
-    if ( _currentGame == nil)
+    if (_currentGame == nil) {
         return NSLocalizedString(@"No game is currently running", nil);
-    else
+    } else {
+        if (!_currentGame.metadata.title.length)
+            _currentGame.metadata.title = _currentGame.path.lastPathComponent;
         return [NSLocalizedString(@"Theme setting for game ", nil) stringByAppendingString:_currentGame.metadata.title];
+    }
 }
 
 - (IBAction)changeAdjustSize:(id)sender {
