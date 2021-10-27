@@ -578,7 +578,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 #pragma mark End of check for missing files
 
 - (void)beginImporting {
-    NSLog(@"Beginning importing");
+//    NSLog(@"Beginning importing");
     LibController * __weak weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         LibController *strongSelf = weakSelf;
@@ -592,12 +592,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)endImporting {
-    NSLog(@"Ending importing");
+//    NSLog(@"Ending importing");
 
-    double delayInSeconds = 0.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     LibController * __weak weakSelf = self;
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//
+//    double delayInSeconds = 0.2;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_async(dispatch_get_main_queue(), ^{
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
@@ -606,12 +608,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             strongSelf.spinner = nil;
             strongSelf.spinnerSpinning = NO;
         }
-        
+
         NSIndexSet *rows = strongSelf.gameTableView.selectedRowIndexes;
 
         if ((strongSelf.gameTableView.clickedRow != -1) && ![strongSelf.gameTableView isRowSelected:strongSelf.gameTableView.clickedRow])
             rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
-        if (rows.count)
+        if (rows.count && rows.count != strongSelf.gameTableModel.count)
             [strongSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     });
 }

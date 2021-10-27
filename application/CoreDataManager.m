@@ -271,16 +271,17 @@
 }
 
 - (void)saveChanges {
-    //    NSLog(@"CoreDataManagar saveChanges");
+//    NSLog(@"CoreDataManagar saveChanges");
     NSManagedObjectContext *mainContext = _mainManagedObjectContext;
 
     if (@available(macOS 10.13, *)) {
         [mainContext performBlock:^{
             NSError *error = nil;
-            if (mainContext.hasChanges)
+            if (mainContext.hasChanges) {
                 [mainContext save:&error];
-            if (error) {
-                NSLog(@"CoreDataManager saveMainContext error: %@", error);
+                if (error) {
+                    NSLog(@"CoreDataManager saveMainContext error: %@", error);
+                }
             }
         }];
     } else {
