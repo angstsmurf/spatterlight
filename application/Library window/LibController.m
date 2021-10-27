@@ -983,6 +983,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
 
             [childContext performBlock:^{
+                [LibController fixMetadataWithNoIfidsInContext:childContext];
                 for (Game *game in gamesInContext) {
                     game.hasDownloaded = YES;
                 }

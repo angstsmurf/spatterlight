@@ -102,8 +102,8 @@
                 ifidObj.metadata = metadata;
                 if (leftover.ifids.count == 0) {
                     [games unionSet:leftover.games];
-                    NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
-                    [self.context deleteObject:leftover];
+                    ////                    NSLog(@"Deleting leftover metadata object with title %@", leftover.title);
+                    ////                    [self.context deleteObject:leftover];
                 }
             }
         }
