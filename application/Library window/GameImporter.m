@@ -80,10 +80,6 @@ extern NSArray *gGameFileTypes;
 
         libController.currentlyAddingGames = NO;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [libController selectGamesWithIfids:select scroll:YES];
-        });
-
         //        if (libController.iFictionFiles.count) {
         //            [self waitToReportMetadataImport];
         //            for (NSString *path in libController.iFictionFiles) {
@@ -103,6 +99,7 @@ extern NSArray *gGameFileTypes;
                 libController.addButton.enabled = YES;
                 libController.currentlyAddingGames = NO;
                 [libController endImporting];
+                [libController selectGamesWithIfids:select scroll:YES];
             });
             [LibController fixMetadataWithNoIfidsInContext:context];
         }];
