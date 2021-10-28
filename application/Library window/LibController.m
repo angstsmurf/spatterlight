@@ -2622,7 +2622,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    NSLog(@"noteManagedObjectContextDidChange");
+//    NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateTableViews];
