@@ -3,14 +3,8 @@
  *
  * Keep an archive of game metadata.
  * Import iFiction format from files or babel software.
- * Save the database in Library/Application Support/Spatterlight/Metadata.plist
  * Tag user-edited entries for export.
- *
- * Keep a list of games with map filename -> ifid
- * Save list of games to Games.plist
- *
- * TODO: babel-get from ifarchive
- *
+ * 
  */
 
 #import <Cocoa/Cocoa.h>
@@ -22,8 +16,6 @@
 
 @interface LibController
     : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate>
-
-@property NSMutableArray *iFictionFiles;
 
 @property NSURL *homepath;
 @property NSURL *imageDir;

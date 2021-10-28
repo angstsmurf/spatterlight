@@ -21,8 +21,6 @@
 
 // Treaty of babel headers
 #include "babel_handler.h"
-#include "ifiction.h"
-#include "treaty.h"
 
 #import "LibController.h"
 #import "GameImporter.h"
@@ -80,17 +78,8 @@ extern NSArray *gGameFileTypes;
 
         libController.currentlyAddingGames = NO;
 
-        //        if (libController.iFictionFiles.count) {
-        //            [self waitToReportMetadataImport];
-        //            for (NSString *path in libController.iFictionFiles) {
-        //                [libController importMetadataFromFile:path inContext:context];
-        //            }
-        //        }
-        //        libController.iFictionFiles = nil;
-
         [context safeSaveAndWait];
-        //
-//        [libController.coreDataManager saveChanges];
+        [libController.coreDataManager saveChanges];
 
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
@@ -205,13 +194,6 @@ extern NSArray *gGameFileTypes;
     return lastOperation;
 }
 
-- (void)addIfictionFile:(NSString *)file {
-    if (!_libController.iFictionFiles)
-        _libController.iFictionFiles = [NSMutableArray arrayWithObject:file];
-    else
-        [_libController.iFictionFiles addObject:file];
-}
-
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     char buf[TREATY_MINIMUM_EXTENT];
     Metadata __block *metadata;
@@ -223,12 +205,6 @@ extern NSArray *gGameFileTypes;
     int rv;
 
     NSString *extension = path.pathExtension.lowercaseString;
-
-    if ([extension isEqualToString: @"ifiction"])
-    {
-        [self addIfictionFile:path];
-        return nil;
-    }
 
     if ([extension isEqualToString: @"d$$"]) {
         path = [self convertAGTFile:path];
