@@ -120,7 +120,7 @@
     ref->textmode = _textmode;
     if (URL)
     {
-        const char *path = [URL.path UTF8String];
+        const char *path = [URL fileSystemRepresentation];
         char *urlpath = malloc(1 + strlen(path));
 
         strncpy(urlpath, path, strlen(path));

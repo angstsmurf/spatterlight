@@ -391,7 +391,7 @@
     str->file = NULL;
     if (URL)
     {
-        const char *path = [URL.path UTF8String];
+        const char *path = [URL fileSystemRepresentation];
         size_t len = strlen(path);
         char *urlpath = malloc(1 + len);
         strncpy(urlpath, path, len);
@@ -410,7 +410,7 @@
 - (BOOL) reopenInternal {
 
     stream_t *str = gli_stream_for_tag(_tag);
-    const char *path = [URL.path UTF8String];
+    const char *path = [URL fileSystemRepresentation];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:URL.path]) {
 

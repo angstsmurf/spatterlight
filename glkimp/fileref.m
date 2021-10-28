@@ -49,7 +49,7 @@ void setdefaultworkdir(char **string)
 
         length = appSupportDir.path.length;
         *string = malloc(length + 1);
-        strncpy(*string, [appSupportDir.path UTF8String], length);
+        strncpy(*string, [appSupportDir fileSystemRepresentation], length);
 
     }
 
