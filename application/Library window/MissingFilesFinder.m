@@ -142,7 +142,7 @@ extern NSArray *gGameFileTypes;
         [url getResourceValue:&name forKey:NSURLNameKey error:nil];
         NSString *extension = name.pathExtension;
         if (extension.length && [gGameFileTypes indexOfObject:extension] != NSNotFound) {
-            NSString *filename = url.path.lastPathComponent;
+            NSString *filename = url.lastPathComponent;
             if (filename.length) {
                 fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@",filename];

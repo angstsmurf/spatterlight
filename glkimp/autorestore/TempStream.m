@@ -415,7 +415,7 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:URL.path]) {
 
         NSString *parent = [NSString stringWithCString:gli_parentdir encoding:NSUTF8StringEncoding];
-        NSString *filename = URL.path.lastPathComponent;
+        NSString *filename = URL.lastPathComponent;
         NSString *newPath = [parent stringByAppendingPathComponent:filename];
         if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
             NSLog(@"TempStream reopenInternal: Changed path from %@ to %@ for stream %d.", URL.path, newPath, _tag);

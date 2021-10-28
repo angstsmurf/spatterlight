@@ -13,7 +13,7 @@
 @implementation NSBitmapImageRep (retro)
 
 + (NSBitmapImageRep *)repFromURL:(NSURL *)url {
-    if ([url.path.lastPathComponent.lowercaseString isEqualToString:@"screen.dat"])
+    if ([url.lastPathComponent.lowercaseString isEqualToString:@"screen.dat"])
         return [NSBitmapImageRep repFromNeoURL:url];
 
     NSString *extension = url.pathExtension.lowercaseString;

@@ -381,7 +381,7 @@
     NSMutableDictionary *attrDict = [NSMutableDictionary new];
     attrDict[NSFontAttributeName] = systemFont;
     attrDict[NSForegroundColorAttributeName] = [NSColor controlTextColor];
-    [self addInfoLine:url.path.lastPathComponent attributes:attrDict linebreak:NO];
+    [self addInfoLine:url.lastPathComponent attributes:attrDict linebreak:NO];
     
     attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
     
@@ -676,7 +676,7 @@
         [self addInfoLine:metadict[@"title"] attributes:attrDict linebreak:NO];
         
         if (!metadict[@"title"]) {
-            [self addInfoLine:url.path.lastPathComponent attributes:attrDict linebreak:NO];
+            [self addInfoLine:url.lastPathComponent attributes:attrDict linebreak:NO];
             
             if (metadict[@"SNam"]) {
                 NSMutableDictionary *metamuta = metadict.mutableCopy;
