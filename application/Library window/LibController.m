@@ -1500,14 +1500,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with metadata %@",ifid);
+        NSLog(@"Found more than one entry with ifid %@",ifid);
     }
     else if (fetchedObjects.count == 0)
     {
         return nil;
     }
 
-    return fetchedObjects[0];
+    return fetchedObjects.firstObject;
 }
 
 + (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
@@ -2612,7 +2612,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn
                     row:(NSInteger)row
 {
-    if ([[tableColumn identifier] isEqualToString:@"title"])
+    if ([tableColumn.identifier isEqualToString:@"title"])
     {
         NSInteger tableColumnIndex = (NSInteger)[[tableView tableColumns] indexOfObject:tableColumn];
         return [[tableView preparedCellAtColumn:tableColumnIndex
