@@ -605,13 +605,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     LibController * __weak weakSelf = self;
 
-    [_managedObjectContext performBlock:^{
-        while (self.undoGroupingCount > 0) {
-            [self.managedObjectContext.undoManager endUndoGrouping];
-            self.undoGroupingCount--;
-        }
-    }];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
@@ -627,9 +623,18 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
         if (rows.count && rows.count != strongSelf.gameTableModel.count)
             [strongSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
-    });
 
-    [_coreDataManager startIndexing];
+        [LibController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
+
+        [strongSelf.coreDataManager startIndexing];
+        
+        [strongSelf.managedObjectContext performBlock:^{
+            while (strongSelf.undoGroupingCount > 0) {
+                [strongSelf.managedObjectContext.undoManager endUndoGrouping];
+                strongSelf.undoGroupingCount--;
+            }
+        }];
+    });
 }
 
 - (void)makeNewSpinner {
@@ -2190,12 +2195,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (IBAction)cancel:(id)sender {
-    [_alertQueue cancelAllOperations];
-    [_downloadQueue cancelAllOperations];
     _currentlyAddingGames = NO;
     _nestedDownload = NO;
     _addButton.enabled = YES;
     verifyIsCancelled = YES;
+    [_alertQueue cancelAllOperations];
+    [_downloadQueue cancelAllOperations];
     [self endImporting];
 }
 

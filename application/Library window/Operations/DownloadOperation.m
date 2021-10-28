@@ -116,10 +116,12 @@ typedef enum OperationState : NSUInteger {
 }
 
 -(void)cancel {
+    BOOL wasExecuting = (self.state == kExecuting);
     [super cancel];
 
     // cancel the downloading
-    [self.task cancel];
+    if (wasExecuting)
+        [self.task cancel];
 }
 
 @end
