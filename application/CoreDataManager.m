@@ -179,10 +179,11 @@
         MyCoreDataCoreSpotlightDelegate *spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
 
         [description setOption:spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
-    }
 
-    if (@available(macOS 10.15, *)) {
-        [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
+        if (@available(macOS 10.15, *)) {
+            [spotlightDelegate startSpotlightIndexing];
+            [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
+        }
     }
 
     _persistentContainer.persistentStoreDescriptions = @[ description ];
@@ -298,7 +299,6 @@
             } //else NSLog(@"No changes to save in _mainManagedObjectContext");
             
         }];
-        
 
         NSManagedObjectContext *privateContext = privateManagedObjectContext;
 
@@ -328,18 +328,11 @@
 }
 
 - (NSManagedObjectContext *)privateChildManagedObjectContext {
+    NSManagedObjectContext *managedObjectContext =
+    [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    managedObjectContext.parentContext = self.mainManagedObjectContext;
 
-    if (@available(macOS 10.13, *)) {
-        NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
-        return context;
-    } else {
-        // Initialize Managed Object Context
-        NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        // Configure Managed Object Context
-        managedObjectContext.parentContext = self.mainManagedObjectContext;
-
-        return managedObjectContext;
-    }
+    return managedObjectContext;
 }
 
 @end

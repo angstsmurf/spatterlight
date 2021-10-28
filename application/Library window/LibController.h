@@ -68,6 +68,8 @@
 @property (readonly) NSOperationQueue *alertQueue;
 @property NSData *lastImageComparisonData;
 
+@property NSInteger undoGroupingCount;
+
 - (void)beginImporting;
 - (void)endImporting;
 
