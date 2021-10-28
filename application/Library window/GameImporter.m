@@ -178,7 +178,11 @@ extern NSArray *gGameFileTypes;
             [select addObject:game.ifid];
         if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
-            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:nil];
+            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
+                [game.managedObjectContext performBlock:^{
+                    game.hasDownloaded = YES;
+                }];
+            }];
             [_downloadedMetadata addObject:game.metadata];
         }
         // We only look for images on the HDD if the game has
