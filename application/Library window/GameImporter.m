@@ -70,8 +70,6 @@ extern NSArray *gGameFileTypes;
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
 
-        NSLog(@"internalHandler fired!");
-
         if (!libController.currentlyAddingGames)
             return;
 

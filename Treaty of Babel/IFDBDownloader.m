@@ -368,7 +368,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     if ([data isPlaceHolderImage]) {
         [localcontext performBlock:^{
-            NSLog(@"insertImage: image is placeholder!");
             img = [IFDBDownloader findPlaceHolderInMetadata:metadata imageData:data];
             metadata.cover = img;
         }];
@@ -389,7 +388,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 + (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
-    NSLog(@"findPlaceHolderInMetadata");
+//    NSLog(@"findPlaceHolderInMetadata");
     Image __block *placeholder;
     NSManagedObjectContext *context = metadata.managedObjectContext;
     [context performBlockAndWait:^{
