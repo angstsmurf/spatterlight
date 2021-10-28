@@ -319,6 +319,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         [self startVerifyTimer];
         [self verifyInBackground:nil];
     }
+
+    [_coreDataManager startIndexing];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
@@ -525,6 +527,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     LibController * __weak weakSelf = self;
 
+    [_coreDataManager stopIndexing];
+
     [childContext performBlock:^{
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
@@ -551,6 +555,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
             [childContext safeSave];
         }
+        [strongSelf.coreDataManager startIndexing];
     }];
 }
 
@@ -623,6 +628,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (rows.count && rows.count != strongSelf.gameTableModel.count)
             [strongSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     });
+
+    [_coreDataManager startIndexing];
 }
 
 - (void)makeNewSpinner {
@@ -726,6 +733,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     [self.coreDataManager saveChanges];
     [_managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
+
+    [_coreDataManager stopIndexing];
 
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
@@ -947,6 +956,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         [self.managedObjectContext.undoManager beginUndoGrouping];
         self.undoGroupingCount++;
     }];
+    [_coreDataManager stopIndexing];
     [self beginImporting];
 
     [self.coreDataManager saveChanges];

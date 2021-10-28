@@ -174,16 +174,12 @@
     description.shouldMigrateStoreAutomatically = YES;
     description.shouldInferMappingModelAutomatically = YES;
 
-    if (@available(macOS 10.13, *)) {
+    if (@available(macOS 10.15, *)) {
         [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
-        MyCoreDataCoreSpotlightDelegate *spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
+        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
 
-        [description setOption:spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
-
-        if (@available(macOS 10.15, *)) {
-            [spotlightDelegate startSpotlightIndexing];
-            [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
-        }
+        [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+        [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
     }
 
     _persistentContainer.persistentStoreDescriptions = @[ description ];
@@ -333,6 +329,22 @@
     managedObjectContext.parentContext = self.mainManagedObjectContext;
 
     return managedObjectContext;
+}
+
+- (void)startIndexing {
+    if (@available(macOS 10.15, *)) {
+        if (!_spotlightDelegate)
+            return;
+        [_spotlightDelegate startSpotlightIndexing];
+    }
+}
+
+- (void)stopIndexing {
+    if (@available(macOS 10.15, *)) {
+        if (!_spotlightDelegate)
+            return;
+        [_spotlightDelegate stopSpotlightIndexing];
+    }
 }
 
 @end

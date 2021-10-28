@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MyCoreDataCoreSpotlightDelegate;
 
 @interface CoreDataManager : NSObject
 
@@ -20,7 +21,13 @@
 @property (strong, nonatomic) NSManagedObjectContext
 *mainManagedObjectContext;
 
+@property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
+
 - (instancetype)initWithModelName:(NSString *)aModelName;
 - (NSManagedObjectContext *)privateChildManagedObjectContext;
 - (void)saveChanges;
+
+- (void)startIndexing;
+- (void)stopIndexing;
+
 @end
