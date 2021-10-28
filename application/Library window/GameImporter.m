@@ -101,7 +101,8 @@ extern NSArray *gGameFileTypes;
                 [libController endImporting];
                 [libController selectGamesWithIfids:select scroll:YES];
             });
-            [LibController fixMetadataWithNoIfidsInContext:context];
+            if ([options[@"downloadInfo"] isEqual:@(YES)])
+                [LibController fixMetadataWithNoIfidsInContext:context];
         }];
     };
     
@@ -121,7 +122,7 @@ extern NSArray *gGameFileTypes;
     NSManagedObjectContext *context = options[@"context"];
     void (^internalHandler)(void) = options[@"completionHandler"];
 
-    // Avoid recursion causing trouble
+    // Prevent recursive calls from re-running the completion handler
     if (internalHandler) {
         NSMutableDictionary *mutableOptions = options.mutableCopy;
         mutableOptions[@"completionHandler"] = nil;
@@ -132,6 +133,7 @@ extern NSArray *gGameFileTypes;
     NSDate *timestamp = [NSDate date];
 
     NSOperation *lastOperation = nil;
+
     for (NSURL *url in urls)
     {
         if (!_libController.currentlyAddingGames) {
@@ -154,17 +156,8 @@ extern NSArray *gGameFileTypes;
         }
 
         if ([timestamp timeIntervalSinceNow] < -0.3) {
-
             [context safeSaveAndWait];
-//            NSError *error = nil;
-//            if (context.hasChanges) {
-//                if (![context save:&error]) {
-//                    NSLog(@"GameImporter addFiles context save error: %@", error);
-//                    continue;
-//                }
-
-                [_libController.coreDataManager saveChanges];
-//            }
+            [_libController.coreDataManager saveChanges];
             timestamp = [NSDate date];
         }
     }
@@ -184,9 +177,9 @@ extern NSArray *gGameFileTypes;
 - (nullable NSOperation *)addSingleFile:(NSURL*)url options:(NSDictionary *)options
 {
     NSMutableArray *select = options[@"select"];
-    BOOL reportFailure = [options[@"reportFailure"] isEqual:@(YES)];
-    BOOL lookForImages = [options[@"lookForImages"] isEqual:@(YES)];
-    BOOL downloadInfo = [options[@"downloadInfo"] isEqual:@(YES)];
+    BOOL reportFailure = [options[@"reportFailure"] isEqual:@YES];
+    BOOL lookForImages = [options[@"lookForImages"] isEqual:@YES];
+    BOOL downloadInfo = [options[@"downloadInfo"] isEqual:@YES];
     NSManagedObjectContext *context = options[@"context"];
 
     NSOperation *lastOperation = nil;

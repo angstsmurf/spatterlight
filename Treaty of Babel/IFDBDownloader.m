@@ -58,7 +58,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
-    NSLog(@"URLSession:didReceiveChallenge:");
+//    NSLog(@"URLSession:didReceiveChallenge:");
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
@@ -76,16 +76,16 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 return;
             }
 
-            NSLog(@"secresult: %u", secresult);
+//            NSLog(@"secresult: %u", secresult);
 
             switch (secresult) {
                 case kSecTrustResultUnspecified: // The OS trusts this certificate implicitly.
-                    NSLog(@"kSecTrustResultUnspecified");
+//                    NSLog(@"kSecTrustResultUnspecified");
                 case kSecTrustResultRecoverableTrustFailure:
-                    NSLog(@"kSecTrustResultRecoverableTrustFailure");
+//                    NSLog(@"kSecTrustResultRecoverableTrustFailure");
                 case kSecTrustResultProceed: // The user explicitly told the OS to trust it.
                 {
-                    NSLog(@"kSecTrustResultProceed");
+//                    NSLog(@"kSecTrustResultProceed");
                     NSURLCredential *credential =
                     [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
                     completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
@@ -354,7 +354,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 + (void)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
-    NSLog(@"insertImageData: inMetadata:");
     if (!data) {
         NSLog(@"No data");
         return;
@@ -366,21 +365,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         NSLog(@"Error! No context!");
         return;
     }
-
-//    // Check if the metadata object has been deleted
-//    if ([localcontext respondsToSelector:@selector(existingObjectWithID:error:)]) {
-//        NSManagedObjectID *objectID = metadata.objectID;
-//        NSError *error = nil;
-//        NSManagedObject *managedObjectClone = [localcontext existingObjectWithID:objectID error:&error];
-//
-//        if (error)
-//            NSLog(@"Error: %@", error);
-//
-//        if (!managedObjectClone) {
-//            NSLog(@"Metadata object is deleted");
-//            return; // Deleted.
-//        }
-//    }
 
     if ([data isPlaceHolderImage]) {
         [localcontext performBlock:^{
