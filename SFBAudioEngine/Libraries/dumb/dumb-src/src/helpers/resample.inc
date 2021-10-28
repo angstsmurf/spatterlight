@@ -187,7 +187,7 @@ DUMB_RESAMPLER *dumb_start_resampler(SRCTYPE *src, int src_channels, long pos,
 #define MONO_DEST_VOLUME_PARAMETERS                                            \
     DUMB_VOLUME_RAMP_INFO *volume_left, DUMB_VOLUME_RAMP_INFO *volume_right
 #define MONO_DEST_VOLUME_VARIABLES                                             \
-    lvol, lvolr, lvold, lvolt, lvolm, rvol, rvolr, rvold, rvolt, rvolm
+    lvol, lvolr=0, lvold, lvolt, lvolm, rvol, rvolr=0, rvold, rvolt, rvolm
 #define MONO_DEST_VOLUME_ZEROS 0, 0
 #define SET_MONO_DEST_VOLUME_VARIABLES                                         \
     {                                                                          \
