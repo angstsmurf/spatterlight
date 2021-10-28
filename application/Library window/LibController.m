@@ -2190,12 +2190,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (IBAction)cancel:(id)sender {
+    [_alertQueue cancelAllOperations];
+    [_downloadQueue cancelAllOperations];
     _currentlyAddingGames = NO;
     _nestedDownload = NO;
     _addButton.enabled = YES;
     verifyIsCancelled = YES;
-    [_alertQueue cancelAllOperations];
-    [_downloadQueue cancelAllOperations];
     [self endImporting];
 }
 
