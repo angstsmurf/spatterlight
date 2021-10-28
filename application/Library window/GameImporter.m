@@ -4,6 +4,9 @@
 //
 //  Created by Administrator on 2021-05-27.
 //
+#import <BlorbFramework/BlorbFramework.h>
+
+#import "GameImporter.h"
 
 #import "Game.h"
 #import "Metadata.h"
@@ -12,18 +15,14 @@
 #import "CoreDataManager.h"
 
 #import "IFDBDownloader.h"
-#import "ImageCompareViewController.h"
-
-#import <BlorbFramework/BlorbFramework.h>
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
 
-// Treaty of babel headers
+// Treaty of babel header
 #include "babel_handler.h"
 
 #import "LibController.h"
-#import "GameImporter.h"
 
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
