@@ -475,6 +475,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 #pragma mark Check library for missing files
 - (IBAction)verifyLibrary:(id)sender{
     if ([self verifyAlert] == NSAlertFirstButtonReturn) {
+        verifyIsCancelled = NO;
         [self verifyInBackground:nil];
     }
 }
@@ -514,7 +515,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)verifyInBackground:(id)sender {
-    verifyIsCancelled = NO;
+    if (verifyIsCancelled) {
+        verifyIsCancelled = NO;
+        return;
+    }
 
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
@@ -726,6 +730,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+
+    verifyIsCancelled = YES;
 
     [self beginImporting];
 
@@ -953,6 +959,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     _nestedDownload = _currentlyAddingGames;
 
+    verifyIsCancelled = YES;
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
