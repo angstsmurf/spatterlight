@@ -7,11 +7,11 @@
 
 #import "DownloadOperation.h"
 
-typedef enum OperationState : NSUInteger {
+typedef NS_ENUM(NSUInteger, OperationState) {
     kReady,
     kExecuting,
     kFinished
-} OperationState;
+};
 
 @interface DownloadOperation ()
 
