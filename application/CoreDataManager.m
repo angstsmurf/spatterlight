@@ -176,7 +176,8 @@
 
     if (@available(macOS 10.15, *)) {
         [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
-        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
+        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
+//        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
 
         [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
         [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
