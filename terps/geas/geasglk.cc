@@ -137,7 +137,6 @@ void glk_main(void)
     glk_request_timer_events(1000);
 
     char buf[200];
-    bool prompt = 1;
 
     while(gr->is_running()) {
         if (inputwin != mainglkwin)
@@ -146,8 +145,6 @@ void glk_main(void)
             glk_put_cstring("\n");
         sprintf(cur_buf, "> ");
         glk_put_string_stream(inputwinstream, cur_buf);
-
-        char buf[200];
 
         glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
 

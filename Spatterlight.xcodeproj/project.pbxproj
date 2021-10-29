@@ -7475,6 +7475,7 @@
 		55368B59272BF1C500740A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -7497,6 +7498,7 @@
 		55368B5A272BF1C500740A0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
 				CODE_SIGN_IDENTITY = "-";
