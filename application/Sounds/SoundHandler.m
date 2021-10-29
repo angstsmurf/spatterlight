@@ -116,10 +116,10 @@
 }
 
 -(BOOL)load {
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:_soundFile.URL.path];
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:NULL];
     if (!fileHandle) {
         [_soundFile resolveBookmark];
-        fileHandle = [NSFileHandle fileHandleForReadingAtPath:_soundFile.URL.path];
+        fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:NULL];
         if (!fileHandle)
             return NO;
     }
