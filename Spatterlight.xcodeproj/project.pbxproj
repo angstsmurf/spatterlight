@@ -2573,7 +2573,7 @@
 		96A9BA480A064C9C001B5B9B /* ifiction-xtract.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ifiction-xtract.c"; sourceTree = "<group>"; };
 		96A9BA490A064C9C001B5B9B /* simple-marry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "simple-marry.c"; sourceTree = "<group>"; };
 		96A9BA4A0A064C9C001B5B9B /* glulx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glulx.c; sourceTree = "<group>"; };
-		96A9BA4B0A064C9C001B5B9B /* hugo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hugo.c; sourceTree = "<group>"; };
+		96A9BA4B0A064C9C001B5B9B /* hugo.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 1; lastKnownFileType = sourcecode.c.c; path = hugo.c; sourceTree = "<group>"; tabWidth = 1; };
 		96A9BA4C0A064C9C001B5B9B /* ifiction.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ifiction.c; sourceTree = "<group>"; };
 		96A9BA4D0A064C9C001B5B9B /* ifiction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifiction.h; sourceTree = "<group>"; };
 		96A9BA4E0A064C9C001B5B9B /* level9.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level9.c; sourceTree = "<group>"; };
