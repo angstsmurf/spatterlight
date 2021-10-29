@@ -735,6 +735,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (_currentlyAddingGames)
         return;
 
+    _downloadWasCancelled = NO;
+
     [self.coreDataManager saveChanges];
     [_managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
@@ -749,8 +751,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [self beginImporting];
 
-    if (downloadInfo)
-        _lastImageComparisonData = nil;
+    _lastImageComparisonData = nil;
 
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
@@ -962,6 +963,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         self.undoGroupingCount++;
     }];
     [_coreDataManager stopIndexing];
+    _downloadWasCancelled = NO;
+
     [self beginImporting];
 
     [self.coreDataManager saveChanges];
@@ -1004,26 +1007,28 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 [gamesInContext addObject:game];
         }
 
-        [downloader downloadMetadataForGames:gamesInContext onQueue:self.downloadQueue imageOnly:NO reportFailure:(games.count == 1) completionHandler:^{
+        NSOperation *lastOperation = [downloader downloadMetadataForGames:gamesInContext onQueue:strongSelf.downloadQueue imageOnly:NO reportFailure:(games.count == 1) completionHandler:^{
 
-            if (weakSelf.nestedDownload) {
-                weakSelf.nestedDownload = NO;
+            if (strongSelf.nestedDownload) {
+                strongSelf.nestedDownload = NO;
             } else {
-                weakSelf.currentlyAddingGames = NO;
+                strongSelf.currentlyAddingGames = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.addButton.enabled = YES;
+                    strongSelf.addButton.enabled = YES;
                 });
             }
-
-            [childContext performBlock:^{
+        }];
+        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:^{
+            [childContext performBlockAndWait:^{
                 [LibController fixMetadataWithNoIfidsInContext:childContext];
                 for (Game *game in gamesInContext) {
                     game.hasDownloaded = YES;
                 }
             }];
-
-            [self endImporting];
+            [strongSelf endImporting];
         }];
+        [finisher addDependency:lastOperation];
+        [strongSelf.downloadQueue addOperation:finisher];
     }];
 }
 
@@ -2198,6 +2203,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     _currentlyAddingGames = NO;
     _nestedDownload = NO;
     _addButton.enabled = YES;
+    _downloadWasCancelled = YES;
     verifyIsCancelled = YES;
     [_alertQueue cancelAllOperations];
     [_downloadQueue cancelAllOperations];

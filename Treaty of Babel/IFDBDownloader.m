@@ -31,6 +31,8 @@ fprintf(stderr, "%s\n",                                                    \
 #import "LibController.h"
 #import "DownloadOperation.h"
 #import "NSManagedObjectContext+safeSave.h"
+#import "ComparisonOperation.h"
+
 
 @interface IFDBDownloader () <NSURLSessionDelegate> {
     NSURLSession *defaultSession;
@@ -166,9 +168,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue];
                             
                             if (!result || result.stories.count == 0) {
-                                NSLog(@"No metadata found!");
+//                                NSLog(@"No metadata found!");
                             } else {
-                                NSLog(@"Downloaded metadata successfully!");
+//                                NSLog(@"Downloaded metadata successfully!");
                                 success = YES;
                             }
                         }
@@ -333,19 +335,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (comparisonResult == kImageComparisonResultA) {
         completionHandler();
     } else if (comparisonResult == kImageComparisonResultWantsUserInput) {
-        NSBlockOperation *comparisonOperation = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                if ([imageCompare userWantsImage:newData ratherThanImage:oldData source:kImageComparisonDownloaded force:force]) {
-                    completionHandler();
-                }
-            });
-        }];
-
         dispatch_async(dispatch_get_main_queue(), ^{
             LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
             if (!force && [libController.lastImageComparisonData isEqual:newData])
                 return;
+            if (libController.downloadWasCancelled)
+                return;
+            ComparisonOperation *comparisonOperation = [[ComparisonOperation alloc] initWithNewData:newData oldData:oldData force:force completionHandler:completionHandler];
             NSOperationQueue *alertQueue = libController.alertQueue;
             [alertQueue addOperation:comparisonOperation];
             libController.lastImageComparisonData = newData;

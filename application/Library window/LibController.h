@@ -25,6 +25,7 @@
 @property BOOL currentlyAddingGames;
 @property BOOL nestedDownload;
 @property BOOL spinnerSpinning;
+@property BOOL downloadWasCancelled;
 @property BOOL sortAscending;
 @property NSString *gameSortColumn;
 

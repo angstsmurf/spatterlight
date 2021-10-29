@@ -19,6 +19,8 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 
 @property OperationState state;
 
+@property dispatch_queue_t stateQueue;
+
 @end
 
 
@@ -30,15 +32,17 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 @synthesize state = _state;
 
 - (void)setState:(OperationState)state {
-    @synchronized(self) {
-        if (_state != state) {
-            [self willChangeValueForKey:@"isExecuting"];
-            [self willChangeValueForKey:@"isFinished"];
-            _state = state;
-            [self didChangeValueForKey: @"isExecuting"];
-            [self didChangeValueForKey: @"isFinished"];
+    DownloadOperation __weak *weakSelf = self;
+    dispatch_barrier_async(_stateQueue, ^{
+        DownloadOperation *strongSelf = weakSelf;
+        if (strongSelf && strongSelf->_state != state) {
+            [strongSelf willChangeValueForKey:@"isExecuting"];
+            [strongSelf willChangeValueForKey:@"isFinished"];
+            strongSelf->_state = state;
+            [strongSelf didChangeValueForKey: @"isExecuting"];
+            [strongSelf didChangeValueForKey: @"isFinished"];
         }
-    }
+    });
 }
 
 - (OperationState)state {
@@ -55,22 +59,34 @@ typedef NS_ENUM(NSUInteger, OperationState) {
     return YES;
 }
 
++ (NSSet<NSString *> *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    if ([@[@"isReady", @"isFinished", @"isExecuting"] containsObject:key]) {
+        return [keyPaths setByAddingObject:@"state"];
+    }
+    return keyPaths;
+}
+
 - (instancetype)initWithSession:(NSURLSession *)session dataTaskURL:(NSURL *)dataTaskURL completionHandler:(nullable void (^)(NSData * _Nullable,  NSURLResponse * _Nullable,  NSError * _Nullable))completionHandler {
 
     self = [super init];
 
     if (self) {
+        _state = kReady;
+        _stateQueue = dispatch_queue_create("net.ccxvii.spatterlight.rw.state", DISPATCH_QUEUE_CONCURRENT);
         DownloadOperation __weak *weakSelf = self;
         // use weak self to prevent retain cycle
         _task = [session dataTaskWithURL:dataTaskURL
                                             completionHandler:^(NSData * _Nullable localData, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 
 
+            DownloadOperation *strongSelf = weakSelf;
+
             /*
              don't run completionHandler if cancelled
              */
-            if (weakSelf && weakSelf.cancelled) {
-                weakSelf.state = kFinished;
+            if (strongSelf && strongSelf.cancelled) {
+                strongSelf.state = kFinished;
                 return;
             }
 
@@ -87,8 +103,8 @@ typedef NS_ENUM(NSUInteger, OperationState) {
              set the operation state to finished once
              the download task is completed or have error
              */
-            if (weakSelf)
-                weakSelf.state = kFinished;
+            if (strongSelf)
+                strongSelf.state = kFinished;
         }];
     }
 
@@ -109,7 +125,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
     // set the state to executing
     self.state = kExecuting;
 
-    NSLog(@"downloading %@", self.task.originalRequest.URL.absoluteString);
+//    NSLog(@"downloading %@", self.task.originalRequest.URL.absoluteString);
 
     // start the downloading
     [self.task resume];
