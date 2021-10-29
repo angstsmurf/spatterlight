@@ -718,6 +718,10 @@
 				<array>
 					<string>agx</string>
 				</array>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>AGTS</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
