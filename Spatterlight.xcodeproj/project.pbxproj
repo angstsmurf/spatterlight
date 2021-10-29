@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		55368B71272BF24700740A0A /* geas-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* geas-util.cc */; };
+		55368B72272BF24700740A0A /* geas-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5E272BF24700740A0A /* geas-state.cc */; };
+		55368B73272BF24700740A0A /* readfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5F272BF24700740A0A /* readfile.cc */; };
+		55368B74272BF24700740A0A /* geasglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B60272BF24700740A0A /* geasglk.cc */; };
+		55368B75272BF24700740A0A /* istring.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B61272BF24700740A0A /* istring.cc */; };
+		55368B76272BF24700740A0A /* geasglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* geasglkterm.c */; };
+		55368B77272BF24700740A0A /* geasfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6B272BF24700740A0A /* geasfile.cc */; };
+		55368B78272BF24700740A0A /* geas-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B70272BF24700740A0A /* geas-runner.cc */; };
+		55368B79272BF27D00740A0A /* geas in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 55368B5B272BF1C500740A0A /* geas */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D212737246BDC4E00D775A8 /* NSColor+integer.m */; };
 		6D2C869C225E5291004A5A75 /* filesys.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8688225E5291004A5A75 /* filesys.c */; };
@@ -748,6 +759,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55368B3E272BF1C500740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
+		};
+		55368B40272BF1C500740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEB609F2396500528FF9;
+			remoteInfo = glkmain;
+		};
+		55368B7A272BF28800740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55368B3C272BF1C500740A0A;
+			remoteInfo = geas;
+		};
 		6D2C86EE225E898A004A5A75 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1130,6 +1162,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				55368B79272BF27D00740A0A /* geas in Copy Interpreter Files */,
 				6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */,
 				C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */,
 				C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */,
@@ -1180,6 +1213,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		55368B5B272BF1C500740A0A /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
+		55368B5D272BF24700740A0A /* geas-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-util.cc"; sourceTree = "<group>"; };
+		55368B5E272BF24700740A0A /* geas-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-state.cc"; sourceTree = "<group>"; };
+		55368B5F272BF24700740A0A /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
+		55368B60272BF24700740A0A /* geasglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geasglk.cc; sourceTree = "<group>"; };
+		55368B61272BF24700740A0A /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
+		55368B62272BF24700740A0A /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
+		55368B63272BF24700740A0A /* istring.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = istring.hh; sourceTree = "<group>"; };
+		55368B64272BF24700740A0A /* GeasRunner.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GeasRunner.hh; sourceTree = "<group>"; };
+		55368B66272BF24700740A0A /* geas-util.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-util.hh"; sourceTree = "<group>"; };
+		55368B67272BF24700740A0A /* geas-state.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-state.hh"; sourceTree = "<group>"; };
+		55368B68272BF24700740A0A /* uncas.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = uncas.pl; sourceTree = "<group>"; };
+		55368B69272BF24700740A0A /* readfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = readfile.hh; sourceTree = "<group>"; };
+		55368B6A272BF24700740A0A /* geasglkterm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = geasglkterm.c; sourceTree = "<group>"; };
+		55368B6B272BF24700740A0A /* geasfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geasfile.cc; sourceTree = "<group>"; };
+		55368B6C272BF24700740A0A /* geasfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geasfile.hh; sourceTree = "<group>"; };
+		55368B6D272BF24700740A0A /* LimitStack.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LimitStack.hh; sourceTree = "<group>"; };
+		55368B6E272BF24700740A0A /* geas-impl.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-impl.hh"; sourceTree = "<group>"; };
+		55368B6F272BF24700740A0A /* reserved_words.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reserved_words.hh; sourceTree = "<group>"; };
+		55368B70272BF24700740A0A /* geas-runner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-runner.cc"; sourceTree = "<group>"; };
 		6D212736246BDC4E00D775A8 /* NSColor+integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+integer.h"; sourceTree = "<group>"; };
 		6D212737246BDC4E00D775A8 /* NSColor+integer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+integer.m"; sourceTree = "<group>"; };
 		6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -2904,6 +2957,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55368B55272BF1C500740A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */,
+				55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D8BCAD3225E4ACF00696057 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3152,6 +3214,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55368B5C272BF24700740A0A /* geas */ = {
+			isa = PBXGroup;
+			children = (
+				55368B6E272BF24700740A0A /* geas-impl.hh */,
+				55368B70272BF24700740A0A /* geas-runner.cc */,
+				55368B5E272BF24700740A0A /* geas-state.cc */,
+				55368B67272BF24700740A0A /* geas-state.hh */,
+				55368B5D272BF24700740A0A /* geas-util.cc */,
+				55368B66272BF24700740A0A /* geas-util.hh */,
+				55368B6B272BF24700740A0A /* geasfile.cc */,
+				55368B6C272BF24700740A0A /* geasfile.hh */,
+				55368B60272BF24700740A0A /* geasglk.cc */,
+				55368B6A272BF24700740A0A /* geasglkterm.c */,
+				55368B64272BF24700740A0A /* GeasRunner.hh */,
+				55368B62272BF24700740A0A /* general.hh */,
+				55368B61272BF24700740A0A /* istring.cc */,
+				55368B63272BF24700740A0A /* istring.hh */,
+				55368B6D272BF24700740A0A /* LimitStack.hh */,
+				55368B5F272BF24700740A0A /* readfile.cc */,
+				55368B69272BF24700740A0A /* readfile.hh */,
+				55368B6F272BF24700740A0A /* reserved_words.hh */,
+				55368B68272BF24700740A0A /* uncas.pl */,
+			);
+			indentWidth = 2;
+			path = geas;
+			sourceTree = "<group>";
+			tabWidth = 8;
+			usesTabs = 1;
+		};
 		6D212739246BDC5B00D775A8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -3889,6 +3980,7 @@
 				C3CEC2B626A6D0A200120469 /* UITests.xctest */,
 				C3CEC2CB26A6D66800120469 /* Tests.xctest */,
 				C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */,
+				55368B5B272BF1C500740A0A /* geas */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4037,6 +4129,7 @@
 		965031AC09F29EE10083E64E /* terps */ = {
 			isa = PBXGroup;
 			children = (
+				55368B5C272BF24700740A0A /* geas */,
 				6DB774A32458B95E00EDC671 /* bocfel */,
 				6D8BCAD1225E4AA800696057 /* fizmo */,
 				965031AD09F29EE10083E64E /* advsys */,
@@ -5580,6 +5673,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		55368B3C272BF1C500740A0A /* geas */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55368B58272BF1C500740A0A /* Build configuration list for PBXNativeTarget "geas" */;
+			buildPhases = (
+				55368B41272BF1C500740A0A /* Sources */,
+				55368B55272BF1C500740A0A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55368B3D272BF1C500740A0A /* PBXTargetDependency */,
+				55368B3F272BF1C500740A0A /* PBXTargetDependency */,
+			);
+			name = geas;
+			productName = frotz;
+			productReference = 55368B5B272BF1C500740A0A /* geas */;
+			productType = "com.apple.product-type.tool";
+		};
 		6D8BCAD5225E4ACF00696057 /* fizmo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D8BCADC225E4AD000696057 /* Build configuration list for PBXNativeTarget "fizmo" */;
@@ -5701,6 +5812,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55368B7B272BF28800740A0A /* PBXTargetDependency */,
 				96A9BA7B0A0655BE001B5B9B /* PBXTargetDependency */,
 				9650316609F2974A0083E64E /* PBXTargetDependency */,
 				9650316409F2974A0083E64E /* PBXTargetDependency */,
@@ -6244,6 +6356,7 @@
 				9650391209F2D4A10083E64E /* alan3 */,
 				6DB774A12458B95E00EDC671 /* bocfel */,
 				965036FF09F29F020083E64E /* frotz */,
+				55368B3C272BF1C500740A0A /* geas */,
 				9650384809F2AF280083E64E /* glulxe */,
 				9650387D09F2CC4E0083E64E /* hugo */,
 				965037AF09F2A4120083E64E /* level9 */,
@@ -6384,6 +6497,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		55368B41272BF1C500740A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368B74272BF24700740A0A /* geasglk.cc in Sources */,
+				55368B78272BF24700740A0A /* geas-runner.cc in Sources */,
+				55368B77272BF24700740A0A /* geasfile.cc in Sources */,
+				55368B71272BF24700740A0A /* geas-util.cc in Sources */,
+				55368B76272BF24700740A0A /* geasglkterm.c in Sources */,
+				55368B75272BF24700740A0A /* istring.cc in Sources */,
+				55368B73272BF24700740A0A /* readfile.cc in Sources */,
+				55368B72272BF24700740A0A /* geas-state.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D8BCAD2225E4ACF00696057 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7165,6 +7293,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55368B3D272BF1C500740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = 55368B3E272BF1C500740A0A /* PBXContainerItemProxy */;
+		};
+		55368B3F272BF1C500740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEB609F2396500528FF9 /* glkmain */;
+			targetProxy = 55368B40272BF1C500740A0A /* PBXContainerItemProxy */;
+		};
+		55368B7B272BF28800740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55368B3C272BF1C500740A0A /* geas */;
+			targetProxy = 55368B7A272BF28800740A0A /* PBXContainerItemProxy */;
+		};
 		6D2C86EF225E898A004A5A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
@@ -7434,6 +7577,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		55368B59272BF1C500740A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		55368B5A272BF1C500740A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = geas.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		6D8BCADD225E4AD000696057 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9292,6 +9478,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		55368B58272BF1C500740A0A /* Build configuration list for PBXNativeTarget "geas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55368B59272BF1C500740A0A /* Debug */,
+				55368B5A272BF1C500740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6D8BCADC225E4AD000696057 /* Build configuration list for PBXNativeTarget "fizmo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
