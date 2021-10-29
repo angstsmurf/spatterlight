@@ -1851,7 +1851,7 @@
 		965031B809F29EE10083E64E /* glkstart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkstart.c; sourceTree = "<group>"; };
 		965031BB09F29EE10083E64E /* agil.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = agil.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031BC09F29EE10083E64E /* agility.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = agility.h; sourceTree = "<group>"; tabWidth = 2; };
-		965031BD09F29EE10083E64E /* agility.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agility.hdr; sourceTree = "<group>"; };
+		965031BD09F29EE10083E64E /* agility.hdr */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = agility.hdr; sourceTree = "<group>"; };
 		965031BE09F29EE10083E64E /* agilstub.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = agilstub.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031BF09F29EE10083E64E /* agt2agx.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = agt2agx.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031C009F29EE10083E64E /* agtout.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = agtout.c; sourceTree = "<group>"; tabWidth = 2; };
@@ -1995,7 +1995,7 @@
 		965032CC09F29EE20083E64E /* os_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
 		965032CE09F29EE20083E64E /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		965032D009F29EE20083E64E /* scare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scare.h; sourceTree = "<group>"; };
-		965032D109F29EE20083E64E /* scare.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scare.hdr; sourceTree = "<group>"; };
+		965032D109F29EE20083E64E /* scare.hdr */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = scare.hdr; sourceTree = "<group>"; };
 		965032D209F29EE20083E64E /* scdebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scdebug.c; sourceTree = "<group>"; };
 		965032D309F29EE20083E64E /* scevents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scevents.c; sourceTree = "<group>"; };
 		965032D409F29EE20083E64E /* scexpr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scexpr.c; sourceTree = "<group>"; };
