@@ -392,7 +392,7 @@
     str->file = NULL;
     if (URL)
     {
-        const char *path = [URL.path UTF8String];
+        const char *path = [URL fileSystemRepresentation];
         size_t len = strlen(path);
         char *urlpath = malloc(1 + len);
         strncpy(urlpath, path, len);
@@ -411,12 +411,12 @@
 - (BOOL) reopenInternal {
 
     stream_t *str = gli_stream_for_tag(_tag);
-    const char *path = [URL.path UTF8String];
+    const char *path = [URL fileSystemRepresentation];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:URL.path]) {
 
         NSString *parent = [NSString stringWithCString:gli_parentdir encoding:NSUTF8StringEncoding];
-        NSString *filename = URL.path.lastPathComponent;
+        NSString *filename = URL.lastPathComponent;
         NSString *newPath = [parent stringByAppendingPathComponent:filename];
         if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
             NSLog(@"TempStream reopenInternal: Changed path from %@ to %@ for stream %d.", URL.path, newPath, _tag);

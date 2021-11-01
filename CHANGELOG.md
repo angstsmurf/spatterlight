@@ -3,7 +3,12 @@
 ## 0.9.0 (Unreleased)
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
 - Core Data concurrency fixes should improve speed and stability when importing games and downloading metadata in the background
+- Downloading metadata for multiple files is now multi-threaded and much faster 
 - Fixes sandboxing issue that could break reloading images from Blorb file
+- Spatterlight metadata is searchable with Spotlight
+- The Beyond Zork graphic font got lost in the last update. Now it is back
+- Spatterlight should be slightly less eager to show a file dialog at inappropriate times
+- Updates Bocfel to 1.4
 
 ## Release 0.8.9
 - Keypresses could be lost between commands

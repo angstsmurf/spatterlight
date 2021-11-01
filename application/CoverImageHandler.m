@@ -204,7 +204,13 @@
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
+
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
+
     Metadata *metadata = _glkctl.game.metadata;
     if ([updatedObjects containsObject:metadata] ||
         [updatedObjects containsObject:metadata.cover])
@@ -216,7 +222,7 @@
 
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)metadata.cover.data];
         if (image) {
-            CoverImageHandler __unsafe_unretained *weakSelf = self;
+            CoverImageHandler __weak *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
 
             [weakSelf.imageView processImage:image];
@@ -298,7 +304,7 @@
 
 - (void)showLogoAndFade {
     [_glkctl forkInterpreterTask];
-    __block CoverImageView *imageView;
+    CoverImageView __block *imageView;
     double delayInSeconds = 0.2;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -426,7 +432,7 @@
 
     [window makeFirstResponder:_imageView];
 
-    CoverImageHandler __unsafe_unretained *weakSelf = self;
+    CoverImageHandler __weak *weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {

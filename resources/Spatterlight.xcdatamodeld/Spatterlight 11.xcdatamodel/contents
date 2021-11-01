@@ -4,19 +4,19 @@
         <attribute name="added" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="blorbFile" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
-        <attribute name="checksum" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="checksum" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="compiler" optional="YES" attributeType="String"/>
-        <attribute name="detectedFormat" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="detectedFormat" optional="YES" attributeType="String"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="group" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="group" optional="YES" attributeType="String"/>
         <attribute name="hasDownloaded" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="hashTag" optional="YES" attributeType="String"/>
         <attribute name="hidden" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="ifid" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="ifid" optional="YES" attributeType="String"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="path" optional="YES" attributeType="String"/>
-        <attribute name="releaseNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="releaseNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="serialString" optional="YES" attributeType="String"/>
         <attribute name="version" optional="YES" attributeType="String"/>
         <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="games" inverseEntity="Metadata"/>
@@ -55,7 +55,7 @@
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
-        <attribute name="imageDescription" optional="YES" attributeType="String"/>
+        <attribute name="imageDescription" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="interpolation" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="originalURL" optional="YES" attributeType="String"/>
         <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata"/>
@@ -65,7 +65,7 @@
         <relationship name="setting" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Theme" inverseName="interpreter" inverseEntity="Theme"/>
     </entity>
     <entity name="Metadata" representedClassName="Metadata" syncable="YES">
-        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="author" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="averageRating" optional="YES" attributeType="String"/>
         <attribute name="bafn" optional="YES" attributeType="String"/>
         <attribute name="blurb" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
@@ -73,16 +73,16 @@
         <attribute name="coverArtIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="coverArtURL" optional="YES" attributeType="String"/>
         <attribute name="dateEdited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="firstpublished" optional="YES" attributeType="String"/>
+        <attribute name="firstpublished" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="firstpublishedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="forgiveness" optional="YES" attributeType="String"/>
+        <attribute name="forgiveness" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="forgivenessNumeric" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
-        <attribute name="format" optional="YES" attributeType="String"/>
-        <attribute name="genre" optional="YES" attributeType="String"/>
-        <attribute name="group" optional="YES" attributeType="String"/>
-        <attribute name="headline" optional="YES" attributeType="String"/>
+        <attribute name="format" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="headline" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="language" optional="YES" attributeType="String"/>
-        <attribute name="languageAsWord" optional="YES" attributeType="String"/>
+        <attribute name="languageAsWord" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="myRating" optional="YES" attributeType="String"/>
         <attribute name="ratingCountTot" optional="YES" attributeType="String"/>
@@ -198,7 +198,7 @@
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="104"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Metadata" positionX="160" positionY="192" width="128" height="523"/>
+        <element name="Metadata" positionX="160" positionY="192" width="128" height="509"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Theme" positionX="160" positionY="192" width="128" height="1349"/>
     </elements>

@@ -9,7 +9,7 @@
 
 @implementation IFictionMetadata
 
-- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context{
+- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue {
   self = [super init];
   if (self) {
     NSMutableArray *stories = [[NSMutableArray alloc] init];
@@ -23,7 +23,11 @@
         [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
     NSXMLElement *child;
     while ((child = [enumerator nextObject])) {
-        IFStory *story = [[IFStory alloc] initWithXMLElement:child andContext:context];
+        IFStory __block *story = nil;
+        [context performBlockAndWait:^{
+            story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue];
+        }];
+
         if (story)
             [stories addObject:story];
     }

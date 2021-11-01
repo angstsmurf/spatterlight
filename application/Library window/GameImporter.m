@@ -4,6 +4,9 @@
 //
 //  Created by Administrator on 2021-05-27.
 //
+#import <BlorbFramework/BlorbFramework.h>
+
+#import "GameImporter.h"
 
 #import "Game.h"
 #import "Metadata.h"
@@ -12,79 +15,152 @@
 #import "CoreDataManager.h"
 
 #import "IFDBDownloader.h"
-#import "ImageCompareViewController.h"
-
-#import "Blorb.h"
-#import "BlorbResource.h"
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
 
-// Treaty of babel headers
+// Treaty of babel header
 #include "babel_handler.h"
-#include "ifiction.h"
-#include "treaty.h"
 
 #import "LibController.h"
-#import "GameImporter.h"
+
+#import "FolderAccess.h"
+#import "NSManagedObjectContext+safeSave.h"
 
 extern NSArray *gGameFileTypes;
 
 @implementation GameImporter
 
-- (void)addFiles:(NSArray*)urls options:(NSDictionary *)options
-{
+- (instancetype)initWithLibController:(LibController *)libController {
+    self = [super init];
+    if (self) {
+        _libController = libController;
+    }
+    return self;
+}
+
+- (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options {
+
     NSManagedObjectContext *context = options[@"context"];
+    NSMutableArray *select = nil;
+
+    //Don't select every game after import if we start with no games
+    if (_libController.gameTableModel.count)
+        select = [NSMutableArray arrayWithCapacity:urls.count];
+
+    BOOL reportFailure = NO;
+
+    if (urls.count == 1) {
+        // If the user only selects one file, and it is
+        // not a directory, we should report any failures.
+        BOOL isDir;
+        [[NSFileManager defaultManager] fileExistsAtPath:((NSURL *)urls[0]).path isDirectory: &isDir];
+        if (!isDir)
+            reportFailure = YES;
+    }
+
+    NSMutableDictionary *newOptions = options.mutableCopy;
+    newOptions[@"reportFailure"] = @(reportFailure);
+    newOptions[@"select"] = select;
+
+    LibController *libController = _libController;
+
+#pragma mark Long completion handler
+    // A long block that will run when all files are added
+    // and all metadata is downloaded
+    void (^internalHandler)(void) = ^void() {
+
+        if (!libController.currentlyAddingGames)
+            return;
+
+        libController.currentlyAddingGames = NO;
+
+        [context safeSaveAndWait];
+        [libController.coreDataManager saveChanges];
+
+        [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
+        [context performBlock:^{
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                libController.addButton.enabled = YES;
+                libController.currentlyAddingGames = NO;
+                [libController endImporting];
+                [libController selectGamesWithIfids:select scroll:YES];
+            });
+            if ([options[@"downloadInfo"] isEqual:@(YES)])
+                [LibController fixMetadataWithNoIfidsInContext:context];
+        }];
+    };
+    
+    // End of the long block
+#pragma mark End of long completion handler
+    
+    newOptions[@"completionHandler"] = internalHandler;
+    
+    [libController beginImporting];
+    [self addGamesFromURLsRecursively:urls options:newOptions];
+}
+
+
+- (nullable NSOperation *)addGamesFromURLsRecursively:(NSArray*)urls options:(NSDictionary *)options
+{
+    _downloadedMetadata = [NSMutableSet new];
+    NSManagedObjectContext *context = options[@"context"];
+    void (^internalHandler)(void) = options[@"completionHandler"];
+
+    // Prevent recursive calls from re-running the completion handler
+    if (internalHandler) {
+        NSMutableDictionary *mutableOptions = options.mutableCopy;
+        mutableOptions[@"completionHandler"] = nil;
+        options = mutableOptions;
+    }
 
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSDate *timestamp = [NSDate date];
 
+    NSOperation *lastOperation = nil;
+
     for (NSURL *url in urls)
     {
         if (!_libController.currentlyAddingGames) {
-            return;
+            if (internalHandler)
+                internalHandler();
+            return nil;
         }
 
         NSNumber *isDirectory = nil;
         [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
 
-        if (isDirectory.boolValue)
-        {
+        if (isDirectory.boolValue) {
             NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
-                                       includingPropertiesForKeys:@[NSURLIsDirectoryKey]
-                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                            error:nil];
-            [self addFiles:contentsOfDir options:options];
-        }
-        else
-        {
-            [self addSingleFile:url options:options];
+                                            includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                                               options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                 error:nil];
+            lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
+        } else {
+            lastOperation = [self addSingleFile:url options:options];
         }
 
-        if ([timestamp timeIntervalSinceNow] < -0.5) {
-
-            NSError *error = nil;
-            if (context.hasChanges) {
-                if (![context save:&error]) {
-                    NSLog(@"GameImporter addFiles context save error: %@", error);
-                    continue;
-                }
-
-                NSManagedObjectContext *maincontext = _libController.managedObjectContext;
-                [maincontext performBlock:^{
-                    NSError *blockerror = nil;
-                    if (maincontext.hasChanges)
-                        if (![maincontext save:&blockerror]) {
-                            NSLog(@"GameImporter addFiles main context save error: %@", blockerror);
-                        }
-                }];
-            }
+        if ([timestamp timeIntervalSinceNow] < -0.3) {
+            [context safeSaveAndWait];
+            [_libController.coreDataManager saveChanges];
             timestamp = [NSDate date];
         }
     }
+
+    NSBlockOperation *finisher = nil;
+    if (internalHandler) {
+        finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
+        if (lastOperation)
+            [finisher addDependency:lastOperation];
+        finisher.qualityOfService = NSQualityOfServiceUtility;
+        [_libController.downloadQueue addOperation:finisher];
+        lastOperation = nil;
+    }
+    return lastOperation;
 }
 
-- (void)addSingleFile:(NSURL*)url options:(NSDictionary *)options
+- (nullable NSOperation *)addSingleFile:(NSURL*)url options:(NSDictionary *)options
 {
     NSMutableArray *select = options[@"select"];
     BOOL reportFailure = [options[@"reportFailure"] isEqual:@YES];
@@ -92,15 +168,22 @@ extern NSArray *gGameFileTypes;
     BOOL downloadInfo = [options[@"downloadInfo"] isEqual:@YES];
     NSManagedObjectContext *context = options[@"context"];
 
+    NSOperation *lastOperation = nil;
 
     Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure hide:NO];
 
     if (game) {
         [_libController beginImporting];
-        [select addObject:game.ifid];
-        if (downloadInfo) {
+        if (select)
+            [select addObject:game.ifid];
+        if (downloadInfo && ![_downloadedMetadata containsObject:game.metadata]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
-            [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
+            lastOperation = [downloader downloadMetadataForGames:@[game] onQueue:_libController.downloadQueue imageOnly:NO reportFailure:NO completionHandler:^{
+                [game.managedObjectContext performBlock:^{
+                    game.hasDownloaded = YES;
+                }];
+            }];
+            [_downloadedMetadata addObject:game.metadata];
         }
         // We only look for images on the HDD if the game has
         // no cover image or the Inform 7 placeholder image.
@@ -109,32 +192,20 @@ extern NSArray *gGameFileTypes;
     } else {
         //NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
-}
-
-- (void)addIfictionFile:(NSString *)file {
-    if (!_libController.iFictionFiles)
-        _libController.iFictionFiles = [NSMutableArray arrayWithObject:file];
-    else
-        [_libController.iFictionFiles addObject:file];
+    return lastOperation;
 }
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     char buf[TREATY_MINIMUM_EXTENT];
-    Metadata *metadata;
-    Game *game;
+    Metadata __block *metadata;
+    Game __block *game;
+    Blorb __block *blorb = nil;
     NSString *ifid;
     char *format;
     char *s;
-    Blorb *blorb = nil;
     int rv;
 
     NSString *extension = path.pathExtension.lowercaseString;
-
-    if ([extension isEqualToString: @"ifiction"])
-    {
-        [self addIfictionFile:path];
-        return nil;
-    }
 
     if ([extension isEqualToString: @"d$$"]) {
         path = [self convertAGTFile:path];
@@ -192,7 +263,7 @@ extern NSArray *gGameFileTypes;
                     [alert runModal];
                 });
             } else {
-               NSLog(@"Adrift 5 games are not supported.");
+                NSLog(@"Adrift 5 games are not supported.");
             }
             return nil;
         }
@@ -242,9 +313,9 @@ extern NSArray *gGameFileTypes;
         ifid = @"ZCODE-5-830222";
 
     if (([extension isEqualToString:@"dat"] &&
-        !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-          [@(format) isEqualToString:@"level9"] ||
-          [@(format) isEqualToString:@"advsys"])) ||
+         !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
+           [@(format) isEqualToString:@"level9"] ||
+           [@(format) isEqualToString:@"advsys"])) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -272,108 +343,111 @@ extern NSArray *gGameFileTypes;
 
     LibController *libController = _libController;
 
-    metadata = [libController fetchMetadataForIFID:ifid inContext:context];
+    [context performBlockAndWait:^{
 
-    if (!metadata)
-    {
-        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
-            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-            NSData *mdbufData = [blorb metaData];
-            if (mdbufData) {
-                metadata = [libController importMetadataFromXML: mdbufData inContext:context];
-                metadata.source = @(kInternal);
-                NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
-            }
-            else NSLog(@"Found no metadata in blorb file %@", path);
-        }
-    }
-    else
-    {
-        game = [libController fetchGameForIFID:ifid inContext:context];
-        if (game)
+        metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
+
+        if (!metadata)
         {
-            if ([game.detectedFormat isEqualToString:@"glulx"])
-                game.hashTag = [path signatureFromFile];
-            else if ([game.detectedFormat isEqualToString:@"zcode"]) {
-                [self addZCodeIDfromFile:path blorb:blorb toGame:game];
+            if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+                blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+                NSData *mdbufData = [blorb metaData];
+                if (mdbufData) {
+                    metadata = [libController importMetadataFromXML:mdbufData inContext:context];
+                    metadata.source = @(kInternal);
+                    NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
+                }
+                else NSLog(@"Found no metadata in blorb file %@", path);
             }
-            if (![path isEqualToString:game.path])
-            {
-                NSLog(@"File location did not match for %@. Updating library with new file location (%@).", [path lastPathComponent], path);
-                [game bookmarkForPath:path];
-            }
-            if (![game.detectedFormat isEqualToString:@(format)]) {
-                NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
-                game.detectedFormat = @(format);
-            }
-            game.found = YES;
-            if (!hide)
-                game.hidden = NO;
-            return game;
-        }
-    }
-
-    if (!metadata)
-    {
-        metadata = (Metadata *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Metadata"
-                                 inManagedObjectContext:context];
-    }
-
-    [metadata findOrCreateIfid:ifid];
-
-    if (!metadata.format)
-        metadata.format = @(format);
-    if (!metadata.title || metadata.title.length == 0)
-    {
-        metadata.title = path.lastPathComponent;
-    }
-
-    if (!metadata.cover)
-    {
-        NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
-        NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
-        if (img)
-        {
-            NSLog(@"Found cover image in image directory for game %@", metadata.title);
-            metadata.coverArtURL = imgURL.path;
-            [self addImage:img toMetadata:metadata];
         }
         else
         {
-            if (blorb) {
-                NSData *imageData = blorb.coverImageData;
-                if (imageData) {
-                    metadata.coverArtURL = path;
-                    [self addImage:imageData toMetadata:metadata];
-                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                    NSLog(@"Image md5: %@", [imageData md5String]);
-                    // 26BFA026324DC9C5B3080EA9769B29DE
+            game = [LibController fetchGameForIFID:ifid inContext:context];
+            if (game)
+            {
+                if ([game.detectedFormat isEqualToString:@"glulx"])
+                    game.hashTag = [path signatureFromFile];
+                else if ([game.detectedFormat isEqualToString:@"zcode"]) {
+                    [self addZCodeIDfromFile:path blorb:blorb toGame:game];
                 }
-                else NSLog(@"Found no image in blorb file %@", path);
+                if (![path isEqualToString:game.path])
+                {
+                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", [path lastPathComponent], path);
+                    [game bookmarkForPath:path];
+                }
+                if (![game.detectedFormat isEqualToString:@(format)]) {
+                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
+                    game.detectedFormat = @(format);
+                }
+                game.found = YES;
+                if (!hide)
+                    game.hidden = NO;
+                return;
             }
         }
-    }
 
-    babel_release_ctx(ctx);
+        if (!metadata)
+        {
+            metadata = (Metadata *) [NSEntityDescription
+                                     insertNewObjectForEntityForName:@"Metadata"
+                                     inManagedObjectContext:context];
+        }
 
-    game = (Game *) [NSEntityDescription
-                           insertNewObjectForEntityForName:@"Game"
-                           inManagedObjectContext:context];
+        [metadata findOrCreateIfid:ifid];
 
-    [game bookmarkForPath:path];
+        if (!metadata.format)
+            metadata.format = @(format);
+        if (!metadata.title || metadata.title.length == 0)
+        {
+            metadata.title = path.lastPathComponent;
+        }
 
-    game.added = [NSDate date];
-    game.hidden = hide;
-    game.metadata = metadata;
-    game.ifid = ifid;
-    game.detectedFormat = @(format);
-    if ([game.detectedFormat isEqualToString:@"glulx"]) {
-        game.hashTag = [path signatureFromFile];
-    }
-    if ([game.detectedFormat isEqualToString:@"zcode"]) {
-        [self addZCodeIDfromFile:path blorb:blorb toGame:game];
-    }
+        if (!metadata.cover)
+        {
+            NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
+            NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
+            if (img)
+            {
+                NSLog(@"Found cover image in image directory for game %@", metadata.title);
+                metadata.coverArtURL = imgURL.path;
+                [IFDBDownloader insertImageData:img inMetadata:metadata];
+            }
+            else
+            {
+                if (blorb) {
+                    NSData *imageData = blorb.coverImageData;
+                    if (imageData) {
+                        metadata.coverArtURL = path;
+                        [IFDBDownloader insertImageData:imageData inMetadata:metadata];
+                        NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
+                        NSLog(@"Image md5: %@", [imageData md5String]);
+                        // 26BFA026324DC9C5B3080EA9769B29DE
+                    }
+                    else NSLog(@"Found no image in blorb file %@", path);
+                }
+            }
+        }
+
+        babel_release_ctx(ctx);
+
+        game = (Game *) [NSEntityDescription
+                         insertNewObjectForEntityForName:@"Game"
+                         inManagedObjectContext:context];
+
+        [game bookmarkForPath:path];
+
+        game.added = [NSDate date];
+        game.hidden = hide;
+        game.metadata = metadata;
+        game.ifid = ifid;
+        game.detectedFormat = @(format);
+        if ([game.detectedFormat isEqualToString:@"glulx"]) {
+            game.hashTag = [path signatureFromFile];
+        }
+        if ([game.detectedFormat isEqualToString:@"zcode"]) {
+            [self addZCodeIDfromFile:path blorb:blorb toGame:game];
+        }
+    }];
 
     return game;
 }
@@ -437,20 +511,20 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
        objects + propsize > static_start)
     {
         // corrupted story: object table is not in dynamic memory
-            return NO;
+        return NO;
     }
     return YES;
 }
 
 - (void)lookForImagesForGame:(Game *)game {
-//    NSLog(@"lookForImagesForGame %@", game.metadata.title);
+    //    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSURL *dirUrl = [NSURL fileURLWithPath:[game.path stringByDeletingLastPathComponent] isDirectory:YES];
     // First check if there are other games in this folder
     NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
-                               includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
-                                                  options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                    error:nil];
+                                    includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                         error:nil];
 
     NSMutableSet<NSString *> *gameNames = [[NSMutableSet alloc] initWithCapacity:contentsOfDir.count];
 
@@ -522,9 +596,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             if ([currentDir isEqualToString:@"Data"]) {
                 dirUrl = [NSURL fileURLWithPath:game.path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent isDirectory:YES];
                 contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
-                                           includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
-                                                              options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                error:nil];
+                                       includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                            error:nil];
                 imageFiles = [contentsOfDir filteredArrayUsingPredicate:imageFilesFilter];
             }
         }
@@ -558,7 +632,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
-        [self addImage:imageData toMetadata:game.metadata];
+        [IFDBDownloader insertImageData:imageData inMetadata:game.metadata];
     }
 }
 
@@ -585,7 +659,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 
     NSString *screenDatPath = [path.stringByDeletingLastPathComponent
-                          stringByAppendingPathComponent:@"SCREEN.DAT"];
+                               stringByAppendingPathComponent:@"SCREEN.DAT"];
 
     if ([filemanager fileExistsAtPath:screenDatPath]) {
         NSURL *oldURL = [NSURL fileURLWithPath:screenDatPath];
@@ -593,17 +667,12 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         NSURL *newURL =  [NSURL fileURLWithPath:newURLpath];
 
         [filemanager
-            copyItemAtURL:oldURL
-                    toURL:newURL
-                     error:&error];
+         copyItemAtURL:oldURL
+         toURL:newURL
+         error:&error];
         return @[newURL];
     }
     return @[];
-}
-
-- (void)addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata {
-    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-    [downloader insertImageData:rawImageData inMetadata:metadata];
 }
 
 // Converts AGT D$$ files to the AGX format
@@ -635,7 +704,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
 
     NSString *exepath =
-        [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
+    [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
+    if (!exepath.length)
+        return nil;
     NSURL *dirURL;
     NSURL *cvtURL;
 
@@ -663,7 +734,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
             dirURL =
-                [_libController.homepath URLByAppendingPathComponent:@"Converted"];
+            [_libController.homepath URLByAppendingPathComponent:@"Converted"];
 
             [filemanager createDirectoryAtURL:dirURL
                   withIntermediateDirectories:YES
@@ -671,8 +742,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                         error:&error];
 
             cvtURL =
-                [dirURL URLByAppendingPathComponent:
-                 [@(buf) stringByAppendingPathExtension:@"agx"]];
+            [dirURL URLByAppendingPathComponent:
+             [@(buf) stringByAppendingPathExtension:@"agx"]];
 
             babel_release_ctx(ctx);
 
@@ -709,9 +780,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                 [filemanager removeItemAtURL:newIconURL error:nil];
 
                 [filemanager
-                    copyItemAtURL:oldIconURL
-                            toURL:newIconURL
-                             error:&error];
+                 copyItemAtURL:oldIconURL
+                 toURL:newIconURL
+                 error:&error];
             }
 
             return cvtURL.path;

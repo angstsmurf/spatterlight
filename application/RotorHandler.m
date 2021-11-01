@@ -117,7 +117,7 @@
             NSArray *links = [view links];
 
             if (filterText.length && links.count) {
-                __block NSString *text = ((NSTextView *)targetTextView).string;
+                NSString __block *text = ((NSTextView *)targetTextView).string;
                 links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
                     NSRange range = ((NSValue *)object).rangeValue;
                     NSString *subString = [text substringWithRange:range];
@@ -310,7 +310,7 @@
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkTextGridWindow class]]) {
             NSArray *viewimages = [view images];
-            __block NSString *label;
+            NSString __block *label;
             if (filterText.length && viewimages.count) {
                 viewimages = [viewimages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
                     if ([object isKindOfClass:[SubImage class]]) {

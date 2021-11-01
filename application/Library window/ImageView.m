@@ -6,13 +6,14 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <BlorbFramework/BlorbFramework.h>
 
 #import "ImageView.h"
 
 #import "Constants.h"
 
 #import "AppDelegate.h"
-#import "CoreDataManager.h"
+#import "LibController.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -22,12 +23,14 @@
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
 #import "MyFilePromiseProvider.h"
-#import "Blorb.h"
-#import "BlorbResource.h"
+
 #import "NotificationBezel.h"
 #import "FolderAccess.h"
 
 #import "OSImageHashing.h"
+
+#import "CoreDataManager.h"
+#import "Preferences.h"
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
@@ -175,33 +178,6 @@
     }
 }
 
-- (void)positionLayer {
-    if (_ratio == 0)
-        return;
-    NSView *superview = [self superview];
-    NSSize windowSize = superview.frame.size;
-
-    NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / _ratio);
-    if (imageFrame.size.height > windowSize.height) {
-        imageFrame = NSMakeRect(0,0, windowSize.height * _ratio, windowSize.height);
-        imageFrame.origin.x = (windowSize.width - imageFrame.size.width) / 2;
-    } else {
-        imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2;
-        if (NSMaxY(imageFrame) > NSMaxY(superview.frame))
-            imageFrame.origin.y = NSMaxY(superview.frame) - imageFrame.size.height;
-    }
-
-    self.frame = imageFrame;
-
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    self.layer.frame = imageFrame;
-    imageFrame.origin = NSZeroPoint;
-    for (CALayer *layer in self.layer.sublayers)
-        layer.frame = imageFrame;
-    [CATransaction commit];
-}
 
 - (BOOL)wantsUpdateLayer {
     return YES;
@@ -445,7 +421,10 @@
 }
 
 - (void)keyDown:(NSEvent *)event {
-    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+    NSString *characters = [event charactersIgnoringModifiers];
+    unichar key = '\0';
+    if (characters.length)
+        key = [characters characterAtIndex:0];
     if (!_isPlaceholder && (key == NSDeleteCharacter || key == NSBackspaceCharacter))
         [self delete:nil];
     else
@@ -473,26 +452,29 @@
 }
 
 - (IBAction)reloadFromBlorb:(id)sender {
-    NSString *path = _game.path;
-    if (!path)
-        path = [_game urlForBookmark].path;
-    __unsafe_unretained ImageView *weakSelf = self;
-    [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path] andThenRunBlock:^{
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+    NSURL *url = [_game urlForBookmark];
+    if (!url)
+        return;
+    ImageView __weak *weakSelf = self;
+    [FolderAccess askForAccessToURL:url andThenRunBlock:^{
+        ImageView *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         NSData *data = [blorb coverImageData];
         BOOL success = NO;
         if (data) {
-            [weakSelf processImageData:data sourceUrl:path dontAsk:YES];
+            [strongSelf processImageData:data sourceUrl:url.path dontAsk:YES];
             success = YES;
             NSData *metadata = [blorb metaData];
             if (metadata) {
                 NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
                 if (imageDescription.length)
-                    weakSelf.game.metadata.coverArtDescription = imageDescription;
+                    strongSelf.game.metadata.coverArtDescription = imageDescription;
             }
         }
         if (!success) {
-            NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+            NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:strongSelf.window.screen];
             [bezel showStandardWithText:@"? No image found"];
         }
     }];
@@ -516,24 +498,24 @@
 }
 
 - (IBAction)downloadImage:(id)sender {
-    CoreDataManager *coreDataManager = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
-    NSManagedObjectContext *childContext = coreDataManager.privateChildManagedObjectContext;
+    Game *game = _game;
+    NSOperationQueue *queue = self.workQueue;
 
-    NSManagedObjectID *objectID = _game.objectID;
-    [childContext performBlock:^{
-        Game *game = [childContext objectWithID:objectID];
-        if (!game)
-            return;
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
-        if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
-            [downloader downloadImageFor:game.metadata];
-            if ([childContext hasChanges]) {
-                NSError *error = nil;
-                [childContext save:&error];
-                if (error)
-                    NSLog(@"ImageView downloadImage context save error: %@", error);
-            }
-        }
+    LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+    libController.lastImageComparisonData = nil;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
+
+    [game.managedObjectContext performBlock:^{
+
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:game.managedObjectContext];
+        
+        [downloader downloadMetadataForGames:@[game] onQueue:queue imageOnly:YES reportFailure:YES completionHandler:^{
+            [game.managedObjectContext performBlock:^{
+                [downloader downloadImageFor:game.metadata onQueue:queue forceDialog:(setting == kNeverReplace)];
+            }];
+        }];
     }];
 }
 
@@ -720,17 +702,25 @@
 }
 
 -(void)processImageData:(NSData *)imageData sourceUrl:(NSString *)URLPath dontAsk:(BOOL)dontAsk {
-    if (!imageData)
+    if (!imageData || !URLPath.length)
         return;
+
+    Metadata *metadata = _game.metadata;
+
+    Image *oldImageObj = [ImageView findImageObjectWithURL:URLPath inContext:_game.managedObjectContext];
+    if (oldImageObj && [oldImageObj.data isEqualTo:imageData]) {
+        metadata.cover = oldImageObj;
+        metadata.coverArtURL = URLPath;
+        return;
+    }
 
     if ([URLPath isEqualToString:@"pasteboard"] ||
         [self compareByFileNames:URLPath data:imageData]) {
         dontAsk = YES;
     }
 
-    Metadata *metadata = _game.metadata;
-    __block NSData *data = imageData;
-    __block BOOL askFlag = dontAsk;
+    NSData __block *data = imageData;
+    BOOL __block askFlag = dontAsk;
     [self.workQueue addOperationWithBlock:^{
         if (data.length > MAX_SPATTERLIGHT_IMAGE_FILE_SIZE)
             data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
@@ -739,13 +729,12 @@
             [self compareByFileNames:URLPath data:imageData]) {
             askFlag = YES;
         }
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
 
         if (askFlag) {
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [downloader insertImageData:data inMetadata:metadata];
+                [IFDBDownloader insertImageData:data inMetadata:metadata];
                 metadata.userEdited = @YES;
                 metadata.source = @(kUser);
             }];
@@ -757,11 +746,11 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
             ImageCompareViewController *compare = [ImageCompareViewController new];
             // We always replace when pasting
-            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
+            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data source:kImageComparisonLocalFile force:NO]) {
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [downloader insertImageData:data inMetadata:metadata];
+                    [IFDBDownloader insertImageData:data inMetadata:metadata];
                     metadata.userEdited = @YES;
                     metadata.source = @(kUser);
                 }];
@@ -770,13 +759,33 @@
     }];
 }
 
++ (nullable Image *)findImageObjectWithURL:(NSString *)path inContext:(NSManagedObjectContext *)context {
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL = %@", path];
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil || error) {
+        NSLog(@"findImageObjectWithURL error: %@",error);
+        return nil;
+    }
+
+    if (!fetchedObjects.count) {
+        return nil;
+    }
+
+    return fetchedObjects.firstObject;
+}
+
 - (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {
 
     if (!_game.managedObjectContext)
         return NO;
 
-    __block NSData *gameData;
-    __block NSString *gamePath;
+    NSData __block *gameData;
+    NSString __block *gamePath;
 
     [_game.managedObjectContext performBlockAndWait:^{
         gameData = (NSData *)_game.metadata.cover.data;
@@ -858,7 +867,7 @@
 
     NSDate *mouseTime = [NSDate date];
 
-    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
 
     NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
     NSTimeInterval timeout = NSEventDurationForever;

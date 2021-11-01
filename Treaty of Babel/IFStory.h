@@ -19,6 +19,6 @@
 @property(readonly) IFCoverDescription *coverDescription;
 @property(readonly) IFDB *ifdb;
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue;
 
 @end

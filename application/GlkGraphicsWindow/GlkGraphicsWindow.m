@@ -332,7 +332,7 @@
 
     NSDate *mouseTime = [NSDate date];
     
-    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
     
     NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
     NSTimeInterval timeout = NSEventDurationForever;

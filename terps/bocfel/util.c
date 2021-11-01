@@ -8,11 +8,11 @@
 //
 // Bocfel is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Bocfel.  If not, see <http://www.gnu.org/licenses/>.
+// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -28,7 +28,6 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
-
 #ifdef SPATTERLIGHT
 extern glui32 gli_error_handling;
 extern void win_showerror(char *);
@@ -92,7 +91,9 @@ void die(const char *fmt, ...)
     fprintf(stderr, "Fatal error: %s\n", str);
 #endif
     glk_exit();
-#else
+#endif
+
+#ifndef SPATTERLIGHT
     exit(EXIT_FAILURE);
 #endif
 }

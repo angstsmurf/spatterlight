@@ -8,12 +8,11 @@
 #import "ThumbnailProvider.h"
 #import <Cocoa/Cocoa.h>
 #import <CoreData/CoreData.h>
+#import <BlorbFramework/Blorb.h>
 
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-
-#import "Blorb.h"
 
 #include "babel_handler.h"
 
@@ -59,12 +58,12 @@
 
     // There are three ways to provide a thumbnail through a QLThumbnailReply. Only one of them should be used.
 
-    __block NSData *imgdata = nil;
-    __block NSImage *image;
+    NSData __block *imgdata = nil;
+    NSImage __block *image;
 
-    __block NSURL *url = request.fileURL;
-    __block NSSize newImageSize;
-    __block NSSize contextSize;
+    NSURL __block *url = request.fileURL;
+    NSSize __block newImageSize;
+    NSSize __block contextSize;
 
 
     NSError *error;

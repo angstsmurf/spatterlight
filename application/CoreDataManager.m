@@ -8,6 +8,7 @@
 
 #import "CoreDataManager.h"
 #import <AppKit/AppKit.h>
+#import "MyCoreDataCoreSpotlightDelegate.h"
 
 @interface CoreDataManager () {
     NSString *modelName;
@@ -56,16 +57,53 @@
         return _persistentStoreCoordinator;
     }
 
-    BOOL needMigrate = false;
     //    BOOL needDeleteOld  = false;
-
-    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
     NSManagedObjectModel *mom = [self managedObjectModel];
     if (!mom) {
         NSLog(@"%@:%@ ERROR! No model to generate a store from!", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
+
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+
+    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @(YES),
+                               NSInferMappingModelAutomaticallyOption: @(YES) };
+
+    NSURL *groupURL = nil;
+    BOOL needMigrate = NO;
+
+    NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
+
+    NSError *error = nil;
+
+    NSPersistentStore *store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:targetURL options:options error:&error];
+
+    if (!store) {
+        [[NSApplication sharedApplication] presentError:error];
+        return nil;
+    }
+
+    // do the migrate job from local store to a group store.
+    if (needMigrate) {
+        error = nil;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [context setPersistentStoreCoordinator:coordinator];
+        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
+        if (error != nil) {
+            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+
+    _persistentStoreCoordinator = coordinator;
+
+    return _persistentStoreCoordinator;
+}
+
+- (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL **)groupURL{
+
+    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
     NSString *groupIdentifier =
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
@@ -101,48 +139,80 @@
         }
     }
 
-    NSURL *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-    groupURL = [groupURL URLByAppendingPathComponent:@"Spatterlight.storedata"];
+    *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+    *groupURL = [*groupURL URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
-    NSURL *targetURL = groupURL;
+    NSURL *targetURL = oldURL;
 
-    if ([fileManager fileExistsAtPath:[groupURL path]]) {
-        needMigrate = NO;
-        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
-        //            needDeleteOld = YES;
-        //        }
-    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
-        targetURL = oldURL;
-        needMigrate = YES;
+//    if ([fileManager fileExistsAtPath:[groupURL path]]) {
+//        needMigrate = NO;
+//        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        //            needDeleteOld = YES;
+//        //        }
+//    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        targetURL = oldURL;
+//        needMigrate = YES;
+//    }
+
+    return targetURL;
+}
+
+- (NSPersistentContainer *)persistentContainer
+{
+    if (_persistentContainer) {
+        return _persistentContainer;
     }
 
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+    NSURL *groupURL = nil;
+    BOOL needMigrate = NO;
 
-    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @(YES),
-                               NSInferMappingModelAutomaticallyOption: @(YES) };
+    NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
 
-    NSPersistentStore *store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:targetURL options:options error:&error];
+    _persistentContainer = [[NSPersistentContainer alloc] initWithName:modelName];
 
-    if (!store) {
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
+    NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:targetURL];
+
+    description.shouldMigrateStoreAutomatically = YES;
+    description.shouldInferMappingModelAutomatically = YES;
+
+    if (@available(macOS 10.15, *)) {
+        [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
+        _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
+
+        [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+        [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
     }
 
-    // do the migrate job from local store to a group store.
-    if (needMigrate) {
-        error = nil;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [context setPersistentStoreCoordinator:coordinator];
-        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
+    _persistentContainer.persistentStoreDescriptions = @[ description ];
+
+    NSPersistentContainer *blockContainer = _persistentContainer;
+    [blockContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
         if (error != nil) {
-            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
-            abort();
+            NSLog(@"Failed to load Core Data stack: %@", error);
         }
-    }
+        if (blockContainer.viewContext.undoManager == nil) {
+            NSUndoManager *newManager = [[NSUndoManager alloc] init];
+            [newManager setLevelsOfUndo:10];
+            blockContainer.viewContext.undoManager = newManager;
+        }
 
-    _persistentStoreCoordinator = coordinator;
+        blockContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+        blockContainer.viewContext.automaticallyMergesChangesFromParent = YES;
 
-    return _persistentStoreCoordinator;
+        // do the migrate job from local store to a group store.
+        if (needMigrate) {
+            error = nil;
+            NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
+            NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
+            [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
+            if (error != nil) {
+                NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+                abort();
+            }
+        }
+    }];
+
+    return _persistentContainer;
 }
 
 // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
@@ -172,14 +242,19 @@
     if (_mainManagedObjectContext) {
         return _mainManagedObjectContext;
     }
-    _mainManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 
-    [_mainManagedObjectContext setParentContext:[self privateManagedObjectContext]];
+    if (@available(macOS 10.13, *)) {
+        _mainManagedObjectContext = self.persistentContainer.viewContext;
+    } else {
+        _mainManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 
-    if (_mainManagedObjectContext.undoManager == nil) {
-        NSUndoManager *newManager = [[NSUndoManager alloc] init];
-        [newManager setLevelsOfUndo:10];
-        _mainManagedObjectContext.undoManager = newManager;
+        [_mainManagedObjectContext setParentContext:[self privateManagedObjectContext]];
+
+        if (_mainManagedObjectContext.undoManager == nil) {
+            NSUndoManager *newManager = [[NSUndoManager alloc] init];
+            [newManager setLevelsOfUndo:10];
+            _mainManagedObjectContext.undoManager = newManager;
+        }
     }
 
     return _mainManagedObjectContext;
@@ -194,55 +269,83 @@
 }
 
 - (void)saveChanges {
-    //    NSLog(@"CoreDataManagar saveChanges");
+//    NSLog(@"CoreDataManagar saveChanges");
+    NSManagedObjectContext *mainContext = _mainManagedObjectContext;
 
-    [_mainManagedObjectContext performBlockAndWait:^{
-        NSError *error;
-        if (_mainManagedObjectContext.hasChanges) {
-            if (![_mainManagedObjectContext save:&error]) {
-                NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
+    if (@available(macOS 10.13, *)) {
+        [mainContext performBlock:^{
+            NSError *error = nil;
+            if (mainContext.hasChanges) {
+                [mainContext save:&error];
                 if (error) {
-                    [[NSApplication sharedApplication] presentError:error];
+                    NSLog(@"CoreDataManager saveMainContext error: %@", error);
                 }
-            } //else NSLog(@"Changes in _mainManagedObjectContext were saved");
-
-        } //else NSLog(@"No changes to save in _mainManagedObjectContext");
-
-    }];
-
-    CoreDataManager * __unsafe_unretained weakSelf = self;
-
-    [privateManagedObjectContext performBlock:^{
-        BOOL result = NO;
-        NSError *error = nil;
-        if (weakSelf->privateManagedObjectContext.hasChanges) {
-            @try {
-                result = [weakSelf->privateManagedObjectContext save:&error];
-                if (error)
-                    NSLog(@"Error: %@", error);
             }
-            @catch (NSException *ex) {
-                // Ususally because we have deleted the core data files
-                // while the program is running
-                NSLog(@"Unable to save changes in Private Managed Object Context!");
-                return;
-            }
+        }];
+    } else {
+        [mainContext performBlockAndWait:^{
+            NSError *error = nil;
+            if (mainContext.hasChanges) {
+                if (![mainContext save:&error]) {
+                    NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
+                    if (error) {
+                        [[NSApplication sharedApplication] presentError:error];
+                    }
+                } //else NSLog(@"Changes in _mainManagedObjectContext were saved");
+                
+            } //else NSLog(@"No changes to save in _mainManagedObjectContext");
+            
+        }];
 
-            if (!result) {
-                NSLog(@"Unable to Save Changes of Private Managed Object Context! Error:%@", error);
-            }
+        NSManagedObjectContext *privateContext = privateManagedObjectContext;
 
-        } //else NSLog(@"No changes to save in privateManagedObjectContext");
-    }];
+        [privateContext performBlock:^{
+            BOOL result = NO;
+            NSError *error = nil;
+            if (privateContext.hasChanges) {
+                @try {
+                    result = [privateContext save:&error];
+                    if (error)
+                        NSLog(@"Error: %@", error);
+                }
+                @catch (NSException *ex) {
+                    // Ususally because we have deleted the core data files
+                    // while the program is running
+                    NSLog(@"Unable to save changes in Private Managed Object Context!");
+                    return;
+                }
+                
+                if (!result) {
+                    NSLog(@"Unable to Save Changes of Private Managed Object Context! Error:%@", error);
+                }
+                
+            } //else NSLog(@"No changes to save in privateManagedObjectContext");
+        }];
+    }
 }
 
 - (NSManagedObjectContext *)privateChildManagedObjectContext {
-    // Initialize Managed Object Context
-    NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    // Configure Managed Object Context
+    NSManagedObjectContext *managedObjectContext =
+    [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     managedObjectContext.parentContext = self.mainManagedObjectContext;
-    
+
     return managedObjectContext;
+}
+
+- (void)startIndexing {
+    if (@available(macOS 10.15, *)) {
+        if (!_spotlightDelegate)
+            return;
+        [_spotlightDelegate startSpotlightIndexing];
+    }
+}
+
+- (void)stopIndexing {
+    if (@available(macOS 10.15, *)) {
+        if (!_spotlightDelegate)
+            return;
+        [_spotlightDelegate stopSpotlightIndexing];
+    }
 }
 
 @end

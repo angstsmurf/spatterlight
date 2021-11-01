@@ -30,35 +30,53 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation ImageCompareViewController
 
-- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB type:(kImageComparisonType)type {
-
++ (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force {
     if (!imageB.length || [imageB isPlaceHolderImage])
-        return YES;
+        return kImageComparisonResultA;
     if (!imageA.length || [imageA isPlaceHolderImage])
-        return NO;
+        return kImageComparisonResultB;
 
     if([imageA isEqualToData:imageB]) {
         NSLog(@"The images are the same");
-        return NO;
+        return kImageComparisonResultB;
     }
 
     if ([[OSImageHashing sharedInstance] compareImageData:imageA to:imageB]) {
         NSLog(@"The images are the same according to OSImageHashing");
-        return NO;
+        return kImageComparisonResultB;
     }
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (!force) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (type == DOWNLOADED) {
-        if ([defaults integerForKey:@"ImageReplacement"] == kNeverReplace)
-            return NO;
-        
-        if ([defaults integerForKey:@"ImageReplacement"] == kAlwaysReplace)
-            return YES;
-    } else if (type == LOCAL && [defaults boolForKey:@"ImageComparisonSuppression"]) {
+        if (source == kImageComparisonDownloaded) {
+            if ([defaults integerForKey:@"ImageReplacement"] == kNeverReplace)
+                return kImageComparisonResultB;
+            
+            if ([defaults integerForKey:@"ImageReplacement"] == kAlwaysReplace)
+                return kImageComparisonResultA;
+        } else if (source == kImageComparisonLocalFile && [defaults boolForKey:@"ImageComparisonSuppression"]) {
+            return kImageComparisonResultA;
+        }
+    }
+    return kImageComparisonResultWantsUserInput;
+}
+
+- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force {
+
+    kImageComparisonResult result = [ImageCompareViewController chooseImageA:imageA orB:imageB source:source force:force];
+
+    if (result == kImageComparisonResultA)
         return YES;
-    }
+    if (result == kImageComparisonResultB)
+        return NO;
 
+    NSModalResponse choice = [self showAlertWithImageA:(NSData *)imageA imageB:(NSData *)imageB source:source];
+
+    return (choice == NSAlertFirstButtonReturn);
+}
+
+- (NSModalResponse)showAlertWithImageA:(NSData *)imageA imageB:(NSData *)imageB source:(kImageComparisonSource)source {
     NSAlert *alert = [[NSAlert alloc] init];
 
     alert.accessoryView = self.view;
@@ -70,7 +88,7 @@ fprintf(stderr, "%s\n",                                                    \
     [alert addButtonWithTitle:NSLocalizedString(@"No", nil)];
 
     NSButton *checkbox = _imageSelectDialogSuppressionButton;
-    if (type == LOCAL) {
+    if (source == kImageComparisonLocalFile) {
         [alert layout];
         checkbox.title = NSLocalizedString(@"Don't ask again", nil);
         NSRect frame = checkbox.frame;
@@ -80,8 +98,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSModalResponse choice = [alert runModal];
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
     if (checkbox.state == NSOnState) {
-        if (type == DOWNLOADED) {
+        if (source == kImageComparisonDownloaded) {
             [defaults setInteger:(choice == NSAlertFirstButtonReturn) ? kAlwaysReplace : kNeverReplace forKey:@"ImageReplacement"];
             if (Preferences.instance)
                 [Preferences.instance updatePrefsPanel];
@@ -89,14 +109,7 @@ fprintf(stderr, "%s\n",                                                    \
             [defaults setBool:YES forKey: @"ImageComparisonSuppression"];
         }
     }
-
-    return (choice == NSAlertFirstButtonReturn);
+    return choice;
 }
-
-- (NSData *)pngDataFromRep:(NSBitmapImageRep *)rep {
-    NSDictionary *props = @{ NSImageInterlaced: @(NO) };
-    return [NSBitmapImageRep representationOfImageRepsInArray:@[rep] usingType:NSBitmapImageFileTypePNG properties:props];
-}
-
 
 @end

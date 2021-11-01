@@ -285,12 +285,16 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     if (_inAnimation)
         return;
-    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
-    NSArray *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
+    NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSSet *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
+    NSSet *refreshedObjects =  (notification.userInfo)[NSRefreshedObjectsKey];
     if ([deletedObjects containsObject:_game])
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.window performClose:nil];
         });
+    if (!updatedObjects)
+        updatedObjects = [NSSet new];
+    updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
     if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])
     {
         dispatch_async(dispatch_get_main_queue(), ^{

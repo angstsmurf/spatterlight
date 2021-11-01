@@ -208,7 +208,7 @@
 }
 
 - (NSUInteger)findAttributeSelection {
-    __block NSUInteger guess = NSNotFound;
+    NSUInteger __block guess = NSNotFound;
     NSRange lineRange = _lines.firstObject.rangeValue;
     NSRange menuRange = NSUnionRange(lineRange, _lines.lastObject.rangeValue);
     NSRange allText = NSMakeRange(0, _attrStr.length);

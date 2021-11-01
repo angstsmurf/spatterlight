@@ -216,12 +216,12 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSSearchField *)findSearchFieldIn:
     (NSView *)theView // search the subviews for a view of class NSSearchField
 {
-    __block __weak NSSearchField * (^weak_findSearchField)(NSView *);
-    NSSearchField * (^findSearchField)(NSView *);
+    NSSearchField __block __weak  *(^weak_findSearchField)(NSView *);
+    NSSearchField *(^findSearchField)(NSView *);
     weak_findSearchField = findSearchField = ^(NSView *view) {
         if ([view isKindOfClass:[NSSearchField class]])
             return (NSSearchField *)view;
-        __block NSSearchField *foundView = nil;
+        NSSearchField __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(
                            NSView *subview, NSUInteger idx, BOOL *stop) {
             foundView = weak_findSearchField(subview);

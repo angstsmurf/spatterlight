@@ -2,6 +2,9 @@
  * Application -- the main application controller
  */
 
+#import <CoreData/CoreData.h>
+#import <CoreSpotlight/CoreSpotlight.h>
+
 #import "main.h"
 #import "Constants.h"
 #import "CoreDataManager.h"
@@ -363,7 +366,7 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
-        __block NSWindow *win = [_libctl importAndPlayGame:path];
+        NSWindow __block *win = [_libctl importAndPlayGame:path];
         if (win && !((GlkController *)win.delegate).showingDialog) {
             double delayInSeconds = 1;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -388,6 +391,42 @@ PasteboardFilePasteLocation;
     return NO;
 }
 
+- (BOOL)application:(NSApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray<id<NSUserActivityRestoring>> *restorableObjects))restorationHandler {
+    if (@available(macOS 10.13, *)) {
+
+        NSLog(@"continueUserActivity");
+
+        // We're coming from a search result
+        NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+
+        if (searchableItemIdentifier.length) {
+            NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
+
+            NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
+            if (!context) {
+                NSLog(@"Could not create new context!");
+                return NO;
+            }
+
+            NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
+            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+
+            id object = [context objectWithID:objectID];
+
+            if (!object) {
+                return NO;
+            }
+
+            [_libctl handleSpotlightSearchResult:object];
+        }
+
+    }
+
+    return YES;
+}
+
 - (NSWindow *)preferencePanel {
     return _prefctl.window;
 }
@@ -407,7 +446,7 @@ PasteboardFilePasteLocation;
         theDocCont = [NSDocumentController sharedDocumentController];
     }
 
-    __weak NSDocumentController *localDocCont = theDocCont;
+    NSDocumentController __weak *localDocCont = theDocCont;
 
     [URLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [localDocCont noteNewRecentDocumentURL:obj];
@@ -543,8 +582,13 @@ PasteboardFilePasteLocation;
         for (NSWindow *win in app.windows)
             if (win.visible)
                 visibleWindows = YES;
-        if (!visibleWindows)
-            [self openDocument:nil];
+        if (!visibleWindows) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
+                [self showLibrary:nil];
+            } else {
+                [self openDocument:nil];
+            }
+        }
     });
 }
 

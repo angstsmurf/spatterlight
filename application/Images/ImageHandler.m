@@ -6,9 +6,7 @@
 //
 
 #import "ImageHandler.h"
-#import "Blorb.h"
-#import "BlorbResource.h"
-
+#import <BlorbFramework/BlorbFramework.h>
 
 @implementation ImageFile : NSObject
 

@@ -106,16 +106,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self.imageView paste:sender];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(NSTextField *)textField{
-    return NO;
-}
-
-- (BOOL)textField:(NSTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-//    return textField != _yourReadOnlyTextField;
-    return NO;
-}
-
 @synthesize imageView = _imageView;
 
 - (ImageView *)imageView {
@@ -594,7 +584,7 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
         CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
-        if (topConstraintConstant < 0)
+        if (topConstraintConstant < 40)
             topConstraintConstant = 0;
 
         topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
@@ -604,7 +594,6 @@ fprintf(stderr, "%s\n",                                                    \
                                                             attribute:NSLayoutAttributeTop
                                                            multiplier:1.0
                                                              constant:topConstraintConstant];
-//        topSpacerYConstraint.priority = 999;
 
         if (clipView.frame.size.height < self.frame.size.height) {
             topSpacerYConstraint.constant = 0;
@@ -671,8 +660,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     NSPoint newOrigin = [clipView bounds].origin;
-//    if (fabs(newOrigin.y - titleYpos) < NSHeight(self.frame) / 10)
-//        return;
     newOrigin.y = titleYpos;
 
     _animatingScroll = YES;

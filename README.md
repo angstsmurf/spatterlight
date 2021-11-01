@@ -49,9 +49,11 @@ Hugo Tetris: https://youtu.be/G-tTzXso6AA
 
 # Compiling
 
-You need at least macOS 10.15 Catalina and Xcode 12 or later. Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button.
+Building the current version has only been tried on macOS 11 Big Sur and Xcode 13. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.10 Yosemite, though.
 
-Note that the `master` branch has the QuickLook plugins disabled. To enable them, you must use the `release` branch, which requires setting your Apple Developer Group ID on all targets.
+Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button.
+
+Note that the `master` branch has the QuickLook plugins disabled. To enable them, you must use the `release` branch, which requires at least setting your Apple Developer Group ID on all targets, and possibly other changes as well.
 
 #
 

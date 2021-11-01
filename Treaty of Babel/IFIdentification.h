@@ -18,7 +18,7 @@
 @property NSManagedObjectContext *context;
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context;
-- (Ifid *)fetchIfid:(NSString *)ifid;
++ (Ifid *)fetchIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)metadataFromIfids:(NSArray<NSString *> *)ifids;
 
 @end
