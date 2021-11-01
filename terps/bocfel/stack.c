@@ -1456,7 +1456,8 @@ static void trim_saves(enum SaveStackType type, long n)
 
     while (n-- > 0 && s->count > 0) {
         struct save_state *tmp = s->head;
-
+        if (s->head == NULL)
+            return;
         s->head = s->head->next;
         s->count--;
         free_save_state(tmp);
