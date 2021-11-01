@@ -17,7 +17,7 @@
   NSInteger frontispiece;
 }
 
-- (nullable BlorbResource *)findResourceOfUsage:(unsigned int)usage;
+- (nullable BlorbResource *)findResourceOfUsage:(FourCharCode)usage;
 
 @end
 
@@ -58,14 +58,14 @@
 
     const unsigned char *ptr = data.bytes;
     ptr += 12;
-    unsigned int chunkID;
+    FourCharCode chunkID;
     chunkIDAndLength(ptr, &chunkID);
     if (chunkID == IFFID('R', 'I', 'd', 'x')) {
       ptr += 8;
       unsigned int count = unpackLong(ptr);
       ptr += 4;
       while (count--) {
-        unsigned int usage = unpackLong(ptr);
+        FourCharCode usage = unpackLong(ptr);
         unsigned int number = unpackLong(ptr + 4);
         unsigned int start = unpackLong(ptr + 8);
         ptr += 12;
@@ -125,7 +125,7 @@
           count = unpackLong(ptr);
           ptr += 4;
           while (count--) {
-            unsigned int usage = unpackLong(ptr);
+            FourCharCode usage = unpackLong(ptr);
             unsigned int number = unpackLong(ptr + 4);
             unsigned int length = unpackLong(ptr + 8);
             NSRange range =
@@ -170,7 +170,7 @@
   return [data subdataWithRange:range];
 }
 
-- (NSArray<BlorbResource *> *)resourcesForUsage:(unsigned int)usage {
+- (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage {
   NSMutableArray<BlorbResource *> *array = [NSMutableArray array];
   for (NSUInteger i = 0; i < _resources.count; ++i) {
     BlorbResource *resource = _resources[i];
@@ -180,7 +180,7 @@
   return array;
 }
 
-- (BlorbResource *)findResourceOfUsage:(unsigned int)usage {
+- (BlorbResource *)findResourceOfUsage:(FourCharCode)usage {
   for (NSUInteger i = 0; i < _resources.count; ++i) {
     BlorbResource *resource = _resources[i];
     if ([resource usage] == usage)
@@ -195,7 +195,7 @@
   if (resource) {
     const unsigned char *ptr = data.bytes;
     ptr += [resource start];
-    unsigned int chunkID;
+    FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
     if (chunkID == IFFID('Z', 'C', 'O', 'D')) {
       NSRange range = NSMakeRange([resource start] + 8, len);
@@ -211,7 +211,7 @@
   if (resource) {
     const unsigned char *ptr = data.bytes;
     ptr += [resource start];
-    unsigned int chunkID;
+    FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
     NSRange range = NSMakeRange([resource start] + 8, len);
     return [data subdataWithRange:range];
