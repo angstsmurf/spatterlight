@@ -56,7 +56,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
 //    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "BANNERCOLS",       "BANNERLINES"  "TIMER",
+//    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
 //    "INITCHAR",        "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
