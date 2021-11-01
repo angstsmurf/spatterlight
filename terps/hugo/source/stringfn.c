@@ -3,7 +3,7 @@
 
 	String manipulation functions
 
-	Copyright (c) 1995-2006 by Kent Tessman
+	Copyright (c) 1995-2009 by Kent Tessman
 	
 	Only if ALLOW_NESTING is #defined may these calls be nested, and then
 	only two at a time (noting that it takes another 1025 bytes of global
@@ -106,9 +106,9 @@ char *Ltrim(char a[])
 #else
 	temp = &tempstring[0];
 #endif
-	hugo_strcpy(temp, a);
+	strcpy(temp, a);
 	while (temp[0]==' ' || temp[0]=='\t')
-		hugo_strcpy(temp, temp+1);
+		strcpy(temp, temp+1);
 	return temp;
 }
 
@@ -187,6 +187,7 @@ void hugo_strcpy(char *dest, const char *source)
 
 char *itoa(int a, char *buf, int base)
 {
+	(void)base;
 	/* This only works if base is 10 (which it will be) */
 	sprintf(buf, "%d" ,a);
 	return buf;
