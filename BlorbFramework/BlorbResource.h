@@ -8,21 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define ExecutableResource 0x45786563
-#define PictureResource 0x50696374
-#define SoundResource 0x536e6420
+NS_ENUM(FourCharCode) {
+    ExecutableResource = 0x45786563,
+    PictureResource = 0x50696374,
+    SoundResource = 0x536e6420
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BlorbResource : NSObject
 
-@property(readonly) unsigned int usage;
+@property(readonly) FourCharCode usage;
 @property(readonly) unsigned int number;
 @property(readonly) unsigned int start;
 @property(nullable) NSString *descriptiontext;
 @property(nullable) NSString *chunkType;
 
-- (instancetype)initWithUsage:(unsigned int)usage
+- (instancetype)initWithUsage:(FourCharCode)usage
                        number:(unsigned int)number
                         start:(unsigned int)start NS_DESIGNATED_INITIALIZER;
 - (instancetype)init __attribute__((unavailable));
