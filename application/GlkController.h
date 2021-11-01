@@ -59,9 +59,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) BOOL inFullscreen;
 @property BOOL shouldStoreScrollOffset;
 
-@property BOOL newTimer;
-@property CGFloat newTimerInterval;
-
 @property(readonly) NSInteger firstResponderView;
 
 @property(readonly) NSMutableArray *queue;

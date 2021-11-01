@@ -343,9 +343,6 @@ fprintf(stderr, "%s\n",                                                    \
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
 
-    _newTimer = NO;
-    _newTimerInterval = 0.2;
-
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     windowdirty = NO;
@@ -1320,6 +1317,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
@@ -2608,8 +2607,6 @@ fprintf(stderr, "%s\n",                                                    \
                                        selector:@selector(noteTimerTick:)
                                        userInfo:0
                                         repeats:YES];
-        _newTimer = YES;
-        _newTimerInterval = timer.timeInterval;
     }
 }
 
@@ -2901,7 +2898,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    //    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    // NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
