@@ -33,8 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addMetadataObject:(Metadata *)value;
 - (void)removeMetadataObject:(Metadata *)value;
-- (void)addMetadata:(NSSet *)values;
-- (void)removeMetadata:(NSSet *)values;
+- (void)addMetadata:(NSSet<Metadata *> *)values;
+- (void)removeMetadata:(NSSet<Metadata *> *)values;
 
 @end
 

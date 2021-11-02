@@ -144,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (Theme *)clone;
 - (void)copyAttributesFrom:(Theme *)theme;
 - (void)populateStyles;
-- (NSArray *)allStyles;
+- (NSArray<GlkStyle *> *)allStyles;
 - (BOOL)hasCustomStyles;
 
 @end
@@ -153,13 +153,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addDefaultChildObject:(Theme *)value;
 - (void)removeDefaultChildObject:(Theme *)value;
-- (void)addDefaultChild:(NSSet *)values;
-- (void)removeDefaultChild:(NSSet *)values;
+- (void)addDefaultChild:(NSSet<Theme *> *)values;
+- (void)removeDefaultChild:(NSSet<Theme *> *)values;
 
 - (void)addGamesObject:(Game *)value;
 - (void)removeGamesObject:(Game *)value;
-- (void)addGames:(NSSet *)values;
-- (void)removeGames:(NSSet *)values;
+- (void)addGames:(NSSet<Game *> *)values;
+- (void)removeGames:(NSSet<Game *> *)values;
 - (void)resetCommonValues;
 
 @end
