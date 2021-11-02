@@ -249,7 +249,7 @@
                                         <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="955">
                                             <rect key="frame" x="128" y="26" width="220" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Changes apply to all games in library" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="956">
+                                            <buttonCell key="cell" type="check" title="Changes apply to all games in library" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="956">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
@@ -260,7 +260,7 @@
                                         <button toolTip="Adapt the window size when changing settings to keep the width in characters constant." fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="958">
                                             <rect key="frame" x="128" y="6" width="126" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Adjust window size" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="959">
+                                            <buttonCell key="cell" type="check" title="Adjust window size" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="959">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>

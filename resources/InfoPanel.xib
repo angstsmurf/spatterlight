@@ -25,52 +25,50 @@
             <rect key="contentRect" x="211" y="354" width="564" height="216"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="6" customClass="HelperView">
-                <rect key="frame" x="0.0" y="0.0" width="564" height="216"/>
+                <rect key="frame" x="0.0" y="0.0" width="564" height="217"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="28">
-                        <rect key="frame" x="8" y="192" width="340" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                        <rect key="frame" x="8" y="192" width="340" height="15"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="An Interactive Fiction" id="67">
                             <font key="font" metaFont="systemBold" size="12"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="29">
-                        <rect key="frame" x="8" y="172" width="340" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="29">
+                        <rect key="frame" x="8" y="173" width="340" height="15"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="An Interactive Fiction" id="68">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                        <rect key="frame" x="8" y="152" width="340" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                        <rect key="frame" x="8" y="154" width="340" height="15"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="Anonymous" id="69">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                        <rect key="frame" x="8" y="8" width="340" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                        <rect key="frame" x="8" y="10" width="340" height="14"/>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="IFID" id="70">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hoT-k4-Wir" customClass="ImageView">
-                        <rect key="frame" x="356" y="8" width="200" height="200"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hoT-k4-Wir" customClass="ImageView">
+                        <rect key="frame" x="356" y="10" width="200" height="197"/>
                     </customView>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2j-c3-bD8">
-                        <rect key="frame" x="10" y="30" width="336" height="114"/>
-                        <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2j-c3-bD8">
+                        <rect key="frame" x="10" y="32" width="336" height="114"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="114" id="DIz-Xy-2Ne"/>
+                            <constraint firstAttribute="width" constant="332" id="Yqg-fO-zEn"/>
+                        </constraints>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No description available" id="YDj-WQ-Uc0">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -78,6 +76,27 @@
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="32" firstAttribute="bottom" secondItem="hoT-k4-Wir" secondAttribute="bottom" id="1YX-kr-1MG"/>
+                    <constraint firstItem="hoT-k4-Wir" firstAttribute="leading" secondItem="y2j-c3-bD8" secondAttribute="trailing" constant="12" id="5Z4-Un-e4J"/>
+                    <constraint firstItem="30" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="5eM-Nc-MWA"/>
+                    <constraint firstItem="y2j-c3-bD8" firstAttribute="centerX" secondItem="32" secondAttribute="centerX" id="FwW-Hm-NJj"/>
+                    <constraint firstItem="28" firstAttribute="leading" secondItem="29" secondAttribute="leading" id="KiW-El-4nd"/>
+                    <constraint firstItem="28" firstAttribute="trailing" secondItem="29" secondAttribute="trailing" id="PQW-Xw-9f2"/>
+                    <constraint firstItem="29" firstAttribute="top" secondItem="28" secondAttribute="bottom" constant="4" id="XAF-kl-yRX"/>
+                    <constraint firstItem="hoT-k4-Wir" firstAttribute="centerY" secondItem="6" secondAttribute="centerY" id="bQs-vH-Hhc"/>
+                    <constraint firstItem="32" firstAttribute="top" secondItem="y2j-c3-bD8" secondAttribute="bottom" constant="8" symbolic="YES" id="dsK-qV-24j"/>
+                    <constraint firstAttribute="trailing" secondItem="hoT-k4-Wir" secondAttribute="trailing" constant="8" id="eXs-ju-prk"/>
+                    <constraint firstAttribute="bottom" secondItem="32" secondAttribute="bottom" constant="10" id="fk1-r6-kKg"/>
+                    <constraint firstItem="28" firstAttribute="top" secondItem="hoT-k4-Wir" secondAttribute="top" id="fp3-mu-8Gn"/>
+                    <constraint firstItem="30" firstAttribute="top" secondItem="29" secondAttribute="bottom" constant="4" id="nHe-0B-n0s"/>
+                    <constraint firstItem="y2j-c3-bD8" firstAttribute="top" secondItem="30" secondAttribute="bottom" constant="8" symbolic="YES" id="oli-ci-fJt"/>
+                    <constraint firstItem="28" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="10" id="qrf-TZ-njQ"/>
+                    <constraint firstItem="29" firstAttribute="trailing" secondItem="30" secondAttribute="trailing" id="rIt-pP-hbX"/>
+                    <constraint firstItem="30" firstAttribute="leading" secondItem="32" secondAttribute="leading" id="viN-Ot-6yc"/>
+                    <constraint firstItem="hoT-k4-Wir" firstAttribute="leading" secondItem="28" secondAttribute="trailing" constant="10" id="wBh-9A-foY"/>
+                    <constraint firstItem="29" firstAttribute="leading" secondItem="30" secondAttribute="leading" id="xbF-tv-qFe"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="40"/>
