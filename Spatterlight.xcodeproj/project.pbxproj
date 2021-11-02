@@ -240,8 +240,8 @@
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
-		961CCF3D09F2946700528FF9 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.nib */; };
-		961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */; };
+		961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.xib */; };
+		961CCF3E09F2946700528FF9 /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */; };
 		961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2309F2940F00528FF9 /* Credits.rtf */; };
 		961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2909F2940F00528FF9 /* GNU Public License.rtf */; };
 		961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* Hugo License.rtf */; };
@@ -412,13 +412,13 @@
 		96A9BA9C0A06565B001B5B9B /* tads2.c in Sources */ = {isa = PBXBuildFile; fileRef = 96A9BA5B0A064C9C001B5B9B /* tads2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96A9BA9D0A06565B001B5B9B /* tads3.c in Sources */ = {isa = PBXBuildFile; fileRef = 96A9BA5C0A064C9C001B5B9B /* tads3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96A9BA9E0A06565B001B5B9B /* zcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 96A9BA5F0A064C9C001B5B9B /* zcode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 96A9BBA30A0668EB001B5B9B /* GameWindow.nib */; };
+		96A9BBA40A0668EB001B5B9B /* GameWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A9BBA30A0668EB001B5B9B /* GameWindow.xib */; };
 		96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A9C0EF0A07AE17001B5B9B /* LibController.m */; };
 		96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B6FE6E0A0E4E0200E62E4D /* Question.png */; };
 		96BE643F0E0AEAA40050667D /* sclocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 96BE643E0E0AEAA40050667D /* sclocale.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96E6B9430AC4081600DCBE8B /* glulxe in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650385409F2AF280083E64E /* glulxe */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		96FBD8F00A094E30002F6087 /* InfoPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */; };
+		96FBD8F00A094E30002F6087 /* InfoPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FBD8EF0A094E2F002F6087 /* InfoPanel.xib */; };
 		96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBD8F50A0950EA002F6087 /* InfoController.m */; };
 		96FE866C09F38BF600D41D78 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		96FE866D09F38BF600D41D78 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
@@ -1832,8 +1832,8 @@
 		961CCF2909F2940F00528FF9 /* GNU Public License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "GNU Public License.rtf"; sourceTree = "<group>"; };
 		961CCF2A09F2940F00528FF9 /* Hugo License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Hugo License.rtf"; sourceTree = "<group>"; };
 		961CCF2B09F2940F00528FF9 /* SDL License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "SDL License.rtf"; sourceTree = "<group>"; };
-		961CCF2C09F2940F00528FF9 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
-		961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PrefsWindow.nib; sourceTree = "<group>"; };
+		961CCF2C09F2940F00528FF9 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrefsWindow.xib; sourceTree = "<group>"; };
 		961DC9360A108DE10044A0D4 /* quill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quill.c; sourceTree = "<group>"; };
 		961DC9630A1093C90044A0D4 /* babel_rev7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = babel_rev7.txt; sourceTree = "<group>"; };
 		96264AC30A494A5D0093569C /* cgunicod.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgunicod.c; sourceTree = "<group>"; };
@@ -2595,12 +2595,12 @@
 		96A9BA5F0A064C9C001B5B9B /* zcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zcode.c; sourceTree = "<group>"; };
 		96A9BA790A06558F001B5B9B /* libbabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbabel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A9BB7A0A0662FA001B5B9B /* GlkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkController.h; sourceTree = "<group>"; };
-		96A9BBA30A0668EB001B5B9B /* GameWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = GameWindow.nib; sourceTree = "<group>"; };
+		96A9BBA30A0668EB001B5B9B /* GameWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameWindow.xib; sourceTree = "<group>"; };
 		96A9C0EF0A07AE17001B5B9B /* LibController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LibController.m; sourceTree = "<group>"; };
 		96A9C0F10A07AE31001B5B9B /* LibController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibController.h; sourceTree = "<group>"; };
 		96B6FE6E0A0E4E0200E62E4D /* Question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question.png; sourceTree = "<group>"; };
 		96BE643E0E0AEAA40050667D /* sclocale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclocale.c; sourceTree = "<group>"; };
-		96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = InfoPanel.nib; sourceTree = "<group>"; };
+		96FBD8EF0A094E2F002F6087 /* InfoPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoPanel.xib; sourceTree = "<group>"; };
 		96FBD8F40A0950EA002F6087 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		96FBD8F50A0950EA002F6087 /* InfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoController.m; sourceTree = "<group>"; };
 		96FE867109F38BF600D41D78 /* tadsr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tadsr; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3987,12 +3987,12 @@
 				961CCF2409F2940F00528FF9 /* IconApp.icns */,
 				961CCF2509F2940F00528FF9 /* IconGame.icns */,
 				96B6FE6E0A0E4E0200E62E4D /* Question.png */,
-				961CCF2C09F2940F00528FF9 /* MainMenu.nib */,
-				961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */,
+				961CCF2C09F2940F00528FF9 /* MainMenu.xib */,
+				961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */,
 				C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */,
-				96A9BBA30A0668EB001B5B9B /* GameWindow.nib */,
+				96A9BBA30A0668EB001B5B9B /* GameWindow.xib */,
 				6D73E55621873509009CD59A /* LibraryWindow.xib */,
-				96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */,
+				96FBD8EF0A094E2F002F6087 /* InfoPanel.xib */,
 				6D85C896218BD6E00088D849 /* HelpPanelController.xib */,
 				6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */,
 			);
@@ -6285,10 +6285,10 @@
 				96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */,
 				C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */,
 				C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */,
-				961CCF3D09F2946700528FF9 /* MainMenu.nib in Resources */,
-				961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */,
-				96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */,
-				96FBD8F00A094E30002F6087 /* InfoPanel.nib in Resources */,
+				961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */,
+				961CCF3E09F2946700528FF9 /* PrefsWindow.xib in Resources */,
+				96A9BBA40A0668EB001B5B9B /* GameWindow.xib in Resources */,
+				96FBD8F00A094E30002F6087 /* InfoPanel.xib in Resources */,
 				6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */,
 				6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */,
 				6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */,
