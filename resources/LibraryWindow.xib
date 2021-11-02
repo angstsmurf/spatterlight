@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -375,9 +376,10 @@
                                             <constraint firstAttribute="width" constant="30" id="301"/>
                                             <constraint firstAttribute="height" constant="22" id="424"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" image="plus" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="150">
+                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="150">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
                                         </buttonCell>
                                         <accessibility description="Add games to library"/>
                                         <connections>
@@ -386,9 +388,10 @@
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
                                         <rect key="frame" x="56" y="8" width="30" height="23"/>
-                                        <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" image="eye" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="151">
+                                        <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="151">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="eye.fill" catalog="system" symbolScale="medium"/>
                                         </buttonCell>
                                         <accessibility description="Show info for selected game"/>
                                         <connections>
@@ -400,9 +403,10 @@
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
                                         <rect key="frame" x="94" y="8" width="30" height="23"/>
-                                        <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" image="play" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
+                                        <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="152">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="medium"/>
                                         </buttonCell>
                                         <accessibility description="Play selected game"/>
                                         <connections>
