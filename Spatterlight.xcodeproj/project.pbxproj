@@ -1274,9 +1274,9 @@
 		6D2C86E9225E8671004A5A75 /* spatterlight-restart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "spatterlight-restart.h"; sourceTree = "<group>"; };
 		6D2C86EA225E8671004A5A75 /* spatterlight-restart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "spatterlight-restart.m"; sourceTree = "<group>"; };
 		6D2C86EB225E8671004A5A75 /* spatterlight-trace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "spatterlight-trace.m"; sourceTree = "<group>"; };
-		6D2C8708225E9EA7004A5A75 /* FizmoLocales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FizmoLocales; path = fizmo/FizmoLocales; sourceTree = "<group>"; };
-		6D2C870A225EA1A2004A5A75 /* fizmo-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "fizmo-config.h"; path = "fizmo/fizmo-config.h"; sourceTree = "<group>"; };
-		6D2C870B225EA1A2004A5A75 /* fizmo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "fizmo-Prefix.pch"; path = "fizmo/fizmo-Prefix.pch"; sourceTree = "<group>"; };
+		6D2C8708225E9EA7004A5A75 /* FizmoLocales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FizmoLocales; sourceTree = "<group>"; };
+		6D2C870A225EA1A2004A5A75 /* fizmo-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fizmo-config.h"; sourceTree = "<group>"; };
+		6D2C870B225EA1A2004A5A75 /* fizmo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fizmo-Prefix.pch"; sourceTree = "<group>"; };
 		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D54941C1EAC1BC4003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
 		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; tabWidth = 2; };
@@ -3289,7 +3289,7 @@
 				6D2C869B225E5291004A5A75 /* z_ucs.h */,
 			);
 			name = tools;
-			path = fizmo/libfizmo/src/tools;
+			path = libfizmo/src/tools;
 			sourceTree = "<group>";
 		};
 		6D2C86A6225E52AE004A5A75 /* fizmo-spatterlight */ = {
@@ -3302,8 +3302,7 @@
 				6D2C86A9225E52AE004A5A75 /* spatterlight-autosave.h */,
 				6D2C86AA225E52AE004A5A75 /* spatterlight-autosave.m */,
 			);
-			name = "fizmo-spatterlight";
-			path = "fizmo/fizmo-spatterlight";
+			path = "fizmo-spatterlight";
 			sourceTree = "<group>";
 		};
 		6D2C86B3225E53E2004A5A75 /* glk_interface */ = {
@@ -3320,7 +3319,7 @@
 				6D2C86BB225E53E2004A5A75 /* glk_screen_if.h */,
 			);
 			name = glk_interface;
-			path = fizmo/libglkif/src/glk_interface;
+			path = libglkif/src/glk_interface;
 			sourceTree = "<group>";
 		};
 		6D2C86C2225E5641004A5A75 /* blorb_interface */ = {
@@ -3329,7 +3328,7 @@
 				6D2C86C3225E5641004A5A75 /* blorb_interface.h */,
 			);
 			name = blorb_interface;
-			path = fizmo/libfizmo/src/blorb_interface;
+			path = libfizmo/src/blorb_interface;
 			sourceTree = "<group>";
 		};
 		6D2C86C4225E5641004A5A75 /* filesys_interface */ = {
@@ -3338,7 +3337,7 @@
 				6D2C86C5225E5641004A5A75 /* filesys_interface.h */,
 			);
 			name = filesys_interface;
-			path = fizmo/libfizmo/src/filesys_interface;
+			path = libfizmo/src/filesys_interface;
 			sourceTree = "<group>";
 		};
 		6D2C86C6225E5641004A5A75 /* screen_interface */ = {
@@ -3347,7 +3346,7 @@
 				6D2C86C7225E5641004A5A75 /* screen_interface.h */,
 			);
 			name = screen_interface;
-			path = fizmo/libfizmo/src/screen_interface;
+			path = libfizmo/src/screen_interface;
 			sourceTree = "<group>";
 		};
 		6D2C86CA225E5641004A5A75 /* sound_interface */ = {
@@ -3356,7 +3355,7 @@
 				6D2C86CB225E5641004A5A75 /* sound_interface.h */,
 			);
 			name = sound_interface;
-			path = fizmo/libfizmo/src/sound_interface;
+			path = libfizmo/src/sound_interface;
 			sourceTree = "<group>";
 		};
 		6D2C86CE225E7CA2004A5A75 /* locales */ = {
@@ -3366,7 +3365,7 @@
 				6D2C86D9225E7CA2004A5A75 /* libfizmo_locales.h */,
 			);
 			name = locales;
-			path = fizmo/libfizmo/src/locales;
+			path = libfizmo/src/locales;
 			sourceTree = "<group>";
 		};
 		6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */ = {
@@ -3446,7 +3445,7 @@
 				6D8BCB69225E514700696057 /* interpreter */,
 				6D2C8708225E9EA7004A5A75 /* FizmoLocales */,
 			);
-			name = fizmo;
+			path = fizmo;
 			sourceTree = "<group>";
 		};
 		6D8BCB69225E514700696057 /* interpreter */ = {
@@ -3509,7 +3508,7 @@
 				6D8BCBA4225E514700696057 /* zscii.h */,
 			);
 			name = interpreter;
-			path = fizmo/libfizmo/src/interpreter;
+			path = libfizmo/src/interpreter;
 			sourceTree = "<group>";
 		};
 		6DB774A32458B95E00EDC671 /* bocfel */ = {
