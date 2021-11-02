@@ -43,7 +43,7 @@
 - (NSSize)cellSize;
 - (void)createDefaultAttributeDictionary;
 - (BOOL)testGridStyle;
-- (NSMutableDictionary *)attributesWithHints:(NSArray *)hints;
+- (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;
 - (void)printDebugInfo;
 
 @property NSInteger index;

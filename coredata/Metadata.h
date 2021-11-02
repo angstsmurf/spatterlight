@@ -66,13 +66,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addGamesObject:(Game *)value;
 - (void)removeGamesObject:(Game *)value;
-- (void)addGames:(NSSet *)values;
-- (void)removeGames:(NSSet *)values;
+- (void)addGames:(NSSet<Game *> *)values;
+- (void)removeGames:(NSSet<Game *> *)values;
 
 - (void)addIfidsObject:(Ifid *)value;
 - (void)removeIfidsObject:(Ifid *)value;
-- (void)addIfids:(NSSet *)values;
-- (void)removeIfids:(NSSet *)values;
+- (void)addIfids:(NSSet<Ifid *> *)values;
+- (void)removeIfids:(NSSet<Ifid *> *)values;
 
 @end
 
