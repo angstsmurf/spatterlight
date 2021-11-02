@@ -100,7 +100,11 @@
 
 - (NSString *)scrubInvalidCharacters {
     NSString *result = self;
-    result = [result stringByReplacingOccurrencesOfString:@"\u2013"
+    result = [result stringByReplacingOccurrencesOfString:@"\u2010"
+                                               withString:@"-"];
+    result = [result stringByReplacingOccurrencesOfString:@"\u2011"
+                                               withString:@"-"];
+    result = [result stringByReplacingOccurrencesOfString:@"\u2012"
                                                withString:@"-"];
     result = [result stringByReplacingOccurrencesOfString:@"\u2013"
                                                withString:@"-"];
