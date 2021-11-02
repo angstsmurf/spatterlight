@@ -1552,7 +1552,7 @@ fprintf(stderr, "%s\n",                                                    \
         task = nil;
     }
 
-    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.6];
 }
 
 - (void)deferredRestart:(id)sender {
