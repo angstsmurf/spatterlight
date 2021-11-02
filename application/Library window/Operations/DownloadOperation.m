@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 
 @property NSURLSessionDataTask *task;
 
-@property OperationState state;
+@property (atomic) OperationState state;
 
 @property dispatch_queue_t stateQueue;
 
@@ -32,17 +32,15 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 @synthesize state = _state;
 
 - (void)setState:(OperationState)state {
-    DownloadOperation __weak *weakSelf = self;
-    dispatch_barrier_async(_stateQueue, ^{
-        DownloadOperation *strongSelf = weakSelf;
-        if (strongSelf && strongSelf->_state != state) {
-            [strongSelf willChangeValueForKey:@"isExecuting"];
-            [strongSelf willChangeValueForKey:@"isFinished"];
-            strongSelf->_state = state;
-            [strongSelf didChangeValueForKey: @"isExecuting"];
-            [strongSelf didChangeValueForKey: @"isFinished"];
+    @synchronized(self) {
+        if (_state != state) {
+            [self willChangeValueForKey:@"isExecuting"];
+            [self willChangeValueForKey:@"isFinished"];
+            _state = state;
+            [self didChangeValueForKey: @"isExecuting"];
+            [self didChangeValueForKey: @"isFinished"];
         }
-    });
+    }
 }
 
 - (OperationState)state {
