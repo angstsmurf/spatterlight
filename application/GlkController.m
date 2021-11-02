@@ -1528,6 +1528,11 @@ fprintf(stderr, "%s\n",                                                    \
     if (restartingAlready || _showingCoverImage)
         return;
 
+    [[NSNotificationCenter defaultCenter]
+     removeObserver: self
+     name: NSFileHandleDataAvailableNotification
+     object: readfh];
+
     _commandScriptHandler = nil;
 
     [_soundHandler stopAllAndCleanUp];
