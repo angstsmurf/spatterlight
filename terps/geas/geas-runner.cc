@@ -273,7 +273,7 @@ string match_binding::tostring ()
 ostream &operator << (ostream &o, const set<string> &s)
 {
   o << "{ ";
-  for (set<string>::iterator i = s.begin(); i != s.end(); i ++)
+  for (set<string>::const_iterator i = s.begin(); i != s.end(); i ++)
     {
       if (i != s.begin())
 	o << ", ";
@@ -1421,7 +1421,7 @@ match_rv geas_implementation::match_command (string input, uint ichar, string ac
     }
 }
 
-bool match_object_alts (string text, const vector<string> &alts, bool is_internal)
+static bool match_object_alts (string text, const vector<string> &alts, bool is_internal)
 {
   for (const string &i: alts)
     {
