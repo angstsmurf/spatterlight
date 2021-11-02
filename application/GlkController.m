@@ -1610,6 +1610,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 -(void)cleanup {
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
     for (GlkWindow *win in _gwindows.allValues) {
         win.glkctl = nil;
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
