@@ -514,7 +514,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
         if (alive > 0) {
             NSString *msg = [NSString stringWithFormat:@"%@ %@ still running.\nAny unsaved progress will be lost.",
-                             [NSString stringWithSummaryOf:games], (alive == 1) ? @"is" : @"are"];
+                             [NSString stringWithSummaryOfGames:games], (alive == 1) ? @"is" : @"are"];
 
             if (restorable == 1)
                 msg = [msg
