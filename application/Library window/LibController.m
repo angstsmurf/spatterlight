@@ -2011,7 +2011,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 + (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context {
-    NSLog(@"fixMetadataWithNoIfidsInContext:");
     [context performBlock:^{
         NSArray<Metadata *> *noIfids = [LibController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
         for (Metadata *meta in noIfids) {
