@@ -1124,7 +1124,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)showUseForAllAlert:(NSArray *)games {
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText =
-    [NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOf:games], (games.count == 1) ? @"has" : @"have"];
+    [NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOfGames:games], (games.count == 1) ? @"has" : @"have"];
     anAlert.informativeText = [NSString stringWithFormat:@"Would you like to use theme %@ for all games?", theme.name];
     anAlert.showsSuppressionButton = YES;
     anAlert.suppressionButton.title = NSLocalizedString(@"Do not show again.", nil);

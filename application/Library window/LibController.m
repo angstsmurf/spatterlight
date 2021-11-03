@@ -879,7 +879,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (count) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
-        [alert setInformativeText:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOf:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]];
         [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 

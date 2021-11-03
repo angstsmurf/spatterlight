@@ -29,7 +29,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="28">
-                        <rect key="frame" x="8" y="192" width="340" height="16"/>
+                        <rect key="frame" x="8" y="191" width="340" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="An Interactive Fiction" id="67">
                             <font key="font" metaFont="systemBold" size="12"/>
@@ -38,7 +38,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="29">
-                        <rect key="frame" x="8" y="172" width="340" height="16"/>
+                        <rect key="frame" x="8" y="172" width="340" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="An Interactive Fiction" id="68">
                             <font key="font" metaFont="cellTitle"/>
@@ -47,7 +47,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                        <rect key="frame" x="8" y="152" width="340" height="16"/>
+                        <rect key="frame" x="8" y="153" width="340" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="Anonymous" id="69">
                             <font key="font" metaFont="cellTitle"/>
@@ -56,7 +56,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                        <rect key="frame" x="8" y="8" width="340" height="14"/>
+                        <rect key="frame" x="8" y="10" width="340" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="IFID" id="70">
                             <font key="font" metaFont="smallSystem"/>
@@ -65,11 +65,11 @@
                         </textFieldCell>
                     </textField>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hoT-k4-Wir" customClass="ImageView">
-                        <rect key="frame" x="356" y="8" width="200" height="200"/>
+                        <rect key="frame" x="356" y="10" width="200" height="196"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2j-c3-bD8">
-                        <rect key="frame" x="10" y="30" width="336" height="114"/>
+                        <rect key="frame" x="10" y="32" width="336" height="113"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No description available" id="YDj-WQ-Uc0">
                             <font key="font" metaFont="cellTitle"/>

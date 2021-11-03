@@ -257,7 +257,7 @@ extern NSArray *gGameFileTypes;
         if (filenames.count > 0) {
             NSAlert *alert = [[NSAlert alloc] init];
             alert.alertStyle = NSInformationalAlertStyle;
-            alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOf:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)];
+            alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)];
             alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (matchedIfids.count > 1) ? @"them" : @"it"];
             [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
             [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
