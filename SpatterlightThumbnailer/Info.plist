@@ -48,6 +48,7 @@
 				<string>public.dat</string>
 				<string>public.sna</string>
 				<string>public.ddollardollar</string>
+				<string>public.quest</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>0</integer>

@@ -1198,6 +1198,7 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"hugo" : @"Hugo",
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
+                                     @"quest4" : @"Quest",
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",

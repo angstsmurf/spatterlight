@@ -52,6 +52,7 @@
 				<string>public.glksave</string>
 				<string>public.qut</string>
 				<string>public.ifiction</string>
+				<string>public.quest</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
