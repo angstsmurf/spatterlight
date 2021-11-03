@@ -612,6 +612,7 @@
 		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
 		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
+		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
 		C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
@@ -2722,6 +2723,7 @@
 		C38A9203270A036A00B969A4 /* DummyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyController.m; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
 		C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "AGT-03201-0000E16C.ico"; sourceTree = "<group>"; };
@@ -5148,6 +5150,7 @@
 				96A9BA5C0A064C9C001B5B9B /* tads3.c */,
 				C311DE2925C4383100484639 /* twine.c */,
 				96A9BA5F0A064C9C001B5B9B /* zcode.c */,
+				C396E8EF2732B2CE0090B5DF /* quest4.c */,
 				961DC9360A108DE10044A0D4 /* quill.c */,
 			);
 			path = babel;
@@ -6906,6 +6909,7 @@
 				96A9BA880A065642001B5B9B /* babel_handler.c in Sources */,
 				96A9BA8A0A065642001B5B9B /* register.c in Sources */,
 				96A9BA8F0A06565B001B5B9B /* register_ifiction.c in Sources */,
+				C396E8F12732B2CE0090B5DF /* quest4.c in Sources */,
 				96A9BA890A065642001B5B9B /* misc.c in Sources */,
 				96A9BA980A06565B001B5B9B /* ifiction.c in Sources */,
 				96A9BA8B0A065642001B5B9B /* md5.c in Sources */,
