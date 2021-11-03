@@ -74,17 +74,29 @@
 + (void)typeURL:(NSURL *)url intoFileDialog:(XCUIElement *)dialog {
     [dialog typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
 
-    XCUIElement *goButton = dialog.buttons[@"Go"];
-    XCTAssert(goButton.exists);
+    if (@available(macOS 12, *)) {
+        XCUIElement *sheet = dialog.sheets.firstMatch;
+        XCTAssert([sheet waitForExistenceWithTimeout:5]);
 
-    XCUIElement *sheet = dialog.sheets.firstMatch;
-    XCTAssert([sheet waitForExistenceWithTimeout:5]);
+        XCUIElement *input = sheet.textFields.firstMatch;
+        XCTAssert([input waitForExistenceWithTimeout:5]);
 
-    XCUIElement *input = sheet.comboBoxes.firstMatch;
-    XCTAssert([input waitForExistenceWithTimeout:5]);
+        [input typeText:url.path];
+        [input typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
+    } else {
+        XCUIElement *goButton = dialog.buttons[@"Go"];
+        XCTAssert(goButton.exists);
 
-    [input typeText:url.path];
-    [goButton click];
+        XCUIElement *sheet = dialog.sheets.firstMatch;
+        XCTAssert([sheet waitForExistenceWithTimeout:5]);
+
+        XCUIElement *input = sheet.comboBoxes.firstMatch;
+        XCTAssert([input waitForExistenceWithTimeout:5]);
+
+        [input typeText:url.path];
+        [goButton click];
+    }
+
 }
 
 + (NSString *)transcriptFromFile:(NSString *)fileName {

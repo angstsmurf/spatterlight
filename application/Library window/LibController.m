@@ -730,7 +730,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)addInBackground:(NSArray<NSURL *> *)files lookForImages:(BOOL)lookForImages downloadInfo:(BOOL)downloadInfo {
-    NSLog(@"addInBackground %ld files lookForImages:%@ downloadInfo:%@", files.count, lookForImages ? @"YES" : @"NO", downloadInfo ? @"YES" : @"NO");
+//    NSLog(@"addInBackground %ld files lookForImages:%@ downloadInfo:%@", files.count, lookForImages ? @"YES" : @"NO", downloadInfo ? @"YES" : @"NO");
 
     if (_currentlyAddingGames)
         return;
@@ -2011,7 +2011,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 + (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context {
-    NSLog(@"fixMetadataWithNoIfidsInContext:");
     [context performBlock:^{
         NSArray<Metadata *> *noIfids = [LibController fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:context];
         for (Metadata *meta in noIfids) {

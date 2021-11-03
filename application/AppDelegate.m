@@ -54,6 +54,8 @@ PasteboardFilePasteLocation;
     [super awakeFromNib];
     // NSLog(@"appdel: awakeFromNib");
 
+    NSLog(@"__MAC_OS_X_VERSION_MAX_ALLOWED: %d", __MAC_OS_X_VERSION_MAX_ALLOWED);
+
     InsecureValueTransformer *insecureValueTransformer = nil;
 
     if (@available(macOS 10.14, *)) {
@@ -130,7 +132,7 @@ PasteboardFilePasteLocation;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel",
-                   @"quest" : @"geas"
+                   @"quest4" : @"geas"
                    };
 
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;

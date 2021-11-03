@@ -56,7 +56,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
 //    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "BANNERCOLS",       "BANNERLINES"  "TIMER",
+//    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
 //    "INITCHAR",        "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
@@ -342,9 +342,6 @@ fprintf(stderr, "%s\n",                                                    \
     waitforevent = NO;
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
-
-    _newTimer = NO;
-    _newTimerInterval = 0.2;
 
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
@@ -1201,6 +1198,7 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"hugo" : @"Hugo",
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
+                                     @"quest4" : @"Quest",
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
@@ -1320,6 +1318,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
@@ -1529,6 +1529,11 @@ fprintf(stderr, "%s\n",                                                    \
     if (restartingAlready || _showingCoverImage)
         return;
 
+    [[NSNotificationCenter defaultCenter]
+     removeObserver: self
+     name: NSFileHandleDataAvailableNotification
+     object: readfh];
+
     _commandScriptHandler = nil;
 
     [_soundHandler stopAllAndCleanUp];
@@ -1548,7 +1553,7 @@ fprintf(stderr, "%s\n",                                                    \
         task = nil;
     }
 
-    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.6];
 }
 
 - (void)deferredRestart:(id)sender {
@@ -1611,6 +1616,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 -(void)cleanup {
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
     for (GlkWindow *win in _gwindows.allValues) {
         win.glkctl = nil;
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
@@ -2608,8 +2617,6 @@ fprintf(stderr, "%s\n",                                                    \
                                        selector:@selector(noteTimerTick:)
                                        userInfo:0
                                         repeats:YES];
-        _newTimer = YES;
-        _newTimerInterval = timer.timeInterval;
     }
 }
 
@@ -2901,7 +2908,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    //    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    // NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;

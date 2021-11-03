@@ -47,8 +47,6 @@
     BOOL force = _force;
     void (^completionHandler)(void) = _completionHandler;
 
-    NSLog(@"Running ComparisonOperation main!");
-
     dispatch_async(dispatch_get_main_queue(), ^{
         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
         if ([imageCompare userWantsImage:dataA ratherThanImage:dataB source:kImageComparisonDownloaded force:force]) {

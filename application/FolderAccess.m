@@ -286,8 +286,8 @@
     if (accessCount == 0 && _active) {
         [url stopAccessingSecurityScopedResource];
         _active = NO;
-        if ([[NSFileManager defaultManager] isReadableFileAtPath:url.path])
-            NSLog(@"askToEndAccess: accessCount is zero. Stopped accessing the resource at %@, but the file there is still readable!", url.path);
+//        if ([[NSFileManager defaultManager] isReadableFileAtPath:url.path])
+//            NSLog(@"askToEndAccess: accessCount is zero. Stopped accessing the resource at %@, but the file there is still readable!", url.path);
     }
 }
 

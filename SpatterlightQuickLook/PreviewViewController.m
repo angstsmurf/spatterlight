@@ -118,10 +118,13 @@
     Image __block *image = nil;
     
     BOOL __block giveUp = NO;
+
+    NSError __block *error;
     
     [context performBlockAndWait:^{
         
-        NSError *error;
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:@{
+            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"This game has been deleted from the Spatterlight database.\n"]}];
         
         NSURL *uri = [NSURL URLWithString:identifier];
         if (!uri) {
@@ -136,8 +139,6 @@
         
         
         if (!objectID) {
-            error = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"This game has been deleted from the Spatterlight database.\n"]}];
             handler(error);
             giveUp = YES;
             return;
@@ -165,12 +166,16 @@
             image = (Image *)object;
             metadata = image.metadata.anyObject;
             game = metadata.games.anyObject;
-            if (!metadata)
+            if (!metadata) {
                 NSLog(@"Image has no metadata!");
+                giveUp = YES;
+            }
             if (!game)
                 NSLog(@"Image has no game!");
-            if (!image.data)
+            if (!image.data) {
                 NSLog(@"Image has no data!");
+                giveUp = YES;
+            }
         } else {
             error = [NSError errorWithDomain:NSCocoaErrorDomain code:3 userInfo:@{
                 NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No support for class %@\n", [object class]]}];
@@ -191,19 +196,20 @@
                 NSLog(@"Successfully deleted searchable item");
             }
         }];
+        handler(error);
         return;
     }
     
     if (image && !image.data) {
-        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:102 userInfo:@{
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:102 userInfo:@{
             NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Image has no data!?!\n"]}];
         handler(error);
         return;
     }
     
     if (!metadata) {
-        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:101 userInfo:@{
-            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No metadata!?!\n"]}];
+//        error = [NSError errorWithDomain:NSCocoaErrorDomain code:101 userInfo:@{
+//            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No metadata!?!\n"]}];
         handler(error);
         return;
     }
