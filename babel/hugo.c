@@ -13,22 +13,29 @@
 #define NO_METADATA
 #define NO_COVER
 
+
+/* The positions of various data in the header */
+
+#define HUGO_CODESTART 0x0B
+
+#define HUGO_OBJTABLE 0x0D
+#define HUGO_PROPTABLE 0x0F
+#define HUGO_EVENTTABLE 0x11
+#define HUGO_ARRAYTABLE 0x13
+#define HUGO_DICTTABLE 0x15
+#define HUGO_SYNTABLE 0x17
+
+#define HUGO_TEXTBANK 0x29
+
 #include "treaty_builder.h"
 #include <ctype.h>
 #include <stdio.h>
-
-static int is_uppercase_hexadecimal(char c)
-{
- if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F'))
-  return 1;
- return 0;
-}
 
 static int number_of_hexadecimals_before_hyphen(char *s, size_t len)
 {
  size_t offset = 0;
 
- while (offset < len && is_uppercase_hexadecimal(s[offset]))
+ while (offset < len && isxdigit(s[offset]))
   offset++;
 
  if (offset == len || (offset < len && s[offset] == '-'))
@@ -38,7 +45,7 @@ static int number_of_hexadecimals_before_hyphen(char *s, size_t len)
 }
 
 /* We look for the pattern XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (8-4-4-4-12)
-   where X is a number or A-F */
+ where X is a number or A-F (one Hugo game, PAXLess, uses lowercase letters, the others are all uppercase) */
 static int isUUID(char *s)
 {
  if (!(number_of_hexadecimals_before_hyphen(s, 9) == 8))
@@ -63,9 +70,13 @@ static char hugo_decode(char c)
  return (char)decoded_char;
 }
 
+static uint32 read_hugo_addx(unsigned char *from)
+{
+ return ((uint32) from[0])| ((uint32)from[1] << 8);
+}
+
 static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32 output_extent)
 {
-
  size_t i,j;
  char ser[9];
  char buffer[32];
@@ -76,7 +87,14 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
 
  if (extent<0x0B) return INVALID_STORY_FILE_RV;
 
- for(i=0;i<extent-28;i++)
+ long dicttable  = read_hugo_addx((unsigned char *)story_file+HUGO_DICTTABLE)*16;
+ long textbank = read_hugo_addx((unsigned char *)story_file+HUGO_TEXTBANK)*16;
+
+ /* Older Hugo versions do not provide a textbank offset in the header */
+ if (textbank < dicttable)
+  textbank = extent;
+
+ for(i=dicttable+8;i<textbank-28;i++)
  {
   /* First we look for an obfuscated hyphen, '-' + 20 */
   /* We need to look 8 characters behind and 28 ahead */
@@ -95,6 +113,7 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
     ASSERT_OUTPUT_SIZE((signed) 37);
     memcpy(output,UUID_candidate,36);
     output[36]='\0';
+    fprintf(stderr, "Found UUID at %lu\n", i-8);
     return 1;
    }
   }
@@ -115,10 +134,7 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
  return 1;
 }
 
-static uint32 read_hugo_addx(unsigned char *from)
-{
- return ((uint32) from[0])| ((uint32)from[1] << 8);
-}
+
 
 static int32 claim_story_file(void *story_file, int32 exten)
 {
@@ -129,16 +145,48 @@ static int32 claim_story_file(void *story_file, int32 exten)
 
  if (!story_file || extent < 0x28) return  INVALID_STORY_FILE_RV;
 
- /* 39 is the largest version currently accepted by the Hugo interpreter:
-    https://github.com/garglk/garglk/blob/master/terps/hugo/source/hemisc.c#L1310-L1362
- */
+ // /* 39 is the largest version currently accepted by the Hugo interpreter:
+ //    https://github.com/garglk/garglk/blob/master/terps/hugo/source/hemisc.c#L1310-L1362
+ // */
  if (sf[0] > 39) return INVALID_STORY_FILE_RV;
 
  if (sf[0]<34) scale=4;
  else scale=16;
- for(i=3;i<0x0B;i++) if (sf[i]<0x20 || sf[i]>0x7e) return INVALID_STORY_FILE_RV;
+ for(i=3;i<HUGO_CODESTART;i++) if (sf[i]<0x20 || sf[i]>0x7e) return INVALID_STORY_FILE_RV;
  for(i=0x0b;i<0x18;i+=2)
   if (read_hugo_addx(sf+i) * scale > extent) return INVALID_STORY_FILE_RV;
+
+ long objtable = read_hugo_addx(sf+HUGO_OBJTABLE)*scale;
+ long proptable = read_hugo_addx(sf+HUGO_PROPTABLE)*scale;
+ if (proptable <= objtable)
+ {
+  /* proptable is not after objtable, not a valid Hugo file */
+  return INVALID_STORY_FILE_RV;
+ }
+ long eventtable = read_hugo_addx(sf+HUGO_EVENTTABLE)*scale;
+ if (eventtable <= proptable)
+ {
+  /* eventtable is not after proptable, not a valid Hugo file */
+  return INVALID_STORY_FILE_RV;
+ }
+ long arraytable = read_hugo_addx(sf+HUGO_ARRAYTABLE)*scale;
+ if (arraytable <= eventtable)
+ {
+  /* arraytable is not after eventtable, not a valid Hugo file */
+  return INVALID_STORY_FILE_RV;
+ }
+ long syntable = read_hugo_addx(sf+HUGO_SYNTABLE)*scale;
+ if (syntable <= arraytable)
+ {
+  /* syntable is not after arraytable, not a valid Hugo file */
+  return INVALID_STORY_FILE_RV;
+ }
+ long dicttable  = read_hugo_addx(sf+HUGO_DICTTABLE)*scale;
+ if (dicttable <= syntable)
+ {
+  /* dicttable is not after syntable, not a valid Hugo file */
+  return INVALID_STORY_FILE_RV;
+ }
 
  return VALID_STORY_FILE_RV;
 }

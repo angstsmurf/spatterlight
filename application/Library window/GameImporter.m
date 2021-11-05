@@ -224,7 +224,7 @@ extern NSArray *gGameFileTypes;
         }
     }
 
-    if (![gGameFileTypes containsObject: extension])
+    if (![gGameFileTypes containsObject:extension])
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{

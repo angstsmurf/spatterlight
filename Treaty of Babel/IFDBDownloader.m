@@ -290,7 +290,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     
     NSURL *url = [NSURL URLWithString:coverArtURL];
     
-    if (!url) {
+    if (!url || !([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
         NSLog(@"Could not create url from %@", coverArtURL);
         return;
     }

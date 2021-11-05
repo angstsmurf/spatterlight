@@ -363,6 +363,38 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+    if (@available(macOS 10.13, *)) {
+        _voiceOverActive = [[NSWorkspace sharedWorkspace] isVoiceOverEnabled];
+        [notifications addObserver:self
+                                                 selector:@selector(noteAccessibilityStatusChanged:)
+                                                     name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
+                                                   object:nil];
+    } else {
+        _voiceOverActive = YES;
+    }
+
+    [notifications
+     addObserver:self
+     selector:@selector(notePreferencesChanged:)
+     name:@"PreferencesChanged"
+     object:nil];
+    [notifications
+     addObserver:self
+     selector:@selector(noteDefaultSizeChanged:)
+     name:@"DefaultSizeChanged"
+     object:nil];
+    [notifications
+     addObserver:self
+     selector:@selector(noteBorderChanged:)
+     name:@"BorderChanged"
+     object:nil];
+    [notifications
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:game.managedObjectContext];
+
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
     _windowPreFullscreenFrame = self.window.frame;
@@ -371,44 +403,9 @@ fprintf(stderr, "%s\n",                                                    \
     restoredController = nil;
     inFullScreenResize = NO;
 
-    if (@available(macOS 10.13, *)) {
-        _voiceOverActive = [[NSWorkspace sharedWorkspace] isVoiceOverEnabled];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(noteAccessibilityStatusChanged:)
-                                                     name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
-                                                   object:nil];
-    } else {
-        _voiceOverActive = YES;
-    }
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(notePreferencesChanged:)
-     name:@"PreferencesChanged"
-     object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteDefaultSizeChanged:)
-     name:@"DefaultSizeChanged"
-     object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteBorderChanged:)
-     name:@"BorderChanged"
-     object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteManagedObjectContextDidChange:)
-     name:NSManagedObjectContextObjectsDidChangeNotification
-     object:game.managedObjectContext];
-
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
-    //    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     _lastAutoBGColor = theme.bufferBackground;
     if (theme.borderBehavior == kUserOverride)
@@ -1314,7 +1311,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)deleteAutosaveFiles {
-
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
@@ -1326,12 +1322,14 @@ fprintf(stderr, "%s\n",                                                    \
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
 
-- (void)deleteFiles:(NSArray *)urls {
-    [[NSWorkspace sharedWorkspace] recycleURLs:urls completionHandler:^(NSDictionary *newURLs, NSError *error) {
-        //        if (error) {
-        //            NSLog(@"deleteAutosaveFiles: %@", error);
-        //        }
-    }];
+- (void)deleteFiles:(NSArray<NSURL *> *)urls {
+    NSError *error;
+    for (NSURL *url in urls) {
+        error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+        if (error)
+            NSLog(@"Error: %@", error);
+    }
 }
 
 - (void)autoSaveOnExit {
@@ -1529,20 +1527,15 @@ fprintf(stderr, "%s\n",                                                    \
     if (restartingAlready || _showingCoverImage)
         return;
 
-    [[NSNotificationCenter defaultCenter]
-     removeObserver: self
-     name: NSFileHandleDataAvailableNotification
-     object: readfh];
-
-    _commandScriptHandler = nil;
-
-    [_soundHandler stopAllAndCleanUp];
-
     restartingAlready = YES;
     lastResetTimestamp = [NSDate date];
     _mustBeQuiet = YES;
 
-    [self handleSetTimer:0];
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name: NSFileHandleDataAvailableNotification
+     object: readfh];
+
+    _commandScriptHandler = nil;
 
     if (task) {
         //        NSLog(@"glkctl reset: force stop the interpreter");
@@ -1553,11 +1546,10 @@ fprintf(stderr, "%s\n",                                                    \
         task = nil;
     }
 
-    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.6];
+    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.3];
 }
 
 - (void)deferredRestart:(id)sender {
-    [self deleteAutosaveFiles];
     [self cleanup];
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
@@ -1568,6 +1560,39 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeFirstResponder:nil];
     [self guessFocus];
     NSAccessibilityPostNotification(self.window.firstResponder, NSAccessibilityFocusedUIElementChangedNotification);
+}
+
+-(void)cleanup {
+    [_soundHandler stopAllAndCleanUp];
+    [self deleteAutosaveFiles];
+    [self handleSetTimer:0];
+
+    for (GlkWindow *win in _gwindows.allValues) {
+        win.glkctl = nil;
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            ((GlkTextBufferWindow *)win).quoteBox = nil;
+        [win removeFromSuperview];
+    }
+
+    for (GlkTextGridWindow *win in _quoteBoxes) {
+        win.glkctl = nil;
+        win.quoteboxParent = nil;
+        [win removeFromSuperview];
+    }
+
+    if (_form) {
+        _form.glkctl = nil;
+        _form = nil;
+    }
+
+    if (_zmenu) {
+        _zmenu.glkctl = nil;
+        _zmenu = nil;
+    }
+
+    readfh = nil;
+    sendfh = nil;
+    task = nil;
 }
 
 - (void)handleAutosave:(NSInteger)hash {
@@ -1614,40 +1639,6 @@ fprintf(stderr, "%s\n",                                                    \
     _hasAutoSaved = YES;
     //    NSLog(@"UI autosaved successfully on turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
 }
-
--(void)cleanup {
-    if (timer) {
-        [timer invalidate];
-        timer = nil;
-    }
-    for (GlkWindow *win in _gwindows.allValues) {
-        win.glkctl = nil;
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
-            ((GlkTextBufferWindow *)win).quoteBox = nil;
-        [win removeFromSuperview];
-    }
-
-    for (GlkTextGridWindow *win in _quoteBoxes) {
-        win.glkctl = nil;
-        win.quoteboxParent = nil;
-        [win removeFromSuperview];
-    }
-
-    if (_form) {
-        _form.glkctl = nil;
-        _form = nil;
-    }
-
-    if (_zmenu) {
-        _zmenu.glkctl = nil;
-        _zmenu = nil;
-    }
-
-    readfh = nil;
-    sendfh = nil;
-    task = nil;
-}
-
 
 /*
  *

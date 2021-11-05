@@ -100,7 +100,7 @@
 }
 
 + (NSString *)transcriptFromFile:(NSString *)fileName {
-     NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
+    NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
 
     url = [url URLByAppendingPathComponent:fileName];
 
@@ -381,10 +381,13 @@
         [exportButton click];
 
         XCUIElement *alert = app.sheets.firstMatch;
-        if (alert.exists) {
+        if ([alert waitForExistenceWithTimeout:1]) {
             XCUIElement *replaceButton = alert.buttons[@"Replace"];
             if (replaceButton.exists)
                 [replaceButton click];
+            else if (alert.buttons.firstMatch.hittable) {
+                [alert.buttons.firstMatch click];
+            }
         }
 
         alert = app.dialogs[@"alert"];
@@ -460,7 +463,7 @@
         XCUIElement *popUp;
         for (NSString *popupTitle in menuItemTitles) {
             popUp = savePanel.popUpButtons[popupTitle];
-            if (popUp.exists) {
+            if ([popUp waitForExistenceWithTimeout:1]) {
                 break;
             }
         }
@@ -518,11 +521,7 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app/*@START_MENU_TOKEN@*/.windows[@"autosavetest.gblorb"]/*[[".windows[@\"autosavetest.gblorb\"]",".windows[@\"gameWinGLULX-1-160227-AB0E83B\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-//    CGRect windowFrame = gameWindow.frame;
-//
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
-//    CGRect scrollFrame = scrollView.frame;
-//    [scrollView click];
 
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
@@ -615,7 +614,7 @@
 
     NSLog(@"Time taken: %f (accelerated) Previous unaccelerated time taken: %f Diff: %f", fabs(interval2), fabs(interval1), fabs(interval1) - fabs(interval2));
     // There might be a way to measure this, but this is not it.
-//    XCTAssert(fabs(interval1) > fabs(interval2));
+    //    XCTAssert(fabs(interval1) > fabs(interval2));
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
@@ -744,15 +743,15 @@
     NSLog(@"scrollRect: %@ scrollView.frame: %@", NSStringFromRect(scrollRect), NSStringFromRect(scrollView.frame));
     NSLog(@"statusRect: %@ statusLine.frame: %@", NSStringFromRect(statusRect), NSStringFromRect(statusLine.frame));
 
-//    XCTAssert(NSEqualRects(windowRect, gameWindow.frame));
-//    XCTAssert(NSEqualRects(scrollRect, scrollView.frame));
-//    XCTAssert(NSEqualRects(statusRect, statusLine.frame));
+    //    XCTAssert(NSEqualRects(windowRect, gameWindow.frame));
+    //    XCTAssert(NSEqualRects(scrollRect, scrollView.frame));
+    //    XCTAssert(NSEqualRects(statusRect, statusLine.frame));
 
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     XCTAssert(!textView.exists);
 }
 
-- (void)testTransparent {
+- (void)testGlulxe {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
@@ -817,8 +816,8 @@
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
 
     NSURL *url = [testBundle URLForResource:@"Transparent command script"
-                                withExtension:@"txt"
-                                 subdirectory:nil];
+                              withExtension:@"txt"
+                               subdirectory:nil];
     NSError *error = nil;
 
     NSString *commandScript = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
@@ -853,7 +852,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testElysium {
+- (void)testTADS3 {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
@@ -904,7 +903,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testTilDeath {
+- (void)testTADS2 {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"tildeath.gam"];
@@ -917,6 +916,7 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    XCTAssert([textView waitForExistenceWithTimeout:1]);
     [textView typeText:@"script\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -941,7 +941,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testBugged {
+- (void)testAlan2 {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"bugged.acd"];
@@ -969,7 +969,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testWyldkynd {
+- (void)testAlan3 {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"00 Wyldkynd Project.a3c"];
@@ -997,7 +997,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testGuilty {
+- (void)testHugo {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"guilty.hex"];
@@ -1048,7 +1048,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testOneHand {
+- (void)testAdvSys {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"onehand.dat"];
@@ -1074,7 +1074,7 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
-- (void)testSoggy {
+- (void)testAGiliTy {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
     XCUIElement *textField = [self addAndSelectGame:@"AGT-03201-0000E16C.agx"];
@@ -1093,10 +1093,23 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'or <other> to start the game'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
+
     [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
+
+    predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You wake painfully,'"];
+    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:5];
+
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
+
+    predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'"];
+    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:5];
     [textView typeText:@"glk script on\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -1137,6 +1150,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
+    XCTAssert([textView waitForExistenceWithTimeout:1]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1176,6 +1190,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
+    XCTAssert([textView waitForExistenceWithTimeout:1]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1310,6 +1325,7 @@
     XCUIElement *gameWindow = app.windows[@"praxix.z5"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCTAssert([textView waitForExistenceWithTimeout:1]);
     [textView typeText:@"all\n"];
 
     NSURL *url = [testBundle URLForResource:@"Transcript of Praxix"
@@ -1987,7 +2003,7 @@
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Changes apply to all games in library"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Changes apply to all games in library\"]",".checkBoxes[@\"Changes apply to all games in library\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     alert = app.sheets[@"alert"];
     if (alert.exists)
-    [alert.buttons[@"Okay"] click];
+        [alert.buttons[@"Okay"] click];
 
     XCUIElement *actionMenuButton = app/*@START_MENU_TOKEN@*/.menuButtons[@"action"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.menuButtons[@\"action\"]",".menuButtons[@\"action\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
     XCTAssert([actionMenuButton waitForExistenceWithTimeout:5]);
@@ -2033,7 +2049,7 @@
     else {
         [searchField doubleClick];
         [searchField typeText:@" "];
-   }
+    }
 
     [searchField click];
     [searchField typeText:gameName];
