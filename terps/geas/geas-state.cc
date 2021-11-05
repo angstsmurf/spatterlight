@@ -35,8 +35,8 @@ using namespace std;
 
 ostream &operator<< (ostream &o, const map <string, string> &m)
 {
-  for (auto i = m.cbegin(); i != m.cend(); i ++)
-    o << (*i).first << " -> " << (*i).second << "\n";
+  for (const auto &i: m)
+    o << i.first << " -> " << i.second << "\n";
   return o;
 }
 
