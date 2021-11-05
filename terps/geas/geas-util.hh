@@ -84,7 +84,7 @@ template<class K, class V, class CMP, class ALLOC> ostream &operator<< (ostream 
 template<class T> std::ostream &operator << (std::ostream &o, std::vector<T> v)
 {
   o << "{ '";
-  for (uint i = 0; i < v.size(); i ++)
+  for (size_t i = 0; i < v.size(); i ++)
     {
       o << v[i];
       if (i + 1 < v.size())
