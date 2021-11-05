@@ -1314,7 +1314,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)deleteAutosaveFiles {
-
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
@@ -1326,12 +1325,14 @@ fprintf(stderr, "%s\n",                                                    \
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
 
-- (void)deleteFiles:(NSArray *)urls {
-    [[NSWorkspace sharedWorkspace] recycleURLs:urls completionHandler:^(NSDictionary *newURLs, NSError *error) {
-        //        if (error) {
-        //            NSLog(@"deleteAutosaveFiles: %@", error);
-        //        }
-    }];
+- (void)deleteFiles:(NSArray<NSURL *> *)urls {
+    NSError *error;
+    for (NSURL *url in urls) {
+        error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+        if (error)
+            NSLog(@"Error: %@", error);
+    }
 }
 
 - (void)autoSaveOnExit {
