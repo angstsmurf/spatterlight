@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,7 +61,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Left" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S8k-cA-iAy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align left" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.alignleft" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="HQZ-df-gEz"/>
@@ -73,7 +73,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Right" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5jE-hM-0Y2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align right" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.alignright" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="zpU-Nu-n59"/>
@@ -85,7 +85,7 @@
                     <buttonCell key="cell" type="roundTextured" title="Center" bezelStyle="texturedRounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JsI-5x-6mx">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <imageReference key="image" image="Align center" symbolScale="default" renderingMode="template"/>
+                        <imageReference key="image" image="text.aligncenter" symbolScale="default" renderingMode="template"/>
                     </buttonCell>
                     <connections>
                         <action selector="changeAlignment:" target="-2" id="Gfl-cq-HCj"/>
@@ -94,7 +94,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="4r1-PY-a6P" userLabel="Alignment justified">
                     <rect key="frame" x="149" y="367" width="32" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundTextured" title="Justified" bezelStyle="texturedRounded" image="Align justified" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DCD-tP-ccA">
+                    <buttonCell key="cell" type="roundTextured" title="Justified" bezelStyle="texturedRounded" image="text.justify.left" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DCD-tP-ccA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -581,10 +581,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="Align center" width="14" height="15"/>
-        <image name="Align justified" width="14" height="15"/>
-        <image name="Align left" width="15" height="15"/>
-        <image name="Align right" width="14" height="15"/>
         <image name="Baseline offset" width="17" height="18"/>
         <image name="Character spacing" width="22" height="21"/>
         <image name="First line" width="25" height="15"/>
@@ -593,5 +589,9 @@
         <image name="Space after" width="26" height="16"/>
         <image name="Space before" width="26" height="16"/>
         <image name="Trailing margin" width="25" height="14"/>
+        <image name="text.aligncenter" width="14" height="15"/>
+        <image name="text.alignleft" width="15" height="15"/>
+        <image name="text.alignright" width="14" height="15"/>
+        <image name="text.justify.left" width="14" height="15"/>
     </resources>
 </document>
