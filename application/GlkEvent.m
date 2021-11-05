@@ -208,7 +208,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (void)writeEvent:(NSInteger)fd {
+- (void)writeEvent:(int)fd {
     struct message reply;
     char buf[4096];
     struct settings_struct *settings = (void*)buf;
@@ -260,9 +260,9 @@ unsigned chartokeycode(unsigned ch) {
         reply.len = sizeof(struct settings_struct);
     }
 
-    write((int)fd, &reply, sizeof(struct message));
+    write(fd, &reply, sizeof(struct message));
     if (reply.len)
-        write((int)fd, buf, (size_t)reply.len);
+        write(fd, buf, (size_t)reply.len);
 }
 
 @end

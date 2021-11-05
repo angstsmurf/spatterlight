@@ -19,7 +19,7 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype)initVolumeNotify:(NSInteger)notify;
 - (instancetype)initLinkEvent:(NSUInteger)linkid forWindow:(NSInteger)name;
 
-- (void)writeEvent:(NSInteger)fd;
+- (void)writeEvent:(int)fd;
 
 @property(readonly) NSInteger type;
 @property(readonly) NSInteger val1;
