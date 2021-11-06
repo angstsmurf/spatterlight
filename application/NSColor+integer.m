@@ -55,7 +55,6 @@
     }
 
     color = [NSColor colorWithDeviceRed:r green:g blue:b alpha:1.0];
-//    color = [NSColor colorWithDeviceRed:r green:g blue:b alpha:1.0];
     return color;
 }
 

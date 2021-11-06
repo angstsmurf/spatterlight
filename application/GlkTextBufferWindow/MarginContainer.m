@@ -249,11 +249,11 @@
     // If outside margin, move to opposite margin
     if (image.alignment == imagealign_MarginLeft &&
         NSMaxX(adjustedBounds) > rightMargin + 1) {
-        // NSLog(@"Left-aligned image outside right margin");
+        // Left-aligned image outside right margin
         adjustedBounds.origin.x = self.lineFragmentPadding;
     } else if (image.alignment == imagealign_MarginRight &&
                adjustedBounds.origin.x < leftMargin - 1) {
-        //  NSLog(@"Right-aligned image outside left margin");
+        // Right-aligned image outside left margin
         adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
     }
 
@@ -307,8 +307,6 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-    //    NSLog(@"MarginContainer drawRect: %@", NSStringFromRect(rect));
-
     BufferTextView *textview = (BufferTextView *)self.textView;
     GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)textview.delegate;
     NSSize inset = textview.textContainerInset;

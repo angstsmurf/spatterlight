@@ -62,9 +62,7 @@
     [BuiltInThemes createGargoyleThemeInContext:context forceRebuild:force];
     [BuiltInThemes createMontserratThemeInContext:context forceRebuild:force];
     [BuiltInThemes createAutomapThemeInContext:context forceRebuild:force];
-
     //    [BuiltInThemes createSTThemeInContext:managedObjectContext forceRebuild:force];
-    //    [BuiltInThemes checkThemesInContext:context];
 }
 
 + (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {

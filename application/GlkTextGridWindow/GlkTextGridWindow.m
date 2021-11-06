@@ -381,8 +381,6 @@
                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
                 [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
             }
-//            else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
-
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (hyperlinks, Z-colors and reverse video)
             id hyperlink = attrs[NSLinkAttributeName];
@@ -853,9 +851,6 @@
     if (line_request)
         NSLog(@"Printing to text grid window during line request");
 
-    //    if (char_request)
-    //        NSLog(@"Printing to text grid window during character request");
-
     [self printToWindow:string style:stylevalue];
 }
 
@@ -1003,9 +998,6 @@
                                           attributes:attrDict];
         [_bufferTextStorage
          replaceCharactersInRange:replaceRange withAttributedString:partString];
-        
-        //        NSLog(@"Replaced characters in range %@ with '%@'",
-        //        NSStringFromRange(replaceRange), partString.string);
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;
@@ -1032,16 +1024,13 @@
 
 - (void)initHyperlink {
     hyper_request = YES;
-    // NSLog(@"txtgrid: hyperlink event requested");
 }
 
 - (void)cancelHyperlink {
     hyper_request = NO;
-    NSLog(@"txtgrid: hyperlink event cancelled");
 }
 
 - (BOOL)textView:_textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
-    NSLog(@"txtgrid: clicked on link: %@", link);
     GlkEvent *gev;
     if (!hyper_request) {
         NSLog(@"txtgrid: No hyperlink request in window.");
@@ -1082,8 +1071,6 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
-    //    NSLog(@"mousedown in grid window %ld", self.name);
-
     if (mouse_request) {
         [self.glkctl markLastSeen];
 
@@ -1099,13 +1086,9 @@
         [_textview.layoutManager characterIndexForPoint:p
                                        inTextContainer:container
               fractionOfDistanceBetweenInsertionPoints:nil];
-        // NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex,
-        // [textstorage.string substringWithRange:NSMakeRange(charIndex, 1)]);
 
         p.y = charIndex / (cols + 1);
         p.x = charIndex % (cols + 1);
-
-        // NSLog(@"p.x: %f p.y: %f", p.x, p.y);
 
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows) {
             if (mouse_request) {
@@ -1115,8 +1098,6 @@
                 return YES;
             }
         }
-    } else {
-        //                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
     }
     return NO;
 }
@@ -1124,7 +1105,6 @@
 #pragma mark Single key input
 
 - (void)initChar {
-    // NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
 
@@ -1138,7 +1118,6 @@
 }
 
 - (void)cancelChar {
-    // NSLog(@"cancel char in %ld", self.name);
     char_request = NO;
     dirty = YES;
 
@@ -1209,7 +1188,6 @@
             xpos--;
         }
 
-        // NSLog(@"char event from %ld", self.name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [glkctl queueEvent:gev];
         char_request = NO;
@@ -1260,7 +1238,6 @@
 }
 
 - (void)sendKeypress:(unsigned)ch {
-//    NSLog(@"gridWin sendKeypress \"%c\" (%d, %x)", ch, ch, ch);
     GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
     [self.glkctl queueEvent:gev];
     char_request = NO;
@@ -1476,7 +1453,6 @@
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg];
-        //        NSLog(@"Started a new ZColor run";
     }
 
 }
@@ -1530,7 +1506,6 @@
               // We only apply reversed attributes if they were not already set to reverse by the
               // ZColor check iteration above (because the style hint ReverseColor was active)
               if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue))  {
-                  //NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(range), dict[@"ZColor"]);
                   NSMutableDictionary *mutDict = [dict mutableCopy];
                   mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.gridBackground];
                   [attStr addAttributes:mutDict range:range2];
@@ -1592,11 +1567,6 @@
     beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
 
     NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
-//    para.lineSpacing = 0;
-//    para.paragraphSpacing = 0;
-//    para.paragraphSpacingBefore = 0;
-
-//    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
     // Create an NSAffineTransform that stretches the font to our cellHeight
@@ -1634,53 +1604,6 @@
     str = [str substringToIndex:99];
     return str;
 }
-
-// Find a font size to match a certain width in points.
-// This is really only necessary on 10.7, which can't give exact character width for fonts,
-// but I think it give slightly better results (less gaps) on recent systems as well.
-//
-//- (NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
-//    {
-//        if (!text.length || desiredWidth < 2) {
-//            return font;
-//        }
-//
-//        CGFloat guess;
-//        CGFloat guessWidth;
-//
-//        guess = font.pointSize;
-//        if (guess > 1 && guess < 1000) { guess = 50; }
-//
-//        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-//
-//        if (guessWidth == desiredWidth) {
-//            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-//        }
-//
-//        NSInteger iterations = 4;
-//
-//        while(iterations > 0) {
-//            guess = guess * ( desiredWidth / guessWidth );
-//            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-//
-//            if (guessWidth == desiredWidth)
-//            {
-//                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-//            }
-//
-//            iterations -= 1;
-//        }
-//        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-//    }
-//}
-//
-//- (CGFloat)widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
-//    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:newFont forKey:NSFontAttributeName];
-//    CGFloat textWidth = [text sizeWithAttributes:dic].width;
-//    return textWidth;
-//}
 
 #pragma mark Quote box
 
@@ -1731,8 +1654,6 @@
     }
 
     NSTextView *superView = lowerView.textview;
-//    if (lowerView.framePending)
-//        [lowerView flushDisplay];
 
     [box.textview.textStorage setAttributedString:quoteAttStr];
 
@@ -1829,7 +1750,6 @@
 }
 
 - (void)speakPrevious {
-//    NSLog(@"GlkTextGridWindow %ld speakPrevious:", self.name);
     if (!self.moveRanges.count)
         return;
     NSString *prefix = @"";
@@ -1844,7 +1764,6 @@
 }
 
 - (void)speakNext {
-//    NSLog(@"GlkTextGridWindow %ld speakNext:", self.name);
     if (!self.moveRanges.count)
     {
         return;

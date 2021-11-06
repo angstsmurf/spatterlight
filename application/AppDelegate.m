@@ -52,9 +52,6 @@ PasteboardFilePasteLocation;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // NSLog(@"appdel: awakeFromNib");
-
-    NSLog(@"__MAC_OS_X_VERSION_MAX_ALLOWED: %d", __MAC_OS_X_VERSION_MAX_ALLOWED);
 
     InsecureValueTransformer *insecureValueTransformer = nil;
 
@@ -180,7 +177,6 @@ PasteboardFilePasteLocation;
 }
 
 - (IBAction)showHelpFile:(id)sender {
-    //    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     NSString *title = [sender title];
     NSURL *url = [[NSBundle mainBundle] URLForResource:title
                  withExtension:@"rtf"
@@ -209,7 +205,6 @@ PasteboardFilePasteLocation;
                               state:(NSCoder *)state
                   completionHandler:
 (void (^)(NSWindow *, NSError *))completionHandler {
-    //    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
     NSWindow *window = nil;
     AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
     if ([identifier isEqualToString:@"library"]) {
@@ -262,7 +257,6 @@ PasteboardFilePasteLocation;
 #pragma mark Library
 
 - (IBAction)showLibrary:(id)sender {
-    //    NSLog(@"appdel: showLibrary");
     [_libctl showWindow:nil];
 }
 
@@ -434,7 +428,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 }
 
 - (IBAction)showPrefs:(id)sender {
-    //    NSLog(@"appdel: showPrefs");
     [_prefctl showWindow:nil];
 }
 

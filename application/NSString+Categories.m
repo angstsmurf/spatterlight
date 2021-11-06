@@ -33,17 +33,13 @@
 
             if (!(bytes64[12] == 'R' && bytes64[13] == 'I' &&
                   bytes64[14] == 'd' && bytes64[15] == 'x'))
-                NSLog(
-                    @"signatureFromFile: Missing RIdx index header in Blorb!");
+                NSLog(@"signatureFromFile: Missing RIdx index header in Blorb!");
 
             int chunkLength = bytes64[16] << 24 | (bytes64[17] & 0xff) << 16 |
                               (bytes64[18] & 0xff) << 8 | (bytes64[19] & 0xff);
 
-            // NSLog(@"Index length: %d", chunkLength);
-
             int numRes = bytes64[20] << 24 | (bytes64[21] & 0xff) << 16 |
                          (bytes64[22] & 0xff) << 8 | (bytes64[23] & 0xff);
-            // NSLog(@"Number of resources: %d", numRes);
 
             if (chunkLength != 4 + numRes * 12)
                 NSLog(@"signatureFromFile: Chunk length wrong! Should be 4 + "
@@ -59,8 +55,8 @@
                     execStart = bytes12[8] << 24 | (bytes12[9] & 0xff) << 16 |
                                 (bytes12[10] & 0xff) << 8 |
                                 (bytes12[11] & 0xff);
-                    // NSLog(@"Found Exec index at offset %ld. Executable chunk
-                    // starts at %d.", (long)i, execStart);
+                    // Found Exec index at offset i.
+                    // Executable chunk starts at execStart.
                     break;
                 }
             }
@@ -203,7 +199,6 @@
 // Returns an NSArray of range values, including leading and trailing spaces (but strips leading and traling blank lines)
 - (NSArray *)lineRanges {
     return [self lineRangesKeepEmptyLines:NO];
-
 }
 
 - (NSArray *)lineRangesKeepEmptyLines:(BOOL)keepEmpty {
@@ -243,7 +238,7 @@
 }
 
 
-// Returns yes if range only consists of white space or new lines
+// Returns yes if range only consists of whitespace or newlines
 - (BOOL)rangeIsEmpty:(NSValue *)rangeValue {
     if (!self.length)
         return YES;

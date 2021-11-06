@@ -120,9 +120,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)setFrame:(NSRect)frame {
-    //    NSLog(@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@",
-    //          NSStringFromRect(frame), NSStringFromRect(self.frame));
-
     super.frame = frame;
     GlkController *glkctl = _glkctrl;
 
@@ -240,8 +237,6 @@ fprintf(stderr, "%s\n",                                                    \
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
     _imageHandler = [ImageHandler new];
-
-    //    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
 
     // We could use separate versioning for GUI and interpreter autosaves,
     // but it is probably simpler this way
@@ -680,7 +675,7 @@ fprintf(stderr, "%s\n",                                                    \
         // Place the window just above center by default
         newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
 
-        //Very lazy cascading
+        // Very lazy cascading
         if (libcontroller.gameSessions.count > 1) {
             NSPoint thisPoint, thatPoint;
             NSInteger repeats = 0;
@@ -703,7 +698,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             } while (overlapping == YES && repeats < 100);
             if (repeats >= 100)
-                NSLog(@"Got caught in a cascading infinite loop");
+                NSLog(@"Got caught in a cascading windows infinite loop");
             newWindowFrame.origin = thisPoint;
             newWindowFrame.origin.y -= NSHeight(newWindowFrame);
         }
@@ -994,7 +989,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView
 {
-    // search the subviews for a view of class GlkTextGridWindow
+    // Search the subviews for a view of class GlkTextGridWindow
     GlkTextGridWindow __block __weak *(^weak_findGridWindow)(NSView *);
 
     GlkTextGridWindow * (^findGridWindow)(NSView *);
@@ -1358,7 +1353,6 @@ fprintf(stderr, "%s\n",                                                    \
                 return;
             }
         }
-        // NSLog(@"UI autosaved on exit, turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
         _game.autosaved = YES;
     }
 }
@@ -1538,7 +1532,7 @@ fprintf(stderr, "%s\n",                                                    \
     _commandScriptHandler = nil;
 
     if (task) {
-        //        NSLog(@"glkctl reset: force stop the interpreter");
+        // Stop the interpreter
         task.terminationHandler = nil;
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         readfh = nil;
@@ -1596,7 +1590,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleAutosave:(NSInteger)hash {
-
     _autosaveTag = hash;
 
     NSInteger res;
@@ -1622,22 +1615,19 @@ fprintf(stderr, "%s\n",                                                    \
                 return;
             }
 
-
-            /* This is not really atomic, but we're already past the serious failure modes. */
             [[NSFileManager defaultManager] removeItemAtPath:self.autosaveFileGUI error:nil];
 
             NSError *error;
             res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath
                                                           toPath:self.autosaveFileGUI error:&error];
             if (!res) {
-                NSLog(@"could not move window autosave to final position! %@", error);
+                NSLog(@"Could not move window autosave to final position! %@", error);
                 return;
             }
         }
     }
 
     _hasAutoSaved = YES;
-    //    NSLog(@"UI autosaved successfully on turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
 }
 
 /*
@@ -1679,7 +1669,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-    //    NSLog(@"glkctl: windowShouldClose");
     NSAlert *alert;
 
     if (dead || _supportsAutorestore) {
@@ -1742,13 +1731,13 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (timer) {
-        //        NSLog(@"glkctl: force stop the timer");
+        // Stop the timer
         [timer invalidate];
         timer = nil;
     }
 
     if (task) {
-        //        NSLog(@"glkctl: force stop the interpreter");
+        // stop the interpreter
         [task setTerminationHandler:nil];
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         readfh = nil;
@@ -1765,8 +1754,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
-    //    lastFlushTimestamp = [NSDate date];
-
     [Preferences instance].inMagnification = NO;
 
     if (windowdirty) {
@@ -1807,11 +1794,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (void)guessFocus {
-    id focuswin;
-
-    //    NSLog(@"glkctl guessFocus");
-
-    focuswin = self.window.firstResponder;
+    id focuswin = self.window.firstResponder;
     while (focuswin) {
         if ([focuswin isKindOfClass:[NSView class]]) {
             if ([focuswin isKindOfClass:[GlkWindow class]])
@@ -1822,14 +1805,10 @@ fprintf(stderr, "%s\n",                                                    \
             focuswin = nil;
     }
 
-    // if (focuswin)
-    //  NSLog(@"window %ld has focus", (long)[(GlkWindow*)focuswin name]);
-
     if (focuswin && [focuswin wantsFocus])
         return;
 
-    // NSLog(@"glkctl guessing new window to focus on");
-
+    // Guessing new window to focus on
     for (GlkWindow *win in [_gwindows allValues]) {
         if (win.wantsFocus) {
             [win grabFocus];
@@ -1885,7 +1864,7 @@ fprintf(stderr, "%s\n",                                                    \
     CALayer *layer = [CALayer layer];
 
     if (![_imageHandler handleFindImageNumber:3]) {
-        NSLog(@"Failed to load image 3!");
+        NSLog(@"createMaskLayer: Failed to load Narcolepsy image 3!");
         return nil;
     } else {
         CIContext *context = [CIContext contextWithOptions:nil];
@@ -1914,8 +1893,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
                         defaultFrame:(NSRect)screenframe {
-    NSLog(@"glkctl: windowWillUseStandardFrame");
-
     NSSize windowSize = [self defaultContentSize];
 
     NSRect frame = [window frameRectForContentRect:NSMakeRect(0, 0, windowSize.width, windowSize.height)];;
@@ -1944,7 +1921,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)contentDidResize:(NSRect)frame {
     if (NSEqualRects(frame, lastContentResize)) {
-        //        NSLog(@"contentDidResize called with same frame as last time. Skipping.");
+        // contentDidResize called with same frame as last time. Skipping.
         return;
     }
 
@@ -1997,7 +1974,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:winrect display:YES];
         _contentView.frame = [self contentFrameForWindowed];
     } else {
-        //        NSLog(@"zoomContentToSize: we are in fullscreen");
+        // We are in fullscreen
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      newSize.width,
                                      NSHeight(_borderView.frame));
@@ -2027,7 +2004,6 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
     size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
-    //    NSLog(@"charCellsToContentSize: %@ in character cells is %@ in points", NSStringFromSize(cells), NSStringFromSize(size));
     return size;
 }
 
@@ -2037,7 +2013,6 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
     size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
-    //    NSLog(@"contentSizeToCharCells: %@ in points is %@ in character cells ", NSStringFromSize(points), NSStringFromSize(size));
     return size;
 }
 
@@ -2527,9 +2502,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
     NSInteger i;
 
-    //    NSLog(@"GlkController handleNewWindowOfType: %s",
-    //    wintypenames[wintype]);
-
     if (_theme == nil) {
         NSLog(@"Theme nil?");
         _theme = [Preferences currentTheme];
@@ -2551,9 +2523,6 @@ fprintf(stderr, "%s\n",                                                    \
               (long)name, (unsigned long)i);
         return name;
     }
-
-    // NSLog(@"GlkController handleNewWindowOfType: Adding new %s window with
-    // name: %ld", wintypenames[wintype], (long)i);
 
     GlkWindow *win;
 
@@ -2582,7 +2551,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleSetTimer:(NSUInteger)millisecs {
-    //    NSLog(@"handleSetTimer: %ld millisecs", millisecs);
     if (timer) {
         [timer invalidate];
         timer = nil;
@@ -2626,10 +2594,6 @@ fprintf(stderr, "%s\n",                                                    \
                               style:(NSUInteger)style
                                hint:(NSUInteger)hint
                               value:(int)value {
-
-    // NSLog(@"handleStyleHintOnWindowType: %s style: %s hint: %s value: %d",
-    // wintypenames[wintype], stylenames[style], stylehintnames[hint], value);
-
     if (style >= style_NUMSTYLES)
         return;
 
@@ -2660,11 +2624,6 @@ fprintf(stderr, "%s\n",                                                    \
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
                          result:(NSInteger *)result {
-    //    if (styleuse[1][style_Normal][stylehint_TextColor])
-    //        NSLog(@"styleuse[1][style_Normal][stylehint_TextColor] is true. "
-    //              @"Value:%ld",
-    //              (long)styleval[1][style_Normal][stylehint_TextColor]);
-
     Theme *theme = _theme;
     if ([gwindow getStyleVal:style hint:hint value:result])
         return YES;
@@ -2814,9 +2773,6 @@ fprintf(stderr, "%s\n",                                                    \
         myDict[key] = @(NO);
     }
 
-    //    NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u",
-    //    (long)gwindow.name, len );
-
     for (NSInteger i = 0; i < len; i++) {
         key = @(buf[i]);
 
@@ -2905,12 +2861,6 @@ fprintf(stderr, "%s\n",                                                    \
     GlkWindow *reqWin = nil;
     NSColor *bg = nil;
 
-    //    if (req->cmd != NEXTEVENT && [lastFlushTimestamp timeIntervalSinceNow]  < -0.5) {
-    //        [self performScroll];
-    //        [self flushDisplay];
-    //        NSLog(@"Autoscroll (performScroll + flushDisplay) triggered by timer");
-    //    }
-
     Theme *theme = _theme;
 
     if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
@@ -2934,11 +2884,6 @@ fprintf(stderr, "%s\n",                                                    \
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
-                    //                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
-                    //                    if (handler.commandIndex > 0) {
-                    //                        handler.commandIndex--;
-                    //                        handler.lastCommandType = handler.nextToLastCommandType;
-                    //                    }
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
@@ -2980,13 +2925,10 @@ fprintf(stderr, "%s\n",                                                    \
             }
 
             [self flushDisplay];
-            //            for (GlkWindow *win in _gwindows.allValues)
-            //                NSLog(@"%@ %ld: %@", [win class], win.name, NSStringFromRect(win.frame));
 
             if (_queue.count) {
                 GlkEvent *gevent;
                 gevent = _queue[0];
-                //                NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent:sendfh.fileDescriptor];
                 [_queue removeObjectAtIndex:0];
@@ -3047,7 +2989,6 @@ fprintf(stderr, "%s\n",                                                    \
         case NEWWIN:
             ans->cmd = OKAY;
             ans->a1 = (int)[self handleNewWindowOfType:req->a1 andName:req->a2];
-            // NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
             break;
 
         case NEWCHAN:
@@ -3056,7 +2997,6 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case DELWIN:
-            //            NSLog(@"glkctl delwin %d", req->a1);
             if (reqWin) {
                 [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
@@ -3155,7 +3095,7 @@ fprintf(stderr, "%s\n",                                                    \
                         [sound stop];
                         [sound play];
                     }
-                    //For Bureaucracy form accessibility
+                    // For Bureaucracy form accessibility
                     if (_form)
                         [_form speakError];
                 }
@@ -3180,16 +3120,10 @@ fprintf(stderr, "%s\n",                                                    \
                 checksumHeight = sizewin->gameheight;
 
                 if (fabs(checksumWidth - _contentView.frame.size.width) > 1.0) {
-                    //                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
-                    //                          @"Current _contentView width is %f",
-                    //                          checksumWidth, _contentView.frame.size.width);
                     break;
                 }
 
                 if (fabs(checksumHeight - _contentView.frame.size.height) > 1.0) {
-                    //                    NSLog(@"handleRequest sizwin: wrong checksum height (%d). "
-                    //                          @"Current _contentView height is %f",
-                    //                          checksumHeight, _contentView.frame.size.height);
                     break;
                 }
 
@@ -3202,8 +3136,6 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-
-                //                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
 
                 reqWin.frame = rect;
 
@@ -3232,14 +3164,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         case CLRWIN:
             if (reqWin) {
-                // NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [reqWin clear];
                 _shouldCheckForMenu = YES;
             }
             break;
 
         case SETBGND:
-            //            NSLog(@"glkctl: SETBGND %d, color %x (%d).", req->a1, req->a2, req->a2);
             if (req->a2 < 0)
                 bg = theme.bufferBackground;
             else
@@ -3280,8 +3210,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         case PRINT:
             if (!_gwindows.count && shouldRestoreUI) {
-                //                NSLog(@"Restoring UI at PRINT");
-                //                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
@@ -3297,7 +3225,6 @@ fprintf(stderr, "%s\n",                                                    \
         case UNPRINT:
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                //                NSLog(@"Restoring UI at UNPRINT");
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -3333,7 +3260,6 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case FLOWBREAK:
-            //NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
             if (reqWin) {
                 [reqWin flowBreak];
             }
@@ -3360,13 +3286,10 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Request and cancel events
 
         case INITLINE:
-            // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
 
             if (!_gwindows.count && shouldRestoreUI) {
                 buf = "\0";
-                //              NSLog(@"Restoring UI at INITLINE");
-                //              NSLog(@"at eventcount %ld", _eventcount);
                 if (restoredController.commandScriptRunning) {
                     CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
                     if (handler.commandIndex >= handler.commandArray.count - 1) {
@@ -3399,7 +3322,6 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case CANCELLINE:
-            //            NSLog(@"glkctl CANCELLINE %d", req->a1);
             ans->cmd = OKAY;
             if (reqWin) {
                 NSString *str = [reqWin cancelLine];
@@ -3412,13 +3334,9 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case INITCHAR:
-            //            NSLog(@"glkctl initchar %d", req->a1);
-
             if (!_gwindows.count && shouldRestoreUI) {
                 GlkController *g = restoredControllerLate;
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                //                NSLog(@"Restoring UI at INITCHAR");
-                //                NSLog(@"at eventcount %ld", _eventcount);
                 if (g.commandScriptRunning) {
                     CommandScriptHandler *handler = restoredController.commandScriptHandler;
                     handler.commandIndex++;
@@ -3441,7 +3359,10 @@ fprintf(stderr, "%s\n",                                                    \
             // These request and cancel lots of char events every second,
             // which breaks scrolling, as we normally scroll down
             // one screen on every char event.
-            if (lastRequest == PRINT || lastRequest == SETZCOLOR || lastRequest == NEXTEVENT || lastRequest == MOVETO) {
+            if (lastRequest == PRINT ||
+                lastRequest == SETZCOLOR ||
+                lastRequest == NEXTEVENT ||
+                lastRequest == MOVETO) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
@@ -3465,16 +3386,13 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case CANCELCHAR:
-            //            NSLog(@"glkctl CANCELCHAR %d", req->a1);
             if (reqWin)
                 [reqWin cancelChar];
             break;
 
         case INITMOUSE:
-            //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                //                NSLog(@"Restoring UI at INITMOUSE");
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -3491,23 +3409,17 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case SETLINK:
-            //            NSLog(@"glkctl set hyperlink %d in window %d", req->a2,
-            //            req->a1);
             if (reqWin) {
                 reqWin.currentHyperlink = req->a2;
             }
             break;
 
         case INITLINK:
-            //            NSLog(@"glkctl request hyperlink event in window %d",
-            //            req->a1);
-            //            if (!_gwindows.count && shouldRestoreUI) {
-            //                //                NSLog(@"Restoring UI at INITLINK");
-            //                //                NSLog(@"at eventcount %ld", _eventcount);
-            //                _windowsToRestore = restoredControllerLate.gwindows.allValues;
-            //                [self restoreUI];
-            //                reqWin = _gwindows[@(req->a1)];
-            //            }
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -3516,8 +3428,6 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case CANCELLINK:
-            //            NSLog(@"glkctl cancel hyperlink event in window %d",
-            //            req->a1);
             if (reqWin) {
                 [reqWin cancelHyperlink];
             }
@@ -3526,10 +3436,6 @@ fprintf(stderr, "%s\n",                                                    \
         case TIMER:
             [self handleSetTimer:(NSUInteger)req->a1];
             break;
-
-            /*
-             * Hugo specifics (hugo doesn't use glk to arrange windows)
-             */
 
 #pragma mark Non-standard Glk extensions stuff
 
@@ -3571,10 +3477,6 @@ fprintf(stderr, "%s\n",                                                    \
                 ans->a1 = (int)[banner numberOfLines];
             }
             break;
-
-            /*
-             * HTML-TADS specifics will go here.
-             */
 
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
@@ -3691,14 +3593,13 @@ static BOOL pollMoreData(int fd) {
             @"leading" : @(((NSParagraphStyle *)(theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing)
         };
 
-        //        NSLog(@"GlkController queueEvent: %@",newArrangeValues);
-
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
             return;
         }
 
         lastArrangeValues = newArrangeValues;
         // Some Inform 7 games only resize graphics on evtype_Redraw
+        // so we send a redraw event after every resize event
         redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
     if (waitforfilename) {
@@ -3801,7 +3702,6 @@ again:
 #pragma mark Border color
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
-    //         NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
@@ -3832,11 +3732,9 @@ again:
     _bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
     if (_narcolepsy && theme.doStyles && theme.doGraphics) {
-        //        self.bgcolor = [NSColor clearColor];
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
-    //    NSLog(@"GlkController setBorderColor: %@", color);
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         _borderView.layer.backgroundColor = color.CGColor;
 
@@ -4535,7 +4433,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 
     if (!windowsWithText.count) {
-        //        NSLog(@"speakNewText: No windows with new text!");
         return;
     } else if (windowsWithText.count > 1) {
         NSMutableArray *bufWinsWithText = [[NSMutableArray alloc] init];
@@ -4599,7 +4496,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakPrevious:(id)sender {
-    //    NSLog(@"GlkController: speakPrevious");
     GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No previous move to speak!"];
@@ -4609,7 +4505,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakNext:(id)sender {
-    //    NSLog(@"GlkController: speakNext");
     GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No next move to speak!"];
