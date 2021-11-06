@@ -48,7 +48,6 @@ static bool asl_header_found(unsigned char *story_file, int32 extent)
     unsigned char *end = find_string(start, extent - offset, "end define", 10);
     if (end == NULL)
         return false;
-    offset = start - story_file;
     unsigned char *version = find_string(start, end - start - 10, "asl-version", 11);
     if (version == NULL)
         return false;
