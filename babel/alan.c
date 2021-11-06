@@ -50,7 +50,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
      Alan v3 stores IFIDs in the story file in a format that might differ between versions.
      So just scan for "UUID://"
      */
-    int32 i, j;
+    int32 i, j, k;
 
     for(i=0;i<extent;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
     if (i<extent) /* Found explicit IFID */
@@ -60,7 +60,8 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
       {
         i+=7;
         ASSERT_OUTPUT_SIZE(j-i);
-        memcpy(output,(char *)story_file+i,j-i);
+        for(k=0;k<j-i;k++)
+          output[k]=toupper(((char *)story_file)[i+k]);
         output[j-i]=0;
         return VALID_STORY_FILE_RV;
       }
@@ -74,12 +75,14 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
 static bool crc_is_correct(byte *story_file, int32 size_in_awords) {
   /* Size of AcodeHeader is 50 Awords = 200 bytes */
-  int32 crc = 0;
+  int32 calculated_crc = 0;
+  int32 crc_in_file = read_alan_int_at(story_file+46*4);
 
   for (int i=50*4;i<(size_in_awords*4);i++)
-    crc+=story_file[i];
+    calculated_crc+=story_file[i];
 
-  return (crc == read_alan_int_at(story_file+46*4));
+  /* Some Alan 3 games seem to have added 284 to their internal checksum */
+  return (calculated_crc == crc_in_file || calculated_crc + 284 == crc_in_file);
 }
 
 
@@ -125,11 +128,6 @@ static int32 claim_story_file(void *story_file, int32 extent_in_bytes)
       switch (read_alan_int_at(sf+46*4))
       {
         case 1427594: /* Enter The Dark */
-        case 3905837: /* A Very Hairy Fish-Mess */
-        case 2271892: /* The Ngah Angah School of Forbidden Wisdom */
-        case 4571913: /* Room 206 */
-        case 3492403: /* IN-D-I-GO SOUL */
-        case 1944721: /* The Christmas Party */
         case 8683866: /* Waldo’s Pie */
           return VALID_STORY_FILE_RV;
         default:
