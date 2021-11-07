@@ -56,10 +56,10 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="336" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                        <rect key="frame" x="8" y="10" width="340" height="14"/>
+                        <rect key="frame" x="8" y="8" width="340" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="IFID" id="70">
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="system" size="10"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -68,15 +68,34 @@
                         <rect key="frame" x="356" y="10" width="200" height="196"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2j-c3-bD8">
-                        <rect key="frame" x="10" y="32" width="336" height="113"/>
+                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afR-Dg-LKG">
+                        <rect key="frame" x="12" y="31" width="330" height="115"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
-                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No description available" id="YDj-WQ-Uc0">
-                            <font key="font" metaFont="cellTitle"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" id="URc-h6-6HA">
+                            <rect key="frame" x="0.0" y="0.0" width="330" height="115"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2j-c3-bD8">
+                                    <rect key="frame" x="0.0" y="0.0" width="330" height="115"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
+                                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="No description available" id="YDj-WQ-Uc0">
+                                        <font key="font" metaFont="cellTitle"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        </clipView>
+                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="5jB-g7-w9s">
+                            <rect key="frame" x="0.0" y="99" width="330" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="HXL-KJ-l82">
+                            <rect key="frame" x="314" y="0.0" width="16" height="115"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
             </view>
             <connections>

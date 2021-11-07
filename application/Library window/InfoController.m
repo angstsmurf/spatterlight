@@ -81,7 +81,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface InfoController () <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
+@interface InfoController () <NSWindowDelegate, NSTextFieldDelegate>
 {
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
@@ -280,6 +280,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (frame.origin.y < 0)
         frame.origin.y = 0;
     [self.window setFrame:frame display:YES animate:animate];
+    [self adjustDescriptionHeight];
+    [descriptionText.enclosingScrollView.contentView scrollToPoint:NSZeroPoint];
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
@@ -304,6 +306,22 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (void)adjustDescriptionHeight {
+    NSString *descriptionString = _meta.blurb;
+    if (!descriptionString.length)
+        descriptionString = descriptionText.stringValue;
+    if (!descriptionString.length)
+        descriptionString = descriptionText.placeholderString;
+    if (!descriptionString.length)
+        return;
+    NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:12] };
+    NSRect newFrame = descriptionText.frame;
+    NSRect requiredFrame = [descriptionString boundingRectWithSize:NSMakeSize(NSWidth(descriptionText.frame) - 4, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    newFrame.size.height = requiredFrame.size.height;
+    descriptionText.frame = newFrame;
+    descriptionText.stringValue = descriptionString;
+}
+
 - (void)update {
     if (!_path)
         _path = _game.urlForBookmark.path;
@@ -326,8 +344,9 @@ fprintf(stderr, "%s\n",                                                    \
             authorField.stringValue = _meta.author;
         if (_meta.headline.length)
             headlineField.stringValue = _meta.headline;
-        if (_meta.blurb.length)
-            descriptionText.stringValue = _meta.blurb;
+        if (_meta.blurb.length) {
+            [self adjustDescriptionHeight];
+        }
         if (_game.ifid.length)
             ifidField.stringValue = _game.ifid;
     }
@@ -367,7 +386,7 @@ fprintf(stderr, "%s\n",                                                    \
         // and sort them alphabetically
         windowArray =
         [windowArray sortedArrayUsingComparator:
-                      ^NSComparisonResult(InfoController * obj1, InfoController * obj2){
+         ^NSComparisonResult(InfoController * obj1, InfoController * obj2){
             NSString *title1 = obj1.titleField.stringValue;
             NSString *title2 = obj2.titleField.stringValue;
             return [title1 localizedCaseInsensitiveCompare:title2];
@@ -411,37 +430,26 @@ fprintf(stderr, "%s\n",                                                    \
         {
             if (![_meta.blurb isEqualToString:descriptionText.stringValue]) {
                 _meta.blurb = descriptionText.stringValue;
-                NSLog(@"changed blurb to %@", _meta.blurb);
+                [self adjustDescriptionHeight];
             }
         }
-        //		else if (textfield == ifidField)
-        //		{
-        //			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        //		}
 
         // When the user has edited text and pressed enter, we want the field to be deselected,
         // but we must check that the user did not end editing by selecting a different field,
-        // because then the edited field is already deselected and we don't want to deselect
+        // because then the previous field has already been deselected, and we don't want to deselect
         // the new one.
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (textfield == self->descriptionText) {
+                // Scroll to bottom
+                NSClipView* clipView = textfield.enclosingScrollView.contentView;
+                CGFloat newScrollOrigin = NSMaxY(textfield.frame) - NSHeight(clipView.bounds);
+                [clipView scrollToPoint:NSMakePoint(0, newScrollOrigin)];
+            }
             if (self.window.firstResponder == textfield.currentEditor) {
-                [self.window makeFirstResponder:nil];
+                [self.window makeFirstResponder:self.window.contentView];
             }
         });
     }
-}
-
-- (BOOL)control:(NSControl*)control textView:(NSTextView*)textView doCommandBySelector:(SEL)commandSelector
-{
-    if (textView == descriptionText.currentEditor && commandSelector == @selector(insertNewline:))
-    {
-        // Insert a line-break character and don't cause the receiver
-        // to end editing
-        [textView insertNewlineIgnoringFieldEditor:self];
-        return YES;
-    }
-
-    return NO;
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -453,10 +461,10 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)makeAndPrepareSnapshotWindow:(NSRect)startingframe {
     CALayer *snapshotLayer = [self takeSnapshot];
     NSWindow *snapshotWindow = ([[NSWindow alloc]
-                       initWithContentRect:startingframe
-                       styleMask:0
-                       backing:NSBackingStoreBuffered
-                       defer:NO]);
+                                 initWithContentRect:startingframe
+                                 styleMask:0
+                                 backing:NSBackingStoreBuffered
+                                 defer:NO]);
 
     snapshotWindow.contentView.wantsLayer = YES;
     snapshotWindow.opaque = NO;
