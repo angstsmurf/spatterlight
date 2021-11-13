@@ -8876,15 +8876,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads2,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads2,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
@@ -8914,15 +8908,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads2,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads2,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
@@ -8964,13 +8952,10 @@
 					$PROJECT_DIR/terps/tads/tads3,
 				);
 				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads3,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = tads3;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -9008,13 +8993,10 @@
 					$PROJECT_DIR/terps/tads/tads3,
 				);
 				INSTALL_PATH = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/terps/tads,
-					$PROJECT_DIR/terps/tads/tads3,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = tads3;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
