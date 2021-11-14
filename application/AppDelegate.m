@@ -78,7 +78,7 @@ PasteboardFilePasteLocation;
         @"a3c", @"acd", @"agx", @"gam",    @"t3",    @"hex",    @"taf",
         @"z1",  @"z2",  @"z3",  @"z4",     @"z5",    @"z6",     @"z7",
         @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
-        @"zblorb", @"cas", @"asl"
+        @"zblorb", @"cas", @"asl", @"saga", @"jacl", @"j2"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
@@ -114,8 +114,7 @@ PasteboardFilePasteLocation;
                        @"gridUsr2",
                        ];
 
-    gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility",
-                @"cas" : @"geas", @"asl" : @"geas"};
+    gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
 
     gFormatMap = @{
                    @"adrift" : @"scare",
@@ -129,7 +128,9 @@ PasteboardFilePasteLocation;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel",
-                   @"quest4" : @"geas"
+                   @"quest4" : @"geas",
+                   @"jacl" : @"jacl",
+                   @"scott" : @"scott"
                    };
 
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;

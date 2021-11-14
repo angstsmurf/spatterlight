@@ -49,6 +49,8 @@
 				<string>public.sna</string>
 				<string>public.ddollardollar</string>
 				<string>public.quest</string>
+				<string>public.jacl</string>
+				<string>public.saga</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>0</integer>

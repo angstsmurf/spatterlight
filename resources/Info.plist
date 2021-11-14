@@ -18,6 +18,10 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-alan-adventure-game</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Alan Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -42,6 +46,10 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-agt</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>AGT Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -88,8 +96,10 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-adrift</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Adrift Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -138,6 +148,10 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-hugo</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Hugo Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -162,6 +176,10 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-level9</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Level 9 Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -186,6 +204,10 @@
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-magscroll</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Magnetic Scrolls Story File</string>
 			<key>CFBundleTypeRole</key>
@@ -515,6 +537,55 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.quest</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>jacl</string>
+				<string>j2</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>JACL Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.jacl</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>saga</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>ScottFree Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.saga</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -1023,6 +1094,69 @@
 					<string>hex</string>
 				</array>
 			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>JACL Story</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>L</string>
+				<key>UTTypeIconText</key>
+				<string>JACL</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.jacl</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>jacl</string>
+					<string>j2</string>
+				</array>
+			</dict>
+			<key>UTTypeReferenceURL</key>
+			<string>https://code.google.com/archive/p/jacl/</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ScottFree Story</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>L</string>
+				<key>UTTypeIconText</key>
+				<string>SCOTT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.saga</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>saga</string>
+				</array>
+			</dict>
+			<key>UTTypeReferenceURL</key>
+			<string>https://github.com/cspiegel/scottfree-glk</string>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>

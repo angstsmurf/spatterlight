@@ -53,6 +53,8 @@
 				<string>public.qut</string>
 				<string>public.ifiction</string>
 				<string>public.quest</string>
+				<string>public.jacl</string>
+				<string>public.saga</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

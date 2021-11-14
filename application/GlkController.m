@@ -1194,7 +1194,9 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
-                                     @"zcode": @"Bocfel"
+                                     @"zcode": @"Bocfel",
+                                     @"scott": @"ScottFree",
+                                     @"jacl": @"JACL"
         };
 
         NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
@@ -1322,8 +1324,8 @@ fprintf(stderr, "%s\n",                                                    \
     for (NSURL *url in urls) {
         error = nil;
         [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-        if (error)
-            NSLog(@"Error: %@", error);
+//        if (error)
+//            NSLog(@"Error: %@", error);
     }
 }
 
@@ -3615,8 +3617,7 @@ static BOOL pollMoreData(int fd) {
         [self queueEvent:redrawEvent];
 }
 
-- (void)noteDataAvailable: (id)sender
-{
+- (void)noteDataAvailable: (id)sender {
     struct message request;
     struct message reply;
     char minibuf[GLKBUFSIZE + 1];
