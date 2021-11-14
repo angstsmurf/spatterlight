@@ -6,9 +6,15 @@
 - Downloading metadata for multiple files is now multi-threaded and much faster 
 - Fixes sandboxing issue that could break reloading images from Blorb file
 - Spatterlight metadata is searchable with Spotlight
-- The Beyond Zork graphic font got lost in the last update. Now it is back
+- The *Beyond Zork* graphic font got lost in the last update. Now it is back
 - Spatterlight should be slightly less eager to show a file dialog at inappropriate times
 - Updates Bocfel to 1.4
+- Adds support for Quest 4 games, using the Geas interpreter
+- Fixes a bug where a game would open to a blank window when resetting repeatedly, because the autosave files were not immediately deleted
+- Gives the correct IFID for Hugo games with new-style UUID format IFIDs
+- The menu in *Halloween Horror* was broken
+- The library window spinning progress indicator would disappear on Yosemite
+- Fixes a sandboxing problem where the "Reload from Blorb" image context menu item would become non-functional
 
 ## Release 0.8.9
 - Keypresses could be lost between commands
