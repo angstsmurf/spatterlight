@@ -27,7 +27,6 @@
 
 #include "treaty_builder.h"
 #include <ctype.h>
-#include <stdio.h>
 
 static int is_uppercase_hexadecimal(char c)
 {

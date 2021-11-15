@@ -15,7 +15,6 @@
 
 #include "treaty_builder.h"
 #include <ctype.h>
-#include <stdio.h>
 #include <stdbool.h>
 
 
