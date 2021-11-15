@@ -25,7 +25,10 @@ void setdefaultworkdir(char **string)
                                      @"tads": @"TADS",
                                      @"frotz": @"Frotz",
                                      @"fizmo": @"Fizmo",
-                                     @"bocfel": @"Bocfel"
+                                     @"bocfel": @"Bocfel",
+                                     @"quest4": @"Geas",
+                                     @"jacl": @"JACL",
+                                     @"scott": @"ScottFree"
                                      };
         NSError *error;
         NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
