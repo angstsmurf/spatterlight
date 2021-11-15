@@ -311,8 +311,6 @@ fprintf(stderr, "%s\n",                                                    \
     if (!descriptionString.length)
         descriptionString = descriptionText.stringValue;
     if (!descriptionString.length)
-        descriptionString = descriptionText.placeholderString;
-    if (!descriptionString.length)
         return;
     NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:12] };
     NSRect newFrame = descriptionText.frame;
@@ -411,6 +409,10 @@ fprintf(stderr, "%s\n",                                                    \
     {
         NSTextField *textfield = notification.object;
 
+        NSString *trimmedString = [textfield.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (trimmedString.length == 0)
+            textfield.stringValue = @"";
+
         if (textfield == _titleField)
         {
             if (![_meta.title isEqualToString:_titleField.stringValue])
@@ -439,7 +441,7 @@ fprintf(stderr, "%s\n",                                                    \
         // because then the previous field has already been deselected, and we don't want to deselect
         // the new one.
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (textfield == self->descriptionText) {
+            if (textfield == self->descriptionText && self->descriptionText.stringValue.length) {
                 // Scroll to bottom
                 NSClipView* clipView = textfield.enclosingScrollView.contentView;
                 CGFloat newScrollOrigin = NSMaxY(textfield.frame) - NSHeight(clipView.bounds);
