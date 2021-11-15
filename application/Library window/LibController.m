@@ -2315,8 +2315,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 + (NSInteger)compareString:(NSString *)ael withString:(NSString *)bel ascending:(BOOL)ascending {
     if ((!ael || ael.length == 0) && (!bel || bel.length == 0))
         return NSOrderedSame;
-    if (!ael || ael.length == 0) return ascending ? NSOrderedDescending :  NSOrderedAscending;
+    if (!ael || ael.length == 0) return ascending ? NSOrderedDescending : NSOrderedAscending;
     if (!bel || bel.length == 0) return ascending ? NSOrderedAscending : NSOrderedDescending;
+
     return [LibController stringcompare:ael with:bel];
 }
 
@@ -2328,6 +2329,16 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [ael compare:bel];
 }
 
++ (NSInteger)compareIntegers:(NSInteger)a and:(NSInteger)b ascending:(BOOL)ascending {
+    if (a == b)
+        return NSOrderedSame;
+    if (a == NSNotFound) return ascending ? NSOrderedDescending : NSOrderedAscending;
+    if (b == NSNotFound) return ascending ? NSOrderedAscending : NSOrderedDescending;
+    if (a < b)
+        return NSOrderedAscending;
+    else
+        return NSOrderedDescending;
+}
 
 + (NSPredicate *)searchPredicateForWord:(NSString *)word {
     return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
@@ -2440,6 +2451,21 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             cmp = [LibController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
 
             if (cmp) return cmp;
+        }
+        else if ([strongSelf.gameSortColumn isEqual:@"seriesnumber"]) {
+            NSInteger numA = a.seriesnumber ? a.seriesnumber.integerValue : NSNotFound;
+            NSInteger numB = b.seriesnumber ? b.seriesnumber.integerValue : NSNotFound;
+            cmp = [LibController compareIntegers:numA and:numB ascending:strongSelf.sortAscending];
+            if (cmp) return cmp;
+        }
+        else if ([strongSelf.gameSortColumn isEqual:@"series"]) {
+            cmp = [LibController compareGame:a with:b key:strongSelf.gameSortColumn ascending:strongSelf.sortAscending];
+            if (cmp == NSOrderedSame) {
+                NSInteger numA = a.seriesnumber ? a.seriesnumber.integerValue : NSNotFound;
+                NSInteger numB = b.seriesnumber ? b.seriesnumber.integerValue : NSNotFound;
+                cmp = [LibController compareIntegers:numA and:numB ascending:strongSelf.sortAscending];
+                if (cmp) return cmp;
+            } else return cmp;
         }
         else if (strongSelf.gameSortColumn)
         {
