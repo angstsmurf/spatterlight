@@ -16,23 +16,39 @@
 #import "Image.h"
 #import "Ifid.h"
 
-#import "NSDate+relative.h"
+#import "NSData+Categories.h"
 
 #import "iFictionPreviewController.h"
 #import "PreviewViewController.h"
 #import "InfoView.h"
+#import "NonInterpolatedImage.h"
 
-/* the treaty of babel headers */
 #include "babel_handler.h"
 
 @interface PreviewViewController () <QLPreviewingController>
 {
     BOOL iFiction;
+    BOOL alreadySetupHorizontal;
 }
+
+@property (weak) IBOutlet NSScrollView *largeScrollView;
+@property (weak) IBOutlet NSView *backgroundView;
+@property InfoView *verticalView;
+@property NSView *horizontalView;
+@property NSMutableDictionary *metaDict;
 
 @end
 
 @implementation PreviewViewController
+
++ (NSImage *)iconFromURL:(NSURL *)url {
+    NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
+    NSData *imageData = icon.TIFFRepresentation;
+    if ([[imageData sha256String] isEqualToString:@"4D5665BE8E0382BFFB7500F86A69117080A036B9698DC2395F3A86F9DCE7170E"]) {
+        return [NSImage imageNamed:@"house"];
+    }
+    return icon;
+}
 
 - (NSString *)nibName {
     return @"PreviewViewController";
@@ -45,8 +61,10 @@
         if (iFiction)
             size = NSMakeSize(820, 846);
         else
-            size = NSMakeSize(575, 285);
-        
+            size = NSMakeSize(565, 285);
+        NSRect frame = _largeScrollView.frame;
+        frame.size = size;
+        _largeScrollView.frame = frame;
         self.preferredContentSize = size;
     }
 }
@@ -84,24 +102,10 @@
     return _persistentContainer;
 }
 
-/*
- * Implement this method and set QLSupportsSearchableItems to YES in the Info.plist of the extension if you support CoreSpotlight.
- */
 - (void)preparePreviewOfSearchableItemWithIdentifier:(NSString *)identifier queryString:(NSString *)queryString completionHandler:(void (^)(NSError * _Nullable))handler {
-    NSLog(@"preparePreviewOfSearchableItemWithIdentifier: %@ queryString: %@", identifier, queryString );
-    
+    //    NSLog(@"preparePreviewOfSearchableItemWithIdentifier: %@ queryString: %@", identifier, queryString );
     _ifid = nil;
-    _addedFileInfo = NO;
-    _showingIcon = NO;
-    _showingView = NO;
-    
-    // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
-    
-    // Perform any setup necessary in order to prepare the view.
-    
-    // Call the completion handler so Quick Look knows that the preview is fully loaded.
-    // Quick Look will display a loading spinner while the completion handler is not called.
-    
+
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
     if (!context) {
         NSError *contexterror = [NSError errorWithDomain:NSCocoaErrorDomain code:6 userInfo:@{
@@ -110,7 +114,7 @@
         handler(contexterror);
         return;
     }
-    
+
     NSURL __block *url = nil;
     
     Game __block *game = nil;
@@ -136,7 +140,6 @@
         }
         
         NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
-        
         
         if (!objectID) {
             handler(error);
@@ -183,7 +186,6 @@
             giveUp = YES;
             return;
         }
-        
     }];
     
     if (giveUp) {
@@ -208,20 +210,14 @@
     }
     
     if (!metadata) {
-//        error = [NSError errorWithDomain:NSCocoaErrorDomain code:101 userInfo:@{
-//            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No metadata!?!\n"]}];
+        //        error = [NSError errorWithDomain:NSCocoaErrorDomain code:101 userInfo:@{
+        //            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No metadata!?!\n"]}];
         handler(error);
         return;
     }
-    
-    [_imageView removeFromSuperview];
-    
-    NSScrollView *scrollView = _textview.enclosingScrollView;
-    scrollView.hasVerticalScroller = YES;
-    scrollView.frame = NSMakeRect(0, 0, 390, 378);
-    
-    InfoView *infoView = [[InfoView alloc] initWithFrame:scrollView.bounds];
-    
+
+    InfoView *infoView = [[InfoView alloc] initWithFrame:_largeScrollView.bounds];
+
     if (game)
         url = [game urlForBookmark];
     
@@ -231,20 +227,12 @@
             infoView.imageData = [blorb coverImageData];
         if (!infoView.imageData) {
             _showingIcon = YES;
-            NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
+            NSImage *icon = [PreviewViewController iconFromURL:url];
             infoView.imageData = icon.TIFFRepresentation;
         }
     }
     
-    NSInteger rating = NSNotFound;
-    if (metadata.starRating.length) {
-        rating = metadata.starRating.integerValue;
-    } else if  (metadata.myRating.length) {
-        rating = metadata.myRating.integerValue;
-    }
-    infoView.starString = [PreviewViewController starString:rating];
-    
-    scrollView.documentView = infoView;
+    _largeScrollView.documentView = infoView;
     if (image) {
         infoView.imageData = (NSData *)image.data;
         [infoView updateWithImage:image];
@@ -262,25 +250,27 @@
     _showingIcon = NO;
     _showingView = NO;
     iFiction = NO;
-    // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
-    
-    // Perform any setup necessary in order to prepare the view.
-    
-    // Call the completion handler so Quick Look knows that the preview is fully loaded.
-    // Quick Look will display a loading spinner while the completion handler is not called.
-    
+
     NSString *extension = url.pathExtension.lowercaseString;
     
     if ([extension isEqualToString:@"ifiction"]) {
         iFiction = YES;
         [_imageView removeFromSuperview];
+
+        NSScrollView *scrollView = _textview.enclosingScrollView;
+        [scrollView removeFromSuperview];
+        [_largeScrollView removeFromSuperview];
+
+        scrollView.translatesAutoresizingMaskIntoConstraints = YES;
+        [self.view addSubview:scrollView];
+
         iFictionPreviewController *iFictionController = [iFictionPreviewController new];
         iFictionController.textview  = _textview;
-        NSScrollView *scrollView = _textview.enclosingScrollView;
+
         scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollView.frame = self.view.bounds;
         _textview.frame = self.view.bounds;
-        
+
         if (@available(macOS 11, *)) {
             self.preferredContentSize = NSMakeSize(820, 846);
         }
@@ -288,7 +278,9 @@
         [iFictionController preparePreviewOfFileAtURL:url completionHandler:handler];
         return;
     }
-    
+
+    _horizontalView = _backgroundView;
+
     if ([extension isEqualToString:@"glkdata"] || [extension isEqualToString:@"glksave"] || [extension isEqualToString:@"qut"] || [extension isEqualToString:@"d$$"]) {
         [self noPreviewForURL:url handler:handler];
         return;
@@ -296,7 +288,7 @@
     
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
     if (!context) {
-        NSLog(@"Could not create new context!");
+        NSLog(@"Could not create new context! Bailing to noPreviewForURL");
         [self noPreviewForURL:url handler:handler];
         return;
     }
@@ -304,6 +296,9 @@
     NSMutableDictionary __block *metadata = nil;
     
     PreviewViewController __weak *weakSelf = self;
+
+    BOOL __block giveUp = NO;
+
     [context performBlockAndWait:^{
         PreviewViewController *strongSelf = weakSelf;
         NSError *error = nil;
@@ -316,8 +311,9 @@
         
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects == nil) {
-            NSLog(@"QuickLook: %@",error);
+            NSLog(@"QuickLook: fetch request failed. %@ Bailing to noPreviewForURL",error);
             [strongSelf noPreviewForURL:url handler:handler];
+            giveUp = YES;
             return;
         }
         if (fetchedObjects.count == 0) {
@@ -327,9 +323,11 @@
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
-                metadata = [strongSelf metadataFromURL:url];
+                metadata = [strongSelf metadataFromBlorb:url];
                 if (metadata == nil || metadata.count == 0) {
+                    // Found no matching path or ifid. File not a blorb or blorb empty. Bailing to noPreviewForURL
                     [strongSelf noPreviewForURL:url handler:handler];
+                    giveUp = YES;
                     return;
                 }
             }
@@ -345,81 +343,72 @@
                                         entityForName:@"Metadata"
                                         inManagedObjectContext:context].attributesByName;
             
-            metadata = [[NSMutableDictionary alloc] initWithCapacity:attributes.count];
+            _metaDict = [[NSMutableDictionary alloc] initWithCapacity:attributes.count];
             
             for (NSString *attr in attributes) {
-                [metadata setValue:[meta valueForKey:attr] forKey:attr];
+                [_metaDict setValue:[meta valueForKey:attr] forKey:attr];
             }
-            metadata[@"ifid"] = game.ifid;
-            metadata[@"cover"] = game.metadata.cover.data;
-            metadata[@"lastPlayed"] = game.lastPlayed;
+            _metaDict[@"ifid"] = game.ifid;
+            _metaDict[@"cover"] = game.metadata.cover.data;
+            _metaDict[@"lastPlayed"] = game.lastPlayed;
+        } else {
+            _metaDict = metadata;
         }
         
-        if (!metadata.count) {
+        if (!_metaDict.count) {
+            NSLog(@"QuickLook: Could not retrieve any metadata from Game managed object. Bailing to noPreviewForURL");
             [strongSelf noPreviewForURL:url handler:handler];
-            return;
+            giveUp = YES;
         }
     }];
+
+    if (giveUp)
+        return;
+
+    if (!_metaDict[@"title"])
+        _metaDict[@"title"] = url.lastPathComponent;
     
-    if (metadata[@"cover"]) {
-        _imageView.image = [[NSImage alloc] initWithData:(NSData *)metadata[@"cover"]];
-        _imageView.accessibilityLabel = metadata[@"coverArtDescription"];
-    } else {
+    if (_metaDict[@"cover"]) {
+        [_imageView addImageFromData:(NSData *)_metaDict[@"cover"]];
+        _imageView.accessibilityLabel = _metaDict[@"coverArtDescription"];
+    } else if ([Blorb isBlorbURL:url]) {
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-        _imageView.image = [[NSImage alloc] initWithData:[blorb coverImageData]];
-        if (!_imageView.image) {
-            _showingIcon = YES;
-            _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
-        }
+        [_imageView addImageFromData:[blorb coverImageData]];
     }
     
-    [self updateWithMetadata:metadata url:url];
-    if (metadata.count <= 2 && url) {
+    [self updateWithMetadata:_metaDict url:url];
+    if (_metaDict.count <= 2 && url) {
         [self addFileInfo:url];
     }
-    
+
+    if (!_imageView.hasImage) {
+        _showingIcon = YES;
+        NSImage *image = [PreviewViewController iconFromURL:url];
+        if (image == [NSImage imageNamed:@"house"])
+            _showingIcon = NO;
+        NSData *imageData = image.TIFFRepresentation;
+        _metaDict[@"cover"] = imageData;
+        // If we add the icon image directly it becomes low resolution and blurry
+        [_imageView addImageFromData:imageData];
+    }
+
     [self finalAdjustments:handler];
-    
 }
 
-- (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
-    NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
-    NSMutableDictionary *attrDict = [NSMutableDictionary new];
-    attrDict[NSFontAttributeName] = systemFont;
-    attrDict[NSForegroundColorAttributeName] = [NSColor controlTextColor];
-    [self addInfoLine:url.lastPathComponent attributes:attrDict linebreak:NO];
-    
-    attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+#pragma mark Layout
 
-    if ([url.pathExtension.lowercaseString isEqualToString:@"d$$"]) {
-        [self addInfoLine:@"Possibly an AGT game. Try opening in Spatterlight to convert to AGX format." attributes:attrDict linebreak:YES];
-    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glksave"] || [url.pathExtension.lowercaseString isEqualToString:@"qut"]) {
-        NSString *saveTitle = [self titleFromSave:url.path];
-        if (saveTitle.length)
-            [self addInfoLine:[NSString stringWithFormat:@"Save file associated with game %@.", saveTitle] attributes:attrDict linebreak:YES];
-        else {
-            [self addInfoLine:@"Interactive fiction save file." attributes:attrDict linebreak:YES];
-        }
-    } else if ([url.pathExtension.lowercaseString isEqualToString:@"glkdata"]) {
-        NSString *dataTitle = [self titleFromDataFile:url.path];
-        if (dataTitle.length)
-            [self addInfoLine:[NSString stringWithFormat:@"Data file associated with game %@.", dataTitle] attributes:attrDict linebreak:YES];
-        else
-            [self addInfoLine:@"Interactive fiction data file." attributes:attrDict linebreak:YES];
-    }
-    
-    if (_ifid.length) {
-        [self addInfoLine:[@"IFID: " stringByAppendingString:_ifid] attributes:attrDict linebreak:YES];
-    }
-    
-    [self addFileInfo:url];
-    
-    if (!_imageView.image) {
-        _showingIcon = YES;
-        _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
-    }
-    
-    [self finalAdjustments:handler];
+- (void)drawVertical {
+    if(!_vertical)
+        return;
+    _verticalView = [[InfoView alloc] initWithFrame:_largeScrollView.frame];
+    _largeScrollView.documentView = _verticalView;
+    [_verticalView updateWithDictionary:_metaDict];
+}
+
+- (void)drawHorizontal {
+    _largeScrollView.documentView = _horizontalView;
+    _horizontalView.frame = _largeScrollView.frame;
+    [self setUpHorizontalView];
 }
 
 -(void)finalAdjustments:(void (^)(NSError * _Nullable))handler  {
@@ -428,21 +417,24 @@
     NSSize __block viewSize = superView.frame.size;
     PreviewViewController __weak *weakSelf = self;
     
-    double delayInSeconds = 0.2;
+    double delayInSeconds = 0.1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
         PreviewViewController *strongSelf = weakSelf;
         if (strongSelf) {
             viewSize = superView.frame.size;
             strongSelf.vertical = (viewSize.width - viewSize.height <= 20);
-            [strongSelf sizeImage];
-            [strongSelf sizeText];
-            CGFloat scrollheight = scrollView.frame.size.height;
-            CGFloat textheight = strongSelf.textview.frame.size.height;
-            CGFloat viewheight = superView.frame.size.height;
-            [scrollView.contentView scrollToPoint:NSZeroPoint];
-            if (!strongSelf.vertical) {
+            if (strongSelf.vertical) {
+                [strongSelf drawVertical];
+                strongSelf.showingView = YES;
+                handler(nil);
+            } else {
+                [strongSelf drawHorizontal];
+
+                CGFloat scrollheight = scrollView.frame.size.height;
+                CGFloat textheight = strongSelf.textview.frame.size.height;
+                CGFloat viewheight = superView.frame.size.height;
+                [scrollView.contentView scrollToPoint:NSZeroPoint];
                 if (textheight < viewheight - 40 && scrollheight < textheight) {
                     NSRect frame = strongSelf.textview.enclosingScrollView.frame;
                     //Text is mysteriously cropped at the bottom
@@ -452,84 +444,58 @@
                     scrollView.frame = frame;
                     scrollView.contentView.frame = scrollView.bounds;
                 }
+                strongSelf.showingView = YES;
+                handler(nil);
             }
         }
     });
-    
-    delayInSeconds = 0.3;
-    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.showingView = YES;
-        handler(nil);
-    });
-    
-    delayInSeconds = 0.4;
-    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self sizeImage];
-    });
 }
-
 
 -(void)viewWillLayout {
     if (!_showingView || iFiction)
         return;
     NSSize viewSize = self.view.frame.size;
     _vertical = (viewSize.width - viewSize.height <= 20);
-    [self sizeImage];
-    [self sizeText];
-}
-
-- (void)printFinalLayout{
-    NSLog(@"Final layout: view frame: %@ subview frame:%@ image view frame %@ scroll view frame:%@ text view frame:%@", NSStringFromRect(self.view.frame), NSStringFromRect(_imageView.superview.frame), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame), NSStringFromRect(_textview.frame));
-    NSLog(@"Layout is %@", _vertical ? @"vertical" : @"horizontal");
-    NSLog(@"Showing icon: %@", _showingIcon ? @"YES" : @"NO");
-    NSLog(@"_textview.string.length:%ld", _textview.string.length);
-    
-}
-
-- (void)sizeImageToFitWidth:(CGFloat)maxWidth height:(CGFloat)maxHeight {
-    
-    NSSize imgsize = _originalImageSize;
-    if (imgsize.width == 0 || imgsize.height == 0) {
-        imgsize = _imageView.image.size;
-        _originalImageSize = imgsize;
+    if (_vertical && (_largeScrollView.documentView != _verticalView ||  NSWidth(self.view.frame) < NSWidth(_verticalView.frame))) {
+        // This .1 second delay prevents the tall and narrow view from sometimes
+        // getting the wrong width when added during live resize
+        PreviewViewController __weak *weakSelf = self;
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            PreviewViewController *strongSelf = weakSelf;
+            if (strongSelf) {
+                [strongSelf drawVertical];
+            }
+        });
+    } else if (!_vertical) {
+        if (_largeScrollView.documentView != _horizontalView)
+            [self drawHorizontal];
     }
-    
-    if (imgsize.width == 0 || imgsize.height == 0)
+}
+
+- (void)viewDidLayout {
+    if (!_showingView || iFiction || _vertical)
         return;
-    
-    CGFloat ratio = imgsize.width / imgsize.height;
-    
-    imgsize.height = maxHeight;
-    imgsize.width = imgsize.height * ratio;
-    
-    if (imgsize.width > maxWidth) {
-        imgsize.width = maxWidth;
-        imgsize.height =  imgsize.width / ratio;
-    }
-    
-    _imageView.image.size = imgsize;
-}
+    NSSize viewSize = self.view.frame.size;
+    NSScrollView *textScrollView = _textview.enclosingScrollView;
 
-- (void)sizeImage {
-    if (!_imageView.image)
-        return;
-    if (!_showingView) {
-        _hasSized++;
-        if (_hasSized > 10)
-            return;
+    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:NSWidth(textScrollView.frame)];
+    if (textHeight <= viewSize.height - 40) {
+        _textClipHeight.constant = textHeight;
+    } else {
+        _textClipHeight.constant = viewSize.height - 40;
     }
-    BOOL wasShowingView = _showingView;
-    _showingView = NO;
-    if (!_vertical) {
-        [self sizeImageHorizontally];
-    } else [self sizeImageVertically];
-    
-    _showingView = wasShowingView;
-    
-    if (!_showingView)
-        [self imageShadow];
+
+    if (NSHeight(_imageView.frame) < NSHeight(textScrollView.frame)) {
+        _imageTopEqualsTextTop.active = YES;
+        _imageCenterYtoContainerCenter.active = YES;
+        _imageCenterYtoContainerCenter.priority = 250;
+    } else {
+        _imageTopEqualsTextTop.active = NO;
+        _imageCenterYtoContainerCenter.active = YES;
+        _imageCenterYtoContainerCenter.priority = 1000;
+    }
 }
 
 - (void)imageShadow {
@@ -537,127 +503,16 @@
     shadow.shadowOffset = NSMakeSize(2, -2);
     shadow.shadowColor = [NSColor controlShadowColor];
     shadow.shadowBlurRadius = 2;
-    NSImageView *imageView = _imageView;
+    NonInterpolatedImage *imageView = _imageView;
     imageView.wantsLayer = YES;
     imageView.superview.wantsLayer = YES;
     imageView.shadow = shadow;
 }
 
-- (void)sizeImageHorizontally {
-    NSImageView *imageView = _imageView;
-    NSSize viewSize = imageView.superview.frame.size;
-    
-    [self sizeImageToFitWidth:round(viewSize.width / 2 - 40) height:viewSize.height - 40];
-    NSRect frame = imageView.frame;
-    frame.size = imageView.image.size;
-    NSRect scrollFrame = _textview.enclosingScrollView.frame;
-    CGFloat textHeight = scrollFrame.size.height;
-    if (textHeight != 0 && frame.size.height < textHeight) {
-        frame.origin.y = NSMaxY(scrollFrame) - frame.size.height;
-    } else {
-        frame.origin.y = round((viewSize.height - frame.size.height) / 2);
-        if (frame.origin.y < 20)
-            frame.origin.y = 20;
-    }
-    frame.origin.x = 20;
-    if (frame.origin.y < 0)
-        if (frame.origin.y == 0)
-            if (frame.size.width < 1)
-                frame.size.width = 40;
-    if (frame.size.height < 1)
-        frame.size.width = 40;
-    
-    imageView.frame = frame;
-}
-
-- (void)sizeImageVertically {
-    NSImageView *imageView = _imageView;
-    NSSize viewSize = imageView.superview.frame.size;
-    
-    //We want the image to be at most two thirds of the view height
-    [self sizeImageToFitWidth:viewSize.width - 40 height:round(viewSize.height - 40)];
-    
-    NSRect frame = imageView.frame;
-    frame.size.height = imageView.image.size.height;
-    frame.size.width = viewSize.width - 40;
-    frame.origin.y = round((viewSize.height - frame.size.height) / 2);
-    frame.origin.x = 20;
-    if (!NSEqualRects(frame, imageView.frame))
-        imageView.frame = frame;
-    imageView.imageAlignment =  NSImageAlignCenter;
-}
-
-- (void)sizeText {
-    if (!_showingView) {
-        _hasSized++;
-        if (_hasSized > 5)
-            return;
-    }
-    NSRect frame = _textview.enclosingScrollView.frame;
-    BOOL wasShowingView = _showingView;
-    _showingView = NO;
-    if (!_vertical) {
-        [self sizeTextHorizontally];
-    } else [self sizeTextVertically];
-    if (!NSEqualRects(frame, _textview.enclosingScrollView.frame))
-        [_textview.layoutManager ensureLayoutForTextContainer:_textview.textContainer];
-    _showingView = wasShowingView;
-}
-
-- (void)sizeTextHorizontally {
-    NSImageView *imageView = _imageView;
-    //    NSLog(@"sizeTextHorizontally");
-    NSScrollView *scrollView = _textview.enclosingScrollView;
-    NSRect frame = scrollView.frame;
-    NSSize viewSize = self.view.frame.size;
-    
-    // Icon images usually has horizontal padding built-in
-    // so we use a little less space here
-    frame.origin.x = round(NSMaxX(imageView.frame) + (_showingIcon ? 10 : 20));
-    frame.size.width = round(viewSize.width - frame.origin.x - 20);
-    
-    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:frame.size.width];
-    
-    if (textHeight < viewSize.height - 50) {
-        CGFloat scrollViewHeight = MIN(ceil(textHeight + _textview.textContainerInset.height * 2 + _textview.textContainer.lineFragmentPadding * 2), viewSize.height - 20);
-        frame.size.height = scrollViewHeight;
-        frame.origin.y = ceil((viewSize.height - textHeight) / 2);
-        if (frame.origin.y < 0)
-            frame.origin.y = 0;
-    } else {
-        frame.size.height = round(viewSize.height - 40);
-        if (frame.size.height < 0)
-            frame.size.height = 5;
-        frame.origin.y = 20;
-    }
-    
-    if (!NSEqualRects(frame, scrollView.frame))
-        scrollView.frame = frame;
-    frame = _textview.frame;
-    frame.size.width = scrollView.frame.size.width;
-    if (!NSEqualRects(frame, _textview.frame))
-        _textview.frame = frame;
-    
-    if (imageView.image.size.height < textHeight && NSMaxY(imageView.frame) < NSMaxY(scrollView.frame)) {
-        frame = imageView.frame;
-        frame.origin.y = NSMaxY(scrollView.frame) - frame.size.height;
-        if (!NSEqualRects(frame, imageView.frame)) {
-            imageView.frame = frame;
-            imageView.imageAlignment = NSImageAlignTop;
-        }
-    }
-    _textview.hidden = NO;
-}
-
-- (void)sizeTextVertically {
-    //    NSLog(@"sizeTextVertically");
-    _textview.hidden = YES;
-}
-
 - (CGFloat)heightForString:(NSAttributedString *)attString andWidth:(CGFloat)textWidth {
-    
+
     CGFloat padding = _textview.textContainer.lineFragmentPadding;
-    
+
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attString];
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth + padding * 2, FLT_MAX)];
@@ -665,12 +520,198 @@
     [layoutManager addTextContainer:textContainer];
     [textStorage addLayoutManager:layoutManager];
     textContainer.lineFragmentPadding = padding;
-    
+
     [layoutManager glyphRangeForTextContainer:textContainer];
-    
+
     CGRect proposedRect =
     [layoutManager usedRectForTextContainer:textContainer];
-    return proposedRect.size.height + 10;
+    return ceil(proposedRect.size.height + 20);
+}
+
+//- (void)debugPrintFinalLayout{
+//    NSLog(@"Final layout: view frame: %@ subview frame:%@ image view frame %@ scroll view frame:%@ text view frame:%@", NSStringFromRect(self.view.frame), NSStringFromRect(_imageView.superview.frame), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame), NSStringFromRect(_textview.frame));
+//    NSLog(@"Layout is %@", _vertical ? @"vertical" : @"horizontal");
+//    NSLog(@"Showing icon: %@", _showingIcon ? @"YES" : @"NO");
+//    NSLog(@"_textview.string.length:%ld", _textview.string.length);
+//}
+
+- (void)setUpHorizontalView {
+    NSView *superView = [InfoView addTopConstraintsToView:_backgroundView];
+
+    [superView addConstraint:
+     [NSLayoutConstraint constraintWithItem:_backgroundView
+                                  attribute:NSLayoutAttributeBottom
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:superView
+                                  attribute:NSLayoutAttributeBottom
+                                 multiplier:1.0
+                                   constant:0]];
+
+    [_textview.enclosingScrollView.contentView scrollToPoint:NSZeroPoint];
+
+    if (alreadySetupHorizontal) {
+        return;
+    }
+    alreadySetupHorizontal = YES;
+
+    NSSize imageSize = _imageView.originalImageSize;
+    CGFloat ratio = _imageView.ratio;
+
+    CGFloat containerWidth = NSWidth(_backgroundView.frame);
+    CGFloat containerHeight = NSHeight(_backgroundView.frame);
+
+    CGFloat newHeight, newWidth;
+    NSRect newImageFrame;
+
+    _imageHeightTracksImageWidth =
+    [NSLayoutConstraint constraintWithItem:_imageView
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_imageView
+                                 attribute:NSLayoutAttributeWidth
+                                multiplier:ratio
+                                  constant:0];
+
+    [_backgroundView addConstraint:_imageHeightTracksImageWidth];
+
+    if (imageSize.height >= imageSize.width) {
+        // Image is narrow
+        newHeight = containerHeight - 40;
+        newWidth = newHeight / ratio;
+
+        newImageFrame = _imageView.frame;
+        newImageFrame.size = NSMakeSize(newWidth, newWidth);
+        _imageView.frame = newImageFrame;
+    } else {
+        // Image is wide
+        newWidth = containerWidth * 0.5 - 30;
+        newHeight = newWidth * ratio;
+        if (newHeight > containerHeight - 40) {
+            newHeight = containerHeight - 40;
+            newWidth = newHeight / ratio;
+        }
+
+        newImageFrame = _imageView.frame;
+        newImageFrame.size = NSMakeSize(newWidth, newHeight);
+        _imageView.frame = newImageFrame;
+    }
+
+    NSScrollView *textScrollView = _textview.enclosingScrollView;
+
+    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:NSWidth(textScrollView.frame)];
+
+
+    _textClipHeight =
+    [NSLayoutConstraint constraintWithItem:textScrollView
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:nil
+                                 attribute:NSLayoutAttributeNotAnAttribute
+                                multiplier:1
+                                  constant:NSHeight(textScrollView.frame)];
+    _textClipHeight.priority = 900;
+    [_backgroundView addConstraint:_textClipHeight];
+
+    if (textHeight <= containerHeight - 40) {
+        // All text fits on screen. Disable text scrollview top and bottom constraints
+        // And set a new fixed height
+        _textTopToContainerTop.active = NO;
+        _textBottomToContainerBottom.active = NO;
+
+        _textClipHeight.constant = textHeight;
+        _textview.frame = textScrollView.bounds;
+    } else {
+        // Text does not fit on screen. Set text scrollview height to container height
+        _textTopToContainerTop.active = YES;
+        _textBottomToContainerBottom.active = YES;
+        _textClipHeight.constant = containerHeight - 40;
+    }
+
+    _imageTopEqualsTextTop =
+    [NSLayoutConstraint constraintWithItem:_imageView
+                                 attribute:NSLayoutAttributeTop
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_textview
+                                 attribute:NSLayoutAttributeTop
+                                multiplier:1.0
+                                  constant:0];
+    _imageTopEqualsTextTop.active = NO;
+
+    [_backgroundView addConstraint:_imageTopEqualsTextTop];
+    _textview.frame = _textview.enclosingScrollView.bounds;
+
+    if (NSHeight(_imageView.frame) <= NSHeight(textScrollView.frame)) {
+        // Image height is less than text height
+        // Pinning image top to text top
+        _imageTopEqualsTextTop.active = YES;
+    } else {
+        //Image height is greater than text height
+        //Centering image vertically
+        _imageTopEqualsTextTop.active = NO;
+    }
+
+    if (!_showingIcon)
+        [self imageShadow];
+    else
+        _textLeadingTracksImageTrailing.constant = 0;
+}
+
+#pragma mark Adding metadata
+
+- (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
+    NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
+    NSMutableDictionary *attrDict = [NSMutableDictionary new];
+    attrDict[NSFontAttributeName] = systemFont;
+    attrDict[NSForegroundColorAttributeName] = [NSColor controlTextColor];
+    if (!_metaDict)
+        _metaDict = [NSMutableDictionary new];
+    _metaDict[@"title"] = url.lastPathComponent;
+    [self addInfoLine:url.lastPathComponent attributes:attrDict linebreak:NO];
+
+    attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+
+    NSString *description;
+
+    if ([url.pathExtension.lowercaseString isEqualToString:@"d$$"]) {
+        description = @"Possibly an AGT game. Try opening with Spatterlight to convert to AGX format.";
+    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glksave"] || [url.pathExtension.lowercaseString isEqualToString:@"qut"]) {
+        NSString *saveTitle = [self titleFromSave:url.path];
+        if (saveTitle.length)
+            description = [NSString stringWithFormat:@"Save file associated with the game %@.", saveTitle];
+        else {
+            description = @"Save file for an unknown game.";
+        }
+    } else if ([url.pathExtension.lowercaseString isEqualToString:@"glkdata"]) {
+        NSString *dataTitle = [self titleFromDataFile:url.path];
+        if (dataTitle.length)
+            description = [NSString stringWithFormat:@"Data file associated with the game %@.", dataTitle];
+        else
+            description = @"Data file for an unknown game.";
+    }
+
+    if (description.length) {
+        [self addInfoLine:description attributes:attrDict linebreak:YES];
+        _metaDict[@"blurb"] = description;
+    }
+
+    if (_ifid.length) {
+        [self addInfoLine:[@"IFID: " stringByAppendingString:_ifid] attributes:attrDict linebreak:YES];
+        _metaDict[@"ifid"] = _ifid;
+    }
+
+    [self addFileInfo:url];
+
+    if (!_imageView.hasImage) {
+        _showingIcon = YES;
+        NSImage *image = [PreviewViewController iconFromURL:url];
+        if (image == [NSImage imageNamed:@"house"])
+            _showingIcon = NO;
+        NSData *imageData = image.TIFFRepresentation;
+        _metaDict[@"cover"] = imageData;
+        [_imageView addImageFromData:imageData];
+    }
+
+    [self finalAdjustments:handler];
 }
 
 - (void)updateWithMetadata:(NSDictionary *)metadict url:(nullable NSURL *)url {
@@ -689,17 +730,18 @@
                 metamuta[@"IFhd"] = @"dummyIFID";
                 metamuta[@"IFhdTitle"] = metadict[@"SNam"];
                 metadict = metamuta;
-                NSLog(@"Set IFhdTitle to %@", metadict[@"SNam"]);
+                //                NSLog(@"Set IFhdTitle to %@", metadict[@"SNam"]);
             }
             
             if (metadict[@"IFhd"]) {
                 attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-                NSString *resBlorbStr = @"Resource associated with game\n";
+                NSString *resBlorbStr = @"Resource associated with the game\n";
                 if (metadict[@"IFhdTitle"])
                     resBlorbStr = [resBlorbStr stringByAppendingString:metadict[@"IFhdTitle"]];
                 else
                     resBlorbStr = [resBlorbStr stringByAppendingString:metadict[@"IFhd"]];
                 [self addInfoLine:resBlorbStr attributes:attrDict linebreak:YES];
+                _metaDict[@"title"] = resBlorbStr;
             }
         }
         
@@ -718,9 +760,9 @@
             [self addInfoLine:[NSString stringWithFormat:@"© %@", metadict[@"(c) "]] attributes:attrDict linebreak:YES];
         
         NSDate * lastPlayed = metadict[@"lastPlayed"];
-        NSString *lastPlayedString = [self formattedStringFromDate:lastPlayed];
-        // It looks better with the last played line last if we show file info,
-        // so that modification date follows last played date and the two dates are grouped
+        NSString *lastPlayedString = [InfoView formattedStringFromDate:lastPlayed];
+        // It looks better to have the "last played" line come last if we are showing file info,
+        // so that modification date follows last played date and the two dates are grouped.
         if (lastPlayed && !noMeta) {
             [self addInfoLine:[NSString stringWithFormat:@"Last played: %@", lastPlayedString] attributes:attrDict linebreak:YES];
         }
@@ -730,7 +772,7 @@
         } else {
             attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
         }
-        if  (metadict[@"ifid"])
+        if (metadict[@"ifid"])
             [self addInfoLine:[@"IFID: " stringByAppendingString:metadict[@"ifid"]] attributes:attrDict linebreak:YES];
         
         // See comment above
@@ -758,60 +800,11 @@
     } else if  (dict[@"starRating"]) {
         rating = ((NSNumber *)dict[@"starRating"]).integerValue;
     }
-    NSAttributedString *starString = [PreviewViewController starString:rating];
+    NSAttributedString *starString = [InfoView starString:rating alignment:NSTextAlignmentLeft];
     [_textview.textStorage appendAttributedString:starString];
 }
 
-+ (nullable NSAttributedString *)starString:(NSInteger)rating {
-    
-    NSMutableAttributedString *starString = [NSMutableAttributedString new];
-    
-    if (rating == NSNotFound)
-        return starString;
-    
-    NSUInteger totalNumberOfStars = 5;
-    NSFont *currentFont = [NSFont fontWithName:@"SF Pro" size:12];
-    if (!currentFont)
-        currentFont = [NSFont systemFontOfSize:20 weight:NSFontWeightRegular];
-    
-    NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
-    para.alignment = NSCenterTextAlignment;
-    
-    if (@available(macOS 10.13, *)) {
-        NSDictionary *activeStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"],
-        };
-        NSDictionary *inactiveStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"]
-        };
-        
-        [starString appendAttributedString:[[NSAttributedString alloc]
-                                            initWithString:@"\n\n" attributes:activeStarFormat]];
-        
-        for (int i=0; i < totalNumberOfStars; ++i) {
-            //Full star
-            if (rating >= i+1) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
-            }
-            //Half star
-            else if (rating > i) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
-            }
-            // Grey star
-            else {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
-            }
-        }
-    }
-    return starString;
-}
-
-- (NSString *) unitStringFromBytes:(CGFloat)bytes {
++ (NSString *)unitStringFromBytes:(CGFloat)bytes {
     static const char units[] = { '\0', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y' };
     static int maxUnits = sizeof units - 1;
     
@@ -838,51 +831,45 @@
     NSMutableDictionary *attrDict = [NSMutableDictionary new];
     attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
     attrDict[NSForegroundColorAttributeName] = [NSColor controlTextColor];
+
     NSError *error = nil;
     NSDictionary * fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&error];
     if (fileAttributes) {
         NSDate *modificationDate = (NSDate *)fileAttributes[NSFileModificationDate];
-        [self addInfoLine:[NSString stringWithFormat:@"Last modified: %@", [self formattedStringFromDate:  modificationDate]] attributes:attrDict linebreak:YES];
+        [self addInfoLine:[NSString stringWithFormat:@"Last modified: %@", [InfoView formattedStringFromDate:modificationDate]] attributes:attrDict linebreak:YES];
+
         NSInteger fileSize = ((NSNumber *)fileAttributes[NSFileSize]).integerValue;
-        [self addInfoLine:[self unitStringFromBytes:fileSize] attributes:attrDict linebreak:YES];
+        NSString *fileSizeString = [PreviewViewController unitStringFromBytes:fileSize];
+        _metaDict[@"fileSize"] = fileSizeString;
+        [self addInfoLine:fileSizeString attributes:attrDict linebreak:YES];
+
+        _metaDict[@"modificationDate"] = modificationDate;
+        _metaDict[@"creationDate"] = (NSDate *)fileAttributes[NSFileCreationDate];
+        _metaDict[@"lastOpenedDate"] = [PreviewViewController lastOpenedDateFromURL:url];
+
+        error = nil;
+        NSString *value;
+        [url getResourceValue:&value forKey:NSURLLocalizedTypeDescriptionKey error:&error];
+        _metaDict[@"fileType"] = value;
     } else {
-        NSLog(@"Could not read file attributes!");
+        NSLog(@"Could not read file attributes! %@", error);
     }
 }
 
-
-- (NSString *)formattedStringFromDate:(NSDate *)date {
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.doesRelativeDateFormatting = YES;
-    
-    if([date isToday]) {
-        dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    }
-    else if ([date isYesterday]) {
-        dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    }
-    else if ([date isThisWeek]) {
-        NSDateComponents *weekdayComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnit)kCFCalendarUnitWeekday fromDate:date];
-        NSUInteger weekday = (NSUInteger)weekdayComponents.weekday;
-        NSString *weekdayString = (dateFormatter.weekdaySymbols)[weekday - 1];
-        dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        dateFormatter.dateStyle = NSDateFormatterNoStyle;
-        return [NSString stringWithFormat:@"%@ at %@", weekdayString, [dateFormatter stringFromDate:date]];
-    } else {
-        dateFormatter.doesRelativeDateFormatting = NO;
-        dateFormatter.dateFormat = @"d MMM yyyy HH.mm";
-    }
-    
-    return [dateFormatter stringFromDate:date];
++ (NSDate *)lastOpenedDateFromURL:(NSURL *)url {
+    CFURLRef cfurl = CFBridgingRetain(url);
+    MDItemRef mdItem = MDItemCreateWithURL(NULL, cfurl);
+    CFTypeRef dateRef = MDItemCopyAttribute(mdItem, kMDItemLastUsedDate);
+    NSDate *date = CFBridgingRelease(dateRef);
+    CFRelease(cfurl);
+    return date;
 }
 
-- (NSMutableDictionary *)metadataFromURL:(NSURL *)url {
-    NSMutableDictionary *metaDict = [NSMutableDictionary new];
+- (NSMutableDictionary *)metadataFromBlorb:(NSURL *)url {
     if (![Blorb isBlorbURL:url])
         return nil;
+
+    NSMutableDictionary *metaDict = [NSMutableDictionary new];
     
     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
     metaDict[@"cover"] = [blorb coverImageData];
@@ -894,7 +881,7 @@
     
     for (NSString *chunkName in blorb.optionalChunks.allKeys) {
         metaDict[chunkName] = blorb.optionalChunks[chunkName];
-        NSLog(@"metaDict[%@] = \"%@\"", chunkName, metaDict[chunkName]);
+        //        NSLog(@"metaDict[%@] = \"%@\"", chunkName, metaDict[chunkName]);
     }
     
     NSData *data = blorb.metaData;
@@ -970,13 +957,7 @@
     }];
     
     if (game) {
-        if (game.metadata.cover.data) {
-            NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
-            if (image) {
-                _imageView.image = image;
-                _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
-            }
-        }
+        [self addImageFromGame:game];
         return game.metadata.title;
     } else {
         return nil;
@@ -1007,13 +988,7 @@
         }
     }];
     if (game) {
-        if (game.metadata.cover.data) {
-            NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
-            if (image) {
-                _imageView.image = image;
-                _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
-            }
-        }
+        [self addImageFromGame:game];
         return game.metadata.title;
     } else {
         return nil;
@@ -1061,7 +1036,7 @@
     NSString *title = nil;
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (data) {
-        NSString *ifid = [self ifidFromData:data];
+        NSString *ifid = [PreviewViewController ifidFromData:data];
         if (ifid.length) {
             title = [self titleFromIfid:ifid];
         }
@@ -1129,11 +1104,7 @@
                     
                     if (game) {
                         title = game.metadata.title;
-                        NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
-                        if (image) {
-                            _imageView.image = image;
-                            _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
-                        }
+                        [self addImageFromGame:game];
                     }
                 }
                 
@@ -1188,7 +1159,7 @@
     return hexString;
 }
 
-- (NSString *)ifidFromData:(NSData *)data {
++ (NSString *)ifidFromData:(NSData *)data {
     NSString *ifid = nil;
     if (data.length > 12) {
         NSRange headerRange = NSMakeRange(0, MIN(data.length, 69));
@@ -1202,6 +1173,18 @@
         }
     }
     return ifid;
+}
+
+- (void)addImageFromGame:(Game *)game {
+    if (game.metadata.cover.data) {
+        [_imageView addImageFromManagedObject:game.metadata.cover];
+        if (_imageView.hasImage) {
+            if (!_metaDict)
+                _metaDict = [NSMutableDictionary new];
+            _metaDict[@"cover"] = (NSData *)game.metadata.cover.data;
+            _metaDict[@"coverArtDescription"] = game.metadata.cover.imageDescription;;
+        }
+    }
 }
 
 @end

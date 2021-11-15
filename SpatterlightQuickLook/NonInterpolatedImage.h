@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addImageFromManagedObject:(Image *)imageObject;
 - (void)addImageFromData:(NSData *)imageData;
 
+@property BOOL hasImage;
+@property NSSize originalImageSize;
+@property CGFloat ratio;
+
 @end
 
 NS_ASSUME_NONNULL_END
