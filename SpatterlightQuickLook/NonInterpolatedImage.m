@@ -12,6 +12,7 @@
 
 @interface NonInterpolatedImage () {
     kImageInterpolationType interpolation;
+    CALayer *imageLayer;
 }
 @end
 
@@ -25,23 +26,24 @@
     return self;
 }
 
-
 - (BOOL)wantsUpdateLayer {
     return YES;
 }
 
 - (void)addImageFromData:(NSData *)imageData {
-
     NSImage *image = [[NSImage alloc] initWithData:imageData];
+
     if (!image)
         return;
 
     self.wantsLayer = YES;
-    CALayer *imageLayer = [CALayer layer];
+    imageLayer = [CALayer layer];
 
     NSImageRep *rep = image.representations.firstObject;
     NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
     image.size = sizeInPixels;
+    _originalImageSize = sizeInPixels;
+    _ratio = sizeInPixels.height / sizeInPixels.width;
 
     if (interpolation == kUnset)
         interpolation = sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
@@ -65,6 +67,31 @@
 
     imageLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     imageLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+
+    [CATransaction commit];
+    _hasImage = YES;
+}
+
+- (void)layout {
+    [super layout];
+    [self positionImagelayer];
+}
+
+- (void)positionImagelayer {
+    if (_ratio == 0 || !imageLayer) {
+        return;
+    }
+
+    NSSize superSize = self.frame.size;
+
+    NSRect imageFrame = NSMakeRect(0,ceil(NSHeight(self.frame) - superSize.width * self.ratio), superSize.width, superSize.width * self.ratio);
+    if (NSMaxY(imageFrame) > NSMaxY(self.frame))
+        imageFrame.origin.y = NSMaxY(self.frame) - imageFrame.size.height;
+
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    imageLayer.frame = imageFrame;
 
     [CATransaction commit];
 }

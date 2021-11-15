@@ -7,29 +7,34 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class NSPersistentContainer;
+@class NSPersistentContainer, NonInterpolatedImage;
 
 API_AVAILABLE(macos(10.12))
-@interface PreviewViewController : NSViewController {
-    NSMutableArray *ifidbuf;
-    NSMutableDictionary *metabuf;
-}
+@interface PreviewViewController : NSViewController
 
-@property NSSize originalImageSize;
-@property CGFloat preferredWidth;
 @property BOOL showingIcon;
 @property BOOL addedFileInfo;
 @property BOOL vertical;
 @property BOOL showingView;
 
-@property NSUInteger hasSized;
 @property NSString *ifid;
 
 @property (readonly) NSPersistentContainer *persistentContainer;
 
-@property (weak) NSString *string;
 @property (unsafe_unretained) IBOutlet NSTextView *textview;
 
-@property (weak) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet NonInterpolatedImage *imageView;
+
+@property (weak) IBOutlet NSLayoutConstraint *imageCenterYtoContainerCenter;
+@property (weak) IBOutlet NSLayoutConstraint *textBottomToContainerBottom;
+@property (weak) IBOutlet NSLayoutConstraint *textTopToContainerTop;
+
+@property (weak) IBOutlet NSLayoutConstraint *imageTrailingToCenterX;
+@property (weak) IBOutlet NSLayoutConstraint *textWidthProportionalToContainer;
+@property (weak) IBOutlet NSLayoutConstraint *textLeadingTracksImageTrailing;
+
+@property NSLayoutConstraint *textClipHeight;
+@property NSLayoutConstraint *imageTopEqualsTextTop;
+@property NSLayoutConstraint *imageHeightTracksImageWidth;
 
 @end

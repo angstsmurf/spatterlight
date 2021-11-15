@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSData (Categories)
 
 - (NSString *)md5String;
+- (NSString *)sha256String;
 - (BOOL)isPlaceHolderImage;
 - (BOOL)isPNG;
 - (BOOL)isJPEG;
