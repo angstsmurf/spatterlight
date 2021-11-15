@@ -1110,7 +1110,7 @@
 				<key>UTTypeIconBackgroundName</key>
 				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string>L</string>
+				<string>J</string>
 				<key>UTTypeIconText</key>
 				<string>JACL</string>
 			</dict>
@@ -1142,7 +1142,7 @@
 				<key>UTTypeIconBackgroundName</key>
 				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string>L</string>
+				<string>S</string>
 				<key>UTTypeIconText</key>
 				<string>SCOTT</string>
 			</dict>
