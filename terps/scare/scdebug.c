@@ -2068,6 +2068,10 @@ debug_compare_variable (sc_gameref_t from, sc_gameref_t with, sc_int variable)
   sc_int var_type, var_type2;
   sc_bool equal = FALSE;
 
+  vt_rvalue.string = NULL;
+  vt_rvalue2.string = NULL;
+  vt_rvalue2.integer = 0;
+
   if (from->bundle != with->bundle)
     sc_fatal ("debug_compare_variable: property sharing malfunction\n");
 
@@ -2427,9 +2431,9 @@ debug_dialog (sc_gameref_t game)
   while (TRUE)
     {
       sc_char buffer[DEBUG_BUFFER_SIZE];
-      sc_command_t command, help_topic;
-      sc_command_type_t type;
-      sc_int arg1, arg2;
+      sc_command_t command, help_topic = DEBUG_NONE;
+      sc_command_type_t type = COMMAND_QUERY;
+      sc_int arg1 = 0, arg2 = 0;
 
       /* Get a debugging command string from the user. */
       do

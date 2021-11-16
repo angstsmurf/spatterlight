@@ -1729,10 +1729,10 @@ os_play_sound (const sc_char *filepath,
   const sc_char *unused1;
   sc_int unused2, unused3;
   sc_bool unused4;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
-  unused4 = is_looping;
+//  unused1 = filepath;
+//  unused2 = offset;
+//  unused3 = length;
+//  unused4 = is_looping;
 }
 
 void
@@ -1790,9 +1790,9 @@ os_show_graphic (const sc_char *filepath, sc_int offset, sc_int length)
 {
   const sc_char *unused1;
   sc_int unused2, unused3;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
+//  unused1 = filepath;
+//  unused2 = offset;
+//  unused3 = length;
 }
 #endif
 
@@ -3238,7 +3238,7 @@ gsc_main (void)
        */
       if (!sc_has_game_completed (gsc_game))
         {
-          is_running = FALSE;
+//          is_running = FALSE;
           break;
         }
 

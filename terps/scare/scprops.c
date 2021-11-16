@@ -458,7 +458,10 @@ prop_put (sc_prop_setref_t bundle, const sc_char *format,
   /* Format check. */
   if (!format || format[0] == NUL
       || format[1] != '-' || format[2] != '>' || format[3] == NUL)
+  {
     sc_fatal ("prop_put: format error\n");
+    __builtin_unreachable();
+  }
 
   /* Trace property put. */
   if (prop_trace)
@@ -781,6 +784,8 @@ prop_get_child_count (sc_prop_setref_t bundle,
 {
   sc_vartype_t vt_rvalue;
   assert (format[0] == PROP_INTEGER);
+
+  vt_rvalue.integer = 0;
 
   if (!prop_get (bundle, format, &vt_rvalue, vt_key))
     return 0;

@@ -973,6 +973,7 @@ parse_read_multiline (void)
       break;
     default:
       sc_fatal ("parse_read_multiline: invalid TAF file version\n");
+      __builtin_unreachable();
       break;
     }
 

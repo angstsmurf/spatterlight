@@ -70,7 +70,7 @@ sc_error (const sc_char *format, ...)
   va_end (ap);
 }
 
-void
+__attribute__((noreturn)) void
 sc_fatal (const sc_char *format, ...)
 {
   va_list ap;
@@ -82,6 +82,7 @@ sc_fatal (const sc_char *format, ...)
   va_end (ap);
   fprintf (stderr, "scare: aborting...\n");
   abort ();
+  __builtin_unreachable(); 
 }
 
 

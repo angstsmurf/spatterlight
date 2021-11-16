@@ -1595,6 +1595,8 @@ var_get_integer (sc_var_setref_t vars, const sc_char *name)
   sc_int type;
   assert (var_is_valid (vars));
 
+  vt_rvalue.integer = 0;
+
   if (!var_get (vars, name, &type, &vt_rvalue))
     sc_fatal ("var_get_integer: no such variable, %s\n", name);
   else if (type != VAR_INTEGER)
@@ -1628,6 +1630,8 @@ var_get_string (sc_var_setref_t vars, const sc_char *name)
   sc_vartype_t vt_rvalue;
   sc_int type;
   assert (var_is_valid (vars));
+
+  vt_rvalue.string = NULL;
 
   if (!var_get (vars, name, &type, &vt_rvalue))
     sc_fatal ("var_get_string: no such variable, %s\n", name);
