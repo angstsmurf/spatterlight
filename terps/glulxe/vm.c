@@ -286,8 +286,10 @@ glui32 *pop_arguments(glui32 count, glui32 addr)
     if (!dynarray) {
       dynarray_size = count+8;
       dynarray = glulx_malloc(sizeof(glui32) * dynarray_size);
-      if (!dynarray)
+      if (!dynarray) {
         fatal_error("Unable to allocate function arguments.");
+        __builtin_unreachable();
+      }
       array = dynarray;
     }
     else {
@@ -298,16 +300,20 @@ glui32 *pop_arguments(glui32 count, glui32 addr)
       else {
         dynarray_size = count+8;
         dynarray = glulx_realloc(dynarray, sizeof(glui32) * dynarray_size);
-        if (!dynarray)
+        if (!dynarray) {
           fatal_error("Unable to reallocate function arguments.");
+          __builtin_unreachable();
+        }
         array = dynarray;
       }
     }
   }
 
   if (!addr) {
-    if (stackptr < valstackbase+4*count) 
+    if (stackptr < valstackbase+4*count) {
       fatal_error("Stack underflow in arguments.");
+      __builtin_unreachable();
+    }
     stackptr -= 4*count;
     for (ix=0; ix<count; ix++) {
       argptr = stackptr+4*((count-1)-ix);

@@ -106,8 +106,10 @@ void execute_loop()
       case op_div:
         vals0 = inst[0].value;
         vals1 = inst[1].value;
-        if (vals1 == 0)
-          fatal_error("Division by zero.");
+          if (vals1 == 0) {
+            fatal_error("Division by zero.");
+            __builtin_unreachable();
+          }
         /* Since C doesn't guarantee the results of division of negative
            numbers, we carefully convert everything to positive values
            first. They have to be unsigned values, too, otherwise the
@@ -139,8 +141,10 @@ void execute_loop()
       case op_mod:
         vals0 = inst[0].value;
         vals1 = inst[1].value;
-        if (vals1 == 0)
+        if (vals1 == 0) {
           fatal_error("Division by zero doing remainder.");
+          __builtin_unreachable();
+        }
         if (vals1 < 0) {
             val1 = -vals1;
         }

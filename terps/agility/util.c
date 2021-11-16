@@ -202,6 +202,7 @@ char *rstrdup(const char *s)
     {
       printf("Memory duplication error: Out of memory.\n");
       exit(EXIT_FAILURE);
+      __builtin_unreachable();
     }
   if (rm_acct) ralloc_cnt++;
 #ifndef HAVE_STRDUP

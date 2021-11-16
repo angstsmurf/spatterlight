@@ -420,7 +420,7 @@ glk_main(void)
 		command_encapsulate();
 		jacl_truncate();
 
-		index = 0;
+//		index = 0;
 
 		/* SET THE INTEGER INTERRUPTED TO FALSE. IF THIS IS SET TO
 		 * TRUE BY ANY COMMAND, FURTHER PROCESSING WILL STOP */
@@ -884,7 +884,7 @@ void
 more(message)
 	char* message;
 {
-	int character;
+//	int character;
 
 	jacl_set_window(inputwin);
 
@@ -897,7 +897,8 @@ more(message)
 	write_text(message);
 	glk_set_style(style_Normal);
 
-	character = get_key();
+//	character =
+    get_key();
 
 	if (inputwin == mainwin) newline();
 }

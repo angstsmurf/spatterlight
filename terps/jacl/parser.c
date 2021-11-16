@@ -848,10 +848,9 @@ add_all(scope_word, noun_number)
 	struct word_type	*scope_word;
 	int					noun_number;
 {
-	int index, counter;
+	int index;
 
 	//printf("--- trying to add all\n");
-	counter = 0;
 
 	for (index = 1; index <= objects; index++) {
 		if ((object[index]->MASS < HEAVY) &&
@@ -1128,7 +1127,7 @@ noun_resolve(scope_word, finding_from, noun_number)
 	int             counter;
 	int				first_word = TRUE;
 
-	struct word_type *terminator = scope_word->first_child;
+	struct word_type *terminator;
 	struct name_type *current_name;
 
 	matches = 0;
@@ -1514,7 +1513,8 @@ noun_resolve(scope_word, finding_from, noun_number)
 				counter++;
 				current_name = current_name->next_name;
 			}
-			confidence[index] = ((confidence[index] - 1) * 100) / counter;
+            if (counter)
+                confidence[index] = ((confidence[index] - 1) * 100) / counter;
 		}
 	}
 
@@ -1653,11 +1653,11 @@ noun_resolve(scope_word, finding_from, noun_number)
 	/* AN AMBIGUOUS REFERENCE WAS MADE. ATTEMPT TO CALL ALL THE disambiguate
 	 * FUNCTIONS TO SEE IF ANY OF THE OBJECT WANTS TO TAKE PREFERENCE IN
 	 * THIS CIRCUMSTANCE */
-	int situation = noun_number;
+//	int situation = noun_number;
 
-	if (finding_from) {
-		situation += 4;
-	}
+//	if (finding_from) {
+//		situation += 4;
+//	}
 
 	/* 
 	for (index = 1; index <= objects; index++) {

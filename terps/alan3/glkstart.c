@@ -91,7 +91,7 @@ static void openResourceFile() {
 
     if (extension)
         strcpy(extension, ".a3r");
-    else
+    else if (resourceFileName != NULL)
         strcat(resourceFileName, ".a3r");
 #else
     strcpy(extension, ".a3r");

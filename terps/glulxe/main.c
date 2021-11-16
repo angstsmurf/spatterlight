@@ -117,7 +117,7 @@ static winid_t get_error_win()
 /* fatal_error_handler():
    Display an error in the error window, and then exit.
 */
-void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
+__attribute__((noreturn)) void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
 {
   winid_t win;
 
@@ -146,6 +146,7 @@ void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
 //    glk_put_string("\n");
 //  }
     glk_exit();
+    __builtin_unreachable();
 }
 
 /* nonfatal_warning_handler():

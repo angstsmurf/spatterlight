@@ -155,8 +155,10 @@ void accel_set_func(glui32 index, glui32 addr)
             return; /* no need for a new entry */
         }
         ptr = (accelentry_t *)glulx_malloc(sizeof(accelentry_t));
-        if (!ptr)
+        if (!ptr) {
             fatal_error("Cannot malloc acceleration entry.");
+            __builtin_unreachable();
+        }
         ptr->addr = addr;
         ptr->index = 0;
         ptr->func = NULL;

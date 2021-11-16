@@ -15,7 +15,7 @@ void implementationOfSetEndOfArray(Aword *adr)
 
 bool implementationOfIsEndOfList(Aword *adr)
 {
-	return *adr == EOF;
+	return (adr != NULL && *adr == EOF);
 }
 
 int lengthOfArrayImplementation(void *array_of_any_type, int element_size_in_bytes) {

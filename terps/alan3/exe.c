@@ -309,7 +309,10 @@ void cancelEvent(Aword theEvent)
 static void increaseEventQueue(void)
 {
     eventQueue = realloc(eventQueue, (eventQueueTop+2)*sizeof(EventQueueEntry));
-    if (eventQueue == NULL) syserr("Out of memory in increaseEventQueue()");
+    if (eventQueue == NULL) {
+        syserr("Out of memory in increaseEventQueue()");
+        __builtin_unreachable();
+    }
 
     eventQueueSize = eventQueueTop + 2;
 }

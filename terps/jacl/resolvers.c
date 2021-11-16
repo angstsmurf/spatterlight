@@ -1248,7 +1248,7 @@ object_resolve(object_string)
 					"ERROR: Reference to 'self' from global function \"%s\".^",
 					executing_function->name);
 			write_text(error_buffer);
-		} else
+		} else if (executing_function != NULL)
 			return (executing_function->self);
 	} else {
 		for (index = 1; index <= objects; index++) {

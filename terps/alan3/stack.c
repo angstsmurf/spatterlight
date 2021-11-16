@@ -46,8 +46,10 @@ Stack createStack(int size)
 /*======================================================================*/
 void deleteStack(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("deleting a NULL stack");
+    __builtin_unreachable();
+  }
 
   deallocate(theStack->stack);
   deallocate(theStack);
@@ -65,8 +67,10 @@ void dumpStack(Stack theStack)
 {
   int i;
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   printf("[");
   for (i = 0; i < theStack->stackp; i++)
@@ -104,8 +108,10 @@ Aptr pop(Stack theStack)
 /*======================================================================*/
 Aptr top(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   return theStack->stack[theStack->stackp-1];
 }
@@ -118,8 +124,10 @@ void newFrame(Stack theStack, Aint noOfLocals)
 {
   int n;
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   push(theStack, theStack->framePointer);
   theStack->framePointer = theStack->stackp;
@@ -138,8 +146,10 @@ Aptr getLocal(Stack theStack, Aint framesBelow, Aint variableNumber)
   if (variableNumber < 1)
     syserr("Reading a non-existing block-local variable.");
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   frame = theStack->framePointer;
 
@@ -160,8 +170,10 @@ void setLocal(Stack theStack, Aint framesBelow, Aint variableNumber, Aptr value)
   if (variableNumber < 1)
     syserr("Writing a non-existing block-local variable.");
 
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   frame = theStack->framePointer;
   if (framesBelow != 0)
@@ -174,8 +186,10 @@ void setLocal(Stack theStack, Aint framesBelow, Aint variableNumber, Aptr value)
 /*======================================================================*/
 void endFrame(Stack theStack)
 {
-  if (theStack == NULL)
+  if (theStack == NULL) {
     syserr("NULL stack not supported anymore");
+    __builtin_unreachable();
+  }
 
   theStack->stackp = theStack->framePointer;
   theStack->framePointer = pop(theStack);

@@ -237,7 +237,8 @@ void subtractParameterArrays(Parameter theArray[], Parameter remove[])
 
 /*======================================================================*/
 void clearParameterArray(Parameter theArray[]) {
-    Parameter *p = &theArray[0];
+    Parameter *p;
+//    = &theArray[0];
 
     for (p = &theArray[0]; !isEndOfArray(p); p++)
         clearParameter(p);

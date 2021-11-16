@@ -188,7 +188,7 @@ glui32 binary_search(glui32 key, glui32 keysize,
 glui32 linked_search(glui32 key, glui32 keysize, 
   glui32 start, glui32 keyoffset, glui32 nextoffset, glui32 options)
 {
-  unsigned char keybuf[4];
+  unsigned char keybuf[4] = {0};
   int ix;
   glui32 val;
   int zeroterm = ((options & serop_ZeroKeyTerminates) != 0);

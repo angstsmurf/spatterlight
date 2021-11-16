@@ -243,7 +243,7 @@ void PlayVideo(void)
 {
 	char filename[MAX_RES_PATH], resname[MAX_RES_PATH];
 	char loop_flag = 0, background = 0;
-	int volume = 100;
+//	int volume = 100;
 	long resstart, reslength;
 
 #if defined (COMPILE_V25)
@@ -270,7 +270,7 @@ void PlayVideo(void)
 	if (extra_param>=0)
 	{
 		if (extra_param > 100) extra_param = 100;
-		volume = extra_param;
+//		volume = extra_param;
 	}
 
 	if (!(reslength = FindResource(filename, resname)))

@@ -183,9 +183,11 @@ static void restoreStrings(AFILE saveFile) {
             (void)rc;                   /* UNUSED */
             Aint length;
             char *string;
-            rc = fread((void *)&length, sizeof(Aint), 1, saveFile);
+//            rc =
+            fread((void *)&length, sizeof(Aint), 1, saveFile);
             string = allocate(length+1);
-            rc = fread((void *)string, 1, length, saveFile);
+//            rc =
+            fread((void *)string, 1, length, saveFile);
             setInstanceAttribute(initEntry->instanceCode, initEntry->attributeCode, toAptr(string));
         }
 }
@@ -203,11 +205,13 @@ static void restoreSets(AFILE saveFile) {
             int rc;
             (void)rc;                   /* UNUSED */
 
-            rc = fread((void *)&setSize, sizeof(setSize), 1, saveFile);
+//            rc =
+            fread((void *)&setSize, sizeof(setSize), 1, saveFile);
             set = newSet(setSize);
             for (int i = 0; i < setSize; i++) {
                 Aword member;
-                rc = fread((void *)&member, sizeof(member), 1, saveFile);
+//                rc =
+                fread((void *)&member, sizeof(member), 1, saveFile);
                 addToSet(set, member);
             }
             setInstanceAttribute(initEntry->instanceCode, initEntry->attributeCode, toAptr(set));
@@ -219,7 +223,8 @@ static void restoreSets(AFILE saveFile) {
 protected void restoreScores(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
-    rc = fread((void *)scores, sizeof(Aword), header->scoreCount, saveFile);
+//    rc =
+    fread((void *)scores, sizeof(Aword), header->scoreCount, saveFile);
 }
 
 
@@ -228,12 +233,14 @@ static void restoreEventQueue(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)&eventQueueTop, sizeof(eventQueueTop), 1, saveFile);
+//    rc =
+    fread((void *)&eventQueueTop, sizeof(eventQueueTop), 1, saveFile);
     if (eventQueueTop > eventQueueSize) {
         deallocate(eventQueue);
         eventQueue = allocate(eventQueueTop*sizeof(eventQueue[0]));
     }
-    rc = fread((void *)&eventQueue[0], sizeof(eventQueue[0]), eventQueueTop, saveFile);
+//    rc =
+    fread((void *)&eventQueue[0], sizeof(eventQueue[0]), eventQueueTop, saveFile);
 }
 
 
@@ -245,7 +252,8 @@ static void restoreAdmin(AFILE saveFile) {
 
     for (int i = 1; i <= header->instanceMax; i++) {
         AttributeEntry *currentAttributesArea = admin[i].attributes;
-        rc = fread((void *)&admin[i], sizeof(AdminEntry), 1, saveFile);
+//        rc =
+        fread((void *)&admin[i], sizeof(AdminEntry), 1, saveFile);
         admin[i].attributes = currentAttributesArea;
     }
 }
@@ -256,7 +264,8 @@ static void restoreAttributeArea(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)attributes, header->attributesAreaSize, sizeof(Aword), saveFile);
+//    rc =
+    fread((void *)attributes, header->attributesAreaSize, sizeof(Aword), saveFile);
 }
 
 
@@ -265,7 +274,8 @@ static void restoreCurrentValues(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)&current, sizeof(current), 1, saveFile);
+//    rc =
+    fread((void *)&current, sizeof(current), 1, saveFile);
 }
 
 
@@ -275,7 +285,8 @@ static void verifyGameId(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)&savedUid, sizeof(Aword), 1, saveFile);
+//    rc =
+    fread((void *)&savedUid, sizeof(Aword), 1, saveFile);
     if (!ignoreErrorOption && savedUid != header->uid)
         error(M_SAVEVERS);
 }
@@ -298,7 +309,8 @@ static void verifyCompilerVersion(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)&savedVersion, sizeof(Aword), 1, saveFile);
+//    rc =
+    fread((void *)&savedVersion, sizeof(Aword), 1, saveFile);
     if (!ignoreErrorOption && strncmp(savedVersion, header->version, 4))
         error(M_SAVEVERS);
 }
@@ -310,7 +322,8 @@ static void verifySaveFile(AFILE saveFile) {
     int rc;
     (void)rc;                   /* UNUSED */
 
-    rc = fread((void *)&string, 1, 4, saveFile);
+//    rc =
+    fread((void *)&string, 1, 4, saveFile);
     string[4] = '\0';
     if (strcmp(string, "ASAV") != 0)
         error(M_NOTASAVEFILE);

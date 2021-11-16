@@ -162,8 +162,10 @@ glui32 heap_alloc(glui32 len)
     else {
       /* Append the new space to the block list, as a new block. */
       newblo = glulx_malloc(sizeof(heapblock_t));
-      if (!newblo)
+      if (!newblo) {
         fatal_error("Unable to allocate record for heap block.");
+        __builtin_unreachable();
+      }
       newblo->addr = oldendmem;
       newblo->len = extension;
       newblo->isfree = TRUE;
@@ -199,8 +201,10 @@ glui32 heap_alloc(glui32 len)
   }
   else {
     newblo = glulx_malloc(sizeof(heapblock_t));
-    if (!newblo)
+    if (!newblo) {
       fatal_error("Unable to allocate record for heap block.");
+      __builtin_unreachable();
+    }
     newblo->isfree = TRUE;
     newblo->addr = blo->addr + len;
     newblo->len = blo->len - len;
@@ -233,8 +237,10 @@ void heap_free(glui32 addr)
     if (blo->addr == addr)
       break;
   };
-  if (!blo || blo->isfree)
+  if (!blo || blo->isfree) {
     fatal_error_i("Attempt to free unallocated address from heap.", addr);
+    __builtin_unreachable();
+  }
 
   blo->isfree = TRUE;
   alloc_count--;
@@ -339,8 +345,10 @@ int heap_apply_summary(glui32 valcount, glui32 *summary)
     heapblock_t *blo;
 
     blo = glulx_malloc(sizeof(heapblock_t));
-    if (!blo)
+    if (!blo) {
       fatal_error("Unable to allocate record for heap block.");
+      __builtin_unreachable();
+    }
 
     if (lx >= valcount) {
       blo->addr = lastend;

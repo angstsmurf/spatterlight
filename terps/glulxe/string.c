@@ -293,7 +293,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = cab->u.ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
+//                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -311,7 +311,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = cab->u.uch;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
+//                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -465,7 +465,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
+//                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -483,7 +483,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
             case iosys_Filter: 
               if (!substring) {
                 push_callstub(0x11, 0);
-                substring = TRUE;
+//                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -838,8 +838,10 @@ char *make_temp_string(glui32 addr)
   }
   else {
     res = (char *)glulx_malloc(len+1);
-    if (!res) 
+    if (!res)  {
       fatal_error("Unable to allocate space for string argument to Glk call.");
+      __builtin_unreachable();
+    }
   }
   
   for (ix=0, addr2=addr; ix<len; ix++, addr2++) {
@@ -867,8 +869,10 @@ glui32 *make_temp_ustring(glui32 addr)
   }
   else {
     res = (glui32 *)glulx_malloc((len+1)*4);
-    if (!res) 
+    if (!res) {
       fatal_error("Unable to allocate space for ustring argument to Glk call.");
+      __builtin_unreachable();
+    }
   }
   
   for (ix=0, addr2=addr; ix<len; ix++, addr2+=4) {

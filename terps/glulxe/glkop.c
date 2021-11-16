@@ -301,8 +301,10 @@ glui32 perform_glk(glui32 funcnum, glui32 numargs, glui32 *arglist)
 
     /* Grab the string. */
     proto = gidispatch_prototype(funcnum);
-    if (!proto)
+    if (!proto) {
       fatal_error("Unknown Glk function.");
+      __builtin_unreachable();
+    }
 
     splot.varglist = arglist;
     splot.numvargs = numargs;
@@ -1142,8 +1144,10 @@ static char *grab_temp_c_array(glui32 addr, glui32 len, int passin)
   if (len) {
     arr = (char *)glulx_malloc(len * sizeof(char));
     arref = (arrayref_t *)glulx_malloc(sizeof(arrayref_t));
-    if (!arr || !arref) 
+    if (!arr || !arref) {
       fatal_error("Unable to allocate space for array argument to Glk call.");
+      __builtin_unreachable();
+    }
 
     arref->array = arr;
     arref->addr = addr;
@@ -1175,8 +1179,10 @@ static void release_temp_c_array(char *arr, glui32 addr, glui32 len, int passout
         break;
     }
     arref = *aptr;
-    if (!arref)
+    if (!arref) {
       fatal_error("Unable to re-find array argument in Glk call.");
+      __builtin_unreachable();
+    }
     if (arref->addr != addr || arref->len != len)
       fatal_error("Mismatched array argument in Glk call.");
 
@@ -1207,8 +1213,10 @@ static glui32 *grab_temp_i_array(glui32 addr, glui32 len, int passin)
   if (len) {
     arr = (glui32 *)glulx_malloc(len * sizeof(glui32));
     arref = (arrayref_t *)glulx_malloc(sizeof(arrayref_t));
-    if (!arr || !arref) 
+    if (!arr || !arref) {
       fatal_error("Unable to allocate space for array argument to Glk call.");
+      __builtin_unreachable();
+    }
 
     arref->array = arr;
     arref->addr = addr;
@@ -1240,8 +1248,10 @@ static void release_temp_i_array(glui32 *arr, glui32 addr, glui32 len, int passo
         break;
     }
     arref = *aptr;
-    if (!arref)
+    if (!arref) {
       fatal_error("Unable to re-find array argument in Glk call.");
+      __builtin_unreachable();
+    }
     if (arref->addr != addr || arref->len != len)
       fatal_error("Mismatched array argument in Glk call.");
 
@@ -1272,8 +1282,10 @@ static void **grab_temp_ptr_array(glui32 addr, glui32 len, int objclass, int pas
   if (len) {
     arr = (void **)glulx_malloc(len * sizeof(void *));
     arref = (arrayref_t *)glulx_malloc(sizeof(arrayref_t));
-    if (!arr || !arref) 
+    if (!arr || !arref) {
       fatal_error("Unable to allocate space for array argument to Glk call.");
+      __builtin_unreachable();
+    }
 
     arref->array = arr;
     arref->addr = addr;
@@ -1309,8 +1321,10 @@ static void release_temp_ptr_array(void **arr, glui32 addr, glui32 len, int objc
         break;
     }
     arref = *aptr;
-    if (!arref)
+    if (!arref) {
       fatal_error("Unable to re-find array argument in Glk call.");
+      __builtin_unreachable();
+    }
     if (arref->addr != addr || arref->len != len)
       fatal_error("Mismatched array argument in Glk call.");
 
@@ -1396,8 +1410,10 @@ static void glulxe_retained_unregister(void *array, glui32 len,
       break;
   }
   arref = *aptr;
-  if (!arref)
+  if (!arref) {
     fatal_error("Unable to re-find array argument in Glk call.");
+    __builtin_unreachable();
+  }
   if (arref != objrock.ptr)
     fatal_error("Mismatched array reference in Glk call.");
   if (!arref->retained)
@@ -1447,8 +1463,10 @@ static long glulxe_array_locate(void *array, glui32 len,
       break;
   }
   arref = *aptr;
-  if (!arref)
+  if (!arref) {
     fatal_error("Unable to re-find array argument in array_locate.");
+    __builtin_unreachable();
+  }
   if (arref != objrock.ptr)
     fatal_error("Mismatched array reference in array_locate.");
   if (!arref->retained)

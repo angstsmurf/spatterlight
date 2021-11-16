@@ -92,7 +92,7 @@ read_gamefile()
 
 	long            start_of_file = 0;
 #ifdef GLK
-	glui32 			current_file_position;
+//	glui32 			current_file_position;
 #else
 	long 			current_file_position;
 #endif
@@ -385,12 +385,13 @@ read_gamefile()
 					errors++;
 				} else {
 					if ((new_synonym = (struct synonym_type *)
-						 malloc(sizeof(struct synonym_type))) == NULL)
+                         malloc(sizeof(struct synonym_type))) == NULL) {
 						outofmem();
-					else {
+                        __builtin_unreachable();
+                    } else {
 						if (synonym_table == NULL) {
 							synonym_table = new_synonym;
-						} else {
+						} else if (current_synonym != NULL) {
 							current_synonym->next_synonym = new_synonym;
 						}
 					}
@@ -496,7 +497,7 @@ read_gamefile()
 						if (attribute_table == NULL) {
 							attribute_table = new_attribute;
 							new_attribute->value = 1;
-						} else {
+						} else if (current_attribute != NULL) {
 							current_attribute->next_attribute = new_attribute;
 							new_attribute->value = current_attribute->value * 2;
 						}
@@ -560,7 +561,7 @@ read_gamefile()
 					else {
 						if (filter_table == NULL) {
 							filter_table = new_filter;
-						} else {
+						} else if (current_filter != NULL) {
 							current_filter->next_filter = new_filter;
 						}
 						current_filter = new_filter;
@@ -931,16 +932,18 @@ read_gamefile()
 			wp = 3;
 
 			while (word[wp] != NULL && wp < MAX_WORDS) {
-				if ((current_name->next_name = (struct name_type *)
-					 malloc(sizeof(struct name_type))) == NULL)
-					outofmem();
-				else {
-					current_name = current_name->next_name;
-					strncpy(current_name->name, word[wp], 40);
-					current_name->name[40] = 0;
-					current_name->next_name = NULL;
-				}
-				wp++;
+                if (current_name != NULL) {
+                    if ((current_name->next_name = (struct name_type *)
+                         malloc(sizeof(struct name_type))) == NULL) {
+                        outofmem();
+                    } else {
+                        current_name = current_name->next_name;
+                        strncpy(current_name->name, word[wp], 40);
+                        current_name->name[40] = 0;
+                        current_name->next_name = NULL;
+                    }
+                }
+             wp++;
 			}
 		} else if (!strcmp(word[0], "plural")) {
 			if (word[1] == NULL) {
@@ -961,10 +964,11 @@ read_gamefile()
 				wp = 2;
 
 				while (word[wp] != NULL && wp < MAX_WORDS) {
-					if ((current_name->next_name = (struct name_type *)
-						 malloc(sizeof(struct name_type))) == NULL)
+					if (current_name != NULL && (current_name->next_name = (struct name_type *)
+                        malloc(sizeof(struct name_type))) == NULL) {
 						outofmem();
-					else {
+                        __builtin_unreachable();
+                    } else {
 						current_name = current_name->next_name;
 						strncpy(current_name->name, word[wp], 40);
 						current_name->name[40] = 0;
@@ -1043,7 +1047,7 @@ read_gamefile()
 		}
 
 #ifdef GLK
-		current_file_position = glk_stream_get_position(game_stream);
+//		current_file_position = glk_stream_get_position(game_stream);
 		result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
         current_file_position = ftell(file);
@@ -1085,7 +1089,7 @@ build_grammar_table(pointer)
 	 struct word_type *pointer;
 {
 	do {
-		if (!strcmp(word[wp], pointer->word)) {
+		if (pointer != NULL && !strcmp(word[wp], pointer->word)) {
 			if (pointer->first_child == NULL && word[wp + 1] != NULL) {
 				if ((pointer->first_child = (struct word_type *)
 					 malloc(sizeof(struct word_type)))
@@ -1102,7 +1106,7 @@ build_grammar_table(pointer)
 				pointer = pointer->first_child;
 				wp++;
 			}
-		} else {
+		} else if (pointer != NULL) {
 			if (pointer->next_sibling == NULL) {
 				if ((pointer->next_sibling = (struct word_type *)
 					 malloc(sizeof(struct word_type)))

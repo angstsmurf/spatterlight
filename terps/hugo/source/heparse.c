@@ -2258,7 +2258,7 @@ NotinDictionary:
 	*/
 	if (notfound_word)
 	{
-		i = notfound_word;
+//		i = notfound_word;
 
 		/* "...can't use the word..." */
 		ParseError(1, 0);

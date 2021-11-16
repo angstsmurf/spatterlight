@@ -189,7 +189,10 @@ Printout(line);
 					result = 0;
 				}
 #else
-					FatalError(DIVIDE_E);
+                {
+                    FatalError(DIVIDE_E);
+                    __builtin_unreachable();
+                }
 #endif
 				result = n1 / n2;
 				break;

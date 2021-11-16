@@ -363,7 +363,7 @@ execute(funcname)
     /* THESE ARE USED AS FILE POINTER OFFSETS TO RETURN TO FIXED
      * POINTS IN THE GAME FILE */
 #ifdef GLK
-	int				result;
+//	int				result;
 	glsi32			before_command = 0;
 #else
 	long			before_command = 0;
@@ -411,7 +411,8 @@ execute(funcname)
 #ifdef GLK
 	glk_stream_set_position(game_stream, executing_function->position, seekmode_Start);
     before_command = executing_function->position;
-	result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+//	result =
+    glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
     fseek(file, executing_function->position, SEEK_SET);
     before_command = executing_function->position;
@@ -1846,7 +1847,7 @@ execute(funcname)
 						return (exit_function(TRUE));
 					} else {
 						*split_container = 0;
-						match = source;		// THERE IS ALWAYS ONE MATCH, EVEN IF
+//						match = source;		// THERE IS ALWAYS ONE MATCH, EVEN IF
 											// NO DELIMETERS ARE FOUND
 
 						while ((match = strstr(source, delimiter))) {
@@ -3361,7 +3362,7 @@ inspect (object_num)
 		}
 
 		write_text("^has user attributes: ");
-		attribute_value = 1;
+//		attribute_value = 1;
 	}
 
 	if (pointer != NULL) {

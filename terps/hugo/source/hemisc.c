@@ -499,7 +499,7 @@ AddFontCode:
 			thisline = thisline - linebreaklen;
 			linebreak = 0;
 			linebreaklen = 0;
-			startofline = 0;
+//			startofline = 0;
 #ifdef USE_TEXTBUFFER
 			bufferbreak = 0;
 			bufferbreaklen = 0;
@@ -556,7 +556,7 @@ AddFontCode:
 		linebreak = 0;
 		linebreaklen = 0;
 		thisline = 0;
-		plen = 0;
+//		plen = 0;
 #ifdef USE_TEXTBUFFER
 		bufferbreak = 0;
 		bufferbreaklen = 0;
@@ -775,7 +775,7 @@ unsigned int Dict()
 
 /* FATALERROR */
 
-void FatalError(int n)
+__attribute__((noreturn)) void FatalError(int n)
 {
 	char fatalerrorline[64];
 
@@ -881,6 +881,7 @@ if (n==UNKNOWN_OP_E || n==ILLEGAL_OP_E || n==EXPECT_VAL_E || n==OVERFLOW_E)
 	hugo_blockfree(mem);
 	mem = NULL;
 	exit(n);
+    __builtin_unreachable(); 
 }
 
 
