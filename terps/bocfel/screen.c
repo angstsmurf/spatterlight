@@ -892,8 +892,8 @@ static void resize_upper_window(long nlines, bool from_game)
 
 #ifdef SPATTERLIGHT
 // Hack to clear upper window when its height is set to 0.
-// This probably shouldn't be here, but there is currently an incompatibility
-// with Hugo when this is implemented in the GUI code.
+// This probably doesn't need to be here, but there is currently
+// an incompatibility with Hugo if this is done in the common window code.
     if(nlines == 0)
     {
         glk_window_clear(upperwin->id);
