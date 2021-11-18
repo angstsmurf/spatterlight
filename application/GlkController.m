@@ -3307,8 +3307,10 @@ fprintf(stderr, "%s\n",                                                    \
                 reqWin = _gwindows[@(req->a1)];
             }
             if (reqWin && !_colderLight && !skipNextScriptCommand) {
-
-                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
+                NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)];
+                if (!preloaded.length || [preloaded characterAtIndex:0] == '\0')
+                    preloaded = @"";
+                [reqWin initLine:preloaded maxLength:(NSUInteger)req->a2];
 
                 if (_commandScriptRunning) {
                     [self.commandScriptHandler sendCommandLineToWindow:reqWin];
