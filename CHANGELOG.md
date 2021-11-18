@@ -3,18 +3,23 @@
 ## 0.9.0 (Unreleased)
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
 - Core Data concurrency fixes should improve speed and stability when importing games and downloading metadata in the background
-- Downloading metadata for multiple files is now multi-threaded and much faster 
+- Downloading metadata for multiple files is now multi-threaded and a little faster 
 - Fixes sandboxing issue that could break reloading images from Blorb file
-- Spatterlight metadata is searchable with Spotlight
 - The *Beyond Zork* graphic font got lost in the last update. Now it is back
 - Spatterlight should be slightly less eager to show a file dialog at inappropriate times
 - Updates Bocfel to 1.4
 - Adds support for Quest 4 games, using the Geas interpreter
-- Fixes a bug where a game would open to a blank window when resetting repeatedly, because the autosave files were not immediately deleted
+- Adds support for Scott Adams games, using the ScottFree interpreter
+- Adds a JACL interpreter. Spatterlight should now be able to play anything that Gargoyle can
+- Fixes a bug where games would open to a blank window when resetting repeatedly, because their autosave files were not immediately deleted
 - Gives the correct IFID for Hugo games with new-style UUID format IFIDs
 - The menu in *Halloween Horror* was broken
 - The library window spinning progress indicator would disappear on Yosemite
-- Fixes a sandboxing problem where the "Reload from Blorb" image context menu item would become non-functional
+- Fixes a sandboxing problem where the "Reload from Blorb" image context menu item would stop working
+- *Unforgotten* would send garbage strings as preloaded input
+- Switching off fancy quote boxes had no effect
+- Spatterlight metadata is now searchable in Spotlight
+- Improves QuickLook extension with more information in "vertical mode", as seen in search result windows. Displays Gargoyle icons with crisp, large pixels
 
 ## Release 0.8.9
 - Keypresses could be lost between commands
