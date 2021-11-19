@@ -548,8 +548,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    [_coreDataManager saveChanges];
-
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];
     }
@@ -558,6 +556,18 @@ continueUserActivity:(NSUserActivity *)userActivity
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
+
+    NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
+
+    [mainContext performBlockAndWait:^{
+        NSError *error = nil;
+        if (mainContext.hasChanges) {
+            [mainContext save:&error];
+            if (error) {
+                NSLog(@"Saving managed object context on quit failed. %@", error.localizedDescription);
+            }
+        }
+    }];
 
     [FolderAccess listActiveSecurityBookmarks];
 }
