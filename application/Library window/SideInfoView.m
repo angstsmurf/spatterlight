@@ -357,7 +357,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                         relatedBy:NSLayoutRelationLessThanOrEqual
                                                            toItem:_imageView
                                                         attribute:NSLayoutAttributeWidth
-                                                       multiplier:( 1 / ratio)
+                                                       multiplier:(1 / ratio)
                                                          constant:0];
 
         rightMarginConstraint = [NSLayoutConstraint constraintWithItem:_imageView
