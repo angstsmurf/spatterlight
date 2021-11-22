@@ -315,7 +315,8 @@ extern NSArray *gGameFileTypes;
     if (([extension isEqualToString:@"dat"] &&
          !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
            [@(format) isEqualToString:@"level9"] ||
-           [@(format) isEqualToString:@"advsys"])) ||
+           [@(format) isEqualToString:@"advsys"] ||
+           [@(format) isEqualToString:@"scott"] )) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{

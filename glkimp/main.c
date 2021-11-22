@@ -48,7 +48,9 @@ int main(int argc, char **argv)
         if (cugelwaittime && cugelwaittime < 60)
             sleep(cugelwaittime);
     }
-    
+
+    gli_initialize_misc();
+
     win_hello();
 
     inittime = TRUE;

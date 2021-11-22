@@ -1,6 +1,9 @@
 #include "glkimp.h"
 #include "fileref.h"
 
+static unsigned char char_tolower_table[256];
+static unsigned char char_toupper_table[256];
+
 glui32 tagcounter = 0;
 
 gidispatch_rock_t (*gli_register_obj)(void *obj, glui32 objclass) = NULL;
@@ -11,22 +14,46 @@ void (*gli_unregister_arr)(void *array, glui32 len, char *typecode, gidispatch_r
 long (*gli_locate_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock, int *elemsizeref);
 gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typecode, void **arrayref);
 
+void gli_initialize_misc()
+{
+    int ix;
+    int res;
+
+    /* Initialize the to-uppercase and to-lowercase tables. These should
+     *not* be localized to a platform-native character set! They are
+     intended to work on Latin-1 data, and the code below correctly
+     sets up the tables for that character set. */
+
+    for (ix=0; ix<256; ix++) {
+        char_toupper_table[ix] = ix;
+        char_tolower_table[ix] = ix;
+    }
+    for (ix=0; ix<256; ix++) {
+        if (ix >= 'A' && ix <= 'Z') {
+            res = ix + ('a' - 'A');
+        }
+        else if (ix >= 0xC0 && ix <= 0xDE && ix != 0xD7) {
+            res = ix + 0x20;
+        }
+        else {
+            res = 0;
+        }
+        if (res) {
+            char_tolower_table[ix] = res;
+            char_toupper_table[res] = ix;
+        }
+    }
+
+}
+
 unsigned char glk_char_to_lower(unsigned char ch)
 {
-    if (ch >= 'A' && ch <= 'Z')
-	return ch + ('a' - 'A');
-    if (ch >= 0xC0 && ch <= 0xDE && ch != 0xD7)
-	return ch + 0x20;
-    return ch;
+    return char_tolower_table[ch];
 }
 
 unsigned char glk_char_to_upper(unsigned char ch)
 {
-    if (ch >= 'a' && ch <= 'z')
-	return ch - ('a' - 'A');
-    if (ch >= 0xe0 && ch <= 0xFE && ch != 0xF7)
-	return ch - 0x20;
-    return ch;
+    return char_toupper_table[ch];
 }
 
 void glk_tick()

@@ -47,21 +47,18 @@ fprintf(stderr, "%s\n",                                                    \
 // These three are sent from the font panel
 
 - (void)changeFont:(id)fontManager {
-//    NSLog(@"DummyTextView: changeFont: %@", fontManager);
     [super changeFont:fontManager];
     _sender = fontManager;
     [[Preferences instance] changeFont:self];
 }
 
 - (void)changeAttributes:(id)sender {
-//    NSLog(@"DummyTextView: changeAttributes:%@", sender);
     [super changeAttributes:sender];
     _sender = sender;
     [[Preferences instance] changeAttributes:self];
 }
 
 - (void)changeDocumentBackgroundColor:(id)sender {
-//    NSLog(@"DummyTextView: changeDocumentBackgroundColor:%@", sender);
     [super changeDocumentBackgroundColor:sender];
     _sender = sender;
     [[Preferences instance] changeDocumentBackgroundColor:self];
@@ -241,8 +238,6 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)windowDidLoad {
-    //    NSLog(@"pref: windowDidLoad()");
-
     [super windowDidLoad];
 
     self.window.delegate = self;
@@ -931,7 +926,6 @@ NSString *fontToString(NSFont *font) {
 - (void)restoreThemeSelection:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
     if (arrayController.selectedTheme == sender) {
-//        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
         return;
     }
     NSArray *themes = arrayController.arrangedObjects;
@@ -952,9 +946,7 @@ NSString *fontToString(NSFont *font) {
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
-//        NSLog(@"Preferences tableViewSelectionDidChange:%@", _arrayController.selectedTheme.name);
         if (disregardTableSelection == YES) {
-//            NSLog(@"Disregarding tableViewSelectionDidChange");
             disregardTableSelection = NO;
             return;
         }
@@ -1189,7 +1181,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         NSBeep();
         return;
     }
-//    NSLog(@"Deleting theme %@", themeToRemove.name);
     Theme *ancestor = themeToRemove.defaultParent;
     if (!ancestor)
         ancestor = [self findAncestorThemeOf:themeToRemove];
@@ -1203,7 +1194,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (!ancestor)
         ancestor = arrayController.selectedTheme;
 
-//    NSLog(@"Moving its games (%ld) and default child themes (%ld) to %@", orphanedGames.count, orphanedThemes.count, ancestor.name);
     [ancestor addGames:orphanedGames];
     [ancestor addDefaultChild:orphanedThemes];
 }
@@ -1214,7 +1204,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)selectUsingTheme:(id)sender {
     [_libcontroller selectGames:theme.games];
-    NSLog(@"selected %ld games using theme %@", theme.games.count, theme.name);
 }
 
 - (IBAction)deleteUserThemes:(id)sender {
@@ -1233,11 +1222,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
 
     for (Theme *t in fetchedObjects) {
-//        NSLog(@"Deleting theme %@", t.name);
         if (t.games.count || t.defaultChild.count) {
             Theme *ancestor = [self findAncestorThemeOf:t];
             if (ancestor && !ancestor.editable) {
-//                NSLog(@"Moving its games (%ld) and children (%ld) to %@", t.games.count, t.defaultChild.count, ancestor.name);
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
                 if (t == theme) {
@@ -1256,14 +1243,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
-//    NSLog(@"Looking for ancestor of theme %@", t.name);
     NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
     NSString *baseName = @"";
     if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
         baseName = [t.name substringToIndex:modifiedRange.location];
         Theme *newTheme = [_arrayController findThemeByName:baseName];
         if (newTheme != nil) {
-//            NSLog(@"Found ancestor theme %@ by looking at base name", newTheme.name);
             return newTheme;
         }
     }
@@ -1272,7 +1257,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         while (t2.defaultParent != nil) {
             t2 = t2.defaultParent;
         }
-//        NSLog(@"Found ancestor theme %@ by looking at defaultParent", t2.name);
         return t2;
     }
     NSLog(@"Found no ancestor theme!");
@@ -1458,7 +1442,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     GlkStyle *style = nil;
     if (key) {
-        //NSLog(@"key: %@", key);
         style = [theme valueForKey:key];
         if ([style.color isEqualToColor:color])
             return;
@@ -1964,7 +1947,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (Theme *)cloneThemeIfNotEditable {
     if (!theme.editable) {
-//        NSLog(@"Cloned theme %@", theme.name);
         if ([themeDuplicationTimestamp timeIntervalSinceNow] > -0.5 && lastDuplicatedTheme && lastDuplicatedTheme.editable) {
             return lastDuplicatedTheme;
         }
@@ -1994,8 +1976,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 + (void)zoomIn {
     zoomDirection = ZOOMRESET;
     NSFont *gridroman = theme.gridNormal.font;
-//    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
-
     if (gridroman.pointSize < 200) {
         zoomDirection = ZOOMIN;
         [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
@@ -2003,7 +1983,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomOut {
-//    NSLog(@"zoomOut");
     zoomDirection = ZOOMRESET;
     NSFont *gridroman = theme.gridNormal.font;
     if (gridroman.pointSize > 6) {
@@ -2013,7 +1992,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomToActualSize {
-//    NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
 
     CGFloat scale = 12;
@@ -2031,7 +2009,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)scale:(CGFloat)scalefactor {
-//    NSLog(@"Preferences scale: %f", scalefactor);
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
@@ -2151,7 +2128,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 
 - (IBAction)changeFont:(id)fontManager {
-//    NSLog(@"Prefs: changeFont: %@", fontManager);
     if (fontManager != self.dummyTextView) {
         [self.dummyTextView changeFont:fontManager];
         return;
@@ -2196,8 +2172,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing font style there
 
 - (void)changeAttributes:(id)sender {
-//    NSLog(@"Prefs: changeAttributes:%@", sender);
-
     if (sender != self.dummyTextView) {
         [self.dummyTextView changeAttributes:sender];
         return;
@@ -2253,8 +2227,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing background color there
 
 - (void)changeDocumentBackgroundColor:(id)sender {
-    //    NSLog(@"changeDocumentBackgroundColor");
-
     if (sender != self.dummyTextView) {
         [self.dummyTextView changeDocumentBackgroundColor:sender];
         return;

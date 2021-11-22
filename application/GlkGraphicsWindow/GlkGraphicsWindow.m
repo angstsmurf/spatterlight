@@ -92,9 +92,6 @@
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
 
-    //    NSLog(@"Background in graphics window was set to bgnd(%ld)",
-    //    (long)bgnd);
-
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
@@ -573,9 +570,9 @@
 // For pre-10.14
 - (void)pasteboard:(NSPasteboard *)sender item:(NSPasteboardItem *)item provideDataForType:(NSString *)type
 {
-    //sender has accepted the drag and now we need to send the data for the type we promised
+    // sender has accepted the drag and now we need to send the data for the type we promised
     if ( [type isEqual:NSPasteboardTypePNG]) {
-        //set data for PNG type on the pasteboard as requested
+        // set data for PNG type on the pasteboard as requested
         [sender setData:[self pngData] forType:NSPasteboardTypePNG];
     } else if ([type isEqualTo:PasteboardFilePromiseContent]) {
         // The receiver will send this asking for the content type for the drop, to figure out

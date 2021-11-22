@@ -52,9 +52,6 @@ PasteboardFilePasteLocation;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // NSLog(@"appdel: awakeFromNib");
-
-    NSLog(@"__MAC_OS_X_VERSION_MAX_ALLOWED: %d", __MAC_OS_X_VERSION_MAX_ALLOWED);
 
     InsecureValueTransformer *insecureValueTransformer = nil;
 
@@ -81,7 +78,7 @@ PasteboardFilePasteLocation;
         @"a3c", @"acd", @"agx", @"gam",    @"t3",    @"hex",    @"taf",
         @"z1",  @"z2",  @"z3",  @"z4",     @"z5",    @"z6",     @"z7",
         @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
-        @"zblorb", @"cas", @"asl"
+        @"zblorb", @"cas", @"asl", @"saga", @"jacl", @"j2"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
@@ -117,8 +114,7 @@ PasteboardFilePasteLocation;
                        @"gridUsr2",
                        ];
 
-    gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility",
-                @"cas" : @"geas", @"asl" : @"geas"};
+    gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
 
     gFormatMap = @{
                    @"adrift" : @"scare",
@@ -132,7 +128,9 @@ PasteboardFilePasteLocation;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel",
-                   @"quest4" : @"geas"
+                   @"quest4" : @"geas",
+                   @"jacl" : @"jacl",
+                   @"scott" : @"scott"
                    };
 
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
@@ -180,7 +178,6 @@ PasteboardFilePasteLocation;
 }
 
 - (IBAction)showHelpFile:(id)sender {
-    //    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     NSString *title = [sender title];
     NSURL *url = [[NSBundle mainBundle] URLForResource:title
                  withExtension:@"rtf"
@@ -209,7 +206,6 @@ PasteboardFilePasteLocation;
                               state:(NSCoder *)state
                   completionHandler:
 (void (^)(NSWindow *, NSError *))completionHandler {
-    //    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
     NSWindow *window = nil;
     AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
     if ([identifier isEqualToString:@"library"]) {
@@ -262,7 +258,6 @@ PasteboardFilePasteLocation;
 #pragma mark Library
 
 - (IBAction)showLibrary:(id)sender {
-    //    NSLog(@"appdel: showLibrary");
     [_libctl showWindow:nil];
 }
 
@@ -434,7 +429,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 }
 
 - (IBAction)showPrefs:(id)sender {
-    //    NSLog(@"appdel: showPrefs");
     [_prefctl showWindow:nil];
 }
 
@@ -554,8 +548,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    [_coreDataManager saveChanges];
-
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];
     }
@@ -564,6 +556,18 @@ continueUserActivity:(NSUserActivity *)userActivity
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
+
+    NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
+
+    [mainContext performBlockAndWait:^{
+        NSError *error = nil;
+        if (mainContext.hasChanges) {
+            [mainContext save:&error];
+            if (error) {
+                NSLog(@"Saving managed object context on quit failed. %@", error.localizedDescription);
+            }
+        }
+    }];
 
     [FolderAccess listActiveSecurityBookmarks];
 }

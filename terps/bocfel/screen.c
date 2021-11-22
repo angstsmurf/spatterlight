@@ -908,7 +908,7 @@ static void resize_upper_window(long nlines, bool from_game)
             update_delayed();
         }
 #ifdef SPATTERLIGHT
-        else if (!is_game(GameMadBomber)) {
+        else if (!is_game(GameMadBomber) && gli_enable_quoteboxes) {
             win_quotebox(upperwin->id->peer, (int)nlines);
             update_delayed();
         }

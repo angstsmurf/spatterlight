@@ -225,7 +225,6 @@
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (value && ![value isEqualToColor:originalColor]) {
-            //            NSLog(@"Background Color Attribute change, color %@, range %@", (NSColor *)value, NSStringFromRange(range));
             NSRange intersection = NSIntersectionRange(menuRange, range);
             if (intersection.length && intersection.length < menuRange.length) { // Attribute change in menu range
                 for (NSUInteger i = 0; i < _lines.count; i++)  {
@@ -234,7 +233,6 @@
                     if (overlap.length && overlap.length < thisLine.length)  { // Attribute change in line i
                         if (guess == NSNotFound || guess == i) {
                             guess = i;
-                            // NSLog(@"Found background color change in line %ld", i);
                         } else {
                             // More than one match, bail
                             *stop = YES;
@@ -397,7 +395,7 @@
             } while (index < lines.count && ![string rangeIsEmpty:lines[index]]);
         } else if ([string rangeIsEmpty:lines[index]]) {
             if (menulines.count) {
-                //Found empty line. Return results.
+                // Found empty line. Return results.
                 return menulines;
             }
         } else {
@@ -424,7 +422,7 @@
         [lines addObject:[NSValue valueWithRange:linerange]];
     }
 
-    //Strip trailing blank lines
+    // Strip trailing blank lines
     BOOL lastLineBlank;
     do {
         lastLineBlank = [string rangeIsEmpty:lines.lastObject];
@@ -544,7 +542,6 @@
             [regex matchesInString:string
                            options:0
                              range:NSMakeRange(0, string.length)];
-            //            NSLog(@"found %ld matches", matches.count);
             for (NSTextCheckingResult *match in matches) {
                 NSRange valueRange = [match rangeAtIndex:1];
                 NSRange keyRange = [match rangeAtIndex:2];

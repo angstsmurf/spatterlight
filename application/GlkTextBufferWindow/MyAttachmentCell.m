@@ -259,9 +259,9 @@
 }
 
 - (void)pasteboard:(nullable NSPasteboard *)pasteboard item:(nonnull NSPasteboardItem *)item provideDataForType:(nonnull NSPasteboardType)type {
-    //sender has accepted the drag and now we need to send the data for the type we promised
+    // sender has accepted the drag and now we need to send the data for the type we promised
     if ( [type isEqual:NSPasteboardTypePNG]) {
-        //set data for PNG type on the pasteboard as requested
+        // set data for PNG type on the pasteboard as requested
         [pasteboard setData:[self pngData] forType:NSPasteboardTypePNG];
     } else if ([type isEqualTo:PasteboardFilePromiseContent]) {
         // The receiver will send this asking for the content type for the drop, to figure out

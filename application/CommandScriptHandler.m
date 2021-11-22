@@ -75,7 +75,6 @@ extern NSArray *gSaveFileTypes;
         return nil;
     NSString *command = [_commandString substringWithRange:_commandArray[_commandIndex].rangeValue];
     command = [command stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-//    NSLog(@"Sending command line %ld \"%@\"", _commandIndex, command);
     _commandIndex++;
     if (command.length > 10000) {
         NSLog(@"Command with %ld characters too long, bailing!", command.length);
@@ -93,7 +92,6 @@ extern NSArray *gSaveFileTypes;
     _untypedCharacters = nil;
     NSString *command = [self nextCommandScriptLine];
     if (command) {
-//        NSLog(@"sendCommandLineToWindow: \"%@\"", command);
         [win sendCommandLine:command];
         _lastCommandWindow = win.name;
         _lastCommandType = kCommandTypeLine;
@@ -228,11 +226,11 @@ extern NSArray *gSaveFileTypes;
         }
     }
     if (!foundWin) {
-//        NSLog(@"findGlkWindowWithInput: found no window with line input");
+        // Found no window with line input request
         for (GlkWindow *win in _glkctl.gwindows.allValues) {
             if ([win hasCharRequest]) {
                 foundWin = win;
-//                NSLog(@"findGlkWindowWithInput: found window with char input");
+                // Found window with char input request
                 break;
             }
         }

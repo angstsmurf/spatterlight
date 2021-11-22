@@ -1,8 +1,8 @@
 //
-//  RotorsHandler.m
+//  RotorHandler.m
 //  Spatterlight
 //
-//  Created by Administrator on 2021-04-05.
+//  Created by Petter Sjölund on 2021-04-05.
 //
 
 #import "RotorHandler.h"
