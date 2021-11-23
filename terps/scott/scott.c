@@ -46,6 +46,10 @@
 #include "bsd.h"
 #include "scott.h"
 
+#ifdef SPATTERLIGHT
+extern glui32 gli_determinism;
+#endif
+
 #ifdef __GNUC__
 __attribute__((__format__(__printf__, 2, 3)))
 #endif
@@ -1351,6 +1355,11 @@ Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
 	LoadDatabase(f,(Options&DEBUGGING)?1:0);
 	fclose(f);
+#ifdef SPATTERLIGHT
+    if (gli_determinism)
+        srand(1234);
+    else
+#endif
 	srand(time(NULL));
 	while(1)
 	{
