@@ -1389,6 +1389,70 @@
     XCTAssert([comparison isEqual:facit]);
 }
 
+- (void)testJacl {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"grail.j2"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"grail.j2"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView typeText:@"transcript\r"];
+
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"Unholy Grail"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"Unholy Grail"];
+
+    gameWindow = app.windows[@"grail.j2 (finished)"];
+    XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH ' Game Over '"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
+    [self waitForExpectations:@[expectation] timeout:80];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of grail.j2.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
+- (void)testScott {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"adv01.dat"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"adv01.dat"];
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [self openCommandScript:@"ScottFree"];
+
+    gameWindow = app.windows[@"adv01.dat (finished)"];
+    XCUIElement *textView = [gameWindow.staticTexts elementBoundByIndex:0];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '*DRAGON EGGS* (very rare) - *JEWELED FRUIT* -'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:25];
+
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'The game is now over.'"];
+    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:1];
+}
 
 - (void)testEditMenu {
     XCUIApplication *app = [[XCUIApplication alloc] init];

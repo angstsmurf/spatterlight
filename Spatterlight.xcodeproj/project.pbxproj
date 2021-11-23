@@ -629,6 +629,13 @@
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
+		C354AA68274CD8D900C8D01D /* adv01.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA67274CD8D900C8D01D /* adv01.dat */; };
+		C354AA6A274CD8EF00C8D01D /* ScottFree command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */; };
+		C354AA6E274D05D800C8D01D /* Transcript of Unholy Grail.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */; };
+		C354AA6F274D05D800C8D01D /* Unholy Grail command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */; };
+		C354AA70274D05D800C8D01D /* grail.j2 in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6D274D05D800C8D01D /* grail.j2 */; };
+		C354AA72274D095400C8D01D /* bugged.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA71274D095400C8D01D /* bugged.dat */; };
+		C354AA74274D096500C8D01D /* grail.blorb in Resources */ = {isa = PBXBuildFile; fileRef = C354AA73274D096500C8D01D /* grail.blorb */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -656,7 +663,6 @@
 		C3998E3026C9839F002C1E5D /* Magnetic command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2F26C9839F002C1E5D /* Magnetic command script.txt */; };
 		C3998E3526C9845A002C1E5D /* To Hell in a Hamper command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */; };
 		C3998E3826C984C2002C1E5D /* Bugged command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3726C984C2002C1E5D /* Bugged command script.txt */; };
-		C3998E3A26C984CE002C1E5D /* bugged.dat in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3926C984CE002C1E5D /* bugged.dat */; };
 		C3998E3C26C9A680002C1E5D /* 00 Wyldkynd Project.a3c in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3B26C9A680002C1E5D /* 00 Wyldkynd Project.a3c */; };
 		C39D803926BDEE8200500E1C /* Transparent.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C39D803826BDEE8200500E1C /* Transparent.gblorb */; };
 		C39D803B26BDF7C300500E1C /* Transparent command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C39D803A26BDF7C300500E1C /* Transparent command script.txt */; };
@@ -2830,6 +2836,13 @@
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
 		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
 		C353EFE126263DD7006D17E3 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
+		C354AA67274CD8D900C8D01D /* adv01.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = adv01.dat; sourceTree = "<group>"; };
+		C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ScottFree command script.txt"; sourceTree = "<group>"; };
+		C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Unholy Grail.txt"; sourceTree = "<group>"; };
+		C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Unholy Grail command script.txt"; sourceTree = "<group>"; };
+		C354AA6D274D05D800C8D01D /* grail.j2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grail.j2; sourceTree = "<group>"; };
+		C354AA71274D095400C8D01D /* bugged.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bugged.dat; sourceTree = "<group>"; };
+		C354AA73274D096500C8D01D /* grail.blorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = grail.blorb; sourceTree = "<group>"; };
 		C35978C325DA14A6004B1448 /* iFictionPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFictionPreviewController.h; sourceTree = "<group>"; };
 		C35978C425DA14A6004B1448 /* iFictionPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iFictionPreviewController.m; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
@@ -2880,7 +2893,6 @@
 		C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "To Hell in a Hamper command script.txt"; sourceTree = "<group>"; };
 		C3998E3626C98489002C1E5D /* bugged.acd */ = {isa = PBXFileReference; lastKnownFileType = file; path = bugged.acd; sourceTree = "<group>"; };
 		C3998E3726C984C2002C1E5D /* Bugged command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Bugged command script.txt"; sourceTree = "<group>"; };
-		C3998E3926C984CE002C1E5D /* bugged.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bugged.dat; sourceTree = "<group>"; };
 		C3998E3B26C9A680002C1E5D /* 00 Wyldkynd Project.a3c */ = {isa = PBXFileReference; lastKnownFileType = file; path = "00 Wyldkynd Project.a3c"; sourceTree = "<group>"; };
 		C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 11.xcdatamodel"; sourceTree = "<group>"; };
 		C39D803826BDEE8200500E1C /* Transparent.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Transparent.gblorb; sourceTree = "<group>"; };
@@ -5661,8 +5673,8 @@
 				C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */,
 				C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */,
 				C3D7CB1A26CA8D09006DE4CC /* Transcript of Shades of Gray.txt */,
+				C354AA71274D095400C8D01D /* bugged.dat */,
 				C3998E3626C98489002C1E5D /* bugged.acd */,
-				C3998E3926C984CE002C1E5D /* bugged.dat */,
 				C3998E3726C984C2002C1E5D /* Bugged command script.txt */,
 				C3D7CB1D26CA9049006DE4CC /* Transcript of Bugged.txt */,
 				C3998E2726C97AD4002C1E5D /* GBDATA */,
@@ -5708,6 +5720,12 @@
 				C321419726CEA7B100B49504 /* etude.z5 */,
 				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
 				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
+				C354AA67274CD8D900C8D01D /* adv01.dat */,
+				C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */,
+				C354AA73274D096500C8D01D /* grail.blorb */,
+				C354AA6D274D05D800C8D01D /* grail.j2 */,
+				C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */,
+				C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -6627,6 +6645,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C354AA68274CD8D900C8D01D /* adv01.dat in Resources */,
 				C321419626CEA75A00B49504 /* praxix.z5 in Resources */,
 				C3D7CB2326CA9B4A006DE4CC /* Q.CGA in Resources */,
 				C3D7CB2426CA9B4A006DE4CC /* Q.L9 in Resources */,
@@ -6636,6 +6655,7 @@
 				C3D7CB2126CA9B4A006DE4CC /* GBDATA in Resources */,
 				C3D7CB2226CA9B4A006DE4CC /* guilty.hex in Resources */,
 				C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */,
+				C354AA6F274D05D800C8D01D /* Unholy Grail command script.txt in Resources */,
 				C321419C26CEC55B00B49504 /* Transcript of Praxix.rtf in Resources */,
 				C3D7CB2026CA9A7F006DE4CC /* Transcript of Guilty Bastards.txt in Resources */,
 				C3D7CB1926CA8B59006DE4CC /* AGT-03201-0000E16C.agx in Resources */,
@@ -6647,6 +6667,7 @@
 				C30451C026A98540006E3D51 /* imagetest.gblorb in Resources */,
 				C39D803D26BDFA4000500E1C /* Transcript of Transparent.txt in Resources */,
 				C3998E3C26C9A680002C1E5D /* 00 Wyldkynd Project.a3c in Resources */,
+				C354AA6E274D05D800C8D01D /* Transcript of Unholy Grail.txt in Resources */,
 				C3CC7FFC26C02784009B0B25 /* Transcript of The Elysium Enigma.txt in Resources */,
 				C39D803926BDEE8200500E1C /* Transparent.gblorb in Resources */,
 				C39D803B26BDF7C300500E1C /* Transparent command script.txt in Resources */,
@@ -6655,8 +6676,10 @@
 				C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */,
 				C3998E3526C9845A002C1E5D /* To Hell in a Hamper command script.txt in Resources */,
 				C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */,
+				C354AA72274D095400C8D01D /* bugged.dat in Resources */,
 				C3CEC2C426A6D1F900120469 /* freefall.z5 in Resources */,
 				C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */,
+				C354AA70274D05D800C8D01D /* grail.j2 in Resources */,
 				C3CEC2C526A6D1F900120469 /* curses.z5 in Resources */,
 				C326B13F26C182BF006C398F /* onehand.dat in Resources */,
 				C32141A026CECD9000B49504 /* TerpEtude command script.txt in Resources */,
@@ -6664,9 +6687,9 @@
 				C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */,
 				C326B13D26C18280006C398F /* The Sound of One Hand Clapping command script.txt in Resources */,
 				C3D7CB2926CA9F00006DE4CC /* Transcript of Level 9.txt in Resources */,
+				C354AA6A274CD8EF00C8D01D /* ScottFree command script.txt in Resources */,
 				C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */,
 				C3D7CB1C26CA8FBF006DE4CC /* bugged.acd in Resources */,
-				C3998E3A26C984CE002C1E5D /* bugged.dat in Resources */,
 				C3998E3826C984C2002C1E5D /* Bugged command script.txt in Resources */,
 				C3D7CB1E26CA9049006DE4CC /* Transcript of Bugged.txt in Resources */,
 				C3998E2E26C9836E002C1E5D /* Level 9 command script.txt in Resources */,
@@ -6674,6 +6697,7 @@
 				C3D7CB2D26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt in Resources */,
 				C30451C226A9A8A5006E3D51 /* Transcript of autosavetest.txt in Resources */,
 				C3C5926826A81AE200DFB49B /* autosavetest.gblorb in Resources */,
+				C354AA74274D096500C8D01D /* grail.blorb in Resources */,
 				C3D7CB1826CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt in Resources */,
 				C321419A26CEBAA000B49504 /* Transcript of CZECH.rtf in Resources */,
 				C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */,
@@ -9459,6 +9483,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -9493,6 +9518,7 @@
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
