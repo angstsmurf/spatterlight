@@ -11,15 +11,15 @@
 - Adds support for Quest 4 games, using the Geas interpreter
 - Adds support for Scott Adams games, using the ScottFree interpreter
 - Adds a JACL interpreter. Spatterlight should now be able to play anything that Gargoyle can
-- Fixes a bug where games would open to a blank window when resetting repeatedly, because their autosave files were not immediately deleted
-- Gives the correct IFID for Hugo games with new-style UUID format IFIDs
+- Fixes a bug where games would open to a blank window after resetting, as their autosave files were not properly deleted
+- Detects all UUID format IFIDs in Hugo games correctly
 - The menu in *Halloween Horror* was broken
 - The library window spinning progress indicator would disappear on Yosemite
 - Fixes a sandboxing problem where the "Reload from Blorb" image context menu item would stop working
 - *Unforgotten* would send garbage strings as preloaded input
 - Switching off fancy quote boxes had no effect
 - Spatterlight metadata is now searchable in Spotlight
-- Improves QuickLook extension with more information in "vertical mode", as seen in search result windows. Displays Gargoyle icons with crisp, large pixels
+- Improves QuickLook extension. More information shown in Spotlight search results. Displays Gargoyle icons with crisp, large pixels
 
 ## Release 0.8.9
 - Keypresses could be lost between commands
