@@ -1,6 +1,6 @@
 # Change log
 
-## 0.9.0 (Unreleased)
+## Release 0.9.0
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
 - Core Data concurrency fixes should improve speed and stability when importing games and downloading metadata in the background
 - Downloading metadata for multiple files is now multi-threaded and a little faster 
