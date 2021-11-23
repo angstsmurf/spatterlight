@@ -304,7 +304,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     _gameTableModel = [[LibController fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
-    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
+    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibraryAgain"] == NO) {
         [self convertLibraryToCoreData];
     }
 
@@ -1561,106 +1561,131 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     // Add games from plist files to Core Data store if we have just created a new one
 
-    LibController * __weak weakSelf = self;
+    NSString *homeString = NSHomeDirectory();
+    NSArray *pathComponents = homeString.pathComponents;
+    pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
+    homeString = [NSString pathWithComponents:pathComponents];
+    homeString = [homeString stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
 
-    NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
-    private.undoManager = nil;
+    NSString *metadataString = [homeString stringByAppendingPathComponent: @"Metadata.plist"];
+    NSString *gameString = [homeString stringByAppendingPathComponent: @"Games.plist"];
 
-    [self beginImporting];
-    _addButton.enabled = NO;
-    _currentlyAddingGames = YES;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:gameString]) {
 
-    [private performBlock:^{
+        LibController * __weak weakSelf = self;
 
-        LibController *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
+        NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
+        private.undoManager = nil;
 
-        // First, we try to load the Metadata.plist and add all entries as Metadata entities
-        NSMutableDictionary *metadata = [strongSelf load_mutable_plist:[strongSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]];
+        [self beginImporting];
+        _addButton.enabled = NO;
+        _currentlyAddingGames = YES;
 
-        NSString *ifid;
+        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:gameString] andThenRunBlock:^{
+            [private performBlock:^{
 
-        NSEnumerator *enumerator = [metadata keyEnumerator];
-        while ((ifid = [enumerator nextObject]))
-        {
-            [strongSelf addMetadata:metadata[ifid] forIFID:ifid inContext:private];
-        }
+                LibController *strongSelf = weakSelf;
+                if (!strongSelf)
+                    return;
 
-        // Second, we try to load the Games.plist and add all entries as Game entities
-        NSDictionary *games = [strongSelf load_mutable_plist:[strongSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]];
+                // First, we try to load the Metadata.plist and add all entries as Metadata entities
+                NSMutableDictionary *metadata = [strongSelf load_mutable_plist:metadataString];
 
-        NSDate *timestamp = [NSDate date];
-        
-        enumerator = [games keyEnumerator];
-        while ((ifid = [enumerator nextObject]))
-        {
-            [strongSelf beginImporting];
-            Metadata *meta = [LibController fetchMetadataForIFID:ifid inContext:private];
+                NSString *ifid;
 
-            Game *game;
-
-            if (!meta || meta.games.count) {
-                // If we did not create a matching Metadata entity for this Game above, we just
-                // import it again, creating new metadata. This could happen if the user has deleted
-                // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
-                // have gone out of sync somehow.
-                game = [strongSelf importGame:[games valueForKey:ifid] inContext:private reportFailure:NO hide:NO];
-                if (game)
-                    meta = game.metadata;
-            } else {
-                // Otherwise we simply use the Metadata entity we created
-                game = (Game *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Game"
-                                 inManagedObjectContext:private];
-            }
-            // Now we should have a Game with corresponding Metadata
-            // (but we check anyway just to make sure)
-            if (meta) {
-                if (!game) {
-                    NSLog(@"No game?");
-                    continue;
+                NSEnumerator *enumerator = [metadata keyEnumerator];
+                while ((ifid = [enumerator nextObject]))
+                {
+                    [strongSelf addMetadata:metadata[ifid] forIFID:ifid inContext:private];
                 }
 
-                game.ifid = ifid;
-                game.metadata = meta;
-                game.added = [NSDate date];
-                [game bookmarkForPath:[games valueForKey:ifid]];
-                game.path = [games valueForKey:ifid];
+                // Second, we try to load the Games.plist and add all entries as Game entities
+                NSDictionary *games = [strongSelf load_mutable_plist:gameString];
 
-                // First, we look for a cover image file in Spatterlight Application Support folder
-                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:strongSelf.imageDir];
-                NSData *imgdata;
+                NSDate *timestamp = [NSDate date];
 
-                if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
-                    imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
-                }
+                enumerator = [games keyEnumerator];
+                while ((ifid = [enumerator nextObject]))
+                {
+                    [strongSelf beginImporting];
+                    Metadata *meta = [LibController fetchMetadataForIFID:ifid inContext:private];
 
-                if (imgdata) {
-                    game.metadata.coverArtURL = imgpath.path;
+                    Game *game;
 
-                    // If that fails, we try Babel
-                } else {
-                    NSString *path = (NSString *)[games valueForKey:ifid];
-                    void *context = get_babel_ctx();
-                    const char *format = babel_init_ctx((char *)path.UTF8String, context);
-                    if (format) {
-                        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
-                            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-                            imgdata = [blorb coverImageData];
-                            game.metadata.coverArtURL = path;
-                        }
+                    if (!meta || meta.games.count) {
+                        // If we did not create a matching Metadata entity for this Game above, we just
+                        // import it again, creating new metadata. This could happen if the user has deleted
+                        // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
+                        // have gone out of sync somehow.
+                        game = [strongSelf importGame:[games valueForKey:ifid] inContext:private reportFailure:NO hide:NO];
+                        if (game)
+                            meta = game.metadata;
+                    } else {
+                        // Otherwise we simply use the Metadata entity we created
+                        game = (Game *) [NSEntityDescription
+                                         insertNewObjectForEntityForName:@"Game"
+                                         inManagedObjectContext:private];
                     }
-                    babel_release_ctx(context);
+                    // Now we should have a Game with corresponding Metadata
+                    // (but we check anyway just to make sure)
+                    if (meta) {
+                        if (!game) {
+                            NSLog(@"No game?");
+                            continue;
+                        }
+
+                        game.ifid = ifid;
+                        game.metadata = meta;
+                        game.added = [NSDate date];
+                        [game bookmarkForPath:[games valueForKey:ifid]];
+                        game.path = [games valueForKey:ifid];
+
+                        // First, we look for a cover image file in Spatterlight Application Support folder
+                        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:strongSelf.imageDir];
+                        NSData *imgdata;
+
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
+                            imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
+                        }
+
+                        if (imgdata) {
+                            game.metadata.coverArtURL = imgpath.path;
+
+                            // If that fails, we try Babel
+                        } else {
+                            NSString *path = (NSString *)[games valueForKey:ifid];
+                            void *context = get_babel_ctx();
+                            const char *format = babel_init_ctx((char *)path.UTF8String, context);
+                            if (format) {
+                                if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+                                    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+                                    imgdata = [blorb coverImageData];
+                                    game.metadata.coverArtURL = path;
+                                }
+                            }
+                            babel_release_ctx(context);
+                        }
+
+                        if (imgdata) {
+                            [IFDBDownloader insertImageData:imgdata inMetadata:meta];
+                        }
+
+                    } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
+
+                    if ([timestamp timeIntervalSinceNow] < -0.5) {
+                        NSError *error = nil;
+                        if (private.hasChanges) {
+                            if (![private save:&error]) {
+                                NSLog(@"Unable to Save Changes of private managed object context!");
+                                if (error) {
+                                    [[NSApplication sharedApplication] presentError:error];
+                                }
+                            } //else NSLog(@"Changes in private were saved");
+                        } //else NSLog(@"No changes to save in private");
+                        timestamp = [NSDate date];
+                    }
                 }
 
-                if (imgdata) {
-                    [IFDBDownloader insertImageData:imgdata inMetadata:meta];
-                }
-
-            } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
-
-            if ([timestamp timeIntervalSinceNow] < -0.5) {
                 NSError *error = nil;
                 if (private.hasChanges) {
                     if (![private save:&error]) {
@@ -1668,31 +1693,20 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                         if (error) {
                             [[NSApplication sharedApplication] presentError:error];
                         }
-                    } //else NSLog(@"Changes in private were saved");
-                } //else NSLog(@"No changes to save in private");
-                timestamp = [NSDate date];
-            }
-        }
-        
-        NSError *error = nil;
-        if (private.hasChanges) {
-            if (![private save:&error]) {
-                NSLog(@"Unable to Save Changes of private managed object context!");
-                if (error) {
-                    [[NSApplication sharedApplication] presentError:error];
-                }
-            } else NSLog(@"Changes in private were saved");
-        } else NSLog(@"No changes to save in private");
+                    } else NSLog(@"Changes in private were saved");
+                } else NSLog(@"No changes to save in private");
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf.coreDataManager saveChanges];
-            [strongSelf endImporting];
-            strongSelf.addButton.enabled = YES;
-            strongSelf.currentlyAddingGames = NO;
-            [strongSelf askToDownload];
-        });
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
-    }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf.coreDataManager saveChanges];
+                    [strongSelf endImporting];
+                    strongSelf.addButton.enabled = YES;
+                    strongSelf.currentlyAddingGames = NO;
+                    [strongSelf askToDownload];
+                });
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibraryAgain"];
+            }];
+        }];
+    }
 }
 
 - (void)askToDownload {
