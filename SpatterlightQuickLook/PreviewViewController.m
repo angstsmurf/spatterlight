@@ -438,7 +438,7 @@
                 if (textheight < viewheight - 40 && scrollheight < textheight) {
                     NSRect frame = strongSelf.textview.enclosingScrollView.frame;
                     //Text is mysteriously cropped at the bottom
-                    CGFloat diff = textheight - scrollheight;
+                    CGFloat diff = ceil((textheight - scrollheight) / 2);
                     frame.size.height = textheight;
                     frame.origin.y -= diff;
                     scrollView.frame = frame;
@@ -561,7 +561,7 @@
     CGFloat containerHeight = NSHeight(_backgroundView.frame);
 
     CGFloat newHeight, newWidth;
-    NSRect newImageFrame;
+    NSRect newImageFrame, newTextFrame;
 
     _imageHeightTracksImageWidth =
     [NSLayoutConstraint constraintWithItem:_imageView
@@ -600,7 +600,6 @@
 
     CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:NSWidth(textScrollView.frame)];
 
-
     _textClipHeight =
     [NSLayoutConstraint constraintWithItem:textScrollView
                                  attribute:NSLayoutAttributeHeight
@@ -611,6 +610,13 @@
                                   constant:NSHeight(textScrollView.frame)];
     _textClipHeight.priority = 900;
     [_backgroundView addConstraint:_textClipHeight];
+
+    newTextFrame = textScrollView.frame;
+    newTextFrame.size.width = containerWidth - NSWidth(newImageFrame) - 60;
+    newTextFrame.size.height = MIN(textHeight, containerHeight - 40);
+    newTextFrame.origin.x = NSMaxX(newTextFrame) + 20;
+    newTextFrame.origin.y = ceil((containerHeight - NSHeight(newTextFrame)) / 2);
+    textScrollView.frame = newTextFrame;
 
     if (textHeight <= containerHeight - 40) {
         // All text fits on screen. Disable text scrollview top and bottom constraints
