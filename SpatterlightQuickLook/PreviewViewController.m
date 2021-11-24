@@ -414,41 +414,32 @@
 -(void)finalAdjustments:(void (^)(NSError * _Nullable))handler  {
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSView *superView = _imageView.superview;
-    NSSize __block viewSize = superView.frame.size;
-    PreviewViewController __weak *weakSelf = self;
-    
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        PreviewViewController *strongSelf = weakSelf;
-        if (strongSelf) {
-            viewSize = superView.frame.size;
-            strongSelf.vertical = (viewSize.width - viewSize.height <= 20);
-            if (strongSelf.vertical) {
-                [strongSelf drawVertical];
-                strongSelf.showingView = YES;
-                handler(nil);
-            } else {
-                [strongSelf drawHorizontal];
+    NSSize viewSize = superView.frame.size;
 
-                CGFloat scrollheight = scrollView.frame.size.height;
-                CGFloat textheight = strongSelf.textview.frame.size.height;
-                CGFloat viewheight = superView.frame.size.height;
-                [scrollView.contentView scrollToPoint:NSZeroPoint];
-                if (textheight < viewheight - 40 && scrollheight < textheight) {
-                    NSRect frame = strongSelf.textview.enclosingScrollView.frame;
-                    //Text is mysteriously cropped at the bottom
-                    CGFloat diff = ceil((textheight - scrollheight) / 2);
-                    frame.size.height = textheight;
-                    frame.origin.y -= diff;
-                    scrollView.frame = frame;
-                    scrollView.contentView.frame = scrollView.bounds;
-                }
-                strongSelf.showingView = YES;
-                handler(nil);
-            }
+    viewSize = superView.frame.size;
+    _vertical = (viewSize.width - viewSize.height <= 20);
+    if (_vertical) {
+        [self drawVertical];
+        _showingView = YES;
+        handler(nil);
+    } else {
+        [self drawHorizontal];
+        CGFloat scrollheight = scrollView.frame.size.height;
+        CGFloat textheight = _textview.frame.size.height;
+        CGFloat viewheight = superView.frame.size.height;
+        [scrollView.contentView scrollToPoint:NSZeroPoint];
+        if (textheight < viewheight - 40 && scrollheight < textheight) {
+            NSRect frame = _textview.enclosingScrollView.frame;
+            //Text is mysteriously cropped at the bottom
+            CGFloat diff = ceil((textheight - scrollheight) / 2);
+            frame.size.height = textheight;
+            frame.origin.y -= diff;
+            scrollView.frame = frame;
+            scrollView.contentView.frame = scrollView.bounds;
         }
-    });
+        _showingView = YES;
+        handler(nil);
+    }
 }
 
 -(void)viewWillLayout {
