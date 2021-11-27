@@ -21,6 +21,9 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @property Metadata *meta;
 
 @property BOOL inAnimation;
+@property BOOL downArrowWhileInAnimation;
+@property BOOL upArrowWhileInAnimation;
+
 
 @property IBOutlet NSTextField *titleField;
 

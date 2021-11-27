@@ -52,26 +52,34 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)keyDown:(NSEvent *)event {
     InfoController *infocontroller = (InfoController *)self.window.delegate;
 
-    if (infocontroller.inAnimation) {
-        [super keyDown:event];
-        return;
-    }
-    
     unichar code = [event.characters characterAtIndex:0];
 
     switch (code) {
-        case ' ': {
-            [[self window] performClose:nil];
-            break;
-        }
         case NSUpArrowFunctionKey: {
-            [infocontroller.libcontroller closeAndOpenNextAbove:infocontroller];
+            if (infocontroller.inAnimation) {
+                infocontroller.upArrowWhileInAnimation = YES;
+                infocontroller.downArrowWhileInAnimation = NO;
+            } else {
+                [infocontroller.libcontroller closeAndOpenNextAbove:infocontroller];
+            }
             break;
         }
         case NSDownArrowFunctionKey: {
-            [infocontroller.libcontroller closeAndOpenNextBelow:infocontroller];
+            if (infocontroller.inAnimation) {
+                infocontroller.downArrowWhileInAnimation = YES;
+                infocontroller.upArrowWhileInAnimation = NO;
+            } else {
+                [infocontroller.libcontroller closeAndOpenNextBelow:infocontroller];
+            }
             break;
         }
+        case ' ': {
+            if (!infocontroller.inAnimation) {
+                [[self window] performClose:nil];
+            }
+            break;
+        }
+
         default: {
             [super keyDown:event];
             break;
@@ -127,13 +135,21 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _path = path;
         _game = [self fetchGameWithPath:path];
-        if (_game)
+        if (_game) {
             _meta = _game.metadata;
+        }
     }
     return self;
 }
 
 - (void)windowDidLoad {
+    [super windowDidLoad];
+    if (@available(macOS 12, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
+    } else if (@available(macOS 10.13, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
+    }
+
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
@@ -163,13 +179,10 @@ fprintf(stderr, "%s\n",                                                    \
     headlineField.editable = YES;
     headlineField.delegate = self;
 
-    //    ifidField.editable = YES;
-    //    ifidField.delegate = self;
-
     descriptionText.editable = YES;
     descriptionText.delegate = self;
 
-    [self.window makeFirstResponder:imageView];
+    [self.window makeFirstResponder:self.window.contentView];
 
     self.window.delegate = self;
 }
@@ -297,8 +310,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (!updatedObjects)
         updatedObjects = [NSSet new];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
-    if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])
-    {
+    if (updatedObjects.count && ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self update];
             [self updateImage];
@@ -368,7 +380,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)windowWillClose:(NSNotification *)notification {
 
     // Make sure that all edits are saved
-    if (![_meta.title isEqualToString:_titleField.stringValue])
+    if (_titleField.stringValue.length && ![_meta.title isEqualToString:_titleField.stringValue])
         _meta.title = _titleField.stringValue;
     if (![_meta.headline isEqualToString:headlineField.stringValue])
         _meta.headline = headlineField.stringValue;
@@ -415,8 +427,11 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (textfield == _titleField)
         {
-            if (![_meta.title isEqualToString:_titleField.stringValue])
+            if (_titleField.stringValue.length && ![_meta.title isEqualToString:_titleField.stringValue]) {
                 _meta.title = _titleField.stringValue;
+            } else if (_titleField.stringValue.length == 0) {
+                _titleField.stringValue = _meta.title;
+            }
         }
         else if (textfield == headlineField)
         {
@@ -462,17 +477,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)makeAndPrepareSnapshotWindow:(NSRect)startingframe {
     CALayer *snapshotLayer = [self takeSnapshot];
-    NSWindow *snapshotWindow = ([[NSWindow alloc]
-                                 initWithContentRect:startingframe
-                                 styleMask:0
-                                 backing:NSBackingStoreBuffered
-                                 defer:NO]);
-
-    snapshotWindow.contentView.wantsLayer = YES;
-    snapshotWindow.opaque = NO;
-    snapshotWindow.releasedWhenClosed = YES;
-    snapshotWindow.backgroundColor = NSColor.clearColor;
-    [snapshotWindow setFrame:startingframe display:NO];
+    NSWindow *snapshotWindow = [self createFullScreenWindow];
+    CALayer *shadowLayer = [self shadowLayerFromFrame:startingframe andWindow:snapshotWindow];
+    [snapshotWindow.contentView.layer addSublayer:shadowLayer];
     [snapshotWindow.contentView.layer addSublayer:snapshotLayer];
 
     snapshotController = [[NSWindowController alloc] initWithWindow:snapshotWindow];
@@ -497,84 +504,86 @@ fprintf(stderr, "%s\n",                                                    \
     return snapshotLayer;
 }
 
-- (CALayer *)takeRowSnapshotFocused:(BOOL)focused {
-    LibController *libcontroller = _libcontroller;
-    NSRect rowrect = [libcontroller rectForLineWithIfid:_game.ifid];
+- (CALayer *)shadowLayerFromFrame:(NSRect)rect andWindow:(NSWindow *)window {
+    CALayer *shadowLayer = [CALayer layer];
+    CGColorRef shadowColor = CGColorCreateGenericRGB(0, 0, 0, 0.40);
+    shadowLayer.shadowColor = shadowColor;
+    shadowLayer.shadowOffset = (CGSize){0, -20};
+    shadowLayer.shadowRadius = 17;
+    shadowLayer.shadowOpacity = 1.0;
+    CGColorRelease(shadowColor);
 
-    NSWindow *keyWindow = libcontroller.window;
-    if (focused) {
-        for (NSWindow *win in NSApplication.sharedApplication.windows) {
-            if (win.isKeyWindow) {
-                keyWindow = win;
-                break;
-            }
-        }
-        [libcontroller.window makeKeyWindow];
-    }
+    CGRect windowFrame = [window convertRectFromScreen:rect];
+    NSRect shadowRect = [self shadowRectWithRect:windowFrame];
 
-    NSView *view = libcontroller.window.contentView;
-    NSRect winrect = [libcontroller.window convertRectFromScreen:rowrect];
+    CGPathRef shadowPath = CGPathCreateWithRect(shadowRect, NULL);
+    shadowLayer.shadowPath = shadowPath;
+    CGPathRelease(shadowPath);
 
-    NSBitmapImageRep *bitmap = [view bitmapImageRepForCachingDisplayInRect:winrect];
-    [view cacheDisplayInRect:winrect toBitmapImageRep:bitmap];
+    [window.contentView.layer addSublayer:shadowLayer];
+    return shadowLayer;
+}
 
-    NSImage *result = [[NSImage alloc] initWithSize:winrect.size];
-    [result addRepresentation:bitmap];
-
-    CALayer *snapshotLayer = [[CALayer alloc] init];
-    snapshotLayer.contents = result;
-
-    if (focused)
-        [keyWindow makeKeyWindow];
-
-    return snapshotLayer;
+- (CGRect)shadowRectWithRect:(CGRect)rect {
+    NSRect shadowRect = CGRectInset(rect, -2, 0);
+    shadowRect.size.height += 5;
+    return shadowRect;
 }
 
 - (void)animateIn:(NSRect)finalframe {
-    NSRect targetFrame = [_libcontroller rectForLineWithIfid:_game.ifid];
+    NSRect startingFrame = [_libcontroller rectForLineWithIfid:_game.ifid];
+    [self makeAndPrepareSnapshotWindow:startingFrame];
 
-    [self makeAndPrepareSnapshotWindow:targetFrame];
-    NSWindow *localSnapshot = snapshotController.window;
-    NSView *snapshotView = localSnapshot.contentView;
-    CALayer *snapshotLayer = snapshotView.layer.sublayers.firstObject;
+    NSWindow *snapshotWindow = snapshotController.window;
+    CALayer *shadowLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
+    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers[1];
 
-    CALayer *rowLayer = [self takeRowSnapshotFocused:NO];
-    [snapshotLayer addSublayer:rowLayer];
-    rowLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
-    rowLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    rowLayer.frame = snapshotLayer.frame;
+    NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:finalframe];
+    snapshotLayer.frame = [snapshotWindow convertRectFromScreen:startingFrame];
 
-    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
-    fadeOutAnimation.additive = NO;
-    fadeOutAnimation.removedOnCompletion = NO;
-    fadeOutAnimation.beginTime = 0.0;
-    fadeOutAnimation.duration = .2;
-    fadeOutAnimation.fillMode = kCAFillModeForwards;
+    // We need to explicitly animate the shadow path to reflect the new size.
+    CGPathRef shadowPath = CGPathCreateWithRect([self shadowRectWithRect:finalLayerFrame], NULL);
+    CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
+    shadowAnimation.fromValue = (id)shadowLayer.shadowPath;
+    shadowAnimation.toValue = (__bridge id)(shadowPath);
+    shadowAnimation.duration = .4;
+    shadowAnimation.removedOnCompletion = NO;
+    shadowAnimation.fillMode = kCAFillModeForwards;
 
-    snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
-    snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    transformAnimation.duration=.4;
+    CGFloat scaleFactorX = NSWidth(finalLayerFrame) / NSWidth(snapshotLayer.frame);
+    CGFloat scaleFactorY = NSHeight(finalLayerFrame) / NSHeight(snapshotLayer.frame);
+    transformAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(scaleFactorX, scaleFactorY, 1)];
+    transformAnimation.removedOnCompletion = NO;
+    transformAnimation.fillMode = kCAFillModeForwards;
 
-    [localSnapshot setFrame:targetFrame display:YES];
+    // Prepare the animation from the current position to the new position
+    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+    positionAnimation.fromValue = [snapshotLayer valueForKey:@"position"];
+    NSPoint point = finalLayerFrame.origin;
+    positionAnimation.toValue = [NSValue valueWithPoint:point];
+    positionAnimation.fillMode = kCAFillModeForwards;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.2;
-        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        context.duration = .4;
+        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
 
-        [rowLayer addAnimation:fadeOutAnimation forKey:nil];
+        shadowLayer.shadowPath = shadowPath;
+        CGPathRelease(shadowPath);
+        [shadowLayer addAnimation:shadowAnimation forKey:@"shadowPath"];
 
-        [[localSnapshot animator] setFrame:finalframe display:YES];
-    }
-     completionHandler:^{
-        [rowLayer removeFromSuperlayer];
-        self.window.alphaValue = 1.f;
+        snapshotLayer.position = point;
+        [snapshotLayer addAnimation:positionAnimation forKey:@"position"];
+        [snapshotLayer addAnimation:transformAnimation forKey:@"transform"];
+    } completionHandler:^{
+        self.window.alphaValue = 1.0;
         [self.window setFrame:finalframe display:YES];
-        [self showWindow:nil];
-        snapshotView.hidden = YES;
+        snapshotWindow.contentView.hidden = YES;
         [self->snapshotController close];
         self.inAnimation = NO;
+        [self checkForKeyPressesDuringAnimation];
     }];
 }
 
@@ -582,46 +591,61 @@ fprintf(stderr, "%s\n",                                                    \
     _inAnimation = YES;
 
     [self makeAndPrepareSnapshotWindow:self.window.frame];
-    NSWindow *localSnapshot = snapshotController.window;
-    NSView *snapshotView = localSnapshot.contentView;
-    CALayer *snapshotLayer = localSnapshot.contentView.layer.sublayers.firstObject;
+    NSWindow *snapshotWindow = snapshotController.window;
+    NSView *snapshotView = snapshotWindow.contentView;
+    CALayer *shadowLayer = snapshotView.layer.sublayers.firstObject;
+    CALayer *snapshotLayer = snapshotView.layer.sublayers[1];
 
     LibController *libctrl = _libcontroller;
 
-    snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
-    snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    NSRect currentFrame = snapshotLayer.frame;
     NSRect targetFrame = [libctrl rectForLineWithIfid:_game.ifid];
-    NSArray <InfoController *> *windowArray = libctrl.infoWindows.allValues;
-    CALayer *rowLayer = [self takeRowSnapshotFocused:(windowArray.count < 2)];
-    [snapshotLayer addSublayer:rowLayer];
-    rowLayer.opacity = 0.0;
-    rowLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
-    rowLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    rowLayer.frame = snapshotLayer.frame;
 
-    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeInAnimation.toValue = [NSNumber numberWithFloat:0.5];
-    fadeInAnimation.additive = NO;
-    fadeInAnimation.removedOnCompletion = NO;
-    fadeInAnimation.beginTime = 0.0;
-    fadeInAnimation.duration = 0.3;
-    fadeInAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    fadeInAnimation.fillMode = kCAFillModeForwards;
+    NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:targetFrame];
 
+    CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    transformAnimation.duration=.4;
+    CGFloat scaleFactorX = NSWidth(finalLayerFrame) / NSWidth(currentFrame);
+    CGFloat scaleFactorY = NSHeight(finalLayerFrame) / NSHeight(currentFrame);
+    transformAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(scaleFactorX, scaleFactorY, 1)];
+    transformAnimation.removedOnCompletion = NO;
+    transformAnimation.fillMode = kCAFillModeForwards;
+
+// We need to explicitly animate the shadow path to reflect the new size.
+    CGPathRef shadowPath = CGPathCreateWithRect([self shadowRectWithRect:finalLayerFrame], NULL);
+    CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
+    shadowAnimation.fromValue = (id)shadowLayer.shadowPath;
+    shadowAnimation.toValue = (__bridge id)(shadowPath);
+    shadowAnimation.duration = .4;
+    shadowAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    shadowAnimation.removedOnCompletion = NO;
+    shadowAnimation.fillMode = kCAFillModeForwards;
+
+    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+    positionAnimation.fromValue = [snapshotLayer valueForKey:@"position"];
+    NSPoint point = finalLayerFrame.origin;
+    positionAnimation.toValue = [NSValue valueWithPoint:point];
+    positionAnimation.fillMode = kCAFillModeForwards;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.3;
-        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        [[localSnapshot animator] setFrame:targetFrame display:YES];
-        [rowLayer addAnimation:fadeInAnimation forKey:nil];
+        context.duration = .4;
+        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        shadowLayer.shadowPath = shadowPath;
+        CGPathRelease(shadowPath);
+        [shadowLayer addAnimation:shadowAnimation forKey:@"shadowPath"];
+        [shadowLayer addAnimation:[InfoController fadeOutAnimation] forKey:nil];
+        snapshotLayer.position = point;
+        [snapshotLayer addAnimation:positionAnimation forKey:@"position"];
+        [snapshotLayer addAnimation:transformAnimation forKey:@"transform"];
     }
      completionHandler:^{
         self.inAnimation = NO;
         snapshotView.hidden = YES;
         [self->snapshotController close];
         self->snapshotController = nil;
+
+        [self checkForKeyPressesDuringAnimation];
 
         // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
         // Probably a good reason to use something else as key.
@@ -637,7 +661,29 @@ fprintf(stderr, "%s\n",                                                    \
     }];
 }
 
--(void)hideWindow {
++ (CABasicAnimation *)fadeOutAnimation {
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.beginTime = 0.0;
+    fadeOutAnimation.duration = .2;
+    fadeOutAnimation.fillMode = kCAFillModeForwards;
+    return fadeOutAnimation;
+}
+
+- (void)checkForKeyPressesDuringAnimation {
+    if (_downArrowWhileInAnimation) {
+        [_libcontroller closeAndOpenNextBelow:self];
+    } else if (_upArrowWhileInAnimation) {
+        [_libcontroller closeAndOpenNextAbove:self];
+    }
+    _downArrowWhileInAnimation = NO;
+    _upArrowWhileInAnimation = NO;
+}
+
+- (void)hideWindow {
     _inAnimation = YES;
     // So we need to get a screenshot of the window without flashing.
     // First, we find the frame that covers all the connected screens.
@@ -660,6 +706,27 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self.window setFrame:frame display:YES];
     [self showWindow:nil];
+}
+
+- (NSWindow *)createFullScreenWindow {
+    NSWindow *fullScreenWindow =
+    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.window.screen.frame.size }
+                                styleMask:NSBorderlessWindowMask
+                                  backing:NSBackingStoreBuffered
+                                    defer:NO
+                                   screen:_libcontroller.window.screen];
+    fullScreenWindow.animationBehavior = NSWindowAnimationBehaviorNone;
+    fullScreenWindow.backgroundColor = NSColor.clearColor;
+    fullScreenWindow.movableByWindowBackground = NO;
+    fullScreenWindow.ignoresMouseEvents = YES;
+    fullScreenWindow.level = _libcontroller.window.level;
+    fullScreenWindow.hasShadow = NO;
+    fullScreenWindow.opaque = NO;
+    NSView *contentView = [[NSView alloc] initWithFrame:NSZeroRect];
+    contentView.wantsLayer = YES;
+    contentView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
+    fullScreenWindow.contentView = contentView;
+    return fullScreenWindow;
 }
 
 @end

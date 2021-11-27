@@ -2270,6 +2270,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             frame = [[self window] convertRectToScreen:frame];
         }
     }
+    frame.origin.x += 12;
+    frame.size.width -= 24;
     return frame;
 }
 
