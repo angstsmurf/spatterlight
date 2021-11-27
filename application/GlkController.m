@@ -3971,7 +3971,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
      runAnimationGroup:^(NSAnimationContext *context) {
         // First, we move the window to the center
         // of the screen with the snapshot window on top
-        context.duration = duration / 3;
+        context.duration = duration / 4 + 0.1;
         [[localSnapshot animator] setFrame:centerWindowFrame display:YES];
         [[window animator] setFrame:centerWindowFrame display:YES];
     }
@@ -3979,7 +3979,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
             // and then we enlarge it to its full size.
-            context.duration = duration * 2 / 3;
+            context.duration = duration / 4 - 0.1;
             [[window animator]
              setFrame:[window
                        frameRectForContentRect:border_finalFrame]
@@ -3997,7 +3997,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         );
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = duration / 5;
+                context.duration = duration / 4;
                 [localContentView setFrame:newContentFrame];
                 [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
                 [weakSelf flushDisplay];
@@ -4008,14 +4008,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                 [NSAnimationContext
                  runAnimationGroup:^(NSAnimationContext *context) {
-                    context.duration = duration / 10;
+                    context.duration = duration / 4;
                     [[localSnapshot.contentView animator] setAlphaValue:0];
                 }
                  completionHandler:^{
                     // Finally, we extend the content view vertically if needed.
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = duration / 7;
+                        context.duration = 0.1;
                         [[localContentView animator]
                          setFrame:[weakSelf contentFrameForFullscreen]];
                     }
