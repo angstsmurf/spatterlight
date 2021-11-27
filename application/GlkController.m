@@ -1149,7 +1149,7 @@ fprintf(stderr, "%s\n",                                                    \
     // to re-send us window sizes. The player may have changed settings that
     // affect window size since the autosave was created.
 
-    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0.2];
 }
 
 
@@ -1160,16 +1160,14 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     Theme *stashedTheme = _stashedTheme;
-    if (stashedTheme && stashedTheme != _theme)
-    {
+    if (stashedTheme && stashedTheme != _theme) {
         _theme = stashedTheme;
         _stashedTheme = nil;
     }
+    [self adjustContentView];
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
-
     [self sendArrangeEventWithFrame:_contentView.frame force:YES];
-
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
@@ -1300,7 +1298,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = [aGame urlForBookmark].path;
     aGame.autosaved = NO;
-    NSLog(@"GlkController deleteAutosaveFilesForGame: set autosaved of game %@ to NO", aGame.metadata.title);
     if (!_gamefile)
         return;
     _game = aGame;
