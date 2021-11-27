@@ -722,6 +722,7 @@ fprintf(stderr, "%s\n",                                                    \
             _downloadButton = [self createDownloadButton];
         if (_downloadButton.superview != titleField) {
             [titleField addSubview:_downloadButton];
+            _downloadButton.toolTip = NSLocalizedString(@"Download game info", nil);
 
             // We need to add these constraints in order to make the button
             // stay in position when resizing the side view
@@ -767,24 +768,13 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSButton *)createDownloadButton {
     // The actual size and position of the button is taken care of
     // by the constraints added in the caller above
-    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0,0, 25, 25)];
-    button.buttonType = NSPushOnPushOffButton;
-    NSImage *image = [NSImage imageNamed:@"Download"];
-    if (@available(macOS 10.14, *)) {
-        button.image = image;
-        button.contentTintColor = NSColor.disabledControlTextColor;
-    } else {
-        NSImage *tintedimage = [image imageWithTint:NSColor.disabledControlTextColor];
-        button.image = tintedimage;
-        button.alphaValue = 0.5;
+    NSButton *button;
+    NSArray *topLevelObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"DownloadButton" owner:self topLevelObjects:&topLevelObjects];
+    for (id object in topLevelObjects) {
+        if ([object isKindOfClass:[NSButton class]])
+            button = (NSButton *)object;
     }
-    button.imageScaling = NSImageScaleProportionallyUpOrDown;
-    button.imagePosition = NSImageOnly;
-    button.alignment = NSCenterTextAlignment;
-    button.bordered = NO;
-    button.bezelStyle = NSShadowlessSquareBezelStyle;
-    button.toolTip = NSLocalizedString(@"Download game info", nil);
-    button.accessibilityLabel = NSLocalizedString(@"download info", nil);
 
     button.target = self;
     button.action = @selector(download:);
@@ -794,7 +784,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)download:(id)sender {
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.3;
+        context.duration = 0.4;
         [[_downloadButton animator] setAlphaValue:0];
     } completionHandler:^{
         LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;

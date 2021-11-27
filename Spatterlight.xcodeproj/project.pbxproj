@@ -782,6 +782,7 @@
 		C3F53C6D271BBAC200538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
+		C3F709162756127B00CAD227 /* DownloadButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F709152756127B00CAD227 /* DownloadButton.xib */; };
 		C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */; };
 		C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8832675FCE00076EAFB /* OSCategories.m */; };
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
@@ -3042,6 +3043,7 @@
 		C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlorbFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F53C5C271BB8BE00538393 /* BlorbFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlorbFramework.h; sourceTree = "<group>"; };
 		C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BlorbFramework.docc; sourceTree = "<group>"; };
+		C3F709152756127B00CAD227 /* DownloadButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadButton.xib; sourceTree = "<group>"; };
 		C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
 		C3F9D8832675FCE00076EAFB /* OSCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCategories.m; sourceTree = "<group>"; };
 		C3F9D8852675FCE00076EAFB /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
@@ -4205,6 +4207,7 @@
 				6D73E55621873509009CD59A /* LibraryWindow.xib */,
 				96FBD8EF0A094E2F002F6087 /* InfoPanel.xib */,
 				6D85C896218BD6E00088D849 /* HelpPanelController.xib */,
+				C3F709152756127B00CAD227 /* DownloadButton.xib */,
 				6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */,
 			);
 			path = resources;
@@ -6618,6 +6621,7 @@
 				96A9BBA40A0668EB001B5B9B /* GameWindow.xib in Resources */,
 				96FBD8F00A094E30002F6087 /* InfoPanel.xib in Resources */,
 				6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */,
+				C3F709162756127B00CAD227 /* DownloadButton.xib in Resources */,
 				6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */,
 				6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */,
 				6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */,
