@@ -158,6 +158,16 @@
             [view removeFromSuperview];
         }
 
+        if (_glkctl.inFullscreen) {
+            NSRect preFullscreen = glkctl.windowPreFullscreenFrame;
+            CGFloat border = glkctl.theme.border;
+            preFullscreen.size.width -= 2 * border;
+
+            glkctl.contentView.frame = NSMakeRect(NSMidX(glkctl.borderView.frame) - NSMidX(preFullscreen),
+                border,
+                NSWidth(preFullscreen),
+                NSHeight(glkctl.borderView.frame) - 2 * border);
+        }
         [glkctl.borderView addSubview:glkctl.contentView];
         [glkctl adjustContentView];
 
@@ -389,6 +399,7 @@
     _imageView.inFullscreenResize = YES;
     GlkController *glkctl = _glkctl;
     NSWindow *window = glkctl.window;
+    glkctl.windowPreFullscreenFrame = window.frame;
     NSScreen *screen = window.screen;
     NSInteger border = glkctl.theme.border;
 
@@ -487,10 +498,11 @@
 
 - (NSWindow *)enterFullscreenWindow {
     if (!_enterFullscreenWindow) {
-        _enterFullscreenWindow = [[NSWindow alloc] initWithContentRect:NSZeroRect
-                                                             styleMask: NSBorderlessWindowMask
-                                                               backing: NSBackingStoreBuffered
-                                                                 defer: YES];
+        _enterFullscreenWindow =
+        [[NSWindow alloc] initWithContentRect:NSZeroRect
+                                    styleMask: NSBorderlessWindowMask
+                                      backing: NSBackingStoreBuffered
+                                        defer: YES];
     }
     return _enterFullscreenWindow;
 }
