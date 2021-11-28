@@ -1,0 +1,147 @@
+w
+n
+turn off lights
+close blinds
+examine screen
+s
+s
+take gps
+n
+w
+turn tap
+take gear
+wear them
+e
+d
+d
+n
+n
+u
+nw
+nw
+nw
+nw
+nw
+nw
+d
+d
+d
+d
+d
+z
+z
+z
+z
+take vial
+u
+u
+u
+u
+u
+se
+se
+se
+se
+se
+se
+s
+d
+s
+u
+u
+w
+remove gear
+drop them
+drop gps
+e
+e
+open drawer
+take report
+w
+s
+open fridge
+take all from fridge
+take syringe
+fill syringe from vial
+inject clear liquid in first dish
+pour yellow liquid in first dish
+open compartment
+put first dish in compartment
+close compartment
+press button
+take green slide
+insert green slide in slot
+look through microscope
+take green slide
+n
+w
+w
+w
+s
+s
+nw
+in
+look behind drum
+out
+se
+s
+ne
+turn crate
+u
+u
+n
+d
+take lisa's gun
+take out top drawer
+drop it
+take diary
+tell stranger about green slide
+show diary to stranger
+u
+s
+d
+d
+sw
+n
+e
+n
+give report to wise
+open door
+e
+n
+n
+w
+s
+listen to elderly man
+n
+examine card
+e
+e
+page ruud
+zola
+w
+n
+press call
+n
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+s
+s
+sw
+open south door
+s
+tell zuckerman about submarine
+ask zuckerman about vial
+tell zuckerman about green slide
+ask zuckerman about project
+ask zuckerman about experiment
+quit
+y

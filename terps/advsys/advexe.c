@@ -9,7 +9,7 @@
 #include "advint.h"
 #include "advdbs.h"
 #if defined(SPATTERLIGHT)
-#include "glkimp.h"
+extern glui32 gli_determinism;
 #endif
 
 /* external variables */

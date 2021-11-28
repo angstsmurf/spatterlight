@@ -1,0 +1,800 @@
+TRANSCRIPT OF: The Unholy Grail
+
+> w
+The pool
+In the centre of the floor here there is a large circular opening. The surface of the lagoon sloshes gently against the internal walls of the opening less than a metre beneath your feet. A stainless steel ladder runs down, disappearing beneath the surface of the water while doorways allow passage in the four cardinal directions.
+
+> n
+The control centre
+Used more by Lisa than yourself, this is the main control centre for the research outpost's many instruments and sensors. A slimline high-backed chair is fixed to the floor in front of a long control panel. Above the controls stretches a wide rectangular window covered by a set of open blinds providing a spectacular view of the ocean horizon. A narrow doorway leads south from here; a light switch is attached to its frame. 
+
+Lisa is here, sitting in the chair.
+
+Lisa quickly flicks off the main screen of the control panel as you enter the room. Shooting up out of her chair, she turns to face you. "You startled me," she blurts nervously.
+
+> turn off lights
+You flick the light switch into the off position causing the main fluorescent light to go out.
+
+The control centre
+Used more by Lisa than yourself, this is the main control centre for the research outpost's many instruments and sensors. A slimline high-backed chair is fixed to the floor in front of a long control panel. Above the controls stretches a wide rectangular window covered by a set of open blinds providing a spectacular view of the ocean horizon. A narrow doorway leads south from here; a light switch is attached to its frame. With the main fluorescent light off, the diffuse sun light filters unmasked through the blinds giving the room a warmer feel than before.
+
+Lisa is here, standing close by.
+
+> close blinds
+You reach over the control panel and turn the rod until the blinds close.
+
+The control centre
+With the main light off and the blinds closed, only the dim glow of the emergency lighting coupled with the many coloured and flashing indicator lights allows you to see. The shadowy form of the chair stands before the control panel as always.
+
+Lisa is here, standing close by.
+
+> examine screen
+Two perpendicular fine white lines form a large cross hair on the screen. Markings along both the X and Y axes indicate longitude and latitude to within point zero one of an arc second.
+
+With the current low level of lighting, you can just make out the rapidly fading afterimage of an unusually large blob at precisely -171deg14'02.30" longitude and -23deg34'86.34" latitude.
+
+Watching you intently, Lisa points to the screen. "It's a whale, we get a lot of them out here."
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+> s
+The pool
+You are now back at the docking pool.
+
+> s
+The laboratory
+This laboratory is where you do the majority of your work here on the island. A long bench through the centre of the room stands covered with a variety of equipment including a large biological microscope and a device for creating freeze fracture slides from bacterial samples. A tall glass-doored refrigerator stands against the far wall.
+
+On the long bench is a GPS unit and a syringe.
+
+> take gps
+You take the GPS unit.
+
+> n
+The pool
+You are now back at the docking pool.
+
+> w
+The storage area
+A single incandescent bulb housed in a bare metal cage lights this stark room. Stacked wooden crates cover about two-thirds of the floor here, making movement difficult. In addition to the doorway to the east, there is a plain steel door to the west which is currently closed. A short hose for refilling scuba cylinder protrudes through the north wall.
+
+Perched on one of the stacked wooden crates is a scuba mask.
+
+A set of scuba fins lie nearby.
+
+Standing upright on the ground is a scuba cylinder.
+
+> turn tap
+You turn the tap on the scuba cylinder into the open position.
+
+> take gear
+You take the scuba mask.
+You take the scuba fins.
+You take the scuba cylinder.
+
+> wear them
+You put the scuba mask on.
+You put the scuba fins on.
+You heave the scuba cylinder over your shoulder and manage to contort yourself enough to slip your other arm through the strap. Once comfortable, you place the regulator in your mouth then begin to breathe normally.
+
+> e
+Shuffling backwards, you try your best not to trip over in the fins.
+
+The pool
+You are now back at the docking pool.
+
+> d
+You carefully descend the ladder into the water.
+
+The lagoon surface
+You are bobbing on the surface of the lagoon, surrounded by a circular wall. A stainless steel ladder runs up from here into the research outpost.
+
+> d
+Beneath the outpost
+You are floating in the warm waters of the lagoon. The white sandy floor can be seen below, dimmed by the shadow of the research outpost floating above. There is a stainless steel ladder within reach that leads up, out of the water.
+
+> n
+The lagoon bottom
+The floor of the lagoon is rockier here, gently rising to the south. To the north a sharp drop-off marks the threshold to the deeper seas of the open ocean.
+
+> n
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. To the south you can see the edge of a shelf running in between the two heads of the lagoon.
+
+> u
+The ocean surface
+You are floating on the surface of the ocean. To the south, in between the heads, you can enter the lagoon.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> nw
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out some distance to the south.
+
+> d
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. 
+
+> d
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight filters down from above giving the water an eerie blue glow. There is nothing but water to the limit of visibility in every direction.
+
+> d
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Filtered through the mass of water above your head, the sunlight here is noticeably subdued. There is nothing but water to the limit of visibility in every direction.
+
+> d
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Looking down, you can now begin to make out the sandy form of the ocean floor. 
+
+> d
+The rock formation
+A large rock formation breaks up the monotony of the ocean floor here. Water stretches out in every direction as far as the eye can see.
+
+Put on guard by the soft humming noise of an electric motor, you squat down behind the rock formation. Peering out and around, you see a group of four divers working to load several long steel canisters, neatly stacked on the ocean floor, into an unmarked submarine hovering nearby. The divers appear to be unaware of your presence.
+
+> z
+Time passes...
+
+As each canister is lined up with an opening in the aft end of the submarine, the divers slowly begin to slide it along a set of rollers until it disappears into the submarine's interior.
+
+> z
+Time passes...
+
+Sudden commotion near the submarine draws your attention back to it. It appears that one of the canisters has somehow come open while being loaded, spilling several small glass vials on to the ocean floor. Divers quickly scramble to recover them, then continue to finish loading the canister from which they came.
+
+> z
+Time passes...
+
+With the canisters now firmly in place, one of the divers closes the hatch to the submarine. Glancing around briefly, he turns then follows the other divers up through an opening in the submarine's base.
+
+> z
+Time passes...
+
+The submarine's propellers, previously turning slowly to counter the mild current, now spring to life. Its powerful spotlight sweeps past as it turns, forcing you to duck down further behind the rock formation in order to avoid being seen. Now facing roughly to the southeast, the submarine begins to move off, gently rising and increasing in speed as it goes.
+
+As the silt stirred up by the submarine's propellers begins to clear, a soft glint catches your eye. It would appear that one of the spilled vials, having up until now been covered by a layer of soft sand, has been inadvertently left behind.
+
+> take vial
+You take the small glass vial.
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+> u
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Looking down, you can now begin to make out the sandy form of the ocean floor. 
+
+> u
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Filtered through the mass of water above your head, the sunlight here is noticeably subdued. There is nothing but water to the limit of visibility in every direction.
+
+> u
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight filters down from above giving the water an eerie blue glow. There is nothing but water to the limit of visibility in every direction.
+
+> u
+Mid water
+With your buoyancy finely adjusted, you float effortlessly in mid water. A wide variety of marine life darts this way and that providing you with a show of unparalleled beauty. Sunlight dances brightly on the choppy surface of the water several metres above your head. 
+
+> u
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out some distance to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. The island can be made out not far to the south.
+
+> se
+The ocean surface
+You are floating on the surface of the ocean. To the south, in between the heads, you can enter the lagoon.
+
+> s
+The lagoon surface
+The red tropical sun warms your face pleasingly as you float on the surface of the lagoon. A small sandy beach stretches southward of the west head while the research outpost can be seen floating to the south.
+
+> d
+The lagoon bottom
+Once again, you are floating beneath the surface of the lagoon.
+
+> s
+Beneath the outpost
+You are floating in the water beneath the outpost.
+
+> u
+The lagoon surface
+You are, once again, floating on the surface of docking pool.
+
+> u
+With great effort you heave yourself up the ladder.
+
+The pool
+You are now back at the docking pool.
+
+> w
+Shuffling backwards, you try your best not to trip over in the fins.
+
+The storage area
+You are in the storage area again.
+
+> remove gear
+You remove the scuba mask.
+You remove the scuba fins.
+You are carrying too much to remove the scuba cylinder.
+
+> drop them
+You drop the scuba mask.
+You drop the scuba fins.
+Unfastening the cummerbund, you slip the scuba cylinder off your shoulder and begin to breathe fresh air again.
+You drop the scuba cylinder.
+
+> drop gps
+You drop the GPS unit.
+
+> e
+The pool
+You are now back at the docking pool.
+
+> e
+The common area
+You have returned to the common area.
+
+A simple wooden chair stands before the writing desk.
+
+> open drawer
+You open the desk drawer revealing your final report and a microcassette.
+
+> take report
+You reluctantly pick your report up again.
+
+> w
+The pool
+You are now back at the docking pool.
+
+> s
+The laboratory
+You have returned to the laboratory.
+
+> open fridge
+You open the specimen fridge revealing the first petri dish, the second petri dish and a conical flask.
+
+> take all from fridge
+You take the first petri dish.
+You take the second petri dish.
+You take the conical flask.
+
+> take syringe
+You take the syringe.
+
+> fill syringe from vial
+Puncturing the rubber membrane with the tip of the needle, you pull back on the plunger drawing the clear liquid into the syringe.
+
+> inject clear liquid in first dish
+You inject the clear liquid into the brown agar.
+
+> pour yellow liquid in first dish
+You pour a small amount of the pale yellow liquid on to the brown agar.
+
+> open compartment
+You open the compartment, which is empty.
+
+> put first dish in compartment
+You put the first petri dish in the compartment.
+
+> close compartment
+You close the compartment.
+
+> press button
+A gentle hissing noise is followed by an electric whirr, a rather alarming chunking sound, then a triumphant beep. Moments later a green slide pops out on to the work bench from an opening on the side of the device.
+
+> take green slide
+You take the green slide.
+
+> insert green slide in slot
+With a sharp click, the slide fits neatly into the slot in the base of the microscope.
+
+> look through microscope
+You look into the microscope's eye pieces, slightly adjusting the focusing control until the image becomes crisp.
+
+The fragmented cell wall and internal structure indicate that the Salmonella bacteria has died from a histidine deficiency. From this you conclude that the clear liquid does not act as a mutagen and is therefore unlikely to be the cause of the deaths observed in the local marine life. Some of the cells, however, appear larger with thicker cell walls indicating the onset of senescence. This is an odd phenomenon due to the short period of incubation and the rate at which death due to the absence of histidine would occur. In other words, the cells should have died long before they grew to appear this old.
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+> take green slide
+You take the green slide.
+
+> n
+The pool
+You are now back at the docking pool.
+
+> w
+The storage area
+You are in the storage area again.
+
+There is a scuba mask here.
+
+A set of scuba fins lie nearby.
+
+Standing upright on the ground is a scuba cylinder.
+
+There is a GPS unit here.
+
+> w
+Silently the door swings open.
+
+The floating walkway
+Keeping a wide stance to help stabilise yourself, you are standing on a floating walkway that leads from the research outpost in the east, to the shore of the lagoon in the west. The door leading into the outpost is open.
+
+> w
+The lagoon beach
+You are standing on a beach that lines the west shore of the lagoon. Further to the west, the afternoon sun filters through a wall of tall palms that lines the bank of a steeply rising hill. To the south the beach narrows, eventually becoming nothing more than a meandering trail that gradually disappears into the jungle. A long walkway leads east from here, out across the calm waters of the lagoon to where the research outpost floats.
+
+> s
+The trail
+You are on a narrow trail that winds its way north-south through the jungle. Weird and wonderful noises fill the air, some you recognise, some you don't.
+
+> s
+The trail winds its way through the jungle for several minutes before opening out at an estuary.
+
+The estuary
+The jungle thins and the trail fades as they approach the south shore of the island. Sparkling water flows down a sandy estuary from the northwest, bending to the south as it traverses the gentle slope towards the ocean. To the east lies the compound of the main military base.
+
+> nw
+The hill
+The side of this grassy hill affords a magnificent view of the south coast of the island. Much more hospitable than the shear cliffs of the north, the long white sandy beach has been a popular spot for fishing, swimming or just lying about in the warm tropical sun. Looking around, you almost didn't notice a small wooden shed, partially covered in camouflage netting, standing crooked on the north bank of the stream.
+
+> in
+The shed
+Many crooked shelves line the walls of this disused shed. Its door, long ago ripped from its hinges, lies flat on the floor beside a large red metal drum. The ground can be seen clearly beneath your feet through large gaps in the decaying floor boards.
+
+> look behind drum
+Looking around behind the drum, you notice there is another hole directly opposite to, and slightly lower than, the one on the front. As you step back to stand up straight again, the cause of the damage to the drum becomes evident. A bullet, firmly embedded in the base of the wall, lines up perfectly with the two holes.
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> out
+The hill
+Once again, you are standing on the grassy hill.
+
+> se
+The estuary
+You have arrived back at the estuary.
+
+> s
+The south beach
+Stretching out before the gently rolling waves of the Pacific Ocean, this beach is undoubtedly the most beautiful on the island. Fresh water from the surrounding hills flows down to meet the ocean here, digging deep grooves in the soft white sand. To the northeast, through a band of sparse costal bushes, you can make out the back of a large hangar.
+
+> ne
+Behind the hangar
+Scattered coastal bushes provide minimal cover from sight here behind the hangar. Up against the back wall of the hangar there is a rectangular crate.
+
+> turn crate
+Squeezing your fingers under the end of the crate, you manage to tip it up on to its end.
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> u
+On the crate
+You are standing on top of the rectangular crate with the ground six feet below. The back wall of the hangar stretches up another seven feet taller than the top of the crate.
+
+> u
+You jump up and hook your fingers over the edge of the guttering then pull yourself on to the roof.
+
+South end of roof
+You are near the south end of the hangar's roof, crouching down below the ridge line in order not to be seen.
+
+> n
+North end of roof
+You are near the north end of the hangar's roof, crouching down below the ridge line in order not to be seen. A square section of sheeting has been removed beside a ventilation pipe creating an opening large enough for you to pass through into the hangar's interior. A length of rope has one end tied to the ventilation pipe with the other dangling down through the opening.
+
+> d
+Cautiously, you lower yourself down the rope.
+
+North end of hanger
+This enormous space is sparsely furnished with a small writing desk and filing cabinet. The main door to the hangar stands to the north, beside which there is a smaller access door for people to come and go. What appears to be a large fish tank occupies the majority of the space to the south. Light streams in from above through a square opening in the roof. A length of rope dangles down through the opening.
+
+
+The moment your feet hit the ground, the sound of a gun cocking from behind makes you freeze. "Place your hands behind your head and stay facing forward," a calm male voice instructs.
+
+You obey.
+
+Footsteps echoing on the hard concrete floor approach slowly. A set of rough hands frisk you briefly, ripping your identification pass from your shirt.
+
+"Dr Alex Meadows," the tall middle aged man reads out loud as he turns you around to face him for the first time. "So what brings you here?"
+
+Nervously you shift your weight from one foot to the other, "I'm a scientist, working here on the island, a civilian. I just... I..."
+
+"I know who you are. I presume you..."
+
+The access door opening stops your assailant in mid-sentence as he spins around, leveling his pistol at the newcomer. Straining to see in the glare of the open doorway you are surprised, not to mention relieved, to see Lisa. Gun drawn, she back-heels the door closed again, never taking her eyes or aim off the stranger.
+
+"Drop your weapon," they both yell simultaneously, now standing face to face merely metres away from each other.
+
+"Take his gun, Alex," Lisa says to you, not breaking her gaze.
+
+"Don't do it, Dr Meadows," the stranger protests, "you don't know what's going on. I've been investigating Dr Zuckerman and his work for over a year. If I get turned in now, chances are it will have all been for nothing. He's an evil man, Alex. Don't help the military protect him any longer."
+
+> take lisa's gun
+Reluctantly you turn to Lisa and hold out your hand.
+
+"But Alex..." Lisa whispers softly, an expression of confusion coming over her face. Sensing your resolve, she places her pistol in your upturned palm.
+
+"You've done the right thing, Alex," the stranger says as he steps forward, taking the pistol from your hand then motioning for Lisa to kneel down on ground. Producing a roll of thick tape from his jacket, he tears off a short section and places it across Lisa's mouth. Forcing her hands around behind her back he proceeds to tape both wrists and ankles together. "The next question is: what am I going to do with you?" he muses, snapping you out of your horrified trance. "No matter what conclusion you arrive at in your investigation, Dr Meadows, the truth will never be known. You are under the employment of the military and your work will serve their purposes. Make no mistake, they will manufacture that reality. It is what they do."
+
+Satisfied that Lisa is now securely bound, he begins to search around the room. "If it's answers you want, Alex, you are going to have to trust me. Now help me search this place."
+
+"What for?" you reply, still trying to comprehend what has just happened.
+
+"Anything that will shed further light on the exact nature of Dr Zuckerman's experiments."
+
+> take out top drawer
+Pulling the drawer out to its extreme and then angling it upwards, you manage to remove the top drawer from its railing.
+
+> drop it
+You drop the top drawer.
+
+> take diary
+You take the diary.
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> tell stranger about green slide
+You tell the stranger about your discovery of the vial and your experiments regarding the clear liquid within it.
+
+As you do so the stranger's eyes light up. "Your tests appear to confirm our findings," the stranger says as he rubs his chin thoughtfully. "You see, several of Dr Zuckerman's experiments involved involuntary human subjects, two of which we were fortunate enough to have the opportunity to interview. Although neither could remember anything of the tests themselves, both showed signs of accelerated aging."
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> show diary to stranger
+The stranger begins to laugh. Unable to grasp the exact nature of the joke you can but wait. "That stupid bastard," he blurts finally. "All this time he's been looked after by the military. Top security consultants whisking him here and there as though he doesn't exist, and now, not only does he go to a public conference, but he writes it down in his diary. For a brilliant man, he's not very bright." Lowering his voice, the stranger continues with a more subdued tone, "That is if it isn't just a set up, of course."
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+After a lengthy pause, the stranger turns and looks you directly in in the eye. "How would you feel about going to this conference? I mean, it makes perfect sense. If there is anyone who can make contact with Zuckerman and extract the necessary information from him, it's you. We can put a couple of agents on the inside to support you, but he would never confide in them. He is highly contemptuous of anyone outside the scientific community."
+
+"I don't know," you reply warily. As appealing as the idea of an undercover assignment at a conference in Monte Carlo is, you are, after all, just a scientist and it might be dangerous.
+
+"The fact that you are a scientist is exactly why we need you," the stranger interjects, making you aware of the fact that you had been thinking out loud. "Go and submit your final report as normal. Wise will then have you flown out to the mainland where one of our operatives will rendezvous with you. He will then escort you to Monte Carlo, where you will be briefed as to what we will require. We need you, Alex. The truth needs you."
+
+> u
+North end of roof
+You are crouching down at the north end of the hangar's roof.
+
+> s
+South end of roof
+You are crouching down at the south end of the hangar's roof.
+
+> d
+On the crate
+You are standing on the crate.
+
+> d
+Behind the hangar
+You are behind the hangar again.
+
+> sw
+The south beach
+You are again at the south beach.
+
+> n
+The estuary
+You have arrived back at the estuary.
+
+> e
+The compound
+The compound is a reasonably low-key affair, nothing more than a large cleared area of bare earth. A small hut to the north serves as the CO's office while a large hangar stands to the south. The majority of the base lies further to the east.
+
+A burly MP stands guard at the door to the hangar.
+
+> n
+Colonel Wise's office
+Leaning back in his chair, feet on his desk and hands behind his head, is Colonel Wise. Many years older now than in the black-and-white photographs that adorn the walls, he is obviously a man of great experience. The blades of a slowly turning ceiling fan cut through the golden rays of the afternoon sun casting flickering shadows across the floor.
+
+"I had been expecting you a lot sooner than this," Colonel Wise grumbles as you enter. "There's a helicopter leaving for the mainland this evening," he continues after a moment's pause, strategically weighted to make you feel as uneasy as possible. "Under no circumstances do I want to go to sleep tonight without your report on my desk and your butt on that helicopter. Understood?"
+
+> give report to wise
+Colonel Wise grabs the report from your hand. Leaning forward, he places it onto his desk and begins to skim through its contents. After a moment of awkward silence he places the report into one of his desk drawers then leans back into his chair again.
+
+"Fine," Colonel Wise remarks blandly with an obvious expression of relief on his face. Picking up the telephone he calls through to the transport division and after a brief conversation informs you that your flight back to the mainland will be leaving on the hour.
+
+Walking back to the outpost, you collect what few possessions you brought with you then head out to the helicopter pad. A few hurried signatures on the regulation paper work and you are soon in the air flying rapidly across the warm tropical waters of the Pacific Ocean.
+[MORE]
+
+
+
+HONG KONG INTERNATIONAL AIRPORT
+TUESDAY 6:27 AM
+
+
+A long and bumpy flight sees you arrive in Hong Kong feeling tired and sore. Stumbling across the tarmac, you start to consider the fact that you have absolutely no idea where to meet your contact. This thought is soon driven from your mind, however, by the sight of two tall men in dark grey suits standing before you.
+
+"Dr Alex Meadows?" one of the men asks.
+
+"Yes," you reply with a weary and nervous nod.
+
+"This is agent Petrescu," the man continues, leading you towards the main airport terminal, "and I am agent Hughes." Reaching into his jacket he pulls out a plane ticket and hands it to you. "We have a connecting flight leaving for France in fifteen minutes. A change of clothes has been arranged."
+
+Excited as you are about your adventure ahead, if no one was looking, you would cry.
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+[MORE]
+
+
+
+OUTSIDE HOTEL LES TERRASSES D'EZE, MONTE CARLO, MONACO
+WEDNESDAY 8:15 PM
+
+The van
+You are in the back of a large white van with all manner of monitoring equipment lining the walls. A closed, windowless sliding door to the east is the only exit from the vehicle.
+
+Agent Hughes is sitting here, wearing a set of headphones.
+
+Agent Petrescu is standing stooped in the van.
+
+"The jacket you are wearing, Dr Meadows, has a small microphone and transmitter sewn into the lining," Agent Petrescu says as he steps back to admire the fit. "Agent Hughes will be monitoring and recording everything from here in the van and will prompt you as necessary through the use of this miniature ear piece."
+
+Taking the ear piece from Agent Petrescu's hand you place it in your ear.
+
+> open door
+You open the sliding door.
+
+"Can you hear me, Dr Meadows?" you hear Agent Hughes's voice ask, emanating from the ear piece.
+
+"Yes. Clearly," you reply with a nod.
+
+"Good," Agent Petrescu continues. "The conference is strictly by invitation only, so be sure to make your entrance discreet. Remember, the reason you are here is to relate to Dr Zuckerman as a fellow scientist. Once you have made contact, try to get him talking about his project. When we have enough information, we will radio two undercover agents on the inside to make the arrest. Oh yeah, and good luck."
+
+> e
+The street
+Light from the street lamps is softened by a dense fog that is slowly beginning to roll in. To the south you can see down the steep rocky cliffs out across the Mediterranean Sea. To the west, parked against the curb, is a white Mercedes van while the Hotel Les Terrasses d'Eze lies across the road to the north. The sliding door to the van is currently open.
+
+> n
+The driveway
+Several uniformed men stand here escorting hotel guests from their cars into the brightly lit lobby to the north. Valet parking attendants briskly dispatch each private vehicle to the hotel's underground car park while an endless stream of hire cars come and go at a chaotic rate.
+
+> n
+As you approach the front doors of the hotel, one of the uniformed men opens them and bids you a good evening.
+
+The lobby
+Tall marble pillars stretch from the polished floor to the ceiling several stories above your head. Ahead of you to the northeast and northwest, wide stairs turn a half circle from each side of the room, leading up to the mezzanine level. Directly north, in between the stairs, you can see the lifts. Light from an elaborate chandelier reflects brightly off the gold leaf trimmings that edge banisters and floor tiles. To the east several hotel guests are milling around the concierge desk while a dimly lit piano bar can be entered to the west.
+
+An A-frame sign stands to one side.
+
+> w
+The bar
+Behind the bar, rows of bottles of all shapes and sizes line the narrow glass shelves. Coloured fluorescent light reflects off the bottles and the mirrored wall behind them, filling your eyes with a dazzling display. Many round tables are surrounded by guests talking loudly. To the south you can enter a sunken lounge area.
+
+Behind the bar, wearing a neatly pressed dinner suit, is a cocktail waiter.
+
+> s
+The lounge
+Dimly lit compared to the main bar, this area is also noticeably quieter. Low rectangular tables squat before comfortable leather chairs. A young lady, sitting at a black baby grand piano, is currently playing "Who Wants to Live Forever". Large ceiling to floor windows afford a view out across the street to the south, softened by the light drizzle and fog.
+
+Sitting at one of the tables is an elderly man.
+
+A younger man is sitting with the elderly man, listening intently.
+
+Standing by the table at which the men are seated is a waitress.
+
+The waitress takes two drinks from a tray that she is holding and places them onto the table occupied by the men. Thanking the waitress, the elderly man takes a credit card from his wallet and places it on the now empty tray. With a brief smile, the waitress heads off to the north.
+
+> listen to elderly man
+The elderly man is telling the younger man how a friend of his, Ruud Gullit, is attending the conference upstairs tonight.
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> n
+The bar
+You have arrived back at the bar.
+
+Behind the bar, wearing a neatly pressed dinner suit, is a cocktail waiter.
+
+There is a waitress wandering about here taking peoples' orders.
+
+> examine card
+You walk up beside the waitress, pretending to look across the room, then glance down at the credit card on her tray. It is an American Express Gold Card with the name "G. Zola" on it.
+
+[YOUR SCORE JUST WENT UP BY 5 POINTS]
+
+> e
+The lobby
+You have arrived back at the hotel lobby.
+
+An A-frame sign stands to one side.
+
+> e
+The concierge desk
+Several hotel guests are standing here before a long curved counter, carefully keeping an eye on their luggage. A set of wooden pigeon holes line the far wall.
+
+A single concierge stands behind the counter.
+
+> page ruud
+"And who shall I say is paging?" the concierge enquires.
+
+> zola
+"One moment..." the concierge says as he picks up the telephone.
+After a few brief words, he hangs the phone up again and turns back to you. "Monsieur Gullit will be down shortly."
+
+> w
+The lobby
+You have arrived back at the hotel lobby.
+
+An A-frame sign stands to one side.
+
+> n
+The ground floor
+You are on the ground floor standing outside a lift. There is a call button beside the lift door and a mirror on the wall to your left. Beneath the mirror there is an ornate side table. The hotel lobby can be seen to the south.
+
+> press call
+A crisp-sounding bell rings briefly and the doors to the lift slide open.
+
+> n
+The elevator
+The lift is about three metres square and every bit as opulent as the rest of the hotel. There is a panel of buttons on the wall directly beneath a small metal plaque. The door to the south is currently open, and there is the usual panel of buttons beside it.
+
+> z
+Time passes...
+
+The lift doors slide closed.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The lift vibrates as it slowly ascends.
+
+> z
+Time passes...
+
+The lift vibrates as it slowly ascends.
+
+> z
+Time passes...
+
+The lift vibrates as it slowly ascends.
+
+> z
+Time passes...
+
+Having arrived at the selected floor, the lift gently comes to a halt and the doors open.
+
+A well dressed gentleman with dreadlocks enters the lift from outside and presses the button for the ground floor.
+
+> s
+The third floor
+You are on the third floor standing outside the lift. As with all the other floors, there is a call button on the north wall. South leads to a large conference room.
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+> s
+As you leave the lift area, you are overwhelmed by the sound of applause errupting from within the conference room.
+
+The conference room
+The conference room is filled with over a hundred guests. Seated in groups of four or five to a table, they sit facing towards a lectern at the south end of the room. Behind the lectern, a dark maroon curtain runs the entire width of the room, ending at a doorway in the southwest corner.
+
+"Our next speaker will not be for several minutes ladies and gentlemen, so please relax and enjoy yourselves. Tea and coffee will be served shortly along with your choice of dessert from the menu," a distinguished-looking gentlemen says from behind the lectern, before taking his seat at a table near the front.
+
+> sw
+Looking around to make sure no one is looking, you slip through the doorway.
+The backstage area
+You are in a north-south hallway which runs along the west side of the conference room. The conference room can be entered through a doorway to the east while there are closed doors to the west and south.
+
+> open south door
+You gently open the door.
+
+> s
+Dr Zuckerman's office
+Furnished in fine leather and mahogany, this dimly lit office has a refined feel to it. The rain, now falling harder than before, beats against an ornately framed window in the south wall. The entire east wall is given over to a bookcase before which stands a desk, large enough to endow anyone sitting behind it with an air of authority.
+
+Standing with his back to you, staring out the window, is Dr Zuckerman.
+
+"Dr Alex Meadows," Dr Zuckerman says without looking away from the window. "I would have been disappointed if you hadn't come," he continues, slowly turning around to face you. "It was me who had you called to the base you know. Colonel Wise was against the idea, of course, but in the end I managed to convince him that the findings of a civilian would be more widely accepted by the public. He insisted that an informed officer be permanently assigned to keep an eye on you and make sure that your findings were those we wanted them to be."
+
+Pausing for a while, Dr Zuckerman's face softens slightly. "But, somewhere deep inside, I hoped that you would discover the truth -- that you would come and end the loneliness of my work. I do hope my faith in you and your reputation was not misplaced."
+
+> tell zuckerman about submarine
+Dr Zuckerman laughs. You are resourceful Dr Meadows! "Most of the logistics I left to the military. They seem to thrive on petty tasks like delivery."
+
+> ask zuckerman about vial
+"The clear liquid you are referring to has one amazing property. It has the ability to efficiently conduct the energy that is the very essence of life. The Chinese studied it over two millennia ago, calling it congenital or prenatal jing. They discovered that everybody has a finite amount of this energy to conserve or to squander. Everybody except me that is." Taking a moment to bask in the glory of his achievement, Dr Zuckerman finally continues, "I have an unlimited supply, and that is the key to immortality."
+
+> tell zuckerman about green slide
+Dr Zuckerman listens patiently while you explain to him the tests that you have performed on the clear liquid.
+"You have been very thorough, Dr Meadows, although I would have expected nothing less," Dr Zuckerman begins in reply. "When an organism is placed in contact with the clear liquid, its life force is sapped at an amazing rate. Without following the correct procedure, however, this energy will only dissipate to be lost forever."
+
+"Ask him about the project, about the human tests," Agent Hughes voice says, emanating from the ear piece.
+
+> ask zuckerman about project
+"Most of my work on the island revolved around marine tests using a large fish tank in a hangar on the south side of the island. It was careless management by the military of the waste from those experiments that led to the original deaths of marine life in the waters surrounding the island, not the Rotenone."
+
+> ask zuckerman about experiment
+Glancing at you briefly, Dr Zuckerman walks across the room and closes the door. "All great advances demand sacrifice," Dr Zuckerman says sombrely. "All the people who were used in the tests were volunteers, terminally ill people who had their chance to make a difference before they died. If a person dies of old age, their energy is depleted. But a young person who is dying of some incurable disease, now that is a different thing altogether. Everyday people willingly sign organ donor cards so that they can have the chance to help someone else live. The only difference with my work is that energy must be donated immediately prior to death, not after, but when death is imminent anyway..." Gazing out the window for a moment, Dr Zuckerman eventually turns back around and stares you straight in the eye, "I don't want to die, Dr Meadows. All my life I have searched for the secret of immortality, the elixir of life, and now I have found it. Some call me mad, some immoral, but when the time comes, they too will choose their life over that of another. I am a firm believer in survival of the fittest. I have simply perfected what nature began, and for that I make no excuses. Think about it, Alex, it's analogous to discovering the Holy Grail."
+   "The Unholy Grail don't you mean," you interject sternly.
+   "That's all we needed to hear," Agent Hughes' voice says, emanating from the ear piece. "Hold tight and we'll radio for our inside Agents to make the arrest."
+   "Come on, Dr Meadows, you and I are..." Dr Zuckerman continues, stopping at the sound of footsteps running down the hallway.
+   Neither you or Dr Zuckerman have the chance to react before a man and a woman burst into the room, guns drawn. The woman begins to read Dr Zuckerman his rights while the man keeps his gun trained on him.
+   Obviously shocked, Dr Zuckerman turns to you. "I was a fool to have trusted you," he says solemnly. "I thought you would have taken the side of science, but I was wrong. All the work that I have done will have been for nothing now, all because people are unable to accept that for something to live, something else must die. It may be against the law of man, but not the law of nature."
+   His hands now forced behind his back, Dr Zuckerman is placed into handcuffs then led out of the room.
+   "You've done well, Dr Meadows," the man says to you. "If you will follow me I will take you back to the office where we can begin your debriefing."
+
+
+[YOUR SCORE JUST WENT UP BY 10 POINTS]
+
+
+[MORE]
+
+
+Your score is 100% in 136 moves.
+So far, you have scored:
+    10 points for seeing the blob on the radar screen
+    10 points for viewing the green slide through the microscope
+    10 points for taking the small glass vial
+     5 points for up-ending the crate behind the hangar
+     5 points for telling the stranger about the green slide
+     5 points for taking the diary
+    10 points for showing the diary to the stranger
+     5 points for finding the bullet behind the drum
+    10 points for arriving in Monte Carlo
+     5 points for finding out the elderly man's name
+     5 points for finding out the name of a conference guest
+    10 points for getting to the third floor
+    10 points for helping to arrest Dr Zuckerman
+
+Your score is 100% in 136 moves.
+
+Game Over
+The game is over. Type undo, restart or restore followed by a filename, or quit.
+
+> quit
+Are you sure you want to quit?
+
+Please enter "yes" or "no": y
+
+Your score is 100% in 136 moves.

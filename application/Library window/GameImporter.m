@@ -227,6 +227,12 @@ extern NSArray *gGameFileTypes;
     if (![gGameFileTypes containsObject:extension])
     {
         if (report) {
+            if ([extension isEqualToString:@"ifiction"]) {
+                [_libController waitToReportMetadataImport];
+                [_libController importMetadataFromFile:path inContext:context];
+                return nil;
+            }
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);

@@ -10,16 +10,25 @@
 
 @class Metadata, Image, NonInterpolatedImage;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface InfoView : NSView
 
 @property (readonly) NonInterpolatedImage *imageView;
 
 @property (strong) NSData *imageData;
 
-@property NSAttributedString *starString;
-
+@property NSTextField *leftDateView;
+@property NSTextField *rightDateView;
 
 - (void)updateWithMetadata:(Metadata *)somedata;
+- (void)updateWithDictionary:(NSDictionary *)metadict;
+
 - (void)updateWithImage:(Image *)image;
++ (nullable NSAttributedString *)starString:(NSInteger)rating alignment:(NSTextAlignment)alignment;
++ (NSString *)formattedStringFromDate:(NSDate *)date;
++ (NSView *)addTopConstraintsToView:(NSView *)view;
 
 @end
+
+NS_ASSUME_NONNULL_END
