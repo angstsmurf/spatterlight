@@ -85,8 +85,8 @@
     self = [super init];
     if (self) {
     _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
-    _length = (size_t)[decoder decodeIntForKey:@"length"];
-    _offset = (size_t)[decoder decodeIntForKey:@"offset"];
+    _length = (size_t)[decoder decodeIntegerForKey:@"length"];
+    _offset = (size_t)[decoder decodeIntegerForKey:@"offset"];
     }
     return self;
 }
