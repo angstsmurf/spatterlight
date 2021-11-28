@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,6 @@
                 <outlet property="gameTableView" destination="136" id="175"/>
                 <outlet property="headerMenu" destination="102" id="109"/>
                 <outlet property="importProgressPanel" destination="41" id="54"/>
-                <outlet property="infoButton" destination="129" id="173"/>
                 <outlet property="leftScrollView" destination="165" id="172"/>
                 <outlet property="leftView" destination="125" id="169"/>
                 <outlet property="leftViewConstraint" destination="510" id="523"/>
@@ -45,7 +44,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="117" y="394" width="739" height="285"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
@@ -55,29 +54,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
                         <subviews>
                             <customView identifier="splitViewLeft" verticalHuggingPriority="590" horizontalCompressionResistancePriority="500" id="125" userLabel="Left View">
-                                <rect key="frame" x="0.0" y="0.0" width="181" height="285"/>
+                                <rect key="frame" x="0.0" y="0.0" width="182" height="285"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textField identifier="SideIfid" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="163" userLabel="Side ifid">
-                                        <rect key="frame" x="4" y="5" width="173" height="12"/>
+                                        <rect key="frame" x="4" y="5" width="174" height="12"/>
                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" sendsActionOnEndEditing="YES" state="on" alignment="center" identifier="SIdeIfidCell" usesSingleLineMode="YES" id="164">
                                             <font key="font" metaFont="miniSystem"/>
                                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <scrollView identifier="LeftInfoScrollview" horizontalCompressionResistancePriority="993" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="165" userLabel="Left Info Scrollview">
-                                        <rect key="frame" x="0.0" y="23" width="181" height="262"/>
+                                    <scrollView identifier="LeftInfoScrollview" horizontalCompressionResistancePriority="993" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="165" userLabel="Left Info Scrollview">
+                                        <rect key="frame" x="0.0" y="23" width="182" height="262"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="AVS-Py-Fgl">
-                                            <rect key="frame" x="0.0" y="0.0" width="181" height="262"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="182" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView identifier="LeftInfoView" editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="166" userLabel="Left Info">
-                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="262"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="182" height="262"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="181" height="262"/>
+                                                    <size key="minSize" width="182" height="262"/>
                                                     <size key="maxSize" width="463" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -109,17 +108,17 @@
                                 </constraints>
                             </customView>
                             <view identifier="splitViewRight" horizontalCompressionResistancePriority="1000" id="127" userLabel="Right View">
-                                <rect key="frame" x="182" y="0.0" width="557" height="285"/>
+                                <rect key="frame" x="183" y="0.0" width="556" height="285"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView horizontalCompressionResistancePriority="310" borderType="none" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="132">
-                                        <rect key="frame" x="0.0" y="39" width="557" height="247"/>
+                                        <rect key="frame" x="0.0" y="39" width="556" height="247"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="oBw-bf-FfU">
-                                            <rect key="frame" x="0.0" y="0.0" width="557" height="247"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="556" height="247"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="133" id="136" customClass="LibHelperTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="557" height="222"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="222"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +136,7 @@
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </tableColumn>
-                                                        <tableColumn identifier="title" width="220" minWidth="75" maxWidth="700" id="140">
+                                                        <tableColumn identifier="title" width="219" minWidth="75" maxWidth="700" id="140">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -338,15 +337,15 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="486"/>
                                         </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="134">
-                                            <rect key="frame" x="0.0" y="231" width="557" height="16"/>
+                                            <rect key="frame" x="0.0" y="231" width="556" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="135">
-                                            <rect key="frame" x="584" y="17" width="15" height="213"/>
+                                            <rect key="frame" x="467" y="25" width="16" height="3"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" wantsLayer="YES" id="133">
-                                            <rect key="frame" x="0.0" y="0.0" width="557" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="556" height="25"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <connections>
                                                 <outlet property="menu" destination="102" id="160"/>
@@ -354,7 +353,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <searchField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="131">
-                                        <rect key="frame" x="349" y="9" width="196" height="22"/>
+                                        <rect key="frame" x="348" y="9" width="196" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="100" id="303"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" priority="56" constant="282" id="405"/>
@@ -371,42 +370,48 @@
                                         </connections>
                                     </searchField>
                                     <button toolTip="Add games to library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
-                                        <rect key="frame" x="18" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="43" y="8" width="30" height="23"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="301"/>
-                                            <constraint firstAttribute="height" constant="22" id="424"/>
+                                            <constraint firstAttribute="height" constant="22" id="XWn-7m-9aY"/>
+                                            <constraint firstAttribute="width" constant="30" id="nOn-hH-0ck"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="150">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="cellTitle"/>
-                                            <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
+                                        <buttonCell key="cell" type="recessed" title="Add" bezelStyle="recessed" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="150">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                         </buttonCell>
                                         <accessibility description="Add games to library"/>
                                         <connections>
                                             <action selector="addGamesToLibrary:" target="-1" id="156"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                                        <rect key="frame" x="56" y="8" width="30" height="23"/>
-                                        <buttonCell key="cell" type="roundRect" title="Info" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="151">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="cellTitle"/>
-                                            <imageReference key="image" image="eye.fill" catalog="system" symbolScale="medium"/>
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
+                                        <rect key="frame" x="326" y="12" width="16" height="16"/>
+                                    </progressIndicator>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-fO-t6w" userLabel="Toggle sidebar">
+                                        <rect key="frame" x="5" y="8" width="30" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Rnp-LT-vkn"/>
+                                            <constraint firstAttribute="height" constant="22" id="u6T-VA-gtP"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="recessed" title="Textured Rounded" bezelStyle="recessed" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="QL2-PS-UOw">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <imageReference key="image" image="sidebar.left" catalog="system" symbolScale="large"/>
                                         </buttonCell>
-                                        <accessibility description="Show info for selected game"/>
                                         <connections>
-                                            <action selector="showGameInfo:" target="-1" id="154"/>
+                                            <action selector="myToggleSidebar:" target="-2" id="fYg-Mv-okT"/>
                                         </connections>
                                     </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
-                                        <rect key="frame" x="327" y="12" width="16" height="16"/>
-                                    </progressIndicator>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="94" y="8" width="30" height="23"/>
-                                        <buttonCell key="cell" type="roundRect" title="Play" bezelStyle="roundedRect" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="152">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="cellTitle"/>
-                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="medium"/>
+                                        <rect key="frame" x="81" y="8" width="24" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="Vcz-Bh-mry"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="recessed" title="Play" bezelStyle="recessed" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                         </buttonCell>
                                         <accessibility description="Play selected game"/>
                                         <connections>
@@ -415,26 +420,23 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="128" firstAttribute="leading" secondItem="129" secondAttribute="trailing" constant="8" symbolic="YES" id="310"/>
-                                    <constraint firstItem="129" firstAttribute="baseline" secondItem="130" secondAttribute="baseline" id="311"/>
-                                    <constraint firstItem="130" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="18" id="312"/>
-                                    <constraint firstItem="129" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="313"/>
-                                    <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" priority="999" constant="8" symbolic="YES" id="314"/>
                                     <constraint firstItem="132" firstAttribute="leading" secondItem="127" secondAttribute="leading" priority="999" id="318"/>
                                     <constraint firstAttribute="trailing" secondItem="132" secondAttribute="trailing" priority="999" id="320"/>
-                                    <constraint firstItem="128" firstAttribute="baseline" secondItem="129" secondAttribute="baseline" id="323"/>
                                     <constraint firstItem="132" firstAttribute="top" secondItem="127" secondAttribute="top" constant="-1" id="324"/>
-                                    <constraint firstItem="129" firstAttribute="width" secondItem="128" secondAttribute="width" id="350"/>
-                                    <constraint firstItem="129" firstAttribute="width" secondItem="130" secondAttribute="width" id="351"/>
-                                    <constraint firstItem="128" firstAttribute="height" secondItem="130" secondAttribute="height" id="394"/>
-                                    <constraint firstItem="128" firstAttribute="height" secondItem="129" secondAttribute="height" id="395"/>
-                                    <constraint firstItem="131" firstAttribute="height" secondItem="128" secondAttribute="height" id="396"/>
-                                    <constraint firstItem="131" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="398"/>
-                                    <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="9" id="423"/>
                                     <constraint firstItem="445" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="128" secondAttribute="trailing" priority="533" constant="8" symbolic="YES" id="502"/>
                                     <constraint firstAttribute="trailing" secondItem="131" secondAttribute="trailing" constant="12" id="536"/>
                                     <constraint firstItem="131" firstAttribute="leading" secondItem="445" secondAttribute="trailing" constant="6" id="542"/>
-                                    <constraint firstItem="445" firstAttribute="centerY" secondItem="128" secondAttribute="centerY" id="544"/>
+                                    <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="9" id="AA8-mk-hoQ"/>
+                                    <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxj-t2-2dU"/>
+                                    <constraint firstItem="128" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="UE8-Vn-hLj"/>
+                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbg-c1-bfl"/>
+                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="5" id="aIu-1x-TV7"/>
+                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="c9b-Rr-rDd"/>
+                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="gVR-sd-ES7"/>
+                                    <constraint firstItem="131" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-qU-nZJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="2QV-fO-t6w" secondAttribute="bottom" constant="9" id="nHL-hU-KHd"/>
+                                    <constraint firstItem="128" firstAttribute="centerY" secondItem="445" secondAttribute="centerY" id="pdz-G6-T7e"/>
+                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="width" secondItem="130" secondAttribute="width" id="xgA-Zz-ytI"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -457,13 +459,13 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="18"/>
             </connections>
-            <point key="canvasLocation" x="39" y="115"/>
+            <point key="canvasLocation" x="-46.5" y="113.5"/>
         </window>
         <window title="Importing" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="41" userLabel="Import Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="234" y="498" width="200" height="56"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="200" height="44"/>
             <value key="maxSize" type="size" width="400" height="94"/>
             <view key="contentView" id="42">
@@ -485,7 +487,7 @@
                     <constraint firstItem="43" firstAttribute="leading" secondItem="42" secondAttribute="leading" constant="20" symbolic="YES" id="327"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-263" y="469"/>
+            <point key="canvasLocation" x="-215" y="394"/>
         </window>
         <customView id="47" userLabel="Export View">
             <rect key="frame" x="0.0" y="0.0" width="404" height="42"/>
@@ -741,7 +743,7 @@ CA
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" id="o2b-1B-MTS">
-                    <rect key="frame" x="-2" y="-1" width="229" height="26"/>
+                    <rect key="frame" x="-2" y="3" width="229" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Look for cover image files (slow)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cBJ-mC-h3Z">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -749,7 +751,7 @@ CA
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" id="UAu-31-ibL">
-                    <rect key="frame" x="243" y="-1" width="204" height="26"/>
+                    <rect key="frame" x="243" y="3" width="204" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Download game info (slower)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Qqu-br-SBk">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -757,7 +759,7 @@ CA
                     </buttonCell>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-63" y="-325"/>
+            <point key="canvasLocation" x="-52" y="-288"/>
         </customView>
         <customView id="tjJ-bc-Jr2" userLabel="Verify View">
             <rect key="frame" x="0.0" y="0.0" width="311" height="72"/>
@@ -807,8 +809,8 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="eye.fill" catalog="system" width="21" height="13"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
-        <image name="plus" catalog="system" width="14" height="13"/>
+        <image name="play.fill" catalog="system" width="14" height="16"/>
+        <image name="plus" catalog="system" width="17" height="16"/>
+        <image name="sidebar.left" catalog="system" width="23" height="17"/>
     </resources>
 </document>
