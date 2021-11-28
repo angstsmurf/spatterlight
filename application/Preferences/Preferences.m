@@ -741,9 +741,7 @@ NSString *fontToString(NSFont *font) {
     if (!_previewUpdatePending) {
         Preferences * __weak weakSelf = self;
         _previewUpdatePending = YES;
-        double delayInSeconds = 0.2;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             weakSelf.previewUpdatePending = NO;
             [weakSelf adjustPreview:nil];
         });

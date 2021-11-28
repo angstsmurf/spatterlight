@@ -240,11 +240,9 @@ PasteboardFilePasteLocation;
             // here in order to make it less likely
             // that a game opens in fullscreen and then
             // switches to the library window
-            double delayInSeconds = 0.3;
             void(^completionHandlerCopy)(NSWindow *, NSError *);
             completionHandlerCopy = completionHandler;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                 completionHandlerCopy(window, nil);
             });
 
@@ -365,9 +363,7 @@ PasteboardFilePasteLocation;
     } else {
         NSWindow __block *win = [_libctl importAndPlayGame:path];
         if (win && !((GlkController *)win.delegate).showingDialog) {
-            double delayInSeconds = 1;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                 [win orderFront:nil];
             });
         }
@@ -580,9 +576,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    double delayInSeconds = 0.4;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         NSApplication *app = (NSApplication *)notification.object;
         BOOL visibleWindows = NO;
         for (NSWindow *win in app.windows)

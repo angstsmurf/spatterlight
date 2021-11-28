@@ -187,10 +187,7 @@
 
         [glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
 
-        double delayInSeconds = 0.3;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
                 context.duration = 0.3;
@@ -315,9 +312,7 @@
 - (void)showLogoAndFade {
     [_glkctl forkInterpreterTask];
     CoverImageView __block *imageView;
-    double delayInSeconds = 0.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 
         NSWindow *fadeWindow = [self fadeWindow];
 
@@ -364,9 +359,7 @@
 
         GlkController *blockController = self.glkctl;
 
-        double delayInSeconds2 = 4;
-        dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds2 * NSEC_PER_SEC));
-        dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [fadeWindow orderOut:nil];
             // Why do these need to be reset here?
             blockController.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;

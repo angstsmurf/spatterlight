@@ -605,9 +605,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     LibController * __weak weakSelf = self;
 
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
