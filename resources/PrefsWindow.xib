@@ -573,23 +573,23 @@
                                             </connections>
                                         </colorWell>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="gKd-OR-Adp" userLabel="Show Paragraph Popover">
-                                            <rect key="frame" x="403" y="97" width="20" height="31.5"/>
+                                            <rect key="frame" x="402" y="97" width="16" height="32"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">Show more paragraph settings. Some of these may be overridden by game style hints unless the Games can set styles option is off. Most of these won't work well in grid windows.</string>
                                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSActionTemplate" imagePosition="only" alignment="center" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="1lI-6F-dkA">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="cellTitle"/>
+                                                <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="showParagraphPopOver:" target="-2" id="QD1-Jk-ocO"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Show separate horizontal and vertical margin settings." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8q-Zi-yu2" userLabel="Show Margin Popover Button">
-                                            <rect key="frame" x="446" y="177" width="18" height="28.5"/>
+                                            <rect key="frame" x="445" y="177" width="16" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSActionTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" id="xvQ-Jb-wZA">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
+                                                <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="showMarginPopover:" target="-2" id="Mk0-Pb-jGp"/>
