@@ -1,5 +1,13 @@
 # Change log
 
+## Unrelease
+- Improves animation of game info windows
+- Adds a side bar toggle button to the library window
+- Removes the info view button from the library window. The side view partially replaces the info windows, and the interface is cleaner without too many buttons. Info windows can still be opened by pressing the space bar. If you were using the info button and miss it, please let me know!
+- The animations shown when entering fullscreen should flicker less
+- When starting in fullscreen with a cover image in "show and wait for key" mode, the game text view could be too narrow
+- When Spatterlight was force-quit or crashed and then restarted, some autorestored games could have a too-narrow text view
+
 ## Release 0.9.0
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
 - Core Data concurrency fixes should improve speed and stability when importing games and downloading metadata in the background
