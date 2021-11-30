@@ -145,6 +145,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         scrollview.documentView = _textview;
         scrollview.contentView.copiesOnScroll = YES;
+        scrollview.verticalScrollElasticity = NSScrollElasticityNone;
 
         /* now configure the text stuff */
 
@@ -1891,8 +1892,6 @@ replacementString:(id)repl {
 
     //    NSLog(@"lastScrollOffset: %f", lastScrollOffset);
     //    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferCellHeight) * 100);
-
-
 }
 
 - (void)restoreScroll:(id)sender {
