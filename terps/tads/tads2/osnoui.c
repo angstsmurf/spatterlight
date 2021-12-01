@@ -35,7 +35,7 @@ Modified
 #include <sys/stat.h>
 
 #ifdef T_WIN32
-#include <Windows.h>
+#include <windows.h>
 #include <direct.h>
 #endif
 
@@ -1033,11 +1033,7 @@ int os_locate(const char *fname, int flen, const char *arg0,
 # define fname_memcmp memcmp
 #endif
 
-#ifdef GARGOYLE
-#  define fname_memcmp memcmp
-#endif
-
-#ifdef SPATTERLIGHT
+#if (defined(GARGOYLE) || defined(SPATTERLIGHT)) && !defined(fname_memcmp)
 #  define fname_memcmp memcmp
 #endif
 

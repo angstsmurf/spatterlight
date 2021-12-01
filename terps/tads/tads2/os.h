@@ -86,14 +86,14 @@ extern "C" {
  *   Intel x86 processors - 32-bit
  */
 #ifdef _M_IX86
-#include "h_ix86.h"
+#include "h_le_c11.h"
 #endif
 
 /*
  *   Intel x86 processors - 64-bit 
  */
 #ifdef _M_IX86_64
-#include "h_ix86_64.h"
+#include "h_le_c11.h"
 #endif
 
 /*
