@@ -146,8 +146,12 @@ fprintf(stderr, "%s\n",                                                    \
     [super windowDidLoad];
     if (@available(macOS 12, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
+    } else if (@available(macOS 11, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowBigSur"];
     } else if (@available(macOS 10.13, *)) {
-        self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
+            self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
+    } else {
+        self.window.backgroundColor = [NSColor colorWithCalibratedRed:0.925 green:0.925 blue:0.925 alpha:1];
     }
 
     [[NSNotificationCenter defaultCenter]
