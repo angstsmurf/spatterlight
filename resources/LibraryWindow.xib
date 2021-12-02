@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +44,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="117" y="394" width="739" height="285"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
@@ -370,7 +370,7 @@
                                         </connections>
                                     </searchField>
                                     <button toolTip="Add games to library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
-                                        <rect key="frame" x="43" y="8" width="30" height="23"/>
+                                        <rect key="frame" x="53" y="8" width="30" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="XWn-7m-9aY"/>
                                             <constraint firstAttribute="width" constant="30" id="nOn-hH-0ck"/>
@@ -404,7 +404,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="81" y="8" width="24" height="23"/>
+                                        <rect key="frame" x="101" y="8" width="30" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="Vcz-Bh-mry"/>
                                         </constraints>
@@ -429,13 +429,14 @@
                                     <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="9" id="AA8-mk-hoQ"/>
                                     <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxj-t2-2dU"/>
                                     <constraint firstItem="128" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="UE8-Vn-hLj"/>
-                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbg-c1-bfl"/>
+                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="18" id="Xbg-c1-bfl"/>
                                     <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="5" id="aIu-1x-TV7"/>
                                     <constraint firstItem="2QV-fO-t6w" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="c9b-Rr-rDd"/>
-                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="gVR-sd-ES7"/>
+                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="18" id="gVR-sd-ES7"/>
                                     <constraint firstItem="131" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-qU-nZJ"/>
                                     <constraint firstAttribute="bottom" secondItem="2QV-fO-t6w" secondAttribute="bottom" constant="9" id="nHL-hU-KHd"/>
                                     <constraint firstItem="128" firstAttribute="centerY" secondItem="445" secondAttribute="centerY" id="pdz-G6-T7e"/>
+                                    <constraint firstItem="128" firstAttribute="width" secondItem="130" secondAttribute="width" id="wC3-Df-jco"/>
                                     <constraint firstItem="2QV-fO-t6w" firstAttribute="width" secondItem="130" secondAttribute="width" id="xgA-Zz-ytI"/>
                                 </constraints>
                             </view>
@@ -465,7 +466,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="234" y="498" width="200" height="56"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="200" height="44"/>
             <value key="maxSize" type="size" width="400" height="94"/>
             <view key="contentView" id="42">
@@ -809,8 +810,8 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="play.fill" catalog="system" width="14" height="16"/>
-        <image name="plus" catalog="system" width="17" height="16"/>
-        <image name="sidebar.left" catalog="system" width="23" height="17"/>
+        <image name="play.fill" catalog="system" width="15" height="17"/>
+        <image name="plus" catalog="system" width="18" height="17"/>
+        <image name="sidebar.left" catalog="system" width="24" height="18"/>
     </resources>
 </document>
