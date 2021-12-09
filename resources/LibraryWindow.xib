@@ -369,8 +369,8 @@
                                             <action selector="searchForGames:" target="-2" id="155"/>
                                         </connections>
                                     </searchField>
-                                    <button toolTip="Add games to library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
-                                        <rect key="frame" x="53" y="8" width="30" height="23"/>
+                                    <button toolTip="Add games to the library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                                        <rect key="frame" x="44" y="8" width="30" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="XWn-7m-9aY"/>
                                             <constraint firstAttribute="width" constant="30" id="nOn-hH-0ck"/>
@@ -380,7 +380,7 @@
                                             <font key="font" metaFont="systemBold" size="12"/>
                                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                         </buttonCell>
-                                        <accessibility description="Add games to library"/>
+                                        <accessibility description="Add games to the library"/>
                                         <connections>
                                             <action selector="addGamesToLibrary:" target="-1" id="156"/>
                                         </connections>
@@ -388,8 +388,8 @@
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
                                         <rect key="frame" x="326" y="12" width="16" height="16"/>
                                     </progressIndicator>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-fO-t6w" userLabel="Toggle sidebar">
-                                        <rect key="frame" x="5" y="8" width="30" height="23"/>
+                                    <button toolTip="Hide or show the game info side bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-fO-t6w" userLabel="Toggle sidebar">
+                                        <rect key="frame" x="6" y="8" width="30" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Rnp-LT-vkn"/>
                                             <constraint firstAttribute="height" constant="22" id="u6T-VA-gtP"/>
@@ -399,12 +399,13 @@
                                             <font key="font" metaFont="systemBold" size="12"/>
                                             <imageReference key="image" image="sidebar.left" catalog="system" symbolScale="large"/>
                                         </buttonCell>
+                                        <accessibility description="Hide or show the game info side bar"/>
                                         <connections>
                                             <action selector="myToggleSidebar:" target="-2" id="fYg-Mv-okT"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="101" y="8" width="30" height="23"/>
+                                    <button toolTip="Play the selected game" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
+                                        <rect key="frame" x="82" y="8" width="30" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="Vcz-Bh-mry"/>
                                         </constraints>
@@ -413,7 +414,7 @@
                                             <font key="font" metaFont="systemBold" size="12"/>
                                             <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                         </buttonCell>
-                                        <accessibility description="Play selected game"/>
+                                        <accessibility description="Play the selected game"/>
                                         <connections>
                                             <action selector="play:" target="-2" id="177"/>
                                         </connections>
@@ -429,10 +430,10 @@
                                     <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="9" id="AA8-mk-hoQ"/>
                                     <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxj-t2-2dU"/>
                                     <constraint firstItem="128" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="UE8-Vn-hLj"/>
-                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="18" id="Xbg-c1-bfl"/>
-                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="5" id="aIu-1x-TV7"/>
+                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbg-c1-bfl"/>
+                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="6" id="aIu-1x-TV7"/>
                                     <constraint firstItem="2QV-fO-t6w" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="c9b-Rr-rDd"/>
-                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="18" id="gVR-sd-ES7"/>
+                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="gVR-sd-ES7"/>
                                     <constraint firstItem="131" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-qU-nZJ"/>
                                     <constraint firstAttribute="bottom" secondItem="2QV-fO-t6w" secondAttribute="bottom" constant="9" id="nHL-hU-KHd"/>
                                     <constraint firstItem="128" firstAttribute="centerY" secondItem="445" secondAttribute="centerY" id="pdz-G6-T7e"/>
