@@ -513,8 +513,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
         [self scrollToBottomAnimated:NO];
-//    } else if (_restoredAtTop) {
-//        [self scrollToTop];
     } else {
         if (_restoredLastVisible == 0)
             [self scrollToBottomAnimated:NO];
