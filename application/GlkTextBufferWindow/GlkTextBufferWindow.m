@@ -655,6 +655,14 @@ fprintf(stderr, "%s\n",                                                    \
         NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
         if (storedNewline) {
+            if (!self.theme.doStyles) {
+                NSMutableDictionary *newLineAttributes = [storedNewline attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+                ZColor *zcolor = newLineAttributes[@"ZColor"];
+                if (zcolor && zcolor.bg != zcolor_Current && zcolor.bg != zcolor_Default) {
+                    newLineAttributes[NSBackgroundColorAttributeName] = nil;
+                    storedNewline = [[NSAttributedString alloc] initWithString:@"\n" attributes:newLineAttributes];
+                }
+            }
             [backingStorage appendAttributedString:storedNewline];
         }
 
