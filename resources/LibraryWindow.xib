@@ -20,6 +20,7 @@
                 <outlet property="gameTableView" destination="136" id="175"/>
                 <outlet property="headerMenu" destination="102" id="109"/>
                 <outlet property="importProgressPanel" destination="41" id="54"/>
+                <outlet property="infoButton" destination="Upc-iJ-hAg" id="1eW-Ad-DA0"/>
                 <outlet property="leftScrollView" destination="165" id="172"/>
                 <outlet property="leftView" destination="125" id="169"/>
                 <outlet property="leftViewConstraint" destination="510" id="523"/>
@@ -112,13 +113,13 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView horizontalCompressionResistancePriority="310" borderType="none" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="132">
-                                        <rect key="frame" x="0.0" y="39" width="556" height="247"/>
+                                        <rect key="frame" x="0.0" y="41" width="556" height="245"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="oBw-bf-FfU">
-                                            <rect key="frame" x="0.0" y="0.0" width="556" height="247"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="556" height="245"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="133" id="136" customClass="LibHelperTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="222"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="220"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -352,8 +353,58 @@
                                             </connections>
                                         </tableHeaderView>
                                     </scrollView>
+                                    <button toolTip="Hide or show the game info side bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-fO-t6w" userLabel="Toggle sidebar">
+                                        <rect key="frame" x="10" y="13" width="14" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="14" id="Rnp-LT-vkn"/>
+                                            <constraint firstAttribute="height" constant="16" id="u6T-VA-gtP"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="recessed" title="Togge Sidebar" bezelStyle="recessed" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" id="QL2-PS-UOw">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <imageReference key="image" image="mysidebar" symbolScale="large"/>
+                                        </buttonCell>
+                                        <accessibility description="Hide or show the game info side bar"/>
+                                        <connections>
+                                            <action selector="myToggleSidebar:" target="-2" id="fYg-Mv-okT"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Add games to the library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                                        <rect key="frame" x="49" y="6" width="20" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="19" id="XWn-7m-9aY"/>
+                                            <constraint firstAttribute="width" constant="20" id="nOn-hH-0ck"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="recessed" title="Add" bezelStyle="recessed" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="150">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="plus.circle" catalog="system" symbolScale="large"/>
+                                        </buttonCell>
+                                        <accessibility description="Add games to the library"/>
+                                        <connections>
+                                            <action selector="addGamesToLibrary:" target="-1" id="156"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Play the selected game" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
+                                        <rect key="frame" x="95" y="6" width="20" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="19" id="Vcz-Bh-mry"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="recessed" title="Play" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="152">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="play.circle" catalog="system" symbolScale="large"/>
+                                        </buttonCell>
+                                        <accessibility description="Play the selected game"/>
+                                        <connections>
+                                            <action selector="play:" target="-2" id="177"/>
+                                        </connections>
+                                    </button>
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
+                                        <rect key="frame" x="326" y="13" width="16" height="16"/>
+                                    </progressIndicator>
                                     <searchField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="131">
-                                        <rect key="frame" x="348" y="9" width="196" height="22"/>
+                                        <rect key="frame" x="348" y="11" width="196" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="100" id="303"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" priority="56" constant="282" id="405"/>
@@ -369,54 +420,20 @@
                                             <action selector="searchForGames:" target="-2" id="155"/>
                                         </connections>
                                     </searchField>
-                                    <button toolTip="Add games to the library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
-                                        <rect key="frame" x="44" y="8" width="30" height="23"/>
+                                    <button toolTip="Info about the selected game" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Upc-iJ-hAg" userLabel="Info">
+                                        <rect key="frame" x="72" y="6" width="20" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="XWn-7m-9aY"/>
-                                            <constraint firstAttribute="width" constant="30" id="nOn-hH-0ck"/>
+                                            <constraint firstAttribute="height" constant="19" id="PcQ-wi-fKB"/>
+                                            <constraint firstAttribute="width" constant="20" id="reA-YV-gY9"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="recessed" title="Add" bezelStyle="recessed" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="150">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="12"/>
-                                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                                        <buttonCell key="cell" type="recessed" title="Add" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="caV-LY-8hx" userLabel="Info">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <imageReference key="image" image="eye.circle" catalog="system" symbolScale="large"/>
                                         </buttonCell>
-                                        <accessibility description="Add games to the library"/>
+                                        <accessibility description="Info about the selected game"/>
                                         <connections>
-                                            <action selector="addGamesToLibrary:" target="-1" id="156"/>
-                                        </connections>
-                                    </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="445">
-                                        <rect key="frame" x="326" y="12" width="16" height="16"/>
-                                    </progressIndicator>
-                                    <button toolTip="Hide or show the game info side bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-fO-t6w" userLabel="Toggle sidebar">
-                                        <rect key="frame" x="6" y="8" width="30" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="Rnp-LT-vkn"/>
-                                            <constraint firstAttribute="height" constant="22" id="u6T-VA-gtP"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="recessed" title="Textured Rounded" bezelStyle="recessed" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="QL2-PS-UOw">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="12"/>
-                                            <imageReference key="image" image="sidebar.left" catalog="system" symbolScale="large"/>
-                                        </buttonCell>
-                                        <accessibility description="Hide or show the game info side bar"/>
-                                        <connections>
-                                            <action selector="myToggleSidebar:" target="-2" id="fYg-Mv-okT"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Play the selected game" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="82" y="8" width="30" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="Vcz-Bh-mry"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="recessed" title="Play" bezelStyle="recessed" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="152">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="12"/>
-                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
-                                        </buttonCell>
-                                        <accessibility description="Play the selected game"/>
-                                        <connections>
-                                            <action selector="play:" target="-2" id="177"/>
+                                            <action selector="showGameInfo:" target="-2" id="OFF-ds-GrT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -427,18 +444,19 @@
                                     <constraint firstItem="445" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="128" secondAttribute="trailing" priority="533" constant="8" symbolic="YES" id="502"/>
                                     <constraint firstAttribute="trailing" secondItem="131" secondAttribute="trailing" constant="12" id="536"/>
                                     <constraint firstItem="131" firstAttribute="leading" secondItem="445" secondAttribute="trailing" constant="6" id="542"/>
-                                    <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="9" id="AA8-mk-hoQ"/>
-                                    <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxj-t2-2dU"/>
-                                    <constraint firstItem="128" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="UE8-Vn-hLj"/>
-                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbg-c1-bfl"/>
-                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="6" id="aIu-1x-TV7"/>
-                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="c9b-Rr-rDd"/>
-                                    <constraint firstItem="128" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="8" symbolic="YES" id="gVR-sd-ES7"/>
+                                    <constraint firstItem="128" firstAttribute="leading" secondItem="Upc-iJ-hAg" secondAttribute="trailing" constant="3" id="6cg-HW-W7e"/>
+                                    <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="11" id="AA8-mk-hoQ"/>
+                                    <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="11" id="Fxj-t2-2dU"/>
+                                    <constraint firstItem="130" firstAttribute="centerY" secondItem="2QV-fO-t6w" secondAttribute="centerY" id="IuX-5R-oDN"/>
+                                    <constraint firstItem="128" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="11" id="Vjc-V0-wsb"/>
+                                    <constraint firstItem="130" firstAttribute="leading" secondItem="2QV-fO-t6w" secondAttribute="trailing" constant="25" id="Xbg-c1-bfl"/>
+                                    <constraint firstItem="Upc-iJ-hAg" firstAttribute="centerY" secondItem="128" secondAttribute="centerY" id="Yhm-if-e0O"/>
+                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="10" id="aIu-1x-TV7"/>
+                                    <constraint firstItem="Upc-iJ-hAg" firstAttribute="leading" secondItem="130" secondAttribute="trailing" constant="3" id="dQm-lS-3IT"/>
                                     <constraint firstItem="131" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-qU-nZJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="2QV-fO-t6w" secondAttribute="bottom" constant="9" id="nHL-hU-KHd"/>
+                                    <constraint firstItem="128" firstAttribute="height" secondItem="130" secondAttribute="height" id="oDd-cO-GLt"/>
                                     <constraint firstItem="128" firstAttribute="centerY" secondItem="445" secondAttribute="centerY" id="pdz-G6-T7e"/>
                                     <constraint firstItem="128" firstAttribute="width" secondItem="130" secondAttribute="width" id="wC3-Df-jco"/>
-                                    <constraint firstItem="2QV-fO-t6w" firstAttribute="width" secondItem="130" secondAttribute="width" id="xgA-Zz-ytI"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -811,8 +829,9 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="play.fill" catalog="system" width="15" height="17"/>
-        <image name="plus" catalog="system" width="18" height="17"/>
-        <image name="sidebar.left" catalog="system" width="24" height="18"/>
+        <image name="eye.circle" catalog="system" width="20" height="20"/>
+        <image name="mysidebar" width="13" height="13"/>
+        <image name="play.circle" catalog="system" width="20" height="20"/>
+        <image name="plus.circle" catalog="system" width="20" height="20"/>
     </resources>
 </document>

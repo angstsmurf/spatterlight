@@ -124,6 +124,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 @interface LibController () <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
 
+    IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
@@ -230,6 +231,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     self.window.excludedFromWindowsMenu = YES;
     [self.window registerForDraggedTypes:@[ NSFilenamesPboardType ]];
 
+    [infoButton setEnabled:NO];
     [playButton setEnabled:NO];
 
     _infoWindows = [[NSMutableDictionary alloc] init];
@@ -2656,6 +2658,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSTableView *tableView = [notification object];
     if (tableView == _gameTableView) {
         NSIndexSet *rows = tableView.selectedRowIndexes;
+        infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
         if (_gameTableModel.count && rows.count) {
