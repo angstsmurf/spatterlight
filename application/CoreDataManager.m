@@ -100,7 +100,7 @@
     return _persistentStoreCoordinator;
 }
 
-- (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL **)groupURL{
+- (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL * __autoreleasing *)groupURL{
 
     NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
 

@@ -101,7 +101,7 @@
     return [self loadWithError:NULL];
 }
 
-- (BOOL)loadWithError:(NSError**)outError {
+- (BOOL)loadWithError:(NSError* __autoreleasing *)outError {
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_imageFile.URL error:outError];
     if (!fileHandle) {
         [_imageFile resolveBookmark];
