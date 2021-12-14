@@ -27,6 +27,7 @@ namespace {
 
 #pragma mark Callbacks
 
+	static
 	OSStatus myAudioFile_ReadProc(void		*inClientData,
 								  SInt64	inPosition,
 								  UInt32	requestCount,
@@ -51,7 +52,7 @@ namespace {
 		return noErr;
 	}
 
-	SInt64 myAudioFile_GetSizeProc(void *inClientData)
+	static SInt64 myAudioFile_GetSizeProc(void *inClientData)
 	{
 		assert(nullptr != inClientData);
 

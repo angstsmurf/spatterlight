@@ -9,19 +9,20 @@
 
 @class GlkSoundChannel, GlkController, SoundHandler;
 
-typedef NS_ENUM(NSInteger, kBlorbSoundFormatType) {
-    NONE,
-    giblorb_ID_MOD,
-    giblorb_ID_OGG,
-    giblorb_ID_FORM,
-    giblorb_ID_AIFF,
-    giblorb_ID_MP3,
-    giblorb_ID_WAVE,
-    giblorb_ID_MIDI,
-};
+typedef uint32_t glui32;
+typedef int32_t glsi32;
 
-#define FREE 1
-#define BUSY 2
+
+typedef NS_ENUM(NSInteger, GlkSoundBlorbFormatType) {
+	GlkSoundBlorbFormatNone,
+    GlkSoundBlorbFormatMod,
+	GlkSoundBlorbFormatOggVorbis,
+	GlkSoundBlorbFormatFORM,
+	GlkSoundBlorbFormatAIFF,
+	GlkSoundBlorbFormatMP3,
+	GlkSoundBlorbFormatWave,
+	GlkSoundBlorbFormatMIDI,
+};
 
 #define MAXSND 32
 
@@ -45,51 +46,53 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)load;
 
-@property (nullable) NSData *data;
-@property (nullable) SoundFile *soundFile;
+@property (copy, nullable) NSData *data;
+@property (strong, nullable) SoundFile *soundFile;
 @property NSString *filename;
 @property NSUInteger offset;
 @property NSUInteger length;
-@property kBlorbSoundFormatType type;
+@property GlkSoundBlorbFormatType type;
++ (GlkSoundBlorbFormatType)detectSoundFormatFromData:(NSData*)data;
 
 @end
 
 
 @interface SoundHandler : NSObject
 
-@property NSMutableDictionary <NSNumber *, SoundResource *> *resources;
-@property NSMutableDictionary *sfbplayers;
-@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *glkchannels;
-@property NSMutableDictionary <NSString *, SoundFile *> *files;
-@property (nullable) GlkSoundChannel *music_channel;
-@property NSUInteger restored_music_channel_id;
-@property NSInteger lastsoundresno;
+@property (strong) NSMutableDictionary <NSNumber *, SoundResource *> *resources;
+@property (strong) NSMutableDictionary *sfbplayers;
+@property (strong) NSMutableDictionary <NSNumber *, GlkSoundChannel *> *glkchannels;
+@property (strong) NSMutableDictionary <NSString *, SoundFile *> *files;
+@property glsi32 lastsoundresno;
 
 @property (weak) GlkController *glkctl;
 
-- (NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char * _Nonnull * _Nonnull)buf;
+- (GlkSoundBlorbFormatType)loadSoundResourceFromSound:(glsi32)snd data:(NSData * _Nullable __autoreleasing * _Nonnull)buf;
++ (nullable NSString*)MIMETypeFromFormatType:(GlkSoundBlorbFormatType)format;
 
 - (void)restartAll;
 - (void)stopAllAndCleanUp;
 
-- (int)handleNewSoundChannel:(int)volume;
+- (int)handleNewSoundChannel:(glui32)volume;
 - (void)handleDeleteChannel:(int)channel;
-- (BOOL)handleFindSoundNumber:(int)resno;
-- (void)handleLoadSoundNumber:(int)resno
+- (BOOL)handleFindSoundNumber:(glsi32)resno;
+
+- (void)handleLoadSoundNumber:(glsi32)resno
                          from:(NSString *)path
                        offset:(NSUInteger)offset
                        length:(NSUInteger)length;
-- (void)handleSetVolume:(int)volume
+
+- (void)handleSetVolume:(glui32)volume
                 channel:(int)channel
-               duration:(int)duration
-                 notify:(int)notify;
-- (void)handlePlaySoundOnChannel:(int)channel repeats:(int)repeats notify:(int)notify;
+               duration:(glui32)duration
+                 notify:(glui32)notify;
+
+- (void)handlePlaySoundOnChannel:(int)channel repeats:(glsi32)repeats notify:(glui32)notify;
 - (void)handleStopSoundOnChannel:(int)channel;
 - (void)handlePauseOnChannel:(int)channel;
 - (void)handleUnpauseOnChannel:(int)channel;
-
-- (void)handleVolumeNotification:(NSInteger)notify;
-- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound;
+- (void)handleVolumeNotification:(glui32)notify;
+- (void)handleSoundNotification:(glui32)notify withSound:(glsi32)sound;
 
 @end
 

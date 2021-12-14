@@ -456,7 +456,6 @@
 				730F23CD091827B100AB638C /* Resources */,
 				730F23D2091827B100AB638C /* Sources */,
 				730F23E9091827B100AB638C /* Frameworks */,
-				730F23EB091827B100AB638C /* Rez */,
 			);
 			buildRules = (
 			);
@@ -558,16 +557,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXRezBuildPhase section */
-		730F23EB091827B100AB638C /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		730F23D2091827B100AB638C /* Sources */ = {
