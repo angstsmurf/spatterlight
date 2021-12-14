@@ -550,12 +550,12 @@ fprintf(stderr, "%s\n",                                                    \
     CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
     shadowAnimation.fromValue = (id)shadowLayer.shadowPath;
     shadowAnimation.toValue = (__bridge id)(shadowPath);
-    shadowAnimation.duration = .4;
+    shadowAnimation.duration = .3;
     shadowAnimation.removedOnCompletion = NO;
     shadowAnimation.fillMode = kCAFillModeForwards;
 
     CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    transformAnimation.duration=.4;
+    transformAnimation.duration=.3;
     CGFloat scaleFactorX = NSWidth(finalLayerFrame) / NSWidth(snapshotLayer.frame);
     CGFloat scaleFactorY = NSHeight(finalLayerFrame) / NSHeight(snapshotLayer.frame);
     transformAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(scaleFactorX, scaleFactorY, 1)];
@@ -571,7 +571,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = .4;
+        context.duration = .3;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
 
         shadowLayer.shadowPath = shadowPath;
@@ -638,7 +638,6 @@ fprintf(stderr, "%s\n",                                                    \
         shadowLayer.shadowPath = shadowPath;
         CGPathRelease(shadowPath);
         [shadowLayer addAnimation:shadowAnimation forKey:@"shadowPath"];
-        [shadowLayer addAnimation:[InfoController fadeOutAnimation] forKey:nil];
         snapshotLayer.position = point;
         [snapshotLayer addAnimation:positionAnimation forKey:@"position"];
         [snapshotLayer addAnimation:transformAnimation forKey:@"transform"];

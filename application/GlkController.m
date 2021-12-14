@@ -1636,7 +1636,7 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Cocoa glue
 
 - (IBAction)showGameInfo:(id)sender {
-    [libcontroller showInfoForGame:_game];
+    [libcontroller showInfoForGame:_game toggle:NO];
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
