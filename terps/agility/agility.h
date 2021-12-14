@@ -595,7 +595,7 @@ global flagdef_rec *flagtable;
 
 /* Output strings associated with various property values. */
 /*    See propdef_rec */
-global const char **propstr;
+global char **propstr;
 global long propstr_size;
 
 global tline *userstr; /*[MAX_USTR];*/
