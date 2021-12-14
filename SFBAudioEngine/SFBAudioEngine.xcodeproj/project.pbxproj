@@ -38,11 +38,9 @@
 		3292489418CEAB48004365FF /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3292489218CEAB48004365FF /* RingBuffer.cpp */; };
 		3292489518CEAB48004365FF /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3292489318CEAB48004365FF /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		329392291A81929D00983695 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329392281A81929D00983695 /* Security.framework */; };
-		329AB8A0148B17AA00180506 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329AB89F148B17AA00180506 /* ApplicationServices.framework */; };
 		32A1012116A50C2400EC1F9C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A1012016A50C2400EC1F9C /* Accelerate.framework */; };
 		32A5A20317DD1BF80064C5DE /* CFWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A5A20117DD1BF80064C5DE /* CFWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32AEB2DA1409BA27001F9A60 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AEB2D51409BA25001F9A60 /* AudioToolbox.framework */; };
-		32AEB2DB1409BA27001F9A60 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AEB2D61409BA26001F9A60 /* AudioUnit.framework */; };
 		32B3639718C4127300F2C61F /* AudioFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3639518C4127300F2C61F /* AudioFormat.cpp */; };
 		32B3639818C4127300F2C61F /* AudioFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B3639618C4127300F2C61F /* AudioFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32B848E7180E199D00A222C5 /* AudioConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B848E5180E199D00A222C5 /* AudioConverter.cpp */; };
@@ -65,6 +63,7 @@
 		32DFA2F414FA7FD400D1FB58 /* CFErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 32DFA2F114FA7FD400D1FB58 /* CFErrorUtilities.h */; };
 		32E6AB9B1096C81200DA998D /* LoopableRegionDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E6AB991096C81200DA998D /* LoopableRegionDecoder.cpp */; };
 		32E73B0210B9D8AC00094C8A /* OggVorbisDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E7376C10B913AE00094C8A /* OggVorbisDecoder.cpp */; };
+		5533C6E927603A97004BD884 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AEB2D61409BA26001F9A60 /* AudioUnit.framework */; };
 		C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9126ECD2BA008D8B3F /* libvorbis.a */; };
 		C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9526ECD2BA008D8B3F /* libvorbisfile.a */; };
 		C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C34B271E26EAC168001A1714 /* libdumb.a */; };
@@ -217,11 +216,10 @@
 				C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */,
 				C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */,
 				32A1012116A50C2400EC1F9C /* Accelerate.framework in Frameworks */,
-				329AB8A0148B17AA00180506 /* ApplicationServices.framework in Frameworks */,
 				32AEB2DA1409BA27001F9A60 /* AudioToolbox.framework in Frameworks */,
-				32AEB2DB1409BA27001F9A60 /* AudioUnit.framework in Frameworks */,
 				3210AB8417B9BF0F00743639 /* CoreAudio.framework in Frameworks */,
 				329392291A81929D00983695 /* Security.framework in Frameworks */,
+				5533C6E927603A97004BD884 /* AudioUnit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

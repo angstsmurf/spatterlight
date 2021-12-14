@@ -194,9 +194,9 @@
 		32677D35254D0EDC0041B063 /* silence.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = silence.c; sourceTree = "<group>"; };
 		32677D36254D0EDC0041B063 /* lpc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lpc.c; sourceTree = "<group>"; };
 		32677D37254D0EDC0041B063 /* riff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = riff.c; sourceTree = "<group>"; };
-		C36302FE26ECE8D50028FBC8 /* resamp3.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = resamp3.inc; sourceTree = "<group>"; };
-		C36302FF26ECE8D50028FBC8 /* resamp2.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = resamp2.inc; sourceTree = "<group>"; };
-		C363030026ECE8D50028FBC8 /* resample.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = resample.inc; sourceTree = "<group>"; };
+		C36302FE26ECE8D50028FBC8 /* resamp3.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = resamp3.inc; sourceTree = "<group>"; };
+		C36302FF26ECE8D50028FBC8 /* resamp2.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = resamp2.inc; sourceTree = "<group>"; };
+		C363030026ECE8D50028FBC8 /* resample.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = resample.inc; sourceTree = "<group>"; };
 		C3B854F826E7B136001059B8 /* libdumb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdumb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 

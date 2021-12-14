@@ -12,9 +12,6 @@
 #import "GlkController.h"
 #import "GlkEvent.h"
 
-#define SDL_CHANNELS 64
-#define MAX_SOUND_RESOURCES 500
-
 @implementation SoundFile : NSObject
 
 + (BOOL) supportsSecureCoding {
@@ -27,9 +24,9 @@
         _URL = [NSURL fileURLWithPath:path];
         NSError *theError;
         _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
-                        includingResourceValuesForKeys:nil
-                                         relativeToURL:nil
-                                                 error:&theError];
+                   includingResourceValuesForKeys:nil
+                                    relativeToURL:nil
+                                            error:&theError];
         if (theError || !_bookmark)
             NSLog(@"Soundfile error when encoding bookmark %@: %@", path, theError);
     }
@@ -55,9 +52,9 @@
     _URL = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&bookmarkIsStale error:&error];
     if (bookmarkIsStale) {
         _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
-                        includingResourceValuesForKeys:nil
-                                         relativeToURL:nil
-                                                 error:&error];
+                   includingResourceValuesForKeys:nil
+                                    relativeToURL:nil
+                                            error:&error];
     }
     if (error) {
         NSLog(@"Soundfile resolveBookmark: %@", error);
@@ -103,7 +100,7 @@
         _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
         _length = (size_t)[decoder decodeIntForKey:@"length"];
         _offset = (size_t)[decoder decodeIntForKey:@"offset"];
-        _type = (kBlorbSoundFormatType)[decoder decodeIntForKey:@"type"];
+        _type = (GlkSoundBlorbFormatType)[decoder decodeIntForKey:@"type"];
     }
     return self;
 }
@@ -141,12 +138,11 @@
     return YES;
 }
 
-- (kBlorbSoundFormatType)detect_sound_format
-{
-    char *buf = (char *)_data.bytes;
++ (GlkSoundBlorbFormatType)detectSoundFormatFromData:(NSData*)_data {
+    const char *buf = (const char *)_data.bytes;
+    const NSUInteger _length = _data.length;
     char str[30];
-    if (_length > 29)
-    {
+    if (_length > 29) {
         strncpy(str, buf, 29);
         str[29]='\0';
     } else {
@@ -155,30 +151,29 @@
     }
     /* AIFF */
     if (_length > 4 && !memcmp(buf, "FORM", 4))
-        return giblorb_ID_FORM;
+        return GlkSoundBlorbFormatFORM;
 
     /* WAVE */
     if (_length > 4 && !memcmp(buf, "WAVE", 4))
-        return giblorb_ID_WAVE;
+        return GlkSoundBlorbFormatWave;
 
     if (_length > 4 && !memcmp(buf, "RIFF", 4))
-        return giblorb_ID_WAVE;
+        return GlkSoundBlorbFormatWave;
 
     /* midi */
     if (_length > 4 && !memcmp(buf, "MThd", 4))
-        return giblorb_ID_MIDI;
+        return GlkSoundBlorbFormatMIDI;
 
     /* s3m */
     if (_length > 0x30 && !memcmp(buf + 0x2c, "SCRM", 4))
-        return giblorb_ID_MOD;
+        return GlkSoundBlorbFormatMod;
 
     /* XM */
     if (_length > 20 && !memcmp(buf, "Extended Module: ", 17))
-        return giblorb_ID_MOD;
+        return GlkSoundBlorbFormatMod;
 
     /* MOD */
-    if (_length > 1084)
-    {
+    if (_length > 1084) {
         char resname[5];
         memcpy(resname, (buf) + 1080, 4);
         resname[4] = '\0';
@@ -187,14 +182,18 @@
             !strncmp(resname, "M.K.", 4) || !strncmp(resname, "M!K!", 4) ||
             !strncmp(resname, "FLT4", 4) || !strncmp(resname, "CD81", 4) ||
             !strncmp(resname, "OKTA", 4) || !strncmp(resname, "    ", 4))
-            return giblorb_ID_MOD;
+            return GlkSoundBlorbFormatMod;
     }
 
     /* ogg */
     if (_length > 4 && !memcmp(buf, "OggS", 4))
-        return giblorb_ID_OGG;
+        return GlkSoundBlorbFormatOggVorbis;
 
-    return giblorb_ID_MP3;
+    return GlkSoundBlorbFormatMP3;
+}
+
+- (GlkSoundBlorbFormatType)detect_sound_format {
+    return [[self class] detectSoundFormatFromData:_data];
 }
 
 @end
@@ -220,17 +219,16 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-    _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
-    for (SoundFile *file in _files.allValues)
-        file.handler = self;
-    _resources = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"resources"];
-    if (_resources)
-        for (SoundResource *res in _resources.allValues) {
-            res.soundFile = _files[res.filename];
-        }
-    _restored_music_channel_id = (NSUInteger)[decoder decodeIntForKey:@"music_channel"];
-    _glkchannels = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gchannels"];
-    _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
+        _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
+        for (SoundFile *file in _files.allValues)
+            file.handler = self;
+        _resources = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"resources"];
+        if (_resources)
+            for (SoundResource *res in _resources.allValues) {
+                res.soundFile = _files[res.filename];
+            }
+        _glkchannels = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gchannels"];
+        _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
     }
     return self;
 }
@@ -238,21 +236,51 @@
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_files forKey:@"files"];
     [encoder encodeObject:_resources forKey:@"resources"];
-    [encoder encodeInteger:(NSInteger)_music_channel.name forKey:@"music_channel"];
     [encoder encodeObject:_glkchannels forKey:@"gchannels"];
-    [encoder encodeInteger:_lastsoundresno forKey:@"lastsoundresno"];
+    [encoder encodeInt:_lastsoundresno forKey:@"lastsoundresno"];
 }
 
-- (BOOL)soundIsLoaded:(NSInteger)soundId {
+- (BOOL)soundIsLoaded:(glsi32)soundId {
     SoundResource *resource = _resources[@(soundId)];
     if (resource)
         return (resource.data != nil);
     return NO;
 }
 
++ (NSString *)MIMETypeFromFormatType:(GlkSoundBlorbFormatType)format {
+    NSString *mimeString;
+    switch (format) {
+        case GlkSoundBlorbFormatFORM:
+        case GlkSoundBlorbFormatAIFF:
+            mimeString = @"aiff";
+            break;
+        case GlkSoundBlorbFormatWave:
+            mimeString = @"wav";
+            break;
+        case GlkSoundBlorbFormatOggVorbis:
+            mimeString = @"ogg-vorbis";
+            break;
+        case GlkSoundBlorbFormatMP3:
+            mimeString = @"mp3";
+            break;
+        case GlkSoundBlorbFormatMod:
+            mimeString = @"mod";
+            break;
+        case GlkSoundBlorbFormatMIDI:
+            mimeString = @"midi";
+            break;
+
+        default:
+            NSLog(@"schannel_play_ext: unknown resource type (%ld).", format);
+            return nil;
+    }
+
+    return [NSString stringWithFormat:@"audio/%@", mimeString];
+}
+
 #pragma mark Glk request calls from GlkController
 
-- (BOOL)handleFindSoundNumber:(int)resno {
+- (BOOL)handleFindSoundNumber:(glsi32)resno {
     BOOL result = [self soundIsLoaded:resno];
 
     if (!result) {
@@ -267,7 +295,7 @@
     return result;
 }
 
-- (void)handleLoadSoundNumber:(int)resno
+- (void)handleLoadSoundNumber:(glsi32)resno
                          from:(NSString *)path
                        offset:(NSUInteger)offset
                        length:(NSUInteger)length {
@@ -306,18 +334,18 @@
     [res load];
 }
 
-- (int)handleNewSoundChannel:(int)volume {
+- (int)handleNewSoundChannel:(glui32)volume {
     int i;
     for (i = 0; i < MAXSND; i++)
-    if (_glkchannels[@(i)] == nil)
-        break;
+        if (_glkchannels[@(i)] == nil)
+            break;
 
     if (i == MAXSND)
         return -1;
 
     _glkchannels[@(i)] = [[GlkSoundChannel alloc] initWithHandler:self
-                                                             name:(NSUInteger)i
-                                                           volume:(NSUInteger)volume];
+                                                             name:i
+                                                           volume:volume];
     return i;
 }
 
@@ -327,32 +355,35 @@
     }
 }
 
-- (void)handleSetVolume:(int)volume channel:(int)channel duration:(int)duration notify:(int)notify {
+- (void)handleSetVolume:(glui32)volume channel:(int)channel duration:(glui32)duration notify:(glui32)notify {
     GlkSoundChannel *glkchan = _glkchannels[@(channel)];
     if (glkchan) {
-        [glkchan setVolume:(NSUInteger)volume duration:(NSUInteger)duration notify:notify];
+        [glkchan setVolume:volume duration:duration notification:notify];
     }
 }
 
-- (void)handlePlaySoundOnChannel:(int)channel repeats:(int)repeats notify:(int)notify {
+- (void)handlePlaySoundOnChannel:(int)channel repeats:(glsi32)repeats notify:(glui32)notify {
     if (_lastsoundresno != -1) {
         GlkSoundChannel *glkchan = _glkchannels[@(channel)];
         if (glkchan) {
-            if (_resources[@(_lastsoundresno)].type == giblorb_ID_MIDI) {
+            if (_resources[@(_lastsoundresno)].type == GlkSoundBlorbFormatMIDI) {
                 if (![glkchan isKindOfClass:[MIDIChannel class]]) {
                     _glkchannels[@(channel)] = [[MIDIChannel alloc] initWithHandler:self
-                                                                               name:(NSUInteger)channel volume:0x10000];
+                                                                               name:channel volume:GLK_MAXVOLUME];
                     [glkchan copyValues:_glkchannels[@(channel)]];
                     glkchan = _glkchannels[@(channel)];
                 }
             } else if ([glkchan isKindOfClass:[MIDIChannel class]]) {
                 _glkchannels[@(channel)] = [[GlkSoundChannel alloc] initWithHandler:self
-                                                                           name:(NSUInteger)channel volume:0x10000];
+                                                                               name:channel volume:GLK_MAXVOLUME];
                 [glkchan copyValues:_glkchannels[@(channel)]];
                 glkchan = _glkchannels[@(channel)];
             }
 
-            [glkchan play:_lastsoundresno repeats:repeats notify:notify];
+            BOOL result = [glkchan playSound:_lastsoundresno countOfRepeats:repeats notification:notify];
+            if (!result) {
+                NSLog(@"handlePlaySoundOnChannel: failed to play sound %d on channel %d.", _lastsoundresno, channel);
+            }
         }
     }
 }
@@ -395,19 +426,19 @@
 
 #pragma mark Called from GlkSoundChannel
 
-- (void)handleVolumeNotification:(NSInteger)notify {
+- (void)handleVolumeNotification:(unsigned int)notify {
     GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
     [_glkctl queueEvent:gev];
 }
 
-- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
+- (void)handleSoundNotification:(glui32)notify withSound:(glsi32)sound {
     GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
     [_glkctl queueEvent:gev];
 }
 
--(NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char **)buf {
+-(GlkSoundBlorbFormatType)loadSoundResourceFromSound:(glsi32)snd data:(NSData *__autoreleasing*)buf {
 
-    kBlorbSoundFormatType type = NONE;
+    GlkSoundBlorbFormatType type = GlkSoundBlorbFormatNone;
     SoundResource *resource = _resources[@(snd)];
 
     if (resource)
@@ -416,10 +447,9 @@
         {
             [resource load];
             if (!resource.data)
-                return NONE;
+                return GlkSoundBlorbFormatNone;
         }
-        *len = resource.length;
-        *buf = (char *)resource.data.bytes;
+        *buf = resource.data;
         type = resource.type;
     }
 

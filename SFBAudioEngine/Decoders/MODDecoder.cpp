@@ -29,7 +29,7 @@ namespace {
 
 #pragma mark Callbacks
 
-	int skip_callback(void *f, dumb_off_t n)
+	static int skip_callback(void *f, dumb_off_t n)
 	{
 		assert(nullptr != f);
 
@@ -37,7 +37,7 @@ namespace {
 		return (decoder->GetInputSource().SeekToOffset(decoder->GetInputSource().GetOffset() + n) ? 0 : 1);
 	}
 
-	int getc_callback(void *f)
+	static int getc_callback(void *f)
 	{
 		assert(nullptr != f);
 
@@ -47,7 +47,7 @@ namespace {
 		return (1 == decoder->GetInputSource().Read(&value, 1) ? value : -1);
 	}
 
-	long getnc_callback(char *ptr, size_t n, void *f)
+	static long getnc_callback(char *ptr, size_t n, void *f)
 	{
 		assert(nullptr != f);
 
@@ -55,7 +55,7 @@ namespace {
 		return static_cast<long>(decoder->GetInputSource().Read(ptr, (SInt64)n));
 	}
 
-	void close_callback(void */*f*/)
+	static void close_callback(void */*f*/)
 	{}
 
     static int seek_callback(void *f, dumb_off_t offset)

@@ -2992,7 +2992,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case NEWCHAN:
             ans->cmd = OKAY;
-            ans->a1 = [_soundHandler handleNewSoundChannel:req->a1];
+            ans->a1 = [_soundHandler handleNewSoundChannel:(glui32)req->a1];
             break;
 
         case DELWIN:
@@ -3057,14 +3057,14 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case SETVOLUME:
-            [_soundHandler handleSetVolume:req->a2
+            [_soundHandler handleSetVolume:(glui32)req->a2
                                    channel:req->a1
-                                  duration:req->a3
-                                    notify:req->a4];
+                                  duration:(glui32)req->a3
+                                    notify:(glui32)req->a4];
             break;
 
         case PLAYSOUND:
-            [_soundHandler handlePlaySoundOnChannel:req->a1 repeats:req->a2 notify:req->a3];
+            [_soundHandler handlePlaySoundOnChannel:req->a1 repeats:(glsi32)req->a2 notify:(glui32)req->a3];
             break;
 
         case STOPSOUND:

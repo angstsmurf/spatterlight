@@ -14,7 +14,7 @@ extern NSErrorDomain const SFBReplayGainAnalyzerErrorDomain;
 
 
 /*! @brief Possible \c NSError  error codes used by \c SFBReplayGainAnalyzer */
-typedef NS_ENUM(NSUInteger, SFBReplayGainAnalyzerErrorCode) {
+typedef NS_ERROR_ENUM(SFBReplayGainAnalyzerErrorDomain, SFBReplayGainAnalyzerErrorCode) {
 	SFBReplayGainAnalyzerErrorCodeFileFormatNotSupported		= 0,	/*!< File format not supported */
 };
 

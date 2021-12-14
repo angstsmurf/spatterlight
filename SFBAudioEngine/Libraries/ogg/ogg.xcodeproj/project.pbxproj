@@ -15,14 +15,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		150495F84A794200890D9E4D /* bitwise.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = bitwise.c; path = ogg/src/bitwise.c; sourceTree = SOURCE_ROOT; };
+		150495F84A794200890D9E4D /* bitwise.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = bitwise.c; path = src/bitwise.c; sourceTree = "<group>"; };
 		3D9548E267A3491B86A2CB0C /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		96F29050F60E4F0FAD0F2136 /* crctable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = crctable.h; path = ogg/src/crctable.h; sourceTree = SOURCE_ROOT; };
-		9D14CD46AA284680B7D97E1A /* framing.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = framing.c; path = ogg/src/framing.c; sourceTree = SOURCE_ROOT; };
-		C3224D7626ECD147008D8B3F /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = ogg/src/ogg.h; sourceTree = "<group>"; };
-		C3224D7826ECD156008D8B3F /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = ogg/src/os_types.h; sourceTree = "<group>"; };
-		C3224D7A26ECD182008D8B3F /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config_types.h; path = ogg/src/config_types.h; sourceTree = "<group>"; };
-		C3B636CF26FBE7B80026ABBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ogg/Info.plist; sourceTree = "<group>"; };
+		96F29050F60E4F0FAD0F2136 /* crctable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = crctable.h; path = src/crctable.h; sourceTree = "<group>"; };
+		9D14CD46AA284680B7D97E1A /* framing.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = framing.c; path = src/framing.c; sourceTree = "<group>"; };
+		C3224D7626ECD147008D8B3F /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = src/ogg.h; sourceTree = "<group>"; };
+		C3224D7826ECD156008D8B3F /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = src/os_types.h; sourceTree = "<group>"; };
+		C3224D7A26ECD182008D8B3F /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config_types.h; path = src/config_types.h; sourceTree = "<group>"; };
+		C3B636CF26FBE7B80026ABBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 				478DB117C2D54ED0A1457BCD /* Header Files */,
 				F90A5A41659340A1A40B284D /* Source Files */,
 			);
-			name = ogg;
+			path = ogg;
 			sourceTree = "<group>";
 		};
 		AFAE8B1898114988B9228344 = {
@@ -188,7 +188,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build/build;
 			};
 			name = MinSizeRel;
 		};
@@ -227,7 +226,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build/build;
 			};
 			name = RelWithDebInfo;
 		};
@@ -243,8 +241,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = 0.8.5;
 				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -254,27 +250,18 @@
 					ogg_EXPORTS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/administrator/ogg/include,
-					/Users/administrator/ogg/build/include,
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
+				INFOPLIST_FILE = ogg/Info.plist;
 				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_STYLE = DYNAMIC;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
 					"-fPIC",
 				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
 				PRODUCT_NAME = Ogg;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build;
 				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = "$(inherited)";
 			};
@@ -315,7 +302,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build/build;
 			};
 			name = Release;
 		};
@@ -331,8 +317,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = 0.8.5;
 				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -342,27 +326,18 @@
 					ogg_EXPORTS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/administrator/ogg/include,
-					/Users/administrator/ogg/build/include,
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
+				INFOPLIST_FILE = ogg/Info.plist;
 				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_STYLE = DYNAMIC;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
 					"-fPIC",
 				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
 				PRODUCT_NAME = Ogg;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build;
 				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = "$(inherited)";
 			};
@@ -404,7 +379,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build/build;
 			};
 			name = Debug;
 		};
@@ -420,8 +394,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = 0.8.5;
 				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -431,27 +403,18 @@
 					ogg_EXPORTS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/administrator/ogg/include,
-					/Users/administrator/ogg/build/include,
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
+				INFOPLIST_FILE = ogg/Info.plist;
 				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_STYLE = DYNAMIC;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
 					"-fPIC",
 				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
 				PRODUCT_NAME = Ogg;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build;
 				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = "$(inherited)";
 			};
@@ -469,8 +432,6 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = 0.8.5;
 				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -480,24 +441,15 @@
 					ogg_EXPORTS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/administrator/ogg/include,
-					/Users/administrator/ogg/build/include,
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/ogg/Info.plist";
+				INFOPLIST_FILE = ogg/Info.plist;
 				INSTALL_PATH = "@rpath";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_STYLE = DYNAMIC;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "   -fPIC ";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
 				PRODUCT_NAME = Ogg;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				SYMROOT = /Users/administrator/ogg/build;
 				USE_HEADERMAP = YES;
 				WARNING_CFLAGS = "$(inherited)";
 			};

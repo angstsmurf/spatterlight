@@ -645,7 +645,7 @@
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
-		C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.mm */; };
+		C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.m */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
 		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
 		C37E676426E992590005873E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676326E992590005873E /* AudioUnit.framework */; };
@@ -2799,7 +2799,7 @@
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
-		C37E675C26E9844D0005873E /* MIDIChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MIDIChannel.mm; sourceTree = "<group>"; };
+		C37E675C26E9844D0005873E /* MIDIChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIChannel.m; sourceTree = "<group>"; };
 		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
 		C37E675F26E987FF0005873E /* MIDIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIPlayer.h; sourceTree = "<group>"; };
 		C37E676126E992440005873E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -5340,7 +5340,7 @@
 				C31186DA25BD500700739D7B /* GlkSoundChannel.h */,
 				C31186D925BD500700739D7B /* GlkSoundChannel.mm */,
 				C37E675A26E9844D0005873E /* MIDIChannel.h */,
-				C37E675C26E9844D0005873E /* MIDIChannel.mm */,
+				C37E675C26E9844D0005873E /* MIDIChannel.m */,
 				C37E675F26E987FF0005873E /* MIDIPlayer.h */,
 				C37E675E26E987FF0005873E /* MIDIPlayer.m */,
 			);
@@ -6820,7 +6820,7 @@
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
-				C37E675D26E9844D0005873E /* MIDIChannel.mm in Sources */,
+				C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
 				C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */,

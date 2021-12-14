@@ -2,8 +2,7 @@
 //  MIDIPlayer.h
 //  MIDIPlayer
 //
-//  Created by 谢小进 on 15/4/27.
-//  Copyright (c) 2015年 Seedfield. All rights reserved.
+//  Based on code by 谢小进.
 //
 
 #import <Foundation/Foundation.h>

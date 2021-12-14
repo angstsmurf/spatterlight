@@ -23,7 +23,7 @@ namespace {
 
 #pragma mark Callbacks
 
-	size_t read_func_callback(void *ptr, size_t size, size_t nmemb, void *datasource)
+	static size_t read_func_callback(void *ptr, size_t size, size_t nmemb, void *datasource)
 	{
 		assert(nullptr != datasource);
 
@@ -31,7 +31,7 @@ namespace {
 		return (size_t)decoder->GetInputSource().Read(ptr, (SInt64)(size * nmemb));
 	}
 
-	int seek_func_callback(void *datasource, ogg_int64_t offset, int whence)
+	static int seek_func_callback(void *datasource, ogg_int64_t offset, int whence)
 	{
 		assert(nullptr != datasource);
 
@@ -57,7 +57,7 @@ namespace {
 		return (!inputSource.SeekToOffset(offset));
 	}
 
-	long tell_func_callback(void *datasource)
+	static long tell_func_callback(void *datasource)
 	{
 		assert(nullptr != datasource);
 
