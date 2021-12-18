@@ -1070,6 +1070,10 @@
 				<array>
 					<string>application/x-glulx</string>
 				</array>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>UlxG</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
