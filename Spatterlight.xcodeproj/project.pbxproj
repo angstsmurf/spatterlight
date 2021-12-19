@@ -585,6 +585,7 @@
 		C3191AA4266D3A1F00528F6E /* NSBitmapImageRep+retro.m in Sources */ = {isa = PBXBuildFile; fileRef = C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */; };
 		C31AF2F427165168007B7120 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C31AF2FA271652A0007B7120 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */; };
+		C31DB983276E961F00547C9C /* sagadraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C31DB982276E961F00547C9C /* sagadraw.c */; };
 		C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C321419426CEA6D600B49504 /* czech.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C321419326CEA6D600B49504 /* czech.z5 */; };
 		C321419626CEA75A00B49504 /* praxix.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C321419526CEA75A00B49504 /* praxix.z5 */; };
@@ -2694,7 +2695,7 @@
 		C313318826FD493300593EF6 /* osfrobtads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osfrobtads.h; path = glk/osfrobtads.h; sourceTree = "<group>"; };
 		C318F7562741AA10006D626A /* jacl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jacl; sourceTree = BUILT_PRODUCTS_DIR; };
 		C318F7622741AA2F006D626A /* scott */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scott; sourceTree = BUILT_PRODUCTS_DIR; };
-		C318F76A2741AA5B006D626A /* scott.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scott.c; sourceTree = "<group>"; };
+		C318F76A2741AA5B006D626A /* scott.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = scott.c; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		C318F76B2741AA5B006D626A /* bsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bsd.h; sourceTree = "<group>"; };
 		C318F76C2741AA5B006D626A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C318F76D2741AA5B006D626A /* scott.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scott.h; sourceTree = "<group>"; };
@@ -2729,6 +2730,8 @@
 		C31AF2F5271651C4007B7120 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		C31AF2F7271651E3007B7120 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		C31DB980276E961F00547C9C /* sagadraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagadraw.h; sourceTree = "<group>"; };
+		C31DB982276E961F00547C9C /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; tabWidth = 3; };
 		C321419326CEA6D600B49504 /* czech.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = czech.z5; sourceTree = "<group>"; };
 		C321419526CEA75A00B49504 /* praxix.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = praxix.z5; sourceTree = "<group>"; };
 		C321419726CEA7B100B49504 /* etude.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = etude.z5; sourceTree = "<group>"; };
@@ -5371,6 +5374,8 @@
 				C318F76C2741AA5B006D626A /* README */,
 				C318F76D2741AA5B006D626A /* scott.h */,
 				C318F76E2741AA5B006D626A /* bsd.c */,
+				C31DB982276E961F00547C9C /* sagadraw.c */,
+				C31DB980276E961F00547C9C /* sagadraw.h */,
 			);
 			path = scott;
 			sourceTree = "<group>";
@@ -7398,6 +7403,7 @@
 			files = (
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
+				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

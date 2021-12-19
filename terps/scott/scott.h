@@ -50,6 +50,7 @@ typedef struct
 {
 	char *Text;
 	short Exits[6];
+    unsigned char Image;
 } Room;
 
 typedef struct
@@ -59,6 +60,8 @@ typedef struct
 	unsigned char Location;
 	unsigned char InitialLoc;
 	char *AutoGet;
+    unsigned char Flag;
+    unsigned char Image;
 } Item;
 
 typedef struct
@@ -75,3 +78,4 @@ typedef struct
 #define DEBUGGING	4	/* Info from database load */
 #define TRS80_STYLE	8	/* Display in style used on TRS-80 */
 #define PREHISTORIC_LAMP 16	/* Destroy the lamp (very old databases) */
+#define SPECTRUM_STYLE 32    /* Display in style used on ZX Spectrum */

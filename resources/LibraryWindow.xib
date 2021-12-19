@@ -386,7 +386,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Play the selected game" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
-                                        <rect key="frame" x="95" y="6" width="20" height="30"/>
+                                        <rect key="frame" x="94" y="6" width="20" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="Vcz-Bh-mry"/>
                                         </constraints>
@@ -444,7 +444,7 @@
                                     <constraint firstItem="445" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="128" secondAttribute="trailing" priority="533" constant="8" symbolic="YES" id="502"/>
                                     <constraint firstAttribute="trailing" secondItem="131" secondAttribute="trailing" constant="12" id="536"/>
                                     <constraint firstItem="131" firstAttribute="leading" secondItem="445" secondAttribute="trailing" constant="6" id="542"/>
-                                    <constraint firstItem="128" firstAttribute="leading" secondItem="Upc-iJ-hAg" secondAttribute="trailing" constant="3" id="6cg-HW-W7e"/>
+                                    <constraint firstItem="128" firstAttribute="leading" secondItem="Upc-iJ-hAg" secondAttribute="trailing" constant="2" id="6cg-HW-W7e"/>
                                     <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="11" id="AA8-mk-hoQ"/>
                                     <constraint firstItem="130" firstAttribute="top" secondItem="132" secondAttribute="bottom" constant="11" id="Fxj-t2-2dU"/>
                                     <constraint firstItem="130" firstAttribute="centerY" secondItem="2QV-fO-t6w" secondAttribute="centerY" id="IuX-5R-oDN"/>
