@@ -16,15 +16,23 @@
 /*
  *	Controlling block
  */
+
+#ifndef scott_h
+#define scott_h
   
 #define LIGHT_SOURCE	9		/* Always 9 how odd */
 #define CARRIED		255		/* Carried */
 #define DESTROYED	0		/* Destroyed */
 #define DARKBIT		15
 #define LIGHTOUTBIT	16		/* Light gone out */
- 
-typedef struct
-{
+
+
+#include <stdio.h>
+#include <stdint.h>
+
+#include "definitions.h"
+
+typedef struct {
  	short Unknown;
  	short NumItems;
  	short NumActions;
@@ -39,35 +47,33 @@ typedef struct
  	short TreasureRoom;
 } Header;
 
-typedef struct
-{
+typedef struct {
 	unsigned short Vocab;
 	unsigned short Condition[5];
 	unsigned short Action[2];
 } Action;
 
-typedef struct
-{
-	char *Text;
+typedef struct {
+    char *Text;
 	short Exits[6];
+    uint8_t Image;
 } Room;
 
-typedef struct
-{
-	char *Text;
+typedef struct {
+    char *Text;
 	/* PORTABILITY WARNING: THESE TWO MUST BE 8 BIT VALUES. */
-	unsigned char Location;
-	unsigned char InitialLoc;
+    uint8_t Location;
+    uint8_t InitialLoc;
 	char *AutoGet;
+    uint8_t Flag;
+    uint8_t Image;
 } Item;
 
-typedef struct
-{
+typedef struct {
 	short Version;
 	short AdventureNumber;
 	short Unknown;
 } Tail;
-
 
 
 #define YOUARE		1	/* You are not I am */
@@ -75,3 +81,44 @@ typedef struct
 #define DEBUGGING	4	/* Info from database load */
 #define TRS80_STYLE	8	/* Display in style used on TRS-80 */
 #define PREHISTORIC_LAMP 16	/* Destroy the lamp (very old databases) */
+#define SPECTRUM_STYLE 32    /* Display in style used on ZX Spectrum */
+
+#define MAX_GAMEFILE_SIZE 200000
+
+/* Anything used by the other source files goes here */
+
+#include "glk.h"
+
+#define MyLoc    (GameHeader.PlayerRoom)
+
+#define CurrentGame    (GameInfo->gameID)
+
+void Output(const char *a);
+void OutputNumber(int a);
+void Display(winid_t w, const char *fmt, ...);
+void HitEnter(void);
+void Look(void);
+void DrawRoomImage(void);
+void ListInventory(void);
+void Delay(float seconds);
+void DrawImage(int image);
+void OpenGraphicsWindow(void);
+size_t GetFileLength(FILE *in);
+void *MemAlloc(int size);
+int LoadDatabase(FILE *f, int loud);
+void CloseGraphicsWindow(void);
+void Updates(event_t ev);
+int PerformExtraCommand(void);
+const char *MapSynonym(int noun);
+
+extern struct GameInfo *GameInfo;
+extern Header GameHeader;
+extern winid_t Bottom, Top, Graphics;
+extern char *sys[];
+extern char *system_messages[];
+extern uint8_t *entire_file;
+extern size_t file_length;
+extern int file_baseline_offset;
+
+
+#endif /* scott_h */

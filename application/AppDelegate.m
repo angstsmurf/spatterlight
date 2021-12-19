@@ -74,11 +74,12 @@ PasteboardFilePasteLocation;
     }
 
     gGameFileTypes = @[
-        @"d$$", @"dat", @"sna", @"advsys", @"quill", @"l9",     @"mag",
-        @"a3c", @"acd", @"agx", @"gam",    @"t3",    @"hex",    @"taf",
-        @"z1",  @"z2",  @"z3",  @"z4",     @"z5",    @"z6",     @"z7",
-        @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
-        @"zblorb", @"cas", @"asl", @"saga", @"jacl", @"j2"
+        @"d$$", @"dat", @"sna", @"z80",  @"tap",  @"tzx",   @"advsys",
+        @"l9",  @"mag", @"a3c", @"acd",  @"agx",  @"gam",   @"t3",
+        @"hex", @"taf", @"z1",  @"z2",   @"z3",   @"z4",    @"z5",
+        @"z6",  @"z7",  @"z8",  @"cas",  @"asl",  @"saga",  @"jacl",
+        @"j2",  @"ulx", @"blb", @"zlb",  @"blorb",@"glb",   @"gblorb",
+        @"zblorb", @"quill",
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];

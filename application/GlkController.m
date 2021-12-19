@@ -190,6 +190,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL skipNextScriptCommand;
     //    NSDate *lastFlushTimestamp;
+    NSDate *lastScriptKeyTimestamp;
     NSDate *lastKeyTimestamp;
     NSDate *lastResetTimestamp;
 }
@@ -411,6 +412,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
+    lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
     if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
@@ -3346,9 +3348,8 @@ fprintf(stderr, "%s\n",                                                    \
                         restoredControllerLate.commandScriptHandler = nil;
                     } else {
                         restoredControllerLate.commandScriptHandler = handler;
-
                         skipNextScriptCommand = YES;
-                        lastKeyTimestamp = [NSDate date];
+                        lastScriptKeyTimestamp = [NSDate date];
                     }
                     restoredController = restoredControllerLate;
                 }
@@ -3363,12 +3364,15 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastRequest == PRINT ||
                 lastRequest == SETZCOLOR ||
                 lastRequest == NEXTEVENT ||
-                lastRequest == MOVETO) {
+                lastRequest == MOVETO ||
+                [lastKeyTimestamp timeIntervalSinceNow] < -1) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
                 _shouldCheckForMenu = YES;
             }
+
+            lastKeyTimestamp = [NSDate date];
 
             if (_shouldScrollOnCharEvent) {
                 [self performScroll];
@@ -3377,9 +3381,9 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow] < -0.5) {
+                    if (!_adrianMole || [lastScriptKeyTimestamp timeIntervalSinceNow] < -0.5) {
                         [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
-                        lastKeyTimestamp = [NSDate date];
+                        lastScriptKeyTimestamp = [NSDate date];
                     }
                 }
             }

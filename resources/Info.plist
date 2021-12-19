@@ -504,7 +504,7 @@
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Spectrum Snapshot</string>
+			<string>ZX Spectrum Snapshot</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -512,6 +512,78 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.sna</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>z80</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>ZX Spectrum Z80 Snapshot</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.z80</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tzx</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>ZX Spectrum TZX Tape Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.tzx</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tzx</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>ZX Spectrum TAP Tape Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.tap</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -1269,7 +1341,9 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Spectrum Snapshot</string>
+			<string>ZX Spectrum Snapshot</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/formats.htm#File</string>
 			<key>UTTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
@@ -1459,6 +1533,90 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>mg1</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>Z80</string>
+			</dict>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum Z80 Snapshot</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/z80format.htm</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.z80</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>z80</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>TZX</string>
+			</dict>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum TZX Tape Image</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.worldofspectrum.org/TZXformat.html</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.tzx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tzx</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>TAPE</string>
+			</dict>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum TAP Tape Image</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/formats.htm#Tape</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.tap</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tap</string>
 				</array>
 			</dict>
 		</dict>
