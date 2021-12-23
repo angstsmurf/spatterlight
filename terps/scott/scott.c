@@ -1,14 +1,14 @@
 /*
- *	ScottFree Revision 1.14
+ *    ScottFree Revision 1.14
  *
  *
- *	This program is free software; you can redistribute it and/or
- *	modify it under the terms of the GNU General Public License
- *	as published by the Free Software Foundation; either version
- *	2 of the License, or (at your option) any later version.
+ *    This program is free software; you can redistribute it and/or
+ *    modify it under the terms of the GNU General Public License
+ *    as published by the Free Software Foundation; either version
+ *    2 of the License, or (at your option) any later version.
  *
  *
- *	You must have an ANSI C compiler to build this program.
+ *    You must have an ANSI C compiler to build this program.
  */
 
 /*
@@ -54,10 +54,12 @@ extern glui32 gli_determinism;
 
 static const char *game_file;
 
-#ifdef __GNUC__
-__attribute__((__format__(__printf__, 2, 3)))
-#endif
+//#ifdef __GNUC__
+//__attribute__((__format__(__printf__, 2, 3)))
+//#endif
 
+extern int pixel_size;
+extern int x_offset;
 
 static Header GameHeader;
 static Item *Items;
@@ -75,13 +77,12 @@ static int RoomSaved[16];    /* Range unknown */
 static int Options;        /* Option flags set */
 static glui32 Width;        /* Terminal width */
 static glui32 TopHeight;        /* Height of top window */
-static int pixel_size = 2;
-static int x_offset = 0;
 static int file_baseline_offset = 0;
 
 
 static int split_screen = 1;
-static winid_t Bottom, Top, Graphics;
+static winid_t Bottom, Top;
+winid_t Graphics;
 
 static int AnimationFlag = 0;
 #define ANIMATION_RATE 670
@@ -93,7 +94,6 @@ static int AnimationFlag = 0;
 //#define TRS80_LINE    "\n<------------------------------------------------------------>\n"
 
 #define MyLoc    (GameHeader.PlayerRoom)
-
 
 static void Display(winid_t w, const char *fmt, ...)
 {
@@ -113,7 +113,7 @@ static void Display(winid_t w, const char *fmt, ...)
 	glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
-static void Delay(int seconds)
+static void Delay(float seconds)
 {
 	event_t ev;
 
@@ -149,16 +149,19 @@ winid_t find_glk_window_with_rock(glui32 rock)
 
 const glui32 optimal_picture_size(glui32 *width, glui32 *height)
 {
-	*width = 255; *height = 95;
+	*width = 255; *height = 96;
 	int multiplier = 1;
 	glui32 graphwidth, graphheight;
 	glk_window_get_size(Graphics, &graphwidth, &graphheight);
-	multiplier = graphheight / 95;
+	multiplier = graphheight / 96;
 	if (255 * multiplier > graphwidth)
 		multiplier = graphwidth / 255;
 
+	if (multiplier == 0)
+		multiplier = 1;
+
 	*width = 255 * multiplier;
-	*height = 95 * multiplier;
+	*height = 96 * multiplier;
 
 	return multiplier;
 }
@@ -205,7 +208,7 @@ void open_graphics_window(void)
 	} else {
 		glk_window_get_size(Graphics, &graphwidth, &graphheight);
 		pixel_size = optimal_picture_size(&optimal_width, &optimal_height);
-		x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+		x_offset = (graphwidth - optimal_width) / 2;
 	}
 }
 
@@ -220,7 +223,7 @@ void close_graphics_window(void)
 	}
 }
 
-static long BitFlags=0;	/* Might be >32 flags - I haven't seen >32 yet */
+static long BitFlags=0;    /* Might be >32 flags - I haven't seen >32 yet */
 
 static void Fatal(const char *x)
 {
@@ -233,7 +236,7 @@ static void ClearScreen(void)
 	glk_window_clear(Bottom);
 }
 
-static void *MemAlloc(int size)
+void *MemAlloc(int size)
 {
 	void *t=(void *)malloc(size);
 	if(t==NULL)
@@ -267,7 +270,7 @@ static const char *MapSynonym(const char *word)
 {
 	int n=1;
 	const char *tp;
-	static char lastword[16];	/* Last non synonym */
+	static char lastword[16];    /* Last non synonym */
 	while(n<=GameHeader.NumWords)
 	{
 		tp=Nouns[n];
@@ -378,41 +381,43 @@ void read_dictionary(FILE *ptr)
 		for (int i = 0; i < 4; i++)
 		{
 			c=fgetc(ptr);
-			if (c == 0)
-			{
-				if (charindex == 0)
+			if (charindex == 0) {
+				if (c >= 'a')
 				{
-					c=fgetc(ptr);
+					c = toupper(c);
+				} else {
+					dictword[charindex++] = '*';
 				}
 			}
-			dictword[charindex] = c;
-			if (c == '*')
-				i--;
-			charindex++;
+
+
+			dictword[charindex++] = c;
+
 		}
 		dictword[charindex] = 0;
-		//        if (!strcmp(".   ", dictword))
-		//            periodonly++;
+
 
 		if (wordnum < 115)
 		{
 			Verbs[wordnum] = malloc(charindex+1);
 			memcpy((char *)Verbs[wordnum], dictword, charindex+1);
-			//            fprintf(stderr, "Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
+//			fprintf(stderr, "Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
 		} else {
 			Nouns[wordnum-115] = malloc(charindex+1);
 			memcpy((char *)Nouns[wordnum-115], dictword, charindex+1);
-			//            fprintf(stderr, "Noun %d: \"%s\"\n", wordnum-115, Nouns[wordnum-115]);
+//			fprintf(stderr, "Noun %d: \"%s\"\n", wordnum-115, Nouns[wordnum-115]);
 		}
 		wordnum++;
 		//      }
-		if (c != 0 && !isascii(c))
-			return;
+		//        if (c != 0 && !isascii(c))
+		//            return;
 		charindex = 0;
-	} while (wordnum < header[3] * 2 - 10);
+	} while (wordnum < header[3] * 2 - 3);
 
-	for (int i = 0; i < 12; i++)
-		Verbs[115 + i] = ".\0";
+	for (int i = 0; i < 5; i++) {
+		Nouns[110 + i] = "\0";
+//		fprintf(stderr, "Noun %d: \"%s\"\n", 110 + i, Nouns[110 + i]);
+	}
 }
 
 size_t get_file_length(FILE *in) {
@@ -442,9 +447,106 @@ int sanity_check_header(void) {
 	v = header[4]; // Number of rooms
 	if (v < 10 || v > 100)
 		return 0;
+	v = header[5]; // Number of rooms
+	if (v < 10 || v > 255)
+		return 0;
 
 	return 1;
 }
+
+void print_header_info(void)
+{
+	uint16_t value;
+	for (int i = 0; i < 12; i++)
+	{
+		value=header[i];
+		fprintf(stderr, "b $%X %d: ", 0x3b5a + 0x3FE5 + i * 2, i);
+		switch(i)
+		{
+			case 0 :
+				fprintf(stderr, "???? =\t%x\n",value);
+				break;
+
+			case 1 :
+				fprintf(stderr, "Number of items =\t%d\n",value);
+				break;
+
+			case 2 :
+				fprintf(stderr, "Number of actions =\t%d\n",value);
+				break;
+
+			case 3 :
+				fprintf(stderr, "Number of words =\t%d\n",value);
+				break;
+
+			case 4 :
+				fprintf(stderr, "Number of rooms =\t%d\n",value);
+				break;
+
+			case 5 :
+				fprintf(stderr, "Max carried items =\t%d\n",value);
+				break;
+
+			case 6 :
+				fprintf(stderr, "Word length =\t%d\n",value);
+				break;
+
+			case 7 :
+				fprintf(stderr, "Number of messages =\t%d\n",value);
+				break;
+
+			case 8 :
+				fprintf(stderr, "???? =\t%x\n",value);
+				break;
+
+			case 9 :
+				fprintf(stderr, "???? =\t%x\n",value);
+				break;
+
+			case 10 :
+				fprintf(stderr, "???? =\t%x\n",value);
+				break;
+
+			case 11 :
+				fprintf(stderr, "???? =\t%x\n",value);
+				break;
+
+			default :
+				break;
+		}
+	}
+	for (int i = 12; i < 36; i++)
+	{
+		value=header[i];
+		fprintf(stderr, "; %d %d: ???? =\t%d\n", 0x3b5b + i * 2, i, value);
+	}
+}
+
+void list_action_addresses(FILE *ptr) {
+	int offset = 0x758B - 16357;
+	int low_byte, high_byte;
+	fseek(ptr,offset,SEEK_SET);
+	for (int i = 52; i<102; i++) {
+		low_byte = fgetc(ptr);
+		high_byte = fgetc(ptr);
+		fprintf(stderr, "Address of action %d: %x\n", i, low_byte + 256 * high_byte );
+	}
+}
+
+void list_condition_addresses(FILE *ptr) {
+	int offset = 0x73C2 - 16357;
+	int low_byte, high_byte;
+	fseek(ptr,offset,SEEK_SET);
+	for (int i = 0; i<20; i++) {
+		low_byte = fgetc(ptr);
+		high_byte = fgetc(ptr);
+		fprintf(stderr, "Address of condition %d: %x\n", i, low_byte + 256 * high_byte );
+	}
+
+}
+
+static char *decompress_text(FILE *p, int offset, int index);
+
 
 static void LoadDatabase(FILE *f, int loud)
 {
@@ -454,7 +556,7 @@ static void LoadDatabase(FILE *f, int loud)
 	Action *ap;
 	Room *rp;
 	Item *ip;
-	loud = 0;
+	loud = 1;
 	/* Load the header */
 
 
@@ -462,22 +564,32 @@ static void LoadDatabase(FILE *f, int loud)
 
 	size_t file_length = get_file_length(f);
 
-	size_t pos = 0;
+	size_t pos = 0x3b5a;
+	fseek(f, pos, SEEK_SET);
+	readheader(f);
+	if (sanity_check_header() == 0) {
+		pos = 0;
 
-	do {
-		fseek(f, pos, SEEK_SET);
-		readheader(f);
-		pos++;
-		if (pos >= file_length - 24) {
-			fprintf(stderr, "found no valid header in file\n");
-			return;
+		while (sanity_check_header() == 0) {
+			pos++;
+			fseek(f, pos, SEEK_SET);
+			readheader(f);
+			if (pos >= file_length - 24) {
+				fprintf(stderr, "found no valid header in file\n");
+				exit(1);
+			}
 		}
-	} while (sanity_check_header() == 0);
+	}
 
 	fprintf(stderr, "Found a valid header at file offset %zx\n", pos);
-	file_baseline_offset = pos - 0x2371;
+	file_baseline_offset = pos - 0x3b5a;
 
-	fprintf(stderr, "Difference from baseline .sna file: %x\n", file_baseline_offset);
+	//    list_action_addresses(f);
+	//    list_condition_addresses(f);
+
+	fprintf(stderr, "Difference from baseline .sna file: %d\n", file_baseline_offset);
+
+	print_header_info();
 
 	ni = header[1];
 	na = header[2];
@@ -486,7 +598,9 @@ static void LoadDatabase(FILE *f, int loud)
 	mc = header[5];
 	wl = header[6];
 	mn = header[7];
-	pr = 1;
+//	pr = 1;
+//	pr = 46;
+	pr = 86;
 	tr = 0;
 	lt = -1;
 	trm = 0;
@@ -512,20 +626,51 @@ static void LoadDatabase(FILE *f, int loud)
 	Messages=MemAlloc(sizeof(char *)*(mn+1));
 	GameHeader.TreasureRoom=trm;
 
+	int offset;
+
 #pragma mark room images
 
+//	offset = 0x3A09 + file_baseline_offset;
+//	offset = 15462;
+//	offset = 6181;
+	offset = 15769 + file_baseline_offset;
 	/* Load the room images */
 
-	fseek(f,0x3A09 + file_baseline_offset,SEEK_SET);
+jumpRoomImages:
+	fseek(f,offset,SEEK_SET);
 
 	rp=Rooms;
 
 	for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
 		rp->Image = fgetc(f);
+		if ((ct == 1 && rp->Image != 2)  || (ct == 5 && rp->Image != 9) || (ct == 2 && rp->Image != 2)) {
+			offset++;
+			goto jumpRoomImages;
+		}
 		rp++;
+		if (ct == 10) {
+			for (int i = 0; i<63; i++) {
+				rp++;
+				ct++;
+			}
+		}
 	}
 
+	fprintf(stderr, "Found room images at offset %d\n", offset);
+	fprintf(stderr, "Difference from expected 15769: %d\n", offset - 15769);
+	fprintf(stderr, "Difference from expected 15769 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15769 + file_baseline_offset));
+
+	file_baseline_offset += offset - (15769 + file_baseline_offset);
+
 #pragma mark Item flags
+
+offset = 15800 + file_baseline_offset;
+
+jumpItemFlags:
+	fseek(f,offset,SEEK_SET);
+
+
+//	(Items[ct].Flag & 127) == MyLoc)
 
 	/* Load the item flags */
 
@@ -533,9 +678,24 @@ static void LoadDatabase(FILE *f, int loud)
 
 	for (ct = 0; ct <= GameHeader.NumItems; ct++) {
 		ip->Flag = fgetc(f);
+		if((ct == 1 && (ip->Flag & 127) != 8) || (ct == 23 && (ip->Flag & 127) != 7) || (ct == 18 && (ip->Flag & 127) != 4)) {
+			offset++;
+			goto jumpItemFlags;
+		}
 		ip++;
 	}
 
+
+	fprintf(stderr, "Found item flags at %d\n", offset);
+	fprintf(stderr, "Difference from expected 15800: %d\n", offset - 15800);
+	fprintf(stderr, "Difference from expected 15800 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15800 + file_baseline_offset));
+
+
+
+offset = 15888 + file_baseline_offset;
+
+jumpItemImages:
+	fseek(f,offset,SEEK_SET);
 
 #pragma mark item images
 
@@ -545,18 +705,24 @@ static void LoadDatabase(FILE *f, int loud)
 
 	for (ct = 0; ct <= GameHeader.NumItems; ct++) {
 		ip->Image = fgetc(f);
+		if ((ct == 1 && ip->Image != 73) || (ct == 23 && ip->Image != 70) || (ct == 18 && ip->Image != 5)) {
+			offset++;
+			goto jumpItemImages;
+		}
 		ip++;
 	}
+	fprintf(stderr, "Found item images at %d\n", offset);
 
+
+
+	offset = 16539 + file_baseline_offset;
+jumpHere:
 
 #pragma mark actions
 
 	/* Load the actions */
 
-//	fseek(f,15102 + file_baseline_offset,SEEK_SET);
-
-	fgetc(f); fgetc(f); // Skip two bytes
-
+	fseek(f,offset,SEEK_SET);
 	ct=0;
 
 	Actions=(Action *)malloc(sizeof(Action)*(na+1));
@@ -567,6 +733,18 @@ static void LoadDatabase(FILE *f, int loud)
 	{
 		value = fgetc(f) + 256 * fgetc(f); /* verb/noun */
 		ap->Vocab = value;
+
+		int verb = value;
+
+		int noun=verb%150;
+		//        fprintf(stderr, "Action %d noun: %s\n", ct, Nouns[nv]);
+		verb/=150;
+
+		if (noun < 0 || noun > nw || verb < 0 || verb > nw) {
+			offset++;
+			goto jumpHere;
+		}
+
 		value = fgetc(f); /* count of actions/conditions */
 		cond = value & 0x1f;
 		comm = (value & 0xe0) >> 5;
@@ -585,145 +763,190 @@ static void LoadDatabase(FILE *f, int loud)
 		ct++;
 	}
 
+//	fprintf(stderr, "Found valid actions at offset %d\n", offset);
+
 #pragma mark dictionary
+
+	fseek(f,0x4dc3 + file_baseline_offset,SEEK_SET);
 
 	read_dictionary(f);
 
+//    for (int i = 0; i <= na; i++)
+//    {
+//        int vocab = Actions[i].Vocab;
+//
+//        int verb = vocab;
+//
+//        int noun=verb%150;
+//
+//        verb/=150;
+//
+//        fprintf(stderr, "Action %d verb: %s (%d) noun: %s (%d)\n", i,  Verbs[verb], verb, Nouns[noun], noun);
+//    }
+
 #pragma mark rooms
 
-	ct=0;
+
+	ct=1;
 	rp=Rooms;
 	if(loud)
 		fprintf(stderr, "Reading %d rooms.\n",nr);
 
-	char text[256];
-	char c=0;
-	int charindex = 0;
+	//    char c=0;
+
+	rp->Text = malloc(3);
+	strcpy(rp->Text, ". \0");
+    fprintf(stderr, "Room 0 : \"%s\"\n", rp->Text);
+	rp++;
+
+	int actual_room_number = 1;
 
 	do {
-		c=fgetc(f);
-		text[charindex] = c;
-		if (c == 0) {
-			rp->Text = malloc(charindex + 1);
-			strcpy(rp->Text, text);
-			ct++;
-			rp++;
-			charindex = 0;
-		} else {
-			charindex++;
+		rp->Text = decompress_text(f, 0x9B53 + file_baseline_offset, ct);
+		fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
+		*(rp->Text) = tolower(*(rp->Text));
+		ct++;
+		actual_room_number++;
+		if (ct == 11) {
+			for (int i = 0; i<61; i++) {
+				rp++;
+				rp->Text = "in Sherwood Forest";
+//                fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
+				actual_room_number++;
+			}
 		}
+		rp++;
+//	} while (ct<nr+1);
+	} while (ct<33);
 
-		if (c != 0 && !isascii(c))
-			return;
-	} while (ct<nr+1);
+	offset = 0x3e67 + file_baseline_offset;
 
+try_again:
 
 #pragma mark room connections
+	fseek(f,offset,SEEK_SET);
 
 	ct=0;
 	rp=Rooms;
-	if(loud)
-		fprintf(stderr, "Reading %d X 6 room connections.\n",nr);
+	//    if(loud)
+
 	while(ct<nr+1)
 	{
 		for (int j= 0; j < 6; j++) {
 			rp->Exits[j] = fgetc(f);
+			if (rp->Exits[j] < 0 || rp->Exits[j] > nr || (ct == 2 && j == 5 && rp->Exits[j] != 1) || (ct == 1 && j == 3 && rp->Exits[j] != 0)) {
+				offset++;
+				goto try_again;
+			}
+
 		}
 		ct++;
 		rp++;
 	}
 
-#pragma mark room messages
+	//    fprintf(stderr, "Reading %d X 6 room connections, total of %d bytes.\n",nr, nr * 6);
+//    fprintf(stderr, "Found room connections at offset %d.\n", offset);
+//
+//	static char *ExitNames[6]=
+//	{
+//		//        "North","South","East","West","Up","Down"
+//		"NORTH","SOUTH","EAST","WEST","UP","DOWN"
+//
+//	};
+//
+//        for (int i = 0; i<= nr; i++) {
+//
+//		fprintf(stderr, "Exits from room %d, %s:\n",i, Rooms[i].Text);
+//
+//
+//		for (int j = 0; j< 6; j++) {
+//
+//			if((&Rooms[i])
+//			   ->Exits[j]!=0)
+//			{
+//				fprintf(stderr, " %s to %s,",ExitNames[j], Rooms[(&Rooms[i])
+//																 ->Exits[j]].Text);
+//			}
+//		}
+//			fprintf(stderr, "\n");
+//	}
+//
+//
 
-	ct=0;
+
+#pragma mark messages
+
+	ct=1;
 	if(loud)
 		fprintf(stderr, "Reading %d messages.\n",mn);
+
+	Messages[0] = malloc(3);
+	strcpy((char *)Messages[0], ". \0");
+//    fprintf(stderr, "Message 0 : \"%s\"\n", Messages[0] );
 	while(ct<mn+1)
 	{
-		c=fgetc(f);
-		text[charindex] = c;
-		if (c == 0) {
-			Messages[ct] = malloc(charindex + 1);
-			strcpy((char *)Messages[ct], text);
-			ct++;
-			charindex = 0;
-		} else {
-			charindex++;
-		}
+		Messages[ct] = decompress_text(f, 0x912c + file_baseline_offset, ct);
+        fprintf(stderr, "Message %d : \"%s\"\n", ct, Messages[ct]);
+		ct++;
 	}
 
 #pragma mark items
 
 	ct=0;
-	charindex = 0;
 	if(loud)
 		fprintf(stderr, "Reading %d items.\n",ni);
 	ip=Items;
 
-
 	do {
+		ip->Text = decompress_text(f, 0x9B66 + file_baseline_offset, ct+32);
 
-		c=fgetc(f);
-		text[charindex] = c;
-		if (c == 0) {
-			ip->Text = malloc(charindex + 1);
-
-			strcpy(ip->Text, text);
-			//            fprintf(stderr, "item %d: \"%s\"\n",ct, ip->Text);
-
-
-
-			ip->AutoGet=strchr(ip->Text,'/');
-			/* Some games use // to mean no auto get/drop word! */
-			if(ip->AutoGet && strcmp(ip->AutoGet,"//") && strcmp(ip->AutoGet,"/*"))
-			{
-				char *t;
-				*ip->AutoGet++=0;
-				t=strchr(ip->AutoGet,'/');
-				if(t!=NULL)
-					*t=0;
-			}
-
-
-
-			ct++;
-			ip++;
-			charindex = 0;
-		} else {
-			charindex++;
+		ip->AutoGet=strchr(ip->Text,'.');
+		//            /* Some games use // to mean no auto get/drop word! */
+		if(ip->AutoGet)
+		{
+			char *t;
+			*ip->AutoGet++=0;
+			ip->AutoGet++;
+			t=strchr(ip->AutoGet,'.');
+			if(t!=NULL)
+				*t=0;
+			for (int i = 1; i < 4; i++)
+				*(ip->AutoGet+i) = toupper(*(ip->AutoGet+i));
+//            fprintf(stderr, "Autoget: \"%s\"\n", ip->AutoGet);
 		}
+
+		ct++;
+		ip++;
 	} while(ct<ni+1);
 
 #pragma mark item locations
 
+	offset = 0x4d6b + file_baseline_offset;
+jumpItemLoc:
+
+    fseek(f,offset,SEEK_SET);
+
+	//    0x6493
 	ct=0;
 	ip=Items;
 	while(ct<ni+1)
 	{
 		ip->Location=fgetc(f);
+		if ((ct == 11 && ip->Location != 1) || (ct == 40 && ip->Location != 79)) {
+			offset++;
+			goto jumpItemLoc;
+		}
+
 		ip->InitialLoc=ip->Location;
 		ip++;
 		ct++;
 	}
-	/* Discard Comment Strings */
-	//    while(ct<na+1)
-	//    {
-	//        free(ReadString(f));
-	//        ct++;
-	//    }
-	//    if(fscanf(f,"%d",&ct)!=1)
-	//    {
-	//        puts("Cannot read version");
-	//        exit(1);
-	//    }
-	//    if(loud)
-	//        printf("Version %d.%02d of Adventure ",
-	//        ct/100,ct%100);
-	//    if(fscanf(f,"%d",&ct)!=1)
-	//    {
-	//        puts("Cannot read adventure number");
-	//        exit(1);
-	//    }
+
+	fprintf(stderr, "Found item locations at offset: %d\n", offset);
+	fprintf(stderr, "Difference from expected 0x4d6b: %d\n", offset - 0x4d6b);
+	fprintf(stderr, "Difference from expected 0x4d6b + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (0x4d6b + file_baseline_offset));
+
+
 	if(loud)
 		fprintf(stderr, "%d.\nLoad Complete.\n\n",ct);
 }
@@ -742,7 +965,8 @@ static void DrawImage(int image) {
 	open_graphics_window();
 	if (Graphics == NULL)
 		return;
-	draw_saga_picture(image, game_file, "o2", "zxopt", Graphics, pixel_size, x_offset, file_baseline_offset);
+//	fprintf(stderr, "DrawImage %d\n", image);
+	draw_saga_picture_number(image);
 }
 
 
@@ -855,7 +1079,7 @@ static int list_exits(int ypos)
 {
 	static char *ExitNames[6]=
 	{
-//		"North","South","East","West","Up","Down"
+		//        "North","South","East","West","Up","Down"
 		"NORTH","SOUTH","EAST","WEST","UP","DOWN"
 
 	};
@@ -865,7 +1089,7 @@ static int list_exits(int ypos)
 	while(ct<6)
 	{
 		if((&Rooms[MyLoc])
-->Exits[ct]!=0)
+		   ->Exits[ct]!=0)
 		{
 			if(f==0)
 			{
@@ -879,14 +1103,163 @@ static int list_exits(int ypos)
 		}
 		ct++;
 	}
-	//	if(f==0)
-	//		Display(Top,"none");
+	//    if(f==0)
+	//        Display(Top,"none");
 	if(f!=0) {
-//		Display(Top,".\n");
-//		Display(Top,"\n");
+		//        Display(Top,".\n");
+		//        Display(Top,"\n");
 		return 2;
 	}
 	return 0;
+}
+
+int rotate_left_with_carry(uint8_t *byte, int last_carry)
+{
+	int carry = ((*byte & 0x80) > 0);
+	*byte = *byte << 1;
+	if (last_carry)
+		*byte = *byte | 0x01;
+	return carry;
+}
+
+int rotate_right_with_carry(uint8_t *byte, int last_carry)
+{
+	int carry = ((*byte & 0x01) > 0);
+	*byte = *byte >> 1;
+	if (last_carry)
+		*byte = *byte | 0x80;
+	return carry;
+}
+
+int decompress_one(uint8_t *bytes) {
+    uint8_t result = 0;
+	int carry;
+	for (int i = 0; i < 5; i++)
+	{
+		carry = 0;
+		for (int j = 0; j < 5; j++)
+		{
+			carry = rotate_left_with_carry(bytes+4-j, carry);
+		}
+        rotate_left_with_carry(&result, carry);
+	}
+    return result;
+}
+
+
+static char *decompressed(uint8_t *source, int stringindex)
+{
+	// Lookup table
+	const char *alphabet = " abcdefghijklmnopqrstuvwxyz'\x01,.\x00";
+
+	int pos, c, uppercase, i, j;
+	uint8_t decompressed[256];
+	uint8_t buffer[5];
+	int idx = 0;
+
+	// Find the start of the compressed message
+	for(int i = 0; i < stringindex; i++) {
+		pos = *source;
+		pos = pos & 0x7F;
+		source += pos;
+	};
+
+	uppercase = ((*source & 0x40) == 0); // Test bit 6
+
+	source++;
+	do {
+		// Get five compressed bytes
+		for (i = 0; i < 5; i++) {
+			buffer[i] = *source++;
+		}
+		for (j = 0; j < 8; j++) {
+			// Decompress one character:
+			int next = decompress_one(buffer);
+
+			c = alphabet[next];
+
+			if (c == 0x01) {
+				uppercase = 1;
+				c = ' ';
+			}
+
+			if (c >= 'a' && uppercase) {
+				c = toupper(c);
+				uppercase = 0;
+			}
+			decompressed[idx++] = c;
+
+			if (c == 0) {
+				char *result = malloc(idx);
+				memcpy(result, decompressed, idx);
+				return result;
+			} else if (c == '.' || c == ',') {
+				if (c == '.')
+					uppercase = 1;
+				decompressed[idx++] = ' ';
+			}
+		}
+	} while (idx < 0xff);
+	return NULL;
+}
+
+static char *decompress_text(FILE *p, int offset, int index)
+{
+	size_t length = get_file_length(p);
+	uint8_t *buf = (uint8_t *)malloc(length);
+	fseek(p, 0, SEEK_SET);
+	fread(buf, sizeof *buf, length, p);
+
+	//    offset = 0x912c; // Messages
+	//    offset = 0x9B53; // Room descriptions
+	//    offset = 0x9B66; // Item descriptions
+
+	uint8_t *mem = (uint8_t *)malloc(0xFFFF);
+	memset(mem, 0, 0xffff);
+	for (int i = 0; i<length; i++) {
+		mem[i+16357] = buf[i];
+	}
+
+	char *text = decompressed(mem+offset, index);
+	free(mem);
+	return text;
+}
+
+int is_forest_location(void) {
+	return (MyLoc >= 11 && MyLoc <=73);
+}
+
+static void robin_of_sherwood_look(void) {
+	if (MyLoc == 82) // Dummy room where exit from Up a tree goes
+		MyLoc = RoomSaved[0];
+	if (MyLoc == 93) // Up a tree
+		for (int i = 0; i < GameHeader.NumItems; i++)
+			if (Items[i].Location == 93)
+				Items[i].Location = RoomSaved[0];
+	if (is_forest_location()) {
+		open_graphics_window();
+		DrawImage(0);
+		draw_sherwood(MyLoc);
+
+		if (Items[36].Location == MyLoc) {
+			//"Gregory the tax collector with his horse and cart"
+			DrawImage(15); // Horse and cart
+			DrawImage(3); // Sacks of grain
+		}
+		if (Items[60].Location == MyLoc) {
+			// "A serf driving a horse and cart"
+			DrawImage(15); // Horse and cart
+			DrawImage(12); // Hay
+		}
+		if (MyLoc == 73) {
+			// Outlaws camp
+			DrawImage(36); // Campfire
+		}
+	}
+
+	if (MyLoc == 86 || MyLoc == 79) {
+		glk_request_timer_events(15);
+	}
 }
 
 
@@ -901,16 +1274,13 @@ static void Look(void)
 	if(split_screen) {
 		glk_window_clear(Top);
 		if (Rooms[MyLoc].Image != 255) {
-			if (MyLoc == 17 && Items[82].Location == 17)
-				DrawImage(45); /* Bar full of Gremlins */
-			else
 				DrawImage(Rooms[MyLoc].Image);
-			AnimationFlag = 0;
-			DrawAnimations();
 		} else {
 			close_graphics_window();
 		}
 	}
+
+	robin_of_sherwood_look();
 
 	if((BitFlags&(1<<DARKBIT)) && Items[LIGHT_SOURCE].Location!= CARRIED
 	   && Items[LIGHT_SOURCE].Location!= MyLoc)
@@ -925,38 +1295,40 @@ static void Look(void)
 	}
 	r=&Rooms[MyLoc];
 	if(*r->Text=='*')
-//		Display(Top,"%s\n",r->Text+1);
+		//        Display(Top,"%s\n",r->Text+1);
 		Display(Top,"%s",r->Text+1);
 	else
 	{
-		if(Options&YOUARE)
-			Display(Top,"You are in a %s\n",r->Text);
-		else
+		if(Options&YOUARE) {
+//			Display(Top,"You are in a %s\n",r->Text);
+//			Display(Top,"You are %s\n",r->Text);
+			Display(Top,"You are %s",r->Text);
+		} else
 			Display(Top,"I'm in a %s",r->Text);
 	}
-//	ct=0;
-//	f=0;
-//	while(ct<6)
-//	{
-//		if(r->Exits[ct]!=0)
-//		{
-//			if(f==0)
-//			{
-//				Display(Top,"\nObvious exits: ");
-//				f=1;
-//			}
-//			else
-//				Display(Top,", ");
-//			Display(Top,"%s",ExitNames[ct]);
-//		}
-//		ct++;
-//	}
-////	if(f==0)
-////		Display(Top,"none");
-//	if(f!=0) {
-//	Display(Top,".\n");
-//	ypos++;
-//	}
+	//    ct=0;
+	//    f=0;
+	//    while(ct<6)
+	//    {
+	//        if(r->Exits[ct]!=0)
+	//        {
+	//            if(f==0)
+	//            {
+	//                Display(Top,"\nObvious exits: ");
+	//                f=1;
+	//            }
+	//            else
+	//                Display(Top,", ");
+	//            Display(Top,"%s",ExitNames[ct]);
+	//        }
+	//        ct++;
+	//    }
+	////    if(f==0)
+	////        Display(Top,"none");
+	//    if(f!=0) {
+	//    Display(Top,".\n");
+	//    ypos++;
+	//    }
 	ct=0;
 	f=0;
 	xpos=0;
@@ -968,12 +1340,15 @@ static void Look(void)
 			{
 				if(Options&YOUARE)
 				{
-					Display(Top,"\nYou can also see: ");
-					xpos=18;
+//					Display(Top,"\nYou can also see: ");
+//					xpos=18;
+					Display(Top,". You see:\n\n");
+					xpos=0;
+					ypos=2;
 				}
 				else
 				{
-//					Display(Top,"\nI can also see: ");
+					//                    Display(Top,"\nI can also see: ");
 					Display(Top,". Things I see:\n\n");
 					xpos=0;
 					ypos=2;
@@ -997,19 +1372,18 @@ static void Look(void)
 			if (Options & TRS80_STYLE)
 			{
 				Display(Top,". ");
-				xpos+=2;
+				xpos++;
 			}
 			if (split_screen && Items[ct].Image) {
 				if ((Items[ct].Flag & 127) == MyLoc) {
 					DrawImage(Items[ct].Image);
 				}
-				if (MyLoc == 34 && ct == 53) {
-					DrawImage(42);
-				}
+
 			}
 		}
 		ct++;
 	}
+
 	if (f)
 		ypos++;
 	ypos += list_exits(ypos);
@@ -1058,6 +1432,8 @@ static int WhichWord(const char *word, const char **list)
 	return(-1);
 }
 
+void drawstuff(void);
+
 static void LineInput(char *buf, size_t n)
 {
 	event_t ev;
@@ -1074,8 +1450,22 @@ static void LineInput(char *buf, size_t n)
 			close_graphics_window();
 			Look();
 		}
-		else if(ev.type == evtype_Timer && split_screen)
-			DrawAnimations();
+		else if(ev.type == evtype_Timer) {
+			AnimationFlag++;
+			if (AnimationFlag > 63)
+				AnimationFlag = 0;
+			if (split_screen && (MyLoc == 86 || MyLoc == 79 || MyLoc == 84)) {
+				if (MyLoc == 86) {
+					animate_waterfall(AnimationFlag);
+				} else if (MyLoc == 79) {
+					animate_waterfall_cave(AnimationFlag);
+				} else {
+					animate_lightning(AnimationFlag);
+				}
+			} else {
+				glk_request_timer_events(0);
+			}
+		}
 	}
 
 	buf[ev.val1] = 0;
@@ -1160,7 +1550,7 @@ static int GetInput(int *vb, int *no)
 	{
 		do
 		{
-//			Output("\nTell me what to do ? ");
+			//            Output("\nTell me what to do ? ");
 			Output("\n--WHAT NOW ? ");
 			LineInput(buf, sizeof buf);
 			num=sscanf(buf,"%9s %9s",verb,noun);
@@ -1183,7 +1573,7 @@ static int GetInput(int *vb, int *no)
 				case 'w':strcpy(verb,"WEST");break;
 				case 'u':strcpy(verb,"UP");break;
 				case 'd':strcpy(verb,"DOWN");break;
-				/* Brian Howarth interpreter also supports this */
+					/* Brian Howarth interpreter also supports this */
 				case 'i':strcpy(verb,"INVENTORY");break;
 			}
 		}
@@ -1202,22 +1592,61 @@ static int GetInput(int *vb, int *no)
 		*no=nc;
 		if(vc==-1)
 		{
-//			Output("You use word(s) I don't know! ");
+			//            Output("You use word(s) I don't know! ");
 			Output("\"");
 			Output(verb);
 			Output("\" is not a word I know. ");
 		}
 	}
 	while(vc==-1);
-	strcpy(NounText,noun);	/* Needed by GET/DROP hack */
+	strcpy(NounText,noun);    /* Needed by GET/DROP hack */
 
 	return 0;
 }
 
+static void robin_of_sherwood_action(int p)
+{
+	switch (p) {
+		case 1:
+			Look();
+			if (MyLoc == 14)
+				Delay(0.4);
+			Items[39].Location = MyLoc;
+			Look();
+			DrawImage(0); /* Herne */
+
+			Output("<HIT ENTER> ");
+
+			glk_request_char_event(Bottom);
+			event_t ev;
+			do
+			{
+				glk_select(&ev);
+			} while(ev.type != evtype_CharInput);
+
+			Items[39].Location = 79;
+			Look();
+			break;
+		case 2:
+			RoomSaved[0] = MyLoc;
+			MyLoc = 93;
+			Look();
+			break;
+		case 3:
+			// Flash animation
+			AnimationFlag = 1;
+			glk_request_timer_events(15);
+			break;
+		default:
+			fprintf(stderr, "Unhandled special action!\n");
+			break;
+	}
+}
+
 static int PerformLine(int ct)
 {
-//	fprintf(stderr, "Performing line %d: ", ct);
-//
+	//    fprintf(stderr, "Performing line %d: ", ct);
+	//
 	int continuation=0;
 	int param[5],pptr=0;
 	int act[4];
@@ -1235,103 +1664,103 @@ static int PerformLine(int ct)
 				param[pptr++]=dv;
 				break;
 			case 1:
-//				fprintf(stderr, "Does the player carry %s?\n", Items[dv].Text);
+				//                fprintf(stderr, "Does the player carry %s?\n", Items[dv].Text);
 				if(Items[dv].Location!=CARRIED)
 					return(0);
 				break;
 			case 2:
-//				fprintf(stderr, "Is %s in location?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s in location?\n", Items[dv].Text);
 				if(Items[dv].Location!=MyLoc)
 					return(0);
 				break;
 			case 3:
-//				fprintf(stderr, "Is %s held or in location?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s held or in location?\n", Items[dv].Text);
 				if(Items[dv].Location!=CARRIED&&
 				   Items[dv].Location!=MyLoc)
 					return(0);
 				break;
 			case 4:
-//				fprintf(stderr, "Is location %s?\n", Rooms[dv].Text);
+				//                fprintf(stderr, "Is location %s?\n", Rooms[dv].Text);
 				if(MyLoc!=dv)
 					return(0);
 				break;
 			case 5:
-//				fprintf(stderr, "Is %s NOT in location?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s NOT in location?\n", Items[dv].Text);
 				if(Items[dv].Location==MyLoc)
 					return(0);
 				break;
 			case 6:
-//				fprintf(stderr, "Does the player NOT carry %s?\n", Items[dv].Text);
+				//                fprintf(stderr, "Does the player NOT carry %s?\n", Items[dv].Text);
 				if(Items[dv].Location==CARRIED)
 					return(0);
 				break;
 			case 7:
-//				fprintf(stderr, "Is location NOT %s?\n", Rooms[dv].Text);
+				//                fprintf(stderr, "Is location NOT %s?\n", Rooms[dv].Text);
 				if(MyLoc==dv)
 					return(0);
 				break;
 			case 8:
-//				fprintf(stderr, "Is bitflag %d set?\n", dv);
+				//                fprintf(stderr, "Is bitflag %d set?\n", dv);
 				if((BitFlags&(1<<dv))==0)
 					return(0);
 				break;
 			case 9:
-//				fprintf(stderr, "Is bitflag %d NOT set?\n", dv);
+				//                fprintf(stderr, "Is bitflag %d NOT set?\n", dv);
 				if(BitFlags&(1<<dv))
 					return(0);
 				break;
 			case 10:
-//				fprintf(stderr, "Does the player carry anything?\n");
+				//                fprintf(stderr, "Does the player carry anything?\n");
 				if(CountCarried()==0)
 					return(0);
 				break;
 			case 11:
-//				fprintf(stderr, "Does the player carry nothing?\n");
+				//                fprintf(stderr, "Does the player carry nothing?\n");
 				if(CountCarried())
 					return(0);
 				break;
 			case 12:
-//				fprintf(stderr, "Is %s neither carried nor in room?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s neither carried nor in room?\n", Items[dv].Text);
 				if(Items[dv].Location==CARRIED||Items[dv].Location==MyLoc)
 					return(0);
 				break;
 			case 13:
-//				fprintf(stderr, "Is %s (%d) in play?\n", Items[dv].Text, dv);
+				//                fprintf(stderr, "Is %s (%d) in play?\n", Items[dv].Text, dv);
 				if(Items[dv].Location==0)
 					return(0);
 				break;
 			case 14:
-//				fprintf(stderr, "Is %s NOT in play?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s NOT in play?\n", Items[dv].Text);
 				if(Items[dv].Location)
 					return(0);
 				break;
 			case 15:
-//				fprintf(stderr, "Is CurrentCounter <= %d?\n", dv);
+				//                fprintf(stderr, "Is CurrentCounter <= %d?\n", dv);
 				if(CurrentCounter>dv)
 					return(0);
 				break;
 			case 16:
-//				fprintf(stderr, "Is CurrentCounter > %d?\n", dv);
+				//                fprintf(stderr, "Is CurrentCounter > %d?\n", dv);
 				if(CurrentCounter<=dv)
 					return(0);
 				break;
 			case 17:
-//				fprintf(stderr, "Is %s still in initial room?\n", Items[dv].Text);
+				//                fprintf(stderr, "Is %s still in initial room?\n", Items[dv].Text);
 				if(Items[dv].Location!=Items[dv].InitialLoc)
 					return(0);
 				break;
 			case 18:
-//				fprintf(stderr, "Has %s been moved?\n", Items[dv].Text);
+				//                fprintf(stderr, "Has %s been moved?\n", Items[dv].Text);
 				if(Items[dv].Location==Items[dv].InitialLoc)
 					return(0);
 				break;
 			case 19:/* Only seen in Brian Howarth games so far */
-//				fprintf(stderr, "Is current counter == %d?\n", dv);
+				//                fprintf(stderr, "Is current counter == %d?\n", dv);
 				if(CurrentCounter!=dv)
 					return(0);
 				break;
 		}
-//		fprintf(stderr, "YES\n");
+		//        fprintf(stderr, "YES\n");
 		cc++;
 	}
 
@@ -1352,18 +1781,18 @@ static int PerformLine(int ct)
 
 		if(act[cc]>=1 && act[cc]<52)
 		{
-//			fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc], Messages[act[cc]]);
+//			            fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc], Messages[act[cc]]);
 			Output(Messages[act[cc]]);
 			//            Output("\n");
-			Output(" ");
+			Output(". ");
 
 		}
 		else if(act[cc]>101)
 		{
-//			fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc]-50, Messages[act[cc]-50]);
+			//            fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc]-50, Messages[act[cc]-50]);
 			Output(Messages[act[cc]-50]);
 			//            Output("\n");
-			Output(" ");
+			Output(". ");
 		}
 		else switch(act[cc])
 		{
@@ -1375,7 +1804,7 @@ static int PerformLine(int ct)
 					if(Options&YOUARE)
 						Output("You are carrying too much. ");
 					else
-//						Output("I've too much to carry! ");
+						//                        Output("I've too much to carry! ");
 						Output("I'm carrying too much! ");
 					break;
 				}
@@ -1385,6 +1814,7 @@ static int PerformLine(int ct)
 				Items[param[pptr++]].Location=MyLoc;
 				break;
 			case 54:
+//				fprintf(stderr, "Action 54: player location is now room %d (%s).\n", param[pptr], Rooms[param[pptr]].Text);
 				MyLoc=param[pptr++];
 				break;
 			case 55:
@@ -1397,20 +1827,24 @@ static int PerformLine(int ct)
 				BitFlags&=~(1<<DARKBIT);
 				break;
 			case 58:
-//				fprintf(stderr, "Action 58: Bitflag %d is set\n", param[pptr]);
+				//                fprintf(stderr, "Action 58: Bitflag %d is set\n", param[pptr]);
 				BitFlags|=(1<<param[pptr++]);
 				break;
 			case 59:
+//				fprintf(stderr, "Action 59: Item %d (%s) is removed from play.\n", param[pptr], Items[param[pptr]].Text);
 				Items[param[pptr++]].Location=0;
 				break;
 			case 60:
+//				fprintf(stderr, "Action 60: BitFlag %d is cleared\n", param[pptr]);
 				BitFlags&=~(1<<param[pptr++]);
 				break;
 			case 61:
 				if(Options&YOUARE)
-					Output("You are dead.\n");
+//					Output("You are dead.\n");
+					Output("Your reign of the Sherwood Forest is over.\n");
+
 				else
-//					Output("I am dead.\n");
+					//                    Output("I am dead.\n");
 					Output("I'm DEAD!! \n");
 				BitFlags&=~(1<<DARKBIT);
 				MyLoc=GameHeader.NumRooms;/* It seems to be what the code says! */
@@ -1420,11 +1854,14 @@ static int PerformLine(int ct)
 			{
 				/* Bug fix for some systems - before it could get parameters wrong */
 				int i=param[pptr++];
+//				fprintf(stderr, "Action 62: Item %d (%s) is put in room %d (%s).\n", i, Items[i].Text, param[pptr], Rooms[param[pptr]].Text);
 				Items[i].Location=param[pptr++];
 				break;
 			}
 			case 63:
-			doneit:                Output("The game is now over.\n\nResume a saved game ?");
+			doneit:
+				Look();
+				Output("\n\nResume a saved game ?");
 				glk_request_char_event(Bottom);
 
 				event_t ev;
@@ -1470,29 +1907,30 @@ static int PerformLine(int ct)
 				int i=0;
 				int f=0;
 				if(Options&YOUARE)
-					Output("You are carrying:\n");
+					Output("You are carrying: ");
 				else
 					Output("I'm carrying:\n");
 				while(i<=GameHeader.NumItems)
 				{
 					if(Items[i].Location==CARRIED)
 					{
-						if(f==1)
+						if(f==1 && (Options & TRS80_STYLE) == 0)
 						{
-							if (Options & TRS80_STYLE)
-								Output(". ");
-							else
 								Output(" - ");
 						}
 						f=1;
 						Output(Items[i].Text);
+						if(Options & TRS80_STYLE)
+						{
+							Output(". ");
+						}
 					}
 					i++;
 				}
 				if(f==0)
-//					Output("Nothing");
-					Output("Not a thing!");
-				Output(".\n");
+					                   Output("Nothing!");
+//					Output("Not a thing!");
+//				Output("\n");
 				break;
 			}
 			case 67:
@@ -1548,10 +1986,12 @@ static int PerformLine(int ct)
 				OutputNumber(CurrentCounter);
 				break;
 			case 79:
+//				fprintf(stderr, "CurrentCounter is set to %d.\n", param[pptr]);
 				CurrentCounter=param[pptr++];
 				break;
 			case 80:
 			{
+//				fprintf(stderr, "Performing action 80: switch location to saved location.\n");
 				int t=MyLoc;
 				MyLoc=SavedRoom;
 				SavedRoom=t;
@@ -1612,19 +2052,10 @@ static int PerformLine(int ct)
 				/* Spectrum Seas of Blood - start combat ? */
 				/* Poking this into older spectrum games causes a crash */
 
-				DrawImage(68); /* Mogwai */
+				int p=param[pptr];
+//				fprintf(stderr, "Drawing special image, action 89. Param %d\n", p);
 
-				Output("\n<HIT ENTER> ");
-
-				glk_request_char_event(Bottom);
-
-				event_t ev;
-				do
-				{
-					glk_select(&ev);
-				} while(ev.type != evtype_CharInput);
-
-				Output("\n");
+				robin_of_sherwood_action(p);
 				break;
 			}
 			default:
@@ -1649,7 +2080,7 @@ static int PerformActions(int vb,int no)
 #pragma mark GO
 	if(vb==1 && no == -1 )
 	{
-//		Output("Give me a direction too.");
+		//        Output("Give me a direction too.");
 		Output("Direction ?");
 		return(0);
 	}
@@ -1679,7 +2110,7 @@ static int PerformActions(int vb,int no)
 		if(Options&YOUARE)
 			Output("You can't go in that direction. ");
 		else
-//			Output("I can't go in that direction. ");
+			//            Output("I can't go in that direction. ");
 			Output("I can't go THAT way. ");
 		return(0);
 	}
@@ -1769,13 +2200,13 @@ static int PerformActions(int vb,int no)
 								if(Options&YOUARE)
 									Output("You are carrying too much. ");
 								else
-//									Output("I've too much to carry. ");
+									//                                    Output("I've too much to carry. ");
 									Output("I'm carrying too much! ");
 								return(0);
 							}
 							Items[i].Location= CARRIED;
 							Output(Items[i].Text);
-//							Output(": O.K.\n");
+							//                            Output(": O.K.\n");
 							Output("....Taken.\n");
 							f=1;
 						}
@@ -1795,7 +2226,7 @@ static int PerformActions(int vb,int no)
 					if(Options&YOUARE)
 						Output("You are carrying too much. ");
 					else
-//						Output("I've too much to carry. ");
+						//                        Output("I've too much to carry. ");
 						Output("I'm carrying too much! ");
 
 					return(0);
@@ -1818,7 +2249,7 @@ static int PerformActions(int vb,int no)
 
 				}
 				Items[item].Location= CARRIED;
-//				Output("O.K. ");
+				//                Output("O.K. ");
 				Output("Taken. ");
 				return(0);
 			}
@@ -1839,7 +2270,7 @@ static int PerformActions(int vb,int no)
 							disable_sysfunc=0;
 							Items[i].Location=MyLoc;
 							Output(Items[i].Text);
-//							Output(": O.K.\n");
+							//                            Output(": O.K.\n");
 							Output("....Dropped.\n");
 							f=1;
 						}
@@ -1865,7 +2296,7 @@ static int PerformActions(int vb,int no)
 					return(0);
 				}
 				Items[item].Location=MyLoc;
-//				Output("O.K. ");
+				//                Output("O.K. ");
 				Output("Dropped. ");
 				return(0);
 			}
@@ -1876,14 +2307,14 @@ static int PerformActions(int vb,int no)
 
 glkunix_argumentlist_t glkunix_arguments[] =
 {
-	{ "-y",		glkunix_arg_NoValue,		"-y		Generate 'You are', 'You are carrying' type messages for games that use these instead (eg Robin Of Sherwood)" },
-	{ "-i",		glkunix_arg_NoValue,		"-i		Generate 'I am' type messages (default)" },
-	{ "-d",		glkunix_arg_NoValue,		"-d		Debugging info on load " },
-	{ "-s",		glkunix_arg_NoValue,		"-s		Generate authentic Scott Adams driver light messages rather than other driver style ones (Light goes out in n turns..)" },
-	{ "-t",		glkunix_arg_NoValue,		"-t		Generate TRS80 style display (terminal width is 64 characters; a line <-----------------> is displayed after the top stuff; objects have periods after them instead of hyphens" },
-	{ "-p",		glkunix_arg_NoValue,		"-p		Use for prehistoric databases which don't use bit 16" },
-	{ "-w",		glkunix_arg_NoValue,		"-w		Disable upper window" },
-	{ "",		glkunix_arg_ValueFollows,	"filename	file to load" },
+	{ "-y",        glkunix_arg_NoValue,        "-y        Generate 'You are', 'You are carrying' type messages for games that use these instead (eg Robin Of Sherwood)" },
+	{ "-i",        glkunix_arg_NoValue,        "-i        Generate 'I am' type messages (default)" },
+	{ "-d",        glkunix_arg_NoValue,        "-d        Debugging info on load " },
+	{ "-s",        glkunix_arg_NoValue,        "-s        Generate authentic Scott Adams driver light messages rather than other driver style ones (Light goes out in n turns..)" },
+	{ "-t",        glkunix_arg_NoValue,        "-t        Generate TRS80 style display (terminal width is 64 characters; a line <-----------------> is displayed after the top stuff; objects have periods after them instead of hyphens" },
+	{ "-p",        glkunix_arg_NoValue,        "-p        Use for prehistoric databases which don't use bit 16" },
+	{ "-w",        glkunix_arg_NoValue,        "-w        Disable upper window" },
+	{ "",        glkunix_arg_ValueFollows,    "filename    file to load" },
 
 	{ NULL, glkunix_arg_End, NULL }
 };
@@ -1938,9 +2369,10 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	if(argc==2)
 	{
 		//        game_file = argv[1];
-		game_file = "/Users/administrator/Desktop/gremlins.sna";
-//		game_file = "/Users/administrator/Downloads/Gremlins - The Adventure.tzx";
-
+		game_file = "/Users/administrator/Desktop/sherwood.sna";
+		//        game_file = "/Users/administrator/Downloads/Gremlins - The Adventure.tzx";
+//		game_file = "/Users/administrator/Downloads/Robin Of Sherwood - Alternate.tzx";
+		Options|=YOUARE;
 #ifdef GARGLK
 		const char *s;
 		if((s = strrchr(game_file, '/')) != NULL || (s = strrchr(game_file, '\\')) != NULL)
@@ -2003,12 +2435,17 @@ void glk_main(void)
 		Top = Bottom;
 	}
 
-	Output("\
-Scott Free, A Scott Adams game driver in C.\n\
-Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
-Distributed under the GNU software license\n\n");
+//	Output("\
+//Scott Free, A Scott Adams game driver in C.\n\
+//Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
+//Distributed under the GNU software license\n\n");
 	LoadDatabase(f,(Options&DEBUGGING)?1:0);
 	fclose(f);
+	if(split_screen) {
+		open_graphics_window();
+		saga_setup(game_file, "o3", file_baseline_offset, "zxopt");
+		close_graphics_window();
+	}
 #ifdef SPATTERLIGHT
 	if (gli_determinism)
 		srand(1234);
@@ -2027,10 +2464,10 @@ Distributed under the GNU software license\n\n");
 			continue;
 		switch(PerformActions(vb,no))
 		{
-			case -1:Output("I don't understand you");
-//			case -1:Output("I don't understand your command. ");
+			case -1:Output("I don't understand");
+				//            case -1:Output("I don't understand your command. ");
 				break;
-//			case -2:Output("I can't do that just now! ");
+				//            case -2:Output("I can't do that just now! ");
 			case -2:Output("I can't do that yet. ");
 				break;
 		}
