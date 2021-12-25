@@ -120,14 +120,9 @@
         XCTestExpectation *exp = [[XCTestExpectation alloc] initWithDescription:@"Test passed"];
         GlkController __block *glkctl = [self startGame:game];
         if (glkctl) {
-            double delayInSeconds = 2;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
                 CommandScriptHandler *csh = glkctl.commandScriptHandler;
                 GlkWindow *inputView = [csh findGlkWindowWithInput];
-//                if (inputView) {
-//                    [csh startCommandScript:@"No\nNo\n" inWindow:inputView];
-//                } else NSLog(@"No view with input found!");
 
                 NSMutableDictionary *winDic = [NSMutableDictionary new];
                 for (NSNumber *key in glkctl.gwindows.allKeys) {
@@ -140,9 +135,7 @@
                 }
                 [glkctl.window performClose:nil];
                 glkctl = [self startGame:game];
-                double delayInSeconds = 2;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
                     for (NSNumber *key in glkctl.gwindows.allKeys) {
                         NSLog(@"Comparing Glk window %@", key);
                         NSTextView *textView = winDic[key];

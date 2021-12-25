@@ -124,7 +124,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 @interface LibController () <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
 
-    IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
@@ -231,7 +230,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     self.window.excludedFromWindowsMenu = YES;
     [self.window registerForDraggedTypes:@[ NSFilenamesPboardType ]];
 
-    [infoButton setEnabled:NO];
     [playButton setEnabled:NO];
 
     _infoWindows = [[NSMutableDictionary alloc] init];
@@ -605,9 +603,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     LibController * __weak weakSelf = self;
 
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
@@ -2270,6 +2266,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             frame = [[self window] convertRectToScreen:frame];
         }
     }
+    frame.origin.x += 12;
+    frame.size.width -= 24;
     return frame;
 }
 
@@ -2658,7 +2656,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSTableView *tableView = [notification object];
     if (tableView == _gameTableView) {
         NSIndexSet *rows = tableView.selectedRowIndexes;
-        infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
         if (_gameTableModel.count && rows.count) {

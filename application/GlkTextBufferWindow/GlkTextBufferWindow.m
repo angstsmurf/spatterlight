@@ -145,6 +145,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         scrollview.documentView = _textview;
         scrollview.contentView.copiesOnScroll = YES;
+        scrollview.verticalScrollElasticity = NSScrollElasticityNone;
 
         /* now configure the text stuff */
 
@@ -762,8 +763,9 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = YES;
     storedNewline = nil;
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
-    if (currentZColor && currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default)
+    if (currentZColor && currentZColor.bg != zcolor_Current)
         bgnd = currentZColor.bg;
+    [self recalcBackground];
 }
 
 - (void)reallyClear {
@@ -776,7 +778,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
-    [self recalcBackground];
     [container invalidateLayout:nil];
     _pendingClear = NO;
 }
@@ -1809,7 +1810,7 @@ replacementString:(id)repl {
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
         currentZColor = nil;
     }
-    if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
+    if (!currentZColor) {
         // A run of zcolor started
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg];
@@ -1891,8 +1892,6 @@ replacementString:(id)repl {
 
     //    NSLog(@"lastScrollOffset: %f", lastScrollOffset);
     //    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferCellHeight) * 100);
-
-
 }
 
 - (void)restoreScroll:(id)sender {

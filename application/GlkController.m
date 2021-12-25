@@ -1149,7 +1149,7 @@ fprintf(stderr, "%s\n",                                                    \
     // to re-send us window sizes. The player may have changed settings that
     // affect window size since the autosave was created.
 
-    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0.2];
 }
 
 
@@ -1160,16 +1160,14 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     Theme *stashedTheme = _stashedTheme;
-    if (stashedTheme && stashedTheme != _theme)
-    {
+    if (stashedTheme && stashedTheme != _theme) {
         _theme = stashedTheme;
         _stashedTheme = nil;
     }
+    [self adjustContentView];
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
-
     [self sendArrangeEventWithFrame:_contentView.frame force:YES];
-
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
@@ -1300,7 +1298,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = [aGame urlForBookmark].path;
     aGame.autosaved = NO;
-    NSLog(@"GlkController deleteAutosaveFilesForGame: set autosaved of game %@ to NO", aGame.metadata.title);
     if (!_gamefile)
         return;
     _game = aGame;
@@ -3971,7 +3968,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
      runAnimationGroup:^(NSAnimationContext *context) {
         // First, we move the window to the center
         // of the screen with the snapshot window on top
-        context.duration = duration / 3;
+        context.duration = duration / 4 + 0.1;
         [[localSnapshot animator] setFrame:centerWindowFrame display:YES];
         [[window animator] setFrame:centerWindowFrame display:YES];
     }
@@ -3979,7 +3976,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
             // and then we enlarge it to its full size.
-            context.duration = duration * 2 / 3;
+            context.duration = duration / 4 - 0.1;
             [[window animator]
              setFrame:[window
                        frameRectForContentRect:border_finalFrame]
@@ -3997,7 +3994,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         );
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = duration / 5;
+                context.duration = duration / 4;
                 [localContentView setFrame:newContentFrame];
                 [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
                 [weakSelf flushDisplay];
@@ -4008,14 +4005,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                 [NSAnimationContext
                  runAnimationGroup:^(NSAnimationContext *context) {
-                    context.duration = duration / 10;
+                    context.duration = duration / 4;
                     [[localSnapshot.contentView animator] setAlphaValue:0];
                 }
                  completionHandler:^{
                     // Finally, we extend the content view vertically if needed.
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = duration / 7;
+                        context.duration = 0.1;
                         [[localContentView animator]
                          setFrame:[weakSelf contentFrameForFullscreen]];
                     }

@@ -51,7 +51,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) NSRect storedContentFrame;
 @property(readonly) NSRect storedBorderFrame;
 
-@property(readonly) NSRect windowPreFullscreenFrame;
+@property NSRect windowPreFullscreenFrame;
 
 @property BOOL ignoreResizes;
 @property BOOL startingInFullscreen;

@@ -22,7 +22,7 @@ Modified
 #include <math.h>
 
 #include "t3std.h"
-#include "tads2/osstzprs.h"
+#include "osstzprs.h"
 #include "vmtz.h"
 #include "vmhash.h"
 #include "vmglob.h"
