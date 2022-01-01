@@ -80,9 +80,35 @@ static glui32 TopHeight;        /* Height of top window */
 static int file_baseline_offset = 0;
 
 
+#define MAX_UNDOS 100
+
+struct SavedState
+{
+	int Counters[16];
+	int RoomSaved[16];
+	long BitFlags;
+	int CurrentLoc;
+	int CurrentCounter;
+	int SavedRoom;
+	int LightTime;
+	uint8_t *ItemLocations;
+	struct SavedState *previousState;
+	struct SavedState *nextState;
+};
+
+static struct SavedState *initial_state;
+static struct SavedState *ramsave = NULL;
+static struct SavedState *last_undo;
+static struct SavedState *oldest_undo;
+
+static int number_of_undos;
+static int just_started = 1;
+
 static int split_screen = 1;
 static winid_t Bottom, Top;
 winid_t Graphics;
+strid_t Transcript = NULL;
+
 
 static int AnimationFlag = 0;
 #define ANIMATION_RATE 670
@@ -94,6 +120,13 @@ static int AnimationFlag = 0;
 //#define TRS80_LINE    "\n<------------------------------------------------------------>\n"
 
 #define MyLoc    (GameHeader.PlayerRoom)
+
+static void RestartGame(void);
+static int YesOrNo(void);
+static char *decompress_text(FILE *p, int offset, int index);
+static void adjust_top_height(int ypos);
+static void SaveUndo(void);
+
 
 static void Display(winid_t w, const char *fmt, ...)
 {
@@ -111,6 +144,9 @@ static void Display(winid_t w, const char *fmt, ...)
 	}
 
 	glk_put_string_stream(glk_window_get_stream(w), msg);
+
+	if (Transcript)
+		glk_put_string_stream(Transcript, msg);
 }
 
 static void Delay(float seconds)
@@ -120,11 +156,10 @@ static void Delay(float seconds)
 	if(!glk_gestalt(gestalt_Timer, 0))
 		return;
 
-	glk_request_timer_events(1000 * seconds);
+	glk_request_char_event(Bottom);
+	glk_cancel_char_event(Bottom);
 
-	char buf[1];
-	glk_request_line_event(Bottom, buf, 1, 0);
-	glk_cancel_line_event(Bottom, NULL);
+	glk_request_timer_events(1000 * seconds);
 
 	do
 	{
@@ -361,7 +396,7 @@ static char *ReadString(FILE *f)
 
 int header[36];
 
-void readheader(FILE *in) {
+void read_header(FILE *in) {
 	int i,value;
 	for (i = 0; i < 36; i++)
 	{
@@ -545,7 +580,6 @@ void list_condition_addresses(FILE *ptr) {
 
 }
 
-static char *decompress_text(FILE *p, int offset, int index);
 
 
 static void LoadDatabase(FILE *f, int loud)
@@ -556,24 +590,20 @@ static void LoadDatabase(FILE *f, int loud)
 	Action *ap;
 	Room *rp;
 	Item *ip;
-	loud = 1;
 	/* Load the header */
-
-
-	readheader(f);
 
 	size_t file_length = get_file_length(f);
 
 	size_t pos = 0x3b5a;
 	fseek(f, pos, SEEK_SET);
-	readheader(f);
+	read_header(f);
 	if (sanity_check_header() == 0) {
 		pos = 0;
 
 		while (sanity_check_header() == 0) {
 			pos++;
 			fseek(f, pos, SEEK_SET);
-			readheader(f);
+			read_header(f);
 			if (pos >= file_length - 24) {
 				fprintf(stderr, "found no valid header in file\n");
 				exit(1);
@@ -589,7 +619,7 @@ static void LoadDatabase(FILE *f, int loud)
 
 	fprintf(stderr, "Difference from baseline .sna file: %d\n", file_baseline_offset);
 
-	print_header_info();
+	//	print_header_info();
 
 	ni = header[1];
 	na = header[2];
@@ -598,9 +628,9 @@ static void LoadDatabase(FILE *f, int loud)
 	mc = header[5];
 	wl = header[6];
 	mn = header[7];
-//	pr = 1;
-//	pr = 46;
-	pr = 86;
+	pr = 1;
+	//	pr = 46;
+	//	pr = 86;
 	tr = 0;
 	lt = -1;
 	trm = 0;
@@ -630,9 +660,9 @@ static void LoadDatabase(FILE *f, int loud)
 
 #pragma mark room images
 
-//	offset = 0x3A09 + file_baseline_offset;
-//	offset = 15462;
-//	offset = 6181;
+	//	offset = 0x3A09 + file_baseline_offset;
+	//	offset = 15462;
+	//	offset = 6181;
 	offset = 15769 + file_baseline_offset;
 	/* Load the room images */
 
@@ -643,7 +673,9 @@ jumpRoomImages:
 
 	for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
 		rp->Image = fgetc(f);
-		if ((ct == 1 && rp->Image != 2)  || (ct == 5 && rp->Image != 9) || (ct == 2 && rp->Image != 2)) {
+		if ((ct == 1 && rp->Image != 2) ||
+			(ct == 5 && rp->Image != 9) ||
+			(ct == 2 && rp->Image != 2)) {
 			offset++;
 			goto jumpRoomImages;
 		}
@@ -655,22 +687,19 @@ jumpRoomImages:
 			}
 		}
 	}
-
-	fprintf(stderr, "Found room images at offset %d\n", offset);
-	fprintf(stderr, "Difference from expected 15769: %d\n", offset - 15769);
-	fprintf(stderr, "Difference from expected 15769 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15769 + file_baseline_offset));
-
-	file_baseline_offset += offset - (15769 + file_baseline_offset);
+	
+//		fprintf(stderr, "Found room images at offset %d\n", offset);
+//		fprintf(stderr, "Difference from expected 15769: %d\n", offset - 15769);
+//		fprintf(stderr, "Difference from expected 15769 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15769 + file_baseline_offset));
+//
+//	file_baseline_offset += offset - (15769 + file_baseline_offset);
 
 #pragma mark Item flags
 
-offset = 15800 + file_baseline_offset;
+	offset = 15800 + file_baseline_offset;
 
 jumpItemFlags:
 	fseek(f,offset,SEEK_SET);
-
-
-//	(Items[ct].Flag & 127) == MyLoc)
 
 	/* Load the item flags */
 
@@ -686,13 +715,13 @@ jumpItemFlags:
 	}
 
 
-	fprintf(stderr, "Found item flags at %d\n", offset);
-	fprintf(stderr, "Difference from expected 15800: %d\n", offset - 15800);
-	fprintf(stderr, "Difference from expected 15800 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15800 + file_baseline_offset));
+		fprintf(stderr, "Found item flags at %d\n", offset);
+		fprintf(stderr, "Difference from expected 15800: %d\n", offset - 15800);
+		fprintf(stderr, "Difference from expected 15800 + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (15800 + file_baseline_offset));
 
 
 
-offset = 15888 + file_baseline_offset;
+	offset = 15888 + file_baseline_offset;
 
 jumpItemImages:
 	fseek(f,offset,SEEK_SET);
@@ -705,15 +734,13 @@ jumpItemImages:
 
 	for (ct = 0; ct <= GameHeader.NumItems; ct++) {
 		ip->Image = fgetc(f);
-		if ((ct == 1 && ip->Image != 73) || (ct == 23 && ip->Image != 70) || (ct == 18 && ip->Image != 5)) {
-			offset++;
-			goto jumpItemImages;
-		}
+//		if ((ct == 1 && ip->Image != 73) || (ct == 23 && ip->Image != 70) || (ct == 18 && ip->Image != 5)) {
+//			offset++;
+//			goto jumpItemImages;
+//		}
 		ip++;
 	}
-	fprintf(stderr, "Found item images at %d\n", offset);
-
-
+	//	fprintf(stderr, "Found item images at %d\n", offset);
 
 	offset = 16539 + file_baseline_offset;
 jumpHere:
@@ -734,16 +761,16 @@ jumpHere:
 		value = fgetc(f) + 256 * fgetc(f); /* verb/noun */
 		ap->Vocab = value;
 
-		int verb = value;
+//		int verb = value;
+//
+//		int noun=verb%150;
+//        fprintf(stderr, "Action %d noun: %s\n", ct, Nouns[nv]);
+//		verb/=150;
 
-		int noun=verb%150;
-		//        fprintf(stderr, "Action %d noun: %s\n", ct, Nouns[nv]);
-		verb/=150;
-
-		if (noun < 0 || noun > nw || verb < 0 || verb > nw) {
-			offset++;
-			goto jumpHere;
-		}
+//		if (noun < 0 || noun > nw || verb < 0 || verb > nw) {
+//			offset++;
+//			goto jumpHere;
+//		}
 
 		value = fgetc(f); /* count of actions/conditions */
 		cond = value & 0x1f;
@@ -763,7 +790,7 @@ jumpHere:
 		ct++;
 	}
 
-//	fprintf(stderr, "Found valid actions at offset %d\n", offset);
+	//	fprintf(stderr, "Found valid actions at offset %d\n", offset);
 
 #pragma mark dictionary
 
@@ -771,18 +798,18 @@ jumpHere:
 
 	read_dictionary(f);
 
-//    for (int i = 0; i <= na; i++)
-//    {
-//        int vocab = Actions[i].Vocab;
-//
-//        int verb = vocab;
-//
-//        int noun=verb%150;
-//
-//        verb/=150;
-//
-//        fprintf(stderr, "Action %d verb: %s (%d) noun: %s (%d)\n", i,  Verbs[verb], verb, Nouns[noun], noun);
-//    }
+	//    for (int i = 0; i <= na; i++)
+	//    {
+	//        int vocab = Actions[i].Vocab;
+	//
+	//        int verb = vocab;
+	//
+	//        int noun=verb%150;
+	//
+	//        verb/=150;
+	//
+	//        fprintf(stderr, "Action %d verb: %s (%d) noun: %s (%d)\n", i,  Verbs[verb], verb, Nouns[noun], noun);
+	//    }
 
 #pragma mark rooms
 
@@ -796,14 +823,14 @@ jumpHere:
 
 	rp->Text = malloc(3);
 	strcpy(rp->Text, ". \0");
-    fprintf(stderr, "Room 0 : \"%s\"\n", rp->Text);
+	//    fprintf(stderr, "Room 0 : \"%s\"\n", rp->Text);
 	rp++;
 
 	int actual_room_number = 1;
 
 	do {
 		rp->Text = decompress_text(f, 0x9B53 + file_baseline_offset, ct);
-		fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
+		//		fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
 		*(rp->Text) = tolower(*(rp->Text));
 		ct++;
 		actual_room_number++;
@@ -811,12 +838,11 @@ jumpHere:
 			for (int i = 0; i<61; i++) {
 				rp++;
 				rp->Text = "in Sherwood Forest";
-//                fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
+				//                fprintf(stderr, "Room %d : \"%s\"\n", actual_room_number, Rooms[actual_room_number].Text);
 				actual_room_number++;
 			}
 		}
 		rp++;
-//	} while (ct<nr+1);
 	} while (ct<33);
 
 	offset = 0x3e67 + file_baseline_offset;
@@ -834,10 +860,10 @@ try_again:
 	{
 		for (int j= 0; j < 6; j++) {
 			rp->Exits[j] = fgetc(f);
-			if (rp->Exits[j] < 0 || rp->Exits[j] > nr || (ct == 2 && j == 5 && rp->Exits[j] != 1) || (ct == 1 && j == 3 && rp->Exits[j] != 0)) {
-				offset++;
-				goto try_again;
-			}
+//			if (rp->Exits[j] < 0 || rp->Exits[j] > nr || (ct == 2 && j == 5 && rp->Exits[j] != 1) || (ct == 1 && j == 3 && rp->Exits[j] != 0)) {
+//				offset++;
+//				goto try_again;
+//			}
 
 		}
 		ct++;
@@ -845,33 +871,33 @@ try_again:
 	}
 
 	//    fprintf(stderr, "Reading %d X 6 room connections, total of %d bytes.\n",nr, nr * 6);
-//    fprintf(stderr, "Found room connections at offset %d.\n", offset);
-//
-//	static char *ExitNames[6]=
-//	{
-//		//        "North","South","East","West","Up","Down"
-//		"NORTH","SOUTH","EAST","WEST","UP","DOWN"
-//
-//	};
-//
-//        for (int i = 0; i<= nr; i++) {
-//
-//		fprintf(stderr, "Exits from room %d, %s:\n",i, Rooms[i].Text);
-//
-//
-//		for (int j = 0; j< 6; j++) {
-//
-//			if((&Rooms[i])
-//			   ->Exits[j]!=0)
-//			{
-//				fprintf(stderr, " %s to %s,",ExitNames[j], Rooms[(&Rooms[i])
-//																 ->Exits[j]].Text);
-//			}
-//		}
-//			fprintf(stderr, "\n");
-//	}
-//
-//
+	//    fprintf(stderr, "Found room connections at offset %d.\n", offset);
+	//
+	//	static char *ExitNames[6]=
+	//	{
+	//		//        "North","South","East","West","Up","Down"
+	//		"NORTH","SOUTH","EAST","WEST","UP","DOWN"
+	//
+	//	};
+	//
+	//        for (int i = 0; i<= nr; i++) {
+	//
+	//		fprintf(stderr, "Exits from room %d, %s:\n",i, Rooms[i].Text);
+	//
+	//
+	//		for (int j = 0; j< 6; j++) {
+	//
+	//			if((&Rooms[i])
+	//			   ->Exits[j]!=0)
+	//			{
+	//				fprintf(stderr, " %s to %s,",ExitNames[j], Rooms[(&Rooms[i])
+	//																 ->Exits[j]].Text);
+	//			}
+	//		}
+	//			fprintf(stderr, "\n");
+	//	}
+	//
+	//
 
 
 #pragma mark messages
@@ -882,11 +908,11 @@ try_again:
 
 	Messages[0] = malloc(3);
 	strcpy((char *)Messages[0], ". \0");
-//    fprintf(stderr, "Message 0 : \"%s\"\n", Messages[0] );
+	//    fprintf(stderr, "Message 0 : \"%s\"\n", Messages[0] );
 	while(ct<mn+1)
 	{
 		Messages[ct] = decompress_text(f, 0x912c + file_baseline_offset, ct);
-        fprintf(stderr, "Message %d : \"%s\"\n", ct, Messages[ct]);
+		//        fprintf(stderr, "Message %d : \"%s\"\n", ct, Messages[ct]);
 		ct++;
 	}
 
@@ -912,8 +938,10 @@ try_again:
 				*t=0;
 			for (int i = 1; i < 4; i++)
 				*(ip->AutoGet+i) = toupper(*(ip->AutoGet+i));
-//            fprintf(stderr, "Autoget: \"%s\"\n", ip->AutoGet);
+			//            fprintf(stderr, "Autoget: \"%s\"\n", ip->AutoGet);
 		}
+
+		//		fprintf(stderr, "Item %d: \"%s\". Length:%lu\n", ct, ip->Text, strlen(ip->Text));
 
 		ct++;
 		ip++;
@@ -924,7 +952,7 @@ try_again:
 	offset = 0x4d6b + file_baseline_offset;
 jumpItemLoc:
 
-    fseek(f,offset,SEEK_SET);
+	fseek(f,offset,SEEK_SET);
 
 	//    0x6493
 	ct=0;
@@ -932,19 +960,19 @@ jumpItemLoc:
 	while(ct<ni+1)
 	{
 		ip->Location=fgetc(f);
-		if ((ct == 11 && ip->Location != 1) || (ct == 40 && ip->Location != 79)) {
-			offset++;
-			goto jumpItemLoc;
-		}
+//		if ((ct == 11 && ip->Location != 1) || (ct == 40 && ip->Location != 79)) {
+//			offset++;
+//			goto jumpItemLoc;
+//		}
 
 		ip->InitialLoc=ip->Location;
 		ip++;
 		ct++;
 	}
 
-	fprintf(stderr, "Found item locations at offset: %d\n", offset);
-	fprintf(stderr, "Difference from expected 0x4d6b: %d\n", offset - 0x4d6b);
-	fprintf(stderr, "Difference from expected 0x4d6b + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (0x4d6b + file_baseline_offset));
+		fprintf(stderr, "Found item locations at offset: %d\n", offset);
+		fprintf(stderr, "Difference from expected 0x4d6b: %d\n", offset - 0x4d6b);
+		fprintf(stderr, "Difference from expected 0x4d6b + file_baseline_offset(%d) : %d\n", file_baseline_offset, offset - (0x4d6b + file_baseline_offset));
 
 
 	if(loud)
@@ -965,7 +993,7 @@ static void DrawImage(int image) {
 	open_graphics_window();
 	if (Graphics == NULL)
 		return;
-//	fprintf(stderr, "DrawImage %d\n", image);
+	//	fprintf(stderr, "DrawImage %d\n", image);
 	draw_saga_picture_number(image);
 }
 
@@ -1065,14 +1093,12 @@ static void DrawAnimations(void) {
 	glk_request_timer_events(timer_delay);
 }
 
-static void adjust_top_height(int ypos);
-
-
 static void print_top_window_delimiter(int ypos) {
 	glk_window_move_cursor(Top, 0, ypos);
 	glk_window_get_size(Top, &Width, NULL);
 	for (int i = 0; i < Width; i++)
 		Display(Top,"*");
+	Display(Top,"\n");
 }
 
 static int list_exits(int ypos)
@@ -1132,7 +1158,7 @@ int rotate_right_with_carry(uint8_t *byte, int last_carry)
 }
 
 int decompress_one(uint8_t *bytes) {
-    uint8_t result = 0;
+	uint8_t result = 0;
 	int carry;
 	for (int i = 0; i < 5; i++)
 	{
@@ -1141,9 +1167,9 @@ int decompress_one(uint8_t *bytes) {
 		{
 			carry = rotate_left_with_carry(bytes+4-j, carry);
 		}
-        rotate_left_with_carry(&result, carry);
+		rotate_left_with_carry(&result, carry);
 	}
-    return result;
+	return result;
 }
 
 
@@ -1231,11 +1257,13 @@ int is_forest_location(void) {
 
 static void robin_of_sherwood_look(void) {
 	if (MyLoc == 82) // Dummy room where exit from Up a tree goes
-		MyLoc = RoomSaved[0];
+		MyLoc = SavedRoom;
 	if (MyLoc == 93) // Up a tree
 		for (int i = 0; i < GameHeader.NumItems; i++)
 			if (Items[i].Location == 93)
-				Items[i].Location = RoomSaved[0];
+				Items[i].Location = SavedRoom;
+	if (MyLoc == 7 && Items[62].Location == 7) // Left bedroom, open treasure chest
+		DrawImage(70);
 	if (is_forest_location()) {
 		open_graphics_window();
 		DrawImage(0);
@@ -1246,7 +1274,7 @@ static void robin_of_sherwood_look(void) {
 			DrawImage(15); // Horse and cart
 			DrawImage(3); // Sacks of grain
 		}
-		if (Items[60].Location == MyLoc) {
+		if (Items[60].Location == MyLoc || Items[77].Location == MyLoc) {
 			// "A serf driving a horse and cart"
 			DrawImage(15); // Horse and cart
 			DrawImage(12); // Hay
@@ -1274,7 +1302,7 @@ static void Look(void)
 	if(split_screen) {
 		glk_window_clear(Top);
 		if (Rooms[MyLoc].Image != 255) {
-				DrawImage(Rooms[MyLoc].Image);
+			DrawImage(Rooms[MyLoc].Image);
 		} else {
 			close_graphics_window();
 		}
@@ -1299,9 +1327,12 @@ static void Look(void)
 		Display(Top,"%s",r->Text+1);
 	else
 	{
+		Display(Top,"\x10");
+		glk_window_move_cursor(Top, 0, 0);
+
 		if(Options&YOUARE) {
-//			Display(Top,"You are in a %s\n",r->Text);
-//			Display(Top,"You are %s\n",r->Text);
+			//			Display(Top,"You are in a %s\n",r->Text);
+			//			Display(Top,"You are %s\n",r->Text);
 			Display(Top,"You are %s",r->Text);
 		} else
 			Display(Top,"I'm in a %s",r->Text);
@@ -1340,8 +1371,8 @@ static void Look(void)
 			{
 				if(Options&YOUARE)
 				{
-//					Display(Top,"\nYou can also see: ");
-//					xpos=18;
+					//					Display(Top,"\nYou can also see: ");
+					//					xpos=18;
 					Display(Top,". You see:\n\n");
 					xpos=0;
 					ypos=2;
@@ -1360,11 +1391,11 @@ static void Look(void)
 				Display(Top," - ");
 				xpos+=3;
 			}
-			if(xpos+strlen(Items[ct].Text)>=(Width - 1))
+			if(xpos+strlen(Items[ct].Text)>=(Width - 2))
 			{
 				xpos=0;
 				ypos++;
-//				Display(Top,"\n");
+				//				Display(Top,"\n");
 				glk_window_move_cursor(Top, xpos, ypos);
 			}
 			Display(Top,"%s",Items[ct].Text);
@@ -1372,7 +1403,7 @@ static void Look(void)
 			if (Options & TRS80_STYLE)
 			{
 				Display(Top,". ");
-				xpos++;
+				xpos+=2;
 			}
 			if (split_screen && Items[ct].Image) {
 				if ((Items[ct].Flag & 127) == MyLoc) {
@@ -1432,8 +1463,6 @@ static int WhichWord(const char *word, const char **list)
 	return(-1);
 }
 
-void drawstuff(void);
-
 static void LineInput(char *buf, size_t n)
 {
 	event_t ev;
@@ -1459,8 +1488,6 @@ static void LineInput(char *buf, size_t n)
 					animate_waterfall(AnimationFlag);
 				} else if (MyLoc == 79) {
 					animate_waterfall_cave(AnimationFlag);
-				} else {
-					animate_lightning(AnimationFlag);
 				}
 			} else {
 				glk_request_timer_events(0);
@@ -1537,12 +1564,177 @@ static void LoadGame(void)
 		sscanf(buf, "%hd\n",&lo);
 		Items[ct].Location=(unsigned char)lo;
 	}
+	SaveUndo();
+	just_started = 0;
 }
+
+static struct SavedState *SaveCurrentState(void)
+{
+	struct SavedState *s = (struct SavedState *)MemAlloc(sizeof(struct SavedState));
+	for(int ct=0;ct<16;ct++) {
+		s->Counters[ct] = Counters[ct];
+		s->RoomSaved[ct] = RoomSaved[ct];
+	}
+
+	s->BitFlags = BitFlags;
+	s->CurrentLoc = MyLoc;
+	s->CurrentCounter = CurrentCounter;
+	s->SavedRoom = SavedRoom;
+	s->LightTime = GameHeader.LightTime;
+
+	s->ItemLocations = MemAlloc(GameHeader.NumItems + 1);
+
+	for(int ct=0;ct<=GameHeader.NumItems;ct++) {
+		s->ItemLocations[ct] = Items[ct].Location;
+	}
+
+	s->previousState = NULL;
+	s->nextState = NULL;
+
+	return s;
+}
+
+
+static void RestoreState(struct SavedState *state)
+{
+	for(int ct=0;ct<16;ct++) {
+		Counters[ct] = state->Counters[ct];
+		RoomSaved[ct] = state->RoomSaved[ct];
+	}
+
+	BitFlags = state->BitFlags;
+
+	MyLoc = state->CurrentLoc;
+	CurrentCounter = state->CurrentCounter;
+	SavedRoom = state->SavedRoom;
+	GameHeader.LightTime = state->LightTime;
+
+	for(int ct=0;ct<=GameHeader.NumItems;ct++) {
+		Items[ct].Location = state->ItemLocations[ct];
+	}
+}
+
+static void RestartGame(void)
+{
+	glk_window_clear(Bottom);
+	RestoreState(initial_state);
+	SaveUndo();
+	just_started = 0;
+}
+
+static void SaveUndo(void)
+{
+	if (last_undo == NULL) {
+		last_undo = SaveCurrentState();
+		oldest_undo = last_undo;
+		number_of_undos = 1;
+		return;
+	}
+
+	last_undo->nextState = SaveCurrentState();
+	struct SavedState *current = last_undo->nextState;
+	current->previousState = last_undo;
+	last_undo = current;
+	if (number_of_undos == MAX_UNDOS) {
+		struct SavedState *oldest = oldest_undo;
+		oldest_undo = oldest_undo->nextState;
+		oldest_undo->previousState = NULL;
+		free(oldest->ItemLocations);
+		free(oldest);
+	} else {
+		number_of_undos++;
+	}
+}
+
+static void RestoreUndo(void)
+{
+	if (just_started) {
+		Output("Can't undo on first turn.\n");
+		return;
+	}
+	if (last_undo == NULL || last_undo->previousState == NULL) {
+		Output("No more undo states stored.\n");
+		return;
+	}
+	struct SavedState *current = last_undo;
+	last_undo = current->previousState;
+	if (last_undo->previousState == NULL)
+		oldest_undo = last_undo;
+	RestoreState(last_undo);
+	Output("Move undone.\n");
+	free(current->ItemLocations);
+	free(current);
+	number_of_undos--;
+}
+
+static void RamSave(void)
+{
+	if (ramsave != NULL) {
+		free(ramsave->ItemLocations);
+		free(ramsave);
+	}
+
+	ramsave = SaveCurrentState();
+	Output("Current state saved.\n");
+}
+
+static void RamRestore(void)
+{
+	if (ramsave == NULL) {
+		Output("No saved state exists.\n");
+		return;
+	}
+
+	RestoreState(ramsave);
+	Output("State restored.\n");
+	SaveUndo();
+}
+
+static void TranscriptOn(void)
+{
+	frefid_t ref;
+
+	if (Transcript) {
+		Output("Transcript is already on.\n");
+		return;
+	}
+
+	ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_Transcript, filemode_Write, 0);
+	if(ref == NULL) return;
+
+	Transcript = glk_stream_open_file(ref, filemode_Write, 0);
+	glk_fileref_destroy(ref);
+
+	if(Transcript == NULL) {
+		Output("Failed to create transcript file.\n");
+		return;
+	}
+
+	glk_put_string_stream(Transcript, "Start of transcript\n\n");
+	glk_put_string_stream(glk_window_get_stream(Bottom), "Transcript on.\x10");
+
+}
+
+static void TranscriptOff(void)
+{
+
+	if (Transcript == NULL) {
+		Output("No transcript is running.\n");
+		return;
+	}
+
+	glk_put_string_stream(Transcript, "\nEnd of transcript\n\n");
+
+	glk_stream_close(Transcript, NULL);
+	Transcript = NULL;
+	Output("Transcript off.\n");
+}
+
 
 static int GetInput(int *vb, int *no)
 {
 	char buf[256];
-	char verb[10],noun[10];
+	char verb[10],noun[10],third[10],fourth[10];
 	int vc,nc;
 	int num;
 
@@ -1553,13 +1745,62 @@ static int GetInput(int *vb, int *no)
 			//            Output("\nTell me what to do ? ");
 			Output("\n--WHAT NOW ? ");
 			LineInput(buf, sizeof buf);
-			num=sscanf(buf,"%9s %9s",verb,noun);
+			if (Transcript) {
+				glk_put_string_stream(Transcript, buf);
+				glk_put_string_stream(Transcript, "\n\n");
+			}
+			num=sscanf(buf,"%9s %9s %9s %9s",verb,noun,third,fourth);
 		}
 		while(num==0||*buf=='\n');
 		if(xstrcasecmp(verb, "restore") == 0)
 		{
 			LoadGame();
 			return -1;
+		}
+		if(xstrcasecmp(verb, "restart") == 0)
+		{
+			if (num == 1 || xstrcasecmp(noun, "game") == 0) {
+				Output("Are you sure ?\n");
+				if (YesOrNo()) {
+					RestartGame();
+					return -1;
+				}
+			}
+		}
+		if(xstrcasecmp(verb, "oops") == 0 || xstrcasecmp(verb, "undo") == 0)
+		{
+			if (num == 1 || xstrcasecmp(noun, "game") == 0 || xstrcasecmp(noun, "move") == 0) {
+				RestoreUndo();
+				return -1;
+			}
+		}
+		if(xstrcasecmp(verb, "ramsave") == 0)
+		{
+			RamSave();
+			return -1;
+		}
+		if(xstrcasecmp(verb, "ram") == 0)
+		{
+			if (xstrcasecmp(noun, "load") == 0 || xstrcasecmp(noun, "restore") == 0) {
+				RamRestore();
+				return -1;
+			}
+			if (xstrcasecmp(noun, "save") == 0) {
+				RamSave();
+				return -1;
+			}
+		}
+
+		if(xstrcasecmp(verb, "script") == 0)
+		{
+			if (xstrcasecmp(noun, "on") == 0) {
+				TranscriptOn();
+				return -1;
+			}
+			if (xstrcasecmp(noun, "off") == 0) {
+				TranscriptOff();
+				return -1;
+			}
 		}
 		if(num==1)
 			*noun=0;
@@ -1588,6 +1829,15 @@ static int GetInput(int *vb, int *no)
 			vc=WhichWord(verb,Verbs);
 			nc=WhichWord(noun,Nouns);
 		}
+		/* Hack to skip prepositions */
+		if(nc==-1 && num > 2)
+		{
+			nc=WhichWord(third,Nouns);
+		}
+		if(nc==-1 && num > 3)
+		{
+			nc=WhichWord(fourth,Nouns);
+		}
 		*vb=vc;
 		*no=nc;
 		if(vc==-1)
@@ -1606,7 +1856,23 @@ static int GetInput(int *vb, int *no)
 
 static void robin_of_sherwood_action(int p)
 {
+	event_t ev;
+
 	switch (p) {
+		case 0:
+			// Flash animation
+			AnimationFlag = 1;
+			glk_request_timer_events(15);
+
+			while(AnimationFlag < 11)
+			{
+				glk_select(&ev);
+				if(ev.type == evtype_Timer) {
+					AnimationFlag++;
+					animate_lightning(AnimationFlag);
+				}
+			}
+			break;
 		case 1:
 			Look();
 			if (MyLoc == 14)
@@ -1615,10 +1881,9 @@ static void robin_of_sherwood_action(int p)
 			Look();
 			DrawImage(0); /* Herne */
 
-			Output("<HIT ENTER> ");
+			Output("\n<HIT ENTER>\n");
 
 			glk_request_char_event(Bottom);
-			event_t ev;
 			do
 			{
 				glk_select(&ev);
@@ -1628,19 +1893,40 @@ static void robin_of_sherwood_action(int p)
 			Look();
 			break;
 		case 2:
-			RoomSaved[0] = MyLoc;
+			// Climbing tree in forest
+			SavedRoom = MyLoc;
 			MyLoc = 93;
 			Look();
 			break;
-		case 3:
-			// Flash animation
-			AnimationFlag = 1;
-			glk_request_timer_events(15);
-			break;
 		default:
-			fprintf(stderr, "Unhandled special action!\n");
+			fprintf(stderr, "Unhandled special action %d!\n", p);
 			break;
 	}
+}
+
+
+static int YesOrNo(void) {
+
+	glk_request_char_event(Bottom);
+
+	event_t ev;
+	int result = 0;
+	do
+	{
+		glk_select(&ev);
+		if (ev.type == evtype_CharInput) {
+			if (ev.val1 == 'y' || ev.val1 == 'Y') {
+				result = 1;
+			} else if (ev.val1 == 'n' || ev.val1 == 'N') {
+				result = 2;
+			} else {
+				Output("Please answer yes or no. \n");
+				glk_request_char_event(Bottom);
+			}
+		}
+	} while(result == 0);
+
+	return (result == 1);
 }
 
 static int PerformLine(int ct)
@@ -1657,7 +1943,7 @@ static int PerformLine(int ct)
 		cv=Actions[ct].Condition[cc];
 		dv=cv/20;
 		cv%=20;
-//		fprintf(stderr, "Testing condition %d: ", cv);
+		//		fprintf(stderr, "Testing condition %d: ", cv);
 		switch(cv)
 		{
 			case 0:
@@ -1777,11 +2063,11 @@ static int PerformLine(int ct)
 	pptr=0;
 	while(cc<4)
 	{
-//		fprintf(stderr, "Performing action %d:\n", act[cc]);
+		//		fprintf(stderr, "Performing action %d:\n", act[cc]);
 
 		if(act[cc]>=1 && act[cc]<52)
 		{
-//			            fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc], Messages[act[cc]]);
+			//			            fprintf(stderr, "Action: print message %d: \"%s\"\n", act[cc], Messages[act[cc]]);
 			Output(Messages[act[cc]]);
 			//            Output("\n");
 			Output(". ");
@@ -1814,7 +2100,7 @@ static int PerformLine(int ct)
 				Items[param[pptr++]].Location=MyLoc;
 				break;
 			case 54:
-//				fprintf(stderr, "Action 54: player location is now room %d (%s).\n", param[pptr], Rooms[param[pptr]].Text);
+				//				fprintf(stderr, "Action 54: player location is now room %d (%s).\n", param[pptr], Rooms[param[pptr]].Text);
 				MyLoc=param[pptr++];
 				break;
 			case 55:
@@ -1831,16 +2117,16 @@ static int PerformLine(int ct)
 				BitFlags|=(1<<param[pptr++]);
 				break;
 			case 59:
-//				fprintf(stderr, "Action 59: Item %d (%s) is removed from play.\n", param[pptr], Items[param[pptr]].Text);
+				//				fprintf(stderr, "Action 59: Item %d (%s) is removed from play.\n", param[pptr], Items[param[pptr]].Text);
 				Items[param[pptr++]].Location=0;
 				break;
 			case 60:
-//				fprintf(stderr, "Action 60: BitFlag %d is cleared\n", param[pptr]);
+				//				fprintf(stderr, "Action 60: BitFlag %d is cleared\n", param[pptr]);
 				BitFlags&=~(1<<param[pptr++]);
 				break;
 			case 61:
 				if(Options&YOUARE)
-//					Output("You are dead.\n");
+					//					Output("You are dead.\n");
 					Output("Your reign of the Sherwood Forest is over.\n");
 
 				else
@@ -1854,26 +2140,20 @@ static int PerformLine(int ct)
 			{
 				/* Bug fix for some systems - before it could get parameters wrong */
 				int i=param[pptr++];
-//				fprintf(stderr, "Action 62: Item %d (%s) is put in room %d (%s).\n", i, Items[i].Text, param[pptr], Rooms[param[pptr]].Text);
+				//				fprintf(stderr, "Action 62: Item %d (%s) is put in room %d (%s).\n", i, Items[i].Text, param[pptr], Rooms[param[pptr]].Text);
 				Items[i].Location=param[pptr++];
 				break;
 			}
 			case 63:
 			doneit:
 				Look();
-				Output("\n\nResume a saved game ?");
-				glk_request_char_event(Bottom);
-
-				event_t ev;
-				do
-				{
-					glk_select(&ev);
-				} while(ev.type != evtype_CharInput);
-
-				if (ev.val1 == 'y' || ev.val1 == 'Y') {
-					LoadGame();
+				Output("\n\nPlay again ?");
+				if (YesOrNo()) {
+					RestartGame();
 					break;
-				} else glk_exit();
+				} else {
+					glk_exit();
+				}
 			case 64:
 				break;
 			case 65:
@@ -1916,7 +2196,7 @@ static int PerformLine(int ct)
 					{
 						if(f==1 && (Options & TRS80_STYLE) == 0)
 						{
-								Output(" - ");
+							Output(" - ");
 						}
 						f=1;
 						Output(Items[i].Text);
@@ -1928,9 +2208,9 @@ static int PerformLine(int ct)
 					i++;
 				}
 				if(f==0)
-					                   Output("Nothing!");
-//					Output("Not a thing!");
-//				Output("\n");
+					Output("Nothing! ");
+				//					Output("Not a thing!");
+				//				Output("\n");
 				break;
 			}
 			case 67:
@@ -1960,7 +2240,7 @@ static int PerformLine(int ct)
 				break;
 			}
 			case 73:
-//				fprintf(stderr, "Action 73: Continue with next line\n");
+				//				fprintf(stderr, "Action 73: Continue with next line\n");
 				continuation=1;
 				break;
 			case 74:
@@ -1977,21 +2257,21 @@ static int PerformLine(int ct)
 			case 76:    /* Looking at adventure .. */
 				break;
 			case 77:
-//				fprintf(stderr, "Performing action 77: decrementing current counter.\n");
+				//				fprintf(stderr, "Performing action 77: decrementing current counter.\n");
 				if(CurrentCounter>=0)
 					CurrentCounter--;
-//				fprintf(stderr, "Current counter is now %d.\n", CurrentCounter);
+				//				fprintf(stderr, "Current counter is now %d.\n", CurrentCounter);
 				break;
 			case 78:
 				OutputNumber(CurrentCounter);
 				break;
 			case 79:
-//				fprintf(stderr, "CurrentCounter is set to %d.\n", param[pptr]);
+				//				fprintf(stderr, "CurrentCounter is set to %d.\n", param[pptr]);
 				CurrentCounter=param[pptr++];
 				break;
 			case 80:
 			{
-//				fprintf(stderr, "Performing action 80: switch location to saved location.\n");
+				//				fprintf(stderr, "Performing action 80: switch location to saved location.\n");
 				int t=MyLoc;
 				MyLoc=SavedRoom;
 				SavedRoom=t;
@@ -2004,13 +2284,13 @@ static int PerformLine(int ct)
 				 but uses one value that always seems to exist. Trying
 				 a few options I found this gave sane results on ageing */
 
-//				fprintf(stderr, "Select a counter. Current counter is swapped with backup counter %d\n", param[pptr]);
+				//				fprintf(stderr, "Select a counter. Current counter is swapped with backup counter %d\n", param[pptr]);
 
 				int t=param[pptr++];
 				int c1=CurrentCounter;
 				CurrentCounter=Counters[t];
 				Counters[t]=c1;
-//				fprintf(stderr, "Value of new selected counter is %d\n", CurrentCounter);
+				//				fprintf(stderr, "Value of new selected counter is %d\n", CurrentCounter);
 				break;
 			}
 			case 82:
@@ -2031,7 +2311,7 @@ static int PerformLine(int ct)
 				Output("\n");
 				break;
 			case 86:
-				Output("\n");
+				//				Output("\n");
 				break;
 			case 87:
 			{
@@ -2044,7 +2324,7 @@ static int PerformLine(int ct)
 				break;
 			}
 			case 88:
-				Delay(2);
+				Delay(1);
 				break;
 			case 89:
 			{
@@ -2053,7 +2333,7 @@ static int PerformLine(int ct)
 				/* Poking this into older spectrum games causes a crash */
 
 				int p=param[pptr];
-//				fprintf(stderr, "Drawing special image, action 89. Param %d\n", p);
+				//				fprintf(stderr, "Drawing special image, action 89. Param %d\n", p);
 
 				robin_of_sherwood_action(p);
 				break;
@@ -2369,9 +2649,10 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	if(argc==2)
 	{
 		//        game_file = argv[1];
-		game_file = "/Users/administrator/Desktop/sherwood.sna";
+		 game_file = "/Users/administrator/Desktop/sherwood.sna";
 		//        game_file = "/Users/administrator/Downloads/Gremlins - The Adventure.tzx";
-//		game_file = "/Users/administrator/Downloads/Robin Of Sherwood - Alternate.tzx";
+//				game_file = "/Users/administrator/Downloads/Robin Of Sherwood - Alternate.tzx";
+		game_file = "/Users/administrator/Downloads/SHERWODR.TAP";
 		Options|=YOUARE;
 #ifdef GARGLK
 		const char *s;
@@ -2435,12 +2716,14 @@ void glk_main(void)
 		Top = Bottom;
 	}
 
-//	Output("\
-//Scott Free, A Scott Adams game driver in C.\n\
-//Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
-//Distributed under the GNU software license\n\n");
+	//	Output("\
+	//Scott Free, A Scott Adams game driver in C.\n\
+	//Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
+	//Distributed under the GNU software license\n\n");
 	LoadDatabase(f,(Options&DEBUGGING)?1:0);
 	fclose(f);
+	initial_state = SaveCurrentState();
+	SaveUndo();
 	if(split_screen) {
 		open_graphics_window();
 		saga_setup(game_file, "o3", file_baseline_offset, "zxopt");
@@ -2452,6 +2735,7 @@ void glk_main(void)
 	else
 #endif
 		srand((unsigned int)time(NULL));
+
 	while(1)
 	{
 		glk_tick();
@@ -2470,7 +2754,11 @@ void glk_main(void)
 				//            case -2:Output("I can't do that just now! ");
 			case -2:Output("I can't do that yet. ");
 				break;
+			default:
+				SaveUndo();
+				just_started = 0;
 		}
+
 		/* Brian Howarth games seem to use -1 for forever */
 		if(Items[LIGHT_SOURCE].Location/*==-1*/!=DESTROYED && GameHeader.LightTime!= -1)
 		{
