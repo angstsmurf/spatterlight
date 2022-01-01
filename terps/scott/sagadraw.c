@@ -1543,10 +1543,13 @@ void animate_lightning(int stage) {
    switch_palettes(1,14);
    switch_palettes(9,6);
    draw_saga_picture_number(77);
-   if (stage == 11)
+   if (stage == 11) {
       glk_request_timer_events(0);
-   else
-      glk_request_timer_events(40);
+   } else if (stage == 3) {
+      glk_request_timer_events(700);
+   } else {
+      glk_request_timer_events(20);
+   }
 }
 
 
