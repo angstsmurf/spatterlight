@@ -1933,6 +1933,7 @@ replacementString:(id)repl {
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
 //    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
+    CGFloat charHeight = self.theme.bufferCellHeight;
     if (pauseScrolling)
         return;
 
@@ -1942,7 +1943,7 @@ replacementString:(id)repl {
         return;
     }
 
-    offset = offset * self.theme.bufferCellHeight;;
+    offset = offset * charHeight;
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
@@ -1950,7 +1951,7 @@ replacementString:(id)repl {
                                            effectiveRange:nil];
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
-    if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferCellHeight) {
+    if (fabs(charbottom - NSHeight(scrollview.frame)) < charHeight && NSHeight(scrollview.frame) / charHeight > 3) {
         //        NSLog(@"scrollToCharacter: too close to the top!");
         [self scrollToTop];
         return;
