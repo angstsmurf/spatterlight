@@ -2088,7 +2088,7 @@
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
 
-        XCUIElement *addButton = libraryWindow.buttons[@"Add games to library"];
+        XCUIElement *addButton = libraryWindow.buttons[@"Add games to the library"];
 
         XCTAssert(addButton.exists);
         [addButton click];
