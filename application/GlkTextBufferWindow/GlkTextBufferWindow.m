@@ -169,7 +169,6 @@ fprintf(stderr, "%s\n",                                                    \
         textstorage.delegate = self;
 
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
-        _textview.backgroundColor = styles[style_Normal][NSBackgroundColorAttributeName];
         _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
@@ -187,6 +186,7 @@ fprintf(stderr, "%s\n",                                                    \
             [self createBeyondZorkStyle];
         
         underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
+        [self recalcBackground];
     }
 
     return self;
@@ -552,10 +552,9 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.theme.doStyles && bgnd > -1) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
-
-    if (!bgcolor)
+    if (!bgcolor) {
         bgcolor = self.theme.bufferBackground;
-
+    }
     _textview.backgroundColor = bgcolor;
 
     if (line_request)
