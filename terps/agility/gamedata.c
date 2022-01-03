@@ -1200,9 +1200,8 @@ void sort_cmd(void)
   }
 
 #ifdef SORT_META
-  if (!agx_file && aver>=AGX00) rsort();
+  rsort();
 #endif
-
 
   if (no_auxsyn) return; /* Used by agt2agx */
 
@@ -1250,6 +1249,42 @@ void sort_cmd(void)
   }
 }
 
+static word check_comb(int combptr, int verb, int noun)
+{
+  word w;
+
+  if (combptr==0) return 0;
+  w=syntbl[combptr];
+  if (syntbl[combptr+1]!=verb) return 0;
+  if (syntbl[combptr+2]!=noun) return 0;
+  if (syntbl[combptr+3]==0) return w;
+  return 0;
+}
+
+/* For metacommands that apply to built-in two-word synonyms (e.g. GET OUT),
+change the command to apply to the canonical form. */
+void cmds_syns_canon(void)
+{
+  int i, j, vb;
+  word w;
+
+  for(i=0;i<last_cmd;i++) {
+    /* VERB NOUN only */
+    if(command[i].verbcmd>0 && command[i].nouncmd>0 &&
+      command[i].prep==0 && command[i].objcmd==0) {
+      for(j=0;j<num_auxcomb;j++) {
+        w=check_comb(auxcomb[j],command[i].verbcmd,command[i].nouncmd);
+        if (w>0) {
+          vb = verb_builtin(w);
+          if(vb>0) {
+            command[i].verbcmd=syntbl[auxsyn[vb]];
+            command[i].nouncmd=0;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 

@@ -396,17 +396,17 @@ static int wordcode_match(const char **pvarname,char *fill_buff,
         else d2buff(ext_code[wwere]);
     }
     if (match_str(pvarname,"THE_N$"))
-    {theset(fill_buff,dobj);return 1;}
+      {theset(fill_buff,dobj);return 1;}
     if (match_str(pvarname,"THE_O$"))
-    {theset(fill_buff,iobj);return 1;}
+      {theset(fill_buff,iobj);return 1;}
     if (match_str(pvarname,"THE_NAME$"))
-    {theset(fill_buff,actor);return 1;}
+      {theset(fill_buff,actor);return 1;}
     if (match_str(pvarname,"THE_C$"))
-    {theset(fill_buff,curr_creat_rec->obj); return 1;}
+      {theset(fill_buff,curr_creat_rec->obj); return 1;}
     if (match_str(pvarname,"C_NAME$"))
       num_name(curr_creat_rec,0);
     if (match_str(pvarname,"TIME$"))
-    {time_out(fill_buff);return 1;}
+      {time_out(fill_buff);return 1;}
   }
 
   if (pronoun_mode && match_str(pvarname,"YOU$")) 
@@ -851,7 +851,7 @@ long read_number(void)
     n=strtol(s,&err,10);
     if (err==s) err=NULL;
     rfree(s);
-  } while (err==NULL || n<=INT_MIN || n>=INT_MAX);
+  } while (!quitflag && (err==NULL || n<=INT_MIN || n>=INT_MAX));
   return n;
 }
 

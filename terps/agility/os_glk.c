@@ -2218,7 +2218,7 @@ gagt_paragraph_page (void)
       /* Add to the list, creating a new list if necessary. */
       paragraph->next = NULL;
       paragraph->prior = gagt_paragraphs_tail;
-      if (gagt_paragraphs_head)
+      if (gagt_paragraphs_head && gagt_paragraphs_tail)
         gagt_paragraphs_tail->next = paragraph;
       else
         gagt_paragraphs_head = paragraph;

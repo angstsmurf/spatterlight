@@ -363,7 +363,7 @@ static void tokenise(char *buff)
   rbool punctuation;
 
   j=0;ip=0;
-  k=0;  /* k is the character pointer */
+  /* k=0; k is the character pointer */
   for(k=0;;k++) {
     /* If PURE_DOT is set, then there are periods in some of the dictionary
        words, so '.' could be a letter or punctuation-- we have to examine
@@ -515,7 +515,6 @@ static void mainloop(void)
       if (!menu_mode) {
 	prompt_out(1);
 	s=agt_readline(0);
-	agt_newline();
 	if (!doing_restore) tokenise(s);   /* Tokenizes into input */
 	rfree(s);
 	if (!doing_restore) parse_loop();
@@ -552,7 +551,7 @@ static int init(void)
 /*  lactor=lobj=lnoun=NULL;*/
   tscore=old_score=objscore=0;
   turncnt=0;
-  curr_time=startup_time;
+  curr_time=start_time;
   loc=start_room-first_room;
   cmd_saveable=0;
   first_visit_flag=newlife_flag=room_firstdesc=1;
@@ -696,8 +695,8 @@ static void print_license(void)
 	  "GNU General Public License for more details.");
   writeln("  You should have received a copy of the GNU General Public "
 	  "License along with this program; if not, write to the Free "
-	  "Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
-	  "Boston, MA  02110-1301  USA");
+	  "Software Foundation, Inc., 59 Temple Place, Suite 330, "
+	  "Boston, MA  02111-1307  USA");
   writeln("");
   writeln("  Send comments and bug reports to Robert Masenten at:");
   writeln("      rcm-math@pacbell.net");
