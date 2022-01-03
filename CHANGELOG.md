@@ -5,7 +5,11 @@
 - Adds a side bar toggle button to the library window
 - The animations shown when entering fullscreen should flicker less
 - When starting in fullscreen with a cover image in "show and wait for key" mode, the game text view could be too narrow
-- When Spatterlight was force-quit or crashed and then restarted, some autorestored games would have a too-narrow text view
+- When Spatterlight was force-quit or crashed, and then restarted, some autorestored games would have a too-narrow text view
+- Improves automatic scrolling in very short windows
+- Buffer windows could open with the wrong background colour
+- Switching off "Games can set colors and styles" could leave some text behind with the old background colour
+- Lots of AGiliTy fixes from David Kinder. *The Multi-Dimensional Thief* is now completable
 
 ## Release 0.9.0
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6
