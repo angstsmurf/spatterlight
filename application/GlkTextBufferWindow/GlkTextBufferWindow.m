@@ -1234,7 +1234,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
     if (bufferedEvents.count)  {
-        for (NSEvent *event in bufferedEvents) {
+        NSMutableArray *copiedEvents = bufferedEvents.copy;
+        for (NSEvent *event in copiedEvents) {
             [self keyDown:event];
         }
         bufferedEvents = [NSMutableArray new];
