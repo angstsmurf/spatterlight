@@ -1054,9 +1054,9 @@ fprintf(stderr, "%s\n",                                                    \
                 [self scrollToBottomAnimated:YES];
                 return;
             default:
-                if (line_request && !flags)
-                    [self scrollToBottomAnimated:YES];
-                else
+                if (line_request && !flags) {
+                    [self scrollToBottomAnimated:NO];
+                } else
                     [self performScroll];
                 // To fix scrolling in the Adrian Mole games
                 scrolled = YES;
@@ -1122,6 +1122,7 @@ fprintf(stderr, "%s\n",                                                    \
         [_textview superKeyDown:evt];
     }
 }
+
 
 - (void)sendCommandLine:(NSString *)line {
     if (echo) {
@@ -2026,6 +2027,8 @@ replacementString:(id)repl {
         return;
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
+    if (newBounds.origin.y > position)
+        return;
     newBounds.origin.y = position;
     if (animate && self.theme.smoothScroll) {
         scrolling = YES;
