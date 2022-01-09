@@ -1054,7 +1054,10 @@ fprintf(stderr, "%s\n",                                                    \
                 [self scrollToBottomAnimated:YES];
                 return;
             default:
-                [self performScroll];
+                if (line_request && !flags)
+                    [self scrollToBottomAnimated:YES];
+                else
+                    [self performScroll];
                 // To fix scrolling in the Adrian Mole games
                 scrolled = YES;
                 break;
