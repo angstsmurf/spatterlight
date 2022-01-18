@@ -3611,6 +3611,10 @@ static BOOL pollMoreData(int fd) {
         // so we send a redraw event after every resize event
         redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
+
+if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+    _shouldScrollOnCharEvent = YES;
+
     if (waitforfilename) {
         [_queue addObject:gevent];
     } else if (waitforevent) {
