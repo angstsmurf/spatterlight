@@ -610,11 +610,11 @@
     _textview.textContainerInset =
         NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
-    NSUInteger newcols = (NSUInteger)round((frame.size.width -
+    NSUInteger newcols = (NSUInteger)floor((frame.size.width -
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
 
-    NSUInteger newrows = (NSUInteger)round((frame.size.height
+    NSUInteger newrows = (NSUInteger)floor((frame.size.height
                                             - (_textview.textContainerInset.height * 2) ) /
                                            self.theme.cellHeight);
 

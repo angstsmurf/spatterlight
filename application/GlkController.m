@@ -673,9 +673,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (NSHeight(newWindowFrame) > NSHeight(screenFrame))
             newWindowFrame.size.height = NSHeight(screenFrame);
 
-        newWindowFrame.origin.x = round((NSWidth(screenFrame) - NSWidth(newWindowFrame)) / 2);
+        newWindowFrame.origin.x = floor((NSWidth(screenFrame) - NSWidth(newWindowFrame)) / 2);
         // Place the window just above center by default
-        newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
+        newWindowFrame.origin.y = floor(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
 
         // Very lazy cascading
         if (libcontroller.gameSessions.count > 1) {
@@ -1915,8 +1915,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Actually the size of the content view, not including window title bar
     NSSize size;
     Theme *theme = _theme;
-    size.width = round(theme.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
-    size.height = round(theme.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
+    size.width = floor(theme.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
+    size.height = floor(theme.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
     return size;
 }
 
@@ -2003,8 +2003,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Only _contentView, does not take border into account
     NSSize size;
     Theme *theme = _theme;
-    size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
-    size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    size.width = floor(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
+    size.height = floor(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
     return size;
 }
 
@@ -2012,8 +2012,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Only _contentView, does not take border into account
     NSSize size;
     Theme *theme = _theme;
-    size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
-    size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
+    size.width = floor((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
+    size.height = floor((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
     return size;
 }
 
@@ -2953,13 +2953,15 @@ fprintf(stderr, "%s\n",                                                    \
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTOPEN:
+            [self performScroll];
+            [self flushDisplay];
             [self handleOpenPrompt:req->a1];
-            windowdirty = YES;
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTSAVE:
+            [self performScroll];
+            [self flushDisplay];
             [self handleSavePrompt:req->a1];
-            windowdirty = YES;
             return YES; /* stop reading ... terp is waiting for reply */
 
         case STYLEHINT:
@@ -3812,7 +3814,7 @@ again:
         NSRect contentFrame = _contentView.frame;
         CGFloat midWidth = borderSize.width / 2;
         if (contentFrame.origin.x > midWidth ||  NSMaxX(contentFrame) < midWidth) {
-            contentFrame.origin.x = round(borderSize.width - NSWidth(contentFrame) / 2);
+            contentFrame.origin.x = floor(borderSize.width - NSWidth(contentFrame) / 2);
             _contentView.frame = contentFrame;
         }
         if (NSWidth(contentFrame) > borderSize.width - 2 * _theme.border || borderSize.width < borderSize.height) {
@@ -4285,8 +4287,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (NSRect)contentFrameForWindowed {
     NSUInteger border = (NSUInteger)_theme.border;
     return NSMakeRect(border, border,
-                      round(NSWidth(_borderView.bounds) - border * 2),
-                      round(NSHeight(_borderView.bounds) - border * 2));
+                      floor(NSWidth(_borderView.bounds) - border * 2),
+                      floor(NSHeight(_borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
@@ -4294,7 +4296,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                              NSWidth(_contentView.frame)) / 2),
                       border, NSWidth(_contentView.frame),
-                      round(NSHeight(_borderView.bounds) - border * 2));
+                      floor(NSHeight(_borderView.bounds) - border * 2));
 }
 
 #pragma mark Accessibility

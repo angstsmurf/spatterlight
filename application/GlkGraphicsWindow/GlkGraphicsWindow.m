@@ -110,7 +110,7 @@
 
 - (void)setFrame:(NSRect)frame {
 
-    frame.origin.y = round(frame.origin.y);
+    frame.origin.y = floor(frame.origin.y);
     
     if (NSEqualRects(frame, self.frame) && !NSEqualSizes(image.size, NSZeroSize))
         return;

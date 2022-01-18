@@ -660,8 +660,8 @@ NSString *fontToString(NSFont *font) {
     NSRect newSampleFrame = _sampleTextBorderView.bounds;
 
     newSampleFrame.origin = NSMakePoint(
-                                        round((NSWidth([_sampleTextBorderView bounds]) - NSWidth([sampleTextView frame])) / 2),
-                                        round((NSHeight([_sampleTextBorderView bounds]) - previewTextHeight) / 2)
+                                        floor((NSWidth([_sampleTextBorderView bounds]) - NSWidth([sampleTextView frame])) / 2),
+                                        floor((NSHeight([_sampleTextBorderView bounds]) - previewTextHeight) / 2)
                                         );
     if (newSampleFrame.origin.x < 0)
         newSampleFrame.origin.x = 0;
@@ -720,7 +720,7 @@ NSString *fontToString(NSFont *font) {
                 _glktxtbuf.frame = sampleTextView.bounds;
                 _glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
             }
-            newFrame.origin.y = round((_sampleTextBorderView.bounds.size.height - newFrame.size.height) / 2);
+            newFrame.origin.y = floor((_sampleTextBorderView.bounds.size.height - newFrame.size.height) / 2);
             sampleTextView.frame = newFrame;
 
             [_sampleTextBorderView addSubview:sampleTextView];
@@ -1845,7 +1845,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeCheckFrequency:(id)sender {
     [[NSUserDefaults standardUserDefaults] setInteger:[sender intValue] forKey:@"RecheckFrequency"];
-    _recheckFrequencyTextfield.integerValue = (NSInteger)round([sender floatValue]);
+    _recheckFrequencyTextfield.integerValue = (NSInteger)floor([sender floatValue]);
 }
 
 #pragma mark End of Global menu
