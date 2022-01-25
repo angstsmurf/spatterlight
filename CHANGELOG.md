@@ -1,12 +1,13 @@
 # Change log
 
 ## Release 0.9.1 (Unreleased)
+- Preliminary support for ZX Spectrum format ScottFree games with graphics
 - Improves animation of game info windows
 - Adds a side bar toggle button to the library window
 - The animations shown when entering fullscreen should flicker less
 - When starting in fullscreen with a cover image in "show and wait for key" mode, the game text view could be too narrow
 - When Spatterlight was force-quit or crashed, and then restarted, some autorestored games would have a too-narrow text view
-- Improves automatic scrolling in very short windows
+- Improvements to automatic scrolling. Now less likely to scroll in the wrong direction
 - Buffer windows could open with the wrong background colour
 - Switching off "Games can set colors and styles" could leave some text behind with the old background colour
 - Lots of AGiliTy fixes from David Kinder. *The Multi-Dimensional Thief* is now completable
