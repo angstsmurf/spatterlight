@@ -720,7 +720,7 @@ static void PrintWindowDelimiter(void) {
 			glk_put_char('*');
 	else {
 		glk_put_char('<');
-		for (int i = 0; i < Width - 2; i++)
+		for (int i = 0; i < Width - 3; i++)
 			glk_put_char('-');
 		glk_put_char('>');
 	}
@@ -830,7 +830,6 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 		glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, MIN(rows - 1, TopHeight - 1), Top);
 	}
 
-//	free(string);
 	free(buf);
 	free(text_with_breaks);
 	if (print_delimiter) {
