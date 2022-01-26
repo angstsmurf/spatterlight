@@ -114,7 +114,8 @@ int AnimationFlag = 0;
 extern struct SavedState *initial_state;
 
 int just_started = 1;
-static int just_restarted = 0;
+static int before_first_turn = 1;
+static int moves_this_turn = 0;
 int stop_time = 0;
 /* The dead flag is used to prevent undo states */
 /* from being created *after* victory or death */
@@ -807,15 +808,16 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 	int line = 0;
 	int index = 0;
 	int i;
-	char *string = MemAlloc(Width + 1);
+	char string[Width + 1];
 	for (line = 0; line < rows && index < length; line++) {
 		for (i = 0; i < Width; i++) {
 			string[i] = text_with_breaks[index++];
 			if (string[i] == 10 || string[i] == 13 || index >= length)
 				break;
 		}
-		if (i < Width + 1)
-			i++;
+		if (i < Width + 1) {
+			string[i++] = '\n';
+		}
 		string[i] = 0;
 		if (strlen(string) == 0)
 			break;
@@ -828,7 +830,7 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 		glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, MIN(rows - 1, TopHeight - 1), Top);
 	}
 
-	free(string);
+//	free(string);
 	free(buf);
 	free(text_with_breaks);
 	if (print_delimiter) {
@@ -843,6 +845,7 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 
 void Look(void) {
 	char *buf = MemAlloc(1000);
+	bzero(buf, 1000);
 	room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
 
 	if (CurrentGame == ADVENTURELAND) {
@@ -1024,7 +1027,7 @@ static void LoadGame(void)
 
 static void RestartGame(void)
 {
-	just_restarted = 1;
+	before_first_turn = 1;
 	if (CurrentCommand)
 		FreeCommands();
 	RestoreState(initial_state);
@@ -1460,6 +1463,10 @@ static int PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
 				fprintf(stderr, "player location is now room %d (%s).\n", param[pptr], Rooms[param[pptr]].Text);
 #endif
+				if (!before_first_turn && moves_this_turn++ > 1) {
+					pause_next_room_description = 1;
+					Look();
+				}
 				MyLoc=param[pptr++];
 				break;
 			case 55:
@@ -1519,7 +1526,7 @@ static int PerformLine(int ct)
 				if (split_screen)
 					Look();
 				dead = 1;
-				if (!just_restarted) {
+				if (!before_first_turn) {
 					Output("\n\n");
 					Output(sys[PLAY_AGAIN]);
 					Output("\n");
@@ -1637,8 +1644,6 @@ static int PerformLine(int ct)
 #endif
 				int t=MyLoc;
 				MyLoc=SavedRoom;
-//				pause_next_room_description = 1;
-//				Look();
 				SavedRoom=t;
 				break;
 			}
@@ -1695,7 +1700,7 @@ static int PerformLine(int ct)
 				int sr=MyLoc;
 				MyLoc=RoomSaved[p];
 				RoomSaved[p]=sr;
-				if (!just_started && !just_restarted) {
+				if (!before_first_turn) {
 					pause_next_room_description = 1;
 					Look();
 				}
@@ -2112,8 +2117,8 @@ void glk_main(void)
 		Options|=SPECTRUM_STYLE;
 		split_screen = 1;
 	} else {
-//		Options|=TRS80_STYLE;
-		split_screen = 0;
+		Options|=TRS80_STYLE;
+		split_screen = 1;
 	}
 
 	/* For the Adventure Sheet */
@@ -2168,14 +2173,15 @@ Distributed under the GNU software license\n\n");
 	while(1) {
 		glk_tick();
 
-		if (!just_restarted && !stop_time)
+		if (!before_first_turn && !stop_time)
 			PerformActions(0,0);
 		if (!(CurrentCommand && CurrentCommand->allflag && (CurrentCommand->allflag & LASTALL) != LASTALL))
 			Look();
 
-		if (!stop_time && !just_restarted && !dead)
+		if (!stop_time && !before_first_turn && !dead)
 			SaveUndo();
 
+		before_first_turn = 0;
 		if (GetInput(&vb, &no) == 1)
 			continue;
 
@@ -2193,8 +2199,8 @@ Distributed under the GNU software license\n\n");
 				break;
 			default:
 				just_started = 0;
-				just_restarted = 0;
 				stop_time = 0;
+				moves_this_turn = 0;
 		}
 
 		/* Brian Howarth games seem to use -1 for forever */

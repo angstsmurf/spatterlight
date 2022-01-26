@@ -1436,22 +1436,33 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"adv01.dat"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
     [self openCommandScript:@"ScottFree"];
 
+    NSString *facit = [self comparisonTranscriptFor:@"adv01"];
+
     gameWindow = app.windows[@"adv01.dat (finished)"];
-    XCUIElement *textView = [gameWindow.staticTexts elementBoundByIndex:0];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '*DRAGON EGGS* (very rare) - *JEWELED FRUIT* -'"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'transcript off'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
     [self waitForExpectations:@[expectation] timeout:25];
 
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'The game is now over.'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:1];
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of adv01.dat.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
 }
 
 - (void)testEditMenu {

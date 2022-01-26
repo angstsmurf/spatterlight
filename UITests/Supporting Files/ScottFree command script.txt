@@ -216,3 +216,5 @@ GO STUMP
 DROP EGGS
 DROP HONEY
 SCORE
+y
+transcript off
