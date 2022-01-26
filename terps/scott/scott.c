@@ -843,7 +843,6 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 
 void Look(void) {
 	char *buf = MemAlloc(1000);
-	bzero(buf, 1000);
 	room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
 
 	if (CurrentGame == ADVENTURELAND) {
