@@ -15,6 +15,6 @@ void update_robin_of_sherwood_animations(void);
 void robin_of_sherwood_look(void);
 GameIDType LoadExtraSherwoodData(void);
 int is_forest_location(void);
-void robin_of_sherwood_action(int p);
+void sherwood_action(int p);
 
 #endif /* robinofsherwood_h */

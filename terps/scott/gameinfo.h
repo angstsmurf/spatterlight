@@ -10,10 +10,668 @@
 
 #include "definitions.h"
 
-#define NUMGAMES 13
-
 struct GameInfo games[NUMGAMES] =
 {
+    {   "Pirate Adventure",
+        PIRATE,
+        TEXT_ONLY, // type
+        ENGLISH, // subtype
+        THREE_LETTER_UNCOMPRESSED, // dictionary type
+
+        66,  // Number of items
+        177, // Number of actions
+        79, // Number of words
+        26,  // Number of rooms
+        6,  // Max carried items
+        3,   // Word length
+        99,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0x2451, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        UNCOMPRESSED,
+        0x469a, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Voodoo Castle",
+        VOODOO,
+        TEXT_ONLY, // type
+        ENGLISH, // subtype
+        THREE_LETTER_UNCOMPRESSED, // dictionary type
+
+        65,  // Number of items
+        189, // Number of actions
+        89, // Number of words
+        25,  // Number of rooms
+        9,  // Max carried items
+        3,   // Word length
+        99,  // Number of messages
+
+        90, // number_of_verbs
+        89, // number_of_nouns;
+
+        0x2451, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        UNCOMPRESSED,
+        0x4752, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Strange Odyssey",
+        STRANGE,
+        TEXT_ONLY, // type
+        ENGLISH, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        55,  // Number of items
+        223, // Number of actions
+        79, // Number of words
+        35,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        94,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0x2451, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        UNCOMPRESSED,
+        0x499a, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Buckaroo Banzai",
+        BANZAI,
+        TEXT_ONLY, // type
+        ENGLISH, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        60,  // Number of items
+        266, // Number of actions
+        110, // Number of words
+        35,  // Number of rooms
+        5,  // Max carried items
+        4,   // Word length
+        95,  // Number of messages
+
+        111, // number_of_verbs
+        110, // number_of_nouns;
+
+        0x2451, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        UNCOMPRESSED,
+        0x4c54, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "The Golden Baton",
+        BATON,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        48,  // Number of items
+        171, // Number of actions
+        76, // Number of words
+        31,  // Number of rooms
+        5,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        77, // number_of_verbs
+        76, // number_of_nouns;
+
+        0x2349, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b56, // actions
+        UNCOMPRESSED,
+        0x473a, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2450, // start_of_system_messages
+        0x277e, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "The Time Machine",
+        TIME_MACHINE,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        62,  // Number of items
+        164, // Number of actions
+        87, // Number of words
+        44,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        88, // number_of_verbs
+        87, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x475f, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Arrow of Death part 1",
+        ARROW1,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        64,  // Number of items
+        150, // Number of actions
+        90, // Number of words
+        52,  // Number of rooms
+        5,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        91, // number_of_verbs
+        83, // number_of_nouns;
+
+        0x2349, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x46b3, // dictionary
+        0x4a41, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Arrow of Death part 2",
+        ARROW2,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        91,  // Number of items
+        190, // Number of actions
+        83, // Number of words
+        65,  // Number of rooms
+        9,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        84, // number_of_verbs
+        83, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x49b7, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Escape from Pulsar 7",
+        PULSAR7,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        90,  // Number of items
+        220, // Number of actions
+        145, // Number of words
+        45,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        146, // number_of_verbs
+        145, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x4b1d, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Circus",
+        CIRCUS,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        65,  // Number of items
+        165, // Number of actions
+        97, // Number of words
+        36,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        98, // number_of_verbs
+        97, // number_of_nouns;
+
+        0x2349, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b56, // actions
+        UNCOMPRESSED,
+        0x471a, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x277E, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Feasability Experiment",
+        FEASABILITY,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        65,  // Number of items
+        164, // Number of actions
+        82, // Number of words
+        59,  // Number of rooms
+        5,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        83, // number_of_verbs
+        82, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x47bf, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0, // number_of_pictures;
+        0, // palette
+        0, // picture_format_version;
+    },
+
+    {   "The Wizard of Akyrz",
+        AKYRZ,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        49,  // Number of items
+        201, // Number of actions
+        85,  // Number of words
+        40,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        86, // number_of_verbs
+        85, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x497d, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0, // number_of_pictures;
+        0, // palette
+        0, // picture_format_version;
+    },
+
+    {   "Perseus and Andromeda",
+        PERSEUS,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        60,  // Number of items
+        178, // Number of actions
+        130, // Number of words
+        40,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        131, // number_of_verbs
+        130, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x4823, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Ten Little Indians",
+        INDIANS,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        73,  // Number of items
+        161, // Number of actions
+        85, // Number of words
+        63,  // Number of rooms
+        5,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        86, // number_of_verbs
+        85, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x47b7, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
+    {   "Waxworks",
+        WAXWORKS,
+        TEXT_ONLY, // type
+        MYSTERIOUS, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        57,  // Number of items
+        189, // Number of actions
+        106, // Number of words
+        41,  // Number of rooms
+        6,  // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        107, // number_of_verbs
+        106, // number_of_nouns;
+
+        0x2351, // header
+        EARLY,   // header style
+
+        0,      // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3b81, // actions
+        UNCOMPRESSED,
+        0x48d3, // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x24c0, // start_of_system_messages
+        0x2780, // start of directions
+
+        0, // start_of_characters;
+        0, // start_of_image_data;
+        0, // image_address_offset
+        0,    // number_of_pictures;
+        0,   // palette
+        0,      // picture_format_version;
+    },
+
     {   "Seas of Blood",
         SEAS_OF_BLOOD,
         NO_TYPE, // type
@@ -348,7 +1006,7 @@ struct GameInfo games[NUMGAMES] =
         FOLLOWS, // actions
         UNCOMPRESSED,
         0x4ecf, // dictionary
-        0x53F7, // start_of_room_descriptions;
+        0x53f7, // start_of_room_descriptions;
         0x4d6f, // start_of_room_connections;
         0x5605, // start_of_messages;
         FOLLOWS, // start_of_item_descriptions;
@@ -362,7 +1020,7 @@ struct GameInfo games[NUMGAMES] =
         -0x3fe5,  // image_address_offset
         37,    // number_of_pictures;
         ZXOPT,   // palette
-        2,      // picture_format_version;
+        1,      // picture_format_version;
     },
 
     {   "Adventureland",
@@ -424,11 +1082,11 @@ struct GameInfo games[NUMGAMES] =
         65, // number_of_verbs
         65, // number_of_nouns;
 
-        0x246b, // header
+        0x2473, // header
         EARLY,   // header style
         0x3f26,  // room images
         FOLLOWS, // item flags
-        0x2e28, // item images
+        0x3f70, // item images
         0x3fa2, // actions
         UNCOMPRESSED,
         0x4af0, // dictionary

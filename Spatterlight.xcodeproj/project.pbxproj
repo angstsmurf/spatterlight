@@ -624,10 +624,8 @@
 		C343E4941ECC6776000F15B6 /* osglkban.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48D1ECC6776000F15B6 /* osglkban.c */; };
 		C343E4951ECC6776000F15B6 /* osmisc.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48E1ECC6776000F15B6 /* osmisc.c */; };
 		C343E4961ECC6776000F15B6 /* osparse.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48F1ECC6776000F15B6 /* osparse.c */; };
-		C343E4971ECC6776000F15B6 /* t23run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E4911ECC6776000F15B6 /* t23run.cpp */; };
-		C343E4991ECC678E000F15B6 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4981ECC678E000F15B6 /* t2indlg.c */; };
+		C343E4991ECC678E000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E4981ECC678E000F15B6 /* t3indlg.cpp */; };
 		C343E49B1ECC6796000F15B6 /* t3askf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49A1ECC6796000F15B6 /* t3askf.cpp */; };
-		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; };
 		C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; };
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -651,6 +649,8 @@
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
+		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
+		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
 		C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.m */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
@@ -757,7 +757,6 @@
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; };
 		C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */; };
 		C3D7CB1826CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */; };
 		C3D7CB1926CA8B59006DE4CC /* AGT-03201-0000E16C.agx in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */; };
@@ -2821,6 +2820,9 @@
 		C36B3893271F712600756D94 /* NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonInterpolatedImage.m; sourceTree = "<group>"; };
 		C36B3894271F712700756D94 /* NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonInterpolatedImage.h; sourceTree = "<group>"; };
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
+		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; };
+		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; };
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
@@ -5438,6 +5440,8 @@
 				C3836ED52789B553004B5061 /* seasofblood.c */,
 				C3100F5B27972E850027D6FF /* hulk.h */,
 				C3100F5C27972E850027D6FF /* hulk.c */,
+				C37391D927A25D03009147EF /* game_specific.h */,
+				C37391DA27A25D04009147EF /* game_specific.c */,
 			);
 			path = scott;
 			sourceTree = "<group>";
@@ -5687,6 +5691,7 @@
 				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
 				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
 				C354AA67274CD8D900C8D01D /* adv01.dat */,
+				C37391BC27A128E4009147EF /* Transcript of adv01.txt */,
 				C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */,
 				C354AA73274D096500C8D01D /* grail.blorb */,
 				C354AA6D274D05D800C8D01D /* grail.j2 */,
@@ -6669,6 +6674,7 @@
 				C321419A26CEBAA000B49504 /* Transcript of CZECH.rtf in Resources */,
 				C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */,
 				C321419426CEA6D600B49504 /* czech.z5 in Resources */,
+				C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7470,6 +7476,7 @@
 				C3109FC92798B18900854ED0 /* debug.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */,
 				C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */,
+				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
 				C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */,
 				C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
@@ -9468,6 +9475,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -9503,6 +9511,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

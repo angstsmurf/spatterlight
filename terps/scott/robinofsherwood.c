@@ -13,27 +13,16 @@
 #include "sagadraw.h"
 #include "decompresstext.h"
 
-extern int AnimationFlag;
-
-extern Item *Items;
-extern Action *Actions;
-extern Room *Rooms;
-
-extern int SavedRoom;
-
-uint8_t *forest_images = NULL;
-
 extern Image *images;
 extern uint8_t screenchars[768][8];
 
-extern uint8_t *seek_to_pos(uint8_t *buf, size_t offset, size_t length);
-
+uint8_t *forest_images = NULL;
 
 #define WATERFALL_ANIMATION_RATE 15
 
 void animate_lightning(int stage);
 
-void robin_of_sherwood_action(int p) {
+void sherwood_action(int p) {
     fprintf(stderr, "robin_of_sherwood_action: %d\n", p);
     event_t ev;
 
@@ -252,8 +241,6 @@ void update_robin_of_sherwood_animations(void) {
     }
 }
 
-extern Room *Rooms;
-
 GameIDType LoadExtraSherwoodData(void)
 {
 
@@ -264,7 +251,7 @@ GameIDType LoadExtraSherwoodData(void)
     /* Load the room images */
 
 jumpRoomImages:
-    ptr = seek_to_pos(entire_file, offset, file_length);
+    ptr = seek_to_pos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
@@ -295,7 +282,7 @@ jumpRoomImages:
 
     int actual_room_number = 0;
 
-    ptr = seek_to_pos(entire_file, 0x5b7e + file_baseline_offset, file_length);
+    ptr = seek_to_pos(entire_file, 0x5b7e + file_baseline_offset);
     if (ptr == 0)
         return 0;
 
@@ -330,7 +317,7 @@ jumpRoomImages:
     sys[EXITS_DELIMITER] = " ";
     sys[MESSAGE_DELIMITER] = ". ";
 
-    ptr = seek_to_pos(entire_file, 0x3b6e + file_baseline_offset, file_length);
+    ptr = seek_to_pos(entire_file, 0x3b6e + file_baseline_offset);
     if (ptr == 0)
         return 0;
 

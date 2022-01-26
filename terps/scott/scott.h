@@ -110,15 +110,29 @@ void CloseGraphicsWindow(void);
 void Updates(event_t ev);
 int PerformExtraCommand(void);
 const char *MapSynonym(int noun);
+void Fatal(const char *x);
+void DrawBlack(void);
+uint8_t *seek_to_pos(uint8_t *buf, int offset);
 
 extern struct GameInfo *GameInfo;
 extern Header GameHeader;
+extern Room *Rooms;
+extern Item *Items;
+extern Action *Actions;
+extern const char **Verbs, **Nouns, **Messages;
 extern winid_t Bottom, Top, Graphics;
 extern char *sys[];
 extern char *system_messages[];
 extern uint8_t *entire_file;
 extern size_t file_length;
 extern int file_baseline_offset;
+extern int dead;
+extern int split_screen;
+extern long BitFlags;
+extern int LightRefill;
+extern int Counters[];
+extern int AnimationFlag;
+extern int SavedRoom;
 
 
 #endif /* scott_h */

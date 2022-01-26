@@ -8,13 +8,6 @@ Obvious exits: North, South, East, West.
 I can also see: Trees -
 
 Tell me what to do ? E
-A voice BOOOOMS out:
-
-Welcome to Adventure number: 1 "ADVENTURELAND".
-In this Adventure you're to find *TREASURES* & store them away.
-
-To see how well you're doing say: "SCORE"
-Remember you can always say "HELP"
 
 I'm in a sunny meadow
 
@@ -156,6 +149,8 @@ I can also see: Sign says "Paul's place" -
 
 Tell me what to do ? E
 
+I'm bitten by chiggers.
+
 I'm in a dismal swamp
 
 Obvious exits: North, East, West.
@@ -165,6 +160,7 @@ I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of
 
 Tell me what to do ? GET MUD
 OK
+BOY that really hit the spot!
 
 I'm in a dismal swamp
 
@@ -199,6 +195,8 @@ I can also see: Spider web with writing on it -
 
 Tell me what to do ? D
 
+I'm bitten by chiggers.
+
 I'm in a dismal swamp
 
 Obvious exits: North, East, West.
@@ -208,6 +206,7 @@ I can also see: Cypress tree - Evil smelling mud - Swamp gas - Patches of
 
 Tell me what to do ? GET MUD
 OK
+BOY that really hit the spot!
 
 I'm in a dismal swamp
 
@@ -1229,7 +1228,6 @@ I can also see: Large african bees -
 
 Tell me what to do ? GET BEES
 OK
-The bees all suffocated and disappeared
 
 I'm in a large 8 sided room
 
@@ -1305,6 +1303,7 @@ MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 Tell me what to do ? U
+The bees all suffocated and disappeared
 
 I'm in a dismal swamp
 
@@ -1377,6 +1376,7 @@ I can also see: Large african bees -
 
 Tell me what to do ? GET BEES
 OK
+The mud dried up and fell off.
 
 I'm in a large 8 sided room
 
@@ -1385,7 +1385,6 @@ Obvious exits: South.
 I can also see: Large african bees -
 
 Tell me what to do ? S
-The mud dried up and fell off.
 
 I'm in a long tunnel. I hear buzzing ahead
 
@@ -1426,6 +1425,7 @@ I'm in a semi-dark hole by the root chamber
 Obvious exits: Up.
 
 I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+The bees all suffocated and disappeared
 
 I'm in a semi-dark hole by the root chamber
 
@@ -1434,7 +1434,6 @@ Obvious exits: Up.
 I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 Tell me what to do ? U
-The bees all suffocated and disappeared
 
 I'm in a root chamber under the stump
 
@@ -1537,7 +1536,6 @@ I can also see: Large african bees -
 
 Tell me what to do ? GET BEES
 OK
-The bees all suffocated and disappeared
 
 I'm in a large 8 sided room
 
@@ -1552,6 +1550,7 @@ I'm in a long tunnel. I hear buzzing ahead
 Obvious exits: North, South.
 
 Tell me what to do ? S
+The bees all suffocated and disappeared
 
 I'm in a large cavern
 
@@ -1587,13 +1586,13 @@ I'm in a long tunnel. I hear buzzing ahead
 Obvious exits: North, South.
 
 Tell me what to do ? S
+The mud dried up and fell off.
 
 I'm in a large cavern
 
 Obvious exits: North, South, West, Up, Down.
 
 Tell me what to do ? U
-The mud dried up and fell off.
 
 I'm in a long down sloping hall
 
@@ -1622,6 +1621,7 @@ I'm in a semi-dark hole by the root chamber
 Obvious exits: Up.
 
 I can also see: Ring of skeleton keys - Open door with a hallway beyond -
+The bees all suffocated and disappeared
 
 I'm in a semi-dark hole by the root chamber
 
@@ -1630,7 +1630,6 @@ Obvious exits: Up.
 I can also see: Ring of skeleton keys - Open door with a hallway beyond -
 
 Tell me what to do ? U
-The bees all suffocated and disappeared
 
 I'm in a root chamber under the stump
 
@@ -1681,6 +1680,7 @@ MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
 
 Tell me what to do ? D
+The mud dried up and fell off.
 
 I'm in a root chamber under the stump
 
@@ -1689,7 +1689,6 @@ Obvious exits: Up.
 I can also see: Dark hole -
 
 Tell me what to do ? U
-The mud dried up and fell off.
 
 I'm in a damp hollow stump in the swamp
 

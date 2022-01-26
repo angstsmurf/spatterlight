@@ -54,6 +54,7 @@
 #include "seasofblood.h"
 #include "gremlins.h"
 #include "hulk.h"
+#include "game_specific.h"
 
 #include "bsd.h"
 #include "scott.h"
@@ -104,7 +105,6 @@ char *system_messages[60];
 
 const char *battle_messages[33];
 uint8_t enemy_table[126];
-extern uint8_t *blood_image_data;
 
 uint8_t *entire_file;
 size_t file_length;
@@ -122,7 +122,6 @@ int stop_time = 0;
 int dead = 0;
 
 int pause_next_room_description = 0;
-
 
 int split_screen = 1;
 winid_t Bottom, Top;
@@ -165,8 +164,9 @@ void Updates(event_t ev) {
 			CloseGraphicsWindow();
 			OpenGraphicsWindow();
 		}
-		if (split_screen)
+		if (split_screen) {
 			Look();
+		}
 	} else if(ev.type == evtype_Timer) {
 		if (CurrentGame == ROBIN_OF_SHERWOOD)
 			update_robin_of_sherwood_animations();
@@ -227,6 +227,26 @@ const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 	return multiplier;
 }
 
+void OpenTopWindow(void) {
+	Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
+	if (Top == NULL) {
+		if(split_screen) {
+			Top = glk_window_open(Bottom,
+								  winmethod_Above | winmethod_Fixed,
+								  TopHeight,
+								  wintype_TextGrid, GLK_STATUS_ROCK);
+			if(Top == NULL) {
+				split_screen = 0;
+				Top = Bottom;
+			} else {
+				glk_window_get_size(Top, &Width, NULL);
+			}
+		}
+		else {
+			Top = Bottom;
+		}
+	}
+}
 
 void OpenGraphicsWindow(void)
 {
@@ -234,11 +254,9 @@ void OpenGraphicsWindow(void)
 
 	if (Top == NULL)
 		Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
-	if (Top == NULL)
-		return;
 	if (Graphics == NULL)
 		Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
-	if (Graphics == NULL) {
+	if (Graphics == NULL && Top != NULL) {
 		glk_window_get_size(Top, &Width, &TopHeight);
 		glk_window_close(Top, NULL);
 		Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60, wintype_Graphics, GLK_GRAPHICS_ROCK);
@@ -266,9 +284,13 @@ void OpenGraphicsWindow(void)
 		Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight, wintype_TextGrid, GLK_STATUS_ROCK);
 		glk_window_get_size(Top, &Width, &TopHeight);
 	} else {
+		if (!Graphics)
+			Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60, wintype_Graphics, GLK_GRAPHICS_ROCK);
 		glk_window_get_size(Graphics, &graphwidth, &graphheight);
 		pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
 		x_offset = (graphwidth - optimal_width) / 2;
+		winid_t parent = glk_window_get_parent(Graphics);
+		glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed, optimal_height, NULL);
 	}
 }
 
@@ -284,7 +306,7 @@ void CloseGraphicsWindow(void) {
 
 long BitFlags=0;    /* Might be >32 flags - I haven't seen >32 yet */
 
-static void Fatal(const char *x)
+void Fatal(const char *x)
 {
 	Display(Bottom, "%s\n", x);
 	if (Transcript)
@@ -365,8 +387,7 @@ static int MatchUpItem(int noun, int loc)
 	return(-1);
 }
 
-static char *ReadString(FILE *f)
-{
+static char *ReadString(FILE *f) {
 	char tmp[1024];
 	char *t;
 	int c,nc;
@@ -498,6 +519,20 @@ int LoadDatabase(FILE *f, int loud)
 	Messages=MemAlloc(sizeof(char *)*(mn+1));
 	GameHeader.TreasureRoom=trm;
 
+	if (loud) {
+		fprintf(stderr, "Number of items: %d\n", GameHeader.NumItems);
+		fprintf(stderr, "Number of actions: %d\n", GameHeader.NumActions);
+		fprintf(stderr, "Number of words: %d\n", GameHeader.NumWords);
+		fprintf(stderr, "Word length: %d\n", GameHeader.WordLength);
+		fprintf(stderr, "Number of rooms: %d\n", GameHeader.NumRooms);
+		fprintf(stderr, "Number of messages: %d\n", GameHeader.NumMessages);
+		fprintf(stderr, "Max carried: %d\n", GameHeader.MaxCarry);
+		fprintf(stderr, "Starting location: %d\n", GameHeader.PlayerRoom);
+		fprintf(stderr, "Light time: %d\n", GameHeader.LightTime);
+		fprintf(stderr, "Number of treasures: %d\n", GameHeader.Treasures);
+		fprintf(stderr, "Treasure room: %d\n", GameHeader.TreasureRoom);
+	}
+
 	/* Load the actions */
 
 	ct=0;
@@ -519,6 +554,13 @@ int LoadDatabase(FILE *f, int loud)
 			fprintf(stderr, "Bad action line (%d)\n",ct);
 			FreeDatabase();
 			return 0;
+		}
+
+		if (loud) {
+			fprintf(stderr, "Action %d Vocab: %d\n",ct, ap->Vocab);
+			fprintf(stderr, "Action %d Condition[0]: %d\n",ct, ap->Condition[0]);
+			fprintf(stderr, "Action %d Action[0]: %d\n",ct, ap->Action[0]);
+			fprintf(stderr, "Action %d Action[1]: %d\n",ct, ap->Action[1]);
 		}
 
 		ap++;
@@ -548,9 +590,15 @@ int LoadDatabase(FILE *f, int loud)
 			FreeDatabase();
 			return 0;
 		}
+
 		rp->Text=ReadString(f);
 		if(loud)
 			fprintf(stderr, "Room %d: \"%s\"\n",ct, rp->Text);
+		if(loud){
+			fprintf(stderr, "Room connections for room %d:\n",ct);
+			for (int i = 0; i < 6; i++)
+				fprintf(stderr, "Exit %d: %d\n", i, rp->Exits[i]);
+		}
 		rp->Image=255;
 		ct++;
 		rp++;
@@ -592,6 +640,8 @@ int LoadDatabase(FILE *f, int loud)
 			return 0;
 		}
 		ip->Location=(unsigned char)lo;
+		if(loud)
+			fprintf(stderr, "Location of item %d: %d, \"%s\"\n",ct, ip->Location, Rooms[ip->Location].Text);
 		ip->InitialLoc=ip->Location;
 		ip++;
 		ct++;
@@ -634,6 +684,10 @@ void OutputNumber(int a)
 	Display(Bottom, "%d", a);
 }
 
+void DrawBlack(void) {
+	glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size, 12 * 8 * pixel_size);
+}
+
 void DrawImage(int image) {
 	OpenGraphicsWindow();
 	if (Graphics == NULL) {
@@ -645,11 +699,15 @@ void DrawImage(int image) {
 
 void DrawRoomImage(void) {
 
+	if (CurrentGame == ADVENTURELAND) {
+		adventureland_darkness();
+	}
+
 	int dark = ((BitFlags&(1<<DARKBIT)) && Items[LIGHT_SOURCE].Location!= CARRIED
 	&& Items[LIGHT_SOURCE].Location!= MyLoc);
 
 	if ((dark || CurrentGame == SPIDERMAN) && Graphics != NULL && Rooms[MyLoc].Image != 255) {
-		glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size, 12 * 8 * pixel_size);
+		DrawBlack();
 		if (dark) {
 			return;
 		}
@@ -679,8 +737,9 @@ void DrawRoomImage(void) {
 
 	if (GameInfo->type == GREMLINS_VARIANT) {
 		gremlins_look();
-	} else
+	} else {
 		DrawImage(Rooms[MyLoc].Image & 127);
+	}
 	for (int ct = 0; ct <= GameHeader.NumItems; ct++)
 		if (Items[ct].Image && Items[ct].Location == MyLoc) {
 			if ((Items[ct].Flag & 127) == MyLoc) {
@@ -720,7 +779,7 @@ static void PrintWindowDelimiter(void) {
 			glk_put_char('*');
 	else {
 		glk_put_char('<');
-		for (int i = 0; i < Width - 3; i++)
+		for (int i = 0; i < Width - 2; i++)
 			glk_put_char('-');
 		glk_put_char('>');
 	}
@@ -843,21 +902,18 @@ static void FlushRoomDescriptionSplitScreen(char *buf)
 }
 
 void Look(void) {
+
+	DrawRoomImage();
+
+	if (split_screen && Top == NULL)
+		return;
+	
 	char *buf = MemAlloc(1000);
 	bzero(buf, 1000);
 	room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
 
-	if (CurrentGame == ADVENTURELAND) {
-		if ((Rooms[MyLoc].Image & 128) == 128)
-			BitFlags|=1<<DARKBIT;
-		else
-			BitFlags&=~(1<<DARKBIT);
-	}
-
 	Room *r;
 	int ct,f;
-
-	DrawRoomImage();
 
 	if (!split_screen) {
 		WriteToRoomDescriptionStream("\n");
@@ -1024,8 +1080,7 @@ static void LoadGame(void)
 }
 
 
-static void RestartGame(void)
-{
+static void RestartGame(void) {
 	before_first_turn = 1;
 	if (CurrentCommand)
 		FreeCommands();
@@ -1033,11 +1088,11 @@ static void RestartGame(void)
 	just_started = 0;
 	stop_time = 0;
 	glk_window_clear(Bottom);
+	OpenTopWindow();
 	PerformActions(0, 0);
 }
 
-static void TranscriptOn(void)
-{
+static void TranscriptOn(void) {
 	frefid_t ref;
 
 	if (Transcript) {
@@ -1078,8 +1133,7 @@ static void TranscriptOff(void)
 	Output(sys[TRANSCRIPT_OFF]);
 }
 
-int PerformExtraCommand(void){
-
+int PerformExtraCommand(void) {
 	struct Command command = *CurrentCommand;
 	int verb = command.verb;
 	if (verb > GameHeader.NumWords)
@@ -1233,9 +1287,18 @@ void ListInventory(void) {
 	}
 	if (anything == 0)
 		Output(sys[NOTHING]);
-	Output("\n");
+	if (Transcript) {
+		glk_put_char_stream_uni(Transcript, 10);
+	}
 }
 
+
+void LookWithPause(void) {
+	if (before_first_turn || Rooms[MyLoc].Text == NULL || Rooms[MyLoc].Text[0] == 0)
+		return;
+	pause_next_room_description = 1;
+	Look();
+}
 
 //#define DEBUG_ACTIONS
 
@@ -1462,11 +1525,10 @@ static int PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
 				fprintf(stderr, "player location is now room %d (%s).\n", param[pptr], Rooms[param[pptr]].Text);
 #endif
-				if (!before_first_turn && moves_this_turn++ > 1) {
-					pause_next_room_description = 1;
-					Look();
-				}
 				MyLoc=param[pptr++];
+				if (moves_this_turn++ > 0) {
+					LookWithPause();
+				}
 				break;
 			case 55:
 				Items[param[pptr++]].Location=0;
@@ -1498,8 +1560,7 @@ static int PerformLine(int ct)
 			case 61:
 				Output(sys[IM_DEAD]);
 				dead = 1;
-				pause_next_room_description = 1;
-				Look();
+				LookWithPause();
 				BitFlags&=~(1<<DARKBIT);
 				MyLoc=GameHeader.NumRooms;/* It seems to be what the code says! */
 				break;
@@ -1508,11 +1569,10 @@ static int PerformLine(int ct)
 				/* Bug fix for some systems - before it could get parameters wrong */
 				int i=param[pptr++];
 #ifdef DEBUG_ACTIONS
-				fprintf(stderr, "Item %d (%s) is put in room %d (%s).\n", i, Items[i].Text, param[pptr], Rooms[param[pptr]].Text);
+				fprintf(stderr, "Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n", i, Items[i].Text, param[pptr], Rooms[param[pptr]].Text, MyLoc, Rooms[MyLoc].Text);
 #endif
 				if (Items[i].Location == MyLoc || param[pptr] == MyLoc) {
-					pause_next_room_description = 1;
-					Look();
+					LookWithPause();
 				}
 				Items[i].Location=param[pptr++];
 				break;
@@ -1522,7 +1582,7 @@ static int PerformLine(int ct)
 				fprintf(stderr, "Game over.\n");
 #endif
 			doneit:
-				if (split_screen)
+				if (split_screen && Top)
 					Look();
 				dead = 1;
 				if (!before_first_turn) {
@@ -1639,8 +1699,9 @@ static int PerformLine(int ct)
 			case 80:
 			{
 #ifdef DEBUG_ACTIONS
-				fprintf(stderr, "switch location to stored location (%s).\n", Rooms[SavedRoom].Text);
+				fprintf(stderr, "switch location to stored location (%d) (%s).\n", SavedRoom, Rooms[SavedRoom].Text);
 #endif
+				moves_this_turn++;
 				int t=MyLoc;
 				MyLoc=SavedRoom;
 				SavedRoom=t;
@@ -1697,12 +1758,10 @@ static int PerformLine(int ct)
 				 not roomflag 0 and x */
 				int p=param[pptr++];
 				int sr=MyLoc;
+				moves_this_turn++;
 				MyLoc=RoomSaved[p];
 				RoomSaved[p]=sr;
-				if (!before_first_turn) {
-					pause_next_room_description = 1;
-					Look();
-				}
+				LookWithPause();
 				break;
 			}
 			case 88:
@@ -1715,35 +1774,17 @@ static int PerformLine(int ct)
 				fprintf(stderr,"Action 89, parameter %d\n",param[pptr]);
 				int p=param[pptr++];
 				switch(CurrentGame) {
-					case ADVENTURELAND: {
-						int image = 0;
-						switch (p) {
-							case 1:
-								image = 36;
-								break;
-							case 2:
-								image = 34;
-								break;
-							case 3:
-								image = 33;
-								break;
-							case 4:
-								image = 35;
-								break;
-							default:
-								break;
-						}
-						DrawImage(image);
-						Output("\n");
-						Output(sys[HIT_ENTER]);
-						HitEnter();
+					case SECRET_MISSION:
+						secret_action(p);
 						break;
-					}
+					case ADVENTURELAND:
+						adventureland_action(p);
+						break;
 					case SEAS_OF_BLOOD:
-						seas_of_blood_action(p);
+						blood_action(p);
 						break;
 					case ROBIN_OF_SHERWOOD:
-						robin_of_sherwood_action(p);
+						sherwood_action(p);
 						break;
 					case GREMLINS:
 					case GREMLINS_SPANISH:
@@ -1751,6 +1792,7 @@ static int PerformLine(int ct)
 						gremlins_action(p);
 						break;
 					default:
+						fprintf(stderr,"Action 89 in unsupported game!\n");
 						break;
 				}
 				break;
@@ -1780,6 +1822,17 @@ static int PerformLine(int ct)
 	return(1+continuation);
 }
 
+void PrintTakenOrDropped(int index) {
+	Output(sys[index]);
+	int length = strlen(sys[index]);
+	char last = sys[index][length-1];
+	if (last == 10 || last == 13)
+		return;
+	Output(" ");
+	if ((CurrentCommand->allflag && (CurrentCommand->allflag & LASTALL) != LASTALL) || split_screen == 0) {
+		Output("\n");
+	}
+}
 
 static int PerformActions(int vb,int no)
 {
@@ -1789,6 +1842,7 @@ static int PerformActions(int vb,int no)
 	int flag;
 	int doagain=0;
 	int found_match = 0;
+	moves_this_turn = 0;
 #pragma mark GO
 	if(vb==GO && no == -1 )
 	{
@@ -1813,8 +1867,7 @@ static int PerformActions(int vb,int no)
 				Output(sys[OK]);
 			MyLoc=nl;
 			if (CurrentCommand && CurrentCommand->next) {
-				pause_next_room_description = 1;
-				Look();
+				LookWithPause();
 			}
 			return(0);
 		}
@@ -1955,11 +2008,7 @@ static int PerformActions(int vb,int no)
 					return(0);
 				}
 				Items[item].Location = CARRIED;
-				Output(sys[TAKEN]);
-				Output(" ");
-				if ((CurrentCommand->allflag && (CurrentCommand->allflag & LASTALL) != LASTALL) || split_screen == 0) {
-					Output("\n");
-				}
+				PrintTakenOrDropped(TAKEN);
 				return(0);
 			}
 #pragma mark DROP
@@ -1980,11 +2029,7 @@ static int PerformActions(int vb,int no)
 					return(0);
 				}
 				Items[item].Location=MyLoc;
-				Output(sys[DROPPED]);
-				Output(" ");
-				if ((CurrentCommand->allflag && (CurrentCommand->allflag & LASTALL) != LASTALL) || split_screen == 0) {
-					Output("\n");
-				}
+				PrintTakenOrDropped(DROPPED);
 				return(0);
 			}
 		}
@@ -2135,21 +2180,7 @@ void glk_main(void)
 		TopHeight = 10;
 	}
 
-	if(split_screen)
-	{
-		Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight, wintype_TextGrid, 0);
-		if(Top == NULL)
-		{
-			split_screen = 0;
-			Top = Bottom;
-		} else {
-			glk_window_get_size(Top, &Width, NULL);
-		}
-	}
-	else
-	{
-		Top = Bottom;
-	}
+	OpenTopWindow();
 
 	if (game_type == SCOTTFREE)
 		Output("\
@@ -2172,7 +2203,7 @@ Distributed under the GNU software license\n\n");
 	while(1) {
 		glk_tick();
 
-		if (!before_first_turn && !stop_time)
+		if (!stop_time)
 			PerformActions(0,0);
 		if (!(CurrentCommand && CurrentCommand->allflag && (CurrentCommand->allflag & LASTALL) != LASTALL))
 			Look();
@@ -2181,13 +2212,11 @@ Distributed under the GNU software license\n\n");
 			SaveUndo();
 
 		before_first_turn = 0;
+
 		if (GetInput(&vb, &no) == 1)
 			continue;
 
-
-		int result = PerformActions(vb,no);
-
-		switch(result)
+		switch(PerformActions(vb,no))
 		{
 			case -1:
 				if (!RecheckForExtraCommand())
@@ -2199,7 +2228,6 @@ Distributed under the GNU software license\n\n");
 			default:
 				just_started = 0;
 				stop_time = 0;
-				moves_this_turn = 0;
 		}
 
 		/* Brian Howarth games seem to use -1 for forever */

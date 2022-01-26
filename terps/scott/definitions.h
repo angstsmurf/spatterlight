@@ -21,6 +21,21 @@
 typedef enum {
     UNKNOWN_GAME,
     SCOTTFREE,
+    PIRATE,
+    VOODOO,
+    STRANGE,
+    BANZAI,
+    BATON,
+    TIME_MACHINE,
+    ARROW1,
+    ARROW2,
+    PULSAR7,
+    CIRCUS,
+    FEASABILITY,
+    AKYRZ,
+    PERSEUS,
+    INDIANS,
+    WAXWORKS,
     HULK,
     ADVENTURELAND,
     SECRET_MISSION,
@@ -34,6 +49,7 @@ typedef enum {
     SUPERGRAN,
     ROBIN_OF_SHERWOOD,
     SEAS_OF_BLOOD,
+    NUMGAMES
 } GameIDType;
 
 typedef enum
@@ -123,11 +139,13 @@ typedef enum
 {
     NO_TYPE,
     GREMLINS_VARIANT,
+    TEXT_ONLY,
 } game_type;
 
 typedef enum
 {
     ENGLISH,
+    MYSTERIOUS,
     LOCALIZED
 } subtype;
 

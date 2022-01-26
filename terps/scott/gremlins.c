@@ -11,15 +11,6 @@
 #include "sagadraw.h"
 #include "parser.h"
 
-
-extern Room *Rooms;
-extern Item *Items;
-
-extern int AnimationFlag;
-
-extern int Counters[16];
-extern const char **Messages;
-
 #define GREMLINS_ANIMATION_RATE 670
 
 void update_gremlins_animations(void) {
@@ -166,9 +157,6 @@ void LoadExtraGremlinsData(void)
     for (int i = 0; i < MAX_SYSMESS; i++)
         fprintf(stderr, "\"%s\",\n", sys[i]);
 }
-
-extern const char **Verbs;
-extern const char **Nouns;
 
 void LoadExtraGermanGremlinsData(void)
 {

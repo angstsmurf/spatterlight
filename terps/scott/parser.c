@@ -34,8 +34,9 @@ void FreeStrings(void) {
         FirstErrorMessage = NULL;
     }
     if (WordsInInput == 0) {
-        if (UnicodeWords != NULL || CharWords != NULL)
-            fprintf(stderr, "ERROR! Wordcount 0 but word arrays not empty!\n");
+        if (UnicodeWords != NULL || CharWords != NULL) {
+            Fatal("ERROR! Wordcount 0 but word arrays not empty!\n");
+        }
         return;
     }
     for (int i = 0; i < WordsInInput; i++) {
@@ -364,9 +365,6 @@ int WhichWord(const char *word, const char **list, int word_length, int list_len
     return(0);
 }
 
-extern const char **Verbs;
-extern const char **Nouns;
-
 const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = { NULL, "north", "south", "east", "west", "up", "down", "n", "s", "e", "w", "u", "d", " "
 };
 const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = { NULL, "norte", "sur", "este", "oeste", "arriba", "abajo", "n", "s", "e", "o", "u", "d", "w"
@@ -621,7 +619,9 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
         if (CurrentGame != GREMLINS_GERMAN) {
             if (FindExtaneousWords(&i, verb) != 0)
                 return NULL;
-            return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i, previous);
+            if (previous)
+                verbindex = previous->verbwordindex;
+            return CreateCommandStruct(lastverb, verb, verbindex, i, previous);
         } else {
             found_noun_at_verb_position = 1;
         }
@@ -678,9 +678,6 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
     CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[i - 1], sys[IS]);
     return NULL;
 }
-
-
-extern Item *Items;
 
 int CreateAllCommands(struct Command *command) {
     int location = CARRIED;

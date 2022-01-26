@@ -12,16 +12,11 @@
 
 #define MAX_UNDOS 100
 
-extern int Counters[16];    /* Range unknown */
 extern int CurrentCounter;
-extern int SavedRoom;
-extern int RoomSaved[16];    /* Range unknown */
-extern Item *Items;
-extern long BitFlags;
+extern int RoomSaved[];    /* Range unknown */
 
 extern int stop_time;
 extern int just_started;
-extern int dead;
 
 struct SavedState *initial_state;
 static struct SavedState *ramsave = NULL;

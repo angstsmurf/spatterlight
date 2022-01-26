@@ -11,10 +11,9 @@
 
 #include "definitions.h"
 #include "scott.h"
+#include "seasofblood.h"
 
 #include "sagadraw.h"
-
-extern uint8_t *seek_to_pos(uint8_t *buf, int offset);
 
 int draw_to_buffer = 0;
 
@@ -22,11 +21,7 @@ uint8_t sprite[256][8];
 uint8_t screenchars[768][8];
 uint8_t buffer[384][9];
 
-
-
 Image *images = NULL;
-
-uint8_t *blood_image_data = NULL;
 
 int pixel_size;
 int x_offset;
@@ -677,7 +672,7 @@ uint8_t *draw_saga_picture_from_data(uint8_t *dataptr, int xsize, int ysize, int
       uint8_t data = *dataptr++;
       if (data < 0x80)
       {
-         if (character > 127 && version > 0)
+         if (character > 127 && version > 2)
          {
             data+=128;
          }

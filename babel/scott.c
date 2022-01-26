@@ -27,42 +27,75 @@ struct scottrec {
 
 
 static struct scottrec scott_registry[] = {
-    { 0xbcd5, 0xae3f, "9108AF63-67F2-4023-B730-E1BDC0606C3F" }, // Questprobe 1 - The Hulk.tzx
-    { 0xbc1e, 0xb4b6, "9108AF63-67F2-4023-B730-E1BDC0606C3F" }, // Questprobe 1 - The Hulk (Americana).tzx
-    { 0xbaef, 0x52cc, "D4021CA3-A208-4944-8283-434EB9C9661E" }, // Adventureland.tzx
-    { 0xbb84, 0x6d93, "D4021CA3-A208-4944-8283-434EB9C9661E" }, // Adventureland - Alternate.tzx
-    { 0xba74, 0x39c2, "D4021CA3-A208-4944-8283-434EB9C9661E" }, // Adventureland TAP image
-    { 0xbae1, 0x0ec0, "FE8B6275-1F78-425A-BE64-242CC07CF448" }, // Secret Mission.tzx
-    { 0xbaa7, 0xfc85, "FE8B6275-1F78-425A-BE64-242CC07CF448" }, // Secret Mission TAP image
-    { 0xbae1, 0x83e9, "86438A1E-86F7-4F9E-8515-1FF673636B1B" }, // Sorcerer Of Claymorgue Castle.tzx
-    { 0xbc2e, 0x4d84, "86438A1E-86F7-4F9E-8515-1FF673636B1B" }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
-    { 0xbaa7, 0x7371, "86438A1E-86F7-4F9E-8515-1FF673636B1B" }, // Sorcerer Of Claymorgue Castle TAP image
-    { 0xb36e, 0xbe5d, "F2EE4920-846B-4F4D-8335-973E49D14402" }, // Questprobe 2 - Spiderman.tzx
-    { 0xb280, 0x196d, "F2EE4920-846B-4F4D-8335-973E49D14402" }, // Questprobe 2 - Spiderman - Alternate.tzx
-    { 0xb36e, 0xbf88, "F2EE4920-846B-4F4D-8335-973E49D14402" }, // Questprobe 2 - Spiderman (Americana).tzx
-    { 0xb316, 0x3c3c, "F2EE4920-846B-4F4D-8335-973E49D14402" }, // Spiderman TAP image
-    { 0x9e51, 0x8be7, "85387E91-2F9B-4E0D-8EBE-3292B3C62333" }, // Savage Island Part 1.tzx
-    { 0x9e46, 0x7792, "85387E91-2F9B-4E0D-8EBE-3292B3C62333" }, // Savage Island Part 1 - Alternate.tzx
-   { 0x11886, 0xd588, "85387E91-2F9B-4E0D-8EBE-3292B3C62333" }, // Savage Island.tzx (Contains both part, but ScottFree will only play the first)
-    { 0x9d6a, 0x41d6, "85387E91-2F9B-4E0D-8EBE-3292B3C62333" }, // Savage Island TAP image
-    { 0x9d9e, 0x4d76, "151CC0E0-F873-437C-9A04-2A121AC9499C" }, // Savage Island Part 2.tzx
-    { 0x9e59, 0x79f4, "151CC0E0-F873-437C-9A04-2A121AC9499C" }, // Savage Island Part 2 - Alternate.tzx
-    { 0x9d6a, 0x3de4, "151CC0E0-F873-437C-9A04-2A121AC9499C" }, // Savage Island 2 TAP image
+    { 0x44cd, 0x8b8f, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure z80
+    { 0x432c, 0xa6df, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle z80
+    { 0x431e, 0x7437, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey z80
+    { 0x4024, 0x62c7, "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai z80
+
+    { 0x7d3c, 0x142b, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton Z80
+    { 0x78d0, 0x3db6, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine Z80
+    { 0x8539, 0xad02, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 z80
+    { 0x949b, 0xb7e2, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 z80
+    { 0x7509, 0x497d, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape from Pulsar 7 z80
+    { 0x6c62, 0xd002, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus z80
+    { 0x9213, 0xf3ca, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasability Experiment z80
+    { 0x83d9, 0x1bb9, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz z80
+    { 0x7b10, 0x4f06, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda.z80
+    { 0x7bb0, 0x3877, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians z80
+    { 0x7f96, 0x4f96, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks z80
+
+    { 0xbcd5, 0xae3f, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk.tzx
+    { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
+    { 0xafba, 0xb69b, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk Z80
+
+    { 0xbaef, 0x52cc, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland.tzx
+    { 0xbb84, 0x6d93, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland - Alternate.tzx
+    { 0xba74, 0x39c2, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland TAP image
+    { 0xaaae, 0x7cf6, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland Z80
+
+    { 0xbae1, 0x0ec0, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission.tzx
+    { 0xbaa7, 0xfc85, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission TAP image
+    { 0x8723, 0xc6da, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission Z80
+
+    { 0xbae1, 0x83e9, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle.tzx
+    { 0xbc2e, 0x4d84, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
+    { 0xbaa7, 0x7371, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle TAP image
+    { 0x726c, 0x0d57, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle Z80
+    { 0x7298, 0x77fb, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle Z80 alt
+
+    { 0xb36e, 0xbe5d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman.tzx
+    { 0xb280, 0x196d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman - Alternate.tzx
+    { 0xb36e, 0xbf88, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman (Americana).tzx
+    { 0xa4c4, 0x1ae8, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80
+    { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
+
+    { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
+    { 0x9e46, 0x7792, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1 - Alternate.tzx
+   { 0x11886, 0xd588, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island.tzx (Contains both parts, but ScottFree will only play the first)
+    { 0x9d6a, 0x41d6, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island TAP image
+    { 0x9ab2, 0xfaaa, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Z80 image
+
+    { 0x9d9e, 0x4d76, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island Part 2.tzx
+    { 0x9e59, 0x79f4, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island Part 2 - Alternate.tzx
+    { 0x9d6a, 0x3de4, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island 2 TAP image
+
     { 0xbae8, 0x6d7a, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins - The Adventure.tzx
     { 0xbc36, 0x47cd, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins The Adventure - Alternate.tzx
     { 0xbacc, 0x69fa, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins TAP image
     { 0xb114, 0x8a72, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins z80 image
     { 0xbbb6, 0x54cb, "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91" }, // Gremlins - The Adventure (German).tzx
     { 0xbb63, 0x3cc4, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins - The Adventure (Spanish).tzx
-    { 0xbb63, 0x3ec7, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins - The Adventure (Spanish) alt.tzx
+    { 0xbb63, 0x3ec7, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins (Spanish) alt.tzx
     { 0xbab4, 0x05a6, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins Spanish TAP image
+
     { 0xba60, 0x3734, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - The Adventure.tzx
     { 0xba71, 0x2d56, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate.tzx
-    { 0xba71, 0x2dc3, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - The Adventure - Alternate.tzx
+    { 0xba71, 0x2dc3, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate 2.tzx
     { 0x9df0, 0x2238, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran z80 snap
     { 0xc581, 0x940f, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood.tzx
     { 0xc581, 0x940f, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood - Alternate.tzx
     { 0xae0c, 0x4661, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood TAP image
+    { 0xc495, 0x4d3c, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood TAP image alt
     { 0xace8, 0x991c, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood z80 snap
     { 0xbc60, 0xce3d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood.tzx
     { 0xbd61, 0x0277, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood - Alternate.tzx
@@ -95,7 +128,6 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     }
     return INVALID_STORY_FILE_RV;
 }
-
 
 
 /* All numbers in ScottFree text format files are stored as text delimited by whitespace */
@@ -210,6 +242,8 @@ static int32 detect_scottfree(unsigned char *storystring, int32 extent) {
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
+
+//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24)
         return INVALID_STORY_FILE_RV;

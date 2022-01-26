@@ -18,22 +18,13 @@
 #include "decompresstext.h"
 
 
-
-extern int Counters[16];
-
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
 #define dice_colour 0x00ff0000
 
 extern const char *battle_messages[33];
 extern uint8_t enemy_table[126];
-extern uint8_t *blood_image_data;
-
-extern Item *Items;
-
-extern long BitFlags;
-extern int SavedRoom;
-
+uint8_t *blood_image_data;
 extern uint8_t buffer[384][9];
 
 
@@ -71,10 +62,11 @@ void adventure_sheet(void) {
     OutputNumber(Counters[7]);
     Output("\n\n * * * * * * * * * * * * * * * * * * * * *\n\n");
     ListInventory();
+    Output("\n");
     glk_set_style(style_Normal);
 }
 
-void seas_of_blood_action(int p)
+void blood_action(int p)
 {
     switch (p) {
         case 0:
@@ -736,8 +728,6 @@ void swap_stamina_and_crew_strength(void) {
     Counters[7] = Counters[3]; // Stamina
     Counters[3] = temp;
 }
-
-extern uint8_t *seek_to_pos(uint8_t *buf, int offset);
 
 extern int draw_to_buffer;
 

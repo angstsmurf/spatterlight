@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <strings.h>
 
-
 #include "scott.h"
 
 #include "detectgame.h"
@@ -26,15 +25,10 @@
 #include "parser.h"
 #include "decompressz80.h"
 
-extern Item *Items;
-extern Room *Rooms;
-extern Action *Actions;
-extern const char **Verbs;
-extern const char **Nouns;
-extern const char **Messages;
-extern int LightRefill;
-
 extern const char *sysdict_zx[MAX_SYSMESS];
+extern int header[];
+
+extern void print_header_info(int header[]);
 
 static int FindCode(char *x, int base)
 {
@@ -87,8 +81,6 @@ dictionary_type getId(size_t *offset) {
     return NOT_A_GAME;
 }
 
-extern int header[];
-
 void read_header(uint8_t *ptr) {
     int i,value;
     for (i = 0; i < 24; i++)
@@ -100,7 +92,6 @@ void read_header(uint8_t *ptr) {
 }
 
 int sanity_check_header(void) {
-
     int16_t v = header[1]; // items
     if (v < 10 || v > 500)
         return 0;
@@ -108,7 +99,7 @@ int sanity_check_header(void) {
     if (v < 100 || v > 500)
         return 0;
     v = header[3]; // word pairs
-    if (v < 50 || v > 200)
+    if (v < 50 || v > 190)
         return 0;
     v = header[4]; // Number of rooms
     if (v < 10 || v > 100)
@@ -216,16 +207,7 @@ int seek_if_needed(int expected_start, int *offset, uint8_t **ptr) {
     return 1;
 }
 
-
-extern void print_header_info(int header[]);
-
-
-int try_loading(struct GameInfo info, int dict_start) {
-
-    /* The Hulk does everything differently */
-    /* so it gets its own function */
-    if (info.gameID == HULK)
-        return try_loading_hulk(info, dict_start);
+int try_loading_old(struct GameInfo info, int dict_start) {
 
     int ni,na,nw,nr,mc,pr,tr,wl,lt,mn,trm;
     int ct;
@@ -237,12 +219,386 @@ int try_loading(struct GameInfo info, int dict_start) {
 
     uint8_t *ptr = entire_file;
 
+//    fprintf(stderr, "dict_start:%x\n", dict_start);
+//    fprintf(stderr, " info.start_of_dictionary:%x\n",  info.start_of_dictionary);
+
+
     file_baseline_offset = dict_start - info.start_of_dictionary;
 
 //    fprintf(stderr, "file_baseline_offset:%x\n", file_baseline_offset);
 
     int offset = info.start_of_header + file_baseline_offset;
 
+//   offset = 0;
+jumpHere:
+    ptr = seek_to_pos(entire_file, offset);
+    if (ptr == 0)
+        return 0;
+
+    read_header(ptr);
+
+    while (sanity_check_header() == 0) {
+        offset++;
+        goto jumpHere;
+    }
+
+
+    if (sanity_check_header() == 0) {
+        return 0;
+    }
+
+//    fprintf(stderr, "Found a valid header at position 0x%x\n", offset);
+
+//    print_header_info(header);
+
+    if (header[1] != info.number_of_items || header[2] != info.number_of_actions || header[3] != info.number_of_words || header[4] != info.number_of_rooms || header[5] != info.max_carried) {
+//        fprintf(stderr, "Non-matching header\n");
+        return 0;
+    }
+
+    ni = header[1];
+    na = header[2];
+    nw = header[3];
+    nr = header[4];
+    mc = header[5];
+    pr = header[6];
+//    fprintf(stderr, "Player start location: %d\n", pr);
+    tr = header[7];
+//    fprintf(stderr, "Treasure room: %d\n", tr);
+    wl = header[8];
+//    fprintf(stderr, "Word length: %d\n", wl);
+    lt = header[9];
+//    fprintf(stderr, "Lightsource time left: %d\n", lt);
+    mn = header[10];
+//    fprintf(stderr, "Number of messages: %d\n", mn);
+    trm = header[11];
+//    fprintf(stderr, "Number of treasures: %d\n", trm);
+
+
+    GameHeader.NumItems=ni;
+    Items=(Item *)MemAlloc(sizeof(Item)*(ni+1));
+    GameHeader.NumActions=na;
+    Actions=(Action *)MemAlloc(sizeof(Action)*(na+1));
+    GameHeader.NumWords=nw;
+    GameHeader.WordLength=wl;
+    Verbs=MemAlloc(sizeof(char *)*(nw+2));
+    Nouns=MemAlloc(sizeof(char *)*(nw+2));
+    GameHeader.NumRooms=nr;
+    Rooms=(Room *)MemAlloc(sizeof(Room)*(nr+1));
+    GameHeader.MaxCarry=mc;
+    GameHeader.PlayerRoom=pr;
+    GameHeader.Treasures=tr;
+    GameHeader.LightTime=lt;
+    LightRefill=lt;
+    GameHeader.NumMessages=mn;
+    Messages=MemAlloc(sizeof(char *)*(mn+1));
+    GameHeader.TreasureRoom=trm;
+
+#pragma mark actions
+
+    if (seek_if_needed(info.start_of_actions, &offset, &ptr) == 0)
+        return 0;
+
+//    offset = 0;
+//jumpHereActions:
+//    ptr = seek_to_pos(entire_file, offset);
+
+    /* Load the actions */
+
+    ct=0;
+
+    ap=Actions;
+
+    uint16_t value, cond, comm;
+
+    while(ct<na+1)
+    {
+        value = *(ptr++);
+        value += *(ptr++) * 0x100; /* verb/noun */
+        ap->Vocab = value;
+
+
+        cond = 5;
+        comm = 2;
+
+        for (int j = 0; j < 5; j++)
+        {
+            if (j < cond) {
+                value = *(ptr++);
+                value += *(ptr++) * 0x100;
+            } else value = 0;
+            ap->Condition[j] = value;
+        }
+        for (int j = 0; j < 2; j++)
+        {
+            if (j < comm) {
+                value = *(ptr++) ;
+                value += *(ptr++) * 0x100;
+            } else value = 0;
+            ap->Action[j] = value;
+        }
+
+//        if (ct == 0 && (ap->Vocab != 100 || ap->Condition[0]!= 29 || ap->Action[0] != 236 || ap->Action[1] != 358 )) {
+//            offset++;
+//            goto jumpHereActions;
+//        }
+        ap++;
+        ct++;
+    }
+
+//    fprintf(stderr, "Found actions at offset %x\n", offset);
+//    fprintf(stderr, "Offset after reading actions: %lx\n", ptr - entire_file);
+
+#pragma mark room connections
+
+    if (seek_if_needed(info.start_of_room_connections, &offset, &ptr) == 0)
+        return 0;
+
+//    offset = 0;
+//jumpRoomConnections:
+//    ptr = seek_to_pos(entire_file, offset);
+
+    ct=0;
+    rp=Rooms;
+
+    while(ct<nr+1)
+    {
+        for (int j= 0; j < 6; j++) {
+            rp->Exits[j] = *(ptr++);
+        }
+
+//        if ((ct == 2 && (rp->Exits[5] != 1 || rp->Exits[0] != 0)) || (ct == 3 && (rp->Exits[2] != 4 || rp->Exits[3] != 2)))
+//        {
+//            offset++; goto jumpRoomConnections;
+//        }
+        ct++;
+        rp++;
+    }
+
+//    fprintf(stderr, "Found room connections at offset %x\n", offset);
+//    fprintf(stderr, "Offset after reading room connections: %lx\n", ptr - entire_file);
+
+
+#pragma mark item locations
+
+    if (seek_if_needed(info.start_of_item_locations, &offset, &ptr) == 0)
+        return 0;
+    
+    ct=0;
+    ip=Items;
+    while(ct<ni+1)
+    {
+        ip->Location=*(ptr++);
+        ip->InitialLoc=ip->Location;
+        ip++;
+        ct++;
+    }
+
+//    fprintf(stderr, "Offset after reading item locations: %lx\n", ptr - entire_file);
+
+#pragma mark dictionary
+
+    if (seek_if_needed(info.start_of_dictionary, &offset, &ptr) == 0)
+        return 0;
+
+    ptr = read_dictionary(info, &ptr);
+//    fprintf(stderr, "Offset after reading dictionary: %lx\n", ptr - entire_file);
+
+#pragma mark rooms
+
+    if (seek_if_needed(info.start_of_room_descriptions, &offset, &ptr) == 0)
+        return 0;
+
+    if (info.start_of_room_descriptions == FOLLOWS)
+        ptr++;
+
+    ct=0;
+    rp=Rooms;
+
+    char text[256];
+    char c=0;
+    int charindex = 0;
+
+    do {
+        c = *(ptr++);
+        text[charindex] = c;
+        if (c == 0) {
+            rp->Text = MemAlloc(charindex + 1);
+            strcpy(rp->Text, text);
+//            fprintf(stderr, "Room %d: \"%s\"\n", ct, rp->Text);
+            rp->Image = 255;
+            ct++;
+            rp++;
+            charindex = 0;
+        } else {
+            charindex++;
+        }
+        if (c != 0 && !isascii(c))
+            return 0;
+    } while (ct<nr+1);
+
+#pragma mark messages
+
+    if (seek_if_needed(info.start_of_messages, &offset, &ptr) == 0)
+        return 0;
+
+    ct=0;
+    charindex = 0;
+
+    while(ct<mn+1)
+    {
+        c = *(ptr++);
+        text[charindex] = c;
+        if (c == 0) {
+            Messages[ct] = MemAlloc(charindex + 1);
+            strcpy((char *)Messages[ct], text);
+//            fprintf(stderr, "Messages %d: \"%s\"\n", ct, Messages[ct]);
+            ct++;
+            charindex = 0;
+        } else {
+            charindex++;
+        }
+    }
+
+#pragma mark items
+
+    if (seek_if_needed(info.start_of_item_descriptions, &offset, &ptr) == 0)
+        return 0;
+
+    ct=0;
+    ip=Items;
+    charindex = 0;
+
+
+    do {
+        c = *(ptr++);
+        text[charindex] = c;
+        if (c == 0) {
+            ip->Text = MemAlloc(charindex + 1);
+            strcpy(ip->Text, text);
+//            fprintf(stderr, "Item %d: \"%s\"\n", ct, ip->Text);
+            ip->AutoGet=strchr(ip->Text,'/');
+            /* Some games use // to mean no auto get/drop word! */
+            if(ip->AutoGet && strcmp(ip->AutoGet,"//") && strcmp(ip->AutoGet,"/*"))
+            {
+                char *t;
+                *ip->AutoGet++=0;
+                t=strchr(ip->AutoGet,'/');
+                if(t!=NULL)
+                    *t=0;
+//                fprintf(stderr, "Item %d autoget: \"%s\"\n", ct, ip->AutoGet);
+            }
+            ct++;
+            ip++;
+            charindex = 0;
+        } else {
+            charindex++;
+        }
+    } while(ct<ni+1);
+
+//    fprintf(stderr, "Offset after reading item descriptions: %lx\n", ptr - entire_file);
+
+#pragma mark System messages
+
+    ct=0;
+    if (seek_if_needed(info.start_of_system_messages, &offset, &ptr) == 0)
+        return 0;
+
+//    ptr = seek_to_pos(entire_file, 0x2539);
+
+    charindex = 0;
+
+    do {
+        c=*(ptr++);
+//        fprintf(stderr, "Character at offset %lx: \'%c\' (%d)\n", ptr - entire_file, c, c);
+        text[charindex] = c;
+        if (c == 0 || c == 0x0d) {
+            if (charindex > 0) {
+                if (c == 0x0d)
+                    charindex++;
+                system_messages[ct] = MemAlloc(charindex + 1);
+                strncpy(system_messages[ct], text, charindex + 1);
+                system_messages[ct][charindex] = '\0';
+//                fprintf(stderr, "System message %d: \"%s\"\n", ct, system_messages[ct]);
+                ct++;
+                charindex = 0;
+            }
+        } else {
+            charindex++;
+        }
+
+        if (c != 0 && c != 0x0d && c != '\x83' && !isascii(c))
+            break;
+    } while (ct<40);
+
+    if (ct == 0)
+        fprintf(stderr, "No system messages?\n");
+
+//    fprintf(stderr, "Offset after reading system messages: %lx\n", ptr - entire_file);
+
+    charindex = 0;
+
+    if (seek_if_needed(info.start_of_directions, &offset, &ptr) == 0)
+        return 0;
+
+    ct = 0;
+    do {
+        c=*(ptr++);
+        text[charindex] = c;
+        if (c == 0 || c == 0x0d) {
+            if (charindex > 0) {
+                sys[ct] = MemAlloc(charindex + 2);
+                strcpy(sys[ct], text);
+                if (c == 0x0d)
+                    charindex++;
+                sys[ct][charindex] = '\0';
+                ct++;
+                charindex = 0;
+            }
+        } else {
+            charindex++;
+        }
+
+        if (c != 0 && c != 0x0d && !isascii(c))
+            break;
+    } while (ct<6);
+
+//    for (int i = 0; i < 6; i++)
+//        fprintf(stderr, "Direction %d: \"%s\"\n", i, sys[i]);
+
+    return 1;
+}
+
+
+int try_loading(struct GameInfo info, int dict_start) {
+
+    /* The Hulk does everything differently */
+    /* so it gets its own function */
+    if (info.gameID == HULK)
+        return try_loading_hulk(info, dict_start);
+
+    if (info.type == TEXT_ONLY)
+        return try_loading_old(info, dict_start);
+    
+    int ni,na,nw,nr,mc,pr,tr,wl,lt,mn,trm;
+    int ct;
+
+    Action *ap;
+    Room *rp;
+    Item *ip;
+    /* Load the header */
+
+    uint8_t *ptr = entire_file;
+
+//    fprintf(stderr, "dict_start:%x\n", dict_start);
+//    fprintf(stderr, " info.start_of_dictionary:%x\n",  info.start_of_dictionary);
+
+    file_baseline_offset = dict_start - info.start_of_dictionary;
+
+//    fprintf(stderr, "file_baseline_offset:%d\n", file_baseline_offset);
+
+    int offset = info.start_of_header + file_baseline_offset;
+    int flag = 0;
 jumpHere:
     ptr = seek_to_pos(entire_file, offset);
     if (ptr == 0)
@@ -251,22 +607,29 @@ jumpHere:
     read_header(ptr);
 
         while (sanity_check_header() == 0) {
+            if (flag == 0) {
+                offset = 0;
+                flag = 1;
+            }
             offset++;
             goto jumpHere;
         }
 
-//        fprintf(stderr, "Found a valid header at position 0x%x\n", offset);
+//    fprintf(stderr, "Found a header at %s position 0x%x\n", flag ? "unexpected" : "expected", offset);
 
     if (sanity_check_header() == 0) {
         return 0;
     }
 
-//    fprintf(stderr, "Found a valid header at expected file position 0s%x\n", offset);
-
+//    print_header_info(header);
+    
     if (header[1] != info.number_of_items || header[2] != info.number_of_actions || header[3] != info.number_of_words || header[4] != info.number_of_rooms || header[5] != info.max_carried) {
-        fprintf(stderr, "Non-matching header\n");
+//        fprintf(stderr, "Non-matching header\n");
         return 0;
     }
+
+//    fprintf(stderr, "Found a valid header at offset 0s%x\n", offset);
+
 
     ni = header[1];
     na = header[2];
@@ -334,33 +697,59 @@ jumpHere:
         }
     }
 
+//    fprintf(stderr, "Offset after reading room images: %lx\n", ptr - entire_file);
+
 #pragma mark Item flags
 
-    if (seek_if_needed(info.start_of_item_flags, &offset, &ptr) == 0)
-        return 0;
+    if (info.start_of_item_flags != 0) {
 
-    /* Load the item flags */
+        if (seek_if_needed(info.start_of_item_flags, &offset, &ptr) == 0)
+            return 0;
 
-    ip=Items;
+        /* Load the item flags */
 
-    for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-        ip->Flag = *(ptr++);
-        ip++;
+        ip=Items;
+
+        for (ct = 0; ct <= GameHeader.NumItems; ct++) {
+            ip->Flag = *(ptr++);
+            ip++;
+        }
+
     }
+
+//    fprintf(stderr, "Offset after reading item flags: %lx\n", ptr - entire_file);
 
 #pragma mark item images
 
-    if (seek_if_needed(info.start_of_item_image_list, &offset, &ptr) == 0)
-        return 0;
+    if (info.start_of_item_image_list != 0) {
 
-    /* Load the item images */
+        if (seek_if_needed(info.start_of_item_image_list, &offset, &ptr) == 0)
+            return 0;
 
-    ip=Items;
+        //    offset = 0;
+        //jumpItemImages:
+        //
+        //    ptr = seek_to_pos(entire_file, offset);
 
-    for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-        ip->Image = *(ptr++);
-        ip++;
+        /* Load the item images */
+
+        ip=Items;
+
+        for (ct = 0; ct <= GameHeader.NumItems; ct++) {
+            ip->Image = *(ptr++);
+            //        if (ip->Image != 255 && (ip->Image - GameHeader.NumRooms) > GameInfo->number_of_pictures) {
+            //        if ((ct == 23 && ip->Image != 29) || (ct == 27 && ip->Image != 40)) {
+            //
+            //            offset++;
+            //            goto jumpItemImages;
+            //        }
+            ip++;
+        }
+
+//        fprintf(stderr, "Found item images at %x\n", offset - file_baseline_offset);
     }
+
+//    fprintf(stderr, "Offset after reading item images: %lx\n", ptr - entire_file);
 
 #pragma mark actions
 
@@ -418,12 +807,16 @@ jumpHere:
         ct++;
     }
 
+//    fprintf(stderr, "Offset after reading actions: %lx\n", ptr - entire_file);
+
 #pragma mark dictionary
 
     if (seek_if_needed(info.start_of_dictionary, &offset, &ptr) == 0)
         return 0;
 
     ptr = read_dictionary(info, &ptr);
+
+//    fprintf(stderr, "Offset after reading dictionary: %lx\n", ptr - entire_file);
 
 #pragma mark rooms
 
@@ -466,6 +859,8 @@ jumpHere:
         }
     }
 
+//    fprintf(stderr, "Offset after reading rooms: %lx\n", ptr - entire_file);
+
 #pragma mark room connections
 
     if (seek_if_needed(info.start_of_room_connections, &offset, &ptr) == 0)
@@ -483,6 +878,8 @@ jumpHere:
         ct++;
         rp++;
     }
+
+//    fprintf(stderr, "Offset after reading room connections: %lx\n", ptr - entire_file);
 
 #pragma mark messages
 
@@ -513,6 +910,7 @@ jumpHere:
             if (c == 0) {
                 Messages[ct] = MemAlloc(charindex + 1);
                 strcpy((char *)Messages[ct], text);
+//                fprintf(stderr, "Messages %d: \"%s\"\n", ct, Messages[ct]);
                 ct++;
                 charindex = 0;
             } else {
@@ -520,6 +918,8 @@ jumpHere:
             }
         }
     }
+
+//    fprintf(stderr, "Offset after reading messages: %lx\n", ptr - entire_file);
 
 #pragma mark items
 
@@ -533,7 +933,6 @@ jumpHere:
     if (compressed) {
         do {
             ip->Text = decompress_text(ptr, ct);
-//            fprintf(stderr, "Item %d: \"%s\"\n", ct, ip->Text);
             ip->AutoGet = NULL;
             if (ip->Text != NULL && ip->Text[0] != '.') {
                 ip->AutoGet=strchr(ip->Text,'.');
@@ -579,6 +978,8 @@ jumpHere:
         } while(ct<ni+1);
     }
 
+//    fprintf(stderr, "Offset after reading item descriptions: %lx\n", ptr - entire_file);
+
 #pragma mark item locations
 
     if (seek_if_needed(info.start_of_item_locations, &offset, &ptr) == 0)
@@ -593,6 +994,8 @@ jumpHere:
         ip++;
         ct++;
     }
+
+//    fprintf(stderr, "Offset after reading item locations: %lx\n", ptr - entire_file);
 
 #pragma mark System messages
 
@@ -622,6 +1025,8 @@ jumpHere:
         if (c != 0 && c != 0x0d && c != '\x83' && !isascii(c))
             break;
     } while (ct<40);
+
+//    fprintf(stderr, "Offset after reading system messages: %lx\n", ptr - entire_file);
 
     charindex = 0;
 
@@ -706,12 +1111,13 @@ GameIDType detect_game(FILE *f) {
 
     for (int i = 0; i < NUMGAMES; i++) {
         if (games[i].dictionary == dict_type) {
-            fprintf(stderr, "The game might be %s\n", games[i].Title);
+//            fprintf(stderr, "The game might be %s\n", games[i].Title);
             if (try_loading(games[i], offset)) {
                 GameInfo = &games[i];
                 break;
-            } else
-                fprintf(stderr, "It was not.\n");
+            }
+//            else
+//                fprintf(stderr, "It was not.\n");
         }
     }
 
@@ -729,18 +1135,17 @@ GameIDType detect_game(FILE *f) {
         case SEAS_OF_BLOOD:
             LoadExtraSeasOfBloodData();
             break;
-        case SPIDERMAN:
-            for (int i = PLAY_AGAIN; i <= RESUME_A_SAVED_GAME; i++)
-                sys[i] = system_messages[2 - PLAY_AGAIN + i];
-            break;
         case CLAYMORGUE:
             for (int i = OK; i <= RESUME_A_SAVED_GAME; i++)
                 sys[i] = system_messages[6 - OK + i];
             for (int i = PLAY_AGAIN; i <= ON_A_SCALE_THAT_RATES; i++)
                 sys[i] = system_messages[2 - PLAY_AGAIN + i];
             break;
-        case ADVENTURELAND:
         case SECRET_MISSION:
+            Items[3].Image = 23;
+            Items[3].Flag = 128 | 2;
+            Rooms[2].Image = 0;
+        case ADVENTURELAND:
             for (int i = PLAY_AGAIN; i <= ON_A_SCALE_THAT_RATES; i++)
                 sys[i] = system_messages[2 - PLAY_AGAIN + i];
             for (int i = OK; i <= YOU_HAVENT_GOT_IT; i++)
@@ -777,10 +1182,30 @@ GameIDType detect_game(FILE *f) {
             }
             break;
         default:
+            if (GameInfo->subtype == MYSTERIOUS) {
+                for (int i = PLAY_AGAIN; i <= YOU_HAVENT_GOT_IT; i++)
+                    sys[i] = system_messages[2 - PLAY_AGAIN + i];
+                for (int i = YOU_DONT_SEE_IT; i <= WHAT_NOW; i++)
+                    sys[i] = system_messages[15 - YOU_DONT_SEE_IT + i];
+                for (int i = LIGHT_HAS_RUN_OUT; i <= RESUME_A_SAVED_GAME; i++)
+                    sys[i] = system_messages[31 - LIGHT_HAS_RUN_OUT + i];
+                sys[ITEM_DELIMITER] = " - ";
+                sys[MESSAGE_DELIMITER] = "\n";
+                sys[YOU_SEE] = "\nThings I can see:\n";
+                break;
+
+            } else {
+                for (int i = PLAY_AGAIN; i <= RESUME_A_SAVED_GAME; i++)
+                    sys[i] = system_messages[2 - PLAY_AGAIN + i];
+            }
             break;
     }
 
-    saga_setup();
+//    for (int i = PLAY_AGAIN; i <= RESUME_A_SAVED_GAME; i++)
+//        fprintf(stderr, "\"%s\":\"%s\"\n", sysdict_zx[i], sys[i]);
+
+    if (GameInfo->number_of_pictures > 0)
+        saga_setup();
 
     return CurrentGame;
 }

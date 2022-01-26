@@ -11,13 +11,9 @@
 #include "hulk.h"
 #include "detectgame.h"
 
-extern Item *Items;
-extern Room *Rooms;
-extern Action *Actions;
-extern const char **Verbs;
-extern const char **Nouns;
-extern const char **Messages;
-extern int LightRefill;
+extern void read_header(uint8_t *ptr);
+extern void print_header_info(int header[]);
+extern int header[];
 
 void hulk_show_image_on_examine(int noun) {
     int image = 0;
@@ -169,11 +165,6 @@ uint8_t *read_hulk_dictionary(struct GameInfo info, uint8_t **pointer)
 
     return ptr;
 }
-
-extern void read_header(uint8_t *ptr);
-extern void print_header_info(int header[]);
-extern int header[];
-extern uint8_t *seek_to_pos(uint8_t *buf, int offset);
 
 int try_loading_hulk(struct GameInfo info, int dict_start) {
     int ni,na,nw,nr,mc,pr,tr,wl,lt,mn,trm;
