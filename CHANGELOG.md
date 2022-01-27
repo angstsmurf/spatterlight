@@ -1,6 +1,6 @@
 # Change log
 
-## Release 0.9.1 (Unreleased)
+## Release 0.9.1
 - Preliminary support for ZX Spectrum format ScottFree games with graphics
 - Improves animation of game info windows
 - Adds a side bar toggle button to the library window
