@@ -34,6 +34,7 @@
 
 @property NSMutableDictionary <NSString *, InfoController *> *infoWindows;
 @property NSMutableDictionary <NSString *, GlkController *> *gameSessions;
+@property NSMutableDictionary <NSString *, NSDate *> *justClosedSessions;
 
 @property IBOutlet NSTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;
@@ -118,6 +119,7 @@
 + (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
 + (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context;
+- (NSString *)ifidForGameWithPath:(NSString *)path;
 
 - (void)waitToReportMetadataImport;
 

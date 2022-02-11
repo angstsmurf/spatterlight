@@ -1745,8 +1745,10 @@ fprintf(stderr, "%s\n",                                                    \
         [task terminate];
     }
 
-    if (libcontroller)
+    if (libcontroller) {
         [libcontroller releaseGlkControllerSoon:self];
+        libcontroller.justClosedSessions[_game.ifid] = [NSDate date];
+    }
 
     if (_secureBookmark)
         [FolderAccess releaseBookmark:_secureBookmark];

@@ -363,9 +363,18 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
+        NSString *ifid = [self.libctl ifidForGameWithPath:path];
+        if (ifid)
+            _libctl.justClosedSessions[ifid] = nil;
         NSWindow __block *win = [_libctl importAndPlayGame:path];
         if (win && !((GlkController *)win.delegate).showingDialog) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                if (ifid) {
+                    NSDate *justClosed = self.libctl.justClosedSessions[ifid];
+                    if ([justClosed timeIntervalSinceNow] > -1) {
+                        return;
+                    }
+                }
                 [win orderFront:nil];
             });
         }
