@@ -213,7 +213,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
         _managedObjectContext = _coreDataManager.mainManagedObjectContext;
-        _justClosedSessions = [NSMutableDictionary new];
+        _justClosedSessions = [NSMutableSet new];
     }
     return self;
 }
@@ -1560,31 +1560,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return fetchedObjects;
 }
 
-- (NSString *)ifidForGameWithPath:(NSString *)path {
-
-    NSArray __block *fetchedObjects;
-
-    [_managedObjectContext performBlockAndWait:^{
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
-        fetchRequest.entity = entity;
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path == %@", path];
-
-        NSError *error = nil;
-        fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects == nil) {
-            NSLog(@"Problem! %@",error);
-        }
-    }];
-
-    if (fetchedObjects.count) {
-        Game *game = fetchedObjects.firstObject;
-        return game.ifid;
-    }
-
-    return nil;
-}
-
 - (void)convertLibraryToCoreData {
 
     // Add games from plist files to Core Data store if we have just created a new one
@@ -2126,12 +2101,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *terp;
     GlkController *gctl = _gameSessions[game.ifid];
 
-    NSDate *justClosed = _justClosedSessions[game.ifid];
-
-    if (justClosed) {
-        NSLog(@"A game with this ifid was closed %@ seconds ago.", justClosed);
-    }
-
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     if (gctl) {
@@ -2202,11 +2171,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         game.lastPlayed = [NSDate date];
         [Preferences changeCurrentGame:game];
         [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
-        NSDate *justClosedAgain = self.justClosedSessions[game.ifid];
-
-        if (justClosedAgain) {
-            NSLog(@"A game with this ifid was closed %@ seconds ago.", justClosedAgain);
-        }
     }];
 
     return gctl.window;

@@ -369,11 +369,8 @@ PasteboardFilePasteLocation;
             __block GlkController *glkctl = (GlkController *)win.delegate;
             if (!glkctl.showingDialog) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    NSDate *justClosed = self.libctl.justClosedSessions[glkctl.game.ifid];
-                    if (justClosed) {
-                        return;
-                    }
-                    [win orderFront:nil];
+                    if (![self.libctl.justClosedSessions containsObject:glkctl.game.ifid])
+                        [win orderFront:nil];
                 });
             }
         }
