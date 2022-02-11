@@ -26,7 +26,6 @@
 
 @interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {
     HelpPanelController *_helpLicenseWindow;
-    NSPanel *filePanel;
     NSDocumentController *theDocCont;
     BOOL addToRecents;
 }
@@ -294,59 +293,61 @@ PasteboardFilePasteLocation;
 - (IBAction)openDocument:(id)sender {
     NSLog(@"appdel: openDocument");
 
+    NSArray *windows = [NSApplication sharedApplication].windows;
+    for (NSWindow *window in windows) {
+        if ([window isKindOfClass:[NSOpenPanel class]]) {
+            [window makeKeyAndOrderFront:nil];
+            return;
+        }
+    }
+
     NSURL *directory =
     [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
                             objectForKey:@"GameDirectory"]
                isDirectory:YES];
-    NSOpenPanel *panel;
 
-    if (filePanel) {
-        [filePanel makeKeyAndOrderFront:nil];
-    } else {
-        panel = [NSOpenPanel openPanel];
-        NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
-        if ([_libctl hasActiveGames]) {
-            [allowedTypes addObjectsFromArray:gDocFileTypes];
-            [allowedTypes addObjectsFromArray:gSaveFileTypes];
-        }
-        panel.allowedFileTypes = allowedTypes;
-        panel.directoryURL = directory;
-        panel.message = NSLocalizedString(@"Please select a game", nil);
-
-        NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
-        checkbox.buttonType = NSSwitchButton;
-        checkbox.title = NSLocalizedString(@"Add to library", @"");
-        checkbox.state = [[NSUserDefaults standardUserDefaults]
-                          boolForKey:@"AddToLibrary"];
-        panel.accessoryView = checkbox;
-
-        [panel beginWithCompletionHandler:^(NSInteger result) {
-            if (result == NSModalResponseOK) {
-                NSButton *finalButton = (NSButton*)panel.accessoryView;
-                BOOL addToLibrary = (finalButton.state == NSOnState); ;
-                [[NSUserDefaults standardUserDefaults]
-                 setBool:addToLibrary forKey:@"AddToLibrary"];
-                [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
-
-                NSURL *theDoc = panel.URLs.firstObject;
-                if (theDoc) {
-                    NSString *pathString =
-                    theDoc.path.stringByDeletingLastPathComponent;
-                    if ([gSaveFileTypes indexOfObject:theDoc.path.pathExtension] != NSNotFound)
-                        [[NSUserDefaults standardUserDefaults]
-                         setObject:pathString
-                         forKey:@"SaveDirectory"];
-                    else
-                        [[NSUserDefaults standardUserDefaults]
-                         setObject:pathString
-                         forKey:@"GameDirectory"];
-
-                    [self application:NSApp openFile:theDoc.path];
-                }
-            }
-        }];
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
+    if ([_libctl hasActiveGames]) {
+        [allowedTypes addObjectsFromArray:gDocFileTypes];
+        [allowedTypes addObjectsFromArray:gSaveFileTypes];
     }
-    filePanel = nil;
+    panel.allowedFileTypes = allowedTypes;
+    panel.directoryURL = directory;
+    panel.message = NSLocalizedString(@"Please select a game", nil);
+
+    NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+    checkbox.buttonType = NSSwitchButton;
+    checkbox.title = NSLocalizedString(@"Add to library", @"");
+    checkbox.state = [[NSUserDefaults standardUserDefaults]
+                      boolForKey:@"AddToLibrary"];
+    panel.accessoryView = checkbox;
+
+    [panel beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSButton *finalButton = (NSButton*)panel.accessoryView;
+            BOOL addToLibrary = (finalButton.state == NSOnState); ;
+            [[NSUserDefaults standardUserDefaults]
+             setBool:addToLibrary forKey:@"AddToLibrary"];
+            [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
+
+            NSURL *theDoc = panel.URLs.firstObject;
+            if (theDoc) {
+                NSString *pathString =
+                theDoc.path.stringByDeletingLastPathComponent;
+                if ([gSaveFileTypes indexOfObject:theDoc.path.pathExtension] != NSNotFound)
+                    [[NSUserDefaults standardUserDefaults]
+                     setObject:pathString
+                     forKey:@"SaveDirectory"];
+                else
+                    [[NSUserDefaults standardUserDefaults]
+                     setObject:pathString
+                     forKey:@"GameDirectory"];
+
+                [self application:NSApp openFile:theDoc.path];
+            }
+        }
+    }];
 }
 
 - (BOOL)application:(NSApplication *)theApp openFile:(NSString *)path {
