@@ -254,6 +254,7 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+    libcontroller.justClosedSessions[game.ifid] = nil;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
@@ -1748,6 +1749,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (libcontroller) {
         [libcontroller releaseGlkControllerSoon:self];
         libcontroller.justClosedSessions[_game.ifid] = [NSDate date];
+        NSLog(@"Added this game ifid (%@) to justClosedSessions.", _game.ifid);
     }
 
     if (_secureBookmark)

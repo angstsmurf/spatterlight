@@ -15,6 +15,7 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 #import "FolderAccess.h"
+#import "Game.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -363,20 +364,18 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
-        NSString *ifid = [self.libctl ifidForGameWithPath:path];
-        if (ifid)
-            _libctl.justClosedSessions[ifid] = nil;
         NSWindow __block *win = [_libctl importAndPlayGame:path];
-        if (win && !((GlkController *)win.delegate).showingDialog) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                if (ifid) {
-                    NSDate *justClosed = self.libctl.justClosedSessions[ifid];
-                    if ([justClosed timeIntervalSinceNow] > -1) {
+        if (win) {
+            __block GlkController *glkctl = (GlkController *)win.delegate;
+            if (!glkctl.showingDialog) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    NSDate *justClosed = self.libctl.justClosedSessions[glkctl.game.ifid];
+                    if (justClosed) {
                         return;
                     }
-                }
-                [win orderFront:nil];
-            });
+                    [win orderFront:nil];
+                });
+            }
         }
     }
 
