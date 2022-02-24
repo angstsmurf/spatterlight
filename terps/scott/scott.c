@@ -1126,7 +1126,7 @@ static void RestartGame(void)
         FreeCommands();
     RestoreState(initial_state);
     just_started = 0;
-    stop_time = 1;
+    stop_time = 0;
     glk_window_clear(Bottom);
     OpenTopWindow();
     PerformActions(0, 0);
@@ -2289,9 +2289,7 @@ Distributed under the GNU software license\n\n");
 #endif
         srand((unsigned int)time(NULL));
 
-    if (initial_state == NULL) {
-        initial_state = SaveCurrentState();
-    }
+	initial_state = SaveCurrentState();
 
     while (1) {
         glk_tick();
