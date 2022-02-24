@@ -880,6 +880,9 @@ int GetInput(int *vb, int *no)
     *vb = CurrentCommand->verb;
     *no = CurrentCommand->noun;
 
+    if (Options & TI994A_STYLE)
+        Output("\n");
+    
     return 0;
 }
 

@@ -1911,8 +1911,9 @@ void PrintTakenOrDropped(int index)
     if (last == 10 || last == 13)
         return;
     Output(" ");
-    if (!(CurrentCommand->allflag & LASTALL) || split_screen == 0) {
-        Output("\n");
+	if ((!(Options & TI994A_STYLE) && !(CurrentCommand->allflag & LASTALL))
+		|| split_screen == 0) {
+		Output("\n");
     }
 }
 
