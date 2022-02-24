@@ -327,7 +327,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
             Output(sys[IM_DEAD]);
             BitFlags &= ~(1 << DARKBIT);
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
-            stop_time = 1;
+            stop_time = 2;
             DoneIt();
             return ACT_SUCCESS;
 
@@ -347,12 +347,12 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 232: /* print score */
             PrintScore();
-            stop_time = 1;
+            stop_time = 2;
             break;
 
         case 233: /* list contents of inventory */
             ListInventory();
-            stop_time = 1;
+            stop_time = 2;
             break;
 
         case 234: /* refill lightsource */
@@ -363,7 +363,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 235: /* save */
             SaveGame();
-            stop_time = 1;
+            stop_time = 2;
             break;
 
         case 236: /* swap items p and p2 around */

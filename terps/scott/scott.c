@@ -1126,7 +1126,7 @@ static void RestartGame(void)
         FreeCommands();
     RestoreState(initial_state);
     just_started = 0;
-    stop_time = 0;
+    stop_time = 1;
     glk_window_clear(Bottom);
     OpenTopWindow();
     PerformActions(0, 0);
@@ -1690,9 +1690,11 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 65:
                 PrintScore();
+				stop_time = 2;
                 break;
             case 66:
                 ListInventory();
+				stop_time = 2;
                 break;
             case 67:
                 BitFlags |= (1 << 0);
@@ -1710,6 +1712,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 71:
                 SaveGame();
+				stop_time = 2;
                 break;
             case 72: {
                 int i1 = param[pptr++];
@@ -2343,6 +2346,7 @@ Distributed under the GNU software license\n\n");
                 }
             }
         }
-        stop_time = 0;
+        if (stop_time)
+			stop_time--;
     }
 }
