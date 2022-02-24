@@ -19,7 +19,7 @@
 #define TAKE 10
 #define DROP 18
 
-#define LASTALL 127
+#define LASTALL 128
 
 typedef enum {
     UNKNOWN_GAME,
