@@ -12,7 +12,7 @@
 
 void hulk_show_image_on_examine(int noun);
 void hulk_look(void);
-void draw_hulk_image(int p);
+void DrawHulkImage(int p);
 int try_loading_hulk(struct GameInfo info, int dict_start);
 
 #endif /* hulk_h */

@@ -8,8 +8,8 @@
 #ifndef parser_h
 #define parser_h
 
-#include <stdio.h>
 #include "glk.h"
+#include <stdio.h>
 
 struct Command {
     int verb;
@@ -22,8 +22,7 @@ struct Command {
     struct Command *next;
 };
 
-typedef enum
-{
+typedef enum {
     NO_COMMAND,
     RESTART,
     SAVE,
@@ -44,10 +43,11 @@ typedef enum
 char **SplitIntoWords(glui32 *string, int length);
 int GetInput(int *vb, int *no);
 void FreeCommands(void);
-glui32 *ToUnicode(char *string);
+glui32 *ToUnicode(const char *string);
 char *FromUnicode(glui32 *unicode_string, int origlength);
 int RecheckForExtraCommand(void);
-int WhichWord(const char *word, const char **list, int word_length, int list_length);
+int WhichWord(const char *word, const char **list, int word_length,
+    int list_length);
 
 extern glui32 **UnicodeWords;
 extern char **CharWords;
@@ -76,7 +76,7 @@ extern const char *DelimiterList[];
 extern const char *EnglishExtraNouns[];
 extern const char *GermanExtraNouns[];
 extern const char *SpanishExtraNouns[];
-extern const char *ExtraNouns[] ;
-extern extra_command ExtraNounsKey[] ;
+extern const char *ExtraNouns[];
+extern extra_command ExtraNounsKey[];
 
 #endif /* parser_h */

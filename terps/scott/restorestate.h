@@ -8,7 +8,9 @@
 #ifndef restorestate_h
 #define restorestate_h
 
+#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
 
 struct SavedState {
     int Counters[16];
@@ -18,6 +20,7 @@ struct SavedState {
     int CurrentCounter;
     int SavedRoom;
     int LightTime;
+    int AutoInventory;
     uint8_t *ItemLocations;
     struct SavedState *previousState;
     struct SavedState *nextState;

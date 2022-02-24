@@ -4,13 +4,13 @@
 //
 //  Created by Administrator on 2022-01-19.
 //
-#include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include "definitions.h"
 #include "parser.h"
 #include "scott.h"
-#include "definitions.h"
 
 #include "bsd.h"
 
@@ -28,7 +28,8 @@ int WordsInInput = 0;
 
 static glui32 *FirstErrorMessage = NULL;
 
-void FreeStrings(void) {
+void FreeStrings(void)
+{
     if (FirstErrorMessage != NULL) {
         free(FirstErrorMessage);
         FirstErrorMessage = NULL;
@@ -52,7 +53,8 @@ void FreeStrings(void) {
     WordsInInput = 0;
 }
 
-void CreateErrorMessage(char *fchar, glui32 *second, char *tchar) {
+void CreateErrorMessage(const char *fchar, glui32 *second, const char *tchar)
+{
     if (FirstErrorMessage != NULL)
         return;
     glui32 *first = ToUnicode(fchar);
@@ -62,22 +64,23 @@ void CreateErrorMessage(char *fchar, glui32 *second, char *tchar) {
     for (i = 0; first[i] != 0 && i < MAX_BUFFER; i++)
         buffer[i] = first[i];
     if (second != NULL) {
-        for (j = 0 ; second[j] != 0 && i + j < MAX_BUFFER; j++)
+        for (j = 0; second[j] != 0 && i + j < MAX_BUFFER; j++)
             buffer[i + j] = second[j];
     }
     if (third != NULL) {
-        for (k = 0 ; third[k] != 0 && i + j + k < MAX_BUFFER; k++)
+        for (k = 0; third[k] != 0 && i + j + k < MAX_BUFFER; k++)
             buffer[i + j + k] = third[k];
         free(third);
     }
     int length = i + j + k;
-    FirstErrorMessage = MemAlloc((length + 1) * 32);
-    memcpy(FirstErrorMessage, buffer, length * 32);
+    FirstErrorMessage = MemAlloc((length + 1) * 4);
+    memcpy(FirstErrorMessage, buffer, length * 4);
     FirstErrorMessage[length] = 0;
     free(first);
 }
 
-glui32 *ToUnicode(char *string) {
+glui32 *ToUnicode(const char *string)
+{
     if (string == NULL)
         return NULL;
     glui32 unicode[2048];
@@ -85,9 +88,10 @@ glui32 *ToUnicode(char *string) {
     int dest = 0;
     for (i = 0; string[i] != 0 && i < 2047; i++) {
         char c = string[i];
-        if (c == '\n') c = 10;
+        if (c == '\n')
+            c = 10;
         glui32 unichar = (glui32)c;
-        if (GameInfo && CurrentGame == GREMLINS_GERMAN) {
+        if (GameInfo && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
             const char d = string[i + 1];
             if (c == 'u' && d == 'e') { // ü
                 if (!(i > 2 && string[i - 1] == 'e')) {
@@ -101,10 +105,7 @@ glui32 *ToUnicode(char *string) {
                 unichar = 0xe4; // ä
                 i++;
             } else if (c == 's' && d == 's') {
-                if (string[i + 2] != 'c'
-                    && string[i - 2] != 'W'
-                    && string[i + 2] != '-'
-                    && string[i - 2] != 'b') {
+                if (string[i + 2] != 'c' && string[i - 2] != 'W' && !(string[i - 1] == 'a' && string[i - 2] == 'l') && string[i + 2] != '-' && string[i - 2] != 'b') {
                     unichar = 0xdf; // ß
                     i++;
                 }
@@ -117,33 +118,53 @@ glui32 *ToUnicode(char *string) {
             }
         } else if (GameInfo && CurrentGame == GREMLINS_SPANISH) {
             switch (c) {
-                case '\x83': unichar = 0xbf; // ¿
-                    break;
-                case '\x80': unichar = 0xa1; // ¡
-                    break;
-                case '\x82': unichar = 0xfc; // ü
-                    break;
-                case '{': unichar = 0xe1; // á
-                    break;
-                case '}': unichar = 0xed; // í
-                    break;
-                case '|': unichar = 0xf3; // ó
-                    break;
-                case '~': unichar = 0xf1; // ñ
-                    break;
-                case '\x84': unichar = 0xe9; // é
+            case '\x83':
+                unichar = 0xbf; // ¿
+                break;
+            case '\x80':
+                unichar = 0xa1; // ¡
+                break;
+            case '\x82':
+                unichar = 0xfc; // ü
+                break;
+            case '{':
+                unichar = 0xe1; // á
+                break;
+            case '}':
+                unichar = 0xed; // í
+                break;
+            case '|':
+                unichar = 0xf3; // ó
+                break;
+            case '~':
+                unichar = 0xf1; // ñ
+                break;
+            case '\x84':
+                unichar = 0xe9; // é
+            }
+        } else if (GameInfo && CurrentGame == TI994A) {
+            switch (c) {
+            case ')':
+                if (i > 0 && string[i - 1] == '\n') {
+                    unicode[dest++] = 0xa9;
+                    unichar = ' ';
+                }
+                break;
+            case '}':
+                unichar = 0xfc;
+                break;
             }
         }
         unicode[dest++] = unichar;
     }
     unicode[dest] = 0;
-    glui32 *result = MemAlloc((dest + 1) * 32);
-    memcpy(result, unicode, (dest + 1) * 32);
+    glui32 *result = MemAlloc((dest + 1) * 4);
+    memcpy(result, unicode, (dest + 1) * 4);
     return result;
 }
 
-
-char *FromUnicode(glui32 *unicode_string, int origlength) {
+char *FromUnicode(glui32 *unicode_string, int origlength)
+{
     int sourcepos = 0;
     int destpos = 0;
 
@@ -151,49 +172,49 @@ char *FromUnicode(glui32 *unicode_string, int origlength) {
     glui32 unichar = unicode_string[sourcepos];
     while (unichar != 0 && destpos < MAX_WORDLENGTH && sourcepos < origlength) {
         switch (unichar) {
-            case '.':
-                if (origlength == 1) {
-                    dest[destpos++] = 'a';
-                    dest[destpos++] = 'n';
-                    dest[destpos++] = 'd';
-                }
-            case 0xf6: // ö
-                dest[destpos++] = 'o';
-                dest[destpos] = 'e';
-                break;
-            case 0xe4: // ä
+        case '.':
+            if (origlength == 1) {
                 dest[destpos++] = 'a';
+                dest[destpos++] = 'n';
+                dest[destpos++] = 'd';
+            }
+        case 0xf6: // ö
+            dest[destpos++] = 'o';
+            dest[destpos] = 'e';
+            break;
+        case 0xe4: // ä
+            dest[destpos++] = 'a';
+            dest[destpos] = 'e';
+            break;
+        case 0xfc: // ü
+            dest[destpos] = 'u';
+            if (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) {
+                destpos++;
                 dest[destpos] = 'e';
-                break;
-            case 0xfc:  // ü
-                dest[destpos] = 'u';
-                if (CurrentGame == GREMLINS_GERMAN) {
-                    destpos++;
-                    dest[destpos] = 'e';
-                }
-                break;
-            case 0xdf: // ß
-                dest[destpos++] = 's';
-                dest[destpos] = 's';
-                break;
-            case 0xed: // í
-                dest[destpos] = 'i';
-                break;
-            case 0xe1: // á
-                dest[destpos] = 'a';
-                break;
-            case 0xf3: // ó
-                dest[destpos] = 'o';
-                break;
-            case 0xf1: // ñ
-                dest[destpos] = 'n';
-                break;
-            case 0xe9: // é
-                dest[destpos] = 'e';
-                break;
-            default:
-                dest[destpos] = (char)unichar;
-                break;
+            }
+            break;
+        case 0xdf: // ß
+            dest[destpos++] = 's';
+            dest[destpos] = 's';
+            break;
+        case 0xed: // í
+            dest[destpos] = 'i';
+            break;
+        case 0xe1: // á
+            dest[destpos] = 'a';
+            break;
+        case 0xf3: // ó
+            dest[destpos] = 'o';
+            break;
+        case 0xf1: // ñ
+            dest[destpos] = 'n';
+            break;
+        case 0xe9: // é
+            dest[destpos] = 'e';
+            break;
+        default:
+            dest[destpos] = (char)unichar;
+            break;
         }
         sourcepos++;
         destpos++;
@@ -208,13 +229,14 @@ char *FromUnicode(glui32 *unicode_string, int origlength) {
     return result;
 }
 
-
-
 /* Turns a unicode glui32 string into lower-case ASCII. */
-/* Converts German and Spanish diacritical characters into non-diacritical equivalents */
-/* (for the translated Gremlins variants.) Coalesces all runs of whitespace into a single standard space. */
+/* Converts German and Spanish diacritical characters into non-diacritical
+ * equivalents */
+/* (for the translated Gremlins variants.) Coalesces all runs of whitespace into
+ * a single standard space. */
 /* Turns ending commas and periods into separate strings. */
-char **SplitIntoWords(glui32 *string, int length) {
+char **SplitIntoWords(glui32 *string, int length)
+{
     if (length < 1) {
         return NULL;
     }
@@ -231,35 +253,34 @@ char **SplitIntoWords(glui32 *string, int length) {
     startpos[0] = 0;
     wordlength[0] = 0;
     int lastwasspace = 1;
-    for(int i = 0; string[i] != 0 && i < length &&
-         word_index < MAX_WORDS; i++) {
+    for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
         foundspace = 0;
-        switch(string[i]) {
-                /* Unicode space and tab variants */
-            case ' ':
-            case '\t':
-            case '!':
-            case '?':
-            case '\"':
-            case 0x83: // ¿
-            case 0x80: // ¡
-            case 0xa0: // non-breaking space
-            case 0x2000: // en quad
-            case 0x2001: // em quad
-            case 0x2003: // em
-            case 0x2004: // three-per-em
-            case 0x2005: // four-per-em
-            case 0x2006: // six-per-em
-            case 0x2007: // figure space
-            case 0x2009: // thin space
-            case 0x200A: // hair space
-            case 0x202f: // narrow no-break space
-            case 0x205f: // medium mathematical space
-            case 0x3000: // ideographic space
-                foundspace = 1;
-                break;
-            default:
-                break;
+        switch (string[i]) {
+            /* Unicode space and tab variants */
+        case ' ':
+        case '\t':
+        case '!':
+        case '?':
+        case '\"':
+        case 0x83: // ¿
+        case 0x80: // ¡
+        case 0xa0: // non-breaking space
+        case 0x2000: // en quad
+        case 0x2001: // em quad
+        case 0x2003: // em
+        case 0x2004: // three-per-em
+        case 0x2005: // four-per-em
+        case 0x2006: // six-per-em
+        case 0x2007: // figure space
+        case 0x2009: // thin space
+        case 0x200A: // hair space
+        case 0x202f: // narrow no-break space
+        case 0x205f: // medium mathematical space
+        case 0x3000: // ideographic space
+            foundspace = 1;
+            break;
+        default:
+            break;
         }
         if (!foundspace) {
             if (lastwasspace) {
@@ -273,7 +294,7 @@ char **SplitIntoWords(glui32 *string, int length) {
         } else {
             /* Check if the last character of previous word was a period or comma */
             if (!lastwasspace && i > 0 && wordlength[words_found - 1] > 1) {
-                const char c = (char)string[i-1];
+                const char c = (char)string[i - 1];
                 if (c == '.' || c == ',') {
                     wordlength[words_found] = 1;
                     wordlength[words_found - 1]--;
@@ -293,13 +314,13 @@ char **SplitIntoWords(glui32 *string, int length) {
     wordlength[words_found]--; /* Don't count final newline character */
 
     /* Now we've created two arrays, one for starting postions
-       and one for word length. Now we convert these into an array of strings */
+     and one for word length. Now we convert these into an array of strings */
     glui32 **words = MemAlloc(words_found * sizeof(*words));
     char **words8 = MemAlloc(words_found * sizeof(*words8));
 
     for (int i = 0; i < words_found; i++) {
-        words[i] = (glui32 *)MemAlloc((wordlength[i] + 1) * 32);
-        memcpy(words[i], string + startpos[i], wordlength[i] * 32);
+        words[i] = (glui32 *)MemAlloc((wordlength[i] + 1) * 4);
+        memcpy(words[i], string + startpos[i], wordlength[i] * 4);
         words[i][wordlength[i]] = 0;
         words8[i] = FromUnicode(words[i], wordlength[i]);
     }
@@ -308,7 +329,6 @@ char **SplitIntoWords(glui32 *string, int length) {
 
     return words8;
 }
-
 
 char **LineInput(void)
 {
@@ -319,10 +339,10 @@ char **LineInput(void)
         Display(Bottom, "\n%s", sys[WHAT_NOW]);
         glk_request_line_event_uni(Bottom, unibuf, (glui32)511, 0);
 
-        while(1) {
+        while (1) {
             glk_select(&ev);
 
-            if(ev.type == evtype_LineInput)
+            if (ev.type == evtype_LineInput)
                 break;
             else
                 Updates(ev);
@@ -343,73 +363,114 @@ char **LineInput(void)
             return CharWords;
         }
 
-    } while(WordsInInput == 0 || CharWords == NULL);
+    } while (WordsInInput == 0 || CharWords == NULL);
     return NULL;
 }
 
-
-int WhichWord(const char *word, const char **list, int word_length, int list_length) {
-    int n=1;
-    int ne=1;
+int WhichWord(const char *word, const char **list, int word_length,
+    int list_length)
+{
+    int n = 1;
+    int ne = 1;
     const char *tp;
-    while(ne < list_length) {
-        tp=list[ne];
-        if(*tp=='*')
+    while (ne < list_length) {
+        tp = list[ne];
+        if (*tp == '*')
             tp++;
         else
-            n=ne;
-        if(xstrncasecmp(word, tp, word_length)==0)
-            return(n);
+            n = ne;
+        if (xstrncasecmp(word, tp, word_length) == 0)
+            return (n);
         ne++;
     }
-    return(0);
+    return (0);
 }
 
-const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = { NULL, "north", "south", "east", "west", "up", "down", "n", "s", "e", "w", "u", "d", " "
+const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "north", "south", "east", "west", "up", "down",
+    "n", "s", "e", "w", "u", "d", " "
 };
-const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = { NULL, "norte", "sur", "este", "oeste", "arriba", "abajo", "n", "s", "e", "o", "u", "d", "w"
+const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
+    "n", "s", "e", "o", "u", "d", "w"
 };
-const char *GermanDirections[NUMBER_OF_DIRECTIONS] = { NULL, "norden", "sueden", "osten", "westen", "oben", "unten", "n", "s", "o", "w", "u", "d", " "
+const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
+    "n", "s", "o", "w", "u", "d", " "
 };
-
 
 const char *Directions[NUMBER_OF_DIRECTIONS];
 
 #define NUMBER_OF_EXTRA_COMMANDS 13
-const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = { NULL, "restart", "save", "restore", "load", "transcript", "script", "oops", "undo", "ram", "ramload", "ramrestore", "ramsave",
+const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "save",
+    "restore",
+    "load",
+    "transcript",
+    "script",
+    "oops",
+    "undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "ramsave",
 };
 
-extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = { NO_COMMAND, RESTART, SAVE, RESTORE, RESTORE, SCRIPT, SCRIPT, UNDO, UNDO, RAM, RAMLOAD, RAMLOAD, RAMSAVE
+extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
+    NO_COMMAND, RESTART, SAVE, RESTORE, RESTORE, SCRIPT, SCRIPT,
+    UNDO, UNDO, RAM, RAMLOAD, RAMLOAD, RAMSAVE
 };
 
-const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = { NULL, "game", "story", "on", "off", "load",  "restore", "save", "move", "command", "all", "everything"
+const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "game", "story", "on", "off", "load",
+    "restore", "save", "move", "command", "all", "everything"
 };
-const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = { NULL, "spiel", "story", "on", "off", "wiederherstellen",  "laden", "speichern", "move", "command", "alle", "alles"
+const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "spiel", "story", "on", "off", "wiederherstellen",
+    "laden", "speichern", "move", "command", "alle", "alles"
 };
-const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = { NULL, "juego", "story", "on", "off", "cargar",  "reanuda", "conserva", "move", "command", "toda", "todo"
+const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "juego", "story", "on", "off", "cargar",
+    "reanuda", "conserva", "move", "command", "toda", "todo"
 };
 const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
 
-extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = { NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD, RAMLOAD, RAMSAVE, COMMAND, COMMAND, ALL, ALL
+extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
+    NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
+    RAMLOAD, RAMSAVE, COMMAND, COMMAND, ALL, ALL
 };
 
 #define NUMBER_OF_ABBREVIATIONS 6
-const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l", "x", "z", "q"
-};
-const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = { NULL, "inventory", "look", "examine", "wait", "quit"
+const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
+    "x", "z", "q" };
+const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
+    NULL, "inventory", "look", "examine", "wait", "quit"
 };
 
-const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = { NULL, "at", "to", "in", "into", "the", "a", "an", "my", "quickly", "carefully", "quietly", "slowly", "violently", "fast", "hard", "now", "room" };
-const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = { NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an", "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " " };
+const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "at", "to", "in", "into", "the",
+    "a", "an", "my", "quickly", "carefully", "quietly",
+    "slowly", "violently", "fast", "hard", "now", "room"
+};
+const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
+    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
+};
 const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
 
-const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and", "then", " " };
-const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und", "dann", "and" };
-const char *DelimiterList[NUMBER_OF_DELIMITERS] ;
+const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
+    "then", " " };
+const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
+    "dann", "and" };
+const char *DelimiterList[NUMBER_OF_DELIMITERS];
 
-/* For the verb position in a command string sequence, we try the following lists in this order:
- Verbs, Directions, Abbreviations, SkipList, Nouns, ExtraCommands, Delimiters */
-int FindVerb(const char *string, const char ***list) {
+/* For the verb position in a command string sequence, we try the following
+ lists in this order: Verbs, Directions, Abbreviations, SkipList, Nouns,
+ ExtraCommands, Delimiters */
+int FindVerb(const char *string, const char ***list)
+{
     *list = Verbs;
     int verb = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
     if (verb) {
@@ -428,7 +489,8 @@ int FindVerb(const char *string, const char ***list) {
     *list = Abbreviations;
     verb = WhichWord(string, *list, GameHeader.WordLength, NUMBER_OF_ABBREVIATIONS);
     if (verb) {
-        verb = WhichWord(AbbreviationsKey[verb], Verbs, GameHeader.WordLength, GameHeader.NumWords + 1);
+        verb = WhichWord(AbbreviationsKey[verb], Verbs, GameHeader.WordLength,
+            GameHeader.NumWords + 1);
         if (verb) {
             *list = Verbs;
             return verb;
@@ -443,7 +505,7 @@ int FindVerb(const char *string, const char ***list) {
         return 0;
     }
     *list = Nouns;
-    verb = WhichWord(string, *list,  GameHeader.WordLength, GameHeader.NumWords + 1);
+    verb = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
     if (verb) {
         return verb;
     }
@@ -469,9 +531,11 @@ int FindVerb(const char *string, const char ***list) {
     return verb;
 }
 
-/* For the noun position in a command string sequence, we try the following lists in this order:
+/* For the noun position in a command string sequence, we try the following
+ lists in this order:
  Nouns, Directions, ExtraNouns, SkipList, Verbs, Delimiters */
-int FindNoun(const char *string, const char ***list) {
+int FindNoun(const char *string, const char ***list)
+{
     *list = Nouns;
     int noun = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
     if (noun) {
@@ -479,7 +543,7 @@ int FindNoun(const char *string, const char ***list) {
     }
 
     *list = Directions;
-    noun = WhichWord(string, *list,GameHeader.WordLength, NUMBER_OF_DIRECTIONS);
+    noun = WhichWord(string, *list, GameHeader.WordLength, NUMBER_OF_DIRECTIONS);
     if (noun) {
         if (noun > 6)
             noun -= 6;
@@ -504,7 +568,7 @@ int FindNoun(const char *string, const char ***list) {
     }
 
     *list = Verbs;
-    noun = WhichWord(string, *list,  GameHeader.WordLength, GameHeader.NumWords + 1);
+    noun = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
     if (noun) {
         return noun;
     }
@@ -519,7 +583,8 @@ int FindNoun(const char *string, const char ***list) {
 
 struct Command *CommandFromStrings(int index, struct Command *previous);
 
-int FindExtaneousWords(int *index, int noun) {
+int FindExtaneousWords(int *index, int noun)
+{
     /* Looking for extraneous words that should invalidate the command */
     int original_index = *index;
     if (*index >= WordsInInput) {
@@ -531,7 +596,8 @@ int FindExtaneousWords(int *index, int noun) {
 
     list = SkipList;
     do {
-        verb = WhichWord(CharWords[*index], SkipList, stringlength, NUMBER_OF_SKIPPABLE_WORDS);
+        verb = WhichWord(CharWords[*index], SkipList, stringlength,
+            NUMBER_OF_SKIPPABLE_WORDS);
         if (verb)
             *index = *index + 1;
     } while (verb && *index < WordsInInput);
@@ -557,7 +623,8 @@ int FindExtaneousWords(int *index, int noun) {
     if (list == NULL) {
         if (*index >= WordsInInput)
             *index = WordsInInput - 1;
-        fprintf(stderr, "FindExtaneousWords Error: I don't know what a \"%s\" is\n",  CharWords[*index]);
+        fprintf(stderr, "FindExtaneousWords Error: I don't know what a \"%s\" is\n",
+            CharWords[*index]);
         CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[*index], sys[IS]);
     } else {
         fprintf(stderr, "FindExtaneousWords Error: I don't understand\n");
@@ -567,7 +634,9 @@ int FindExtaneousWords(int *index, int noun) {
     return 1;
 }
 
-struct Command *CreateCommandStruct(int verb, int noun, int verbindex, int nounindex, struct Command *previous) {
+struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
+    int nounindex, struct Command *previous)
+{
     struct Command *command = MemAlloc(sizeof(struct Command));
     command->verb = verb;
     command->noun = noun;
@@ -575,7 +644,7 @@ struct Command *CreateCommandStruct(int verb, int noun, int verbindex, int nouni
     command->item = 0;
     command->previous = previous;
     command->verbwordindex = verbindex;
-    if (noun && index > 0) {
+    if (noun && nounindex > 0) {
         command->nounwordindex = nounindex - 1;
     } else {
         command->nounwordindex = 0;
@@ -584,7 +653,8 @@ struct Command *CreateCommandStruct(int verb, int noun, int verbindex, int nouni
     return command;
 }
 
-struct Command *CommandFromStrings(int index, struct Command *previous) {
+struct Command *CommandFromStrings(int index, struct Command *previous)
+{
     if (index < 0 || index >= WordsInInput) {
         return NULL;
     }
@@ -613,10 +683,11 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
         /* It is a noun */
         /* If we find no verb, we try copying the verb from the previous command */
         if (previous) {
-                lastverb = previous->verb;
+            lastverb = previous->verb;
         }
-        /* Unless the game is German, where we allow the noun to come before the verb */
-        if (CurrentGame != GREMLINS_GERMAN) {
+        /* Unless the game is German, where we allow the noun to come before the
+     * verb */
+        if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
             if (FindExtaneousWords(&i, verb) != 0)
                 return NULL;
             if (previous)
@@ -628,13 +699,15 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
     }
 
     if (list == NULL) {
-        CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i-1], sys[SOMETHING]);
+        CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
+            sys[SOMETHING]);
         return NULL;
     }
 
     if (i == WordsInInput) {
         if (lastverb)
-            return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i, previous);
+            return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i,
+                previous);
         else
             return CreateCommandStruct(verb, 0, i - 1, i, previous);
     }
@@ -651,7 +724,8 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
         if (FindExtaneousWords(&i, noun) != 0)
             return NULL;
         if (found_noun_at_verb_position) {
-            int realverb = WhichWord(CharWords[i-1], Verbs, GameHeader.WordLength, GameHeader.NumWords);
+            int realverb = WhichWord(CharWords[i - 1], Verbs, GameHeader.WordLength,
+                GameHeader.NumWords);
             if (realverb) {
                 noun = verb;
                 verb = realverb;
@@ -660,12 +734,12 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
                 verb = lastverb;
             }
         }
-        return  CreateCommandStruct(verb, noun, verbindex, i, previous);
+        return CreateCommandStruct(verb, noun, verbindex, i, previous);
     }
 
     if (list == DelimiterList) {
         /* It is a delimiter */
-        return  CreateCommandStruct(verb, 0, verbindex, i, previous);
+        return CreateCommandStruct(verb, 0, verbindex, i, previous);
     }
 
     if (list == Verbs && found_noun_at_verb_position) {
@@ -679,7 +753,8 @@ struct Command *CommandFromStrings(int index, struct Command *previous) {
     return NULL;
 }
 
-int CreateAllCommands(struct Command *command) {
+int CreateAllCommands(struct Command *command)
+{
     int location = CARRIED;
     if (command->verb == TAKE)
         location = MyLoc;
@@ -696,7 +771,8 @@ int CreateAllCommands(struct Command *command) {
             }
             found = 1;
             c->verb = command->verb;
-            c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength, GameHeader.NumWords);
+            c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
+                GameHeader.NumWords);
             c->item = i;
             c->next = NULL;
             c->nounwordindex = 0;
@@ -716,7 +792,8 @@ int CreateAllCommands(struct Command *command) {
     return 1;
 }
 
-void FreeCommands(void) {
+void FreeCommands(void)
+{
     while (CurrentCommand && CurrentCommand->previous)
         CurrentCommand = CurrentCommand->previous;
     while (CurrentCommand) {
@@ -728,7 +805,8 @@ void FreeCommands(void) {
     FreeStrings();
 }
 
-static void PrintPendingError(void) {
+static void PrintPendingError(void)
+{
     if (FirstErrorMessage) {
         glk_put_string_stream_uni(glk_window_get_stream(Bottom), FirstErrorMessage);
         free(FirstErrorMessage);
@@ -736,7 +814,8 @@ static void PrintPendingError(void) {
     }
 }
 
-int GetInput(int *vb, int *no) {
+int GetInput(int *vb, int *no)
+{
     if (CurrentCommand && CurrentCommand->next) {
         CurrentCommand = CurrentCommand->next;
     } else {
@@ -744,10 +823,10 @@ int GetInput(int *vb, int *no) {
         if (CurrentCommand)
             FreeCommands();
         CharWords = LineInput();
-        
+
         if (WordsInInput == 0 || CharWords == NULL)
             return 0;
-        
+
         CurrentCommand = CommandFromStrings(0, NULL);
     }
 
@@ -761,16 +840,14 @@ int GetInput(int *vb, int *no) {
     /* by the fact that the game lists FALLEN and LASSEN as both  */
     /* verbs and nouns. */
 
-    if (CurrentGame == GREMLINS_GERMAN &&
-        CurrentCommand->verb - GameHeader.NumWords == ALL &&
-        CurrentCommand->noun == 123) {
+    if ((CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64) && CurrentCommand->verb - GameHeader.NumWords == ALL && CurrentCommand->noun == 123) {
         CurrentCommand->verb = DROP;
         CurrentCommand->noun = ALL + GameHeader.NumWords;
     }
 
     /* Hack to make RESTORE and RESTART work in Robin of Sherwood */
     /* instead of being understood as REST, a synonym of WAIT.     */
-    if (CurrentGame == ROBIN_OF_SHERWOOD && CurrentCommand->verb == 56) {
+    if (GameInfo->type == SHERWOOD_VARIANT && CurrentCommand->verb == 56) {
         char *verbword = CharWords[CurrentCommand->verbwordindex];
         if (xstrncasecmp(verbword, "restore", 7) == 0)
             CurrentCommand->verb = GameHeader.NumWords + RESTORE;
@@ -784,9 +861,10 @@ int GetInput(int *vb, int *no) {
         if (!PerformExtraCommand()) {
             Output(sys[I_DONT_UNDERSTAND]);
             return 1;
-        } else return 1;
-    /* And NumWords + noun for our extra nouns */
-    /* such as ALL */
+        } else
+            return 1;
+        /* And NumWords + noun for our extra nouns */
+        /* such as ALL */
     } else if (CurrentCommand->noun > GameHeader.NumWords) {
         CurrentCommand->noun -= GameHeader.NumWords;
         if (CurrentCommand->noun == ALL) {
@@ -799,26 +877,30 @@ int GetInput(int *vb, int *no) {
         }
     }
 
-    *vb=CurrentCommand->verb;
-    *no=CurrentCommand->noun;
+    *vb = CurrentCommand->verb;
+    *no = CurrentCommand->noun;
 
     return 0;
 }
 
-int RecheckForExtraCommand(void) {
+int RecheckForExtraCommand(void)
+{
     const char *VerbWord = CharWords[CurrentCommand->verbwordindex];
 
-    int ExtraVerb = WhichWord(VerbWord, ExtraCommands, GameHeader.WordLength, NUMBER_OF_EXTRA_COMMANDS);
+    int ExtraVerb = WhichWord(VerbWord, ExtraCommands, GameHeader.WordLength,
+        NUMBER_OF_EXTRA_COMMANDS);
     if (!ExtraVerb) {
         return 0;
     }
     int ExtraNoun = 0;
-    if (CurrentCommand->nounwordindex) {
+    if (CurrentCommand->noun) {
         const char *NounWord = CharWords[CurrentCommand->nounwordindex];
-        ExtraNoun = WhichWord(NounWord, ExtraNouns, strlen(NounWord), NUMBER_OF_EXTRA_NOUNS);
+        ExtraNoun = WhichWord(NounWord, ExtraNouns, strlen(NounWord),
+            NUMBER_OF_EXTRA_NOUNS);
     }
     CurrentCommand->verb = ExtraCommandsKey[ExtraVerb];
     if (ExtraNoun)
         CurrentCommand->noun = ExtraNounsKey[ExtraNoun];
+
     return PerformExtraCommand();
 }

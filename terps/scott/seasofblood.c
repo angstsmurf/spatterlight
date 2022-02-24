@@ -5,28 +5,25 @@
 //  Created by Administrator on 2022-01-08.
 //
 
-#include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 
-
-#include "seasofblood.h"
-#include "scott.h"
 #include "sagadraw.h"
+#include "scott.h"
+#include "seasofblood.h"
 
 #include "decompresstext.h"
 
-
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
-#define dice_colour 0x00ff0000
+glui32 dice_colour;
 
 extern const char *battle_messages[33];
 extern uint8_t enemy_table[126];
 uint8_t *blood_image_data;
 extern uint8_t buffer[384][9];
-
 
 #define VICTORY 0
 #define LOSS 1
@@ -41,7 +38,8 @@ void battle_loop(int enemy, int strike, int stamina, int boatflag);
 void swap_stamina_and_crew_strength(void);
 void blood_battle(void);
 
-void adventure_sheet(void) {
+void adventure_sheet(void)
+{
     glk_stream_set_current(glk_window_get_stream(Bottom));
     glk_set_style(style_Preformatted);
     Output("\nADVENTURE SHEET\n\n");
@@ -66,33 +64,33 @@ void adventure_sheet(void) {
     glk_set_style(style_Normal);
 }
 
-void blood_action(int p)
+void BloodAction(int p)
 {
     switch (p) {
-        case 0:
-
-            break;
-        case 1:
-            // Update LOG
-            Counters[6]++;
-            break;
-        case 2:
-            // Battle
-            Look();
-            Output("You are attacked \n");
-            Output("<HIT ENTER> \n");
-            HitEnter();
-            blood_battle();
-            break;
-        default:
-            fprintf(stderr, "Unhandled special action %d!\n", p);
-            break;
+    case 0:
+        break;
+    case 1:
+        // Update LOG
+        Counters[6]++;
+        break;
+    case 2:
+        // Battle
+        Look();
+        Output("You are attacked \n");
+        Output("<HIT ENTER> \n");
+        HitEnter();
+        blood_battle();
+        break;
+    default:
+        fprintf(stderr, "Unhandled special action %d!\n", p);
+        break;
     }
 }
 
 #pragma mark Image drawing
 
-void mirror_left_half(void) {
+void mirror_left_half(void)
+{
     for (int line = 0; line < 12; line++) {
         for (int col = 32; col > 16; col--) {
             buffer[line * 32 + col - 1][8] = buffer[line * 32 + (32 - col)][8];
@@ -103,7 +101,8 @@ void mirror_left_half(void) {
     }
 }
 
-void replace_colour(uint8_t before, uint8_t after) {
+void replace_colour(uint8_t before, uint8_t after)
+{
 
     // I don't think any of the data has bit 7 set,
     // so masking it is probably unnecessary, but this is what
@@ -127,20 +126,22 @@ void replace_colour(uint8_t before, uint8_t after) {
     }
 }
 
-
-void draw_colour(uint8_t x, uint8_t y, uint8_t colour, uint8_t length) {
+void draw_colour(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
+{
     for (int i = 0; i < length; i++) {
         buffer[y * 32 + x + i][8] = colour;
     }
 }
 
-void make_light(void) {
+void make_light(void)
+{
     for (int i = 0; i < 384; i++) {
         buffer[i][8] = buffer[i][8] | 0x40;
     }
 }
 
-void flip_image(void) {
+void flip_image(void)
+{
 
     uint8_t mirror[384][9];
 
@@ -157,7 +158,8 @@ void flip_image(void) {
 
 int should_draw_object_images;
 
-void draw_object_image(uint8_t x, uint8_t y) {
+void draw_object_image(uint8_t x, uint8_t y)
+{
     for (int i = 0; i < GameHeader.NumItems; i++) {
         if (Items[i].Flag != MyLoc)
             continue;
@@ -168,7 +170,8 @@ void draw_object_image(uint8_t x, uint8_t y) {
     }
 }
 
-void draw_blood(int loc) {
+void draw_blood(int loc)
+{
     bzero(buffer, 384 * 9);
     uint8_t *ptr = blood_image_data;
     for (int i = 0; i < loc; i++) {
@@ -178,48 +181,49 @@ void draw_blood(int loc) {
     }
     while (ptr < blood_image_data + 2010) {
         switch (*ptr) {
-            case 0xff:
-                //            if (loc == 15) {
-                //               buffer[11*32 + 14][8] = buffer[11*32 + 14][8] | 0x40;
-                //            }
-                if (loc == 13) {
-                    buffer[8*32 + 18][8] = buffer[8*32 + 18][8] & ~0x40;
-                    buffer[8*32 + 17][8] = buffer[8*32 + 17][8] & ~0x40;
+        case 0xff:
+            //            if (loc == 15) {
+            //               buffer[11*32 + 14][8] = buffer[11*32 + 14][8] | 0x40;
+            //            }
+            if (loc == 13) {
+                buffer[8 * 32 + 18][8] = buffer[8 * 32 + 18][8] & ~0x40;
+                buffer[8 * 32 + 17][8] = buffer[8 * 32 + 17][8] & ~0x40;
 
-                    buffer[8*32 + 9][8] = buffer[8*32 + 9][8] & ~0x40;
-                    buffer[8*32 + 10][8] = buffer[8*32 + 10][8] & ~0x40;
-                }
-                return;
-            case 0xfe:
-                mirror_left_half();
-                break;
-            case 0xfD:
-                replace_colour(*(ptr+1), *(ptr+2));
-                ptr += 2;
-                break;
-            case 0xfc: // Draw colour: x, y, attribute, length
-                draw_colour(*(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4));
-                ptr = ptr + 4;
-                break;
-            case 0xfb: // Make all screen colours bright
-                make_light();
-                break;
-            case 0xfa: // Flip entire image horizontally
-                flip_image();
-                break;
-            case 0xf9: // Draw object image (if present) at x, y
-                draw_object_image(*(ptr+1), *(ptr+2));
-                ptr = ptr + 2;
-                break;
-            default: // else draw image *ptr at x, y
-                draw_saga_picture_at_pos(*ptr, *(ptr+1), *(ptr+2));
-                ptr = ptr + 2;
+                buffer[8 * 32 + 9][8] = buffer[8 * 32 + 9][8] & ~0x40;
+                buffer[8 * 32 + 10][8] = buffer[8 * 32 + 10][8] & ~0x40;
+            }
+            return;
+        case 0xfe:
+            mirror_left_half();
+            break;
+        case 0xfD:
+            replace_colour(*(ptr + 1), *(ptr + 2));
+            ptr += 2;
+            break;
+        case 0xfc: // Draw colour: x, y, attribute, length
+            draw_colour(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
+            ptr = ptr + 4;
+            break;
+        case 0xfb: // Make all screen colours bright
+            make_light();
+            break;
+        case 0xfa: // Flip entire image horizontally
+            flip_image();
+            break;
+        case 0xf9: // Draw object image (if present) at x, y
+            draw_object_image(*(ptr + 1), *(ptr + 2));
+            ptr = ptr + 2;
+            break;
+        default: // else draw image *ptr at x, y
+            draw_saga_picture_at_pos(*ptr, *(ptr + 1), *(ptr + 2));
+            ptr = ptr + 2;
         }
         ptr++;
     }
 }
 
-void seas_of_blood_room_image(void) {
+void seas_of_blood_room_image(void)
+{
     should_draw_object_images = 1;
     draw_blood(MyLoc);
     for (int ct = 0; ct <= GameHeader.NumItems; ct++)
@@ -232,6 +236,12 @@ void seas_of_blood_room_image(void) {
 }
 
 #pragma mark Battles
+
+static void SOBPrint(winid_t w, const char *fmt, ...)
+#ifdef __GNUC__
+    __attribute__((__format__(__printf__, 2, 3)))
+#endif
+    ;
 
 static void SOBPrint(winid_t w, const char *fmt, ...)
 {
@@ -252,7 +262,8 @@ const glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
     int ideal_width = 8;
     int ideal_height = 8;
 
-    *width = ideal_width; *height = ideal_height;
+    *width = ideal_width;
+    *height = ideal_height;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
@@ -271,7 +282,8 @@ const glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
     return multiplier;
 }
 
-static void draw_border(winid_t win) {
+static void draw_border(winid_t win)
+{
     glui32 width, height;
     glk_stream_set_current(glk_window_get_stream(win));
     glk_window_get_size(win, &width, &height);
@@ -295,7 +307,8 @@ static void draw_border(winid_t win) {
     glk_put_char_uni(0x251B);
 }
 
-static void redraw_static_text(winid_t win, int boatflag) {
+static void redraw_static_text(winid_t win, int boatflag)
+{
     glk_stream_set_current(glk_window_get_stream(win));
     glk_window_move_cursor(win, 2, 4);
 
@@ -317,7 +330,8 @@ static void redraw_static_text(winid_t win, int boatflag) {
     }
 }
 
-static void redraw_battle_screen(int boatflag) {
+static void redraw_battle_screen(int boatflag)
+{
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 
     glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
@@ -333,36 +347,44 @@ static void redraw_battle_screen(int boatflag) {
     redraw_static_text(BattleRight, boatflag);
 }
 
-static void setup_battle_screen(int boatflag) {
+static void setup_battle_screen(int boatflag)
+{
     winid_t parent = glk_window_get_parent(Top);
     glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed, 7, Top);
 
     glk_window_clear(Top);
     glk_window_clear(Bottom);
-    BattleRight = glk_window_open(Top, winmethod_Right | winmethod_Proportional, 50, wintype_TextGrid, 0);
+    BattleRight = glk_window_open(Top, winmethod_Right | winmethod_Proportional,
+        50, wintype_TextGrid, 0);
 
-    LeftDiceWin = glk_window_open(Top, winmethod_Right | winmethod_Proportional, 30, wintype_Graphics, 0);
-    RightDiceWin = glk_window_open(BattleRight, winmethod_Left | winmethod_Proportional, 30, wintype_Graphics, 0);
+    LeftDiceWin = glk_window_open(Top, winmethod_Right | winmethod_Proportional,
+        30, wintype_Graphics, 0);
+    RightDiceWin = glk_window_open(BattleRight, winmethod_Left | winmethod_Proportional, 30,
+        wintype_Graphics, 0);
 
     /* Set the graphics window background to match
      * the top window background, best as we can,
      * and clear the window.
      */
-    if (glk_style_measure (Top, style_Normal, stylehint_BackColor, &background_colour)) {
-        glk_window_set_background_color (LeftDiceWin, background_colour);
-        glk_window_set_background_color (RightDiceWin, background_colour);
+    if (glk_style_measure(Top, style_Normal, stylehint_BackColor,
+            &background_colour)) {
+        glk_window_set_background_color(LeftDiceWin, background_colour);
+        glk_window_set_background_color(RightDiceWin, background_colour);
 
         glk_window_clear(LeftDiceWin);
         glk_window_clear(RightDiceWin);
     }
 
+    if (CurrentGame == SEAS_OF_BLOOD_C64)
+        dice_colour = 0x5f48e9;
+    else
+        dice_colour = 0xff0000;
+
     redraw_battle_screen(boatflag);
 }
 
-void blood_battle(void) {
-
-    fprintf(stderr, "Seas of blood battle\n");
-
+void blood_battle(void)
+{
     int enemy, strike, stamina, boatflag;
     enemy = get_enemy_stats(&strike, &stamina, &boatflag); // Determine their stats
     if (enemy == 0) {
@@ -371,7 +393,8 @@ void blood_battle(void) {
     }
     setup_battle_screen(boatflag);
     battle_loop(enemy, strike, stamina, boatflag); // Into the battle loops
-    if (boatflag) swap_stamina_and_crew_strength(); // Switch back stamina - crew strength
+    if (boatflag)
+        swap_stamina_and_crew_strength(); // Switch back stamina - crew strength
     glk_window_close(LeftDiceWin, NULL);
     glk_window_close(RightDiceWin, NULL);
     glk_window_close(BattleRight, NULL);
@@ -380,7 +403,8 @@ void blood_battle(void) {
     seas_of_blood_room_image();
 }
 
-int get_enemy_stats(int *strike, int *stamina, int *boatflag) {
+int get_enemy_stats(int *strike, int *stamina, int *boatflag)
+{
     int enemy, i = 0;
     while (i < 124) {
         enemy = enemy_table[i];
@@ -392,7 +416,7 @@ int get_enemy_stats(int *strike, int *stamina, int *boatflag) {
             if (*boatflag) {
                 swap_stamina_and_crew_strength(); // Switch stamina - crew strength
             }
-    
+
             return enemy;
         }
         i = i + 4; // Skip to next entry
@@ -400,61 +424,62 @@ int get_enemy_stats(int *strike, int *stamina, int *boatflag) {
     return 0;
 }
 
-void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height, int32_t color) {
-    glk_window_fill_rect(win, color,
-                         x * dice_pixel_size + dice_x_offset,
-                         y * dice_pixel_size + dice_y_offset,
-                         width * dice_pixel_size,
-                         height * dice_pixel_size);
+void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
+    int32_t color)
+{
+    glk_window_fill_rect(win, color, x * dice_pixel_size + dice_x_offset,
+        y * dice_pixel_size + dice_y_offset,
+        width * dice_pixel_size, height * dice_pixel_size);
 }
 
-void draw_graphical_dice(winid_t win, int number) {
-    // The eye-less dice backgrounds consist of two rectangles on top of each other
+void draw_graphical_dice(winid_t win, int number)
+{
+    // The eye-less dice backgrounds consist of two rectangles on top of each
+    // other
     draw_rect(win, 1, 2, 7, 5, dice_colour);
     draw_rect(win, 2, 1, 5, 7, dice_colour);
 
-    switch(number + 1) {
-        case 1:
-            draw_rect(win, 4, 4, 1, 1, background_colour);
-            break;
-        case 2:
-            draw_rect(win, 2, 6, 1, 1, background_colour);
-            draw_rect(win, 6, 2, 1, 1, background_colour);
-            break;
-        case 3:
-            draw_rect(win, 2, 6, 1, 1, background_colour);
-            draw_rect(win, 4, 4, 1, 1, background_colour);
-            draw_rect(win, 6, 2, 1, 1, background_colour);
-            break;
-        case 4:
-            draw_rect(win, 2, 6, 1, 1, background_colour);
-            draw_rect(win, 6, 2, 1, 1, background_colour);
-            draw_rect(win, 2, 2, 1, 1, background_colour);
-            draw_rect(win, 6, 6, 1, 1, background_colour);
-            break;
-        case 5:
-            draw_rect(win, 2, 6, 1, 1, background_colour);
-            draw_rect(win, 6, 2, 1, 1, background_colour);
-            draw_rect(win, 2, 2, 1, 1, background_colour);
-            draw_rect(win, 6, 6, 1, 1, background_colour);
-            draw_rect(win, 4, 4, 1, 1, background_colour);
-            break;
-        case 6:
-            draw_rect(win, 2, 6, 1, 1, background_colour);
-            draw_rect(win, 6, 2, 1, 1, background_colour);
-            draw_rect(win, 2, 2, 1, 1, background_colour);
-            draw_rect(win, 2, 4, 1, 1, background_colour);
-            draw_rect(win, 6, 4, 1, 1, background_colour);
-            draw_rect(win, 6, 6, 1, 1, background_colour);
-            break;
-        default:
-            break;
+    switch (number + 1) {
+    case 1:
+        draw_rect(win, 4, 4, 1, 1, background_colour);
+        break;
+    case 2:
+        draw_rect(win, 2, 6, 1, 1, background_colour);
+        draw_rect(win, 6, 2, 1, 1, background_colour);
+        break;
+    case 3:
+        draw_rect(win, 2, 6, 1, 1, background_colour);
+        draw_rect(win, 4, 4, 1, 1, background_colour);
+        draw_rect(win, 6, 2, 1, 1, background_colour);
+        break;
+    case 4:
+        draw_rect(win, 2, 6, 1, 1, background_colour);
+        draw_rect(win, 6, 2, 1, 1, background_colour);
+        draw_rect(win, 2, 2, 1, 1, background_colour);
+        draw_rect(win, 6, 6, 1, 1, background_colour);
+        break;
+    case 5:
+        draw_rect(win, 2, 6, 1, 1, background_colour);
+        draw_rect(win, 6, 2, 1, 1, background_colour);
+        draw_rect(win, 2, 2, 1, 1, background_colour);
+        draw_rect(win, 6, 6, 1, 1, background_colour);
+        draw_rect(win, 4, 4, 1, 1, background_colour);
+        break;
+    case 6:
+        draw_rect(win, 2, 6, 1, 1, background_colour);
+        draw_rect(win, 6, 2, 1, 1, background_colour);
+        draw_rect(win, 2, 2, 1, 1, background_colour);
+        draw_rect(win, 2, 4, 1, 1, background_colour);
+        draw_rect(win, 6, 4, 1, 1, background_colour);
+        draw_rect(win, 6, 6, 1, 1, background_colour);
+        break;
+    default:
+        break;
     }
-
-
 }
 
-void update_dice(int our_turn, int left_dice, int right_dice) {
+void update_dice(int our_turn, int left_dice, int right_dice)
+{
     left_dice--;
     right_dice--;
     glk_window_clear(LeftDiceWin);
@@ -479,10 +504,10 @@ void update_dice(int our_turn, int left_dice, int right_dice) {
     SOBPrint(win, "%d %d", left_dice + 1, right_dice + 1);
 }
 
-void print_sum(int our_turn, int sum, int strike) {
+void print_sum(int our_turn, int sum, int strike)
+{
     winid_t win = our_turn ? BattleRight : Top;
     glk_stream_set_current(glk_window_get_stream(win));
-    glk_set_style(style_User1);
 
     glk_window_move_cursor(win, 6, 1);
 
@@ -493,7 +518,8 @@ void print_sum(int our_turn, int sum, int strike) {
     glk_put_string("+ 9 = ");
 }
 
-void update_result(int our_turn, int strike, int stamina, int boatflag) {
+void update_result(int our_turn, int strike, int stamina, int boatflag)
+{
     winid_t win = our_turn ? BattleRight : Top;
     glk_stream_set_current(glk_window_get_stream(win));
 
@@ -510,7 +536,8 @@ void update_result(int our_turn, int strike, int stamina, int boatflag) {
     }
 }
 
-void clear_result(void) {
+void clear_result(void)
+{
     winid_t win = Top;
 
     glui32 width;
@@ -526,7 +553,8 @@ void clear_result(void) {
     }
 }
 
-void clear_stamina(void) {
+void clear_stamina(void)
+{
     winid_t win = Top;
 
     glui32 width;
@@ -542,7 +570,8 @@ void clear_stamina(void) {
     }
 }
 
-static void RearrangeBattleDisplay(int strike, int stamina, int boatflag) {
+static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
+{
     glk_cancel_char_event(Top);
     CloseGraphicsWindow();
     glk_window_close(BattleRight, NULL);
@@ -559,7 +588,8 @@ static void RearrangeBattleDisplay(int strike, int stamina, int boatflag) {
     glk_request_char_event(Top);
 }
 
-int roll_dice(int strike, int stamina, int boatflag) {
+int roll_dice(int strike, int stamina, int boatflag)
+{
     clear_result();
     redraw_static_text(BattleRight, boatflag);
 
@@ -613,14 +643,15 @@ int roll_dice(int strike, int stamina, int boatflag) {
             if (our_turn == 0 && rolls == enemy_rolls) {
                 glk_window_clear(Bottom);
                 their_result = left_dice + right_dice + strike;
-                SOBPrint(Bottom, "Their result: %d + %d + %d = %d\n", left_dice, right_dice, strike, their_result);
+                SOBPrint(Bottom, "Their result: %d + %d + %d = %d\n", left_dice,
+                    right_dice, strike, their_result);
                 glk_request_timer_events(1000);
                 their_dice_stopped = 1;
             }
         }
 
         if (event.type == evtype_CharInput) {
-            if (our_turn && (event.val1 == '\n' || event.val1 == '\372')) {
+            if (our_turn && (event.val1 == keycode_Return)) {
                 update_dice(our_turn, left_dice, right_dice);
                 our_result = left_dice + right_dice + 9;
                 print_sum(our_turn, our_result, 9);
@@ -645,15 +676,15 @@ int roll_dice(int strike, int stamina, int boatflag) {
     return ERROR;
 }
 
-void BattleHitEnter(int strike, int stamina, int boatflag) {
+void BattleHitEnter(int strike, int stamina, int boatflag)
+{
     glk_request_char_event(Bottom);
-
     event_t ev;
     int result = 0;
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
-            if (ev.val1 == '\n' || ev.val1 == '\372') {
+            if (ev.val1 == keycode_Return) {
                 result = 1;
             } else {
                 glk_request_char_event(Bottom);
@@ -664,12 +695,12 @@ void BattleHitEnter(int strike, int stamina, int boatflag) {
             RearrangeBattleDisplay(strike, stamina, boatflag);
         }
 
-    } while(result == 0);
-
+    } while (result == 0);
     return;
 }
 
-void battle_loop(int enemy, int strike, int stamina, int boatflag) {
+void battle_loop(int enemy, int strike, int stamina, int boatflag)
+{
     update_result(0, strike, stamina, boatflag);
     update_result(1, 9, Counters[3], boatflag);
     do {
@@ -682,24 +713,26 @@ void battle_loop(int enemy, int strike, int stamina, int boatflag) {
             Counters[3] -= 2;
 
             if (Counters[3] <= 0) {
-                SOBPrint(Bottom, "%s\n", boatflag ? "THE BANSHEE HAS BEEN SUNK!" : "YOU HAVE BEEN KILLED!");
+                SOBPrint(Bottom, "%s\n",
+                    boatflag ? "THE BANSHEE HAS BEEN SUNK!"
+                             : "YOU HAVE BEEN KILLED!");
                 Counters[3] = 0;
-                BitFlags |= (1<<6);
+                BitFlags |= (1 << 6);
                 Counters[7] = 0;
             } else {
-                SOBPrint(Bottom, "%s", battle_messages[1+rand() % 5 + 16 * boatflag]);
+                SOBPrint(Bottom, "%s", battle_messages[1 + rand() % 5 + 16 * boatflag]);
             }
         } else if (result == VICTORY) {
             stamina -= 2;
             if (stamina <= 0) {
                 glk_put_string("YOU HAVE WON!\n");
-                BitFlags &= ~(1<<6);
+                BitFlags &= ~(1 << 6);
                 stamina = 0;
             } else {
                 SOBPrint(Bottom, "%s", battle_messages[6 + rand() % 5 + 16 * boatflag]);
             }
         } else if (result == FLEE) {
-            BitFlags|=(1<<6);
+            BitFlags |= (1 << 6);
             MyLoc = SavedRoom;
             return;
         } else {
@@ -708,7 +741,7 @@ void battle_loop(int enemy, int strike, int stamina, int boatflag) {
 
         glk_put_string("\n\n");
 
-        if (Counters[3] > 0 && stamina >0) {
+        if (Counters[3] > 0 && stamina > 0) {
             glk_put_string("<ENTER> to roll dice");
             if (!boatflag)
                 glk_put_string("    <X> to run");
@@ -723,7 +756,8 @@ void battle_loop(int enemy, int strike, int stamina, int boatflag) {
     } while (stamina > 0 && Counters[3] > 0);
 }
 
-void swap_stamina_and_crew_strength(void) {
+void swap_stamina_and_crew_strength(void)
+{
     uint8_t temp = Counters[7]; // Crew strength
     Counters[7] = Counters[3]; // Stamina
     Counters[3] = temp;
@@ -743,7 +777,6 @@ int LoadExtraSeasOfBloodData(void)
 
     uint8_t *ptr = seek_to_pos(entire_file, offset);
 
-
     int ct;
 
     for (ct = 0; ct < 124; ct++) {
@@ -756,13 +789,8 @@ int LoadExtraSeasOfBloodData(void)
 
     ptr = seek_to_pos(entire_file, 0x71DA + file_baseline_offset);
 
-    for (int i = 0; i<16; i++) {
+    for (int i = 0; i < 32; i++) {
         battle_messages[i] = decompress_text(ptr, i);
-    }
-
-    ptr = seek_to_pos(entire_file, 0x72A0 + file_baseline_offset);
-    for (int i = 16; i<32; i++) {
-        battle_messages[i] = decompress_text(ptr, i - 16);
     }
 
 #pragma mark Extra image data
@@ -788,6 +816,89 @@ int LoadExtraSeasOfBloodData(void)
     sys[PLAY_AGAIN] = system_messages[3];
     sys[YOURE_CARRYING_TOO_MUCH] = system_messages[27];
 
-    return 0;
+    Items[125].Text = "A loose plank";
+    Items[125].AutoGet = "PLAN";
 
+    return 0;
+}
+
+int LoadExtraSeasOfBlood64Data(void)
+{
+    draw_to_buffer = 1;
+
+    int offset;
+
+#pragma mark Enemy table
+
+    offset = 0x3fee + file_baseline_offset;
+    uint8_t *ptr;
+
+jumpEnemyTable:
+    ptr = seek_to_pos(entire_file, offset);
+
+    int ct;
+    for (ct = 0; ct < 124; ct++) {
+        enemy_table[ct] = *(ptr++);
+        if (enemy_table[ct] == 0xff)
+            break;
+    }
+#pragma mark Battle messages
+
+    offset = 0x82f6 + file_baseline_offset;
+    ptr = seek_to_pos(entire_file, offset);
+
+    for (int i = 0; i < 32; i++) {
+        battle_messages[i] = decompress_text(ptr, i);
+    }
+
+#pragma mark Extra image data
+
+    offset = 0x5299 + file_baseline_offset;
+
+    int data_length = 2010;
+
+    blood_image_data = MemAlloc(data_length);
+
+    ptr = seek_to_pos(entire_file, offset);
+    for (int i = 0; i < data_length; i++) {
+        blood_image_data[i] = *(ptr++);
+    }
+
+#pragma mark System messages
+
+    SysMessageType messagekey[] = {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        UP,
+        DOWN,
+        EXITS,
+        YOU_SEE,
+        YOU_ARE,
+        YOU_CANT_GO_THAT_WAY,
+        OK,
+        WHAT_NOW,
+        HUH,
+        YOU_HAVE_IT,
+        YOU_HAVENT_GOT_IT,
+        DROPPED,
+        TAKEN,
+        INVENTORY,
+        YOU_DONT_SEE_IT,
+        THATS_BEYOND_MY_POWER,
+        DIRECTION,
+        YOURE_CARRYING_TOO_MUCH,
+        PLAY_AGAIN,
+        RESUME_A_SAVED_GAME,
+        YOU_CANT_DO_THAT_YET,
+        I_DONT_UNDERSTAND,
+        NOTHING
+    };
+
+    for (int i = 0; i < 26; i++) {
+        sys[messagekey[i]] = system_messages[i];
+    }
+
+    return 0;
 }

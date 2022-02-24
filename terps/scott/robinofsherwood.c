@@ -9,70 +9,71 @@
 
 #include "robinofsherwood.h"
 
-#include "scott.h"
-#include "sagadraw.h"
 #include "decompresstext.h"
+#include "sagadraw.h"
+#include "scott.h"
 
 extern Image *images;
 extern uint8_t screenchars[768][8];
 
-uint8_t *forest_images = NULL;
+static int white = 15;
+static int blue = 9;
+
+static uint8_t *forest_images = NULL;
 
 #define WATERFALL_ANIMATION_RATE 15
 
 void animate_lightning(int stage);
 
-void sherwood_action(int p) {
+void SherwoodAction(int p)
+{
     fprintf(stderr, "robin_of_sherwood_action: %d\n", p);
     event_t ev;
 
     switch (p) {
-        case 0:
-            // Flash animation
-            AnimationFlag = 1;
-            glk_request_timer_events(15);
+    case 0:
+        // Flash animation
+        AnimationFlag = 1;
+        glk_request_timer_events(15);
 
-            while(AnimationFlag < 11)
-            {
-                glk_select(&ev);
-                if(ev.type == evtype_Timer) {
-                    AnimationFlag++;
-                    animate_lightning(AnimationFlag);
-                }
+        while (AnimationFlag < 11) {
+            glk_select(&ev);
+            if (ev.type == evtype_Timer) {
+                AnimationFlag++;
+                animate_lightning(AnimationFlag);
             }
-            break;
-        case 1:
-            DrawImage(0); /* Herne */
-            Display(Bottom, "\n%s\n", sys[HIT_ENTER]);
-            HitEnter();
-            Items[39].Location = 79;
-            Look();
-            break;
-        case 2:
-            // Climbing tree in forest
-            SavedRoom = MyLoc;
-            MyLoc = 93;
-            Look();
-            break;
-        default:
-            fprintf(stderr, "Unhandled special action %d!\n", p);
-            break;
+        }
+        break;
+    case 1:
+        DrawImage(0); /* Herne */
+        Display(Bottom, "\n%s\n", sys[HIT_ENTER]);
+        HitEnter();
+        Items[39].Location = 79;
+        Look();
+        break;
+    case 2:
+        // Climbing tree in forest
+        SavedRoom = MyLoc;
+        MyLoc = 93;
+        Look();
+        break;
+    default:
+        fprintf(stderr, "Unhandled special action %d!\n", p);
+        break;
     }
 }
 
-int is_forest_location(void) {
-    return (MyLoc >= 11 && MyLoc <=73);
-}
+int is_forest_location(void) { return (MyLoc >= 11 && MyLoc <= 73); }
 
 #define TREES 0
 #define BUSHES 1
 
-void draw_sherwood(int loc) {
+void draw_sherwood(int loc)
+{
     glk_window_clear(Graphics);
     int subimage_index = 0;
 
-    for (int i = 0; i < loc - 11; i++)
-    {
+    for (int i = 0; i < loc - 11; i++) {
         // BUSHES type images are made up of 5 smaller images
         int skip = 5;
         if (forest_images[subimage_index] < 128)
@@ -128,9 +129,9 @@ void draw_sherwood(int loc) {
     }
 }
 
-void animate_waterfall(int stage) {
-    glk_request_timer_events(14);
-    rectfill (88, 16, 48, 64, 15);
+void animate_waterfall(int stage)
+{
+    rectfill(88, 16, 48, 64, white);
     for (int line = 2; line < 10; line++) {
         for (int col = 11; col < 17; col++) {
             for (int i = 0; i < 8; i++)
@@ -139,15 +140,15 @@ void animate_waterfall(int stage) {
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
-                        putpixel (col * 8 + j, ypos, 9);
+                        putpixel(col * 8 + j, ypos, blue);
                     }
         }
     }
 }
 
-void animate_waterfall_cave(int stage) {
-    glk_request_timer_events(10);
-    rectfill (248, 24, 8, 64, 15);
+void animate_waterfall_cave(int stage)
+{
+    rectfill(248, 24, 8, 64, white);
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
@@ -155,28 +156,32 @@ void animate_waterfall_cave(int stage) {
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
-                    putpixel (248 + j, ypos, 9);
+                    putpixel(248 + j, ypos, blue);
                 }
     }
 }
 
-
-
-void animate_lightning(int stage) {
+void animate_lightning(int stage)
+{
     // swich blue and bright yellow
-    switch_palettes(1,14);
-    switch_palettes(9,6);
+    if (CurrentGame == ROBIN_OF_SHERWOOD_C64)
+        switch_palettes(6, 7);
+    else {
+        switch_palettes(1, 14);
+        switch_palettes(9, 6);
+    }
     draw_saga_picture_number(77);
     if (stage == 11) {
         glk_request_timer_events(0);
     } else if (stage == 3) {
         glk_request_timer_events(700);
     } else {
-        glk_request_timer_events(20);
+        glk_request_timer_events(40);
     }
 }
 
-void robin_of_sherwood_look(void) {
+void robin_of_sherwood_look(void)
+{
     if (!is_forest_location()) {
         if (Rooms[MyLoc].Image == 255) {
             CloseGraphicsWindow();
@@ -224,7 +229,8 @@ void robin_of_sherwood_look(void) {
     }
 }
 
-void update_robin_of_sherwood_animations(void) {
+void update_robin_of_sherwood_animations(void)
+{
     AnimationFlag++;
     if (AnimationFlag > 63)
         AnimationFlag = 0;
@@ -246,7 +252,7 @@ GameIDType LoadExtraSherwoodData(void)
 
 #pragma mark room images
 
-    int offset = 15769 + file_baseline_offset;
+    int offset = 0x3d99 + file_baseline_offset;
     uint8_t *ptr;
     /* Load the room images */
 
@@ -256,19 +262,13 @@ jumpRoomImages:
         return 0;
 
     int ct;
-    Room *rp=Rooms;
+    Room *rp = Rooms;
 
     for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
         rp->Image = *(ptr++);
-        if ((ct == 1 && rp->Image != 2) ||
-            (ct == 5 && rp->Image != 9) ||
-            (ct == 2 && rp->Image != 2)) {
-            offset++;
-            goto jumpRoomImages;
-        }
         rp++;
         if (ct == 10) {
-            for (int i = 0; i<63; i++) {
+            for (int i = 0; i < 63; i++) {
                 rp++;
                 ct++;
             }
@@ -277,8 +277,8 @@ jumpRoomImages:
 
 #pragma mark rooms
 
-    ct=0;
-    rp=Rooms;
+    ct = 0;
+    rp = Rooms;
 
     int actual_room_number = 0;
 
@@ -292,14 +292,14 @@ jumpRoomImages:
         ct++;
         actual_room_number++;
         if (ct == 11) {
-            for (int i = 0; i<61; i++) {
+            for (int i = 0; i < 61; i++) {
                 rp++;
                 rp->Text = "in Sherwood Forest";
                 actual_room_number++;
             }
         }
         rp++;
-    } while (ct<33);
+    } while (ct < 33);
 
     for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
         sys[i] = system_messages[4 - I_DONT_UNDERSTAND + i];
@@ -330,3 +330,118 @@ jumpRoomImages:
     return ROBIN_OF_SHERWOOD;
 }
 
+GameIDType LoadExtraSherwoodData64(void)
+{
+
+    white = 1;
+    blue = 6;
+
+#pragma mark room images
+
+    int offset = 0x1ffd + file_baseline_offset;
+    uint8_t *ptr;
+    /* Load the room images */
+
+jumpHereRoomImages:
+    ptr = seek_to_pos(entire_file, offset);
+    if (ptr == 0)
+        return 0;
+
+    int ct;
+    Room *rp = Rooms;
+
+    for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
+        rp->Image = *(ptr++);
+        rp++;
+
+        if (ct == 10) {
+            for (int i = 0; i < 63; i++) {
+                rp++;
+                ct++;
+            }
+        }
+    }
+
+#pragma mark rooms
+
+    ct = 0;
+    rp = Rooms;
+
+    int actual_room_number = 0;
+
+    offset = 0x402e + file_baseline_offset;
+
+    ptr = seek_to_pos(entire_file, offset);
+    if (ptr == 0)
+        return 0;
+
+    do {
+        rp->Text = decompress_text(ptr, ct);
+        *(rp->Text) = tolower(*(rp->Text));
+        ct++;
+        actual_room_number++;
+        if (ct == 11) {
+            for (int i = 0; i < 61; i++) {
+                rp++;
+                rp->Text = "in Sherwood Forest";
+                actual_room_number++;
+            }
+        }
+        rp++;
+    } while (ct < 33);
+
+    SysMessageType messagekey[] = { NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        UP,
+        DOWN,
+        EXITS,
+        YOU_SEE,
+        YOU_ARE,
+        HIT_ENTER,
+        YOU_CANT_GO_THAT_WAY,
+        OK,
+        WHAT_NOW,
+        HUH,
+        YOU_HAVE_IT,
+        TAKEN,
+        DROPPED,
+        YOU_HAVENT_GOT_IT,
+        INVENTORY,
+        YOU_DONT_SEE_IT,
+        THATS_BEYOND_MY_POWER,
+        DIRECTION,
+        YOURE_CARRYING_TOO_MUCH,
+        PLAY_AGAIN,
+        RESUME_A_SAVED_GAME,
+        YOU_CANT_DO_THAT_YET,
+        I_DONT_UNDERSTAND,
+        NOTHING };
+
+    for (int i = 0; i < 26; i++) {
+        sys[messagekey[i]] = system_messages[i];
+    }
+
+    sys[HIT_ENTER] = system_messages[30];
+    sys[WHAT] = system_messages[13];
+
+    sys[EXITS_DELIMITER] = " ";
+    sys[MESSAGE_DELIMITER] = ". ";
+
+    offset = 0x2300 + file_baseline_offset;
+jumpForestImages:
+
+    ptr = seek_to_pos(entire_file, offset);
+    if (ptr == 0)
+        return 0;
+
+    int cells = 555;
+    forest_images = MemAlloc(cells);
+
+    for (int i = 0; i < cells; i++) {
+        forest_images[i] = *(ptr++);
+    }
+
+    return ROBIN_OF_SHERWOOD_C64;
+}

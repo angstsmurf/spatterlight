@@ -12,9 +12,9 @@
 
 void update_gremlins_animations(void);
 void gremlins_look(void);
-void gremlins_action(int p);
-void LoadExtraGremlinsData(void);
+void GremlinsAction(int p);
 void LoadExtraGermanGremlinsData(void);
 void LoadExtraSpanishGremlinsData(void);
+void LoadExtraGermanGremlinsc64Data(void);
 
 #endif /* gremlins_h */

@@ -8,7 +8,10 @@
 #ifndef definitions_h
 #define definitions_h
 
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#include <stdint.h>
+
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define FOLLOWS 0xffff
 
@@ -21,6 +24,7 @@
 typedef enum {
     UNKNOWN_GAME,
     SCOTTFREE,
+    TI994A,
     PIRATE,
     VOODOO,
     STRANGE,
@@ -37,23 +41,48 @@ typedef enum {
     INDIANS,
     WAXWORKS,
     HULK,
+    HULK_C64,
     ADVENTURELAND,
+    ADVENTURELAND_C64,
     SECRET_MISSION,
+    SECRET_MISSION_C64,
     CLAYMORGUE,
+    CLAYMORGUE_C64,
     SPIDERMAN,
+    SPIDERMAN_C64,
     SAVAGE_ISLAND,
+    SAVAGE_ISLAND_C64,
     SAVAGE_ISLAND2,
+    SAVAGE_ISLAND2_C64,
     GREMLINS,
+    GREMLINS_ALT,
+    GREMLINS_C64,
     GREMLINS_GERMAN,
+    GREMLINS_GERMAN_C64,
     GREMLINS_SPANISH,
     SUPERGRAN,
+    SUPERGRAN_C64,
     ROBIN_OF_SHERWOOD,
+    ROBIN_OF_SHERWOOD_C64,
     SEAS_OF_BLOOD,
+    SEAS_OF_BLOOD_C64,
     NUMGAMES
 } GameIDType;
 
-typedef enum
-{
+typedef enum {
+    ER_NO_RESULT,
+    ER_SUCCESS = 0,
+    ER_RAN_ALL_LINES_NO_MATCH = -1,
+    ER_RAN_ALL_LINES = -2
+} ExplicitResultType;
+
+typedef enum {
+    ACT_SUCCESS = 0,
+    ACT_FAILURE = 1,
+    ACT_CONTINUE
+} ActionResultType;
+
+typedef enum {
     NORTH,
     SOUTH,
     EAST,
@@ -124,60 +153,55 @@ typedef enum
 
 #define MAX_SYSMESS LAST_SYSTEM_MESSAGE
 
-typedef enum
-{
+typedef enum {
     NOT_A_GAME,
     FOUR_LETTER_UNCOMPRESSED,
     THREE_LETTER_UNCOMPRESSED,
     FIVE_LETTER_UNCOMPRESSED,
     FOUR_LETTER_COMPRESSED,
+    FIVE_LETTER_COMPRESSED,
     GERMAN,
     SPANISH
 } dictionary_type;
 
-typedef enum
-{
+typedef enum {
     NO_TYPE,
     GREMLINS_VARIANT,
+    SHERWOOD_VARIANT,
+    SAVAGE_ISLAND_VARIANT,
+    SECRET_MISSION_VARIANT,
     TEXT_ONLY,
 } game_type;
 
-typedef enum
-{
-    ENGLISH,
-    MYSTERIOUS,
-    LOCALIZED
+typedef enum {
+    ENGLISH = 0x1,
+    MYSTERIOUS = 0x2,
+    LOCALIZED = 0x4,
+    C64 = 0x8
 } subtype;
 
+typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
-typedef enum
-{
-    NO_PALETTE,
-    ZX,
-    ZXOPT,
-    C64A,
-    C64B,
-    VGA
-} palette_type;
-
-typedef enum
-{
-    UNKNOWN_HEADER_TYPE,
+typedef enum {
+    NO_HEADER,
     EARLY,
     LATE,
     HULK_HEADER,
+    GREMLINS_C64_HEADER,
+    SAVAGE_ISLAND_C64_HEADER,
+    ROBIN_C64_HEADER,
+    SUPERGRAN_C64_HEADER,
+    SEAS_OF_BLOOD_C64_HEADER
 } header_type;
 
-typedef enum
-{
+typedef enum {
     UNKNOWN_ACTIONS_TYPE,
     COMPRESSED,
     UNCOMPRESSED,
     HULK_ACTIONS
 } action_table_type;
 
-struct GameInfo
-{
+struct GameInfo {
     const char *Title;
 
     GameIDType gameID;
@@ -217,7 +241,9 @@ struct GameInfo
 
     int start_of_characters;
     int start_of_image_data;
-    int image_address_offset; /* This is the difference between the value given by the image data lookup table and a usable file offset */
+    int image_address_offset; /* This is the difference between the value given by
+                               the image data lookup table and a usable file
+                               offset */
     int number_of_pictures;
     palette_type palette;
     int picture_format_version;

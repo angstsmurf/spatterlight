@@ -10,6 +10,4 @@
 
 #include <stdio.h>
 
-void print_header_info(int header[]);
-
 #endif /* debug_h */

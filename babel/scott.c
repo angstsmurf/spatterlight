@@ -6,7 +6,7 @@
 
 #define FORMAT scott
 #define HOME_PAGE "https://github.com/cspiegel/scottfree-glk"
-#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80"
+#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.fiad"
 #define NO_METADATA
 #define NO_COVER
 
@@ -25,12 +25,12 @@ struct scottrec {
     char *ifid;
 };
 
-
 static struct scottrec scott_registry[] = {
     { 0x44cd, 0x8b8f, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure z80
     { 0x432c, 0xa6df, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle z80
     { 0x431e, 0x7437, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey z80
     { 0x4024, 0x62c7, "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai z80
+    { 0x3ff8, 0x5fb4, "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai z80 alt
 
     { 0x7d3c, 0x142b, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton Z80
     { 0x78d0, 0x3db6, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine Z80
@@ -47,33 +47,50 @@ static struct scottrec scott_registry[] = {
     { 0xbcd5, 0xae3f, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk.tzx
     { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
     { 0xafba, 0xb69b, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk Z80
+    { 0x2ab00, 0xcdd8, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (D64)
 
     { 0xbaef, 0x52cc, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland.tzx
     { 0xbb84, 0x6d93, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland - Alternate.tzx
     { 0xba74, 0x39c2, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland TAP image
     { 0xaaae, 0x7cf6, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland Z80
+    { 0x6a10, 0x1910, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland C64 (T64)
+    { 0x6a10, 0x1b10, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland C64 (T64) alt
+   { 0x2ab00, 0x6638, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland C64 (D64)
+   { 0x2adab, 0x751f, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland C64 (D64) alt
+   { 0x2adab, 0x64a4, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland C64 (D64) alt 2
 
     { 0xbae1, 0x0ec0, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission TAP image
     { 0x8723, 0xc6da, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission Z80
+    { 0x88be, 0xa122, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission  C64 (T64)
+   { 0x2ab00, 0x04d6, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission  C64 (D64)
 
     { 0xbae1, 0x83e9, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle.tzx
     { 0xbc2e, 0x4d84, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
     { 0xbaa7, 0x7371, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle TAP image
     { 0x726c, 0x0d57, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle Z80
     { 0x7298, 0x77fb, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle Z80 alt
+    { 0x6ff7, 0xe4ed, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64)
+    { 0x912f, 0xa69f, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt
+    { 0xc0dd, 0x3701, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 2
+    { 0xbc5f, 0x492c, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3
+   { 0x2ab00, 0xfd67, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (D64)
 
     { 0xb36e, 0xbe5d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman - Alternate.tzx
     { 0xb36e, 0xbf88, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman (Americana).tzx
     { 0xa4c4, 0x1ae8, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80
     { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
+    { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
+   { 0x2ab00, 0xde56, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64)
 
     { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
     { 0x9e46, 0x7792, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1 - Alternate.tzx
    { 0x11886, 0xd588, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island.tzx (Contains both parts, but ScottFree will only play the first)
     { 0x9d6a, 0x41d6, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island TAP image
     { 0x9ab2, 0xfaaa, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Z80 image
+   { 0x2ab00, 0xc361, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island C64 (D64)
+   { 0x2ab00, 0x8801, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island C64 (D64) alt
 
     { 0x9d9e, 0x4d76, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island Part 2.tzx
     { 0x9e59, 0x79f4, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island Part 2 - Alternate.tzx
@@ -84,25 +101,66 @@ static struct scottrec scott_registry[] = {
     { 0xbacc, 0x69fa, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins TAP image
     { 0xb114, 0x8a72, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins z80 image
     { 0xbbb6, 0x54cb, "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91" }, // Gremlins - The Adventure (German).tzx
+    { 0xc003, 0x558c, "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91" }, // German Gremlins C64 (T64) version
+    { 0xdd94, 0x25a8, "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91" }, // German Gremlins C64 (T64) version alt
+   { 0x2ab00, 0x6729, "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91" }, // German Gremlins C64 (D64) version
     { 0xbb63, 0x3cc4, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins - The Adventure (Spanish).tzx
     { 0xbb63, 0x3ec7, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins (Spanish) alt.tzx
     { 0xbab4, 0x05a6, "C9C5B722-D87E-46B4-9092-4DCA978A4668" }, // Gremlins Spanish TAP image
+   { 0x2ab00, 0xc402, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version
+   { 0x2ab00, 0xabf8, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt
+   { 0x2ab00, 0xa265, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 2
+   { 0x2ab00, 0x3ccf, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 3
 
     { 0xba60, 0x3734, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - The Adventure.tzx
     { 0xba71, 0x2d56, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate.tzx
     { 0xba71, 0x2dc3, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate 2.tzx
     { 0x9df0, 0x2238, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran z80 snap
+    { 0x726f, 0x0901, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran C64 (T64)
+
     { 0xc581, 0x940f, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood.tzx
     { 0xc581, 0x940f, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood - Alternate.tzx
     { 0xae0c, 0x4661, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood TAP image
     { 0xc495, 0x4d3c, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood TAP image alt
     { 0xace8, 0x991c, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood z80 snap
+   { 0x2ab00, 0xcf9e, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood C64 (D64)
+    { 0xb2ef, 0x7c44, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood C64 (T64)
+    { 0x8db6, 0x7853, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood C64 (T64) alt
+    { 0xb690, 0x7b61, "E8021308-8719-4A34-BDF9-C6F388129E53" }, // Robin Of Sherwood C64 (T64) alt 2
+
     { 0xbc60, 0xce3d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood.tzx
     { 0xbd61, 0x0277, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood - Alternate.tzx
     { 0xbc26, 0xbe47, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood TAP image
     { 0xb4b1, 0x7ec8, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood z80 snap
+    { 0xa209, 0xf115, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (T64)
+   { 0x2ab00, 0x5c1d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64)
+   { 0x2ab00, 0xe308, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64) alt
 
-    { 0, 0, NULL }
+    { 0x2a16, 0xf069, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A version
+   { 0x16800, 0x5933, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A DSK version
+    { 0x28f8, 0xc87a, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A version
+   { 0x16800, 0x15b8, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A DSK version
+    { 0x2942, 0x0f6d, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A version
+   { 0x16800, 0x5d17, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A DSK version
+    { 0x28b8, 0xa8a5, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle, TI-99/4A version
+   { 0x16800, 0xf5b7, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle, TI-99/4A DSK version
+    { 0x2856, 0x8e29, "34894B343CAACE66763AE40114A1C12F" }, // The Count, TI-99/4A version
+   { 0x16800, 0xbf6b, "34894B343CAACE66763AE40114A1C12F" }, // The Count, TI-99/4A DSK version
+    { 0x27ba, 0x66aa, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey, TI-99/4A version
+   { 0x16800, 0x98ad, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey, TI-99/4A DSK version
+    { 0x2962, 0xdec7, "CE3AEE5F23E49107BEB2E333C29F2AFC" }, // Mystery Fun House, TI-99/4A version
+   { 0x16800, 0x2cc3, "CE3AEE5F23E49107BEB2E333C29F2AFC" }, // Mystery Fun House, TI-99/4A DSK version
+    { 0x2802, 0x9efb, "BB7E4E7CB57249E7671E7DE081D715B7" }, // Pyramid of Doom, TI-99/4A version
+   { 0x16800, 0x247e, "BB7E4E7CB57249E7671E7DE081D715B7" }, // Pyramid of Doom, TI-99/4A DSK version
+    { 0x27ba, 0x2a1f, "F0D164D13861E3FB074B9B0BAC810777" }, // Ghost Town, TI-99/4A version
+   { 0x16800, 0x5d36, "F0D164D13861E3FB074B9B0BAC810777" }, // Ghost Town, TI-99/4A DSK version
+    { 0x27ba, 0x8c11, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island part I, TI-99/4A version
+   { 0x16800, 0x7aee, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island part I, TI-99/4A DSK version
+    { 0x3148, 0xfd3c, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island part II, TI-99/4A version
+    { 0x286a, 0xe44d, "707015A14ADCE841F1E1DCC90C847BBA" }, // The Golden Voyage, TI-99/4A version
+   { 0x16800, 0x152d, "707015A14ADCE841F1E1DCC90C847BBA" }, // The Golden Voyage, TI-99/4A DSK version
+
+   { 0, 0, NULL }
 };
 
 static uint16_t checksum(unsigned char *sf, int32 extent)
@@ -129,6 +187,23 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     return INVALID_STORY_FILE_RV;
 }
 
+static int find_code(char *x, int base, unsigned char *sf, int32 extent) {
+    if (base >= extent)
+        return INVALID_STORY_FILE_RV;
+    unsigned const char *p = sf + base;
+    int len = strlen(x);
+    while (p < sf + extent - len) {
+        if (memcmp(p, x, len) == 0) {
+            return VALID_STORY_FILE_RV;
+        }
+        p++;
+    }
+    return INVALID_STORY_FILE_RV;
+}
+
+static int detect_ti994a(unsigned char *sf, int32 extent) {
+    return find_code("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 0, sf, extent);
+}
 
 /* All numbers in ScottFree text format files are stored as text delimited by whitespace */
 static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset, bool *failure) {
@@ -245,10 +320,13 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 
 //    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
-    if (extent < 24)
+    if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;
 
     if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV)
+        return VALID_STORY_FILE_RV;
+
+    if (detect_ti994a(storystring, extent) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
 
     if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
@@ -269,7 +347,8 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         return VALID_STORY_FILE_RV;
     }
 
-    if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV)
+    if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV
+     || detect_ti994a(storystring, extent) == VALID_STORY_FILE_RV)
     {
         strcpy(output, "\0");
         return INCOMPLETE_REPLY_RV;

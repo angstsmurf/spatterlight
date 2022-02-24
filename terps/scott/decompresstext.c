@@ -4,10 +4,10 @@
 //
 //  Created by Administrator on 2022-01-10.
 //
-#include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "decompresstext.h"
 
@@ -31,15 +31,14 @@ int rotate_right_with_carry(uint8_t *byte, int last_carry)
     return carry;
 }
 
-int decompress_one(uint8_t *bytes) {
+int decompress_one(uint8_t *bytes)
+{
     uint8_t result = 0;
     int carry;
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         carry = 0;
-        for (int j = 0; j < 5; j++)
-        {
-            carry = rotate_left_with_carry(bytes+4-j, carry);
+        for (int j = 0; j < 5; j++) {
+            carry = rotate_left_with_carry(bytes + 4 - j, carry);
         }
         rotate_left_with_carry(&result, carry);
     }
@@ -57,7 +56,7 @@ char *decompress_text(uint8_t *source, int stringindex)
     int idx = 0;
 
     // Find the start of the compressed message
-    for(int i = 0; i < stringindex; i++) {
+    for (int i = 0; i < stringindex; i++) {
         pos = *source;
         pos = pos & 0x7F;
         source += pos;
