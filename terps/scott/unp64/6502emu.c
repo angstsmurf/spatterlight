@@ -175,12 +175,12 @@ static int mode_rel(struct cpu_ctx *r, union inst_arg *arg)
 }
 static int mode_acc(struct cpu_ctx *r, union inst_arg *arg)
 {
-    r->pc += 1;
+    r->pc++;
     return MODE_ACCUMULATOR;
 }
 static int mode_imp(struct cpu_ctx *r, union inst_arg *arg)
 {
-    r->pc += 1;
+    r->pc++;
     return MODE_IMPLIED;
 }
 
@@ -624,7 +624,7 @@ static void op_rts(struct cpu_ctx *r, int mode, union inst_arg *arg)
 {
     r->pc = r->mem[0x100 + ++r->sp];
     r->pc |= r->mem[0x100 + ++r->sp] << 8;
-    r->pc += 1;
+    r->pc++;
 }
 
 static void op_sbc(struct cpu_ctx *r, int mode, union inst_arg *arg)

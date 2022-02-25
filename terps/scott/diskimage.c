@@ -603,17 +603,17 @@ void di_free_ts(DiskImage *di, TrackSector ts)
         mask = 1 << (ts.sector & 7);
         bam = di_get_ts_addr(di, di->bam);
         bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-        bam[ts.track * 4] += 1;
+        bam[ts.track * 4]++;
         break;
     case D71:
         mask = 1 << (ts.sector & 7);
         if (ts.track < 36) {
             bam = di_get_ts_addr(di, di->bam);
             bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-            bam[ts.track * 4] += 1;
+            bam[ts.track * 4]++;
         } else {
             bam = di_get_ts_addr(di, di->bam);
-            bam[ts.track + 185] += 1;
+            bam[ts.track + 185]++;
             bam = di_get_ts_addr(di, di->bam2);
             bam[(ts.track - 35) * 3 + ts.sector / 8 - 3] |= mask;
         }
@@ -627,7 +627,7 @@ void di_free_ts(DiskImage *di, TrackSector ts)
         }
         mask = 1 << (ts.sector & 7);
         bam[ts.track * 6 + ts.sector / 8 + 11] |= mask;
-        bam[ts.track * 6 + 10] += 1;
+        bam[ts.track * 6 + 10]++;
         break;
     default:
         break;

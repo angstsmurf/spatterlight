@@ -107,7 +107,7 @@ void log_add_output_stream(struct log_ctx *ctx, /* IN/OUT */
 {
     struct log_output *out;
 
-    ctx->out_len += 1;
+    ctx->out_len++;
     ctx->out = realloc(ctx->out, ctx->out_len * sizeof(*(ctx->out)));
     if (ctx->out == NULL) {
         fprintf(stderr, "fatal error, can't allocate memory for log output\n");
