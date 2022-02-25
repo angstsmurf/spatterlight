@@ -1368,7 +1368,7 @@ void DoneIt(void)
     }
 }
 
-void PrintScore(void)
+int PrintScore(void)
 {
     int i = 0;
     int n = 0;
@@ -1382,7 +1382,9 @@ void PrintScore(void)
     if (n == GameHeader.Treasures) {
         Output(sys[YOUVE_SOLVED_IT]);
         DoneIt();
+		return 1;
     }
+	return 0;
 }
 
 void PrintNoun(void)
@@ -1392,14 +1394,14 @@ void PrintNoun(void)
             UnicodeWords[CurrentCommand->nounwordindex]);
 }
 
-//#define DEBUG_ACTIONS
+#define DEBUG_ACTIONS
 
 static ActionResultType PerformLine(int ct)
 {
 #ifdef DEBUG_ACTIONS
     fprintf(stderr, "Performing line %d: ", ct);
 #endif
-    int continuation = 0;
+    int continuation = 0, dead = 0;
     int param[5], pptr = 0;
     int act[4];
     int cc = 0;
@@ -1685,11 +1687,12 @@ static ActionResultType PerformLine(int ct)
                 fprintf(stderr, "Game over.\n");
 #endif
                 DoneIt();
+				dead = 1;
                 break;
             case 64:
                 break;
             case 65:
-                PrintScore();
+                dead = PrintScore();
 				stop_time = 2;
                 break;
             case 66:
@@ -1900,10 +1903,13 @@ static ActionResultType PerformLine(int ct)
         cc++;
     }
 
-    if (continuation)
+	if (dead) {
+		return ACT_GAMEOVER;
+	} else if (continuation) {
         return ACT_CONTINUE;
-    else
+	} else {
         return ACT_SUCCESS;
+	}
 }
 
 void PrintTakenOrDropped(int index)
@@ -2001,6 +2007,8 @@ static ExplicitResultType PerformActions(int vb, int no)
                         flag = ER_SUCCESS;
                         if (flag2 == ACT_CONTINUE)
                             doagain = 1;
+						else if (flag2 == ACT_GAMEOVER)
+							return ER_SUCCESS;
                         if (vb != 0 && doagain == 0)
                             return ER_SUCCESS;
                     }
@@ -2298,15 +2306,14 @@ Distributed under the GNU software license\n\n");
             PerformActions(0, 0);
 		if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
             Look();
-
 			if (!stop_time)
 				SaveUndo();
 		}
 
         before_first_turn = 0;
 
-        if (GetInput(&vb, &no) == 1)
-            continue;
+		if (GetInput(&vb, &no) == 1)
+	            continue;
 
         switch (PerformActions(vb, no)) {
         case ER_RAN_ALL_LINES_NO_MATCH:

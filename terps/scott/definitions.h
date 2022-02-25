@@ -79,7 +79,8 @@ typedef enum {
 typedef enum {
     ACT_SUCCESS = 0,
     ACT_FAILURE = 1,
-    ACT_CONTINUE
+    ACT_CONTINUE,
+    ACT_GAMEOVER
 } ActionResultType;
 
 typedef enum {

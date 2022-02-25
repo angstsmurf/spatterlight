@@ -329,7 +329,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             stop_time = 2;
             DoneIt();
-            return ACT_SUCCESS;
+            return ACT_GAMEOVER;
 
         case 230: /* move item p2 to room p */
             param = *(ptr++);
@@ -343,10 +343,11 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 231: /* quit */
             DoneIt();
-            return ACT_SUCCESS;
+            return ACT_GAMEOVER;
 
         case 232: /* print score */
-            PrintScore();
+            if (PrintScore() == 1)
+                return ACT_GAMEOVER;
             stop_time = 2;
             break;
 
