@@ -572,6 +572,7 @@ ExplicitResultType run_explicit(int verb_num, int noun_num)
 {
     uint8_t *p;
     ExplicitResultType flag = 1;
+    int match = 0;
     ActionResultType runcode;
 
     p = VerbActionOffsets[verb_num];
@@ -582,11 +583,10 @@ ExplicitResultType run_explicit(int verb_num, int noun_num)
     flag = ER_NO_RESULT;
     while (flag == ER_NO_RESULT) {
         /* we match VERB NOUN or VERB ANY */
-        if (p[0] == noun_num || p[0] == 0) {
+        if (p != NULL && (p[0] == noun_num || p[0] == 0)) {
+            match = 1;
             /* we have verb/noun match. run code! */
-
             runcode = run_code_chunk(p + 2);
-
             if (runcode == ACT_SUCCESS) {
                 return ER_SUCCESS;
             } else { /* failure */
@@ -596,12 +596,13 @@ ExplicitResultType run_explicit(int verb_num, int noun_num)
                     p += 1 + p[1];
             }
         } else {
-            if (p[1] == 0)
+            if (p == NULL || p[1] == 0)
                 flag = ER_RAN_ALL_LINES_NO_MATCH;
             else
                 p += 1 + p[1];
         }
     }
-
+    if (match)
+        flag = ER_RAN_ALL_LINES;
     return flag;
 }
