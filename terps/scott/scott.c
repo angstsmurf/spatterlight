@@ -113,8 +113,9 @@ int AnimationFlag = 0;
 
 extern struct SavedState *initial_state;
 
+/* just_started is only used for the error message "Can't undo on first move" */
 int just_started = 1;
-static int before_first_turn = 1;
+int should_restart = 0;
 int stop_time = 0;
 
 int pause_next_room_description = 0;
@@ -1121,7 +1122,6 @@ static void LoadGame(void)
 
 static void RestartGame(void)
 {
-    before_first_turn = 1;
     if (CurrentCommand)
         FreeCommands();
     RestoreState(initial_state);
@@ -1129,7 +1129,7 @@ static void RestartGame(void)
     stop_time = 0;
     glk_window_clear(Bottom);
     OpenTopWindow();
-    PerformActions(0, 0);
+	should_restart = 0;
 }
 
 static void TranscriptOn(void)
@@ -1208,7 +1208,7 @@ int PerformExtraCommand(void)
         if (noun == 0 || noun == GAME) {
             Output(sys[ARE_YOU_SURE]);
             if (YesOrNo()) {
-                RestartGame();
+                should_restart = 1;
             }
             return 1;
         }
@@ -1354,18 +1354,16 @@ void DoneIt(void)
 {
     if (split_screen && Top)
         Look();
-    if (!before_first_turn) {
         Output("\n\n");
         Output(sys[PLAY_AGAIN]);
         Output("\n");
         if (YesOrNo()) {
-            RestartGame();
+			should_restart = 1;
         } else {
             if (Transcript)
                 glk_stream_close(Transcript, NULL);
             glk_exit();
         }
-    }
 }
 
 int PrintScore(void)
@@ -1394,7 +1392,7 @@ void PrintNoun(void)
             UnicodeWords[CurrentCommand->nounwordindex]);
 }
 
-#define DEBUG_ACTIONS
+//#define DEBUG_ACTIONS
 
 static ActionResultType PerformLine(int ct)
 {
@@ -1965,7 +1963,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             Output(sys[PLAY_AGAIN]);
             Output("\n");
             if (YesOrNo()) {
-                RestartGame();
+                should_restart = 1;
                 return ER_SUCCESS;
             } else {
                 if (Transcript)
@@ -2302,18 +2300,22 @@ Distributed under the GNU software license\n\n");
     while (1) {
         glk_tick();
 
+		if (should_restart)
+			RestartGame();
+
         if (!stop_time)
             PerformActions(0, 0);
 		if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
             Look();
-			if (!stop_time)
+			if (!stop_time && !should_restart)
 				SaveUndo();
 		}
 
-        before_first_turn = 0;
+		if (should_restart)
+			continue;
 
 		if (GetInput(&vb, &no) == 1)
-	            continue;
+			continue;
 
         switch (PerformActions(vb, no)) {
         case ER_RAN_ALL_LINES_NO_MATCH:
