@@ -12,11 +12,11 @@
                 <outlet property="actionButton" destination="877" id="885"/>
                 <outlet property="addToLibraryCheckbox" destination="AnY-t2-MkG" id="2dA-z5-hGl"/>
                 <outlet property="arrayController" destination="784" id="821"/>
-                <outlet property="bZArrowsMenu" destination="YnP-Bi-3m9" id="0Tu-dG-49U"/>
-                <outlet property="bZVerticalStepper" destination="VFA-24-eXW" id="PGk-Ws-sJ8"/>
-                <outlet property="bZVerticalTextField" destination="56G-id-IQy" id="G5z-Zd-tfT"/>
-                <outlet property="beepHighMenu" destination="xkA-iq-2mP" id="Akj-hm-I1x"/>
-                <outlet property="beepLowMenu" destination="HRf-IU-ZEE" id="EHn-bY-j60"/>
+                <outlet property="bZArrowsMenu" destination="XKM-aC-vUp" id="9dZ-jK-hon"/>
+                <outlet property="bZVerticalStepper" destination="gy9-4f-nga" id="wXb-rb-S2a"/>
+                <outlet property="bZVerticalTextField" destination="RGY-bY-3pp" id="X0d-YA-2cC"/>
+                <outlet property="beepHighMenu" destination="C7A-rg-Dw1" id="wp8-Ku-5Pf"/>
+                <outlet property="beepLowMenu" destination="Jgl-5v-C8p" id="Gj7-nG-f4y"/>
                 <outlet property="borderColorWell" destination="3gU-NC-dAx" id="akU-8l-qVD"/>
                 <outlet property="btnAdd" destination="905" id="909"/>
                 <outlet property="btnAdjustSize" destination="958" id="962"/>
@@ -45,7 +45,6 @@
                 <outlet property="clrBufferFg" destination="542" id="750"/>
                 <outlet property="clrGridBg" destination="541" id="752"/>
                 <outlet property="clrGridFg" destination="540" id="749"/>
-                <outlet property="compromiseZArrowsMenuItem" destination="gS7-RK-TYK" id="jPZ-cn-EcR"/>
                 <outlet property="coverImagePopup" destination="bMY-xH-RGv" id="2Xk-Fz-f5z"/>
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
@@ -63,14 +62,12 @@
                 <outlet property="marginVerticalGridTextField" destination="uzD-SP-NUM" id="X05-z2-DTI"/>
                 <outlet property="marginsPopover" destination="tlb-eP-erI" id="sE4-m1-zIt"/>
                 <outlet property="miscHeader" destination="vuA-ft-mAo" id="HWP-xI-lSk"/>
-                <outlet property="quoteBoxCheckBox" destination="xo0-td-lWm" id="GxB-gd-ROL"/>
+                <outlet property="quoteBoxCheckBox" destination="UHc-Fp-xZt" id="aWD-cF-XTg"/>
                 <outlet property="recheckFrequencyTextfield" destination="4cd-Gt-luS" id="YpS-ea-IRH"/>
                 <outlet property="recheckMissingCheckbox" destination="aRK-sP-Woa" id="pnW-Sr-MKw"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
-                <outlet property="standardZArrowsMenuItem" destination="WZI-rz-izk" id="4jt-JQ-A1F"/>
-                <outlet property="strictZArrowsMenuItem" destination="ct7-O5-tVm" id="EYi-G3-cxO"/>
                 <outlet property="styleNamePopup" destination="VWX-Pp-wTR" id="w9h-fj-PtQ"/>
                 <outlet property="stylesHeader" destination="8DO-fr-9q7" id="EVz-j6-cir"/>
                 <outlet property="swapBufColBtn" destination="976" id="980"/>
@@ -89,9 +86,9 @@
                 <outlet property="vOMenuButton" destination="Fly-sQ-mPk" id="sAo-Ii-Qdm"/>
                 <outlet property="window" destination="407" id="765"/>
                 <outlet property="windowTypePopup" destination="LgI-Y1-Xh1" id="jW3-3L-6Il"/>
-                <outlet property="zVersionTextField" destination="SFD-gC-YDQ" id="ulM-y0-Bhy"/>
+                <outlet property="zVersionTextField" destination="Wo6-Z1-n8e" id="Oss-4z-jgJ"/>
                 <outlet property="zcodeHeader" destination="bn0-i7-zDD" id="2F7-yp-LjD"/>
-                <outlet property="zterpMenu" destination="0g5-lC-Zw4" id="XCR-Rb-zaR"/>
+                <outlet property="zterpMenu" destination="IeD-mx-FVS" id="JrN-ie-gDm"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -909,7 +906,7 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Z-Code" identifier="4" id="8gk-0w-qUx" userLabel="Z-Code">
+                            <tabViewItem label="Format" identifier="4" id="8gk-0w-qUx" userLabel="Format">
                                 <view key="view" id="bqW-kD-EVs">
                                     <rect key="frame" x="10" y="33" width="468" height="286"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -923,319 +920,397 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="CAQ-cU-hs4">
-                                            <rect key="frame" x="9" y="227" width="450" height="5"/>
+                                        <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBk-Fl-oAN">
+                                            <rect key="frame" x="2" y="-1" width="464" height="262"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        </box>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sq6-3g-yMl">
-                                            <rect key="frame" x="174" y="238" width="126" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Z-machine settings" usesSingleLineMode="YES" id="dyb-bw-RcL">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IDg-Nv-7ce">
-                                            <rect key="frame" x="51" y="95" width="120" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Interpreter version:" usesSingleLineMode="YES" id="qjp-NE-6LS">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0g5-lC-Zw4">
-                                            <rect key="frame" x="173" y="89" width="235" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <string key="toolTip">Sets the Z-code interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of some Infocom games.</string>
-                                            <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="54H-tw-KQJ" id="Zkt-jU-7kg">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="ag1-Jw-LzM">
-                                                    <items>
-                                                        <menuItem title="0. Empty" hidden="YES" id="T9O-0U-2YD">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="1. DECSystem-20" tag="1" id="qs6-zu-tUv">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="2. Apple IIe" tag="2" id="v3f-00-b5u">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="3. Macintosh" tag="3" id="Ogb-Tm-kLX">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="4. Amiga" state="on" tag="4" id="54H-tw-KQJ">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="5. Atari ST" tag="5" id="GU6-ir-4i2">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="6. IBM PC" tag="6" id="90m-n5-AFg">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="7. Commodore 128" tag="7" id="X8X-TD-89V">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="8. Commodore 64" tag="8" id="5F9-gc-jNC">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="9. Apple IIc" tag="9" id="Tke-R7-xAw">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="10. Apple IIgs" tag="10" id="Bk9-5l-rlO" userLabel="10: Apple IIGS">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="11. Tandy Color" tag="11" id="BrN-IQ-HFY">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="changeZterpMenu:" target="-2" id="8Oe-xA-b8t"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128-VS-KI6">
-                                            <rect key="frame" x="54" y="157" width="117" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="High system beep:" usesSingleLineMode="YES" id="iMe-op-iXR">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton toolTip="This sound is used in some Infocom games when the score goes up." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-iq-2mP">
-                                            <rect key="frame" x="173" y="151" width="235" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TK6-dR-kj2" id="UaZ-i2-bNA">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="JkW-Or-71d">
-                                                    <items>
-                                                        <menuItem title="Basso" state="on" id="TK6-dR-kj2">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Blow" id="X2P-Th-Whj">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Bottle" id="Vqk-WX-Jjn">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Frog" id="pIy-ND-h7A">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Funk" id="Ul6-cq-XKs">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Glass" id="GIo-Oc-Bet">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Hero" id="NB5-IC-i1X">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Morse" id="OQH-Ih-j9s">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Ping" id="ltv-Is-AWd">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Pop" id="Kcj-cx-t5N">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Purr" id="6m1-Nf-35L">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Sosumi" id="RU3-Ab-mAM">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Submarine" id="gun-5k-HCM">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Tink" id="UTy-2k-j2Z">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem isSeparatorItem="YES" id="WbN-Zz-wI2"/>
-                                                        <menuItem title="Silent" id="3iY-N7-xLQ">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <accessibility identifier="Popup"/>
-                                            <connections>
-                                                <action selector="changeBeepHighMenu:" target="-2" id="bb2-b0-TIM"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0t-nl-LGl">
-                                            <rect key="frame" x="58" y="129" width="113" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Low system beep:" usesSingleLineMode="YES" id="adw-up-06z">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton toolTip="This sound is used in some Infocom games to announce warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-IU-ZEE">
-                                            <rect key="frame" x="173" y="123" width="235" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Pbz-BR-DMZ" id="GoR-3l-PSP">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="FWi-U0-SGG">
-                                                    <items>
-                                                        <menuItem title="Basso" state="on" id="Pbz-BR-DMZ">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Blow" id="bmd-wc-qEh">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Bottle" id="Zlb-F2-9WV">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Frog" id="tjM-Rs-pHb">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Funk" id="6hE-Ok-jwv">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Glass" id="6lr-Kx-Wtb">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Hero" id="VIL-Eq-q1p">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Morse" id="mgA-Jh-sM2">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Ping" id="4JX-bO-zz9">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Pop" id="pOI-TF-kAW">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Purr" id="1Dz-YN-uE6">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Sosumi" id="qvh-7m-vdK">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Submarine" id="toT-dd-2Xk">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Tink" id="WbP-07-U6E">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem isSeparatorItem="YES" id="SeI-pN-NXT"/>
-                                                        <menuItem title="Silent" id="SWN-4t-fPK" userLabel="Silent">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="changeBeepLowMenu:" target="-2" id="zzV-Yp-CeO"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton toolTip="Resolve the conflict between Beyond Zork's usage of arrow keys and the standard behavior to step through command history. " verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YnP-Bi-3m9">
-                                            <rect key="frame" x="173" y="186" width="235" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="↑ and ↓ work as in original" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="WZI-rz-izk" id="NPi-iW-9sz">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="3z8-D8-e4M">
-                                                    <items>
-                                                        <menuItem title="↑ and ↓ work as in original" state="on" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history." id="WZI-rz-izk" userLabel="Standard">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="Replaced by ⌘↑ and ⌘↓" tag="1" toolTip="⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history like in other games." id="gS7-RK-TYK" userLabel="Swapped">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                        <menuItem title="↑↓ and ←→ work as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." id="ct7-O5-tVm" userLabel="Strict">
-                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                        </menuItem>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="changeBZArrowsMenu:" target="-2" id="zOO-DU-7pj"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5jS-pc-9BT">
-                                            <rect key="frame" x="17" y="192" width="154" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Beyond Zork arrow keys:" usesSingleLineMode="YES" id="ifo-BN-slz">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E7y-oX-rcR">
-                                            <rect key="frame" x="120" y="59" width="203" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Graphic font vertical adjustment:" usesSingleLineMode="YES" id="xCW-dd-EqN">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Mainly useful in Beyond Zork." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="56G-id-IQy">
-                                            <rect key="frame" x="325" y="58" width="27" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="lR2-gA-Xi2">
-                                                <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="Nct-of-Yd4">
-                                                    <textAttributesForNegativeValues/>
-                                                    <attributedString key="attributedStringForZero">
-                                                        <fragment content="0"/>
-                                                    </attributedString>
-                                                    <real key="minimum" value="0.0"/>
-                                                    <real key="maximum" value="500"/>
-                                                </numberFormatter>
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <connections>
-                                                <action selector="changeBZVerticalAdjustment:" target="-2" id="bbM-en-2a2"/>
-                                                <outlet property="formatter" destination="gz3-Xe-cqx" id="4yM-0Z-Z9o"/>
-                                            </connections>
-                                        </textField>
-                                        <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-24-eXW">
-                                            <rect key="frame" x="349" y="53" width="19" height="28"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="i5s-sq-NcL"/>
-                                            <connections>
-                                                <action selector="changeBZVerticalAdjustment:" target="-2" id="8qL-Kg-cep"/>
-                                            </connections>
-                                        </stepper>
-                                        <textField toolTip="Version letter used by Z-code interpreters. Games will sometimes print this, otherwise it has no effect." verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFD-gC-YDQ">
-                                            <rect key="frame" x="413" y="92" width="25" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="Z" drawsBackground="YES" usesSingleLineMode="YES" id="rQW-W9-KDl">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                <allowedInputSourceLocales>
-                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                                </allowedInputSourceLocales>
-                                            </textFieldCell>
-                                            <connections>
-                                                <action selector="changeZVersion:" target="-2" id="cou-at-RqX"/>
-                                                <outlet property="formatter" destination="B2Q-lK-znP" id="ZOX-vD-FBP"/>
-                                            </connections>
-                                        </textField>
-                                        <button toolTip="Make quote boxes floating windows that fade in and out." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-td-lWm">
-                                            <rect key="frame" x="174" y="22" width="140" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Fancy quote boxes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ElX-fJ-VZh">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="changeQuoteBoxCheckBox:" target="-2" id="WJF-0o-l9I"/>
-                                            </connections>
-                                        </button>
+                                            <font key="font" metaFont="system"/>
+                                            <tabViewItems>
+                                                <tabViewItem label="Z-machine" identifier="" id="mDl-0X-NDc" userLabel="Z-machine">
+                                                    <view key="view" id="Vb3-BD-6l0">
+                                                        <rect key="frame" x="10" y="33" width="444" height="216"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <view id="1x0-0d-c0X">
+                                                                <rect key="frame" x="-12" y="-28" width="468" height="286"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-NO-beq">
+                                                                        <rect key="frame" x="56" y="111" width="120" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Interpreter version:" usesSingleLineMode="YES" id="17c-ia-Taa">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IeD-mx-FVS">
+                                                                        <rect key="frame" x="178" y="105" width="235" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <string key="toolTip">Sets the Z-code interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of some Infocom games.</string>
+                                                                        <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="Q4a-Ev-dKe" id="7q9-3o-CtH">
+                                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="menu"/>
+                                                                            <menu key="menu" id="IdQ-bo-0VM">
+                                                                                <items>
+                                                                                    <menuItem title="0. Empty" hidden="YES" id="Qsc-lu-OAF">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="1. DECSystem-20" tag="1" id="2lV-KX-lpX">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="2. Apple IIe" tag="2" id="30u-6g-cvL">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="3. Macintosh" tag="3" id="ZiM-z2-Gls">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="4. Amiga" state="on" tag="4" id="Q4a-Ev-dKe">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="5. Atari ST" tag="5" id="z2C-J1-ObM">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="6. IBM PC" tag="6" id="qcg-wQ-a7C">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="7. Commodore 128" tag="7" id="02R-De-9Y0">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="8. Commodore 64" tag="8" id="Dlo-eh-2cX">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="9. Apple IIc" tag="9" id="Qzh-7h-tmR">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="10. Apple IIgs" tag="10" id="oes-eU-1T8" userLabel="10: Apple IIGS">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="11. Tandy Color" tag="11" id="NSH-rt-vtb">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                </items>
+                                                                            </menu>
+                                                                        </popUpButtonCell>
+                                                                        <connections>
+                                                                            <action selector="changeZterpMenu:" target="-2" id="teH-RI-R8D"/>
+                                                                        </connections>
+                                                                    </popUpButton>
+                                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0r-WZ-J7W">
+                                                                        <rect key="frame" x="59" y="173" width="117" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="High system beep:" usesSingleLineMode="YES" id="UZu-F9-WSP">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <popUpButton toolTip="This sound is used in some Infocom games when the score goes up." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C7A-rg-Dw1">
+                                                                        <rect key="frame" x="178" y="167" width="235" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="dNM-he-NaS" id="RX0-8O-uUO">
+                                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="menu"/>
+                                                                            <menu key="menu" id="4mq-aG-j4W">
+                                                                                <items>
+                                                                                    <menuItem title="Basso" state="on" id="dNM-he-NaS">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Blow" id="hqI-hv-ERn">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Bottle" id="dp9-A2-xvq">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Frog" id="c5L-vO-f0K">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Funk" id="ta1-fq-0dg">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Glass" id="gms-s8-9Q0">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Hero" id="m6G-cc-odA">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Morse" id="uTh-Mh-XE1">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Ping" id="PA3-x7-rzB">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Pop" id="TyV-mT-DKw">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Purr" id="Ajh-Lw-a1d">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Sosumi" id="HHZ-gE-mcN">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Submarine" id="aZl-ZW-SRa">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Tink" id="IKr-1D-Gvp">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem isSeparatorItem="YES" id="ljC-zM-XWO"/>
+                                                                                    <menuItem title="Silent" id="NzL-5t-JYr">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                </items>
+                                                                            </menu>
+                                                                        </popUpButtonCell>
+                                                                        <accessibility identifier="Popup"/>
+                                                                        <connections>
+                                                                            <action selector="changeBeepHighMenu:" target="-2" id="E7h-Dh-cjp"/>
+                                                                        </connections>
+                                                                    </popUpButton>
+                                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PJg-nw-ohs">
+                                                                        <rect key="frame" x="63" y="145" width="113" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Low system beep:" usesSingleLineMode="YES" id="tEl-85-Fc2">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <popUpButton toolTip="This sound is used in some Infocom games to announce warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgl-5v-C8p">
+                                                                        <rect key="frame" x="178" y="139" width="235" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="a7e-Gp-aha" id="ZDK-y1-mWl">
+                                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="menu"/>
+                                                                            <menu key="menu" id="8Ip-m2-oBS">
+                                                                                <items>
+                                                                                    <menuItem title="Basso" state="on" id="a7e-Gp-aha">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Blow" id="nWb-h0-jQr">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Bottle" id="CHf-M8-57C">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Frog" id="LYb-53-JPG">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Funk" id="ov8-6B-pp7">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Glass" id="bjO-NV-olz">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Hero" id="AJd-M1-GGM">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Morse" id="9SU-fG-6Yq">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Ping" id="JT0-6p-uVv">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Pop" id="vcN-cT-iPd">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Purr" id="ykU-C4-NDt">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Sosumi" id="kfK-iX-DMv">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Submarine" id="IqO-zE-M9f">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Tink" id="h87-9V-uwq">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem isSeparatorItem="YES" id="xeR-5R-8HZ"/>
+                                                                                    <menuItem title="Silent" id="unu-ok-qpk" userLabel="Silent">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                </items>
+                                                                            </menu>
+                                                                        </popUpButtonCell>
+                                                                        <connections>
+                                                                            <action selector="changeBeepLowMenu:" target="-2" id="ga0-7R-YDX"/>
+                                                                        </connections>
+                                                                    </popUpButton>
+                                                                    <popUpButton toolTip="Resolve the conflict between Beyond Zork's usage of arrow keys and the standard behavior to step through command history. " verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKM-aC-vUp">
+                                                                        <rect key="frame" x="178" y="202" width="235" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <popUpButtonCell key="cell" type="push" title="↑ and ↓ work as in original" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="knU-An-UrC" id="gsd-kO-wzj">
+                                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="menu"/>
+                                                                            <menu key="menu" id="sOW-Rm-iIu">
+                                                                                <items>
+                                                                                    <menuItem title="↑ and ↓ work as in original" state="on" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history." id="knU-An-UrC" userLabel="Standard">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="Replaced by ⌘↑ and ⌘↓" tag="1" toolTip="⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history like in other games." id="8Ue-bJ-Uhv" userLabel="Swapped">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                    <menuItem title="↑↓ and ←→ work as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." id="ZUP-mf-G4Z" userLabel="Strict">
+                                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                                    </menuItem>
+                                                                                </items>
+                                                                            </menu>
+                                                                        </popUpButtonCell>
+                                                                        <connections>
+                                                                            <action selector="changeBZArrowsMenu:" target="-2" id="7Td-dP-zMd"/>
+                                                                        </connections>
+                                                                    </popUpButton>
+                                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8J-fm-s1e">
+                                                                        <rect key="frame" x="22" y="208" width="154" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Beyond Zork arrow keys:" usesSingleLineMode="YES" id="oUy-La-L8i">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcg-uv-N0P">
+                                                                        <rect key="frame" x="125" y="74" width="203" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Graphic font vertical adjustment:" usesSingleLineMode="YES" id="Jn5-jw-nLq">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Mainly useful in Beyond Zork." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="RGY-bY-3pp">
+                                                                        <rect key="frame" x="330" y="73" width="27" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="heX-A6-paf">
+                                                                            <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="z11-CV-KXP">
+                                                                                <textAttributesForNegativeValues/>
+                                                                                <attributedString key="attributedStringForZero">
+                                                                                    <fragment content="0"/>
+                                                                                </attributedString>
+                                                                                <real key="minimum" value="0.0"/>
+                                                                                <real key="maximum" value="500"/>
+                                                                            </numberFormatter>
+                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                        <connections>
+                                                                            <action selector="changeBZVerticalAdjustment:" target="-2" id="cod-mf-Gab"/>
+                                                                            <outlet property="formatter" destination="gz3-Xe-cqx" id="3fQ-RI-bG8"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gy9-4f-nga">
+                                                                        <rect key="frame" x="354" y="69" width="19" height="26"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="2gm-Nf-eLf"/>
+                                                                        <connections>
+                                                                            <action selector="changeBZVerticalAdjustment:" target="-2" id="0MA-1d-0fu"/>
+                                                                        </connections>
+                                                                    </stepper>
+                                                                    <textField toolTip="Version letter used by Z-code interpreters. Games will sometimes print this, otherwise it has no effect." verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wo6-Z1-n8e">
+                                                                        <rect key="frame" x="418" y="108" width="25" height="21"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="Z" drawsBackground="YES" usesSingleLineMode="YES" id="1k2-l8-tny">
+                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            <allowedInputSourceLocales>
+                                                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                                            </allowedInputSourceLocales>
+                                                                        </textFieldCell>
+                                                                        <connections>
+                                                                            <action selector="changeZVersion:" target="-2" id="hKq-Ez-F2K"/>
+                                                                            <outlet property="formatter" destination="B2Q-lK-znP" id="oWz-mf-jeQ"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <button toolTip="Make quote boxes floating windows that fade in and out." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UHc-Fp-xZt">
+                                                                        <rect key="frame" x="179" y="44" width="140" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="check" title="Fancy quote boxes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uPO-6J-UZ2">
+                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="changeQuoteBoxCheckBox:" target="-2" id="Zq7-JM-ZpU"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                            </view>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                                <tabViewItem label="Scott Adams" identifier="" id="6Sm-6F-Ecg" userLabel="Scott Adams">
+                                                    <view key="view" id="wJN-84-J8x">
+                                                        <rect key="frame" x="10" y="33" width="444" height="216"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-aa-Fxh">
+                                                                <rect key="frame" x="122" y="177" width="91" height="16"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Image palette:" id="am4-CJ-7X5">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1z-HV-XlQ">
+                                                                <rect key="frame" x="214" y="169" width="200" height="25"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="E6A-NF-6SH" id="1wX-p0-Loj">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="menu"/>
+                                                                    <menu key="menu" id="mYJ-4u-WzR">
+                                                                        <items>
+                                                                            <menuItem title="Automatic" state="on" id="E6A-NF-6SH"/>
+                                                                            <menuItem title="ZX Spectrum" id="x1g-Sr-5dM"/>
+                                                                            <menuItem title="Commodore 64" id="7F9-3q-6vl">
+                                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                            </menuItem>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                            </popUpButton>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-y8-hpm">
+                                                                <rect key="frame" x="46" y="145" width="167" height="16"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Inventory in upper window:" id="Hze-Ww-7ie">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bUq-I4-fom">
+                                                                <rect key="frame" x="214" y="137" width="200" height="25"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aga-1T-cUN" id="FYk-L3-ILs">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="menu"/>
+                                                                    <menu key="menu" id="Abf-n3-28N">
+                                                                        <items>
+                                                                            <menuItem title="Automatic" state="on" id="aga-1T-cUN"/>
+                                                                            <menuItem title="On" id="yaH-6G-Sha"/>
+                                                                            <menuItem title="Off" id="aUB-AD-pFe"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                            </popUpButton>
+                                                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-8d-P9f">
+                                                                <rect key="frame" x="9" y="105" width="426" height="5"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            </box>
+                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qbl-t2-Rrs">
+                                                                <rect key="frame" x="198" y="63" width="67" height="18"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="check" title="Delays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aha-tr-898">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                            </button>
+                                                        </subviews>
+                                                    </view>
+                                                </tabViewItem>
+                                            </tabViewItems>
+                                        </tabView>
                                     </subviews>
                                 </view>
                             </tabViewItem>
