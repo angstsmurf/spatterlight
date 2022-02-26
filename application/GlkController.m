@@ -254,7 +254,6 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    [libcontroller.justClosedSessions removeObject:game.ifid];
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
@@ -1748,7 +1747,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (libcontroller) {
         [libcontroller releaseGlkControllerSoon:self];
-        [libcontroller.justClosedSessions addObject:_game.ifid];
     }
 
     if (_secureBookmark)

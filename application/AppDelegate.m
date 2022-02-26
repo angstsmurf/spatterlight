@@ -237,15 +237,19 @@ PasteboardFilePasteLocation;
             NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl playGameWithIFID:ifid];
 
-            // We delay the restoration of game windows
-            // here in order to make it less likely
-            // that a game opens in fullscreen and then
-            // switches to the library window
+            // We delay the restoration of the window
+            // that was key when closing here
+            // in order to make it more likely
+            // that it restores on top, as key
             void(^completionHandlerCopy)(NSWindow *, NSError *);
             completionHandlerCopy = completionHandler;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+
+            if ([ifid isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"KeyWindowController"]])
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                 completionHandlerCopy(window, nil);
             });
+            else
+                completionHandler(window, nil);
 
             return;
         }
@@ -364,16 +368,7 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
-        NSWindow __block *win = [_libctl importAndPlayGame:path];
-        if (win) {
-            __block GlkController *glkctl = (GlkController *)win.delegate;
-            if (!glkctl.showingDialog) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    if (![self.libctl.justClosedSessions containsObject:glkctl.game.ifid])
-                        [win orderFront:nil];
-                });
-            }
-        }
+        [_libctl importAndPlayGame:path];
     }
 
     return YES;
@@ -489,28 +484,29 @@ continueUserActivity:(NSUserActivity *)userActivity
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *games = [[NSMutableArray alloc] initWithCapacity:count];
 
+    GlkController *key = NULL;
+
+    while (count--) {
+        NSWindow *window = windows[count];
+        id glkctl = window.delegate;
+        if ([glkctl isKindOfClass:[GlkController class]] &&
+            [glkctl isAlive]) {
+            if (((GlkController *)glkctl).supportsAutorestore) {
+                restorable++;
+                if (window.keyWindow)
+                    key = glkctl;
+            } else {
+                alive++;
+                Game *game = ((GlkController *)glkctl).game;
+                if (game)
+                    [games addObject:game];
+            }
+        }
+    }
+
     if ([defaults boolForKey:@"TerminationAlertSuppression"]) {
         NSLog(@"Termination alert suppressed");
     } else {
-        while (count--) {
-            NSWindow *window = windows[count];
-            id glkctl = window.delegate;
-            if ([glkctl isKindOfClass:[GlkController class]] &&
-                [glkctl isAlive]) {
-                if (((GlkController *)glkctl).supportsAutorestore) {
-                    restorable++;
-                } else {
-                    alive++;
-                    Game *game = ((GlkController *)glkctl).game;
-                    if (game)
-                        [games addObject:game];
-                }
-            }
-        }
-
-        NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count],
-              (long)alive);
-
         if (alive > 0) {
             NSString *msg = [NSString stringWithFormat:@"%@ %@ still running.\nAny unsaved progress will be lost.",
                              [NSString stringWithSummaryOfGames:games], (alive == 1) ? @"is" : @"are"];
@@ -545,6 +541,10 @@ continueUserActivity:(NSUserActivity *)userActivity
             }
         }
     }
+
+    // We remember which window is key on termination
+    // in order to make it key on restoration
+    [defaults setObject:key.game.ifid forKey:@"KeyWindowController"];
 
     return NSTerminateNow;
 }

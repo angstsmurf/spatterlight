@@ -34,7 +34,6 @@
 
 @property NSMutableDictionary <NSString *, InfoController *> *infoWindows;
 @property NSMutableDictionary <NSString *, GlkController *> *gameSessions;
-@property NSMutableSet <NSString *> *justClosedSessions;
 
 @property IBOutlet NSTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;

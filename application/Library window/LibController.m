@@ -213,7 +213,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
         _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
         _managedObjectContext = _coreDataManager.mainManagedObjectContext;
-        _justClosedSessions = [NSMutableSet new];
     }
     return self;
 }
