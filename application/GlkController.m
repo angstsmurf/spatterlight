@@ -2955,12 +2955,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         case PROMPTOPEN:
             [self handleOpenPrompt:req->a1];
-            windowdirty = YES;
+            [self flushDisplay];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTSAVE:
             [self handleSavePrompt:req->a1];
-            windowdirty = YES;
+            [self flushDisplay];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case STYLEHINT:
