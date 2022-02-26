@@ -257,7 +257,7 @@ GameIDType LoadExtraSherwoodData(void)
     /* Load the room images */
 
 jumpRoomImages:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
@@ -282,7 +282,7 @@ jumpRoomImages:
 
     int actual_room_number = 0;
 
-    ptr = seek_to_pos(entire_file, 0x5b7e + file_baseline_offset);
+    ptr = SeekToPos(entire_file, 0x5b7e + file_baseline_offset);
     if (ptr == 0)
         return 0;
 
@@ -317,7 +317,7 @@ jumpRoomImages:
     sys[EXITS_DELIMITER] = " ";
     sys[MESSAGE_DELIMITER] = ". ";
 
-    ptr = seek_to_pos(entire_file, 0x3b6e + file_baseline_offset);
+    ptr = SeekToPos(entire_file, 0x3b6e + file_baseline_offset);
     if (ptr == 0)
         return 0;
 
@@ -343,7 +343,7 @@ GameIDType LoadExtraSherwoodData64(void)
     /* Load the room images */
 
 jumpHereRoomImages:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
@@ -371,7 +371,7 @@ jumpHereRoomImages:
 
     offset = 0x402e + file_baseline_offset;
 
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
@@ -432,7 +432,7 @@ jumpHereRoomImages:
     offset = 0x2300 + file_baseline_offset;
 jumpForestImages:
 
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 

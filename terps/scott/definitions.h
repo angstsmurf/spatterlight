@@ -163,7 +163,7 @@ typedef enum {
     FIVE_LETTER_COMPRESSED,
     GERMAN,
     SPANISH
-} dictionary_type;
+} DictionaryType;
 
 typedef enum {
     NO_TYPE,
@@ -172,14 +172,14 @@ typedef enum {
     SAVAGE_ISLAND_VARIANT,
     SECRET_MISSION_VARIANT,
     TEXT_ONLY,
-} game_type;
+} GameType;
 
 typedef enum {
     ENGLISH = 0x1,
     MYSTERIOUS = 0x2,
     LOCALIZED = 0x4,
     C64 = 0x8
-} subtype;
+} Subtype;
 
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
@@ -193,22 +193,22 @@ typedef enum {
     ROBIN_C64_HEADER,
     SUPERGRAN_C64_HEADER,
     SEAS_OF_BLOOD_C64_HEADER
-} header_type;
+} HeaderType;
 
 typedef enum {
     UNKNOWN_ACTIONS_TYPE,
     COMPRESSED,
     UNCOMPRESSED,
     HULK_ACTIONS
-} action_table_type;
+} ActionTableType;
 
 struct GameInfo {
     const char *Title;
 
     GameIDType gameID;
-    game_type type;
-    subtype subtype;
-    dictionary_type dictionary;
+    GameType type;
+    Subtype subtype;
+    DictionaryType dictionary;
 
     int number_of_items;
     int number_of_actions;
@@ -222,14 +222,14 @@ struct GameInfo {
     int number_of_nouns;
 
     int start_of_header;
-    header_type header_style;
+    HeaderType header_style;
 
     int start_of_room_image_list;
     int start_of_item_flags;
     int start_of_item_image_list;
 
     int start_of_actions;
-    action_table_type actions_style;
+    ActionTableType actions_style;
     int start_of_dictionary;
     int start_of_room_descriptions;
     int start_of_room_connections;

@@ -417,12 +417,12 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     size_t offset;
 
-    dictionary_type dictype = getId(&offset);
+    DictionaryType dictype = GetId(&offset);
     if (dictype != GameInfo->dictionary) {
         Fatal("Wrong game?");
     }
 
-    if (!try_loading(*GameInfo, offset, 0)) {
+    if (!TryLoading(*GameInfo, offset, 0)) {
         Fatal("Game could not be read!");
     }
 

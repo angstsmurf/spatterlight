@@ -12,10 +12,10 @@
 #include <stdint.h>
 #include <stdio.h>
 
-GameIDType detect_game(const char *file_name);
-int seek_if_needed(int expected_start, int *offset, uint8_t **ptr);
-int try_loading(struct GameInfo info, int dict_start, int loud);
-dictionary_type getId(size_t *offset);
+GameIDType DetectGame(const char *file_name);
+int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr);
+int TryLoading(struct GameInfo info, int dict_start, int loud);
+DictionaryType GetId(size_t *offset);
 int FindCode(const char *x, int base);
 
 #endif /* detectgame_h */

@@ -621,7 +621,7 @@ void saga_setup(size_t imgoffset)
     uint8_t *pos;
     int numgraphics = GameInfo->number_of_pictures;
 jumpChar:
-    pos = seek_to_pos(entire_file, CHAR_START);
+    pos = SeekToPos(entire_file, CHAR_START);
 
 #ifdef DRAWDEBUG
     fprintf(stderr, "Grabbing Character details\n");
@@ -662,7 +662,7 @@ jumpChar:
     Image *img = images;
 
 jumpTable:
-    pos = seek_to_pos(entire_file, OFFSET_TABLE_START);
+    pos = SeekToPos(entire_file, OFFSET_TABLE_START);
 
     int broken_claymorgue_pictures = 0;
 
@@ -697,7 +697,7 @@ jumpTable:
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
     jumpHere:
-        pos = seek_to_pos(entire_file, image_offsets[picture_number] + DATA_OFFSET);
+        pos = SeekToPos(entire_file, image_offsets[picture_number] + DATA_OFFSET);
         if (pos == 0)
             return;
 

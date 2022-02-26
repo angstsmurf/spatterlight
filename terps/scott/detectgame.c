@@ -31,7 +31,7 @@ extern const char *sysdict_zx[MAX_SYSMESS];
 extern int header[];
 
 struct dictionaryKey {
-    dictionary_type dict;
+    DictionaryType dict;
     const char *signature;
 };
 
@@ -62,7 +62,7 @@ int FindCode(const char *x, int base)
     return -1;
 }
 
-dictionary_type getId(size_t *offset)
+DictionaryType GetId(size_t *offset)
 {
     for (int i = 0; i < 8; i++) {
         *offset = FindCode(dictKeys[i].signature, 0);
@@ -80,7 +80,7 @@ dictionary_type getId(size_t *offset)
     return NOT_A_GAME;
 }
 
-void read_header(uint8_t *ptr)
+void ReadHeader(uint8_t *ptr)
 {
     int i, value;
     for (i = 0; i < 24; i++) {
@@ -90,7 +90,7 @@ void read_header(uint8_t *ptr)
     }
 }
 
-int sanity_check_header(void)
+int SanityCheckHeader(void)
 {
     int16_t v = GameHeader.NumItems;
     if (v < 10 || v > 500)
@@ -108,7 +108,7 @@ int sanity_check_header(void)
     return 1;
 }
 
-uint8_t *read_dictionary(struct GameInfo info, uint8_t **pointer, int loud)
+uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
 {
     uint8_t *ptr = *pointer;
     char dictword[info.word_length + 2];
@@ -186,19 +186,19 @@ uint8_t *read_dictionary(struct GameInfo info, uint8_t **pointer, int loud)
     return ptr;
 }
 
-uint8_t *seek_to_pos(uint8_t *buf, int offset)
+uint8_t *SeekToPos(uint8_t *buf, int offset)
 {
     if (offset > file_length)
         return 0;
     return buf + offset;
 }
 
-int seek_if_needed(int expected_start, int *offset, uint8_t **ptr)
+int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr)
 {
     if (expected_start != FOLLOWS) {
         *offset = expected_start + file_baseline_offset;
         //        uint8_t *ptrbefore = *ptr;
-        *ptr = seek_to_pos(entire_file, *offset);
+        *ptr = SeekToPos(entire_file, *offset);
         //        if (*ptr == ptrbefore)
         //            fprintf(stderr, "Seek unnecessary, could have been set to
         //            FOLLOWS.\n");
@@ -208,7 +208,7 @@ int seek_if_needed(int expected_start, int *offset, uint8_t **ptr)
     return 1;
 }
 
-int parse_header(int *h, header_type type, int *ni, int *na, int *nw, int *nr,
+int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
     int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
     int *trm)
 {
@@ -326,7 +326,7 @@ int parse_header(int *h, header_type type, int *ni, int *na, int *nw, int *nr,
     return 1;
 }
 
-void print_header_info(int *h, int ni, int na, int nw, int nr, int mc, int pr,
+void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     int tr, int wl, int lt, int mn, int trm)
 {
     uint16_t value;
@@ -349,7 +349,7 @@ void print_header_info(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     fprintf(stderr, "Number of treasures: %d\n", tr);
 }
 
-int try_loading_old(struct GameInfo info, int dict_start)
+int TryLoadingOld(struct GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -365,13 +365,13 @@ int try_loading_old(struct GameInfo info, int dict_start)
     int offset = info.start_of_header + file_baseline_offset;
 
 jumpHere:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
-    read_header(ptr);
+    ReadHeader(ptr);
 
-    if (!parse_header(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
+    if (!ParseHeader(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
             &tr, &wl, &lt, &mn, &trm))
         return 0;
 
@@ -401,7 +401,7 @@ jumpHere:
 
 #pragma mark actions
 
-    if (seek_if_needed(info.start_of_actions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -440,7 +440,7 @@ jumpHere:
 
 #pragma mark room connections
 
-    if (seek_if_needed(info.start_of_room_connections, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -456,7 +456,7 @@ jumpHere:
 
 #pragma mark item locations
 
-    if (seek_if_needed(info.start_of_item_locations, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -470,14 +470,14 @@ jumpHere:
 
 #pragma mark dictionary
 
-    if (seek_if_needed(info.start_of_dictionary, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_dictionary, &offset, &ptr) == 0)
         return 0;
 
-    ptr = read_dictionary(info, &ptr, 0);
+    ptr = ReadDictionary(info, &ptr, 0);
 
 #pragma mark rooms
 
-    if (seek_if_needed(info.start_of_room_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_descriptions, &offset, &ptr) == 0)
         return 0;
 
     if (info.start_of_room_descriptions == FOLLOWS)
@@ -509,7 +509,7 @@ jumpHere:
 
 #pragma mark messages
 
-    if (seek_if_needed(info.start_of_messages, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_messages, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -530,7 +530,7 @@ jumpHere:
 
 #pragma mark items
 
-    if (seek_if_needed(info.start_of_item_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -562,7 +562,7 @@ jumpHere:
 #pragma mark System messages
 
     ct = 0;
-    if (seek_if_needed(info.start_of_system_messages, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_system_messages, &offset, &ptr) == 0)
         return 0;
 
     charindex = 0;
@@ -591,7 +591,7 @@ jumpHere:
 
     charindex = 0;
 
-    if (seek_if_needed(info.start_of_directions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_directions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -620,7 +620,7 @@ jumpHere:
     return 1;
 }
 
-int try_loading(struct GameInfo info, int dict_start, int loud)
+int TryLoading(struct GameInfo info, int dict_start, int loud)
 {
     /* The Hulk does everything differently */
     /* so it gets its own function */
@@ -628,7 +628,7 @@ int try_loading(struct GameInfo info, int dict_start, int loud)
         return try_loading_hulk(info, dict_start);
 
     if (info.type == TEXT_ONLY)
-        return try_loading_old(info, dict_start);
+        return TryLoadingOld(info, dict_start);
 
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -653,18 +653,18 @@ int try_loading(struct GameInfo info, int dict_start, int loud)
     int offset = info.start_of_header + file_baseline_offset;
 
 jumpHere:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
 
-    read_header(ptr);
+    ReadHeader(ptr);
 
-    if (!parse_header(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
+    if (!ParseHeader(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr,
             &tr, &wl, &lt, &mn, &trm))
         return 0;
 
     if (loud)
-        print_header_info(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
+        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
 
     GameHeader.NumItems = ni;
     GameHeader.NumActions = na;
@@ -679,7 +679,7 @@ jumpHere:
     GameHeader.NumMessages = mn;
     GameHeader.TreasureRoom = trm;
 
-    if (sanity_check_header() == 0) {
+    if (SanityCheckHeader() == 0) {
         return 0;
     }
 
@@ -710,7 +710,7 @@ jumpHere:
 #pragma mark room images
 
     if (info.start_of_room_image_list != 0) {
-        if (seek_if_needed(info.start_of_room_image_list, &offset, &ptr) == 0)
+        if (SeekIfNeeded(info.start_of_room_image_list, &offset, &ptr) == 0)
             return 0;
 
         rp = Rooms;
@@ -724,7 +724,7 @@ jumpHere:
 
     if (info.start_of_item_flags != 0) {
 
-        if (seek_if_needed(info.start_of_item_flags, &offset, &ptr) == 0)
+        if (SeekIfNeeded(info.start_of_item_flags, &offset, &ptr) == 0)
             return 0;
 
         ip = Items;
@@ -739,7 +739,7 @@ jumpHere:
 
     if (info.start_of_item_image_list != 0) {
 
-        if (seek_if_needed(info.start_of_item_image_list, &offset, &ptr) == 0)
+        if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0)
             return 0;
 
         ip = Items;
@@ -756,7 +756,7 @@ jumpHere:
 
 #pragma mark actions
 
-    if (seek_if_needed(info.start_of_actions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -809,10 +809,10 @@ jumpHere:
 
 #pragma mark dictionary
 
-    if (seek_if_needed(info.start_of_dictionary, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_dictionary, &offset, &ptr) == 0)
         return 0;
 
-    ptr = read_dictionary(info, &ptr, loud);
+    ptr = ReadDictionary(info, &ptr, loud);
 
     if (loud)
         fprintf(stderr, "Offset after reading dictionary: %lx\n",
@@ -821,7 +821,7 @@ jumpHere:
 #pragma mark rooms
 
     if (info.start_of_room_descriptions != 0) {
-        if (seek_if_needed(info.start_of_room_descriptions, &offset, &ptr) == 0)
+        if (SeekIfNeeded(info.start_of_room_descriptions, &offset, &ptr) == 0)
             return 0;
 
         ct = 0;
@@ -863,7 +863,7 @@ jumpHere:
 
 #pragma mark room connections
 
-    if (seek_if_needed(info.start_of_room_connections, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -880,7 +880,7 @@ jumpHere:
 
 #pragma mark messages
 
-    if (seek_if_needed(info.start_of_messages, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_messages, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -916,7 +916,7 @@ jumpHere:
 
 #pragma mark items
 
-    if (seek_if_needed(info.start_of_item_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -972,7 +972,7 @@ jumpHere:
 
 #pragma mark item locations
 
-    if (seek_if_needed(info.start_of_item_locations, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -986,10 +986,10 @@ jumpHere:
 
 #pragma mark System messages
 
-    if (seek_if_needed(info.start_of_system_messages, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_system_messages, &offset, &ptr) == 0)
         return 1;
 jumpSysMess:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     ct = 0;
     charindex = 0;
 
@@ -1033,7 +1033,7 @@ jumpSysMess:
         return 1;
     }
 
-    if (seek_if_needed(info.start_of_directions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_directions, &offset, &ptr) == 0)
         return 0;
 
     charindex = 0;
@@ -1064,7 +1064,7 @@ jumpSysMess:
     return 1;
 }
 
-GameIDType detect_game(const char *file_name)
+GameIDType DetectGame(const char *file_name)
 {
     FILE *f = fopen(file_name, "r");
     if (f == NULL)
@@ -1115,7 +1115,7 @@ GameIDType detect_game(const char *file_name)
 
                 size_t offset;
 
-                dictionary_type dict_type = getId(&offset);
+                DictionaryType dict_type = GetId(&offset);
 
                 if (dict_type == NOT_A_GAME)
                     return UNKNOWN_GAME;
@@ -1124,7 +1124,7 @@ GameIDType detect_game(const char *file_name)
                     if (games[i].dictionary == dict_type) {
                         //                fprintf(stderr, "The game might be %s\n",
                         //                games[i].Title);
-                        if (try_loading(games[i], offset, 0)) {
+                        if (TryLoading(games[i], offset, 0)) {
                             GameInfo = &games[i];
                             break;
                         }

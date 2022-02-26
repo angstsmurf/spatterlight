@@ -11,7 +11,7 @@
 #include "hulk.h"
 #include "scott.h"
 
-void read_header(uint8_t *ptr);
+void ReadHeader(uint8_t *ptr);
 // extern void print_header_info(int header[]);
 extern int header[];
 
@@ -170,11 +170,11 @@ uint8_t *read_hulk_dictionary(struct GameInfo info, uint8_t **pointer)
     return ptr;
 }
 
-int parse_header(int *h, header_type type, int *ni, int *na, int *nw, int *nr,
+int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
     int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
     int *trm);
 
-void print_header_info(int *h, int ni, int na, int nw, int nr, int mc, int pr,
+void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     int tr, int wl, int lt, int mn, int trm);
 
 extern size_t hulk_coordinates;
@@ -200,14 +200,14 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
     //    file_baseline_offset);
 
     int offset = info.start_of_header + file_baseline_offset;
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
 
     if (ptr == 0)
         return 0;
 
-    read_header(ptr);
+    ReadHeader(ptr);
 
-    parse_header(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr, &tr,
+    ParseHeader(header, info.header_style, &ni, &na, &nw, &nr, &mc, &pr, &tr,
         &wl, &lt, &mn, &trm);
 
     GameHeader.NumItems = ni;
@@ -238,7 +238,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark Dictionary
 
-    if (seek_if_needed(info.start_of_dictionary, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_dictionary, &offset, &ptr) == 0)
         return 0;
 
     read_hulk_dictionary(info, &ptr);
@@ -248,7 +248,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
     //    fprintf(stderr, "Position after reading dictionary: %ld\n", ptr -
     //    entire_file);
 
-    if (seek_if_needed(info.start_of_room_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_descriptions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -293,7 +293,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark Items
 
-    if (seek_if_needed(info.start_of_item_descriptions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_descriptions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -328,7 +328,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark Room connections
 
-    if (seek_if_needed(info.start_of_room_connections, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return 0;
 
     /* The room connections are ordered by direction, not room, so all the North
@@ -348,7 +348,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark item locations
 
-    if (seek_if_needed(info.start_of_item_locations, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_locations, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;
@@ -363,7 +363,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark room images
 
-    if (seek_if_needed(info.start_of_room_image_list, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_room_image_list, &offset, &ptr) == 0)
         return 0;
 
     rp = Rooms;
@@ -377,7 +377,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark item images
 
-    if (seek_if_needed(info.start_of_item_image_list, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0)
         return 0;
 
     ip = Items;
@@ -400,7 +400,7 @@ int try_loading_hulk(struct GameInfo info, int dict_start)
 
 #pragma mark Actions
 
-    if (seek_if_needed(info.start_of_actions, &offset, &ptr) == 0)
+    if (SeekIfNeeded(info.start_of_actions, &offset, &ptr) == 0)
         return 0;
 
     ct = 0;

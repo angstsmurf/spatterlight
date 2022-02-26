@@ -1,20 +1,21 @@
 #include <string.h>
 
-#include "TI99_4a_terp.h"
 #include "glk.h"
 #include "load_TI99_4a.h"
 #include "scott.h"
+#include "TI99_4a_terp.h"
 
-ActionResultType run_code_chunk(uint8_t *code_chunk)
+ActionResultType PerformTI99Line(uint8_t *action_line)
 {
-    if (code_chunk == NULL)
+    if (action_line == NULL)
         return 1;
 
-    uint8_t *ptr = code_chunk;
+    uint8_t *ptr = action_line;
     int run_code = 0;
     int index = 0;
     ActionResultType result = ACT_FAILURE;
     int opcode, param, param2;
+
 
     int try_index;
     int try[32];
@@ -242,7 +243,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
             if (try_index >= 32) {
                 Fatal("ERROR Hit upper limit on try method.\n");
             }
-            try[try_index++] = ptr - code_chunk + *ptr;
+            try[try_index++] = ptr - action_line + *ptr;
             ptr++;
             break;
 
@@ -278,8 +279,8 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
         case 222: /* move item p to room 0 */
 #ifdef DEBUG_ACTIONS
             fprintf(stderr,
-                "Item %d (%s) is removed from the game (put in room 0).\n", *ptr,
-                Items[*ptr].Text);
+                "Item %d (%s) is removed from the game (put in room 0).\n",
+                    *ptr, Items[*ptr].Text);
 #endif
             Items[*(ptr++)].Location = 0;
             break;
@@ -327,7 +328,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
             Output(sys[IM_DEAD]);
             BitFlags &= ~(1 << DARKBIT);
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
-            stop_time = 2;
+            stop_time = 1;
             DoneIt();
             return ACT_GAMEOVER;
 
@@ -335,8 +336,8 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
             param = *(ptr++);
             param2 = *(ptr++);
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Item %d (%s) is put in room %d (%s).\n", param2,
-                Items[param2].Text, param, Rooms[param].Text);
+            fprintf(stderr, "Item %d (%s) is put in room %d (%s).\n",
+                param2, Items[param2].Text, param, Rooms[param].Text);
 #endif
             Items[param2].Location = param;
             break;
@@ -377,8 +378,9 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 237: /* move item p to the inventory */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Player now carries item %d (%s).\n", *ptr,
-                Items[*ptr].Text);
+            fprintf(stderr,
+                "Player now carries item %d (%s).\n",
+                    *ptr, Items[*ptr].Text);
 #endif
             Items[*(ptr++)].Location = CARRIED;
             break;
@@ -422,8 +424,9 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 246: /*  add to current counter */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "%d is added to currentCounter. Result: %d\n", *ptr,
-                CurrentCounter + *ptr);
+            fprintf(stderr,
+                "%d is added to currentCounter. Result: %d\n",
+                    *ptr, CurrentCounter + *ptr);
 #endif
             CurrentCounter += *(ptr++);
             break;
@@ -446,8 +449,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
 
         case 249: /* swap room counter */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "swap location<->roomflag[%d]. New location: %s\n", dv,
-                Rooms[RoomSaved[dv]].Text);
+            fprintf(stderr, "swap location<->roomflag[%d]. New location: %s\n", dv, Rooms[RoomSaved[dv]].Text);
 #endif
             temp = MyLoc;
             MyLoc = RoomSaved[*ptr];
@@ -506,9 +508,9 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
                         Output(sys[MESSAGE_DELIMITER]);
                 }
             } else {
-                index = ptr - code_chunk;
-                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n", opcode,
-                    code_chunk[index], code_chunk[index + 1]);
+                index = ptr - action_line;
+                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n",
+                        opcode, action_line[index], action_line[index + 1]);
                 break;
             }
             break;
@@ -526,7 +528,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
                 try_index -= 1;
                 try[try_index] = 0;
                 run_code = 0;
-                ptr = code_chunk + index;
+                ptr = action_line + index;
             }
         }
     }
@@ -534,7 +536,7 @@ ActionResultType run_code_chunk(uint8_t *code_chunk)
     return result;
 }
 
-void run_implicit(void)
+void RunImplicitTI99Actions(void)
 {
     int probability;
     uint8_t *ptr;
@@ -548,16 +550,16 @@ void run_implicit(void)
         loop_flag = 1;
 
     while (loop_flag == 0) {
-    /*
-     p + 0 = chance of happening
-     p + 1 = size of code chunk
-     p + 2 = start of code
-     */
+        /*
+         p + 0 = chance of happening
+         p + 1 = size of code chunk
+         p + 2 = start of code
+         */
 
         probability = ptr[0];
 
         if (RandomPercent(probability))
-            run_code_chunk(ptr + 2);
+            PerformTI99Line(ptr + 2);
 
         if (ptr[1] == 0 || ptr - ti99_implicit_actions >= ti99_implicit_extent)
             loop_flag = 1;
@@ -568,7 +570,7 @@ void run_implicit(void)
 }
 
 /* parses verb noun actions */
-ExplicitResultType run_explicit(int verb_num, int noun_num)
+ExplicitResultType RunExplicitTI99Actions(int verb_num, int noun_num)
 {
     uint8_t *p;
     ExplicitResultType flag = 1;
@@ -578,15 +580,15 @@ ExplicitResultType run_explicit(int verb_num, int noun_num)
     p = VerbActionOffsets[verb_num];
 
     /* process all code blocks for this verb
-       until success or end. */
+     until success or end. */
 
     flag = ER_NO_RESULT;
     while (flag == ER_NO_RESULT) {
         /* we match VERB NOUN or VERB ANY */
         if (p != NULL && (p[0] == noun_num || p[0] == 0)) {
             match = 1;
-            /* we have verb/noun match. run code! */
-            runcode = run_code_chunk(p + 2);
+            runcode = PerformTI99Line(p + 2);
+
             if (runcode == ACT_SUCCESS) {
                 return ER_SUCCESS;
             } else { /* failure */
@@ -602,7 +604,9 @@ ExplicitResultType run_explicit(int verb_num, int noun_num)
                 p += 1 + p[1];
         }
     }
+
     if (match)
         flag = ER_RAN_ALL_LINES;
+
     return flag;
 }

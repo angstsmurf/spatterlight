@@ -775,7 +775,7 @@ int LoadExtraSeasOfBloodData(void)
 
     offset = 0x47b7 + file_baseline_offset;
 
-    uint8_t *ptr = seek_to_pos(entire_file, offset);
+    uint8_t *ptr = SeekToPos(entire_file, offset);
 
     int ct;
 
@@ -787,7 +787,7 @@ int LoadExtraSeasOfBloodData(void)
 
 #pragma mark Battle messages
 
-    ptr = seek_to_pos(entire_file, 0x71DA + file_baseline_offset);
+    ptr = SeekToPos(entire_file, 0x71DA + file_baseline_offset);
 
     for (int i = 0; i < 32; i++) {
         battle_messages[i] = decompress_text(ptr, i);
@@ -800,7 +800,7 @@ int LoadExtraSeasOfBloodData(void)
     int data_length = 2010;
 
     blood_image_data = MemAlloc(data_length);
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     for (int i = 0; i < data_length; i++)
         blood_image_data[i] = *(ptr++);
 
@@ -834,7 +834,7 @@ int LoadExtraSeasOfBlood64Data(void)
     uint8_t *ptr;
 
 jumpEnemyTable:
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
 
     int ct;
     for (ct = 0; ct < 124; ct++) {
@@ -845,7 +845,7 @@ jumpEnemyTable:
 #pragma mark Battle messages
 
     offset = 0x82f6 + file_baseline_offset;
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
 
     for (int i = 0; i < 32; i++) {
         battle_messages[i] = decompress_text(ptr, i);
@@ -859,7 +859,7 @@ jumpEnemyTable:
 
     blood_image_data = MemAlloc(data_length);
 
-    ptr = seek_to_pos(entire_file, offset);
+    ptr = SeekToPos(entire_file, offset);
     for (int i = 0; i < data_length; i++) {
         blood_image_data[i] = *(ptr++);
     }
