@@ -176,6 +176,14 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
+- (instancetype)initQuitEvent {
+    self = [super init];
+    if (self) {
+        _type = EVTQUIT;
+    }
+    return self;
+}
+
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound {
     self = [super init];
     if (self) {

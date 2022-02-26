@@ -144,6 +144,17 @@ void glk_stream_close(stream_t *str, stream_result_t *result)
     gli_delete_stream(str);
 }
 
+void gli_close_all_file_streams(void)
+{
+    stream_t *stream;
+
+    for (stream = glk_stream_iterate(NULL, NULL); stream; stream = glk_stream_iterate(stream, NULL))
+    {
+        if (stream->type == strtype_File)
+            glk_stream_close(stream, NULL);
+    }
+}
+
 strid_t glk_stream_open_memory(char *buf, glui32 buflen, glui32 fmode,
                                glui32 rock)
 {

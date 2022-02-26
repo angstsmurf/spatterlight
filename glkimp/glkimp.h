@@ -142,6 +142,7 @@ void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
 
+void gli_close_all_file_streams(void);
 
 /* unicode case mapping */
 
@@ -431,7 +432,7 @@ extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 
 extern glui32 generate_tag(void);
 
-extern void gli_stop_all_sound_channels(void);
+void gli_stop_all_sound_channels(void);
 
 struct glk_schannel_struct
 {

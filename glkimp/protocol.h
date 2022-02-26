@@ -129,5 +129,6 @@ enum
     EVTSOUND,
 	EVTVOLUME,
 
-    EVTPREFS
+    EVTPREFS,
+    EVTQUIT
 };

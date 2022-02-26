@@ -923,6 +923,9 @@ again:
             event->val2 = wmsg.a3;
             break;
 
+        case EVTQUIT:
+            gli_close_all_file_streams();
+
         default:
 #ifdef DEBUG
             fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);

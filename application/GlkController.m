@@ -68,7 +68,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "NEXTEVENT",
 //    "EVTARRANGE",      "EVTREDRAW",        "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS"};
+//    "EVTVOLUME",       "EVTPREFS",         "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -1712,6 +1712,9 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"windowWillClose called twice!");
         return;
     } else windowClosedAlready = YES;
+
+    GlkEvent *evt = [[GlkEvent alloc] initQuitEvent];
+    [evt writeEvent:sendfh.fileDescriptor];
 
     // Make sure any new Glk events are queued
     waitforfilename = YES;
