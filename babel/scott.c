@@ -13,6 +13,8 @@
 #define MAX_LENGTH 300000
 #define MIN_LENGTH 24
 
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #include "treaty_builder.h"
 #include <ctype.h>
@@ -135,32 +137,30 @@ static struct scottrec scott_registry[] = {
     { 0xa209, 0xf115, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (T64)
    { 0x2ab00, 0x5c1d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64)
    { 0x2ab00, 0xe308, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64) alt
+    { 0, 0, NULL }
+};
 
-    { 0x2a16, 0xf069, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A version
-   { 0x16800, 0x5933, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A DSK version
-    { 0x28f8, 0xc87a, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A version
-   { 0x16800, 0x15b8, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A DSK version
-    { 0x2942, 0x0f6d, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A version
-   { 0x16800, 0x5d17, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A DSK version
-    { 0x28b8, 0xa8a5, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle, TI-99/4A version
-   { 0x16800, 0xf5b7, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle, TI-99/4A DSK version
-    { 0x2856, 0x8e29, "34894B343CAACE66763AE40114A1C12F" }, // The Count, TI-99/4A version
-   { 0x16800, 0xbf6b, "34894B343CAACE66763AE40114A1C12F" }, // The Count, TI-99/4A DSK version
-    { 0x27ba, 0x66aa, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey, TI-99/4A version
-   { 0x16800, 0x98ad, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey, TI-99/4A DSK version
-    { 0x2962, 0xdec7, "CE3AEE5F23E49107BEB2E333C29F2AFC" }, // Mystery Fun House, TI-99/4A version
-   { 0x16800, 0x2cc3, "CE3AEE5F23E49107BEB2E333C29F2AFC" }, // Mystery Fun House, TI-99/4A DSK version
-    { 0x2802, 0x9efb, "BB7E4E7CB57249E7671E7DE081D715B7" }, // Pyramid of Doom, TI-99/4A version
-   { 0x16800, 0x247e, "BB7E4E7CB57249E7671E7DE081D715B7" }, // Pyramid of Doom, TI-99/4A DSK version
-    { 0x27ba, 0x2a1f, "F0D164D13861E3FB074B9B0BAC810777" }, // Ghost Town, TI-99/4A version
-   { 0x16800, 0x5d36, "F0D164D13861E3FB074B9B0BAC810777" }, // Ghost Town, TI-99/4A DSK version
-    { 0x27ba, 0x8c11, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island part I, TI-99/4A version
-   { 0x16800, 0x7aee, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island part I, TI-99/4A DSK version
-    { 0x3148, 0xfd3c, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island part II, TI-99/4A version
-    { 0x286a, 0xe44d, "707015A14ADCE841F1E1DCC90C847BBA" }, // The Golden Voyage, TI-99/4A version
-   { 0x16800, 0x152d, "707015A14ADCE841F1E1DCC90C847BBA" }, // The Golden Voyage, TI-99/4A DSK version
+static struct scottrec TI994A_registry[] = {
+    { 0xff, 0x8618, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A version
+    { 0xff, 0x9333, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A version
+    { 0xff, 0x9f67, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A version
+    { 0xff, 0x96b7, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle, TI-99/4A version
+    { 0xff, 0x9095, "34894B343CAACE66763AE40114A1C12F" }, // The Count, TI-99/4A version
+    { 0xff, 0x9ae3, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey, TI-99/4A version
+    { 0xff, 0x90ce, "CE3AEE5F23E49107BEB2E333C29F2AFC" }, // Mystery Fun House, TI-99/4A version
+    { 0xff, 0x7d03, "BB7E4E7CB57249E7671E7DE081D715B7" }, // Pyramid of Doom, TI-99/4A version
+    { 0xff, 0x8dde, "F0D164D13861E3FB074B9B0BAC810777" }, // Ghost Town, TI-99/4A version
+    { 0xff, 0x9bc6, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island part I, TI-99/4A version
+    { 0xff, 0xa6d2, "87EAA235B329356EF902933F6B8A1141" }, // Savage Island part II, TI-99/4A version
+    { 0xff, 0x7f47, "707015A14ADCE841F1E1DCC90C847BBA" }, // The Golden Voyage, TI-99/4A version
+    { 0xff, 0x882d, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // The Sorcerer Of Claymorgue Castle, TI-99/4A version
 
-   { 0, 0, NULL }
+    { 0xff, 0x80e9, "13EA7A22731E90598456D13311923833" }, // The Adventures of Buckaroo Banzai, TI-99/4A version
+
+    { 0xff, 0x80c0, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk, TI-99/4A version
+    { 0xff, 0x884b, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spider-Man, TI-99/4A version
+
+    { 0, 0, NULL }
 };
 
 static uint16_t checksum(unsigned char *sf, int32 extent)
@@ -175,11 +175,28 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
+    uint16_t chksum = checksum(sf, extent);
+
     for (int i = 0; scott_registry[i].length != 0; i++) {
         if (extent == scott_registry[i].length &&
-            checksum(sf, extent) == scott_registry[i].chk) {
+            chksum == scott_registry[i].chk) {
             if (ifid != NULL) {
-                strncpy(*ifid, scott_registry[i].ifid, 36);
+                size_t length = strlen(scott_registry[i].ifid);
+                strncpy(*ifid, scott_registry[i].ifid, length);
+                (*ifid)[length] = 0;
+            }
+            return VALID_STORY_FILE_RV;
+        }
+    }
+    return INVALID_STORY_FILE_RV;
+}
+
+static int32 find_in_TI994Adatabase(uint16_t chksum, char **ifid) {
+    for (int i = 0; TI994A_registry[i].length != 0; i++) {
+        if (chksum == TI994A_registry[i].chk) {
+            if (ifid != NULL) {
+                strncpy(*ifid, TI994A_registry[i].ifid, 32);
+                (*ifid)[32] = '\0';
             }
             return VALID_STORY_FILE_RV;
         }
@@ -189,16 +206,16 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
 
 static int find_code(char *x, int base, unsigned char *sf, int32 extent) {
     if (base >= extent)
-        return INVALID_STORY_FILE_RV;
+        return -1;
     unsigned const char *p = sf + base;
     int len = strlen(x);
     while (p < sf + extent - len) {
         if (memcmp(p, x, len) == 0) {
-            return VALID_STORY_FILE_RV;
+            return p - sf;
         }
         p++;
     }
-    return INVALID_STORY_FILE_RV;
+    return -1;
 }
 
 static int detect_ti994a(unsigned char *sf, int32 extent) {
@@ -326,7 +343,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
     if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
 
-    if (detect_ti994a(storystring, extent) == VALID_STORY_FILE_RV)
+    if (detect_ti994a(storystring, extent) != -1)
         return VALID_STORY_FILE_RV;
 
     if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
@@ -340,15 +357,32 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
     ASSERT_OUTPUT_SIZE(37);
 
     unsigned char *storystring = (unsigned char *)storyvp;
+
+    int ti99offset = detect_ti994a(storystring, extent);
+
+    if (ti99offset != -1) {
+        int title_screen_offset = ti99offset - 0x509;
+        title_screen_offset = MAX(title_screen_offset, 0);
+        /* Calculate checksum using 3 Kb after the title screen */
+        int checksum_length = MIN(3072, extent - title_screen_offset);
+
+        int sum = checksum(storyvp + title_screen_offset, checksum_length);
+
+        if (find_in_TI994Adatabase(sum, &output) == VALID_STORY_FILE_RV) {
+            return VALID_STORY_FILE_RV;
+        }
+    }
+
     if (find_in_database(storystring, extent, &output) == VALID_STORY_FILE_RV) {
-        for (int i = 0; i<36; i++)
+        size_t length = strlen(output);
+        for (int i = 0; i< length; i++)
             output[i] = toupper(output[i]);
-        output[36] = 0;
+        output[length] = 0;
         return VALID_STORY_FILE_RV;
     }
 
     if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV
-     || detect_ti994a(storystring, extent) == VALID_STORY_FILE_RV)
+     || ti99offset != -1)
     {
         strcpy(output, "\0");
         return INCOMPLETE_REPLY_RV;
