@@ -9,7 +9,7 @@
 #include "sagadraw.h"
 #include "scott.h"
 
-void update_secret_animations(void)
+void UpdateSecretAnimations(void)
 {
     if (MyLoc != 13 || AnimationFlag == 0) {
         glk_request_timer_events(0);
@@ -18,7 +18,7 @@ void update_secret_animations(void)
     }
     /* Roll down */
     if (AnimationFlag > 0 && AnimationFlag < 48) {
-        rectfill(113, 0, 102, AnimationFlag, white_colour);
+        RectFill(113, 0, 102, AnimationFlag, white_colour);
         AnimationFlag++;
     }
     /* Flicker */
@@ -41,7 +41,7 @@ void update_secret_animations(void)
     if (AnimationFlag >= 100 && AnimationFlag < 200) {
         int height = AnimationFlag - 100;
         if (height)
-            rectfill(112, 48 - height, 104, height, 0);
+            RectFill(112, 48 - height, 104, height, 0);
         AnimationFlag++;
     }
 }

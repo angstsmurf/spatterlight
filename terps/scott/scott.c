@@ -213,13 +213,13 @@ void Updates(event_t ev)
 	} else if (ev.type == evtype_Timer) {
         switch (GameInfo->type) {
         case SHERWOOD_VARIANT:
-            update_robin_of_sherwood_animations();
+            UpdateRobinOfSherwoodAnimations();
             break;
         case GREMLINS_VARIANT:
-            update_gremlins_animations();
+            UpdateGremlinsAnimations();
             break;
         case SECRET_MISSION_VARIANT:
-            update_secret_animations();
+            UpdateSecretAnimations();
             break;
         default:
             break;
@@ -739,7 +739,7 @@ void DrawImage(int image)
         fprintf(stderr, "DrawImage: Graphic window NULL?\n");
         return;
     }
-    draw_saga_picture_number(image);
+    DrawSagaPictureNumber(image);
 }
 
 void DrawRoomImage(void)
@@ -759,15 +759,15 @@ void DrawRoomImage(void)
     switch (CurrentGame) {
     case SEAS_OF_BLOOD:
     case SEAS_OF_BLOOD_C64:
-        seas_of_blood_room_image();
+        SeasOfBloodRoomImage();
         return;
     case ROBIN_OF_SHERWOOD:
     case ROBIN_OF_SHERWOOD_C64:
-        robin_of_sherwood_look();
+        RobinOfSherwoodLook();
         return;
     case HULK:
     case HULK_C64:
-        hulk_look();
+        HulkLook();
         return;
     default:
         break;
@@ -782,7 +782,7 @@ void DrawRoomImage(void)
         return;
 
     if (GameInfo->type == GREMLINS_VARIANT) {
-        gremlins_look();
+        GremlinsLook();
     } else {
         DrawImage(Rooms[MyLoc].Image & 127);
     }
@@ -2025,7 +2025,7 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
 
     if ((CurrentGame == HULK || CurrentGame == HULK_C64) && vb == 39 && !dark) {
-        hulk_show_image_on_examine(no);
+        HulkShowImageOnExamine(no);
     }
 
     flag = ER_RAN_ALL_LINES_NO_MATCH;

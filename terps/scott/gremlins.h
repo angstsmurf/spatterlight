@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 
-void update_gremlins_animations(void);
-void gremlins_look(void);
+void UpdateGremlinsAnimations(void);
+void GremlinsLook(void);
 void GremlinsAction(int p);
 void LoadExtraGermanGremlinsData(void);
 void LoadExtraSpanishGremlinsData(void);

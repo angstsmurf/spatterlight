@@ -625,7 +625,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     /* The Hulk does everything differently */
     /* so it gets its own function */
     if (info.gameID == HULK || info.gameID == HULK_C64)
-        return try_loading_hulk(info, dict_start);
+        return TryLoadingHulk(info, dict_start);
 
     if (info.type == TEXT_ONLY)
         return TryLoadingOld(info, dict_start);
@@ -851,7 +851,7 @@ jumpHere:
             } while (ct < nr + 1);
         } else {
             do {
-                rp->Text = decompress_text(ptr, ct);
+                rp->Text = DecompressText(ptr, ct);
                 if (rp->Text == NULL)
                     return 0;
                 *(rp->Text) = tolower(*(rp->Text));
@@ -890,7 +890,7 @@ jumpHere:
 
     if (compressed) {
         while (ct < mn + 1) {
-            Messages[ct] = decompress_text(ptr, ct);
+            Messages[ct] = DecompressText(ptr, ct);
             if (loud)
                 fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
             if (Messages[ct] == NULL)
@@ -925,7 +925,7 @@ jumpHere:
 
     if (compressed) {
         do {
-            ip->Text = decompress_text(ptr, ct);
+            ip->Text = DecompressText(ptr, ct);
             ip->AutoGet = NULL;
             if (ip->Text != NULL && ip->Text[0] != '.') {
                 if (loud)
@@ -1106,7 +1106,7 @@ GameIDType DetectGame(const char *file_name)
             CurrentGame = DetectC64(&entire_file, &file_length);
 
             if (!CurrentGame) { /* Not a C64, check if ZX Spectrum */
-                uint8_t *uncompressed = decompress_z80(entire_file, file_length);
+                uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
                 if (uncompressed != NULL) {
                     free(entire_file);
                     entire_file = uncompressed;
@@ -1260,7 +1260,7 @@ GameIDType DetectGame(const char *file_name)
 
     /* If it is a C64 game, we have setup the graphics already */
     if (!((GameInfo->subtype & C64) == C64) && GameInfo->number_of_pictures > 0) {
-        saga_setup(0);
+        SagaSetup(0);
     }
 
     return CurrentGame;

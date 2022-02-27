@@ -45,7 +45,7 @@ int decompress_one(uint8_t *bytes)
     return result;
 }
 
-char *decompress_text(uint8_t *source, int stringindex)
+char *DecompressText(uint8_t *source, int stringindex)
 {
     // Lookup table
     const char *alphabet = " abcdefghijklmnopqrstuvwxyz'\x01,.\x00";

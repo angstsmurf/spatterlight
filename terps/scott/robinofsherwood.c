@@ -63,7 +63,7 @@ void SherwoodAction(int p)
     }
 }
 
-int is_forest_location(void) { return (MyLoc >= 11 && MyLoc <= 73); }
+int IsForestLocation(void) { return (MyLoc >= 11 && MyLoc <= 73); }
 
 #define TREES 0
 #define BUSHES 1
@@ -121,7 +121,7 @@ void draw_sherwood(int loc)
 
         image_number = forest_images[subimage_index++] & 127;
 
-        draw_saga_picture_at_pos(image_number, xpos, ypos);
+        DrawSagaPictureAtPos(image_number, xpos, ypos);
 
         if (forest_type == BUSHES) {
             xpos += images[image_number].width;
@@ -131,7 +131,7 @@ void draw_sherwood(int loc)
 
 void animate_waterfall(int stage)
 {
-    rectfill(88, 16, 48, 64, white_colour);
+    RectFill(88, 16, 48, 64, white_colour);
     for (int line = 2; line < 10; line++) {
         for (int col = 11; col < 17; col++) {
             for (int i = 0; i < 8; i++)
@@ -140,7 +140,7 @@ void animate_waterfall(int stage)
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
-                        putpixel(col * 8 + j, ypos, blue_colour);
+                        PutPixel(col * 8 + j, ypos, blue_colour);
                     }
         }
     }
@@ -148,7 +148,7 @@ void animate_waterfall(int stage)
 
 void animate_waterfall_cave(int stage)
 {
-    rectfill(248, 24, 8, 64, white_colour);
+    RectFill(248, 24, 8, 64, white_colour);
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
@@ -156,7 +156,7 @@ void animate_waterfall_cave(int stage)
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
-                    putpixel(248 + j, ypos, blue_colour);
+                    PutPixel(248 + j, ypos, blue_colour);
                 }
     }
 }
@@ -165,12 +165,12 @@ void animate_lightning(int stage)
 {
     // swich blue and bright yellow
     if (CurrentGame == ROBIN_OF_SHERWOOD_C64)
-        switch_palettes(6, 7);
+        SwitchPalettes(6, 7);
     else {
-        switch_palettes(1, 14);
-        switch_palettes(9, 6);
+        SwitchPalettes(1, 14);
+        SwitchPalettes(9, 6);
     }
-    draw_saga_picture_number(77);
+    DrawSagaPictureNumber(77);
     if (stage == 11) {
         glk_request_timer_events(0);
     } else if (stage == 3) {
@@ -180,9 +180,9 @@ void animate_lightning(int stage)
     }
 }
 
-void robin_of_sherwood_look(void)
+void RobinOfSherwoodLook(void)
 {
-    if (!is_forest_location()) {
+    if (!IsForestLocation()) {
         if (Rooms[MyLoc].Image == 255) {
             CloseGraphicsWindow();
         } else {
@@ -204,7 +204,7 @@ void robin_of_sherwood_look(void)
                 Items[i].Location = SavedRoom;
     if (MyLoc == 7 && Items[62].Location == 7) // Left bedroom, open treasure chest
         DrawImage(70);
-    if (is_forest_location()) {
+    if (IsForestLocation()) {
         OpenGraphicsWindow();
         draw_sherwood(MyLoc);
 
@@ -229,7 +229,7 @@ void robin_of_sherwood_look(void)
     }
 }
 
-void update_robin_of_sherwood_animations(void)
+void UpdateRobinOfSherwoodAnimations(void)
 {
     AnimationFlag++;
     if (AnimationFlag > 63)
@@ -287,7 +287,7 @@ jumpRoomImages:
         return 0;
 
     do {
-        rp->Text = decompress_text(ptr, ct);
+        rp->Text = DecompressText(ptr, ct);
         *(rp->Text) = tolower(*(rp->Text));
         ct++;
         actual_room_number++;
@@ -376,7 +376,7 @@ jumpHereRoomImages:
         return 0;
 
     do {
-        rp->Text = decompress_text(ptr, ct);
+        rp->Text = DecompressText(ptr, ct);
         *(rp->Text) = tolower(*(rp->Text));
         ct++;
         actual_room_number++;

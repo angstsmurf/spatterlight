@@ -13,7 +13,7 @@
 
 #define GREMLINS_ANIMATION_RATE 670
 
-void update_gremlins_animations(void)
+void UpdateGremlinsAnimations(void)
 {
     if (Rooms[MyLoc].Image == 255) {
         glk_request_timer_events(0);
@@ -119,7 +119,7 @@ void update_gremlins_animations(void)
     glk_request_timer_events(timer_delay);
 }
 
-void gremlins_look(void)
+void GremlinsLook(void)
 {
     if (Rooms[MyLoc].Image != 255) {
         if (MyLoc == 17 && Items[82].Location == 17)
@@ -127,7 +127,7 @@ void gremlins_look(void)
         else
             DrawImage(Rooms[MyLoc].Image);
         AnimationFlag = 0;
-        update_gremlins_animations();
+        UpdateGremlinsAnimations();
     }
     /* Ladder image at the top of the department store */
     if (MyLoc == 34 && Items[53].Location == MyLoc) {

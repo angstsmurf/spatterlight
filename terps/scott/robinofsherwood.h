@@ -11,11 +11,11 @@
 #include "definitions.h"
 #include <stdio.h>
 
-void update_robin_of_sherwood_animations(void);
-void robin_of_sherwood_look(void);
+void UpdateRobinOfSherwoodAnimations(void);
+void RobinOfSherwoodLook(void);
 GameIDType LoadExtraSherwoodData(void);
 GameIDType LoadExtraSherwoodData64(void);
-int is_forest_location(void);
+int IsForestLocation(void);
 void SherwoodAction(int p);
 
 #endif /* robinofsherwood_h */

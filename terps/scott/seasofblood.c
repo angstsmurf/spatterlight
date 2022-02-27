@@ -95,7 +95,7 @@ void mirror_left_half(void)
             buffer[line * 32 + col - 1][8] = buffer[line * 32 + (32 - col)][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)
                 buffer[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            flip(buffer[line * 32 + col - 1]);
+            Flip(buffer[line * 32 + col - 1]);
         }
     }
 }
@@ -148,7 +148,7 @@ void flip_image(void)
         for (int col = 32; col > 0; col--) {
             for (int pixrow = 0; pixrow < 9; pixrow++)
                 mirror[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            flip(mirror[line * 32 + col - 1]);
+            Flip(mirror[line * 32 + col - 1]);
         }
     }
 
@@ -164,7 +164,7 @@ void draw_object_image(uint8_t x, uint8_t y)
             continue;
         if (Items[i].Location != MyLoc)
             continue;
-        draw_saga_picture_at_pos(Items[i].Image, x, y);
+        DrawSagaPictureAtPos(Items[i].Image, x, y);
         should_draw_object_images = 0;
     }
 }
@@ -214,14 +214,14 @@ void draw_blood(int loc)
             ptr = ptr + 2;
             break;
         default: // else draw image *ptr at x, y
-            draw_saga_picture_at_pos(*ptr, *(ptr + 1), *(ptr + 2));
+            DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
             ptr = ptr + 2;
         }
         ptr++;
     }
 }
 
-void seas_of_blood_room_image(void)
+void SeasOfBloodRoomImage(void)
 {
     should_draw_object_images = 1;
     draw_blood(MyLoc);
@@ -231,7 +231,7 @@ void seas_of_blood_room_image(void)
                 DrawImage(Items[ct].Image);
             }
         }
-    draw_image_from_buffer();
+    DrawSagaPictureFromBuffer();
 }
 
 #pragma mark Battles
@@ -399,7 +399,7 @@ void blood_battle(void)
     glk_window_close(BattleRight, NULL);
     CloseGraphicsWindow();
     OpenGraphicsWindow();
-    seas_of_blood_room_image();
+    SeasOfBloodRoomImage();
 }
 
 int get_enemy_stats(int *strike, int *stamina, int *boatflag)
@@ -577,7 +577,7 @@ static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
     glk_window_close(BattleRight, NULL);
     glk_window_close(LeftDiceWin, NULL);
     glk_window_close(RightDiceWin, NULL);
-    seas_of_blood_room_image();
+    SeasOfBloodRoomImage();
     setup_battle_screen(boatflag);
     update_result(0, strike, stamina, boatflag);
     update_result(1, 9, Counters[3], boatflag);
@@ -790,7 +790,7 @@ int LoadExtraSeasOfBloodData(void)
     ptr = SeekToPos(entire_file, 0x71DA + file_baseline_offset);
 
     for (int i = 0; i < 32; i++) {
-        battle_messages[i] = decompress_text(ptr, i);
+        battle_messages[i] = DecompressText(ptr, i);
     }
 
 #pragma mark Extra image data
@@ -848,7 +848,7 @@ jumpEnemyTable:
     ptr = SeekToPos(entire_file, offset);
 
     for (int i = 0; i < 32; i++) {
-        battle_messages[i] = decompress_text(ptr, i);
+        battle_messages[i] = DecompressText(ptr, i);
     }
 
 #pragma mark Extra image data

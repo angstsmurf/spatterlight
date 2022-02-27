@@ -478,7 +478,7 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
-uint8_t *decompress_z80(uint8_t *raw_data, size_t length)
+uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
 {
     libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)

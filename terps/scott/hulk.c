@@ -15,7 +15,7 @@ void ReadHeader(uint8_t *ptr);
 // extern void print_header_info(int header[]);
 extern int header[];
 
-void hulk_show_image_on_examine(int noun)
+void HulkShowImageOnExamine(int noun)
 {
     int image = 0;
     switch (noun) {
@@ -56,7 +56,7 @@ void hulk_show_image_on_examine(int noun)
     }
 }
 
-void hulk_look(void)
+void HulkLook(void)
 {
     DrawImage(Rooms[MyLoc].Image);
     for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
@@ -183,7 +183,7 @@ extern size_t hulk_look_image_offsets;
 extern size_t hulk_special_image_offsets;
 extern size_t hulk_image_offset;
 
-int try_loading_hulk(struct GameInfo info, int dict_start)
+int TryLoadingHulk(struct GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;

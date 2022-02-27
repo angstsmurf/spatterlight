@@ -445,7 +445,7 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
         }
     }
 
-    saga_setup(record.imgoffset);
+    SagaSetup(record.imgoffset);
 
     return CurrentGame;
 }

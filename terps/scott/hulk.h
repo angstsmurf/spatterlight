@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 
-void hulk_show_image_on_examine(int noun);
-void hulk_look(void);
+void HulkShowImageOnExamine(int noun);
+void HulkLook(void);
 void DrawHulkImage(int p);
-int try_loading_hulk(struct GameInfo info, int dict_start);
+int TryLoadingHulk(struct GameInfo info, int dict_start);
 
 #endif /* hulk_h */

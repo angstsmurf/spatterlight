@@ -378,7 +378,7 @@ int32_t remap(int32_t color)
 
 /* real code starts here */
 
-void flip(uint8_t character[])
+void Flip(uint8_t character[])
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -462,10 +462,10 @@ void transform(int32_t character, int32_t flip_mode, int32_t ptr)
         //       fprintf(stderr, "rot 270 character %d\n",character);
     }
     if ((flip_mode & 0x40) != 0) {
-        flip(work);
+        Flip(work);
         /* fprintf("flipping character %d\n",character); */
     }
-    flip(work);
+    Flip(work);
 
     // Now mask it onto the previous character
     for (i = 0; i < 8; i++) {
@@ -480,7 +480,7 @@ void transform(int32_t character, int32_t flip_mode, int32_t ptr)
     }
 }
 
-void putpixel(glsi32 x, glsi32 y, int32_t color)
+void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
     int y_offset = 0;
 
@@ -490,7 +490,7 @@ void putpixel(glsi32 x, glsi32 y, int32_t color)
         y * pixel_size + y_offset, pixel_size, pixel_size);
 }
 
-void rectfill(int32_t x, int32_t y, int32_t width, int32_t height,
+void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color)
 {
     int y_offset = 0;
@@ -510,7 +510,7 @@ void rectfill(int32_t x, int32_t y, int32_t width, int32_t height,
 void background(int32_t x, int32_t y, int32_t color)
 {
     /* Draw the background */
-    rectfill(x * 8, y * 8, 8, 8, color);
+    RectFill(x * 8, y * 8, 8, 8, color);
 }
 
 void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
@@ -521,7 +521,7 @@ void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++)
             if ((screenchars[character][i] & (1 << j)) != 0)
-                putpixel(x * 8 + j, y * 8 + i, fg);
+                PutPixel(x * 8 + j, y * 8 + i, fg);
     }
 }
 
@@ -530,7 +530,7 @@ int isNthBitSet(unsigned const char c, int n)
     static unsigned const char mask[] = { 128, 64, 32, 16, 8, 4, 2, 1 };
     return ((c & mask[n]) != 0);
 }
-uint8_t *draw_saga_picture_from_data(uint8_t *dataptr, int xsize, int ysize,
+uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     int xoff, int yoff);
 
 struct image_patch {
@@ -607,7 +607,7 @@ size_t hulk_special_image_offsets = 0x276e;
 size_t hulk_image_offset = 0x441b;
 
 
-void saga_setup(size_t imgoffset)
+void SagaSetup(size_t imgoffset)
 {
     int32_t i, y;
 
@@ -825,7 +825,7 @@ void debugdraw(int on, int character, int xoff, int yoff, int width)
     }
 }
 
-uint8_t *draw_saga_picture_from_data(uint8_t *dataptr, int xsize, int ysize,
+uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     int xoff, int yoff)
 {
     int32_t offset = 0, cont = 0;
@@ -1008,7 +1008,7 @@ uint8_t *draw_saga_picture_from_data(uint8_t *dataptr, int xsize, int ysize,
     return dataptr;
 }
 
-void draw_saga_picture_number(int picture_number)
+void DrawSagaPictureNumber(int picture_number)
 {
     int numgraphics = GameInfo->number_of_pictures;
     if (picture_number >= numgraphics) {
@@ -1022,18 +1022,18 @@ void draw_saga_picture_number(int picture_number)
     if (img.imagedata == NULL)
         return;
 
-    draw_saga_picture_from_data(img.imagedata, img.width, img.height, img.xoff,
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
         img.yoff);
 }
 
-void draw_saga_picture_at_pos(int picture_number, int x, int y)
+void DrawSagaPictureAtPos(int picture_number, int x, int y)
 {
     Image img = images[picture_number];
 
-    draw_saga_picture_from_data(img.imagedata, img.width, img.height, x, y);
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y);
 }
 
-void switch_palettes(int pal1, int pal2)
+void SwitchPalettes(int pal1, int pal2)
 {
     uint8_t temp[3];
 
@@ -1050,7 +1050,7 @@ void switch_palettes(int pal1, int pal2)
     pal[pal2][2] = temp[2];
 }
 
-void draw_image_from_buffer(void)
+void DrawSagaPictureFromBuffer(void)
 {
     for (int line = 0; line < 12; line++) {
         for (int col = 0; col < 32; col++) {
@@ -1081,7 +1081,7 @@ void draw_image_from_buffer(void)
                 for (int j = 0; j < 8; j++)
                     if ((buffer[col + line * 32][i] & (1 << j)) != 0) {
                         int ypos = line * 8 + i;
-                        putpixel(col * 8 + j, ypos, ink);
+                        PutPixel(col * 8 + j, ypos, ink);
                     }
             }
         }
