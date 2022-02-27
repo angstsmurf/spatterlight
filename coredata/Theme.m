@@ -63,6 +63,10 @@
 @dynamic name;
 @dynamic nohacks;
 @dynamic quoteBox;
+@dynamic sADelays;
+@dynamic sADisplayStyle;
+@dynamic sAInventory;
+@dynamic sAPalette;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic smoothScroll;

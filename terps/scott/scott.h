@@ -82,6 +82,10 @@ typedef struct {
 #define SPECTRUM_STYLE 32    /* Display in style used on ZX Spectrum */
 #define TI994A_STYLE 64     /* Display in style used on TI-99/4A */
 #define NO_DELAYS 128     /* Skip all pauses */
+#define FORCE_PALETTE_ZX 256     /* Force ZX Spectrum image palette */
+#define FORCE_PALETTE_C64 512     /* Force CBM 64 image palette */
+#define FORCE_INVENTORY 1024     /* Inventory in upper window always on */
+#define FORCE_INVENTORY_OFF 2048     /* Inventory in upper window always off */
 
 #define MAX_GAMEFILE_SIZE 200000
 
@@ -124,6 +128,7 @@ void LookWithPause(void);
 void SaveGame(void);
 void PrintNoun(void);
 int PrintScore(void);
+void UpdateSettings(void);
 
 extern struct GameInfo *GameInfo;
 extern Header GameHeader;

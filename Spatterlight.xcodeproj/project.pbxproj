@@ -3059,6 +3059,7 @@
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
+		C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 12.xcdatamodel"; sourceTree = "<group>"; };
 		C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Quicklook.xcassets; sourceTree = "<group>"; };
 		C3EF065E1ECE60D0008EED04 /* cgdate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgdate.c; sourceTree = "<group>"; };
 		C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BureaucracyForm.h; sourceTree = "<group>"; };
@@ -10309,6 +10310,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */,
 				C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */,
 				C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */,
 				C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */,
@@ -10321,7 +10323,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C39D4A21270BABE100517633 /* Spatterlight 11.xcdatamodel */;
+			currentVersion = C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

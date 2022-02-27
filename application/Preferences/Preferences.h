@@ -137,6 +137,10 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet NSButton *recheckMissingCheckbox;
 @property (weak) IBOutlet NSTextField *recheckFrequencyTextfield;
 
+@property (weak) IBOutlet NSPopUpButton *palettePopup;
+@property (weak) IBOutlet NSPopUpButton *inventoryPopup;
+@property (weak) IBOutlet NSButton *delaysCheckbox;
+
 @property DummyTextView *dummyTextView;
 
 - (void)changeAttributes:(id)sender;

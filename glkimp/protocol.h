@@ -42,6 +42,10 @@ struct settings_struct
     int grid_background;
     int do_styles;
     int quote_boxes;
+    int sa_delays;
+    int sa_display_style;
+    int sa_inventory;
+    int sa_palette;
     int determinism;
     int error_handling;
     int force_arrange;

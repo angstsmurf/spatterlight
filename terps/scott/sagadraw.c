@@ -34,6 +34,10 @@ typedef RGB PALETTE[16];
 
 PALETTE pal;
 
+int white_colour = 15;
+int blue_colour = 9;
+glui32 dice_colour = 0xff0000;
+
 int32_t errorcount = 0;
 
 palette_type palchosen = NO_PALETTE;
@@ -91,7 +95,7 @@ void set_color(int32_t index, RGB *colour)
     pal[index][2] = (*colour)[2];
 }
 
-void define_palette(void)
+void DefinePalette(void)
 {
     /* set up the palette */
     if (palchosen == VGA) {
@@ -163,6 +167,10 @@ void define_palette(void)
         set_color(13, &brcyan);
         set_color(14, &bryellow);
         set_color(15, &brwhite);
+
+        white_colour = 15;
+        blue_colour = 9;
+        dice_colour = 0xff0000;
     } else if (palchosen == ZXOPT) {
         /* optimized but not realistic Sinclair ZX palette (SPIN emu) */
         RGB black = { 0, 0, 0 };
@@ -218,6 +226,11 @@ void define_palette(void)
         set_color(13, &brcyan);
         set_color(14, &bryellow);
         set_color(15, &brwhite);
+
+        white_colour = 15;
+        blue_colour = 9;
+        dice_colour = 0xff0000;
+
     } else if ((palchosen == C64A) || (palchosen == C64B)) {
         /* and now: C64 palette (pepto/VICE) */
         RGB black = { 0, 0, 0 };
@@ -253,6 +266,10 @@ void define_palette(void)
         set_color(13, &lgreen);
         set_color(14, &lblue);
         set_color(15, &lgrey);
+
+        white_colour = 1;
+        blue_colour = 6;
+        dice_colour = 0x5f48e9;
     }
 }
 
@@ -589,6 +606,7 @@ size_t hulk_look_image_offsets = 0x27bc;
 size_t hulk_special_image_offsets = 0x276e;
 size_t hulk_image_offset = 0x441b;
 
+
 void saga_setup(size_t imgoffset)
 {
     int32_t i, y;
@@ -604,7 +622,7 @@ void saga_setup(size_t imgoffset)
         exit(EXIT_FAILURE);
     }
 
-    define_palette();
+    DefinePalette();
 
     int version = GameInfo->picture_format_version;
 

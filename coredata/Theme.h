@@ -97,6 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t nohacks;
 @property (nonatomic) int32_t quoteBox;
+@property (nonatomic) int32_t sADelays;
+@property (nonatomic) int32_t sADisplayStyle;
+@property (nonatomic) int32_t sAInventory;
+@property (nonatomic) int32_t sAPalette;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) BOOL smoothScroll;

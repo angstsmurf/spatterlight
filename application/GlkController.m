@@ -2141,13 +2141,12 @@ fprintf(stderr, "%s\n",                                                    \
     if (height < 0)
         height = 0;
 
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
+    [self queueEvent:gevent];
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
                                          height:(NSInteger)height
                                           theme:theme
                                           force:YES];
-    [self queueEvent:gevent];
-
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
 
     for (GlkWindow *win in [_gwindows allValues])

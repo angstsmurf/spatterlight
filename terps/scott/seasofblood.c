@@ -18,7 +18,6 @@
 
 winid_t LeftDiceWin, RightDiceWin, BattleRight;
 glui32 background_colour;
-glui32 dice_colour;
 
 extern const char *battle_messages[33];
 extern uint8_t enemy_table[126];
@@ -38,7 +37,7 @@ void battle_loop(int enemy, int strike, int stamina, int boatflag);
 void swap_stamina_and_crew_strength(void);
 void blood_battle(void);
 
-void adventure_sheet(void)
+void AdventureSheet(void)
 {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     glk_set_style(style_Preformatted);
@@ -375,7 +374,7 @@ static void setup_battle_screen(int boatflag)
         glk_window_clear(RightDiceWin);
     }
 
-    if (CurrentGame == SEAS_OF_BLOOD_C64)
+    if (palchosen == C64B)
         dice_colour = 0x5f48e9;
     else
         dice_colour = 0xff0000;
@@ -572,6 +571,7 @@ void clear_stamina(void)
 
 static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
 {
+    UpdateSettings();
     glk_cancel_char_event(Top);
     CloseGraphicsWindow();
     glk_window_close(BattleRight, NULL);

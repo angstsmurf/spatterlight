@@ -16,8 +16,8 @@
 extern Image *images;
 extern uint8_t screenchars[768][8];
 
-static int white = 15;
-static int blue = 9;
+//static int white_colour = 15;
+//static int blue_colour = 9;
 
 static uint8_t *forest_images = NULL;
 
@@ -131,7 +131,7 @@ void draw_sherwood(int loc)
 
 void animate_waterfall(int stage)
 {
-    rectfill(88, 16, 48, 64, white);
+    rectfill(88, 16, 48, 64, white_colour);
     for (int line = 2; line < 10; line++) {
         for (int col = 11; col < 17; col++) {
             for (int i = 0; i < 8; i++)
@@ -140,7 +140,7 @@ void animate_waterfall(int stage)
                         int ypos = line * 8 + i + stage;
                         if (ypos > 79)
                             ypos = ypos - 64;
-                        putpixel(col * 8 + j, ypos, blue);
+                        putpixel(col * 8 + j, ypos, blue_colour);
                     }
         }
     }
@@ -148,7 +148,7 @@ void animate_waterfall(int stage)
 
 void animate_waterfall_cave(int stage)
 {
-    rectfill(248, 24, 8, 64, white);
+    rectfill(248, 24, 8, 64, white_colour);
     for (int line = 3; line < 11; line++) {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
@@ -156,7 +156,7 @@ void animate_waterfall_cave(int stage)
                     int ypos = line * 8 + i + stage;
                     if (ypos > 87)
                         ypos = ypos - 64;
-                    putpixel(248 + j, ypos, blue);
+                    putpixel(248 + j, ypos, blue_colour);
                 }
     }
 }
@@ -333,8 +333,8 @@ jumpRoomImages:
 GameIDType LoadExtraSherwoodData64(void)
 {
 
-    white = 1;
-    blue = 6;
+//    white_colour = 1;
+//    blue = 6;
 
 #pragma mark room images
 

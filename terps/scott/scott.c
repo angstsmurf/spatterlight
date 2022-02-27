@@ -62,7 +62,7 @@
 #include "scott.h"
 
 #ifdef SPATTERLIGHT
-extern glui32 gli_determinism;
+#include "glkimp.h"
 #endif
 
 static const char *game_file;
@@ -158,17 +158,59 @@ void Display(winid_t w, const char *fmt, ...)
     free(unistring);
 }
 
+void UpdateSettings(void) {
+	if (gli_sa_delays)
+		Options &= ~NO_DELAYS;
+	else
+		Options |= NO_DELAYS;
+
+	switch(gli_sa_inventory) {
+		case 0:
+			Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+			break;
+		case 1:
+			Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+			break;
+		case 2:
+			Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+			break;
+	}
+
+	switch(gli_sa_palette) {
+		case 0:
+			Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
+			break;
+		case 1:
+			Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+			break;
+		case 2:
+			Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+			break;
+	}
+
+	palette_type previous_pal = palchosen;
+	if (Options & FORCE_PALETTE_ZX)
+		palchosen = ZXOPT;
+	else if (Options & FORCE_PALETTE_C64)
+		palchosen = C64B;
+	else
+		palchosen = GameInfo->palette;
+	if (palchosen != previous_pal)
+		DefinePalette();
+}
+
 void Updates(event_t ev)
 {
-    if (ev.type == evtype_Arrange) {
-        if (Graphics) {
-            CloseGraphicsWindow();
-            OpenGraphicsWindow();
-        }
-        if (split_screen) {
-            Look();
-        }
-    } else if (ev.type == evtype_Timer) {
+	if (ev.type == evtype_Arrange) {
+		UpdateSettings();
+
+		CloseGraphicsWindow();
+		OpenGraphicsWindow();
+
+		if (split_screen) {
+			Look();
+		}
+	} else if (ev.type == evtype_Timer) {
         switch (GameInfo->type) {
         case SHERWOOD_VARIANT:
             update_robin_of_sherwood_animations();
@@ -260,6 +302,8 @@ const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 
 void OpenGraphicsWindow(void)
 {
+	if (!gli_enable_graphics)
+		return;
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 
     if (Top == NULL)
@@ -688,6 +732,8 @@ void DrawBlack(void)
 
 void DrawImage(int image)
 {
+	if (!gli_enable_graphics)
+		return;
     OpenGraphicsWindow();
     if (Graphics == NULL) {
         fprintf(stderr, "DrawImage: Graphic window NULL?\n");
@@ -924,7 +970,7 @@ void ListInventoryInUpperWindow(void)
         i++;
     }
     if (anything == 0) {
-        WriteToRoomDescriptionStream("%s", sys[NOTHING]);
+        WriteToRoomDescriptionStream("%s\n", sys[NOTHING]);
     } else {
         if (Options & TI994A_STYLE)
             WriteToRoomDescriptionStream(".");
@@ -1010,7 +1056,7 @@ void Look(void)
         WriteToRoomDescriptionStream("\n");
     }
 
-    if (AutoInventory)
+    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF))
         ListInventoryInUpperWindow();
 
     FlushRoomDescription(buf);
@@ -1694,7 +1740,10 @@ static ActionResultType PerformLine(int ct)
 				stop_time = 2;
                 break;
             case 66:
-                ListInventory();
+				if (GameInfo->type == SEAS_OF_BLOOD_VARIANT)
+					AdventureSheet();
+				else
+					ListInventory();
 				stop_time = 2;
                 break;
             case 67:
@@ -1947,7 +1996,7 @@ static ExplicitResultType PerformActions(int vb, int no)
         nl = Rooms[MyLoc].Exits[no - 1];
         if (nl != 0) {
             /* Seas of Blood needs this to be able to flee back to the last room */
-            if (CurrentGame == SEAS_OF_BLOOD || CurrentGame == SEAS_OF_BLOOD_C64)
+            if (GameInfo->type == SEAS_OF_BLOOD_VARIANT)
                 SavedRoom = MyLoc;
             if (Options & (SPECTRUM_STYLE | TI994A_STYLE))
                 Output(sys[OK]);
@@ -2223,6 +2272,7 @@ void glk_main(void)
     glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Indentation, 20);
     glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_ParaIndentation,
         20);
+	glk_stylehint_set(wintype_TextBuffer, style_Preformatted, stylehint_Justification, stylehint_just_Centered);
 
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     if (Bottom == NULL)
@@ -2289,6 +2339,7 @@ Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
 
 #ifdef SPATTERLIGHT
+	UpdateSettings();
     if (gli_determinism)
         srand(1234);
     else

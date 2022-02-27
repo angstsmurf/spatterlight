@@ -1746,7 +1746,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Seas of Blood",
         SEAS_OF_BLOOD,
-        NO_TYPE,                // type
+        SEAS_OF_BLOOD_VARIANT,  // type
         ENGLISH,                // subtype
         FOUR_LETTER_COMPRESSED, // dictionary type
 
@@ -1791,7 +1791,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Seas of Blood C64",
         SEAS_OF_BLOOD_C64,
-        NO_TYPE,                // type
+        SEAS_OF_BLOOD_VARIANT,  // type
         ENGLISH | C64,          // subtype
         FOUR_LETTER_COMPRESSED, // dictionary type
 
@@ -1994,7 +1994,7 @@ const char *sysdict_TI994A[MAX_SYSMESS] = {
     "\nVisible items are : ",
     "Obvious exits : ",
     "I am carrying : ",
-    "Nothing.\n",
+    "Nothing. ",
     "What shall I do? ",
     "<HIT ENTER>",
     "Light went out! ",

@@ -546,6 +546,10 @@ NSString *fontToString(NSFont *font) {
     _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;
 
+    [_palettePopup selectItemWithTag:theme.sAPalette];
+    [_inventoryPopup selectItemWithTag:theme.sAInventory];
+    _delaysCheckbox.state = theme.sADelays;
+
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         if (!selectedFontButton)
             selectedFontButton = btnBufferFont;
@@ -1754,6 +1758,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeQuoteBoxCheckBox:(id)sender {
     [self changeBooleanAttribute:@"quoteBox" fromButton:sender];
+}
+
+#pragma mark Scott Adams menu
+
+- (IBAction)changeScottAdamsPalette:(id)sender {
+    [self changeMenuAttribute:@"sAPalette" fromPopUp:sender];
+}
+
+- (IBAction)changeScottAdamsInventory:(id)sender {
+    [self changeMenuAttribute:@"sAInventory" fromPopUp:sender];
+}
+
+- (IBAction)changeScottAdamsDelay:(id)sender {
+    [self changeBooleanAttribute:@"sADelays" fromButton:sender];
 }
 
 #pragma mark Misc menu

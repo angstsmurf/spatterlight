@@ -13,7 +13,7 @@
 int LoadExtraSeasOfBloodData(void);
 int LoadExtraSeasOfBlood64Data(void);
 void seas_of_blood_room_image(void);
-void adventure_sheet(void);
+void AdventureSheet(void);
 void BloodAction(int p);
 
 extern uint8_t *blood_image_data;

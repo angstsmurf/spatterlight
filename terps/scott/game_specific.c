@@ -9,8 +9,6 @@
 #include "sagadraw.h"
 #include "scott.h"
 
-static int white = 15;
-
 void update_secret_animations(void)
 {
     if (MyLoc != 13 || AnimationFlag == 0) {
@@ -20,7 +18,7 @@ void update_secret_animations(void)
     }
     /* Roll down */
     if (AnimationFlag > 0 && AnimationFlag < 48) {
-        rectfill(113, 0, 102, AnimationFlag, white);
+        rectfill(113, 0, 102, AnimationFlag, white_colour);
         AnimationFlag++;
     }
     /* Flicker */
@@ -289,7 +287,6 @@ void Supergran64Sysmess(void)
 
 void SecretMission64Sysmess(void)
 {
-    white = 1;
     SysMessageType messagekey[] = {
         NORTH,
         SOUTH,

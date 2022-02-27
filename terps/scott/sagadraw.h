@@ -9,6 +9,7 @@
 #define sagadraw_h
 
 #include "glk.h"
+#include "definitions.h"
 
 typedef struct {
   uint8_t *imagedata;
@@ -40,5 +41,12 @@ void rectfill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color);
 
 void switch_palettes(int pal1, int pal2);
+void DefinePalette(void);
+
+extern palette_type palchosen;
+
+extern int white_colour;
+extern int blue_colour;
+extern glui32 dice_colour;
 
 #endif /* sagadraw_h */

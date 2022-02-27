@@ -49,6 +49,11 @@ extern uint32_t gbgcol;
 extern uint32_t gsfgcol;
 extern uint32_t gsbgcol;
 
+extern int gli_sa_delays;
+extern int gli_sa_display_style;
+extern int gli_sa_inventory;
+extern int gli_sa_palette;
+
 extern glui32 tagcounter;
 extern glui32 lasteventtype;
 

@@ -259,6 +259,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->quote_boxes = (int)theme.quoteBox;
         settings->determinism = (int)theme.determinism;
         settings->error_handling = (int)theme.errorHandling;
+        settings->sa_delays = (int)theme.sADelays;
+        settings->sa_display_style = (int)theme.sADisplayStyle;
+        settings->sa_inventory = (int)theme.sAInventory;
+        settings->sa_palette = (int)theme.sAPalette;
 
         settings->force_arrange = _forced;
 

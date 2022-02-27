@@ -45,12 +45,15 @@
                 <outlet property="clrBufferFg" destination="542" id="750"/>
                 <outlet property="clrGridBg" destination="541" id="752"/>
                 <outlet property="clrGridFg" destination="540" id="749"/>
+                <outlet property="compromiseZArrowsMenuItem" destination="8Ue-bJ-Uhv" id="LRu-Cw-tfA"/>
                 <outlet property="coverImagePopup" destination="bMY-xH-RGv" id="2Xk-Fz-f5z"/>
+                <outlet property="delaysCheckbox" destination="qbl-t2-Rrs" id="WSS-aS-lK8"/>
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
                 <outlet property="errorHandlingPopup" destination="KHT-r6-CgA" id="fER-hD-rGE"/>
                 <outlet property="hyperlinksPopup" destination="sVx-EC-LaZ" id="Npa-sj-9Oy"/>
                 <outlet property="imageReplacePopup" destination="V1K-2z-Mkm" id="POJ-16-w0c"/>
+                <outlet property="inventoryPopup" destination="bUq-I4-fom" id="jmv-d5-gLg"/>
                 <outlet property="libraryAtStartCheckbox" destination="aaB-f3-jTz" id="Ho4-fG-qKb"/>
                 <outlet property="marginHorizontalBufferStepper" destination="Ga3-o5-Ocm" id="hvu-sd-KQ8"/>
                 <outlet property="marginHorizontalBufferTextField" destination="yB9-OX-32B" id="1gw-Ra-aue"/>
@@ -62,12 +65,15 @@
                 <outlet property="marginVerticalGridTextField" destination="uzD-SP-NUM" id="X05-z2-DTI"/>
                 <outlet property="marginsPopover" destination="tlb-eP-erI" id="sE4-m1-zIt"/>
                 <outlet property="miscHeader" destination="vuA-ft-mAo" id="HWP-xI-lSk"/>
+                <outlet property="palettePopup" destination="a1z-HV-XlQ" id="ZfN-2M-FNG"/>
                 <outlet property="quoteBoxCheckBox" destination="UHc-Fp-xZt" id="aWD-cF-XTg"/>
                 <outlet property="recheckFrequencyTextfield" destination="4cd-Gt-luS" id="YpS-ea-IRH"/>
                 <outlet property="recheckMissingCheckbox" destination="aRK-sP-Woa" id="pnW-Sr-MKw"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
+                <outlet property="standardZArrowsMenuItem" destination="knU-An-UrC" id="8Id-P2-zE6"/>
+                <outlet property="strictZArrowsMenuItem" destination="ZUP-mf-G4Z" id="NlH-k7-jpp"/>
                 <outlet property="styleNamePopup" destination="VWX-Pp-wTR" id="w9h-fj-PtQ"/>
                 <outlet property="stylesHeader" destination="8DO-fr-9q7" id="EVz-j6-cir"/>
                 <outlet property="swapBufColBtn" destination="976" id="980"/>
@@ -1262,13 +1268,16 @@
                                                                     <menu key="menu" id="mYJ-4u-WzR">
                                                                         <items>
                                                                             <menuItem title="Automatic" state="on" id="E6A-NF-6SH"/>
-                                                                            <menuItem title="ZX Spectrum" id="x1g-Sr-5dM"/>
-                                                                            <menuItem title="Commodore 64" id="7F9-3q-6vl">
+                                                                            <menuItem title="ZX Spectrum" tag="1" id="x1g-Sr-5dM"/>
+                                                                            <menuItem title="Commodore 64" tag="2" id="7F9-3q-6vl">
                                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                             </menuItem>
                                                                         </items>
                                                                     </menu>
                                                                 </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="changeScottAdamsPalette:" target="-2" id="Q3F-xQ-hQ0"/>
+                                                                </connections>
                                                             </popUpButton>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-y8-hpm">
                                                                 <rect key="frame" x="46" y="145" width="167" height="16"/>
@@ -1288,11 +1297,14 @@
                                                                     <menu key="menu" id="Abf-n3-28N">
                                                                         <items>
                                                                             <menuItem title="Automatic" state="on" id="aga-1T-cUN"/>
-                                                                            <menuItem title="On" id="yaH-6G-Sha"/>
-                                                                            <menuItem title="Off" id="aUB-AD-pFe"/>
+                                                                            <menuItem title="On" tag="1" id="yaH-6G-Sha"/>
+                                                                            <menuItem title="Off" tag="2" id="aUB-AD-pFe"/>
                                                                         </items>
                                                                     </menu>
                                                                 </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="changeScottAdamsInventory:" target="-2" id="s0F-5h-hyT"/>
+                                                                </connections>
                                                             </popUpButton>
                                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-8d-P9f">
                                                                 <rect key="frame" x="9" y="105" width="426" height="5"/>
@@ -1305,6 +1317,9 @@
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
+                                                                <connections>
+                                                                    <action selector="changeScottAdamsDelay:" target="-2" id="2bG-sW-xAe"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </view>
