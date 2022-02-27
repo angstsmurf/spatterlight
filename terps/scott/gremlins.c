@@ -141,6 +141,49 @@ void GremlinsLook(void)
     }
 }
 
+void FillInGermanSystemMessages(void)
+{
+    sys[I_DONT_KNOW_HOW_TO] = "Ich weiss nicht, wie man etwas \"";
+    sys[SOMETHING] = "\" macht. ";
+    sys[I_DONT_KNOW_WHAT_A] = "\"";
+    sys[IS] = "\" kenne ich nicht. ";
+    sys[YES] = "Ja";
+    sys[NO] = "Nein";
+    sys[ANSWER_YES_OR_NO] = "Antworte Ja oder Nein.\n";
+    sys[I_DONT_UNDERSTAND] = "Ich verstehe nicht. ";
+    sys[ARE_YOU_SURE] = "Sind Sie sicher? ";
+    sys[NOTHING_HERE_TO_TAKE] = "Hier gibt es nichts zu nehmen. ";
+    sys[YOU_HAVE_NOTHING] = "Ich traege nichts. ";
+    sys[MOVE_UNDONE] = "Verschieben rueckgaengig gemacht. ";
+    sys[CANT_UNDO_ON_FIRST_TURN] = "Sie koennen die erste Runde nicht rueckgaengig machen. ";
+    sys[NO_UNDO_STATES] = "Keine rueckgaengig-Zustaende mehr gespeichert. ";
+    sys[SAVED] = "Spiel gespeichert. ";
+    sys[CANT_USE_ALL] = "Sie koennen ALLES nicht mit diesem Verb verwenden. ";
+    sys[TRANSCRIPT_ON] = "Das Transkript ist jetzt eingeschaltet. ";
+    sys[TRANSCRIPT_OFF] = "Das Transkript ist jetzt deaktiviert. ";
+    sys[NO_TRANSCRIPT] = "Es wird kein Transkript ausgefuehrt. ";
+    sys[TRANSCRIPT_ALREADY] = "Eine Transkript laeuft bereits. ";
+    sys[FAILED_TRANSCRIPT] = "Transkriptdatei konnte nicht erstellt werden. ";
+    sys[TRANSCRIPT_START] = "Beginn einer Transkript.\n\n";
+    sys[TRANSCRIPT_END] = "\n\nEnde eniner Transkript.\n";
+    sys[BAD_DATA] = "SCHLECHTE DATEN! Ungueltige Speicherdatei.\n";
+    sys[STATE_SAVED] = "Zustand gerettet.\n";
+    sys[NO_SAVED_STATE] = "Es ist kein gespeicherter Zustand vorhanden.\n";
+    sys[STATE_RESTORED] = "Zustand wiederhergestellt.\n";
+
+    sys[YOU_ARE] = "Ich bin ";
+    sys[WHAT] = sys[HUH];
+
+    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
+        Directions[i] = GermanDirections[i];
+    for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
+        SkipList[i] = GermanSkipList[i];
+    for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
+        DelimiterList[i] = GermanDelimiterList[i];
+    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
+        ExtraNouns[i] = GermanExtraNouns[i];
+}
+
 void LoadExtraGermanGremlinsc64Data(void)
 {
     Verbs[0] = "AUTO\0";
@@ -189,38 +232,7 @@ void LoadExtraGermanGremlinsc64Data(void)
 
     sys[HIT_ENTER] = system_messages[30];
 
-    sys[I_DONT_KNOW_HOW_TO] = "Ich weiss nicht, wie man etwas \"";
-    sys[SOMETHING] = "\" macht. ";
-    sys[I_DONT_KNOW_WHAT_A] = "\"";
-    sys[IS] = "\" kenne ich nicht. ";
-    sys[YES] = "Ja";
-    sys[NO] = "Nein";
-    sys[ANSWER_YES_OR_NO] = "Antworte Ja oder Nein.\n";
-    sys[ARE_YOU_SURE] = "Sind Sie sicher? ";
-    sys[NOTHING_HERE_TO_TAKE] = "Hier gibt es nichts zu nehmen. ";
-    sys[YOU_HAVE_NOTHING] = "Ich traege nichts. ";
-    sys[MOVE_UNDONE] = "Verschieben rueckgaengig gemacht. ";
-    sys[SAVED] = "Spiel gespeichert. ";
-    sys[CANT_USE_ALL] = "Sie koennen ALLES nicht mit diesem Verb verwenden. ";
-    sys[TRANSCRIPT_ON] = "Das Transkript ist jetzt eingeschaltet. ";
-    sys[TRANSCRIPT_OFF] = "Das Transkript ist jetzt deaktiviert. ";
-    sys[NO_TRANSCRIPT] = "Es wird kein Transkript ausgefuehrt. ";
-    sys[TRANSCRIPT_ALREADY] = "Eine Transkript laeuft bereits. ";
-    sys[FAILED_TRANSCRIPT] = "Transkriptdatei konnte nicht erstellt werden. ";
-    sys[TRANSCRIPT_START] = "Beginn einer Transkript.\n\n";
-    sys[TRANSCRIPT_END] = "\n\nEnde eniner Transkript.\n";
-
-    sys[YOU_ARE] = "Ich bin ";
-    sys[WHAT] = sys[HUH];
-
-    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
-        Directions[i] = GermanDirections[i];
-    for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
-        SkipList[i] = GermanSkipList[i];
-    for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
-        DelimiterList[i] = GermanDelimiterList[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
-        ExtraNouns[i] = GermanExtraNouns[i];
+    FillInGermanSystemMessages();
 
     Items[99].Image = 255;
 }
@@ -230,40 +242,7 @@ void LoadExtraGermanGremlinsData(void)
     Verbs[0] = "AUTO\0";
     Nouns[0] = "ANY\0";
 
-    sys[I_DONT_KNOW_WHAT_A] = system_messages[15];
-    sys[IS] = system_messages[16];
-    sys[I_DONT_KNOW_HOW_TO] = "Ich weiss nicht, wie man etwas \"";
-    sys[SOMETHING] = "\" macht. ";
-    sys[WHAT] = system_messages[8];
-    sys[YOU_ARE] = "Ich bin ";
-    sys[YES] = "Ja";
-    sys[NO] = "Nein";
-    sys[ANSWER_YES_OR_NO] = "Antworte Ja oder Nein.\n";
-    sys[I_DONT_UNDERSTAND] = "Ich verstehe nicht. ";
-    sys[ARE_YOU_SURE] = "Sind Sie sicher? ";
-    sys[NOTHING_HERE_TO_TAKE] = "Hier gibt es nichts zu nehmen. ";
-    sys[YOU_HAVE_NOTHING] = "Ich traege nichts. ";
-    sys[MOVE_UNDONE] = "Verschieben rueckgaengig gemacht. ";
-    sys[SAVED] = "Spiel gespeichert. ";
-    sys[CANT_USE_ALL] = "Sie koennen ALLES nicht mit diesem Verb verwenden. ";
-    sys[TRANSCRIPT_ON] = "Das Transkript ist jetzt eingeschaltet. ";
-    sys[TRANSCRIPT_OFF] = "Das Transkript ist jetzt deaktiviert. ";
-    sys[NO_TRANSCRIPT] = "Es wird kein Transkript ausgefuehrt. ";
-    sys[TRANSCRIPT_ALREADY] = "Eine Transkript laeuft bereits. ";
-    sys[FAILED_TRANSCRIPT] = "Transkriptdatei konnte nicht erstellt werden. ";
-    sys[TRANSCRIPT_START] = "Beginn einer Transkript.\n\n";
-    sys[TRANSCRIPT_END] = "\n\nEnde eniner Transkript.\n";
-
     Messages[90] = "Ehe ich etwas anderes mache, much aich erst alles andere fallenlassen. ";
-
-    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
-        Directions[i] = GermanDirections[i];
-    for (int i = 0; i < NUMBER_OF_SKIPPABLE_WORDS; i++)
-        SkipList[i] = GermanSkipList[i];
-    for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
-        DelimiterList[i] = GermanDelimiterList[i];
-    for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
-        ExtraNouns[i] = GermanExtraNouns[i];
 }
 
 void LoadExtraSpanishGremlinsData(void)
@@ -295,6 +274,8 @@ void LoadExtraSpanishGremlinsData(void)
     sys[NOTHING_HERE_TO_TAKE] = "No hay nada aqu} para tomar. ";
     sys[YOU_HAVE_NOTHING] = "No llevo nada. ";
     sys[MOVE_UNDONE] = "Deshacer. ";
+    sys[CANT_UNDO_ON_FIRST_TURN] = "No se puede deshacer en el primer turno. ";
+    sys[NO_UNDO_STATES] = "No hay m{s estados de deshacer disponibles. ";
     sys[SAVED] = "Juego guardado. ";
     sys[CANT_USE_ALL] = "No puedes usar TODO con este verbo. ";
     sys[TRANSCRIPT_ON] = "Transcripci|n en. ";
@@ -304,6 +285,10 @@ void LoadExtraSpanishGremlinsData(void)
     sys[FAILED_TRANSCRIPT] = "No se pudo crear el archivo de transcripci|n. ";
     sys[TRANSCRIPT_START] = "Comienzo de una transcripci|n.\n\n";
     sys[TRANSCRIPT_END] = "\n\nFin de una transcripci|n.\n";
+    sys[BAD_DATA] = "\x80MALOS DATOS! Guardar archivo no v{lido.\n";
+    sys[STATE_SAVED] = "Estado guardado.\n";
+    sys[NO_SAVED_STATE] = "No existe ning\x85n estado guardado.\n";
+    sys[STATE_RESTORED] = "Estado restaurado.\n";
 
     for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++)
         Directions[i] = SpanishDirections[i];
