@@ -415,8 +415,6 @@
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSView *superView = _imageView.superview;
     NSSize viewSize = superView.frame.size;
-
-    viewSize = superView.frame.size;
     _vertical = (viewSize.width - viewSize.height <= 20);
     if (_vertical) {
         [self drawVertical];
@@ -856,6 +854,7 @@
     MDItemRef mdItem = MDItemCreateWithURL(NULL, cfurl);
     CFTypeRef dateRef = MDItemCopyAttribute(mdItem, kMDItemLastUsedDate);
     NSDate *date = CFBridgingRelease(dateRef);
+    CFRelease(mdItem);
     CFRelease(cfurl);
     return date;
 }

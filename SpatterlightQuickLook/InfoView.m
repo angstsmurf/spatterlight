@@ -725,7 +725,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSString *copyright = [NSString stringWithFormat:@"© %@", metadict[@"(c) "]];
 
         lastView = [self addSubViewWithtext:copyright andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
-        spaceBefore = 5;
     }
 
     if (metadict[@"modificationDate"] || metadict[@"creationDate"] || metadict[@"lastOpenedDate"]) {
@@ -756,8 +755,6 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         totalHeight += NSHeight(_leftDateView.frame) + 24;
-
-        spaceBefore = 5;
     }
 
     font = [NSFont systemFontOfSize:11];
