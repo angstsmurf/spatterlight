@@ -292,8 +292,10 @@ int DetectC64(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
         return 0;
 
+    uint16_t chksum = checksum(*sf, *extent);
+
     for (int i = 0; c64_registry[i].length != 0; i++) {
-        if (*extent == c64_registry[i].length && checksum(*sf, *extent) == c64_registry[i].chk) {
+        if (*extent == c64_registry[i].length && chksum == c64_registry[i].chk) {
             if (c64_registry[i].id == SAVAGE_ISLAND_C64) {
                 return savage_island_menu(sf, extent, i);
             }

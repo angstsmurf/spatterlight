@@ -652,7 +652,6 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
 
     int offset = info.start_of_header + file_baseline_offset;
 
-jumpHere:
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
