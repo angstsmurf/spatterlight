@@ -141,8 +141,10 @@ glui32 *ToUnicode(const char *string)
                 break;
             case '\x84':
                 unichar = 0xe9; // é
+                break;
             case '\x85':
                 unichar = 0xfa; // ú
+                break;
             }
         } else if (GameInfo && CurrentGame == TI994A) {
             switch (c) {
