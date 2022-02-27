@@ -298,7 +298,7 @@ struct GameInfo games[NUMGAMES] = {
         91, // number_of_verbs
         83, // number_of_nouns;
 
-        0x2349, // header
+        0x2351, // header
         EARLY,  // header style
 
         0, // no room images
