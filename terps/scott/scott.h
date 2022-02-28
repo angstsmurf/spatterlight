@@ -128,6 +128,13 @@ void LookWithPause(void);
 void SaveGame(void);
 void PrintNoun(void);
 int PrintScore(void);
+void MoveItemAToLocOfItemB(int itemA, int itemB);
+void GoToStoredLoc(void);
+void SwapLocAndRoomflag(int index);
+void SwapItemLocations(int itemA, int itemB);
+void PutItemAInRoomB(int itemA, int roomB);
+void SwapCounters(int index);
+void PrintMessage(int index);
 void UpdateSettings(void);
 
 extern struct GameInfo *GameInfo;
@@ -155,5 +162,6 @@ extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
 extern int stop_time;
+extern int should_look_in_transcript;
 
 #endif /* scott_h */
