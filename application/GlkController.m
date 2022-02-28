@@ -1713,9 +1713,6 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else windowClosedAlready = YES;
 
-    GlkEvent *evt = [[GlkEvent alloc] initQuitEvent];
-    [evt writeEvent:sendfh.fileDescriptor];
-
     // Make sure any new Glk events are queued
     waitforfilename = YES;
 
@@ -1739,6 +1736,9 @@ fprintf(stderr, "%s\n",                                                    \
         [timer invalidate];
         timer = nil;
     }
+
+    GlkEvent *evt = [[GlkEvent alloc] initQuitEvent];
+    [evt writeEvent:sendfh.fileDescriptor];
 
     if (task) {
         // stop the interpreter

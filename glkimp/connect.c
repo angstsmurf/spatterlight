@@ -937,6 +937,7 @@ again:
 
         case EVTQUIT:
             gli_close_all_file_streams();
+            break;
 
         default:
 #ifdef DEBUG
