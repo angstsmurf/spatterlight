@@ -549,7 +549,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
-    if (self.theme.doStyles && bgnd > -1) {
+    if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
     if (!bgcolor) {
