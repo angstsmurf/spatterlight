@@ -1392,6 +1392,8 @@ void ListInventory(void)
     }
     if (anything == 0)
         Output(sys[NOTHING]);
+	else if (Options & TI994A_STYLE)
+		Output(". ");
     if (Transcript) {
         glk_put_char_stream_uni(Transcript, 10);
     }
