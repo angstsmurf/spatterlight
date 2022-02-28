@@ -2019,7 +2019,6 @@
     [zCodeTab click];
     [zCodeTab click];
 
-
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:3] click];
     [app.menuItems[@"Replaced by \u2318↑ and \u2318↓"] click];
     [app/*@START_MENU_TOKEN@*/.popUpButtons[@"Popup"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.popUpButtons[@\"Popup\"]",".popUpButtons[@\"Popup\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
