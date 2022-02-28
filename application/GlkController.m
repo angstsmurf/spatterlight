@@ -2276,7 +2276,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         _contentView.frame = newframe;
         NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
-
     }
 }
 

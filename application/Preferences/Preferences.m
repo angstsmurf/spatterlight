@@ -1386,7 +1386,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
             themeToChange.defaultRows  = 200;
         txtRows.intValue = themeToChange.defaultRows ;
     }
-
     /* send notification that default size has changed -- resize all windows */
     NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:themeToChange];
     [[NSNotificationCenter defaultCenter]
