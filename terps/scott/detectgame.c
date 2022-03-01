@@ -1136,6 +1136,7 @@ GameIDType DetectGame(const char *file_name)
             if (GameInfo == NULL)
                 return 0;
         }
+    }
 
     if (CurrentGame == SCOTTFREE || CurrentGame == TI994A)
         return CurrentGame;
@@ -1249,7 +1250,6 @@ GameIDType DetectGame(const char *file_name)
                 }
             }
             break;
-        }
     }
 
     if (CurrentGame == GREMLINS_GERMAN)
