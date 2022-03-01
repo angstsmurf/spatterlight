@@ -1,13 +1,17 @@
 # Change log
 
-## Release 0.9.2 (unreleased)
+## Release 0.9.2
 - ScottFree support for Commodore 64 and TI-99/4A Scott Adams formats, including homebrew TI-99/4A games. Supported file extensions: .d64, .t64, .dsk, .fiad.
 - Fixes a bug where game windows would reopen if they were closed too soon after opening
-- Fixes a bug where a game window would move to the front if you switched window too soon after opening it
+- Fixes a bug where a game window would move to the front if you switched to another window too soon after opening it
 - Fixes a bug where multiple simultaneous file picker windows could open when the "Show library window automatically" setting was off
 - Works around a bug where ScottFree games could sometimes show graphics and room description in the top window and accept input, but never print any text in the bottom window
-- Fixed many bugs related to undoing and restarting ScottFree games
+- Fixes many bugs related to undoing and restarting ScottFree games
+- Reduces number of room descriptions in ScottFree transcripts
 - New settings for graphics palette, delays and inventory in ScottFree games
+- Implements determinism in JACL
+- Z-machine games would ignore user-defined background colour
+- The ZX Spectrum version of *Arrow of Death part 1* now works
 
 ## Release 0.9.1
 - Preliminary support for ZX Spectrum format ScottFree games with graphics
