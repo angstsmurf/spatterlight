@@ -235,6 +235,7 @@ void Delay(float seconds)
 {
     if (Options & NO_DELAYS)
         return;
+
     event_t ev;
 
     if (!glk_gestalt(gestalt_Timer, 0))
@@ -956,10 +957,24 @@ static void FlushRoomDescription(char *buf)
 	Transcript = StoredTranscript;
 }
 
+int ItemEndsWithPeriod(int item)
+{
+	if (item < 0 || item > GameHeader.NumItems)
+		return 0;
+	const char *desc = Items[item].Text;
+	if (desc != NULL && desc[0] != 0) {
+		const char lastchar = desc[strlen(desc) - 1];
+		if (lastchar == '.' || lastchar == '!') {
+			return 1;
+		}
+	}
+	return 0;
+}
+
 void ListInventoryInUpperWindow(void)
 {
     int i = 0;
-    int anything = 0;
+	int lastitem = -1;
     WriteToRoomDescriptionStream("\n%s", sys[INVENTORY]);
     while (i <= GameHeader.NumItems) {
         if (Items[i].Location == CARRIED) {
@@ -968,10 +983,10 @@ void ListInventoryInUpperWindow(void)
                 i++;
                 continue;
             }
-            if (anything == 1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
+            if (lastitem > -1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
                 WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
             }
-            anything = 1;
+			lastitem = i;
             WriteToRoomDescriptionStream("%s", Items[i].Text);
             if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
                 WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
@@ -979,10 +994,10 @@ void ListInventoryInUpperWindow(void)
         }
         i++;
     }
-    if (anything == 0) {
+    if (lastitem == -1) {
         WriteToRoomDescriptionStream("%s\n", sys[NOTHING]);
     } else {
-        if (Options & TI994A_STYLE)
+        if (Options & TI994A_STYLE && !ItemEndsWithPeriod(lastitem))
             WriteToRoomDescriptionStream(".");
         WriteToRoomDescriptionStream("\n");
     }
@@ -1370,7 +1385,7 @@ void HitEnter(void)
 void ListInventory(void)
 {
     int i = 0;
-    int anything = 0;
+    int lastitem = -1;
     Output(sys[INVENTORY]);
     while (i <= GameHeader.NumItems) {
         if (Items[i].Location == CARRIED) {
@@ -1379,10 +1394,10 @@ void ListInventory(void)
                 i++;
                 continue;
             }
-            if (anything == 1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
+            if (lastitem > -1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
                 Output(sys[ITEM_DELIMITER]);
             }
-            anything = 1;
+			lastitem = i;
             Output(Items[i].Text);
             if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
                 Output(sys[ITEM_DELIMITER]);
@@ -1390,10 +1405,13 @@ void ListInventory(void)
         }
         i++;
     }
-    if (anything == 0)
+    if (lastitem == -1)
         Output(sys[NOTHING]);
-	else if (Options & TI994A_STYLE)
-		Output(". ");
+	else if (Options & TI994A_STYLE) {
+		if (!ItemEndsWithPeriod(lastitem))
+			Output(".");
+		Output(" ");
+	}
     if (Transcript) {
         glk_put_char_stream_uni(Transcript, 10);
     }
