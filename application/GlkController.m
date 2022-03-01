@@ -1707,6 +1707,17 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
+- (void)terminateTask {
+    if (task) {
+        // stop the interpreter
+        [task setTerminationHandler:nil];
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+        readfh = nil;
+        [task terminate];
+    }
+}
+
+
 - (void)windowWillClose:(id)sender {
     if (windowClosedAlready) {
         NSLog(@"windowWillClose called twice!");
@@ -1739,14 +1750,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkEvent *evt = [[GlkEvent alloc] initQuitEvent];
     [evt writeEvent:sendfh.fileDescriptor];
-
-    if (task) {
-        // stop the interpreter
-        [task setTerminationHandler:nil];
-        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        readfh = nil;
-        [task terminate];
-    }
 
     if (libcontroller) {
         [libcontroller releaseGlkControllerSoon:self];
