@@ -7,7 +7,8 @@
 - Fixes a bug where multiple simultaneous file picker windows could open when the "Show library window automatically" setting was off
 - Works around a bug where ScottFree games could sometimes show graphics and room description in the top window and accept input, but never print any text in the bottom window
 - Fixes many bugs related to undoing and restarting ScottFree games
-- Reduces number of room descriptions in ScottFree transcripts
+- Reduces the number of repeated room descriptions in ScottFree transcripts
+- Attempts to fix a bug where the end of transcripts were sometimes missing after closing a game
 - New settings for graphics palette, delays and inventory in ScottFree games
 - Implements determinism in JACL
 - Z-machine games would ignore user-defined background colour
