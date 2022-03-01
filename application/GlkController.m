@@ -3516,6 +3516,8 @@ static NSString *signalToName(NSTask *task) {
             return @"sigquit";
         case 4:
             return @"sigill";
+        case 5:
+            return @"sigtrap";
         case 6:
             return @"sigabrt";
         case 8:
