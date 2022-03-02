@@ -128,6 +128,7 @@ static struct c64rec c64_registry[] = {
         0xb07c, 0x2000 }, // Seas of Blood C64 (D64) CCS Packer
     { SEAS_OF_BLOOD_C64, 0x2ab00, 0xe308, TYPE_D64, 1, NULL, NULL, 0, 0xd802,
         0xb07c, 0x2000 }, // Seas of Blood C64 (D64) alt CCS Packer
+    { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, NULL, 0, 0, 0, 0}
 };
 
 static uint16_t checksum(unsigned char *sf, uint32_t extent)
