@@ -2195,7 +2195,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (NSWindow *)importAndPlayGame:(NSString *)path {
-
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
 
     Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];

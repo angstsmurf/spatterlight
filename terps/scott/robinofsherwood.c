@@ -27,7 +27,6 @@ void animate_lightning(int stage);
 
 void SherwoodAction(int p)
 {
-    fprintf(stderr, "robin_of_sherwood_action: %d\n", p);
     event_t ev;
 
     switch (p) {
@@ -58,7 +57,7 @@ void SherwoodAction(int p)
         Look();
         break;
     default:
-        fprintf(stderr, "Unhandled special action %d!\n", p);
+        fprintf(stderr, "Unhandled SherwoodAction %d!\n", p);
         break;
     }
 }
