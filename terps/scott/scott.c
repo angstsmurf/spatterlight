@@ -2144,7 +2144,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             if (CurrentCommand->allflag) {
                 if (vb == TAKE && dark) {
                     Output(sys[TOO_DARK_TO_SEE]);
-                    while ((CurrentCommand->allflag & LASTALL)) {
+                    while (!(CurrentCommand->allflag & LASTALL)) {
                         CurrentCommand = CurrentCommand->next;
                     }
                     return ER_SUCCESS;
@@ -2153,7 +2153,7 @@ static ExplicitResultType PerformActions(int vb, int no)
                 int location = CARRIED;
                 if (vb == TAKE)
                     location = MyLoc;
-                while (Items[item].Location != location && (CurrentCommand->allflag & LASTALL)) {
+                while (Items[item].Location != location && !(CurrentCommand->allflag & LASTALL)) {
                     CurrentCommand = CurrentCommand->next;
                 }
                 if (Items[item].Location != location)
