@@ -35,7 +35,7 @@ static int extract_ifid(unsigned char *text, int32 offset, int32 extent, char *o
         {
             return INVALID_STORY_FILE_RV;
         }
-        if (c == '"' || c == '"' || isspace(c))
+        if (c == '"' || isspace(c))
         {
             break;
         }
