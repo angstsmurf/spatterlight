@@ -376,7 +376,10 @@ void Fatal(const char *x)
     glk_exit();
 }
 
-static void ClearScreen(void) { glk_window_clear(Bottom); }
+static void ClearScreen(void)
+{
+    glk_window_clear(Bottom);
+}
 
 void *MemAlloc(int size)
 {
@@ -593,9 +596,14 @@ int LoadDatabase(FILE *f, int loud)
     if (loud)
         fprintf(stderr, "Reading %d actions.\n", na);
     while (ct < na + 1) {
-        if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu", &ap->Vocab,
-                &ap->Condition[0], &ap->Condition[1], &ap->Condition[2],
-                &ap->Condition[3], &ap->Condition[4], &ap->Subcommand[0],
+        if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
+                &ap->Vocab,
+                &ap->Condition[0],
+                &ap->Condition[1],
+                &ap->Condition[2],
+                &ap->Condition[3],
+                &ap->Condition[4],
+                &ap->Subcommand[0],
                 &ap->Subcommand[1])
             != 8) {
             fprintf(stderr, "Bad action line (%d)\n", ct);
