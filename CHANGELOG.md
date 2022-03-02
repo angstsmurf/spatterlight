@@ -1,5 +1,11 @@
 # Change log
 
+
+## Unreleased
+
+## Release 0.9.3
+- This is an Apple App Store-only hotfix release that fixes a crash that only occurred in the App Store version of Spatterlight
+
 ## Release 0.9.2
 - ScottFree support for Commodore 64 and TI-99/4A Scott Adams formats, including homebrew TI-99/4A games. Supported file extensions: .d64, .t64, .dsk, .fiad.
 - Fixes a bug where game windows would reopen if they were closed too soon after opening
