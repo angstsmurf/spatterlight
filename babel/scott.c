@@ -204,13 +204,12 @@ static int32 find_in_TI994Adatabase(uint16_t chksum, char **ifid) {
     return INVALID_STORY_FILE_RV;
 }
 
-static int find_code(char *x, int base, unsigned char *sf, int32 extent) {
-    if (base >= extent)
+static int find_code(char *x, int codelen, unsigned char *sf, int32 extent) {
+    if (codelen >= extent)
         return -1;
-    unsigned const char *p = sf + base;
-    int len = strlen(x);
-    while (p < sf + extent - len) {
-        if (memcmp(p, x, len) == 0) {
+    unsigned const char *p = sf;
+    while (p < sf + extent - codelen) {
+        if (memcmp(p, x, codelen) == 0) {
             return p - sf;
         }
         p++;
@@ -219,7 +218,7 @@ static int find_code(char *x, int base, unsigned char *sf, int32 extent) {
 }
 
 static int detect_ti994a(unsigned char *sf, int32 extent) {
-    return find_code("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 0, sf, extent);
+    return find_code("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10, sf, extent);
 }
 
 /* All numbers in ScottFree text format files are stored as text delimited by whitespace */
