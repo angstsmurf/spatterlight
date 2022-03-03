@@ -2319,6 +2319,49 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
+void PrintTitleScreenBuffer(void) {
+    glk_stream_set_current(glk_window_get_stream(Bottom));
+    glk_set_style(style_User1);
+    ClearScreen();
+    Output(title_screen);
+    free((void *)title_screen);
+    glk_set_style(style_Normal);
+    HitEnter();
+    ClearScreen();
+}
+
+void PrintTitleScreenGrid(void) {
+    int title_length = strlen(title_screen);
+    int rows = 0;
+    for (int i = 0; i < title_length; i++)
+        if (title_screen[i] == '\n')
+            rows++;
+    winid_t titlewin = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, rows + 2,
+                               wintype_TextGrid, 0);
+    glui32 width, height;
+    glk_window_get_size(titlewin, &width, &height);
+    if (width < 40 || height < rows + 2) {
+        glk_window_close(titlewin, NULL);
+        PrintTitleScreenBuffer();
+        return;
+    }
+    int offset = (width - 40) / 2;
+    int pos = 0;
+    char row[40];
+    row[39] = 0;
+    for (int i = 1; i <= rows; i++) {
+        glk_window_move_cursor(titlewin, offset, i);
+        while (title_screen[pos] != '\n' && pos < title_length)
+            Display(titlewin, "%c", title_screen[pos++]);
+        pos++;
+    }
+    free((void *)title_screen);
+    HitEnter();
+    glk_window_close(titlewin, NULL);
+}
+
+
+
 void glk_main(void)
 {
     int vb, no, n = 1;
@@ -2371,14 +2414,10 @@ void glk_main(void)
     }
 
     if (title_screen != NULL) {
-        glk_stream_set_current(glk_window_get_stream(Bottom));
-        glk_set_style(style_User1);
-        ClearScreen();
-        Output(title_screen);
-        free((void *)title_screen);
-        glk_set_style(style_Normal);
-        HitEnter();
-        ClearScreen();
+        if (split_screen)
+            PrintTitleScreenGrid();
+        else
+            PrintTitleScreenBuffer();
     }
 
     if (Options & TRS80_STYLE) {
