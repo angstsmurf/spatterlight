@@ -255,6 +255,7 @@ struct GameInfo {
     int number_of_pictures;
     palette_type palette;
     int picture_format_version;
+    int start_of_intro_text;
 };
 
 #endif /* definitions_h */

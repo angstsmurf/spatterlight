@@ -668,6 +668,7 @@
 		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
 		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
+		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
@@ -2848,6 +2849,7 @@
 		C36B3893271F712600756D94 /* NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonInterpolatedImage.m; sourceTree = "<group>"; };
 		C36B3894271F712700756D94 /* NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonInterpolatedImage.h; sourceTree = "<group>"; };
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -2883,6 +2885,7 @@
 		C38A9203270A036A00B969A4 /* DummyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyController.m; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
@@ -5500,6 +5503,8 @@
 				C3109FCC2798B19F00854ED0 /* parser.c */,
 				C31DB980276E961F00547C9C /* sagadraw.h */,
 				C31DB982276E961F00547C9C /* sagadraw.c */,
+				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
+				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
 				C3C0EE63278BBF750044A615 /* gremlins.h */,
 				C3C0EE64278BBF750044A615 /* gremlins.c */,
 				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
@@ -7611,6 +7616,7 @@
 				C386D631279E24B700D3BA46 /* decompressz80.c in Sources */,
 				C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */,
 				C3A9FD3327A6E56C0032C068 /* gameinfo.c in Sources */,
+				C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */,
 				C3F2160027A830CB00A9A4A8 /* log.c in Sources */,
 				C3F2160327A830CB00A9A4A8 /* 6502emu.c in Sources */,
 				C3F2160427A830CB00A9A4A8 /* unp64.c in Sources */,

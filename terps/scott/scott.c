@@ -48,6 +48,7 @@
 #include "layouttext.h"
 #include "restorestate.h"
 #include "sagadraw.h"
+#include "line_drawing.h"
 
 #include "TI99_4a_terp.h"
 #include "parser.h"
@@ -753,7 +754,10 @@ void DrawImage(int image)
         fprintf(stderr, "DrawImage: Graphic window NULL?\n");
         return;
     }
-    DrawSagaPictureNumber(image);
+    if (GameInfo->picture_format_version == 99)
+        DrawLinePicture(image);
+    else
+        DrawSagaPictureNumber(image);
 }
 
 void DrawRoomImage(void)

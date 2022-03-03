@@ -228,11 +228,11 @@ struct GameInfo games[NUMGAMES] = {
         0x277e, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        31, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -273,11 +273,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS,
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        43, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -318,11 +318,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        51, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -363,11 +363,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        64, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -408,11 +408,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        44, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -453,11 +453,11 @@ struct GameInfo games[NUMGAMES] = {
         0x277E, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        35, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -498,11 +498,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        58, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -543,11 +543,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        39, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -588,11 +588,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        39, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -633,11 +633,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        62, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {
@@ -678,11 +678,11 @@ struct GameInfo games[NUMGAMES] = {
         0x2780, // start of directions
 
         0, // start_of_characters;
-        0, // start_of_image_data;
+        FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
+        40, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
     },
 
     {

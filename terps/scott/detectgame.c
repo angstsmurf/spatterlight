@@ -15,6 +15,7 @@
 #include "detectgame.h"
 #include "gameinfo.h"
 #include "sagadraw.h"
+#include "line_drawing.h"
 
 #include "game_specific.h"
 #include "gremlins.h"
@@ -349,6 +350,14 @@ void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     fprintf(stderr, "Number of treasures: %d\n", tr);
 }
 
+typedef struct {
+    uint8_t *imagedata;
+    uint8_t background_colour;
+    size_t size;
+} LineImage;
+
+struct LineImage *lineImages = NULL;
+
 int TryLoadingOld(struct GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
@@ -361,7 +370,6 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
     uint8_t *ptr = entire_file;
     file_baseline_offset = dict_start - info.start_of_dictionary;
-
     int offset = info.start_of_header + file_baseline_offset;
 
 jumpHere:
@@ -496,7 +504,10 @@ jumpHere:
         if (c == 0) {
             rp->Text = MemAlloc(charindex + 1);
             strcpy(rp->Text, text);
-            rp->Image = 255;
+            if (info.number_of_pictures > 0)
+                rp->Image = ct - 1;
+            else
+                rp->Image = 255;
             ct++;
             rp++;
             charindex = 0;
@@ -558,6 +569,37 @@ jumpHere:
             charindex++;
         }
     } while (ct < ni + 1);
+
+#pragma mark line images
+
+    if (info.number_of_pictures > 0) {
+        if (info.start_of_image_data == FOLLOWS)
+            ptr++;
+        else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
+            return 0;
+
+    jumpHereImages:
+        LineImages = MemAlloc(info.number_of_pictures * sizeof(struct line_image));
+        ct = 0;
+        struct line_image *lp = LineImages;
+        uint8_t byte = *(ptr++);
+        do {
+        if (byte == 0xff) {
+            lp->bgcolour = *(ptr++);
+            lp->data = ptr;
+        } else {
+            fprintf(stderr, "Error! Image data does not start with 0xff!\n");
+        }
+        do {
+            byte = *(ptr++);
+        } while (byte != 0xff);
+
+        lp->size = ptr - lp->data;
+        lp++;
+        ct++;
+        } while (ct < info.number_of_pictures);
+    }
+
 
 #pragma mark System messages
 
@@ -1258,7 +1300,7 @@ GameIDType DetectGame(const char *file_name)
         LoadExtraGermanGremlinsc64Data();
 
     /* If it is a C64 game, we have setup the graphics already */
-    if (!((GameInfo->subtype & C64) == C64) && GameInfo->number_of_pictures > 0) {
+    if (!(GameInfo->subtype & C64) && GameInfo->number_of_pictures > 0 && GameInfo->picture_format_version != 99) {
         SagaSetup(0);
     }
 

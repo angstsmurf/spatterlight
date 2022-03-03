@@ -19,12 +19,6 @@ typedef struct {
   uint8_t height;
 } Image;
 
-struct image_rec {
-  uint8_t firstfour[4];
-  size_t size;
-  uint8_t checksum;
-};
-
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                      int xoff, int yoff);
 
