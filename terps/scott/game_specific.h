@@ -15,6 +15,7 @@ void AdventurelandAction(int p);
 void AdventurelandDarkness(void);
 void Spiderman64Sysmess(void);
 void Adventureland64Sysmess(void);
+void Claymorgue64Sysmess(void);
 void Supergran64Sysmess(void);
 void SecretMission64Sysmess(void);
 void UpdateSecretAnimations(void);

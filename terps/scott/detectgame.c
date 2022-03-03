@@ -1225,8 +1225,10 @@ GameIDType DetectGame(const char *file_name)
                 sys[i] = system_messages[13 - YOU_DONT_SEE_IT + i];
             break;
         case ADVENTURELAND_C64:
-        case CLAYMORGUE_C64:
             Adventureland64Sysmess();
+            break;
+        case CLAYMORGUE_C64:
+            Claymorgue64Sysmess();
             break;
         case GREMLINS_GERMAN_C64:
             LoadExtraGermanGremlinsc64Data();
