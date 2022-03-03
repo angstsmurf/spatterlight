@@ -126,6 +126,12 @@ uint8_t *read_hulk_dictionary(struct GameInfo info, uint8_t **pointer)
     int nv = info.number_of_verbs;
     int nn = info.number_of_nouns;
 
+    for (int i = 0; i < nn - nv; i++)
+        Verbs[nv + i] = ".\0";
+
+    for (int i = 0; i < nv - nn; i++)
+        Nouns[nn + i] = ".\0";
+
     do {
         for (int i = 0; i < info.word_length; i++) {
             c = *(ptr++);
@@ -160,12 +166,6 @@ uint8_t *read_hulk_dictionary(struct GameInfo info, uint8_t **pointer)
 
         charindex = 0;
     } while (wordnum <= nv + nn);
-
-    for (int i = 0; i < nn - nv; i++)
-        Verbs[nv + i] = ".\0";
-
-    for (int i = 0; i < nv - nn; i++)
-        Nouns[nn + i] = ".\0";
 
     return ptr;
 }

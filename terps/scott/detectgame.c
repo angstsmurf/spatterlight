@@ -117,8 +117,18 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
     int wordnum = 0;
     int charindex = 0;
 
+    int nw = info.number_of_words;
+
     int nv = info.number_of_verbs;
     int nn = info.number_of_nouns;
+
+    for (int i = 0; i <= MAX(nn, nw) - nv; i++) {
+        Verbs[nv + i] = ".\0";
+    }
+
+    for (int i = 0; i <= MAX(nn, nw) - nn; i++) {
+        Nouns[nn + i] = ".\0";
+    }
 
     do {
         for (int i = 0; i < info.word_length; i++) {
@@ -173,16 +183,6 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
 
         charindex = 0;
     } while (wordnum <= nv + nn);
-
-    int nw = GameHeader.NumWords;
-
-    for (int i = 0; i <= MAX(nn, nw) - nv; i++) {
-        Verbs[nv + i] = ".\0";
-    }
-
-    for (int i = 0; i <= MAX(nn, nw) - nn; i++) {
-        Nouns[nn + i] = ".\0";
-    }
 
     return ptr;
 }
