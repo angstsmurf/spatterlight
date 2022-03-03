@@ -1,28 +1,32 @@
-// vim: set ft=c:
+// vim: set ft=cpp:
 
 #ifndef ZTERP_SOUND_H
 #define ZTERP_SOUND_H
 
-#include <stdbool.h>
-#include <stdint.h>
-
-#include "spatterlight-autosave.h"
-
-void stash_library_sound_state(library_state_data *dat);
-void recover_library_sound_state(library_state_data *dat);
-
 #ifdef ZTERP_GLK
-#include "glk.h"
+extern "C" {
+#include <glk.h>
+}
+#ifdef SPATTERLIGHT
+#include "spatterlight-autosave.h"
 #endif
+#endif
+
+#include "types.h"
 
 #ifdef GLK_MODULE_SOUND
 extern uint16_t sound_routine;
-void sound_stopped(void);
+void sound_stopped();
 #endif
 
-void init_sound(void);
-bool sound_loaded(void);
+void init_sound();
+bool sound_loaded();
 
-void zsound_effect(void);
+void zsound_effect();
+
+#ifdef SPATTERLIGHT
+void stash_library_sound_state(library_state_data *dat);
+void recover_library_sound_state(library_state_data *dat);
+#endif
 
 #endif
