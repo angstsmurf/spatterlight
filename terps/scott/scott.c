@@ -628,7 +628,6 @@ int LoadDatabase(FILE *f, int loud)
             fprintf(stderr, "Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
             fprintf(stderr, "Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
         }
-
         ap++;
         ct++;
     }
