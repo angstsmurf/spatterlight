@@ -2182,7 +2182,7 @@ gln_graphics_paint_everything (winid_t glk_window,
 			palette[ pixel ],
 			x * GLN_GRAPHICS_PIXEL + x_offset,
 			y * GLN_GRAPHICS_PIXEL + y_offset,
-			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL + (y < height - 1)); /* Needed to avoid dark lines on Spatterlight */
+			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL);
 	    }
 	}
 }

@@ -146,9 +146,7 @@
 }
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)count {
-    NSBitmapImageRep *bitmap;
     NSSize size;
-    NSInteger x, y;
     NSInteger i;
 
     size = image.size;
@@ -161,93 +159,25 @@
         unionRect.origin.x = rects[0].x;
         unionRect.origin.y = rects[0].y;
     }
-
-    @autoreleasepool {
-        bitmap = [[NSBitmapImageRep alloc]
-                  initWithBitmapDataPlanes:NULL
-                  pixelsWide:(NSInteger)size.width
-                  pixelsHigh:(NSInteger)size.height
-                  bitsPerSample:8
-                  samplesPerPixel:4
-                  hasAlpha:YES
-                  isPlanar:NO
-                  colorSpaceName:NSDeviceRGBColorSpace
-                  bytesPerRow:0
-                  bitsPerPixel:32];
-
-        bitmap.size = size;
-
-        unsigned char *pd = bitmap.bitmapData;
-        NSInteger ps = bitmap.bytesPerRow;
-        NSInteger pw = bitmap.pixelsWide;
-        NSInteger ph = bitmap.pixelsHigh;
-
-        memset(pd, 0x00, (unsigned long)(ps * ph));
-
-        for (i = 0; i < count; i++) {
-            unsigned char ca = 0xff; //((rects[i].color >> 24) & 0xff);
-            unsigned char cr = ((rects[i].color >> 16) & 0xff);
-            unsigned char cg = ((rects[i].color >> 8) & 0xff);
-            unsigned char cb = ((rects[i].color >> 0) & 0xff);
-
-            NSInteger rx0 = rects[i].x;
-            NSInteger ry0 = rects[i].y;
-            NSInteger rx1 = rx0 + rects[i].w;
-            NSInteger ry1 = ry0 + rects[i].h;
-
-            unionRect = NSUnionRect(unionRect, NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h));
-
-            if (ry0 < 0)
-                ry0 = 0;
-            if (ry1 < 0)
-                ry1 = 0;
-            if (rx0 < 0)
-                rx0 = 0;
-            if (rx1 < 0)
-                rx1 = 0;
-
-            if (ry0 > ph)
-                ry0 = ph;
-            if (ry1 > ph)
-                ry1 = ph;
-            if (rx0 > pw)
-                rx0 = pw;
-            if (rx1 > pw)
-                rx1 = pw;
-
-            for (y = ry0; y < ry1; y++) {
-                unsigned char *p = pd + (y * ps) + (rx0 * 4);
-                for (x = rx0; x < rx1; x++) {
-                    *p++ = cr;
-                    *p++ = cg;
-                    *p++ = cb;
-                    *p++ = ca;
-                }
-            }
-        }
-
         [image lockFocus];
-        {
-            NSImage *tmp = [[NSImage alloc] initWithSize:size];
-            [tmp addRepresentation:bitmap];
-            [tmp drawAtPoint:NSZeroPoint
-                    fromRect:NSMakeRect(0, 0, size.width, size.height)
-                   operation:NSCompositeSourceOver
-                    fraction:1.0];
+        uint32_t current_color = zcolor_Default;
+        for (i = 0; i < count; i++) {
+            if (current_color != rects[i].color)
+            [[NSColor colorFromInteger:rects[i].color] set];
+            current_color = rects[i].color;
+            NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
+            NSRectFill(rect);
+            unionRect = NSUnionRect(unionRect, rect);
         }
         [image unlockFocus];
-    }
-
-    NSRect florpedRect = [self florpCoords:unionRect];
-    [dirtyRects addObject:@(florpedRect)];
-    [self pruneSubimagesInRect:florpedRect];
+    [dirtyRects addObject:@(unionRect)];
+    [self pruneSubimagesInRect:unionRect];
     dirty = YES;
     showingImage = YES;
 }
 
 - (void)flushDisplay {
-    if (dirty)
-    {
+    if (dirty) {
         for (NSValue *val in dirtyRects) {
             NSRect rect = val.rectValue;
             [self setNeedsDisplayInRect:rect];
