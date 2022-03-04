@@ -2566,8 +2566,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (millisecs > 0) {
         if (millisecs < minTimer) {
-            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
-                  (unsigned long)millisecs, (unsigned long)minTimer);
+//            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
+//                  (unsigned long)millisecs, (unsigned long)minTimer);
             millisecs = minTimer;
         }
         if (_kerkerkruip && millisecs == 10) {
