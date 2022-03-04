@@ -625,8 +625,8 @@ int LoadDatabase(FILE *f, int loud)
                 ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
             fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
-            fprintf(stderr, "Action %d Subcommand[0]: %d\n", ct, ap->Subcommand[0]);
-            fprintf(stderr, "Action %d Subcommand[1]: %d\n\n", ct, ap->Subcommand[1]);
+            fprintf(stderr, "Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
+            fprintf(stderr, "Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
         }
 
         ap++;
