@@ -35,6 +35,7 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 
 void SwitchPalettes(int pal1, int pal2);
 void DefinePalette(void);
+int32_t remap(int32_t color);
 
 extern palette_type palchosen;
 

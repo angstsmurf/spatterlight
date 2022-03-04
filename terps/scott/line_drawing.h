@@ -14,8 +14,18 @@ struct line_image {
     size_t size;
 };
 
-void DrawLinePicture(int image);
+void DrawVectorPicture(int image);
+void DrawSomeVectorPixels(int from_start);
+int DrawingVector(void);
 
 extern struct line_image *LineImages;
+
+typedef enum {
+    NO_VECTOR_IMAGE,
+    DRAWING_VECTOR_IMAGE,
+    SHOWING_VECTOR_IMAGE
+} VectorStateType;
+
+extern VectorStateType VectorState;
 
 #endif /* line_drawing_h */

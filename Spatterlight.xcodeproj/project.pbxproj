@@ -666,6 +666,7 @@
 		C386D631279E24B700D3BA46 /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C386D62F279E24B700D3BA46 /* decompressz80.c */; };
 		C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38784F426582AE200B4D886 /* ImageCompareViewController.xib */; };
 		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
+		C38A881327D2092500AE917E /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C38A881227D2092500AE917E /* ringbuffer.c */; };
 		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
@@ -2881,6 +2882,8 @@
 		C38974F4275336DB00876AF1 /* getacro.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = getacro.gif; sourceTree = "<group>"; };
 		C38974F5275336DB00876AF1 /* cmap.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = cmap.htm; sourceTree = "<group>"; };
 		C38974F6275336DB00876AF1 /* index.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.htm; sourceTree = "<group>"; };
+		C38A881127D2092500AE917E /* ringbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
+		C38A881227D2092500AE917E /* ringbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ringbuffer.c; sourceTree = "<group>"; };
 		C38A9202270A036A00B969A4 /* DummyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DummyController.h; sourceTree = "<group>"; };
 		C38A9203270A036A00B969A4 /* DummyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyController.m; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
@@ -5505,6 +5508,8 @@
 				C31DB982276E961F00547C9C /* sagadraw.c */,
 				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
 				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
+				C38A881127D2092500AE917E /* ringbuffer.h */,
+				C38A881227D2092500AE917E /* ringbuffer.c */,
 				C3C0EE63278BBF750044A615 /* gremlins.h */,
 				C3C0EE64278BBF750044A615 /* gremlins.c */,
 				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
@@ -7597,6 +7602,7 @@
 				C3DAC21027C44BAD00368157 /* TI99_4a_terp.c in Sources */,
 				C3F218A627A8311E00A9A4A8 /* MasterCompressor.c in Sources */,
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
+				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,

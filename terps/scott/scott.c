@@ -193,15 +193,24 @@ void UpdateSettings(void) {
 			break;
 	}
 
+    if (DrawingVector())
+        glk_request_timer_events(20);        
+
 	palette_type previous_pal = palchosen;
 	if (Options & FORCE_PALETTE_ZX)
 		palchosen = ZXOPT;
-	else if (Options & FORCE_PALETTE_C64)
-		palchosen = C64B;
-	else
+    else if (Options & FORCE_PALETTE_C64) {
+        if (GameInfo->picture_format_version == 99)
+            palchosen = C64A;
+        else
+            palchosen = C64B;
+    } else
 		palchosen = GameInfo->palette;
-	if (palchosen != previous_pal)
+    if (palchosen != previous_pal) {
 		DefinePalette();
+        if (VectorState != NO_VECTOR_IMAGE)
+            DrawSomeVectorPixels(1);
+    }
 }
 
 void Updates(event_t ev)
@@ -209,7 +218,9 @@ void Updates(event_t ev)
 	if (ev.type == evtype_Arrange) {
 		UpdateSettings();
 
-		CloseGraphicsWindow();
+        VectorState = NO_VECTOR_IMAGE;
+
+        CloseGraphicsWindow();
 		OpenGraphicsWindow();
 
 		if (split_screen) {
@@ -227,6 +238,8 @@ void Updates(event_t ev)
             UpdateSecretAnimations();
             break;
         default:
+            if (GameInfo->picture_format_version == 99 && DrawingVector())
+                DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
             break;
         }
     }
@@ -754,7 +767,7 @@ void DrawImage(int image)
         return;
     }
     if (GameInfo->picture_format_version == 99)
-        DrawLinePicture(image);
+        DrawVectorPicture(image);
     else
         DrawSagaPictureNumber(image);
 }

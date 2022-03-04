@@ -5,9 +5,24 @@
 #include <stdlib.h>
 #include "scott.h"
 #include "sagadraw.h"
+#include "ringbuffer.h"
 #include "line_drawing.h"
 
 struct line_image *LineImages;
+
+struct pixel_to_draw {
+    uint8_t x;
+    uint8_t y;
+    uint8_t colour;
+};
+
+VectorStateType VectorState = NO_VECTOR_IMAGE;
+
+struct pixel_to_draw **pixels_to_draw = NULL;
+
+int total_draw_instructions = 0;
+int current_draw_instruction = 0;
+int vector_image_shown = -1;
 
 uint8_t *picture_bitmap = NULL;
 
@@ -19,26 +34,58 @@ int scott_graphics_height = 94;
 
 /*
  * scott_linegraphics_plot_clip()
- * scott_linegraphics_draw_line_if()
+ * scott_linegraphics_draw_line()
  *
- * Draw a line from x1,y1 to x2,y2 in colour1, where the existing pixel
- * colour is colour2.  The function uses Bresenham's algorithm.  The second
- * function, scott_graphics_plot_clip, is a line drawing helper; it handles
- * clipping, and the requirement to plot a point only if it matches colour2.
+ * Draw a line from x1,y1 to x2,y2 in colour line_colour.
+ * The function uses Bresenham's algorithm.
+ * The second function, scott_graphics_plot_clip, is a line drawing helper;
+ * it handles clipping.
  */
 static void
 scott_linegraphics_plot_clip (int x, int y, int colour)
 {
-    y = 190 - y;
-
     /*
      * Clip the plot if the value is outside the context.  Otherwise, plot the
      * pixel as colour1 if it is currently colour2.
      */
-    if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_graphics_height)
-    {
+    if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_graphics_height) {
         picture_bitmap[y * 255 + x] = colour;
-        PutPixel(x, y, colour);
+//        PutPixel(x, y, colour);
+        struct pixel_to_draw *todraw = MemAlloc(sizeof(struct pixel_to_draw));
+        pixels_to_draw[total_draw_instructions++] = todraw;
+        todraw->x = x;
+        todraw->y = y;
+        todraw->colour = colour;
+        todraw = pixels_to_draw[total_draw_instructions - 1];
+    }
+}
+
+int DrawingVector(void) {
+    return (total_draw_instructions > current_draw_instruction);
+}
+
+void FreePixels(void) {
+    for (int i = 0; i < total_draw_instructions; i++)
+        if (pixels_to_draw[i] != NULL)
+            free(pixels_to_draw[i]);
+    free(pixels_to_draw);
+}
+
+void DrawSomeVectorPixels(int from_start) {
+    VectorState = DRAWING_VECTOR_IMAGE;
+    int i = current_draw_instruction;
+    if (from_start)
+        i = 0;
+    if (i == 0)
+        RectFill(0, 0, scott_graphics_width, scott_graphics_height, remap(bg_colour));
+    for (; i < total_draw_instructions && i < current_draw_instruction + 50; i++) {
+        struct pixel_to_draw todraw = *pixels_to_draw[i];
+        PutPixel(todraw.x, todraw.y, remap(todraw.colour));
+    }
+    current_draw_instruction = i;
+    if (current_draw_instruction >= total_draw_instructions) {
+        glk_request_timer_events(0);
+        VectorState = SHOWING_VECTOR_IMAGE;
     }
 }
 
@@ -49,24 +96,18 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
     int x, y, dx, dy, incx, incy, balance;
 
     /* Normalize the line into deltas and increments. */
-    if (x2 >= x1)
-    {
+    if (x2 >= x1) {
         dx = x2 - x1;
         incx = 1;
-    }
-    else
-    {
+    } else {
         dx = x1 - x2;
         incx = -1;
     }
 
-    if (y2 >= y1)
-    {
+    if (y2 >= y1) {
         dy = y2 - y1;
         incy = 1;
-    }
-    else
-    {
+    } else {
         dy = y1 - y2;
         incy = -1;
     }
@@ -76,218 +117,59 @@ scott_linegraphics_draw_line(int x1, int y1, int x2, int y2,
     y = y1;
 
     /* Decide on a direction to progress in. */
-    if (dx >= dy)
-    {
+    if (dx >= dy) {
         dy <<= 1;
         balance = dy - dx;
         dx <<= 1;
 
         /* Loop until we reach the end point of the line. */
-        while (x != x2)
-        {
+        while (x != x2) {
             scott_linegraphics_plot_clip(x, y, colour);
-            if (balance >= 0)
-            {
+            if (balance >= 0) {
                 y += incy;
                 balance -= dx;
             }
             balance += dy;
             x += incx;
         }
-        scott_linegraphics_plot_clip (x, y, colour);
-    }
-    else
-    {
+        scott_linegraphics_plot_clip(x, y, colour);
+    } else {
         dx <<= 1;
         balance = dx - dy;
         dy <<= 1;
 
         /* Loop until we reach the end point of the line. */
-        while (y != y2)
-        {
-            scott_linegraphics_plot_clip (x, y, colour);
-            if (balance >= 0)
-            {
+        while (y != y2) {
+            scott_linegraphics_plot_clip(x, y, colour);
+            if (balance >= 0) {
                 x += incx;
                 balance -= dy;
             }
             balance += dx;
             y += incy;
         }
-        scott_linegraphics_plot_clip (x, y, colour);
+        scott_linegraphics_plot_clip(x, y, colour);
     }
-}
-
-int scott_linegraphics_fill_segments_length = 0,
-scott_linegraphics_fill_segments_allocation = 0;
-
-/*
- * Structure of a Seed Fill segment entry, and a growable stack-based array
- * of segments pending fill.  When length exceeds size, size is increased
- * and the array grown.
- */
-typedef struct
-{
-    int y;   /* Segment y coordinate */
-    int xl;  /* Segment x left hand side coordinate */
-    int xr;  /* Segment x right hand side coordinate */
-    int dy;  /* Segment y delta */
-} scott_linegraphics_segment_t;
-
-static scott_linegraphics_segment_t *scott_linegraphics_fill_segments = NULL;
-
-/*
- * scott_linegraphics_push_fill_segment()
- * scott_linegraphics_pop_fill_segment()
- * scott_linegraphics_fill_4way()
- *
- * Area fill algorithm, set a region to colour.  This function is a derivation of Paul Heckbert's Seed Fill,
- * from "Graphics Gems", Academic Press, 1990, which fills 4-connected
- * neighbors.
- *
- * The main modification is to make segment stacks growable, through the
- * helper push and pop functions.
- */
-static void
-scott_linegraphics_push_fill_segment (int y, int xl, int xr, int dy)
-{
-    /* Clip points outside the graphics context. */
-    if (!(y + dy < 0 || y + dy >= scott_graphics_height))
-    {
-        int length, allocation;
-
-        length = ++scott_linegraphics_fill_segments_length;
-        allocation = scott_linegraphics_fill_segments_allocation;
-
-        /* Grow the segments stack if required, successively doubling. */
-        if (length > allocation)
-        {
-            size_t bytes;
-
-            allocation = allocation == 0 ? 1 : allocation << 1;
-
-            bytes = allocation * sizeof (*scott_linegraphics_fill_segments);
-            scott_linegraphics_fill_segments =
-            realloc(scott_linegraphics_fill_segments, bytes);
-        }
-
-        /* Push top of segments stack. */
-        scott_linegraphics_fill_segments[length - 1].y  = y;
-        scott_linegraphics_fill_segments[length - 1].xl = xl;
-        scott_linegraphics_fill_segments[length - 1].xr = xr;
-        scott_linegraphics_fill_segments[length - 1].dy = dy;
-
-        /* Write back local dimensions copies. */
-        scott_linegraphics_fill_segments_length = length;
-        scott_linegraphics_fill_segments_allocation = allocation;
-    }
-}
-
-static void
-scott_linegraphics_pop_fill_segment (int *y, int *xl, int *xr, int *dy)
-{
-    int length;
-    if (scott_linegraphics_fill_segments_length <= 0)
-        return;
-
-    length = --scott_linegraphics_fill_segments_length;
-
-    /* Pop top of segments stack. */
-    *y  = scott_linegraphics_fill_segments[length].y;
-    *xl = scott_linegraphics_fill_segments[length].xl;
-    *xr = scott_linegraphics_fill_segments[length].xr;
-    *dy = scott_linegraphics_fill_segments[length].dy;
 }
 
 static int linegraphics_get_pixel(int x, int y) {
     return picture_bitmap[y * 255 + x];
 }
 
-static void
-scott_linegraphics_fill_4way(int x, int y, int colour)
-{
-
-    y = 190 - y;
-
-//    int previous = linegraphics_get_pixel(x, y);
-//
-//    if (previous != bg_colour)
-//        return;
-
-    /* Clip fill requests to visible graphics region. */
-    if (x >= 0 && x < scott_graphics_width && y >= 0 && y < scott_graphics_height)
-    {
-        int left, x1, x2, dy, x_lo, x_hi;
-
-        /*
-         * Set up inclusive window dimension to ease algorithm translation.
-         * The original worked with inclusive rectangle limits.
-         */
-        x_lo = 0;
-        x_hi = scott_graphics_width - 1;
-
-        /*
-         * The first of these is "needed in some cases", the second is the seed
-         * segment, popped first.
-         */
-        scott_linegraphics_push_fill_segment(y, x, x, 1);
-        scott_linegraphics_push_fill_segment(y + 1, x, x, -1);
-
-        while (scott_linegraphics_fill_segments_length > 0)
-        {
-            /* Pop segment off stack and add delta to y coord. */
-            scott_linegraphics_pop_fill_segment(&y, &x1, &x2, &dy);
-            y += dy;
-
-            /*
-             * Segment of scan line y-dy for x1<=x<=x2 was previously filled,
-             * now explore adjacent pixels in scan line y.
-             */
-            for (x = x1;
-                 x >= x_lo && linegraphics_get_pixel(x, y) == bg_colour;
-                 x--)
-            {
-                PutPixel(x, y, colour);
-                picture_bitmap[y * 255 + x] = colour;
-            }
-
-            if (x >= x1)
-                goto skip;
-
-            left = x + 1;
-            if (left < x1)
-            {
-                /* Leak on left? */
-                scott_linegraphics_push_fill_segment(y, left, x1 - 1, -dy);
-            }
-
-            x = x1 + 1;
-            do
-            {
-                for (;
-                     x <= x_hi && linegraphics_get_pixel(x, y) == bg_colour;
-                     x++)
-                {
-                    PutPixel(x, y, colour);
-                    picture_bitmap[y * 255 + x] = colour;
-                }
-
-                scott_linegraphics_push_fill_segment(y, left, x - 1, dy);
-
-                if (x > x2 + 1)
-                {
-                    /* Leak on right? */
-                    scott_linegraphics_push_fill_segment(y, x2 + 1, x - 1, -dy);
-                }
-            skip:
-                for (x++;
-                     x <= x2 && linegraphics_get_pixel(x, y) != bg_colour;
-                     x++)
-                    ;
-
-                left = x;
-            }
-            while (x <= x2);
+static void diamond_fill(uint8_t x, uint8_t y, int colour) {
+    uint8_t buffer[2048];
+    cbuf_handle_t ringbuf = circular_buf_init(buffer, 2048);
+    circular_buf_put(ringbuf, x, y);
+    while (!circular_buf_empty(ringbuf)) {
+        circular_buf_get(ringbuf, &x, &y);
+        if (x >= 0 && x < scott_graphics_width && y >= 0 &&
+            y < scott_graphics_height &&
+            linegraphics_get_pixel(x, y) == bg_colour) {
+            scott_linegraphics_plot_clip(x, y, colour);
+            circular_buf_put(ringbuf, x, y + 1);
+            circular_buf_put(ringbuf, x, y - 1);
+            circular_buf_put(ringbuf, x + 1, y);
+            circular_buf_put(ringbuf, x - 1, y);
         }
     }
 }
@@ -295,9 +177,28 @@ scott_linegraphics_fill_4way(int x, int y, int colour)
 extern int pixel_size;
 extern int x_offset;
 
-void DrawLinePicture(int image) {
-    palchosen = GameInfo->palette;
-    DefinePalette();
+void DrawVectorPicture(int image) {
+    if (vector_image_shown == image) {
+        if (VectorState == SHOWING_VECTOR_IMAGE) {
+            return;
+        } else {
+            DrawSomeVectorPixels(1);
+            return;
+        }
+    }
+
+    vector_image_shown = image;
+    if (pixels_to_draw != NULL)
+        FreePixels();
+    pixels_to_draw = MemAlloc(255 * 97 * sizeof(struct pixel_to_draw *));
+    memset(pixels_to_draw, 0, 255 * 97 * sizeof(struct pixel_to_draw *));
+    total_draw_instructions = 0;
+    current_draw_instruction = 0;
+
+    if (palchosen == NO_PALETTE) {
+        palchosen = GameInfo->palette;
+        DefinePalette();
+    }
     picture_bitmap = MemAlloc(255 * 97);
     bg_colour = LineImages[image].bgcolour;
     memset(picture_bitmap, bg_colour, 255 * 97);
@@ -305,31 +206,33 @@ void DrawLinePicture(int image) {
         line_colour = 7;
     else
         line_colour = 0;
-    RectFill(0, 0, scott_graphics_width, scott_graphics_height, bg_colour);
-    int x = 0, y = 0;
+    int x = 0, y = 0, y2 = 0;
     uint8_t arg1, arg2, arg3;
     uint8_t *p = LineImages[image].data;
-    while (p - LineImages[image].data < LineImages[image].size) {
-        uint8_t opcode = *(p++);
+    uint8_t opcode = 0;
+    while (p - LineImages[image].data < LineImages[image].size && opcode != 0xff) {
+        opcode = *(p++);
         switch(opcode) {
             case 0xc0:
-                y = *(p++);
+                y = 190 - *(p++);
                 x = *(p++);
                 break;
             case 0xc1:
                 arg1 = *(p++);
                 arg2 = *(p++);
                 arg3 = *(p++);
-                scott_linegraphics_fill_4way(arg3, arg2, arg1);
+                diamond_fill(arg3, 190 - arg2, arg1);
                 break;
             case 0xff:
-                return;
+                break;
             default:
                 arg1 = *(p++);
-                scott_linegraphics_draw_line(x, y, arg1, opcode, line_colour);
-                x = arg1; y = opcode;
+                y2 = 190 - opcode;
+                scott_linegraphics_draw_line(x, y, arg1, y2, line_colour);
+                x = arg1; y = y2;
                 break;
         }
     }
     free(picture_bitmap);
+    glk_request_timer_events(20);
 }
