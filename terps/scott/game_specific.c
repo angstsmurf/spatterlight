@@ -4,6 +4,7 @@
 //
 //  Created by Administrator on 2022-01-27.
 //
+#include <string.h>
 
 #include "game_specific.h"
 #include "sagadraw.h"
@@ -286,13 +287,113 @@ void Claymorgue64Sysmess(void)
         YOUVE_SOLVED_IT
     };
 
-    for (int i = 0; i < 39; i++) {
+    for (int i = 0; i < 40; i++) {
         sys[messagekey[i]] = system_messages[i];
     }
 
     sys[I_DONT_KNOW_HOW_TO] = "I don't know how to \"";
     sys[SOMETHING] = "\" something. ";
 }
+
+void Mysterious64Sysmess(void)
+{
+    SysMessageType messagekey[] = {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        UP,
+        DOWN,
+        EXITS,
+        YOU_SEE,
+        YOU_ARE,
+        TOO_DARK_TO_SEE,
+        LIGHT_HAS_RUN_OUT,
+        LIGHT_RUNS_OUT_IN,
+        TURNS,
+        I_DONT_KNOW_HOW_TO,
+        SOMETHING,
+        I_DONT_KNOW_WHAT_A,
+        IS,
+        YOU_CANT_GO_THAT_WAY,
+        OK,
+        WHAT_NOW,
+        HUH,
+        YOU_HAVENT_GOT_IT,
+        INVENTORY,
+        YOU_DONT_SEE_IT,
+        THATS_BEYOND_MY_POWER,
+        DANGEROUS_TO_MOVE_IN_DARK,
+        DIRECTION,
+        YOU_FELL_AND_BROKE_YOUR_NECK,
+        YOURE_CARRYING_TOO_MUCH,
+        IM_DEAD,
+        PLAY_AGAIN,
+        RESUME_A_SAVED_GAME,
+        IVE_STORED,
+        TREASURES,
+        ON_A_SCALE_THAT_RATES,
+        YOU_CANT_DO_THAT_YET,
+        I_DONT_UNDERSTAND,
+        NOTHING,
+        YOUVE_SOLVED_IT,
+        YOUVE_SOLVED_IT
+    };
+
+    for (int i = 0; i < 40; i++) {
+        sys[messagekey[i]] = system_messages[i];
+    }
+
+    sys[ITEM_DELIMITER] = " - ";
+    sys[MESSAGE_DELIMITER] = "\n";
+
+    sys[YOU_SEE] = "\nThings I can see:\n";
+
+    sys[I_DONT_KNOW_HOW_TO] = "\"";
+    sys[PLAY_AGAIN] = "The game is over, thanks for playing\nWant to play again ? ";
+
+
+    char *dictword = NULL;
+    for (int i = 1 ; i <= 6; i++) {
+        dictword = MemAlloc(GameHeader.WordLength);
+        strncpy(dictword, sys[i-1], GameHeader.WordLength);
+        Nouns[i] = dictword;
+    }
+
+    Nouns[0] = "ANY\0";
+
+    switch(CurrentGame) {
+        case BATON_C64:
+            Nouns[79] = "CAST\0";
+            Verbs[79] = ".\0";
+            GameHeader.NumWords = 79;
+            break;
+        case TIME_MACHINE_C64:
+            GameHeader.NumWords = 86;
+            break;
+        case ARROW1_C64:
+            Nouns[82] = ".\0";
+            break;
+        case ARROW2_C64:
+            Verbs[80] = ".\0";
+            break;
+        case PULSAR7_C64:
+            Nouns[102] = ".\0";
+            break;
+        case CIRCUS_C64:
+            Nouns[96] = ".\0";
+            break;
+        case FEASIBILITY_C64:
+            Nouns[80] = ".\0";
+            break;
+        case PERSEUS_C64:
+            Nouns[82] = ".\0";
+            break;
+        default:
+            break;
+    }
+}
+
 
 void Supergran64Sysmess(void)
 {
@@ -329,7 +430,7 @@ void Supergran64Sysmess(void)
         NOTHING
     };
 
-    for (int i = 0; i < 29; i++) {
+    for (int i = 0; i < 30; i++) {
         sys[messagekey[i]] = system_messages[i];
     }
 
@@ -381,7 +482,7 @@ void SecretMission64Sysmess(void)
         YOUVE_SOLVED_IT
     };
 
-    for (int i = 0; i < 38; i++) {
+    for (int i = 0; i < 39; i++) {
         sys[messagekey[i]] = system_messages[i];
     }
 

@@ -27,5 +27,6 @@ typedef enum {
 } VectorStateType;
 
 extern VectorStateType VectorState;
+extern int vector_image_shown;
 
 #endif /* line_drawing_h */

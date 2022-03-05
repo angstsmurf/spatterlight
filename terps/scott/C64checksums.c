@@ -44,6 +44,35 @@ struct c64rec {
 };
 
 static struct c64rec c64_registry[] = {
+    { BATON_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 }, // Mysterious Adventures C64 dsk 1
+    { TIME_MACHINE_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
+    { ARROW1_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
+    { ARROW2_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
+    { PULSAR7_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
+    { CIRCUS_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
+
+    { FEASIBILITY_C64, 0x2ab00, 0x9eaa, TYPE_D64, 0 }, // Mysterious Adventures C64 dsk 2
+    { AKYRZ_C64, 0x2ab00, 0x9eaa, TYPE_D64, 0 },
+    { PERSEUS_C64, 0x2ab00, 0x9eaa, TYPE_D64, 0 },
+    { INDIANS_C64, 0x2ab00, 0x9eaa, TYPE_D64, 0 },
+    { WAXWORKS_C64, 0x2ab00, 0x9eaa, TYPE_D64, 0 },
+    { BATON_C64, 0x2ab00, 0x9dca, TYPE_D64, 2 },
+
+    { BATON_C64, 0x5170, 0xb240, TYPE_T64, 2 }, // The Golden Baton C64, T64
+    { BATON_C64, 0x2ab00, 0xbfbf, TYPE_D64, 2 }, // Mysterious Adventures C64 dsk 1 alt
+    { FEASIBILITY_C64, 0x2ab00, 0x9c18, TYPE_D64, 2 }, // Mysterious Adventures C64 dsk 2 alt
+    { TIME_MACHINE_C64, 0x5032, 0x5635, TYPE_T64, 1 }, // The Time Machine C64
+    { ARROW1_C64, 0x5b46, 0x92db, TYPE_T64, 1 }, // Arrow of Death part 1 C64
+    { ARROW2_C64, 0x5fe2, 0xe14f, TYPE_T64, 1 }, // Arrow of Death part 2 C64
+    { PULSAR7_C64, 0x46bf, 0x1679, TYPE_T64, 1 }, // Escape from Pulsar 7 C64
+    { CIRCUS_C64, 0x4269, 0xa449, TYPE_T64, 2 }, // Circus C64
+    { FEASIBILITY_C64, 0x5a7b, 0x0f48, TYPE_T64, 1 }, // Feasibility Experiment C64
+    { AKYRZ_C64, 0x2ab00, 0x6cca, TYPE_D64, 0 }, // The Wizard of Akyrz C64
+    { AKYRZ_C64, 0x4be1, 0x5a00, TYPE_T64, 1}, // The Wizard of Akyrz C64, T64
+    { PERSEUS_C64, 0x502b, 0x913b, TYPE_T64, 1}, // Perseus and Andromeda C64
+    { INDIANS_C64, 0x4f9f, 0xe6c8, TYPE_T64, 1}, // Ten Little Indians C64
+    { WAXWORKS_C64, 0x4a11, 0xa37a, TYPE_T64, 1}, // Waxworks C64
+
     { ADVENTURELAND_C64, 0x6a10, 0x1910, TYPE_T64,
         1 }, // Adventureland C64 (T64) CruelCrunch v2.2
     { ADVENTURELAND_C64, 0x6a10, 0x1b10, TYPE_T64, 1, NULL, NULL, 0, 0,
@@ -84,10 +113,10 @@ static struct c64rec c64_registry[] = {
 
     { SAVAGE_ISLAND_C64, 0x2ab00, 0x8801, TYPE_D64, 1, "-f86 -d0x1793",
         "SAVAGEISLAND1+", 1, 0, 0 }, // Savage Island part 1 C64 (D64)
-    { SAVAGE_ISLAND_C64, 0x2ab00, 0xc361, TYPE_D64, 1, "-f86 -d0x1793",
-        "SAVAGE ISLAND P1", 1, 0, 0 }, // Savage Island part 1 C64 (D64) alt
     { SAVAGE_ISLAND2_C64, 0x2ab00, 0x8801, TYPE_D64, 1, "-f86 -d0x178b",
         "SAVAGEISLAND2+", 1, 0, 0 }, // Savage Island part 2 C64 (D64)
+    { SAVAGE_ISLAND_C64, 0x2ab00, 0xc361, TYPE_D64, 1, "-f86 -d0x1793",
+        "SAVAGE ISLAND P1", 1, 0, 0 }, // Savage Island part 1 C64 (D64) alt
     { SAVAGE_ISLAND2_C64, 0x2ab00, 0xc361, TYPE_D64, 1, NULL, "SAVAGE ISLAND P2",
         0, 0, 0 }, // Savage Island part 2  C64 (D64) alt
 
@@ -209,27 +238,25 @@ int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 
     glk_window_clear(Bottom);
 
-    if (result == 2) {
-        if (recindex == 15)
-            recindex = 17;
-        else
-            recindex = 18;
-    }
+    recindex += result - 1;
 
     struct c64rec rec = c64_registry[recindex];
     int length;
     uint8_t *file = get_file_named(*sf, *extent, &length, rec.appendfile);
 
     if (file != NULL) {
-        if (recindex == 16) {
-            save_island_appendix_1 = get_file_named(
-                *sf, *extent, &save_island_appendix_1_length, "SI1PC1");
-            save_island_appendix_2 = get_file_named(
-                *sf, *extent, &save_island_appendix_2_length, "SI1PC2");
-        } else if (recindex == 18) {
-            save_island_appendix_1 = get_file_named(
-                *sf, *extent, &save_island_appendix_1_length, "SI2PIC");
+        if (rec.chk == 0xc361) {
+            if (rec.switches != NULL) {
+                save_island_appendix_1 = get_file_named(
+                                                        *sf, *extent, &save_island_appendix_1_length, "SI1PC1");
+                save_island_appendix_2 = get_file_named(
+                                                        *sf, *extent, &save_island_appendix_2_length, "SI1PC2");
+            } else {
+                save_island_appendix_1 = get_file_named(
+                                                        *sf, *extent, &save_island_appendix_1_length, "SI2PIC");
+            }
         }
+        free(*sf);
         *sf = file;
         *extent = length;
         if (save_island_appendix_1_length > 2)
@@ -270,6 +297,130 @@ void appendSIfiles(uint8_t **sf, size_t *extent)
     *extent = offset + save_island_appendix_1_length + save_island_appendix_2_length;
 }
 
+int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
+{
+    recindex = 0;
+
+    Output("This disk image contains six games. Select one.\n\n1. The Golden Baton\n2. The Time Machine\n3. Arrow of Death part 1\n4. Arrow of Death part 2\n5. Escape from Pulsar 7\n6. Circus");
+
+    glk_request_char_event(Bottom);
+
+    event_t ev;
+    int result = 0;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_CharInput) {
+            if (ev.val1 >= '1' && ev.val1 <= '6') {
+                result = ev.val1 - '0';
+            } else {
+                glk_request_char_event(Bottom);
+            }
+        }
+    } while (result == 0);
+
+    glk_window_clear(Bottom);
+
+    const char *filename = NULL;
+    switch (result) {
+        case 1:
+            filename = "BATON";
+            break;
+        case 2:
+            filename = "TIME MACHINE";
+            break;
+        case 3:
+            filename = "ARROW I";
+            break;
+        case 4:
+            filename = "ARROW II";
+            break;
+        case 5:
+            filename = "PULSAR 7";
+            break;
+        case 6:
+            filename = "CIRCUS";
+            break;
+        default:
+            fprintf(stderr, "Error!\n");
+            break;
+    }
+
+    int length;
+    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+
+    if (file != NULL) {
+        free(*sf);
+        *sf = file;
+        *extent = length;
+        struct c64rec rec = c64_registry[recindex - 1 + result];
+        return DecrunchC64(sf, extent, rec);
+    } else {
+        fprintf(stderr, "Failed loading file %s\n", filename);
+        return 0;
+    }
+}
+
+int mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
+{
+    recindex = 6;
+
+    Output("This disk image contains five games. Select one.\n\n1. Feasibility Experiment\n2. The Wizard of Akyrz\n3. Perseus and Andromeda\n4. Ten Little Indians\n5. Waxworks");
+
+    glk_request_char_event(Bottom);
+
+    event_t ev;
+    int result = 0;
+    do {
+        glk_select(&ev);
+        if (ev.type == evtype_CharInput) {
+            if (ev.val1 >= '1' && ev.val1 <= '5') {
+                result = ev.val1 - '0';
+            } else {
+                glk_request_char_event(Bottom);
+            }
+        }
+    } while (result == 0);
+
+    glk_window_clear(Bottom);
+
+    const char *filename = NULL;
+    switch (result) {
+        case 1:
+            filename = "EXPERIMENT";
+            break;
+        case 2:
+            filename = "WIZARD OF AKYRZ";
+            break;
+        case 3:
+            filename = "PERSEUS";
+            break;
+        case 4:
+            filename = "INDIANS";
+            break;
+        case 5:
+            filename = "WAXWORKS";
+            break;
+        default:
+            fprintf(stderr, "Error!\n");
+            break;
+    }
+
+    int length;
+    uint8_t *file = get_file_named(*sf, *extent, &length, filename);
+
+    if (file != NULL) {
+        free(*sf);
+        *sf = file;
+        *extent = length;
+        struct c64rec rec = c64_registry[recindex - 1 + result];
+        return DecrunchC64(sf, extent, rec);
+    } else {
+        fprintf(stderr, "Failed loading file %s\n", filename);
+        return 0;
+    }
+}
+
+
 size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasize,
     size_t bytestomove)
 {
@@ -299,6 +450,10 @@ int DetectC64(uint8_t **sf, size_t *extent)
         if (*extent == c64_registry[i].length && chksum == c64_registry[i].chk) {
             if (c64_registry[i].id == SAVAGE_ISLAND_C64) {
                 return savage_island_menu(sf, extent, i);
+            } else if (c64_registry[i].id == BATON_C64 && (chksum == 0xc3fc || chksum == 0xbfbf)) {
+                return mysterious_menu(sf, extent, i);
+            } else if (c64_registry[i].id == FEASIBILITY_C64 && (chksum == 0x9eaa || chksum == 0x9c18)) {
+                return mysterious_menu2(sf, extent, i);
             }
             if (c64_registry[i].type == TYPE_D64) {
                 int newlength;
@@ -420,6 +575,8 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     size_t offset;
 
+    writeToFile("/Users/administrator/Desktop/rawFromD64", entire_file, file_length);
+
     DictionaryType dictype = GetId(&offset);
     if (dictype != GameInfo->dictionary) {
         Fatal("Wrong game?");
@@ -448,7 +605,8 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
         }
     }
 
-    SagaSetup(record.imgoffset);
+    if (!(GameInfo->subtype & MYSTERIOUS))
+        SagaSetup(record.imgoffset);
 
     return CurrentGame;
 }

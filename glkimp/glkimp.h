@@ -53,6 +53,7 @@ extern int gli_sa_delays;
 extern int gli_sa_display_style;
 extern int gli_sa_inventory;
 extern int gli_sa_palette;
+extern int gli_slowdraw;
 
 extern glui32 tagcounter;
 extern glui32 lasteventtype;

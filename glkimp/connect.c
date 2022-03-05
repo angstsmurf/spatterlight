@@ -56,6 +56,7 @@ int gli_sa_delays = 0;
 int gli_sa_display_style = 0;
 int gli_sa_inventory = 0;
 int gli_sa_palette = 0;
+int gli_slowdraw = 0;
 
 uint32_t gtimerinterval = 0;
 
@@ -785,6 +786,7 @@ again:
                 gli_sa_palette == settings->sa_palette &&
                 gli_sa_inventory == settings->sa_inventory &&
                 gli_sa_display_style == settings->sa_display_style &&
+                gli_slowdraw == settings->slowdraw &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -813,6 +815,7 @@ again:
             gli_enable_styles = settings->do_styles;
             gli_sa_delays = settings->sa_delays;
             gli_sa_display_style = settings->sa_display_style;
+            gli_slowdraw = settings->slowdraw;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
             gli_windows_rearrange();

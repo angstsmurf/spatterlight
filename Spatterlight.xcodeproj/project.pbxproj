@@ -734,6 +734,8 @@
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
+		C3C07BE827D3DD8800CD60B8 /* Caution.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C07BE627D3DD8800CD60B8 /* Caution.c */; };
+		C3C07BEA27D3F19600CD60B8 /* XTC.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C07BE927D3F19600CD60B8 /* XTC.c */; };
 		C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */; };
 		C3C0EE65278BBF750044A615 /* gremlins.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE64278BBF750044A615 /* gremlins.c */; };
 		C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE67278BCA4D0044A615 /* decompresstext.c */; };
@@ -2981,6 +2983,8 @@
 		C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = ColorTransformer.m; sourceTree = "<group>"; };
 		C3BB6A7026FC93FE009BE6DE /* h_le_c11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = h_le_c11.h; sourceTree = "<group>"; };
 		C3BD71E32630E3350061E55C /* Spatterlight 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 7.xcdatamodel"; sourceTree = "<group>"; };
+		C3C07BE627D3DD8800CD60B8 /* Caution.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Caution.c; sourceTree = "<group>"; };
+		C3C07BE927D3F19600CD60B8 /* XTC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = XTC.c; sourceTree = "<group>"; };
 		C3C0EE5F278B96CF0044A615 /* gameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameinfo.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robinofsherwood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = robinofsherwood.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -5822,6 +5826,7 @@
 		C3F2160B27A830E900A9A4A8 /* scanners */ = {
 			isa = PBXGroup;
 			children = (
+				C3C07BE627D3DD8800CD60B8 /* Caution.c */,
 				C3F217AA27A8311B00A9A4A8 /* _Scanners.c */,
 				C3F2177A27A8311700A9A4A8 /* ActionPacker.c */,
 				C3F2171427A8310F00A9A4A8 /* ByteBoiler.c */,
@@ -5836,6 +5841,7 @@
 				C3F217BF27A8311D00A9A4A8 /* Section8.c */,
 				C3F2173C27A8311200A9A4A8 /* TBCMultiComp.c */,
 				C3F2178027A8311800A9A4A8 /* TCScrunch.c */,
+				C3C07BE927D3F19600CD60B8 /* XTC.c */,
 			);
 			path = scanners;
 			sourceTree = "<group>";
@@ -7627,6 +7633,8 @@
 				C3F2160327A830CB00A9A4A8 /* 6502emu.c in Sources */,
 				C3F2160427A830CB00A9A4A8 /* unp64.c in Sources */,
 				C3F2160627A830CB00A9A4A8 /* exo_util.c in Sources */,
+				C3C07BE827D3DD8800CD60B8 /* Caution.c in Sources */,
+				C3C07BEA27D3F19600CD60B8 /* XTC.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

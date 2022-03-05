@@ -72,6 +72,7 @@
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
+                <outlet property="slowDrawCheckbox" destination="dx1-Wv-uBX" id="CGB-rr-c2v"/>
                 <outlet property="standardZArrowsMenuItem" destination="knU-An-UrC" id="8Id-P2-zE6"/>
                 <outlet property="strictZArrowsMenuItem" destination="ZUP-mf-G4Z" id="NlH-k7-jpp"/>
                 <outlet property="styleNamePopup" destination="VWX-Pp-wTR" id="w9h-fj-PtQ"/>
@@ -1251,7 +1252,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-aa-Fxh">
-                                                                <rect key="frame" x="122" y="177" width="91" height="16"/>
+                                                                <rect key="frame" x="122" y="178" width="91" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Image palette:" id="am4-CJ-7X5">
                                                                     <font key="font" metaFont="system"/>
@@ -1260,7 +1261,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1z-HV-XlQ">
-                                                                <rect key="frame" x="214" y="169" width="200" height="25"/>
+                                                                <rect key="frame" x="214" y="170" width="200" height="25"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="E6A-NF-6SH" id="1wX-p0-Loj">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1280,7 +1281,7 @@
                                                                 </connections>
                                                             </popUpButton>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-y8-hpm">
-                                                                <rect key="frame" x="46" y="145" width="167" height="16"/>
+                                                                <rect key="frame" x="46" y="146" width="167" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Inventory in upper window:" id="Hze-Ww-7ie">
                                                                     <font key="font" metaFont="system"/>
@@ -1289,7 +1290,7 @@
                                                                 </textFieldCell>
                                                             </textField>
                                                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bUq-I4-fom">
-                                                                <rect key="frame" x="214" y="137" width="200" height="25"/>
+                                                                <rect key="frame" x="214" y="138" width="200" height="25"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aga-1T-cUN" id="FYk-L3-ILs">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1307,11 +1308,11 @@
                                                                 </connections>
                                                             </popUpButton>
                                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-8d-P9f">
-                                                                <rect key="frame" x="9" y="105" width="426" height="5"/>
+                                                                <rect key="frame" x="9" y="110" width="426" height="5"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             </box>
                                                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qbl-t2-Rrs">
-                                                                <rect key="frame" x="198" y="63" width="67" height="18"/>
+                                                                <rect key="frame" x="165" y="76" width="67" height="18"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <buttonCell key="cell" type="check" title="Delays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aha-tr-898">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1319,6 +1320,17 @@
                                                                 </buttonCell>
                                                                 <connections>
                                                                     <action selector="changeScottAdamsDelay:" target="-2" id="2bG-sW-xAe"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dx1-Wv-uBX">
+                                                                <rect key="frame" x="165" y="54" width="149" height="18"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <buttonCell key="cell" type="check" title="Slow vector drawing" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="fYz-Ux-g10">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="changeScottAdamsSlowDraw:" target="-2" id="sAQ-0G-yZL"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>

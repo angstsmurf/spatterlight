@@ -35,16 +35,34 @@ static struct scottrec scott_registry[] = {
     { 0x3ff8, 0x5fb4, "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai z80 alt
 
     { 0x7d3c, 0x142b, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton Z80
+   { 0x2ab00, 0x9dca, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton C64, D64
+    { 0x5170, 0xb240, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton C64, T64
     { 0x78d0, 0x3db6, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine Z80
+    { 0x5032, 0x5635, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine C64
     { 0x8539, 0xad02, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 z80
+    { 0x5b46, 0x92db, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64
     { 0x949b, 0xb7e2, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 z80
+    { 0x5fe2, 0xe14f, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 C64
     { 0x7509, 0x497d, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape from Pulsar 7 z80
+    { 0x46bf, 0x1679, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape from Pulsar 7 C64
     { 0x6c62, 0xd002, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus z80
+    { 0x4269, 0xa449, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus C64
     { 0x9213, 0xf3ca, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasability Experiment z80
+    { 0x5a7b, 0x0f48, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasability Experiment C64
     { 0x83d9, 0x1bb9, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz z80
+   { 0x2ab00, 0x6cca, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz C64, D64
+    { 0x4be1, 0x5a00, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz C64, T64
     { 0x7b10, 0x4f06, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda.z80
+    { 0x502b, 0x913b, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda C64
     { 0x7bb0, 0x3877, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians z80
+    { 0x4f9f, 0xe6c8, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians C64
     { 0x7f96, 0x4f96, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks z80
+    { 0x4a11, 0xa37a, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks C64
+
+   { 0x2ab00, 0xc3fc, "186efec3-b22e-49af-b751-6b84f04b6957" }, // Mysterious Adventures C64 dsk 1
+   { 0x2ab00, 0xbfbf, "186efec3-b22e-49af-b751-6b84f04b6957" }, // Mysterious Adventures C64 dsk 1 alt
+   { 0x2ab00, 0x9eaa, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Mysterious Adventures C64 dsk 2
+    { 0x2ab00, 0x9c18, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Mysterious Adventures C64 dsk 2
 
     { 0xbcd5, 0xae3f, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk.tzx
     { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
@@ -334,7 +352,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

@@ -13,7 +13,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Pirate Adventure",
         PIRATE,
-        TEXT_ONLY,                 // type
+        OLD_STYLE,                 // type
         ENGLISH,                   // subtype
         THREE_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -58,7 +58,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Voodoo Castle",
         VOODOO,
-        TEXT_ONLY,                 // type
+        OLD_STYLE,                 // type
         ENGLISH,                   // subtype
         THREE_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -103,7 +103,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Strange Odyssey",
         STRANGE,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         ENGLISH,                  // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -148,7 +148,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Buckaroo Banzai",
         BANZAI,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         ENGLISH,                  // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -193,7 +193,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "The Golden Baton",
         BATON,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -230,15 +230,60 @@ struct GameInfo games[NUMGAMES] = {
         0, // start_of_characters;
         FOLLOWS, // start_of_image_data;
         0, // image_address_offset
-        31, // number_of_pictures;
+        30, // number_of_pictures;
         ZXOPT, // palette
+        99, // picture_format_version;
+    },
+
+    {
+        "The Golden Baton C64",
+        BATON_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        48,  // Number of items
+        166, // Number of actions
+        78,  // Number of words
+        31,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        99,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0x1dd9, // header
+        MYSTERIOUS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2861,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x38f1, // start_of_image_data;
+        0, // image_address_offset
+        30, // number_of_pictures;
+        C64A, // palette
         99, // picture_format_version;
     },
 
     {
         "The Time Machine",
         TIME_MACHINE,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -281,9 +326,55 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "The Time Machine C64",
+        TIME_MACHINE_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        62,  // Number of items
+        161, // Number of actions
+        85,  // Number of words
+        44,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        73,  // Number of messages
+
+        86, // number_of_verbs
+        86, // number_of_nouns;
+
+        0x1dd9, // header
+        MYSTERIOUS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2811,  // dictionary
+        0x2b6d, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        0x2f0f, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3872, // start_of_image_data;
+        0, // image_address_offset
+        43, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+
+    {
         "Arrow of Death part 1",
         ARROW1,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -326,9 +417,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Arrow of Death part 1 C64",
+        ARROW1_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        64,  // Number of items
+        150, // Number of actions
+        90,  // Number of words
+        52,  // Number of rooms
+        5,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        91, // number_of_verbs
+        82, // number_of_nouns;
+
+        0x1dd9, // header
+        MYSTERIOUS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2761,  // dictionary
+        FOLLOWS,  // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x0408, // start_of_system_messages
+        0x0408, // start of directions
+
+        0, // start_of_characters;
+        0x38e2, // start_of_image_data;
+        0, // image_address_offset
+        51, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "Arrow of Death part 2",
         ARROW2,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -371,9 +507,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Arrow of Death part 2 C64",
+        ARROW2_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        90,  // Number of items
+        176, // Number of actions
+        82,  // Number of words
+        65,  // Number of rooms
+        9,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        81, // number_of_verbs
+        82, // number_of_nouns;
+
+        0x1dd9, // header
+        ARROW_OF_DEATH_PT_2_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2901,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3cac, // start_of_image_data;
+        0, // image_address_offset
+        64, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "Escape from Pulsar 7",
         PULSAR7,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -415,11 +596,58 @@ struct GameInfo games[NUMGAMES] = {
         99, // picture_format_version;
     },
 
+
+    {
+        "Escape from Pulsar 7 C64",
+        PULSAR7_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        88,  // Number of items
+        195, // Number of actions
+        145, // Number of words
+        45,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        146, // number_of_verbs
+        102, // number_of_nouns;
+
+        0x1dd9, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1da3, // actions
+        UNCOMPRESSED,
+        0x29e3,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3bf4, // start_of_image_data;
+        0, // image_address_offset
+        44, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+
     {
         "Circus",
         CIRCUS,
-        TEXT_ONLY,                // type
-        MYSTERIOUS,               // subtype
+        OLD_STYLE,                // type
+        MYSTERIOUS,         // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
         65,  // Number of items
@@ -461,9 +689,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
-        "Feasability Experiment",
-        FEASABILITY,
-        TEXT_ONLY,                // type
+        "Circus C64",
+        CIRCUS_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        65,  // Number of items
+        165, // Number of actions
+        97,  // Number of words
+        36,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        72,  // Number of messages
+
+        98, // number_of_verbs
+        96, // number_of_nouns;
+
+        0x1dd9, // header
+        MYSTERIOUS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2851,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3914, // start_of_image_data;
+        0, // image_address_offset
+        35, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
+        "Feasibility Experiment",
+        FEASIBILITY,
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -506,9 +779,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Feasibility Experiment C64",
+        FEASIBILITY_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        65,  // Number of items
+        156, // Number of actions
+        79,  // Number of words
+        59,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        56, // number_of_verbs
+        80, // number_of_nouns;
+
+        0x1dd9, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df3, // actions
+        UNCOMPRESSED,
+        0x27c3,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3876, // start_of_image_data;
+        0, // image_address_offset
+        58, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "The Wizard of Akyrz",
         AKYRZ,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -550,10 +868,56 @@ struct GameInfo games[NUMGAMES] = {
         99, // picture_format_version;
     },
 
+
+    {
+        "The Wizard of Akyrz C64",
+        AKYRZ_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        49,  // Number of items
+        199, // Number of actions
+        85,  // Number of words
+        40,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        67, // number_of_verbs
+        85, // number_of_nouns;
+
+        0x1dd9, // header
+        MYSTERIOUS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df1, // actions
+        UNCOMPRESSED,
+        0x2a71,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3bce, // start_of_image_data;
+        0, // image_address_offset
+        39, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
     {
         "Perseus and Andromeda",
         PERSEUS,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -596,9 +960,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Perseus and Andromeda C64",
+        PERSEUS_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        59,  // Number of items
+        165, // Number of actions
+        130, // Number of words
+        40,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        131, // number_of_verbs
+        82, // number_of_nouns;
+
+        0x1dd9, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df3, // actions
+        UNCOMPRESSED,
+        0x2853,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3d91, // start_of_image_data;
+        0, // image_address_offset
+        39, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "Ten Little Indians",
         INDIANS,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -641,9 +1050,54 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Ten Little Indians C64",
+        INDIANS_C64,
+        NO_TYPE,                // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+
+        73,  // Number of items
+        161, // Number of actions
+        82,  // Number of words
+        63,  // Number of rooms
+        5,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        64, // number_of_verbs
+        82, // number_of_nouns;
+
+        0x1dd9, // header
+        INDIANS_C64_HEADER,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df0, // actions
+        UNCOMPRESSED,
+        0x2810,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3a46, // start_of_image_data;
+        0, // image_address_offset
+        62, // number_of_pictures;
+        C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "Waxworks",
         WAXWORKS,
-        TEXT_ONLY,                // type
+        OLD_STYLE,                // type
         MYSTERIOUS,               // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
@@ -682,6 +1136,51 @@ struct GameInfo games[NUMGAMES] = {
         0, // image_address_offset
         40, // number_of_pictures;
         ZXOPT, // palette
+        99, // picture_format_version;
+    },
+
+    {
+        "Waxworks C64",
+        WAXWORKS_C64,
+        NO_TYPE,                    // type
+        MYSTERIOUS | ENGLISH | C64, // subtype
+        FOUR_LETTER_UNCOMPRESSED,   // dictionary type
+
+        57,  // Number of items
+        189, // Number of actions
+        105, // Number of words
+        41,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        91, // number_of_verbs
+        105, // number_of_nouns;
+
+        0x1dd9, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1df3, // actions
+        UNCOMPRESSED,
+        0x29d3,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x408, // start_of_system_messages
+        0x408, // start of directions
+
+        0, // start_of_characters;
+        0x3f31, // start_of_image_data;
+        0, // image_address_offset
+        40, // number_of_pictures;
+        C64A, // palette
         99, // picture_format_version;
     },
 
@@ -1189,7 +1688,7 @@ struct GameInfo games[NUMGAMES] = {
         84, // number_of_nouns;
 
         0x46dc,                   // header
-        SAVAGE_ISLAND_C64_HEADER, // header style
+        EARLY, // header style
         0x4645,                   // room images
         FOLLOWS,                  // item flags
         FOLLOWS,                  // item images
@@ -1276,7 +1775,7 @@ struct GameInfo games[NUMGAMES] = {
         79, // number_of_nouns;
 
         0x4654,                   // header
-        SAVAGE_ISLAND_C64_HEADER, // header style
+        EARLY, // header style
         0x6310,                   // room images
         FOLLOWS,                   // item flags
         FOLLOWS,                  // item images

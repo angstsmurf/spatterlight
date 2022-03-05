@@ -46,6 +46,7 @@ struct settings_struct
     int sa_display_style;
     int sa_inventory;
     int sa_palette;
+    int slowdraw;
     int determinism;
     int error_handling;
     int force_arrange;

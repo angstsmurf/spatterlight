@@ -263,6 +263,7 @@ unsigned chartokeycode(unsigned ch) {
         settings->sa_display_style = (int)theme.sADisplayStyle;
         settings->sa_inventory = (int)theme.sAInventory;
         settings->sa_palette = (int)theme.sAPalette;
+        settings->slowdraw = (int)theme.slowDrawing;
 
         settings->force_arrange = _forced;
 

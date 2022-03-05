@@ -158,10 +158,16 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
                         c = *(ptr++);
                     }
                 }
-                dictword[charindex] = c;
-                if (c == '*')
+                if (c != ' ' && charindex > 0 && dictword[charindex - 1] == ' ') {
                     i--;
-                charindex++;
+                    charindex--;
+                }
+                if (c == '*') {
+                    if (charindex != 0)
+                        charindex = 0;
+                    i = -1;
+                }
+                dictword[charindex++] = c;
             }
         }
         dictword[charindex] = 0;
@@ -214,115 +220,141 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
     int *trm)
 {
     switch (type) {
-    case NO_HEADER:
-        return 0;
-    case EARLY:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = h[6];
-        *tr = h[7];
-        *wl = h[8];
-        *lt = h[9];
-        *mn = h[10];
-        *trm = h[11];
-        break;
-    case LATE:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[6];
-        *lt = -1;
-        *mn = h[7];
-        *trm = 0;
-        break;
-    case HULK_HEADER:
-        *ni = h[3];
-        *na = h[2];
-        *nw = h[1];
-        *nr = h[5];
-        *mc = h[6];
-        *pr = h[7];
-        *tr = h[8];
-        *wl = h[0];
-        *lt = h[9];
-        *mn = h[4];
-        *trm = h[10];
-        break;
-    case SAVAGE_ISLAND_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[3];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = h[6];
-        *tr = 0;
-        *wl = h[8];
-        *lt = -1;
-        *mn = h[10];
-        *trm = 0;
-        break;
-    case ROBIN_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[6];
-        *nr = h[4];
-        *mc = h[5];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[7];
-        *lt = -1;
-        *mn = h[3];
-        *trm = 0;
-        break;
-    case GREMLINS_C64_HEADER:
-        *ni = h[1];
-        *na = h[2];
-        *nw = h[5];
-        *nr = h[3];
-        *mc = h[6];
-        *pr = h[8];
-        *tr = 0;
-        *wl = h[7];
-        *lt = -1;
-        *mn = 98;
-        *trm = 0;
-        break;
-    case SUPERGRAN_C64_HEADER:
-        *ni = h[3];
-        *na = h[1];
-        *nw = h[2];
-        *nr = h[4];
-        *mc = h[8];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[6];
-        *lt = -1;
-        *mn = h[5];
-        *trm = 0;
-        break;
-    case SEAS_OF_BLOOD_C64_HEADER:
-        *ni = h[0];
-        *na = h[1];
-        *nw = 134;
-        *nr = h[3];
-        *mc = h[4];
-        *pr = 1;
-        *tr = 0;
-        *wl = h[6];
-        *lt = -1;
-        *mn = h[2];
-        *trm = 0;
-        break;
-    default:
-        fprintf(stderr, "Unhandled header type!\n");
-        return 0;
+        case NO_HEADER:
+            return 0;
+        case EARLY:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[3];
+            *nr = h[4];
+            *mc = h[5];
+            *pr = h[6];
+            *tr = h[7];
+            *wl = h[8];
+            *lt = h[9];
+            *mn = h[10];
+            *trm = h[11];
+            break;
+        case LATE:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[3];
+            *nr = h[4];
+            *mc = h[5];
+            *wl = h[6];
+            *mn = h[7];
+            *pr = 1;
+            *tr = 0;
+            *lt = -1;
+            *trm = 0;
+            break;
+        case HULK_HEADER:
+            *ni = h[3];
+            *na = h[2];
+            *nw = h[1];
+            *nr = h[5];
+            *mc = h[6];
+            *pr = h[7];
+            *tr = h[8];
+            *wl = h[0];
+            *lt = h[9];
+            *mn = h[4];
+            *trm = h[10];
+            break;
+        case ROBIN_C64_HEADER:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[6];
+            *nr = h[4];
+            *mc = h[5];
+            *pr = 1;
+            *tr = 0;
+            *wl = h[7];
+            *lt = -1;
+            *mn = h[3];
+            *trm = 0;
+            break;
+        case GREMLINS_C64_HEADER:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[5];
+            *nr = h[3];
+            *mc = h[6];
+            *pr = h[8];
+            *tr = 0;
+            *wl = h[7];
+            *lt = -1;
+            *mn = 98;
+            *trm = 0;
+            break;
+        case SUPERGRAN_C64_HEADER:
+            *ni = h[3];
+            *na = h[1];
+            *nw = h[2];
+            *nr = h[4];
+            *mc = h[8];
+            *pr = 1;
+            *tr = 0;
+            *wl = h[6];
+            *lt = -1;
+            *mn = h[5];
+            *trm = 0;
+            break;
+        case SEAS_OF_BLOOD_C64_HEADER:
+            *ni = h[0];
+            *na = h[1];
+            *nw = 134;
+            *nr = h[3];
+            *mc = h[4];
+            *pr = 1;
+            *tr = 0;
+            *wl = h[6];
+            *lt = -1;
+            *mn = h[2];
+            *trm = 0;
+            break;
+        case MYSTERIOUS_C64_HEADER:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[3];
+            *nr = h[4];
+            *mc = h[5] & 0xff;
+            *pr = h[5] >> 8;
+            *tr = h[6];
+            *wl = h[7];
+            *lt = h[8];
+            *mn = h[9];
+            *trm = 0;
+            break;
+        case ARROW_OF_DEATH_PT_2_C64_HEADER:
+            *ni = h[3];
+            *na = h[1];
+            *nw = h[2];
+            *nr = h[4];
+            *mc = h[5] & 0xff;
+            *pr = h[5] >> 8;
+            *tr = h[6];
+            *wl = h[7];
+            *lt = h[8];
+            *mn = h[9];
+            *trm = 0;
+            break;
+        case INDIANS_C64_HEADER:
+            *ni = h[1];
+            *na = h[2];
+            *nw = h[3];
+            *nr = h[4];
+            *mc = h[5] & 0xff;
+            *pr = h[5] >> 8;
+            *tr = h[6] & 0xff;
+            *wl = h[6] >> 8;
+            *lt = h[7] >> 8;
+            *mn = h[8] >> 8;
+            *trm = 0;
+            break;
+        default:
+            fprintf(stderr, "Unhandled header type!\n");
+            return 0;
     }
     return 1;
 }
@@ -355,6 +387,45 @@ typedef struct {
     uint8_t background_colour;
     size_t size;
 } LineImage;
+
+void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
+    int offset;
+
+    if (info.start_of_image_data == FOLLOWS)
+        ptr++;
+    else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
+        return;
+
+    LineImages = MemAlloc(info.number_of_pictures * sizeof(struct line_image));
+    int ct = 0;
+    struct line_image *lp = LineImages;
+    uint8_t byte = *(ptr++);
+    do {
+        Rooms[ct].Image = 0;
+        if (byte == 0xff) {
+            lp->bgcolour = *(ptr++);
+            lp->data = ptr;
+        } else {
+            fprintf(stderr, "Error! Image data does not start with 0xff!\n");
+        }
+        do {
+            byte = *(ptr++);
+            if (ptr - entire_file >= file_length) {
+                fprintf(stderr, "Error! Image data for image %d cut off!\n", ct);
+                if (GameHeader.NumRooms - ct > 1)
+                    Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
+                lp->size = ptr - lp->data - 1;
+                for (int i = ct + 2; i < GameHeader.NumRooms; i++)
+                    Rooms[i].Image = 255;
+                return;
+            }
+        } while (byte != 0xff);
+
+        lp->size = ptr - lp->data;
+        lp++;
+        ct++;
+    } while (ct < info.number_of_rooms);
+}
 
 struct LineImage *lineImages = NULL;
 
@@ -573,31 +644,7 @@ jumpHere:
 #pragma mark line images
 
     if (info.number_of_pictures > 0) {
-        if (info.start_of_image_data == FOLLOWS)
-            ptr++;
-        else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
-            return 0;
-
-    jumpHereImages:
-        LineImages = MemAlloc(info.number_of_pictures * sizeof(struct line_image));
-        ct = 0;
-        struct line_image *lp = LineImages;
-        uint8_t byte = *(ptr++);
-        do {
-        if (byte == 0xff) {
-            lp->bgcolour = *(ptr++);
-            lp->data = ptr;
-        } else {
-            fprintf(stderr, "Error! Image data does not start with 0xff!\n");
-        }
-        do {
-            byte = *(ptr++);
-        } while (byte != 0xff);
-
-        lp->size = ptr - lp->data;
-        lp++;
-        ct++;
-        } while (ct < info.number_of_pictures);
+        LoadVectorData(info, ptr);
     }
 
 
@@ -669,7 +716,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     if (info.gameID == HULK || info.gameID == HULK_C64)
         return TryLoadingHulk(info, dict_start);
 
-    if (info.type == TEXT_ONLY)
+    if (info.type == OLD_STYLE)
         return TryLoadingOld(info, dict_start);
 
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
@@ -736,9 +783,6 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         return 0;
     }
 
-    if (info.gameID == SAVAGE_ISLAND2)
-        GameHeader.PlayerRoom = 30;
-
     Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
     Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
     Verbs = MemAlloc(sizeof(char *) * (nw + 2));
@@ -789,11 +833,11 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             ip->Image = *(ptr++);
             ip++;
         }
-    }
+        if (loud)
+            fprintf(stderr, "Offset after reading item images: %lx\n",
+                    ptr - entire_file - file_baseline_offset);
 
-    if (loud)
-        fprintf(stderr, "Offset after reading item images: %lx\n",
-            ptr - entire_file - file_baseline_offset);
+    }
 
 #pragma mark actions
 
@@ -847,6 +891,10 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         ap++;
         ct++;
     }
+    if (loud)
+        fprintf(stderr, "Offset after reading actions: %lx\n",
+                ptr - entire_file - file_baseline_offset);
+
 
 #pragma mark dictionary
 
@@ -1023,6 +1071,12 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
+    }
+
+#pragma mark vector images
+
+    if (info.number_of_pictures > 0 && info.picture_format_version == 99) {
+        LoadVectorData(info, ptr);
     }
 
 #pragma mark System messages
@@ -1249,6 +1303,7 @@ GameIDType DetectGame(const char *file_name)
             break;
         case SAVAGE_ISLAND:
             Items[20].Image = 13;
+            MyLoc = 30;
         case SAVAGE_ISLAND2:
         case GREMLINS_GERMAN:
             LoadExtraGermanGremlinsData();
@@ -1276,8 +1331,8 @@ GameIDType DetectGame(const char *file_name)
             }
             break;
         default:
-            if (!((GameInfo->subtype & C64) == C64)) {
-                if ((GameInfo->subtype & MYSTERIOUS) == MYSTERIOUS) {
+            if (!(GameInfo->subtype & C64)) {
+                if (GameInfo->subtype & MYSTERIOUS) {
                     for (int i = PLAY_AGAIN; i <= YOU_HAVENT_GOT_IT; i++)
                         sys[i] = system_messages[2 - PLAY_AGAIN + i];
                     for (int i = YOU_DONT_SEE_IT; i <= WHAT_NOW; i++)
@@ -1300,6 +1355,9 @@ GameIDType DetectGame(const char *file_name)
         LoadExtraGermanGremlinsData();
     else if (CurrentGame == GREMLINS_GERMAN_C64)
         LoadExtraGermanGremlinsc64Data();
+
+    if ((GameInfo->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
+        Mysterious64Sysmess();
 
     /* If it is a C64 game, we have setup the graphics already */
     if (!(GameInfo->subtype & C64) && GameInfo->number_of_pictures > 0 && GameInfo->picture_format_version != 99) {

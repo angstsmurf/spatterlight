@@ -140,6 +140,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet NSPopUpButton *palettePopup;
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
+@property (weak) IBOutlet NSButton *slowDrawCheckbox;
 
 @property DummyTextView *dummyTextView;
 

@@ -549,6 +549,7 @@ NSString *fontToString(NSFont *font) {
     [_palettePopup selectItemWithTag:theme.sAPalette];
     [_inventoryPopup selectItemWithTag:theme.sAInventory];
     _delaysCheckbox.state = theme.sADelays;
+    _slowDrawCheckbox.state = theme.slowDrawing;
 
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         if (!selectedFontButton)
@@ -1771,6 +1772,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeScottAdamsDelay:(id)sender {
     [self changeBooleanAttribute:@"sADelays" fromButton:sender];
+}
+
+- (IBAction)changeScottAdamsSlowDraw:(id)sender {
+    [self changeBooleanAttribute:@"slowDrawing" fromButton:sender];
 }
 
 #pragma mark Misc menu

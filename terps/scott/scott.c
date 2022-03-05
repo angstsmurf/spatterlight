@@ -258,6 +258,15 @@ void Delay(float seconds)
     glk_request_char_event(Bottom);
     glk_cancel_char_event(Bottom);
 
+    if (DrawingVector()) {
+        do {
+        glk_select(&ev);
+        Updates(ev);
+        } while (DrawingVector());
+        if (gli_slowdraw)
+            seconds = 0.5;
+    }
+
     glk_request_timer_events(1000 * seconds);
 
     do {
@@ -774,14 +783,16 @@ void DrawImage(int image)
 
 void DrawRoomImage(void)
 {
-
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
 		AdventurelandDarkness();
     }
 
     int dark = ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
 
-    if (dark && Graphics != NULL && Rooms[MyLoc].Image != 255) {
+    if (dark && Graphics != NULL && !(Rooms[MyLoc].Image == 255)) {
+        vector_image_shown = -1;
+        VectorState = NO_VECTOR_IMAGE;
+        glk_request_timer_events(0);
         DrawBlack();
         return;
     }
@@ -810,6 +821,11 @@ void DrawRoomImage(void)
 
     if (dark)
         return;
+
+    if (GameInfo->picture_format_version == 99) {
+        DrawImage(MyLoc - 1);
+        return;
+    }
 
     if (GameInfo->type == GREMLINS_VARIANT) {
         GremlinsLook();

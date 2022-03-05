@@ -50,13 +50,11 @@ scott_linegraphics_plot_clip (int x, int y, int colour)
      */
     if (x >= 0 && x <= scott_graphics_width && y >= 0 && y < scott_graphics_height) {
         picture_bitmap[y * 255 + x] = colour;
-//        PutPixel(x, y, colour);
         struct pixel_to_draw *todraw = MemAlloc(sizeof(struct pixel_to_draw));
-        pixels_to_draw[total_draw_instructions++] = todraw;
         todraw->x = x;
         todraw->y = y;
         todraw->colour = colour;
-        todraw = pixels_to_draw[total_draw_instructions - 1];
+        pixels_to_draw[total_draw_instructions++] = todraw;
     }
 }
 
@@ -71,6 +69,8 @@ void FreePixels(void) {
     free(pixels_to_draw);
 }
 
+extern int gli_slowdraw;
+
 void DrawSomeVectorPixels(int from_start) {
     VectorState = DRAWING_VECTOR_IMAGE;
     int i = current_draw_instruction;
@@ -78,7 +78,7 @@ void DrawSomeVectorPixels(int from_start) {
         i = 0;
     if (i == 0)
         RectFill(0, 0, scott_graphics_width, scott_graphics_height, remap(bg_colour));
-    for (; i < total_draw_instructions && i < current_draw_instruction + 50; i++) {
+    for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
         struct pixel_to_draw todraw = *pixels_to_draw[i];
         PutPixel(todraw.x, todraw.y, remap(todraw.colour));
     }
@@ -178,6 +178,7 @@ extern int pixel_size;
 extern int x_offset;
 
 void DrawVectorPicture(int image) {
+    glk_request_timer_events(0);
     if (vector_image_shown == image) {
         if (VectorState == SHOWING_VECTOR_IMAGE) {
             return;
@@ -211,6 +212,11 @@ void DrawVectorPicture(int image) {
     uint8_t *p = LineImages[image].data;
     uint8_t opcode = 0;
     while (p - LineImages[image].data < LineImages[image].size && opcode != 0xff) {
+        if (p > entire_file + file_length) {
+            fprintf(stderr, "Out of range! Opcode: %x. Image: %d. LineImages[%d].size: %zu\n", opcode, image,
+                    image, LineImages[image].size);
+            break;
+        }
         opcode = *(p++);
         switch(opcode) {
             case 0xc0:
@@ -233,6 +239,12 @@ void DrawVectorPicture(int image) {
                 break;
         }
     }
-    free(picture_bitmap);
-    glk_request_timer_events(20);
+    if (picture_bitmap != NULL) {
+        free(picture_bitmap);
+        picture_bitmap = NULL;
+    }
+    if (gli_slowdraw)
+        glk_request_timer_events(20);
+    else
+        DrawSomeVectorPixels(1);
 }

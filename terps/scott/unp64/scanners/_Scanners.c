@@ -61,7 +61,7 @@ Scnptr ScanFunc[] = {
     Scn_TBCMultiComp
     //    ,Scn_ByteBoozer
     //    ,Scn_ALZ64
-    //    ,Scn_XTC
+          ,Scn_XTC
     //    ,Scn_UniPacker
     //    ,Scn_TCD
     //    ,Scn_Matcham
@@ -154,7 +154,7 @@ Scnptr ScanFunc[] = {
     //    ,Scn_ByteKiller
     //    ,Scn_Loadstar
     //    ,Scn_Trashcan
-    //    ,Scn_Caution
+          ,Scn_Caution
     //    ,Scn_U_25_pack
     //    ,Scn_U_8e_pack
     //    ,Scn_U_P3_pack
@@ -675,30 +675,30 @@ void PrintInfo(unpstr *Unp, int id) {
     //    case _I_CADGERS:
     //    fprintf(stderr, DEPMASK2,"Cadgers","Packer",Unp->DepAdr);
     //    break;
-    //    case _I_CAUTION10:
-    //    sprintf(appstr,"%s%s","Quick","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
-    //    break;
-    //    case _I_CAUTION25:
-    //    sprintf(appstr,"%s%s","Quick","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.5",Unp->DepAdr);
-    //    break;
-    //    case _I_CAUTION25SS:
-    //    sprintf(appstr,"%s%s","Quick","Packer");strcat(appstr,"/sysless");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.5",Unp->DepAdr);
-    //    break;
-    //    case _I_CAUTION20:
-    //    sprintf(appstr,"%s%s","Quick","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.0",Unp->DepAdr);
-    //    break;
-    //    case _I_CAUTION20SS:
-    //    sprintf(appstr,"%s%s","Quick","Packer");strcat(appstr,"/sysless");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.0",Unp->DepAdr);
-    //    break;
-    //    case _I_CAUTIONHP:
-    //    sprintf(appstr,"%s%s","Hard","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
-    //    break;
+        case _I_CAUTION10:
+        sprintf(appstr,"%s%s","Quick","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
+        break;
+        case _I_CAUTION25:
+        sprintf(appstr,"%s%s","Quick","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v2.5",Unp->DepAdr);
+        break;
+        case _I_CAUTION25SS:
+        sprintf(appstr,"%s%s","Quick","Packer");strcat(appstr,"/sysless");
+        fprintf(stderr, DEPMASK2,appstr,"v2.5",Unp->DepAdr);
+        break;
+        case _I_CAUTION20:
+        sprintf(appstr,"%s%s","Quick","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v2.0",Unp->DepAdr);
+        break;
+        case _I_CAUTION20SS:
+        sprintf(appstr,"%s%s","Quick","Packer");strcat(appstr,"/sysless");
+        fprintf(stderr, DEPMASK2,appstr,"v2.0",Unp->DepAdr);
+        break;
+        case _I_CAUTIONHP:
+        sprintf(appstr,"%s%s","Hard","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
+        break;
     //    case _I_CCSMAXS:
     //    fprintf(stderr, DEPMASK2,"CCS","MaxShorter",Unp->DepAdr);
     //    break;
@@ -859,10 +859,10 @@ void PrintInfo(unpstr *Unp, int id) {
     //    sprintf(appstr,"%s / %s","DarkSqueezer","F4CG");
     //    fprintf(stderr, DEPMASK,appstr,Unp->DepAdr);
     //    break;
-    //    case _I_DARKSQXTC :
-    //    sprintf(appstr,"%s / %s","DarkSqueezer","XTC");
-    //    fprintf(stderr, DEPMASK,appstr,Unp->DepAdr);
-    //    break;
+        case _I_DARKSQXTC :
+        sprintf(appstr,"%s / %s","DarkSqueezer","XTC");
+        fprintf(stderr, DEPMASK,appstr,Unp->DepAdr);
+        break;
     //    case _I_DARKSQWOW:
     //    sprintf(appstr,"%s / %s","DarkSqueezer","Darkfiler");
     //    fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
@@ -2392,36 +2392,36 @@ void PrintInfo(unpstr *Unp, int id) {
     //    case _I_XIP:
     //    fprintf(stderr, DEPMASK,"XIP",Unp->DepAdr);
     //    break;
-    //    case _I_XTC10:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
-    //    break;
-    //    case _I_XTC21:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.1",Unp->DepAdr);
-    //    break;
-    //    case _I_XTC22:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.2",Unp->DepAdr);
-    //    break;
-    //    case _I_XTC23:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    fprintf(stderr, DEPMASK2,appstr,"v2.3",Unp->DepAdr);
-    //    break;
-    //    case _I_XTC23GP:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    strcat(appstr," ");
-    //    strcat(appstr,"v2.3");
-    //    strcat(appstr," /");
-    //    fprintf(stderr, DEPMASK2,appstr,"G*P",Unp->DepAdr);
-    //    break;
-    //    case _I_XTC2XGP:
-    //    sprintf(appstr,"%s %s","XTC","Packer");
-    //    strcat(appstr," ");
-    //    strcat(appstr,"v2.x");
-    //    strcat(appstr," /");
-    //    fprintf(stderr, DEPMASK2,appstr,"G*P",Unp->DepAdr);
-    //    break;
+        case _I_XTC10:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v1.0",Unp->DepAdr);
+        break;
+        case _I_XTC21:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v2.1",Unp->DepAdr);
+        break;
+        case _I_XTC22:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v2.2",Unp->DepAdr);
+        break;
+        case _I_XTC23:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        fprintf(stderr, DEPMASK2,appstr,"v2.3",Unp->DepAdr);
+        break;
+        case _I_XTC23GP:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        strcat(appstr," ");
+        strcat(appstr,"v2.3");
+        strcat(appstr," /");
+        fprintf(stderr, DEPMASK2,appstr,"G*P",Unp->DepAdr);
+        break;
+        case _I_XTC2XGP:
+        sprintf(appstr,"%s %s","XTC","Packer");
+        strcat(appstr," ");
+        strcat(appstr,"v2.x");
+        strcat(appstr," /");
+        fprintf(stderr, DEPMASK2,appstr,"G*P",Unp->DepAdr);
+        break;
     //    case _I_ZIGAG:
     //    fprintf(stderr, DEPMASK2,"Zigag","Packer",Unp->DepAdr);
     //    break;
