@@ -3548,6 +3548,9 @@ static BOOL pollMoreData(int fd) {
 - (void)noteTaskDidTerminate:(id)sender {
     NSLog(@"glkctl: noteTaskDidTerminate");
 
+    if (windowClosedAlready)
+        return;
+
     dead = YES;
     restartingAlready = NO;
 
@@ -3559,7 +3562,7 @@ static BOOL pollMoreData(int fd) {
     [self flushDisplay];
     [task waitUntilExit];
 
-    if (task && task.terminationStatus != 0 ) {
+    if (task && task.terminationStatus != 0) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
