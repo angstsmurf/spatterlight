@@ -2510,22 +2510,19 @@ Distributed under the GNU software license\n\n");
         }
 
         /* Brian Howarth games seem to use -1 for forever */
-        if (Items[LIGHT_SOURCE].Location /*==-1*/ != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
+        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
                 BitFlags |= (1 << LIGHTOUTBIT);
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }
-                if (Options & PREHISTORIC_LAMP)
+                if ((Options & PREHISTORIC_LAMP) || (GameInfo->subtype & MYSTERIOUS))
                     Items[LIGHT_SOURCE].Location = DESTROYED;
             } else if (GameHeader.LightTime < 25) {
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
-
-                    if (Options & SCOTTLIGHT) {
-                        Output(sys[LIGHT_RUNS_OUT_IN]);
-                        OutputNumber(GameHeader.LightTime);
-                        Output(sys[TURNS]);
+                    if ((Options & SCOTTLIGHT) || (GameInfo->subtype & MYSTERIOUS)) {
+                        Display(Bottom, "%s %d %s\n",sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
                     } else {
                         if (GameHeader.LightTime % 5 == 0)
                             Output(sys[LIGHT_GROWING_DIM]);
