@@ -600,9 +600,9 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Escape from Pulsar 7 C64",
         PULSAR7_C64,
-        NO_TYPE,                // type
+        NO_TYPE,                    // type
         MYSTERIOUS | ENGLISH | C64, // subtype
-        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+        FOUR_LETTER_UNCOMPRESSED,   // dictionary type
 
         88,  // Number of items
         195, // Number of actions
