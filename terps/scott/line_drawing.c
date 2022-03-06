@@ -178,6 +178,10 @@ extern int pixel_size;
 extern int x_offset;
 
 void DrawVectorPicture(int image) {
+    if (image < 0) {
+        return;
+    }
+
     if (vector_image_shown == image) {
         if (VectorState == SHOWING_VECTOR_IMAGE) {
             return;
