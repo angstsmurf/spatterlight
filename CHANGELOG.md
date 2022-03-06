@@ -2,6 +2,14 @@
 
 
 ## Unreleased
+- Fixes a bug where a closed window with a pending error message would immediately reopen
+- Fixes hairline artifacts when drawing rectangles in graphics windows, apparent in the ScottFree images
+- Support for vector graphics in Brian Howarth's 11 Mysterious Adventures
+- Support for Commodore 64 versions of the Mysterious Adventures
+- Implements an option to draw vector images slowly, similar to the originals (but non-blocking)
+- Fixes undo in ScottFree games (again)
+- Adds file types for the recently supported formats (.dsk and .fiad)
+- The title screens of TI-99/4A games are properly centered (if the window is large enough) and some broken characters in them are fixed
 
 ## Release 0.9.3
 - This is an Apple App Store-only hotfix release that fixes a crash that only occurred in the App Store version of Spatterlight
