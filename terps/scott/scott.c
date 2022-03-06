@@ -1559,9 +1559,8 @@ void PutItemAInRoomB(int itemA, int roomB)
 			itemA, Items[arg1].Text, roomB, Rooms[roomB].Text, MyLoc,
 			Rooms[MyLoc].Text);
 #endif
-	if (Items[itemA].Location == MyLoc || roomB == MyLoc) {
-		LookWithPause();
-	}
+    if (Items[itemA].Location == MyLoc)
+        LookWithPause();
 	Items[itemA].Location = roomB;
 }
 
