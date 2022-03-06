@@ -61,11 +61,11 @@ void Scn_XTC(unpstr *Unp)
             Unp->fEndAf=mem[q+0x7]|mem[q+0x8]<<8;Unp->fEndAf--;
             Unp->EndAdC=0xffff|EA_USE_Y;
             Unp->StrMem=mem[q+1]|mem[q+2]<<8;
-            if( (*(unsigned int*)(mem+q+0x1f)==0xDDD00285) )
+            if (*(unsigned int*)(mem+q+0x1f) == 0xDDD00285)
             {
                 PrintInfo(Unp,_I_XTC10);
             }
-            else if( (*(unsigned int*)(mem+q+0x1f)==0xF620DFD0) )
+            else if(*(unsigned int*)(mem+q+0x1f) == 0xF620DFD0)
             {
                 /* rockstar's 2.2+ & shade/light's 2.4 are all the same */
                 PrintInfo(Unp,_I_XTC22);
