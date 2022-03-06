@@ -340,8 +340,8 @@ struct GameInfo games[NUMGAMES] = {
         4,   // Word length
         73,  // Number of messages
 
-        86, // number_of_verbs
-        86, // number_of_nouns;
+        87, // number_of_verbs
+        85, // number_of_nouns;
 
         0x1dd9, // header
         MYSTERIOUS_C64_HEADER,  // header style
@@ -357,7 +357,7 @@ struct GameInfo games[NUMGAMES] = {
         FOLLOWS, // start_of_room_connections;
         0x2f0f, // start_of_messages;
         FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
+        0x37ce, // start_of_item_locations;
 
         0x408, // start_of_system_messages
         0x408, // start of directions
