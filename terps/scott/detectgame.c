@@ -1306,10 +1306,9 @@ GameIDType DetectGame(const char *file_name)
             break;
         case SAVAGE_ISLAND:
             Items[20].Image = 13;
-            MyLoc = 30;
         case SAVAGE_ISLAND2:
+            MyLoc = 30; /* Both parts of Savage Island begin in room 30 */
         case GREMLINS_GERMAN:
-            LoadExtraGermanGremlinsData();
         case GREMLINS:
         case GREMLINS_ALT:
         case SUPERGRAN:
@@ -1371,8 +1370,8 @@ GameIDType DetectGame(const char *file_name)
     if ((GameInfo->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();
 
-    /* If it is a C64 game, we have setup the graphics already */
-    if (!(GameInfo->subtype & C64) && GameInfo->number_of_pictures > 0 && GameInfo->picture_format_version != 99) {
+    /* If it is a C64 or a Mysterious Adventures game, we have setup the graphics already */
+    if (!(GameInfo->subtype & (C64 | MYSTERIOUS)) && GameInfo->number_of_pictures > 0) {
         SagaSetup(0);
     }
 

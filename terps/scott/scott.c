@@ -260,8 +260,8 @@ void Delay(float seconds)
 
     if (DrawingVector()) {
         do {
-        glk_select(&ev);
-        Updates(ev);
+            glk_select(&ev);
+            Updates(ev);
         } while (DrawingVector());
         if (gli_slowdraw)
             seconds = 0.5;
@@ -723,7 +723,7 @@ int LoadDatabase(FILE *f, int loud)
         ip->Location = (unsigned char)lo;
         if (loud)
             fprintf(stderr, "Location of item %d: %d, \"%s\"\n", ct, ip->Location,
-                ip->Location == 255 ? "CARRIED" : Rooms[ip->Location].Text);
+                ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -2152,7 +2152,7 @@ static ExplicitResultType PerformActions(int vb, int no)
 
             ct++;
 
-            /* Previously this did not check ct against
+      /* Previously this did not check ct against
        * GameHeader.NumActions and would read past the end of
        * Actions.  I don't know what should happen on the last
        * action, but doing nothing is better than reading one
