@@ -2132,7 +2132,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             verbvalue /= 150;
             if ((verbvalue == vb) || (doagain && Actions[ct].Vocab == 0)) {
                 if ((verbvalue == 0 && RandomPercent(nounvalue)) || doagain || (verbvalue != 0 && (nounvalue == no || nounvalue == 0))) {
-                    if (verbvalue == vb && vb != 0 && no != 0 && nounvalue == no)
+                    if (verbvalue == vb && vb != 0 && nounvalue == no)
                         found_match = 1;
                     ActionResultType flag2;
                     if (flag == ER_RAN_ALL_LINES_NO_MATCH)
