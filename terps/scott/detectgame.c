@@ -396,7 +396,7 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
     else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
         return;
 
-    LineImages = MemAlloc(info.number_of_pictures * sizeof(struct line_image));
+    LineImages = MemAlloc(info.number_of_rooms * sizeof(struct line_image));
     int ct = 0;
     struct line_image *lp = LineImages;
     uint8_t byte = *(ptr++);
@@ -414,7 +414,10 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
                 fprintf(stderr, "Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
-                lp->size = ptr - lp->data - 1;
+                if (lp->data >= ptr)
+                    lp->size = 0;
+                else
+                    lp->size = ptr - lp->data - 1;
                 for (int i = ct + 2; i < GameHeader.NumRooms; i++)
                     Rooms[i].Image = 255;
                 return;
