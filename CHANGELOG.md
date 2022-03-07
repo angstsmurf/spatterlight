@@ -1,13 +1,13 @@
 # Change log
 
 
-## Unreleased
-- Fixes a bug where a closed window with a pending error message would immediately reopen
+## Release 0.9.4
+- Fixes a bug where closing a window with a pending error message would make it immediately reopen
 - Fixes hairline artifacts when drawing rectangles in graphics windows, apparent in the ScottFree images
 - Support for vector graphics in Brian Howarth's 11 Mysterious Adventures
 - Support for Commodore 64 versions of the Mysterious Adventures
 - Implements an option to draw vector images slowly, similar to the originals (but non-blocking)
-- Fixes undo in ScottFree games (again)
+- Fixes repeated undo in ScottFree games
 - Adds file types for the recently supported formats (.dsk and .fiad)
 - The title screens of TI-99/4A games are properly centered (if the window is large enough) and some broken characters in them are fixed
 
