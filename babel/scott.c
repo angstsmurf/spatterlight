@@ -35,39 +35,86 @@ static struct scottrec scott_registry[] = {
     { 0x3ff8, 0x5fb4, "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai z80 alt
 
     { 0x7d3c, 0x142b, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton Z80
+    { 0x8b90, 0x85dc, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton tzx
+    { 0x912e, 0xd9ad, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton alt tzx
+    { 0x911c, 0xd15c, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton alt 2 tzx
+    { 0xb840, 0x843c, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton (Channel 8).tzx
    { 0x2ab00, 0x9dca, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton C64, D64
     { 0x5170, 0xb240, "186efec3-b22e-49af-b751-6b84f04b6957" }, // The Golden Baton C64, T64
     { 0x78d0, 0x3db6, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine Z80
+    { 0xb829, 0x1730, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine tzx
+    { 0x912e, 0x1e6d, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine tzx alt
+    { 0x911c, 0x171f, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine (Channel 8).tzx
+    { 0xb847, 0x21d6, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine Alt (Channel 8).tzx
+    { 0xb847, 0x22f8, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine (Tynesoft).tzx
+    { 0xb80d, 0x12c2, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine TAP
     { 0x5032, 0x5635, "59121f68-6194-4b26-975a-b1b98598930c" }, // The Time Machine C64
     { 0x8539, 0xad02, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 z80
+    { 0xb847, 0xb686, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 tzx
+    { 0x912e, 0x2b65, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 tzx alt
+   { 0x12281, 0xeac2, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 (Channel 8).tzx
+    { 0xb7f3, 0xa2d8, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 TAP
     { 0x5b46, 0x92db, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64
     { 0x949b, 0xb7e2, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 z80
+    { 0xb7f3, 0x721e, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 TAP
+    { 0xb847, 0x8797, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 tzx
+    { 0xb847, 0x862c, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 (Channel 8).tzx
+    { 0x912e, 0xb912, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 tzx alt
     { 0x5fe2, 0xe14f, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 C64
     { 0x7509, 0x497d, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape from Pulsar 7 z80
+    { 0xb847, 0xd29b, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 tzx
+    { 0x912e, 0xcf41, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 - Alternate.tzx
+    { 0x7bb8, 0x3ddb, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 - Alternate #2.tzx
+    { 0xb855, 0xd6f1, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 (Channel 8).tzx
+    { 0xb847, 0xd393, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 (Tynesoft).tzx
+    { 0xb80d, 0xc196, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape From Pulsar 7 TAP
     { 0x46bf, 0x1679, "5b92a1fd-03f9-43b3-8d93-f8034ae02534" }, // Escape from Pulsar 7 C64
     { 0x6c62, 0xd002, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus z80
+    { 0x9136, 0x8435, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus tzx
+    { 0x912e, 0x80e5, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus - Alternate.tzx
+    { 0x911c, 0x796d, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus - Alternate #2.tzx
+    { 0x7d74, 0x73a8, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus TAP
+    { 0x9136, 0x84b6, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus (Channel 8).tzx
     { 0x4269, 0xa449, "38a97e57-a465-4fb6-baad-835973b64b3a" }, // Circus C64
-    { 0x9213, 0xf3ca, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasability Experiment z80
-    { 0x5a7b, 0x0f48, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasability Experiment C64
+    { 0x9213, 0xf3ca, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasibility Experiment z80
+    { 0x912e, 0x21a4, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasibility Experiment tzx
+    { 0x913a, 0x220c, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasibility Experiment (Channel 8).tzx
+    { 0x5a7b, 0x0f48, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Feasibility Experiment C64
     { 0x83d9, 0x1bb9, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz z80
+    { 0x9232, 0x0c09, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz TAP
+    { 0x911c, 0x7943, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard Of Akyrz tzx
+    { 0x912e, 0x7fde, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard Of Akyrz Alternate.tzx
+    { 0xb846, 0x1de4, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard Of Akyrz (Channel 8).tzx
    { 0x2ab00, 0x6cca, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz C64, D64
     { 0x4be1, 0x5a00, "258b5da1-180c-48be-928e-add508478301" }, // The Wizard of Akyrz C64, T64
     { 0x7b10, 0x4f06, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda.z80
+    { 0x8a8a, 0x0069, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda TAP
+    { 0xb846, 0x1071, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda (Channel 8).tzx
+    { 0x912e, 0x0fa1, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda - Alternate.tzx
+    { 0x911c, 0x067e, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda.tzx
     { 0x502b, 0x913b, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda C64
     { 0x7bb0, 0x3877, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians z80
+    { 0x911c, 0xe5f0, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians tzx
+    { 0x912e, 0xee20, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians tzx alternate
+    { 0xb846, 0xeff2, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians (Channel 8).tzx
     { 0x4f9f, 0xe6c8, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians C64
     { 0x7f96, 0x4f96, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks z80
+    { 0x911c, 0xf961, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks tzx
+    { 0x912e, 0x01de, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks Alternate.tzx
+    { 0x9006, 0x060d, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks (Dixons).tzx
+    { 0x9136, 0x04a4, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks (Channel 8).tzx
+    { 0x8fcc, 0xf2fd, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks TAP
     { 0x4a11, 0xa37a, "c3753c92-a85e-4bf1-8578-8b3623be8fca" }, // Waxworks C64
 
    { 0x2ab00, 0xc3fc, "186efec3-b22e-49af-b751-6b84f04b6957" }, // Mysterious Adventures C64 dsk 1
    { 0x2ab00, 0xbfbf, "186efec3-b22e-49af-b751-6b84f04b6957" }, // Mysterious Adventures C64 dsk 1 alt
    { 0x2ab00, 0x9eaa, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Mysterious Adventures C64 dsk 2
-    { 0x2ab00, 0x9c18, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Mysterious Adventures C64 dsk 2
+   { 0x2ab00, 0x9c18, "18f3167b-93c9-4323-8195-7b9166c9a304" }, // Mysterious Adventures C64 dsk 2
 
     { 0xbcd5, 0xae3f, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk.tzx
     { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
     { 0xafba, 0xb69b, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk Z80
-    { 0x2ab00, 0xcdd8, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (D64)
+   { 0x2ab00, 0xcdd8, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (D64)
 
     { 0xbaef, 0x52cc, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland.tzx
     { 0xbb84, 0x6d93, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland - Alternate.tzx
@@ -352,7 +399,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;
