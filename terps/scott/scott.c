@@ -391,12 +391,20 @@ void CloseGraphicsWindow(void)
     }
 }
 
+static void CleanupAndExit(void) {
+    if (Transcript)
+        glk_stream_close(Transcript, NULL);
+    if (DrawingVector()) {
+        gli_slowdraw = 0;
+        DrawSomeVectorPixels(0);
+    }
+    glk_exit();
+}
+
 void Fatal(const char *x)
 {
     Display(Bottom, "%s\n", x);
-    if (Transcript)
-        glk_stream_close(Transcript, NULL);
-    glk_exit();
+    CleanupAndExit();
 }
 
 static void ClearScreen(void)
@@ -1474,16 +1482,14 @@ void DoneIt(void)
 {
     if (split_screen && Top)
         Look();
-        Output("\n\n");
-        Output(sys[PLAY_AGAIN]);
-        Output("\n");
-        if (YesOrNo()) {
-			should_restart = 1;
-        } else {
-            if (Transcript)
-                glk_stream_close(Transcript, NULL);
-            glk_exit();
-        }
+    Output("\n\n");
+    Output(sys[PLAY_AGAIN]);
+    Output("\n");
+    if (YesOrNo()) {
+        should_restart = 1;
+    } else {
+        CleanupAndExit();
+    }
 }
 
 int PrintScore(void)
@@ -2095,18 +2101,11 @@ static ExplicitResultType PerformActions(int vb, int no)
             return ER_SUCCESS;
         }
         if (dark) {
+            BitFlags &= ~(1 << DARKBIT);
+            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
-            Output("\n\n");
-            Output(sys[PLAY_AGAIN]);
-            Output("\n");
-            if (YesOrNo()) {
-                should_restart = 1;
-                return ER_SUCCESS;
-            } else {
-                if (Transcript)
-                    glk_stream_close(Transcript, NULL);
-                glk_exit();
-            }
+            DoneIt();
+            return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
         return ER_SUCCESS;
