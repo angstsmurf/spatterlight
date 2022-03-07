@@ -178,16 +178,22 @@ extern int pixel_size;
 extern int x_offset;
 
 void DrawVectorPicture(int image) {
-    glk_request_timer_events(0);
+    if (image < 0) {
+        return;
+    }
+
     if (vector_image_shown == image) {
         if (VectorState == SHOWING_VECTOR_IMAGE) {
             return;
         } else {
+            if (gli_slowdraw)
+                glk_request_timer_events(20);
             DrawSomeVectorPixels(1);
             return;
         }
     }
 
+    glk_request_timer_events(0);
     vector_image_shown = image;
     if (pixels_to_draw != NULL)
         FreePixels();

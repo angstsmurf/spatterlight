@@ -340,8 +340,8 @@ struct GameInfo games[NUMGAMES] = {
         4,   // Word length
         73,  // Number of messages
 
-        86, // number_of_verbs
-        86, // number_of_nouns;
+        87, // number_of_verbs
+        85, // number_of_nouns;
 
         0x1dd9, // header
         MYSTERIOUS_C64_HEADER,  // header style
@@ -357,7 +357,7 @@ struct GameInfo games[NUMGAMES] = {
         FOLLOWS, // start_of_room_connections;
         0x2f0f, // start_of_messages;
         FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
+        0x37ce, // start_of_item_locations;
 
         0x408, // start_of_system_messages
         0x408, // start of directions
@@ -600,9 +600,9 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Escape from Pulsar 7 C64",
         PULSAR7_C64,
-        NO_TYPE,                // type
+        NO_TYPE,                    // type
         MYSTERIOUS | ENGLISH | C64, // subtype
-        FOUR_LETTER_UNCOMPRESSED, // dictionary type
+        FOUR_LETTER_UNCOMPRESSED,   // dictionary type
 
         88,  // Number of items
         195, // Number of actions
@@ -1001,6 +1001,51 @@ struct GameInfo games[NUMGAMES] = {
         0, // image_address_offset
         39, // number_of_pictures;
         C64A, // palette
+        99, // picture_format_version;
+    },
+
+    {
+        "Perseus and Andromeda Italian",
+        PERSEUS_ITALIAN,
+        OLD_STYLE,                // type
+        MYSTERIOUS, // subtype
+        ITALIAN, // dictionary type
+
+        60,  // Number of items
+        178, // Number of actions
+        130, // Number of words
+        40,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        131, // number_of_verbs
+        83, // number_of_nouns;
+
+        0x045d, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1c8d, // actions
+        UNCOMPRESSED,
+        0x292f, // dictionary
+        0x2e4d, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x5d5, // start_of_system_messages
+        0x892, // start of directions
+
+        0, // start_of_characters;
+        0x3faa, // start_of_image_data;
+        0, // image_address_offset
+        40, // number_of_pictures;
+        ZXOPT, // palette
         99, // picture_format_version;
     },
 

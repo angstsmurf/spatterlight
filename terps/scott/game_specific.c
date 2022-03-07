@@ -369,7 +369,7 @@ void Mysterious64Sysmess(void)
             GameHeader.NumWords = 79;
             break;
         case TIME_MACHINE_C64:
-            GameHeader.NumWords = 86;
+            Verbs[86] = ".\0";
             break;
         case ARROW1_C64:
             Nouns[82] = ".\0";
@@ -392,6 +392,12 @@ void Mysterious64Sysmess(void)
         default:
             break;
     }
+}
+
+void PerseusItalianSysmess(void) {
+    sys[YOU_ARE] = "Sono in ";
+    sys[YOU_SEE] = "\nQui posso vedere:\n";
+    sys[INVENTORY] = "Ho raccolto: ";
 }
 
 

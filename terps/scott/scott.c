@@ -260,8 +260,8 @@ void Delay(float seconds)
 
     if (DrawingVector()) {
         do {
-        glk_select(&ev);
-        Updates(ev);
+            glk_select(&ev);
+            Updates(ev);
         } while (DrawingVector());
         if (gli_slowdraw)
             seconds = 0.5;
@@ -391,12 +391,20 @@ void CloseGraphicsWindow(void)
     }
 }
 
+static void CleanupAndExit(void) {
+    if (Transcript)
+        glk_stream_close(Transcript, NULL);
+    if (DrawingVector()) {
+        gli_slowdraw = 0;
+        DrawSomeVectorPixels(0);
+    }
+    glk_exit();
+}
+
 void Fatal(const char *x)
 {
     Display(Bottom, "%s\n", x);
-    if (Transcript)
-        glk_stream_close(Transcript, NULL);
-    glk_exit();
+    CleanupAndExit();
 }
 
 static void ClearScreen(void)
@@ -723,7 +731,7 @@ int LoadDatabase(FILE *f, int loud)
         ip->Location = (unsigned char)lo;
         if (loud)
             fprintf(stderr, "Location of item %d: %d, \"%s\"\n", ct, ip->Location,
-                ip->Location == 255 ? "CARRIED" : Rooms[ip->Location].Text);
+                ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -1474,16 +1482,14 @@ void DoneIt(void)
 {
     if (split_screen && Top)
         Look();
-        Output("\n\n");
-        Output(sys[PLAY_AGAIN]);
-        Output("\n");
-        if (YesOrNo()) {
-			should_restart = 1;
-        } else {
-            if (Transcript)
-                glk_stream_close(Transcript, NULL);
-            glk_exit();
-        }
+    Output("\n\n");
+    Output(sys[PLAY_AGAIN]);
+    Output("\n");
+    if (YesOrNo()) {
+        should_restart = 1;
+    } else {
+        CleanupAndExit();
+    }
 }
 
 int PrintScore(void)
@@ -2095,18 +2101,11 @@ static ExplicitResultType PerformActions(int vb, int no)
             return ER_SUCCESS;
         }
         if (dark) {
+            BitFlags &= ~(1 << DARKBIT);
+            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
-            Output("\n\n");
-            Output(sys[PLAY_AGAIN]);
-            Output("\n");
-            if (YesOrNo()) {
-                should_restart = 1;
-                return ER_SUCCESS;
-            } else {
-                if (Transcript)
-                    glk_stream_close(Transcript, NULL);
-                glk_exit();
-            }
+            DoneIt();
+            return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
         return ER_SUCCESS;
@@ -2132,7 +2131,7 @@ static ExplicitResultType PerformActions(int vb, int no)
             verbvalue /= 150;
             if ((verbvalue == vb) || (doagain && Actions[ct].Vocab == 0)) {
                 if ((verbvalue == 0 && RandomPercent(nounvalue)) || doagain || (verbvalue != 0 && (nounvalue == no || nounvalue == 0))) {
-                    if (verbvalue == vb && vb != 0 && no != 0 && nounvalue == no)
+                    if (verbvalue == vb && vb != 0 && nounvalue == no)
                         found_match = 1;
                     ActionResultType flag2;
                     if (flag == ER_RAN_ALL_LINES_NO_MATCH)
@@ -2152,7 +2151,7 @@ static ExplicitResultType PerformActions(int vb, int no)
 
             ct++;
 
-            /* Previously this did not check ct against
+      /* Previously this did not check ct against
        * GameHeader.NumActions and would read past the end of
        * Actions.  I don't know what should happen on the last
        * action, but doing nothing is better than reading one
@@ -2510,22 +2509,19 @@ Distributed under the GNU software license\n\n");
         }
 
         /* Brian Howarth games seem to use -1 for forever */
-        if (Items[LIGHT_SOURCE].Location /*==-1*/ != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
+        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
                 BitFlags |= (1 << LIGHTOUTBIT);
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }
-                if (Options & PREHISTORIC_LAMP)
+                if ((Options & PREHISTORIC_LAMP) || (GameInfo->subtype & MYSTERIOUS))
                     Items[LIGHT_SOURCE].Location = DESTROYED;
             } else if (GameHeader.LightTime < 25) {
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
-
-                    if (Options & SCOTTLIGHT) {
-                        Output(sys[LIGHT_RUNS_OUT_IN]);
-                        OutputNumber(GameHeader.LightTime);
-                        Output(sys[TURNS]);
+                    if ((Options & SCOTTLIGHT) || (GameInfo->subtype & MYSTERIOUS)) {
+                        Display(Bottom, "%s %d %s\n",sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
                     } else {
                         if (GameHeader.LightTime % 5 == 0)
                             Output(sys[LIGHT_GROWING_DIM]);

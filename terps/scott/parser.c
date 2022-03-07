@@ -696,28 +696,39 @@ struct Command *CommandFromStrings(int index, struct Command *previous)
         /* Unless the game is German, where we allow the noun to come before the
      * verb */
         if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
+            if (!previous) {
+                CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
+                                   sys[SOMETHING]);
+                return NULL;
+            } else {
+                verbindex = previous->verbwordindex;
+            }
             if (FindExtaneousWords(&i, verb) != 0)
                 return NULL;
-            if (previous)
-                verbindex = previous->verbwordindex;
+
             return CreateCommandStruct(lastverb, verb, verbindex, i, previous);
         } else {
             found_noun_at_verb_position = 1;
         }
     }
 
-    if (list == NULL) {
+    if (list == NULL || list == SkipList) {
         CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
             sys[SOMETHING]);
         return NULL;
     }
 
     if (i == WordsInInput) {
-        if (lastverb)
+        if (lastverb) {
             return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i,
-                previous);
-        else
+                                       previous);
+        } else if (found_noun_at_verb_position) {
+            CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
+                               sys[SOMETHING]);
+            return NULL;
+        } else {
             return CreateCommandStruct(verb, 0, i - 1, i, previous);
+        }
     }
 
     int noun = 0;

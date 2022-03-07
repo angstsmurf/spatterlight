@@ -41,11 +41,11 @@ struct dictionaryKey dictKeys[] = {
     { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0" },
     { FIVE_LETTER_UNCOMPRESSED, "AUTO\0\0GO" },
     { FOUR_LETTER_COMPRESSED, "aUTOgO\0" },
-    { GERMAN, "\xc7"
-              "EHENSTEIGE" },
+    { GERMAN, "\xc7" "EHENSTEIGE" },
     { FIVE_LETTER_COMPRESSED, "gEHENSTEIGE" }, // Gremlins C64
     { SPANISH, "ANDAENTRAVAN" },
-    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" } // Claymorgue
+    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" }, // Claymorgue
+    { ITALIAN, "AUTO\0VAI\0\0*ENTR" }
 };
 
 int FindCode(const char *x, int base)
@@ -65,7 +65,7 @@ int FindCode(const char *x, int base)
 
 DictionaryType GetId(size_t *offset)
 {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         *offset = FindCode(dictKeys[i].signature, 0);
         if (*offset != -1) {
             if (i == 4 || i == 5) // GERMAN
@@ -396,7 +396,7 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
     else if (SeekIfNeeded(info.start_of_image_data, &offset, &ptr) == 0)
         return;
 
-    LineImages = MemAlloc(info.number_of_pictures * sizeof(struct line_image));
+    LineImages = MemAlloc(info.number_of_rooms * sizeof(struct line_image));
     int ct = 0;
     struct line_image *lp = LineImages;
     uint8_t byte = *(ptr++);
@@ -414,7 +414,10 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
                 fprintf(stderr, "Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
-                lp->size = ptr - lp->data - 1;
+                if (lp->data >= ptr)
+                    lp->size = 0;
+                else
+                    lp->size = ptr - lp->data - 1;
                 for (int i = ct + 2; i < GameHeader.NumRooms; i++)
                     Rooms[i].Image = 255;
                 return;
@@ -674,7 +677,7 @@ jumpHere:
             charindex++;
         }
 
-        if (c != 0 && c != 0x0d && c != '\x83' && !isascii(c))
+        if (c != 0 && c != 0x0d && c != '\x83' && c != '\xc9' && !isascii(c))
             break;
     } while (ct < 40);
 
@@ -1303,10 +1306,9 @@ GameIDType DetectGame(const char *file_name)
             break;
         case SAVAGE_ISLAND:
             Items[20].Image = 13;
-            MyLoc = 30;
         case SAVAGE_ISLAND2:
+            MyLoc = 30; /* Both parts of Savage Island begin in room 30 */
         case GREMLINS_GERMAN:
-            LoadExtraGermanGremlinsData();
         case GREMLINS:
         case GREMLINS_ALT:
         case SUPERGRAN:
@@ -1351,16 +1353,25 @@ GameIDType DetectGame(const char *file_name)
             break;
     }
 
-    if (CurrentGame == GREMLINS_GERMAN)
-        LoadExtraGermanGremlinsData();
-    else if (CurrentGame == GREMLINS_GERMAN_C64)
-        LoadExtraGermanGremlinsc64Data();
+    switch (CurrentGame) {
+        case GREMLINS_GERMAN:
+            LoadExtraGermanGremlinsData();
+            break;
+        case GREMLINS_GERMAN_C64:
+            LoadExtraGermanGremlinsc64Data();
+            break;
+        case PERSEUS_ITALIAN:
+            PerseusItalianSysmess();
+            break;
+        default:
+            break;
+    }
 
     if ((GameInfo->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();
 
-    /* If it is a C64 game, we have setup the graphics already */
-    if (!(GameInfo->subtype & C64) && GameInfo->number_of_pictures > 0 && GameInfo->picture_format_version != 99) {
+    /* If it is a C64 or a Mysterious Adventures game, we have setup the graphics already */
+    if (!(GameInfo->subtype & (C64 | MYSTERIOUS)) && GameInfo->number_of_pictures > 0) {
         SagaSetup(0);
     }
 
