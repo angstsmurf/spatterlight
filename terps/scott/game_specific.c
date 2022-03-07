@@ -394,6 +394,12 @@ void Mysterious64Sysmess(void)
     }
 }
 
+void PerseusItalianSysmess(void) {
+    sys[YOU_ARE] = "Sono in ";
+    sys[YOU_SEE] = "\nQui posso vedere:\n";
+    sys[INVENTORY] = "Ho raccolto: ";
+}
+
 
 void Supergran64Sysmess(void)
 {

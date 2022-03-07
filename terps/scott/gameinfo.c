@@ -1005,6 +1005,51 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Perseus and Andromeda Italian",
+        PERSEUS_ITALIAN,
+        OLD_STYLE,                // type
+        MYSTERIOUS, // subtype
+        ITALIAN, // dictionary type
+
+        60,  // Number of items
+        178, // Number of actions
+        130, // Number of words
+        40,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        82,  // Number of messages
+
+        131, // number_of_verbs
+        83, // number_of_nouns;
+
+        0x045d, // header
+        EARLY,  // header style
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x1c8d, // actions
+        UNCOMPRESSED,
+        0x292f, // dictionary
+        0x2e4d, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x5d5, // start_of_system_messages
+        0x892, // start of directions
+
+        0, // start_of_characters;
+        0x3faa, // start_of_image_data;
+        0, // image_address_offset
+        40, // number_of_pictures;
+        ZXOPT, // palette
+        99, // picture_format_version;
+    },
+
+    {
         "Ten Little Indians",
         INDIANS,
         OLD_STYLE,                // type

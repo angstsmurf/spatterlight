@@ -41,11 +41,11 @@ struct dictionaryKey dictKeys[] = {
     { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0" },
     { FIVE_LETTER_UNCOMPRESSED, "AUTO\0\0GO" },
     { FOUR_LETTER_COMPRESSED, "aUTOgO\0" },
-    { GERMAN, "\xc7"
-              "EHENSTEIGE" },
+    { GERMAN, "\xc7" "EHENSTEIGE" },
     { FIVE_LETTER_COMPRESSED, "gEHENSTEIGE" }, // Gremlins C64
     { SPANISH, "ANDAENTRAVAN" },
-    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" } // Claymorgue
+    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" }, // Claymorgue
+    { ITALIAN, "AUTO\0VAI\0\0*ENTR" }
 };
 
 int FindCode(const char *x, int base)
@@ -65,7 +65,7 @@ int FindCode(const char *x, int base)
 
 DictionaryType GetId(size_t *offset)
 {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         *offset = FindCode(dictKeys[i].signature, 0);
         if (*offset != -1) {
             if (i == 4 || i == 5) // GERMAN
@@ -677,7 +677,7 @@ jumpHere:
             charindex++;
         }
 
-        if (c != 0 && c != 0x0d && c != '\x83' && !isascii(c))
+        if (c != 0 && c != 0x0d && c != '\x83' && c != '\xc9' && !isascii(c))
             break;
     } while (ct < 40);
 
@@ -1354,10 +1354,19 @@ GameIDType DetectGame(const char *file_name)
             break;
     }
 
-    if (CurrentGame == GREMLINS_GERMAN)
-        LoadExtraGermanGremlinsData();
-    else if (CurrentGame == GREMLINS_GERMAN_C64)
-        LoadExtraGermanGremlinsc64Data();
+    switch (CurrentGame) {
+        case GREMLINS_GERMAN:
+            LoadExtraGermanGremlinsData();
+            break;
+        case GREMLINS_GERMAN_C64:
+            LoadExtraGermanGremlinsc64Data();
+            break;
+        case PERSEUS_ITALIAN:
+            PerseusItalianSysmess();
+            break;
+        default:
+            break;
+    }
 
     if ((GameInfo->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();

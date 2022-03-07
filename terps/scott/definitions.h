@@ -47,6 +47,7 @@ typedef enum {
     AKYRZ_C64,
     PERSEUS,
     PERSEUS_C64,
+    PERSEUS_ITALIAN,
     INDIANS,
     INDIANS_C64,
     WAXWORKS,
@@ -179,7 +180,8 @@ typedef enum {
     FOUR_LETTER_COMPRESSED,
     FIVE_LETTER_COMPRESSED,
     GERMAN,
-    SPANISH
+    SPANISH,
+    ITALIAN
 } DictionaryType;
 
 typedef enum {

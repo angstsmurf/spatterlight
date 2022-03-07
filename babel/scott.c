@@ -93,6 +93,7 @@ static struct scottrec scott_registry[] = {
     { 0x912e, 0x0fa1, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda - Alternate.tzx
     { 0x911c, 0x067e, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda.tzx
     { 0x502b, 0x913b, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda C64
+    { 0x6fce, 0x4bac, "0fa37e50-60ba-48eb-97ac-f4379a5f0096" }, // Perseus and Andromeda Italian
     { 0x7bb0, 0x3877, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians z80
     { 0x911c, 0xe5f0, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians tzx
     { 0x912e, 0xee20, "c25e70bd-120a-4cfd-95b7-60d2faca026b" }, // Ten Little Indians tzx alternate
