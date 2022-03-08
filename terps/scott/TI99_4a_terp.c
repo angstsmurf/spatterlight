@@ -325,12 +325,10 @@ ActionResultType PerformTI99Line(uint8_t *action_line)
 #ifdef DEBUG_ACTIONS
             fprintf(stderr, "Player is dead\n");
 #endif
-            Output(sys[IM_DEAD]);
-            BitFlags &= ~(1 << DARKBIT);
-            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
-            stop_time = 1;
+            PlayerIsDead();
             DoneIt();
-            return ACT_GAMEOVER;
+            result = ACT_GAMEOVER;
+            break;
 
         case 230: /* move item p2 to room p */
             param = *(ptr++);

@@ -1607,6 +1607,16 @@ void PrintMessage(int index)
 	}
 }
 
+void PlayerIsDead(void)
+{
+#ifdef DEBUG_ACTIONS
+    fprintf(stderr, "Player is dead\n");
+#endif
+    Output(sys[IM_DEAD]);
+    BitFlags &= ~(1 << DARKBIT);
+    MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
+}
+
 static ActionResultType PerformLine(int ct)
 {
 #ifdef DEBUG_ACTIONS
@@ -1853,13 +1863,7 @@ static ActionResultType PerformLine(int ct)
                 BitFlags &= ~(1 << param[pptr++]);
                 break;
             case 61:
-#ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Player is dead\n");
-#endif
-                Output(sys[IM_DEAD]);
-                LookWithPause();
-                BitFlags &= ~(1 << DARKBIT);
-                MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
+                PlayerIsDead();
                 break;
             case 62:
                 p = param[pptr++];
