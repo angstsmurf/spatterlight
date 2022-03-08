@@ -906,9 +906,6 @@ int GetInput(int *vb, int *no)
         lastnoun = *no;
     }
 
-    if (Options & TI994A_STYLE)
-        Output("\n");
-    
     return 0;
 }
 
