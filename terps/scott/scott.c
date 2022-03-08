@@ -2108,7 +2108,8 @@ static ExplicitResultType PerformActions(int vb, int no)
             BitFlags &= ~(1 << DARKBIT);
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
-            DoneIt();
+            BitFlags &= ~(1 << DARKBIT);
+            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
