@@ -26,6 +26,8 @@ glui32 **UnicodeWords = NULL;
 char **CharWords = NULL;
 int WordsInInput = 0;
 
+static int lastnoun = 0;
+
 static glui32 *FirstErrorMessage = NULL;
 
 void FreeStrings(void)
@@ -433,21 +435,21 @@ extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
 
 const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "game", "story", "on", "off", "load",
-    "restore", "save", "move", "command", "all", "everything"
+    "restore", "save", "move", "command", "all", "everything", "it"
 };
 const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "spiel", "story", "on", "off", "wiederherstellen",
-    "laden", "speichern", "move", "command", "alle", "alles"
+    "laden", "speichern", "move", "command", "alle", "alles", "es"
 };
 const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "juego", "story", "on", "off", "cargar",
-    "reanuda", "conserva", "move", "command", "toda", "todo"
+    "reanuda", "conserva", "move", "command", "toda", "todo", "eso"
 };
 const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
 
 extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
     NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
-    RAMLOAD, RAMSAVE, COMMAND, COMMAND, ALL, ALL
+    RAMLOAD, RAMSAVE, COMMAND, COMMAND, ALL, ALL, IT
 };
 
 #define NUMBER_OF_ABBREVIATIONS 6
@@ -893,11 +895,17 @@ int GetInput(int *vb, int *no)
             }
             if (!CreateAllCommands(CurrentCommand))
                 return 1;
+        } else if (CurrentCommand->noun == IT) {
+            CurrentCommand->noun = lastnoun;
         }
     }
 
     *vb = CurrentCommand->verb;
     *no = CurrentCommand->noun;
+
+    if (*no > 6) {
+        lastnoun = *no;
+    }
 
     if (Options & TI994A_STYLE)
         Output("\n");
