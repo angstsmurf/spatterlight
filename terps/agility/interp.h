@@ -432,7 +432,6 @@ global volatile int curr_x;
 
 void init_interface(int argc,char *argv[]);
 void start_interface(fc_type fc);
-void close_interface(void);
 char *agt_input(int in_type); /* read line, return malloc'd string */ 
 char agt_getkey(rbool echo_char); 
 void agt_clrscr(void);
