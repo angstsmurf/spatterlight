@@ -246,7 +246,7 @@ ActionResultType PerformTI99Line(uint8_t *action_line)
             break;
 
         case 219: /* get item */
-            if (CountCarried() == GameHeader.MaxCarry) {
+            if (CountCarried() >= GameHeader.MaxCarry) {
                 Output(sys[YOURE_CARRYING_TOO_MUCH]);
                 run_code = 1;
                 result = ACT_FAILURE;

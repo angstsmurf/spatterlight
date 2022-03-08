@@ -1796,7 +1796,7 @@ static ActionResultType PerformLine(int ct)
             case 0: /* NOP */
                 break;
             case 52:
-                if (CountCarried() == GameHeader.MaxCarry) {
+                if (CountCarried() >= GameHeader.MaxCarry) {
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
                     break;
                 }
@@ -2208,7 +2208,7 @@ static ExplicitResultType PerformActions(int vb, int no)
                     Output(sys[WHAT]);
                     return ER_SUCCESS;
                 }
-                if (CountCarried() == GameHeader.MaxCarry) {
+                if (CountCarried() >= GameHeader.MaxCarry) {
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
                     return ER_SUCCESS;
                 }
