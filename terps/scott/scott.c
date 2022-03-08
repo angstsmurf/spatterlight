@@ -2463,11 +2463,21 @@ void glk_main(void)
 
     OpenTopWindow();
 
-    if (game_type == SCOTTFREE)
+    if (game_type == SCOTTFREE || CurrentGame == TI994A)
         Output("\
 Scott Free, A Scott Adams game driver in C.\n\
 Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
+
+    if (CurrentGame == TI994A) {
+        Display(Bottom, "In this adventure, you may abbreviate any word \
+by typing its first %d letters, and directions by typing \
+one letter.\n\nDo you want to restore previously saved game?\n",
+                GameHeader.WordLength);
+        if (YesOrNo())
+            LoadGame();
+        ClearScreen();
+    }
 
 #ifdef SPATTERLIGHT
 	UpdateSettings();
