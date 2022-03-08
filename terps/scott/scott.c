@@ -1798,7 +1798,7 @@ static ActionResultType PerformLine(int ct)
             case 52:
                 if (CountCarried() >= GameHeader.MaxCarry) {
                     Output(sys[YOURE_CARRYING_TOO_MUCH]);
-                    break;
+                    return ACT_SUCCESS;
                 }
                 Items[param[pptr++]].Location = CARRIED;
                 break;
