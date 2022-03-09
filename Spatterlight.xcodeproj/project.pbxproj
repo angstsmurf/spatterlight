@@ -2027,10 +2027,6 @@
 		965031CD09F29EE10083E64E /* interface.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = interface.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031CE09F29EE10083E64E /* interp.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = interp.h; sourceTree = "<group>"; tabWidth = 2; };
 		965031CF09F29EE10083E64E /* linux_pict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = linux_pict; sourceTree = "<group>"; };
-		965031D009F29EE10083E64E /* Makefile.dos */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.dos; sourceTree = "<group>"; };
-		965031D109F29EE10083E64E /* Makefile.glk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.glk; sourceTree = "<group>"; };
-		965031D209F29EE10083E64E /* Makefile.linux */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.linux; sourceTree = "<group>"; };
-		965031D309F29EE10083E64E /* Makefile.plain */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.plain; sourceTree = "<group>"; };
 		965031D409F29EE10083E64E /* metacommand.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = metacommand.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031D509F29EE10083E64E /* object.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = object.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031D609F29EE10083E64E /* os_curses.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = os_curses.c; sourceTree = "<group>"; tabWidth = 2; };
@@ -4354,10 +4350,6 @@
 				965031DD09F29EE10083E64E /* porting.txt */,
 				965031BD09F29EE10083E64E /* agility.hdr */,
 				965031CF09F29EE10083E64E /* linux_pict */,
-				965031D009F29EE10083E64E /* Makefile.dos */,
-				965031D109F29EE10083E64E /* Makefile.glk */,
-				965031D209F29EE10083E64E /* Makefile.linux */,
-				965031D309F29EE10083E64E /* Makefile.plain */,
 				965031DE09F29EE10083E64E /* readme.agility */,
 				965031DF09F29EE10083E64E /* readme.dos */,
 				965031E009F29EE10083E64E /* readme.glk */,

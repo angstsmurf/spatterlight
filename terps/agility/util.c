@@ -153,7 +153,7 @@ void *rmalloc(long size)
   assert(size>=0);
   if (size==0) return NULL;
   p=malloc((size_t)size);
-  if (p==NULL && rm_trap && size>0)
+  if (p==NULL && rm_trap && size>0) 
     {
       printf("Memory allocation error: Out of memory.\n");
       exit(EXIT_FAILURE);
@@ -198,10 +198,15 @@ char *rstrdup(const char *s)
 #else
   t=malloc((strlen(s)+1)*sizeof(char));
 #endif
-  if (t==NULL && rm_trap)
+  if (t==NULL)
     {
-      printf("Memory duplication error: Out of memory.\n");
-      exit(EXIT_FAILURE);
+      if (rm_trap)
+      {
+        printf("Memory duplication error: Out of memory.\n");
+        exit(EXIT_FAILURE);
+      }
+      else
+        return NULL;
     }
   if (rm_acct) ralloc_cnt++;
 #ifndef HAVE_STRDUP
@@ -1054,8 +1059,8 @@ static void write_filerec(const file_info *rec_desc, uchar *filedata)
 	}
 	break;
       case FT_UINT16: 
-        filedata[0]=v(long)&0xFF;
-        filedata[1]=(v(long)>>8)&0xFF;
+	filedata[0]=v(long)&0xFF;
+	filedata[1]=(v(long)>>8)&0xFF;
 	break;      
       case FT_CMDPTR: /* cmd ptr */        
       case FT_INT32:
