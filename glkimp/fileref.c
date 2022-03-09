@@ -7,12 +7,7 @@ char *gli_workdir = NULL;
 char *gli_game_path = NULL;
 char *gli_parentdir = NULL;
 
-char *glkext_fileref_get_name(fileref_t *fref)
-{
-    return fref->filename;
-}
-
-char * garglk_fileref_get_name(frefid_t fref)
+char * glkunix_fileref_get_filename(frefid_t fref)
 {
     return fref->filename;
 }

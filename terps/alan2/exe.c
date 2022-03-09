@@ -1549,7 +1549,7 @@ frefid_t fref;
 fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Write, 0);
 if (fref == NULL)
 	error(M_SAVEFAILED);
-strcpy(str, garglk_fileref_get_name(fref));
+strcpy(str, glkunix_fileref_get_filename(fref));
 glk_fileref_destroy(fref);
 
 #endif
@@ -1652,7 +1652,7 @@ frefid_t fref;
 fref = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Read, 0);
 if (fref == NULL)
 	error(M_SAVEFAILED);
-strcpy(str, garglk_fileref_get_name(fref));
+strcpy(str, glkunix_fileref_get_filename(fref));
 glk_fileref_destroy(fref);
 
 #endif

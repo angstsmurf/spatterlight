@@ -5926,7 +5926,7 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
    */
 
 #ifdef GARGLK
-  retfile = fopen(garglk_fileref_get_name(fileref), fdtype);
+  retfile = fopen(glkunix_fileref_get_filename(fileref), fdtype);
 #else
 
   /* So, start by dup()'ing the first file descriptor we can, ... */
