@@ -187,7 +187,10 @@ char *FromUnicode(glui32 *unicode_string, int origlength)
                 dest[destpos++] = 'a';
                 dest[destpos++] = 'n';
                 dest[destpos++] = 'd';
+            } else {
+                dest[destpos] = (char)unichar;
             }
+            break;
         case 0xf6: // ö
             dest[destpos++] = 'o';
             dest[destpos] = 'e';
