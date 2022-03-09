@@ -1661,7 +1661,7 @@ Don't worry about what might be in the box.  It's just a heavy wooden box.
 
 You push the heavy box up against the door.
 
-> hold glass in sunlight
+> signal companions
 You hold the piece of glass in the sunlight and reflect the beam toward your friends.  Unfortunately, you have no way to know if they've seen your signal.
 
 > w

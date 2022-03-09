@@ -280,7 +280,7 @@ n. n.
 u.
 w.
 x box. push box.
-hold glass in sunlight
+signal companions
 w
 s
  look
