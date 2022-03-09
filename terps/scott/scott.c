@@ -1377,6 +1377,8 @@ int PerformExtraCommand(int extra_stop_time)
             return 1;
         }
         break;
+    case EXCEPT:
+        FreeCommands();
     }
 
     stop_time = 0;
@@ -2513,11 +2515,14 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 
         switch (PerformActions(vb, no)) {
         case ER_RAN_ALL_LINES_NO_MATCH:
-            if (!RecheckForExtraCommand())
-                Output(sys[I_DONT_UNDERSTAND]);
+                if (!RecheckForExtraCommand()) {
+                    Output(sys[I_DONT_UNDERSTAND]);
+                    FreeCommands();
+                }
             break;
         case ER_RAN_ALL_LINES:
             Output(sys[YOU_CANT_DO_THAT_YET]);
+            FreeCommands();
             break;
         default:
             just_started = 0;

@@ -414,7 +414,6 @@ const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
 
 const char *Directions[NUMBER_OF_DIRECTIONS];
 
-#define NUMBER_OF_EXTRA_COMMANDS 13
 const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     NULL,
     "restart",
@@ -429,30 +428,85 @@ const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "ramload",
     "ramrestore",
     "ramsave",
+    "except",
+    "but",
+    " ", " ", " ", " ", " "
+};
+
+const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "save",
+    "restore",
+    "load",
+    "transcript",
+    "script",
+    "oops",
+    "undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "ramsave",
+    "ausser",
+    "bis",
+    "laden",
+    "wiederherstellen",
+    "transkript",
+    "rueckgaengig",
+    "neustarten"
+};
+
+const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "save",
+    "restore",
+    "load",
+    "transcript",
+    "script",
+    "oops",
+    "undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "ramsave",
+    "excepto",
+    "menos",
+    "reanuda",
+    "cargar",
+    "transcripcion",
+    "deshacer",
+    "reinicia"
 };
 
 extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
     NO_COMMAND, RESTART, SAVE, RESTORE, RESTORE, SCRIPT, SCRIPT,
-    UNDO, UNDO, RAM, RAMLOAD, RAMLOAD, RAMSAVE
+    UNDO, UNDO, RAM, RAMLOAD, RAMLOAD, RAMSAVE, EXCEPT, EXCEPT,
+    RESTORE, RESTORE, SCRIPT, UNDO, RESTART
 };
 
 const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "game", "story", "on", "off", "load",
-    "restore", "save", "move", "command", "all", "everything", "it"
+    "restore", "save", "move", "command", "turn",
+    "all", "everything", "it", " ", " ",
 };
 const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "spiel", "story", "on", "off", "wiederherstellen",
-    "laden", "speichern", "move", "command", "alle", "alles", "es"
+    "laden", "speichern", "move", "verschieben", "runde",
+    "alle", "alles", "es", "einschalten", "ausschalten"
 };
 const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     NULL, "juego", "story", "on", "off", "cargar",
-    "reanuda", "conserva", "move", "command", "toda", "todo", "eso"
+    "reanuda", "conserva", "move", "command", "jugada",
+    "toda", "todo", "eso", "activar", "desactivar"
 };
+
 const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
 
 extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
     NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
-    RAMLOAD, RAMSAVE, COMMAND, COMMAND, ALL, ALL, IT
+    RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
+    ALL, ALL, IT, ON, OFF
 };
 
 #define NUMBER_OF_ABBREVIATIONS 6
@@ -744,7 +798,15 @@ struct Command *CommandFromStrings(int index, struct Command *previous)
 
     if (list == Nouns || list == ExtraNouns) {
         /* It is a noun */
-        if (FindExtaneousWords(&i, noun) != 0)
+
+        /* Check if it is an ALL followed by EXCEPT */
+        int except = 0;
+        if (list == ExtraNouns && i < WordsInInput && noun - GameHeader.NumWords == ALL) {
+            int stringlength = strlen(CharWords[i]);
+            except = WhichWord(CharWords[i], ExtraCommands, stringlength,
+                                   NUMBER_OF_EXTRA_COMMANDS);
+        }
+        if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, noun) != 0)
             return NULL;
         if (found_noun_at_verb_position) {
             int realverb = WhichWord(CharWords[i - 1], Verbs, GameHeader.WordLength,
@@ -767,7 +829,14 @@ struct Command *CommandFromStrings(int index, struct Command *previous)
 
     if (list == Verbs && found_noun_at_verb_position) {
         /* It is a verb */
-        if (FindExtaneousWords(&i, 0) != 0)
+        /* Check if it is an ALL followed by EXCEPT */
+        int except = 0;
+        if (i < WordsInInput && verb - GameHeader.NumWords == ALL) {
+            int stringlength = strlen(CharWords[i]);
+            except = WhichWord(CharWords[i], ExtraCommands, stringlength,
+                               NUMBER_OF_EXTRA_COMMANDS);
+        }
+        if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, 0) != 0)
             return NULL;
         return CreateCommandStruct(noun, verb, i - 1, i, previous);
     }
@@ -778,35 +847,62 @@ struct Command *CommandFromStrings(int index, struct Command *previous)
 
 int CreateAllCommands(struct Command *command)
 {
+
+    int exceptions[GameHeader.NumItems];
+    int exceptioncount = 0;
+
     int location = CARRIED;
     if (command->verb == TAKE)
         location = MyLoc;
 
     struct Command *next = command->next;
+    /* Check if the ALL command is followed by EXCEPT */
+    /* and if it is, build an array of items to be excepted */
+    while (next && next->verb == GameHeader.NumWords + EXCEPT) {
+        for (int i = 0; i <= GameHeader.NumItems; i++) {
+            if (Items[i].AutoGet && xstrncasecmp(Items[i].AutoGet, CharWords[next->nounwordindex], GameHeader.WordLength) == 0) {
+                exceptions[exceptioncount++] = i;
+            }
+        }
+        /* Remove the EXCEPT command from the linked list of commands */
+        next = next->next;
+        free(command->next);
+        command->next = next;
+    }
+
     struct Command *c = command;
     int found = 0;
     for (int i = 0; i < GameHeader.NumItems; i++) {
         if (Items[i].AutoGet != NULL && Items[i].AutoGet[0] != '*' && Items[i].Location == location) {
-            if (found) {
-                c->next = MemAlloc(sizeof(struct Command));
-                c->next->previous = c;
-                c = c->next;
+            int exception = 0;
+            for (int j = 0; j < exceptioncount; j++) {
+                if (exceptions[j] == i) {
+                    exception = 1;
+                    break;
+                }
             }
-            found = 1;
-            c->verb = command->verb;
-            c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
-                GameHeader.NumWords);
-            c->item = i;
-            c->next = NULL;
-            c->nounwordindex = 0;
-            c->allflag = 1;
+            if (!exception) {
+                if (found) {
+                    c->next = MemAlloc(sizeof(struct Command));
+                    c->next->previous = c;
+                    c = c->next;
+                }
+                found = 1;
+                c->verb = command->verb;
+                c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
+                                    GameHeader.NumWords);
+                c->item = i;
+                c->next = NULL;
+                c->nounwordindex = 0;
+                c->allflag = 1;
+            }
         }
     }
     if (found == 0) {
         if (command->verb == TAKE)
-            Output(sys[NOTHING_HERE_TO_TAKE]);
+            CreateErrorMessage(sys[NOTHING_HERE_TO_TAKE], NULL, NULL);
         else
-            Output(sys[YOU_HAVE_NOTHING]);
+            CreateErrorMessage(sys[YOU_HAVE_NOTHING], NULL, NULL);
         return 0;
     } else {
         c->next = next;
@@ -826,6 +922,9 @@ void FreeCommands(void)
     }
     CurrentCommand = NULL;
     FreeStrings();
+    if (FirstErrorMessage)
+        free(FirstErrorMessage);
+    FirstErrorMessage = NULL;
 }
 
 static void PrintPendingError(void)
@@ -883,7 +982,7 @@ int GetInput(int *vb, int *no)
     /* such as UNDO and TRANSCRIPT */
     if (CurrentCommand->verb > GameHeader.NumWords) {
         if (!PerformExtraCommand(0)) {
-            Output(sys[I_DONT_UNDERSTAND]);
+            CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
         }
         return 1;
         /* And NumWords + noun for our extra nouns */
@@ -892,7 +991,7 @@ int GetInput(int *vb, int *no)
         CurrentCommand->noun -= GameHeader.NumWords;
         if (CurrentCommand->noun == ALL) {
             if (CurrentCommand->verb != TAKE && CurrentCommand->verb != DROP) {
-                Output(sys[CANT_USE_ALL]);
+                CreateErrorMessage(sys[CANT_USE_ALL], NULL, NULL);
                 return 1;
             }
             if (!CreateAllCommands(CurrentCommand))
