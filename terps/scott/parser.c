@@ -242,6 +242,16 @@ char *FromUnicode(glui32 *unicode_string, int origlength)
     return result;
 }
 
+int MatchYMCA(glui32 *string, int length, int index) {
+    const char *ymca = "y.m.c.a.";
+    int i;
+    for (i = 0; i < 8; i++) {
+        if (i + index > length || string[index + i] != ymca[i])
+            return i;
+    }
+    return i;
+}
+
 /* Turns a unicode glui32 string into lower-case ASCII. */
 /* Converts German and Spanish diacritical characters into non-diacritical
  * equivalents */
@@ -263,40 +273,62 @@ char **SplitIntoWords(glui32 *string, int length)
     int words_found = 0;
     int word_index = 0;
     int foundspace = 0;
+    int foundcomma = 0;
     startpos[0] = 0;
     wordlength[0] = 0;
     int lastwasspace = 1;
     for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
         foundspace = 0;
         switch (string[i]) {
-            /* Unicode space and tab variants */
-        case ' ':
-        case '\t':
-        case '!':
-        case '?':
-        case '\"':
-        case 0x83: // ¿
-        case 0x80: // ¡
-        case 0xa0: // non-breaking space
-        case 0x2000: // en quad
-        case 0x2001: // em quad
-        case 0x2003: // em
-        case 0x2004: // three-per-em
-        case 0x2005: // four-per-em
-        case 0x2006: // six-per-em
-        case 0x2007: // figure space
-        case 0x2009: // thin space
-        case 0x200A: // hair space
-        case 0x202f: // narrow no-break space
-        case 0x205f: // medium mathematical space
-        case 0x3000: // ideographic space
-            foundspace = 1;
+            case 'y':
+            {
+                int ymca = MatchYMCA(string, length, i);
+                if (ymca > 3)
+                {
+                    /* Start a new word */
+                    startpos[words_found] = i;
+                    wordlength[words_found] = ymca;
+                    words_found++;
+                    wordlength[words_found] = 0;
+                    i += ymca;
+                    if (i < length)
+                        foundspace = 1;
+                    lastwasspace = 0;
+                }
+            }
             break;
-        default:
-            break;
+                /* Unicode space and tab variants */
+            case ' ':
+            case '\t':
+            case '!':
+            case '?':
+            case '\"':
+            case 0x83: // ¿
+            case 0x80: // ¡
+            case 0xa0: // non-breaking space
+            case 0x2000: // en quad
+            case 0x2001: // em quad
+            case 0x2003: // em
+            case 0x2004: // three-per-em
+            case 0x2005: // four-per-em
+            case 0x2006: // six-per-em
+            case 0x2007: // figure space
+            case 0x2009: // thin space
+            case 0x200A: // hair space
+            case 0x202f: // narrow no-break space
+            case 0x205f: // medium mathematical space
+            case 0x3000: // ideographic space
+                foundspace = 1;
+                break;
+            case '.':
+            case ',':
+                foundcomma = 1;
+                break;
+            default:
+                break;
         }
         if (!foundspace) {
-            if (lastwasspace) {
+            if (lastwasspace || foundcomma) {
                 /* Start a new word */
                 startpos[words_found] = i;
                 words_found++;
@@ -306,17 +338,8 @@ char **SplitIntoWords(glui32 *string, int length)
             lastwasspace = 0;
         } else {
             /* Check if the last character of previous word was a period or comma */
-            if (!lastwasspace && i > 0 && wordlength[words_found - 1] > 1) {
-                const char c = (char)string[i - 1];
-                if (c == '.' || c == ',') {
-                    wordlength[words_found] = 1;
-                    wordlength[words_found - 1]--;
-                    startpos[words_found] = i - 1;
-                    words_found++;
-                    wordlength[words_found] = 0;
-                }
-            }
             lastwasspace = 1;
+            foundcomma = 0;
         }
     }
 

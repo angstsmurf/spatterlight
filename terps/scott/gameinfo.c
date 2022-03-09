@@ -2502,7 +2502,7 @@ const char *sysdict_i_am[MAX_SYSMESS] = {
     "Resume a saved game? ",
     "None",
     "There's nothing here to take. ",
-    "I carry nothing. ",
+    "I have nothing to drop. ",
     "My light is growing dim. ",
     NULL
 };
@@ -2555,7 +2555,7 @@ const char *sysdict_TI994A[MAX_SYSMESS] = {
     "Resume a saved game? ",
     "None",
     "There's nothing here to take. ",
-    "I carry nothing. ",
+    "I have nothing to drop. ",
     "Light is growing dim ",
     ", ",
     " ",
@@ -2609,7 +2609,7 @@ const char *sysdict_zx[MAX_SYSMESS] = {
     "Restore a previously saved game ? ",
     "None",
     "There's nothing here to take. ",
-    "I carry nothing. ",
+    "I have nothing to drop. ",
     "My light is growing dim. ",
     " ",
     " ",

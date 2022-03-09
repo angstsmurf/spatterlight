@@ -167,7 +167,7 @@ void FillInGermanSystemMessages(void)
     sys[TRANSCRIPT_START] = "Beginn einer Transkript.\n\n";
     sys[TRANSCRIPT_END] = "\n\nEnde eniner Transkript.\n";
     sys[BAD_DATA] = "SCHLECHTE DATEN! Ungueltige Speicherdatei.\n";
-    sys[STATE_SAVED] = "Zustand gerettet.\n";
+    sys[STATE_SAVED] = "Zustand speichern.\n";
     sys[NO_SAVED_STATE] = "Es ist kein gespeicherter Zustand vorhanden.\n";
     sys[STATE_RESTORED] = "Zustand wiederhergestellt.\n";
 
@@ -180,6 +180,8 @@ void FillInGermanSystemMessages(void)
         SkipList[i] = GermanSkipList[i];
     for (int i = 0; i < NUMBER_OF_DELIMITERS; i++)
         DelimiterList[i] = GermanDelimiterList[i];
+    for (int i = 0; i < NUMBER_OF_EXTRA_COMMANDS; i++)
+        ExtraCommands[i] = GermanExtraCommands[i];
     for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
         ExtraNouns[i] = GermanExtraNouns[i];
 }
@@ -188,6 +190,7 @@ void LoadExtraGermanGremlinsc64Data(void)
 {
     Verbs[0] = "AUTO\0";
     Nouns[0] = "ANY\0";
+    Nouns[28] = "*Y.M.C\0";
 
     // These are broken in some versions
     Actions[0].Condition[0] = 1005;
@@ -241,8 +244,10 @@ void LoadExtraGermanGremlinsData(void)
 {
     Verbs[0] = "AUTO\0";
     Nouns[0] = "ANY\0";
+    Nouns[28] = "*Y.M.C\0";
 
     Messages[90] = "Ehe ich etwas anderes mache, much aich erst alles andere fallenlassen. ";
+    FillInGermanSystemMessages();
 }
 
 void LoadExtraSpanishGremlinsData(void)
@@ -294,6 +299,8 @@ void LoadExtraSpanishGremlinsData(void)
         Directions[i] = SpanishDirections[i];
     for (int i = 0; i < NUMBER_OF_EXTRA_NOUNS; i++)
         ExtraNouns[i] = SpanishExtraNouns[i];
+    for (int i = 0; i < NUMBER_OF_EXTRA_COMMANDS; i++)
+        ExtraCommands[i] = SpanishExtraCommands[i];
 }
 
 void GremlinsAction(int parameter)
