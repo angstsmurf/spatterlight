@@ -1185,7 +1185,7 @@ GameIDType DetectGame(const char *file_name)
         return 0;
     }
 
-    GameInfo = MemAlloc(sizeof(*GameInfo));
+    Game = MemAlloc(sizeof(*Game));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
     CurrentGame = LoadDatabase(f, Options & DEBUGGING);
@@ -1223,7 +1223,7 @@ GameIDType DetectGame(const char *file_name)
                         //                fprintf(stderr, "The game might be %s\n",
                         //                games[i].Title);
                         if (TryLoading(games[i], offset, 0)) {
-                            GameInfo = &games[i];
+                            Game = &games[i];
                             break;
                         }
                         //                else
@@ -1232,7 +1232,7 @@ GameIDType DetectGame(const char *file_name)
                 }
             }
 
-            if (GameInfo == NULL)
+            if (Game == NULL)
                 return 0;
         }
     }
@@ -1333,8 +1333,8 @@ GameIDType DetectGame(const char *file_name)
             }
             break;
         default:
-            if (!(GameInfo->subtype & C64)) {
-                if (GameInfo->subtype & MYSTERIOUS) {
+            if (!(Game->subtype & C64)) {
+                if (Game->subtype & MYSTERIOUS) {
                     for (int i = PLAY_AGAIN; i <= YOU_HAVENT_GOT_IT; i++)
                         sys[i] = system_messages[2 - PLAY_AGAIN + i];
                     for (int i = YOU_DONT_SEE_IT; i <= WHAT_NOW; i++)
@@ -1367,11 +1367,11 @@ GameIDType DetectGame(const char *file_name)
             break;
     }
 
-    if ((GameInfo->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
+    if ((Game->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();
 
     /* If it is a C64 or a Mysterious Adventures game, we have setup the graphics already */
-    if (!(GameInfo->subtype & (C64 | MYSTERIOUS)) && GameInfo->number_of_pictures > 0) {
+    if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
         SagaSetup(0);
     }
 

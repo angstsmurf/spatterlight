@@ -93,7 +93,7 @@ glui32 *ToUnicode(const char *string)
         if (c == '\n')
             c = 10;
         glui32 unichar = (glui32)c;
-        if (GameInfo && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
+        if (Game && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
             const char d = string[i + 1];
             if (c == 'u' && d == 'e') { // ü
                 if (!(i > 2 && string[i - 1] == 'e')) {
@@ -118,7 +118,7 @@ glui32 *ToUnicode(const char *string)
             if (c == '\"') {
                 unichar = 0x2019; // ’
             }
-        } else if (GameInfo && CurrentGame == GREMLINS_SPANISH) {
+        } else if (Game && CurrentGame == GREMLINS_SPANISH) {
             switch (c) {
             case '\x83':
                 unichar = 0xbf; // ¿
@@ -148,7 +148,7 @@ glui32 *ToUnicode(const char *string)
                 unichar = 0xfa; // ú
                 break;
             }
-        } else if (GameInfo && CurrentGame == TI994A) {
+        } else if (Game && CurrentGame == TI994A) {
             switch (c) {
             case '@':
                 unicode[dest++] = 0xa9;
@@ -993,7 +993,7 @@ int GetInput(int *vb, int *no)
 
     /* Hack to make RESTORE and RESTART work in Robin of Sherwood */
     /* instead of being understood as REST, a synonym of WAIT.     */
-    if (GameInfo->type == SHERWOOD_VARIANT && CurrentCommand->verb == 56) {
+    if (Game->type == SHERWOOD_VARIANT && CurrentCommand->verb == 56) {
         char *verbword = CharWords[CurrentCommand->verbwordindex];
         if (xstrncasecmp(verbword, "restore", 7) == 0)
             CurrentCommand->verb = GameHeader.NumWords + RESTORE;

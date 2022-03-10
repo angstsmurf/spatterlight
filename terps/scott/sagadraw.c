@@ -612,10 +612,10 @@ void SagaSetup(size_t imgoffset)
 {
     int32_t i, y;
 
-    uint16_t image_offsets[GameInfo->number_of_pictures];
+    uint16_t image_offsets[Game->number_of_pictures];
 
     if (palchosen == NO_PALETTE) {
-        palchosen = GameInfo->palette;
+        palchosen = Game->palette;
     }
 
     if (palchosen == NO_PALETTE) {
@@ -625,20 +625,20 @@ void SagaSetup(size_t imgoffset)
 
     DefinePalette();
 
-    int version = GameInfo->picture_format_version;
+    int version = Game->picture_format_version;
 
-    int32_t CHAR_START = GameInfo->start_of_characters + file_baseline_offset;
-    int32_t OFFSET_TABLE_START = GameInfo->start_of_image_data + file_baseline_offset;
+    int32_t CHAR_START = Game->start_of_characters + file_baseline_offset;
+    int32_t OFFSET_TABLE_START = Game->start_of_image_data + file_baseline_offset;
 
-    if (GameInfo->start_of_image_data == FOLLOWS) {
+    if (Game->start_of_image_data == FOLLOWS) {
         OFFSET_TABLE_START = CHAR_START + 0x800;
     }
 
-    int32_t DATA_OFFSET = GameInfo->image_address_offset + file_baseline_offset;
+    int32_t DATA_OFFSET = Game->image_address_offset + file_baseline_offset;
     if (imgoffset)
         DATA_OFFSET = imgoffset;
     uint8_t *pos;
-    int numgraphics = GameInfo->number_of_pictures;
+    int numgraphics = Game->number_of_pictures;
 jumpChar:
     pos = SeekToPos(entire_file, CHAR_START);
 
@@ -686,11 +686,11 @@ jumpTable:
     int broken_claymorgue_pictures = 0;
 
     for (int i = 0; i < numgraphics; i++) {
-        if (GameInfo->picture_format_version == 0) {
+        if (Game->picture_format_version == 0) {
             uint16_t address;
 
             if (i < 11) {
-                address = GameInfo->start_of_image_data + (i * 2);
+                address = Game->start_of_image_data + (i * 2);
             } else if (i < 28) {
                 address = hulk_item_image_offsets + (i - 10) * 2;
             } else if (i < 34) {
@@ -835,7 +835,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     int32_t ink[0x22][14], paper[0x22][14];
 
     //   uint8_t *origptr = dataptr;
-    int version = GameInfo->picture_format_version;
+    int version = Game->picture_format_version;
 
     offset = 0;
     int32_t character = 0;
@@ -1011,7 +1011,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
 void DrawSagaPictureNumber(int picture_number)
 {
-    int numgraphics = GameInfo->number_of_pictures;
+    int numgraphics = Game->number_of_pictures;
     if (picture_number >= numgraphics) {
         fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
             numgraphics - 1);

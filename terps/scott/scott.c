@@ -96,7 +96,7 @@ int file_baseline_offset = 0;
 const char *title_screen = NULL;
 
 struct Command *CurrentCommand = NULL;
-struct GameInfo *GameInfo;
+struct GameInfo *Game;
 
 extern const char *sysdict[MAX_SYSMESS];
 extern const char *sysdict_i_am[MAX_SYSMESS];
@@ -200,12 +200,12 @@ void UpdateSettings(void) {
 	if (Options & FORCE_PALETTE_ZX)
 		palchosen = ZXOPT;
     else if (Options & FORCE_PALETTE_C64) {
-        if (GameInfo->picture_format_version == 99)
+        if (Game->picture_format_version == 99)
             palchosen = C64A;
         else
             palchosen = C64B;
     } else
-		palchosen = GameInfo->palette;
+		palchosen = Game->palette;
     if (palchosen != previous_pal) {
 		DefinePalette();
         if (VectorState != NO_VECTOR_IMAGE)
@@ -227,7 +227,7 @@ void Updates(event_t ev)
 			Look();
 		}
 	} else if (ev.type == evtype_Timer) {
-        switch (GameInfo->type) {
+        switch (Game->type) {
         case SHERWOOD_VARIANT:
             UpdateRobinOfSherwoodAnimations();
             break;
@@ -238,7 +238,7 @@ void Updates(event_t ev)
             UpdateSecretAnimations();
             break;
         default:
-            if (GameInfo->picture_format_version == 99 && DrawingVector())
+            if (Game->picture_format_version == 99 && DrawingVector())
                 DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
             break;
         }
@@ -783,7 +783,7 @@ void DrawImage(int image)
         fprintf(stderr, "DrawImage: Graphic window NULL?\n");
         return;
     }
-    if (GameInfo->picture_format_version == 99)
+    if (Game->picture_format_version == 99)
         DrawVectorPicture(image);
     else
         DrawSagaPictureNumber(image);
@@ -830,12 +830,12 @@ void DrawRoomImage(void)
     if (dark)
         return;
 
-    if (GameInfo->picture_format_version == 99) {
+    if (Game->picture_format_version == 99) {
         DrawImage(MyLoc - 1);
         return;
     }
 
-    if (GameInfo->type == GREMLINS_VARIANT) {
+    if (Game->type == GREMLINS_VARIANT) {
         GremlinsLook();
     } else {
         DrawImage(Rooms[MyLoc].Image & 127);
@@ -845,7 +845,7 @@ void DrawRoomImage(void)
             if ((Items[ct].Flag & 127) == MyLoc) {
                 DrawImage(Items[ct].Image);
                 /* Draw the correct image of the bear on the beach */
-            } else if (GameInfo->type == SAVAGE_ISLAND_VARIANT && ct == 20 && MyLoc == 8) {
+            } else if (Game->type == SAVAGE_ISLAND_VARIANT && ct == 20 && MyLoc == 8) {
                 DrawImage(9);
             }
         }
@@ -1884,7 +1884,7 @@ static ActionResultType PerformLine(int ct)
 				stop_time = 2;
                 break;
             case 66:
-				if (GameInfo->type == SEAS_OF_BLOOD_VARIANT)
+				if (Game->type == SEAS_OF_BLOOD_VARIANT)
 					AdventureSheet();
 				else
 					ListInventory();
@@ -2094,7 +2094,7 @@ static ExplicitResultType PerformActions(int vb, int no)
         nl = Rooms[MyLoc].Exits[no - 1];
         if (nl != 0) {
             /* Seas of Blood needs this to be able to flee back to the last room */
-            if (GameInfo->type == SEAS_OF_BLOOD_VARIANT)
+            if (Game->type == SEAS_OF_BLOOD_VARIANT)
                 SavedRoom = MyLoc;
             if (Options & (SPECTRUM_STYLE | TI994A_STYLE))
                 Output(sys[OK]);
@@ -2537,11 +2537,11 @@ Distributed under the GNU software license\n\n");
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }
-                if ((Options & PREHISTORIC_LAMP) || (GameInfo->subtype & MYSTERIOUS) || CurrentGame == TI994A)
+                if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS) || CurrentGame == TI994A)
                     Items[LIGHT_SOURCE].Location = DESTROYED;
             } else if (GameHeader.LightTime < 25) {
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
-                    if ((Options & SCOTTLIGHT) || (GameInfo->subtype & MYSTERIOUS)) {
+                    if ((Options & SCOTTLIGHT) || (Game->subtype & MYSTERIOUS)) {
                         Display(Bottom, "%s %d %s\n",sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
                     } else {
                         if (GameHeader.LightTime % 5 == 0)

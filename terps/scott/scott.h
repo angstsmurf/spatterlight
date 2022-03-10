@@ -95,7 +95,7 @@ typedef struct {
 
 #define MyLoc (GameHeader.PlayerRoom)
 
-#define CurrentGame (GameInfo->gameID)
+#define CurrentGame (Game->gameID)
 
 void Output(const char *a);
 void OutputNumber(int a);
@@ -138,7 +138,7 @@ void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
 
-extern struct GameInfo *GameInfo;
+extern struct GameInfo *Game;
 extern Header GameHeader;
 extern Room *Rooms;
 extern Item *Items;

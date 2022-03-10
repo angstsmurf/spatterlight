@@ -203,7 +203,7 @@ void DrawVectorPicture(int image) {
     current_draw_instruction = 0;
 
     if (palchosen == NO_PALETTE) {
-        palchosen = GameInfo->palette;
+        palchosen = Game->palette;
         DefinePalette();
     }
     picture_bitmap = MemAlloc(255 * 97);

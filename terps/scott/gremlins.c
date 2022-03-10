@@ -91,7 +91,7 @@ void UpdateGremlinsAnimations(void)
         if (Items[82].Location == 6) /* Gang of GREMLINS */
         {
             if (AnimationFlag) {
-                if ((GameInfo->subtype & (LOCALIZED | C64)) == LOCALIZED) {
+                if ((Game->subtype & (LOCALIZED | C64)) == LOCALIZED) {
                     DrawImage(25); /* Silhouette 2 of Gremlins  */
                 } else {
                     DrawImage(75); /* Silhouette 2 of Gremlins  */

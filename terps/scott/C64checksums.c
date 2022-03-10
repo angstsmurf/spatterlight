@@ -564,12 +564,12 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     for (int i = 0; i < NUMGAMES; i++) {
         if (games[i].gameID == record.id) {
-            GameInfo = &games[i];
+            Game = &games[i];
             break;
         }
     }
 
-    if (GameInfo->Title == NULL) {
+    if (Game->Title == NULL) {
         Fatal("Game not found!");
     }
 
@@ -578,11 +578,11 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
     writeToFile("/Users/administrator/Desktop/rawFromD64", entire_file, file_length);
 
     DictionaryType dictype = GetId(&offset);
-    if (dictype != GameInfo->dictionary) {
+    if (dictype != Game->dictionary) {
         Fatal("Wrong game?");
     }
 
-    if (!TryLoading(*GameInfo, offset, 0)) {
+    if (!TryLoading(*Game, offset, 0)) {
         Fatal("Game could not be read!");
     }
 
@@ -605,7 +605,7 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
         }
     }
 
-    if (!(GameInfo->subtype & MYSTERIOUS))
+    if (!(Game->subtype & MYSTERIOUS))
         SagaSetup(record.imgoffset);
 
     return CurrentGame;
