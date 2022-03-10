@@ -9,21 +9,23 @@
 #include <ctype.h>
 
 #include "glk.h"
+#include "glkimp.h"
 #include "glkstart.h"
 
 #include "taylor.h"
+#include "utility.h"
+#include "sagadraw.h"
+
 
 #define GLK_BUFFER_ROCK 1
 #define GLK_STATUS_ROCK 1010
 #define GLK_GRAPHICS_ROCK 1020
 
-winid_t Bottom, Top;
-winid_t Graphics;
+winid_t Bottom, Top, Graphics;
 static int OutputPos;
 static int OutLine;
 static int OutC;
 static char OutWord[128];
-static int Window;
 static int SavedPos;
 
 glui32 Width; /* Terminal width */
@@ -41,7 +43,7 @@ winid_t FindGlkWindowWithRock(glui32 rock)
     return 0;
 }
 
-static void WriteChar(winid_t w, const char *fmt, ...)
+void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
     char msg[2048];
@@ -79,7 +81,7 @@ void HitEnter(void)
 
 void PrintCharacter(unsigned char c)
 {
-    WriteChar(Bottom, "%c", c);
+    Display(Bottom, "%c", c);
 //	if(OutC == 0 &&  c ==' ')
 //		return;
 //	if(Window == 1) {
@@ -149,6 +151,79 @@ void LineInput(char *buf, int len)
     buf[ev.val1] = 0;
 }
 
+
+const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+{
+    *width = 255;
+    *height = 96;
+    int multiplier = 1;
+    glui32 graphwidth, graphheight;
+    glk_window_get_size(Graphics, &graphwidth, &graphheight);
+    multiplier = graphheight / 96;
+    if (255 * multiplier > graphwidth)
+        multiplier = graphwidth / 255;
+
+    if (multiplier == 0)
+        multiplier = 1;
+
+    *width = 255 * multiplier;
+    *height = 96 * multiplier;
+
+    return multiplier;
+}
+
+void OpenGraphicsWindow(void)
+{
+    if (!gli_enable_graphics)
+        return;
+    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+
+    if (Top == NULL)
+        Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
+    if (Graphics == NULL)
+        Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
+    if (Graphics == NULL && Top != NULL) {
+        glk_window_get_size(Top, &Width, &TopHeight);
+        glk_window_close(Top, NULL);
+        Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
+                                   60, wintype_Graphics, GLK_GRAPHICS_ROCK);
+        glk_window_get_size(Graphics, &graphwidth, &graphheight);
+        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+
+        if (graphheight > optimal_height) {
+            winid_t parent = glk_window_get_parent(Graphics);
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                       optimal_height, NULL);
+        }
+
+        /* Set the graphics window background to match
+         * the main window background, best as we can,
+         * and clear the window.
+         */
+        glui32 background_color;
+        if (glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
+                              &background_color)) {
+            glk_window_set_background_color(Graphics, background_color);
+            glk_window_clear(Graphics);
+        }
+
+        Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight,
+                              wintype_TextGrid, GLK_STATUS_ROCK);
+        glk_window_get_size(Top, &Width, &TopHeight);
+    } else {
+        if (!Graphics)
+            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
+                                       wintype_Graphics, GLK_GRAPHICS_ROCK);
+        glk_window_get_size(Graphics, &graphwidth, &graphheight);
+        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+        x_offset = (graphwidth - optimal_width) / 2;
+        winid_t parent = glk_window_get_parent(Graphics);
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   optimal_height, NULL);
+    }
+}
+
 void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
@@ -163,10 +238,32 @@ void OpenTopWindow(void)
     }
 }
 
+void DrawBlack(void)
+{
+    glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
+                         12 * 8 * pixel_size);
+}
+
 void DisplayInit(void)
 {
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
+    OpenGraphicsWindow();
+    SagaSetup(0);
+//    uint8_t width = 0, height = 0, xoff = 0, yoff = 0;
+//    uint8_t *ptr = SeekToPos(FileImage, 0x85bb);
+//    do {
+//        width = *ptr++;
+//        height = *ptr++;
+//        xoff = *ptr++;
+//        yoff = *ptr++;
+//        if (width < 33 && width > 0 && height < 13 && height > 0 && xoff < 33 && yoff < 13) {
+//            fprintf(stderr, "Offset: %lx\n", ptr - FileImage);
+//            DrawSagaPictureFromData(ptr, width, height, xoff, yoff);
+//            DrawSagaPictureFromBuffer();
+//            HitEnter();
+//        }
+//    } while (ptr - FileImage < FileImageLen);
 }
 
 

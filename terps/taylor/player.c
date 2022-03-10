@@ -8,11 +8,10 @@
 #include "glk.h"
 #include "glkstart.h"
 
-
 #include "taylor.h"
 
-static unsigned char Flag[128];
-static unsigned char Object[256];
+unsigned char Flag[128];
+unsigned char ObjectLoc[256];
 static unsigned char Word[5];
 
 /* OOPS buffer for later games */
@@ -22,21 +21,21 @@ static unsigned char OopsObject[256];
 static unsigned char RamFlag[128];
 static unsigned char RamObject[256];
 
-static unsigned char Image[131072];
-static size_t ImageLen;
+uint8_t FileImage[131072];
+size_t FileImageLen;
 static size_t VerbBase;
-static unsigned int TokenBase;
-static unsigned int MessageBase;
-static unsigned int Message2Base;
-static unsigned int RoomBase;
-static unsigned int ObjectBase;
-static unsigned int ExitBase;
-static unsigned int ObjLocBase;
-static unsigned int StatusBase;
-static unsigned int ActionBase;
-static unsigned int FlagBase;
+static size_t TokenBase;
+static size_t MessageBase;
+static size_t Message2Base;
+static size_t RoomBase;
+static size_t ObjectBase;
+static size_t ExitBase;
+static size_t ObjLocBase;
+static size_t StatusBase;
+static size_t ActionBase;
+static size_t FlagBase;
 
-static int NumLowObjects;
+int NumLowObjects;
 
 static int ActionsDone;
 static int ActionsExecuted;
@@ -44,6 +43,95 @@ static int Redraw;
 
 static int GameVersion;
 static int Blizzard;
+
+int FileBaselineOffset = 0;
+
+struct GameInfo *Game = NULL;
+
+struct GameInfo games[NUMGAMES] = {
+    {
+        "Blizzard Pass",
+        BLIZZARD_PASS,
+        OLD_STYLE,                 // type
+
+        66,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        107,  // Number of rooms
+        150,   // Max carried items
+        3,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x8350, // start_of_characters;
+        0x8706, // start_of_image_data;
+        0x8ecc, // image_address_offset
+        100, // number_of_pictures;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+    {
+        "Temple of Terror",
+        TEMPLE_OF_TERROR,
+        OLD_STYLE,                 // type
+
+        191,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        127,  // Number of rooms
+        150,   // Max carried items
+        3,   // Word length
+        210,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x83cb, // start_of_characters;
+        0xbc99, // start_of_image_data;
+        0x8ecc, // image_address_offset
+        50, // number_of_pictures;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    }
+};
+
+Item *Items = NULL;
 
 #ifdef DEBUG
 
@@ -143,7 +231,7 @@ static char *Action[]={
 
 static void LoadWordTable(void)
 {
-	unsigned char *p = Image + VerbBase;
+	unsigned char *p = FileImage + VerbBase;
 
 	while(1) {
 		if(p[4] == 255)
@@ -171,13 +259,13 @@ static void PrintWord(unsigned char word)
 
 #endif
 
-static size_t FindCode(const char *x, size_t base)
+size_t FindCode(const char *x, size_t base, size_t len)
 {
-	unsigned char *p = Image + base;
-	size_t len = strlen(x);
-	while(p < Image + ImageLen - len) {
+	unsigned char *p = FileImage + base;
+//	size_t len = strlen(x);
+	while(p < FileImage + FileImageLen - len) {
 		if(memcmp(p, x, len) == 0)
-			return p - Image;
+			return p - FileImage;
 		p++;
 	}
 	return -1;
@@ -186,7 +274,7 @@ static size_t FindCode(const char *x, size_t base)
 static size_t FindFlags(void)
 {
 	/* Look for the flag initial block copy */
-	size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0);
+	size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
 	if(pos == -1) {
 		fprintf(stderr, "Cannot find initial flag data.\n");
 		exit(1);
@@ -196,12 +284,12 @@ static size_t FindFlags(void)
 
 static size_t FindObjectLocations(void)
 {
-	size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0);
+	size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
 	if(pos == -1) {
 		fprintf(stderr, "Cannot find initial object data.\n");
 		exit(1);
 	}
-	pos = Image[pos - 16] + (Image[pos - 15] << 8);
+	pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
 	return pos - 0x4000;
 }
 
@@ -209,9 +297,9 @@ static size_t FindExits(void)
 {
     size_t pos = 0;
 
-	while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1)) != -1)
+	while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
 	{
-		pos = Image[pos - 5] + (Image[pos - 4] << 8);
+		pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8);
 		pos -= 0x4000;
 		return pos;
 	}
@@ -221,7 +309,7 @@ static size_t FindExits(void)
 
 static int LooksLikeTokens(size_t pos)
 {
-	unsigned char *p = Image + pos;
+	unsigned char *p = FileImage + pos;
 	int n = 0;
 	int t = 0;
 	while(n < 512) {
@@ -237,7 +325,7 @@ static int LooksLikeTokens(size_t pos)
 
 static void TokenClassify(size_t pos)
 {
-	unsigned char *p = Image + pos;
+	unsigned char *p = FileImage + pos;
 	int n = 0;
 	while(n++ < 256) {
 		do {
@@ -252,17 +340,17 @@ static size_t FindTokens(void)
     size_t addr;
     size_t pos = 0;
 	do {
-		pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1);
+		pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);
 		if(pos == -1) {
 			/* Last resort */
-			addr = FindCode("You are in ", 0) - 1;
+			addr = FindCode("You are in ", 0, 11) - 1;
 			if(addr == -1) {
 				fprintf(stderr, "Unable to find token table.\n");
 				exit(1);
 			}
 			return addr;
 		}
-		addr = (Image[pos-1] <<8 | Image[pos-2]) - 0x4000;
+		addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000;
 	}
 	while(LooksLikeTokens(addr) == 0);
 	TokenClassify(addr);
@@ -345,9 +433,9 @@ static void OutString(char *p)
 
 static unsigned char *TokenText(unsigned char n)
 {
-	unsigned char *p = Image + TokenBase;
+	unsigned char *p = FileImage + TokenBase;
 
-	p = Image + TokenBase;
+	p = FileImage + TokenBase;
 
 	while(n > 0) {
 		while((*p & 0x80) == 0)
@@ -421,26 +509,26 @@ static size_t FindMessages(void)
 {
     size_t pos = 0;
 	/* Newer game format */
-	while((pos = FindCode("\xF5\xE5\xC5\xD5\x3E\x2E", pos+1)) != -1) {
-		if(Image[pos + 6] != 0x32)
+	while((pos = FindCode("\xF5\xE5\xC5\xD5\x3E\x2E", pos+1, 6)) != -1) {
+		if(FileImage[pos + 6] != 0x32)
 			continue;
-		if(Image[pos + 9] != 0x78)
+		if(FileImage[pos + 9] != 0x78)
 			continue;
-		if(Image[pos + 10] != 0x32)
+		if(FileImage[pos + 10] != 0x32)
 			continue;
-		if(Image[pos + 13] != 0x21)
+		if(FileImage[pos + 13] != 0x21)
 			continue;
-		return (Image[pos+14] + (Image[pos+15] << 8)) - 0x4000;
+		return (FileImage[pos+14] + (FileImage[pos+15] << 8)) - 0x4000;
 	}
 	/* Try now for older game format */
-	while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1)) != -1) {
-		if(Image[pos + 8] != 0x21)
+	while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
+		if(FileImage[pos + 8] != 0x21)
 			continue;
-		if(Image[pos + 11] != 0xCD)
+		if(FileImage[pos + 11] != 0xCD)
 			continue;
 		/* End markers in compressed blocks */
 		GameVersion = 0;
-		return (Image[pos+9] + (Image[pos+10] << 8)) - 0x4000;
+		return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "Unable to locate messages.\n");
 	exit(1);
@@ -448,13 +536,13 @@ static size_t FindMessages(void)
 
 static int FindMessages2(void)
 {
-	int pos = 0;
-	while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1)) != -1) {
-		if(Image[pos + 8] != 0x21)
+	size_t pos = 0;
+	while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
+		if(FileImage[pos + 8] != 0x21)
 			continue;
-		if(Image[pos + 11] != 0xC3)
+		if(FileImage[pos + 11] != 0xC3)
 			continue;
-		return (Image[pos+9] + (Image[pos+10] << 8)) - 0x4000;
+		return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "No second message block ?\n");
 	return 0;
@@ -462,25 +550,25 @@ static int FindMessages2(void)
 
 static void Message(unsigned char m)
 {
-	unsigned char *p = Image + MessageBase;
+	unsigned char *p = FileImage + MessageBase;
 	PrintText(p, m);
 }
 
 static void Message2(unsigned int m)
 {
-	unsigned char *p = Image + Message2Base;
+	unsigned char *p = FileImage + Message2Base;
 	PrintText(p, m);
 }
 
 static int FindObjects(void)
 {
 	size_t pos = 0;
-	while((pos = FindCode("\xF5\xE5\xC5\xD5\x32", pos+1)) != -1) {
-		if(Image[pos + 10] != 0xCD)
+	while((pos = FindCode("\xF5\xE5\xC5\xD5\x32", pos+1, 5)) != -1) {
+		if(FileImage[pos + 10] != 0xCD)
 			continue;
-		if(Image[pos +7] != 0x21)
+		if(FileImage[pos +7] != 0x21)
 			continue;
-		return (Image[pos+8] + (Image[pos+9] << 8)) - 0x4000;
+		return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "Unable to locate objects.\n");
 	exit(1);
@@ -488,7 +576,7 @@ static int FindObjects(void)
 
 static void PrintObject(unsigned char obj)
 {
-	unsigned char *p = Image + ObjectBase;
+	unsigned char *p = FileImage + ObjectBase;
 	PrintText(p, obj);
 }
 
@@ -496,12 +584,12 @@ static void PrintObject(unsigned char obj)
 static size_t FindRooms(void)
 {
     size_t pos = 0;
-	while((pos = FindCode("\x3E\x19\xCD", pos+1)) != -1) {
-		if(Image[pos + 5] != 0xC3)
+	while((pos = FindCode("\x3E\x19\xCD", pos+1, 3)) != -1) {
+		if(FileImage[pos + 5] != 0xC3)
 			continue;
-		if(Image[pos + 8] != 0x21)
+		if(FileImage[pos + 8] != 0x21)
 			continue;
-		return (Image[pos+9] + (Image[pos+10] << 8)) - 0x4000;
+		return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "Unable to locate rooms.\n");
 	exit(1);
@@ -510,9 +598,9 @@ static size_t FindRooms(void)
 
 static void PrintRoom(unsigned char room)
 {
-	unsigned char *p = Image + RoomBase;
+	unsigned char *p = FileImage + RoomBase;
 	if (Blizzard && room < 102)
-		p = Image + 0x18000;
+		p = FileImage + 0x18000;
 	PrintText(p, room);
 }
 
@@ -542,11 +630,6 @@ static unsigned char Worn()
 	return Flag[3];
 }
 
-static unsigned char Location()
-{
-	return Flag[0];
-}
-
 static unsigned char NumObjects()
 {
 	return Flag[6];
@@ -570,15 +653,15 @@ static void DropItem(void)
 static void Put(unsigned char obj, unsigned char loc)
 {
 	/* Will need refresh logics somewhere, maybe here ? */
-	if(Object[obj] == Location() || loc == Location())
+	if(ObjectLoc[obj] == MyLoc || loc == MyLoc)
 		Redraw = 1;
-	Object[obj] = loc;
+	ObjectLoc[obj] = loc;
 }
 
 static int Present(unsigned char obj)
 {
-	unsigned char v = Object[obj];
-	if(v == Location() || v == Worn() || v == Carried())
+	unsigned char v = ObjectLoc[obj];
+	if(v == MyLoc|| v == Worn() || v == Carried())
 		return 1;
 	return 0;
 }
@@ -596,21 +679,21 @@ static void NewGame(void)
 {
 	Redraw = 1;
 	memset(Flag, 0, 128);
-	memcpy(Flag + 1, Image + FlagBase, 6);
-	memcpy(Object, Image + ObjLocBase, NumObjects());
+	memcpy(Flag + 1, FileImage + FlagBase, 6);
+	memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
 }
 
 static void RamLoad(void)
 {
 	memcpy(Flag, RamFlag, 128);
-	memcpy(Object, RamObject, 256);
+	memcpy(ObjectLoc, RamObject, 256);
 	Message(19);
 }
 
 static void RamSave(int game)
 {
 	memcpy(RamFlag,  Flag, 128);
-	memcpy(RamObject, Object, 256);
+	memcpy(RamObject, ObjectLoc, 256);
 	if(game)
 		Message(19);
 }
@@ -618,13 +701,13 @@ static void RamSave(int game)
 static void Oops(void)
 {
 	memcpy(Flag, OopsFlag, 128);
-	memcpy(Object, OopsObject, 256);
+	memcpy(ObjectLoc, OopsObject, 256);
 }
 
 static void Checkpoint(void)
 {
 	memcpy(OopsFlag,  Flag, 128);
-	memcpy(OopsObject, Object, 256);
+	memcpy(OopsObject, ObjectLoc, 256);
 }
 
 
@@ -655,7 +738,7 @@ static void LoadGame(void)
 			if(f == NULL)
 				OutString("Unable to open file.\n");
 			else if(fread(Flag, 128, 1, f) != 1 ||
-			   fread(Object, 256, 1, f) != 1) {
+			   fread(ObjectLoc, 256, 1, f) != 1) {
 				OutString("Unable to load game.\n");
 				NewGame();
 			}
@@ -698,10 +781,10 @@ static void Inventory(void)
 	OutCaps();
 	Message(16);	/* ".. are carrying: " */
 	for(i = 0; i < NumObjects(); i++) {
-		if(Object[i] == Carried() || Object[i] == Worn()) {
+		if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
 			f = 1;
 			PrintObject(i);
-			if(Object[i] == Worn())
+			if(ObjectLoc[i] == Worn())
 				Message(30);
 		}
 	}
@@ -733,7 +816,7 @@ static void SaveGame(void) {
 		OutString("Save failed.\n");
 		return;
 	}
-	if(fwrite(Flag, 128, 1, f) != 1 || fwrite(Object, 256,1 , f) != 1)
+	if(fwrite(Flag, 128, 1, f) != 1 || fwrite(ObjectLoc, 256,1 , f) != 1)
 		OutString("Save failed.\n");
 	fclose(f);
 }
@@ -741,18 +824,18 @@ static void SaveGame(void) {
 static void DropAll(void) {
 	int i;
 	for(i = 0; i < NumObjects(); i++) {
-		if(Object[i] == Carried() || Object[i] == Worn())
-			Put(i, Location());
+		if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn())
+			Put(i, MyLoc);
 	}
 	Flag[5] = 0;
 }
 
 static void GetObject(unsigned char obj) {
-	if(Object[obj] == Carried() || Object[obj] == Worn()) {
+	if(ObjectLoc[obj] == Carried() || ObjectLoc[obj] == Worn()) {
 		Message(21);
 		return;
 	}
-	if(Object[obj] != Location()) {
+	if(ObjectLoc[obj] != MyLoc) {
 		Message(22);
 		return;
 	}
@@ -765,22 +848,22 @@ static void GetObject(unsigned char obj) {
 
 static void DropObject(unsigned char obj) {
 	/* FIXME: check if this is how the real game behaves */
-	if(Object[obj] == Worn()) {
+	if(ObjectLoc[obj] == Worn()) {
 		Message(29);
 		return;
 	}
-	if(Object[obj] != Carried()) {
+	if(ObjectLoc[obj] != Carried()) {
 		Message(23);
 		return;
 	}
 	DropItem();
-	Put(obj, Location());
+	Put(obj, MyLoc);
 }
 
 void Look(void) {
 	int i;
 	int f = 0;
-	unsigned char locw = 0x80|Location();
+	unsigned char locw = 0x80|MyLoc;
 	unsigned char *p;
 
 	Redraw = 0;
@@ -793,14 +876,14 @@ void Look(void) {
 //		BottomWindow();
 		return;
 	}
-	PrintRoom(Location());
+	PrintRoom(MyLoc);
 	OutChar(' ');
 	for(i = 0; i < NumLowObjects; i++) {
-		if(Object[i] == Location())
+		if(ObjectLoc[i] == MyLoc)
 			PrintObject(i);
 	}
 
-	p = Image + ExitBase;
+	p = FileImage + ExitBase;
 
 	while(*p != locw)
 		p++;
@@ -821,7 +904,7 @@ void Look(void) {
 	f = 0;
 
 	for(; i < NumObjects(); i++) {
-		if(Object[i] == Location()) {
+		if(ObjectLoc[i] == MyLoc) {
 			if(f == 0) {
 				Message(0);
 				if( GameVersion == 0)
@@ -857,11 +940,11 @@ static void Delay(unsigned char seconds) {
 }
 
 static void Wear(unsigned char obj) {
-	if(Object[obj] == Worn()) {
+	if(ObjectLoc[obj] == Worn()) {
 		Message(29);
 		return;
 	}
-	if(Object[obj] != Carried()) {
+	if(ObjectLoc[obj] != Carried()) {
 		Message(23);
 		return;
 	}
@@ -870,7 +953,7 @@ static void Wear(unsigned char obj) {
 }
 
 static void Remove(unsigned char obj) {
-	if(Object[obj] != Worn()) {
+	if(ObjectLoc[obj] != Worn()) {
 		Message(28);
 		return;
 	}
@@ -909,20 +992,20 @@ static void ExecuteLineCode(unsigned char *p)
 		}
 		switch(op) {
 			case 1:
-				if(Location() == arg1)
+				if(MyLoc== arg1)
 					continue;
 				break;
 
 			case 2:
-				if(Location() != arg1)
+				if(MyLoc!= arg1)
 					continue;
 				break;
 			case 3:
-				if(Location() > arg1)
+				if(MyLoc> arg1)
 					continue;
 				break;
 			case 4:
-				if(Location() < arg1)
+				if(MyLoc< arg1)
 					continue;
 				break;
 			case 5:
@@ -930,7 +1013,7 @@ static void ExecuteLineCode(unsigned char *p)
 					continue;
 				break;
 			case 6:
-				if(Object[arg1] == Location())
+				if(ObjectLoc[arg1] == MyLoc)
 					continue;
 				break;
 			case 7:
@@ -938,37 +1021,37 @@ static void ExecuteLineCode(unsigned char *p)
 					continue;
 				break;
 			case 8:
-				if(Object[arg1] != Location())
+				if(ObjectLoc[arg1] != MyLoc)
 					continue;
 				break;
 			case 9:
 				/*FIXME : or worn ?? */
-				if(Object[arg1] == Carried())
+				if(ObjectLoc[arg1] == Carried())
 					continue;
-				if(Object[arg1] == Worn())
+				if(ObjectLoc[arg1] == Worn())
 					continue;
 				break;
 			case 10:
 				/*FIXME : or worn ?? */
-				if(Object[arg1] != Carried())
+				if(ObjectLoc[arg1] != Carried())
 					continue;
-				if(Object[arg1] != Worn())
+				if(ObjectLoc[arg1] != Worn())
 					continue;
 				break;
 			case 11:
-				if(Object[arg1] == Worn())
+				if(ObjectLoc[arg1] == Worn())
 					continue;
 				break;
 			case 12:
-				if(Object[arg1] != Worn())
+				if(ObjectLoc[arg1] != Worn())
 					continue;
 				break;
 			case 13:
-				if(Object[arg1] != Destroyed())
+				if(ObjectLoc[arg1] != Destroyed())
 					continue;
 				break;
 			case 14:
-				if(Object[arg1] == Destroyed())
+				if(ObjectLoc[arg1] == Destroyed())
 					continue;
 				break;
 			case 15:
@@ -1012,7 +1095,7 @@ static void ExecuteLineCode(unsigned char *p)
 					continue;
 				break;
 			case 25:
-				if(Object[arg1] == arg2)
+				if(ObjectLoc[arg1] == arg2)
 					continue;
 				break;
 			default:
@@ -1095,7 +1178,7 @@ static void ExecuteLineCode(unsigned char *p)
 			case 12:
 				/* Blizzard pass era */
 				if(GameVersion == 1)
-					Goto(Object[arg1]);
+					Goto(ObjectLoc[arg1]);
 				else
 					Message2(arg1);
 				break;
@@ -1109,7 +1192,7 @@ static void ExecuteLineCode(unsigned char *p)
 				Message(arg1);
 				break;
 			case 16:
-				Put(arg1, Location());
+				Put(arg1, MyLoc);
 				break;
 			case 17:
 				Put(arg1, Destroyed());
@@ -1145,8 +1228,8 @@ static void ExecuteLineCode(unsigned char *p)
 				Put(arg1, arg2);
 				break;
 			case 26:
-				n = Object[arg1];
-				Put(arg1, Object[arg2]);
+				n = ObjectLoc[arg1];
+				Put(arg1, ObjectLoc[arg2]);
 				Put(arg2, n);
 				break;
 			case 27:
@@ -1158,7 +1241,7 @@ static void ExecuteLineCode(unsigned char *p)
 				Means(arg1, arg2);
 				break;
 			case 29:
-				Put(arg1, Object[arg2]);
+				Put(arg1, ObjectLoc[arg2]);
 				break;
 			case 30:
 				/* Beep */
@@ -1208,14 +1291,14 @@ static unsigned char *NextLine(unsigned char *p)
 static int FindStatusTable(void)
 {
     size_t pos = 0;
-	while((pos = FindCode("\x3E\xFF\x32", pos+1)) != -1) {
-		if(Image[pos + 5] != 0x18)
+	while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
+		if(FileImage[pos + 5] != 0x18)
 			continue;
-		if(Image[pos + 6] != 0x07)
+		if(FileImage[pos + 6] != 0x07)
 			continue;
-		if(Image[pos + 7] != 0x21)
+		if(FileImage[pos + 7] != 0x21)
 			continue;
-		return (Image[pos-2] + (Image[pos-1] << 8)) - 0x4000;
+		return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "Unable to find automatics.\n");
 	exit(1);
@@ -1223,7 +1306,7 @@ static int FindStatusTable(void)
 
 static void RunStatusTable(void)
 {
-	unsigned char *p = Image + StatusBase;
+	unsigned char *p = FileImage + StatusBase;
 
 	ActionsDone = 0;
 	ActionsExecuted = 0;
@@ -1239,14 +1322,14 @@ static void RunStatusTable(void)
 size_t FindCommandTable(void)
 {
     size_t pos = 0;
-	while((pos = FindCode("\x3E\xFF\x32", pos+1)) != -1) {
-		if(Image[pos + 5] != 0x18)
+	while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
+		if(FileImage[pos + 5] != 0x18)
 			continue;
-		if(Image[pos + 6] != 0x07)
+		if(FileImage[pos + 6] != 0x07)
 			continue;
-		if(Image[pos + 7] != 0x21)
+		if(FileImage[pos + 7] != 0x21)
 			continue;
-		return (Image[pos+8] + (Image[pos+9] << 8)) - 0x4000;
+		return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
 	}
 	fprintf(stderr, "Unable to find commands.\n");
 	exit(1);
@@ -1254,7 +1337,7 @@ size_t FindCommandTable(void)
 
 static void RunCommandTable(void)
 {
-	unsigned char *p = Image + ActionBase;
+	unsigned char *p = FileImage + ActionBase;
 
 	ActionsDone = 0;
 	ActionsExecuted = 0;
@@ -1276,8 +1359,8 @@ static void RunCommandTable(void)
 
 static int AutoExit(unsigned char v)
 {
-	unsigned char *p = Image + ExitBase;
-	unsigned char want = Location() | 0x80;
+	unsigned char *p = FileImage + ExitBase;
+	unsigned char want = MyLoc | 0x80;
 	while(*p != want) {
 		if(*p == 0xFE)
 			return 0;
@@ -1330,7 +1413,7 @@ static int ParseWord(char *p)
 {
 	char buf[5];
 	size_t len = strlen(p);
-	unsigned char *words = Image + VerbBase;
+	unsigned char *words = FileImage + VerbBase;
 	int i;
 
 	if(len >= 4) {
@@ -1406,7 +1489,7 @@ static void FindTables(void)
 
 static int GuessLowObjectEnd0(void)
 {
-	unsigned char *p = Image + ObjectBase;
+	unsigned char *p = FileImage + ObjectBase;
 	unsigned char *t = NULL;
 	unsigned char c = 0, lc;
 	int n = 0;
@@ -1429,7 +1512,7 @@ static int GuessLowObjectEnd0(void)
 
 static int GuessLowObjectEnd(void)
 {
-	unsigned char *p = Image + ObjectBase;
+	unsigned char *p = FileImage + ObjectBase;
 	unsigned char *x;
 	int n = 0;
 
@@ -1470,23 +1553,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
             if (*argv[1] != '-')
                 break;
             switch (argv[1][1]) {
-//                case 'y':
-//                    Options |= YOUARE;
-//                    break;
-//                case 'i':
-//                    Options &= ~YOUARE;
-//                    break;
-//                case 'd':
+///                case 'd':
 //                    Options |= DEBUGGING;
-//                    break;
-//                case 's':
-//                    Options |= SCOTTLIGHT;
-//                    break;
-//                case 't':
-//                    Options |= TRS80_STYLE;
-//                    break;
-//                case 'p':
-//                    Options |= PREHISTORIC_LAMP;
 //                    break;
 //                case 'w':
 //                    split_screen = 0;
@@ -1512,7 +1580,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         exit(1);
     }
 
-    argv[1] = "/Users/administrator/Desktop/blizzardpass.sna";
+    argv[1] = "/Users/administrator/Desktop/terror.sna";
 
     f = fopen(argv[1], "r");
     if(f == NULL)
@@ -1521,7 +1589,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         exit(1);
     }
     fseek(f, 27L, 0);
-    ImageLen = fread(Image, 1, 131072, f);
+    FileImageLen = fread(FileImage, 1, 131072, f);
     fclose(f);
 
 
@@ -1535,15 +1603,15 @@ void glk_main(void)
 	/* Guess initially at He-man style */
 	GameVersion = 2;
 	/* Blizzard Pass */
-	if(ImageLen > 49152) {
+	if(FileImageLen > 49152) {
 		GameVersion = 1;
 		Blizzard = 1;
 	}
 	/* The message analyser will look for version 0 games */
 
-    fprintf(stderr, "Loaded %zu bytes.\n", ImageLen);
+    fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
 
-    VerbBase = FindCode("NORT\001N", 0);
+    VerbBase = FindCode("NORT\001N", 0, 6);
 	if(VerbBase == -1) {
 		fprintf(stderr, "No verb table!\n");
 		exit(1);
@@ -1555,6 +1623,8 @@ void glk_main(void)
 		Action[12] = "MESSAGE2";
 	LoadWordTable();
 #endif
+    Game = &games[1]; // Always Temple of Terror for now
+
 	NewGame();
 	NumLowObjects = GuessLowObjectEnd();
 	DisplayInit();
