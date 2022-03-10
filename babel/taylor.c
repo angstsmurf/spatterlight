@@ -28,9 +28,10 @@ struct rec {
 };
 
 static struct rec taylor_registry[] = {
-    { 0x104c4, 0x40dd, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard pass TAP
-    { 0x10428, 0xe67d, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard pass tzx
-    { 0x2001f, 0x275a, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard pass sna
+    { 0x104c4, 0x40dd, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass TAP
+    { 0x10428, 0xe67d, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass tzx
+    { 0x2001f, 0x275a, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass sna
+    { 0xc01b, 0xe9ff, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror sna
 
     { 0, 0, NULL }
 };
