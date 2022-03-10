@@ -106,7 +106,7 @@ rbool PURE_GETHOSTILE=1;  /* =0 will prevent the player from picking things
 rbool PURE_OBJ_DESC=1;    /* =0 prevents [providing light] messages
 			  from being shown */
 
-rbool PURE_ERROR=0;    /* =1 means no GAME ERROR messages will be printed
+rbool PURE_ERROR=1;    /* =1 means no GAME ERROR messages will be printed
 			 out */
 
 rbool PURE_SIZE=1;  /* =0 eliminates size/weight limits on how many
