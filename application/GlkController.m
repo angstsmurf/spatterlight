@@ -1196,7 +1196,9 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"tads3" : @"TADS",
                                      @"zcode": @"Bocfel",
                                      @"scott": @"ScottFree",
-                                     @"jacl": @"JACL"
+                                     @"jacl": @"JACL",
+                                     @"taylor": @"TaylorMade"
+
         };
 
         NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",

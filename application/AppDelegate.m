@@ -131,7 +131,8 @@ PasteboardFilePasteLocation;
                    @"zcode" : @"bocfel",
                    @"quest4" : @"geas",
                    @"jacl" : @"jacl",
-                   @"scott" : @"scott"
+                   @"scott" : @"scott",
+                   @"taylor" : @"taylor"
                    };
 
     PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
