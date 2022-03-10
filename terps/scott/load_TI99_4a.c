@@ -234,8 +234,12 @@ void LoadTI994ADict(int vorn, uint16_t table, int num_words,
 
         word_len = w2 - w1;
 
-        dict[i] = MemAlloc(word_len + 1);
-        strncpy((char *)dict[i], w1, word_len);
+        if (word_len < 20) {
+            char *text = MemAlloc(word_len + 1);
+            strncpy(text, w1, word_len);
+            text[word_len] = 0;
+            dict[i] = text;
+        }
     }
 }
 
@@ -530,6 +534,8 @@ int TryLoadingTI994A(struct DATAHEADER dh, int loud)
         objectlinks[ct] = *(ptr++ - file_baseline_offset);
         if (objectlinks[ct] && objectlinks[ct] <= nw) {
             ip->AutoGet = (char *)Nouns[objectlinks[ct]];
+            if (ct == 3 && strncmp("bird", Items[ct].Text, 4) == 0)
+                ip->AutoGet = "BIRD";
         } else {
             ip->AutoGet = NULL;
         }
