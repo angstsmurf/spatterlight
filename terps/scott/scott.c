@@ -1425,7 +1425,6 @@ void HitEnter(void)
             if (ev.val1 == keycode_Return) {
                 result = 1;
             } else {
-                fprintf(stderr, "%c\n", ev.val1);
                 glk_request_char_event(Bottom);
             }
         } else
@@ -2066,7 +2065,7 @@ void PrintTakenOrDropped(int index)
     if (last == 10 || last == 13)
         return;
     Output(" ");
-	if ((!(Options & TI994A_STYLE) && !(CurrentCommand->allflag & LASTALL))
+	if ((!(CurrentCommand->allflag & LASTALL))
 		|| split_screen == 0) {
 		Output("\n");
     }
@@ -2122,6 +2121,10 @@ static ExplicitResultType PerformActions(int vb, int no)
         HulkShowImageOnExamine(no);
     }
 
+    if (CurrentCommand && CurrentCommand->allflag && vb == CurrentCommand->verb && !(dark && vb == TAKE)) {
+        Output(Items[CurrentCommand->item].Text);
+        Output("....");
+    }
     flag = ER_RAN_ALL_LINES_NO_MATCH;
     if (CurrentGame != TI994A) {
         while (ct <= GameHeader.NumActions) {
@@ -2205,8 +2208,6 @@ static ExplicitResultType PerformActions(int vb, int no)
                 }
                 if (Items[item].Location != location)
                     return ER_SUCCESS;
-                Output(Items[CurrentCommand->item].Text);
-                Output("....");
             }
 
             /* Yes they really _are_ hardcoded values */
@@ -2463,14 +2464,6 @@ void glk_main(void)
         TopHeight = 10;
     }
 
-    OpenTopWindow();
-
-    if (game_type == SCOTTFREE || CurrentGame == TI994A)
-        Output("\
-Scott Free, A Scott Adams game driver in C.\n\
-Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
-Distributed under the GNU software license\n\n");
-
     if (CurrentGame == TI994A) {
         Display(Bottom, "In this adventure, you may abbreviate any word \
 by typing its first %d letters, and directions by typing \
@@ -2480,6 +2473,14 @@ one letter.\n\nDo you want to restore previously saved game?\n",
             LoadGame();
         ClearScreen();
     }
+
+    OpenTopWindow();
+
+    if (game_type == SCOTTFREE)
+        Output("\
+Scott Free, A Scott Adams game driver in C.\n\
+Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
+Distributed under the GNU software license\n\n");
 
 #ifdef SPATTERLIGHT
 	UpdateSettings();
