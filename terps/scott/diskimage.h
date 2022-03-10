@@ -1,3 +1,6 @@
+#ifndef diskimage_h
+#define diskimage_h
+
 #include <stdlib.h>
 
 /* constants for the supported disk formats */
@@ -108,3 +111,5 @@ int di_name_from_rawname(char *name, unsigned char *rawname);
 
 RawDirEntry *find_largest_file_entry(DiskImage *di);
 DiskImage *di_create_from_data(uint8_t *data, int length);
+
+#endif /* diskimage_h */

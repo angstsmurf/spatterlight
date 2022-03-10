@@ -6,4 +6,4 @@
 void RunImplicitTI99Actions(void);
 ExplicitResultType RunExplicitTI99Actions(int verb_num, int noun_num);
 
-#endif
+#endif /* TI994ATERP_H */
