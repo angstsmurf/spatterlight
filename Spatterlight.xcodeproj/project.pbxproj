@@ -548,6 +548,8 @@
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
+		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
+		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30F436C25A53DD000B8D74B /* spatterlight-autosave.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F436925A53DD000B8D74B /* spatterlight-autosave.m */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -651,6 +653,7 @@
 		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
+		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -694,6 +697,8 @@
 		C3AD648F261769DB008614C5 /* MarginImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD648E261769DB008614C5 /* MarginImage.m */; };
 		C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD64DD26176DC5008614C5 /* GridTextView.m */; };
 		C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
+		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
+		C3B148B227FD881400844708 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B148B127FD881400844708 /* animations.c */; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; };
@@ -731,6 +736,8 @@
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; };
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; };
 		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
+		C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* sagadraw.c */; };
+		C3B6100B27DA10DF0012FB97 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100A27DA10DF0012FB97 /* utility.c */; };
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
@@ -765,6 +772,12 @@
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
+		C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		C3D571AC27D8F5EA008FB786 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		C3D571B727D8F652008FB786 /* player.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B327D8F652008FB786 /* player.c */; };
+		C3D571B827D8F652008FB786 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B427D8F652008FB786 /* ui.c */; };
+		C3D571BA27D97BD4008FB786 /* taylor.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D571B927D97BD4008FB786 /* taylor.c */; };
+		C3D571BD27D985CC008FB786 /* taylor in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C3D571A127D8F5CF008FB786 /* taylor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D7CB1626CA7056006DE4CC /* The Wyldkynd Project command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */; };
 		C3D7CB1826CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */; };
@@ -829,6 +842,7 @@
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.c */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
+		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1238,6 +1252,27 @@
 			remoteGlobalIDString = 961CCEC309F239C100528FF9;
 			remoteInfo = Spatterlight;
 		};
+		C3D571AA27D8F5EA008FB786 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
+		};
+		C3D571AD27D8F5EA008FB786 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEB609F2396500528FF9;
+			remoteInfo = glkmain;
+		};
+		C3D571BB27D985BF008FB786 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3D571A027D8F5CF008FB786;
+			remoteInfo = taylormade;
+		};
 		C3D6AD6F1ECF372000ADB69C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1263,6 +1298,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				C3D571BD27D985CC008FB786 /* taylor in Copy Interpreter Files */,
 				C318F7B82741BAB2006D626A /* jacl in Copy Interpreter Files */,
 				C318F7B92741BAB2006D626A /* scott in Copy Interpreter Files */,
 				55368B79272BF27D00740A0A /* geas in Copy Interpreter Files */,
@@ -2711,6 +2747,10 @@
 		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
+		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
+		C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libspectrum.9.dylib; path = ../../../opt/homebrew/Cellar/libspectrum/1.5.0/lib/libspectrum.9.dylib; sourceTree = "<group>"; };
+		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
+		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
 		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; tabWidth = 4; };
 		C30FAD1E27B68EB400BD20B9 /* Expert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Expert.c; sourceTree = "<group>"; };
@@ -2849,6 +2889,8 @@
 		C36B3894271F712700756D94 /* NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonInterpolatedImage.h; sourceTree = "<group>"; };
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
+		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
+		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -2929,6 +2971,10 @@
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
+		C3B1489727FCD55400844708 /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
+		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
+		C3B148AF27FD881400844708 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
+		C3B148B127FD881400844708 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -2971,6 +3017,10 @@
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconnom.cpp; sourceTree = "<group>"; };
 		C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+safeSave.h"; sourceTree = "<group>"; };
 		C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+safeSave.m"; sourceTree = "<group>"; };
+		C3B6100427DA07E90012FB97 /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; };
+		C3B6100627DA07E90012FB97 /* sagadraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagadraw.h; sourceTree = "<group>"; };
+		C3B6100927DA10DF0012FB97 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		C3B6100A27DA10DF0012FB97 /* utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
 		C3B7280E2667934100E9B08D /* NSImage+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Categories.h"; sourceTree = "<group>"; };
 		C3B7280F2667934100E9B08D /* NSImage+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSImage+Categories.m"; sourceTree = "<group>"; };
 		C3B9EB4925FA29F4002A406E /* AttributeDictionaryTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -3044,6 +3094,13 @@
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
 		C3D363A927A846B100E26EC5 /* unp64_interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unp64_interface.h; sourceTree = "<group>"; };
+		C3D571A127D8F5CF008FB786 /* taylor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = taylor; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3D571B127D8F651008FB786 /* taylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taylor.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3D571B227D8F651008FB786 /* FORMAT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FORMAT; sourceTree = "<group>"; };
+		C3D571B327D8F652008FB786 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3D571B427D8F652008FB786 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
+		C3D571B627D8F652008FB786 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		C3D571B927D97BD4008FB786 /* taylor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = taylor.c; sourceTree = "<group>"; };
 		C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "The Wyldkynd Project command script.txt"; sourceTree = "<group>"; };
 		C3D7CB1726CA83BD006DE4CC /* Transcript of The Wyldkynd Project.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of The Wyldkynd Project.txt"; sourceTree = "<group>"; };
 		C3D7CB1A26CA8D09006DE4CC /* Transcript of Shades of Gray.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Shades of Gray.txt"; sourceTree = "<group>"; };
@@ -3109,6 +3166,8 @@
 		C3FB3286269F5BEE00A1B09C /* stash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stash.c; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
+		C3FFF7FF27E52E19000C481A /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
+		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3381,6 +3440,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3D5719E27D8F5CF008FB786 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */,
+				C3D571AC27D8F5EA008FB786 /* libglkmain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4155,6 +4223,7 @@
 				55368B5B272BF1C500740A0A /* geas */,
 				C318F7562741AA10006D626A /* jacl */,
 				C318F7622741AA2F006D626A /* scott */,
+				C3D571A127D8F5CF008FB786 /* taylor */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4284,6 +4353,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */,
 				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
@@ -4320,6 +4390,7 @@
 				965032C509F29EE20083E64E /* scare */,
 				C318F7692741AA5B006D626A /* scott */,
 				965032E809F29EE20083E64E /* tads */,
+				C3D571A227D8F5CF008FB786 /* taylor */,
 				965036F409F29EE60083E64E /* unquill */,
 			);
 			path = terps;
@@ -5364,6 +5435,7 @@
 				96A9BA590A064C9C001B5B9B /* tads.c */,
 				96A9BA5B0A064C9C001B5B9B /* tads2.c */,
 				96A9BA5C0A064C9C001B5B9B /* tads3.c */,
+				C3D571B927D97BD4008FB786 /* taylor.c */,
 				C311DE2925C4383100484639 /* twine.c */,
 				96A9BA5F0A064C9C001B5B9B /* zcode.c */,
 				C396E8EF2732B2CE0090B5DF /* quest4.c */,
@@ -5784,6 +5856,33 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		C3D571A227D8F5CF008FB786 /* taylor */ = {
+			isa = PBXGroup;
+			children = (
+				C3D571B227D8F651008FB786 /* FORMAT */,
+				C3D571B627D8F652008FB786 /* README */,
+				C3D571B127D8F651008FB786 /* taylor.h */,
+				C3D571B327D8F652008FB786 /* player.c */,
+				C30DAE6327EB06E6006C90FB /* gameinfo.c */,
+				C3B6100627DA07E90012FB97 /* sagadraw.h */,
+				C3B6100427DA07E90012FB97 /* sagadraw.c */,
+				C372018B27E47E4D00F6BE55 /* layouttext.h */,
+				C372018D27E47E4D00F6BE55 /* layouttext.c */,
+				C3FFF7FF27E52E19000C481A /* restorestate.h */,
+				C3FFF80127E52E19000C481A /* restorestate.c */,
+				C3B1489727FCD55400844708 /* extracommands.h */,
+				C3B1489827FCD55400844708 /* extracommands.c */,
+				C3B6100927DA10DF0012FB97 /* utility.h */,
+				C3B6100A27DA10DF0012FB97 /* utility.c */,
+				C30DAE7F27EBA06A006C90FB /* decompressz80.h */,
+				C30DAE7E27EBA06A006C90FB /* decompressz80.c */,
+				C3B148AF27FD881400844708 /* animations.h */,
+				C3B148B127FD881400844708 /* animations.c */,
+				C3D571B427D8F652008FB786 /* ui.c */,
+			);
+			path = taylor;
+			sourceTree = "<group>";
+		};
 		C3E2EAAC25D08EEC0012B7FB /* SyntaxColor */ = {
 			isa = PBXGroup;
 			children = (
@@ -6067,6 +6166,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C3D571BC27D985BF008FB786 /* PBXTargetDependency */,
 				55368B7B272BF28800740A0A /* PBXTargetDependency */,
 				96A9BA7B0A0655BE001B5B9B /* PBXTargetDependency */,
 				9650316609F2974A0083E64E /* PBXTargetDependency */,
@@ -6481,6 +6581,24 @@
 			productReference = C3CEC2CB26A6D66800120469 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C3D571A027D8F5CF008FB786 /* taylor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3D571A527D8F5CF008FB786 /* Build configuration list for PBXNativeTarget "taylor" */;
+			buildPhases = (
+				C3D5719D27D8F5CF008FB786 /* Sources */,
+				C3D5719E27D8F5CF008FB786 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3D571AB27D8F5EA008FB786 /* PBXTargetDependency */,
+				C3D571AE27D8F5EA008FB786 /* PBXTargetDependency */,
+			);
+			name = taylor;
+			productName = taylormade;
+			productReference = C3D571A127D8F5CF008FB786 /* taylor */;
+			productType = "com.apple.product-type.tool";
+		};
 		C3F53C59271BB8BE00538393 /* BlorbFramework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3F53C63271BB8BE00538393 /* Build configuration list for PBXNativeTarget "BlorbFramework" */;
@@ -6611,6 +6729,9 @@
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = 961CCEC309F239C100528FF9;
 					};
+					C3D571A027D8F5CF008FB786 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					C3F53C59271BB8BE00538393 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -6665,6 +6786,7 @@
 				96FE876409F3A12B00D41D78 /* tads3 */,
 				9611535E0A4F35EE00BB7FF2 /* htmltads */,
 				96FE866509F38BF600D41D78 /* tadsr */,
+				C3D571A027D8F5CF008FB786 /* taylor */,
 				9611541F0A4F3F8B00BB7FF2 /* htmltadsr */,
 				965037F109F2A4430083E64E /* unquill */,
 				6D8BCAD5225E4ACF00696057 /* fizmo */,
@@ -7360,6 +7482,7 @@
 				96A9BA990A06565B001B5B9B /* level9.c in Sources */,
 				C311DE2A25C4383100484639 /* twine.c in Sources */,
 				96A9BA9A0A06565B001B5B9B /* magscrolls.c in Sources */,
+				C3D571BA27D97BD4008FB786 /* taylor.c in Sources */,
 				96A9BA9B0A06565B001B5B9B /* tads.c in Sources */,
 				96A9BA9C0A06565B001B5B9B /* tads2.c in Sources */,
 				96A9BA9D0A06565B001B5B9B /* tads3.c in Sources */,
@@ -7609,7 +7732,6 @@
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
-				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
 				C3109FC92798B18900854ED0 /* debug.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */,
 				C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */,
@@ -7626,6 +7748,7 @@
 				C386D631279E24B700D3BA46 /* decompressz80.c in Sources */,
 				C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */,
 				C3A9FD3327A6E56C0032C068 /* gameinfo.c in Sources */,
+				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
 				C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7657,6 +7780,23 @@
 			files = (
 				C3CEC2CE26A6D66800120469 /* Tests.m in Sources */,
 				C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3D5719D27D8F5CF008FB786 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
+				C3D571B727D8F652008FB786 /* player.c in Sources */,
+				C3B148B227FD881400844708 /* animations.c in Sources */,
+				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
+				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
+				C3B1489927FCD55400844708 /* extracommands.c in Sources */,
+				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
+				C3D571B827D8F652008FB786 /* ui.c in Sources */,
+				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,
+				C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7957,6 +8097,21 @@
 			isa = PBXTargetDependency;
 			target = 961CCEC309F239C100528FF9 /* Spatterlight */;
 			targetProxy = C3CEC2D026A6D66800120469 /* PBXContainerItemProxy */;
+		};
+		C3D571AB27D8F5EA008FB786 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = C3D571AA27D8F5EA008FB786 /* PBXContainerItemProxy */;
+		};
+		C3D571AE27D8F5EA008FB786 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEB609F2396500528FF9 /* glkmain */;
+			targetProxy = C3D571AD27D8F5EA008FB786 /* PBXContainerItemProxy */;
+		};
+		C3D571BC27D985BF008FB786 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3D571A027D8F5CF008FB786 /* taylor */;
+			targetProxy = C3D571BB27D985BF008FB786 /* PBXContainerItemProxy */;
 		};
 		C3D6AD701ECF372000ADB69C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9924,6 +10079,87 @@
 			};
 			name = Release;
 		};
+		C3D571A627D8F5CF008FB786 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = taylor.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/libspectrum/1.5.0/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		C3D571A727D8F5CF008FB786 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = taylor.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/libspectrum/1.5.0/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
 		C3F53C60271BB8BE00538393 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -10303,6 +10539,15 @@
 			buildConfigurations = (
 				C3CEC2D326A6D66800120469 /* Debug */,
 				C3CEC2D426A6D66800120469 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3D571A527D8F5CF008FB786 /* Build configuration list for PBXNativeTarget "taylor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3D571A627D8F5CF008FB786 /* Debug */,
+				C3D571A727D8F5CF008FB786 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
