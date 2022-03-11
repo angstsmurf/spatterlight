@@ -250,20 +250,12 @@ void DisplayInit(void)
     OpenTopWindow();
     OpenGraphicsWindow();
     SagaSetup(0);
-//    uint8_t width = 0, height = 0, xoff = 0, yoff = 0;
-//    uint8_t *ptr = SeekToPos(FileImage, 0x85bb);
-//    do {
-//        width = *ptr++;
-//        height = *ptr++;
-//        xoff = *ptr++;
-//        yoff = *ptr++;
-//        if (width < 33 && width > 0 && height < 13 && height > 0 && xoff < 33 && yoff < 13) {
-//            fprintf(stderr, "Offset: %lx\n", ptr - FileImage);
-//            DrawSagaPictureFromData(ptr, width, height, xoff, yoff);
-//            DrawSagaPictureFromBuffer();
-//            HitEnter();
-//        }
-//    } while (ptr - FileImage < FileImageLen);
+    for (int i = 0; i < games[1].number_of_pictures; i++) {
+        DrawSagaPictureNumber(i);
+        DrawSagaPictureFromBuffer();
+        fprintf(stderr, "Image %d\n", i);
+        HitEnter();
+    }
 }
 
 

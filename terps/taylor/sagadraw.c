@@ -49,7 +49,7 @@ palette_type palchosen = NO_PALETTE;
 
 const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
 
-//#define DRAWDEBUG
+#define DRAWDEBUG
 
 void colrange(int32_t c)
 {
@@ -585,10 +585,10 @@ void SagaSetup(size_t imgoffset)
 {
     int32_t i, y;
 
-    uint16_t image_offsets[Game->number_of_pictures];
+//    uint16_t image_offsets[Game->number_of_pictures];
 
     if (palchosen == NO_PALETTE) {
-        palchosen = Game->palette;
+        palchosen = games[1].palette;
     }
 
     if (palchosen == NO_PALETTE) {
@@ -601,27 +601,26 @@ void SagaSetup(size_t imgoffset)
 //    int32_t CHAR_START = Game->start_of_characters + FileBaselineOffset;
     size_t CHAR_START = FindCharacterStart();
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", CHAR_START, CHAR_START);
-    size_t OFFSET_TABLE_START = Game->start_of_image_data + FileBaselineOffset;
+    size_t OFFSET_TABLE_START = games[1].start_of_image_data + FileBaselineOffset;
 
-    if (Game->start_of_image_data == FOLLOWS) {
-        OFFSET_TABLE_START = CHAR_START + 0x800;
-    }
+//    if (games[1].start_of_image_data == FOLLOWS) {
+//        OFFSET_TABLE_START = CHAR_START + 0x800;
+//    }
 
-    int32_t DATA_OFFSET = Game->image_address_offset + FileBaselineOffset;
-    if (imgoffset)
-        DATA_OFFSET = (int32_t)imgoffset;
+//    int32_t DATA_OFFSET = Game->image_address_offset + FileBaselineOffset;
+//    if (imgoffset)
+//        DATA_OFFSET = (int32_t)imgoffset;
     uint8_t *pos;
-    int numgraphics = Game->number_of_pictures;
+    int numgraphics = games[1].number_of_pictures;
 jumpChar:
     pos = SeekToPos(FileImage, CHAR_START);
 
 #ifdef DRAWDEBUG
-    fprintf(stderr, "Grabbing Character details\n");
-    fprintf(stderr, "Character Offset: %04lx\n",
-            CHAR_START - FileBaselineOffset);
+//    fprintf(stderr, "Grabbing Character details\n");
+//    fprintf(stderr, "Character Offset: %04lx\n", CHAR_START - FileBaselineOffset);
 #endif
     for (i = 0; i < 256; i++) {
-        fprintf (stderr, "\nCharacter %d:\n", i);
+//        fprintf (stderr, "\nCharacter %d:\n", i);
         for (y = 0; y < 8; y++) {
             sprite[i][y] = *(pos++);
 //            if ((i == 0 && sprite[i][y] != 0) || (i == 1 &&
@@ -630,21 +629,20 @@ jumpChar:
 //                goto jumpChar;
 //            }
 
-            fprintf (stderr, "\n%s$%04lX DEFS ", (y == 0) ? "s" : " ", CHAR_START + i * 8 + y);
-            for (int n = 0; n < 8; n++) {
-                if (isNthBitSet(sprite[i][y], n))
-                    fprintf (stderr, "■");
-                else
-                    fprintf (stderr, "0");
-            }
+//            fprintf (stderr, "\n%s$%04lX DEFS ", (y == 0) ? "s" : " ", CHAR_START + i * 8 + y);
+//            for (int n = 0; n < 8; n++) {
+//                if (isNthBitSet(sprite[i][y], n))
+//                    fprintf (stderr, "■");
+//                else
+//                    fprintf (stderr, "0");
+//            }
         }
     }
-    fprintf(stderr, "Final CHAR_START: %04lx\n",
-              CHAR_START - FileBaselineOffset);
-
-      fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
-              pos - FileImage - FileBaselineOffset,
-              pos - FileImage - FileBaselineOffset);
+//    fprintf(stderr, "Final CHAR_START: %04lx\n", CHAR_START - FileBaselineOffset);
+//
+//      fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
+//              pos - FileImage - FileBaselineOffset,
+//              pos - FileImage - FileBaselineOffset);
 
     /* Now we have hopefully read the character data */
     /* Time for the image offsets */
@@ -654,49 +652,56 @@ jumpChar:
 
 jumpTable:
     pos = SeekToPos(FileImage, OFFSET_TABLE_START);
-
-    for (i = 0; i < numgraphics; i++) {
-        image_offsets[i] = *(pos++);
-        image_offsets[i] += *(pos++) * 0x100;
+//
+//    for (i = 0; i < numgraphics; i++) {
+//        image_offsets[i] = *(pos++);
+//        image_offsets[i] += *(pos++) * 0x100;
+////        fprintf(stderr, "image_offsets[%d]: %x\n", i, image_offsets[i]);
+////        if ((i == 0 && image_offsets[i] != 0) || (i > 0 && image_offsets[i] == 0)) {
+////            OFFSET_TABLE_START--;
+////            goto jumpTable;
+////        }
+//    }
+//
+//    for (i = 0; i < numgraphics; i++) {
 //        fprintf(stderr, "image_offsets[%d]: %x\n", i, image_offsets[i]);
-//        if ((i == 0 && image_offsets[i] != 0) || (i > 0 && image_offsets[i] == 0)) {
-//            OFFSET_TABLE_START--;
-//            goto jumpTable;
+//    }
+//
+//    fprintf(stderr, "Final OFFSET_TABLE_START:%lx\n", OFFSET_TABLE_START -
+//       FileBaselineOffset);
+//    fprintf(stderr, "File offset after reading image offset data: %ld (%lx)\n", pos - FileImage - FileBaselineOffset, pos
+//       - FileImage - FileBaselineOffset);
+
+    for (int picture_number = 0; picture_number < numgraphics && pos - FileImage < FileImageLen ; picture_number++) {
+//    jumpHere:
+//        pos = SeekToPos(FileImage, image_offsets[picture_number]);
+//        if (pos == 0) {
+//            fprintf(stderr, "Final DATA_OFFSET: %x (%d)\n", DATA_OFFSET, DATA_OFFSET);
+//            for (int i = 0; i < numgraphics; i++) {
+//                fprintf (stderr, "width of image %d: %d\n", i, images[i].width);
+//                fprintf (stderr, "height of image %d: %d\n", i, images[i].height);
+//                fprintf (stderr, "xoff of image %d: %d\n", i, images[i].xoff);
+//                fprintf (stderr, "yoff of image %d: %d\n", i, images[i].yoff);
+//            }
+//            return;
 //        }
-    }
 
-    for (i = 0; i < numgraphics; i++) {
-        fprintf(stderr, "image_offsets[%d]: %x\n", i, image_offsets[i]);
-    }
+        fprintf (stderr, "startpos of image %d: %lx (%ld)\n", picture_number, pos - FileImage, pos - FileImage);
 
-    fprintf(stderr, "Final OFFSET_TABLE_START:%lx\n", OFFSET_TABLE_START -
-       FileBaselineOffset);
-    fprintf(stderr, "File offset after reading image offset data: %ld (%lx)\n", pos - FileImage - FileBaselineOffset, pos
-       - FileImage - FileBaselineOffset);
 
-    for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-    jumpHere:
-        pos = SeekToPos(FileImage, image_offsets[picture_number] + DATA_OFFSET);
-        if (pos == 0) {
-            fprintf(stderr, "Final DATA_OFFSET: %x (%d)\n", DATA_OFFSET, DATA_OFFSET);
-            for (int i = 0; i < numgraphics; i++) {
-                fprintf (stderr, "width of image %d: %d\n", i, images[i].width);
-                fprintf (stderr, "height of image %d: %d\n", i, images[i].height);
-                fprintf (stderr, "xoff of image %d: %d\n", i, images[i].xoff);
-                fprintf (stderr, "yoff of image %d: %d\n", i, images[i].yoff);
-            }
-            return;
-        }
+        uint8_t widthheight = *(pos++);
 
-        img->width = *(pos++);
+        img->width = (widthheight & 0xf0) >> 4;
+        img->width++;
 //        if (img->width > 32)
 //            img->width = 32;
-//              fprintf (stderr, "width of image %d: %d\n", picture_number, img->height);
+        fprintf (stderr, "width of image %d: %d\n", picture_number, img->width);
 
-        img->height = *(pos++);
+        img->height = widthheight & 0x0f;
+        img->height++;
 //        if (img->height > 12)
 //            img->height = 12;
-//              fprintf (stderr, "height of image %d: %d\n", picture_number, img->height);
+              fprintf (stderr, "height of image %d: %d\n", picture_number, img->height);
 
 //        img->xoff = *(pos++);
 ////        if (img->xoff > 32)
@@ -716,23 +721,38 @@ jumpTable:
 //        }
 
 
-        img->imagedata = pos;
+        uint8_t *startpos = pos;
 
-        int patch = FindImagePatch(CurrentGame, picture_number, 0);
-        while (patch) {
-            Patch(FileImage, pos, patch);
-            patch = FindImagePatch(CurrentGame, picture_number, patch);
+        uint8_t value = *pos++;
+        while (value != 0xfe && pos - FileImage < FileImageLen) {
+            value = *pos++;
         }
+//        int patch = FindImagePatch(CurrentGame, picture_number, 0);
+//        while (patch) {
+//            Patch(FileImage, pos, patch);
+//            patch = FindImagePatch(CurrentGame, picture_number, patch);
+//        }
 
+        int imagelen = (int)(pos - startpos) + 1;
+        fprintf (stderr, "length of image %d image data: %d\n", picture_number, imagelen);
+
+        img->imagedata = NULL;
+        if (imagelen && imagelen < FileImageLen) {
+//            img->imagedata = MemAlloc(imagelen);
+//            int i = startpos - FileImage;
+//            for (int j = 0; j < imagelen; j++)
+//                img->imagedata[j] = FileImage[i + j];
+//            memcpy(img->imagedata, startpos, imagelen );
+//            fprintf (stderr, "Copied %d bytes of image data to image %d\n", imagelen, picture_number);
+            img->imagedata = startpos;
+        }
         img++;
+
     }
-    fprintf(stderr, "Final DATA_OFFSET: %x (%d)\n", DATA_OFFSET, DATA_OFFSET);
-    for (int i = 0; i < numgraphics; i++) {
-        fprintf (stderr, "width of image %d: %d\n", i, images[i].width);
-        fprintf (stderr, "height of image %d: %d\n", i, images[i].height);
-        fprintf (stderr, "xoff of image %d: %d\n", i, images[i].xoff);
-        fprintf (stderr, "yoff of image %d: %d\n", i, images[i].yoff);
-    }
+//    for (int i = 0; i < numgraphics; i++) {
+//        fprintf (stderr, "width of image %d: %d\n", i, images[i].width);
+//        fprintf (stderr, "height of image %d: %d\n", i, images[i].height);
+//    }
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
@@ -933,13 +953,14 @@ void TaylorRoomImage(void)
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                  int xoff, int yoff)
 {
+    fprintf(stderr, "DrawSagaPictureFromData\n");
     int32_t offset = 0, cont = 0;
     int32_t i, x, y, mask_mode;
     uint8_t data, data2, old = 0;
     int32_t ink[0x22][14], paper[0x22][14];
 
     //   uint8_t *origptr = dataptr;
-    int version = Game->picture_format_version;
+    int version = games[1].picture_format_version;
 
     offset = 0;
     int32_t character = 0;
@@ -1096,7 +1117,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             if (draw_to_buffer) {
                 for (int i = 0; i < 8; i++)
                     buffer[(y + yoff) * 32 + x + xoff2][i] = screenchars[offset][i];
-            } else {
+//            } else {
                 plotsprite(offset, x + xoff2, y + yoff, remap(ink[x][y]),
                            remap(paper[x][y]));
             }
@@ -1115,7 +1136,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
 void DrawSagaPictureNumber(int picture_number)
 {
-    int numgraphics = Game->number_of_pictures;
+    int numgraphics = games[1].number_of_pictures;
     if (picture_number >= numgraphics) {
         fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
                 numgraphics - 1);
@@ -1124,11 +1145,11 @@ void DrawSagaPictureNumber(int picture_number)
 
     Image img = images[picture_number];
 
-    if (img.imagedata == NULL)
+    if (img.imagedata == NULL || img.width == 0 || img.height == 0)
         return;
 
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
-                            img.yoff);
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height, 0,
+                            0);
 }
 
 void DrawSagaPictureAtPos(int picture_number, int x, int y)

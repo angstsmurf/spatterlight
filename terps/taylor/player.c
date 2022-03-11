@@ -123,9 +123,9 @@ struct GameInfo games[NUMGAMES] = {
         0x28de, // start of directions
 
         0x83cb, // start_of_characters;
-        0xbc99, // start_of_image_data;
-        0x8ecc, // image_address_offset
-        50, // number_of_pictures;
+        0x8a46, // start_of_image_data;
+        0, // image_address_offset
+        143, // number_of_pictures;
         ZXOPT, // palette
         4, // picture_format_version;
     }

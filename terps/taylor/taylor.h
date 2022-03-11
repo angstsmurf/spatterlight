@@ -157,6 +157,7 @@ extern int FileBaselineOffset;
 extern int NumLowObjects;
 
 extern struct GameInfo *Game;
+extern struct GameInfo games[];
 extern Item *Items;
 
 size_t FindCode(const char *x, size_t base, size_t len);
