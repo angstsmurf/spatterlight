@@ -883,27 +883,53 @@ void draw_taylor(int loc)
         switch (*ptr) {
             case 0xff:
                 return;
-            case 0xfe:
+            case 0xfe: // 7470
                 mirror_left_half();
                 break;
-            case 0xe9:
-            case 0xfd:
+            case 0xfd: // 7126
                 replace_colour(*(ptr + 1), *(ptr + 2));
                 ptr += 2;
                 break;
-            case 0xfc: // Draw colour: x, y, attribute, length
+            case 0xfc: // Draw colour: x, y, attribute, length 7808
                 draw_colour(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                 ptr = ptr + 4;
                 break;
-            case 0xfb: // Make all screen colours bright
+            case 0xfb: // Make all screen colours bright 713e
                 make_light();
                 break;
-            case 0xfa: // Flip entire image horizontally
+            case 0xfa: // Flip entire image horizontally 7646
                 flip_image();
                 break;
             case 0xf9: // Draw object image (if present) at x, y
                 draw_object_image(*(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
+                break;
+            case 0xf8: //73d1
+                break;
+            case 0xf7: //756e } set A to 0c and call 70b7
+                break;
+            case 0xf6: //7582 } set A to 04 and call 70b7
+                break;
+            case 0xf5: //7578 } set A to 08 and call 70b7
+                break;
+            case 0xf4: //758c End if object arg1 is not present
+                if (ObjectLoc[*(ptr + 1)] != MyLoc)
+                    return;
+                ptr++;
+                break;
+            case 0xf3: //753d
+                break;
+            case 0xf2: //7465 arg1 arg2 arg3 arg4
+                break;
+            case 0xf1: //7532 arg1 arg2 arg3 arg4
+                break;
+            case 0xee: //763b arg1 arg2 arg3 arg4
+                break;
+            case 0xed: //7788
+                break;
+            case 0xec: //777d
+                break;
+            case 0xe9: // 77ac arg1 arg2 ..
                 break;
             case 0xe8:
                 glk_window_clear(Graphics);
@@ -911,6 +937,7 @@ void draw_taylor(int loc)
             default: // else draw image *ptr at x, y
                 DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
+                break;
         }
         ptr++;
     }
