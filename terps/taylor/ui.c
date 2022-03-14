@@ -281,7 +281,7 @@ void DisplayInit(void)
 //    OpenTopWindow();
     OpenGraphicsWindow();
     glk_window_clear(Graphics);
-    for (int i = 46; i < 100; i++) {
+    for (int i = 0; i < 100; i++) {
         mem[0x5d5c] = i;
         DrawTaylorRoomImage(0);
         draw_spectrum_screen_from_mem();
@@ -572,268 +572,228 @@ int call72b8(void) // Get next character?
 
 void draw_image_block(void)
 {
-    fprintf(stderr, "draw_image_block: Image block %d\n", BC);
+    fprintf(stderr, "draw_image_block: Image block %d\n", A); // Which one is it?
     pushedHL = HL;
     call60c1();
-    temp = HL;
-    HL = DE;
-    DE = temp;
-    HL = HL + BC; // HL = screen memory address
-                  // The screen address is stored in current_screen_address
-    current_screen_address = HL;
-    HL = pushedHL; // Address to current draw instruction in "image data" 0xCFFA abouts
-    HL++;
-    // Next draw instruction address is stored in 0x5bba
-    mem[0x5bbc] = HL & 0xFF;
-    mem[0x5bbd] = HL >> 8;
-    mem[0x5bc8] = 0; // 0x5bc8 and 0x5bc0 are reset to 0
-    mem[0x5bc0] = 0;
-jump7194:
-    mem[0x5bbe] = 0; // 0x5bbe is reset to 0
-    A = mem[HL]; // A = next draw instruction
-                 //    fprintf(stderr, "6912transform: Current Draw instruction at mem[0x5bbc]: %x\n", A);
-    call7151();
-    mem[0x5bbc] = HL & 0xFF;
-    mem[0x5bbd] = HL >> 8;
-    if ((A & 128) == 128) {
-        // Bit 7 unset
-        mem[0x5bbe] = A; // draw instruction is stored in 0x6434 and 0x6435
-        mem[0x5bbf] = A;
-        A = A & 2; // Test bit 1, repeat flag
-        if (A != 0) {
-            HL++;
-            A = mem[HL]; // Set A to next instruction
-            mem[0x5bc0] = A; // and store it in 0x6436
-        }
-        HL++;
-        A = mem[HL];
+    current_screen_address = DE + BC;
+    HL = pushedHL + 1; // Address to current draw instruction in "image data"
+    uint8_t flip_mode = 0;
+    uint8_t remaining = 0;
+    do {
+        mem[0x5bbe] = 0; // 0x5bbe is reset to 0
+        A = mem[HL]; // A = next draw instruction
         call7151();
         mem[0x5bbc] = HL & 0xFF;
         mem[0x5bbd] = HL >> 8;
-    } else {
-        //        fprintf(stderr, "bit 7 is not set: print character %x\n", A);
-    }
-    HL = A;
-    BC =  0xc3cb; // Lookup table for character offsets
-    A = mem[0x5bbf];
-    if ((A & 1) == 1) { // Test bit 0, whether to add 127 to character index
-        uint8_t B = BC >> 8;
-        B = B + 4;
-        BC = (BC & 0xFF) + B * 256;
-    }
-
-    IX = HL * 8 + BC; // HL = A4B4
-    HL = 0x5bb2;
-    BC = (BC & 0xff) + 0x08 * 256;
-    A = mem[0x5bbe]; // Current draw instruction
-    A = (A & 0x30); // bits 4 and 5
-    switch (A) {
-        case 0: // do nothing, straight copy
-                //            fprintf(stderr, "0: do nothing, straight copy\n");
-            for (int i = 0; i < 8; i++) {
-                mem[HL++] = mem[IX++];
-            }
-            break;
-        case 0x10: // rotate 90 degrees
-                   //            fprintf(stderr, "0x10: rotate 90 degrees\n");
-            for (int C = 8 ; C > 0 ; C--) {
-                A = mem[IX];
-                for (int B = 8 ; B > 0 ; B--) {
-                    carry = ((A & 128) == 128);
-                    A = A << 1;
-                    carry = rotate_right_with_carry(&mem[HL++], carry);
-                }
-                HL = 0x5bb2;
-                IX++;
-            }
-            break;
-        case 0x20:  // rotate 180 degrees
-                    //            fprintf(stderr, "0x20: rotate 180 degrees\n");
-            HL = 0x5bb9;
-            for (int C = 0; C < 8; C++) {
-                A = mem[IX];
-                for (int B = 0; B < 8; B++) {
-                    carry = ((A & 128) == 128);
-                    A = A << 1;
-                    carry = rotate_right_with_carry(&mem[HL], carry);
-                } ;
-                IX++;
-                HL--;
-            }
-            break;
-
-        case 0x30: // Rotate 270 degrees
-                   //            fprintf(stderr, "0x30: rotate 270 degrees\n");
-            for (int C = 0; C < 8 ; C++) {
-                A = mem[IX];
-                for (int B = 0; B < 8 ; B++) {
-                    carry = (A & 1);
-                    A = A >> 1;
-                    carry = rotate_left_with_carry(&mem[HL++], carry);
-                }
-                HL = 0x5bb2;
-                IX++;
-            }
-            break;
-        default:
-            break;
-    }
-
-    A = mem[0x5bbe];
-    A = A & 0x40; // bit 6
-    if (A != 0) {  // flip horizontally
-                   //        fprintf(stderr, "bit 6 is set: flip horizontally\n");
-        HL = 0x5bb2;
-        for (int C = 0; C < 8 ; C++) {
-            A = mem[HL];
-            for (int B = 0; B < 8 ; B++) {
-                carry = ((A & 128) == 128);
-                A = (A << 1); //+ (A & 1);
-                carry = rotate_right_with_carry(&mem[HL], carry);
+        if (A >= 128) {
+            // Bit 7 set, this is a command byte
+            mem[0x5bbe] = A; // draw instruction is stored in 0x5bbe and 0x5bbf
+            mem[0x5bbf] = A;
+            // Test bit 1, repeat flag
+            if ((A & 2) == 2) {
+                HL++;
+                remaining = mem[HL]; // and store it in remaining
             }
             HL++;
+            A = mem[HL];
+            call7151();
+            mem[0x5bbc] = HL & 0xFF;
+            mem[0x5bbd] = HL >> 8;
         }
-    }
-    DE = current_screen_address; // Screen adress
-    HL = 0x5bb2;
+        HL = A;
+        BC = 0xc3cb; // Lookup table for character offsets
+        if ((mem[0x5bbf] & 1) == 1) { // Test bit 0, whether to add 127 to character index
+            BC += 0x400;
+        }
 
-    for (int B = 0; B < 8; B++) {
-        A = mem[0x5bc8]; // flip mode
-        switch(A) {
-            case 4: // The screen memory value is ORed
-                    //                fprintf(stderr, "4: OR\n");
-                A = mem[DE] | mem[HL];
+        IX = HL * 8 + BC;
+        HL = 0x5bb2;
+        BC = (BC & 0xff) + 0x08 * 256;
+        A = (mem[0x5bbe] & 0x30);  // Current draw instruction bits 4 and 5
+        switch (A) {
+            case 0: // do nothing, straight copy
+                    //            fprintf(stderr, "0: do nothing, straight copy\n");
+                for (int i = 0; i < 8; i++)
+                    mem[HL++] = mem[IX++];
                 break;
-            case 8: // The screen memory is ANDed
-                    //                fprintf(stderr, "8: AND\n");
-                A = mem[DE] & mem[HL];
+            case 0x10: // rotate 90 degrees
+                       //            fprintf(stderr, "0x10: rotate 90 degrees\n");
+                for (int C = 8 ; C > 0 ; C--) {
+                    A = mem[IX];
+                    for (int B = 8 ; B > 0 ; B--) {
+                        carry = (A >= 128);
+                        A = A << 1;
+                        carry = rotate_right_with_carry(&mem[HL++], carry);
+                    }
+                    HL = 0x5bb2;
+                    IX++;
+                }
                 break;
-            case 12:  // The screen memory is XORed
-                      //                fprintf(stderr, "12: XOR\n");
-                A = mem[DE] ^ mem[HL];
+            case 0x20:  // rotate 180 degrees
+                        //            fprintf(stderr, "0x20: rotate 180 degrees\n");
+                HL = 0x5bb9;
+                for (int C = 0; C < 8; C++) {
+                    A = mem[IX];
+                    for (int B = 0; B < 8; B++) {
+                        carry = (A >= 128);
+                        A = A << 1;
+                        carry = rotate_right_with_carry(&mem[HL], carry);
+                    }
+                    IX++;
+                    HL--;
+                }
+                break;
+
+            case 0x30: // Rotate 270 degrees
+                       //            fprintf(stderr, "0x30: rotate 270 degrees\n");
+                for (int C = 0; C < 8 ; C++) {
+                    A = mem[IX];
+                    for (int B = 0; B < 8 ; B++) {
+                        carry = A & 1;
+                        A = A >> 1;
+                        carry = rotate_left_with_carry(&mem[HL++], carry);
+                    }
+                    HL = 0x5bb2;
+                    IX++;
+                }
                 break;
             default:
-                //                fprintf(stderr, "0: straight overlay \n");
-                A = mem[HL];
                 break;
         }
-        mem[DE] = A; // set screen adress to new value
-                     //        fprintf(stderr, "Set address %x to %x\n", DE, mem[DE]);
-//        if (DE < 0x4000 || DE > 0x5B00)
-//            fprintf(stderr, "Something went wrong\n");
 
-        mem[HL++] = A;
-        DE = DE + 256; // Next line
-    }
-    A = mem[0x5bbe];
-    A = A & 0x0c;
-    mem[0x5bc8] = A; // Flip mode
-    if (mem[0x5bc8] == 0) { // No flip
-    jump728a:
-        A = mem[0x5bc0];
-        if (A != 0) {
-            if (call72b8())  { // Get screen address for next character?
-            fprintf(stderr, "call72b8 returned 1, return\n");
+        A = mem[0x5bbe] & 0x40; // bit 6
+        if (A != 0) {  // flip horizontally
+            HL = 0x5bb2;
+            for (int C = 0; C < 8 ; C++) {
+                A = mem[HL];
+                for (int B = 0; B < 8 ; B++) {
+                    carry = (A >= 128);
+                    A = A << 1;
+                    carry = rotate_right_with_carry(&mem[HL], carry);
+                }
+                HL++;
+            }
+        }
+        DE = current_screen_address; // Screen adress
+        HL = 0x5bb2;
+
+        for (int B = 0; B < 8; B++) {
+            A = flip_mode;
+            switch(A) {
+                case 4: // The screen memory value is ORed
+                        //                fprintf(stderr, "4: OR\n");
+                    A = mem[DE] | mem[HL];
+                    break;
+                case 8: // The screen memory is ANDed
+                        //                fprintf(stderr, "8: AND\n");
+                    A = mem[DE] & mem[HL];
+                    break;
+                case 12:  // The screen memory is XORed
+                          //                fprintf(stderr, "12: XOR\n");
+                    A = mem[DE] ^ mem[HL];
+                    break;
+                default:
+                    //                fprintf(stderr, "0: straight overlay \n");
+                    A = mem[HL];
+                    break;
+            }
+            mem[DE] = A; // set screen adress to new value
+                         //        fprintf(stderr, "Set address %x to %x\n", DE, mem[DE]);
+            mem[HL++] = A;
+            DE = DE + 256; // Next line
+        }
+        flip_mode = mem[0x5bbe] & 0x0c;
+        if (flip_mode == 0) { // No flip
+            while (remaining != 0) {
+                if (call72b8())  // Get screen address for next character?
+                    return;
+                HL = 0x5bb2;
+                DE = current_screen_address; // Screen adress
+                
+                for (int B = 0; B < 8; B++) {
+                    A = mem[HL++];
+                    mem[DE] = A;
+                    if (DE < 0x4000 || DE > 0x5B00)
+                        fprintf(stderr, "Something went wrong\n");
+                    DE = DE + 256;
+                }
+                
+                remaining--;
+            }
+            if (call72b8())
                 return;
         }
-            HL = 0x5bb2;
-            DE = current_screen_address; // Screen adress
-
-            for (int B = 0; B < 8; B++) {
-                A = mem[HL++];
-                mem[DE] = A;
-//                if (DE < 0x4000 || DE > 0x5B00)
-//                    fprintf(stderr, "Something went wrong\n");
-                DE = DE + 256;
-            }
-
-            mem[0x5bc0]--; // 5
-            if (mem[0x5bc0] != 0) {
-                goto jump728a;
-            }
-        }
-        if (call72b8()) {
-            fprintf(stderr, "call72b8 returned 1, return\n");
-            return;
-        }
-    }
-
-    HL = mem[0x5bbc] + mem[0x5bbd] * 256;
-    HL++;
-    mem[0x5bbc] = HL & 0xff;
-    mem[0x5bbd] = HL >> 8;
-    goto jump7194;
+        
+        HL = mem[0x5bbc] + mem[0x5bbd] * 256;
+        HL++;
+        mem[0x5bbc] = HL & 0xff;
+        mem[0x5bbd] = HL >> 8;
+    } while (HL < 0xffff);
 }
 
 // 72ff
 void draw_attributes(void) { // Draw attributes?
-    HL = mem[0x5bbc] + mem[0x5bbd] * 256;
-//    uint16_t origPos = HL;
-    HL++;
+    HL = mem[0x5bbc] + mem[0x5bbd] * 256 + 1;
     uint16_t myPreviousPush = HL;
     pushedHL = HL;
     mem[0x5bc6] = mem[0x5bc4];
     HL = mem[0x5bc2] * 32;
-    A = mem[0x5bc1];
-    DE = A;
+    DE = mem[0x5bc1];
     HL += DE;
     DE = mem[0x5bc9] + mem[0x5bca] * 256;
     HL += DE;
     DE = HL;
     HL = pushedHL;
     pushedHL = myPreviousPush;
-jump7320:
-    A = mem[HL];
-    call7151();
-    myPreviousPush = pushedHL;
-    pushedHL = HL;
-    if (A == 0xFE) {
-        A = pushedA;
-       return;
-    }
-    if ((A & 128) == 128) { // Bit 7 is repeat flag
-        A = A & 0x7F;
-        A--;
-        mem[0x5bc0] = A;
-        A = mem[0x5bcb];
-    }
-jump7336:
-    mem[DE] = A;
-    //    fprintf(stderr, "Attribute address %x set to %x\n", DE, A);
-//    print_memory(0x5800, 768);
-    mem[0x5bcb] = A;
-    DE++;
-    HL = 0x5bc6;
-    mem[0x5bc6]--;
-    if (mem[0x5bc6] == 0) {
+    do {
+        A = mem[HL];
+        call7151();
         myPreviousPush = pushedHL;
         pushedHL = HL;
-        A = mem[0x5bc4];
-        mem[0x5bc6] = A;
-        HL = A;
-        A = 0x20;
-        A = A - HL;
-        HL = A;
-        HL = HL & 0xff;
-        HL = HL + DE;
-        DE = HL;
+        if (A == 0xFE) {
+            A = pushedA;
+            return;
+        }
+        if (A >= 128) { // Bit 7 is repeat flag
+            A = A & 0x7F;
+            A--;
+            mem[0x5bc0] = A;
+            A = mem[0x5bcb];
+        }
+    jump7336:
+        mem[DE] = A;
+        //    fprintf(stderr, "Attribute address %x set to %x\n", DE, A);
+        mem[0x5bcb] = A;
+        DE++;
+        HL = 0x5bc6;
+        mem[0x5bc6]--;
+        if (mem[0x5bc6] == 0) {
+            myPreviousPush = pushedHL;
+            pushedHL = HL;
+            A = mem[0x5bc4];
+            mem[0x5bc6] = A;
+            HL = A;
+            A = 0x20;
+            A = A - HL;
+            HL = A;
+            HL = (HL & 0xff) + DE;
+            DE = HL;
+            HL = pushedHL;
+            pushedHL = myPreviousPush;
+        }
+
+        if (mem[0x5bc0] != 0)
+        {
+            mem[0x5bc0]--;
+            A = mem[0x5bcb];
+            goto jump7336;
+        }
         HL = pushedHL;
         pushedHL = myPreviousPush;
-    }
-
-    A = mem[0x5bc0];
-    if (A != 0)
-    {
-        mem[0x5bc0]--;
-        A = mem[0x5bcb];
-        goto jump7336;
-    }
-    HL = pushedHL;
-    pushedHL = myPreviousPush;
-    HL++;
-//    if (HL - origPos > 0x300)
-//        return;
-    goto jump7320;
+        HL++;
+        //    if (HL - origPos > 0x300)
+        //        return;
+    } while (HL < 0xffff);
 }
 
 static void replace_colour(uint8_t before, uint8_t after);
@@ -2996,5 +2956,4 @@ jump76db:
  $76f2 cp $00        ;
  $76f4 jr nz,$76c9   ;
  $76f6 ret           ;
-
  */
