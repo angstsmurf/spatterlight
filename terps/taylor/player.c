@@ -435,8 +435,6 @@ static unsigned char *TokenText(unsigned char n)
 {
 	unsigned char *p = FileImage + TokenBase;
 
-	p = FileImage + TokenBase;
-
 	while(n > 0) {
 		while((*p & 0x80) == 0)
 			p++;
