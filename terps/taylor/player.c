@@ -271,6 +271,8 @@ size_t FindCode(const char *x, size_t base, size_t len)
 	return -1;
 }
 
+//Terror.sna has its flags at 0x21db
+
 static size_t FindFlags(void)
 {
 	/* Look for the flag initial block copy */

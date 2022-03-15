@@ -578,6 +578,7 @@ static size_t FindCharacterStart(void)
         fprintf(stderr, "Cannot find character data.\n");
         exit(1);
     }
+    fprintf(stderr, "Found characters at pos %zx\n", pos);
     return pos;
 }
 
