@@ -806,7 +806,7 @@ jump703a:
     }
     A++; //0xfc
     if (A == 0) {
-        fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d?\n", mem[IX+4], mem[IX+2], mem[IX+1], mem[IX+3], mem[IX+5]);
+        fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", mem[IX+4], mem[IX+2], mem[IX+1], mem[IX+3], mem[IX+5]);
         goto jump7808;
     }
     A++; //0xfb Make picture area bright
@@ -1157,13 +1157,11 @@ jump738c:
     mem[0x7367] = HL >> 8;
     A = mem[HL];
     pushedA = A;
-    A = (A & 0xf0) >> 4;
-    A++;
+    A = ((A & 0xf0) >> 4) + 1;
     mem[0x5bc4] = A;
     mem[0x5bc6] = A;
     A = pushedA;
-    A = A & 0x0f;
-    A++;
+    A = (A & 0x0f) + 1;
     mem[0x5bc5] = A;
     mem[0x5bc7] = A;
 }

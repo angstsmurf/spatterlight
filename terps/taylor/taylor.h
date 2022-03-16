@@ -138,10 +138,8 @@ struct GameInfo {
     int start_of_directions;
 
     int start_of_characters;
-    int start_of_image_data;
-    int image_address_offset; /* This is the difference between the value given by
-                               the image data lookup table and a usable file
-                               offset */
+    int start_of_image_blocks;
+    int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
     int picture_format_version;
