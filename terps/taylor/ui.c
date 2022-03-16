@@ -286,7 +286,6 @@ void DisplayInit(void)
         fprintf(stderr, "Room image: %d\n", i);
         DrawTaylorRoomImage(0);
         draw_spectrum_screen_from_mem();
-        HitEnter();
         for (int i = 0x4000; i<0x5800; i++) {
             mem[i] = 0;
         }
@@ -788,7 +787,7 @@ jump7031: // Count 0xFFs until we are at the right place
 jump703a:
     A = mem[IX];
     fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, A);
-    draw_spectrum_screen_from_mem();
+//    draw_spectrum_screen_from_mem();
     A++; //0xff, stop drawing
     if (A == 0) {
         fprintf(stderr, "End of picture\n");
@@ -875,6 +874,7 @@ jump7067:
             goto jump7788;
             break;
         case 0xec:
+            fprintf(stderr, "0xec: goto 777d Unknown opcode\n");
             goto jump777d;
             break;
         case 0xeb:
@@ -1016,7 +1016,7 @@ jump7646:
 jump777d:
     call7736(0);
     DE = 5;
-    IX = IX + DE;
+    IX = IX + 5;
     goto jump703a;
 jump7788:
     A = 0;

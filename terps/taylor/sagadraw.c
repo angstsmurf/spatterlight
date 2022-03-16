@@ -714,16 +714,16 @@ fprintf (stderr, "height of image %d: %d\n", picture_number, img->height);
 
     taylor_image_data = &FileImage[Game->start_of_image_instructions];
 
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
-    //    OpenTopWindow();
-    OpenGraphicsWindow();
-    glk_window_clear(Graphics);
-    for (int i = 1; i < 100; i++) {
-        bzero(buffer, 384 * 9);
-        draw_taylor(i);
-        DrawSagaPictureFromBuffer();
-        HitEnter();
-    }
+//    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+//    //    OpenTopWindow();
+//    OpenGraphicsWindow();
+//    glk_window_clear(Graphics);
+//    for (int i = 1; i < 100; i++) {
+//        bzero(buffer, 384 * 9);
+//        draw_taylor(i);
+//        DrawSagaPictureFromBuffer();
+//        HitEnter();
+//    }
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
