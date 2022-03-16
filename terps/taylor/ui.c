@@ -247,8 +247,8 @@ void DrawBlack(void)
 //7025
 void DrawTaylorRoomImage(int flag);
 
-uint16_t HL, pushedHL, BC, pushedBC, DE, pushedDE, IX, pushedIX, current_screen_address, temp, previousPush, attributes_start, global5bbc, global717d;
-uint8_t A, carry, pushedA, xpos, ypos;
+uint16_t HL, pushedHL, BC, pushedBC, DE, pushedDE, IX, pushedIX, current_screen_address, temp, previousPush, attributes_start, global5bbc, stored_address, lastblockaddr;
+uint8_t A, carry, pushedA, xpos, ypos, blockwidth, lastimgblock = 0xff;
 
 uint8_t *mem;
 
@@ -490,66 +490,55 @@ void call6B27(void)
 
 void call60c1(void) {
     // Move down one line?
-    HL = A * 2 + 0x5bd0;
+    HL = 0x5bd0 + A * 2;
     DE = mem[HL] + mem[HL+1] * 256;
     HL++;
 }
 
-void call7151(void) {
-    pushedBC = BC;
+void call7151(void) { // Get next draw instruction and put it in A
     A = mem[HL];
-    if (A == 0xAA) {
-        HL = global717d + 1;
+    fprintf(stderr, "Value at address 0x%04x is 0x%02x\n", HL, A);
+    if (A == 0xaa) {
+        fprintf(stderr, "Value at address 0x%04x was 0xaa, so look at ", HL);
+        HL = stored_address + 1;
         A = mem[HL];
+        fprintf(stderr, "0x%04x instead (value 0x%02x)\n", HL, A);
     }
-    previousPush = pushedHL;
     pushedHL = HL;
     HL = 0x7837;
     BC = 0x12;
-
     do {
         HL++;
         BC--;
-    } while (mem[HL-1] != A && BC != 0 && HL != 0);
+    } while (mem[HL - 1] != A && BC != 0 && HL != 0);
 
     HL--;
     if (mem[HL] == A) {
-        HL = 0x7849 + (0x11 - BC) * 2;
-        HL = mem[HL] + mem[HL + 1] * 256;
-        temp = HL;
-        HL = pushedHL;
-        pushedHL = temp;
-        global717d = HL;
+        fprintf(stderr, "Found 0x%02x at address 0x%04x, so ", A, HL);
+        stored_address = pushedHL;
+        uint64_t addr = 0x7849 + (0x11 - BC) * 2;
+        pushedHL = mem[addr] + mem[addr + 1] * 256;
+        fprintf(stderr, "store 0x%04x and jump to 0x%04x\n", HL, pushedHL);
     }
     HL = pushedHL;
-    pushedHL = previousPush;
-
-    BC = pushedBC;
     A = mem[HL];
+    fprintf(stderr, "Read block draw instruction 0x%02x at address 0x%04x\n", A, HL);
 }
 
-int call72b8(void) // Get next character?
+int call72b8(void) // Get next adress?
 {
-    DE = current_screen_address + 1;
-    // DE = 16384, screen adress
-    current_screen_address = DE;
-    // screen adress is increased by 1, next element / byte to the right
-
-    HL = 0x5bc6;
+    current_screen_address++; // byte to the right
+    DE = current_screen_address;
     mem[0x5bc6]--;
     if (mem[0x5bc6] != 0)
         return 0;
-    HL = 0x5bc7;
     mem[0x5bc7]--;
     if (mem[0x5bc7] == 0)
         return 1;
-    mem[0x5bc6] = mem[0x5bc4];
+    mem[0x5bc6] = blockwidth;
     mem[0x5bc3]++;
-    A = mem[0x5bc3];
-    call60c1();
-    A = xpos;
-    HL = A + DE;
-    current_screen_address = HL;
+    HL = 0x5bd0 + mem[0x5bc3] * 2;
+    current_screen_address = xpos + mem[HL] + mem[HL+1] * 256;
     return 0;
 }
 
@@ -558,16 +547,15 @@ int call72b8(void) // Get next character?
 
 void draw_image_block(void)
 {
-    fprintf(stderr, "draw_image_block\n"); // Which number is it?
-    pushedHL = HL;
-    call60c1();
-    current_screen_address = DE + BC;
-    HL = pushedHL + 1; // Address to current draw instruction in "image data"
+    fprintf(stderr, "draw_image_block: A == 0x%02x BC = 0x%04x HL = 0x%04x\n", A, BC, HL); // Which number is it?
+    uint16_t address = 0x5bd0 + A * 2;
+    current_screen_address = mem[address] + mem[address+1] * 256 + BC;
+    HL++; // Address to current draw instruction in "image data"
     uint8_t flip_mode = 0;
     uint8_t remaining = 0;
     do {
         mem[0x5bbe] = 0; // 0x5bbe is reset to 0
-        call7151();
+        call7151(); // Get next draw instruction (at address HL, into A)
         global5bbc = HL;
         if (A >= 128) {
             // Bit 7 set, this is a command byte
@@ -708,11 +696,13 @@ void draw_image_block(void)
 // 72ff
 void draw_attributes(void) { // Draw attributes?
     HL = global5bbc + 1;
-    mem[0x5bc6] = mem[0x5bc4];
+    mem[0x5bc6] = blockwidth;
     DE = attributes_start + ypos * 32 + xpos;
+    fprintf(stderr, "draw_attributes: draw instructions at 0x%04x. x:%d y:%d\n", HL, xpos, ypos);
     do {
         call7151();
-        if (A == 0xFE) {
+        if (A == 0xfe) {
+            fprintf(stderr, "read 0xfe. Returning\n");
             A = pushedA;
             return;
         }
@@ -722,17 +712,16 @@ void draw_attributes(void) { // Draw attributes?
         }
     jump7336:
         mem[DE] = A;
-        //    fprintf(stderr, "Attribute address %x set to %x\n", DE, A);
+        fprintf(stderr, "Attribute address 0x%04x set to 0x%02x\n", DE, A);
         mem[0x5bcb] = A;
         DE++;
         mem[0x5bc6]--;
         if (mem[0x5bc6] == 0) {
-            mem[0x5bc6] = mem[0x5bc4];
+            mem[0x5bc6] = blockwidth;
             DE += 0x20 - mem[0x5bc6];
         }
 
-        if (mem[0x5bc0] != 0)
-        {
+        if (mem[0x5bc0] != 0) {
             mem[0x5bc0]--;
             A = mem[0x5bcb];
             goto jump7336;
@@ -787,7 +776,7 @@ jump7031: // Count 0xFFs until we are at the right place
 jump703a:
     A = mem[IX];
     fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, A);
-//    draw_spectrum_screen_from_mem();
+    draw_spectrum_screen_from_mem();
     A++; //0xff, stop drawing
     if (A == 0) {
         fprintf(stderr, "End of picture\n");
@@ -882,7 +871,7 @@ jump7067:
             fprintf(stderr, "%x: Crash\n", mem[IX]);
             glk_exit();
         case 0xe9:
-            fprintf(stderr, "0xe9: (77ac) swap colour %d to colour %d?\n", mem[IX+1], mem[IX+2]);
+            fprintf(stderr, "0xe9: (77ac) swap attribute %d with attribute %d\n", mem[IX+1], mem[IX+2]);
             goto jump77ac;
             break;
         case 0xe8:
@@ -890,15 +879,13 @@ jump7067:
             goto jump75ae;
             break;
         default:
-            BC = (BC & 0xff) + A * 256;
 jump70b7:  //Default: Draw picture arg at x, y
             fprintf(stderr, "Default: Draw picture %d at %d,%d\n", mem[IX], mem[IX+1], mem[IX+2]);
             mem[0x70e8] = 0;
-            A = (BC >> 8);
             call7368();
             IX++;
-            xpos = mem[IX]; //xpos = mem[IX]
-            BC = (BC & 0xff00) + mem[IX];
+            BC = mem[IX];
+            xpos = BC;
             IX++;
             A = mem[IX];
             ypos = A; //ypos = A
@@ -1001,8 +988,7 @@ jump75ae:
     goto jump703a;
 jump763b:
     call7612(0);
-    DE = 5;
-    IX++;
+    IX = IX + 5;
     goto jump703a;
 jump7646:
     A = 0x0c;
@@ -1015,7 +1001,6 @@ jump7646:
     goto jump703a;
 jump777d:
     call7736(0);
-    DE = 5;
     IX = IX + 5;
     goto jump703a;
 jump7788:
@@ -1127,43 +1112,24 @@ static void replace_colour(uint8_t before, uint8_t after) {
 }
 
 void call7368(void) {
-    uint8_t B;
-    if (mem[0x7365] != A)
-        goto jump7376;
-    HL = mem[0x7366] + mem[0x7367] * 256;
-    BC = A;
-    goto jump738c;
-jump7376:
-    HL = 0xca33;
-    BC = A + A * 256;
-    mem[0x7365] = A;
-    if (A == 0)
-        goto jump738c;
-jump7381:
-    HL++;
-    A = mem[HL];
-    if (A == 0xfe)
-        goto jump7389;
-    goto jump7381;
-jump7389:
-    B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump7381;
-    HL++;
-jump738c:
-    mem[0x7366] = HL & 0xff;
-    mem[0x7367] = HL >> 8;
-    A = mem[HL];
-    pushedA = A;
-    A = ((A & 0xf0) >> 4) + 1;
-    mem[0x5bc4] = A;
-    mem[0x5bc6] = A;
-    A = pushedA;
-    A = (A & 0x0f) + 1;
-    mem[0x5bc5] = A;
-    mem[0x5bc7] = A;
+    if (lastimgblock != A) { // If last image block wasn't A (current image block number)
+        HL = 0xca33;
+        lastimgblock = A;
+        if (A != 0) {
+            for (int i = 0; i < A; i++) { // Skip A 0xfe until HL is the address of current image block
+                do {
+                    HL++;
+                } while (mem[HL] != 0xfe);
+            }
+            HL++;
+        }
+    } else {
+        HL = lastblockaddr;
+    }
+    lastblockaddr = HL;
+    blockwidth = ((mem[HL] & 0xf0) >> 4) + 1; // (0x5bc4) = width
+    mem[0x5bc6] = blockwidth;
+    mem[0x5bc7] =  (mem[HL] & 0x0f) + 1; // (0x5bc5) = height
 }
 
 void call74eb(int skip) {
@@ -1225,7 +1191,7 @@ void call22aa(void) { // THE 'PIXEL ADDRESS' SUBROUTINE
 }
 
 void call6fd0(void) {
-    HL = 0x5800;
+    HL = 0x5800; // Attributes memory
     DE = 0x5801;
     BC = 0x17f;
     mem[HL] = 0;
@@ -1233,8 +1199,8 @@ void call6fd0(void) {
         mem[DE++] = mem[HL++];
         BC--;
     } while (BC != 0);
-    HL = 0x5800;
-    DE = 0x6e50;
+    HL = 0x5800; // Attributes memory
+    DE = 0x6e50; // Attributes buffer
     BC = 0x180;
     do{
         mem[DE++] = mem[HL++];
@@ -1312,7 +1278,7 @@ void call7736(int skip) {
 void call77e4(void) {
     BC = 0x180;
     pushedIX = IX;
-    IX = 0x6e50;
+    IX = 0x6e50; // Attributes buffer
     HL = (HL & 0xff00) + A;
 jump77ee:
     A = mem[IX];
@@ -1335,79 +1301,60 @@ jump77fe:
 }
 
 void call77d6(void) {
-    A = BC & 0xff;
-    A = A & 0x07;
+    A = (BC & 0xff) & 0x07;
     carry = rotate_left_with_carry(&A, 0);
     carry = rotate_left_with_carry(&A, carry);
     carry = rotate_left_with_carry(&A, carry);
     A = A & 0x78;
     BC = (BC & 0xff) + A * 256;
-    A = BC & 0xff;
-    A = A & 0x40;
-    A = A | (BC >> 8);
+    A = ((BC & 0xff) & 0x40) | (BC >> 8);
 }
 
 void call755e(void) {
-    HL = BC >> 8;
-    HL += HL;
-    HL += HL;
-    HL += HL;
-    HL += HL;
-    HL += HL;
-    DE = 0x6e50;
-    HL = HL + DE;
+    DE = 0x6e50; // Attributes buffer
+    HL = (BC >> 8) * 32 + DE;
     BC = BC & 0xff;
     HL = HL + BC;
 }
 
 void call73f2(void) {
+    carry = 0;
     uint16_t oldPushedBC;
     uint16_t myPushedHL;
     uint16_t myPushedDE;
     uint16_t myPushedBC;
 jump73f2:
     oldPushedBC = BC;
-    call75a1();
-    myPushedHL = HL;
-    DE = mem[0x73f8] + mem[0x73f9] * 256;
-    BC = (BC & 0xff) + 0x08 * 256;
-    HL = HL + DE;
-    HL--;
-    DE = myPushedHL;
-jump73ff:
-    myPushedHL = HL;
-    myPushedDE = DE;
-    myPushedBC = BC;
-    BC = (BC & 0xff) + mem[0x7403] * 256;
-jump7404:
-    A = mem[DE];
-    BC = (BC & 0xff00) + 0x80;
-    uint8_t C = BC & 0xff;
-jump7407:
-    carry = rotate_left_with_carry(&A, carry);
-    C = BC & 0xff;
-    carry = rotate_right_with_carry(&C, carry);
-    BC = (BC & 0xff00) + C;
-    if (!carry)
-        goto jump7407;
-    mem[HL] = BC & 0xff;
-    DE++;
-    HL--;
-    uint8_t B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump7404;
-    BC = myPushedBC;
-    DE = myPushedDE;
-    HL = myPushedHL;
-    DE += 256;
-    HL += 256;
-    B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump73ff;
+    uint16_t addr = 0x5bd0 + (BC >> 8) * 2;
+    DE = mem[addr] + mem[addr+1] * 256 + (BC & 0xff);
+    HL = DE + mem[0x73f8] + mem[0x73f9] * 256 - 1;
+    for (int j = 0; j < 8; j++) {
+    jump73ff:
+        myPushedHL = HL;
+        myPushedDE = DE;
+        myPushedBC = BC;
+        for (int i = 0; i < mem[0x7403]; i++) {
+        jump7404:
+            A = mem[DE];
+            uint8_t C = 0x80;
+            BC = (BC & 0xff00) + C;
+        jump7407:
+            carry = rotate_left_with_carry(&A, carry);
+            C = BC & 0xff;
+            carry = rotate_right_with_carry(&C, carry);
+            BC = (BC & 0xff00) + C;
+            if (!carry)
+                goto jump7407;
+            mem[HL] = BC & 0xff;
+            DE++;
+            HL--;
+        }
+        BC = myPushedBC;
+        DE = myPushedDE;
+        HL = myPushedHL;
+        DE += 256;
+        HL += 256;
+    }
     BC = oldPushedBC;
     BC += 256;
     A = mem[0x741c];
@@ -1447,44 +1394,28 @@ jump742e:
 }
 
 void call74ae(void) {
-jump74ae:
-    BC = mem[0x74e7] + mem[0x74e8] * 256;
-    call75a1();
-    uint16_t var = HL;
-    BC = mem[0x74e9] + mem[0x74ea] * 256;
-    call75a1();
-    DE = var;
-    A = HL >> 8;
-    A = A + 7;
-    HL = (HL & 0xff) + A * 256;
-    BC = (BC & 0xff) + 8 * 256;
-    temp = HL;
-    HL = DE;
-    DE = temp;
-jump74c5:
-    pushedBC = BC;
-    pushedDE = DE;
-    pushedHL = HL;
-    BC = mem[0x74c9] + mem[0x74ca] * 256;
     do {
-        mem[DE++] = mem[HL++];
-        BC--;
-    } while (BC != 0);
-    HL = pushedHL;
-    DE = pushedDE;
-    BC = pushedBC;
-    HL = HL + 256;
-    DE -= 256;
-    uint8_t B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump74c5;
-    mem[0x74e8]++;
-    mem[0x74ea]--;
-
-    if (mem[0x74ea] != mem[0x74e3])
-        goto jump74ae;
+        uint16_t addr1 = 0x5bd0 + mem[0x74e8] * 2;
+        HL = mem[addr1] + mem[addr1 + 1] * 256 + mem[0x74e7];
+        uint16_t addr2 = 0x5bd0 + mem[0x74ea] * 2;
+        DE = mem[addr2] + mem[addr2 + 1] * 256 + mem[0x74e9];
+        A = (DE >> 8) + 7;
+        DE = (DE & 0xff) + A * 256;
+        uint16_t dest, source;
+        for (int j = 0; j < 8; j++) {
+            dest = DE;
+            source = HL;
+            for (uint i = mem[0x74c9] + mem[0x74ca] * 256; i != 0; i--) {
+                mem[dest++] = mem[source++];
+            }
+            uint8_t H = (HL >> 8) + 1;
+            HL = (HL & 0xff) + H * 256;
+            uint8_t D = (DE >> 8) - 1;
+            DE = (DE & 0xff) + D * 256;
+        }
+        mem[0x74e8]++;
+        mem[0x74ea]--;
+    } while (mem[0x74ea] != mem[0x74e3]);
 }
 
 void call75a1(void) {
@@ -1589,44 +1520,34 @@ jump76f7:
     A = HL >> 8;
     A += 7;
     HL = (HL & 0xff) + A * 256;
-    BC = (BC & 0xff) + 8 * 256;
     temp = HL;
     HL = DE;
     DE = temp;
-jump770e:
-    myPushedHL = HL;
-    myPushedDE = DE;
-    myPushedBC = BC;
-    BC = (BC & 0xff) + mem[0x7712] * 256;
-jump7713:
-    BC = (BC & 0xff00) + mem[HL];
-    A = mem[DE];
-    temp = HL;
-    HL = DE;
-    DE = temp;
-    mem[HL] = BC & 0xff;
-//    if (mem[HL] != 0)
-//        fprintf(stderr, "mem[%04x] was set to %x\n", HL, mem[HL]);
-    mem[DE] = A;
-//    if (mem[DE] != 0)
-//        fprintf(stderr, "mem[%04x] was set to %x\n", DE, mem[DE]);
-    DE++;
-    HL++;
-    uint8_t B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump7713;
-    BC = myPushedBC;
-    DE = myPushedDE;
-    HL = myPushedHL;
-    HL += 256;
-    DE -= 256;
-    B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump770e;
+    for (uint8_t j = 0; j < 8; j++) {
+        myPushedHL = HL;
+        myPushedDE = DE;
+        myPushedBC = BC;
+        for (uint8_t i = 0; i < mem[0x7712]; i++) {
+            BC = (BC & 0xff00) + mem[HL];
+            A = mem[DE];
+            temp = HL;
+            HL = DE;
+            DE = temp;
+            mem[HL] = BC & 0xff;
+            //    if (mem[HL] != 0)
+            //        fprintf(stderr, "mem[%04x] was set to %x\n", HL, mem[HL]);
+            mem[DE] = A;
+            //    if (mem[DE] != 0)
+            //        fprintf(stderr, "mem[%04x] was set to %x\n", DE, mem[DE]);
+            DE++;
+            HL++;
+        }
+        BC = myPushedBC;
+        DE = myPushedDE;
+        HL = myPushedHL;
+        HL += 256;
+        DE -= 256;
+    }
     mem[0x74e8]++;
     mem[0x74ea]--;
     if (mem[0x74ea] != mem[0x7732])
