@@ -277,11 +277,11 @@ void DisplayInit(void)
 {
     LoadMemory();
     SagaSetup(0);
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+//    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
 //    OpenTopWindow();
     OpenGraphicsWindow();
     glk_window_clear(Graphics);
-    for (int i = 10; i < 100; i++) {
+    for (int i = 45; i < 100; i++) {
         mem[0x5d5c] = i;
         fprintf(stderr, "Room image: %d\n", i);
         DrawTaylorRoomImage(0);
@@ -731,7 +731,7 @@ void draw_attributes(void) { // Draw attributes?
 }
 
 static void replace_colour(uint8_t before, uint8_t after);
-void call743c(int skip);
+void call743c(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
 void call7368(void);
 void call74eb(int skip);
 void call6fd0(void);
@@ -741,8 +741,8 @@ static void replace(uint8_t before, uint8_t attr1, uint8_t attr2);
 static uint8_t ink2paper(uint8_t ink);
 static void replace_attr(void);
 void call755e(void);
-void call73f2(void);
-void call7421(void);
+void call73f2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+//void mirror_attributes(void);
 void call74ae(void);
 void call75a1(void);
 void call7485(void);
@@ -853,6 +853,7 @@ jump7067:
             break;
         case 0xf1:
             fprintf(stderr, "0xf1: goto 7532 arg1: %d arg2: %d arg3:%d arg4:%d\n", mem[IX+1], mem[IX+2], mem[IX+3], mem[IX+4]);
+//            mirror_area_vertically();
             goto jump7532;
             break;
         case 0xee:
@@ -864,7 +865,7 @@ jump7067:
             goto jump7788;
             break;
         case 0xec:
-            fprintf(stderr, "0xec: goto 777d Unknown opcode\n");
+            fprintf(stderr, "0xec: goto 777d Flip area vertically?\n");
             goto jump777d;
             break;
         case 0xeb:
@@ -880,9 +881,12 @@ jump7067:
             goto jump75ae;
             break;
         default:
+            BC = BC & 0xff + A * 256;
+            A = 0;
 jump70b7:  //Default: Draw picture arg at x, y
             fprintf(stderr, "Default: Draw picture %d at %d,%d\n", mem[IX], mem[IX+1], mem[IX+2]);
-            mem[0x70e8] = 0;
+            mem[0x70e8] = A;
+            A = BC >> 8;
             call7368();
             IX++;
             BC = mem[IX];
@@ -929,16 +933,15 @@ jump73e7:
         goto jump73e7;
     goto jump703a;
 jump7465:
-    call743c(0);
+    call743c(mem[IX + 2], mem[IX + 1], mem[IX + 4], mem[IX + 3]);
     IX = IX + 5;
     goto jump703a;
 jump7470:
-    A = 0x0c;
-    mem[0x741c] = A;
-    mem[0x7437] = A;
-    A = 0x20;
-    BC = 0;
-    call743c(1);
+//    mem[0x741c] = 0x0c;
+//    mem[0x7437] = 0x0c;
+//    A = 0x20;
+//    BC = 0;
+    call743c(0, 0, 0x20, 0x0c);
     IX++;
     goto jump703a;
 jump7532:
@@ -1054,23 +1057,70 @@ jump7826:
     goto jump703a;
 }
 
-void call743c(int skip) {
-    if (!skip) {
-        A = mem[IX + 3];
-        mem[0x741c] = A;
-        mem[0x7437] = A;
-        A = mem[IX + 4];
-        BC = mem[IX + 2] + mem[IX + 1] * 256;
-    }
-    mem[0x73f8] = A;
-    mem[0x7426] = A;
-    A = A >> 1;
-    mem[0x7403] = A;
-    mem[0x742d] = A;
-    uint16_t oldPushedBC = BC;
-    call73f2();
-    BC = oldPushedBC;
-    call7421();
+//void call743c(int skip) {
+//    if (!skip) {
+//        BC = mem[IX + 2] + mem[IX + 1] * 256;
+//        mem[0x741c] = mem[IX + 3];
+//        mem[0x7437] = mem[0x741c];
+//        A = mem[IX + 4];
+//    }
+//    mem[0x73f8] = A;
+//    mem[0x7426] = A;
+//    A = A >> 1;
+//    mem[0x7403] = A;
+//    mem[0x742d] = A;
+//    uint16_t oldPushedBC = BC;
+//    call73f2();
+//    BC = oldPushedBC;
+//    mirror_attributes();
+//}
+
+// 7421
+void mirror_attributes(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+    do {
+        HL = y1 * 32 + 0x6e50; // Attributes buffer
+        HL = HL + x1;
+        DE = HL;
+        HL += x2 - 1;
+        for (int i = 0; i < x2 / 2; i++) {
+            mem[HL--] = mem[DE++];
+        }
+        y1++;
+    } while (y2 != y1);
+}
+
+void call73f2(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+    uint16_t myPushedHL;
+    uint16_t myPushedDE;
+    carry = 0;
+    do {
+        uint16_t addr = 0x5bd0 + y1 * 2;
+        DE = mem[addr] + mem[addr+1] * 256 + x1;
+        HL = DE + x2 - 1;
+        for (int j = 0; j < 8; j++) {
+            myPushedHL = HL;
+            myPushedDE = DE;
+            for (int i = 0; i < x2 / 2; i++) {
+                A = mem[DE];
+                uint8_t C = 0x80;
+                do {
+                    carry = rotate_left_with_carry(&A, carry);
+                    carry = rotate_right_with_carry(&C, carry);
+                } while (!carry);
+                mem[HL] = C;
+                DE++;
+                HL--;
+            }
+            DE = myPushedDE + 256;
+            HL = myPushedHL + 256;
+        }
+        y1++;
+    } while (y1 != y2);
+}
+
+void call743c(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+    call73f2(x1, y1, x2, y2);
+    mirror_attributes(x1, y1, x2, y2);
 }
 
 
@@ -1231,17 +1281,16 @@ void call7612(int skip) {
 void call7736(int skip) {
     if (!skip) {
         A = mem[IX + 1];
-        mem[0x74e7] = A;
-        mem[0x74e9] = A;
+        mem[0x74e7] = A; // y1
+        mem[0x74e9] = A; // y1
         A = mem[IX + 2];
-        mem[0x74e8] = A;
+        mem[0x74e8] = A; // x1
         A = mem[IX + 3];
-        mem[0x74ea] = A;
+        mem[0x74ea] = A; // y2
         A = mem[IX + 4];
-        mem[0x76da] = A;
-        mem[0x7712] = A;
-        A = mem[IX + 3];
-        A = A + mem[IX + 2];
+        mem[0x76da] = A; // width
+        mem[0x7712] = A; // width
+        A = mem[IX + 3] + mem[IX + 2]; // A = (x1 + width) / 2
         carry = rotate_right_with_carry(&A, 0);
     }
     mem[0x76f3] = A;
@@ -1300,81 +1349,21 @@ void call755e(void) {
     HL = HL + BC;
 }
 
-void call73f2(void) {
-    carry = 0;
-    uint16_t oldPushedBC;
-    uint16_t myPushedHL;
-    uint16_t myPushedDE;
-    uint16_t myPushedBC;
-jump73f2:
-    oldPushedBC = BC;
-    uint16_t addr = 0x5bd0 + (BC >> 8) * 2;
-    DE = mem[addr] + mem[addr+1] * 256 + (BC & 0xff);
-    HL = DE + mem[0x73f8] + mem[0x73f9] * 256 - 1;
-    for (int j = 0; j < 8; j++) {
-    jump73ff:
-        myPushedHL = HL;
-        myPushedDE = DE;
-        myPushedBC = BC;
-        for (int i = 0; i < mem[0x7403]; i++) {
-        jump7404:
-            A = mem[DE];
-            uint8_t C = 0x80;
-            BC = (BC & 0xff00) + C;
-        jump7407:
-            carry = rotate_left_with_carry(&A, carry);
-            C = BC & 0xff;
-            carry = rotate_right_with_carry(&C, carry);
-            BC = (BC & 0xff00) + C;
-            if (!carry)
-                goto jump7407;
-            mem[HL] = BC & 0xff;
-            DE++;
-            HL--;
-        }
-        BC = myPushedBC;
-        DE = myPushedDE;
-        HL = myPushedHL;
-        DE += 256;
-        HL += 256;
-    }
-    BC = oldPushedBC;
-    BC += 256;
-    A = mem[0x741c];
-    if ((BC >> 8) != A)
-        goto jump73f2;
-}
 
-void call7421(void) {
-    uint16_t myPushedBC;
-    uint16_t myPushedHL;
-jump7421:
-    myPushedBC = BC;
-    call755e();
-    DE = mem[0x7426] + mem[0x7427] * 256;
-    myPushedHL = HL;
-    HL += DE;
-    HL--;
-    DE = myPushedHL;
-    BC = (BC & 0xff) + mem[0x742d] * 256;
-jump742e:
-    A = mem[DE];
-    mem[HL] = A;
-    DE++;
-    HL--;
-    uint8_t B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump742e;
-    BC = myPushedBC;
-    B = BC >> 8;
-    B++;
-    BC = (BC & 0xff) + B * 256;
-    A = mem[0x7437];
-    if (A != B)
-        goto jump7421;
-}
+
+
+//void mirror_attributes(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+//    do {
+//        HL = (BC >> 8) * 32 + 0x6e50; // Attributes buffer
+//        HL = HL + (BC & 0xff);
+//        DE = HL;
+//        HL += mem[0x7426] + mem[0x7427] * 256 - 1;
+//        for (int i = 0; i < mem[0x742d]; i++) {
+//            mem[HL--] = mem[DE++];
+//        }
+//        BC += 256;
+//    } while (mem[0x7437] != BC >> 8);
+//}
 
 void call74ae(void) {
     do {
@@ -1491,50 +1480,36 @@ jump75c8:
 
 void call76f7(void) {
     uint16_t myPushedDE;
-    uint16_t myPushedBC;
     uint16_t myPushedHL;
-jump76f7:
-    BC = mem[0x74e7] + mem[0x74e8] * 256;
-    call75a1();
-    myPushedHL = HL;
-    BC = mem[0x74e9] + mem[0x74ea] * 256;
-    call75a1();
-    DE = myPushedHL;
-    A = HL >> 8;
-    A += 7;
-    HL = (HL & 0xff) + A * 256;
-    temp = HL;
-    HL = DE;
-    DE = temp;
-    for (uint8_t j = 0; j < 8; j++) {
+    do {
+        HL = 0x5bd0 + mem[0x74e8] * 2;
+        HL = mem[HL] + mem[HL+1] * 256 + mem[0x74e7];
         myPushedHL = HL;
-        myPushedDE = DE;
-        myPushedBC = BC;
-        for (uint8_t i = 0; i < mem[0x7712]; i++) {
-            BC = (BC & 0xff00) + mem[HL];
-            A = mem[DE];
-            temp = HL;
-            HL = DE;
-            DE = temp;
-            mem[HL] = BC & 0xff;
-            //    if (mem[HL] != 0)
-            //        fprintf(stderr, "mem[%04x] was set to %x\n", HL, mem[HL]);
-            mem[DE] = A;
-            //    if (mem[DE] != 0)
-            //        fprintf(stderr, "mem[%04x] was set to %x\n", DE, mem[DE]);
-            DE++;
-            HL++;
-        }
-        BC = myPushedBC;
-        DE = myPushedDE;
+        HL = 0x5bd0 + mem[0x74ea] * 2;
+        HL = mem[HL] + mem[HL+1] * 256 + mem[0x74e9];
+        A = 7 + (HL >> 8);
+        DE = (HL & 0xff) + A * 256;
         HL = myPushedHL;
-        HL += 256;
-        DE -= 256;
-    }
-    mem[0x74e8]++;
-    mem[0x74ea]--;
-    if (mem[0x74ea] != mem[0x7732])
-        goto jump76f7;
+        for (uint8_t j = 0; j < 8; j++) {
+            myPushedHL = HL;
+            myPushedDE = DE;
+            for (uint8_t i = 0; i < mem[0x7712]; i++) {
+                uint8_t C = mem[HL];
+                A = mem[DE];
+                temp = HL;
+                HL = DE;
+                DE = temp;
+                mem[HL++] = C;
+                mem[DE++] = A;
+            }
+            DE = myPushedDE;
+            HL = myPushedHL;
+            HL += 256;
+            DE -= 256;
+        }
+        mem[0x74e8]++;
+        mem[0x74ea]--;
+    } while (mem[0x74ea] != mem[0x7732]);
 }
 
 void call75e9(void) {
@@ -1585,35 +1560,23 @@ jump760a:
 }
 
 void call76c9(void) {
-    uint16_t myPushedHL;
-jump76c9:
-    BC = mem[0x74e7] + mem[0x74e8] * 256;
-    call755e();
-    myPushedHL = HL;
-    BC = mem[0x74e9] + mem[0x74ea] * 256;
-    call755e();
-    DE = myPushedHL;
-    BC = BC & 0xff + mem[0x76da] * 256;
-jump76db:
-    A = mem[DE];
-    uint8_t C = mem[HL];
-    BC = (BC & 0xff00) + C;
-    temp = HL;
-    HL = DE;
-    DE = temp;
-    mem[HL] = C;
-    mem[DE] = A;
-    HL++;
-    DE++;
-    uint8_t B = BC >> 8;
-    B--;
-    BC = (BC & 0xff) + B * 256;
-    if (B != 0)
-        goto jump76db;
-    mem[0x74e8]++;
-    mem[0x74ea]--;
-    if (mem[0x74ea] != mem[0x76f3])
-        goto jump76c9;
+    do {
+        DE = 0x6e50 + mem[0x74e8] * 32 + mem[0x74e7];
+        HL = 0x6e50 + mem[0x74ea] * 32 + mem[0x74e9];
+        for (int i = 0; i < mem[0x76da]; i++) {
+            A = mem[DE];
+            uint8_t C = mem[HL];
+            temp = HL;
+            HL = DE;
+            DE = temp;
+            mem[HL] = C;
+            mem[DE] = A;
+            HL++;
+            DE++;
+        }
+        mem[0x74e8]++;
+        mem[0x74ea]--;
+    } while (mem[0x74ea] != mem[0x76f3]);
 }
 
 /*

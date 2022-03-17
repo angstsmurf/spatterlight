@@ -709,18 +709,6 @@ fprintf (stderr, "height of image %d: %d\n", picture_number, img->height);
     }
 
     taylor_image_data = &FileImage[Game->start_of_image_instructions];
-
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
-    OpenGraphicsWindow();
-    glk_window_clear(Graphics);
-    for (int i = 3; i < 100; i++) {
-        bzero(buffer, 384 * 9);
-        fprintf(stderr, "Room image %d\n", i);
-        MyLoc = i;
-        draw_taylor(i);
-        DrawSagaPictureFromBuffer();
-        HitEnter();
-    }
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
@@ -777,28 +765,18 @@ void debugdraw(int on, int character, int xoff, int yoff, int width)
 
 #pragma mark Taylorimage
 
-void mirror_left_half(void)
+void mirror_area(int x1, int y1, int width, int y2)
 {
-    for (int line = 0; line < 12; line++) {
-        for (int col = 32; col > 16; col--) {
-            buffer[line * 32 + col - 1][8] = buffer[line * 32 + (32 - col)][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                buffer[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            Flip(buffer[line * 32 + col - 1]);
-        }
-    }
-}
-
-void mirror_area(int x1, int y1,int x2, int y2)
-{
-    fprintf(stderr, "mirror_area x1:%d y1:%d x2:%d y2:%d\n", x1, y1, x2, y2);
-    int width = x2 - x1 - 5;
     for (int line = y1; line < y2; line++) {
-        for (int col = width; col >= -2 ; col--) {
-            buffer[line * 32 + x2 + width - col][8] = buffer[line * 32 + x1 + col][8];
+        int source = line * 32 + x1;
+        int target = source + width - 1;
+        for (int col = 0; col < width / 2; col++) {
+            buffer[target][8] = buffer[source][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)
-                buffer[line * 32 + x2 + width - col][pixrow] = buffer[line * 32 + x1 + col][pixrow];
-            Flip(buffer[line * 32 + x2 + width - col]);
+                buffer[target][pixrow] = buffer[source][pixrow];
+            Flip(buffer[target]);
+            source++;
+            target--;
         }
     }
 }
@@ -807,12 +785,79 @@ void mirror_top_half(void)
 {
     for (int line = 0; line < 6; line++) {
         for (int col = 0; col < 32; col++) {
-            buffer[line * 32 + col][8] = buffer[(11 - line) * 32 + col][8];
+            buffer[(11 - line) * 32 + col][8] = buffer[line * 32 + col][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)
-                buffer[line * 32 + col][pixrow] = buffer[(11 - line) * 32 + col][7 - pixrow];
+                buffer[(11 - line) * 32 + col][7 - pixrow] = buffer[line * 32 + col][pixrow];
         }
     }
 }
+
+void flip_image_horizontally(void)
+{
+    uint8_t mirror[384][9];
+
+    for (int line = 0; line < 12; line++) {
+        for (int col = 32; col > 0; col--) {
+            for (int pixrow = 0; pixrow < 9; pixrow++)
+                mirror[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
+            Flip(mirror[line * 32 + col - 1]);
+        }
+    }
+
+    memcpy(buffer, mirror, 384 * 9);
+}
+
+void flip_image_vertically(void)
+{
+    uint8_t mirror[384][9];
+
+    for (int line = 0; line < 12; line++) {
+        for (int col = 0; col < 32; col++) {
+            for (int pixrow = 0; pixrow < 8; pixrow++)
+                mirror[(11 - line) * 32 + col][7 - pixrow] = buffer[line * 32 + col][pixrow];
+            mirror[(11 - line) * 32 + col][8] = buffer[line * 32 + col][8];
+        }
+    }
+    memcpy(buffer, mirror, 384 * 9);
+}
+
+void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+
+    uint8_t mirror[384][9];
+
+    for (int line = 0; line <= y2; line++) {
+        for (int col = x1; col < x1 + width; col++) {
+            for (int pixrow = 0; pixrow < 8; pixrow++)
+                mirror[(y2 - line) * 32 + col][7 - pixrow] = buffer[(y1 + line) * 32 + col][pixrow];
+            mirror[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
+        }
+    }
+    for (int line = y1; line <= y2; line++) {
+        for (int col = x1; col < x1 + width; col++) {
+            for (int pixrow = 0; pixrow < 8; pixrow++)
+                buffer[line * 32 + col][pixrow] = mirror[line * 32 + col][pixrow];
+            buffer[line * 32 + col][8] = mirror[line * 32 + col][8];
+        }
+    }
+}
+
+void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+    fprintf(stderr, "mirror_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+    for (int line = 0; line < y2 / 2; line++) {
+        for (int col = x1; col < x1 + width; col++) {
+            buffer[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
+            for (int pixrow = 0; pixrow < 8; pixrow++)
+                buffer[(y2 - line) * 32 + col][7 - pixrow] = buffer[(y1 + line) * 32 + col][pixrow];
+        }
+    }
+}
+
+void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+    fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+}
+
+
 
 void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
@@ -877,50 +922,6 @@ static void replace_paper_and_ink(uint8_t before, uint8_t after) {
     replace(beforepaper, afterpaper, 0x78); // 0111 1000 mask paper and brightness
 }
 
-
-void flip_image_horizontally(void)
-{
-    uint8_t mirror[384][9];
-
-    for (int line = 0; line < 12; line++) {
-        for (int col = 32; col > 0; col--) {
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[line * 32 + col - 1][pixrow] = buffer[line * 32 + (32 - col)][pixrow];
-            Flip(mirror[line * 32 + col - 1]);
-        }
-    }
-
-    memcpy(buffer, mirror, 384 * 9);
-}
-
-void flip_image_vertically(void)
-{
-    uint8_t mirror[384][9];
-
-    for (int line = 0; line < 12; line++) {
-        for (int col = 0; col < 32; col++) {
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[(11 - line) * 32 + col][7 - pixrow] = buffer[line * 32 + col][pixrow];
-            mirror[(11 - line) * 32 + col][8] = buffer[line * 32 + col][8];
-        }
-    }
-    memcpy(buffer, mirror, 384 * 9);
-}
-
-int should_draw_object_images;
-
-void draw_object_image(uint8_t x, uint8_t y)
-{
-    for (int i = 0; i < NumLowObjects; i++) {
-        if (Items[i].Flag != MyLoc)
-            continue;
-        if (ObjectLoc[i] != MyLoc)
-            continue;
-        DrawSagaPictureAtPos(Items[i].Image, x, y);
-        should_draw_object_images = 0;
-    }
-}
-
 void draw_taylor(int loc)
 {
     uint8_t *ptr = taylor_image_data;
@@ -938,7 +939,7 @@ void draw_taylor(int loc)
                 return;
             case 0xfe: // 7470
                 fprintf(stderr, "0xfe mirror_left_half\n");
-                mirror_left_half();
+                mirror_area(0, 0, 32, 12);
                 break;
             case 0xfd: // 7126
                 fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
@@ -969,15 +970,7 @@ void draw_taylor(int loc)
                 fprintf(stderr, "Location of object %d: %d. MyLoc: %d\n", *ptr, ObjectLoc[*ptr], MyLoc);
                 if (ObjectLoc[*ptr] != MyLoc) {
                     return;
-//                    while (*ptr != 0xff && ptr - FileImage < FileImageLen)
-//                        ptr++;
                 }
-                break;
-            case 0xf7: //756e } set A to 0c and call 70b7
-                break;
-            case 0xf6: //7582 } set A to 04 and call 70b7
-                break;
-            case 0xf5: //7578 } set A to 08 and call 70b7
                 break;
             case 0xf4: //758c End if object arg1 is present
                 if (ObjectLoc[*(ptr + 1)] == MyLoc)
@@ -989,25 +982,28 @@ void draw_taylor(int loc)
                 mirror_top_half();
                 break;
             case 0xf2: //7465 arg1 arg2 arg3 arg4
-                fprintf(stderr, "0xf2: Mirror area x: %d y: %d x2:%d y2:%d horizontally?\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
+                fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 mirror_area(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
             case 0xf1: //7532 arg1 arg2 arg3 arg4 Some kind of mirroring
+                mirror_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
             case 0xee: //763b arg1 arg2 arg3 arg4  Some kind of mirroring
+                flip_area_horizontally(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
             case 0xed: //7788
                 fprintf(stderr, "0xed: Flip entire image vertically\n");
                 flip_image_vertically();
                 break;
-            case 0xec: //777d Some kind of mirroring
+            case 0xec: //777d Flip area vertically ?
+                flip_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4), *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xe9: // 77ac arg1 arg2 ..
-                fprintf(stderr, "0xe9: (77ac) swap attribute %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
+            case 0xe9: // 77ac
+                fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
                 replace_paper_and_ink(*(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
@@ -1015,8 +1011,13 @@ void draw_taylor(int loc)
                 fprintf(stderr, "Clear graphics memory\n");
                 bzero(buffer, 384 * 9);
                 break;
+            case 0xf7: //756e } set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
+            case 0xf6: //7582 } set A to 04 and call 70b7. See 0xf7 above.
+            case 0xf5: //7578 } set A to 08 and call 70b7. See 0xf7 above.
+                fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
+                ptr++; // Deliberate fallthrough
             default: // else draw image *ptr at x, y
-                fprintf(stderr, "Default: Draw picture %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
+                fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
                 DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
@@ -1027,21 +1028,6 @@ void draw_taylor(int loc)
     }
 }
 
-//void TaylorRoomImage(void)
-//{
-//    should_draw_object_images = 1;
-//    draw_taylor(MyLoc);
-//    for (int ct = 0; ct <= NumLowObjects; ct++)
-//        if (Items[ct].Image && should_draw_object_images) {
-//            if ((Items[ct].Flag & 127) == MyLoc &&
-//                ObjectLoc[ct] == MyLoc) {
-//                DrawSagaPictureNumber(Items[ct].Image);
-//            }
-//        }
-//    DrawSagaPictureFromBuffer();
-//}
-
-
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                  int xoff, int yoff)
 {
@@ -1050,7 +1036,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     uint8_t data, data2, old = 0;
     int32_t ink[0x22][14], paper[0x22][14];
 
-    uint8_t *origptr = dataptr;
+//    uint8_t *origptr = dataptr;
     int version = Game->picture_format_version;
 
     offset = 0;
