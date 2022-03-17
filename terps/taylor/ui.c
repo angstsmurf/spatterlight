@@ -22,11 +22,12 @@
 #define GLK_GRAPHICS_ROCK 1020
 
 winid_t Bottom, Top, Graphics;
-//static int OutputPos;
-//static int OutLine;
-//static int OutC;
-//static char OutWord[128];
-//static int SavedPos;
+winid_t CurrentWindow;
+static int OutputPos;
+static int OutLine;
+static int OutC;
+static char OutWord[128];
+static int SavedPos;
 
 glui32 Width; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
@@ -77,46 +78,44 @@ void HitEnter(void)
     return;
 }
 
-
+static void WordFlush(winid_t win);
 
 void PrintCharacter(unsigned char c)
 {
-    Display(Bottom, "%c", c);
-//	if(OutC == 0 &&  c ==' ')
-//		return;
-//	if(Window == 1) {
-//		if(isspace(c)) {
-//            WriteChar(Bottom, " ");
-//			return;
-//		}
-//		OutWord[OutC] = c;
-//		OutC++;
-//		if(OutC > 79)
-//			WordFlush(Bottom);
-//		else if(OutC + OutputPos > 78)
-//			Scroll(Bottom);
-//		return;
-//	} else {
-//		if(isspace(c)) {
-//			WordFlush(Top);
-//			WriteChar(Top, ' ');
-//			if(c == '\n') {
-//				OutLine++;
-//				OutputPos = 0;
-//				wmove(Top, OutLine, OutputPos);
-//			}
-//			return;
-//		}
-//		OutWord[OutC] = c;
-//		OutC++;
-//		if(OutC == 78)
-//			WordFlush(Top);
-//		else if(OutC + OutputPos > 78) {
-//			OutLine++;
-//			OutputPos = 0;
-//		}
-//		return;
-//	}
+    if(OutC == 0 &&  c == '\0')
+        return;
+
+	if(CurrentWindow == Bottom) {
+		if(isspace(c)) {
+            Display(Bottom, " ");
+			return;
+		}
+		OutWord[OutC] = c;
+		OutC++;
+		if(OutC > 79)
+			WordFlush(Bottom);
+		return;
+	} else {
+		if(isspace(c)) {
+			WordFlush(Top);
+			Display(Top, " ");
+			if(c == '\n') {
+				OutLine++;
+				OutputPos = 0;
+                glk_window_move_cursor(Top, OutputPos, OutLine);
+			}
+			return;
+		}
+		OutWord[OutC] = c;
+		OutC++;
+		if(OutC == 78)
+			WordFlush(Top);
+		else if(OutC + OutputPos > 78) {
+			OutLine++;
+			OutputPos = 0;
+		}
+		return;
+	}
 }
 
 unsigned char WaitCharacter(void)
@@ -130,7 +129,47 @@ unsigned char WaitCharacter(void)
     return ev.val1;
 }
 
+static void WordFlush(winid_t win)
+{
+    int i;
+    for(i = 0; i < OutC; i++)
+        Display(win, "%c", OutWord[i]);
+    OutC = 0;
+}
+
+void TopWindow(void)
+{
+    WordFlush(Bottom);
+    SavedPos = OutputPos;
+    OutLine = 0;
+    OutputPos = 0;
+    CurrentWindow = Top;
+    glk_window_clear(Top);
+}
+
+void BottomWindow(void)
+{
+    WordFlush(Top);
+    CurrentWindow = Bottom;
+}
+
 void Look(void);
+
+void OpenGraphicsWindow(void);
+void CloseGraphicsWindow(void);
+
+
+void Updates(event_t ev)
+{
+    if (ev.type == evtype_Arrange) {
+//        UpdateSettings();
+
+        CloseGraphicsWindow();
+        OpenGraphicsWindow();
+
+        Look();
+    }
+}
 
 void LineInput(char *buf, int len)
 {
@@ -144,8 +183,7 @@ void LineInput(char *buf, int len)
 
         if(ev.type == evtype_LineInput)
             break;
-        else if(ev.type == evtype_Arrange)
-            Look();
+        else Updates(ev);
     }
 
     buf[ev.val1] = 0;
@@ -170,6 +208,17 @@ const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
     *height = 96 * multiplier;
 
     return multiplier;
+}
+
+void CloseGraphicsWindow(void)
+{
+    if (Graphics == NULL)
+        Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
+    if (Graphics) {
+        glk_window_close(Graphics, NULL);
+        Graphics = NULL;
+        glk_window_get_size(Top, &Width, &TopHeight);
+    }
 }
 
 void OpenGraphicsWindow(void)
@@ -253,7 +302,9 @@ void DisplayInit(void)
 {
     SagaSetup(0);
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    TopHeight = 5;
     OpenTopWindow();
     OpenGraphicsWindow();
     glk_window_clear(Graphics);
+    CurrentWindow = Bottom;
 }

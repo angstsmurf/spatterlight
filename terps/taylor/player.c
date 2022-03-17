@@ -870,12 +870,12 @@ void Look(void) {
 	Redraw = 0;
 	OutReset();
 	OutCaps();
-    CurrentWindow = Top;
-//	TopWindow();
+    TopWindow();
 
 	if(Flag[1]) {
 		Message(TOO_DARK_TO_SEE);
-//		BottomWindow();
+        DrawBlack();
+		BottomWindow();
 		return;
 	}
 	PrintRoom(MyLoc);
@@ -921,8 +921,7 @@ void Look(void) {
 	OutChar('\n');
     glk_window_clear(Graphics);
     DrawRoomImage();
-    CurrentWindow = Bottom;
-//	BottomWindow();
+	BottomWindow();
 }
 
 
@@ -939,6 +938,7 @@ static void Delay(unsigned char seconds) {
 
     do {
         glk_select(&ev);
+        Updates(ev);
     } while (ev.type != evtype_Timer);
 
     glk_request_timer_events(0);

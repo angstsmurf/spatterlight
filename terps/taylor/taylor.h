@@ -151,7 +151,7 @@ struct GameInfo {
 extern unsigned char ObjectLoc[];
 extern unsigned char Flag[];
 
-extern winid_t Bottom, Top, Graphics;
+extern winid_t Bottom, Top, Graphics, CurrentWindow;
 extern int FileBaselineOffset;
 
 extern int NumLowObjects;
@@ -160,6 +160,7 @@ extern struct GameInfo *Game;
 extern Item *Items;
 
 size_t FindCode(const char *x, size_t base, size_t len);
-
+void Updates(event_t ev);
+void DrawBlack(void);
 
 #endif /* taylor_h */
