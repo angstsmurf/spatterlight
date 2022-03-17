@@ -780,7 +780,7 @@ static void Inventory(void)
 	int i;
 	int f = 0;
 	OutCaps();
-	Message(16);	/* ".. are carrying: " */
+	Message(INVENTORY);	/* ".. are carrying: " */
 	for(i = 0; i < NumObjects(); i++) {
 		if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
 			f = 1;
