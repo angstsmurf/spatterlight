@@ -89,6 +89,7 @@ struct GameInfo games[NUMGAMES] = {
         ZXOPT, // palette
         4, // picture_format_version;
     },
+
     {
         "Temple of Terror",
         TEMPLE_OF_TERROR,
@@ -123,9 +124,9 @@ struct GameInfo games[NUMGAMES] = {
         0x28de, // start of directions
 
         0x83cb, // start_of_characters;
-        0x8a46, // start_of_image_data;
-        0, // image_address_offset
-        143, // number_of_pictures;
+        0xca33 - 0x4000, // start_of_image_blocks;
+        0xbb75 - 0x4000, // start of room image instructions
+        143, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     }
@@ -270,6 +271,8 @@ size_t FindCode(const char *x, size_t base, size_t len)
 	}
 	return -1;
 }
+
+//Terror.sna has its flags at 0x21db
 
 static size_t FindFlags(void)
 {
@@ -434,8 +437,6 @@ static void OutString(char *p)
 static unsigned char *TokenText(unsigned char n)
 {
 	unsigned char *p = FileImage + TokenBase;
-
-	p = FileImage + TokenBase;
 
 	while(n > 0) {
 		while((*p & 0x80) == 0)
@@ -917,6 +918,8 @@ void Look(void) {
 	if(f == 1)
 		OutReplace('.');
 	OutChar('\n');
+    glk_window_clear(Graphics);
+    DrawRoomImage();
 //	BottomWindow();
 }
 

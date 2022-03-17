@@ -1,12 +1,14 @@
 #ifndef taylor_h
 #define taylor_h
 
-extern unsigned char WaitCharacter(void);
-extern void LineInput(char *buf, int len);
-extern void DisplayInit(void);
-extern void TopWindow(void);
-extern void BottomWindow(void);
-extern void PrintCharacter(unsigned char c);
+unsigned char WaitCharacter(void);
+void LineInput(char *buf, int len);
+void DisplayInit(void);
+void TopWindow(void);
+void BottomWindow(void);
+void PrintCharacter(unsigned char c);
+void DrawRoomImage(void);
+
 
 #define FOLLOWS 0xffff
 
@@ -138,10 +140,8 @@ struct GameInfo {
     int start_of_directions;
 
     int start_of_characters;
-    int start_of_image_data;
-    int image_address_offset; /* This is the difference between the value given by
-                               the image data lookup table and a usable file
-                               offset */
+    int start_of_image_blocks;
+    int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
     int picture_format_version;
@@ -157,7 +157,6 @@ extern int FileBaselineOffset;
 extern int NumLowObjects;
 
 extern struct GameInfo *Game;
-extern struct GameInfo games[];
 extern Item *Items;
 
 size_t FindCode(const char *x, size_t base, size_t len);

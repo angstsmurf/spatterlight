@@ -22,11 +22,11 @@
 #define GLK_GRAPHICS_ROCK 1020
 
 winid_t Bottom, Top, Graphics;
-static int OutputPos;
-static int OutLine;
-static int OutC;
-static char OutWord[128];
-static int SavedPos;
+//static int OutputPos;
+//static int OutLine;
+//static int OutC;
+//static char OutWord[128];
+//static int SavedPos;
 
 glui32 Width; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
@@ -122,8 +122,8 @@ void PrintCharacter(unsigned char c)
 unsigned char WaitCharacter(void)
 {
     glk_request_char_event(Bottom);
-    
-    event_t ev;    
+
+    event_t ev;
     do {
         glk_select(&ev);
     } while (ev.type != evtype_CharInput);
@@ -244,157 +244,16 @@ void DrawBlack(void)
                          12 * 8 * pixel_size);
 }
 
+void DrawRoomImage(void) {
+    ClearGraphMem();
+    DrawTaylor(MyLoc);
+}
+
 void DisplayInit(void)
 {
+    SagaSetup(0);
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
     OpenGraphicsWindow();
-    SagaSetup(0);
-    for (int i = 0; i < games[1].number_of_pictures; i++) {
-        DrawSagaPictureNumber(i);
-        DrawSagaPictureFromBuffer();
-        fprintf(stderr, "Image %d\n", i);
-        HitEnter();
-    }
+    glk_window_clear(Graphics);
 }
-
-
-//void glk_main(void)
-//{
-//    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
-//    if (Bottom == NULL)
-//        glk_exit();
-//    glk_set_window(Bottom);
-//
-//    if (game_file == NULL)
-//        Fatal("No game provided");
-//
-//    for (int i = 0; i < MAX_SYSMESS; i++) {
-//        sys[i] = sysdict[i];
-//    }
-//
-//    const char **dictpointer;
-//
-//    if (Options & YOUARE)
-//        dictpointer = sysdict;
-//    else
-//        dictpointer = sysdict_i_am;
-//
-//    for (int i = 0; i < MAX_SYSMESS && dictpointer[i] != NULL; i++) {
-//        sys[i] = dictpointer[i];
-//    }
-//
-//    GameIDType game_type = DetectGame(game_file);
-//
-//    if (!game_type)
-//        Fatal("Unsupported game!");
-//
-//    if (game_type != SCOTTFREE && game_type != TI994A) {
-//        Options |= SPECTRUM_STYLE;
-//        split_screen = 1;
-//    } else {
-//        if (game_type != TI994A)
-//            Options |= TRS80_STYLE;
-//        split_screen = 1;
-//    }
-//
-//    if (title_screen != NULL) {
-//        if (split_screen)
-//            PrintTitleScreenGrid();
-//        else
-//            PrintTitleScreenBuffer();
-//    }
-//
-//    if (Options & TRS80_STYLE) {
-//        Width = 80;
-//        TopHeight = 10;
-//    }
-//
-//    OpenTopWindow();
-//
-//    if (game_type == SCOTTFREE || CurrentGame == TI994A)
-//        Output("\
-//Scott Free, A Scott Adams game driver in C.\n\
-//Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
-//Distributed under the GNU software license\n\n");
-//
-//    if (CurrentGame == TI994A) {
-//        Display(Bottom, "In this adventure, you may abbreviate any word \
-//by typing its first %d letters, and directions by typing \
-//one letter.\n\nDo you want to restore previously saved game?\n",
-//                GameHeader.WordLength);
-//        if (YesOrNo())
-//            LoadGame();
-//        ClearScreen();
-//    }
-//
-//#ifdef SPATTERLIGHT
-//    UpdateSettings();
-//    if (gli_determinism)
-//        srand(1234);
-//    else
-//#endif
-//        srand((unsigned int)time(NULL));
-//
-//    initial_state = SaveCurrentState();
-//
-//    while (1) {
-//        glk_tick();
-//
-//        if (should_restart)
-//            RestartGame();
-//
-//        if (!stop_time)
-//            PerformActions(0, 0);
-//        if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
-//            print_look_to_transcript = should_look_in_transcript;
-//            Look();
-//            print_look_to_transcript = should_look_in_transcript = 0;
-//            if (!stop_time && !should_restart)
-//                SaveUndo();
-//        }
-//
-//        if (should_restart)
-//            continue;
-//
-//        if (GetInput(&vb, &no) == 1)
-//            continue;
-//
-//        switch (PerformActions(vb, no)) {
-//            case ER_RAN_ALL_LINES_NO_MATCH:
-//                if (!RecheckForExtraCommand()) {
-//                    Output(sys[I_DONT_UNDERSTAND]);
-//                    FreeCommands();
-//                }
-//                break;
-//            case ER_RAN_ALL_LINES:
-//                Output(sys[YOU_CANT_DO_THAT_YET]);
-//                FreeCommands();
-//                break;
-//            default:
-//                just_started = 0;
-//        }
-//
-//        /* Brian Howarth games seem to use -1 for forever */
-//        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
-//            GameHeader.LightTime--;
-//            if (GameHeader.LightTime < 1) {
-//                BitFlags |= (1 << LIGHTOUTBIT);
-//                if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
-//                    Output(sys[LIGHT_HAS_RUN_OUT]);
-//                }
-//                if ((Options & PREHISTORIC_LAMP) || (GameInfo->subtype & MYSTERIOUS) || CurrentGame == TI994A)
-//                    Items[LIGHT_SOURCE].Location = DESTROYED;
-//            } else if (GameHeader.LightTime < 25) {
-//                if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
-//                    if ((Options & SCOTTLIGHT) || (GameInfo->subtype & MYSTERIOUS)) {
-//                        Display(Bottom, "%s %d %s\n",sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
-//                    } else {
-//                        if (GameHeader.LightTime % 5 == 0)
-//                            Output(sys[LIGHT_GROWING_DIM]);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
