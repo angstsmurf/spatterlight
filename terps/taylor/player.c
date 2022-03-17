@@ -688,7 +688,7 @@ static void RamLoad(void)
 {
 	memcpy(Flag, RamFlag, 128);
 	memcpy(ObjectLoc, RamObject, 256);
-	Message(19);
+	Message(OK);
 }
 
 static void RamSave(int game)
@@ -696,7 +696,7 @@ static void RamSave(int game)
 	memcpy(RamFlag,  Flag, 128);
 	memcpy(RamObject, ObjectLoc, 256);
 	if(game)
-		Message(19);
+		Message(OK);
 }
 
 static void Oops(void)
@@ -718,7 +718,7 @@ static void LoadGame(void)
 	char name[32];
 	FILE *f;
 	OutCaps();
-	Message(26);
+	Message(RESUME_A_SAVED_GAME);
 	OutFlush();
 
 	do {
@@ -755,7 +755,7 @@ static void QuitGame(void)
 {
 	char c;
 	OutCaps();
-	Message(18);
+	Message(PLAY_AGAIN);
 	OutChar(' ');
 	OutFlush();
 	do {
@@ -786,11 +786,11 @@ static void Inventory(void)
 			f = 1;
 			PrintObject(i);
 			if(ObjectLoc[i] == Worn())
-				Message(30);
+				Message(WORN);
 		}
 	}
 	if(f == 0)
-		Message(17); /* "nothing at all" */
+		Message(NOTHING); /* "nothing at all" */
 	else {
 		if(GameVersion == 0) {
 			OutKillSpace();
@@ -802,7 +802,7 @@ static void Inventory(void)
 }
 
 static void  AnyKey(void) {
-	Message(20);
+	Message(HIT_ENTER);
 	OutFlush();
 	WaitCharacter();
 }
@@ -833,15 +833,15 @@ static void DropAll(void) {
 
 static void GetObject(unsigned char obj) {
 	if(ObjectLoc[obj] == Carried() || ObjectLoc[obj] == Worn()) {
-		Message(21);
+		Message(YOU_HAVE_IT);
 		return;
 	}
 	if(ObjectLoc[obj] != MyLoc) {
-		Message(22);
+		Message(YOU_DONT_SEE_IT);
 		return;
 	}
 	if(CarryItem() == 0) {
-		Message(15);
+		Message(YOURE_CARRYING_TOO_MUCH);
 		return;
 	}
 	Put(obj, Carried());
@@ -850,11 +850,11 @@ static void GetObject(unsigned char obj) {
 static void DropObject(unsigned char obj) {
 	/* FIXME: check if this is how the real game behaves */
 	if(ObjectLoc[obj] == Worn()) {
-		Message(29);
+		Message(YOU_ARE_WEARING_IT);
 		return;
 	}
 	if(ObjectLoc[obj] != Carried()) {
-		Message(23);
+		Message(YOU_HAVENT_GOT_IT);
 		return;
 	}
 	DropItem();
@@ -870,10 +870,11 @@ void Look(void) {
 	Redraw = 0;
 	OutReset();
 	OutCaps();
+    CurrentWindow = Top;
 //	TopWindow();
 
 	if(Flag[1]) {
-		Message(25);
+		Message(TOO_DARK_TO_SEE);
 //		BottomWindow();
 		return;
 	}
@@ -891,7 +892,7 @@ void Look(void) {
 	p++;
 	while(*p < 0x80) {
 		if(f == 0)
-			Message(13);
+			Message(EXITS);
 		f = 1;
 		OutCaps();
 		Message(*p);
@@ -907,7 +908,7 @@ void Look(void) {
 	for(; i < NumObjects(); i++) {
 		if(ObjectLoc[i] == MyLoc) {
 			if(f == 0) {
-				Message(0);
+				Message(YOU_SEE);
 				if( GameVersion == 0)
 					OutReplace(0);
 			}
@@ -920,6 +921,7 @@ void Look(void) {
 	OutChar('\n');
     glk_window_clear(Graphics);
     DrawRoomImage();
+    CurrentWindow = Bottom;
 //	BottomWindow();
 }
 
@@ -944,11 +946,11 @@ static void Delay(unsigned char seconds) {
 
 static void Wear(unsigned char obj) {
 	if(ObjectLoc[obj] == Worn()) {
-		Message(29);
+		Message(YOU_ARE_WEARING_IT);
 		return;
 	}
 	if(ObjectLoc[obj] != Carried()) {
-		Message(23);
+		Message(YOU_HAVENT_GOT_IT);
 		return;
 	}
 	DropItem();
@@ -957,11 +959,11 @@ static void Wear(unsigned char obj) {
 
 static void Remove(unsigned char obj) {
 	if(ObjectLoc[obj] != Worn()) {
-		Message(28);
+		Message(YOU_ARE_NOT_WEARING_IT);
 		return;
 	}
 	if(CarryItem() == 0) {
-		Message(15);
+		Message(YOURE_CARRYING_TOO_MUCH);
 		return;
 	}
 	Put(obj, Carried());
@@ -1167,7 +1169,7 @@ static void ExecuteLineCode(unsigned char *p)
 				break;
 			case 8:
 				/* Guess */
-				Message(8);
+				Message(OK);
 				break;
 			case 9:
 				GetObject(arg1);
@@ -1384,7 +1386,7 @@ static void RunOneInput(void)
 {
 	if(Word[0] == 0 && Word[1] == 0) {
 		OutCaps();
-		Message(11);
+		Message(I_DONT_UNDERSTAND);
 		return;
 	}
 	if(Word[0] < 11) {
@@ -1400,9 +1402,9 @@ static void RunOneInput(void)
 
 	if(ActionsExecuted == 0) {
 		if(Word[0] < 11)
-			Message(24);
+			Message(YOU_CANT_GO_THAT_WAY);
 		else
-			Message(12);
+			Message(THATS_BEYOND_MY_POWER);
 		return;
 	}
 	if(Redraw)
@@ -1451,7 +1453,7 @@ static void  SimpleParser(void)
 	OutChar('\n');
 	if(GameVersion > 0) {
 		OutCaps();
-		Message(14);
+		Message(WHAT_NOW);
 	}
 	else
 		OutString("> ");
