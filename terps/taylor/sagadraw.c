@@ -814,31 +814,6 @@ void mirror_top_half(void)
     }
 }
 
-void replace_colour(uint8_t before, uint8_t after)
-{
-
-    // I don't think any of the data has bit 7 set,
-    // so masking it is probably unnecessary, but this is what
-    // the original code does.
-    uint8_t beforeink = before & 7;
-    uint8_t afterink = after & 7;
-    uint8_t inkmask = 0x07;
-
-    uint8_t beforepaper = beforeink << 3;
-    uint8_t afterpaper = afterink << 3;
-    uint8_t papermask = 0x38;
-
-    for (int j = 0; j < 384; j++) {
-        if ((buffer[j][8] & inkmask) == beforeink) {
-            buffer[j][8] = (buffer[j][8] & ~inkmask) | afterink;
-        }
-
-        if ((buffer[j][8] & papermask) == beforepaper) {
-            buffer[j][8] = (buffer[j][8] & ~papermask) | afterpaper;
-        }
-    }
-}
-
 void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     for (int h = 0; h < height; h++) {
@@ -856,65 +831,50 @@ void make_light(void)
 }
 
 
-//IX++;
-//A = mem[IX];
-//A = A & 0x47;
-//IX++;
-//DE = 0x47 + mem[IX] * 256;
-//call77e4();
-//BC = (BC & 0xff00) + mem[IX - 1];
-//call77d6();
-//uint8_t myPushedA = A;
-//BC = (BC & 0xff00) + mem[IX];
-//call77d6();
-//DE = (DE & 0xff) + A * 256;
-//A = myPushedA;
-//DE = (DE & 0xff00) + 0x78;
-//call77e4();
-//IX++;
+void replace_colour(uint8_t before, uint8_t after)
+{
+    uint8_t beforeink = before & 7;
+    uint8_t afterink = after & 7;
+    uint8_t inkmask = 0x07; // 0000 0111
 
-void call77e4(void) {
-    BC = 0x180;
-    pushedIX = IX;
-    IX = 0x6e50; // Attributes buffer
-    HL = (HL & 0xff00) + A;
-jump77ee:
-    A = mem[IX];
-    A = A & (DE & 0xff);
-    if (A != (HL & 0xff))
-        goto jump77fe;
-    A = mem[IX];
-    A = A | (DE & 0xff);
-    A = A ^ (DE & 0xff);
-    A = A | (DE >> 8);
-    mem[IX] = A;
-jump77fe:
-    IX++;
-    BC--;
-    A = BC >> 8;
-    A = A | (BC & 0xff);
-    if (A != 0)
-        goto jump77ee;
-    IX = pushedIX;
-}
+    uint8_t beforepaper = beforeink << 3;
+    uint8_t afterpaper = afterink << 3;
+    uint8_t papermask = 0x38; // 0011 1000
 
-void call77d6(void) {
-    A = (BC & 0xff) & 0x07;
-    carry = rotate_left_with_carry(&A, 0);
-    carry = rotate_left_with_carry(&A, carry);
-    carry = rotate_left_with_carry(&A, carry);
-    A = A & 0x78;
-    BC = (BC & 0xff) + A * 256;
-    A = ((BC & 0xff) & 0x40) | (BC >> 8);
-}
+    for (int j = 0; j < 384; j++) {
+        if ((buffer[j][8] & inkmask) == beforeink) {
+            buffer[j][8] = (buffer[j][8] & ~inkmask) | afterink;
+        }
 
-void replace_attribute(uint8_t before, uint8_t after) {
-    uint8_t A = before & 0x47;
-    uint16_t DE = 0x47 + before * 256;
-    for (int i = 0; i < 384; i++) {
-        if (buffer[i][8] == before)
-            buffer[i][8] = after;
+        if ((buffer[j][8] & papermask) == beforepaper) {
+            buffer[j][8] = (buffer[j][8] & ~papermask) | afterpaper;
+        }
     }
+}
+
+static uint8_t ink2paper(uint8_t ink) {
+    uint8_t paper = (ink & 0x07) << 3; // 0000 0111 mask ink
+    paper = paper & 0x38; // 0011 1000 mask paper
+    return (ink & 0x40) | paper; // 0x40 = 0100 0000 preserve brightness bit from ink
+}
+
+static void replace(uint8_t before, uint8_t after, uint8_t mask) {
+    for (int j = 0; j < 384; j++) {
+        uint8_t col = buffer[j][8] & mask;
+        if (col == before) {
+            col = buffer[j][8] | mask;
+            col = col ^ mask;
+            buffer[j][8] = col | after;
+        }
+    }
+}
+
+static void replace_paper_and_ink(uint8_t before, uint8_t after) {
+    uint8_t beforeink = before & 0x47; // 0100 0111 ink and brightness
+    replace(beforeink, after, 0x47);
+    uint8_t beforepaper = ink2paper(before);
+    uint8_t afterpaper = ink2paper(after);
+    replace(beforepaper, afterpaper, 0x78); // 0111 1000 mask paper and brightness
 }
 
 
@@ -1048,7 +1008,7 @@ void draw_taylor(int loc)
                 break;
             case 0xe9: // 77ac arg1 arg2 ..
                 fprintf(stderr, "0xe9: (77ac) swap attribute %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
-                replace_attribute(*(ptr + 1), *(ptr + 2));
+                replace_paper_and_ink(*(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
             case 0xe8:

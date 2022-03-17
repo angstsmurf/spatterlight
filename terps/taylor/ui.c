@@ -281,7 +281,7 @@ void DisplayInit(void)
 //    OpenTopWindow();
     OpenGraphicsWindow();
     glk_window_clear(Graphics);
-    for (int i = 1; i < 100; i++) {
+    for (int i = 10; i < 100; i++) {
         mem[0x5d5c] = i;
         fprintf(stderr, "Room image: %d\n", i);
         DrawTaylorRoomImage(0);
@@ -497,12 +497,12 @@ void call60c1(void) {
 
 void get_block_instruction(void) { // Get next draw instruction and put it in A
     A = mem[HL];
-    fprintf(stderr, "Value at address 0x%04x is 0x%02x\n", HL, A);
+//    fprintf(stderr, "Value at address 0x%04x is 0x%02x\n", HL, A);
     if (A == 0xaa) {
-        fprintf(stderr, "Value at address 0x%04x was 0xaa, so look at ", HL);
+//        fprintf(stderr, "Value at address 0x%04x was 0xaa, so look at ", HL);
         HL = stored_address + 1;
         A = mem[HL];
-        fprintf(stderr, "0x%04x instead (value 0x%02x)\n", HL, A);
+//        fprintf(stderr, "0x%04x instead (value 0x%02x)\n", HL, A);
     }
     pushedHL = HL;
     HL = 0x7836;
@@ -513,16 +513,16 @@ void get_block_instruction(void) { // Get next draw instruction and put it in A
     } while (mem[HL] != A && BC != 0 && HL != 0xffff);
 
     if (mem[HL] == A) {
-        fprintf(stderr, "(0x11 - BC (%d)) == %d  ", BC, 0x11 - BC);
-        fprintf(stderr, "Found 0x%02x at address 0x%04x, so ", A, HL);
+//        fprintf(stderr, "(0x11 - BC (%d)) == %d  ", BC, 0x11 - BC);
+//        fprintf(stderr, "Found 0x%02x at address 0x%04x, so ", A, HL);
         stored_address = pushedHL;
         uint16_t addr = 0x7849 + (0x11 - BC) * 2;
         pushedHL = mem[addr] + mem[addr + 1] * 256;
-        fprintf(stderr, "store 0x%04x and jump to 0x%04x\n", stored_address, pushedHL);
+//        fprintf(stderr, "store 0x%04x and jump to 0x%04x\n", stored_address, pushedHL);
     }
     HL = pushedHL;
     A = mem[HL];
-    fprintf(stderr, "Read block draw instruction 0x%02x at address 0x%04x\n", A, HL);
+//    fprintf(stderr, "Read block draw instruction 0x%02x at address 0x%04x\n", A, HL);
 }
 
 int call72b8(void) // Get next adress?
@@ -698,11 +698,11 @@ void draw_attributes(void) { // Draw attributes?
     HL = global5bbc + 1;
     mem[0x5bc6] = blockwidth;
     DE = attributes_start + ypos * 32 + xpos;
-    fprintf(stderr, "draw_attributes: draw instructions at 0x%04x. x:%d y:%d\n", HL, xpos, ypos);
+//    fprintf(stderr, "draw_attributes: draw instructions at 0x%04x. x:%d y:%d\n", HL, xpos, ypos);
     do {
         get_block_instruction();
         if (A == 0xfe) {
-            fprintf(stderr, "read 0xfe. Returning\n");
+//            fprintf(stderr, "read 0xfe. Returning\n");
             A = pushedA;
             return;
         }
@@ -712,7 +712,7 @@ void draw_attributes(void) { // Draw attributes?
         }
     jump7336:
         mem[DE] = A;
-        fprintf(stderr, "Attribute address 0x%04x set to 0x%02x\n", DE, A);
+//        fprintf(stderr, "Attribute address 0x%04x set to 0x%02x\n", DE, A);
         mem[0x5bcb] = A;
         DE++;
         mem[0x5bc6]--;
@@ -737,8 +737,9 @@ void call74eb(int skip);
 void call6fd0(void);
 void call7612(int skip);
 void call7736(int skip);
-void call77e4(void);
-void call77d6(void);
+static void replace(uint8_t before, uint8_t attr1, uint8_t attr2);
+static uint8_t ink2paper(uint8_t ink);
+static void replace_attr(void);
 void call755e(void);
 void call73f2(void);
 void call7421(void);
@@ -1018,22 +1019,7 @@ jump7788:
     IX++;
     goto jump703a;
 jump77ac:
-    IX++;
-    A = mem[IX];
-    A = A & 0x47;
-    IX++;
-    DE = 0x47 + mem[IX] * 256;
-    call77e4();
-    BC = (BC & 0xff00) + mem[IX - 1];
-    call77d6();
-    uint8_t myPushedA = A;
-    BC = (BC & 0xff00) + mem[IX];
-    call77d6();
-    DE = (DE & 0xff) + A * 256;
-    A = myPushedA;
-    DE = (DE & 0xff00) + 0x78;
-    call77e4();
-    IX++;
+    replace_attr();
     goto jump703a;
 jump7808:
     IX++;
@@ -1090,8 +1076,8 @@ void call743c(int skip) {
 
 static void replace_colour(uint8_t before, uint8_t after) {
     // I don't think any of the data has bit 7 set,
-    // so masking it is probably unnecessary, but this is what
-    // the original code does.
+    // so masking it is probably unnecessary, but
+    // this is what the original code does.
     uint8_t beforeink = before & 7;
     uint8_t afterink = after & 7;
     uint8_t inkmask = 0x07;
@@ -1275,40 +1261,37 @@ void call7736(int skip) {
     call76c9();
 }
 
-void call77e4(void) {
-    BC = 0x180;
-    pushedIX = IX;
-    IX = 0x6e50; // Attributes buffer
-    HL = (HL & 0xff00) + A;
-jump77ee:
-    A = mem[IX];
-    A = A & (DE & 0xff);
-    if (A != (HL & 0xff))
-        goto jump77fe;
-    A = mem[IX];
-    A = A | (DE & 0xff);
-    A = A ^ (DE & 0xff);
-    A = A | (DE >> 8);
-    mem[IX] = A;
-jump77fe:
-    IX++;
-    BC--;
-    A = BC >> 8;
-    A = A | (BC & 0xff);
-    if (A != 0)
-        goto jump77ee;
-    IX = pushedIX;
+static void replace_attr(void) {
+    uint8_t before = mem[IX + 1];
+    uint8_t after = mem[IX + 2];
+    uint8_t beforeink = before & 0x47; // 0100 0111 ink and brightness
+    replace(beforeink, after, 0x47);
+    uint8_t beforepaper = ink2paper(before);
+    uint8_t afterpaper = ink2paper(after);
+    replace(beforepaper, afterpaper, 0x78); // 0111 1000 mask paper and brightness
+    IX += 3;
 }
 
-void call77d6(void) {
-    A = (BC & 0xff) & 0x07;
-    carry = rotate_left_with_carry(&A, 0);
-    carry = rotate_left_with_carry(&A, carry);
-    carry = rotate_left_with_carry(&A, carry);
-    A = A & 0x78;
-    BC = (BC & 0xff) + A * 256;
-    A = ((BC & 0xff) & 0x40) | (BC >> 8);
+static uint8_t ink2paper(uint8_t ink) {
+    uint8_t paper = (ink & 0x07) << 3; // 0000 0111 mask ink
+    paper = paper & 0x38; // 0011 1000 mask paper
+    return (ink & 0x40) | paper; // 0x40 = 0100 0000 preserve brightness bit from ink
 }
+
+static void replace(uint8_t before, uint8_t after, uint8_t mask) {
+    for (int i = 0x6e50; i < 0x6e50 + 0x180; i++) {
+        uint8_t col = mem[i] & mask;
+        if (col == before) {
+            col = mem[i];
+            col = col | mask;
+            col = col ^ mask;
+            col = col | after;
+            mem[i] = col;
+        }
+    }
+}
+
+
 
 void call755e(void) {
     DE = 0x6e50; // Attributes buffer
