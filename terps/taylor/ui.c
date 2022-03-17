@@ -495,7 +495,7 @@ void call60c1(void) {
     HL++;
 }
 
-void call7151(void) { // Get next draw instruction and put it in A
+void get_block_instruction(void) { // Get next draw instruction and put it in A
     A = mem[HL];
     fprintf(stderr, "Value at address 0x%04x is 0x%02x\n", HL, A);
     if (A == 0xaa) {
@@ -505,20 +505,20 @@ void call7151(void) { // Get next draw instruction and put it in A
         fprintf(stderr, "0x%04x instead (value 0x%02x)\n", HL, A);
     }
     pushedHL = HL;
-    HL = 0x7837;
+    HL = 0x7836;
     BC = 0x12;
     do {
         HL++;
         BC--;
-    } while (mem[HL - 1] != A && BC != 0 && HL != 0);
+    } while (mem[HL] != A && BC != 0 && HL != 0xffff);
 
-    HL--;
     if (mem[HL] == A) {
+        fprintf(stderr, "(0x11 - BC (%d)) == %d  ", BC, 0x11 - BC);
         fprintf(stderr, "Found 0x%02x at address 0x%04x, so ", A, HL);
         stored_address = pushedHL;
-        uint64_t addr = 0x7849 + (0x11 - BC) * 2;
+        uint16_t addr = 0x7849 + (0x11 - BC) * 2;
         pushedHL = mem[addr] + mem[addr + 1] * 256;
-        fprintf(stderr, "store 0x%04x and jump to 0x%04x\n", HL, pushedHL);
+        fprintf(stderr, "store 0x%04x and jump to 0x%04x\n", stored_address, pushedHL);
     }
     HL = pushedHL;
     A = mem[HL];
@@ -555,7 +555,7 @@ void draw_image_block(void)
     uint8_t remaining = 0;
     do {
         mem[0x5bbe] = 0; // 0x5bbe is reset to 0
-        call7151(); // Get next draw instruction (at address HL, into A)
+        get_block_instruction(); // Get next draw instruction (at address HL, into A)
         global5bbc = HL;
         if (A >= 128) {
             // Bit 7 set, this is a command byte
@@ -567,7 +567,7 @@ void draw_image_block(void)
                 remaining = mem[HL]; // and store it in remaining
             }
             HL++;
-            call7151();
+            get_block_instruction();
             global5bbc = HL;
         }
         HL = A;
@@ -700,7 +700,7 @@ void draw_attributes(void) { // Draw attributes?
     DE = attributes_start + ypos * 32 + xpos;
     fprintf(stderr, "draw_attributes: draw instructions at 0x%04x. x:%d y:%d\n", HL, xpos, ypos);
     do {
-        call7151();
+        get_block_instruction();
         if (A == 0xfe) {
             fprintf(stderr, "read 0xfe. Returning\n");
             A = pushedA;
