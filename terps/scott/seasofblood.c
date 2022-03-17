@@ -181,9 +181,6 @@ void draw_blood(int loc)
     while (ptr < blood_image_data + 2010) {
         switch (*ptr) {
         case 0xff:
-            //            if (loc == 15) {
-            //               buffer[11*32 + 14][8] = buffer[11*32 + 14][8] | 0x40;
-            //            }
             if (loc == 13) {
                 buffer[8 * 32 + 18][8] = buffer[8 * 32 + 18][8] & ~0x40;
                 buffer[8 * 32 + 17][8] = buffer[8 * 32 + 17][8] & ~0x40;
