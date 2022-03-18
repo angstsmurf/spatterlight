@@ -1491,9 +1491,10 @@ static void  SimpleParser(void)
 	int wn = 0;
 	char wb[5][17];
 	char buf[256];
-    OutChar('\n');
+    if (LastChar != '\n')
+        OutChar('\n');
     OutFlush();
-	if(GameVersion > 0) {
+	if(GameVersion > 0 && CurrentGame != TEMPLE_OF_TERROR) {
 		OutCaps();
 		Message(WHAT_NOW);
     } else
