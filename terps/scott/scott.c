@@ -90,7 +90,7 @@ long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
 int AutoInventory = 0;
 int Options; /* Option flags set */
-glui32 Width; /* Terminal width */
+glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
 int file_baseline_offset = 0;
 const char *title_screen = NULL;
@@ -300,7 +300,7 @@ void OpenTopWindow(void)
                 split_screen = 0;
                 Top = Bottom;
             } else {
-                glk_window_get_size(Top, &Width, NULL);
+                glk_window_get_size(Top, &TopWidth, NULL);
             }
         } else {
             Top = Bottom;
@@ -339,7 +339,7 @@ void OpenGraphicsWindow(void)
     if (Graphics == NULL)
         Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
     if (Graphics == NULL && Top != NULL) {
-        glk_window_get_size(Top, &Width, &TopHeight);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
         glk_window_close(Top, NULL);
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
             60, wintype_Graphics, GLK_GRAPHICS_ROCK);
@@ -366,7 +366,7 @@ void OpenGraphicsWindow(void)
 
         Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight,
             wintype_TextGrid, GLK_STATUS_ROCK);
-        glk_window_get_size(Top, &Width, &TopHeight);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
     } else {
         if (!Graphics)
             Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
@@ -387,7 +387,7 @@ void CloseGraphicsWindow(void)
     if (Graphics) {
         glk_window_close(Graphics, NULL);
         Graphics = NULL;
-        glk_window_get_size(Top, &Width, &TopHeight);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
     }
 }
 
@@ -875,15 +875,15 @@ void WriteToRoomDescriptionStream(const char *fmt, ...)
 
 static void PrintWindowDelimiter(void)
 {
-    glk_window_get_size(Top, &Width, &TopHeight);
+    glk_window_get_size(Top, &TopWidth, &TopHeight);
     glk_window_move_cursor(Top, 0, TopHeight - 1);
     glk_stream_set_current(glk_window_get_stream(Top));
     if (Options & SPECTRUM_STYLE)
-        for (int i = 0; i < Width; i++)
+        for (int i = 0; i < TopWidth; i++)
             glk_put_char('*');
     else {
         glk_put_char('<');
-        for (int i = 0; i < Width - 2; i++)
+        for (int i = 0; i < TopWidth - 2; i++)
             glk_put_char('-');
         glk_put_char('>');
     }
@@ -946,15 +946,15 @@ static void FlushRoomDescription(char *buf)
 
     if (split_screen) {
         glk_window_clear(Top);
-        glk_window_get_size(Top, &Width, &TopHeight);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
         int rows, length;
-        char *text_with_breaks = LineBreakText(buf, Width, &rows, &length);
+        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
 
         glui32 bottomheight;
         glk_window_get_size(Bottom, NULL, &bottomheight);
         winid_t o2 = glk_window_get_parent(Top);
         if (!(bottomheight < 3 && TopHeight < rows)) {
-            glk_window_get_size(Top, &Width, &TopHeight);
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
             glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
                 Top);
         } else {
@@ -964,14 +964,14 @@ static void FlushRoomDescription(char *buf)
         int line = 0;
         int index = 0;
         int i;
-        char string[Width + 1];
+        char string[TopWidth + 1];
         for (line = 0; line < rows && index < length; line++) {
-            for (i = 0; i < Width; i++) {
+            for (i = 0; i < TopWidth; i++) {
                 string[i] = text_with_breaks[index++];
                 if (string[i] == 10 || string[i] == 13 || index >= length)
                     break;
             }
-            if (i < Width + 1) {
+            if (i < TopWidth + 1) {
                 string[i++] = '\n';
             }
             string[i] = 0;
@@ -982,7 +982,7 @@ static void FlushRoomDescription(char *buf)
         }
 
         if (line < rows - 1) {
-            glk_window_get_size(Top, &Width, &TopHeight);
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
             glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
                 MIN(rows - 1, TopHeight - 1), Top);
         }
@@ -2457,10 +2457,10 @@ void glk_main(void)
     }
 
     if (Options & TRS80_STYLE) {
-        Width = 64;
+        TopWidth = 64;
         TopHeight = 11;
     } else {
-        Width = 80;
+        TopWidth = 80;
         TopHeight = 10;
     }
 
