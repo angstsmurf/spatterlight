@@ -41,7 +41,7 @@ char *LineBreakText(char *source, int columns, int *rows, int *length)
     int destpos = 0;
     int diff = 0;
     *rows = 0;
-    if (source[0] == ' ')
+    while (source[sourcepos] == ' ' || source[sourcepos] == '.')
         sourcepos++;
     while (source[sourcepos] != '\0') {
         while (col < columns && source[sourcepos] != '\0') {
