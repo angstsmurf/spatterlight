@@ -564,6 +564,7 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     for (int i = 0; i < NUMGAMES; i++) {
         if (games[i].gameID == record.id) {
+            free(Game);
             Game = &games[i];
             break;
         }
