@@ -9,6 +9,7 @@
 #include <strings.h>
 
 #include "glk.h"
+#include "glkimp.h"
 #include "glkstart.h"
 
 #include "taylor.h"
@@ -46,6 +47,7 @@ static int Redraw;
 
 static int GameVersion;
 static int Blizzard;
+static int FirstAfterInput = 0;
 
 int FileBaselineOffset = 0;
 
@@ -365,7 +367,7 @@ static size_t FindTokens(void)
 
 static char LastChar = 0;
 static int Upper = 0;
-static int PendSpace = 0;
+int PendSpace = 0;
 
 strid_t room_description_stream = NULL;
 
@@ -400,6 +402,7 @@ static void OutFlush(void)
 	if(PendSpace && LastChar != '\n')
 		OutWrite(' ');
 	LastChar = 0;
+    PendSpace = 0;
 }
 
 static void OutReset(void)
@@ -424,6 +427,10 @@ static void OutChar(char c)
 		PendSpace = 1;
 		return;
 	}
+    if (FirstAfterInput) {
+        FirstAfterInput = 0;
+        PendSpace = 0;
+    }
 	if(LastChar) {
         if (isspace(LastChar))
             PendSpace = 0;
@@ -488,8 +495,10 @@ static void PrintText1(unsigned char *p, int n)
 	}
 	while(*p != 0x7E && *p != 0x5E)
 		PrintToken(*p++);
-	if(*p == 0x5E)
+    if(*p == 0x5E) {
+        fprintf(stderr, "PrintText1 set PendSpace\n");
 		PendSpace = 1;
+    }
 }
 
 /*
@@ -506,8 +515,9 @@ static void PrintText0(unsigned char *p, int n)
 		c = *t & 0x7F;
 		if(c == 0x5E || c == 0x7E) {
 			if(n == 0) {
-				if(c == 0x5E)
+                if(c == 0x5E) {
 					PendSpace = 1;
+                }
 				return;
 			}
 			n--;
@@ -710,14 +720,17 @@ static void RamLoad(void)
 	memcpy(Flag, RamFlag, 128);
 	memcpy(ObjectLoc, RamObject, 256);
 	Message(OK);
+    OutFlush();
 }
 
 static void RamSave(int game)
 {
 	memcpy(RamFlag,  Flag, 128);
 	memcpy(RamObject, ObjectLoc, 256);
-	if(game)
+    if(game) {
 		Message(OK);
+        OutFlush;
+    }
 }
 
 static void Oops(void)
@@ -740,7 +753,7 @@ static void LoadGame(void)
 	FILE *f;
 	OutCaps();
 	Message(RESUME_A_SAVED_GAME);
-    PendSpace = 1;
+    OutChar(' ');
 	OutFlush();
 
 	do {
@@ -863,6 +876,7 @@ static void GetObject(unsigned char obj) {
 		return;
 	}
     Message(OK);
+    OutFlush();
 	Put(obj, Carried());
 }
 
@@ -878,6 +892,7 @@ static void DropObject(unsigned char obj) {
 	}
 	DropItem();
     Message(OK);
+    OutFlush();
 	Put(obj, MyLoc);
 }
 
@@ -887,10 +902,12 @@ void Look(void) {
 	unsigned char locw = 0x80|MyLoc;
 	unsigned char *p;
 
+    PendSpace = 0;
+    LastChar = 0;
+    OutReset();
     TopWindow();
 
 	Redraw = 0;
-	OutReset();
 	OutCaps();
 
 	if(Flag[1]) {
@@ -1193,6 +1210,7 @@ static void ExecuteLineCode(unsigned char *p)
 			case 8:
 				/* Guess */
 				Message(OK);
+                OutFlush();
 				break;
 			case 9:
 				GetObject(arg1);
@@ -1274,6 +1292,7 @@ static void ExecuteLineCode(unsigned char *p)
 			case 30:
 				/* Beep */
 				putchar('\007');
+                win_beep(0);
 				fflush(stdout);
 				break;
 			case 32:
@@ -1472,14 +1491,16 @@ static void  SimpleParser(void)
 	int wn = 0;
 	char wb[5][17];
 	char buf[256];
+    OutChar('\n');
     OutFlush();
-	OutChar('\n');
 	if(GameVersion > 0) {
 		OutCaps();
 		Message(WHAT_NOW);
     } else
 		OutString("> ");
 	OutFlush();
+    PendSpace = 0;
+    LastChar = 0;
 	do
 	{
 		LineInput(buf, 255);
@@ -1658,11 +1679,14 @@ void glk_main(void)
 	RamSave(0);
 	Look();
 	RunStatusTable();
-	if(Redraw)
+    if(Redraw) {
+        OutFlush();
 		Look();
+    }
 	while(1) {
 		Checkpoint();
 		SimpleParser();
+        FirstAfterInput = 1;
 		RunOneInput();
 	}
 }

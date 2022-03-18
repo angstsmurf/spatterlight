@@ -244,11 +244,14 @@ static void FlushRoomDescription(void)
 
 char *roomdescbuf = NULL;
 
+extern int PendSpace;
+
 void BottomWindow(void)
 {
     WordFlush(Top);
-    WordFlush(Top);
     FlushRoomDescription();
+    WordFlush(Top);
+    PendSpace = 0;
     CurrentWindow = Bottom;
 }
 
@@ -270,9 +273,15 @@ void Updates(event_t ev)
     }
 }
 
+
 void LineInput(char *buf, int len)
 {
     event_t ev;
+
+    if (PendSpace) {
+        fprintf(stderr, "PendSpace before LineInput?\n");
+        PendSpace = 0;
+    }
 
     glk_request_line_event(Bottom, buf, len - 1, 0);
 
