@@ -576,8 +576,6 @@ int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     size_t offset;
 
-    writeToFile("/Users/administrator/Desktop/rawFromD64", entire_file, file_length);
-
     DictionaryType dictype = GetId(&offset);
     if (dictype != Game->dictionary) {
         Fatal("Wrong game?");
