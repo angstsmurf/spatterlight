@@ -421,6 +421,10 @@ static void OutChar(char c)
 {
 	if(c == ']')
 		c = '\n';
+
+    if(c == '.' && LastChar == '?')
+        c = ' ';
+
 	if(c == ' ') {
 		PendSpace = 1;
 		return;
