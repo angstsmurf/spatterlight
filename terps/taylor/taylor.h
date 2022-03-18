@@ -16,6 +16,8 @@ void DrawRoomImage(void);
 
 #define CurrentGame (Game->gameID)
 
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef enum {
     UNKNOWN_GAME,
@@ -162,5 +164,10 @@ extern Item *Items;
 size_t FindCode(const char *x, size_t base, size_t len);
 void Updates(event_t ev);
 void DrawBlack(void);
+void WriteToRoomDescriptionStream(const char *fmt, ...)
+#ifdef __GNUC__
+__attribute__((__format__(__printf__, 1, 2)))
+#endif
+;
 
 #endif /* taylor_h */

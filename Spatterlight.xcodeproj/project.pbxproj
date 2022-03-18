@@ -651,6 +651,7 @@
 		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
+		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -2879,6 +2880,8 @@
 		C36B3894271F712700756D94 /* NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonInterpolatedImage.h; sourceTree = "<group>"; };
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
+		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
+		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -5846,6 +5849,8 @@
 				C3D571B327D8F652008FB786 /* player.c */,
 				C3B6100627DA07E90012FB97 /* sagadraw.h */,
 				C3B6100427DA07E90012FB97 /* sagadraw.c */,
+				C372018B27E47E4D00F6BE55 /* layouttext.h */,
+				C372018D27E47E4D00F6BE55 /* layouttext.c */,
 				C3B6100927DA10DF0012FB97 /* utility.h */,
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C3D571B427D8F652008FB786 /* ui.c */,
@@ -7761,6 +7766,7 @@
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
 				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
+				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

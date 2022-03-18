@@ -5,6 +5,9 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <stdarg.h>
+#include <strings.h>
+
 #include "glk.h"
 #include "glkstart.h"
 
@@ -364,6 +367,22 @@ static char LastChar = 0;
 static int Upper = 0;
 static int PendSpace = 0;
 
+strid_t room_description_stream = NULL;
+
+void WriteToRoomDescriptionStream(const char *fmt, ...)
+{
+    if (room_description_stream == NULL)
+        return;
+    va_list ap;
+    char msg[2048];
+
+    va_start(ap, fmt);
+    vsnprintf(msg, sizeof msg, fmt, ap);
+    va_end(ap);
+
+    glk_put_string_stream(room_description_stream, msg);
+}
+
 static void OutWrite(char c)
 {
 	if(isalpha(c) && Upper)
@@ -378,7 +397,7 @@ static void OutFlush(void)
 {
 	if(LastChar)
 		OutWrite(LastChar);
-	if(PendSpace)
+	if(PendSpace && LastChar != '\n')
 		OutWrite(' ');
 	LastChar = 0;
 }
@@ -406,9 +425,11 @@ static void OutChar(char c)
 		return;
 	}
 	if(LastChar) {
-		OutWrite(LastChar);
+        if (isspace(LastChar))
+            PendSpace = 0;
+        OutWrite(LastChar);
 		LastChar = 0;
-	}
+    }
 	if(PendSpace) {
 		OutWrite(' ');
 		PendSpace = 0;
@@ -719,20 +740,17 @@ static void LoadGame(void)
 	FILE *f;
 	OutCaps();
 	Message(RESUME_A_SAVED_GAME);
+    PendSpace = 1;
 	OutFlush();
 
 	do {
 		c = WaitCharacter();
 		if(c == 'n' || c == 'N') {
-			OutChar('N');
-			OutChar('\n');
+            OutString("N\n");
 			return;
 		}
 		if(c == 'y' || c == 'Y') {
-			OutChar('Y');
-			OutChar('\n');
-
-			OutString("File name: ");
+			OutString("Y\nFile name: ");
 			LineInput(name, 32);
 
 			f = fopen(name, "r");
@@ -844,6 +862,7 @@ static void GetObject(unsigned char obj) {
 		Message(YOURE_CARRYING_TOO_MUCH);
 		return;
 	}
+    Message(OK);
 	Put(obj, Carried());
 }
 
@@ -858,6 +877,7 @@ static void DropObject(unsigned char obj) {
 		return;
 	}
 	DropItem();
+    Message(OK);
 	Put(obj, MyLoc);
 }
 
@@ -867,10 +887,11 @@ void Look(void) {
 	unsigned char locw = 0x80|MyLoc;
 	unsigned char *p;
 
+    TopWindow();
+
 	Redraw = 0;
 	OutReset();
 	OutCaps();
-    TopWindow();
 
 	if(Flag[1]) {
 		Message(TOO_DARK_TO_SEE);
@@ -918,7 +939,9 @@ void Look(void) {
 	}
 	if(f == 1)
 		OutReplace('.');
-	OutChar('\n');
+    if (LastChar != '\n')
+        OutChar('\n');
+    OutChar('\n');
     glk_window_clear(Graphics);
     DrawRoomImage();
 	BottomWindow();
@@ -1449,13 +1472,12 @@ static void  SimpleParser(void)
 	int wn = 0;
 	char wb[5][17];
 	char buf[256];
-
+    OutFlush();
 	OutChar('\n');
 	if(GameVersion > 0) {
 		OutCaps();
 		Message(WHAT_NOW);
-	}
-	else
+    } else
 		OutString("> ");
 	OutFlush();
 	do
