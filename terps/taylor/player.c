@@ -904,6 +904,10 @@ static void DropObject(unsigned char obj) {
 }
 
 void Look(void) {
+    if (MyLoc == 0)
+        CloseGraphicsWindow();
+    else
+        OpenGraphicsWindow();
 	int i;
 	int f = 0;
 	unsigned char locw = 0x80|MyLoc;
@@ -966,8 +970,10 @@ void Look(void) {
     if (LastChar != '\n')
         OutChar('\n');
     OutChar('\n');
-    glk_window_clear(Graphics);
-    DrawRoomImage();
+    if (MyLoc != 0) {
+        glk_window_clear(Graphics);
+        DrawRoomImage();
+    }
 	BottomWindow();
 }
 

@@ -8,6 +8,16 @@ void TopWindow(void);
 void BottomWindow(void);
 void PrintCharacter(unsigned char c);
 void DrawRoomImage(void);
+size_t FindCode(const char *x, size_t base, size_t len);
+void Updates(event_t ev);
+void DrawBlack(void);
+void WriteToRoomDescriptionStream(const char *fmt, ...)
+#ifdef __GNUC__
+__attribute__((__format__(__printf__, 1, 2)))
+#endif
+;
+void CloseGraphicsWindow(void);
+void OpenGraphicsWindow(void);
 
 
 #define FOLLOWS 0xffff
@@ -150,14 +160,5 @@ extern int FileBaselineOffset;
 extern int NumLowObjects;
 
 extern struct GameInfo *Game;
-
-size_t FindCode(const char *x, size_t base, size_t len);
-void Updates(event_t ev);
-void DrawBlack(void);
-void WriteToRoomDescriptionStream(const char *fmt, ...)
-#ifdef __GNUC__
-__attribute__((__format__(__printf__, 1, 2)))
-#endif
-;
 
 #endif /* taylor_h */
