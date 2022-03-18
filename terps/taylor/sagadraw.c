@@ -586,7 +586,7 @@ void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 void HitEnter(void);
 
-void SagaSetup(size_t imgoffset)
+void SagaSetup(void)
 {
     int32_t i, y;
 
@@ -610,9 +610,6 @@ void SagaSetup(size_t imgoffset)
         image_blocks_start_address = CHAR_START + 0x800;
     }
 
-    int32_t DATA_OFFSET = 0; // = Game->image_address_offset + FileBaselineOffset;
-    if (imgoffset)
-        DATA_OFFSET = (int32_t)imgoffset;
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
 jumpChar:

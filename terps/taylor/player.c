@@ -137,8 +137,6 @@ struct GameInfo games[NUMGAMES] = {
     }
 };
 
-Item *Items = NULL;
-
 #ifdef DEBUG
 
 /*
@@ -729,18 +727,27 @@ static void RamSave(int game)
 	memcpy(RamObject, ObjectLoc, 256);
     if(game) {
 		Message(OK);
-        OutFlush;
+        OutFlush();
     }
 }
+
+int justundid = 0;
+void Look(void);
 
 static void Oops(void)
 {
 	memcpy(Flag, OopsFlag, 128);
 	memcpy(ObjectLoc, OopsObject, 256);
+    Look();
+    justundid = 1;
 }
 
 static void Checkpoint(void)
 {
+    if (justundid) {
+        justundid = 0;
+        return;
+    }
 	memcpy(OopsFlag,  Flag, 128);
 	memcpy(OopsObject, ObjectLoc, 256);
 }
@@ -1303,6 +1310,7 @@ static void ExecuteLineCode(unsigned char *p)
 				break;
 			case 35:
 				Oops();
+                Redraw = 1;
 				break;
 			default:
 				fprintf(stderr, "Unknown command %d.\n",
@@ -1685,7 +1693,7 @@ void glk_main(void)
 		Look();
     }
 	while(1) {
-		Checkpoint();
+        Checkpoint();
 		SimpleParser();
         FirstAfterInput = 1;
 		RunOneInput();

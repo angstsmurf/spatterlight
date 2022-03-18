@@ -21,7 +21,6 @@ void CleanupAndExit(void)
     glk_exit();
 }
 
-
 void Fatal(const char *x)
 {
     Display(Bottom, "%s\n", x);

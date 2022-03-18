@@ -55,9 +55,6 @@ void Display(winid_t w, const char *fmt, ...)
     vsnprintf(msg, size, fmt, ap);
     va_end(ap);
 
-    event_t ev;
-
-//    glk_cancel_line_event(w, &ev);
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
@@ -408,7 +405,7 @@ void DrawRoomImage(void) {
 
 void DisplayInit(void)
 {
-    SagaSetup(0);
+    SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     TopHeight = 5;
     OpenTopWindow();

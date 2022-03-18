@@ -27,7 +27,7 @@ void DrawSagaPictureAtPos(int picture_number, int x, int y);
 void DrawSagaPictureFromBuffer(void);
 void Flip(uint8_t character[]);
 
-void SagaSetup(size_t imgoffset);
+void SagaSetup(void);
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,

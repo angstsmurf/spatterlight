@@ -30,15 +30,6 @@ typedef enum {
     NUMGAMES
 } GameIDType;
 
-typedef struct {
-    char *Text;
-    /* PORTABILITY WARNING: THESE TWO MUST BE 8 BIT VALUES. */
-    uint8_t Location;
-    uint8_t InitialLoc;
-    uint8_t Flag;
-    uint8_t Image;
-} Item;
-
 typedef enum {
     YOU_SEE,
     NORTH,
@@ -159,7 +150,6 @@ extern int FileBaselineOffset;
 extern int NumLowObjects;
 
 extern struct GameInfo *Game;
-extern Item *Items;
 
 size_t FindCode(const char *x, size_t base, size_t len);
 void Updates(event_t ev);
