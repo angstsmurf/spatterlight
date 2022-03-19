@@ -1185,7 +1185,7 @@ GameIDType DetectGame(const char *file_name)
         return 0;
     }
 
-    Game = MemAlloc(sizeof(struct GameInfo));
+    Game = (struct GameInfo *)MemAlloc(sizeof(struct GameInfo));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
     CurrentGame = LoadDatabase(f, Options & DEBUGGING);
