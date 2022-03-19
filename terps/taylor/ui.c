@@ -401,6 +401,7 @@ void DrawBlack(void)
 void DrawRoomImage(void) {
     ClearGraphMem();
     DrawTaylor(MyLoc);
+    DrawSagaPictureFromBuffer();
 }
 
 void DisplayInit(void)

@@ -18,7 +18,7 @@ __attribute__((__format__(__printf__, 1, 2)))
 ;
 void CloseGraphicsWindow(void);
 void OpenGraphicsWindow(void);
-
+void OpenTopWindow(void);
 
 #define FOLLOWS 0xffff
 
@@ -43,15 +43,15 @@ typedef enum {
 typedef enum {
     YOU_SEE,
     NORTH,
-    NORTHEAST,
-    EAST,
-    SOUTHEAST,
     SOUTH,
-    SOUTHWEST,
+    EAST,
     WEST,
-    NORTHWEST,
     UP,
     DOWN,
+    NORTHEAST,
+    NORTHWEST,
+    SOUTHEAST,
+    SOUTHWEST,
     I_DONT_UNDERSTAND,
     THATS_BEYOND_MY_POWER,
     EXITS,
@@ -144,6 +144,7 @@ struct GameInfo {
 
     int start_of_characters;
     int start_of_image_blocks;
+    int image_patterns_lookup;
     int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;

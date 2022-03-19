@@ -838,6 +838,7 @@
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.c */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
+		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3153,6 +3154,8 @@
 		C3FB3286269F5BEE00A1B09C /* stash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stash.c; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
+		C3FFF7FF27E52E19000C481A /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
+		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5851,6 +5854,8 @@
 				C3B6100427DA07E90012FB97 /* sagadraw.c */,
 				C372018B27E47E4D00F6BE55 /* layouttext.h */,
 				C372018D27E47E4D00F6BE55 /* layouttext.c */,
+				C3FFF7FF27E52E19000C481A /* restorestate.h */,
+				C3FFF80127E52E19000C481A /* restorestate.c */,
 				C3B6100927DA10DF0012FB97 /* utility.h */,
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C3D571B427D8F652008FB786 /* ui.c */,
@@ -7764,6 +7769,7 @@
 			files = (
 				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
+				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
 				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
 				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,

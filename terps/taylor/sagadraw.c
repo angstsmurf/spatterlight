@@ -601,7 +601,6 @@ void SagaSetup(void)
 
     DefinePalette();
 
-//    int32_t CHAR_START = Game->start_of_characters + FileBaselineOffset;
     size_t CHAR_START = FindCharacterStart();
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", CHAR_START, CHAR_START);
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
@@ -665,15 +664,16 @@ jumpChar:
 
         uint8_t instructions[2048];
         int number = 0;
+        int patterns_lookup = 0x3837;
         do {
             instructions[number++] = *pos;
 //            fprintf(stderr, "Instruction %d is 0x%02x (0x%04lx)\n", number - 1, *pos, pos - FileImage + 0x4000);
             for (int i = 0; i < 0x12; i++) {
-                if (*pos == FileImage[0x7837 - 0x4000 + i]) {
+                if (*pos == FileImage[patterns_lookup + i]) {
 //                    fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
                     number--;
 
-                    uint16_t base = 0x7849 + i * 2 - 0x4000;
+                    uint16_t base = patterns_lookup + 0x12 + i * 2;
                     int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
 //                    fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
                     while (FileImage[newoffset] != 0xaa) {
@@ -899,9 +899,9 @@ static void replace(uint8_t before, uint8_t after, uint8_t mask) {
     for (int j = 0; j < 384; j++) {
         uint8_t col = buffer[j][8] & mask;
         if (col == before) {
-            col = buffer[j][8] | mask;
-            col = col ^ mask;
-            buffer[j][8] = col | after;
+            uint8_t newcol = buffer[j][8] | mask;
+            newcol = newcol ^ mask;
+            buffer[j][8] = newcol | after;
         }
     }
 }
@@ -978,16 +978,16 @@ void DrawTaylor(int loc)
 //                fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
                 mirror_top_half();
                 break;
-            case 0xf2: //7465 arg1 arg2 arg3 arg4
+            case 0xf2: //7465 arg1 arg2 arg3 arg4 Mirror horizontally
 //                fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 mirror_area(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xf1: //7532 arg1 arg2 arg3 arg4 Some kind of mirroring
+            case 0xf1: //7532 arg1 arg2 arg3 arg4 Mirror vertically
                 mirror_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xee: //763b arg1 arg2 arg3 arg4  Some kind of mirroring
+            case 0xee: //763b arg1 arg2 arg3 arg4  Flip area horizontally?
                 flip_area_horizontally(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
@@ -1019,7 +1019,6 @@ void DrawTaylor(int loc)
                 ptr = ptr + 2;
                 break;
         }
-        DrawSagaPictureFromBuffer();
         ptr++;
     }
 }
