@@ -423,8 +423,15 @@ static void OutChar(char c)
     if(c == ']')
         c = '\n';
 
-    if(c == '.' && (LastChar == '?' || FirstAfterInput))
-        c = ' ';
+    int SetUpper = 0;
+
+    if (c == '.') {
+        if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.')
+            c = ' ';
+        if (PendSpace)
+            PendSpace = 0;
+        SetUpper = 1;
+    }
 
     if(c == ' ') {
         PendSpace = 1;
@@ -444,9 +451,11 @@ static void OutChar(char c)
         OutWrite(' ');
         PendSpace = 0;
     }
-    if(c == '.')
-        Upper = 1;
     LastChar = c;
+    if (LastChar == '\n')
+        SetUpper = 1;
+    if (SetUpper)
+        Upper = 1;
 }
 
 static void OutReplace(char c)
