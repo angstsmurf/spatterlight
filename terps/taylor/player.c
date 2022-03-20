@@ -91,7 +91,49 @@ struct GameInfo games[NUMGAMES] = {
         0x8708, // start_of_image_data;
         0x3837, // image patterns lookup table;
         0x7798, // start of room image instructions
-        100, // number_of_pictures;
+        114, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Rebel Planet",
+        REBEL_PLANET,
+        OLD_STYLE,                 // type
+
+        66,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        93,  // Number of rooms
+        133,   // Max carried items
+        4,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x810e, // start_of_characters;
+        0x9139, // start_of_image_data;
+        0x3837, // image patterns lookup table;
+        0x87a6, // start of room image instructions
+        165, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },

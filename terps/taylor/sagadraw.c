@@ -677,7 +677,7 @@ jumpChar:
         do {
             instructions[number++] = *pos;
 //            fprintf(stderr, "Instruction %d is 0x%02x (0x%04lx)\n", number - 1, *pos, pos - FileImage + 0x4000);
-            if (CurrentGame != BLIZZARD_PASS) {
+            if (CurrentGame == TEMPLE_OF_TERROR) {
                 for (int i = 0; i < 0x12; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
                         //                    fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
@@ -962,7 +962,7 @@ void DrawTaylor(int loc)
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
 //                fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", *(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 3), *(ptr + 5));
-                if (CurrentGame == BLIZZARD_PASS) {
+                if (CurrentGame != TEMPLE_OF_TERROR) {
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;
                 } else {
