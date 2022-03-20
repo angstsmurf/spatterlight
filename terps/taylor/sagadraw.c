@@ -673,22 +673,68 @@ jumpChar:
         }
         uint8_t instructions[2048];
         int number = 0;
-        int patterns_lookup = 0x3837;
+        int patterns_lookup = Game->image_patterns_lookup;
         do {
             instructions[number++] = *pos;
+            uint8_t A = *pos;
+            if (A == 0xfb || A == 0xef || A == 0xee || A == 0xeb || A == 0xf3 || A == 0xfa || A == 0xfe)
+                fprintf(stderr, "Special image block value 0x%02x!\n", A);
+            if (CurrentGame == REBEL_PLANET) {
+                switch (A) {
+                    case 0xfb:
+                        number--;
+//                        call711d();
+                        break;
+                    case 0xef:
+                        A = 1;
+                        goto jump6efd;
+                    case 0xee:
+                        A = 2;
+                        goto jump6efd;
+                        break;
+                    case 0xeb:
+                        A = 3;
+                        goto jump6efd;
+                        break;
+                    case 0xf3:
+                        pos++;
+                        A = *pos;
+//                        HL++;
+//                        A = mem[HL];
+                    jump6efd:
+                        number--;
+                        instructions[number++] = 0x82;
+                        instructions[number++] = A;
+                        instructions[number++] = 0;
+//                        mem[0x5bc0] = A;
+//                        mem[0x5bbe] = 0x82;
+//                        mem[0x5bbf] = 0x82;
+//                        global5bbc = HL;
+                        A = 0;
+//                        goto jump6f32;
+                        break;
+                    case 0xfa:
+                        number--;
+//                        call7131();
+//                        goto jump6f6c;
+                        break;
+                }
+
+            }
+
 //            fprintf(stderr, "Instruction %d is 0x%02x (0x%04lx)\n", number - 1, *pos, pos - FileImage + 0x4000);
             if (CurrentGame == TEMPLE_OF_TERROR) {
                 for (int i = 0; i < 0x12; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        //                    fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
+                        fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
                         number--;
 
                         uint16_t base = patterns_lookup + 0x12 + i * 2;
                         int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
-                        //                    fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
+                            fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
                         while (FileImage[newoffset] != 0xaa) {
                             instructions[number++] = FileImage[newoffset++];
-                            //                        fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
+                            fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
                         break;
                     }
@@ -1054,7 +1100,9 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     int32_t ink[0x22][14], paper[0x22][14];
 
 //    uint8_t *origptr = dataptr;
-    int version = Game->picture_format_version;
+//    int version = Game->picture_format_version;
+    int version = 4;
+
 
     offset = 0;
     int32_t character = 0;
