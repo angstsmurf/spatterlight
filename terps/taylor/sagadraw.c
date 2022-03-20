@@ -662,25 +662,36 @@ jumpChar:
         img->height = (widthheight & 0x0f) + 1;
 //fprintf (stderr, "height of image %d: %d\n", picture_number, img->height);
 
+        if (CurrentGame == BLIZZARD_PASS) {
+            switch (picture_number) {
+                case 13: case 15: case 17: case 34: case 85: case 111:
+                    img->width += 16;
+                    break;
+                default:
+                    break;
+            }
+        }
         uint8_t instructions[2048];
         int number = 0;
         int patterns_lookup = 0x3837;
         do {
             instructions[number++] = *pos;
 //            fprintf(stderr, "Instruction %d is 0x%02x (0x%04lx)\n", number - 1, *pos, pos - FileImage + 0x4000);
-            for (int i = 0; i < 0x12; i++) {
-                if (*pos == FileImage[patterns_lookup + i]) {
-//                    fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
-                    number--;
+            if (CurrentGame != BLIZZARD_PASS) {
+                for (int i = 0; i < 0x12; i++) {
+                    if (*pos == FileImage[patterns_lookup + i]) {
+                        //                    fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
+                        number--;
 
-                    uint16_t base = patterns_lookup + 0x12 + i * 2;
-                    int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
-//                    fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
-                    while (FileImage[newoffset] != 0xaa) {
-                        instructions[number++] = FileImage[newoffset++];
-//                        fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
+                        uint16_t base = patterns_lookup + 0x12 + i * 2;
+                        int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
+                        //                    fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
+                        while (FileImage[newoffset] != 0xaa) {
+                            instructions[number++] = FileImage[newoffset++];
+                            //                        fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
+                        }
+                        break;
                     }
-                    break;
                 }
             }
             pos++;
@@ -849,6 +860,12 @@ void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
 }
 
+void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
+{
+    for (int i = 0; i < length; i++) {
+        buffer[y * 32 + x + i][8] = colour;
+    }
+}
 
 
 void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
@@ -945,8 +962,13 @@ void DrawTaylor(int loc)
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
 //                fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", *(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 3), *(ptr + 5));
-                draw_colour(*(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 5), *(ptr + 3));
-                ptr = ptr + 5;
+                if (CurrentGame == BLIZZARD_PASS) {
+                    draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
+                    ptr = ptr + 4;
+                } else {
+                    draw_colour(*(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 5), *(ptr + 3));
+                    ptr = ptr + 5;
+                }
                 break;
             case 0xfb: // Make all screen colours bright 713e
 //                fprintf(stderr, "Make colours in picture area bright\n");

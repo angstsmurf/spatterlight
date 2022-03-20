@@ -90,7 +90,7 @@ struct GameInfo games[NUMGAMES] = {
         0x8350, // start_of_characters;
         0x8708, // start_of_image_data;
         0x3837, // image patterns lookup table;
-        0x8ecc, // start of room image instructions
+        0x7798, // start of room image instructions
         100, // number_of_pictures;
         ZXOPT, // palette
         4, // picture_format_version;
@@ -1548,7 +1548,7 @@ static void  SimpleParser(void)
     if (LastChar != '\n')
         OutChar('\n');
     OutFlush();
-    if(GameVersion > 0 && CurrentGame != TEMPLE_OF_TERROR) {
+    if(GameVersion > 0 && CurrentGame != TEMPLE_OF_TERROR && CurrentGame != BLIZZARD_PASS) {
         OutCaps();
         Message(WHAT_NOW);
     } else
