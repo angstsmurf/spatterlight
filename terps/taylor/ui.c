@@ -411,18 +411,5 @@ void DisplayInit(void)
     TopHeight = 5;
     OpenTopWindow();
     OpenGraphicsWindow();
-    glk_window_clear(Graphics);
-//    for (int i = 0; i < Game->number_of_pictures; i++) {
-    for (int i = 1; i < 11; i++) {
-        MyLoc = i;
-        fprintf(stderr, "Room image %d\n", i);
-        DrawRoomImage();
-//        DrawSagaPictureAtPos(i, 0, 0);
-//        fprintf(stderr, "image block %d\n", i);
-//        DrawSagaPictureFromBuffer();
-//        HitEnter();
-        glk_window_clear(Graphics);
-
-    }
     CurrentWindow = Bottom;
 }

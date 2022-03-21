@@ -676,20 +676,21 @@ jumpChar:
         int patterns_lookup = Game->image_patterns_lookup;
         uint8_t *copied_bytes = NULL;
         uint8_t *stored_pointer = NULL;
-        int skip = 0;
         do {
-        jumpHere:
             instructions[number++] = *pos;
             uint8_t A = *pos;
-            if (A == 0xfb || A == 0xef || A == 0xee || A == 0xeb || A == 0xf3 || A == 0xfa || A == 0xfe)
-                fprintf(stderr, "Special image block value 0x%02x! Following values are 0x%02x and 0x%02x\n", A, *(pos + 1), *(pos + 2));
             if (CurrentGame == REBEL_PLANET) {
                 switch (A) {
                     case 0xfb:
                         number--;
-                        pos = stored_pointer;
-                        free(copied_bytes);
-                        copied_bytes = NULL;
+                        if (copied_bytes[0] == 0) {
+                            pos = stored_pointer;
+                            free(copied_bytes);
+                            copied_bytes = NULL;
+                        } else {
+                            copied_bytes[0]--;
+                            pos = copied_bytes;
+                        }
                         break;
                     case 0xef:
                         A = 1;
@@ -705,22 +706,12 @@ jumpChar:
                     case 0xf3:
                         pos++;
                         A = *pos;
-//                        HL++;
-//                        A = mem[HL];
                     jump6efd:
                         number--;
-                        fprintf(stderr, "Instruction %d is 0x82\n", number);
                         instructions[number++] = 0x82;
-                        fprintf(stderr, "Instruction %d is 0x%02x\n", number, A);
                         instructions[number++] = A;
-                        fprintf(stderr, "Instruction %d is 0x0\n", number);
                         instructions[number++] = 0;
-//                        mem[0x5bc0] = A;
-//                        mem[0x5bbe] = 0x82;
-//                        mem[0x5bbf] = 0x82;
-//                        global5bbc = HL;
                         A = 0;
-                        skip = 1;
                         break;
                     case 0xfa:
                         number--;
@@ -730,25 +721,15 @@ jumpChar:
                         if (copied_bytes != NULL)
                             free(copied_bytes);
                         copied_bytes = MemAlloc(A + 1);
-                        fprintf(stderr, "Copying %d bytes\n", A);
-                        for (int i = 0; i < A; i++) {
-                            copied_bytes[i] = *(pos + i);
-                            fprintf(stderr, "Copied byte %d: 0x%02x\n", i, copied_bytes[i]);
-//                        memcpy(copied_bytes, pos, A);
-                        }
+                        memcpy(copied_bytes, pos, A);
+                        copied_bytes[0]--;
                         copied_bytes[A] = 0xfb;
                         pos = copied_bytes;
-                        skip = 1;
                         break;
                 }
 
             }
 
-            if (skip) {
-                skip = 0;
-            } else {
-                fprintf(stderr, "Instruction %d is 0x%02x (0x%04lx)\n", number - 1, *pos, pos - FileImage + 0x4000);
-            }
             if (CurrentGame == TEMPLE_OF_TERROR) {
                 for (int i = 0; i < 0x12; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
@@ -1115,8 +1096,8 @@ void DrawTaylor(int loc)
                 break;
         }
         ptr++;
-        DrawSagaPictureFromBuffer();
-        HitEnter();
+//        DrawSagaPictureFromBuffer();
+//        HitEnter();
     }
 }
 
