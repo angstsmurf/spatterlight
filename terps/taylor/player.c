@@ -1752,7 +1752,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         exit(1);
     }
 
-    argv[1] = "/Users/administrator/Desktop/terror.sna";
+    argv[1] = "/Users/administrator/Desktop/rebel.sna";
 
     f = fopen(argv[1], "r");
     if(f == NULL)

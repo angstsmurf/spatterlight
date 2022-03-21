@@ -413,12 +413,13 @@ void DisplayInit(void)
     OpenGraphicsWindow();
     glk_window_clear(Graphics);
 //    for (int i = 0; i < Game->number_of_pictures; i++) {
-//        DrawSagaPictureAtPos(i, 0, 0);
-//        fprintf(stderr, "image block %d\n", i);
-//        DrawSagaPictureFromBuffer();
-//        HitEnter();
-//        glk_window_clear(Graphics);
-//
-//    }
+    for (int i = 0; i < 100; i++) {
+        DrawSagaPictureAtPos(i, 0, 0);
+        fprintf(stderr, "image block %d\n", i);
+        DrawSagaPictureFromBuffer();
+        HitEnter();
+        glk_window_clear(Graphics);
+
+    }
     CurrentWindow = Bottom;
 }
