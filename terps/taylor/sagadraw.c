@@ -725,8 +725,8 @@ jumpChar:
                     case 0xfa:
                         number--;
                         pos++;
-                        stored_pointer = pos;
                         A = *pos++;
+                        stored_pointer = pos;
                         if (copied_bytes != NULL)
                             free(copied_bytes);
                         copied_bytes = MemAlloc(A + 1);
@@ -1016,49 +1016,50 @@ void DrawTaylor(int loc)
             ptr++;
         ptr++;
     }
-//    int instruction = 1;
+    int instruction = 1;
     while (ptr - FileImage < FileImageLen) {
-//        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
+        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
         switch (*ptr) {
             case 0xff:
-//                fprintf(stderr, "End of picture\n");
+                fprintf(stderr, "End of picture\n");
                 return;
             case 0xfe: // 7470
-//                fprintf(stderr, "0xfe mirror_left_half\n");
+                fprintf(stderr, "0xfe mirror_left_half\n");
                 mirror_area(0, 0, 32, 12);
                 break;
             case 0xfd: // 7126
-//                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
+                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
                 replace_colour(*(ptr + 1), *(ptr + 2));
                 ptr += 2;
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
-//                fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", *(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 3), *(ptr + 5));
                 if (CurrentGame != TEMPLE_OF_TERROR) {
+                    fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;
                 } else {
+                    // fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d height %d width %d\n", *(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 3), *(ptr + 5));
                     draw_colour(*(ptr + 4), *(ptr + 2), *(ptr + 1), *(ptr + 5), *(ptr + 3));
                     ptr = ptr + 5;
                 }
                 break;
             case 0xfb: // Make all screen colours bright 713e
-//                fprintf(stderr, "Make colours in picture area bright\n");
+                fprintf(stderr, "Make colours in picture area bright\n");
                 make_light();
                 break;
             case 0xfa: // Flip entire image horizontally 7646
-//                fprintf(stderr, "0xfa Flip entire image horizontally\n");
+                fprintf(stderr, "0xfa Flip entire image horizontally\n");
                 flip_image_horizontally();
                 break;
             case 0xf9: //0xf9 Draw picture n recursively;
-//                fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
+                fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
                 DrawTaylor(*(ptr + 1));
                 ptr++;
                 break;
             case 0xf8: //73d1
-//                fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
+                fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
                 ptr++;
-//                fprintf(stderr, "Location of object %d: %d. MyLoc: %d\n", *ptr, ObjectLoc[*ptr], MyLoc);
+                fprintf(stderr, "Location of object %d: %d. MyLoc: %d\n", *ptr, ObjectLoc[*ptr], MyLoc);
                 if (ObjectLoc[*ptr] != MyLoc) {
                     return;
                 }
@@ -1114,6 +1115,8 @@ void DrawTaylor(int loc)
                 break;
         }
         ptr++;
+        DrawSagaPictureFromBuffer();
+        HitEnter();
     }
 }
 
