@@ -88,12 +88,12 @@ struct GameInfo games[NUMGAMES] = {
         0x28de, // start of directions
 
         0x810e, // start_of_characters;
-        0x9139, // start_of_image_data;
+        0x6916, // start_of_image_data;
         0x3837, // image patterns lookup table;
         0x1c, // number of patterns
         0x9f, // patterns end marker
         0x87a6, // start of room image instructions
-        165, // number_of_image blocks;
+        42, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
@@ -137,7 +137,7 @@ struct GameInfo games[NUMGAMES] = {
         0x1c, // number of patterns
         0x9f, // patterns end marker
         0x87a6, // start of room image instructions
-        165, // number_of_image blocks;
+        166, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
@@ -194,7 +194,7 @@ struct GameInfo games[NUMGAMES] = {
         66,  // Number of items
         177, // Number of actions
         79,  // Number of words
-        93,  // Number of rooms
+        87,  // Number of rooms
         133,   // Max carried items
         4,   // Word length
         171,  // Number of messages
@@ -238,7 +238,7 @@ struct GameInfo games[NUMGAMES] = {
         191,  // Number of items
         177, // Number of actions
         79,  // Number of words
-        127,  // Number of rooms
+        111,  // Number of rooms
         150,   // Max carried items
         3,   // Word length
         210,  // Number of messages
@@ -282,7 +282,7 @@ struct GameInfo games[NUMGAMES] = {
         191,  // Number of items
         177, // Number of actions
         79,  // Number of words
-        127,  // Number of rooms
+        91,  // Number of rooms
         150,   // Max carried items
         3,   // Word length
         210,  // Number of messages
