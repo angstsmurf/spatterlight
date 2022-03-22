@@ -679,7 +679,7 @@ jumpChar:
         do {
             instructions[number++] = *pos;
             uint8_t A = *pos;
-            if (CurrentGame == REBEL_PLANET) {
+            if (CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN && CurrentGame != KAYLETH) {
                 switch (A) {
                     case 0xfb:
                         number--;
@@ -730,16 +730,16 @@ jumpChar:
 
             }
 
-            if (CurrentGame == TEMPLE_OF_TERROR) {
-                for (int i = 0; i < 0x12; i++) {
+            if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == HEMAN || CurrentGame == KAYLETH) {
+                    for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, 0x7837 + i, i);
+                        fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
 
-                        uint16_t base = patterns_lookup + 0x12 + i * 2;
+                        uint16_t base = patterns_lookup + Game->number_of_patterns + i * 2;
                         int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
                             fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
-                        while (FileImage[newoffset] != 0xaa) {
+                        while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
                             fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
@@ -1014,7 +1014,7 @@ void DrawTaylor(int loc)
                 ptr += 2;
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
-                if (CurrentGame != TEMPLE_OF_TERROR) {
+                if (CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN && CurrentGame != KAYLETH) {
                     fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;

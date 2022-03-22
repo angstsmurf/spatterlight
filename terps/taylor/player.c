@@ -55,16 +55,16 @@ struct GameInfo *Game = NULL;
 
 struct GameInfo games[NUMGAMES] = {
     {
-        "Blizzard Pass",
-        BLIZZARD_PASS,
+        "Questprobe 3",
+        HUMAN_TORCH,
         OLD_STYLE,                 // type
 
         66,  // Number of items
         177, // Number of actions
         79,  // Number of words
-        107,  // Number of rooms
-        150,   // Max carried items
-        3,   // Word length
+        93,  // Number of rooms
+        133,   // Max carried items
+        4,   // Word length
         171,  // Number of messages
 
         80, // number_of_verbs
@@ -87,11 +87,13 @@ struct GameInfo games[NUMGAMES] = {
         0x2539, // start_of_system_messages
         0x28de, // start of directions
 
-        0x8350, // start_of_characters;
-        0x8708, // start_of_image_data;
+        0x810e, // start_of_characters;
+        0x9139, // start_of_image_data;
         0x3837, // image patterns lookup table;
-        0x7798, // start of room image instructions
-        114, // number_of_image blocks;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
+        0x87a6, // start of room image instructions
+        165, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
@@ -132,8 +134,98 @@ struct GameInfo games[NUMGAMES] = {
         0x810e, // start_of_characters;
         0x9139, // start_of_image_data;
         0x3837, // image patterns lookup table;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
         0x87a6, // start of room image instructions
         165, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Blizzard Pass",
+        BLIZZARD_PASS,
+        OLD_STYLE,                 // type
+
+        66,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        107,  // Number of rooms
+        150,   // Max carried items
+        3,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x8350, // start_of_characters;
+        0x8708, // start_of_image_data;
+        0x3837, // image patterns lookup table;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
+        0x7798, // start of room image instructions
+        114, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Heman",
+        HEMAN,
+        OLD_STYLE,                 // type
+
+        66,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        93,  // Number of rooms
+        133,   // Max carried items
+        4,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x8603, // start_of_characters;
+        0x8d13, // start_of_image_data;
+        0x3703, // image patterns lookup table;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
+        0x7adf, // start of room image instructions
+        139, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
@@ -174,8 +266,54 @@ struct GameInfo games[NUMGAMES] = {
         0x83cb, // start_of_characters;
         0x8a33, // start_of_image_blocks;
         0x3837, // image patterns lookup table;
+        0x12, // number of patterns
+        0xaa, // patterns end marker
         0x7b75, // start of room image instructions
         143, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Kayleth",
+        KAYLETH,
+        OLD_STYLE,                 // type
+
+        191,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        127,  // Number of rooms
+        150,   // Max carried items
+        3,   // Word length
+        210,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x3a50, // actions
+        0x469a,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x83cb, // start_of_characters;
+        0xdce0 - 0x4000, // start_of_image_blocks;
+        0x78b6 - 0x4000, // image patterns lookup table;
+        0x1f, // number of patterns
+        0x8e, // patterns end marker
+        0xc279 - 0x4000, // start of room image instructions
+        209, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     }
@@ -1752,7 +1890,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         exit(1);
     }
 
-    argv[1] = "/Users/administrator/Desktop/rebel.sna";
+    argv[1] = "/Users/administrator/Desktop/kayleth.sna";
 
     f = fopen(argv[1], "r");
     if(f == NULL)
@@ -1795,7 +1933,7 @@ void glk_main(void)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
-    Game = &games[1]; // Always Temple of Terror for now
+    Game = &games[5]; // Always Kayleth for now
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();

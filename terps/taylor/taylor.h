@@ -145,6 +145,8 @@ struct GameInfo {
     int start_of_characters;
     int start_of_image_blocks;
     int image_patterns_lookup;
+    int number_of_patterns;
+    int pattern_end_marker;
     int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
