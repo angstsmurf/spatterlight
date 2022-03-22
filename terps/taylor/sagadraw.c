@@ -911,6 +911,23 @@ void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 
 void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+    uint8_t mirror[384][9];
+
+    for (int line = y1; line < y2; line++) {
+        for (int col = 0; col < width; col++) {
+            for (int pixrow = 0; pixrow < 9; pixrow++)
+                mirror[line * 32 + x1 + col][pixrow] = buffer[line * 32 + (x1 + width - 1) - col][pixrow];
+            Flip(mirror[line * 32 + x1 + col]);
+        }
+    }
+
+    for (int line = y1; line < y2; line++) {
+        for (int col = x1; col < x1 + width; col++) {
+            for (int pixrow = 0; pixrow < 8; pixrow++)
+                buffer[line * 32 + col][pixrow] = mirror[line * 32 + col][pixrow];
+            buffer[line * 32 + col][8] = mirror[line * 32 + col][8];
+        }
+    }
 }
 
 void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
