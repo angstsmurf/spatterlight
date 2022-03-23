@@ -618,30 +618,30 @@ jumpChar:
             CHAR_START - FileBaselineOffset);
 #endif
     for (i = 0; i < 256; i++) {
-//        fprintf (stderr, "\nCharacter %d:\n", i);
+        //        fprintf (stderr, "\nCharacter %d:\n", i);
         for (y = 0; y < 8; y++) {
             sprite[i][y] = *(pos++);
-//            if ((i == 0 && sprite[i][y] != 0) || (i == 1 &&
-//                                                  sprite[i][y] != 255)) {
-//                CHAR_START--;
-//                goto jumpChar;
-//            }
-//
-//            fprintf (stderr, "\n%s$%04lX DEFS ", (y == 0) ? "s" : " ", CHAR_START + i * 8 + y);
-//            for (int n = 0; n < 8; n++) {
-//                if (isNthBitSet(sprite[i][y], n))
-//                    fprintf (stderr, "■");
-//                else
-//                    fprintf (stderr, "0");
-//            }
+            //            if ((i == 0 && sprite[i][y] != 0) || (i == 1 &&
+            //                                                  sprite[i][y] != 255)) {
+            //                CHAR_START--;
+            //                goto jumpChar;
+            //            }
+            //
+            //            fprintf (stderr, "\n%s$%04lX DEFS ", (y == 0) ? "s" : " ", CHAR_START + i * 8 + y);
+            //            for (int n = 0; n < 8; n++) {
+            //                if (isNthBitSet(sprite[i][y], n))
+            //                    fprintf (stderr, "■");
+            //                else
+            //                    fprintf (stderr, "0");
+            //            }
         }
     }
-//    fprintf(stderr, "Final CHAR_START: %04lx\n",
-//              CHAR_START - FileBaselineOffset);
+    //    fprintf(stderr, "Final CHAR_START: %04lx\n",
+    //              CHAR_START - FileBaselineOffset);
 
-//      fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
-//              pos - FileImage - FileBaselineOffset,
-//              pos - FileImage - FileBaselineOffset);
+    //      fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
+    //              pos - FileImage - FileBaselineOffset,
+    //              pos - FileImage - FileBaselineOffset);
 
     /* Now we have hopefully read the character data */
     /* Time for the image offsets */
@@ -655,10 +655,10 @@ jumpChar:
         fprintf(stderr, "Image block %d\n", picture_number);
         uint8_t widthheight = *pos++;
         img->width = ((widthheight & 0xf0) >> 4) + 1;
-        fprintf (stderr, "width of image block %d: %d\n", picture_number, img->width);
+        //        fprintf (stderr, "width of image block %d: %d\n", picture_number, img->width);
 
         img->height = (widthheight & 0x0f) + 1;
-        fprintf (stderr, "height of image block %d: %d\n", picture_number, img->height);
+        //        fprintf (stderr, "height of image block %d: %d\n", picture_number, img->height);
 
         if (CurrentGame == BLIZZARD_PASS) {
             switch (picture_number) {
@@ -728,15 +728,14 @@ jumpChar:
             } else {
                 for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, patterns_lookup + i, i);
+                        //                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
-
                         uint16_t base = patterns_lookup + Game->number_of_patterns + i * 2;
                         uint16_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
                         //                            fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
-                            fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
+                            //                            fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
                         break;
                     }
@@ -873,8 +872,7 @@ void flip_image_vertically(void)
 }
 
 void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
-    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
-
+//    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     uint8_t mirror[384][9];
 
     for (int line = 0; line <= y2; line++) {
@@ -894,7 +892,7 @@ void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 }
 
 void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
-    fprintf(stderr, "mirror_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+//    fprintf(stderr, "mirror_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     for (int line = 0; line < y2 / 2; line++) {
         for (int col = x1; col < x1 + width; col++) {
             buffer[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
@@ -905,7 +903,7 @@ void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 }
 
 void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
-    fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
+//    fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     uint8_t mirror[384][9];
 
     for (int line = y1; line < y2; line++) {
@@ -1009,25 +1007,25 @@ void DrawTaylor(int loc)
             ptr++;
         ptr++;
     }
-    int instruction = 1;
+    //    int instruction = 1;
     while (ptr - FileImage < FileImageLen) {
-        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
+        //        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
         switch (*ptr) {
             case 0xff:
-                fprintf(stderr, "End of picture\n");
+                //                fprintf(stderr, "End of picture\n");
                 return;
             case 0xfe: // 7470
-                fprintf(stderr, "0xfe mirror_left_half\n");
+                //                fprintf(stderr, "0xfe mirror_left_half\n");
                 mirror_area(0, 0, 32, 12);
                 break;
             case 0xfd: // 7126
-                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
+                //                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
                 replace_colour(*(ptr + 1), *(ptr + 2));
                 ptr += 2;
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
                 if (CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN && CurrentGame != KAYLETH) {
-                    fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
+                    //                    fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;
                 } else {
@@ -1037,22 +1035,21 @@ void DrawTaylor(int loc)
                 }
                 break;
             case 0xfb: // Make all screen colours bright 713e
-                fprintf(stderr, "Make colours in picture area bright\n");
+                //                fprintf(stderr, "Make colours in picture area bright\n");
                 make_light();
                 break;
             case 0xfa: // Flip entire image horizontally 7646
-                fprintf(stderr, "0xfa Flip entire image horizontally\n");
+                //                fprintf(stderr, "0xfa Flip entire image horizontally\n");
                 flip_image_horizontally();
                 break;
             case 0xf9: //0xf9 Draw picture n recursively;
-                fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
+                //                fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
                 DrawTaylor(*(ptr + 1));
                 ptr++;
                 break;
             case 0xf8: //73d1
-                fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
+                //                fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
                 ptr++;
-                fprintf(stderr, "Location of object %d: %d. MyLoc: %d\n", *ptr, ObjectLoc[*ptr], MyLoc);
                 if (ObjectLoc[*ptr] != MyLoc) {
                     return;
                 }
@@ -1063,11 +1060,11 @@ void DrawTaylor(int loc)
                 ptr++;
                 break;
             case 0xf3: //753d
-//                fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
+                //                fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
                 mirror_top_half();
                 break;
             case 0xf2: //7465 arg1 arg2 arg3 arg4 Mirror horizontally
-//                fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
+                //                fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 mirror_area(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
@@ -1080,7 +1077,7 @@ void DrawTaylor(int loc)
                 ptr = ptr + 4;
                 break;
             case 0xed: //7788
-//                fprintf(stderr, "0xed: Flip entire image vertically\n");
+                //                fprintf(stderr, "0xed: Flip entire image vertically\n");
                 flip_image_vertically();
                 break;
             case 0xec: //777d Flip area vertically ?
@@ -1088,15 +1085,17 @@ void DrawTaylor(int loc)
                 ptr = ptr + 4;
                 break;
             case 0xe9: // 77ac
-//                fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
+                //                fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
                 replace_paper_and_ink(*(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
             case 0xe8:
-//                fprintf(stderr, "Clear graphics memory\n");
+                //                fprintf(stderr, "Clear graphics memory\n");
                 ClearGraphMem();
                 break;
             case 0xf7: //756e } set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
+                if (CurrentGame == REBEL_PLANET)
+                    return;
             case 0xf6: //7582 } set A to 04 and call 70b7. See 0xf7 above.
             case 0xf5: //7578 } set A to 08 and call 70b7. See 0xf7 above.
                 fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
