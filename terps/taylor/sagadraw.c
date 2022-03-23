@@ -576,7 +576,7 @@ static size_t FindCharacterStart(void)
     size_t pos = FindCode("\x00\x00\x00\x00\x00\x00\x00\x00\x80\x80\x80\x80\x80\x80\x80\x80\x40\x40\x40\x40\x40\x40\x40\x40", 0, 24);
     if(pos == -1) {
         fprintf(stderr, "Cannot find character data.\n");
-        exit(1);
+        return 0;
     }
     fprintf(stderr, "Found characters at pos %zx\n", pos);
     return pos;

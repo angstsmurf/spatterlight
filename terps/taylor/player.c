@@ -198,7 +198,7 @@ static size_t FindFlags(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial flag data.\n");
-        exit(1);
+        glk_exit();
     }
     return pos + 6;
 }
@@ -208,7 +208,7 @@ static size_t FindObjectLocations(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
-        exit(1);
+        glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
     return pos - 0x4000;
@@ -225,7 +225,7 @@ static size_t FindExits(void)
         return pos;
     }
     fprintf(stderr, "Cannot find initial flag data.\n");
-    exit(1);
+    glk_exit();
 }
 
 static int LooksLikeTokens(size_t pos)
@@ -267,7 +267,7 @@ static size_t FindTokens(void)
             addr = FindCode("You are in ", 0, 11) - 1;
             if(addr == -1) {
                 fprintf(stderr, "Unable to find token table.\n");
-                exit(1);
+                glk_exit();
             }
             return addr;
         }
@@ -488,7 +488,7 @@ static size_t FindMessages(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to locate messages.\n");
-    exit(1);
+    glk_exit();
 }
 
 static int FindMessages2(void)
@@ -528,7 +528,7 @@ static int FindObjects(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to locate objects.\n");
-    exit(1);
+    glk_exit();
 }
 
 static void PrintObject(unsigned char obj)
@@ -549,7 +549,7 @@ static size_t FindRooms(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to locate rooms.\n");
-    exit(1);
+    glk_exit();
 }
 
 
@@ -1301,7 +1301,7 @@ static int FindStatusTable(void)
         return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to find automatics.\n");
-    exit(1);
+    glk_exit();
 }
 
 static void RunStatusTable(void)
@@ -1621,7 +1621,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     if(argv[1] == NULL)
     {
         fprintf(stderr, "%s: <file>.\n", argv[0]);
-        exit(1);
+        glk_exit();
     }
 
     argv[1] = "/Users/administrator/Desktop/kayleth.sna";
