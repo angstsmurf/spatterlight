@@ -1,0 +1,290 @@
+//
+//  gameinfo.c
+//  taylor
+//
+//  Created by Administrator on 2022-03-23.
+//
+
+#include <stdio.h>
+
+#include "taylor.h"
+
+struct GameInfo games[NUMGAMES] = {
+    {
+        "Questprobe 3",
+        QUESTPROBE3,
+        QUESTPROBE3_TYPE,                 // type
+
+        66,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        93,  // Number of rooms
+        133,   // Max carried items
+        4,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs •
+        79, // number_of_nouns; •
+
+        0, // header •
+
+        0, // no room images •
+        0, // no item flags •
+        0, // no item images •
+
+        0x3a50, // actions
+        0x85F6 - 0x4000,  // dictionary
+        0x3FFE - 0x4000, // tokens
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        FOLLOWS, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages
+        0x28de, // start of directions
+
+        0x810e, // start_of_characters;
+        0x6916, // start_of_image_data;
+        0x3837, // image patterns lookup table;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
+        0x87a6, // start of room image instructions
+        42, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Rebel Planet",
+        REBEL_PLANET,
+        REBEL_PLANET_TYPE,                 // type
+
+        133,  // Number of items
+        177, // Number of actions •
+        79,  // Number of words •
+        250,  // Number of rooms
+        133,   // Max carried items •
+        4,   // Word length
+        254,  // Number of messages
+
+        80, // number_of_verbs •
+        79, // number_of_nouns •
+
+        0, // header •
+
+        0, // no room images •
+        0, // no item flags •
+        0, // no item images •
+
+        0x83E0 - 0x4000, // actions
+        0x7559 - 0x4000,  // dictionary
+        0xBBDA - 0x4000, // tokens
+        0x9615 - 0x4000, // start_of_room_descriptions;
+        0x73A3 - 0x4000, // start_of_room_connections;
+        0x9E05 - 0x4000, // start_of_messages;
+        0xB321 - 0x4000, // start_of_item_descriptions;
+        0x731E - 0x4000, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0x810e, // start_of_characters;
+        0x9139, // start_of_image_data;
+        0, // image patterns lookup table; •
+        0, // number of patterns •
+        0, // patterns end marker •
+        0x87a6, // start of room image instructions
+        166, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Blizzard Pass",
+        BLIZZARD_PASS,
+        BLIZZARD_PASS_TYPE,                 // type
+
+        150,  // Number of items
+        177, // Number of actions
+        79,  // Number of words
+        107,  // Number of rooms
+        0,   // Max carried items •
+        4,   // Word length
+        171,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x9A54 - 0x4000, // actions
+        0xA720 - 0x4000,  // dictionary
+        0xB1BC - 0x4000, // tokens
+        0x75CE - 0x4000, // start_of_room_descriptions;
+        0xAB67 - 0x4000, // start_of_room_connections;
+        0x7E26 - 0x4000, // start_of_messages;
+        0x8CE6 - 0x4000, // start_of_item_descriptions;
+        0xB6A8 - 0x4000, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0x8350, // start_of_characters;
+        0x8708, // start_of_image_data;
+        0, // image patterns lookup table
+        0, // number of patterns
+        0, // patterns end marker
+        0x7798, // start of room image instructions
+        114, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Heman",
+        HEMAN,
+        HEMAN_TYPE,                 // type
+
+        91,  // Number of items
+        177, // Number of actions
+        79,  // Number of words •
+        127,  // Number of rooms
+        0,   // Max carried items •
+        4,   // Word length
+        210,  // Number of messages
+
+        80, // number_of_verbs
+        79, // number_of_nouns;
+
+        0, // header
+
+        0, // no room images
+        0, // no item flags
+        0, // no item images
+
+        0x77D8 - 0x4000, // actions
+        0x883A - 0x4000,  // dictionary
+        0x8CE0 - 0x4000, // tokens
+        0x9B36 - 0x4000, // start_of_room_descriptions;
+        0x842F - 0x4000, // start_of_room_connections;
+        0xA665 - 0x4000, // start_of_messages;
+        0x96A2 - 0x4000, // start_of_item_descriptions;
+        0x83CB - 0x4000, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0x8603, // start_of_characters;
+        0x8d13, // start_of_image_data;
+        0x3703, // image patterns lookup table;
+        0x1c, // number of patterns
+        0x9f, // patterns end marker
+        0x7adf, // start of room image instructions
+        139, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Temple of Terror",
+        TEMPLE_OF_TERROR,
+        HEMAN_TYPE,                 // type
+
+        191,  // Number of items
+        177, // Number of actions •
+        79,  // Number of words •
+        127,  // Number of rooms
+        0,   // Max carried items •
+        4,   // Word length
+        210,  // Number of messages
+
+        80, // number_of_verbs •
+        79, // number_of_nouns; •
+
+        0, // header •
+
+        0, // no room images •
+        0, // no item flags •
+        0, // no item images •
+
+        0x78a4 - 0x4000, // actions
+        0x8b9d - 0x4000, // dictionary
+        0x90D4 - 0x4000, // tokens
+        0x93B3 - 0x4000, // start_of_room_descriptions;
+        0x865C - 0x4000, // start_of_room_connections;
+        0xA67D - 0x4000, // start_of_messages;
+        0x9C4F - 0x4000, // start_of_item_descriptions;
+        0x8594 - 0x4000, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0x83cb, // start_of_characters;
+        0x8a33, // start_of_image_blocks;
+        0x3837, // image patterns lookup table;
+        0x12, // number of patterns
+        0xaa, // patterns end marker
+        0x7b75, // start of room image instructions
+        143, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+
+    {
+        "Kayleth",
+        KAYLETH,
+        HEMAN_TYPE,                 // type
+
+        123,  // Number of items
+        177, // Number of actions •
+        79,  // Number of words •
+        127,  // Number of rooms
+        0,   // Max carried items •
+        4,   // Word length
+        254,  // Number of messages
+
+        80, // number_of_verbs •
+        79, // number_of_nouns; •
+
+        0, // header •
+
+        0, // no room images •
+        0, // no item flags •
+        0, // no item images •
+
+        0x7A48 - 0x3FE5, // actions
+        0x9146 - 0x3FE5,  // dictionary
+        0xBE08 - 0x3FE5,  // tokens
+        0xAEB3 - 0x3FE5, // start_of_room_descriptions;
+        0x8DE0 - 0x3FE5, // start_of_room_connections;
+        0x9A99 - 0x3FE5, // start_of_messages;
+        0xB870 - 0x3FE5, // start_of_item_descriptions;
+        0x8D5F - 0x3FE5, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0x83e6, // start_of_characters;
+        0xdce0 - 0x4000, // start_of_image_blocks;
+        0x78b6 - 0x4000, // image patterns lookup table;
+        0x1f, // number of patterns
+        0x8e, // patterns end marker
+        0xc279 - 0x4000, // start of room image instructions
+        209, // number_of_image blocks;
+        ZXOPT, // palette
+        4, // picture_format_version;
+    },
+    {
+        "Unknown game",
+        UNKNOWN_GAME,
+        HEMAN_TYPE,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0
+    }
+};

@@ -673,14 +673,14 @@ jumpChar:
         }
         uint8_t instructions[2048];
         int number = 0;
-        int patterns_lookup = Game->image_patterns_lookup;
+        uint16_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
         uint8_t *copied_bytes = NULL;
         uint8_t *stored_pointer = NULL;
         do {
             instructions[number++] = *pos;
-            uint8_t A = *pos;
-            if (CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN && CurrentGame != KAYLETH) {
-                switch (A) {
+            uint8_t opcode = *pos;
+            if (Version != HEMAN_TYPE) {
+                switch (opcode) {
                     case 0xfb:
                         number--;
                         if (copied_bytes[0] == 0) {
@@ -693,45 +693,42 @@ jumpChar:
                         }
                         break;
                     case 0xef:
-                        A = 1;
+                        opcode = 1;
                         goto jump6efd;
                     case 0xee:
-                        A = 2;
+                        opcode = 2;
                         goto jump6efd;
                         break;
                     case 0xeb:
-                        A = 3;
+                        opcode = 3;
                         goto jump6efd;
                         break;
                     case 0xf3:
                         pos++;
-                        A = *pos;
+                        opcode = *pos;
                     jump6efd:
                         number--;
                         instructions[number++] = 0x82;
-                        instructions[number++] = A;
+                        instructions[number++] = opcode;
                         instructions[number++] = 0;
-                        A = 0;
+                        opcode = 0;
                         break;
                     case 0xfa:
                         number--;
                         pos++;
-                        A = *pos++;
+                        int numbytes = *pos++;
                         stored_pointer = pos;
                         if (copied_bytes != NULL)
                             free(copied_bytes);
-                        copied_bytes = MemAlloc(A + 1);
-                        memcpy(copied_bytes, pos, A);
+                        copied_bytes = MemAlloc(numbytes + 1);
+                        memcpy(copied_bytes, pos, numbytes);
                         copied_bytes[0]--;
-                        copied_bytes[A] = 0xfb;
+                        copied_bytes[numbytes] = 0xfb;
                         pos = copied_bytes;
                         break;
                 }
-
-            }
-
-            if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == HEMAN || CurrentGame == KAYLETH) {
-                    for (int i = 0; i < Game->number_of_patterns; i++) {
+            } else {
+                for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
                         fprintf(stderr, "Found 0x%02x at address 0x%04x (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
@@ -764,7 +761,7 @@ jumpChar:
         img++;
     }
 
-    taylor_image_data = &FileImage[Game->start_of_image_instructions];
+    taylor_image_data = &FileImage[Game->start_of_image_instructions + FileBaselineOffset];
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
@@ -1104,17 +1101,17 @@ void DrawTaylor(int loc)
             case 0xf7: //756e } set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
             case 0xf6: //7582 } set A to 04 and call 70b7. See 0xf7 above.
             case 0xf5: //7578 } set A to 08 and call 70b7. See 0xf7 above.
-//                fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
+                fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
                 ptr++; // Deliberate fallthrough
             default: // else draw image *ptr at x, y
-//                fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
+                //                fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
                 DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
         }
         ptr++;
-//        DrawSagaPictureFromBuffer();
-//        HitEnter();
+        //        DrawSagaPictureFromBuffer();
+        //        HitEnter();
     }
 }
 
@@ -1126,8 +1123,8 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     uint8_t data, data2, old = 0;
     int32_t ink[0x22][14], paper[0x22][14];
 
-//    uint8_t *origptr = dataptr;
-//    int version = Game->picture_format_version;
+    //    uint8_t *origptr = dataptr;
+    //    int version = Game->picture_format_version;
     int version = 4;
 
 
@@ -1214,15 +1211,15 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     y = 0;
     x = 0;
 
-//       fprintf(stderr, "Attribute data begins at offset %ld\n", dataptr -
-//       origptr);
+    //       fprintf(stderr, "Attribute data begins at offset %ld\n", dataptr -
+    //       origptr);
 
     uint8_t colour = 0;
     // Note version 3 count is inverse it is repeat previous colour
     // Whilst version0-2 count is repeat next character
     while (y < ysize) {
         data = *dataptr++;
-//        fprintf(stderr, "read attribute data byte %02x\n", data);
+        //        fprintf(stderr, "read attribute data byte %02x\n", data);
         if ((data & 0x80)) {
             count = (data & 0x7f) + 1;
             if (version >= 3) {

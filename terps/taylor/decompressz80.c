@@ -480,38 +480,44 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
-uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
+uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
 {
     libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
         libspectrum_snap_set_pages(snap, i, NULL);
-    if (internal_z80_read(snap, raw_data, length) != LIBSPECTRUM_ERROR_NONE) {
+    if (internal_z80_read(snap, raw_data, *length) != LIBSPECTRUM_ERROR_NONE) {
         return NULL;
     }
 
     uint8_t *uncompressed = NULL;
 
     if (snap->machine == LIBSPECTRUM_MACHINE_48) {
-        uint8_t *uncompressed = malloc(0xC000);
+        fprintf(stderr, "LIBSPECTRUM_MACHINE_48!\n");
+        uncompressed = malloc(0xc000);
         if (uncompressed != NULL) {
             memcpy(uncompressed, snap->pages[5], 0x4000);
             memcpy(uncompressed + 0x4000, snap->pages[2], 0x4000);
             memcpy(uncompressed + 0x8000, snap->pages[0], 0x4000);
+            *length = 0xc000;
         }
 
     } else if (snap->machine == LIBSPECTRUM_MACHINE_128) {
-        uint8_t *uncompressed = malloc(0x2001f);
+        uncompressed = malloc(0x2001f);
         if (uncompressed != NULL) {
             memcpy(uncompressed, snap->pages[5], 0x4000);
             memcpy(uncompressed + 0x4000, snap->pages[2], 0x4000);
-            memcpy(uncompressed + 0x8000, snap->pages[snap->out_128_memoryport], 0x4000);
-            size_t offset = 0xC000;
-            for(int i = 0; i < 8; i++ ) {
-                /* Already written pages 5, 2 and whatever's paged in */
-                if( i == 5 || i == 2 || i == snap->out_128_memoryport ) continue;
-                memcpy(uncompressed + offset, snap->pages[snap->out_128_memoryport], 0x4000);
+            size_t offset = 0x8000;
+            if (snap->out_128_memoryport < SNAPSHOT_RAM_PAGES) {
+                memcpy(uncompressed + 0x8000, snap->pages[snap->out_128_memoryport], 0x4000);
                 offset += 0x4000;
             }
+            for(int i = 0; i < SNAPSHOT_RAM_PAGES && offset < 0x2001f - 0x4000; i++ ) {
+                /* Already written pages 5, 2 and whatever's paged in */
+                if( i == 5 || i == 2 || i == snap->out_128_memoryport ) continue;
+                memcpy(uncompressed + offset, snap->pages[i], 0x4000);
+                offset += 0x4000;
+            }
+            *length = 0x2001f;
         }
     }
 
@@ -534,6 +540,9 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     error = read_header(buffer, snap, &data, &version, &compressed);
     if (error != LIBSPECTRUM_ERROR_NONE)
         return error;
+
+    if (compressed)
+        fprintf(stderr, "Reading compressed block\n");
 
     error = read_blocks(data, buffer_length - (data - buffer), snap, version,
         compressed);

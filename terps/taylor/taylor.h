@@ -1,6 +1,8 @@
 #ifndef taylor_h
 #define taylor_h
 
+#include "glk.h"
+
 unsigned char WaitCharacter(void);
 void LineInput(char *buf, int len);
 void DisplayInit(void);
@@ -25,18 +27,19 @@ void OpenTopWindow(void);
 #define MyLoc (Flag[0])
 
 #define CurrentGame (Game->gameID)
+#define Version (Game->type)
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef enum {
-    UNKNOWN_GAME,
-    BLIZZARD_PASS,
+    QUESTPROBE3,
     REBEL_PLANET,
-    TEMPLE_OF_TERROR,
+    BLIZZARD_PASS,
     HEMAN,
+    TEMPLE_OF_TERROR,
     KAYLETH,
-    HUMAN_TORCH,
+    UNKNOWN_GAME,
     NUMGAMES
 } GameIDType;
 
@@ -104,15 +107,17 @@ typedef enum {
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
 typedef enum {
-    NO_TYPE,
-    OLD_STYLE,
-} GameType;
+    REBEL_PLANET_TYPE,
+    BLIZZARD_PASS_TYPE,
+    HEMAN_TYPE,
+    QUESTPROBE3_TYPE
+} GameVersion;
 
 struct GameInfo {
     const char *Title;
 
     GameIDType gameID;
-    GameType type;
+    GameVersion type;
 
     int number_of_items;
     int number_of_actions;
@@ -133,6 +138,7 @@ struct GameInfo {
 
     int start_of_actions;
     int start_of_dictionary;
+    int start_of_tokens;
     int start_of_room_descriptions;
     int start_of_room_connections;
     int start_of_messages;
@@ -158,7 +164,7 @@ extern unsigned char ObjectLoc[];
 extern unsigned char Flag[];
 
 extern winid_t Bottom, Top, Graphics, CurrentWindow;
-extern int FileBaselineOffset;
+extern long FileBaselineOffset;
 
 extern int NumLowObjects;
 

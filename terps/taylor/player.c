@@ -39,8 +39,6 @@ static int ActionsDone;
 static int ActionsExecuted;
 static int Redraw;
 
-static int GameVersion;
-static int Blizzard;
 static int FirstAfterInput = 0;
 
 extern struct SavedState *initial_state;
@@ -49,275 +47,11 @@ int stop_time = 0;
 int just_started = 1;
 int should_restart = 0;
 
-int FileBaselineOffset = 0;
+long FileBaselineOffset = 0;
 
 struct GameInfo *Game = NULL;
 
-struct GameInfo games[NUMGAMES] = {
-    {
-        "Questprobe 3",
-        HUMAN_TORCH,
-        OLD_STYLE,                 // type
-
-        66,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        93,  // Number of rooms
-        133,   // Max carried items
-        4,   // Word length
-        171,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x810e, // start_of_characters;
-        0x6916, // start_of_image_data;
-        0x3837, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
-        0x87a6, // start of room image instructions
-        42, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    },
-
-    {
-        "Rebel Planet",
-        REBEL_PLANET,
-        OLD_STYLE,                 // type
-
-        66,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        93,  // Number of rooms
-        133,   // Max carried items
-        4,   // Word length
-        171,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x810e, // start_of_characters;
-        0x9139, // start_of_image_data;
-        0x3837, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
-        0x87a6, // start of room image instructions
-        166, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    },
-
-    {
-        "Blizzard Pass",
-        BLIZZARD_PASS,
-        OLD_STYLE,                 // type
-
-        66,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        107,  // Number of rooms
-        150,   // Max carried items
-        3,   // Word length
-        171,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x8350, // start_of_characters;
-        0x8708, // start_of_image_data;
-        0x3837, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
-        0x7798, // start of room image instructions
-        114, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    },
-
-    {
-        "Heman",
-        HEMAN,
-        OLD_STYLE,                 // type
-
-        66,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        87,  // Number of rooms
-        133,   // Max carried items
-        4,   // Word length
-        171,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x8603, // start_of_characters;
-        0x8d13, // start_of_image_data;
-        0x3703, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
-        0x7adf, // start of room image instructions
-        139, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    },
-
-    {
-        "Temple of Terror",
-        TEMPLE_OF_TERROR,
-        OLD_STYLE,                 // type
-
-        191,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        111,  // Number of rooms
-        150,   // Max carried items
-        3,   // Word length
-        210,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x83cb, // start_of_characters;
-        0x8a33, // start_of_image_blocks;
-        0x3837, // image patterns lookup table;
-        0x12, // number of patterns
-        0xaa, // patterns end marker
-        0x7b75, // start of room image instructions
-        143, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    },
-
-    {
-        "Kayleth",
-        KAYLETH,
-        OLD_STYLE,                 // type
-
-        191,  // Number of items
-        177, // Number of actions
-        79,  // Number of words
-        91,  // Number of rooms
-        150,   // Max carried items
-        3,   // Word length
-        210,  // Number of messages
-
-        80, // number_of_verbs
-        79, // number_of_nouns;
-
-        0, // header
-
-        0, // no room images
-        0, // no item flags
-        0, // no item images
-
-        0x3a50, // actions
-        0x469a,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0x83cb, // start_of_characters;
-        0xdce0 - 0x4000, // start_of_image_blocks;
-        0x78b6 - 0x4000, // image patterns lookup table;
-        0x1f, // number of patterns
-        0x8e, // patterns end marker
-        0xc279 - 0x4000, // start of room image instructions
-        209, // number_of_image blocks;
-        ZXOPT, // palette
-        4, // picture_format_version;
-    }
-};
+extern struct GameInfo games[];
 
 #ifdef DEBUG
 
@@ -510,17 +244,17 @@ static int LooksLikeTokens(size_t pos)
     return 0;
 }
 
-static void TokenClassify(size_t pos)
-{
-    unsigned char *p = FileImage + pos;
-    int n = 0;
-    while(n++ < 256) {
-        do {
-            if(*p == 0x5E || *p == 0x7E)
-                GameVersion = 0;
-        } while(!(*p++ & 0x80));
-    }
-}
+//static void TokenClassify(size_t pos)
+//{
+//    unsigned char *p = FileImage + pos;
+//    int n = 0;
+//    while(n++ < 256) {
+//        do {
+//            if(*p == 0x5E || *p == 0x7E)
+//                Version = 0;
+//        } while(!(*p++ & 0x80));
+//    }
+//}
 
 static size_t FindTokens(void)
 {
@@ -540,7 +274,7 @@ static size_t FindTokens(void)
         addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000;
     }
     while(LooksLikeTokens(addr) == 0);
-    TokenClassify(addr);
+//    TokenClassify(addr);
     return addr;
 }
 
@@ -722,7 +456,7 @@ static void PrintText0(unsigned char *p, int n)
 
 static void PrintText(unsigned char *p, int n)
 {
-    if(GameVersion == 0) 	/* In stream end markers */
+    if (Version == REBEL_PLANET_TYPE) 	/* In stream end markers */
         PrintText0(p, n);
     else			/* Out of stream end markers (faster) */
         PrintText1(p, n);
@@ -750,7 +484,7 @@ static size_t FindMessages(void)
         if(FileImage[pos + 11] != 0xCD)
             continue;
         /* End markers in compressed blocks */
-        GameVersion = 0;
+//        Version = REBEL_PLANET_TYPE;
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to locate messages.\n");
@@ -822,8 +556,8 @@ static size_t FindRooms(void)
 static void PrintRoom(unsigned char room)
 {
     unsigned char *p = FileImage + RoomBase;
-    if (Blizzard && room < 102)
-        p = FileImage + 0x18000;
+    if (CurrentGame == BLIZZARD_PASS && room < 102)
+        p = FileImage + 0x18000 + FileBaselineOffset;
     PrintText(p, room);
 }
 
@@ -1021,7 +755,7 @@ static void Inventory(void)
     if(f == 0)
         Message(NOTHING); /* "nothing at all" */
     else {
-        if(GameVersion == 0) {
+        if(Version == REBEL_PLANET_TYPE) {
             OutKillSpace();
             OutChar('.');
         } else {
@@ -1164,7 +898,7 @@ void Look(void) {
         if(ObjectLoc[i] == MyLoc) {
             if(f == 0) {
                 Message(YOU_SEE);
-                if( GameVersion == 0)
+                if( Version == REBEL_PLANET_TYPE)
                     OutReplace(0);
             }
             f = 1;
@@ -1443,7 +1177,7 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 12:
                 /* Blizzard pass era */
-                if(GameVersion == 1)
+                if(Version == BLIZZARD_PASS_TYPE)
                     Goto(ObjectLoc[arg1]);
                 else
                     Message2(arg1);
@@ -1737,7 +1471,7 @@ static void  SimpleParser(void)
     if (LastChar != '\n')
         OutChar('\n');
     OutFlush();
-    if(GameVersion > 0 && CurrentGame != TEMPLE_OF_TERROR && CurrentGame != BLIZZARD_PASS) {
+    if(CurrentGame == QUESTPROBE3) {
         OutCaps();
         Message(WHAT_NOW);
     } else
@@ -1812,10 +1546,10 @@ static int GuessLowObjectEnd(void)
     int n = 0;
 
     /* Can't automatically guess in this case */
-    if (Blizzard)
+    if (CurrentGame == BLIZZARD_PASS)
         return 69;
 
-    if(GameVersion == 0)
+    if(Version == REBEL_PLANET_TYPE)
         return GuessLowObjectEnd0();
 
     while(n < NumObjects()) {
@@ -1909,14 +1643,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 void glk_main(void)
 {
-
-    /* Guess initially at He-man style */
-    GameVersion = 2;
-    /* Blizzard Pass */
-    if(FileImageLen > 49152) {
-        GameVersion = 1;
-        Blizzard = 1;
-    }
     /* The message analyser will look for version 0 games */
 
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
@@ -1924,16 +1650,33 @@ void glk_main(void)
     VerbBase = FindCode("NORT\001N", 0, 6);
     if(VerbBase == -1) {
         fprintf(stderr, "No verb table!\n");
-        exit(1);
+        glk_exit();
     }
+
+    TokenBase = FindTokens();
+
+    size_t diff = TokenBase - VerbBase;
+
+    for (int i = 0; i < NUMGAMES; i++) {
+        Game = &games[i];
+        if ((Game->start_of_tokens - Game->start_of_dictionary) == diff) {
+            break;
+        }
+    }
+
+    if (CurrentGame == UNKNOWN_GAME) {
+        fprintf(stderr, "Unrecognized game!\n");
+        glk_exit();
+    }
+
+    FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
 
     FindTables();
 #ifdef DEBUG
-    if (GameVersion != 1)
+    if (Version != BLIZZARD_PASS_TYPE)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
-    Game = &games[5]; // Always Kayleth for now
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();

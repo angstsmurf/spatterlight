@@ -549,7 +549,7 @@
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
-		C30DAE6827EB3410006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6727EB3410006C90FB /* decompressz80.c */; };
+		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30F436C25A53DD000B8D74B /* spatterlight-autosave.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F436925A53DD000B8D74B /* spatterlight-autosave.m */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -2746,8 +2746,9 @@
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; };
-		C30DAE6627EB3410006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
-		C30DAE6727EB3410006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
+		C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libspectrum.9.dylib; path = ../../../opt/homebrew/Cellar/libspectrum/1.5.0/lib/libspectrum.9.dylib; sourceTree = "<group>"; };
+		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
+		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
 		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; tabWidth = 4; };
 		C30FAD1E27B68EB400BD20B9 /* Expert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Expert.c; sourceTree = "<group>"; };
@@ -4346,6 +4347,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */,
 				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
@@ -5864,8 +5866,8 @@
 				C3FFF80127E52E19000C481A /* restorestate.c */,
 				C3B6100927DA10DF0012FB97 /* utility.h */,
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
-				C30DAE6627EB3410006C90FB /* decompressz80.h */,
-				C30DAE6727EB3410006C90FB /* decompressz80.c */,
+				C30DAE7F27EBA06A006C90FB /* decompressz80.h */,
+				C30DAE7E27EBA06A006C90FB /* decompressz80.c */,
 				C3D571B427D8F652008FB786 /* ui.c */,
 			);
 			path = taylor;
@@ -7782,7 +7784,7 @@
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
 				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,
-				C30DAE6827EB3410006C90FB /* decompressz80.c in Sources */,
+				C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10094,6 +10096,11 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/libspectrum/1.5.0/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10126,6 +10133,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/libspectrum/1.5.0/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
