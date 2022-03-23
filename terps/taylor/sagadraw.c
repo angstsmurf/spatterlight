@@ -602,12 +602,10 @@ void SagaSetup(void)
     DefinePalette();
 
     size_t CHAR_START = FindCharacterStart();
+    if (CHAR_START == 0)
+        CHAR_START = Game->start_of_characters + FileBaselineOffset;
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", CHAR_START, CHAR_START);
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
-
-    if (Game->start_of_image_blocks == FOLLOWS) {
-        image_blocks_start_address = CHAR_START + 0x800;
-    }
 
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
@@ -734,8 +732,8 @@ jumpChar:
                         number--;
 
                         uint16_t base = patterns_lookup + Game->number_of_patterns + i * 2;
-                        int newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000;
-                            fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
+                        uint16_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
+                        //                            fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
                             fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);

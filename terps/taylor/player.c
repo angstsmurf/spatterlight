@@ -12,6 +12,7 @@
 #include "glkimp.h"
 #include "glkstart.h"
 #include "restorestate.h"
+#include "decompressz80.h"
 
 #include "taylor.h"
 
@@ -1507,7 +1508,6 @@ static void  SimpleParser(void)
 
 static void FindTables(void)
 {
-    TokenBase = FindTokens();
     RoomBase = FindRooms();
     ObjectBase = FindObjects();
     StatusBase = FindStatusTable();
@@ -1591,6 +1591,16 @@ static void RestartGame(void)
     should_restart = 0;
 }
 
+size_t writeToFile(const char *name, uint8_t *data, size_t size)
+{
+    FILE *fptr = fopen(name, "w");
+
+    size_t result = fwrite(data, 1, size, fptr);
+
+    fclose(fptr);
+    return result;
+}
+
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -1631,18 +1641,41 @@ int glkunix_startup_code(glkunix_startup_t *data)
         glk_exit();
     }
 
-    argv[1] = "/Users/administrator/Desktop/kayleth.sna";
-
     f = fopen(argv[1], "r");
     if(f == NULL)
     {
         perror(argv[1]);
-        exit(1);
+        glk_exit();
     }
-    fseek(f, 27L, 0);
-    FileImageLen = fread(FileImage, 1, 131072, f);
-    fclose(f);
 
+    fseek(f, 0, SEEK_END);
+    size_t length = ftell(f);
+    if (length == -1) {
+        glk_exit();
+    }
+
+    uint8_t *entire_file = malloc(length);
+    fseek(f, 0, SEEK_SET);
+    if (fread(entire_file, 1, length, f) != length) {
+        fprintf(stderr, "File read error!\n");
+    }
+
+    uint8_t *uncompressed = DecompressZ80(entire_file, &length);
+    if (uncompressed != NULL) {
+        FileImageLen = length;
+        free(entire_file);
+    } else {
+        uncompressed = entire_file;
+        FileImageLen = length;
+    }
+
+    if (FileImageLen > 131072)
+        FileImageLen = 131072;
+
+    memcpy(FileImage, uncompressed, FileImageLen);
+    free(uncompressed);
+
+    writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
 
     return 1;
 }
