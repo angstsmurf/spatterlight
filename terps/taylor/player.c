@@ -766,7 +766,6 @@ static void Inventory(void)
 }
 
 static void  AnyKey(void) {
-    OutFlush();
     Message(HIT_ENTER);
     OutFlush();
     WaitCharacter();
