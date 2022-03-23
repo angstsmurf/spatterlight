@@ -863,6 +863,7 @@ void Look(void) {
 
     if(Flag[1]) {
         Message(TOO_DARK_TO_SEE);
+        OutString("\n\n");
         DrawBlack();
         BottomWindow();
         return;
@@ -920,7 +921,7 @@ void Look(void) {
 
 static void Goto(unsigned char loc) {
     Flag[0] = loc;
-    Redraw = 1;
+    Look();
 }
 
 static void Delay(unsigned char seconds) {
@@ -1184,9 +1185,13 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 13:
                 Flag[arg1] = 255;
+                if (arg1 == 1)
+                    Look();
                 break;
             case 14:
                 Flag[arg1] = 0;
+                if (arg1 == 1)
+                    Look();
                 break;
             case 15:
                 Message(arg1);
@@ -1332,7 +1337,7 @@ size_t FindCommandTable(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
     }
     fprintf(stderr, "Unable to find commands.\n");
-    exit(1);
+    glk_exit();
 }
 
 static void RunCommandTable(void)
