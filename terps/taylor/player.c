@@ -850,7 +850,7 @@ void Look(void) {
         OpenGraphicsWindow();
     int i;
     int f = 0;
-    unsigned char locw = 0x80|MyLoc;
+    unsigned char locw = 0x80 | MyLoc;
     unsigned char *p;
 
     PendSpace = 0;
@@ -996,15 +996,15 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
 
             case 2:
-                if(MyLoc!= arg1)
+                if(MyLoc != arg1)
                     continue;
                 break;
             case 3:
-                if(MyLoc> arg1)
+                if(MyLoc > arg1)
                     continue;
                 break;
             case 4:
-                if(MyLoc< arg1)
+                if(MyLoc < arg1)
                     continue;
                 break;
             case 5:
