@@ -1389,6 +1389,7 @@ static void RunOneInput(void)
     if(Word[0] == 0 && Word[1] == 0) {
         OutCaps();
         Message(I_DONT_UNDERSTAND);
+        stop_time = 2;
         return;
     }
     if(Word[0] < 11) {
@@ -1414,6 +1415,7 @@ static void RunOneInput(void)
             Message(YOU_CANT_GO_THAT_WAY);
         else
             Message(THATS_BEYOND_MY_POWER);
+        stop_time = 2;
         return;
     }
     if(Redraw)
@@ -1703,8 +1705,9 @@ void glk_main(void)
         SimpleParser();
         FirstAfterInput = 1;
         RunOneInput();
-        just_started = 0;
         if (stop_time)
             stop_time--;
+        else
+            just_started = 0;
     }
 }
