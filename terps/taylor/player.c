@@ -212,7 +212,7 @@ static size_t FindObjectLocations(void)
         glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
-    return pos - 0x4000;
+    return pos - 0x4000 + FileBaselineOffset;
 }
 
 static size_t FindExits(void)
@@ -222,7 +222,7 @@ static size_t FindExits(void)
     while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
     {
         pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8);
-        pos -= 0x4000;
+        pos -= 0x4000 + FileBaselineOffset;
         return pos;
     }
     fprintf(stderr, "Cannot find initial flag data.\n");
@@ -272,9 +272,8 @@ static size_t FindTokens(void)
             }
             return addr;
         }
-        addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000;
-    }
-    while(LooksLikeTokens(addr) == 0);
+        addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000 + FileBaselineOffset;
+    } while(LooksLikeTokens(addr) == 0);
 //    TokenClassify(addr);
     return addr;
 }
@@ -476,7 +475,7 @@ static size_t FindMessages(void)
             continue;
         if(FileImage[pos + 13] != 0x21)
             continue;
-        return (FileImage[pos+14] + (FileImage[pos+15] << 8)) - 0x4000;
+        return (FileImage[pos+14] + (FileImage[pos+15] << 8)) - 0x4000 + FileBaselineOffset;
     }
     /* Try now for older game format */
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
@@ -486,13 +485,13 @@ static size_t FindMessages(void)
             continue;
         /* End markers in compressed blocks */
 //        Version = REBEL_PLANET_TYPE;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
+        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate messages.\n");
     glk_exit();
 }
 
-static int FindMessages2(void)
+static size_t FindMessages2(void)
 {
     size_t pos = 0;
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
@@ -500,7 +499,7 @@ static int FindMessages2(void)
             continue;
         if(FileImage[pos + 11] != 0xC3)
             continue;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
+        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + (int)FileBaselineOffset;
     }
     fprintf(stderr, "No second message block ?\n");
     return 0;
@@ -518,7 +517,7 @@ static void Message2(unsigned int m)
     PrintText(p, m);
 }
 
-static int FindObjects(void)
+static size_t FindObjects(void)
 {
     size_t pos = 0;
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x32", pos+1, 5)) != -1) {
@@ -526,7 +525,7 @@ static int FindObjects(void)
             continue;
         if(FileImage[pos +7] != 0x21)
             continue;
-        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
+        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate objects.\n");
     glk_exit();
@@ -547,7 +546,7 @@ static size_t FindRooms(void)
             continue;
         if(FileImage[pos + 8] != 0x21)
             continue;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000;
+        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate rooms.\n");
     glk_exit();
@@ -1297,7 +1296,7 @@ static unsigned char *NextLine(unsigned char *p)
     return p;
 }
 
-static int FindStatusTable(void)
+static size_t FindStatusTable(void)
 {
     size_t pos = 0;
     while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
@@ -1307,7 +1306,7 @@ static int FindStatusTable(void)
             continue;
         if(FileImage[pos + 7] != 0x21)
             continue;
-        return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000;
+        return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find automatics.\n");
     glk_exit();
@@ -1338,7 +1337,7 @@ size_t FindCommandTable(void)
             continue;
         if(FileImage[pos + 7] != 0x21)
             continue;
-        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000;
+        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find commands.\n");
     glk_exit();
@@ -1697,13 +1696,12 @@ void glk_main(void)
         glk_exit();
     }
 
-    TokenBase = FindTokens();
-
-    size_t diff = TokenBase - VerbBase;
-
     for (int i = 0; i < NUMGAMES; i++) {
         Game = &games[i];
-        if ((Game->start_of_tokens - Game->start_of_dictionary) == diff) {
+        FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
+        TokenBase = FindTokens();
+        int diff = (int)TokenBase - (int)VerbBase;
+        if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
             break;
 //        } else {
 //            fprintf(stderr, "Diff for game %s: %d. Looking for %zu\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
@@ -1715,7 +1713,7 @@ void glk_main(void)
         glk_exit();
     }
 
-    FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
+    fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 
     FindTables();
 #ifdef DEBUG

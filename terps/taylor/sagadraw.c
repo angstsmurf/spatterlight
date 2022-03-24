@@ -643,9 +643,7 @@ void SagaSetup(void)
     size_t CHAR_START = FindCharacterStart();
     if (CHAR_START == 0)
         CHAR_START = Game->start_of_characters + FileBaselineOffset;
-    fprintf(stderr, "CHAR_START: %zx (%zu)\n", CHAR_START, CHAR_START);
-    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
-
+    fprintf(stderr, "CHAR_START: %zx (%zu)\n", Game->start_of_characters + FileBaselineOffset, Game->start_of_characters + FileBaselineOffset);
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
 jumpChar:
@@ -687,7 +685,8 @@ jumpChar:
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
-
+    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
+    fprintf(stderr, "image_blocks_start_address: 0x%04zx\n", image_blocks_start_address);
     pos = SeekToPos(FileImage, image_blocks_start_address);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
@@ -786,9 +785,9 @@ jumpChar:
                     if (*pos == FileImage[patterns_lookup + i]) {
                         //                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
-                        uint16_t base = patterns_lookup + Game->number_of_patterns + i * 2;
-                        uint16_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
-                        //                            fprintf(stderr, "start reading at 0x%04x\n", newoffset + 4000);
+                        size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
+                        size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
+                        fprintf(stderr, "start reading at 0x%04lx\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
                             //                            fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
