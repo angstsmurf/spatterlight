@@ -1653,33 +1653,26 @@ int glkunix_startup_code(glkunix_startup_t *data)
     }
 
     fseek(f, 0, SEEK_END);
-    size_t length = ftell(f);
-    if (length == -1) {
+    FileImageLen = ftell(f);
+    if (FileImageLen == -1) {
         glk_exit();
     }
 
-    uint8_t *entire_file = MemAlloc((int)length);
+    FileImage = MemAlloc((int)FileImageLen);
+
     fseek(f, 0, SEEK_SET);
-    if (fread(entire_file, 1, length, f) != length) {
+    if (fread(FileImage, 1, FileImageLen, f) != FileImageLen) {
         fprintf(stderr, "File read error!\n");
     }
 
-    uint8_t *uncompressed = DecompressZ80(entire_file, &length);
+    size_t length = FileImageLen;
+
+    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
     if (uncompressed != NULL) {
-        FileImageLen = length;
-        free(entire_file);
-    } else {
-        uncompressed = entire_file;
+        free(FileImage);
+        FileImage = uncompressed;
         FileImageLen = length;
     }
-
-//    if (FileImageLen > 131072)
-//        FileImageLen = 131072;
-
-//    memcpy(FileImage, uncompressed, FileImageLen);
-//    free(uncompressed);
-
-    FileImage = uncompressed;
 
     writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
 
