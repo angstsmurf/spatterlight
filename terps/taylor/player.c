@@ -816,7 +816,6 @@ static void SaveGame(void) {
     glk_stream_close(file, NULL);
     OutString("Saved.\n");
     OutFlush();
-    fprintf(stderr, "Successfully saved game. MyLoc:%d\n", MyLoc);
 }
 
 static void DropAll(void) {
@@ -887,6 +886,8 @@ void Look(void) {
         BottomWindow();
         return;
     }
+    if (CurrentGame == REBEL_PLANET && MyLoc > 0)
+        OutString("You are ");
     PrintRoom(MyLoc);
     OutChar(' ');
     for(i = 0; i < NumLowObjects; i++) {
