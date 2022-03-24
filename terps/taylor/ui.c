@@ -19,6 +19,7 @@
 #include "utility.h"
 #include "sagadraw.h"
 #include "layouttext.h"
+#include "animations.h"
 
 #define GLK_BUFFER_ROCK 1
 #define GLK_STATUS_ROCK 1010
@@ -267,6 +268,14 @@ void Updates(event_t ev)
         OpenGraphicsWindow();
 
         Look();
+    } else if (ev.type == evtype_Timer) {
+        switch (CurrentGame) {
+            case REBEL_PLANET:
+                UpdateRebelAnimations();
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -402,6 +411,7 @@ void DrawRoomImage(void) {
     ClearGraphMem();
     DrawTaylor(MyLoc);
     DrawSagaPictureFromBuffer();
+    StartAnimations();
 }
 
 void DisplayInit(void)

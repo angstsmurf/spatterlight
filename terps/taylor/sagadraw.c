@@ -492,14 +492,16 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
 }
 
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
-              int32_t color)
+              int32_t color, int usebuffer)
 {
     glui32 y_offset = 0;
 
-    int bufferpos = (y / 8) * 32 + (x / 8);
-    if (bufferpos >= 0xD80)
-        return;
-    buffer[bufferpos][8] = (uint8_t)(buffer[bufferpos][8] | (color << 3));
+    if (usebuffer) {
+        int bufferpos = (y / 8) * 32 + (x / 8);
+        if (bufferpos >= 0xD80)
+            return;
+        buffer[bufferpos][8] = (uint8_t)(buffer[bufferpos][8] | (color << 3));
+    }
 
     glui32 glk_color = (glui32)(((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]));
 
@@ -511,7 +513,7 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 void background(int32_t x, int32_t y, int32_t color)
 {
     /* Draw the background */
-    RectFill(x * 8, y * 8, 8, 8, color);
+    RectFill(x * 8, y * 8, 8, 8, color, 1);
 }
 
 void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
