@@ -841,6 +841,7 @@ static void GetObject(unsigned char obj) {
         return;
     }
     Message(OK);
+    OutChar(' ');
     OutFlush();
     Put(obj, Carried());
 }
@@ -855,9 +856,10 @@ static void DropObject(unsigned char obj) {
         Message(YOU_HAVENT_GOT_IT);
         return;
     }
-    DropItem();
     Message(OK);
+    OutChar(' ');
     OutFlush();
+    DropItem();
     Put(obj, MyLoc);
 }
 
@@ -1045,16 +1047,13 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 9:
                 /*FIXME : or worn ?? */
-                if(ObjectLoc[arg1] == Carried())
+                if(ObjectLoc[arg1] == Carried() || ObjectLoc[arg1] == Worn())
                     continue;
-                if(ObjectLoc[arg1] == Worn())
-                    continue;
+
                 break;
             case 10:
                 /*FIXME : or worn ?? */
-                if(ObjectLoc[arg1] != Carried())
-                    continue;
-                if(ObjectLoc[arg1] != Worn())
+                if(ObjectLoc[arg1] != Carried() && ObjectLoc[arg1] != Worn())
                     continue;
                 break;
             case 11:
