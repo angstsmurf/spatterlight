@@ -492,7 +492,6 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t *length)
     uint8_t *uncompressed = NULL;
 
     if (snap->machine == LIBSPECTRUM_MACHINE_48) {
-        fprintf(stderr, "LIBSPECTRUM_MACHINE_48!\n");
         uncompressed = malloc(0xc000);
         if (uncompressed != NULL) {
             memcpy(uncompressed, snap->pages[5], 0x4000);
@@ -540,9 +539,6 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     error = read_header(buffer, snap, &data, &version, &compressed);
     if (error != LIBSPECTRUM_ERROR_NONE)
         return error;
-
-    if (compressed)
-        fprintf(stderr, "Reading compressed block\n");
 
     error = read_blocks(data, buffer_length - (data - buffer), snap, version,
         compressed);
