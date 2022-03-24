@@ -780,6 +780,7 @@ static void Inventory(void)
             OutReplace('.');
         }
     }
+    OutFlush();
 }
 
 static void  AnyKey(void) {
