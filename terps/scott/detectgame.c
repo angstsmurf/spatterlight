@@ -1311,7 +1311,6 @@ GameIDType DetectGame(const char *file_name)
             MyLoc = 30; /* Both parts of Savage Island begin in room 30 */
         case GREMLINS_GERMAN:
         case GREMLINS:
-        case GREMLINS_ALT:
         case SUPERGRAN:
             for (int i = DROPPED; i <= OK; i++)
                 sys[i] = system_messages[2 - DROPPED + i];

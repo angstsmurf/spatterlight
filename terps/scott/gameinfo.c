@@ -1890,7 +1890,7 @@ struct GameInfo games[NUMGAMES] = {
 
     {
         "Gremlins (alternative)",
-        GREMLINS_ALT,
+        GREMLINS,
         GREMLINS_VARIANT,         // type
         ENGLISH,                  // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
