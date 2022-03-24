@@ -707,13 +707,13 @@ jumpChar:
             continue;
         }
 
-        //        fprintf(stderr, "Image block %d\n", picture_number);
+        fprintf(stderr, "Image block %d\n", picture_number);
         uint8_t widthheight = *pos++;
         img->width = ((widthheight & 0xf0) >> 4) + 1;
-        //        fprintf (stderr, "width of image block %d: %d\n", picture_number, img->width);
+        fprintf (stderr, "width of image block %d: %d\n", picture_number, img->width);
 
         img->height = (widthheight & 0x0f) + 1;
-        //        fprintf (stderr, "height of image block %d: %d\n", picture_number, img->height);
+        fprintf (stderr, "height of image block %d: %d\n", picture_number, img->height);
 
         if (CurrentGame == BLIZZARD_PASS) {
             switch (picture_number) {
@@ -726,7 +726,8 @@ jumpChar:
         }
         uint8_t instructions[2048];
         int number = 0;
-        uint16_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
+        size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
+        fprintf(stderr, "patterns_lookup: 0x%04zx\n", patterns_lookup);
         uint8_t *copied_bytes = NULL;
         uint8_t *stored_pointer = NULL;
         do {
@@ -783,14 +784,14 @@ jumpChar:
             } else {
                 for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        //                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
+                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
                         size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
                         size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
                         fprintf(stderr, "start reading at 0x%04lx\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
-                            //                            fprintf(stderr, "Instruction %d (at 0x%04x) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
+                            fprintf(stderr, "Instruction %d (at 0x%04lx) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
                         break;
                     }

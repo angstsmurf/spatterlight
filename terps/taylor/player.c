@@ -1705,8 +1705,8 @@ void glk_main(void)
         int diff = (int)TokenBase - (int)VerbBase;
         if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
             break;
-//        } else {
-//            fprintf(stderr, "Diff for game %s: %d. Looking for %zu\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
+        } else {
+            fprintf(stderr, "Diff for game %s: %d. Looking for %d\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
         }
     }
 
