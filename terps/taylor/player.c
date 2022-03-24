@@ -929,7 +929,7 @@ static void Goto(unsigned char loc) {
 }
 
 static void Delay(unsigned char seconds) {
-
+    OutFlush();
     glk_request_timer_events(1000 * seconds);
 
     event_t ev;
