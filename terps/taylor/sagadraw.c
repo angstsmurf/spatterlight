@@ -624,7 +624,6 @@ uint8_t *Questprobe3Image(int imgnum) {
  $9ef7 ld a,(hl)     ;
  */
 
-
 void SagaSetup(void)
 {
     int32_t i, y;
@@ -685,8 +684,11 @@ jumpChar:
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
+    
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
-    fprintf(stderr, "image_blocks_start_address: 0x%04zx\n", image_blocks_start_address);
+
+    size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
+
     pos = SeekToPos(FileImage, image_blocks_start_address);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
@@ -726,8 +728,6 @@ jumpChar:
         }
         uint8_t instructions[2048];
         int number = 0;
-        size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
-        fprintf(stderr, "patterns_lookup: 0x%04zx\n", patterns_lookup);
         uint8_t *copied_bytes = NULL;
         uint8_t *stored_pointer = NULL;
         do {
