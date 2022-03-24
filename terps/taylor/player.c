@@ -20,7 +20,7 @@ uint8_t Flag[128];
 uint8_t ObjectLoc[256];
 static uint8_t Word[5];
 
-uint8_t FileImage[131072];
+uint8_t *FileImage;
 size_t FileImageLen;
 static size_t VerbBase;
 static size_t TokenBase;
@@ -1672,11 +1672,13 @@ int glkunix_startup_code(glkunix_startup_t *data)
         FileImageLen = length;
     }
 
-    if (FileImageLen > 131072)
-        FileImageLen = 131072;
+//    if (FileImageLen > 131072)
+//        FileImageLen = 131072;
 
-    memcpy(FileImage, uncompressed, FileImageLen);
-    free(uncompressed);
+//    memcpy(FileImage, uncompressed, FileImageLen);
+//    free(uncompressed);
+
+    FileImage = uncompressed;
 
     writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
 
