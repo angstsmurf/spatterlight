@@ -31,7 +31,13 @@ static struct rec taylor_registry[] = {
     { 0x104c4, 0x40dd, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass TAP
     { 0x10428, 0xe67d, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass tzx
     { 0x2001f, 0x275a, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass sna
+    { 0x12b4d, 0xee17, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass z80
     { 0xc01b, 0xe9ff, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror sna
+    { 0xb77b, 0x77b3, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror z80
+    { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Currently broken somehow)
+    { 0xa4f1, 0x8c14, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 alt
+    { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
+    { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
 
     { 0, 0, NULL }
 };
@@ -79,7 +85,7 @@ static int find_code(char *x, int codelen, unsigned char *sf, int32 extent) {
 }
 
 static int detect_verbs(unsigned char *sf, int32 extent) {
-    return find_code("NORT\01N   \01S   \02SOUT", 10, sf, extent);
+    return find_code("NORT\01N   \01S   \02SOUT", 19, sf, extent);
 }
 
 
@@ -92,9 +98,6 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;
-
-    if (detect_verbs(storystring, extent))
-        return VALID_STORY_FILE_RV;
 
     if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
