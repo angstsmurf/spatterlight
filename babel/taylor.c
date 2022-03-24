@@ -34,8 +34,14 @@ static struct rec taylor_registry[] = {
     { 0x12b4d, 0xee17, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass z80
     { 0xc01b, 0xe9ff, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror sna
     { 0xb77b, 0x77b3, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror z80
+    { 0xa496, 0xfa4c, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror z80 alt
+    { 0xbe30, 0x73a5, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror TAP
+    { 0xccca, 0xe88f, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side A
+    { 0xa000, 0x63ca, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side B
     { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Currently broken somehow)
     { 0xa4f1, 0x8c14, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 alt
+    { 0xbd33, 0x0005, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth TAP
+    { 0xcadc, 0x733d, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth tzx
     { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
     { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
 
