@@ -1259,6 +1259,9 @@ static void ExecuteLineCode(unsigned char *p)
             case 33:
                 RamLoad();
                 break;
+            case 34:
+                glk_window_clear(Bottom);
+                break;
             case 35:
                 RestoreUndo(0);
                 Redraw = 1;
