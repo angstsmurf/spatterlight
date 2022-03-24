@@ -41,3 +41,15 @@ uint8_t *SeekToPos(uint8_t *buf, size_t offset)
         return 0;
     return buf + offset;
 }
+
+void print_memory(int address, int length)
+{
+    unsigned char *p = FileImage + address;
+    for (int i = address; i <= address + length ; i += 16){
+        fprintf(stderr, "\n%04X:  ", i);
+        for (int j = 0; j < 16; j++){
+            fprintf(stderr, "%02X ", *p++);
+        }
+    }
+}
+

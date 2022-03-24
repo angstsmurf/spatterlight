@@ -16,6 +16,7 @@ void CleanupAndExit(void);
 void Fatal(const char *x);
 void *MemAlloc(int size);
 uint8_t *SeekToPos(uint8_t *buf, size_t offset);
+void print_memory(int address, int length);
 
 extern uint8_t *FileImage;
 extern size_t FileImageLen;
