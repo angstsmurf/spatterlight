@@ -257,14 +257,14 @@ struct GameInfo games[NUMGAMES] = {
         0, // no item flags •
         0, // no item images •
 
-        0x7A48 - 0x3FE5, // actions
-        0x9146 - 0x3FE5,  // dictionary
-        0xBE08 - 0x3FE5,  // tokens
-        0xAEB3 - 0x3FE5, // start_of_room_descriptions;
-        0x8DE0 - 0x3FE5, // start_of_room_connections;
-        0x9A99 - 0x3FE5, // start_of_messages;
-        0xB870 - 0x3FE5, // start_of_item_descriptions;
-        0x8D5F - 0x3FE5, // start_of_item_locations;
+        0x7A48 - 0x4000, // actions
+        0x9323 - 0x4000,  // dictionary
+        0xBFEE - 0x4000,  // tokens
+        0xAEB3 - 0x4000, // start_of_room_descriptions;
+        0x8DE0 - 0x4000, // start_of_room_connections;
+        0x9A99 - 0x4000, // start_of_messages;
+        0xB870 - 0x4000, // start_of_item_descriptions;
+        0x8D5F - 0x4000, // start_of_item_locations;
 
         0x2539, // start_of_system_messages •
         0x28de, // start of directions •
