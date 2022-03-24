@@ -766,6 +766,7 @@ static void Inventory(void)
 }
 
 static void  AnyKey(void) {
+    OutFlush();
     Message(HIT_ENTER);
     OutFlush();
     WaitCharacter();
@@ -1705,6 +1706,8 @@ void glk_main(void)
         Game = &games[i];
         if ((Game->start_of_tokens - Game->start_of_dictionary) == diff) {
             break;
+//        } else {
+//            fprintf(stderr, "Diff for game %s: %d. Looking for %zu\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
         }
     }
 
