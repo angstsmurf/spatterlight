@@ -20,5 +20,6 @@ void print_memory(int address, int length);
 
 extern uint8_t *FileImage;
 extern size_t FileImageLen;
+extern uint8_t *EndOfData;
 
 #endif /* utility_h */

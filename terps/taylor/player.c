@@ -22,6 +22,7 @@ uint8_t ObjectLoc[256];
 static uint8_t Word[5];
 
 uint8_t *FileImage = NULL;
+uint8_t *EndOfData = NULL;
 size_t FileImageLen = 0;
 static size_t VerbBase;
 static size_t TokenBase;
@@ -409,18 +410,18 @@ static void PrintToken(unsigned char n)
     do {
         c = *p++;
         OutChar(c & 0x7F);
-    } while(!(c & 0x80));
+    } while(p < EndOfData && !(c & 0x80));
 }
 
 static void PrintText1(unsigned char *p, int n)
 {
     while(n > 0) {
-        while(*p != 0x7E && *p != 0x5E)
+        while(p < EndOfData && *p != 0x7E && *p != 0x5E)
             p++;
         n--;
         p++;
     }
-    while(*p != 0x7E && *p != 0x5E)
+    while(p < EndOfData && *p != 0x7E && *p != 0x5E)
         PrintToken(*p++);
     if(*p == 0x5E) {
         PendSpace = 1;
@@ -433,6 +434,8 @@ static void PrintText1(unsigned char *p, int n)
 
 static void PrintText0(unsigned char *p, int n)
 {
+    if (p > EndOfData)
+        return;
     unsigned char *t = NULL;
     unsigned char c;
     while(1) {
@@ -450,7 +453,7 @@ static void PrintText0(unsigned char *p, int n)
         }
         else if(n == 0)
             OutChar(c);
-        if(*t++ & 0x80)
+        if(t >= EndOfData || (*t++ & 0x80))
             t = NULL;
     }
 }
@@ -1673,6 +1676,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
         FileImage = uncompressed;
         FileImageLen = length;
     }
+
+    EndOfData = FileImage + FileImageLen;
 
     writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
 
