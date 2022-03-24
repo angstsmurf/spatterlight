@@ -1432,8 +1432,8 @@ static void RunOneInput(void)
         Look();
 }
 
-static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", NULL };
-static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", NULL };
+static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
+static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
 static int ParseWord(char *p)
 {
