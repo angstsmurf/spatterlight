@@ -36,37 +36,42 @@ int rotate_right_with_carry(uint8_t *byte, int last_carry)
 void animate_stars(void)
 {
     int carry;
+    /* First fill area with black, erasing all stars */
     RectFill(48, 16, 160, 32, 0, 0);
+    /* We go line by line and pixel row by pixel row */
     for (int line = 3; line < 7; line++) {
-        for (int row = 0; row < 8; row++) {
+        for (int pixrow = 0; pixrow < 8; pixrow++) {
             carry = 0;
+            /* The left half is rotated one pixel to the left, */
+            /* byte by byte */
             for (int col = 15; col > 5; col--) {
                 uint8_t attribute = buffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
-                for (int pix = 0; pix < 8; pix++) {
-                    if ((buffer[col + line * 32][row] & (1 << pix)) != 0) {
-                        PutPixel(col * 8 + pix, line * 8 + row, ink);
+                for (int bit = 0; bit < 8; bit++) {
+                    if ((buffer[col + line * 32][pixrow] & (1 << bit)) != 0) {
+                        PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_right_with_carry(&(buffer[col + line * 32][row]), carry);
+                carry = rotate_right_with_carry(&(buffer[col + line * 32][pixrow]), carry);
             }
-            buffer[line * 32 + 15][row] = buffer[line * 32 + 15][row] | carry;
+            if (carry) {
+                buffer[line * 32 + 15][pixrow] = buffer[line * 32 + 15][pixrow] | 128;
+            }
             carry = 0;
+            /* Then the right half */
             for (int col = 16; col < 26; col++) {
                 uint8_t attribute = buffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((buffer[col + line * 32][row] & (1 << pix)) != 0) {
-                        PutPixel(col * 8 + pix, line * 8 + row, ink);
+                    if ((buffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                        PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_left_with_carry(&(buffer[col + line * 32][row]), carry);
+                carry = rotate_left_with_carry(&(buffer[col + line * 32][pixrow]), carry);
             }
-            if (carry) {
-                buffer[line * 32 + 16][row] = buffer[line * 32 + 16][row] | 128;
-            }
+            buffer[line * 32 + 16][pixrow] = buffer[line * 32 + 16][pixrow] | carry;
         }
     }
 }
