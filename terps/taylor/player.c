@@ -13,6 +13,7 @@
 #include "glkstart.h"
 #include "restorestate.h"
 #include "decompressz80.h"
+#include "utility.h"
 
 #include "taylor.h"
 
@@ -20,8 +21,8 @@ uint8_t Flag[128];
 uint8_t ObjectLoc[256];
 static uint8_t Word[5];
 
-uint8_t *FileImage;
-size_t FileImageLen;
+uint8_t *FileImage = NULL;
+size_t FileImageLen = 0;
 static size_t VerbBase;
 static size_t TokenBase;
 static size_t MessageBase;
@@ -1657,7 +1658,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         glk_exit();
     }
 
-    uint8_t *entire_file = malloc(length);
+    uint8_t *entire_file = MemAlloc((int)length);
     fseek(f, 0, SEEK_SET);
     if (fread(entire_file, 1, length, f) != length) {
         fprintf(stderr, "File read error!\n");

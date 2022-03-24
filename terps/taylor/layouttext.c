@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "utility.h"
 #include "layouttext.h"
 
 int FindBreak(const char *buf, int pos, int columns)
@@ -87,9 +88,7 @@ char *LineBreakText(char *source, int columns, int *rows, int *length)
     }
     *rows = row;
     *length = 0;
-    result = malloc(destpos + 1);
-    if (result == NULL)
-        return NULL;
+    result = MemAlloc(destpos + 1);
     memcpy(result, buf, destpos);
     result[destpos] = '\0';
     *length = destpos;
