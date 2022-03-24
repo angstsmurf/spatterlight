@@ -334,6 +334,8 @@ static void OutCaps(void)
     Upper = 1;
 }
 
+static int periods = 0;
+
 static void OutChar(char c)
 {
     if(c == ']')
@@ -342,15 +344,28 @@ static void OutChar(char c)
     int SetUpper = 0;
 
     if (c == '.') {
-        if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.')
-            c = ' ';
-        if (PendSpace)
+        periods++;
+        if (periods == 3) {
+            PrintCharacter('.');
+            PrintCharacter('.');
+            LastChar = 0;
             PendSpace = 0;
-        SetUpper = 1;
+            periods = 0;
+            Upper = 0;
+        } else if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
+            c = 0;
+            if (LastChar == ' ')
+                LastChar = 0;
+        }
+        PendSpace = 0;
+    } else {
+        periods = 0;
     }
 
     if(c == ' ') {
         PendSpace = 1;
+        if (LastChar == '.')
+            SetUpper = 1;
         return;
     }
     if (FirstAfterInput) {
@@ -361,7 +376,6 @@ static void OutChar(char c)
         if (isspace(LastChar))
             PendSpace = 0;
         OutWrite(LastChar);
-        LastChar = 0;
     }
     if(PendSpace) {
         OutWrite(' ');
