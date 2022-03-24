@@ -149,7 +149,7 @@ static struct scottrec scott_registry[] = {
     { 0xb36e, 0xbf88, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman (Americana).tzx
     { 0xa4c4, 0x1ae8, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80
     { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
-    { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
+   { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
    { 0x2ab00, 0xde56, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64)
 
     { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
@@ -199,7 +199,7 @@ static struct scottrec scott_registry[] = {
     { 0xbc60, 0xce3d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood.tzx
     { 0xbd61, 0x0277, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood - Alternate.tzx
     { 0xbc26, 0xbe47, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood TAP image
-    { 0xb4b1, 0x7ec8, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood z80 snap
+    { 0xb4b1, 0x7ec8, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood z80
     { 0xa209, 0xf115, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (T64)
    { 0x2ab00, 0x5c1d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64)
    { 0x2ab00, 0xe308, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64) alt
