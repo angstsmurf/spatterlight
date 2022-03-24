@@ -1254,7 +1254,12 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 30:
                 /* Beep */
-                win_beep(0);
+#ifdef SPATTERLIGHT
+                win_beep(1);
+#else
+                putchar('\007');
+                fflush(stdout);
+#endif
                 break;
             case 32:
                 RamSave(1);
