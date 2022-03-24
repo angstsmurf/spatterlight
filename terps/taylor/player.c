@@ -1598,6 +1598,7 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
     FILE *fptr = fopen(name, "w");
 
+//    size_t result = fwrite(data, 1, 27, fptr);
     size_t result = fwrite(data, 1, size, fptr);
 
     fclose(fptr);
