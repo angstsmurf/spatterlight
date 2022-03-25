@@ -10,8 +10,12 @@
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
+#define KAYLETH_ANIMATION_RATE 175
+
 
 int AnimationRunning = 0;
+int AnimationStage = 0;
+int AnimationStartFrame = 0;
 
 extern uint8_t buffer[384][9];
 
@@ -76,6 +80,29 @@ void animate_stars(void)
     }
 }
 
+void UpdateKaylethAnimations(void)
+{
+    AnimationStage++;
+    if (AnimationStage > 9)
+        AnimationStage = 0;
+
+    if (AnimationStage % 2) {
+        if (MyLoc == 1)
+            DrawTaylor(98);
+        else
+            DrawTaylor(114);
+    } else {
+        DrawTaylor(AnimationStartFrame + AnimationStage / 2);
+        if (MyLoc == 1)
+            DrawTaylor(97);
+         else
+            DrawTaylor(109);
+    }
+
+
+    DrawSagaPictureFromBuffer();
+}
+
 void UpdateRebelAnimations(void)
 {
     if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
@@ -86,11 +113,30 @@ void UpdateRebelAnimations(void)
     }
 }
 
+void StartKaylethAnimation(int start) {
+    AnimationStartFrame = start;
+    glk_request_timer_events(KAYLETH_ANIMATION_RATE);
+}
+
+
 void StartAnimations(void) {
     if (CurrentGame == REBEL_PLANET && MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
         if (AnimationRunning != STARS_ANIMATION_RATE) {
             glk_request_timer_events(STARS_ANIMATION_RATE);
             AnimationRunning = STARS_ANIMATION_RATE;
+        }
+    } else if (CurrentGame == KAYLETH) {
+        switch(MyLoc) {
+            case 1:
+                StartKaylethAnimation(92); // Conveyor belt
+                break;
+            case 2:
+                StartKaylethAnimation(110); // Conveyor belt
+                break;
+            default:
+                glk_request_timer_events(0);
+                AnimationRunning = 0;
+                break;
         }
     }
 }

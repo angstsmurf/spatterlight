@@ -273,6 +273,9 @@ void Updates(event_t ev)
             case REBEL_PLANET:
                 UpdateRebelAnimations();
                 break;
+            case KAYLETH:
+                UpdateKaylethAnimations();
+                break;
             default:
                 break;
         }
@@ -422,4 +425,10 @@ void DisplayInit(void)
     OpenTopWindow();
     OpenGraphicsWindow();
     CurrentWindow = Bottom;
+//    for (int i = 107; i < 120; i ++) {
+//        MyLoc = i;
+//        DrawRoomImage();
+//        fprintf(stderr, "Room image %d\n", i);
+//        HitEnter();
+//    }
 }
