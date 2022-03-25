@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 void UpdateRebelAnimations(void);
-void UpdateKaylethAnimations(void);
+int UpdateKaylethAnimations(void);
 void StartAnimations(void);
 
 #endif /* animations_h */

@@ -7,15 +7,13 @@
 
 #include "sagadraw.h"
 #include "animations.h"
+#include "utility.h"
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
-#define KAYLETH_ANIMATION_RATE 175
-
 
 int AnimationRunning = 0;
-int AnimationStage = 0;
-int AnimationStartFrame = 0;
+int KaylethAnimationRoom = 0;
 
 extern uint8_t buffer[384][9];
 
@@ -47,7 +45,9 @@ void animate_stars(void)
         for (int pixrow = 0; pixrow < 8; pixrow++) {
             carry = 0;
             /* The left half is rotated one pixel to the left, */
-            /* byte by byte */
+            /* byte by byte, but we actually rotate to the right */
+            /* because the bytes are flipped in our implementation */
+            /* for some reason */
             for (int col = 15; col > 5; col--) {
                 uint8_t attribute = buffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
@@ -80,27 +80,58 @@ void animate_stars(void)
     }
 }
 
-void UpdateKaylethAnimations(void)
+int UpdateKaylethAnimations(void) // Draw animation frame
 {
-    AnimationStage++;
-    if (AnimationStage > 9)
-        AnimationStage = 0;
-
-    if (AnimationStage % 2) {
-        if (MyLoc == 1)
-            DrawTaylor(98);
-        else
-            DrawTaylor(114);
-    } else {
-        DrawTaylor(AnimationStartFrame + AnimationStage / 2);
-        if (MyLoc == 1)
-            DrawTaylor(97);
-         else
-            DrawTaylor(109);
+    if (MyLoc == 0) {
+        return 0;
     }
+    uint8_t *ptr = &FileImage[0xfded - 0x4000 + FileBaselineOffset];
+    int counter = 0;
+    do {
+        if (*ptr == 0xff)
+            counter++;
+        ptr++;
+    } while(counter < MyLoc);
+    while(1) {
+        if (*ptr == 0xff) {
+            return 0;
+        }
+        int Stage = *ptr;
+        ptr++;
+        uint8_t *LastInstruction = ptr;
+        if (ObjectLoc[*ptr] != MyLoc && *ptr != 0) {
+            //Returning because location of object *ptr is not current location
+            return 0;
+        }
+        ptr++;
+        if (KaylethAnimationRoom != MyLoc) {
+            KaylethAnimationRoom = MyLoc;
+            *ptr = 0;
+        }
 
+        ptr += *ptr + 1;
+        int AnimationRate = *ptr;
 
-    DrawSagaPictureFromBuffer();
+        if (AnimationRate != 0xff) {
+            ptr++;
+            (*ptr)++;
+            if (AnimationRate != *ptr) {
+                //Skipping this frame because animationrate != current animation stage
+                return 1;
+            }
+            *ptr = 0;
+            // Draw "room image" *(ptr + 1) (Actually an animation frame)
+            DrawTaylor(*(ptr + 1));
+            DrawSagaPictureFromBuffer();
+            ptr = LastInstruction + 1;
+            (*ptr) += 3;
+            return 1;
+        } else {
+            ptr = LastInstruction + 1;
+            *ptr = Stage;
+            ptr -= 2;
+        }
+    }
 }
 
 void UpdateRebelAnimations(void)
@@ -113,12 +144,6 @@ void UpdateRebelAnimations(void)
     }
 }
 
-void StartKaylethAnimation(int start) {
-    AnimationStartFrame = start;
-    glk_request_timer_events(KAYLETH_ANIMATION_RATE);
-}
-
-
 void StartAnimations(void) {
     if (CurrentGame == REBEL_PLANET && MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
         if (AnimationRunning != STARS_ANIMATION_RATE) {
@@ -126,17 +151,32 @@ void StartAnimations(void) {
             AnimationRunning = STARS_ANIMATION_RATE;
         }
     } else if (CurrentGame == KAYLETH) {
+        int speed = 0;
+        if (UpdateKaylethAnimations())
+            speed = 20;
+        KaylethAnimationRoom = 0;
+        if (ObjectLoc[0] == MyLoc)
+            speed = 13; // Azap chamber
         switch(MyLoc) {
             case 1:
-                StartKaylethAnimation(92); // Conveyor belt
+            case 2: // Conveyor belt
+                speed = 14;
                 break;
-            case 2:
-                StartKaylethAnimation(110); // Conveyor belt
+            case 53: // Twin peril forest
+                speed = 300;
+                break;
+            case 56: // Citadel of Zenron
+                speed = 40;
+                break;
+            case 36: // Guard dome
+                speed = 12;
                 break;
             default:
-                glk_request_timer_events(0);
-                AnimationRunning = 0;
                 break;
+        }
+        if (AnimationRunning != speed) {
+            glk_request_timer_events(speed);
+            AnimationRunning = speed;
         }
     }
 }
