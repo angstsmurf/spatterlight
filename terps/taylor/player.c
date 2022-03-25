@@ -353,7 +353,7 @@ static void OutChar(char c)
             periods = 0;
             Upper = 0;
         } else if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
-            c = 0;
+            c = ' ';
             if (LastChar == ' ')
                 LastChar = 0;
         }
@@ -742,13 +742,11 @@ static void QuitGame(void)
     do {
         c = WaitCharacter();
         if(c == 'n' || c == 'N') {
-            OutChar('N');
-            OutChar('\n');
+            OutString("N \n");
             exit(0);
         }
         if(c == 'y' || c == 'Y') {
-            OutChar('Y');
-            OutChar('\n');
+            OutString("Y \n");
             NewGame();
             return;
         }
@@ -864,7 +862,7 @@ static void DropObject(unsigned char obj) {
 }
 
 void Look(void) {
-    if (MyLoc == 0)
+    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91))
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
@@ -947,6 +945,7 @@ static void Goto(unsigned char loc) {
 }
 
 static void Delay(unsigned char seconds) {
+    OutChar(' ');
     OutFlush();
     glk_request_timer_events(1000 * seconds);
 
@@ -1283,6 +1282,7 @@ static void ExecuteLineCode(unsigned char *p)
                 RamLoad();
                 break;
             case 34:
+                OutFlush();
                 glk_window_clear(Bottom);
                 break;
             case 35:
@@ -1612,6 +1612,7 @@ static void RestartGame(void)
     RestoreState(initial_state);
     just_started = 0;
     stop_time = 0;
+    OutFlush();
     glk_window_clear(Bottom);
     OpenTopWindow();
     should_restart = 0;
