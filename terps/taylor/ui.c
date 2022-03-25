@@ -59,26 +59,6 @@ void Display(winid_t w, const char *fmt, ...)
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
-void HitEnter(void)
-{
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == keycode_Return) {
-                result = 1;
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result == 0);
-
-    return;
-}
-
 static void WordFlush(winid_t win);
 
 void PrintCharacter(unsigned char c)
@@ -425,10 +405,4 @@ void DisplayInit(void)
     OpenTopWindow();
     OpenGraphicsWindow();
     CurrentWindow = Bottom;
-//    for (int i = 107; i < 120; i ++) {
-//        MyLoc = i;
-//        DrawRoomImage();
-//        fprintf(stderr, "Room image %d\n", i);
-//        HitEnter();
-//    }
 }

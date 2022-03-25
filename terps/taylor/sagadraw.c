@@ -586,7 +586,6 @@ static size_t FindCharacterStart(void)
 
 void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
-void HitEnter(void);
 
 uint8_t *Questprobe3Image(int imgnum) {
     //    if (imgnum > 1)
@@ -1165,8 +1164,6 @@ void DrawTaylor(int loc)
                 break;
         }
         ptr++;
-        //        DrawSagaPictureFromBuffer();
-        //        HitEnter();
     }
 }
 
