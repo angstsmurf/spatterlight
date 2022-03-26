@@ -19,7 +19,7 @@ int draw_to_buffer = 1;
 
 uint8_t sprite[256][8];
 uint8_t screenchars[768][8];
-uint8_t buffer[384][9];
+uint8_t buffer[768][9];
 
 Image *images = NULL;
 

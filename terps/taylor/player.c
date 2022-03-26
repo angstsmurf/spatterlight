@@ -1663,6 +1663,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     FILE *f;
 
+    argv[1] = "/Users/administrator/Desktop/human.sna";
+
     if(argv[1] == NULL)
     {
         fprintf(stderr, "%s: <file>.\n", argv[0]);
@@ -1689,14 +1691,14 @@ int glkunix_startup_code(glkunix_startup_t *data)
         fprintf(stderr, "File read error!\n");
     }
 
-    size_t length = FileImageLen;
+//    size_t length = FileImageLen;
 
-    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
-    if (uncompressed != NULL) {
-        free(FileImage);
-        FileImage = uncompressed;
-        FileImageLen = length;
-    }
+//    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
+//    if (uncompressed != NULL) {
+//        free(FileImage);
+//        FileImage = uncompressed;
+//        FileImageLen = length;
+//    }
 
     EndOfData = FileImage + FileImageLen;
 
@@ -1718,23 +1720,17 @@ void glk_main(void)
         glk_exit();
     }
 
-    for (int i = 0; i < NUMGAMES; i++) {
-        Game = &games[i];
-        FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-        TokenBase = FindTokens();
-        int diff = (int)TokenBase - (int)VerbBase;
-        if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
-            fprintf(stderr, "This is %s\n", Game->Title);
-            break;
-        } else {
-            fprintf(stderr, "Diff for game %s: %d. Looking for %d\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
-        }
-    }
+    Game = &games[0];
 
-    if (CurrentGame == UNKNOWN_GAME) {
-        fprintf(stderr, "Unrecognized game!\n");
-        glk_exit();
-    }
+    DisplayInit();
+
+    FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
+    TokenBase = FindTokens();
+
+//    if (CurrentGame == UNKNOWN_GAME) {
+//        fprintf(stderr, "Unrecognized game!\n");
+//        glk_exit();
+//    }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 
@@ -1747,7 +1743,6 @@ void glk_main(void)
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
-    DisplayInit();
     initial_state = SaveCurrentState();
 
     RamSave(0);

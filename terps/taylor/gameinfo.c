@@ -45,7 +45,7 @@ struct GameInfo games[NUMGAMES] = {
         0x28de, // start of directions
 
         0x810e, // start_of_characters;
-        0x6916, // start_of_image_data;
+        0x6931, // start_of_image_data;
         0x3837, // image patterns lookup table;
         0x1c, // number of patterns
         0x9f, // patterns end marker
