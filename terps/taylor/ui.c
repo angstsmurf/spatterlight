@@ -564,12 +564,11 @@ static void draw_spectrum_screen_from_mem(void) {
     } while (ev.type != evtype_CharInput);
 }
 
-uint16_t currentinstruction;
+uint16_t instructionaddress;
 uint16_t currentscreenaddress;
 
 int calla050(void) // Get next adress?
 {
-    uint8_t lastAttribute = 0;
     currentscreenaddress++; // byte to the right
     columnstodraw--;
     if (columnstodraw != 0)
@@ -582,10 +581,13 @@ int calla050(void) // Get next adress?
         currentscreenaddress = xoff + mem[address] + mem[address + 1] * 256;
         return 0;
     }
-    currentinstruction++;
+
+    // Draw attributes
+    instructionaddress++;
     columnstodraw = width;
+    uint8_t lastAttribute = 0;
     uint16_t screenMemPos = 0x5800 + xoff + yoff * 32;
-    IX = currentinstruction;
+    IX = instructionaddress;
     do {
         A = mem[IX];
         if (A >= 128) { // Bit 7 is repeat flag
@@ -631,7 +633,7 @@ void draw_image(int img)
 
     uint16_t address = (mem[0x9e80 + A] & 0x7f) * 2 + 0xa8c0;
     HL = 0xa916 + mem[address] + mem[address+1] * 256;
-    currentinstruction = HL;
+    instructionaddress = HL;
     width = mem[HL];
     columnstodraw = mem[HL];
     HL++;
@@ -649,166 +651,151 @@ void draw_image(int img)
 
     HL++;
 
-    currentinstruction = HL;
+    instructionaddress = HL;
     pushedIX = IX;
 
-    uint8_t flipmode = 0; // 0x6446 and 0x6436 are reset to 0
+    uint8_t flipmode = 0;
     repeats = 0;
-jump9f35:
-    mem[0x9ebe] = 0; // 0x9ebe is reset to 0
-    A = mem[HL]; // A = next draw instruction
-    if (A >= 128) {
-        // Bit 7 set, this is a command byte
-        mem[0x9ebe] = A; // draw instruction is stored in 0x9ebe and 0x9ebf
-        mem[0x9ebf] = A;
-        A = A & 2; // Test bit 1, repeat flag
-        if (A != 0) {
+    uint8_t current_instruction;
+    do {
+        current_instruction = 0; // 0x9ebe is reset to 0
+        A = mem[HL]; // A = next draw instruction
+        if (A >= 128) {
+            // Bit 7 set, this is a command byte
+            current_instruction = A; // draw instruction is stored in 0x9ebe and 0x9ebf
+            mem[0x9ebf] = A;
+            A = A & 2; // Test bit 1, repeat flag
+            if (A != 0) {
+                HL++;
+                A = mem[HL]; // Set A to next instruction
+                repeats = A; // and store it in 0x9ec0
+            }
             HL++;
-            A = mem[HL]; // Set A to next instruction
-            repeats = A; // and store it in 0x9ec0
-        }
-        HL++;
-        currentinstruction = HL;
-        A = mem[HL];
-    }
-    HL = A;
-    BC = 0xa100; // Lookup table for character offsets
-    A = mem[0x9ebf];
-    if ((A & 1) == 1) { // Test bit 0, whether to add 127 to character index
-        uint8_t B = BC >> 8;
-        B = B + 4;
-        BC = (BC & 0xFF) + B * 256;
-    }
-
-    IX = HL * 8 + BC;
-    HL = 0x9ec8;
-    A = mem[0x9ebe]; // Current draw instruction
-    A = (A & 0x30); // bits 4 and 5
-    switch (A) {
-        case 0: // do nothing, straight copy
-                //            fprintf(stderr, "0: do nothing, straight copy\n");
-            for (int i = 0; i < 8; i++) {
-                mem[HL++] = mem[IX++];
-            }
-            break;
-        case 0x10: // rotate 90 degrees
-                   //            fprintf(stderr, "0x10: rotate 90 degrees\n");
-            for (int C = 8 ; C > 0 ; C--) {
-                A = mem[IX];
-                for (int B = 8 ; B > 0 ; B--) {
-                    carry = ((A & 128) == 128);
-                    A = A << 1;
-                    carry = rotate_right_with_carry(&mem[HL++], carry);
-                }
-                HL = 0x9ec8;
-                IX++;
-            }
-            break;
-        case 0x20:  // rotate 180 degrees
-                    //            fprintf(stderr, "0x20: rotate 180 degrees\n");
-            HL = 0x9ecf;
-            for (int C = 0; C < 8; C++) {
-                A = mem[IX];
-                for (int B = 0; B < 8; B++) {
-                    carry = ((A & 128) == 128);
-                    A = A << 1;
-                    carry = rotate_right_with_carry(&mem[HL], carry);
-                } ;
-                IX++;
-                HL--;
-            }
-            break;
-
-        case 0x30: // Rotate 270 degrees
-                   //            fprintf(stderr, "0x30: rotate 270 degrees\n");
-            for (int C = 0; C < 8 ; C++) {
-                A = mem[IX];
-                for (int B = 0; B < 8 ; B++) {
-                    carry = (A & 1);
-                    A = A >> 1;
-                    carry = rotate_left_with_carry(&mem[HL++], carry);
-                }
-                HL = 0x9ec8;
-                IX++;
-            }
-            break;
-        default:
-            break;
-    }
-
-    A = mem[0x9ebe];
-    A = A & 0x40; // bit 6
-    if (A != 0) {  // flip horizontally
-                   //        fprintf(stderr, "bit 6 is set: flip horizontally\n");
-        HL = 0x9ec8;
-        for (int C = 0; C < 8 ; C++) {
+            instructionaddress = HL;
             A = mem[HL];
-            for (int B = 0; B < 8 ; B++) {
-                carry = ((A & 128) == 128);
-                A = (A << 1); //+ (A & 1);
-                carry = rotate_right_with_carry(&mem[HL], carry);
-            }
-            HL++;
         }
-    }
-    DE = currentscreenaddress; // Screen adress
-    HL = 0x9ec8;
-    for (int B = 0; B < 8; B++) {
-        A = flipmode; // flip mode
-        switch(A) {
-            case 4: // The screen memory value is ORed
-                    //                fprintf(stderr, "4: OR\n");
-                A = mem[DE] | mem[HL];
+        HL = A;
+        BC = 0xa100; // Lookup table for character offsets
+        if ((mem[0x9ebf] & 1) == 1) { // Test bit 0, whether to add 127 to character index
+            BC += 0x400;
+        }
+
+        IX = HL * 8 + BC;
+        HL = 0x9ec8;
+// Current draw instruction bits 4 and 5
+        switch (current_instruction & 0x30) {
+            case 0: // do nothing, straight copy
+                    //            fprintf(stderr, "0: do nothing, straight copy\n");
+                for (int i = 0; i < 8; i++) {
+                    mem[HL++] = mem[IX++];
+                }
                 break;
-            case 8: // The screen memory is ANDed
-                    //                fprintf(stderr, "8: AND\n");
-                A = mem[DE] & mem[HL];
+            case 0x10: // rotate 90 degrees
+                       //            fprintf(stderr, "0x10: rotate 90 degrees\n");
+                for (int C = 8 ; C > 0 ; C--) {
+                    A = mem[IX];
+                    for (int B = 8 ; B > 0 ; B--) {
+                        carry = ((A & 128) == 128);
+                        A = A << 1;
+                        carry = rotate_right_with_carry(&mem[HL++], carry);
+                    }
+                    HL = 0x9ec8;
+                    IX++;
+                }
                 break;
-            case 12:  // The screen memory is XORed
-                      //                fprintf(stderr, "12: XOR\n");
-                A = mem[DE] ^ mem[HL];
+            case 0x20:  // rotate 180 degrees
+                        //            fprintf(stderr, "0x20: rotate 180 degrees\n");
+                HL = 0x9ecf;
+                for (int C = 0; C < 8; C++) {
+                    A = mem[IX];
+                    for (int B = 0; B < 8; B++) {
+                        carry = ((A & 128) == 128);
+                        A = A << 1;
+                        carry = rotate_right_with_carry(&mem[HL], carry);
+                    } ;
+                    IX++;
+                    HL--;
+                }
+                break;
+
+            case 0x30: // Rotate 270 degrees
+                       //            fprintf(stderr, "0x30: rotate 270 degrees\n");
+                for (int C = 0; C < 8 ; C++) {
+                    A = mem[IX];
+                    for (int B = 0; B < 8 ; B++) {
+                        carry = (A & 1);
+                        A = A >> 1;
+                        carry = rotate_left_with_carry(&mem[HL++], carry);
+                    }
+                    HL = 0x9ec8;
+                    IX++;
+                }
                 break;
             default:
-                //                fprintf(stderr, "0: straight overlay \n");
-                A = mem[HL];
                 break;
         }
-        mem[DE] = A; // set screen adress to new value
-                     //        fprintf(stderr, "Set address %x to %x\n", DE, mem[DE]);
-        mem[HL] = A;
-        HL++;
-        DE = DE + 256; // Next line
-    }
-    A = mem[0x9ebe];
-    A = A & 0x0c;
-    flipmode = A; // Flip mode
-    if (flipmode == 0) { // No flip
-    jumpa022:
-        A = repeats;
-        if (A != 0) {
-            if (calla050())  // Get screen address for next character?
-                return;
+
+        if ((current_instruction & 0x40) != 0) {  // bit 6 // flip horizontally
+                       //        fprintf(stderr, "bit 6 is set: flip horizontally\n");
             HL = 0x9ec8;
-            DE = currentscreenaddress; // Screen adress
-
-            for (int B = 0; B < 8; B++) {
-                A = mem[HL++];
-                mem[DE] = A;
-                DE = DE + 256;
-            }
-
-            repeats--;
-            if (repeats != 0) {
-                goto jumpa022;
+            for (int C = 0; C < 8 ; C++) {
+                A = mem[HL];
+                for (int B = 0; B < 8 ; B++) {
+                    carry = ((A & 128) == 128);
+                    A = (A << 1); //+ (A & 1);
+                    carry = rotate_right_with_carry(&mem[HL], carry);
+                }
+                HL++;
             }
         }
-        if (calla050())
-            return;
-    }
+        DE = currentscreenaddress; // Screen adress
+        HL = 0x9ec8;
+        for (int B = 0; B < 8; B++) {
+            switch(flipmode) {
+                case 4: // The screen memory value is ORed
+                        //                fprintf(stderr, "4: OR\n");
+                    A = mem[DE] | mem[HL];
+                    break;
+                case 8: // The screen memory is ANDed
+                        //                fprintf(stderr, "8: AND\n");
+                    A = mem[DE] & mem[HL];
+                    break;
+                case 12:  // The screen memory is XORed
+                          //                fprintf(stderr, "12: XOR\n");
+                    A = mem[DE] ^ mem[HL];
+                    break;
+                default:
+                    //                fprintf(stderr, "0: straight overlay \n");
+                    A = mem[HL];
+                    break;
+            }
+            mem[DE] = A; // set screen adress to new value
+                         //        fprintf(stderr, "Set address %x to %x\n", DE, mem[DE]);
+            mem[HL] = A;
+            HL++;
+            DE = DE + 256; // Next line
+        }
+        flipmode = current_instruction & 0x0c;
+        if (flipmode == 0) { // No flip
+            for (; repeats != 0; repeats--) {
+                if (calla050())  // Get screen address for next character?
+                    return;
+                HL = 0x9ec8;
+                DE = currentscreenaddress; // Screen adress
 
-    currentinstruction++;
-    HL = currentinstruction;
-    goto jump9f35;
+                for (int B = 0; B < 8; B++) {
+                    A = mem[HL++];
+                    mem[DE] = A;
+                    DE = DE + 256;
+                }
+            }
+            if (calla050())
+                return;
+        }
+
+        instructionaddress++;
+        HL = instructionaddress;
+    } while (HL < 0xffff);
 }
 
 
@@ -1113,6 +1100,7 @@ jump9f35:
  $a0f3 add hl,de     ; 0x5800 + xpos + ypos * 32;
  $a0f4 ex de,hl      ;
  $a0f5 ret           ;
+
  */
 
 
