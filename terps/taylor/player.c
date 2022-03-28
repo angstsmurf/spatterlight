@@ -193,15 +193,14 @@ size_t FindCode(const char *x, size_t base, size_t len)
     return -1;
 }
 
-//Terror.sna has its flags at 0x21db
-
 static size_t FindFlags(void)
 {
     /* Look for the flag initial block copy */
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial flag data.\n");
-        glk_exit();
+        return 0x90a3 - 0x3fe5;
+//        glk_exit();
     }
     return pos + 6;
 }
@@ -211,7 +210,8 @@ static size_t FindObjectLocations(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
-        glk_exit();
+        return 0x90a3 - 0x3fe5;
+//        glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
     return pos - 0x4000 + FileBaselineOffset;
@@ -270,7 +270,9 @@ static size_t FindTokens(void)
             addr = FindCode("You are in ", 0, 11) - 1;
             if(addr == -1) {
                 fprintf(stderr, "Unable to find token table.\n");
-                glk_exit();
+//                glk_exit();
+                print_memory2(0x8c8c, 16);
+                return 0x8c8c;
             }
             return addr;
         }
@@ -466,7 +468,8 @@ static void PrintText0(unsigned char *p, int n)
             n--;
         }
         else if(n == 0)
-            OutChar(c);
+            fprintf(stderr, "%c", c);
+//            OutChar(c);
         if(t >= EndOfData || (*t++ & 0x80))
             t = NULL;
     }
@@ -474,7 +477,7 @@ static void PrintText0(unsigned char *p, int n)
 
 static void PrintText(unsigned char *p, int n)
 {
-    if (Version == REBEL_PLANET_TYPE) 	/* In stream end markers */
+    if (Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE) 	/* In stream end markers */
         PrintText0(p, n);
     else			/* Out of stream end markers (faster) */
         PrintText1(p, n);
@@ -506,7 +509,9 @@ static size_t FindMessages(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate messages.\n");
-    glk_exit();
+    print_memory2(0x5a56, 16);
+    return 0x5a56;
+//    glk_exit();
 }
 
 static size_t FindMessages2(void)
@@ -546,7 +551,8 @@ static size_t FindObjects(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate objects.\n");
-    glk_exit();
+    return 0x6f03;
+//    glk_exit();
 }
 
 static void PrintObject(unsigned char obj)
@@ -567,7 +573,8 @@ static size_t FindRooms(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate rooms.\n");
-    glk_exit();
+    return 0x6f03;
+//    glk_exit();
 }
 
 
@@ -771,7 +778,7 @@ static void Inventory(void)
     if(f == 0)
         Message(NOTHING); /* "nothing at all" */
     else {
-        if(Version == REBEL_PLANET_TYPE) {
+        if(Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE) {
             OutKillSpace();
             OutChar('.');
         } else {
@@ -1333,7 +1340,8 @@ static size_t FindStatusTable(void)
         return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find automatics.\n");
-    glk_exit();
+    return 0x51b5 + 0x3fe5;
+//    glk_exit();
 }
 
 static void RunStatusTable(void)
@@ -1364,7 +1372,8 @@ size_t FindCommandTable(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find commands.\n");
-    glk_exit();
+    return 0x51b5 + 0x3fe5;
+//    glk_exit();
 }
 
 static void RunCommandTable(void)
@@ -1582,7 +1591,7 @@ static int GuessLowObjectEnd(void)
     if (CurrentGame == BLIZZARD_PASS)
         return 69;
 
-    if(Version == REBEL_PLANET_TYPE)
+    if(Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE)
         return GuessLowObjectEnd0();
 
     while(n < NumObjects()) {
@@ -1725,7 +1734,35 @@ void glk_main(void)
     DisplayInit();
 
     FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-    TokenBase = FindTokens();
+
+//    fprintf(stderr, "\n");
+//
+//    int found = 0;
+//    for (int i = 0; i < FileImageLen; i++) {
+//
+//        uint8_t *p = FileImage + i;
+//        uint8_t c = *p & 0x7F;
+//            if(c >= ' ' && c <= 'z')
+//                fprintf(stderr, "%c", c);
+//
+//
+//        if (LooksLikeTokens(i)) {
+//            fprintf(stderr, "0x%04x (%d) looks like tokens.\n", i, i);
+//            found = 1;
+//        }
+//    }
+//
+//    fprintf(stderr, "\n");
+
+//    if (!found)
+//        fprintf(stderr, "Found nothing that looks like tokens.\n");
+
+//    TokenBase = FindTokens();
+
+    TokenBase = 0x201b;
+    print_memory2(0x201b, 16);
+
+    fprintf(stderr, "Found tokens at %zx (%zu)\n", TokenBase, TokenBase);
 
 //    if (CurrentGame == UNKNOWN_GAME) {
 //        fprintf(stderr, "Unrecognized game!\n");
@@ -1740,6 +1777,16 @@ void glk_main(void)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
+
+
+    BottomWindow();
+    for (int i = 0; i < 100; i++) {
+        Message(i);
+        OutFlush();
+    }
+
+
+
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();

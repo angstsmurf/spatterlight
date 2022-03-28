@@ -430,7 +430,6 @@ void LoadMemory(void) {
     for (int i = 0x5800; i < 0x5800 + 384; i++) {
         mem[i] = 0;
     }
-    print_screen_memory();
 }
 
 void DrawRoomImage(void) {
@@ -441,19 +440,18 @@ void DrawRoomImage(void) {
 
 uint16_t getImageAddress(uint8_t blocknum);
 
+void call9b45(void);
+void call9a3c(void);
+
 void DisplayInit(void)
 {
     LoadMemory();
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
-    OpenGraphicsWindow();
-    glk_window_clear(Graphics);
-    for (int i = 1; i < 58; i++) {
-        draw_image(i);
-        fprintf(stderr, "Image: %d\n", i);
-        draw_spectrum_screen_from_mem();
-    }
+    A = 0;
+    HL = 0x68a5;
+    call9a3c();
 }
 
 
@@ -596,14 +594,13 @@ int calla050(void) // Get next adress?
         }
     jumpa0b0:
         mem[screenMemPos] = A;
-        fprintf(stderr, "Set attribute address 0x%04x to %x\n", DE, A);
+//        fprintf(stderr, "Set attribute address 0x%04x to %x\n", DE, A);
         lastAttribute = A;
         screenMemPos++;
         columnstodraw--;
         if (columnstodraw == 0) {
             height--;
             if (height == 0) {
-                IX = pushedIX;
                 return 1;
             }
             columnstodraw = width;
@@ -798,309 +795,915 @@ void draw_image(int img)
     } while (HL < 0xffff);
 }
 
+void call9a6e(int skip);
 
+void call9b79(int skip);
+void call9b27(void);
+void call9c85(void);
+
+//; Routine at 9a3c
+
+void call9a3c(void) {
+    A = mem[0x9971];
+    BC = (BC & 0xff) + A * 256;
+    if (A == 0)
+        goto jump9a50;
+    for (int i = A; i > 0; i--) {
+    jump9a43:
+        HL++;
+        A = mem[HL];
+        if (A == 0x18)
+            continue;
+        if (A != 0x1f)
+            goto jump9a43;
+    }
+    HL++;
+jump9a50:
+    A = 0x80;
+    mem[0x9a3b] = A;
+jump9a55:
+    A = mem[HL];
+    if (A == 0x18)
+        return;
+    if (A != 0x1f)
+        goto jump9a62;
+    A = 0x0d;
+    goto jump9b27;
+jump9a62:
+    mem[0x9ae8] = HL & 0xff;
+    mem[0x9ae9] = HL >> 8;
+    call9a6e(0);
+    HL = mem[0x9ae8] + mem[0x9ae9] * 256 + 1;
+    goto jump9a55;
+jump9b27:
+    pushedHL = HL;
+    pushedBC = BC;
+    pushedA = A;
+if (A != 0x0d)
+    goto jump9b40;
+    A = mem[0x5bf6];
+    BC = (BC & 0xff) + A * 256;
+jump9b33:
+    BC += 256;
+    A = 0x2b;
+    if ((BC >> 8) == A)
+        goto jump9b74;
+    A = 0x20;
+    call9b79(0);
+    goto jump9b33;
+jump9b40:
+    call9b79(0);
+jump9b74:
+    A = pushedA;
+    BC = pushedBC;
+    DE = pushedDE;
+    HL = pushedHL;
+}
+
+
+
+// Routine at 9b45 Print Room description?
+
+void call9b45(void) {
+    pushedHL = HL;
+    pushedDE = DE;
+    pushedBC = BC;
+    pushedA = A;
+    mem[0x9971] = A;
+    HL = 0x6f1d;
+    call9a3c();
+}
+
+void call9c6c(void) {
+    pushedDE = DE;
+    A = mem[0x5b5f];
+    A += A;
+    DE = A;
+    HL = 0x9d08 + A;
+//    call9d38(); // DE = (HL), HL = HL + 2
+    DE = mem[HL] + mem[HL+1] * 256;
+    HL += 2;
+    mem[0x5bf3] = DE & 0xff;
+    mem[0x5bf4] = DE >> 8;
+    A = 0;
+    mem[0x5bf6] = 0;
+    DE = pushedDE;
+}
+
+void call9b79(int skip) { // Draw letters to screen
+    if (isascii(A))
+        fprintf(stderr, "%c", A);
+    if (!skip) {
+        if (A != 0x0c)
+            goto jump9b87;
+        call9b79(1);
+        A = 0x0c;
+    }
+jump9b87:
+    pushedHL = HL;
+    pushedBC = BC;
+    pushedDE = DE;
+    pushedA = A;
+    if (A == 0x0d)
+        goto jump9bbd;
+    if (A != 0x0c)
+        goto jump9bd7;
+    A = mem[0x5bf6];
+    if (A != 0)
+        goto jump9ba8;
+    A = 0x29;
+    mem[0x5bf6] = A;
+    A = mem[0x5bf5];
+    A--;
+    mem[0x5bf5] = A;
+    goto jump9bb3;
+jump9ba8:
+    A--;
+    mem[0x5bf6] = A;
+    A = A & 0x03;
+    if (A == 0x02)
+        goto jump9c67;
+jump9bb3:
+    HL = mem[0x5bf3] + mem[0x5bf4] * 256;
+    HL--;
+    mem[0x5bf3] = HL & 0xff;
+    mem[0x5bf4] = HL >> 8;
+    goto jump9c67;
+jump9bbd:
+    A = mem[0x5bf5];
+//    If A < N, then C flag is set.
+//    If A >= N, then C flag is reset.
+    if (A < 0x17)
+        goto jump9bca;
+    call9c85();
+    goto jump9c67;
+jump9bca:
+    A = mem[0x5bf5];
+    A++;
+    mem[0x5bf5] = A;
+    call9c6c();
+    goto jump9c67;
+jump9bd7:
+    if (isascii(A))
+        fprintf(stderr, "%c", A);
+    DE = mem[0x5bf3] + mem[0x5bf4] * 256;
+    BC = 0x8dcb;
+    A = A - 0x20;
+    if (isascii(A))
+        fprintf(stderr, "%c", A);
+    HL = A;
+    HL += HL;
+    HL += HL;
+    HL += HL;
+    HL += BC;
+    temp = HL;
+    HL = DE;
+    DE = temp;
+    pushedHL = HL;
+    A = mem[0x5bf6];
+    A = A & 0x03;
+    if (A == 0x03)
+        goto jump9c46;
+    if (A == 0x02)
+        goto jump9c21;
+    if (A == 0x01)
+        goto jump9c09;
+    for (int i = 0; i < 8; i++) {
+    jump9bfc:
+        A = mem[DE];
+    jump9bfd:
+        mem[HL] = A;
+        DE++;
+        HL += 256;
+    }
+jump9c02:
+    HL = pushedHL;
+    HL++;
+    mem[0x5bfe3] = HL & 0xff;
+    mem[0x5bfe4] = HL >> 8;
+    goto jump9c59;
+jump9c09:
+    for (int i = 0; i < 8; i++) {
+        A = mem[DE];
+        HL--;
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        HL++;
+        mem[HL] = A;
+        HL += 256;
+        DE += 256;
+    }
+
+    goto jump9c02;
+jump9c21:
+    for (int i = 0; i < 8; i++) {
+        A = mem[DE];
+        HL--;
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_right_with_carry(&mem[HL], 0);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        carry = rotate_left_with_carry(&A, (A & 1));
+        carry = rotate_right_with_carry(&mem[HL], carry);
+        HL++;
+        mem[HL] = A;
+        HL += 256;
+        DE++;
+    }
+    HL = pushedHL;
+    goto jump9c59;
+jump9c46:
+    for (int i = 0; i < 8; i++) {
+        A = 0xc0;
+        A = A & mem[HL];
+        mem[HL] = A;
+        A = mem[DE];
+        carry = rotate_right_with_carry(&A, 0);
+        carry = rotate_right_with_carry(&A, 0);
+        A = A | mem[HL];
+        mem[HL] = A;
+        HL += 256;
+        DE++;
+    }
+    goto jump9c02;
+jump9c59:
+    A = pushedA;
+    pushedA = A;
+    A = mem[0x5bf6];
+    if (A == 0x29)
+        goto jump9bbd;
+    A++;
+    mem[0x5bf6] = A;
+jump9c67:
+    A = pushedA;
+    DE = pushedDE;
+    BC = pushedBC;
+    HL = pushedHL;
+}
+
+void call9a6e(int skip) { // Print message?
+    if (!skip) {
+        if (A < 0x7b)
+            goto jump9a90;
+        HL = 0x8c8b;
+        A = A - 0x7b;
+        if (A == 0)
+            goto jump9a83;
+        for (int i = A; i > 0; i--) {
+        jump9a7a:
+            if ((mem[HL] & 0x80) == 0)
+                continue;
+            HL++;
+            A = mem[HL];
+            goto jump9a7a;
+        }
+    jump9a83:
+        HL++;
+    jump9a84:
+        A = mem[HL];
+        call9a6e(1);
+        HL++;
+        if ((mem[HL] & 0x80) == 0)
+            goto jump9a84;
+        A = mem[HL];
+        A = A & 0x7f;
+    }
+jump9a90:
+    pushedHL = HL;
+    pushedBC = BC;
+    pushedDE = DE;
+    pushedA = A;
+    if (A != 0x20)
+        goto jump9afc;
+    HL = mem[0x9ae8] + mem[0x9ae9] * 256;
+    BC = BC & 0xff;
+    A = mem[HL];
+    if (A < 0xec)
+        goto jump9aa7;
+    if (A >= 0xf0)
+        goto jump9aa7;
+    BC += 256;
+jump9aa7:
+    HL++;
+    A = mem[HL];
+    if (A == 0x20)
+        goto jump9aea;
+    if (A == 0x18)
+        goto jump9aea;
+    if (A == 0x1f)
+        goto jump9aea;
+    BC += 256;
+    uint8_t B = BC >> 8;
+    if (B < 0x7b)
+        goto jump9aa7;
+    if (B < 0x8b)
+        goto jump9aea;
+    BC += 256;
+    if (B < 0xec)
+        goto jump9aa7;
+    if (B >= 0xf0)
+        goto jump9acb;
+    BC -= 256;
+    BC -= 256;
+    goto jump9aea;
+jump9acb:
+    BC += 256;
+    B = BC >> 8;
+    if (B < 0xf3)
+        goto jump9aa7;
+    BC += 256;
+    B = BC >> 8;
+    if (B < 0xf8)
+        goto jump9aea;
+    BC += 256;
+    BC += 256;
+    B = BC >> 8;
+    if (B < 0xfc)
+        goto jump9aea;
+    BC += 256;
+    if (B < 0xfe)
+        goto jump9aea;
+    if (B == 0xfe)
+    goto jump9aa7;
+    BC += 256;
+    BC += 256;
+    BC += 256;
+    BC += 256;
+    goto jump9aa7;
+
+jump9aea:
+    A = mem[0x5bf6];
+    fprintf(stderr, "%c", A);
+    if (A == 0)
+        goto jump9b74;
+    A = A + (BC >> 8);
+    if (A < 0x2a)
+        goto jump9afa;
+    A = 0x0d;
+    goto jump9b21;
+jump9afa:
+    A = 0x20;
+jump9afc:
+    HL = 0x9a3b;
+    if (mem[HL] & 0x80)
+        goto jump9b09;
+    if (mem[HL] < 0x60)
+        goto jump9b09;
+    A = A - 0x20;
+jump9b09:
+    if (A < 0x21)
+        goto jump9b0f;
+    if (mem[HL] & 0x80)
+        mem[HL] -= 0x80;
+jump9b0f:
+    if (mem[HL] == 0x21)
+        goto jump9b1f;
+    if (mem[HL] == 0x3f)
+        goto jump9b1f;
+    if (mem[HL] == 0x3a)
+        goto jump9b1f;
+
+    if (mem[HL] != 0x2e)
+        goto jump9b21;
+jump9b1f:
+    if (!(mem[HL] & 0x80))
+        mem[HL] += 0x80;
+jump9b21:
+    call9b27();
+    goto jump9b74;
+jump9b74:
+    A = pushedA;
+    BC = pushedBC;
+    DE = pushedDE;
+    HL = pushedHL;
+}
+
+void call9b27(void) {
+    pushedHL = HL;
+    pushedDE = DE;
+    pushedBC = BC;
+    pushedA = A;
+    if (A != 0x0d)
+        goto jump9b40;
+    A = mem[0x5bf6];
+    BC = (BC & 0xff) + A *256;
+jump9b33:
+    BC += 256;
+    A = 0x2b;
+    if (A == (BC >> 8)) {
+        goto jump9b74;
+    }
+    A = 0x20;
+    call9b79(0);
+    goto jump9b33;
+jump9b40:
+    call9b79(0);
+    goto jump9b74;
+jump9b74:
+    A = pushedA;
+    BC = pushedBC;
+    DE = pushedDE;
+    HL = pushedHL;
+}
+
+void call9c85(void) {
+    A = mem[0x5bf1];
+jump9c88:
+    HL = A;
+    DE = 0x9d08;
+    HL += HL;
+    HL += DE;
+    // call9d38();  DE = (HL), HL = HL + 2
+    DE = mem[HL] + mem[HL+1] * 256;
+    HL += 2;
+    pushedDE = DE;
+    A++;
+    HL = A;
+    DE = 0x9d08;
+    HL += HL;
+    HL += DE;
+    DE = mem[HL] + mem[HL+1] * 256;
+    HL += 2;
+    temp = DE;
+    DE = HL;
+    HL = temp;
+    DE = pushedDE;
+    for (int i = 0; i < 8; i++) {
+        pushedHL = HL;
+        pushedDE = DE;
+        for (int j = 0; j < 32; j++) {
+            mem[DE] = mem[HL];
+            DE++;
+            HL++;
+        }
+        HL = pushedHL;
+        DE = pushedDE;
+        HL += 256;
+        DE += 256;
+    }
+    if (A != 0x17)
+        goto jump9c88;
+    HL = 0x50e0;
+    DE = HL;
+    DE++;
+    for (int i = 0; i < 8; i++) {
+        pushedHL = HL;
+        pushedDE = DE;
+        mem[HL] = 0;
+        for (int j = 0; j < 0x1f; j++) {
+            mem[DE] = mem[HL];
+            DE++;
+            HL++;
+        }
+        HL = pushedHL;
+        DE = pushedDE;
+        HL += 256;
+        DE += 256;
+    }
+    HL = 0x50e0;
+    mem[0x5bf3] = HL & 0xff;
+    mem[0x5bf4] = HL >> 8;
+    mem[0x5bf6] = 0;
+}
 
 
 /*
 
- ; Routine at 9ed1  Get image address, width, height, xoff, yoff
+ ; Routine at 9b45 Print message A
  ;
- ; Used by the routine at #R$98df. Get image address, width, height, xoff, yoff
- c$9ed1 dec a         ;
- $9ed2 ld e,a        ;
- $9ed3 ld d,$00      ; DE = A
- $9ed5 ld hl,$9e80   ;
- $9ed8 add hl,de     ; HL = 9e80 + A
- $9ed9 ld a,(hl)     ; A = (HL) & $7f 0111 1111
- $9eda and $7f       ;
- $9edc ld l,a        ; HL = A = Image number
- $9edd ld h,$00      ;
- $9edf add hl,hl     ; HL = image number * 2
- $9ee0 ld de,$a8c0   ; 0xa8c0 Image adress lookup
- $9ee3 add hl,de     ; HL = 0xa8c0 + image number * 2
- $9ee4 call $9d38    ; DE = (HL), HL = HL + 2
- $9ee7 ld hl,$a8c0   ;
- $9eea push de       ;
- $9eeb ld de,$0056   ;
- $9eee add hl,de     ; HL += 86 (0x56)
- $9eef pop de        ;
- $9ef0 add hl,de     ; + DE
- $9ef1 ld ($9ebc),hl ; // Is this width, height, xoffset, yoffset?
- $9ef4 ld hl,($9ebc) ;
- $9ef7 ld a,(hl)     ;
- $9ef8 ld ($9ec4),a  ; width?
- $9efb ld ($9ec6),a  ; width counter?
- $9efe inc hl        ;
- $9eff ld a,(hl)     ;
- $9f00 ld ($9ec5),a  ; height counter?
- $9f03 ld ($9ec7),a  ; height?
- $9f06 inc hl        ;
- $9f07 ld a,(hl)     ;
- $9f08 ld ($9ec1),a  ; xoffset?
- $9f0b ld c,a        ;
- $9f0c ld b,$00      ;
- $9f0e inc hl        ;
- $9f0f ld a,(hl)     ;
- $9f10 ld ($9ec2),a  ; yoffset?
- $9f13 ld ($9ec3),a  ;
+ ; Used by the routines at #R$91c7, #R$9360, #R$94ad, #R$96f2, #R$9731, #R$973d,
+ ; #R$9767, #R$97de and #R$9972. Print message A
+ c$9b45 push hl       ; Print message A
+ $9b46 push de       ;
+ $9b47 push bc       ;
+ $9b48 push af       ;
+ $9b49 ld ($9971),a  ;
+ $9b4c ld hl,$6f1d   ;
+ $9b4f call $9a3c    ;
+ $9b52 jr $9b74      ;
 
 
-
- $9f16 push hl       ; Routine at 9f16 Draw image
- $9f17 ld h,$00      ;
- $9f19 ld l,a        ;
- $9f1a add hl,hl     ;
- $9f1b ld de,$9d08   ;  Screen line adress lookup
- $9f1e add hl,de     ;
- $9f1f call $9d38    ; DE = (HL), HL = HL + 2
- $9f22 ex de,hl      ;
- $9f23 add hl,bc     ;
- $9f24 ld ($9eba),hl ;
- $9f27 pop hl        ;
- $9f28 inc hl        ;
- $9f29 ld ($9ebc),hl ; ($9ebc) = HL (Next instruction)
- $9f2c push ix       ;
- $9f2e xor a         ;
- $9f2f ld ($9ed0),a  ; ($9ed0) = 0 flip_mode
- $9f32 ld ($9ec0),a  ; ($9ec0) = 0 remaining
- *$9f35 xor a         ;
- $9f36 ld ($9ebe),a  ; ($9ebe) = 0
- $9f39 ld a,(hl)     ; A = (HL)
- $9f3a bit 7,a       ; test bit 7
- $9f3c jr z,$9f52    ;
- $9f3e ld ($9ebe),a  ;
- $9f41 ld ($9ebf),a  ;
- $9f44 and $02       ;
- $9f46 jr z,$9f4d    ;
- $9f48 inc hl        ;
- $9f49 ld a,(hl)     ;
- $9f4a ld ($9ec0),a  ; (Next instruction)
- *$9f4d inc hl        ;
- $9f4e ld ($9ebc),hl ;
- $9f51 ld a,(hl)     ;
- *$9f52 ld l,a        ;
- $9f53 ld h,$00      ;
- $9f55 ld bc,$a100   ; Start of characters
- $9f58 ld a,($9ebf)  ;
- $9f5b bit 0,a       ; Test bit 0
- $9f5d jr z,$9f63    ;
- $9f5f inc b         ;
- $9f60 inc b         ;
- $9f61 inc b         ;
- $9f62 inc b         ;
- *$9f63 add hl,hl     ;
- $9f64 add hl,hl     ;
- $9f65 add hl,hl     ; HL = HL * 8
- $9f66 add hl,bc     ; + BC
- $9f67 push hl       ;
- $9f68 pop ix        ;
- $9f6a ld hl,$9ec8   ;
- $9f6d ld b,$08      ;
- $9f6f ld a,($9ebe)  ;
- $9f72 and $30       ;  // Current draw instruction bits 4 and 5
- $9f74 jr nz,$9f81   ;
- *$9f76 ld a,(ix+$00) ; // do nothing, straight copy
- $9f79 ld (hl),a     ;
- $9f7a inc ix        ;
- $9f7c inc hl        ;
- $9f7d djnz $9f76    ;
- $9f7f jr $9fd3      ;
- *$9f81 cp $10        ; // rotate 90 degrees
- $9f83 jr nz,$9f9d   ;
- $9f85 ld c,$08      ;
- *$9f87 ld b,$08      ;
- $9f89 ld a,(ix+$00) ;
- *$9f8c sla a         ;
- $9f8e rr (hl)       ;
- $9f90 inc hl        ;
- $9f91 djnz $9f8c    ;
- $9f93 ld hl,$9ec8   ;
- $9f96 inc ix        ;
- $9f98 dec c         ;
- $9f99 jr nz,$9f87   ;
- $9f9b jr $9fd3      ;
- *$9f9d cp $20        ;
- $9f9f jr nz,$9fb9   ;
- $9fa1 ld c,$08      ;
- $9fa3 ld hl,$9ecf   ;
- *$9fa6 ld b,$08      ;
- $9fa8 ld a,(ix+$00) ;
- *$9fab sla a         ;
- $9fad rr (hl)       ;
- $9faf djnz $9fab    ;
- $9fb1 inc ix        ;
- $9fb3 dec hl        ;
- $9fb4 dec c         ;
- $9fb5 jr nz,$9fa6   ;
- $9fb7 jr $9fd3      ;
- *$9fb9 cp $30        ;
- $9fbb jr nz,$9fd3   ;
- $9fbd ld c,$08      ;
- *$9fbf ld b,$08      ;
- $9fc1 ld a,(ix+$00) ;
- *$9fc4 srl a         ;
- $9fc6 rl (hl)       ;
- $9fc8 inc hl        ;
- $9fc9 djnz $9fc4    ;
- $9fcb ld hl,$9ec8   ;
- $9fce inc ix        ;
- $9fd0 dec c         ;
- $9fd1 jr nz,$9fbf   ;
- *$9fd3 ld a,($9ebe)  ;
- $9fd6 and $40       ;
- $9fd8 or a          ;
- $9fd9 jr z,$9fed    ;
- $9fdb ld c,$08      ;
- $9fdd ld hl,$9ec8   ;
- *$9fe0 ld b,$08      ;
- $9fe2 ld a,(hl)     ;
- *$9fe3 sla a         ;
- $9fe5 rr (hl)       ;
- $9fe7 djnz $9fe3    ;
- $9fe9 inc hl        ;
- $9fea dec c         ;
- $9feb jr nz,$9fe0   ;
- *$9fed ld de,($9eba) ;
- $9ff1 ld hl,$9ec8   ;
- $9ff4 ld b,$08      ;
- *$9ff6 ld a,($9ed0)  ;
- $9ff9 cp $04        ;
- $9ffb jr nz,$a001   ;
- $9ffd ld a,(de)     ;
- $9ffe or (hl)       ;
- $9fff jr $a012      ;
- *$a001 cp $08        ;
- $a003 jr nz,$a009   ;
- $a005 ld a,(de)     ;
- $a006 and (hl)      ;
- $a007 jr $a012      ;
- *$a009 cp $0c        ;
- $a00b jr nz,$a011   ;
- $a00d ld a,(de)     ;
- $a00e xor (hl)      ;
- $a00f jr $a012      ;
- *$a011 ld a,(hl)     ;
- *$a012 ld (de),a     ;
- $a013 ld (hl),a     ;
- $a014 inc hl        ;
- $a015 inc d         ;
- $a016 djnz $9ff6    ;
- $a018 ld a,($9ebe)  ;
- $a01b and $0c       ;
- $a01d ld ($9ed0),a  ;
- $a020 jr nz,$a046   ;
- *$a022 ld a,($9ec0)  ;
- $a025 or a          ;
- $a026 jr z,$a043    ;
- $a028 call $a050    ;
- $a02b ld b,$08      ;
- $a02d ld hl,$9ec8   ;
- $a030 ld de,($9eba) ;
- *$a034 ld a,(hl)     ;
- $a035 ld (de),a     ;
- $a036 inc hl        ;
- $a037 inc d         ;
- $a038 djnz $a034    ;
- $a03a ld a,($9ec0)  ;
- $a03d dec a         ;
- $a03e ld ($9ec0),a  ;
- $a041 jr nz,$a022   ;
- *$a043 call $a050    ;
- *$a046 ld hl,($9ebc) ;
- $a049 inc hl        ;
- $a04a ld ($9ebc),hl ;
- $a04d jp $9f35      ;
-
- ; Routine at a050
+ ; Routine at 9a3c
  ;
- ; Used by the routine at #R$9ed1. Draw attributes
- c$a050 ld de,($9eba) ;
- $a054 inc de        ;
- $a055 ld ($9eba),de ;
- $a059 ld hl,$9ec6   ; width counter
- $a05c dec (hl)      ;
- $a05d jr nz,$a087   ;
- $a05f ld hl,$9ec7   ; height counter
- $a062 dec (hl)      ;
- $a063 jr z,$a088    ;
- $a065 ld a,($9ec4)  ; width
- $a068 ld ($9ec6),a  ; width counter
- $a06b ld a,($9ec3)  ;
- $a06e inc a         ;
- $a06f ld ($9ec3),a  ;
- $a072 ld l,a        ;
- $a073 ld h,$00      ;
- $a075 add hl,hl     ;
- $a076 ld de,$9d08   ;
- $a079 add hl,de     ;
- $a07a call $9d38    ; DE = (HL), HL = HL + 2
- $a07d ld a,($9ec1)  ; A = xpos
- $a080 ld l,a        ;
- $a081 ld h,$00      ;
- $a083 add hl,de     ;
- $a084 ld ($9eba),hl ;
- *$a087 ret
- ;
- *$a088 pop af        ; HÄR!!!!
- $a089 ld hl,($9ebc) ;
- $a08c inc hl        ;
- $a08d ld ($9ebc),hl ;
- $a090 ld a,($9ec4)  ; image width
- $a093 ld ($9ec6),a  ; width counter
- $a096 ld a,($9ec2)  ;
- $a099 call $a0e5    ; DE = 0x5800 + xpos + ypos * 32;
- $a09c ld ix,($9ebc) ;
- *$a0a0 ld a,(ix+$00) ;
- $a0a3 bit 7,a       ;
- $a0a5 jr z,$a0b0    ;
- $a0a7 and $7f       ; A = A & 127 0111 1111 - 1
- $a0a9 dec a         ;
- $a0aa ld ($9ec0),a  ;
- $a0ad ld a,($9eb9)  ;
- *$a0b0 ld (de),a     ;
- $a0b1 ld ($9eb9),a  ;
- $a0b4 inc de        ;
- $a0b5 ld hl,$9ec6   ; width counter
- $a0b8 dec (hl)      ;
- $a0b9 jr nz,$a0cf   ;
- $a0bb ld hl,$9ec5   ; height counter
- $a0be dec (hl)      ; height counter--
- $a0bf jr z,$a0e2    ;
- $a0c1 ld a,($9ec4)  ; image width
- $a0c4 ld ($9ec6),a  ; width counter
- $a0c7 ld hl,$9ec2   ;
- $a0ca inc (hl)      ;
- $a0cb ld a,(hl)     ;
- $a0cc call $a0e5    ; DE = 0x5800 + xpos + ypos * 32;
- *$a0cf ld a,($9ec0)  ;
- $a0d2 or a          ;
- $a0d3 jr z,$a0de    ;
- $a0d5 dec a         ;
- $a0d6 ld ($9ec0),a  ;
- $a0d9 ld a,($9eb9)  ;
- $a0dc jr $a0b0      ;
- *$a0de inc ix        ;
- $a0e0 jr $a0a0      ;
- *$a0e2 pop ix        ;
- $a0e4 ret           ;
+ ; Used by the routines at #R$9972, #R$9b45, #R$9b54 and #R$9b64.
+ c$9a3c ld a,($9971)  ;
+ $9a3f ld b,a        ;
+ $9a40 or a          ;
+ $9a41 jr z,$9a50    ;
+ *$9a43 inc hl        ;
+ $9a44 ld a,(hl)     ;
+ $9a45 cp $18        ;
+ $9a47 jr z,$9a4d    ;
+ $9a49 cp $1f        ;
+ $9a4b jr nz,$9a43   ;
+ *$9a4d djnz $9a43    ;
+ $9a4f inc hl        ;
+ *$9a50 ld a,$80      ;
+ $9a52 ld ($9a3b),a  ;
+ *$9a55 ld a,(hl)     ;
+ $9a56 cp $18        ;
+ $9a58 ret z         ;
+ $9a59 cp $1f        ;
+ $9a5b jr nz,$9a62   ;
+ $9a5d ld a,$0d      ;
+ $9a5f jp $9b27      ;
+ *$9a62 ld ($9ae8),hl ;
+ $9a65 call $9a6e    ;
+ $9a68 ld hl,($9ae8) ;
+ $9a6b inc hl        ;
+ $9a6c jr $9a55      ;
 
- ; Routine at a0e5
- ;
- ; Used by the routine at #R$a050.
- c$a0e5 ld l,a        ;
- $a0e6 ld h,$00      ;
- $a0e8 add hl,hl     ;
- $a0e9 add hl,hl     ;
- $a0ea add hl,hl     ;
- $a0eb add hl,hl     ;
- $a0ec add hl,hl     ;
- $a0ed ld a,($9ec1)  ; A = xpos
- $a0f0 ld e,a        ;
- $a0f1 ld d,$58      ;
- $a0f3 add hl,de     ; 0x5800 + xpos + ypos * 32;
- $a0f4 ex de,hl      ;
- $a0f5 ret           ;
+ c$9b27 push hl       ;
+ $9b28 push de       ;
+ $9b29 push bc       ;
+ $9b2a push af       ;
+ $9b2b cp $0d        ;
+ $9b2d jr nz,$9b40   ;
+ $9b2f ld a,($5bf6)  ;
+ $9b32 ld b,a        ;
+ *$9b33 inc b         ;
+ $9b34 ld a,$2b      ;
+ $9b36 cp b          ;
+ $9b37 jr z,$9b74    ;
+ $9b39 ld a,$20      ;
+ $9b3b call $9b79    ;
+ $9b3e jr $9b33      ;
+ *$9b40 call $9b79    ;
+ $9b43 jr $9b74      ;
 
+
+ c$9b45 push hl       ;
+ $9b46 push de       ;
+ $9b47 push bc       ;
+ $9b48 push af       ;
+ $9b49 ld ($9971),a  ;
+ $9b4c ld hl,$6f1d   ;
+ $9b4f call $9a3c    ;
+ $9b52 jr $9b74      ;
+
+ *$9b74 pop af        ;
+ $9b75 pop bc        ;
+ $9b76 pop de        ;
+ $9b77 pop hl        ;
+ $9b78 ret           ;
+
+ ; Routine at 9b79
+ ;
+ ; Used by the routines at #R$9972 and #R$9b27.
+ c$9b79 cp $0c        ;
+ $9b7b jr nz,$9b87   ;
+ $9b7d call $9b87    ;
+ $9b80 ld a,$20      ;
+ $9b82 call $9b87    ;
+ $9b85 ld a,$0c      ;
+ *$9b87 push hl       ;
+ $9b88 push bc       ;
+ $9b89 push de       ;
+ $9b8a push af       ;
+ $9b8b cp $0d        ;
+ $9b8d jp z,$9bbd    ;
+ $9b90 cp $0c        ;
+ $9b92 jr nz,$9bd7   ;
+ $9b94 ld a,($5bf6)  ;
+ $9b97 or a          ;
+ $9b98 jr nz,$9ba8   ;
+ $9b9a ld a,$29      ;
+ $9b9c ld ($5bf6),a  ;
+ $9b9f ld a,($5bf5)  ;
+ $9ba2 dec a         ;
+ $9ba3 ld ($5bf5),a  ;
+ $9ba6 jr $9bb3      ;
+ *$9ba8 dec a         ;
+ $9ba9 ld ($5bf6),a  ;
+ $9bac and $03       ;
+ $9bae cp $02        ;
+ $9bb0 jp z,$9c67    ;
+ *$9bb3 ld hl,($5bf3) ;
+ $9bb6 dec hl        ;
+ $9bb7 ld ($5bf3),hl ;
+ $9bba jp $9c67      ;
+ *$9bbd ld a,($5bf5)  ;
+ $9bc0 cp $17        ;
+ $9bc2 jr c,$9bca    ;
+ $9bc4 call $9c85    ;
+ $9bc7 jp $9c67      ;
+ *$9bca ld a,($5bf5)  ;
+ $9bcd inc a         ;
+ $9bce ld ($5bf5),a  ;
+ $9bd1 call $9c6c    ;
+ $9bd4 jp $9c67      ;
+ *$9bd7 ld de,($5bf3) ;
+ $9bdb ld bc,$8dcb   ;
+ $9bde sub $20       ;
+ $9be0 ld h,$00      ;
+ $9be2 ld l,a        ;
+ $9be3 add hl,hl     ;
+ $9be4 add hl,hl     ;
+ $9be5 add hl,hl     ;
+ $9be6 add hl,bc     ;
+ $9be7 ex de,hl      ;
+ $9be8 push hl       ;
+ $9be9 ld a,($5bf6)  ;
+ $9bec and $03       ;
+ $9bee cp $03        ;
+ $9bf0 jr z,$9c46    ;
+ $9bf2 cp $02        ;
+ $9bf4 jr z,$9c21    ;
+ $9bf6 cp $01        ;
+ $9bf8 jr z,$9c09    ;
+ $9bfa ld b,$08      ;
+ *$9bfc ld a,(de)     ;
+ $9bfd ld (hl),a     ;
+ $9bfe inc de        ;
+ $9bff inc h         ;
+ $9c00 djnz $9bfc    ;
+ *$9c02 pop hl        ;
+ $9c03 inc hl        ;
+ $9c04 ld ($5bf3),hl ;
+ $9c07 jr $9c59      ;
+ *$9c09 ld b,$08      ;
+ *$9c0b ld a,(de)     ;
+ $9c0c dec hl        ;
+ $9c0d srl (hl)      ;
+ $9c0f srl (hl)      ;
+ $9c11 sla a         ;
+ $9c13 rl (hl)       ;
+ $9c15 sla a         ;
+ $9c17 rl (hl)       ;
+ $9c19 inc hl        ;
+ $9c1a ld (hl),a     ;
+ $9c1b inc h         ;
+ $9c1c inc de        ;
+ $9c1d djnz $9c0b    ;
+ $9c1f jr $9c02      ;
+ *$9c21 ld b,$08      ;
+ *$9c23 ld a,(de)     ;
+ $9c24 dec hl        ;
+ $9c25 srl (hl)      ;
+ $9c27 srl (hl)      ;
+ $9c29 srl (hl)      ;
+ $9c2b srl (hl)      ;
+ $9c2d sla a         ;
+ $9c2f rl (hl)       ;
+ $9c31 sla a         ;
+ $9c33 rl (hl)       ;
+ $9c35 sla a         ;
+ $9c37 rl (hl)       ;
+ $9c39 sla a         ;
+ $9c3b rl (hl)       ;
+ $9c3d inc hl        ;
+ $9c3e ld (hl),a     ;
+ $9c3f inc h         ;
+ $9c40 inc de        ;
+ $9c41 djnz $9c23    ;
+ $9c43 pop hl        ;
+ $9c44 jr $9c59      ;
+ *$9c46 ld b,$08      ;
+ *$9c48 ld a,$c0      ;
+ $9c4a and (hl)      ;
+ $9c4b ld (hl),a     ;
+ $9c4c ld a,(de)     ;
+ $9c4d srl a         ;
+ $9c4f srl a         ;
+ $9c51 or (hl)       ;
+ $9c52 ld (hl),a     ;
+ $9c53 inc h         ;
+ $9c54 inc de        ;
+ $9c55 djnz $9c48    ;
+ $9c57 jr $9c02      ;
+ *$9c59 pop af        ;
+ $9c5a push af       ;
+ $9c5b ld a,($5bf6)  ;
+ $9c5e cp $29        ;
+ $9c60 jp z,$9bbd    ;
+ $9c63 inc a         ;
+ $9c64 ld ($5bf6),a  ;
+ *$9c67 pop af        ;
+ $9c68 pop de        ;
+ $9c69 pop bc        ;
+ $9c6a pop hl        ;
+ $9c6b ret           ;
+
+
+ ; Routine at 9a6e
+ ;
+ ; Used by the routine at #R$9a3c. Something with printing text messages
+ c$9a6e cp $7b        ;
+ $9a70 jr c,$9a90    ;
+ $9a72 ld hl,$8c8b   ;
+ $9a75 sub $7b       ; A = A - 123
+ $9a77 jr z,$9a83    ;
+ $9a79 ld b,a        ;
+ *$9a7a bit 7,(hl)    ;
+ $9a7c jr nz,$9a81   ;
+ *$9a7e inc hl        ;
+ $9a7f jr $9a7a      ;
+ *$9a81 djnz $9a7e    ;
+ *$9a83 inc hl        ;
+ *$9a84 ld a,(hl)     ;
+ $9a85 call $9a90    ;
+ $9a88 inc hl        ;
+ $9a89 bit 7,(hl)    ;
+ $9a8b jr z,$9a84    ;
+ $9a8d ld a,(hl)     ;
+ $9a8e and $7f       ; & 127
+ *$9a90 push hl       ;
+ $9a91 push de       ;
+ $9a92 push bc       ;
+ $9a93 push af       ;
+ $9a94 cp $20        ; if A != 32 goto 9afc
+ $9a96 jr nz,$9afc   ;
+ $9a98 ld hl,($9ae8) ;
+ $9a9b ld b,$00      ;
+ $9a9d ld a,(hl)     ;
+ $9a9e cp $ec        ; 236
+ $9aa0 jr c,$9aa7    ;
+ $9aa2 cp $f0        ; 240
+ $9aa4 jr nc,$9aa7   ;
+ $9aa6 inc b         ;
+ *$9aa7 inc hl        ; Something with printing text
+ $9aa8 ld a,(hl)     ;
+ $9aa9 cp $20        ; 32
+ $9aab jr z,$9aea    ;
+ $9aad cp $18        ; 24
+ $9aaf jr z,$9aea    ;
+ $9ab1 cp $1f        ; 31
+ $9ab3 jr z,$9aea    ;
+ $9ab5 inc b         ;
+ $9ab6 cp $7b        ; 123
+ $9ab8 jr c,$9aa7    ;
+ $9aba cp $8b        ; 139
+ $9abc jr c,$9aea    ;
+ $9abe inc b         ;
+ $9abf cp $ec        ; 236
+ $9ac1 jr c,$9aa7    ;
+ $9ac3 cp $f0        ; 240
+ $9ac5 jr nc,$9acb   ;
+ $9ac7 dec b         ;
+ $9ac8 dec b         ;
+ $9ac9 jr $9aea      ;
+ *$9acb inc b         ;
+ $9acc cp $f3        ; 243
+ $9ace jr c,$9aa7    ;
+ $9ad0 inc b         ;
+ $9ad1 cp $f8        ; 248
+ $9ad3 jr c,$9aea    ;
+ $9ad5 inc b         ;
+ $9ad6 inc b         ;
+ $9ad7 cp $fc        ; 252
+ $9ad9 jr c,$9aea    ;
+ $9adb inc b         ;
+ $9adc cp $fe        ; 254
+ $9ade jr c,$9aea    ;
+ $9ae0 jr z,$9aa7    ;
+ $9ae2 inc b         ;
+ $9ae3 inc b         ;
+ $9ae4 inc b         ;
+ $9ae5 inc b         ;
+ $9ae6 jr $9aa7      ;
+
+ ; Routine at 9aea
+ ;
+ ; Used by the routine at #R$9a6e.
+ c$9aea ld a,($5bf6)  ;
+ $9aed or a          ;
+ $9aee jp z,$9b74    ;
+ $9af1 add a,b       ;
+ $9af2 cp $2a        ;
+ $9af4 jr c,$9afa    ;
+ $9af6 ld a,$0d      ;
+ $9af8 jr $9b21      ;
+ *$9afa ld a,$20      ;
+ ; This entry point is used by the routine at #R$9a6e.
+ *$9afc ld hl,$9a3b   ;
+ $9aff bit 7,(hl)    ;
+ $9b01 jr z,$9b09    ;
+ $9b03 cp $60        ;
+ $9b05 jr c,$9b09    ;
+ $9b07 sub $20       ;
+ *$9b09 cp $21        ;
+ $9b0b jr c,$9b0f    ;
+ $9b0d res 7,(hl)    ;
+ *$9b0f cp $21        ;
+ $9b11 jr z,$9b1f    ;
+ $9b13 cp $3f        ;
+ $9b15 jr z,$9b1f    ;
+ $9b17 cp $3a        ;
+ $9b19 jr z,$9b1f    ;
+ $9b1b cp $2e        ;
+ $9b1d jr nz,$9b21   ;
+ *$9b1f set 7,(hl)    ;
+ *$9b21 call $9b27    ;
+ $9b24 jp $9b74      ;
+
+ *$9b74 pop af        ;
+ $9b75 pop bc        ;
+ $9b76 pop de        ;
+ $9b77 pop hl        ;
+ $9b78 ret           ;
+
+ c$9b27 push hl       ;
+ $9b28 push de       ;
+ $9b29 push bc       ;
+ $9b2a push af       ;
+ $9b2b cp $0d        ;
+ $9b2d jr nz,$9b40   ;
+ $9b2f ld a,($5bf6)  ;
+ $9b32 ld b,a        ;
+ *$9b33 inc b         ;
+ $9b34 ld a,$2b      ;
+ $9b36 cp b          ;
+ $9b37 jr z,$9b74    ;
+ $9b39 ld a,$20      ;
+ $9b3b call $9b79    ;
+ $9b3e jr $9b33      ;
+ *$9b40 call $9b79    ;
+ $9b43 jr $9b74      ;
+
+
+ ; Routine at 9c6c
+ ;
+ ; Used by the routine at #R$9b79.
+ c$9c6c push de       ;
+ $9c6d ld a,($5bf5)  ;
+ $9c70 add a,a       ;
+ $9c71 ld e,a        ;
+ $9c72 ld d,$00      ;
+ $9c74 ld hl,$9d08   ;
+ $9c77 add hl,de     ;
+ $9c78 call $9d38    ;
+ $9c7b ld ($5bf3),de ;
+ $9c7f xor a         ;
+ $9c80 ld ($5bf6),a  ;
+ $9c83 pop de        ;
+ $9c84 ret
+
+ ; Routine at 9c85
+ ;
+ ; Used by the routine at #R$9b79.
+ c$9c85 ld a,($5bf1)  ;
+ *$9c88 ld l,a        ;
+ $9c89 ld h,$00      ;
+ $9c8b ld de,$9d08   ;
+ $9c8e add hl,hl     ;
+ $9c8f add hl,de     ;
+ $9c90 call $9d38    ;
+ $9c93 push de       ;
+ $9c94 inc a         ;
+ $9c95 ld l,a        ;
+ $9c96 ld h,$00      ;
+ $9c98 ld de,$9d08   ;
+ $9c9b add hl,hl     ;
+ $9c9c add hl,de     ;
+ $9c9d call $9d38    ;
+ $9ca0 ex de,hl      ;
+ $9ca1 pop de        ;
+ $9ca2 ld b,$08      ;
+ *$9ca4 push hl       ;
+ $9ca5 push bc       ;
+ $9ca6 push de       ;
+ $9ca7 ld bc,$0020   ; copy 32 bytes
+ $9caa ldir          ;
+ $9cac pop de        ;
+ $9cad pop bc        ;
+ $9cae pop hl        ;
+ $9caf inc h         ;
+ $9cb0 inc d         ;
+ $9cb1 djnz $9ca4    ;
+ $9cb3 cp $17        ;
+ $9cb5 jr nz,$9c88   ;
+ $9cb7 ld hl,$50e0   ;
+ $9cba push hl       ;
+ $9cbb pop de        ;
+ $9cbc inc de        ;
+ $9cbd ld b,$08      ;
+ *$9cbf push de       ;
+ $9cc0 push hl       ;
+ $9cc1 push bc       ;
+ $9cc2 ld (hl),$00   ;
+ $9cc4 ld bc,$001f   ;
+ $9cc7 ldir          ;
+ $9cc9 pop bc        ;
+ $9cca pop hl        ;
+ $9ccb pop de        ;
+ $9ccc inc h         ;
+ $9ccd inc d         ;
+ $9cce djnz $9cbf    ;
+ $9cd0 ld hl,$50e0   ;
+ $9cd3 ld ($5bf3),hl ;
+ $9cd6 xor a         ;
+ $9cd7 ld ($5bf6),a  ;
+ $9cda ret           ;
  */
 
 

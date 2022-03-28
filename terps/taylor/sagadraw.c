@@ -695,15 +695,15 @@ jumpChar:
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
 
         if (CurrentGame == QUESTPROBE3) {
-            fprintf(stderr, "image %d\n", picture_number);
+//            fprintf(stderr, "image %d\n", picture_number);
             img->width = *pos++;
-            fprintf(stderr, "width %d\n", img->width);
+//            fprintf(stderr, "width %d\n", img->width);
             img->height = *pos++;
-            fprintf(stderr, "height %d\n", img->height);
+//            fprintf(stderr, "height %d\n", img->height);
             img->xoff = *pos++;
-            fprintf(stderr, "xoff %d\n", img->xoff);
+//            fprintf(stderr, "xoff %d\n", img->xoff);
             img->yoff = *pos++;
-            fprintf(stderr, "yoff %d\n", img->yoff);
+//            fprintf(stderr, "yoff %d\n", img->yoff);
             pos = DrawSagaPictureFromData(pos, img->width, img->height, img->xoff, img->yoff);
             img->imagedata = pos;
             img++;
