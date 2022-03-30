@@ -112,15 +112,15 @@ static int Q3Condition[] = {
     9,
     13,
     14,
-    24,
-    23,
-    17,
-    18,
-    19,
-    0,
-    0,
-    0,
-    0,
+    16,
+    15, // (HL) != 0
+    17, // flag 125 != B
+    18, // flag 126 != B
+    20,
+    21,
+    22,
+    24, //18 flag B != (HL)
+    23, //19 C != B
     0,
     0,
     0,
@@ -191,14 +191,14 @@ static char *Action[]={
 
 static int Q3Action[]={
     0,
-    37,
-    36,
+    37, // swap TORCH <-> THING
+    36, // report status
     1,
     2,
     3,
     4,
     5,
-    0, // set flag 118 to 1?
+    8, // set flag 118 to 1?
     9,
     10,
     11,
@@ -213,7 +213,7 @@ static int Q3Action[]={
     24,
     25,
     26,
-    0,
+    31, // Redraw room image
     0,
     0,
     0,
@@ -522,9 +522,6 @@ static unsigned char *TokenText(unsigned char n)
     }
     return p;
 }
-
-int printxpos;
-int skip = 0;
 
 void QPrintChar(uint8_t c) { // Print character
     if (c == 0x0d)
@@ -1174,6 +1171,10 @@ static void ExecuteLineCode(unsigned char *p)
             break;
         p++;
         arg1 = *p++;
+
+        if (CurrentGame == QUESTPROBE3)
+            op = Q3Condition[op];
+
 #ifdef DEBUG
         fprintf(stderr, "%s %d ", Condition[op], arg1);
 #endif
@@ -1184,12 +1185,12 @@ static void ExecuteLineCode(unsigned char *p)
             fprintf(stderr, "%d ", arg2);
 #endif
         }
+
         switch(op) {
             case 1:
-                if(MyLoc== arg1)
+                if(MyLoc == arg1)
                     continue;
                 break;
-
             case 2:
                 if(MyLoc != arg1)
                     continue;
@@ -1222,7 +1223,6 @@ static void ExecuteLineCode(unsigned char *p)
                 /*FIXME : or worn ?? */
                 if(ObjectLoc[arg1] == Carried() || ObjectLoc[arg1] == Worn())
                     continue;
-
                 break;
             case 10:
                 /*FIXME : or worn ?? */
@@ -1318,6 +1318,8 @@ static void ExecuteLineCode(unsigned char *p)
             ActionsDone = 1;
         op &= 0x3F;
 
+        if (CurrentGame == QUESTPROBE3)
+            op = Q3Action[op];
 
         if(op > 8) {
             arg1 = *p++;
@@ -1901,7 +1903,7 @@ jumpHere:
             conditionsOffsets--;
             goto jumpHere;
         }
-        fprintf(stderr, "Address of condition %d, %s: 0x%04x\n", i, Condition[i], address);
+        fprintf(stderr, "Address of condition %d, %s: 0x%04x\n", i, Condition[Q3Condition[i]], address);
     }
     fprintf(stderr, "conditionsOffsets: 0x%04x\n", conditionsOffsets);
 
@@ -1913,7 +1915,7 @@ void PrintActionAddresses(void) {
     uint8_t *actions;
 jumpHere:
     actions = &FileImage[actionOffsets];
-    for (int i = 0; i < 23; i++) {
+    for (int i = 0; i < 24; i++) {
         uint16_t address = *actions++;
         address += *actions * 256;
         actions++;
@@ -1921,7 +1923,7 @@ jumpHere:
 //            actionOffsets--;
 //            goto jumpHere;
 //        }
-        fprintf(stderr, "Address of action %d, %s: 0x%04x\n", i, Action[i], address);
+        fprintf(stderr, "Address of action %d, %s: 0x%04x\n", i, Action[Q3Action[i]], address);
     }
     fprintf(stderr, "conditionsOffsets: 0x%04x\n", actionOffsets);
 
