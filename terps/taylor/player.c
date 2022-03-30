@@ -1477,23 +1477,55 @@ static void ExecuteLineCode(unsigned char *p)
 #endif
 }
 
+//static unsigned char *NextLine(unsigned char *p)
+//{
+//    unsigned char op;
+//    while(!((op = *p) & 0x80)) {
+//        p+=2;
+//        if(op > 20)
+//            p++;
+//    }
+//    while(((op = *p) & 0x80)) {
+//        op &= 0x3F;
+//        p++;
+//        if(op > 8)
+//            p++;
+//        if(op > 21)
+//            p++;
+//    }
+//    return p;
+//}
+
 static unsigned char *NextLine(unsigned char *p)
 {
-    unsigned char op;
-    while(!((op = *p) & 0x80)) {
-        p+=2;
-        if(op > 20)
+
+    while ((*p & 0x80) != 0) {
+        uint8_t val = *p;
+        p += 2;
+        if (val >= 0x10)
             p++;
     }
-    while(((op = *p) & 0x80)) {
-        op &= 0x3F;
+    do {
+        uint8_t val = *p & 0x3f;
         p++;
-        if(op > 8)
+        if (val >= 0x09) {
+            if (val >= 0x12) {
+                p++;
+            }
             p++;
-        if(op > 21)
-            p++;
+        }
+    } while((*p & 0x80) == 0);
+    if (*p == 0x7f) {
+        return NULL;
     }
-    return p;
+    if (*p != 0x7e && Word[0] != *p)
+        p++;
+    p++;
+    if (*p != 0x7e && Word[1] != *p) {
+        p++;
+        return NextLine(p);
+    }
+    return ++p;
 }
 
 static size_t FindStatusTable(void)
@@ -1513,6 +1545,36 @@ static size_t FindStatusTable(void)
 //    glk_exit();
 }
 
+uint8_t *skip_opcodes(uint8_t *p) {
+    while ((*p & 0x80) != 0) {
+        uint8_t val = *p;
+        p += 2;
+        if (val >= 0x10)
+            p++;
+    }
+    do {
+        uint8_t val = *p & 0x3f;
+        p++;
+        if (val >= 0x09) {
+            if (val >= 0x12) {
+                p++;
+            }
+            p++;
+        }
+    } while((*p & 0x80) == 0);
+    if (*p == 0x7f) {
+        return NULL;
+    }
+    if (*p != 0x7e)
+        p++;
+    p++;
+    if (*p != 0x7e) {
+        p++;
+        return skip_opcodes(p);
+    }
+    return p++;
+}
+
 static void RunStatusTable(void)
 {
     unsigned char *p = FileImage + StatusBase;
@@ -1520,7 +1582,11 @@ static void RunStatusTable(void)
     ActionsDone = 0;
     ActionsExecuted = 0;
 
-    while(*p != 0x7F) {
+    p = NextLine(p);
+
+    while(p != NULL && *p != 0x7F) {
+//        if (*p == 0x7e && *(p + 1) == 0x7e)
+//            p += 2;
         ExecuteLineCode(p);
         if(ActionsDone)
             return;
@@ -1552,7 +1618,7 @@ static void RunCommandTable(void)
     ActionsDone = 0;
     ActionsExecuted = 0;
 
-    while(*p != 0x7F) {
+    while(p != NULL && *p != 0x7F) {
         if((*p == 126 || *p == Word[0]) &&
            (p[1] == 126 || p[1] == Word[1])) {
 #ifdef DEBUG
