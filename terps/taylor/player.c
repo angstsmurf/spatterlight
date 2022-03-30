@@ -42,6 +42,8 @@ static int ActionsDone;
 static int ActionsExecuted;
 static int Redraw;
 
+static int DarkFlag = 2;
+
 static int FirstAfterInput = 0;
 
 extern struct SavedState *initial_state;
@@ -98,6 +100,41 @@ static char *Condition[]={
     "COND31",
 };
 
+static int Q3Condition[] = {
+    0,
+    2,
+    1,
+    4,
+    3,
+    7,
+    5,
+    10,
+    9,
+    13,
+    14,
+    24,
+    23,
+    17,
+    18,
+    19,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
 static char *Action[]={
     "<ERROR>",
     "LOAD?",
@@ -151,6 +188,61 @@ static char *Action[]={
     "ACT49",
     "ACT50",
 };
+
+static int Q3Action[]={
+    0,
+    37,
+    36,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0, // set flag 118 to 1?
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    22,
+    23,
+    24,
+    25,
+    26,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+};
+
 
 static void LoadWordTable(void)
 {
@@ -659,22 +751,35 @@ static unsigned char Destroyed()
 
 static unsigned char Carried()
 {
+    if (CurrentGame == QUESTPROBE3)
+        return Flag[3];
     return Flag[2];
 }
 
 static unsigned char Worn()
 {
+    if (CurrentGame == QUESTPROBE3)
+        return Flag[4];
     return Flag[3];
 }
 
 static unsigned char NumObjects()
 {
+    if (CurrentGame == QUESTPROBE3)
+        return 49;
     return Flag[6];
+}
+
+static unsigned char MaxCarry()
+{
+    if (CurrentGame == QUESTPROBE3)
+        return 5;
+    return Flag[4];
 }
 
 static int CarryItem(void)
 {
-    if(Flag[5] == Flag[4])
+    if(Flag[5] == MaxCarry())
         return 0;
     if(Flag[5] < 255)
         Flag[5]++;
@@ -717,7 +822,14 @@ static void NewGame(void)
     Redraw = 1;
     memset(Flag, 0, 128);
     memcpy(Flag + 1, FileImage + FlagBase, 6);
+    for (int i = 0; i < 128; i++) {
+        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
+    }
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
+    fprintf(stderr, "NewGame: NumObjects: %d\n", NumObjects());
+    for (int i = 0; i < NumObjects(); i++) {
+        fprintf(stderr, "Location of object %d is %d\n", i, ObjectLoc[i]);
+    }
 }
 
 void Look(void);
@@ -941,7 +1053,7 @@ void Look(void) {
     Redraw = 0;
     OutCaps();
 
-    if(Flag[1]) {
+    if(Flag[DarkFlag]) {
         Message(TOO_DARK_TO_SEE);
         OutString("\n\n");
         DrawBlack();
@@ -1781,7 +1893,7 @@ void PrintConditionAddresses(void) {
     uint8_t *conditions;
 jumpHere:
     conditions = &FileImage[conditionsOffsets];
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < 20; i++) {
         uint16_t address = *conditions++;
         address += *conditions * 256;
         conditions++;
@@ -1801,7 +1913,7 @@ void PrintActionAddresses(void) {
     uint8_t *actions;
 jumpHere:
     actions = &FileImage[actionOffsets];
-    for (int i = 0; i < 24; i++) {
+    for (int i = 0; i < 23; i++) {
         uint16_t address = *actions++;
         address += *actions * 256;
         actions++;
@@ -1830,6 +1942,9 @@ void glk_main(void)
     }
 
     Game = &games[0];
+
+    if (CurrentGame == QUESTPROBE3)
+        DarkFlag = 43;
 
     DisplayInit();
 
