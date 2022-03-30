@@ -449,9 +449,6 @@ void DisplayInit(void)
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
-    A = 0;
-    HL = 0x68a5;
-    call9a3c();
 }
 
 

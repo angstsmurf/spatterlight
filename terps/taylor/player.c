@@ -199,7 +199,7 @@ static size_t FindFlags(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial flag data.\n");
-        return 0x90a3 - 0x3fe5;
+        return 0x5b70 - 0x3fe5;
 //        glk_exit();
     }
     return pos + 6;
@@ -221,10 +221,13 @@ static size_t FindExits(void)
 {
     size_t pos = 0;
 
+    return 0x90d4 - 0x3fe5;
+    
     while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
     {
         pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8);
         pos -= 0x4000 + FileBaselineOffset;
+        fprintf(stderr, "found exits at 0x%04zx\n", pos);
         return pos;
     }
     fprintf(stderr, "Cannot find initial flag data.\n");
@@ -261,6 +264,13 @@ static int LooksLikeTokens(size_t pos)
 
 static size_t FindTokens(void)
 {
+
+    fprintf(stderr, "Found tokens at 0x4ca6.\n");
+    //                glk_exit();
+    print_memory2(0x4ca6, 16);
+    return 0x4ca6;
+
+
     size_t addr;
     size_t pos = 0;
     do {
@@ -271,8 +281,7 @@ static size_t FindTokens(void)
             if(addr == -1) {
                 fprintf(stderr, "Unable to find token table.\n");
 //                glk_exit();
-                print_memory2(0x8c8c, 16);
-                return 0x8c8c;
+                return 0x8c8b - 0x3fe5;
             }
             return addr;
         }
@@ -410,7 +419,10 @@ static unsigned char *TokenText(unsigned char n)
 {
     unsigned char *p = FileImage + TokenBase;
 
-    while(n > 0) {
+    if (CurrentGame == QUESTPROBE3)
+        n -= 0x7b;
+
+    while(n > 0 && p < EndOfData) {
         while((*p & 0x80) == 0)
             p++;
         n--;
@@ -419,14 +431,55 @@ static unsigned char *TokenText(unsigned char n)
     return p;
 }
 
+int printxpos;
+int skip = 0;
+
+void QPrintChar(uint8_t c) { // Print character
+    if (c == 0x0d)
+        return;
+    if (Upper && c >= 'a') {
+        c -= 0x20; // token is made uppercase
+    }
+    OutChar(c);
+    if (c > '!') {
+        Upper = 0;
+    }
+    if (c == '!' || c == '?' || c == ':' || c == '.') {
+        Upper = 1;
+    }
+}
+
 static void PrintToken(unsigned char n)
 {
     unsigned char *p = TokenText(n);
     unsigned char c;
     do {
         c = *p++;
-        OutChar(c & 0x7F);
+        if (CurrentGame == QUESTPROBE3)
+            QPrintChar(c & 0x7F);
+        else
+            OutChar(c & 0x7F);
     } while(p < EndOfData && !(c & 0x80));
+}
+
+static void PrintTextQ(unsigned char *p, int n)
+{
+    while (n > 0) {
+        while (*p != 0x1f && *p != 0x18) {
+            p++;
+        }
+        n--;
+        p++;
+    }
+    do  {
+        if (*p == 0x18)
+            return;
+        if (*p >= 0x7b) // if c is >= 0x7b it is a token
+            PrintToken(*p);
+        else {
+            QPrintChar(*p);
+        }
+    } while (*p++ != 0x1f);
 }
 
 static void PrintText1(unsigned char *p, int n)
@@ -469,7 +522,7 @@ static void PrintText0(unsigned char *p, int n)
         }
         else if(n == 0)
             fprintf(stderr, "%c", c);
-//            OutChar(c);
+            OutChar(c);
         if(t >= EndOfData || (*t++ & 0x80))
             t = NULL;
     }
@@ -477,10 +530,13 @@ static void PrintText0(unsigned char *p, int n)
 
 static void PrintText(unsigned char *p, int n)
 {
-    if (Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE) 	/* In stream end markers */
+    if (Version == REBEL_PLANET_TYPE) {	/* In stream end markers */
         PrintText0(p, n);
-    else			/* Out of stream end markers (faster) */
+    } else if (Version == QUESTPROBE3_TYPE) {
+        PrintTextQ(p, n);
+    } else {			/* Out of stream end markers (faster) */
         PrintText1(p, n);
+    }
 }
 
 static size_t FindMessages(void)
@@ -509,8 +565,7 @@ static size_t FindMessages(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate messages.\n");
-    print_memory2(0x5a56, 16);
-    return 0x5a56;
+    return 0x6f1d - 0x3fe5;
 //    glk_exit();
 }
 
@@ -551,7 +606,7 @@ static size_t FindObjects(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate objects.\n");
-    return 0x6f03;
+    return 0x6c7a - 0x3fe5;
 //    glk_exit();
 }
 
@@ -573,7 +628,7 @@ static size_t FindRooms(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate rooms.\n");
-    return 0x6f03;
+    return 0x68a5 - 0x3fe5;
 //    glk_exit();
 }
 
@@ -1340,7 +1395,7 @@ static size_t FindStatusTable(void)
         return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find automatics.\n");
-    return 0x51b5 + 0x3fe5;
+    return 0x7e10 - 0x3fe5;
 //    glk_exit();
 }
 
@@ -1565,7 +1620,7 @@ static int GuessLowObjectEnd0(void)
     unsigned char c = 0, lc;
     int n = 0;
 
-    while(1) {
+    while(p < EndOfData) {
         if(t == NULL)
             t = TokenText(*p++);
         lc = c;
@@ -1578,6 +1633,7 @@ static int GuessLowObjectEnd0(void)
         if(*t++ & 0x80)
             t = NULL;
     }
+    return -1;
 }
 
 
@@ -1591,7 +1647,10 @@ static int GuessLowObjectEnd(void)
     if (CurrentGame == BLIZZARD_PASS)
         return 69;
 
-    if(Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE)
+    if (CurrentGame == QUESTPROBE3)
+        return 48;
+
+    if (Version == REBEL_PLANET_TYPE)
         return GuessLowObjectEnd0();
 
     while(n < NumObjects()) {
@@ -1716,6 +1775,47 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
+void PrintConditionAddresses(void) {
+    uint16_t conditionsOffsets = 0x56c1;
+    print_memory2(conditionsOffsets, 16);
+    uint8_t *conditions;
+jumpHere:
+    conditions = &FileImage[conditionsOffsets];
+    for (int i = 0; i < 26; i++) {
+        uint16_t address = *conditions++;
+        address += *conditions * 256;
+        conditions++;
+        if (i == 1 && address != 0x95ed) {
+            conditionsOffsets--;
+            goto jumpHere;
+        }
+        fprintf(stderr, "Address of condition %d, %s: 0x%04x\n", i, Condition[i], address);
+    }
+    fprintf(stderr, "conditionsOffsets: 0x%04x\n", conditionsOffsets);
+
+}
+
+void PrintActionAddresses(void) {
+    uint16_t actionOffsets = 0x991a - 0x3fe5;
+    print_memory2(actionOffsets, 16);
+    uint8_t *actions;
+jumpHere:
+    actions = &FileImage[actionOffsets];
+    for (int i = 0; i < 24; i++) {
+        uint16_t address = *actions++;
+        address += *actions * 256;
+        actions++;
+//        if (i == 1 && address != 0x95ed) {
+//            actionOffsets--;
+//            goto jumpHere;
+//        }
+        fprintf(stderr, "Address of action %d, %s: 0x%04x\n", i, Action[i], address);
+    }
+    fprintf(stderr, "conditionsOffsets: 0x%04x\n", actionOffsets);
+
+}
+
+
 
 void glk_main(void)
 {
@@ -1757,10 +1857,7 @@ void glk_main(void)
 //    if (!found)
 //        fprintf(stderr, "Found nothing that looks like tokens.\n");
 
-//    TokenBase = FindTokens();
-
-    TokenBase = 0x201b;
-    print_memory2(0x201b, 16);
+    TokenBase = FindTokens();
 
     fprintf(stderr, "Found tokens at %zx (%zu)\n", TokenBase, TokenBase);
 
@@ -1773,19 +1870,33 @@ void glk_main(void)
 
     FindTables();
 #ifdef DEBUG
-    if (Version != BLIZZARD_PASS_TYPE)
+    if (Version != BLIZZARD_PASS_TYPE && Version != QUESTPROBE3_TYPE)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
 
 
     BottomWindow();
-    for (int i = 0; i < 100; i++) {
-        Message(i);
-        OutFlush();
-    }
+//    for (int i = 0; i < 100; i++) {
+//        fprintf(stderr, "\nRoom %d: ", i);
+//        PrintRoom(i);
+//        OutChar('\n');
+//        OutFlush();
+//        WaitCharacter();
+//    }
+//    for (int i = 0; i < 76; i++) {
+//        fprintf(stderr, "\nObject %d: ", i);
+//        PrintObject(i);
+//        OutFlush();
+//    }
+//    for (int i = 0; i < 100; i++) {
+//        fprintf(stderr, "\nMessage %d: ", i);
+//        Message(i);
+//        OutFlush();
+//    }
 
-
+    PrintConditionAddresses();
+    PrintActionAddresses();
 
 
     NewGame();

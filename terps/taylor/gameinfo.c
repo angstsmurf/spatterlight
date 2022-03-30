@@ -33,11 +33,11 @@ struct GameInfo games[NUMGAMES] = {
         0, // no item images •
 
         0x3a50, // actions
-        0x85F6 - 0x4000,  // dictionary
-        0x3FFE - 0x4000, // tokens
-        FOLLOWS, // start_of_room_descriptions;
+        0x85F6 - 0x3fe5,  // dictionary
+        0x4ca6, // tokens
+        0x68a5 - 0x3fe5, // start_of_room_descriptions;
         FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
+        0x6f1d - 0x3fe5, // start_of_messages;
         FOLLOWS, // start_of_item_descriptions;
         FOLLOWS, // start_of_item_locations;
 
