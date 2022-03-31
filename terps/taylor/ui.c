@@ -434,8 +434,10 @@ void LoadMemory(void) {
 
 void DrawRoomImage(void) {
     ClearGraphMem();
-    draw_image(MyLoc);
-    DrawSagaPictureFromBuffer();
+    if (MyLoc > 0) {
+        DrawSagaPictureNumber(MyLoc - 1);
+        DrawSagaPictureFromBuffer();
+    }
 }
 
 uint16_t getImageAddress(uint8_t blocknum);
@@ -447,6 +449,12 @@ void DisplayInit(void)
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
+//    OpenGraphicsWindow();
+//    for (int i = 1; i <= Game->number_of_pictures; i++) {
+//        MyLoc = i;
+//        DrawRoomImage();
+//        WaitCharacter();
+//    }
 }
 
 

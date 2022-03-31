@@ -588,42 +588,10 @@ void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
 uint8_t *Questprobe3Image(int imgnum) {
-    //    if (imgnum > 1)
-    //        imgnum--;
-    //    uint8_t HL = 0x9e80 - 0x4000 + imgnum;
-    //    uint8_t A = FileImage[HL];
-    //    A = A & 0x7f;
-    // first is at 0x6931 in sna file, 0xA916
-    uint8_t HL = FileImage[0x68c1 + imgnum * 2] + FileImage[0x68c1 + imgnum * 2 + 1] * 256;
-    fprintf(stderr, "Offset of image %d: %04x\n", imgnum, HL);
-    HL = 0xA916 - 0x4000 + HL;
-    return &FileImage[HL];
+    uint16_t offset_addr = (FileImage[0x5e9b + imgnum] & 0x7f) * 2 + 0x68db;
+    uint16_t image_addr = 0x6931 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
+    return &FileImage[image_addr];
 }
-
-/*
- c$9ed1 dec a         ;
- $9ed2 ld e,a        ;
- $9ed3 ld d,$00      ;
- $9ed5 ld hl,$9e80   ;
- $9ed8 add hl,de     ;
- $9ed9 ld a,(hl)     ;
- $9eda and $7f       ;
- $9edc ld l,a        ; HL = A = Image number
- $9edd ld h,$00      ;
- $9edf add hl,hl     ; HL = image number * 2
- $9ee0 ld de,$a8c0   ; 0xa8c0 Image adress lookup
- $9ee3 add hl,de     ; HL = 0xa8c0 + image number * 2
- $9ee4 call $9d38    ; DE = (HL), HL = HL + 2
- $9ee7 ld hl,$a8c0   ;
- $9eea push de       ;
- $9eeb ld de,$0056   ;
- $9eee add hl,de     ; HL += 86 (0x56)
- $9eef pop de        ;
- $9ef0 add hl,de     ; + DE
- $9ef1 ld ($9ebc),hl ; // Is this width, height, xoffset, yoffset?
- $9ef4 ld hl,($9ebc) ;
- $9ef7 ld a,(hl)     ;
- */
 
 void SagaSetup(void)
 {
@@ -695,6 +663,7 @@ jumpChar:
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
 
         if (CurrentGame == QUESTPROBE3) {
+            pos = Questprobe3Image(picture_number);
 //            fprintf(stderr, "image %d\n", picture_number);
             img->width = *pos++;
 //            fprintf(stderr, "width %d\n", img->width);
@@ -704,8 +673,10 @@ jumpChar:
 //            fprintf(stderr, "xoff %d\n", img->xoff);
             img->yoff = *pos++;
 //            fprintf(stderr, "yoff %d\n", img->yoff);
-            pos = DrawSagaPictureFromData(pos, img->width, img->height, img->xoff, img->yoff);
+//            pos = DrawSagaPictureFromData(pos, img->width, img->height, img->xoff, img->yoff);
             img->imagedata = pos;
+//            fprintf(stderr, "Pos of image %d: 0x%04lx\n", picture_number, pos - FileImage);
+//            fprintf(stderr, "Questprobe3Image of image %d: 0x%04lx\n", picture_number, Questprobe3Image(picture_number) - FileImage);
             img++;
             continue;
         }
