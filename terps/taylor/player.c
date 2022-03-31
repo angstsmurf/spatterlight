@@ -66,32 +66,32 @@ extern struct GameInfo games[];
 static unsigned char WordMap[256][5];
 
 static char *Condition[]={
-    "<ERROR>",
-    "AT",
-    "NOTAT",
-    "ATGT",
-    "ATLT",
-    "PRESENT",
-    "HERE",
-    "ABSENT",
-    "NOTHERE",
-    "CARRIED",
-    "NOTCARRIED",
-    "WORN",
-    "NOTWORN",
-    "NODESTROYED",
-    "DESTROYED",
-    "ZERO",
-    "NOTZERO",
-    "WORD1",
-    "WORD2",
-    "WORD3",
-    "CHANCE",
-    "LT",
-    "GT",
-    "EQ",
-    "NE",
-    "OBJECTAT",
+    "<ERROR>", //0
+    "AT", //1
+    "NOTAT", //2
+    "ATGT", //3
+    "ATLT", //4
+    "PRESENT", //5
+    "HERE", //6
+    "ABSENT", //7
+    "NOTHERE", //8
+    "CARRIED", //9
+    "NOTCARRIED", //10
+    "WORN", //11
+    "NOTWORN", //12
+    "NODESTROYED", //13
+    "DESTROYED", //14
+    "ZERO", //15
+    "NOTZERO", //16
+    "WORD1", //17
+    "WORD2", //18
+    "WORD3", //19
+    "CHANCE", //20
+    "LT", //21
+    "GT", //22
+    "EQ", //23
+    "NE", //24
+    "OBJECTAT", //25
     "COND26",
     "COND27",
     "COND28",
@@ -102,25 +102,25 @@ static char *Condition[]={
 
 static int Q3Condition[] = {
     0,
-    2,
     1,
-    4,
+    2,
     3,
-    7,
+    4,
     5,
-    10,
+    7,
     9,
+    10,
     13,
     14,
-    16,
-    15, // (HL) != 0
-    17, // flag 125 != B
-    18, // flag 126 != B
+    16, // 11
+    15, // 12 (HL) != 0
+    17, // 13 flag 125 != B
+    18, // 14 flag 126 != B
     20,
-    21,
     22,
-    24, //18 flag B != (HL)
-    23, //19 C != B
+    21,
+    23, //18 flag B != (HL)
+    25, //19 arg2 == location of object arg1?
     0,
     0,
     0,
@@ -170,7 +170,7 @@ static char *Action[]={
     "REFRESH?",
     "RAMSAVE",
     "RAMLOAD",
-    "ACT34",
+	"CLSLOW?",
     "OOPS",
     "ACT36",
     "ACT37",
@@ -302,7 +302,7 @@ static size_t FindObjectLocations(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
-        return 0x90a3 - 0x3fe5;
+        return 0x50bf;
 //        glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
@@ -314,7 +314,7 @@ static size_t FindExits(void)
     size_t pos = 0;
 
     return 0x90d4 - 0x3fe5;
-    
+
     while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
     {
         pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8);
@@ -610,7 +610,6 @@ static void PrintText0(unsigned char *p, int n)
             n--;
         }
         else if(n == 0)
-            fprintf(stderr, "%c", c);
             OutChar(c);
         if(t >= EndOfData || (*t++ & 0x80))
             t = NULL;
@@ -763,7 +762,7 @@ static unsigned char Worn()
 static unsigned char NumObjects()
 {
     if (CurrentGame == QUESTPROBE3)
-        return 49;
+        return 48;
     return Flag[6];
 }
 
@@ -819,14 +818,11 @@ static void NewGame(void)
     Redraw = 1;
     memset(Flag, 0, 128);
     memcpy(Flag + 1, FileImage + FlagBase, 6);
-    for (int i = 0; i < 128; i++) {
-        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
-    }
+//    for (int i = 0; i < 128; i++) {
+//        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
+//    }
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
-    fprintf(stderr, "NewGame: NumObjects: %d\n", NumObjects());
-    for (int i = 0; i < NumObjects(); i++) {
-        fprintf(stderr, "Location of object %d is %d\n", i, ObjectLoc[i]);
-    }
+//    fprintf(stderr, "NewGame: NumObjects: %d\n", NumObjects());
 }
 
 void Look(void);
@@ -848,7 +844,7 @@ static int LoadGame(void)
     do {
         c = WaitCharacter();
         if(c == 'n' || c == 'N') {
-            OutString("N\n");
+            glk_window_clear(Bottom);
             return 0;
         }
         if(c == 'y' || c == 'Y') {
@@ -1060,10 +1056,22 @@ void Look(void) {
     if (CurrentGame == REBEL_PLANET && MyLoc > 0)
         OutString("You are ");
     PrintRoom(MyLoc);
-    OutChar(' ');
-    for(i = 0; i < NumLowObjects; i++) {
-        if(ObjectLoc[i] == MyLoc)
-            PrintObject(i);
+    if (CurrentGame == QUESTPROBE3) {
+        for(i = 0; i < NumObjects(); i++) {
+            if(ObjectLoc[i] == MyLoc) {
+                if(f == 0) {
+                    OutReplace(0);
+                    Message(0);
+                }
+                f = 1;
+                PrintObject(i);
+            }
+        }
+        if(f == 1)
+            OutReplace('.');
+        if (LastChar != '\n')
+            OutChar('\n');
+        OutChar('\n');
     }
 
     p = FileImage + ExitBase;
@@ -1086,22 +1094,26 @@ void Look(void) {
     }
     f = 0;
 
-    for(; i < NumObjects(); i++) {
-        if(ObjectLoc[i] == MyLoc) {
-            if(f == 0) {
-                Message(YOU_SEE);
-                if( Version == REBEL_PLANET_TYPE)
-                    OutReplace(0);
+    if (CurrentGame != QUESTPROBE3) {
+
+        for(i = 0; i < NumObjects(); i++) {
+            if(ObjectLoc[i] == MyLoc) {
+                if(f == 0) {
+                    Message(YOU_SEE);
+                    if( Version == REBEL_PLANET_TYPE)
+                        OutReplace(0);
+                }
+                f = 1;
+                PrintObject(i);
             }
-            f = 1;
-            PrintObject(i);
         }
-    }
-    if(f == 1)
-        OutReplace('.');
-    if (LastChar != '\n')
+        if(f == 1)
+            OutReplace('.');
+        if (LastChar != '\n')
+            OutChar('\n');
         OutChar('\n');
-    OutChar('\n');
+
+    }
     if (MyLoc != 0) {
         glk_window_clear(Graphics);
         DrawRoomImage();
@@ -1246,11 +1258,11 @@ static void ExecuteLineCode(unsigned char *p)
                     continue;
                 break;
             case 15:
-                if(Flag[arg1] == 0)
+                if(Flag[arg1 + 4] == 0)
                     continue;
                 break;
             case 16:
-                if(Flag[arg1] != 0)
+                if(Flag[arg1 + 4] != 0)
                     continue;
                 break;
             case 17:
@@ -1270,19 +1282,19 @@ static void ExecuteLineCode(unsigned char *p)
                     continue;
                 break;
             case 21:
-                if(Flag[arg1] < arg2)
+                if(Flag[arg1 + 4] < arg2)
                     continue;
                 break;
             case 22:
-                if(Flag[arg1] > arg2)
+                if(Flag[arg1 + 4] > arg2)
                     continue;
                 break;
             case 23:
-                if(Flag[arg1] == arg2)
+                if(Flag[arg1 + 4] == arg2)
                     continue;
                 break;
             case 24:
-                if(Flag[arg1] != arg2)
+                if(Flag[arg1 + 4] != arg2)
                     continue;
                 break;
             case 25:
@@ -1310,7 +1322,7 @@ static void ExecuteLineCode(unsigned char *p)
 #ifdef DEBUG
         if(op & 0x40)
             fprintf(stderr, "DONE:");
-        fprintf(stderr,"%s(%d) ", Action[op & 0x3F], op & 0x3F);
+        fprintf(stderr,"%s(%d) ", Action[Q3Action[op & 0x3F]], op & 0x3F);
 #endif
 
         p++;
@@ -1378,12 +1390,12 @@ static void ExecuteLineCode(unsigned char *p)
                     Message2(arg1);
                 break;
             case 13:
-                Flag[arg1] = 255;
+                Flag[arg1 + 4] = 255;
                 if (arg1 == 1)
                     Look();
                 break;
             case 14:
-                Flag[arg1] = 0;
+                Flag[arg1 + 4] = 0;
                 if (arg1 == 1)
                     Look();
                 break;
@@ -1409,19 +1421,19 @@ static void ExecuteLineCode(unsigned char *p)
                 Remove(arg1);
                 break;
             case 22:
-                Flag[arg1] = arg2;
+                Flag[arg1 + 4] = arg2;
                 break;
             case 23:
-                n = Flag[arg1] + arg2;
+                n = Flag[arg1 + 4] + arg2;
                 if(n > 255)
                     n = 255;
-                Flag[arg1] = n;
+                Flag[arg1 + 4] = n;
                 break;
             case 24:
-                n = Flag[arg1] - arg2;
+                n = Flag[arg1 + 4] - arg2;
                 if(n < 0)
                     n = 0;
-                Flag[arg1] = n;
+                Flag[arg1 + 4] = n;
                 break;
             case 25:
                 Put(arg1, arg2);
@@ -1432,9 +1444,9 @@ static void ExecuteLineCode(unsigned char *p)
                 Put(arg2, n);
                 break;
             case 27:
-                n = Flag[arg1];
-                Flag[arg1] = Flag[arg2];
-                Flag[arg2] = n;
+                n = Flag[arg1 + 4];
+                Flag[arg1 + 4] = Flag[arg2 + 4];
+                Flag[arg2 + 4] = n;
                 break;
             case 28:
                 Means(arg1, arg2);
@@ -1499,7 +1511,7 @@ static void ExecuteLineCode(unsigned char *p)
 static unsigned char *NextLine(unsigned char *p)
 {
 
-    while ((*p & 0x80) != 0) {
+    while ((*p & 0x80) == 0) {
         uint8_t val = *p;
         p += 2;
         if (val >= 0x10)
@@ -1514,7 +1526,7 @@ static unsigned char *NextLine(unsigned char *p)
             }
             p++;
         }
-    } while((*p & 0x80) == 0);
+    } while((*p & 0x80) != 0);
     if (*p == 0x7f) {
         return NULL;
     }
@@ -1607,7 +1619,7 @@ size_t FindCommandTable(void)
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to find commands.\n");
-    return 0x51b5 + 0x3fe5;
+    return 0x7045 - 0x3fe5;
 //    glk_exit();
 }
 
@@ -1751,7 +1763,7 @@ static void  SimpleParser(void)
     OutFlush();
     if(CurrentGame == QUESTPROBE3) {
         OutCaps();
-        Message(WHAT_NOW);
+        Message(10);
     } else
         OutString("> ");
     OutFlush();
@@ -1870,7 +1882,6 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
     FILE *fptr = fopen(name, "w");
 
-//    size_t result = fwrite(data, 1, 27, fptr);
     size_t result = fwrite(data, 1, size, fptr);
 
     fclose(fptr);
@@ -1949,8 +1960,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
 //    }
 
     EndOfData = FileImage + FileImageLen;
-
-    writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
 
     return 1;
 }
@@ -2076,11 +2085,12 @@ void glk_main(void)
 //        fprintf(stderr, "\nMessage %d: ", i);
 //        Message(i);
 //        OutFlush();
+//        WaitCharacter();
 //    }
 
-    PrintConditionAddresses();
-    PrintActionAddresses();
-
+//    PrintConditionAddresses();
+//    PrintActionAddresses();
+//
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
