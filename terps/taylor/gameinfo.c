@@ -50,7 +50,7 @@ struct GameInfo games[NUMGAMES] = {
         0x1c, // number of patterns
         0x9f, // patterns end marker
         0x87a6, // start of room image instructions
-        42, // number_of_image blocks;
+        43, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
