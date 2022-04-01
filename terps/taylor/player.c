@@ -14,6 +14,7 @@
 #include "restorestate.h"
 #include "decompressz80.h"
 #include "utility.h"
+#include "sagadraw.h"
 
 #include "taylor.h"
 
@@ -42,7 +43,9 @@ static int ActionsDone;
 static int ActionsExecuted;
 static int Redraw;
 
-static int DarkFlag = 2;
+//#define Redraw (Flag[52])
+
+static int DarkFlag = 43;
 
 static int FirstAfterInput = 0;
 
@@ -112,15 +115,15 @@ static int Q3Condition[] = {
     10,
     13,
     14,
-    16, // 11
-    15, // 12 (HL) != 0
-    17, // 13 flag 125 != B
-    18, // 14 flag 126 != B
+    15,
+    16,
+    17,
+    18,
     20,
-    22,
     21,
-    23, //18 flag B != (HL)
-    25, //19 arg2 == location of object arg1?
+    22,
+    23,
+    25,
     0,
     0,
     0,
@@ -172,10 +175,10 @@ static char *Action[]={
     "RAMLOAD",
 	"CLSLOW?",
     "OOPS",
-    "ACT36",
-    "ACT37",
-    "ACT38",
-    "ACT39",
+    "DIAGNOSE",
+    "SWITCHINVENTORY",
+    "SWITCH",
+    "DONE",
     "ACT40",
     "ACT41",
     "ACT42",
@@ -198,11 +201,11 @@ static int Q3Action[]={
     3,
     4,
     5,
-    8, // set flag 118 to 1?
+    39, // set flag 118 to 1?
     9,
     10,
     11,
-    12,
+    38, // swap TORCH <-> THING
     13,
     14,
     15,
@@ -291,7 +294,7 @@ static size_t FindFlags(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial flag data.\n");
-        return 0x5b70 - 0x3fe5;
+        return 0x5b71 - 0x3fe5;
 //        glk_exit();
     }
     return pos + 6;
@@ -302,7 +305,7 @@ static size_t FindObjectLocations(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
-        return 0x50bf;
+        return 0x50be;
 //        glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
@@ -441,6 +444,7 @@ static int periods = 0;
 
 static void OutChar(char c)
 {
+    fprintf(stderr, "%c", c);
     if(c == ']')
         c = '\n';
 
@@ -653,7 +657,7 @@ static size_t FindMessages(void)
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
     fprintf(stderr, "Unable to locate messages.\n");
-    return 0x6f1d - 0x3fe5;
+    return 0x6000 - 0x3fe5;
 //    glk_exit();
 }
 
@@ -675,12 +679,27 @@ static void Message(unsigned char m)
 {
     unsigned char *p = FileImage + MessageBase;
     PrintText(p, m);
+    if (CurrentGame == QUESTPROBE3)
+        OutChar(' ');
 }
 
 static void Message2(unsigned int m)
 {
     unsigned char *p = FileImage + Message2Base;
     PrintText(p, m);
+}
+
+static void SysMessage(unsigned char m)
+{
+    if (CurrentGame != QUESTPROBE3) {
+        Message(m);
+        return;
+    }
+    if (m == EXITS)
+        m = 217;
+    else
+        m = 210 + m;
+    Message(m);
 }
 
 static size_t FindObjects(void)
@@ -700,7 +719,7 @@ static size_t FindObjects(void)
 
 static void PrintObject(unsigned char obj)
 {
-    unsigned char *p = FileImage + ObjectBase;
+    unsigned char *p = FileImage + ObjectBase - 1;
     PrintText(p, obj);
 }
 
@@ -747,22 +766,20 @@ static unsigned char Destroyed()
 
 static unsigned char Carried()
 {
-    if (CurrentGame == QUESTPROBE3)
-        return Flag[3];
     return Flag[2];
 }
 
 static unsigned char Worn()
 {
     if (CurrentGame == QUESTPROBE3)
-        return Flag[4];
+        return 0;
     return Flag[3];
 }
 
 static unsigned char NumObjects()
 {
     if (CurrentGame == QUESTPROBE3)
-        return 48;
+        return 49;
     return Flag[6];
 }
 
@@ -799,7 +816,7 @@ static void Put(unsigned char obj, unsigned char loc)
 static int Present(unsigned char obj)
 {
     unsigned char v = ObjectLoc[obj];
-    if(v == MyLoc|| v == Worn() || v == Carried())
+    if(v == MyLoc|| v == Worn() || v == Carried() || (CurrentGame == QUESTPROBE3 && v == Flag[3] && Flag[1] == MyLoc))
         return 1;
     return 0;
 }
@@ -817,10 +834,10 @@ static void NewGame(void)
 {
     Redraw = 1;
     memset(Flag, 0, 128);
-    memcpy(Flag + 1, FileImage + FlagBase, 6);
-//    for (int i = 0; i < 128; i++) {
-//        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
-//    }
+    memcpy(Flag + 1, FileImage + FlagBase, 127);
+    for (int i = 0; i < 128; i++) {
+        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
+    }
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
 //    fprintf(stderr, "NewGame: NumObjects: %d\n", NumObjects());
 }
@@ -837,7 +854,7 @@ static int LoadGame(void)
     char c;
     OutCaps();
     glk_window_clear(Bottom);
-    Message(RESUME_A_SAVED_GAME);
+    SysMessage(RESUME_A_SAVED_GAME);
     OutChar(' ');
     OutFlush();
 
@@ -903,7 +920,7 @@ static void QuitGame(void)
 {
     char c;
     OutCaps();
-    Message(PLAY_AGAIN);
+    SysMessage(PLAY_AGAIN);
     OutChar(' ');
     OutFlush();
     do {
@@ -926,20 +943,23 @@ static void Inventory(void)
     int i;
     int f = 0;
     OutCaps();
-    Message(INVENTORY);	/* ".. are carrying: " */
+    SysMessage(INVENTORY);
     for(i = 0; i < NumObjects(); i++) {
         if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
             f = 1;
             PrintObject(i);
             if(ObjectLoc[i] == Worn())
-                Message(WORN);
+                SysMessage(WORN);
         }
     }
     if(f == 0)
-        Message(NOTHING); /* "nothing at all" */
+        SysMessage(NOTHING);
     else {
-        if(Version == REBEL_PLANET_TYPE || Version == QUESTPROBE3_TYPE) {
+        if (Version == REBEL_PLANET_TYPE) {
             OutKillSpace();
+            OutChar('.');
+        } else if (Version == QUESTPROBE3_TYPE) {
+            OutReplace(0);
             OutChar('.');
         } else {
             OutReplace('.');
@@ -949,7 +969,7 @@ static void Inventory(void)
 }
 
 static void  AnyKey(void) {
-    Message(HIT_ENTER);
+    SysMessage(HIT_ENTER);
     OutFlush();
     WaitCharacter();
 }
@@ -994,18 +1014,20 @@ static void DropAll(void) {
 
 static void GetObject(unsigned char obj) {
     if(ObjectLoc[obj] == Carried() || ObjectLoc[obj] == Worn()) {
-        Message(YOU_HAVE_IT);
+        SysMessage(YOU_HAVE_IT);
         return;
     }
-    if(ObjectLoc[obj] != MyLoc) {
-        Message(YOU_DONT_SEE_IT);
-        return;
+    if (!(CurrentGame == QUESTPROBE3 && Flag[1] == MyLoc && ObjectLoc[obj] == Flag[3])) {
+        if(ObjectLoc[obj] != MyLoc) {
+            SysMessage(YOU_DONT_SEE_IT);
+            return;
+        }
     }
     if(CarryItem() == 0) {
-        Message(YOURE_CARRYING_TOO_MUCH);
+        SysMessage(YOURE_CARRYING_TOO_MUCH);
         return;
     }
-    Message(OK);
+    SysMessage(OK);
     OutChar(' ');
     OutFlush();
     Put(obj, Carried());
@@ -1014,14 +1036,14 @@ static void GetObject(unsigned char obj) {
 static void DropObject(unsigned char obj) {
     /* FIXME: check if this is how the real game behaves */
     if(ObjectLoc[obj] == Worn()) {
-        Message(YOU_ARE_WEARING_IT);
+        SysMessage(YOU_ARE_WEARING_IT);
         return;
     }
     if(ObjectLoc[obj] != Carried()) {
-        Message(YOU_HAVENT_GOT_IT);
+        SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
-    Message(OK);
+    SysMessage(OK);
     OutChar(' ');
     OutFlush();
     DropItem();
@@ -1047,7 +1069,7 @@ void Look(void) {
     OutCaps();
 
     if(Flag[DarkFlag]) {
-        Message(TOO_DARK_TO_SEE);
+        SysMessage(TOO_DARK_TO_SEE);
         OutString("\n\n");
         DrawBlack();
         BottomWindow();
@@ -1061,7 +1083,7 @@ void Look(void) {
             if(ObjectLoc[i] == MyLoc) {
                 if(f == 0) {
                     OutReplace(0);
-                    Message(0);
+                    SysMessage(0);
                 }
                 f = 1;
                 PrintObject(i);
@@ -1069,28 +1091,28 @@ void Look(void) {
         }
         if(f == 1)
             OutReplace('.');
-        if (LastChar != '\n')
-            OutChar('\n');
-        OutChar('\n');
     }
 
     p = FileImage + ExitBase;
 
+    f = 0;
+    
     while(*p != locw)
         p++;
     p++;
     while(*p < 0x80) {
-        if(f == 0)
-            Message(EXITS);
+        if(f == 0) {
+            OutCaps();
+            SysMessage(EXITS);
+        }
         f = 1;
         OutCaps();
-        Message(*p);
+        SysMessage(*p);
         p += 2;
     }
     if(f == 1)
     {
         OutReplace('.');
-        OutChar('\n');
     }
     f = 0;
 
@@ -1099,7 +1121,7 @@ void Look(void) {
         for(i = 0; i < NumObjects(); i++) {
             if(ObjectLoc[i] == MyLoc) {
                 if(f == 0) {
-                    Message(YOU_SEE);
+                    SysMessage(YOU_SEE);
                     if( Version == REBEL_PLANET_TYPE)
                         OutReplace(0);
                 }
@@ -1109,11 +1131,12 @@ void Look(void) {
         }
         if(f == 1)
             OutReplace('.');
-        if (LastChar != '\n')
-            OutChar('\n');
-        OutChar('\n');
-
     }
+
+    if (LastChar != '\n')
+        OutChar('\n');
+    OutChar('\n');
+
     if (MyLoc != 0) {
         glk_window_clear(Graphics);
         DrawRoomImage();
@@ -1144,11 +1167,11 @@ static void Delay(unsigned char seconds) {
 
 static void Wear(unsigned char obj) {
     if(ObjectLoc[obj] == Worn()) {
-        Message(YOU_ARE_WEARING_IT);
+        SysMessage(YOU_ARE_WEARING_IT);
         return;
     }
     if(ObjectLoc[obj] != Carried()) {
-        Message(YOU_HAVENT_GOT_IT);
+        SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
     DropItem();
@@ -1157,11 +1180,11 @@ static void Wear(unsigned char obj) {
 
 static void Remove(unsigned char obj) {
     if(ObjectLoc[obj] != Worn()) {
-        Message(YOU_ARE_NOT_WEARING_IT);
+        SysMessage(YOU_ARE_NOT_WEARING_IT);
         return;
     }
     if(CarryItem() == 0) {
-        Message(YOURE_CARRYING_TOO_MUCH);
+        SysMessage(YOURE_CARRYING_TOO_MUCH);
         return;
     }
     Put(obj, Carried());
@@ -1170,6 +1193,43 @@ static void Remove(unsigned char obj) {
 static void Means(unsigned char vb, unsigned char no) {
     Word[0] = vb;
     Word[1] = no;
+}
+
+
+static void switchQ3flags1(void) {
+    fprintf(stderr, "switchQ3flags1\n");
+    if (Flag[31] != 0) {
+        if (ObjectLoc[2] != 0xfc) {
+            Flag[1] = MyLoc;
+        } else {
+            Flag[1] = ObjectLoc[18]; // Location of Torch
+        }
+    } else {
+        if (ObjectLoc[1] == 0xfc) {
+            Flag[1] = ObjectLoc[17]; // Location of Thing
+        } else {
+            Flag[1] = MyLoc;
+        }
+    }
+}
+
+static void switchQ3flags2(void) {
+    if (Flag[52] != 0) {
+        switchQ3flags1();
+        return;
+    }
+    Flag[26]++; // Turns played % 100
+    if (Flag[26] == 100) {
+        Flag[27]++; // Turns / 100
+        Flag[26] = 0;
+    }
+    Flag[47]++;
+    if (Flag[47] == 0)
+        Flag[47] = 0xff;
+    Flag[48]++;
+    if (Flag[48] == 0)
+        Flag[48] = 0xff;
+    switchQ3flags1();
 }
 
 static void ExecuteLineCode(unsigned char *p)
@@ -1184,18 +1244,19 @@ static void ExecuteLineCode(unsigned char *p)
         p++;
         arg1 = *p++;
 
-        if (CurrentGame == QUESTPROBE3)
-            op = Q3Condition[op];
-
 #ifdef DEBUG
-        fprintf(stderr, "%s %d ", Condition[op], arg1);
+        fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], arg1);
 #endif
-        if(op > 20)
+        if(op > 15)
         {
             arg2 = *p++;
 #ifdef DEBUG
             fprintf(stderr, "%d ", arg2);
 #endif
+        }
+
+        if (CurrentGame == QUESTPROBE3) {
+            op = Q3Condition[op];
         }
 
         switch(op) {
@@ -1330,8 +1391,6 @@ static void ExecuteLineCode(unsigned char *p)
             ActionsDone = 1;
         op &= 0x3F;
 
-        if (CurrentGame == QUESTPROBE3)
-            op = Q3Action[op];
 
         if(op > 8) {
             arg1 = *p++;
@@ -1339,12 +1398,16 @@ static void ExecuteLineCode(unsigned char *p)
             fprintf(stderr, "%d ", arg1);
 #endif
         }
-        if(op > 21) {
+        if(op > 17) {
             arg2 = *p++;
 #ifdef DEBUG
             fprintf(stderr, "%d ", arg2);
 #endif
         }
+
+        if (CurrentGame == QUESTPROBE3)
+            op = Q3Action[op];
+
         switch(op) {
             case 1:
                 if (LoadGame())
@@ -1370,7 +1433,7 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 8:
                 /* Guess */
-                Message(OK);
+                SysMessage(OK);
                 OutFlush();
                 break;
             case 9:
@@ -1381,6 +1444,7 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 11:
                 Goto(arg1);
+                Redraw = 1;
                 break;
             case 12:
                 /* Blizzard pass era */
@@ -1391,12 +1455,12 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case 13:
                 Flag[arg1 + 4] = 255;
-                if (arg1 == 1)
+                if (arg1 + 4 == DarkFlag)
                     Look();
                 break;
             case 14:
                 Flag[arg1 + 4] = 0;
-                if (arg1 == 1)
+                if (arg1 + 4 == DarkFlag)
                     Look();
                 break;
             case 15:
@@ -1463,6 +1527,14 @@ static void ExecuteLineCode(unsigned char *p)
                 fflush(stdout);
 #endif
                 break;
+            case 31:
+                DrawRoomImage();
+                if (arg1 > 0) {
+                    arg1--;
+                    DrawSagaPictureNumber(arg1);
+                    DrawSagaPictureFromBuffer();
+                }
+                break;
             case 32:
                 RamSave(1);
                 break;
@@ -1477,6 +1549,42 @@ static void ExecuteLineCode(unsigned char *p)
                 RestoreUndo(0);
                 Redraw = 1;
                 break;
+            case 36: // DIAGNOSE
+                Message(223);
+                char buf[5];
+                char *p = buf;
+                snprintf(buf, 5, "%04d", Flag[26] + Flag[27] * 100);
+                while(*p)
+                    OutChar(*p++);
+                SysMessage(14);
+                if (Flag[31])
+                    OutString("100");
+                else {
+                   p = buf;
+                    snprintf(buf, 4, "%d", (Flag[7] >> 2) + Flag[7]);
+                    while(*p)
+                        OutChar(*p++);
+                }
+                SysMessage(15);
+                break;
+            case 37: // SWITCHINVENTORY
+            {
+                uint8_t temp = Flag[2];
+                Flag[2] = Flag[3];
+                Flag[3] = temp;
+                temp = Flag[42];
+                Flag[42] = Flag[43];
+                Flag[43] = temp;
+                Redraw = 1;
+                break;
+            }
+            case 38: // SWITCHCHARACTER
+                MyLoc = ObjectLoc[arg1];
+                GetObject(arg1);
+                break;
+            case 39: // DONE
+                ActionsDone = 0;
+                break;
             default:
                 fprintf(stderr, "Unknown command %d.\n",
                         op);
@@ -1489,55 +1597,25 @@ static void ExecuteLineCode(unsigned char *p)
 #endif
 }
 
-//static unsigned char *NextLine(unsigned char *p)
-//{
-//    unsigned char op;
-//    while(!((op = *p) & 0x80)) {
-//        p+=2;
-//        if(op > 20)
-//            p++;
-//    }
-//    while(((op = *p) & 0x80)) {
-//        op &= 0x3F;
-//        p++;
-//        if(op > 8)
-//            p++;
-//        if(op > 21)
-//            p++;
-//    }
-//    return p;
-//}
-
 static unsigned char *NextLine(unsigned char *p)
 {
-
-    while ((*p & 0x80) == 0) {
-        uint8_t val = *p;
-        p += 2;
-        if (val >= 0x10)
+    unsigned char op;
+    while(!((op = *p) & 0x80)) {
+        p+=2;
+        if(op > 15)
             p++;
     }
-    do {
-        uint8_t val = *p & 0x3f;
+    while(((op = *p) & 0x80)) {
+        op &= 0x3F;
         p++;
-        if (val >= 0x09) {
-            if (val >= 0x12) {
-                p++;
-            }
+        if (op > 8)
+            p++;
+        if (op > 17) {
             p++;
         }
-    } while((*p & 0x80) != 0);
-    if (*p == 0x7f) {
-        return NULL;
+
     }
-    if (*p != 0x7e && Word[0] != *p)
-        p++;
-    p++;
-    if (*p != 0x7e && Word[1] != *p) {
-        p++;
-        return NextLine(p);
-    }
-    return ++p;
+    return p;
 }
 
 static size_t FindStatusTable(void)
@@ -1594,16 +1672,22 @@ static void RunStatusTable(void)
     ActionsDone = 0;
     ActionsExecuted = 0;
 
-    p = NextLine(p);
+    Flag[52] = 1;
 
-    while(p != NULL && *p != 0x7F) {
-//        if (*p == 0x7e && *(p + 1) == 0x7e)
-//            p += 2;
+    switchQ3flags2();
+
+    while(*p != 0x7F) {
+        while (*p == 0x7e) {
+            p++;
+        }
         ExecuteLineCode(p);
-        if(ActionsDone)
+        if(ActionsDone) {
+            Flag[52] = 0;
             return;
+        }
         p = NextLine(p);
     }
+    Flag[52] = 0;
 }
 
 size_t FindCommandTable(void)
@@ -1630,7 +1714,7 @@ static void RunCommandTable(void)
     ActionsDone = 0;
     ActionsExecuted = 0;
 
-    while(p != NULL && *p != 0x7F) {
+    while(*p != 0x7F) {
         if((*p == 126 || *p == Word[0]) &&
            (p[1] == 126 || p[1] == Word[1])) {
 #ifdef DEBUG
@@ -1671,7 +1755,7 @@ static void RunOneInput(void)
 {
     if(Word[0] == 0 && Word[1] == 0) {
         OutCaps();
-        Message(I_DONT_UNDERSTAND);
+        SysMessage(I_DONT_UNDERSTAND);
         stop_time = 2;
         return;
     }
@@ -1695,9 +1779,9 @@ static void RunOneInput(void)
 
     if(ActionsExecuted == 0) {
         if(Word[0] < 11)
-            Message(YOU_CANT_GO_THAT_WAY);
+            SysMessage(YOU_CANT_GO_THAT_WAY);
         else
-            Message(THATS_BEYOND_MY_POWER);
+            SysMessage(THATS_BEYOND_MY_POWER);
         stop_time = 2;
         return;
     }
@@ -1762,8 +1846,14 @@ static void  SimpleParser(void)
         OutChar('\n');
     OutFlush();
     if(CurrentGame == QUESTPROBE3) {
+        if (MyLoc != 6) {
+            if (Flag[31] == 0)
+                SysMessage(8);
+            else
+                SysMessage(9);
+        }
         OutCaps();
-        Message(10);
+        SysMessage(10);
     } else
         OutString("> ");
     OutFlush();
@@ -1840,7 +1930,7 @@ static int GuessLowObjectEnd(void)
         return 69;
 
     if (CurrentGame == QUESTPROBE3)
-        return 48;
+        return 49;
 
     if (Version == REBEL_PLANET_TYPE)
         return GuessLowObjectEnd0();
@@ -1994,10 +2084,6 @@ jumpHere:
         uint16_t address = *actions++;
         address += *actions * 256;
         actions++;
-//        if (i == 1 && address != 0x95ed) {
-//            actionOffsets--;
-//            goto jumpHere;
-//        }
         fprintf(stderr, "Address of action %d, %s: 0x%04x\n", i, Action[Q3Action[i]], address);
     }
     fprintf(stderr, "conditionsOffsets: 0x%04x\n", actionOffsets);
@@ -2068,7 +2154,6 @@ void glk_main(void)
 #endif
 
 
-    BottomWindow();
 //    for (int i = 0; i < 100; i++) {
 //        fprintf(stderr, "\nRoom %d: ", i);
 //        PrintRoom(i);
@@ -2088,9 +2173,8 @@ void glk_main(void)
 //        WaitCharacter();
 //    }
 
-//    PrintConditionAddresses();
-//    PrintActionAddresses();
-//
+    PrintConditionAddresses();
+    PrintActionAddresses();
 
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
