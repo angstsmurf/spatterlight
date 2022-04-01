@@ -167,11 +167,13 @@ static void PrintWindowDelimiter(void)
     glk_window_move_cursor(Top, 0, TopHeight - 1);
     glk_stream_set_current(glk_window_get_stream(Top));
     for (int i = 0; i < TopWidth; i++)
-        glk_put_char('_');
+        glk_put_char('=');
 }
 
 static void FlushRoomDescription(void)
 {
+    if (!room_description_stream)
+        return;
     glk_stream_close(room_description_stream, 0);
 
     //    strid_t StoredTranscript = Transcript;
@@ -445,14 +447,15 @@ uint16_t getImageAddress(uint8_t blocknum);
 
 void DisplayInit(void)
 {
-    LoadMemory();
+//    LoadMemory();
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
 //    OpenGraphicsWindow();
-//    for (int i = 1; i <= Game->number_of_pictures; i++) {
+//    for (int i = 1; i <= Game->number_of_pictures + 2; i++) {
 //        MyLoc = i;
 //        DrawRoomImage();
+//        fprintf(stderr, "Image number %d\n", MyLoc);
 //        WaitCharacter();
 //    }
 }
