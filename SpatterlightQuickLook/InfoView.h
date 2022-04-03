@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSData *imageData;
 
-@property NSTextField *leftDateView;
-@property NSTextField *rightDateView;
+@property (nullable) NSTextField *leftDateView;
+@property (nullable) NSTextField *rightDateView;
 
 - (void)updateWithMetadata:(Metadata *)somedata;
 - (void)updateWithDictionary:(NSDictionary *)metadict;

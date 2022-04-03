@@ -67,7 +67,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
         ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
         if (ref != NULL) {
-            game_file = xstrdup(garglk_fileref_get_name(ref));
+            game_file = xstrdup(glkunix_fileref_get_filename(ref));
             glk_fileref_destroy(ref);
         }
     }

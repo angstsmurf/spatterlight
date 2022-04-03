@@ -17,7 +17,7 @@
     in interface.c or the memory-allocation code in util.c.  If you
     find yourself needing to do more than that, get in touch with me.)  */
 
-#undef _WIN32 /* GARGLK */
+
 
 
 /* Default to PLAIN platform */

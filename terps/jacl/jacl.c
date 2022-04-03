@@ -183,6 +183,11 @@ glk_main(void)
 
 	frefid_t 		blorb_file;
 
+#ifdef SPATTERLIGHT
+    if (gli_determinism)
+        srand(1234);
+    else
+#endif
 	srand((int) time(NULL));
 
 	override[0] = 0;

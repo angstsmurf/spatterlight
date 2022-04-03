@@ -176,6 +176,14 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
+- (instancetype)initQuitEvent {
+    self = [super init];
+    if (self) {
+        _type = EVTQUIT;
+    }
+    return self;
+}
+
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound {
     self = [super init];
     if (self) {
@@ -251,6 +259,11 @@ unsigned chartokeycode(unsigned ch) {
         settings->quote_boxes = (int)theme.quoteBox;
         settings->determinism = (int)theme.determinism;
         settings->error_handling = (int)theme.errorHandling;
+        settings->sa_delays = (int)theme.sADelays;
+        settings->sa_display_style = (int)theme.sADisplayStyle;
+        settings->sa_inventory = (int)theme.sAInventory;
+        settings->sa_palette = (int)theme.sAPalette;
+        settings->slowdraw = (int)theme.slowDrawing;
 
         settings->force_arrange = _forced;
 

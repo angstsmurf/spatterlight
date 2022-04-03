@@ -442,7 +442,7 @@
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [libraryWindow/*@START_MENU_TOKEN@*/.buttons[@"Play selected game"]/*[[".splitGroups[@\"SplitViewTotal\"]",".buttons[@\"Play\"]",".buttons[@\"Play selected game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [libraryWindow.buttons[@"Play the selected game"] click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Clear Scrollback"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Clear Scrollback\"]",".menuItems[@\"Clear Scrollback\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
@@ -1436,22 +1436,33 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"adv01.dat"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
     [self openCommandScript:@"ScottFree"];
 
+    NSString *facit = [self comparisonTranscriptFor:@"adv01"];
+
     gameWindow = app.windows[@"adv01.dat (finished)"];
-    XCUIElement *textView = [gameWindow.staticTexts elementBoundByIndex:0];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '*DRAGON EGGS* (very rare) - *JEWELED FRUIT* -'"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'transcript off'"];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
     [self waitForExpectations:@[expectation] timeout:25];
 
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'The game is now over.'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    [self waitForExpectations:@[expectation] timeout:1];
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of adv01.dat.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
 }
 
 - (void)testEditMenu {
@@ -1759,7 +1770,7 @@
 
     [textField click];
 
-    [libraryWindow/*@START_MENU_TOKEN@*/.buttons[@"Show info for selected game"]/*[[".splitGroups[@\"SplitViewTotal\"]",".buttons[@\"Info\"]",".buttons[@\"Show info for selected game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [libraryWindow.buttons[@"Info about the selected game"] click];
 
 
     infoWin = app.windows[@"imagetest.gblorb Info"];
@@ -1795,14 +1806,14 @@
     [self addAndSelectGame:@"curses.z5"];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-    XCUIElement *playButton = libraryWindow.buttons[@"Play selected game"];
+    XCUIElement *playButton = libraryWindow.buttons[@"Play the selected game"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
 
     XCUIElement *preferences = app.dialogs[@"Preferences"];
 
-    XCUIElement *themesTab = preferences/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *themesTab = preferences.tabs[@"Themes"];
     [themesTab click];
 
     XCUIElementQuery *tables = preferences.tables;
@@ -1999,11 +2010,14 @@
     [textField3 click];
     [textField3 typeText:@"0\r"];
     [textField3 typeText:@"1000\r"];
-    
-    XCUIElement *zCodeTab = app/*@START_MENU_TOKEN@*/.tabs[@"Z-Code"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Z-Code\"]",".tabs[@\"Z-Code\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    [zCodeTab click];
-    [zCodeTab click];
 
+    XCUIElement *formatTab = app.tabs[@"Format"];
+    [formatTab click];
+    [formatTab click];
+
+    XCUIElement *zCodeTab = app.tabs[@"Z-machine"];
+    [zCodeTab click];
+    [zCodeTab click];
 
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:3] click];
     [app.menuItems[@"Replaced by \u2318↑ and \u2318↓"] click];
@@ -2088,7 +2102,7 @@
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
 
-        XCUIElement *addButton = libraryWindow.buttons[@"Add games to library"];
+        XCUIElement *addButton = libraryWindow.buttons[@"Add games to the library"];
 
         XCTAssert(addButton.exists);
         [addButton click];

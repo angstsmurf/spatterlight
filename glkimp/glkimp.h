@@ -49,6 +49,12 @@ extern uint32_t gbgcol;
 extern uint32_t gsfgcol;
 extern uint32_t gsbgcol;
 
+extern int gli_sa_delays;
+extern int gli_sa_display_style;
+extern int gli_sa_inventory;
+extern int gli_sa_palette;
+extern int gli_slowdraw;
+
 extern glui32 tagcounter;
 extern glui32 lasteventtype;
 
@@ -142,6 +148,7 @@ void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
 
+void gli_close_all_file_streams(void);
 
 /* unicode case mapping */
 
@@ -431,7 +438,7 @@ extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 
 extern glui32 generate_tag(void);
 
-extern void gli_stop_all_sound_channels(void);
+void gli_stop_all_sound_channels(void);
 
 struct glk_schannel_struct
 {

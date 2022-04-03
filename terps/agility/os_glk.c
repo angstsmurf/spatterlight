@@ -2218,7 +2218,7 @@ gagt_paragraph_page (void)
       /* Add to the list, creating a new list if necessary. */
       paragraph->next = NULL;
       paragraph->prior = gagt_paragraphs_tail;
-      if (gagt_paragraphs_head)
+      if (gagt_paragraphs_head && gagt_paragraphs_tail)
         gagt_paragraphs_tail->next = paragraph;
       else
         gagt_paragraphs_head = paragraph;
@@ -5926,7 +5926,7 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
    */
 
 #ifdef GARGLK
-  retfile = fopen(garglk_fileref_get_name(fileref), fdtype);
+  retfile = fopen(glkunix_fileref_get_filename(fileref), fdtype);
 #else
 
   /* So, start by dup()'ing the first file descriptor we can, ... */

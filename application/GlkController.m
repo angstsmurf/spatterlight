@@ -68,7 +68,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "NEXTEVENT",
 //    "EVTARRANGE",      "EVTREDRAW",        "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS"};
+//    "EVTVOLUME",       "EVTPREFS",         "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -190,6 +190,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL skipNextScriptCommand;
     //    NSDate *lastFlushTimestamp;
+    NSDate *lastScriptKeyTimestamp;
     NSDate *lastKeyTimestamp;
     NSDate *lastResetTimestamp;
 }
@@ -411,6 +412,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
+    lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
     if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
@@ -1636,7 +1638,7 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Cocoa glue
 
 - (IBAction)showGameInfo:(id)sender {
-    [libcontroller showInfoForGame:_game];
+    [libcontroller showInfoForGame:_game toggle:NO];
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
@@ -1705,6 +1707,17 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
+- (void)terminateTask {
+    if (task) {
+        // stop the interpreter
+        [task setTerminationHandler:nil];
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+        readfh = nil;
+        [task terminate];
+    }
+}
+
+
 - (void)windowWillClose:(id)sender {
     if (windowClosedAlready) {
         NSLog(@"windowWillClose called twice!");
@@ -1735,16 +1748,12 @@ fprintf(stderr, "%s\n",                                                    \
         timer = nil;
     }
 
-    if (task) {
-        // stop the interpreter
-        [task setTerminationHandler:nil];
-        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        readfh = nil;
-        [task terminate];
-    }
+    GlkEvent *evt = [[GlkEvent alloc] initQuitEvent];
+    [evt writeEvent:sendfh.fileDescriptor];
 
-    if (libcontroller)
+    if (libcontroller) {
         [libcontroller releaseGlkControllerSoon:self];
+    }
 
     if (_secureBookmark)
         [FolderAccess releaseBookmark:_secureBookmark];
@@ -2135,13 +2144,12 @@ fprintf(stderr, "%s\n",                                                    \
     if (height < 0)
         height = 0;
 
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
+    [self queueEvent:gevent];
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
                                          height:(NSInteger)height
                                           theme:theme
                                           force:YES];
-    [self queueEvent:gevent];
-
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
 
     for (GlkWindow *win in [_gwindows allValues])
@@ -2271,7 +2279,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         _contentView.frame = newframe;
         NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
-
     }
 }
 
@@ -2559,8 +2566,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (millisecs > 0) {
         if (millisecs < minTimer) {
-            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
-                  (unsigned long)millisecs, (unsigned long)minTimer);
+//            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
+//                  (unsigned long)millisecs, (unsigned long)minTimer);
             millisecs = minTimer;
         }
         if (_kerkerkruip && millisecs == 10) {
@@ -2952,10 +2959,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         case PROMPTOPEN:
             [self handleOpenPrompt:req->a1];
+            [self flushDisplay];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTSAVE:
             [self handleSavePrompt:req->a1];
+            [self flushDisplay];
             return YES; /* stop reading ... terp is waiting for reply */
 
         case STYLEHINT:
@@ -2992,7 +3001,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case NEWCHAN:
             ans->cmd = OKAY;
-            ans->a1 = [_soundHandler handleNewSoundChannel:req->a1];
+            ans->a1 = [_soundHandler handleNewSoundChannel:(glui32)req->a1];
             break;
 
         case DELWIN:
@@ -3057,14 +3066,14 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case SETVOLUME:
-            [_soundHandler handleSetVolume:req->a2
+            [_soundHandler handleSetVolume:(glui32)req->a2
                                    channel:req->a1
-                                  duration:req->a3
-                                    notify:req->a4];
+                                  duration:(glui32)req->a3
+                                    notify:(glui32)req->a4];
             break;
 
         case PLAYSOUND:
-            [_soundHandler handlePlaySoundOnChannel:req->a1 repeats:req->a2 notify:req->a3];
+            [_soundHandler handlePlaySoundOnChannel:req->a1 repeats:(glsi32)req->a2 notify:(glui32)req->a3];
             break;
 
         case STOPSOUND:
@@ -3346,9 +3355,8 @@ fprintf(stderr, "%s\n",                                                    \
                         restoredControllerLate.commandScriptHandler = nil;
                     } else {
                         restoredControllerLate.commandScriptHandler = handler;
-
                         skipNextScriptCommand = YES;
-                        lastKeyTimestamp = [NSDate date];
+                        lastScriptKeyTimestamp = [NSDate date];
                     }
                     restoredController = restoredControllerLate;
                 }
@@ -3363,12 +3371,15 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastRequest == PRINT ||
                 lastRequest == SETZCOLOR ||
                 lastRequest == NEXTEVENT ||
-                lastRequest == MOVETO) {
+                lastRequest == MOVETO ||
+                [lastKeyTimestamp timeIntervalSinceNow] < -1) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
                 _shouldCheckForMenu = YES;
             }
+
+            lastKeyTimestamp = [NSDate date];
 
             if (_shouldScrollOnCharEvent) {
                 [self performScroll];
@@ -3377,9 +3388,9 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow] < -0.5) {
+                    if (!_adrianMole || [lastScriptKeyTimestamp timeIntervalSinceNow] < -0.5) {
                         [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
-                        lastKeyTimestamp = [NSDate date];
+                        lastScriptKeyTimestamp = [NSDate date];
                     }
                 }
             }
@@ -3505,6 +3516,8 @@ static NSString *signalToName(NSTask *task) {
             return @"sigquit";
         case 4:
             return @"sigill";
+        case 5:
+            return @"sigtrap";
         case 6:
             return @"sigabrt";
         case 8:
@@ -3535,6 +3548,9 @@ static BOOL pollMoreData(int fd) {
 - (void)noteTaskDidTerminate:(id)sender {
     NSLog(@"glkctl: noteTaskDidTerminate");
 
+    if (windowClosedAlready)
+        return;
+
     dead = YES;
     restartingAlready = NO;
 
@@ -3546,7 +3562,7 @@ static BOOL pollMoreData(int fd) {
     [self flushDisplay];
     [task waitUntilExit];
 
-    if (task && task.terminationStatus != 0 ) {
+    if (task && task.terminationStatus != 0) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
@@ -3603,6 +3619,10 @@ static BOOL pollMoreData(int fd) {
         // so we send a redraw event after every resize event
         redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
+
+if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+    _shouldScrollOnCharEvent = YES;
+
     if (waitforfilename) {
         [_queue addObject:gevent];
     } else if (waitforevent) {

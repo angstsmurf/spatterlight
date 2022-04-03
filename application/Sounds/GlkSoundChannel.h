@@ -1,40 +1,47 @@
 #import <Foundation/Foundation.h>
+
 @class SoundHandler, MIDIChannel;
+
+typedef uint32_t glui32;
+typedef int32_t glsi32;
 
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
-#define MIX_MAX_VOLUME 1.0f
+#define FLOAT_MAX_VOLUME 1.0
 
-enum { CHANNEL_IDLE, CHANNEL_SOUND };
+typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
+    GlkSoundChannelStatusIdle,
+    GlkSoundChannelStatusSound
+};
 
 @interface GlkSoundChannel : NSObject <NSSecureCoding> {
-    NSInteger loop;
-    NSInteger notify;
-    NSUInteger paused;
+    glsi32 loop;
+    glui32 notify;
+    glui32 paused;
 
-    NSInteger resid; /* for notifies */
+    glsi32 resid; /* for notifies */
 
     NSString *mimeString;
 
     /* for volume fades */
-    NSInteger volume_notify;
-    NSUInteger volume_timeout;
-    CGFloat target_volume;
-    CGFloat volume;
-    CGFloat volume_delta;
+    glui32 volume_notify;
+    glui32 volume_timeout;
+    float target_volume;
+    float volume;
+    float volume_delta;
     NSTimer *timer;
 }
 
-@property NSInteger status;
-@property NSUInteger name;
+@property GlkSoundChannelStatus status;
+@property int name;
 @property (weak) SoundHandler *handler;
 
-- (instancetype)initWithHandler:(SoundHandler *)handler name:(NSUInteger)name volume:(NSUInteger)vol;
-- (void)setVolume:(NSUInteger)avol duration:(NSUInteger)duration notify:(NSInteger)notify;
-- (void)play:(NSInteger)snd repeats:(NSInteger)areps notify:(NSInteger)anot;
-- (void)stop;
-- (void)pause;
-- (void)unpause;
+- (instancetype)initWithHandler:(SoundHandler *)handler name:(int)name volume:(glui32)vol;
+- (oneway void)setVolume:(glui32) vol duration:(glui32)dur notification:(glui32)noti;
+- (BOOL)playSound:(glsi32) sound countOfRepeats:(glsi32)repeat notification:(glui32)noti;
+- (oneway void)stop;
+- (oneway void)pause;
+- (oneway void)unpause;
 - (void)cleanup;
 
 - (void)copyValues:(GlkSoundChannel *)otherChannel;

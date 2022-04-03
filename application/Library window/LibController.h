@@ -100,7 +100,7 @@
 - (IBAction)selectSameTheme:(id)sender;
 - (IBAction)deleteSaves:(id)sender;
 
-- (void)showInfoForGame:(Game *)game;
+- (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle;
 
 - (void)selectGames:(NSSet*)games;
 - (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll;

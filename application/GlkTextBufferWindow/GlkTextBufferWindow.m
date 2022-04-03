@@ -169,7 +169,6 @@ fprintf(stderr, "%s\n",                                                    \
         textstorage.delegate = self;
 
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
-        _textview.backgroundColor = styles[style_Normal][NSBackgroundColorAttributeName];
         _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
@@ -187,6 +186,7 @@ fprintf(stderr, "%s\n",                                                    \
             [self createBeyondZorkStyle];
         
         underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
+        [self recalcBackground];
     }
 
     return self;
@@ -513,8 +513,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
         [self scrollToBottomAnimated:NO];
-//    } else if (_restoredAtTop) {
-//        [self scrollToTop];
     } else {
         if (_restoredLastVisible == 0)
             [self scrollToBottomAnimated:NO];
@@ -551,13 +549,12 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
-    if (self.theme.doStyles && bgnd > -1) {
+    if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
-
-    if (!bgcolor)
+    if (!bgcolor) {
         bgcolor = self.theme.bufferBackground;
-
+    }
     _textview.backgroundColor = bgcolor;
 
     if (line_request)
@@ -655,6 +652,14 @@ fprintf(stderr, "%s\n",                                                    \
         NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
         if (storedNewline) {
+            if (!self.theme.doStyles) {
+                NSMutableDictionary *newLineAttributes = [storedNewline attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+                ZColor *zcolor = newLineAttributes[@"ZColor"];
+                if (zcolor && zcolor.bg != zcolor_Current && zcolor.bg != zcolor_Default) {
+                    newLineAttributes[NSBackgroundColorAttributeName] = nil;
+                    storedNewline = [[NSAttributedString alloc] initWithString:@"\n" attributes:newLineAttributes];
+                }
+            }
             [backingStorage appendAttributedString:storedNewline];
         }
 
@@ -1049,7 +1054,10 @@ fprintf(stderr, "%s\n",                                                    \
                 [self scrollToBottomAnimated:YES];
                 return;
             default:
-                [self performScroll];
+                if (line_request && !flags) {
+                    [self scrollToBottomAnimated:NO];
+                } else
+                    [self performScroll];
                 // To fix scrolling in the Adrian Mole games
                 scrolled = YES;
                 break;
@@ -1114,6 +1122,7 @@ fprintf(stderr, "%s\n",                                                    \
         [_textview superKeyDown:evt];
     }
 }
+
 
 - (void)sendCommandLine:(NSString *)line {
     if (echo) {
@@ -1229,7 +1238,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
     if (bufferedEvents.count)  {
-        for (NSEvent *event in bufferedEvents) {
+        NSMutableArray *copiedEvents = bufferedEvents.copy;
+        for (NSEvent *event in copiedEvents) {
             [self keyDown:event];
         }
         bufferedEvents = [NSMutableArray new];
@@ -1928,6 +1938,7 @@ replacementString:(id)repl {
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
 //    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
+    CGFloat charHeight = self.theme.bufferCellHeight;
     if (pauseScrolling)
         return;
 
@@ -1937,7 +1948,7 @@ replacementString:(id)repl {
         return;
     }
 
-    offset = offset * self.theme.bufferCellHeight;;
+    offset = offset * charHeight;
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
@@ -1945,7 +1956,7 @@ replacementString:(id)repl {
                                            effectiveRange:nil];
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
-    if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferCellHeight) {
+    if (fabs(charbottom - NSHeight(scrollview.frame)) < charHeight && NSHeight(scrollview.frame) / charHeight > 3) {
         //        NSLog(@"scrollToCharacter: too close to the top!");
         [self scrollToTop];
         return;
@@ -2016,6 +2027,8 @@ replacementString:(id)repl {
         return;
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
+    if (newBounds.origin.y > position)
+        return;
     newBounds.origin.y = position;
     if (animate && self.theme.smoothScroll) {
         scrolling = YES;

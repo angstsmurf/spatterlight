@@ -470,7 +470,7 @@
         bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
     }
 
-    if (self.theme.doStyles && bgnd > -1) {
+    if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
 

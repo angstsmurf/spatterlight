@@ -15,6 +15,7 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 #import "FolderAccess.h"
+#import "Game.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -26,7 +27,6 @@
 
 @interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {
     HelpPanelController *_helpLicenseWindow;
-    NSPanel *filePanel;
     NSDocumentController *theDocCont;
     BOOL addToRecents;
 }
@@ -74,11 +74,12 @@ PasteboardFilePasteLocation;
     }
 
     gGameFileTypes = @[
-        @"d$$", @"dat", @"sna", @"advsys", @"quill", @"l9",     @"mag",
-        @"a3c", @"acd", @"agx", @"gam",    @"t3",    @"hex",    @"taf",
-        @"z1",  @"z2",  @"z3",  @"z4",     @"z5",    @"z6",     @"z7",
-        @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
-        @"zblorb", @"cas", @"asl", @"saga", @"jacl", @"j2"
+        @"d$$", @"dat", @"sna",  @"z80",  @"tap",   @"tzx",   @"advsys",
+        @"l9",  @"mag", @"a3c",  @"acd",  @"agx",   @"gam",   @"t3",
+        @"hex", @"taf", @"z1",   @"z2",   @"z3",    @"z4",    @"z5",
+        @"z6",  @"z7",  @"z8",   @"cas",  @"asl",   @"saga",  @"jacl",
+        @"j2",  @"ulx", @"blb",  @"zlb",  @"blorb", @"glb",   @"gblorb",
+        @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
@@ -236,15 +237,19 @@ PasteboardFilePasteLocation;
             NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl playGameWithIFID:ifid];
 
-            // We delay the restoration of game windows
-            // here in order to make it less likely
-            // that a game opens in fullscreen and then
-            // switches to the library window
+            // We delay the restoration of the window
+            // that was key when closing here
+            // in order to make it more likely
+            // that it restores on top, as key
             void(^completionHandlerCopy)(NSWindow *, NSError *);
             completionHandlerCopy = completionHandler;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+
+            if ([ifid isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"KeyWindowController"]])
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                 completionHandlerCopy(window, nil);
             });
+            else
+                completionHandler(window, nil);
 
             return;
         }
@@ -293,59 +298,61 @@ PasteboardFilePasteLocation;
 - (IBAction)openDocument:(id)sender {
     NSLog(@"appdel: openDocument");
 
+    NSArray *windows = [NSApplication sharedApplication].windows;
+    for (NSWindow *window in windows) {
+        if ([window isKindOfClass:[NSOpenPanel class]]) {
+            [window makeKeyAndOrderFront:nil];
+            return;
+        }
+    }
+
     NSURL *directory =
     [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
                             objectForKey:@"GameDirectory"]
                isDirectory:YES];
-    NSOpenPanel *panel;
 
-    if (filePanel) {
-        [filePanel makeKeyAndOrderFront:nil];
-    } else {
-        panel = [NSOpenPanel openPanel];
-        NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
-        if ([_libctl hasActiveGames]) {
-            [allowedTypes addObjectsFromArray:gDocFileTypes];
-            [allowedTypes addObjectsFromArray:gSaveFileTypes];
-        }
-        panel.allowedFileTypes = allowedTypes;
-        panel.directoryURL = directory;
-        panel.message = NSLocalizedString(@"Please select a game", nil);
-
-        NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
-        checkbox.buttonType = NSSwitchButton;
-        checkbox.title = NSLocalizedString(@"Add to library", @"");
-        checkbox.state = [[NSUserDefaults standardUserDefaults]
-                          boolForKey:@"AddToLibrary"];
-        panel.accessoryView = checkbox;
-
-        [panel beginWithCompletionHandler:^(NSInteger result) {
-            if (result == NSModalResponseOK) {
-                NSButton *finalButton = (NSButton*)panel.accessoryView;
-                BOOL addToLibrary = (finalButton.state == NSOnState); ;
-                [[NSUserDefaults standardUserDefaults]
-                 setBool:addToLibrary forKey:@"AddToLibrary"];
-                [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
-
-                NSURL *theDoc = panel.URLs.firstObject;
-                if (theDoc) {
-                    NSString *pathString =
-                    theDoc.path.stringByDeletingLastPathComponent;
-                    if ([gSaveFileTypes indexOfObject:theDoc.path.pathExtension] != NSNotFound)
-                        [[NSUserDefaults standardUserDefaults]
-                         setObject:pathString
-                         forKey:@"SaveDirectory"];
-                    else
-                        [[NSUserDefaults standardUserDefaults]
-                         setObject:pathString
-                         forKey:@"GameDirectory"];
-
-                    [self application:NSApp openFile:theDoc.path];
-                }
-            }
-        }];
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
+    if ([_libctl hasActiveGames]) {
+        [allowedTypes addObjectsFromArray:gDocFileTypes];
+        [allowedTypes addObjectsFromArray:gSaveFileTypes];
     }
-    filePanel = nil;
+    panel.allowedFileTypes = allowedTypes;
+    panel.directoryURL = directory;
+    panel.message = NSLocalizedString(@"Please select a game", nil);
+
+    NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
+    checkbox.buttonType = NSSwitchButton;
+    checkbox.title = NSLocalizedString(@"Add to library", @"");
+    checkbox.state = [[NSUserDefaults standardUserDefaults]
+                      boolForKey:@"AddToLibrary"];
+    panel.accessoryView = checkbox;
+
+    [panel beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSButton *finalButton = (NSButton*)panel.accessoryView;
+            BOOL addToLibrary = (finalButton.state == NSOnState); ;
+            [[NSUserDefaults standardUserDefaults]
+             setBool:addToLibrary forKey:@"AddToLibrary"];
+            [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
+
+            NSURL *theDoc = panel.URLs.firstObject;
+            if (theDoc) {
+                NSString *pathString =
+                theDoc.path.stringByDeletingLastPathComponent;
+                if ([gSaveFileTypes indexOfObject:theDoc.path.pathExtension] != NSNotFound)
+                    [[NSUserDefaults standardUserDefaults]
+                     setObject:pathString
+                     forKey:@"SaveDirectory"];
+                else
+                    [[NSUserDefaults standardUserDefaults]
+                     setObject:pathString
+                     forKey:@"GameDirectory"];
+
+                [self application:NSApp openFile:theDoc.path];
+            }
+        }
+    }];
 }
 
 - (BOOL)application:(NSApplication *)theApp openFile:(NSString *)path {
@@ -361,12 +368,7 @@ PasteboardFilePasteLocation;
     } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
         [_libctl restoreFromSaveFile:path];
     } else {
-        NSWindow __block *win = [_libctl importAndPlayGame:path];
-        if (win && !((GlkController *)win.delegate).showingDialog) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                [win orderFront:nil];
-            });
-        }
+        [_libctl importAndPlayGame:path];
     }
 
     return YES;
@@ -482,28 +484,29 @@ continueUserActivity:(NSUserActivity *)userActivity
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *games = [[NSMutableArray alloc] initWithCapacity:count];
 
+    GlkController *key = NULL;
+
+    while (count--) {
+        NSWindow *window = windows[count];
+        id glkctl = window.delegate;
+        if ([glkctl isKindOfClass:[GlkController class]] &&
+            [glkctl isAlive]) {
+            if (((GlkController *)glkctl).supportsAutorestore) {
+                restorable++;
+                if (window.keyWindow)
+                    key = glkctl;
+            } else {
+                alive++;
+                Game *game = ((GlkController *)glkctl).game;
+                if (game)
+                    [games addObject:game];
+            }
+        }
+    }
+
     if ([defaults boolForKey:@"TerminationAlertSuppression"]) {
         NSLog(@"Termination alert suppressed");
     } else {
-        while (count--) {
-            NSWindow *window = windows[count];
-            id glkctl = window.delegate;
-            if ([glkctl isKindOfClass:[GlkController class]] &&
-                [glkctl isAlive]) {
-                if (((GlkController *)glkctl).supportsAutorestore) {
-                    restorable++;
-                } else {
-                    alive++;
-                    Game *game = ((GlkController *)glkctl).game;
-                    if (game)
-                        [games addObject:game];
-                }
-            }
-        }
-
-        NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count],
-              (long)alive);
-
         if (alive > 0) {
             NSString *msg = [NSString stringWithFormat:@"%@ %@ still running.\nAny unsaved progress will be lost.",
                              [NSString stringWithSummaryOfGames:games], (alive == 1) ? @"is" : @"are"];
@@ -538,6 +541,10 @@ continueUserActivity:(NSUserActivity *)userActivity
             }
         }
     }
+
+    // We remember which window is key on termination
+    // in order to make it key on restoration
+    [defaults setObject:key.game.ifid forKey:@"KeyWindowController"];
 
     return NSTerminateNow;
 }

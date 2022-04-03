@@ -2,8 +2,7 @@
 //  MIDIPlayer.m
 //  MIDIPlayer
 //
-//  Created by 谢小进 on 15/4/27.
-//  Copyright (c) 2015年 Seedfield. All rights reserved.
+//  Based on code by 谢小进.
 //
 
 #import <AudioToolbox/AudioToolbox.h>
@@ -13,17 +12,17 @@
 
 
 @interface MIDIPlayer() {
-	AUGraph graph;
-	AUNode sampleNode;
-	AUNode ioNode;
+    AUGraph graph;
+    AUNode sampleNode;
+    AUNode ioNode;
     AUNode mixerNode;
 
-	AudioUnit sampleUnit;
-	AudioUnit ioUnit;
+    AudioUnit sampleUnit;
+    AudioUnit ioUnit;
     AudioUnit mixerUnit;
-	
-	MusicPlayer player;
-	MusicSequence sequence;
+
+    MusicPlayer player;
+    MusicSequence sequence;
 }
 
 @end
@@ -32,8 +31,8 @@
 
 - (instancetype)initWithData:(NSData *)data {
     if (self = [super init]) {
-		[self createGraph];
-		[self startGraph];
+        [self createGraph];
+        [self startGraph];
         [self loadData:data];
     }
     return self;
@@ -41,21 +40,21 @@
 
 - (void)createGraph {
     NewAUGraph(&graph);
-	
-	AudioComponentDescription sampleDesc = {};
-	sampleDesc.componentType			= kAudioUnitType_MusicDevice;
+
+    AudioComponentDescription sampleDesc = {};
+    sampleDesc.componentType            = kAudioUnitType_MusicDevice;
     sampleDesc.componentSubType         = kAudioUnitSubType_DLSSynth;
-	sampleDesc.componentManufacturer	= kAudioUnitManufacturer_Apple;
-	sampleDesc.componentFlags			= 0;
-	sampleDesc.componentFlagsMask		= 0;
+    sampleDesc.componentManufacturer    = kAudioUnitManufacturer_Apple;
+    sampleDesc.componentFlags           = 0;
+    sampleDesc.componentFlagsMask       = 0;
     AUGraphAddNode(graph, &sampleDesc, &sampleNode);
-	
+
     AudioComponentDescription ioUnitDesc;
-    ioUnitDesc.componentType			= kAudioUnitType_Output;
-    ioUnitDesc.componentSubType			= kAudioUnitSubType_DefaultOutput;
-    ioUnitDesc.componentManufacturer	= kAudioUnitManufacturer_Apple;
-    ioUnitDesc.componentFlags			= 0;
-    ioUnitDesc.componentFlagsMask		= 0;
+    ioUnitDesc.componentType            = kAudioUnitType_Output;
+    ioUnitDesc.componentSubType         = kAudioUnitSubType_DefaultOutput;
+    ioUnitDesc.componentManufacturer    = kAudioUnitManufacturer_Apple;
+    ioUnitDesc.componentFlags           = 0;
+    ioUnitDesc.componentFlagsMask       = 0;
     AUGraphAddNode(graph, &ioUnitDesc, &ioNode);
 
     // A description of the mixer unit
@@ -91,29 +90,29 @@
     if (graph) {
         Boolean isRunning;
         AUGraphIsRunning(graph, &isRunning);
-		if (!isRunning) {
+        if (!isRunning) {
             AUGraphStart(graph);
-		}
+        }
     }
 }
 
 - (void)stopGraph {
-	if (graph) {
-		Boolean isRunning;
-		AUGraphIsRunning (graph, &isRunning);
-		if (isRunning) {
-			AUGraphStop(graph);
-		}
-	}
+    if (graph) {
+        Boolean isRunning;
+        AUGraphIsRunning (graph, &isRunning);
+        if (isRunning) {
+            AUGraphStop(graph);
+        }
+    }
 }
 
 - (void)loadData:(NSData *)data {
     NewMusicSequence(&sequence);
     MusicSequenceFileLoadData (sequence, (__bridge CFDataRef _Nonnull)(data), kMusicSequenceFile_MIDIType, kMusicSequenceLoadSMF_ChannelsToTracks);
     MusicSequenceSetAUGraph(sequence, graph);
-	
-	NewMusicPlayer(&player);
-	MusicPlayerSetSequence(player, sequence);
+
+    NewMusicPlayer(&player);
+    MusicPlayerSetSequence(player, sequence);
     MusicPlayerPreroll(player);
 }
 
@@ -149,12 +148,14 @@
 }
 
 - (void)stop {
-	MusicPlayerStop(player);
-	DisposeMusicPlayer(player);
+    MusicPlayerStop(player);
+    DisposeMusicPlayer(player);
     DisposeMusicSequence(sequence);
-	[self stopGraph];
+    [self stopGraph];
     DisposeAUGraph(graph);
 }
+
+static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat);
 
 - (void)addCallback:(void (^)(void))block {
     MusicTrack track = NULL;
@@ -165,18 +166,17 @@
     //Get length of track
     MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen);
     //Create UserData for User Event with any data
-    static MusicEventUserData userData = {1, {0x09}};
+    static const MusicEventUserData userData = {1, {0x09}};
     //Put new user event at the end of the track
     MusicTrackNewUserEvent(track, trackLen, &userData);
     //Set a callback for when User Events occur
     MusicSequenceSetUserCallback(sequence, userCallback, (void * _Nullable)CFBridgingRetain(block));
 }
 
-    void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat)
-    {
-        typedef void (^MyBlockType)(void);
-        MyBlockType block = (__bridge MyBlockType)inClientData;
-        block();
-    }
+static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat) {
+    typedef void (^MyBlockType)(void);
+    MyBlockType block = (__bridge_transfer MyBlockType)inClientData;
+    block();
+}
 
 @end

@@ -106,7 +106,7 @@ rbool PURE_GETHOSTILE=1;  /* =0 will prevent the player from picking things
 rbool PURE_OBJ_DESC=1;    /* =0 prevents [providing light] messages
 			  from being shown */
 
-rbool PURE_ERROR=0;    /* =1 means no GAME ERROR messages will be printed
+rbool PURE_ERROR=1;    /* =1 means no GAME ERROR messages will be printed
 			 out */
 
 rbool PURE_SIZE=1;  /* =0 eliminates size/weight limits on how many
@@ -236,6 +236,11 @@ rbool parse_config_line(char *buff, rbool lastpass)
 void read_config(genfile cfgfile, rbool lastpass)
 {
   char buff[100];
+
+  if (lastpass) {
+    /* Default to smart disambiguation for 1.5 onwards */
+    if (aver>=AGT15) PURE_DISAMBIG=0;
+  }
 
   if (!filevalid(cfgfile,fCFG)) return;
 

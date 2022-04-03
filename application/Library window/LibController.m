@@ -124,6 +124,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 @interface LibController () <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
 
+    IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
@@ -230,6 +231,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     self.window.excludedFromWindowsMenu = YES;
     [self.window registerForDraggedTypes:@[ NSFilenamesPboardType ]];
 
+    [infoButton setEnabled:NO];
     [playButton setEnabled:NO];
 
     _infoWindows = [[NSMutableDictionary alloc] init];
@@ -1242,14 +1244,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = _gameTableModel[i];
-        [self showInfoForGame:game];
+        [self showInfoForGame:game toggle:[sender isKindOfClass:[NSButton class]]];
         // Don't open more than 20 info windows at once
         if (counter++ > 20)
             break;
     }
 }
 
-- (void)showInfoForGame:(Game *)game {
+- (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle {
     InfoController *infoctl;
 
     NSString *path = game.path;
@@ -1276,6 +1278,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [infoctl animateIn:targetFrame];
         });
+    } else if (toggle) {
+        //[infoctl.window makeKeyAndOrderFront:nil];
+        if (!infoctl.inAnimation)
+            [infoctl.window performClose:nil];
     } else {
         [infoctl showWindow:nil];
     }
@@ -1286,7 +1292,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (index != NSNotFound && index > 0) {
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index - 1] byExtendingSelection:NO];
         [infocontroller.window performClose:nil];
-        [self showInfoForGame:_gameTableModel[index - 1]];
+        [self showInfoForGame:_gameTableModel[index - 1] toggle:NO];
     }
 }
 
@@ -1295,7 +1301,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (index != NSNotFound && index < _gameTableModel.count - 1) {
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index + 1] byExtendingSelection:NO];
         [infocontroller.window performClose:nil];
-        [self showInfoForGame:_gameTableModel[index + 1]];
+        [self showInfoForGame:_gameTableModel[index + 1] toggle:NO];
     }
 }
 
@@ -2185,10 +2191,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (void)releaseGlkControllerNow:(GlkController *)glkctl {
+    [glkctl terminateTask];
 }
 
 - (NSWindow *)importAndPlayGame:(NSString *)path {
-
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
 
     Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
@@ -2656,6 +2662,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSTableView *tableView = [notification object];
     if (tableView == _gameTableView) {
         NSIndexSet *rows = tableView.selectedRowIndexes;
+        infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
         if (_gameTableModel.count && rows.count) {

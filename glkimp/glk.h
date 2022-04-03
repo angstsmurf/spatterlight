@@ -448,8 +448,7 @@ extern strid_t glk_stream_open_resource_uni(glui32 filenum, glui32 rock);
 
 #endif /* GLK_MODULE_RESOURCE_STREAM */
 
-extern char* garglk_fileref_get_name(frefid_t fref);
-extern char* glkext_fileref_get_name(frefid_t fref);
+extern char* glkunix_fileref_get_filename(frefid_t fref);
 
 extern void garglk_set_program_name(const char *name);
 extern void garglk_set_program_info(const char *info);

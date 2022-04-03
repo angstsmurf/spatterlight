@@ -1,12 +1,44 @@
 # Change log
 
-## Unrelease
+
+## Release 0.9.4
+- Fixes a bug where closing a window with a pending error message would make it immediately reopen
+- Fixes hairline artifacts when drawing rectangles in graphics windows, apparent in the ScottFree images
+- Support for vector graphics in Brian Howarth's 11 Mysterious Adventures
+- Support for Commodore 64 versions of the Mysterious Adventures
+- Implements an option to draw vector images slowly, similar to the originals (but non-blocking)
+- Fixes repeated undo in ScottFree games
+- Adds file types for the recently supported formats (.dsk and .fiad)
+- The title screens of TI-99/4A games are properly centered (if the window is large enough) and some broken characters in them are fixed
+
+## Release 0.9.3
+- This is an Apple App Store-only hotfix release that fixes a crash that only occurred in the App Store version of Spatterlight
+
+## Release 0.9.2
+- ScottFree support for Commodore 64 and TI-99/4A Scott Adams formats, including homebrew TI-99/4A games. Supported file extensions: .d64, .t64, .dsk, .fiad.
+- Fixes a bug where game windows would reopen if they were closed too soon after opening
+- Fixes a bug where a game window would move to the front if you switched to another window too soon after opening it
+- Fixes a bug where multiple simultaneous file picker windows could open when the "Show library window automatically" setting was off
+- Works around a bug where ScottFree games could sometimes show graphics and room description in the top window and accept input, but never print any text in the bottom window
+- Fixes many bugs related to undoing and restarting ScottFree games
+- Reduces the number of repeated room descriptions in ScottFree transcripts
+- Attempts to fix a bug where the end of transcripts were sometimes missing after closing a game
+- New settings for graphics palette, delays and inventory in ScottFree games
+- Implements determinism in JACL
+- Z-machine games would ignore user-defined background colour
+- The ZX Spectrum version of *Arrow of Death part 1* now works
+
+## Release 0.9.1
+- Preliminary support for ZX Spectrum format ScottFree games with graphics
 - Improves animation of game info windows
 - Adds a side bar toggle button to the library window
-- Removes the info view button from the library window. The side view partially replaces the info windows, and the interface is cleaner without too many buttons. Info windows can still be opened by pressing the space bar. If you were using the info button and miss it, please let me know!
 - The animations shown when entering fullscreen should flicker less
 - When starting in fullscreen with a cover image in "show and wait for key" mode, the game text view could be too narrow
-- When Spatterlight was force-quit or crashed and then restarted, some autorestored games could have a too-narrow text view
+- When Spatterlight was force-quit or crashed, and then restarted, some autorestored games would have a too-narrow text view
+- Improvements to automatic scrolling. Now less likely to scroll in the wrong direction
+- Buffer windows could open with the wrong background colour
+- Switching off "Games can set colors and styles" could leave some text behind with the old background colour
+- Lots of AGiliTy fixes from David Kinder. *The Multi-Dimensional Thief* is now completable
 
 ## Release 0.9.0
 - Two-line menus in TADS 3 were no longer detected by the VoiceOver code since 0.8.6

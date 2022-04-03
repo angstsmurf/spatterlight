@@ -80,6 +80,10 @@ void glk_exit()
         free(gli_parentdir);
 
     win_flush();
+
+    gli_close_all_file_streams();
+    gli_stop_all_sound_channels();
+
     close(0);
     close(1);
     exit(0);

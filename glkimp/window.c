@@ -669,6 +669,16 @@ strid_t glk_window_get_stream(window_t *win)
         gli_strict_warning("window_get_stream: invalid ref");
         return NULL;
     }
+    if (win->str == NULL)
+    {
+        gli_strict_warning("window_get_stream: no windows stream!");
+        win->str = gli_stream_open_window(win);
+    }
+    if (win->str->type != strtype_Window)
+    {
+        gli_strict_warning("window_get_stream: invalid stream type");
+        win->str = gli_stream_open_window(win);
+    }
     return win->str;
 }
 

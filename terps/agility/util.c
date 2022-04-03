@@ -153,7 +153,7 @@ void *rmalloc(long size)
   assert(size>=0);
   if (size==0) return NULL;
   p=malloc((size_t)size);
-  if (p==NULL && rm_trap && size>0)
+  if (p==NULL && rm_trap && size>0) 
     {
       printf("Memory allocation error: Out of memory.\n");
       exit(EXIT_FAILURE);
@@ -198,10 +198,15 @@ char *rstrdup(const char *s)
 #else
   t=malloc((strlen(s)+1)*sizeof(char));
 #endif
-  if (t==NULL && rm_trap)
+  if (t==NULL)
     {
-      printf("Memory duplication error: Out of memory.\n");
-      exit(EXIT_FAILURE);
+      if (rm_trap)
+      {
+        printf("Memory duplication error: Out of memory.\n");
+        exit(EXIT_FAILURE);
+      }
+      else
+        return NULL;
     }
   if (rm_acct) ralloc_cnt++;
 #ifndef HAVE_STRDUP
@@ -1029,7 +1034,7 @@ static void read_filerec(const file_info *rec_desc, const uchar *filedata)
 
 
 #define v(t) (*(t*)(rec_desc->ptr))
-/* Here is the corresponding routine for _writing_ to files */
+/* Here is the corresponding routien for _writing_ to files */
 /* This copies the contents of a record into a buffer */
 
 static void write_filerec(const file_info *rec_desc, uchar *filedata)
@@ -1060,10 +1065,10 @@ static void write_filerec(const file_info *rec_desc, uchar *filedata)
       case FT_CMDPTR: /* cmd ptr */        
       case FT_INT32:
       case FT_UINT32:
-      filedata[0]=v(int32)&0xFF;
-      filedata[1]=(v(int32)>>8)&0xFF;
-      filedata[2]=(v(int32)>>16)&0xFF;
-      filedata[3]=(v(int32)>>24)&0xFF;
+        filedata[0]=v(int32)&0xFF;
+        filedata[1]=(v(int32)>>8)&0xFF;
+        filedata[2]=(v(int32)>>16)&0xFF;
+        filedata[3]=(v(int32)>>24)&0xFF;
 	break;
       case FT_BYTE: filedata[0]=v(uchar);break;
       case FT_CFG: filedata[0]=v(uchar);break;
