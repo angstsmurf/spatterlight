@@ -304,7 +304,7 @@ static size_t FindFlags(void)
         pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0,8 );
         if(pos == -1) {
             fprintf(stderr, "Cannot find initial flag data.\n");
-            exit(1);
+            glk_exit();
         } else return pos + 5;
     }
     return pos + 11;
@@ -319,7 +319,7 @@ static size_t FindObjectLocations(void)
         pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
         if(pos == -1) {
             fprintf(stderr, "Cannot find initial object data.\n");
-            exit(1);
+            glk_exit();
         }
         pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
         return pos - 0x4000 + FileBaselineOffset;
@@ -383,7 +383,7 @@ static size_t FindTokens(void)
                 addr = FindCode("You are in ", 0, 11) - 1;
                 if(addr == -1) {
                     fprintf(stderr, "Unable to find token table.\n");
-                    exit(1);
+                    glk_exit();
                 }
                 return addr;
             } else
@@ -733,7 +733,7 @@ static size_t FindObjects(void)
     pos = FindCode("\x20\xFB\x62\x88\xF4\xAC\xBF\x73\x2C\x18\x20\xFF", 0, 12);
     if(pos == -1) {
         fprintf(stderr, "Unable to locate objects.\n");
-        exit(1);
+        glk_exit();
     }
     return pos;
 }
@@ -762,7 +762,7 @@ static size_t FindRooms(void)
     pos = FindCode("QUESTPROBE 3: FANTASTIC FOUR", 0, 28);
     if(pos == -1) {
         fprintf(stderr, "Unable to locate rooms.\n");
-        exit(1);
+        glk_exit();
     }
     return pos ;
 }
@@ -1740,7 +1740,7 @@ static size_t FindStatusTable(void)
     pos = FindCode("\x7E\x7E\x01\x02\x0C\x30\x0B\x17\x10\x16\x07\x05", 0, 12);
     if (pos == -1) {
         fprintf(stderr, "Unable to find automatics.\n");
-        exit(1);
+        glk_exit();
     }
     return pos;
 }
@@ -1790,7 +1790,7 @@ size_t FindCommandTable(void)
 
     if (pos == -1) {
         fprintf(stderr, "Unable to find commands.\n");
-        exit(1);
+        glk_exit();
     }
     return pos;
 }
@@ -1933,7 +1933,7 @@ static void  SimpleParser(void)
     if (LastChar != '\n')
         OutChar('\n');
     OutFlush();
-    if(CurrentGame == QUESTPROBE3) {
+    if (CurrentGame == QUESTPROBE3) {
         if (MyLoc != 6) {
             if (IsThing == 0)
                 SysMessage(8);
