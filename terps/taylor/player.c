@@ -43,7 +43,15 @@ static int ActionsDone;
 static int ActionsExecuted;
 static int Redraw;
 
-//#define Redraw (Flag[52])
+#define OtherGuyLoc (Flag[1])
+#define OtherGuyInv (Flag[3])
+#define TurnsLow (Flag[26])
+#define TurnsHigh (Flag[27])
+#define IsThing (Flag[31])
+#define ThingAsphyx (Flag[47])
+#define TorchAsphyx (Flag[48])
+#define WaitNumber (Flag[5])
+#define DrawImages (Flag[52])
 
 static int DarkFlag = 43;
 
@@ -103,41 +111,6 @@ static char *Condition[]={
     "COND31",
 };
 
-static int Q3Condition[] = {
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    7,
-    9,
-    10,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    20,
-    21,
-    22,
-    23,
-    25,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-};
-
 static char *Action[]={
     "<ERROR>",
     "LOAD?",
@@ -173,13 +146,13 @@ static char *Action[]={
     "REFRESH?",
     "RAMSAVE",
     "RAMLOAD",
-	"CLSLOW?",
+    "CLSLOW?",
     "OOPS",
     "DIAGNOSE",
     "SWITCHINVENTORY",
-    "SWITCH",
-    "DONE",
-    "ACT40",
+    "SWITCHCHARACTER",
+    "CONTINUE",
+    "IMAGE",
     "ACT41",
     "ACT42",
     "ACT43",
@@ -192,31 +165,96 @@ static char *Action[]={
     "ACT50",
 };
 
-static int Q3Action[]={
+static void LoadWordTable(void)
+{
+    unsigned char *p = FileImage + VerbBase;
+
+    while(1) {
+        if(p[4] == 255)
+            break;
+        if(WordMap[p[4]][0] == 0)
+            memcpy(WordMap[p[4]], p, 4);
+        p+=5;
+    }
+}
+
+static void PrintWord(unsigned char word)
+{
+    if(word == 126)
+        fprintf(stderr, "*	  ");
+    else if(word == 0 || WordMap[word][0] == 0)
+        fprintf(stderr, "%-4d ", word);
+    else {
+        fprintf(stderr, "%c%c%c%c ",
+                WordMap[word][0],
+                WordMap[word][1],
+                WordMap[word][2],
+                WordMap[word][3]);
+    }
+}
+
+#endif
+
+static int Q3Condition[] = {
+    CONDITIONERROR,
+    AT,
+    NOTAT,
+    ATGT,
+    ATLT,
+    PRESENT,
+    ABSENT,
+    CARRIED,
+    NOTCARRIED,
+    NODESTROYED,
+    DESTROYED,
+    ZERO,
+    NOTZERO,
+    WORD1,
+    WORD2,
+    CHANCE,
+    LT,
+    GT,
+    EQ,
+    OBJECTAT,
     0,
-    37, // swap TORCH <-> THING
-    36, // report status
-    1,
-    2,
-    3,
-    4,
-    5,
-    39, // set flag 118 to 1?
-    9,
-    10,
-    11,
-    38, // swap TORCH <-> THING
-    13,
-    14,
-    15,
-    16,
-    17,
-    22,
-    23,
-    24,
-    25,
-    26,
-    31, // Redraw room image
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+static int Q3Action[]={
+    ACTIONERROR,
+    SWITCHINVENTORY, /* Swap inventory and dark flag */
+    DIAGNOSE, /* Print Reed Richards' watch status message */
+    LOADPROMPT,
+    QUIT,
+    SHOWINVENTORY,
+    ANYKEY,
+    SAVE,
+    CONTINUE, /* Set "condition failed" flag, Flag[118], to 1 */
+    GET,
+    DROP,
+    GOTO,
+    SWITCHCHARACTER, /* Go to the location of the other guy */
+    SET,
+    CLEAR,
+    MESSAGE,
+    CREATE,
+    DESTROY,
+    LET,
+    ADD,
+    SUB,
+    PUT,
+    SWAP,
+    IMAGE, /* Draw image on top of room image */
     0,
     0,
     0,
@@ -246,37 +284,6 @@ static int Q3Action[]={
     0
 };
 
-
-static void LoadWordTable(void)
-{
-    unsigned char *p = FileImage + VerbBase;
-
-    while(1) {
-        if(p[4] == 255)
-            break;
-        if(WordMap[p[4]][0] == 0)
-            memcpy(WordMap[p[4]], p, 4);
-        p+=5;
-    }
-}
-
-static void PrintWord(unsigned char word)
-{
-    if(word == 126)
-        fprintf(stderr, "*    ");
-    else if(word == 0 || WordMap[word][0] == 0)
-        fprintf(stderr, "%-4d ", word);
-    else {
-        fprintf(stderr, "%c%c%c%c ",
-                WordMap[word][0],
-                WordMap[word][1],
-                WordMap[word][2],
-                WordMap[word][3]);
-    }
-}
-
-#endif
-
 size_t FindCode(const char *x, size_t base, size_t len)
 {
     unsigned char *p = FileImage + base;
@@ -290,42 +297,47 @@ size_t FindCode(const char *x, size_t base, size_t len)
 
 static size_t FindFlags(void)
 {
-    /* Look for the flag initial block copy */
-    size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
+    /* Questprobe */
+    size_t pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
     if(pos == -1) {
-        fprintf(stderr, "Cannot find initial flag data.\n");
-        return 0x5b71 - 0x3fe5;
-//        glk_exit();
+        /* Look for the flag initial block copy */
+        pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0,8 );
+        if(pos == -1) {
+            fprintf(stderr, "Cannot find initial flag data.\n");
+            exit(1);
+        } else return pos + 5;
     }
-    return pos + 6;
+    return pos + 11;
 }
 
 static size_t FindObjectLocations(void)
 {
-    size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
+    /* Questprobe */
+    size_t pos = FindCode("\xF8\x10\x20\x40\xF8\xF8\xFC\xFC\xFC\x01\x05\xFC\x06\xFC\x0B\x18", 0, 16);
+
     if(pos == -1) {
-        fprintf(stderr, "Cannot find initial object data.\n");
-        return 0x50be;
-//        glk_exit();
+        pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
+        if(pos == -1) {
+            fprintf(stderr, "Cannot find initial object data.\n");
+            exit(1);
+        }
+        pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
+        return pos - 0x4000 + FileBaselineOffset;
     }
-    pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
-    return pos - 0x4000 + FileBaselineOffset;
+
+    return pos + 6;
 }
 
 static size_t FindExits(void)
 {
     size_t pos = 0;
 
-    return 0x90d4 - 0x3fe5;
-
     while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
     {
-        pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8);
-        pos -= 0x4000 + FileBaselineOffset;
-        fprintf(stderr, "found exits at 0x%04zx\n", pos);
-        return pos;
+        pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8) - 0x4000;
+        return pos + FileBaselineOffset;
     }
-    fprintf(stderr, "Cannot find initial flag data.\n");
+    fprintf(stderr, "Cannot find initial exit data.\n");
     glk_exit();
 }
 
@@ -345,44 +357,42 @@ static int LooksLikeTokens(size_t pos)
     return 0;
 }
 
-//static void TokenClassify(size_t pos)
-//{
-//    unsigned char *p = FileImage + pos;
-//    int n = 0;
-//    while(n++ < 256) {
-//        do {
-//            if(*p == 0x5E || *p == 0x7E)
-//                Version = 0;
-//        } while(!(*p++ & 0x80));
-//    }
-//}
+static void TokenClassify(size_t pos)
+{
+    unsigned char *p = FileImage + pos;
+    int n = 0;
+    while(n++ < 256) {
+        do {
+            if(*p == 0x5E || *p == 0x7E)
+                Version = 0;
+        } while(!(*p++ & 0x80));
+    }
+}
 
 static size_t FindTokens(void)
 {
-
-    fprintf(stderr, "Found tokens at 0x4ca6.\n");
-    //                glk_exit();
-    print_memory2(0x4ca6, 16);
-    return 0x4ca6;
-
-
     size_t addr;
     size_t pos = 0;
     do {
         pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);
         if(pos == -1) {
-            /* Last resort */
-            addr = FindCode("You are in ", 0, 11) - 1;
-            if(addr == -1) {
-                fprintf(stderr, "Unable to find token table.\n");
-//                glk_exit();
-                return 0x8c8b - 0x3fe5;
-            }
-            return addr;
+            /* Questprobe */
+            pos = FindCode("\x58\x58\x58\x58\xFF", 0, 5);
+            if(pos == -1) {
+                /* Last resort */
+                addr = FindCode("You are in ", 0, 11) - 1;
+                if(addr == -1) {
+                    fprintf(stderr, "Unable to find token table.\n");
+                    exit(1);
+                }
+                return addr;
+            } else
+                return pos + 6;
         }
         addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000 + FileBaselineOffset;
-    } while(LooksLikeTokens(addr) == 0);
-//    TokenClassify(addr);
+    }
+    while(LooksLikeTokens(addr) == 0);
+    TokenClassify(addr);
     return addr;
 }
 
@@ -653,12 +663,18 @@ static size_t FindMessages(void)
         if(FileImage[pos + 11] != 0xCD)
             continue;
         /* End markers in compressed blocks */
-//        Version = REBEL_PLANET_TYPE;
+        //        Version = REBEL_PLANET_TYPE;
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
-    fprintf(stderr, "Unable to locate messages.\n");
-    return 0x6000 - 0x3fe5;
-//    glk_exit();
+
+    /* Questprobe */
+    pos = FindCode("\x7F\xF8\x64\x86\xDB\x94\x20\xAD\xD2\x2E\x1F\x66\xE5", 0, 13);
+
+    if(pos == -1) {
+        fprintf(stderr, "Unable to locate messages.\n");
+        glk_exit();
+    }
+    return pos;
 }
 
 static size_t FindMessages2(void)
@@ -712,14 +728,21 @@ static size_t FindObjects(void)
             continue;
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
-    fprintf(stderr, "Unable to locate objects.\n");
-    return 0x6c7a - 0x3fe5;
-//    glk_exit();
+
+    /* Questprobe */
+    pos = FindCode("\x20\xFB\x62\x88\xF4\xAC\xBF\x73\x2C\x18\x20\xFF", 0, 12);
+    if(pos == -1) {
+        fprintf(stderr, "Unable to locate objects.\n");
+        exit(1);
+    }
+    return pos;
 }
 
 static void PrintObject(unsigned char obj)
 {
-    unsigned char *p = FileImage + ObjectBase - 1;
+    unsigned char *p = FileImage + ObjectBase;
+    if (CurrentGame == QUESTPROBE3)
+        p--;
     PrintText(p, obj);
 }
 
@@ -734,9 +757,14 @@ static size_t FindRooms(void)
             continue;
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
     }
-    fprintf(stderr, "Unable to locate rooms.\n");
-    return 0x68a5 - 0x3fe5;
-//    glk_exit();
+
+    /* Questprobe */
+    pos = FindCode("QUESTPROBE 3: FANTASTIC FOUR", 0, 28);
+    if(pos == -1) {
+        fprintf(stderr, "Unable to locate rooms.\n");
+        exit(1);
+    }
+    return pos ;
 }
 
 
@@ -786,12 +814,14 @@ static unsigned char NumObjects()
 static unsigned char MaxCarry()
 {
     if (CurrentGame == QUESTPROBE3)
-        return 5;
+        return 255;
     return Flag[4];
 }
 
 static int CarryItem(void)
 {
+    if (CurrentGame == QUESTPROBE3)
+        return 1;
     if(Flag[5] == MaxCarry())
         return 0;
     if(Flag[5] < 255)
@@ -799,9 +829,16 @@ static int CarryItem(void)
     return 1;
 }
 
+static int Dark(void)
+{
+    if (CurrentGame == QUESTPROBE3)
+        return Flag[43];
+    return Flag[1];
+}
+
 static void DropItem(void)
 {
-    if(Flag[5] > 0)
+    if(CurrentGame != QUESTPROBE3 && Flag[5] > 0)
         Flag[5]--;
 }
 
@@ -834,12 +871,13 @@ static void NewGame(void)
 {
     Redraw = 1;
     memset(Flag, 0, 128);
-    memcpy(Flag + 1, FileImage + FlagBase, 127);
-    for (int i = 0; i < 128; i++) {
-        fprintf(stderr, "Flag %d is initially set to %d\n", i, Flag[i]);
-    }
+    memcpy(Flag, FileImage + FlagBase, 7);
+    Flag[0] = 0;
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
-//    fprintf(stderr, "NewGame: NumObjects: %d\n", NumObjects());
+    if (CurrentGame == QUESTPROBE3) {
+        Flag[5] = 0;
+        DrawImages = 0;
+    }
 }
 
 void Look(void);
@@ -1027,7 +1065,7 @@ static void GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return;
     }
-    SysMessage(OK);
+    SysMessage(OKAY);
     OutChar(' ');
     OutFlush();
     Put(obj, Carried());
@@ -1043,12 +1081,14 @@ static void DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
-    SysMessage(OK);
+    SysMessage(OKAY);
     OutChar(' ');
     OutFlush();
     DropItem();
     Put(obj, MyLoc);
 }
+
+static void RunStatusTable(void);
 
 void Look(void) {
     if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91))
@@ -1068,7 +1108,7 @@ void Look(void) {
     Redraw = 0;
     OutCaps();
 
-    if(Flag[DarkFlag]) {
+    if(Dark()) {
         SysMessage(TOO_DARK_TO_SEE);
         OutString("\n\n");
         DrawBlack();
@@ -1096,7 +1136,7 @@ void Look(void) {
     p = FileImage + ExitBase;
 
     f = 0;
-    
+
     while(*p != locw)
         p++;
     p++;
@@ -1138,8 +1178,13 @@ void Look(void) {
     OutChar('\n');
 
     if (MyLoc != 0) {
-        glk_window_clear(Graphics);
-        DrawRoomImage();
+        if (CurrentGame == QUESTPROBE3) {
+            DrawImages = 1;
+            RunStatusTable();
+        } else {
+            glk_window_clear(Graphics);
+            DrawRoomImage();
+        }
     }
     BottomWindow();
 }
@@ -1195,41 +1240,79 @@ static void Means(unsigned char vb, unsigned char no) {
     Word[1] = no;
 }
 
-
-static void switchQ3flags1(void) {
-    fprintf(stderr, "switchQ3flags1\n");
-    if (Flag[31] != 0) {
-        if (ObjectLoc[2] != 0xfc) {
-            Flag[1] = MyLoc;
+static void UpdateQ3Flags(void) {
+    if (IsThing) {
+        if (ObjectLoc[2] == 0xfc) {
+            /* If the "holding HUMAN TORCH by the hands" object is destroyed (i.e. not held) */
+            /* the "location of the other guy" flag is set to the location of the Human Torch object */
+            OtherGuyLoc = ObjectLoc[18];
         } else {
-            Flag[1] = ObjectLoc[18]; // Location of Torch
+            OtherGuyLoc = MyLoc;
         }
-    } else {
+    } else { /* I'm the HUMAN TORCH */
         if (ObjectLoc[1] == 0xfc) {
-            Flag[1] = ObjectLoc[17]; // Location of Thing
+            /* If the "holding THING by the hands" object is destroyed (i.e. not held) */
+            /* The "location of the other guy" flag is set to the location of the Thing object */
+            OtherGuyLoc = ObjectLoc[17];
         } else {
-            Flag[1] = MyLoc;
+            OtherGuyLoc = MyLoc;
         }
+    }
+
+    if (DrawImages)
+        return;
+
+    TurnsLow++; /* Turns played % 100 */
+    if (TurnsLow == 100) {
+        TurnsHigh++; /* Turns divided by 100 */
+        TurnsLow = 0;
+    }
+
+    ThingAsphyx++; // Turns since Thing started holding breath
+    if (ThingAsphyx == 0)
+        ThingAsphyx = 0xff;
+    TorchAsphyx++; // Turns since Torch started holding breath
+    if (TorchAsphyx == 0)
+        TorchAsphyx = 0xff;
+}
+
+/* Questprobe 3 numbers the flags differently, so we have to offset them by 4 */
+static void AdjustQuestprobeConditions(unsigned char op, unsigned char *arg1)
+{
+    switch (op) {
+        case 15:
+        case 16:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+            *arg1 += 4;
+            break;
+        default:
+            break;
     }
 }
 
-static void switchQ3flags2(void) {
-    if (Flag[52] != 0) {
-        switchQ3flags1();
-        return;
+static void AdjustQuestprobeActions(unsigned char op, unsigned char *arg1, unsigned char *arg2)
+{
+    switch (op) {
+        case 13:
+        case 14:
+        case 22:
+        case 23:
+        case 24:
+            if (arg1 != NULL)
+                *arg1 += 4;
+            break;
+        case 27:
+            if (arg1 != NULL)
+                *arg1 += 4;
+            if (arg2 != NULL)
+                *arg2 += 4;
+            break;
+        default:
+            break;
     }
-    Flag[26]++; // Turns played % 100
-    if (Flag[26] == 100) {
-        Flag[27]++; // Turns / 100
-        Flag[26] = 0;
-    }
-    Flag[47]++;
-    if (Flag[47] == 0)
-        Flag[47] = 0xff;
-    Flag[48]++;
-    if (Flag[48] == 0)
-        Flag[48] = 0xff;
-    switchQ3flags1();
 }
 
 static void ExecuteLineCode(unsigned char *p)
@@ -1245,120 +1328,130 @@ static void ExecuteLineCode(unsigned char *p)
         arg1 = *p++;
 
 #ifdef DEBUG
-        fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], arg1);
+        if (CurrentGame == QUESTPROBE3) {
+            unsigned char debugarg1 = arg1;
+            AdjustQuestprobeConditions(Q3Condition[op], &debugarg1);
+            fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], debugarg1);
+        } else {
+            fprintf(stderr, "%s %d ", Condition[op], arg1);
+        }
 #endif
-        if(op > 15)
+        if((CurrentGame == QUESTPROBE3 && op > 15) || (CurrentGame != QUESTPROBE3 && op > 20))
         {
             arg2 = *p++;
 #ifdef DEBUG
-            fprintf(stderr, "%d ", arg2);
+            unsigned char debugarg2 = arg2;
+            if (CurrentGame == QUESTPROBE3)
+                AdjustQuestprobeConditions(Q3Condition[op], &debugarg2);
+            fprintf(stderr, "%d ", debugarg2);
 #endif
         }
 
         if (CurrentGame == QUESTPROBE3) {
             op = Q3Condition[op];
+            AdjustQuestprobeConditions(op, &arg1);
         }
 
         switch(op) {
-            case 1:
+            case AT:
                 if(MyLoc == arg1)
                     continue;
                 break;
-            case 2:
+            case NOTAT:
                 if(MyLoc != arg1)
                     continue;
                 break;
-            case 3:
+            case ATGT:
                 if(MyLoc > arg1)
                     continue;
                 break;
-            case 4:
+            case ATLT:
                 if(MyLoc < arg1)
                     continue;
                 break;
-            case 5:
+            case PRESENT:
                 if(Present(arg1))
                     continue;
                 break;
-            case 6:
+            case HERE:
                 if(ObjectLoc[arg1] == MyLoc)
                     continue;
                 break;
-            case 7:
+            case ABSENT:
                 if(!Present(arg1))
                     continue;
                 break;
-            case 8:
+            case NOTHERE:
                 if(ObjectLoc[arg1] != MyLoc)
                     continue;
                 break;
-            case 9:
+            case CARRIED:
                 /*FIXME : or worn ?? */
                 if(ObjectLoc[arg1] == Carried() || ObjectLoc[arg1] == Worn())
                     continue;
                 break;
-            case 10:
+            case NOTCARRIED:
                 /*FIXME : or worn ?? */
                 if(ObjectLoc[arg1] != Carried() && ObjectLoc[arg1] != Worn())
                     continue;
                 break;
-            case 11:
+            case WORN:
                 if(ObjectLoc[arg1] == Worn())
                     continue;
                 break;
-            case 12:
+            case NOTWORN:
                 if(ObjectLoc[arg1] != Worn())
                     continue;
                 break;
-            case 13:
+            case NODESTROYED:
                 if(ObjectLoc[arg1] != Destroyed())
                     continue;
                 break;
-            case 14:
+            case DESTROYED:
                 if(ObjectLoc[arg1] == Destroyed())
                     continue;
                 break;
-            case 15:
-                if(Flag[arg1 + 4] == 0)
+            case ZERO:
+                if(Flag[arg1] == 0)
                     continue;
                 break;
-            case 16:
-                if(Flag[arg1 + 4] != 0)
+            case NOTZERO:
+                if(Flag[arg1] != 0)
                     continue;
                 break;
-            case 17:
+            case WORD1:
                 if(Word[2] == arg1)
                     continue;
                 break;
-            case 18:
+            case WORD2:
                 if(Word[3] == arg1)
                     continue;
                 break;
-            case 19:
+            case WORD3:
                 if(Word[4] == arg1)
                     continue;
                 break;
-            case 20:
+            case CHANCE:
                 if(Chance(arg1))
                     continue;
                 break;
-            case 21:
-                if(Flag[arg1 + 4] < arg2)
+            case LT:
+                if(Flag[arg1] < arg2)
                     continue;
                 break;
-            case 22:
-                if(Flag[arg1 + 4] > arg2)
+            case GT:
+                if(Flag[arg1] > arg2)
                     continue;
                 break;
-            case 23:
-                if(Flag[arg1 + 4] == arg2)
+            case EQ:
+                if(Flag[arg1] == arg2)
                     continue;
                 break;
-            case 24:
-                if(Flag[arg1 + 4] != arg2)
+            case NE:
+                if(Flag[arg1] != arg2)
                     continue;
                 break;
-            case 25:
+            case OBJECTAT:
                 if(ObjectLoc[arg1] == arg2)
                     continue;
                 break;
@@ -1383,143 +1476,149 @@ static void ExecuteLineCode(unsigned char *p)
 #ifdef DEBUG
         if(op & 0x40)
             fprintf(stderr, "DONE:");
-        fprintf(stderr,"%s(%d) ", Action[Q3Action[op & 0x3F]], op & 0x3F);
+        if (CurrentGame == QUESTPROBE3)
+            fprintf(stderr,"%s(%d) ", Action[Q3Action[op & 0x3F]], op & 0x3F);
+        else
+            fprintf(stderr,"%s(%d) ", Action[op & 0x3F], op & 0x3F);
 #endif
 
         p++;
         if(op & 0x40)
             ActionsDone = 1;
-        op &= 0x3F;
 
+        op &= 0x3F;
 
         if(op > 8) {
             arg1 = *p++;
 #ifdef DEBUG
-            fprintf(stderr, "%d ", arg1);
+            unsigned char debugarg1 = arg1;
+            if (CurrentGame == QUESTPROBE3)
+                AdjustQuestprobeActions(Q3Action[op], &debugarg1, NULL);
+            fprintf(stderr, "%d ", debugarg1);
 #endif
         }
-        if(op > 17) {
+        if((CurrentGame == QUESTPROBE3 && op > 17) || (CurrentGame != QUESTPROBE3 && op > 21)) {
             arg2 = *p++;
 #ifdef DEBUG
-            fprintf(stderr, "%d ", arg2);
+            unsigned char debugarg2 = arg2;
+            if (CurrentGame == QUESTPROBE3)
+                AdjustQuestprobeActions(Q3Action[op], NULL, &debugarg2);
+            fprintf(stderr, "%d ", debugarg2);
 #endif
         }
 
-        if (CurrentGame == QUESTPROBE3)
+        if (CurrentGame == QUESTPROBE3) {
             op = Q3Action[op];
+            AdjustQuestprobeActions(op, &arg1, &arg2);
+        }
 
         switch(op) {
-            case 1:
+            case LOADPROMPT:
                 if (LoadGame())
                     return;
                 break;
-            case 2:
+            case QUIT:
                 QuitGame();
                 break;
-            case 3:
+            case SHOWINVENTORY:
                 Inventory();
                 break;
-            case 4:
+            case ANYKEY:
                 AnyKey();
                 break;
-            case 5:
+            case SAVE:
                 SaveGame();
                 break;
-            case 6:
+            case DROPALL:
                 DropAll();
                 break;
-            case 7:
+            case LOOK:
                 Look();
                 break;
-            case 8:
+            case PRINTOK:
                 /* Guess */
-                SysMessage(OK);
+                SysMessage(OKAY);
                 OutFlush();
                 break;
-            case 9:
+            case GET:
                 GetObject(arg1);
                 break;
-            case 10:
+            case DROP:
                 DropObject(arg1);
                 break;
-            case 11:
+            case GOTO:
                 Goto(arg1);
                 Redraw = 1;
                 break;
-            case 12:
+            case GOBY:
                 /* Blizzard pass era */
                 if(Version == BLIZZARD_PASS_TYPE)
                     Goto(ObjectLoc[arg1]);
                 else
                     Message2(arg1);
                 break;
-            case 13:
-                Flag[arg1 + 4] = 255;
-                if (arg1 + 4 == DarkFlag)
-                    Look();
+            case SET:
+                Flag[arg1] = 255;
                 break;
-            case 14:
-                Flag[arg1 + 4] = 0;
-                if (arg1 + 4 == DarkFlag)
-                    Look();
+            case CLEAR:
+                Flag[arg1] = 0;
                 break;
-            case 15:
+            case MESSAGE:
                 Message(arg1);
                 break;
-            case 16:
+            case CREATE:
                 Put(arg1, MyLoc);
                 break;
-            case 17:
+            case DESTROY:
                 Put(arg1, Destroyed());
                 break;
-            case 18:
+            case PRINT:
                 PrintNumber(Flag[arg1]);
                 break;
-            case 19:
+            case DELAY:
                 Delay(arg1);
                 break;
-            case 20:
+            case WEAR:
                 Wear(arg1);
                 break;
-            case 21:
+            case REMOVE:
                 Remove(arg1);
                 break;
-            case 22:
-                Flag[arg1 + 4] = arg2;
+            case LET:
+                Flag[arg1] = arg2;
                 break;
-            case 23:
-                n = Flag[arg1 + 4] + arg2;
+            case ADD:
+                n = Flag[arg1] + arg2;
                 if(n > 255)
                     n = 255;
-                Flag[arg1 + 4] = n;
+                Flag[arg1] = n;
                 break;
-            case 24:
-                n = Flag[arg1 + 4] - arg2;
+            case SUB:
+                n = Flag[arg1] - arg2;
                 if(n < 0)
                     n = 0;
-                Flag[arg1 + 4] = n;
+                Flag[arg1] = n;
                 break;
-            case 25:
+            case PUT:
                 Put(arg1, arg2);
                 break;
-            case 26:
+            case SWAP:
                 n = ObjectLoc[arg1];
                 Put(arg1, ObjectLoc[arg2]);
                 Put(arg2, n);
                 break;
-            case 27:
-                n = Flag[arg1 + 4];
-                Flag[arg1 + 4] = Flag[arg2 + 4];
-                Flag[arg2 + 4] = n;
+            case SWAPF:
+                n = Flag[arg1];
+                Flag[arg1] = Flag[arg2];
+                Flag[arg2] = n;
                 break;
-            case 28:
+            case MEANS:
                 Means(arg1, arg2);
                 break;
-            case 29:
+            case PUTWITH:
                 Put(arg1, ObjectLoc[arg2]);
                 break;
-            case 30:
-                /* Beep */
+            case BEEP:
 #ifdef SPATTERLIGHT
                 win_beep(1);
 #else
@@ -1527,67 +1626,75 @@ static void ExecuteLineCode(unsigned char *p)
                 fflush(stdout);
 #endif
                 break;
-            case 31:
-                DrawRoomImage();
-                if (arg1 > 0) {
-                    arg1--;
-                    DrawSagaPictureNumber(arg1);
-                    DrawSagaPictureFromBuffer();
-                }
+            case REFRESH:
                 break;
-            case 32:
+            case RAMSAVE:
                 RamSave(1);
                 break;
-            case 33:
+            case RAMLOAD:
                 RamLoad();
                 break;
-            case 34:
-                OutFlush();
-                glk_window_clear(Bottom);
+            case CLSLOW:
                 break;
             case 35:
                 RestoreUndo(0);
                 Redraw = 1;
                 break;
-            case 36: // DIAGNOSE
+            case DIAGNOSE:
                 Message(223);
                 char buf[5];
                 char *p = buf;
-                snprintf(buf, 5, "%04d", Flag[26] + Flag[27] * 100);
+                /* TurnsLow = turns % 100, TurnsHigh == turns / 100 */
+                snprintf(buf, 5, "%04d", TurnsLow + TurnsHigh * 100);
                 while(*p)
                     OutChar(*p++);
                 SysMessage(14);
-                if (Flag[31])
+                if (IsThing)
+                /* THING is always 100 percent rested */
                     OutString("100");
                 else {
-                   p = buf;
+                    /* Calculate "restedness" percentage */
+                    /* Flag[7] == 80 means 100 percent rested */
+                    p = buf;
                     snprintf(buf, 4, "%d", (Flag[7] >> 2) + Flag[7]);
                     while(*p)
                         OutChar(*p++);
                 }
                 SysMessage(15);
                 break;
-            case 37: // SWITCHINVENTORY
+            case SWITCHINVENTORY:
             {
-                uint8_t temp = Flag[2];
+                uint8_t temp = Flag[2]; /* Switch inventory */
                 Flag[2] = Flag[3];
                 Flag[3] = temp;
-                temp = Flag[42];
+                temp = Flag[42]; /* Switch dark flag */
                 Flag[42] = Flag[43];
                 Flag[43] = temp;
                 Redraw = 1;
                 break;
             }
-            case 38: // SWITCHCHARACTER
-                MyLoc = ObjectLoc[arg1];
-                GetObject(arg1);
+            case SWITCHCHARACTER:
+                Flag[0] = ObjectLoc[arg1]; /* Go to the location of the other guy */
+                GetObject(arg1); /* Pick him up, so that you don't see yourself */
                 break;
-            case 39: // DONE
+            case CONTINUE:
                 ActionsDone = 0;
                 break;
+            case IMAGE:
+                if (MyLoc == 3) {
+                    DrawBlack();
+                    break;
+                }
+                if (arg1 == 0) {
+                    ClearGraphMem();
+                    DrawSagaPictureNumber(MyLoc - 1);
+                } else {
+                    DrawSagaPictureNumber(arg1 - 1);
+                }
+                DrawSagaPictureFromBuffer();
+                break;
             default:
-                fprintf(stderr, "Unknown command %d.\n",
-                        op);
+                fprintf(stderr, "Unknown command %d.\n", op);
                 break;
         }
     }
@@ -1602,7 +1709,7 @@ static unsigned char *NextLine(unsigned char *p)
     unsigned char op;
     while(!((op = *p) & 0x80)) {
         p+=2;
-        if(op > 15)
+        if((CurrentGame == QUESTPROBE3 && op > 15) || (CurrentGame != QUESTPROBE3 && op > 20))
             p++;
     }
     while(((op = *p) & 0x80)) {
@@ -1610,10 +1717,8 @@ static unsigned char *NextLine(unsigned char *p)
         p++;
         if (op > 8)
             p++;
-        if (op > 17) {
+        if((CurrentGame == QUESTPROBE3 && op > 17) || (CurrentGame != QUESTPROBE3 && op > 21))
             p++;
-        }
-
     }
     return p;
 }
@@ -1630,39 +1735,14 @@ static size_t FindStatusTable(void)
             continue;
         return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000 + FileBaselineOffset;
     }
-    fprintf(stderr, "Unable to find automatics.\n");
-    return 0x7e10 - 0x3fe5;
-//    glk_exit();
-}
 
-uint8_t *skip_opcodes(uint8_t *p) {
-    while ((*p & 0x80) != 0) {
-        uint8_t val = *p;
-        p += 2;
-        if (val >= 0x10)
-            p++;
+    /* Questprobe */
+    pos = FindCode("\x7E\x7E\x01\x02\x0C\x30\x0B\x17\x10\x16\x07\x05", 0, 12);
+    if (pos == -1) {
+        fprintf(stderr, "Unable to find automatics.\n");
+        exit(1);
     }
-    do {
-        uint8_t val = *p & 0x3f;
-        p++;
-        if (val >= 0x09) {
-            if (val >= 0x12) {
-                p++;
-            }
-            p++;
-        }
-    } while((*p & 0x80) == 0);
-    if (*p == 0x7f) {
-        return NULL;
-    }
-    if (*p != 0x7e)
-        p++;
-    p++;
-    if (*p != 0x7e) {
-        p++;
-        return skip_opcodes(p);
-    }
-    return p++;
+    return pos;
 }
 
 static void RunStatusTable(void)
@@ -1672,22 +1752,24 @@ static void RunStatusTable(void)
     ActionsDone = 0;
     ActionsExecuted = 0;
 
-    Flag[52] = 1;
-
-    switchQ3flags2();
+    if (CurrentGame == QUESTPROBE3) {
+        UpdateQ3Flags();
+    }
 
     while(*p != 0x7F) {
-        while (*p == 0x7e) {
+        while (CurrentGame == QUESTPROBE3 && *p == 0x7e) {
             p++;
         }
         ExecuteLineCode(p);
         if(ActionsDone) {
-            Flag[52] = 0;
+            if (CurrentGame == QUESTPROBE3)
+                DrawImages = 0;
             return;
         }
         p = NextLine(p);
     }
-    Flag[52] = 0;
+    if (CurrentGame == QUESTPROBE3)
+        DrawImages = 0;
 }
 
 size_t FindCommandTable(void)
@@ -1702,9 +1784,15 @@ size_t FindCommandTable(void)
             continue;
         return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
     }
-    fprintf(stderr, "Unable to find commands.\n");
-    return 0x7045 - 0x3fe5;
-//    glk_exit();
+
+    /* Questprobe */
+    pos = FindCode("\x19\x10\x01\x06\x8B\x02\x8E\x1B\x91\x12\xD0\x11", 0, 12);
+
+    if (pos == -1) {
+        fprintf(stderr, "Unable to find commands.\n");
+        exit(1);
+    }
+    return pos;
 }
 
 static void RunCommandTable(void)
@@ -1759,7 +1847,7 @@ static void RunOneInput(void)
         stop_time = 2;
         return;
     }
-    if(Word[0] < 11) {
+    if ((CurrentGame == QUESTPROBE3 && Word[0] < 7) || (CurrentGame != QUESTPROBE3 && Word[0] < 11)) {
         if(AutoExit(Word[0])) {
             if(Redraw)
                 Look();
@@ -1847,7 +1935,7 @@ static void  SimpleParser(void)
     OutFlush();
     if(CurrentGame == QUESTPROBE3) {
         if (MyLoc != 6) {
-            if (Flag[31] == 0)
+            if (IsThing == 0)
                 SysMessage(8);
             else
                 SysMessage(9);
@@ -1880,6 +1968,7 @@ static void  SimpleParser(void)
 
 static void FindTables(void)
 {
+    TokenBase = FindTokens();
     RoomBase = FindRooms();
     ObjectBase = FindObjects();
     StatusBase = FindStatusTable();
@@ -2040,14 +2129,14 @@ int glkunix_startup_code(glkunix_startup_t *data)
         fprintf(stderr, "File read error!\n");
     }
 
-//    size_t length = FileImageLen;
+    //    size_t length = FileImageLen;
 
-//    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
-//    if (uncompressed != NULL) {
-//        free(FileImage);
-//        FileImage = uncompressed;
-//        FileImageLen = length;
-//    }
+    //    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
+    //    if (uncompressed != NULL) {
+    //        free(FileImage);
+    //        FileImage = uncompressed;
+    //        FileImageLen = length;
+    //    }
 
     EndOfData = FileImage + FileImageLen;
 
@@ -2055,42 +2144,32 @@ int glkunix_startup_code(glkunix_startup_t *data)
 }
 
 void PrintConditionAddresses(void) {
-    uint16_t conditionsOffsets = 0x56c1;
-    print_memory2(conditionsOffsets, 16);
+    fprintf(stderr, "Memory adresses of conditions\n\n");
+    uint16_t conditionsOffsets = 0x56A8 + FileBaselineOffset;
     uint8_t *conditions;
-jumpHere:
     conditions = &FileImage[conditionsOffsets];
-    for (int i = 0; i < 20; i++) {
+    for (int i = 1; i < 20; i++) {
         uint16_t address = *conditions++;
         address += *conditions * 256;
         conditions++;
-        if (i == 1 && address != 0x95ed) {
-            conditionsOffsets--;
-            goto jumpHere;
-        }
-        fprintf(stderr, "Address of condition %d, %s: 0x%04x\n", i, Condition[Q3Condition[i]], address);
+        fprintf(stderr, "Condition %02d: 0x%04x (%s)\n", i, address, Condition[Q3Condition[i]]);
     }
-    fprintf(stderr, "conditionsOffsets: 0x%04x\n", conditionsOffsets);
-
+    fprintf(stderr, "\n");
 }
 
 void PrintActionAddresses(void) {
-    uint16_t actionOffsets = 0x991a - 0x3fe5;
-    print_memory2(actionOffsets, 16);
+    fprintf(stderr, "Memory adresses of actions\n\n");
+    uint16_t actionOffsets = 0x591C + FileBaselineOffset;
     uint8_t *actions;
-jumpHere:
     actions = &FileImage[actionOffsets];
-    for (int i = 0; i < 24; i++) {
+    for (int i = 1; i < 24; i++) {
         uint16_t address = *actions++;
         address += *actions * 256;
         actions++;
-        fprintf(stderr, "Address of action %d, %s: 0x%04x\n", i, Action[Q3Action[i]], address);
+        fprintf(stderr, "   Action %02d: 0x%04x (%s)\n", i, address, Action[Q3Action[i]]);
     }
-    fprintf(stderr, "conditionsOffsets: 0x%04x\n", actionOffsets);
-
+    fprintf(stderr, "\n");
 }
-
-
 
 void glk_main(void)
 {
@@ -2113,36 +2192,36 @@ void glk_main(void)
 
     FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
 
-//    fprintf(stderr, "\n");
-//
-//    int found = 0;
-//    for (int i = 0; i < FileImageLen; i++) {
-//
-//        uint8_t *p = FileImage + i;
-//        uint8_t c = *p & 0x7F;
-//            if(c >= ' ' && c <= 'z')
-//                fprintf(stderr, "%c", c);
-//
-//
-//        if (LooksLikeTokens(i)) {
-//            fprintf(stderr, "0x%04x (%d) looks like tokens.\n", i, i);
-//            found = 1;
-//        }
-//    }
-//
-//    fprintf(stderr, "\n");
+    //    fprintf(stderr, "\n");
+    //
+    //    int found = 0;
+    //    for (int i = 0; i < FileImageLen; i++) {
+    //
+    //        uint8_t *p = FileImage + i;
+    //        uint8_t c = *p & 0x7F;
+    //            if(c >= ' ' && c <= 'z')
+    //                fprintf(stderr, "%c", c);
+    //
+    //
+    //        if (LooksLikeTokens(i)) {
+    //            fprintf(stderr, "0x%04x (%d) looks like tokens.\n", i, i);
+    //            found = 1;
+    //        }
+    //    }
+    //
+    //    fprintf(stderr, "\n");
 
-//    if (!found)
-//        fprintf(stderr, "Found nothing that looks like tokens.\n");
+    //    if (!found)
+    //        fprintf(stderr, "Found nothing that looks like tokens.\n");
 
     TokenBase = FindTokens();
 
     fprintf(stderr, "Found tokens at %zx (%zu)\n", TokenBase, TokenBase);
 
-//    if (CurrentGame == UNKNOWN_GAME) {
-//        fprintf(stderr, "Unrecognized game!\n");
-//        glk_exit();
-//    }
+    //    if (CurrentGame == UNKNOWN_GAME) {
+    //        fprintf(stderr, "Unrecognized game!\n");
+    //        glk_exit();
+    //    }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 
@@ -2152,30 +2231,6 @@ void glk_main(void)
         Action[12] = "MESSAGE2";
     LoadWordTable();
 #endif
-
-
-//    for (int i = 0; i < 100; i++) {
-//        fprintf(stderr, "\nRoom %d: ", i);
-//        PrintRoom(i);
-//        OutChar('\n');
-//        OutFlush();
-//        WaitCharacter();
-//    }
-//    for (int i = 0; i < 76; i++) {
-//        fprintf(stderr, "\nObject %d: ", i);
-//        PrintObject(i);
-//        OutFlush();
-//    }
-//    for (int i = 0; i < 100; i++) {
-//        fprintf(stderr, "\nMessage %d: ", i);
-//        Message(i);
-//        OutFlush();
-//        WaitCharacter();
-//    }
-
-    PrintConditionAddresses();
-    PrintActionAddresses();
-
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
     initial_state = SaveCurrentState();

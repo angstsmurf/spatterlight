@@ -31,26 +31,26 @@ struct GameInfo games[NUMGAMES] = {
         0, // no room images •
         0, // no item flags •
         0, // no item images •
-
-        0x3a50, // actions
-        0x85F6 - 0x3fe5,  // dictionary
-        0x4ca6, // tokens
-        0x68a5 - 0x3fe5, // start_of_room_descriptions;
+        
+        0x3a50 - 0x1B, // actions
+        0x4611 - 0x1B,  // dictionary
+        0x4ca6 - 0x1B, // tokens
+        0x28c0 - 0x1B, // start_of_room_descriptions;
         FOLLOWS, // start_of_room_connections;
-        0x6f1d - 0x3fe5, // start_of_messages;
+        0x2f38 - 0x1B, // start_of_messages;
         FOLLOWS, // start_of_item_descriptions;
         FOLLOWS, // start_of_item_locations;
         
         0x2539, // start_of_system_messages
         0x28de, // start of directions
-
-        0x810e, // start_of_characters;
-        0x6931, // start_of_image_data;
-        0x3837, // image patterns lookup table;
+        
+        0x810e - 0x1B, // start_of_characters;
+        0x6931 - 0x1B, // start_of_image_data;
+        0x3837 - 0x1B, // image patterns lookup table;
         0x1c, // number of patterns
         0x9f, // patterns end marker
-        0x87a6, // start of room image instructions
-        43, // number_of_image blocks;
+        0x87a6 - 0x1B, // start of room image instructions
+        58, // number_of_image blocks;
         ZXOPT, // palette
         4, // picture_format_version;
     },
