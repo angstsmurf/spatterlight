@@ -15,12 +15,14 @@
 #include "decompressz80.h"
 #include "utility.h"
 #include "sagadraw.h"
+#include "extracommands.h"
 
 #include "taylor.h"
 
 uint8_t Flag[128];
 uint8_t ObjectLoc[256];
 static uint8_t Word[5];
+char wb[5][17];
 
 uint8_t *FileImage = NULL;
 uint8_t *EndOfData = NULL;
@@ -41,7 +43,7 @@ int NumLowObjects;
 
 static int ActionsDone;
 static int ActionsExecuted;
-static int Redraw;
+int Redraw;
 
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
@@ -513,7 +515,7 @@ static void OutKillSpace()
     PendSpace = 0;
 }
 
-static void OutString(char *p)
+void OutString(char *p)
 {
     while(*p)
         OutChar(*p++);
@@ -880,94 +882,92 @@ static int GetFileLength(strid_t stream) {
     return glk_stream_get_position(stream);
 }
 
-static int LoadGame(void)
+int YesOrNo(void)
 {
-    char c;
+    while(1) {
+        uint8_t c = WaitCharacter();
+        OutChar(' ');
+        OutChar(c);
+        OutChar('\n');
+        OutFlush();
+        if(c == 'n' || c == 'N')
+            return 0;
+        if(c == 'y' || c == 'Y')
+            return 1;
+        OutString("Please answer Y or N.\n");
+        OutFlush();
+    }
+}
+
+int LoadGame(void)
+{
     OutCaps();
     glk_window_clear(Bottom);
     SysMessage(RESUME_A_SAVED_GAME);
-    OutChar(' ');
     OutFlush();
 
-    do {
-        c = WaitCharacter();
-        if(c == 'n' || c == 'N') {
-            glk_window_clear(Bottom);
+    if (!YesOrNo()) {
+        glk_window_clear(Bottom);
+        return 0;
+    } else {
+        frefid_t fileref = glk_fileref_create_by_prompt (fileusage_SavedGame,
+                                                         filemode_Read, 0);
+        if (!fileref)
+        {
+            OutFlush();
             return 0;
         }
-        if(c == 'y' || c == 'Y') {
-            OutString("Y\n");
-            OutFlush();
 
-            frefid_t fileref = glk_fileref_create_by_prompt (fileusage_SavedGame,
-                                                             filemode_Read, 0);
-            if (!fileref)
-            {
-                OutFlush();
-                return 0;
-            }
-
-            /*
-             * Reject the file reference if we're expecting to read from it, and the
-             * referenced file doesn't exist.
-             */
-            if (!glk_fileref_does_file_exist (fileref))
-            {
-                OutString("Unable to open file.\n");
-                glk_fileref_destroy (fileref);
-                OutFlush();
-                return 0;
-            }
-
-            strid_t stream = glk_stream_open_file(fileref, filemode_Read, 0);
-            if (!stream)
-            {
-                OutString("Unable to open file.\n");
-                glk_fileref_destroy (fileref);
-                OutFlush();
-                return 0;
-            }
-
-            struct SavedState *state = SaveCurrentState();
-
-            /* Restore saved game data. */
-
-            if (glk_get_buffer_stream(stream, (char *)Flag, 128) != 128 || glk_get_buffer_stream(stream, (char *)ObjectLoc, 256) != 256 || GetFileLength(stream) != 384) {
-                RecoverFromBadRestore(state);
-            } else {
-                glk_window_clear(Bottom);
-                free(state);
-            }
-            glk_stream_close (stream, NULL);
+        /*
+         * Reject the file reference if we're expecting to read from it, and the
+         * referenced file doesn't exist.
+         */
+        if (!glk_fileref_does_file_exist (fileref))
+        {
+            OutString("Unable to open file.\n");
             glk_fileref_destroy (fileref);
-            Redraw = 1;
-            return 1;
+            OutFlush();
+            return 0;
         }
+
+        strid_t stream = glk_stream_open_file(fileref, filemode_Read, 0);
+        if (!stream)
+        {
+            OutString("Unable to open file.\n");
+            glk_fileref_destroy (fileref);
+            OutFlush();
+            return 0;
+        }
+
+        struct SavedState *state = SaveCurrentState();
+
+        /* Restore saved game data. */
+
+        if (glk_get_buffer_stream(stream, (char *)Flag, 128) != 128 || glk_get_buffer_stream(stream, (char *)ObjectLoc, 256) != 256 || GetFileLength(stream) != 384) {
+            RecoverFromBadRestore(state);
+        } else {
+            glk_window_clear(Bottom);
+            free(state);
+        }
+        glk_stream_close (stream, NULL);
+        glk_fileref_destroy (fileref);
+        Redraw = 1;
+        return 1;
     }
-    while(1);
 }
 
 static void QuitGame(void)
 {
     Look();
-    char c;
     OutCaps();
     SysMessage(PLAY_AGAIN);
-    OutChar(' ');
     OutFlush();
-    do {
-        c = WaitCharacter();
-        if(c == 'n' || c == 'N') {
-            OutString("N \n");
-            exit(0);
-        }
-        if(c == 'y' || c == 'Y') {
-            OutString("Y \n");
-            NewGame();
-            return;
-        }
+    if (YesOrNo()) {
+        NewGame();
+        return;
+    } else {
+        glk_exit();
     }
-    while(1);
 }
 
 static void Inventory(void)
@@ -1007,7 +1007,7 @@ static void  AnyKey(void) {
     WaitCharacter();
 }
 
-static void SaveGame(void) {
+void SaveGame(void) {
 
     strid_t file;
     frefid_t ref;
@@ -1245,17 +1245,11 @@ static void SwitchInvFlags(unsigned char a, unsigned char b) {
     if (Flag[2] == a) {
         Flag[2] = b;
         Flag[3] = a;
-        for (int i = 0; i < NumObjects(); i ++) {
-            if (ObjectLoc[i] == a)
-                ObjectLoc[i] = b;
-            else if (ObjectLoc[i] == b)
-                ObjectLoc[i] = a;
-        }
     }
 }
 
 static void UpdateQ3Flags(void) {
-    if (ObjectLoc[7] == 253)
+    if (TurnsLow > 0 && ObjectLoc[7] == 253)
         ObjectLoc[7] = 254;
     if (IsThing) {
         if (ObjectLoc[2] == 0xfc) {
@@ -1889,6 +1883,8 @@ static int AutoExit(unsigned char v)
     return 0;
 }
 
+
+
 static int LastNoun = 0;
 
 static int IsDir(unsigned char word)
@@ -1902,9 +1898,14 @@ static int IsDir(unsigned char word)
 static void RunOneInput(void)
 {
     if(Word[0] == 0 && Word[1] == 0) {
-        OutCaps();
-        SysMessage(I_DONT_UNDERSTAND);
-        stop_time = 2;
+        if (TryExtraCommand() == 0) {
+            OutCaps();
+            SysMessage(I_DONT_UNDERSTAND);
+            stop_time = 2;
+        } else {
+            if (Redraw)
+                Look();
+        }
         return;
     }
     if (IsDir(Word[0])) {
@@ -1933,13 +1934,17 @@ static void RunOneInput(void)
             RunCommandTable();
         }
         if(ActionsExecuted == 0) {
-            if(IsDir(Word[0]))
-                SysMessage(YOU_CANT_GO_THAT_WAY);
-            else
-                SysMessage(THATS_BEYOND_MY_POWER);
-            OutFlush();
-            stop_time = 2;
-            return;
+            if (TryExtraCommand() == 0) {
+                if(IsDir(Word[0]))
+                    SysMessage(YOU_CANT_GO_THAT_WAY);
+                else
+                    SysMessage(THATS_BEYOND_MY_POWER);
+                OutFlush();
+                stop_time = 2;
+                return;
+            } else {
+                return;
+            }
         }
     }
     if(Redraw) {
@@ -1948,6 +1953,7 @@ static void RunOneInput(void)
 
     fprintf(stderr, "WaitNumber: %d\n", WaitNumber);
     do {
+        DrawImages = 0;
         RunStatusTable();
         DrawImages = 1;
         RunStatusTable();
@@ -2007,8 +2013,9 @@ static void  SimpleParser(void)
     int nw;
     int i;
     int wn = 0;
-    char wb[5][17];
     char buf[256];
+    for (i = 0; i < 5; i++)
+        wb[i][0] = '\0';
     if (LastChar != '\n')
         OutChar('\n');
     OutFlush();
@@ -2037,9 +2044,6 @@ static void  SimpleParser(void)
         Word[wn] = ParseWord(wb[i]);
         if(Word[wn])
             wn++;
-        //        else if (wn == 0) {
-        //
-        //        }
     }
     for(i = wn; i < 5; i++)
         Word[i] = 0;
@@ -2310,7 +2314,6 @@ void glk_main(void)
     NumLowObjects = GuessLowObjectEnd();
     initial_state = SaveCurrentState();
 
-    RamSave(0);
     RunStatusTable();
     if(Redraw) {
         OutFlush();

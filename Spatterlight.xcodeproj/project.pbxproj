@@ -697,6 +697,7 @@
 		C3AD648F261769DB008614C5 /* MarginImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD648E261769DB008614C5 /* MarginImage.m */; };
 		C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD64DD26176DC5008614C5 /* GridTextView.m */; };
 		C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
+		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; };
@@ -2745,7 +2746,7 @@
 		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
-		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; };
+		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
 		C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libspectrum.9.dylib; path = ../../../opt/homebrew/Cellar/libspectrum/1.5.0/lib/libspectrum.9.dylib; sourceTree = "<group>"; };
 		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
@@ -2969,6 +2970,8 @@
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
+		C3B1489727FCD55400844708 /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
+		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -3089,9 +3092,9 @@
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
 		C3D363A927A846B100E26EC5 /* unp64_interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unp64_interface.h; sourceTree = "<group>"; };
 		C3D571A127D8F5CF008FB786 /* taylor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = taylor; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3D571B127D8F651008FB786 /* taylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taylor.h; sourceTree = "<group>"; };
+		C3D571B127D8F651008FB786 /* taylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taylor.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3D571B227D8F651008FB786 /* FORMAT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FORMAT; sourceTree = "<group>"; };
-		C3D571B327D8F652008FB786 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; };
+		C3D571B327D8F652008FB786 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3D571B427D8F652008FB786 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
 		C3D571B627D8F652008FB786 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C3D571B927D97BD4008FB786 /* taylor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = taylor.c; sourceTree = "<group>"; };
@@ -5864,6 +5867,8 @@
 				C372018D27E47E4D00F6BE55 /* layouttext.c */,
 				C3FFF7FF27E52E19000C481A /* restorestate.h */,
 				C3FFF80127E52E19000C481A /* restorestate.c */,
+				C3B1489727FCD55400844708 /* extracommands.h */,
+				C3B1489827FCD55400844708 /* extracommands.c */,
 				C3B6100927DA10DF0012FB97 /* utility.h */,
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C30DAE7F27EBA06A006C90FB /* decompressz80.h */,
@@ -7781,6 +7786,7 @@
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
 				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
 				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
+				C3B1489927FCD55400844708 /* extracommands.c in Sources */,
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
 				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,
