@@ -259,16 +259,18 @@ void Look(void);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 
+int Resizing = 0;
 
 void Updates(event_t ev)
 {
     if (ev.type == evtype_Arrange) {
         //        UpdateSettings();
 
-        CloseGraphicsWindow();
-        OpenGraphicsWindow();
+        Resizing = 1;
 
+        CloseGraphicsWindow();
         Look();
+        Resizing = 0;
     }
 }
 
@@ -416,4 +418,11 @@ void DisplayInit(void)
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
+//    OpenGraphicsWindow();
+//    for (int i = 1; i <= Game->number_of_pictures + 2; i++) {
+//        MyLoc = i;
+//        DrawRoomImage();
+//        fprintf(stderr, "Image number %d\n", MyLoc);
+//        WaitCharacter();
+//    }
 }

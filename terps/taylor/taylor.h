@@ -259,4 +259,6 @@ extern int NumLowObjects;
 
 extern struct GameInfo *Game;
 
+extern int Resizing;
+
 #endif /* taylor_h */

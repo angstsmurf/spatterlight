@@ -593,6 +593,14 @@ uint8_t *Questprobe3Image(int imgnum) {
     return &FileImage[image_addr];
 }
 
+void RepeatOpcode(int *number, uint8_t *instructions, int repeatcount)
+{
+    (*number)--;
+    instructions[(*number)++] = 0x82;
+    instructions[(*number)++] = repeatcount;
+    instructions[(*number)++] = 0;
+}
+
 void SagaSetup(void)
 {
     int32_t i, y;
@@ -719,25 +727,16 @@ jumpChar:
                         }
                         break;
                     case 0xef:
-                        opcode = 1;
-                        goto jump6efd;
+                        RepeatOpcode(&number, instructions, 1);
                     case 0xee:
-                        opcode = 2;
-                        goto jump6efd;
+                        RepeatOpcode(&number, instructions, 2);
                         break;
                     case 0xeb:
-                        opcode = 3;
-                        goto jump6efd;
+                        RepeatOpcode(&number, instructions, 3);
                         break;
                     case 0xf3:
                         pos++;
-                        opcode = *pos;
-                    jump6efd:
-                        number--;
-                        instructions[number++] = 0x82;
-                        instructions[number++] = opcode;
-                        instructions[number++] = 0;
-                        opcode = 0;
+                        RepeatOpcode(&number, instructions, *pos);
                         break;
                     case 0xfa:
                         number--;
@@ -756,14 +755,11 @@ jumpChar:
             } else {
                 for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
                         size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
                         size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
-                        fprintf(stderr, "start reading at 0x%04lx\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
-                            fprintf(stderr, "Instruction %d (at 0x%04lx) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
                         break;
                     }
