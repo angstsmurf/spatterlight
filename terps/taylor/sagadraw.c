@@ -588,8 +588,8 @@ void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
 uint8_t *Questprobe3Image(int imgnum) {
-    uint16_t offset_addr = (FileImage[0x5e9b + imgnum] & 0x7f) * 2 + 0x68db;
-    uint16_t image_addr = 0x6931 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
+    uint16_t offset_addr = (FileImage[0x5e80 + imgnum + FileBaselineOffset] & 0x7f) * 2 + 0x68c0 + FileBaselineOffset;
+    uint16_t image_addr = 0x6916 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256 + FileBaselineOffset;
     return &FileImage[image_addr];
 }
 

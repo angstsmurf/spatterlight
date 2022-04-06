@@ -43,7 +43,7 @@ int NumLowObjects;
 
 static int ActionsDone;
 static int ActionsExecuted;
-int Redraw;
+int Redraw = 0;
 
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
@@ -65,7 +65,6 @@ int should_restart = 0;
 long FileBaselineOffset = 0;
 
 struct GameInfo *Game = NULL;
-
 extern struct GameInfo games[];
 
 #ifdef DEBUG
@@ -296,6 +295,8 @@ size_t FindCode(const char *x, size_t base, size_t len)
 
 static size_t FindFlags(void)
 {
+    if (CurrentGame == QUESTPROBE3)
+        return 0x1b70 + FileBaselineOffset;
     /* Questprobe */
     size_t pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
     if(pos == -1) {
@@ -881,6 +882,8 @@ static void NewGame(void)
         Flag[WaitFlag()] = 0;
     if (CurrentGame == QUESTPROBE3) {
         DrawImages = 0;
+        Flag[2] = 254;
+        Flag[3] = 253;
     }
     Look();
 }
@@ -1251,11 +1254,12 @@ static void SwitchInvFlags(unsigned char a, unsigned char b) {
     if (Flag[2] == a) {
         Flag[2] = b;
         Flag[3] = a;
+        ObjectLoc[37] = 253 + (ObjectLoc[37] == 253);
     }
 }
 
 static void UpdateQ3Flags(void) {
-    if (TurnsLow > 0 && ObjectLoc[7] == 253)
+    if (ObjectLoc[7] == 253)
         ObjectLoc[7] = 254;
     if (IsThing) {
         if (ObjectLoc[2] == 0xfc) {
