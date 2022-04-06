@@ -19,7 +19,7 @@ typedef enum imagetype { D64 = 1, D71, D81 } ImageType;
 typedef enum filetype {
   T_DEL = 0,
   T_SEQ,
-  T_PRG,
+  T_PRG = 0xc2,
   T_USR,
   T_REL,
   T_CBM,

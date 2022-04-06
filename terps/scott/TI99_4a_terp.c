@@ -5,12 +5,12 @@
 #include "scott.h"
 #include "TI99_4a_terp.h"
 
-ActionResultType PerformTI99Line(uint8_t *action_line)
+static ActionResultType PerformTI99Line(const uint8_t *action_line)
 {
     if (action_line == NULL)
-        return 1;
+        return ACT_FAILURE;
 
-    uint8_t *ptr = action_line;
+    const uint8_t *ptr = action_line;
     int run_code = 0;
     int index = 0;
     ActionResultType result = ACT_FAILURE;
@@ -531,7 +531,7 @@ void RunImplicitTI99Actions(void)
 ExplicitResultType RunExplicitTI99Actions(int verb_num, int noun_num)
 {
     uint8_t *p;
-    ExplicitResultType flag = 1;
+    ExplicitResultType flag = ER_NO_RESULT;
     int match = 0;
     ActionResultType runcode;
 
@@ -540,7 +540,6 @@ ExplicitResultType RunExplicitTI99Actions(int verb_num, int noun_num)
     /* process all code blocks for this verb
      until success or end. */
 
-    flag = ER_NO_RESULT;
     while (flag == ER_NO_RESULT) {
         /* we match VERB NOUN or VERB ANY */
         if (p != NULL && (p[0] == noun_num || p[0] == 0)) {

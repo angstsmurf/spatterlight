@@ -56,7 +56,7 @@ char *DecompressText(uint8_t *source, int stringindex)
     int idx = 0;
 
     // Find the start of the compressed message
-    for (int i = 0; i < stringindex; i++) {
+    for (i = 0; i < stringindex; i++) {
         pos = *source;
         pos = pos & 0x7F;
         source += pos;

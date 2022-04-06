@@ -446,7 +446,6 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
     file_baseline_offset = dict_start - info.start_of_dictionary;
     int offset = info.start_of_header + file_baseline_offset;
 
-jumpHere:
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;

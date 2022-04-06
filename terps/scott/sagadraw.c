@@ -639,7 +639,6 @@ void SagaSetup(size_t imgoffset)
         DATA_OFFSET = imgoffset;
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
-jumpChar:
     pos = SeekToPos(entire_file, CHAR_START);
 
 #ifdef DRAWDEBUG
@@ -680,12 +679,11 @@ jumpChar:
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
 
-jumpTable:
     pos = SeekToPos(entire_file, OFFSET_TABLE_START);
 
     int broken_claymorgue_pictures = 0;
 
-    for (int i = 0; i < numgraphics; i++) {
+    for (i = 0; i < numgraphics; i++) {
         if (Game->picture_format_version == 0) {
             uint16_t address;
 
@@ -715,7 +713,6 @@ jumpTable:
     //   - entire_file - file_baseline_offset);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
-    jumpHere:
         pos = SeekToPos(entire_file, image_offsets[picture_number] + DATA_OFFSET);
         if (pos == 0)
             return;
@@ -844,7 +841,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
         count = 1;
 
         /* first handle mode */
-        uint8_t data = *dataptr++;
+        data = *dataptr++;
         if (data < 0x80) {
             if (character > 127 && version > 2) {
                 data += 128;
@@ -990,7 +987,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                 xoff2 = xoff - 4;
 
             if (draw_to_buffer) {
-                for (int i = 0; i < 8; i++)
+                for (i = 0; i < 8; i++)
                     buffer[(y + yoff) * 32 + x + xoff2][i] = screenchars[offset][i];
             } else {
                 plotsprite(offset, x + xoff2, y + yoff, remap(ink[x][y]),

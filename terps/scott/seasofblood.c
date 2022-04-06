@@ -830,7 +830,6 @@ int LoadExtraSeasOfBlood64Data(void)
     offset = 0x3fee + file_baseline_offset;
     uint8_t *ptr;
 
-jumpEnemyTable:
     ptr = SeekToPos(entire_file, offset);
 
     int ct;

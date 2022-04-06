@@ -429,7 +429,6 @@ jumpHereRoomImages:
     sys[MESSAGE_DELIMITER] = ". ";
 
     offset = 0x2300 + file_baseline_offset;
-jumpForestImages:
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
