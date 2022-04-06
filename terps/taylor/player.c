@@ -878,15 +878,19 @@ static void NewGame(void)
     Redraw = 1;
     memset(Flag, 0, 128);
     memcpy(Flag, FileImage + FlagBase, 7);
+    if (CurrentGame == QUESTPROBE3) {
+        for (int i = 0; i < 128; i++) {
+            Flag[4 + i] = 0;
+        }
+        Flag[42] = 0;
+        Flag[43] = 0;
+        Flag[2] = 254;
+        Flag[3] = 253;
+    }
     Flag[0] = 0;
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
-    if (CurrentGame == QUESTPROBE3) {
-        DrawImages = 0;
-        Flag[2] = 254;
-        Flag[3] = 253;
-    }
     Look();
 }
 
