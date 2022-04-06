@@ -833,11 +833,10 @@ static int CarryItem(void)
     return 1;
 }
 
-static int Dark(void)
-{
+static int DarkFlag(void) {
     if (CurrentGame == QUESTPROBE3)
-        return Flag[43];
-    return Flag[1];
+        return 43;
+    return 1;
 }
 
 static void DropItem(void)
@@ -1121,7 +1120,7 @@ void Look(void) {
     Redraw = 0;
     OutCaps();
 
-    if(Dark()) {
+    if(Flag[DarkFlag()]) {
         SysMessage(TOO_DARK_TO_SEE);
         OutString("\n\n");
         DrawBlack();
@@ -1600,9 +1599,13 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case SET:
                 Flag[arg1] = 255;
+                if (arg1 == DarkFlag())
+                    Look();
                 break;
             case CLEAR:
                 Flag[arg1] = 0;
+                if (arg1 == DarkFlag())
+                    Look();
                 break;
             case MESSAGE:
                 Message(arg1);
@@ -1725,7 +1728,7 @@ static void ExecuteLineCode(unsigned char *p)
                 ActionsDone = 0;
                 break;
             case IMAGE:
-                if (MyLoc == 3) {
+                if (MyLoc == 3 || Flag[DarkFlag()]) {
                     DrawBlack();
                     break;
                 }
