@@ -989,7 +989,7 @@ static void Inventory(void)
             f = 1;
             PrintObject(i);
             if(ObjectLoc[i] == Worn())
-                SysMessage(WORN);
+                SysMessage(NOWWORN);
         }
     }
     if(f == 0)
@@ -1047,7 +1047,7 @@ void SaveGame(void) {
 static void DropAll(void) {
     int i;
     for(i = 0; i < NumObjects(); i++) {
-        if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn())
+        if(ObjectLoc[i] == Carried() && ObjectLoc[i] != Worn())
             Put(i, MyLoc);
     }
     Flag[5] = 0;
