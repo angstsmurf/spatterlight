@@ -418,11 +418,4 @@ void DisplayInit(void)
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
-//    OpenGraphicsWindow();
-//    for (int i = 1; i <= Game->number_of_pictures + 2; i++) {
-//        MyLoc = i;
-//        DrawRoomImage();
-//        fprintf(stderr, "Image number %d\n", MyLoc);
-//        WaitCharacter();
-//    }
 }
