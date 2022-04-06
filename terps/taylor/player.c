@@ -810,6 +810,15 @@ static unsigned char NumObjects()
     return Flag[6];
 }
 
+static int WaitFlag()
+{
+    if (CurrentGame == QUESTPROBE3)
+        return 5;
+    if (CurrentGame == BLIZZARD_PASS && CurrentGame == HEMAN && CurrentGame == TEMPLE_OF_TERROR)
+        return -1;
+    return 7;
+}
+
 static int CarryItem(void)
 {
     if (CurrentGame == QUESTPROBE3)
@@ -869,8 +878,9 @@ static void NewGame(void)
     memcpy(Flag, FileImage + FlagBase, 7);
     Flag[0] = 0;
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
+    if (WaitFlag() != -1)
+        Flag[WaitFlag()] = 0;
     if (CurrentGame == QUESTPROBE3) {
-        Flag[5] = 0;
         DrawImages = 0;
     }
     Look();
@@ -1946,19 +1956,28 @@ static void RunOneInput(void)
         Look();
     }
 
-    fprintf(stderr, "WaitNumber: %d\n", WaitNumber);
     do {
-        DrawImages = 0;
-        RunStatusTable();
-        DrawImages = 1;
-        RunStatusTable();
+        if (CurrentGame == QUESTPROBE3) {
+            DrawImages = 0;
+            RunStatusTable();
+            DrawImages = 1;
+            RunStatusTable();
+        } else {
+            RunStatusTable();
+        }
         if(Redraw) {
             Look();
         }
-        if (WaitNumber && LastChar != '\n')
-            OutChar('\n');
-    } while (WaitNumber-- > 0);
-    WaitNumber = 0;
+        if (WaitFlag() != -1 && Flag[WaitFlag()]) {
+            if (LastChar != '\n')
+                OutChar('\n');
+        }
+
+    } while (WaitFlag() != -1 && Flag[WaitFlag()]-- > 0);
+    if (AnimationRunning)
+        glk_request_timer_events(AnimationRunning);
+    if (WaitFlag() != -1)
+        Flag[WaitFlag()] = 0;
 }
 
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
