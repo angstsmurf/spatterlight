@@ -44,6 +44,7 @@ static struct rec taylor_registry[] = {
     { 0xcadc, 0x733d, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth tzx
     { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
     { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
+    { 0xb345, 0xc48b, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80
 
     { 0, 0, NULL }
 };
