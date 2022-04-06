@@ -2265,44 +2265,27 @@ void glk_main(void)
         glk_exit();
     }
 
-    Game = &games[0];
-
-    DisplayInit();
-
+    for (int i = 0; i < NUMGAMES; i++) {
+        Game = &games[i];
     FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-
-    //    fprintf(stderr, "\n");
-    //
-    //    int found = 0;
-    //    for (int i = 0; i < FileImageLen; i++) {
-    //
-    //        uint8_t *p = FileImage + i;
-    //        uint8_t c = *p & 0x7F;
-    //            if(c >= ' ' && c <= 'z')
-    //                fprintf(stderr, "%c", c);
-    //
-    //
-    //        if (LooksLikeTokens(i)) {
-    //            fprintf(stderr, "0x%04x (%d) looks like tokens.\n", i, i);
-    //            found = 1;
-    //        }
-    //    }
-    //
-    //    fprintf(stderr, "\n");
-
-    //    if (!found)
-    //        fprintf(stderr, "Found nothing that looks like tokens.\n");
-
     TokenBase = FindTokens();
+        int diff = (int)TokenBase - (int)VerbBase;
+        if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
+            fprintf(stderr, "This is %s\n", Game->Title);
+            break;
+        } else {
+            fprintf(stderr, "Diff for game %s: %d. Looking for %d\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
+        }
+    }
 
-    fprintf(stderr, "Found tokens at %zx (%zu)\n", TokenBase, TokenBase);
-
-    //    if (CurrentGame == UNKNOWN_GAME) {
-    //        fprintf(stderr, "Unrecognized game!\n");
-    //        glk_exit();
-    //    }
+    if (CurrentGame == UNKNOWN_GAME) {
+        fprintf(stderr, "Unrecognized game!\n");
+        glk_exit();
+    }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
+
+    DisplayInit();
 
     FindTables();
 #ifdef DEBUG
