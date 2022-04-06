@@ -35,7 +35,7 @@ char *LineBreakText(char *source, int columns, int *rows, int *length)
     columns -= 1;
 
     char *result = NULL;
-    char buf[2048];
+    char buf[768];
     int col = 0;
     int row = 0;
     int sourcepos = 0;

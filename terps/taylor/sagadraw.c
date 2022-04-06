@@ -595,10 +595,11 @@ uint8_t *Questprobe3Image(int imgnum) {
 
 void RepeatOpcode(int *number, uint8_t *instructions, int repeatcount)
 {
-    (*number)--;
-    instructions[(*number)++] = 0x82;
-    instructions[(*number)++] = repeatcount;
-    instructions[(*number)++] = 0;
+	int i = *number - 1;
+    instructions[i++] = 0x82;
+    instructions[i++] = repeatcount;
+    instructions[i++] = 0;
+    *number = i;
 }
 
 void SagaSetup(void)
@@ -661,7 +662,6 @@ jumpChar:
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
-    
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
 
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
@@ -672,19 +672,11 @@ jumpChar:
 
         if (CurrentGame == QUESTPROBE3) {
             pos = Questprobe3Image(picture_number);
-//            fprintf(stderr, "image %d\n", picture_number);
             img->width = *pos++;
-//            fprintf(stderr, "width %d\n", img->width);
             img->height = *pos++;
-//            fprintf(stderr, "height %d\n", img->height);
             img->xoff = *pos++;
-//            fprintf(stderr, "xoff %d\n", img->xoff);
             img->yoff = *pos++;
-//            fprintf(stderr, "yoff %d\n", img->yoff);
-//            pos = DrawSagaPictureFromData(pos, img->width, img->height, img->xoff, img->yoff);
             img->imagedata = pos;
-//            fprintf(stderr, "Pos of image %d: 0x%04lx\n", picture_number, pos - FileImage);
-//            fprintf(stderr, "Questprobe3Image of image %d: 0x%04lx\n", picture_number, Questprobe3Image(picture_number) - FileImage);
             img++;
             continue;
         }
@@ -717,27 +709,29 @@ jumpChar:
                 switch (opcode) {
                     case 0xfb:
                         number--;
-                        if (copied_bytes[0] == 0) {
+                        if (!copied_bytes || copied_bytes[0] == 0) {
                             pos = stored_pointer;
-                            free(copied_bytes);
+                            if (copied_bytes != NULL)
+                                free(copied_bytes);
                             copied_bytes = NULL;
                         } else {
                             copied_bytes[0]--;
                             pos = copied_bytes;
                         }
                         break;
-                    case 0xef:
-                        RepeatOpcode(&number, instructions, 1);
-                    case 0xee:
-                        RepeatOpcode(&number, instructions, 2);
-                        break;
-                    case 0xeb:
-                        RepeatOpcode(&number, instructions, 3);
-                        break;
-                    case 0xf3:
-                        pos++;
-                        RepeatOpcode(&number, instructions, *pos);
-                        break;
+                     case 0xef:
+                         RepeatOpcode(&number, instructions, 1);
+                         break;
+                     case 0xee:
+                         RepeatOpcode(&number, instructions, 2);
+                         break;
+                     case 0xeb:
+                         RepeatOpcode(&number, instructions, 3);
+                         break;
+                     case 0xf3:
+                         pos++;
+                         RepeatOpcode(&number, instructions, *pos);
+                         break;
                     case 0xfa:
                         number--;
                         pos++;

@@ -8,6 +8,7 @@
 #include <ctype.h>
 
 #include "restorestate.h"
+#include "utility.h"
 #include "extracommands.h"
 
 typedef enum {
@@ -78,10 +79,11 @@ extern int should_restart;
 extern int stop_time;
 extern int Redraw;
 
+extern winid_t Bottom;
+
 int YesOrNo(void);
 void SaveGame(void);
 int LoadGame(void);
-void OutString(char *p);
 
 static int ParseExtraCommand(char *p)
 {
@@ -91,18 +93,21 @@ static int ParseExtraCommand(char *p)
     if (len == 0)
         return NO_COMMAND;
     int j = 0;
-    int found;
+    int found = 0;
     while(ExtraCommands[j] != NULL) {
-        char *c = p;
-        found = 1;
-        for(int i = 0; i < len; i++) {
-            if (tolower(*c++) != ExtraCommands[j][i]) {
-                found = 0;
-                break;
+        size_t commandlen = strlen(ExtraCommands[j]);
+        if (commandlen == len) {
+            char *c = p;
+            found = 1;
+            for(int i = 0; i < len; i++) {
+                if (tolower(*c++) != ExtraCommands[j][i]) {
+                    found = 0;
+                    break;
+                }
             }
-        }
-        if (found) {
-            return ExtraCommandsKey[j];
+            if (found) {
+                return ExtraCommandsKey[j];
+            }
         }
         j++;
     }
@@ -125,7 +130,7 @@ int TryExtraCommand(void)
             break;
         case RESTART:
             if (noun == NO_COMMAND || noun == GAME) {
-                OutString("Restart? (Y/N) ");
+                Display(Bottom, "Restart? (Y/N) ");
                 if (YesOrNo()) {
                     should_restart = 1;
                 }

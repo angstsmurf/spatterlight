@@ -77,32 +77,32 @@ extern struct GameInfo games[];
 static unsigned char WordMap[256][5];
 
 static char *Condition[]={
-    "<ERROR>", //0
-    "AT", //1
-    "NOTAT", //2
-    "ATGT", //3
-    "ATLT", //4
-    "PRESENT", //5
-    "HERE", //6
-    "ABSENT", //7
-    "NOTHERE", //8
-    "CARRIED", //9
-    "NOTCARRIED", //10
-    "WORN", //11
-    "NOTWORN", //12
-    "NODESTROYED", //13
-    "DESTROYED", //14
-    "ZERO", //15
-    "NOTZERO", //16
-    "WORD1", //17
-    "WORD2", //18
-    "WORD3", //19
-    "CHANCE", //20
-    "LT", //21
-    "GT", //22
-    "EQ", //23
-    "NE", //24
-    "OBJECTAT", //25
+    "<ERROR>",
+    "AT",
+    "NOTAT",
+    "ATGT",
+    "ATLT",
+    "PRESENT",
+    "HERE",
+    "ABSENT",
+    "NOTHERE",
+    "CARRIED",
+    "NOTCARRIED",
+    "WORN",
+    "NOTWORN",
+    "NODESTROYED",
+    "DESTROYED",
+    "ZERO",
+    "NOTZERO",
+    "WORD1",
+    "WORD2",
+    "WORD3",
+    "CHANCE",
+    "LT",
+    "GT",
+    "EQ",
+    "NE",
+    "OBJECTAT",
     "COND26",
     "COND27",
     "COND28",
@@ -454,7 +454,6 @@ static int periods = 0;
 
 static void OutChar(char c)
 {
-    fprintf(stderr, "%c", c);
     if(c == ']')
         c = '\n';
 
@@ -515,7 +514,7 @@ static void OutKillSpace()
     PendSpace = 0;
 }
 
-void OutString(char *p)
+static void OutString(char *p)
 {
     while(*p)
         OutChar(*p++);
@@ -1131,8 +1130,6 @@ void Look(void) {
 
     p = FileImage + ExitBase;
 
-    f = 0;
-
     while(*p != locw)
         p++;
     p++;
@@ -1511,7 +1508,6 @@ static void ExecuteLineCode(unsigned char *p)
         p++;
         if(op & 0x40)
             ActionsDone = 1;
-
         op &= 0x3F;
 
         if(op > 8) {
@@ -1661,6 +1657,7 @@ static void ExecuteLineCode(unsigned char *p)
                 RamLoad();
                 break;
             case CLSLOW:
+                glk_window_clear(Bottom);
                 break;
             case 35:
                 RestoreUndo(0);
@@ -1882,8 +1879,6 @@ static int AutoExit(unsigned char v)
     }
     return 0;
 }
-
-
 
 static int LastNoun = 0;
 
@@ -2222,6 +2217,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     EndOfData = FileImage + FileImageLen;
 
+//    writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
+
     return 1;
 }
 
@@ -2253,6 +2250,7 @@ void PrintActionAddresses(void) {
     fprintf(stderr, "\n");
 }
 
+
 void glk_main(void)
 {
     /* The message analyser will look for version 0 games */
@@ -2267,8 +2265,8 @@ void glk_main(void)
 
     for (int i = 0; i < NUMGAMES; i++) {
         Game = &games[i];
-    FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-    TokenBase = FindTokens();
+        FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
+        TokenBase = FindTokens();
         int diff = (int)TokenBase - (int)VerbBase;
         if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
             fprintf(stderr, "This is %s\n", Game->Title);

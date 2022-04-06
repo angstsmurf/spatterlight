@@ -698,6 +698,7 @@
 		C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD64DD26176DC5008614C5 /* GridTextView.m */; };
 		C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
+		C3B148B227FD881400844708 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B148B127FD881400844708 /* animations.c */; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; };
@@ -2972,6 +2973,8 @@
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
 		C3B1489727FCD55400844708 /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
 		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
+		C3B148AF27FD881400844708 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
+		C3B148B127FD881400844708 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -5873,6 +5876,8 @@
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C30DAE7F27EBA06A006C90FB /* decompressz80.h */,
 				C30DAE7E27EBA06A006C90FB /* decompressz80.c */,
+				C3B148AF27FD881400844708 /* animations.h */,
+				C3B148B127FD881400844708 /* animations.c */,
 				C3D571B427D8F652008FB786 /* ui.c */,
 			);
 			path = taylor;
@@ -7784,6 +7789,7 @@
 			files = (
 				C3B6100827DA0C080012FB97 /* sagadraw.c in Sources */,
 				C3D571B727D8F652008FB786 /* player.c in Sources */,
+				C3B148B227FD881400844708 /* animations.c in Sources */,
 				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
 				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
 				C3B1489927FCD55400844708 /* extracommands.c in Sources */,

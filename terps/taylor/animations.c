@@ -5,6 +5,18 @@
 //  Created by Administrator on 2022-03-24.
 //
 
+// This is currently inefficient in two ways: 1) we redraw the entire
+// image when only parts have changed, and 2) we sometimes draw the
+// entire image, and then draw a second animation on top of this.
+//
+// There should be a second buffer array copy that represents what is
+// currently on-screen, and every pixel should be compared against this
+// to see if it is the same before being redrawn.
+//
+// The click shelf animation should be done by setting the bits in a
+// buffer array first, beforedrawing the image. This will require a
+// second copy of the image buffer.
+
 #include "sagadraw.h"
 #include "animations.h"
 #include "utility.h"
@@ -13,7 +25,9 @@
 #define STARS_ANIMATION_RATE 15
 
 int AnimationRunning = 0;
-int KaylethAnimationRoom = 0;
+int KaylethAnimationIndex = 0;
+int AnimationStage = 0;
+int ClickShelfStage = 0;
 
 extern uint8_t buffer[384][9];
 
@@ -80,18 +94,52 @@ void animate_stars(void)
     }
 }
 
-int UpdateKaylethAnimations(void) // Draw animation frame
+void AnimateKaylethClickShelves(int stage)
+{
+    RectFill(100, 0, 56, 81, 0, 0);
+    for (int line = 0; line < 10; line++) {
+        for (int col = 12; col < 20; col++) {
+            for (int i = 0; i < 8; i++) {
+                int ypos = line * 8 + i + stage;
+                if (ypos > 79)
+                    ypos = ypos - 80;
+                uint8_t attribute = buffer[col + (ypos / 8) * 32][8];
+                glui32 ink = attribute & 7;
+                ink += 8 * ((attribute & 64) == 64);
+                attribute = buffer[col + ((79 - ypos) / 8) * 32][8];
+                glui32 ink2 = attribute & 7;
+                ink2 += 8 * ((attribute & 64) == 64);
+                for (int j = 0; j < 8; j++)
+                    if (col > 15) {
+                        if ((buffer[col + line * 32][i] & (1 << j)) != 0) {
+                            PutPixel(col * 8 + j, ypos, ink);
+                        }
+                    } else {
+                        if ((buffer[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
+                            PutPixel(col * 8 + j, 79 - ypos, ink2);
+                        }
+                    }
+            }
+        }
+    }
+}
+
+int UpdateKaylethAnimationFrames(void) // Draw animation frame
 {
     if (MyLoc == 0) {
         return 0;
     }
-    uint8_t *ptr = &FileImage[0xfded - 0x4000 + FileBaselineOffset];
+
+    uint8_t *ptr = &FileImage[0xbded + FileBaselineOffset];
     int counter = 0;
+    // Jump to animation index equal to location index
+    // Animations are delimited by 0xff
     do {
         if (*ptr == 0xff)
             counter++;
         ptr++;
     } while(counter < MyLoc);
+
     while(1) {
         if (*ptr == 0xff) {
             return 0;
@@ -99,13 +147,14 @@ int UpdateKaylethAnimations(void) // Draw animation frame
         int Stage = *ptr;
         ptr++;
         uint8_t *LastInstruction = ptr;
-        if (ObjectLoc[*ptr] != MyLoc && *ptr != 0) {
+        if (ObjectLoc[*ptr] != MyLoc && *ptr != 0 && *ptr != 122) {
             //Returning because location of object *ptr is not current location
             return 0;
         }
         ptr++;
-        if (KaylethAnimationRoom != MyLoc) {
-            KaylethAnimationRoom = MyLoc;
+        // Reset animation if we are in a new room
+        if (KaylethAnimationIndex != MyLoc) {
+            KaylethAnimationIndex = MyLoc;
             *ptr = 0;
         }
 
@@ -115,22 +164,37 @@ int UpdateKaylethAnimations(void) // Draw animation frame
         if (AnimationRate != 0xff) {
             ptr++;
             (*ptr)++;
-            if (AnimationRate != *ptr) {
-                //Skipping this frame because animationrate != current animation stage
-                return 1;
+            if (AnimationRate == *ptr) {
+                *ptr = 0;
+                // Draw "room image" *(ptr + 1) (Actually an animation frame)
+                int result = *(ptr + 1);
+                DrawTaylor(result);
+                DrawSagaPictureFromBuffer();
+                ptr = LastInstruction + 1;
+                (*ptr) += 3;
+                return result;
             }
-            *ptr = 0;
-            // Draw "room image" *(ptr + 1) (Actually an animation frame)
-            DrawTaylor(*(ptr + 1));
-            DrawSagaPictureFromBuffer();
-            ptr = LastInstruction + 1;
-            (*ptr) += 3;
             return 1;
         } else {
             ptr = LastInstruction + 1;
             *ptr = Stage;
             ptr -= 2;
         }
+    }
+}
+
+void UpdateKaylethAnimations(void) {
+    // This is an attempt to make the animation jerky like the original.
+    ClickShelfStage++;
+    if (ClickShelfStage == 9)
+        ClickShelfStage = 0;
+    UpdateKaylethAnimationFrames();
+    if (MyLoc == 3) {
+        AnimateKaylethClickShelves(AnimationStage);
+        if (ClickShelfStage < 7)
+            AnimationStage++;
+        if (AnimationStage > 80)
+            AnimationStage = 0;
     }
 }
 
@@ -152,18 +216,24 @@ void StartAnimations(void) {
         }
     } else if (CurrentGame == KAYLETH) {
         int speed = 0;
-        if (UpdateKaylethAnimations())
+        if (UpdateKaylethAnimationFrames()) {
             speed = 20;
-        KaylethAnimationRoom = 0;
+            KaylethAnimationIndex = 0;
+        }
         if (ObjectLoc[0] == MyLoc)
             speed = 13; // Azap chamber
         switch(MyLoc) {
             case 1:
-            case 2: // Conveyor belt
                 speed = 14;
                 break;
+            case 2: // Conveyor belt
+                speed = 10;
+                break;
+            case 3: // Click shelves
+                speed = 40;
+                break;
             case 53: // Twin peril forest
-                speed = 300;
+                speed = 350;
                 break;
             case 56: // Citadel of Zenron
                 speed = 40;
