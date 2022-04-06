@@ -1921,7 +1921,7 @@ static void RunOneInput(void)
         }
     }
 
-    /* Handle IT (At least in Temple of Terror, check other games!)*/
+    /* Handle IT */
     if (Word[1] == 128)
         Word[1] = LastNoun;
     if (Word[1] != 0)
