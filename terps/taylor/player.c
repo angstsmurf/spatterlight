@@ -67,6 +67,8 @@ long FileBaselineOffset = 0;
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
 
+extern int AnimationRunning;
+
 #ifdef DEBUG
 
 /*
