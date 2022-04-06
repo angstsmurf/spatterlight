@@ -52,7 +52,6 @@ int Redraw;
 #define IsThing (Flag[31])
 #define ThingAsphyx (Flag[47])
 #define TorchAsphyx (Flag[48])
-#define WaitNumber (Flag[5])
 #define DrawImages (Flag[52])
 
 static int FirstAfterInput = 0;
