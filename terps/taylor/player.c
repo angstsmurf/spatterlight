@@ -2176,14 +2176,14 @@ int glkunix_startup_code(glkunix_startup_t *data)
             argc--;
         }
 
-
-    //    if (argc == 2) {
-    //        game_file = argv[1];
-    //    }
+//
+//        if (argc == 2) {
+//            game_file = argv[1];
+//        }
 
     FILE *f;
 
-    argv[1] = "/Users/administrator/Desktop/human.sna";
+//    argv[1] = "/Users/administrator/Desktop/human.sna";
 
     if(argv[1] == NULL)
     {
@@ -2211,14 +2211,14 @@ int glkunix_startup_code(glkunix_startup_t *data)
         fprintf(stderr, "File read error!\n");
     }
 
-    //    size_t length = FileImageLen;
+        size_t length = FileImageLen;
 
-    //    uint8_t *uncompressed = DecompressZ80(FileImage, &length);
-    //    if (uncompressed != NULL) {
-    //        free(FileImage);
-    //        FileImage = uncompressed;
-    //        FileImageLen = length;
-    //    }
+        uint8_t *uncompressed = DecompressZ80(FileImage, &length);
+        if (uncompressed != NULL) {
+            free(FileImage);
+            FileImage = uncompressed;
+            FileImageLen = length;
+        }
 
     EndOfData = FileImage + FileImageLen;
 
