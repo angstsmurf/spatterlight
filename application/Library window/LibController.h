@@ -11,7 +11,7 @@
 
 @class CoreDataManager, Metadata, GlkController, InfoController, Game;
 
-@interface LibHelperTableView : NSTableView
+@interface LibHelperTableView : NSTableView <NSTableViewDelegate>
 @end
 
 @interface LibController

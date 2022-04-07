@@ -93,7 +93,7 @@ enum  {
 
 // NSTableView delegate
 -(BOOL)tableView:(NSTableView *)tableView
-shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
+shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     return NO;
 }
 
@@ -101,16 +101,16 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSDictionary *userInfo;
     NSDictionary *newUserInfo;
     NSNumber *textMovement;
-    int movementCode;
+    NSTextMovement movementCode;
 
     userInfo = notification.userInfo;
     textMovement = userInfo[@"NSTextMovement"];
-    movementCode = textMovement.intValue;
+    movementCode = textMovement.integerValue;
 
     // see if this a 'pressed-return' instance
-    if (movementCode == NSReturnTextMovement) {
+    if (movementCode == NSTextMovementReturn) {
         // hijack the notification and pass a different textMovement value
-        textMovement = @(NSIllegalTextMovement);
+        textMovement = @(NSTextMovementOther);
         newUserInfo = @{@"NSTextMovement" : textMovement};
         notification = [NSNotification notificationWithName:notification.name
                                                      object:notification.object
