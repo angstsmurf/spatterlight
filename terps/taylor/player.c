@@ -55,8 +55,6 @@ int Redraw = 0;
 
 static int FirstAfterInput = 0;
 
-extern struct SavedState *initial_state;
-
 int stop_time = 0;
 int just_started = 1;
 int should_restart = 0;
@@ -67,6 +65,8 @@ char DelimiterChar = '_';
 
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
+
+extern struct SavedState *initial_state;
 
 extern int AnimationRunning;
 
@@ -2214,11 +2214,7 @@ static int GuessLowObjectEnd(void)
 
 static void RestartGame(void)
 {
-    fprintf(stderr, "RestartGame\n");
-    //    if (CurrentCommand)
-    //        FreeCommands();
     RestoreState(initial_state);
-    fprintf(stderr, "MyLoc == %d\n", MyLoc);
     just_started = 0;
     stop_time = 0;
     OutFlush();
@@ -2265,11 +2261,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
             argv++;
             argc--;
         }
-
-//
-//        if (argc == 2) {
-//            game_file = argv[1];
-//        }
 
     FILE *f;
 
