@@ -1052,11 +1052,55 @@ void SaveGame(void) {
     OutFlush();
 }
 
+static void TakeAll(int start)
+{
+    if (Flag[DarkFlag()]) {
+        SysMessage(TOO_DARK_TO_SEE);
+        return;
+    }
+    int found = 0;
+    for (int i = start; i < NumObjects(); i++) {
+        if (ObjectLoc[i] == MyLoc) {
+            if (found)
+                OutChar('\n');
+            found = 1;
+            PrintObject(i);
+            OutReplace(0);
+            OutString("......");
+            if(CarryItem() == 0) {
+                SysMessage(YOURE_CARRYING_TOO_MUCH);
+                return;
+            }
+            OutKillSpace();
+            OutString("Taken");
+            OutFlush();
+            Put(i, Carried());
+        }
+    }
+    if (!found) {
+        Message(31);
+    }
+}
+
 static void DropAll(void) {
     int i;
+    int found = 0;
     for(i = 0; i < NumObjects(); i++) {
-        if(ObjectLoc[i] == Carried() && ObjectLoc[i] != Worn())
+        if(ObjectLoc[i] == Carried() && ObjectLoc[i] != Worn()) {
+            if (found)
+                OutChar('\n');
+            found = 1;
+            PrintObject(i);
+            OutReplace(0);
+            OutString("......");
+            OutKillSpace();
+            OutString("Dropped");
+            OutFlush();
             Put(i, MyLoc);
+        }
+    }
+    if (!found) {
+        OutString("You have nothing to drop. ");
     }
     Flag[5] = 0;
 }
@@ -1671,6 +1715,11 @@ static void ExecuteLineCode(unsigned char *p)
 #endif
                 break;
             case REFRESH:
+                if (CurrentGame == KAYLETH)
+                    TakeAll(78);
+                if (CurrentGame == HEMAN)
+                    TakeAll(45);
+                Redraw = 1;
                 break;
             case RAMSAVE:
                 RamSave(1);
