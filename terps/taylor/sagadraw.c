@@ -588,9 +588,18 @@ void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
 uint8_t *Questprobe3Image(int imgnum) {
-    uint16_t offset_addr = (FileImage[0x5e9b + imgnum] & 0x7f) * 2 + 0x68db;
-    uint16_t image_addr = 0x6931 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
+    uint16_t offset_addr = (FileImage[0x5e80 + imgnum + FileBaselineOffset] & 0x7f) * 2 + 0x68c0 + FileBaselineOffset;
+    uint16_t image_addr = 0x6916 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256 + FileBaselineOffset;
     return &FileImage[image_addr];
+}
+
+void RepeatOpcode(int *number, uint8_t *instructions, int repeatcount)
+{
+	int i = *number - 1;
+    instructions[i++] = 0x82;
+    instructions[i++] = repeatcount;
+    instructions[i++] = 0;
+    *number = i;
 }
 
 void SagaSetup(void)
@@ -653,7 +662,6 @@ jumpChar:
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
-    
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
 
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
@@ -664,16 +672,10 @@ jumpChar:
 
         if (CurrentGame == QUESTPROBE3) {
             pos = Questprobe3Image(picture_number);
-//            fprintf(stderr, "image %d\n", picture_number);
             img->width = *pos++;
-//            fprintf(stderr, "width %d\n", img->width);
             img->height = *pos++;
-//            fprintf(stderr, "height %d\n", img->height);
             img->xoff = *pos++;
-//            fprintf(stderr, "xoff %d\n", img->xoff);
             img->yoff = *pos++;
-//            fprintf(stderr, "yoff %d\n", img->yoff);
-//            pos = DrawSagaPictureFromData(pos, img->width, img->height, img->xoff, img->yoff);
             img->imagedata = pos;
 //            fprintf(stderr, "Pos of image %d: 0x%04lx\n", picture_number, pos - FileImage);
 //            fprintf(stderr, "Questprobe3Image of image %d: 0x%04lx\n", picture_number, Questprobe3Image(picture_number) - FileImage);
@@ -709,36 +711,29 @@ jumpChar:
                 switch (opcode) {
                     case 0xfb:
                         number--;
-                        if (copied_bytes[0] == 0) {
+                        if (!copied_bytes || copied_bytes[0] == 0) {
                             pos = stored_pointer;
-                            free(copied_bytes);
+                            if (copied_bytes != NULL)
+                                free(copied_bytes);
                             copied_bytes = NULL;
                         } else {
                             copied_bytes[0]--;
                             pos = copied_bytes;
                         }
                         break;
-                    case 0xef:
-                        opcode = 1;
-                        goto jump6efd;
-                    case 0xee:
-                        opcode = 2;
-                        goto jump6efd;
-                        break;
-                    case 0xeb:
-                        opcode = 3;
-                        goto jump6efd;
-                        break;
-                    case 0xf3:
-                        pos++;
-                        opcode = *pos;
-                    jump6efd:
-                        number--;
-                        instructions[number++] = 0x82;
-                        instructions[number++] = opcode;
-                        instructions[number++] = 0;
-                        opcode = 0;
-                        break;
+                     case 0xef:
+                         RepeatOpcode(&number, instructions, 1);
+                         break;
+                     case 0xee:
+                         RepeatOpcode(&number, instructions, 2);
+                         break;
+                     case 0xeb:
+                         RepeatOpcode(&number, instructions, 3);
+                         break;
+                     case 0xf3:
+                         pos++;
+                         RepeatOpcode(&number, instructions, *pos);
+                         break;
                     case 0xfa:
                         number--;
                         pos++;
@@ -756,14 +751,11 @@ jumpChar:
             } else {
                 for (int i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
-                        fprintf(stderr, "Found 0x%02x at address 0x%04lx (%d), so ", *pos, patterns_lookup + i, i);
                         number--;
                         size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
                         size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
-                        fprintf(stderr, "start reading at 0x%04lx\n", newoffset + 4000);
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
-                            fprintf(stderr, "Instruction %d (at 0x%04lx) is 0x%02x\n", number - 1, newoffset + 0x3fff, instructions[number - 1]);
                         }
                         break;
                     }
@@ -920,8 +912,7 @@ void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 }
 
 void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
-//    fprintf(stderr, "mirror_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
-    for (int line = 0; line < y2 / 2; line++) {
+    for (int line = 0; line <= y2 / 2; line++) {
         for (int col = x1; col < x1 + width; col++) {
             buffer[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)

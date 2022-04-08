@@ -112,6 +112,7 @@ void RestoreUndo(int game)
 void RamSave(int game)
 {
     if (ramsave != NULL) {
+        Display(Bottom, "Previous state deleted. ");
         free(ramsave);
     }
 
