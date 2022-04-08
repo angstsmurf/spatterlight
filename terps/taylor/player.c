@@ -897,6 +897,8 @@ int YesOrNo(void)
 {
     while(1) {
         uint8_t c = WaitCharacter();
+        if (c == 250)
+            c = 0;
         OutChar(' ');
         OutChar(c);
         OutChar('\n');
