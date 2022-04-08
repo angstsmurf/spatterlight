@@ -677,8 +677,6 @@ jumpChar:
             img->xoff = *pos++;
             img->yoff = *pos++;
             img->imagedata = pos;
-//            fprintf(stderr, "Pos of image %d: 0x%04lx\n", picture_number, pos - FileImage);
-//            fprintf(stderr, "Questprobe3Image of image %d: 0x%04lx\n", picture_number, Questprobe3Image(picture_number) - FileImage);
             img++;
             continue;
         }

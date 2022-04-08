@@ -42,7 +42,7 @@ uint8_t *SeekToPos(uint8_t *buf, size_t offset)
     return buf + offset;
 }
 
-void print_memory2(int address, int length)
+void print_memory(int address, int length)
 {
     unsigned char *p = FileImage + address;
     for (int i = address; i <= address + length ; i += 16){

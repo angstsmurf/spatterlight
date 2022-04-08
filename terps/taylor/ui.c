@@ -1,8 +1,3 @@
-/*
- *	Simple curses UI implementation. You probably want to replace
- *	this with something more useful
- */
-
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -19,6 +14,7 @@
 #include "utility.h"
 #include "sagadraw.h"
 #include "layouttext.h"
+#include "animations.h"
 
 #define GLK_BUFFER_ROCK 1
 #define GLK_STATUS_ROCK 1010
@@ -413,40 +409,6 @@ void DrawBlack(void)
                          12 * 8 * pixel_size);
 }
 
-//7025
-
-
-uint16_t HL, BC, DE, IX, current_screen_address, temp, attributes_start, instructionaddress, stored_address, lastblockaddr, SP, AF;
-uint8_t A, carry, xoff, yoff, width, height, column, lastimgblock = 0xff, columnstodraw = 0, rowstodraw = 0, repeats;
-
-uint8_t *mem = NULL;
-
-void print_memory(int address, int length);
-
-static void draw_spectrum_screen_from_mem(void);
-void draw_attributes(void);
-void draw_image(int img);
-void print_screen_memory(void);
-void print_screen_memory_2(void);
-
-void LoadMemory(void) {
-    mem = (uint8_t *)malloc(0xffff);
-    memset(mem, 0, 0xffff);
-    int i;
-    for (i = 0; i<FileImageLen && i < 0xffff - 0x3fe5; i++) {
-        mem[i+0x3fe5] = FileImage[i];
-    }
-    fprintf(stderr, "Read 0x%04x bytes into mem, starting at 0x3fe5. Final address: 0x%04x \n", i, i+0x3fe5);
-
-    for (int i = 0x4000; i < 0x5800; i++) {
-        mem[i] = 0;
-    }
-
-    for (int i = 0x5800; i < 0x5800 + 384; i++) {
-        mem[i] = 0;
-    }
-}
-
 void DrawRoomImage(void) {
     if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91)) {
         return;
@@ -457,12 +419,8 @@ void DrawRoomImage(void) {
     StartAnimations();
 }
 
-uint16_t getImageAddress(uint8_t blocknum);
-
-
 void DisplayInit(void)
 {
-//    LoadMemory();
     SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();

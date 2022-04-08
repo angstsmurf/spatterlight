@@ -78,32 +78,32 @@ extern int AnimationRunning;
 static unsigned char WordMap[256][5];
 
 static char *Condition[]={
-    "<ERROR>", //0
-    "AT", //1
-    "NOTAT", //2
-    "ATGT", //3
-    "ATLT", //4
-    "PRESENT", //5
-    "HERE", //6
-    "ABSENT", //7
-    "NOTHERE", //8
-    "CARRIED", //9
-    "NOTCARRIED", //10
-    "WORN", //11
-    "NOTWORN", //12
-    "NODESTROYED", //13
-    "DESTROYED", //14
-    "ZERO", //15
-    "NOTZERO", //16
-    "WORD1", //17
-    "WORD2", //18
-    "WORD3", //19
-    "CHANCE", //20
-    "LT", //21
-    "GT", //22
-    "EQ", //23
-    "NE", //24
-    "OBJECTAT", //25
+    "<ERROR>",
+    "AT",
+    "NOTAT",
+    "ATGT",
+    "ATLT",
+    "PRESENT",
+    "HERE",
+    "ABSENT",
+    "NOTHERE",
+    "CARRIED",
+    "NOTCARRIED",
+    "WORN",
+    "NOTWORN",
+    "NODESTROYED",
+    "DESTROYED",
+    "ZERO",
+    "NOTZERO",
+    "WORD1",
+    "WORD2",
+    "WORD3",
+    "CHANCE",
+    "LT",
+    "GT",
+    "EQ",
+    "NE",
+    "OBJECTAT",
     "COND26",
     "COND27",
     "COND28",
@@ -165,7 +165,6 @@ static char *Action[]={
     "ACT49",
     "ACT50",
 };
-
 
 static void LoadWordTable(void)
 {
@@ -322,8 +321,7 @@ static size_t FindObjectLocations(void)
     size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
-        return 0x50be;
-//        glk_exit();
+        glk_exit();
     }
     pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
     return pos - 0x4000 + FileBaselineOffset;
@@ -332,8 +330,6 @@ static size_t FindObjectLocations(void)
 static size_t FindExits(void)
 {
     size_t pos = 0;
-
-    return 0x90d4 - 0x3fe5;
 
     while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
     {
@@ -374,13 +370,6 @@ static void TokenClassify(size_t pos)
 
 static size_t FindTokens(void)
 {
-
-    fprintf(stderr, "Found tokens at 0x4ca6.\n");
-    //                glk_exit();
-    print_memory2(0x4ca6, 16);
-    return 0x4ca6;
-
-
     size_t addr;
     size_t pos = 0;
     do {
@@ -464,7 +453,6 @@ static int periods = 0;
 
 static void OutChar(char c)
 {
-    fprintf(stderr, "%c", c);
     if(c == ']')
         c = '\n';
 
@@ -557,7 +545,6 @@ void QPrintChar(uint8_t c) { // Print character
         Upper = 0;
     }
     if (c == '!' || c == '?' || c == ':' || c == '.') {
-        Upper = 1;
     }
 }
 
@@ -1662,7 +1649,6 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case GOTO:
                 Goto(arg1);
-                Redraw = 1;
                 break;
             case GOBY:
                 /* Blizzard pass era */
@@ -1705,13 +1691,13 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 n = Flag[arg1] + arg2;
                 if(n > 255)
                     n = 255;
-                Flag[arg1 + 4] = n;
+                Flag[arg1] = n;
                 break;
             case SUB:
                 n = Flag[arg1] - arg2;
                 if(n < 0)
                     n = 0;
-                Flag[arg1 + 4] = n;
+                Flag[arg1] = n;
                 break;
             case PUT:
                 Put(arg1, arg2);
@@ -2359,6 +2345,7 @@ void PrintActionAddresses(void) {
     fprintf(stderr, "\n");
 }
 
+
 void glk_main(void)
 {
     /* The message analyser will look for version 0 games */
@@ -2371,45 +2358,23 @@ void glk_main(void)
         glk_exit();
     }
 
-    Game = &games[0];
+    for (int i = 0; i < NUMGAMES; i++) {
+        Game = &games[i];
+        FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
+        TokenBase = FindTokens();
+        int diff = (int)TokenBase - (int)VerbBase;
+        if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
+            fprintf(stderr, "This is %s\n", Game->Title);
+            break;
+        } else {
+            fprintf(stderr, "Diff for game %s: %d. Looking for %d\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
+        }
+    }
 
-    if (CurrentGame == QUESTPROBE3)
-        DarkFlag = 43;
-
-    DisplayInit();
-
-    FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-
-//    fprintf(stderr, "\n");
-//
-//    int found = 0;
-//    for (int i = 0; i < FileImageLen; i++) {
-//
-//        uint8_t *p = FileImage + i;
-//        uint8_t c = *p & 0x7F;
-//            if(c >= ' ' && c <= 'z')
-//                fprintf(stderr, "%c", c);
-//
-//
-//        if (LooksLikeTokens(i)) {
-//            fprintf(stderr, "0x%04x (%d) looks like tokens.\n", i, i);
-//            found = 1;
-//        }
-//    }
-//
-//    fprintf(stderr, "\n");
-
-//    if (!found)
-//        fprintf(stderr, "Found nothing that looks like tokens.\n");
-
-    TokenBase = FindTokens();
-
-    fprintf(stderr, "Found tokens at %zx (%zu)\n", TokenBase, TokenBase);
-
-//    if (CurrentGame == UNKNOWN_GAME) {
-//        fprintf(stderr, "Unrecognized game!\n");
-//        glk_exit();
-//    }
+    if (CurrentGame == UNKNOWN_GAME) {
+        fprintf(stderr, "Unrecognized game!\n");
+        glk_exit();
+    }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 

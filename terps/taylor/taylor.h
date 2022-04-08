@@ -204,10 +204,10 @@ typedef enum {
 
 struct GameInfo {
     const char *Title;
-    
+
     GameIDType gameID;
     GameVersion type;
-    
+
     int number_of_items;
     int number_of_actions;
     int number_of_words;
@@ -215,16 +215,16 @@ struct GameInfo {
     int max_carried;
     int word_length;
     int number_of_messages;
-    
+
     int number_of_verbs;
     int number_of_nouns;
-    
+
     int start_of_header;
-    
+
     int start_of_room_image_list;
     int start_of_item_flags;
     int start_of_item_image_list;
-    
+
     int start_of_actions;
     int start_of_dictionary;
     int start_of_tokens;
@@ -233,10 +233,10 @@ struct GameInfo {
     int start_of_messages;
     int start_of_item_descriptions;
     int start_of_item_locations;
-    
+
     int start_of_system_messages;
     int start_of_directions;
-    
+
     int start_of_characters;
     int start_of_image_blocks;
     int image_patterns_lookup;
