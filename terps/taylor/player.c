@@ -456,8 +456,6 @@ static void OutChar(char c)
     if(c == ']')
         c = '\n';
 
-    int SetUpper = 0;
-
     if (c == '.') {
         periods++;
         if (periods == 3) {
@@ -479,13 +477,12 @@ static void OutChar(char c)
 
     if(c == ' ') {
         PendSpace = 1;
-        if (LastChar == '.')
-            Upper = 1;
         return;
     }
     if (FirstAfterInput) {
         FirstAfterInput = 0;
         PendSpace = 0;
+        Upper = 1;
     }
     if(LastChar) {
         if (isspace(LastChar))
@@ -498,8 +495,6 @@ static void OutChar(char c)
     }
     LastChar = c;
     if (LastChar == '\n')
-        SetUpper = 1;
-    if (SetUpper)
         Upper = 1;
 }
 
@@ -538,6 +533,10 @@ static unsigned char *TokenText(unsigned char n)
 void QPrintChar(uint8_t c) { // Print character
     if (c == 0x0d)
         return;
+
+    if (FirstAfterInput)
+        Upper = 1;
+
     if (Upper && c >= 'a') {
         c -= 0x20; // token is made uppercase
     }
@@ -546,7 +545,6 @@ void QPrintChar(uint8_t c) { // Print character
         Upper = 0;
     }
     if (c == '!' || c == '?' || c == ':' || c == '.') {
-        Upper = 1;
     }
 }
 
