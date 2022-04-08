@@ -2104,30 +2104,35 @@ static void  SimpleParser(void)
     int i;
     int wn = 0;
     char buf[256];
-    for (i = 0; i < 5; i++)
-        wb[i][0] = '\0';
-    if (LastChar != '\n')
-        OutChar('\n');
-    OutFlush();
-    if (CurrentGame == QUESTPROBE3) {
-        if (MyLoc != 6) {
-            if (IsThing == 0)
-                SysMessage(8);
-            else
-                SysMessage(9);
-        }
-        OutCaps();
-        SysMessage(10);
-    } else
-        OutString("> ");
-    OutFlush();
-    PendSpace = 0;
-    LastChar = 0;
-    do
-    {
-        LineInput(buf, 255);
-        nw = sscanf(buf, "%16s %16s %16s %16s %16s", wb[0], wb[1], wb[2], wb[3], wb[4]);
-    } while(nw == 0);
+    do {
+        for (i = 0; i < 5; i++)
+            wb[i][0] = '\0';
+        if (LastChar != '\n')
+            OutChar('\n');
+        OutFlush();
+        if (CurrentGame == QUESTPROBE3) {
+            if (MyLoc != 6) {
+                if (IsThing == 0)
+                    SysMessage(8);
+                else
+                    SysMessage(9);
+            }
+            OutCaps();
+            SysMessage(10);
+        } else
+            OutString("> ");
+        OutFlush();
+        PendSpace = 0;
+        LastChar = 0;
+        do
+        {
+            LineInput(buf, 255);
+            nw = sscanf(buf, "%16s %16s %16s %16s %16s", wb[0], wb[1], wb[2], wb[3], wb[4]);
+        } while(nw == 0);
+
+        if (wb[0][0] == 0)
+            OutString("Huh?");
+    } while (wb[0][0] == 0);
 
     for(i = 0; i < nw ; i++)
     {
