@@ -1930,8 +1930,11 @@ static void RunCommandTable(void)
     ActionsExecuted = 0;
 
     while(*p != 0x7F) {
-        if((*p == 126 || *p == Word[0]) &&
-           (p[1] == 126 || p[1] == Word[1])) {
+        if(((*p == 126 || *p == Word[0]) &&
+           (p[1] == 126 || p[1] == Word[1])) ||
+           ((*p == 126 || *p == Word[1]) &&
+           (p[1] == 126 || p[1] == Word[0]))
+           ) {
 #ifdef DEBUG
             PrintWord(p[0]);
             PrintWord(p[1]);
@@ -2006,24 +2009,16 @@ static void RunOneInput(void)
     RunCommandTable();
 
     if(ActionsExecuted == 0) {
-        if (Word[0] != Word[1]) {
-            unsigned char temp = Word[0];
-            Word[0] = Word[1];
-            Word[1] = temp;
-            RunCommandTable();
-        }
-        if(ActionsExecuted == 0) {
-            if (TryExtraCommand() == 0) {
-                if(IsDir(Word[0]))
-                    SysMessage(YOU_CANT_GO_THAT_WAY);
-                else
-                    SysMessage(THATS_BEYOND_MY_POWER);
-                OutFlush();
-                stop_time = 2;
-                return;
-            } else {
-                return;
-            }
+        if (TryExtraCommand() == 0) {
+            if(IsDir(Word[0]))
+                SysMessage(YOU_CANT_GO_THAT_WAY);
+            else
+                SysMessage(THATS_BEYOND_MY_POWER);
+            OutFlush();
+            stop_time = 2;
+            return;
+        } else {
+            return;
         }
     }
     if(Redraw) {
