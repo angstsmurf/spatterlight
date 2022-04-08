@@ -168,7 +168,7 @@ static void PrintWindowDelimiter(void)
     glk_window_move_cursor(Top, 0, TopHeight - 1);
     glk_stream_set_current(glk_window_get_stream(Top));
     for (int i = 0; i < TopWidth; i++)
-        glk_put_char('=');
+        glk_put_char(DelimiterChar);
 }
 
 static void FlushRoomDescription(void)

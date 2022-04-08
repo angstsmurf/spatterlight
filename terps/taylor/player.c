@@ -63,6 +63,8 @@ int should_restart = 0;
 
 long FileBaselineOffset = 0;
 
+char DelimiterChar = '_';
+
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
 
@@ -2365,6 +2367,9 @@ void glk_main(void)
     }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
+
+    if (CurrentGame == QUESTPROBE3)
+        DelimiterChar = '=';
 
     DisplayInit();
 

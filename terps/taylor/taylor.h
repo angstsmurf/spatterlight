@@ -261,4 +261,6 @@ extern struct GameInfo *Game;
 
 extern int Resizing;
 
+extern char DelimiterChar;
+
 #endif /* taylor_h */
