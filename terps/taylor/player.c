@@ -1138,6 +1138,36 @@ static void DropObject(unsigned char obj) {
     Put(obj, MyLoc);
 }
 
+static void ListExits(int caps)
+{
+    unsigned char locw = 0x80 | MyLoc;
+    unsigned char *p;
+    int f = 0;
+    p = FileImage + ExitBase;
+
+    while(*p != locw)
+        p++;
+    p++;
+    while(*p < 0x80) {
+        if(f == 0) {
+            if(CurrentGame == BLIZZARD_PASS && LastChar == ',')
+                LastChar = 0;
+            OutCaps();
+            SysMessage(EXITS);
+        }
+        f = 1;
+        if (caps)
+            OutCaps();
+        SysMessage(*p);
+        p += 2;
+    }
+    if(f == 1)
+    {
+        OutReplace('.');
+        OutChar('\n');
+    }
+}
+
 static void RunStatusTable(void);
 extern uint8_t buffer[768][9];
 
@@ -1148,8 +1178,6 @@ void Look(void) {
         OpenGraphicsWindow();
     int i;
     int f = 0;
-    unsigned char locw = 0x80 | MyLoc;
-    unsigned char *p;
 
     PendSpace = 0;
     LastChar = 0;
@@ -1169,58 +1197,46 @@ void Look(void) {
     if (CurrentGame == REBEL_PLANET && MyLoc > 0)
         OutString("You are ");
     PrintRoom(MyLoc);
-    if (CurrentGame == QUESTPROBE3) {
-        for(i = 0; i < NumObjects(); i++) {
-            if(ObjectLoc[i] == MyLoc) {
-                if(f == 0) {
-                    OutReplace(0);
-                    SysMessage(0);
-                }
-                f = 1;
-                PrintObject(i);
+
+    for(i = 0; i < NumLowObjects; i++) {
+        if(ObjectLoc[i] == MyLoc) {
+            if(f == 0 && CurrentGame == QUESTPROBE3) {
+                OutReplace(0);
+                SysMessage(0);
             }
+            f = 1;
+            PrintObject(i);
         }
-        if(f == 1)
-            OutReplace('.');
     }
-
-    p = FileImage + ExitBase;
-
-    while(*p != locw)
-        p++;
-    p++;
-    while(*p < 0x80) {
-        if(f == 0) {
-            OutCaps();
-            SysMessage(EXITS);
-        }
-        f = 1;
-        OutCaps();
-        SysMessage(*p);
-        p += 2;
-    }
-    if(f == 1)
-    {
+    if(f == 1 && CurrentGame != BLIZZARD_PASS)
         OutReplace('.');
-    }
+
+    if (CurrentGame == QUESTPROBE3)
+        ListExits(1);
     f = 0;
 
     if (CurrentGame != QUESTPROBE3) {
-
-        for(i = 0; i < NumObjects(); i++) {
+        for(; i < NumObjects(); i++) {
             if(ObjectLoc[i] == MyLoc) {
                 if(f == 0) {
                     SysMessage(YOU_SEE);
-                    if( Version == REBEL_PLANET_TYPE)
+                    if (CurrentGame == BLIZZARD_PASS) {
+                        PendSpace = 0;
+                        OutString(":- ");
+                    }
+                    if (Version == REBEL_PLANET_TYPE)
                         OutReplace(0);
                 }
                 f = 1;
                 PrintObject(i);
             }
         }
-        if(f == 1)
+        if(f == 1 && CurrentGame != BLIZZARD_PASS)
             OutReplace('.');
     }
+
+    if (CurrentGame != QUESTPROBE3)
+        ListExits((CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN));
 
     if (LastChar != '\n')
         OutChar('\n');
