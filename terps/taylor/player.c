@@ -314,20 +314,16 @@ static size_t FindFlags(void)
 
 static size_t FindObjectLocations(void)
 {
-    /* Questprobe */
-    size_t pos = FindCode("\xF8\x10\x20\x40\xF8\xF8\xFC\xFC\xFC\x01\x05\xFC\x06\xFC\x0B\x18", 0, 16);
+    if (CurrentGame == QUESTPROBE3)
+        return 0x90A3 - 0x4000 + FileBaselineOffset;
 
+    size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
-        pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
-        if(pos == -1) {
-            fprintf(stderr, "Cannot find initial object data.\n");
-            glk_exit();
-        }
-        pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
-        return pos - 0x4000 + FileBaselineOffset;
+        fprintf(stderr, "Cannot find initial object data.\n");
+        glk_exit();
     }
-
-    return pos + 6;
+    pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
+    return pos - 0x4000 + FileBaselineOffset;
 }
 
 static size_t FindExits(void)
@@ -1400,7 +1396,7 @@ static int TwoActionParameters() {
         return 22;
 }
 
-static void ExecuteLineCode(unsigned char *p)
+static void ExecuteLineCode(unsigned char *p, int *done)
 {
     unsigned char arg1 = 0, arg2 = 0;
     int n;
@@ -1569,7 +1565,7 @@ static void ExecuteLineCode(unsigned char *p)
 
         p++;
         if(op & 0x40)
-            ActionsDone = 1;
+            *done = 1;
         op &= 0x3F;
 
         if(op > 8) {
@@ -1596,6 +1592,8 @@ static void ExecuteLineCode(unsigned char *p)
             AdjustQuestprobeActions(op, &arg1, &arg2);
         }
 
+        int WasDark = Flag[DarkFlag()];
+
         switch(op) {
             case LOADPROMPT:
                 if (LoadGame())
@@ -1603,7 +1601,7 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case QUIT:
                 QuitGame();
-                break;
+                return;
             case SHOWINVENTORY:
                 Inventory();
                 break;
@@ -1625,14 +1623,15 @@ static void ExecuteLineCode(unsigned char *p)
                 OutFlush();
                 break;
             case GET:
-                GetObject(arg1);
+                if (GetObject(arg1) == 0 && CurrentGame == QUESTPROBE3)
+                    *done = 1;
                 break;
             case DROP:
                 DropObject(arg1);
                 break;
             case GOTO:
                 Goto(arg1);
-                Redraw = 1;
+                Look();
                 break;
             case GOBY:
                 /* Blizzard pass era */
@@ -1643,13 +1642,9 @@ static void ExecuteLineCode(unsigned char *p)
                 break;
             case SET:
                 Flag[arg1] = 255;
-                if (arg1 == DarkFlag())
-                    Look();
                 break;
             case CLEAR:
                 Flag[arg1] = 0;
-                if (arg1 == DarkFlag())
-                    Look();
                 break;
             case MESSAGE:
                 Message(arg1);
@@ -1759,8 +1754,8 @@ static void ExecuteLineCode(unsigned char *p)
             case SWITCHINVENTORY:
             {
                 uint8_t temp = Flag[2]; /* Switch inventory */
-                Flag[2] = Flag[3];
-                Flag[3] = temp;
+                Flag[2] = OtherGuyInv;
+                OtherGuyInv = temp;
                 temp = Flag[42]; /* Switch dark flag */
                 Flag[42] = Flag[43];
                 Flag[43] = temp;
@@ -1772,9 +1767,10 @@ static void ExecuteLineCode(unsigned char *p)
                 Flag[0] = ObjectLoc[arg1];
                 /* Pick him up, so that you don't see yourself */
                 GetObject(arg1);
+                Redraw = 1;
                 break;
             case CONTINUE:
-                ActionsDone = 0;
+                *done = 0;
                 break;
             case IMAGE:
                 if (MyLoc == 3 || Flag[DarkFlag()]) {
@@ -1795,6 +1791,8 @@ static void ExecuteLineCode(unsigned char *p)
                 fprintf(stderr, "Unknown command %d.\n", op);
                 break;
         }
+        if (WasDark != Flag[DarkFlag()])
+            Look();
     }
     while(1);
 #ifdef DEBUG
@@ -1855,14 +1853,16 @@ static void DrawExtraQP3Images(void) {
         DrawSagaPictureNumber(53);
         DrawSagaPictureFromBuffer();
     }
-    DrawImages = 0;
 }
 
 static void RunStatusTable(void)
 {
+    if (stop_time && !(CurrentGame == QUESTPROBE3 && DrawImages)) {
+        return;
+    }
     unsigned char *p = FileImage + StatusBase;
 
-    ActionsDone = 0;
+    int done = 0;
     ActionsExecuted = 0;
 
     if (CurrentGame == QUESTPROBE3) {
@@ -1873,11 +1873,8 @@ static void RunStatusTable(void)
         while (CurrentGame == QUESTPROBE3 && *p == 0x7e) {
             p++;
         }
-        ExecuteLineCode(p);
-        if(ActionsDone) {
-            if (CurrentGame == QUESTPROBE3 && DrawImages) {
-                DrawExtraQP3Images();
-            }
+        ExecuteLineCode(p, &done);
+        if(done) {
             return;
         }
         p = NextLine(p);
@@ -1913,7 +1910,7 @@ static void RunCommandTable(void)
 {
     unsigned char *p = FileImage + ActionBase;
 
-    ActionsDone = 0;
+    int done = 0;
     ActionsExecuted = 0;
 
     while(*p != 0x7F) {
@@ -1923,8 +1920,8 @@ static void RunCommandTable(void)
             PrintWord(p[0]);
             PrintWord(p[1]);
 #endif
-            ExecuteLineCode(p + 2);
-            if(ActionsDone)
+            ExecuteLineCode(p + 2, &done);
+            if(done)
                 return;
         }
         p = NextLine(p + 2);
@@ -1993,7 +1990,7 @@ static void RunOneInput(void)
     RunCommandTable();
 
     if(ActionsExecuted == 0) {
-        if (Word[1] != 0 && Word[0] != Word[1]) {
+        if (Word[0] != Word[1]) {
             unsigned char temp = Word[0];
             Word[0] = Word[1];
             Word[1] = temp;
@@ -2021,11 +2018,15 @@ static void RunOneInput(void)
         if (CurrentGame == QUESTPROBE3) {
             DrawImages = 0;
             RunStatusTable();
-            DrawImages = 1;
-            RunStatusTable();
-        } else {
-            RunStatusTable();
+            DrawImages = 255;
         }
+        RunStatusTable();
+
+        if (CurrentGame == QUESTPROBE3) {
+            DrawExtraQP3Images();
+        }
+
+
         if(Redraw) {
             Look();
         }
@@ -2203,15 +2204,18 @@ static int GuessLowObjectEnd(void)
 
 static void RestartGame(void)
 {
+    fprintf(stderr, "RestartGame\n");
     //    if (CurrentCommand)
     //        FreeCommands();
     RestoreState(initial_state);
+    fprintf(stderr, "MyLoc == %d\n", MyLoc);
     just_started = 0;
     stop_time = 0;
     OutFlush();
     glk_window_clear(Bottom);
-    OpenTopWindow();
+    Look();
     should_restart = 0;
+    RunStatusTable();
 }
 
 size_t writeToFile(const char *name, uint8_t *data, size_t size)
@@ -2366,6 +2370,7 @@ void glk_main(void)
     DisplayInit();
 
     FindTables();
+    NumLowObjects = GuessLowObjectEnd();
 #ifdef DEBUG
     if (Version != BLIZZARD_PASS_TYPE && Version != QUESTPROBE3_TYPE)
         Action[12] = "MESSAGE2";
@@ -2381,9 +2386,10 @@ void glk_main(void)
         Look();
     }
     while(1) {
-        if (should_restart)
+        fprintf(stderr, "should_restart == %d\n", should_restart);
+        if (should_restart) {
             RestartGame();
-        else if (!stop_time)
+        } else if (!stop_time)
             SaveUndo();
         SimpleParser();
         FirstAfterInput = 1;
