@@ -41,7 +41,6 @@ static size_t FlagBase;
 
 int NumLowObjects;
 
-static int ActionsDone;
 static int ActionsExecuted;
 int Redraw = 0;
 
@@ -1101,25 +1100,26 @@ static void DropAll(void) {
     Flag[5] = 0;
 }
 
-static void GetObject(unsigned char obj) {
+static int GetObject(unsigned char obj) {
     if(ObjectLoc[obj] == Carried() || ObjectLoc[obj] == Worn()) {
         SysMessage(YOU_HAVE_IT);
-        return;
+        return 0;
     }
     if (!(CurrentGame == QUESTPROBE3 && Flag[1] == MyLoc && ObjectLoc[obj] == Flag[3])) {
         if(ObjectLoc[obj] != MyLoc) {
             SysMessage(YOU_DONT_SEE_IT);
-            return;
+            return 0;
         }
     }
     if(CarryItem() == 0) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
-        return;
+        return 0;
     }
     SysMessage(OKAY);
     OutChar(' ');
     OutFlush();
     Put(obj, Carried());
+    return 1;
 }
 
 static void DropObject(unsigned char obj) {
