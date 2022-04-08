@@ -920,7 +920,6 @@ int LoadGame(void)
     OutFlush();
 
     if (!YesOrNo()) {
-        glk_window_clear(Bottom);
         return 0;
     } else {
         frefid_t fileref = glk_fileref_create_by_prompt (fileusage_SavedGame,
@@ -976,7 +975,7 @@ static void QuitGame(void)
     SysMessage(PLAY_AGAIN);
     OutFlush();
     if (YesOrNo()) {
-        NewGame();
+        should_restart = 1;
         return;
     } else {
         glk_exit();
@@ -1249,7 +1248,7 @@ void Look(void) {
 
 static void Goto(unsigned char loc) {
     Flag[0] = loc;
-    Look();
+    Redraw = 1;
 }
 
 static void Delay(unsigned char seconds) {
@@ -1600,6 +1599,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             case LOADPROMPT:
                 if (LoadGame())
                     return;
+                Redraw = 1;
                 break;
             case QUIT:
                 QuitGame();
@@ -1633,7 +1633,6 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case GOTO:
                 Goto(arg1);
-                Look();
                 break;
             case GOBY:
                 /* Blizzard pass era */
@@ -1725,6 +1724,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 RamLoad();
                 break;
             case CLSLOW:
+                OutFlush();
                 glk_window_clear(Bottom);
                 break;
             case 35:
@@ -1794,7 +1794,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
         }
         if (WasDark != Flag[DarkFlag()])
-            Look();
+            Redraw = 1;
     }
     while(1);
 #ifdef DEBUG
@@ -1975,9 +1975,9 @@ static void RunOneInput(void)
     }
     if (IsDir(Word[0])) {
         if(AutoExit(Word[0])) {
+            RunStatusTable();
             if(Redraw)
                 Look();
-            RunStatusTable();
             return;
         }
     }
@@ -2215,8 +2215,9 @@ static void RestartGame(void)
     OutFlush();
     glk_window_clear(Bottom);
     Look();
-    should_restart = 0;
     RunStatusTable();
+    should_restart = 0;
+    Look();
 }
 
 size_t writeToFile(const char *name, uint8_t *data, size_t size)
@@ -2390,7 +2391,6 @@ void glk_main(void)
         Look();
     }
     while(1) {
-        fprintf(stderr, "should_restart == %d\n", should_restart);
         if (should_restart) {
             RestartGame();
         } else if (!stop_time)
