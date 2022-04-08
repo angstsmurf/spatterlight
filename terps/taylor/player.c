@@ -1973,6 +1973,8 @@ static int LastNoun = 0;
 
 static int IsDir(unsigned char word)
 {
+    if (word == 0)
+        return 0;
     if (CurrentGame == QUESTPROBE3) {
         return (word <= 4 || word == 57 || word == 60);
     }
