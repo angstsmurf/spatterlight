@@ -910,8 +910,7 @@ void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 }
 
 void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
-//    fprintf(stderr, "mirror_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
-    for (int line = 0; line < y2 / 2; line++) {
+    for (int line = 0; line <= y2 / 2; line++) {
         for (int col = x1; col < x1 + width; col++) {
             buffer[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
             for (int pixrow = 0; pixrow < 8; pixrow++)
