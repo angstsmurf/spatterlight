@@ -2026,7 +2026,6 @@ static void RunOneInput(void)
             DrawExtraQP3Images();
         }
 
-
         if(Redraw) {
             Look();
         }
