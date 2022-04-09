@@ -1185,20 +1185,19 @@ fprintf(stderr, "%s\n",                                                    \
     if (!_appSupportDir) {
         NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
                                      @"advsys" : @"AdvSys",
-                                     @"agt" : @"AGiliTy",
-                                     @"glulx" : @"Glulxe",
-                                     @"hugo" : @"Hugo",
+                                     @"agt"    : @"AGiliTy",
+                                     @"glulx"  : @"Glulxe",
+                                     @"hugo"   : @"Hugo",
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
                                      @"quest4" : @"Quest",
-                                     @"quill" : @"UnQuill",
-                                     @"tads2" : @"TADS",
-                                     @"tads3" : @"TADS",
-                                     @"zcode": @"Bocfel",
-                                     @"scott": @"ScottFree",
-                                     @"jacl": @"JACL",
-                                     @"taylor": @"TaylorMade"
-
+                                     @"quill"  : @"UnQuill",
+                                     @"tads2"  : @"TADS",
+                                     @"tads3"  : @"TADS",
+                                     @"zcode"  : @"Bocfel",
+                                     @"scott"  : @"ScottFree",
+                                     @"jacl"   : @"JACL",
+                                     @"taylor" : @"TaylorMade"
         };
 
         NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
