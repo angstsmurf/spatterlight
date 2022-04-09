@@ -72,7 +72,7 @@ extern const char *EnglishDelimiterList[];
 extern const char *GermanDelimiterList[];
 extern const char *DelimiterList[];
 
-#define NUMBER_OF_EXTRA_COMMANDS 20
+#define NUMBER_OF_EXTRA_COMMANDS 32
 extern const char *GermanExtraCommands[];
 extern const char *SpanishExtraCommands[];
 extern const char *ExtraCommands[];
