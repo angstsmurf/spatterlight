@@ -43,7 +43,7 @@ struct c64rec {
     size_t imgoffset;
 };
 
-static struct c64rec c64_registry[] = {
+static const struct c64rec c64_registry[] = {
     { BATON_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 }, // Mysterious Adventures C64 dsk 1
     { TIME_MACHINE_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
     { ARROW1_C64, 0x2ab00, 0xc3fc, TYPE_D64, 0 },
