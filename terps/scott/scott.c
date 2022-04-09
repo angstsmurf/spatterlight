@@ -2464,7 +2464,7 @@ void glk_main(void)
         TopHeight = 10;
     }
 
-    if (CurrentGame == TI994A) {
+    if (game_type == TI994A) {
         Display(Bottom, "In this adventure, you may abbreviate any word \
 by typing its first %d letters, and directions by typing \
 one letter.\n\nDo you want to restore previously saved game?\n",
