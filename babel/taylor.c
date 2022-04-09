@@ -27,7 +27,7 @@ struct rec {
     char *ifid;
 };
 
-static struct rec taylor_registry[] = {
+static const struct rec taylor_registry[] = {
     { 0x104c4, 0x40dd, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass TAP
     { 0x10428, 0xe67d, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass tzx
     { 0x2001f, 0x275a, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass sna
@@ -38,12 +38,16 @@ static struct rec taylor_registry[] = {
     { 0xbe30, 0x73a5, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror TAP
     { 0xccca, 0xe88f, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side A
     { 0xa000, 0x63ca, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side B
-    { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Currently broken somehow)
+    { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Needs de-shuffling)
     { 0xa4f1, 0x8c14, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 alt
     { 0xbd33, 0x0005, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth TAP
     { 0xcadc, 0x733d, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth tzx
     { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
+    { 0xa3fd, 0x9b82, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80 alt
+    { 0xcd17, 0x6f68, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman tzx
     { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
+    { 0xbd3b, 0xec4f, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet TAP
+    { 0xbd5b, 0xf5ea, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet tzx
     { 0xb345, 0xc48b, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80
     { 0xbcb6, 0x6902, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx
     { 0xbb08, 0xab12, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt

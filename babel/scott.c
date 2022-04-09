@@ -27,7 +27,7 @@ struct scottrec {
     char *ifid;
 };
 
-static struct scottrec scott_registry[] = {
+static const struct scottrec scott_registry[] = {
     { 0x44cd, 0x8b8f, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure z80
     { 0x432c, 0xa6df, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle z80
     { 0x431e, 0x7437, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey z80
@@ -206,7 +206,7 @@ static struct scottrec scott_registry[] = {
     { 0, 0, NULL }
 };
 
-static struct scottrec TI994A_registry[] = {
+static const struct scottrec TI994A_registry[] = {
     { 0xff, 0x8618, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A version
     { 0xff, 0x9333, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A version
     { 0xff, 0x9f67, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A version
