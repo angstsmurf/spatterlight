@@ -1161,6 +1161,24 @@ jumpSysMess:
     return 1;
 }
 
+int IsMysterious(void)
+{
+    for (int i = 0; games[i].Title != NULL; i++) {
+        if (games[i].subtype & MYSTERIOUS) {
+            if (games[i].number_of_items == GameHeader.NumItems &&
+                games[i].number_of_actions == GameHeader.NumActions &&
+                games[i].number_of_words == GameHeader.NumWords &&
+                games[i].number_of_rooms == GameHeader.NumRooms &&
+                games[i].max_carried == GameHeader.MaxCarry &&
+                games[i].word_length == GameHeader.WordLength &&
+                games[i].number_of_messages == GameHeader.NumMessages)
+                return 1;
+        }
+    }
+
+    return 0;
+}
+
 GameIDType DetectGame(const char *file_name)
 {
     FILE *f = fopen(file_name, "r");
@@ -1217,17 +1235,13 @@ GameIDType DetectGame(const char *file_name)
                 if (dict_type == NOT_A_GAME)
                     return UNKNOWN_GAME;
 
-                for (int i = 0; i < NUMGAMES; i++) {
+                for (int i = 0; games[i].Title != NULL; i++) {
                     if (games[i].dictionary == dict_type) {
-                        //                fprintf(stderr, "The game might be %s\n",
-                        //                games[i].Title);
                         if (TryLoading(games[i], offset, 0)) {
                             free(Game);
                             Game = &games[i];
                             break;
                         }
-                        //                else
-                        //                    fprintf(stderr, "It was not.\n");
                     }
                 }
             }
@@ -1235,6 +1249,8 @@ GameIDType DetectGame(const char *file_name)
             if (Game == NULL)
                 return 0;
         }
+    } else if (IsMysterious()) {
+        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
     }
 
     if (CurrentGame == SCOTTFREE || CurrentGame == TI994A)
