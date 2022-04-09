@@ -1207,7 +1207,7 @@ GameIDType DetectGame(const char *file_name)
     // Check if the original ScottFree LoadDatabase() function can read the file.
     GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
 
-    if (!CurrentGame) { /* Not a ScottFree game, check if TI99/4A */
+    if (!detectedGame) { /* Not a ScottFree game, check if TI99/4A */
         entire_file = MemAlloc(file_length);
         fseek(f, 0, SEEK_SET);
         size_t result = fread(entire_file, 1, file_length, f);
@@ -1249,6 +1249,8 @@ GameIDType DetectGame(const char *file_name)
 
             if (Game == NULL)
                 return 0;
+        } else {
+            CurrentGame = detectedGame;
         }
     } else if (IsMysterious()) {
         Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
