@@ -1582,7 +1582,7 @@ const struct GameInfo games[] = {
     },
 
     {
-        "Questprobe 2: Spiderman",
+        "Questprobe 2: Spider-Man",
         SPIDERMAN,
         NO_TYPE,                  // type
         ENGLISH,                  // subtype
