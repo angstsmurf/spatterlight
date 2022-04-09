@@ -1215,7 +1215,7 @@ GameIDType DetectGame(const char *file_name)
         if (result == 0)
             Fatal("File empty or read error!");
 
-        detectedGame = DetectTI994A(&entire_file, &file_length);
+        detectedGame = DetectTI994A();
 
         if (!detectedGame) { /* Not a TI99/4A game, check if C64 */
             detectedGame = DetectC64(&entire_file, &file_length);
