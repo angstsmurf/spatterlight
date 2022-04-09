@@ -168,9 +168,9 @@ static uint16_t checksum(unsigned char *sf, uint32_t extent)
     return c;
 }
 
-int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
+static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
 
-uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
+static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
 {
     uint8_t *file = NULL;
     *newlength = 0;
@@ -190,7 +190,7 @@ uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
     return file;
 }
 
-uint8_t *get_file_named(uint8_t *data, int length, int *newlength,
+static uint8_t *get_file_named(uint8_t *data, int length, int *newlength,
     const char *name)
 {
     uint8_t *file = NULL;
@@ -216,7 +216,7 @@ int save_island_appendix_1_length = 0;
 uint8_t *save_island_appendix_2 = NULL;
 int save_island_appendix_2_length = 0;
 
-int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
+static int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     Output("This disk image contains two games. Select one.\n\n1. Savage Island "
            "part I\n2. Savage Island part II");
@@ -270,7 +270,7 @@ int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
     }
 }
 
-void appendSIfiles(uint8_t **sf, size_t *extent)
+static void appendSIfiles(uint8_t **sf, size_t *extent)
 {
     int total_length = *extent + save_island_appendix_1_length + save_island_appendix_2_length;
 
@@ -297,7 +297,7 @@ void appendSIfiles(uint8_t **sf, size_t *extent)
     *extent = offset + save_island_appendix_1_length + save_island_appendix_2_length;
 }
 
-int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
+static int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 0;
 
@@ -360,7 +360,7 @@ int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
     }
 }
 
-int mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
+static int mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
 {
     recindex = 6;
 
@@ -421,7 +421,7 @@ int mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
 }
 
 
-size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasize,
+static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasize,
     size_t bytestomove)
 {
     if (source > datasize || *data == NULL)
@@ -505,7 +505,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
     return 0;
 }
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
+static size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
     FILE *fptr = fopen(name, "w");
 
@@ -519,7 +519,7 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
     return result;
 }
 
-int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
+static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 {
     uint8_t *uncompressed = NULL;
     file_length = *extent;
