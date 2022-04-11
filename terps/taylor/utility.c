@@ -53,3 +53,55 @@ void print_memory(int address, int length)
     }
 }
 
+uint8_t *readFile(const char *name, size_t *size)
+{
+    FILE *f = fopen(name, "r");
+    if(f == NULL)
+        return NULL;
+
+    fseek(f, 0, SEEK_END);
+    *size = ftell(f);
+    if (*size == -1)
+        return NULL;
+
+    uint8_t *data = MemAlloc((int)*size);
+
+    size_t origsize = *size;
+
+    fseek(f, 0, SEEK_SET);
+    *size = fread(data, 1, origsize, f);
+    if (*size != origsize) {
+        fprintf(stderr, "File read error on file %s! Wanted %zu bytes, got %zu\n", name, origsize, *size);
+    }
+
+    fclose(f);
+    return data;
+}
+
+size_t writeToFile(const char *name, uint8_t *data, size_t size)
+{
+    FILE *fptr = fopen(name, "w");
+
+    size_t result = fwrite(data, 1, size, fptr);
+
+    fclose(fptr);
+    return result;
+}
+
+int rotate_left_with_carry(uint8_t *byte, int last_carry)
+{
+    int carry = ((*byte & 0x80) > 0);
+    *byte = *byte << 1;
+    if (last_carry)
+        *byte = *byte | 0x01;
+    return carry;
+}
+
+int rotate_right_with_carry(uint8_t *byte, int last_carry)
+{
+    int carry = ((*byte & 0x01) > 0);
+    *byte = *byte >> 1;
+    if (last_carry)
+        *byte = *byte | 0x80;
+    return carry;
+}

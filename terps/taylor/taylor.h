@@ -38,6 +38,7 @@ typedef enum {
     BLIZZARD_PASS,
     HEMAN,
     TEMPLE_OF_TERROR,
+    TOT_TEXT_ONLY,
     KAYLETH,
     UNKNOWN_GAME,
     NUMGAMES
@@ -196,6 +197,7 @@ typedef enum {
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
 typedef enum {
+    NO_TYPE,
     REBEL_PLANET_TYPE,
     BLIZZARD_PASS_TYPE,
     HEMAN_TYPE,
@@ -260,7 +262,9 @@ extern int NumLowObjects;
 extern struct GameInfo *Game;
 
 extern int Resizing;
-
 extern char DelimiterChar;
+extern int JustWrotePeriod;
+
+extern int NoGraphics;
 
 #endif /* taylor_h */

@@ -12,6 +12,6 @@
 
 /* Breaks a null-terminated string up by inserting newlines,*/
 /* moving words down to the next line when reaching the end of the line */
-char *LineBreakText(char *source, int columns, int *rows, int *length);
+char *LineBreakText(const char *source, int columns, int *rows, int *length);
 
 #endif /* layouttext_h */

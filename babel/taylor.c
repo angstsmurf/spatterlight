@@ -32,7 +32,6 @@ static const struct rec taylor_registry[] = {
     { 0x10428, 0xe67d, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass tzx
     { 0x2001f, 0x275a, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass sna
     { 0x12b4d, 0xee17, "485BA862E1E192026D2158DCA87A482A" }, // Blizzard Pass z80
-    { 0xc01b, 0xe9ff, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror sna
     { 0xb77b, 0x77b3, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror z80
     { 0xa496, 0xfa4c, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror z80 alt
     { 0xbe30, 0x73a5, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror TAP
@@ -45,6 +44,7 @@ static const struct rec taylor_registry[] = {
     { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
     { 0xa3fd, 0x9b82, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80 alt
     { 0xcd17, 0x6f68, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman tzx
+    { 0xcd15, 0x6bc4, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman tzx alt
     { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
     { 0xbd3b, 0xec4f, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet TAP
     { 0xbd5b, 0xf5ea, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet tzx
@@ -52,7 +52,6 @@ static const struct rec taylor_registry[] = {
     { 0xbcb6, 0x6902, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx
     { 0xbb08, 0xab12, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt
     { 0xbc20, 0x3726, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt 2
-
     { 0, 0, NULL }
 };
 

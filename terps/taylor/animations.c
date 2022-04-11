@@ -25,31 +25,13 @@
 #define STARS_ANIMATION_RATE 15
 
 int AnimationRunning = 0;
-int KaylethAnimationIndex = 0;
-int AnimationStage = 0;
-int ClickShelfStage = 0;
+static int KaylethAnimationIndex = 0;
+static int AnimationStage = 0;
+static int ClickShelfStage = 0;
 
 extern uint8_t buffer[384][9];
 
-int rotate_left_with_carry(uint8_t *byte, int last_carry)
-{
-    int carry = ((*byte & 0x80) > 0);
-    *byte = *byte << 1;
-    if (last_carry)
-        *byte = *byte | 0x01;
-    return carry;
-}
-
-int rotate_right_with_carry(uint8_t *byte, int last_carry)
-{
-    int carry = ((*byte & 0x01) > 0);
-    *byte = *byte >> 1;
-    if (last_carry)
-        *byte = *byte | 0x80;
-    return carry;
-}
-
-void animate_stars(void)
+static void animate_stars(void)
 {
     int carry;
     /* First fill area with black, erasing all stars */
@@ -94,7 +76,7 @@ void animate_stars(void)
     }
 }
 
-void AnimateKaylethClickShelves(int stage)
+static void AnimateKaylethClickShelves(int stage)
 {
     RectFill(100, 0, 56, 81, 0, 0);
     for (int line = 0; line < 10; line++) {
@@ -124,7 +106,7 @@ void AnimateKaylethClickShelves(int stage)
     }
 }
 
-int UpdateKaylethAnimationFrames(void) // Draw animation frame
+static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 {
     if (MyLoc == 0) {
         return 0;

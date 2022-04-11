@@ -33,8 +33,8 @@ struct GameInfo games[NUMGAMES] = {
         0, // no item images •
 
         0x3a50 - 0x1B, // actions
-        0x4611 - 0x1B,  // dictionary
-        0x4ca6 - 0x1B, // tokens
+        0x45F6,  // dictionary
+        0x4c8c, // tokens
         0x28c0 - 0x1B, // start_of_room_descriptions;
         FOLLOWS, // start_of_room_connections;
         0x2f38 - 0x1B, // start_of_messages;
@@ -235,6 +235,67 @@ struct GameInfo games[NUMGAMES] = {
         4, // picture_format_version;
     },
 
+    /*
+     Loaded 49152 bytes.
+     Verbs at 8BA2
+     Tokens at 90D9
+     Rooms at BA2A
+     Objects at 9419
+     Status at 8809
+     Actions at 78A9
+     Exits at 8661
+     Flags at 61C0
+     Object Locations at 8599
+     Messages at 9FD9
+     Messages Block 2 at B3B7
+     Game version 2
+     */
+
+    {
+        "Temple of Terror text only version",
+        TOT_TEXT_ONLY,
+        HEMAN_TYPE,                 // type
+
+        191,  // Number of items
+        177, // Number of actions •
+        79,  // Number of words •
+        127,  // Number of rooms
+        0,   // Max carried items •
+        4,   // Word length
+        210,  // Number of messages
+
+        80, // number_of_verbs •
+        79, // number_of_nouns; •
+
+        0, // header •
+
+        0, // no room images •
+        0, // no item flags •
+        0, // no item images •
+
+        0x78a4 - 0x4000, // actions
+        0x8BA2 - 0x4000, // dictionary
+        0x90D9 - 0x4000, // tokens
+        0xBA2A - 0x4000, // start_of_room_descriptions;
+        0x8661 - 0x4000, // start_of_room_connections;
+        0x9FD9 - 0x4000, // start_of_messages;
+        0x9419 - 0x4000, // start_of_item_descriptions;
+        0x8599 - 0x4000, // start_of_item_locations;
+
+        0x2539, // start_of_system_messages •
+        0x28de, // start of directions •
+
+        0, // start_of_characters;
+        0, // start_of_image_blocks;
+        0, // image patterns lookup table;
+        0, // number of patterns
+        0, // patterns end marker
+        0, // start of room image instructions
+        0, // number_of_image blocks;
+        0, // palette
+        0, // picture_format_version;
+    },
+
     {
         "Kayleth",
         KAYLETH,
@@ -282,7 +343,7 @@ struct GameInfo games[NUMGAMES] = {
     {
         "Unknown game",
         UNKNOWN_GAME,
-        HEMAN_TYPE,
+        NO_TYPE,
         0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0

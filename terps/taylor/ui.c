@@ -26,7 +26,7 @@ static int OutC;
 static char OutWord[128];
 
 glui32 TopWidth; /* Terminal width */
-glui32 TopHeight; /* Height of top window */
+glui32 TopHeight = 1; /* Height of top window */
 
 winid_t FindGlkWindowWithRock(glui32 rock)
 {
@@ -80,6 +80,14 @@ void PrintCharacter(unsigned char c)
 {
     if(OutC == 0 &&  c == '\0')
         return;
+
+    if (c == '.') {
+        if (JustWrotePeriod)
+            return;
+        JustWrotePeriod = 1;
+    } else if (JustWrotePeriod && !isspace(c)) {
+        JustWrotePeriod = 0;
+    }
 
     if(CurrentWindow == Bottom) {
         if(isspace(c)) {
@@ -410,18 +418,17 @@ void DrawBlack(void)
 }
 
 void DrawRoomImage(void) {
-    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91)) {
+    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91) || NoGraphics) {
         return;
     }
     ClearGraphMem();
     DrawTaylor(MyLoc);
-        DrawSagaPictureFromBuffer();
+    DrawSagaPictureFromBuffer();
     StartAnimations();
 }
 
 void DisplayInit(void)
 {
-    SagaSetup();
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
 }

@@ -23,9 +23,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                      int xoff, int yoff);
 
 void DrawSagaPictureNumber(int picture_number);
-void DrawSagaPictureAtPos(int picture_number, int x, int y);
 void DrawSagaPictureFromBuffer(void);
-void Flip(uint8_t character[]);
 
 void SagaSetup(void);
 
@@ -33,9 +31,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color, int usebuffer);
 
-void SwitchPalettes(int pal1, int pal2);
 void DefinePalette(void);
-int32_t Remap(int32_t color);
 
 void DrawTaylor(int loc);
 void ClearGraphMem(void);

@@ -21,13 +21,14 @@ uint8_t sprite[256][8];
 uint8_t screenchars[768][8];
 uint8_t buffer[768][9];
 
-Image *images = NULL;
+static Image *images = NULL;
+static void DrawSagaPictureAtPos(int picture_number, int x, int y);
 
 glui32 pixel_size;
 glui32 x_offset;
 
-uint8_t *taylor_image_data;
-
+static uint8_t *taylor_image_data;
+static uint8_t *EndOfGraphicsData;
 /* palette handler stuff starts here */
 
 typedef uint8_t RGB[3];
@@ -47,51 +48,51 @@ palette_type palchosen = NO_PALETTE;
 
 #define INVALIDCOLOR 16
 
-const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
+//static const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
 
 //#define DRAWDEBUG
 
-void colrange(int32_t c)
-{
-    if ((c < 0) || (c > 15)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# col out of range: %d\n", c);
-#endif
-        errorcount++;
-    }
-}
+//static void colrange(int32_t c)
+//{
+//    if ((c < 0) || (c > 15)) {
+//#ifdef DRAWDEBUG
+//        fprintf(stderr, "# col out of range: %d\n", c);
+//#endif
+//        errorcount++;
+//    }
+//}
 
-void checkrange(int32_t x, int32_t y)
-{
-    if ((x < 0) || (x > 254)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# x out of range: %d\n", x);
-#endif
-        errorcount++;
-    }
-    if ((y < 96) || (y > 191)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# y out of range: %d\n", y);
-#endif
-        errorcount++;
-    }
-}
+//static void checkrange(int32_t x, int32_t y)
+//{
+//    if ((x < 0) || (x > 254)) {
+//#ifdef DRAWDEBUG
+//        fprintf(stderr, "# x out of range: %d\n", x);
+//#endif
+//        errorcount++;
+//    }
+//    if ((y < 96) || (y > 191)) {
+//#ifdef DRAWDEBUG
+//        fprintf(stderr, "# y out of range: %d\n", y);
+//#endif
+//        errorcount++;
+//    }
+//}
 
-void do_palette(const char *palname)
-{
-    if (strcmp("zx", palname) == 0)
-        palchosen = ZX;
-    else if (strcmp("zxopt", palname) == 0)
-        palchosen = ZXOPT;
-    else if (strcmp("c64a", palname) == 0)
-        palchosen = C64A;
-    else if (strcmp("c64b", palname) == 0)
-        palchosen = C64B;
-    else if (strcmp("vga", palname) == 0)
-        palchosen = VGA;
-}
+//static void do_palette(const char *palname)
+//{
+//    if (strcmp("zx", palname) == 0)
+//        palchosen = ZX;
+//    else if (strcmp("zxopt", palname) == 0)
+//        palchosen = ZXOPT;
+//    else if (strcmp("c64a", palname) == 0)
+//        palchosen = C64A;
+//    else if (strcmp("c64b", palname) == 0)
+//        palchosen = C64B;
+//    else if (strcmp("vga", palname) == 0)
+//        palchosen = VGA;
+//}
 
-void set_color(int32_t index, RGB *colour)
+static void set_color(int32_t index, RGB *colour)
 {
     pal[index][0] = (*colour)[0];
     pal[index][1] = (*colour)[1];
@@ -274,55 +275,55 @@ void DefinePalette(void)
     }
 }
 
-const char *colortext(int32_t col)
-{
-    const char *zxcolorname[] = {
-        "black",
-        "blue",
-        "red",
-        "magenta",
-        "green",
-        "cyan",
-        "yellow",
-        "white",
-        "bright black",
-        "bright blue",
-        "bright red",
-        "bright magenta",
-        "bright green",
-        "bright cyan",
-        "bright yellow",
-        "bright white",
-        "INVALID",
-    };
+//static const char *colortext(int32_t col)
+//{
+//    const char *zxcolorname[] = {
+//        "black",
+//        "blue",
+//        "red",
+//        "magenta",
+//        "green",
+//        "cyan",
+//        "yellow",
+//        "white",
+//        "bright black",
+//        "bright blue",
+//        "bright red",
+//        "bright magenta",
+//        "bright green",
+//        "bright cyan",
+//        "bright yellow",
+//        "bright white",
+//        "INVALID",
+//    };
+//
+//    const char *c64colorname[] = {
+//        "black",
+//        "white",
+//        "red",
+//        "cyan",
+//        "purple",
+//        "green",
+//        "blue",
+//        "yellow",
+//        "orange",
+//        "brown",
+//        "light red",
+//        "dark grey",
+//        "grey",
+//        "light green",
+//        "light blue",
+//        "light grey",
+//        "INVALID",
+//    };
+//
+//    if ((palchosen == C64A) || (palchosen == C64B))
+//        return (c64colorname[col]);
+//    else
+//        return (zxcolorname[col]);
+//}
 
-    const char *c64colorname[] = {
-        "black",
-        "white",
-        "red",
-        "cyan",
-        "purple",
-        "green",
-        "blue",
-        "yellow",
-        "orange",
-        "brown",
-        "light red",
-        "dark grey",
-        "grey",
-        "light green",
-        "light blue",
-        "light grey",
-        "INVALID",
-    };
-
-    if ((palchosen == C64A) || (palchosen == C64B))
-        return (c64colorname[col]);
-    else
-        return (zxcolorname[col]);
-}
-
-int32_t Remap(int32_t color)
+static int32_t Remap(int32_t color)
 {
     int32_t mapcol;
 
@@ -379,7 +380,7 @@ int32_t Remap(int32_t color)
 
 /* real code starts here */
 
-void Flip(uint8_t character[])
+static void Flip(uint8_t character[])
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -392,7 +393,7 @@ void Flip(uint8_t character[])
         character[i] = work2[i];
 }
 
-void rot90(uint8_t character[])
+static void rot90(uint8_t character[])
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -406,7 +407,7 @@ void rot90(uint8_t character[])
         character[i] = work2[i];
 }
 
-void rot270(uint8_t character[])
+static void rot270(uint8_t character[])
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -420,7 +421,7 @@ void rot270(uint8_t character[])
         character[i] = work2[i];
 }
 
-void rot180(uint8_t character[])
+static void rot180(uint8_t character[])
 {
     int32_t i, j;
     uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -434,7 +435,7 @@ void rot180(uint8_t character[])
         character[i] = work2[i];
 }
 
-void transform(int32_t character, int32_t flip_mode, int32_t ptr)
+static void transform(int32_t character, int32_t flip_mode, int32_t ptr)
 {
     uint8_t work[8];
     int32_t i;
@@ -528,11 +529,12 @@ void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
     }
 }
 
-int isNthBitSet(unsigned const char c, int n)
+static int isNthBitSet(unsigned const char c, int n)
 {
     static unsigned const char mask[] = { 128, 64, 32, 16, 8, 4, 2, 1 };
     return ((c & mask[n]) != 0);
 }
+
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                  int xoff, int yoff);
 
@@ -544,12 +546,12 @@ struct image_patch {
     const char *patch;
 };
 
-struct image_patch image_patches[] = {
+static const struct image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
     { NUMGAMES, 0, 0, 0, "" },
 };
 
-int FindImagePatch(GameIDType game, int image_number, int start)
+static int FindImagePatch(GameIDType game, int image_number, int start)
 {
     for (int i = start + 1; image_patches[i].id != NUMGAMES; i++) {
         if (image_patches[i].id == game && image_patches[i].picture_number == image_number) {
@@ -559,9 +561,9 @@ int FindImagePatch(GameIDType game, int image_number, int start)
     return 0;
 }
 
-void Patch(uint8_t *offset, int patch_number)
+static void Patch(uint8_t *offset, int patch_number)
 {
-    struct image_patch *patch = &image_patches[patch_number];
+    const struct image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
         const char newval = patch->patch[i];
         offset[i + patch->offset] = (uint8_t)newval;
@@ -583,13 +585,13 @@ static size_t FindCharacterStart(void)
 void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
-uint8_t *Questprobe3Image(int imgnum) {
+static uint8_t *Questprobe3Image(int imgnum) {
     uint16_t offset_addr = (FileImage[0x5e80 + imgnum + FileBaselineOffset] & 0x7f) * 2 + 0x68c0 + FileBaselineOffset;
     uint16_t image_addr = 0x6916 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256 + FileBaselineOffset;
     return &FileImage[image_addr];
 }
 
-void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount)
+static void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount)
 {
 	int i = *number - 1;
     instructions[i++] = 0x82;
@@ -600,6 +602,16 @@ void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount)
 
 void SagaSetup(void)
 {
+    if (images != NULL)
+        return;
+
+    if (Game->number_of_pictures == 0 ) {
+        NoGraphics = 1;
+        return;
+    }
+
+    EndOfGraphicsData = FileImage + FileImageLen;
+
     int32_t i, y;
 
     if (palchosen == NO_PALETTE) {
@@ -676,14 +688,9 @@ void SagaSetup(void)
             continue;
         }
 
-        fprintf(stderr, "Image block %d\n", picture_number);
         uint8_t widthheight = *pos++;
         img->width = ((widthheight & 0xf0) >> 4) + 1;
-        fprintf (stderr, "width of image block %d: %d\n", picture_number, img->width);
-
         img->height = (widthheight & 0x0f) + 1;
-        fprintf (stderr, "height of image block %d: %d\n", picture_number, img->height);
-
         if (CurrentGame == BLIZZARD_PASS) {
             switch (picture_number) {
                 case 13: case 15: case 17: case 34: case 85: case 111:
@@ -828,7 +835,7 @@ void debugdraw(int on, int character, int xoff, int yoff, int width)
 
 #pragma mark Taylorimage
 
-void mirror_area(int x1, int y1, int width, int y2)
+static void mirror_area(int x1, int y1, int width, int y2)
 {
     for (int line = y1; line < y2; line++) {
         int source = line * 32 + x1;
@@ -844,7 +851,7 @@ void mirror_area(int x1, int y1, int width, int y2)
     }
 }
 
-void mirror_top_half(void)
+static void mirror_top_half(void)
 {
     for (int line = 0; line < 6; line++) {
         for (int col = 0; col < 32; col++) {
@@ -855,7 +862,7 @@ void mirror_top_half(void)
     }
 }
 
-void flip_image_horizontally(void)
+static void flip_image_horizontally(void)
 {
     uint8_t mirror[384][9];
 
@@ -870,7 +877,7 @@ void flip_image_horizontally(void)
     memcpy(buffer, mirror, 384 * 9);
 }
 
-void flip_image_vertically(void)
+static void flip_image_vertically(void)
 {
     uint8_t mirror[384][9];
 
@@ -884,7 +891,7 @@ void flip_image_vertically(void)
     memcpy(buffer, mirror, 384 * 9);
 }
 
-void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+static void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 //    fprintf(stderr, "flip_area_vertically x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     uint8_t mirror[384][9];
 
@@ -904,7 +911,7 @@ void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     }
 }
 
-void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+static void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     for (int line = 0; line <= y2 / 2; line++) {
         for (int col = x1; col < x1 + width; col++) {
             buffer[(y2 - line) * 32 + col][8] = buffer[(y1 + line) * 32 + col][8];
@@ -914,7 +921,7 @@ void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     }
 }
 
-void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
+static void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
 //    fprintf(stderr, "flip_area_horizontally x1: %d: y1: %d width: %d y2 %d\n", x1, y1, width, y2);
     uint8_t mirror[384][9];
 
@@ -935,7 +942,7 @@ void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2) {
     }
 }
 
-void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
+static void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
 {
     for (int i = 0; i < length; i++) {
         buffer[y * 32 + x + i][8] = colour;
@@ -943,7 +950,7 @@ void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
 }
 
 
-void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
+static void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     for (int h = 0; h < height; h++) {
         for (int w = 0; w < width; w++) {
@@ -952,7 +959,7 @@ void draw_colour( uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uint8_t h
     }
 }
 
-void make_light(void)
+static void make_light(void)
 {
     for (int i = 0; i < 384; i++) {
         buffer[i][8] = buffer[i][8] | 0x40;
@@ -960,7 +967,7 @@ void make_light(void)
 }
 
 
-void replace_colour(uint8_t before, uint8_t after)
+static void replace_colour(uint8_t before, uint8_t after)
 {
     uint8_t beforeink = before & 7;
     uint8_t afterink = after & 7;
@@ -1020,7 +1027,7 @@ void DrawTaylor(int loc)
         ptr++;
     }
     //    int instruction = 1;
-    while (ptr - FileImage < FileImageLen) {
+    while (ptr < EndOfGraphicsData) {
         //        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
         switch (*ptr) {
             case 0xff:
@@ -1036,7 +1043,7 @@ void DrawTaylor(int loc)
                 ptr += 2;
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
-                if (CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN && CurrentGame != KAYLETH) {
+                if (Game->type != HEMAN_TYPE) {
                     //                    fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;
@@ -1308,12 +1315,12 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
 void DrawSagaPictureNumber(int picture_number)
 {
-    int numgraphics = Game->number_of_pictures;
-    if (picture_number >= numgraphics) {
-        fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
-                numgraphics - 1);
-        return;
-    }
+//    int numgraphics = Game->number_of_pictures;
+//    if (picture_number >= numgraphics) {
+//        fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
+//                numgraphics - 1);
+//        return;
+//    }
 
     Image img = images[picture_number];
 
@@ -1324,29 +1331,29 @@ void DrawSagaPictureNumber(int picture_number)
                             img.yoff);
 }
 
-void DrawSagaPictureAtPos(int picture_number, int x, int y)
+static void DrawSagaPictureAtPos(int picture_number, int x, int y)
 {
     Image img = images[picture_number];
 
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y);
 }
 
-void SwitchPalettes(int pal1, int pal2)
-{
-    uint8_t temp[3];
-
-    temp[0] = pal[pal1][0];
-    temp[1] = pal[pal1][1];
-    temp[2] = pal[pal1][2];
-
-    pal[pal1][0] = pal[pal2][0];
-    pal[pal1][1] = pal[pal2][1];
-    pal[pal1][2] = pal[pal2][2];
-
-    pal[pal2][0] = temp[0];
-    pal[pal2][1] = temp[1];
-    pal[pal2][2] = temp[2];
-}
+//static void SwitchPalettes(int pal1, int pal2)
+//{
+//    uint8_t temp[3];
+//
+//    temp[0] = pal[pal1][0];
+//    temp[1] = pal[pal1][1];
+//    temp[2] = pal[pal1][2];
+//
+//    pal[pal1][0] = pal[pal2][0];
+//    pal[pal1][1] = pal[pal2][1];
+//    pal[pal1][2] = pal[pal2][2];
+//
+//    pal[pal2][0] = temp[0];
+//    pal[pal2][1] = temp[1];
+//    pal[pal2][2] = temp[2];
+//}
 
 void DrawSagaPictureFromBuffer(void)
 {

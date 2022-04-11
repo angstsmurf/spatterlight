@@ -655,6 +655,7 @@
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
+		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
@@ -768,6 +769,8 @@
 		C3CEC2C526A6D1F900120469 /* curses.z5 in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C226A6D1F900120469 /* curses.z5 */; };
 		C3CEC2CE26A6D66800120469 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC2CD26A6D66800120469 /* Tests.m */; };
 		C3CEC44426C5EB5B0060E64C /* converter.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC44226C5EB5B0060E64C /* converter.c */; };
+		C3CED4472810190E0040252F /* decrypttotloader.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4422810190E0040252F /* decrypttotloader.c */; };
+		C3CED4482810190E0040252F /* loadtotpicture.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4462810190E0040252F /* loadtotpicture.c */; };
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
@@ -2891,6 +2894,8 @@
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
 		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
+		C37344612804673F00D8AE01 /* extracttape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracttape.h; sourceTree = "<group>"; };
+		C37344622804673F00D8AE01 /* extracttape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracttape.c; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -3083,6 +3088,10 @@
 		C3CEC2CF26A6D66800120469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CEC44226C5EB5B0060E64C /* converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = converter.c; sourceTree = "<group>"; };
 		C3CEC44326C5EB5B0060E64C /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
+		C3CED4422810190E0040252F /* decrypttotloader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decrypttotloader.c; sourceTree = "<group>"; };
+		C3CED4442810190E0040252F /* loadtotpicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadtotpicture.h; sourceTree = "<group>"; };
+		C3CED4452810190E0040252F /* decrypttotloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decrypttotloader.h; sourceTree = "<group>"; };
+		C3CED4462810190E0040252F /* loadtotpicture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loadtotpicture.c; sourceTree = "<group>"; };
 		C3CF3693265FA461004D0F7B /* CoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoverImageView.m; sourceTree = "<group>"; };
 		C3CF3694265FA461004D0F7B /* CoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverImageView.h; sourceTree = "<group>"; };
 		C3CF3696265FB2FA004D0F7B /* GameImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameImporter.h; sourceTree = "<group>"; };
@@ -5876,6 +5885,12 @@
 				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C30DAE7F27EBA06A006C90FB /* decompressz80.h */,
 				C30DAE7E27EBA06A006C90FB /* decompressz80.c */,
+				C37344612804673F00D8AE01 /* extracttape.h */,
+				C37344622804673F00D8AE01 /* extracttape.c */,
+				C3CED4452810190E0040252F /* decrypttotloader.h */,
+				C3CED4422810190E0040252F /* decrypttotloader.c */,
+				C3CED4442810190E0040252F /* loadtotpicture.h */,
+				C3CED4462810190E0040252F /* loadtotpicture.c */,
 				C3B148AF27FD881400844708 /* animations.h */,
 				C3B148B127FD881400844708 /* animations.c */,
 				C3D571B427D8F652008FB786 /* ui.c */,
@@ -7792,8 +7807,11 @@
 				C3B148B227FD881400844708 /* animations.c in Sources */,
 				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
 				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
+				C3CED4482810190E0040252F /* loadtotpicture.c in Sources */,
 				C3B1489927FCD55400844708 /* extracommands.c in Sources */,
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
+				C37344632804673F00D8AE01 /* extracttape.c in Sources */,
+				C3CED4472810190E0040252F /* decrypttotloader.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
 				C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */,
 				C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */,

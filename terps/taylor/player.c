@@ -13,6 +13,8 @@
 #include "glkstart.h"
 #include "restorestate.h"
 #include "decompressz80.h"
+#include "extracttape.h"
+#include "decrypttotloader.h"
 #include "utility.h"
 #include "sagadraw.h"
 #include "extracommands.h"
@@ -59,12 +61,17 @@ int stop_time = 0;
 int just_started = 1;
 int should_restart = 0;
 
+int NoGraphics = 0;
+
 long FileBaselineOffset = 0;
 
 char DelimiterChar = '_';
 
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
+
+static char *Filename;
+static uint8_t *CompanionFile;
 
 extern struct SavedState *initial_state;
 
@@ -382,7 +389,7 @@ static size_t FindTokens(void)
                 addr = FindCode("You are in ", 0, 11) - 1;
                 if(addr == -1) {
                     fprintf(stderr, "Unable to find token table.\n");
-                    glk_exit();
+                    return 0;
                 }
                 return addr;
             } else
@@ -450,6 +457,7 @@ static void OutCaps(void)
 }
 
 static int periods = 0;
+int JustWrotePeriod = 0;
 
 static void OutChar(char c)
 {
@@ -458,20 +466,25 @@ static void OutChar(char c)
 
     if (c == '.') {
         periods++;
-        if (periods == 3) {
-            PrintCharacter('.');
-            PrintCharacter('.');
-            LastChar = 0;
-            PendSpace = 0;
-            periods = 0;
-            Upper = 0;
-        } else if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
+        if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
             c = ' ';
             if (LastChar == ' ')
                 LastChar = 0;
         }
         PendSpace = 0;
     } else {
+        if (periods && !JustWrotePeriod && c !=',' && c != '?' && c != '!') {
+            if (periods == 2)
+                periods = 1;
+            for (int i = 0; i < periods; i++) {
+                JustWrotePeriod = 0;
+                PrintCharacter('.');
+            }
+            JustWrotePeriod = 1;
+            LastChar = 0;
+            PendSpace = 0;
+            Upper = 0;
+        }
         periods = 0;
     }
 
@@ -487,9 +500,15 @@ static void OutChar(char c)
     if(LastChar) {
         if (isspace(LastChar))
             PendSpace = 0;
-        OutWrite(LastChar);
+        if (LastChar == '.' && JustWrotePeriod) {
+            LastChar = 0;
+        } else {
+            OutWrite(LastChar);
+        }
     }
     if(PendSpace) {
+        if (JustWrotePeriod && CurrentGame != KAYLETH && CurrentWindow == Top)
+            Upper = 1;
         OutWrite(' ');
         PendSpace = 0;
     }
@@ -530,22 +549,25 @@ static unsigned char *TokenText(unsigned char n)
     return p;
 }
 
+static int QPUpper = 0;
+
 void QPrintChar(uint8_t c) { // Print character
     if (c == 0x0d)
         return;
 
     if (FirstAfterInput)
-        Upper = 1;
+        QPUpper = 1;
 
-    if (Upper && c >= 'a') {
+    if (QPUpper && c >= 'a') {
         c -= 0x20; // token is made uppercase
     }
     OutChar(c);
     if (c > '!') {
+        QPUpper = 0;
         Upper = 0;
     }
     if (c == '!' || c == '?' || c == ':' || c == '.') {
-        Upper = 1;
+        QPUpper = 1;
     }
 }
 
@@ -692,7 +714,7 @@ static void Message(unsigned char m)
 {
     unsigned char *p = FileImage + MessageBase;
     PrintText(p, m);
-    if (CurrentGame == QUESTPROBE3)
+    if (CurrentGame == QUESTPROBE3 || CurrentGame == TOT_TEXT_ONLY)
         OutChar(' ');
 }
 
@@ -700,6 +722,8 @@ static void Message2(unsigned int m)
 {
     unsigned char *p = FileImage + Message2Base;
     PrintText(p, m);
+    if (CurrentGame == TOT_TEXT_ONLY)
+        OutChar(' ');
 }
 
 static void SysMessage(unsigned char m)
@@ -768,7 +792,7 @@ static size_t FindRooms(void)
 static void PrintRoom(unsigned char room)
 {
     unsigned char *p = FileImage + RoomBase;
-    if (CurrentGame == BLIZZARD_PASS && room < 102)
+    if (CurrentGame == BLIZZARD_PASS && room < 102 && room != 0)
         p = FileImage + 0x18000 + FileBaselineOffset;
     PrintText(p, room);
 }
@@ -812,7 +836,7 @@ static int WaitFlag()
 {
     if (CurrentGame == QUESTPROBE3)
         return 5;
-    if (CurrentGame == BLIZZARD_PASS || CurrentGame == HEMAN || CurrentGame == TEMPLE_OF_TERROR)
+    if (CurrentGame == BLIZZARD_PASS || CurrentGame == HEMAN || CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY)
         return -1;
     return 7;
 }
@@ -1015,6 +1039,7 @@ static void Inventory(void)
             OutCaps();
         } else {
             OutReplace('.');
+            OutChar(' ');
         }
     }
     OutFlush();
@@ -1126,6 +1151,7 @@ static int GetObject(unsigned char obj) {
     SysMessage(OKAY);
     OutChar(' ');
     OutFlush();
+    Upper = 1;
     Put(obj, Carried());
     return 1;
 }
@@ -1143,6 +1169,7 @@ static void DropObject(unsigned char obj) {
     SysMessage(OKAY);
     OutChar(' ');
     OutFlush();
+    Upper = 1;
     DropItem();
     Put(obj, MyLoc);
 }
@@ -1181,7 +1208,7 @@ static void RunStatusTable(void);
 extern uint8_t buffer[768][9];
 
 void Look(void) {
-    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91))
+    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91) || NoGraphics)
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
@@ -1227,6 +1254,9 @@ void Look(void) {
         for(; i < NumObjects(); i++) {
             if(ObjectLoc[i] == MyLoc) {
                 if(f == 0) {
+                    if (CurrentGame == TOT_TEXT_ONLY) {
+                        OutChar(' ');
+                    }
                     SysMessage(YOU_SEE);
                     if (CurrentGame == BLIZZARD_PASS) {
                         PendSpace = 0;
@@ -1242,7 +1272,7 @@ void Look(void) {
         if(f == 1 && CurrentGame != BLIZZARD_PASS)
             OutReplace('.');
 
-        ListExits((CurrentGame != TEMPLE_OF_TERROR && CurrentGame != HEMAN));
+        ListExits((CurrentGame != TEMPLE_OF_TERROR && CurrentGame != TOT_TEXT_ONLY && CurrentGame != HEMAN));
     }
 
     if (LastChar != '\n')
@@ -1251,7 +1281,7 @@ void Look(void) {
 
     BottomWindow();
 
-    if (MyLoc != 0) {
+    if (MyLoc != 0 && !NoGraphics) {
         if (Resizing) {
             DrawSagaPictureFromBuffer();
             return;
@@ -2240,16 +2270,6 @@ static void RestartGame(void)
     Look();
 }
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "w");
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
-}
-
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -2277,9 +2297,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
             argc--;
         }
 
-    FILE *f;
-
-//    argv[1] = "/Users/administrator/Desktop/human.sna";
+//    argv[1] = "/Users/administrator/Desktop/terrortextonly.sna";
 
     if(argv[1] == NULL)
     {
@@ -2287,16 +2305,22 @@ int glkunix_startup_code(glkunix_startup_t *data)
         glk_exit();
     }
 
-    f = fopen(argv[1], "r");
+    size_t namelen = strlen(argv[1]);
+    Filename = MemAlloc((int)namelen);
+    strncpy(Filename, argv[1], namelen);
+    Filename[namelen] = '\0';
+
+    FILE *f = fopen(Filename, "r");
     if(f == NULL)
     {
-        perror(argv[1]);
+        perror(Filename);
         glk_exit();
     }
 
     fseek(f, 0, SEEK_END);
     FileImageLen = ftell(f);
     if (FileImageLen == -1) {
+        fclose(f);
         glk_exit();
     }
 
@@ -2307,19 +2331,11 @@ int glkunix_startup_code(glkunix_startup_t *data)
         fprintf(stderr, "File read error!\n");
     }
 
-        size_t length = FileImageLen;
-
-        uint8_t *uncompressed = DecompressZ80(FileImage, &length);
-        if (uncompressed != NULL) {
-            free(FileImage);
-            FileImage = uncompressed;
-            FileImageLen = length;
-        }
+    FileImage = ProcessFile(FileImage, &FileImageLen);
 
     EndOfData = FileImage + FileImageLen;
 
-//    writeToFile("/Users/administrator/Desktop/RawFromZ80.sna", FileImage, FileImageLen);
-
+    fclose(f);
     return 1;
 }
 
@@ -2351,6 +2367,118 @@ void PrintActionAddresses(void) {
     fprintf(stderr, "\n");
 }
 
+struct GameInfo *DetectGame(size_t LocalVerbBase)
+{
+    struct GameInfo *LocalGame;
+
+    for (int i = 0; i < NUMGAMES; i++) {
+        LocalGame = &games[i];
+        FileBaselineOffset = (long)LocalVerbBase - (long)LocalGame->start_of_dictionary;
+        long diff = FindTokens() - LocalVerbBase;
+        if ((LocalGame->start_of_tokens - LocalGame->start_of_dictionary) == diff) {
+            fprintf(stderr, "This is %s\n", LocalGame->Title);
+            return LocalGame;
+        } else {
+            fprintf(stderr, "Diff for game %s: %d. Looking for %ld\n", LocalGame->Title, LocalGame->start_of_tokens - LocalGame->start_of_dictionary, diff);
+        }
+    }
+    return NULL;
+}
+
+void RestoreFile(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
+{
+    FileImage = ParkedFile;
+    FileImageLen = ParkedLength;
+    FileBaselineOffset = ParkedOffset;
+    if (FreeCompanion)
+        free(CompanionFile);
+}
+
+void LookForSecondTOTGame(void)
+{
+    size_t namelen = strlen(Filename);
+    char *secondfile = MemAlloc((int)namelen);
+    strncpy(secondfile, Filename, namelen);
+    secondfile[namelen] = '\0';
+
+    char *period = strrchr(secondfile, '.');
+    if (period == NULL)
+        period = &secondfile[namelen - 1];
+    else
+        period--;
+
+    if (CurrentGame == TEMPLE_OF_TERROR)
+        *period = 'b';
+    else
+        *period = 'a';
+
+    FILE *f = fopen(secondfile, "r");
+    if (f == NULL)
+        return;
+
+    fseek(f, 0, SEEK_END);
+    size_t filelength = ftell(f);
+    if (filelength == -1) {
+        return;
+    }
+
+    CompanionFile = MemAlloc((int)filelength);
+
+    fseek(f, 0, SEEK_SET);
+    if (fread(CompanionFile, 1, filelength, f) != filelength) {
+        fprintf(stderr, "File read error!\n");
+    }
+
+    fclose(f);
+
+    uint8_t *ParkedFile = FileImage;
+    size_t ParkedLength = FileImageLen;
+    size_t ParkedOffset = FileBaselineOffset;
+
+    CompanionFile = ProcessFile(CompanionFile, &filelength);
+
+    FileImage = CompanionFile;
+    FileImageLen = filelength;
+
+    size_t AltVerbBase = FindCode("NORT\001N", 0, 6);
+
+    if (AltVerbBase == -1) {
+        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        return;
+    }
+
+    struct GameInfo *AltGame = DetectGame(AltVerbBase);
+
+    if ((CurrentGame == TOT_TEXT_ONLY && AltGame->gameID != TEMPLE_OF_TERROR) ||
+        (CurrentGame == TEMPLE_OF_TERROR && AltGame->gameID != TOT_TEXT_ONLY)) {
+        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        return;
+    }
+
+    Display(Bottom, "Found files for both the text-only version and the graphics version of Temple of Terror.\n"
+            "Would you like to use the longer texts from the text-only version along with the graphics from the other file? (Y/N) ");
+    if (!YesOrNo()) {
+        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        return;
+    }
+
+    if (CurrentGame == TOT_TEXT_ONLY) {
+        struct GameInfo *tempgame = AltGame;
+        AltGame = Game;
+        Game = tempgame;
+        SagaSetup();
+        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 0);
+    } else {
+        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 0);
+        SagaSetup();
+        Game = AltGame;
+        FileImage = CompanionFile;
+        FileImageLen = filelength;
+        VerbBase = AltVerbBase;
+    }
+
+    EndOfData = FileImage + FileImageLen;
+}
 
 void glk_main(void)
 {
@@ -2364,30 +2492,24 @@ void glk_main(void)
         glk_exit();
     }
 
-    for (int i = 0; i < NUMGAMES; i++) {
-        Game = &games[i];
-        FileBaselineOffset = (long)VerbBase - (long)Game->start_of_dictionary;
-        TokenBase = FindTokens();
-        int diff = (int)TokenBase - (int)VerbBase;
-        if (abs((int)(Game->start_of_tokens - Game->start_of_dictionary) - diff) < 100) {
-            fprintf(stderr, "This is %s\n", Game->Title);
-            break;
-        } else {
-            fprintf(stderr, "Diff for game %s: %d. Looking for %d\n", Game->Title, Game->start_of_tokens - Game->start_of_dictionary, diff);
-        }
-    }
-
-    if (CurrentGame == UNKNOWN_GAME) {
-        fprintf(stderr, "Unrecognized game!\n");
+    Game = DetectGame(VerbBase);
+    if (Game == NULL) {
+        fprintf(stderr, "Did not recognize game!\n");
         glk_exit();
     }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 
+    DisplayInit();
+
+    if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) {
+        LookForSecondTOTGame();
+    }
+
+    SagaSetup();
+
     if (CurrentGame == QUESTPROBE3)
         DelimiterChar = '=';
-
-    DisplayInit();
 
     FindTables();
     NumLowObjects = GuessLowObjectEnd();

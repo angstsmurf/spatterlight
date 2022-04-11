@@ -56,7 +56,7 @@ const char *ExtraCommands[] = {
     NULL
 };
 
-extra_command ExtraCommandsKey[] = {
+const extra_command ExtraCommandsKey[] = {
     RESTART,
     RESTART,
     SAVE_EXTR,
