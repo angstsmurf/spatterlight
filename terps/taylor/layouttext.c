@@ -12,9 +12,12 @@
 #include "utility.h"
 #include "layouttext.h"
 
-int FindBreak(const char *buf, int pos, int columns)
+static int FindBreak(const char *buf, int pos, int columns)
 {
     int diff = 0;
+
+    if (isspace((unsigned char)buf[pos]))
+        return 0;
 
     while (diff < columns && !isspace((unsigned char)buf[pos])) {
         pos--;
