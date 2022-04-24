@@ -26,5 +26,6 @@ int rotate_right_with_carry(uint8_t *byte, int last_carry);
 extern uint8_t *FileImage;
 extern size_t FileImageLen;
 extern uint8_t *EndOfData;
+extern strid_t Transcript;
 
 #endif /* utility_h */

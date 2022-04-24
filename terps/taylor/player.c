@@ -924,7 +924,6 @@ int YesOrNo(void)
         uint8_t c = WaitCharacter();
         if (c == 250)
             c = 0;
-        OutChar(' ');
         OutChar(c);
         OutChar('\n');
         OutFlush();
@@ -1214,6 +1213,16 @@ void Look(void) {
         OpenGraphicsWindow();
     int i;
     int f = 0;
+
+    if (Transcript) {
+        if (LastChar)
+            glk_put_char_stream(Transcript, LastChar);
+        if (LastChar != '\n') {
+            if(PendSpace)
+                glk_put_char_stream(Transcript, ' ');
+            glk_put_char_stream(Transcript, '\n');
+        }
+    }
 
     PendSpace = 0;
     LastChar = 0;

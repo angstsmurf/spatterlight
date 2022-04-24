@@ -24,6 +24,9 @@ typedef enum {
     COMMAND,
     ALL,
     IT,
+    SCRIPT,
+    ON,
+    OFF
 } extra_command;
 
 const char *ExtraCommands[] = {
@@ -53,6 +56,11 @@ const char *ExtraCommands[] = {
     "move",
     "command",
     "turn",
+    "#script",
+    "script",
+    "transcript",
+    "on",
+    "off",
     NULL
 };
 
@@ -83,6 +91,11 @@ const extra_command ExtraCommandsKey[] = {
     COMMAND,
     COMMAND,
     COMMAND,
+    SCRIPT,
+    SCRIPT,
+    SCRIPT,
+    ON,
+    OFF,
     NO_COMMAND
 };
 
@@ -96,6 +109,51 @@ extern winid_t Bottom;
 int YesOrNo(void);
 void SaveGame(void);
 int LoadGame(void);
+
+
+static void TranscriptOn(void)
+{
+    frefid_t ref;
+
+    if (Transcript) {
+        Display(Bottom, "A transcript is already active. \n");
+        return;
+    }
+
+    ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_Transcript,
+                                       filemode_Write, 0);
+    if (ref == NULL)
+        return;
+
+    Transcript = glk_stream_open_file(ref, filemode_Write, 0);
+    glk_fileref_destroy(ref);
+
+    if (Transcript == NULL) {
+        Display(Bottom, "Failed to create transcript file. ");
+        return;
+    }
+
+    char *start_of_transcript = "Start of transcript\n\n";
+    glk_put_string_stream(Transcript, start_of_transcript);
+    glk_put_string_stream(glk_window_get_stream(Bottom),
+                          "Transcript is now on.\n");
+}
+
+static void TranscriptOff(void)
+{
+    if (Transcript == NULL) {
+        Display(Bottom, "No transcript is currently running.\n");
+        return;
+    }
+
+    char *end_of_transcript = "\n\nEnd of transcript\n";
+    glk_put_string_stream(Transcript, end_of_transcript);
+
+    glk_stream_close(Transcript, NULL);
+    Transcript = NULL;
+    glk_put_string_stream(glk_window_get_stream(Bottom),
+                          "Transcript is now off.\n");
+}
 
 static int ParseExtraCommand(char *p)
 {
@@ -182,15 +240,15 @@ int TryExtraCommand(void)
                 return 1;
             }
             break;
-            //        case SCRIPT:
-            //            if (noun == ON || noun == 0) {
-            //                TranscriptOn();
-            //                return 1;
-            //            } else if (noun == OFF) {
-            //                TranscriptOff();
-            //                return 1;
-            //            }
-            //            break;
+        case SCRIPT:
+            if (noun == ON || noun == 0) {
+                TranscriptOn();
+                return 1;
+            } else if (noun == OFF) {
+                TranscriptOff();
+                return 1;
+            }
+            break;
         default:
             break;
     }

@@ -52,6 +52,8 @@ void Display(winid_t w, const char *fmt, ...)
     va_end(ap);
 
     glk_put_string_stream(glk_window_get_stream(w), msg);
+    if (Transcript)
+        glk_put_string_stream(Transcript, msg);
 }
 
 void HitEnter(void)
@@ -311,6 +313,11 @@ void LineInput(char *buf, int len)
     }
 
     buf[ev.val1] = 0;
+
+    if (Transcript) {
+        glk_put_string_stream(Transcript, buf);
+        glk_put_char_stream(Transcript, '\n');
+    }
 }
 
 
