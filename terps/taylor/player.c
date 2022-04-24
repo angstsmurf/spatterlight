@@ -714,7 +714,7 @@ static void Message(unsigned char m)
 {
     unsigned char *p = FileImage + MessageBase;
     PrintText(p, m);
-    if (CurrentGame == QUESTPROBE3 || CurrentGame == TOT_TEXT_ONLY)
+    if (CurrentGame == QUESTPROBE3 || CurrentGame == TOT_TEXT_ONLY || CurrentGame == HEMAN)
         OutChar(' ');
 }
 
@@ -722,7 +722,7 @@ static void Message2(unsigned int m)
 {
     unsigned char *p = FileImage + Message2Base;
     PrintText(p, m);
-    if (CurrentGame == TOT_TEXT_ONLY)
+    if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == HEMAN)
         OutChar(' ');
 }
 
@@ -836,7 +836,7 @@ static int WaitFlag()
 {
     if (CurrentGame == QUESTPROBE3)
         return 5;
-    if (CurrentGame == BLIZZARD_PASS || CurrentGame == HEMAN || CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY)
+    if (CurrentGame != REBEL_PLANET && CurrentGame != KAYLETH)
         return -1;
     return 7;
 }
@@ -1245,9 +1245,13 @@ void Look(void) {
 
     for(i = 0; i < NumLowObjects; i++) {
         if(ObjectLoc[i] == MyLoc) {
-            if(f == 0 && CurrentGame == QUESTPROBE3) {
-                OutReplace(0);
-                SysMessage(0);
+            if(f == 0) {
+                if (CurrentGame == QUESTPROBE3) {
+                    OutReplace(0);
+                    SysMessage(0);
+                } else if (CurrentGame == HEMAN) {
+                    OutChar(' ');
+                }
             }
             f = 1;
             PrintObject(i);
@@ -1693,6 +1697,12 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 DropObject(arg1);
                 break;
             case GOTO:
+                /*
+                 He-Man moves the the player to a special "By the power of Grayskull" room
+                 and then issues an undo to return to the previous room
+                 */
+                if (CurrentGame == HEMAN && arg1 == 83)
+                    SaveUndo();
                 Goto(arg1);
                 break;
             case GOBY:
@@ -1788,7 +1798,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 OutFlush();
                 glk_window_clear(Bottom);
                 break;
-            case 35:
+            case OOPS:
                 RestoreUndo(0);
                 Redraw = 1;
                 break;
@@ -2093,7 +2103,6 @@ static void RunOneInput(void)
             if (LastChar != '\n')
                 OutChar('\n');
         }
-
     } while (WaitFlag() != -1 && Flag[WaitFlag()]-- > 0);
     if (AnimationRunning)
         glk_request_timer_events(AnimationRunning);

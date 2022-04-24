@@ -1044,7 +1044,7 @@ void DrawTaylor(int loc)
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
                 if (Game->type != HEMAN_TYPE) {
-                    //                    fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
+                    // fprintf(stderr, "0xfc (7808) Draw attribute %x at %d,%d length %d\n", *(ptr + 3), *(ptr + 1), *(ptr + 2), *(ptr + 4));
                     draw_colour_old(*(ptr + 1), *(ptr + 2), *(ptr + 3), *(ptr + 4));
                     ptr = ptr + 4;
                 } else {
