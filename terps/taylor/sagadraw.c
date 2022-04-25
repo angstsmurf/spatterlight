@@ -1033,13 +1033,13 @@ void DrawTaylor(int loc)
             case 0xff:
                 //                fprintf(stderr, "End of picture\n");
                 return;
-            case 0xfe: // 7470
+            case 0xfe:
                 //                fprintf(stderr, "0xfe mirror_left_half\n");
                 mirror_area(0, 0, 32, 12);
                 break;
-            case 0xfd: // 7126
+            case 0xfd:
                 //                fprintf(stderr, "0xfd Replace colour %x with %x\n", *(ptr + 1), *(ptr + 2));
-                replace_colour(*(ptr + 1), *(ptr + 2));
+                    replace_colour(*(ptr + 1), *(ptr + 2));
                 ptr += 2;
                 break;
             case 0xfc: // Draw colour: x, y, attribute, length 7808
@@ -1054,73 +1054,83 @@ void DrawTaylor(int loc)
                 }
                 break;
             case 0xfb: // Make all screen colours bright 713e
-                //                fprintf(stderr, "Make colours in picture area bright\n");
+                // fprintf(stderr, "Make colours in picture area bright\n");
                 make_light();
                 break;
             case 0xfa: // Flip entire image horizontally 7646
-                //                fprintf(stderr, "0xfa Flip entire image horizontally\n");
+                // fprintf(stderr, "0xfa Flip entire image horizontally\n");
                 flip_image_horizontally();
                 break;
             case 0xf9: //0xf9 Draw picture n recursively;
-                //                fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
+                // fprintf(stderr, "Draw Room Image %d recursively\n", *(ptr + 1));
                 DrawTaylor(*(ptr + 1));
                 ptr++;
                 break;
-            case 0xf8: //73d1
-                //                fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
+            case 0xf8:
+                // fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
                 ptr++;
-                if (ObjectLoc[*ptr] != MyLoc) {
-                    return;
+                if (CurrentGame == BLIZZARD_PASS) {
+                    if (ObjectLoc[*ptr] == MyLoc) {
+                        DrawSagaPictureAtPos(*(ptr + 1), *(ptr + 2), *(ptr + 3));
+                    }
+                    ptr += 3;
+                } else {
+                    if (ObjectLoc[*ptr] != MyLoc)
+                        return;
                 }
                 break;
-            case 0xf4: //758c End if object arg1 is present
+            case 0xf4: // End if object arg1 is present
+                // fprintf(stderr, "0xf4: Skip rest of picture if object %d IS present\n", *(ptr + 1));
                 if (ObjectLoc[*(ptr + 1)] == MyLoc)
                     return;
                 ptr++;
                 break;
-            case 0xf3: //753d
-                //                fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
+            case 0xf3:
+                // fprintf(stderr, "0xf3: goto 753d Mirror top half vertically\n");
                 mirror_top_half();
                 break;
-            case 0xf2: //7465 arg1 arg2 arg3 arg4 Mirror horizontally
-                //                fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
+            case 0xf2: // arg1 arg2 arg3 arg4 Mirror horizontally
+                // fprintf(stderr, "0xf2: Mirror area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 mirror_area(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xf1: //7532 arg1 arg2 arg3 arg4 Mirror vertically
+            case 0xf1: // arg1 arg2 arg3 arg4 Mirror vertically
+                // fprintf(stderr, "0xf1: Mirror area x: %d y: %d width:%d y2:%d vertically\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 mirror_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xee: //763b arg1 arg2 arg3 arg4  Flip area horizontally?
+            case 0xee: // arg1 arg2 arg3 arg4  Flip area horizontally
+                // fprintf(stderr, "0xf1: Flip area x: %d y: %d width:%d y2:%d horizontally\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 flip_area_horizontally(*(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xed: //7788
-                //                fprintf(stderr, "0xed: Flip entire image vertically\n");
+            case 0xed:
+                // fprintf(stderr, "0xed: Flip entire image vertically\n");
                 flip_image_vertically();
                 break;
-            case 0xec: //777d Flip area vertically ?
+            case 0xec: // Flip area vertically
+                // fprintf(stderr, "0xf1: Flip area x: %d y: %d width:%d y2:%d vertically\n", *(ptr + 2), *(ptr + 1), *(ptr + 4),  *(ptr + 3));
                 flip_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4), *(ptr + 3));
                 ptr = ptr + 4;
                 break;
-            case 0xe9: // 77ac
-                //                fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
+            case 0xe9:
+                // fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
                 replace_paper_and_ink(*(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
             case 0xe8:
-                //                fprintf(stderr, "Clear graphics memory\n");
+                // fprintf(stderr, "Clear graphics memory\n");
                 ClearGraphMem();
                 break;
-            case 0xf7: //756e } set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
+            case 0xf7: // set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
                 if (CurrentGame == REBEL_PLANET)
                     return;
-            case 0xf6: //7582 } set A to 04 and call 70b7. See 0xf7 above.
-            case 0xf5: //7578 } set A to 08 and call 70b7. See 0xf7 above.
-                fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
+            case 0xf6: // set A to 04 and call 70b7. See 0xf7 above.
+            case 0xf5: // set A to 08 and call 70b7. See 0xf7 above.
+                // fprintf(stderr, "0x%02x: set A to unused value and draw image block %d at %d, %d\n",  *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
                 ptr++; // Deliberate fallthrough
             default: // else draw image *ptr at x, y
-                //                fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
+                // fprintf(stderr, "Default: Draw image block %d at %d,%d\n", *ptr, *(ptr + 1), *(ptr + 2));
                 DrawSagaPictureAtPos(*ptr, *(ptr + 1), *(ptr + 2));
                 ptr = ptr + 2;
                 break;
