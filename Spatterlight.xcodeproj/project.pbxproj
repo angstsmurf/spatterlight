@@ -548,7 +548,6 @@
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
-		C30F436C25A53DD000B8D74B /* spatterlight-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C30F436925A53DD000B8D74B /* spatterlight-autosave.mm */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C30FAD1F27B68EB400BD20B9 /* Expert.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD1E27B68EB400BD20B9 /* Expert.c */; };
@@ -1584,7 +1583,7 @@
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
-		6DD3D26C2512C11300667CA6 /* dict.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; tabWidth = 4; };
+		6DD3D26C2512C11300667CA6 /* dict.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = dict.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D26D2512C11300667CA6 /* help.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = help.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2702512C11300667CA6 /* mathop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = mathop.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2712512C11300667CA6 /* memory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = memory.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -1601,8 +1600,8 @@
 		6DD3D27C2512C11300667CA6 /* util.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = util.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D27D2512C11300667CA6 /* zoom.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = zoom.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D27E2512C11300667CA6 /* zterp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; name = zterp.h; path = terps/bocfel/zterp.h; sourceTree = SOURCE_ROOT; tabWidth = 4; };
-		6DD3D27F2512C18300667CA6 /* blorb.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = blorb.h; sourceTree = "<group>"; tabWidth = 4; };
-		6DD3D2802512C19200667CA6 /* branch.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = branch.h; sourceTree = "<group>"; tabWidth = 4; };
+		6DD3D27F2512C18300667CA6 /* blorb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = blorb.h; sourceTree = "<group>"; tabWidth = 4; };
+		6DD3D2802512C19200667CA6 /* branch.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = branch.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD7679A23E45FB7003B605C /* ThemeArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeArrayController.h; sourceTree = "<group>"; };
 		6DD7679B23E45FB7003B605C /* ThemeArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeArrayController.m; sourceTree = "<group>"; };
 		6DE6699E2500334400DDBDAA /* acode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acode.h; sourceTree = "<group>"; };
@@ -2751,8 +2750,6 @@
 		C30DAE7A27EB8C80006C90FB /* libspectrum.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libspectrum.9.dylib; path = ../../../opt/homebrew/Cellar/libspectrum/1.5.0/lib/libspectrum.9.dylib; sourceTree = "<group>"; };
 		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
-		C30F436925A53DD000B8D74B /* spatterlight-autosave.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; indentWidth = 4; name = "spatterlight-autosave.mm"; path = "bocfel-spatterlight/spatterlight-autosave.mm"; sourceTree = "<group>"; tabWidth = 4; };
-		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; indentWidth = 4; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; tabWidth = 4; };
 		C30FAD1E27B68EB400BD20B9 /* Expert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Expert.c; sourceTree = "<group>"; };
 		C30FAD5C27B7D41000BD20B9 /* load_TI99_4a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = load_TI99_4a.h; sourceTree = "<group>"; usesTabs = 0; };
 		C30FAD5D27B7D41000BD20B9 /* load_TI99_4a.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = load_TI99_4a.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -2816,8 +2813,8 @@
 		C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSBitmapImageRep+retro.m"; sourceTree = "<group>"; };
 		C319328027E338100054FE2C /* io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = io.cpp; sourceTree = "<group>"; };
 		C319328127E338100054FE2C /* iff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = iff.cpp; sourceTree = "<group>"; };
-		C319329327E401480054FE2C /* iff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iff.h; sourceTree = "<group>"; };
-		C319329527E401510054FE2C /* io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
+		C319329327E401480054FE2C /* iff.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = iff.h; sourceTree = "<group>"; };
+		C319329527E401510054FE2C /* io.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = io.h; sourceTree = "<group>"; };
 		C319329B27E4076F0054FE2C /* spatterlight-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "spatterlight-autosave.mm"; path = "bocfel-spatterlight/spatterlight-autosave.mm"; sourceTree = "<group>"; };
 		C319329C27E407700054FE2C /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; };
 		C31AF2F5271651C4007B7120 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
