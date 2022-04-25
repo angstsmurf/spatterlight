@@ -505,19 +505,19 @@ int DetectC64(uint8_t **sf, size_t *extent)
     return 0;
 }
 
-static size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "w");
-
-    if (fptr == NULL) {
-        Fatal("File open error!");
-    }
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
-}
+//static size_t writeToFile(const char *name, uint8_t *data, size_t size)
+//{
+//    FILE *fptr = fopen(name, "w");
+//
+//    if (fptr == NULL) {
+//        Fatal("File open error!");
+//    }
+//
+//    size_t result = fwrite(data, 1, size, fptr);
+//
+//    fclose(fptr);
+//    return result;
+//}
 
 static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 {

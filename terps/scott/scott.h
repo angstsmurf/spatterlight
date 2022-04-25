@@ -124,7 +124,6 @@ uint8_t *SeekToPos(uint8_t *buf, int offset);
 int CountCarried(void);
 int RandomPercent(int n);
 void DoneIt(void);
-void LookWithPause(void);
 void SaveGame(void);
 void PrintNoun(void);
 int PrintScore(void);

@@ -101,19 +101,19 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
     max_item_descr = (msg1 - FixAddress(FixWord(dh.p_obj_descr))) / 2;
 }
 
-static void PrintTI99HeaderInfo(struct DATAHEADER header)
-{
-    fprintf(stderr, "Number of items =\t%d\n", header.num_objects);
-    fprintf(stderr, "Number of verbs =\t%d\n", header.num_verbs);
-    fprintf(stderr, "Number of nouns =\t%d\n", header.num_nouns);
-    fprintf(stderr, "Deadroom =\t%d\n", header.red_room);
-    fprintf(stderr, "Max carried items =\t%d\n", header.max_items_carried);
-    fprintf(stderr, "Player start location: %d\n", header.begin_locn);
-    fprintf(stderr, "Word length =\t%d\n", header.cmd_length);
-    fprintf(stderr, "Treasure room: %d\n", header.treasure_locn);
-    fprintf(stderr, "Lightsource time left: %d\n", FixWord(header.light_turns));
-    fprintf(stderr, "Unknown: %d\n", header.strange);
-}
+//static void PrintTI99HeaderInfo(struct DATAHEADER header)
+//{
+//    fprintf(stderr, "Number of items =\t%d\n", header.num_objects);
+//    fprintf(stderr, "Number of verbs =\t%d\n", header.num_verbs);
+//    fprintf(stderr, "Number of nouns =\t%d\n", header.num_nouns);
+//    fprintf(stderr, "Deadroom =\t%d\n", header.red_room);
+//    fprintf(stderr, "Max carried items =\t%d\n", header.max_items_carried);
+//    fprintf(stderr, "Player start location: %d\n", header.begin_locn);
+//    fprintf(stderr, "Word length =\t%d\n", header.cmd_length);
+//    fprintf(stderr, "Treasure room: %d\n", header.treasure_locn);
+//    fprintf(stderr, "Lightsource time left: %d\n", FixWord(header.light_turns));
+//    fprintf(stderr, "Unknown: %d\n", header.strange);
+//}
 
 static int TryLoadingTI994A(struct DATAHEADER dh, int loud);
 

@@ -116,12 +116,12 @@ extern struct SavedState *initial_state;
 
 /* just_started is only used for the error message "Can't undo on first move" */
 int just_started = 1;
-int should_restart = 0;
+static int should_restart = 0;
 int stop_time = 0;
 
 int should_look_in_transcript = 0;
-int print_look_to_transcript = 0;
-int pause_next_room_description = 0;
+static int print_look_to_transcript = 0;
+static int pause_next_room_description = 0;
 
 int split_screen = 1;
 winid_t Bottom, Top;
@@ -277,7 +277,7 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
-winid_t FindGlkWindowWithRock(glui32 rock)
+static winid_t FindGlkWindowWithRock(glui32 rock)
 {
     winid_t win;
     glui32 rockptr;
@@ -289,7 +289,7 @@ winid_t FindGlkWindowWithRock(glui32 rock)
     return 0;
 }
 
-void OpenTopWindow(void)
+static void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top == NULL) {
@@ -539,26 +539,26 @@ size_t GetFileLength(FILE *in)
 
 int header[24];
 
-int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
-{
-    int16_t v = header[1]; // items
-    if (v < 10 || v > 500)
-        return 0;
-    v = header[2]; // actions
-    if (v < 100 || v > 500)
-        return 0;
-    v = header[3]; // word pairs
-    if (v < 50 || v > 200)
-        return 0;
-    v = header[4]; // Number of rooms
-    if (v < 10 || v > 100)
-        return 0;
-    v = header[5]; // Number of Messages
-    if (v < 10 || v > 255)
-        return 0;
-
-    return 1;
-}
+//static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
+//{
+//    int16_t v = header[1]; // items
+//    if (v < 10 || v > 500)
+//        return 0;
+//    v = header[2]; // actions
+//    if (v < 100 || v > 500)
+//        return 0;
+//    v = header[3]; // word pairs
+//    if (v < 50 || v > 200)
+//        return 0;
+//    v = header[4]; // Number of rooms
+//    if (v < 10 || v > 100)
+//        return 0;
+//    v = header[5]; // Number of Messages
+//    if (v < 10 || v > 255)
+//        return 0;
+//
+//    return 1;
+//}
 
 void FreeDatabase(void)
 {
@@ -851,15 +851,15 @@ void DrawRoomImage(void)
         }
 }
 
-strid_t room_description_stream = NULL;
+static strid_t room_description_stream = NULL;
 
-void WriteToRoomDescriptionStream(const char *fmt, ...)
+static void WriteToRoomDescriptionStream(const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 1, 2)))
 #endif
     ;
 
-void WriteToRoomDescriptionStream(const char *fmt, ...)
+static void WriteToRoomDescriptionStream(const char *fmt, ...)
 {
     if (room_description_stream == NULL)
         return;
@@ -1008,7 +1008,7 @@ static void FlushRoomDescription(char *buf)
     }
 }
 
-int ItemEndsWithPeriod(int item)
+static int ItemEndsWithPeriod(int item)
 {
 	if (item < 0 || item > GameHeader.NumItems)
 		return 0;
@@ -1022,7 +1022,7 @@ int ItemEndsWithPeriod(int item)
 	return 0;
 }
 
-void ListInventoryInUpperWindow(void)
+static void ListInventoryInUpperWindow(void)
 {
     int i = 0;
 	int lastitem = -1;
@@ -1469,7 +1469,7 @@ void ListInventory(void)
     }
 }
 
-void LookWithPause(void)
+static void LookWithPause(void)
 {
     char fc = Rooms[MyLoc].Text[0];
     if (Rooms[MyLoc].Text == NULL || MyLoc == 0 || fc == 0 || fc == '.' || fc == ' ')
@@ -1969,16 +1969,10 @@ static ActionResultType PerformLine(int ct)
                          know if there is a maximum value to limit too */
                 break;
             case 84:
-                if (CurrentCommand)
-                    glk_put_string_stream_uni(
-                        glk_window_get_stream(Bottom),
-                        UnicodeWords[CurrentCommand->nounwordindex]);
+                PrintNoun();
                 break;
             case 85:
-                if (CurrentCommand)
-                    glk_put_string_stream_uni(
-                        glk_window_get_stream(Bottom),
-                        UnicodeWords[CurrentCommand->nounwordindex]);
+                PrintNoun();
                 Output("\n");
                 break;
             case 86:
@@ -2057,7 +2051,7 @@ static ActionResultType PerformLine(int ct)
 	}
 }
 
-void PrintTakenOrDropped(int index)
+static void PrintTakenOrDropped(int index)
 {
     Output(sys[index]);
     int length = strlen(sys[index]);
@@ -2355,7 +2349,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
-void PrintTitleScreenBuffer(void) {
+static void PrintTitleScreenBuffer(void) {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     glk_set_style(style_User1);
     ClearScreen();
@@ -2366,7 +2360,7 @@ void PrintTitleScreenBuffer(void) {
     ClearScreen();
 }
 
-void PrintTitleScreenGrid(void) {
+static void PrintTitleScreenGrid(void) {
     int title_length = strlen(title_screen);
     int rows = 0;
     for (int i = 0; i < title_length; i++)
