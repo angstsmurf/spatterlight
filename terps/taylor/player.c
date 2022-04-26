@@ -1282,9 +1282,10 @@ void Look(void) {
                 PrintObject(i);
             }
         }
-        if(f == 1 && CurrentGame != BLIZZARD_PASS)
+        if(f == 1)
             OutReplace('.');
-
+        else
+            OutChar('.');
         ListExits((CurrentGame != TEMPLE_OF_TERROR && CurrentGame != TOT_TEXT_ONLY && CurrentGame != HEMAN));
     }
 
