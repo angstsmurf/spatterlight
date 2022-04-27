@@ -2210,6 +2210,18 @@ static void SimpleParser(void)
     for(i = 0; i < nw ; i++)
     {
         Word[wn] = ParseWord(wb[i]);
+        /* Hack for Blizzard Pass verbs */
+        if (CurrentGame == BLIZZARD_PASS && wn == 0) {
+            /* Change SKIN to VSKI */
+            if (Word[wn] == 249)
+                Word[wn] = 43;
+            /* Change POLI to VPOL */
+            else if (Word[wn] == 175)
+                Word[wn] = 44;
+            /* Change noun DRAW(bridge) to verb DRAW */
+            else if (Word[wn] == 134)
+                Word[wn] = 49;
+        }
         if(Word[wn])
             wn++;
     }
