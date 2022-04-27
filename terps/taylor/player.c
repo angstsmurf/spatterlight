@@ -507,7 +507,7 @@ static void OutChar(char c)
         }
     }
     if(PendSpace) {
-        if (JustWrotePeriod && CurrentGame != KAYLETH && CurrentWindow == Top)
+        if (JustWrotePeriod && CurrentGame != KAYLETH)
             Upper = 1;
         OutWrite(' ');
         PendSpace = 0;
@@ -573,6 +573,10 @@ void QPrintChar(uint8_t c) { // Print character
 
 static void PrintToken(unsigned char n)
 {
+    if (CurrentGame == BLIZZARD_PASS && MyLoc == 49 && n == 0x2d) {
+        OutChar(0x2d);
+        return;
+    }
     unsigned char *p = TokenText(n);
     unsigned char c;
     do {
@@ -846,7 +850,7 @@ static int CarryItem(void)
     if (CurrentGame == QUESTPROBE3)
         return 1;
     /* Flag 5: items carried, flag 4: max carried */
-    if(Flag[5] == Flag[4])
+    if(Flag[5] == Flag[4] && CurrentGame != BLIZZARD_PASS)
         return 0;
     if(Flag[5] < 255)
         Flag[5]++;
@@ -1000,6 +1004,9 @@ static int LoadPrompt(void)
 
 static void QuitGame(void)
 {
+    if (LastChar == '\n')
+        OutReplace(' ');
+    OutFlush();
     Look();
     OutCaps();
     SysMessage(PLAY_AGAIN);
@@ -1147,10 +1154,12 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return 0;
     }
-    SysMessage(OKAY);
-    OutChar(' ');
-    OutFlush();
-    Upper = 1;
+    if (!(CurrentGame == HEMAN && obj == 81) && !(CurrentGame == BLIZZARD_PASS)) {
+        SysMessage(OKAY);
+        OutChar(' ');
+        OutFlush();
+        Upper = 1;
+    }
     Put(obj, Carried());
     return 1;
 }
@@ -1165,10 +1174,12 @@ static void DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
-    SysMessage(OKAY);
-    OutChar(' ');
-    OutFlush();
-    Upper = 1;
+    if (!(CurrentGame == BLIZZARD_PASS)) {
+        SysMessage(OKAY);
+        OutChar(' ');
+        OutFlush();
+        Upper = 1;
+    }
     DropItem();
     Put(obj, MyLoc);
 }
@@ -1214,22 +1225,14 @@ void Look(void) {
     int i;
     int f = 0;
 
-    if (Transcript) {
-        if (LastChar)
-            glk_put_char_stream(Transcript, LastChar);
-        if (LastChar != '\n') {
-            if(PendSpace)
-                glk_put_char_stream(Transcript, ' ');
-            glk_put_char_stream(Transcript, '\n');
-        }
-    }
-
     PendSpace = 0;
-    LastChar = 0;
     OutReset();
     TopWindow();
 
     Redraw = 0;
+    if (Transcript)
+        glk_put_char_stream(Transcript, '\n');
+
     OutCaps();
 
     if(Flag[DarkFlag()]) {
@@ -1254,6 +1257,7 @@ void Look(void) {
                 }
             }
             f = 1;
+            PendSpace = 1;
             PrintObject(i);
         }
     }
@@ -1319,8 +1323,12 @@ static void Goto(unsigned char loc) {
 static void Delay(unsigned char seconds) {
     OutChar(' ');
     OutFlush();
-    glk_request_timer_events(1000 * seconds);
 
+    glk_request_char_event(Bottom);
+    glk_cancel_char_event(Bottom);
+
+    glk_request_timer_events(1000 * seconds);
+    
     event_t ev;
 
     do {
@@ -1668,6 +1676,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 }
                 break;
             case QUIT:
+                SaveUndo();
                 QuitGame();
                 return;
             case SHOWINVENTORY:
@@ -1677,6 +1686,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 AnyKey();
                 break;
             case SAVE:
+                stop_time = 1;
                 SaveGame();
                 break;
             case DROPALL:
@@ -1721,6 +1731,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case MESSAGE:
                 Message(arg1);
+                if (CurrentGame == BLIZZARD_PASS)
+                    OutChar('\n');
                 break;
             case CREATE:
                 Put(arg1, MyLoc);
@@ -1932,6 +1944,7 @@ static void DrawExtraQP3Images(void) {
 static void RunStatusTable(void)
 {
     if (stop_time) {
+        stop_time--;
         return;
     }
     unsigned char *p = FileImage + StatusBase;
@@ -2052,6 +2065,7 @@ static void RunOneInput(void)
     }
     if (IsDir(Word[0])) {
         if(AutoExit(Word[0])) {
+            stop_time = 0;
             RunStatusTable();
             if(Redraw)
                 Look();
@@ -2075,7 +2089,7 @@ static void RunOneInput(void)
             else
                 SysMessage(THATS_BEYOND_MY_POWER);
             OutFlush();
-            stop_time = 2;
+            stop_time = 1;
             return;
         } else {
             return;
@@ -2249,7 +2263,7 @@ static int GuessLowObjectEnd(void)
 
     /* Can't automatically guess in this case */
     if (CurrentGame == BLIZZARD_PASS)
-        return 69;
+        return 70;
     else if (CurrentGame == QUESTPROBE3)
         return 49;
 
@@ -2316,7 +2330,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
             argc--;
         }
 
-//    argv[1] = "/Users/administrator/Desktop/terrortextonly.sna";
+//    argv[1] = "/Users/administrator/Desktop/blizzardpass.sna";
 
     if(argv[1] == NULL)
     {
@@ -2404,7 +2418,7 @@ struct GameInfo *DetectGame(size_t LocalVerbBase)
     return NULL;
 }
 
-void RestoreFile(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
+void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
 {
     FileImage = ParkedFile;
     FileImageLen = ParkedLength;
@@ -2462,7 +2476,7 @@ void LookForSecondTOTGame(void)
     size_t AltVerbBase = FindCode("NORT\001N", 0, 6);
 
     if (AltVerbBase == -1) {
-        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
         return;
     }
 
@@ -2470,14 +2484,14 @@ void LookForSecondTOTGame(void)
 
     if ((CurrentGame == TOT_TEXT_ONLY && AltGame->gameID != TEMPLE_OF_TERROR) ||
         (CurrentGame == TEMPLE_OF_TERROR && AltGame->gameID != TOT_TEXT_ONLY)) {
-        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
         return;
     }
 
     Display(Bottom, "Found files for both the text-only version and the graphics version of Temple of Terror.\n"
             "Would you like to use the longer texts from the text-only version along with the graphics from the other file? (Y/N) ");
     if (!YesOrNo()) {
-        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 1);
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
         return;
     }
 
@@ -2486,9 +2500,9 @@ void LookForSecondTOTGame(void)
         AltGame = Game;
         Game = tempgame;
         SagaSetup();
-        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 0);
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
     } else {
-        RestoreFile(ParkedFile, ParkedLength, ParkedOffset, 0);
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
         SagaSetup();
         Game = AltGame;
         FileImage = CompanionFile;
