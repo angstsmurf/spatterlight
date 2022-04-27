@@ -1154,7 +1154,7 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return 0;
     }
-    if (!(CurrentGame == HEMAN && obj == 81) && !(CurrentGame == BLIZZARD_PASS)) {
+    if (!(CurrentGame == HEMAN && obj == 81) && CurrentGame != BLIZZARD_PASS) {
         SysMessage(OKAY);
         OutChar(' ');
         OutFlush();
@@ -1174,7 +1174,7 @@ static void DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
-    if (!(CurrentGame == BLIZZARD_PASS)) {
+    if (CurrentGame != BLIZZARD_PASS) {
         SysMessage(OKAY);
         OutChar(' ');
         OutFlush();
@@ -1735,7 +1735,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case MESSAGE:
                 Message(arg1);
-                if (CurrentGame == BLIZZARD_PASS)
+                if (CurrentGame == BLIZZARD_PASS && arg1 != 160)
                     OutChar('\n');
                 break;
             case CREATE:
