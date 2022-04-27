@@ -28,6 +28,9 @@ static char OutWord[128];
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight = 1; /* Height of top window */
 
+int Options; /* Option flags */
+int LineEvent = 0;
+
 winid_t FindGlkWindowWithRock(glui32 rock)
 {
     winid_t win;
@@ -236,11 +239,6 @@ static void FlushRoomDescription(void)
         PrintWindowDelimiter();
     }
 
-    //    if (pause_next_room_description) {
-    //        Delay(0.8);
-    //        pause_next_room_description = 0;
-    //    }
-
     if (roomdescbuf != NULL) {
         free(roomdescbuf);
         roomdescbuf = NULL;
@@ -265,15 +263,57 @@ void Look(void);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 
+
+void UpdateSettings(void) {
+    if (gli_sa_delays)
+        Options &= ~NO_DELAYS;
+    else
+        Options |= NO_DELAYS;
+
+//    switch(gli_sa_inventory) {
+//        case 0:
+//            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+//            break;
+//        case 1:
+//            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+//            break;
+//        case 2:
+//            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+//            break;
+//    }
+
+    switch(gli_sa_palette) {
+        case 0:
+            Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
+            break;
+        case 1:
+            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+            break;
+        case 2:
+            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+            break;
+    }
+
+    palette_type previous_pal = palchosen;
+    if (Options & FORCE_PALETTE_ZX)
+        palchosen = ZXOPT;
+    else if (Options & FORCE_PALETTE_C64) {
+        palchosen = C64B;
+    } else
+        palchosen = Game->palette;
+    if (palchosen != previous_pal) {
+        DefinePalette();
+        Resizing = 0;
+    }
+}
+
 int Resizing = 0;
 
 void Updates(event_t ev)
 {
     if (ev.type == evtype_Arrange) {
-        //        UpdateSettings();
-
         Resizing = 1;
-
+        UpdateSettings();
         CloseGraphicsWindow();
         Look();
         Resizing = 0;
@@ -301,6 +341,7 @@ void LineInput(char *buf, int len)
         PendSpace = 0;
     }
 
+    LineEvent = 1;
     glk_request_line_event(Bottom, buf, len - 1, 0);
 
     while(1)
@@ -311,7 +352,7 @@ void LineInput(char *buf, int len)
             break;
         else Updates(ev);
     }
-
+    LineEvent = 0;
     buf[ev.val1] = 0;
 
     if (Transcript) {
@@ -438,4 +479,5 @@ void DisplayInit(void)
 {
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     OpenTopWindow();
+    UpdateSettings();
 }

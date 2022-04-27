@@ -194,6 +194,15 @@ typedef enum {
     ACT50,
 } ActionType;
 
+typedef enum {
+    DEBUGGING = 1,    /* Info from database load */
+    NO_DELAYS = 2,     /* Skip all pauses */
+    FORCE_PALETTE_ZX = 4,     /* Force ZX Spectrum image palette */
+    FORCE_PALETTE_C64 = 8,     /* Force CBM 64 image palette */
+    FORCE_INVENTORY = 16,     /* Inventory in upper window always on */
+    FORCE_INVENTORY_OFF = 32     /* Inventory in upper window always off */
+} OptionsType;
+
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
 typedef enum {
@@ -266,5 +275,7 @@ extern char DelimiterChar;
 extern int JustWrotePeriod;
 
 extern int NoGraphics;
+extern int Options;
+extern int LineEvent;
 
 #endif /* taylor_h */

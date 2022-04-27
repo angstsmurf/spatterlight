@@ -1226,7 +1226,8 @@ void Look(void) {
     int f = 0;
 
     PendSpace = 0;
-    OutReset();
+    if (!(CurrentWindow == Bottom && LineEvent))
+        OutReset();
     TopWindow();
 
     Redraw = 0;
@@ -1323,6 +1324,9 @@ static void Goto(unsigned char loc) {
 static void Delay(unsigned char seconds) {
     OutChar(' ');
     OutFlush();
+
+    if (Options & NO_DELAYS)
+        return;
 
     glk_request_char_event(Bottom);
     glk_cancel_char_event(Bottom);
