@@ -1808,7 +1808,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case BEEP:
 #ifdef SPATTERLIGHT
-                win_beep(1);
+                fprintf(stderr, "BEEP: arg1: %d arg2: %d\n", arg1, arg2);
+                win_beep(1 + (arg1 == 250));
 #else
                 putchar('\007');
                 fflush(stdout);
