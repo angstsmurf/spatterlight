@@ -2099,9 +2099,11 @@ static void RunOneInput(void)
             return;
         }
     }
-    if(Redraw) {
+    if(Redraw && !(CurrentGame == REBEL_PLANET && MyLoc == 250)) {
         Look();
     }
+
+    Redraw = 0;
 
     do {
         if (CurrentGame == QUESTPROBE3) {
