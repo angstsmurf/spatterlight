@@ -1108,24 +1108,26 @@ static void TakeAll(int start)
     }
 }
 
-static void DropAll(void) {
+static void DropAll(int loud) {
     int i;
     int found = 0;
     for(i = 0; i < NumObjects(); i++) {
         if(ObjectLoc[i] == Carried() && ObjectLoc[i] != Worn()) {
-            if (found)
-                OutChar('\n');
-            found = 1;
-            PrintObject(i);
-            OutReplace(0);
-            OutString("......");
-            OutKillSpace();
-            OutString("Dropped");
-            OutFlush();
+            if (loud) {
+                if (found)
+                    OutChar('\n');
+                found = 1;
+                PrintObject(i);
+                OutReplace(0);
+                OutString("......");
+                OutKillSpace();
+                OutString("Dropped");
+                OutFlush();
+            }
             Put(i, MyLoc);
         }
     }
-    if (!found) {
+    if (loud & !found) {
         OutString("You have nothing to drop. ");
     }
     Flag[5] = 0;
@@ -1686,7 +1688,10 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 SaveGame();
                 break;
             case DROPALL:
-                DropAll();
+                if (CurrentGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141))
+                    DropAll(0);
+                else
+                    DropAll(1);
                 break;
             case LOOK:
                 Look();
