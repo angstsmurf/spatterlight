@@ -2107,11 +2107,10 @@ static void RunOneInput(void)
             DrawImages = 0;
             RunStatusTable();
             DrawImages = 255;
-        }
-        RunStatusTable();
-
-        if (CurrentGame == QUESTPROBE3) {
+            RunStatusTable();
             DrawExtraQP3Images();
+        } else {
+            RunStatusTable();
         }
 
         if(Redraw) {
