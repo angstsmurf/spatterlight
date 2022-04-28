@@ -627,6 +627,8 @@ static void PrintText1(unsigned char *p, int n)
  *	Version 0 is different
  */
 
+static int InventoryLower = 0;
+
 static void PrintText0(unsigned char *p, int n)
 {
     if (p > EndOfData)
@@ -645,9 +647,13 @@ static void PrintText0(unsigned char *p, int n)
                 return;
             }
             n--;
-        }
-        else if(n == 0)
+        } else if (n == 0) {
+            if (InventoryLower) {
+                c = tolower(c);
+                InventoryLower = 0;
+            }
             OutChar(c);
+        }
         if(t >= EndOfData || (*t++ & 0x80))
             t = NULL;
     }
@@ -720,6 +726,10 @@ static void Message(unsigned char m)
     PrintText(p, m);
     if (CurrentGame == QUESTPROBE3 || CurrentGame == TOT_TEXT_ONLY || CurrentGame == HEMAN)
         OutChar(' ');
+    if (CurrentGame == REBEL_PLANET && m == 156)
+        InventoryLower = 1;
+    else
+        InventoryLower = 0;
 }
 
 static void Message2(unsigned int m)
@@ -1023,14 +1033,23 @@ static void Inventory(void)
 {
     int i;
     int f = 0;
-    OutCaps();
+    if (CurrentGame != REBEL_PLANET)
+        OutCaps();
     SysMessage(INVENTORY);
     for(i = 0; i < NumObjects(); i++) {
         if(ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
             f = 1;
             PrintObject(i);
-            if(ObjectLoc[i] == Worn())
+            if(ObjectLoc[i] == Worn()) {
+                OutReplace(0);
                 SysMessage(NOWWORN);
+                if (CurrentGame == REBEL_PLANET) {
+                    OutKillSpace();
+                    OutFlush();
+                    OutChar(',');
+                }
+
+            }
         }
     }
     if(f == 0)
@@ -1040,7 +1059,7 @@ static void Inventory(void)
         OutChar(' ');
         OutCaps();
     }
-    OutFlush();
+//    OutFlush();
 }
 
 static void  AnyKey(void) {
