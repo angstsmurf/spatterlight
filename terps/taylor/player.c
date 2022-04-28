@@ -1062,7 +1062,7 @@ static void Inventory(void)
 //    OutFlush();
 }
 
-static void  AnyKey(void) {
+static void AnyKey(void) {
     SysMessage(HIT_ENTER);
     OutFlush();
     WaitCharacter();
