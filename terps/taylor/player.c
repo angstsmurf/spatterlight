@@ -2557,7 +2557,7 @@ void glk_main(void)
 
     SagaSetup();
 
-    if (CurrentGame == QUESTPROBE3)
+    if (CurrentGame == QUESTPROBE3 || CurrentGame == REBEL_PLANET)
         DelimiterChar = '=';
 
     FindTables();
