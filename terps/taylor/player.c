@@ -1036,17 +1036,9 @@ static void Inventory(void)
     if(f == 0)
         SysMessage(NOTHING);
     else {
-        if (Version == REBEL_PLANET_TYPE) {
-            OutKillSpace();
-            OutChar('.');
-        } else if (Version == QUESTPROBE3_TYPE) {
-            OutReplace(0);
-            OutString(". ");
-            OutCaps();
-        } else {
-            OutReplace('.');
-            OutChar(' ');
-        }
+        OutReplace('.');
+        OutChar(' ');
+        OutCaps();
     }
     OutFlush();
 }
