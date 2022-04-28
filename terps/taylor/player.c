@@ -436,7 +436,7 @@ static void OutFlush(void)
 {
     if(LastChar)
         OutWrite(LastChar);
-    if(PendSpace && LastChar != '\n')
+    if(PendSpace && LastChar != '\n' && !FirstAfterInput)
         OutWrite(' ');
     LastChar = 0;
     PendSpace = 0;
@@ -493,9 +493,13 @@ static void OutChar(char c)
         return;
     }
     if (FirstAfterInput) {
-        FirstAfterInput = 0;
+        if (isspace(LastChar)) {
+            LastChar = 0;
+            Upper = 1;
+        } else if (!isspace(c)) {
+            FirstAfterInput = 0;
+        }
         PendSpace = 0;
-        Upper = 1;
     }
     if(LastChar) {
         if (isspace(LastChar))
@@ -1059,7 +1063,6 @@ static void Inventory(void)
         OutChar(' ');
         OutCaps();
     }
-//    OutFlush();
 }
 
 static void AnyKey(void) {
@@ -1170,7 +1173,6 @@ static int GetObject(unsigned char obj) {
     if (!(CurrentGame == HEMAN && obj == 81) && CurrentGame != BLIZZARD_PASS) {
         SysMessage(OKAY);
         OutChar(' ');
-        OutFlush();
         Upper = 1;
     }
     Put(obj, Carried());
@@ -1266,7 +1268,7 @@ void Look(void) {
                 if (CurrentGame == QUESTPROBE3) {
                     OutReplace(0);
                     SysMessage(0);
-                } else if (CurrentGame == HEMAN) {
+                } else if (CurrentGame == HEMAN || CurrentGame == REBEL_PLANET) {
                     OutChar(' ');
                 }
             }
