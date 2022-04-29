@@ -13,8 +13,8 @@
 // currently on-screen, and every pixel should be compared against this
 // to see if it is the same before being redrawn.
 //
-// The click shelf animation should be done by setting the bits in a
-// buffer array first, beforedrawing the image. This will require a
+// The click shelf animation should be done by setting the bitmap in a
+// buffer array first, before drawing the image. This will require a
 // second copy of the image buffer.
 
 #include "sagadraw.h"
@@ -23,6 +23,7 @@
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
+#define SERPENT_ANIMATION_RATE 100
 
 int AnimationRunning = 0;
 static int KaylethAnimationIndex = 0;
@@ -180,21 +181,53 @@ void UpdateKaylethAnimations(void) {
     }
 }
 
+extern Image *images;
+
 void UpdateRebelAnimations(void)
 {
     if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
         animate_stars();
+    } else if (MyLoc > 28 && MyLoc < 34) {
+        if (ObjectLoc[92] == MyLoc) {
+            AnimationStage++;
+            if (AnimationStage > 5) {
+                AnimationStage = 5;
+                glk_request_timer_events(0);
+                AnimationRunning = 0;
+            }
+        } else {
+            AnimationStage--;
+            if (AnimationStage < 0) {
+                AnimationStage = 0;
+                glk_request_timer_events(0);
+                AnimationRunning = 0;
+            } else if (AnimationStage == 4) {
+                glk_request_timer_events(50);
+            }
+            DrawTaylor(MyLoc);
+        }
+        if (AnimationStage) {
+            DrawSagaPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2));
+        }
+        DrawSagaPictureFromBuffer();
     } else {
         glk_request_timer_events(0);
         AnimationRunning = 0;
+        AnimationStage = 0;
     }
 }
 
 void StartAnimations(void) {
-    if (CurrentGame == REBEL_PLANET && MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
-        if (AnimationRunning != STARS_ANIMATION_RATE) {
-            glk_request_timer_events(STARS_ANIMATION_RATE);
-            AnimationRunning = STARS_ANIMATION_RATE;
+    if (CurrentGame == REBEL_PLANET) {
+
+        if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
+            if (AnimationRunning != STARS_ANIMATION_RATE) {
+                glk_request_timer_events(STARS_ANIMATION_RATE);
+                AnimationRunning = STARS_ANIMATION_RATE;
+            }
+        } else if (MyLoc > 28 && MyLoc < 34) {
+            glk_request_timer_events(SERPENT_ANIMATION_RATE);
+            UpdateRebelAnimations();
         }
     } else if (CurrentGame == KAYLETH) {
         int speed = 0;

@@ -24,6 +24,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
 void DrawSagaPictureNumber(int picture_number);
 void DrawSagaPictureFromBuffer(void);
+void DrawSagaPictureAtPos(int picture_number, int x, int y);
 
 void SagaSetup(void);
 

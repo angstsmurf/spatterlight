@@ -22,7 +22,6 @@ uint8_t screenchars[768][8];
 uint8_t buffer[768][9];
 
 static Image *images = NULL;
-static void DrawSagaPictureAtPos(int picture_number, int x, int y);
 
 glui32 pixel_size;
 glui32 x_offset;
@@ -520,6 +519,10 @@ void background(int32_t x, int32_t y, int32_t color)
 void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
                 int32_t bg)
 {
+    if (fg > 15)
+        fg = 0;
+    if (bg > 15)
+        bg = 0;
     int32_t i, j;
     background(x, y, bg);
     for (i = 0; i < 8; i++) {
@@ -810,8 +813,6 @@ void debugdrawcharacter(int character)
         }
         fprintf(stderr, "\n");
     }
-    if (character != 255)
-        debugdrawcharacter(255);
 }
 
 void debugdraw(int on, int character, int xoff, int yoff, int width)
@@ -1319,8 +1320,8 @@ draw_attributes:
 
 #ifdef DRAWDEBUG
             fprintf(stderr, "(gfx#:plotting %d,%d:paper=%s,ink=%s)\n", x + xoff2,
-                    y + yoff, colortext(remap(paper[x][y])),
-                    colortext(remap(ink[x][y])));
+                    y + yoff, colortext(Remap(paper[x][y])),
+                    colortext(Remap(ink[x][y])));
 #endif
             offset++;
             if (offset > offsetlimit)
@@ -1347,7 +1348,7 @@ void DrawSagaPictureNumber(int picture_number)
                             img.yoff);
 }
 
-static void DrawSagaPictureAtPos(int picture_number, int x, int y)
+void DrawSagaPictureAtPos(int picture_number, int x, int y)
 {
     Image img = images[picture_number];
 
@@ -1391,7 +1392,6 @@ void DrawSagaPictureFromBuffer(void)
                 if (buffer[col + line * 32][i] == 0)
                     continue;
                 if (buffer[col + line * 32][i] == 255) {
-
                     glui32 glk_color = (glui32)((pal[ink][0] << 16) | (pal[ink][1] << 8) | pal[ink][2]);
 
                     glk_window_fill_rect(

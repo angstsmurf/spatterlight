@@ -471,8 +471,8 @@ void DrawRoomImage(void) {
     }
     ClearGraphMem();
     DrawTaylor(MyLoc);
-    DrawSagaPictureFromBuffer();
     StartAnimations();
+    DrawSagaPictureFromBuffer();
 }
 
 void DisplayInit(void)
