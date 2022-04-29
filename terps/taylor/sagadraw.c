@@ -1069,7 +1069,7 @@ void DrawTaylor(int loc)
             case 0xf8:
                 // fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
                 ptr++;
-                if (CurrentGame == BLIZZARD_PASS) {
+                if (CurrentGame == BLIZZARD_PASS || CurrentGame == REBEL_PLANET) {
                     if (ObjectLoc[*ptr] == MyLoc) {
                         DrawSagaPictureAtPos(*(ptr + 1), *(ptr + 2), *(ptr + 3));
                     }
