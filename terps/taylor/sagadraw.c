@@ -1123,7 +1123,7 @@ void DrawTaylor(int loc)
                 ClearGraphMem();
                 break;
             case 0xf7: // set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
-                if (CurrentGame == REBEL_PLANET)
+                if (CurrentGame == REBEL_PLANET && MyLoc == 43 && ObjectLoc[131] == 252)
                     return;
             case 0xf6: // set A to 04 and call 70b7. See 0xf7 above.
             case 0xf5: // set A to 08 and call 70b7. See 0xf7 above.
