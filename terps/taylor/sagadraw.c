@@ -1147,14 +1147,13 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     uint8_t data, data2, old = 0;
     int32_t ink[0x22][14], paper[0x22][14];
 
-    //    uint8_t *origptr = dataptr;
-    //    int version = Game->picture_format_version;
     int version = 4;
 
 
     offset = 0;
     int32_t character = 0;
     int32_t count;
+    int offsetlimit = xsize * ysize;
     do {
         count = 1;
 
@@ -1170,7 +1169,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 #endif
             transform(character, 0, offset);
             offset++;
-            if (offset > 767)
+            if (offset > offsetlimit)
                 break;
         } else {
             // first check for a count
@@ -1185,8 +1184,11 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             if ((data & 1) == 1 && character < 128)
                 character += 128;
 
-            for (i = 0; i < count; i++)
+            for (i = 0; i < count; i++) {
+                if (offset + i > offsetlimit)
+                    goto draw_attributes;
                 transform(character, (data & 0x0c) ? (data & 0xf3) : data, offset + i);
+            }
 
             // Now check for overlays
             if ((data & 0xc) != 0) {
@@ -1230,7 +1232,9 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             }
             offset += count;
         }
-    } while (offset < xsize * ysize);
+    } while (offset < offsetlimit);
+    
+draw_attributes:
 
     y = 0;
     x = 0;
@@ -1291,6 +1295,8 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             if (x == xsize) {
                 x = 0;
                 y++;
+                if (y > ysize)
+                    break;
             }
             count--;
         }
@@ -1317,7 +1323,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                     colortext(remap(ink[x][y])));
 #endif
             offset++;
-            if (offset > 766)
+            if (offset > offsetlimit)
                 break;
         }
     return dataptr;
