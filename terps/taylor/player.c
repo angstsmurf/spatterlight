@@ -1235,6 +1235,7 @@ static void ListExits(int caps)
 }
 
 static void RunStatusTable(void);
+static void DrawExtraQP3Images(void);
 extern uint8_t buffer[768][9];
 
 void Look(void) {
@@ -1326,8 +1327,12 @@ void Look(void) {
             return;
         }
         if (CurrentGame == QUESTPROBE3) {
-            DrawImages = 1;
+            int tempstop = stop_time;
+            stop_time = 0;
+            DrawImages = 255;
             RunStatusTable();
+            DrawExtraQP3Images();
+            stop_time = tempstop;
         } else {
             glk_window_clear(Graphics);
             DrawRoomImage();
@@ -2137,8 +2142,11 @@ static void RunOneInput(void)
             DrawImages = 0;
             RunStatusTable();
             DrawImages = 255;
+            int tempstop = stop_time;
+            stop_time = 0;
             RunStatusTable();
             DrawExtraQP3Images();
+            stop_time = tempstop;
         } else {
             RunStatusTable();
         }
