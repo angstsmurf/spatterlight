@@ -2411,8 +2411,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
             argc--;
         }
 
-//    argv[1] = "/Users/administrator/Desktop/blizzardpass.sna";
-
     if(argv[1] == NULL)
     {
         fprintf(stderr, "%s: <file>.\n", argv[0]);
