@@ -23,7 +23,10 @@
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
+#define FIELD_ANIMATION_RATE 10
 #define SERPENT_ANIMATION_RATE 100
+#define ROBOT_ANIMATION_RATE 400
+#define QUEEN_ANIMATION_RATE 120
 
 int AnimationRunning = 0;
 static int KaylethAnimationIndex = 0;
@@ -31,8 +34,10 @@ static int AnimationStage = 0;
 static int ClickShelfStage = 0;
 
 extern uint8_t buffer[384][9];
+extern Image *images;
+extern int draw_to_buffer;
 
-static void animate_stars(void)
+static void AnimateStars(void)
 {
     int carry;
     /* First fill area with black, erasing all stars */
@@ -75,6 +80,85 @@ static void animate_stars(void)
             buffer[line * 32 + 16][pixrow] = buffer[line * 32 + 16][pixrow] | carry;
         }
     }
+}
+
+static void AnimateForcefield(void)
+{
+    int carry;
+    /* First fill door area with black, erasing field */
+    RectFill(104, 16, 48, 39, 0, 0);
+    /* We go line by line and pixel row by pixel row */
+    glui32 ink = 13;
+    for (int line = 2; line < 7; line++) {
+        for (int pixrow = 0; pixrow < 8; pixrow++) {
+            carry = 0;
+            for (int col = 13; col < 19; col++) {
+                for (int pix = 0; pix < 8; pix++) {
+                    if ((buffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                        PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
+                    }
+                }
+                /* The force field is rotated one pixel to the right, */
+                /* byte by byte, but we actually rotate to the left */
+                /* because the bytes are flipped in our implementation */
+                /* for some reason */
+                carry = rotate_left_with_carry(&(buffer[col + line * 32][pixrow]), carry);
+            }
+            buffer[line * 32 + 13][pixrow] = buffer[line * 32 + 13][pixrow] | carry;
+        }
+    }
+}
+
+static void FillCell(int cell, glui32 ink) {
+    int startx = (cell % 32) * 8;
+    int starty = (cell / 32) * 8;
+    for (int pixrow = 0; pixrow < 8; pixrow++) {
+        for (int pix = 0; pix < 8; pix++) {
+            if ((buffer[cell][pixrow] & (1 << pix)) == 0) {
+                PutPixel(startx + pix, starty + pixrow, ink);
+            }
+        }
+    }
+}
+
+static void AnimateQueenComputer(void)
+{
+    int offset = 3;
+    int rotatingink = 7 - (AnimationStage - 7 * (AnimationStage > 7));
+    /* First fill areas with black */
+    for (int i = 0; i < 3; i++) {
+        for (int line = 3; line <= 6; line += 3) {
+            for (int cell = 0; cell < 2; cell++) {
+                FillCell(line * 32 + offset + cell, 8 + rotatingink);
+                rotatingink--;
+                if (rotatingink < 0)
+                    rotatingink = 7;
+            }
+        }
+        if (offset == 3)
+            offset = 10;
+        else if (offset == 10)
+            offset = 27;
+    }
+    for (int cell = 0; cell < 3; cell++) {
+        FillCell(7 * 32 + 18 + cell, 8 + rotatingink--);
+        if (rotatingink < 0)
+            rotatingink = 7;
+    }
+    if (AnimationStage == 0) {
+        draw_to_buffer = 0;
+        /* Image block 18: Arcadian head */
+        DrawSagaPictureAtPos(18, 18, 1);
+        draw_to_buffer = 1;
+    }
+
+    if (AnimationStage == 7) {
+        RectFill(144, 8, 24, 40, 0, 0);
+    }
+
+    AnimationStage++;
+    if (AnimationStage > 15)
+        AnimationStage = 0;
 }
 
 static void AnimateKaylethClickShelves(int stage)
@@ -181,12 +265,14 @@ void UpdateKaylethAnimations(void) {
     }
 }
 
-extern Image *images;
-
 void UpdateRebelAnimations(void)
 {
     if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
-        animate_stars();
+        AnimateStars();
+    } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
+        AnimateForcefield();
+    } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
+        AnimateQueenComputer();
     } else if (MyLoc > 28 && MyLoc < 34) {
         if (ObjectLoc[92] == MyLoc) {
             AnimationStage++;
@@ -210,6 +296,19 @@ void UpdateRebelAnimations(void)
             DrawSagaPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2));
         }
         DrawSagaPictureFromBuffer();
+    } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
+        draw_to_buffer = 0;
+        DrawSagaPictureAtPos(138 + AnimationStage, 13, 2);
+        AnimationStage = (AnimationStage == 0);
+        draw_to_buffer = 1;
+    } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
+        draw_to_buffer = 0;
+        if (!AnimationStage)
+            DrawSagaPictureAtPos(133, 14, 4);
+        else
+            DrawSagaPictureAtPos(142, 17, 6);
+        AnimationStage = (AnimationStage == 0);
+        draw_to_buffer = 1;
     } else {
         glk_request_timer_events(0);
         AnimationRunning = 0;
@@ -219,14 +318,29 @@ void UpdateRebelAnimations(void)
 
 void StartAnimations(void) {
     if (CurrentGame == REBEL_PLANET) {
-
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
             if (AnimationRunning != STARS_ANIMATION_RATE) {
                 glk_request_timer_events(STARS_ANIMATION_RATE);
                 AnimationRunning = STARS_ANIMATION_RATE;
             }
+        } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
+            if (AnimationRunning != FIELD_ANIMATION_RATE) {
+                glk_request_timer_events(FIELD_ANIMATION_RATE);
+                AnimationRunning = FIELD_ANIMATION_RATE;
+            }
+        } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
+            if (AnimationRunning != QUEEN_ANIMATION_RATE) {
+                glk_request_timer_events(QUEEN_ANIMATION_RATE);
+                AnimationRunning = QUEEN_ANIMATION_RATE;
+            }
         } else if (MyLoc > 28 && MyLoc < 34) {
             glk_request_timer_events(SERPENT_ANIMATION_RATE);
+            UpdateRebelAnimations();
+        } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
+            glk_request_timer_events(ROBOT_ANIMATION_RATE);
+            UpdateRebelAnimations();
+        } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
+            glk_request_timer_events(ROBOT_ANIMATION_RATE);
             UpdateRebelAnimations();
         }
     } else if (CurrentGame == KAYLETH) {
