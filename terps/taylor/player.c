@@ -2072,6 +2072,21 @@ static void RunCommandTable(void)
             PrintWord(p[0]);
             PrintWord(p[1]);
 #endif
+            /* Work around some Questprobe bugs */
+            if (CurrentGame == QUESTPROBE3 && (Word[0] == 9 || Word[0] == 20)) {
+                if (MyLoc == 22 && ObjectLoc[33] == 22) {
+                    Flag[39] = 1;
+                    Message(24);
+                    Goto(26);
+                    ActionsExecuted = 1;
+                    return;
+                } else if (MyLoc == 24 && Flag[56] == 0 && ObjectLoc[9] == 24) {
+                    Message(16);
+                    Goto(27);
+                    ActionsExecuted = 1;
+                    return;
+                }
+            }
             ExecuteLineCode(p + 2, &done);
             if(done)
                 return;
