@@ -1594,6 +1594,11 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case ZERO:
+                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                    /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63, make sure he kills us if we try to pass, by setting flag 28 to zero */
+                    if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
+                        Flag[28] = 0;
+                }
                 if(Flag[arg1] == 0)
                     continue;
                 break;
@@ -1795,6 +1800,12 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Remove(arg1);
                 break;
             case LET:
+                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                    if (arg1 == 28 && arg2 == 2) {
+                        /* If the serpent guard is present, we have just kicked sand in his eyes. Set flag 63 to track this */
+                        Flag[63] = (ObjectLoc[48] == MyLoc);
+                    }
+                }
                 Flag[arg1] = arg2;
                 break;
             case ADD:
