@@ -2286,6 +2286,10 @@ static void SimpleParser(void)
             else if (Word[wn] == 134)
                 Word[wn] = 49;
         }
+        if (CurrentGame == QUESTPROBE3 && wn == 1) {
+            if ((Word[wn] == 54 || Word[wn] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
+                Word[wn] = 77;
+        }
         if(Word[wn])
             wn++;
     }
