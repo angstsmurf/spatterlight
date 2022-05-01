@@ -903,7 +903,7 @@ static int Present(unsigned char obj)
 
 static int Chance(int n)
 {
-    unsigned long v = (rand() >> 12) ^ time(NULL);
+    unsigned long v = rand() >> 12;
     v%=100;
     if(v > n)
         return 0;
@@ -2569,6 +2569,13 @@ void glk_main(void)
     }
 
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
+
+#ifdef SPATTERLIGHT
+    if (gli_determinism) {
+        srand(1234);
+    } else
+#endif
+        srand((unsigned int)time(NULL));
 
     DisplayInit();
 
