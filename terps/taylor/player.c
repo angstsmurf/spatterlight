@@ -1626,8 +1626,13 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case EQ:
-                if(Flag[arg1] == arg2)
+                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                    if (arg1 == 12 && arg2 == 4)
+                        arg1 = 60;
+                }
+                if(Flag[arg1] == arg2) {
                     continue;
+                }
                 break;
             case NE:
                 if(Flag[arg1] != arg2)
@@ -1793,6 +1798,10 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Flag[arg1] = arg2;
                 break;
             case ADD:
+                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                    if (arg1 == 12 && arg2 == 1)
+                        arg1 = 60;
+                }
                 n = Flag[arg1] + arg2;
                 if(n > 255)
                     n = 255;
