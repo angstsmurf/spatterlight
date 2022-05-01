@@ -1525,10 +1525,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
         {
             arg2 = *p++;
 #ifdef DEBUG
-            unsigned char debugarg2 = arg2;
-            if (CurrentGame == QUESTPROBE3)
-                AdjustQuestprobeConditions(Q3Condition[op], &debugarg2);
-            fprintf(stderr, "%d ", debugarg2);
+            fprintf(stderr, "%d ", arg2);
 #endif
         }
 
