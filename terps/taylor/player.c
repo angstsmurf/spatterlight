@@ -1434,6 +1434,10 @@ static void UpdateQ3Flags(void) {
         SwitchInvFlags(254, 253);
     }
 
+    /* Reset flag 39 when Xandu is knocked out */
+    if (ObjectLoc[33] != 22)
+        Flag[39] = 0;
+
     if (DrawImages)
         return;
 
@@ -2302,8 +2306,12 @@ static void SimpleParser(void)
                 Word[wn] = 49;
         }
         if (CurrentGame == QUESTPROBE3 && wn == 1) {
+            /* Understand WALL and FIRE as the wall of fire */
             if ((Word[wn] == 54 || Word[wn] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
                 Word[wn] = 77;
+            /* Understand MASTERS as Alicia Masters */
+            if (Word[wn] == 106 && ObjectLoc[46] == MyLoc)
+                Word[wn] = 121;
         }
         if(Word[wn])
             wn++;
