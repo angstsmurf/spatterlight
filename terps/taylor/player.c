@@ -1018,8 +1018,11 @@ static int LoadPrompt(void)
     }
 }
 
+static int RecursionGuard = 0;
+
 static void QuitGame(void)
 {
+    SaveUndo();
     if (LastChar == '\n')
         OutReplace(' ');
     OutFlush();
@@ -1029,6 +1032,7 @@ static void QuitGame(void)
     OutFlush();
     if (YesOrNo()) {
         should_restart = 1;
+        stop_time = 2;
         return;
     } else {
         glk_exit();
@@ -1696,8 +1700,11 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 }
                 break;
             case QUIT:
-                SaveUndo();
-                QuitGame();
+                if (!RecursionGuard) {
+                    RecursionGuard = 1;
+                    QuitGame();
+                }
+                *done = 1;
                 return;
             case SHOWINVENTORY:
                 Inventory();
@@ -2329,6 +2336,7 @@ static int GuessLowObjectEnd(void)
 
 static void RestartGame(void)
 {
+    RecursionGuard = 0;
     RestoreState(initial_state);
     just_started = 0;
     stop_time = 0;
