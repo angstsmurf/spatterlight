@@ -1185,15 +1185,15 @@ static int GetObject(unsigned char obj) {
     return 1;
 }
 
-static void DropObject(unsigned char obj) {
+static int DropObject(unsigned char obj) {
     /* FIXME: check if this is how the real game behaves */
     if(ObjectLoc[obj] == Worn()) {
         SysMessage(YOU_ARE_WEARING_IT);
-        return;
+        return 0;
     }
     if(ObjectLoc[obj] != Carried()) {
         SysMessage(YOU_HAVENT_GOT_IT);
-        return;
+        return 0;
     }
     if (CurrentGame == QUESTPROBE3) {
         SysMessage(OKAY);
@@ -1203,6 +1203,7 @@ static void DropObject(unsigned char obj) {
     }
     DropItem();
     Put(obj, MyLoc);
+    return 1;
 }
 
 static void ListExits(int caps)
@@ -1740,7 +1741,10 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     *done = 1;
                 break;
             case DROP:
-                DropObject(arg1);
+                if (DropObject(arg1) == 0 && CurrentGame == REBEL_PLANET) {
+                    *done = 1;
+                    return;
+                }
                 break;
             case GOTO:
                 /*
