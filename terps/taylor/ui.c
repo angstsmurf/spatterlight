@@ -81,12 +81,14 @@ void HitEnter(void)
 
 static void WordFlush(winid_t win);
 
+static int JustWroteNewline = 0;
+
 void PrintCharacter(unsigned char c)
 {
     if(OutC == 0 &&  c == '\0')
         return;
 
-    if (c == '.') {
+    if (c == '.' || c == '!') {
         if (JustWrotePeriod)
             return;
         JustWrotePeriod = 1;
@@ -97,16 +99,18 @@ void PrintCharacter(unsigned char c)
     if(CurrentWindow == Bottom) {
         if(isspace(c)) {
             WordFlush(Bottom);
-            if(c == '\n') {
+            if ((c == 10 || c == 13) && !JustWroteNewline) {
                 Display(Bottom, "\n");
-            } else {
+                JustWroteNewline = 1;
+            } else if (!JustWroteNewline) {
                 Display(Bottom, " ");
             }
             return;
         }
+        JustWroteNewline = 0;
         OutWord[OutC] = c;
         OutC++;
-        if(OutC > 79)
+        if(OutC > 127)
             WordFlush(Bottom);
         return;
     } else {
@@ -120,7 +124,7 @@ void PrintCharacter(unsigned char c)
         }
         OutWord[OutC] = c;
         OutC++;
-        if(OutC == 78)
+        if(OutC == TopWidth)
             WordFlush(Top);
     }
     return;

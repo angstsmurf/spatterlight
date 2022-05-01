@@ -23,7 +23,7 @@
 
 uint8_t Flag[128];
 uint8_t ObjectLoc[256];
-static uint8_t Word[5];
+uint8_t Word[5];
 char wb[5][17];
 
 uint8_t *FileImage = NULL;
@@ -447,6 +447,8 @@ static void OutReset(void)
     OutFlush();
 }
 
+static int QPUpper = 0;
+
 static void OutCaps(void)
 {
     if (LastChar) {
@@ -454,6 +456,7 @@ static void OutCaps(void)
         LastChar = 0;
     }
     Upper = 1;
+    QPUpper = 1;
 }
 
 static int periods = 0;
@@ -517,8 +520,10 @@ static void OutChar(char c)
         PendSpace = 0;
     }
     LastChar = c;
-    if (LastChar == '\n')
+    if (LastChar == 10 || LastChar == 13) {
         Upper = 1;
+        QPUpper = 1;
+    }
 }
 
 static void OutReplace(char c)
@@ -552,8 +557,6 @@ static unsigned char *TokenText(unsigned char n)
     }
     return p;
 }
-
-static int QPUpper = 0;
 
 void QPrintChar(uint8_t c) { // Print character
     if (c == 0x0d)
@@ -728,7 +731,7 @@ static void Message(unsigned char m)
 {
     unsigned char *p = FileImage + MessageBase;
     PrintText(p, m);
-    if (CurrentGame == QUESTPROBE3 || CurrentGame == TOT_TEXT_ONLY || CurrentGame == HEMAN)
+    if (CurrentGame != BLIZZARD_PASS)
         OutChar(' ');
     if (CurrentGame == REBEL_PLANET && m == 156)
         InventoryLower = 1;
@@ -740,8 +743,7 @@ static void Message2(unsigned int m)
 {
     unsigned char *p = FileImage + Message2Base;
     PrintText(p, m);
-    if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == HEMAN)
-        OutChar(' ');
+    OutChar(' ');
 }
 
 static void SysMessage(unsigned char m)
@@ -1222,8 +1224,7 @@ static void ListExits(int caps)
         SysMessage(*p);
         p += 2;
     }
-    if(f == 1)
-    {
+    if(f == 1) {
         OutReplace('.');
         OutChar('\n');
     }
@@ -1277,7 +1278,7 @@ void Look(void) {
             PrintObject(i);
         }
     }
-    if(f == 1 && CurrentGame != BLIZZARD_PASS)
+    if(f == 1 && !isalpha(LastChar))
         OutReplace('.');
 
     if (CurrentGame == QUESTPROBE3) {
