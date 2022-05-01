@@ -1176,7 +1176,7 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return 0;
     }
-    if (!(CurrentGame == HEMAN && obj == 81) && CurrentGame != BLIZZARD_PASS) {
+    if (CurrentGame == QUESTPROBE3) {
         SysMessage(OKAY);
         OutChar(' ');
         Upper = 1;
@@ -1195,7 +1195,7 @@ static void DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return;
     }
-    if (CurrentGame != BLIZZARD_PASS) {
+    if (CurrentGame == QUESTPROBE3) {
         SysMessage(OKAY);
         OutChar(' ');
         OutFlush();
