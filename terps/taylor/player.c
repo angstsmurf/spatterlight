@@ -781,6 +781,10 @@ static size_t FindObjects(void)
 
 static void PrintObject(unsigned char obj)
 {
+    if ((CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) && obj == 41) {
+        OutString("door.");
+        return;
+    }
     unsigned char *p = FileImage + ObjectBase;
     if (CurrentGame == QUESTPROBE3)
         p--;
