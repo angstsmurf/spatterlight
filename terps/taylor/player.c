@@ -247,7 +247,7 @@ static char Q3Action[]={
     SHOWINVENTORY,
     ANYKEY,
     SAVE,
-    CONTINUE, /* Set "condition failed" flag, Flag[118], to 1 */
+    DONE, /* Set "condition failed" flag, Flag[118], to 1 */
     GET,
     DROP,
     GOTO,
@@ -1893,8 +1893,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 GetObject(arg1);
                 Redraw = 1;
                 break;
-            case CONTINUE:
-                *done = 0;
+            case DONE:
+                *done = 1;
                 break;
             case IMAGE:
                 if (MyLoc == 3 || Flag[DarkFlag()]) {

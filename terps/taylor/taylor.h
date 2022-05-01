@@ -180,7 +180,7 @@ typedef enum {
     DIAGNOSE,
     SWITCHINVENTORY,
     SWITCHCHARACTER,
-    CONTINUE,
+    DONE,
     IMAGE,
     ACT41,
     ACT42,
