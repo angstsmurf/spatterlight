@@ -184,10 +184,14 @@ static int ParseExtraCommand(char *p)
     return NO_COMMAND;
 }
 
+extern uint8_t Word[];
+
 int TryExtraCommand(void)
 {
     int verb = ParseExtraCommand(wb[0]);
     int noun = ParseExtraCommand(wb[1]);
+    if (noun == NO_COMMAND)
+        noun = Word[1];
 
     stop_time = 1;
     Redraw = 1;
