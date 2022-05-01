@@ -214,6 +214,7 @@ static void FlushRoomDescription(void)
     int line = 0;
     int index = 0;
     int i;
+    int empty_lines = 0;
     char string[TopWidth + 1];
     for (line = 0; line < rows && index < length; line++) {
         for (i = 0; i < TopWidth; i++) {
@@ -223,6 +224,10 @@ static void FlushRoomDescription(void)
         }
         if (i < TopWidth + 1) {
             string[i++] = '\n';
+            if (i < 2)
+                empty_lines++;
+            else
+                empty_lines = 0;
         }
         string[i] = 0;
         if (strlen(string) == 0)
@@ -230,6 +235,8 @@ static void FlushRoomDescription(void)
         glk_window_move_cursor(Top, 0, line);
         Display(Top, "%s", string);
     }
+
+    line -= empty_lines;
 
     if (line < rows - 1) {
         glk_window_get_size(Top, &TopWidth, &TopHeight);
