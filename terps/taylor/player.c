@@ -1720,7 +1720,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 SaveGame();
                 break;
             case DROPALL:
-                if (CurrentGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141))
+                if ((CurrentGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
+                    (CurrentGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
                     DropAll(0);
                 else
                     DropAll(1);
