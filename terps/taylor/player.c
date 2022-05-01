@@ -1445,12 +1445,12 @@ static void UpdateQ3Flags(void) {
 static void AdjustQuestprobeConditions(unsigned char op, unsigned char *arg1)
 {
     switch (op) {
-        case 15:
-        case 16:
-        case 21:
-        case 22:
-        case 23:
-        case 24:
+        case ZERO:
+        case NOTZERO:
+        case LT:
+        case GT:
+        case EQ:
+        case NE:
             *arg1 += 4;
             break;
         default:
@@ -1461,15 +1461,15 @@ static void AdjustQuestprobeConditions(unsigned char op, unsigned char *arg1)
 static void AdjustQuestprobeActions(unsigned char op, unsigned char *arg1, unsigned char *arg2)
 {
     switch (op) {
-        case 13:
-        case 14:
-        case 22:
-        case 23:
-        case 24:
+        case SET:
+        case CLEAR:
+        case LET:
+        case ADD:
+        case SUB:
             if (arg1 != NULL)
                 *arg1 += 4;
             break;
-        case 27:
+        case SWAPF:
             if (arg1 != NULL)
                 *arg1 += 4;
             if (arg2 != NULL)
