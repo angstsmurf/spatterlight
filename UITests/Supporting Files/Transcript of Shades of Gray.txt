@@ -2120,8 +2120,6 @@ You are alone in the great hall of Sherwood Castle.  The room is brightened by t
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > wait
-GAME ERROR: Invalid argument to metacommand token.
-
 Robin bursts into the room, sword drawn, hatred plainly visibly in his eyes. He has no need for stealth, since he knows you have no guards.  He snarls at you, "Sheriff, prepare to die!"
 
 Slipping around behind a pillar, you parry Robin's blow with the torch.
