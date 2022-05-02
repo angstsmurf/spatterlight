@@ -2178,11 +2178,15 @@ static void RunOneInput(void)
             return;
         }
     }
+
     if(Redraw && !(CurrentGame == REBEL_PLANET && MyLoc == 250)) {
         Look();
     }
 
     Redraw = 0;
+
+    if (CurrentGame == QUESTPROBE3 && Flag[WaitFlag()] > 1)
+        Flag[WaitFlag()]++;
 
     do {
         if (CurrentGame == QUESTPROBE3) {
