@@ -2602,9 +2602,7 @@ void LookForSecondTOTGame(void)
     }
 
     if (CurrentGame == TOT_TEXT_ONLY) {
-        struct GameInfo *tempgame = AltGame;
-        AltGame = Game;
-        Game = tempgame;
+        Game = AltGame;
         SagaSetup();
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
     } else {
