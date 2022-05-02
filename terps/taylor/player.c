@@ -818,7 +818,7 @@ static size_t FindRooms(void)
 static void PrintRoom(unsigned char room)
 {
     unsigned char *p = FileImage + RoomBase;
-    if (CurrentGame == BLIZZARD_PASS && room < 102 && room != 0)
+    if (CurrentGame == BLIZZARD_PASS && room < 102)
         p = FileImage + 0x18000 + FileBaselineOffset;
     PrintText(p, room);
 }
