@@ -1,7 +1,7 @@
 # Change log
 
 ## Release 0.9.5
-- New experimental engine: TaylorMade. This is an updated version of Alan Cox's [command-line interpreter](https://github.com/EtchedPixels/TaylorMade). It supports the six non-Scott Adams engine Adventure International UK games: *Questprobe: Featuring Human Torch and the Thing*, *Rebel Planet*, *Blizzard Pass*, *Temple of Terror*, *Masters of the Universe: The Super Adventure*, and *Kayleth*. All games are completable with working graphics, and a couple of them have animations and beep a little
+- New experimental engine: TaylorMade. This is an updated version of Alan Cox's [command-line interpreter](https://github.com/EtchedPixels/TaylorMade). It supports the ZX Spectrum versions of the six non-Scott Adams engine Adventure International UK games: *Questprobe: Featuring Human Torch and the Thing*, *Rebel Planet*, *Blizzard Pass*, *Temple of Terror*, *Masters of the Universe: The Super Adventure*, and *Kayleth*. All games are completable with working graphics, and a couple of them have animations and beep a little
 - Updates Bocfel to 2.0
 - Updates AGiliTy with changes from 1.1.2 that fixes some synonyms and hides an error message in *Shades of Gray*
 - ScottFree would sometimes try to write an external debug file, causing crashes
