@@ -581,7 +581,9 @@ static size_t FindCharacterStart(void)
         fprintf(stderr, "Cannot find character data.\n");
         return 0;
     }
+#ifdef DEBUG
     fprintf(stderr, "Found characters at pos %zx\n", pos);
+#endif
     return pos;
 }
 
@@ -631,7 +633,9 @@ void SagaSetup(void)
     size_t CHAR_START = FindCharacterStart();
     if (CHAR_START == 0)
         CHAR_START = Game->start_of_characters + FileBaselineOffset;
+#ifdef DRAWDEBUG
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", Game->start_of_characters + FileBaselineOffset, Game->start_of_characters + FileBaselineOffset);
+#endif
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(FileImage, CHAR_START);
@@ -642,30 +646,10 @@ void SagaSetup(void)
             CHAR_START - FileBaselineOffset);
 #endif
     for (i = 0; i < 256; i++) {
-        //        fprintf (stderr, "\nCharacter %d:\n", i);
         for (y = 0; y < 8; y++) {
             sprite[i][y] = *(pos++);
-            //            if ((i == 0 && sprite[i][y] != 0) || (i == 1 &&
-            //                                                  sprite[i][y] != 255)) {
-            //                CHAR_START--;
-            //                goto jumpChar;
-            //            }
-            //
-            //            fprintf (stderr, "\n%s$%04lX DEFS ", (y == 0) ? "s" : " ", CHAR_START + i * 8 + y);
-            //            for (int n = 0; n < 8; n++) {
-            //                if (isNthBitSet(sprite[i][y], n))
-            //                    fprintf (stderr, "■");
-            //                else
-            //                    fprintf (stderr, "0");
-            //            }
         }
     }
-    //    fprintf(stderr, "Final CHAR_START: %04lx\n",
-    //              CHAR_START - FileBaselineOffset);
-
-    //      fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
-    //              pos - FileImage - FileBaselineOffset,
-    //              pos - FileImage - FileBaselineOffset);
 
     /* Now we have hopefully read the character data */
     /* Time for the image offsets */

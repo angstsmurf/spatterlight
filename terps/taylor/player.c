@@ -723,7 +723,9 @@ static size_t FindMessages2(void)
             continue;
         return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + (int)FileBaselineOffset;
     }
+#ifdef DEBUG
     fprintf(stderr, "No second message block ?\n");
+#endif
     return 0;
 }
 
@@ -2478,6 +2480,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
+#ifdef DEBUG
+
 void PrintConditionAddresses(void) {
     fprintf(stderr, "Memory adresses of conditions\n\n");
     uint16_t conditionsOffsets = 0x56A8 + FileBaselineOffset;
@@ -2506,6 +2510,8 @@ void PrintActionAddresses(void) {
     fprintf(stderr, "\n");
 }
 
+#endif
+
 struct GameInfo *DetectGame(size_t LocalVerbBase)
 {
     struct GameInfo *LocalGame;
@@ -2515,10 +2521,14 @@ struct GameInfo *DetectGame(size_t LocalVerbBase)
         FileBaselineOffset = (long)LocalVerbBase - (long)LocalGame->start_of_dictionary;
         long diff = FindTokens() - LocalVerbBase;
         if ((LocalGame->start_of_tokens - LocalGame->start_of_dictionary) == diff) {
+#ifdef DEBUG
             fprintf(stderr, "This is %s\n", LocalGame->Title);
+#endif
             return LocalGame;
         } else {
+#ifdef DEBUG
             fprintf(stderr, "Diff for game %s: %d. Looking for %ld\n", LocalGame->Title, LocalGame->start_of_tokens - LocalGame->start_of_dictionary, diff);
+#endif
         }
     }
     return NULL;
@@ -2621,7 +2631,9 @@ void glk_main(void)
 {
     /* The message analyser will look for version 0 games */
 
+#ifdef DEBUG
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
+#endif
 
     VerbBase = FindCode("NORT\001N", 0, 6);
     if(VerbBase == -1) {
@@ -2634,8 +2646,9 @@ void glk_main(void)
         fprintf(stderr, "Did not recognize game!\n");
         glk_exit();
     }
-
+#ifdef DEBUG
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
+#endif
 
 #ifdef SPATTERLIGHT
     if (gli_determinism) {
