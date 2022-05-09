@@ -175,7 +175,7 @@ static void userCallback (void *inClientData, MusicSequence inSequence, MusicTra
 
 static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat) {
     typedef void (^MyBlockType)(void);
-    MyBlockType block = (__bridge_transfer MyBlockType)inClientData;
+    MyBlockType block = (__bridge MyBlockType)inClientData;
     block();
 }
 
