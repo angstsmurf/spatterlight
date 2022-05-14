@@ -80,7 +80,7 @@ CFArrayRef SFB::Audio::CoreAudioDecoder::CreateSupportedFileExtensions()
 		return nullptr;
 	}
 
-	return supportedExtensions;
+	return CFArrayCreateCopy(kCFAllocatorDefault, supportedExtensions);
 }
 
 CFArrayRef SFB::Audio::CoreAudioDecoder::CreateSupportedMIMETypes()
