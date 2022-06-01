@@ -1563,7 +1563,7 @@ void PutItemAInRoomB(int itemA, int roomB)
 {
 #ifdef DEBUG_ACTIONS
 	fprintf(stderr, "Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
-			itemA, Items[arg1].Text, roomB, Rooms[roomB].Text, MyLoc,
+			itemA, Items[itemA].Text, roomB, Rooms[roomB].Text, MyLoc,
 			Rooms[MyLoc].Text);
 #endif
     if (Items[itemA].Location == MyLoc)
