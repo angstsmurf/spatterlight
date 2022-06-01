@@ -1,9 +1,10 @@
 #include <string.h>
 
 #include "glk.h"
-#include "load_TI99_4a.h"
 #include "scott.h"
-#include "TI99_4a_terp.h"
+
+#include "load_ti99_4a.h"
+#include "ti99_4a_terp.h"
 
 static ActionResultType PerformTI99Line(const uint8_t *action_line)
 {

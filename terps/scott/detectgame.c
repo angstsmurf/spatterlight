@@ -23,9 +23,9 @@
 #include "robinofsherwood.h"
 #include "seasofblood.h"
 
-#include "C64checksums.h"
+#include "c64decrunch.h"
 #include "decompressz80.h"
-#include "load_TI99_4a.h"
+#include "load_ti99_4a.h"
 #include "parser.h"
 
 extern const char *sysdict_zx[MAX_SYSMESS];

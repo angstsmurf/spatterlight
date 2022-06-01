@@ -1,5 +1,5 @@
 //
-//  C64checksums.c
+//  c64decrunch.c
 //  scott
 //
 //  Created by Administrator on 2022-01-30.
@@ -13,7 +13,7 @@
 #include "definitions.h"
 #include "gameinfo.h"
 
-#include "C64checksums.h"
+#include "c64decrunch.h"
 #include "detectgame.h"
 #include "diskimage.h"
 #include "sagadraw.h"

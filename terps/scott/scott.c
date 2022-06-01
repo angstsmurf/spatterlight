@@ -50,7 +50,7 @@
 #include "sagadraw.h"
 #include "line_drawing.h"
 
-#include "TI99_4a_terp.h"
+#include "ti99_4a_terp.h"
 #include "parser.h"
 
 #include "game_specific.h"
