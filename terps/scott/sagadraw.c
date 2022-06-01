@@ -531,6 +531,7 @@ int isNthBitSet(unsigned const char c, int n)
     static unsigned const char mask[] = { 128, 64, 32, 16, 8, 4, 2, 1 };
     return ((c & mask[n]) != 0);
 }
+
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     int xoff, int yoff);
 
