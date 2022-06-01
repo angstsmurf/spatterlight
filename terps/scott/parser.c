@@ -1006,10 +1006,6 @@ int GetInput(int *vb, int *no)
         if (CurrentCommand)
             FreeCommands();
         CharWords = LineInput();
-
-        if (WordsInInput == 0 || CharWords == NULL)
-            return 0;
-
         CurrentCommand = CommandFromStrings(0, NULL);
     }
 
