@@ -57,9 +57,9 @@ int Redraw = 0;
 
 static int FirstAfterInput = 0;
 
-int stop_time = 0;
-int just_started = 1;
-int should_restart = 0;
+int StopTime = 0;
+int JustStarted = 1;
+int ShouldRestart = 0;
 
 int NoGraphics = 0;
 
@@ -73,7 +73,7 @@ extern struct GameInfo games[];
 static char *Filename;
 static uint8_t *CompanionFile;
 
-extern struct SavedState *initial_state;
+extern struct SavedState *InitialState;
 
 extern int AnimationRunning;
 
@@ -1037,8 +1037,8 @@ static void QuitGame(void)
     SysMessage(PLAY_AGAIN);
     OutFlush();
     if (YesOrNo()) {
-        should_restart = 1;
-        stop_time = 2;
+        ShouldRestart = 1;
+        StopTime = 2;
         return;
     } else {
         glk_exit();
@@ -1334,12 +1334,12 @@ void Look(void) {
             return;
         }
         if (CurrentGame == QUESTPROBE3) {
-            int tempstop = stop_time;
-            stop_time = 0;
+            int tempstop = StopTime;
+            StopTime = 0;
             DrawImages = 255;
             RunStatusTable();
             DrawExtraQP3Images();
-            stop_time = tempstop;
+            StopTime = tempstop;
         } else {
             glk_window_clear(Graphics);
             DrawRoomImage();
@@ -1736,7 +1736,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 AnyKey();
                 break;
             case SAVE:
-                stop_time = 1;
+                StopTime = 1;
                 SaveGame();
                 break;
             case DROPALL:
@@ -2011,8 +2011,8 @@ static void DrawExtraQP3Images(void) {
 
 static void RunStatusTable(void)
 {
-    if (stop_time) {
-        stop_time--;
+    if (StopTime) {
+        StopTime--;
         return;
     }
     unsigned char *p = FileImage + StatusBase;
@@ -2139,7 +2139,7 @@ static void RunOneInput(void)
         if (TryExtraCommand() == 0) {
             OutCaps();
             SysMessage(I_DONT_UNDERSTAND);
-            stop_time = 2;
+            StopTime = 2;
         } else {
             if (Redraw)
                 Look();
@@ -2148,7 +2148,7 @@ static void RunOneInput(void)
     }
     if (IsDir(Word[0])) {
         if(AutoExit(Word[0])) {
-            stop_time = 0;
+            StopTime = 0;
             RunStatusTable();
             if(Redraw)
                 Look();
@@ -2172,7 +2172,7 @@ static void RunOneInput(void)
             else
                 SysMessage(THATS_BEYOND_MY_POWER);
             OutFlush();
-            stop_time = 1;
+            StopTime = 1;
             return;
         } else {
             return;
@@ -2193,11 +2193,11 @@ static void RunOneInput(void)
             DrawImages = 0;
             RunStatusTable();
             DrawImages = 255;
-            int tempstop = stop_time;
-            stop_time = 0;
+            int tempstop = StopTime;
+            StopTime = 0;
             RunStatusTable();
             DrawExtraQP3Images();
-            stop_time = tempstop;
+            StopTime = tempstop;
         } else {
             RunStatusTable();
         }
@@ -2406,14 +2406,14 @@ static int GuessLowObjectEnd(void)
 static void RestartGame(void)
 {
     RecursionGuard = 0;
-    RestoreState(initial_state);
-    just_started = 0;
-    stop_time = 0;
+    RestoreState(InitialState);
+    JustStarted = 0;
+    StopTime = 0;
     OutFlush();
     glk_window_clear(Bottom);
     Look();
     RunStatusTable();
-    should_restart = 0;
+    ShouldRestart = 0;
     Look();
 }
 
@@ -2681,7 +2681,7 @@ void glk_main(void)
 #endif
     NewGame();
     NumLowObjects = GuessLowObjectEnd();
-    initial_state = SaveCurrentState();
+    InitialState = SaveCurrentState();
 
     RunStatusTable();
     if(Redraw) {
@@ -2689,16 +2689,16 @@ void glk_main(void)
         Look();
     }
     while(1) {
-        if (should_restart) {
+        if (ShouldRestart) {
             RestartGame();
-        } else if (!stop_time)
+        } else if (!StopTime)
             SaveUndo();
         SimpleParser();
         FirstAfterInput = 1;
         RunOneInput();
-        if (stop_time)
-            stop_time--;
+        if (StopTime)
+            StopTime--;
         else
-            just_started = 0;
+            JustStarted = 0;
     }
 }

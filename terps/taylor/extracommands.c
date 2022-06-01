@@ -100,8 +100,8 @@ const extra_command ExtraCommandsKey[] = {
 };
 
 extern char wb[5][17];
-extern int should_restart;
-extern int stop_time;
+extern int ShouldRestart;
+extern int StopTime;
 extern int Redraw;
 
 extern winid_t Bottom;
@@ -193,7 +193,7 @@ int TryExtraCommand(void)
     if (noun == NO_COMMAND)
         noun = Word[1];
 
-    stop_time = 1;
+    StopTime = 1;
     Redraw = 1;
     switch (verb) {
         case RESTORE:
@@ -206,7 +206,7 @@ int TryExtraCommand(void)
             if (noun == NO_COMMAND || noun == GAME) {
                 Display(Bottom, "Restart? (Y/N) ");
                 if (YesOrNo()) {
-                    should_restart = 1;
+                    ShouldRestart = 1;
                 }
                 return 1;
             }
@@ -257,7 +257,7 @@ int TryExtraCommand(void)
             break;
     }
 
-    stop_time = 0;
+    StopTime = 0;
     Redraw = 0;
     return 0;
 }

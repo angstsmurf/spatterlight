@@ -13,8 +13,8 @@
 
 #define MAX_UNDOS 100
 
-extern int stop_time;
-extern int just_started;
+extern int StopTime;
+extern int JustStarted;
 int just_undid = 0;
 
 extern uint8_t Flag[];
@@ -22,7 +22,7 @@ extern uint8_t ObjectLoc[];
 
 extern winid_t Bottom;
 
-struct SavedState *initial_state = NULL;
+struct SavedState *InitialState = NULL;
 static struct SavedState *ramsave = NULL;
 static struct SavedState *last_undo = NULL;
 static struct SavedState *oldest_undo = NULL;
@@ -54,7 +54,7 @@ void RestoreState(struct SavedState *state)
     memcpy(Flag, state->Flags, 128);
     memcpy(ObjectLoc, state->ObjectLocations, 256);
 
-    stop_time = 1;
+    StopTime = 1;
 }
 
 void SaveUndo(void)
@@ -89,7 +89,7 @@ void SaveUndo(void)
 
 void RestoreUndo(int game)
 {
-    if (just_started) {
+    if (JustStarted) {
         Display(Bottom, "You can't undo on first turn\n");
         return;
     }
