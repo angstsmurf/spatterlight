@@ -993,7 +993,7 @@ static void PrintPendingError(void)
         glk_put_string_stream_uni(glk_window_get_stream(Bottom), FirstErrorMessage);
         free(FirstErrorMessage);
         FirstErrorMessage = NULL;
-        stop_time = 1;
+        StopTime = 1;
     }
 }
 

@@ -161,7 +161,7 @@ extern int WeAreBigEndian;
 extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
-extern int stop_time;
+extern int StopTime;
 extern int should_look_in_transcript;
 
 #endif /* scott_h */

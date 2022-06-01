@@ -112,12 +112,12 @@ size_t file_length;
 
 int AnimationFlag = 0;
 
-extern struct SavedState *initial_state;
+extern struct SavedState *InitialState;
 
 /* just_started is only used for the error message "Can't undo on first move" */
-int just_started = 1;
+int JustStarted = 1;
 static int should_restart = 0;
-int stop_time = 0;
+int StopTime = 0;
 
 int should_look_in_transcript = 0;
 static int print_look_to_transcript = 0;
@@ -1238,17 +1238,17 @@ static void LoadGame(void)
     }
 
     SaveUndo();
-    just_started = 0;
-    stop_time = 1;
+    JustStarted = 0;
+    StopTime = 1;
 }
 
 static void RestartGame(void)
 {
     if (CurrentCommand)
         FreeCommands();
-    RestoreState(initial_state);
-    just_started = 0;
-    stop_time = 0;
+    RestoreState(InitialState);
+    JustStarted = 0;
+    StopTime = 0;
     glk_window_clear(Bottom);
     OpenTopWindow();
 	should_restart = 0;
@@ -1317,7 +1317,7 @@ int PerformExtraCommand(int extra_stop_time)
             noun = newnoun;
     }
 
-    stop_time = 1 + extra_stop_time;
+    StopTime = 1 + extra_stop_time;
 
     switch (verb) {
     case RESTORE:
@@ -1381,7 +1381,7 @@ int PerformExtraCommand(int extra_stop_time)
         FreeCommands();
     }
 
-    stop_time = 0;
+    StopTime = 0;
     return 0;
 }
 
@@ -1881,14 +1881,14 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 65:
                 dead = PrintScore();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 66:
 				if (Game->type == SEAS_OF_BLOOD_VARIANT)
 					AdventureSheet();
 				else
 					ListInventory();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 67:
                 BitFlags |= (1 << 0);
@@ -1906,7 +1906,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 71:
                 SaveGame();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 72:
                 p = param[pptr++];
@@ -2484,7 +2484,7 @@ Distributed under the GNU software license\n\n");
 #endif
         srand((unsigned int)time(NULL));
 
-	initial_state = SaveCurrentState();
+	InitialState = SaveCurrentState();
 
     while (1) {
         glk_tick();
@@ -2492,13 +2492,13 @@ Distributed under the GNU software license\n\n");
 		if (should_restart)
 			RestartGame();
 
-        if (!stop_time)
+        if (!StopTime)
             PerformActions(0, 0);
 		if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
 			print_look_to_transcript = should_look_in_transcript;
             Look();
 			print_look_to_transcript = should_look_in_transcript = 0;
-			if (!stop_time && !should_restart)
+			if (!StopTime && !should_restart)
 				SaveUndo();
 		}
 
@@ -2520,11 +2520,11 @@ Distributed under the GNU software license\n\n");
             FreeCommands();
             break;
         default:
-            just_started = 0;
+            JustStarted = 0;
         }
 
         /* Brian Howarth games seem to use -1 for forever */
-        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
+        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
                 BitFlags |= (1 << LIGHTOUTBIT);
@@ -2544,7 +2544,7 @@ Distributed under the GNU software license\n\n");
                 }
             }
         }
-        if (stop_time)
-			stop_time--;
+        if (StopTime)
+			StopTime--;
     }
 }

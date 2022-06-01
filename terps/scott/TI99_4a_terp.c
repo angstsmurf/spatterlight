@@ -342,12 +342,12 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
         case 232: /* print score */
             if (PrintScore() == 1)
                 return ACT_GAMEOVER;
-            stop_time = 2;
+            StopTime = 2;
             break;
 
         case 233: /* list contents of inventory */
             ListInventory();
-            stop_time = 2;
+            StopTime = 2;
             break;
 
         case 234: /* refill lightsource */
@@ -358,7 +358,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 235: /* save */
             SaveGame();
-            stop_time = 2;
+            StopTime = 2;
             break;
 
         case 236: /* swap items p and p2 around */
