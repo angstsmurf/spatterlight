@@ -495,12 +495,10 @@ int DetectC64(uint8_t **sf, size_t *extent)
 
 static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 {
-    uint8_t *uncompressed = NULL;
     file_length = *extent;
-
     size_t decompressed_length = *extent;
 
-    uncompressed = MemAlloc(0xffff);
+    uint8_t *uncompressed = MemAlloc(0xffff);
 
     char *switches[3];
     int numswitches = 0;
@@ -532,9 +530,13 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
             file_length = decompressed_length;
         } else {
             free(uncompressed);
+            uncompressed = NULL;
             break;
         }
     }
+
+    if (uncompressed != NULL)
+        free(uncompressed);
 
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].gameID == record.id) {
