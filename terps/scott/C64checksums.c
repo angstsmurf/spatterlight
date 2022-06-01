@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "scott.h"
 #include "definitions.h"
 #include "gameinfo.h"
 
@@ -16,7 +17,6 @@
 #include "detectgame.h"
 #include "diskimage.h"
 #include "sagadraw.h"
-#include "scott.h"
 
 #include "unp64_interface.h"
 
@@ -73,43 +73,28 @@ static const struct c64rec c64_registry[] = {
     { INDIANS_C64, 0x4f9f, 0xe6c8, TYPE_T64, 1}, // Ten Little Indians C64
     { WAXWORKS_C64, 0x4a11, 0xa37a, TYPE_T64, 1}, // Waxworks C64
 
-    { ADVENTURELAND_C64, 0x6a10, 0x1910, TYPE_T64,
-        1 }, // Adventureland C64 (T64) CruelCrunch v2.2
-    { ADVENTURELAND_C64, 0x6a10, 0x1b10, TYPE_T64, 1, NULL, NULL, 0, 0,
-        0 }, // Adventureland C64 (T64) alt CruelCrunch v2.2
-    { ADVENTURELAND_C64, 0x2ab00, 0x6638, TYPE_D64, 1, NULL, NULL, 0, 0,
-        0 }, // Adventureland C64 (D64) CruelCrunch v2.2
-    { ADVENTURELAND_C64, 0x2adab, 0x751f, TYPE_D64, 0, NULL, NULL, 0, 0,
-        0 }, // Adventureland C64 (D64) alt
+    { ADVENTURELAND_C64, 0x6a10, 0x1910, TYPE_T64, 1 }, // Adventureland C64 (T64) CruelCrunch v2.2
+    { ADVENTURELAND_C64, 0x6a10, 0x1b10, TYPE_T64, 1, NULL, NULL, 0, 0, 0 }, // Adventureland C64 (T64) alt CruelCrunch v2.2
+    { ADVENTURELAND_C64, 0x2ab00, 0x6638, TYPE_D64, 1, NULL, NULL, 0, 0, 0 }, // Adventureland C64 (D64) CruelCrunch v2.2
+    { ADVENTURELAND_C64, 0x2adab, 0x751f, TYPE_D64, 0, NULL, NULL, 0, 0, 0 }, // Adventureland C64 (D64) alt
     { ADVENTURELAND_C64, 0x2adab, 0x64a4, TYPE_D64, 0, NULL, "SAG1PIC", -0xa53,
         0, 0, 0, 0x65af }, // Adventureland C64 (D64) alt 2
 
-    { SECRET_MISSION_C64, 0x88be, 0xa122, TYPE_T64, 1, NULL, NULL, 0, 0,
-        0 }, // Secret Mission  C64 (T64) Section8 Packer
-    { SECRET_MISSION_C64, 0x2ab00, 0x04d6, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0,
-        -0x1bff }, // Secret Mission  C64 (D64)
+    { SECRET_MISSION_C64, 0x88be, 0xa122, TYPE_T64, 1, NULL, NULL, 0, 0, 0 }, // Secret Mission  C64 (T64) Section8 Packer
+    { SECRET_MISSION_C64, 0x2ab00, 0x04d6, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, -0x1bff }, // Secret Mission  C64 (D64)
 
-    { CLAYMORGUE_C64, 0x6ff7, 0xe4ed, TYPE_T64, 3, NULL, NULL, 0, 0x855, 0x7352,
-        0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64), MasterCompressor / Relax
+    { CLAYMORGUE_C64, 0x6ff7, 0xe4ed, TYPE_T64, 3, NULL, NULL, 0, 0x855, 0x7352, 0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64), MasterCompressor / Relax
     // -> ECA Compacker -> MegaByte Cruncher v1.x Missing 17 pictures
-    { CLAYMORGUE_C64, 0x912f, 0xa69f, TYPE_T64, 1, NULL, NULL, 0, 0x855, 0x7352,
-        0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64) alt, MegaByte Cruncher
+    { CLAYMORGUE_C64, 0x912f, 0xa69f, TYPE_T64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64) alt, MegaByte Cruncher
     // v1.x Missing 17 pictures
-    { CLAYMORGUE_C64, 0xc0dd, 0x3701, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0,
-        -0x7fe }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 2, Trilogic Expert
+    { CLAYMORGUE_C64, 0xc0dd, 0x3701, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, -0x7fe }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 2, Trilogic Expert
     // v2.7
-    { CLAYMORGUE_C64, 0xbc5f, 0x492c, TYPE_T64, 1, NULL, NULL, 0, 0x855, 0x7352,
-        0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3, , Section8 Packer
-    { CLAYMORGUE_C64, 0x2ab00, 0xfd67, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352,
-        0x20 }, // Sorcerer Of Claymorgue Castle C64 (D64), Section8 Packer
+    { CLAYMORGUE_C64, 0xbc5f, 0x492c, TYPE_T64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20 }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3, , Section8 Packer
+    { CLAYMORGUE_C64, 0x2ab00, 0xfd67, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20 }, // Sorcerer Of Claymorgue Castle C64 (D64), Section8 Packer
 
-    { HULK_C64, 0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801,
-        0x307 }, // Questprobe 1 - The Hulk C64 (D64)
-    { SPIDERMAN_C64, 0x2ab00, 0xde56, TYPE_D64, 0, NULL, NULL, 0, 0x1801, 0xa801,
-        0x2000 }, // Spiderman C64 (D64)
-    { SPIDERMAN_C64, 0x08e72, 0xb2f4, TYPE_T64, 3, NULL, NULL, 0, 0,
-        0 }, // Spiderman C64 (T64) MasterCompressor / Relax -> ECA Compacker ->
-    // Section8 Packer
+    { HULK_C64, 0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307 }, // Questprobe 1 - The Hulk C64 (D64)
+    { SPIDERMAN_C64, 0x2ab00, 0xde56, TYPE_D64, 0, NULL, NULL, 0, 0x1801, 0xa801, 0x2000 }, // Spiderman C64 (D64)
+    { SPIDERMAN_C64, 0x08e72, 0xb2f4, TYPE_T64, 3, NULL, NULL, 0, 0, 0 }, // Spiderman C64 (T64) MasterCompressor / Relax -> ECA Compacker -> Section8 Packer
 
     { SAVAGE_ISLAND_C64, 0x2ab00, 0x8801, TYPE_D64, 1, "-f86 -d0x1793",
         "SAVAGEISLAND1+", 1, 0, 0 }, // Savage Island part 1 C64 (D64)
@@ -129,19 +114,12 @@ static const struct c64rec c64_registry[] = {
     { ROBIN_OF_SHERWOOD_C64, 0x8db6, 0x7853, TYPE_T64, 1, NULL, NULL, 0, 0xd7fb,
         0xbd20, 0x2000 }, // Robin Of Sherwood T64 alt 2 * PUCrunch
 
-    { GREMLINS_C64, 0xdd94, 0x25a8, TYPE_T64, 1, NULL, NULL,
-        0 }, // Gremlins C64 (T64) version * Action Replay v4.x
-    { GREMLINS_C64, 0x2ab00, 0xc402, TYPE_D64, 0, NULL, "G1",
-        -0x8D }, // Gremlins C64 (D64) version
-    { GREMLINS_C64, 0x2ab00, 0x3ccf, TYPE_D64, 0, NULL, "G1",
-        -0x8D }, // Gremlins C64 (D64) version 2
-    { GREMLINS_C64, 0x2ab00, 0xabf8, TYPE_D64, 2, "-e0x1255", NULL,
-        2 }, // Gremlins C64 (D64) version alt * ByteBoiler, Exomizer
-    { GREMLINS_C64, 0x2ab00, 0xa265, TYPE_D64, 2, "-e0x1255", NULL,
-        2 }, // Gremlins C64 (D64)  version alt 2 * ByteBoiler, Exomizer
-    { GREMLINS_GERMAN_C64, 0xc003, 0x558c, TYPE_T64, 1, NULL, NULL, 0, 0xd801,
-        0xc6c0,
-        0x1f00 }, // German Gremlins C64 (T64) version * TBC Multicompactor v2.x
+    { GREMLINS_C64, 0xdd94, 0x25a8, TYPE_T64, 1, NULL, NULL, 0 }, // Gremlins C64 (T64) version * Action Replay v4.x
+    { GREMLINS_C64, 0x2ab00, 0xc402, TYPE_D64, 0, NULL, "G1", -0x8D }, // Gremlins C64 (D64) version
+    { GREMLINS_C64, 0x2ab00, 0x3ccf, TYPE_D64, 0, NULL, "G1", -0x8D }, // Gremlins C64 (D64) version 2
+    { GREMLINS_C64, 0x2ab00, 0xabf8, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64) version alt * ByteBoiler, Exomizer
+    { GREMLINS_C64, 0x2ab00, 0xa265, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64)  version alt 2 * ByteBoiler, Exomizer
+    { GREMLINS_GERMAN_C64, 0xc003, 0x558c, TYPE_T64, 1, NULL, NULL, 0, 0xd801, 0xc6c0, 0x1f00 }, // German Gremlins C64 (T64) version * TBC Multicompactor v2.x
     { GREMLINS_GERMAN_C64, 0x2ab00, 0x6729, TYPE_D64, 2, NULL, NULL, 0, 0xdc02,
         0xcac1, 0x1f00 }, // German Gremlins C64 (D64) version * Exomizer
 
@@ -149,8 +127,7 @@ static const struct c64rec c64_registry[] = {
         0x1f00 }, // Super Gran C64 (T64) PUCrunch Generic Hack
 
     { SEAS_OF_BLOOD_C64, 0xa209, 0xf115, TYPE_T64, 6, "-e0x1000", NULL, 3,
-        0xd802, 0xb07c,
-        0x2000 }, // Seas of Blood C64 (T64) MasterCompressor / Relax -> ECA
+        0xd802, 0xb07c, 0x2000 }, // Seas of Blood C64 (T64) MasterCompressor / Relax -> ECA
     // Compacker -> Unknown -> MasterCompressor / Relax -> ECA
     // Compacker -> CCS Packer
     { SEAS_OF_BLOOD_C64, 0x2ab00, 0x5c1d, TYPE_D64, 1, NULL, NULL, 0, 0xd802,
@@ -160,7 +137,7 @@ static const struct c64rec c64_registry[] = {
     { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, NULL, 0, 0, 0, 0}
 };
 
-static uint16_t checksum(unsigned char *sf, uint32_t extent)
+static uint16_t checksum(uint8_t *sf, uint32_t extent)
 {
     uint16_t c = 0;
     for (int i = 0; i < extent; i++)
@@ -265,7 +242,7 @@ static int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
             save_island_appendix_2_length -= 2;
         return DecrunchC64(sf, extent, rec);
     } else {
-        fprintf(stderr, "Failed loading file %s\n", rec.appendfile);
+        fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", rec.appendfile);
         return 0;
     }
 }
@@ -341,7 +318,7 @@ static int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
             filename = "CIRCUS";
             break;
         default:
-            fprintf(stderr, "Error!\n");
+            fprintf(stderr, "SCOTT: DetectC64() Error!\n");
             break;
     }
 
@@ -355,7 +332,7 @@ static int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
         struct c64rec rec = c64_registry[recindex - 1 + result];
         return DecrunchC64(sf, extent, rec);
     } else {
-        fprintf(stderr, "Failed loading file %s\n", filename);
+        fprintf(stderr, "SCOTT: DetectC64() Failed loading file %s\n", filename);
         return 0;
     }
 }
@@ -433,9 +410,6 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
     memcpy(megabuf + dest, *data + source, bytestomove);
     free(*data);
     *data = megabuf;
-    //  fprintf(stderr,
-    //          "Copied %zu bytes from offset %zx to offset %zx. Old size: %zu New
-    //          " "size: %zu\n", bytestomove, source, dest, datasize, newsize);
     return newsize;
 }
 
@@ -465,7 +439,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                     appendix = get_file_named(*sf, *extent, &appendixlen,
                         c64_registry[i].appendfile);
                     if (appendix == NULL)
-                        fprintf(stderr, "Appending file failed!\n");
+                        fprintf(stderr, "SCOTT: DetectC64() Appending file failed!\n");
                     appendixlen -= 2;
                 }
 

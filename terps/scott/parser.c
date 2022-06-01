@@ -16,7 +16,6 @@
 
 #define MAX_WORDLENGTH 128
 #define MAX_WORDS 128
-
 #define MAX_BUFFER 128
 
 extern strid_t Transcript;
@@ -29,6 +28,187 @@ static int WordsInInput = 0;
 static int lastnoun = 0;
 
 static glui32 *FirstErrorMessage = NULL;
+
+
+const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "north", "south", "east", "west", "up", "down",
+    "n", "s", "e", "w", "u", "d", " "
+};
+const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
+    "n", "s", "e", "o", "u", "d", "w"
+};
+const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
+    "n", "s", "o", "w", "u", "d", " "
+};
+
+const char *Directions[NUMBER_OF_DIRECTIONS];
+
+const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "except",
+    "but",
+    "", "", "", "", ""
+};
+
+const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "ausser",
+    "bis",
+    "laden",
+    "wiederherstellen",
+    "transkript",
+    "rueckgaengig",
+    "neustarten"
+};
+
+const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "excepto",
+    "menos",
+    "reanuda",
+    "cargar",
+    "transcripcion",
+    "deshacer",
+    "reinicia"
+};
+
+extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
+    NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
+    RESTORE, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
+    RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE,
+    RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT,
+    RESTORE, RESTORE, SCRIPT, UNDO, RESTART
+};
+
+const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "game", "story", "on", "off", "load",
+    "restore", "save", "move", "command", "turn",
+    "all", "everything", "it", " ", " ",
+};
+
+const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "spiel", "story", "on", "off", "wiederherstellen",
+    "laden", "speichern", "move", "verschieben", "runde",
+    "alle", "alles", "es", "einschalten", "ausschalten"
+};
+
+const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "juego", "story", "on", "off", "cargar",
+    "reanuda", "conserva", "move", "command", "jugada",
+    "toda", "todo", "eso", "activar", "desactivar"
+};
+
+const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
+
+const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
+    NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
+    RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
+    ALL, ALL, IT, ON, OFF
+};
+
+#define NUMBER_OF_ABBREVIATIONS 6
+
+const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
+    "x", "z", "q" };
+
+const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
+    NULL, "inventory", "look", "examine", "wait", "quit"
+};
+
+const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "at", "to", "in", "into", "the",
+    "a", "an", "my", "quickly", "carefully", "quietly",
+    "slowly", "violently", "fast", "hard", "now", "room"
+};
+
+const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
+    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
+};
+
+const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
+
+const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
+    "then", " " };
+
+const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
+    "dann", "and" };
+
+const char *DelimiterList[NUMBER_OF_DELIMITERS];
 
 static void FreeStrings(void)
 {
@@ -421,177 +601,6 @@ static char **LineInput(void)
     }
     return (0);
 }
-
-const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "north", "south", "east", "west", "up", "down",
-    "n", "s", "e", "w", "u", "d", " "
-};
-const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
-    "n", "s", "e", "o", "u", "d", "w"
-};
-const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
-    "n", "s", "o", "w", "u", "d", " "
-};
-
-const char *Directions[NUMBER_OF_DIRECTIONS];
-
-const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
-    "except",
-    "but",
-    "", "", "", "", ""
-};
-
-const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
-    "ausser",
-    "bis",
-    "laden",
-    "wiederherstellen",
-    "transkript",
-    "rueckgaengig",
-    "neustarten"
-};
-
-const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "transcript",
-    "script",
-    "#script",
-    "oops",
-    "undo",
-    "bom",
-    "#undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "qload",
-    "quickload",
-    "#qload",
-    "ramsave",
-    "qsave",
-    "quicksave",
-    "#qsave",
-    "excepto",
-    "menos",
-    "reanuda",
-    "cargar",
-    "transcripcion",
-    "deshacer",
-    "reinicia"
-};
-
-extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
-    NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
-    RESTORE, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
-    RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE, RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT,
-    RESTORE, RESTORE, SCRIPT, UNDO, RESTART
-};
-
-const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "game", "story", "on", "off", "load",
-    "restore", "save", "move", "command", "turn",
-    "all", "everything", "it", " ", " ",
-};
-const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "spiel", "story", "on", "off", "wiederherstellen",
-    "laden", "speichern", "move", "verschieben", "runde",
-    "alle", "alles", "es", "einschalten", "ausschalten"
-};
-const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "juego", "story", "on", "off", "cargar",
-    "reanuda", "conserva", "move", "command", "jugada",
-    "toda", "todo", "eso", "activar", "desactivar"
-};
-
-const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
-
-const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
-    NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
-    RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
-    ALL, ALL, IT, ON, OFF
-};
-
-#define NUMBER_OF_ABBREVIATIONS 6
-const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
-    "x", "z", "q" };
-const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
-    NULL, "inventory", "look", "examine", "wait", "quit"
-};
-
-const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
-    NULL, "at", "to", "in", "into", "the",
-    "a", "an", "my", "quickly", "carefully", "quietly",
-    "slowly", "violently", "fast", "hard", "now", "room"
-};
-const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
-    NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
-    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
-};
-const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
-
-const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
-    "then", " " };
-const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
-    "dann", "and" };
-const char *DelimiterList[NUMBER_OF_DELIMITERS];
 
 /* For the verb position in a command string sequence, we try the following
  lists in this order: Verbs, Directions, Abbreviations, SkipList, Nouns,

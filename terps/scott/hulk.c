@@ -331,7 +331,7 @@ int TryLoadingHulk(struct GameInfo info, int dict_start)
     if (SeekIfNeeded(info.start_of_room_connections, &offset, &ptr) == 0)
         return 0;
 
-    /* The room connections are ordered by direction, not room, so all the North
+  /* The room connections are ordered by direction, not room, so all the North
    * connections for all the rooms come first, then the South connections, and
    * so on. */
     for (int j = 0; j < 6; j++) {
