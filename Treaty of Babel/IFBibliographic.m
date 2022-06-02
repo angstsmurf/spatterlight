@@ -43,11 +43,9 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
 
         NSDateFormatter *dateFormatter;
 
-        NSEnumerator *enumChildren = [element.children objectEnumerator];
-        NSXMLNode *node;
         NSString *keyVal;
         NSArray *allKeys = [[[metadata entity] attributesByName] allKeys];
-        while ((node = [enumChildren nextObject])) {
+        for (NSXMLNode *node in element.children) {
             keyVal = node.stringValue;
             for (NSString *key in allKeys) {
 
@@ -125,10 +123,8 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
 
 - (NSString *)renderDescriptionElement:(NSXMLElement *)element {
     NSMutableString *string = [NSMutableString string];
-    NSEnumerator *enumChildren = [element.children objectEnumerator];
-    NSXMLNode *node;
     NSUInteger count = 0;
-    while ((node = [enumChildren nextObject])) {
+    for (NSXMLNode *node in element.children) {
         if (node.kind == NSXMLTextKind) {
             if (count > 0)
                 [string appendString:@"\n\n"];
