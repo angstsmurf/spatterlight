@@ -19,9 +19,7 @@
 
         _format = @"";
 
-        NSEnumerator *enumChildren = [element.children objectEnumerator];
-        NSXMLNode *node;
-        while ((node = [enumChildren nextObject])) {
+        for (NSXMLNode *node in element.children) {
             if ([node.name compare:@"ifid"] == 0)
                 [ifids addObject:node.stringValue];
             else if ([node.name compare:@"format"] == 0) {

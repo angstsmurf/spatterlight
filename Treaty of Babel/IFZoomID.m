@@ -47,9 +47,7 @@
 
 // Look for a game in Core Data that matches the id tags. Return an ifid string.
 - (NSString *)ifidStringFromElement:(NSXMLElement *)element {
-    NSEnumerator *enumChildren = [element.children objectEnumerator];
-    NSXMLNode *node;
-    while ((node = [enumChildren nextObject])) {
+    for (NSXMLNode *node in element.children) {
         if ([node.name compare:@"format"] == 0) {
             self.format = node.stringValue;
             if (![self.format.lowercaseString isEqualToString:@"zcode"]) {
@@ -57,9 +55,7 @@
                 return nil;
             }
         } else if ([node.name compare:@"zcode"] == 0) {
-            NSEnumerator *subChildren = [node.children objectEnumerator];
-            NSXMLNode *subnode;
-            while ((subnode = [subChildren nextObject])) {
+            for (NSXMLNode *subnode in node.children) {
                 if ([subnode.name compare:@"serial"] == 0) {
                     serial = subnode.stringValue;
                 } else if ([subnode.name compare:@"release"] == 0) {

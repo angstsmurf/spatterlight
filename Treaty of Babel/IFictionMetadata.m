@@ -21,8 +21,7 @@
                                       error:&error];
     NSEnumerator *enumerator =
         [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
-    NSXMLElement *child;
-    while ((child = [enumerator nextObject])) {
+    for (NSXMLElement *child in enumerator) {
         IFStory __block *story = nil;
         [context performBlockAndWait:^{
             story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue];

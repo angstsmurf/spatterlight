@@ -17,9 +17,7 @@
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata {
   self = [super init];
   if (self) {
-    NSEnumerator *enumChildren = [element.children objectEnumerator];
-    NSXMLNode *node;
-    while ((node = [enumChildren nextObject])) {
+    for (NSXMLNode *node in element.children) {
       if ([node.name compare:@"tuid"] == 0) {
         metadata.tuid = node.stringValue;
       } else if ([node.name compare:@"coverart"] == 0) {
@@ -41,9 +39,7 @@
 }
 
 + (NSString *)pathFromCoverArtElement:(NSXMLElement *)element {
-  NSEnumerator *enumChildren = [element.children objectEnumerator];
-  NSXMLNode *node;
-  while ((node = [enumChildren nextObject])) {
+  for (NSXMLNode *node in element.children) {
     if ([node.name compare:@"url"] == 0) {
       return node.stringValue;
     }
