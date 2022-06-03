@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -761,7 +761,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="44" translatesAutoresizingMaskIntoConstraints="NO" id="Ly8-5g-vt0">
-                                            <rect key="frame" x="35" y="80" width="45" height="16"/>
+                                            <rect key="frame" x="36" y="80" width="45" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="vae-tx-uOR">
                                                 <font key="font" metaFont="system"/>
@@ -807,8 +807,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="44" translatesAutoresizingMaskIntoConstraints="NO" id="mj8-Vo-qKf">
-                                            <rect key="frame" x="237" y="95" width="79" height="26"/>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mj8-Vo-qKf">
+                                            <rect key="frame" x="237" y="104" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Border size" id="2z3-eN-Jcy">
                                                 <font key="font" metaFont="system"/>
@@ -845,8 +845,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="44" translatesAutoresizingMaskIntoConstraints="NO" id="jwA-jE-tpE">
-                                            <rect key="frame" x="230" y="72" width="86" height="24"/>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jwA-jE-tpE">
+                                            <rect key="frame" x="233" y="79" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Border color" id="664-rr-opS">
                                                 <font key="font" metaFont="system"/>
@@ -942,7 +942,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-NO-beq">
-                                                                        <rect key="frame" x="56" y="111" width="120" height="16"/>
+                                                                        <rect key="frame" x="56" y="112" width="120" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Interpreter version:" usesSingleLineMode="YES" id="17c-ia-Taa">
                                                                             <font key="font" metaFont="system"/>
@@ -1003,7 +1003,7 @@
                                                                         </connections>
                                                                     </popUpButton>
                                                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0r-WZ-J7W">
-                                                                        <rect key="frame" x="59" y="173" width="117" height="16"/>
+                                                                        <rect key="frame" x="59" y="174" width="117" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="High system beep:" usesSingleLineMode="YES" id="UZu-F9-WSP">
                                                                             <font key="font" metaFont="system"/>
@@ -1074,7 +1074,7 @@
                                                                         </connections>
                                                                     </popUpButton>
                                                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PJg-nw-ohs">
-                                                                        <rect key="frame" x="63" y="145" width="113" height="16"/>
+                                                                        <rect key="frame" x="63" y="146" width="113" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Low system beep:" usesSingleLineMode="YES" id="tEl-85-Fc2">
                                                                             <font key="font" metaFont="system"/>
@@ -1168,7 +1168,7 @@
                                                                         </connections>
                                                                     </popUpButton>
                                                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8J-fm-s1e">
-                                                                        <rect key="frame" x="22" y="208" width="154" height="16"/>
+                                                                        <rect key="frame" x="22" y="209" width="154" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Beyond Zork arrow keys:" usesSingleLineMode="YES" id="oUy-La-L8i">
                                                                             <font key="font" metaFont="system"/>
@@ -1252,7 +1252,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKe-aa-Fxh">
-                                                                <rect key="frame" x="122" y="178" width="91" height="16"/>
+                                                                <rect key="frame" x="122" y="177" width="91" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Image palette:" id="am4-CJ-7X5">
                                                                     <font key="font" metaFont="system"/>
@@ -1281,7 +1281,7 @@
                                                                 </connections>
                                                             </popUpButton>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-y8-hpm">
-                                                                <rect key="frame" x="46" y="146" width="167" height="16"/>
+                                                                <rect key="frame" x="46" y="145" width="167" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Inventory in upper window:" id="Hze-Ww-7ie">
                                                                     <font key="font" metaFont="system"/>
@@ -1674,10 +1674,10 @@
                                             </connections>
                                         </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5S-lK-8Af">
-                                            <rect key="frame" x="30" y="61" width="135" height="26"/>
+                                            <rect key="frame" x="30" y="71" width="135" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="When importing data:" id="9SX-qC-xEF">
-                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
