@@ -18,6 +18,7 @@
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
+#import "OSImageHashing.h"
 
 // Treaty of babel header
 #include "babel_handler.h"
@@ -355,10 +356,12 @@ extern NSArray *gGameFileTypes;
 
         metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
 
+        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
+            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+
         if (!metadata)
         {
-            if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
-                blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+            if (blorb) {
                 NSData *mdbufData = [blorb metaData];
                 if (mdbufData) {
                     metadata = [libController importMetadataFromXML:mdbufData inContext:context];
@@ -367,12 +370,9 @@ extern NSArray *gGameFileTypes;
                 }
                 else NSLog(@"Found no metadata in blorb file %@", path);
             }
-        }
-        else
-        {
+        } else {
             game = [LibController fetchGameForIFID:ifid inContext:context];
-            if (game)
-            {
+            if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
                     game.hashTag = [path signatureFromFile];
                 else if ([game.detectedFormat isEqualToString:@"zcode"]) {
@@ -386,6 +386,15 @@ extern NSArray *gGameFileTypes;
                 if (![game.detectedFormat isEqualToString:@(format)]) {
                     NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
                     game.detectedFormat = @(format);
+                }
+                if (blorb) {
+                    NSData *newImageData = blorb.coverImageData;
+                    if (newImageData) {
+                        NSData *oldImageData = (NSData *)game.metadata.cover.data;
+                        if (!oldImageData || ![[OSImageHashing sharedInstance] compareImageData:newImageData to:oldImageData]) {
+                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                        }
+                    }
                 }
                 game.found = YES;
                 if (!hide)
