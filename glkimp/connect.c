@@ -695,7 +695,7 @@ void win_quotebox(int name, int height)
     sendmsg(QUOTEBOX, name, height, 0, 0, 0, 0, NULL);
 }
 
-void win_showerror(char *str)
+void win_showerror(const char *str)
 {
     size_t len = strlen(str);
     if (len) {

@@ -42,12 +42,6 @@
 
 /* Sizes of some of the arrays in the snap structure */
 #define SNAPSHOT_RAM_PAGES 16
-#define SNAPSHOT_SLT_PAGES 256
-#define SNAPSHOT_ZXATASP_PAGES 32
-#define SNAPSHOT_ZXCF_PAGES 64
-#define SNAPSHOT_DOCK_EXROM_PAGES 8
-#define SNAPSHOT_JOYSTICKS 7
-#define SNAPSHOT_DIVIDE_PAGES 4
 
 #define libspectrum_new(type, count) \
     ((type *)libspectrum_malloc_n((count), sizeof(type)))

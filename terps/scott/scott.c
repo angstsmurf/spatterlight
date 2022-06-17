@@ -50,7 +50,7 @@
 #include "sagadraw.h"
 #include "line_drawing.h"
 
-#include "TI99_4a_terp.h"
+#include "ti99_4a_terp.h"
 #include "parser.h"
 
 #include "game_specific.h"
@@ -112,16 +112,16 @@ size_t file_length;
 
 int AnimationFlag = 0;
 
-extern struct SavedState *initial_state;
+extern struct SavedState *InitialState;
 
 /* just_started is only used for the error message "Can't undo on first move" */
-int just_started = 1;
-int should_restart = 0;
-int stop_time = 0;
+int JustStarted = 1;
+static int should_restart = 0;
+int StopTime = 0;
 
 int should_look_in_transcript = 0;
-int print_look_to_transcript = 0;
-int pause_next_room_description = 0;
+static int print_look_to_transcript = 0;
+static int pause_next_room_description = 0;
 
 int split_screen = 1;
 winid_t Bottom, Top;
@@ -277,7 +277,7 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
-winid_t FindGlkWindowWithRock(glui32 rock)
+static winid_t FindGlkWindowWithRock(glui32 rock)
 {
     winid_t win;
     glui32 rockptr;
@@ -289,7 +289,7 @@ winid_t FindGlkWindowWithRock(glui32 rock)
     return 0;
 }
 
-void OpenTopWindow(void)
+static void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top == NULL) {
@@ -539,26 +539,26 @@ size_t GetFileLength(FILE *in)
 
 int header[24];
 
-int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
-{
-    int16_t v = header[1]; // items
-    if (v < 10 || v > 500)
-        return 0;
-    v = header[2]; // actions
-    if (v < 100 || v > 500)
-        return 0;
-    v = header[3]; // word pairs
-    if (v < 50 || v > 200)
-        return 0;
-    v = header[4]; // Number of rooms
-    if (v < 10 || v > 100)
-        return 0;
-    v = header[5]; // Number of Messages
-    if (v < 10 || v > 255)
-        return 0;
-
-    return 1;
-}
+//static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
+//{
+//    int16_t v = header[1]; // items
+//    if (v < 10 || v > 500)
+//        return 0;
+//    v = header[2]; // actions
+//    if (v < 100 || v > 500)
+//        return 0;
+//    v = header[3]; // word pairs
+//    if (v < 50 || v > 200)
+//        return 0;
+//    v = header[4]; // Number of rooms
+//    if (v < 10 || v > 100)
+//        return 0;
+//    v = header[5]; // Number of Messages
+//    if (v < 10 || v > 255)
+//        return 0;
+//
+//    return 1;
+//}
 
 void FreeDatabase(void)
 {
@@ -851,15 +851,15 @@ void DrawRoomImage(void)
         }
 }
 
-strid_t room_description_stream = NULL;
+static strid_t room_description_stream = NULL;
 
-void WriteToRoomDescriptionStream(const char *fmt, ...)
+static void WriteToRoomDescriptionStream(const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 1, 2)))
 #endif
     ;
 
-void WriteToRoomDescriptionStream(const char *fmt, ...)
+static void WriteToRoomDescriptionStream(const char *fmt, ...)
 {
     if (room_description_stream == NULL)
         return;
@@ -1008,7 +1008,7 @@ static void FlushRoomDescription(char *buf)
     }
 }
 
-int ItemEndsWithPeriod(int item)
+static int ItemEndsWithPeriod(int item)
 {
 	if (item < 0 || item > GameHeader.NumItems)
 		return 0;
@@ -1022,7 +1022,7 @@ int ItemEndsWithPeriod(int item)
 	return 0;
 }
 
-void ListInventoryInUpperWindow(void)
+static void ListInventoryInUpperWindow(void)
 {
     int i = 0;
 	int lastitem = -1;
@@ -1238,17 +1238,17 @@ static void LoadGame(void)
     }
 
     SaveUndo();
-    just_started = 0;
-    stop_time = 1;
+    JustStarted = 0;
+    StopTime = 1;
 }
 
 static void RestartGame(void)
 {
     if (CurrentCommand)
         FreeCommands();
-    RestoreState(initial_state);
-    just_started = 0;
-    stop_time = 0;
+    RestoreState(InitialState);
+    JustStarted = 0;
+    StopTime = 0;
     glk_window_clear(Bottom);
     OpenTopWindow();
 	should_restart = 0;
@@ -1317,7 +1317,7 @@ int PerformExtraCommand(int extra_stop_time)
             noun = newnoun;
     }
 
-    stop_time = 1 + extra_stop_time;
+    StopTime = 1 + extra_stop_time;
 
     switch (verb) {
     case RESTORE:
@@ -1381,7 +1381,7 @@ int PerformExtraCommand(int extra_stop_time)
         FreeCommands();
     }
 
-    stop_time = 0;
+    StopTime = 0;
     return 0;
 }
 
@@ -1469,7 +1469,7 @@ void ListInventory(void)
     }
 }
 
-void LookWithPause(void)
+static void LookWithPause(void)
 {
     char fc = Rooms[MyLoc].Text[0];
     if (Rooms[MyLoc].Text == NULL || MyLoc == 0 || fc == 0 || fc == '.' || fc == ' ')
@@ -1563,7 +1563,7 @@ void PutItemAInRoomB(int itemA, int roomB)
 {
 #ifdef DEBUG_ACTIONS
 	fprintf(stderr, "Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
-			itemA, Items[arg1].Text, roomB, Rooms[roomB].Text, MyLoc,
+			itemA, Items[itemA].Text, roomB, Rooms[roomB].Text, MyLoc,
 			Rooms[MyLoc].Text);
 #endif
     if (Items[itemA].Location == MyLoc)
@@ -1881,14 +1881,14 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 65:
                 dead = PrintScore();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 66:
 				if (Game->type == SEAS_OF_BLOOD_VARIANT)
 					AdventureSheet();
 				else
 					ListInventory();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 67:
                 BitFlags |= (1 << 0);
@@ -1906,7 +1906,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 71:
                 SaveGame();
-				stop_time = 2;
+				StopTime = 2;
                 break;
             case 72:
                 p = param[pptr++];
@@ -1969,16 +1969,10 @@ static ActionResultType PerformLine(int ct)
                          know if there is a maximum value to limit too */
                 break;
             case 84:
-                if (CurrentCommand)
-                    glk_put_string_stream_uni(
-                        glk_window_get_stream(Bottom),
-                        UnicodeWords[CurrentCommand->nounwordindex]);
+                PrintNoun();
                 break;
             case 85:
-                if (CurrentCommand)
-                    glk_put_string_stream_uni(
-                        glk_window_get_stream(Bottom),
-                        UnicodeWords[CurrentCommand->nounwordindex]);
+                PrintNoun();
                 Output("\n");
                 break;
             case 86:
@@ -2057,7 +2051,7 @@ static ActionResultType PerformLine(int ct)
 	}
 }
 
-void PrintTakenOrDropped(int index)
+static void PrintTakenOrDropped(int index)
 {
     Output(sys[index]);
     int length = strlen(sys[index]);
@@ -2191,7 +2185,7 @@ static ExplicitResultType PerformActions(int vb, int no)
 #pragma mark TAKE
 #endif
         if (vb == TAKE || vb == DROP) {
-            if (CurrentCommand->allflag) {
+            if (CurrentCommand && CurrentCommand->allflag) {
                 if (vb == TAKE && dark) {
                     Output(sys[TOO_DARK_TO_SEE]);
                     while (!(CurrentCommand->allflag & LASTALL)) {
@@ -2355,7 +2349,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
-void PrintTitleScreenBuffer(void) {
+static void PrintTitleScreenBuffer(void) {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     glk_set_style(style_User1);
     ClearScreen();
@@ -2366,7 +2360,7 @@ void PrintTitleScreenBuffer(void) {
     ClearScreen();
 }
 
-void PrintTitleScreenGrid(void) {
+static void PrintTitleScreenGrid(void) {
     int title_length = strlen(title_screen);
     int rows = 0;
     for (int i = 0; i < title_length; i++)
@@ -2464,7 +2458,7 @@ void glk_main(void)
         TopHeight = 10;
     }
 
-    if (CurrentGame == TI994A) {
+    if (game_type == TI994A) {
         Display(Bottom, "In this adventure, you may abbreviate any word \
 by typing its first %d letters, and directions by typing \
 one letter.\n\nDo you want to restore previously saved game?\n",
@@ -2490,7 +2484,7 @@ Distributed under the GNU software license\n\n");
 #endif
         srand((unsigned int)time(NULL));
 
-	initial_state = SaveCurrentState();
+	InitialState = SaveCurrentState();
 
     while (1) {
         glk_tick();
@@ -2498,13 +2492,13 @@ Distributed under the GNU software license\n\n");
 		if (should_restart)
 			RestartGame();
 
-        if (!stop_time)
+        if (!StopTime)
             PerformActions(0, 0);
 		if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
 			print_look_to_transcript = should_look_in_transcript;
             Look();
 			print_look_to_transcript = should_look_in_transcript = 0;
-			if (!stop_time && !should_restart)
+			if (!StopTime && !should_restart)
 				SaveUndo();
 		}
 
@@ -2526,11 +2520,11 @@ Distributed under the GNU software license\n\n");
             FreeCommands();
             break;
         default:
-            just_started = 0;
+            JustStarted = 0;
         }
 
         /* Brian Howarth games seem to use -1 for forever */
-        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !stop_time) {
+        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
                 BitFlags |= (1 << LIGHTOUTBIT);
@@ -2550,7 +2544,7 @@ Distributed under the GNU software license\n\n");
                 }
             }
         }
-        if (stop_time)
-			stop_time--;
+        if (StopTime)
+			StopTime--;
     }
 }

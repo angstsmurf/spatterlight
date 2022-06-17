@@ -11,8 +11,11 @@
 
 #include "layouttext.h"
 
-int FindBreak(const char *buf, int pos, int columns)
+static int FindBreak(const char *buf, int pos, int columns)
 {
+    if (isspace((unsigned char)buf[pos]))
+        return 0;
+    
     int diff = 0;
 
     while (diff < columns && !isspace((unsigned char)buf[pos])) {
@@ -29,7 +32,7 @@ int FindBreak(const char *buf, int pos, int columns)
 
 /* Breaks a null-terminated string up by inserting newlines, moving words
  down to the next line when reaching the end of the line */
-char *LineBreakText(char *source, int columns, int *rows, int *length)
+char *LineBreakText(const char *source, int columns, int *rows, int *length)
 {
     columns -= 1;
 

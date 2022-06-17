@@ -27,7 +27,7 @@ struct scottrec {
     char *ifid;
 };
 
-static struct scottrec scott_registry[] = {
+static const struct scottrec scott_registry[] = {
     { 0x44cd, 0x8b8f, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure z80
     { 0x432c, 0xa6df, "2D24B3D60A4605641C204C23511121AA" }, // Voodoo Castle z80
     { 0x431e, 0x7437, "BA821285F91F5F59A6DFDDD7999F7F75" }, // Strange Odyssey z80
@@ -149,7 +149,7 @@ static struct scottrec scott_registry[] = {
     { 0xb36e, 0xbf88, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman (Americana).tzx
     { 0xa4c4, 0x1ae8, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80
     { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
-    { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
+   { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
    { 0x2ab00, 0xde56, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64)
 
     { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
@@ -199,14 +199,14 @@ static struct scottrec scott_registry[] = {
     { 0xbc60, 0xce3d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood.tzx
     { 0xbd61, 0x0277, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas Of Blood - Alternate.tzx
     { 0xbc26, 0xbe47, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood TAP image
-    { 0xb4b1, 0x7ec8, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood z80 snap
+    { 0xb4b1, 0x7ec8, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood z80
     { 0xa209, 0xf115, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (T64)
    { 0x2ab00, 0x5c1d, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64)
    { 0x2ab00, 0xe308, "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" }, // Seas of Blood C64 (D64) alt
     { 0, 0, NULL }
 };
 
-static struct scottrec TI994A_registry[] = {
+static const struct scottrec TI994A_registry[] = {
     { 0xff, 0x8618, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland, TI-99/4A version
     { 0xff, 0x9333, "1A16C10E265A260429FD11B33E975017" }, // Pirate Adventure, TI-99/4A version
     { 0xff, 0x9f67, "2E50256FA2717A4AF3402E6CE18F623F" }, // Secret Mission, TI-99/4A version
@@ -400,7 +400,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

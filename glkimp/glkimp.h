@@ -143,7 +143,7 @@ void win_autosave(int hash);
 void win_setzcolor(int name, glui32 fg, glui32 bg);
 void win_setreverse(int name, int reverse);
 void win_quotebox(int name, int height);
-void win_showerror(char *str);
+void win_showerror(const char *str);
 void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);

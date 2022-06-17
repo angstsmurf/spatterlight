@@ -23,9 +23,9 @@
 #include "robinofsherwood.h"
 #include "seasofblood.h"
 
-#include "C64checksums.h"
+#include "c64decrunch.h"
 #include "decompressz80.h"
-#include "load_TI99_4a.h"
+#include "load_ti99_4a.h"
 #include "parser.h"
 
 extern const char *sysdict_zx[MAX_SYSMESS];
@@ -446,7 +446,6 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
     file_baseline_offset = dict_start - info.start_of_dictionary;
     int offset = info.start_of_header + file_baseline_offset;
 
-jumpHere:
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
@@ -1162,6 +1161,24 @@ jumpSysMess:
     return 1;
 }
 
+int IsMysterious(void)
+{
+    for (int i = 0; games[i].Title != NULL; i++) {
+        if (games[i].subtype & MYSTERIOUS) {
+            if (games[i].number_of_items == GameHeader.NumItems &&
+                games[i].number_of_actions == GameHeader.NumActions &&
+                games[i].number_of_words == GameHeader.NumWords &&
+                games[i].number_of_rooms == GameHeader.NumRooms &&
+                games[i].max_carried == GameHeader.MaxCarry &&
+                games[i].word_length == GameHeader.WordLength &&
+                games[i].number_of_messages == GameHeader.NumMessages)
+                return 1;
+        }
+    }
+
+    return 0;
+}
+
 GameIDType DetectGame(const char *file_name)
 {
     FILE *f = fopen(file_name, "r");
@@ -1188,9 +1205,9 @@ GameIDType DetectGame(const char *file_name)
     Game = (struct GameInfo *)MemAlloc(sizeof(struct GameInfo));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
-    CurrentGame = LoadDatabase(f, Options & DEBUGGING);
+    GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
 
-    if (!CurrentGame) { /* Not a ScottFree game, check if TI99/4A */
+    if (!detectedGame) { /* Not a ScottFree game, check if TI99/4A */
         entire_file = MemAlloc(file_length);
         fseek(f, 0, SEEK_SET);
         size_t result = fread(entire_file, 1, file_length, f);
@@ -1198,12 +1215,12 @@ GameIDType DetectGame(const char *file_name)
         if (result == 0)
             Fatal("File empty or read error!");
 
-        CurrentGame = DetectTI994A(&entire_file, &file_length);
+        detectedGame = DetectTI994A();
 
-        if (!CurrentGame) { /* Not a TI99/4A game, check if C64 */
-            CurrentGame = DetectC64(&entire_file, &file_length);
+        if (!detectedGame) { /* Not a TI99/4A game, check if C64 */
+            detectedGame = DetectC64(&entire_file, &file_length);
 
-            if (!CurrentGame) { /* Not a C64, check if ZX Spectrum */
+            if (!detectedGame) { /* Not a C64, check if ZX Spectrum */
                 uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
                 if (uncompressed != NULL) {
                     free(entire_file);
@@ -1218,35 +1235,36 @@ GameIDType DetectGame(const char *file_name)
                 if (dict_type == NOT_A_GAME)
                     return UNKNOWN_GAME;
 
-                for (int i = 0; i < NUMGAMES; i++) {
+                for (int i = 0; games[i].Title != NULL; i++) {
                     if (games[i].dictionary == dict_type) {
-                        //                fprintf(stderr, "The game might be %s\n",
-                        //                games[i].Title);
                         if (TryLoading(games[i], offset, 0)) {
                             free(Game);
                             Game = &games[i];
+                            detectedGame = Game->gameID;
                             break;
                         }
-                        //                else
-                        //                    fprintf(stderr, "It was not.\n");
                     }
                 }
             }
 
             if (Game == NULL)
                 return 0;
+        } else {
+            CurrentGame = detectedGame;
         }
+    } else if (IsMysterious()) {
+        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
     }
 
-    if (CurrentGame == SCOTTFREE || CurrentGame == TI994A)
-        return CurrentGame;
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A)
+        return detectedGame;
 
     /* Copy ZX Spectrum style system messages as base */
     for (int i = 6; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
         sys[i] = (char *)sysdict_zx[i];
     }
 
-    switch (CurrentGame) {
+    switch (detectedGame) {
         case ROBIN_OF_SHERWOOD:
             LoadExtraSherwoodData();
             break;
@@ -1270,7 +1288,7 @@ GameIDType DetectGame(const char *file_name)
             Items[3].Image = 23;
             Items[3].Flag = 128 | 2;
             Rooms[2].Image = 0;
-            if (CurrentGame == SECRET_MISSION_C64) {
+            if (detectedGame == SECRET_MISSION_C64) {
                 SecretMission64Sysmess();
                 break;
             }
@@ -1302,7 +1320,7 @@ GameIDType DetectGame(const char *file_name)
         case SAVAGE_ISLAND2_C64:
             Supergran64Sysmess();
             sys[IM_DEAD] = "I'm DEAD!! ";
-            if (CurrentGame == SAVAGE_ISLAND2_C64)
+            if (detectedGame == SAVAGE_ISLAND2_C64)
                 Rooms[30].Image = 20;
             break;
         case SAVAGE_ISLAND:
@@ -1353,7 +1371,7 @@ GameIDType DetectGame(const char *file_name)
             break;
     }
 
-    switch (CurrentGame) {
+    switch (detectedGame) {
         case GREMLINS_GERMAN:
             LoadExtraGermanGremlinsData();
             break;
@@ -1375,5 +1393,5 @@ GameIDType DetectGame(const char *file_name)
         SagaSetup(0);
     }
 
-    return CurrentGame;
+    return detectedGame;
 }

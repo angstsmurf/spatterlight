@@ -2362,12 +2362,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
 }
 
-- (void) updateTableViews
-{
+- (void) updateTableViews {
     if (!gameTableDirty)
         return;
-
-    //NSLog(@"Updating table view");
 
     NSError *error = nil;
     NSArray<Game *> *searchResult = nil;
@@ -2587,8 +2584,7 @@ objectValueForTableColumn: (NSTableColumn*)column
    setObjectValue:(id)value
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
-    if (tableView == _gameTableView)
-    {
+    if (tableView == _gameTableView) {
         Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
         NSString *key = tableColumn.identifier;
@@ -2603,9 +2599,8 @@ objectValueForTableColumn: (NSTableColumn*)column
         if (([key isEqualToString:@"starRating"] || [key isEqualToString:@"myRating"]) && [value isEqual:@(0)])
             value = nil;
 
-        if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgivenessNumeric"]) {
+        if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgivenessNumeric"])
             value = [NSString stringWithFormat:@"%@", value];
-        }
 
         if ([value isKindOfClass:[NSString class]] && ((NSString*)value).length == 0)
             value = nil;
@@ -2681,10 +2676,8 @@ objectValueForTableColumn: (NSTableColumn*)column
 }
 
 - (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn
-                    row:(NSInteger)row
-{
-    if ([tableColumn.identifier isEqualToString:@"title"])
-    {
+                    row:(NSInteger)row {
+    if ([tableColumn.identifier isEqualToString:@"title"]) {
         NSInteger tableColumnIndex = (NSInteger)[[tableView tableColumns] indexOfObject:tableColumn];
         return [[tableView preparedCellAtColumn:tableColumnIndex
                                             row:row] stringValue];
@@ -2693,7 +2686,6 @@ objectValueForTableColumn: (NSTableColumn*)column
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-//    NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateTableViews];

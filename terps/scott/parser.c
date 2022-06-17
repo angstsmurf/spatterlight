@@ -16,7 +16,6 @@
 
 #define MAX_WORDLENGTH 128
 #define MAX_WORDS 128
-
 #define MAX_BUFFER 128
 
 extern strid_t Transcript;
@@ -24,13 +23,194 @@ extern struct Command *CurrentCommand;
 
 glui32 **UnicodeWords = NULL;
 char **CharWords = NULL;
-int WordsInInput = 0;
+static int WordsInInput = 0;
 
 static int lastnoun = 0;
 
 static glui32 *FirstErrorMessage = NULL;
 
-void FreeStrings(void)
+
+const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "north", "south", "east", "west", "up", "down",
+    "n", "s", "e", "w", "u", "d", " "
+};
+const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
+    "n", "s", "e", "o", "u", "d", "w"
+};
+const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
+    NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
+    "n", "s", "o", "w", "u", "d", " "
+};
+
+const char *Directions[NUMBER_OF_DIRECTIONS];
+
+const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "except",
+    "but",
+    "", "", "", "", ""
+};
+
+const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "ausser",
+    "bis",
+    "laden",
+    "wiederherstellen",
+    "transkript",
+    "rueckgaengig",
+    "neustarten"
+};
+
+const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+    NULL,
+    "restart",
+    "#restart",
+    "save",
+    "#save",
+    "restore",
+    "load",
+    "#restore",
+    "transcript",
+    "script",
+    "#script",
+    "oops",
+    "undo",
+    "bom",
+    "#undo",
+    "ram",
+    "ramload",
+    "ramrestore",
+    "qload",
+    "quickload",
+    "#qload",
+    "ramsave",
+    "qsave",
+    "quicksave",
+    "#qsave",
+    "excepto",
+    "menos",
+    "reanuda",
+    "cargar",
+    "transcripcion",
+    "deshacer",
+    "reinicia"
+};
+
+extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
+    NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
+    RESTORE, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
+    RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE,
+    RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT,
+    RESTORE, RESTORE, SCRIPT, UNDO, RESTART
+};
+
+const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "game", "story", "on", "off", "load",
+    "restore", "save", "move", "command", "turn",
+    "all", "everything", "it", " ", " ",
+};
+
+const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "spiel", "story", "on", "off", "wiederherstellen",
+    "laden", "speichern", "move", "verschieben", "runde",
+    "alle", "alles", "es", "einschalten", "ausschalten"
+};
+
+const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+    NULL, "juego", "story", "on", "off", "cargar",
+    "reanuda", "conserva", "move", "command", "jugada",
+    "toda", "todo", "eso", "activar", "desactivar"
+};
+
+const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
+
+const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
+    NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
+    RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
+    ALL, ALL, IT, ON, OFF
+};
+
+#define NUMBER_OF_ABBREVIATIONS 6
+
+const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
+    "x", "z", "q" };
+
+const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
+    NULL, "inventory", "look", "examine", "wait", "quit"
+};
+
+const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "at", "to", "in", "into", "the",
+    "a", "an", "my", "quickly", "carefully", "quietly",
+    "slowly", "violently", "fast", "hard", "now", "room"
+};
+
+const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+    NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
+    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
+};
+
+const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
+
+const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
+    "then", " " };
+
+const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
+    "dann", "and" };
+
+const char *DelimiterList[NUMBER_OF_DELIMITERS];
+
+static void FreeStrings(void)
 {
     if (FirstErrorMessage != NULL) {
         free(FirstErrorMessage);
@@ -55,7 +235,7 @@ void FreeStrings(void)
     WordsInInput = 0;
 }
 
-void CreateErrorMessage(const char *fchar, glui32 *second, const char *tchar)
+static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tchar)
 {
     if (FirstErrorMessage != NULL)
         return;
@@ -173,7 +353,7 @@ glui32 *ToUnicode(const char *string)
     return result;
 }
 
-char *FromUnicode(glui32 *unicode_string, int origlength)
+static char *FromUnicode(glui32 *unicode_string, int origlength)
 {
     int sourcepos = 0;
     int destpos = 0;
@@ -242,7 +422,7 @@ char *FromUnicode(glui32 *unicode_string, int origlength)
     return result;
 }
 
-int MatchYMCA(glui32 *string, int length, int index) {
+static int MatchYMCA(glui32 *string, int length, int index) {
     const char *ymca = "y.m.c.a.";
     int i;
     for (i = 0; i < 8; i++) {
@@ -258,14 +438,14 @@ int MatchYMCA(glui32 *string, int length, int index) {
 /* (for the translated Gremlins variants.) Coalesces all runs of whitespace into
  * a single standard space. */
 /* Turns ending commas and periods into separate strings. */
-char **SplitIntoWords(glui32 *string, int length)
+static char **SplitIntoWords(glui32 *string, int length)
 {
     if (length < 1) {
         return NULL;
     }
 
-    glk_buffer_to_lower_case_uni(string, 256, length);
-    glk_buffer_canon_normalize_uni(string, 256, length);
+    glk_buffer_to_lower_case_uni(string, 512, MIN(length, 512));
+    glk_buffer_canon_normalize_uni(string, 512, MIN(length, 512));
 
     int startpos[MAX_WORDS];
     int wordlength[MAX_WORDS];
@@ -366,7 +546,7 @@ char **SplitIntoWords(glui32 *string, int length)
     return words8;
 }
 
-char **LineInput(void)
+static char **LineInput(void)
 {
     event_t ev;
     glui32 unibuf[512];
@@ -403,7 +583,7 @@ char **LineInput(void)
     return NULL;
 }
 
-int WhichWord(const char *word, const char **list, int word_length,
+ int WhichWord(const char *word, const char **list, int word_length,
     int list_length)
 {
     int n = 1;
@@ -422,144 +602,10 @@ int WhichWord(const char *word, const char **list, int word_length,
     return (0);
 }
 
-const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "north", "south", "east", "west", "up", "down",
-    "n", "s", "e", "w", "u", "d", " "
-};
-const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
-    "n", "s", "e", "o", "u", "d", "w"
-};
-const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
-    NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
-    "n", "s", "o", "w", "u", "d", " "
-};
-
-const char *Directions[NUMBER_OF_DIRECTIONS];
-
-const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "save",
-    "restore",
-    "load",
-    "transcript",
-    "script",
-    "oops",
-    "undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "ramsave",
-    "except",
-    "but",
-    " ", " ", " ", " ", " "
-};
-
-const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "save",
-    "restore",
-    "load",
-    "transcript",
-    "script",
-    "oops",
-    "undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "ramsave",
-    "ausser",
-    "bis",
-    "laden",
-    "wiederherstellen",
-    "transkript",
-    "rueckgaengig",
-    "neustarten"
-};
-
-const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
-    NULL,
-    "restart",
-    "save",
-    "restore",
-    "load",
-    "transcript",
-    "script",
-    "oops",
-    "undo",
-    "ram",
-    "ramload",
-    "ramrestore",
-    "ramsave",
-    "excepto",
-    "menos",
-    "reanuda",
-    "cargar",
-    "transcripcion",
-    "deshacer",
-    "reinicia"
-};
-
-extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
-    NO_COMMAND, RESTART, SAVE, RESTORE, RESTORE, SCRIPT, SCRIPT,
-    UNDO, UNDO, RAM, RAMLOAD, RAMLOAD, RAMSAVE, EXCEPT, EXCEPT,
-    RESTORE, RESTORE, SCRIPT, UNDO, RESTART
-};
-
-const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "game", "story", "on", "off", "load",
-    "restore", "save", "move", "command", "turn",
-    "all", "everything", "it", " ", " ",
-};
-const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "spiel", "story", "on", "off", "wiederherstellen",
-    "laden", "speichern", "move", "verschieben", "runde",
-    "alle", "alles", "es", "einschalten", "ausschalten"
-};
-const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "juego", "story", "on", "off", "cargar",
-    "reanuda", "conserva", "move", "command", "jugada",
-    "toda", "todo", "eso", "activar", "desactivar"
-};
-
-const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
-
-extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
-    NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
-    RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
-    ALL, ALL, IT, ON, OFF
-};
-
-#define NUMBER_OF_ABBREVIATIONS 6
-const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
-    "x", "z", "q" };
-const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
-    NULL, "inventory", "look", "examine", "wait", "quit"
-};
-
-const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
-    NULL, "at", "to", "in", "into", "the",
-    "a", "an", "my", "quickly", "carefully", "quietly",
-    "slowly", "violently", "fast", "hard", "now", "room"
-};
-const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
-    NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
-    "auf", "den", "lassen", "lass", "fallen", " ", " ", " ", " "
-};
-const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
-
-const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
-    "then", " " };
-const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
-    "dann", "and" };
-const char *DelimiterList[NUMBER_OF_DELIMITERS];
-
 /* For the verb position in a command string sequence, we try the following
  lists in this order: Verbs, Directions, Abbreviations, SkipList, Nouns,
  ExtraCommands, Delimiters */
-int FindVerb(const char *string, const char ***list)
+static int FindVerb(const char *string, const char ***list)
 {
     *list = Verbs;
     int verb = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
@@ -624,7 +670,7 @@ int FindVerb(const char *string, const char ***list)
 /* For the noun position in a command string sequence, we try the following
  lists in this order:
  Nouns, Directions, ExtraNouns, SkipList, Verbs, Delimiters */
-int FindNoun(const char *string, const char ***list)
+static int FindNoun(const char *string, const char ***list)
 {
     *list = Nouns;
     int noun = WhichWord(string, *list, GameHeader.WordLength, GameHeader.NumWords + 1);
@@ -671,9 +717,9 @@ int FindNoun(const char *string, const char ***list)
     return 0;
 }
 
-struct Command *CommandFromStrings(int index, struct Command *previous);
+static struct Command *CommandFromStrings(int index, struct Command *previous);
 
-int FindExtaneousWords(int *index, int noun)
+static int FindExtaneousWords(int *index, int noun)
 {
     /* Looking for extraneous words that should invalidate the command */
     int original_index = *index;
@@ -723,7 +769,7 @@ int FindExtaneousWords(int *index, int noun)
     return 1;
 }
 
-struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
+static struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
     int nounindex, struct Command *previous)
 {
     struct Command *command = MemAlloc(sizeof(struct Command));
@@ -742,7 +788,7 @@ struct Command *CreateCommandStruct(int verb, int noun, int verbindex,
     return command;
 }
 
-struct Command *CommandFromStrings(int index, struct Command *previous)
+static struct Command *CommandFromStrings(int index, struct Command *previous)
 {
     if (index < 0 || index >= WordsInInput) {
         return NULL;
@@ -868,7 +914,7 @@ struct Command *CommandFromStrings(int index, struct Command *previous)
     return NULL;
 }
 
-int CreateAllCommands(struct Command *command)
+static int CreateAllCommands(struct Command *command)
 {
 
     int exceptions[GameHeader.NumItems];
@@ -956,7 +1002,7 @@ static void PrintPendingError(void)
         glk_put_string_stream_uni(glk_window_get_stream(Bottom), FirstErrorMessage);
         free(FirstErrorMessage);
         FirstErrorMessage = NULL;
-        stop_time = 1;
+        StopTime = 1;
     }
 }
 
@@ -969,10 +1015,6 @@ int GetInput(int *vb, int *no)
         if (CurrentCommand)
             FreeCommands();
         CharWords = LineInput();
-
-        if (WordsInInput == 0 || CharWords == NULL)
-            return 0;
-
         CurrentCommand = CommandFromStrings(0, NULL);
     }
 

@@ -228,7 +228,7 @@ struct GameInfo {
 
     GameIDType gameID;
     GameType type;
-    Subtype subtype;
+    int subtype;
     DictionaryType dictionary;
 
     int number_of_items;

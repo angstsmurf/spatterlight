@@ -41,11 +41,9 @@ typedef enum {
     EXCEPT
 } extra_command;
 
-char **SplitIntoWords(glui32 *string, int length);
 int GetInput(int *vb, int *no);
 void FreeCommands(void);
 glui32 *ToUnicode(const char *string);
-char *FromUnicode(glui32 *unicode_string, int origlength);
 int RecheckForExtraCommand(void);
 int WhichWord(const char *word, const char **list, int word_length,
     int list_length);
@@ -72,7 +70,7 @@ extern const char *EnglishDelimiterList[];
 extern const char *GermanDelimiterList[];
 extern const char *DelimiterList[];
 
-#define NUMBER_OF_EXTRA_COMMANDS 20
+#define NUMBER_OF_EXTRA_COMMANDS 32
 extern const char *GermanExtraCommands[];
 extern const char *SpanishExtraCommands[];
 extern const char *ExtraCommands[];
@@ -83,6 +81,6 @@ extern const char *EnglishExtraNouns[];
 extern const char *GermanExtraNouns[];
 extern const char *SpanishExtraNouns[];
 extern const char *ExtraNouns[];
-extern extra_command ExtraNounsKey[];
+extern const extra_command ExtraNounsKey[];
 
 #endif /* parser_h */

@@ -55,6 +55,7 @@
 				<string>public.quest</string>
 				<string>public.jacl</string>
 				<string>public.saga</string>
+				<string>public.fiad</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

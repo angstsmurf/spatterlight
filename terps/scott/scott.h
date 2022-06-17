@@ -124,7 +124,6 @@ uint8_t *SeekToPos(uint8_t *buf, int offset);
 int CountCarried(void);
 int RandomPercent(int n);
 void DoneIt(void);
-void LookWithPause(void);
 void SaveGame(void);
 void PrintNoun(void);
 int PrintScore(void);
@@ -162,7 +161,7 @@ extern int WeAreBigEndian;
 extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
-extern int stop_time;
+extern int StopTime;
 extern int should_look_in_transcript;
 
 #endif /* scott_h */
