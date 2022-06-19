@@ -436,6 +436,8 @@ void rot180(uint8_t character[])
 
 void transform(int32_t character, int32_t flip_mode, int32_t ptr)
 {
+    if (character > 255)
+        return;
     uint8_t work[8];
     int32_t i;
 

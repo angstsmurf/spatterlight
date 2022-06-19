@@ -390,8 +390,9 @@ int TryLoadingHulk(struct GameInfo info, int dict_start)
     int index, image = 10;
 
     do {
-        index = (*ptr++);
-        Items[index].Image = image++;
+        index = *ptr++;
+        if (index != 255)
+            Items[index].Image = image++;
     } while (index != 255);
 
 #pragma mark item flags

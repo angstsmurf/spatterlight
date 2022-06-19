@@ -128,13 +128,13 @@ static const struct c64rec c64_registry[] = {
         0x1f00 }, // Super Gran C64 (T64) PUCrunch Generic Hack
 
     { SEAS_OF_BLOOD_C64, 0xa209, 0xf115, TYPE_T64, 6, "-e0x1000", NULL, 3,
-        0xd802, 0xb07c, 0x2000 }, // Seas of Blood C64 (T64) MasterCompressor / Relax -> ECA
+        0xd802, 0xb07c, 0x1fff }, // Seas of Blood C64 (T64) MasterCompressor / Relax -> ECA
     // Compacker -> Unknown -> MasterCompressor / Relax -> ECA
     // Compacker -> CCS Packer
     { SEAS_OF_BLOOD_C64, 0x2ab00, 0x5c1d, TYPE_D64, 1, NULL, NULL, 0, 0xd802,
-        0xb07c, 0x2000 }, // Seas of Blood C64 (D64) CCS Packer
+        0xb07c, 0x1fff }, // Seas of Blood C64 (D64) CCS Packer
     { SEAS_OF_BLOOD_C64, 0x2ab00, 0xe308, TYPE_D64, 1, NULL, NULL, 0, 0xd802,
-        0xb07c, 0x2000 }, // Seas of Blood C64 (D64) alt CCS Packer
+        0xb07c, 0x1fff }, // Seas of Blood C64 (D64) alt CCS Packer
     { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, NULL, 0, 0, 0, 0}
 };
 
@@ -158,9 +158,10 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
         if (largest) {
             ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
             if (c64file) {
-                int expectedsize = largest->sizelo + largest->sizehi * 0x100;
-                file = MemAlloc(expectedsize);
-                *newlength = di_read(c64file, file, 0xffff);
+                uint8_t buf[0xffff];
+                *newlength = di_read(c64file, buf, 0xffff);
+                file = MemAlloc(*newlength);
+                memcpy(file, buf, *newlength);
             }
         }
         di_free_image(d64);
@@ -502,10 +503,10 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
     uint8_t *uncompressed = MemAlloc(0xffff);
 
     char *switches[3];
+    char string[100];
     int numswitches = 0;
 
     if (record.switches != NULL) {
-        char string[100];
         strcpy(string, record.switches);
         switches[numswitches] = strtok(string, " ");
 
