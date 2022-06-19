@@ -179,6 +179,7 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0xabf8, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt
    { 0x2ab00, 0xa265, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 2
    { 0x2ab00, 0x3ccf, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 3
+   { 0x2ab00, 0xa1dc, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 4
 
     { 0xba60, 0x3734, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - The Adventure.tzx
     { 0xba71, 0x2d56, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate.tzx

@@ -118,7 +118,8 @@ static const struct c64rec c64_registry[] = {
     { GREMLINS_C64, 0x2ab00, 0xc402, TYPE_D64, 0, NULL, "G1", -0x8D }, // Gremlins C64 (D64) version
     { GREMLINS_C64, 0x2ab00, 0x3ccf, TYPE_D64, 0, NULL, "G1", -0x8D }, // Gremlins C64 (D64) version 2
     { GREMLINS_C64, 0x2ab00, 0xabf8, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64) version alt * ByteBoiler, Exomizer
-    { GREMLINS_C64, 0x2ab00, 0xa265, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64)  version alt 2 * ByteBoiler, Exomizer
+    { GREMLINS_C64, 0x2ab00, 0xa265, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64) version alt 2 * ByteBoiler, Exomizer
+    { GREMLINS_C64, 0x2ab00, 0xa1dc, TYPE_D64, 2, "-e0x1255", NULL, 2 }, // Gremlins C64 (D64) version alt 3  * ByteBoiler, Exomizer
     { GREMLINS_GERMAN_C64, 0xc003, 0x558c, TYPE_T64, 1, NULL, NULL, 0, 0xd801, 0xc6c0, 0x1f00 }, // German Gremlins C64 (T64) version * TBC Multicompactor v2.x
     { GREMLINS_GERMAN_C64, 0x2ab00, 0x6729, TYPE_D64, 2, NULL, NULL, 0, 0xdc02,
         0xcac1, 0x1f00 }, // German Gremlins C64 (D64) version * Exomizer
