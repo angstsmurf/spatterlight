@@ -738,14 +738,10 @@ void SagaSetup(size_t imgoffset)
         img->width = *(pos++);
         if (img->width > 32)
             img->width = 32;
-        //      fprintf (stderr, "width of image %d: %d\n", picture_number,
-        //      img->height);
 
         img->height = *(pos++);
         if (img->height > 12)
             img->height = 12;
-        //      fprintf (stderr, "height of image %d: %d\n", picture_number,
-        //      img->height);
 
         if (version > 0) {
             img->xoff = *(pos++);
