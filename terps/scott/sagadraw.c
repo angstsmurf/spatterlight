@@ -549,6 +549,8 @@ struct image_patch image_patches[] = {
     { CLAYMORGUE_C64, 28, 584, 1, "\x90" },
     { CLAYMORGUE_C64, 16, 0, 12,
         "\x82\xfd\x00\x82\x81\x00\xff\x05\xff\x05\xff\x05" },
+    { CLAYMORGUE, 14, 0, 12,
+      "\x82\xfd\x00\x82\x81\x00\xff\x05\xff\x05\xff\x05" },
     { GREMLINS_C64, 21, 10, 5, "\x01\xa0\x03\x00\x01" },
     { GREMLINS_C64, 44, 304, 1, "\xb1" },
     { GREMLINS_C64, 81, 176, 1, "\xa0" },
@@ -588,7 +590,7 @@ void Patch(uint8_t *data, uint8_t *offset, int patch_number)
     }
 }
 
-void PatchOutBrokenClaymorgueImages(void)
+void PatchOutBrokenClaymorgueImagesC64(void)
 {
     Output("[This copy of The Sorcerer of Claymorgue Castle has 16 broken or "
            "missing pictures. These have been patched out.]\n\n");
@@ -600,6 +602,20 @@ void PatchOutBrokenClaymorgueImages(void)
                 }
             }
     }
+}
+
+void PatchOutBrokenClaymorgueImagesZX(void)
+{
+   Output("[This copy of The Sorcerer of Claymorgue Castle has 26 broken or "
+          "missing pictures. These have been patched out.]\n\n");
+   for (int i = 9; i < 36; i++) {
+      if (i != 14)
+         for (int j = 0; j < GameHeader.NumRooms; j++) {
+            if (Rooms[j].Image == i) {
+               Rooms[j].Image = 255;
+            }
+         }
+   }
 }
 
 size_t hulk_coordinates = 0x26db;
@@ -682,7 +698,8 @@ void SagaSetup(size_t imgoffset)
 
     pos = SeekToPos(entire_file, OFFSET_TABLE_START);
 
-    int broken_claymorgue_pictures = 0;
+    int broken_claymorgue_pictures_c64 = 0;
+    int broken_claymorgue_pictures_zx = 0;
 
     for (i = 0; i < numgraphics; i++) {
         if (Game->picture_format_version == 0) {
@@ -747,17 +764,29 @@ void SagaSetup(size_t imgoffset)
         }
 
         if (CurrentGame == CLAYMORGUE_C64 && img->height == 0 && img->width == 0 && picture_number == 13) {
-            PatchOutBrokenClaymorgueImages();
-            broken_claymorgue_pictures = 1;
+            PatchOutBrokenClaymorgueImagesC64();
+            broken_claymorgue_pictures_c64 = 1;
         }
 
-        if (broken_claymorgue_pictures && (picture_number == 16 || picture_number == 28)) {
+        if (broken_claymorgue_pictures_c64 && (picture_number == 16 || picture_number == 28)) {
             img->height = 12;
             img->width = 32;
             img->xoff = 4;
             img->yoff = 0;
             if (picture_number == 28)
                 pos = entire_file + 0x2005;
+        }
+
+        if (CurrentGame == CLAYMORGUE && img->height == 0 && img->width == 0 && picture_number == 9) {
+            PatchOutBrokenClaymorgueImagesZX();
+            broken_claymorgue_pictures_zx = 1;
+        }
+
+        if (broken_claymorgue_pictures_zx && (picture_number == 14)) {
+            img->height = 12;
+            img->width = 32;
+            img->xoff = 4;
+            img->yoff = 0;
         }
 
         img->imagedata = pos;
