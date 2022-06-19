@@ -194,7 +194,7 @@ static void address_table(void) {
 
 uint8_t *LoadAlkatrazPicture(uint8_t *memimage, uint8_t *file) {
     mem = memimage;
-    DrawAdresses = MemAlloc(6912);
+    DrawAdresses = MemAlloc(6912 * sizeof(uint16_t));
     address_table();
     uint8_t loacon = 0xf6;
     DeAlkatraz(file, mem, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);

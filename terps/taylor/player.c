@@ -2451,7 +2451,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     }
 
     size_t namelen = strlen(argv[1]);
-    Filename = MemAlloc((int)namelen);
+    Filename = MemAlloc((int)namelen + 1);
     strncpy(Filename, argv[1], namelen);
     Filename[namelen] = '\0';
 
@@ -2550,7 +2550,7 @@ void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset
 void LookForSecondTOTGame(void)
 {
     size_t namelen = strlen(Filename);
-    char *secondfile = MemAlloc((int)namelen);
+    char *secondfile = MemAlloc((int)namelen + 1);
     strncpy(secondfile, Filename, namelen);
     secondfile[namelen] = '\0';
 
