@@ -251,9 +251,7 @@ static int savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
 
 static void appendSIfiles(uint8_t **sf, size_t *extent)
 {
-    int total_length = *extent + save_island_appendix_1_length + save_island_appendix_2_length;
-
-    uint8_t *megabuf = MemAlloc(total_length);
+    uint8_t megabuf[0xffff];
     memcpy(megabuf, *sf, *extent);
     free(*sf);
     int offset = 0x6202;
@@ -272,8 +270,9 @@ static void appendSIfiles(uint8_t **sf, size_t *extent)
             save_island_appendix_2 + 2, save_island_appendix_2_length);
         free(save_island_appendix_2);
     }
-    *sf = megabuf;
     *extent = offset + save_island_appendix_1_length + save_island_appendix_2_length;
+    *sf = malloc(*extent);
+    memcpy(*sf, megabuf, *extent);
 }
 
 static int mysterious_menu(uint8_t **sf, size_t *extent, int recindex)
