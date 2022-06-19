@@ -2821,7 +2821,7 @@
 		C31AF2F7271651E3007B7120 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		C31DB980276E961F00547C9C /* sagadraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagadraw.h; sourceTree = "<group>"; usesTabs = 0; };
-		C31DB982276E961F00547C9C /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; tabWidth = 3; usesTabs = 0; };
+		C31DB982276E961F00547C9C /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		C321419326CEA6D600B49504 /* czech.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = czech.z5; sourceTree = "<group>"; };
 		C321419526CEA75A00B49504 /* praxix.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = praxix.z5; sourceTree = "<group>"; };
 		C321419726CEA7B100B49504 /* etude.z5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = etude.z5; sourceTree = "<group>"; };
