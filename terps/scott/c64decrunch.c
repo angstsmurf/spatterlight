@@ -150,7 +150,6 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
                 memcpy(file, buf, *newlength);
             }
         }
-        di_free_image(d64);
     }
     return file;
 }
@@ -171,7 +170,6 @@ static uint8_t *get_file_named(uint8_t *data, int length, int *newlength,
             file = MemAlloc(*newlength);
             memcpy(file, buf, *newlength);
         }
-        //        di_free_image(d64);
     }
     return file;
 }
