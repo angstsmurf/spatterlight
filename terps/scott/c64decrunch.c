@@ -106,13 +106,13 @@ static const struct c64rec c64_registry[] = {
         0, 0, 0 }, // Savage Island part 2  C64 (D64) alt
 
     { ROBIN_OF_SHERWOOD_C64, 0x2ab00, 0xcf9e, TYPE_D64, 1, NULL, NULL, 0, 0x1802,
-        0xbd27, 0x2000 }, // Robin Of Sherwood D64 * unknown packer
+        0xbd27, 0x1f6c }, // Robin Of Sherwood D64 * unknown packer
     { ROBIN_OF_SHERWOOD_C64, 0xb2ef, 0x7c44, TYPE_T64, 1, NULL, NULL, 0, 0x9702,
-        0x9627, 0x2000 }, // Robin Of Sherwood C64 (T64) * TCS Cruncher v2.0
+        0x9627, 0x1f6c }, // Robin Of Sherwood C64 (T64) * TCS Cruncher v2.0
     { ROBIN_OF_SHERWOOD_C64, 0xb690, 0x7b61, TYPE_T64, 1, NULL, NULL, 0, 0x9702,
-        0x9627, 0x2000 }, // Robin Of Sherwood C64 (T64) alt * TCS Cruncher v2.0
+        0x9627, 0x1f6c }, // Robin Of Sherwood C64 (T64) alt * TCS Cruncher v2.0
     { ROBIN_OF_SHERWOOD_C64, 0x8db6, 0x7853, TYPE_T64, 1, NULL, NULL, 0, 0xd7fb,
-        0xbd20, 0x2000 }, // Robin Of Sherwood T64 alt 2 * PUCrunch
+        0xbd20, 0x1f6c }, // Robin Of Sherwood T64 alt 2 * PUCrunch
 
     { GREMLINS_C64, 0xdd94, 0x25a8, TYPE_T64, 1, NULL, NULL, 0 }, // Gremlins C64 (T64) version * Action Replay v4.x
     { GREMLINS_C64, 0x2ab00, 0xc402, TYPE_D64, 0, NULL, "G1", -0x8D }, // Gremlins C64 (D64) version
@@ -406,11 +406,13 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
         return 0;
 
     size_t newsize = MAX(dest + bytestomove, datasize);
-    uint8_t *megabuf = MemAlloc(newsize);
+    uint8_t megabuf[newsize + 1];
     memcpy(megabuf, *data, datasize);
     memcpy(megabuf + dest, *data + source, bytestomove);
     free(*data);
-    *data = megabuf;
+    uint8_t *result = MemAlloc(newsize + 1);
+    memcpy(result, megabuf, newsize);
+    *data = result;
     return newsize;
 }
 
