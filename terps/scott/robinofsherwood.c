@@ -255,7 +255,6 @@ GameIDType LoadExtraSherwoodData(void)
     uint8_t *ptr;
     /* Load the room images */
 
-jumpRoomImages:
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
@@ -332,16 +331,12 @@ jumpRoomImages:
 GameIDType LoadExtraSherwoodData64(void)
 {
 
-//    white_colour = 1;
-//    blue = 6;
-
 #pragma mark room images
 
     int offset = 0x1ffd + file_baseline_offset;
     uint8_t *ptr;
     /* Load the room images */
 
-jumpHereRoomImages:
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
         return 0;
