@@ -406,13 +406,11 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
         return 0;
 
     size_t newsize = MAX(dest + bytestomove, datasize);
-    uint8_t megabuf[newsize + 1];
+    uint8_t *megabuf = MemAlloc(newsize);
     memcpy(megabuf, *data, datasize);
     memcpy(megabuf + dest, *data + source, bytestomove);
     free(*data);
-    uint8_t *result = MemAlloc(newsize + 1);
-    memcpy(result, megabuf, newsize);
-    *data = result;
+    *data = megabuf;
     return newsize;
 }
 
