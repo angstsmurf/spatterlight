@@ -1243,10 +1243,15 @@ int next_inst(struct cpu_ctx *r)
                     switch (op_code) {
                     case 0x8D:
                         byted011[0] = r->a & 0x7f;
+                        break;
                     case 0x8E:
                         byted011[0] = r->x & 0x7f;
+                        break;
                     case 0x8C:
                         byted011[0] = r->y & 0x7f;
+                        break;
+                    default:
+                        break;
                     }
                 }
                 WriteToIO = 1;

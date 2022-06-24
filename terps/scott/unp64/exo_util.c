@@ -65,7 +65,7 @@ int find_sys(const unsigned char *buf, int target)
                 break;
             /* convert string number to int */
         case 3:
-            outstart = (int)strtol((char *)(buf + i), (void *)&sys_end, 10);
+            outstart = (int)strtol((const char *)(buf + i), (void *)&sys_end, 10);
             if ((buf + i) == sys_end) {
                 /* we got nothing */
                 outstart = -1;

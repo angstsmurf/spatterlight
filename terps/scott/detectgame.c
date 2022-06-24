@@ -1317,6 +1317,7 @@ GameIDType DetectGame(const char *file_name)
             break;
         case SAVAGE_ISLAND_C64:
             Items[20].Image = 13;
+            // fallthrough
         case SAVAGE_ISLAND2_C64:
             Supergran64Sysmess();
             sys[IM_DEAD] = "I'm DEAD!! ";
@@ -1325,8 +1326,10 @@ GameIDType DetectGame(const char *file_name)
             break;
         case SAVAGE_ISLAND:
             Items[20].Image = 13;
+            // fallthrough
         case SAVAGE_ISLAND2:
             MyLoc = 30; /* Both parts of Savage Island begin in room 30 */
+            // fallthrough
         case GREMLINS_GERMAN:
         case GREMLINS:
         case SUPERGRAN:

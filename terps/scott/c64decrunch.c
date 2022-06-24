@@ -257,15 +257,11 @@ static void appendSIfiles(uint8_t **sf, size_t *extent)
     int offset = 0x6202;
 
     if (save_island_appendix_1) {
-        //    fprintf(stderr, "Appending file 2, length %d\n",
-        //            save_island_appendix_1_length);
         memcpy(megabuf + offset, save_island_appendix_1 + 2,
             save_island_appendix_1_length);
         free(save_island_appendix_1);
     }
     if (save_island_appendix_2) {
-        //    fprintf(stderr, "Appending file 3, length %d\n",
-        //            save_island_appendix_2_length);
         memcpy(megabuf + offset + save_island_appendix_1_length,
             save_island_appendix_2 + 2, save_island_appendix_2_length);
         free(save_island_appendix_2);
