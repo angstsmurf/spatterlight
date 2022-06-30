@@ -150,8 +150,9 @@ void gli_close_all_file_streams(void)
 
     for (stream = glk_stream_iterate(NULL, NULL); stream; stream = glk_stream_iterate(stream, NULL))
     {
-        if (stream->type == strtype_File)
-            glk_stream_close(stream, NULL);
+        if (stream->type == strtype_File && stream->file) {
+            fclose(stream->file);
+        }
     }
 }
 
