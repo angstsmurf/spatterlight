@@ -61,6 +61,8 @@ int found_match = 0;
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
 
+int showing_inventory = 0;
+
 Header GameHeader;
 Item *Items;
 Room *Rooms;
@@ -242,11 +244,19 @@ void Updates(event_t ev)
             DrawImageWithFilename(buf);
         } else {
             SetBit(DRAWBIT);
-            Look(0);
-            if (SavedImgType == IMG_OBJECT)
-                DrawItemImage(SavedImgIndex);
-            else if (SavedImgType == IMG_SPECIAL)
-                DrawCloseup(SavedImgIndex);
+            if (showing_inventory == 1) {
+                DrawRoomImage(33);
+                for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
+                    if (ObjectImages[ct].room == 33 && Items[ObjectImages[ct].object].Location == CARRIED) {
+                        DrawItemImage(ObjectImages[ct].image);
+                    }
+            } else {
+                Look(0);
+                if (SavedImgType == IMG_OBJECT)
+                    DrawItemImage(SavedImgIndex);
+                else if (SavedImgType == IMG_SPECIAL)
+                    DrawCloseup(SavedImgIndex);
+            }
         }
     } else if (ev.type == evtype_Timer) {
         if (AnimationRunning)

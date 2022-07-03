@@ -61,7 +61,7 @@ void DrawRoomImage(int room) {
     LastImgType = IMG_ROOM;
     LastImgIndex = room;
     char buf[1024];
-    sprintf( buf, "%sR0%02d.PAK", dir_path, Rooms[room].Image);
+    sprintf(buf, "%sR0%02d.PAK", dir_path, Rooms[room].Image);
     glk_window_clear(Graphics);
     DrawImageWithFilename(buf);
 }
@@ -77,7 +77,6 @@ void DrawCurrentRoom(void)
     }
 
     if (dark && Graphics != NULL) {
-        //        glk_request_timer_events(0);
         if(CurrentGame != CLAYMORGUE)
             DrawBlack();
         return;
@@ -92,6 +91,11 @@ void DrawCurrentRoom(void)
         return;
 
     DrawRoomImage(MyLoc);
+
+    if (CurrentGame == CLAYMORGUE && MyLoc == 33)
+        showing_inventory = 1;
+    else
+        showing_inventory = 0;
 
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
         if (ObjectImages[ct].room == MyLoc && Items[ObjectImages[ct].object].Location == MyLoc ) {

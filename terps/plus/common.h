@@ -75,4 +75,6 @@ extern strid_t Transcript;
 
 extern int LastVerb, LastNoun, LastPrep, LastPartp, LastNoun2, LastAdverb;
 
+extern int showing_inventory;
+
 #endif /* common_h */
