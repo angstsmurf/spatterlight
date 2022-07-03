@@ -189,7 +189,7 @@ static char *GetTI994AString(uint16_t table, int table_offset)
     msgy = game + msg2;
     msgx = game + msg1;
 
-    while (msgx < msgy) {
+    while (msgx < msgy && msgx < entire_file + file_length) {
         msgx = GetTI994AWord(msgx, &nextword, &length);
         if (length == 0 || nextword == NULL) {
             return NULL;
@@ -265,7 +265,7 @@ static void ReadTI99ImplicitActions(struct DATAHEADER dh)
         ptr += 1 + ptr[1];
     }
 
-    ti99_implicit_extent = MIN(file_length, ptr - entire_file);
+    ti99_implicit_extent = MIN(file_length - (implicit_start - entire_file), ptr - entire_file);
     if (ti99_implicit_extent) {
         ti99_implicit_actions = MemAlloc(ti99_implicit_extent);
         memcpy(ti99_implicit_actions, implicit_start, ti99_implicit_extent);
