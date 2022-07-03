@@ -2172,6 +2172,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
     }];
 
+    if ([Blorb isBlorbURL:url]) {
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
+        [importer updateImageFromBlorb:blorb inGame:game];
+    }
+
     return gctl.window;
 }
 
