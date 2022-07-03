@@ -284,8 +284,8 @@ fprintf(stderr, "%s\n",                                                    \
         imgsize.width = 150 * ratio;
     }
 
-    setsize.width = cursize.width - wellsize.width + imgsize.width;
-    setsize.height = cursize.height - wellsize.height + imgsize.height;
+    setsize.width = initialWindowSize.width - initialWellSize.width + imgsize.width;
+    setsize.height = initialWindowSize.height - initialWellSize.height + imgsize.height;
 
     frame = self.window.frame;
     frame.origin.y += frame.size.height;
@@ -674,6 +674,13 @@ fprintf(stderr, "%s\n",                                                    \
     fadeOutAnimation.duration = .2;
     fadeOutAnimation.fillMode = kCAFillModeForwards;
     return fadeOutAnimation;
+}
+
++ (void)closeStrayInfoWindows {
+    NSArray *windows = [NSApplication sharedApplication].windows;
+    for (NSWindow *window in windows)
+        if ([window isKindOfClass:[InfoPanel class]] && ![window.delegate isKindOfClass:[InfoController class]])
+            [window close];
 }
 
 - (void)checkForKeyPressesDuringAnimation {

@@ -37,4 +37,6 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 
 - (void)updateImage;
 
++ (void)closeStrayInfoWindows;
+
 @end
