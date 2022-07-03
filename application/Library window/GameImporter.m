@@ -469,7 +469,7 @@ extern NSArray *gGameFileTypes;
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
     if (blorb) {
         NSData *newImageData = blorb.coverImageData;
-        if (newImageData && ![_libController.lastImageComparisonData isEqual:newImageData]) {
+        if (newImageData && ![newImageData isPlaceHolderImage] && ![_libController.lastImageComparisonData isEqual:newImageData]) {
             _libController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
