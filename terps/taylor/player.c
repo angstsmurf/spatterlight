@@ -924,7 +924,7 @@ static void NewGame(void)
     memset(Flag, 0, 128);
     memcpy(Flag, FileImage + FlagBase, 7);
     if (CurrentGame == QUESTPROBE3) {
-        for (int i = 0; i < 128; i++) {
+        for (int i = 0; i < 124; i++) {
             Flag[4 + i] = 0;
         }
         Flag[42] = 0;
