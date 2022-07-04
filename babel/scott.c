@@ -24,7 +24,7 @@
 struct scottrec {
     int32 length;
     uint16_t chk;
-    char *ifid;
+    const char *ifid;
 };
 
 static const struct scottrec scott_registry[] = {

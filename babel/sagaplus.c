@@ -21,6 +21,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+struct plusrec {
+    const char *id;
+    const char *ifid;
+};
+
+static const struct plusrec plus_registry[] = {
+    { "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" },
+    { "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" },
+    { "BUCKAROO", "13EA7A22731E90598456D13311923833" },
+    { "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
+    { "\0", "\0" }
+};
+
 /* All numbers in Saga Plus text format files are stored as text delimited by whitespace */
 static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset, bool *failure) {
     char numstring[100];
@@ -98,6 +111,38 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
     return ct;
 }
 
+static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
+    if (extent > MAX_LENGTH || extent < MIN_LENGTH)
+        return INVALID_STORY_FILE_RV;
+
+    int32 offset = 0;
+    bool failure = false;
+
+    read_string(sf, extent, &offset, &failure, false);
+    if (failure == true)
+        return INVALID_STORY_FILE_RV;
+
+    char title[offset];
+    if (offset < 2)
+        return INVALID_STORY_FILE_RV;
+
+    memcpy(title, sf + 1, offset);
+    title[offset - 2] = 0;
+
+    for (int i = 0; plus_registry[i].id[0] != 0; i++) {
+        if (strcmp(plus_registry[i].id, title) == 0 ) {
+            if (ifid != NULL) {
+                size_t length = strlen(plus_registry[i].ifid);
+                strncpy(*ifid, plus_registry[i].ifid, length);
+                (*ifid)[length] = 0;
+            }
+            return VALID_STORY_FILE_RV;
+        }
+    }
+    return INVALID_STORY_FILE_RV;
+}
+
+
 static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
     /* Load the header */
 
@@ -173,10 +218,8 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
 
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV)
-    {
-        strcpy(output, "\0");
-        return INCOMPLETE_REPLY_RV;
+    if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV) {
+        return find_in_database(storystring, extent, &output);
     }
     return INVALID_STORY_FILE_RV;
 }
