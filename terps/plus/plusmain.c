@@ -375,11 +375,6 @@ static void FlushRoomDescription(char *buf,  int transcript)
     //        PrintWindowDelimiter();
     //    }
     
-    //    if (pause_next_room_description) {
-    //        Delay(0.8);
-    //        pause_next_room_description = 0;
-    //    }
-    
     Transcript = StoredTranscript;
     if (buf != NULL) {
         free(buf);
@@ -671,10 +666,6 @@ static void PrintNoun(void)
         }
         dict++;
     }
-    
-    //    if (CurrentCommand)
-    //        glk_put_string_stream_uni(glk_window_get_stream(Bottom),
-    //                                  UnicodeWords[CurrentCommand->nounwordindex]);
 }
 
 static int GetAnyDictWord(int group, DictWord *dict)
@@ -713,8 +704,6 @@ static void PlayerIsDead(void)
 static void PutItemAInRoomB(int itemA, int roomB)
 {
     debug_print("Item %d (%s) is put in room %d. MyLoc: %d (%s)\n", itemA, Items[itemA].Text, roomB, MyLoc, Rooms[MyLoc].Text);
-    //    if (Items[itemA].Location == MyLoc)
-    //        LookWithPause();
     Items[itemA].Location = roomB;
 }
 
@@ -737,15 +726,11 @@ static void SwapItemLocations(int itemA, int itemB)
     int temp = Items[itemA].Location;
     Items[itemA].Location = Items[itemB].Location;
     Items[itemB].Location = temp;
-    //    if (Items[itemA].Location == MyLoc || Items[itemB].Location == MyLoc)
-    //        should_look_in_transcript = 1;
 }
 
 static void MoveItemAToLocOfItemB(int itemA, int itemB)
 {
     Items[itemA].Location = Items[itemB].Location;
-    //    if (Items[itemB].Location == MyLoc)
-    //        should_look_in_transcript = 1;
 }
 
 static void DoneIt(void)
@@ -798,9 +783,6 @@ static void ListInventory(void)
         Output(sys[NOTHING]);
     else
         Output(".");
-    //    if (Transcript) {
-    //        glk_put_char_stream_uni(Transcript, 10);
-    //    }
 }
 
 static void ClearScreen(void)

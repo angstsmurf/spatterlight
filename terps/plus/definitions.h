@@ -282,18 +282,6 @@ typedef enum {
 
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
-typedef enum {
-    NO_HEADER,
-    SPIDERHEADER
-} HeaderType;
-
-typedef enum {
-    UNKNOWN_ACTIONS_TYPE,
-    COMPRESSED,
-    UNCOMPRESSED,
-    HULK_ACTIONS
-} ActionTableType;
-
 struct GameInfo {
     const char *Title;
 
@@ -314,14 +302,12 @@ struct GameInfo {
     int number_of_nouns;
 
     int start_of_header;
-    HeaderType header_style;
 
     int start_of_room_image_list;
     int start_of_item_flags;
     int start_of_item_image_list;
 
     int start_of_actions;
-    ActionTableType actions_style;
     int start_of_dictionary;
     int start_of_room_descriptions;
     int start_of_room_connections;
