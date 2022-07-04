@@ -5,7 +5,7 @@
  */
 
 #define FORMAT sagaplus
-#define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/greatscott"
+#define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/master/terps/plus"
 #define FORMAT_EXT ".dat"
 #define NO_METADATA
 #define NO_COVER
