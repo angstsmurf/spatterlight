@@ -1916,7 +1916,7 @@ static CommandResultType PerformExplicit(void)
     startover = 0;
     loop_index = 0;
     found_match = 0;
-    ResetBit(MATCHBIT); // Not sure if this is used by anything
+    ResetBit(MATCHBIT);
     NounObject = MatchUpItem(CurNoun, -1);
 
     while (ct <= GameHeader.NumActions) {
@@ -1968,7 +1968,7 @@ static CommandResultType PerformExplicit(void)
                 }
             } else {
                 if (verbvalue == CurVerb && (nounvalue == CurNoun || nounvalue == 0))
-                    SetBit(MATCHBIT);  // Not sure if this is used by anything
+                    SetBit(MATCHBIT);
             }
         }
 
@@ -1986,6 +1986,9 @@ static CommandResultType PerformExplicit(void)
         if (found_match && !chain_on && !keep_going)
             break;
     }
+
+    if (result == ER_RAN_ALL_LINES_NO_MATCH && IsSet(MATCHBIT))
+        result = ER_RAN_ALL_LINES;
 
     return result;
 }
