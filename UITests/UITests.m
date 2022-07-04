@@ -1906,7 +1906,9 @@
 
     [actionButton click];
 
-    [[[[popoversQuery childrenMatchingType:XCUIElementTypeTextField] matchingIdentifier:@"0"] elementBoundByIndex:0] typeText:@"10\r"];
+    textField = [[[app/*@START_MENU_TOKEN@*/.popovers/*[[".dialogs[@\"Preferences\"]",".tabGroups.popovers",".popovers",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ childrenMatchingType:XCUIElementTypeTextField] matchingIdentifier:@"0"] elementBoundByIndex:0];
+    [textField click];
+    [textField typeText:@"10\r"];
 
     incrementArrow = [[[popoversQuery childrenMatchingType:XCUIElementTypeStepper] elementBoundByIndex:4] childrenMatchingType:XCUIElementTypeIncrementArrow].element;
     [incrementArrow click];
