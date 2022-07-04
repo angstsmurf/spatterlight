@@ -1,6 +1,6 @@
 # Glulxe: the Glulx VM interpreter
 
-- Version 0.5.4
+- Version 0.6.0
 - Designed by Andrew Plotkin <erkyrath@eblong.com>
 - [Glulx home page][glulx]
 
@@ -117,11 +117,15 @@ display the update, and then (without delay) exit.
 
 ## Version
 
-0.5.### (###)
+0.6.0 (Jun 25, 2022):
+
+- Added @hasundo and @discardundo opcodes. (Glulx spec 3.1.3.)
 - Added autosave support to the Unix startup code. (Previously the
   autosave support only existed in the iOS startup code, which was
   ObjC.) Autosave now works with the RemGlk library.
 - Added an --undo argument to set the number of undo states.
+- Fixed a bug where accelerated functions could write error messages
+  to Glk regardless of the current I/O system.
 - Added array bounds checking on stack access.
 - Added a guard against too-deep recursion when creating the string
   cache.
