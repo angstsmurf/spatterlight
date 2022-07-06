@@ -339,7 +339,7 @@ static uint8_t *LoadTitleScreen(void)
             char c = *(p++);
             if (p - entire_file >= file_length)
                 return NULL;
-            if (!((c <= 127) && (c >= 0))) /* isascii() */
+            if (c & 0x80) /* if not 7-bit ascii */
                 c = '?';
             switch (c) {
                 case '\\':
