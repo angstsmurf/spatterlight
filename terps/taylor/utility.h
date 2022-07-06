@@ -14,7 +14,7 @@
 void Display(winid_t w, const char *fmt, ...);
 void CleanupAndExit(void);
 void Fatal(const char *x);
-void *MemAlloc(int size);
+void *MemAlloc(size_t size);
 uint8_t *SeekToPos(uint8_t *buf, size_t offset);
 void print_memory(int address, int length);
 uint8_t *readFile(const char *name, size_t *size);

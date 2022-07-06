@@ -329,7 +329,7 @@ void Updates(event_t ev)
         Look();
         Resizing = 0;
     } else if (ev.type == evtype_Timer) {
-        switch (CurrentGame) {
+        switch (Game->base_game) {
             case REBEL_PLANET:
                 UpdateRebelAnimations();
                 break;
@@ -477,7 +477,7 @@ void DrawBlack(void)
 }
 
 void DrawRoomImage(void) {
-    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91) || NoGraphics) {
+    if (MyLoc == 0 || (Game->base_game == KAYLETH && MyLoc == 91) || NoGraphics) {
         return;
     }
     ClearGraphMem();

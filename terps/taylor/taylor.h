@@ -22,6 +22,8 @@ void CloseGraphicsWindow(void);
 void OpenGraphicsWindow(void);
 void OpenTopWindow(void);
 
+void PrintFirstTenBytes(size_t offset);
+
 #define FOLLOWS 0xffff
 
 #define MyLoc (Flag[0])
@@ -34,12 +36,17 @@ void OpenTopWindow(void);
 
 typedef enum {
     QUESTPROBE3,
+    QUESTPROBE3_64,
     REBEL_PLANET,
+    REBEL_PLANET_64,
     BLIZZARD_PASS,
     HEMAN,
+    HEMAN_64,
     TEMPLE_OF_TERROR,
+    TEMPLE_OF_TERROR_64,
     TOT_TEXT_ONLY,
     KAYLETH,
+    KAYLETH_64,
     UNKNOWN_GAME,
     NUMGAMES
 } GameIDType;
@@ -218,6 +225,7 @@ struct GameInfo {
 
     GameIDType gameID;
     GameVersion type;
+    GameIDType base_game;
 
     int number_of_items;
     int number_of_actions;
@@ -277,5 +285,7 @@ extern int JustWrotePeriod;
 extern int NoGraphics;
 extern int Options;
 extern int LineEvent;
+
+extern size_t AnimationData;
 
 #endif /* taylor_h */

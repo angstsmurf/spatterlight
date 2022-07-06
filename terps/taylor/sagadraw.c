@@ -590,9 +590,17 @@ static size_t FindCharacterStart(void)
 void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
+uint16_t base, offsets, imgdata;
+
+static void Questprobe3Init(void) {
+    imgdata =  FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", 0, 10);
+    offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
+    base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
+}
+
 static uint8_t *Questprobe3Image(int imgnum) {
-    uint16_t offset_addr = (FileImage[0x5e80 + imgnum + FileBaselineOffset] & 0x7f) * 2 + 0x68c0 + FileBaselineOffset;
-    uint16_t image_addr = 0x6916 + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256 + FileBaselineOffset;
+    uint16_t offset_addr = (FileImage[base + imgnum] & 0x7f) * 2 + offsets;
+    uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
     return &FileImage[image_addr];
 }
 
@@ -646,7 +654,7 @@ void SagaSetup(void)
             CHAR_START - FileBaselineOffset);
 #endif
     for (i = 0; i < 256; i++) {
-        for (y = 0; y < 8; y++) {
+        for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             sprite[i][y] = *(pos++);
         }
     }
@@ -660,12 +668,40 @@ void SagaSetup(void)
 
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
 
+    if (CurrentGame == HEMAN_64)
+        patterns_lookup = FindCode("\xae\xaf\xb7\xbe\xbf\xc3\xc7\xca\xcb\xcf", 0, 10);
+
+    if (CurrentGame == TEMPLE_OF_TERROR_64)
+        patterns_lookup = FindCode("\xae\xb7\xbe\xbf\xca\xd7\xda\xdb\xdf\xe3", 0, 10);
+
+    if (CurrentGame == REBEL_PLANET_64)
+        image_blocks_start_address = FindCode("\x2b\xfa\x09\x08\x82\x01\x64\xa4\x64\xa4", 0, 10);
+
+    if (CurrentGame == HEMAN_64)
+        image_blocks_start_address = FindCode("\x35\x80\x00\xC0\x59\x90\x5A\xC0\x59\x00", 0, 10);
+
+    if (CurrentGame == TEMPLE_OF_TERROR_64)
+        image_blocks_start_address = FindCode("\x51\xB0\x5C\xB0\x25\x82\x05\x00\x90\x25", 0, 10);
+
+    if (CurrentGame == KAYLETH_64)
+        image_blocks_start_address = FindCode("\x12\xf5\x01\x80\x03\xb5\x01\xc0\x03\x03", 0, 10);
+
     pos = SeekToPos(FileImage, image_blocks_start_address);
+
+    fprintf(stderr, "image_blocks_start_address");
+    PrintFirstTenBytes(image_blocks_start_address);
+
+    if (Version == QUESTPROBE3_TYPE)
+        Questprobe3Init();
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
 
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             pos = Questprobe3Image(picture_number);
+            if (pos > EndOfData - 4 || pos < FileImage) {
+                fprintf(stderr, "Image %d out of range!\n", picture_number);
+                continue;
+            }
             img->width = *pos++;
             img->height = *pos++;
             img->xoff = *pos++;
@@ -735,7 +771,7 @@ void SagaSetup(void)
                         pos = copied_bytes;
                         break;
                 }
-            } else {
+            } else if (Game->number_of_patterns) {
                 for (i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
                         number--;
@@ -766,6 +802,30 @@ void SagaSetup(void)
     }
 
     taylor_image_data = &FileImage[Game->start_of_image_instructions + FileBaselineOffset];
+
+    if (CurrentGame == REBEL_PLANET_64) {
+        size_t image_data_offset = FindCode("\xff\x04\x00\x00\xa4\x08\x00\x0b\x08\x07", 0, 10);
+        taylor_image_data = &FileImage[image_data_offset];
+    }
+
+    if (CurrentGame == HEMAN_64) {
+        size_t image_data_offset = FindCode("\xff\x5f\x05\x00\xfe\xf9\x51\xf8\x00\x60", 0, 10);
+        taylor_image_data = &FileImage[image_data_offset];
+    }
+
+    if (CurrentGame == TEMPLE_OF_TERROR_64) {
+        size_t image_data_offset = FindCode("\xff\xfd\x00\x05\xfb\xfc\x05\x00\x01\x30", 0, 10);
+        taylor_image_data = &FileImage[image_data_offset];
+    }
+
+    if (CurrentGame == KAYLETH_64) {
+        size_t image_data_offset = FindCode("\xff\xfc\x0a\x00\x02\x70\x20\xf9\x86\x2b", 0, 10);
+        taylor_image_data = &FileImage[image_data_offset];
+    }
+
+
+    fprintf(stderr, "taylor_image_data");
+    PrintFirstTenBytes(Game->start_of_image_instructions + FileBaselineOffset);
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
@@ -1054,7 +1114,7 @@ void DrawTaylor(int loc)
             case 0xf8:
                 // fprintf(stderr, "0xf8: Skip rest of picture if object %d is not present\n", *(ptr + 1));
                 ptr++;
-                if (CurrentGame == BLIZZARD_PASS || CurrentGame == REBEL_PLANET) {
+                if (CurrentGame == BLIZZARD_PASS || CurrentGame == REBEL_PLANET || CurrentGame == REBEL_PLANET_64 ) {
                     if (ObjectLoc[*ptr] == MyLoc) {
                         DrawSagaPictureAtPos(*(ptr + 1), *(ptr + 2), *(ptr + 3));
                     }
@@ -1108,7 +1168,7 @@ void DrawTaylor(int loc)
                 ClearGraphMem();
                 break;
             case 0xf7: // set A to 0c and call 70b7, but A seems to not be used. Vestigial code?
-                if (CurrentGame == REBEL_PLANET && MyLoc == 43 && ObjectLoc[131] == 252)
+                if ((CurrentGame == REBEL_PLANET || CurrentGame == REBEL_PLANET_64) && MyLoc == 43 && ObjectLoc[131] == 252)
                     return;
             case 0xf6: // set A to 04 and call 70b7. See 0xf7 above.
             case 0xf5: // set A to 08 and call 70b7. See 0xf7 above.
@@ -1316,6 +1376,8 @@ draw_attributes:
 
 void DrawSagaPictureNumber(int picture_number)
 {
+    if (Game->number_of_pictures == 0)
+        return;
 //    int numgraphics = Game->number_of_pictures;
 //    if (picture_number >= numgraphics) {
 //        fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
@@ -1338,23 +1400,6 @@ void DrawSagaPictureAtPos(int picture_number, int x, int y)
 
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y);
 }
-
-//static void SwitchPalettes(int pal1, int pal2)
-//{
-//    uint8_t temp[3];
-//
-//    temp[0] = pal[pal1][0];
-//    temp[1] = pal[pal1][1];
-//    temp[2] = pal[pal1][2];
-//
-//    pal[pal1][0] = pal[pal2][0];
-//    pal[pal1][1] = pal[pal2][1];
-//    pal[pal1][2] = pal[pal2][2];
-//
-//    pal[pal2][0] = temp[0];
-//    pal[pal2][1] = temp[1];
-//    pal[pal2][2] = temp[2];
-//}
 
 void DrawSagaPictureFromBuffer(void)
 {

@@ -6,7 +6,7 @@
 
 #define FORMAT taylor
 #define HOME_PAGE "https://github.com/EtchedPixels/TaylorMade"
-#define FORMAT_EXT ".sna,.tzx,.tap,.z80"
+#define FORMAT_EXT ".sna,.tzx,.tap,.z80,.d64,.t64"
 #define NO_METADATA
 #define NO_COVER
 
@@ -37,21 +37,29 @@ static const struct rec taylor_registry[] = {
     { 0xbe30, 0x73a5, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror TAP
     { 0xccca, 0xe88f, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side A
     { 0xa000, 0x63ca, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side B
+    { 0xf716, 0x2b54, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror C64
+    { 0x10baa, 0x3b37, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror C64 alt
     { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Needs de-shuffling)
     { 0xa4f1, 0x8c14, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 alt
     { 0xbd33, 0x0005, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth TAP
     { 0xcadc, 0x733d, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth tzx
+    { 0xb1f2, 0x7757, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth C64 T64
+    { 0x2ab00, 0xc75f, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth C64 D64
     { 0xa5dc, 0x42c9, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80
     { 0xa3fd, 0x9b82, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman Z80 alt
     { 0xcd17, 0x6f68, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman tzx
     { 0xcd15, 0x6bc4, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman tzx alt
+    { 0xfa17, 0xfbd2, "c9f6bfe4-3b84-41d1-99d4-b510b994e537" }, // Heman C64
     { 0xb56a, 0xf1fd, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet Z80
     { 0xbd3b, 0xec4f, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet TAP
     { 0xbd5b, 0xf5ea, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet tzx
+    { 0xd541, 0x593a, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet C64
     { 0xb345, 0xc48b, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80
     { 0xbcb6, 0x6902, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx
     { 0xbb08, 0xab12, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt
     { 0xbc20, 0x3726, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt 2
+    { 0x69e3, 0x3b96, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64
+    { 0x8298, 0xb93e, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64 alt
     { 0, 0, NULL }
 };
 
@@ -107,7 +115,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

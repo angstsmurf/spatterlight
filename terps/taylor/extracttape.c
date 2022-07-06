@@ -93,7 +93,7 @@ uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t 
 //    if (memory != NULL) {
 //        size_t snasize = 0xc01b;
 //        snasize = 0x2001f;
-//        uint8_t *snasized = MemAlloc((int)snasize);
+//        uint8_t *snasized = MemAlloc(snasize);
 //        memcpy(snasized, memory + 0x3fe5, snasize);
 //        writeToFile("/Users/administrator/Desktop/CompareToSna.data", snasized, snasize);
 //        size_t length;

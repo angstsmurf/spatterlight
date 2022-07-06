@@ -18,6 +18,7 @@
 #include "utility.h"
 #include "sagadraw.h"
 #include "extracommands.h"
+#include "c64decrunch.h"
 
 #include "taylor.h"
 
@@ -40,6 +41,7 @@ static size_t ObjLocBase;
 static size_t StatusBase;
 static size_t ActionBase;
 static size_t FlagBase;
+size_t AnimationData = 0;
 
 int NumLowObjects;
 
@@ -305,10 +307,28 @@ size_t FindCode(const char *x, size_t base, size_t len)
 
 static size_t FindFlags(void)
 {
-    if (CurrentGame == QUESTPROBE3)
+    size_t pos;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x00\x00\xFD\xFE\x04\x00\x85\xA2\x7F\xA0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x00\x00\xFD\xFE\x0B\x00\x5B\xA2\xF2\xA0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x00\x00\xFD\xFE\x0F\x03\xBF\xA2\x66\xA0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x00\x00\xfd\xfe\x07\x00\x7b\xa2\x67\xa0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && Version == QUESTPROBE3_TYPE && (pos = FindCode("\x80\x00\x00\x3C\x77\x6F\xFF\x0F\x00\x00", 0, 10)) != -1)
+        return pos;
+
+    if (Version == QUESTPROBE3_TYPE)
         return 0x1b70 + FileBaselineOffset;
+
     /* Questprobe */
-    size_t pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
+    pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
     if(pos == -1) {
         /* Look for the flag initial block copy */
         pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0,8 );
@@ -322,10 +342,27 @@ static size_t FindFlags(void)
 
 static size_t FindObjectLocations(void)
 {
-    if (CurrentGame == QUESTPROBE3)
+    size_t pos;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xfc\xfc\xfc\x07\x05\xfc\xfc\xfc\xfc\x07", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x01\xfc\xfc\xfc\x0a\x10\xfc\x1d\x30\x32", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x01\xfc\x01\x01\xfc\x5f\xfc\xfc\xfc\x02", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x09\xfc\xfc\xfc\xfc\x35\x38\xfc\xfc\xfc", 0, 10)) != -1)
+        return pos;
+
+    if (CurrentGame == QUESTPROBE3_64 && (pos = FindCode("\xFC\xFC\xFC\x01\x05\xFC\x06\xFC\x0B\x18", 0, 10)) != -1)
+        return pos;
+
+    if (Version == QUESTPROBE3_TYPE)
         return 0x90A3 - 0x4000 + FileBaselineOffset;
 
-    size_t pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
+    pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
     if(pos == -1) {
         fprintf(stderr, "Cannot find initial object data.\n");
         glk_exit();
@@ -338,17 +375,35 @@ static size_t FindExits(void)
 {
     size_t pos = 0;
 
-    while((pos = FindCode("\x1A\xBE\x28\x0B\x13", pos+1, 5)) != -1)
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x80\x81\x02\x02\x82\x01\x01\x02\x05\x03", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x80\x81\x03\x02\x82\x02\x0a\x03\x03\x04", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x80\x81\x82\x02\x04\x03\x03\x83\x04\x02 ", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x80\x81\x82\x01\x03\x03\x08\x05\x07\x83", 0, 10)) != -1)
+        return pos;
+
+    if ((pos = FindCode("\x1A\xBE\x28\x0B\x13", 0, 5)) != -1)
     {
         pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8) - 0x4000;
         return pos + FileBaselineOffset;
     }
+
+    if (CurrentGame == QUESTPROBE3_64 && (pos = FindCode("\x80\x81\x03\x05\x82", 0, 5)) != -1)
+        return pos;
+
     fprintf(stderr, "Cannot find initial exit data.\n");
     glk_exit();
 }
 
 static int LooksLikeTokens(size_t pos)
 {
+    if (pos > FileImageLen)
+        return 0;
     unsigned char *p = FileImage + pos;
     int n = 0;
     int t = 0;
@@ -379,6 +434,22 @@ static size_t FindTokens(void)
 {
     size_t addr;
     size_t pos = 0;
+
+    if (Game && Version == QUESTPROBE3_TYPE && (pos = FindCode("\x61\xa0\x64\xa0\x65\xa0\x67\xa0\x69\xa0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xa7\x2e\xfe\x20\xfe\x2c\xfe\x21\xfe\x3f", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x80\x20\x54\x68\x65\x72\x65\x20\x69\x73", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
+        return pos;
+
     do {
         pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);
         if(pos == -1) {
@@ -514,7 +585,7 @@ static void OutChar(char c)
         }
     }
     if(PendSpace) {
-        if (JustWrotePeriod && CurrentGame != KAYLETH)
+        if (JustWrotePeriod && Game->base_game != KAYLETH)
             Upper = 1;
         OutWrite(' ');
         PendSpace = 0;
@@ -545,8 +616,7 @@ static void OutString(char *p)
 static unsigned char *TokenText(unsigned char n)
 {
     unsigned char *p = FileImage + TokenBase;
-
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         n -= 0x7b;
 
     while(n > 0 && p < EndOfData) {
@@ -588,7 +658,7 @@ static void PrintToken(unsigned char n)
     unsigned char c;
     do {
         c = *p++;
-        if (CurrentGame == QUESTPROBE3)
+        if (Version == QUESTPROBE3_TYPE)
             QPrintChar(c & 0x7F);
         else
             OutChar(c & 0x7F);
@@ -609,9 +679,8 @@ static void PrintTextQ(unsigned char *p, int n)
             return;
         if (*p >= 0x7b) // if c is >= 0x7b it is a token
             PrintToken(*p);
-        else {
+        else
             QPrintChar(*p);
-        }
     } while (*p++ != 0x1f);
 }
 
@@ -680,6 +749,19 @@ static void PrintText(unsigned char *p, int n)
 static size_t FindMessages(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x20\x5f\x20\x63\x97\x20\x96\x73\x6f\xf8", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x40\xd5\x73\xda\xb4\x3a\x7e\x20\x6e\xbe", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x20\x3c\x63\x89\xd0\x73\x6f\xc2\x65\x65", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x20\x24\x97\xb0\x65\x7e\x20\x4e\xa0\x68", 0, 10)) != -1)
+        return pos;
+
     /* Newer game format */
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x3E\x2E", pos+1, 6)) != -1) {
         if(FileImage[pos + 6] != 0x32)
@@ -716,6 +798,19 @@ static size_t FindMessages(void)
 static size_t FindMessages2(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xfb\xa9\x70\x9a\xe0\xc1\x62\x72\xaa\x6b", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x53\x0f\x69\xc3\x65\x6d\xd1\x67\x8f\x0b ", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x41\x15\xd6\x70\xae\xca\x68\x1e\x45\x6c", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x54\xcd\x79\x1d\xc7\x70\x6f\x73\x73\x69", 0, 10)) != -1)
+        return pos;
+
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
         if(FileImage[pos + 8] != 0x21)
             continue;
@@ -735,7 +830,7 @@ static void Message(unsigned char m)
     PrintText(p, m);
     if (CurrentGame != BLIZZARD_PASS)
         OutChar(' ');
-    if (CurrentGame == REBEL_PLANET && m == 156)
+    if (Game->base_game == REBEL_PLANET && m == 156)
         InventoryLower = 1;
     else
         InventoryLower = 0;
@@ -750,7 +845,7 @@ static void Message2(unsigned int m)
 
 static void SysMessage(unsigned char m)
 {
-    if (CurrentGame != QUESTPROBE3) {
+    if (Version != QUESTPROBE3_TYPE) {
         Message(m);
         return;
     }
@@ -764,6 +859,23 @@ static void SysMessage(unsigned char m)
 static size_t FindObjects(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xbd\x1e\x54\xe0\xd9\x97\xfd\x72\xab\xbd\xa4\x02", 0, 12)) != -1) {
+        return pos;
+    }
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x4b\x5b\x52\xe7\x6e\xc4\xcb\x69\x9c\x62", 0, 10)) != -1) {
+        return pos;
+    }
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x38\xfd\xb8\x6e\x18\xc8\xae\x70\xa4\xce", 0, 10)) != -1) {
+        return pos;
+    }
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x01\xd9\x41\x7a\xe6\x20\x43\x68\xd6\x62", 0, 10)) != -1) {
+        return pos;
+    }
+
     while((pos = FindCode("\xF5\xE5\xC5\xD5\x32", pos+1, 5)) != -1) {
         if(FileImage[pos + 10] != 0xCD)
             continue;
@@ -783,12 +895,12 @@ static size_t FindObjects(void)
 
 static void PrintObject(unsigned char obj)
 {
-    if ((CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) && obj == 41) {
+    if (Game->base_game == TEMPLE_OF_TERROR && obj == 41) {
         OutString("door.");
         return;
     }
     unsigned char *p = FileImage + ObjectBase;
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         p--;
     PrintText(p, obj);
 }
@@ -797,6 +909,19 @@ static void PrintObject(unsigned char obj)
 static size_t FindRooms(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x41\x73\x1e\x2b\x20\x45\xc9\x69\x7d\xed", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x57\xd8\x63\xde\x65\x5f\x54\x45\x52\x52", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x57\x65\x6c\x63\xcb\x65\x3b\x54\x45\x4d", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x5d\x8f\x8f\x8f\x8f\x8f\x4b\x41\x59\x4c", 0, 10)) != -1)
+        return pos;
+
     while((pos = FindCode("\x3E\x19\xCD", pos+1, 3)) != -1) {
         if(FileImage[pos + 5] != 0xC3)
             continue;
@@ -846,30 +971,30 @@ static unsigned char Carried()
 
 static unsigned char Worn()
 {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 0;
     return Flag[3];
 }
 
 static unsigned char NumObjects()
 {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 49;
     return Flag[6];
 }
 
 static int WaitFlag()
 {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 5;
-    if (CurrentGame != REBEL_PLANET && CurrentGame != KAYLETH)
+    if (Game->base_game != REBEL_PLANET && Game->base_game != KAYLETH)
         return -1;
     return 7;
 }
 
 static int CarryItem(void)
 {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 1;
     /* Flag 5: items carried, flag 4: max carried */
     if(Flag[5] == Flag[4] && CurrentGame != BLIZZARD_PASS)
@@ -880,14 +1005,14 @@ static int CarryItem(void)
 }
 
 static int DarkFlag(void) {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 43;
     return 1;
 }
 
 static void DropItem(void)
 {
-    if(CurrentGame != QUESTPROBE3 && Flag[5] > 0)
+    if(Version != QUESTPROBE3_TYPE && Flag[5] > 0)
         Flag[5]--;
 }
 
@@ -902,7 +1027,7 @@ static void Put(unsigned char obj, unsigned char loc)
 static int Present(unsigned char obj)
 {
     unsigned char v = ObjectLoc[obj];
-    if(v == MyLoc|| v == Worn() || v == Carried() || (CurrentGame == QUESTPROBE3 && v == OtherGuyInv && OtherGuyLoc == MyLoc))
+    if(v == MyLoc|| v == Worn() || v == Carried() || (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc))
         return 1;
     return 0;
 }
@@ -923,7 +1048,7 @@ static void NewGame(void)
     Redraw = 1;
     memset(Flag, 0, 128);
     memcpy(Flag, FileImage + FlagBase, 7);
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         for (int i = 0; i < 124; i++) {
             Flag[4 + i] = 0;
         }
@@ -1049,7 +1174,7 @@ static void Inventory(void)
 {
     int i;
     int f = 0;
-    if (CurrentGame != REBEL_PLANET)
+    if (Game->base_game != REBEL_PLANET)
         OutCaps();
     SysMessage(INVENTORY);
     for(i = 0; i < NumObjects(); i++) {
@@ -1172,7 +1297,7 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOU_HAVE_IT);
         return 0;
     }
-    if (!(CurrentGame == QUESTPROBE3 && Flag[1] == MyLoc && ObjectLoc[obj] == Flag[3])) {
+    if (!(Version == QUESTPROBE3_TYPE && Flag[1] == MyLoc && ObjectLoc[obj] == Flag[3])) {
         if(ObjectLoc[obj] != MyLoc) {
             SysMessage(YOU_DONT_SEE_IT);
             return 0;
@@ -1182,7 +1307,7 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return 0;
     }
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         SysMessage(OKAY);
         OutChar(' ');
         Upper = 1;
@@ -1201,7 +1326,7 @@ static int DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return 0;
     }
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         SysMessage(OKAY);
         OutChar(' ');
         OutFlush();
@@ -1246,7 +1371,7 @@ static void DrawExtraQP3Images(void);
 extern uint8_t buffer[768][9];
 
 void Look(void) {
-    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91) || NoGraphics)
+    if (MyLoc == 0 || (Game->base_game == KAYLETH && MyLoc == 91) || NoGraphics)
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
@@ -1271,17 +1396,17 @@ void Look(void) {
         BottomWindow();
         return;
     }
-    if (CurrentGame == REBEL_PLANET && MyLoc > 0)
+    if (Game->base_game == REBEL_PLANET && MyLoc > 0)
         OutString("You are ");
     PrintRoom(MyLoc);
 
     for(i = 0; i < NumLowObjects; i++) {
         if(ObjectLoc[i] == MyLoc) {
             if(f == 0) {
-                if (CurrentGame == QUESTPROBE3) {
+                if (Version == QUESTPROBE3_TYPE) {
                     OutReplace(0);
                     SysMessage(0);
-                } else if (CurrentGame == HEMAN || CurrentGame == REBEL_PLANET) {
+                } else if (Game->base_game == HEMAN || Game->base_game == REBEL_PLANET) {
                     OutChar(' ');
                 }
             }
@@ -1293,7 +1418,7 @@ void Look(void) {
     if(f == 1 && !isalpha(LastChar))
         OutReplace('.');
 
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         ListExits(1);
     } else {
         f = 0;
@@ -1319,7 +1444,7 @@ void Look(void) {
             OutReplace('.');
         else
             OutChar('.');
-        ListExits((CurrentGame != TEMPLE_OF_TERROR && CurrentGame != TOT_TEXT_ONLY && CurrentGame != HEMAN));
+        ListExits(Game->base_game != TEMPLE_OF_TERROR && Game->base_game != HEMAN);
     }
 
     if (LastChar != '\n')
@@ -1333,7 +1458,7 @@ void Look(void) {
             DrawSagaPictureFromBuffer();
             return;
         }
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             int tempstop = StopTime;
             StopTime = 0;
             DrawImages = 255;
@@ -1497,14 +1622,14 @@ static void AdjustQuestprobeActions(unsigned char op, unsigned char *arg1, unsig
 }
 
 static int TwoConditionParameters() {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 16;
     else
         return 21;
 }
 
 static int TwoActionParameters() {
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         return 18;
     else
         return 22;
@@ -1523,7 +1648,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
         arg1 = *p++;
 
 #ifdef DEBUG
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             unsigned char debugarg1 = arg1;
             AdjustQuestprobeConditions(Q3Condition[op], &debugarg1);
             fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], debugarg1);
@@ -1539,7 +1664,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #endif
         }
 
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             op = Q3Condition[op];
             AdjustQuestprobeConditions(op, &arg1);
         }
@@ -1604,7 +1729,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case ZERO:
-                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                if (Game->base_game == TEMPLE_OF_TERROR) {
                     /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63, make sure he kills us if we try to pass, by setting flag 28 to zero */
                     if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
                         Flag[28] = 0;
@@ -1641,7 +1766,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case EQ:
-                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                if (Game->base_game == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 4)
                         arg1 = 60;
                 }
@@ -1678,7 +1803,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #ifdef DEBUG
         if(op & 0x40)
             fprintf(stderr, "DONE:");
-        if (CurrentGame == QUESTPROBE3)
+        if (Version == QUESTPROBE3_TYPE)
             fprintf(stderr,"%s(%d) ", Action[Q3Action[op & 0x3F]], op & 0x3F);
         else
             fprintf(stderr,"%s(%d) ", Action[op & 0x3F], op & 0x3F);
@@ -1693,7 +1818,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             arg1 = *p++;
 #ifdef DEBUG
             unsigned char debugarg1 = arg1;
-            if (CurrentGame == QUESTPROBE3)
+            if (Version == QUESTPROBE3_TYPE)
                 AdjustQuestprobeActions(Q3Action[op], &debugarg1, NULL);
             fprintf(stderr, "%d ", debugarg1);
 #endif
@@ -1702,13 +1827,13 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             arg2 = *p++;
 #ifdef DEBUG
             unsigned char debugarg2 = arg2;
-            if (CurrentGame == QUESTPROBE3)
+            if (Version == QUESTPROBE3_TYPE)
                 AdjustQuestprobeActions(Q3Action[op], NULL, &debugarg2);
             fprintf(stderr, "%d ", debugarg2);
 #endif
         }
 
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             op = Q3Action[op];
             AdjustQuestprobeActions(op, &arg1, &arg2);
         }
@@ -1740,8 +1865,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 SaveGame();
                 break;
             case DROPALL:
-                if ((CurrentGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
-                    (CurrentGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
+                if ((Game->base_game == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
+                    (Game->base_game == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
                     DropAll(0);
                 else
                     DropAll(1);
@@ -1755,11 +1880,11 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 OutFlush();
                 break;
             case GET:
-                if (GetObject(arg1) == 0 && CurrentGame == QUESTPROBE3)
+                if (GetObject(arg1) == 0 && Version == QUESTPROBE3_TYPE)
                     *done = 1;
                 break;
             case DROP:
-                if (DropObject(arg1) == 0 && CurrentGame == REBEL_PLANET) {
+                if (DropObject(arg1) == 0 && Game->base_game == REBEL_PLANET) {
                     *done = 1;
                     return;
                 }
@@ -1769,7 +1894,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                  He-Man moves the the player to a special "By the power of Grayskull" room
                  and then issues an undo to return to the previous room
                  */
-                if (CurrentGame == HEMAN && arg1 == 83)
+                if (Game->base_game == HEMAN && arg1 == 83)
                     SaveUndo();
                 Goto(arg1);
                 break;
@@ -1810,7 +1935,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Remove(arg1);
                 break;
             case LET:
-                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                if (Game->base_game == TEMPLE_OF_TERROR) {
                     if (arg1 == 28 && arg2 == 2) {
                         /* If the serpent guard is present, we have just kicked sand in his eyes. Set flag 63 to track this */
                         Flag[63] = (ObjectLoc[48] == MyLoc);
@@ -1819,7 +1944,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Flag[arg1] = arg2;
                 break;
             case ADD:
-                if (CurrentGame == TOT_TEXT_ONLY || CurrentGame == TEMPLE_OF_TERROR) {
+                if (Game->base_game == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 1)
                         arg1 = 60;
                 }
@@ -1863,9 +1988,9 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #endif
                 break;
             case REFRESH:
-                if (CurrentGame == KAYLETH)
+                if (Game->base_game == KAYLETH)
                     TakeAll(78);
-                if (CurrentGame == HEMAN)
+                if (Game->base_game == HEMAN)
                     TakeAll(45);
                 Redraw = 1;
                 break;
@@ -1976,6 +2101,19 @@ static unsigned char *NextLine(unsigned char *p)
 static size_t FindStatusTable(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x17\x00\xfa\x9b\x00\x1e\x10\x20\x97\x21", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x01\x00\x96\x2f\x96\x8b\x01\x81\xc7\x10", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x01\x00\x81\x8b\x01\x96\x0d\x14\x96\x27", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x10\x3e\x8e\x3e\xe3\x00\x00\x01\x00\x96", 0, 10)) != -1)
+        return pos;
+
     while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
         if(FileImage[pos + 5] != 0x18)
             continue;
@@ -2020,12 +2158,12 @@ static void RunStatusTable(void)
     int done = 0;
     ActionsExecuted = 0;
 
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         UpdateQ3Flags();
     }
 
     while(*p != 0x7F) {
-        while (CurrentGame == QUESTPROBE3 && *p == 0x7e) {
+        while (Version == QUESTPROBE3_TYPE && *p == 0x7e) {
             p++;
         }
         ExecuteLineCode(p, &done);
@@ -2034,13 +2172,26 @@ static void RunStatusTable(void)
         }
         p = NextLine(p);
     }
-    if (CurrentGame == QUESTPROBE3)
+    if (Version == QUESTPROBE3_TYPE)
         DrawImages = 0;
 }
 
 size_t FindCommandTable(void)
 {
     size_t pos = 0;
+
+    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x0b\xfd\x9c\x0b\xfb\x0b\xbc\x9c\x0c\xbc", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x0e\x8d\xc1\x3e\x7e\xcd\x3e\x3b\x7e\xe0", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x0e\x87\xc1\x3e\x7e\xcd\x33\x7e\x7e\x01", 0, 10)) != -1)
+        return pos;
+
+    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x34\x7e\x01\x00\x8b\x35\x87\xa2\x00\x00\x84\x8b", 0, 12)) != -1)
+        return pos;
+
     while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
         if(FileImage[pos + 5] != 0x18)
             continue;
@@ -2079,7 +2230,7 @@ static void RunCommandTable(void)
             PrintWord(p[1]);
 #endif
             /* Work around some Questprobe bugs */
-            if (CurrentGame == QUESTPROBE3 && (Word[0] == 9 || Word[0] == 20)) {
+            if (Version == QUESTPROBE3_TYPE && (Word[0] == 9 || Word[0] == 20)) {
                 if (MyLoc == 22 && ObjectLoc[33] == 22) {
                     Flag[39] = 1;
                     Message(24);
@@ -2127,7 +2278,7 @@ static int IsDir(unsigned char word)
 {
     if (word == 0)
         return 0;
-    if (CurrentGame == QUESTPROBE3) {
+    if (Version == QUESTPROBE3_TYPE) {
         return (word <= 4 || word == 57 || word == 60);
     }
     else return (word <= 10);
@@ -2179,17 +2330,17 @@ static void RunOneInput(void)
         }
     }
 
-    if(Redraw && !(CurrentGame == REBEL_PLANET && MyLoc == 250)) {
+    if(Redraw && !(Game->base_game == REBEL_PLANET && MyLoc == 250)) {
         Look();
     }
 
     Redraw = 0;
 
-    if (CurrentGame == QUESTPROBE3 && Flag[WaitFlag()] > 1)
+    if (Version == QUESTPROBE3_TYPE && Flag[WaitFlag()] > 1)
         Flag[WaitFlag()]++;
 
     do {
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             DrawImages = 0;
             RunStatusTable();
             DrawImages = 255;
@@ -2272,7 +2423,7 @@ static void SimpleParser(void)
         if (LastChar != '\n')
             OutChar('\n');
         OutFlush();
-        if (CurrentGame == QUESTPROBE3) {
+        if (Version == QUESTPROBE3_TYPE) {
             if (MyLoc != 6) {
                 if (IsThing == 0)
                     SysMessage(8);
@@ -2311,7 +2462,7 @@ static void SimpleParser(void)
             else if (Word[wn] == 134)
                 Word[wn] = 49;
         }
-        if (CurrentGame == QUESTPROBE3 && wn == 1) {
+        if (Version == QUESTPROBE3_TYPE && wn == 1) {
             /* Understand WALL and FIRE as the wall of fire */
             if ((Word[wn] == 54 || Word[wn] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
                 Word[wn] = 77;
@@ -2326,18 +2477,46 @@ static void SimpleParser(void)
         Word[i] = 0;
 }
 
+void PrintFirstTenBytes(size_t offset) {
+    fprintf(stderr, "\nFirst 10 bytes at 0x%04zx: ", offset);
+    for (int i = 0; i < 10; i++)
+        fprintf(stderr, "0x%02x ", FileImage[offset + i]);
+    fprintf(stderr, "\n");
+}
+
+
 static void FindTables(void)
 {
     TokenBase = FindTokens();
+    PrintFirstTenBytes(TokenBase);
+    fprintf(stderr, "RoomBase ");
     RoomBase = FindRooms();
+    PrintFirstTenBytes(RoomBase);
+    fprintf(stderr, "ObjectBase ");
     ObjectBase = FindObjects();
+    PrintFirstTenBytes(ObjectBase);
     StatusBase = FindStatusTable();
+    PrintFirstTenBytes(StatusBase);
     ActionBase = FindCommandTable();
+    PrintFirstTenBytes(ActionBase);
+    fprintf(stderr, "ExitBase ");
     ExitBase = FindExits();
+    PrintFirstTenBytes(ExitBase);
+    fprintf(stderr, "FlagBase ");
     FlagBase = FindFlags();
+    PrintFirstTenBytes(FlagBase);
+    fprintf(stderr, "ObjLocBase ");
     ObjLocBase = FindObjectLocations();
+    PrintFirstTenBytes(ObjLocBase);
+    fprintf(stderr, "MessageBase ");
     MessageBase = FindMessages();
+    PrintFirstTenBytes(MessageBase);
+    fprintf(stderr, "MessageBase2 ");
     Message2Base = FindMessages2();
+    PrintFirstTenBytes(Message2Base);
+
+    if (Game->base_game == KAYLETH)
+        AnimationData = FindCode("\xff\x00\x00\x00\x0f\x00\x5d\x0f\x00\x61", 0, 10);
 }
 
 /*
@@ -2377,7 +2556,7 @@ static int GuessLowObjectEnd(void)
     /* Can't automatically guess in this case */
     if (CurrentGame == BLIZZARD_PASS)
         return 70;
-    else if (CurrentGame == QUESTPROBE3)
+    else if (Version == QUESTPROBE3_TYPE)
         return 49;
 
     if (Version == REBEL_PLANET_TYPE)
@@ -2451,7 +2630,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     }
 
     size_t namelen = strlen(argv[1]);
-    Filename = MemAlloc((int)namelen + 1);
+    Filename = MemAlloc(namelen + 1);
     strncpy(Filename, argv[1], namelen);
     Filename[namelen] = '\0';
 
@@ -2469,7 +2648,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         glk_exit();
     }
 
-    FileImage = MemAlloc((int)FileImageLen);
+    FileImage = MemAlloc(FileImageLen);
 
     fseek(f, 0, SEEK_SET);
     if (fread(FileImage, 1, FileImageLen, f) != FileImageLen) {
@@ -2550,7 +2729,7 @@ void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset
 void LookForSecondTOTGame(void)
 {
     size_t namelen = strlen(Filename);
-    char *secondfile = MemAlloc((int)namelen + 1);
+    char *secondfile = MemAlloc(namelen + 1);
     strncpy(secondfile, Filename, namelen);
     secondfile[namelen] = '\0';
 
@@ -2575,7 +2754,7 @@ void LookForSecondTOTGame(void)
         return;
     }
 
-    CompanionFile = MemAlloc((int)filelength);
+    CompanionFile = MemAlloc(filelength);
 
     fseek(f, 0, SEEK_SET);
     if (fread(CompanionFile, 1, filelength, f) != filelength) {
@@ -2631,9 +2810,53 @@ void LookForSecondTOTGame(void)
     EndOfData = FileImage + FileImageLen;
 }
 
+void PrintFlags(void) {
+    for (int i = 0; i < 7; i++) {
+        switch (i) {
+            case 0:
+                fprintf(stderr, "Flag 0, location: %d\n", Flag[0]);
+                break;
+            case 1:
+                fprintf(stderr, "Flag 1, dark flag: %d\n", Flag[1]);
+                break;
+            case 2:
+                fprintf(stderr, "Flag 2, carried room: %d\n", Flag[2]);
+                break;
+            case 3:
+                fprintf(stderr, "Flag 3, worn room: %d\n", Flag[3]);
+                break;
+            case 4:
+                fprintf(stderr, "Flag 4, max carried: %d\n", Flag[4]);
+                break;
+            case 5:
+                fprintf(stderr, "Flag 5, carried count: %d\n", Flag[5]);
+                break;
+            case 6:
+                fprintf(stderr, "Flag 6, number of objects: %d\n", Flag[6]);
+                break;
+            default:
+                return;
+
+//                Flag 0, location: 0
+//                Flag 1, dark flag: 0
+//                Flag 2, carried room: 253
+//                Flag 3, worn room: 254
+//                Flag 4, max carried: 4
+//                Flag 5, carried count: 0
+//                Flag 6, number of objects: 133
+        }
+    }
+}
+
+
 void glk_main(void)
 {
     /* The message analyser will look for version 0 games */
+
+    if (DetectC64(&FileImage, &FileImageLen)) {
+        EndOfData = FileImage + FileImageLen;
+        writeToFile("/Users/administrator/Desktop/C64TaylorDecompressed", FileImage, FileImageLen);
+    }
 
 #ifdef DEBUG
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
@@ -2645,10 +2868,13 @@ void glk_main(void)
         glk_exit();
     }
 
-    Game = DetectGame(VerbBase);
+    if (!Game)
+        Game = DetectGame(VerbBase);
     if (Game == NULL) {
         fprintf(stderr, "Did not recognize game!\n");
         glk_exit();
+    } else {
+        FileBaselineOffset = VerbBase - Game->start_of_dictionary;
     }
 #ifdef DEBUG
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
@@ -2663,17 +2889,16 @@ void glk_main(void)
 
     DisplayInit();
 
-    if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) {
+    if (Game->base_game == TEMPLE_OF_TERROR) {
         LookForSecondTOTGame();
     }
 
     SagaSetup();
 
-    if (CurrentGame == QUESTPROBE3 || CurrentGame == REBEL_PLANET)
+    if (Version == QUESTPROBE3_TYPE || CurrentGame == REBEL_PLANET)
         DelimiterChar = '=';
 
     FindTables();
-    NumLowObjects = GuessLowObjectEnd();
 #ifdef DEBUG
     if (Version != BLIZZARD_PASS_TYPE && Version != QUESTPROBE3_TYPE)
         Action[12] = "MESSAGE2";

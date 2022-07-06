@@ -23,6 +23,7 @@
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
+#define STARS_ANIMATION_RATE_64 50
 #define FIELD_ANIMATION_RATE 10
 #define SERPENT_ANIMATION_RATE 100
 #define ROBOT_ANIMATION_RATE 400
@@ -197,7 +198,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         return 0;
     }
 
-    uint8_t *ptr = &FileImage[0xbded + FileBaselineOffset];
+    uint8_t *ptr = &FileImage[AnimationData];
     int counter = 0;
     // Jump to animation index equal to location index
     // Animations are delimited by 0xff
@@ -317,7 +318,7 @@ void UpdateRebelAnimations(void)
 }
 
 void StartAnimations(void) {
-    if (CurrentGame == REBEL_PLANET) {
+    if (CurrentGame == REBEL_PLANET || CurrentGame == REBEL_PLANET_64) {
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
             if (AnimationRunning != STARS_ANIMATION_RATE) {
                 glk_request_timer_events(STARS_ANIMATION_RATE);
@@ -343,7 +344,7 @@ void StartAnimations(void) {
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
             UpdateRebelAnimations();
         }
-    } else if (CurrentGame == KAYLETH) {
+    } else if (Game->base_game == KAYLETH) {
         int speed = 0;
         if (UpdateKaylethAnimationFrames()) {
             speed = 20;

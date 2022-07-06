@@ -328,7 +328,7 @@ extern NSArray *gGameFileTypes;
            [@(format) isEqualToString:@"sagaplus"] ||
            [@(format) isEqualToString:@"scott"] )) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
-        (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"])) {
+        (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"] && ![@(format) isEqualToString:@"taylor"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
