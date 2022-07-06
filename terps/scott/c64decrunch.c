@@ -58,6 +58,7 @@ static const struct c64rec c64_registry[] = {
     { WAXWORKS_C64,     0x2ab00, 0x9eaa, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 },
     { BATON_C64,        0x2ab00, 0x9dca, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 },
 
+    { ARROW1_C64,       0x2ab00, 0xe71d, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 },
     { BATON_C64,        0x5170,  0xb240, TYPE_T64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // The Golden Baton C64, T64
     { BATON_C64,        0x2ab00, 0xbfbf, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 1 alt
     { FEASIBILITY_C64,  0x2ab00, 0x9c18, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 2 alt
@@ -89,6 +90,7 @@ static const struct c64rec c64_registry[] = {
     { CLAYMORGUE_C64, 0xc0dd,  0x3701, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, -0x7fe },// Sorcerer Of Claymorgue Castle C64 (T64) alt 2, Trilogic Expert v2.7
     { CLAYMORGUE_C64, 0xbc5f,  0x492c, TYPE_T64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3, , Section8 Packer
     { CLAYMORGUE_C64, 0x2ab00, 0xfd67, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Section8 Packer
+    { CLAYMORGUE_C64, 0x2ab00, 0x7ece, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, -0x7fe }, // Sorcerer Of Claymorgue Castle C64 (D64), Trilogic Expert v2.7
 
     { HULK_C64,      0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { SPIDERMAN_C64, 0x2ab00, 0xde56, TYPE_D64, 0, NULL, NULL, 0, 0x1801, 0xa801, 0x2000, 0 }, // Spiderman C64 (D64)

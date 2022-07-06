@@ -55,6 +55,7 @@ static const struct scottrec scott_registry[] = {
    { 0x12281, 0xeac2, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 (Channel 8).tzx
     { 0xb7f3, 0xa2d8, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 TAP
     { 0x5b46, 0x92db, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64
+   { 0x2ab00, 0xe71d, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64 alt
     { 0x949b, 0xb7e2, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 z80
     { 0xb7f3, 0x721e, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 TAP
     { 0xb847, 0x8797, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 tzx
@@ -143,6 +144,7 @@ static const struct scottrec scott_registry[] = {
     { 0xc0dd, 0x3701, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 2
     { 0xbc5f, 0x492c, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3
    { 0x2ab00, 0xfd67, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (D64)
+   { 0x2ab00, 0x7ece, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
 
     { 0xb36e, 0xbe5d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman - Alternate.tzx
