@@ -117,6 +117,7 @@ static const struct scottrec scott_registry[] = {
     { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
     { 0xafba, 0xb69b, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk Z80
    { 0x2ab00, 0xcdd8, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (D64)
+    { 0x8534, 0x623a, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (T64)
 
     { 0xbaef, 0x52cc, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland.tzx
     { 0xbb84, 0x6d93, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland - Alternate.tzx
