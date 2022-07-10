@@ -427,7 +427,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                     appendixlen -= 2;
                 }
 
-                uint8_t *megabuf = MemAlloc(newlength + appendixlen);
+                uint8_t *megabuf[newlength + appendixlen];
                 memcpy(megabuf, largest_file, newlength);
                 if (appendix != NULL) {
                     memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
@@ -436,7 +436,9 @@ int DetectC64(uint8_t **sf, size_t *extent)
                 }
 
                 if (largest_file) {
-                    *sf = megabuf;
+                    free(*sf);
+                    *sf = MemAlloc(newlength);
+                    memcpy(*sf, megabuf, newlength);
                     *extent = newlength;
                 }
 
@@ -454,6 +456,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                 uint8_t *first_file = MemAlloc(size + 2);
                 memcpy(first_file + 2, *sf + offset, size);
                 memcpy(first_file, file_records + 2, 2);
+                free(*sf);
                 *sf = first_file;
                 *extent = size + 2;
             }
