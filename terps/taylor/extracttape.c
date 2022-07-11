@@ -207,7 +207,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length) {
             case 0x104c4: // Blizzard Pass TAP
                 uncompressed = MemAlloc(0x2001f);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 11,  0x1801f);
-                uncompressed = AddTapBlock(image, uncompressed, origlen, 13,  0x10001f);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 15,  0x801b);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 17,  0x401b);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 19,  0x1ee6);
@@ -218,7 +217,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length) {
             case 0x10428: // Blizzard Pass tzx
                 uncompressed = MemAlloc(0x2001f);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 8,  0x1801f);
-                uncompressed = AddTZXBlock(image, uncompressed, origlen, 10, 0x10001f);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 12, 0x801b);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 14, 0x401b);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 16, 0x1ee6);
