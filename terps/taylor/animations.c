@@ -344,7 +344,7 @@ void StartAnimations(void) {
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
             UpdateRebelAnimations();
         }
-    } else if (Game->base_game == KAYLETH) {
+    } else if (BaseGame == KAYLETH) {
         int speed = 0;
         if (UpdateKaylethAnimationFrames()) {
             speed = 20;

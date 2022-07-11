@@ -30,6 +30,8 @@ void PrintFirstTenBytes(size_t offset);
 
 #define CurrentGame (Game->gameID)
 #define Version (Game->type)
+#define BaseGame (Game->base_game)
+
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -227,34 +229,17 @@ struct GameInfo {
     GameVersion type;
     GameIDType base_game;
 
-    int number_of_items;
-    int number_of_actions;
-    int number_of_words;
-    int number_of_rooms;
-    int max_carried;
-    int word_length;
-    int number_of_messages;
-
-    int number_of_verbs;
-    int number_of_nouns;
-
-    int start_of_header;
-
-    int start_of_room_image_list;
-    int start_of_item_flags;
-    int start_of_item_image_list;
-
-    int start_of_actions;
     int start_of_dictionary;
     int start_of_tokens;
     int start_of_room_descriptions;
-    int start_of_room_connections;
-    int start_of_messages;
     int start_of_item_descriptions;
+    int start_of_automatics;
+    int start_of_actions;
+    int start_of_room_connections;
+    int start_of_flags;
     int start_of_item_locations;
-
-    int start_of_system_messages;
-    int start_of_directions;
+    int start_of_messages;
+    int start_of_messages_2;
 
     int start_of_characters;
     int start_of_image_blocks;
@@ -264,7 +249,6 @@ struct GameInfo {
     int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
-    int picture_format_version;
     int start_of_intro_text;
 };
 

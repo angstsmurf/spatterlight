@@ -309,18 +309,6 @@ static size_t FindFlags(void)
 {
     size_t pos;
 
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x00\x00\xFD\xFE\x04\x00\x85\xA2\x7F\xA0", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x00\x00\xFD\xFE\x0B\x00\x5B\xA2\xF2\xA0", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x00\x00\xFD\xFE\x0F\x03\xBF\xA2\x66\xA0", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x00\x00\xfd\xfe\x07\x00\x7b\xa2\x67\xa0", 0, 10)) != -1)
-        return pos;
-
     if (Game && Version == QUESTPROBE3_TYPE && (pos = FindCode("\x80\x00\x00\x3C\x77\x6F\xFF\x0F\x00\x00", 0, 10)) != -1)
         return pos;
 
@@ -333,71 +321,15 @@ static size_t FindFlags(void)
         /* Look for the flag initial block copy */
         pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0,8 );
         if(pos == -1) {
-            fprintf(stderr, "Cannot find initial flag data.\n");
-            glk_exit();
+            if (Game)
+                return Game->start_of_flags + FileBaselineOffset;
+            else {
+                fprintf(stderr, "Cannot find initial flag data.\n");
+                glk_exit();
+            }
         } else return pos + 5;
     }
     return pos + 11;
-}
-
-static size_t FindObjectLocations(void)
-{
-    size_t pos;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xfc\xfc\xfc\x07\x05\xfc\xfc\xfc\xfc\x07", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x01\xfc\xfc\xfc\x0a\x10\xfc\x1d\x30\x32", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x01\xfc\x01\x01\xfc\x5f\xfc\xfc\xfc\x02", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x09\xfc\xfc\xfc\xfc\x35\x38\xfc\xfc\xfc", 0, 10)) != -1)
-        return pos;
-
-    if (CurrentGame == QUESTPROBE3_64 && (pos = FindCode("\xFC\xFC\xFC\x01\x05\xFC\x06\xFC\x0B\x18", 0, 10)) != -1)
-        return pos;
-
-    if (Version == QUESTPROBE3_TYPE)
-        return 0x90A3 - 0x4000 + FileBaselineOffset;
-
-    pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
-    if(pos == -1) {
-        fprintf(stderr, "Cannot find initial object data.\n");
-        glk_exit();
-    }
-    pos = FileImage[pos - 16] + (FileImage[pos - 15] << 8);
-    return pos - 0x4000 + FileBaselineOffset;
-}
-
-static size_t FindExits(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x80\x81\x02\x02\x82\x01\x01\x02\x05\x03", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x80\x81\x03\x02\x82\x02\x0a\x03\x03\x04", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x80\x81\x82\x02\x04\x03\x03\x83\x04\x02 ", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x80\x81\x82\x01\x03\x03\x08\x05\x07\x83", 0, 10)) != -1)
-        return pos;
-
-    if ((pos = FindCode("\x1A\xBE\x28\x0B\x13", 0, 5)) != -1)
-    {
-        pos = FileImage[pos - 5] + (FileImage[pos - 4] << 8) - 0x4000;
-        return pos + FileBaselineOffset;
-    }
-
-    if (CurrentGame == QUESTPROBE3_64 && (pos = FindCode("\x80\x81\x03\x05\x82", 0, 5)) != -1)
-        return pos;
-
-    fprintf(stderr, "Cannot find initial exit data.\n");
-    glk_exit();
 }
 
 static int LooksLikeTokens(size_t pos)
@@ -459,6 +391,8 @@ static size_t FindTokens(void)
                 /* Last resort */
                 addr = FindCode("You are in ", 0, 11) - 1;
                 if(addr == -1) {
+                    if (Game)
+                        return Game->start_of_tokens + FileBaselineOffset;
                     fprintf(stderr, "Unable to find token table.\n");
                     return 0;
                 }
@@ -585,7 +519,7 @@ static void OutChar(char c)
         }
     }
     if(PendSpace) {
-        if (JustWrotePeriod && Game->base_game != KAYLETH)
+        if (JustWrotePeriod && BaseGame != KAYLETH)
             Upper = 1;
         OutWrite(' ');
         PendSpace = 0;
@@ -746,91 +680,13 @@ static void PrintText(unsigned char *p, int n)
     }
 }
 
-static size_t FindMessages(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x20\x5f\x20\x63\x97\x20\x96\x73\x6f\xf8", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x40\xd5\x73\xda\xb4\x3a\x7e\x20\x6e\xbe", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x20\x3c\x63\x89\xd0\x73\x6f\xc2\x65\x65", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x20\x24\x97\xb0\x65\x7e\x20\x4e\xa0\x68", 0, 10)) != -1)
-        return pos;
-
-    /* Newer game format */
-    while((pos = FindCode("\xF5\xE5\xC5\xD5\x3E\x2E", pos+1, 6)) != -1) {
-        if(FileImage[pos + 6] != 0x32)
-            continue;
-        if(FileImage[pos + 9] != 0x78)
-            continue;
-        if(FileImage[pos + 10] != 0x32)
-            continue;
-        if(FileImage[pos + 13] != 0x21)
-            continue;
-        return (FileImage[pos+14] + (FileImage[pos+15] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-    /* Try now for older game format */
-    while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
-        if(FileImage[pos + 8] != 0x21)
-            continue;
-        if(FileImage[pos + 11] != 0xCD)
-            continue;
-        /* End markers in compressed blocks */
-        //        Version = REBEL_PLANET_TYPE;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-
-    /* Questprobe */
-    pos = FindCode("\x7F\xF8\x64\x86\xDB\x94\x20\xAD\xD2\x2E\x1F\x66\xE5", 0, 13);
-
-    if(pos == -1) {
-        fprintf(stderr, "Unable to locate messages.\n");
-        glk_exit();
-    }
-    return pos;
-}
-
-static size_t FindMessages2(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xfb\xa9\x70\x9a\xe0\xc1\x62\x72\xaa\x6b", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x53\x0f\x69\xc3\x65\x6d\xd1\x67\x8f\x0b ", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x41\x15\xd6\x70\xae\xca\x68\x1e\x45\x6c", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x54\xcd\x79\x1d\xc7\x70\x6f\x73\x73\x69", 0, 10)) != -1)
-        return pos;
-
-    while((pos = FindCode("\xF5\xE5\xC5\xD5\x78\x32", pos+1, 6)) != -1) {
-        if(FileImage[pos + 8] != 0x21)
-            continue;
-        if(FileImage[pos + 11] != 0xC3)
-            continue;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + (int)FileBaselineOffset;
-    }
-#ifdef DEBUG
-    fprintf(stderr, "No second message block ?\n");
-#endif
-    return 0;
-}
-
 static void Message(unsigned char m)
 {
     unsigned char *p = FileImage + MessageBase;
     PrintText(p, m);
     if (CurrentGame != BLIZZARD_PASS)
         OutChar(' ');
-    if (Game->base_game == REBEL_PLANET && m == 156)
+    if (BaseGame == REBEL_PLANET && m == 156)
         InventoryLower = 1;
     else
         InventoryLower = 0;
@@ -856,46 +712,9 @@ static void SysMessage(unsigned char m)
     Message(m);
 }
 
-static size_t FindObjects(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xbd\x1e\x54\xe0\xd9\x97\xfd\x72\xab\xbd\xa4\x02", 0, 12)) != -1) {
-        return pos;
-    }
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x4b\x5b\x52\xe7\x6e\xc4\xcb\x69\x9c\x62", 0, 10)) != -1) {
-        return pos;
-    }
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x38\xfd\xb8\x6e\x18\xc8\xae\x70\xa4\xce", 0, 10)) != -1) {
-        return pos;
-    }
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x01\xd9\x41\x7a\xe6\x20\x43\x68\xd6\x62", 0, 10)) != -1) {
-        return pos;
-    }
-
-    while((pos = FindCode("\xF5\xE5\xC5\xD5\x32", pos+1, 5)) != -1) {
-        if(FileImage[pos + 10] != 0xCD)
-            continue;
-        if(FileImage[pos +7] != 0x21)
-            continue;
-        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-
-    /* Questprobe */
-    pos = FindCode("\x20\xFB\x62\x88\xF4\xAC\xBF\x73\x2C\x18\x20\xFF", 0, 12);
-    if(pos == -1) {
-        fprintf(stderr, "Unable to locate objects.\n");
-        glk_exit();
-    }
-    return pos;
-}
-
 static void PrintObject(unsigned char obj)
 {
-    if (Game->base_game == TEMPLE_OF_TERROR && obj == 41) {
+    if (BaseGame == TEMPLE_OF_TERROR && obj == 41) {
         OutString("door.");
         return;
     }
@@ -904,41 +723,6 @@ static void PrintObject(unsigned char obj)
         p--;
     PrintText(p, obj);
 }
-
-/* Standard format */
-static size_t FindRooms(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x41\x73\x1e\x2b\x20\x45\xc9\x69\x7d\xed", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x57\xd8\x63\xde\x65\x5f\x54\x45\x52\x52", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x57\x65\x6c\x63\xcb\x65\x3b\x54\x45\x4d", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x5d\x8f\x8f\x8f\x8f\x8f\x4b\x41\x59\x4c", 0, 10)) != -1)
-        return pos;
-
-    while((pos = FindCode("\x3E\x19\xCD", pos+1, 3)) != -1) {
-        if(FileImage[pos + 5] != 0xC3)
-            continue;
-        if(FileImage[pos + 8] != 0x21)
-            continue;
-        return (FileImage[pos+9] + (FileImage[pos+10] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-
-    /* Questprobe */
-    pos = FindCode("QUESTPROBE 3: FANTASTIC FOUR", 0, 28);
-    if(pos == -1) {
-        fprintf(stderr, "Unable to locate rooms.\n");
-        glk_exit();
-    }
-    return pos ;
-}
-
 
 static void PrintRoom(unsigned char room)
 {
@@ -987,7 +771,7 @@ static int WaitFlag()
 {
     if (Version == QUESTPROBE3_TYPE)
         return 5;
-    if (Game->base_game != REBEL_PLANET && Game->base_game != KAYLETH)
+    if (BaseGame != REBEL_PLANET && BaseGame != KAYLETH)
         return -1;
     return 7;
 }
@@ -1174,7 +958,7 @@ static void Inventory(void)
 {
     int i;
     int f = 0;
-    if (Game->base_game != REBEL_PLANET)
+    if (BaseGame != REBEL_PLANET)
         OutCaps();
     SysMessage(INVENTORY);
     for(i = 0; i < NumObjects(); i++) {
@@ -1371,7 +1155,7 @@ static void DrawExtraQP3Images(void);
 extern uint8_t buffer[768][9];
 
 void Look(void) {
-    if (MyLoc == 0 || (Game->base_game == KAYLETH && MyLoc == 91) || NoGraphics)
+    if (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91) || NoGraphics)
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
@@ -1396,7 +1180,7 @@ void Look(void) {
         BottomWindow();
         return;
     }
-    if (Game->base_game == REBEL_PLANET && MyLoc > 0)
+    if (BaseGame == REBEL_PLANET && MyLoc > 0)
         OutString("You are ");
     PrintRoom(MyLoc);
 
@@ -1406,7 +1190,7 @@ void Look(void) {
                 if (Version == QUESTPROBE3_TYPE) {
                     OutReplace(0);
                     SysMessage(0);
-                } else if (Game->base_game == HEMAN || Game->base_game == REBEL_PLANET) {
+                } else if (BaseGame == HEMAN || BaseGame == REBEL_PLANET) {
                     OutChar(' ');
                 }
             }
@@ -1444,7 +1228,7 @@ void Look(void) {
             OutReplace('.');
         else
             OutChar('.');
-        ListExits(Game->base_game != TEMPLE_OF_TERROR && Game->base_game != HEMAN);
+        ListExits(BaseGame != TEMPLE_OF_TERROR && BaseGame != HEMAN);
     }
 
     if (LastChar != '\n')
@@ -1729,7 +1513,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case ZERO:
-                if (Game->base_game == TEMPLE_OF_TERROR) {
+                if (BaseGame == TEMPLE_OF_TERROR) {
                     /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63, make sure he kills us if we try to pass, by setting flag 28 to zero */
                     if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
                         Flag[28] = 0;
@@ -1766,7 +1550,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case EQ:
-                if (Game->base_game == TEMPLE_OF_TERROR) {
+                if (BaseGame == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 4)
                         arg1 = 60;
                 }
@@ -1865,8 +1649,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 SaveGame();
                 break;
             case DROPALL:
-                if ((Game->base_game == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
-                    (Game->base_game == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
+                if ((BaseGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
+                    (BaseGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
                     DropAll(0);
                 else
                     DropAll(1);
@@ -1884,7 +1668,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     *done = 1;
                 break;
             case DROP:
-                if (DropObject(arg1) == 0 && Game->base_game == REBEL_PLANET) {
+                if (DropObject(arg1) == 0 && BaseGame == REBEL_PLANET) {
                     *done = 1;
                     return;
                 }
@@ -1894,7 +1678,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                  He-Man moves the the player to a special "By the power of Grayskull" room
                  and then issues an undo to return to the previous room
                  */
-                if (Game->base_game == HEMAN && arg1 == 83)
+                if (BaseGame == HEMAN && arg1 == 83)
                     SaveUndo();
                 Goto(arg1);
                 break;
@@ -1935,7 +1719,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Remove(arg1);
                 break;
             case LET:
-                if (Game->base_game == TEMPLE_OF_TERROR) {
+                if (BaseGame == TEMPLE_OF_TERROR) {
                     if (arg1 == 28 && arg2 == 2) {
                         /* If the serpent guard is present, we have just kicked sand in his eyes. Set flag 63 to track this */
                         Flag[63] = (ObjectLoc[48] == MyLoc);
@@ -1944,7 +1728,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Flag[arg1] = arg2;
                 break;
             case ADD:
-                if (Game->base_game == TEMPLE_OF_TERROR) {
+                if (BaseGame == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 1)
                         arg1 = 60;
                 }
@@ -1988,9 +1772,9 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #endif
                 break;
             case REFRESH:
-                if (Game->base_game == KAYLETH)
+                if (BaseGame == KAYLETH)
                     TakeAll(78);
-                if (Game->base_game == HEMAN)
+                if (BaseGame == HEMAN)
                     TakeAll(45);
                 Redraw = 1;
                 break;
@@ -2098,41 +1882,6 @@ static unsigned char *NextLine(unsigned char *p)
     return p;
 }
 
-static size_t FindStatusTable(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x17\x00\xfa\x9b\x00\x1e\x10\x20\x97\x21", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x01\x00\x96\x2f\x96\x8b\x01\x81\xc7\x10", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x01\x00\x81\x8b\x01\x96\x0d\x14\x96\x27", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x10\x3e\x8e\x3e\xe3\x00\x00\x01\x00\x96", 0, 10)) != -1)
-        return pos;
-
-    while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
-        if(FileImage[pos + 5] != 0x18)
-            continue;
-        if(FileImage[pos + 6] != 0x07)
-            continue;
-        if(FileImage[pos + 7] != 0x21)
-            continue;
-        return (FileImage[pos-2] + (FileImage[pos-1] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-
-    /* Questprobe */
-    pos = FindCode("\x7E\x7E\x01\x02\x0C\x30\x0B\x17\x10\x16\x07\x05", 0, 12);
-    if (pos == -1) {
-        fprintf(stderr, "Unable to find automatics.\n");
-        glk_exit();
-    }
-    return pos;
-}
-
 static void DrawExtraQP3Images(void) {
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
         DrawSagaPictureNumber(46);
@@ -2174,42 +1923,6 @@ static void RunStatusTable(void)
     }
     if (Version == QUESTPROBE3_TYPE)
         DrawImages = 0;
-}
-
-size_t FindCommandTable(void)
-{
-    size_t pos = 0;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\x0b\xfd\x9c\x0b\xfb\x0b\xbc\x9c\x0c\xbc", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x0e\x8d\xc1\x3e\x7e\xcd\x3e\x3b\x7e\xe0", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x0e\x87\xc1\x3e\x7e\xcd\x33\x7e\x7e\x01", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x34\x7e\x01\x00\x8b\x35\x87\xa2\x00\x00\x84\x8b", 0, 12)) != -1)
-        return pos;
-
-    while((pos = FindCode("\x3E\xFF\x32", pos+1, 3)) != -1) {
-        if(FileImage[pos + 5] != 0x18)
-            continue;
-        if(FileImage[pos + 6] != 0x07)
-            continue;
-        if(FileImage[pos + 7] != 0x21)
-            continue;
-        return (FileImage[pos+8] + (FileImage[pos+9] << 8)) - 0x4000 + FileBaselineOffset;
-    }
-
-    /* Questprobe */
-    pos = FindCode("\x19\x10\x01\x06\x8B\x02\x8E\x1B\x91\x12\xD0\x11", 0, 12);
-
-    if (pos == -1) {
-        fprintf(stderr, "Unable to find commands.\n");
-        glk_exit();
-    }
-    return pos;
 }
 
 static void RunCommandTable(void)
@@ -2330,7 +2043,7 @@ static void RunOneInput(void)
         }
     }
 
-    if(Redraw && !(Game->base_game == REBEL_PLANET && MyLoc == 250)) {
+    if(Redraw && !(BaseGame == REBEL_PLANET && MyLoc == 250)) {
         Look();
     }
 
@@ -2488,34 +2201,17 @@ void PrintFirstTenBytes(size_t offset) {
 static void FindTables(void)
 {
     TokenBase = FindTokens();
-    PrintFirstTenBytes(TokenBase);
-    fprintf(stderr, "RoomBase ");
-    RoomBase = FindRooms();
-    PrintFirstTenBytes(RoomBase);
-    fprintf(stderr, "ObjectBase ");
-    ObjectBase = FindObjects();
-    PrintFirstTenBytes(ObjectBase);
-    StatusBase = FindStatusTable();
-    PrintFirstTenBytes(StatusBase);
-    ActionBase = FindCommandTable();
-    PrintFirstTenBytes(ActionBase);
-    fprintf(stderr, "ExitBase ");
-    ExitBase = FindExits();
-    PrintFirstTenBytes(ExitBase);
-    fprintf(stderr, "FlagBase ");
+    RoomBase = Game->start_of_room_descriptions + FileBaselineOffset;
+    ObjectBase = Game->start_of_item_descriptions + FileBaselineOffset;
+    StatusBase = Game->start_of_automatics + FileBaselineOffset;
+    ActionBase = Game->start_of_actions + FileBaselineOffset;
+    ExitBase = Game->start_of_room_connections + FileBaselineOffset;
     FlagBase = FindFlags();
-    PrintFirstTenBytes(FlagBase);
-    fprintf(stderr, "ObjLocBase ");
-    ObjLocBase = FindObjectLocations();
-    PrintFirstTenBytes(ObjLocBase);
-    fprintf(stderr, "MessageBase ");
-    MessageBase = FindMessages();
-    PrintFirstTenBytes(MessageBase);
-    fprintf(stderr, "MessageBase2 ");
-    Message2Base = FindMessages2();
-    PrintFirstTenBytes(Message2Base);
+    ObjLocBase = Game->start_of_item_locations  + FileBaselineOffset;
+    MessageBase = Game->start_of_messages + FileBaselineOffset;
+    Message2Base = Game->start_of_messages_2 + FileBaselineOffset;
 
-    if (Game->base_game == KAYLETH)
+    if (BaseGame == KAYLETH)
         AnimationData = FindCode("\xff\x00\x00\x00\x0f\x00\x5d\x0f\x00\x61", 0, 10);
 }
 
@@ -2810,52 +2506,12 @@ void LookForSecondTOTGame(void)
     EndOfData = FileImage + FileImageLen;
 }
 
-void PrintFlags(void) {
-    for (int i = 0; i < 7; i++) {
-        switch (i) {
-            case 0:
-                fprintf(stderr, "Flag 0, location: %d\n", Flag[0]);
-                break;
-            case 1:
-                fprintf(stderr, "Flag 1, dark flag: %d\n", Flag[1]);
-                break;
-            case 2:
-                fprintf(stderr, "Flag 2, carried room: %d\n", Flag[2]);
-                break;
-            case 3:
-                fprintf(stderr, "Flag 3, worn room: %d\n", Flag[3]);
-                break;
-            case 4:
-                fprintf(stderr, "Flag 4, max carried: %d\n", Flag[4]);
-                break;
-            case 5:
-                fprintf(stderr, "Flag 5, carried count: %d\n", Flag[5]);
-                break;
-            case 6:
-                fprintf(stderr, "Flag 6, number of objects: %d\n", Flag[6]);
-                break;
-            default:
-                return;
-
-//                Flag 0, location: 0
-//                Flag 1, dark flag: 0
-//                Flag 2, carried room: 253
-//                Flag 3, worn room: 254
-//                Flag 4, max carried: 4
-//                Flag 5, carried count: 0
-//                Flag 6, number of objects: 133
-        }
-    }
-}
-
-
 void glk_main(void)
 {
     /* The message analyser will look for version 0 games */
 
     if (DetectC64(&FileImage, &FileImageLen)) {
         EndOfData = FileImage + FileImageLen;
-        writeToFile("/Users/administrator/Desktop/C64TaylorDecompressed", FileImage, FileImageLen);
     }
 
 #ifdef DEBUG
@@ -2889,7 +2545,7 @@ void glk_main(void)
 
     DisplayInit();
 
-    if (Game->base_game == TEMPLE_OF_TERROR) {
+    if (BaseGame == TEMPLE_OF_TERROR) {
         LookForSecondTOTGame();
     }
 
