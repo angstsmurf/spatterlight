@@ -58,6 +58,7 @@ static const struct rec taylor_registry[] = {
     { 0xbcb6, 0x6902, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx
     { 0xbb08, 0xab12, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt
     { 0xbc20, 0x3726, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt 2
+    { 0xbbe6, 0x2683, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 TAP
     { 0x69e3, 0x3b96, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64
     { 0x8298, 0xb93e, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64 alt
     { 0, 0, NULL }
