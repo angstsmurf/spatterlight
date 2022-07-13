@@ -85,6 +85,8 @@ void do_palette(const char *palname)
         palchosen = C64A;
     else if (strcmp("c64b", palname) == 0)
         palchosen = C64B;
+    else if (strcmp("c64c", palname) == 0)
+        palchosen = C64C;
     else if (strcmp("vga", palname) == 0)
         palchosen = VGA;
 }
@@ -232,7 +234,7 @@ void DefinePalette(void)
         blue_colour = 9;
         dice_colour = 0xff0000;
 
-    } else if ((palchosen == C64A) || (palchosen == C64B)) {
+    } else if (palchosen >= C64A) {
         /* and now: C64 palette (pepto/VICE) */
         RGB black = { 0, 0, 0 };
         RGB white = { 255, 255, 255 };
@@ -244,12 +246,12 @@ void DefinePalette(void)
         RGB yellow = { 247, 255, 108 };
         RGB orange = { 186, 134, 32 };
         RGB brown = { 116, 105, 0 };
-        RGB lred = { 180, 105, 164 };
+        RGB lred = { 231, 154, 132 };
         RGB dgrey = { 69, 69, 69 };
         RGB grey = { 167, 167, 167 };
         RGB lgreen = { 154, 210, 134 };
         RGB lblue = { 162, 143, 255 };
-        RGB lgrey = { 150, 150, 150 };
+        RGB lgrey = { 200, 200, 200 };
 
         set_color(0, &black);
         set_color(1, &white);
@@ -316,7 +318,7 @@ const char *colortext(int32_t col)
         "INVALID",
     };
 
-    if ((palchosen == C64A) || (palchosen == C64B))
+    if (palchosen >= C64A)
         return (c64colorname[col]);
     else
         return (zxcolorname[col]);
@@ -356,6 +358,27 @@ int32_t remap(int32_t color)
             0,
             6,
             9,
+            4,
+            5,
+            14,
+            8,
+            12,
+            0,
+            6,
+            2,
+            4,
+            5,
+            3,
+            7,
+            1,
+        };
+        mapcol = (((color >= 0) && (color <= 15)) ? c64remap[color] : INVALIDCOLOR);
+    } else if (palchosen == C64C) {
+        /* remap B determined from Spiderman (16col) */
+        int32_t c64remap[] = {
+            0,
+            6,
+            2,
             4,
             5,
             14,
