@@ -322,7 +322,7 @@ void DefinePalette(void)
 //        return (zxcolorname[col]);
 //}
 
-static int32_t Remap(int32_t color)
+int32_t Remap(int32_t color)
 {
     int32_t mapcol;
 
