@@ -309,7 +309,10 @@ void UpdateSettings(void) {
     if (Options & FORCE_PALETTE_ZX)
         palchosen = ZXOPT;
     else if (Options & FORCE_PALETTE_C64) {
-        palchosen = C64B;
+        if (BaseGame == QUESTPROBE3 || BaseGame == BLIZZARD_PASS)
+            palchosen = C64A;
+        else
+            palchosen = C64B;
     } else
         palchosen = Game->palette;
     if (palchosen != previous_pal) {

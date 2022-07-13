@@ -34,7 +34,7 @@ struct GameInfo games[NUMGAMES] = {
         0x1c, // number of patterns
         0x9f, // patterns end marker
         0x878b, // start of room image instructions
-        58, // number_of_image blocks;
+        57, // number_of_image blocks;
         ZXOPT, // palette
     },
 
@@ -62,8 +62,8 @@ struct GameInfo games[NUMGAMES] = {
         0x1c, // number of patterns
         0x9f, // patterns end marker
         0x87a6 - 0x1B, // start of room image instructions
-        58, // number_of_image blocks;
-        C64B, // palette
+        57, // number_of_image blocks;
+        C64A, // palette
     },
 
     {
@@ -112,15 +112,14 @@ struct GameInfo games[NUMGAMES] = {
         0x22f2,    // start_of_messages
         0x3406,    // second message bank
 
-        0x810e, // start_of_characters;
-        0x9139, // start_of_image_data;
+        0xb78c, // start_of_characters;
+        0x7f02, // start_of_image_data;
         0, // image patterns lookup table; •
         0, // number of patterns •
         0, // patterns end marker •
-        0x87a6, // start of room image instructions
+        0xadea, // start of room image instructions
         167, // number_of_image blocks;
-//        0, // number_of_image blocks;
-        ZXOPT, // palette
+        C64B, // palette
     },
 
     {
@@ -150,6 +149,7 @@ struct GameInfo games[NUMGAMES] = {
         114, // number_of_image blocks;
         ZXOPT, // palette
     },
+
     {
         "Heman",
         HEMAN,
@@ -196,14 +196,14 @@ struct GameInfo games[NUMGAMES] = {
         0x6737,    // start_of_messages
         0x1923,    // second message bank
 
-        0x8603, // start_of_characters;
-        0x8d13, // start_of_image_data;
+        0x8008, // start_of_characters;
+        0x8718, // start_of_image_data;
         0, // image patterns lookup table;
         0, // number of patterns
         0, // patterns end marker
-        0x7adf, // start of room image instructions
+        0x4808, // start of room image instructions
         139, // number_of_image blocks;
-        ZXOPT, // palette
+        C64B, // palette
     },
 
     {
@@ -224,12 +224,12 @@ struct GameInfo games[NUMGAMES] = {
         0x667d,    // start_of_messages
         0x75d0,    // second message bank
 
-        0xc3cb - 0x4000, // start_of_characters;
-        0xca33 - 0x4000, // start_of_image_blocks;
-        0x7837 - 0x4000, // image patterns lookup table;
+        0x83cb, // start_of_characters;
+        0x8a33, // start_of_image_blocks;
+        0x3837, // image patterns lookup table;
         0x12, // number of patterns
         0xaa, // patterns end marker
-        0xbb75 - 0x4000, // start of room image instructions
+        0x7b75, // start of room image instructions
         143, // number_of_image blocks;
         ZXOPT, // palette
     },
@@ -263,6 +263,34 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Temple of Terror combined version",
+        TOT_HYBRID,
+        HEMAN_TYPE,                 // type
+        TEMPLE_OF_TERROR,
+
+        0x4ba2,    // dictionary
+        0x50d9,    // tokens
+        0x7a2a,    // start_of_room_descriptions
+        0x5419,    // start_of_item_descriptions
+        0x4809,    // automatics
+        0x38a9,    // actions
+        0x4661,    // start_of_room_connections
+        0x21bf,    // start_of_flags
+        0x4599,    // start_of_item_locations
+        0x5fd9,    // start_of_messages
+        0x73b7,    // second message bank
+
+        0x83cb, // start_of_characters;
+        0x8a33, // start_of_image_blocks;
+        0x3837, // image patterns lookup table;
+        0x12, // number of patterns
+        0xaa, // patterns end marker
+        0x7b75, // start of room image instructions
+        143, // number_of_image blocks;
+        ZXOPT, // palette
+    },
+
+    {
         "Temple of Terror C64",
         TEMPLE_OF_TERROR_64,
         HEMAN_TYPE,                 // type
@@ -280,16 +308,15 @@ struct GameInfo games[NUMGAMES] = {
         0x6bba,    // start_of_messages
         0x7b0d,    // second message bank
 
-        0xc3cb - 0x4000, // start_of_characters;
-        0xca33 - 0x4000, // start_of_image_blocks;
+        0x8048, // start_of_characters;
+        0x86b0, // start_of_image_blocks;
         0, // image patterns lookup table;
         0, // number of patterns
         0, // patterns end marker
-        0xbb75 - 0x4000, // start of room image instructions
+        0x4708, // start of room image instructions
         143, // number_of_image blocks;
-        ZXOPT, // palette
+        C64B, // palette
     },
-
 
     {
         "Kayleth",
@@ -318,6 +345,7 @@ struct GameInfo games[NUMGAMES] = {
         210, // number_of_image blocks;
         ZXOPT, // palette
     },
+
     {
         "Kayleth C64",
         KAYLETH_64,
@@ -341,10 +369,11 @@ struct GameInfo games[NUMGAMES] = {
         0, // image patterns lookup table;
         0, // number of patterns
         0, // patterns end marker
-        0x8279, // start of room image instructions
+        0x0012, // start of room image instructions
         210, // number_of_image blocks;
-        ZXOPT, // palette
+        C64B, // palette
     },
+
     {
         "Unknown game",
         UNKNOWN_GAME,

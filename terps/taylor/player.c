@@ -309,12 +309,6 @@ static size_t FindFlags(void)
 {
     size_t pos;
 
-    if (Game && Version == QUESTPROBE3_TYPE && (pos = FindCode("\x80\x00\x00\x3C\x77\x6F\xFF\x0F\x00\x00", 0, 10)) != -1)
-        return pos;
-
-    if (Version == QUESTPROBE3_TYPE)
-        return 0x1b70 + FileBaselineOffset;
-
     /* Questprobe */
     pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
     if(pos == -1) {
@@ -367,20 +361,28 @@ static size_t FindTokens(void)
     size_t addr;
     size_t pos = 0;
 
-    if (Game && Version == QUESTPROBE3_TYPE && (pos = FindCode("\x61\xa0\x64\xa0\x65\xa0\x67\xa0\x69\xa0", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == REBEL_PLANET_64 && (pos = FindCode("\xa7\x2e\xfe\x20\xfe\x2c\xfe\x21\xfe\x3f", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == HEMAN_64 && (pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == TEMPLE_OF_TERROR_64 && (pos = FindCode("\x80\x20\x54\x68\x65\x72\x65\x20\x69\x73", 0, 10)) != -1)
-        return pos;
-
-    if (Game && CurrentGame == KAYLETH_64 && (pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
-        return pos;
+    if (Game)
+        switch(CurrentGame) {
+            case TEMPLE_OF_TERROR_64:
+                if ((pos = FindCode("\x80\x20\x54\x68\x65\x72\x65\x20\x69\x73", 0, 10)) != -1)
+                    return pos;
+                break;
+            case REBEL_PLANET_64:
+                if  ((pos = FindCode("\xa7\x2e\xfe\x20\xfe\x2c\xfe\x21\xfe\x3f", 0, 10)) != -1)
+                    return pos;
+                break;
+            case QUESTPROBE3_64:
+                if ((pos = FindCode("\x61\xa0\x64\xa0\x65\xa0\x67\xa0\x69\xa0", 0, 10)) != -1)
+                    return pos;
+                break;
+            case HEMAN_64:
+            case KAYLETH_64:
+                if ((pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
+                    return pos;
+                break;
+            default:
+                break;
+        }
 
     do {
         pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);
@@ -401,8 +403,7 @@ static size_t FindTokens(void)
                 return pos + 6;
         }
         addr = (FileImage[pos-1] <<8 | FileImage[pos-2]) - 0x4000 + FileBaselineOffset;
-    }
-    while(LooksLikeTokens(addr) == 0);
+    } while(LooksLikeTokens(addr) == 0);
     TokenClassify(addr);
     return addr;
 }
@@ -1281,7 +1282,7 @@ static void Delay(unsigned char seconds) {
         Updates(ev);
     } while (ev.type != evtype_Timer);
 
-    glk_request_timer_events(0);
+    glk_request_timer_events(AnimationRunning);
 }
 
 static void Wear(unsigned char obj) {
@@ -2275,9 +2276,6 @@ static int GuessLowObjectEnd(void)
     return 0;
 }
 
-
-
-
 static void RestartGame(void)
 {
     RecursionGuard = 0;
@@ -2311,9 +2309,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
                     //                case 'w':
                     //                    split_screen = 0;
                     //                    break;
-                    //                case 'n':
-                    //                    Options |= NO_DELAYS;
-                    //                    break;
+                case 'n':
+                    Options |= NO_DELAYS;
+                    break;
             }
             argv++;
             argc--;
@@ -2490,14 +2488,20 @@ void LookForSecondTOTGame(void)
         return;
     }
 
+    int index = 0;
+
     if (CurrentGame == TOT_TEXT_ONLY) {
-        Game = AltGame;
+        while (Game->gameID != TOT_HYBRID) {
+            Game = &games[index++];
+        }
         SagaSetup();
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
     } else {
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
         SagaSetup();
-        Game = AltGame;
+        while (Game->gameID != TOT_HYBRID) {
+            Game = &games[index++];
+        }
         FileImage = CompanionFile;
         FileImageLen = filelength;
         VerbBase = AltVerbBase;
@@ -2551,7 +2555,7 @@ void glk_main(void)
 
     SagaSetup();
 
-    if (Version == QUESTPROBE3_TYPE || CurrentGame == REBEL_PLANET)
+    if (CurrentGame == QUESTPROBE3 || CurrentGame == REBEL_PLANET)
         DelimiterChar = '=';
 
     FindTables();

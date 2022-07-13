@@ -245,12 +245,12 @@ void DefinePalette(void)
         RGB yellow = { 247, 255, 108 };
         RGB orange = { 186, 134, 32 };
         RGB brown = { 116, 105, 0 };
-        RGB lred = { 180, 105, 164 };
+        RGB lred = { 231, 154, 132 };
         RGB dgrey = { 69, 69, 69 };
         RGB grey = { 167, 167, 167 };
-        RGB lgreen = { 154, 210, 134 };
+        RGB lgreen = { 192, 255, 185 };
         RGB lblue = { 162, 143, 255 };
-        RGB lgrey = { 150, 150, 150 };
+        RGB lgrey = { 200, 200, 200 };
 
         set_color(0, &black);
         set_color(1, &white);
@@ -274,53 +274,53 @@ void DefinePalette(void)
     }
 }
 
-//static const char *colortext(int32_t col)
-//{
-//    const char *zxcolorname[] = {
-//        "black",
-//        "blue",
-//        "red",
-//        "magenta",
-//        "green",
-//        "cyan",
-//        "yellow",
-//        "white",
-//        "bright black",
-//        "bright blue",
-//        "bright red",
-//        "bright magenta",
-//        "bright green",
-//        "bright cyan",
-//        "bright yellow",
-//        "bright white",
-//        "INVALID",
-//    };
-//
-//    const char *c64colorname[] = {
-//        "black",
-//        "white",
-//        "red",
-//        "cyan",
-//        "purple",
-//        "green",
-//        "blue",
-//        "yellow",
-//        "orange",
-//        "brown",
-//        "light red",
-//        "dark grey",
-//        "grey",
-//        "light green",
-//        "light blue",
-//        "light grey",
-//        "INVALID",
-//    };
-//
-//    if ((palchosen == C64A) || (palchosen == C64B))
-//        return (c64colorname[col]);
-//    else
-//        return (zxcolorname[col]);
-//}
+static const char *colortext(int32_t col)
+{
+    const char *zxcolorname[] = {
+        "black",
+        "blue",
+        "red",
+        "magenta",
+        "green",
+        "cyan",
+        "yellow",
+        "white",
+        "bright black",
+        "bright blue",
+        "bright red",
+        "bright magenta",
+        "bright green",
+        "bright cyan",
+        "bright yellow",
+        "bright white",
+        "INVALID",
+    };
+
+    const char *c64colorname[] = {
+        "black",
+        "white",
+        "red",
+        "cyan",
+        "purple",
+        "green",
+        "blue",
+        "yellow",
+        "orange",
+        "brown",
+        "light red",
+        "dark grey",
+        "grey",
+        "light green",
+        "light blue",
+        "light grey",
+        "INVALID",
+    };
+
+    if ((palchosen == C64A) || (palchosen == C64B))
+        return (c64colorname[col]);
+    else
+        return (zxcolorname[col]);
+}
 
 int32_t Remap(int32_t color)
 {
@@ -332,22 +332,22 @@ int32_t Remap(int32_t color)
     } else if (palchosen == C64A) {
         /* remap A determined from Golden Baton, applies to S1/S3/S13 too (8col) */
         int32_t c64remap[] = {
-            0,
-            6,
-            2,
-            4,
-            5,
-            3,
-            7,
-            1,
-            8,
-            1,
-            1,
-            1,
-            7,
-            12,
-            8,
-            7,
+            0, // black
+            6, // blue
+            2, // red
+            4, // magenta
+            5, // green
+            3, // cyan
+            7, // yellow
+            1, // white
+            0, // bright black
+            6, // bright blue
+            2, // bright red
+            4, // bright magenta
+            5, // bright green
+            3, // bright cyan
+            7, // bright yellow
+            1, // bright white
         };
         mapcol = (((color >= 0) && (color <= 15)) ? c64remap[color] : INVALIDCOLOR);
     } else if (palchosen == C64B) {
@@ -358,14 +358,14 @@ int32_t Remap(int32_t color)
             9,
             4,
             5,
-            14,
-            8,
             12,
+            8,
+            15,
             0,
-            6,
+            14,
             2,
-            4,
-            5,
+            10,
+            13,
             3,
             7,
             1,
@@ -503,7 +503,7 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
         buffer[bufferpos][8] = (uint8_t)(buffer[bufferpos][8] | (color << 3));
     }
 
-    glui32 glk_color = (glui32)(((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]));
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
     glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
                          y * pixel_size + y_offset, width * pixel_size,
@@ -513,7 +513,7 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 void background(int32_t x, int32_t y, int32_t color)
 {
     /* Draw the background */
-    RectFill(x * 8, y * 8, 8, 8, color, 1);
+    RectFill(x * 8, y * 8, 8, 8, color, 0);
 }
 
 void plotsprite(int32_t character, int32_t x, int32_t y, int32_t fg,
@@ -551,6 +551,10 @@ struct image_patch {
 
 static const struct image_patch image_patches[] = {
     { UNKNOWN_GAME, 0, 0, 0, "" },
+    { QUESTPROBE3, 55, 604, 3, "\xff\xff\x82" },
+    { QUESTPROBE3, 56, 357, 46, "\x79\x81\x78\x79\x7b\x83\x47\x79\x82\x78\x79\x7b\x83\x47\x79\x83"
+        "\x78\x79\x7b\x81\x79\x47\x79\x84\x7b\x83\x47\x79\x84\x58\x83\x47\x7a\x84\x5f\x18\x81\x5f"
+        "\x47\x50\x84\x5f\x18\x81\x5f\x47" },
     { NUMGAMES, 0, 0, 0, "" },
 };
 
@@ -573,32 +577,15 @@ static void Patch(uint8_t *offset, int patch_number)
     }
 }
 
-static size_t FindCharacterStart(void)
-{
-    /* Look for the character data */
-    size_t pos = FindCode("\x00\x00\x00\x00\x00\x00\x00\x00\x80\x80\x80\x80\x80\x80\x80\x80\x40\x40\x40\x40\x40\x40\x40\x40", 0, 24);
-    if(pos == -1) {
-        fprintf(stderr, "Cannot find character data.\n");
-        return 0;
-    }
-#ifdef DEBUG
-    fprintf(stderr, "Found characters at pos %zx\n", pos);
-#endif
-    return pos;
-}
-
-void OpenGraphicsWindow(void);
 void DrawTaylor(int loc);
 
-uint16_t base, offsets, imgdata;
-
-static void Questprobe3Init(void) {
-    imgdata =  FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", 0, 10);
-    offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
-    base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
+static void Questprobe3Init(size_t *base, size_t *offsets, size_t *imgdata) {
+    *base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
+    *offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
+    *imgdata =  FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", *offsets, 10);
 }
 
-static uint8_t *Questprobe3Image(int imgnum) {
+static uint8_t *Questprobe3Image(int imgnum, size_t base, size_t offsets, size_t imgdata) {
     uint16_t offset_addr = (FileImage[base + imgnum] & 0x7f) * 2 + offsets;
     uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
     return &FileImage[image_addr];
@@ -638,9 +625,7 @@ void SagaSetup(void)
 
     DefinePalette();
 
-    size_t CHAR_START = FindCharacterStart();
-    if (CHAR_START == 0)
-        CHAR_START = Game->start_of_characters + FileBaselineOffset;
+    size_t CHAR_START = Game->start_of_characters + FileBaselineOffset;
 #ifdef DRAWDEBUG
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", Game->start_of_characters + FileBaselineOffset, Game->start_of_characters + FileBaselineOffset);
 #endif
@@ -668,38 +653,21 @@ void SagaSetup(void)
 
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
 
-    if (CurrentGame == HEMAN_64)
-        patterns_lookup = FindCode("\xae\xaf\xb7\xbe\xbf\xc3\xc7\xca\xcb\xcf", 0, 10);
-
-    if (CurrentGame == TEMPLE_OF_TERROR_64)
-        patterns_lookup = FindCode("\xae\xb7\xbe\xbf\xca\xd7\xda\xdb\xdf\xe3", 0, 10);
-
-    if (CurrentGame == REBEL_PLANET_64)
-        image_blocks_start_address = FindCode("\x2b\xfa\x09\x08\x82\x01\x64\xa4\x64\xa4", 0, 10);
-
-    if (CurrentGame == HEMAN_64)
-        image_blocks_start_address = FindCode("\x35\x80\x00\xC0\x59\x90\x5A\xC0\x59\x00", 0, 10);
-
-    if (CurrentGame == TEMPLE_OF_TERROR_64)
-        image_blocks_start_address = FindCode("\x51\xB0\x5C\xB0\x25\x82\x05\x00\x90\x25", 0, 10);
-
-    if (CurrentGame == KAYLETH_64)
-        image_blocks_start_address = FindCode("\x12\xf5\x01\x80\x03\xb5\x01\xc0\x03\x03", 0, 10);
-
     pos = SeekToPos(FileImage, image_blocks_start_address);
 
-    fprintf(stderr, "image_blocks_start_address");
-    PrintFirstTenBytes(image_blocks_start_address);
+    size_t base = 0, offsets = 0, imgdata = 0;
 
     if (Version == QUESTPROBE3_TYPE)
-        Questprobe3Init();
+        Questprobe3Init(&base, &offsets, &imgdata);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
 
         if (Version == QUESTPROBE3_TYPE) {
-            pos = Questprobe3Image(picture_number);
+            pos = Questprobe3Image(picture_number, base, offsets, imgdata);
             if (pos > EndOfData - 4 || pos < FileImage) {
                 fprintf(stderr, "Image %d out of range!\n", picture_number);
+                img->imagedata = NULL;
+                img++;
                 continue;
             }
             img->width = *pos++;
@@ -707,6 +675,17 @@ void SagaSetup(void)
             img->xoff = *pos++;
             img->yoff = *pos++;
             img->imagedata = pos;
+            if (picture_number == 55) {
+                img->imagedata = MemAlloc(607);
+                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 607));
+                int patch = FindImagePatch(QUESTPROBE3, 55, 0);
+                Patch(img->imagedata, patch);
+            } else if (picture_number == 56) {
+                img->imagedata = MemAlloc(403);
+                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
+                int patch = FindImagePatch(QUESTPROBE3, 56, 0);
+                Patch(img->imagedata, patch);
+            }
             img++;
             continue;
         }
@@ -792,40 +771,11 @@ void SagaSetup(void)
         img->imagedata = MemAlloc(number);
         memcpy(img->imagedata, instructions, number);
 
-        int patch = FindImagePatch(CurrentGame, picture_number, 0);
-        while (patch) {
-            Patch(pos, patch);
-            patch = FindImagePatch(CurrentGame, picture_number, patch);
-        }
         pos++;
         img++;
     }
 
     taylor_image_data = &FileImage[Game->start_of_image_instructions + FileBaselineOffset];
-
-    if (CurrentGame == REBEL_PLANET_64) {
-        size_t image_data_offset = FindCode("\xff\x04\x00\x00\xa4\x08\x00\x0b\x08\x07", 0, 10);
-        taylor_image_data = &FileImage[image_data_offset];
-    }
-
-    if (CurrentGame == HEMAN_64) {
-        size_t image_data_offset = FindCode("\xff\x5f\x05\x00\xfe\xf9\x51\xf8\x00\x60", 0, 10);
-        taylor_image_data = &FileImage[image_data_offset];
-    }
-
-    if (CurrentGame == TEMPLE_OF_TERROR_64) {
-        size_t image_data_offset = FindCode("\xff\xfd\x00\x05\xfb\xfc\x05\x00\x01\x30", 0, 10);
-        taylor_image_data = &FileImage[image_data_offset];
-    }
-
-    if (CurrentGame == KAYLETH_64) {
-        size_t image_data_offset = FindCode("\xff\xfc\x0a\x00\x02\x70\x20\xf9\x86\x2b", 0, 10);
-        taylor_image_data = &FileImage[image_data_offset];
-    }
-
-
-    fprintf(stderr, "taylor_image_data");
-    PrintFirstTenBytes(Game->start_of_image_instructions + FileBaselineOffset);
 }
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
@@ -1071,7 +1021,7 @@ void DrawTaylor(int loc)
             ptr++;
         ptr++;
     }
-    //    int instruction = 1;
+
     while (ptr < EndOfGraphicsData) {
         //        fprintf(stderr, "DrawTaylorRoomImage: Instruction %d: 0x%02x\n", instruction++, *ptr);
         switch (*ptr) {
@@ -1187,6 +1137,9 @@ void DrawTaylor(int loc)
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                                  int xoff, int yoff)
 {
+    if (dataptr == NULL)
+        return NULL;
+
     int32_t offset = 0, cont = 0;
     int32_t i, x, y, mask_mode;
     uint8_t data, data2, old = 0;
@@ -1194,6 +1147,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
     int version = 4;
 
+//    uint8_t *origptr = dataptr;
 
     offset = 0;
     int32_t character = 0;
@@ -1292,7 +1246,8 @@ draw_attributes:
     // Whilst version0-2 count is repeat next character
     while (y < ysize) {
         data = *dataptr++;
-        //        fprintf(stderr, "read attribute data byte %02x\n", data);
+//        fprintf(stderr, "%03ld: read attribute data byte %02x\n", dataptr -
+//                origptr - 1, data);
         if ((data & 0x80)) {
             count = (data & 0x7f) + 1;
             if (version >= 3) {
@@ -1363,9 +1318,18 @@ draw_attributes:
             }
 
 #ifdef DRAWDEBUG
+            uint8_t colour = buffer[(yoff + y) * 32 + (xoff + x)][8];
+
+            int paper = (colour >> 3) & 0x7;
+            paper += 8 * ((colour & 0x40) == 0x40);
+            paper = Remap(paper);
+            int ink = (colour & 0x7);
+            ink += 8 * ((colour & 0x40) == 0x40);
+            ink = Remap(ink);
+
             fprintf(stderr, "(gfx#:plotting %d,%d:paper=%s,ink=%s)\n", x + xoff2,
-                    y + yoff, colortext(Remap(paper[x][y])),
-                    colortext(Remap(ink[x][y])));
+                    y + yoff, colortext(paper),
+                    colortext(ink));
 #endif
             offset++;
             if (offset > offsetlimit)
