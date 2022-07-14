@@ -141,12 +141,16 @@ int DetectC64(uint8_t **sf, size_t *extent)
                     appendixlen -= 2;
                 }
 
-                uint8_t *megabuf[newlength + appendixlen];
+                size_t buflen = newlength + appendixlen;
+                if (buflen <= 0 || buflen > MAX_LENGTH)
+                    return 0;
+
+                uint8_t *megabuf[buflen];
                 memcpy(megabuf, largest_file, newlength);
                 if (appendix != NULL) {
                     memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
                         appendixlen);
-                    newlength += appendixlen;
+                    newlength = buflen;
                 }
 
                 if (largest_file) {
