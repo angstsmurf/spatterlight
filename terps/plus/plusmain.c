@@ -2055,8 +2055,6 @@ void glk_main(void) {
     if (game_file == NULL)
         glk_exit();
     
-    int vb = 0, no = 0;
-    
     for (int i = 0; i < MAX_SYSMESS; i++) {
         sys[i] = sysdict[i];
         if (sysdict_i_am[i])
@@ -2109,11 +2107,8 @@ void glk_main(void) {
 
         JustRestored = 0;
 
-        if (GetInput(&vb, &no) == 1)
+        if (GetInput() == 1)
             continue;
-        
-        CurVerb = vb;
-        CurNoun = no;
 
         LastVerb = CurVerb;
         LastNoun = CurNoun;

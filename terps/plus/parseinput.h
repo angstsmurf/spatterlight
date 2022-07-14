@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-int GetInput(int *vb, int *no);
+int GetInput(void);
 void StopProcessingCommand(void);
 int IsNextParticiple(int partp, int noun2);
 void FreeCharWords(void);

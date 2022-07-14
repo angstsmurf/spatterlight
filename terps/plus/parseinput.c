@@ -688,7 +688,7 @@ void StopProcessingCommand(void) {
     SetBit(STOPTIMEBIT);
 }
 
-int GetInput(int *vb, int *no)
+int GetInput(void)
 {
     int result = 0;
 
@@ -713,45 +713,5 @@ int GetInput(int *vb, int *no)
         result = CommandFromTokens(CurVerb, 0);
     }
 
-    *vb = CurVerb;
-    *no = CurNoun;
-
     return result;
-
-    //    if (CurrentCommand == NULL) {
-    //        PrintPendingError();
-    //        return 1;
-    //    }
-
-    //    /* We use NumWords + verb for our extra commands */
-    //    /* such as UNDO and TRANSCRIPT */
-    //    if (CurrentCommand->verb > GameHeader.NumWords) {
-    //        if (!PerformExtraCommand(0)) {
-    //            CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
-    //        }
-    //        return 1;
-    //        /* And NumWords + noun for our extra nouns */
-    //        /* such as ALL */
-    //    } else if (CurrentCommand->noun > GameHeader.NumWords) {
-    //        CurrentCommand->noun -= GameHeader.NumWords;
-    //        if (CurrentCommand->noun == ALL) {
-    //            if (CurrentCommand->verb != TAKE && CurrentCommand->verb != DROP) {
-    //                CreateErrorMessage(sys[CANT_USE_ALL], NULL, NULL);
-    //                return 1;
-    //            }
-    //            if (!CreateAllCommands(CurrentCommand))
-    //                return 1;
-    //        } else if (CurrentCommand->noun == IT) {
-    //            CurrentCommand->noun = lastnoun;
-    //        }
-    //    }
-
-    //    *vb = CurrentCommand->verb;
-    //    *no = CurrentCommand->noun;
-
-    //    if (*no > 6) {
-    //        lastnoun = *no;
-    //    }
-
-    //    return 0;
 }
