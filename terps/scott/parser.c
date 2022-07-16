@@ -440,10 +440,10 @@ static int MatchYMCA(glui32 *string, int length, int index) {
 /* (for the translated Gremlins variants.) Coalesces all runs of whitespace into
  * a single standard space. */
 /* Turns ending commas and periods into separate strings. */
-static char **SplitIntoWords(glui32 *string, int length)
+void SplitIntoWords(glui32 *string, int length)
 {
     if (length < 1) {
-        return NULL;
+        return;
     }
 
     glk_buffer_to_lower_case_uni(string, 512, MIN(length, 512));
@@ -527,7 +527,7 @@ static char **SplitIntoWords(glui32 *string, int length)
     }
 
     if (words_found == 0) {
-        return NULL;
+        return;
     }
 
     wordlength[words_found]--; /* Don't count final newline character */
@@ -545,11 +545,10 @@ static char **SplitIntoWords(glui32 *string, int length)
     }
     UnicodeWords = words;
     WordsInInput = words_found;
-
-    return words8;
+    CharWords = words8;
 }
 
-static char **LineInput(void)
+void LineInput(void)
 {
     event_t ev;
     glui32 unibuf[512];
@@ -574,16 +573,16 @@ static char **LineInput(void)
             glk_put_char_stream_uni(Transcript, 10);
         }
 
-        CharWords = SplitIntoWords(unibuf, ev.val1);
+        SplitIntoWords(unibuf, ev.val1);
 
         if (WordsInInput == 0 || CharWords == NULL)
             Output(sys[HUH]);
         else {
-            return CharWords;
+            return;
         }
 
     } while (WordsInInput == 0 || CharWords == NULL);
-    return NULL;
+    return;
 }
 
  int WhichWord(const char *word, const char **list, int word_length,
@@ -1017,7 +1016,7 @@ int GetInput(int *vb, int *no)
         PrintPendingError();
         if (CurrentCommand)
             FreeCommands();
-        CharWords = LineInput();
+        LineInput();
         CurrentCommand = CommandFromStrings(0, NULL);
     }
 
