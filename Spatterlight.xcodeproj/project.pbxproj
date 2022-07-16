@@ -638,6 +638,7 @@
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; };
 		C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; };
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
@@ -2916,6 +2917,8 @@
 		C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmuni_cs.cpp; path = ../glk/vmuni_cs.cpp; sourceTree = "<group>"; };
 		C343E49F1ECC67C8000F15B6 /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2askf.c; path = glk/t2askf.c; sourceTree = "<group>"; };
 		C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
+		C349B4DA28803A7C00D99943 /* parseinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parseinput.c; sourceTree = "<group>"; };
+		C349B4DB28803A7C00D99943 /* parseinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
 		C34DF53F26A1FFDE007AD7D3 /* IFZoomID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFZoomID.h; sourceTree = "<group>"; };
 		C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFZoomID.m; sourceTree = "<group>"; };
 		C34F1FA61ED85E06002AB38B /* gi_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gi_debug.c; sourceTree = "<group>"; };
@@ -6070,6 +6073,8 @@
 				C3BD2E882874888E0019F676 /* c64decrunch.c */,
 				C3BD2E892874888E0019F676 /* diskimage.h */,
 				C3BD2E8A2874888E0019F676 /* diskimage.c */,
+				C349B4DB28803A7C00D99943 /* parseinput.h */,
+				C349B4DA28803A7C00D99943 /* parseinput.c */,
 				C3B6100627DA07E90012FB97 /* sagadraw.h */,
 				C3B6100427DA07E90012FB97 /* sagadraw.c */,
 				C372018B27E47E4D00F6BE55 /* layouttext.h */,
@@ -8054,6 +8059,7 @@
 				C3BD2EBB287488AC0019F676 /* Section8.c in Sources */,
 				C3BD2EB5287488AC0019F676 /* MasterCompressor.c in Sources */,
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
+				C349B4DC28803A7C00D99943 /* parseinput.c in Sources */,
 				C3BD2EAA287488AC0019F676 /* log.c in Sources */,
 				C37344632804673F00D8AE01 /* extracttape.c in Sources */,
 				C3BD2EAE287488AC0019F676 /* Cruel.c in Sources */,

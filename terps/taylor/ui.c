@@ -345,37 +345,6 @@ void Updates(event_t ev)
     }
 }
 
-
-void LineInput(char *buf, int len)
-{
-    event_t ev;
-
-    if (PendSpace) {
-        fprintf(stderr, "PendSpace before LineInput?\n");
-        PendSpace = 0;
-    }
-
-    LineEvent = 1;
-    glk_request_line_event(Bottom, buf, len - 1, 0);
-
-    while(1)
-    {
-        glk_select(&ev);
-
-        if(ev.type == evtype_LineInput)
-            break;
-        else Updates(ev);
-    }
-    LineEvent = 0;
-    buf[ev.val1] = 0;
-
-    if (Transcript) {
-        glk_put_string_stream(Transcript, buf);
-        glk_put_char_stream(Transcript, '\n');
-    }
-}
-
-
 const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
     *width = 255;

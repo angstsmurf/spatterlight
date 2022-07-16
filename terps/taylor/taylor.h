@@ -4,7 +4,6 @@
 #include "glk.h"
 
 unsigned char WaitCharacter(void);
-void LineInput(char *buf, int len);
 void DisplayInit(void);
 void TopWindow(void);
 void BottomWindow(void);
@@ -25,6 +24,16 @@ void OpenTopWindow(void);
 void PrintFirstTenBytes(size_t offset);
 
 #define FOLLOWS 0xffff
+
+#define MAX_WORDLENGTH 128
+#define MAX_WORDS 128
+
+#define DEBUG_ACTIONS 1
+
+#define IsThing (Flag[31])
+
+#define debug_print(fmt, ...) \
+do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define MyLoc (Flag[0])
 
@@ -274,5 +283,17 @@ extern int Options;
 extern int LineEvent;
 
 extern size_t AnimationData;
+
+extern size_t VerbBase;
+extern char LastChar;
+extern uint8_t Word[];
+extern int PendSpace;
+extern int FirstAfterInput;
+
+void OutChar(char c);
+void OutString(char *p);
+void OutCaps(void);
+void OutFlush(void);
+void SysMessage(unsigned char m);
 
 #endif /* taylor_h */

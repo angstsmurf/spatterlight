@@ -19,18 +19,17 @@
 #include "sagadraw.h"
 #include "extracommands.h"
 #include "c64decrunch.h"
+#include "parseinput.h"
 
 #include "taylor.h"
 
 uint8_t Flag[128];
 uint8_t ObjectLoc[256];
-uint8_t Word[5];
-char wb[5][17];
 
 uint8_t *FileImage = NULL;
 uint8_t *EndOfData = NULL;
 size_t FileImageLen = 0;
-static size_t VerbBase;
+size_t VerbBase;
 static size_t TokenBase;
 static size_t MessageBase;
 static size_t Message2Base;
@@ -52,12 +51,11 @@ int Redraw = 0;
 #define OtherGuyInv (Flag[3])
 #define TurnsLow (Flag[26])
 #define TurnsHigh (Flag[27])
-#define IsThing (Flag[31])
 #define ThingAsphyx (Flag[47])
 #define TorchAsphyx (Flag[48])
 #define DrawImages (Flag[52])
 
-static int FirstAfterInput = 0;
+int FirstAfterInput = 0;
 
 int StopTime = 0;
 int JustStarted = 1;
@@ -69,13 +67,20 @@ long FileBaselineOffset = 0;
 
 char DelimiterChar = '_';
 
-struct GameInfo *Game = NULL;
-extern struct GameInfo games[];
-
 static char *Filename;
 static uint8_t *CompanionFile;
 
-extern struct SavedState *InitialState;
+char LastChar = 0;
+static int Upper = 0;
+int PendSpace = 0;
+
+static int LastNoun = 0;
+static int LastVerb = 0;
+
+struct GameInfo *Game = NULL;
+extern struct GameInfo games[];
+
+strid_t room_description_stream = NULL;
 
 extern int AnimationRunning;
 
@@ -408,12 +413,6 @@ static size_t FindTokens(void)
     return addr;
 }
 
-static char LastChar = 0;
-static int Upper = 0;
-int PendSpace = 0;
-
-strid_t room_description_stream = NULL;
-
 void WriteToRoomDescriptionStream(const char *fmt, ...)
 {
     if (room_description_stream == NULL)
@@ -438,7 +437,7 @@ static void OutWrite(char c)
     PrintCharacter(c);
 }
 
-static void OutFlush(void)
+void OutFlush(void)
 {
     if(LastChar)
         OutWrite(LastChar);
@@ -455,7 +454,7 @@ static void OutReset(void)
 
 static int QPUpper = 0;
 
-static void OutCaps(void)
+void OutCaps(void)
 {
     if (LastChar) {
         OutWrite(LastChar);
@@ -468,7 +467,7 @@ static void OutCaps(void)
 static int periods = 0;
 int JustWrotePeriod = 0;
 
-static void OutChar(char c)
+void OutChar(char c)
 {
     if(c == ']')
         c = '\n';
@@ -542,7 +541,7 @@ static void OutKillSpace()
     PendSpace = 0;
 }
 
-static void OutString(char *p)
+void OutString(char *p)
 {
     while(*p)
         OutChar(*p++);
@@ -700,7 +699,7 @@ static void Message2(unsigned int m)
     OutChar(' ');
 }
 
-static void SysMessage(unsigned char m)
+void SysMessage(unsigned char m)
 {
     if (Version != QUESTPROBE3_TYPE) {
         Message(m);
@@ -772,9 +771,10 @@ static int WaitFlag()
 {
     if (Version == QUESTPROBE3_TYPE)
         return 5;
-    if (BaseGame != REBEL_PLANET && BaseGame != KAYLETH)
+    else if (BaseGame != REBEL_PLANET && BaseGame != KAYLETH)
         return -1;
-    return 7;
+    else
+        return 7;
 }
 
 static int CarryItem(void)
@@ -1944,13 +1944,16 @@ static void RunCommandTable(void)
             PrintWord(p[1]);
 #endif
             /* Work around some Questprobe bugs */
+            /* TAKE or PUSH */
             if (Version == QUESTPROBE3_TYPE && (Word[0] == 9 || Word[0] == 20)) {
+                /* In great room, Xandu present */
                 if (MyLoc == 22 && ObjectLoc[33] == 22) {
                     Flag[39] = 1;
                     Message(24);
                     Goto(26);
                     ActionsExecuted = 1;
                     return;
+                /* In circus tent, eyes open, Circus of Crime present */
                 } else if (MyLoc == 24 && Flag[56] == 0 && ObjectLoc[9] == 24) {
                     Message(16);
                     Goto(27);
@@ -1985,8 +1988,6 @@ static int AutoExit(unsigned char v)
     }
     return 0;
 }
-
-static int LastNoun = 0;
 
 static int IsDir(unsigned char word)
 {
@@ -2032,17 +2033,28 @@ static void RunOneInput(void)
 
     if(ActionsExecuted == 0) {
         if (TryExtraCommand() == 0) {
-            if(IsDir(Word[0]))
-                SysMessage(YOU_CANT_GO_THAT_WAY);
-            else
-                SysMessage(THATS_BEYOND_MY_POWER);
-            OutFlush();
-            StopTime = 1;
-            return;
-        } else {
-            return;
-        }
+            if (LastVerb) {
+                Word[4] = Word[3];
+                Word[3] = Word[2];
+                Word[2] = Word[1];
+                Word[1] = Word[0];
+                Word[0] = LastVerb;
+                RunCommandTable();
+            }
+            if (ActionsExecuted == 0) {
+                if(IsDir(Word[0]))
+                    SysMessage(YOU_CANT_GO_THAT_WAY);
+                else
+                    SysMessage(THATS_BEYOND_MY_POWER);
+                OutFlush();
+                StopTime = 1;
+                return;
+            }
+        } else return;
     }
+
+    if (Word[0] != 0)
+        LastVerb = Word[0];
 
     if(Redraw && !(BaseGame == REBEL_PLANET && MyLoc == 250)) {
         Look();
@@ -2081,114 +2093,6 @@ static void RunOneInput(void)
         glk_request_timer_events(AnimationRunning);
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
-}
-
-static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
-static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
-
-static int ParseWord(char *p)
-{
-    char buf[5];
-    size_t len = strlen(p);
-    unsigned char *words = FileImage + VerbBase;
-    int i;
-
-    if(len >= 4) {
-        memcpy(buf, p, 4);
-        buf[4] = 0;
-    } else {
-        memcpy(buf, p, len);
-        memset(buf + len, ' ', 4 - len);
-    }
-    for(i = 0; i < 4; i++) {
-        if(buf[i] == 0)
-            break;
-        if(islower(buf[i]))
-            buf[i] = toupper(buf[i]);
-    }
-    while(*words != 126) {
-        if(memcmp(words, buf, 4) == 0)
-            return words[4];
-        words+=5;
-    }
-
-    words = FileImage + VerbBase;
-    for (i = 0; Abbreviations[i] != NULL; i++) {
-        if(memcmp(Abbreviations[i], buf, 4) == 0) {
-            while(*words != 126) {
-                if(memcmp(words, AbbreviationValue[i], 4) == 0)
-                    return words[4];
-                words+=5;
-            }
-        }
-    }
-    return 0;
-}
-
-static void SimpleParser(void)
-{
-    int nw;
-    int i;
-    int wn = 0;
-    char buf[256];
-    do {
-        for (i = 0; i < 5; i++)
-            wb[i][0] = '\0';
-        if (LastChar != '\n')
-            OutChar('\n');
-        OutFlush();
-        if (Version == QUESTPROBE3_TYPE) {
-            if (MyLoc != 6) {
-                if (IsThing == 0)
-                    SysMessage(8);
-                else
-                    SysMessage(9);
-            }
-            OutCaps();
-            SysMessage(10);
-        } else
-            OutString("> ");
-        OutFlush();
-        PendSpace = 0;
-        LastChar = 0;
-        do
-        {
-            LineInput(buf, 255);
-            nw = sscanf(buf, "%16s %16s %16s %16s %16s", wb[0], wb[1], wb[2], wb[3], wb[4]);
-        } while(nw == 0);
-
-        if (wb[0][0] == 0)
-            OutString("Huh?");
-    } while (wb[0][0] == 0);
-
-    for(i = 0; i < nw ; i++)
-    {
-        Word[wn] = ParseWord(wb[i]);
-        /* Hack for Blizzard Pass verbs */
-        if (CurrentGame == BLIZZARD_PASS && wn == 0) {
-            /* Change SKIN to VSKI */
-            if (Word[wn] == 249)
-                Word[wn] = 43;
-            /* Change POLI to VPOL */
-            else if (Word[wn] == 175)
-                Word[wn] = 44;
-            /* Change noun DRAW(bridge) to verb DRAW */
-            else if (Word[wn] == 134)
-                Word[wn] = 49;
-        }
-        if (Version == QUESTPROBE3_TYPE && wn == 1) {
-            /* Understand WALL and FIRE as the wall of fire */
-            if ((Word[wn] == 54 || Word[wn] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
-                Word[wn] = 77;
-            /* Understand MASTERS as Alicia Masters */
-            if (Word[wn] == 106 && ObjectLoc[46] == MyLoc)
-                Word[wn] = 121;
-        }
-        if(Word[wn])
-            wn++;
-    }
-    for(i = wn; i < 5; i++)
-        Word[i] = 0;
 }
 
 void PrintFirstTenBytes(size_t offset) {
@@ -2578,7 +2482,7 @@ void glk_main(void)
             RestartGame();
         } else if (!StopTime)
             SaveUndo();
-        SimpleParser();
+        Parser();
         FirstAfterInput = 1;
         RunOneInput();
         if (StopTime)

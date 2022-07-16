@@ -9,6 +9,7 @@
 
 #include "restorestate.h"
 #include "utility.h"
+#include "parseinput.h"
 #include "extracommands.h"
 
 typedef enum {
@@ -58,6 +59,7 @@ const char *ExtraCommands[] = {
     "turn",
     "#script",
     "script",
+    "#transcript",
     "transcript",
     "on",
     "off",
@@ -94,12 +96,12 @@ const extra_command ExtraCommandsKey[] = {
     SCRIPT,
     SCRIPT,
     SCRIPT,
+    SCRIPT,
     ON,
     OFF,
     NO_COMMAND
 };
 
-extern char wb[5][17];
 extern int ShouldRestart;
 extern int StopTime;
 extern int Redraw;
@@ -188,8 +190,10 @@ extern uint8_t Word[];
 
 int TryExtraCommand(void)
 {
-    int verb = ParseExtraCommand(wb[0]);
-    int noun = ParseExtraCommand(wb[1]);
+    int verb = ParseExtraCommand(InputWordStrings[WordPositions[0]]);
+    int noun = NO_COMMAND;
+    if (WordPositions[1] != WordPositions[0])
+        noun = ParseExtraCommand(InputWordStrings[WordPositions[1]]);
     if (noun == NO_COMMAND)
         noun = Word[1];
 
