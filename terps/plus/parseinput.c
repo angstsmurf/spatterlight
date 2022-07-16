@@ -17,7 +17,7 @@
 #include "extracommands.h"
 #include "parseinput.h"
 
-char **CharWords = NULL;
+char **InputWordStrings = NULL;
 int WordsInInput = 0;
 int WordIndex = 0;
 int ProtagonistString = 0;
@@ -29,15 +29,15 @@ DictWord *Prepositions;
 
 int LastVerb = 0, LastNoun = 0, LastPrep = 0, LastPartp = 0, LastNoun2 = 0, LastAdverb = 0;
 
-void FreeCharWords(void) {
+void FreeInputWords(void) {
     WordIndex = 0;
-    if (CharWords != NULL) {
-        for (int i = 0; i < WordsInInput && CharWords[i] != NULL; i++) {
-            free(CharWords[i]);
-            CharWords[i] = NULL;
+    if (InputWordStrings != NULL) {
+        for (int i = 0; i < WordsInInput && InputWordStrings[i] != NULL; i++) {
+            free(InputWordStrings[i]);
+            InputWordStrings[i] = NULL;
         }
-        free(CharWords);
-        CharWords = NULL;
+        free(InputWordStrings);
+        InputWordStrings = NULL;
     }
     WordsInInput = 0;
 }
@@ -324,12 +324,12 @@ static int IntendedAsVerb(int i) {
 
 static void WordNotFoundError(int i) {
     if (IntendedAsVerb(i))
-        Display(Bottom, "I don't know how to %s something! ", CharWords[i]);
+        Display(Bottom, "I don't know how to %s something! ", InputWordStrings[i]);
     else
-        Display(Bottom, "I don't know what %s means. ", CharWords[i]);
+        Display(Bottom, "I don't know what %s means. ", InputWordStrings[i]);
 }
 
-static int TokenizeCharWords(void) {
+static int TokenizeInputWords(void) {
     if (TokenWords != NULL)
         free(TokenWords);
     int word_not_found = -1;
@@ -340,9 +340,9 @@ static int TokenizeCharWords(void) {
     for (int i = 0; i < WordsInInput; i++) {
 
         if (i == 0) {
-            result = ParseWord(CharWords[i], Verbs);
+            result = ParseWord(InputWordStrings[i], Verbs);
             if (result > 0) {
-                debug_print("Found verb %s at %d\n", CharWords[i], i);
+                debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
                 found_verb = 1;
                 TokenWords[i].Index = result;
                 TokenWords[i].Type = VERB_TYPE;
@@ -350,40 +350,40 @@ static int TokenizeCharWords(void) {
             }
         }
 
-        result = ParseWord(CharWords[i], Adverbs);
+        result = ParseWord(InputWordStrings[i], Adverbs);
         if (result > 1) {
-            debug_print("Found adverb %s at %d\n", CharWords[i], i);
+            debug_print("Found adverb %s at %d\n", InputWordStrings[i], i);
             TokenWords[i].Index = result;
             TokenWords[i].Type = ADVERB_TYPE;
             continue;
         }
 
-        result = ParseWord(CharWords[i], Nouns);
-        if (result > 0 || strcmp(CharWords[i], "ANY") == 0) {
-            debug_print("Found noun %s at %d\n", CharWords[i], i);
+        result = ParseWord(InputWordStrings[i], Nouns);
+        if (result > 0 || strcmp(InputWordStrings[i], "ANY") == 0) {
+            debug_print("Found noun %s at %d\n", InputWordStrings[i], i);
             TokenWords[i].Index = result;
             LastNoun = result;
             TokenWords[i].Type = NOUN_TYPE;
             continue;
         }
 
-        result = FindNounWithHash(CharWords[i]);
+        result = FindNounWithHash(InputWordStrings[i]);
         if (result > 0) {
-            debug_print("Found noun %s at %d\n", CharWords[i], i);
+            debug_print("Found noun %s at %d\n", InputWordStrings[i], i);
             TokenWords[i].Index = result;
             LastNoun = result;
             TokenWords[i].Type = NOUN_TYPE;
             continue;
         }
 
-        result = ParseWord(CharWords[i], Prepositions);
+        result = ParseWord(InputWordStrings[i], Prepositions);
         if (result > 1) {
             if (result == 2 && !found_verb) {
                 Output("-USE- may NOT be the first word of your command! ");
                 WordIndex = 255;
                 return 0;
             } else {
-                debug_print("Found preposition %s at %d\n", CharWords[i], i);
+                debug_print("Found preposition %s at %d\n", InputWordStrings[i], i);
                 TokenWords[i].Index = result;
                 TokenWords[i].Type = PREPOSITION_TYPE;
                 continue;
@@ -391,18 +391,18 @@ static int TokenizeCharWords(void) {
         }
 
         if (i > 0)
-            result = ParseWord(CharWords[i], Verbs);
+            result = ParseWord(InputWordStrings[i], Verbs);
         if (result > 0) {
-            debug_print("Found verb %s at %d\n", CharWords[i], i);
+            debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
             TokenWords[i].Index = result;
             TokenWords[i].Type = VERB_TYPE;
             found_verb = 1;
             continue;
         }
 
-        result = ParseWord(CharWords[i], ExtraWords);
+        result = ParseWord(InputWordStrings[i], ExtraWords);
         if (result > 0) {
-            debug_print("Found extra word %s at %d\n", CharWords[i], i);
+            debug_print("Found extra word %s at %d\n", InputWordStrings[i], i);
             if (result == 1) {
                 TokenWords[i].Index = LastNoun;
                 TokenWords[i].Type = NOUN_TYPE;
@@ -464,17 +464,17 @@ static int CommandFromTokens(int verb, int noun)
         debug_print("Bug!");
 
     if (!WordsInInput || (WordIndex >= WordsInInput)) {
-        FreeCharWords();
+        FreeInputWords();
         return 1;
     }
 
     int initialindex = WordIndex;
 
     for (int i = WordIndex; i < WordsInInput; i++) {
-        size_t len = strlen(CharWords[i]);
+        size_t len = strlen(InputWordStrings[i]);
         char str[128];
         for (int j = 0; j < len; j++)
-            str[j] = CharWords[i][j];
+            str[j] = InputWordStrings[i][j];
         str[len] = 0;
         debug_print("Word %d: %s\n", i, str);
     }
@@ -484,7 +484,7 @@ static int CommandFromTokens(int verb, int noun)
         WordIndex++;
         int nextword = 0;
         if (WordIndex < WordsInInput) {
-            nextword = ParseWord(CharWords[WordIndex], ExtraWords);
+            nextword = ParseWord(InputWordStrings[WordIndex], ExtraWords);
         }
         if (nextword < 9) {
             nextword = 0;
@@ -606,7 +606,7 @@ static int CommandFromTokens(int verb, int noun)
     debug_print("Index: %d Words in input: %d ", WordIndex, WordsInInput);
 
     if (WordIndex < WordsInInput)
-        debug_print("There are %d unmatched words remaining. Word at index: %s\n", WordsInInput - WordIndex, CharWords[WordIndex]);
+        debug_print("There are %d unmatched words remaining. Word at index: %s\n", WordsInInput - WordIndex, InputWordStrings[WordIndex]);
     else
         debug_print("No remaining input words.\n");
 
@@ -616,11 +616,11 @@ static int CommandFromTokens(int verb, int noun)
     return 0;
 }
 
-static char **LineInput(void)
+static void LineInput(void)
 {
     event_t ev;
     char buf[512];
-    FreeCharWords();
+    FreeInputWords();
 
     do {
         Display(Bottom, "\n%s, %s", Messages[ProtagonistString], sys[WHAT_NOW]);
@@ -649,24 +649,23 @@ static char **LineInput(void)
 
         debug_print("Final result: \"%s\"\n", result);
 
-        CharWords = SplitIntoWords(result, length);
+        InputWordStrings = SplitIntoWords(result, length);
         free(result);
 
         if (WordsInInput >= MAX_WORDS) {
             Output("Too many words!\n");
-            FreeCharWords();
+            FreeInputWords();
         }
 
-        if (WordsInInput > 0 && CharWords) {
+        if (WordsInInput > 0 && InputWordStrings) {
             Output("\n");
-            return CharWords;
+            return;
         }
 
         WordsInInput = 0;
         Output(sys[HUH]);
 
-    } while (WordsInInput == 0 || CharWords == NULL);
-    return NULL;
+    } while (WordsInInput == 0 || InputWordStrings == NULL);
 }
 
 static int RemainderContainsVerb(void) {
@@ -683,7 +682,7 @@ void StopProcessingCommand(void) {
     if (RemainderContainsVerb()) {
         Output("\nThe rest of your input was ignored. ");
     }
-    FreeCharWords();
+    FreeInputWords();
     WordIndex = 0;
     SetBit(STOPTIMEBIT);
 }
@@ -696,12 +695,12 @@ int GetInput(void)
     if (WordIndex >= WordsInInput || WordsInInput < 2) {
         LineInput();
 
-        if (WordsInInput == 0 || CharWords == NULL)
+        if (WordsInInput == 0 || InputWordStrings == NULL)
             return 1;
 
         lastwasnewline = 1;
 
-        if (!TokenizeCharWords()) {
+        if (!TokenizeInputWords()) {
             if (WordIndex < 255)
                 Output("\nTry again please.\n");
             StopProcessingCommand();

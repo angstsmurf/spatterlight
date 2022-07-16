@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 
+void FreeInputWords(void);
 int GetInput(void);
-void StopProcessingCommand(void);
 int IsNextParticiple(int partp, int noun2);
-void FreeCharWords(void);
+void StopProcessingCommand(void);
 
 #endif /* parseinput_h */

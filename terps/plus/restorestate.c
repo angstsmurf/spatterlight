@@ -269,7 +269,7 @@ int LoadGame(void)
 
 void RestartGame(void)
 {
-    FreeCharWords();
+    FreeInputWords();
     RestoreState(InitialState);
     JustStarted = 0;
     ResetBit(STOPTIMEBIT);
