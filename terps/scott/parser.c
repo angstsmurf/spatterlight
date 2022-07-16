@@ -363,6 +363,8 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
     while (unichar != 0 && destpos < MAX_WORDLENGTH && sourcepos < origlength) {
         switch (unichar) {
         case '.':
+        case ',':
+        case ';':
             if (origlength == 1) {
                 dest[destpos++] = 'a';
                 dest[destpos++] = 'n';
@@ -502,6 +504,7 @@ static char **SplitIntoWords(glui32 *string, int length)
                 break;
             case '.':
             case ',':
+            case ';':
                 foundcomma = 1;
                 break;
             default:
