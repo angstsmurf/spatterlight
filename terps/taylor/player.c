@@ -2436,7 +2436,6 @@ void glk_main(void)
 
     if (DetectC64(&FileImage, &FileImageLen)) {
         EndOfData = FileImage + FileImageLen;
-//        writeToFile("/Users/administrator/Desktop/TaylorC64Decompressed", FileImage, FileImageLen);
     }
 
 #ifdef DEBUG

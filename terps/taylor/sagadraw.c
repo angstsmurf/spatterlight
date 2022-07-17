@@ -579,13 +579,13 @@ static void Patch(uint8_t *offset, int patch_number)
 
 void DrawTaylor(int loc);
 
-static void Questprobe3Init(size_t *base, size_t *offsets, size_t *imgdata) {
+static void Q3Init(size_t *base, size_t *offsets, size_t *imgdata) {
     *base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
     *offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
     *imgdata =  FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", *offsets, 10);
 }
 
-static uint8_t *Questprobe3Image(int imgnum, size_t base, size_t offsets, size_t imgdata) {
+static uint8_t *Q3Image(int imgnum, size_t base, size_t offsets, size_t imgdata) {
     uint16_t offset_addr = (FileImage[base + imgnum] & 0x7f) * 2 + offsets;
     uint16_t image_addr = imgdata + FileImage[offset_addr] + FileImage[offset_addr + 1] * 256;
     return &FileImage[image_addr];
@@ -654,7 +654,7 @@ void SagaSetup(void)
     fprintf(stderr, "Character Offset: %04lx\n",
             CHAR_START - FileBaselineOffset);
 #endif
-    for (i = 0; i < 256; i++) {
+    for (i = 0; i < 246; i++) {
         for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             sprite[i][y] = *(pos++);
         }
@@ -674,12 +674,12 @@ void SagaSetup(void)
     size_t base = 0, offsets = 0, imgdata = 0;
 
     if (Version == QUESTPROBE3_TYPE)
-        Questprobe3Init(&base, &offsets, &imgdata);
+        Q3Init(&base, &offsets, &imgdata);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
 
         if (Version == QUESTPROBE3_TYPE) {
-            pos = Questprobe3Image(picture_number, base, offsets, imgdata);
+            pos = Q3Image(picture_number, base, offsets, imgdata);
             if (pos > EndOfData - 4 || pos < FileImage) {
                 fprintf(stderr, "Image %d out of range!\n", picture_number);
                 img->imagedata = NULL;
@@ -696,13 +696,14 @@ void SagaSetup(void)
                 memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 607));
                 int patch = FindImagePatch(QUESTPROBE3, 55, 0);
                 Patch(img->imagedata, patch);
+            } else if (picture_number == 55 || picture_number == 18 || picture_number == 19) {
+                img->imagedata = images[17].imagedata;
             } else if (picture_number == 56) {
                 img->imagedata = MemAlloc(403);
                 memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
                 int patch = FindImagePatch(QUESTPROBE3, 56, 0);
                 Patch(img->imagedata, patch);
-            } else if (picture_number == 55 || picture_number == 18 || picture_number == 19)
-                img->imagedata = images[17].imagedata;
+            }
             img++;
             continue;
         }
