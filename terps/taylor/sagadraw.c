@@ -274,53 +274,53 @@ void DefinePalette(void)
     }
 }
 
-static const char *colortext(int32_t col)
-{
-    const char *zxcolorname[] = {
-        "black",
-        "blue",
-        "red",
-        "magenta",
-        "green",
-        "cyan",
-        "yellow",
-        "white",
-        "bright black",
-        "bright blue",
-        "bright red",
-        "bright magenta",
-        "bright green",
-        "bright cyan",
-        "bright yellow",
-        "bright white",
-        "INVALID",
-    };
-
-    const char *c64colorname[] = {
-        "black",
-        "white",
-        "red",
-        "cyan",
-        "purple",
-        "green",
-        "blue",
-        "yellow",
-        "orange",
-        "brown",
-        "light red",
-        "dark grey",
-        "grey",
-        "light green",
-        "light blue",
-        "light grey",
-        "INVALID",
-    };
-
-    if ((palchosen == C64A) || (palchosen == C64B))
-        return (c64colorname[col]);
-    else
-        return (zxcolorname[col]);
-}
+//static const char *colortext(int32_t col)
+//{
+//    const char *zxcolorname[] = {
+//        "black",
+//        "blue",
+//        "red",
+//        "magenta",
+//        "green",
+//        "cyan",
+//        "yellow",
+//        "white",
+//        "bright black",
+//        "bright blue",
+//        "bright red",
+//        "bright magenta",
+//        "bright green",
+//        "bright cyan",
+//        "bright yellow",
+//        "bright white",
+//        "INVALID",
+//    };
+//
+//    const char *c64colorname[] = {
+//        "black",
+//        "white",
+//        "red",
+//        "cyan",
+//        "purple",
+//        "green",
+//        "blue",
+//        "yellow",
+//        "orange",
+//        "brown",
+//        "light red",
+//        "dark grey",
+//        "grey",
+//        "light green",
+//        "light blue",
+//        "light grey",
+//        "INVALID",
+//    };
+//
+//    if ((palchosen == C64A) || (palchosen == C64B))
+//        return (c64colorname[col]);
+//    else
+//        return (zxcolorname[col]);
+//}
 
 int32_t Remap(int32_t color)
 {
