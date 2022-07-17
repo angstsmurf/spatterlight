@@ -1237,6 +1237,13 @@ void Look(void) {
 
     if (LastChar != '\n')
         OutChar('\n');
+
+    if ((Options & FORCE_INVENTORY) && !(MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91))) {
+        OutChar('\n');
+        Inventory();
+        OutChar('\n');
+    }
+
     OutChar('\n');
 
     BottomWindow();

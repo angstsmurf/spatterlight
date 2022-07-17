@@ -281,17 +281,17 @@ void UpdateSettings(void) {
     else
         Options |= NO_DELAYS;
 
-//    switch(gli_sa_inventory) {
-//        case 0:
-//            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-//            break;
-//        case 1:
-//            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-//            break;
-//        case 2:
-//            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-//            break;
-//    }
+    switch(gli_sa_inventory) {
+        case 0:
+            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+            break;
+        case 1:
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+        case 2:
+            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+            break;
+    }
 
     switch(gli_sa_palette) {
         case 0:
