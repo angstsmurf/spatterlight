@@ -227,17 +227,15 @@ static int IsDelimiterWord(char *word) {
 static int FindNextCommandDelimiter(void) {
     if (WordIndex >= WordsInInput - 1 || WordsInInput < 2)
         return 0;
-    int lastfound = 0;
     while (++WordIndex < WordsInInput) {
         if (IsDelimiterWord(InputWordStrings[WordIndex])) {
-            lastfound = WordIndex;
-            while (++WordIndex < WordsInInput && IsDelimiterWord(InputWordStrings[WordIndex]))
-                lastfound = WordIndex;
+            WordIndex++;
+            while (WordIndex < WordsInInput && IsDelimiterWord(InputWordStrings[WordIndex]))
+                WordIndex++;
             if (WordIndex >= WordsInInput)
                 return 0;
-            fprintf(stderr, "Found delimiter word %s at pos %d\n", InputWordStrings[WordIndex - 1], WordIndex - 1);
-            fprintf(stderr, "Next word: %s\n", InputWordStrings[WordIndex]);
-            return 1;
+            else
+                return 1;
         }
     }
 
