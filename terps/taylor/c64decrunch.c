@@ -180,7 +180,6 @@ int DetectC64(uint8_t **sf, size_t *extent)
             } else {
                 Fatal("Unknown type");
             }
-            writeToFile("/Users/administrator/Desktop/C64TaylorRaw", *sf, *extent);
             return DecrunchC64(sf, extent, c64_registry[i]);
         }
     }
@@ -246,21 +245,6 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
     if (!Game || Game->Title == NULL) {
         Fatal("Game not found!");
     }
-
-//    size_t offset;
-
-//    DictionaryType dictype = GetId(&offset);
-//    if (dictype != Game->dictionary) {
-//        Fatal("Wrong game?");
-//    }
-
-//    if (!TryLoading(*Game, offset, 0)) {
-//        Fatal("Game could not be read!");
-//    }
-
-//    if (save_island_appendix_1 != NULL) {
-//        appendSIfiles(sf, extent);
-//    }
 
     if (record.copysource != 0) {
         result = CopyData(record.copydest, record.copysource, sf, *extent,

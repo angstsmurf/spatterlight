@@ -27,8 +27,6 @@ int WordsInInput = 0;
 // The index in InputWordStrings of the next command
 int WordIndex = 0;
 
-int LastVerb = 0, LastNoun = 0;
-
 void FreeInputWords(void) {
     WordIndex = 0;
     if (InputWordStrings != NULL) {
@@ -105,6 +103,7 @@ void LineInput(void)
     FreeInputWords();
     OutFlush();
     FirstAfterInput = 0;
+    LastVerb = 0;
     do {
         LastChar = '\n';
         if (Version == QUESTPROBE3_TYPE) {
@@ -254,6 +253,9 @@ void Parser(void)
         LineInput();
         if (WordsInInput == 0 || InputWordStrings == NULL)
             return;
+    } else {
+        FirstAfterInput = 0;
+        OutChar(' ');
     }
 
     int wn = 0;

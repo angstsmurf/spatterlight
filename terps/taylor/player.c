@@ -75,7 +75,8 @@ static int Upper = 0;
 int PendSpace = 0;
 
 static int LastNoun = 0;
-static int LastVerb = 0;
+int LastVerb = 0;
+static int GoVerb = 0;
 
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
@@ -811,6 +812,8 @@ static void Put(unsigned char obj, unsigned char loc)
 
 static int Present(unsigned char obj)
 {
+    if (obj >= NumObjects())
+        return 0;
     unsigned char v = ObjectLoc[obj];
     if(v == MyLoc|| v == Worn() || v == Carried() || (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc))
         return 1;
@@ -1315,7 +1318,7 @@ static void Means(unsigned char vb, unsigned char no) {
     Word[1] = no;
 }
 
-static void SwitchInvFlags(unsigned char a, unsigned char b) {
+static void Q3SwitchInvFlags(unsigned char a, unsigned char b) {
     if (Flag[2] == a) {
         Flag[2] = b;
         Flag[3] = a;
@@ -1323,7 +1326,7 @@ static void SwitchInvFlags(unsigned char a, unsigned char b) {
     }
 }
 
-static void UpdateQ3Flags(void) {
+static void Q3UpdateFlags(void) {
     if (ObjectLoc[7] == 253)
         ObjectLoc[7] = 254;
     if (IsThing) {
@@ -1334,7 +1337,7 @@ static void UpdateQ3Flags(void) {
         } else {
             OtherGuyLoc = MyLoc;
         }
-        SwitchInvFlags(253, 254);
+        Q3SwitchInvFlags(253, 254);
     } else { /* I'm the HUMAN TORCH */
         if (ObjectLoc[1] == 0xfc) {
             /* If the "holding THING by the hands" object is destroyed (i.e. not held) */
@@ -1343,12 +1346,15 @@ static void UpdateQ3Flags(void) {
         } else {
             OtherGuyLoc = MyLoc;
         }
-        SwitchInvFlags(254, 253);
+        Q3SwitchInvFlags(254, 253);
     }
 
     /* Reset flag 39 when Xandu is knocked out */
     if (ObjectLoc[33] != 22)
         Flag[39] = 0;
+    /* And set it when he is present */
+    else if (Present(33))
+        Flag[39] = 1;
 
     if (DrawImages)
         return;
@@ -1368,7 +1374,7 @@ static void UpdateQ3Flags(void) {
 }
 
 /* Questprobe 3 numbers the flags differently, so we have to offset them by 4 */
-static void AdjustQuestprobeConditions(unsigned char op, unsigned char *arg1)
+static void Q3AdjustConditions(unsigned char op, unsigned char *arg1)
 {
     switch (op) {
         case ZERO:
@@ -1384,7 +1390,7 @@ static void AdjustQuestprobeConditions(unsigned char op, unsigned char *arg1)
     }
 }
 
-static void AdjustQuestprobeActions(unsigned char op, unsigned char *arg1, unsigned char *arg2)
+static void Q3AdjustActions(unsigned char op, unsigned char *arg1, unsigned char *arg2)
 {
     switch (op) {
         case SET:
@@ -1435,7 +1441,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #ifdef DEBUG
         if (Version == QUESTPROBE3_TYPE) {
             unsigned char debugarg1 = arg1;
-            AdjustQuestprobeConditions(Q3Condition[op], &debugarg1);
+            Q3AdjustConditions(Q3Condition[op], &debugarg1);
             fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], debugarg1);
         } else {
             fprintf(stderr, "%s %d ", Condition[op], arg1);
@@ -1451,7 +1457,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 
         if (Version == QUESTPROBE3_TYPE) {
             op = Q3Condition[op];
-            AdjustQuestprobeConditions(op, &arg1);
+            Q3AdjustConditions(op, &arg1);
         }
 
         switch(op) {
@@ -1604,7 +1610,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #ifdef DEBUG
             unsigned char debugarg1 = arg1;
             if (Version == QUESTPROBE3_TYPE)
-                AdjustQuestprobeActions(Q3Action[op], &debugarg1, NULL);
+                Q3AdjustActions(Q3Action[op], &debugarg1, NULL);
             fprintf(stderr, "%d ", debugarg1);
 #endif
         }
@@ -1613,14 +1619,14 @@ static void ExecuteLineCode(unsigned char *p, int *done)
 #ifdef DEBUG
             unsigned char debugarg2 = arg2;
             if (Version == QUESTPROBE3_TYPE)
-                AdjustQuestprobeActions(Q3Action[op], NULL, &debugarg2);
+                Q3AdjustActions(Q3Action[op], NULL, &debugarg2);
             fprintf(stderr, "%d ", debugarg2);
 #endif
         }
 
         if (Version == QUESTPROBE3_TYPE) {
             op = Q3Action[op];
-            AdjustQuestprobeActions(op, &arg1, &arg2);
+            Q3AdjustActions(op, &arg1, &arg2);
         }
 
         int WasDark = Flag[DarkFlag()];
@@ -1697,6 +1703,9 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Flag[arg1] = 0;
                 break;
             case MESSAGE:
+                /* Prevent repeated "Blob returns to his post" messages */
+                if (CurrentGame == QUESTPROBE3_64 && arg1 == 44)
+                    Flag[59] = 0;
                 Message(arg1);
                 if (CurrentGame == BLIZZARD_PASS && arg1 != 160)
                     OutChar('\n');
@@ -1909,7 +1918,7 @@ static void RunStatusTable(void)
     ActionsExecuted = 0;
 
     if (Version == QUESTPROBE3_TYPE) {
-        UpdateQ3Flags();
+        Q3UpdateFlags();
     }
 
     while(*p != 0x7F) {
@@ -1944,17 +1953,16 @@ static void RunCommandTable(void)
             PrintWord(p[1]);
 #endif
             /* Work around some Questprobe bugs */
-            /* TAKE or PUSH */
-            if (Version == QUESTPROBE3_TYPE && (Word[0] == 9 || Word[0] == 20)) {
+            if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
-                if (MyLoc == 22 && ObjectLoc[33] == 22) {
+                if (Present(33)) {
                     Flag[39] = 1;
                     Message(24);
                     Goto(26);
                     ActionsExecuted = 1;
                     return;
                 /* In circus tent, eyes open, Circus of Crime present */
-                } else if (MyLoc == 24 && Flag[56] == 0 && ObjectLoc[9] == 24) {
+                } else if (Present(9) && ((IsThing && Flag[56] == 0) || (!IsThing && Flag[57] == 0))) {
                     Message(16);
                     Goto(27);
                     ActionsExecuted = 1;
@@ -2012,8 +2020,8 @@ static void RunOneInput(void)
         }
         return;
     }
-    if (IsDir(Word[0])) {
-        if(AutoExit(Word[0])) {
+    if (IsDir(Word[0]) || (Word[0] == GoVerb && IsDir(Word[1]))) {
+        if(AutoExit(Word[0]) || AutoExit(Word[1])) {
             StopTime = 0;
             RunStatusTable();
             if(Redraw)
@@ -2032,6 +2040,7 @@ static void RunOneInput(void)
     RunCommandTable();
 
     if(ActionsExecuted == 0) {
+        int OriginalVerb = Word[0];
         if (TryExtraCommand() == 0) {
             if (LastVerb) {
                 Word[4] = Word[3];
@@ -2042,7 +2051,7 @@ static void RunOneInput(void)
                 RunCommandTable();
             }
             if (ActionsExecuted == 0) {
-                if(IsDir(Word[0]))
+                if(IsDir(OriginalVerb) || (Word[0] == GoVerb && IsDir(Word[1])))
                     SysMessage(YOU_CANT_GO_THAT_WAY);
                 else
                     SysMessage(THATS_BEYOND_MY_POWER);
@@ -2420,6 +2429,7 @@ void glk_main(void)
 
     if (DetectC64(&FileImage, &FileImageLen)) {
         EndOfData = FileImage + FileImageLen;
+//        writeToFile("/Users/administrator/Desktop/TaylorC64Decompressed", FileImage, FileImageLen);
     }
 
 #ifdef DEBUG
@@ -2456,6 +2466,8 @@ void glk_main(void)
     if (BaseGame == TEMPLE_OF_TERROR) {
         LookForSecondTOTGame();
     }
+
+    GoVerb = ParseWord("GO");
 
     SagaSetup();
 

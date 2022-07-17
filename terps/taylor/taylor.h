@@ -289,6 +289,7 @@ extern char LastChar;
 extern uint8_t Word[];
 extern int PendSpace;
 extern int FirstAfterInput;
+extern int LastVerb;
 
 void OutChar(char c);
 void OutString(char *p);

@@ -600,6 +600,20 @@ static void RepeatOpcode(int *number, uint8_t *instructions, uint8_t repeatcount
     *number = i;
 }
 
+static size_t FindCharacterStart(void)
+{
+    /* Look for the character data */
+    size_t pos = FindCode("\x00\x00\x00\x00\x00\x00\x00\x00\x80\x80\x80\x80\x80\x80\x80\x80\x40\x40\x40\x40\x40\x40\x40\x40", 0, 24);
+    if(pos == -1) {
+        fprintf(stderr, "Cannot find character data.\n");
+        return 0;
+    }
+#ifdef DEBUG
+    fprintf(stderr, "Found characters at pos %zx\n", pos);
+#endif
+    return pos;
+}
+
 void SagaSetup(void)
 {
     if (images != NULL)
@@ -625,7 +639,9 @@ void SagaSetup(void)
 
     DefinePalette();
 
-    size_t CHAR_START = Game->start_of_characters + FileBaselineOffset;
+    size_t CHAR_START = FindCharacterStart();
+    if (!CHAR_START)
+        CHAR_START = Game->start_of_characters + FileBaselineOffset;
 #ifdef DRAWDEBUG
     fprintf(stderr, "CHAR_START: %zx (%zu)\n", Game->start_of_characters + FileBaselineOffset, Game->start_of_characters + FileBaselineOffset);
 #endif
@@ -675,7 +691,7 @@ void SagaSetup(void)
             img->xoff = *pos++;
             img->yoff = *pos++;
             img->imagedata = pos;
-            if (picture_number == 55) {
+            if (picture_number == 17) {
                 img->imagedata = MemAlloc(607);
                 memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 607));
                 int patch = FindImagePatch(QUESTPROBE3, 55, 0);
@@ -685,7 +701,8 @@ void SagaSetup(void)
                 memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
                 int patch = FindImagePatch(QUESTPROBE3, 56, 0);
                 Patch(img->imagedata, patch);
-            }
+            } else if (picture_number == 55 || picture_number == 18 || picture_number == 19)
+                img->imagedata = images[17].imagedata;
             img++;
             continue;
         }

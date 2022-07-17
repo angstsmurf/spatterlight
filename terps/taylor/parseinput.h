@@ -14,6 +14,7 @@ int GetInput(void);
 void StopProcessingCommand(void);
 void FreeInputWords(void);
 void Parser(void);
+int ParseWord(char *p);
 
 extern char **InputWordStrings;
 extern int WordPositions[5];
