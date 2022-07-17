@@ -58,7 +58,7 @@ void AdventureSheet(void)
     Output("      CREW STRENGTH:");
     OutputNumber(Counters[7]);
     Output("\n\n * * * * * * * * * * * * * * * * * * * * *\n\n");
-    ListInventory();
+    ListInventory(0);
     Output("\n");
     glk_set_style(style_Normal);
 }

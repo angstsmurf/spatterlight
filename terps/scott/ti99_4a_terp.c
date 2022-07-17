@@ -347,7 +347,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
             break;
 
         case 233: /* list contents of inventory */
-            ListInventory();
+            ListInventory(0);
             StopTime = 2;
             break;
 

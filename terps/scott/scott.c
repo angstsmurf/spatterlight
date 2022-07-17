@@ -1022,38 +1022,6 @@ static int ItemEndsWithPeriod(int item)
 	return 0;
 }
 
-static void ListInventoryInUpperWindow(void)
-{
-    int i = 0;
-	int lastitem = -1;
-    WriteToRoomDescriptionStream("\n%s", sys[INVENTORY]);
-    while (i <= GameHeader.NumItems) {
-        if (Items[i].Location == CARRIED) {
-            if (Items[i].Text[0] == 0) {
-                fprintf(stderr, "Invisible item in inventory: %d\n", i);
-                i++;
-                continue;
-            }
-            if (lastitem > -1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
-                WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
-            }
-			lastitem = i;
-            WriteToRoomDescriptionStream("%s", Items[i].Text);
-            if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
-                WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
-            }
-        }
-        i++;
-    }
-    if (lastitem == -1) {
-        WriteToRoomDescriptionStream("%s\n", sys[NOTHING]);
-    } else {
-        if (Options & TI994A_STYLE && !ItemEndsWithPeriod(lastitem))
-            WriteToRoomDescriptionStream(".");
-        WriteToRoomDescriptionStream("\n");
-    }
-}
-
 void Look(void)
 {
     DrawRoomImage();
@@ -1123,7 +1091,7 @@ void Look(void)
     }
 
     if ((Options & TI994A_STYLE) && f) {
-        WriteToRoomDescriptionStream("%s", ".");
+        WriteToRoomDescriptionStream(".");
     }
 
     if (Options & SPECTRUM_STYLE) {
@@ -1133,7 +1101,7 @@ void Look(void)
     }
 
     if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF))
-        ListInventoryInUpperWindow();
+        ListInventory(1);
 
     FlushRoomDescription(buf);
 }
@@ -1434,11 +1402,23 @@ void HitEnter(void)
     return;
 }
 
-void ListInventory(void)
+static void WriteToLowerWindow(const char *fmt, ...) {
+    Display(Bottom, "%s", fmt);
+}
+
+void ListInventory(int upper)
 {
+    void (*print_function)(const char *fmt, ...);
+    if (upper) {
+        WriteToRoomDescriptionStream("\n");
+        print_function = WriteToRoomDescriptionStream;
+    } else {
+        print_function = WriteToLowerWindow;
+    }
+
     int i = 0;
     int lastitem = -1;
-    Output(sys[INVENTORY]);
+    print_function("%s", sys[INVENTORY]);
     while (i <= GameHeader.NumItems) {
         if (Items[i].Location == CARRIED) {
             if (Items[i].Text[0] == 0) {
@@ -1447,24 +1427,26 @@ void ListInventory(void)
                 continue;
             }
             if (lastitem > -1 && (Options & (TRS80_STYLE | SPECTRUM_STYLE)) == 0) {
-                Output(sys[ITEM_DELIMITER]);
+                print_function("%s", sys[ITEM_DELIMITER]);
             }
 			lastitem = i;
-            Output(Items[i].Text);
+            print_function("%s", Items[i].Text);
             if (Options & (TRS80_STYLE | SPECTRUM_STYLE)) {
-                Output(sys[ITEM_DELIMITER]);
+                print_function("%s", sys[ITEM_DELIMITER]);
             }
         }
         i++;
     }
     if (lastitem == -1)
-        Output(sys[NOTHING]);
+        print_function("%s", sys[NOTHING]);
 	else if (Options & TI994A_STYLE) {
 		if (!ItemEndsWithPeriod(lastitem))
-			Output(".");
-		Output(" ");
+            print_function(".");
+        print_function(" ");
 	}
-    if (Transcript) {
+    if (upper) {
+        WriteToRoomDescriptionStream("\n");
+    } else if (Transcript) {
         glk_put_char_stream_uni(Transcript, 10);
     }
 }
@@ -1887,7 +1869,7 @@ static ActionResultType PerformLine(int ct)
 				if (Game->type == SEAS_OF_BLOOD_VARIANT)
 					AdventureSheet();
 				else
-					ListInventory();
+					ListInventory(0);
 				StopTime = 2;
                 break;
             case 67:
