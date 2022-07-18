@@ -39,6 +39,7 @@ static const struct rec taylor_registry[] = {
     { 0xa000, 0x63ca, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror tzx side B
     { 0xf716, 0x2b54, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror C64
     { 0x10baa, 0x3b37, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror C64 alt
+    { 0x2ab00, 0x5720, "9dc7259c-de3d-47fa-b524-1c8d30262716" }, // Temple of Terror C64 D64
     { 0xb4bb, 0x2f47, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 (Needs de-shuffling)
     { 0xa4f1, 0x8c14, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth Z80 alt
     { 0xbd33, 0x0005, "94a47aef-a838-4c9e-bd43-5f0adcfefc52" }, // Kayleth TAP
@@ -116,7 +117,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

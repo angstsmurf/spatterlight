@@ -47,6 +47,7 @@ static const struct c64rec c64_registry[] = {
     { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
     { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", NULL, 2, 0, 0, 0, 0 }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
     { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
     { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
 
@@ -196,7 +197,7 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     uint8_t *uncompressed = MemAlloc(0xffff);
 
-    char *switches[3];
+    char *switches[4];
     char string[100];
     int numswitches = 0;
 
@@ -209,6 +210,8 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
     }
 
     size_t result = 0;
+
+    writeToFile("/Users/administrator/Desktop/TaylorC64Raw", *sf, *extent);
 
     for (int i = 1; i <= record.decompress_iterations; i++) {
         /* We only send switches on the iteration specified by parameter */
@@ -253,6 +256,8 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
             *extent = result;
         }
     }
+
+    writeToFile("/Users/administrator/Desktop/TaylorC64Decompressed", *sf, *extent);
 
     return CurrentGame;
 }
