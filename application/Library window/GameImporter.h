@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options;
 
+- (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
+
 @property (weak) LibController *libController;
 
 @property NSMutableSet *downloadedMetadata;

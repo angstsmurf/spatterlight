@@ -9,11 +9,11 @@ void Scn_XTC(unpstr *Unp)
     mem=Unp->mem;
     if( Unp->DepAdr==0 )
     {
-        if( (*(unsigned short int*)(mem+0x80d)==0xE678) &&
-            (*(unsigned int*)(mem+0x811)==0x1BCE0818) &&
-            (*(unsigned int*)(mem+0x819)==0xC8000099) &&
-            (*(unsigned int*)(mem+0x82c)==0x4CF7D0CA) &&
-            mem[0x85c]==0x99)
+        if ( (*(unsigned short int*)(mem+0x80d)==0xE678) &&
+             (*(unsigned int*)(mem+0x811)==0x1BCE0818) &&
+             (*(unsigned int*)(mem+0x819)==0xC8000099) &&
+             (*(unsigned int*)(mem+0x82c)==0x4CF7D0CA) &&
+             mem[0x85c]==0x99)
         {
             Unp->RetAdr=mem[0x872]|mem[0x873]<<8;
             Unp->DepAdr=0x100;
@@ -31,7 +31,7 @@ void Scn_XTC(unpstr *Unp)
         for(p=0x801;p<0x80c;p+=0x0a)
         {
             if( (*(unsigned short int*)(mem+p+0x02)==0xE678) &&
-                (*(unsigned int*)(mem+p+0x07)==(0xce08|((p+0x10)<<16))) &&
+                (*(unsigned int*)(mem+p+0x07)==(unsigned int)(0xce08|((p+0x10)<<16))) &&
                 (*(unsigned int*)(mem+p+0x0e)==0xC8000099) &&
                 (*(unsigned int*)(mem+p+0x23)==0x4CF7D0CA) )
             {

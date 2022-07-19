@@ -253,7 +253,7 @@ static void SOBPrint(winid_t w, const char *fmt, ...)
     glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
-const glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
+static glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
 {
     int ideal_width = 8;
     int ideal_height = 8;
@@ -264,7 +264,7 @@ const glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
     glui32 graphwidth, graphheight;
     glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
     multiplier = graphheight / ideal_height;
-    if (ideal_width * multiplier > graphwidth)
+    if ((glui32)(ideal_width * multiplier) > graphwidth)
         multiplier = graphwidth / ideal_width;
 
     if (multiplier < 2)
@@ -287,10 +287,10 @@ static void draw_border(winid_t win)
     width -= 2;
     glk_window_move_cursor(win, 0, 0);
     glk_put_char_uni(0x250F); // Top left corner
-    for (int i = 1; i < width; i++)
+    for (glui32 i = 1; i < width; i++)
         glk_put_char_uni(0x2501); // Top
     glk_put_char_uni(0x2513); // Top right corner
-    for (int i = 1; i < height; i++) {
+    for (glui32 i = 1; i < height; i++) {
         glk_window_move_cursor(win, 0, i);
         glk_put_char_uni(0x2503);
         glk_window_move_cursor(win, width, i);
@@ -298,7 +298,7 @@ static void draw_border(winid_t win)
     }
     glk_window_move_cursor(win, 0, height);
     glk_put_char_uni(0x2517);
-    for (int i = 1; i < width; i++)
+    for (glui32 i = 1; i < width; i++)
         glk_put_char_uni(0x2501);
     glk_put_char_uni(0x251B);
 }
@@ -559,7 +559,7 @@ void clear_stamina(void)
         glk_stream_set_current(glk_window_get_stream(win));
 
         glk_window_move_cursor(win, 11, 5);
-        for (int i = 0; i < width - 13; i++)
+        for (int i = 0; i < (int)width - 13; i++)
             glk_put_string(" ");
         draw_border(win);
         win = BattleRight;

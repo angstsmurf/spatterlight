@@ -4,7 +4,7 @@ Transparent
 An interactive exploration by Hanon Ondricek
 Release 7 / Serial number 150401 / Inform 7 build 6L38 (I6/v6.33 lib 6/12N) 
 Identification number: //73E32658-3590-41F4-9234-9BC3EC9E405C//
-Interpreter version 0.5.4 / VM 3.1.2 / Library serial number 080126
+Interpreter version 0.6.0 / VM 3.1.3 / Library serial number 080126
 Standard Rules version 3/120430 by Graham Nelson
 Music by Daniel Stelzer (based on code by Massimo Stella and Wade Clarke (Glulx sound), Erik Temple (Glulx timing), and Eliuk Blau (DAMUSIX for I6))
 Easy Doors version 1/140902 by Hanon Ondricek

@@ -1294,6 +1294,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index - 1] toggle:NO];
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        [InfoController closeStrayInfoWindows];
+    });
 }
 
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller {
@@ -1303,6 +1306,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index + 1] toggle:NO];
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        [InfoController closeStrayInfoWindows];
+    });
 }
 
 
@@ -2171,6 +2177,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [Preferences changeCurrentGame:game];
         [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
     }];
+
+    if ([Blorb isBlorbURL:url]) {
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
+        [importer updateImageFromBlorb:blorb inGame:game];
+    }
 
     return gctl.window;
 }

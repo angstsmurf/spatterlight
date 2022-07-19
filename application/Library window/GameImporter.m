@@ -27,6 +27,8 @@
 
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
+#import "ImageCompareViewController.h"
+#import "ComparisonOperation.h"
 
 extern NSArray *gGameFileTypes;
 
@@ -323,6 +325,7 @@ extern NSArray *gGameFileTypes;
          !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
            [@(format) isEqualToString:@"level9"] ||
            [@(format) isEqualToString:@"advsys"] ||
+           [@(format) isEqualToString:@"sagaplus"] ||
            [@(format) isEqualToString:@"scott"] )) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
         (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"])) {
@@ -388,13 +391,7 @@ extern NSArray *gGameFileTypes;
                     game.detectedFormat = @(format);
                 }
                 if (blorb) {
-                    NSData *newImageData = blorb.coverImageData;
-                    if (newImageData) {
-                        NSData *oldImageData = (NSData *)game.metadata.cover.data;
-                        if (!oldImageData || ![[OSImageHashing sharedInstance] compareImageData:newImageData to:oldImageData]) {
-                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
-                        }
-                    }
+                    [self updateImageFromBlorb:blorb inGame:game];
                 }
                 game.found = YES;
                 if (!hide)
@@ -467,6 +464,28 @@ extern NSArray *gGameFileTypes;
     }];
 
     return game;
+}
+
+- (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
+    if (blorb) {
+        NSData *newImageData = blorb.coverImageData;
+        if (newImageData && ![newImageData isPlaceHolderImage] && ![_libController.lastImageComparisonData isEqual:newImageData]) {
+            _libController.lastImageComparisonData = newImageData;
+            NSData *oldImageData = (NSData *)game.metadata.cover.data;
+            kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
+
+            if (comparisonResult != kImageComparisonResultA && comparisonResult == kImageComparisonResultWantsUserInput) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                    if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
+                        [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                    }
+                });
+            } else {
+                [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+            }
+        }
+    }
 }
 
 - (void)addZCodeIDfromFile:(NSString *)path blorb:(nullable Blorb *)blorb toGame:(Game *)game {

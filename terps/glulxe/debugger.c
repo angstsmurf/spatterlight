@@ -318,7 +318,7 @@ static breakpoint *create_breakpoint(glui32 addr)
     return bp;
 }
 
-static void add_object_to_table(void *obj, void *rock, xmlChar *name)
+static void add_object_to_table(void *obj, void *rock, const xmlChar *name)
 {
     debuginfofile *context = rock;
     infoobject *object = obj;
@@ -354,7 +354,7 @@ static int find_object_in_table(const void *keyptr, const void *obj)
     return 0;
 }
 
-static void add_array_to_table(void *obj, void *rock, xmlChar *name)
+static void add_array_to_table(void *obj, void *rock, const xmlChar *name)
 {
     debuginfofile *context = rock;
     infoarray *array = obj;
@@ -390,7 +390,7 @@ static int find_array_in_table(const void *keyptr, const void *obj)
     return 0;
 }
 
-static void add_routine_to_table(void *obj, void *rock, xmlChar *name)
+static void add_routine_to_table(void *obj, void *rock, const xmlChar *name)
 {
     debuginfofile *context = rock;
     inforoutine *routine = obj;

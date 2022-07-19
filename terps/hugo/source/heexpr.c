@@ -573,8 +573,10 @@ int GetVal()
 				val = words;
 				break;
 			}
-			
-			val = wd[GetValue()];
+
+            int getvalueresult = GetValue();
+            if (getvalueresult <= MAXWORDS && getvalueresult >= 0)
+                val = wd[getvalueresult];
 			if (MEM(codeptr)==CLOSE_SQUARE_T) codeptr++;
 			break;
 		}

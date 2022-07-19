@@ -18,8 +18,8 @@
 #undef ftell
 #undef fseek
 
-#define LOG(...)
-//fprintf(stderr, __VA_ARGS__)
+#define LOG(fmt, ...) \
+//do { fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define ABS(a) ((a) < 0 ? -(a) : (a))
 #define MIN(a,b) (a < b ? a : b)
@@ -2672,7 +2672,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         win_loadimage(fake_image_id, infile->filename, file_offset, reslength);
         wins[curwin].offset = file_offset;
         wins[curwin].length = reslength;
-        wins[curwin].filename = malloc(strlen(infile->filename));
+        wins[curwin].filename = malloc(strlen(infile->filename) + 1);
         strcpy(wins[curwin].filename , infile->filename);
 
         win_sizeimage(&width, &height);

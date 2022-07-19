@@ -62,10 +62,15 @@ typedef int16_t glsi16;
    see the Makefile. */
 /* #define VM_DEBUGGER (1) */
 
-/* Comment this definition to turn off floating-point support. You
+/* Comment these definitions to turn off floating-point support. You
    might need to do this if you are building on a very limited platform
-   with no math library. */
+   with no math library.
+   You can compile this interpreter with FLOAT_SUPPORT and omit
+   DOUBLE_SUPPORT, but not the other way around. DOUBLE_SUPPORT requires
+   FLOAT_SUPPORT.
+ */
 #define FLOAT_SUPPORT (1)
+#define DOUBLE_SUPPORT (1)
 
 /* Comment this definition to not cache the original state of RAM in
    (real) memory. This saves some memory, but slows down save/restore/undo
@@ -222,10 +227,10 @@ extern void verify_array_addresses(glui32 addr, glui32 count, glui32 size);
 extern void execute_loop(void);
 
 /* operand.c */
-extern operandlist_t *fast_operandlist[0x80];
+extern const operandlist_t *fast_operandlist[0x80];
 extern void init_operands(void);
-extern operandlist_t *lookup_operandlist(glui32 opcode);
-extern void parse_operands(oparg_t *opargs, operandlist_t *oplist);
+extern const operandlist_t *lookup_operandlist(glui32 opcode);
+extern void parse_operands(oparg_t *opargs, const operandlist_t *oplist);
 extern void store_operand(glui32 desttype, glui32 destaddr, glui32 storeval);
 extern void store_operand_s(glui32 desttype, glui32 destaddr, glui32 storeval);
 extern void store_operand_b(glui32 desttype, glui32 destaddr, glui32 storeval);
@@ -267,6 +272,8 @@ extern glui32 perform_save(strid_t str);
 extern glui32 perform_restore(strid_t str, int fromshell);
 extern glui32 perform_saveundo(void);
 extern glui32 perform_restoreundo(void);
+extern glui32 has_undo(void);
+extern void discard_undo(void);
 extern glui32 perform_verify(void);
 
 /* search.c */
@@ -385,6 +392,18 @@ extern gfloat32 decode_float(glui32 val);
 
 extern gfloat32 glulx_powf(gfloat32 val1, gfloat32 val2);
 
+#ifdef DOUBLE_SUPPORT
+
+/* You may have to edit the definition of gfloat64 to make sure it's really
+   a 64-bit floating-point type. */
+typedef double gfloat64;
+
+extern void encode_double(gfloat64 val, glui32 *reshi, glui32 *reslo);
+extern gfloat64 decode_double(glui32 valhi, glui32 vallo);
+
+#endif /* DOUBLE_SUPPORT */
+
 #endif /* FLOAT_SUPPORT */
+
 
 #endif /* _GLULXE_H */

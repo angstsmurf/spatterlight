@@ -114,7 +114,7 @@ int AnimationFlag = 0;
 
 extern struct SavedState *InitialState;
 
-/* just_started is only used for the error message "Can't undo on first move" */
+/* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
 static int should_restart = 0;
 int StopTime = 0;

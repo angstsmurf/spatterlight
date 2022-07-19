@@ -1,5 +1,13 @@
 # Change log
 
+## Release 0.9.6
+- New experimental engine: Plus. This is an interpreter for the Saga Plus game format of the later Scott Adams games. Currently supports the MS-DOS versions of *Questprobe: Featuring Spider-Man*, *The Sorcerer of Claymorgue Castle*, *The Adventures of Buckaroo Banzai*, and *Questprobe: Featuring Human Torch and the Thing*.
+- Updates Glulxe to 0.6.0
+- Changed cover images in Blorb format games will now be detected and added to the Spatterlight library, unless Don't replace images is set in the preferences
+- The QuickLook plugin will show any cover images inside Blorb files rather than those in the Spatterlight library
+- Fixes out-of-bounds reads in ScottFree, TaylorMade and Hugo
+- Quickly browsing through info windows using the arrow keys could leave stray info windows behind
+
 ## Release 0.9.5
 - New experimental engine: TaylorMade. This is an updated version of Alan Cox's [command-line interpreter](https://github.com/EtchedPixels/TaylorMade). It supports the ZX Spectrum versions of the six non-Scott Adams engine Adventure International UK games: *Questprobe: Featuring Human Torch and the Thing*, *Rebel Planet*, *Blizzard Pass*, *Temple of Terror*, *Masters of the Universe: The Super Adventure*, and *Kayleth*. All games are completable with working graphics, and a couple of them have animations and beep a little
 - Updates Bocfel to 2.0

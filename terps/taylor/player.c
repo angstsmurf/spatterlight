@@ -924,7 +924,7 @@ static void NewGame(void)
     memset(Flag, 0, 128);
     memcpy(Flag, FileImage + FlagBase, 7);
     if (CurrentGame == QUESTPROBE3) {
-        for (int i = 0; i < 128; i++) {
+        for (int i = 0; i < 124; i++) {
             Flag[4 + i] = 0;
         }
         Flag[42] = 0;
@@ -2451,7 +2451,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     }
 
     size_t namelen = strlen(argv[1]);
-    Filename = MemAlloc((int)namelen);
+    Filename = MemAlloc((int)namelen + 1);
     strncpy(Filename, argv[1], namelen);
     Filename[namelen] = '\0';
 
@@ -2550,7 +2550,7 @@ void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset
 void LookForSecondTOTGame(void)
 {
     size_t namelen = strlen(Filename);
-    char *secondfile = MemAlloc((int)namelen);
+    char *secondfile = MemAlloc((int)namelen + 1);
     strncpy(secondfile, Filename, namelen);
     secondfile[namelen] = '\0';
 

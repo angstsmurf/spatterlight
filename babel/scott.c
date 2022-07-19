@@ -24,7 +24,7 @@
 struct scottrec {
     int32 length;
     uint16_t chk;
-    char *ifid;
+    const char *ifid;
 };
 
 static const struct scottrec scott_registry[] = {
@@ -55,6 +55,7 @@ static const struct scottrec scott_registry[] = {
    { 0x12281, 0xeac2, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 (Channel 8).tzx
     { 0xb7f3, 0xa2d8, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 TAP
     { 0x5b46, 0x92db, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64
+   { 0x2ab00, 0xe71d, "2f527feb-1c68-4e83-8ec7-062f5f3de3a3" }, // Arrow of Death part 1 C64 alt
     { 0x949b, 0xb7e2, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 z80
     { 0xb7f3, 0x721e, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 TAP
     { 0xb847, 0x8797, "e1161865-90af-44c0-a706-acf069d5327a" }, // Arrow of Death part 2 tzx
@@ -116,6 +117,7 @@ static const struct scottrec scott_registry[] = {
     { 0xbc1e, 0xb4b6, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk (Americana).tzx
     { 0xafba, 0xb69b, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk Z80
    { 0x2ab00, 0xcdd8, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (D64)
+    { 0x8534, 0x623a, "EEC3C968F850EDF00BC8A80BB3D69FF0" }, // Questprobe 1 - The Hulk C64 (T64)
 
     { 0xbaef, 0x52cc, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland.tzx
     { 0xbb84, 0x6d93, "3B1E4CB60F0063B49245B8D7C32DEE1E" }, // Adventureland - Alternate.tzx
@@ -143,6 +145,7 @@ static const struct scottrec scott_registry[] = {
     { 0xc0dd, 0x3701, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 2
     { 0xbc5f, 0x492c, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3
    { 0x2ab00, 0xfd67, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (D64)
+   { 0x2ab00, 0x7ece, "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
 
     { 0xb36e, 0xbe5d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman - Alternate.tzx
@@ -179,6 +182,7 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0xabf8, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt
    { 0x2ab00, 0xa265, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 2
    { 0x2ab00, 0x3ccf, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 3
+   { 0x2ab00, 0xa1dc, "D0723E8E-9C03-4DEF-BE4F-A4B594AD930A" }, // Gremlins C64 (D64) version alt 4
 
     { 0xba60, 0x3734, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - The Adventure.tzx
     { 0xba71, 0x2d56, "75EE0452-0A6A-4100-9185-A79316812E0B" }, // Super Gran - Alternate.tzx

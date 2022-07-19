@@ -28,6 +28,7 @@ void setdefaultworkdir(char **string)
                                      @"bocfel": @"Bocfel",
                                      @"quest4": @"Geas",
                                      @"jacl": @"JACL",
+                                     @"sagaplus": @"Plus",
                                      @"scott": @"ScottFree",
                                      @"taylor": @"TaylorMade"
                                      };

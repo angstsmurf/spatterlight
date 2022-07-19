@@ -230,38 +230,27 @@ fprintf(stderr, "%s\n",                                                    \
     if (_inAnimation)
         return;
     NSRect frame;
-    NSSize wellsize;
+    NSSize initialWellSize;
     NSSize imgsize;
-    NSSize cursize;
+    NSSize initialWindowSize;
     NSSize setsize;
     NSSize maxsize;
     double scale;
 
     maxsize = self.window.screen.visibleFrame.size;
-    wellsize = imageView.frame.size;
-    cursize = self.window.frame.size;
+    initialWellSize = imageView.frame.size;
+    initialWindowSize = self.window.frame.size;
 
-    maxsize.width = maxsize.width * 0.75 - (cursize.width - wellsize.width);
-    maxsize.height = maxsize.height * 0.75 - (cursize.height - wellsize.height);
+    maxsize.width = maxsize.width * 0.75 - (initialWindowSize.width - initialWellSize.width);
+    maxsize.height = maxsize.height * 0.75 - (initialWindowSize.height - initialWellSize.height);
 
-    NSArray *imageReps = imageView.image.representations;
+    NSImageRep *rep = imageView.image.representations.lastObject;
+    imgsize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
-    NSInteger width = 0;
-    NSInteger height = 0;
-
-    for (NSImageRep *imageRep in imageReps) {
-        if (imageRep.pixelsWide > width)
-            width = imageRep.pixelsWide;
-        if (imageRep.pixelsHigh > height)
-            height = imageRep.pixelsHigh;
-    }
-
-    imgsize = NSMakeSize(width, height);
-
-    if (height == 0)
+    if (imgsize.height == 0)
         return;
     
-    CGFloat ratio = (CGFloat)width / (CGFloat)height;
+    CGFloat ratio = (CGFloat)imgsize.width / (CGFloat)imgsize.height;
 
     if (imgsize.width > maxsize.width) {
         scale = maxsize.width / imgsize.width;
@@ -284,8 +273,8 @@ fprintf(stderr, "%s\n",                                                    \
         imgsize.width = 150 * ratio;
     }
 
-    setsize.width = cursize.width - wellsize.width + imgsize.width;
-    setsize.height = cursize.height - wellsize.height + imgsize.height;
+    setsize.width = initialWindowSize.width - initialWellSize.width + imgsize.width;
+    setsize.height = initialWindowSize.height - initialWellSize.height + imgsize.height;
 
     frame = self.window.frame;
     frame.origin.y += frame.size.height;
@@ -674,6 +663,13 @@ fprintf(stderr, "%s\n",                                                    \
     fadeOutAnimation.duration = .2;
     fadeOutAnimation.fillMode = kCAFillModeForwards;
     return fadeOutAnimation;
+}
+
++ (void)closeStrayInfoWindows {
+    NSArray *windows = [NSApplication sharedApplication].windows;
+    for (NSWindow *window in windows)
+        if ([window isKindOfClass:[InfoPanel class]] && ![window.delegate isKindOfClass:[InfoController class]])
+            [window close];
 }
 
 - (void)checkForKeyPressesDuringAnimation {

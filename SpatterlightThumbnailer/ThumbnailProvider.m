@@ -101,16 +101,15 @@
             }
         }
 
-        if (fetchedObjects.count) {
-            Game *game = fetchedObjects[0];
-            imgdata = (NSData *)game.metadata.cover.data;
+        if ([Blorb isBlorbURL:url]) {
+            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+            imgdata = [blorb coverImageData];
         }
 
-        if (!imgdata || imgdata.length == 0) {
-            if ([Blorb isBlorbURL:url]) {
-                Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-                imgdata = [blorb coverImageData];
-            }
+        if (fetchedObjects.count) {
+            Game *game = fetchedObjects[0];
+            if (!imgdata)
+                imgdata = (NSData *)game.metadata.cover.data;
         }
 
         if (!imgdata || imgdata.length == 0) {

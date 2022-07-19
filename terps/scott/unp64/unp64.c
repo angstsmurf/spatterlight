@@ -283,10 +283,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destination_buffer,
                       0xA7, 0xA7, 0x79, 0xA6, 0x9C, 0xE3
                   };
     int iter_max = ITERMAX;
-    int copyroms[2][2] = { { 0xa000, 0 }, { 0xe000, 0 } };
     int q, p;
-    /*const char *appl;*/
-    //    FILE *h;
 
     memset(&Unp, 0, sizeof(Unp));
     reinitUnp();
@@ -493,10 +490,8 @@ looprecurse:
                     //                    LOG_INIT_CONSOLE(LOG_DUMP);
                     break;
                 case 'B':
-                    copyroms[0][1] = 1;
                     break;
                 case 'K':
-                    copyroms[1][1] = 1;
                     break;
                 case 'c':
                     Unp.Recurs++;
@@ -579,15 +574,6 @@ looprecurse:
         r->x = 0;
     }
 
-    for (p = 0; p < 2; p++) {
-        if (copyroms[p][1]) {
-            //            if(info->end < copyroms[p][0])
-            //                memcpy(mem+copyroms[p][0],roms[p],0x2000);
-            //            else
-            //                fprintf(stderr, "prg ends at $%04x, can't copy ROM at
-            //                $%04x\n",info->end, copyroms[p][0]);
-        }
-    }
     fprintf(stderr, "pass1, find unpacker: ");
     iter = 0;
     while ((Unp.DepAdr ? r->pc != Unp.DepAdr : r->pc >= Unp.RetAdr)) {

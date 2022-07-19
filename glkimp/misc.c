@@ -81,8 +81,8 @@ void glk_exit()
 
     win_flush();
 
-    gli_close_all_file_streams();
     gli_stop_all_sound_channels();
+    gli_close_all_file_streams();
 
     close(0);
     close(1);

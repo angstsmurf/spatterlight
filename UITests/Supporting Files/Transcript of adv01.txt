@@ -16,7 +16,7 @@ I'm on the shore of a lake
 
 Obvious exits: North, South, West.
 
-I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) - 
+I can also see: Water - *GOLDEN FISH* - Rusty axe (Magic word "BUNYON" on it) -
 Sign says "No swimming allowed here" -
 
 Tell me what to do ? GET AXE
@@ -139,7 +139,7 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
 - Swamp gas - Patches of "OILY" slime - Chiggers -
 
 Tell me what to do ? DROP AXE
@@ -359,9 +359,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Chiggers -
 
 Tell me what to do ? DROP BLADDER
 O.K. 
@@ -400,9 +400,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Empty wine bladder - Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Empty wine bladder - Chiggers -
 
 Tell me what to do ? GO STUMP
 
@@ -426,9 +426,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Empty wine bladder - Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Empty wine bladder - Chiggers -
 
 Tell me what to do ? GET BLADDER
 O.K. 
@@ -451,9 +451,9 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
-then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE
-OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
+then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
+- *DIAMOND RING* - *DIAMOND BRACELET* -
 
 Tell me what to do ? D
 
@@ -609,9 +609,9 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
-then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE
-OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
+then say: SCORE" - *GOLDEN NET* - *JEWELED FRUIT* - *Small statue of a BLUE OX*
+- *DIAMOND RING* - *DIAMOND BRACELET* -
 
 Tell me what to do ? DROP CROWN
 O.K. 
@@ -726,6 +726,7 @@ Obvious exits: Up.
 I can also see: Glowing *FIRESTONE* - Sign: "magic word's AWAY! Look la..."
 (Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
 
+
 Tell me what to do ? POUR WATER
 Sizzle...
 
@@ -736,7 +737,7 @@ the other faces a Throne-room
 Obvious exits: Up.
 
 I can also see: Sign: "magic word's AWAY! Look la..."
-(Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam - 
+(Rest of sign is missing!) - Slightly woozy bear - Lava stream with brick dam -
 *FIRESTONE* (cold now) -
 
 Tell me what to do ? DROP BRICKS
@@ -800,9 +801,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Chiggers -
 
 Tell me what to do ? GO STUMP
 
@@ -810,7 +811,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *GOLD CROWN* - *JEWELED FRUIT* - *Small
 statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* -
 
@@ -828,7 +829,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
@@ -839,9 +840,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Chiggers -
 
 Tell me what to do ? GET MUD
 OK
@@ -852,7 +853,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
@@ -957,7 +958,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
@@ -997,7 +998,7 @@ I'm in a sunny meadow
 
 Obvious exits: South, East, West.
 
-I can also see: Large african bees - Sign here says "In many cases mud is good. 
+I can also see: Large african bees - Sign here says "In many cases mud is good.
 In others..." - *DRAGON EGGS* (very rare) -
 
 Tell me what to do ? GET EGGS
@@ -1009,9 +1010,9 @@ I'm in a dismal swamp
 
 Obvious exits: North, East, West.
 
-I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud 
-- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime
-- Chiggers -
+I can also see: -HOLLOW- stump and remains of a felled tree - Evil smelling mud
+- Rusty axe (Magic word "BUNYON" on it) - Swamp gas - Patches of "OILY" slime -
+Chiggers -
 
 Tell me what to do ? GO STUMP
 
@@ -1019,7 +1020,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *Thick PERSIAN RUG* - *GOLD CROWN* - *MAGIC
 MIRROR* - *JEWELED FRUIT* - *Small statue of a BLUE OX* - *DIAMOND RING* -
 *DIAMOND BRACELET* - *FIRESTONE* (cold now) -
@@ -1033,7 +1034,7 @@ I'm in a damp hollow stump in the swamp
 
 Obvious exits: Up, Down.
 
-I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here, 
+I can also see: *Pot of RUBIES* - *GOLDEN FISH* - Sign "Leave *TREASURES* here,
 then say: SCORE" - *GOLDEN NET* - *ROYAL HONEY* - *Thick PERSIAN RUG* - *GOLD
 CROWN* - *MAGIC MIRROR* - *DRAGON EGGS* (very rare) - *JEWELED FRUIT* - *Small
 statue of a BLUE OX* - *DIAMOND RING* - *DIAMOND BRACELET* - *FIRESTONE* (cold

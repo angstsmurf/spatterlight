@@ -11,7 +11,7 @@ void Scn_Section8(unpstr *Unp) {
   if (Unp->DepAdr == 0) {
     for (p = 0x810; p <= 0x828; p++) {
       if ((*(unsigned int *)(mem + p) ==
-           (0x00BD00A2 + (((p & 0xff) + 0x11) << 24))) &&
+          (unsigned int)(0x00BD00A2 + (((p & 0xff) + 0x11) << 24))) &&
           (*(unsigned int *)(mem + p + 0x04) == 0x01009D08) &&
           (*(unsigned int *)(mem + p + 0x10) == 0x34A97801) &&
           (*(unsigned int *)(mem + p + 0x6a) == 0xB1017820) &&

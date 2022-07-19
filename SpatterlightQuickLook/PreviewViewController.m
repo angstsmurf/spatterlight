@@ -220,16 +220,20 @@
 
     if (game)
         url = [game urlForBookmark];
-    
-    if (!metadata.cover.data && metadata.blurb.length == 0 && metadata.author.length == 0 && metadata.headline.length == 0 && url) {
+
+    // I guess url will always be outside the sandbox and thus inaccessible
+    // so the code below will never work
+    if (url && [Blorb isBlorbURL:url]) {
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         if (blorb)
             infoView.imageData = [blorb coverImageData];
-        if (!infoView.imageData) {
-            _showingIcon = YES;
-            NSImage *icon = [PreviewViewController iconFromURL:url];
-            infoView.imageData = icon.TIFFRepresentation;
-        }
+    }
+
+    // But this will
+    if (url && !infoView.imageData) {
+        _showingIcon = YES;
+        NSImage *icon = [PreviewViewController iconFromURL:url];
+        infoView.imageData = icon.TIFFRepresentation;
     }
     
     _largeScrollView.documentView = infoView;
@@ -368,12 +372,12 @@
     if (!_metaDict[@"title"])
         _metaDict[@"title"] = url.lastPathComponent;
     
-    if (_metaDict[@"cover"]) {
-        [_imageView addImageFromData:(NSData *)_metaDict[@"cover"]];
-        _imageView.accessibilityLabel = _metaDict[@"coverArtDescription"];
-    } else if ([Blorb isBlorbURL:url]) {
+    if ([Blorb isBlorbURL:url]) {
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         [_imageView addImageFromData:[blorb coverImageData]];
+    } else if (_metaDict[@"cover"]) {
+        [_imageView addImageFromData:(NSData *)_metaDict[@"cover"]];
+        _imageView.accessibilityLabel = _metaDict[@"coverArtDescription"];
     }
     
     [self updateWithMetadata:_metaDict url:url];
