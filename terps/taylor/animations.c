@@ -236,6 +236,12 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         ptr += *ptr + 1;
         int AnimationRate = *ptr;
 
+        // This is needed to make conveyor belt animation 2 smooth
+        // (the one you see after getting up)
+        // No idea why, this code is still largely a mystery
+        if (KaylethAnimationIndex == 2 && AnimationRate == 50)
+            AnimationRate = 10;
+
         if (AnimationRate != 0xff) {
             ptr++;
             (*ptr)++;

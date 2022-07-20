@@ -2142,8 +2142,11 @@ static void FindTables(void)
     MessageBase = Game->start_of_messages + FileBaselineOffset;
     Message2Base = Game->start_of_messages_2 + FileBaselineOffset;
 
-    if (BaseGame == KAYLETH)
+    if (BaseGame == KAYLETH) {
         AnimationData = FindCode("\xff\x00\x00\x00\x0f\x00\x5d\x0f\x00\x61", 0, 10);
+        if (AnimationData == -1)
+            AnimationData = FindCode("\xff\x00\x00\x15\x0f\x00\x5d\x0f\x00\x61", 0, 10);
+    }
 }
 
 /*
