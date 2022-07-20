@@ -369,6 +369,11 @@ static size_t FindTokens(void)
 
     if (Game)
         switch(CurrentGame) {
+            case TOT_TEXT_ONLY_64:
+            case TOT_HYBRID_64:
+                if ((pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
+                    return pos;
+                break;
             case TEMPLE_OF_TERROR_64:
                 if ((pos = FindCode("\x80\x20\x54\x68\x65\x72\x65\x20\x69\x73", 0, 10)) != -1)
                     return pos;
@@ -1213,7 +1218,10 @@ void Look(void) {
         for(; i < NumObjects(); i++) {
             if(ObjectLoc[i] == MyLoc) {
                 if(f == 0) {
-                    if (CurrentGame == TOT_TEXT_ONLY) {
+                    /* Only the text-only and hybrid games */
+                    if (BaseGame == TEMPLE_OF_TERROR
+                        && CurrentGame != TEMPLE_OF_TERROR
+                        && CurrentGame != TEMPLE_OF_TERROR_64) {
                         OutChar(' ');
                     }
                     SysMessage(YOU_SEE);
@@ -1564,6 +1572,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case EQ:
+                /* Fix final puzzle (Flag 12 conflict) */
                 if (BaseGame == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 4)
                         arg1 = 60;
@@ -1745,6 +1754,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 Flag[arg1] = arg2;
                 break;
             case ADD:
+                /* Fix final puzzle (Flag 12 conflict) */
                 if (BaseGame == TEMPLE_OF_TERROR) {
                     if (arg1 == 12 && arg2 == 1)
                         arg1 = 60;
@@ -2469,7 +2479,7 @@ void glk_main(void)
 
     DisplayInit();
 
-    if (BaseGame == TEMPLE_OF_TERROR) {
+    if (CurrentGame == TEMPLE_OF_TERROR || CurrentGame == TOT_TEXT_ONLY) {
         LookForSecondTOTGame();
     }
 

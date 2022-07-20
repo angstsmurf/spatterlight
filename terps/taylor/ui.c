@@ -458,9 +458,14 @@ void DrawRoomImage(void) {
     DrawSagaPictureFromBuffer();
 }
 
+void OpenBottomWindow(void) {
+    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+}
+
 void DisplayInit(void)
 {
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    if (!Bottom)
+        OpenBottomWindow();
     OpenTopWindow();
     UpdateSettings();
 }

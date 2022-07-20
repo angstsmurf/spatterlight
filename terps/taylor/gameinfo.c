@@ -319,6 +319,62 @@ struct GameInfo games[NUMGAMES] = {
     },
 
     {
+        "Temple of Terror C64 text only version",
+        TOT_TEXT_ONLY_64,
+        HEMAN_TYPE,                 // type
+        TEMPLE_OF_TERROR,
+
+        0x5001,    // dictionary
+        0x5538,    // tokens
+        0x7e89,    // start_of_room_descriptions
+        0x5878,    // start_of_item_descriptions
+        0x4c68,    // automatics
+        0x3d08,    // actions
+        0x4ac0,    // start_of_room_connections
+        0x0b95,    // start_of_flags
+        0x49f8,    // start_of_item_locations
+        0x6438,    // start_of_messages
+        0x7816,    // second message bank
+
+        0, // start_of_characters;
+        0, // start_of_image_blocks;
+        0, // image patterns lookup table;
+        0, // number of patterns
+        0, // patterns end marker
+        0, // start of room image instructions
+        0, // number_of_image blocks;
+        C64B, // palette
+    },
+
+    {
+        "Temple of Terror C64 combined version",
+        TOT_HYBRID_64,
+        HEMAN_TYPE,                 // type
+        TEMPLE_OF_TERROR,
+
+        0x5001,    // dictionary
+        0x5538,    // tokens
+        0x7e89,    // start_of_room_descriptions
+        0x5878,    // start_of_item_descriptions
+        0x4c68,    // automatics
+        0x3d08,    // actions
+        0x4ac0,    // start_of_room_connections
+        0x0b95,    // start_of_flags
+        0x49f8,    // start_of_item_locations
+        0x6438,    // start_of_messages
+        0x7816,    // second message bank
+
+        0x8888, // start_of_characters;
+        0x8ef0, // start_of_image_blocks;
+        0, // image patterns lookup table;
+        0, // number of patterns
+        0, // patterns end marker
+        0x16ea, // start of room image instructions
+        143, // number_of_image blocks;
+        C64B, // palette
+    },
+
+    {
         "Kayleth",
         KAYLETH,
         HEMAN_TYPE,                 // type

@@ -296,5 +296,6 @@ void OutString(char *p);
 void OutCaps(void);
 void OutFlush(void);
 void SysMessage(unsigned char m);
+void OpenBottomWindow(void);
 
 #endif /* taylor_h */
