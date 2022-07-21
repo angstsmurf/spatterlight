@@ -45,6 +45,7 @@ size_t AnimationData = 0;
 int NumLowObjects;
 
 static int ActionsExecuted;
+static int PrintedOK;
 int Redraw = 0;
 
 #define OtherGuyLoc (Flag[1])
@@ -855,6 +856,7 @@ static void NewGame(void)
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
     Look();
+    PrintedOK = 1;
 }
 
 static int GetFileLength(strid_t stream) {
@@ -1001,6 +1003,13 @@ static void AnyKey(void) {
     WaitCharacter();
 }
 
+static void Okay(void) {
+    SysMessage(OKAY);
+    OutChar(' ');
+    OutCaps();
+    PrintedOK = 1;
+}
+
 void SaveGame(void) {
 
     strid_t file;
@@ -1100,11 +1109,7 @@ static int GetObject(unsigned char obj) {
         SysMessage(YOURE_CARRYING_TOO_MUCH);
         return 0;
     }
-    if (Version == QUESTPROBE3_TYPE) {
-        SysMessage(OKAY);
-        OutChar(' ');
-        Upper = 1;
-    }
+
     Put(obj, Carried());
     return 1;
 }
@@ -1119,12 +1124,7 @@ static int DropObject(unsigned char obj) {
         SysMessage(YOU_HAVENT_GOT_IT);
         return 0;
     }
-    if (Version == QUESTPROBE3_TYPE) {
-        SysMessage(OKAY);
-        OutChar(' ');
-        OutFlush();
-        Upper = 1;
-    }
+
     DropItem();
     Put(obj, MyLoc);
     return 1;
@@ -1277,6 +1277,8 @@ void Look(void) {
 
 
 static void Goto(unsigned char loc) {
+    if (BaseGame == QUESTPROBE3 && !PrintedOK)
+        Okay();
     Flag[0] = loc;
     Redraw = 1;
 }
@@ -1643,6 +1645,9 @@ static void ExecuteLineCode(unsigned char *p, int *done)
         if (Version == QUESTPROBE3_TYPE) {
             op = Q3Action[op];
             Q3AdjustActions(op, &arg1, &arg2);
+
+            if (!PrintedOK)
+                Okay();
         }
 
         int WasDark = Flag[DarkFlag()];
@@ -1683,8 +1688,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                 break;
             case PRINTOK:
                 /* Guess */
-                SysMessage(OKAY);
-                OutFlush();
+                Okay();
                 break;
             case GET:
                 if (GetObject(arg1) == 0 && Version == QUESTPROBE3_TYPE)
@@ -2026,6 +2030,7 @@ static int IsDir(unsigned char word)
 
 static void RunOneInput(void)
 {
+    PrintedOK = 0;
     if(Word[0] == 0 && Word[1] == 0) {
         if (TryExtraCommand() == 0) {
             OutCaps();
