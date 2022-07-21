@@ -458,7 +458,7 @@ static void OutReset(void)
     OutFlush();
 }
 
-static int QPUpper = 0;
+static int Q3Upper = 0;
 
 void OutCaps(void)
 {
@@ -467,7 +467,7 @@ void OutCaps(void)
         LastChar = 0;
     }
     Upper = 1;
-    QPUpper = 1;
+    Q3Upper = 1;
 }
 
 static int periods = 0;
@@ -533,7 +533,7 @@ void OutChar(char c)
     LastChar = c;
     if (LastChar == 10 || LastChar == 13) {
         Upper = 1;
-        QPUpper = 1;
+        Q3Upper = 1;
     }
 }
 
@@ -568,23 +568,23 @@ static unsigned char *TokenText(unsigned char n)
     return p;
 }
 
-void QPrintChar(uint8_t c) { // Print character
+void Q3PrintChar(uint8_t c) { // Print character
     if (c == 0x0d)
         return;
 
     if (FirstAfterInput)
-        QPUpper = 1;
+        Q3Upper = 1;
 
-    if (QPUpper && c >= 'a') {
+    if (Q3Upper && c >= 'a') {
         c -= 0x20; // token is made uppercase
     }
     OutChar(c);
     if (c > '!') {
-        QPUpper = 0;
+        Q3Upper = 0;
         Upper = 0;
     }
     if (c == '!' || c == '?' || c == ':' || c == '.') {
-        QPUpper = 1;
+        Q3Upper = 1;
     }
 }
 
@@ -599,13 +599,13 @@ static void PrintToken(unsigned char n)
     do {
         c = *p++;
         if (Version == QUESTPROBE3_TYPE)
-            QPrintChar(c & 0x7F);
+            Q3PrintChar(c & 0x7F);
         else
             OutChar(c & 0x7F);
     } while(p < EndOfData && !(c & 0x80));
 }
 
-static void PrintTextQ(unsigned char *p, int n)
+static void Q3PrintText(unsigned char *p, int n)
 {
     while (n > 0) {
         while (*p != 0x1f && *p != 0x18) {
@@ -620,7 +620,7 @@ static void PrintTextQ(unsigned char *p, int n)
         if (*p >= 0x7b) // if c is >= 0x7b it is a token
             PrintToken(*p);
         else
-            QPrintChar(*p);
+            Q3PrintChar(*p);
     } while (*p++ != 0x1f);
 }
 
@@ -680,7 +680,7 @@ static void PrintText(unsigned char *p, int n)
     if (Version == REBEL_PLANET_TYPE) {	/* In stream end markers */
         PrintText0(p, n);
     } else if (Version == QUESTPROBE3_TYPE) {
-        PrintTextQ(p, n);
+        Q3PrintText(p, n);
     } else {			/* Out of stream end markers (faster) */
         PrintText1(p, n);
     }
