@@ -233,7 +233,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                 if (buflen <= 0 || buflen > MAX_LENGTH)
                     return 0;
 
-                uint8_t *megabuf[buflen];
+                uint8_t megabuf[buflen];
                 memcpy(megabuf, largest_file, newlength);
                 if (appendix != NULL) {
                     memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
