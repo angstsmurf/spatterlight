@@ -32,28 +32,23 @@ struct c64rec {
     file_type type;
     int decompress_iterations;
     const char *switches;
-    const char *appendfile;
     int parameter;
-    size_t copysource;
-    size_t copydest;
-    size_t copysize;
-    size_t imgoffset;
 };
 
 static const struct c64rec c64_registry[] = {
-    { QUESTPROBE3_64,  0x69e3, 0x3b96, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Questprobe 3, PUCrunch
-    { QUESTPROBE3_64,  0x8298, 0xb93e, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Questprobe 3, PUCrunch
-    { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
-    { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
-    { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", NULL, 2, 0, 0, 0, 0 }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { QUESTPROBE3_64,  0x69e3, 0x3b96, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
+    { QUESTPROBE3_64,  0x8298, 0xb93e, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
+    { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, 0 }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
+    { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
+    { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, 0 }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, 0 }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
 
-    { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, NULL, 0, 0, 0, 0, 0 }
+    { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0 }
 };
 
 extern struct GameInfo games[NUMGAMES];
@@ -83,26 +78,6 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
                 file = MemAlloc(*newlength);
                 memcpy(file, buf, *newlength);
             }
-        }
-    }
-    return file;
-}
-
-static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
-    const char *name)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, (int)length);
-    unsigned char rawname[100];
-    di_rawname_from_name(rawname, name);
-    if (d64) {
-        ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-        if (c64file) {
-            uint8_t buf[0xffff];
-            *newlength = di_read(c64file, buf, 0xffff);
-            file = MemAlloc(*newlength);
-            memcpy(file, buf, *newlength);
         }
     }
     return file;
@@ -218,34 +193,13 @@ int DetectC64(uint8_t **sf, size_t *extent)
             if (c64_registry[i].type == TYPE_D64) {
                 size_t newlength;
                 uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
-                uint8_t *appendix = NULL;
-                size_t appendixlen = 0;
-
-                if (c64_registry[i].appendfile != NULL) {
-                    appendix = get_file_named(*sf, *extent, &appendixlen,
-                        c64_registry[i].appendfile);
-                    if (appendix == NULL)
-                        fprintf(stderr, "TAYLOR: DetectC64() Appending file failed!\n");
-                    appendixlen -= 2;
-                }
-
-                size_t buflen = newlength + appendixlen;
-                if (buflen <= 0 || buflen > MAX_LENGTH)
-                    return 0;
-
-                uint8_t megabuf[buflen];
-                memcpy(megabuf, largest_file, newlength);
-                if (appendix != NULL) {
-                    memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
-                        appendixlen);
-                    newlength = buflen;
-                }
 
                 if (largest_file) {
                     free(*sf);
-                    *sf = MemAlloc(newlength);
-                    memcpy(*sf, megabuf, newlength);
+                    *sf = largest_file;
                     *extent = newlength;
+                } else {
+                    Fatal("Could not read file from disk image");
                 }
 
             } else if (c64_registry[i].type == TYPE_T64) {
