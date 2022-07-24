@@ -67,6 +67,7 @@ void FreePixels(void) {
         if (pixels_to_draw[i] != NULL)
             free(pixels_to_draw[i]);
     free(pixels_to_draw);
+    pixels_to_draw = NULL;
 }
 
 extern int gli_slowdraw;
@@ -86,6 +87,7 @@ void DrawSomeVectorPixels(int from_start) {
     if (current_draw_instruction >= total_draw_instructions) {
         glk_request_timer_events(0);
         VectorState = SHOWING_VECTOR_IMAGE;
+        FreePixels();
     }
 }
 
@@ -172,6 +174,7 @@ static void diamond_fill(uint8_t x, uint8_t y, int colour) {
             circular_buf_put(ringbuf, x - 1, y);
         }
     }
+    circular_buf_free(ringbuf);
 }
 
 extern int pixel_size;
