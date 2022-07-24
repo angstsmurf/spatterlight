@@ -154,6 +154,9 @@ static const struct scottrec scott_registry[] = {
     { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
    { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
    { 0x2ab00, 0xde56, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64)
+   { 0x2ab00, 0x2736, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64) alt
+   { 0x2ab00, 0x490a, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64) alt 2
+
 
     { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
     { 0x9e46, 0x7792, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1 - Alternate.tzx

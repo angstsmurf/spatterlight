@@ -95,6 +95,8 @@ static const struct c64rec c64_registry[] = {
     { HULK_C64,      0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { HULK_C64,      0x8534, 0x623a, TYPE_T64, 2, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { SPIDERMAN_C64, 0x2ab00, 0xde56, TYPE_D64, 0, NULL, NULL, 0, 0x1801, 0xa801, 0x2000, 0 }, // Spiderman C64 (D64)
+    { SPIDERMAN_C64, 0x2ab00, 0x2736, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Spiderman C64 (D64) alt
+    { SPIDERMAN_C64, 0x2ab00, 0x490a, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, -0x7ff }, // Spiderman C64 (D64) alt 2
     { SPIDERMAN_C64, 0x08e72, 0xb2f4, TYPE_T64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Spiderman C64 (T64) MasterCompressor / Relax -> ECA Compacker -> Section8 Packer
 
     { SAVAGE_ISLAND_C64,  0x2ab00, 0x8801, TYPE_D64, 1, "-f86 -d0x1793", "SAVAGEISLAND1+",   1, 0, 0, 0, 0 }, // Savage Island part 1 C64 (D64)
@@ -470,19 +472,19 @@ int DetectC64(uint8_t **sf, size_t *extent)
     return 0;
 }
 
-//static size_t writeToFile(const char *name, uint8_t *data, size_t size)
-//{
-//    FILE *fptr = fopen(name, "w");
-//
-//    if (fptr == NULL) {
-//        Fatal("File open error!");
-//    }
-//
-//    size_t result = fwrite(data, 1, size, fptr);
-//
-//    fclose(fptr);
-//    return result;
-//}
+static size_t writeToFile(const char *name, uint8_t *data, size_t size)
+{
+    FILE *fptr = fopen(name, "w");
+
+    if (fptr == NULL) {
+        Fatal("File open error!");
+    }
+
+    size_t result = fwrite(data, 1, size, fptr);
+
+    fclose(fptr);
+    return result;
+}
 
 static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 {
@@ -573,6 +575,8 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     if (!(Game->subtype & MYSTERIOUS))
         SagaSetup(record.imgoffset);
+
+    writeToFile("/Users/administrator/Desktop/C64Decomp", *sf, *extent);
 
     return CurrentGame;
 }
