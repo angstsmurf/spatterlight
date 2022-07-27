@@ -111,8 +111,6 @@ static int detect_verbs(unsigned char *sf, int32 extent) {
     return find_code("NORT\01N   \01S   \02SOUT", 19, sf, extent);
 }
 
-
-
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
@@ -147,5 +145,6 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         strcpy(output, "\0");
         return INCOMPLETE_REPLY_RV;
     }
+
     return INVALID_STORY_FILE_RV;
 }
