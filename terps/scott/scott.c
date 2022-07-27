@@ -1403,7 +1403,20 @@ void HitEnter(void)
 }
 
 static void WriteToLowerWindow(const char *fmt, ...) {
-    Display(Bottom, "%s", fmt);
+    va_list ap;
+    char msg[2048];
+
+    int size = sizeof msg;
+
+    va_start(ap, fmt);
+    vsnprintf(msg, size, fmt, ap);
+    va_end(ap);
+
+    glui32 *unistring = ToUnicode(msg);
+    glk_put_string_stream_uni(glk_window_get_stream(Bottom), unistring);
+    if (Transcript)
+        glk_put_string_stream_uni(Transcript, unistring);
+    free(unistring);
 }
 
 void ListInventory(int upper)
