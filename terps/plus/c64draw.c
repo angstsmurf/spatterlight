@@ -18,11 +18,8 @@ typedef RGB PALETTE[16];
 
 extern PALETTE pal;
 
-RGB colours[255];
 RGB wibble;
 int countflag;
-extern FILE *infile,*outfile;
-
 
 extern winid_t Graphics;
 
@@ -32,6 +29,8 @@ extern int x_offset, y_offset, right_margin;
 static void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+//    fprintf(stderr, "PutPixel: %d, %d, color %x\n", x, y, glk_color);
 
     glsi32 xpos = x * pixel_size + x_offset;
 
@@ -43,37 +42,14 @@ static void PutPixel(glsi32 x, glsi32 y, int32_t color)
                          y * pixel_size + y_offset, pixel_size, pixel_size);
 }
 
-//void setuppalette(void)
-//{
-//    int i;
-//    FILE *palfile;
-//    palfile=fopen("default.act","rb");
-//
-//    if (palfile == NULL)
-//    {
-//        fprintf(stderr, "Could not open palette file\n");
-//        exit(1);
-//    }
-//
-//    for (i=0;i<256;i++)
-//    {
-//        colours[i].r=fgetc(palfile)/4;
-//        colours[i].g=fgetc(palfile)/4;
-//        colours[i].b=fgetc(palfile)/4;
-//    }
-//    fclose(palfile);
-//}
-
-
-
 void drawpixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
 
-    //fprintf(stderr, "Plotting at %d %d: %x %x\n",x,y,pattern,pattern2);
+//    fprintf(stderr, "Plotting at %d %d: %x %x\n",x,y,pattern,pattern2);
     // Now get colours
-    //if (x>(xlen)*8)
-    //  return;
+    if (x>(xlen - 3)*8)
+      return;
     pix1=(pattern & 0xc0)>>6;
     pix2=(pattern & 0x30)>>4;
     pix3=(pattern & 0x0c)>>2;
@@ -120,156 +96,194 @@ static void set_color(int32_t index, RGB *colour)
     pal[index][2] = (*colour)[2];
 }
 
-
-
-int DrawImageFromData(uint8_t *data)
+int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
 {
-    int work,work2, outpic=0;
-    int c,count;
+    int work,work2;
+    int c;
     int i,j;
-    char filename[256];
-    char *ptr;
-    int readcount=0;
-    int linelen;
-    int rawoffset;
-    int offset;
-    int curpos;
-    FILE *tabptr;
-    PALETTE pal;
     RGB black = { 0, 0, 0 };
-    RGB white = { 63, 63, 63 };
-    RGB red = { 26, 13, 10 };
-    RGB cyan = { 28, 41, 44 };
-    RGB purple = { 27, 15, 33 };
-    RGB green = { 22, 35, 16 };
-    RGB blue = { 13, 10, 30 };
-    RGB yellow = { 46, 49, 27 };
-    RGB orange = { 27, 19, 9 };
-    RGB brown = { 16, 14, 0 };
-    RGB lred = { 38, 25, 22 };
-    RGB dgrey = { 17, 17, 17 };
-    RGB grey = { 27, 27, 27 };
-    RGB lgreen = { 38, 52, 33 };
-    RGB lblue = { 27, 23, 45 };
-    RGB lgrey = { 37, 37, 37 };
+    RGB white = { 255, 255, 255 };
+    RGB red = { 191, 97, 72 };
+    RGB cyan = { 153, 230, 249 };
+    RGB purple = { 177, 89, 185 };
+    RGB green = { 121, 213, 112 };
+    RGB blue = { 95, 72, 233 };
+    RGB yellow = { 247, 255, 108 };
+    RGB orange = { 186, 134, 32 };
+    RGB brown = { 131, 112, 0 };
+    RGB lred = { 231, 154, 132 };
+    RGB dgrey = { 69, 69, 69 };
+    RGB grey = { 167, 167, 167 };
+    RGB lgreen = { 192, 255, 185 };
+    RGB lblue = { 162, 143, 255 };
+    RGB lgrey = { 200, 200, 200 };
 
-    /* set up the palette */
-    set_color(0, &black);
-    set_color(1, &white);
-    set_color(2, &red);
-    set_color(3, &cyan);
-    set_color(4, &purple);
-    set_color(5, &green);
-    set_color(6, &blue);
-    set_color(7, &yellow);
-    set_color(8, &orange);
-    set_color(9, &brown);
-    set_color(10, &lred);
-    set_color(11, &dgrey);
-    set_color(12, &grey);
-    set_color(13, &lgreen);
-    set_color(14, &lblue);
-    set_color(15, &lgrey);
+    uint8_t *origptr = ptr;
 
-//    allegro_init();
-//    install_keyboard();
-//    savescr=create_bitmap(280,78);
-    /* set up the palette */
-    //for (i=0;i<256;i++)
-    //{
-    //   colours[i].r=0; colours[i].g=0;colours[i].b=0;
-    //}
-    //setuppalette();
+    x=0;y=0;
 
-//    infile=fopen(argv[1],"rb");
-//    tabptr=fopen(argv[1],"rb");
-//    offset=strtol(argv[2],NULL,0);
-//    count=strtol(argv[3],NULL,0);
-    //if (strcmp(argv[4],"y")==0) countflag=1;
-    //fprintf(stderr, "%d\n",countflag);
+    ptr += 2;
+    
+    work = *ptr++;
+    size = work+(*ptr++ * 256);
+    fprintf(stderr, "size: %4x\n",size);
 
-    // Get the size of the graphics chuck
-    fseek(tabptr, offset, SEEK_SET);
-    work=fgetc(tabptr);
-    size=work+(fgetc(tabptr)*256);
-    size+=0x80;
-    fprintf(stderr, "Size: %4x\n",size);
+    // Get the offset
+    xoff = *ptr++ - 3;
+    if (xoff < 0) xoff = 8;
+    yoff = *ptr++;
+    x = xoff * 8;
+    y = yoff;
+    fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
 
-    // Now loop round for each image
+    // Get the x length
+    xlen = *ptr++;
+    ylen = *ptr++;
 
+    fprintf(stderr, "xlen: %x ylen: %x\n",xlen, ylen);
 
-//    int DrawImageFromFile(char *filename) {
+    set_color(0,&black);
 
-        fprintf(stderr, "\nRendering Image %d\n",outpic);
-        x=0;y=0;
-        fseek(infile, size, SEEK_SET);
-        work=fgetc(tabptr);
-        size=work+(fgetc(tabptr)*256);
-        size+=0x80;
-        fprintf(stderr, "Next size: %4x\n",size);
-
-        // Get the offset
-        xoff=fgetc(infile)-3;
-        if (xoff<0) xoff=8;
-        yoff=fgetc(infile);
-        x=xoff*8;
-        y=yoff;
-        fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
-
-        // Get the x length
-        xlen=fgetc(infile);
-        ylen=fgetc(infile);
-        if (countflag) ylen-=2;
-        fprintf(stderr, "xlen: %x ylen: %x\n",xlen, ylen);
-
-        // Get the palette
-        fprintf(stderr, "Colours: ");
-        for (i=0;i<4;i++)
-        {
-            work=fgetc(infile);
-            set_color(i,&colours[work]);
-            set_color(i,&colours[work]);
-            fprintf(stderr, "%d ",work);
+    // Get the palette
+    fprintf(stderr, "Colours: ");
+    for (i=1;i<5;i++)
+    {
+        work=*ptr++;
+        switch(work) {
+            case 0:
+                set_color(i,&purple);
+                break;
+            case 1:
+                set_color(i,&blue);
+                break;
+            case 3:
+                set_color(i,&white);
+                break;
+            case 7:
+            case 8:
+            case 9:
+                set_color(i,&blue);
+                break;
+            case 10:
+            case 12:
+            case 14:
+            case 15:
+                set_color(i,&white);
+                break;
+            case 17:
+                set_color(i,&green);
+                break;
+            case 36:
+            case 40:
+                set_color(i,&brown);
+                break;
+            case 46:
+                set_color(i,&yellow);
+                break;
+            case 52:
+            case 54:
+            case 56:
+            case 60:
+                set_color(i,&orange);
+                break;
+            case 68:
+            case 69:
+            case 71:
+                set_color(i,&red);
+                break;
+            case 77:
+            case 85:
+            case 87:
+                set_color(i,&purple);
+                break;
+            case 89:
+                set_color(i,&lred);
+                break;
+            case 101:
+            case 103:
+                set_color(i,&purple);
+                break;
+            case 110:
+                set_color(i,&lblue);
+                break;
+            case 135:
+            case 137:
+                set_color(i,&blue);
+                break;
+            case 157:
+                set_color(i,&lblue);
+                break;
+            case 161:
+                set_color(i,&grey);
+                break;
+            case 179:
+            case 182:
+            case 194:
+            case 196:
+            case 198:
+            case 199:
+            case 200:
+                set_color(i,&green);
+                break;
+            case 201:
+                set_color(i,&lgreen);
+                break;
+            case 212:
+            case 214:
+            case 215:
+                set_color(i,&green);
+                break;
+            case 224:
+                set_color(i,&purple);
+                break;
+            case 230:
+            case 237:
+                set_color(i,&yellow);
+                break;
+            case 244:
+            case 246:
+            case 248:
+                set_color(i,&brown);
+                break;
+            case 252:
+                set_color(i,&yellow);
+                break;
+            default:
+                fprintf(stderr, "Unknown colour %d ",work);
+                break;
         }
-        //work=fgetc(infile);
-        //set_color(0,&colours[work]);
-        fprintf(stderr, "\n");
+        fprintf(stderr, "%d (%d)(%d) ",work, work >> 4, work & 0xf);
+    }
+    fprintf(stderr, "\n");
 
-        //fseek(infile,offset+10,SEEK_SET);
-        j=0;
-        while (!feof(infile) && ftell(infile)<size)
-        {
-            // First get count
-            c=fgetc(infile);
+    j=0;
+    while (ptr - origptr < datasize - 3)
+    {
+        // First get count
+        c=*ptr++;
 
-            if (((c & 0x80) == 0x80) || countflag)
-            { // is a counter
-                if (!countflag) c &= 0x7f;
-                if (countflag) c-=1;
-                work=fgetc(infile);
-                work2=fgetc(infile);
-                for (i=0;i<c+1;i++)
-                {
-                    drawpixels(work,work2);
-                }
-            }
-            else
+        if (((c & 0x80) == 0x80) || countflag)
+        { // is a counter
+            if (!countflag) c &= 0x7f;
+            if (countflag) c-=1;
+            work=*ptr++;
+            work2=*ptr++;
+            for (i=0;i<c+1;i++)
             {
-                // Don't count on the next j characters
-
-                for (i=0;i<c+1;i++)
-                {
-                    work=fgetc(infile);
-                    work2=fgetc(infile);
-                    drawpixels(work,work2);
-                }
+                drawpixels(work,work2);
             }
         }
-        sprintf(filename,"Output\\Output%2i.bmp",outpic);
-        outpic++;
+        else
+        {
+            // Don't count on the next j characters
 
-        // Now go to the next image
-        fprintf(stderr, "Current Offset: %4lx\n",ftell(infile));
-        //fseek(infile,size,SEEK_SET);
-    fclose(infile);
+            for (i=0;i<c+1 && ptr - origptr < datasize - 1;i++)
+            {
+                work=*ptr++;
+                work2=*ptr++;
+                drawpixels(work,work2);
+            }
+        }
+    }
+    return 1;
 }

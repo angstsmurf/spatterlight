@@ -12,7 +12,9 @@
 
 #include "definitions.h"
 
-int LoadDatabase(FILE *f, int loud);
+int LoadDatabasePlaintext(FILE *f, int loud);
+int LoadDatabaseBinary(void);
 void PrintDictWord(int idx, DictWord *dict);
+int FindAndAddImageFile(char *shortname, struct imgrec *rec);
 
 #endif /* loaddatabase_h */

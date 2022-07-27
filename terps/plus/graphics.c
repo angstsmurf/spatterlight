@@ -10,20 +10,56 @@
 
 #include "common.h"
 #include "graphics.h"
+#include "loaddatabase.h"
 
 ImgType LastImgType;
 int LastImgIndex;
+
+struct imgrec *Images;
 
 static void DrawBlack(void)
 {
     glk_window_fill_rect(Graphics, y_offset, x_offset, 0, 280 * pixel_size,
                          158 * pixel_size);
+    LastImgType = NO_IMG;
 }
 
-int DrawImageFromFile(char *filename);
+char *ShortNameFromType(char type, int index) {
+    char buf[1024];
+    int n = sprintf(buf, "%c0%02d", type, index);
+    if (n < 0)
+        return NULL;
+    size_t len = strlen(buf) + 1;
+    char *result = MemAlloc(len);
+    memcpy(result, buf, len);
+    return result;
+}
 
-int DrawImageWithFilename(char *filename)
+int DrawC64ImageFromData(uint8_t *ptr, size_t datasize);
+int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
+
+int DrawImageWithName(char *filename)
 {
+    debug_print("DrawImageWithName %s\n", filename);
+
+    int i;
+    for (i = 0; Images[i].filename != NULL; i++ )
+        if (strcmp(filename, Images[i].filename) == 0)
+            break;
+
+    if (Images[i].filename == NULL) {
+        if (CurrentSys == SYS_MSDOS) {
+            if (FindAndAddImageFile(filename, &Images[i])) {
+                Images[i + 1].filename = NULL;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+
     if (!gli_enable_graphics)
         return 0;
     OpenGraphicsWindow();
@@ -32,38 +68,46 @@ int DrawImageWithFilename(char *filename)
         return 0;
     }
 
-    return DrawImageFromFile(filename);
+    if (CurrentSys == SYS_C64)
+        return DrawC64ImageFromData(Images[i].data, Images[i].size);
+    else
+        return DrawDOSImageFromData(Images[i].data, Images[i].size);
 }
 
 void DrawItemImage(int item) {
     LastImgType = IMG_OBJECT;
     LastImgIndex = item;
     char buf[1024];
-    int n = sprintf( buf, "%sB0%02d.PAK", dir_path, item);
-    if (n < 0)
-        return;
-    debug_print("%s %d\n", buf, n);
-    DrawImageWithFilename(buf);
+
+        int n = sprintf( buf, "B0%02d", item);
+        if (n < 0)
+            return;
+
+    DrawImageWithName(buf);
 }
 
 int DrawCloseup(int img) {
     LastImgType = IMG_SPECIAL;
     LastImgIndex = img;
     char buf[1024];
-    int n = sprintf(buf, "%sS0%02d.PAK", dir_path, img);
+
+    int n = sprintf( buf, "S0%02d", img);
     if (n < 0)
         return 0;
-    debug_print("%s %d\n", buf, n);
-    return DrawImageWithFilename(buf);
+
+    return DrawImageWithName(buf);
 }
 
-void DrawRoomImage(int room) {
+void DrawRoomImage(int roomimg) {
     LastImgType = IMG_ROOM;
-    LastImgIndex = room;
+    LastImgIndex = roomimg;
     char buf[1024];
-    sprintf(buf, "%sR0%02d.PAK", dir_path, Rooms[room].Image);
+
+    int n = sprintf( buf, "R0%02d", roomimg);
+    if (n < 0)
+        return;
     glk_window_clear(Graphics);
-    DrawImageWithFilename(buf);
+    DrawImageWithName(buf);
 }
 
 void DrawCurrentRoom(void)
@@ -90,7 +134,7 @@ void DrawCurrentRoom(void)
     if (dark || Graphics == NULL)
         return;
 
-    DrawRoomImage(MyLoc);
+    DrawRoomImage(Rooms[MyLoc].Image);
 
     if (CurrentGame == CLAYMORGUE && MyLoc == 33)
         showing_inventory = 1;

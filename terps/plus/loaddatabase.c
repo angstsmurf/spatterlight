@@ -11,7 +11,9 @@
 #include <string.h>
 
 #include "common.h"
+#include "gameinfo.h"
 #include "loaddatabase.h"
+#include "graphics.h"
 
 Synonym *Substitutions;
 uint8_t *MysteryValues;
@@ -234,7 +236,7 @@ lookdeeper:
             tmp[ct++] = c;
         else
             tmp[ct++] = '?';
-    } while (1);
+    } while (ct < 1000);
     tmp[ct] = 0;
     *length = ct + 1;
     t = MemAlloc((int)*length);
@@ -366,6 +368,91 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud) {
     return finalsyns;
 }
 
+static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
+
+static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud) {
+    Synonym syn[1024];
+    Synonym *s = &syn[0];
+
+    uint8_t *ptr = *startpointer;
+
+    char *str = NULL;
+    char *replace = NULL;
+    int index = 0;
+    int firstsyn = 0;
+    for (int i = 0; i < numstrings; i++) {
+        size_t length;
+        ptr = ReadPlusString(ptr, &str, &length);
+        if (loud)
+            debug_print("Read synonym string \"%s\"\n", str);
+        if (str == NULL || str[0] == '\0')
+            continue;
+        int lastcomma = 0;
+        int commapos = 0;
+        int foundrep = 0;
+        int nextisrep = 0;
+        for (int j = 0; j < length && str[j] != '\0'; j++) {
+            if (str[j] == ',') {
+                while(str[j] == ',') {
+                    str[j] = '\0';
+                    commapos = j;
+                    j++;
+                }
+                if (nextisrep) {
+                    foundrep = 1;
+                    nextisrep = 0;
+                } else if (str[j] == '=') {
+                    nextisrep = 1;
+                }
+                int length = commapos - lastcomma - foundrep;
+                if (length > 0) {
+                    if (foundrep) {
+                        if (replace) {
+                            free(replace);
+                        }
+                        replace = MemAlloc(length);
+                        memcpy(replace, &str[lastcomma + 2], length);
+                        if (loud)
+                            debug_print("Found new replacement string \"%s\"\n", replace);
+                    } else {
+                        s->SynonymString = MemAlloc(length);
+                        memcpy(s->SynonymString, &str[lastcomma + 1], length);
+                        if (loud)
+                            debug_print("Found new synonym string \"%s\"\n", s->SynonymString);
+                        s = &syn[++index];
+                    }
+                }
+                if (foundrep) {
+                    for (int k = firstsyn; k < index; k++) {
+                        int len = (int)strlen(replace) + 1;
+                        syn[k].ReplacementString = MemAlloc(len);
+                        memcpy(syn[k].ReplacementString, replace, len);
+                        if (loud)
+                            debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", syn[k].SynonymString, k, syn[k].ReplacementString);
+                    }
+                    firstsyn = index;
+                    foundrep = 0;
+                }
+                lastcomma = commapos;
+            }
+        }
+        free(str);
+        str = NULL;
+    }
+    if (replace)
+        free(replace);
+    syn[index].SynonymString = NULL;
+    int synsize = (index + 1) * sizeof(Synonym);
+    Synonym *finalsyns = (Synonym *)MemAlloc(synsize);
+
+    memcpy(finalsyns, syn, synsize);
+    if (loud)
+        for (int j = 0; syn[j].SynonymString != NULL; j++)
+            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
+    *startpointer = ptr;
+    return finalsyns;
+}
+
 char **Comments;
 
 static void ReadComments(FILE *f, int loud) {
@@ -412,7 +499,7 @@ void PrintDictWord(int idx, DictWord *dict) {
     debug_print("%d", idx);
 }
 
-static void PrintCondition(uint8_t condition, uint8_t argument, int *negate, int *mult, int *or) {
+static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, int *mult, int *or) {
     if (condition == 0) {
         debug_print(" %d", argument);
     } else if (condition == 31) {
@@ -512,7 +599,7 @@ static void DumpActions(void) {
             debug_print("(%d)(%d)",ap->Verb, ap->NounOrChance);
         }
 
-        if (Comments[ct][0] != 0)
+        if (Comments && Comments[ct][0] != 0)
             debug_print("\nComment: \"%s\"\n", Comments[ct]);
         else
             debug_print("\n");
@@ -628,21 +715,21 @@ static void ReadAction(FILE *f, Action *ap) {
     
     int reading_conditions = 1;
     int conditions_read = 0;
-    uint8_t conditions[1024];
+    uint16_t conditions[1024];
     int condargs = 0;
     while (reading_conditions) {
         uint16_t argcond = ReadNum(f) * 256 + ReadNum(f);
         if (argcond & 0x8000)
             reading_conditions = 0;
-        argcond = argcond & 0x1fff;
-        uint8_t argument = argcond >> 5;
-        uint8_t condition = argcond & 0x1f;
+        argcond = argcond & 0x7fff;
+        uint16_t argument = argcond >> 5;
+        uint16_t condition = argcond & 0x1f;
         conditions[condargs++] = condition;
         conditions[condargs++] = argument;
         if (condition != 0)
             conditions_read++;
     }
-    ap->Conditions = MemAlloc(condargs + 1);
+    ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
     for (i = 0; i < condargs; i++)
         ap->Conditions[i] = conditions[i];
     ap->Conditions[condargs] = 255;
@@ -655,9 +742,67 @@ static void ReadAction(FILE *f, Action *ap) {
     memcpy(ap->Commands, commands, i);
 }
 
-int LoadDatabase(FILE *f, int loud)
+static void PrintHeaderInfo(Header header)
 {
-    int ni, as, na, nv, nn, nr, mc, pr, tr, lt, mn, trm, adv, prp, ss, unk1, oi, unk3;
+    fprintf(stderr, "Number of items =\t%d\n", header.NumItems);
+    fprintf(stderr, "sum of actions =\t%d\n", header.ActionSum);
+    fprintf(stderr, "Number of nouns =\t%d\n", header.NumNouns);
+    fprintf(stderr, "Number of verbs =\t%d\n", header.NumVerbs);
+    fprintf(stderr, "Number of rooms =\t%d\n", header.NumRooms);
+    fprintf(stderr, "Max carried items =\t%d\n", header.MaxCarry);
+    fprintf(stderr, "Player start location =\t%d\n", header.PlayerRoom);
+    fprintf(stderr, "Number of messages =\t%d\n", header.NumMessages);
+    fprintf(stderr, "Treasure room =\t%d\n", header.TreasureRoom);
+    fprintf(stderr, "Light source turns =\t%d\n", header.LightTime);
+    fprintf(stderr, "Number of prepositions =\t%d\n", header.NumPreps);
+    fprintf(stderr, "Number of adverbs =\t%d\n", header.NumAdverbs);
+    fprintf(stderr, "Number of actions =\t%d\n", header.NumActions);
+    fprintf(stderr, "Number of treasures =\t%d\n", header.Treasures);
+    fprintf(stderr, "Number of synonym strings =\t%d\n", header.NumSubStr);
+    fprintf(stderr, "Unknown1 =\t%d\n", header.Unknown1);
+    fprintf(stderr, "Number of object images =\t%d\n", header.NumObjImg);
+    fprintf(stderr, "Unknown3 =\t%d\n", header.Unknown2);
+}
+
+static int SetGame(const char *id_string, size_t length) {
+    for (int i = 0; games[i].title != NULL; i++)
+        if (strncmp(id_string, games[i].ID_string, length) == 0) {
+            Game = &games[i];
+            return 1;
+        }
+    return 0;
+}
+
+int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
+    int result = 0;
+    char filename[1024];
+    int n = sprintf(filename, "%s%s.PAK", dir_path, shortname);
+    if (n > 0) {
+        FILE *infile=fopen(filename,"rb");
+        if (infile) {
+            fseek(infile, 0, SEEK_END);
+            size_t length = ftell(infile);
+            if (length > 0) {
+                fprintf(stderr, "Found and read image file %s\n", filename);
+                size_t namelen = strlen(shortname) + 1;
+                rec->filename = MemAlloc(namelen);
+                memcpy(rec->filename, shortname, namelen);
+                fseek(infile, 0, SEEK_SET);
+                rec->data = MemAlloc(length);
+                rec->size = fread(rec->data, 1, length, infile);
+                result = 1;
+            }
+            fclose(infile);
+        } else {
+            fprintf(stderr, "Could not find or read image file %s\n", filename);
+        }
+    }
+    return result;
+}
+
+int LoadDatabasePlaintext(FILE *f, int loud)
+{
+    int ni, as, na, nv, nn, nr, mc, pr, tr, lt, mn, trm, adv, prp, ss, unk1, oi, unk2;
     int ct;
     
     Action *ap;
@@ -668,26 +813,23 @@ int LoadDatabase(FILE *f, int loud)
     size_t length;
     char *title = ReadString(f, &length);
 
-    if (strncmp(title, "BUCKAROO", length) == 0)
-        CurrentGame = BANZAI;
-    else if (strncmp(title, "SPIDER-MAN (tm)", length) == 0)
-        CurrentGame = SPIDERMAN;
-    else if (strncmp(title, "Sorcerer of Claymorgue Castle. SAGA#13.", length) == 0)
-        CurrentGame = CLAYMORGUE;
-    else if (strncmp(title, "FF #1 ", length) == 0)
-        CurrentGame = FANTASTIC4;
+    if (!SetGame(title, length)) {
+        free(title);
+        return UNKNOWN_GAME;
+    }
     
     if (fscanf(f, ",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", &ni, &as, &nn, &nv, &nr, &mc, &pr,
-               &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk3)
+               &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk2)
         < 10) {
         if (loud)
             debug_print("Invalid database(bad header)\n");
-        return 0;
+        return UNKNOWN_GAME;
     }
     GameHeader.NumItems = ni;
     Counters[43] = ni;
     Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
     GameHeader.NumActions = na;
+    GameHeader.ActionSum = as;
     Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
     GameHeader.NumVerbs = nv;
     GameHeader.NumNouns = nn;
@@ -698,16 +840,17 @@ int LoadDatabase(FILE *f, int loud)
     MyLoc = pr;
     GameHeader.Treasures = tr;
     GameHeader.LightTime = lt;
-    //    LightRefill = lt;
     GameHeader.NumMessages = mn;
     Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
     GameHeader.NumAdverbs = adv;
     GameHeader.NumPreps = prp;
+    GameHeader.Unknown1 = unk1;
     GameHeader.NumSubStr = ss;
+    GameHeader.Unknown2 = unk2;
     GameHeader.NumObjImg = oi;
     ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
-    MysteryValues = MemAlloc(unk3 + 1);
+    MysteryValues = MemAlloc(unk2 + 1);
 
     Counters[35] = nr;
     Counters[34] = trm;
@@ -715,23 +858,7 @@ int LoadDatabase(FILE *f, int loud)
     SetBit(35); // Graphics on
 
     if (loud) {
-        debug_print("Number of items: %d\n", GameHeader.NumItems);
-        debug_print("Number of actions: %d\n", GameHeader.NumActions);
-        debug_print("Number of verbs: %d\n", GameHeader.NumVerbs);
-        debug_print("Number of nouns: %d\n", GameHeader.NumNouns);
-        debug_print("Number of adverbs: %d\n", GameHeader.NumAdverbs);
-        debug_print("Number of prepositions: %d\n", GameHeader.NumPreps);
-        debug_print("Number of substitution strings: %d\n", GameHeader.NumSubStr);
-        debug_print("Number of rooms: %d\n", GameHeader.NumRooms);
-        debug_print("Number of messages: %d\n", GameHeader.NumMessages);
-        debug_print("Max carried: %d\n", GameHeader.MaxCarry);
-        debug_print("Starting location: %d\n", GameHeader.PlayerRoom);
-        debug_print("Light time: %d\n", lt);
-        debug_print("Number of treasures: %d\n", GameHeader.Treasures);
-        debug_print("Treasure room: %d\n", GameHeader.TreasureRoom);
-        debug_print("Unknown value 1: %d\n", unk1);
-        debug_print("Unknown value 2: %d\n", oi);
-        debug_print("Unknown value 3: %d\n", unk3);
+        PrintHeaderInfo(GameHeader);
     }
     
     /* Load the actions */
@@ -741,7 +868,6 @@ int LoadDatabase(FILE *f, int loud)
     if (loud)
         debug_print("Reading %d actions.\n", na);
     while (ct < na + 1) {
-//        debug_print("Reading action %d.\n", ct);
         ReadAction(f, ap);
         ap++;
         ct++;
@@ -764,7 +890,7 @@ int LoadDatabase(FILE *f, int loud)
             != 8) {
             debug_print("Bad room line (%d)\n", ct);
             //            FreeDatabase();
-            return 0;
+            return UNKNOWN_GAME;
         }
         rp++;
     }
@@ -796,7 +922,7 @@ int LoadDatabase(FILE *f, int loud)
         if (fscanf(f, ",%d,%d,%d\n", &loc, &dictword, &flag) != 3) {
             debug_print("Bad item line (%d)\n", ct);
             //            FreeDatabase();
-            return 0;
+            return UNKNOWN_GAME;
         }
         ip->Location = (uint8_t)loc;
         ip->Dictword = (uint8_t)dictword;
@@ -804,6 +930,7 @@ int LoadDatabase(FILE *f, int loud)
         if (loud && (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms))
             debug_print("Location of item %d: %d, \"%s\"\n", ct, ip->Location,
                     ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
+        fprintf(stderr, "Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -821,25 +948,27 @@ int LoadDatabase(FILE *f, int loud)
     ObjectImage *objimg = ObjectImages;
     if (loud)
         debug_print("Reading %d object image values.\n", oi + 1);
-    for (ct = 0; ct < oi + 1; ct++) {
+    for (ct = 0; ct <= oi; ct++) {
         if (fscanf(f, "%d,%d,%d\n", &objimg->room, &objimg->object, &objimg->image)
             != 3) {
             debug_print("Bad object image line (%d)\n", ct);
-            //            FreeDatabase();
-            return 0;
+            return UNKNOWN_GAME;
         }
+        fprintf(stderr, "Object image %d ", ct);
+        fprintf(stderr, "room: %d object: %d image: %d\n", objimg->room, objimg->object, objimg->image);
         objimg++;
     }
     
     if (loud)
-        debug_print("Reading %d unknown values.\n", unk3 + 1);
-    for (ct = 0; ct < unk3 + 1; ct++) {
+        debug_print("Reading %d unknown values.\n", unk2 + 1);
+    for (ct = 0; ct < unk2 + 1; ct++) {
         MysteryValues[ct] = ReadNum(f);
         if (MysteryValues[ct] > 255) {
             debug_print("Bad unknown value (%d)\n", ct);
             //            FreeDatabase();
-            return 0;
+            return UNKNOWN_GAME;
         }
+        fprintf(stderr, "MysteryValues[%d] = %d\n", ct, MysteryValues[ct]);
     }
     
     ReadComments(f, loud);
@@ -849,6 +978,435 @@ int LoadDatabase(FILE *f, int loud)
         DumpActions();
     }
     fclose(f);
+
+    int numimages = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
+
+    Images = MemAlloc((numimages + 1) * sizeof(struct imgrec));
+    debug_print("\nTotal number of images:%d\n", numimages);
+
+
+    int i, recidx = 0, imgidx = 0;
+    char type = 'R';
+    for (i = 0; i < numimages; i++) {
+        if (i == Game->no_of_room_images) {
+            type = 'B';
+            imgidx = 0;
+        }
+        if (i == Game->no_of_room_images + Game->no_of_item_images) {
+            type = 'S';
+            imgidx = 0;
+        }
+        char *shortname = ShortNameFromType(type, imgidx);
+        if (FindAndAddImageFile(shortname, &Images[recidx]))
+            recidx++;
+        free(shortname);
+        imgidx++;
+    }
+    Images[recidx].filename = NULL;
+
+    CurrentSys = SYS_MSDOS;
     
+    return CurrentGame;
+}
+
+static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
+{
+    char tmp[1024];
+    int length = *ptr++;
+    if (length == 0 || length == 255) {
+        *string = "\0";
+        return ptr;
+    }
+    for (int i = 0; i < length; i++) {
+        tmp[i] = *ptr++;
+        if (tmp[i] == '`')
+            tmp[i] = '\"';
+    }
+
+    tmp[length] = 0;
+    char *t = MemAlloc(length + 1);
+    memcpy(t, tmp, length + 1);
+    *string = t;
+    *len = length;
+    return ptr;
+}
+
+
+char **LoadMessages(int numstrings, uint8_t **ptr)
+{
+    if (numstrings == 0)
+        numstrings = 0xffff;
+    char *str;
+    char **target = MemAlloc(numstrings * sizeof(char *));
+    int i;
+    for (i = 0; i < numstrings; i++) {
+        size_t length;
+        *ptr = ReadPlusString(*ptr, &str, &length);
+        fprintf(stderr, "Message %d: \"%s\"\n", i, str);
+        target[i] = str;
+    }
+    return target;
+}
+
+uint8_t *SeekToPos(uint8_t *buf, int offset)
+{
+    if (offset > 0x10000)
+        return 0;
+    return buf + offset;
+}
+
+int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr)
+{
+    if (expected_start != FOLLOWS) {
+        *offset = expected_start;
+        uint8_t *ptrbefore = *ptr;
+        *ptr = SeekToPos(mem, *offset);
+        if (*ptr == ptrbefore)
+            fprintf(stderr, "Seek unnecessary, could have been set to FOLLOWS.\n");
+        if (*ptr == 0)
+            return 0;
+    }
+    return 1;
+}
+
+void ParseHeader(uint16_t *h, int *ni, int *as, int *nn, int*nv, int *nr, int *mc, int *pr, int *mn, int *trm, int *lt, int *prp, int *adv, int *na, int *tr, int *ss, int *unk1, int *oi, int *unk2)
+{
+    *ni = h[0];
+    *as = h[1];
+    *nn = h[2];
+    *nv = h[3];
+    *nr = h[4];
+    *mc = h[5];
+    *pr = h[6];
+    *mn = h[7];
+    *trm = h[8];
+    *lt = h[9];
+    *prp = h[10];
+    *adv = h[11];
+    *na = 0;
+    *tr = 0;
+    *ss = h[12];
+    *unk1 = h[15];
+    *oi = h[13];
+    *unk2 = 0;
+}
+
+static uint8_t *ReadHeader(uint8_t *ptr)
+{
+    int i, value;
+    for (i = 0; i < 16; i++) {
+        value = *ptr + 256 * *(ptr + 1);
+        header[i] = value;
+        fprintf(stderr, "Header value %d: %d\n", i, header[i]);
+        ptr += 2;
+    }
+    return ptr - 2;
+}
+
+DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
+    uint8_t *ptr = *pointer;
+    DictWord dictionary[1024];
+    DictWord *dw = &dictionary[0];
+    char *str = NULL;
+    int group = 0;
+    int index = 0;
+    for (int i = 0; i < numstrings; i++) {
+        size_t strlength;
+        ptr = ReadPlusString(ptr, &str, &strlength);
+        if (ptr == NULL)
+            continue;
+        int lastcomma = 0;
+        int commapos = 0;
+        for (int j = 0; j <= strlength && str[j] != '\0'; j++) {
+            if (str[j] == ',') {
+                while(str[j] == ',') {
+                    str[j] = '\0';
+                    commapos = j;
+                    j++;
+                }
+                int length = commapos - lastcomma;
+                if (length > 0) {
+                    dw->Word = MemAlloc(length);
+                    memcpy(dw->Word, &str[lastcomma + 1], length);
+                    dw->Group = group;
+                    dw = &dictionary[++index];
+                }
+                lastcomma = commapos;
+            }
+        }
+        fprintf(stderr, "Dictword %d: %s (%d)\n", i, dictionary[i].Word, dictionary[i].Group);
+        free(str);
+        str = NULL;
+        group++;
+    }
+    dictionary[index].Word = NULL;
+    int dictsize = (index + 1) * sizeof(DictWord);
+    DictWord *finaldict = (DictWord *)MemAlloc(dictsize);
+    memcpy(finaldict, dictionary, dictsize);
+    *pointer = ptr;
+    if (loud)
+        for (int j = 0; dictionary[j].Word != NULL; j++)
+            fprintf(stderr, "Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
+    return finaldict;
+}
+
+int LoadDatabaseBinary(void)
+{
+    int ni, as, na, nv, nn, nr, mc, pr, tr, lt, mn, trm, adv, prp, ss, unk1, oi, unk2;
+    int ct;
+
+    Action *ap;
+    Room *rp;
+    Item *ip;
+    /* Load the header */
+
+    uint8_t *ptr = mem;
+    //    file_baseline_offset = dict_start - info.start_of_dictionary;
+    //    int offset = info.start_of_header + file_baseline_offset;
+
+    int file_baseline_offset = 0;
+
+
+    int offset = 0x32;
+
+    ptr = SeekToPos(mem, offset);
+    if (ptr == 0)
+        return 0;
+
+#pragma mark header
+
+    ptr = ReadHeader(ptr);
+
+    ParseHeader(header, &ni, &as, &nn, &nv, &nr, &mc, &pr,
+                    &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk2);
+
+    //    if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
+    //        //        fprintf(stderr, "Non-matching header\n");
+    //        return 0;
+    //    }
+
+    GameHeader.NumItems = ni;
+    Counters[43] = ni;
+    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
+    GameHeader.ActionSum = as;
+    GameHeader.NumVerbs = nv;
+    GameHeader.NumNouns = nn;
+    Verbs = MemAlloc(sizeof(char *) * (nv + 1));
+    Nouns = MemAlloc(sizeof(char *) * (nn + 1));
+    GameHeader.NumRooms = nr;
+    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+    GameHeader.MaxCarry = mc;
+    GameHeader.PlayerRoom = pr;
+    MyLoc = pr;
+    GameHeader.Treasures = tr;
+    GameHeader.NumPreps = prp;
+    GameHeader.NumAdverbs = adv;
+    GameHeader.NumSubStr = ss;
+    GameHeader.NumSubStr = ss;
+    GameHeader.NumObjImg = oi;
+    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
+    GameHeader.NumMessages = mn;
+    Messages = MemAlloc(sizeof(char *) * (mn + 1));
+    GameHeader.TreasureRoom = trm;
+
+    PrintHeaderInfo(GameHeader);
+
+    Counters[35] = nr;
+    Counters[34] = trm;
+    Counters[42] = mc;
+    SetBit(35); // Graphics on
+
+#pragma mark actions
+
+    Actions = (Action *)MemAlloc(sizeof(Action) * 500);
+
+    ct = 0;
+
+    Action *PrelActions = (Action *)MemAlloc(sizeof(Action) * 524);
+
+    ap = PrelActions;
+
+    uint8_t *origptr = ptr;
+
+    while (ptr - origptr <= GameHeader.ActionSum) {
+        uint8_t length = *ptr++;
+        ap->NumWords = length >> 4;
+        ap->CommandLength = length & 0xf;
+        ap->Verb = *ptr++;
+        ap->NounOrChance = *ptr++;
+
+        ap->Words = MemAlloc(ap->NumWords);
+
+        for (int i = 0; i < ap->NumWords; i++) {
+            ap->Words[i] = *ptr++;
+        }
+
+        int reading_conditions = 1;
+        int conditions_read = 0;
+        uint16_t conditions[1024];
+        int condargs = 0;
+        while (reading_conditions) {
+            uint8_t hi = *ptr++;
+            uint8_t lo = *ptr++;
+            uint16_t argcond = hi * 256 + lo;
+            if (argcond & 0x8000)
+                reading_conditions = 0;
+            argcond = argcond & 0x7fff;
+            uint16_t argument = argcond >> 5;
+            uint16_t condition = argcond & 0x1f;
+            conditions[condargs++] = condition;
+            conditions[condargs++] = argument;
+            if (argument > 255)
+                fprintf(stderr, "Set argument %d of action %d to %d!\n", condargs, ct, argument);
+            if (condition != 0)
+                conditions_read++;
+        }
+        ap->Conditions = MemAlloc((condargs + 1) * sizeof(uint16_t));
+        int i;
+        for (i = 0; i < condargs; i++)
+            ap->Conditions[i] = conditions[i];
+        ap->Conditions[condargs] = 255;
+        uint8_t commands[1024];
+        for (i = 0; i <= ap->CommandLength; i++) {
+            commands[i] = *ptr++;
+        }
+
+        ap->Commands = MemAlloc(i);
+        memcpy(ap->Commands, commands, i);
+
+        ap++;
+        ct++;
+    }
+
+    GameHeader.NumActions = ct - 1;
+
+    size_t actsize = sizeof(Action) * ct;
+    Actions = (Action *)MemAlloc((int)actsize);
+    memcpy(Actions, PrelActions, actsize);
+    free(PrelActions);
+
+#pragma mark dictionary
+
+    Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1, 1);
+    Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1, 1);
+
+#pragma mark room connections
+
+    /* The room connections are ordered by direction, not room, so all the North
+     * connections for all the rooms come first, then the South connections, and
+     * so on. */
+    for (int j = 0; j < 8; j++) {
+        ct = 0;
+        rp = Rooms;
+
+        while (ct < nr + 1) {
+            rp->Exits[j] = *ptr++;
+            if (j > 5) {
+                rp->Exits[j] |= *ptr;
+                ptr++;
+            }
+
+            if (j == 7) {
+                rp->Image = rp->Exits[j];
+            }
+
+            fprintf(stderr, "Room %d exit %d: %d\n", ct, j, rp->Exits[j]);
+            ct++;
+            rp++;
+        }
+    }
+
+//    ptr--;
+
+#pragma mark messages
+
+    fprintf(stderr, "ptr offset before loading messages: 0x%04ld\n", ptr - &mem[0]);
+
+
+//    if (SeekIfNeeded(0x200f, &offset, &ptr) == 0)
+//        return 0;
+
+//    if (SeekIfNeeded(0x195a, &offset, &ptr) == 0)
+//        return 0;
+
+//    if (SeekIfNeeded(0x25ca, &offset, &ptr) == 0)
+//        return 0;
+
+    Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
+
+    for (int i = 0; i <= GameHeader.NumRooms; i++) {
+        fprintf(stderr, "Room %d Exits[6]: %d\n", i, Rooms[i].Exits[6]);
+        if (Rooms[i].Exits[6] == 0)
+            Rooms[i].Text = "";
+        else
+            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
+        fprintf(stderr, "Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
+    }
+
+#pragma mark items
+
+    ct = 0;
+    ip = Items;
+    while (ct < ni + 1) {
+        size_t length;
+        ptr = ReadPlusString(ptr, &ip->Text, &length);
+        ip++;
+        ct++;
+    }
+
+#pragma mark item locations
+    ct = 0;
+    ip = Items;
+    int offs2 = ni+1;
+    uint8_t *ptr2 = ptr + offs2;
+    while (ct < ni + 1) {
+        ip->Location = *ptr;
+        ip->Dictword = *ptr2 + *(ptr2 + 1) * 256;
+        ip->Flag = *(ptr2 + offs2 * 2) + *(ptr2 + offs2 * 2 + 1) * 256;
+
+        ptr++;
+        ptr2 += 2;
+
+        fprintf(stderr, "Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
+
+        ip->InitialLoc = ip->Location;
+        ip++;
+        ct++;
+    }
+
+    ptr = ptr2 + offs2 * 2;
+
+    Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, 1);
+    Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, 1);
+
+
+#pragma mark substitutions
+
+    Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, 1);
+
+    char *title = NULL;
+    size_t length;
+    ptr = ReadPlusString(ptr, &title, &length);
+    fprintf(stderr, "Title: %s\n", title);
+
+    if (!SetGame(title, length)) {
+        free(title);
+        return 0;
+    }
+
+    for (ct = 0; ct <= oi; ct++)
+        ObjectImages[ct].room = *ptr++;
+    for (ct = 0; ct <= oi; ct++)
+        ObjectImages[ct].object = *ptr++;
+    for (ct = 0; ct <= oi; ct++) {
+        ObjectImages[ct].image = *ptr++;
+        ptr++;
+    }
+
+    for (ct = 0; ct <= oi; ct++)
+        fprintf(stderr, "ObjectImages %d: room:%d object:%d image:%d\n", ct, ObjectImages[ct].room, ObjectImages[ct].object, ObjectImages[ct].image);
+
+    DumpActions();
+
     return 1;
 }

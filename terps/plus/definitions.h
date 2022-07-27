@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#define DEBUG_ACTIONS 0
+#define DEBUG_ACTIONS 1
 
 #define debug_print(fmt, ...) \
 do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
@@ -38,6 +38,7 @@ do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 #define FORCE_INVENTORY_OFF 2048     /* Inventory in upper window always off */
 
 #define NounObject (Counters[30])
+#define Noun2Object (Counters[31])
 #define CurrentCounter (Counters[47])
 
 #define MyLoc     (Counters[32])
@@ -58,6 +59,8 @@ do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 #define GRAPHICSBIT  35
 #define ALWAYSMATCH  60
 #define STOPTIMEBIT  63
+
+#define CurrentGame (Game->gameID)
 
 typedef struct {
     char *Word;
@@ -95,7 +98,7 @@ typedef struct {
     uint8_t Verb;
     uint8_t NounOrChance;
     uint8_t *Words;
-    uint8_t *Conditions;
+    uint16_t *Conditions;
     uint8_t *Commands;
     uint8_t NumWords;
     uint8_t CommandLength;
@@ -125,14 +128,15 @@ typedef struct {
     short NumRooms;
     short MaxCarry;
     short PlayerRoom;
-    short LightTime;
     short NumMessages;
-    short Treasures;
-    short NumActions;
     short TreasureRoom;
-    short NumAdverbs;
+    short LightTime;
     short NumPreps;
+    short NumAdverbs;
+    short NumActions;
+    short Treasures;
     short NumSubStr;
+    short Unknown1;
     short NumObjImg;
     short Unknown2;
 } Header;
@@ -143,17 +147,18 @@ typedef struct {
     uint32_t image;
 } ObjectImage;
 
+typedef struct imgrec {
+    char *filename;
+    uint8_t *data;
+    size_t size;
+} imgrec;
 
 typedef enum {
     UNKNOWN_GAME,
     BANZAI,
-    BANZAI_C64,
     CLAYMORGUE,
-    CLAYMORGUE_C64,
     SPIDERMAN,
-    SPIDERMAN_C64,
     FANTASTIC4,
-    FANTASTIC4_C64,
     NUMGAMES
 } GameIDType;
 
@@ -173,6 +178,15 @@ typedef enum {
     ACT_LOOP,
     ACT_GAMEOVER
 } ActionResultType;
+
+typedef enum {
+    SYS_UNKNOWN,
+    SYS_MSDOS,
+    SYS_C64,
+    SYS_ATARI8,
+    SYS_ST,
+    SYS_APPLE2
+} SystemType;
 
 typedef enum {
     NORTH,
@@ -251,44 +265,12 @@ typedef enum {
 
 #define MAX_SYSMESS LAST_SYSTEM_MESSAGE
 
-typedef enum {
-    NOT_A_GAME,
-    FOUR_LETTER_UNCOMPRESSED,
-    THREE_LETTER_UNCOMPRESSED,
-    FIVE_LETTER_UNCOMPRESSED,
-    FOUR_LETTER_COMPRESSED,
-    FIVE_LETTER_COMPRESSED,
-    GERMAN,
-    SPANISH,
-    ITALIAN
-} DictionaryType;
-
-typedef enum {
-    NO_VARIANT,
-    GREMLINS_VARIANT,
-    SHERWOOD_VARIANT,
-    SAVAGE_ISLAND_VARIANT,
-    SECRET_MISSION_VARIANT,
-    SEAS_OF_BLOOD_VARIANT,
-    OLD_STYLE,
-} GameType;
-
-typedef enum {
-    ENGLISH = 0x1,
-    MYSTERIOUS = 0x2,
-    LOCALIZED = 0x4,
-    C64 = 0x8
-} Subtype;
-
 typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, VGA } palette_type;
 
 struct GameInfo {
-    const char *Title;
-
+    const char *title;
+    const char *ID_string;
     GameIDType gameID;
-    GameType type;
-    int subtype;
-    DictionaryType dictionary;
 
     int number_of_items;
     int number_of_actions;
@@ -303,9 +285,9 @@ struct GameInfo {
 
     int start_of_header;
 
-    int start_of_room_image_list;
-    int start_of_item_flags;
-    int start_of_item_image_list;
+    int no_of_room_images;
+    int no_of_item_images;
+    int no_of_special_images;
 
     int start_of_actions;
     int start_of_dictionary;
@@ -320,9 +302,7 @@ struct GameInfo {
 
     int start_of_characters;
     int start_of_image_data;
-    int image_address_offset; /* This is the difference between the value given by
-                               the image data lookup table and a usable file
-                               offset */
+    int image_address_offset;
     int number_of_pictures;
     palette_type palette;
     int picture_format_version;

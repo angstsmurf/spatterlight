@@ -25,9 +25,14 @@
 #include "parseinput.h"
 #include "animations.h"
 #include "restorestate.h"
+#include "c64detect.h"
+
 
 static const char *game_file = NULL;
 char *dir_path = ".";
+
+uint8_t *mem;
+size_t memlen;
 
 const char *sys[MAX_SYSMESS];
 
@@ -44,7 +49,9 @@ winid_t Bottom, Top, Graphics;
 
 strid_t Transcript = NULL;
 
-GameIDType CurrentGame = UNKNOWN_GAME;
+struct GameInfo *Game = NULL;
+
+SystemType CurrentSys = SYS_UNKNOWN;
 
 uint16_t header[64];
 
@@ -87,7 +94,7 @@ void Fatal(const char *x)
 }
 
 
-void *MemAlloc(int size)
+void *MemAlloc(size_t size)
 {
     void *t = (void *)malloc(size);
     if (t == NULL)
@@ -239,9 +246,9 @@ void Updates(event_t ev)
         CloseGraphicsWindow();
         OpenGraphicsWindow();
         if (AnimationRunning && LastAnimationBackground) {
-            char buf[1024];
-            sprintf(buf, "%sS0%02d.PAK", dir_path, LastAnimationBackground);
-            DrawImageWithFilename(buf);
+            char buf[5];
+            sprintf(buf, "S0%02d", LastAnimationBackground);
+            DrawImageWithName(buf);
         } else {
             SetBit(DRAWBIT);
             if (showing_inventory == 1) {
@@ -915,7 +922,7 @@ int CalculateConditionResult(int x, int y, int or_condition) {
 int parens_depth = 0;
 int parens_stack[5];
 
-static ActionResultType TestConditions(uint8_t *ptr) {
+static ActionResultType TestConditions(uint16_t *ptr) {
     int negate_condition = 0;
     int negate_multiple = 0;
     int or_condition = 0;
@@ -936,9 +943,14 @@ static ActionResultType TestConditions(uint8_t *ptr) {
 
         originaldv = dv;
 
-        if (dv == 230) {
+        if (dv == 998) {
             dv = NounObject;
+        } else if (dv == 999) {
+            dv = Noun2Object;
+        } else if (dv == 997) {
+            Fatal("With list unimplemented");
         }
+
         debug_print("Testing condition %d: ", cv);
         current_result = 1;
 
@@ -1088,14 +1100,16 @@ static ActionResultType TestConditions(uint8_t *ptr) {
                     debug_print("Is dictword of item (dv) %d == dictword group (dv2) %d?\n", dv, dv2);
                 else
                     debug_print("Is dictword (%d) of item %d (%s) == dictword (%d) of item %d (%s)?\n", Items[dv].Dictword, dv, Items[dv].Text, Items[dv2].Dictword, dv2, Items[dv2].Text);
-                if (originaldv == 231) {
+                if (originaldv == 999) {
                     if (CurNoun2 == dv2)
                         break;
                     current_result = 0;
-                } else if (originaldv == 230) {
+                } else if (originaldv == 998) {
                     if (CurNoun == dv2)
                         break;
                     current_result = 0;
+                } else if (originaldv == 997) {
+                    Fatal("With list unimplemented");
                 } else {
                     if (Items[dv].Dictword == 0)
                         break;
@@ -1109,8 +1123,12 @@ static ActionResultType TestConditions(uint8_t *ptr) {
             case 29:
                 cc++;
                 dv2 = ptr[cc++];
-                if (dv2 == 230)
-                    dv2 = CurNoun; // dv2 always seems to be 230
+                if (dv2 == 998)
+                    dv2 = CurNoun;
+                else if (dv2 == 999)
+                    dv2 = CurNoun2;
+                else if (dv2 == 997)
+                    Fatal("With list unimplemented");
                 debug_print("Is dictword of object %d (%s) %d? (%s)\n", dv, Nouns[GetDictWord(Items[NounObject].Dictword)].Word, dv2, Nouns[GetDictWord(dv2)].Word);
                 if (fuzzy_match) {
                     debug_print("(Fuzzy match)\n");
@@ -1240,7 +1258,6 @@ debug_print("\nPerforming line %d: ", ct);
     
     /* Commands */
     cc = 0;
-    //    act[0] = Actions[ct].Commands[0];
     uint8_t *commands = Actions[ct].Commands;
     int length = Actions[ct].CommandLength;
     while (cc <= length) {
@@ -1256,11 +1273,6 @@ debug_print("\nPerforming line %d: ", ct);
             object = arg1;
             if (cc + 1 <= length) {
                 arg2 = commands[cc + 1];
-                if (object == 131 && arg2 == 230) {
-                    object = NounObject;
-                    plus_one_arg = 1;
-                }
-
                 if (cc + 2 <= length) {
                     arg3 = commands[cc + 2];
                 }
@@ -1280,9 +1292,12 @@ debug_print("\nPerforming line %d: ", ct);
             }
             if (arg1 == 998) {
                 arg1 = CurNoun;
-            }
-            if (arg1 == 990) {
+                object = NounObject;
+            } else if (arg1 == 999) {
                 arg1 = CurNoun2;
+                object = Noun2Object;
+            } else if (arg1 == 997) {
+                Fatal("With list unimplemented");
             }
         }
         
@@ -1900,6 +1915,7 @@ static CommandResultType PerformExplicit(void)
     found_match = 0;
     ResetBit(MATCHBIT);
     NounObject = MatchUpItem(CurNoun, -1);
+    Noun2Object = MatchUpItem(CurNoun2, -1);
 
     while (ct <= GameHeader.NumActions) {
         int verbvalue, nounvalue;
@@ -1992,7 +2008,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     
     if (argc == 2) {
         game_file = argv[1];
-        
+
         const char *s;
         int dirlen = 0;
         if ((s = strrchr(game_file, '/')) != NULL || (s = strrchr(game_file, '\\')) != NULL) {
@@ -2029,19 +2045,14 @@ void DrawTitleImage(void) {
 
     glk_request_char_event(Graphics);
 
-    char buf[1024];
-    int n = sprintf(buf, "%sS0%02d.PAK", dir_path, 0);
-    if (n < 0)
-        return;
-
-    if (DrawImageFromFile(buf)) {
+    if (DrawImageWithName("S000")) {
         event_t ev;
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
-                DrawImageFromFile(buf);
+                DrawImageWithName("S000");
             }
         } while (ev.type != evtype_CharInput);
     }
@@ -2064,9 +2075,34 @@ void glk_main(void) {
     FILE *f = fopen(game_file, "r");
     if (f == NULL)
         Fatal("Cannot open game");
-    
-    if (!LoadDatabase(f, DEBUG_ACTIONS))
-        glk_exit();
+
+
+    if (LoadDatabasePlaintext(f, DEBUG_ACTIONS) == UNKNOWN_GAME) {
+        fseek(f, 0, SEEK_END);
+        memlen = ftell(f);
+        if (memlen == -1) {
+            fclose(f);
+            glk_exit();
+        }
+
+        fseek(f, 0, SEEK_SET);
+        mem = malloc(memlen);
+        if (!mem) {
+            fprintf(stderr, "Out of memory!\n");
+            glk_exit();
+        }
+
+        memlen = fread(mem, 1, memlen, f);
+        fclose(f);
+
+        if (!DetectC64(&mem, &memlen)) {
+            glk_exit();
+        }
+
+        if (!LoadDatabaseBinary())
+            glk_exit();
+
+    }
 
 #ifdef SPATTERLIGHT
     UpdateSettings();

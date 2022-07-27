@@ -61,21 +61,21 @@ void AddFrameToBuffer(int frameidx) {
 }
 
 void AddRoomImage(int image) {
-    char buf[1024];
-    sprintf( buf, "%sR0%02d.PAK", dir_path, Rooms[image].Image);
-    AddImageToBuffer(buf);
+    char *shortname = ShortNameFromType('R', image);
+    AddImageToBuffer(shortname);
+    free(shortname);
 }
 
 void AddItemImage(int image) {
-    char buf[1024];
-    sprintf( buf, "%sB0%02d.PAK", dir_path, image);
-    AddImageToBuffer(buf);
+    char *shortname = ShortNameFromType('B', image);
+    AddImageToBuffer(shortname);
+    free(shortname);
 }
 
 void AddSpecialImage(int image) {
-    char buf[1024];
-    sprintf( buf, "%sS0%02d.PAK", dir_path, image);
-    AddImageToBuffer(buf);
+    char *shortname = ShortNameFromType('S', image);
+    AddImageToBuffer(shortname);
+    free(shortname);
 }
 
 void Animate(int frame) {
@@ -166,16 +166,16 @@ void UpdateAnimation(void) // Draw animation frame
 
     if (AnimationBackground) {
         char buf[1024];
-        sprintf(buf, "%sS0%02d.PAK", dir_path, AnimationBackground);
+        sprintf(buf, "S0%02d", AnimationBackground);
         LastAnimationBackground = AnimationBackground;
         AnimationBackground = 0;
-        DrawImageWithFilename(buf);
+        DrawImageWithName(buf);
         return;
     }
 
     if (AnimationFrames[AnimationStage] != -1) {
         debug_print("UpdateAnimation: Drawing AnimationFrames[%d] (%d)\n", AnimationStage, AnimationFrames[AnimationStage]);
-        if (!DrawImageWithFilename(AnimationFilenames[AnimationFrames[AnimationStage++]]))
+        if (!DrawImageWithName(AnimationFilenames[AnimationFrames[AnimationStage++]]))
             StopNext = 1;
 
         if (PostCannonAnimationSeam && AnimationStage == 10) {

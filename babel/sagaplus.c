@@ -262,5 +262,5 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         return find_in_database(storystring, extent, &output);
     }
 
-    return (find_dskimg_in_database(storystring, extent, NULL));
+    return (find_dskimg_in_database(storystring, extent, &output));
 }

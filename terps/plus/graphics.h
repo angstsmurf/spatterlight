@@ -19,7 +19,7 @@ int DrawCloseup(int item);
 void DrawCurrentRoom(void);
 void DrawRoomImage(int room);
 void DrawItemImage(int item);
-int DrawImageWithFilename(char *filename);
-int DrawImageFromFile(char *filename);
+int DrawImageWithName(char *filename);
+char *ShortNameFromType(char type, int index);
 
 #endif /* graphics_h */

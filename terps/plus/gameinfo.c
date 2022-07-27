@@ -9,13 +9,12 @@
 
 #include "definitions.h"
 
+
 const struct GameInfo games[] = {
     {
         "Buckaroo Banzai",
+        "BUCKAROO",
         BANZAI,
-        OLD_STYLE,                // type
-        ENGLISH,                  // subtype
-        FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
         60,  // Number of items
         266, // Number of actions
@@ -30,9 +29,9 @@ const struct GameInfo games[] = {
 
         0x2451, // header
 
-        0, // no room images
-        0, // no item flags
-        0, // no item images
+        27, // no room images
+        21, // no item images
+        20, // no special images
 
         0x3a50, // actions
         0x4c54,  // dictionary
@@ -55,10 +54,8 @@ const struct GameInfo games[] = {
 
     {
         "The Sorcerer of Claymorgue Castle",
+        "Sorcerer of Claymorgue Castle. SAGA#13.",
         CLAYMORGUE,
-        NO_VARIANT,                 // type
-        ENGLISH,                  // subtype
-        FIVE_LETTER_UNCOMPRESSED, // dictionary type
 
         75,  // Number of items
         267, // Number of actions
@@ -73,9 +70,10 @@ const struct GameInfo games[] = {
 
         0x246c, // header
 
-        0x3bf6,  // room images
-        FOLLOWS, // item flags
-        FOLLOWS, // item images
+        0, // no room images
+        0, // no item images
+        0, // no special images
+
         FOLLOWS, // actions
         0x4ecf,  // dictionary
         0x53f7,  // start_of_room_descriptions;
@@ -98,10 +96,8 @@ const struct GameInfo games[] = {
 
     {
         "Questprobe 2: Spider-Man",
+        "SPIDER-MAN (tm)",
         SPIDERMAN,
-        NO_VARIANT,               // type
-        ENGLISH,                  // subtype
-        FOUR_LETTER_UNCOMPRESSED, // dictionary type
 
         72,  // Number of items
         257, // Number of actions
@@ -116,9 +112,9 @@ const struct GameInfo games[] = {
 
         0x246b, // header
 
-        0x3dd1,  // room images
-        FOLLOWS, // item flags
-        FOLLOWS, // item images
+        18, // no room images
+        25, // no item images
+        26, // no special images
 
         FOLLOWS, // actions
         0x5036,  // dictionary
@@ -138,6 +134,48 @@ const struct GameInfo games[] = {
         ZXOPT,   // palette
         2,       // picture_format_version;
     },
+
+    {
+        "Questprobe 3: Fantastic Four",
+        "FF #1 ",
+        FANTASTIC4,                  // game ID
+
+        72,  // Number of items
+        257, // Number of actions
+        124, // Number of words
+        40,  // Number of rooms
+        12,  // Max carried items
+        4,   // Word length
+        99,  // Number of messages
+
+        125, // number_of_verbs
+        125, // number_of_nouns;
+
+        0x246b, // header
+
+        22, // no room images
+        23, // no item images
+        24, // no special images
+
+        FOLLOWS, // actions
+        0x5036,  // dictionary
+        0x5518,  // start_of_room_descriptions;
+        0x4eac,  // start_of_room_connections;
+        0x575e,  // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        0x4fa2,  // start_of_item_locations;
+
+        0x2553, // start_of_system_messages
+        0x28f7, // start of directions
+
+        0x6296,  // start_of_characters;
+        0x6a96,  // start_of_image_data
+        -0x3fe5, // image_address_offset
+        41,      // number_of_pictures;
+        ZXOPT,   // palette
+        2,       // picture_format_version;
+    },
+
 
     {
         NULL

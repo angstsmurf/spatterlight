@@ -818,7 +818,7 @@
 		C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
 		C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; };
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
-		C3F06B88288CBB8400AC7FDE /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F06B85288CBB8400AC7FDE /* c64decrunch.c */; };
+		C3F06B88288CBB8400AC7FDE /* c64detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F06B85288CBB8400AC7FDE /* c64detect.c */; };
 		C3F06B9B288D42DD00AC7FDE /* c64diskimage.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F06B99288D42DD00AC7FDE /* c64diskimage.c */; };
 		C3F06B9C288D43C100AC7FDE /* libc64diskimage.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C3F06B93288D429200AC7FDE /* libc64diskimage.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3F06BA3288D43F200AC7FDE /* libc64diskimage.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F06B93288D429200AC7FDE /* libc64diskimage.dylib */; };
@@ -3227,8 +3227,8 @@
 		C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 12.xcdatamodel"; sourceTree = "<group>"; };
 		C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Quicklook.xcassets; sourceTree = "<group>"; };
 		C3EF065E1ECE60D0008EED04 /* cgdate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgdate.c; sourceTree = "<group>"; };
-		C3F06B85288CBB8400AC7FDE /* c64decrunch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; };
-		C3F06B87288CBB8400AC7FDE /* c64decrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; };
+		C3F06B85288CBB8400AC7FDE /* c64detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64detect.c; sourceTree = "<group>"; };
+		C3F06B87288CBB8400AC7FDE /* c64detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64detect.h; sourceTree = "<group>"; };
 		C3F06B93288D429200AC7FDE /* libc64diskimage.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libc64diskimage.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F06B98288D42DD00AC7FDE /* c64diskimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64diskimage.h; sourceTree = "<group>"; };
 		C3F06B99288D42DD00AC7FDE /* c64diskimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64diskimage.c; sourceTree = "<group>"; };
@@ -5863,8 +5863,8 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C37EC5902847A9E00084B841 /* plusmain.c */,
-				C3F06B87288CBB8400AC7FDE /* c64decrunch.h */,
-				C3F06B85288CBB8400AC7FDE /* c64decrunch.c */,
+				C3F06B87288CBB8400AC7FDE /* c64detect.h */,
+				C3F06B85288CBB8400AC7FDE /* c64detect.c */,
 				C37EC58F2847A9E00084B841 /* layouttext.h */,
 				C37EC58E2847A9E00084B841 /* layouttext.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
@@ -8040,7 +8040,7 @@
 				C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */,
 				C37EC5A52847BC1A0084B841 /* layouttext.c in Sources */,
 				C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */,
-				C3F06B88288CBB8400AC7FDE /* c64decrunch.c in Sources */,
+				C3F06B88288CBB8400AC7FDE /* c64detect.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
