@@ -1643,6 +1643,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
                         }
 
                         game.ifid = ifid;
+                        if (!ifid || !ifid.length)
+                            NSLog(@"No ifid?");
                         game.metadata = meta;
                         game.added = [NSDate date];
                         [game bookmarkForPath:[games valueForKey:ifid]];
