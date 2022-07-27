@@ -201,11 +201,7 @@ void DefinePalette(void)
          RGB white = { 214, 214, 214 };
          */
         RGB brblack = { 0, 0, 0 };
-        RGB brblue = {
-            0,
-            0,
-            255,
-        };
+        RGB brblue = { 0, 0, 255 };
         RGB brred = { 255, 0, 20 };
         RGB brmagenta = { 255, 0, 255 };
         RGB brgreen = { 0, 255, 0 };
