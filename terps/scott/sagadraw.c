@@ -249,7 +249,7 @@ void DefinePalette(void)
         RGB lred = { 231, 154, 132 };
         RGB dgrey = { 69, 69, 69 };
         RGB grey = { 167, 167, 167 };
-        RGB lgreen = { 154, 210, 134 };
+        RGB lgreen = { 192, 255, 185 };
         RGB lblue = { 162, 143, 255 };
         RGB lgrey = { 200, 200, 200 };
 
