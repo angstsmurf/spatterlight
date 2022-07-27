@@ -101,6 +101,17 @@ int di_rawname_from_name(unsigned char *rawname, const char *name)
     return i;
 }
 
+/* convert from rawname */
+int di_name_from_rawname(char *name, unsigned char *rawname)
+{
+    int i;
+
+    for (i = 0; i < 16 && rawname[i] != 0xa0; ++i)
+        name[i] = rawname[i];
+    name[i] = 0;
+    return i;
+}
+
 static int set_status(DiskImage *di, int status, int track, int sector)
 {
     di->status = status;
@@ -126,7 +137,7 @@ static int interleave(ImageType type)
 }
 
 /* return number of tracks for image type */
-int di_tracks(ImageType type)
+static int di_tracks(ImageType type)
 {
     switch (type) {
     case D64:
@@ -143,7 +154,7 @@ int di_tracks(ImageType type)
 }
 
 /* return disk geometry for track */
-int di_sectors_per_track(ImageType type, int track)
+static int di_sectors_per_track(ImageType type, int track)
 {
     switch (type) {
     case D71:
@@ -182,7 +193,7 @@ static int di_ts_is_valid(ImageType type, TrackSector ts)
 }
 
 /* convert track, sector to blocknum */
-int di_get_block_num(ImageType type, TrackSector ts)
+static int di_get_block_num(ImageType type, TrackSector ts)
 {
     int block;
 
@@ -232,7 +243,7 @@ int di_get_block_num(ImageType type, TrackSector ts)
 }
 
 /* get a pointer to block data */
-unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts)
+static unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts)
 {
     return di->image + di_get_block_num(di->type, ts) * 256;
 }
@@ -249,7 +260,7 @@ static int get_ts_doserr(DiskImage *di, TrackSector ts)
 }
 
 /* get status info for a sector */
-int di_get_ts_err(DiskImage *di, TrackSector ts)
+static int di_get_ts_err(DiskImage *di, TrackSector ts)
 {
     int errnum;
     DosError *err = dos_error;
@@ -278,7 +289,7 @@ static TrackSector next_ts_in_chain(DiskImage *di, TrackSector ts)
 }
 
 /* return t/s of first directory sector */
-TrackSector di_get_dir_ts(DiskImage *di)
+static TrackSector di_get_dir_ts(DiskImage *di)
 {
     TrackSector newts;
     unsigned char *p;
@@ -296,7 +307,7 @@ TrackSector di_get_dir_ts(DiskImage *di)
 }
 
 /* return number of free blocks in track */
-int di_track_blocks_free(DiskImage *di, int track)
+static int di_track_blocks_free(DiskImage *di, int track)
 {
     unsigned char *bam;
 
@@ -339,7 +350,7 @@ static int blocks_free(DiskImage *di)
 }
 
 /* check if track, sector is free in BAM */
-int di_is_ts_free(DiskImage *di, TrackSector ts)
+static int di_is_ts_free(DiskImage *di, TrackSector ts)
 {
     unsigned char mask;
     unsigned char *bam;
@@ -379,7 +390,7 @@ int di_is_ts_free(DiskImage *di, TrackSector ts)
 }
 
 /* allocate track, sector in BAM */
-void di_alloc_ts(DiskImage *di, TrackSector ts)
+static void di_alloc_ts(DiskImage *di, TrackSector ts)
 {
     unsigned char mask;
     unsigned char *bam;
@@ -459,49 +470,6 @@ static TrackSector alloc_next_dir_ts(DiskImage *di)
         ts.track = 0;
         ts.sector = 0;
         return ts;
-    }
-}
-
-/* free a block in the BAM */
-static void di_free_ts(DiskImage *di, TrackSector ts)
-{
-    unsigned char mask;
-    unsigned char *bam;
-
-    di->modified = 1;
-    switch (di->type) {
-    case D64:
-        mask = 1 << (ts.sector & 7);
-        bam = di_get_ts_addr(di, di->bam);
-        bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-        bam[ts.track * 4]++;
-        break;
-    case D71:
-        mask = 1 << (ts.sector & 7);
-        if (ts.track < 36) {
-            bam = di_get_ts_addr(di, di->bam);
-            bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-            bam[ts.track * 4]++;
-        } else {
-            bam = di_get_ts_addr(di, di->bam);
-            bam[ts.track + 185]++;
-            bam = di_get_ts_addr(di, di->bam2);
-            bam[(ts.track - 35) * 3 + ts.sector / 8 - 3] |= mask;
-        }
-        break;
-    case D81:
-        if (ts.track < 41) {
-            bam = di_get_ts_addr(di, di->bam);
-        } else {
-            bam = di_get_ts_addr(di, di->bam2);
-            ts.track -= 40;
-        }
-        mask = 1 << (ts.sector & 7);
-        bam[ts.track * 6 + ts.sector / 8 + 11] |= mask;
-        bam[ts.track * 6 + 10]++;
-        break;
-    default:
-        break;
     }
 }
 
@@ -626,6 +594,46 @@ RawDirEntry *find_largest_file_entry(DiskImage *di)
     return largest;
 }
 
+char **get_all_file_names(DiskImage *di, int *numfiles)
+{
+    unsigned char *buffer;
+    TrackSector ts;
+    RawDirEntry *rde;
+    int offset;
+
+    char temp_filenames[128][64];
+    int filename_index = 0;
+
+    ts = di_get_dir_ts(di);
+
+    while (ts.track) {
+        buffer = di_get_ts_addr(di, ts);
+        for (offset = 0; offset < 256; offset += 32) {
+            rde = (RawDirEntry *)(buffer + offset);
+            di_name_from_rawname(temp_filenames[filename_index++], rde->rawname);
+        }
+        /* todo: add sanity checking */
+        ts = next_ts_in_chain(di, ts);
+    }
+    if (filename_index == 0)
+        return NULL;
+    char **filenames = malloc((filename_index + 1) * sizeof(char *));
+    for (int i = 0; i < filename_index; i++) {
+        size_t len = strlen(temp_filenames[i]);
+        if (len == 0) {
+            filenames[i] = NULL;
+            continue;
+        }
+        len++;
+        filenames[i] = malloc(len);
+        memcpy(filenames[i], temp_filenames[i], len);
+        fprintf(stderr, "get_all_file_names: got file name %s\n", filenames[i]);
+    }
+    filenames[filename_index] = NULL;
+    *numfiles = filename_index;
+    return filenames;
+}
+
 static RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
     FileType type)
 {
@@ -640,11 +648,8 @@ static RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
         buffer = di_get_ts_addr(di, ts);
         for (offset = 0; offset < 256; offset += 32) {
             rde = (RawDirEntry *)(buffer + offset);
-            //			if ((rde->type & 0x07) == (type)) {
-            //            if (rde->type == type) {
             if (match_pattern(rawpattern, rde->rawname)) {
                 return rde;
-                //				}
             }
         }
         /* todo: add sanity checking */

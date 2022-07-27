@@ -15,7 +15,7 @@
 
 #include "c64decrunch.h"
 #include "detectgame.h"
-#include "diskimage.h"
+#include "c64diskimage.h"
 #include "sagadraw.h"
 
 #include "unp64_interface.h"

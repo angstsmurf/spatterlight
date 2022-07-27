@@ -90,22 +90,12 @@ typedef struct imagefile {
 ImageFile *di_open(DiskImage *di, unsigned char *rawname, FileType type,
                    char *mode);
 int di_read(ImageFile *imgfile, unsigned char *buffer, int len);
-
-unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts);
-int di_get_ts_err(DiskImage *di, TrackSector ts);
-
-int di_sectors_per_track(ImageType type, int track);
-int di_tracks(ImageType type);
-int di_get_block_num(ImageType type, TrackSector ts);
-
-TrackSector di_get_dir_ts(DiskImage *di);
-int di_track_blocks_free(DiskImage *di, int track);
-int di_is_ts_free(DiskImage *di, TrackSector ts);
-void di_alloc_ts(DiskImage *di, TrackSector ts);
-
 int di_rawname_from_name(unsigned char *rawname, const char *name);
 
 RawDirEntry *find_largest_file_entry(DiskImage *di);
 DiskImage *di_create_from_data(uint8_t *data, int length);
+
+/* returns an array of strings containing all file names */
+char **get_all_file_names(DiskImage *di, int *numfiles);
 
 #endif /* diskimage_h */

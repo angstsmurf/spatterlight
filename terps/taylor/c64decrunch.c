@@ -13,7 +13,7 @@
 #include "taylor.h"
 
 #include "c64decrunch.h"
-#include "diskimage.h"
+#include "c64diskimage.h"
 
 #include "unp64_interface.h"
 
