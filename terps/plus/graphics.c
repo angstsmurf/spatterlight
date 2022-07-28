@@ -59,14 +59,8 @@ int DrawImageWithName(char *filename)
         }
     }
 
-
     if (!gli_enable_graphics)
         return 0;
-    OpenGraphicsWindow();
-    if (Graphics == NULL) {
-        fprintf(stderr, "DrawImage: Graphic window NULL?\n");
-        return 0;
-    }
 
     if (CurrentSys == SYS_C64)
         return DrawC64ImageFromData(Images[i].data, Images[i].size);
