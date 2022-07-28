@@ -70,9 +70,9 @@ const struct GameInfo games[] = {
 
         0x246c, // header
 
-        0, // no room images
-        0, // no item images
-        0, // no special images
+        33, // no room images
+        52, // no item images
+        6, // no special images
 
         FOLLOWS, // actions
         0x4ecf,  // dictionary
