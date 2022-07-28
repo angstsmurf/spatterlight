@@ -272,41 +272,9 @@ struct GameInfo {
     const char *ID_string;
     GameIDType gameID;
 
-    int number_of_items;
-    int number_of_actions;
-    int number_of_words;
-    int number_of_rooms;
-    int max_carried;
-    int word_length;
-    int number_of_messages;
-
-    int number_of_verbs;
-    int number_of_nouns;
-
-    int start_of_header;
-
     int no_of_room_images;
     int no_of_item_images;
     int no_of_special_images;
-
-    int start_of_actions;
-    int start_of_dictionary;
-    int start_of_room_descriptions;
-    int start_of_room_connections;
-    int start_of_messages;
-    int start_of_item_descriptions;
-    int start_of_item_locations;
-
-    int start_of_system_messages;
-    int start_of_directions;
-
-    int start_of_characters;
-    int start_of_image_data;
-    int image_address_offset;
-    int number_of_pictures;
-    palette_type palette;
-    int picture_format_version;
-    int start_of_intro_text;
 };
 
 #endif /* definitions_h */

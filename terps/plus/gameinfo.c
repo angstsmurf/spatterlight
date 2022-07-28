@@ -16,40 +16,9 @@ const struct GameInfo games[] = {
         "BUCKAROO",
         BANZAI,
 
-        60,  // Number of items
-        266, // Number of actions
-        110, // Number of words
-        35,  // Number of rooms
-        5,   // Max carried items
-        4,   // Word length
-        95,  // Number of messages
-
-        111, // number_of_verbs
-        110, // number_of_nouns;
-
-        0x2451, // header
-
         27, // no room images
         21, // no item images
         20, // no special images
-
-        0x3a50, // actions
-        0x4c54,  // dictionary
-        FOLLOWS, // start_of_room_descriptions;
-        FOLLOWS, // start_of_room_connections;
-        FOLLOWS, // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        FOLLOWS, // start_of_item_locations;
-
-        0x2539, // start_of_system_messages
-        0x28de, // start of directions
-
-        0, // start_of_characters;
-        0, // start_of_image_data;
-        0, // image_address_offset
-        0, // number_of_pictures;
-        0, // palette
-        0, // picture_format_version;
     },
 
     {
@@ -57,40 +26,9 @@ const struct GameInfo games[] = {
         "Sorcerer of Claymorgue Castle. SAGA#13.",
         CLAYMORGUE,
 
-        75,  // Number of items
-        267, // Number of actions
-        109, // Number of words
-        32,  // Number of rooms
-        10,  // Max carried items
-        5,   // Word length
-        79,  // Number of messages
-
-        110, // number_of_verbs
-        108, // number_of_nouns;
-
-        0x246c, // header
-
-        33, // no room images
-        52, // no item images
-        6, // no special images
-
-        FOLLOWS, // actions
-        0x4ecf,  // dictionary
-        0x53f7,  // start_of_room_descriptions;
-        0x4d6f,  // start_of_room_connections;
-        0x5605,  // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        0x4e35,  // start_of_item_locations;
-
-        0x24e2, // start_of_system_messages
-        0x2877, // start of directions
-
-        0x6007,  // start_of_characters;
-        0x6807,  // start_of_image_data
-        -0x3fe5, // image_address_offset
-        37,      // number_of_pictures;
-        ZXOPT,   // palette
-        1,       // picture_format_version;
+        33, // room images
+        52, // item images
+        6, // special images
     },
 
 
@@ -99,40 +37,9 @@ const struct GameInfo games[] = {
         "SPIDER-MAN (tm)",
         SPIDERMAN,
 
-        72,  // Number of items
-        257, // Number of actions
-        124, // Number of words
-        40,  // Number of rooms
-        12,  // Max carried items
-        4,   // Word length
-        99,  // Number of messages
-
-        125, // number_of_verbs
-        125, // number_of_nouns;
-
-        0x246b, // header
-
-        18, // no room images
-        25, // no item images
-        26, // no special images
-
-        FOLLOWS, // actions
-        0x5036,  // dictionary
-        0x5518,  // start_of_room_descriptions;
-        0x4eac,  // start_of_room_connections;
-        0x575e,  // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        0x4fa2,  // start_of_item_locations;
-
-        0x2553, // start_of_system_messages
-        0x28f7, // start of directions
-
-        0x6296,  // start_of_characters;
-        0x6a96,  // start_of_image_data
-        -0x3fe5, // image_address_offset
-        41,      // number_of_pictures;
-        ZXOPT,   // palette
-        2,       // picture_format_version;
+        18, // room images
+        25, // item images
+        26, // special images
     },
 
     {
@@ -140,40 +47,9 @@ const struct GameInfo games[] = {
         "FF #1 ",
         FANTASTIC4,                  // game ID
 
-        72,  // Number of items
-        257, // Number of actions
-        124, // Number of words
-        40,  // Number of rooms
-        12,  // Max carried items
-        4,   // Word length
-        99,  // Number of messages
-
-        125, // number_of_verbs
-        125, // number_of_nouns;
-
-        0x246b, // header
-
-        22, // no room images
-        23, // no item images
-        24, // no special images
-
-        FOLLOWS, // actions
-        0x5036,  // dictionary
-        0x5518,  // start_of_room_descriptions;
-        0x4eac,  // start_of_room_connections;
-        0x575e,  // start_of_messages;
-        FOLLOWS, // start_of_item_descriptions;
-        0x4fa2,  // start_of_item_locations;
-
-        0x2553, // start_of_system_messages
-        0x28f7, // start of directions
-
-        0x6296,  // start_of_characters;
-        0x6a96,  // start_of_image_data
-        -0x3fe5, // image_address_offset
-        41,      // number_of_pictures;
-        ZXOPT,   // palette
-        2,       // picture_format_version;
+        22, // room images
+        23, // item images
+        24, // special images
     },
 
 
