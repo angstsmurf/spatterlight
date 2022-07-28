@@ -627,7 +627,6 @@ char **get_all_file_names(DiskImage *di, int *numfiles)
         len++;
         filenames[i] = malloc(len);
         memcpy(filenames[i], temp_filenames[i], len);
-        fprintf(stderr, "get_all_file_names: got file name %s\n", filenames[i]);
     }
     filenames[filename_index] = NULL;
     *numfiles = filename_index;

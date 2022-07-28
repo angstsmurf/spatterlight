@@ -744,24 +744,24 @@ static void ReadAction(FILE *f, Action *ap) {
 
 static void PrintHeaderInfo(Header header)
 {
-    fprintf(stderr, "Number of items =\t%d\n", header.NumItems);
-    fprintf(stderr, "sum of actions =\t%d\n", header.ActionSum);
-    fprintf(stderr, "Number of nouns =\t%d\n", header.NumNouns);
-    fprintf(stderr, "Number of verbs =\t%d\n", header.NumVerbs);
-    fprintf(stderr, "Number of rooms =\t%d\n", header.NumRooms);
-    fprintf(stderr, "Max carried items =\t%d\n", header.MaxCarry);
-    fprintf(stderr, "Player start location =\t%d\n", header.PlayerRoom);
-    fprintf(stderr, "Number of messages =\t%d\n", header.NumMessages);
-    fprintf(stderr, "Treasure room =\t%d\n", header.TreasureRoom);
-    fprintf(stderr, "Light source turns =\t%d\n", header.LightTime);
-    fprintf(stderr, "Number of prepositions =\t%d\n", header.NumPreps);
-    fprintf(stderr, "Number of adverbs =\t%d\n", header.NumAdverbs);
-    fprintf(stderr, "Number of actions =\t%d\n", header.NumActions);
-    fprintf(stderr, "Number of treasures =\t%d\n", header.Treasures);
-    fprintf(stderr, "Number of synonym strings =\t%d\n", header.NumSubStr);
-    fprintf(stderr, "Unknown1 =\t%d\n", header.Unknown1);
-    fprintf(stderr, "Number of object images =\t%d\n", header.NumObjImg);
-    fprintf(stderr, "Unknown3 =\t%d\n", header.Unknown2);
+    debug_print("Number of items =\t%d\n", header.NumItems);
+    debug_print("sum of actions =\t%d\n", header.ActionSum);
+    debug_print("Number of nouns =\t%d\n", header.NumNouns);
+    debug_print("Number of verbs =\t%d\n", header.NumVerbs);
+    debug_print("Number of rooms =\t%d\n", header.NumRooms);
+    debug_print("Max carried items =\t%d\n", header.MaxCarry);
+    debug_print("Player start location =\t%d\n", header.PlayerRoom);
+    debug_print("Number of messages =\t%d\n", header.NumMessages);
+    debug_print("Treasure room =\t%d\n", header.TreasureRoom);
+    debug_print("Light source turns =\t%d\n", header.LightTime);
+    debug_print("Number of prepositions =\t%d\n", header.NumPreps);
+    debug_print("Number of adverbs =\t%d\n", header.NumAdverbs);
+    debug_print("Number of actions =\t%d\n", header.NumActions);
+    debug_print("Number of treasures =\t%d\n", header.Treasures);
+    debug_print("Number of synonym strings =\t%d\n", header.NumSubStr);
+    debug_print("Unknown1 =\t%d\n", header.Unknown1);
+    debug_print("Number of object images =\t%d\n", header.NumObjImg);
+    debug_print("Unknown3 =\t%d\n", header.Unknown2);
 }
 
 static int SetGame(const char *id_string, size_t length) {
@@ -783,7 +783,7 @@ int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
             fseek(infile, 0, SEEK_END);
             size_t length = ftell(infile);
             if (length > 0) {
-                fprintf(stderr, "Found and read image file %s\n", filename);
+                debug_print("Found and read image file %s\n", filename);
                 size_t namelen = strlen(shortname) + 1;
                 rec->filename = MemAlloc(namelen);
                 memcpy(rec->filename, shortname, namelen);
@@ -794,7 +794,7 @@ int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
             }
             fclose(infile);
         } else {
-            fprintf(stderr, "Could not find or read image file %s\n", filename);
+            debug_print("Could not find or read image file %s\n", filename);
         }
     }
     return result;
@@ -930,7 +930,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         if (loud && (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms))
             debug_print("Location of item %d: %d, \"%s\"\n", ct, ip->Location,
                     ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
-        fprintf(stderr, "Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -954,8 +953,10 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             debug_print("Bad object image line (%d)\n", ct);
             return UNKNOWN_GAME;
         }
-        fprintf(stderr, "Object image %d ", ct);
-        fprintf(stderr, "room: %d object: %d image: %d\n", objimg->room, objimg->object, objimg->image);
+        if (loud) {
+            debug_print("Object image %d ", ct);
+            debug_print("room: %d object: %d image: %d\n", objimg->room, objimg->object, objimg->image);
+        }
         objimg++;
     }
     
@@ -968,7 +969,6 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             //            FreeDatabase();
             return UNKNOWN_GAME;
         }
-        fprintf(stderr, "MysteryValues[%d] = %d\n", ct, MysteryValues[ct]);
     }
     
     ReadComments(f, loud);
@@ -1042,7 +1042,7 @@ char **LoadMessages(int numstrings, uint8_t **ptr)
     for (i = 0; i < numstrings; i++) {
         size_t length;
         *ptr = ReadPlusString(*ptr, &str, &length);
-        fprintf(stderr, "Message %d: \"%s\"\n", i, str);
+        debug_print("Message %d: \"%s\"\n", i, str);
         target[i] = str;
     }
     return target;
@@ -1097,7 +1097,7 @@ static uint8_t *ReadHeader(uint8_t *ptr)
     for (i = 0; i < 16; i++) {
         value = *ptr + 256 * *(ptr + 1);
         header[i] = value;
-        fprintf(stderr, "Header value %d: %d\n", i, header[i]);
+        debug_print("Header value %d: %d\n", i, header[i]);
         ptr += 2;
     }
     return ptr - 2;
@@ -1134,7 +1134,7 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
                 lastcomma = commapos;
             }
         }
-        fprintf(stderr, "Dictword %d: %s (%d)\n", i, dictionary[i].Word, dictionary[i].Group);
+        debug_print("Dictword %d: %s (%d)\n", i, dictionary[i].Word, dictionary[i].Group);
         free(str);
         str = NULL;
         group++;
@@ -1146,7 +1146,7 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
     *pointer = ptr;
     if (loud)
         for (int j = 0; dictionary[j].Word != NULL; j++)
-            fprintf(stderr, "Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
+            debug_print("Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
     return finaldict;
 }
 
@@ -1161,11 +1161,6 @@ int LoadDatabaseBinary(void)
     /* Load the header */
 
     uint8_t *ptr = mem;
-    //    file_baseline_offset = dict_start - info.start_of_dictionary;
-    //    int offset = info.start_of_header + file_baseline_offset;
-
-    int file_baseline_offset = 0;
-
 
     int offset = 0x32;
 
@@ -1179,11 +1174,6 @@ int LoadDatabaseBinary(void)
 
     ParseHeader(header, &ni, &as, &nn, &nv, &nr, &mc, &pr,
                     &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk2);
-
-    //    if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-    //        //        fprintf(stderr, "Non-matching header\n");
-    //        return 0;
-    //    }
 
     GameHeader.NumItems = ni;
     Counters[43] = ni;
@@ -1256,8 +1246,6 @@ int LoadDatabaseBinary(void)
             uint16_t condition = argcond & 0x1f;
             conditions[condargs++] = condition;
             conditions[condargs++] = argument;
-            if (argument > 255)
-                fprintf(stderr, "Set argument %d of action %d to %d!\n", condargs, ct, argument);
             if (condition != 0)
                 conditions_read++;
         }
@@ -1310,37 +1298,22 @@ int LoadDatabaseBinary(void)
                 rp->Image = rp->Exits[j];
             }
 
-            fprintf(stderr, "Room %d exit %d: %d\n", ct, j, rp->Exits[j]);
+            debug_print("Room %d exit %d: %d\n", ct, j, rp->Exits[j]);
             ct++;
             rp++;
         }
     }
 
-//    ptr--;
-
 #pragma mark messages
-
-    fprintf(stderr, "ptr offset before loading messages: 0x%04ld\n", ptr - &mem[0]);
-
-
-//    if (SeekIfNeeded(0x200f, &offset, &ptr) == 0)
-//        return 0;
-
-//    if (SeekIfNeeded(0x195a, &offset, &ptr) == 0)
-//        return 0;
-
-//    if (SeekIfNeeded(0x25ca, &offset, &ptr) == 0)
-//        return 0;
 
     Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
 
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        fprintf(stderr, "Room %d Exits[6]: %d\n", i, Rooms[i].Exits[6]);
         if (Rooms[i].Exits[6] == 0)
             Rooms[i].Text = "";
         else
             Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
-        fprintf(stderr, "Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
+        debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
     }
 
 #pragma mark items
@@ -1367,7 +1340,7 @@ int LoadDatabaseBinary(void)
         ptr++;
         ptr2 += 2;
 
-        fprintf(stderr, "Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
+        debug_print("Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
 
         ip->InitialLoc = ip->Location;
         ip++;
@@ -1387,7 +1360,7 @@ int LoadDatabaseBinary(void)
     char *title = NULL;
     size_t length;
     ptr = ReadPlusString(ptr, &title, &length);
-    fprintf(stderr, "Title: %s\n", title);
+    debug_print("Title: %s\n", title);
 
     if (!SetGame(title, length)) {
         free(title);
@@ -1404,7 +1377,7 @@ int LoadDatabaseBinary(void)
     }
 
     for (ct = 0; ct <= oi; ct++)
-        fprintf(stderr, "ObjectImages %d: room:%d object:%d image:%d\n", ct, ObjectImages[ct].room, ObjectImages[ct].object, ObjectImages[ct].image);
+        debug_print("ObjectImages %d: room:%d object:%d image:%d\n", ct, ObjectImages[ct].room, ObjectImages[ct].object, ObjectImages[ct].image);
 
     DumpActions();
 

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "definitions.h"
 #include "glk.h"
 
 extern int x, y, count;
@@ -126,7 +127,6 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     
     work = *ptr++;
     size = work+(*ptr++ * 256);
-    fprintf(stderr, "size: %4x\n",size);
 
     // Get the offset
     xoff = *ptr++ - 3;
@@ -134,18 +134,15 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     yoff = *ptr++;
     x = xoff * 8;
     y = yoff;
-    fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
 
     // Get the x length
     xlen = *ptr++;
     ylen = *ptr++;
 
-    fprintf(stderr, "xlen: %x ylen: %x\n",xlen, ylen);
-
     set_color(0,&black);
 
     // Get the palette
-    fprintf(stderr, "Colours: ");
+    debug_print("Colours: ");
     for (i=1;i<5;i++)
     {
         work=*ptr++;
@@ -252,9 +249,9 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
                 fprintf(stderr, "Unknown colour %d ",work);
                 break;
         }
-        fprintf(stderr, "%d (%d)(%d) ",work, work >> 4, work & 0xf);
+        debug_print("%d (%d)(%d) ",work, work >> 4, work & 0xf);
     }
-    fprintf(stderr, "\n");
+    debug_print("\n");
 
     j=0;
     while (ptr - origptr < datasize - 3)
