@@ -142,6 +142,8 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     set_color(0,&black);
 
     // Get the palette
+    // This is just ad-hoc from observation, I have no idea
+    // how this is actually supposed to work
     debug_print("Colours: ");
     for (i=1;i<5;i++)
     {
@@ -246,10 +248,10 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
                 set_color(i,&yellow);
                 break;
             default:
-                fprintf(stderr, "Unknown colour %d ",work);
+                fprintf(stderr, "Unknown colour %d ", work);
                 break;
         }
-        debug_print("%d (%d)(%d) ",work, work >> 4, work & 0xf);
+        debug_print("%d ", work);
     }
     debug_print("\n");
 
