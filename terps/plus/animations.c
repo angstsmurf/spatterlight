@@ -165,7 +165,7 @@ void UpdateAnimation(void) // Draw animation frame
     }
 
     if (AnimationBackground) {
-        char buf[1024];
+        char buf[5];
         sprintf(buf, "S0%02d", AnimationBackground);
         LastAnimationBackground = AnimationBackground;
         AnimationBackground = 0;
