@@ -17,7 +17,7 @@ extern int x_offset, y_offset, right_margin;
 
 int DrawCloseup(int item);
 void DrawCurrentRoom(void);
-void DrawRoomImage(int room);
+int DrawRoomImage(int room);
 void DrawItemImage(int item);
 int DrawImageWithName(char *filename);
 char *ShortNameFromType(char type, int index);

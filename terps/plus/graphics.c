@@ -92,20 +92,34 @@ int DrawCloseup(int img) {
     return DrawImageWithName(buf);
 }
 
-void DrawRoomImage(int roomimg) {
+int DrawRoomImage(int roomimg) {
     LastImgType = IMG_ROOM;
     LastImgIndex = roomimg;
-    char buf[1024];
 
+    char buf[5];
     int n = sprintf( buf, "R0%02d", roomimg);
     if (n < 0)
-        return;
-    glk_window_clear(Graphics);
-    DrawImageWithName(buf);
+        return 0;
+
+    if (Graphics)
+        glk_window_clear(Graphics);
+
+    return DrawImageWithName(buf);
 }
 
 void DrawCurrentRoom(void)
 {
+    if (CurrentGame == CLAYMORGUE && MyLoc == 33)
+        showing_inventory = 1;
+    else
+        showing_inventory = 0;
+
+    if (!gli_enable_graphics) {
+        CloseGraphicsWindow();
+        return;
+    }
+
+
     int dark = IsSet(DARKBIT);
     for (int i = 0; i <= GameHeader.NumItems; i++) {
         if (Items[i].Flag & 2) {
@@ -114,26 +128,26 @@ void DrawCurrentRoom(void)
         }
     }
 
-    if (dark && Graphics != NULL) {
-        if(CurrentGame != CLAYMORGUE)
-            DrawBlack();
-        return;
-    }
 
     if (Rooms[MyLoc].Image == 255) {
         CloseGraphicsWindow();
         return;
     }
 
-    if (dark || Graphics == NULL)
+    if (dark && Graphics != NULL) {
+        if(CurrentGame != CLAYMORGUE) {
+            DrawBlack();
+        }
+        return;
+    }
+
+    if (Graphics == NULL)
         return;
 
-    DrawRoomImage(Rooms[MyLoc].Image);
-
-    if (CurrentGame == CLAYMORGUE && MyLoc == 33)
-        showing_inventory = 1;
-    else
-        showing_inventory = 0;
+    if (!DrawRoomImage(Rooms[MyLoc].Image)) {
+        CloseGraphicsWindow();
+        return;
+    }
 
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
         if (ObjectImages[ct].room == MyLoc && Items[ObjectImages[ct].object].Location == MyLoc ) {
