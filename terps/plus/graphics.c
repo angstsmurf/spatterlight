@@ -15,6 +15,8 @@
 ImgType LastImgType;
 int LastImgIndex;
 
+int upside_down = 0;
+
 struct imgrec *Images;
 
 static void DrawBlack(void)
@@ -77,6 +79,8 @@ void DrawItemImage(int item) {
         if (n < 0)
             return;
 
+    upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
+
     DrawImageWithName(buf);
 }
 
@@ -88,6 +92,8 @@ int DrawCloseup(int img) {
     int n = sprintf( buf, "S0%02d", img);
     if (n < 0)
         return 0;
+
+    upside_down = 0;
 
     return DrawImageWithName(buf);
 }
@@ -104,21 +110,19 @@ int DrawRoomImage(int roomimg) {
     if (Graphics)
         glk_window_clear(Graphics);
 
+    upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
+
     return DrawImageWithName(buf);
 }
 
 void DrawCurrentRoom(void)
 {
-    if (CurrentGame == CLAYMORGUE && MyLoc == 33)
-        showing_inventory = 1;
-    else
-        showing_inventory = 0;
+    showing_inventory = (CurrentGame == CLAYMORGUE && MyLoc == 33);
 
     if (!gli_enable_graphics) {
         CloseGraphicsWindow();
         return;
     }
-
 
     int dark = IsSet(DARKBIT);
     for (int i = 0; i <= GameHeader.NumItems; i++) {

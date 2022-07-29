@@ -19,31 +19,11 @@ typedef RGB PALETTE[16];
 
 extern PALETTE pal;
 
-RGB wibble;
-int countflag;
-
 extern winid_t Graphics;
 
-extern int pixel_size;
-extern int x_offset, y_offset, right_margin;
+void PutPixel(glsi32 x, glsi32 y, int32_t color);
 
-static void PutPixel(glsi32 x, glsi32 y, int32_t color)
-{
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
-//    fprintf(stderr, "PutPixel: %d, %d, color %x\n", x, y, glk_color);
-
-    glsi32 xpos = x * pixel_size + x_offset;
-
-    if (xpos < x_offset || xpos >= right_margin) {
-        return;
-    }
-
-    glk_window_fill_rect(Graphics, glk_color, xpos,
-                         y * pixel_size + y_offset, pixel_size, pixel_size);
-}
-
-void drawpixels(int pattern, int pattern2)
+static void DrawC64Pixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
 
@@ -90,11 +70,136 @@ void drawpixels(int pattern, int pattern2)
     }
 }
 
-static void set_color(int32_t index, RGB *colour)
-{
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
+void SetColour(int32_t index, RGB *colour);
+
+static RGB black = { 0, 0, 0 };
+static RGB white = { 255, 255, 255 };
+static RGB red = { 191, 97, 72 };
+//    static RGB cyan = { 153, 230, 249 };
+static RGB purple = { 177, 89, 185 };
+static RGB green = { 121, 213, 112 };
+static RGB blue = { 95, 72, 233 };
+static RGB yellow = { 247, 255, 108 };
+static RGB orange = { 186, 134, 32 };
+static RGB brown = { 131, 112, 0 };
+static RGB lred = { 231, 154, 132 };
+//    static RGB dgrey = { 69, 69, 69 };
+static RGB grey = { 167, 167, 167 };
+static RGB lgreen = { 192, 255, 185 };
+static RGB lblue = { 162, 143, 255 };
+//    static RGB lgrey = { 200, 200, 200 };
+
+
+/*
+ The values below are determined by looking at the games
+ running in the VICE C64 emulator.
+ I have no idea how the original interpreter calculates
+ them. I might have made some mistakes. */
+
+static void TranslateC64Colour(int index, uint8_t value) {
+    switch(value) {
+        case 0:
+            SetColour(index,&purple);
+            break;
+        case 1:
+            SetColour(index,&blue);
+            break;
+        case 3:
+            SetColour(index,&white);
+            break;
+        case 7:
+        case 8:
+        case 9:
+            SetColour(index,&blue);
+            break;
+        case 10:
+        case 12:
+        case 14:
+        case 15:
+            SetColour(index,&white);
+            break;
+        case 17:
+            SetColour(index,&green);
+            break;
+        case 36:
+        case 40:
+            SetColour(index,&brown);
+            break;
+        case 46:
+            SetColour(index,&yellow);
+            break;
+        case 52:
+        case 54:
+        case 56:
+        case 60:
+            SetColour(index,&orange);
+            break;
+        case 68:
+        case 69:
+        case 71:
+            SetColour(index,&red);
+            break;
+        case 77:
+        case 85:
+        case 87:
+            SetColour(index,&purple);
+            break;
+        case 89:
+            SetColour(index,&lred);
+            break;
+        case 101:
+        case 103:
+            SetColour(index,&purple);
+            break;
+        case 110:
+            SetColour(index,&lblue);
+            break;
+        case 135:
+        case 137:
+            SetColour(index,&blue);
+            break;
+        case 157:
+            SetColour(index,&lblue);
+            break;
+        case 161:
+            SetColour(index,&grey);
+            break;
+        case 179:
+        case 182:
+        case 194:
+        case 196:
+        case 198:
+        case 199:
+        case 200:
+            SetColour(index,&green);
+            break;
+        case 201:
+            SetColour(index,&lgreen);
+            break;
+        case 212:
+        case 214:
+        case 215:
+            SetColour(index,&green);
+            break;
+        case 224:
+            SetColour(index,&purple);
+            break;
+        case 230:
+        case 237:
+            SetColour(index,&yellow);
+            break;
+        case 244:
+        case 246:
+        case 248:
+            SetColour(index,&brown);
+            break;
+        case 252:
+            SetColour(index,&yellow);
+            break;
+        default:
+            fprintf(stderr, "Unknown colour %d ", value);
+            break;
+    }
 }
 
 int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
@@ -102,22 +207,6 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     int work,work2;
     int c;
     int i,j;
-    RGB black = { 0, 0, 0 };
-    RGB white = { 255, 255, 255 };
-    RGB red = { 191, 97, 72 };
-    RGB cyan = { 153, 230, 249 };
-    RGB purple = { 177, 89, 185 };
-    RGB green = { 121, 213, 112 };
-    RGB blue = { 95, 72, 233 };
-    RGB yellow = { 247, 255, 108 };
-    RGB orange = { 186, 134, 32 };
-    RGB brown = { 131, 112, 0 };
-    RGB lred = { 231, 154, 132 };
-    RGB dgrey = { 69, 69, 69 };
-    RGB grey = { 167, 167, 167 };
-    RGB lgreen = { 192, 255, 185 };
-    RGB lblue = { 162, 143, 255 };
-    RGB lgrey = { 200, 200, 200 };
 
     uint8_t *origptr = ptr;
 
@@ -139,118 +228,14 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     xlen = *ptr++;
     ylen = *ptr++;
 
-    set_color(0,&black);
+    SetColour(0,&black);
 
     // Get the palette
-    // This is just ad-hoc from observation, I have no idea
-    // how this is actually supposed to work
     debug_print("Colours: ");
     for (i=1;i<5;i++)
     {
         work=*ptr++;
-        switch(work) {
-            case 0:
-                set_color(i,&purple);
-                break;
-            case 1:
-                set_color(i,&blue);
-                break;
-            case 3:
-                set_color(i,&white);
-                break;
-            case 7:
-            case 8:
-            case 9:
-                set_color(i,&blue);
-                break;
-            case 10:
-            case 12:
-            case 14:
-            case 15:
-                set_color(i,&white);
-                break;
-            case 17:
-                set_color(i,&green);
-                break;
-            case 36:
-            case 40:
-                set_color(i,&brown);
-                break;
-            case 46:
-                set_color(i,&yellow);
-                break;
-            case 52:
-            case 54:
-            case 56:
-            case 60:
-                set_color(i,&orange);
-                break;
-            case 68:
-            case 69:
-            case 71:
-                set_color(i,&red);
-                break;
-            case 77:
-            case 85:
-            case 87:
-                set_color(i,&purple);
-                break;
-            case 89:
-                set_color(i,&lred);
-                break;
-            case 101:
-            case 103:
-                set_color(i,&purple);
-                break;
-            case 110:
-                set_color(i,&lblue);
-                break;
-            case 135:
-            case 137:
-                set_color(i,&blue);
-                break;
-            case 157:
-                set_color(i,&lblue);
-                break;
-            case 161:
-                set_color(i,&grey);
-                break;
-            case 179:
-            case 182:
-            case 194:
-            case 196:
-            case 198:
-            case 199:
-            case 200:
-                set_color(i,&green);
-                break;
-            case 201:
-                set_color(i,&lgreen);
-                break;
-            case 212:
-            case 214:
-            case 215:
-                set_color(i,&green);
-                break;
-            case 224:
-                set_color(i,&purple);
-                break;
-            case 230:
-            case 237:
-                set_color(i,&yellow);
-                break;
-            case 244:
-            case 246:
-            case 248:
-                set_color(i,&brown);
-                break;
-            case 252:
-                set_color(i,&yellow);
-                break;
-            default:
-                fprintf(stderr, "Unknown colour %d ", work);
-                break;
-        }
+        TranslateC64Colour(i, work);
         debug_print("%d ", work);
     }
     debug_print("\n");
@@ -259,17 +244,16 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     while (ptr - origptr < datasize - 3)
     {
         // First get count
-        c=*ptr++;
+        c = *ptr++;
 
-        if (((c & 0x80) == 0x80) || countflag)
+        if ((c & 0x80) == 0x80)
         { // is a counter
-            if (!countflag) c &= 0x7f;
-            if (countflag) c-=1;
-            work=*ptr++;
-            work2=*ptr++;
+            c &= 0x7f;
+            work = *ptr++;
+            work2 = *ptr++;
             for (i=0;i<c+1;i++)
             {
-                drawpixels(work,work2);
+                DrawC64Pixels(work,work2);
             }
         }
         else
@@ -280,7 +264,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
             {
                 work=*ptr++;
                 work2=*ptr++;
-                drawpixels(work,work2);
+                DrawC64Pixels(work,work2);
             }
         }
     }
