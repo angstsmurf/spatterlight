@@ -1981,7 +1981,8 @@ static void RunCommandTable(void)
     while(*p != 0x7F) {
         if(((*p == 126 || *p == Word[0]) &&
            (p[1] == 126 || p[1] == Word[1])) ||
-           ((*p == 126 || *p == Word[1]) &&
+           (*p == Word[1] && p[1] == Word[0]) ||
+           (BaseGame != QUESTPROBE3 && (*p == 126 || *p == Word[1]) &&
            (p[1] == 126 || p[1] == Word[0]))
            ) {
 #ifdef DEBUG
