@@ -45,6 +45,7 @@ size_t AnimationData = 0;
 int NumLowObjects;
 
 static int ActionsExecuted;
+static int FoundMatch;
 static int PrintedOK;
 int Redraw = 0;
 
@@ -1962,6 +1963,7 @@ static void RunCommandTable(void)
 
     int done = 0;
     ActionsExecuted = 0;
+    FoundMatch = 0;
 
     while(*p != 0x7F) {
         if(((*p == 126 || *p == Word[0]) &&
@@ -1973,6 +1975,9 @@ static void RunCommandTable(void)
             PrintWord(p[0]);
             PrintWord(p[1]);
 #endif
+            if (p[0] != 126) {
+                FoundMatch = 1;
+            }
             /* Work around some Questprobe bugs */
             if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
@@ -2075,8 +2080,10 @@ static void RunOneInput(void)
             if (ActionsExecuted == 0) {
                 if(IsDir(OriginalVerb) || (Word[0] == GoVerb && IsDir(Word[1])))
                     SysMessage(YOU_CANT_GO_THAT_WAY);
-                else
+                else if (FoundMatch)
                     SysMessage(THATS_BEYOND_MY_POWER);
+                else
+                    SysMessage(I_DONT_UNDERSTAND);
                 OutFlush();
                 StopTime = 1;
                 return;
