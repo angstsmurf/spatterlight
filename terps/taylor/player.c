@@ -49,6 +49,8 @@ static int FoundMatch;
 static int PrintedOK;
 int Redraw = 0;
 
+static int Q3SwitchedWatch = 0;
+
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
 #define TurnsLow (Flag[26])
@@ -1340,7 +1342,6 @@ static void Q3SwitchInvFlags(unsigned char a, unsigned char b) {
     if (Flag[2] == a) {
         Flag[2] = b;
         Flag[3] = a;
-        ObjectLoc[37] = 253 + (ObjectLoc[37] == 253);
     }
 }
 
@@ -1373,6 +1374,20 @@ static void Q3UpdateFlags(void) {
     /* And set it when he is present */
     else if (Present(33))
         Flag[39] = 1;
+
+    /* Make sure that:
+     - The watch isn't carried in the "intro"
+     - That Thing has it when the game starts, no
+     matter who we begin as
+     */
+    if (!Q3SwitchedWatch) {
+        if (MyLoc == 6 || MyLoc == 0) {
+            ObjectLoc[37] = 0xfc;
+        } else {
+            ObjectLoc[37] = 254;
+            Q3SwitchedWatch = 1;
+        }
+    }
 
     if (DrawImages)
         return;
