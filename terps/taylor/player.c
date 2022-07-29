@@ -1527,12 +1527,10 @@ static void ExecuteLineCode(unsigned char *p, int *done)
                     continue;
                 break;
             case CARRIED:
-                /*FIXME : or worn ?? */
                 if(ObjectLoc[arg1] == Carried() || ObjectLoc[arg1] == Worn())
                     continue;
                 break;
             case NOTCARRIED:
-                /*FIXME : or worn ?? */
                 if(ObjectLoc[arg1] != Carried() && ObjectLoc[arg1] != Worn())
                     continue;
                 break;
