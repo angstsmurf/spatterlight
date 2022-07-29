@@ -201,11 +201,12 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
         pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
-        right_margin = optimal_width + x_offset;
         winid_t parent = glk_window_get_parent(Graphics);
         glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                                    optimal_height, NULL);
     }
+
+    right_margin = optimal_width + x_offset;
 }
 
 void CloseGraphicsWindow(void)
