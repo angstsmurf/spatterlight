@@ -1,6 +1,6 @@
 //
 //  c64detect.c
-//  scott
+//  Plus
 //
 //  Created by Administrator on 2022-01-30.
 //

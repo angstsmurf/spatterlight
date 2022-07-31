@@ -1,14 +1,14 @@
 //
-//  c64decrunch.h
-//  scott
+//  c64detect.h
+//  Plus
 //
 //  Created by Administrator on 2022-01-30.
 //
 
-#ifndef c64decrunch_h
-#define c64decrunch_h
+#ifndef c64detect_h
+#define c64detect_h
 
 #include <stdio.h>
 int DetectC64(uint8_t **sf, size_t *extent);
 
-#endif /* c64decrunch_h */
+#endif /* c64detect_h */
