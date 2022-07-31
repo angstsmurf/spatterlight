@@ -6,7 +6,7 @@
 
 #define FORMAT sagaplus
 #define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/master/terps/plus"
-#define FORMAT_EXT ".dat,.d64"
+#define FORMAT_EXT ".dat,.d64,.atr"
 #define NO_METADATA
 #define NO_COVER
 
@@ -33,12 +33,17 @@ static const struct plusrec plus_registry[] = {
     { 0x2ab00, 0x833c, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
     { 0x2ab00, 0x83dc, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
     { 0x2ab00, 0xe1cd, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[sharedata_1987].d64
+    { 0x16810, 0xc003, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr
     { 0, 0, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" },
     { 0, 0, "BUCKAROO", "13EA7A22731E90598456D13311923833" },
     { 0x2ab00, 0x3464, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64
+    { 0x16810, 0x5434, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit
+
     { 0, 0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
     { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
     { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
+    { 0x16810, 0xe3ad, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
+    { 0x16810, 0x3c1e, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
 
     { 0, 0, "\0", "\0" }
 };
@@ -238,7 +243,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

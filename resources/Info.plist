@@ -760,6 +760,30 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>atr</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Atari Disk Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.atr</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -1646,6 +1670,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1676,6 +1701,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1706,6 +1732,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1734,6 +1761,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1764,6 +1792,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1792,6 +1821,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1818,6 +1848,7 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
@@ -1829,6 +1860,35 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>dsk</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>A</string>
+				<key>UTTypeIconText</key>
+				<string>ATR</string>
+			</dict>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Atari Disk Image</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.atr</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>atr</string>
 				</array>
 			</dict>
 		</dict>

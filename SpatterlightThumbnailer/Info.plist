@@ -52,6 +52,7 @@
 				<string>public.jacl</string>
 				<string>public.saga</string>
 				<string>public.fiad</string>
+				<string>public.atr</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>0</integer>
