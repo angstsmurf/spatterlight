@@ -272,6 +272,7 @@ void RestartGame(void)
     FreeInputWords();
     RestoreState(InitialState);
     JustStarted = 0;
+    lastwasnewline = 1;
     ResetBit(STOPTIMEBIT);
     ClearAnimationBuffer();
     glk_window_clear(Bottom);

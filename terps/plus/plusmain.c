@@ -42,6 +42,7 @@ int Options; /* Option flags set */
 
 int split_screen = 1;
 int lastwasnewline = 1;
+int pendingcomma = 0;
 int should_restart = 0;
 
 glui32 TopWidth, TopHeight;
@@ -649,17 +650,27 @@ static void PrintMessage(int index)
 {
     const char *message = Messages[index];
     debug_print("Print message %d: \"%s\"\n", index, message);
+    if (lastwasnewline)
+        pendingcomma = 0;
     if (message != NULL && message[0] != 0) {
         int i = 0;
         if (message[0] != '\\' && message[0] != ' ') {
+            if (pendingcomma)
+                Output(",");
             if (!lastwasnewline)
                 Output(" ");
         } else {
             while (message[i] == '\\')
                 i++;
         }
-        while (message[i] != 0 && !(message[i] == ' ' && message[i + 1] == 0))
-            Display(Bottom, "%c", message[i++]);
+        pendingcomma = 0;
+        while (message[i] != 0 && !(message[i] == ' ' && message[i + 1] == 0)) {
+            if (message[i] == ',' && message[i + 1] == 0)
+                pendingcomma = 1;
+            else
+                Display(Bottom, "%c", message[i]);
+            i++;
+        }
         lastwasnewline = 0;
     }
 }
