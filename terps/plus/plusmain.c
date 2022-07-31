@@ -721,10 +721,20 @@ static void PlayerIsDead(void)
     Counters[17] = Counters[17] & 0x0f;
 }
 
+void CheckForObjectImage(int obj) {
+    for (int i = 0; i <= GameHeader.NumObjImg; i++)
+        if (ObjectImages[i].object == obj) {
+            SetBit(DRAWBIT);
+            return;
+        }
+}
+
 static void PutItemAInRoomB(int itemA, int roomB)
 {
     debug_print("Item %d (%s) is put in room %d. MyLoc: %d (%s)\n", itemA, Items[itemA].Text, roomB, MyLoc, Rooms[MyLoc].Text);
     Items[itemA].Location = roomB;
+    if (roomB == MyLoc)
+        CheckForObjectImage(itemA);
 }
 
 static void SwapCounters(int index)
@@ -1243,14 +1253,6 @@ static void PrintFlagInfo(int arg) {
         default:
             break;
     }
-}
-
-void CheckForObjectImage(int obj) {
-    for (int i = 0; i <= GameHeader.NumObjImg; i++)
-        if (ObjectImages[i].object == obj) {
-            SetBit(DRAWBIT);
-            return;
-        }
 }
 
 static ActionResultType PerformLine(int ct)
