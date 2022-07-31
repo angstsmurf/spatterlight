@@ -89,7 +89,7 @@ static void DrawDOSPixels(int pattern)
     }
 }
 
-void SetColour(int32_t index, RGB *colour)
+void SetColour(int32_t index, const RGB *colour)
 {
     pal[index][0] = (*colour)[0];
     pal[index][1] = (*colour)[1];

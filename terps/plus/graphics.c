@@ -27,7 +27,7 @@ static void DrawBlack(void)
 }
 
 char *ShortNameFromType(char type, int index) {
-    char buf[1024];
+    char buf[5];
     int n = sprintf(buf, "%c0%02d", type, index);
     if (n < 0)
         return NULL;
@@ -39,6 +39,7 @@ char *ShortNameFromType(char type, int index) {
 
 int DrawC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
+int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize);
 
 int DrawImageWithName(char *filename)
 {
@@ -66,6 +67,8 @@ int DrawImageWithName(char *filename)
 
     if (CurrentSys == SYS_C64)
         return DrawC64ImageFromData(Images[i].data, Images[i].size);
+    else if (CurrentSys == SYS_ATARI8)
+        return DrawAtari8ImageFromData(Images[i].data, Images[i].size);
     else
         return DrawDOSImageFromData(Images[i].data, Images[i].size);
 }
@@ -106,6 +109,7 @@ int DrawRoomImage(int roomimg) {
     int n = sprintf( buf, "R0%02d", roomimg);
     if (n < 0)
         return 0;
+    buf[4] = 0;
 
     if (Graphics)
         glk_window_clear(Graphics);
@@ -117,6 +121,8 @@ int DrawRoomImage(int roomimg) {
 
 void DrawCurrentRoom(void)
 {
+    OpenGraphicsWindow();
+
     showing_inventory = (CurrentGame == CLAYMORGUE && MyLoc == 33);
 
     if (!gli_enable_graphics) {

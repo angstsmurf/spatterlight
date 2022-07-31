@@ -4,6 +4,8 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
 
 #include "definitions.h"
 #include "glk.h"
@@ -23,14 +25,14 @@ extern winid_t Graphics;
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color);
 
-static void DrawC64Pixels(int pattern, int pattern2)
+void DrawC64Pixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
 
 //    fprintf(stderr, "Plotting at %d %d: %x %x\n",x,y,pattern,pattern2);
-    // Now get colours
     if (x>(xlen - 3)*8)
       return;
+
     pix1=(pattern & 0xc0)>>6;
     pix2=(pattern & 0x30)>>4;
     pix3=(pattern & 0x0c)>>2;
@@ -70,25 +72,24 @@ static void DrawC64Pixels(int pattern, int pattern2)
     }
 }
 
-void SetColour(int32_t index, RGB *colour);
+void SetColour(int32_t index, const RGB *colour);
 
-static RGB black = { 0, 0, 0 };
-static RGB white = { 255, 255, 255 };
-static RGB red = { 191, 97, 72 };
-//    static RGB cyan = { 153, 230, 249 };
-static RGB purple = { 177, 89, 185 };
-static RGB green = { 121, 213, 112 };
-static RGB blue = { 95, 72, 233 };
-static RGB yellow = { 247, 255, 108 };
-static RGB orange = { 186, 134, 32 };
-static RGB brown = { 131, 112, 0 };
-static RGB lred = { 231, 154, 132 };
-//    static RGB dgrey = { 69, 69, 69 };
-static RGB grey = { 167, 167, 167 };
-static RGB lgreen = { 192, 255, 185 };
-static RGB lblue = { 162, 143, 255 };
-//    static RGB lgrey = { 200, 200, 200 };
-
+static const RGB black = { 0, 0, 0 };
+static const RGB white = { 255, 255, 255 };
+static const RGB red = { 191, 97, 72 };
+//    static const RGB cyan = { 153, 230, 249 };
+static const RGB purple = { 177, 89, 185 };
+static const RGB green = { 121, 213, 112 };
+static const RGB blue = { 95, 72, 233 };
+static const RGB yellow = { 247, 255, 108 };
+static const RGB orange = { 186, 134, 32 };
+static const RGB brown = { 131, 112, 0 };
+static const RGB lred = { 231, 154, 132 };
+//    static const RGB dgrey = { 69, 69, 69 };
+static const RGB grey = { 167, 167, 167 };
+static const RGB lgreen = { 192, 255, 185 };
+static const RGB lblue = { 162, 143, 255 };
+//    static const RGB lgrey = { 200, 200, 200 };
 
 /*
  The values below are determined by looking at the games
@@ -109,9 +110,9 @@ static void TranslateC64Colour(int index, uint8_t value) {
             break;
         case 7:
         case 8:
-        case 9:
             SetColour(index,&blue);
             break;
+        case 9:
         case 10:
         case 12:
         case 14:
@@ -210,7 +211,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     uint8_t *origptr = ptr;
 
-    x=0;y=0;
+    x = 0; y = 0;
 
     ptr += 2;
     
@@ -232,9 +233,9 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     // Get the palette
     debug_print("Colours: ");
-    for (i=1;i<5;i++)
+    for (i = 1; i < 5; i++)
     {
-        work=*ptr++;
+        work = *ptr++;
         TranslateC64Colour(i, work);
         debug_print("%d ", work);
     }
@@ -260,7 +261,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
         {
             // Don't count on the next j characters
 
-            for (i=0;i<c+1 && ptr - origptr < datasize - 1;i++)
+            for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
             {
                 work=*ptr++;
                 work2=*ptr++;

@@ -56,7 +56,8 @@ extern int AutoInventory;
 
 extern winid_t Bottom;
 
-extern char *dir_path;
+extern char *DirPath;
+extern const char *game_file;
 
 extern Header GameHeader;
 

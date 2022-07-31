@@ -25,11 +25,12 @@
 #include "parseinput.h"
 #include "animations.h"
 #include "restorestate.h"
+#include "atari8detect.h"
 #include "c64detect.h"
 
 
-static const char *game_file = NULL;
-char *dir_path = ".";
+const char *game_file = NULL;
+char *DirPath = ".";
 
 uint8_t *mem;
 size_t memlen;
@@ -2016,10 +2017,10 @@ int glkunix_startup_code(glkunix_startup_t *data)
             dirlen = (int)(s - game_file + 1);
         }
         if (dirlen) {
-            dir_path = MemAlloc(dirlen + 1);
-            memcpy(dir_path, game_file, dirlen);
-            dir_path[dirlen] = 0;
-            debug_print("Directory path: \"%s\"\n", dir_path);
+            DirPath = MemAlloc(dirlen + 1);
+            memcpy(DirPath, game_file, dirlen);
+            DirPath[dirlen] = 0;
+            debug_print("Directory path: \"%s\"\n", DirPath);
         }
     }
     
@@ -2096,12 +2097,15 @@ void glk_main(void) {
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
-        if (!DetectC64(&mem, &memlen)) {
+        if (!DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
             glk_exit();
         }
 
         if (!LoadDatabaseBinary())
             glk_exit();
+
+        if (CurrentSys == SYS_ATARI8)
+            LookForAtari8Images(&mem, &memlen);
 
     }
 

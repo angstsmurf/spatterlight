@@ -852,6 +852,8 @@
 		C3F09DA12888934E0035DAC2 /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C3F09DA2288893680035DAC2 /* libunp64.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
+		C3F3A2332894237500C8739F /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F3A2322894237500C8739F /* atari8detect.c */; };
+		C3F3A235289539CE00C8739F /* atari8draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F3A234289539CE00C8739F /* atari8draw.c */; };
 		C3F53C45271B509900538393 /* MyCoreDataCoreSpotlightDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F53C42271B509800538393 /* MyCoreDataCoreSpotlightDelegate.m */; };
 		C3F53C5F271BB8BE00538393 /* BlorbFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F53C5C271BB8BE00538393 /* BlorbFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F53C64271BB93300538393 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
@@ -3266,6 +3268,9 @@
 		C3F09D7F288892BD0035DAC2 /* libunp64.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libunp64.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BureaucracyForm.h; sourceTree = "<group>"; };
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
+		C3F3A2312894237500C8739F /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
+		C3F3A2322894237500C8739F /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
+		C3F3A234289539CE00C8739F /* atari8draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8draw.c; sourceTree = "<group>"; };
 		C3F53C42271B509800538393 /* MyCoreDataCoreSpotlightDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCoreDataCoreSpotlightDelegate.m; sourceTree = "<group>"; };
 		C3F53C44271B509900538393 /* MyCoreDataCoreSpotlightDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCoreDataCoreSpotlightDelegate.h; sourceTree = "<group>"; };
 		C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlorbFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5863,6 +5868,8 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C37EC5902847A9E00084B841 /* plusmain.c */,
+				C3F3A2312894237500C8739F /* atari8detect.h */,
+				C3F3A2322894237500C8739F /* atari8detect.c */,
 				C3F06B87288CBB8400AC7FDE /* c64detect.h */,
 				C3F06B85288CBB8400AC7FDE /* c64detect.c */,
 				C37EC58F2847A9E00084B841 /* layouttext.h */,
@@ -5875,8 +5882,9 @@
 				C3D6AA3F286B098B000FA5DE /* extracommands.c */,
 				C3A3EA0B284BAE8400C8A693 /* parseinput.h */,
 				C3A3EA0C284BAE8400C8A693 /* parseinput.c */,
-				C37EC5932847A9E00084B841 /* pcdraw.c */,
+				C3F3A234289539CE00C8739F /* atari8draw.c */,
 				C3E8153F288C4AFE003C4FEB /* c64draw.c */,
+				C37EC5932847A9E00084B841 /* pcdraw.c */,
 				C35CB31B285DD7BF00601E97 /* animations.h */,
 				C35CB31D285DD7BF00601E97 /* animations.c */,
 				C3E1938028628E8400E3B013 /* restorestate.h */,
@@ -8031,6 +8039,7 @@
 			files = (
 				C35CB31E285DD7BF00601E97 /* animations.c in Sources */,
 				C37EC5A02847AA3C0084B841 /* gameinfo.c in Sources */,
+				C3F3A2332894237500C8739F /* atari8detect.c in Sources */,
 				C3D6AA40286B098B000FA5DE /* extracommands.c in Sources */,
 				C3E1938128628E8400E3B013 /* restorestate.c in Sources */,
 				C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */,
@@ -8038,6 +8047,7 @@
 				C37EC5A22847AA3C0084B841 /* pcdraw.c in Sources */,
 				C3FF66B428901BBB00EBD578 /* c64draw.c in Sources */,
 				C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */,
+				C3F3A235289539CE00C8739F /* atari8draw.c in Sources */,
 				C37EC5A52847BC1A0084B841 /* layouttext.c in Sources */,
 				C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */,
 				C3F06B88288CBB8400AC7FDE /* c64detect.c in Sources */,
