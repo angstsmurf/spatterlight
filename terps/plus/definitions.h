@@ -163,8 +163,8 @@ typedef enum {
 } GameIDType;
 
 typedef enum {
-    ER_NO_RESULT,
     ER_SUCCESS = 0,
+    ER_NO_RESULT = 1,
     ER_RAN_ALL_LINES_NO_MATCH = -1,
     ER_RAN_ALL_LINES = -2
 } CommandResultType;

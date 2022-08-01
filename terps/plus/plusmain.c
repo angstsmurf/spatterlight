@@ -1657,6 +1657,7 @@ debug_print("\nPerforming line %d: ", ct);
                 case 117:
                     debug_print("Set found_match to 1\n");
                     found_match = 1;
+                    SetBit(MATCHBIT);
                     break;
                 case 118:
                     debug_print("Set done to 1\n");
@@ -1945,6 +1946,8 @@ static CommandResultType PerformExplicit(void)
             ActionResultType actresult = PerformLine(ct);
             
             if (actresult != ACT_FAILURE) {
+                if (actresult != ACT_DONE)
+                    ResetBit(MATCHBIT);
                 if (found_match) {
                     keep_going = 0;
                     result = ER_SUCCESS;
@@ -2173,21 +2176,17 @@ void glk_main(void) {
 
         ClearFrames();
 
-        switch (PerformExplicit()) {
-            case ER_RAN_ALL_LINES_NO_MATCH:
-                SystemMessage(I_DONT_UNDERSTAND);
-                StopProcessingCommand();
-                Output("\n");
-                break;
-            case ER_RAN_ALL_LINES:
-                SystemMessage(YOU_CANT_DO_THAT_YET);
-                StopProcessingCommand();
-                Output("\n");
-                break;
-            default:
-                break;
-        }
+        CommandResultType result = PerformExplicit();
 
+        if (result == ER_RAN_ALL_LINES_NO_MATCH || result == ER_RAN_ALL_LINES || IsSet(MATCHBIT)) {
+            if (result == ER_RAN_ALL_LINES_NO_MATCH)
+                SystemMessage(I_DONT_UNDERSTAND);
+            else
+                SystemMessage(YOU_CANT_DO_THAT_YET);
+            StopProcessingCommand();
+            Output("\n");
+        }
+        
         JustStarted = 0;
     }
 }
