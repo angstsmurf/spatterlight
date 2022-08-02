@@ -119,6 +119,8 @@ int DrawRoomImage(int roomimg) {
     return DrawImageWithName(buf);
 }
 
+extern int AnimationRoom;
+
 void DrawCurrentRoom(void)
 {
     OpenGraphicsWindow();
@@ -151,7 +153,7 @@ void DrawCurrentRoom(void)
         return;
     }
 
-    if (Graphics == NULL)
+    if (Graphics == NULL || AnimationRoom == MyLoc)
         return;
 
     if (!DrawRoomImage(Rooms[MyLoc].Image)) {
