@@ -20,6 +20,8 @@ int AnimationRunning = 0;
 int AnimationBackground = 0;
 int LastAnimationBackground = 0;
 
+int AnimationRoom = -1;
+
 static int AnimationStage = 0;
 static int StopNext = 0;
 static int ImgTail = 0;
@@ -100,6 +102,7 @@ void Animate(int frame) {
 
         AnimationRunning = 1;
         AnimationStage = 0;
+        AnimationRoom = MyLoc;
     }
 
     if (cannonanimation && frame == 9)
@@ -140,6 +143,7 @@ void StopAnimation(void) {
     AnimationStage = 0;
     AnimationRunning = 0;
     PostCannonAnimationSeam = 0;
+    AnimationRoom = -1;
 }
 
 void UpdateAnimation(void) // Draw animation frame
@@ -159,7 +163,8 @@ void UpdateAnimation(void) // Draw animation frame
         return;
     }
 
-    if (AnimationStage >= MAX_ANIM_FRAMES - 1) {
+    if (AnimationStage >= MAX_ANIM_FRAMES - 1
+        || AnimationRoom != MyLoc) {
         StopNext = 1;
         return;
     }
