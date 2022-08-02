@@ -161,7 +161,7 @@ static char *StripDoubleSpaces(char *result, int *len) {
             if (isspace(result[i]) && isspace(result[i + 1]))
             {
                 found = 1;
-                char new[256];
+                char new[512];
                 if (i > 0)
                     memcpy(new, result, i);
                 int taillen = *len - i;
@@ -515,7 +515,7 @@ static int CommandFromTokens(int verb, int noun)
 
     if (verb == 0) {
         WordNotFoundError(0);
-        Output("\nTry again please.\n");
+        Output("\nTry again please. ");
         WordIndex = WordsInInput;
         return 1;
     }
@@ -623,7 +623,7 @@ static void LineInput(void)
     FreeInputWords();
 
     do {
-        Display(Bottom, "\n%s, %s", Messages[ProtagonistString], sys[WHAT_NOW]);
+        Display(Bottom, "\n\n%s, %s", Messages[ProtagonistString], sys[WHAT_NOW]);
         glk_request_line_event(Bottom, buf, (glui32)511, 0);
 
         while (1) {
@@ -652,13 +652,9 @@ static void LineInput(void)
         InputWordStrings = SplitIntoWords(result, length);
         free(result);
 
-        if (WordsInInput >= MAX_WORDS) {
-            Output("Too many words!\n");
-            FreeInputWords();
-        }
+        Output("\n");
 
         if (WordsInInput > 0 && InputWordStrings) {
-            Output("\n");
             return;
         }
 
@@ -702,7 +698,7 @@ int GetInput(void)
 
         if (!TokenizeInputWords()) {
             if (WordIndex < 255)
-                Output("\nTry again please.\n");
+                Output("\nTry again please. ");
             StopProcessingCommand();
             return 1;
         }

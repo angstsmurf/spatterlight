@@ -2184,7 +2184,6 @@ void glk_main(void) {
             else
                 SystemMessage(YOU_CANT_DO_THAT_YET);
             StopProcessingCommand();
-            Output("\n");
         }
         
         JustStarted = 0;
