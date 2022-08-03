@@ -53,6 +53,8 @@
 				<string>public.saga</string>
 				<string>public.fiad</string>
 				<string>public.atr</string>
+				<string>public.st</string>
+				<string>public.msa</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>0</integer>

@@ -384,8 +384,8 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
         size_t length;
         ptr = ReadPlusString(ptr, &str, &length);
         if (loud)
-            debug_print("Read synonym string \"%s\"\n", str);
-        if (str == NULL || str[0] == '\0')
+            debug_print("Read synonym string %d, \"%s\"\n", i, str);
+        if (str == NULL)
             continue;
         int lastcomma = 0;
         int commapos = 0;
@@ -1014,7 +1014,8 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
     char tmp[1024];
     int length = *ptr++;
     if (length == 0 || length == 255) {
-        *string = "\0";
+        *string = MemAlloc(1);
+        (*string)[0] = 0;
         return ptr;
     }
     for (int i = 0; i < length; i++) {
@@ -1042,6 +1043,10 @@ char **LoadMessages(int numstrings, uint8_t **ptr)
     for (i = 0; i < numstrings; i++) {
         size_t length;
         *ptr = ReadPlusString(*ptr, &str, &length);
+        if (CurrentSys == SYS_ST) {
+            while (str[0] == 0 && i != 0)
+                *ptr = ReadPlusString(*ptr, &str, &length);
+        }
         debug_print("Message %d: \"%s\"\n", i, str);
         target[i] = str;
     }
@@ -1095,7 +1100,10 @@ static uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
     for (i = 0; i < 16; i++) {
-        value = *ptr + 256 * *(ptr + 1);
+        if (CurrentSys == SYS_ST)
+            value = *ptr * 256 + *(ptr + 1);
+        else
+            value = *ptr + 256 * *(ptr + 1);
         header[i] = value;
         debug_print("Header value %d: %d\n", i, header[i]);
         ptr += 2;
@@ -1106,15 +1114,16 @@ static uint8_t *ReadHeader(uint8_t *ptr)
 DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
     uint8_t *ptr = *pointer;
     DictWord dictionary[1024];
-    DictWord *dw = &dictionary[0];
+    DictWord *dw = dictionary;
     char *str = NULL;
     int group = 0;
     int index = 0;
     for (int i = 0; i < numstrings; i++) {
         size_t strlength;
         ptr = ReadPlusString(ptr, &str, &strlength);
-        if (ptr == NULL)
-            continue;
+        while (str[0] == 0)
+            ptr = ReadPlusString(ptr, &str, &strlength);
+        debug_print("Read dictionary string \"%s\"\n", str);
         int lastcomma = 0;
         int commapos = 0;
         for (int j = 0; j <= strlength && str[j] != '\0'; j++) {
@@ -1129,12 +1138,12 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
                     dw->Word = MemAlloc(length);
                     memcpy(dw->Word, &str[lastcomma + 1], length);
                     dw->Group = group;
+                    debug_print("Dictword %d: %s (%d)\n", index, dw->Word, dw->Group);
                     dw = &dictionary[++index];
                 }
                 lastcomma = commapos;
             }
         }
-        debug_print("Dictword %d: %s (%d)\n", i, dictionary[i].Word, dictionary[i].Group);
         free(str);
         str = NULL;
         group++;
@@ -1164,6 +1173,8 @@ int LoadDatabaseBinary(void)
 
     int offset = 0x32;
 
+    int isSTSpiderman = 0, isSTFF = 0;
+
     ptr = SeekToPos(mem, offset);
     if (ptr == 0)
         return 0;
@@ -1174,6 +1185,12 @@ int LoadDatabaseBinary(void)
 
     ParseHeader(header, &ni, &as, &nn, &nv, &nr, &mc, &pr,
                     &mn, &trm, &lt, &prp, &adv, &na, &tr, &ss, &unk1, &oi, &unk2);
+
+    if (CurrentSys == SYS_ST && as == 5159)
+        isSTSpiderman = 1;
+
+    if (CurrentSys == SYS_ST && as == 6991)
+        isSTFF = 1;
 
     GameHeader.NumItems = ni;
     Counters[43] = ni;
@@ -1302,6 +1319,12 @@ int LoadDatabaseBinary(void)
             ct++;
             rp++;
         }
+        if (isSTSpiderman || isSTFF)
+            ptr++;
+    }
+
+    if (isSTSpiderman || isSTFF) {
+        ptr -= 2;
     }
 
 #pragma mark messages
@@ -1320,34 +1343,44 @@ int LoadDatabaseBinary(void)
 
     ct = 0;
     ip = Items;
+    size_t length;
+
+    if (CurrentSys == SYS_ST && !isSTFF)
+        ptr++;
+
     while (ct < ni + 1) {
-        size_t length;
         ptr = ReadPlusString(ptr, &ip->Text, &length);
         ip++;
         ct++;
     }
 
 #pragma mark item locations
-    ct = 0;
-    ip = Items;
-    int offs2 = ni+1;
-    uint8_t *ptr2 = ptr + offs2;
-    while (ct < ni + 1) {
-        ip->Location = *ptr;
-        ip->Dictword = *ptr2 + *(ptr2 + 1) * 256;
-        ip->Flag = *(ptr2 + offs2 * 2) + *(ptr2 + offs2 * 2 + 1) * 256;
-
+    if (isSTSpiderman || isSTFF ) {
         ptr++;
-        ptr2 += 2;
-
-        debug_print("Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
-
+    }
+    
+    for (ct = 0, ip = Items; ct <= ni; ct++, ip++) {
+        ip->Location = *ptr++;
         ip->InitialLoc = ip->Location;
-        ip++;
-        ct++;
     }
 
-    ptr = ptr2 + offs2 * 2;
+    if (CurrentSys == SYS_ST) {
+        ptr += 2;
+    }
+
+    for (ct = 0, ip = Items; ct <= ni; ct++, ip++) {
+        ip->Dictword = *ptr++;
+        ip->Dictword += *ptr++ * 256;
+    }
+
+    for (ct = 0, ip = Items; ct <= ni; ct++, ip++) {
+        ip->Flag = *ptr++;
+        ip->Flag += *ptr++ * 256;
+        debug_print("Item %d: \"%s\", %d, %d, %d\n", ct, ip->Text, ip->Location, ip->Dictword, ip->Flag);
+    }
+
+    if (CurrentSys == SYS_ST)
+        ptr -= 1;
 
     Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, 1);
     Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, 1);
@@ -1358,7 +1391,6 @@ int LoadDatabaseBinary(void)
     Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, 1);
 
     char *title = NULL;
-    size_t length;
     ptr = ReadPlusString(ptr, &title, &length);
     debug_print("Title: %s\n", title);
 

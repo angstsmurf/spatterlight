@@ -184,8 +184,8 @@ typedef enum {
     SYS_MSDOS,
     SYS_C64,
     SYS_ATARI8,
-    SYS_ST,
-    SYS_APPLE2
+    SYS_APPLE2,
+    SYS_ST
 } SystemType;
 
 typedef enum {

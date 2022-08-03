@@ -545,6 +545,7 @@
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
+		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */; };
@@ -2824,6 +2825,8 @@
 		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
 		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
+		C30E9624289929AC00590271 /* stdetect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdetect.h; sourceTree = "<group>"; };
+		C30E9625289929AC00590271 /* stdetect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stdetect.c; sourceTree = "<group>"; };
 		C30FAD5C27B7D41000BD20B9 /* load_ti99_4a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = load_ti99_4a.h; sourceTree = "<group>"; usesTabs = 0; };
 		C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = load_ti99_4a.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3100F5B27972E850027D6FF /* hulk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hulk.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -5868,10 +5871,6 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C37EC5902847A9E00084B841 /* plusmain.c */,
-				C3F3A2312894237500C8739F /* atari8detect.h */,
-				C3F3A2322894237500C8739F /* atari8detect.c */,
-				C3F06B87288CBB8400AC7FDE /* c64detect.h */,
-				C3F06B85288CBB8400AC7FDE /* c64detect.c */,
 				C37EC58F2847A9E00084B841 /* layouttext.h */,
 				C37EC58E2847A9E00084B841 /* layouttext.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
@@ -5889,6 +5888,12 @@
 				C35CB31D285DD7BF00601E97 /* animations.c */,
 				C3E1938028628E8400E3B013 /* restorestate.h */,
 				C3E1937E28628E8400E3B013 /* restorestate.c */,
+				C3F3A2312894237500C8739F /* atari8detect.h */,
+				C3F3A2322894237500C8739F /* atari8detect.c */,
+				C3F06B87288CBB8400AC7FDE /* c64detect.h */,
+				C3F06B85288CBB8400AC7FDE /* c64detect.c */,
+				C30E9624289929AC00590271 /* stdetect.h */,
+				C30E9625289929AC00590271 /* stdetect.c */,
 			);
 			path = plus;
 			sourceTree = "<group>";
@@ -8041,6 +8046,7 @@
 				C37EC5A02847AA3C0084B841 /* gameinfo.c in Sources */,
 				C3F3A2332894237500C8739F /* atari8detect.c in Sources */,
 				C3D6AA40286B098B000FA5DE /* extracommands.c in Sources */,
+				C30E9626289929AC00590271 /* stdetect.c in Sources */,
 				C3E1938128628E8400E3B013 /* restorestate.c in Sources */,
 				C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */,
 				C37EC5A12847AA3C0084B841 /* plusmain.c in Sources */,

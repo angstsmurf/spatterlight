@@ -27,6 +27,7 @@
 #include "restorestate.h"
 #include "atari8detect.h"
 #include "c64detect.h"
+#include "stdetect.h"
 
 
 const char *game_file = NULL;
@@ -2113,7 +2114,7 @@ void glk_main(void) {
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
-        if (!DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
+        if (!DetectST(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
             glk_exit();
         }
 

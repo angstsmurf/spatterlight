@@ -79,7 +79,8 @@ PasteboardFilePasteLocation;
         @"hex", @"taf", @"z1",   @"z2",   @"z3",    @"z4",    @"z5",
         @"z6",  @"z7",  @"z8",   @"cas",  @"asl",   @"saga",  @"jacl",
         @"j2",  @"ulx", @"blb",  @"zlb",  @"blorb", @"glb",   @"gblorb",
-        @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb", @"atr"
+        @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb", @"atr",
+        @"st",  @"msa"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];

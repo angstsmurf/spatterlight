@@ -57,6 +57,8 @@
 				<string>public.saga</string>
 				<string>public.fiad</string>
 				<string>public.atr</string>
+				<string>public.st</string>
+				<string>public.msa</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>
