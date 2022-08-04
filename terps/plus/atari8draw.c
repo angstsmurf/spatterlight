@@ -302,7 +302,7 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
 {
     int work,work2;
     int c;
-    int i,j;
+    int i;
 
     uint8_t *origptr = ptr;
 
@@ -351,8 +351,6 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
 
     debug_print("%d\n",work);
     
-    //fseek(infile,offset+10,SEEK_SET);
-    j=0;
     while (ptr - origptr < datasize - 3)
     {
         // First get count

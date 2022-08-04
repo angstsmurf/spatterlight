@@ -361,10 +361,8 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
 {
     int work,work2;
     int count;
-    size_t offset;
     size_t size;
 
-    offset = 0x297; // strtol(argv[2],NULL,0);
     count = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
     Images = MemAlloc((count + 1) * sizeof(struct imgrec));
 
