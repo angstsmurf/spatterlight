@@ -33,10 +33,10 @@ void DrawC64Pixels(int pattern, int pattern2)
     if (x>(xlen - 3)*8)
       return;
 
-    pix1=(pattern & 0xc0)>>6;
-    pix2=(pattern & 0x30)>>4;
-    pix3=(pattern & 0x0c)>>2;
-    pix4=(pattern & 0x03);
+    pix1 = (pattern & 0xc0)>>6;
+    pix2 = (pattern & 0x30)>>4;
+    pix3 = (pattern & 0x0c)>>2;
+    pix4 = (pattern & 0x03);
 
     PutPixel(x,y, pix1); x++;
     PutPixel(x,y, pix1); x++;
@@ -63,9 +63,9 @@ void DrawC64Pixels(int pattern, int pattern2)
     PutPixel(x,y, pix4); x++;
     PutPixel(x,y, pix4); x++;
     y++;
-    x-=8;
+    x -= 8;
 
-    if (y>ylen)
+    if (y > ylen)
     {
         x+=8;
         y=yoff;
@@ -216,7 +216,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     ptr += 2;
     
     work = *ptr++;
-    size = work+(*ptr++ * 256);
+    size = work + *ptr++ * 256;
 
     // Get the offset
     xoff = *ptr++ - 3;
@@ -251,14 +251,14 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
             c &= 0x7f;
             work = *ptr++;
             work2 = *ptr++;
-            for (i=0;i<c+1;i++)
+            for (i = 0; i < c + 1; i++)
             {
                 DrawC64Pixels(work,work2);
             }
         }
         else
         {
-            // Don't count on the next j characters
+            // Don't count on the next c characters
 
             for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
             {

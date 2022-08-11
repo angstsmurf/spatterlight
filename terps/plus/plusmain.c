@@ -25,6 +25,7 @@
 #include "parseinput.h"
 #include "animations.h"
 #include "restorestate.h"
+#include "apple2detect.h"
 #include "atari8detect.h"
 #include "c64detect.h"
 #include "stdetect.h"
@@ -137,20 +138,26 @@ void Display(winid_t w, const char *fmt, ...)
 
 static const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = 280;
-    *height = 158;
+//    int w = 280;
+//    int h = 158;
+    int w = 319;
+    int h = 200;
+
+
+    *width = w;
+    *height = h;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    multiplier = graphheight / 158;
-    if (280 * multiplier > graphwidth)
-        multiplier = graphwidth / 280;
+    multiplier = graphheight / h;
+    if (w * multiplier > graphwidth)
+        multiplier = graphwidth / w;
     
     if (multiplier == 0)
         multiplier = 1;
     
-    *width = 280 * multiplier;
-    *height = 158 * multiplier;
+    *width = w * multiplier;
+    *height = h * multiplier;
     
     return multiplier;
 }
@@ -2053,7 +2060,11 @@ void ResizeTitleImage(void) {
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 
+
+void InitStMem(void);
+
 void DrawTitleImage(void) {
+    InitStMem();
     DisplayInit();
     glk_window_close(Top, NULL);
     Top = NULL;
@@ -2114,7 +2125,7 @@ void glk_main(void) {
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
-        if (!DetectST(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
+        if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
             glk_exit();
         }
 

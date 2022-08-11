@@ -383,9 +383,12 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
     for (int i = 0; i < numstrings; i++) {
         size_t length;
         ptr = ReadPlusString(ptr, &str, &length);
+        while (length == 0 && i == 0)
+            ptr = ReadPlusString(ptr, &str, &length);
+
         if (loud)
             debug_print("Read synonym string %d, \"%s\"\n", i, str);
-        if (str == NULL)
+        if (str == NULL || str[0] == 0)
             continue;
         int lastcomma = 0;
         int commapos = 0;
@@ -1209,7 +1212,6 @@ int LoadDatabaseBinary(void)
     GameHeader.NumPreps = prp;
     GameHeader.NumAdverbs = adv;
     GameHeader.NumSubStr = ss;
-    GameHeader.NumSubStr = ss;
     GameHeader.NumObjImg = oi;
     ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
     GameHeader.NumMessages = mn;
@@ -1399,10 +1401,24 @@ int LoadDatabaseBinary(void)
         return 0;
     }
 
+    if (isSTFF)
+        ptr++;
+
     for (ct = 0; ct <= oi; ct++)
         ObjectImages[ct].room = *ptr++;
+
+    if (CurrentSys == SYS_ST && !isSTSpiderman)
+        ptr++;
+
     for (ct = 0; ct <= oi; ct++)
         ObjectImages[ct].object = *ptr++;
+
+    if (CurrentSys == SYS_ST) {
+        ptr++;
+        if (!isSTSpiderman)
+            ptr++;
+    }
+
     for (ct = 0; ct <= oi; ct++) {
         ObjectImages[ct].image = *ptr++;
         ptr++;

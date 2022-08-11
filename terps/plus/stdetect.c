@@ -239,7 +239,11 @@ uint8_t *GetFile(uint8_t *sf, int cluster) {
     size_t offset = 0;
     while (offset < dir.size && cluster) {
         size_t bytestoread = MIN(bytespercluster,  dir.size - offset);
-        uint8_t *ptr = sf + (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+        if (offset + bytestoread > dir.size) {
+            bytestoread = dir.size - offset;
+        }
+        size_t offset2 = (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+        uint8_t *ptr = sf + offset2;
         memcpy(result + offset, ptr, bytestoread);
         offset += bytestoread;
         cluster = get_next_cluster12(sf, cluster);
@@ -247,6 +251,10 @@ uint8_t *GetFile(uint8_t *sf, int cluster) {
 
     return result;
 }
+
+size_t writeToFile(const char *name, uint8_t *data, size_t size);
+
+int issagaimg(const char *name);
 
 int DetectST(uint8_t **sf, size_t *extent) {
     if (*extent > MAX_ST_LENGTH || *extent < MIN_ST_LENGTH)
@@ -256,6 +264,7 @@ int DetectST(uint8_t **sf, size_t *extent) {
         uint8_t *new = DecodeMsaImageToRawImage(*sf, extent);
         free(*sf);
         *sf = new;
+        writeToFile("/Users/administrator/Desktop/QP3.ST", *sf, *extent);
     }
 
     ReadFAT12BootSector(sf, extent);
@@ -263,19 +272,45 @@ int DetectST(uint8_t **sf, size_t *extent) {
     size_t root_entry_offset = (boot.reserved + boot.fats * boot.fat_length) * boot.sector_size;
 
     uint8_t *ptr = &(*sf)[root_entry_offset];
+    uint8_t *database = NULL;
+    size_t databasesize = 0;
+    int found = 0;
+
+    struct imgrec imgs[100];
+    int imgidx = 0;
+    
     for (int i = 0; i < 143; i++) {
         ptr = ReadFAT12DirEntry(ptr);
         dir.name[8] = 0;
         if (strncmp(dir.name, "DATABASE", 8) == 0) {
             uint8_t *file = GetFile(*sf, dir.start);
-            *sf = MemAlloc(dir.size + 2);
-            memcpy(*sf + 2, file, dir.size);
-            *extent = dir.size + 2;
+            database = MemAlloc(dir.size + 2);
+            memcpy(database + 2, file, dir.size);
+            databasesize = dir.size + 2;
             CurrentSys = SYS_ST;
-            Images = MemAlloc(sizeof(imgrec));
-            Images[0].filename = NULL;
-            return 1;
+            found++;
+        } else if (issagaimg(dir.name) && imgidx < 100) {
+            imgs[imgidx].data = GetFile(*sf, dir.start);
+            imgs[imgidx].filename = MemAlloc(5);
+            memcpy(imgs[imgidx].filename, dir.name, 4);
+            imgs[imgidx].filename[4] = 0;
+            imgs[imgidx].size = dir.size;
+            debug_print("Adding image %d: %s\n", imgidx, imgs[imgidx].filename);
+            imgidx++;
         }
+
+    }
+
+    if (found) {
+        free(*sf);
+        *sf = database;
+        *extent = databasesize;
+        if (imgidx) {
+            Images = MemAlloc((imgidx + 1) * sizeof(imgrec));
+            memcpy(Images, imgs, imgidx * sizeof(imgrec));
+            Images[imgidx].filename = NULL;
+        }
+        return 1;
     }
 
     return 0;

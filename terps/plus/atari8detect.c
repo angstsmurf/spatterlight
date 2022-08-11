@@ -10,12 +10,11 @@
 #include <string.h>
 
 #include "common.h"
+#include "definitions.h"
+
 #include "gameinfo.h"
 
 #include "atari8detect.h"
-
-#define MAX_LENGTH 300000
-#define MIN_LENGTH 24
 
 
 typedef struct imglist {

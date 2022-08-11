@@ -29,7 +29,7 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
 }
 
 
-static int issagaimg(const char *name) {
+int issagaimg(const char *name) {
     if (name == NULL)
         return 0;
     size_t len = strlen(name);
@@ -42,6 +42,47 @@ static int issagaimg(const char *name) {
                 return 0;
         return 1;
     }
+    return 0;
+}
+
+int FindPatternInFile(uint8_t *ptr, size_t offset, int previous) {
+    FILE *f = fopen("/Users/administrator/Desktop/Apple2ReorderedData", "r");
+    if (f == NULL)
+        Fatal("Cannot open game");
+    fseek(f, 0, SEEK_END);
+    size_t memlen = ftell(f);
+    if (memlen == -1) {
+        fclose(f);
+        glk_exit();
+    }
+
+    fseek(f, 0, SEEK_SET);
+    uint8_t *mem = MemAlloc(memlen);
+    memlen = fread(mem, 1, memlen, f);
+
+    for (int j = 0; j < memlen - 10; j++) {
+        if (mem[j] == ptr[offset]) {
+            int found = 1;
+            for (int i = 1; i < 10; i++) {
+                if (mem[j + i] != ptr[offset + i]) {
+                    found = 0;
+                    break;
+                }
+            }
+            if (found) {
+                fprintf(stderr, "0x%04x, ", j);
+//                int diff = j - previous;
+//                fprintf(stderr, "Diff from previous (%x): %d\n", previous, diff);
+
+                fclose(f);
+                return j;
+            }
+        }
+    }
+
+    fprintf(stderr, "0, ");
+
+    fclose(f);
     return 0;
 }
 
@@ -76,6 +117,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             }
             free(filenames);
 
+            int previous = 0;
             Images = MemAlloc((imgindex + 1) * sizeof(struct imgrec));
             for (int i = 0; i < imgindex; i++) {
                 Images[i].filename = imagefiles[i];
@@ -86,6 +128,12 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
                     Images[i].size = di_read(c64file, buf, 0xffff);
                     Images[i].data = MemAlloc(Images[i].size);
                     memcpy(Images[i].data, buf, Images[i].size);
+                    fprintf(stderr, "\n{ \"%s\", ", Images[i].filename);
+                    //                    PrintFirstTenBytes(Images[i].data, 2);
+                    int found = FindPatternInFile(Images[i].data, 5, previous);
+                    if (found)
+                        previous = found;
+                    fprintf(stderr, "0x%04zx },\n", Images[i].size);
                 }
             }
             Images[imgindex].filename = NULL;

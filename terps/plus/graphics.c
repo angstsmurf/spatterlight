@@ -40,6 +40,9 @@ char *ShortNameFromType(char type, int index) {
 int DrawC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
 int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize);
+int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
+
+size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
 int DrawImageWithName(char *filename)
 {
@@ -69,7 +72,9 @@ int DrawImageWithName(char *filename)
         return DrawC64ImageFromData(Images[i].data, Images[i].size);
     else if (CurrentSys == SYS_ATARI8)
         return DrawAtari8ImageFromData(Images[i].data, Images[i].size);
-    else
+    else if (CurrentSys == SYS_ST) {
+        return DrawSTImageFromData(Images[i].data, Images[i].size);
+    } else
         return DrawDOSImageFromData(Images[i].data, Images[i].size);
 }
 

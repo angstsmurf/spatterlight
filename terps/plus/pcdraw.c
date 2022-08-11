@@ -96,6 +96,17 @@ void SetColour(int32_t index, const RGB *colour)
     pal[index][2] = (*colour)[2];
 }
 
+void SetRGB(int32_t index, int red, int green, int blue) {
+    red = (red * 35.7);
+    green = (green * 35.7);
+    blue = (blue * 35.7);
+
+    pal[index][0] = red;
+    pal[index][1] = green;
+    pal[index][2] = blue;
+}
+
+
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 {
     x=0;

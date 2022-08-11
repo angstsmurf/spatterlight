@@ -10,13 +10,16 @@
 
 #include <stdint.h>
 
-#define DEBUG_ACTIONS 0
+#define DEBUG_ACTIONS 1
 
 #define debug_print(fmt, ...) \
 do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+#define MAX_LENGTH 300000
+#define MIN_LENGTH 24
 
 #define GLK_BUFFER_ROCK 1
 #define GLK_STATUS_ROCK 1010

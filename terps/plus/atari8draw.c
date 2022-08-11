@@ -12,7 +12,6 @@ extern int x, y, count;
 extern int xlen, ylen;
 extern int xoff, yoff;
 extern int size;
-int countflag;
 
 typedef uint8_t RGB[3];
 
@@ -356,11 +355,9 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
         // First get count
         c = *ptr++;
         
-        if ((c & 0x80) == 0x80) // || countflag)
+        if ((c & 0x80) == 0x80)
         { // is a counter
-//            if (!countflag)
-                c &= 0x7f;
-//            if (countflag) c-=1;
+            c &= 0x7f;
             work=*ptr++;
             work2=*ptr++;
             for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
