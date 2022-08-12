@@ -42,6 +42,7 @@ static const struct plusrec plus_registry[] = {
     { 0x2ab00, 0x3464, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64
     { 0x16810, 0x5434, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit
     { 0x23000, 0x3d97, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2
+    { 0x23000, 0xca17, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt
     { 0, 0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four MS-DOS
     { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
     { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
