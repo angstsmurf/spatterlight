@@ -682,7 +682,6 @@
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
-		C397256B28A1963B00CC9736 /* asm5.c in Sources */ = {isa = PBXBuildFile; fileRef = C397256A28A1963A00CC9736 /* asm5.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
 		C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
@@ -871,6 +870,7 @@
 		C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F709162756127B00CAD227 /* DownloadButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F709152756127B00CAD227 /* DownloadButton.xib */; };
+		C3F890B528AEA72F00982E4D /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F890B428AEA72F00982E4D /* apple2draw.c */; };
 		C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */; };
 		C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8832675FCE00076EAFB /* OSCategories.m */; };
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
@@ -3027,7 +3027,6 @@
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
-		C397256A28A1963A00CC9736 /* asm5.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = asm5.c; sourceTree = "<group>"; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
 		C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "AGT-03201-0000E16C.ico"; sourceTree = "<group>"; };
@@ -3287,6 +3286,7 @@
 		C3F53C5C271BB8BE00538393 /* BlorbFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlorbFramework.h; sourceTree = "<group>"; };
 		C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BlorbFramework.docc; sourceTree = "<group>"; };
 		C3F709152756127B00CAD227 /* DownloadButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadButton.xib; sourceTree = "<group>"; };
+		C3F890B428AEA72F00982E4D /* apple2draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = apple2draw.c; sourceTree = "<group>"; };
 		C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
 		C3F9D8832675FCE00076EAFB /* OSCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCategories.m; sourceTree = "<group>"; };
 		C3F9D8852675FCE00076EAFB /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
@@ -5878,7 +5878,6 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C37EC5902847A9E00084B841 /* plusmain.c */,
-				C397256A28A1963A00CC9736 /* asm5.c */,
 				C37EC58F2847A9E00084B841 /* layouttext.h */,
 				C37EC58E2847A9E00084B841 /* layouttext.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
@@ -5893,6 +5892,7 @@
 				C3E8153F288C4AFE003C4FEB /* c64draw.c */,
 				C3EC5024289C0C820078AB83 /* stdraw.c */,
 				C37EC5932847A9E00084B841 /* pcdraw.c */,
+				C3F890B428AEA72F00982E4D /* apple2draw.c */,
 				C35CB31B285DD7BF00601E97 /* animations.h */,
 				C35CB31D285DD7BF00601E97 /* animations.c */,
 				C3E1938028628E8400E3B013 /* restorestate.h */,
@@ -8068,9 +8068,9 @@
 				C30E9BB0289B264600B42825 /* apple2detect.c in Sources */,
 				C37EC5A52847BC1A0084B841 /* layouttext.c in Sources */,
 				C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */,
-				C397256B28A1963B00CC9736 /* asm5.c in Sources */,
 				C3EC5026289C0C820078AB83 /* stdraw.c in Sources */,
 				C3F06B88288CBB8400AC7FDE /* c64detect.c in Sources */,
+				C3F890B528AEA72F00982E4D /* apple2draw.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

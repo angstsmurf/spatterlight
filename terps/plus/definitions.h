@@ -109,8 +109,8 @@ typedef struct {
 
 typedef struct {
     char *Text;
-    short Exits[7];
-    short Image;
+    int Exits[7];
+    int Image;
 } Room;
 
 typedef struct {
@@ -145,15 +145,16 @@ typedef struct {
 } Header;
 
 typedef struct {
-    uint32_t room;
-    uint32_t object;
-    uint32_t image;
+    uint32_t Room;
+    uint32_t Object;
+    uint32_t Image;
 } ObjectImage;
 
 typedef struct imgrec {
-    char *filename;
-    uint8_t *data;
-    size_t size;
+    char *Filename;
+    uint8_t *Data;
+    size_t DiskOffset;
+    size_t Size;
 } imgrec;
 
 typedef enum {

@@ -295,11 +295,11 @@ uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, struct i
         *found = 1;
     } else if (issagaimg(dir->name) && *imgidx < 100) {
         imgs += *imgidx;
-        imgs->data = GetFile(*sf, dir->start, *dir);
-        imgs->filename = MemAlloc(5);
-        memcpy(imgs->filename, dir->name, 4);
-        imgs->filename[4] = 0;
-        imgs->size = dir->size;
+        imgs->Data = GetFile(*sf, dir->start, *dir);
+        imgs->Filename = MemAlloc(5);
+        memcpy(imgs->Filename, dir->name, 4);
+        imgs->Filename[4] = 0;
+        imgs->Size = dir->size;
         (*imgidx)++;
     }
     free(dir);
@@ -342,7 +342,7 @@ int DetectST(uint8_t **sf, size_t *extent) {
         if (imgidx) {
             Images = MemAlloc((imgidx + 1) * sizeof(imgrec));
             memcpy(Images, imgs, imgidx * sizeof(imgrec));
-            Images[imgidx].filename = NULL;
+            Images[imgidx].Filename = NULL;
         }
         return 1;
     }

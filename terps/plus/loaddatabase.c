@@ -788,11 +788,11 @@ int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
             if (length > 0) {
                 debug_print("Found and read image file %s\n", filename);
                 size_t namelen = strlen(shortname) + 1;
-                rec->filename = MemAlloc(namelen);
-                memcpy(rec->filename, shortname, namelen);
+                rec->Filename = MemAlloc(namelen);
+                memcpy(rec->Filename, shortname, namelen);
                 fseek(infile, 0, SEEK_SET);
-                rec->data = MemAlloc(length);
-                rec->size = fread(rec->data, 1, length, infile);
+                rec->Data = MemAlloc(length);
+                rec->Size = fread(rec->Data, 1, length, infile);
                 result = 1;
             }
             fclose(infile);
@@ -887,7 +887,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     if (loud)
         debug_print("Reading %d rooms.\n", nr);
     for (ct = 0; ct < nr + 1; ct++) {
-        if (fscanf(f, "%hd,%hd,%hd,%hd,%hd,%hd,%hd,%hd\n", &rp->Exits[0], &rp->Exits[1],
+        if (fscanf(f, "%d,%d,%d,%d,%d,%d,%d,%d\n", &rp->Exits[0], &rp->Exits[1],
                    &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
                    &rp->Exits[5], &rp->Exits[6], &rp->Image)
             != 8) {
@@ -951,14 +951,14 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     if (loud)
         debug_print("Reading %d object image values.\n", oi + 1);
     for (ct = 0; ct <= oi; ct++) {
-        if (fscanf(f, "%d,%d,%d\n", &objimg->room, &objimg->object, &objimg->image)
+        if (fscanf(f, "%d,%d,%d\n", &objimg->Room, &objimg->Object, &objimg->Image)
             != 3) {
             debug_print("Bad object image line (%d)\n", ct);
             return UNKNOWN_GAME;
         }
         if (loud) {
             debug_print("Object image %d ", ct);
-            debug_print("room: %d object: %d image: %d\n", objimg->room, objimg->object, objimg->image);
+            debug_print("room: %d object: %d image: %d\n", objimg->Room, objimg->Object, objimg->Image);
         }
         objimg++;
     }
@@ -1005,7 +1005,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         free(shortname);
         imgidx++;
     }
-    Images[recidx].filename = NULL;
+    Images[recidx].Filename = NULL;
 
     CurrentSys = SYS_MSDOS;
     
@@ -1308,7 +1308,14 @@ int LoadDatabaseBinary(void)
 
         while (ct < nr + 1) {
             rp->Exits[j] = *ptr++;
-            if (j > 5) {
+
+            if (CurrentSys == SYS_APPLE2 && j == 7) {
+                int adr = rp->Exits[j] * 0x100;
+                adr += *ptr++ * 0x10;
+                adr *= 0x10;
+                debug_print("Room image %d address:%x\n",ct, adr);
+                rp->Exits[j] = adr;
+            } else if (j > 5) {
                 rp->Exits[j] |= *ptr;
                 ptr++;
             }
@@ -1405,13 +1412,13 @@ int LoadDatabaseBinary(void)
         ptr++;
 
     for (ct = 0; ct <= oi; ct++)
-        ObjectImages[ct].room = *ptr++;
+        ObjectImages[ct].Room = *ptr++;
 
     if (CurrentSys == SYS_ST && !isSTSpiderman)
         ptr++;
 
     for (ct = 0; ct <= oi; ct++)
-        ObjectImages[ct].object = *ptr++;
+        ObjectImages[ct].Object = *ptr++;
 
     if (CurrentSys == SYS_ST) {
         ptr++;
@@ -1420,12 +1427,19 @@ int LoadDatabaseBinary(void)
     }
 
     for (ct = 0; ct <= oi; ct++) {
-        ObjectImages[ct].image = *ptr++;
-        ptr++;
+        ObjectImages[ct].Image = *ptr++;
+        if (CurrentSys == SYS_APPLE2) {
+            int adr = ObjectImages[ct].Image * 0x100;
+            adr += *ptr++ * 0x10;
+            adr *= 0x10;
+            debug_print("Object image %d address:%x\n",ct, adr);
+            ObjectImages[ct].Image = adr;
+        } else
+            ptr++;
     }
 
     for (ct = 0; ct <= oi; ct++)
-        debug_print("ObjectImages %d: room:%d object:%d image:%d\n", ct, ObjectImages[ct].room, ObjectImages[ct].object, ObjectImages[ct].image);
+        debug_print("ObjectImages %d: room:%d object:%d image:%x\n", ct, ObjectImages[ct].Room, ObjectImages[ct].Object, ObjectImages[ct].Image);
 
     DumpActions();
 

@@ -82,6 +82,9 @@ ObjectImage *ObjectImages;
 char **Messages;
 Action *Actions;
 
+int ImageWidth = 280;
+int ImageHeight = 158;
+
 void CleanupAndExit(void)
 {
     if (Transcript)
@@ -138,11 +141,8 @@ void Display(winid_t w, const char *fmt, ...)
 
 static const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-//    int w = 280;
-//    int h = 158;
-    int w = 319;
-    int h = 200;
-
+    int w = ImageWidth;
+    int h = ImageHeight;
 
     *width = w;
     *height = h;
@@ -249,6 +249,8 @@ void UpdateSettings(void) {
     }
 }
 
+void UpdateColorCycling(void);
+
 void Updates(event_t ev)
 {
     if (ev.type == evtype_Arrange) {
@@ -265,8 +267,8 @@ void Updates(event_t ev)
             if (showing_inventory == 1) {
                 DrawRoomImage(33);
                 for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-                    if (ObjectImages[ct].room == 33 && Items[ObjectImages[ct].object].Location == CARRIED) {
-                        DrawItemImage(ObjectImages[ct].image);
+                    if (ObjectImages[ct].Room == 33 && Items[ObjectImages[ct].Object].Location == CARRIED) {
+                        DrawItemImage(ObjectImages[ct].Image);
                     }
             } else {
                 Look(0);
@@ -279,6 +281,8 @@ void Updates(event_t ev)
     } else if (ev.type == evtype_Timer) {
         if (AnimationRunning)
             UpdateAnimation();
+        if (ColorCyclingRunning)
+            UpdateColorCycling();
     }
 }
 
@@ -731,7 +735,7 @@ static void PlayerIsDead(void)
 
 void CheckForObjectImage(int obj) {
     for (int i = 0; i <= GameHeader.NumObjImg; i++)
-        if (ObjectImages[i].object == obj) {
+        if (ObjectImages[i].Object == obj) {
             SetBit(DRAWBIT);
             return;
         }
@@ -828,6 +832,8 @@ static void ClearScreen(void)
     glk_window_clear(Bottom);
 }
 
+void DrawApple2ImageFromVideoMem(void);
+
 static void SysCommand(int arg1, int arg2) {
     switch (arg1) {
         case 1:
@@ -858,6 +864,8 @@ static void SysCommand(int arg1, int arg2) {
         case 7:
             debug_print("DrawItemImage %d\n", Counters[arg2]);
             DrawItemImage(Counters[arg2]);
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
             break;
         case 8:
             debug_print("DrawRoomImage %d\n", Counters[arg2]);
@@ -2061,10 +2069,7 @@ void ResizeTitleImage(void) {
 }
 
 
-void InitStMem(void);
-
 void DrawTitleImage(void) {
-    InitStMem();
     DisplayInit();
     glk_window_close(Top, NULL);
     Top = NULL;
@@ -2076,6 +2081,10 @@ void DrawTitleImage(void) {
     glk_request_char_event(Graphics);
 
     if (DrawImageWithName("S000")) {
+
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
+
         event_t ev;
         do {
             glk_select(&ev);
@@ -2083,6 +2092,11 @@ void DrawTitleImage(void) {
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawImageWithName("S000");
+                if (CurrentSys == SYS_APPLE2)
+                    DrawApple2ImageFromVideoMem();
+            } else if (ev.type == evtype_Timer) {
+                if (ColorCyclingRunning)
+                    UpdateColorCycling();
             }
         } while (ev.type != evtype_CharInput);
     }
@@ -2134,7 +2148,8 @@ void glk_main(void) {
 
         if (CurrentSys == SYS_ATARI8)
             LookForAtari8Images(&mem, &memlen);
-
+        else if (CurrentSys == SYS_APPLE2)
+            LookForApple2Images();
     }
 
 #ifdef SPATTERLIGHT

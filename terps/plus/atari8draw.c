@@ -1,11 +1,13 @@
 /* Routine to draw the Atari RLE graphics
- 
+
  Code by David Lodge 29/04/2005
  */
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common.h"
 #include "definitions.h"
+#include "graphics.h"
 #include "glk.h"
 
 extern int x, y, count;
@@ -14,10 +16,6 @@ extern int xoff, yoff;
 extern int size;
 
 typedef uint8_t RGB[3];
-
-typedef RGB PALETTE[16];
-
-extern PALETTE pal;
 
 extern winid_t Graphics;
 
@@ -305,18 +303,9 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
 
     uint8_t *origptr = ptr;
 
-    PrintFirstTenBytes(ptr, 0);
-
     x = 0; y = 0;
 
     ptr += 2;
-
-    /* set up the palette */
-    //    for (i=0;i<256;i++)
-    //    {
-    //        colours[i].r=0; colours[i].g=0;colours[i].b=0;
-    //    }
-    //    setuppalette();
 
     work = *ptr++;
     size = work+(*ptr++ * 256);
@@ -331,11 +320,34 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
     x = xoff * 8;
     y = yoff;
     fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
-    
+
     // Get the x length
     xlen = *ptr++;
     ylen = *ptr++;
     fprintf(stderr, "xlen: %d ylen: %d\n",xlen,ylen);
+
+    glui32 curheight, curwidth;
+    glk_window_get_size(Graphics, &curwidth, &curheight);
+    fprintf(stderr, "Current graphwin height:%d pixel_size:%d ylen*pixsize:%d\n", curheight, pixel_size, ylen * pixel_size);
+
+    if (CurrentGame == SPIDERMAN && ((ylen == 126 && xlen == 39) || (ylen == 158 && xlen == 38))) {
+        ImageHeight = ylen + 2;
+        ImageWidth = xlen * 8;
+        if (ylen == 158)
+            ImageWidth -= 24;
+        else
+            ImageWidth -= 16;
+
+    }
+
+    int optimal_height = ImageHeight * pixel_size;
+    if (curheight != optimal_height) {
+        x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
+        right_margin = (ImageWidth * pixel_size) + x_offset;
+        winid_t parent = glk_window_get_parent(Graphics);
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   optimal_height, NULL);
+    }
 
     // Get the palette
     debug_print("Colours: ");
@@ -349,26 +361,26 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
     SetColour(0,&colours[work]);
 
     debug_print("%d\n",work);
-    
-    while (ptr - origptr < datasize - 3)
+
+    while (ptr - origptr < datasize - 2)
     {
         // First get count
         c = *ptr++;
-        
+
         if ((c & 0x80) == 0x80)
         { // is a counter
             c &= 0x7f;
             work=*ptr++;
             work2=*ptr++;
-            for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
+            for (i = 0; i < c + 1; i++)
             {
                 DrawC64Pixels(work,work2);
             }
         }
         else
         {
-            // Don't count on the next j characters
-            
+            // Don't count on the next c characters
+
             for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
             {
                 work = *ptr++;
@@ -379,6 +391,3 @@ int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize)
     }
     return 1;
 }
-
-
-

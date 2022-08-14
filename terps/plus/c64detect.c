@@ -71,8 +71,8 @@ int FindPatternInFile(uint8_t *ptr, size_t offset, int previous) {
             }
             if (found) {
                 fprintf(stderr, "0x%04x, ", j);
-//                int diff = j - previous;
-//                fprintf(stderr, "Diff from previous (%x): %d\n", previous, diff);
+                //                int diff = j - previous;
+                //                fprintf(stderr, "Diff from previous (%x): %d\n", previous, diff);
 
                 fclose(f);
                 return j;
@@ -87,7 +87,7 @@ int FindPatternInFile(uint8_t *ptr, size_t offset, int previous) {
 }
 
 static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
-    const char *name)
+                               const char *name)
 {
     uint8_t *file = NULL;
     *newlength = 0;
@@ -120,26 +120,24 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             int previous = 0;
             Images = MemAlloc((imgindex + 1) * sizeof(struct imgrec));
             for (int i = 0; i < imgindex; i++) {
-                Images[i].filename = imagefiles[i];
+                Images[i].Filename = imagefiles[i];
                 di_rawname_from_name(rawname, imagefiles[i]);
                 c64file = di_open(d64, rawname, 0xc2, "rb");
                 if (c64file) {
                     uint8_t buf[0xffff];
-                    Images[i].size = di_read(c64file, buf, 0xffff);
-                    Images[i].data = MemAlloc(Images[i].size);
-                    memcpy(Images[i].data, buf, Images[i].size);
-                    fprintf(stderr, "\n{ \"%s\", ", Images[i].filename);
+                    Images[i].Size = di_read(c64file, buf, 0xffff);
+                    Images[i].Data = MemAlloc(Images[i].Size);
+                    memcpy(Images[i].Data, buf, Images[i].Size);
+                    fprintf(stderr, "\n{ \"%s\", ", Images[i].Filename);
                     //                    PrintFirstTenBytes(Images[i].data, 2);
-                    int found = FindPatternInFile(Images[i].data, 5, previous);
+                    int found = FindPatternInFile(Images[i].Data, 5, previous);
                     if (found)
                         previous = found;
-                    fprintf(stderr, "0x%04zx },\n", Images[i].size);
+                    fprintf(stderr, "0x%04zx },\n", Images[i].Size);
                 }
             }
-            Images[imgindex].filename = NULL;
+            Images[imgindex].Filename = NULL;
         }
-
-
     }
     return file;
 }
@@ -159,6 +157,5 @@ int DetectC64(uint8_t **sf, size_t *extent)
         CurrentSys = SYS_C64;
         return 1;
     }
-    //            writeToFile("/Users/administrator/Desktop/C64PlusData", *sf, newlength);
     return 0;
 }

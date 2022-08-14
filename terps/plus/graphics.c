@@ -41,6 +41,9 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
 int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
+int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
+void DrawApple2ImageFromVideoMem(void);
+void ClearApple2ScreenMem(void);
 
 size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
@@ -49,14 +52,14 @@ int DrawImageWithName(char *filename)
     debug_print("DrawImageWithName %s\n", filename);
 
     int i;
-    for (i = 0; Images[i].filename != NULL; i++ )
-        if (strcmp(filename, Images[i].filename) == 0)
+    for (i = 0; Images[i].Filename != NULL; i++ )
+        if (strcmp(filename, Images[i].Filename) == 0)
             break;
 
-    if (Images[i].filename == NULL) {
+    if (Images[i].Filename == NULL) {
         if (CurrentSys == SYS_MSDOS) {
             if (FindAndAddImageFile(filename, &Images[i])) {
-                Images[i + 1].filename = NULL;
+                Images[i + 1].Filename = NULL;
             } else {
                 return 0;
             }
@@ -68,14 +71,16 @@ int DrawImageWithName(char *filename)
     if (!gli_enable_graphics)
         return 0;
 
-    if (CurrentSys == SYS_C64)
-        return DrawC64ImageFromData(Images[i].data, Images[i].size);
-    else if (CurrentSys == SYS_ATARI8)
-        return DrawAtari8ImageFromData(Images[i].data, Images[i].size);
-    else if (CurrentSys == SYS_ST) {
-        return DrawSTImageFromData(Images[i].data, Images[i].size);
+    if (CurrentSys == SYS_C64) {
+        return DrawC64ImageFromData(Images[i].Data, Images[i].Size);
+    } else if (CurrentSys == SYS_ATARI8) {
+        return DrawAtari8ImageFromData(Images[i].Data, Images[i].Size);
+    } else if (CurrentSys == SYS_ST) {
+        return DrawSTImageFromData(Images[i].Data, Images[i].Size);
+    } else if (CurrentSys == SYS_APPLE2) {
+        return DrawApple2ImageFromData(Images[i].Data, Images[i].Size);
     } else
-        return DrawDOSImageFromData(Images[i].data, Images[i].size);
+        return DrawDOSImageFromData(Images[i].Data, Images[i].Size);
 }
 
 void DrawItemImage(int item) {
@@ -103,8 +108,20 @@ int DrawCloseup(int img) {
 
     upside_down = 0;
 
-    return DrawImageWithName(buf);
+    if (CurrentSys == SYS_APPLE2) {
+        ClearApple2ScreenMem();
+        glk_window_clear(Graphics);
+    }
+
+    int result = DrawImageWithName(buf);
+
+    if (result && CurrentSys == SYS_APPLE2)
+        DrawApple2ImageFromVideoMem();
+
+    return result;
 }
+
+void ClearApple2ScreenMem(void);
 
 int DrawRoomImage(int roomimg) {
     LastImgType = IMG_ROOM;
@@ -118,6 +135,11 @@ int DrawRoomImage(int roomimg) {
 
     if (Graphics)
         glk_window_clear(Graphics);
+
+    if (CurrentSys == SYS_ST)
+        DrawImageWithName("S999");
+    else if (CurrentSys == SYS_APPLE2)
+        ClearApple2ScreenMem();
 
     upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
 
@@ -167,7 +189,11 @@ void DrawCurrentRoom(void)
     }
 
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-        if (ObjectImages[ct].room == MyLoc && Items[ObjectImages[ct].object].Location == MyLoc ) {
-            DrawItemImage(ObjectImages[ct].image);
+        if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc ) {
+            DrawItemImage(ObjectImages[ct].Image);
         }
+
+    if (CurrentSys == SYS_APPLE2) {
+        DrawApple2ImageFromVideoMem();
+    }
 }

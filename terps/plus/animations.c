@@ -146,6 +146,8 @@ void StopAnimation(void) {
     AnimationRoom = -1;
 }
 
+void DrawApple2ImageFromVideoMem(void);
+
 void UpdateAnimation(void) // Draw animation frame
 {
     if (CannonAnimationPause) {
@@ -182,6 +184,8 @@ void UpdateAnimation(void) // Draw animation frame
         debug_print("UpdateAnimation: Drawing AnimationFrames[%d] (%d)\n", AnimationStage, AnimationFrames[AnimationStage]);
         if (!DrawImageWithName(AnimationFilenames[AnimationFrames[AnimationStage++]]))
             StopNext = 1;
+        else if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
 
         if (PostCannonAnimationSeam && AnimationStage == 10) {
             CannonAnimationPause = 1;

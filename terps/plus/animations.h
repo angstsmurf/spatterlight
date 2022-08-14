@@ -25,6 +25,7 @@ void ClearFrames(void);
 void InitAnimationBuffer(void);
 
 extern int AnimationRunning;
+extern int ColorCyclingRunning;
 extern int AnimationBackground;
 extern int LastAnimationBackground;
 

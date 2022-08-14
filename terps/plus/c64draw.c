@@ -4,8 +4,6 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-
 
 #include "definitions.h"
 #include "glk.h"
@@ -23,7 +21,7 @@ extern PALETTE pal;
 
 extern winid_t Graphics;
 
-void PutPixel(glsi32 x, glsi32 y, int32_t color);
+void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
 
 void DrawC64Pixels(int pattern, int pattern2)
 {
@@ -38,14 +36,10 @@ void DrawC64Pixels(int pattern, int pattern2)
     pix3 = (pattern & 0x0c)>>2;
     pix4 = (pattern & 0x03);
 
-    PutPixel(x,y, pix1); x++;
-    PutPixel(x,y, pix1); x++;
-    PutPixel(x,y, pix2); x++;
-    PutPixel(x,y, pix2); x++;
-    PutPixel(x,y, pix3); x++;
-    PutPixel(x,y, pix3); x++;
-    PutPixel(x,y, pix4); x++;
-    PutPixel(x,y, pix4); x++;
+    PutDoublePixel(x,y, pix1); x += 2;
+    PutDoublePixel(x,y, pix2); x += 2;
+    PutDoublePixel(x,y, pix3); x += 2;
+    PutDoublePixel(x,y, pix4); x += 2;
     y++;
     x-=8;
 
@@ -54,21 +48,17 @@ void DrawC64Pixels(int pattern, int pattern2)
     pix3=(pattern2 & 0x0c)>>2;
     pix4=(pattern2 & 0x03);
 
-    PutPixel(x,y, pix1); x++;
-    PutPixel(x,y, pix1); x++;
-    PutPixel(x,y, pix2); x++;
-    PutPixel(x,y, pix2); x++;
-    PutPixel(x,y, pix3); x++;
-    PutPixel(x,y, pix3); x++;
-    PutPixel(x,y, pix4); x++;
-    PutPixel(x,y, pix4); x++;
+    PutDoublePixel(x,y, pix1); x += 2;
+    PutDoublePixel(x,y, pix2); x += 2;
+    PutDoublePixel(x,y, pix3); x += 2;
+    PutDoublePixel(x,y, pix4); x += 2;
     y++;
     x -= 8;
 
     if (y > ylen)
     {
-        x+=8;
-        y=yoff;
+        x += 8;
+        y = yoff;
     }
 }
 
@@ -214,7 +204,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     x = 0; y = 0;
 
     ptr += 2;
-    
+
     work = *ptr++;
     size = work + *ptr++ * 256;
 
@@ -241,7 +231,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     }
     debug_print("\n");
 
-    while (ptr - origptr < datasize - 3)
+    while (ptr - origptr < datasize - 2)
     {
         // First get count
         c = *ptr++;

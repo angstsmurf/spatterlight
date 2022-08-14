@@ -17,7 +17,7 @@ const struct GameInfo games[] = {
         BANZAI,
 
         27, // no room images
-        21, // no item images
+        24, // no item images
         20, // no special images
     },
 
@@ -38,7 +38,7 @@ const struct GameInfo games[] = {
         SPIDERMAN,
 
         18, // room images
-        25, // item images
+        26, // item images
         26, // special images
     },
 
@@ -47,9 +47,9 @@ const struct GameInfo games[] = {
         "FF #1 ",
         FANTASTIC4,                  // game ID
 
-        22, // room images
-        23, // item images
-        24, // special images
+        21, // room images
+        22, // item images
+        21, // special images
     },
 
 

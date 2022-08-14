@@ -79,7 +79,6 @@ extern strid_t Transcript;
 extern int LastVerb, LastNoun, LastPrep, LastPartp, LastNoun2, LastAdverb;
 
 extern int showing_inventory;
-extern int upside_down;
 
 extern uint16_t header[];
 extern uint8_t *mem;

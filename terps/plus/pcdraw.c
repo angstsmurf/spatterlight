@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "glk.h"
-#include "common.h"
+#include "graphics.h"
 
 int x=0,y=0,count=0;
 
@@ -37,7 +37,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
     glsi32 xpos = x * pixel_size;
 
     if (upside_down)
-        xpos = 280 * pixel_size - xpos;
+        xpos = (ImageWidth - (x_offset % 2)) * pixel_size - xpos;
     xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
@@ -46,12 +46,36 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
 
     int ypos = y * pixel_size;
     if (upside_down)
-        ypos = 157 * pixel_size - ypos;
+        ypos = (ImageHeight - 1) * pixel_size - ypos;
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,
                          ypos, pixel_size, pixel_size);
 }
+
+void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
+{
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+    glsi32 xpos = x * pixel_size;
+
+    if (upside_down)
+        xpos = (ImageWidth - 1) * pixel_size - xpos;
+    xpos += x_offset;
+
+    if (xpos < x_offset || xpos >= right_margin) {
+        return;
+    }
+
+    int ypos = y * pixel_size;
+    if (upside_down)
+        ypos = (ImageHeight - 1) * pixel_size - ypos;
+    ypos += y_offset;
+
+    glk_window_fill_rect(Graphics, glk_color, xpos,
+                         ypos, pixel_size * 2, pixel_size);
+}
+
 
 
 static void DrawDOSPixels(int pattern)
@@ -63,18 +87,18 @@ static void DrawDOSPixels(int pattern)
     pix3=(pattern & 0x0c)>>2;
     pix4=(pattern & 0x03);
 
-    PutPixel(x,y, pix1);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix1); x++; }
-    PutPixel(x,y, pix2);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix2); x++; }
-    PutPixel(x,y, pix3);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix3); x++; }
-    PutPixel(x,y, pix4);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix4); x++; }
+    if (!skipy) {
+        PutDoublePixel(x,y, pix1); x += 2;
+        PutDoublePixel(x,y, pix2); x += 2;
+        PutDoublePixel(x,y, pix3); x += 2;
+        PutDoublePixel(x,y, pix4); x += 2;
+    } else {
+        PutPixel(x,y, pix1); x++;
+        PutPixel(x,y, pix2); x++;
+        PutPixel(x,y, pix3); x++;
+        PutPixel(x,y, pix4); x++;
+    }
+
     if (x>=xlen+xoff)
     {
         y+=2;
@@ -97,9 +121,9 @@ void SetColour(int32_t index, const RGB *colour)
 }
 
 void SetRGB(int32_t index, int red, int green, int blue) {
-    red = (red * 35.7);
-    green = (green * 35.7);
-    blue = (blue * 35.7);
+    red = red * 35.7;
+    green = green * 35.7;
+    blue = blue * 35.7;
 
     pal[index][0] = red;
     pal[index][1] = green;
@@ -113,8 +137,8 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     y=0;
     count=0;
 
-    xlen=280;
-    ylen=158;
+    xlen=0;
+    ylen=0;
     xoff=0; yoff=0;
     ycount=0;
     skipy=1;
