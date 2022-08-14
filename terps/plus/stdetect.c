@@ -57,8 +57,6 @@ struct msdos_dir_entry {
 };
 
 struct fat_boot_sector boot;
-struct msdos_dir_entry dir;
-
 
 uint16_t Read16LE(uint8_t **indata) {
     uint8_t *ptr = *indata;
@@ -180,19 +178,24 @@ int ReadFAT12BootSector(uint8_t **sf, size_t *extent) {
     return 1;
 }
 
-uint8_t *ReadFAT12DirEntry(uint8_t *ptr) {
-    memcpy(dir.name, ptr, MSDOS_NAME + 3);
-    ptr += MSDOS_NAME + 3;
-    dir.ctime = Read16LE(&ptr);
-    dir.cdate = Read16LE(&ptr);
-    dir.adate = Read16LE(&ptr);
-    dir.starthi = Read16LE(&ptr);
-    dir.time = Read16LE(&ptr);
-    dir.date = Read16LE(&ptr);
-    dir.start = Read16LE(&ptr);
-    dir.size = Read16LE(&ptr);
-    dir.size += (Read16LE(&ptr) << 16);
-    return ptr;
+struct msdos_dir_entry *ReadFAT12DirEntry(uint8_t **pointer) {
+    uint8_t *ptr = *pointer;
+    struct msdos_dir_entry *dir = MemAlloc(sizeof(struct msdos_dir_entry));
+    memcpy(dir->name, ptr, MSDOS_NAME);
+    ptr += MSDOS_NAME;
+    dir->attr = *ptr;
+    ptr += 3;
+    dir->ctime = Read16LE(&ptr);
+    dir->cdate = Read16LE(&ptr);
+    dir->adate = Read16LE(&ptr);
+    dir->starthi = Read16LE(&ptr);
+    dir->time = Read16LE(&ptr);
+    dir->date = Read16LE(&ptr);
+    dir->start = Read16LE(&ptr);
+    dir->size = Read16LE(&ptr);
+    dir->size += (Read16LE(&ptr) << 16);
+    *pointer = ptr;
+    return dir;
 }
 
 uint8_t read_fat12(uint8_t **sf, size_t offset, size_t fat_offset) {
@@ -231,7 +234,7 @@ uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster) {
     return 0;
 }
 
-uint8_t *GetFile(uint8_t *sf, int cluster) {
+uint8_t *GetFile(uint8_t *sf, int cluster, struct msdos_dir_entry dir) {
 
     size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
     int bytespercluster = boot.sector_size * boot.sec_per_clus;
@@ -256,6 +259,53 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
 int issagaimg(const char *name);
 
+uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, struct imgrec *imgs, int *found, uint8_t **database, size_t *databasesize) {
+    struct msdos_dir_entry *dir = ReadFAT12DirEntry(&ptr);
+    if (dir->name[0] == 0) {
+        free(dir);
+        return NULL;
+    }
+    dir->name[8] = 0;
+    debug_print("Reading dir entry %s\n", dir->name);
+    if (dir->attr & 0x10 && dir->name[0] != '.') {
+        debug_print("is a subdir!\n");
+        int cluster = dir->start;
+        size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
+        size_t offset;
+        uint8_t *subdirentry;
+        int lastfound = 0;
+        while (cluster && !lastfound) {
+            offset = (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+            subdirentry = *sf + offset;
+            for (int i = 0; i < 32; i++) {
+                subdirentry = ReadDirEntryRecursive(subdirentry, sf, imgidx, imgs, found, database, databasesize);
+                if (subdirentry == NULL) {
+                    lastfound = 1;
+                    break;
+                }
+            }
+            cluster = get_next_cluster12(*sf, cluster);
+        }
+    } else if (strncmp(dir->name, "DATABASE", 8) == 0) {
+        uint8_t *file = GetFile(*sf, dir->start, *dir);
+        *database = MemAlloc(dir->size + 2);
+        memcpy(*database + 2, file, dir->size);
+        *databasesize = dir->size + 2;
+        CurrentSys = SYS_ST;
+        *found = 1;
+    } else if (issagaimg(dir->name) && *imgidx < 100) {
+        imgs += *imgidx;
+        imgs->data = GetFile(*sf, dir->start, *dir);
+        imgs->filename = MemAlloc(5);
+        memcpy(imgs->filename, dir->name, 4);
+        imgs->filename[4] = 0;
+        imgs->size = dir->size;
+        (*imgidx)++;
+    }
+    free(dir);
+    return ptr;
+}
+
 int DetectST(uint8_t **sf, size_t *extent) {
     if (*extent > MAX_ST_LENGTH || *extent < MIN_ST_LENGTH)
         return 0;
@@ -264,7 +314,7 @@ int DetectST(uint8_t **sf, size_t *extent) {
         uint8_t *new = DecodeMsaImageToRawImage(*sf, extent);
         free(*sf);
         *sf = new;
-        writeToFile("/Users/administrator/Desktop/QP3.ST", *sf, *extent);
+//        writeToFile("/Users/administrator/Desktop/QP3.ST", *sf, *extent);
     }
 
     ReadFAT12BootSector(sf, extent);
@@ -279,26 +329,10 @@ int DetectST(uint8_t **sf, size_t *extent) {
     struct imgrec imgs[100];
     int imgidx = 0;
     
-    for (int i = 0; i < 143; i++) {
-        ptr = ReadFAT12DirEntry(ptr);
-        dir.name[8] = 0;
-        if (strncmp(dir.name, "DATABASE", 8) == 0) {
-            uint8_t *file = GetFile(*sf, dir.start);
-            database = MemAlloc(dir.size + 2);
-            memcpy(database + 2, file, dir.size);
-            databasesize = dir.size + 2;
-            CurrentSys = SYS_ST;
-            found++;
-        } else if (issagaimg(dir.name) && imgidx < 100) {
-            imgs[imgidx].data = GetFile(*sf, dir.start);
-            imgs[imgidx].filename = MemAlloc(5);
-            memcpy(imgs[imgidx].filename, dir.name, 4);
-            imgs[imgidx].filename[4] = 0;
-            imgs[imgidx].size = dir.size;
-            debug_print("Adding image %d: %s\n", imgidx, imgs[imgidx].filename);
-            imgidx++;
-        }
-
+    for (int i = 0; i < boot.dir_entries; i++) {
+        ptr = ReadDirEntryRecursive(ptr, sf, &imgidx, imgs, &found, &database, &databasesize);
+        if (ptr == NULL)
+            break;
     }
 
     if (found) {
@@ -312,6 +346,5 @@ int DetectST(uint8_t **sf, size_t *extent) {
         }
         return 1;
     }
-
     return 0;
 }
