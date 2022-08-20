@@ -49,8 +49,6 @@ static int FoundMatch;
 static int PrintedOK;
 int Redraw = 0;
 
-static int Q3SwitchedWatch = 0;
-
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
 #define TurnsLow (Flag[26])
@@ -58,6 +56,7 @@ static int Q3SwitchedWatch = 0;
 #define ThingAsphyx (Flag[47])
 #define TorchAsphyx (Flag[48])
 #define DrawImages (Flag[52])
+#define Q3SwitchedWatch (Flag[126])
 
 int FirstAfterInput = 0;
 
