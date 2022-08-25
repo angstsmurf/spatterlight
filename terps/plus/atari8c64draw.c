@@ -351,7 +351,7 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
             if (ylen == 158)
                 ImageWidth -= 24;
             else
-                ImageWidth -= 16;
+                ImageWidth -= 17;
         }
 
         int optimal_height = ImageHeight * pixel_size;

@@ -7,6 +7,7 @@
 
 #include "glk.h"
 #include "graphics.h"
+#include "common.h"
 
 int x=0,y=0,count=0;
 
@@ -37,7 +38,8 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
     glsi32 xpos = x * pixel_size;
 
     if (upside_down)
-        xpos = (ImageWidth - (x_offset % 2)) * pixel_size - xpos;
+        xpos = ImageWidth * pixel_size - xpos;
+
     xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
@@ -60,7 +62,7 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
     glsi32 xpos = x * pixel_size;
 
     if (upside_down)
-        xpos = (ImageWidth - 1) * pixel_size - xpos;
+        xpos = ImageWidth * pixel_size - xpos;
     xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
@@ -68,8 +70,13 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
     }
 
     int ypos = y * pixel_size;
-    if (upside_down)
-        ypos = (ImageHeight - 1) * pixel_size - ypos;
+    if (upside_down) {
+        ypos = ImageHeight * pixel_size - ypos;
+        if (CurrentSys == SYS_ST)
+            ypos -= 3 * pixel_size;
+        else if (CurrentSys == SYS_ATARI8 || CurrentSys == SYS_MSDOS)
+            ypos -= pixel_size;
+    }
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,

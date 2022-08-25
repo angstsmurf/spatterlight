@@ -415,7 +415,7 @@ void ColorCyclingPixel(Pixel p, glui32 glk_color)
     glsi32 xpos = p.x * pixel_size;
 
     if (upside_down)
-        xpos = ImageWidth * pixel_size - xpos;
+        xpos = ImageWidth * pixel_size - xpos - (pixel_size * (p.width - 2));
     xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
@@ -424,7 +424,7 @@ void ColorCyclingPixel(Pixel p, glui32 glk_color)
 
     int ypos = p.y * pixel_size;
     if (upside_down)
-        ypos = ImageHeight * pixel_size - ypos;
+        ypos = ImageHeight * pixel_size - ypos - 3 * pixel_size;
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,
