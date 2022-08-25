@@ -67,7 +67,6 @@ void SetColour(int32_t index, const RGB *colour);
 static const RGB black = { 0, 0, 0 };
 static const RGB white = { 255, 255, 255 };
 static const RGB red = { 191, 97, 72 };
-//    static const RGB cyan = { 153, 230, 249 };
 static const RGB purple = { 177, 89, 185 };
 static const RGB green = { 121, 213, 112 };
 static const RGB blue = { 95, 72, 233 };
@@ -75,11 +74,9 @@ static const RGB yellow = { 247, 255, 108 };
 static const RGB orange = { 186, 134, 32 };
 static const RGB brown = { 131, 112, 0 };
 static const RGB lred = { 231, 154, 132 };
-//    static const RGB dgrey = { 69, 69, 69 };
 static const RGB grey = { 167, 167, 167 };
 static const RGB lgreen = { 192, 255, 185 };
 static const RGB lblue = { 162, 143, 255 };
-//    static const RGB lgrey = { 200, 200, 200 };
 
 /*
  The values below are determined by looking at the games
