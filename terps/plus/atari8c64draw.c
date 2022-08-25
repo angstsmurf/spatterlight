@@ -21,11 +21,10 @@ extern winid_t Graphics;
 
 void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
 
-void DrawC64Pixels(int pattern, int pattern2)
+static void DrawA8C64Pixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
 
-//    fprintf(stderr, "Plotting at %d %d: %x %x\n",x,y,pattern,pattern2);
     if (x>(xlen - 3)*8)
       return;
 
@@ -346,8 +345,6 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
     if (CurrentSys == SYS_ATARI8) {
         glui32 curheight, curwidth;
         glk_window_get_size(Graphics, &curwidth, &curheight);
-        fprintf(stderr, "Current graphwin height:%d pixel_size:%d ylen*pixsize:%d\n", curheight, pixel_size, ylen * pixel_size);
-
         if (CurrentGame == SPIDERMAN && ((ylen == 126 && xlen == 39) || (ylen == 158 && xlen == 38))) {
             ImageHeight = ylen + 2;
             ImageWidth = xlen * 8;
@@ -395,18 +392,17 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
             work2 = *ptr++;
             for (i = 0; i < c + 1; i++)
             {
-                DrawC64Pixels(work,work2);
+                DrawA8C64Pixels(work,work2);
             }
         }
         else
         {
             // Don't count on the next c characters
-
             for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++)
             {
                 work=*ptr++;
                 work2=*ptr++;
-                DrawC64Pixels(work,work2);
+                DrawA8C64Pixels(work,work2);
             }
         }
     }

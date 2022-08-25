@@ -227,9 +227,6 @@ static const struct imglist a2listBanzai[] = {
     { NULL, 0, }
 };
 
-
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
-
 uint8_t *new = NULL;
 
 int DetectApple2(uint8_t **sf, size_t *extent)
@@ -252,8 +249,6 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         return 0;
     }
 
-    writeToFile("/Users/administrator/Desktop/Apple2ReorderedData", new, dsk_image_size);
-
     size_t datasize = dsk_image_size - 125438;
     uint8_t *gamedata = MemAlloc(datasize);
     memcpy(gamedata, new + 125438, datasize);
@@ -263,6 +258,8 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         *sf = gamedata;
         *extent = datasize;
         CurrentSys = SYS_APPLE2;
+        ImageWidth = 280;
+        ImageHeight = 152;
         return 1;
     }
 
@@ -297,12 +294,10 @@ void LookForApple2Images(void) {
     int created = 0;
 
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        fprintf(stderr, "Checking for room image %d: offset %x Description %s\n", i, Rooms[i].Image, Rooms[i].Text);
         int exists = 0;
         for (int j = 0; j < created; j++) {
             if (Images[j].DiskOffset == Rooms[i].Image) {
                 exists = 1;
-                fprintf(stderr, "Already exists as %s\n", Images[j].Filename);
                 break;
             }
         }
@@ -347,12 +342,10 @@ void LookForApple2Images(void) {
     }
 
     for (int i = 0; i <= GameHeader.NumObjImg; i++) {
-        fprintf(stderr, "Checking for object image %d: Room %d Object %d offset %x Description %s\n", i, ObjectImages[i].Room, ObjectImages[i].Object, ObjectImages[i].Image, Items[ObjectImages[i].Object].Text);
         int exists = 0;
         for (int j = 0; j < created; j++) {
             if (Images[j].DiskOffset == ObjectImages[i].Image) {
                 exists = 1;
-                fprintf(stderr, "Object image already exists as %s\n", Images[j].Filename);
                 break;
             }
         }
@@ -385,8 +378,6 @@ void LookForApple2Images(void) {
         memcpy(Images[created].Data, new + offset, size);
         Images[created].Size = size;
         Images[created].DiskOffset = list[ct].offset;
-
-        fprintf(stderr, "Added image %s (%d)\n", Images[created].Filename, ObjectImages[i].Image);
         created++;
         if (created > count) {
             fprintf(stderr, "Error!\n");
@@ -414,7 +405,6 @@ void LookForApple2Images(void) {
             Images[created].Size = size;
             Images[created].Data = MemAlloc(size);
             memcpy(Images[created].Data, new + list[ct].offset, size);
-            fprintf(stderr, "%d: Added special image %s size %zu offset %zu\n", ct, Images[created].Filename, size, list[ct].offset);
             created++;
         }
         ct++;

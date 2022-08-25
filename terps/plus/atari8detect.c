@@ -24,7 +24,7 @@ typedef struct imglist {
 } imglist;
 
 
-struct imglist listFantastic[] = {
+static const struct imglist listFantastic[] = {
     { "R001", 0x0297 },
     { "R002", 0x0a8e },
     { "R003", 0x10e48 },
@@ -93,7 +93,7 @@ struct imglist listFantastic[] = {
     { NULL, 0, }
 };
 
-struct imglist listSpidey[] = {
+static const struct imglist listSpidey[] = {
     { "R001", 0x0297 },
     { "R002", 0x078e },
     { "R003", 0x0b64 },
@@ -166,7 +166,7 @@ struct imglist listSpidey[] = {
 //{ "S000", 0, Disk image A at offset 6d97
 //    0x0e94 },
 
-struct imglist listBanzai[] = {
+static const struct imglist listBanzai[] = {
     { "R001", 0x0297 },
     { "R002", 0x083a },
     { "R003", 0xb072 },
@@ -240,7 +240,7 @@ typedef enum {
     TYPE_TWO,
 } CompanionNameType;
 
-FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t length) {
+static FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t length) {
     char *sideB = MemAlloc(length + 1);
     memcpy(sideB, game_file, length + 1);
     if (type == TYPE_B) {
@@ -251,12 +251,11 @@ FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t length)
         sideB[index + 2] = 'o';
     }
 
-    fprintf(stderr, "Looking for companion file with name \"%s\"\n", sideB);
     return fopen(sideB, "r");
 }
 
 
-FILE *GetCompanionFile(void) {
+static FILE *GetCompanionFile(void) {
     FILE *result = NULL;
     size_t gamefilelen = strlen(game_file);
     char c;
@@ -333,9 +332,6 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
         if (readsize != size)
             fprintf(stderr, "Weird size for image %d. Expected %zu, got %zu\n", outpic, size, readsize);
 
-        fprintf(stderr, "Read image %d, name %s, offset 0x%04lx, size %ld (0x%04lx)\n", outpic, Images[outpic].Filename, list[outpic].offset, Images[outpic].Size, Images[outpic].Size);
-        PrintFirstTenBytes(Images[outpic].Data, 2);
-
         size = Images[outpic].Data[2] + Images[outpic].Data[3] * 256;
 
         fseek(infile, list[outpic].offset + size, SEEK_SET);
@@ -344,21 +340,16 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
         work2 = fgetc(infile);
         do
         {
-            fprintf(stderr, "%zx: ",ftell(infile));
             work = work2;
             work2 = fgetc(infile);
             size = (work2 * 256) + work;
-            fprintf(stderr, "%zx\n",size);
             if (feof(infile)) {
-//                fprintf(stderr, "Could not find size of image %d. Total file size: %ld\n", outpic, ftell(infile));
-//                return 0;
                 found = 0;
                 break;
             }
         } while ( size == 0 || size > 0x1600 || work == 0);
         if (found) {
             size_t possoff = ftell(infile) - 2;
-            fprintf(stderr, "Possible following image size %ld (0x%04lx) at offset %lx\n", size, size, possoff);
             int found2 = 0;
             for (int i = 0; list[i].filename != NULL; i++) {
                 if (list[i].offset == possoff) {
@@ -430,7 +421,6 @@ int LookForAtari8Images(uint8_t **sf, size_t *extent) {
         Images[0].Filename = NULL;
         return 0;
     }
-    fprintf(stderr, "Successfully opened companion file\n");
     ExtractImagesFromCompanionFileNew(CompanionFile);
     return 1;
 }

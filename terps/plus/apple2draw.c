@@ -64,7 +64,6 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
 
     work = *ptr++;
     size = work + (*ptr++ * 256);
-    fprintf(stderr, "size: %d (%x)\n",size,size);
 
     // Get the offsets
     xoff = *ptr++; //- 3;
@@ -74,12 +73,32 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     yoff = *ptr++;
     x = xoff;
     y = yoff;
-    fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
 
     // Get the x length
     xlen = *ptr++;
     ylen = *ptr++;
-    fprintf(stderr, "xlen: %d ylen: %d\n",xlen,ylen);
+
+    glui32 curheight, curwidth;
+    glk_window_get_size(Graphics, &curwidth, &curheight);
+
+    if (yoff == 0 && (LastImgType == IMG_ROOM || LastImgType == IMG_SPECIAL)) {
+        ImageHeight = ylen + 2;
+        ImageWidth = xlen * 8;
+        if (ylen == 158)
+            ImageWidth -= 24;
+        else
+            ImageWidth -= 16;
+    }
+
+    int optimal_height = ImageHeight * pixel_size;
+    if (curheight != optimal_height) {
+        x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
+        right_margin = (ImageWidth * pixel_size) + x_offset;
+        winid_t parent = glk_window_get_parent(Graphics);
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                   optimal_height, NULL);
+    }
+
 
     while (ptr - origptr < size)
     {
@@ -95,7 +114,6 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             {
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
-//                    DrawApple2ImageFromVideoMem();
                     return 1;
                 }
             }
@@ -194,7 +212,6 @@ void generate_artifact_map(void) {
 
 void DrawApple2ImageFromVideoMem(void)
 {
-
     if (m_hires_artifact_map == NULL)
         generate_artifact_map();
 
@@ -225,7 +242,6 @@ void DrawApple2ImageFromVideoMem(void)
 
             for (int b = 0; b < 7; b++)
             {
-
                 int32_t const v = artifact_map_ptr[((w >> (b + 7-1)) & 0x07) | (((b ^ col) & 0x01) << 3)];
                 PutApplePixel(pixpos++, row, v);
             }

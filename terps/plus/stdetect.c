@@ -13,6 +13,7 @@
 
 #include "definitions.h"
 #include "common.h"
+#include "graphics.h"
 
 #include "stdetect.h"
 
@@ -336,6 +337,9 @@ int DetectST(uint8_t **sf, size_t *extent) {
     }
 
     if (found) {
+        CurrentSys = SYS_ST;
+        ImageWidth = 317;
+        ImageHeight = 162;
         free(*sf);
         *sf = database;
         *extent = databasesize;
