@@ -85,14 +85,14 @@ Action *Actions;
 int ImageWidth = 280;
 int ImageHeight = 158;
 
-void CleanupAndExit(void)
+GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
         glk_stream_close(Transcript, NULL);
     glk_exit();
 }
 
-void Fatal(const char *x)
+GLK_ATTRIBUTE_NORETURN void Fatal(const char *x)
 {
     fprintf(stderr, "%s!\n", x);
     if (Bottom)

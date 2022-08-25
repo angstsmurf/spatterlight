@@ -270,7 +270,7 @@ void LookForApple2Images(void) {
     if (new == NULL)
         return;
 
-    const struct imglist *list = NULL;
+    const struct imglist *list = a2listSpidey;
 
     switch(CurrentGame) {
         case SPIDERMAN:

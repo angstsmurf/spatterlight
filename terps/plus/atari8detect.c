@@ -305,7 +305,7 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
 
     int outpic;
 
-    struct imglist *list = listSpidey;
+    const struct imglist *list = listSpidey;
     if (CurrentGame == BANZAI)
         list = listBanzai;
     else if (CurrentGame == FANTASTIC4)
