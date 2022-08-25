@@ -37,9 +37,8 @@ char *ShortNameFromType(char type, int index) {
     return result;
 }
 
-int DrawC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
-int DrawAtari8ImageFromData(uint8_t *ptr, size_t datasize);
+int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
 void DrawApple2ImageFromVideoMem(void);
@@ -71,10 +70,8 @@ int DrawImageWithName(char *filename)
     if (!gli_enable_graphics)
         return 0;
 
-    if (CurrentSys == SYS_C64) {
-        return DrawC64ImageFromData(Images[i].Data, Images[i].Size);
-    } else if (CurrentSys == SYS_ATARI8) {
-        return DrawAtari8ImageFromData(Images[i].Data, Images[i].Size);
+    if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
+        return DrawAtariC64ImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_ST) {
         return DrawSTImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_APPLE2) {

@@ -856,7 +856,6 @@
 		C3F09DA2288893680035DAC2 /* libunp64.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
 		C3F3A2332894237500C8739F /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F3A2322894237500C8739F /* atari8detect.c */; };
-		C3F3A235289539CE00C8739F /* atari8draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F3A234289539CE00C8739F /* atari8draw.c */; };
 		C3F53C45271B509900538393 /* MyCoreDataCoreSpotlightDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F53C42271B509800538393 /* MyCoreDataCoreSpotlightDelegate.m */; };
 		C3F53C5F271BB8BE00538393 /* BlorbFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F53C5C271BB8BE00538393 /* BlorbFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F53C64271BB93300538393 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
@@ -876,7 +875,7 @@
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
-		C3FF66B428901BBB00EBD578 /* c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E8153F288C4AFE003C4FEB /* c64draw.c */; };
+		C3FF66B428901BBB00EBD578 /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */; };
 		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 /* End PBXBuildFile section */
 
@@ -3230,7 +3229,7 @@
 		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
 		C3E2EAB225D08EEC0012B7FB /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
-		C3E8153F288C4AFE003C4FEB /* c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64draw.c; sourceTree = "<group>"; };
+		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
@@ -3279,7 +3278,6 @@
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
 		C3F3A2312894237500C8739F /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
 		C3F3A2322894237500C8739F /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
-		C3F3A234289539CE00C8739F /* atari8draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8draw.c; sourceTree = "<group>"; };
 		C3F53C42271B509800538393 /* MyCoreDataCoreSpotlightDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCoreDataCoreSpotlightDelegate.m; sourceTree = "<group>"; };
 		C3F53C44271B509900538393 /* MyCoreDataCoreSpotlightDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCoreDataCoreSpotlightDelegate.h; sourceTree = "<group>"; };
 		C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlorbFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5888,8 +5886,7 @@
 				C3D6AA3F286B098B000FA5DE /* extracommands.c */,
 				C3A3EA0B284BAE8400C8A693 /* parseinput.h */,
 				C3A3EA0C284BAE8400C8A693 /* parseinput.c */,
-				C3F3A234289539CE00C8739F /* atari8draw.c */,
-				C3E8153F288C4AFE003C4FEB /* c64draw.c */,
+				C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */,
 				C3EC5024289C0C820078AB83 /* stdraw.c */,
 				C37EC5932847A9E00084B841 /* pcdraw.c */,
 				C3F890B428AEA72F00982E4D /* apple2draw.c */,
@@ -8062,9 +8059,8 @@
 				C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */,
 				C37EC5A12847AA3C0084B841 /* plusmain.c in Sources */,
 				C37EC5A22847AA3C0084B841 /* pcdraw.c in Sources */,
-				C3FF66B428901BBB00EBD578 /* c64draw.c in Sources */,
+				C3FF66B428901BBB00EBD578 /* atari8c64draw.c in Sources */,
 				C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */,
-				C3F3A235289539CE00C8739F /* atari8draw.c in Sources */,
 				C30E9BB0289B264600B42825 /* apple2detect.c in Sources */,
 				C37EC5A52847BC1A0084B841 /* layouttext.c in Sources */,
 				C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */,

@@ -1,11 +1,13 @@
-/* Routine to draw the C64 RLE graphics
+/* Routine to draw the Atari 8-bit and C64 RLE graphics
 
  Code by David Lodge 29/04/2005
  */
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common.h"
 #include "definitions.h"
+#include "graphics.h"
 #include "glk.h"
 
 extern int x, y, count;
@@ -14,10 +16,6 @@ extern int xoff, yoff;
 extern int size;
 
 typedef uint8_t RGB[3];
-
-typedef RGB PALETTE[16];
-
-extern PALETTE pal;
 
 extern winid_t Graphics;
 
@@ -64,6 +62,7 @@ void DrawC64Pixels(int pattern, int pattern2)
 
 void SetColour(int32_t index, const RGB *colour);
 
+/* C64 colors */
 static const RGB black = { 0, 0, 0 };
 static const RGB white = { 255, 255, 255 };
 static const RGB red = { 191, 97, 72 };
@@ -77,6 +76,134 @@ static const RGB lred = { 231, 154, 132 };
 static const RGB grey = { 167, 167, 167 };
 static const RGB lgreen = { 192, 255, 185 };
 static const RGB lblue = { 162, 143, 255 };
+
+
+/* Atari 8-bit colors */
+static const RGB cyan = { 0x9c, 0xe2, 0xc5 };
+static const RGB lpurple = { 0xdf, 0xaa, 0xff };
+static const RGB apurple = { 0xdb, 0x47, 0xdd };
+static const RGB deeppurple = { 0x73, 0x1c, 0x73 };
+static const RGB dblue = { 0x30, 0x24, 0xff };
+static const RGB agreen = { 0x08, 0x88, 0x17 };
+static const RGB dgreen = { 0x4f, 0x74, 0x20 };
+static const RGB darkergreen = { 0x08, 0x38, 0x00 };
+static const RGB ablue = { 0x36, 0x6e, 0xff };
+static const RGB ayellow = { 0xef, 0xf2, 0x58};
+static const RGB aorange = { 0xbf, 0x77, 0x30 };
+static const RGB abrown = { 0xab, 0x51, 0x1f };
+static const RGB dbrown = { 0x73, 0x2c, 0x00 };
+static const RGB alred = { 0xc2, 0x52, 0x57 };
+static const RGB beige = { 0xff, 0x8f, 0x8f };
+static const RGB dred = { 0xa2, 0x3f, 0x40 };
+static const RGB agrey = { 0x92, 0x92, 0x92 };
+static const RGB lgrey = { 0xb4, 0xb5, 0xb4};
+static const RGB algreen = { 0x5f, 0x8f, 0x00 };
+static const RGB tan = { 0xaf, 0x99, 0x3a };
+static const RGB lilac = { 0x83, 0x58, 0xee };
+
+static void TranslateAtariColour(int index, uint8_t value) {
+    switch(value) {
+        case 0:
+        case 224:
+            SetColour(index,&black);
+            break;
+        case 5:
+        case 7:
+            SetColour(index,&agrey);
+            break;
+        case 6:
+        case 8:
+            SetColour(index,&ablue);
+            break;
+        case 9:
+        case 10:
+        case 12:
+            SetColour(index,&lgrey);
+            break;
+        case 14:
+            SetColour(index,&white);
+            break;
+        case 17:
+        case 32:
+        case 36:
+            SetColour(index,&dbrown);
+            break;
+        case 40:
+            SetColour(index, &aorange);
+            break;
+        case 54:
+            if (CurrentGame == FANTASTIC4)
+                SetColour(index, &aorange);
+            else
+                SetColour(index,&dred);
+            break;
+        case 56:
+            SetColour(index,&alred);
+            break;
+        case 58:
+        case 60:
+            SetColour(index,&beige);
+            break;
+        case 69:
+        case 71:
+            SetColour(index,&deeppurple);
+            break;
+        case 68:
+        case 103:
+            SetColour(index,&apurple);
+            break;
+        case 89:
+            SetColour(index,&lilac);
+            break;
+        case 85:
+        case 101:
+            SetColour(index,&dblue);
+            break;
+        case 110:
+            SetColour(index,&lpurple);
+            break;
+        case 135:
+            SetColour(index,&ablue);
+            break;
+        case 174:
+            SetColour(index,&cyan);
+            break;
+        case 182:
+        case 196:
+        case 214:
+        case 198:
+        case 200:
+            SetColour(index,&agreen);
+            break;
+        case 194:
+            SetColour(index,&darkergreen);
+            break;
+        case 212:
+            SetColour(index,&dgreen);
+            break;
+        case 199:
+        case 215:
+        case 201:
+            SetColour(index,&algreen);
+            break;
+        case 230:
+            SetColour(index,&tan);
+            break;
+        case 237:
+            SetColour(index,&ayellow);
+            break;
+        case 244:
+            SetColour(index,&abrown);
+            break;
+        case 246:
+        case 248:
+            SetColour(index,&aorange);
+            break;
+        default:
+            fprintf(stderr, "Unknown colour %d ", value);
+            break;
+    }
+}
 
 /*
  The values below are determined by looking at the games
@@ -190,7 +317,7 @@ static void TranslateC64Colour(int index, uint8_t value) {
     }
 }
 
-int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
+int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
 {
     int work,work2;
     int c;
@@ -207,7 +334,7 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     // Get the offset
     xoff = *ptr++ - 3;
-    if (xoff < 0) xoff = 8;
+    if (xoff < 0) xoff = 0;
     yoff = *ptr++;
     x = xoff * 8;
     y = yoff;
@@ -216,6 +343,31 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     xlen = *ptr++;
     ylen = *ptr++;
 
+    if (CurrentSys == SYS_ATARI8) {
+        glui32 curheight, curwidth;
+        glk_window_get_size(Graphics, &curwidth, &curheight);
+        fprintf(stderr, "Current graphwin height:%d pixel_size:%d ylen*pixsize:%d\n", curheight, pixel_size, ylen * pixel_size);
+
+        if (CurrentGame == SPIDERMAN && ((ylen == 126 && xlen == 39) || (ylen == 158 && xlen == 38))) {
+            ImageHeight = ylen + 2;
+            ImageWidth = xlen * 8;
+            if (ylen == 158)
+                ImageWidth -= 24;
+            else
+                ImageWidth -= 16;
+        }
+
+        int optimal_height = ImageHeight * pixel_size;
+        if (curheight != optimal_height) {
+            x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
+            right_margin = (ImageWidth * pixel_size) + x_offset;
+            winid_t parent = glk_window_get_parent(Graphics);
+            if (parent)
+                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                           optimal_height, NULL);
+        }
+    }
+
     SetColour(0,&black);
 
     // Get the palette
@@ -223,7 +375,10 @@ int DrawC64ImageFromData(uint8_t *ptr, size_t datasize)
     for (i = 1; i < 5; i++)
     {
         work = *ptr++;
-        TranslateC64Colour(i, work);
+        if (CurrentSys == SYS_C64)
+            TranslateC64Colour(i, work);
+        else
+            TranslateAtariColour(i, work);
         debug_print("%d ", work);
     }
     debug_print("\n");
