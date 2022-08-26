@@ -67,7 +67,7 @@ int DrawImageWithName(char *filename)
         }
     }
 
-    if (!gli_enable_graphics)
+    if (!IsSet(GRAPHICSBIT))
         return 0;
 
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
@@ -105,15 +105,13 @@ int DrawCloseup(int img) {
 
     upside_down = 0;
 
-    if (CurrentSys == SYS_APPLE2) {
-        ClearApple2ScreenMem();
-        glk_window_clear(Graphics);
-    }
-
     int result = DrawImageWithName(buf);
 
-    if (result && CurrentSys == SYS_APPLE2)
+    if (result && CurrentSys == SYS_APPLE2) {
+        ClearApple2ScreenMem();
+        glk_window_clear(Graphics);
         DrawApple2ImageFromVideoMem();
+    }
 
     return result;
 }
@@ -151,7 +149,7 @@ void DrawCurrentRoom(void)
 
     showing_inventory = (CurrentGame == CLAYMORGUE && MyLoc == 33);
 
-    if (!gli_enable_graphics) {
+    if (!IsSet(GRAPHICSBIT)) {
         CloseGraphicsWindow();
         return;
     }

@@ -166,7 +166,7 @@ static winid_t FindGlkWindowWithRock(glui32 rock);
 
 void OpenGraphicsWindow(void)
 {
-    if (!gli_enable_graphics)
+    if (!IsSet(GRAPHICSBIT))
         return;
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
     y_offset = 0;
@@ -247,6 +247,12 @@ void UpdateSettings(void) {
             Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
             break;
     }
+
+    if (gli_enable_graphics) {
+        SetBit(GRAPHICSBIT);
+    } else {
+        ResetBit(GRAPHICSBIT);
+    }
 }
 
 void UpdateColorCycling(void);
@@ -257,6 +263,7 @@ void Updates(event_t ev)
         SavedImgType = LastImgType;
         SavedImgIndex = LastImgIndex;
         CloseGraphicsWindow();
+        UpdateSettings();
         OpenGraphicsWindow();
         if (AnimationRunning && LastAnimationBackground) {
             char buf[5];
@@ -2071,6 +2078,8 @@ void ResizeTitleImage(void) {
 
 void DrawTitleImage(void) {
     DisplayInit();
+    if (!gli_enable_graphics)
+        return;
     glk_window_close(Top, NULL);
     Top = NULL;
     glk_window_close(Bottom, NULL);
@@ -2089,6 +2098,8 @@ void DrawTitleImage(void) {
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
+                if (!gli_enable_graphics)
+                    break;
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawImageWithName("S000");
