@@ -19,10 +19,10 @@ int upside_down = 0;
 
 struct imgrec *Images;
 
-static void DrawBlack(void)
+void DrawBlack(void)
 {
-    glk_window_fill_rect(Graphics, y_offset, x_offset, 0, 280 * pixel_size,
-                         158 * pixel_size);
+    glk_window_fill_rect(Graphics, y_offset, x_offset, 0, ImageWidth * pixel_size,
+                         ImageHeight * pixel_size);
     LastImgType = NO_IMG;
 }
 
