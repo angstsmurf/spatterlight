@@ -147,6 +147,7 @@ void StopAnimation(void) {
 }
 
 void DrawApple2ImageFromVideoMem(void);
+void DrawBlack(void);
 
 void UpdateAnimation(void) // Draw animation frame
 {
@@ -160,13 +161,23 @@ void UpdateAnimation(void) // Draw animation frame
         if (AnimationFrames[AnimationStage] == -1)
             ClearFrames();
         StopAnimation();
-        glk_window_clear(Graphics);
-        DrawCurrentRoom();
+
+        if (!(CurrentGame == BANZAI && MyLoc == 29 && IsSet(6))) {
+            glk_window_clear(Graphics);
+            DrawCurrentRoom();
+            if (CurrentGame == SPIDERMAN && MyLoc == 5) {
+                DrawItemImage(23);
+                if (CurrentSys == SYS_APPLE2)
+                    DrawApple2ImageFromVideoMem();
+            }
+        } else {
+            DrawBlack();
+        }
+
         return;
     }
 
-    if (AnimationStage >= MAX_ANIM_FRAMES - 1
-        || AnimationRoom != MyLoc) {
+    if (AnimationStage >= MAX_ANIM_FRAMES - 1 || AnimationRoom != MyLoc || !IsSet(GRAPHICSBIT)) {
         StopNext = 1;
         return;
     }
