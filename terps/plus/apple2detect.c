@@ -108,9 +108,9 @@ static const imglist a2listSpidey[] = {
     { "R037", 0x11500 },
     { "R040", 0xf100 },
     { "B015", 0x5d00 }, // Bio gem
-    { "B016", 0xb900 }, // Egg
+    { "B016", 0xbd00 }, // Egg
     { "B021", 0xc100 }, // Stopped fan
-    { "B023", 0xbd00 }, // elevator shaft
+    { "B023", 0xb900 }, // Shaft
     { "B025", 0xc600 }, // wall mirror
     { "B027", 0xb700 }, // open air duct
     { "B028", 0xb500 }, // strange cloud
