@@ -242,6 +242,7 @@ int LoadGame(void)
         Items[ct].Location = (unsigned char)lo;
         if (result != 1 || (Items[ct].Location > GameHeader.NumRooms &&
                             Items[ct].Location != CARRIED &&
+                            Items[ct].Location != HIDDEN &&
                             Items[ct].Location != HELD_BY_OTHER_GUY)) {
             fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s, is in room %d)\n", ct, Items[ct].Text, Items[ct].Location);
             RecoverFromBadRestore(state);
@@ -262,8 +263,20 @@ int LoadGame(void)
     ClearAnimationBuffer();
     LastImgType = SavedImgType;
     LastImgIndex = SavedImgIndex;
+
+    SetBit(DRAWBIT);
+    SetBit(STOPTIMEBIT);
+    Look(1);
+
+    if (LastImgType == IMG_SPECIAL) {
+        DrawCloseup(LastImgIndex);
+    } else if (LastImgType == IMG_OBJECT) {
+        DrawItemImage(LastImgIndex);
+    }
+
     SaveUndo();
     JustRestored = 1;
+
     return 1;
 }
 

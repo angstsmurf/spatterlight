@@ -55,6 +55,7 @@ do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 #define CARRIED           255
 #define HELD_BY_OTHER_GUY 99
 #define DESTROYED         0
+#define HIDDEN            50
 
 #define DARKBIT      15
 #define MATCHBIT     33
