@@ -15,23 +15,20 @@
 
 extern int x, y, xlen, ylen, xoff, yoff, size;
 
-void PrintFirstTenBytes(uint8_t *ptr, size_t offset);
-
-static uint8_t screenmem[0x8000];
-
-static uint8_t lobyte = 00, hibyte = 0x20;
+static uint8_t *screenmem = NULL;
+static uint8_t lobyte = 0, hibyte = 0;
 
 void ClearApple2ScreenMem(void) {
-    memset(&screenmem[0x2000], 0, 0x1fff);
+    memset(screenmem, 0, 0x1fff);
 }
 
-void AdvanceScreenByte(void)
+static void AdvanceScreenByte(void)
 {
     lobyte = ((y & 0xc0) >> 2 | (y & 0xc0)) >> 1 | (y & 8) << 4;
-    hibyte = ((y & 7) << 1 | (uint8_t)(y << 2) >> 7) << 1 | (uint8_t)(y << 3) >> 7 | 0x20;
+    hibyte = ((y & 7) << 1 | (uint8_t)(y << 2) >> 7) << 1 | (uint8_t)(y << 3) >> 7;
 }
 
-void PutByte(uint8_t work, uint8_t work2)
+static void PutByte(uint8_t work, uint8_t work2)
 
 {
     AdvanceScreenByte();
@@ -59,6 +56,11 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     int i;
 
     uint8_t *origptr = ptr;
+
+    if (screenmem == NULL) {
+        screenmem = MemAlloc(0x2000);
+        ClearApple2ScreenMem();
+    }
 
     x = 0; y = 0;
 
@@ -131,12 +133,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     return 1;
 }
 
-
-int IsBitSet(int bit, uint8_t byte) {
-    return ((byte & (1 << bit)) != 0);
-}
-
-void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
+static void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
 {
     glsi32 xpos = x * pixel_size;
 
@@ -170,9 +167,9 @@ static const int32_t hires_artifact_color_table[] =
     BLACK,  BLUE,   ORANGE, WHITE
 };
 
-int32_t *m_hires_artifact_map = NULL;
+static int32_t *m_hires_artifact_map = NULL;
 
-void generate_artifact_map(void) {
+static void generate_artifact_map(void) {
 // generate hi-res artifact data
     int i, j;
     uint16_t c;
@@ -212,7 +209,7 @@ void DrawApple2ImageFromVideoMem(void)
 
     int32_t *artifact_map_ptr;
 
-    uint8_t const *const vram = &screenmem[0x2000];
+    uint8_t const *const vram = screenmem;
     uint8_t vram_row[42];
     vram_row[0] = 0;
     vram_row[41] = 0;
