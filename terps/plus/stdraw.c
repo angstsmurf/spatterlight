@@ -68,7 +68,7 @@ static glui32 StColToGlk(uint8_t *ptr) {
 AnimationColor *AnimColors = NULL;
 
 static void FreeAnimCols(void) {
-    if (AnimColors == NULL || NumOldAnimCols == 0)
+    if (AnimColors == NULL)
         return;
     for (int i = 0; i < NumOldAnimCols; i++) {
         AnimationColor col = AnimColors[i];
@@ -94,10 +94,14 @@ static uint8_t *SetPaletteAnimation(uint8_t *ptr) {
     moveword(0x000e, &stmem[0x1acb4]);
 
     if (NumAnimCols != 0) {
-//        if (AnimColors != NULL) {
-//            FreeAnimCols();
-//        }
+        if (AnimColors != NULL) {
+            FreeAnimCols();
+        }
         AnimColors = MemAlloc(sizeof(AnimationColor) * (NumAnimCols + NumOldAnimCols));
+        for (int i = NumAnimCols; i < NumAnimCols + NumOldAnimCols; i++) {
+            AnimColors[i].Colours = NULL;
+            AnimColors[i].Pixels = NULL;
+        }
         AnimationColor *col = AnimColors;
         for (int i = 0; i < NumAnimCols; i++, col++) {
             uint8_t val = *ptr++;
@@ -320,7 +324,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     NibblesWide = *ptr++;
 
-    if (NibblesWide > 70) {
+    if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 16))) {
         glk_window_clear(Graphics);
         FreeAnimCols();
     }

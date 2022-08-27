@@ -286,9 +286,14 @@ void Updates(event_t ev)
             }
         }
     } else if (ev.type == evtype_Timer) {
-        if (AnimationRunning)
-            UpdateAnimation();
-        if (ColorCyclingRunning)
+        if (AnimationRunning) {
+            if (!IsSet(GRAPHICSBIT)) {
+                StopAnimation();
+            } else {
+                UpdateAnimation();
+            }
+        }
+        if (ColorCyclingRunning && IsSet(GRAPHICSBIT))
             UpdateColorCycling();
     }
 }

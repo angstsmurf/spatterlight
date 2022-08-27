@@ -133,7 +133,7 @@ int DrawRoomImage(int roomimg) {
     if (Graphics)
         glk_window_clear(Graphics);
 
-    if (CurrentSys == SYS_ST)
+    if (CurrentSys == SYS_ST && CurrentGame != CLAYMORGUE)
         DrawImageWithName("S999");
     else if (CurrentSys == SYS_APPLE2)
         ClearApple2ScreenMem();
@@ -171,8 +171,13 @@ void DrawCurrentRoom(void)
     }
 
     if (dark && Graphics != NULL) {
-        if(CurrentGame != CLAYMORGUE) {
-            DrawBlack();
+        if (CurrentGame != CLAYMORGUE) {
+            if (CurrentSys == SYS_ST)
+                DrawImageWithName("S999");
+            else
+                DrawBlack();
+        } else {
+            DrawImageWithName("R000");
         }
         return;
     }
