@@ -2119,8 +2119,8 @@ void DrawTitleImage(void) {
 
 void glk_main(void) {
     if (game_file == NULL)
-        glk_exit();
-    
+        Fatal("No game file");
+
     for (int i = 0; i < MAX_SYSMESS; i++) {
         sys[i] = sysdict[i];
         if (sysdict_i_am[i])
@@ -2137,25 +2137,25 @@ void glk_main(void) {
         memlen = ftell(f);
         if (memlen == -1) {
             fclose(f);
-            glk_exit();
+            Fatal("Game file empty");
         }
 
         fseek(f, 0, SEEK_SET);
         mem = malloc(memlen);
         if (!mem) {
-            fprintf(stderr, "Out of memory!\n");
-            glk_exit();
+            Fatal("Out of memory");
         }
 
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
         if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
-            glk_exit();
+            Fatal("Could not detect game type");
         }
 
-        if (!LoadDatabaseBinary())
-            glk_exit();
+        if (!LoadDatabaseBinary()) {
+            Fatal("Could not load binary database");
+        }
 
         if (CurrentSys == SYS_ATARI8)
             LookForAtari8Images(&mem, &memlen);
