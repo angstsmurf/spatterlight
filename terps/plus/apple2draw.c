@@ -66,10 +66,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     size = work + (*ptr++ * 256);
 
     // Get the offsets
-    xoff = *ptr++; //- 3;
-    if (xoff < 0) {
-        xoff = 0;
-    }
+    xoff = *ptr++;
     yoff = *ptr++;
     x = xoff;
     y = yoff;
@@ -83,20 +80,18 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
 
     if (yoff == 0 && (LastImgType == IMG_ROOM || LastImgType == IMG_SPECIAL)) {
         ImageHeight = ylen + 2;
-        ImageWidth = xlen * 8;
-        if (ylen == 158)
-            ImageWidth -= 24;
-        else
-            ImageWidth -= 16;
+        ImageWidth = xlen * 8 - 32;
     }
 
     int optimal_height = ImageHeight * pixel_size;
-    if (curheight != optimal_height) {
-        x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
+    if (curheight != optimal_height && ImageWidth * pixel_size <= curwidth) {
+        x_offset = (curwidth - ImageWidth * pixel_size) / 2;
         right_margin = (ImageWidth * pixel_size) + x_offset;
         winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+        if (parent) {
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                                    optimal_height, NULL);
+        }
     }
 
 

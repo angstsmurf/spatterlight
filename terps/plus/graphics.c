@@ -105,10 +105,12 @@ int DrawCloseup(int img) {
 
     upside_down = 0;
 
+    if (CurrentSys == SYS_APPLE2)
+        ClearApple2ScreenMem();
+
     int result = DrawImageWithName(buf);
 
     if (result && CurrentSys == SYS_APPLE2) {
-        ClearApple2ScreenMem();
         glk_window_clear(Graphics);
         DrawApple2ImageFromVideoMem();
     }
