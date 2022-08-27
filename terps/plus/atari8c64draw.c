@@ -304,8 +304,13 @@ static void TranslateC64Colour(int index, uint8_t value) {
             break;
         case 244:
         case 246:
-        case 248:
             SetColour(index,&brown);
+            break;
+        case 248:
+            if (CurrentGame == FANTASTIC4)
+                SetColour(index,&orange);
+            else
+                SetColour(index,&brown);
             break;
         case 252:
             SetColour(index,&yellow);
