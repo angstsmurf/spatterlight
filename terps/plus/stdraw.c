@@ -46,7 +46,7 @@ int IsSTBitSet(int bit, uint8_t byte) {
 
 uint8_t stmem[0x1000000];
 
-static uint32_t NumAnimCols, NumOldAnimCols = 0, ImgAddrOffs, ImgWidth, NxtLine, InitialMask, LastMask, CurAddr, LineNibblesLeft;
+static uint32_t NumAnimCols, NumOldAnimCols = 0, ImgAddrOffs, NibblesWide, NxtLine, InitialMask, LastMask, CurAddr, LineNibblesLeft;
 
 static void moveword(uint16_t source, uint8_t *dest) {
     dest[0] = (source >> 8) & 0xff;
@@ -232,7 +232,7 @@ static void DrawPattern(uint8_t pattern, Pixel **pixels) {
     // InitialMask: mask at start of line
     mask = InitialMask;
     LastMask = mask ^ 0xff;
-    LineNibblesLeft = ImgWidth;
+    LineNibblesLeft = NibblesWide;
 }
 
 void SetRGB(int32_t index, int red, int green, int blue);
@@ -318,9 +318,9 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     yoff = ImgAddrOffs / 160;
     xoff = 2 * (ImgAddrOffs % 160) + 6 * (ImgAddrOffs % 2);
 
-    ImgWidth = *ptr++;
+    NibblesWide = *ptr++;
 
-    if (ImgWidth > 70) {
+    if (NibblesWide > 70) {
         glk_window_clear(Graphics);
         FreeAnimCols();
     }
@@ -366,7 +366,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     InitialMask = 0xf0;
     LastMask = 0x0f;
     NxtLine = CurAddr;
-    LineNibblesLeft = ImgWidth;
+    LineNibblesLeft = NibblesWide;
 
     uint8_t c;
 
@@ -399,7 +399,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     free(Pixels);
 
     for (int i = 0; i < NumOldAnimCols; i++) {
-        NumAnimCols += AddNonHiddenColAnim(&oldColAnim[i], AnimColors, NumAnimCols, xoff, yoff, ImgWidth * 4, ImgHeight);
+        NumAnimCols += AddNonHiddenColAnim(&oldColAnim[i], AnimColors, NumAnimCols, xoff, yoff, NibblesWide * 4, ImgHeight);
     }
 
     if (NumAnimCols) {
