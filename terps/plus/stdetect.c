@@ -338,7 +338,7 @@ int DetectST(uint8_t **sf, size_t *extent) {
 
     if (found) {
         CurrentSys = SYS_ST;
-        ImageWidth = 317;
+        ImageWidth = 319;
         ImageHeight = 162;
         free(*sf);
         *sf = database;
