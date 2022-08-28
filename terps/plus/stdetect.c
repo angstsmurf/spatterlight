@@ -149,28 +149,17 @@ uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
 int ReadFAT12BootSector(uint8_t **sf, size_t *extent) {
     uint8_t *ptr = &(*sf)[11];
     boot.sector_size = Read16LE(&ptr);
-    debug_print("sector_size: %d\n", boot.sector_size);
     boot.sec_per_clus = *ptr++;
-    debug_print("sec_per_clus: %d\n", boot.sec_per_clus);
     boot.reserved = Read16LE(&ptr);
-    debug_print("reserved: %d\n", boot.reserved);
     boot.fats = *ptr++;
-    debug_print("fats: %d\n", boot.fats);
     boot.dir_entries = Read16LE(&ptr);
-    debug_print("dir_entries: %d\n", boot.dir_entries);
     boot.sectors = Read16LE(&ptr);
-    debug_print("sectors: %d\n", boot.sectors);
     boot.media = *ptr++;
-    debug_print("media: %d\n", boot.media);
     boot.fat_length = Read16LE(&ptr);
-    debug_print("fat_length: %d\n", boot.fat_length);
     boot.secs_track = Read16LE(&ptr);
-    debug_print("secs_track: %d\n", boot.secs_track);
     boot.heads = Read16LE(&ptr);
-    debug_print("heads: %d\n", boot.heads);
     ptr += 10;
     boot.boot_signature = *ptr++;
-    debug_print("boot_signature: %d\n", boot.boot_signature);
     ptr += 4;
     for (int i = 0; i < 11; i++) {
         boot.vol_label[i] = *ptr++;
@@ -267,9 +256,7 @@ uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, struct i
         return NULL;
     }
     dir->name[8] = 0;
-    debug_print("Reading dir entry %s\n", dir->name);
     if (dir->attr & 0x10 && dir->name[0] != '.') {
-        debug_print("is a subdir!\n");
         int cluster = dir->start;
         size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
         size_t offset;
