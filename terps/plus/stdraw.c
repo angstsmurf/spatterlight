@@ -35,28 +35,24 @@ typedef struct {
     uint8_t CurCol;
     uint8_t NumCol;
     glui32 *Colours;
+    int StartOffset;
     int Rate;
     int NumPix;
     Pixel *Pixels;
 } AnimationColor;
 
-int IsSTBitSet(int bit, uint8_t byte) {
+static int IsSTBitSet(int bit, uint8_t byte) {
     return ((byte & (1 << bit)) != 0);
 }
 
-uint8_t stmem[0x1000000];
+static uint32_t NumAnimCols, NumOldAnimCols = 0, ImgAddrOffs, NibblesWide, NxtLineStart, InitialMask, LastMask, CurAddr, LineNibblesLeft;
 
-static uint32_t NumAnimCols, NumOldAnimCols = 0, ImgAddrOffs, NibblesWide, NxtLine, InitialMask, LastMask, CurAddr, LineNibblesLeft;
+static uint ColorCycle = 0;
 
-static void moveword(uint16_t source, uint8_t *dest) {
-    dest[0] = (source >> 8) & 0xff;
-    dest[1] = source & 0xff;
-}
-
-static glui32 StColToGlk(uint8_t *ptr) {
-    int blue = *(ptr + 1) & 0xf;
-    int green = (*(ptr + 1) >> 4) & 0xf;
-    int red = *ptr & 0xf;
+static glui32 StColToGlk(uint8_t hi, uint8_t lo) {
+    int blue = lo & 0xf;
+    int green = (lo >> 4) & 0xf;
+    int red = hi & 0xf;
 
     red = red * 35.7;
     green = green * 35.7;
@@ -86,13 +82,6 @@ static void FreeAnimCols(void) {
 }
 
 static uint8_t *SetPaletteAnimation(uint8_t *ptr) {
-    uint32_t addr = 0x1acb4;
-    for (int i = 0; i <= 182; i++) {
-        stmem[addr++] = 0;
-        stmem[addr++] = 0;
-    }
-    moveword(0x000e, &stmem[0x1acb4]);
-
     if (NumAnimCols != 0) {
         if (AnimColors != NULL) {
             FreeAnimCols();
@@ -109,30 +98,17 @@ static uint8_t *SetPaletteAnimation(uint8_t *ptr) {
             col->CurCol = 0;
             col->NumPix = 0;
             col->Pixels = NULL;
-//            fprintf(stderr, "\ninitial val %d: %d\n", i, col->ColIdx);
-            uint16_t offset = (uint16_t)(val >> 4) * 0x1a;
-//            fprintf(stderr, "offset %d: %d\n", i, offset);
-            stmem[0x1acb6 + offset + 1] = *ptr++;
-//            fprintf(stderr, "offset + 1 %d\n", stmem[0x1acb6 + offset + 1]);
-            stmem[0x1acb6 + offset + 2] = *ptr++;
-//            fprintf(stderr, "offset + 2 %d\n", stmem[0x1acb6 + offset + 2]);
-            stmem[0x1acb6 + offset + 3] = *ptr++;
-//            fprintf(stderr, "offset + 3 %d\n", stmem[0x1acb6 + offset + 3]);
-            col->Rate = 1 + stmem[0x1acb6 + offset + 3] / 3;
+            col->StartOffset = *ptr++;
+            uint8_t ratehi = *ptr++;
+            col->Rate = *ptr++ + ratehi * 256;
+            col->Rate = 1 + col->Rate;
             val = val & 0xf;
             col->NumCol = val;
             col->Colours = MemAlloc(col->NumCol * sizeof(glui32));
-//            fprintf(stderr, "repeats %d: %d\n", i, val);
-            stmem[0x1acb6 + offset + 5] = val;
-//            fprintf(stderr, "offset + 5 %d\n", stmem[0x1acb6 + offset + 5]);
-            uint32_t index = 0x1acb6 + offset + 6;
-//            fprintf(stderr, "index %d: %x\n", i, index);
             for (int j = 0; j < val; j++) {
-                stmem[index++] = *ptr++;
-                stmem[index++] = *ptr++;
-//                fprintf(stderr, "offset %x: %d ", index, stmem[index - 2] * 256 + stmem[index - 1]);
-                col->Colours[j] = StColToGlk(&stmem[index - 2]);
-//                PrintRGB(&stmem[index - 2]);
+                uint8_t hi = *ptr++;
+                uint8_t lo = *ptr++;
+                col->Colours[j] = StColToGlk(hi, lo);
             };
         }
     }
@@ -231,8 +207,8 @@ static void DrawPattern(uint8_t pattern, Pixel **pixels) {
 
     // Reached end of line
     // NxtLine: start address of next line
-    NxtLine += 160; // move down one line
-    CurAddr = NxtLine;
+    NxtLineStart += 160; // move down one line
+    CurAddr = NxtLineStart;
     // InitialMask: mask at start of line
     mask = InitialMask;
     LastMask = mask ^ 0xff;
@@ -270,7 +246,7 @@ void CopyAnimCol(AnimationColor *a, AnimationColor *b) {
 
 void AddPixels(AnimationColor *animcol, Pixel *pixels, int numpixels) {
     int pixidx = 0;
-    Pixel newpix[3000];
+    Pixel newpix[4000];
     for (int i = 0; i < animcol->NumPix; i++) {
         CopyPixel(&newpix[pixidx++], &(animcol->Pixels[i]));
     }
@@ -324,7 +300,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     NibblesWide = *ptr++;
 
-    if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 16))) {
+    if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 16 || LastImgIndex == 5))) {
         glk_window_clear(Graphics);
         FreeAnimCols();
     }
@@ -344,6 +320,11 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     AnimationColor *oldColAnim = NULL;
 
+    if (CurrentGame != CLAYMORGUE && IsSet(DARKBIT)) {
+        FreeAnimCols();
+        NumOldAnimCols = 0;
+    }
+
     if (AnimColors != NULL) {
         oldColAnim = AnimColors;
         AnimColors = NULL;
@@ -351,14 +332,18 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     ptr = SetPaletteAnimation(ptr);
 
+    if (CurrentGame != CLAYMORGUE && IsSet(DARKBIT)) {
+        FreeAnimCols();
+    }
+
     Pixel **Pixels = MemAlloc(sizeof(Pixel*) * NumAnimCols);
     for (int i = 0; i < NumAnimCols; i++)
         Pixels[i] = MemAlloc(sizeof(Pixel) * 3000);
 
-    uint16_t dataSize = imgdata[2] * 256 + imgdata[3];
-
-    uint8_t *endOfData = ptr + dataSize;
-
+    uint16_t size = imgdata[2] * 256 + imgdata[3];
+    uint8_t *endOfData = ptr + size;
+    if (endOfData > imgdata + datasize)
+        endOfData = imgdata + datasize;
 
     if (PatternLookup == NULL)
         GeneratePatternLookup();
@@ -369,7 +354,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     InitialMask = 0xf0;
     LastMask = 0x0f;
-    NxtLine = CurAddr;
+    NxtLineStart = CurAddr;
     LineNibblesLeft = NibblesWide;
 
     uint8_t c;
@@ -391,7 +376,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
         }
     } while (ptr <= endOfData);
 
-    int ImgHeight = NxtLine / 160 - yoff;
+    int ImgHeight = NxtLineStart / 160 - yoff;
 
     for (int i = 0; i < NumAnimCols; i++) {
         if (AnimColors[i].NumPix) {
@@ -402,13 +387,27 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     }
     free(Pixels);
 
+    if (AnimColors == NULL && NumOldAnimCols) {
+        AnimColors = MemAlloc(sizeof(AnimationColor) * NumOldAnimCols);
+        for (int i = 0; i < NumOldAnimCols; i++) {
+            AnimColors[i].Colours = NULL;
+            AnimColors[i].Pixels = NULL;
+        }
+
+    }
+
     for (int i = 0; i < NumOldAnimCols; i++) {
         NumAnimCols += AddNonHiddenColAnim(&oldColAnim[i], AnimColors, NumAnimCols, xoff, yoff, NibblesWide * 4, ImgHeight);
     }
 
     if (NumAnimCols) {
         ColorCyclingRunning = 1;
-        glk_request_timer_events(50);
+        ColorCycle = 0;
+        SetTimer(25);
+    } else {
+        ColorCyclingRunning = 0;
+        if (!AnimationRunning)
+            SetTimer(0);
     }
 
     return 1;
@@ -435,15 +434,15 @@ void ColorCyclingPixel(Pixel p, glui32 glk_color)
                          ypos, pixel_size * p.width, pixel_size);
 }
 
-uint ColorCycle = 0;
-
 void UpdateColorCycling(void) {
     for (int i = 0; i < NumAnimCols; i++) {
-        if (ColorCycle % AnimColors[i].Rate == 0) {
+        if ((ColorCycle + AnimColors[i].StartOffset) % AnimColors[i].Rate == 0) {
             glui32 color = AnimColors[i].Colours[AnimColors[i].CurCol];
+
             AnimColors[i].CurCol++;
             if (AnimColors[i].CurCol >= AnimColors[i].NumCol)
                 AnimColors[i].CurCol = 0;
+
             for (int j = 0; j < AnimColors[i].NumPix; j++) {
                 ColorCyclingPixel(AnimColors[i].Pixels[j], color);
             }

@@ -195,6 +195,7 @@ void SaveGame(void)
 
     glk_stream_close(file, NULL);
     SystemMessage(SAVED);
+    SetBit(STOPTIMEBIT);
 }
 
 int LoadGame(void)
@@ -265,7 +266,6 @@ int LoadGame(void)
     LastImgIndex = SavedImgIndex;
 
     SetBit(DRAWBIT);
-    SetBit(STOPTIMEBIT);
     Look(1);
 
     if (LastImgType == IMG_SPECIAL) {

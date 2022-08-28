@@ -35,6 +35,10 @@ void OpenTopWindow(void);
 void Look(int transcript);
 void SystemMessage(SysMessageType message);
 void AnyKey(int timeout, int message);
+void SetTimer(glui32 milliseconds);
+
+extern glui32 TimerRate;
+extern glui32 AnimTimerRate;
 
 extern const char *sys[];
 

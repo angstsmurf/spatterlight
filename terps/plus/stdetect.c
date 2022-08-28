@@ -315,7 +315,6 @@ int DetectST(uint8_t **sf, size_t *extent) {
         uint8_t *new = DecodeMsaImageToRawImage(*sf, extent);
         free(*sf);
         *sf = new;
-//        writeToFile("/Users/administrator/Desktop/QP3.ST", *sf, *extent);
     }
 
     ReadFAT12BootSector(sf, extent);

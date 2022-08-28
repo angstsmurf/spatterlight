@@ -85,6 +85,8 @@ Action *Actions;
 int ImageWidth = 280;
 int ImageHeight = 158;
 
+glui32 TimerRate = 0;
+
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
@@ -230,6 +232,11 @@ void CloseGraphicsWindow(void)
     }
 }
 
+void SetTimer(glui32 milliseconds) {
+    TimerRate = milliseconds;
+    glk_request_timer_events(milliseconds);
+}
+
 void UpdateSettings(void) {
     if (gli_sa_delays)
         Options &= ~NO_DELAYS;
@@ -256,6 +263,8 @@ void UpdateSettings(void) {
 }
 
 void UpdateColorCycling(void);
+
+static int AnimationCounter = 0;
 
 void Updates(event_t ev)
 {
@@ -286,10 +295,15 @@ void Updates(event_t ev)
             }
         }
     } else if (ev.type == evtype_Timer) {
+        AnimationCounter++;
         if (AnimationRunning) {
+            int factor = MAX(TimerRate, 1);
+            int rate = MAX(AnimTimerRate / factor, 1);
+            debug_print("TimerRate: %d AnimTimerRate: %d rate: %d\n", TimerRate, AnimTimerRate, rate);
             if (!IsSet(GRAPHICSBIT)) {
                 StopAnimation();
-            } else {
+            } else if (AnimationCounter % rate == 0) {
+                debug_print("Updating animation. AnimationCounter:%d\n", AnimationCounter);
                 UpdateAnimation();
             }
         }
@@ -297,6 +311,8 @@ void Updates(event_t ev)
             UpdateColorCycling();
     }
 }
+
+static int DelayCounter = 0;
 
 void AnyKey(int timeout, int message)
 {
@@ -315,27 +331,37 @@ void AnyKey(int timeout, int message)
         timeout = 0;
 
     if (timeout)
-        cancel_after_delay = (AnimationRunning == 0);
+        cancel_after_delay = (AnimationRunning == 0 && ColorCyclingRunning == 0);
 
-    if (cancel_after_delay)
-        glk_request_timer_events(2000);
+    if (cancel_after_delay && TimerRate == 0)
+        SetTimer(3000);
 
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
             result = 1;
-        } else if (cancel_after_delay && ev.type == evtype_Timer) {
-            result = 1;
-            glk_cancel_char_event(Bottom);
-            glk_request_timer_events(0);
-        } else
+        } else {
+            DelayCounter++;
+            if (cancel_after_delay && ev.type == evtype_Timer) {
+                int factor = MAX(TimerRate, 1);
+                int rate = MAX(3000 / factor, 1);
+                if (DelayCounter % rate == 0) {
+                    result = 1;
+                    glk_cancel_char_event(Bottom);
+                    if (TimerRate == 3000)
+                        SetTimer(0);
+                    DelayCounter = 0;
+                }
+            }
+
+            if (!AnimationRunning && !cancel_after_delay && timeout) {
+                if (TimerRate == 0)
+                    SetTimer(3000);
+                cancel_after_delay = 1;
+            }
+
             Updates(ev);
-
-        if (!AnimationRunning && !cancel_after_delay && timeout) {
-            glk_request_timer_events(1000);
-            cancel_after_delay = 1;
         }
-
     } while (result == 0);
 
     return;
@@ -624,15 +650,15 @@ static void Delay(float seconds)
     glk_request_char_event(Bottom);
     glk_cancel_char_event(Bottom);
     
-    glk_request_timer_events(1000 * seconds);
+    SetTimer(1000 * seconds);
     
     do {
         glk_select(&ev);
         Updates(ev);
     } while (ev.type != evtype_Timer);
 
-    if (!AnimationRunning)
-        glk_request_timer_events(0);
+    if (!AnimationRunning && !ColorCyclingRunning)
+        SetTimer(0);
 }
 
 static int RandomPercent(int n)
@@ -2187,7 +2213,7 @@ void glk_main(void) {
         if (should_restart)
             RestartGame();
 
-        if (IsSet(STOPTIMEBIT)) {
+        if (IsSet(STOPTIMEBIT) || JustRestored) {
             ResetBit(STOPTIMEBIT);
         } else {
             PerformImplicit();

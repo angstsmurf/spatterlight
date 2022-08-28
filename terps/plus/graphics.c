@@ -11,6 +11,7 @@
 #include "common.h"
 #include "graphics.h"
 #include "loaddatabase.h"
+#include "animations.h"
 
 ImgType LastImgType;
 int LastImgIndex;
@@ -172,7 +173,7 @@ void DrawCurrentRoom(void)
 
     if (dark && Graphics != NULL) {
         if (CurrentGame != CLAYMORGUE) {
-            if (CurrentSys == SYS_ST)
+            if (CurrentSys == SYS_ST && !AnimationRunning)
                 DrawImageWithName("S999");
             else
                 DrawBlack();

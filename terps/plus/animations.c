@@ -21,6 +21,7 @@ int AnimationBackground = 0;
 int LastAnimationBackground = 0;
 
 int AnimationRoom = -1;
+glui32 AnimTimerRate = 0;
 
 static int AnimationStage = 0;
 static int StopNext = 0;
@@ -80,6 +81,17 @@ void AddSpecialImage(int image) {
     free(shortname);
 }
 
+void SetAnimationTimer(glui32 milliseconds) {
+    debug_print("SetAnimationTimer %d\n", milliseconds);
+    AnimTimerRate = milliseconds;
+    if (milliseconds == 0 && ColorCyclingRunning)
+        return;
+    if (TimerRate == 0 || TimerRate > milliseconds) {
+        debug_print("Actually setting animation timer\n");
+        SetTimer(milliseconds);
+    }
+}
+
 void Animate(int frame) {
 
     int cannonanimation = (CurrentGame == FANTASTIC4 && MyLoc == 5);
@@ -96,9 +108,9 @@ void Animate(int frame) {
             LastAnimationBackground = 0;
 
         if (cannonanimation)
-            glk_request_timer_events(CANNON_RATE);
+            SetAnimationTimer(CANNON_RATE);
         else
-            glk_request_timer_events(ANIMATION_RATE);
+            SetAnimationTimer(ANIMATION_RATE);
 
         AnimationRunning = 1;
         AnimationStage = 0;
@@ -138,7 +150,7 @@ void InitAnimationBuffer(void) {
 }
 
 void StopAnimation(void) {
-    glk_request_timer_events(0);
+    SetAnimationTimer(0);
     debug_print("StopAnimation: stopped timer\n");
     AnimationStage = 0;
     AnimationRunning = 0;
@@ -152,7 +164,7 @@ void DrawBlack(void);
 void UpdateAnimation(void) // Draw animation frame
 {
     if (CannonAnimationPause) {
-        glk_request_timer_events(CANNON_RATE);
+        SetAnimationTimer(CANNON_RATE);
         CannonAnimationPause = 0;
     }
 
@@ -200,12 +212,12 @@ void UpdateAnimation(void) // Draw animation frame
 
         if (PostCannonAnimationSeam && AnimationStage == 10) {
             CannonAnimationPause = 1;
-            glk_request_timer_events(2000);
+            SetAnimationTimer(2000);
         }
 
     } else {
         debug_print("StopNext\n");
-        glk_request_timer_events(2000);
+        SetAnimationTimer(2000);
         StopNext = 1;
     }
 }
