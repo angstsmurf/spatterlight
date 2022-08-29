@@ -1230,6 +1230,48 @@
 			remoteGlobalIDString = 96FE875F09F3A11900D41D78;
 			remoteInfo = tads2;
 		};
+		C30E15DA28BCDE400070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
+		};
+		C30E15DC28BCDE450070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEB609F2396500528FF9;
+			remoteInfo = glkmain;
+		};
+		C30E15DE28BCDE570070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C37EC5982847AA040084B841;
+			remoteInfo = plus;
+		};
+		C30E15E028BCDE630070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318F7612741AA2F006D626A;
+			remoteInfo = scott;
+		};
+		C30E15E228BCDEFB0070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3F06B92288D429200AC7FDE;
+			remoteInfo = c64diskimage;
+		};
+		C30E15E428BCDF040070C74D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3F09D7E288892BD0035DAC2;
+			remoteInfo = unp64;
+		};
 		C318F79F2741B13D006D626A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1420,15 +1462,6 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C37EC5972847AA040084B841 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -6398,6 +6431,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				C30E15E528BCDF040070C74D /* PBXTargetDependency */,
+				C30E15E328BCDEFB0070C74D /* PBXTargetDependency */,
+				C30E15E128BCDE630070C74D /* PBXTargetDependency */,
+				C30E15DF28BCDE570070C74D /* PBXTargetDependency */,
 				C3D571BC27D985BF008FB786 /* PBXTargetDependency */,
 				55368B7B272BF28800740A0A /* PBXTargetDependency */,
 				96A9BA7B0A0655BE001B5B9B /* PBXTargetDependency */,
@@ -6785,11 +6822,12 @@
 			buildPhases = (
 				C37EC5952847AA040084B841 /* Sources */,
 				C37EC5962847AA040084B841 /* Frameworks */,
-				C37EC5972847AA040084B841 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C30E15DD28BCDE450070C74D /* PBXTargetDependency */,
+				C30E15DB28BCDE400070C74D /* PBXTargetDependency */,
 				C3F06B9E288D43D000AC7FDE /* PBXTargetDependency */,
 			);
 			name = plus;
@@ -8410,6 +8448,36 @@
 			isa = PBXTargetDependency;
 			target = 96FE875F09F3A11900D41D78 /* tads2 */;
 			targetProxy = 96FE87D809F3A1BC00D41D78 /* PBXContainerItemProxy */;
+		};
+		C30E15DB28BCDE400070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = C30E15DA28BCDE400070C74D /* PBXContainerItemProxy */;
+		};
+		C30E15DD28BCDE450070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEB609F2396500528FF9 /* glkmain */;
+			targetProxy = C30E15DC28BCDE450070C74D /* PBXContainerItemProxy */;
+		};
+		C30E15DF28BCDE570070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C37EC5982847AA040084B841 /* plus */;
+			targetProxy = C30E15DE28BCDE570070C74D /* PBXContainerItemProxy */;
+		};
+		C30E15E128BCDE630070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318F7612741AA2F006D626A /* scott */;
+			targetProxy = C30E15E028BCDE630070C74D /* PBXContainerItemProxy */;
+		};
+		C30E15E328BCDEFB0070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3F06B92288D429200AC7FDE /* c64diskimage */;
+			targetProxy = C30E15E228BCDEFB0070C74D /* PBXContainerItemProxy */;
+		};
+		C30E15E528BCDF040070C74D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3F09D7E288892BD0035DAC2 /* unp64 */;
+			targetProxy = C30E15E428BCDF040070C74D /* PBXContainerItemProxy */;
 		};
 		C318F7A02741B13D006D626A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10641,6 +10709,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10663,7 +10732,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10673,6 +10742,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -10710,6 +10780,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10732,7 +10803,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10742,6 +10813,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "@executable_path";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
