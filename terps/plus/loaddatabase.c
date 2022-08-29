@@ -385,7 +385,6 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
         ptr = ReadPlusString(ptr, &str, &length);
         while (length == 0 && i == 0)
             ptr = ReadPlusString(ptr, &str, &length);
-
         if (loud)
             debug_print("Read synonym string %d, \"%s\"\n", i, str);
         if (str == NULL || str[0] == 0)
@@ -1015,10 +1014,11 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
 {
     char tmp[1024];
-    int length = *ptr++;
+    uint8_t length = *ptr++;
     if (length == 0 || length == 255) {
         *string = MemAlloc(1);
         (*string)[0] = 0;
+        *len = 0;
         return ptr;
     }
     for (int i = 0; i < length; i++) {
