@@ -1,7 +1,16 @@
 # Change log
 
+## Release 0.9.7
+- Adds support for Apple 2, Atari 8-bit, Commodore 64, and Atari ST versions of Saga Plus games
+– Line spacing and error messages in Plus are closer to the original interpreters
+- Saga Plus *Buckaroo Banzai* would not restore saved games
+- Undoing after death in Saga Plus would sometimes undo two turns
+- Adds TaylorMade support for Commodore 64 versions
+- TaylorMade now understands chained commands, such as DROP FUSE AND GLOVES THEN GO WEST, just like the original interpreter
+- TaylorMade support for inventory in the upper window
+
 ## Release 0.9.6
-- New experimental engine: Plus. This is an interpreter for the Saga Plus game format of the later Scott Adams games. Currently supports the MS-DOS versions of *Questprobe: Featuring Spider-Man*, *The Sorcerer of Claymorgue Castle*, *The Adventures of Buckaroo Banzai*, and *Questprobe: Featuring Human Torch and the Thing*.
+- New experimental engine: Plus. This is an interpreter for the Saga Plus game format of the later Scott Adams games. Currently supports the MS-DOS versions of *Questprobe: Featuring Spider-Man*, *The Sorcerer of Claymorgue Castle*, *The Adventures of Buckaroo Banzai*, and *Questprobe: Featuring Human Torch and the Thing*
 - Updates Glulxe to 0.6.0
 - Changed cover images in Blorb format games will now be detected and added to the Spatterlight library, unless Don't replace images is set in the preferences
 - The QuickLook plugin will show any cover images inside Blorb files rather than those in the Spatterlight library
