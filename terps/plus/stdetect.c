@@ -245,8 +245,6 @@ uint8_t *GetFile(uint8_t *sf, int cluster, struct msdos_dir_entry dir) {
     return result;
 }
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
-
 int issagaimg(const char *name);
 
 uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, struct imgrec *imgs, int *found, uint8_t **database, size_t *databasesize) {

@@ -80,16 +80,6 @@ uint8_t *readFile(const char *name, size_t *size)
     return data;
 }
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "w");
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
-}
-
 int rotate_left_with_carry(uint8_t *byte, int last_carry)
 {
     int carry = ((*byte & 0x80) > 0);

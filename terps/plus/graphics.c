@@ -45,8 +45,6 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
 void DrawApple2ImageFromVideoMem(void);
 void ClearApple2ScreenMem(void);
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
-
 int DrawImageWithName(char *filename)
 {
     debug_print("DrawImageWithName %s\n", filename);
