@@ -299,11 +299,9 @@ void Updates(event_t ev)
         if (AnimationRunning) {
             int factor = MAX(TimerRate, 1);
             int rate = MAX(AnimTimerRate / factor, 1);
-            debug_print("TimerRate: %d AnimTimerRate: %d rate: %d\n", TimerRate, AnimTimerRate, rate);
             if (!IsSet(GRAPHICSBIT)) {
                 StopAnimation();
             } else if (AnimationCounter % rate == 0) {
-                debug_print("Updating animation. AnimationCounter:%d\n", AnimationCounter);
                 UpdateAnimation();
             }
         }

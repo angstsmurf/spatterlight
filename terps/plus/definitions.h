@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#define DEBUG_ACTIONS 1
+#define DEBUG_ACTIONS 0
 
 #define debug_print(fmt, ...) \
 do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
