@@ -1050,13 +1050,13 @@
 			<string>public.agt</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>agx</string>
-				</array>
 				<key>com.apple.ostype</key>
 				<array>
 					<string>AGTS</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>agx</string>
 				</array>
 			</dict>
 		</dict>
@@ -1229,7 +1229,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -1265,7 +1265,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+					<string>application/x-blorb;profile="glulx"</string>
 				</array>
 			</dict>
 		</dict>
@@ -1294,6 +1294,10 @@
 			<string>http://eblong.com/zarf/glulx/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>UlxG</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>ulx</string>
@@ -1301,10 +1305,6 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-glulx</string>
-				</array>
-				<key>com.apple.ostype</key>
-				<array>
-					<string>UlxG</string>
 				</array>
 			</dict>
 		</dict>
@@ -1360,6 +1360,8 @@
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.jacl</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://code.google.com/archive/p/jacl/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1368,8 +1370,6 @@
 					<string>j2</string>
 				</array>
 			</dict>
-			<key>UTTypeReferenceURL</key>
-			<string>https://code.google.com/archive/p/jacl/</string>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -1392,6 +1392,8 @@
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.saga</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://github.com/cspiegel/scottfree-glk</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1399,8 +1401,6 @@
 					<string>saga</string>
 				</array>
 			</dict>
-			<key>UTTypeReferenceURL</key>
-			<string>https://github.com/cspiegel/scottfree-glk</string>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -1510,8 +1510,6 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ZX Spectrum Snapshot</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.sinclairfaq.com/reference/formats.htm#File</string>
 			<key>UTTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
@@ -1525,6 +1523,8 @@
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.sna</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/formats.htm#File</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1602,12 +1602,12 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
+				<key>QUEST 4</key>
+				<string></string>
 				<key>UTTypeIconBackgroundName</key>
 				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
 				<string>Q</string>
-				<key>QUEST 4</key>
-				<string></string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.quest</string>
@@ -1705,6 +1705,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum Z80 Snapshot</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1714,19 +1723,10 @@
 				<key>UTTypeIconText</key>
 				<string>Z80</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>ZX Spectrum Z80 Snapshot</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.sinclairfaq.com/reference/z80format.htm</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.z80</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/z80format.htm</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1736,6 +1736,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum TZX Tape Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1745,19 +1754,10 @@
 				<key>UTTypeIconText</key>
 				<string>TZX</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>ZX Spectrum TZX Tape Image</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.worldofspectrum.org/TZXformat.html</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.tzx</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.worldofspectrum.org/TZXformat.html</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1767,6 +1767,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum TAP Tape Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1776,19 +1785,10 @@
 				<key>UTTypeIconText</key>
 				<string>TAPE</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>ZX Spectrum TAP Tape Image</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.sinclairfaq.com/reference/formats.htm#Tape</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.tap</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sinclairfaq.com/reference/formats.htm#Tape</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1798,15 +1798,6 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconText</key>
-				<string>D64</string>
-			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.content</string>
@@ -1814,10 +1805,19 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Commodore 64 Disk Image</string>
-			<key>UTTypeReferenceURL</key>
-			<string>https://vice-emu.sourceforge.io/vice_17.html#SEC367</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>D64</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.d64</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://vice-emu.sourceforge.io/vice_17.html#SEC367</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1827,6 +1827,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Tape Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1836,19 +1845,10 @@
 				<key>UTTypeIconText</key>
 				<string>T64</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Commodore 64 Tape Image</string>
-			<key>UTTypeReferenceURL</key>
-			<string>https://vice-emu.sourceforge.io/vice_17.html#SEC353</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.t64</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://vice-emu.sourceforge.io/vice_17.html#SEC353</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1858,15 +1858,6 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconText</key>
-				<string>FIAD</string>
-			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.content</string>
@@ -1874,6 +1865,15 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TI-99/4A File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>FIAD</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.fiad</string>
 			<key>UTTypeTagSpecification</key>
@@ -1885,15 +1885,6 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconText</key>
-				<string>DSK</string>
-			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.content</string>
@@ -1901,6 +1892,15 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Disk Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>DSK</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.dsk</string>
 			<key>UTTypeTagSpecification</key>
@@ -1912,6 +1912,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Atari Disk Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1921,15 +1930,6 @@
 				<key>UTTypeIconText</key>
 				<string>ATR</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Atari Disk Image</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.atr</string>
 			<key>UTTypeTagSpecification</key>
@@ -1941,6 +1941,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Atari ST Disk Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1950,15 +1959,6 @@
 				<key>UTTypeIconText</key>
 				<string>ST</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Atari ST Disk Image</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.st</string>
 			<key>UTTypeTagSpecification</key>
@@ -1970,6 +1970,15 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Atari MSA Disk Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1979,15 +1988,6 @@
 				<key>UTTypeIconText</key>
 				<string>MSA</string>
 			</dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.content</string>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Atari MSA Disk Image</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.msa</string>
 			<key>UTTypeTagSpecification</key>
