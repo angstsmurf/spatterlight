@@ -29,7 +29,6 @@ static void AdvanceScreenByte(void)
 }
 
 static void PutByte(uint8_t work, uint8_t work2)
-
 {
     AdvanceScreenByte();
     screenmem[hibyte * 0x100 + lobyte + x] = work;
