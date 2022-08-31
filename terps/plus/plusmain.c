@@ -1378,6 +1378,7 @@ debug_print("\nPerforming line %d: ", ct);
                 case 52:
                     if (CountItemsInRoom(0) >= GameHeader.MaxCarry) {
                         SystemMessage(YOURE_CARRYING_TOO_MUCH);
+                        lastwasnewline = 1;
                         return ACT_SUCCESS;
                     }
                     Items[object].Location = CARRIED;

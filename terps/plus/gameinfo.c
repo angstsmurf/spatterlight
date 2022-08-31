@@ -177,7 +177,7 @@ const char *sysdict_i_am[MAX_SYSMESS] = {
     "Light has run out. ",
     "Light runs out in",
     "turns! ",
-    "I've too much to carry. \n",
+    "I've too much to carry. Try INVENTORY.\n",
     " I'm dead... ",
     "Resume a saved game? ",
     "None",
