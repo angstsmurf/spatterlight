@@ -33,7 +33,7 @@ static char *AnimationFilenames[MAX_ANIM_FRAMES];
 static int AnimationFrames[MAX_ANIM_FRAMES];
 
 /*
- The "Fire cannon at blob" animation in Fantastic Four is actually two
+ The "fire cannon at blob" animation in Fantastic Four is actually two
  animations sequences, one after another, which conflicts with our
  animation system, so we use a hack to stitch them together, basically
  adding the new frames to the end of the buffer rather than clearing it
@@ -42,6 +42,12 @@ static int AnimationFrames[MAX_ANIM_FRAMES];
 
 static int PostCannonAnimationSeam = 0;
 static int CannonAnimationPause = 0;
+
+/*
+ The Atari ST version of Spider-Man only uses a single picture with colour cycling for the "shooting web" animation, so we use a hack to ignore attempts to draw the other frames and instead wait exactly one colour cycle.
+ */
+int STWebAnimation = 0;
+int STWebAnimationFinished = 1;
 
 void AddImageToBuffer(char *basename) {
     if (ImgTail >= MAX_ANIM_FRAMES - 1)
@@ -67,15 +73,30 @@ void AddRoomImage(int image) {
     char *shortname = ShortNameFromType('R', image);
     AddImageToBuffer(shortname);
     free(shortname);
+    STWebAnimation = 0;
 }
 
 void AddItemImage(int image) {
     char *shortname = ShortNameFromType('B', image);
     AddImageToBuffer(shortname);
     free(shortname);
+    STWebAnimation = 0;
 }
 
 void AddSpecialImage(int image) {
+
+    if (CurrentSys == SYS_ST && CurrentGame == SPIDERMAN) {
+        if (image == 14) {
+            image = 18;
+            STWebAnimation = 1;
+            STWebAnimationFinished = 1;
+        } else if (image > 14 && image < 19) {
+            return;
+        } else {
+            STWebAnimation = 0;
+        }
+    }
+
     char *shortname = ShortNameFromType('S', image);
     AddImageToBuffer(shortname);
     free(shortname);
@@ -100,6 +121,9 @@ void Animate(int frame) {
         AddFrameToBuffer(10 + frame);
         return;
     }
+
+    if (STWebAnimation && frame > 0)
+        return;
 
     AddFrameToBuffer(frame);
     if (!AnimationRunning) {
@@ -168,6 +192,16 @@ void UpdateAnimation(void) // Draw animation frame
         CannonAnimationPause = 0;
     }
 
+    if (STWebAnimation) {
+        if (!STWebAnimationFinished) {
+            if (AnimTimerRate != 25)
+                SetAnimationTimer(25);
+            return;
+        } else {
+            STWebAnimationFinished = 0;
+        }
+    }
+
     if (StopNext) {
         StopNext = 0;
         if (AnimationFrames[AnimationStage] == -1)
@@ -213,6 +247,10 @@ void UpdateAnimation(void) // Draw animation frame
         if (PostCannonAnimationSeam && AnimationStage == 10) {
             CannonAnimationPause = 1;
             SetAnimationTimer(2000);
+        }
+
+        if (STWebAnimation) {
+            StopNext = 1;
         }
 
     } else {

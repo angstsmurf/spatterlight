@@ -78,12 +78,21 @@ void RestoreState(struct SavedState *state)
 
     SetBit(DRAWBIT);
     SetBit(STOPTIMEBIT);
+
+    /*
+     These bits say whether the web and Sandman animations are loaded,
+     and we always want to reload them after restoring state.
+     */
+    if (CurrentGame == SPIDERMAN) {
+        ResetBit(9);
+        ResetBit(10);
+    }
     Look(1);
     LastImgType = state->LastImgType;
     LastImgIndex = state->LastImgIndex;
     if (LastImgType == IMG_SPECIAL) {
         DrawCloseup(LastImgIndex);
-    } else if (LastImgType == IMG_OBJECT) {
+    } else if (LastImgType == IMG_OBJECT && CurrentGame != SPIDERMAN) {
         DrawItemImage(LastImgIndex);
     }
 }

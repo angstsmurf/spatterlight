@@ -434,14 +434,21 @@ void ColorCyclingPixel(Pixel p, glui32 glk_color)
                          ypos, pixel_size * p.width, pixel_size);
 }
 
+extern int STWebAnimation;
+extern int STWebAnimationFinished;
+
 void UpdateColorCycling(void) {
     for (int i = 0; i < NumAnimCols; i++) {
         if ((ColorCycle + AnimColors[i].StartOffset) % AnimColors[i].Rate == 0) {
             glui32 color = AnimColors[i].Colours[AnimColors[i].CurCol];
 
             AnimColors[i].CurCol++;
-            if (AnimColors[i].CurCol >= AnimColors[i].NumCol)
+            if (AnimColors[i].CurCol >= AnimColors[i].NumCol) {
                 AnimColors[i].CurCol = 0;
+                if (CurrentGame == SPIDERMAN && STWebAnimation) {
+                    STWebAnimationFinished = 1;
+                }
+            }
 
             for (int j = 0; j < AnimColors[i].NumPix; j++) {
                 ColorCyclingPixel(AnimColors[i].Pixels[j], color);
