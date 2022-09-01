@@ -209,7 +209,9 @@ void UpdateAnimation(void) // Draw animation frame
             ClearFrames();
         StopAnimation();
 
-        if (!(CurrentGame == BANZAI && MyLoc == 29 && IsSet(6))) {
+        if (CurrentGame == BANZAI && MyLoc == 29 && IsSet(6)) {
+            DrawBlack();
+        } else if (!showing_inventory) {
             glk_window_clear(Graphics);
             DrawCurrentRoom();
             if (CurrentGame == SPIDERMAN && MyLoc == 5) {
@@ -217,8 +219,6 @@ void UpdateAnimation(void) // Draw animation frame
                 if (CurrentSys == SYS_APPLE2)
                     DrawApple2ImageFromVideoMem();
             }
-        } else {
-            DrawBlack();
         }
 
         return;
