@@ -300,11 +300,14 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     NibblesWide = *ptr++;
 
-    if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 16 || LastImgIndex == 5))) {
+    /* Make sure to clear the last image and any colour cycling for all Claymorgue room images */
+    /* The small ones have to be special-cased */
+    if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 5 || LastImgIndex == 11 || LastImgIndex == 16 || LastImgIndex == 18 || LastImgIndex == 31))) {
         glk_window_clear(Graphics);
         FreeAnimCols();
     }
 
+    /* Draw a white background behind some Spider-Man images */
     if (CurrentGame == SPIDERMAN && LastImgType == IMG_SPECIAL && (LastImgIndex == 6 || LastImgIndex == 7 || LastImgIndex == 8 || LastImgIndex == 12 || LastImgIndex == 18)) {
         glui32 winwidth, winheight;
         glk_window_get_size(Graphics, &winwidth, &winheight);
