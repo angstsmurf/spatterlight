@@ -180,6 +180,7 @@ void StopAnimation(void) {
     AnimationRunning = 0;
     PostCannonAnimationSeam = 0;
     AnimationRoom = -1;
+    StopNext = 0;
 }
 
 void DrawApple2ImageFromVideoMem(void);
