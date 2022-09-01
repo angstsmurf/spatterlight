@@ -305,6 +305,13 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
         FreeAnimCols();
     }
 
+    if (CurrentGame == SPIDERMAN && LastImgType == IMG_SPECIAL && (LastImgIndex == 6 || LastImgIndex == 7 || LastImgIndex == 8 || LastImgIndex == 12 || LastImgIndex == 18)) {
+        glui32 winwidth, winheight;
+        glk_window_get_size(Graphics, &winwidth, &winheight);
+        int width_in_pixels = NibblesWide * 4 * pixel_size;
+        glk_window_fill_rect(Graphics, 0xf9f8f9, (winwidth - width_in_pixels) / 2, 0, width_in_pixels, winheight);
+    }
+
     NumOldAnimCols = NumAnimCols;
     NumAnimCols = *ptr++;
 
