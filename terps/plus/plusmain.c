@@ -1599,6 +1599,8 @@ debug_print("\nPerforming line %d: ", ct);
                     break;
                 case 97:
                     debug_print("Swap counters %d %d \n", arg1, arg2);
+                    if (arg1 == 32 && ca2 != MyLoc)
+                        SetBit(DRAWBIT);
                     Counters[arg1] = ca2;
                     Counters[arg2] = ca1;
                     cc += 2;
