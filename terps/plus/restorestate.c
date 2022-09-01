@@ -88,12 +88,14 @@ void RestoreState(struct SavedState *state)
         ResetBit(10);
     }
     Look(1);
-    LastImgType = state->LastImgType;
-    LastImgIndex = state->LastImgIndex;
-    if (LastImgType == IMG_SPECIAL) {
-        DrawCloseup(LastImgIndex);
-    } else if (LastImgType == IMG_OBJECT && CurrentGame != SPIDERMAN) {
-        DrawItemImage(LastImgIndex);
+    if (CurrentGame == FANTASTIC4) {
+        LastImgType = state->LastImgType;
+        LastImgIndex = state->LastImgIndex;
+        if (LastImgType == IMG_SPECIAL) {
+            DrawCloseup(LastImgIndex);
+        } else if (LastImgType == IMG_OBJECT) {
+            DrawItemImage(LastImgIndex);
+        }
     }
 }
 
