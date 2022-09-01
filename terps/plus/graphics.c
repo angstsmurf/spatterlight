@@ -69,6 +69,22 @@ int DrawImageWithName(char *filename)
     if (!IsSet(GRAPHICSBIT))
         return 0;
 
+    switch(Images[i].Filename[0]) {
+        case 'B':
+            LastImgType = IMG_OBJECT;
+            break;
+        case 'R':
+            LastImgType = IMG_ROOM;
+            break;
+        case 'S':
+            LastImgType = IMG_SPECIAL;
+            break;
+        default:
+            debug_print("DrawImageWithName: Unknown image type!\n");
+    }
+
+    LastImgIndex = Images[i].Filename[3] - '0' + 10 * (Images[i].Filename[2] - '0');
+
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
         return DrawAtariC64ImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_ST) {
