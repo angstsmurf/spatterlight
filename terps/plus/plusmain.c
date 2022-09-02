@@ -1599,6 +1599,7 @@ debug_print("\nPerforming line %d: ", ct);
                     break;
                 case 97:
                     debug_print("Swap counters %d %d \n", arg1, arg2);
+                    /* Draw room image after jumping off Claymorgue crate */
                     if (arg1 == 32 && ca2 != MyLoc)
                         SetBit(DRAWBIT);
                     Counters[arg1] = ca2;
