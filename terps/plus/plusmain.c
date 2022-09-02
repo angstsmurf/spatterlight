@@ -489,7 +489,7 @@ static void ListExits(void)
             WriteToRoomDescriptionStream("%s", sys[i]);
             ct++;
         }
-    WriteToRoomDescriptionStream(".\n");
+    WriteToRoomDescriptionStream(". ");
 }
 
 static const char *IndefiniteArticle(const char *word) {
