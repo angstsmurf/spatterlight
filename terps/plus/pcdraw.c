@@ -88,7 +88,7 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
 static void DrawDOSPixels(int pattern)
 {
     int pix1,pix2,pix3,pix4;
-    // Now get colours
+    // Now get colors
     pix1=(pattern & 0xc0)>>6;
     pix2=(pattern & 0x30)>>4;
     pix3=(pattern & 0x0c)>>2;
@@ -120,11 +120,11 @@ static void DrawDOSPixels(int pattern)
     }
 }
 
-void SetColour(int32_t index, const RGB *colour)
+void SetColor(int32_t index, const RGB *color)
 {
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
+    pal[index][0] = (*color)[0];
+    pal[index][1] = (*color)[1];
+    pal[index][2] = (*color)[2];
 }
 
 void SetRGB(int32_t index, int red, int green, int blue) {
@@ -160,10 +160,10 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     RGB white =   { 255,255,255 };
 
     /* set up the palette */
-    SetColour(0,&black);
-    SetColour(1,&cyan);
-    SetColour(2,&magenta);
-    SetColour(3,&white);
+    SetColor(0,&black);
+    SetColor(1,&cyan);
+    SetColor(2,&magenta);
+    SetColor(3,&white);
 
     if (ptr == NULL) {
         fprintf(stderr, "DrawMSDOSImageFromData: ptr == NULL\n");

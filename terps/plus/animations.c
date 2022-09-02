@@ -44,7 +44,7 @@ static int PostCannonAnimationSeam = 0;
 static int CannonAnimationPause = 0;
 
 /*
- The Atari ST version of Spider-Man only uses a single picture with colour cycling for the "shooting web" animation, so we use a hack to ignore attempts to draw the other frames and instead wait exactly one colour cycle.
+ The Atari ST version of Spider-Man only uses a single picture with color cycling for the "shooting web" animation, so we use a hack to ignore attempts to draw the other frames and instead wait exactly one color cycle.
  */
 int STWebAnimation = 0;
 int STWebAnimationFinished = 1;

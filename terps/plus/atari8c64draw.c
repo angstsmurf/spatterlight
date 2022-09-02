@@ -59,7 +59,7 @@ static void DrawA8C64Pixels(int pattern, int pattern2)
     }
 }
 
-void SetColour(int32_t index, const RGB *colour);
+void SetColor(int32_t index, const RGB *color);
 
 /* C64 colors */
 static const RGB black = { 0, 0, 0 };
@@ -100,106 +100,106 @@ static const RGB algreen = { 0x5f, 0x8f, 0x00 };
 static const RGB tan = { 0xaf, 0x99, 0x3a };
 static const RGB lilac = { 0x83, 0x58, 0xee };
 
-static void TranslateAtariColour(int index, uint8_t value) {
+static void TranslateAtariColor(int index, uint8_t value) {
     switch(value) {
         case 0:
         case 224:
-            SetColour(index,&black);
+            SetColor(index,&black);
             break;
         case 5:
         case 7:
-            SetColour(index,&agrey);
+            SetColor(index,&agrey);
             break;
         case 6:
         case 8:
-            SetColour(index,&ablue);
+            SetColor(index,&ablue);
             break;
         case 9:
         case 10:
         case 12:
-            SetColour(index,&lgrey);
+            SetColor(index,&lgrey);
             break;
         case 14:
-            SetColour(index,&white);
+            SetColor(index,&white);
             break;
         case 17:
         case 32:
         case 36:
-            SetColour(index,&dbrown);
+            SetColor(index,&dbrown);
             break;
         case 40:
-            SetColour(index, &aorange);
+            SetColor(index, &aorange);
             break;
         case 54:
             if (CurrentGame == FANTASTIC4)
-                SetColour(index, &aorange);
+                SetColor(index, &aorange);
             else
-                SetColour(index,&dred);
+                SetColor(index,&dred);
             break;
         case 56:
-            SetColour(index,&alred);
+            SetColor(index,&alred);
             break;
         case 58:
         case 60:
-            SetColour(index,&beige);
+            SetColor(index,&beige);
             break;
         case 69:
         case 71:
-            SetColour(index,&deeppurple);
+            SetColor(index,&deeppurple);
             break;
         case 68:
         case 103:
-            SetColour(index,&apurple);
+            SetColor(index,&apurple);
             break;
         case 89:
-            SetColour(index,&lilac);
+            SetColor(index,&lilac);
             break;
         case 85:
         case 101:
-            SetColour(index,&dblue);
+            SetColor(index,&dblue);
             break;
         case 110:
-            SetColour(index,&lpurple);
+            SetColor(index,&lpurple);
             break;
         case 135:
-            SetColour(index,&ablue);
+            SetColor(index,&ablue);
             break;
         case 174:
-            SetColour(index,&cyan);
+            SetColor(index,&cyan);
             break;
         case 182:
         case 196:
         case 214:
         case 198:
         case 200:
-            SetColour(index,&agreen);
+            SetColor(index,&agreen);
             break;
         case 194:
-            SetColour(index,&darkergreen);
+            SetColor(index,&darkergreen);
             break;
         case 212:
-            SetColour(index,&dgreen);
+            SetColor(index,&dgreen);
             break;
         case 199:
         case 215:
         case 201:
-            SetColour(index,&algreen);
+            SetColor(index,&algreen);
             break;
         case 230:
-            SetColour(index,&tan);
+            SetColor(index,&tan);
             break;
         case 237:
-            SetColour(index,&ayellow);
+            SetColor(index,&ayellow);
             break;
         case 244:
-            SetColour(index,&abrown);
+            SetColor(index,&abrown);
             break;
         case 246:
         case 248:
-            SetColour(index,&aorange);
+            SetColor(index,&aorange);
             break;
         default:
-            fprintf(stderr, "Unknown colour %d ", value);
+            fprintf(stderr, "Unknown color %d ", value);
             break;
     }
 }
@@ -210,73 +210,73 @@ static void TranslateAtariColour(int index, uint8_t value) {
  I have no idea how the original interpreter calculates
  them. I might have made some mistakes. */
 
-static void TranslateC64Colour(int index, uint8_t value) {
+static void TranslateC64Color(int index, uint8_t value) {
     switch(value) {
         case 0:
-            SetColour(index,&purple);
+            SetColor(index,&purple);
             break;
         case 1:
-            SetColour(index,&blue);
+            SetColor(index,&blue);
             break;
         case 3:
-            SetColour(index,&white);
+            SetColor(index,&white);
             break;
         case 7:
         case 8:
-            SetColour(index,&blue);
+            SetColor(index,&blue);
             break;
         case 9:
         case 10:
         case 12:
         case 14:
         case 15:
-            SetColour(index,&white);
+            SetColor(index,&white);
             break;
         case 17:
-            SetColour(index,&green);
+            SetColor(index,&green);
             break;
         case 36:
         case 40:
-            SetColour(index,&brown);
+            SetColor(index,&brown);
             break;
         case 46:
-            SetColour(index,&yellow);
+            SetColor(index,&yellow);
             break;
         case 52:
         case 54:
         case 56:
         case 60:
-            SetColour(index,&orange);
+            SetColor(index,&orange);
             break;
         case 68:
         case 69:
         case 71:
-            SetColour(index,&red);
+            SetColor(index,&red);
             break;
         case 77:
         case 85:
         case 87:
-            SetColour(index,&purple);
+            SetColor(index,&purple);
             break;
         case 89:
-            SetColour(index,&lred);
+            SetColor(index,&lred);
             break;
         case 101:
         case 103:
-            SetColour(index,&purple);
+            SetColor(index,&purple);
             break;
         case 110:
-            SetColour(index,&lblue);
+            SetColor(index,&lblue);
             break;
         case 135:
         case 137:
-            SetColour(index,&blue);
+            SetColor(index,&blue);
             break;
         case 157:
-            SetColour(index,&lblue);
+            SetColor(index,&lblue);
             break;
         case 161:
-            SetColour(index,&grey);
+            SetColor(index,&grey);
             break;
         case 179:
         case 182:
@@ -285,38 +285,38 @@ static void TranslateC64Colour(int index, uint8_t value) {
         case 198:
         case 199:
         case 200:
-            SetColour(index,&green);
+            SetColor(index,&green);
             break;
         case 201:
-            SetColour(index,&lgreen);
+            SetColor(index,&lgreen);
             break;
         case 212:
         case 214:
         case 215:
-            SetColour(index,&green);
+            SetColor(index,&green);
             break;
         case 224:
-            SetColour(index,&purple);
+            SetColor(index,&purple);
             break;
         case 230:
         case 237:
-            SetColour(index,&yellow);
+            SetColor(index,&yellow);
             break;
         case 244:
         case 246:
-            SetColour(index,&brown);
+            SetColor(index,&brown);
             break;
         case 248:
             if (CurrentGame == FANTASTIC4)
-                SetColour(index,&orange);
+                SetColor(index,&orange);
             else
-                SetColour(index,&brown);
+                SetColor(index,&brown);
             break;
         case 252:
-            SetColour(index,&yellow);
+            SetColor(index,&yellow);
             break;
         default:
-            fprintf(stderr, "Unknown colour %d ", value);
+            fprintf(stderr, "Unknown color %d ", value);
             break;
     }
 }
@@ -370,17 +370,17 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
         }
     }
 
-    SetColour(0,&black);
+    SetColor(0,&black);
 
     // Get the palette
-    debug_print("Colours: ");
+    debug_print("Colors: ");
     for (i = 1; i < 5; i++)
     {
         work = *ptr++;
         if (CurrentSys == SYS_C64)
-            TranslateC64Colour(i, work);
+            TranslateC64Color(i, work);
         else
-            TranslateAtariColour(i, work);
+            TranslateAtariColor(i, work);
         debug_print("%d ", work);
     }
     debug_print("\n");

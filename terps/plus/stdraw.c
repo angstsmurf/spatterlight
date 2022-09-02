@@ -34,7 +34,7 @@ typedef struct {
     uint8_t ColIdx;
     uint8_t CurCol;
     uint8_t NumCol;
-    glui32 *Colours;
+    glui32 *Colors;
     int StartOffset;
     int Rate;
     int NumPix;
@@ -68,9 +68,9 @@ static void FreeAnimCols(void) {
         return;
     for (int i = 0; i < NumOldAnimCols; i++) {
         AnimationColor col = AnimColors[i];
-        if (col.Colours != NULL)
-            free(col.Colours);
-        col.Colours = NULL;
+        if (col.Colors != NULL)
+            free(col.Colors);
+        col.Colors = NULL;
         if (col.Pixels != NULL)
             free(col.Pixels);
         col.Pixels = NULL;
@@ -88,7 +88,7 @@ static uint8_t *SetPaletteAnimation(uint8_t *ptr) {
         }
         AnimColors = MemAlloc(sizeof(AnimationColor) * (NumAnimCols + NumOldAnimCols));
         for (int i = NumAnimCols; i < NumAnimCols + NumOldAnimCols; i++) {
-            AnimColors[i].Colours = NULL;
+            AnimColors[i].Colors = NULL;
             AnimColors[i].Pixels = NULL;
         }
         AnimationColor *col = AnimColors;
@@ -104,11 +104,11 @@ static uint8_t *SetPaletteAnimation(uint8_t *ptr) {
             col->Rate = 1 + col->Rate;
             val = val & 0xf;
             col->NumCol = val;
-            col->Colours = MemAlloc(col->NumCol * sizeof(glui32));
+            col->Colors = MemAlloc(col->NumCol * sizeof(glui32));
             for (int j = 0; j < val; j++) {
                 uint8_t hi = *ptr++;
                 uint8_t lo = *ptr++;
-                col->Colours[j] = StColToGlk(hi, lo);
+                col->Colors[j] = StColToGlk(hi, lo);
             };
         }
     }
@@ -235,8 +235,8 @@ void CopyAnimCol(AnimationColor *a, AnimationColor *b) {
     a->CurCol = b->CurCol;
     a->NumCol = b->NumCol;
     int size = b->NumCol * sizeof(glui32);
-    a->Colours = MemAlloc(size);
-    memcpy(a->Colours, b->Colours, size);
+    a->Colors = MemAlloc(size);
+    memcpy(a->Colors, b->Colors, size);
     a->Rate = b->Rate;
     a->NumPix = b->NumPix;
     size = b->NumPix * sizeof(Pixel);
@@ -300,7 +300,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
 
     NibblesWide = *ptr++;
 
-    /* Make sure to clear the last image and any colour cycling for all Claymorgue room images */
+    /* Make sure to clear the last image and any color cycling for all Claymorgue room images */
     /* The small ones have to be special-cased */
     if (NibblesWide > 70 || (CurrentGame == CLAYMORGUE && LastImgType == IMG_ROOM && (LastImgIndex == 0 || LastImgIndex == 5 || LastImgIndex == 11 || LastImgIndex == 16 || LastImgIndex == 18 || LastImgIndex == 31))) {
         glk_window_clear(Graphics);
@@ -400,7 +400,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     if (AnimColors == NULL && NumOldAnimCols) {
         AnimColors = MemAlloc(sizeof(AnimationColor) * NumOldAnimCols);
         for (int i = 0; i < NumOldAnimCols; i++) {
-            AnimColors[i].Colours = NULL;
+            AnimColors[i].Colors = NULL;
             AnimColors[i].Pixels = NULL;
         }
 
@@ -450,7 +450,7 @@ extern int STWebAnimationFinished;
 void UpdateColorCycling(void) {
     for (int i = 0; i < NumAnimCols; i++) {
         if ((ColorCycle + AnimColors[i].StartOffset) % AnimColors[i].Rate == 0) {
-            glui32 color = AnimColors[i].Colours[AnimColors[i].CurCol];
+            glui32 color = AnimColors[i].Colors[AnimColors[i].CurCol];
 
             AnimColors[i].CurCol++;
             if (AnimColors[i].CurCol >= AnimColors[i].NumCol) {
