@@ -62,8 +62,8 @@ void HulkLook(void)
     for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
         int image = Items[ct].Image;
         if (Items[ct].Location == MyLoc && image != 255) {
-            /* Don't draw bio gem in fuzzy area */
-            if ((ct == 18 && MyLoc != 15) ||
+            /* Don't draw bio gem or wax unless in start position */
+            if ((ct == 18 && MyLoc != 15) || (ct == 21 && MyLoc != 13) ||
                 /* Don't draw Dr. Strange until outlet is plugged */
                 (ct == 26 && Items[28].Location != MyLoc))
                 continue;
