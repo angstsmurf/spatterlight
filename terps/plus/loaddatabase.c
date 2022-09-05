@@ -264,10 +264,10 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud) {
                     commapos = j;
                     j++;
                 }
-                int length = commapos - lastcomma;
-                if (length > 0) {
-                    dw->Word = MemAlloc(length);
-                    memcpy(dw->Word, &str[lastcomma + 1], length);
+                int remaining = commapos - lastcomma;
+                if (remaining > 0) {
+                    dw->Word = MemAlloc(remaining);
+                    memcpy(dw->Word, &str[lastcomma + 1], remaining);
                     dw->Group = group;
                     dw = &dictionary[++index];
                 }
@@ -777,7 +777,7 @@ static int SetGame(const char *id_string, size_t length) {
 
 int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
     int result = 0;
-    char filename[1024];
+    char filename[2048];
     int n = sprintf(filename, "%s%s.PAK", DirPath, shortname);
     if (n > 0) {
         FILE *infile=fopen(filename,"rb");

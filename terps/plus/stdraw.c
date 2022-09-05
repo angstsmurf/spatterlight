@@ -144,7 +144,7 @@ static void GeneratePatternLookup(void)
 }
 
 
-static void DrawSTNibble(uint8_t byte, uint8_t mask, int x, int y, Pixel **pixels) {
+static void DrawSTNibble(uint8_t byte, uint8_t mask, int xpos, int ypos, Pixel **pixels) {
     uint16_t offs = byte << 2;
     int startbit = 7;
     int endbit = 4;
@@ -163,13 +163,13 @@ static void DrawSTNibble(uint8_t byte, uint8_t mask, int x, int y, Pixel **pixel
         if (col) {
             for (int c = 0; c < NumAnimCols; c++) {
                 if (col == AnimColors[c].ColIdx && AnimColors[c].NumPix < 3000) {
-                    if (AnimColors[c].NumPix && pixels[c][AnimColors[c].NumPix - 1].y == y && pixels[c][AnimColors[c].NumPix - 1].x == x + 5 - i) {
+                    if (AnimColors[c].NumPix && pixels[c][AnimColors[c].NumPix - 1].y == ypos && pixels[c][AnimColors[c].NumPix - 1].x == xpos + 5 - i) {
                         pixels[c][AnimColors[c].NumPix - 1].width += 2;
                         break;
                     }
 
-                    pixels[c][AnimColors[c].NumPix].x = x + 7 - i;
-                    pixels[c][AnimColors[c].NumPix].y = y;
+                    pixels[c][AnimColors[c].NumPix].x = xpos + 7 - i;
+                    pixels[c][AnimColors[c].NumPix].y = ypos;
                     pixels[c][AnimColors[c].NumPix].width = 2;
 
                     AnimColors[c].NumPix++;
@@ -177,7 +177,7 @@ static void DrawSTNibble(uint8_t byte, uint8_t mask, int x, int y, Pixel **pixel
                     break;
                 }
             }
-            PutDoublePixel(x + 7 - i, y, col);
+            PutDoublePixel(xpos + 7 - i, ypos, col);
         }
     }
 }
