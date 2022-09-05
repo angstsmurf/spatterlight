@@ -303,6 +303,7 @@ int TryLoadingHulk(struct GameInfo info, int dict_start)
         string_length = *(ptr++);
         if (string_length == 0) {
             ip->Text = ".\0";
+            ip->AutoGet = NULL;
         } else {
             ip->Text = MemAlloc(string_length + 1);
 
