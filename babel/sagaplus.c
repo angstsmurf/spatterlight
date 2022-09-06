@@ -34,18 +34,25 @@ static const struct plusrec plus_registry[] = {
     { 0x2ab00, 0x83dc, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
     { 0x2ab00, 0xe1cd, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[sharedata_1987].d64
     { 0x16810, 0xc003, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr
+    { 0x16810, 0xbfc1, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr alt
+    { 0x16810, 0xfea3, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr alt 2
     { 0x5a000, 0x973b, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // st
     { 0x23000, 0xc267, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // apple 2
     { 0, 0, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Claymorgue MS-DOS
     { 0x5a000, 0xcc3, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // st
     { 0, 0, "BUCKAROO", "13EA7A22731E90598456D13311923833" },
     { 0x2ab00, 0x3464, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64
+    { 0x2ab00, 0x3720, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64 alt
     { 0x16810, 0x5434, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit
+    { 0x16810, 0x4735, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit Rev 387
+    { 0x16810, 0xe399, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit Rev 397
     { 0x23000, 0x3d97, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2
     { 0x23000, 0xca17, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt
+    { 0x23000, 0xa543, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt 2
     { 0, 0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four MS-DOS
-    { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
-    { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
+    { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64
+    { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64 alt
+    { 0x2ab00, 0xd938, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64 alt 2
     { 0x16810, 0xe3ad, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
     { 0x16810, 0x3c1e, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
     { 0x23000, 0xa450, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Apple 2

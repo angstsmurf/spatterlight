@@ -151,11 +151,14 @@ static const struct scottrec scott_registry[] = {
     { 0xb280, 0x196d, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman - Alternate.tzx
     { 0xb36e, 0xbf88, "DAEE386546CE71831DC365B0FF10F233" }, // Questprobe 2 - Spiderman (Americana).tzx
     { 0xa4c4, 0x1ae8, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80
+    { 0x9575, 0x86ae, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80 alt
+    { 0x9575, 0x8b6e, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman Z80 alt 2
     { 0xb316, 0x3c3c, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman TAP image
    { 0x08e72, 0xb2f4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (T64)
    { 0x2ab00, 0xde56, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64)
    { 0x2ab00, 0x2736, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64) alt
    { 0x2ab00, 0x490a, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64) alt 2
+   { 0x2ab00, 0xc4c4, "DAEE386546CE71831DC365B0FF10F233" }, // Spiderman C64 (D64) alt 3
 
 
     { 0x9e51, 0x8be7, "E247F4152EC664464BD9A6C0A092E05B" }, // Savage Island Part 1.tzx
