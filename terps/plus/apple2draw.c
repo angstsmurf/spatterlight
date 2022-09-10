@@ -13,7 +13,7 @@
 #include "graphics.h"
 #include "common.h"
 
-extern int x, y, xlen, ylen, xoff, yoff, size;
+extern int x, y, xlen, ylen, xoff, yoff;
 
 static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
@@ -53,6 +53,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     int work,work2;
     int c;
     int i;
+    size_t size;
 
     uint8_t *origptr = ptr;
 

@@ -14,7 +14,6 @@
 extern int x, y, count;
 extern int xlen, ylen;
 extern int xoff, yoff;
-extern int size;
 
 typedef uint8_t RGB[3];
 

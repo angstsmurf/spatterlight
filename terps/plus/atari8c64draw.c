@@ -13,7 +13,6 @@
 extern int x, y, count;
 extern int xlen, ylen;
 extern int xoff, yoff;
-extern int size;
 
 typedef uint8_t RGB[3];
 
@@ -326,6 +325,7 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
     int work,work2;
     int c;
     int i;
+    size_t size;
 
     uint8_t *origptr = ptr;
 
