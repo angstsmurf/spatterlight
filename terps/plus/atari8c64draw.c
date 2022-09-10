@@ -19,7 +19,7 @@ typedef uint8_t RGB[3];
 
 extern winid_t Graphics;
 
-void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
 
 static void DrawA8C64Pixels(int pattern, int pattern2)
 {

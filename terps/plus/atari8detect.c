@@ -291,7 +291,7 @@ void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
     fprintf(stderr, "\n");
 }
 
-static int ExtractImagesFromCompanionFileNew(FILE *infile)
+static int ExtractImagesFromCompanionFile(FILE *infile)
 {
     int work,work2;
     int count;
@@ -364,7 +364,6 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
 
     //{ "S000", 0, Found in disk image A at offset 6d97
 
-
     Images[outpic].Filename = NULL;
     fclose(infile);
 
@@ -421,7 +420,7 @@ int LookForAtari8Images(uint8_t **sf, size_t *extent) {
         Images[0].Filename = NULL;
         return 0;
     }
-    ExtractImagesFromCompanionFileNew(CompanionFile);
+    ExtractImagesFromCompanionFile(CompanionFile);
     return 1;
 }
 

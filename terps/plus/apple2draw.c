@@ -132,9 +132,9 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     return 1;
 }
 
-static void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
+static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color)
 {
-    glsi32 xpos = x * pixel_size;
+    xpos = xpos * pixel_size;
 
     if (upside_down)
         xpos = 280 * pixel_size - xpos;
@@ -144,7 +144,7 @@ static void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
         return;
     }
 
-    int ypos = y * pixel_size;
+    ypos = ypos * pixel_size;
     if (upside_down)
         ypos = 157 * pixel_size - ypos;
     ypos += y_offset;

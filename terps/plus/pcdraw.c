@@ -9,14 +9,12 @@
 #include "graphics.h"
 #include "common.h"
 
-int x=0,y=0,count=0;
+int x = 0, y = 0, at_last_line = 0;
 
 int xlen=280, ylen=158;
 int xoff=0, yoff=0;
-int size;
 int ycount=0;
 int skipy=1;
-FILE *infile,*outfile;
 
 extern winid_t Graphics;
 
@@ -31,11 +29,11 @@ typedef RGB PALETTE[16];
 
 PALETTE pal;
 
-void PutPixel(glsi32 x, glsi32 y, int32_t color)
+void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glsi32 xpos = x * pixel_size;
+    xpos = xpos * pixel_size;
 
     if (upside_down)
         xpos = ImageWidth * pixel_size - xpos;
@@ -46,7 +44,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
         return;
     }
 
-    int ypos = y * pixel_size;
+    ypos = ypos * pixel_size;
     if (upside_down)
         ypos = (ImageHeight - 1) * pixel_size - ypos;
     ypos += y_offset;
@@ -55,11 +53,11 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color)
                          ypos, pixel_size, pixel_size);
 }
 
-void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glsi32 xpos = x * pixel_size;
+    xpos = xpos * pixel_size;
 
     if (upside_down)
         xpos = ImageWidth * pixel_size - xpos;
@@ -69,7 +67,7 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
         return;
     }
 
-    int ypos = y * pixel_size;
+    ypos = ypos * pixel_size;
     if (upside_down) {
         ypos = ImageHeight * pixel_size - ypos;
         if (CurrentSys == SYS_ST)
@@ -106,17 +104,18 @@ static void DrawDOSPixels(int pattern)
         PutPixel(x,y, pix4); x++;
     }
 
-    if (x>=xlen+xoff)
+    if (x >= xlen + xoff)
     {
-        y+=2;
-        x=xoff;
+        y += 2;
+        x = xoff;
         ycount++;
     }
-    if (ycount>ylen)
+
+    if (ycount > ylen)
     {
-        y=yoff+1;
-        count++;
-        ycount=0;
+        y = yoff + 1;
+        at_last_line++;
+        ycount = 0;
     }
 }
 
@@ -140,15 +139,15 @@ void SetRGB(int32_t index, int red, int green, int blue) {
 
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 {
-    x=0;
-    y=0;
-    count=0;
+    x = 0;
+    y = 0;
+    at_last_line = 0;
 
-    xlen=0;
-    ylen=0;
-    xoff=0; yoff=0;
-    ycount=0;
-    skipy=1;
+    xlen = 0;
+    ylen = 0;
+    xoff = 0; yoff = 0;
+    ycount = 0;
+    skipy = 1;
 
     int work;
     int c;
@@ -172,10 +171,10 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 
     uint8_t *origptr = ptr;
 
-    // Get the size of the graphics chuck
+    // Get the size of the graphics chunk
     ptr = origptr + 0x05;
     work = *ptr++;
-    size = work + (*ptr * 256);
+    int imagesize = work + (*ptr * 256);
 
     // Get whether it is lined
     ptr = origptr + 0x0d;
@@ -186,11 +185,11 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     ptr = origptr + 0x0f;
     work = *ptr++;
     rawoffset = work + (*ptr * 256);
-    xoff=((rawoffset % 80)*4)-24;
-    yoff=rawoffset / 40;
+    xoff = ((rawoffset % 80) * 4) - 24;
+    yoff = rawoffset / 40;
     yoff -= (yoff % 2 == 1);
-    x=xoff;
-    y=yoff;
+    x = xoff;
+    y = yoff;
 
     // Get the y length
     ptr = origptr + 0x11;
@@ -204,7 +203,7 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     xlen = *ptr * 4;
 
     ptr = origptr + 0x17;
-    while (ptr - origptr < size)
+    while (ptr - origptr < imagesize)
     {
         // First get count
         c = *ptr++;
@@ -213,7 +212,7 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
         { // is a counter
             work = *ptr++;
             c &= 0x7f;
-            for (i=0;i<c+1;i++)
+            for (i = 0; i <= c; i++)
             {
                 DrawDOSPixels(work);
             }
@@ -221,13 +220,13 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
         else
         {
             // Don't count on the next j characters
-            for (i=0;i<c+1;i++)
+            for (i = 0; i <= c; i++)
             {
                 work = *ptr++;
                 DrawDOSPixels(work);
             }
         }
-        if (count>1) break;
+        if (at_last_line > 1) break;
     }
     return 1;
 }
