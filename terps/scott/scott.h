@@ -86,6 +86,7 @@ typedef struct {
 #define FORCE_PALETTE_C64 512     /* Force CBM 64 image palette */
 #define FORCE_INVENTORY 1024     /* Inventory in upper window always on */
 #define FORCE_INVENTORY_OFF 2048     /* Inventory in upper window always off */
+#define PC_STYLE 4096    /* Display in style used on IBM PC (MS-DOS) */
 
 #define MAX_GAMEFILE_SIZE 200000
 
@@ -163,5 +164,8 @@ extern int RoomSaved[];
 extern int Options;
 extern int StopTime;
 extern int should_look_in_transcript;
+extern int ImageWidth;
+extern int ImageHeight;
+extern const char *game_file;
 
 #endif /* scott_h */

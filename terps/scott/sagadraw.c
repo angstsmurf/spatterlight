@@ -12,6 +12,7 @@
 
 #include "definitions.h"
 #include "scott.h"
+#include "graphics.h"
 #include "seasofblood.h"
 
 #include "sagadraw.h"
@@ -23,17 +24,6 @@ uint8_t screenchars[768][8];
 uint8_t buffer[384][9];
 
 Image *images = NULL;
-
-int pixel_size;
-int x_offset;
-
-/* palette handler stuff starts here */
-
-typedef uint8_t RGB[3];
-
-typedef RGB PALETTE[16];
-
-PALETTE pal;
 
 int white_colour = 15;
 int blue_colour = 9;
@@ -48,55 +38,6 @@ palette_type palchosen = NO_PALETTE;
 #define INVALIDCOLOR 16
 
 const char *flipdescription[] = { "none", "90°", "180°", "270°", "ERROR" };
-
-void colrange(int32_t c)
-{
-    if ((c < 0) || (c > 15)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# col out of range: %d\n", c);
-#endif
-        errorcount++;
-    }
-}
-
-void checkrange(int32_t x, int32_t y)
-{
-    if ((x < 0) || (x > 254)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# x out of range: %d\n", x);
-#endif
-        errorcount++;
-    }
-    if ((y < 96) || (y > 191)) {
-#ifdef DRAWDEBUG
-        fprintf(stderr, "# y out of range: %d\n", y);
-#endif
-        errorcount++;
-    }
-}
-
-void do_palette(const char *palname)
-{
-    if (strcmp("zx", palname) == 0)
-        palchosen = ZX;
-    else if (strcmp("zxopt", palname) == 0)
-        palchosen = ZXOPT;
-    else if (strcmp("c64a", palname) == 0)
-        palchosen = C64A;
-    else if (strcmp("c64b", palname) == 0)
-        palchosen = C64B;
-    else if (strcmp("c64c", palname) == 0)
-        palchosen = C64C;
-    else if (strcmp("vga", palname) == 0)
-        palchosen = VGA;
-}
-
-void set_color(int32_t index, RGB *colour)
-{
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
-}
 
 void DefinePalette(void)
 {
@@ -119,22 +60,22 @@ void DefinePalette(void)
         RGB bryellow = { 255, 255, 0 };
         RGB brwhite = { 255, 255, 255 };
 
-        set_color(0, &black);
-        set_color(1, &blue);
-        set_color(2, &red);
-        set_color(3, &magenta);
-        set_color(4, &green);
-        set_color(5, &cyan);
-        set_color(6, &yellow);
-        set_color(7, &white);
-        set_color(8, &brblack);
-        set_color(9, &brblue);
-        set_color(10, &brred);
-        set_color(11, &brmagenta);
-        set_color(12, &brgreen);
-        set_color(13, &brcyan);
-        set_color(14, &bryellow);
-        set_color(15, &brwhite);
+        SetColor(0, &black);
+        SetColor(1, &blue);
+        SetColor(2, &red);
+        SetColor(3, &magenta);
+        SetColor(4, &green);
+        SetColor(5, &cyan);
+        SetColor(6, &yellow);
+        SetColor(7, &white);
+        SetColor(8, &brblack);
+        SetColor(9, &brblue);
+        SetColor(10, &brred);
+        SetColor(11, &brmagenta);
+        SetColor(12, &brgreen);
+        SetColor(13, &brcyan);
+        SetColor(14, &bryellow);
+        SetColor(15, &brwhite);
     } else if (palchosen == ZX) {
         /* corrected Sinclair ZX palette (pretty dull though) */
         RGB black = { 0, 0, 0 };
@@ -154,22 +95,22 @@ void DefinePalette(void)
         RGB bryellow = { 239, 239, 0 };
         RGB brwhite = { 255, 255, 255 };
 
-        set_color(0, &black);
-        set_color(1, &blue);
-        set_color(2, &red);
-        set_color(3, &magenta);
-        set_color(4, &green);
-        set_color(5, &cyan);
-        set_color(6, &yellow);
-        set_color(7, &white);
-        set_color(8, &brblack);
-        set_color(9, &brblue);
-        set_color(10, &brred);
-        set_color(11, &brmagenta);
-        set_color(12, &brgreen);
-        set_color(13, &brcyan);
-        set_color(14, &bryellow);
-        set_color(15, &brwhite);
+        SetColor(0, &black);
+        SetColor(1, &blue);
+        SetColor(2, &red);
+        SetColor(3, &magenta);
+        SetColor(4, &green);
+        SetColor(5, &cyan);
+        SetColor(6, &yellow);
+        SetColor(7, &white);
+        SetColor(8, &brblack);
+        SetColor(9, &brblue);
+        SetColor(10, &brred);
+        SetColor(11, &brmagenta);
+        SetColor(12, &brgreen);
+        SetColor(13, &brcyan);
+        SetColor(14, &bryellow);
+        SetColor(15, &brwhite);
 
         white_colour = 15;
         blue_colour = 9;
@@ -213,22 +154,22 @@ void DefinePalette(void)
         RGB bryellow = { 255, 255, 0 };
         RGB brwhite = { 255, 255, 255 };
 
-        set_color(0, &black);
-        set_color(1, &blue);
-        set_color(2, &red);
-        set_color(3, &magenta);
-        set_color(4, &green);
-        set_color(5, &cyan);
-        set_color(6, &yellow);
-        set_color(7, &white);
-        set_color(8, &brblack);
-        set_color(9, &brblue);
-        set_color(10, &brred);
-        set_color(11, &brmagenta);
-        set_color(12, &brgreen);
-        set_color(13, &brcyan);
-        set_color(14, &bryellow);
-        set_color(15, &brwhite);
+        SetColor(0, &black);
+        SetColor(1, &blue);
+        SetColor(2, &red);
+        SetColor(3, &magenta);
+        SetColor(4, &green);
+        SetColor(5, &cyan);
+        SetColor(6, &yellow);
+        SetColor(7, &white);
+        SetColor(8, &brblack);
+        SetColor(9, &brblue);
+        SetColor(10, &brred);
+        SetColor(11, &brmagenta);
+        SetColor(12, &brgreen);
+        SetColor(13, &brcyan);
+        SetColor(14, &bryellow);
+        SetColor(15, &brwhite);
 
         white_colour = 15;
         blue_colour = 9;
@@ -253,22 +194,22 @@ void DefinePalette(void)
         RGB lblue = { 162, 143, 255 };
         RGB lgrey = { 200, 200, 200 };
 
-        set_color(0, &black);
-        set_color(1, &white);
-        set_color(2, &red);
-        set_color(3, &cyan);
-        set_color(4, &purple);
-        set_color(5, &green);
-        set_color(6, &blue);
-        set_color(7, &yellow);
-        set_color(8, &orange);
-        set_color(9, &brown);
-        set_color(10, &lred);
-        set_color(11, &dgrey);
-        set_color(12, &grey);
-        set_color(13, &lgreen);
-        set_color(14, &lblue);
-        set_color(15, &lgrey);
+        SetColor(0, &black);
+        SetColor(1, &white);
+        SetColor(2, &red);
+        SetColor(3, &cyan);
+        SetColor(4, &purple);
+        SetColor(5, &green);
+        SetColor(6, &blue);
+        SetColor(7, &yellow);
+        SetColor(8, &orange);
+        SetColor(9, &brown);
+        SetColor(10, &lred);
+        SetColor(11, &dgrey);
+        SetColor(12, &grey);
+        SetColor(13, &lgreen);
+        SetColor(14, &lblue);
+        SetColor(15, &lgrey);
 
         white_colour = 1;
         blue_colour = 6;
@@ -324,7 +265,7 @@ const char *colortext(int32_t col)
         return (zxcolorname[col]);
 }
 
-int32_t remap(int32_t color)
+int32_t Remap(int32_t color)
 {
     int32_t mapcol;
 
@@ -506,21 +447,11 @@ void transform(int32_t character, int32_t flip_mode, int32_t ptr)
     }
 }
 
-void PutPixel(glsi32 x, glsi32 y, int32_t color)
-{
-    int y_offset = 0;
 
-    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
-
-    glk_window_fill_rect(Graphics, glk_color, x * pixel_size + x_offset,
-        y * pixel_size + y_offset, pixel_size, pixel_size);
-}
 
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color)
 {
-    int y_offset = 0;
-
     int bufferpos = (y / 8) * 32 + (x / 8);
     if (bufferpos >= 0xD80)
         return;
@@ -602,7 +533,7 @@ int FindImagePatch(GameIDType game, int image_number, int start)
     return 0;
 }
 
-void Patch(uint8_t *data, uint8_t *offset, int patch_number)
+void Patch(uint8_t *offset, int patch_number)
 {
     struct image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
@@ -689,31 +620,10 @@ void SagaSetup(size_t imgoffset)
         CHAR_START - file_baseline_offset);
 #endif
     for (i = 0; i < 256; i++) {
-        //      fprintf (stderr, "\nCharacter %d:\n", i);
         for (y = 0; y < 8; y++) {
             sprite[i][y] = *(pos++);
-            //                  if ((i == 0 && sprite[i][y] != 0) || (i == 1 && y == 0
-            //                  && sprite[i][y] != 255)) {
-            //                     CHAR_START--;
-            //                     goto jumpChar;
-            //                  }
-
-            //                  fprintf (stderr, "\n%s$%04X DEFS ", (y == 0) ? "s" : "
-            //                  ", CHAR_START + i * 8 + y); for (int n = 0; n < 8;
-            //                  n++) {
-            //                     if (isNthBitSet(sprite[i][y], n))
-            //                        fprintf (stderr, "■");
-            //                     else
-            //                        fprintf (stderr, "0");
-            //                  }
         }
     }
-    //  fprintf(stderr, "Final CHAR_START: %04x\n",
-    //          CHAR_START - file_baseline_offset);
-
-    //  fprintf(stderr, "File offset after reading char data: %ld (%lx)\n",
-    //          pos - entire_file - file_baseline_offset,
-    //          pos - entire_file - file_baseline_offset);
 
     /* Now we have hopefully read the character data */
     /* Time for the image offsets */
@@ -749,11 +659,6 @@ void SagaSetup(size_t imgoffset)
             image_offsets[i] += *(pos++) * 0x100;
         }
     }
-
-    //   fprintf(stderr, "Final OFFSET_TABLE_START:%x\n", OFFSET_TABLE_START -
-    //   file_baseline_offset); fprintf(stderr, "File offset after reading image
-    //   offset data: %ld (%lx)\n", pos - entire_file - file_baseline_offset, pos
-    //   - entire_file - file_baseline_offset);
 
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
         pos = SeekToPos(entire_file, image_offsets[picture_number] + DATA_OFFSET);
@@ -814,7 +719,7 @@ void SagaSetup(size_t imgoffset)
 
         int patch = FindImagePatch(CurrentGame, picture_number, 0);
         while (patch) {
-            Patch(entire_file, pos, patch);
+            Patch(entire_file, patch);
             patch = FindImagePatch(CurrentGame, picture_number, patch);
         }
 
@@ -1041,8 +946,8 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                 for (i = 0; i < 8; i++)
                     buffer[(y + yoff) * 32 + x + xoff2][i] = screenchars[offset][i];
             } else {
-                plotsprite(offset, x + xoff2, y + yoff, remap(ink[x][y]),
-                    remap(paper[x][y]));
+                plotsprite(offset, x + xoff2, y + yoff, Remap(ink[x][y]),
+                    Remap(paper[x][y]));
             }
 
 #ifdef DRAWDEBUG
@@ -1108,10 +1013,10 @@ void DrawSagaPictureFromBuffer(void)
 
             int paper = (colour >> 3) & 0x7;
             paper += 8 * ((colour & 0x40) == 0x40);
-            paper = remap(paper);
+            paper = Remap(paper);
             int ink = (colour & 0x7);
             ink += 8 * ((colour & 0x40) == 0x40);
-            ink = remap(ink);
+            ink = Remap(ink);
 
             background(col, line, paper);
 

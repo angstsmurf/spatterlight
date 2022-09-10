@@ -33,7 +33,7 @@ extern uint8_t buffer[384][9];
 glui32 dice_pixel_size, dice_x_offset, dice_y_offset;
 
 int get_enemy_stats(int *strike, int *stamina, int *boatflag);
-void battle_loop(int enemy, int strike, int stamina, int boatflag);
+void battle_loop(int strike, int stamina, int boatflag);
 void swap_stamina_and_crew_strength(void);
 void blood_battle(void);
 
@@ -388,7 +388,7 @@ void blood_battle(void)
         return;
     }
     setup_battle_screen(boatflag);
-    battle_loop(enemy, strike, stamina, boatflag); // Into the battle loops
+    battle_loop(strike, stamina, boatflag); // Into the battle loops
     if (boatflag)
         swap_stamina_and_crew_strength(); // Switch back stamina - crew strength
     glk_window_close(LeftDiceWin, NULL);
@@ -696,7 +696,7 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
     return;
 }
 
-void battle_loop(int enemy, int strike, int stamina, int boatflag)
+void battle_loop(int strike, int stamina, int boatflag)
 {
     update_result(0, strike, stamina, boatflag);
     update_result(1, 9, Counters[3], boatflag);

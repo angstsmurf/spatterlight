@@ -323,11 +323,11 @@ static libspectrum_error read_header(const uint8_t *buffer,
     const uint8_t **data, int *version,
     int *compressed);
 static libspectrum_error get_machine_type(libspectrum_snap *snap, uint8_t type,
-    uint8_t mgt_type, int version);
+    int version);
 static libspectrum_error get_machine_type_v2(libspectrum_snap *snap,
     uint8_t type);
 static libspectrum_error get_machine_type_v3(libspectrum_snap *snap,
-    uint8_t type, uint8_t mgt_type);
+    uint8_t type);
 static libspectrum_error get_machine_type_extension(libspectrum_snap *snap,
     uint8_t type);
 
@@ -472,6 +472,8 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
+size_t writeToFile(const char *name, uint8_t *data, size_t size);
+
 uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
 {
     libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
@@ -492,6 +494,8 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
         if (snap->pages[i] != NULL)
             free(snap->pages[i]);
     free(snap);
+
+    writeToFile("/Users/administrator/Desktop/Z80Decompressed", uncompressed, 0xC000);
 
     return uncompressed;
 }
@@ -553,7 +557,7 @@ static libspectrum_error read_header(const uint8_t *buffer,
 
         snap->pc = extra_header[0] + extra_header[1] * 0x100;
 
-        error = get_machine_type(snap, extra_header[2], extra_header[51], *version);
+        error = get_machine_type(snap, extra_header[2], *version);
         if (error)
             return error;
 
@@ -592,7 +596,7 @@ static libspectrum_error read_header(const uint8_t *buffer,
 }
 
 static libspectrum_error get_machine_type(libspectrum_snap *snap, uint8_t type,
-    uint8_t mgt_type, int version)
+    int version)
 {
     libspectrum_error error;
 
@@ -607,7 +611,7 @@ static libspectrum_error get_machine_type(libspectrum_snap *snap, uint8_t type,
             break;
 
         case 3:
-            error = get_machine_type_v3(snap, type, mgt_type);
+            error = get_machine_type_v3(snap, type);
             if (error)
                 return error;
             break;
@@ -657,7 +661,7 @@ static libspectrum_error get_machine_type_v2(libspectrum_snap *snap,
 }
 
 static libspectrum_error get_machine_type_v3(libspectrum_snap *snap,
-    uint8_t type, uint8_t mgt_type)
+    uint8_t type)
 {
 
     switch (type) {

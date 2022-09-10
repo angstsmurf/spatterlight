@@ -414,7 +414,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
     Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
 
-    int offset;
+    size_t offset;
 
 #if defined(__clang__)
 #pragma mark rooms
@@ -457,8 +457,10 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
     ip = Items;
     do {
         ip->Text = GetTI994AString(dh.p_obj_descr, ct);
-        if (ip->Text == NULL)
+        if (ip->Text == NULL) {
             ip->Text = ".\0";
+            ip->AutoGet = NULL;
+        }
         if (ip->Text && ip->Text[0] == '*')
             tr++;
         if (loud)

@@ -57,7 +57,7 @@ const struct GameInfo games[] = {
 
     {
         "Voodoo Castle",
-        VOODOO,
+        VOODOO_CASTLE,
         OLD_STYLE,                 // type
         ENGLISH,                   // subtype
         THREE_LETTER_UNCOMPRESSED, // dictionary type
@@ -102,7 +102,7 @@ const struct GameInfo games[] = {
 
     {
         "Strange Odyssey",
-        STRANGE,
+        STRANGE_ODYSSEY,
         OLD_STYLE,                // type
         ENGLISH,                  // subtype
         FOUR_LETTER_UNCOMPRESSED, // dictionary type
@@ -1248,7 +1248,7 @@ const struct GameInfo games[] = {
         129, // number_of_nouns;
 
         0x4bf4,      // header
-        HULK_HEADER, // header style
+        US_HEADER, // header style
 
         0x270c, // room images
         0,      // item flags
@@ -1292,7 +1292,7 @@ const struct GameInfo games[] = {
         129, // number_of_nouns;
 
         0x7867,      // header
-        HULK_HEADER, // header style
+        US_HEADER, // header style
 
         0x2280, // room images
         0,      // item flags

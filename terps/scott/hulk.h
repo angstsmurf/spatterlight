@@ -12,7 +12,10 @@
 
 void HulkShowImageOnExamine(int noun);
 void HulkLook(void);
+void HulkLookUS(void);
+void HulkInventoryUS(void);
 void DrawHulkImage(int p);
-int TryLoadingHulk(struct GameInfo info, int dict_start);
+int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int dict_start);
+int LoadDOSImages(void);
 
 #endif /* hulk_h */

@@ -11,13 +11,11 @@
 
 #include "decompresstext.h"
 #include "sagadraw.h"
+#include "graphics.h"
 #include "scott.h"
 
 extern Image *images;
 extern uint8_t screenchars[768][8];
-
-//static int white_colour = 15;
-//static int blue_colour = 9;
 
 static uint8_t *forest_images = NULL;
 

@@ -543,6 +543,14 @@
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
+		C30C7AD428CA2BC800D293BE /* MrCross.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD228CA2BC800D293BE /* MrCross.c */; };
+		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
+		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
+		C30C7ADC28CA2C2100D293BE /* pcdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADB28CA2C2100D293BE /* pcdraw.c */; };
+		C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADD28CA2C2E00D293BE /* apple2draw.c */; };
+		C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */; };
+		C30C7AE328CA2C4F00D293BE /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AE128CA2C4F00D293BE /* graphics.c */; };
+		C30C7AEB28CB1A7A00D293BE /* woz2dsk.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AEA28CB1A7A00D293BE /* woz2dsk.c */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
@@ -2857,6 +2865,18 @@
 		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
+		C30C7AD228CA2BC800D293BE /* MrCross.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MrCross.c; sourceTree = "<group>"; };
+		C30C7AD528CA2C0300D293BE /* apple2detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple2detect.h; sourceTree = "<group>"; };
+		C30C7AD628CA2C0300D293BE /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
+		C30C7AD728CA2C0300D293BE /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
+		C30C7AD828CA2C0300D293BE /* apple2detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = apple2detect.c; sourceTree = "<group>"; };
+		C30C7ADB28CA2C2100D293BE /* pcdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pcdraw.c; sourceTree = "<group>"; };
+		C30C7ADD28CA2C2E00D293BE /* apple2draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = apple2draw.c; sourceTree = "<group>"; };
+		C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
+		C30C7AE128CA2C4F00D293BE /* graphics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
+		C30C7AE228CA2C4F00D293BE /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
+		C30C7AE928CB1A7A00D293BE /* woz2dsk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = woz2dsk.h; sourceTree = "<group>"; };
+		C30C7AEA28CB1A7A00D293BE /* woz2dsk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = woz2dsk.c; sourceTree = "<group>"; };
 		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
 		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
@@ -3201,6 +3221,7 @@
 		C3C72B6D278CB0F900E095A6 /* detectgame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detectgame.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detectgame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detectgame.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C97EC028CB597200AFB837 /* atari8c64draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atari8c64draw.h; sourceTree = "<group>"; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
 		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
@@ -5765,12 +5786,24 @@
 				C3109FC82798B18900854ED0 /* debug.c */,
 				C3109FCB2798B19F00854ED0 /* parser.h */,
 				C3109FCC2798B19F00854ED0 /* parser.c */,
+				C30C7AE228CA2C4F00D293BE /* graphics.h */,
+				C30C7AE128CA2C4F00D293BE /* graphics.c */,
+				C30C7ADB28CA2C2100D293BE /* pcdraw.c */,
+				C30C7ADD28CA2C2E00D293BE /* apple2draw.c */,
+				C3C97EC028CB597200AFB837 /* atari8c64draw.h */,
+				C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */,
 				C31DB980276E961F00547C9C /* sagadraw.h */,
 				C31DB982276E961F00547C9C /* sagadraw.c */,
 				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
 				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
 				C38A881127D2092500AE917E /* ringbuffer.h */,
 				C38A881227D2092500AE917E /* ringbuffer.c */,
+				C30C7AD528CA2C0300D293BE /* apple2detect.h */,
+				C30C7AD828CA2C0300D293BE /* apple2detect.c */,
+				C30C7AD628CA2C0300D293BE /* atari8detect.h */,
+				C30C7AD728CA2C0300D293BE /* atari8detect.c */,
+				C30C7AE928CB1A7A00D293BE /* woz2dsk.h */,
+				C30C7AEA28CB1A7A00D293BE /* woz2dsk.c */,
 				C3C0EE63278BBF750044A615 /* gremlins.h */,
 				C3C0EE64278BBF750044A615 /* gremlins.c */,
 				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
@@ -6174,6 +6207,7 @@
 				C3F09D4228888F890035DAC2 /* Expert.c */,
 				C3F09D4328888F890035DAC2 /* Cruel.c */,
 				C3F09D4428888F890035DAC2 /* Megabyte.c */,
+				C30C7AD228CA2BC800D293BE /* MrCross.c */,
 				C3F09D4528888F890035DAC2 /* ByteBoiler.c */,
 				C3F09D4628888F890035DAC2 /* TBCMultiComp.c */,
 				C3F09D4728888F890035DAC2 /* Exomizer.c */,
@@ -8048,18 +8082,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
+				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
+				C30C7AE328CA2C4F00D293BE /* graphics.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C3109FC92798B18900854ED0 /* debug.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */,
 				C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */,
+				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
+				C30C7ADC28CA2C2100D293BE /* pcdraw.c in Sources */,
 				C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */,
 				C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */,
 				C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */,
+				C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */,
 				C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */,
 				C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */,
+				C30C7AEB28CB1A7A00D293BE /* woz2dsk.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
 				C3C0EE65278BBF750044A615 /* gremlins.c in Sources */,
 				C3836ED82789B569004B5061 /* seasofblood.c in Sources */,
@@ -8067,6 +8107,7 @@
 				C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */,
 				C3A9FD3327A6E56C0032C068 /* gameinfo.c in Sources */,
 				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
+				C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */,
 				C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8183,6 +8224,7 @@
 				C3F09D98288893040035DAC2 /* Section8.c in Sources */,
 				C3F09D99288893040035DAC2 /* unp64.c in Sources */,
 				C3F09D9A288893040035DAC2 /* 6502emu.c in Sources */,
+				C30C7AD428CA2BC800D293BE /* MrCross.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

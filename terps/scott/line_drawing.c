@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "scott.h"
 #include "sagadraw.h"
+#include "graphics.h"
 #include "ringbuffer.h"
 #include "line_drawing.h"
 
@@ -78,10 +79,10 @@ void DrawSomeVectorPixels(int from_start) {
     if (from_start)
         i = 0;
     if (i == 0)
-        RectFill(0, 0, scott_graphics_width, scott_graphics_height, remap(bg_colour));
+        RectFill(0, 0, scott_graphics_width, scott_graphics_height, Remap(bg_colour));
     for (; i < total_draw_instructions && (!gli_slowdraw || i < current_draw_instruction + 50); i++) {
         struct pixel_to_draw todraw = *pixels_to_draw[i];
-        PutPixel(todraw.x, todraw.y, remap(todraw.colour));
+        PutPixel(todraw.x, todraw.y, Remap(todraw.colour));
     }
     current_draw_instruction = i;
     if (current_draw_instruction >= total_draw_instructions) {

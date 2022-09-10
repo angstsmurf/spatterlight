@@ -10,6 +10,9 @@
 
 #include <stdint.h>
 
+#define MAX_LENGTH 300000
+#define MIN_LENGTH 24
+
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -23,11 +26,32 @@
 
 typedef enum {
     UNKNOWN_GAME,
-    SCOTTFREE,
-    TI994A,
+    ADVENTURELAND_US = 1,
+    PIRATE_US = 2,
+    SECRET_MISSION_US = 3,
+    VOODOO_CASTLE_US = 4,
+    COUNT_US = 5,
+    STRANGE_ODYSSEY_US = 6,
+    MYSTERY_FUNHOUSE_US = 7,
+    PYRAMID_OF_DOOM_US = 8,
+    GHOST_TOWN_US = 9,
+    SAVAGE_ISLAND_US = 10,
+    SAVAGE_ISLAND_2_US = 11,
+    GOLDEN_VOYAGE_US = 12,
+    CLAYMORGUE_US = 13,
+    ADVENTURELAND,
     PIRATE,
-    VOODOO,
-    STRANGE,
+    SECRET_MISSION,
+    VOODOO_CASTLE,
+    COUNT,
+    STRANGE_ODYSSEY,
+    MYSTERY_FUNHOUSE,
+    PYRAMID_OF_DOOM,
+    GHOST_TOWN,
+    SAVAGE_ISLAND,
+    SAVAGE_ISLAND2,
+    GOLDEN_VOYAGE,
+    CLAYMORGUE,
     BANZAI,
     BATON,
     BATON_C64,
@@ -54,17 +78,13 @@ typedef enum {
     WAXWORKS_C64,
     HULK,
     HULK_C64,
-    ADVENTURELAND,
+    HULK_US,
     ADVENTURELAND_C64,
-    SECRET_MISSION,
     SECRET_MISSION_C64,
-    CLAYMORGUE,
     CLAYMORGUE_C64,
     SPIDERMAN,
     SPIDERMAN_C64,
-    SAVAGE_ISLAND,
     SAVAGE_ISLAND_C64,
-    SAVAGE_ISLAND2,
     SAVAGE_ISLAND2_C64,
     GREMLINS,
     GREMLINS_C64,
@@ -77,6 +97,8 @@ typedef enum {
     ROBIN_OF_SHERWOOD_C64,
     SEAS_OF_BLOOD,
     SEAS_OF_BLOOD_C64,
+    SCOTTFREE,
+    TI994A,
     NUMGAMES
 } GameIDType;
 
@@ -93,6 +115,20 @@ typedef enum {
     ACT_CONTINUE,
     ACT_GAMEOVER
 } ActionResultType;
+
+typedef enum {
+    SYS_MSDOS,
+    SYS_C64,
+    SYS_ATARI8,
+    SYS_APPLE2
+} MachineType;
+
+
+typedef enum {
+    IMG_ROOM,
+    IMG_ROOM_OBJ,
+    IMG_INV_OBJ,
+} USImageType;
 
 typedef enum {
     NORTH,
@@ -190,6 +226,7 @@ typedef enum {
     SAVAGE_ISLAND_VARIANT,
     SECRET_MISSION_VARIANT,
     SEAS_OF_BLOOD_VARIANT,
+    US_VARIANT,
     OLD_STYLE,
 } GameType;
 
@@ -206,7 +243,7 @@ typedef enum {
     NO_HEADER,
     EARLY,
     LATE,
-    HULK_HEADER,
+    US_HEADER,
     GREMLINS_C64_HEADER,
     ROBIN_C64_HEADER,
     SUPERGRAN_C64_HEADER,

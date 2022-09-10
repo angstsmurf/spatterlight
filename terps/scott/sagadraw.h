@@ -29,13 +29,12 @@ void Flip(uint8_t character[]);
 
 void SagaSetup(size_t imgoffset);
 
-void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color);
 
 void SwitchPalettes(int pal1, int pal2);
 void DefinePalette(void);
-int32_t remap(int32_t color);
+int32_t Remap(int32_t color);
 
 extern palette_type palchosen;
 

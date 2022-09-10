@@ -43,6 +43,7 @@
 
 #include "glk.h"
 #include "glkstart.h"
+#include "graphics.h"
 
 #include "detectgame.h"
 #include "layouttext.h"
@@ -66,10 +67,8 @@
 #include "glkimp.h"
 #endif
 
-static const char *game_file;
-
-extern int pixel_size;
-extern int x_offset;
+const char *game_file;
+char *DirPath = ".";
 
 Header GameHeader;
 Item *Items;
@@ -92,6 +91,8 @@ int AutoInventory = 0;
 int Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
+int ImageWidth = 255;
+int ImageHeight = 96;
 int file_baseline_offset = 0;
 const char *title_screen = NULL;
 
@@ -138,7 +139,7 @@ int WeAreBigEndian = 0;
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
 
-//#define DEBUG_ACTIONS
+#define DEBUG_ACTIONS
 
 static void RestartGame(void);
 static int YesOrNo(void);
@@ -310,20 +311,20 @@ static void OpenTopWindow(void)
 
 const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = 255;
-    *height = 96;
+    *width = ImageWidth;
+    *height = ImageHeight;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    multiplier = graphheight / 96;
+    multiplier = graphheight / ImageHeight;
     if (255 * multiplier > graphwidth)
-        multiplier = graphwidth / 255;
+        multiplier = graphwidth / ImageWidth;
 
     if (multiplier == 0)
         multiplier = 1;
 
-    *width = 255 * multiplier;
-    *height = 96 * multiplier;
+    *width = ImageWidth * multiplier;
+    *height = ImageHeight * multiplier;
 
     return multiplier;
 }
@@ -378,6 +379,7 @@ void OpenGraphicsWindow(void)
         glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
             optimal_height, NULL);
     }
+    right_margin = optimal_width + x_offset;
 }
 
 void CloseGraphicsWindow(void)
@@ -580,6 +582,8 @@ int LoadDatabase(FILE *f, int loud)
     Item *ip;
     /* Load the header */
 
+    loud = 1;
+
     if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d", &ni, &na, &nw, &nr, &mc,
             &pr, &tr, &wl, &lt, &mn, &trm)
         < 10) {
@@ -667,7 +671,9 @@ int LoadDatabase(FILE *f, int loud)
         fprintf(stderr, "Reading %d word pairs.\n", nw);
     while (ct < nw + 1) {
         Verbs[ct] = ReadString(f);
+        fprintf(stderr, "Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
+        fprintf(stderr, "Nouns %d:%s.\n", ct, Nouns[ct]);
         ct++;
     }
     ct = 0;
@@ -748,7 +754,7 @@ int LoadDatabase(FILE *f, int loud)
         return 0;
     }
     if (loud)
-        fprintf(stderr, "Version %d.%02d of Adventure \n", ct / 100, ct % 100);
+        fprintf(stderr, "Version %d.%02d of Adventure ", ct / 100, ct % 100);
     if (fscanf(f, "%d", &ct) != 1) {
         fprintf(stderr, "Cannot read adventure number\n");
         FreeDatabase();
@@ -756,7 +762,13 @@ int LoadDatabase(FILE *f, int loud)
     }
     if (loud)
         fprintf(stderr, "%d.\nLoad Complete.\n\n", ct);
+    /* Extra value in at least Hulk */
+    fscanf(f, "%d", &ct);
 	fclose(f);
+    if (ct == 703) {
+        LoadDOSImages();
+        return HULK_US;
+    }
     return SCOTTFREE;
 }
 
@@ -789,6 +801,8 @@ void DrawImage(int image)
         DrawSagaPictureNumber(image);
 }
 
+void DrawUSRoom(int room);
+
 void DrawRoomImage(void)
 {
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
@@ -801,25 +815,33 @@ void DrawRoomImage(void)
         vector_image_shown = -1;
         VectorState = NO_VECTOR_IMAGE;
         glk_request_timer_events(0);
-        DrawBlack();
+        if (Game->type == US_VARIANT)
+            DrawUSRoom(0);
+        else
+            DrawBlack();
+        return;
+    }
+
+    if (Game->type == US_VARIANT) {
+        HulkLookUS();
         return;
     }
 
     switch (CurrentGame) {
-    case SEAS_OF_BLOOD:
-    case SEAS_OF_BLOOD_C64:
-        SeasOfBloodRoomImage();
-        return;
-    case ROBIN_OF_SHERWOOD:
-    case ROBIN_OF_SHERWOOD_C64:
-        RobinOfSherwoodLook();
-        return;
-    case HULK:
-    case HULK_C64:
-        HulkLook();
-        return;
-    default:
-        break;
+        case SEAS_OF_BLOOD:
+        case SEAS_OF_BLOOD_C64:
+            SeasOfBloodRoomImage();
+            return;
+        case ROBIN_OF_SHERWOOD:
+        case ROBIN_OF_SHERWOOD_C64:
+            RobinOfSherwoodLook();
+            return;
+        case HULK:
+        case HULK_C64:
+            HulkLook();
+            return;
+        default:
+            break;
     }
 
     if (Rooms[MyLoc].Image == 255) {
@@ -897,7 +919,9 @@ static void ListExitsSpectrumStyle(void)
     while (ct < 6) {
         if ((&Rooms[MyLoc])->Exits[ct] != 0) {
             if (f == 0) {
-                WriteToRoomDescriptionStream("\n\n%s", sys[EXITS]);
+                if (!(Options & PC_STYLE))
+                    WriteToRoomDescriptionStream("\n\n");
+                WriteToRoomDescriptionStream("%s", sys[EXITS]);
             } else {
                 WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
             }
@@ -1077,7 +1101,7 @@ void Look(void)
             if (f == 0) {
                 WriteToRoomDescriptionStream("%s", sys[YOU_SEE]);
                 f++;
-                if (Options & SPECTRUM_STYLE)
+                if (Options & SPECTRUM_STYLE && !(Options & PC_STYLE))
                     WriteToRoomDescriptionStream("\n");
             } else if (!(Options & (TRS80_STYLE | SPECTRUM_STYLE))) {
                 WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
@@ -1092,7 +1116,8 @@ void Look(void)
 
     if ((Options & TI994A_STYLE) && f) {
         WriteToRoomDescriptionStream(".");
-    }
+    } else if (Options & PC_STYLE && !f)
+        WriteToRoomDescriptionStream(". ");
 
     if (Options & SPECTRUM_STYLE) {
         ListExitsSpectrumStyle();
@@ -1100,8 +1125,10 @@ void Look(void)
         WriteToRoomDescriptionStream("\n");
     }
 
-    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF))
+    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF)) {
+        WriteToRoomDescriptionStream("\n");
         ListInventory(1);
+    }
 
     FlushRoomDescription(buf);
 }
@@ -1423,7 +1450,6 @@ void ListInventory(int upper)
 {
     void (*print_function)(const char *fmt, ...);
     if (upper) {
-        WriteToRoomDescriptionStream("\n");
         print_function = WriteToRoomDescriptionStream;
     } else {
         print_function = WriteToLowerWindow;
@@ -1720,6 +1746,8 @@ static ActionResultType PerformLine(int ct)
 				return ACT_FAILURE;
 				break;
         case 13:
+                if (dv > GameHeader.NumItems + 1)
+                    Fatal("Broken database!");
 #ifdef DEBUG_ACTIONS
             fprintf(stderr, "Is %s (%d) in play?\n", Items[dv].Text, dv);
 #endif
@@ -1883,6 +1911,14 @@ static ActionResultType PerformLine(int ct)
 					AdventureSheet();
 				else
 					ListInventory(0);
+                    if (Game->type == US_VARIANT) {
+                        char *buf = MemAlloc(1000);
+                        buf = memset(buf, 0, 1000);
+                        room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+                        ListInventory(1);
+                        FlushRoomDescription(buf);
+                        HulkInventoryUS();
+                    }
 				StopTime = 2;
                 break;
             case 67:
@@ -2013,7 +2049,7 @@ static ActionResultType PerformLine(int ct)
                 case GREMLINS_SPANISH:
                 case GREMLINS_GERMAN:
                 case GREMLINS_GERMAN_C64:
-					GremlinsAction(p);
+					GremlinsAction();
                     break;
                 default:
                     break;
@@ -2024,7 +2060,7 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
-                if (CurrentGame != HULK && CurrentGame != HULK_C64) {
+                if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
                     pptr++;
                 } else if (!(BitFlags & (1 << DARKBIT)))
 					DrawHulkImage(param[pptr++]);
@@ -2106,7 +2142,7 @@ static ExplicitResultType PerformActions(int vb, int no)
         return ER_SUCCESS;
     }
 
-    if ((CurrentGame == HULK || CurrentGame == HULK_C64) && vb == 39 && !dark) {
+    if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39 && !dark) {
         HulkShowImageOnExamine(no);
     }
 
@@ -2339,6 +2375,17 @@ int glkunix_startup_code(glkunix_startup_t *data)
             garglk_set_story_name(game_file);
         }
 #endif
+
+        const char *n;
+        int dirlen = 0;
+        if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
+            dirlen = (int)(n - game_file + 1);
+        }
+        if (dirlen) {
+            DirPath = MemAlloc(dirlen + 1);
+            memcpy(DirPath, game_file, dirlen);
+            DirPath[dirlen] = 0;
+        }
     }
 
     return 1;
@@ -2409,10 +2456,6 @@ void glk_main(void)
     if (game_file == NULL)
         Fatal("No game provided");
 
-    for (int i = 0; i < MAX_SYSMESS; i++) {
-        sys[i] = sysdict[i];
-    }
-
     const char **dictpointer;
 
     if (Options & YOUARE)
@@ -2420,8 +2463,11 @@ void glk_main(void)
     else
         dictpointer = sysdict_i_am;
 
-    for (int i = 0; i < MAX_SYSMESS && dictpointer[i] != NULL; i++) {
-        sys[i] = dictpointer[i];
+    for (int i = 0; i < MAX_SYSMESS; i++) {
+        if (dictpointer[i] != NULL)
+            sys[i] = dictpointer[i];
+        else
+            sys[i] = sysdict[i];
     }
 
     GameIDType game_type = DetectGame(game_file);
@@ -2436,6 +2482,28 @@ void glk_main(void)
         if (game_type != TI994A)
             Options |= TRS80_STYLE;
         split_screen = 1;
+    }
+
+    if (game_type == HULK_US || game_type == CLAYMORGUE_US) {
+        CurrentGame = game_type;
+
+        sys[MESSAGE_DELIMITER] = " ";
+        sys[ITEM_DELIMITER] = ". ";
+        sys[EXITS_DELIMITER] = " ";
+        sys[YOU_ARE] = "I am in a ";
+        sys[YOU_SEE] = ". Visible: ";
+        sys[INVENTORY] = "I've got: ";
+        sys[NOTHING] = "Nothing at all. ";
+        sys[EXITS] = "Some exits: ";
+        sys[WHAT_NOW] = "Command me? ";
+        sys[NORTH] = "NORTH";
+        sys[EAST] = "EAST";
+        sys[SOUTH] = "SOUTH";
+        sys[WEST] = "WEST";
+        sys[UP] = "UP";
+        sys[DOWN] = "DOWN";
+
+        Options |= PC_STYLE;
     }
 
     if (title_screen != NULL) {
@@ -2464,6 +2532,12 @@ one letter.\n\nDo you want to restore previously saved game?\n",
     }
 
     OpenTopWindow();
+
+    if (CurrentGame == HULK_US || CurrentGame == CLAYMORGUE_US  || CurrentGame == COUNT_US) {
+        ImageWidth = 280;
+        ImageHeight = 158;
+        OpenGraphicsWindow();
+    }
 
     if (game_type == SCOTTFREE)
         Output("\

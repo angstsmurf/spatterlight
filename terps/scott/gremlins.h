@@ -12,7 +12,7 @@
 
 void UpdateGremlinsAnimations(void);
 void GremlinsLook(void);
-void GremlinsAction(int p);
+void GremlinsAction(void);
 void LoadExtraGermanGremlinsData(void);
 void LoadExtraSpanishGremlinsData(void);
 void LoadExtraGermanGremlinsc64Data(void);

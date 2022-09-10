@@ -303,7 +303,7 @@ void LoadExtraSpanishGremlinsData(void)
         ExtraCommands[i] = SpanishExtraCommands[i];
 }
 
-void GremlinsAction(int parameter)
+void GremlinsAction(void)
 {
     DrawImage(68); /* Mogwai */
     Display(Bottom, "\n%s\n", sys[HIT_ENTER]);

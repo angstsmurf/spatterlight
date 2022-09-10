@@ -26,6 +26,7 @@
 #include "c64decrunch.h"
 #include "decompressz80.h"
 #include "load_ti99_4a.h"
+#include "atari8detect.h"
 #include "parser.h"
 
 extern const char *sysdict_zx[MAX_SYSMESS];
@@ -81,14 +82,15 @@ DictionaryType GetId(size_t *offset)
     return NOT_A_GAME;
 }
 
-void ReadHeader(uint8_t *ptr)
+uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i < 15; i++) {
         value = *ptr + 256 * *(ptr + 1);
         header[i] = value;
         ptr += 2;
     }
+    return ptr - 1;
 }
 
 int SanityCheckHeader(void)
@@ -200,7 +202,7 @@ uint8_t *SeekToPos(uint8_t *buf, int offset)
     return buf + offset;
 }
 
-int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr)
+int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
 {
     if (expected_start != FOLLOWS) {
         *offset = expected_start + file_baseline_offset;
@@ -248,7 +250,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *lt = -1;
             *trm = 0;
             break;
-        case HULK_HEADER:
+        case US_HEADER:
             *ni = h[3];
             *na = h[2];
             *nw = h[1];
@@ -360,13 +362,13 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
 }
 
 void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-    int tr, int wl, int lt, int mn, int trm)
+    int tr, int wl, int lt, int mn)
 {
     uint16_t value;
     for (int i = 0; i < 13; i++) {
         value = h[i];
         fprintf(stderr, "b $%X %d: ", 0x494d + 0x3FE5 + i * 2, i);
-        fprintf(stderr, "\t%d\n", value);
+        fprintf(stderr, "\t%d (%04x)\n", value, value);
     }
 
     fprintf(stderr, "Number of items =\t%d\n", ni);
@@ -389,7 +391,7 @@ typedef struct {
 } LineImage;
 
 void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
-    int offset;
+    size_t offset;
 
     if (info.start_of_image_data == FOLLOWS)
         ptr++;
@@ -444,7 +446,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
     uint8_t *ptr = entire_file;
     file_baseline_offset = dict_start - info.start_of_dictionary;
-    int offset = info.start_of_header + file_baseline_offset;
+    size_t offset = info.start_of_header + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
@@ -713,10 +715,9 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
 int TryLoading(struct GameInfo info, int dict_start, int loud)
 {
-    /* The Hulk does everything differently */
-    /* so it gets its own function */
+    /* The UK versions of Hulk uses the Mak Jukic binary database format */
     if (info.gameID == HULK || info.gameID == HULK_C64)
-        return TryLoadingHulk(info, dict_start);
+        return LoadBinaryDatabase(entire_file, file_length, info, dict_start);
 
     if (info.type == OLD_STYLE)
         return TryLoadingOld(info, dict_start);
@@ -741,7 +742,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         fprintf(stderr, "file_baseline_offset:%x (%d)\n", file_baseline_offset,
             file_baseline_offset);
 
-    int offset = info.start_of_header + file_baseline_offset;
+    size_t offset = info.start_of_header + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
@@ -754,7 +755,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         return 0;
 
     if (loud)
-        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
+        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn);
 
     GameHeader.NumItems = ni;
     GameHeader.NumActions = na;
@@ -774,7 +775,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     }
 
     if (loud) {
-        fprintf(stderr, "Found a valid header at position 0x%x\n", offset);
+        fprintf(stderr, "Found a valid header at position 0x%zx\n", offset);
         fprintf(stderr, "Expected: 0x%x\n",
             info.start_of_header + file_baseline_offset);
     }
@@ -1203,6 +1204,7 @@ GameIDType DetectGame(const char *file_name)
     }
 
     Game = (struct GameInfo *)MemAlloc(sizeof(struct GameInfo));
+    memset(Game, 0, sizeof(struct GameInfo));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
     GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
@@ -1217,46 +1219,54 @@ GameIDType DetectGame(const char *file_name)
 
         detectedGame = DetectTI994A();
 
-        if (!detectedGame) { /* Not a TI99/4A game, check if C64 */
+        if (!detectedGame) /* Not a TI99/4A game, check if C64 */
             detectedGame = DetectC64(&entire_file, &file_length);
 
-            if (!detectedGame) { /* Not a C64, check if ZX Spectrum */
-                uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
-                if (uncompressed != NULL) {
-                    free(entire_file);
-                    entire_file = uncompressed;
-                    file_length = 0xc000;
-                }
+        if (!detectedGame) { /* Not a C64 game, check if Atari */
+            result = DetectAtari8(&entire_file, &file_length);
+            if (result)
+                detectedGame = CurrentGame;
+        }
 
-                size_t offset;
 
-                DictionaryType dict_type = GetId(&offset);
+        if (!detectedGame) { /* Not a C64 game, check if ZX Spectrum */
+            uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
+            if (uncompressed != NULL) {
+                free(entire_file);
+                entire_file = uncompressed;
+                file_length = 0xc000;
+            }
 
-                if (dict_type == NOT_A_GAME)
-                    return UNKNOWN_GAME;
+            size_t offset;
 
-                for (int i = 0; games[i].Title != NULL; i++) {
-                    if (games[i].dictionary == dict_type) {
-                        if (TryLoading(games[i], offset, 0)) {
-                            free(Game);
-                            Game = &games[i];
-                            detectedGame = Game->gameID;
-                            break;
-                        }
+            DictionaryType dict_type = GetId(&offset);
+
+            if (dict_type == NOT_A_GAME)
+                return UNKNOWN_GAME;
+
+            for (int i = 0; games[i].Title != NULL; i++) {
+                if (games[i].dictionary == dict_type) {
+                    if (TryLoading(games[i], offset, 0)) {
+                        free(Game);
+                        Game = &games[i];
+                        detectedGame = Game->gameID;
+                        break;
                     }
                 }
             }
-
-            if (Game == NULL)
-                return 0;
-        } else {
-            CurrentGame = detectedGame;
         }
-    } else if (IsMysterious()) {
+
+        if (Game == NULL)
+            return 0;
+    } else {
+        CurrentGame = detectedGame;
+    }
+
+    if (IsMysterious()) {
         Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
     }
 
-    if (detectedGame == SCOTTFREE || detectedGame == TI994A)
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
         return detectedGame;
 
     /* Copy ZX Spectrum style system messages as base */
@@ -1391,7 +1401,7 @@ GameIDType DetectGame(const char *file_name)
     if ((Game->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();
 
-    /* If it is a C64 or a Mysterious Adventures game, we have setup the graphics already */
+    /* If it is a C64 or a Mysterious Adventures game, we have set up the graphics already */
     if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
         SagaSetup(0);
     }
