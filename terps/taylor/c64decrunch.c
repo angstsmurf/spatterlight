@@ -78,6 +78,7 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
                 *newlength = di_read(c64file, buf, 0xffff);
                 file = MemAlloc(*newlength);
                 memcpy(file, buf, *newlength);
+                free(c64file);
             }
         }
     }
