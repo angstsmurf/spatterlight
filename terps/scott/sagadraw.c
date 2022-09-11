@@ -719,7 +719,7 @@ void SagaSetup(size_t imgoffset)
 
         int patch = FindImagePatch(CurrentGame, picture_number, 0);
         while (patch) {
-            Patch(entire_file, patch);
+            Patch(img->imagedata, patch);
             patch = FindImagePatch(CurrentGame, picture_number, patch);
         }
 
