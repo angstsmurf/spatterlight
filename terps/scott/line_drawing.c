@@ -186,7 +186,7 @@ void DrawVectorPicture(int image) {
         return;
     }
 
-    if (vector_image_shown == image) {
+    if (vector_image_shown == image && pixels_to_draw) {
         if (VectorState == SHOWING_VECTOR_IMAGE) {
             return;
         } else {
