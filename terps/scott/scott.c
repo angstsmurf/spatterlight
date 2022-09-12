@@ -2099,6 +2099,9 @@ static void PrintTakenOrDropped(int index)
 static ExplicitResultType PerformActions(int vb, int no)
 {
     int dark = BitFlags & (1 << DARKBIT);
+    if (Items[LIGHT_SOURCE].Location == MyLoc ||
+        Items[LIGHT_SOURCE].Location == CARRIED)
+        dark = 0;
     int ct = 0;
     ExplicitResultType flag;
     int doagain = 0;
@@ -2112,8 +2115,6 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
     if (vb == 1 && no >= 1 && no <= 6) {
         int nl;
-        if (Items[LIGHT_SOURCE].Location == MyLoc || Items[LIGHT_SOURCE].Location == CARRIED)
-            dark = 0;
         if (dark)
             Output(sys[DANGEROUS_TO_MOVE_IN_DARK]);
         nl = Rooms[MyLoc].Exits[no - 1];
@@ -2210,8 +2211,6 @@ static ExplicitResultType PerformActions(int vb, int no)
 
     if (flag != ER_SUCCESS) {
         int item = 0;
-        if (Items[LIGHT_SOURCE].Location == MyLoc || Items[LIGHT_SOURCE].Location == CARRIED)
-            dark = 0;
 #if defined(__clang__)
 #pragma mark TAKE
 #endif
