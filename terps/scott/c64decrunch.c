@@ -126,10 +126,10 @@ static const struct c64rec c64_registry[] = {
     { GREMLINS_C64,        0x2ab00,   0xabf8, TYPE_D64, 2, "-e0x1255", NULL, 2, 0, 0, 0, 0 },   // Gremlins C64 (D64) version alt * ByteBoiler, Exomizer
     { GREMLINS_C64,        0x2ab00,   0xa265, TYPE_D64, 2, "-e0x1255", NULL, 2, 0, 0, 0, 0 },   // Gremlins C64 (D64)  version alt 2 * ByteBoiler, Exomizer
     { GREMLINS_C64,        0x2ab00,   0xa1dc, TYPE_D64, 2, "-e0x1255", NULL, 2, 0, 0, 0, 0 }, // Gremlins C64 (D64) version alt 3  * ByteBoiler, Exomizer
-    { GREMLINS_C64,        0x2ab00,   0x2ad9, TYPE_D64, 1, NULL, NULL, 2, 0, 0, 0, 0 }, // Gremlins C64 (D64) version alt 4  * ByteBoiler, Exomizer
-    { GREMLINS_C64,        0x2ab00,   0x4be2, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Not compressed
-    { GREMLINS_C64,        0x2ab00,   0x5c7a, TYPE_D64, 2, "-e0x1255", NULL, 2, 0, 0, 0, 0 }, // Not compressed
-    { GREMLINS_C64,        0x2ab00,   0x331a, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Gremlins C64 (D64) version alt 5 * Beta Dynamic Compressor v3.x/FX * Mr.Cross v2.x
+    { GREMLINS_SPANISH_C64,0x2ab00,   0x2ad9, TYPE_D64, 1, NULL, NULL, 0, 0xd002, 0xbf8a, 0x1f00, 0 }, // Gremlins Spanish C64 (D64) PUCrunch Generic Hack
+    { GREMLINS_C64,        0x2ab00,   0x4be2, TYPE_D64, 0, NULL, "G1", -0x8D, 0, 0, 0, 0 }, // Not compressed
+    { GREMLINS_C64,        0x2ab00,   0x5c7a, TYPE_D64, 3,"-a", NULL, 1, 0, 0, 0, 0 }, // CruelCrunch v2.5 -> ??? broken
+    { GREMLINS_C64,        0x2ab00,   0x331a, TYPE_D64, 2, NULL, NULL, 0, 0xd80f, 0xc782, 0x1f00, 0 }, // Gremlins C64 (D64) version alt 5 * Beta Dynamic Compressor v3.x/FX * Mr.Cross v2.x
     { GREMLINS_GERMAN_C64, 0xc003,    0x558c, TYPE_T64, 1, NULL,       NULL, 0, 0xd801, 0xc6c0, 0x1f00, 0 }, // German Gremlins C64 (T64) * TBC Multicompactor v2.x
     { GREMLINS_GERMAN_C64, 0x2ab00,   0x6729, TYPE_D64, 2, NULL,       NULL, 0, 0xdc02, 0xcac1, 0x1f00, 0 }, // German Gremlins C64 (D64) version * Exomizer
 

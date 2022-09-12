@@ -250,22 +250,7 @@ void LoadExtraGermanGremlinsData(void)
     FillInGermanSystemMessages();
 }
 
-void LoadExtraSpanishGremlinsData(void)
-{
-    Verbs[0] = "AUTO\0";
-    Nouns[0] = "ANY\0";
-
-    for (int i = YOU_ARE; i <= HIT_ENTER; i++)
-        sys[i] = system_messages[15 - YOU_ARE + i];
-    for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
-        sys[i] = system_messages[6 - I_DONT_UNDERSTAND + i];
-
-    for (int i = DROPPED; i <= OK; i++)
-        sys[i] = system_messages[2 - DROPPED + i];
-    sys[PLAY_AGAIN] = system_messages[5];
-    sys[YOURE_CARRYING_TOO_MUCH] = system_messages[22];
-    sys[IM_DEAD] = system_messages[23];
-    sys[YOU_CANT_GO_THAT_WAY] = system_messages[14];
+void LoadCommonSpanishGremlinsData(void) {
     sys[WHAT] = sys[HUH];
     sys[YES] = "s}";
     sys[NO] = "no";
@@ -274,7 +259,6 @@ void LoadExtraSpanishGremlinsData(void)
     sys[IS] = "\". ";
     sys[I_DONT_KNOW_HOW_TO] = "No s\x84 c|mo \"";
     sys[SOMETHING] = "\" algo. ";
-
     sys[ARE_YOU_SURE] = "\x83\x45stas segura? ";
     sys[NOTHING_HERE_TO_TAKE] = "No hay nada aqu} para tomar. ";
     sys[YOU_HAVE_NOTHING] = "No llevo nada. ";
@@ -301,6 +285,56 @@ void LoadExtraSpanishGremlinsData(void)
         ExtraNouns[i] = SpanishExtraNouns[i];
     for (int i = 0; i < NUMBER_OF_EXTRA_COMMANDS; i++)
         ExtraCommands[i] = SpanishExtraCommands[i];
+}
+
+void LoadExtraSpanishGremlinsData(void) {
+    for (int i = YOU_ARE; i <= HIT_ENTER; i++)
+        sys[i] = system_messages[15 - YOU_ARE + i];
+    for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
+        sys[i] = system_messages[6 - I_DONT_UNDERSTAND + i];
+    for (int i = DROPPED; i <= OK; i++)
+        sys[i] = system_messages[2 - DROPPED + i];
+    sys[PLAY_AGAIN] = system_messages[5];
+    sys[YOURE_CARRYING_TOO_MUCH] = system_messages[22];
+    sys[IM_DEAD] = system_messages[23];
+    sys[YOU_CANT_GO_THAT_WAY] = system_messages[14];
+
+    LoadCommonSpanishGremlinsData();
+}
+
+void LoadExtraSpanishGremlinsC64Data(void) {
+    SysMessageType messagekey[] = {
+        EXITS,
+        YOU_SEE,
+        YOU_ARE,
+        YOU_CANT_GO_THAT_WAY,
+        OK,
+        WHAT_NOW,
+        HUH,
+        YOU_HAVE_IT,
+        TAKEN,
+        DROPPED,
+        YOU_HAVENT_GOT_IT,
+        INVENTORY,
+        YOU_DONT_SEE_IT,
+        THATS_BEYOND_MY_POWER,
+        DIRECTION,
+        YOURE_CARRYING_TOO_MUCH,
+        IM_DEAD,
+        PLAY_AGAIN,
+        RESUME_A_SAVED_GAME,
+        YOU_CANT_DO_THAT_YET,
+        I_DONT_UNDERSTAND,
+        NOTHING,
+        BAD_DATA,
+    };
+
+    for (int i = 0; i < 23; i++) {
+        sys[messagekey[i]] = system_messages[6 + i];
+    }
+    sys[YOU_CANT_GO_THAT_WAY] = system_messages[9] + 6;
+    sys[HIT_ENTER] = system_messages[30];
+    LoadCommonSpanishGremlinsData();
 }
 
 void GremlinsAction(void)

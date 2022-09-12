@@ -298,7 +298,7 @@ glui32 *ToUnicode(const char *string)
             if (c == '\"') {
                 unichar = 0x2019; // ’
             }
-        } else if (Game && CurrentGame == GREMLINS_SPANISH) {
+        } else if (Game && (CurrentGame == GREMLINS_SPANISH_C64 || CurrentGame == GREMLINS_SPANISH)) {
             switch (c) {
             case '\x83':
                 unichar = 0xbf; // ¿

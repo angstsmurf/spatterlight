@@ -35,26 +35,25 @@ extern int header[];
 struct dictionaryKey {
     DictionaryType dict;
     const char *signature;
+    int len;
 };
 
 struct dictionaryKey dictKeys[] = {
-    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0" },
-    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0" },
-    { FIVE_LETTER_UNCOMPRESSED, "AUTO\0\0GO" },
-    { FOUR_LETTER_COMPRESSED, "aUTOgO\0" },
-    { GERMAN, "\xc7" "EHENSTEIGE" },
-    { FIVE_LETTER_COMPRESSED, "gEHENSTEIGE" }, // Gremlins C64
-    { SPANISH, "ANDAENTRAVAN" },
-    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" }, // Claymorgue
-    { ITALIAN, "AUTO\0VAI\0\0*ENTR" }
+    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0", 8 },
+    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0", 7 },
+    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN\0", 17}, // Claymorgue
+    { FOUR_LETTER_COMPRESSED, "aUTOgO\0", 7 },
+    { GERMAN_C64, "gEHENSTEIGE", 11 }, // Gremlins German C64
+    { GERMAN, "\xc7" "EHENSTEIGE", 10 },
+    { SPANISH, "\x81\0\0\0\xc9R\0\0ANDAENTR", 16 },
+    { SPANISH_C64, "\x81\0\0\0iR\0\0ANDAENTR", 16 },
+    { ITALIAN, "AUTO\0VAI\0\0*ENTR", 15 },
+    { NOT_A_GAME, NULL, 0 }
 };
 
-int FindCode(const char *x, int base)
+int FindCode(const char *x, int len)
 {
-    unsigned const char *p = entire_file + base;
-    int len = strlen(x);
-    if (len < 7)
-        len = 7;
+    unsigned const char *p = entire_file;
     while (p < entire_file + file_length - len) {
         if (memcmp(p, x, len) == 0) {
             return p - entire_file;
@@ -66,15 +65,20 @@ int FindCode(const char *x, int base)
 
 DictionaryType GetId(size_t *offset)
 {
-    for (int i = 0; i < 9; i++) {
-        *offset = FindCode(dictKeys[i].signature, 0);
+    for (int i = 0; dictKeys[i].dict != NOT_A_GAME; i++) {
+        *offset = FindCode(dictKeys[i].signature, dictKeys[i].len);
         if (*offset != -1) {
-            if (i == 4 || i == 5) // GERMAN
-                *offset -= 5;
-            else if (i == 6) // SPANISH
-                *offset -= 8;
-            else if (i == 7) // Claymorgue
-                *offset -= 11;
+            switch(dictKeys[i].dict) {
+                case GERMAN_C64:
+                case GERMAN:
+                    *offset -= 5;
+                    break;
+                case FIVE_LETTER_UNCOMPRESSED:
+                    *offset -= 6;
+                    break;
+                default:
+                    break;
+            }
             return dictKeys[i].dict;
         }
     }
@@ -136,7 +140,7 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
         for (int i = 0; i < info.word_length; i++) {
             c = *(ptr++);
 
-            if (info.dictionary == FOUR_LETTER_COMPRESSED || info.dictionary == FIVE_LETTER_COMPRESSED) {
+            if (info.dictionary == FOUR_LETTER_COMPRESSED || info.dictionary == GERMAN_C64 || info.dictionary == SPANISH_C64) {
                 if (charindex == 0) {
                     if (c >= 'a') {
                         c = toupper(c);
@@ -1258,9 +1262,10 @@ GameIDType DetectGame(const char *file_name)
 
         if (Game == NULL)
             return 0;
-    } else {
-        CurrentGame = detectedGame;
     }
+
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A)
+        CurrentGame = detectedGame;
 
     if (IsMysterious()) {
         Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
@@ -1356,6 +1361,9 @@ GameIDType DetectGame(const char *file_name)
             break;
         case GREMLINS_SPANISH:
             LoadExtraSpanishGremlinsData();
+            break;
+        case GREMLINS_SPANISH_C64:
+            LoadExtraSpanishGremlinsC64Data();
             break;
         case HULK_C64:
         case HULK:

@@ -1563,7 +1563,7 @@ const struct GameInfo games[] = {
         FOLLOWS, // item images
         0x47f0,  // actions
         UNCOMPRESSED,
-        0x5891,  // dictionary
+        0x5890,  // dictionary
         FOLLOWS, // start_of_room_descriptions;
         FOLLOWS, // start_of_room_connections;
         FOLLOWS, // start_of_messages;
@@ -2026,7 +2026,7 @@ const struct GameInfo games[] = {
         GREMLINS_GERMAN_C64,
         GREMLINS_VARIANT,       // type
         LOCALIZED | C64,        // subtype
-        FIVE_LETTER_COMPRESSED, // dictionary type
+        GERMAN_C64, // dictionary type
 
         99,  // Number of items
         243, // Number of actions
@@ -2108,6 +2108,51 @@ const struct GameInfo games[] = {
         0x6A71, // image_address_offset
         74,     // number_of_pictures;
         ZXOPT,  // palette
+        3,      // picture_format_version;
+    },
+
+    {
+        "Gremlins (Spanish C64)",
+        GREMLINS_SPANISH_C64,
+        GREMLINS_VARIANT, // type
+        LOCALIZED,        // subtype
+        SPANISH_C64,          // dictionary type
+
+        99,  // Number of items
+        243, // Number of actions
+        124, // Number of words
+        42,  // Number of rooms
+        6,   // Max carried items
+        4,   // Word length
+        98,  // Number of messages
+
+        125, // number_of_verbs
+        124, // number_of_nouns
+
+        0x3aef,              // header
+        GREMLINS_C64_HEADER, // header style
+
+        0x3bc9,  // room images
+        FOLLOWS, // item flags
+        FOLLOWS, // item images
+
+        0x3cbd, // actions
+        COMPRESSED,
+        0x4793,  // dictionary
+        FOLLOWS, // start_of_room_descriptions;
+        FOLLOWS, // start_of_room_connections;
+        FOLLOWS, // start_of_messages;
+        FOLLOWS, // start_of_item_descriptions;
+        0x3b01, // start_of_item_locations;
+
+        0x0255, // start_of_system_messages
+        0x0255, // start of directions
+
+        0x6302, // start_of_characters
+        0x6b02, // start_of_image_data
+        0x6c02, // image_address_offset
+        91,     // number_of_pictures;
+        C64B,  // palette
         3,      // picture_format_version;
     },
 

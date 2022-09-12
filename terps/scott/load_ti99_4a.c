@@ -122,7 +122,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud);
 
 GameIDType DetectTI994A()
 {
-    int offset = FindCode("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 0);
+    int offset = FindCode("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
     if (offset == -1)
         return UNKNOWN_GAME;
 

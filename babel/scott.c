@@ -273,12 +273,12 @@ static const struct scottrec scott_registry[] = {
     { 0xbb63, 0x3ec7, GREMLINS_SPANISH_IFID }, // Gremlins (Spanish) alt.tzx
     { 0x9ece, 0x70cc, GREMLINS_SPANISH_IFID }, // Gremlins (Spanish) z80
     { 0xbab4, 0x05a6, GREMLINS_SPANISH_IFID }, // Gremlins Spanish TAP image
+   { 0x2ab00, 0x2ad9, GREMLINS_SPANISH_IFID }, // Gremlins Spanish C64 (D64)
    { 0x2ab00, 0xc402, GREMLINS_IFID }, // Gremlins C64 (D64) version
    { 0x2ab00, 0xabf8, GREMLINS_IFID }, // Gremlins C64 (D64) version alt
    { 0x2ab00, 0xa265, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 2
    { 0x2ab00, 0x3ccf, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 3
    { 0x2ab00, 0xa1dc, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 4
-   { 0x2ab00, 0x2ad9, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 5
    { 0x2ab00, 0x4be2, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 6
    { 0x2ab00, 0x5c7a, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 7
    { 0x2ab00, 0x331a, GREMLINS_IFID }, // Gremlins C64 (D64) version alt 8

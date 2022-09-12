@@ -2047,6 +2047,7 @@ static ActionResultType PerformLine(int ct)
                     break;
                 case GREMLINS:
                 case GREMLINS_SPANISH:
+                case GREMLINS_SPANISH_C64:
                 case GREMLINS_GERMAN:
                 case GREMLINS_GERMAN_C64:
 					GremlinsAction();
