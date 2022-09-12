@@ -538,10 +538,7 @@ void Patch(uint8_t *offset, int patch_number)
     struct image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
         uint8_t newval = patch->patch[i];
-        //    fprintf(stderr, "Patch: changing offset %d in image %d from %x to
-        //    %x.\n",
-        //            i + patch->offset, patch->picture_number, offset[i +
-        //            patch->offset], newval);
+//        fprintf(stderr, "Patch: changing offset %d in image %d from %x to %x.\n", i + patch->offset, patch->picture_number, offset[i + patch->offset], newval);
         offset[i + patch->offset] = newval;
     }
 }

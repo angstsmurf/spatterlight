@@ -18,7 +18,6 @@
 #include "atari8c64draw.h"
 #include "atari8detect.h"
 
-
 typedef struct imglist {
     USImageType usage;
     int index;
@@ -74,7 +73,7 @@ static const struct imglist listHulk[] = {
     { IMG_ROOM_OBJ, 72, 0x15307 },
     { IMG_ROOM_OBJ, 47, 0x15fba },
     { IMG_ROOM_OBJ, 250, 0x15f3a },
-
+    
     { 0, 0, 0, }
 };
 
@@ -199,68 +198,68 @@ static const struct imglist listClaymorgue[] = {
 static const struct imglist listCount[] = {
     { IMG_INV_OBJ, 0, 0x0297 },
     { IMG_INV_OBJ, 16, 0x0310 }, // 1
-    { IMG_INV_OBJ, 19, 0x036b }, // 2
+    { IMG_INV_OBJ, 26, 0x036b }, // 2 cigarettes
     { IMG_INV_OBJ, 19, 0x03e4 }, // 3
     { IMG_INV_OBJ, 45, 0x0425 }, // 4
-    { IMG_INV_OBJ, 26, 0x049e }, // 5
+    { IMG_INV_OBJ, 42, 0x049e }, // 5
     { IMG_INV_OBJ, 47, 0x04c8 }, // 6
     { IMG_INV_OBJ, 3, 0x04f9 }, // 7
     { IMG_INV_OBJ, 17, 0x058e }, // 8
     { IMG_INV_OBJ, 27, 0x05dd }, // 9
     { IMG_INV_OBJ, 31, 0x0656 }, // 10
     { IMG_INV_OBJ, 5, 0x0697 }, // 11
-    { IMG_INV_OBJ, 12, 0x06f2 },
-    { IMG_INV_OBJ, 13, 0x073a },
-    { IMG_INV_OBJ, 14, 0x07a5 },
-    { IMG_INV_OBJ, 15, 0x07eb },
-    { IMG_INV_OBJ, 21, 0x0848 },
+    { IMG_INV_OBJ, 18, 0x06f2 }, // 12
+    { IMG_INV_OBJ, 46, 0x073a }, // 13
+    { IMG_INV_OBJ, 33, 0x07a5 }, // 14
+    { IMG_INV_OBJ, 8, 0x07eb }, // 15
+    { IMG_INV_OBJ, 21, 0x0848 }, // 16
     { IMG_INV_OBJ, 20, 0x08a5 }, // 17
-    { IMG_INV_OBJ, 18, 0x0900 },
-    { IMG_INV_OBJ, 19, 0x0997 },
-    { IMG_INV_OBJ, 20, 0x0a4f },
-    { IMG_INV_OBJ, 21, 0x0add },
+    { IMG_INV_OBJ, 51, 0x0900 }, // 18
+    { IMG_INV_OBJ, 61, 0x0997 }, // 19
+    { IMG_INV_OBJ, 9, 0x0a4f }, // 20
+    { IMG_INV_OBJ, 24, 0x0add }, // 21
     { IMG_INV_OBJ, 37, 0x0b56 }, // 22
-    { IMG_INV_OBJ, 23, 0x0bc8 },
-    { IMG_INV_OBJ, 24, 0x0c2c },
-    { IMG_INV_OBJ, 25, 0x0ceb },
-    { IMG_INV_OBJ, 26, 0x0d72 },
-    { IMG_INV_OBJ, 27, 0x0df9 },
-    { IMG_INV_OBJ, 28, 0x0e90 },
-    { IMG_INV_OBJ, 29, 0x0f2c }, // 29
+    { IMG_INV_OBJ, 15, 0x0bc8 }, // 23
+    { IMG_INV_OBJ, 23, 0x0c2c }, // 24
+    { IMG_INV_OBJ, 41, 0x0ceb }, // 25
+    { IMG_INV_OBJ, 53, 0x0d72 }, // 26
+    { IMG_INV_OBJ, 65, 0x0df9 }, // 27
+    { IMG_INV_OBJ, 58, 0x0e90 },
+    { IMG_INV_OBJ, 70, 0x0f2c }, // 29
     { IMG_INV_OBJ, 35, 0x0fac }, // 30
     { IMG_ROOM_OBJ, 6, 0x10c8 }, // 31
-    { IMG_ROOM_OBJ, 31, 0x116b }, // 32
-    { IMG_ROOM_OBJ, 33, 0x12ba },
+    { IMG_ROOM_OBJ, 7, 0x116b }, // 32
+    { IMG_ROOM_OBJ, 13, 0x12ba },
     { IMG_ROOM_OBJ, 5, 0x13f9 }, // 34
-    { IMG_ROOM_OBJ, 37, 0x168e }, // 35
+    { IMG_ROOM_OBJ, 40, 0x168e }, // 35
     { IMG_ROOM_OBJ, 52, 0x16b3 }, // 36
     { IMG_ROOM_OBJ, 55, 0x1b48 },
-    { IMG_ROOM, 38, 0x1ccf },
+    { IMG_ROOM, 90, 0x1ccf }, // 38, Closeup package
     { IMG_ROOM_OBJ, 63, 0x261e }, // 39
     { IMG_ROOM_OBJ, 67, 0x2733 }, // 40
-    { IMG_ROOM_OBJ, 17, 0x2cdd }, // 41
-    { IMG_ROOM_OBJ, 11, 0x2ecf },
+    { IMG_ROOM_OBJ, 80, 0x2cdd }, // 41, wall mirror
+    { IMG_ROOM_OBJ, 81, 0x2ecf }, // 42, other end of sheet
     { IMG_ROOM, 43, 0x3000 },
-    { IMG_ROOM_OBJ, 38, 0x302c },
-    { IMG_ROOM_OBJ, 45, 0x334f },
-    { IMG_ROOM_OBJ, 46, 0x3580 },
+    { IMG_ROOM_OBJ, 29, 0x302c }, // 44 coffin is open
+    { IMG_ROOM_OBJ, 30, 0x334f }, // 45 coffin is closed
+    { IMG_ROOM, 91, 0x3580 }, // 46, Closeup angry mob
     { IMG_ROOM_OBJ, 1, 0x4072 }, // 47
     { IMG_ROOM_OBJ, 36, 0x408e }, // 48
-    { IMG_ROOM, 2, 0x413a },
+    { IMG_ROOM, 2, 0x413a }, //49
     { IMG_ROOM, 0, 0x4a25 },
-    { IMG_ROOM, 1, 0x5580 },
+    { IMG_ROOM, 1, 0x5580 }, //51
     { IMG_ROOM, 3, 0x5e48 },
-    { IMG_ROOM, 4, 0x6a17 },
+    { IMG_ROOM, 4, 0x6a17 }, // 53
     { IMG_ROOM, 5, 0x74c1 },
-    { IMG_ROOM, 55, 0x7cba },
-    { IMG_ROOM, 56, 0x8f41 },
-    { IMG_ROOM, 8, 0x984f },
+    { IMG_ROOM, 6, 0x7cba }, // 55
+    { IMG_ROOM, 7, 0x8f41 },
+    { IMG_ROOM, 8, 0x984f }, // 57
     { IMG_ROOM, 9, 0xa10e },
-    { IMG_ROOM, 59, 0xad79 },
+    { IMG_ROOM, 10, 0xad79 }, // 59
     { IMG_ROOM, 11, 0xb687 },
-    { IMG_ROOM, 12, 0xc0d6 },
+    { IMG_ROOM, 12, 0xc0d6 }, // 61
     { IMG_ROOM, 13, 0xcc56 },
-    { IMG_ROOM, 14, 0xdf5d },
+    { IMG_ROOM, 14, 0xdf5d }, // 63
     { IMG_ROOM, 15, 0xe872 },
     { IMG_ROOM, 16, 0xf72c },
     { IMG_ROOM, 17, 0x10441 },
@@ -270,90 +269,87 @@ static const struct imglist listCount[] = {
     { IMG_ROOM, 21, 0x136b3 },
     { IMG_ROOM, 22, 0x1400e },
     { IMG_ROOM, 72, 0x14f97 },
-    { IMG_ROOM, 73, 0x16156 },
+    { IMG_ROOM_OBJ, 56, 0x16156 },  // 73
     { IMG_ROOM, 74, 0x1641a },
     { 0, 0, 0 }
 };
-//
-////{ "S000", 0, Disk image A at offset 6d97
-////    0x0e94 },
-//
+
 static const struct imglist listVoodoo[] = {
-    { IMG_ROOM, 0, 0x0297 },
-{ IMG_ROOM, 1, 0x0ac1 },
-{ IMG_ROOM, 2, 0x1a79 },
-{ IMG_ROOM, 3, 0x1e2c },
-{ IMG_ROOM, 4, 0x28a5 },
-{ IMG_ROOM, 5, 0x3817 },
-{ IMG_ROOM, 6, 0x3f87 },
-{ IMG_ROOM, 7, 0x4664 },
-{ IMG_ROOM, 8, 0x4f0e },
-{ IMG_ROOM, 9, 0x52ac },
-{ IMG_ROOM, 10, 0x5b48 },
-{ IMG_ROOM, 11, 0x6264 },
-{ IMG_ROOM, 12, 0x67dd },
-{ IMG_ROOM, 13, 0x740e },
-{ IMG_ROOM, 14, 0x7d4f },
-{ IMG_ROOM, 15, 0x8af2 },
-{ IMG_ROOM, 16, 0x954f },
-{ IMG_ROOM, 17, 0xa19e },
-{ IMG_ROOM, 18, 0xab17 },
-{ IMG_ROOM, 19, 0xbe1e },
-{ IMG_ROOM, 20, 0xc579 },
-{ IMG_ROOM, 21, 0xcf9e },
-{ IMG_ROOM, 22, 0xd533 },
-{ IMG_ROOM, 23, 0xe5e4 },
-{ IMG_ROOM, 24, 0xeb3a },
-{ IMG_ROOM, 25, 0xf856 },
-{ IMG_ROOM, 26, 0xfd87 },
-{ IMG_ROOM, 27, 0x1068e },
-{ IMG_ROOM, 28, 0x114e4 },
-{ IMG_ROOM, 29, 0x11956 },
-{ IMG_ROOM, 30, 0x12879 },
-{ IMG_ROOM, 31, 0x131cf },
-{ IMG_ROOM, 32, 0x13325 },
-{ IMG_ROOM, 33, 0x13407 },
-{ IMG_ROOM, 34, 0x134ba },
-{ IMG_ROOM, 35, 0x1355d },
-{ IMG_ROOM, 36, 0x1359e },
-{ IMG_ROOM, 37, 0x1360e },
-{ IMG_ROOM, 38, 0x136ba },
-{ IMG_ROOM, 39, 0x13733 },
-{ IMG_ROOM, 40, 0x1378e },
-{ IMG_ROOM, 41, 0x13817 },
-{ IMG_ROOM, 42, 0x13879 },
-{ IMG_ROOM, 43, 0x138dd },
-{ IMG_ROOM, 44, 0x1392c },
-{ IMG_ROOM, 45, 0x13972 },
-{ IMG_ROOM, 46, 0x139c1 },
-{ IMG_ROOM, 47, 0x13a2c },
-{ IMG_ROOM, 48, 0x13aa5 },
-{ IMG_ROOM, 49, 0x13b0e },
-{ IMG_ROOM, 50, 0x13b64 },
-{ IMG_ROOM, 51, 0x13c56 },
-{ IMG_ROOM, 52, 0x13cac },
-{ IMG_ROOM, 53, 0x13d6b },
-{ IMG_ROOM, 54, 0x13db3 },
-{ IMG_ROOM, 55, 0x13e97 },
-{ IMG_ROOM, 56, 0x13f72 },
-{ IMG_ROOM, 57, 0x13ff9 },
-{ IMG_ROOM, 58, 0x1405d },
-{ IMG_ROOM, 59, 0x140d6 },
-{ IMG_ROOM, 60, 0x1415d },
-{ IMG_ROOM, 61, 0x14217 },
-{ IMG_ROOM, 62, 0x14279 },
-{ IMG_ROOM, 63, 0x14333 },
-{ IMG_ROOM, 64, 0x144c1 },
-{ IMG_ROOM, 65, 0x147f2 },
-{ IMG_ROOM, 66, 0x14e1e },
-{ IMG_ROOM, 67, 0x15710 },
-{ IMG_ROOM, 68, 0x158c8 },
-{ IMG_ROOM, 69, 0x15972 },
-{ IMG_ROOM, 70, 0x15cf9 },
-{ IMG_ROOM, 71, 0x15eb3 },
-{ IMG_ROOM, 72, 0x16025 },
-{ IMG_ROOM, 73, 0x1625d },
-{ IMG_ROOM, 74, 0x16348 },
+    { IMG_ROOM, 1, 0x0297 },
+    { IMG_ROOM, 14, 0x0ac1 },
+    { IMG_ROOM, 2, 0x1a79 },
+    { IMG_ROOM, 3, 0x1e2c },
+    { IMG_ROOM, 4, 0x28a5 },
+    { IMG_ROOM, 5, 0x3817 },
+    { IMG_ROOM, 6, 0x3f87 },
+    { IMG_ROOM, 7, 0x4664 },
+    { IMG_ROOM, 8, 0x4f0e },
+    { IMG_ROOM, 9, 0x52ac },
+    { IMG_ROOM, 10, 0x5b48 },
+    { IMG_ROOM, 11, 0x6264 },
+    { IMG_ROOM, 12, 0x67dd },
+    { IMG_ROOM, 13, 0x740e },
+    { IMG_ROOM, 15, 0x7d4f },// 14
+    { IMG_ROOM, 14, 0x8af2 },
+    { IMG_ROOM, 16, 0x954f },
+    { IMG_ROOM, 17, 0xa19e },
+    { IMG_ROOM, 18, 0xab17 },
+    { IMG_ROOM, 19, 0xbe1e },
+    { IMG_ROOM, 20, 0xc579 },
+    { IMG_ROOM, 21, 0xcf9e },
+    { IMG_ROOM, 22, 0xd533 },
+    { IMG_ROOM, 23, 0xe5e4 },
+    { IMG_ROOM, 25, 0xeb3a },// 24
+    { IMG_ROOM, 24, 0xf856 }, //25
+    { IMG_ROOM, 26, 0xfd87 },
+    { IMG_ROOM, 90, 0x1068e },
+    { IMG_ROOM, 28, 0x114e4 },
+    { IMG_ROOM, 29, 0x11956 },
+    { IMG_ROOM, 0, 0x12879 },
+    { IMG_ROOM_OBJ, 17, 0x131cf },
+    { IMG_INV_OBJ, 26, 0x13325 }, // 32, bag
+    { IMG_INV_OBJ, 43, 0x13407 }, // 33 dusty idol
+    { IMG_INV_OBJ, 14, 0x134ba }, // 34
+    { IMG_INV_OBJ, 35, 0x1355d },
+    { IMG_INV_OBJ, 5, 0x1359e }, // 36
+    { IMG_INV_OBJ, 37, 0x1360e },
+    { IMG_INV_OBJ, 25, 0x136ba }, // 38
+    { IMG_INV_OBJ, 39, 0x13733 },
+    { IMG_INV_OBJ, 38, 0x1378e }, // 40
+    { IMG_INV_OBJ, 54, 0x13817 },
+    { IMG_INV_OBJ, 33, 0x13879 }, //42
+    { IMG_INV_OBJ, 0, 0x138dd },
+    { IMG_INV_OBJ, 44, 0x1392c },
+    { IMG_INV_OBJ, 47, 0x13972 }, //45
+    { IMG_INV_OBJ, 7, 0x139c1 }, //46
+    { IMG_INV_OBJ, 52, 0x13a2c }, // 47
+    { IMG_INV_OBJ, 48, 0x13aa5 }, //48
+    { IMG_INV_OBJ, 49, 0x13b0e }, //49
+    { IMG_INV_OBJ, 50, 0x13b64 },
+    { IMG_INV_OBJ, 51, 0x13c56 },
+    { IMG_INV_OBJ, 52, 0x13cac },
+    { IMG_INV_OBJ, 53, 0x13d6b },
+    { IMG_INV_OBJ, 54, 0x13db3 },
+    { IMG_INV_OBJ, 55, 0x13e97 },
+    { IMG_INV_OBJ, 56, 0x13f72 },
+    { IMG_INV_OBJ, 57, 0x13ff9 },
+    { IMG_INV_OBJ, 58, 0x1405d },
+    { IMG_INV_OBJ, 59, 0x140d6 },
+    { IMG_INV_OBJ, 60, 0x1415d },
+    { IMG_INV_OBJ, 61, 0x14217 },
+    { IMG_INV_OBJ, 62, 0x14279 },
+    { IMG_ROOM_OBJ, 19, 0x14333 }, //63
+    { IMG_ROOM_OBJ, 64, 0x144c1 },
+    { IMG_ROOM_OBJ, 65, 0x147f2 },
+    { IMG_ROOM_OBJ, 66, 0x14e1e },
+    { IMG_ROOM_OBJ, 67, 0x15710 },
+    { IMG_ROOM_OBJ, 68, 0x158c8 },
+    { IMG_ROOM_OBJ, 69, 0x15972 },
+    { IMG_ROOM_OBJ, 13, 0x15cf9 }, // 70
+    { IMG_ROOM_OBJ, 71, 0x15eb3 },
+    { IMG_ROOM_OBJ, 72, 0x16025 },
+    { IMG_ROOM_OBJ, 73, 0x1625d },
+    { IMG_ROOM_OBJ, 74, 0x16348 },
     { 0, 0, 0, }
 };
 
@@ -384,7 +380,6 @@ static int StripBrackets(char **string, size_t length) {
                     return 0;
                 }
             }
-
         }
         if (right_bracket && left_bracket) {
             sideB[left_bracket++] = '.';
@@ -431,7 +426,7 @@ static FILE *GetCompanionFile(void) {
     for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
         c = tolower(game_file[i]);
         if (i > 3 && ((c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') ||
-            (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
+                      (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
             if (gamefilelen > i + 2) {
                 c = game_file[i + 1];
                 if (c == ' ' || c == '_') {
@@ -458,121 +453,6 @@ static FILE *GetCompanionFile(void) {
     return NULL;
 }
 
-void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
-    fprintf(stderr, "First 10 bytes at 0x%04zx: ", offset);
-    for (int i = 0; i < 10; i++)
-        fprintf(stderr, "\\x%02x", ptr[offset + i]);
-    fprintf(stderr, "\n");
-}
-
-extern int x, y, xoff, yoff, xlen, ylen;
-
-void SetColor(int32_t index, const RGB *color);
-void DrawA8C64Pixels(int pattern, int pattern2);
-extern RGB colors[];
-
-void drawall(FILE *infile) {
-    OpenGraphicsWindow();
-    fseek(infile,0,SEEK_SET);
-    int offset=0x0297;
-    int count=75;
-    int outpic = 0;
-    int work, work2, size;
-    int curpos, i, j, c;
-    int countflag = (CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US);
-//    fprintf(stderr, "countflag == %d\n", countflag);
-//    if (strcmp(argv[4],"y")==0) countflag=1;
-//    printf("%d\n",countflag);
-//
-    // Get the size of the graphics chuck
-    fseek(infile, offset, SEEK_SET);
-
-    // Now loop round for each image
-    while (outpic<count)
-    {
-        x=0;y=0;
-        work2=fgetc(infile);
-        do
-        {
-            work=work2;
-            work2=fgetc(infile);
-            size=(work2*256)+work;
-//            fprintf(stderr, "%x\n",size);
-        } while ( size == 0 || work==0);
-        curpos=ftell(infile)-2;
-//        fprintf(stderr, "%d: %x\n",outpic,curpos);
-        fprintf(stderr, "    { IMG_ROOM, %d, 0x%04x },\n",outpic,curpos);
-
-        //size=work+(fgetc(infile)*256)+curpos;
-        size+=curpos;
-        if (curpos < 0xb390 && size > 0xb390)
-            size+=0x80;
-//        fprintf(stderr, "Size: %x\n",size);
-        // Get the offset
-        xoff=fgetc(infile)-3;
-        yoff=fgetc(infile);
-        x=xoff*8;
-        y=yoff;
-//        fprintf(stderr, "xoff: %d yoff: %d\n",xoff,yoff);
-
-        // Get the x length
-        xlen=fgetc(infile);
-        ylen=fgetc(infile);
-        if (countflag) ylen-=2;
-//        fprintf(stderr, "xlen: %x ylen: %x\n",xlen, ylen);
-
-        // Get the palette
-//        fprintf(stderr, "Colours: ");
-        for (i=1;i<4;i++)
-        {
-            work=fgetc(infile);
-            SetColor(i,&colors[work]);
-            SetColor(i,&colors[work]);
-//            fprintf(stderr, "%d ",work);
-        }
-        work=fgetc(infile);
-        SetColor(0,&colors[work]);
-//        fprintf(stderr, "%d\n",work);
-
-        //fseek(infile,offset+10,SEEK_SET);
-        j=0;
-        while (!feof(infile) && ftell(infile)<size)
-        {
-            // First get count
-            c=fgetc(infile);
-
-            if (((c & 0x80) == 0x80) || countflag)
-            { // is a counter
-                if (!countflag) c &= 0x7f;
-                if (countflag) c-=1;
-                work=fgetc(infile);
-                work2=fgetc(infile);
-                for (i=0;i<c+1;i++)
-                {
-                    DrawA8C64Pixels(work,work2);
-                }
-            }
-            else
-            {
-                // Don't count on the next j characters
-
-                for (i=0;i<c+1;i++)
-                {
-                    work=fgetc(infile);
-                    work2=fgetc(infile);
-                    DrawA8C64Pixels(work,work2);
-                }
-            }
-        }
-        outpic++;
-        HitEnter();
-        // Now go to the next image
-        fseek(infile,size,SEEK_SET);
-        glk_window_clear(Graphics);
-    }
-    fclose(infile);
-}
-
 static int ExtractImagesFromCompanionFile(FILE *infile)
 {
     int work,work2;
@@ -587,13 +467,11 @@ static int ExtractImagesFromCompanionFile(FILE *infile)
         list = listCount;
     else if (CurrentGame == VOODOO_CASTLE_US)
         list = listVoodoo;
-//
-//    OpenGraphicsWindow();
 
     USImages = new_image();
     struct USImage *image = USImages;
 
-//    // Now loop round for each image
+    // Now loop round for each image
     for (outpic = 0; list[outpic].offset != 0; outpic++)
     {
         fseek(infile, list[outpic].offset, SEEK_SET);
@@ -644,8 +522,6 @@ static int ExtractImagesFromCompanionFile(FILE *infile)
             if (!found2)
                 fprintf(stderr, "Could not find offset %lx in database\n", possoff);
         }
-//        DrawAtariC64Image(image);
-//        HitEnter();
 
         image->next = new_image();
         image->next->previous = image;
@@ -700,7 +576,6 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
         free(*sf);
         *sf = datafile;
         *extent = newlength;
-//        CurrentSys = SYS_ATARI8;
         ImageWidth = 280;
         ImageHeight = 158;
         int result = LoadBinaryDatabase(*sf, *extent, *Game, 0);
@@ -709,7 +584,6 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
         else
             fprintf(stderr, "Failed loading database\n");
         return result;
-
     }
     return 0;
 }
@@ -720,8 +594,6 @@ int LookForAtari8Images(uint8_t **sf, size_t *extent) {
         fprintf(stderr, "Did not find companion file.\n");
         return 0;
     }
-//    drawall(CompanionFile);
-//    fseek(CompanionFile,0,SEEK_SET);
     ExtractImagesFromCompanionFile(CompanionFile);
     return 1;
 }

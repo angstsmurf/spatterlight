@@ -1917,7 +1917,7 @@ static ActionResultType PerformLine(int ct)
                         room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
                         ListInventory(1);
                         FlushRoomDescription(buf);
-                        HulkInventoryUS();
+                        InventoryUS();
                     }
 				StopTime = 2;
                 break;
@@ -2144,8 +2144,14 @@ static ExplicitResultType PerformActions(int vb, int no)
         return ER_SUCCESS;
     }
 
-    if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39 && !dark) {
-        HulkShowImageOnExamine(no);
+    if (!dark) {
+        if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39) {
+            HulkShowImageOnExamine(no);
+        } else if (CurrentGame == COUNT_US && vb == 8) {
+            CountShowImageOnExamineUS(no);
+        } else if (CurrentGame == VOODOO_CASTLE_US && vb == 42) {
+            VoodooShowImageOnExamineUS(no);
+        }
     }
 
     if (CurrentCommand && CurrentCommand->allflag && vb == CurrentCommand->verb && !(dark && vb == TAKE)) {
@@ -2533,7 +2539,7 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 
     OpenTopWindow();
 
-    if (CurrentGame == HULK_US || CurrentGame == CLAYMORGUE_US  || CurrentGame == COUNT_US) {
+    if (CurrentGame == HULK_US || CurrentGame == CLAYMORGUE_US  || CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US) {
         ImageWidth = 280;
         ImageHeight = 158;
         OpenGraphicsWindow();

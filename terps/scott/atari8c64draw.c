@@ -15,9 +15,7 @@ extern int size;
 
 typedef uint8_t RGB[3];
 
-extern winid_t Graphics;
-
-void DrawA8C64Pixels(int pattern, int pattern2)
+static void DrawA8C64Pixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
 
@@ -56,8 +54,6 @@ void DrawA8C64Pixels(int pattern, int pattern2)
         y = yoff;
     }
 }
-
-void SetColor(int32_t index, const RGB *color);
 
 /* C64 colors */
 static const RGB black = { 0, 0, 0 };
@@ -98,7 +94,7 @@ static const RGB algreen = { 0x5f, 0x8f, 0x00 };
 static const RGB tan = { 0xaf, 0x99, 0x3a };
 static const RGB lilac = { 0x83, 0x58, 0xee };
 
-const RGB colors[256] = {
+static const RGB colors[256] = {
     { 0x00, 0x00, 0x00 },
     { 0x1c, 0x1c, 0x1c },
     { 0x39, 0x39, 0x39 },

@@ -1233,7 +1233,7 @@ GameIDType DetectGame(const char *file_name)
         }
 
 
-        if (!detectedGame) { /* Not a C64 game, check if ZX Spectrum */
+        if (!detectedGame) { /* Not an Atari game, check if ZX Spectrum */
             uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
             if (uncompressed != NULL) {
                 free(entire_file);

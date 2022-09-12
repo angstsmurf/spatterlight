@@ -62,7 +62,6 @@ int LoadDOSImages(void) {
 }
 
 uint8_t *ReadHeader(uint8_t *ptr);
-// extern void print_header_info(int header[]);
 extern int header[];
 
 void DrawUSImage(USImage *image) {
@@ -122,12 +121,60 @@ void DrawUSRoomObject(int item) {
     }
 }
 
-void HulkInventoryUS(void)
+void InventoryUS(void)
 {
     DrawUSRoom(98);
     DrawInventoryImages();
     Output(sys[HIT_ENTER]);
     HitEnter();
+}
+
+void VoodooShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 53: // Count Cristo
+            if (Items[27].Location == MyLoc)
+                image = 0;
+            break;
+//        case 50: // Crowd
+//            if (Items[50].Location == MyLoc)
+//                image = 1;
+//            break;
+        default:
+            break;
+    }
+
+    if (image >= 0) {
+        if (Graphics)
+            glk_window_clear(Graphics);
+        DrawUSRoom(90 + image);
+        Output(sys[HIT_ENTER]);
+        HitEnter();
+    }
+}
+
+void CountShowImageOnExamineUS(int noun) {
+    int image = -1;
+    switch (noun) {
+        case 21: // Package
+            if (Items[45].Location == MyLoc || Items[45].Location == CARRIED)
+                image = 0;
+            break;
+        case 50: // Crowd
+            if (Items[50].Location == MyLoc)
+                image = 1;
+            break;
+        default:
+            break;
+    }
+
+    if (image >= 0) {
+        if (Graphics)
+            glk_window_clear(Graphics);
+        DrawUSRoom(90 + image);
+        Output(sys[HIT_ENTER]);
+        HitEnter();
+    }
 }
 
 void HulkShowImageOnExamineUS(int noun) {
@@ -167,8 +214,6 @@ void HulkShowImageOnExamineUS(int noun) {
             break;
         case 26: // BASE
         case 66: // HOLE
-        case 67: // OUTL
-        case 68: // GAS
             if (MyLoc == 14)
                 image = 7;
             break;
@@ -289,12 +334,17 @@ void HulkLookUS(void)
     DrawUSRoom(room);
     DrawRoomObjectImages();
     if (CurrentGame == HULK_US) {
-        if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc)
+        if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
             DrawUSRoomObject(70);
-        if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc)
+        if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
             DrawUSRoomObject(72);
-        if (Items[14].Location == MyLoc || Items[15].Location == MyLoc)
+        if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
             DrawUSRoomObject(13);
+    } else if (CurrentGame == COUNT_US) {
+        if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
+            DrawUSRoomObject(80);
+        if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
+            DrawUSRoomObject(81);
     }
 }
 
