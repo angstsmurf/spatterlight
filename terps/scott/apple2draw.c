@@ -17,6 +17,8 @@ static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
 
 void ClearApple2ScreenMem(void) {
+    if (!screenmem)
+        return;
     memset(screenmem, 0, 0x1fff);
 }
 

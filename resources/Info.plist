@@ -832,6 +832,26 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>woz</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Apple 2 Woz Disk Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.woz</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -1229,7 +1249,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -1265,7 +1285,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="glulx"</string>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -1995,6 +2015,33 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>msa</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Apple 2 Woz Disk Image</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>WOZ</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.woz</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>woz</string>
 				</array>
 			</dict>
 		</dict>

@@ -88,7 +88,7 @@ typedef struct {
 #define FORCE_INVENTORY_OFF 2048     /* Inventory in upper window always off */
 #define PC_STYLE 4096    /* Display in style used on IBM PC (MS-DOS) */
 
-#define MAX_GAMEFILE_SIZE 200000
+#define MAX_GAMEFILE_SIZE 250000
 
 /* Anything used by the other source files goes here */
 

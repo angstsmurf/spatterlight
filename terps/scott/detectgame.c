@@ -27,6 +27,8 @@
 #include "decompressz80.h"
 #include "load_ti99_4a.h"
 #include "atari8detect.h"
+#include "apple2detect.h"
+
 #include "parser.h"
 
 extern const char *sysdict_zx[MAX_SYSMESS];
@@ -1228,6 +1230,12 @@ GameIDType DetectGame(const char *file_name)
 
         if (!detectedGame) { /* Not a C64 game, check if Atari */
             result = DetectAtari8(&entire_file, &file_length);
+            if (result)
+                detectedGame = CurrentGame;
+        }
+
+        if (!detectedGame) { /* Not a C64 game, check if Apple 2 */
+            result = DetectApple2(&entire_file, &file_length);
             if (result)
                 detectedGame = CurrentGame;
         }

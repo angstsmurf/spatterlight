@@ -6,7 +6,7 @@
 
 #define FORMAT scott
 #define HOME_PAGE "https://github.com/cspiegel/scottfree-glk"
-#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.fiad,.atr"
+#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr"
 #define NO_METADATA
 #define NO_COVER
 
@@ -57,7 +57,7 @@ static const char *ifids[] = {
     "AA9FF03F-FBE3-4767-8ACD-29FBFDCD3A91", // Gremlins - The Adventure (German)
     "75EE0452-0A6A-4100-9185-A79316812E0B", // Super Gran - The Adventure
     "E8021308-8719-4A34-BDF9-C6F388129E53", // Robin Of Sherwood
-    "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB" // Seas Of Blood
+    "8A23C0CB-2DB3-4A19-A87E-E511477D2CDB"  // Seas Of Blood
 };
 
 typedef enum {
@@ -202,6 +202,8 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0xcdd8, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (D64)
     { 0x8534, 0x623a, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (T64)
    { 0x2ab00, 0x2918, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (D64)
+   { 0x3954c, 0x8626, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (WOZ)
+   { 0x23000, 0x0160, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK)
 
     { 0xbaef, 0x52cc, ADVENTURELAND_IFID }, // Adventureland.tzx
     { 0xbb84, 0x6d93, ADVENTURELAND_IFID }, // Adventureland - Alternate.tzx
@@ -219,6 +221,17 @@ static const struct scottrec scott_registry[] = {
     { 0x88be, 0xa122, SECRET_MISSION_IFID }, // Secret Mission  C64 (T64)
    { 0x2ab00, 0x04d6, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64)
 
+    { 0x38f00, 0xd6c2, THE_COUNT_IFID }, // The Count US (WOZ)
+    { 0x39589, 0xbf0e, THE_COUNT_IFID }, // The Count US (WOZ) alt
+    { 0x23000, 0x09f4, THE_COUNT_IFID }, // The Count US (DSK)
+
+    { 0x39558, 0xff6a, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ)
+    { 0x23000, 0x823d, VOODOO_CASTLE_IFID }, // Voodoo Castle US (DSK)
+
+    { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
+    { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
+    { 0x23000, 0xd700, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (DSK)
+
     { 0xbae1, 0x83e9, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle.tzx
     { 0xbc2e, 0x4d84, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
     { 0xbaa7, 0x7371, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle TAP image
@@ -233,6 +246,9 @@ static const struct scottrec scott_registry[] = {
    { 0x2adab, 0x1fac, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xfbb6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xa957, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US side A (D64)
+   { 0x39567, 0x76be, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (WOZ)
+   { 0x23000, 0xbd9b, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK)
+   { 0x23000, 0xd27a, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt
 
     { 0xb36e, 0xbe5d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman - Alternate.tzx

@@ -1,6 +1,6 @@
 //
 //  apple2detect.c
-//  plus
+//  scottfree
 //
 //  Created by Administrator on 2022-08-03.
 //
@@ -11,6 +11,10 @@
 #include "scott.h"
 #include "definitions.h"
 #include "graphics.h"
+#include "woz2nib.h"
+#include "nib2dsk.h"
+#include "hulk.h"
+#include "apple2draw.h"
 
 #include "apple2detect.h"
 
