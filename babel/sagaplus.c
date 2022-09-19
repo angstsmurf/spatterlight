@@ -21,44 +21,77 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+static const char *ifids[] = {
+    NULL,
+    "B5AF6E4DB3C3B2118FAEA3849F807617", // The Sorcerer Of Claymorgue Castle
+    "DAEE386546CE71831DC365B0FF10F233", // Questprobe featuring Spider-Man
+    "13EA7A22731E90598456D13311923833", // Buckaroo Banzai
+    "126E2481-30F5-46D4-ABDD-9339526F516B" // Fantastic Four
+};
+
+typedef enum {
+    NO_IFID,
+    SORCERER_OF_CLAYMORGUE_CASTLE_IFID,
+    QUESTPROBE_SPIDERMAN_IFID,
+    BUCKAROO_BANZAI_IFID,
+    QUESTPROBE_FANTASTIC_FOUR_IFID
+} IfidType;
+
+static const char *idstrings[] = {
+    NULL,
+    "Sorcerer of Claymorgue Castle. SAGA#13.", // The Sorcerer Of Claymorgue Castle
+    "SPIDER-MAN (tm)", // Questprobe featuring Spider-Man
+    "BUCKAROO", // Buckaroo Banzai
+    "FF #1 " // Fantastic Four
+};
+
+typedef enum {
+    NO_ID_STRING,
+    SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING,
+    QUESTPROBE_SPIDERMAN_ID_STRING,
+    BUCKAROO_BANZAI_ID_STRING,
+    QUESTPROBE_FANTASTIC_FOUR_ID_STRING
+} IdStringType;
+
 struct plusrec {
     int32 length;
     uint16_t chk;
-    const char *id;
-    const char *ifid;
+    IdStringType id;
+    IfidType ifid;
 };
 
 static const struct plusrec plus_registry[] = {
-    { 0, 0, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // Spider-Man MS-DOS
-    { 0x2ab00, 0x833c, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
-    { 0x2ab00, 0x83dc, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
-    { 0x2ab00, 0xe1cd, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[sharedata_1987].d64
-    { 0x16810, 0xc003, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr
-    { 0x16810, 0xbfc1, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr alt
-    { 0x16810, 0xfea3, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr alt 2
-    { 0x5a000, 0x973b, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // st
-    { 0x23000, 0xc267, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // apple 2
-    { 0, 0, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Claymorgue MS-DOS
-    { 0x5a000, 0xcc3, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // st
-    { 0, 0, "BUCKAROO", "13EA7A22731E90598456D13311923833" },
-    { 0x2ab00, 0x3464, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64
-    { 0x2ab00, 0x3720, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64 alt
-    { 0x16810, 0x5434, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit
-    { 0x16810, 0x4735, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit Rev 387
-    { 0x16810, 0xe399, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit Rev 397
-    { 0x23000, 0x3d97, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2
-    { 0x23000, 0xca17, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt
-    { 0x23000, 0xa543, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt 2
-    { 0, 0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four MS-DOS
-    { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64
-    { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64 alt
-    { 0x2ab00, 0xd938, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four C64 alt 2
-    { 0x16810, 0xe3ad, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
-    { 0x16810, 0x3c1e, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
-    { 0x23000, 0xa450, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Apple 2
-    { 0x3426a, 0x8ffa, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari ST
+    { 0, 0, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // Spider-Man MS-DOS
+    { 0x2ab00, 0x833c, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // questprobe_spider-man[gvp_1985](!).d64
+    { 0x2ab00, 0x83dc, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // questprobe_spider-man[gvp_1985](!).d64
+    { 0x2ab00, 0xe1cd, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // questprobe_spider-man[sharedata_1987].d64
+    { 0x16810, 0xc003, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // atr
+    { 0x16810, 0xbfc1, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // atr alt
+    { 0x16810, 0xfea3, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // atr alt 2
+    { 0x5a000, 0x973b, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // st
+    { 0x23000, 0xc267, QUESTPROBE_SPIDERMAN_ID_STRING, QUESTPROBE_SPIDERMAN_IFID }, // apple 2
+    { 0, 0, SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Claymorgue MS-DOS
+    { 0x5a000, 0xcc3, SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // st
+    { 0, 0, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID },
+    { 0x2ab00, 0x3464, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // BuckarooBanzai.d64
+    { 0x2ab00, 0x3720, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // BuckarooBanzai.d64 alt
+    { 0x16810, 0x5434, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit
+    { 0x16810, 0x4735, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit Rev 387
+    { 0x16810, 0xe399, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit Rev 397
+    { 0x23000, 0x3d97, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2
+    { 0x23000, 0xca17, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2 alt
+    { 0x23000, 0xa543, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2 alt 2
+    { 0, 0, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four MS-DOS
+    { 0x2ab00, 0xec72, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four C64
+    { 0x2ab00, 0xd2c0, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four C64 alt
+    { 0x2ab00, 0xd938, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four C64 alt 2
+    { 0x16810, 0xe3ad, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Atari 8-bit
+    { 0x16810, 0x3c1e, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Atari 8-bit
+    { 0x23000, 0xa450, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Apple 2
+    { 0x23000, 0xd841, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Apple 2 alt
+    { 0x3426a, 0x8ffa, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Atari ST
 
-    { 0, 0, "\0", "\0" }
+    { 0, 0, NO_ID_STRING, NO_IFID }
 };
 
 /* All numbers in Saga Plus text format files are stored as text delimited by whitespace */
@@ -152,12 +185,12 @@ static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifi
 
     uint16_t chksum = checksum(sf, extent);
 
-    for (int i = 0; plus_registry[i].ifid[0] != '\0'; i++) {
+    for (int i = 0; plus_registry[i].ifid != NO_IFID; i++) {
         if (extent == plus_registry[i].length &&
             chksum == plus_registry[i].chk) {
             if (ifid != NULL) {
-                size_t length = strlen(plus_registry[i].ifid);
-                strncpy(*ifid, plus_registry[i].ifid, length);
+                size_t length = strlen(ifids[plus_registry[i].ifid]);
+                strncpy(*ifid, ifids[plus_registry[i].ifid], length);
                 (*ifid)[length] = 0;
             }
             return VALID_STORY_FILE_RV;
@@ -184,11 +217,11 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     memcpy(title, sf + 1, offset);
     title[offset - 2] = 0;
 
-    for (int i = 0; plus_registry[i].id[0] != 0; i++) {
-        if (strcmp(plus_registry[i].id, title) == 0 ) {
+    for (int i = 0; plus_registry[i].id != NO_ID_STRING; i++) {
+        if (strcmp(idstrings[plus_registry[i].id], title) == 0 ) {
             if (ifid != NULL) {
-                size_t length = strlen(plus_registry[i].ifid);
-                strncpy(*ifid, plus_registry[i].ifid, length);
+                size_t length = strlen(ifids[plus_registry[i].ifid]);
+                strncpy(*ifid, ifids[plus_registry[i].ifid], length);
                 (*ifid)[length] = 0;
             }
             return VALID_STORY_FILE_RV;
@@ -205,8 +238,7 @@ static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
     int header[18];
     bool failure = false;
 
-    /* We simply run a sped-up version of the first three parts of reading the database
-     * from the file, and bail at the first sign of failure.
+    /* We read the id string and compare it to idstrings[].
      */
 
     read_string(storystring, extent, &offset, &failure, false);
@@ -220,10 +252,12 @@ static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
     memcpy(title, storystring + 1, offset);
     title[offset - 2] = 0;
 
-    if (strcmp("SPIDER-MAN (tm)", title) != 0 &&
-        strcmp("BUCKAROO", title) != 0 &&
-        strcmp("Sorcerer of Claymorgue Castle. SAGA#13.", title) != 0 &&
-        strcmp("FF #1 ", title) != 0) {
+    int found = 0;
+    for (int i = 1; i < 5; i++)
+        if (strcmp(idstrings[i], title) == 0)
+            found = 1;
+
+    if (found == 0) {
         fprintf(stderr, "title: \"%s\"\n", title);
         return INVALID_STORY_FILE_RV;
     }
