@@ -136,10 +136,10 @@ void VoodooShowImageOnExamineUS(int noun) {
             if (Items[27].Location == MyLoc)
                 image = 0;
             break;
-//        case 50: // Crowd
-//            if (Items[50].Location == MyLoc)
-//                image = 1;
-//            break;
+        case 13: // Broken sword
+            if (Items[33].Location == MyLoc || Items[33].Location == CARRIED)
+                image = 1;
+            break;
         default:
             break;
     }

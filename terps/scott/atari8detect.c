@@ -290,23 +290,23 @@ static const struct imglist listVoodoo[] = {
     { IMG_ROOM, 12, 0x67dd },
     { IMG_ROOM, 13, 0x740e },
     { IMG_ROOM, 15, 0x7d4f },// 14
-    { IMG_ROOM, 14, 0x8af2 },
-    { IMG_ROOM, 16, 0x954f },
-    { IMG_ROOM, 17, 0xa19e },
-    { IMG_ROOM, 18, 0xab17 },
-    { IMG_ROOM, 19, 0xbe1e },
-    { IMG_ROOM, 20, 0xc579 },
-    { IMG_ROOM, 21, 0xcf9e },
-    { IMG_ROOM, 22, 0xd533 },
-    { IMG_ROOM, 23, 0xe5e4 },
+    { IMG_ROOM, 14, 0x8af2 },// 15
+    { IMG_ROOM, 17, 0x954f },// 16
+    { IMG_ROOM, 18, 0xa19e },
+    { IMG_ROOM, 19, 0xab17 },
+    { IMG_ROOM, 20, 0xbe1e },
+    { IMG_ROOM, 21, 0xc579 },
+    { IMG_ROOM, 22, 0xcf9e }, //21
+    { IMG_ROOM, 23, 0xd533 }, //22
+    { IMG_ROOM, 23, 0xe5e4 }, //23
     { IMG_ROOM, 25, 0xeb3a },// 24
-    { IMG_ROOM, 24, 0xf856 }, //25
+    { IMG_ROOM, 91, 0xf856 }, //25
     { IMG_ROOM, 26, 0xfd87 },
-    { IMG_ROOM, 90, 0x1068e },
+    { IMG_ROOM, 90, 0x1068e }, // 27
     { IMG_ROOM, 28, 0x114e4 },
     { IMG_ROOM, 29, 0x11956 },
-    { IMG_ROOM, 0, 0x12879 },
-    { IMG_ROOM_OBJ, 17, 0x131cf },
+    { IMG_ROOM, 0, 0x12879 }, // 30
+    { IMG_ROOM_OBJ, 17, 0x131cf }, //31
     { IMG_INV_OBJ, 26, 0x13325 }, // 32, bag
     { IMG_INV_OBJ, 43, 0x13407 }, // 33 dusty idol
     { IMG_INV_OBJ, 14, 0x134ba }, // 34
@@ -321,28 +321,28 @@ static const struct imglist listVoodoo[] = {
     { IMG_INV_OBJ, 0, 0x138dd },
     { IMG_INV_OBJ, 44, 0x1392c },
     { IMG_INV_OBJ, 47, 0x13972 }, //45
-    { IMG_INV_OBJ, 7, 0x139c1 }, //46
+    { IMG_INV_OBJ, 2, 0x139c1 }, //46
     { IMG_INV_OBJ, 52, 0x13a2c }, // 47
     { IMG_INV_OBJ, 48, 0x13aa5 }, //48
     { IMG_INV_OBJ, 49, 0x13b0e }, //49
-    { IMG_INV_OBJ, 50, 0x13b64 },
-    { IMG_INV_OBJ, 51, 0x13c56 },
-    { IMG_INV_OBJ, 52, 0x13cac },
+    { IMG_INV_OBJ, 7, 0x13b64 },
+    { IMG_INV_OBJ, 4, 0x13c56 }, //51
+    { IMG_INV_OBJ, 52, 0x13cac }, //52
     { IMG_INV_OBJ, 53, 0x13d6b },
-    { IMG_INV_OBJ, 54, 0x13db3 },
+    { IMG_INV_OBJ, 54, 0x13db3 }, //54
     { IMG_INV_OBJ, 55, 0x13e97 },
-    { IMG_INV_OBJ, 56, 0x13f72 },
+    { IMG_INV_OBJ, 56, 0x13f72 }, //56
     { IMG_INV_OBJ, 57, 0x13ff9 },
-    { IMG_INV_OBJ, 58, 0x1405d },
+    { IMG_INV_OBJ, 58, 0x1405d }, //58
     { IMG_INV_OBJ, 59, 0x140d6 },
-    { IMG_INV_OBJ, 60, 0x1415d },
+    { IMG_INV_OBJ, 60, 0x1415d }, //60
     { IMG_INV_OBJ, 61, 0x14217 },
     { IMG_INV_OBJ, 62, 0x14279 },
     { IMG_ROOM_OBJ, 19, 0x14333 }, //63
     { IMG_ROOM_OBJ, 64, 0x144c1 },
-    { IMG_ROOM_OBJ, 65, 0x147f2 },
+    { IMG_ROOM_OBJ, 28, 0x147f2 }, //65
     { IMG_ROOM_OBJ, 66, 0x14e1e },
-    { IMG_ROOM_OBJ, 67, 0x15710 },
+    { IMG_ROOM_OBJ, 67, 0x15710 }, //67
     { IMG_ROOM_OBJ, 68, 0x158c8 },
     { IMG_ROOM_OBJ, 69, 0x15972 },
     { IMG_ROOM_OBJ, 13, 0x15cf9 }, // 70
@@ -350,6 +350,9 @@ static const struct imglist listVoodoo[] = {
     { IMG_ROOM_OBJ, 72, 0x16025 },
     { IMG_ROOM_OBJ, 73, 0x1625d },
     { IMG_ROOM_OBJ, 74, 0x16348 },
+    { IMG_ROOM_OBJ, 75, 0x16472 }, //75
+    { IMG_INV_OBJ, 32, 0x164f2 }, //76
+
     { 0, 0, 0, }
 };
 
