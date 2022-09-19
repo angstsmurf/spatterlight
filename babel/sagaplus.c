@@ -256,7 +256,9 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
+#ifdef DEBUG
     fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+#endif
 
     if (extent < MIN_LENGTH || extent > MAX_LENGTH)
         return INVALID_STORY_FILE_RV;
