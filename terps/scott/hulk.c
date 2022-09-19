@@ -457,6 +457,27 @@ extern size_t hulk_look_image_offsets;
 extern size_t hulk_special_image_offsets;
 extern size_t hulk_image_offset;
 
+static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
+{
+    int16_t v = header[1]; // items
+    if (v < 10 || v > 500)
+        return 0;
+    v = header[2]; // actions
+    if (v < 100 || v > 500)
+        return 0;
+    v = header[3]; // word pairs
+    if (v < 50 || v > 200)
+        return 0;
+    v = header[4]; // Number of rooms
+    if (v < 10 || v > 100)
+        return 0;
+    v = header[5]; // Number of Messages
+    if (v < 10 || v > 255)
+        return 0;
+
+    return 1;
+}
+
 uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof) {
     for (int i = 0; i < count && ptr + i + 1 < eof; i += 2) {
         uint16_t val =  ptr[i] + ptr[i+1] * 0x100;
@@ -501,6 +522,8 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
         }
         fprintf(stderr, "Version: %d\n", version);
         fprintf(stderr, "Adventure number: %d\n", adventure_number);
+        if (adventure_number == 0)
+            return 0;
         if (version == 127 && adventure_number == 1)
             CurrentGame = HULK_US;
         else
@@ -518,6 +541,9 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
                 &wl, &lt, &mn, &trm);
 
     PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
+
+    if (!SanityCheckScottFreeHeader(ni, na, nw, nr, mc))
+        return 0;
 
     GameHeader.NumItems = ni;
     Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
