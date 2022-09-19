@@ -67,7 +67,7 @@
 #include "glkimp.h"
 #endif
 
-const char *game_file;
+const char *game_file = NULL;
 char *DirPath = ".";
 
 Header GameHeader;
@@ -736,8 +736,7 @@ int LoadDatabase(FILE *f, int loud)
         }
         ip->Location = (unsigned char)lo;
         if (loud)
-            fprintf(stderr, "Location of item %d: %d, \"%s\"\n", ct, ip->Location,
-                ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
+            fprintf(stderr, "Location of item %d: %d\n", ct, ip->Location);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -2382,15 +2381,17 @@ int glkunix_startup_code(glkunix_startup_t *data)
         }
 #endif
 
-        const char *n;
-        int dirlen = 0;
-        if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
-            dirlen = (int)(n - game_file + 1);
-        }
-        if (dirlen) {
-            DirPath = MemAlloc(dirlen + 1);
-            memcpy(DirPath, game_file, dirlen);
-            DirPath[dirlen] = 0;
+        if (game_file) {
+            const char *n;
+            int dirlen = 0;
+            if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
+                dirlen = (int)(n - game_file + 1);
+            }
+            if (dirlen) {
+                DirPath = MemAlloc(dirlen + 1);
+                memcpy(DirPath, game_file, dirlen);
+                DirPath[dirlen] = 0;
+            }
         }
     }
 

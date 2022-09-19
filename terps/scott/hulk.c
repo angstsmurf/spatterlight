@@ -687,9 +687,9 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     ap = Actions;
 
     offset = ptr - data;
-    size_t offset2 = offset;
+    size_t offset2;
 
-    int verb, noun, value, value2, plus = na + 1;
+    int verb, noun, value, value2, plus;
     while (ct <= na) {
         plus = na + 1;
         verb = data[offset + ct];
