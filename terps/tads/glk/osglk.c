@@ -469,6 +469,7 @@ void os_set_text_color(os_color_t fg, os_color_t bg)
             fprintf(stderr, "Ignoring attempt to set foreground color to OS_COLOR_P_INPUT\n");
             break;
         default:
+            changedfg = 1;
             break;
     }
 
@@ -496,6 +497,7 @@ void os_set_text_color(os_color_t fg, os_color_t bg)
             fprintf(stderr, "Ignoring attempt to set background color to OS_COLOR_P_INPUT\n");
             break;
         default:
+            changedbg = 1;
             break;
     }
 
