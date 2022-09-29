@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "definitions.h"
+#include "scottdefines.h"
 #include "parser.h"
 #include "scott.h"
 
@@ -732,6 +732,14 @@ static int FindExtaneousWords(int *index, int noun)
     int verb = 0;
     int stringlength = strlen(CharWords[*index]);
 
+    int secondnoun = WhichWord(CharWords[*index], Nouns, GameHeader.WordLength, GameHeader.NumWords + 1);
+    if (secondnoun) {
+        if (MapSynonym(secondnoun) == MapSynonym(noun)) {
+            *index = *index + 1;
+            return 0;
+        }
+    }
+
     list = SkipList;
     do {
         verb = WhichWord(CharWords[*index], SkipList, stringlength,
@@ -749,13 +757,6 @@ static int FindExtaneousWords(int *index, int noun)
         if (*index > original_index)
             *index = *index - 1;
         return 0;
-    }
-
-    if (list == Nouns && noun) {
-        if (MapSynonym(noun) == MapSynonym(verb)) {
-            *index = *index + 1;
-            return 0;
-        }
     }
 
     if (list == NULL) {
@@ -822,8 +823,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         if (previous) {
             lastverb = previous->verb;
         }
-        /* Unless the game is German, where we allow the noun to come before the
-     * verb */
+        /* Unless the game is German, where we allow the noun to come before the verb */
         if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
             if (!previous) {
                 CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
@@ -890,6 +890,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
                 verb = lastverb;
             }
         }
+        fprintf(stderr, "Found noun %d\n", noun);
         return CreateCommandStruct(verb, noun, verbindex, i, previous);
     }
 

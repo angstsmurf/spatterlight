@@ -13,7 +13,7 @@
 
 #include "decompresstext.h"
 #include "detectgame.h"
-#include "gameinfo.h"
+#include "scottgameinfo.h"
 #include "sagadraw.h"
 #include "line_drawing.h"
 
@@ -204,7 +204,7 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
 uint8_t *SeekToPos(uint8_t *buf, int offset)
 {
     if (offset > file_length)
-        return 0;
+        return NULL;
     return buf + offset;
 }
 
@@ -267,7 +267,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *wl = h[0];
             *lt = h[9];
             *mn = h[4];
-            *trm = h[10];
+            *trm = h[10] >> 8;
             break;
         case ROBIN_C64_HEADER:
             *ni = h[1];
@@ -368,7 +368,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
 }
 
 void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-    int tr, int wl, int lt, int mn)
+                     int tr, int wl, int lt, int mn, int trm)
 {
     uint16_t value;
     for (int i = 0; i < 13; i++) {
@@ -385,7 +385,7 @@ void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     fprintf(stderr, "Word length =\t%d\n", wl);
     fprintf(stderr, "Number of messages =\t%d\n", mn);
     fprintf(stderr, "Player start location: %d\n", pr);
-    fprintf(stderr, "Treasure room: %d\n", tr);
+    fprintf(stderr, "Treasure room: %d\n", trm);
     fprintf(stderr, "Lightsource time left: %d\n", lt);
     fprintf(stderr, "Number of treasures: %d\n", tr);
 }
@@ -761,7 +761,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         return 0;
 
     if (loud)
-        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn);
+        PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
 
     GameHeader.NumItems = ni;
     GameHeader.NumActions = na;
@@ -1078,6 +1078,8 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     while (ct < ni + 1) {
         ip->Location = *(ptr++);
         ip->InitialLoc = ip->Location;
+        if (Items[ct].Text && ip->Location < nr && Rooms[ip->Location].Text)
+            fprintf(stderr, "Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, ip->Location);
         ip++;
         ct++;
     }
@@ -1270,6 +1272,11 @@ GameIDType DetectGame(const char *file_name)
 
         if (Game == NULL)
             return 0;
+    }
+
+    if (detectedGame == HULK_US) {
+        CurrentGame = HULK_US;
+        Game->type = US_VARIANT;
     }
 
     if (detectedGame == SCOTTFREE || detectedGame == TI994A)

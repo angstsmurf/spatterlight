@@ -43,7 +43,9 @@
 
 #include "glk.h"
 #include "glkstart.h"
-#include "graphics.h"
+#include "sagagraphics.h"
+#include "saga.h"
+#include "titleimage.h"
 
 #include "detectgame.h"
 #include "layouttext.h"
@@ -113,6 +115,8 @@ size_t file_length;
 
 int AnimationFlag = 0;
 
+int showing_inventory = 0;
+
 extern struct SavedState *InitialState;
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
@@ -131,10 +135,6 @@ winid_t Graphics;
 strid_t Transcript = NULL;
 
 int WeAreBigEndian = 0;
-
-#define GLK_BUFFER_ROCK 1
-#define GLK_STATUS_ROCK 1010
-#define GLK_GRAPHICS_ROCK 1020
 
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
@@ -214,6 +214,107 @@ void UpdateSettings(void) {
     }
 }
 
+static void PrintWindowDelimiter(void)
+{
+    glk_window_get_size(Top, &TopWidth, &TopHeight);
+    glk_window_move_cursor(Top, 0, TopHeight - 1);
+    glk_stream_set_current(glk_window_get_stream(Top));
+    if (Options & SPECTRUM_STYLE)
+        for (int i = 0; i < TopWidth; i++)
+            glk_put_char('*');
+    else {
+        glk_put_char('<');
+        for (int i = 0; i < TopWidth - 2; i++)
+            glk_put_char('-');
+        glk_put_char('>');
+    }
+}
+
+static strid_t room_description_stream = NULL;
+
+static void FlushRoomDescription(char *buf)
+{
+    glk_stream_close(room_description_stream, 0);
+
+    strid_t StoredTranscript = Transcript;
+    if (!print_look_to_transcript)
+        Transcript = NULL;
+
+    int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
+
+    if (split_screen) {
+        glk_window_clear(Top);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
+        int rows, length;
+        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
+
+        glui32 bottomheight;
+        glk_window_get_size(Bottom, NULL, &bottomheight);
+        winid_t o2 = glk_window_get_parent(Top);
+        if (!(bottomheight < 3 && TopHeight < rows)) {
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
+            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
+                                       Top);
+        } else {
+            print_delimiter = 0;
+        }
+
+        int line = 0;
+        int index = 0;
+        int i;
+        char string[TopWidth + 1];
+        for (line = 0; line < rows && index < length; line++) {
+            for (i = 0; i < TopWidth; i++) {
+                string[i] = text_with_breaks[index++];
+                if (string[i] == 10 || string[i] == 13 || index >= length)
+                    break;
+            }
+            if (i < TopWidth + 1) {
+                string[i++] = '\n';
+            }
+            string[i] = 0;
+            if (strlen(string) == 0)
+                break;
+            glk_window_move_cursor(Top, 0, line);
+            Display(Top, "%s", string);
+        }
+
+        if (line < rows - 1) {
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
+            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
+                                       MIN(rows - 1, TopHeight - 1), Top);
+        }
+
+        free(text_with_breaks);
+    } else {
+        Display(Bottom, "%s", buf);
+    }
+
+    if (print_delimiter) {
+        PrintWindowDelimiter();
+    }
+
+    if (pause_next_room_description) {
+        Delay(0.8);
+        pause_next_room_description = 0;
+    }
+
+    Transcript = StoredTranscript;
+    if (buf != NULL) {
+        free(buf);
+        buf = NULL;
+    }
+}
+
+static void UpdateUSInventory(void) {
+    char *buf = MemAlloc(1000);
+    buf = memset(buf, 0, 1000);
+    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    ListInventory(1);
+    FlushRoomDescription(buf);
+    InventoryUS();
+}
+
 void Updates(event_t ev)
 {
 	if (ev.type == evtype_Arrange) {
@@ -225,7 +326,11 @@ void Updates(event_t ev)
 		OpenGraphicsWindow();
 
 		if (split_screen) {
-			Look();
+            if (showing_inventory == 1) {
+                UpdateUSInventory();
+            } else {
+                Look();
+            }
 		}
 	} else if (ev.type == evtype_Timer) {
         switch (Game->type) {
@@ -278,7 +383,7 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
-static winid_t FindGlkWindowWithRock(glui32 rock)
+winid_t FindGlkWindowWithRock(glui32 rock)
 {
     winid_t win;
     glui32 rockptr;
@@ -290,7 +395,7 @@ static winid_t FindGlkWindowWithRock(glui32 rock)
     return 0;
 }
 
-static void OpenTopWindow(void)
+void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top == NULL) {
@@ -309,7 +414,7 @@ static void OpenTopWindow(void)
     }
 }
 
-const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
     *width = ImageWidth;
     *height = ImageHeight;
@@ -350,8 +455,9 @@ void OpenGraphicsWindow(void)
 
         if (graphheight > optimal_height) {
             winid_t parent = glk_window_get_parent(Graphics);
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
+            if (parent)
+                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                           optimal_height, NULL);
         }
 
 	/* Set the graphics window background to match
@@ -359,7 +465,7 @@ void OpenGraphicsWindow(void)
      * and clear the window.
      */
         glui32 background_color;
-        if (glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
+        if (Bottom && glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
                 &background_color)) {
             glk_window_set_background_color(Graphics, background_color);
             glk_window_clear(Graphics);
@@ -376,8 +482,9 @@ void OpenGraphicsWindow(void)
         pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
         winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-            optimal_height, NULL);
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                       optimal_height, NULL);
     }
     right_margin = optimal_width + x_offset;
 }
@@ -424,7 +531,8 @@ void *MemAlloc(int size)
 
 int RandomPercent(int n)
 {
-    unsigned int rv = rand() << 6;
+    uint64_t rv = (uint64_t)rand() << 6;
+//    unsigned int rv = rand() << 6;
     rv %= 100;
     if (rv < n)
         return (1);
@@ -764,8 +872,7 @@ int LoadDatabase(FILE *f, int loud)
     /* Extra value in at least Hulk */
     fscanf(f, "%d", &ct);
 	fclose(f);
-    if (ct == 703) {
-        LoadDOSImages();
+    if (ct == 703 && LoadDOSImages()) {
         return HULK_US;
     }
     return SCOTTFREE;
@@ -800,8 +907,6 @@ void DrawImage(int image)
         DrawSagaPictureNumber(image);
 }
 
-void DrawUSRoom(int room);
-
 void DrawRoomImage(void)
 {
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
@@ -810,19 +915,21 @@ void DrawRoomImage(void)
 
     int dark = ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
 
-    if (dark && Graphics != NULL && !(Rooms[MyLoc].Image == 255)) {
+    if (dark && Graphics != NULL &&
+        (Rooms[MyLoc].Image != 255 || Game->type == US_VARIANT)) {
         vector_image_shown = -1;
         VectorState = NO_VECTOR_IMAGE;
         glk_request_timer_events(0);
-        if (Game->type == US_VARIANT)
+        if (Game->type == US_VARIANT) {
+            glk_window_clear(Graphics);
             DrawUSRoom(0);
-        else
+        } else
             DrawBlack();
         return;
     }
 
     if (Game->type == US_VARIANT) {
-        HulkLookUS();
+        LookUS();
         return;
     }
 
@@ -872,8 +979,6 @@ void DrawRoomImage(void)
         }
 }
 
-static strid_t room_description_stream = NULL;
-
 static void WriteToRoomDescriptionStream(const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 1, 2)))
@@ -892,22 +997,6 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     va_end(ap);
 
     glk_put_string_stream(room_description_stream, msg);
-}
-
-static void PrintWindowDelimiter(void)
-{
-    glk_window_get_size(Top, &TopWidth, &TopHeight);
-    glk_window_move_cursor(Top, 0, TopHeight - 1);
-    glk_stream_set_current(glk_window_get_stream(Top));
-    if (Options & SPECTRUM_STYLE)
-        for (int i = 0; i < TopWidth; i++)
-            glk_put_char('*');
-    else {
-        glk_put_char('<');
-        for (int i = 0; i < TopWidth - 2; i++)
-            glk_put_char('-');
-        glk_put_char('>');
-    }
 }
 
 static void ListExitsSpectrumStyle(void)
@@ -957,80 +1046,6 @@ static void ListExits(void)
     return;
 }
 
-static void FlushRoomDescription(char *buf)
-{
-    glk_stream_close(room_description_stream, 0);
-
-	strid_t StoredTranscript = Transcript;
-	if (!print_look_to_transcript)
-		Transcript = NULL;
-
-    int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
-
-    if (split_screen) {
-        glk_window_clear(Top);
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
-        int rows, length;
-        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
-
-        glui32 bottomheight;
-        glk_window_get_size(Bottom, NULL, &bottomheight);
-        winid_t o2 = glk_window_get_parent(Top);
-        if (!(bottomheight < 3 && TopHeight < rows)) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
-                Top);
-        } else {
-            print_delimiter = 0;
-        }
-
-        int line = 0;
-        int index = 0;
-        int i;
-        char string[TopWidth + 1];
-        for (line = 0; line < rows && index < length; line++) {
-            for (i = 0; i < TopWidth; i++) {
-                string[i] = text_with_breaks[index++];
-                if (string[i] == 10 || string[i] == 13 || index >= length)
-                    break;
-            }
-            if (i < TopWidth + 1) {
-                string[i++] = '\n';
-            }
-            string[i] = 0;
-            if (strlen(string) == 0)
-                break;
-            glk_window_move_cursor(Top, 0, line);
-            Display(Top, "%s", string);
-        }
-
-        if (line < rows - 1) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
-                MIN(rows - 1, TopHeight - 1), Top);
-        }
-
-        free(text_with_breaks);
-    } else {
-        Display(Bottom, "%s", buf);
-    }
-
-    if (print_delimiter) {
-        PrintWindowDelimiter();
-    }
-
-    if (pause_next_room_description) {
-        Delay(0.8);
-        pause_next_room_description = 0;
-    }
-
-	Transcript = StoredTranscript;
-    if (buf != NULL) {
-        free(buf);
-        buf = NULL;
-    }
-}
-
 static int ItemEndsWithPeriod(int item)
 {
 	if (item < 0 || item > GameHeader.NumItems)
@@ -1047,6 +1062,7 @@ static int ItemEndsWithPeriod(int item)
 
 void Look(void)
 {
+    showing_inventory = 0;
     DrawRoomImage();
 
     if (split_screen && Top == NULL)
@@ -1910,13 +1926,8 @@ static ActionResultType PerformLine(int ct)
 					AdventureSheet();
 				else
 					ListInventory(0);
-                    if (Game->type == US_VARIANT) {
-                        char *buf = MemAlloc(1000);
-                        buf = memset(buf, 0, 1000);
-                        room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
-                        ListInventory(1);
-                        FlushRoomDescription(buf);
-                        InventoryUS();
+                    if (Game->type == US_VARIANT && has_graphics()) {
+                        UpdateUSInventory();
                     }
 				StopTime = 2;
                 break;
@@ -2398,46 +2409,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 
-static void PrintTitleScreenBuffer(void) {
-    glk_stream_set_current(glk_window_get_stream(Bottom));
-    glk_set_style(style_User1);
-    ClearScreen();
-    Output(title_screen);
-    free((void *)title_screen);
-    glk_set_style(style_Normal);
-    HitEnter();
-    ClearScreen();
-}
 
-static void PrintTitleScreenGrid(void) {
-    int title_length = strlen(title_screen);
-    int rows = 0;
-    for (int i = 0; i < title_length; i++)
-        if (title_screen[i] == '\n')
-            rows++;
-    winid_t titlewin = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, rows + 2,
-                               wintype_TextGrid, 0);
-    glui32 width, height;
-    glk_window_get_size(titlewin, &width, &height);
-    if (width < 40 || height < rows + 2) {
-        glk_window_close(titlewin, NULL);
-        PrintTitleScreenBuffer();
-        return;
-    }
-    int offset = (width - 40) / 2;
-    int pos = 0;
-    char row[40];
-    row[39] = 0;
-    for (int i = 1; i <= rows; i++) {
-        glk_window_move_cursor(titlewin, offset, i);
-        while (title_screen[pos] != '\n' && pos < title_length)
-            Display(titlewin, "%c", title_screen[pos++]);
-        pos++;
-    }
-    free((void *)title_screen);
-    HitEnter();
-    glk_window_close(titlewin, NULL);
-}
 
 
 
@@ -2491,28 +2463,6 @@ void glk_main(void)
         split_screen = 1;
     }
 
-    if (game_type == HULK_US || game_type == CLAYMORGUE_US) {
-        CurrentGame = game_type;
-
-        sys[MESSAGE_DELIMITER] = " ";
-        sys[ITEM_DELIMITER] = ". ";
-        sys[EXITS_DELIMITER] = " ";
-        sys[YOU_ARE] = "I am in a ";
-        sys[YOU_SEE] = ". Visible: ";
-        sys[INVENTORY] = "I've got: ";
-        sys[NOTHING] = "Nothing at all. ";
-        sys[EXITS] = "Some exits: ";
-        sys[WHAT_NOW] = "Command me? ";
-        sys[NORTH] = "NORTH";
-        sys[EAST] = "EAST";
-        sys[SOUTH] = "SOUTH";
-        sys[WEST] = "WEST";
-        sys[UP] = "UP";
-        sys[DOWN] = "DOWN";
-
-        Options |= PC_STYLE;
-    }
-
     if (title_screen != NULL) {
         if (split_screen)
             PrintTitleScreenGrid();
@@ -2538,12 +2488,35 @@ one letter.\n\nDo you want to restore previously saved game?\n",
         ClearScreen();
     }
 
-    OpenTopWindow();
+    if (Game->type == US_VARIANT) {
+        if (has_graphics()) {
+            DrawTitleImage();
+            ImageWidth = 280;
+            if (ImageHeight < 158)
+                ImageHeight = 158;
+            OpenGraphicsWindow();
+            sys[MESSAGE_DELIMITER] = " ";
+            sys[ITEM_DELIMITER] = ". ";
+            sys[EXITS_DELIMITER] = " ";
+            sys[YOU_ARE] = "I am in a ";
+            sys[YOU_SEE] = ". Visible: ";
+            sys[INVENTORY] = "I've got: ";
+            sys[NOTHING] = "Nothing at all. ";
+            sys[EXITS] = "Some exits: ";
+            sys[WHAT_NOW] = "Command me? ";
+            sys[NORTH] = "NORTH";
+            sys[EAST] = "EAST";
+            sys[SOUTH] = "SOUTH";
+            sys[WEST] = "WEST";
+            sys[UP] = "UP";
+            sys[DOWN] = "DOWN";
 
-    if (CurrentGame == HULK_US || CurrentGame == CLAYMORGUE_US  || CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US) {
-        ImageWidth = 280;
-        ImageHeight = 158;
-        OpenGraphicsWindow();
+            Options |= PC_STYLE;
+        } else {
+            CurrentGame = SCOTTFREE;
+            Game->type = NO_TYPE;
+            game_type = SCOTTFREE;
+        }
     }
 
     if (game_type == SCOTTFREE)
@@ -2551,6 +2524,8 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 Scott Free, A Scott Adams game driver in C.\n\
 Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
+
+    OpenTopWindow();
 
 #ifdef SPATTERLIGHT
 	UpdateSettings();

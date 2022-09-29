@@ -8,7 +8,7 @@
 #ifndef detectgame_h
 #define detectgame_h
 
-#include "definitions.h"
+#include "scottdefines.h"
 #include <stdint.h>
 #include <stdio.h>
 

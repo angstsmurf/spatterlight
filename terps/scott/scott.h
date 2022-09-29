@@ -20,16 +20,20 @@
 #ifndef scott_h
 #define scott_h
 
+#include <stdint.h>
+#include <stdio.h>
+
+#include "scottdefines.h"
+
 #define LIGHT_SOURCE 9         /* Always 9 how odd */
 #define CARRIED      255       /* Carried */
 #define DESTROYED    0         /* Destroyed */
 #define DARKBIT      15
 #define LIGHTOUTBIT  16        /* Light gone out */
 
-#include <stdint.h>
-#include <stdio.h>
-
-#include "definitions.h"
+#define GLK_BUFFER_ROCK 1
+#define GLK_STATUS_ROCK 1010
+#define GLK_GRAPHICS_ROCK 1020
 
 typedef struct {
     short Unknown;
@@ -137,6 +141,8 @@ void SwapCounters(int index);
 void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
+winid_t FindGlkWindowWithRock(glui32 rock);
+void OpenTopWindow(void);
 
 extern struct GameInfo *Game;
 extern Header GameHeader;
@@ -167,5 +173,6 @@ extern int should_look_in_transcript;
 extern int ImageWidth;
 extern int ImageHeight;
 extern const char *game_file;
+extern int showing_inventory;
 
 #endif /* scott_h */

@@ -2,6 +2,8 @@
 // nib2dsk.c - convert Apple II NIB image file into DSK file
 // Copyright (C) 1996, 2017 slotek@nym.hush.com
 //
+// Modified for Spatterlight by Petter Sjölund
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -9,7 +11,7 @@
 
 /********** Symbolic Constants **********/
 
-#define VERSION_MAJOR       1
+#define VERSION_MAJOR       2
 #define VERSION_MINOR       0
 
 #define TRACKS_PER_DISK     35
@@ -22,39 +24,38 @@
 #define SECONDARY_BUF_LEN   86
 #define DATA_LEN            ( PRIMARY_BUF_LEN + SECONDARY_BUF_LEN )
 
-/********** Typedefs **********/
-typedef unsigned char uchar;
-
 /********** Statics **********/
-static char *ueof = "Unexpected End of File";
-static uchar addr_prolog[] = { 0xd5, 0xaa, 0x96 };
-static uchar addr_epilog[] = { 0xde, 0xaa, 0xeb };
-static uchar data_prolog[] = { 0xd5, 0xaa, 0xad };
-static uchar data_epilog[] = { 0xde, 0xaa, 0xeb };
-static int interleave[ SECTORS_PER_TRACK ] =
+static const char *ueof = "Unexpected End of Data";
+static const uint8_t addr_prolog[] = { 0xd5, 0xaa, 0x96 };
+static const uint8_t addr_epilog[] = { 0xde, 0xaa, 0xeb };
+static const uint8_t data_prolog[] = { 0xd5, 0xaa, 0xad };
+static const uint8_t data_epilog[] = { 0xde, 0xaa, 0xeb };
+static const int interleave[ SECTORS_PER_TRACK ] =
     { 0, 7, 0xE, 6, 0xD, 5, 0xC, 4, 0xB, 3, 0xA, 2, 9, 1, 8, 0xF };
 
 /********** Globals **********/
-int infd, outfd;
-uchar sector, track, volume;
-uchar primary_buf[ PRIMARY_BUF_LEN ];
-uchar secondary_buf[ SECONDARY_BUF_LEN ];
-uchar *dsk_buf[ TRACKS_PER_DISK ];
+static uint8_t sector, track, volume;
+static uint8_t primary_buf[ PRIMARY_BUF_LEN ];
+static uint8_t secondary_buf[ SECONDARY_BUF_LEN ];
+static uint8_t *dsk_buf[ TRACKS_PER_DISK ];
 
 /********** Prototypes **********/
 static void convert_image( void );
-static void process_data( uchar byte);
-static uchar odd_even_decode( uchar byte1, uchar byte2 );
-static uchar untranslate( uchar x );
-static int get_byte( uchar *byte );
+static void process_data( uint8_t byte);
+static uint8_t odd_even_decode( uint8_t byte1, uint8_t byte2 );
+static uint8_t untranslate( uint8_t x );
+static int get_byte( uint8_t *byte );
 static void dsk_init( void );
 static void dsk_reset( void );
 static void myprintf( char *format, ... );
-static void fatalerror( char *format, ... );
+static void fatalerror( const char *format, ... );
 
 static uint8_t *origdata = NULL;
+
 static size_t offs = 0;
 static size_t datasize = 0;
+
+uint8_t *ReadFromFile(const char *name, size_t *size);
 
 uint8_t *nib2dsk(uint8_t *data, size_t *origsize)
 {
@@ -102,7 +103,7 @@ static void convert_image( void )
     int state;
     int addr_prolog_index = 0, addr_epilog_index = 0;
     int data_prolog_index = 0, data_epilog_index = 0;
-    uchar byte = 0;
+    uint8_t byte = 0;
 
     //
     // Image conversion FSM
@@ -146,7 +147,7 @@ static void convert_image( void )
             //
             case 3:
             {
-                uchar byte2;
+                uint8_t byte2 = 0;
                 if ( get_byte( &byte2 ) == 0 )
                     fatalerror( ueof );
                 volume = odd_even_decode( byte, byte2 );
@@ -163,7 +164,7 @@ static void convert_image( void )
             //
             case 4:
             {
-                uchar byte2;
+                uint8_t byte2;
                 if ( get_byte( &byte2 ) == 0 )
                     fatalerror( ueof );
                 track = odd_even_decode( byte, byte2 );
@@ -180,7 +181,7 @@ static void convert_image( void )
             //
             case 5:
             {
-                uchar byte2;
+                uint8_t byte2;
                 if ( get_byte( &byte2 ) == 0 )
                     fatalerror( ueof );
                 sector = odd_even_decode( byte, byte2 );
@@ -197,7 +198,7 @@ static void convert_image( void )
             //
             case 6:
             {
-                uchar byte2, csum;
+                uint8_t byte2, csum;
                 if ( get_byte( &byte2 ) == 0 )
                     fatalerror( ueof );
                 csum = odd_even_decode( byte, byte2 );
@@ -341,11 +342,11 @@ static void convert_image( void )
 //
 // Convert 343 6+2 encoded bytes into 256 data bytes and 1 checksum
 //
-static void process_data(uchar byte)
+static void process_data(uint8_t byte)
 {
     int i, sec;
-    uchar checksum;
-    uchar bit0 = 0, bit1 = 0;
+    uint8_t checksum;
+    uint8_t bit0 = 0, bit1 = 0;
 
     //
     // Fill primary and secondary buffers according to iterative formula:
@@ -413,9 +414,9 @@ static void process_data(uchar byte)
 //
 // decode 2 "4 and 4" bytes into 1 byte
 //
-static uchar odd_even_decode( uchar byte1, uchar byte2 )
+static uint8_t odd_even_decode( uint8_t byte1, uint8_t byte2 )
 {
-    uchar byte;
+    uint8_t byte;
 
     byte = ( byte1 << 1 ) & 0xaa;
     byte |= byte2 & 0x55;
@@ -427,7 +428,7 @@ static uchar odd_even_decode( uchar byte1, uchar byte2 )
 // do "6 and 2" un-translation
 //
 #define TABLE_SIZE 0x40
-static uchar table[ TABLE_SIZE ] = {
+static uint8_t table[ TABLE_SIZE ] = {
     0x96, 0x97, 0x9a, 0x9b, 0x9d, 0x9e, 0x9f, 0xa6,
     0xa7, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb2, 0xb3,
     0xb4, 0xb5, 0xb6, 0xb7, 0xb9, 0xba, 0xbb, 0xbc,
@@ -437,9 +438,9 @@ static uchar table[ TABLE_SIZE ] = {
     0xed, 0xee, 0xef, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
     0xf7, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
 };
-static uchar untranslate( uchar x )
+static uint8_t untranslate( uint8_t x )
 {
-    uchar *ptr;
+    uint8_t *ptr;
     int index;
 
     if ( ( ptr = memchr( table, x, TABLE_SIZE ) ) == NULL )
@@ -455,28 +456,18 @@ static uchar untranslate( uchar x )
 // Returns 0 on EOF
 //
 //HACK #define BUFLEN 16384
-#define BUFLEN 232960
-static uchar buf[ BUFLEN ];
+//static uint8_t buf[ BUFLEN ];
 
-static int get_byte( uchar *byte )
+static int get_byte( uint8_t *byte )
 {
-    static int index = BUFLEN;
-    static int buflen = BUFLEN;
+//    myprintf("(%d)", readpos);
 
-//    myprintf("(%d)", index);
-
-    if ( index >= buflen ) {
-        if (offs + BUFLEN > datasize) {
-            // Reached end of data
+    if ( offs >= datasize ) {
             return 0;
-        }
-        memcpy(buf, origdata + offs, BUFLEN);
-        offs += BUFLEN;
-        index = 0;
     }
 
-    *byte = buf[ index++ ];
-    return buflen;
+    *byte = origdata[ offs++ ];
+    return 1;
 }
 
 //
@@ -484,9 +475,10 @@ static int get_byte( uchar *byte )
 //
 static void dsk_init( void )
 {
+    offs = 0;
     int i;
     for ( i = 0; i < TRACKS_PER_DISK; i++ )
-        if ( ( dsk_buf[ i ] = (uchar *) malloc( BYTES_PER_TRACK ) ) == NULL )
+        if ( ( dsk_buf[ i ] = (uint8_t *) malloc( BYTES_PER_TRACK ) ) == NULL )
             fatalerror( "cannot allocate %ld bytes", DSK_LEN );
 }
 
@@ -506,18 +498,18 @@ static void dsk_reset( void )
 #pragma argsused
 static void myprintf( char *format, ... )
 {
-//#ifdef DEBUG
-//    va_list argp;
-//    va_start( argp, format );
-//    vfprintf( stderr, format, argp );
-//    va_end( argp );
-//#endif
+#ifdef DEBUG
+    va_list argp;
+    va_start( argp, format );
+    vfprintf( stderr, format, argp );
+    va_end( argp );
+#endif
 }
 
 //
 // fatal
 //
-static void fatalerror( char *format, ... )
+static void fatalerror( const char *format, ... )
 {
     va_list argp;
 
