@@ -4,7 +4,6 @@
 #include "glk.h"
 
 unsigned char WaitCharacter(void);
-void LineInput(char *buf, int len);
 void DisplayInit(void);
 void TopWindow(void);
 void BottomWindow(void);
@@ -22,24 +21,46 @@ void CloseGraphicsWindow(void);
 void OpenGraphicsWindow(void);
 void OpenTopWindow(void);
 
+void PrintFirstTenBytes(size_t offset);
+
 #define FOLLOWS 0xffff
+
+#define MAX_WORDLENGTH 128
+#define MAX_WORDS 128
+
+#define DEBUG_ACTIONS 1
+
+#define IsThing (Flag[31])
+
+#define debug_print(fmt, ...) \
+do { if (DEBUG_ACTIONS) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define MyLoc (Flag[0])
 
 #define CurrentGame (Game->gameID)
 #define Version (Game->type)
+#define BaseGame (Game->base_game)
+
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef enum {
     QUESTPROBE3,
+    QUESTPROBE3_64,
     REBEL_PLANET,
+    REBEL_PLANET_64,
     BLIZZARD_PASS,
     HEMAN,
+    HEMAN_64,
     TEMPLE_OF_TERROR,
+    TEMPLE_OF_TERROR_64,
     TOT_TEXT_ONLY,
+    TOT_HYBRID,
+    TOT_TEXT_ONLY_64,
+    TOT_HYBRID_64,
     KAYLETH,
+    KAYLETH_64,
     UNKNOWN_GAME,
     NUMGAMES
 } GameIDType;
@@ -218,35 +239,19 @@ struct GameInfo {
 
     GameIDType gameID;
     GameVersion type;
+    GameIDType base_game;
 
-    int number_of_items;
-    int number_of_actions;
-    int number_of_words;
-    int number_of_rooms;
-    int max_carried;
-    int word_length;
-    int number_of_messages;
-
-    int number_of_verbs;
-    int number_of_nouns;
-
-    int start_of_header;
-
-    int start_of_room_image_list;
-    int start_of_item_flags;
-    int start_of_item_image_list;
-
-    int start_of_actions;
     int start_of_dictionary;
     int start_of_tokens;
     int start_of_room_descriptions;
-    int start_of_room_connections;
-    int start_of_messages;
     int start_of_item_descriptions;
+    int start_of_automatics;
+    int start_of_actions;
+    int start_of_room_connections;
+    int start_of_flags;
     int start_of_item_locations;
-
-    int start_of_system_messages;
-    int start_of_directions;
+    int start_of_messages;
+    int start_of_messages_2;
 
     int start_of_characters;
     int start_of_image_blocks;
@@ -256,7 +261,6 @@ struct GameInfo {
     int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
-    int picture_format_version;
     int start_of_intro_text;
 };
 
@@ -277,5 +281,21 @@ extern int JustWrotePeriod;
 extern int NoGraphics;
 extern int Options;
 extern int LineEvent;
+
+extern size_t AnimationData;
+
+extern size_t VerbBase;
+extern char LastChar;
+extern uint8_t Word[];
+extern int PendSpace;
+extern int FirstAfterInput;
+extern int LastVerb;
+
+void OutChar(char c);
+void OutString(char *p);
+void OutCaps(void);
+void OutFlush(void);
+void SysMessage(unsigned char m);
+void OpenBottomWindow(void);
 
 #endif /* taylor_h */

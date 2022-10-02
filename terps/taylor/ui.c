@@ -281,17 +281,17 @@ void UpdateSettings(void) {
     else
         Options |= NO_DELAYS;
 
-//    switch(gli_sa_inventory) {
-//        case 0:
-//            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-//            break;
-//        case 1:
-//            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-//            break;
-//        case 2:
-//            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-//            break;
-//    }
+    switch(gli_sa_inventory) {
+        case 0:
+            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+            break;
+        case 1:
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+        case 2:
+            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+            break;
+    }
 
     switch(gli_sa_palette) {
         case 0:
@@ -309,7 +309,10 @@ void UpdateSettings(void) {
     if (Options & FORCE_PALETTE_ZX)
         palchosen = ZXOPT;
     else if (Options & FORCE_PALETTE_C64) {
-        palchosen = C64B;
+        if (BaseGame == QUESTPROBE3 || BaseGame == BLIZZARD_PASS)
+            palchosen = C64A;
+        else
+            palchosen = C64B;
     } else
         palchosen = Game->palette;
     if (palchosen != previous_pal) {
@@ -329,7 +332,7 @@ void Updates(event_t ev)
         Look();
         Resizing = 0;
     } else if (ev.type == evtype_Timer) {
-        switch (CurrentGame) {
+        switch (BaseGame) {
             case REBEL_PLANET:
                 UpdateRebelAnimations();
                 break;
@@ -341,37 +344,6 @@ void Updates(event_t ev)
         }
     }
 }
-
-
-void LineInput(char *buf, int len)
-{
-    event_t ev;
-
-    if (PendSpace) {
-        fprintf(stderr, "PendSpace before LineInput?\n");
-        PendSpace = 0;
-    }
-
-    LineEvent = 1;
-    glk_request_line_event(Bottom, buf, len - 1, 0);
-
-    while(1)
-    {
-        glk_select(&ev);
-
-        if(ev.type == evtype_LineInput)
-            break;
-        else Updates(ev);
-    }
-    LineEvent = 0;
-    buf[ev.val1] = 0;
-
-    if (Transcript) {
-        glk_put_string_stream(Transcript, buf);
-        glk_put_char_stream(Transcript, '\n');
-    }
-}
-
 
 const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
@@ -477,7 +449,7 @@ void DrawBlack(void)
 }
 
 void DrawRoomImage(void) {
-    if (MyLoc == 0 || (CurrentGame == KAYLETH && MyLoc == 91) || NoGraphics) {
+    if (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91) || NoGraphics) {
         return;
     }
     ClearGraphMem();
@@ -486,9 +458,14 @@ void DrawRoomImage(void) {
     DrawSagaPictureFromBuffer();
 }
 
+void OpenBottomWindow(void) {
+    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+}
+
 void DisplayInit(void)
 {
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    if (!Bottom)
+        OpenBottomWindow();
     OpenTopWindow();
     UpdateSettings();
 }

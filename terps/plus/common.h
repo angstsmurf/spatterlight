@@ -11,7 +11,7 @@
 #include "glk.h"
 #include "definitions.h"
 
-void *MemAlloc(int size);
+void *MemAlloc(size_t size);
 void Fatal(const char *x);
 void Output(const char *string);
 void OpenGraphicsWindow(void);
@@ -35,6 +35,10 @@ void OpenTopWindow(void);
 void Look(int transcript);
 void SystemMessage(SysMessageType message);
 void AnyKey(int timeout, int message);
+void SetTimer(glui32 milliseconds);
+
+extern glui32 TimerRate;
+extern glui32 AnimTimerRate;
 
 extern const char *sys[];
 
@@ -56,7 +60,8 @@ extern int AutoInventory;
 
 extern winid_t Bottom;
 
-extern char *dir_path;
+extern char *DirPath;
+extern const char *game_file;
 
 extern Header GameHeader;
 
@@ -66,7 +71,9 @@ extern Room *Rooms;
 extern int ProtagonistString;
 extern int lastwasnewline;
 extern int should_restart;
-extern GameIDType CurrentGame;
+
+extern SystemType CurrentSys;
+extern struct GameInfo *Game;
 
 extern ImgType LastImgType;
 extern int LastImgIndex;
@@ -76,5 +83,11 @@ extern strid_t Transcript;
 extern int LastVerb, LastNoun, LastPrep, LastPartp, LastNoun2, LastAdverb;
 
 extern int showing_inventory;
+
+extern uint16_t header[];
+extern uint8_t *mem;
+extern size_t memlen;
+
+extern imgrec *Images;
 
 #endif /* common_h */

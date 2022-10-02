@@ -49,7 +49,7 @@ Scnptr ScanFunc[] = {
     Scn_MasterCompressor
     //    ,Scn_ScreenCrunch
     //    ,Scn_MCCrackenComp
-    //    ,Scn_FinalSuperComp
+    ,Scn_FinalSuperComp
     //    ,Scn_4cPack
     //    ,Scn_FXbytepress
     //    ,Scn_FXbitstream
@@ -135,7 +135,7 @@ Scnptr ScanFunc[] = {
     //    ,Scn_Graffity
     ,
     Scn_Section8
-    //    ,Scn_MrZ
+        ,Scn_MrZ
     //    ,Scn_DD
     //    ,Scn_PackOpt
     //    ,Scn_Warlock
@@ -159,8 +159,8 @@ Scnptr ScanFunc[] = {
     //    ,Scn_U_8e_pack
     //    ,Scn_U_P3_pack
     //    ,Scn_FalcoPack
-    //    ,Scn_FP
-    //    ,Scn_FinalCompactor
+//    ,Scn_FP
+//    ,Scn_FinalCompactor
     //    ,Scn_NEC
     //    ,Scn_EnigmaMFFL
     //    ,Scn_Shurigen
@@ -232,7 +232,7 @@ Scnptr ScanFunc[] = {
     //    ,Scn_Inceria
     ,
     Scn_Exomizer
-    //    ,Scn_Intros
+        ,Scn_Intros
     //    ,Scn_U_Generic801
 };
 
@@ -250,26 +250,26 @@ void Scanners(unpstr *Unp) {
 */
 void PrintInfo(unpstr *Unp, int id) {
   switch (id) {
-    //    case _I_1001_4:
-    //    fprintf(stderr, DEPMASK2,"1001 CardCruncher","v4.x",Unp->DepAdr);
-    //    break;
-    //    case _I_1001_NEWPACK:
-    //    sprintf(appstr,"%s %s","1001 CardCruncher","New");
-    //    fprintf(stderr, DEPMASK2,appstr,"Packer",Unp->DepAdr);
-    //    break;
-    //    case _I_1001_OLDPACK:
-    //    sprintf(appstr,"%s %s","1001 CardCruncher","Old");
-    //    fprintf(stderr, DEPMASK2,appstr,"Packer",Unp->DepAdr);
-    //    break;
-    //    case _I_1001_CRAM:
-    //    fprintf(stderr, DEPMASK2,"1001 CardCruncher","CRAM",Unp->DepAdr);
-    //    break;
-    //    case _I_1001_ACM:
-    //    fprintf(stderr, DEPMASK2,"1001 CardCruncher","ACM",Unp->DepAdr);
-    //    break;
-    //    case _I_1001_HTL:
-    //    fprintf(stderr, DEPMASK2,"1001 CardCruncher","HTL",Unp->DepAdr);
-    //    break;
+        case _I_1001_4:
+        fprintf(stderr, DEPMASK2,"1001 CardCruncher","v4.x",Unp->DepAdr);
+        break;
+        case _I_1001_NEWPACK:
+        sprintf(appstr,"%s %s","1001 CardCruncher","New");
+        fprintf(stderr, DEPMASK2,appstr,"Packer",Unp->DepAdr);
+        break;
+        case _I_1001_OLDPACK:
+        sprintf(appstr,"%s %s","1001 CardCruncher","Old");
+        fprintf(stderr, DEPMASK2,appstr,"Packer",Unp->DepAdr);
+        break;
+        case _I_1001_CRAM:
+        fprintf(stderr, DEPMASK2,"1001 CardCruncher","CRAM",Unp->DepAdr);
+        break;
+        case _I_1001_ACM:
+        fprintf(stderr, DEPMASK2,"1001 CardCruncher","ACM",Unp->DepAdr);
+        break;
+        case _I_1001_HTL:
+        fprintf(stderr, DEPMASK2,"1001 CardCruncher","HTL",Unp->DepAdr);
+        break;
     //    case _I_DATELUC:
     //    fprintf(stderr, DEPMASK2,"Datel
     //    UltraCompander","Cruncher",Unp->DepAdr); break; case _I_DATELUCP:
@@ -1122,36 +1122,36 @@ void PrintInfo(unpstr *Unp, int id) {
     //    strcat(appstr," "); strcat(appstr,"Compactor");
     //    fprintf(stderr, DEPMASK2,appstr,"v3.x",Unp->DepAdr);
     //    break;
-    //    case _I_FINCOMP:
-    //    fprintf(stderr, DEPMASK2,"Final","Compactor",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMFLEX:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    fprintf(stderr, DEPMASK2,appstr,"/ Flexible",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMEQSE:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    fprintf(stderr, DEPMASK2,appstr,"/ Equal sequences",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMEQB9:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    strcat(appstr," "); strcat(appstr,"/ Equal sequences");
-    //    fprintf(stderr, DEPMASK2,appstr,"Hack",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMEQCCS:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    strcat(appstr," "); strcat(appstr,"/ Equal sequences");
-    //    fprintf(stderr, DEPMASK2,appstr,"CCS",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMEQC9:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    strcat(appstr," "); strcat(appstr,"/ Equal chars");
-    //    fprintf(stderr, DEPMASK2,appstr,"Hack",Unp->DepAdr);
-    //    break;
-    //    case _I_SUPCOMEQCH:
-    //    sprintf(appstr,"%s %s","Super","Compressor");
-    //    fprintf(stderr, DEPMASK2,appstr,"/ Equal chars",Unp->DepAdr);
-    //    break;
+    case _I_FINCOMP:
+    fprintf(stderr, DEPMASK2,"Final","Compactor",Unp->DepAdr);
+    break;
+        case _I_SUPCOMFLEX:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        fprintf(stderr, DEPMASK2,appstr,"/ Flexible",Unp->DepAdr);
+        break;
+        case _I_SUPCOMEQSE:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        fprintf(stderr, DEPMASK2,appstr,"/ Equal sequences",Unp->DepAdr);
+        break;
+        case _I_SUPCOMEQB9:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        strcat(appstr," "); strcat(appstr,"/ Equal sequences");
+        fprintf(stderr, DEPMASK2,appstr,"Hack",Unp->DepAdr);
+        break;
+        case _I_SUPCOMEQCCS:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        strcat(appstr," "); strcat(appstr,"/ Equal sequences");
+        fprintf(stderr, DEPMASK2,appstr,"CCS",Unp->DepAdr);
+        break;
+        case _I_SUPCOMEQC9:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        strcat(appstr," "); strcat(appstr,"/ Equal chars");
+        fprintf(stderr, DEPMASK2,appstr,"Hack",Unp->DepAdr);
+        break;
+        case _I_SUPCOMEQCH:
+        sprintf(appstr,"%s %s","Super","Compressor");
+        fprintf(stderr, DEPMASK2,appstr,"/ Equal chars",Unp->DepAdr);
+        break;
     //    case _I_SUPCOMFH11:
     //    sprintf(appstr,"%s %s %s %c %s %c","Super","Compressor","Hack",
     //    '1',"layer",'1'); fprintf(stderr, DEPMASK,appstr,Unp->DepAdr); break;
@@ -1647,9 +1647,9 @@ void PrintInfo(unpstr *Unp, int id) {
     //    sprintf(appstr,"%s %s","GSS","Coder");
     //    fprintf(stderr, DEPMASK2,appstr,"v1.2",Unp->DepAdr);
     //    break;
-    //    case _I_MRZPACK:
-    //    fprintf(stderr, DEPMASK2,"Mr.Z","Packer",Unp->DepAdr);
-    //    break;
+        case _I_MRZPACK:
+        fprintf(stderr, DEPMASK2,"Mr.Z","Packer",Unp->DepAdr);
+        break;
     //    case _I_MSICR2:
     //    sprintf(appstr,"%s %s","MSI","Cruncher");
     //    fprintf(stderr, DEPMASK2,appstr,"v2.x",Unp->DepAdr);

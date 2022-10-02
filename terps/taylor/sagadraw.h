@@ -36,6 +36,7 @@ void DefinePalette(void);
 
 void DrawTaylor(int loc);
 void ClearGraphMem(void);
+int32_t Remap(int32_t color);
 
 extern palette_type palchosen;
 

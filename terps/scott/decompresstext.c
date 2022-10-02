@@ -13,7 +13,7 @@
 
 #include "scott.h"
 
-int rotate_left_with_carry(uint8_t *byte, int last_carry)
+static int rotate_left_with_carry(uint8_t *byte, int last_carry)
 {
     int carry = ((*byte & 0x80) > 0);
     *byte = *byte << 1;
@@ -22,16 +22,7 @@ int rotate_left_with_carry(uint8_t *byte, int last_carry)
     return carry;
 }
 
-int rotate_right_with_carry(uint8_t *byte, int last_carry)
-{
-    int carry = ((*byte & 0x01) > 0);
-    *byte = *byte >> 1;
-    if (last_carry)
-        *byte = *byte | 0x80;
-    return carry;
-}
-
-int decompress_one(uint8_t *bytes)
+static int decompress_one(uint8_t *bytes)
 {
     uint8_t result = 0;
     int carry;

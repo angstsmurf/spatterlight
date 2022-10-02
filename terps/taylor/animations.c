@@ -23,6 +23,7 @@
 
 #define UNFOLDING_SPACE 50
 #define STARS_ANIMATION_RATE 15
+#define STARS_ANIMATION_RATE_64 40
 #define FIELD_ANIMATION_RATE 10
 #define SERPENT_ANIMATION_RATE 100
 #define ROBOT_ANIMATION_RATE 400
@@ -54,6 +55,7 @@ static void AnimateStars(void)
                 uint8_t attribute = buffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
+                ink = Remap(ink);
                 for (int bit = 0; bit < 8; bit++) {
                     if ((buffer[col + line * 32][pixrow] & (1 << bit)) != 0) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
@@ -70,6 +72,7 @@ static void AnimateStars(void)
                 uint8_t attribute = buffer[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
+                ink = Remap(ink);
                 for (int pix = 0; pix < 8; pix++) {
                     if ((buffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
@@ -88,7 +91,10 @@ static void AnimateForcefield(void)
     /* First fill door area with black, erasing field */
     RectFill(104, 16, 48, 39, 0, 0);
     /* We go line by line and pixel row by pixel row */
-    glui32 ink = 13;
+
+    uint8_t colour = buffer[2 * 32 + 13][8];
+    glui32 ink = Remap(colour & 0x7);
+
     for (int line = 2; line < 7; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
             carry = 0;
@@ -176,6 +182,8 @@ static void AnimateKaylethClickShelves(int stage)
                 attribute = buffer[col + ((79 - ypos) / 8) * 32][8];
                 glui32 ink2 = attribute & 7;
                 ink2 += 8 * ((attribute & 64) == 64);
+                ink = Remap(ink);
+                ink2 = Remap(ink2);
                 for (int j = 0; j < 8; j++)
                     if (col > 15) {
                         if ((buffer[col + line * 32][i] & (1 << j)) != 0) {
@@ -197,7 +205,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         return 0;
     }
 
-    uint8_t *ptr = &FileImage[0xbded + FileBaselineOffset];
+    uint8_t *ptr = &FileImage[AnimationData];
     int counter = 0;
     // Jump to animation index equal to location index
     // Animations are delimited by 0xff
@@ -227,6 +235,12 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 
         ptr += *ptr + 1;
         int AnimationRate = *ptr;
+
+        // This is needed to make conveyor belt animation 2 smooth
+        // (the one you see after getting up)
+        // No idea why, this code is still largely a mystery
+        if (KaylethAnimationIndex == 2 && AnimationRate == 50)
+            AnimationRate = 10;
 
         if (AnimationRate != 0xff) {
             ptr++;
@@ -317,11 +331,14 @@ void UpdateRebelAnimations(void)
 }
 
 void StartAnimations(void) {
-    if (CurrentGame == REBEL_PLANET) {
+    if (BaseGame == REBEL_PLANET) {
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
-            if (AnimationRunning != STARS_ANIMATION_RATE) {
-                glk_request_timer_events(STARS_ANIMATION_RATE);
-                AnimationRunning = STARS_ANIMATION_RATE;
+            int rate = STARS_ANIMATION_RATE;
+            if (CurrentGame == REBEL_PLANET_64)
+                rate = STARS_ANIMATION_RATE_64;
+            if (AnimationRunning != rate) {
+                glk_request_timer_events(rate);
+                AnimationRunning = rate;
             }
         } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
             if (AnimationRunning != FIELD_ANIMATION_RATE) {
@@ -343,14 +360,18 @@ void StartAnimations(void) {
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
             UpdateRebelAnimations();
         }
-    } else if (CurrentGame == KAYLETH) {
+    } else if (BaseGame == KAYLETH) {
         int speed = 0;
         if (UpdateKaylethAnimationFrames()) {
             speed = 20;
             KaylethAnimationIndex = 0;
         }
-        if (ObjectLoc[0] == MyLoc)
-            speed = 13; // Azap chamber
+        if (ObjectLoc[0] == MyLoc) { // Azap chamber
+            if (CurrentGame == KAYLETH_64)
+                speed = 30;
+            else
+                speed = 13;
+        }
         switch(MyLoc) {
             case 1:
                 speed = 14;
@@ -359,7 +380,10 @@ void StartAnimations(void) {
                 speed = 10;
                 break;
             case 3: // Click shelves
-                speed = 40;
+                if (CurrentGame == KAYLETH_64)
+                    speed = 80;
+                else
+                    speed = 40;
                 break;
             case 53: // Twin peril forest
                 speed = 350;

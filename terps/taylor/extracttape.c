@@ -80,29 +80,6 @@ uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t 
     return target;
 }
 
-
-//static void CompareData(uint8_t *data1, size_t len1, uint8_t *data2, size_t len2) {
-//    size_t maxlen = MIN(len1, len2);
-//    for (int i = 0; i < maxlen - 1; i++) {
-//        if (data1[len1 - i] != data2[len2 - i])
-//            fprintf(stderr, "Diff at (0x%04lx/0x%04lx): %x/%x\n", len1 - i, len2 - i, data1[len1 - i], data2[len2 - i]);
-//    }
-//}
-
-//static void CompareToSna(uint8_t *memory, const char *snafilename) {
-//    if (memory != NULL) {
-//        size_t snasize = 0xc01b;
-//        snasize = 0x2001f;
-//        uint8_t *snasized = MemAlloc((int)snasize);
-//        memcpy(snasized, memory + 0x3fe5, snasize);
-//        writeToFile("/Users/administrator/Desktop/CompareToSna.data", snasized, snasize);
-//        size_t length;
-//        uint8_t *sna = readFile(snafilename, &length);
-//        fprintf(stderr, "CompareToSna: Comparing memory to file \"%s\". Size: %zu (0x%04zx)\n", snafilename, length, length);
-//        CompareData(sna, length, snasized, snasize);
-//    }
-//}
-
 static uint8_t *ShrinkToSnaSize(uint8_t *uncompressed, uint8_t *image, size_t *length)
 {
     if (uncompressed == NULL)
@@ -207,7 +184,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length) {
             case 0x104c4: // Blizzard Pass TAP
                 uncompressed = MemAlloc(0x2001f);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 11,  0x1801f);
-                uncompressed = AddTapBlock(image, uncompressed, origlen, 13,  0x10001f);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 15,  0x801b);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 17,  0x401b);
                 uncompressed = AddTapBlock(image, uncompressed, origlen, 19,  0x1ee6);
@@ -218,7 +194,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length) {
             case 0x10428: // Blizzard Pass tzx
                 uncompressed = MemAlloc(0x2001f);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 8,  0x1801f);
-                uncompressed = AddTZXBlock(image, uncompressed, origlen, 10, 0x10001f);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 12, 0x801b);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 14, 0x401b);
                 uncompressed = AddTZXBlock(image, uncompressed, origlen, 16, 0x1ee6);

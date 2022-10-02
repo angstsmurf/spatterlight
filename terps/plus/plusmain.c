@@ -25,9 +25,17 @@
 #include "parseinput.h"
 #include "animations.h"
 #include "restorestate.h"
+#include "apple2detect.h"
+#include "atari8detect.h"
+#include "c64detect.h"
+#include "stdetect.h"
 
-static const char *game_file = NULL;
-char *dir_path = ".";
+
+const char *game_file = NULL;
+char *DirPath = ".";
+
+uint8_t *mem;
+size_t memlen;
 
 const char *sys[MAX_SYSMESS];
 
@@ -36,6 +44,7 @@ int Options; /* Option flags set */
 
 int split_screen = 1;
 int lastwasnewline = 1;
+int pendingcomma = 0;
 int should_restart = 0;
 
 glui32 TopWidth, TopHeight;
@@ -44,7 +53,9 @@ winid_t Bottom, Top, Graphics;
 
 strid_t Transcript = NULL;
 
-GameIDType CurrentGame = UNKNOWN_GAME;
+struct GameInfo *Game = NULL;
+
+SystemType CurrentSys = SYS_UNKNOWN;
 
 uint16_t header[64];
 
@@ -71,14 +82,19 @@ ObjectImage *ObjectImages;
 char **Messages;
 Action *Actions;
 
-void CleanupAndExit(void)
+int ImageWidth = 280;
+int ImageHeight = 158;
+
+glui32 TimerRate = 0;
+
+GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
         glk_stream_close(Transcript, NULL);
     glk_exit();
 }
 
-void Fatal(const char *x)
+GLK_ATTRIBUTE_NORETURN void Fatal(const char *x)
 {
     fprintf(stderr, "%s!\n", x);
     if (Bottom)
@@ -87,7 +103,7 @@ void Fatal(const char *x)
 }
 
 
-void *MemAlloc(int size)
+void *MemAlloc(size_t size)
 {
     void *t = (void *)malloc(size);
     if (t == NULL)
@@ -127,20 +143,23 @@ void Display(winid_t w, const char *fmt, ...)
 
 static const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = 280;
-    *height = 158;
+    int w = ImageWidth;
+    int h = ImageHeight;
+
+    *width = w;
+    *height = h;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    multiplier = graphheight / 158;
-    if (280 * multiplier > graphwidth)
-        multiplier = graphwidth / 280;
+    multiplier = graphheight / h;
+    if (w * multiplier > graphwidth)
+        multiplier = graphwidth / w;
     
     if (multiplier == 0)
         multiplier = 1;
     
-    *width = 280 * multiplier;
-    *height = 158 * multiplier;
+    *width = w * multiplier;
+    *height = h * multiplier;
     
     return multiplier;
 }
@@ -149,7 +168,7 @@ static winid_t FindGlkWindowWithRock(glui32 rock);
 
 void OpenGraphicsWindow(void)
 {
-    if (!gli_enable_graphics)
+    if (!IsSet(GRAPHICSBIT))
         return;
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
     y_offset = 0;
@@ -194,11 +213,12 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Graphics, &graphwidth, &graphheight);
         pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
-        right_margin = optimal_width + x_offset;
         winid_t parent = glk_window_get_parent(Graphics);
         glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                                    optimal_height, NULL);
     }
+
+    right_margin = optimal_width + x_offset;
 }
 
 void CloseGraphicsWindow(void)
@@ -210,6 +230,11 @@ void CloseGraphicsWindow(void)
         Graphics = NULL;
         glk_window_get_size(Top, &TopWidth, &TopHeight);
     }
+}
+
+void SetTimer(glui32 milliseconds) {
+    TimerRate = milliseconds;
+    glk_request_timer_events(milliseconds);
 }
 
 void UpdateSettings(void) {
@@ -229,7 +254,17 @@ void UpdateSettings(void) {
             Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
             break;
     }
+
+    if (gli_enable_graphics) {
+        SetBit(GRAPHICSBIT);
+    } else {
+        ResetBit(GRAPHICSBIT);
+    }
 }
+
+void UpdateColorCycling(void);
+
+static int AnimationCounter = 0;
 
 void Updates(event_t ev)
 {
@@ -237,18 +272,19 @@ void Updates(event_t ev)
         SavedImgType = LastImgType;
         SavedImgIndex = LastImgIndex;
         CloseGraphicsWindow();
+        UpdateSettings();
         OpenGraphicsWindow();
         if (AnimationRunning && LastAnimationBackground) {
-            char buf[1024];
-            sprintf(buf, "%sS0%02d.PAK", dir_path, LastAnimationBackground);
-            DrawImageWithFilename(buf);
+            char buf[5];
+            sprintf(buf, "S0%02d", LastAnimationBackground);
+            DrawImageWithName(buf);
         } else {
             SetBit(DRAWBIT);
             if (showing_inventory == 1) {
                 DrawRoomImage(33);
                 for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-                    if (ObjectImages[ct].room == 33 && Items[ObjectImages[ct].object].Location == CARRIED) {
-                        DrawItemImage(ObjectImages[ct].image);
+                    if (ObjectImages[ct].Room == 33 && Items[ObjectImages[ct].Object].Location == CARRIED) {
+                        DrawItemImage(ObjectImages[ct].Image);
                     }
             } else {
                 Look(0);
@@ -259,10 +295,22 @@ void Updates(event_t ev)
             }
         }
     } else if (ev.type == evtype_Timer) {
-        if (AnimationRunning)
-            UpdateAnimation();
+        AnimationCounter++;
+        if (AnimationRunning) {
+            int factor = MAX(TimerRate, 1);
+            int rate = MAX(AnimTimerRate / factor, 1);
+            if (!IsSet(GRAPHICSBIT)) {
+                StopAnimation();
+            } else if (AnimationCounter % rate == 0) {
+                UpdateAnimation();
+            }
+        }
+        if (ColorCyclingRunning && IsSet(GRAPHICSBIT))
+            UpdateColorCycling();
     }
 }
+
+static int DelayCounter = 0;
 
 void AnyKey(int timeout, int message)
 {
@@ -281,27 +329,37 @@ void AnyKey(int timeout, int message)
         timeout = 0;
 
     if (timeout)
-        cancel_after_delay = (AnimationRunning == 0);
+        cancel_after_delay = (AnimationRunning == 0 && ColorCyclingRunning == 0);
 
-    if (cancel_after_delay)
-        glk_request_timer_events(2000);
+    if (cancel_after_delay && TimerRate == 0)
+        SetTimer(3000);
 
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
             result = 1;
-        } else if (cancel_after_delay && ev.type == evtype_Timer) {
-            result = 1;
-            glk_cancel_char_event(Bottom);
-            glk_request_timer_events(0);
-        } else
+        } else {
+            DelayCounter++;
+            if (cancel_after_delay && ev.type == evtype_Timer) {
+                int factor = MAX(TimerRate, 1);
+                int rate = MAX(3000 / factor, 1);
+                if (DelayCounter % rate == 0) {
+                    result = 1;
+                    glk_cancel_char_event(Bottom);
+                    if (TimerRate == 3000)
+                        SetTimer(0);
+                    DelayCounter = 0;
+                }
+            }
+
+            if (!AnimationRunning && !cancel_after_delay && timeout) {
+                if (TimerRate == 0)
+                    SetTimer(3000);
+                cancel_after_delay = 1;
+            }
+
             Updates(ev);
-
-        if (!AnimationRunning && !cancel_after_delay && timeout) {
-            glk_request_timer_events(1000);
-            cancel_after_delay = 1;
         }
-
     } while (result == 0);
 
     return;
@@ -431,7 +489,7 @@ static void ListExits(void)
             WriteToRoomDescriptionStream("%s", sys[i]);
             ct++;
         }
-    WriteToRoomDescriptionStream(".\n");
+    WriteToRoomDescriptionStream(". ");
 }
 
 static const char *IndefiniteArticle(const char *word) {
@@ -590,15 +648,15 @@ static void Delay(float seconds)
     glk_request_char_event(Bottom);
     glk_cancel_char_event(Bottom);
     
-    glk_request_timer_events(1000 * seconds);
+    SetTimer(1000 * seconds);
     
     do {
         glk_select(&ev);
         Updates(ev);
     } while (ev.type != evtype_Timer);
 
-    if (!AnimationRunning)
-        glk_request_timer_events(0);
+    if (!AnimationRunning && !ColorCyclingRunning)
+        SetTimer(0);
 }
 
 static int RandomPercent(int n)
@@ -640,17 +698,27 @@ static void PrintMessage(int index)
 {
     const char *message = Messages[index];
     debug_print("Print message %d: \"%s\"\n", index, message);
+    if (lastwasnewline)
+        pendingcomma = 0;
     if (message != NULL && message[0] != 0) {
         int i = 0;
         if (message[0] != '\\' && message[0] != ' ') {
+            if (pendingcomma)
+                Output(",");
             if (!lastwasnewline)
                 Output(" ");
         } else {
             while (message[i] == '\\')
                 i++;
         }
-        while (message[i] != 0 && !(message[i] == ' ' && message[i + 1] == 0))
-            Display(Bottom, "%c", message[i++]);
+        pendingcomma = 0;
+        while (message[i] != 0 && !(message[i] == ' ' && message[i + 1] == 0)) {
+            if (message[i] == ',' && message[i + 1] == 0)
+                pendingcomma = 1;
+            else
+                Display(Bottom, "%c", message[i]);
+            i++;
+        }
         lastwasnewline = 0;
     }
 }
@@ -701,10 +769,20 @@ static void PlayerIsDead(void)
     Counters[17] = Counters[17] & 0x0f;
 }
 
+void CheckForObjectImage(int obj) {
+    for (int i = 0; i <= GameHeader.NumObjImg; i++)
+        if (ObjectImages[i].Object == obj) {
+            SetBit(DRAWBIT);
+            return;
+        }
+}
+
 static void PutItemAInRoomB(int itemA, int roomB)
 {
     debug_print("Item %d (%s) is put in room %d. MyLoc: %d (%s)\n", itemA, Items[itemA].Text, roomB, MyLoc, Rooms[MyLoc].Text);
     Items[itemA].Location = roomB;
+    if (roomB == MyLoc)
+        CheckForObjectImage(itemA);
 }
 
 static void SwapCounters(int index)
@@ -790,6 +868,8 @@ static void ClearScreen(void)
     glk_window_clear(Bottom);
 }
 
+void DrawApple2ImageFromVideoMem(void);
+
 static void SysCommand(int arg1, int arg2) {
     switch (arg1) {
         case 1:
@@ -820,6 +900,8 @@ static void SysCommand(int arg1, int arg2) {
         case 7:
             debug_print("DrawItemImage %d\n", Counters[arg2]);
             DrawItemImage(Counters[arg2]);
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
             break;
         case 8:
             debug_print("DrawRoomImage %d\n", Counters[arg2]);
@@ -915,7 +997,7 @@ int CalculateConditionResult(int x, int y, int or_condition) {
 int parens_depth = 0;
 int parens_stack[5];
 
-static ActionResultType TestConditions(uint8_t *ptr) {
+static ActionResultType TestConditions(uint16_t *ptr) {
     int negate_condition = 0;
     int negate_multiple = 0;
     int or_condition = 0;
@@ -936,9 +1018,14 @@ static ActionResultType TestConditions(uint8_t *ptr) {
 
         originaldv = dv;
 
-        if (dv == 230) {
+        if (dv == 998) {
             dv = NounObject;
+        } else if (dv == 999) {
+            dv = Noun2Object;
+        } else if (dv == 997) {
+            Fatal("With list unimplemented");
         }
+
         debug_print("Testing condition %d: ", cv);
         current_result = 1;
 
@@ -1088,14 +1175,16 @@ static ActionResultType TestConditions(uint8_t *ptr) {
                     debug_print("Is dictword of item (dv) %d == dictword group (dv2) %d?\n", dv, dv2);
                 else
                     debug_print("Is dictword (%d) of item %d (%s) == dictword (%d) of item %d (%s)?\n", Items[dv].Dictword, dv, Items[dv].Text, Items[dv2].Dictword, dv2, Items[dv2].Text);
-                if (originaldv == 231) {
+                if (originaldv == 999) {
                     if (CurNoun2 == dv2)
                         break;
                     current_result = 0;
-                } else if (originaldv == 230) {
+                } else if (originaldv == 998) {
                     if (CurNoun == dv2)
                         break;
                     current_result = 0;
+                } else if (originaldv == 997) {
+                    Fatal("With list unimplemented");
                 } else {
                     if (Items[dv].Dictword == 0)
                         break;
@@ -1109,8 +1198,12 @@ static ActionResultType TestConditions(uint8_t *ptr) {
             case 29:
                 cc++;
                 dv2 = ptr[cc++];
-                if (dv2 == 230)
-                    dv2 = CurNoun; // dv2 always seems to be 230
+                if (dv2 == 998)
+                    dv2 = CurNoun;
+                else if (dv2 == 999)
+                    dv2 = CurNoun2;
+                else if (dv2 == 997)
+                    Fatal("With list unimplemented");
                 debug_print("Is dictword of object %d (%s) %d? (%s)\n", dv, Nouns[GetDictWord(Items[NounObject].Dictword)].Word, dv2, Nouns[GetDictWord(dv2)].Word);
                 if (fuzzy_match) {
                     debug_print("(Fuzzy match)\n");
@@ -1214,14 +1307,6 @@ static void PrintFlagInfo(int arg) {
     }
 }
 
-void CheckForObjectImage(int obj) {
-    for (int i = 0; i <= GameHeader.NumObjImg; i++)
-        if (ObjectImages[i].object == obj) {
-            SetBit(DRAWBIT);
-            return;
-        }
-}
-
 static ActionResultType PerformLine(int ct)
 {
 debug_print("\nPerforming line %d: ", ct);
@@ -1240,7 +1325,6 @@ debug_print("\nPerforming line %d: ", ct);
     
     /* Commands */
     cc = 0;
-    //    act[0] = Actions[ct].Commands[0];
     uint8_t *commands = Actions[ct].Commands;
     int length = Actions[ct].CommandLength;
     while (cc <= length) {
@@ -1256,11 +1340,6 @@ debug_print("\nPerforming line %d: ", ct);
             object = arg1;
             if (cc + 1 <= length) {
                 arg2 = commands[cc + 1];
-                if (object == 131 && arg2 == 230) {
-                    object = NounObject;
-                    plus_one_arg = 1;
-                }
-
                 if (cc + 2 <= length) {
                     arg3 = commands[cc + 2];
                 }
@@ -1280,9 +1359,12 @@ debug_print("\nPerforming line %d: ", ct);
             }
             if (arg1 == 998) {
                 arg1 = CurNoun;
-            }
-            if (arg1 == 990) {
+                object = NounObject;
+            } else if (arg1 == 999) {
                 arg1 = CurNoun2;
+                object = Noun2Object;
+            } else if (arg1 == 997) {
+                Fatal("With list unimplemented");
             }
         }
         
@@ -1296,6 +1378,7 @@ debug_print("\nPerforming line %d: ", ct);
                 case 52:
                     if (CountItemsInRoom(0) >= GameHeader.MaxCarry) {
                         SystemMessage(YOURE_CARRYING_TOO_MUCH);
+                        lastwasnewline = 1;
                         return ACT_SUCCESS;
                     }
                     Items[object].Location = CARRIED;
@@ -1516,6 +1599,9 @@ debug_print("\nPerforming line %d: ", ct);
                     break;
                 case 97:
                     debug_print("Swap counters %d %d \n", arg1, arg2);
+                    /* Draw room image after jumping off Claymorgue crate */
+                    if (arg1 == 32 && ca2 != MyLoc)
+                        SetBit(DRAWBIT);
                     Counters[arg1] = ca2;
                     Counters[arg2] = ca1;
                     cc += 2;
@@ -1627,6 +1713,7 @@ debug_print("\nPerforming line %d: ", ct);
                 case 117:
                     debug_print("Set found_match to 1\n");
                     found_match = 1;
+                    SetBit(MATCHBIT);
                     break;
                 case 118:
                     debug_print("Set done to 1\n");
@@ -1900,6 +1987,7 @@ static CommandResultType PerformExplicit(void)
     found_match = 0;
     ResetBit(MATCHBIT);
     NounObject = MatchUpItem(CurNoun, -1);
+    Noun2Object = MatchUpItem(CurNoun2, -1);
 
     while (ct <= GameHeader.NumActions) {
         int verbvalue, nounvalue;
@@ -1914,6 +2002,8 @@ static CommandResultType PerformExplicit(void)
             ActionResultType actresult = PerformLine(ct);
             
             if (actresult != ACT_FAILURE) {
+                if (actresult != ACT_DONE)
+                    ResetBit(MATCHBIT);
                 if (found_match) {
                     keep_going = 0;
                     result = ER_SUCCESS;
@@ -1992,17 +2082,17 @@ int glkunix_startup_code(glkunix_startup_t *data)
     
     if (argc == 2) {
         game_file = argv[1];
-        
+
         const char *s;
         int dirlen = 0;
         if ((s = strrchr(game_file, '/')) != NULL || (s = strrchr(game_file, '\\')) != NULL) {
             dirlen = (int)(s - game_file + 1);
         }
         if (dirlen) {
-            dir_path = MemAlloc(dirlen + 1);
-            memcpy(dir_path, game_file, dirlen);
-            dir_path[dirlen] = 0;
-            debug_print("Directory path: \"%s\"\n", dir_path);
+            DirPath = MemAlloc(dirlen + 1);
+            memcpy(DirPath, game_file, dirlen);
+            DirPath[dirlen] = 0;
+            debug_print("Directory path: \"%s\"\n", DirPath);
         }
     }
     
@@ -2018,8 +2108,11 @@ void ResizeTitleImage(void) {
     y_offset = ((int)graphheight - (int)optimal_height) / 3;
 }
 
+
 void DrawTitleImage(void) {
     DisplayInit();
+    if (!gli_enable_graphics)
+        return;
     glk_window_close(Top, NULL);
     Top = NULL;
     glk_window_close(Bottom, NULL);
@@ -2029,19 +2122,25 @@ void DrawTitleImage(void) {
 
     glk_request_char_event(Graphics);
 
-    char buf[1024];
-    int n = sprintf(buf, "%sS0%02d.PAK", dir_path, 0);
-    if (n < 0)
-        return;
+    if (DrawImageWithName("S000")) {
 
-    if (DrawImageFromFile(buf)) {
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
+
         event_t ev;
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
+                if (!gli_enable_graphics)
+                    break;
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
-                DrawImageFromFile(buf);
+                DrawImageWithName("S000");
+                if (CurrentSys == SYS_APPLE2)
+                    DrawApple2ImageFromVideoMem();
+            } else if (ev.type == evtype_Timer) {
+                if (ColorCyclingRunning)
+                    UpdateColorCycling();
             }
         } while (ev.type != evtype_CharInput);
     }
@@ -2053,10 +2152,8 @@ void DrawTitleImage(void) {
 
 void glk_main(void) {
     if (game_file == NULL)
-        glk_exit();
-    
-    int vb = 0, no = 0;
-    
+        Fatal("No game file");
+
     for (int i = 0; i < MAX_SYSMESS; i++) {
         sys[i] = sysdict[i];
         if (sysdict_i_am[i])
@@ -2066,9 +2163,38 @@ void glk_main(void) {
     FILE *f = fopen(game_file, "r");
     if (f == NULL)
         Fatal("Cannot open game");
-    
-    if (!LoadDatabase(f, DEBUG_ACTIONS))
-        glk_exit();
+
+
+    if (LoadDatabasePlaintext(f, DEBUG_ACTIONS) == UNKNOWN_GAME) {
+        fseek(f, 0, SEEK_END);
+        memlen = ftell(f);
+        if (memlen == -1) {
+            fclose(f);
+            Fatal("Game file empty");
+        }
+
+        fseek(f, 0, SEEK_SET);
+        mem = malloc(memlen);
+        if (!mem) {
+            Fatal("Out of memory");
+        }
+
+        memlen = fread(mem, 1, memlen, f);
+        fclose(f);
+
+        if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
+            Fatal("Could not detect game type");
+        }
+
+        if (!LoadDatabaseBinary()) {
+            Fatal("Could not load binary database");
+        }
+
+        if (CurrentSys == SYS_ATARI8)
+            LookForAtari8Images(&mem, &memlen);
+        else if (CurrentSys == SYS_APPLE2)
+            LookForApple2Images();
+    }
 
 #ifdef SPATTERLIGHT
     UpdateSettings();
@@ -2089,7 +2215,7 @@ void glk_main(void) {
         if (should_restart)
             RestartGame();
 
-        if (IsSet(STOPTIMEBIT)) {
+        if (IsSet(STOPTIMEBIT) || JustRestored) {
             ResetBit(STOPTIMEBIT);
         } else {
             PerformImplicit();
@@ -2109,11 +2235,8 @@ void glk_main(void) {
 
         JustRestored = 0;
 
-        if (GetInput(&vb, &no) == 1)
+        if (GetInput() == 1)
             continue;
-        
-        CurVerb = vb;
-        CurNoun = no;
 
         LastVerb = CurVerb;
         LastNoun = CurNoun;
@@ -2124,21 +2247,16 @@ void glk_main(void) {
 
         ClearFrames();
 
-        switch (PerformExplicit()) {
-            case ER_RAN_ALL_LINES_NO_MATCH:
-                SystemMessage(I_DONT_UNDERSTAND);
-                StopProcessingCommand();
-                Output("\n");
-                break;
-            case ER_RAN_ALL_LINES:
-                SystemMessage(YOU_CANT_DO_THAT_YET);
-                StopProcessingCommand();
-                Output("\n");
-                break;
-            default:
-                break;
-        }
+        CommandResultType result = PerformExplicit();
 
+        if (result == ER_RAN_ALL_LINES_NO_MATCH || result == ER_RAN_ALL_LINES || IsSet(MATCHBIT)) {
+            if (result == ER_RAN_ALL_LINES_NO_MATCH)
+                SystemMessage(I_DONT_UNDERSTAND);
+            else
+                SystemMessage(YOU_CANT_DO_THAT_YET);
+            StopProcessingCommand();
+        }
+        
         JustStarted = 0;
     }
 }

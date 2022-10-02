@@ -11,7 +11,8 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "diskimage.h"
+
+#include "c64diskimage.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -111,41 +112,7 @@ int di_name_from_rawname(char *name, unsigned char *rawname)
     return i;
 }
 
-/* return status string */
-int di_status(DiskImage *di, char *status)
-{
-    ErrorMessage *err = error_msg;
-
-    /* special case for power up */
-    if (di->status == 254) {
-        switch (di->type) {
-        case D64:
-            sprintf(status, "73,cbm dos v2.6 1541,00,00");
-            break;
-        case D71:
-            sprintf(status, "73,cbm dos v3.0 1571,00,00");
-            break;
-        case D81:
-            sprintf(status, "73,copyright cbm dos v10 1581,00,00");
-            break;
-        }
-        return 73;
-    }
-
-    while (err->number >= 0) {
-        if (di->status == err->number) {
-            sprintf(status, "%02d,%s,%02d,%02d", di->status, err->string,
-                di->statusts.track, di->statusts.sector);
-            return di->status;
-        }
-        ++err;
-    }
-    sprintf(status, "%02d,unknown error,%02d,%02d", di->status,
-        di->statusts.track, di->statusts.sector);
-    return di->status;
-}
-
-int set_status(DiskImage *di, int status, int track, int sector)
+static int set_status(DiskImage *di, int status, int track, int sector)
 {
     di->status = status;
     di->statusts.track = track;
@@ -154,7 +121,7 @@ int set_status(DiskImage *di, int status, int track, int sector)
 }
 
 /* return write interleave */
-int interleave(ImageType type)
+static int interleave(ImageType type)
 {
     switch (type) {
     case D64:
@@ -170,7 +137,7 @@ int interleave(ImageType type)
 }
 
 /* return number of tracks for image type */
-int di_tracks(ImageType type)
+static int di_tracks(ImageType type)
 {
     switch (type) {
     case D64:
@@ -187,7 +154,7 @@ int di_tracks(ImageType type)
 }
 
 /* return disk geometry for track */
-int di_sectors_per_track(ImageType type, int track)
+static int di_sectors_per_track(ImageType type, int track)
 {
     switch (type) {
     case D71:
@@ -214,7 +181,7 @@ int di_sectors_per_track(ImageType type, int track)
 }
 
 /* check if given track/sector is within valid range */
-int di_ts_is_valid(ImageType type, TrackSector ts)
+static int di_ts_is_valid(ImageType type, TrackSector ts)
 {
     if ((ts.track < 1) || (ts.track > di_tracks(type))) {
         return 0; /* track out of range */
@@ -226,7 +193,7 @@ int di_ts_is_valid(ImageType type, TrackSector ts)
 }
 
 /* convert track, sector to blocknum */
-int di_get_block_num(ImageType type, TrackSector ts)
+static int di_get_block_num(ImageType type, TrackSector ts)
 {
     int block;
 
@@ -276,13 +243,13 @@ int di_get_block_num(ImageType type, TrackSector ts)
 }
 
 /* get a pointer to block data */
-unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts)
+static unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts)
 {
     return di->image + di_get_block_num(di->type, ts) * 256;
 }
 
 /* get error info for a sector */
-int get_ts_doserr(DiskImage *di, TrackSector ts)
+static int get_ts_doserr(DiskImage *di, TrackSector ts)
 {
     //	return 1;
     if (di->errinfo == NULL) {
@@ -293,7 +260,7 @@ int get_ts_doserr(DiskImage *di, TrackSector ts)
 }
 
 /* get status info for a sector */
-int di_get_ts_err(DiskImage *di, TrackSector ts)
+static int di_get_ts_err(DiskImage *di, TrackSector ts)
 {
     int errnum;
     DosError *err = dos_error;
@@ -309,7 +276,7 @@ int di_get_ts_err(DiskImage *di, TrackSector ts)
 }
 
 /* return a pointer to the next block in the chain */
-TrackSector next_ts_in_chain(DiskImage *di, TrackSector ts)
+static TrackSector next_ts_in_chain(DiskImage *di, TrackSector ts)
 {
     unsigned char *p;
     TrackSector newts;
@@ -322,7 +289,7 @@ TrackSector next_ts_in_chain(DiskImage *di, TrackSector ts)
 }
 
 /* return t/s of first directory sector */
-TrackSector di_get_dir_ts(DiskImage *di)
+static TrackSector di_get_dir_ts(DiskImage *di)
 {
     TrackSector newts;
     unsigned char *p;
@@ -339,26 +306,8 @@ TrackSector di_get_dir_ts(DiskImage *di)
     return newts;
 }
 
-/* return t/s of first bam sector */
-TrackSector di_get_bam_ts(DiskImage *di) { return di->bam; }
-
-/* return a pointer to the disk title */
-unsigned char *di_title(DiskImage *di)
-{
-    switch (di->type) {
-    default:
-    case D64:
-    case D71:
-        return di_get_ts_addr(di, di->dir) + 144;
-        break;
-    case D81:
-        return di_get_ts_addr(di, di->dir) + 4;
-        break;
-    }
-}
-
 /* return number of free blocks in track */
-int di_track_blocks_free(DiskImage *di, int track)
+static int di_track_blocks_free(DiskImage *di, int track)
 {
     unsigned char *bam;
 
@@ -387,7 +336,7 @@ int di_track_blocks_free(DiskImage *di, int track)
 }
 
 /* count number of free blocks */
-int blocks_free(DiskImage *di)
+static int blocks_free(DiskImage *di)
 {
     int track;
     int blocks = 0;
@@ -401,7 +350,7 @@ int blocks_free(DiskImage *di)
 }
 
 /* check if track, sector is free in BAM */
-int di_is_ts_free(DiskImage *di, TrackSector ts)
+static int di_is_ts_free(DiskImage *di, TrackSector ts)
 {
     unsigned char mask;
     unsigned char *bam;
@@ -441,7 +390,7 @@ int di_is_ts_free(DiskImage *di, TrackSector ts)
 }
 
 /* allocate track, sector in BAM */
-void di_alloc_ts(DiskImage *di, TrackSector ts)
+static void di_alloc_ts(DiskImage *di, TrackSector ts)
 {
     unsigned char mask;
     unsigned char *bam;
@@ -481,88 +430,8 @@ void di_alloc_ts(DiskImage *di, TrackSector ts)
     }
 }
 
-/* allocate next available block */
-TrackSector alloc_next_ts(DiskImage *di, TrackSector prevts)
-{
-    unsigned char *bam;
-    int spt, s1, s2, t1, t2, bpt, boff, res1, res2;
-    TrackSector ts;
-
-    switch (di->type) {
-    default:
-    case D64:
-        s1 = 1;
-        t1 = 35;
-        s2 = 1;
-        t2 = 35;
-        res1 = 18;
-        res2 = 0;
-        bpt = 4;
-        boff = 0;
-        break;
-    case D71:
-        s1 = 1;
-        t1 = 35;
-        s2 = 36;
-        t2 = 70;
-        res1 = 18;
-        res2 = 53;
-        bpt = 4;
-        boff = 0;
-        break;
-    case D81:
-        s1 = 1;
-        t1 = 40;
-        s2 = 41;
-        t2 = 80;
-        res1 = 40;
-        res2 = 0;
-        bpt = 6;
-        boff = 10;
-        break;
-    }
-
-    bam = di_get_ts_addr(di, di->bam);
-    for (ts.track = s1; ts.track <= t1; ++ts.track) {
-        if (ts.track != res1) {
-            if (bam[ts.track * bpt + boff]) {
-                spt = di_sectors_per_track(di->type, ts.track);
-                ts.sector = (prevts.sector + di->interleave) % spt;
-                for (;; ts.sector = (ts.sector + 1) % spt) {
-                    if (di_is_ts_free(di, ts)) {
-                        di_alloc_ts(di, ts);
-                        return ts;
-                    }
-                }
-            }
-        }
-    }
-
-    if (di->type == D71 || di->type == D81) {
-        bam = di_get_ts_addr(di, di->bam2);
-        for (ts.track = s2; ts.track <= t2; ++ts.track) {
-            if (ts.track != res2) {
-                if (bam[(ts.track - t1) * bpt + boff]) {
-                    spt = di_sectors_per_track(di->type, ts.track);
-                    ts.sector = (prevts.sector + di->interleave) % spt;
-                    for (;; ts.sector = (ts.sector + 1) % spt) {
-                        if (di_is_ts_free(di, ts)) {
-                            di_alloc_ts(di, ts);
-                            return ts;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    ts.track = 0;
-    ts.sector = 0;
-    return ts;
-}
-
 /* allocate next available directory block */
-TrackSector alloc_next_dir_ts(DiskImage *di)
+static TrackSector alloc_next_dir_ts(DiskImage *di)
 {
     unsigned char *p;
     int spt;
@@ -602,162 +471,6 @@ TrackSector alloc_next_dir_ts(DiskImage *di)
         ts.sector = 0;
         return ts;
     }
-}
-
-/* free a block in the BAM */
-void di_free_ts(DiskImage *di, TrackSector ts)
-{
-    unsigned char mask;
-    unsigned char *bam;
-
-    di->modified = 1;
-    switch (di->type) {
-    case D64:
-        mask = 1 << (ts.sector & 7);
-        bam = di_get_ts_addr(di, di->bam);
-        bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-        bam[ts.track * 4]++;
-        break;
-    case D71:
-        mask = 1 << (ts.sector & 7);
-        if (ts.track < 36) {
-            bam = di_get_ts_addr(di, di->bam);
-            bam[ts.track * 4 + ts.sector / 8 + 1] |= mask;
-            bam[ts.track * 4]++;
-        } else {
-            bam = di_get_ts_addr(di, di->bam);
-            bam[ts.track + 185]++;
-            bam = di_get_ts_addr(di, di->bam2);
-            bam[(ts.track - 35) * 3 + ts.sector / 8 - 3] |= mask;
-        }
-        break;
-    case D81:
-        if (ts.track < 41) {
-            bam = di_get_ts_addr(di, di->bam);
-        } else {
-            bam = di_get_ts_addr(di, di->bam2);
-            ts.track -= 40;
-        }
-        mask = 1 << (ts.sector & 7);
-        bam[ts.track * 6 + ts.sector / 8 + 11] |= mask;
-        bam[ts.track * 6 + 10]++;
-        break;
-    default:
-        break;
-    }
-}
-
-/* free a chain of blocks */
-void free_chain(DiskImage *di, TrackSector ts)
-{
-    while (ts.track) {
-        di_free_ts(di, ts);
-        ts = next_ts_in_chain(di, ts);
-    }
-}
-
-DiskImage *di_load_image(const char *name)
-{
-    FILE *file;
-    int filesize, l, read;
-    DiskImage *di;
-
-    /* open image */
-    if ((file = fopen(name, "rb")) == NULL) {
-        return NULL;
-    }
-
-    /* get file size*/
-    if (fseek(file, 0, SEEK_END)) {
-        fclose(file);
-        return NULL;
-    }
-    filesize = ftell(file);
-    fseek(file, 0, SEEK_SET);
-
-    if ((di = malloc(sizeof(*di))) == NULL) {
-        fclose(file);
-        return NULL;
-    }
-
-    di->size = filesize;
-
-    /* allocate buffer for image */
-    if ((di->image = malloc(filesize)) == NULL) {
-        free(di);
-        fclose(file);
-        return NULL;
-    }
-
-    /* read file into buffer */
-    read = 0;
-    while (read < filesize) {
-        if ((l = fread(di->image, 1, filesize - read, file))) {
-            read += l;
-        } else {
-            free(di->image);
-            free(di);
-            fclose(file);
-            return NULL;
-        }
-    }
-
-    fclose(file);
-
-    di->errinfo = NULL;
-
-    /* check image type */
-    switch (filesize) {
-    case D64ERRSIZE: /* D64 with error info */
-        // di->errinfo = &(di->error_);
-    case D64SIZE: /* standard D64 */
-        di->type = D64;
-        di->bam.track = 18;
-        di->bam.sector = 0;
-        di->dir = di->bam;
-        break;
-
-    case D71ERRSIZE: /* D71 with error info */
-        di->errinfo = &(di->image[D71SIZE]);
-    case D71SIZE:
-        di->type = D71;
-        di->bam.track = 18;
-        di->bam.sector = 0;
-        di->bam2.track = 53;
-        di->bam2.sector = 0;
-        di->dir = di->bam;
-        break;
-
-    case D81ERRSIZE: /* D81 with error info */
-        di->errinfo = &(di->image[D81SIZE]);
-    case D81SIZE:
-        di->type = D81;
-        di->bam.track = 40;
-        di->bam.sector = 1;
-        di->bam2.track = 40;
-        di->bam2.sector = 2;
-        di->dir.track = 40;
-        di->dir.sector = 0;
-        break;
-
-    default:
-        free(di->image);
-        free(di);
-        return NULL;
-    }
-
-    if ((di->filename = malloc(strlen(name) + 1)) == NULL) {
-        free(di->image);
-        free(di);
-        return NULL;
-    }
-    strcpy(di->filename, name);
-    di->openfiles = 0;
-    di->blocksfree = blocks_free(di);
-    di->modified = 0;
-    di->interleave = interleave(di->type);
-    set_status(di, 254, 0, 0);
-    return di;
 }
 
 DiskImage *di_create_from_data(uint8_t *data, int length)
@@ -832,114 +545,7 @@ DiskImage *di_create_from_data(uint8_t *data, int length)
     return di;
 }
 
-DiskImage *di_create_image(char *name, int size)
-{
-    DiskImage *di;
-
-    if ((di = malloc(sizeof(*di))) == NULL) {
-        return NULL;
-    }
-
-    /* allocate buffer for image */
-    if ((di->image = malloc(size)) == NULL) {
-        free(di);
-        return NULL;
-    }
-    memset(di->image, 0, size);
-
-    di->size = size;
-
-    /* check image type */
-    switch (size) {
-
-    case D64ERRSIZE: /* D64 with error info */
-        // di->errinfo = &(di->image[D64SIZE]);
-    case D64SIZE: /* standard D64 */
-        di->type = D64;
-        di->bam.track = 18;
-        di->bam.sector = 0;
-        di->dir = di->bam;
-        break;
-
-    case D71ERRSIZE: /* D71 with error info */
-        // di->errinfo = &(di->image[D71SIZE]);
-    case D71SIZE:
-        di->type = D71;
-        di->bam.track = 18;
-        di->bam.sector = 0;
-        di->bam2.track = 53;
-        di->bam2.sector = 0;
-        di->dir = di->bam;
-        break;
-
-    case D81ERRSIZE: /* D81 with error info */
-        // di->errinfo = &(di->image[D81SIZE]);
-    case D81SIZE:
-        di->type = D81;
-        di->bam.track = 40;
-        di->bam.sector = 1;
-        di->bam2.track = 40;
-        di->bam2.sector = 2;
-        di->dir.track = 40;
-        di->dir.sector = 0;
-        break;
-
-    default:
-        free(di->image);
-        free(di);
-        return NULL;
-    }
-
-    if ((di->filename = malloc(strlen(name) + 1)) == NULL) {
-        free(di->image);
-        free(di);
-        return NULL;
-    }
-    strcpy(di->filename, name);
-    di->openfiles = 0;
-    di->blocksfree = blocks_free(di);
-    di->modified = 1;
-    di->interleave = interleave(di->type);
-    set_status(di, 254, 0, 0);
-    return di;
-}
-
-void di_sync(DiskImage *di)
-{
-    FILE *file;
-    int l, left;
-    unsigned char *image;
-
-    if ((file = fopen(di->filename, "wb"))) {
-        image = di->image;
-        left = di->size;
-        while (left) {
-            if ((l = fwrite(image, 1, left, file)) == 0) {
-                fclose(file);
-                return;
-            }
-            left -= l;
-            image += l;
-        }
-        fclose(file);
-        di->modified = 0;
-    }
-}
-
-void di_free_image(DiskImage *di)
-{
-    if (di->modified) {
-        di_sync(di);
-    }
-    if (di->filename) {
-        free(di->filename);
-    }
-    if (di->image)
-        free(di->image);
-    free(di);
-}
-
-int match_pattern(unsigned char *rawpattern, unsigned char *rawname)
+static int match_pattern(unsigned char *rawpattern, unsigned char *rawname)
 {
     int i;
 
@@ -988,7 +594,46 @@ RawDirEntry *find_largest_file_entry(DiskImage *di)
     return largest;
 }
 
-RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
+char **get_all_file_names(DiskImage *di, int *numfiles)
+{
+    unsigned char *buffer;
+    TrackSector ts;
+    RawDirEntry *rde;
+    int offset;
+
+    char temp_filenames[128][64];
+    int filename_index = 0;
+
+    ts = di_get_dir_ts(di);
+
+    while (ts.track) {
+        buffer = di_get_ts_addr(di, ts);
+        for (offset = 0; offset < 256; offset += 32) {
+            rde = (RawDirEntry *)(buffer + offset);
+            di_name_from_rawname(temp_filenames[filename_index++], rde->rawname);
+        }
+        /* todo: add sanity checking */
+        ts = next_ts_in_chain(di, ts);
+    }
+    if (filename_index == 0)
+        return NULL;
+    char **filenames = malloc((filename_index + 1) * sizeof(char *));
+    for (int i = 0; i < filename_index; i++) {
+        size_t len = strlen(temp_filenames[i]);
+        if (len == 0) {
+            filenames[i] = NULL;
+            continue;
+        }
+        len++;
+        filenames[i] = malloc(len);
+        memcpy(filenames[i], temp_filenames[i], len);
+    }
+    filenames[filename_index] = NULL;
+    *numfiles = filename_index;
+    return filenames;
+}
+
+static RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
     FileType type)
 {
     unsigned char *buffer;
@@ -1002,11 +647,8 @@ RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
         buffer = di_get_ts_addr(di, ts);
         for (offset = 0; offset < 256; offset += 32) {
             rde = (RawDirEntry *)(buffer + offset);
-            //			if ((rde->type & 0x07) == (type)) {
-            //            if (rde->type == type) {
             if (match_pattern(rawpattern, rde->rawname)) {
                 return rde;
-                //				}
             }
         }
         /* todo: add sanity checking */
@@ -1015,7 +657,7 @@ RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
     return NULL;
 }
 
-RawDirEntry *alloc_file_entry(DiskImage *di, unsigned char *rawname,
+static RawDirEntry *alloc_file_entry(DiskImage *di, unsigned char *rawname,
     FileType type)
 {
     unsigned char *buffer;
@@ -1273,342 +915,4 @@ int di_read(ImageFile *imgfile, unsigned char *buffer, int len)
         }
     }
     return counter;
-}
-
-int di_write(ImageFile *imgfile, unsigned char *buffer, int len)
-{
-    unsigned char *p;
-    int bytesleft;
-    int counter = 0;
-
-    while (len) {
-        bytesleft = imgfile->buflen - imgfile->bufptr;
-        if (bytesleft == 0) {
-            if (imgfile->diskimage->blocksfree == 0) {
-                set_status(imgfile->diskimage, 72, 0, 0);
-                return counter;
-            }
-            imgfile->nextts = alloc_next_ts(imgfile->diskimage, imgfile->ts);
-            if (imgfile->ts.track == 0) {
-                imgfile->rawdirentry->startts = imgfile->nextts;
-            } else {
-                p = di_get_ts_addr(imgfile->diskimage, imgfile->ts);
-                p[0] = imgfile->nextts.track;
-                p[1] = imgfile->nextts.sector;
-            }
-            imgfile->ts = imgfile->nextts;
-            p = di_get_ts_addr(imgfile->diskimage, imgfile->ts);
-            p[0] = 0;
-            p[1] = 0xff;
-            memcpy(p + 2, imgfile->buffer, 254);
-            imgfile->bufptr = 0;
-            if (++(imgfile->rawdirentry->sizelo) == 0) {
-                ++(imgfile->rawdirentry->sizehi);
-            }
-            --(imgfile->diskimage->blocksfree);
-        } else {
-            if (len >= bytesleft) {
-                while (bytesleft) {
-                    imgfile->buffer[imgfile->bufptr++] = *buffer++;
-                    --len;
-                    --bytesleft;
-                    ++counter;
-                    ++(imgfile->position);
-                }
-            } else {
-                while (len) {
-                    imgfile->buffer[imgfile->bufptr++] = *buffer++;
-                    --len;
-                    --bytesleft;
-                    ++counter;
-                    ++(imgfile->position);
-                }
-            }
-        }
-    }
-    return counter;
-}
-
-void di_close(ImageFile *imgfile)
-{
-    unsigned char *p;
-
-    if (imgfile->mode == 'w') {
-        if (imgfile->bufptr) {
-            if (imgfile->diskimage->blocksfree) {
-                imgfile->nextts = alloc_next_ts(imgfile->diskimage, imgfile->ts);
-                if (imgfile->ts.track == 0) {
-                    imgfile->rawdirentry->startts = imgfile->nextts;
-                } else {
-                    p = di_get_ts_addr(imgfile->diskimage, imgfile->ts);
-                    p[0] = imgfile->nextts.track;
-                    p[1] = imgfile->nextts.sector;
-                }
-                imgfile->ts = imgfile->nextts;
-                p = di_get_ts_addr(imgfile->diskimage, imgfile->ts);
-                p[0] = 0;
-                p[1] = 0xff;
-                memcpy(p + 2, imgfile->buffer, 254);
-                imgfile->bufptr = 0;
-                if (++(imgfile->rawdirentry->sizelo) == 0) {
-                    ++(imgfile->rawdirentry->sizehi);
-                }
-                --(imgfile->diskimage->blocksfree);
-                imgfile->rawdirentry->type |= 0x80;
-            }
-        } else {
-            imgfile->rawdirentry->type |= 0x80;
-        }
-        free(imgfile->buffer);
-    }
-    --(imgfile->diskimage->openfiles);
-    free(imgfile);
-}
-
-int di_format(DiskImage *di, unsigned char *rawname, unsigned char *rawid)
-{
-    unsigned char *p;
-    TrackSector ts;
-
-    di->modified = 1;
-
-    /* erase disk */
-    if (rawid) {
-        memset(di->image, 0, di->size);
-    }
-
-    switch (di->type) {
-
-    case D64:
-        /* get ptr to bam */
-        p = di_get_ts_addr(di, di->bam);
-
-        /* setup header */
-        p[0] = 18;
-        p[1] = 1;
-        p[2] = 'A';
-        p[3] = 0;
-
-        /* clear bam */
-        memset(p + 4, 0, 0x8c);
-
-        /* free blocks */
-        for (ts.track = 1; ts.track <= di_tracks(di->type); ++ts.track) {
-            for (ts.sector = 0; ts.sector < di_sectors_per_track(di->type, ts.track);
-                 ++ts.sector) {
-                di_free_ts(di, ts);
-            }
-        }
-
-        /* allocate bam and dir */
-        ts.track = 18;
-        ts.sector = 0;
-        di_alloc_ts(di, ts);
-        ts.sector = 1;
-        di_alloc_ts(di, ts);
-
-        /* copy name */
-        memcpy(p + 0x90, rawname, 16);
-
-        /* set id */
-        memset(p + 0xa0, 0xa0, 2);
-        if (rawid) {
-            memcpy(p + 0xa2, rawid, 2);
-        }
-        memset(p + 0xa4, 0xa0, 7);
-        p[0xa5] = '2';
-        p[0xa6] = 'A';
-
-        /* clear unused bytes */
-        memset(p + 0xab, 0, 0x55);
-
-        /* clear first dir block */
-        memset(p + 256, 0, 256);
-        p[257] = 0xff;
-        break;
-
-    case D71:
-        /* get ptr to bam2 */
-        p = di_get_ts_addr(di, di->bam2);
-
-        /* clear bam2 */
-        memset(p, 0, 256);
-
-        /* get ptr to bam */
-        p = di_get_ts_addr(di, di->bam);
-
-        /* setup header */
-        p[0] = 18;
-        p[1] = 1;
-        p[2] = 'A';
-        p[3] = 0x80;
-
-        /* clear bam */
-        memset(p + 4, 0, 0x8c);
-
-        /* clear bam2 counters */
-        memset(p + 0xdd, 0, 0x23);
-
-        /* free blocks */
-        for (ts.track = 1; ts.track <= di_tracks(di->type); ++ts.track) {
-            if (ts.track != 53) {
-                for (ts.sector = 0;
-                     ts.sector < di_sectors_per_track(di->type, ts.track);
-                     ++ts.sector) {
-                    di_free_ts(di, ts);
-                }
-            }
-        }
-
-        /* allocate bam and dir */
-        ts.track = 18;
-        ts.sector = 0;
-        di_alloc_ts(di, ts);
-        ts.sector = 1;
-        di_alloc_ts(di, ts);
-
-        /* copy name */
-        memcpy(p + 0x90, rawname, 16);
-
-        /* set id */
-        memset(p + 0xa0, 0xa0, 2);
-        if (rawid) {
-            memcpy(p + 0xa2, rawid, 2);
-        }
-        memset(p + 0xa4, 0xa0, 7);
-        p[0xa5] = '2';
-        p[0xa6] = 'A';
-
-        /* clear unused bytes */
-        memset(p + 0xab, 0, 0x32);
-
-        /* clear first dir block */
-        memset(p + 256, 0, 256);
-        p[257] = 0xff;
-        break;
-
-    case D81:
-        /* get ptr to bam */
-        p = di_get_ts_addr(di, di->bam);
-
-        /* setup header */
-        p[0] = 0x28;
-        p[1] = 0x02;
-        p[2] = 0x44;
-        p[3] = 0xbb;
-        p[6] = 0xc0;
-
-        /* set id */
-        if (rawid) {
-            memcpy(p + 4, rawid, 2);
-        }
-
-        /* clear bam */
-        memset(p + 7, 0, 0xfa);
-
-        /* get ptr to bam2 */
-        p = di_get_ts_addr(di, di->bam2);
-
-        /* setup header */
-        p[0] = 0x00;
-        p[1] = 0xff;
-        p[2] = 0x44;
-        p[3] = 0xbb;
-        p[6] = 0xc0;
-
-        /* set id */
-        if (rawid) {
-            memcpy(p + 4, rawid, 2);
-        }
-
-        /* clear bam2 */
-        memset(p + 7, 0, 0xfa);
-
-        /* free blocks */
-        for (ts.track = 1; ts.track <= di_tracks(di->type); ++ts.track) {
-            for (ts.sector = 0; ts.sector < di_sectors_per_track(di->type, ts.track);
-                 ++ts.sector) {
-                di_free_ts(di, ts);
-            }
-        }
-
-        /* allocate bam and dir */
-        ts.track = 40;
-        ts.sector = 0;
-        di_alloc_ts(di, ts);
-        ts.sector = 1;
-        di_alloc_ts(di, ts);
-        ts.sector = 2;
-        di_alloc_ts(di, ts);
-        ts.sector = 3;
-        di_alloc_ts(di, ts);
-
-        /* get ptr to dir */
-        p = di_get_ts_addr(di, di->dir);
-
-        /* copy name */
-        memcpy(p + 4, rawname, 16);
-
-        /* set id */
-        memset(p + 0x14, 0xa0, 2);
-        if (rawid) {
-            memcpy(p + 0x16, rawid, 2);
-        }
-        memset(p + 0x18, 0xa0, 5);
-        p[0x19] = '3';
-        p[0x1a] = 'D';
-
-        /* clear unused bytes */
-        memset(p + 0x1d, 0, 0xe3);
-
-        /* clear first dir block */
-        memset(p + 768, 0, 256);
-        p[769] = 0xff;
-        break;
-    }
-
-    di->blocksfree = blocks_free(di);
-
-    return set_status(di, 0, 0, 0);
-}
-
-int di_delete(DiskImage *di, unsigned char *rawpattern, FileType type)
-{
-    RawDirEntry *rde;
-    int delcount = 0;
-
-    switch (type) {
-
-    case T_SEQ:
-    case T_PRG:
-    case T_USR:
-        while ((rde = find_file_entry(di, rawpattern, type))) {
-            free_chain(di, rde->startts);
-            rde->type = 0;
-            ++delcount;
-        }
-        if (delcount) {
-            return set_status(di, 1, delcount, 0);
-        } else {
-            return set_status(di, 62, 0, 0);
-        }
-        break;
-
-    default:
-        return set_status(di, 64, 0, 0);
-        break;
-    }
-}
-
-int di_rename(DiskImage *di, unsigned char *oldrawname,
-    unsigned char *newrawname, FileType type)
-{
-    RawDirEntry *rde;
-
-    if ((rde = find_file_entry(di, oldrawname, type))) {
-        memcpy(rde->rawname, newrawname, 16);
-        return set_status(di, 0, 0, 0);
-    } else {
-        return set_status(di, 62, 0, 0);
-    }
 }

@@ -6,11 +6,11 @@
 
 #define FORMAT sagaplus
 #define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/master/terps/plus"
-#define FORMAT_EXT ".dat"
+#define FORMAT_EXT ".dat,.d64,.atr,.st,.msa,.dsk"
 #define NO_METADATA
 #define NO_COVER
 
-#define MAX_LENGTH 300000
+#define MAX_LENGTH 368641
 #define MIN_LENGTH 24
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -22,16 +22,36 @@
 #include <stdbool.h>
 
 struct plusrec {
+    int32 length;
+    uint16_t chk;
     const char *id;
     const char *ifid;
 };
 
 static const struct plusrec plus_registry[] = {
-    { "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" },
-    { "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" },
-    { "BUCKAROO", "13EA7A22731E90598456D13311923833" },
-    { "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
-    { "\0", "\0" }
+    { 0, 0, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // Spider-Man MS-DOS
+    { 0x2ab00, 0x833c, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
+    { 0x2ab00, 0x83dc, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[gvp_1985](!).d64
+    { 0x2ab00, 0xe1cd, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // questprobe_spider-man[sharedata_1987].d64
+    { 0x16810, 0xc003, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // atr
+    { 0x5a000, 0x973b, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // st
+    { 0x23000, 0xc267, "SPIDER-MAN (tm)", "DAEE386546CE71831DC365B0FF10F233" }, // apple 2
+    { 0, 0, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // Claymorgue MS-DOS
+    { 0x5a000, 0xcc3, "Sorcerer of Claymorgue Castle. SAGA#13.", "B5AF6E4DB3C3B2118FAEA3849F807617" }, // st
+    { 0, 0, "BUCKAROO", "13EA7A22731E90598456D13311923833" },
+    { 0x2ab00, 0x3464, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // BuckarooBanzai.d64
+    { 0x16810, 0x5434, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Atari 8-bit
+    { 0x23000, 0x3d97, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2
+    { 0x23000, 0xca17, "BUCKAROO", "13EA7A22731E90598456D13311923833" }, // Buckaroo Banzai Apple 2 alt
+    { 0, 0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four MS-DOS
+    { 0x2ab00, 0xec72, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
+    { 0x2ab00, 0xd2c0, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" },
+    { 0x16810, 0xe3ad, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
+    { 0x16810, 0x3c1e, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari 8-bit
+    { 0x23000, 0xa450, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Apple 2
+    { 0x3426a, 0x8ffa, "FF #1 ", "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Fantastic Four Atari ST
+
+    { 0, 0, "\0", "\0" }
 };
 
 /* All numbers in Saga Plus text format files are stored as text delimited by whitespace */
@@ -109,6 +129,34 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
 
     } while(*offset < extent);
     return ct;
+}
+
+static uint16_t checksum(unsigned char *sf, int32 extent)
+{
+    uint16_t c=0;
+    for(int i = 0; i < extent; i++)
+        c+=sf[i];
+    return c;
+}
+
+static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifid) {
+    if (extent > MAX_LENGTH || extent < MIN_LENGTH)
+        return INVALID_STORY_FILE_RV;
+
+    uint16_t chksum = checksum(sf, extent);
+
+    for (int i = 0; plus_registry[i].ifid[0] != '\0'; i++) {
+        if (extent == plus_registry[i].length &&
+            chksum == plus_registry[i].chk) {
+            if (ifid != NULL) {
+                size_t length = strlen(plus_registry[i].ifid);
+                strncpy(*ifid, plus_registry[i].ifid, length);
+                (*ifid)[length] = 0;
+            }
+            return VALID_STORY_FILE_RV;
+        }
+    }
+    return INVALID_STORY_FILE_RV;
 }
 
 static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
@@ -201,15 +249,18 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
-    if (extent < 24 || extent > 300000)
+    if (extent < MIN_LENGTH || extent > MAX_LENGTH)
         return INVALID_STORY_FILE_RV;
 
     if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
 
-    return INVALID_STORY_FILE_RV;
+    if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
+        return VALID_STORY_FILE_RV;
+
+    return find_dskimg_in_database(storystring, extent, NULL);
 }
 
 static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int32 output_extent)
@@ -221,5 +272,6 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
     if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV) {
         return find_in_database(storystring, extent, &output);
     }
-    return INVALID_STORY_FILE_RV;
+
+    return (find_dskimg_in_database(storystring, extent, &output));
 }

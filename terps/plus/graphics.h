@@ -9,17 +9,20 @@
 #define graphics_h
 
 #include <stdio.h>
+#include "glk.h"
 
 extern winid_t Graphics;
 
 extern int pixel_size;
+extern int ImageWidth, ImageHeight;
 extern int x_offset, y_offset, right_margin;
+extern int upside_down;
 
 int DrawCloseup(int item);
 void DrawCurrentRoom(void);
-void DrawRoomImage(int room);
+int DrawRoomImage(int room);
 void DrawItemImage(int item);
-int DrawImageWithFilename(char *filename);
-int DrawImageFromFile(char *filename);
+int DrawImageWithName(char *filename);
+char *ShortNameFromType(char type, int index);
 
 #endif /* graphics_h */

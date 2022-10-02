@@ -107,7 +107,7 @@ __attribute__((__format__(__printf__, 2, 3)))
 void HitEnter(void);
 void Look(void);
 void DrawRoomImage(void);
-void ListInventory(void);
+void ListInventory(int upper);
 void Delay(float seconds);
 void DrawImage(int image);
 void OpenGraphicsWindow(void);

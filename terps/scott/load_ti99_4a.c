@@ -72,6 +72,8 @@ static uint16_t FixWord(uint16_t word)
 
 static uint16_t GetWord(uint8_t *mem)
 {
+    if (mem < entire_file || mem + 1 >= entire_file + file_length)
+        return 0;
     uint16_t x;
     if (WeAreBigEndian) {
         x = (*(mem + 0) << 8);

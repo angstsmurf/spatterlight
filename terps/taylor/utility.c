@@ -23,11 +23,13 @@ void CleanupAndExit(void)
 
 void Fatal(const char *x)
 {
-    Display(Bottom, "%s\n", x);
+    if (Bottom)
+        Display(Bottom, "%s!\n", x);
+    fprintf(stderr, "%s!\n", x);
     CleanupAndExit();
 }
 
-void *MemAlloc(int size)
+void *MemAlloc(size_t size)
 {
     void *t = (void *)malloc(size);
     if (t == NULL)
@@ -64,7 +66,7 @@ uint8_t *readFile(const char *name, size_t *size)
     if (*size == -1)
         return NULL;
 
-    uint8_t *data = MemAlloc((int)*size);
+    uint8_t *data = MemAlloc(*size);
 
     size_t origsize = *size;
 
@@ -76,16 +78,6 @@ uint8_t *readFile(const char *name, size_t *size)
 
     fclose(f);
     return data;
-}
-
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "w");
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
 }
 
 int rotate_left_with_carry(uint8_t *byte, int last_carry)

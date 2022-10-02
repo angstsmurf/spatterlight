@@ -6,6 +6,8 @@
 #include <stdlib.h>
 
 #include "glk.h"
+#include "graphics.h"
+#include "common.h"
 
 int x=0,y=0,count=0;
 
@@ -29,42 +31,81 @@ typedef RGB PALETTE[16];
 
 PALETTE pal;
 
-static void PutPixel(glsi32 x, glsi32 y, int32_t color)
+void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
 
-    glsi32 xpos = x * pixel_size + x_offset;
+    glsi32 xpos = x * pixel_size;
+
+    if (upside_down)
+        xpos = ImageWidth * pixel_size - xpos;
+
+    xpos += x_offset;
 
     if (xpos < x_offset || xpos >= right_margin) {
         return;
     }
 
+    int ypos = y * pixel_size;
+    if (upside_down)
+        ypos = (ImageHeight - 1) * pixel_size - ypos;
+    ypos += y_offset;
+
     glk_window_fill_rect(Graphics, glk_color, xpos,
-                         y * pixel_size + y_offset, pixel_size, pixel_size);
+                         ypos, pixel_size, pixel_size);
+}
+
+void PutDoublePixel(glsi32 x, glsi32 y, int32_t color)
+{
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+    glsi32 xpos = x * pixel_size;
+
+    if (upside_down)
+        xpos = ImageWidth * pixel_size - xpos;
+    xpos += x_offset;
+
+    if (xpos < x_offset || xpos >= right_margin) {
+        return;
+    }
+
+    int ypos = y * pixel_size;
+    if (upside_down) {
+        ypos = ImageHeight * pixel_size - ypos;
+        if (CurrentSys == SYS_ST)
+            ypos -= 3 * pixel_size;
+        else if (CurrentSys == SYS_ATARI8 || CurrentSys == SYS_MSDOS)
+            ypos -= pixel_size;
+    }
+    ypos += y_offset;
+
+    glk_window_fill_rect(Graphics, glk_color, xpos,
+                         ypos, pixel_size * 2, pixel_size);
 }
 
 
-static void DrawPixels(int pattern)
+
+static void DrawDOSPixels(int pattern)
 {
     int pix1,pix2,pix3,pix4;
-    // Now get colours
+    // Now get colors
     pix1=(pattern & 0xc0)>>6;
     pix2=(pattern & 0x30)>>4;
     pix3=(pattern & 0x0c)>>2;
     pix4=(pattern & 0x03);
 
-    PutPixel(x,y, pix1);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix1); x++; }
-    PutPixel(x,y, pix2);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix2); x++; }
-    PutPixel(x,y, pix3);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix3); x++; }
-    PutPixel(x,y, pix4);
-    x++;
-    if (!skipy) { PutPixel(x,y, pix4); x++; }
+    if (!skipy) {
+        PutDoublePixel(x,y, pix1); x += 2;
+        PutDoublePixel(x,y, pix2); x += 2;
+        PutDoublePixel(x,y, pix3); x += 2;
+        PutDoublePixel(x,y, pix4); x += 2;
+    } else {
+        PutPixel(x,y, pix1); x++;
+        PutPixel(x,y, pix2); x++;
+        PutPixel(x,y, pix3); x++;
+        PutPixel(x,y, pix4); x++;
+    }
+
     if (x>=xlen+xoff)
     {
         y+=2;
@@ -79,22 +120,32 @@ static void DrawPixels(int pattern)
     }
 }
 
-static void set_color(int32_t index, RGB *colour)
+void SetColor(int32_t index, const RGB *color)
 {
-    pal[index][0] = (*colour)[0];
-    pal[index][1] = (*colour)[1];
-    pal[index][2] = (*colour)[2];
+    pal[index][0] = (*color)[0];
+    pal[index][1] = (*color)[1];
+    pal[index][2] = (*color)[2];
+}
+
+void SetRGB(int32_t index, int red, int green, int blue) {
+    red = red * 35.7;
+    green = green * 35.7;
+    blue = blue * 35.7;
+
+    pal[index][0] = red;
+    pal[index][1] = green;
+    pal[index][2] = blue;
 }
 
 
-int DrawImageFromFile(char *filename)
+int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 {
     x=0;
     y=0;
     count=0;
 
-    xlen=280;
-    ylen=158;
+    xlen=0;
+    ylen=0;
     xoff=0; yoff=0;
     ycount=0;
     skipy=1;
@@ -104,42 +155,37 @@ int DrawImageFromFile(char *filename)
     int i;
     int rawoffset;
     RGB black =   { 0,0,0 };
-    // RGB blue =    { 0,0,255 };
-    // RGB red =     { 255,0,0 };
     RGB magenta = { 255,0,255 };
-    // RGB green =   { 0,255,0 };
     RGB cyan =    { 0,255,255 };
-    // RGB yellow =  { 255,255,0 };
     RGB white =   { 255,255,255 };
 
     /* set up the palette */
-    set_color(0,&black);
-    set_color(1,&cyan);
-    set_color(2,&magenta);
-    set_color(3,&white);
-    //   get_palette(pal);
+    SetColor(0,&black);
+    SetColor(1,&cyan);
+    SetColor(2,&magenta);
+    SetColor(3,&white);
 
-    infile=fopen(filename,"rb");
-
-    if (infile == NULL) {
-        fprintf(stderr, "DrawImageFromFile: Could not open file named \"%s\"\n", filename);
+    if (ptr == NULL) {
+        fprintf(stderr, "DrawMSDOSImageFromData: ptr == NULL\n");
         return 0;
     }
 
+    uint8_t *origptr = ptr;
+
     // Get the size of the graphics chuck
-    fseek(infile, 0x05, SEEK_SET);
-    work=fgetc(infile);
-    size=work+(fgetc(infile)*256);
+    ptr = origptr + 0x05;
+    work = *ptr++;
+    size = work + (*ptr * 256);
 
     // Get whether it is lined
-    fseek(infile,0x0d,SEEK_SET);
-    work=fgetc(infile);
+    ptr = origptr + 0x0d;
+    work = *ptr++;
     if (work == 0xff) skipy=0;
 
     // Get the offset
-    fseek(infile,0x0f,SEEK_SET);
-    work=fgetc(infile);
-    rawoffset=work+fgetc(infile)*256;
+    ptr = origptr + 0x0f;
+    work = *ptr++;
+    rawoffset = work + (*ptr * 256);
     xoff=((rawoffset % 80)*4)-24;
     yoff=rawoffset / 40;
     yoff -= (yoff % 2 == 1);
@@ -147,29 +193,29 @@ int DrawImageFromFile(char *filename)
     y=yoff;
 
     // Get the y length
-    fseek(infile,0x11,SEEK_SET);
-    work=fgetc(infile);
-    ylen=work+(fgetc(infile)*256);
-    ylen-=rawoffset;
-    ylen/=80;
+    ptr = origptr + 0x11;
+    work = *ptr++;
+    ylen = work + (*ptr * 256);
+    ylen -= rawoffset;
+    ylen /= 80;
 
     // Get the x length
-    fseek(infile,0x13,SEEK_SET);
-    xlen=fgetc(infile)*4;
+    ptr = origptr + 0x13;
+    xlen = *ptr * 4;
 
-    fseek(infile,0x17,SEEK_SET);
-    while (!feof(infile) && ftell(infile)<size)
+    ptr = origptr + 0x17;
+    while (ptr - origptr < size)
     {
         // First get count
-        c=fgetc(infile);
+        c = *ptr++;
 
         if ((c & 0x80) == 0x80)
         { // is a counter
-            work=fgetc(infile);
+            work = *ptr++;
             c &= 0x7f;
             for (i=0;i<c+1;i++)
             {
-                DrawPixels(work);
+                DrawDOSPixels(work);
             }
         }
         else
@@ -177,12 +223,11 @@ int DrawImageFromFile(char *filename)
             // Don't count on the next j characters
             for (i=0;i<c+1;i++)
             {
-                work=fgetc(infile);
-                DrawPixels(work);
+                work = *ptr++;
+                DrawDOSPixels(work);
             }
         }
         if (count>1) break;
     }
-    fclose(infile);
     return 1;
 }

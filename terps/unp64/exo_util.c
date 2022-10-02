@@ -376,7 +376,7 @@ static void load_prg(unsigned char mem[65536], FILE *in,
 static void load_prg_data(unsigned char mem[65536], uint8_t *data,
     size_t data_length, struct load_info *info)
 {
-    int len = MIN(65536 - info->start, data_length);
+    int len = MIN(65536 - info->start, (int)data_length);
     memcpy(mem + info->start, data, len);
 
     info->end = info->start + len;

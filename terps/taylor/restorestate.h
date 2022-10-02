@@ -23,4 +23,6 @@ struct SavedState *SaveCurrentState(void);
 void RestoreState(struct SavedState *state);
 void RecoverFromBadRestore(struct SavedState *state);
 
+extern struct SavedState *InitialState;
+
 #endif /* restorestate_h */

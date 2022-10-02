@@ -20,7 +20,6 @@
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 extern int JustStarted;
-int just_undid = 0;
 
 extern uint8_t Flag[];
 extern uint8_t ObjectLoc[];
@@ -79,22 +78,29 @@ void RestoreState(struct SavedState *state)
 
     SetBit(DRAWBIT);
     SetBit(STOPTIMEBIT);
+
+    /*
+     These bits say whether the web and Sandman animations are loaded,
+     and we always want to reload them after restoring state.
+     */
+    if (CurrentGame == SPIDERMAN) {
+        ResetBit(9);
+        ResetBit(10);
+    }
     Look(1);
-    LastImgType = state->LastImgType;
-    LastImgIndex = state->LastImgIndex;
-    if (LastImgType == IMG_SPECIAL) {
-        DrawCloseup(LastImgIndex);
-    } else if (LastImgType == IMG_OBJECT) {
-        DrawItemImage(LastImgIndex);
+    if (CurrentGame == FANTASTIC4) {
+        LastImgType = state->LastImgType;
+        LastImgIndex = state->LastImgIndex;
+        if (LastImgType == IMG_SPECIAL) {
+            DrawCloseup(LastImgIndex);
+        } else if (LastImgType == IMG_OBJECT) {
+            DrawItemImage(LastImgIndex);
+        }
     }
 }
 
 void SaveUndo(void)
 {
-    if (just_undid) {
-        just_undid = 0;
-        return;
-    }
     if (last_undo == NULL) {
         last_undo = SaveCurrentState();
         oldest_undo = last_undo;
@@ -138,7 +144,6 @@ void RestoreUndo(int game)
         SystemMessage(MOVE_UNDONE);
     free(current);
     number_of_undos--;
-    just_undid = 1;
 }
 
 void RamSave(int game)
@@ -195,6 +200,7 @@ void SaveGame(void)
 
     glk_stream_close(file, NULL);
     SystemMessage(SAVED);
+    SetBit(STOPTIMEBIT);
 }
 
 int LoadGame(void)
@@ -242,6 +248,7 @@ int LoadGame(void)
         Items[ct].Location = (unsigned char)lo;
         if (result != 1 || (Items[ct].Location > GameHeader.NumRooms &&
                             Items[ct].Location != CARRIED &&
+                            Items[ct].Location != HIDDEN &&
                             Items[ct].Location != HELD_BY_OTHER_GUY)) {
             fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s, is in room %d)\n", ct, Items[ct].Text, Items[ct].Location);
             RecoverFromBadRestore(state);
@@ -262,16 +269,28 @@ int LoadGame(void)
     ClearAnimationBuffer();
     LastImgType = SavedImgType;
     LastImgIndex = SavedImgIndex;
+
+    SetBit(DRAWBIT);
+    Look(1);
+
+    if (LastImgType == IMG_SPECIAL) {
+        DrawCloseup(LastImgIndex);
+    } else if (LastImgType == IMG_OBJECT) {
+        DrawItemImage(LastImgIndex);
+    }
+
     SaveUndo();
     JustRestored = 1;
+
     return 1;
 }
 
 void RestartGame(void)
 {
-    FreeCharWords();
+    FreeInputWords();
     RestoreState(InitialState);
     JustStarted = 0;
+    lastwasnewline = 1;
     ResetBit(STOPTIMEBIT);
     ClearAnimationBuffer();
     glk_window_clear(Bottom);

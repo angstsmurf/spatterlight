@@ -1667,7 +1667,7 @@ const struct GameInfo games[] = {
         0x796c, // start_of_image_data
         0x716c, // image_address_offset
         41,     // number_of_pictures;
-        C64B,   // palette
+        C64C,   // palette
         2,      // picture_format_version;
     },
 
