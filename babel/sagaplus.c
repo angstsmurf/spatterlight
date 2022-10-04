@@ -78,6 +78,7 @@ static const struct plusrec plus_registry[] = {
     { 0x16810, 0x5434, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit
     { 0x16810, 0x4735, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit Rev 387
     { 0x16810, 0xe399, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit Rev 397
+    { 0x16810, 0xe39f, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit Rev 397 alt
     { 0x23000, 0x3d97, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2
     { 0x23000, 0xca17, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2 alt
     { 0x23000, 0xa543, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Apple 2 alt 2
