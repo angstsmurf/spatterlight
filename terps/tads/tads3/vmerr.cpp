@@ -222,142 +222,145 @@ static size_t err_throw_v(err_id_t error_code, int param_count, va_list va,
      *   parameter descriptors, but we still need to store the parameter
      *   values themselves.
      */
-    for (int i = 0 ; i < param_count ; ++i, ++param)
+    if (param != 0)
     {
-        /* get the type indicator, and store it in the descriptor */
-        err_param_type typ = (err_param_type)va_arg(va, int);
-        
-        /* store the type */
-        if (exc != 0)
-            param->type_ = typ;
-
-        /* store the argument's value */
-        int ival;
-        ulong ulval;
-        const char *sptr;
-        size_t slen;
-        switch(typ)
+        for (int i = 0 ; i < param_count ; ++i, ++param)
         {
-        case ERR_TYPE_INT:
-            /* store the integer */
-            ival = va_arg(va, int);
+            /* get the type indicator, and store it in the descriptor */
+            err_param_type typ = (err_param_type)va_arg(va, int);
+            
+            /* store the type */
             if (exc != 0)
-                param->val_.intval_ = ival;
-            break;
-
-        case ERR_TYPE_ULONG:
-            /* store the unsigned long */
-            ulval = va_arg(va, unsigned long);
-            if (exc != 0)
-                param->val_.ulong_ = ulval;
-            break;
-
-        case ERR_TYPE_TEXTCHAR:
-            /* 
-             *   It's a (textchar_t *) string, null-terminated.  Get the
-             *   string pointer and calculate its length. 
-             */
-            sptr = va_arg(va, textchar_t *);
-            slen = get_strlen(sptr);
-
-            /* count the string space needed */
-            siz += slen + 1;
-
-            /* store it in parameter memory */
-            if (exc != 0)
-                param->val_.strval_ = err_store_str(strspace, sptr, slen);
-            break;
-
-        case ERR_TYPE_TEXTCHAR_LEN:
-            /* 
-             *   It's a (textchar_t *) string with an explicit length given
-             *   as a separate size_t parameter. 
-             */
-            sptr = va_arg(va, textchar_t *);
-            slen = va_arg(va, size_t);
-
-            /* count the string space */
-            siz += slen + 1;
-
-            /* store it in parameter memory */
-            if (exc != 0)
+                param->type_ = typ;
+            
+            /* store the argument's value */
+            int ival;
+            ulong ulval;
+            const char *sptr;
+            size_t slen;
+            switch(typ)
             {
-                param->type_ = ERR_TYPE_TEXTCHAR;
-                param->val_.strval_ = err_store_str(strspace, sptr, slen);
+                case ERR_TYPE_INT:
+                    /* store the integer */
+                    ival = va_arg(va, int);
+                    if (exc != 0)
+                        param->val_.intval_ = ival;
+                    break;
+                    
+                case ERR_TYPE_ULONG:
+                    /* store the unsigned long */
+                    ulval = va_arg(va, unsigned long);
+                    if (exc != 0)
+                        param->val_.ulong_ = ulval;
+                    break;
+                    
+                case ERR_TYPE_TEXTCHAR:
+                    /*
+                     *   It's a (textchar_t *) string, null-terminated.  Get the
+                     *   string pointer and calculate its length.
+                     */
+                    sptr = va_arg(va, textchar_t *);
+                    slen = get_strlen(sptr);
+                    
+                    /* count the string space needed */
+                    siz += slen + 1;
+                    
+                    /* store it in parameter memory */
+                    if (exc != 0)
+                        param->val_.strval_ = err_store_str(strspace, sptr, slen);
+                    break;
+                    
+                case ERR_TYPE_TEXTCHAR_LEN:
+                    /*
+                     *   It's a (textchar_t *) string with an explicit length given
+                     *   as a separate size_t parameter.
+                     */
+                    sptr = va_arg(va, textchar_t *);
+                    slen = va_arg(va, size_t);
+                    
+                    /* count the string space */
+                    siz += slen + 1;
+                    
+                    /* store it in parameter memory */
+                    if (exc != 0)
+                    {
+                        param->type_ = ERR_TYPE_TEXTCHAR;
+                        param->val_.strval_ = err_store_str(strspace, sptr, slen);
+                    }
+                    
+                    break;
+                    
+                case ERR_TYPE_CHAR:
+                    /* it's a (char *) string, null-terminated */
+                    sptr = va_arg(va, char *);
+                    slen = strlen(sptr);
+                    
+                    /* count the string space */
+                    siz += slen + 1;
+                    
+                    /* store it */
+                    if (exc != 0)
+                        param->val_.charval_ = err_store_str(strspace, sptr, slen);
+                    break;
+                    
+                case ERR_TYPE_CHAR_LEN:
+                    /* it's a (char *) string with an explicit size_t size */
+                    sptr = va_arg(va, char *);
+                    slen = va_arg(va, size_t);
+                    
+                    /* count the string space */
+                    siz += slen + 1;
+                    
+                    /* store it */
+                    if (exc != 0)
+                    {
+                        param->val_.charval_ = err_store_str(strspace, sptr, slen);
+                        param->type_ = ERR_TYPE_CHAR;
+                    }
+                    break;
+                    
+                case ERR_TYPE_FUNCSET:
+                    /*
+                     *   It's a char* string with a function set ID.  These are not
+                     *   stored in the parameters, but go in the funcset_ slot in the
+                     *   exception object.
+                     */
+                    sptr = va_arg(va, char *);
+                    siz += strlen(sptr) + 1;
+                    if (exc != 0)
+                        exc->funcset_ = err_store_str(strspace, sptr, strlen(sptr));
+                    break;
+                    
+                case ERR_TYPE_METACLASS:
+                    /*
+                     *   It's a char* string with a metaclass ID.  These are not
+                     *   stored in the parameters, but go in the metaclass_ slot in
+                     *   the exception object.
+                     */
+                    sptr = va_arg(va, char *);
+                    siz += strlen(sptr) + 1;
+                    if (exc != 0)
+                        exc->metaclass_ = err_store_str(strspace, sptr, strlen(sptr));
+                    break;
+                    
+                case ERR_TYPE_VERSION_FLAG:
+                    /*
+                     *   This parameter is a flag indicating that the error is due to
+                     *   an out-of-date interpreter build.  This has no parameter
+                     *   data; we simply set the flag in the exception to indicate
+                     *   the version error type.
+                     */
+                    if (exc != 0)
+                        exc->version_flag_ = TRUE;
+                    break;
             }
-
-            break;
-
-        case ERR_TYPE_CHAR:
-            /* it's a (char *) string, null-terminated */
-            sptr = va_arg(va, char *);
-            slen = strlen(sptr);
-
-            /* count the string space */
-            siz += slen + 1;
-
-            /* store it */
-            if (exc != 0)
-                param->val_.charval_ = err_store_str(strspace, sptr, slen);
-            break;
-
-        case ERR_TYPE_CHAR_LEN:
-            /* it's a (char *) string with an explicit size_t size */
-            sptr = va_arg(va, char *);
-            slen = va_arg(va, size_t);
-
-            /* count the string space */
-            siz += slen + 1;
-
-            /* store it */
-            if (exc != 0)
-            {
-                param->val_.charval_ = err_store_str(strspace, sptr, slen);
-                param->type_ = ERR_TYPE_CHAR;
-            }
-            break;
-
-        case ERR_TYPE_FUNCSET:
-            /* 
-             *   It's a char* string with a function set ID.  These are not
-             *   stored in the parameters, but go in the funcset_ slot in the
-             *   exception object. 
-             */
-            sptr = va_arg(va, char *);
-            siz += strlen(sptr) + 1;
-            if (exc != 0)
-                exc->funcset_ = err_store_str(strspace, sptr, strlen(sptr));
-            break;
-
-        case ERR_TYPE_METACLASS:
-            /* 
-             *   It's a char* string with a metaclass ID.  These are not
-             *   stored in the parameters, but go in the metaclass_ slot in
-             *   the exception object.  
-             */
-            sptr = va_arg(va, char *);
-            siz += strlen(sptr) + 1;
-            if (exc != 0)
-                exc->metaclass_ = err_store_str(strspace, sptr, strlen(sptr));
-            break;
-
-        case ERR_TYPE_VERSION_FLAG:
-            /* 
-             *   This parameter is a flag indicating that the error is due to
-             *   an out-of-date interpreter build.  This has no parameter
-             *   data; we simply set the flag in the exception to indicate
-             *   the version error type.  
-             */
-            if (exc != 0)
-                exc->version_flag_ = TRUE;
-            break;
         }
     }
 
-    /* 
+    /*
      *   if we have an exception, throw it; if not, we're doing a dry run to
      *   compute the exception object size, so simply return the computed
-     *   size 
+     *   size
      */
     if (exc != 0)
     {
