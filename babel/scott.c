@@ -104,10 +104,14 @@ struct scottrec {
 };
 
 static const struct scottrec scott_registry[] = {
-    { 0x44cd, 0x8b8f, PIRATE_ADVENTURE_IFID
-     }, // Pirate Adventure z80
+    { 0x44cd, 0x8b8f, PIRATE_ADVENTURE_IFID }, // Pirate Adventure z80
     { 0x432c, 0xa6df, VOODOO_CASTLE_IFID }, // Voodoo Castle z80
+    { 0x4308, 0xa634, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a
+    { 0x4308, 0xa2d2, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a3
     { 0x431e, 0x7437, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80
+    { 0x68de, 0xeead, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a
+    { 0x42f8, 0x70e1, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a2
+
     { 0x4024, 0x62c7, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80
     { 0x3ff8, 0x5fb4, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 alt
     { 0x65d0, 0xd983, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 alt 2
@@ -203,17 +207,38 @@ static const struct scottrec scott_registry[] = {
     { 0x8534, 0x623a, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (T64)
    { 0x2ab00, 0x2918, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (D64)
    { 0x3954c, 0x8626, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (WOZ)
-   { 0x23000, 0x0160, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK)
-
+   { 0x3954c, 0x9126, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (WOZ) Graphics disk
+   { 0x23000, 0x0160, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) pre-release
+   { 0x23000, 0x93f6, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) pre-release grahics disk
+   { 0x23000, 0x1cd4, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) (4am crack)
+    { 0x23000, 0x6f7b, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) (4am crack) Graphics disk
     { 0xbaef, 0x52cc, ADVENTURELAND_IFID }, // Adventureland.tzx
     { 0xbb84, 0x6d93, ADVENTURELAND_IFID }, // Adventureland - Alternate.tzx
     { 0xba74, 0x39c2, ADVENTURELAND_IFID }, // Adventureland TAP image
     { 0xaaae, 0x7cf6, ADVENTURELAND_IFID }, // Adventureland Z80
+    { 0x9927, 0xd3d9, ADVENTURELAND_IFID }, // Adventureland Z80 alt
     { 0x6a10, 0x1910, ADVENTURELAND_IFID }, // Adventureland C64 (T64)
     { 0x6a10, 0x1b10, ADVENTURELAND_IFID }, // Adventureland C64 (T64) alt
    { 0x2ab00, 0x6638, ADVENTURELAND_IFID }, // Adventureland C64 (D64)
    { 0x2adab, 0x751f, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt
    { 0x2adab, 0x64a4, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt 2
+
+    { 0x23000, 0x7e22, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK)
+    { 0x23000, 0x510b, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) Graphics disk
+    { 0x23000, 0x81de, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) alt
+    { 0x23000, 0xa915, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) alt graphics disk
+    { 0x23000, 0x5750, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) v2.0-416 (4am crack)
+    { 0x23000, 0xa989, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) v2.0-416 (4am crack) graphics disk
+    { 0x39557, 0x3ff3, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) Graphics disk
+    { 0x39531, 0xa6a6, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) alt
+    { 0x39531, 0x7a7f, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) alt graphics disk
+    { 0x39557, 0x374e, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) Boot
+
+    { 0x39567, 0x8aa4, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (WOZ) graphics disk
+    { 0x39567, 0xcf60, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (WOZ) boot
+
+    { 0x23000, 0x2615, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (4am crack) (DSK) graphics disk
+    { 0x23000, 0x0530, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (4am crack) (DSK) boot
 
     { 0xbae1, 0x0ec0, SECRET_MISSION_IFID }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, SECRET_MISSION_IFID }, // Secret Mission TAP image
@@ -221,16 +246,33 @@ static const struct scottrec scott_registry[] = {
     { 0x88be, 0xa122, SECRET_MISSION_IFID }, // Secret Mission  C64 (T64)
    { 0x2ab00, 0x04d6, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64)
 
+    { 0x23000, 0xc813, SECRET_MISSION_IFID }, // Secret Mission (DSK)
+    { 0x23000, 0xa264, SECRET_MISSION_IFID }, // Secret Mission (DSK) alt
+    { 0x39554, 0xbbd3, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (WOZ) graphics disk
+    { 0x39554, 0x361a, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (WOZ) boot
+    { 0x23000, 0x9f10, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (4am crack)(DSK) graphics disk
+    { 0x23000, 0x83e2, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (4am crack)(DSK) boot
+
     { 0x38f00, 0xd6c2, THE_COUNT_IFID }, // The Count US (WOZ)
+    { 0x39589, 0x7010, THE_COUNT_IFID }, // The Count US (WOZ) graphics disk
     { 0x39589, 0xbf0e, THE_COUNT_IFID }, // The Count US (WOZ) alt
+
     { 0x23000, 0x09f4, THE_COUNT_IFID }, // The Count US (DSK)
+    { 0x23000, 0x0edf, THE_COUNT_IFID }, // The Count US (DSK) graphics disk
+    { 0x23000, 0x0992, THE_COUNT_IFID }, // The Count US (DSK) alt
 
     { 0x39558, 0xff6a, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ)
-    { 0x23000, 0x823d, VOODOO_CASTLE_IFID }, // Voodoo Castle US (DSK)
+    { 0x39558, 0x958f, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ) graphics disk
+    { 0x23000, 0xd585, VOODOO_CASTLE_IFID }, // Voodoo Castle US v2.1-119 (4am crack)(DSK) graphics disk
+    { 0x23000, 0x823d, VOODOO_CASTLE_IFID }, // Voodoo Castle US v2.1-119 (4am crack)(DSK) boot
+    { 0x23000, 0x81db, VOODOO_CASTLE_IFID }, // Voodoo Castle US (DSK) alt
+
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
     { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
-    { 0x23000, 0xd700, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (DSK)
+    { 0x39559, 0xee5d, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) graphics disk
+    { 0x23000, 0xd700, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v2.1-119  (DSK)(4am crack)
+    { 0x23000, 0xd8ca, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v2.1-119  (DSK)(4am crack) graphics
 
     { 0xbae1, 0x83e9, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle.tzx
     { 0xbc2e, 0x4d84, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
@@ -243,12 +285,17 @@ static const struct scottrec scott_registry[] = {
     { 0xbc5f, 0x492c, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3
    { 0x2ab00, 0xfd67, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64)
    { 0x2ab00, 0x7ece, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
+
    { 0x2adab, 0x1fac, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xfbb6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xa957, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US side A (D64)
+
    { 0x39567, 0x76be, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (WOZ)
+   { 0x3af67, 0x9843, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (WOZ) graphics disk
    { 0x23000, 0xbd9b, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK)
    { 0x23000, 0xd27a, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt
+   { 0x23000, 0xdae0, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt Graphics disk
+   { 0x23000, 0xbd39, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt 2
 
     { 0xb36e, 0xbe5d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman - Alternate.tzx
@@ -359,27 +406,34 @@ static const struct scottrec TI994A_registry[] = {
 
 static uint16_t checksum(unsigned char *sf, int32 extent)
 {
-    uint16_t c=0;
-    for(int i = 0; i < extent; i++)
+    uint16_t c = 0;
+    for (int i = 0; i < extent; i++)
         c+=sf[i];
     return c;
 }
+
 
 static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
-    uint16_t chksum = checksum(sf, extent);
+    int calculated_checksum = 0;
+    uint16_t chksum;
 
     for (int i = 0; scott_registry[i].length != 0; i++) {
-        if (extent == scott_registry[i].length &&
-            chksum == scott_registry[i].chk) {
-            if (ifid != NULL) {
-                size_t length = strlen(ifids[scott_registry[i].ifid]);
-                strncpy(*ifid, ifids[scott_registry[i].ifid], length);
-                (*ifid)[length] = 0;
+        if (extent == scott_registry[i].length) {
+            if (!calculated_checksum) {
+                chksum = checksum(sf, extent);
+                calculated_checksum  = 1;
             }
-            return VALID_STORY_FILE_RV;
+            if (chksum == scott_registry[i].chk) {
+                if (ifid != NULL) {
+                    size_t length = strlen(ifids[scott_registry[i].ifid]);
+                    strncpy(*ifid, ifids[scott_registry[i].ifid], length);
+                    (*ifid)[length] = 0;
+                }
+                return VALID_STORY_FILE_RV;
+            }
         }
     }
     return INVALID_STORY_FILE_RV;
@@ -622,7 +676,6 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         int checksum_length = MIN(3072, extent - title_screen_offset);
 
         int sum = checksum(storyvp + title_screen_offset, checksum_length);
-
         if (find_in_TI994Adatabase(sum, &output) == VALID_STORY_FILE_RV) {
             return VALID_STORY_FILE_RV;
         }
