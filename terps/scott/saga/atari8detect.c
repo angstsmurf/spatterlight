@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "scott.h"
+#include "saga.h"
 #include "sagagraphics.h"
 #include "scottdefines.h"
 #include "hulk.h"
@@ -18,12 +19,25 @@
 #include "atari8c64draw.h"
 #include "atari8detect.h"
 
+static const pairrec a8companionlist[][2] = {
+    {{ 0x16810, 0xa972, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side A)[!].atr", 87}, { 0x16810, 0x8be3, "S.A.G.A. 01 - Adventureland v5.0-416 (1982)(Adventure International)(US)(Side B)[!][cr CSS].atr", 95 }},
+    {{ 0x16810, 0x65a1, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][m].atr", 93 }, { 0x16810, 0x5750, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[cr CSS].atr", 95 }},
+    {{ 0x16810, 0x3074, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side A)[f][a].atr", 93 }, { 0x16810, 0x2429, "S.A.G.A. 02 - Pirate Adventure v5.0-408 (1982)(Adventure International)(US)(Side B)[a][cr CSS].atr", 98 }},
+    {{ 0x16810, 0x4389, "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 1 of 2)[!].atr", 92 }, { 0x16810, 0x234f, "S.A.G.A. 04 - Voodoo Castle v5.1-119 (1983)(Adventure International)(US)(Disk 2 of 2)[!][cr CSS].atr", 100 }},
+    {{ 0x16810, 0xc2f5, "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side A)[!].atr", 83}, { 0x16810, 0x3ebb, "S.A.G.A. 05 - The Count v5.1-115 (1983)(Adventure International)(US)(Side B)[!][cr CSS].atr", 91 }},
+    {{ 0x16810, 0x6ee8, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[!][cr CSS].atr", 120 }, { 0x16810, 0xac42, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[f][!].atr", 115 }},
+    {{ 0x16810, 0x1de8, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 120 }, { 0x16810, 0x7c32, "S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 112 }},
+    {{ 0x16810, 0x1de8, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 1 of 2)[a][cr CSS].atr", 121 }, { 0x16810, 0x7c32, "S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", 113 }},
+
+    {{ 0,0, NULL }, { 0,0, NULL }}
+
+};
+
 typedef struct imglist {
     USImageType usage;
     int index;
     size_t offset;
 } imglist;
-
 
 static const struct imglist listHulk[] = {
     { IMG_ROOM, 0, 0x297 }, // (0) Too dark
@@ -355,14 +369,7 @@ static const struct imglist listVoodoo[] = {
     { 0, 0, 0, }
 };
 
-typedef enum {
-    TYPE_B,
-    TYPE_TWO,
-    TYPE_2
-} CompanionNameType;
-
-static int StripBrackets(char **string, size_t length) {
-    char *sideB = *string;
+static int StripBrackets(char sideB[], size_t length) {
     int left_bracket = 0;
     int right_bracket = 0;
     if (length > 4) {
@@ -395,35 +402,80 @@ static int StripBrackets(char **string, size_t length) {
     return 0;
 }
 
+static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize) {
 
-static FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t length) {
-    FILE *result = NULL;
-    char *sideB = MemAlloc(length + 1);
-    memcpy(sideB, game_file, length + 1);
-    if (type == TYPE_B) {
-        sideB[index] = 'B';
-    } else if (type == TYPE_2) {
-        sideB[index] = '2';
-    } else {
-        sideB[index] = 't';
-        sideB[index + 1] = 'w';
-        sideB[index + 2] = 'o';
+    char sideB[stringlen + 10];
+    uint8_t *result = NULL;
+
+    memcpy(sideB, game_file, stringlen + 1);
+    switch(type) {
+        case TYPE_A:
+            sideB[index] = 'A';
+            break;
+        case TYPE_B:
+            sideB[index] = 'B';
+            break;
+        case TYPE_1:
+            sideB[index] = '1';
+            break;
+        case TYPE_2:
+            sideB[index] = '2';
+            break;
+        case TYPE_ONE:
+            sideB[index] = 'o';
+            sideB[index + 1] = 'n';
+            sideB[index + 2] = 'e';
+            break;
+        case TYPE_TWO:
+            sideB[index] = 't';
+            sideB[index + 1] = 'w';
+            sideB[index + 2] = 'o';
+            break;
+        case TYPE_NONE:
+            break;
     }
+
     fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
-    result = fopen(sideB, "r");
+    result = ReadFileIfExists(sideB, filesize);
     if (!result) {
-        if (StripBrackets(&sideB, length)) {
+        if (type == TYPE_B) {
+            if (StripBrackets(sideB, stringlen)) {
+                fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+                result = ReadFileIfExists(sideB, filesize);
+            }
+        } else if (type == TYPE_A) {
+            for (int i = 0; i < 5; i++) {
+                sideB[stringlen + i + 4] = sideB[stringlen + i - 4];
+            }
+            int pos = stringlen - 4;
+            sideB[pos++] = '[';
+            sideB[pos++] = 'c';
+            sideB[pos++] = 'r';
+            sideB[pos++] = ' ';
+            sideB[pos++] = 'C';
+            sideB[pos++] = 'S';
+            sideB[pos++] = 'S';
+            sideB[pos] = ']';
             fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
-            result = fopen(sideB, "r");
+            result = ReadFileIfExists(sideB, filesize);
         }
     }
+
     return result;
 }
 
+static uint8_t *GetAtari8CompanionFile(size_t *size) {
 
-FILE *GetCompanionFile(void) {
-    FILE *result = NULL;
     size_t gamefilelen = strlen(game_file);
+    char *foundname = LookInDatabase(a8companionlist, gamefilelen);
+    uint8_t *result = NULL;
+    if (foundname) {
+        result = ReadFileIfExists(foundname, size);
+        free((void *)foundname);
+        if (result)
+            return result;
+    }
+
     char c;
     for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
         c = tolower(game_file[i]);
@@ -433,21 +485,35 @@ FILE *GetCompanionFile(void) {
                 c = game_file[i + 1];
                 if (c == ' ' || c == '_') {
                     c = tolower(game_file[i + 2]);
-                    if (c == 'a') {
-                        result = LookForCompanionFilename(i + 2, TYPE_B, gamefilelen);
-                        if (result)
-                            return result;
-                    } else if (c == 'o' && gamefilelen > i + 4) {
-                        if (game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                            result = LookForCompanionFilename(i + 2, TYPE_TWO, gamefilelen);
-                            if (result)
-                                return result;
-                        }
-                    } else if (c == '1') {
-                        result = LookForCompanionFilename(i + 2, TYPE_2, gamefilelen);
-                        if (result)
-                            return result;
+                    CompanionNameType type = TYPE_NONE;
+                    switch (c) {
+                        case 'a':
+                            type = TYPE_B;
+                            break;
+                        case 'b':
+                            type = TYPE_A;
+                            break;
+                        case 't':
+                            if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
+                                type =  TYPE_ONE;
+                            }
+                            break;
+                        case 'o':
+                            if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
+                                type = TYPE_TWO;
+                            }
+                            break;
+                        case '2':
+                            type= TYPE_1;
+                            break;
+                        case '1':
+                            type = TYPE_2;
+                            break;
                     }
+                    if (type != TYPE_NONE)
+                        result = LookForAtari8CompanionFilename(i + 2, type, gamefilelen, size);
+                    if (result)
+                        return result;
                 }
             }
         }
@@ -455,24 +521,8 @@ FILE *GetCompanionFile(void) {
     return NULL;
 }
 
-int DrawUSRoom(int room);
-
-static int ExtractImagesFromAtariCompanionFile(FILE *infile)
-{
-    int work,work2;
+static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize) {
     size_t size;
-
-    size = GetFileLength(infile);
-    if (size < 1)  {
-        Fatal("File error!");
-    }
-
-    uint8_t *result = MemAlloc(size);
-    fseek(infile, 0, SEEK_SET);
-    int bytesread = fread(result, 1, size, infile);
-
-    if (bytesread == 0)
-        Fatal("File empty or read error!");
 
     int outpic;
 
@@ -501,53 +551,21 @@ static int ExtractImagesFromAtariCompanionFile(FILE *infile)
     // Now loop round for each image
     for (outpic = 0; list[outpic].offset != 0; outpic++)
     {
-        fseek(infile, list[outpic].offset, SEEK_SET);
+        uint8_t *ptr =  data + list[outpic].offset;
 
-        size = fgetc(infile);
-        size += fgetc(infile) * 256 + 4;
+        size = *ptr++;
+        size += *ptr * 256 + 2;
 
-        fseek(infile, list[outpic].offset - 2, SEEK_SET);
+        ptr = data + list[outpic].offset - 2;
 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
         image->imagedata = MemAlloc(size);
         image->datasize = size;
         image->systype = SYS_ATARI8;
-        size_t readsize = fread(image->imagedata, 1, size, infile);
+        memcpy(image->imagedata, data + list[outpic].offset - 2, size);
         if (list[outpic].offset < 0xb390 && list[outpic].offset + image->datasize > 0xb390) {
-            fseek(infile, 0xb410, SEEK_SET);
-            fread(image->imagedata + 0xb390 - list[outpic].offset + 2, 1, size - 0xb390 + list[outpic].offset - 2, infile);
-        }
-        if (readsize != size)
-            fprintf(stderr, "Weird size for image %d. Expected %zu, got %zu\n", outpic, size, readsize);
-
-        size = image->imagedata[2] + image->imagedata[3] * 256;
-
-        fseek(infile, list[outpic].offset + size, SEEK_SET);
-
-        int found = 1;
-        work2 = fgetc(infile);
-        do
-        {
-            work = work2;
-            work2 = fgetc(infile);
-            size = (work2 * 256) + work;
-            if (feof(infile)) {
-                found = 0;
-                break;
-            }
-        } while ( size == 0 || size > 0x1600 || work == 0);
-        if (found) {
-            size_t possoff = ftell(infile) - 2;
-            int found2 = 0;
-            for (int i = 0; list[i].offset != 0; i++) {
-                if (list[i].offset == possoff) {
-                    found2 = 1;
-                    break;
-                }
-            }
-            if (!found2)
-                fprintf(stderr, "Could not find offset %lx in database\n", possoff);
+            memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
         }
 
         image->next = new_image();
@@ -555,26 +573,25 @@ static int ExtractImagesFromAtariCompanionFile(FILE *infile)
         image = image->next;
     }
 
-    if (CurrentGame != HULK_US && CurrentGame != CLAYMORGUE_US && CurrentGame != COUNT_US && CurrentGame != VOODOO_CASTLE_US) {
-        fprintf(stderr, "CurrentGame: %d\n", CurrentGame);
-        if (image->previous) {
-            image = image->previous;
-            free(image->next);
-            image->next = NULL;
-        }
+    /* Read inventory image from the other disk (boot) */
+    if (otherdisk && othersize > 0x988e + 0x5fd) {
+        image->usage = IMG_ROOM;
+        image->index = 98;
+        image->datasize = 0x5fd;
+        image->imagedata = MemAlloc(image->datasize);
+        image->systype = SYS_ATARI8;
+        memcpy(image->imagedata, otherdisk + 0x988e, image->datasize);
+    } else {
+        /* Free the last image, it is empty */
+        image->previous->next = NULL;
+        free(image);
     }
-    fclose(infile);
 
-    infile = fopen(game_file, "r");
-    if (infile)
-        fseek(infile, 0x988e, SEEK_SET);
-    image->usage = IMG_ROOM;
-    image->index = 98;
-    image->datasize = 1529 + 4;
-    image->imagedata = MemAlloc(image->datasize);
-    image->systype = SYS_ATARI8;
-    fread(image->imagedata, image->datasize, 1, infile);
-    fclose(infile);
+    /* If no images are found, free USImages struct */
+    if (USImages->next == NULL && USImages->imagedata == NULL) {
+        free(USImages);
+        USImages = NULL;
+    }
 
     return 1;
 }
@@ -584,6 +601,8 @@ static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
 
 int DetectAtari8(uint8_t **sf, size_t *extent)
 {
+
+    int result = 0;
     size_t data_start = 0x04c1;
     // Header actually starts at offset 0x04f9 (0x04c1 + 0x38).
     // We add 50 bytes at the head to match the C64 files.
@@ -595,33 +614,35 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
         if ((*sf)[i] != atrheader[i])
             return 0;
 
-    size_t newlength = *extent - data_start;
-    uint8_t *datafile = MemAlloc(newlength);
-    memcpy(datafile, *sf + data_start, newlength);
+    size_t companionsize;
+    uint8_t *companionfile = GetAtari8CompanionFile(&companionsize);
 
-    if (datafile) {
-        free(*sf);
-        *sf = datafile;
-        *extent = newlength;
-        ImageWidth = 280;
-        ImageHeight = 158;
-        int result = LoadBinaryDatabase(*sf, *extent, *Game, 0);
-        if (result)
-            LookForAtari8Images(sf, extent);
-        else
-            fprintf(stderr, "Failed loading database\n");
-        return result;
+    ImageWidth = 280;
+    ImageHeight = 158;
+    result = LoadBinaryDatabase(*sf + data_start, *extent - data_start, *Game, 0);
+    if (!result && companionfile != NULL && companionsize > data_start) {
+        fprintf(stderr, "Could not find database in this file, trying the companion file\n");
+        result = LoadBinaryDatabase(companionfile + data_start, companionsize - data_start, *Game, 0);
+        if (result) {
+            fprintf(stderr, "Found database in companion file. Switching files.\n");
+            uint8_t *temp = companionfile;
+            size_t tempsize = companionsize;
+            companionfile = *sf;
+            companionsize = *extent;
+            *sf = temp;
+            *extent = tempsize;
+        }
     }
-    return 0;
-}
+    
+    if (result) {
+        CurrentSys = SYS_ATARI8;
+        if (companionfile) {
+            ExtractImagesFromAtariCompanionFile(companionfile, companionsize, *sf, *extent);
+            free(companionfile);
+        }
+    } else
+        fprintf(stderr, "Failed loading database\n");
 
-int LookForAtari8Images(uint8_t **sf, size_t *extent) {
-    FILE *CompanionFile = GetCompanionFile();
-    if (!CompanionFile) {
-        fprintf(stderr, "Did not find companion file.\n");
-        return 0;
-    }
-    ExtractImagesFromAtariCompanionFile(CompanionFile);
-    return 1;
+    return result;
 }
 

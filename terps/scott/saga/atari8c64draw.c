@@ -27,8 +27,6 @@ static void DrawA8C64Pixels(int pattern, int pattern2)
     pix3 = (pattern & 0x0c)>>2;
     pix4 = (pattern & 0x03);
 
-//    fprintf(stderr, "Drawing pixels at %d,%d\n", x, y);
-
     PutDoublePixel(x,y, pix1); x += 2;
     PutDoublePixel(x,y, pix2); x += 2;
     PutDoublePixel(x,y, pix3); x += 2;
@@ -93,7 +91,6 @@ RGB colors[256] = {
     { 0x43, 0x0e, 0x00 }, // 17
 //    { 0x52, 0x1d, 0x00 }, // 18
     { 0xad, 0x5f, 0x64 },
-
     { 0x61, 0x2c, 0x00 }, // 19
     { 0x70, 0x3b, 0x00 }, // 20
     { 0x7e, 0x4a, 0x00 }, // 21
@@ -475,8 +472,6 @@ static void TranslateC64Color(int index, uint8_t value) {
 
 int DrawAtariC64Image(USImage *image)
 {
-    fprintf(stderr, "DrawAtariC64Image: usage:%d index:%d datasize:%zu\n", image->usage, image->index, image->datasize);
-
     uint8_t *ptr = image->imagedata;
     size_t datasize = image->datasize;
 
@@ -484,7 +479,6 @@ int DrawAtariC64Image(USImage *image)
     int c;
     int i;
     int countflag = (CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US);
-    fprintf(stderr, "countflag == %d\n", countflag);
 
     uint8_t *origptr = ptr;
 
@@ -494,36 +488,29 @@ int DrawAtariC64Image(USImage *image)
 
     work = *ptr++;
     size = work + *ptr++ * 256;
-    fprintf(stderr, "size :%d\n", size);
-
     // Get the offset
     xoff = *ptr++ - 3;
-    fprintf(stderr, "xoff :%d\n", xoff);
 //    if (xoff < 0) xoff = 0;
     yoff = *ptr++;
-    fprintf(stderr, "yoff :%d\n", yoff);
     x = xoff * 8;
-    fprintf(stderr, "initial x :%d\n", x);
     y = yoff;
 
     // Get the x length
     xlen = *ptr++;
 
-    fprintf(stderr, "xlen :%d\n", xlen);
-
     ylen = *ptr++;
     if (countflag) ylen -= 2;
-    fprintf(stderr, "ylen :%d\n", ylen);
-
 
     glui32 curheight, curwidth;
     glk_window_get_size(Graphics, &curwidth, &curheight);
-    if (image->usage == IMG_ROOM || xlen == 38) {
+
+    if (image->usage == IMG_ROOM || (xlen == 38 && xoff < 1)) {
         xlen--;
-        ImageHeight = ylen + 2;
         ImageWidth = xlen * 8 - 17;
+        ImageHeight = ylen + 2;
 
         int optimal_height = ImageHeight * pixel_size;
+
         if (curheight != optimal_height) {
 //            x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
 //            right_margin = (ImageWidth * pixel_size) + x_offset;
@@ -537,7 +524,6 @@ int DrawAtariC64Image(USImage *image)
     SetColor(0,&black);
 
     // Get the palette
-    fprintf(stderr, "Colors: ");
     for (i = 1; i < 5; i++)
     {
         work = *ptr++;
@@ -545,9 +531,7 @@ int DrawAtariC64Image(USImage *image)
             TranslateC64Color(i, work);
         else
             TranslateAtariColorRGB(i, work);
-        fprintf(stderr, "%d ", work);
     }
-    fprintf(stderr, "\n");
 
     while (ptr - origptr < datasize - 2)
     {

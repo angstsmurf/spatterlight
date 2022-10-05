@@ -562,5 +562,6 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
     }
 
     Options |= TI994A_STYLE;
+    CurrentSys = SYS_TI994A;
     return TI994A;
 }

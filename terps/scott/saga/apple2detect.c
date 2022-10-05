@@ -20,14 +20,7 @@
 
 #include "apple2detect.h"
 
-typedef struct pairrec {
-    uint32_t length;
-    uint16_t chk;
-    const char *filename;
-    uint32_t stringlength;
-} pairrec;
-
-static const pairrec companionlist[][2] = {
+static const pairrec a2companionlist[][2] = {
     {{ 0x23000, 0xa989, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79}, { 0x23000, 0x5750, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 }},
 
     {{ 0x39557, 0x3ff3, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 },{ 0x39557, 0x374e, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 }},
@@ -672,39 +665,10 @@ static const imglist a2listVoodoo[] = {
     { 0, 0, 0, 0 }
 };
 
-static void LookForApple2Images(uint8_t *companionfile, size_t companionsize, int isnib);
-
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
-
-uint8_t *ReadFromFile(const char *name, size_t *size)
-{
-    FILE *fptr = fopen(name, "r");
-
-    if (fptr == NULL) {
-        Fatal("File open error!");
-    }
-
-    *size = GetFileLength(fptr);
-    if (*size < 1)  {
-        Fatal("File error!");
-    }
-
-    uint8_t *result = MemAlloc(*size);
-    fseek(fptr, 0, SEEK_SET);
-    int bytesread = fread(result, 1, *size, fptr);
-
-    if (bytesread == 0)
-        Fatal("File empty or read error!");
-
-    fclose(fptr);
-    return result;
-}
-
-extern uint8_t *table;
-
 #define kDiskImageSize 143360
 
-uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
+static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
+static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, int isnib);
 
 int DetectApple2(uint8_t **sf, size_t *extent)
 {
@@ -726,9 +690,9 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     size_t invimgsiz;
     int isnib;
 
-    size_t companionsize = 0;
-
+    size_t companionsize;
     uint8_t *companionfile = GetApple2CompanionFile(&companionsize, &isnib);
+
     uint8_t *datafile = ReadApple2DOSFile(*sf, extent, &invimg, &invimgsiz, &m2);
 
     if (!datafile && companionfile != NULL) {
@@ -745,7 +709,6 @@ int DetectApple2(uint8_t **sf, size_t *extent)
             companionsize = *extent;
             *sf = temp;
             *extent = tempsize;
-            writeToFile("/Users/administrator/Desktop/companionfile", companionfile, companionsize);
         }
     }
 
@@ -762,7 +725,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     }
 
     if (m2) {
-        table = m2;
+        descrambletable = m2;
     }
 
     uint8_t *database = NULL;
@@ -812,8 +775,10 @@ int DetectApple2(uint8_t **sf, size_t *extent)
                 memcpy(USImages->imagedata, datafile + 0x7e84, USImages->datasize);
                 USImages->usage = IMG_ROOM;
             }
-
-            LookForApple2Images(companionfile, companionsize, isnib);
+            if (companionfile != NULL) {
+                ExtractImagesFromApple2CompanionFile(companionfile, companionsize, isnib);
+                free(companionfile);
+            }
         } else
             fprintf(stderr, "Failed loading database\n");
         free (datafile);
@@ -825,16 +790,6 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         return 0;
     }
 }
-
-
-typedef enum {
-    TYPE_A,
-    TYPE_B,
-    TYPE_ONE,
-    TYPE_TWO,
-    TYPE_1,
-    TYPE_2,
-} CompanionNameType;
 
 static int StripParens(char sideA[], size_t length) {
     int left_paren = 0;
@@ -872,74 +827,6 @@ static int StripParens(char sideA[], size_t length) {
     return 0;
 }
 
-static int CompareFilenames(const char *str1, size_t origlength1, const char *str2, size_t origlength2) {
-    size_t length1 = origlength1;
-    size_t length2 = origlength2;
-
-    size_t length = MIN(length1, length2);
-    length1--;
-    length2--;
-    for (int i = length; i > 0; i--) {
-        if (str1[length1--] != str2[length2--])
-            return 0;
-    }
-    return 1;
-}
-
-const char *LookForCompanionFilenameInDatabase(size_t stringlen, size_t *stringlength2) {
-
-    for (int i = 0; companionlist[i][0].filename != NULL; i++) {
-        *stringlength2 = companionlist[i][0].stringlength;
-        if (*stringlength2 == 0)
-            *stringlength2 = strlen(companionlist[i][0].filename);
-        fprintf(stderr, "length of string companionlist[%d][0] (%s): %zu\n", i, companionlist[i][0].filename, *stringlength2);
-        if (CompareFilenames(game_file, stringlen, companionlist[i][0].filename, *stringlength2) == 1) {
-            *stringlength2 = companionlist[i][1].stringlength;
-            if (*stringlength2 == 0)
-                *stringlength2 = strlen(companionlist[i][1].filename);
-            return companionlist[i][1].filename;
-        }
-
-        *stringlength2 = companionlist[i][1].stringlength;
-        if (*stringlength2 == 0)
-            *stringlength2 = strlen(companionlist[i][1].filename);
-        fprintf(stderr, "length of string companionlist[%d][1] (%s): %zu\n", i, companionlist[i][1].filename, *stringlength2);
-        if (CompareFilenames(game_file, stringlen, companionlist[i][1].filename, *stringlength2) == 1) {
-            *stringlength2 = companionlist[i][0].stringlength;
-            if (*stringlength2 == 0)
-                *stringlength2 = strlen(companionlist[i][0].filename);
-            return companionlist[i][0].filename;
-        }
-    }
-
-    return NULL;
-}
-
-uint8_t *ReadFileIfExists(const char *name, size_t *size)
-{
-    FILE *fptr = fopen(name, "r");
-
-    if (fptr == NULL)
-        return NULL;
-
-    *size = GetFileLength(fptr);
-    if (*size < 1)
-        return NULL;
-
-    uint8_t *result = MemAlloc(*size);
-    fseek(fptr, 0, SEEK_SET);
-    int bytesread = fread(result, 1, *size, fptr);
-
-    fclose(fptr);
-
-    if (bytesread == 0) {
-        free(result);
-        return NULL;
-    }
-
-    return result;
-}
-
 uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib) {
     uint8_t *result = ReadFileIfExists(filename, filesize);
     if (result && *filesize > 4 && result[0] == 'W' && result[1] == 'O' && result[2] == 'Z') {
@@ -950,27 +837,6 @@ uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
             *isnib = 1;
         }
     }
-    return result;
-}
-
-uint8_t *LookInDatabase(size_t stringlen, size_t *filesize, int *isnib) {
-    size_t resultlen;
-    const char *foundname = LookForCompanionFilenameInDatabase(stringlen, &resultlen);
-    uint8_t *result = NULL;
-    if (foundname != NULL) {
-        while (stringlen > 0 && game_file[stringlen] != '/' && game_file[stringlen] != '\\')
-            stringlen--;
-        stringlen++;
-        size_t newlen = stringlen + resultlen;
-        char path[newlen + 1];
-        memcpy(path, game_file, stringlen);
-        fprintf(stderr, "First part: \"%s\"\n", path);
-        memcpy(path + stringlen, foundname, resultlen);
-        path[newlen] = '\0';
-        fprintf(stderr, "Final file name: \"%s\"\n", path);
-        result = ReadA2DiskImageFile(path, filesize, isnib);
-    }
-
     return result;
 }
 
@@ -1003,6 +869,8 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
             sideB[index] = 't';
             sideB[index + 1] = 'w';
             sideB[index + 2] = 'o';
+            break;
+        case TYPE_NONE:
             break;
     }
 
@@ -1038,10 +906,20 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
 
 uint8_t *GetApple2CompanionFile(size_t *size, int *isnib) {
 
+    *size = 0;
+    *isnib = 0;
+
     size_t gamefilelen = strlen(game_file);
-    uint8_t *result = LookInDatabase(gamefilelen, size, isnib);
-    if (result)
-        return result;
+    uint8_t *result = NULL;
+
+    char *foundname = LookInDatabase(a2companionlist, gamefilelen);
+    if (foundname) {
+        size_t filesize;
+        result = ReadA2DiskImageFile(foundname, &filesize, isnib);
+        free((void *)foundname);
+        if (result)
+            return result;
+    }
 
     char c;
     for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
@@ -1052,51 +930,41 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib) {
                 c = game_file[i + 1];
                 if (c == ' ' || c == '_') {
                     c = tolower(game_file[i + 2]);
+                    CompanionNameType type = TYPE_NONE;
                     switch (c) {
                         case 'a':
-                            result = LookForA2CompanionFilename(i + 2, TYPE_B, gamefilelen, size, isnib);
-                            if (result)
-                                return result;
+                            type = TYPE_B;
                             break;
                         case 'b':
-                            result = LookForA2CompanionFilename(i + 2, TYPE_A, gamefilelen, size, isnib);
-                            if (result)
-                                return result;
+                            type = TYPE_A;
                             break;
                         case 't':
                             if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
-                                result = LookForA2CompanionFilename(i + 2, TYPE_ONE, gamefilelen, size, isnib);
-                                if (result)
-                                    return result;
+                                type =  TYPE_ONE;
                             }
                             break;
                         case 'o':
                             if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                                result = LookForA2CompanionFilename(i + 2, TYPE_TWO, gamefilelen, size, isnib);
+                                type = TYPE_TWO;
                             }
-                            if (result)
-                                return result;
                             break;
                         case '2':
-                            result = LookForA2CompanionFilename(i + 2, TYPE_1, gamefilelen, size, isnib);
-                            if (result)
-                                return result;
+                            type= TYPE_1;
                             break;
                         case '1':
-                            result = LookForA2CompanionFilename(i + 2, TYPE_2, gamefilelen, size, isnib);
-                            if (result)
-                                return result;
+                            type = TYPE_2;
                             break;
                     }
+                    if (type != TYPE_NONE)
+                        result = LookForA2CompanionFilename(i + 2, type, gamefilelen, size, isnib);
+                    if (result)
+                        return result;
                 }
             }
         }
     }
     return NULL;
 }
-
-
-int DrawScrambledApple2Image(uint8_t *origptr, size_t datasize);
 
 static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, int isnib)
 {
@@ -1165,27 +1033,14 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
 
     FreeDiskImage();
 
+    if (USImages->next == NULL && USImages->imagedata == NULL) {
+        free(USImages);
+        USImages = NULL;
+    }
+
     if (CurrentGame == HULK_US_PREL)
         CurrentGame = HULK_US;
     else if (CurrentGame == CLAYMORGUE_US_126)
         CurrentGame = CLAYMORGUE_US;
     return 1;
 }
-
-static void LookForApple2Images(uint8_t *companionfile, size_t companionsize, int isnib) {
-//    if (new == NULL)
-//        return;
-//
-
-//    size_t compFileSize = 0;
-//    int isnib;
-//    uint8_t *CompanionFile = GetApple2CompanionFile(&compFileSize, &isnib);
-    if (!companionfile) {
-        fprintf(stderr, "Did not find companion file.\n");
-        return;
-    }
-    ExtractImagesFromApple2CompanionFile(companionfile, companionsize, isnib);
-    free(companionfile);
-    return;
-}
-

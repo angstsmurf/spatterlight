@@ -15,7 +15,7 @@
 
 extern int x, y, xlen, ylen, xoff, yoff, size;
 
-uint8_t *table = NULL;
+uint8_t *descrambletable = NULL;
 
 static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
@@ -55,7 +55,7 @@ static int PutByte(uint8_t work, uint8_t work2)
 }
 
 uint16_t CalcScreenAddress(uint8_t ypos) {
-    return table[ypos] + table[0xc0 + ypos] * 0x100 - 0x2000;
+    return descrambletable[ypos] + descrambletable[0xc0 + ypos] * 0x100 - 0x2000;
 }
 
 int DrawScrambledApple2Image(uint8_t *origptr, size_t datasize) {
@@ -155,7 +155,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
         ClearApple2ScreenMem();
     }
 
-    if (table) {
+    if (descrambletable) {
         int result = DrawScrambledApple2Image(ptr, datasize);
         fprintf(stderr, "Stopped drawing at offset %x\n", result);
         return (result > 0);

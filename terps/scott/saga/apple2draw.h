@@ -12,7 +12,10 @@
 
 void ClearApple2ScreenMem(void);
 void DrawApple2ImageFromVideoMem(void);
+int DrawScrambledApple2Image(uint8_t *origptr, size_t datasize);
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
 int DrawApple2Image(USImage *image);
+
+extern uint8_t *descrambletable;
 
 #endif /* apple2draw_h */

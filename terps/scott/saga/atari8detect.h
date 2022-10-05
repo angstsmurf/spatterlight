@@ -10,6 +10,4 @@
 
 #include <stdio.h>
 int DetectAtari8(uint8_t **sf, size_t *extent);
-int LookForAtari8Images(uint8_t **sf, size_t *extent);
-
 #endif /* atari8detect_h */
