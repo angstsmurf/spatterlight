@@ -2511,7 +2511,10 @@ one letter.\n\nDo you want to restore previously saved game?\n",
             sys[INVENTORY] = "I've got: ";
             sys[NOTHING] = "Nothing at all. ";
             sys[EXITS] = "Some exits: ";
-            sys[WHAT_NOW] = "Command me? ";
+            if (CurrentSys == SYS_MSDOS)
+                sys[WHAT_NOW] = "Command me? ";
+            else
+                sys[WHAT_NOW] = "What shall I do? ";
             sys[NORTH] = "NORTH";
             sys[EAST] = "EAST";
             sys[SOUTH] = "SOUTH";
