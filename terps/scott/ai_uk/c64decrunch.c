@@ -623,6 +623,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                 writeToFile("/Users/administrator/Desktop/SAGA.DB", database_file, newlength);
                 int result = LoadBinaryDatabase(database_file, newlength, *Game, 0);
                 if (result) {
+                    CurrentSys = SYS_C64;
                     LoadC64USImages(*sf, *extent);
                     free(*sf);
                     *sf = MemAlloc(newlength);

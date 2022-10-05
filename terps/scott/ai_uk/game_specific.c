@@ -8,6 +8,7 @@
 
 #include "game_specific.h"
 #include "sagadraw.h"
+#include "apple2draw.h"
 #include "scott.h"
 #include "saga.h"
 
@@ -548,6 +549,8 @@ void VoodooShowImageOnExamineUS(int noun) {
         if (Graphics)
             glk_window_clear(Graphics);
         if (DrawUSRoom(90 + image)) {
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
             Output(sys[HIT_ENTER]);
             HitEnter();
         }
@@ -573,6 +576,8 @@ void CountShowImageOnExamineUS(int noun) {
         if (Graphics)
             glk_window_clear(Graphics);
         DrawUSRoom(90 + image);
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
         Output(sys[HIT_ENTER]);
         HitEnter();
     }

@@ -120,10 +120,12 @@ typedef enum {
 } ActionResultType;
 
 typedef enum {
+    SYS_UNKNOWN,
     SYS_MSDOS,
     SYS_C64,
     SYS_ATARI8,
-    SYS_APPLE2
+    SYS_APPLE2,
+    SYS_TI994A
 } MachineType;
 
 

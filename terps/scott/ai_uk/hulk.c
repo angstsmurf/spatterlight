@@ -6,6 +6,7 @@
 //
 
 #include "sagagraphics.h"
+#include "apple2draw.h"
 #include "scott.h"
 #include "hulk.h"
 #include "saga.h"
@@ -59,6 +60,8 @@ void HulkShowImageOnExamineUS(int noun) {
     if (image >= 0) {
         glk_window_clear(Graphics);
         DrawUSRoom(90 + image);
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
         Output(sys[HIT_ENTER]);
         HitEnter();
     }

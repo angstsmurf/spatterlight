@@ -20,8 +20,20 @@
 
 
 static const char *DOSFilenames[] =
-{ "B01024R", "B01044I", "R0109", "R0190",
-    "B01001I", "B01025R", "B01045R", "R0112", "R0191", "B01002I", "B01026R", "B01046I", "R0115", "R0192", "B01003I", "B01029I", "B01048I", "R0116", "R0193", "B01004I", "B01030I", "B01050I", "R0119", "R0194", "B01012I", "B01031I", "B01051I", "R0120", "R0195", "B01013R", "B01032I", "B01053R", "R0181", "R0196", "B01016I", "B01033R", "B01070R", "R0182", "R0197", "B01017R", "B01034R", "B01072R", "R0183", "R0198", "B01018I", "B01035I", "R0184", "R0199", "B01019I", "B01036R", "R0100", "R0185", "B01020R", "B01037I", "R0101", "R0186", "B01021I", "B01039R", "R0102", "R0187", "B01022R", "B01040R", "R0103", "R0188", "B01023I", "B01042I", "R0104", "R0189", NULL };
+  { "B01024R", "B01044I", "R0109",   "R0190",
+    "B01001I", "B01025R", "B01045R", "R0112",  "R0191",
+    "B01002I", "B01026R", "B01046I", "R0115",  "R0192",
+    "B01003I", "B01029I", "B01048I", "R0116",  "R0193",
+    "B01004I", "B01030I", "B01050I", "R0119",  "R0194",
+    "B01012I", "B01031I", "B01051I", "R0120",  "R0195",
+    "B01013R", "B01032I", "B01053R", "R0181",  "R0196",
+    "B01016I", "B01033R", "B01070R", "R0182",  "R0197",
+    "B01017R", "B01034R", "B01072R", "R0183",  "R0198",
+    "B01018I", "B01035I", "R0184",   "R0199",  "B01019I",
+    "B01036R", "R0100",   "R0185",   "B01020R","B01037I",
+    "R0101",   "R0186",   "B01021I", "B01039R","R0102",
+    "R0187",   "B01022R", "B01040R", "R0103",  "R0188",
+    "B01023I", "B01042I", "R0104",   "R0189",  NULL };
 
 int LoadDOSImages(void) {
     USImages = new_image();
@@ -35,7 +47,6 @@ int LoadDOSImages(void) {
         uint8_t *data = FindImageFile(shortname, &datasize);
 
         if (data) {
-            fprintf(stderr, "Found image file %s\n", shortname);
             found++;
             image->datasize = datasize;
             image->imagedata = MemAlloc(datasize);
@@ -53,7 +64,6 @@ int LoadDOSImages(void) {
                     image->usage = IMG_INV_OBJ;
                 }
             }
-            fprintf(stderr, "Usage %d Index:%d\n", image->usage, image->index);
             image->next = new_image();
             image = image->next;
         }
@@ -65,10 +75,6 @@ int LoadDOSImages(void) {
     }
     return 1;
 }
-
-uint8_t *ReadHeader(uint8_t *ptr);
-extern int header[];
-
 
 uint8_t *ReadUSDictionary(uint8_t *ptr)
 {
@@ -161,6 +167,7 @@ int DrawUSRoom(int room) {
             image = image->next;
         } while (image != NULL);
     }
+    CloseGraphicsWindow();
     return 0;
 }
 
@@ -234,6 +241,8 @@ void LookUS(void)
         if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
             DrawUSRoomObject(80);
     }
+    if (CurrentSys == SYS_APPLE2)
+        DrawApple2ImageFromVideoMem();
 }
 
 void InventoryUS(void)
@@ -243,20 +252,14 @@ void InventoryUS(void)
     glk_window_clear(Graphics);
     DrawUSRoom(98);
     DrawInventoryImages();
+    if (CurrentSys == SYS_APPLE2)
+        DrawApple2ImageFromVideoMem();
     if (!showing_inventory) {
         showing_inventory = 1;
         Output(sys[HIT_ENTER]);
         HitEnter();
     }
 }
-
-
-int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
-                int *mc, int *pr, int *tr, int *wl, int *lt, int *mn,
-                int *trm);
-
-void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-                     int tr, int wl, int lt, int mn, int trm);
 
 extern size_t hulk_coordinates;
 extern size_t hulk_item_image_offsets;
@@ -609,3 +612,88 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     return 1;
 }
 
+
+uint8_t *ReadFileIfExists(const char *name, size_t *size)
+{
+    FILE *fptr = fopen(name, "r");
+
+    if (fptr == NULL)
+        return NULL;
+
+    *size = GetFileLength(fptr);
+    if (*size < 1)
+        return NULL;
+
+    uint8_t *result = MemAlloc(*size);
+    fseek(fptr, 0, SEEK_SET);
+    int bytesread = fread(result, 1, *size, fptr);
+
+    fclose(fptr);
+
+    if (bytesread == 0) {
+        free(result);
+        return NULL;
+    }
+
+    return result;
+}
+
+int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2) {
+    size_t length = MIN(length1, length2);
+    length1--;
+    length2--;
+    for (int i = length; i > 0; i--) {
+        if (str1[length1--] != str2[length2--])
+            return 0;
+    }
+    return 1;
+}
+
+const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2) {
+
+    for (int i = 0; list[i][0].filename != NULL; i++) {
+        *stringlength2 = list[i][0].stringlength;
+        if (*stringlength2 == 0) {
+            *stringlength2 = strlen(list[i][0].filename);
+            fprintf(stderr, "length of string companionlist[%d][0] (%s): %zu\n", i, list[i][0].filename, *stringlength2);
+        }
+        if (CompareFilenames(game_file, stringlen, list[i][0].filename, *stringlength2) == 1) {
+            *stringlength2 = list[i][1].stringlength;
+            if (*stringlength2 == 0)
+                *stringlength2 = strlen(list[i][1].filename);
+            return list[i][1].filename;
+        }
+
+        *stringlength2 = list[i][1].stringlength;
+        if (*stringlength2 == 0) {
+            *stringlength2 = strlen(list[i][1].filename);
+            fprintf(stderr, "length of string companionlist[%d][1] (%s): %zu\n", i, list[i][1].filename, *stringlength2);
+        }
+        if (CompareFilenames(game_file, stringlen, list[i][1].filename, *stringlength2) == 1) {
+            *stringlength2 = list[i][0].stringlength;
+            if (*stringlength2 == 0)
+                *stringlength2 = strlen(list[i][0].filename);
+            return list[i][0].filename;
+        }
+    }
+
+    return NULL;
+}
+
+char *LookInDatabase(const pairrec list[][2], size_t stringlen) {
+    size_t resultlen;
+    const char *foundname = LookForCompanionFilenameInDatabase(list, stringlen, &resultlen);
+    if (foundname != NULL) {
+        while (stringlen > 0 && game_file[stringlen] != '/' && game_file[stringlen] != '\\')
+            stringlen--;
+        stringlen++;
+        size_t newlen = stringlen + resultlen;
+        char *path = MemAlloc(newlen + 1);
+        memcpy(path, game_file, stringlen);
+        memcpy(path + stringlen, foundname, resultlen);
+        path[newlen] = '\0';
+        return path;
+    }
+
+    return NULL;
+}

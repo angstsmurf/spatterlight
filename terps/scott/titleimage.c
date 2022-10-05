@@ -8,6 +8,7 @@
 #include "glkimp.h"
 #include "scott.h"
 #include "sagagraphics.h"
+#include "apple2draw.h"
 #include "saga.h"
 
 
@@ -64,6 +65,8 @@ void DrawTitleImage(void) {
         ResizeTitleImage();
         glk_window_clear(Graphics);
         DrawUSRoom(99);
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
         event_t ev;
         do {
             glk_select(&ev);
@@ -73,6 +76,8 @@ void DrawTitleImage(void) {
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawUSRoom(99);
+                if (CurrentSys == SYS_APPLE2)
+                    DrawApple2ImageFromVideoMem();
             }
         } while (ev.type != evtype_CharInput);
     }

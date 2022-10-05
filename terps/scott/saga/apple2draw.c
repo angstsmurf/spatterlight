@@ -288,7 +288,6 @@ int DrawApple2Image(USImage *image) {
         ClearApple2ScreenMem();
     DrawApple2ImageFromData(image->imagedata, image->datasize);
     fprintf(stderr, "Drawing image with index %d, usage %d\n",image->index, image->usage);
-    DrawApple2ImageFromVideoMem();
     return 1;
 }
 

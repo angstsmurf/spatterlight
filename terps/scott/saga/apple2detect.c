@@ -11,6 +11,7 @@
 
 #include "scott.h"
 #include "scottdefines.h"
+#include "saga.h"
 #include "sagagraphics.h"
 #include "woz2nib.h"
 #include "ciderpress.h"
@@ -796,6 +797,8 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         }
 
         if (result) {
+            CurrentSys = SYS_APPLE2;
+
             ImageWidth = 280;
             ImageHeight = 160;
 

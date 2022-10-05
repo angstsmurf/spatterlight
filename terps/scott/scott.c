@@ -100,6 +100,7 @@ const char *title_screen = NULL;
 
 struct Command *CurrentCommand = NULL;
 struct GameInfo *Game;
+MachineType CurrentSys = SYS_UNKNOWN;
 
 extern const char *sysdict[MAX_SYSMESS];
 extern const char *sysdict_i_am[MAX_SYSMESS];
@@ -877,6 +878,7 @@ int LoadDatabase(FILE *f, int loud)
     fscanf(f, "%d", &ct);
 	fclose(f);
     if (ct == 703 && LoadDOSImages()) {
+        CurrentSys = SYS_MSDOS;
         return HULK_US;
     }
     return SCOTTFREE;
