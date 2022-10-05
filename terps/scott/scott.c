@@ -2498,10 +2498,10 @@ one letter.\n\nDo you want to restore previously saved game?\n",
 
     if (Game->type == US_VARIANT) {
         if (has_graphics()) {
-            DrawTitleImage();
             ImageWidth = 280;
             if (ImageHeight < 158)
                 ImageHeight = 158;
+            DrawTitleImage();
             OpenGraphicsWindow();
             sys[MESSAGE_DELIMITER] = " ";
             sys[ITEM_DELIMITER] = ". ";
