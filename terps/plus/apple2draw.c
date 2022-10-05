@@ -109,6 +109,8 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             work2=*ptr++;
             for (i = 0; i < c + 1 && ptr - origptr < size; i++)
             {
+                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                    return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
                     return 1;
@@ -123,6 +125,8 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             {
                 work = *ptr++;
                 work2=*ptr++;
+                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                    return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
                     return 1;
