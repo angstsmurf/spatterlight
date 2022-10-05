@@ -116,6 +116,7 @@ size_t file_length;
 int AnimationFlag = 0;
 
 int showing_inventory = 0;
+int lastwasnewline = 0;
 
 extern struct SavedState *InitialState;
 
@@ -157,7 +158,10 @@ void Display(winid_t w, const char *fmt, ...)
     vsnprintf(msg, size, fmt, ap);
     va_end(ap);
 
+    int oldlastwasnewline = lastwasnewline;
     glui32 *unistring = ToUnicode(msg);
+    if (w != Bottom)
+        lastwasnewline = oldlastwasnewline;
     glk_put_string_stream_uni(glk_window_get_stream(w), unistring);
     if (Transcript)
         glk_put_string_stream_uni(Transcript, unistring);
@@ -2165,6 +2169,8 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
 
     if (CurrentCommand && CurrentCommand->allflag && vb == CurrentCommand->verb && !(dark && vb == TAKE)) {
+        if (!lastwasnewline)
+            Output("\n");
         Output(Items[CurrentCommand->item].Text);
         Output("....");
     }

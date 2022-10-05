@@ -270,8 +270,11 @@ glui32 *ToUnicode(const char *string)
     int dest = 0;
     for (i = 0; string[i] != 0 && i < 2047; i++) {
         char c = string[i];
-        if (c == '\n')
+        if (c == '\n') {
+            lastwasnewline = 1;
             c = 10;
+        } else
+            lastwasnewline = 0;
         glui32 unichar = (glui32)c;
         if (Game && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
             const char d = string[i + 1];
@@ -572,6 +575,8 @@ void LineInput(void)
             glk_put_string_stream_uni(Transcript, unibuf);
             glk_put_char_stream_uni(Transcript, 10);
         }
+
+        lastwasnewline = 1;
 
         SplitIntoWords(unibuf, ev.val1);
 

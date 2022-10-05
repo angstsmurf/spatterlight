@@ -174,5 +174,6 @@ extern int ImageWidth;
 extern int ImageHeight;
 extern const char *game_file;
 extern int showing_inventory;
+extern int lastwasnewline;
 
 #endif /* scott_h */
