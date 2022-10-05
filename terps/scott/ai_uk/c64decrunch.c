@@ -516,7 +516,6 @@ void LoadC64USImages(uint8_t *data, size_t length) {
                     di_rawname_from_name(rawname, shortname);
                     ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
                     if (c64file) {
-//                        fprintf(stderr, "Loaded image file %s\n", imagefiles[i]);
                         uint8_t buf[0xffff];
                         image->datasize = di_read(c64file, buf, 0xffff);
                         image->imagedata = MemAlloc(image->datasize);
@@ -524,24 +523,25 @@ void LoadC64USImages(uint8_t *data, size_t length) {
                         free(c64file);
                         image->systype = SYS_C64;
                         image->index = shortname[5] - '0' + (shortname[4] - '0') * 10 + (shortname[3] - '0') * 100;
-                        fprintf(stderr, "    { ");
                         if (shortname[0] == 'R') {
                             image->usage = IMG_ROOM;
-                            fprintf(stderr, "IMG_ROOM");
                         } else if (shortname[6] == 'R') {
                             image->usage = IMG_ROOM_OBJ;
-                            fprintf(stderr, "IMG_ROOM_OBJ");
                         } else if (shortname[6] == 'I') {
                             image->usage = IMG_INV_OBJ;
-                            fprintf(stderr, "IMG_INV_OBJ");
                         }
-                        fprintf(stderr, ", %d, ", image->index);
 
                         image->next = new_image();
                         image = image->next;
                     }
                     free(imagefiles[i]);
                 }
+
+                if (USImages->imagedata == NULL && USImages->next == NULL) {
+                    free(USImages);
+                    USImages = NULL;
+                }
+
             }
         }
     }
@@ -620,7 +620,6 @@ int DetectC64(uint8_t **sf, size_t *extent)
                     fprintf(stderr, "SCOTT: DetectC64() Could not find database in D64\n");
                     return 0;
                 }
-                writeToFile("/Users/administrator/Desktop/SAGA.DB", database_file, newlength);
                 int result = LoadBinaryDatabase(database_file, newlength, *Game, 0);
                 if (result) {
                     CurrentSys = SYS_C64;
