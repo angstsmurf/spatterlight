@@ -211,7 +211,11 @@ static const struct scottrec scott_registry[] = {
    { 0x23000, 0x0160, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) pre-release
    { 0x23000, 0x93f6, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) pre-release grahics disk
    { 0x23000, 0x1cd4, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) (4am crack)
-    { 0x23000, 0x6f7b, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) (4am crack) Graphics disk
+   { 0x23000, 0x6f7b, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (DSK) (4am crack) Graphics disk
+
+   { 0x16810, 0x88e7, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US v5.2-127 Atari 8-bit boot disk
+   { 0x16810, 0x5728, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US v5.2-127 Atari 8-bit boot disk alt
+
     { 0xbaef, 0x52cc, ADVENTURELAND_IFID }, // Adventureland.tzx
     { 0xbb84, 0x6d93, ADVENTURELAND_IFID }, // Adventureland - Alternate.tzx
     { 0xba74, 0x39c2, ADVENTURELAND_IFID }, // Adventureland TAP image
@@ -234,17 +238,24 @@ static const struct scottrec scott_registry[] = {
     { 0x39531, 0x7a7f, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) alt graphics disk
     { 0x39557, 0x374e, ADVENTURELAND_IFID }, // Adventureland Apple 2 (WOZ) Boot
 
+    { 0x16810, 0xa972, ADVENTURELAND_IFID }, // Adventureland v5.0-416 Atari 8-bit boot disk
+    { 0x16810, 0x3bd4, ADVENTURELAND_IFID }, // Adventureland Atari 8-bit boot disk alt
+
     { 0x39567, 0x8aa4, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (WOZ) graphics disk
     { 0x39567, 0xcf60, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (WOZ) boot
-
     { 0x23000, 0x2615, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (4am crack) (DSK) graphics disk
     { 0x23000, 0x0530, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v2.1-408 (4am crack) (DSK) boot
+
+    { 0x16810, 0x65a1, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk
+    { 0x16810, 0x3074, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt
+    { 0x16810, 0x82c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt 2
 
     { 0xbae1, 0x0ec0, SECRET_MISSION_IFID }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, SECRET_MISSION_IFID }, // Secret Mission TAP image
     { 0x8723, 0xc6da, SECRET_MISSION_IFID }, // Secret Mission Z80
     { 0x88be, 0xa122, SECRET_MISSION_IFID }, // Secret Mission  C64 (T64)
    { 0x2ab00, 0x04d6, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64)
+   { 0x2adab, 0x3ca3, SECRET_MISSION_IFID }, // Secret Mission  C64 (D64) alt
 
     { 0x23000, 0xc813, SECRET_MISSION_IFID }, // Secret Mission (DSK)
     { 0x23000, 0xa264, SECRET_MISSION_IFID }, // Secret Mission (DSK) alt
@@ -253,13 +264,17 @@ static const struct scottrec scott_registry[] = {
     { 0x23000, 0x9f10, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (4am crack)(DSK) graphics disk
     { 0x23000, 0x83e2, SECRET_MISSION_IFID }, // Mission Impossible v2.1-306 (4am crack)(DSK) boot
 
+    { 0x16810, 0xae5d, SECRET_MISSION_IFID }, // Mission Impossible v5.0-306 Atari 8-bit boot
+
     { 0x38f00, 0xd6c2, THE_COUNT_IFID }, // The Count US (WOZ)
     { 0x39589, 0x7010, THE_COUNT_IFID }, // The Count US (WOZ) graphics disk
     { 0x39589, 0xbf0e, THE_COUNT_IFID }, // The Count US (WOZ) alt
-
     { 0x23000, 0x09f4, THE_COUNT_IFID }, // The Count US (DSK)
     { 0x23000, 0x0edf, THE_COUNT_IFID }, // The Count US (DSK) graphics disk
     { 0x23000, 0x0992, THE_COUNT_IFID }, // The Count US (DSK) alt
+
+    { 0x16810, 0xc2f5, THE_COUNT_IFID }, // The Count US v5.1-115 Atari 8-bit boot disk
+    { 0x16810, 0xa736, THE_COUNT_IFID }, // The Count US Atari 8-bit alt
 
     { 0x39558, 0xff6a, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ)
     { 0x39558, 0x958f, VOODOO_CASTLE_IFID }, // Voodoo Castle US (WOZ) graphics disk
@@ -267,12 +282,16 @@ static const struct scottrec scott_registry[] = {
     { 0x23000, 0x823d, VOODOO_CASTLE_IFID }, // Voodoo Castle US v2.1-119 (4am crack)(DSK) boot
     { 0x23000, 0x81db, VOODOO_CASTLE_IFID }, // Voodoo Castle US (DSK) alt
 
+    { 0x16810, 0x4389, VOODOO_CASTLE_IFID }, // Voodoo Castle US v5.1-119 Atari 8-bit boot disk
+    { 0x16810, 0x578d, VOODOO_CASTLE_IFID }, // Voodoo Castle US Atari 8-bit boot disk alt
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
     { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
     { 0x39559, 0xee5d, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) graphics disk
     { 0x23000, 0xd700, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v2.1-119  (DSK)(4am crack)
     { 0x23000, 0xd8ca, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v2.1-119  (DSK)(4am crack) graphics
+
+    { 0x16810, 0xdb2a, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US v5.0-119 Atari 8-bit boot disk
 
     { 0xbae1, 0x83e9, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle.tzx
     { 0xbc2e, 0x4d84, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle - Alternate.tzx
@@ -296,6 +315,10 @@ static const struct scottrec scott_registry[] = {
    { 0x23000, 0xd27a, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt
    { 0x23000, 0xdae0, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt Graphics disk
    { 0x23000, 0xbd39, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (DSK) alt 2
+
+    { 0x16810, 0x7c32, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit (boot disk)
+    { 0x16810, 0xac42, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit v5.1-125 (boot disk)
+    { 0x16810, 0x28d7, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle Atari 8-bit v5.1-125 (boot disk)
 
     { 0xb36e, 0xbe5d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman.tzx
     { 0xb280, 0x196d, QUESTPROBE_SPIDERMAN_IFID }, // Questprobe 2 - Spiderman - Alternate.tzx
