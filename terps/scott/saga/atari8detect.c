@@ -302,7 +302,7 @@ static const struct imglist listVoodoo[] = {
     { IMG_ROOM, 12, 0x67dd }, // (12) *I'm in the Armory
     { IMG_ROOM, 13, 0x740e }, // (13) torture chamber
     { IMG_ROOM, 15, 0x7d4f }, // (14) large fireplace
-    { IMG_ROOM, 14, 0x8af2 }, // (15) Chimney
+    { IMG_ROOM, 16, 0x8af2 }, // (15) room in the castle
     { IMG_ROOM, 17, 0x954f }, // (16) Lab
     { IMG_ROOM, 18, 0xa19e }, // (17) narrow part of the chimney
     { IMG_ROOM, 19, 0xab17 }, // (18) Graveyard
@@ -314,8 +314,8 @@ static const struct imglist listVoodoo[] = {
     { IMG_ROOM, 25, 0xeb3a }, // (24) lot of TROUBLE!
     { IMG_ROOM, 90, 0xf856 }, // (25) Closeup Broken sword
     { IMG_ROOM, 96, 0xfd87 }, // (26) Closeup Chemicals
-    { IMG_ROOM, 100, 0x1068e }, // (27) Closeup Count Cristo
-    { IMG_ROOM, 101, 0x114e4 }, // (28) Closeup dusty idol
+    { IMG_ROOM, 101, 0x1068e }, // (27) Closeup Count Cristo
+    { IMG_ROOM, 100, 0x114e4 }, // (28) Closeup dusty idol
     { IMG_ROOM, 99, 0x11956 }, // (29) Title
     { IMG_ROOM, 0, 0x12879 }, // (30) Too dark
     { IMG_ROOM_OBJ, 17, 0x131cf }, // (31) Closed Coffin
