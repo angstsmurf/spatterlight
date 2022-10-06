@@ -369,6 +369,20 @@ static const struct imglist listVoodoo[] = {
     { 0, 0, 0, }
 };
 
+
+static const CropList a8croplist[] = {
+    { VOODOO_CASTLE_US, IMG_ROOM, 10, 8, 8 },
+    { VOODOO_CASTLE_US, IMG_ROOM, 11, 8, 8 },
+    { VOODOO_CASTLE_US, IMG_ROOM, 14, 8, 8 },
+    { VOODOO_CASTLE_US, IMG_ROOM, 19, 8, 8 },
+    { VOODOO_CASTLE_US, IMG_ROOM, 20, 8, 8 },
+    { HULK_US, IMG_ROOM, 0, 0, 32 },
+    { COUNT_US, IMG_ROOM, 0, 8, 0 },
+
+    { 0, 0, 0, 0, 0 }
+};
+
+
 static int StripBrackets(char sideB[], size_t length) {
     int left_bracket = 0;
     int right_bracket = 0;
@@ -566,6 +580,20 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         memcpy(image->imagedata, data + list[outpic].offset - 2, size);
         if (list[outpic].offset < 0xb390 && list[outpic].offset + image->datasize > 0xb390) {
             memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
+        }
+
+        if (CurrentGame == VOODOO_CASTLE_US && image->usage == IMG_ROOM)
+            image->cropleft = 8;
+
+        if ((CurrentGame == CLAYMORGUE_US || CurrentGame == COUNT_US) && image->usage == IMG_ROOM && image->imagedata[7] == 126)
+            image->cropright = 8;
+
+        for (int i = 0; a8croplist[i].game != 0; i++) {
+            CropList crop = a8croplist[i];
+            if (crop.game == CurrentGame && crop.index == image->index && crop.usage == image->usage) {
+                image->cropleft = crop.cropleft;
+                image->cropright = crop.cropright;
+            }
         }
 
         image->next = new_image();

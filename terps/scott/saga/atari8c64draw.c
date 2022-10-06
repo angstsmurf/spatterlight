@@ -507,15 +507,22 @@ int DrawAtariC64Image(USImage *image)
     glk_window_get_size(Graphics, &curwidth, &curheight);
 
     if (image->usage == IMG_ROOM || (xlen == 38 && xoff < 1)) {
-        xlen--;
-        ImageWidth = xlen * 8 - 17;
+        xlen = xlen - 1 - image->cropright / 8;
+        left_margin = image->cropleft;
+
+        ImageWidth = xlen * 8 - 17 + left_margin;
         ImageHeight = ylen + 2;
+
+        if (image->index == 19 && image->systype == SYS_ATARI8 ) {
+            xlen++;
+            ImageWidth = 308;
+        }
+
+        x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
 
         int optimal_height = ImageHeight * pixel_size;
 
         if (curheight != optimal_height) {
-//            x_offset = (curwidth - (ImageWidth * pixel_size)) / 2;
-//            right_margin = (ImageWidth * pixel_size) + x_offset;
             winid_t parent = glk_window_get_parent(Graphics);
             if (parent)
                 glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,

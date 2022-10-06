@@ -16,6 +16,7 @@ int pixel_size;
 int x_offset = 0;
 int y_offset = 0;
 int right_margin;
+int left_margin = 0;
 
 PALETTE pal;
 
@@ -32,6 +33,8 @@ USImage *new_image(void) {
     new->imagedata = NULL;
     new->systype = 0;
     new->usage = 0;
+    new->cropleft = 0;
+    new->cropright = 0;
     new->previous = NULL;
     new->next = NULL;
     return new;
@@ -64,7 +67,7 @@ void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
 
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
-    if (xpos >= right_margin) {
+    if (xpos > right_margin || xpos < left_margin) {
         return;
     }
     glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);

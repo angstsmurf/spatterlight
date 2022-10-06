@@ -19,18 +19,28 @@ typedef struct USImage {
     MachineType systype;
     size_t datasize;
     uint8_t *imagedata;
+    int cropleft;
+    int cropright;
     struct USImage *previous;
     struct USImage *next;
 } USImage;
 
 extern struct USImage *USImages;
 
+typedef struct CropList {
+    GameIDType game;
+    USImageType usage;
+    int index;
+    int cropleft;
+    int cropright;
+} CropList;
+
 typedef uint8_t RGB[3];
 typedef RGB PALETTE[16];
 
 extern int pixel_size;
 extern int x_offset, y_offset;
-extern int right_margin;
+extern int right_margin, left_margin;
 extern PALETTE pal;
 
 void SetColor(int32_t index, const RGB *color);
