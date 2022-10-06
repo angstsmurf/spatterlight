@@ -167,7 +167,6 @@ int DrawUSRoom(int room) {
             image = image->next;
         } while (image != NULL);
     }
-    CloseGraphicsWindow();
     return 0;
 }
 
@@ -220,7 +219,9 @@ void LookUS(void)
                 break;
         }
 
-    DrawUSRoom(room);
+    if (!DrawUSRoom(room)) {
+        return;
+    }
     DrawRoomObjectImages();
 
     if (CurrentGame == HULK_US) {
