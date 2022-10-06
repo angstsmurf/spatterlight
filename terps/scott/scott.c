@@ -61,6 +61,7 @@
 #include "hulk.h"
 #include "robinofsherwood.h"
 #include "seasofblood.h"
+#include "apple2draw.h"
 
 #include "bsd.h"
 #include "scott.h"
@@ -929,6 +930,8 @@ void DrawRoomImage(void)
         if (Game->type == US_VARIANT) {
             glk_window_clear(Graphics);
             DrawUSRoom(0);
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
         } else
             DrawBlack();
         return;
