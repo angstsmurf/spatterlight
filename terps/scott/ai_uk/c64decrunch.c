@@ -84,7 +84,7 @@ static const struct c64rec c64_registry[] = {
 
     { SECRET_MISSION_C64, 0x88be, 0xa122, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Secret Mission  C64 (T64) Section8 Packer
     { SECRET_MISSION_C64, 0x2ab00, 0x04d6, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, -0x1bff }, // Secret Mission  C64 (D64)
-    { SECRET_MISSION_C64, 0x2adab, 0x3ca3, TYPE_D64, 0, NULL, "SAG3PIC", 0, 0, 0, 0, 0 }, // Secret Mission  C64 (D64)
+    { SECRET_MISSION_C64, 0x2adab, 0x3ca3, TYPE_D64, 0, NULL, "SAG3PIC", -0x83a, 0, 0, 0, 0x67c8 }, // Secret Mission  C64 (D64)
 
     { CLAYMORGUE_C64, 0x6ff7,  0xe4ed, TYPE_T64, 3, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (T64), MasterCompressor / Relax
                                                                                              // -> ECA Compacker -> MegaByte Cruncher v1.x Missing 17 pictures
