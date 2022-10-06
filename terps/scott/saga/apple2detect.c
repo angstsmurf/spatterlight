@@ -778,6 +778,10 @@ int DetectApple2(uint8_t **sf, size_t *extent)
             if (companionfile != NULL) {
                 ExtractImagesFromApple2CompanionFile(companionfile, companionsize, isnib);
                 free(companionfile);
+            } else if (USImages != NULL) {
+                free (USImages->imagedata);
+                free (USImages);
+                USImages = NULL;
             }
         } else
             fprintf(stderr, "Failed loading database\n");
@@ -980,6 +984,9 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         case CLAYMORGUE_US_126:
             list = a2listClaymorgue126;
             break;
+        case HULK_US:
+            list = a2listHulk;
+            break;
         case HULK_US_PREL:
             list = a2listHulk126;
             break;
@@ -988,9 +995,6 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
             break;
         case VOODOO_CASTLE_US:
             list = a2listVoodoo;
-            break;
-        case HULK_US:
-            list = a2listHulk;
             break;
         default:
             return 0;
