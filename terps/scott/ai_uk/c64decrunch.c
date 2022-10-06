@@ -433,53 +433,6 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
     return newsize;
 }
 
-
-//int FindPatternInFile(uint8_t *ptr, size_t offset, int previous) {
-//    FILE *f = fopen("/Users/administrator/Desktop/Saga and TaylorMade stuff/Atari 8-bit saga/S.A.G.A. 13 - The Sorcerer of Claymorgue Castle v5.1-125 - AllFiles/S.A.G.A. #13 - The Sorcerer of Claymorgue Castle v5.1-125 (1983)(Adventure International)(US)(Disk 2 of 2)[a].atr", "r");
-//    if (f == NULL)
-//        Fatal("Cannot open game");
-//    fseek(f, 0, SEEK_END);
-//    size_t memlen = ftell(f);
-//    if (memlen == -1) {
-//        fclose(f);
-//        glk_exit();
-//    }
-//
-//    fseek(f, 0, SEEK_SET);
-//    uint8_t *mem = malloc(memlen);
-//    if (!mem) {
-//        fprintf(stderr, "Out of memory!\n");
-//        glk_exit();
-//    }
-//
-//    memlen = fread(mem, 1, memlen, f);
-//
-//    for (int j = 0; j < memlen - 10; j++) {
-//        if (mem[j] == ptr[offset]) {
-//            int found = 1;
-//            for (int i = 1; i < 10; i++) {
-//                if (mem[j + i] != ptr[offset + i]) {
-//                    found = 0;
-//                    break;
-//                }
-//            }
-//            if (found) {
-//                fprintf(stderr, "0x%04x },\n", j);
-//                //                int diff = j - previous;
-//                //                fprintf(stderr, "Diff from previous (%x): %d\n", previous, diff);
-//
-//                fclose(f);
-//                return j;
-//            }
-//        }
-//    }
-//
-//    fprintf(stderr, "0, ");
-//
-//    fclose(f);
-//    return 0;
-//}
-
 void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
     fprintf(stderr, "First 10 bytes at 0x%04zx: ", offset);
     for (int i = 0; i < 10; i++)
