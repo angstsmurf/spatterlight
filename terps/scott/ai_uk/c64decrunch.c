@@ -643,7 +643,7 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
     file_length = *extent;
     size_t decompressed_length = *extent;
 
-    uint8_t *uncompressed = MemAlloc(0xffff);
+    uint8_t *uncompressed = MemAlloc(0x10000);
 
     char *switches[3];
     char string[100];
