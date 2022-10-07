@@ -325,16 +325,16 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
     int work,work2;
     int c;
     int i;
-    size_t size;
 
     uint8_t *origptr = ptr;
 
     x = 0; y = 0;
 
-    ptr += 2;
+    ptr += 4;
 
-    work = *ptr++;
-    size = work + *ptr++ * 256;
+    // Comment this out until we start using it
+//    work = *ptr++;
+//    size_t size = work + *ptr++ * 256;
 
     // Get the offset
     xoff = *ptr++ - 3;
