@@ -134,6 +134,8 @@ void DrawHulkImage(int p)
 {
     if (CurrentGame == HULK_US) {
         DrawUSRoom(p);
+        if (CurrentSys == SYS_APPLE2)
+            DrawApple2ImageFromVideoMem();
         Output(sys[HIT_ENTER]);
         HitEnter();
         return;
