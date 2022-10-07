@@ -565,12 +565,10 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     // Now loop round for each image
     for (outpic = 0; list[outpic].offset != 0; outpic++)
     {
-        uint8_t *ptr =  data + list[outpic].offset;
+        uint8_t *ptr = data + list[outpic].offset;
 
         size = *ptr++;
         size += *ptr * 256 + 2;
-
-        ptr = data + list[outpic].offset - 2;
 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
@@ -609,14 +607,19 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         image->imagedata = MemAlloc(image->datasize);
         image->systype = SYS_ATARI8;
         memcpy(image->imagedata, otherdisk + 0x988e, image->datasize);
-    } else {
+    } else if (image->imagedata == NULL) {
         /* Free the last image, it is empty */
-        image->previous->next = NULL;
-        free(image);
+        if (image->previous) {
+            image->previous->next = NULL;
+            free(image);
+        } else {
+            free(USImages);
+            USImages = NULL;
+        }
     }
 
     /* If no images are found, free USImages struct */
-    if (USImages->next == NULL && USImages->imagedata == NULL) {
+    if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
         free(USImages);
         USImages = NULL;
     }
