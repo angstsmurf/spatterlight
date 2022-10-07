@@ -1,5 +1,12 @@
 # Change log
 
+## Release 0.9.8
+- Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*.
+- Fixes a bug that made *Questprobe featuring The Hulk* impossible to win
+- Fixes a potential out-of-bounds read that could randomly cause TI-99/4A Scott Adams games to only display a blank screen
+- "Parameterized" TADS 3 text colours would be displayed as red
+- Changing the "Slow vector drawing" option could cause games to crash
+
 ## Release 0.9.7
 - Adds support for Apple 2, Atari 8-bit, Commodore 64, and Atari ST versions of Saga Plus games
 – Line spacing and error messages in Plus are closer to the original interpreters
