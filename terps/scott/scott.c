@@ -538,7 +538,7 @@ void *MemAlloc(int size)
 int RandomPercent(int n)
 {
     uint64_t rv = (uint64_t)rand() << 6;
-//    unsigned int rv = rand() << 6;
+    rv &= 0xffffffff;
     rv %= 100;
     if (rv < n)
         return (1);
