@@ -60,12 +60,13 @@ static const struct c64rec c64_registry[] = {
     { WAXWORKS_C64,     0x2ab00, 0x9eaa, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 },
     { BATON_C64,        0x2ab00, 0x9dca, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 },
 
-    { ARROW1_C64,       0x2ab00, 0xe71d, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 },
     { BATON_C64,        0x5170,  0xb240, TYPE_T64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // The Golden Baton C64, T64
     { BATON_C64,        0x2ab00, 0xbfbf, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 1 alt
     { FEASIBILITY_C64,  0x2ab00, 0x9c18, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 2 alt
     { TIME_MACHINE_C64, 0x5032,  0x5635, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine C64
     { ARROW1_C64,       0x5b46,  0x92db, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64
+    { ARROW1_C64,       0x2ab00, 0xe71d, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64 D64
+    { ARROW1_C64,       0x2ab00, 0x7687, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64 D64 alt
     { ARROW2_C64,       0x5fe2,  0xe14f, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 2 C64
     { PULSAR7_C64,      0x46bf,  0x1679, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Escape from Pulsar 7 C64
     { CIRCUS_C64,       0x4269,  0xa449, TYPE_T64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Circus C64
@@ -73,14 +74,17 @@ static const struct c64rec c64_registry[] = {
     { AKYRZ_C64,        0x2ab00, 0x6cca, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // The Wizard of Akyrz C64
     { AKYRZ_C64,        0x4be1,  0x5a00, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // The Wizard of Akyrz C64, T64
     { PERSEUS_C64,      0x502b,  0x913b, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Perseus and Andromeda C64
+    { PERSEUS_C64,      0x2ab00, 0xdc5e, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Perseus and Andromeda C64 D64
     { INDIANS_C64,      0x4f9f,  0xe6c8, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Ten Little Indians C64
     { WAXWORKS_C64,     0x4a11,  0xa37a, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Waxworks C64
+    { WAXWORKS_C64,     0x2ab00, 0x0a78, TYPE_D64, 3, NULL, NULL, 0, 0, 0, 0, 0 }, // Waxworks C64 D64
 
     { ADVENTURELAND_C64, 0x6a10,  0x1910, TYPE_T64, 1, NULL, NULL,    0,        0, 0, 0, 0 },      // Adventureland C64 (T64) CruelCrunch v2.2
     { ADVENTURELAND_C64, 0x6a10,  0x1b10, TYPE_T64, 1, NULL, NULL,    0,        0, 0, 0, 0 },      // Adventureland C64 (T64) alt CruelCrunch v2.2
     { ADVENTURELAND_C64, 0x2ab00, 0x6638, TYPE_D64, 1, NULL, NULL,    0,        0, 0, 0, 0 },      // Adventureland C64 (D64) CruelCrunch v2.2
     { ADVENTURELAND_C64, 0x2adab, 0x751f, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 },      // Adventureland C64 (D64) alt
     { ADVENTURELAND_C64, 0x2adab, 0x64a4, TYPE_D64, 0, NULL, "SAG1PIC", -0xa53, 0, 0, 0, 0x65af }, // Adventureland C64 (D64) alt 2
+    { ADVENTURELAND_C64, 0x2adab, 0x8847, TYPE_D64, 0, NULL, NULL,    0,        0, 0, 0, 0 }, // Adventureland C64 (D64) alt 3
 
     { SECRET_MISSION_C64, 0x88be, 0xa122, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Secret Mission  C64 (T64) Section8 Packer
     { SECRET_MISSION_C64, 0x2ab00, 0x04d6, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, -0x1bff }, // Secret Mission  C64 (D64)
@@ -610,7 +614,7 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
             switches[++numswitches] = strtok(NULL, " ");
     }
 
-    writeToFile("/Users/administrator/Desktop/C64Raw", *sf, *extent);
+//    writeToFile("/Users/administrator/Desktop/C64Raw", *sf, *extent);
 
     size_t result = 0;
 

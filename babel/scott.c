@@ -108,6 +108,7 @@ static const struct scottrec scott_registry[] = {
     { 0x432c, 0xa6df, VOODOO_CASTLE_IFID }, // Voodoo Castle z80
     { 0x4308, 0xa634, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a
     { 0x4308, 0xa2d2, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a3
+    { 0x68ea, 0xd4b, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 Parsec
     { 0x431e, 0x7437, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80
     { 0x68de, 0xeead, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a
     { 0x42f8, 0x70e1, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a2
@@ -117,6 +118,10 @@ static const struct scottrec scott_registry[] = {
     { 0x65d0, 0xd983, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 alt 2
 
     { 0x7d3c, 0x142b, GOLDEN_BATON_IFID }, // The Golden Baton Z80
+    { 0x6f48, 0x2100, GOLDEN_BATON_IFID }, // The Golden Baton Z80 alt
+    { 0x7f22, 0xe755, GOLDEN_BATON_IFID }, // The Golden Baton Z80 alt 2
+    { 0x7ee3, 0xe070, GOLDEN_BATON_IFID }, // The Golden Baton Z80 alt 3
+    { 0x70c8, 0xeecc, GOLDEN_BATON_IFID }, // The Golden Baton Z80 alt 4
     { 0x8b90, 0x85dc, GOLDEN_BATON_IFID }, // The Golden Baton tzx
     { 0x912e, 0xd9ad, GOLDEN_BATON_IFID }, // The Golden Baton alt tzx
     { 0x911c, 0xd15c, GOLDEN_BATON_IFID }, // The Golden Baton alt 2 tzx
@@ -132,19 +137,28 @@ static const struct scottrec scott_registry[] = {
     { 0xb80d, 0x12c2, TIME_MACHINE_IFID }, // The Time Machine TAP
     { 0x5032, 0x5635, TIME_MACHINE_IFID }, // The Time Machine C64
     { 0x8539, 0xad02, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80
+    { 0x8699, 0xbb7b, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt
+    { 0x7844, 0xd892, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 2
+    { 0x8699, 0xbb89, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 3
+    { 0x865c, 0xb434, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 4
     { 0xb847, 0xb686, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 tzx
     { 0x912e, 0x2b65, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 tzx alt
    { 0x12281, 0xeac2, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 (Channel 8).tzx
     { 0xb7f3, 0xa2d8, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 TAP
     { 0x5b46, 0x92db, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 C64
    { 0x2ab00, 0xe71d, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 C64 alt
+   { 0x2ab00, 0x7687, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 C64 alt 2
     { 0x949b, 0xb7e2, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 z80
+    { 0x87dd, 0x5560, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 z80 alt
+    { 0x86cf, 0xbefc, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 z80 alt 2
     { 0xb7f3, 0x721e, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 TAP
     { 0xb847, 0x8797, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 tzx
     { 0xb847, 0x862c, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 (Channel 8).tzx
     { 0x912e, 0xb912, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 tzx alt
     { 0x5fe2, 0xe14f, ARROW_OF_DEATH_PART_2_IFID }, // Arrow of Death part 2 C64
     { 0x7509, 0x497d, ESCAPE_FROM_PULSAR_7_IFID }, // Escape from Pulsar 7 z80
+    { 0x7551, 0x2c10, ESCAPE_FROM_PULSAR_7_IFID }, // Escape from Pulsar 7 z80 alt
+    { 0x67d6, 0x6fa8, ESCAPE_FROM_PULSAR_7_IFID }, // Escape from Pulsar 7 z80 alt 2
     { 0xb847, 0xd29b, ESCAPE_FROM_PULSAR_7_IFID }, // Escape From Pulsar 7 tzx
     { 0x912e, 0xcf41, ESCAPE_FROM_PULSAR_7_IFID }, // Escape From Pulsar 7 - Alternate.tzx
     { 0x7bb8, 0x3ddb, ESCAPE_FROM_PULSAR_7_IFID }, // Escape From Pulsar 7 - Alternate #2.tzx
@@ -164,6 +178,7 @@ static const struct scottrec scott_registry[] = {
     { 0x913a, 0x220c, FEASIBILITY_EXPERIMENT_IFID }, // Feasibility Experiment (Channel 8).tzx
     { 0x5a7b, 0x0f48, FEASIBILITY_EXPERIMENT_IFID }, // Feasibility Experiment C64
     { 0x83d9, 0x1bb9, WIZARD_OF_AKYRZ_IFID }, // The Wizard of Akyrz z80
+    { 0x8422, 0x2eb8, WIZARD_OF_AKYRZ_IFID }, // The Wizard of Akyrz z80 alt
     { 0x9232, 0x0c09, WIZARD_OF_AKYRZ_IFID }, // The Wizard of Akyrz TAP
     { 0x911c, 0x7943, WIZARD_OF_AKYRZ_IFID }, // The Wizard Of Akyrz tzx
     { 0x912e, 0x7fde, WIZARD_OF_AKYRZ_IFID }, // The Wizard Of Akyrz Alternate.tzx
@@ -171,13 +186,21 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0x6cca, WIZARD_OF_AKYRZ_IFID }, // The Wizard of Akyrz C64, D64
     { 0x4be1, 0x5a00, WIZARD_OF_AKYRZ_IFID }, // The Wizard of Akyrz C64, T64
     { 0x7b10, 0x4f06, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda.z80
+    { 0x76fd, 0x3a77, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda.z80 alt
+    { 0x6db4, 0x84fe, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda.z80 alt 2
     { 0x8a8a, 0x0069, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda TAP
     { 0xb846, 0x1071, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda (Channel 8).tzx
     { 0x912e, 0x0fa1, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda - Alternate.tzx
     { 0x911c, 0x067e, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda.tzx
     { 0x502b, 0x913b, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda C64
+   { 0x2ab00, 0xdc5e, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda C64 D64
     { 0x6fce, 0x4bac, PERSEUS_AND_ANDROMEDA_IFID }, // Perseus and Andromeda Italian
     { 0x7bb0, 0x3877, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80
+    { 0x7c16, 0xe269, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt
+    { 0x6fdc, 0xa77e, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt 1
+    { 0x6dee, 0x5156, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt 2
+    { 0x7c34, 0xe4db, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt 3
+    { 0xc01e, 0x6de7, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians z80 alt 4
     { 0x911c, 0xe5f0, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians tzx
     { 0x912e, 0xee20, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians tzx alternate
     { 0xb846, 0xeff2, TEN_LITTLE_INDIANS_IFID }, // Ten Little Indians (Channel 8).tzx
@@ -189,6 +212,8 @@ static const struct scottrec scott_registry[] = {
     { 0x9136, 0x04a4, WAXWORKS_IFID }, // Waxworks (Channel 8).tzx
     { 0x8fcc, 0xf2fd, WAXWORKS_IFID }, // Waxworks TAP
     { 0x4a11, 0xa37a, WAXWORKS_IFID }, // Waxworks C64
+    { 0x4a11, 0xa37a, WAXWORKS_IFID }, // Waxworks C64
+   { 0x2ab00, 0x0a78, WAXWORKS_IFID }, // Waxworks C64 D64
 
    { 0x2ab00, 0xc3fc, GOLDEN_BATON_IFID }, // Mysterious Adventures C64 dsk 1
    { 0x2ab00, 0xbfbf, GOLDEN_BATON_IFID }, // Mysterious Adventures C64 dsk 1 alt
@@ -221,11 +246,13 @@ static const struct scottrec scott_registry[] = {
     { 0xba74, 0x39c2, ADVENTURELAND_IFID }, // Adventureland TAP image
     { 0xaaae, 0x7cf6, ADVENTURELAND_IFID }, // Adventureland Z80
     { 0x9927, 0xd3d9, ADVENTURELAND_IFID }, // Adventureland Z80 alt
+    { 0x9927, 0xd088, ADVENTURELAND_IFID }, // Adventureland Z80 alt 2
     { 0x6a10, 0x1910, ADVENTURELAND_IFID }, // Adventureland C64 (T64)
     { 0x6a10, 0x1b10, ADVENTURELAND_IFID }, // Adventureland C64 (T64) alt
    { 0x2ab00, 0x6638, ADVENTURELAND_IFID }, // Adventureland C64 (D64)
    { 0x2adab, 0x751f, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt
    { 0x2adab, 0x64a4, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt 2
+   { 0x2adab, 0x8847, ADVENTURELAND_IFID }, // Adventureland C64 (D64) alt 3
 
     { 0x23000, 0x7e22, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK)
     { 0x23000, 0x510b, ADVENTURELAND_IFID }, // Adventureland Apple 2 (DSK) Graphics disk
