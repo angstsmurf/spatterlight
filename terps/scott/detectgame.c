@@ -1189,6 +1189,107 @@ int IsMysterious(void)
     return 0;
 }
 
+uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr) {
+    uint8_t bVar1;
+    uint8_t bVar2;
+    uint8_t bVar4;
+    short sVar3;
+    uint8_t *pbVar5;
+
+    if (dataptr - 3 < entire_file)
+        return NULL;
+
+    do {
+        bVar4 = *dataptr;
+        bVar2 = *(dataptr - 1);
+        sVar3 = bVar2 + bVar4 * 0x100;
+        pbVar5 = dataptr - 2;
+        if ((bVar4 & 0x80) == 0) {
+            do {
+                *start = *pbVar5;
+                start--;
+                pbVar5--;
+                sVar3--;
+            } while (sVar3 != 0 && pbVar5 > entire_file && start > entire_file);
+        } else {
+            bVar4 = bVar4 & 0x7f;
+            bVar1 = *pbVar5;
+            pbVar5 = dataptr - 3;
+            if (start - 1 < entire_file)
+                return NULL;
+            do {
+                *start = bVar2;
+                *(start - 1) = bVar1;
+                start -= 2;
+                bVar4--;
+            } while (bVar4 != 0 && start > entire_file);
+        }
+        dataptr = pbVar5;
+    } while (start != end && dataptr - 3 > entire_file);
+    return dataptr;
+}
+
+//size_t writeToFile(const char *name, uint8_t *data, size_t size);
+
+GameIDType DetectZXSpectrum(void) {
+    GameIDType detectedGame = UNKNOWN_GAME;
+    int wasz80 = 0;
+    uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
+    if (uncompressed != NULL) {
+        wasz80 = 1;
+        free(entire_file);
+        entire_file = uncompressed;
+        file_length = 0xc000;
+    }
+
+    size_t offset;
+
+    DictionaryType dict_type = GetId(&offset);
+
+    if (dict_type == NOT_A_GAME)
+        return UNKNOWN_GAME;
+
+    for (int i = 0; games[i].Title != NULL; i++) {
+        if (games[i].dictionary == dict_type) {
+            if (TryLoading(games[i], offset, 0)) {
+                free(Game);
+                Game = &games[i];
+                detectedGame = Game->gameID;
+                break;
+            }
+        }
+    }
+
+    if (!detectedGame && wasz80) {
+        uint8_t *mem = entire_file;
+        uint16_t HL = mem[0x1b42] +  mem[0x1b43] * 0x100 - 0x4000;
+        uint8_t *result = DecompressParsec(&mem[0x0fff], &mem[0x07ff], &mem[HL]);
+        if (result) {
+            uint16_t BC = mem[0x1b48] +  mem[0x1b49] * 0x100 - 0x4000;
+            uint16_t DE = mem[0x1b4b] +  mem[0x1b4c] * 0x100 - 0x4000;
+            result = DecompressParsec(&mem[BC], &mem[DE], result);
+            dict_type = GetId(&offset);
+            if (dict_type == NOT_A_GAME)
+                Fatal("Unsupported game!");
+            for (int i = 0; games[i].Title != NULL; i++) {
+                if (games[i].dictionary == dict_type) {
+                    if (TryLoading(games[i], offset, 1)) {
+                        free(Game);
+                        Game = &games[i];
+                        detectedGame = Game->gameID;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (!detectedGame)
+        Fatal("Unsupported game!");
+
+    return detectedGame;
+}
+
 GameIDType DetectGame(const char *file_name)
 {
     FILE *f = fopen(file_name, "r");
@@ -1243,32 +1344,8 @@ GameIDType DetectGame(const char *file_name)
                 detectedGame = CurrentGame;
         }
 
-
         if (!detectedGame) { /* Not an Atari game, check if ZX Spectrum */
-            uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
-            if (uncompressed != NULL) {
-                free(entire_file);
-                entire_file = uncompressed;
-                file_length = 0xc000;
-            }
-
-            size_t offset;
-
-            DictionaryType dict_type = GetId(&offset);
-
-            if (dict_type == NOT_A_GAME)
-                return UNKNOWN_GAME;
-
-            for (int i = 0; games[i].Title != NULL; i++) {
-                if (games[i].dictionary == dict_type) {
-                    if (TryLoading(games[i], offset, 0)) {
-                        free(Game);
-                        Game = &games[i];
-                        detectedGame = Game->gameID;
-                        break;
-                    }
-                }
-            }
+            detectedGame = DetectZXSpectrum();
         }
 
         if (Game == NULL)
