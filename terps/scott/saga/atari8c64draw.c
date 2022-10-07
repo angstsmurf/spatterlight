@@ -356,7 +356,7 @@ static void TranslateAtariColorRGB(int index, uint8_t value) {
  them. I might have made some mistakes. */
 
 static void TranslateC64Color(int index, uint8_t value) {
-    fprintf(stderr, "Color %d: %d\n", index, value);
+    debug_print("Color %d: %d\n", index, value);
     switch(value) {
         case 2:
         case 3:

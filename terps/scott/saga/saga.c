@@ -104,12 +104,12 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
         if (wordnum < nn) {
             Nouns[wordnum] = MemAlloc(charindex + 1);
             memcpy((char *)Nouns[wordnum], dictword, charindex + 1);
-            fprintf(stderr, "Nouns %d: \"%s\"\n", wordnum,
+            debug_print("Nouns %d: \"%s\"\n", wordnum,
                     Nouns[wordnum]);
         } else {
             Verbs[wordnum - nn] = MemAlloc(charindex + 1);
             memcpy((char *)Verbs[wordnum - nn], dictword, charindex + 1);
-            fprintf(stderr, "Verbs %d: \"%s\"\n", wordnum - nn,
+            debug_print("Verbs %d: \"%s\"\n", wordnum - nn,
                     Verbs[wordnum - nn]);
         }
         wordnum++;
@@ -292,7 +292,7 @@ static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
 uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof) {
     for (int i = 0; i < count && ptr + i + 1 < eof; i += 2) {
         uint16_t val =  ptr[i] + ptr[i+1] * 0x100;
-        fprintf(stderr, "Unknown value %d: %d (%x)\n", i/2, val, val);
+        debug_print("Unknown value %d: %d (%x)\n", i/2, val, val);
     }
     return  ptr + count;
 }
@@ -313,7 +313,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
 
     if (dict_start) {
         file_baseline_offset = dict_start - info.start_of_dictionary - 645;
-        fprintf(stderr, "HULK: file baseline offset:%d\n",
+        debug_print("LoadBinaryDatabase: file baseline offset:%d\n",
                 file_baseline_offset);
         offset = info.start_of_header + file_baseline_offset;
         ptr = SeekToPos(data, offset);
@@ -331,8 +331,8 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
                 }
             }
         }
-        fprintf(stderr, "Version: %d\n", version);
-        fprintf(stderr, "Adventure number: %d\n", adventure_number);
+        debug_print("Version: %d\n", version);
+        debug_print("Adventure number: %d\n", adventure_number);
         if (adventure_number == 0)
             return 0;
         if (version == 127 && adventure_number == 1)
@@ -380,13 +380,10 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
 
-    fprintf(stderr, "Treasure room 1: %d\n", GameHeader.TreasureRoom);
-
-
     /* if dict_start > 0, we are checking for the UK version of Questprobe featuring The Hulk */
     if (dict_start) {
         if (header[0] != info.word_length || header[1] != info.number_of_words || header[2] != info.number_of_actions || header[3] != info.number_of_items || header[4] != info.number_of_messages || header[5] != info.number_of_rooms || header[6] != info.max_carried) {
-            //    fprintf(stderr, "Non-matching header\n");
+            //    debug_print("Non-matching header\n");
             return 0;
         }
     }
@@ -403,8 +400,6 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
 
 #pragma mark Rooms
 
-    fprintf(stderr, "Offset %lx\n", ptr-data);
-
     ct = 0;
     rp = Rooms;
 
@@ -420,7 +415,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
             }
             rp->Text[string_length] = 0;
         }
-        fprintf(stderr, "Room %d: \"%s\"\n", ct, rp->Text);
+        debug_print("Room %d: \"%s\"\n", ct, rp->Text);
         rp++;
         ct++;
     } while (ct < nr + 1);
@@ -442,7 +437,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
             string[string_length] = 0;
         }
         Messages[ct] = string;
-        fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+        debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
         ct++;
     } while (ct < mn + 1);
 
@@ -475,9 +470,9 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
             }
         }
 
-        fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+        debug_print("Item %d: %s\n", ct, ip->Text);
         if (ip->AutoGet)
-            fprintf(stderr, "Autoget:%s\n", ip->AutoGet);
+            debug_print("Autoget:%s\n", ip->AutoGet);
 
         ct++;
         ip++;
@@ -491,7 +486,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     while (ct < ni + 1) {
         ip->Location = *ptr;
         ip->InitialLoc = ip->Location;
-        fprintf(stderr, "Item %d (%s) start location: %d\n", ct, Items[ct].Text, ip->Location);
+        debug_print("Item %d (%s) start location: %d\n", ct, Items[ct].Text, ip->Location);
         ptr += 2;
         ip++;
         ct++;
@@ -553,14 +548,12 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
         while (ct < nr + 1) {
             rp->Image = 255;
             rp->Exits[j] = *ptr;
-            fprintf(stderr, "Room %d (%s) exit %d (%s): %d\n", ct, Rooms[ct].Text, j, Nouns[j + 1], rp->Exits[j]);
+            debug_print("Room %d (%s) exit %d (%s): %d\n", ct, Rooms[ct].Text, j, Nouns[j + 1], rp->Exits[j]);
             ptr += 2;
             ct++;
             rp++;
         }
     }
-
-    fprintf(stderr, "Treasure room 2: %d\n", GameHeader.TreasureRoom);
 
     // Return if not reading UK Hulk
     if (!dict_start) {
@@ -577,7 +570,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
 
     for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
         rp->Image = *(ptr++);
-        //        fprintf(stderr, "Room %d (%s) has image %d\n", ct, rp->Text,
+        //        debug_print("Room %d (%s) has image %d\n", ct, rp->Text,
         //        rp->Image );
         rp++;
     }
@@ -656,7 +649,7 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
         *stringlength2 = list[i][0].stringlength;
         if (*stringlength2 == 0) {
             *stringlength2 = strlen(list[i][0].filename);
-            fprintf(stderr, "length of string companionlist[%d][0] (%s): %zu\n", i, list[i][0].filename, *stringlength2);
+            debug_print("length of string companionlist[%d][0] (%s): %zu\n", i, list[i][0].filename, *stringlength2);
         }
         if (CompareFilenames(game_file, stringlen, list[i][0].filename, *stringlength2) == 1) {
             *stringlength2 = list[i][1].stringlength;
@@ -668,7 +661,7 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
         *stringlength2 = list[i][1].stringlength;
         if (*stringlength2 == 0) {
             *stringlength2 = strlen(list[i][1].filename);
-            fprintf(stderr, "length of string companionlist[%d][1] (%s): %zu\n", i, list[i][1].filename, *stringlength2);
+            debug_print("length of string companionlist[%d][1] (%s): %zu\n", i, list[i][1].filename, *stringlength2);
         }
         if (CompareFilenames(game_file, stringlen, list[i][1].filename, *stringlength2) == 1) {
             *stringlength2 = list[i][0].stringlength;

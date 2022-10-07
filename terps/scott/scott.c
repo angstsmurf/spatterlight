@@ -702,7 +702,7 @@ int LoadDatabase(FILE *f, int loud)
             &pr, &tr, &wl, &lt, &mn, &trm)
         < 10) {
         if (loud)
-            fprintf(stderr, "Invalid database(bad header)\n");
+            debug_print("Invalid database(bad header)\n");
         return 0;
     }
     GameHeader.NumItems = ni;
@@ -725,17 +725,17 @@ int LoadDatabase(FILE *f, int loud)
     GameHeader.TreasureRoom = trm;
 
     if (loud) {
-        fprintf(stderr, "Number of items: %d\n", GameHeader.NumItems);
-        fprintf(stderr, "Number of actions: %d\n", GameHeader.NumActions);
-        fprintf(stderr, "Number of words: %d\n", GameHeader.NumWords);
-        fprintf(stderr, "Word length: %d\n", GameHeader.WordLength);
-        fprintf(stderr, "Number of rooms: %d\n", GameHeader.NumRooms);
-        fprintf(stderr, "Number of messages: %d\n", GameHeader.NumMessages);
-        fprintf(stderr, "Max carried: %d\n", GameHeader.MaxCarry);
-        fprintf(stderr, "Starting location: %d\n", GameHeader.PlayerRoom);
-        fprintf(stderr, "Light time: %d\n", GameHeader.LightTime);
-        fprintf(stderr, "Number of treasures: %d\n", GameHeader.Treasures);
-        fprintf(stderr, "Treasure room: %d\n", GameHeader.TreasureRoom);
+        debug_print("Number of items: %d\n", GameHeader.NumItems);
+        debug_print("Number of actions: %d\n", GameHeader.NumActions);
+        debug_print("Number of words: %d\n", GameHeader.NumWords);
+        debug_print("Word length: %d\n", GameHeader.WordLength);
+        debug_print("Number of rooms: %d\n", GameHeader.NumRooms);
+        debug_print("Number of messages: %d\n", GameHeader.NumMessages);
+        debug_print("Max carried: %d\n", GameHeader.MaxCarry);
+        debug_print("Starting location: %d\n", GameHeader.PlayerRoom);
+        debug_print("Light time: %d\n", GameHeader.LightTime);
+        debug_print("Number of treasures: %d\n", GameHeader.Treasures);
+        debug_print("Treasure room: %d\n", GameHeader.TreasureRoom);
     }
 
     /* Load the actions */
@@ -743,7 +743,7 @@ int LoadDatabase(FILE *f, int loud)
     ct = 0;
     ap = Actions;
     if (loud)
-        fprintf(stderr, "Reading %d actions.\n", na);
+        debug_print("Reading %d actions.\n", na);
     while (ct < na + 1) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
                 &ap->Vocab,
@@ -761,20 +761,20 @@ int LoadDatabase(FILE *f, int loud)
         }
 
         if (loud) {
-            fprintf(stderr, "Action %d Vocab: %d (%d/%d)\n", ct, ap->Vocab,
+            debug_print("Action %d Vocab: %d (%d/%d)\n", ct, ap->Vocab,
                 ap->Vocab % 150, ap->Vocab / 150);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[0], ap->Condition[0] % 20, ap->Condition[0] / 20);
-            fprintf(stderr, "Action %d Condition[1]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[1]: %d (%d/%d)\n", ct,
                 ap->Condition[1], ap->Condition[1] % 20, ap->Condition[1] / 20);
-            fprintf(stderr, "Action %d Condition[2]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[2]: %d (%d/%d)\n", ct,
                 ap->Condition[2], ap->Condition[2] % 20, ap->Condition[2] / 20);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
-            fprintf(stderr, "Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
-            fprintf(stderr, "Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
+            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
+            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
         }
         ap++;
         ct++;
@@ -782,35 +782,35 @@ int LoadDatabase(FILE *f, int loud)
 
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d word pairs.\n", nw);
+        debug_print("Reading %d word pairs.\n", nw);
     while (ct < nw + 1) {
         Verbs[ct] = ReadString(f);
-        fprintf(stderr, "Verbs %d:%s.\n", ct, Verbs[ct]);
+        debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
-        fprintf(stderr, "Nouns %d:%s.\n", ct, Nouns[ct]);
+        debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
         ct++;
     }
     ct = 0;
     rp = Rooms;
     if (loud)
-        fprintf(stderr, "Reading %d rooms.\n", nr);
+        debug_print("Reading %d rooms.\n", nr);
     while (ct < nr + 1) {
         if (fscanf(f, "%hd %hd %hd %hd %hd %hd", &rp->Exits[0], &rp->Exits[1],
                 &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
                 &rp->Exits[5])
             != 6) {
-            fprintf(stderr, "Bad room line (%d)\n", ct);
+            debug_print("Bad room line (%d)\n", ct);
             FreeDatabase();
             return 0;
         }
 
         rp->Text = ReadString(f);
         if (loud)
-            fprintf(stderr, "Room %d: \"%s\"\n", ct, rp->Text);
+            debug_print("Room %d: \"%s\"\n", ct, rp->Text);
         if (loud) {
-            fprintf(stderr, "Room connections for room %d:\n", ct);
+            debug_print("Room connections for room %d:\n", ct);
             for (int i = 0; i < 6; i++)
-                fprintf(stderr, "Exit %d: %d\n", i, rp->Exits[i]);
+                debug_print("Exit %d: %d\n", i, rp->Exits[i]);
         }
         rp->Image = 255;
         ct++;
@@ -819,21 +819,21 @@ int LoadDatabase(FILE *f, int loud)
 
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d messages.\n", mn);
+        debug_print("Reading %d messages.\n", mn);
     while (ct < mn + 1) {
         Messages[ct] = ReadString(f);
         if (loud)
-            fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
         ct++;
     }
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d items.\n", ni);
+        debug_print("Reading %d items.\n", ni);
     ip = Items;
     while (ct < ni + 1) {
         ip->Text = ReadString(f);
         if (loud)
-            fprintf(stderr, "Item %d: \"%s\"\n", ct, ip->Text);
+            debug_print("Item %d: \"%s\"\n", ct, ip->Text);
         ip->AutoGet = strchr(ip->Text, '/');
         /* Some games use // to mean no auto get/drop word! */
         if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
@@ -844,13 +844,13 @@ int LoadDatabase(FILE *f, int loud)
                 *t = 0;
         }
         if (fscanf(f, "%hd", &lo) != 1) {
-            fprintf(stderr, "Bad item line (%d)\n", ct);
+            debug_print("Bad item line (%d)\n", ct);
             FreeDatabase();
             return 0;
         }
         ip->Location = (unsigned char)lo;
         if (loud)
-            fprintf(stderr, "Location of item %d: %d\n", ct, ip->Location);
+            debug_print("Location of item %d: %d\n", ct, ip->Location);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -862,19 +862,19 @@ int LoadDatabase(FILE *f, int loud)
         ct++;
     }
     if (fscanf(f, "%d", &ct) != 1) {
-        fprintf(stderr, "Cannot read version\n");
+        debug_print("Cannot read version\n");
         FreeDatabase();
         return 0;
     }
     if (loud)
-        fprintf(stderr, "Version %d.%02d of Adventure ", ct / 100, ct % 100);
+        debug_print("Version %d.%02d of Adventure ", ct / 100, ct % 100);
     if (fscanf(f, "%d", &ct) != 1) {
-        fprintf(stderr, "Cannot read adventure number\n");
+        debug_print("Cannot read adventure number\n");
         FreeDatabase();
         return 0;
     }
     if (loud)
-        fprintf(stderr, "%d.\nLoad Complete.\n\n", ct);
+        debug_print("%d.\nLoad Complete.\n\n", ct);
     /* Extra value in at least Hulk */
     fscanf(f, "%d", &ct);
 	fclose(f);
@@ -905,7 +905,7 @@ void DrawImage(int image)
 		return;
     OpenGraphicsWindow();
     if (Graphics == NULL) {
-        fprintf(stderr, "DrawImage: Graphic window NULL?\n");
+        debug_print("DrawImage: Graphic window NULL?\n");
         return;
     }
     if (Game->picture_format_version == 99)
@@ -1574,7 +1574,7 @@ void MoveItemAToLocOfItemB(int itemA, int itemB)
 void GoToStoredLoc(void)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "switch location to stored location (%d) (%s).\n",
+	debug_print("switch location to stored location (%d) (%s).\n",
 			SavedRoom, Rooms[SavedRoom].Text);
 #endif
 	int t = MyLoc;
@@ -1586,7 +1586,7 @@ void GoToStoredLoc(void)
 void SwapLocAndRoomflag(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "swap location<->roomflag[%d]\n", index);
+	debug_print("swap location<->roomflag[%d]\n", index);
 #endif
 	int temp = MyLoc;
 	MyLoc = RoomSaved[index];
@@ -1607,7 +1607,7 @@ void SwapItemLocations(int itemA, int itemB)
 void PutItemAInRoomB(int itemA, int roomB)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
+	debug_print("Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
 			itemA, Items[itemA].Text, roomB, Rooms[roomB].Text, MyLoc,
 			Rooms[MyLoc].Text);
 #endif
@@ -1619,13 +1619,13 @@ void PutItemAInRoomB(int itemA, int roomB)
 void SwapCounters(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr,
+	debug_print(
 			"Select a counter. Current counter is swapped with backup "
 			"counter %d\n",
 			index);
 #endif
 	if (index > 15) {
-		fprintf(stderr, "ERROR! parameter out of range. Max 15, got %d\n", index);
+		debug_print("ERROR! parameter out of range. Max 15, got %d\n", index);
 		index = 15;
 	}
 	int temp = CurrentCounter;
@@ -1633,7 +1633,7 @@ void SwapCounters(int index)
 	CurrentCounter = Counters[index];
 	Counters[index] = temp;
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Value of new selected counter is %d\n",
+	debug_print("Value of new selected counter is %d\n",
 			CurrentCounter);
 #endif
 }
@@ -1641,7 +1641,7 @@ void SwapCounters(int index)
 void PrintMessage(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Print message %d: \"%s\"\n", index,
+	debug_print("Print message %d: \"%s\"\n", index,
 			Messages[index]);
 #endif
 	const char *message = Messages[index];
@@ -1656,7 +1656,7 @@ void PrintMessage(int index)
 void PlayerIsDead(void)
 {
 #ifdef DEBUG_ACTIONS
-    fprintf(stderr, "Player is dead\n");
+    debug_print("Player is dead\n");
 #endif
     Output(sys[IM_DEAD]);
     BitFlags &= ~(1 << DARKBIT);
@@ -1666,7 +1666,7 @@ void PlayerIsDead(void)
 static ActionResultType PerformLine(int ct)
 {
 #ifdef DEBUG_ACTIONS
-    fprintf(stderr, "Performing line %d: ", ct);
+    debug_print("Performing line %d: ", ct);
 #endif
     int continuation = 0, dead = 0;
     int param[5], pptr = 0;
@@ -1679,7 +1679,7 @@ static ActionResultType PerformLine(int ct)
         dv = cv / 20;
         cv %= 20;
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "Testing condition %d: ", cv);
+        debug_print("Testing condition %d: ", cv);
 #endif
         switch (cv) {
         case 0:
@@ -1687,84 +1687,84 @@ static ActionResultType PerformLine(int ct)
             break;
         case 1:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry %s?\n", Items[dv].Text);
+            debug_print("Does the player carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED)
                 return ACT_FAILURE;
             break;
         case 2:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s in location?\n", Items[dv].Text);
+            debug_print("Is %s in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
         case 3:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s held or in location?\n", Items[dv].Text);
+            debug_print("Is %s held or in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED && Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
         case 4:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location %s?\n", Rooms[dv].Text);
+            debug_print("Is location %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc != dv)
                 return ACT_FAILURE;
             break;
         case 5:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in location?\n", Items[dv].Text);
+            debug_print("Is %s NOT in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == MyLoc)
                 return ACT_FAILURE;
             break;
         case 6:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player NOT carry %s?\n", Items[dv].Text);
+            debug_print("Does the player NOT carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED)
                 return ACT_FAILURE;
             break;
         case 7:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location NOT %s?\n", Rooms[dv].Text);
+            debug_print("Is location NOT %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc == dv)
                 return ACT_FAILURE;
             break;
         case 8:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d set?\n", dv);
+            debug_print("Is bitflag %d set?\n", dv);
 #endif
             if ((BitFlags & (1 << dv)) == 0)
                 return ACT_FAILURE;
             break;
         case 9:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d NOT set?\n", dv);
+            debug_print("Is bitflag %d NOT set?\n", dv);
 #endif
             if (BitFlags & (1 << dv))
                 return ACT_FAILURE;
             break;
         case 10:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry anything?\n");
+            debug_print("Does the player carry anything?\n");
 #endif
             if (CountCarried() == 0)
                 return ACT_FAILURE;
             break;
         case 11:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry nothing?\n");
+            debug_print("Does the player carry nothing?\n");
 #endif
             if (CountCarried())
                 return ACT_FAILURE;
             break;
         case 12:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s neither carried nor in room?\n", Items[dv].Text);
+            debug_print("Is %s neither carried nor in room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED || Items[dv].Location == MyLoc)
 				return ACT_FAILURE;
@@ -1773,58 +1773,58 @@ static ActionResultType PerformLine(int ct)
                 if (dv > GameHeader.NumItems + 1)
                     Fatal("Broken database!");
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s (%d) in play?\n", Items[dv].Text, dv);
+            debug_print("Is %s (%d) in play?\n", Items[dv].Text, dv);
 #endif
             if (Items[dv].Location == 0)
 				return ACT_FAILURE;
 				break;
         case 14:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in play?\n", Items[dv].Text);
+            debug_print("Is %s NOT in play?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location)
 				return ACT_FAILURE;
 				break;
         case 15:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter <= %d?\n", dv);
+            debug_print("Is CurrentCounter <= %d?\n", dv);
 #endif
             if (CurrentCounter > dv)
 				return ACT_FAILURE;
 				break;
         case 16:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter > %d?\n", dv);
+            debug_print("Is CurrentCounter > %d?\n", dv);
 #endif
             if (CurrentCounter <= dv)
 				return ACT_FAILURE;
 				break;
         case 17:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s still in initial room?\n", Items[dv].Text);
+            debug_print("Is %s still in initial room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != Items[dv].InitialLoc)
 				return ACT_FAILURE;
 				break;
         case 18:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Has %s been moved?\n", Items[dv].Text);
+            debug_print("Has %s been moved?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == Items[dv].InitialLoc)
                return ACT_FAILURE;
 				break;
         case 19: /* Only seen in Brian Howarth games so far */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is current counter == %d?\n", dv);
+            debug_print("Is current counter == %d?\n", dv);
             if (CurrentCounter != dv)
-                fprintf(stderr, "Nope, current counter is %d\n", CurrentCounter);
+                debug_print("Nope, current counter is %d\n", CurrentCounter);
 #endif
             if (CurrentCounter != dv)
 				return ACT_FAILURE;
 				break;
         }
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "YES\n");
+        debug_print("YES\n");
 #endif
         cc++;
     }
@@ -1843,7 +1843,7 @@ static ActionResultType PerformLine(int ct)
     pptr = 0;
     while (cc < 4) {
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "Performing action %d: ", act[cc]);
+        debug_print("Performing action %d: ", act[cc]);
 #endif
         if (act[cc] >= 1 && act[cc] < 52) {
 			PrintMessage(act[cc]);
@@ -1862,7 +1862,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 53:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "item %d (\"%s\") is now in location.\n", param[pptr],
+                debug_print("item %d (\"%s\") is now in location.\n", param[pptr],
                     Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = MyLoc;
@@ -1870,7 +1870,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 54:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "player location is now room %d (%s).\n", param[pptr],
+                debug_print("player location is now room %d (%s).\n", param[pptr],
                     Rooms[param[pptr]].Text);
 #endif
                 MyLoc = param[pptr++];
@@ -1893,20 +1893,20 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 58:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Bitflag %d is set\n", param[pptr]);
+                debug_print("Bitflag %d is set\n", param[pptr]);
 #endif
                 BitFlags |= (1 << param[pptr++]);
                 break;
             case 59:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Item %d (%s) is removed from play.\n", param[pptr],
+                debug_print("Item %d (%s) is removed from play.\n", param[pptr],
                     Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = 0;
                 break;
             case 60:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "BitFlag %d is cleared\n", param[pptr]);
+                debug_print("BitFlag %d is cleared\n", param[pptr]);
 #endif
                 BitFlags &= ~(1 << param[pptr++]);
                 break;
@@ -1919,7 +1919,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 63:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Game over.\n");
+                debug_print("Game over.\n");
 #endif
                 DoneIt();
 				dead = 1;
@@ -1964,7 +1964,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 73:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Continue with next line\n");
+                debug_print("Continue with next line\n");
 #endif
                 continuation = 1;
                 break;
@@ -1977,7 +1977,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 76: /* Looking at adventure .. */
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "LOOK\n");
+                debug_print("LOOK\n");
 #endif
                 if (split_screen)
                     Look();
@@ -1987,7 +1987,7 @@ static ActionResultType PerformLine(int ct)
                 if (CurrentCounter >= 1)
                     CurrentCounter--;
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr,
+                debug_print(
                     "decrementing current counter. Current counter is now %d.\n",
                     CurrentCounter);
 #endif
@@ -1998,7 +1998,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 79:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "CurrentCounter is set to %d.\n", param[pptr]);
+                debug_print("CurrentCounter is set to %d.\n", param[pptr]);
 #endif
                 CurrentCounter = param[pptr++];
                 break;
@@ -2034,13 +2034,13 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 88:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Delay\n");
+                debug_print("Delay\n");
 #endif
                 Delay(1);
                 break;
             case 89:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Action 89, parameter %d\n", param[pptr]);
+                debug_print("Action 89, parameter %d\n", param[pptr]);
 #endif
 				p = param[pptr++];
                 switch (CurrentGame) {
@@ -2078,7 +2078,7 @@ static ActionResultType PerformLine(int ct)
 
 			case 90:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
+                debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
                 if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
                     pptr++;
@@ -2086,7 +2086,7 @@ static ActionResultType PerformLine(int ct)
 					DrawHulkImage(param[pptr++]);
                 break;
             default:
-                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n", act[cc],
+                debug_print("Unknown action %d [Param begins %d %d]\n", act[cc],
                     param[pptr], param[pptr + 1]);
                 break;
             }
@@ -2613,3 +2613,6 @@ Distributed under the GNU software license\n\n");
 			StopTime--;
     }
 }
+
+
+

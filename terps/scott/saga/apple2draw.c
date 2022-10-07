@@ -157,7 +157,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
 
     if (descrambletable) {
         int result = DrawScrambledApple2Image(ptr, datasize);
-        fprintf(stderr, "Stopped drawing at offset %x\n", result);
+        debug_print("Stopped drawing at offset %x\n", result);
         return (result > 0);
     }
 
@@ -208,7 +208,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
         ylen = *ptr++;
     }
 
-    fprintf(stderr, "xlen: %d ylen: %d\n", xlen, ylen);
+    debug_print("xlen: %d ylen: %d\n", xlen, ylen);
 
 
 //    if (CurrentGame == CLAYMORGUE_US) {
@@ -252,11 +252,11 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             for (i = 0; i < c + 1 && ptr - origptr < datasize; i++)
             {
                 if (PutByte(work, work2) == 0) {
-                    fprintf(stderr, "Reached end of screen memory at offset %lx\n", ptr - origptr);
+                    debug_print("Reached end of screen memory at offset %lx\n", ptr - origptr);
                     return 1;
                 }
                 if (x > xlen || y > ylen) {
-                    fprintf(stderr, "Reached end of image dimensions at offset %lx\n", ptr - origptr);
+                    debug_print("Reached end of image dimensions at offset %lx\n", ptr - origptr);
                     return 1;
                 }
             }
@@ -270,11 +270,11 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
                 work = *ptr++;
                 work2 = *ptr++;
                 if (PutByte(work, work2) == 0) {
-                    fprintf(stderr, "Reached end of screen memory at offset %lx\n", ptr - origptr);
+                    debug_print("Reached end of screen memory at offset %lx\n", ptr - origptr);
                     return 1;
                 }
                 if (x > xlen || y > ylen) {
-                    fprintf(stderr, "Reached end of image dimensions at offset %lx\n", ptr - origptr);
+                    debug_print("Reached end of image dimensions at offset %lx\n", ptr - origptr);
                     return 1;
                 }
             }
@@ -287,7 +287,7 @@ int DrawApple2Image(USImage *image) {
     if (image->usage == IMG_ROOM)
         ClearApple2ScreenMem();
     DrawApple2ImageFromData(image->imagedata, image->datasize);
-    fprintf(stderr, "Drawing image with index %d, usage %d\n",image->index, image->usage);
+    debug_print("Drawing image with index %d, usage %d\n",image->index, image->usage);
     return 1;
 }
 

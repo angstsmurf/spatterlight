@@ -24,6 +24,8 @@
 #include <stdio.h>
 
 #include "scottdefines.h"
+#include "debugprint.h"
+
 
 #define LIGHT_SOURCE 9         /* Always 9 how odd */
 #define CARRIED      255       /* Carried */

@@ -11,13 +11,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-#define DEBUG_PRINT 0
+#include "debugprint.h"
 
 //#define NIB_VERBOSE_DEBUG
-
-#define debug_print(fmt, ...) \
-do { if (DEBUG_PRINT) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -934,11 +930,11 @@ static DIError ExtractTSPairs(A2FileDOS *DOSFile, const uint8_t* sctBuf, TrackSe
              sector >= kNumSectPerTrack ||
              (track == 0 && sector != 0)))
         {
-            fprintf(stderr, " DOS33 invalid T/S %d,%d in '%s'\n", track, sector,
+            debug_print(" DOS33 invalid T/S %d,%d in '%s'\n", track, sector,
                     DOSFile->fFileName);
 
             if (i > 0 && tsList[i-1].track == 0 && tsList[i-1].sector == 0) {
-                fprintf(stderr, "  T/S list looks partially valid\n");
+                debug_print("  T/S list looks partially valid\n");
                 goto bail;  // quit immediately
             } else {
                 dierr = kDIErrBadFile;
@@ -994,7 +990,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
     uint8_t sctBuf[kSectorSize];
     int track, sector, iterations;
 
-    fprintf(stderr, "--- DOS loading T/S list for '%s'\n", DOSFile->fFileName);
+    debug_print("--- DOS loading T/S list for '%s'\n", DOSFile->fFileName);
 
     /* over-alloc for small files to reduce reallocs */
     tsAlloc = kMaxTSPairs * kDefaultTSAlloc;
@@ -1016,7 +1012,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
     if (track >= kNumTracks ||
         sector >= kNumSectPerTrack)
     {
-        fprintf(stderr, " DOS33 invalid initial T/S %d,%d in '%s'\n", track, sector,
+        debug_print(" DOS33 invalid initial T/S %d,%d in '%s'\n", track, sector,
                 DOSFile->fFileName);
         dierr = kDIErrBadFile;
         goto bail;
@@ -1034,7 +1030,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
          * Add the current T/S sector to the index list.
          */
         if (indexCount == indexAlloc) {
-            fprintf(stderr, "+++ expanding index list\n");
+            debug_print("+++ expanding index list\n");
             TrackSector* newList;
             indexAlloc += kDefaultIndexAlloc;
             newList = malloc(indexAlloc * sizeof(TrackSector));
@@ -1064,13 +1060,13 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
             sector >= kNumSectPerTrack)
         {
             // bogus T/S, mark file as damaged and stop
-            fprintf(stderr, " DOS33 invalid T/S link %d,%d in '%s'\n", track, sector,
+            debug_print(" DOS33 invalid T/S link %d,%d in '%s'\n", track, sector,
                  DOSFile->fFileName);
             dierr = kDIErrBadFile;
             goto bail;
         }
         if ((sectorOffset % kMaxTSPairs) != 0) {
-            fprintf(stderr, " DOS33 invalid T/S header sector offset %u in '%s'\n",
+            debug_print(" DOS33 invalid T/S header sector offset %u in '%s'\n",
                  sectorOffset,  DOSFile->fFileName);
             // not fatal, just weird
         }
@@ -1080,7 +1076,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
          * T/S pairs in the list.
          */
         if (tsCount + kMaxTSPairs > tsAlloc) {
-            fprintf(stderr, "+++ expanding ts list\n");
+            debug_print("+++ expanding ts list\n");
             TrackSector* newList;
             tsAlloc += kMaxTSPairs * kDefaultTSAlloc;
             newList = malloc(tsAlloc * sizeof(TrackSector));
@@ -1148,7 +1144,7 @@ bail:
  */
 static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
 {
-    fprintf(stderr, " DOS reading %lu bytes from '%s' (offset=%ld)\n",
+    debug_print(" DOS reading %lu bytes from '%s' (offset=%ld)\n",
          (unsigned long) len, pFile->fFileName, (long) pFile->fOffset);
 
     /*
@@ -1182,7 +1178,7 @@ static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
     while (len) {
         if (tsIndex >= pFile->tsCount) {
             /* should've caught this earlier */
-            fprintf(stderr, " DOS ran off the end (fTSCount=%d). len == %zu\n",  pFile->tsCount, len);
+            debug_print(" DOS ran off the end (fTSCount=%d). len == %zu\n",  pFile->tsCount, len);
             return kDIErrDataUnderrun;
         }
 
@@ -1193,7 +1189,7 @@ static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
         } else {
             dierr = ReadTrackSector(pFile->tsList[tsIndex].track, pFile->tsList[tsIndex].sector, sctBuf);
             if (dierr != kDIErrNone) {
-                fprintf(stderr, " DOS error reading file '%s'\n", pFile->fFileName);
+                debug_print(" DOS error reading file '%s'\n", pFile->fFileName);
                 return dierr;
             }
         }
@@ -1225,7 +1221,7 @@ static DIError Open(A2FileDOS* pOpenFile)
 
     dierr = LoadTSList(pOpenFile);
     if (dierr != kDIErrNone) {
-        fprintf(stderr, "DOS33 unable to load TS for '%s' open\n", pOpenFile->fFileName);
+        debug_print("DOS33 unable to load TS for '%s' open\n", pOpenFile->fFileName);
         goto bail;
     }
 
@@ -1279,7 +1275,7 @@ static DIError ProcessCatalogSector(int catTrack, int catSect,
                 case 0x40:  pFile->fFileType = FILETYPE_B;    break;
                 default:
                     /* some odd arrangement of bit flags? */
-                    fprintf(stderr, " DOS33 peculiar filetype byte 0x%02x\n", pEntry[0x02]);
+                    debug_print(" DOS33 peculiar filetype byte 0x%02x\n", pEntry[0x02]);
                     pFile->fFileType = FILETYPE_UNKNOWN;
                     break;
             }
@@ -1291,7 +1287,7 @@ static DIError ProcessCatalogSector(int catTrack, int catSect,
             pFile->fFileName[kMaxFileName] = '\0';
             FixFilename(pFile->fFileName);
 
-            fprintf(stderr, "File name: %s\n", pFile->fFileName);
+            debug_print("File name: %s\n", pFile->fFileName);
 
             pFile->fLengthInSectors = pEntry[0x21];
             pFile->fLengthInSectors |= (uint16_t) pEntry[0x22] << 8;
@@ -1340,11 +1336,11 @@ static DIError ReadVTOC(void)
         return kDIErrBadDiskImage;
 
     if (fVTOCNumTracks != kNumTracks) {
-        fprintf(stderr, " DOS33 warning: VTOC numtracks %d vs %d\n",
+        debug_print(" DOS33 warning: VTOC numtracks %d vs %d\n",
              fVTOCNumTracks, kNumTracks);
     }
     if (fVTOCNumSectors != kNumSectPerTrack) {
-        fprintf(stderr, " DOS33 warning: VTOC numsect %d vs %d\n",
+        debug_print(" DOS33 warning: VTOC numsect %d vs %d\n",
              fVTOCNumSectors, kNumSectPerTrack);
     }
 
@@ -1385,7 +1381,7 @@ static DIError ReadCatalog(void)
          * Watch for flaws that the DOS detector allows.
          */
         if (catTrack == sctBuf[0x01] && catSect == sctBuf[0x02]) {
-            fprintf(stderr, " DOS detected self-reference on cat (%d,%d)\n",
+            debug_print(" DOS detected self-reference on cat (%d,%d)\n",
                  catTrack, catSect);
             break;
         }
@@ -1398,7 +1394,7 @@ static DIError ReadCatalog(void)
         if (sctBuf[0x01] >= kNumTracks ||
             sctBuf[0x02] >= kNumSectPerTrack)
         {
-            fprintf(stderr, " DOS bailing out early on catalog read due to funky T/S\n");
+            debug_print(" DOS bailing out early on catalog read due to funky T/S\n");
             break;
         }
 
@@ -1425,10 +1421,10 @@ bail:
 }
 
 static A2FileDOS *find_file_named(char *name) {
-    fprintf(stderr, "find_file_named: \"%s\"\n", name);
+    debug_print("find_file_named: \"%s\"\n", name);
     A2FileDOS *file = firstfile;
     while (file != NULL) {
-        fprintf(stderr, "Comparing to file named: \"%s\"\n", (char *)file->fFileName);
+        debug_print("Comparing to file named: \"%s\"\n", (char *)file->fFileName);
         if (strcmp(name, (char *)file->fFileName) == 0)
             break;
         file = file->next;
@@ -1440,7 +1436,7 @@ static A2FileDOS *find_SAGA_database(void) {
     A2FileDOS *file = firstfile;
     while (file != NULL) {
         char *name = (char *)file->fFileName;
-        fprintf(stderr, "Comparing to file named: \"%s\"\n", name);
+        debug_print("Comparing to file named: \"%s\"\n", name);
         if (strcmp("DATABASE", name) == 0)
             break;
         if (strcmp("SORCEROR OF CLAYMORGUE CASTLE", name) == 0)
@@ -1480,10 +1476,10 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
     if (file) {
         Open(file);
         uint8_t inventemp[file->fLengthInSectors * kSectorSize];
-        fprintf(stderr, "inventemp is size %d\n", file->fLengthInSectors * kSectorSize);
+        debug_print("inventemp is size %d\n", file->fLengthInSectors * kSectorSize);
         Read(file, inventemp, (file->fLengthInSectors - 1) * kSectorSize, invimglen);
-        fprintf(stderr, "*invimglen is %zu\n", *invimglen);
-        fprintf(stderr, "*invimglen - 4 is %zu\n", *invimglen);
+        debug_print("*invimglen is %zu\n", *invimglen);
+        debug_print("*invimglen - 4 is %zu\n", *invimglen);
         *invimg = malloc(*invimglen);
         memcpy(*invimg, inventemp + 4, *invimglen - 4);
     }
@@ -1493,7 +1489,7 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
     if (file) {
         Open(file);
         uint8_t m2temp[file->fLengthInSectors * kSectorSize];
-        fprintf(stderr, "m2temp is size %d\n", file->fLengthInSectors * kSectorSize);
+        debug_print("m2temp is size %d\n", file->fLengthInSectors * kSectorSize);
         size_t m2len;
         Read(file, m2temp, (file->fLengthInSectors - 1) * kSectorSize, &m2len);
 

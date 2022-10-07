@@ -449,12 +449,12 @@ static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type
             break;
     }
 
-    fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+    debug_print("looking for companion file \"%s\"\n", sideB);
     result = ReadFileIfExists(sideB, filesize);
     if (!result) {
         if (type == TYPE_B) {
             if (StripBrackets(sideB, stringlen)) {
-                fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+                debug_print("looking for companion file \"%s\"\n", sideB);
                 result = ReadFileIfExists(sideB, filesize);
             }
         } else if (type == TYPE_A) {
@@ -470,7 +470,7 @@ static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type
             sideB[pos++] = 'S';
             sideB[pos++] = 'S';
             sideB[pos] = ']';
-            fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+            debug_print("looking for companion file \"%s\"\n", sideB);
             result = ReadFileIfExists(sideB, filesize);
         }
     }
@@ -649,10 +649,10 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
     ImageHeight = 158;
     result = LoadBinaryDatabase(*sf + data_start, *extent - data_start, *Game, 0);
     if (!result && companionfile != NULL && companionsize > data_start) {
-        fprintf(stderr, "Could not find database in this file, trying the companion file\n");
+        debug_print("Could not find database in this file, trying the companion file\n");
         result = LoadBinaryDatabase(companionfile + data_start, companionsize - data_start, *Game, 0);
         if (result) {
-            fprintf(stderr, "Found database in companion file. Switching files.\n");
+            debug_print("Found database in companion file. Switching files.\n");
             uint8_t *temp = companionfile;
             size_t tempsize = companionsize;
             companionfile = *sf;
@@ -669,7 +669,7 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
             free(companionfile);
         }
     } else
-        fprintf(stderr, "Failed loading database\n");
+        debug_print("Failed loading database\n");
 
     return result;
 }

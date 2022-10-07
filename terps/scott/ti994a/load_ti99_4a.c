@@ -106,16 +106,16 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
 
 //static void PrintTI99HeaderInfo(struct DATAHEADER header)
 //{
-//    fprintf(stderr, "Number of items =\t%d\n", header.num_objects);
-//    fprintf(stderr, "Number of verbs =\t%d\n", header.num_verbs);
-//    fprintf(stderr, "Number of nouns =\t%d\n", header.num_nouns);
-//    fprintf(stderr, "Deadroom =\t%d\n", header.red_room);
-//    fprintf(stderr, "Max carried items =\t%d\n", header.max_items_carried);
-//    fprintf(stderr, "Player start location: %d\n", header.begin_locn);
-//    fprintf(stderr, "Word length =\t%d\n", header.cmd_length);
-//    fprintf(stderr, "Treasure room: %d\n", header.treasure_locn);
-//    fprintf(stderr, "Lightsource time left: %d\n", FixWord(header.light_turns));
-//    fprintf(stderr, "Unknown: %d\n", header.strange);
+//    debug_print("Number of items =\t%d\n", header.num_objects);
+//    debug_print("Number of verbs =\t%d\n", header.num_verbs);
+//    debug_print("Number of nouns =\t%d\n", header.num_nouns);
+//    debug_print("Deadroom =\t%d\n", header.red_room);
+//    debug_print("Max carried items =\t%d\n", header.max_items_carried);
+//    debug_print("Player start location: %d\n", header.begin_locn);
+//    debug_print("Word length =\t%d\n", header.cmd_length);
+//    debug_print("Treasure room: %d\n", header.treasure_locn);
+//    debug_print("Lightsource time left: %d\n", FixWord(header.light_turns));
+//    debug_print("Unknown: %d\n", header.strange);
 //}
 
 static int TryLoadingTI994A(struct DATAHEADER dh, int loud);
@@ -431,7 +431,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
         if (rp->Text == NULL)
             rp->Text = ".\0";
         if (loud)
-            fprintf(stderr, "Room %d: %s\n", ct, rp->Text);
+            debug_print("Room %d: %s\n", ct, rp->Text);
         rp->Image = 255;
         ct++;
         rp++;
@@ -446,7 +446,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
         if (Messages[ct] == NULL)
             Messages[ct] = ".\0";
         if (loud)
-            fprintf(stderr, "Message %d: %s\n", ct, Messages[ct]);
+            debug_print("Message %d: %s\n", ct, Messages[ct]);
         ct++;
     }
 
@@ -464,14 +464,14 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
         if (ip->Text && ip->Text[0] == '*')
             tr++;
         if (loud)
-            fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+            debug_print("Item %d: %s\n", ct, ip->Text);
         ct++;
         ip++;
     } while (ct < ni + 1);
 
     GameHeader.Treasures = tr;
     if (loud)
-        fprintf(stderr, "Number of treasures %d\n", GameHeader.Treasures);
+        debug_print("Number of treasures %d\n", GameHeader.Treasures);
 
 #if defined(__clang__)
 #pragma mark room connections
@@ -519,9 +519,9 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
 
     if (loud) {
         for (int i = 0; i <= GameHeader.NumWords; i++)
-            fprintf(stderr, "Verb %d: %s\n", i, Verbs[i]);
+            debug_print("Verb %d: %s\n", i, Verbs[i]);
         for (int i = 0; i <= GameHeader.NumWords; i++)
-            fprintf(stderr, "Noun %d: %s\n", i, Nouns[i]);
+            debug_print("Noun %d: %s\n", i, Nouns[i]);
     }
 
 #if defined(__clang__)

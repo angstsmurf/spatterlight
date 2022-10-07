@@ -29,7 +29,7 @@ uint8_t *FindImageFile(const char *shortname, size_t *datasize) {
             fseek(infile, 0, SEEK_END);
             size_t length = ftell(infile);
             if (length > 0) {
-                fprintf(stderr, "Found and read image file %s\n", filename);
+                debug_print("Found and read image file %s\n", filename);
                 fseek(infile, 0, SEEK_SET);
                 data = MemAlloc(length);
                 *datasize = fread(data, 1, length, infile);
@@ -83,7 +83,7 @@ int DrawDOSImage(USImage *image)
         return 0;
     }
 
-    fprintf(stderr, "DrawDOSImage: usage:%d index:%d\n", image->usage, image->index);
+    debug_print("DrawDOSImage: usage:%d index:%d\n", image->usage, image->index);
 
 
     x=0;

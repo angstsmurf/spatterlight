@@ -28,7 +28,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
         switch (opcode) {
         case 183: /* is p in inventory? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry %s?\n", Items[*ptr].Text);
+            debug_print("Does the player carry %s?\n", Items[*ptr].Text);
 #endif
             if (Items[*(ptr++)].Location != CARRIED) {
                 run_code = 1;
@@ -38,7 +38,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 184: /* is p in room? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s in location?\n", Items[*ptr].Text);
+            debug_print("Is %s in location?\n", Items[*ptr].Text);
 #endif
             if (Items[*(ptr++)].Location != MyLoc) {
                 run_code = 1;
@@ -49,7 +49,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 185: /* is p available? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s held or in location?\n", Items[*ptr].Text);
+            debug_print("Is %s held or in location?\n", Items[*ptr].Text);
 #endif
             if (Items[*ptr].Location != CARRIED && Items[*ptr].Location != MyLoc) {
                 run_code = 1;
@@ -60,7 +60,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 186: /* is p here? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in location?\n", Items[*ptr].Text);
+            debug_print("Is %s NOT in location?\n", Items[*ptr].Text);
 #endif
             if (Items[*(ptr++)].Location == MyLoc) {
                 run_code = 1;
@@ -70,7 +70,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 187: /* is p NOT in inventory? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player NOT carry %s?\n", Items[*ptr].Text);
+            debug_print("Does the player NOT carry %s?\n", Items[*ptr].Text);
 #endif
             if (Items[*(ptr++)].Location == CARRIED) {
                 run_code = 1;
@@ -80,7 +80,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 188: /* is p NOT available? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s neither carried nor in room?\n", Items[*ptr].Text);
+            debug_print("Is %s neither carried nor in room?\n", Items[*ptr].Text);
 #endif
 
             if (Items[*ptr].Location == CARRIED || Items[*ptr].Location == MyLoc) {
@@ -92,7 +92,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 189: /* is p in play? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s (%d) in play?\n", Items[*ptr].Text, dv);
+            debug_print("Is %s (%d) in play?\n", Items[*ptr].Text, dv);
 #endif
             if (Items[*(ptr++)].Location == 0) {
                 run_code = 1;
@@ -102,7 +102,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 190: /* Is object p NOT in play? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in play?\n", Items[*ptr].Text);
+            debug_print("Is %s NOT in play?\n", Items[*ptr].Text);
 #endif
             if (Items[*(ptr++)].Location != 0) {
                 run_code = 1;
@@ -112,7 +112,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 191: /* Is player is in room p? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location %s?\n", Rooms[*ptr].Text);
+            debug_print("Is location %s?\n", Rooms[*ptr].Text);
 #endif
             if (MyLoc != *(ptr++)) {
                 run_code = 1;
@@ -122,7 +122,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 192: /* Is player NOT in room p? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location NOT %s?\n", Rooms[*ptr].Text);
+            debug_print("Is location NOT %s?\n", Rooms[*ptr].Text);
 #endif
             if (MyLoc == *(ptr++)) {
                 run_code = 1;
@@ -132,7 +132,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 193: /* Is bitflag p clear? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d set?\n", *ptr);
+            debug_print("Is bitflag %d set?\n", *ptr);
 #endif
             if ((BitFlags & (1 << *(ptr++))) == 0) {
                 run_code = 1;
@@ -142,7 +142,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 194: /* Is bitflag p set? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d NOT set?\n", *ptr);
+            debug_print("Is bitflag %d NOT set?\n", *ptr);
 #endif
             if (BitFlags & (1 << *(ptr++))) {
                 run_code = 1;
@@ -152,7 +152,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 195: /* Does the player carry anything? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry anything?\n");
+            debug_print("Does the player carry anything?\n");
 #endif
             if (CountCarried() == 0) {
                 run_code = 1;
@@ -162,7 +162,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 196: /* Does the player carry nothing? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry nothing?\n");
+            debug_print("Does the player carry nothing?\n");
 #endif
             if (CountCarried()) {
                 run_code = 1;
@@ -172,7 +172,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 197: /* Is CurrentCounter <= p? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter <= %d?\n", *ptr);
+            debug_print("Is CurrentCounter <= %d?\n", *ptr);
 #endif
             if (CurrentCounter > *(ptr++)) {
                 run_code = 1;
@@ -182,7 +182,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 198: /* Is CurrentCounter > p? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter > %d?\n", *ptr);
+            debug_print("Is CurrentCounter > %d?\n", *ptr);
 #endif
             if (CurrentCounter <= *(ptr++)) {
                 run_code = 1;
@@ -192,7 +192,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 199: /* Is CurrentCounter == p? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is current counter == %d?\n", *ptr);
+            debug_print("Is current counter == %d?\n", *ptr);
 #endif
             if (CurrentCounter != *(ptr++)) {
                 run_code = 1;
@@ -202,7 +202,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 200: /* Is item p still in initial room? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s still in initial room?\n", Items[*ptr].Text);
+            debug_print("Is %s still in initial room?\n", Items[*ptr].Text);
 #endif
             if (Items[*ptr].Location != Items[*ptr].InitialLoc) {
                 run_code = 1;
@@ -213,7 +213,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 201: /* Has item p been moved? */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Has %s been moved?\n", Items[*ptr].Text);
+            debug_print("Has %s been moved?\n", Items[*ptr].Text);
 #endif
             if (Items[*ptr].Location == Items[*ptr].InitialLoc) {
                 run_code = 1;
@@ -260,7 +260,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 220: /* drop item */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "item %d (\"%s\") is now in location.\n", *ptr,
+            debug_print("item %d (\"%s\") is now in location.\n", *ptr,
                 Items[*ptr].Text);
 #endif
             Items[*(ptr++)].Location = MyLoc;
@@ -269,7 +269,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 221: /* go to room */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "player location is now room %d (%s).\n", *ptr,
+            debug_print("player location is now room %d (%s).\n", *ptr,
                 Rooms[*ptr].Text);
 #endif
             MyLoc = *(ptr++);
@@ -296,35 +296,35 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 225: /* set flag p */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Bitflag %d is set\n", dv);
+            debug_print("Bitflag %d is set\n", dv);
 #endif
             BitFlags |= (1 << *(ptr++));
             break;
 
         case 226: /* clear flag p */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Bitflag %d is cleared\n", dv);
+            debug_print("Bitflag %d is cleared\n", dv);
 #endif
             BitFlags &= ~(1 << *(ptr++));
             break;
 
         case 227: /* set flag 0 */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Bitflag 0 is set\n");
+            debug_print("Bitflag 0 is set\n");
 #endif
             BitFlags |= (1 << 0);
             break;
 
         case 228: /* clear flag 0 */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Bitflag 0 is cleared\n");
+            debug_print("Bitflag 0 is cleared\n");
 #endif
             BitFlags &= ~(1 << 0);
             break;
 
         case 229: /* die */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Player is dead\n");
+            debug_print("Player is dead\n");
 #endif
             PlayerIsDead();
             DoneIt();
@@ -408,7 +408,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 245: /* set current counter to p */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "CurrentCounter is set to %d.\n", dv);
+            debug_print("CurrentCounter is set to %d.\n", dv);
 #endif
             CurrentCounter = *(ptr++);
             break;
@@ -468,7 +468,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
                 PrintMessage(opcode);
             } else {
                 index = ptr - action_line;
-                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n",
+                debug_print("Unknown action %d [Param begins %d %d]\n",
                         opcode, action_line[index], action_line[index + 1]);
                 break;
             }

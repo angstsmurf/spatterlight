@@ -3139,6 +3139,7 @@
 		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
 		C3B148AF27FD881400844708 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C3B148B127FD881400844708 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
+		C3B2EDC928F04768005C555D /* debugprint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debugprint.h; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -5783,6 +5784,7 @@
 				C3C0EE6A278BCA700044A615 /* restorestate.c */,
 				C317CE4A278DB5AD00D85288 /* layouttext.h */,
 				C317CE4B278DB5AD00D85288 /* layouttext.c */,
+				C3B2EDC928F04768005C555D /* debugprint.h */,
 				C318F76B2741AA5B006D626A /* bsd.h */,
 				C318F76E2741AA5B006D626A /* bsd.c */,
 				C3109FCB2798B19F00854ED0 /* parser.h */,

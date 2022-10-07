@@ -14,14 +14,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "debugprint.h"
+
 #include "woz2nib.h"
 
-#define DEBUG_PRINT 0
-
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-
-#define debug_print(fmt, ...) \
-do { if (DEBUG_PRINT) fprintf(stderr, fmt, ##__VA_ARGS__); } while (0)
 
 #define STANDARD_TRACKS_PER_DISK 35
 #define SECTORS_PER_TRACK 16

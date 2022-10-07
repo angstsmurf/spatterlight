@@ -183,12 +183,12 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
             Verbs[wordnum] = MemAlloc(charindex + 1);
             memcpy((char *)Verbs[wordnum], dictword, charindex + 1);
             if (loud)
-                fprintf(stderr, "Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
+                debug_print("Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
         } else {
             Nouns[wordnum - nv] = MemAlloc(charindex + 1);
             memcpy((char *)Nouns[wordnum - nv], dictword, charindex + 1);
             if (loud)
-                fprintf(stderr, "Noun %d: \"%s\"\n", wordnum - nv, Nouns[wordnum - nv]);
+                debug_print("Noun %d: \"%s\"\n", wordnum - nv, Nouns[wordnum - nv]);
         }
         wordnum++;
 
@@ -215,7 +215,7 @@ int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
         //        uint8_t *ptrbefore = *ptr;
         *ptr = SeekToPos(entire_file, *offset);
         //        if (*ptr == ptrbefore)
-        //            fprintf(stderr, "Seek unnecessary, could have been set to
+        //            debug_print("Seek unnecessary, could have been set to
         //            FOLLOWS.\n");
         if (*ptr == 0)
             return 0;
@@ -361,7 +361,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *trm = 0;
             break;
         default:
-            fprintf(stderr, "Unhandled header type!\n");
+            debug_print("Unhandled header type!\n");
             return 0;
     }
     return 1;
@@ -373,21 +373,21 @@ void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     uint16_t value;
     for (int i = 0; i < 13; i++) {
         value = h[i];
-        fprintf(stderr, "b $%X %d: ", 0x494d + 0x3FE5 + i * 2, i);
-        fprintf(stderr, "\t%d (%04x)\n", value, value);
+        debug_print("b $%X %d: ", 0x494d + 0x3FE5 + i * 2, i);
+        debug_print("\t%d (%04x)\n", value, value);
     }
 
-    fprintf(stderr, "Number of items =\t%d\n", ni);
-    fprintf(stderr, "Number of actions =\t%d\n", na);
-    fprintf(stderr, "Number of words =\t%d\n", nw);
-    fprintf(stderr, "Number of rooms =\t%d\n", nr);
-    fprintf(stderr, "Max carried items =\t%d\n", mc);
-    fprintf(stderr, "Word length =\t%d\n", wl);
-    fprintf(stderr, "Number of messages =\t%d\n", mn);
-    fprintf(stderr, "Player start location: %d\n", pr);
-    fprintf(stderr, "Treasure room: %d\n", trm);
-    fprintf(stderr, "Lightsource time left: %d\n", lt);
-    fprintf(stderr, "Number of treasures: %d\n", tr);
+    debug_print("Number of items =\t%d\n", ni);
+    debug_print("Number of actions =\t%d\n", na);
+    debug_print("Number of words =\t%d\n", nw);
+    debug_print("Number of rooms =\t%d\n", nr);
+    debug_print("Max carried items =\t%d\n", mc);
+    debug_print("Word length =\t%d\n", wl);
+    debug_print("Number of messages =\t%d\n", mn);
+    debug_print("Player start location: %d\n", pr);
+    debug_print("Treasure room: %d\n", trm);
+    debug_print("Lightsource time left: %d\n", lt);
+    debug_print("Number of treasures: %d\n", tr);
 }
 
 typedef struct {
@@ -414,12 +414,12 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
             lp->bgcolour = *(ptr++);
             lp->data = ptr;
         } else {
-            fprintf(stderr, "Error! Image data does not start with 0xff!\n");
+            debug_print("Error! Image data does not start with 0xff!\n");
         }
         do {
             byte = *(ptr++);
             if (ptr - entire_file >= file_length) {
-                fprintf(stderr, "Error! Image data for image %d cut off!\n", ct);
+                debug_print("Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
                 if (lp->data >= ptr)
@@ -452,6 +452,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
     uint8_t *ptr = entire_file;
     file_baseline_offset = dict_start - info.start_of_dictionary;
+    debug_print("file_baseline_offset: %d\n", file_baseline_offset);
     size_t offset = info.start_of_header + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
@@ -465,7 +466,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
         return 0;
 
     if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-        //        fprintf(stderr, "Non-matching header\n");
+        //        debug_print("Non-matching header\n");
         return 0;
     }
 
@@ -739,13 +740,13 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     uint8_t *ptr = entire_file;
 
     if (loud) {
-        fprintf(stderr, "dict_start:%x\n", dict_start);
-        fprintf(stderr, " info.start_of_dictionary:%x\n", info.start_of_dictionary);
+        debug_print("dict_start:%x\n", dict_start);
+        debug_print(" info.start_of_dictionary:%x\n", info.start_of_dictionary);
     }
     file_baseline_offset = dict_start - info.start_of_dictionary;
 
     if (loud)
-        fprintf(stderr, "file_baseline_offset:%x (%d)\n", file_baseline_offset,
+        debug_print("file_baseline_offset:%x (%d)\n", file_baseline_offset,
             file_baseline_offset);
 
     size_t offset = info.start_of_header + file_baseline_offset;
@@ -781,14 +782,14 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     }
 
     if (loud) {
-        fprintf(stderr, "Found a valid header at position 0x%zx\n", offset);
-        fprintf(stderr, "Expected: 0x%x\n",
+        debug_print("Found a valid header at position 0x%zx\n", offset);
+        debug_print("Expected: 0x%x\n",
             info.start_of_header + file_baseline_offset);
     }
 
     if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
         if (loud)
-            fprintf(stderr, "Non-matching header\n");
+            debug_print("Non-matching header\n");
         return 0;
     }
 
@@ -843,7 +844,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             ip++;
         }
         if (loud)
-            fprintf(stderr, "Offset after reading item images: %lx\n",
+            debug_print("Offset after reading item images: %lx\n",
                     ptr - entire_file - file_baseline_offset);
 
     }
@@ -868,12 +869,12 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             value = *(ptr++); /* count of actions/conditions */
             cond = value & 0x1f;
             if (cond > 5) {
-                fprintf(stderr, "Condition error at action %d!\n", ct);
+                debug_print("Condition error at action %d!\n", ct);
                 cond = 5;
             }
             comm = (value & 0xe0) >> 5;
             if (comm > 2) {
-                fprintf(stderr, "Command error at action %d!\n", ct);
+                debug_print("Command error at action %d!\n", ct);
                 comm = 2;
             }
         } else {
@@ -901,7 +902,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         ct++;
     }
     if (loud)
-        fprintf(stderr, "Offset after reading actions: %lx\n",
+        debug_print("Offset after reading actions: %lx\n",
                 ptr - entire_file - file_baseline_offset);
 
 
@@ -913,7 +914,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     ptr = ReadDictionary(info, &ptr, loud);
 
     if (loud)
-        fprintf(stderr, "Offset after reading dictionary: %lx\n",
+        debug_print("Offset after reading dictionary: %lx\n",
             ptr - entire_file - file_baseline_offset);
 
 #pragma mark rooms
@@ -937,7 +938,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                     rp->Text = MemAlloc(charindex + 1);
                     strcpy(rp->Text, text);
                     if (loud)
-                        fprintf(stderr, "Room %d: %s\n", ct, rp->Text);
+                        debug_print("Room %d: %s\n", ct, rp->Text);
                     ct++;
                     rp++;
                     charindex = 0;
@@ -990,7 +991,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         while (ct < mn + 1) {
             Messages[ct] = DecompressText(ptr, ct);
             if (loud)
-                fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+                debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
             if (Messages[ct] == NULL)
                 return 0;
             ct++;
@@ -1003,7 +1004,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 Messages[ct] = MemAlloc(charindex + 1);
                 strcpy((char *)Messages[ct], text);
                 if (loud)
-                    fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+                    debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
                 ct++;
                 charindex = 0;
             } else {
@@ -1027,7 +1028,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             ip->AutoGet = NULL;
             if (ip->Text != NULL && ip->Text[0] != '.') {
                 if (loud)
-                    fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+                    debug_print("Item %d: %s\n", ct, ip->Text);
                 ip->AutoGet = strchr(ip->Text, '.');
                 if (ip->AutoGet) {
                     *ip->AutoGet++ = 0;
@@ -1050,7 +1051,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 ip->Text = MemAlloc(charindex + 1);
                 strcpy(ip->Text, text);
                 if (loud)
-                    fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+                    debug_print("Item %d: %s\n", ct, ip->Text);
                 ip->AutoGet = strchr(ip->Text, '/');
                 /* Some games use // to mean no auto get/drop word! */
                 if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
@@ -1079,7 +1080,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         ip->Location = *(ptr++);
         ip->InitialLoc = ip->Location;
         if (Items[ct].Text && ip->Location < nr && Rooms[ip->Location].Text)
-            fprintf(stderr, "Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, ip->Location);
+            debug_print("Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, ip->Location);
         ip++;
         ct++;
     }
@@ -1102,7 +1103,7 @@ jumpSysMess:
     do {
         c = *(ptr++);
         if (ptr - entire_file > file_length || ptr < entire_file) {
-            fprintf(stderr, "Read out of bounds!\n");
+            debug_print("Read out of bounds!\n");
             return 0;
         }
         if (charindex > 255)
@@ -1121,7 +1122,7 @@ jumpSysMess:
                 strncpy(newmess, text, charindex + 1);
                 system_messages[ct] = newmess;
                 if (loud)
-                    fprintf(stderr, "system_messages %d: \"%s\"\n", ct,
+                    debug_print("system_messages %d: \"%s\"\n", ct,
                         system_messages[ct]);
                 ct++;
                 charindex = 0;
@@ -1132,7 +1133,7 @@ jumpSysMess:
     } while (ct < 45);
 
     if (loud)
-        fprintf(stderr, "Offset after reading system messages: %lx\n",
+        debug_print("Offset after reading system messages: %lx\n",
             ptr - entire_file);
 
     if ((info.subtype & (C64 | ENGLISH)) == (C64 | ENGLISH)) {
@@ -1206,7 +1207,7 @@ GameIDType DetectGame(const char *file_name)
     file_length = GetFileLength(f);
 
     if (file_length > MAX_GAMEFILE_SIZE) {
-        fprintf(stderr, "File too large to be a vaild game file (%zu, max is %d)\n",
+        debug_print("File too large to be a vaild game file (%zu bytes, max is %d)\n",
             file_length, MAX_GAMEFILE_SIZE);
         return 0;
     }

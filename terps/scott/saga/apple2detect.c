@@ -745,7 +745,7 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         database = MemAlloc(newlength);
         memcpy(database, datafile + data_start, newlength);
     } else {
-        fprintf(stderr, "Failed loading database\n");
+        debug_print("Failed loading database\n");
         return 0;
     }
 
@@ -784,13 +784,13 @@ int DetectApple2(uint8_t **sf, size_t *extent)
                 USImages = NULL;
             }
         } else
-            fprintf(stderr, "Failed loading database\n");
+            debug_print("Failed loading database\n");
         free (datafile);
         free (database);
         return result;
     } else {
         free (datafile);
-        fprintf(stderr, "Failed loading database\n");
+        debug_print("Failed loading database\n");
         return 0;
     }
 }
@@ -878,12 +878,12 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
             break;
     }
 
-    fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+    debug_print("looking for companion file \"%s\"\n", sideB);
     result = ReadA2DiskImageFile(sideB, filesize, isnib);
     if (!result) {
         if (type == TYPE_A) {
             if (StripParens(sideB, stringlen)) {
-                fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+                debug_print("looking for companion file \"%s\"\n", sideB);
                 result = ReadA2DiskImageFile(sideB, filesize, isnib);
             }
         } else if (type == TYPE_B) {
@@ -899,7 +899,7 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
             sideB[pos++] = 'o';
             sideB[pos++] = 't';
             sideB[pos] = ')';
-            fprintf(stderr, "looking for companion file \"%s\"\n", sideB);
+            debug_print("looking for companion file \"%s\"\n", sideB);
             result = ReadA2DiskImageFile(sideB, filesize, isnib);
         }
     }
@@ -1018,7 +1018,7 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         image->usage = list[outpic].usage;
         image->index = list[outpic].index;
 
-        //        fprintf(stderr, "Reading image %d with size %zu and index %d\n", outpic, size, image->index);
+        //        debug_print("Reading image %d with size %zu and index %d\n", outpic, size, image->index);
 
         image->datasize = size;
         image->systype = SYS_APPLE2;

@@ -406,7 +406,7 @@ void transform(int32_t character, int32_t flip_mode, int32_t ptr)
     int32_t i;
 
 #ifdef DRAWDEBUG
-    fprintf(stderr, "Plotting char: %d with flip: %02x (%s) at %d: %d,%d\n",
+    debug_print("Plotting char: %d with flip: %02x (%s) at %d: %d,%d\n",
         character, flip_mode, flipdescription[(flip_mode & 48) >> 4], ptr,
         ptr % 0x20, ptr / 0x20);
 #endif
@@ -418,15 +418,15 @@ void transform(int32_t character, int32_t flip_mode, int32_t ptr)
     // Now flip it
     if ((flip_mode & 0x30) == 0x10) {
         rot90(work);
-        //      fprintf(stderr, "rot 90 character %d\n",character);
+        //      debug_print("rot 90 character %d\n",character);
     }
     if ((flip_mode & 0x30) == 0x20) {
         rot180(work);
-        //       fprintf(stderr, "rot 180 character %d\n",character);
+        //       debug_print("rot 180 character %d\n",character);
     }
     if ((flip_mode & 0x30) == 0x30) {
         rot270(work);
-        //       fprintf(stderr, "rot 270 character %d\n",character);
+        //       debug_print("rot 270 character %d\n",character);
     }
     if ((flip_mode & 0x40) != 0) {
         Flip(work);
@@ -538,7 +538,7 @@ void Patch(uint8_t *offset, int patch_number)
     struct image_patch *patch = &image_patches[patch_number];
     for (int i = 0; i < patch->number_of_bytes; i++) {
         uint8_t newval = patch->patch[i];
-//        fprintf(stderr, "Patch: changing offset %d in image %d from %x to %x.\n", i + patch->offset, patch->picture_number, offset[i + patch->offset], newval);
+//        debug_print("Patch: changing offset %d in image %d from %x to %x.\n", i + patch->offset, patch->picture_number, offset[i + patch->offset], newval);
         offset[i + patch->offset] = newval;
     }
 }
@@ -589,7 +589,7 @@ void SagaSetup(size_t imgoffset)
     }
 
     if (palchosen == NO_PALETTE) {
-        fprintf(stderr, "unknown palette\n");
+        debug_print("unknown palette\n");
         exit(EXIT_FAILURE);
     }
 
@@ -612,8 +612,8 @@ void SagaSetup(size_t imgoffset)
     pos = SeekToPos(entire_file, CHAR_START);
 
 #ifdef DRAWDEBUG
-    fprintf(stderr, "Grabbing Character details\n");
-    fprintf(stderr, "Character Offset: %04x\n",
+    debug_print("Grabbing Character details\n");
+    debug_print("Character Offset: %04x\n",
         CHAR_START - file_baseline_offset);
 #endif
     for (i = 0; i < 256; i++) {
@@ -726,32 +726,32 @@ void SagaSetup(size_t imgoffset)
 
 void PrintImageContents(int index, uint8_t *data, size_t size)
 {
-    fprintf(stderr, "/* image %d ", index);
-    fprintf(stderr,
+    debug_print("/* image %d ", index);
+    debug_print(
         "width: %d height: %d xoff: %d yoff: %d size: %zu bytes*/\n{ ",
         images[index].width, images[index].height, images[index].xoff,
         images[index].yoff, size);
     for (int i = 0; i < size; i++) {
-        fprintf(stderr, "0x%02x, ", data[i]);
+        debug_print("0x%02x, ", data[i]);
         if (i % 8 == 7)
-            fprintf(stderr, "\n  ");
+            debug_print("\n  ");
     }
 
-    fprintf(stderr, " },\n");
+    debug_print(" },\n");
     return;
 }
 
 void debugdrawcharacter(int character)
 {
-    fprintf(stderr, "Contents of character %d of 256:\n", character);
+    debug_print("Contents of character %d of 256:\n", character);
     for (int row = 0; row < 8; row++) {
         for (int n = 0; n < 8; n++) {
             if (isNthBitSet(sprite[character][row], n))
-                fprintf(stderr, "■");
+                debug_print("■");
             else
-                fprintf(stderr, "0");
+                debug_print("0");
         }
-        fprintf(stderr, "\n");
+        debug_print("\n");
     }
     if (character != 255)
         debugdrawcharacter(255);
@@ -763,15 +763,15 @@ void debugdraw(int on, int character, int xoff, int yoff, int width)
         int x = character % width;
         int y = character / width;
         plotsprite(character, x + xoff, y + yoff, 0, 15);
-        fprintf(stderr, "Contents of character position %d:\n", character);
+        debug_print("Contents of character position %d:\n", character);
         for (int row = 0; row < 8; row++) {
             for (int n = 0; n < 8; n++) {
                 if (isNthBitSet(screenchars[character][row], n))
-                    fprintf(stderr, "■");
+                    debug_print("■");
                 else
-                    fprintf(stderr, "0");
+                    debug_print("0");
             }
-            fprintf(stderr, "\n");
+            debug_print("\n");
         }
     }
 }
@@ -801,7 +801,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             }
             character = data;
 #ifdef DRAWDEBUG
-            fprintf(stderr, "******* SOLO CHARACTER: %04x\n", character);
+            debug_print("******* SOLO CHARACTER: %04x\n", character);
 #endif
             transform(character, 0, offset);
             offset++;
@@ -837,7 +837,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                         if (version == 4 && (old & 1) == 1)
                             data2 += 128;
 #ifdef DRAWDEBUG
-                        fprintf(stderr, "Plotting %d directly (overlay) at %d\n", data2,
+                        debug_print("Plotting %d directly (overlay) at %d\n", data2,
                             offset);
 #endif
                         for (i = 0; i < count; i++)
@@ -847,7 +847,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
                         if ((data2 & 1) == 1)
                             character += 128;
 #ifdef DRAWDEBUG
-                        fprintf(stderr, "Plotting %d with flip %02x (%s) at %d %d\n",
+                        debug_print("Plotting %d with flip %02x (%s) at %d %d\n",
                             character, (data2 | mask_mode),
                             flipdescription[((data2 | mask_mode) & 48) >> 4], offset,
                             count);
@@ -870,7 +870,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
     y = 0;
     x = 0;
 
-    //   fprintf(stderr, "Attribute data begins at offset %ld\n", dataptr -
+    //   debug_print("Attribute data begins at offset %ld\n", dataptr -
     //   origptr);
 
     uint8_t colour = 0;
@@ -948,7 +948,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             }
 
 #ifdef DRAWDEBUG
-            fprintf(stderr, "(gfx#:plotting %d,%d:paper=%s,ink=%s)\n", x + xoff2,
+            debug_print("(gfx#:plotting %d,%d:paper=%s,ink=%s)\n", x + xoff2,
                 y + yoff, colortext(remap(paper[x][y])),
                 colortext(remap(ink[x][y])));
 #endif
@@ -963,7 +963,7 @@ void DrawSagaPictureNumber(int picture_number)
 {
     int numgraphics = Game->number_of_pictures;
     if (picture_number >= numgraphics) {
-        fprintf(stderr, "Invalid image number %d! Last image:%d\n", picture_number,
+        debug_print("Invalid image number %d! Last image:%d\n", picture_number,
             numgraphics - 1);
         return;
     }

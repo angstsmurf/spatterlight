@@ -472,7 +472,7 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size);
+//size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
 uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
 {
@@ -495,7 +495,7 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
             free(snap->pages[i]);
     free(snap);
 
-    writeToFile("/Users/administrator/Desktop/Z80Decompressed", uncompressed, 0xC000);
+//    writeToFile("/Users/administrator/Desktop/Z80Decompressed", uncompressed, 0xC000);
 
     return uncompressed;
 }
