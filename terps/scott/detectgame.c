@@ -1267,7 +1267,7 @@ GameIDType DetectZXSpectrum(void) {
         if (result) {
             uint16_t BC = mem[0x1b48] +  mem[0x1b49] * 0x100 - 0x4000;
             uint16_t DE = mem[0x1b4b] +  mem[0x1b4c] * 0x100 - 0x4000;
-            result = DecompressParsec(&mem[BC], &mem[DE], result);
+            DecompressParsec(&mem[BC], &mem[DE], result);
             dict_type = GetId(&offset);
             if (dict_type == NOT_A_GAME)
                 Fatal("Unsupported game!");

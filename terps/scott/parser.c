@@ -756,7 +756,7 @@ static int FindExtaneousWords(int *index, int noun)
     if (*index >= WordsInInput)
         return 0;
 
-    verb = FindVerb(CharWords[*index], &list);
+    FindVerb(CharWords[*index], &list);
 
     if (list == DelimiterList) {
         if (*index > original_index)
