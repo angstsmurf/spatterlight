@@ -14,7 +14,6 @@
 extern int x, y, count;
 extern int xlen, ylen;
 extern int xoff, yoff;
-extern int size;
 
 typedef uint8_t RGB[3];
 
@@ -219,9 +218,9 @@ void SetRGB(int32_t index, int red, int green, int blue);
 
 int ColorCyclingRunning = 0;
 
-int Intersects(Pixel pix, int x, int y, int width, int height) {
-    return MAX(pix.x, x) <= MIN(pix.x + pix.width, x + width)
-    && MAX(pix.y, y) <= MIN(pix.y, y + height);
+int Intersects(Pixel pix, int xpos, int ypos, int width, int height) {
+    return MAX(pix.x, xpos) <= MIN(pix.x + pix.width, xpos + width)
+    && MAX(pix.y, ypos) <= MIN(pix.y, ypos + height);
 }
 
 void CopyPixel(Pixel *a, Pixel *b) {
@@ -234,14 +233,14 @@ void CopyAnimCol(AnimationColor *a, AnimationColor *b) {
     a->ColIdx = b->ColIdx;
     a->CurCol = b->CurCol;
     a->NumCol = b->NumCol;
-    int size = b->NumCol * sizeof(glui32);
-    a->Colors = MemAlloc(size);
-    memcpy(a->Colors, b->Colors, size);
+    int datasize = b->NumCol * sizeof(glui32);
+    a->Colors = MemAlloc(datasize);
+    memcpy(a->Colors, b->Colors, datasize);
     a->Rate = b->Rate;
     a->NumPix = b->NumPix;
-    size = b->NumPix * sizeof(Pixel);
-    a->Pixels = MemAlloc(size);
-    memcpy(a->Pixels, b->Pixels, size);
+    datasize = b->NumPix * sizeof(Pixel);
+    a->Pixels = MemAlloc(datasize);
+    memcpy(a->Pixels, b->Pixels, datasize);
 }
 
 void AddPixels(AnimationColor *animcol, Pixel *pixels, int numpixels) {
@@ -254,20 +253,20 @@ void AddPixels(AnimationColor *animcol, Pixel *pixels, int numpixels) {
     for (int i = 0; i < numpixels; i++) {
         CopyPixel(&newpix[pixidx++], &pixels[i]);
     }
-    int size = sizeof(Pixel) * pixidx;
+    int datasize = sizeof(Pixel) * pixidx;
     free(animcol->Pixels);
-    animcol->Pixels = MemAlloc(size);
-    memcpy(animcol->Pixels, newpix, size);
+    animcol->Pixels = MemAlloc(datasize);
+    memcpy(animcol->Pixels, newpix, datasize);
     animcol->NumPix = pixidx;
 }
 
 
-int AddNonHiddenColAnim(AnimationColor *old, AnimationColor *new, int numnew, int x, int y, int width, int height) {
+int AddNonHiddenColAnim(AnimationColor *old, AnimationColor *new, int numnew, int xpos, int ypos, int width, int height) {
     int goodpixels = 0;
     Pixel pixels[3000];
 
     for (int i = 0; i < old->NumPix; i++) {
-        if (!Intersects(old->Pixels[i], x, y, width, height)) {
+        if (!Intersects(old->Pixels[i], xpos, ypos, width, height)) {
             CopyPixel(&pixels[goodpixels++], &(old->Pixels[i]));
         }
     }
@@ -287,7 +286,7 @@ int AddNonHiddenColAnim(AnimationColor *old, AnimationColor *new, int numnew, in
     return 1;
 }
 
-int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
+int DrawSTImageFromData(uint8_t *imgdata, size_t total_size) {
 
     uint8_t *ptr = &imgdata[4];
 
@@ -350,10 +349,10 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t datasize) {
     for (int i = 0; i < NumAnimCols; i++)
         Pixels[i] = MemAlloc(sizeof(Pixel) * 3000);
 
-    uint16_t size = imgdata[2] * 256 + imgdata[3];
-    uint8_t *endOfData = ptr + size;
-    if (endOfData > imgdata + datasize)
-        endOfData = imgdata + datasize;
+    uint16_t imgdatasize = imgdata[2] * 256 + imgdata[3];
+    uint8_t *endOfData = ptr + imgdatasize;
+    if (endOfData > imgdata + total_size)
+        endOfData = imgdata + total_size;
 
     if (PatternLookup == NULL)
         GeneratePatternLookup();

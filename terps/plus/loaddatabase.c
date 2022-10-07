@@ -320,19 +320,19 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud) {
                 } else if (str[j] == '=') {
                     nextisrep = 1;
                 }
-                int length = commapos - lastcomma - foundrep;
-                if (length > 0) {
+                int remaining = commapos - lastcomma - foundrep;
+                if (remaining > 0) {
                     if (foundrep) {
                         if (replace) {
                             free(replace);
                         }
-                        replace = MemAlloc(length);
-                        memcpy(replace, &str[lastcomma + 2], length);
+                        replace = MemAlloc(remaining);
+                        memcpy(replace, &str[lastcomma + 2], remaining);
                         if (loud)
                             debug_print("Found new replacement string \"%s\"\n", replace);
                     } else {
-                        s->SynonymString = MemAlloc(length);
-                        memcpy(s->SynonymString, &str[lastcomma + 1], length);
+                        s->SynonymString = MemAlloc(remaining);
+                        memcpy(s->SynonymString, &str[lastcomma + 1], remaining);
                         if (loud)
                             debug_print("Found new synonym string \"%s\"\n", s->SynonymString);
                         s = &syn[++index];
@@ -406,19 +406,19 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
                 } else if (str[j] == '=') {
                     nextisrep = 1;
                 }
-                int length = commapos - lastcomma - foundrep;
-                if (length > 0) {
+                int remaining = commapos - lastcomma - foundrep;
+                if (remaining > 0) {
                     if (foundrep) {
                         if (replace) {
                             free(replace);
                         }
-                        replace = MemAlloc(length);
-                        memcpy(replace, &str[lastcomma + 2], length);
+                        replace = MemAlloc(remaining);
+                        memcpy(replace, &str[lastcomma + 2], remaining);
                         if (loud)
                             debug_print("Found new replacement string \"%s\"\n", replace);
                     } else {
-                        s->SynonymString = MemAlloc(length);
-                        memcpy(s->SynonymString, &str[lastcomma + 1], length);
+                        s->SynonymString = MemAlloc(remaining);
+                        memcpy(s->SynonymString, &str[lastcomma + 1], remaining);
                         if (loud)
                             debug_print("Found new synonym string \"%s\"\n", s->SynonymString);
                         s = &syn[++index];
@@ -744,26 +744,26 @@ static void ReadAction(FILE *f, Action *ap) {
     memcpy(ap->Commands, commands, i);
 }
 
-static void PrintHeaderInfo(Header header)
+static void PrintHeaderInfo(Header h)
 {
-    debug_print("Number of items =\t%d\n", header.NumItems);
-    debug_print("sum of actions =\t%d\n", header.ActionSum);
-    debug_print("Number of nouns =\t%d\n", header.NumNouns);
-    debug_print("Number of verbs =\t%d\n", header.NumVerbs);
-    debug_print("Number of rooms =\t%d\n", header.NumRooms);
-    debug_print("Max carried items =\t%d\n", header.MaxCarry);
-    debug_print("Player start location =\t%d\n", header.PlayerRoom);
-    debug_print("Number of messages =\t%d\n", header.NumMessages);
-    debug_print("Treasure room =\t%d\n", header.TreasureRoom);
-    debug_print("Light source turns =\t%d\n", header.LightTime);
-    debug_print("Number of prepositions =\t%d\n", header.NumPreps);
-    debug_print("Number of adverbs =\t%d\n", header.NumAdverbs);
-    debug_print("Number of actions =\t%d\n", header.NumActions);
-    debug_print("Number of treasures =\t%d\n", header.Treasures);
-    debug_print("Number of synonym strings =\t%d\n", header.NumSubStr);
-    debug_print("Unknown1 =\t%d\n", header.Unknown1);
-    debug_print("Number of object images =\t%d\n", header.NumObjImg);
-    debug_print("Unknown3 =\t%d\n", header.Unknown2);
+    debug_print("Number of items =\t%d\n", h.NumItems);
+    debug_print("sum of actions =\t%d\n", h.ActionSum);
+    debug_print("Number of nouns =\t%d\n", h.NumNouns);
+    debug_print("Number of verbs =\t%d\n", h.NumVerbs);
+    debug_print("Number of rooms =\t%d\n", h.NumRooms);
+    debug_print("Max carried items =\t%d\n", h.MaxCarry);
+    debug_print("Player start location =\t%d\n", h.PlayerRoom);
+    debug_print("Number of messages =\t%d\n", h.NumMessages);
+    debug_print("Treasure room =\t%d\n", h.TreasureRoom);
+    debug_print("Light source turns =\t%d\n", h.LightTime);
+    debug_print("Number of prepositions =\t%d\n", h.NumPreps);
+    debug_print("Number of adverbs =\t%d\n", h.NumAdverbs);
+    debug_print("Number of actions =\t%d\n", h.NumActions);
+    debug_print("Number of treasures =\t%d\n", h.Treasures);
+    debug_print("Number of synonym strings =\t%d\n", h.NumSubStr);
+    debug_print("Unknown1 =\t%d\n", h.Unknown1);
+    debug_print("Number of object images =\t%d\n", h.NumObjImg);
+    debug_print("Unknown3 =\t%d\n", h.Unknown2);
 }
 
 static int SetGame(const char *id_string, size_t length) {

@@ -1213,12 +1213,12 @@ static glui32 read_stackstate(dest_t *dest, glui32 chunklen, int portable)
 
 glui32 perform_verify()
 {
-  glui32 len, checksum, newlen;
+  glui32 len, localchecksum, newlen;
   unsigned char buf[4];
   glui32 val, newsum, ix;
 
   len = gamefile_len;
-  checksum = 0;
+  localchecksum = 0;
 
   if (len < 256 || (len & 0xFF) != 0)
     return 1;
@@ -1237,7 +1237,7 @@ glui32 perform_verify()
         return 1;
     }
     if (ix == 8)
-      checksum = val;
+      localchecksum = val;
     else
       newsum += val;
   }
@@ -1251,7 +1251,7 @@ glui32 perform_verify()
     newsum += val;
   }
 
-  if (newsum != checksum)
+  if (newsum != localchecksum)
     return 1;
 
   return 0;  

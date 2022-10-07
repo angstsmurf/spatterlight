@@ -768,8 +768,8 @@ void SagaSetup(void)
                 for (i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
                         number--;
-                        size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
-                        size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
+                        size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
+                        size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
                         }

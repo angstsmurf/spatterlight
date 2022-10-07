@@ -240,8 +240,8 @@ typedef enum {
     TYPE_TWO,
 } CompanionNameType;
 
-static FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t length) {
-    char *sideB = MemAlloc(length + 1);
+static FILE *LookForAtari8CompanionFilename(int index, CompanionNameType type, size_t length) {
+    char sideB[length + 1];
     memcpy(sideB, game_file, length + 1);
     if (type == TYPE_B) {
         sideB[index] = 'B';
@@ -250,7 +250,6 @@ static FILE *LookForCompanionFilename(int index, CompanionNameType type, size_t 
         sideB[index + 1] = 'w';
         sideB[index + 2] = 'o';
     }
-
     return fopen(sideB, "r");
 }
 
@@ -267,12 +266,12 @@ static FILE *GetCompanionFile(void) {
                 if (c == ' ' || c == '_') {
                     c = tolower(game_file[i + 2]);
                     if (c == 'a') {
-                        result = LookForCompanionFilename(i + 2, TYPE_B, gamefilelen);
+                        result = LookForAtari8CompanionFilename(i + 2, TYPE_B, gamefilelen);
                         if (result)
                             return result;
                     } else if (c == 'o' && gamefilelen > i + 4) {
                         if (game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                            result = LookForCompanionFilename(i + 2, TYPE_TWO, gamefilelen);
+                            result = LookForAtari8CompanionFilename(i + 2, TYPE_TWO, gamefilelen);
                             if (result)
                                 return result;
                         }
@@ -291,7 +290,7 @@ void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
     fprintf(stderr, "\n");
 }
 
-static int ExtractImagesFromCompanionFileNew(FILE *infile)
+static int ExtractImagesFromAtariCompanionFile(FILE *infile)
 {
     int work,work2;
     int count;
@@ -364,7 +363,6 @@ static int ExtractImagesFromCompanionFileNew(FILE *infile)
 
     //{ "S000", 0, Found in disk image A at offset 6d97
 
-
     Images[outpic].Filename = NULL;
     fclose(infile);
 
@@ -421,7 +419,7 @@ int LookForAtari8Images(uint8_t **sf, size_t *extent) {
         Images[0].Filename = NULL;
         return 0;
     }
-    ExtractImagesFromCompanionFileNew(CompanionFile);
+    ExtractImagesFromAtariCompanionFile(CompanionFile);
     return 1;
 }
 

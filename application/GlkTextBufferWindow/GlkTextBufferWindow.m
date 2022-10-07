@@ -2027,13 +2027,14 @@ replacementString:(id)repl {
         return;
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
+    CGFloat diff = position - newBounds.origin.y;
     if (newBounds.origin.y > position)
         return;
     newBounds.origin.y = position;
     if (animate && self.theme.smoothScroll) {
         scrolling = YES;
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
-            context.duration = 0.3;
+            context.duration = MAX(0.002 * diff, 0.3);
             clipView.animator.boundsOrigin = newBounds.origin;
         } completionHandler:^{
             self->scrolling = NO;

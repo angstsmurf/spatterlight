@@ -56,12 +56,16 @@ static const struct rec taylor_registry[] = {
     { 0xbd5b, 0xf5ea, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet tzx
     { 0xd541, 0x593a, "ec96dff8-3ef9-4dbc-a165-9c509ff35f44" }, // Rebel Planet C64
     { 0xb345, 0xc48b, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80
+    { 0xaa2a, 0x7bee, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80 alt
+    { 0xb49d, 0x00c6, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80 alt 2
+    { 0xc01e, 0x8865, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 Z80 alt 3
     { 0xbcb6, 0x6902, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx
     { 0xbb08, 0xab12, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt
     { 0xbc20, 0x3726, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 tzx alt 2
     { 0xbbe6, 0x2683, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 TAP
     { 0x69e3, 0x3b96, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64
     { 0x8298, 0xb93e, "126e2481-30f5-46d4-abdd-9339526f516b" }, // Questprobe 3 C64 alt
+    { 0x2ab00, 0x863d, "126E2481-30F5-46D4-ABDD-9339526F516B" }, // Questprobe 3 C64 D64
     { 0, 0, NULL }
 };
 

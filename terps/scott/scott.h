@@ -20,16 +20,22 @@
 #ifndef scott_h
 #define scott_h
 
+#include <stdint.h>
+#include <stdio.h>
+
+#include "scottdefines.h"
+#include "debugprint.h"
+
+
 #define LIGHT_SOURCE 9         /* Always 9 how odd */
 #define CARRIED      255       /* Carried */
 #define DESTROYED    0         /* Destroyed */
 #define DARKBIT      15
 #define LIGHTOUTBIT  16        /* Light gone out */
 
-#include <stdint.h>
-#include <stdio.h>
-
-#include "definitions.h"
+#define GLK_BUFFER_ROCK 1
+#define GLK_STATUS_ROCK 1010
+#define GLK_GRAPHICS_ROCK 1020
 
 typedef struct {
     short Unknown;
@@ -86,8 +92,9 @@ typedef struct {
 #define FORCE_PALETTE_C64 512     /* Force CBM 64 image palette */
 #define FORCE_INVENTORY 1024     /* Inventory in upper window always on */
 #define FORCE_INVENTORY_OFF 2048     /* Inventory in upper window always off */
+#define PC_STYLE 4096    /* Display in style used on IBM PC (MS-DOS) */
 
-#define MAX_GAMEFILE_SIZE 200000
+#define MAX_GAMEFILE_SIZE 250000
 
 /* Anything used by the other source files goes here */
 
@@ -136,6 +143,8 @@ void SwapCounters(int index);
 void PrintMessage(int index);
 void PlayerIsDead(void);
 void UpdateSettings(void);
+winid_t FindGlkWindowWithRock(glui32 rock);
+void OpenTopWindow(void);
 
 extern struct GameInfo *Game;
 extern Header GameHeader;
@@ -163,5 +172,11 @@ extern int RoomSaved[];
 extern int Options;
 extern int StopTime;
 extern int should_look_in_transcript;
+extern int ImageWidth;
+extern int ImageHeight;
+extern const char *game_file;
+extern int showing_inventory;
+extern MachineType CurrentSys;
+extern int lastwasnewline;
 
 #endif /* scott_h */

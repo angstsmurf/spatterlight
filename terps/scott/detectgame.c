@@ -13,7 +13,7 @@
 
 #include "decompresstext.h"
 #include "detectgame.h"
-#include "gameinfo.h"
+#include "scottgameinfo.h"
 #include "sagadraw.h"
 #include "line_drawing.h"
 
@@ -26,6 +26,9 @@
 #include "c64decrunch.h"
 #include "decompressz80.h"
 #include "load_ti99_4a.h"
+#include "atari8detect.h"
+#include "apple2detect.h"
+
 #include "parser.h"
 
 extern const char *sysdict_zx[MAX_SYSMESS];
@@ -34,26 +37,25 @@ extern int header[];
 struct dictionaryKey {
     DictionaryType dict;
     const char *signature;
+    int len;
 };
 
 struct dictionaryKey dictKeys[] = {
-    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0" },
-    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0" },
-    { FIVE_LETTER_UNCOMPRESSED, "AUTO\0\0GO" },
-    { FOUR_LETTER_COMPRESSED, "aUTOgO\0" },
-    { GERMAN, "\xc7" "EHENSTEIGE" },
-    { FIVE_LETTER_COMPRESSED, "gEHENSTEIGE" }, // Gremlins C64
-    { SPANISH, "ANDAENTRAVAN" },
-    { FIVE_LETTER_UNCOMPRESSED, "*CROSS*RUN\0\0" }, // Claymorgue
-    { ITALIAN, "AUTO\0VAI\0\0*ENTR" }
+    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0", 8 },
+    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0", 7 },
+    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN\0", 17}, // Claymorgue
+    { FOUR_LETTER_COMPRESSED, "aUTOgO\0", 7 },
+    { GERMAN_C64, "gEHENSTEIGE", 11 }, // Gremlins German C64
+    { GERMAN, "\xc7" "EHENSTEIGE", 10 },
+    { SPANISH, "\x81\0\0\0\xc9R\0\0ANDAENTR", 16 },
+    { SPANISH_C64, "\x81\0\0\0iR\0\0ANDAENTR", 16 },
+    { ITALIAN, "AUTO\0VAI\0\0*ENTR", 15 },
+    { NOT_A_GAME, NULL, 0 }
 };
 
-int FindCode(const char *x, int base)
+int FindCode(const char *x, int len)
 {
-    unsigned const char *p = entire_file + base;
-    int len = strlen(x);
-    if (len < 7)
-        len = 7;
+    unsigned const char *p = entire_file;
     while (p < entire_file + file_length - len) {
         if (memcmp(p, x, len) == 0) {
             return p - entire_file;
@@ -65,15 +67,20 @@ int FindCode(const char *x, int base)
 
 DictionaryType GetId(size_t *offset)
 {
-    for (int i = 0; i < 9; i++) {
-        *offset = FindCode(dictKeys[i].signature, 0);
+    for (int i = 0; dictKeys[i].dict != NOT_A_GAME; i++) {
+        *offset = FindCode(dictKeys[i].signature, dictKeys[i].len);
         if (*offset != -1) {
-            if (i == 4 || i == 5) // GERMAN
-                *offset -= 5;
-            else if (i == 6) // SPANISH
-                *offset -= 8;
-            else if (i == 7) // Claymorgue
-                *offset -= 11;
+            switch(dictKeys[i].dict) {
+                case GERMAN_C64:
+                case GERMAN:
+                    *offset -= 5;
+                    break;
+                case FIVE_LETTER_UNCOMPRESSED:
+                    *offset -= 6;
+                    break;
+                default:
+                    break;
+            }
             return dictKeys[i].dict;
         }
     }
@@ -81,14 +88,15 @@ DictionaryType GetId(size_t *offset)
     return NOT_A_GAME;
 }
 
-void ReadHeader(uint8_t *ptr)
+uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i < 15; i++) {
         value = *ptr + 256 * *(ptr + 1);
         header[i] = value;
         ptr += 2;
     }
+    return ptr - 1;
 }
 
 int SanityCheckHeader(void)
@@ -134,7 +142,7 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
         for (int i = 0; i < info.word_length; i++) {
             c = *(ptr++);
 
-            if (info.dictionary == FOUR_LETTER_COMPRESSED || info.dictionary == FIVE_LETTER_COMPRESSED) {
+            if (info.dictionary == FOUR_LETTER_COMPRESSED || info.dictionary == GERMAN_C64 || info.dictionary == SPANISH_C64) {
                 if (charindex == 0) {
                     if (c >= 'a') {
                         c = toupper(c);
@@ -175,12 +183,12 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
             Verbs[wordnum] = MemAlloc(charindex + 1);
             memcpy((char *)Verbs[wordnum], dictword, charindex + 1);
             if (loud)
-                fprintf(stderr, "Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
+                debug_print("Verb %d: \"%s\"\n", wordnum, Verbs[wordnum]);
         } else {
             Nouns[wordnum - nv] = MemAlloc(charindex + 1);
             memcpy((char *)Nouns[wordnum - nv], dictword, charindex + 1);
             if (loud)
-                fprintf(stderr, "Noun %d: \"%s\"\n", wordnum - nv, Nouns[wordnum - nv]);
+                debug_print("Noun %d: \"%s\"\n", wordnum - nv, Nouns[wordnum - nv]);
         }
         wordnum++;
 
@@ -196,18 +204,18 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
 uint8_t *SeekToPos(uint8_t *buf, int offset)
 {
     if (offset > file_length)
-        return 0;
+        return NULL;
     return buf + offset;
 }
 
-int SeekIfNeeded(int expected_start, int *offset, uint8_t **ptr)
+int SeekIfNeeded(int expected_start, size_t *offset, uint8_t **ptr)
 {
     if (expected_start != FOLLOWS) {
         *offset = expected_start + file_baseline_offset;
         //        uint8_t *ptrbefore = *ptr;
         *ptr = SeekToPos(entire_file, *offset);
         //        if (*ptr == ptrbefore)
-        //            fprintf(stderr, "Seek unnecessary, could have been set to
+        //            debug_print("Seek unnecessary, could have been set to
         //            FOLLOWS.\n");
         if (*ptr == 0)
             return 0;
@@ -248,7 +256,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *lt = -1;
             *trm = 0;
             break;
-        case HULK_HEADER:
+        case US_HEADER:
             *ni = h[3];
             *na = h[2];
             *nw = h[1];
@@ -259,7 +267,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *wl = h[0];
             *lt = h[9];
             *mn = h[4];
-            *trm = h[10];
+            *trm = h[10] >> 8;
             break;
         case ROBIN_C64_HEADER:
             *ni = h[1];
@@ -353,33 +361,33 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
             *trm = 0;
             break;
         default:
-            fprintf(stderr, "Unhandled header type!\n");
+            debug_print("Unhandled header type!\n");
             return 0;
     }
     return 1;
 }
 
 void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
-    int tr, int wl, int lt, int mn, int trm)
+                     int tr, int wl, int lt, int mn, int trm)
 {
     uint16_t value;
     for (int i = 0; i < 13; i++) {
         value = h[i];
-        fprintf(stderr, "b $%X %d: ", 0x494d + 0x3FE5 + i * 2, i);
-        fprintf(stderr, "\t%d\n", value);
+        debug_print("b $%X %d: ", 0x494d + 0x3FE5 + i * 2, i);
+        debug_print("\t%d (%04x)\n", value, value);
     }
 
-    fprintf(stderr, "Number of items =\t%d\n", ni);
-    fprintf(stderr, "Number of actions =\t%d\n", na);
-    fprintf(stderr, "Number of words =\t%d\n", nw);
-    fprintf(stderr, "Number of rooms =\t%d\n", nr);
-    fprintf(stderr, "Max carried items =\t%d\n", mc);
-    fprintf(stderr, "Word length =\t%d\n", wl);
-    fprintf(stderr, "Number of messages =\t%d\n", mn);
-    fprintf(stderr, "Player start location: %d\n", pr);
-    fprintf(stderr, "Treasure room: %d\n", tr);
-    fprintf(stderr, "Lightsource time left: %d\n", lt);
-    fprintf(stderr, "Number of treasures: %d\n", tr);
+    debug_print("Number of items =\t%d\n", ni);
+    debug_print("Number of actions =\t%d\n", na);
+    debug_print("Number of words =\t%d\n", nw);
+    debug_print("Number of rooms =\t%d\n", nr);
+    debug_print("Max carried items =\t%d\n", mc);
+    debug_print("Word length =\t%d\n", wl);
+    debug_print("Number of messages =\t%d\n", mn);
+    debug_print("Player start location: %d\n", pr);
+    debug_print("Treasure room: %d\n", trm);
+    debug_print("Lightsource time left: %d\n", lt);
+    debug_print("Number of treasures: %d\n", tr);
 }
 
 typedef struct {
@@ -389,7 +397,7 @@ typedef struct {
 } LineImage;
 
 void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
-    int offset;
+    size_t offset;
 
     if (info.start_of_image_data == FOLLOWS)
         ptr++;
@@ -406,12 +414,12 @@ void LoadVectorData(struct GameInfo info, uint8_t *ptr) {
             lp->bgcolour = *(ptr++);
             lp->data = ptr;
         } else {
-            fprintf(stderr, "Error! Image data does not start with 0xff!\n");
+            debug_print("Error! Image data does not start with 0xff!\n");
         }
         do {
             byte = *(ptr++);
             if (ptr - entire_file >= file_length) {
-                fprintf(stderr, "Error! Image data for image %d cut off!\n", ct);
+                debug_print("Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
                 if (lp->data >= ptr)
@@ -444,7 +452,8 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
     uint8_t *ptr = entire_file;
     file_baseline_offset = dict_start - info.start_of_dictionary;
-    int offset = info.start_of_header + file_baseline_offset;
+    debug_print("file_baseline_offset: %d\n", file_baseline_offset);
+    size_t offset = info.start_of_header + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
@@ -457,7 +466,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
         return 0;
 
     if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-        //        fprintf(stderr, "Non-matching header\n");
+        //        debug_print("Non-matching header\n");
         return 0;
     }
 
@@ -713,10 +722,9 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
 
 int TryLoading(struct GameInfo info, int dict_start, int loud)
 {
-    /* The Hulk does everything differently */
-    /* so it gets its own function */
+    /* The UK versions of Hulk uses the Mak Jukic binary database format */
     if (info.gameID == HULK || info.gameID == HULK_C64)
-        return TryLoadingHulk(info, dict_start);
+        return LoadBinaryDatabase(entire_file, file_length, info, dict_start);
 
     if (info.type == OLD_STYLE)
         return TryLoadingOld(info, dict_start);
@@ -732,16 +740,16 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     uint8_t *ptr = entire_file;
 
     if (loud) {
-        fprintf(stderr, "dict_start:%x\n", dict_start);
-        fprintf(stderr, " info.start_of_dictionary:%x\n", info.start_of_dictionary);
+        debug_print("dict_start:%x\n", dict_start);
+        debug_print(" info.start_of_dictionary:%x\n", info.start_of_dictionary);
     }
     file_baseline_offset = dict_start - info.start_of_dictionary;
 
     if (loud)
-        fprintf(stderr, "file_baseline_offset:%x (%d)\n", file_baseline_offset,
+        debug_print("file_baseline_offset:%x (%d)\n", file_baseline_offset,
             file_baseline_offset);
 
-    int offset = info.start_of_header + file_baseline_offset;
+    size_t offset = info.start_of_header + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
@@ -774,14 +782,14 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     }
 
     if (loud) {
-        fprintf(stderr, "Found a valid header at position 0x%x\n", offset);
-        fprintf(stderr, "Expected: 0x%x\n",
+        debug_print("Found a valid header at position 0x%zx\n", offset);
+        debug_print("Expected: 0x%x\n",
             info.start_of_header + file_baseline_offset);
     }
 
     if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
         if (loud)
-            fprintf(stderr, "Non-matching header\n");
+            debug_print("Non-matching header\n");
         return 0;
     }
 
@@ -836,7 +844,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             ip++;
         }
         if (loud)
-            fprintf(stderr, "Offset after reading item images: %lx\n",
+            debug_print("Offset after reading item images: %lx\n",
                     ptr - entire_file - file_baseline_offset);
 
     }
@@ -861,12 +869,12 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             value = *(ptr++); /* count of actions/conditions */
             cond = value & 0x1f;
             if (cond > 5) {
-                fprintf(stderr, "Condition error at action %d!\n", ct);
+                debug_print("Condition error at action %d!\n", ct);
                 cond = 5;
             }
             comm = (value & 0xe0) >> 5;
             if (comm > 2) {
-                fprintf(stderr, "Command error at action %d!\n", ct);
+                debug_print("Command error at action %d!\n", ct);
                 comm = 2;
             }
         } else {
@@ -894,7 +902,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         ct++;
     }
     if (loud)
-        fprintf(stderr, "Offset after reading actions: %lx\n",
+        debug_print("Offset after reading actions: %lx\n",
                 ptr - entire_file - file_baseline_offset);
 
 
@@ -906,7 +914,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     ptr = ReadDictionary(info, &ptr, loud);
 
     if (loud)
-        fprintf(stderr, "Offset after reading dictionary: %lx\n",
+        debug_print("Offset after reading dictionary: %lx\n",
             ptr - entire_file - file_baseline_offset);
 
 #pragma mark rooms
@@ -930,7 +938,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                     rp->Text = MemAlloc(charindex + 1);
                     strcpy(rp->Text, text);
                     if (loud)
-                        fprintf(stderr, "Room %d: %s\n", ct, rp->Text);
+                        debug_print("Room %d: %s\n", ct, rp->Text);
                     ct++;
                     rp++;
                     charindex = 0;
@@ -983,7 +991,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
         while (ct < mn + 1) {
             Messages[ct] = DecompressText(ptr, ct);
             if (loud)
-                fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+                debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
             if (Messages[ct] == NULL)
                 return 0;
             ct++;
@@ -996,7 +1004,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 Messages[ct] = MemAlloc(charindex + 1);
                 strcpy((char *)Messages[ct], text);
                 if (loud)
-                    fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+                    debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
                 ct++;
                 charindex = 0;
             } else {
@@ -1020,7 +1028,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             ip->AutoGet = NULL;
             if (ip->Text != NULL && ip->Text[0] != '.') {
                 if (loud)
-                    fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+                    debug_print("Item %d: %s\n", ct, ip->Text);
                 ip->AutoGet = strchr(ip->Text, '.');
                 if (ip->AutoGet) {
                     *ip->AutoGet++ = 0;
@@ -1043,7 +1051,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 ip->Text = MemAlloc(charindex + 1);
                 strcpy(ip->Text, text);
                 if (loud)
-                    fprintf(stderr, "Item %d: %s\n", ct, ip->Text);
+                    debug_print("Item %d: %s\n", ct, ip->Text);
                 ip->AutoGet = strchr(ip->Text, '/');
                 /* Some games use // to mean no auto get/drop word! */
                 if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
@@ -1071,6 +1079,8 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
     while (ct < ni + 1) {
         ip->Location = *(ptr++);
         ip->InitialLoc = ip->Location;
+        if (Items[ct].Text && ip->Location < nr && Rooms[ip->Location].Text)
+            debug_print("Location of item %d, \"%s\":%d\n", ct, Items[ct].Text, ip->Location);
         ip++;
         ct++;
     }
@@ -1093,7 +1103,7 @@ jumpSysMess:
     do {
         c = *(ptr++);
         if (ptr - entire_file > file_length || ptr < entire_file) {
-            fprintf(stderr, "Read out of bounds!\n");
+            debug_print("Read out of bounds!\n");
             return 0;
         }
         if (charindex > 255)
@@ -1112,7 +1122,7 @@ jumpSysMess:
                 strncpy(newmess, text, charindex + 1);
                 system_messages[ct] = newmess;
                 if (loud)
-                    fprintf(stderr, "system_messages %d: \"%s\"\n", ct,
+                    debug_print("system_messages %d: \"%s\"\n", ct,
                         system_messages[ct]);
                 ct++;
                 charindex = 0;
@@ -1123,7 +1133,7 @@ jumpSysMess:
     } while (ct < 45);
 
     if (loud)
-        fprintf(stderr, "Offset after reading system messages: %lx\n",
+        debug_print("Offset after reading system messages: %lx\n",
             ptr - entire_file);
 
     if ((info.subtype & (C64 | ENGLISH)) == (C64 | ENGLISH)) {
@@ -1179,6 +1189,107 @@ int IsMysterious(void)
     return 0;
 }
 
+uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr) {
+    uint8_t bVar1;
+    uint8_t bVar2;
+    uint8_t bVar4;
+    short sVar3;
+    uint8_t *pbVar5;
+
+    if (dataptr - 3 < entire_file)
+        return NULL;
+
+    do {
+        bVar4 = *dataptr;
+        bVar2 = *(dataptr - 1);
+        sVar3 = bVar2 + bVar4 * 0x100;
+        pbVar5 = dataptr - 2;
+        if ((bVar4 & 0x80) == 0) {
+            do {
+                *start = *pbVar5;
+                start--;
+                pbVar5--;
+                sVar3--;
+            } while (sVar3 != 0 && pbVar5 > entire_file && start > entire_file);
+        } else {
+            bVar4 = bVar4 & 0x7f;
+            bVar1 = *pbVar5;
+            pbVar5 = dataptr - 3;
+            if (start - 1 < entire_file)
+                return NULL;
+            do {
+                *start = bVar2;
+                *(start - 1) = bVar1;
+                start -= 2;
+                bVar4--;
+            } while (bVar4 != 0 && start > entire_file);
+        }
+        dataptr = pbVar5;
+    } while (start != end && dataptr - 3 > entire_file);
+    return dataptr;
+}
+
+//size_t writeToFile(const char *name, uint8_t *data, size_t size);
+
+GameIDType DetectZXSpectrum(void) {
+    GameIDType detectedGame = UNKNOWN_GAME;
+    int wasz80 = 0;
+    uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
+    if (uncompressed != NULL) {
+        wasz80 = 1;
+        free(entire_file);
+        entire_file = uncompressed;
+        file_length = 0xc000;
+    }
+
+    size_t offset;
+
+    DictionaryType dict_type = GetId(&offset);
+
+    if (dict_type == NOT_A_GAME)
+        return UNKNOWN_GAME;
+
+    for (int i = 0; games[i].Title != NULL; i++) {
+        if (games[i].dictionary == dict_type) {
+            if (TryLoading(games[i], offset, 0)) {
+                free(Game);
+                Game = &games[i];
+                detectedGame = Game->gameID;
+                break;
+            }
+        }
+    }
+
+    if (!detectedGame && wasz80) {
+        uint8_t *mem = entire_file;
+        uint16_t HL = mem[0x1b42] +  mem[0x1b43] * 0x100 - 0x4000;
+        uint8_t *result = DecompressParsec(&mem[0x0fff], &mem[0x07ff], &mem[HL]);
+        if (result) {
+            uint16_t BC = mem[0x1b48] +  mem[0x1b49] * 0x100 - 0x4000;
+            uint16_t DE = mem[0x1b4b] +  mem[0x1b4c] * 0x100 - 0x4000;
+            DecompressParsec(&mem[BC], &mem[DE], result);
+            dict_type = GetId(&offset);
+            if (dict_type == NOT_A_GAME)
+                Fatal("Unsupported game!");
+            for (int i = 0; games[i].Title != NULL; i++) {
+                if (games[i].dictionary == dict_type) {
+                    if (TryLoading(games[i], offset, 1)) {
+                        free(Game);
+                        Game = &games[i];
+                        detectedGame = Game->gameID;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (!detectedGame)
+        Fatal("Unsupported game!");
+
+    return detectedGame;
+}
+
 GameIDType DetectGame(const char *file_name)
 {
     FILE *f = fopen(file_name, "r");
@@ -1197,12 +1308,13 @@ GameIDType DetectGame(const char *file_name)
     file_length = GetFileLength(f);
 
     if (file_length > MAX_GAMEFILE_SIZE) {
-        fprintf(stderr, "File too large to be a vaild game file (%zu, max is %d)\n",
+        debug_print("File too large to be a vaild game file (%zu bytes, max is %d)\n",
             file_length, MAX_GAMEFILE_SIZE);
         return 0;
     }
 
     Game = (struct GameInfo *)MemAlloc(sizeof(struct GameInfo));
+    memset(Game, 0, sizeof(struct GameInfo));
 
     // Check if the original ScottFree LoadDatabase() function can read the file.
     GameIDType detectedGame = LoadDatabase(f, Options & DEBUGGING);
@@ -1217,46 +1329,42 @@ GameIDType DetectGame(const char *file_name)
 
         detectedGame = DetectTI994A();
 
-        if (!detectedGame) { /* Not a TI99/4A game, check if C64 */
+        if (!detectedGame) /* Not a TI99/4A game, check if C64 */
             detectedGame = DetectC64(&entire_file, &file_length);
 
-            if (!detectedGame) { /* Not a C64, check if ZX Spectrum */
-                uint8_t *uncompressed = DecompressZ80(entire_file, file_length);
-                if (uncompressed != NULL) {
-                    free(entire_file);
-                    entire_file = uncompressed;
-                    file_length = 0xc000;
-                }
-
-                size_t offset;
-
-                DictionaryType dict_type = GetId(&offset);
-
-                if (dict_type == NOT_A_GAME)
-                    return UNKNOWN_GAME;
-
-                for (int i = 0; games[i].Title != NULL; i++) {
-                    if (games[i].dictionary == dict_type) {
-                        if (TryLoading(games[i], offset, 0)) {
-                            free(Game);
-                            Game = &games[i];
-                            detectedGame = Game->gameID;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (Game == NULL)
-                return 0;
-        } else {
-            CurrentGame = detectedGame;
+        if (!detectedGame) { /* Not a C64 game, check if Atari */
+            result = DetectAtari8(&entire_file, &file_length);
+            if (result)
+                detectedGame = CurrentGame;
         }
-    } else if (IsMysterious()) {
-        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
+
+        if (!detectedGame) { /* Not a C64 game, check if Apple 2 */
+            result = DetectApple2(&entire_file, &file_length);
+            if (result)
+                detectedGame = CurrentGame;
+        }
+
+        if (!detectedGame) { /* Not an Atari game, check if ZX Spectrum */
+            detectedGame = DetectZXSpectrum();
+        }
+
+        if (Game == NULL)
+            return 0;
+    }
+
+    if (detectedGame == HULK_US) {
+        CurrentGame = HULK_US;
+        Game->type = US_VARIANT;
     }
 
     if (detectedGame == SCOTTFREE || detectedGame == TI994A)
+        CurrentGame = detectedGame;
+
+    if (IsMysterious()) {
+        Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
+    }
+
+    if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
         return detectedGame;
 
     /* Copy ZX Spectrum style system messages as base */
@@ -1347,6 +1455,9 @@ GameIDType DetectGame(const char *file_name)
         case GREMLINS_SPANISH:
             LoadExtraSpanishGremlinsData();
             break;
+        case GREMLINS_SPANISH_C64:
+            LoadExtraSpanishGremlinsC64Data();
+            break;
         case HULK_C64:
         case HULK:
             for (int i = 0; i < 6; i++) {
@@ -1391,7 +1502,7 @@ GameIDType DetectGame(const char *file_name)
     if ((Game->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
         Mysterious64Sysmess();
 
-    /* If it is a C64 or a Mysterious Adventures game, we have setup the graphics already */
+    /* If it is a C64 or a Mysterious Adventures game, we have set up the graphics already */
     if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
         SagaSetup(0);
     }

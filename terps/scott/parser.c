@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "definitions.h"
+#include "scottdefines.h"
 #include "parser.h"
 #include "scott.h"
 
@@ -270,8 +270,11 @@ glui32 *ToUnicode(const char *string)
     int dest = 0;
     for (i = 0; string[i] != 0 && i < 2047; i++) {
         char c = string[i];
-        if (c == '\n')
+        if (c == '\n') {
+            lastwasnewline = 1;
             c = 10;
+        } else
+            lastwasnewline = 0;
         glui32 unichar = (glui32)c;
         if (Game && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
             const char d = string[i + 1];
@@ -298,7 +301,7 @@ glui32 *ToUnicode(const char *string)
             if (c == '\"') {
                 unichar = 0x2019; // ’
             }
-        } else if (Game && CurrentGame == GREMLINS_SPANISH) {
+        } else if (Game && (CurrentGame == GREMLINS_SPANISH_C64 || CurrentGame == GREMLINS_SPANISH)) {
             switch (c) {
             case '\x83':
                 unichar = 0xbf; // ¿
@@ -573,6 +576,8 @@ void LineInput(void)
             glk_put_char_stream_uni(Transcript, 10);
         }
 
+        lastwasnewline = 1;
+
         SplitIntoWords(unibuf, ev.val1);
 
         if (WordsInInput == 0 || CharWords == NULL)
@@ -732,6 +737,14 @@ static int FindExtaneousWords(int *index, int noun)
     int verb = 0;
     int stringlength = strlen(CharWords[*index]);
 
+    int secondnoun = WhichWord(CharWords[*index], Nouns, GameHeader.WordLength, GameHeader.NumWords + 1);
+    if (secondnoun) {
+        if (MapSynonym(secondnoun) == MapSynonym(noun)) {
+            *index = *index + 1;
+            return 0;
+        }
+    }
+
     list = SkipList;
     do {
         verb = WhichWord(CharWords[*index], SkipList, stringlength,
@@ -743,7 +756,7 @@ static int FindExtaneousWords(int *index, int noun)
     if (*index >= WordsInInput)
         return 0;
 
-    verb = FindVerb(CharWords[*index], &list);
+    FindVerb(CharWords[*index], &list);
 
     if (list == DelimiterList) {
         if (*index > original_index)
@@ -751,20 +764,13 @@ static int FindExtaneousWords(int *index, int noun)
         return 0;
     }
 
-    if (list == Nouns && noun) {
-        if (MapSynonym(noun) == MapSynonym(verb)) {
-            *index = *index + 1;
-            return 0;
-        }
-    }
-
     if (list == NULL) {
         if (*index >= WordsInInput)
             *index = WordsInInput - 1;
-//        fprintf(stderr, "FindExtaneousWords Error: I don't know what a \"%s\" is\n", CharWords[*index]);
+//        debug_print("FindExtaneousWords Error: I don't know what a \"%s\" is\n", CharWords[*index]);
         CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[*index], sys[IS]);
     } else {
-//        fprintf(stderr, "FindExtaneousWords Error: I don't understand\n");
+//        debug_print("FindExtaneousWords Error: I don't understand\n");
         CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
     }
 
@@ -822,8 +828,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         if (previous) {
             lastverb = previous->verb;
         }
-        /* Unless the game is German, where we allow the noun to come before the
-     * verb */
+        /* Unless the game is German, where we allow the noun to come before the verb */
         if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
             if (!previous) {
                 CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
