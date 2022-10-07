@@ -2,7 +2,14 @@
 
 ## Release 0.9.8
 - Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*.
+- Adds support for reading ScottFree games from Atari .atr disk images and Apple 2 .dsk and .woz images
 - Fixes a bug that made *Questprobe featuring The Hulk* impossible to win
+- *The Hulk* would print the wax image at the wrong position
+- Adds many new ScottFree and Plus variants, including a Spanish Commodore 64 *Gremlins*
+- ScottFree: Patching of broken ZX Spectrum images is functional again
+- ScottFree: TAKE ALL wouldn't print object names in dark rooms with a light source
+- ScottFree: TAKE ALL and DROP ALL would in some cases not print a line break between objects
+- ScottFree: It is now possible to use multiple words to refer to a noun even when one of the words can also be used as a verb, such as TAKE NAIL FILE when FILE is a verb
 - Fixes a potential out-of-bounds read that could randomly cause TI-99/4A Scott Adams games to only display a blank screen
 - "Parameterized" TADS 3 text colours would be displayed as red
 - Changing the "Slow vector drawing" option could cause games to crash
