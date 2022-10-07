@@ -13,7 +13,7 @@
 #include "graphics.h"
 #include "common.h"
 
-extern int x, y, xlen, ylen, xoff, yoff, size;
+extern int x, y, xlen, ylen, xoff, yoff;
 
 static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
@@ -53,6 +53,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     int work,work2;
     int c;
     int i;
+    size_t size;
 
     uint8_t *origptr = ptr;
 
@@ -108,6 +109,8 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             work2=*ptr++;
             for (i = 0; i < c + 1 && ptr - origptr < size; i++)
             {
+                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                    return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
                     return 1;
@@ -122,6 +125,8 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             {
                 work = *ptr++;
                 work2=*ptr++;
+                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                    return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
                     return 1;
@@ -132,9 +137,9 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     return 1;
 }
 
-static void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
+static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color)
 {
-    glsi32 xpos = x * pixel_size;
+    xpos = xpos * pixel_size;
 
     if (upside_down)
         xpos = 280 * pixel_size - xpos;
@@ -144,7 +149,7 @@ static void PutApplePixel(glsi32 x, glsi32 y, glui32 color)
         return;
     }
 
-    int ypos = y * pixel_size;
+    ypos = ypos * pixel_size;
     if (upside_down)
         ypos = 157 * pixel_size - ypos;
     ypos += y_offset;

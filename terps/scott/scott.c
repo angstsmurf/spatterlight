@@ -43,6 +43,9 @@
 
 #include "glk.h"
 #include "glkstart.h"
+#include "sagagraphics.h"
+#include "saga.h"
+#include "titleimage.h"
 
 #include "detectgame.h"
 #include "layouttext.h"
@@ -58,6 +61,7 @@
 #include "hulk.h"
 #include "robinofsherwood.h"
 #include "seasofblood.h"
+#include "apple2draw.h"
 
 #include "bsd.h"
 #include "scott.h"
@@ -66,10 +70,8 @@
 #include "glkimp.h"
 #endif
 
-static const char *game_file;
-
-extern int pixel_size;
-extern int x_offset;
+const char *game_file = NULL;
+char *DirPath = ".";
 
 Header GameHeader;
 Item *Items;
@@ -92,11 +94,14 @@ int AutoInventory = 0;
 int Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
+int ImageWidth = 255;
+int ImageHeight = 96;
 int file_baseline_offset = 0;
 const char *title_screen = NULL;
 
 struct Command *CurrentCommand = NULL;
 struct GameInfo *Game;
+MachineType CurrentSys = SYS_UNKNOWN;
 
 extern const char *sysdict[MAX_SYSMESS];
 extern const char *sysdict_i_am[MAX_SYSMESS];
@@ -111,6 +116,9 @@ uint8_t *entire_file;
 size_t file_length;
 
 int AnimationFlag = 0;
+
+int showing_inventory = 0;
+int lastwasnewline = 0;
 
 extern struct SavedState *InitialState;
 
@@ -131,14 +139,10 @@ strid_t Transcript = NULL;
 
 int WeAreBigEndian = 0;
 
-#define GLK_BUFFER_ROCK 1
-#define GLK_STATUS_ROCK 1010
-#define GLK_GRAPHICS_ROCK 1020
-
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
 
-//#define DEBUG_ACTIONS
+#define DEBUG_ACTIONS
 
 static void RestartGame(void);
 static int YesOrNo(void);
@@ -156,7 +160,10 @@ void Display(winid_t w, const char *fmt, ...)
     vsnprintf(msg, size, fmt, ap);
     va_end(ap);
 
+    int oldlastwasnewline = lastwasnewline;
     glui32 *unistring = ToUnicode(msg);
+    if (w != Bottom)
+        lastwasnewline = oldlastwasnewline;
     glk_put_string_stream_uni(glk_window_get_stream(w), unistring);
     if (Transcript)
         glk_put_string_stream_uni(Transcript, unistring);
@@ -213,6 +220,107 @@ void UpdateSettings(void) {
     }
 }
 
+static void PrintWindowDelimiter(void)
+{
+    glk_window_get_size(Top, &TopWidth, &TopHeight);
+    glk_window_move_cursor(Top, 0, TopHeight - 1);
+    glk_stream_set_current(glk_window_get_stream(Top));
+    if (Options & SPECTRUM_STYLE)
+        for (int i = 0; i < TopWidth; i++)
+            glk_put_char('*');
+    else {
+        glk_put_char('<');
+        for (int i = 0; i < TopWidth - 2; i++)
+            glk_put_char('-');
+        glk_put_char('>');
+    }
+}
+
+static strid_t room_description_stream = NULL;
+
+static void FlushRoomDescription(char *buf)
+{
+    glk_stream_close(room_description_stream, 0);
+
+    strid_t StoredTranscript = Transcript;
+    if (!print_look_to_transcript)
+        Transcript = NULL;
+
+    int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
+
+    if (split_screen) {
+        glk_window_clear(Top);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
+        int rows, length;
+        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
+
+        glui32 bottomheight;
+        glk_window_get_size(Bottom, NULL, &bottomheight);
+        winid_t o2 = glk_window_get_parent(Top);
+        if (!(bottomheight < 3 && TopHeight < rows)) {
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
+            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
+                                       Top);
+        } else {
+            print_delimiter = 0;
+        }
+
+        int line = 0;
+        int index = 0;
+        int i;
+        char string[TopWidth + 1];
+        for (line = 0; line < rows && index < length; line++) {
+            for (i = 0; i < TopWidth; i++) {
+                string[i] = text_with_breaks[index++];
+                if (string[i] == 10 || string[i] == 13 || index >= length)
+                    break;
+            }
+            if (i < TopWidth + 1) {
+                string[i++] = '\n';
+            }
+            string[i] = 0;
+            if (strlen(string) == 0)
+                break;
+            glk_window_move_cursor(Top, 0, line);
+            Display(Top, "%s", string);
+        }
+
+        if (line < rows - 1) {
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
+            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
+                                       MIN(rows - 1, TopHeight - 1), Top);
+        }
+
+        free(text_with_breaks);
+    } else {
+        Display(Bottom, "%s", buf);
+    }
+
+    if (print_delimiter) {
+        PrintWindowDelimiter();
+    }
+
+    if (pause_next_room_description) {
+        Delay(0.8);
+        pause_next_room_description = 0;
+    }
+
+    Transcript = StoredTranscript;
+    if (buf != NULL) {
+        free(buf);
+        buf = NULL;
+    }
+}
+
+static void UpdateUSInventory(void) {
+    char *buf = MemAlloc(1000);
+    buf = memset(buf, 0, 1000);
+    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    ListInventory(1);
+    FlushRoomDescription(buf);
+    InventoryUS();
+}
+
 void Updates(event_t ev)
 {
 	if (ev.type == evtype_Arrange) {
@@ -224,7 +332,11 @@ void Updates(event_t ev)
 		OpenGraphicsWindow();
 
 		if (split_screen) {
-			Look();
+            if (showing_inventory == 1) {
+                UpdateUSInventory();
+            } else {
+                Look();
+            }
 		}
 	} else if (ev.type == evtype_Timer) {
         switch (Game->type) {
@@ -277,7 +389,7 @@ void Delay(float seconds)
     glk_request_timer_events(0);
 }
 
-static winid_t FindGlkWindowWithRock(glui32 rock)
+winid_t FindGlkWindowWithRock(glui32 rock)
 {
     winid_t win;
     glui32 rockptr;
@@ -289,7 +401,7 @@ static winid_t FindGlkWindowWithRock(glui32 rock)
     return 0;
 }
 
-static void OpenTopWindow(void)
+void OpenTopWindow(void)
 {
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top == NULL) {
@@ -308,22 +420,22 @@ static void OpenTopWindow(void)
     }
 }
 
-const glui32 OptimalPictureSize(glui32 *width, glui32 *height)
+glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    *width = 255;
-    *height = 96;
+    *width = ImageWidth;
+    *height = ImageHeight;
     int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
-    multiplier = graphheight / 96;
+    multiplier = graphheight / ImageHeight;
     if (255 * multiplier > graphwidth)
-        multiplier = graphwidth / 255;
+        multiplier = graphwidth / ImageWidth;
 
     if (multiplier == 0)
         multiplier = 1;
 
-    *width = 255 * multiplier;
-    *height = 96 * multiplier;
+    *width = ImageWidth * multiplier;
+    *height = ImageHeight * multiplier;
 
     return multiplier;
 }
@@ -349,8 +461,9 @@ void OpenGraphicsWindow(void)
 
         if (graphheight > optimal_height) {
             winid_t parent = glk_window_get_parent(Graphics);
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
+            if (parent)
+                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                           optimal_height, NULL);
         }
 
 	/* Set the graphics window background to match
@@ -358,7 +471,7 @@ void OpenGraphicsWindow(void)
      * and clear the window.
      */
         glui32 background_color;
-        if (glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
+        if (Bottom && glk_style_measure(Bottom, style_Normal, stylehint_BackColor,
                 &background_color)) {
             glk_window_set_background_color(Graphics, background_color);
             glk_window_clear(Graphics);
@@ -375,9 +488,11 @@ void OpenGraphicsWindow(void)
         pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
         winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-            optimal_height, NULL);
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                       optimal_height, NULL);
     }
+    right_margin = optimal_width + x_offset;
 }
 
 void CloseGraphicsWindow(void)
@@ -422,7 +537,8 @@ void *MemAlloc(int size)
 
 int RandomPercent(int n)
 {
-    unsigned int rv = rand() << 6;
+    uint64_t rv = (uint64_t)rand() << 6;
+    rv &= 0xffffffff;
     rv %= 100;
     if (rv < n)
         return (1);
@@ -580,11 +696,13 @@ int LoadDatabase(FILE *f, int loud)
     Item *ip;
     /* Load the header */
 
+    loud = 1;
+
     if (fscanf(f, "%*d %d %d %d %d %d %d %d %d %d %d %d", &ni, &na, &nw, &nr, &mc,
             &pr, &tr, &wl, &lt, &mn, &trm)
         < 10) {
         if (loud)
-            fprintf(stderr, "Invalid database(bad header)\n");
+            debug_print("Invalid database(bad header)\n");
         return 0;
     }
     GameHeader.NumItems = ni;
@@ -607,17 +725,17 @@ int LoadDatabase(FILE *f, int loud)
     GameHeader.TreasureRoom = trm;
 
     if (loud) {
-        fprintf(stderr, "Number of items: %d\n", GameHeader.NumItems);
-        fprintf(stderr, "Number of actions: %d\n", GameHeader.NumActions);
-        fprintf(stderr, "Number of words: %d\n", GameHeader.NumWords);
-        fprintf(stderr, "Word length: %d\n", GameHeader.WordLength);
-        fprintf(stderr, "Number of rooms: %d\n", GameHeader.NumRooms);
-        fprintf(stderr, "Number of messages: %d\n", GameHeader.NumMessages);
-        fprintf(stderr, "Max carried: %d\n", GameHeader.MaxCarry);
-        fprintf(stderr, "Starting location: %d\n", GameHeader.PlayerRoom);
-        fprintf(stderr, "Light time: %d\n", GameHeader.LightTime);
-        fprintf(stderr, "Number of treasures: %d\n", GameHeader.Treasures);
-        fprintf(stderr, "Treasure room: %d\n", GameHeader.TreasureRoom);
+        debug_print("Number of items: %d\n", GameHeader.NumItems);
+        debug_print("Number of actions: %d\n", GameHeader.NumActions);
+        debug_print("Number of words: %d\n", GameHeader.NumWords);
+        debug_print("Word length: %d\n", GameHeader.WordLength);
+        debug_print("Number of rooms: %d\n", GameHeader.NumRooms);
+        debug_print("Number of messages: %d\n", GameHeader.NumMessages);
+        debug_print("Max carried: %d\n", GameHeader.MaxCarry);
+        debug_print("Starting location: %d\n", GameHeader.PlayerRoom);
+        debug_print("Light time: %d\n", GameHeader.LightTime);
+        debug_print("Number of treasures: %d\n", GameHeader.Treasures);
+        debug_print("Treasure room: %d\n", GameHeader.TreasureRoom);
     }
 
     /* Load the actions */
@@ -625,7 +743,7 @@ int LoadDatabase(FILE *f, int loud)
     ct = 0;
     ap = Actions;
     if (loud)
-        fprintf(stderr, "Reading %d actions.\n", na);
+        debug_print("Reading %d actions.\n", na);
     while (ct < na + 1) {
         if (fscanf(f, "%hu %hu %hu %hu %hu %hu %hu %hu",
                 &ap->Vocab,
@@ -643,20 +761,20 @@ int LoadDatabase(FILE *f, int loud)
         }
 
         if (loud) {
-            fprintf(stderr, "Action %d Vocab: %d (%d/%d)\n", ct, ap->Vocab,
+            debug_print("Action %d Vocab: %d (%d/%d)\n", ct, ap->Vocab,
                 ap->Vocab % 150, ap->Vocab / 150);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[0], ap->Condition[0] % 20, ap->Condition[0] / 20);
-            fprintf(stderr, "Action %d Condition[1]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[1]: %d (%d/%d)\n", ct,
                 ap->Condition[1], ap->Condition[1] % 20, ap->Condition[1] / 20);
-            fprintf(stderr, "Action %d Condition[2]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[2]: %d (%d/%d)\n", ct,
                 ap->Condition[2], ap->Condition[2] % 20, ap->Condition[2] / 20);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[3], ap->Condition[3] % 20, ap->Condition[3] / 20);
-            fprintf(stderr, "Action %d Condition[0]: %d (%d/%d)\n", ct,
+            debug_print("Action %d Condition[0]: %d (%d/%d)\n", ct,
                 ap->Condition[4], ap->Condition[4] % 20, ap->Condition[4] / 20);
-            fprintf(stderr, "Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
-            fprintf(stderr, "Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
+            debug_print("Action %d Subcommand [0]]: %d (%d/%d)\n", ct, ap->Subcommand[0], ap->Subcommand[0] % 150, ap->Subcommand[0] / 150);
+            debug_print("Action %d Subcommand [1]]: %d (%d/%d)\n", ct, ap->Subcommand[1], ap->Subcommand[1] % 150, ap->Subcommand[1] / 150);
         }
         ap++;
         ct++;
@@ -664,33 +782,35 @@ int LoadDatabase(FILE *f, int loud)
 
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d word pairs.\n", nw);
+        debug_print("Reading %d word pairs.\n", nw);
     while (ct < nw + 1) {
         Verbs[ct] = ReadString(f);
+        debug_print("Verbs %d:%s.\n", ct, Verbs[ct]);
         Nouns[ct] = ReadString(f);
+        debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
         ct++;
     }
     ct = 0;
     rp = Rooms;
     if (loud)
-        fprintf(stderr, "Reading %d rooms.\n", nr);
+        debug_print("Reading %d rooms.\n", nr);
     while (ct < nr + 1) {
         if (fscanf(f, "%hd %hd %hd %hd %hd %hd", &rp->Exits[0], &rp->Exits[1],
                 &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
                 &rp->Exits[5])
             != 6) {
-            fprintf(stderr, "Bad room line (%d)\n", ct);
+            debug_print("Bad room line (%d)\n", ct);
             FreeDatabase();
             return 0;
         }
 
         rp->Text = ReadString(f);
         if (loud)
-            fprintf(stderr, "Room %d: \"%s\"\n", ct, rp->Text);
+            debug_print("Room %d: \"%s\"\n", ct, rp->Text);
         if (loud) {
-            fprintf(stderr, "Room connections for room %d:\n", ct);
+            debug_print("Room connections for room %d:\n", ct);
             for (int i = 0; i < 6; i++)
-                fprintf(stderr, "Exit %d: %d\n", i, rp->Exits[i]);
+                debug_print("Exit %d: %d\n", i, rp->Exits[i]);
         }
         rp->Image = 255;
         ct++;
@@ -699,21 +819,21 @@ int LoadDatabase(FILE *f, int loud)
 
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d messages.\n", mn);
+        debug_print("Reading %d messages.\n", mn);
     while (ct < mn + 1) {
         Messages[ct] = ReadString(f);
         if (loud)
-            fprintf(stderr, "Message %d: \"%s\"\n", ct, Messages[ct]);
+            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
         ct++;
     }
     ct = 0;
     if (loud)
-        fprintf(stderr, "Reading %d items.\n", ni);
+        debug_print("Reading %d items.\n", ni);
     ip = Items;
     while (ct < ni + 1) {
         ip->Text = ReadString(f);
         if (loud)
-            fprintf(stderr, "Item %d: \"%s\"\n", ct, ip->Text);
+            debug_print("Item %d: \"%s\"\n", ct, ip->Text);
         ip->AutoGet = strchr(ip->Text, '/');
         /* Some games use // to mean no auto get/drop word! */
         if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
@@ -724,14 +844,13 @@ int LoadDatabase(FILE *f, int loud)
                 *t = 0;
         }
         if (fscanf(f, "%hd", &lo) != 1) {
-            fprintf(stderr, "Bad item line (%d)\n", ct);
+            debug_print("Bad item line (%d)\n", ct);
             FreeDatabase();
             return 0;
         }
         ip->Location = (unsigned char)lo;
         if (loud)
-            fprintf(stderr, "Location of item %d: %d, \"%s\"\n", ct, ip->Location,
-                ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
+            debug_print("Location of item %d: %d\n", ct, ip->Location);
         ip->InitialLoc = ip->Location;
         ip++;
         ct++;
@@ -743,20 +862,26 @@ int LoadDatabase(FILE *f, int loud)
         ct++;
     }
     if (fscanf(f, "%d", &ct) != 1) {
-        fprintf(stderr, "Cannot read version\n");
+        debug_print("Cannot read version\n");
         FreeDatabase();
         return 0;
     }
     if (loud)
-        fprintf(stderr, "Version %d.%02d of Adventure \n", ct / 100, ct % 100);
+        debug_print("Version %d.%02d of Adventure ", ct / 100, ct % 100);
     if (fscanf(f, "%d", &ct) != 1) {
-        fprintf(stderr, "Cannot read adventure number\n");
+        debug_print("Cannot read adventure number\n");
         FreeDatabase();
         return 0;
     }
     if (loud)
-        fprintf(stderr, "%d.\nLoad Complete.\n\n", ct);
+        debug_print("%d.\nLoad Complete.\n\n", ct);
+    /* Extra value in at least Hulk */
+    fscanf(f, "%d", &ct);
 	fclose(f);
+    if (ct == 703 && LoadDOSImages()) {
+        CurrentSys = SYS_MSDOS;
+        return HULK_US;
+    }
     return SCOTTFREE;
 }
 
@@ -780,7 +905,7 @@ void DrawImage(int image)
 		return;
     OpenGraphicsWindow();
     if (Graphics == NULL) {
-        fprintf(stderr, "DrawImage: Graphic window NULL?\n");
+        debug_print("DrawImage: Graphic window NULL?\n");
         return;
     }
     if (Game->picture_format_version == 99)
@@ -797,29 +922,41 @@ void DrawRoomImage(void)
 
     int dark = ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
 
-    if (dark && Graphics != NULL && !(Rooms[MyLoc].Image == 255)) {
+    if (dark && Graphics != NULL &&
+        (Rooms[MyLoc].Image != 255 || Game->type == US_VARIANT)) {
         vector_image_shown = -1;
         VectorState = NO_VECTOR_IMAGE;
         glk_request_timer_events(0);
-        DrawBlack();
+        if (Game->type == US_VARIANT) {
+            glk_window_clear(Graphics);
+            DrawUSRoom(0);
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+        } else
+            DrawBlack();
+        return;
+    }
+
+    if (Game->type == US_VARIANT) {
+        LookUS();
         return;
     }
 
     switch (CurrentGame) {
-    case SEAS_OF_BLOOD:
-    case SEAS_OF_BLOOD_C64:
-        SeasOfBloodRoomImage();
-        return;
-    case ROBIN_OF_SHERWOOD:
-    case ROBIN_OF_SHERWOOD_C64:
-        RobinOfSherwoodLook();
-        return;
-    case HULK:
-    case HULK_C64:
-        HulkLook();
-        return;
-    default:
-        break;
+        case SEAS_OF_BLOOD:
+        case SEAS_OF_BLOOD_C64:
+            SeasOfBloodRoomImage();
+            return;
+        case ROBIN_OF_SHERWOOD:
+        case ROBIN_OF_SHERWOOD_C64:
+            RobinOfSherwoodLook();
+            return;
+        case HULK:
+        case HULK_C64:
+            HulkLook();
+            return;
+        default:
+            break;
     }
 
     if (Rooms[MyLoc].Image == 255) {
@@ -851,8 +988,6 @@ void DrawRoomImage(void)
         }
 }
 
-static strid_t room_description_stream = NULL;
-
 static void WriteToRoomDescriptionStream(const char *fmt, ...)
 #ifdef __GNUC__
     __attribute__((__format__(__printf__, 1, 2)))
@@ -873,22 +1008,6 @@ static void WriteToRoomDescriptionStream(const char *fmt, ...)
     glk_put_string_stream(room_description_stream, msg);
 }
 
-static void PrintWindowDelimiter(void)
-{
-    glk_window_get_size(Top, &TopWidth, &TopHeight);
-    glk_window_move_cursor(Top, 0, TopHeight - 1);
-    glk_stream_set_current(glk_window_get_stream(Top));
-    if (Options & SPECTRUM_STYLE)
-        for (int i = 0; i < TopWidth; i++)
-            glk_put_char('*');
-    else {
-        glk_put_char('<');
-        for (int i = 0; i < TopWidth - 2; i++)
-            glk_put_char('-');
-        glk_put_char('>');
-    }
-}
-
 static void ListExitsSpectrumStyle(void)
 {
     int ct = 0;
@@ -897,7 +1016,9 @@ static void ListExitsSpectrumStyle(void)
     while (ct < 6) {
         if ((&Rooms[MyLoc])->Exits[ct] != 0) {
             if (f == 0) {
-                WriteToRoomDescriptionStream("\n\n%s", sys[EXITS]);
+                if (!(Options & PC_STYLE))
+                    WriteToRoomDescriptionStream("\n\n");
+                WriteToRoomDescriptionStream("%s", sys[EXITS]);
             } else {
                 WriteToRoomDescriptionStream("%s", sys[EXITS_DELIMITER]);
             }
@@ -934,80 +1055,6 @@ static void ListExits(void)
     return;
 }
 
-static void FlushRoomDescription(char *buf)
-{
-    glk_stream_close(room_description_stream, 0);
-
-	strid_t StoredTranscript = Transcript;
-	if (!print_look_to_transcript)
-		Transcript = NULL;
-
-    int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
-
-    if (split_screen) {
-        glk_window_clear(Top);
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
-        int rows, length;
-        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
-
-        glui32 bottomheight;
-        glk_window_get_size(Bottom, NULL, &bottomheight);
-        winid_t o2 = glk_window_get_parent(Top);
-        if (!(bottomheight < 3 && TopHeight < rows)) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
-                Top);
-        } else {
-            print_delimiter = 0;
-        }
-
-        int line = 0;
-        int index = 0;
-        int i;
-        char string[TopWidth + 1];
-        for (line = 0; line < rows && index < length; line++) {
-            for (i = 0; i < TopWidth; i++) {
-                string[i] = text_with_breaks[index++];
-                if (string[i] == 10 || string[i] == 13 || index >= length)
-                    break;
-            }
-            if (i < TopWidth + 1) {
-                string[i++] = '\n';
-            }
-            string[i] = 0;
-            if (strlen(string) == 0)
-                break;
-            glk_window_move_cursor(Top, 0, line);
-            Display(Top, "%s", string);
-        }
-
-        if (line < rows - 1) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
-                MIN(rows - 1, TopHeight - 1), Top);
-        }
-
-        free(text_with_breaks);
-    } else {
-        Display(Bottom, "%s", buf);
-    }
-
-    if (print_delimiter) {
-        PrintWindowDelimiter();
-    }
-
-    if (pause_next_room_description) {
-        Delay(0.8);
-        pause_next_room_description = 0;
-    }
-
-	Transcript = StoredTranscript;
-    if (buf != NULL) {
-        free(buf);
-        buf = NULL;
-    }
-}
-
 static int ItemEndsWithPeriod(int item)
 {
 	if (item < 0 || item > GameHeader.NumItems)
@@ -1024,6 +1071,7 @@ static int ItemEndsWithPeriod(int item)
 
 void Look(void)
 {
+    showing_inventory = 0;
     DrawRoomImage();
 
     if (split_screen && Top == NULL)
@@ -1077,7 +1125,7 @@ void Look(void)
             if (f == 0) {
                 WriteToRoomDescriptionStream("%s", sys[YOU_SEE]);
                 f++;
-                if (Options & SPECTRUM_STYLE)
+                if (Options & SPECTRUM_STYLE && !(Options & PC_STYLE))
                     WriteToRoomDescriptionStream("\n");
             } else if (!(Options & (TRS80_STYLE | SPECTRUM_STYLE))) {
                 WriteToRoomDescriptionStream("%s", sys[ITEM_DELIMITER]);
@@ -1092,7 +1140,8 @@ void Look(void)
 
     if ((Options & TI994A_STYLE) && f) {
         WriteToRoomDescriptionStream(".");
-    }
+    } else if (Options & PC_STYLE && !f)
+        WriteToRoomDescriptionStream(". ");
 
     if (Options & SPECTRUM_STYLE) {
         ListExitsSpectrumStyle();
@@ -1100,8 +1149,10 @@ void Look(void)
         WriteToRoomDescriptionStream("\n");
     }
 
-    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF))
+    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF)) {
+        WriteToRoomDescriptionStream("\n");
         ListInventory(1);
+    }
 
     FlushRoomDescription(buf);
 }
@@ -1423,7 +1474,6 @@ void ListInventory(int upper)
 {
     void (*print_function)(const char *fmt, ...);
     if (upper) {
-        WriteToRoomDescriptionStream("\n");
         print_function = WriteToRoomDescriptionStream;
     } else {
         print_function = WriteToLowerWindow;
@@ -1524,7 +1574,7 @@ void MoveItemAToLocOfItemB(int itemA, int itemB)
 void GoToStoredLoc(void)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "switch location to stored location (%d) (%s).\n",
+	debug_print("switch location to stored location (%d) (%s).\n",
 			SavedRoom, Rooms[SavedRoom].Text);
 #endif
 	int t = MyLoc;
@@ -1536,7 +1586,7 @@ void GoToStoredLoc(void)
 void SwapLocAndRoomflag(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "swap location<->roomflag[%d]\n", index);
+	debug_print("swap location<->roomflag[%d]\n", index);
 #endif
 	int temp = MyLoc;
 	MyLoc = RoomSaved[index];
@@ -1557,7 +1607,7 @@ void SwapItemLocations(int itemA, int itemB)
 void PutItemAInRoomB(int itemA, int roomB)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
+	debug_print("Item %d (%s) is put in room %d (%s). MyLoc: %d (%s)\n",
 			itemA, Items[itemA].Text, roomB, Rooms[roomB].Text, MyLoc,
 			Rooms[MyLoc].Text);
 #endif
@@ -1569,13 +1619,13 @@ void PutItemAInRoomB(int itemA, int roomB)
 void SwapCounters(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr,
+	debug_print(
 			"Select a counter. Current counter is swapped with backup "
 			"counter %d\n",
 			index);
 #endif
 	if (index > 15) {
-		fprintf(stderr, "ERROR! parameter out of range. Max 15, got %d\n", index);
+		debug_print("ERROR! parameter out of range. Max 15, got %d\n", index);
 		index = 15;
 	}
 	int temp = CurrentCounter;
@@ -1583,7 +1633,7 @@ void SwapCounters(int index)
 	CurrentCounter = Counters[index];
 	Counters[index] = temp;
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Value of new selected counter is %d\n",
+	debug_print("Value of new selected counter is %d\n",
 			CurrentCounter);
 #endif
 }
@@ -1591,7 +1641,7 @@ void SwapCounters(int index)
 void PrintMessage(int index)
 {
 #ifdef DEBUG_ACTIONS
-	fprintf(stderr, "Print message %d: \"%s\"\n", index,
+	debug_print("Print message %d: \"%s\"\n", index,
 			Messages[index]);
 #endif
 	const char *message = Messages[index];
@@ -1606,7 +1656,7 @@ void PrintMessage(int index)
 void PlayerIsDead(void)
 {
 #ifdef DEBUG_ACTIONS
-    fprintf(stderr, "Player is dead\n");
+    debug_print("Player is dead\n");
 #endif
     Output(sys[IM_DEAD]);
     BitFlags &= ~(1 << DARKBIT);
@@ -1616,7 +1666,7 @@ void PlayerIsDead(void)
 static ActionResultType PerformLine(int ct)
 {
 #ifdef DEBUG_ACTIONS
-    fprintf(stderr, "Performing line %d: ", ct);
+    debug_print("Performing line %d: ", ct);
 #endif
     int continuation = 0, dead = 0;
     int param[5], pptr = 0;
@@ -1629,7 +1679,7 @@ static ActionResultType PerformLine(int ct)
         dv = cv / 20;
         cv %= 20;
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "Testing condition %d: ", cv);
+        debug_print("Testing condition %d: ", cv);
 #endif
         switch (cv) {
         case 0:
@@ -1637,142 +1687,144 @@ static ActionResultType PerformLine(int ct)
             break;
         case 1:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry %s?\n", Items[dv].Text);
+            debug_print("Does the player carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED)
                 return ACT_FAILURE;
             break;
         case 2:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s in location?\n", Items[dv].Text);
+            debug_print("Is %s in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
         case 3:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s held or in location?\n", Items[dv].Text);
+            debug_print("Is %s held or in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != CARRIED && Items[dv].Location != MyLoc)
                 return ACT_FAILURE;
             break;
         case 4:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location %s?\n", Rooms[dv].Text);
+            debug_print("Is location %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc != dv)
                 return ACT_FAILURE;
             break;
         case 5:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in location?\n", Items[dv].Text);
+            debug_print("Is %s NOT in location?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == MyLoc)
                 return ACT_FAILURE;
             break;
         case 6:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player NOT carry %s?\n", Items[dv].Text);
+            debug_print("Does the player NOT carry %s?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED)
                 return ACT_FAILURE;
             break;
         case 7:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is location NOT %s?\n", Rooms[dv].Text);
+            debug_print("Is location NOT %s?\n", Rooms[dv].Text);
 #endif
             if (MyLoc == dv)
                 return ACT_FAILURE;
             break;
         case 8:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d set?\n", dv);
+            debug_print("Is bitflag %d set?\n", dv);
 #endif
             if ((BitFlags & (1 << dv)) == 0)
                 return ACT_FAILURE;
             break;
         case 9:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is bitflag %d NOT set?\n", dv);
+            debug_print("Is bitflag %d NOT set?\n", dv);
 #endif
             if (BitFlags & (1 << dv))
                 return ACT_FAILURE;
             break;
         case 10:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry anything?\n");
+            debug_print("Does the player carry anything?\n");
 #endif
             if (CountCarried() == 0)
                 return ACT_FAILURE;
             break;
         case 11:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Does the player carry nothing?\n");
+            debug_print("Does the player carry nothing?\n");
 #endif
             if (CountCarried())
                 return ACT_FAILURE;
             break;
         case 12:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s neither carried nor in room?\n", Items[dv].Text);
+            debug_print("Is %s neither carried nor in room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == CARRIED || Items[dv].Location == MyLoc)
 				return ACT_FAILURE;
 				break;
         case 13:
+                if (dv > GameHeader.NumItems + 1)
+                    Fatal("Broken database!");
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s (%d) in play?\n", Items[dv].Text, dv);
+            debug_print("Is %s (%d) in play?\n", Items[dv].Text, dv);
 #endif
             if (Items[dv].Location == 0)
 				return ACT_FAILURE;
 				break;
         case 14:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s NOT in play?\n", Items[dv].Text);
+            debug_print("Is %s NOT in play?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location)
 				return ACT_FAILURE;
 				break;
         case 15:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter <= %d?\n", dv);
+            debug_print("Is CurrentCounter <= %d?\n", dv);
 #endif
             if (CurrentCounter > dv)
 				return ACT_FAILURE;
 				break;
         case 16:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is CurrentCounter > %d?\n", dv);
+            debug_print("Is CurrentCounter > %d?\n", dv);
 #endif
             if (CurrentCounter <= dv)
 				return ACT_FAILURE;
 				break;
         case 17:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is %s still in initial room?\n", Items[dv].Text);
+            debug_print("Is %s still in initial room?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location != Items[dv].InitialLoc)
 				return ACT_FAILURE;
 				break;
         case 18:
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Has %s been moved?\n", Items[dv].Text);
+            debug_print("Has %s been moved?\n", Items[dv].Text);
 #endif
             if (Items[dv].Location == Items[dv].InitialLoc)
                return ACT_FAILURE;
 				break;
         case 19: /* Only seen in Brian Howarth games so far */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr, "Is current counter == %d?\n", dv);
+            debug_print("Is current counter == %d?\n", dv);
             if (CurrentCounter != dv)
-                fprintf(stderr, "Nope, current counter is %d\n", CurrentCounter);
+                debug_print("Nope, current counter is %d\n", CurrentCounter);
 #endif
             if (CurrentCounter != dv)
 				return ACT_FAILURE;
 				break;
         }
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "YES\n");
+        debug_print("YES\n");
 #endif
         cc++;
     }
@@ -1791,7 +1843,7 @@ static ActionResultType PerformLine(int ct)
     pptr = 0;
     while (cc < 4) {
 #ifdef DEBUG_ACTIONS
-        fprintf(stderr, "Performing action %d: ", act[cc]);
+        debug_print("Performing action %d: ", act[cc]);
 #endif
         if (act[cc] >= 1 && act[cc] < 52) {
 			PrintMessage(act[cc]);
@@ -1810,7 +1862,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 53:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "item %d (\"%s\") is now in location.\n", param[pptr],
+                debug_print("item %d (\"%s\") is now in location.\n", param[pptr],
                     Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = MyLoc;
@@ -1818,7 +1870,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 54:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "player location is now room %d (%s).\n", param[pptr],
+                debug_print("player location is now room %d (%s).\n", param[pptr],
                     Rooms[param[pptr]].Text);
 #endif
                 MyLoc = param[pptr++];
@@ -1841,20 +1893,20 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 58:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Bitflag %d is set\n", param[pptr]);
+                debug_print("Bitflag %d is set\n", param[pptr]);
 #endif
                 BitFlags |= (1 << param[pptr++]);
                 break;
             case 59:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Item %d (%s) is removed from play.\n", param[pptr],
+                debug_print("Item %d (%s) is removed from play.\n", param[pptr],
                     Items[param[pptr]].Text);
 #endif
                 Items[param[pptr++]].Location = 0;
                 break;
             case 60:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "BitFlag %d is cleared\n", param[pptr]);
+                debug_print("BitFlag %d is cleared\n", param[pptr]);
 #endif
                 BitFlags &= ~(1 << param[pptr++]);
                 break;
@@ -1867,7 +1919,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 63:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Game over.\n");
+                debug_print("Game over.\n");
 #endif
                 DoneIt();
 				dead = 1;
@@ -1883,6 +1935,9 @@ static ActionResultType PerformLine(int ct)
 					AdventureSheet();
 				else
 					ListInventory(0);
+                    if (Game->type == US_VARIANT && has_graphics()) {
+                        UpdateUSInventory();
+                    }
 				StopTime = 2;
                 break;
             case 67:
@@ -1909,7 +1964,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 73:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Continue with next line\n");
+                debug_print("Continue with next line\n");
 #endif
                 continuation = 1;
                 break;
@@ -1922,7 +1977,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 76: /* Looking at adventure .. */
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "LOOK\n");
+                debug_print("LOOK\n");
 #endif
                 if (split_screen)
                     Look();
@@ -1932,7 +1987,7 @@ static ActionResultType PerformLine(int ct)
                 if (CurrentCounter >= 1)
                     CurrentCounter--;
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr,
+                debug_print(
                     "decrementing current counter. Current counter is now %d.\n",
                     CurrentCounter);
 #endif
@@ -1943,7 +1998,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 79:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "CurrentCounter is set to %d.\n", param[pptr]);
+                debug_print("CurrentCounter is set to %d.\n", param[pptr]);
 #endif
                 CurrentCounter = param[pptr++];
                 break;
@@ -1979,13 +2034,13 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 88:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Delay\n");
+                debug_print("Delay\n");
 #endif
                 Delay(1);
                 break;
             case 89:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Action 89, parameter %d\n", param[pptr]);
+                debug_print("Action 89, parameter %d\n", param[pptr]);
 #endif
 				p = param[pptr++];
                 switch (CurrentGame) {
@@ -2011,9 +2066,10 @@ static ActionResultType PerformLine(int ct)
                     break;
                 case GREMLINS:
                 case GREMLINS_SPANISH:
+                case GREMLINS_SPANISH_C64:
                 case GREMLINS_GERMAN:
                 case GREMLINS_GERMAN_C64:
-					GremlinsAction(p);
+					GremlinsAction();
                     break;
                 default:
                     break;
@@ -2022,15 +2078,15 @@ static ActionResultType PerformLine(int ct)
 
 			case 90:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr, "Draw Hulk image, parameter %d\n", param[pptr]);
+                debug_print("Draw Hulk image, parameter %d\n", param[pptr]);
 #endif
-                if (CurrentGame != HULK && CurrentGame != HULK_C64) {
+                if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
                     pptr++;
                 } else if (!(BitFlags & (1 << DARKBIT)))
 					DrawHulkImage(param[pptr++]);
                 break;
             default:
-                fprintf(stderr, "Unknown action %d [Param begins %d %d]\n", act[cc],
+                debug_print("Unknown action %d [Param begins %d %d]\n", act[cc],
                     param[pptr], param[pptr + 1]);
                 break;
             }
@@ -2063,6 +2119,9 @@ static void PrintTakenOrDropped(int index)
 static ExplicitResultType PerformActions(int vb, int no)
 {
     int dark = BitFlags & (1 << DARKBIT);
+    if (Items[LIGHT_SOURCE].Location == MyLoc ||
+        Items[LIGHT_SOURCE].Location == CARRIED)
+        dark = 0;
     int ct = 0;
     ExplicitResultType flag;
     int doagain = 0;
@@ -2076,8 +2135,6 @@ static ExplicitResultType PerformActions(int vb, int no)
     }
     if (vb == 1 && no >= 1 && no <= 6) {
         int nl;
-        if (Items[LIGHT_SOURCE].Location == MyLoc || Items[LIGHT_SOURCE].Location == CARRIED)
-            dark = 0;
         if (dark)
             Output(sys[DANGEROUS_TO_MOVE_IN_DARK]);
         nl = Rooms[MyLoc].Exits[no - 1];
@@ -2106,11 +2163,19 @@ static ExplicitResultType PerformActions(int vb, int no)
         return ER_SUCCESS;
     }
 
-    if ((CurrentGame == HULK || CurrentGame == HULK_C64) && vb == 39 && !dark) {
-        HulkShowImageOnExamine(no);
+    if (!dark) {
+        if ((CurrentGame == HULK || CurrentGame == HULK_C64 || CurrentGame == HULK_US) && vb == 39) {
+            HulkShowImageOnExamine(no);
+        } else if (CurrentGame == COUNT_US && vb == 8) {
+            CountShowImageOnExamineUS(no);
+        } else if (CurrentGame == VOODOO_CASTLE_US && vb == 42) {
+            VoodooShowImageOnExamineUS(no);
+        }
     }
 
     if (CurrentCommand && CurrentCommand->allflag && vb == CurrentCommand->verb && !(dark && vb == TAKE)) {
+        if (!lastwasnewline)
+            Output("\n");
         Output(Items[CurrentCommand->item].Text);
         Output("....");
     }
@@ -2174,8 +2239,6 @@ static ExplicitResultType PerformActions(int vb, int no)
 
     if (flag != ER_SUCCESS) {
         int item = 0;
-        if (Items[LIGHT_SOURCE].Location == MyLoc || Items[LIGHT_SOURCE].Location == CARRIED)
-            dark = 0;
 #if defined(__clang__)
 #pragma mark TAKE
 #endif
@@ -2339,51 +2402,25 @@ int glkunix_startup_code(glkunix_startup_t *data)
             garglk_set_story_name(game_file);
         }
 #endif
+
+        if (game_file) {
+            const char *n;
+            int dirlen = 0;
+            if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
+                dirlen = (int)(n - game_file + 1);
+            }
+            if (dirlen) {
+                DirPath = MemAlloc(dirlen + 1);
+                memcpy(DirPath, game_file, dirlen);
+                DirPath[dirlen] = 0;
+            }
+        }
     }
 
     return 1;
 }
 
-static void PrintTitleScreenBuffer(void) {
-    glk_stream_set_current(glk_window_get_stream(Bottom));
-    glk_set_style(style_User1);
-    ClearScreen();
-    Output(title_screen);
-    free((void *)title_screen);
-    glk_set_style(style_Normal);
-    HitEnter();
-    ClearScreen();
-}
 
-static void PrintTitleScreenGrid(void) {
-    int title_length = strlen(title_screen);
-    int rows = 0;
-    for (int i = 0; i < title_length; i++)
-        if (title_screen[i] == '\n')
-            rows++;
-    winid_t titlewin = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, rows + 2,
-                               wintype_TextGrid, 0);
-    glui32 width, height;
-    glk_window_get_size(titlewin, &width, &height);
-    if (width < 40 || height < rows + 2) {
-        glk_window_close(titlewin, NULL);
-        PrintTitleScreenBuffer();
-        return;
-    }
-    int offset = (width - 40) / 2;
-    int pos = 0;
-    char row[40];
-    row[39] = 0;
-    for (int i = 1; i <= rows; i++) {
-        glk_window_move_cursor(titlewin, offset, i);
-        while (title_screen[pos] != '\n' && pos < title_length)
-            Display(titlewin, "%c", title_screen[pos++]);
-        pos++;
-    }
-    free((void *)title_screen);
-    HitEnter();
-    glk_window_close(titlewin, NULL);
-}
 
 
 
@@ -2409,10 +2446,6 @@ void glk_main(void)
     if (game_file == NULL)
         Fatal("No game provided");
 
-    for (int i = 0; i < MAX_SYSMESS; i++) {
-        sys[i] = sysdict[i];
-    }
-
     const char **dictpointer;
 
     if (Options & YOUARE)
@@ -2420,8 +2453,11 @@ void glk_main(void)
     else
         dictpointer = sysdict_i_am;
 
-    for (int i = 0; i < MAX_SYSMESS && dictpointer[i] != NULL; i++) {
-        sys[i] = dictpointer[i];
+    for (int i = 0; i < MAX_SYSMESS; i++) {
+        if (dictpointer[i] != NULL)
+            sys[i] = dictpointer[i];
+        else
+            sys[i] = sysdict[i];
     }
 
     GameIDType game_type = DetectGame(game_file);
@@ -2463,13 +2499,47 @@ one letter.\n\nDo you want to restore previously saved game?\n",
         ClearScreen();
     }
 
-    OpenTopWindow();
+    if (Game->type == US_VARIANT) {
+        if (has_graphics()) {
+            ImageWidth = 280;
+            if (ImageHeight < 158)
+                ImageHeight = 158;
+            DrawTitleImage();
+            OpenGraphicsWindow();
+            sys[MESSAGE_DELIMITER] = " ";
+            sys[ITEM_DELIMITER] = ". ";
+            sys[EXITS_DELIMITER] = " ";
+            sys[YOU_ARE] = "I am in a ";
+            sys[YOU_SEE] = ". Visible: ";
+            sys[INVENTORY] = "I've got: ";
+            sys[NOTHING] = "Nothing at all. ";
+            sys[EXITS] = "Some exits: ";
+            if (CurrentSys == SYS_MSDOS)
+                sys[WHAT_NOW] = "Command me? ";
+            else
+                sys[WHAT_NOW] = "What shall I do? ";
+            sys[NORTH] = "NORTH";
+            sys[EAST] = "EAST";
+            sys[SOUTH] = "SOUTH";
+            sys[WEST] = "WEST";
+            sys[UP] = "UP";
+            sys[DOWN] = "DOWN";
+
+            Options |= PC_STYLE;
+        } else {
+            CurrentGame = SCOTTFREE;
+            Game->type = NO_TYPE;
+            game_type = SCOTTFREE;
+        }
+    }
 
     if (game_type == SCOTTFREE)
         Output("\
 Scott Free, A Scott Adams game driver in C.\n\
 Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
+
+    OpenTopWindow();
 
 #ifdef SPATTERLIGHT
 	UpdateSettings();
@@ -2543,3 +2613,6 @@ Distributed under the GNU software license\n\n");
 			StopTime--;
     }
 }
+
+
+

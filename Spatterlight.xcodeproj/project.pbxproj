@@ -543,6 +543,14 @@
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
+		C30C7AD428CA2BC800D293BE /* MrCross.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD228CA2BC800D293BE /* MrCross.c */; };
+		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
+		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
+		C30C7ADC28CA2C2100D293BE /* pcdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADB28CA2C2100D293BE /* pcdraw.c */; };
+		C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADD28CA2C2E00D293BE /* apple2draw.c */; };
+		C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */; };
+		C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AE128CA2C4F00D293BE /* sagagraphics.c */; };
+		C30C7AEB28CB1A7A00D293BE /* woz2nib.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AEA28CB1A7A00D293BE /* woz2nib.c */; };
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30DAE8027EBA06A006C90FB /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE7E27EBA06A006C90FB /* decompressz80.c */; };
 		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
@@ -681,6 +689,7 @@
 		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
+		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3998E2326C97A5C002C1E5D /* AGT-03201-0000E16C.ico in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2226C97A5B002C1E5D /* AGT-03201-0000E16C.ico */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
@@ -700,7 +709,7 @@
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
-		C3A9FD3327A6E56C0032C068 /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* gameinfo.c */; };
+		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
 		C3AD640926176589008614C5 /* MarginContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD640826176589008614C5 /* MarginContainer.m */; };
 		C3AD642526176737008614C5 /* BufferTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD642426176737008614C5 /* BufferTextView.m */; };
@@ -752,6 +761,7 @@
 		C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B7280F2667934100E9B08D /* NSImage+Categories.m */; };
 		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
 		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
+		C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BCB7D628E8EBBB00D590ED /* titleimage.c */; };
 		C3BD2E8B2874888E0019F676 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3BD2E882874888E0019F676 /* c64decrunch.c */; };
 		C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */; };
 		C3C0EE65278BBF750044A615 /* gremlins.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0EE64278BBF750044A615 /* gremlins.c */; };
@@ -814,6 +824,7 @@
 		C3E1938128628E8400E3B013 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E1937E28628E8400E3B013 /* restorestate.c */; };
 		C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
 		C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
+		C3E49E1528D8AC0D009B94E7 /* ciderpress.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E49E1428D8AC0D009B94E7 /* ciderpress.c */; };
 		C3EAD77F26D4539500AF31AF /* tildeath.gam in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD77E26D4539500AF31AF /* tildeath.gam */; };
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
@@ -2857,9 +2868,22 @@
 		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
+		C30C7AD228CA2BC800D293BE /* MrCross.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MrCross.c; sourceTree = "<group>"; };
+		C30C7AD528CA2C0300D293BE /* apple2detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple2detect.h; sourceTree = "<group>"; };
+		C30C7AD628CA2C0300D293BE /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
+		C30C7AD728CA2C0300D293BE /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
+		C30C7AD828CA2C0300D293BE /* apple2detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = apple2detect.c; sourceTree = "<group>"; };
+		C30C7ADB28CA2C2100D293BE /* pcdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pcdraw.c; sourceTree = "<group>"; };
+		C30C7ADD28CA2C2E00D293BE /* apple2draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = apple2draw.c; sourceTree = "<group>"; };
+		C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
+		C30C7AE128CA2C4F00D293BE /* sagagraphics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagagraphics.c; sourceTree = "<group>"; };
+		C30C7AE228CA2C4F00D293BE /* sagagraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagagraphics.h; sourceTree = "<group>"; };
+		C30C7AE928CB1A7A00D293BE /* woz2nib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = woz2nib.h; sourceTree = "<group>"; };
+		C30C7AEA28CB1A7A00D293BE /* woz2nib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = woz2nib.c; sourceTree = "<group>"; };
 		C30DAE6327EB06E6006C90FB /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
 		C30DAE7E27EBA06A006C90FB /* decompressz80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
 		C30DAE7F27EBA06A006C90FB /* decompressz80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
+		C30E10C128D61C57005A220D /* apple2draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2draw.h; sourceTree = "<group>"; };
 		C30E9624289929AC00590271 /* stdetect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdetect.h; sourceTree = "<group>"; };
 		C30E9625289929AC00590271 /* stdetect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stdetect.c; sourceTree = "<group>"; };
 		C30E9BAE289B264600B42825 /* apple2detect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2detect.h; sourceTree = "<group>"; };
@@ -3058,6 +3082,10 @@
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
+		C39613FB28E5A5E100A13624 /* ciderpress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ciderpress.h; sourceTree = "<group>"; };
+		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
+		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
+		C396140028E6112100A13624 /* pcdraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pcdraw.h; sourceTree = "<group>"; };
 		C396E8EF2732B2CE0090B5DF /* quest4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest4.c; sourceTree = "<group>"; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2126C97A4E002C1E5D /* AGT-03201-0000E16C.agx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AGT-03201-0000E16C.agx"; sourceTree = "<group>"; };
@@ -3094,7 +3122,7 @@
 		C3A3EA18284BAF1100C8A693 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3A9FD3227A6E56C0032C068 /* gameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottgameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3AD63D22617648D008614C5 /* MyAttachmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttachmentCell.h; sourceTree = "<group>"; };
 		C3AD63D32617648D008614C5 /* MyAttachmentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttachmentCell.m; sourceTree = "<group>"; };
 		C3AD640726176589008614C5 /* MarginContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarginContainer.h; sourceTree = "<group>"; };
@@ -3111,6 +3139,7 @@
 		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
 		C3B148AF27FD881400844708 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C3B148B127FD881400844708 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
+		C3B2EDC928F04768005C555D /* debugprint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debugprint.h; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -3164,10 +3193,12 @@
 		C3B9EB6625FA3AEF002A406E /* ColorTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTransformer.h; sourceTree = "<group>"; };
 		C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = ColorTransformer.m; sourceTree = "<group>"; };
 		C3BB6A7026FC93FE009BE6DE /* h_le_c11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = h_le_c11.h; sourceTree = "<group>"; };
+		C3BCB7D528E8EBBB00D590ED /* titleimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = titleimage.h; sourceTree = "<group>"; };
+		C3BCB7D628E8EBBB00D590ED /* titleimage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = titleimage.c; sourceTree = "<group>"; };
 		C3BD2E862874888E0019F676 /* c64decrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; };
 		C3BD2E882874888E0019F676 /* c64decrunch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; };
 		C3BD71E32630E3350061E55C /* Spatterlight 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 7.xcdatamodel"; sourceTree = "<group>"; };
-		C3C0EE5F278B96CF0044A615 /* gameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameinfo.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C0EE5F278B96CF0044A615 /* scottgameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottgameinfo.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robinofsherwood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = robinofsherwood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C0EE63278BBF750044A615 /* gremlins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gremlins.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -3200,7 +3231,8 @@
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
 		C3C72B6D278CB0F900E095A6 /* detectgame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detectgame.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detectgame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detectgame.c; sourceTree = "<group>"; usesTabs = 0; };
-		C3C72B71278CC21200E095A6 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C72B71278CC21200E095A6 /* scottdefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottdefines.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C97EC028CB597200AFB837 /* atari8c64draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atari8c64draw.h; sourceTree = "<group>"; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
 		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
@@ -3262,6 +3294,7 @@
 		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
 		C3E2EAB225D08EEC0012B7FB /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
+		C3E49E1428D8AC0D009B94E7 /* ciderpress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ciderpress.c; sourceTree = "<group>"; };
 		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
@@ -5737,50 +5770,28 @@
 		C318F7692741AA5B006D626A /* scott */ = {
 			isa = PBXGroup;
 			children = (
+				C318F76C2741AA5B006D626A /* README */,
 				C318F76D2741AA5B006D626A /* scott.h */,
 				C318F76A2741AA5B006D626A /* scott.c */,
-				C318F76C2741AA5B006D626A /* README */,
-				C3C0EE5F278B96CF0044A615 /* gameinfo.h */,
-				C3A9FD3227A6E56C0032C068 /* gameinfo.c */,
-				C3C72B71278CC21200E095A6 /* definitions.h */,
+				C3BCB7D528E8EBBB00D590ED /* titleimage.h */,
+				C3BCB7D628E8EBBB00D590ED /* titleimage.c */,
+				C3C0EE5F278B96CF0044A615 /* scottgameinfo.h */,
+				C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */,
+				C3C72B71278CC21200E095A6 /* scottdefines.h */,
 				C3C72B6D278CB0F900E095A6 /* detectgame.h */,
 				C3C72B6E278CB0F900E095A6 /* detectgame.c */,
-				C3C0EE66278BCA4D0044A615 /* decompresstext.h */,
-				C3C0EE67278BCA4D0044A615 /* decompresstext.c */,
-				C386D632279E4C4D00D3BA46 /* decompressz80.h */,
-				C386D62F279E24B700D3BA46 /* decompressz80.c */,
-				C3A9FD2F27A676630032C068 /* c64decrunch.h */,
-				C3A9FD3027A676630032C068 /* c64decrunch.c */,
-				C30FAD5C27B7D41000BD20B9 /* load_ti99_4a.h */,
-				C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */,
-				C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */,
-				C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */,
 				C3C0EE69278BCA700044A615 /* restorestate.h */,
 				C3C0EE6A278BCA700044A615 /* restorestate.c */,
 				C317CE4A278DB5AD00D85288 /* layouttext.h */,
 				C317CE4B278DB5AD00D85288 /* layouttext.c */,
+				C3B2EDC928F04768005C555D /* debugprint.h */,
 				C318F76B2741AA5B006D626A /* bsd.h */,
 				C318F76E2741AA5B006D626A /* bsd.c */,
-				C3109FC72798B18900854ED0 /* debug.h */,
-				C3109FC82798B18900854ED0 /* debug.c */,
 				C3109FCB2798B19F00854ED0 /* parser.h */,
 				C3109FCC2798B19F00854ED0 /* parser.c */,
-				C31DB980276E961F00547C9C /* sagadraw.h */,
-				C31DB982276E961F00547C9C /* sagadraw.c */,
-				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
-				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
-				C38A881127D2092500AE917E /* ringbuffer.h */,
-				C38A881227D2092500AE917E /* ringbuffer.c */,
-				C3C0EE63278BBF750044A615 /* gremlins.h */,
-				C3C0EE64278BBF750044A615 /* gremlins.c */,
-				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
-				C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */,
-				C3836ED42789B553004B5061 /* seasofblood.h */,
-				C3836ED52789B553004B5061 /* seasofblood.c */,
-				C3100F5B27972E850027D6FF /* hulk.h */,
-				C3100F5C27972E850027D6FF /* hulk.c */,
-				C37391D927A25D03009147EF /* game_specific.h */,
-				C37391DA27A25D04009147EF /* game_specific.c */,
+				C3F210E428E61A2500BF5BCE /* ai_uk */,
+				C39613FF28E60D6600A13624 /* saga */,
+				C3F210E528E61A8300BF5BCE /* ti994a */,
 			);
 			path = scott;
 			sourceTree = "<group>";
@@ -5906,9 +5917,9 @@
 			children = (
 				C37EC5922847A9E00084B841 /* definitions.h */,
 				C3A3EA18284BAF1100C8A693 /* common.h */,
+				C37EC5902847A9E00084B841 /* plusmain.c */,
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
-				C37EC5902847A9E00084B841 /* plusmain.c */,
 				C37EC58F2847A9E00084B841 /* layouttext.h */,
 				C37EC58E2847A9E00084B841 /* layouttext.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
@@ -5937,6 +5948,31 @@
 				C30E9625289929AC00590271 /* stdetect.c */,
 			);
 			path = plus;
+			sourceTree = "<group>";
+		};
+		C39613FF28E60D6600A13624 /* saga */ = {
+			isa = PBXGroup;
+			children = (
+				C39613FC28E5D0B300A13624 /* saga.h */,
+				C39613FD28E5D0B300A13624 /* saga.c */,
+				C30C7AE228CA2C4F00D293BE /* sagagraphics.h */,
+				C30C7AE128CA2C4F00D293BE /* sagagraphics.c */,
+				C396140028E6112100A13624 /* pcdraw.h */,
+				C30C7ADB28CA2C2100D293BE /* pcdraw.c */,
+				C30C7AD528CA2C0300D293BE /* apple2detect.h */,
+				C30C7AD828CA2C0300D293BE /* apple2detect.c */,
+				C30E10C128D61C57005A220D /* apple2draw.h */,
+				C30C7ADD28CA2C2E00D293BE /* apple2draw.c */,
+				C30C7AD628CA2C0300D293BE /* atari8detect.h */,
+				C30C7AD728CA2C0300D293BE /* atari8detect.c */,
+				C3C97EC028CB597200AFB837 /* atari8c64draw.h */,
+				C30C7ADE28CA2C2E00D293BE /* atari8c64draw.c */,
+				C30C7AE928CB1A7A00D293BE /* woz2nib.h */,
+				C30C7AEA28CB1A7A00D293BE /* woz2nib.c */,
+				C39613FB28E5A5E100A13624 /* ciderpress.h */,
+				C3E49E1428D8AC0D009B94E7 /* ciderpress.c */,
+			);
+			path = saga;
 			sourceTree = "<group>";
 		};
 		C3AD639F2617642F008614C5 /* GlkTextBufferWindow */ = {
@@ -6174,6 +6210,7 @@
 				C3F09D4228888F890035DAC2 /* Expert.c */,
 				C3F09D4328888F890035DAC2 /* Cruel.c */,
 				C3F09D4428888F890035DAC2 /* Megabyte.c */,
+				C30C7AD228CA2BC800D293BE /* MrCross.c */,
 				C3F09D4528888F890035DAC2 /* ByteBoiler.c */,
 				C3F09D4628888F890035DAC2 /* TBCMultiComp.c */,
 				C3F09D4728888F890035DAC2 /* Exomizer.c */,
@@ -6189,6 +6226,48 @@
 				C3F09D5128888F890035DAC2 /* Section8.c */,
 			);
 			path = scanners;
+			sourceTree = "<group>";
+		};
+		C3F210E428E61A2500BF5BCE /* ai_uk */ = {
+			isa = PBXGroup;
+			children = (
+				C3C0EE63278BBF750044A615 /* gremlins.h */,
+				C3C0EE64278BBF750044A615 /* gremlins.c */,
+				C3C0EE60278BB9CE0044A615 /* robinofsherwood.h */,
+				C3C0EE61278BB9CE0044A615 /* robinofsherwood.c */,
+				C3836ED42789B553004B5061 /* seasofblood.h */,
+				C3836ED52789B553004B5061 /* seasofblood.c */,
+				C3100F5B27972E850027D6FF /* hulk.h */,
+				C3100F5C27972E850027D6FF /* hulk.c */,
+				C37391D927A25D03009147EF /* game_specific.h */,
+				C37391DA27A25D04009147EF /* game_specific.c */,
+				C31DB980276E961F00547C9C /* sagadraw.h */,
+				C31DB982276E961F00547C9C /* sagadraw.c */,
+				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
+				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
+				C38A881127D2092500AE917E /* ringbuffer.h */,
+				C38A881227D2092500AE917E /* ringbuffer.c */,
+				C3109FC72798B18900854ED0 /* debug.h */,
+				C3109FC82798B18900854ED0 /* debug.c */,
+				C3A9FD2F27A676630032C068 /* c64decrunch.h */,
+				C3A9FD3027A676630032C068 /* c64decrunch.c */,
+				C3C0EE66278BCA4D0044A615 /* decompresstext.h */,
+				C3C0EE67278BCA4D0044A615 /* decompresstext.c */,
+				C386D632279E4C4D00D3BA46 /* decompressz80.h */,
+				C386D62F279E24B700D3BA46 /* decompressz80.c */,
+			);
+			path = ai_uk;
+			sourceTree = "<group>";
+		};
+		C3F210E528E61A8300BF5BCE /* ti994a */ = {
+			isa = PBXGroup;
+			children = (
+				C30FAD5C27B7D41000BD20B9 /* load_ti99_4a.h */,
+				C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */,
+				C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */,
+				C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */,
+			);
+			path = ti994a;
 			sourceTree = "<group>";
 		};
 		C3F53C5B271BB8BE00538393 /* BlorbFramework */ = {
@@ -6947,7 +7026,7 @@
 		961CCE6009F2375A00528FF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					6D8BCAD5225E4ACF00696057 = {
 						DevelopmentTeam = 6U7YY3724Y;
@@ -8048,25 +8127,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3109FCD2798B19F00854ED0 /* parser.c in Sources */,
+				C3BCB7D728E8EBBB00D590ED /* titleimage.c in Sources */,
+				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
+				C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C3109FC92798B18900854ED0 /* debug.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detectgame.c in Sources */,
 				C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */,
+				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
+				C39613FE28E5D0B300A13624 /* saga.c in Sources */,
+				C30C7ADC28CA2C2100D293BE /* pcdraw.c in Sources */,
 				C3C0EE62278BB9CE0044A615 /* robinofsherwood.c in Sources */,
 				C3C0EE6B278BCA700044A615 /* restorestate.c in Sources */,
 				C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */,
+				C30C7ADF28CA2C2E00D293BE /* apple2draw.c in Sources */,
 				C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */,
 				C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */,
+				C30C7AEB28CB1A7A00D293BE /* woz2nib.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
 				C3C0EE65278BBF750044A615 /* gremlins.c in Sources */,
 				C3836ED82789B569004B5061 /* seasofblood.c in Sources */,
 				C386D631279E24B700D3BA46 /* decompressz80.c in Sources */,
+				C3E49E1528D8AC0D009B94E7 /* ciderpress.c in Sources */,
 				C3C0EE68278BCA4D0044A615 /* decompresstext.c in Sources */,
-				C3A9FD3327A6E56C0032C068 /* gameinfo.c in Sources */,
+				C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */,
 				C31DB983276E961F00547C9C /* sagadraw.c in Sources */,
+				C30C7AE028CA2C2E00D293BE /* atari8c64draw.c in Sources */,
 				C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8183,6 +8272,7 @@
 				C3F09D98288893040035DAC2 /* Section8.c in Sources */,
 				C3F09D99288893040035DAC2 /* unp64.c in Sources */,
 				C3F09D9A288893040035DAC2 /* 6502emu.c in Sources */,
+				C30C7AD428CA2BC800D293BE /* MrCross.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8583,6 +8673,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8606,6 +8697,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -8627,6 +8719,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8664,6 +8757,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -8697,6 +8791,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8736,6 +8831,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -8763,6 +8859,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = automatic;
@@ -8783,6 +8880,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8805,6 +8903,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -8828,6 +8927,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -8844,8 +8944,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 0.9.7;
-				APP_VERSION = 0.9.7;
+				APP_BUILD = 0.9.8;
+				APP_VERSION = 0.9.8;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -8870,6 +8970,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -8892,8 +8993,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 0.9.7;
-				APP_VERSION = 0.9.7;
+				APP_BUILD = 0.9.8;
+				APP_VERSION = 0.9.8;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -8919,6 +9020,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
@@ -8942,6 +9044,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -8964,6 +9067,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -8984,6 +9088,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8999,6 +9104,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
@@ -9024,6 +9130,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0.9.7;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9121,6 +9228,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9141,6 +9249,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9161,6 +9270,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9189,6 +9299,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9215,6 +9326,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9245,6 +9357,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9274,6 +9387,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9301,6 +9415,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9327,6 +9442,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9348,6 +9464,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
@@ -9367,6 +9484,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9395,6 +9513,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
@@ -9422,6 +9541,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9448,6 +9568,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9474,6 +9595,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9505,6 +9627,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
@@ -9536,6 +9659,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9571,6 +9695,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -9604,6 +9729,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9631,6 +9757,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -9656,6 +9783,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9681,6 +9809,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9705,6 +9834,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -9726,6 +9856,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -9743,9 +9874,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = DEBUG;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
@@ -9759,6 +9892,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -9780,6 +9914,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9827,6 +9962,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -9870,6 +10006,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9904,6 +10041,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
@@ -9938,6 +10076,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -9981,6 +10120,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -10125,6 +10265,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10170,6 +10311,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10208,6 +10350,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10249,6 +10392,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10378,6 +10522,7 @@
 				CODE_SIGN_ENTITLEMENTS = plus.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10415,6 +10560,7 @@
 				CODE_SIGN_ENTITLEMENTS = plus.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10448,6 +10594,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -10492,6 +10639,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -10531,6 +10679,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -10576,6 +10725,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -10614,6 +10764,7 @@
 				CODE_SIGN_ENTITLEMENTS = taylor.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10658,6 +10809,7 @@
 				CODE_SIGN_ENTITLEMENTS = taylor.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -10695,6 +10847,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10733,6 +10886,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10766,6 +10920,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10804,6 +10959,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10841,6 +10997,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10894,6 +11051,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

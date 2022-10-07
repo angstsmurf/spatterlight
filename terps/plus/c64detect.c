@@ -51,6 +51,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
             *newlength = di_read(c64file, buf, 0xffff);
             file = MemAlloc(*newlength);
             memcpy(file, buf, *newlength);
+            free(c64file);
         }
         int numfiles;
         char **filenames = get_all_file_names(d64, &numfiles);
@@ -77,6 +78,7 @@ static uint8_t *get_file_named(uint8_t *data, size_t length, size_t *newlength,
                     Images[i].Size = di_read(c64file, buf, 0xffff);
                     Images[i].Data = MemAlloc(Images[i].Size);
                     memcpy(Images[i].Data, buf, Images[i].Size);
+                    free(c64file);
                 }
             }
             Images[imgindex].Filename = NULL;

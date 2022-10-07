@@ -13,13 +13,12 @@
 extern int x, y, count;
 extern int xlen, ylen;
 extern int xoff, yoff;
-extern int size;
 
 typedef uint8_t RGB[3];
 
 extern winid_t Graphics;
 
-void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color);
 
 static void DrawA8C64Pixels(int pattern, int pattern2)
 {
@@ -331,10 +330,11 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     x = 0; y = 0;
 
-    ptr += 2;
+    ptr += 4;
 
-    work = *ptr++;
-    size = work + *ptr++ * 256;
+    // Comment this out until we start using it
+//    work = *ptr++;
+//    size_t size = work + *ptr++ * 256;
 
     // Get the offset
     xoff = *ptr++ - 3;

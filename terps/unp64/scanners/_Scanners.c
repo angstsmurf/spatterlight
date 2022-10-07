@@ -36,8 +36,8 @@ Scnptr ScanFunc[] = {
     //    ,Scn_BetaDynamic
     //    ,Scn_DarkSqueezer
     ,
-    Scn_ByteBoiler
-    //    ,Scn_MrCross
+    Scn_ByteBoiler,
+    Scn_MrCross
     //    ,Scn_1001card
     //    ,Scn_WDRsoftp
     //    ,Scn_DSCcoder
@@ -1627,9 +1627,9 @@ void PrintInfo(unpstr *Unp, int id) {
     //    case _I_MRCROSS1:
     //    fprintf(stderr, DEPMASK2,"Mr.Cross","v1.x",Unp->DepAdr);
     //    break;
-    //    case _I_MRCROSS2:
-    //    fprintf(stderr, DEPMASK2,"Mr.Cross","v2.x",Unp->DepAdr);
-    //    break;
+        case _I_MRCROSS2:
+        fprintf(stderr, DEPMASK2,"Mr.Cross","v2.x",Unp->DepAdr);
+        break;
     //    case _I_MRDCR1:
     //    sprintf(appstr,"%s %s","Marauder","Cruncher");
     //    fprintf(stderr, DEPMASK2,appstr,"v1.x",Unp->DepAdr);
