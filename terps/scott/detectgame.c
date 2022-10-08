@@ -130,12 +130,9 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
     int nv = info.number_of_verbs;
     int nn = info.number_of_nouns;
 
-    for (int i = 0; i <= MAX(nn, nw) - nv; i++) {
-        Verbs[nv + i] = ".\0";
-    }
-
-    for (int i = 0; i <= MAX(nn, nw) - nn; i++) {
-        Nouns[nn + i] = ".\0";
+    for (int i = 0; i < nw + 2; i++) {
+        Verbs[i] = ".";
+        Nouns[i] = ".";
     }
 
     do {

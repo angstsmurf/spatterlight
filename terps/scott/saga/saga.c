@@ -367,8 +367,8 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
     GameHeader.NumWords = nw;
     GameHeader.WordLength = wl;
-    Verbs = MemAlloc(sizeof(char *) * (nw + 1));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 1));
+    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
+    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
     GameHeader.NumRooms = nr;
     Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
     GameHeader.MaxCarry = mc;

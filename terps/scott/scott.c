@@ -711,8 +711,8 @@ int LoadDatabase(FILE *f, int loud)
     Actions = (Action *)MemAlloc(sizeof(Action) * (na + 1));
     GameHeader.NumWords = nw;
     GameHeader.WordLength = wl;
-    Verbs = MemAlloc(sizeof(char *) * (nw + 1));
-    Nouns = MemAlloc(sizeof(char *) * (nw + 1));
+    Verbs = MemAlloc(sizeof(char *) * (nw + 2));
+    Nouns = MemAlloc(sizeof(char *) * (nw + 2));
     GameHeader.NumRooms = nr;
     Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
     GameHeader.MaxCarry = mc;
