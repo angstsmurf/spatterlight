@@ -780,11 +780,13 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
         DIError error = CalcSectorAndOffset(track, sector, &pOffset, &pNewSector);
         if (error != kDIErrNone) {
             fprintf(stderr, "Error while calculating sector and offset of nib!\n");
+            free(result);
             return NULL;
         }
         error = ReadNibbleSector(track, pNewSector, buf);
         if (error != kDIErrNone) {
             fprintf(stderr, "Error while reading nibble sector!\n");
+            free(result);
             return NULL;
         }
         sector++;
