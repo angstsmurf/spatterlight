@@ -582,7 +582,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
         text[charindex] = c;
         if (c == 0) {
             rp->Text = MemAlloc(charindex + 1);
-            strcpy(rp->Text, text);
+            strncpy(rp->Text, text, charindex + 1);
             if (info.number_of_pictures > 0)
                 rp->Image = ct - 1;
             else
@@ -592,6 +592,8 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             charindex = 0;
         } else {
             charindex++;
+            if (charindex > 255)
+                break;
         }
         if (c != 0 && !isascii(c))
             return 0;
@@ -610,11 +612,13 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
         text[charindex] = c;
         if (c == 0) {
             Messages[ct] = MemAlloc(charindex + 1);
-            strcpy((char *)Messages[ct], text);
+            strncpy((char *)Messages[ct], text, charindex + 1);
             ct++;
             charindex = 0;
         } else {
             charindex++;
+            if (charindex > 255)
+                break;
         }
     }
 
@@ -632,7 +636,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
         text[charindex] = c;
         if (c == 0) {
             ip->Text = MemAlloc(charindex + 1);
-            strcpy(ip->Text, text);
+            strncpy(ip->Text, text, charindex + 1);
             ip->AutoGet = strchr(ip->Text, '/');
             /* Some games use // to mean no auto get/drop word! */
             if (ip->AutoGet && strcmp(ip->AutoGet, "//") && strcmp(ip->AutoGet, "/*")) {
@@ -646,6 +650,8 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             charindex = 0;
         } else {
             charindex++;
+            if (charindex > 255)
+                break;
         }
     } while (ct < ni + 1);
 
@@ -933,7 +939,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 text[charindex] = c;
                 if (c == 0) {
                     rp->Text = MemAlloc(charindex + 1);
-                    strcpy(rp->Text, text);
+                    strncpy(rp->Text, text, charindex + 1);
                     if (loud)
                         debug_print("Room %d: %s\n", ct, rp->Text);
                     ct++;
@@ -941,6 +947,8 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                     charindex = 0;
                 } else {
                     charindex++;
+                    if (charindex > 255)
+                        break;
                 }
                 if (c != 0 && !isascii(c))
                     return 0;
@@ -999,13 +1007,16 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             text[charindex] = c;
             if (c == 0) {
                 Messages[ct] = MemAlloc(charindex + 1);
-                strcpy((char *)Messages[ct], text);
+                strncpy((char *)Messages[ct], text, charindex + 1);
                 if (loud)
                     debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
                 ct++;
                 charindex = 0;
             } else {
                 charindex++;
+                if (charindex > 255)
+                    break;
+
             }
         }
     }
@@ -1046,7 +1057,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
             text[charindex] = c;
             if (c == 0) {
                 ip->Text = MemAlloc(charindex + 1);
-                strcpy(ip->Text, text);
+                strncpy(ip->Text, text, charindex + 1);
                 if (loud)
                     debug_print("Item %d: %s\n", ct, ip->Text);
                 ip->AutoGet = strchr(ip->Text, '/');
@@ -1062,6 +1073,8 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                 charindex = 0;
             } else {
                 charindex++;
+                if (charindex > 255)
+                    break;
             }
         } while (ct < ni + 1);
     }

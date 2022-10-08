@@ -567,7 +567,7 @@ const char *MapSynonym(int noun)
         if (*tp == '*')
             tp++;
         else
-            strcpy(lastword, tp);
+            strncpy(lastword, tp, GameHeader.WordLength + 1);
         if (n == noun)
             return (lastword);
         n++;
