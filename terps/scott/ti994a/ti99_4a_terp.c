@@ -279,7 +279,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 
         case 222: /* move item p to room 0 */
 #ifdef DEBUG_ACTIONS
-            fprintf(stderr,
+            debug_print(
                 "Item %d (%s) is removed from the game (put in room 0).\n",
                     *ptr, Items[*ptr].Text);
 #endif

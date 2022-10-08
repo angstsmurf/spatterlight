@@ -1879,7 +1879,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 55:
 #ifdef DEBUG_ACTIONS
-                fprintf(stderr,
+                debug_print(
                     "Item %d (%s) is removed from the game (put in room 0).\n",
                     param[pptr], Items[param[pptr]].Text);
 #endif
