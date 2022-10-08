@@ -142,7 +142,7 @@ int WeAreBigEndian = 0;
 #define TRS80_LINE \
     "\n<------------------------------------------------------------>\n"
 
-#define DEBUG_ACTIONS
+//#define DEBUG_ACTIONS
 
 static void RestartGame(void);
 static int YesOrNo(void);
