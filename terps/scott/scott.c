@@ -2613,6 +2613,3 @@ Distributed under the GNU software license\n\n");
 			StopTime--;
     }
 }
-
-
-

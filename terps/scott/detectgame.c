@@ -1203,7 +1203,7 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr) {
     uint8_t bVar1;
     uint8_t bVar2;
     uint8_t bVar4;
-    short sVar3;
+    uint16_t sVar3;
     uint8_t *pbVar5;
 
     if (dataptr - 3 < entire_file)
@@ -1238,8 +1238,6 @@ uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr) {
     } while (start != end && dataptr - 3 > entire_file);
     return dataptr;
 }
-
-//size_t writeToFile(const char *name, uint8_t *data, size_t size);
 
 GameIDType DetectZXSpectrum(void) {
     GameIDType detectedGame = UNKNOWN_GAME;
