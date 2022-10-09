@@ -7,7 +7,9 @@
 #include <strings.h>
 
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 #include "glkstart.h"
 
 #include "taylor.h"
@@ -276,6 +278,7 @@ void CloseGraphicsWindow(void);
 
 
 void UpdateSettings(void) {
+#ifdef SPATTERLIGHT
     if (gli_sa_delays)
         Options &= ~NO_DELAYS;
     else
@@ -304,7 +307,7 @@ void UpdateSettings(void) {
             Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
             break;
     }
-
+#endif
     palette_type previous_pal = palchosen;
     if (Options & FORCE_PALETTE_ZX)
         palchosen = ZXOPT;
@@ -378,8 +381,10 @@ void CloseGraphicsWindow(void)
 
 void OpenGraphicsWindow(void)
 {
+#ifdef SPATTERLIGHT
     if (!gli_enable_graphics)
         return;
+#endif
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 
     if (Top == NULL)

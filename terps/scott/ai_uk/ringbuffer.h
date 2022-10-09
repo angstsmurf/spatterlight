@@ -8,8 +8,9 @@
 #ifndef ringbuffer_h
 #define ringbuffer_h
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 // Opaque circular buffer structure
 typedef struct circular_buf_t circular_buf_t;

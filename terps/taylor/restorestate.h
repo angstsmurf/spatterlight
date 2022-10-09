@@ -8,6 +8,8 @@
 #ifndef restorestate_h
 #define restorestate_h
 
+#include <stdlib.h>
+
 struct SavedState {
     uint8_t Flags[128];
     uint8_t ObjectLocations[256];

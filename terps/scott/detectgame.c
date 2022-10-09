@@ -189,7 +189,7 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
         }
         wordnum++;
 
-        if (c != 0 && !isascii(c))
+        if (c != 0 && c > 127)
             return ptr;
 
         charindex = 0;
@@ -595,7 +595,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             if (charindex > 255)
                 break;
         }
-        if (c != 0 && !isascii(c))
+        if (c != 0 && c > 127)
             return 0;
     } while (ct < nr + 1);
 
@@ -688,7 +688,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             charindex++;
         }
 
-        if (c != 0 && c != 0x0d && c != '\x83' && c != '\xc9' && !isascii(c))
+        if (c != 0 && c != 0x0d && c != '\x83' && c != '\xc9' && c > 127)
             break;
     } while (ct < 40);
 
@@ -716,7 +716,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             charindex++;
         }
 
-        if (c != 0 && c != 0x0d && !isascii(c))
+        if (c != 0 && c != 0x0d && c > 127)
             break;
     } while (ct < 6);
 
@@ -950,7 +950,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                     if (charindex > 255)
                         break;
                 }
-                if (c != 0 && !isascii(c))
+                if (c != 0 && c > 127)
                     return 0;
             } while (ct < nr + 1);
         } else {
@@ -1174,7 +1174,7 @@ jumpSysMess:
             charindex++;
         }
 
-        if (c != 0 && c != 0x0d && !isascii(c))
+        if (c != 0 && c != 0x0d && c > 127)
             break;
     } while (ct < 6);
 

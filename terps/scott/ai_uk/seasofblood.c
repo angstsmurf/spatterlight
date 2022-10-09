@@ -171,7 +171,7 @@ void draw_object_image(uint8_t x, uint8_t y)
 
 void draw_blood(int loc)
 {
-    bzero(buffer, 384 * 9);
+    memset(buffer, 0, 384 * 9);
     uint8_t *ptr = blood_image_data;
     for (int i = 0; i < loc; i++) {
         while (*(ptr) != 0xff)

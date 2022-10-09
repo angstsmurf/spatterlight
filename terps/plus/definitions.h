@@ -1,6 +1,6 @@
 //
 //  definitions.h
-//  Spatterlight
+//  Plus
 //
 //  Created by Administrator on 2022-01-10.
 //
@@ -8,6 +8,7 @@
 #ifndef definitions_h
 #define definitions_h
 
+#include <stddef.h>
 #include <stdint.h>
 
 #define DEBUG_ACTIONS 0

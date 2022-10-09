@@ -7,6 +7,7 @@
 
 #include <assert.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,17 +50,8 @@ static const int kMaxTSPairs = 0x7a;           // 122 entries for 256-byte secto
 static const int kTSOffset = 0x0c;             // first T/S entry in a T/S list
 
 static const int kMaxTSIterations = 32;
-static const int kMaxFileName = 30;
-static const int kFileNameBufLen = kMaxFileName + 1;
-
-
-/* exact definition of off_t varies, so just define our own */
-#ifdef _ULONGLONG_
-typedef LONGLONG di_off_t;
-#else
-typedef off_t di_off_t;
-#endif
-
+#define kMaxFileName 30
+#define kFileNameBufLen 31
 
 #define kMaxCatalogSectors 64    // two tracks on a 32-sector disk
 
@@ -238,14 +230,6 @@ static uint8_t *kInvDiskBytes62 = NULL;
 uint8_t *fNibbleTrackBuf = NULL;    // allocated on heap
 
 int fNibbleTrackLoaded = -1; // track currently in buffer
-
-/* exact definition of off_t varies, so just define our own */
-#ifdef _ULONGLONG_
-typedef LONGLONG di_off_t;
-#else
-typedef off_t di_off_t;
-#endif
-
 
 static uint8_t *rawdata = NULL;
 static size_t rawdatalen = 0;
@@ -532,7 +516,7 @@ DIError DecodeNibbleData(ringbuf_handle_t ringbuffer, int idx,
  *
  * (This is the lowest-level read routine in this class.)
  */
-static DIError CopyBytesOut(void *buf, di_off_t offset, int size)
+static DIError CopyBytesOut(void *buf, size_t offset, int size)
 {
 //    if (offset + size > rawdatalen)
 //        return kDIErrDataUnderrun;
@@ -543,7 +527,7 @@ static DIError CopyBytesOut(void *buf, di_off_t offset, int size)
 /*
  * Handle sector order conversions.
  */
-static DIError CalcSectorAndOffset(long track, int sector, di_off_t* pOffset, int* pNewSector)
+static DIError CalcSectorAndOffset(long track, int sector, size_t* pOffset, int* pNewSector)
 {
     /*
      * Sector order conversions.  No table is needed for Copy ][+ format,
@@ -564,7 +548,7 @@ static DIError CalcSectorAndOffset(long track, int sector, di_off_t* pOffset, in
         return kDIErrInvalidSector;
     }
 
-    di_off_t offset;
+    size_t offset;
     int newSector = -1;
 
     /*
@@ -771,7 +755,7 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
 
     uint8_t buf[0x100];
 
-    di_off_t pOffset;
+    size_t pOffset;
     int pNewSector;
     int track = offset / 0x1000;
     int sector = (offset % 0x1000) / 0x100;
@@ -811,7 +795,7 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
 static DIError ReadTrackSector(long track, int sector, void *buf)
 {
     DIError dierr;
-    di_off_t offset;
+    size_t offset;
     int newSector = -1;
 
     if (buf == NULL)
@@ -1173,7 +1157,7 @@ static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
 
     DIError dierr = kDIErrNone;
     uint8_t sctBuf[kSectorSize];
-    di_off_t actualOffset = pFile->fOffset; //+ pFile->fDataOffset;   // adjust for embedded len
+    size_t actualOffset = pFile->fOffset; //+ pFile->fDataOffset;   // adjust for embedded len
     int tsIndex = (int) (actualOffset / kSectorSize);
     int bufOffset = (int) (actualOffset % kSectorSize);        // (& 0xff)
     size_t thisCount;

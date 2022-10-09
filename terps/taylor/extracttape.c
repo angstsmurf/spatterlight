@@ -48,7 +48,7 @@ uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t 
         target = malloc(0x10000);
         if (!target)
             return NULL;
-        bzero(target, 0x10000);
+        memset(target, 0, 0x10000);
     }
 
     for (size_t i = offset; DE != 0; i++) {

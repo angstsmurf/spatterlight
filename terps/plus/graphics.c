@@ -5,8 +5,12 @@
 //  Created by Administrator on 2022-06-04.
 //
 
+#include <string.h>
+
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 
 #include "common.h"
 #include "graphics.h"

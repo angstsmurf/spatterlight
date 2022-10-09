@@ -71,7 +71,11 @@ void FreePixels(void) {
     pixels_to_draw = NULL;
 }
 
+#ifdef SPATTERLIGHT
 extern int gli_slowdraw;
+#else
+static int gli_slowdraw = 0;
+#endif
 
 void DrawSomeVectorPixels(int from_start) {
     VectorState = DRAWING_VECTOR_IMAGE;

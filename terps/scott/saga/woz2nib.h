@@ -12,6 +12,8 @@
 #ifndef woz2nib_h
 #define woz2nib_h
 
+#include <stdint.h>
+
 uint8_t *woz2nib(uint8_t *ptr, size_t *len);
 
 #endif /* woz2nib_h */

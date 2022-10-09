@@ -46,7 +46,7 @@ static int IsSTBitSet(int bit, uint8_t byte) {
 
 static uint32_t NumAnimCols, NumOldAnimCols = 0, ImgAddrOffs, NibblesWide, NxtLineStart, InitialMask, LastMask, CurAddr, LineNibblesLeft;
 
-static uint ColorCycle = 0;
+static uint32_t ColorCycle = 0;
 
 static glui32 StColToGlk(uint8_t hi, uint8_t lo) {
     int blue = lo & 0xf;
@@ -120,8 +120,8 @@ uint8_t *PatternLookup = NULL;
 
 static void GeneratePatternLookup(void)
 {
-    uint pattern;
-    ushort previous;
+    uint32_t pattern;
+    uint16_t previous;
 
     pattern = 0xffff0000;
     PatternLookup = MemAlloc(1024);

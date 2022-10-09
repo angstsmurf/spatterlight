@@ -326,7 +326,11 @@ static int ExtractImagesFromAtariCompanionFile(FILE *infile)
         size_t readsize = fread(Images[outpic].Data, 1, size, infile);
         if (list[outpic].offset < 0xb390 && list[outpic].offset + Images[outpic].Size > 0xb390) {
             fseek(infile, 0xb410, SEEK_SET);
-            fread(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, 1, size - 0xb390 + list[outpic].offset - 2, infile);
+            size_t expectedsize = size - 0xb390 + list[outpic].offset - 2;
+            size_t readsize2 = fread(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, 1, expectedsize, infile);
+            if (readsize2 != expectedsize)
+                fprintf(stderr, "Weird read for image %d. Expected %zu, got %zu\n", outpic, expectedsize, readsize2);
+
         }
         if (readsize != size)
             fprintf(stderr, "Weird size for image %d. Expected %zu, got %zu\n", outpic, size, readsize);
@@ -373,7 +377,9 @@ static int ExtractImagesFromAtariCompanionFile(FILE *infile)
         Images[outpic].Filename = "S000";
         Images[outpic].Size = 0x0e96;
         Images[outpic].Data = MemAlloc(Images[outpic].Size);
-        fread(Images[outpic].Data, Images[outpic].Size, 1, infile);
+        size_t result = fread(Images[outpic].Data, Images[outpic].Size, 1, infile);
+        if (result != Images[outpic].Size)
+        fprintf(stderr, "Weird read for image %d. Expected %zu, got %zu\n", outpic, Images[outpic].Size, result);
         Images[outpic + 1].Filename = NULL;
         fclose(infile);
     }

@@ -171,6 +171,7 @@ void Display(winid_t w, const char *fmt, ...)
 }
 
 void UpdateSettings(void) {
+#ifdef SPATTERLIGHT
 	if (gli_sa_delays)
 		Options &= ~NO_DELAYS;
 	else
@@ -199,6 +200,7 @@ void UpdateSettings(void) {
 			Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
 			break;
 	}
+#endif
 
     if (DrawingVector())
         glk_request_timer_events(20);        
@@ -375,8 +377,10 @@ void Delay(float seconds)
             glk_select(&ev);
             Updates(ev);
         } while (DrawingVector());
+#ifdef SPATTERLIGHT
         if (gli_slowdraw)
             seconds = 0.5;
+#endif
     }
 
     glk_request_timer_events(1000 * seconds);
@@ -442,8 +446,10 @@ glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 
 void OpenGraphicsWindow(void)
 {
+#ifdef SPATTERLIGHT
 	if (!gli_enable_graphics)
 		return;
+#endif
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 
     if (Top == NULL)
@@ -510,7 +516,9 @@ static void CleanupAndExit(void) {
     if (Transcript)
         glk_stream_close(Transcript, NULL);
     if (DrawingVector()) {
+#ifdef SPATTERLIGHT
         gli_slowdraw = 0;
+#endif
         DrawSomeVectorPixels(0);
     }
     glk_exit();
@@ -876,7 +884,10 @@ int LoadDatabase(FILE *f, int loud)
     if (loud)
         debug_print("%d.\nLoad Complete.\n\n", ct);
     /* Extra value in at least Hulk */
-    fscanf(f, "%d", &ct);
+    if (!fscanf(f, "%d", &ct)) {
+        debug_print("No extra value in file. This is not Hulk.\n");
+    }
+
 	fclose(f);
     if (ct == 703 && LoadDOSImages()) {
         CurrentSys = SYS_MSDOS;
@@ -901,8 +912,10 @@ void DrawBlack(void)
 
 void DrawImage(int image)
 {
+#ifdef SPATTERLIGHT
 	if (!gli_enable_graphics)
 		return;
+#endif
     OpenGraphicsWindow();
     if (Graphics == NULL) {
         debug_print("DrawImage: Graphic window NULL?\n");
@@ -2419,10 +2432,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     return 1;
 }
-
-
-
-
 
 void glk_main(void)
 {

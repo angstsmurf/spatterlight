@@ -1024,7 +1024,7 @@ static void replace_paper_and_ink(uint8_t before, uint8_t after) {
 
 void ClearGraphMem(void)
 {
-    bzero(buffer, 384 * 9);
+    memset(buffer, 0, 384 * 9);
 }
 
 void DrawTaylor(int loc)
@@ -1246,7 +1246,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             offset += count;
         }
     } while (offset < offsetlimit);
-    
+
 draw_attributes:
 
     y = 0;

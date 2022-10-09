@@ -97,7 +97,7 @@ again:
     }
     uint8_t work2 = *ptr++;
 
-    uint sum = lo + skip;
+    unsigned int sum = lo + skip;
     lo = sum & 0xff;
 
     if ((sum >> 8) != 0)

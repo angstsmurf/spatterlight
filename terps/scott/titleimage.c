@@ -4,13 +4,18 @@
 //
 //  Created by Administrator on 2022-10-01.
 //
+#include <stdlib.h>
+#include <string.h>
+
 #include "glk.h"
-#include "glkimp.h"
 #include "scott.h"
 #include "sagagraphics.h"
 #include "apple2draw.h"
 #include "saga.h"
 
+#ifdef SPATTERLIGHT
+#include "glkimp.h"
+#endif
 
 #include "titleimage.h"
 
@@ -18,8 +23,10 @@ glui32 OptimalPictureSize(glui32 *width, glui32 *height);
 
 void ResizeTitleImage(void) {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
+#ifdef SPATTERLIGHT
     glk_window_set_background_color(Graphics, gbgcol);
     glk_window_clear(Graphics);
+#endif
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
     pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
@@ -31,10 +38,10 @@ void ResizeTitleImage(void) {
 void DrawTitleImage(void) {
     int storedwidth = ImageWidth;
     int storedheight = ImageHeight;
-
+#ifdef SPATTERLIGHT
     if (!gli_enable_graphics)
         return;
-
+#endif
     Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Top) {
         glk_window_close(Top, NULL);
@@ -52,14 +59,20 @@ void DrawTitleImage(void) {
 
     Graphics = glk_window_open(0, 0, 0, wintype_Graphics, GLK_GRAPHICS_ROCK);
 
+    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0)) {
+        glk_request_char_event(Graphics);
+    } else {
+        Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
+                              2, wintype_TextBuffer, GLK_BUFFER_ROCK);
+        glk_request_char_event(Bottom);
+    }
+
     if (background_color != -1) {
         glk_window_set_background_color(Graphics, background_color);
         glk_window_clear(Graphics);
     }
     
     ResizeTitleImage();
-
-    glk_request_char_event(Graphics);
 
     if (DrawUSRoom(99)) {
         ResizeTitleImage();
@@ -71,8 +84,10 @@ void DrawTitleImage(void) {
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
+#ifdef SPATTERLIGHT
                 if (!gli_enable_graphics)
                     break;
+#endif
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawUSRoom(99);
@@ -84,6 +99,9 @@ void DrawTitleImage(void) {
 
     glk_window_close(Graphics, NULL);
     Graphics = NULL;
+    Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
+    if (Bottom != NULL)
+        glk_window_close(Bottom, NULL);
     Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
     if (Bottom == NULL)
         glk_exit();
@@ -93,6 +111,7 @@ void DrawTitleImage(void) {
     ResizeTitleImage();
     ImageWidth = storedwidth;
     ImageHeight = storedheight;
+    CloseGraphicsWindow();
 }
 
 void PrintTitleScreenBuffer(void) {

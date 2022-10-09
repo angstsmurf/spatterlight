@@ -5,6 +5,7 @@
 //  Created by Administrator on 2022-04-05.
 //
 #include <string.h>
+#include <stdint.h>
 #include <ctype.h>
 
 #include "restorestate.h"

@@ -15,6 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #define diskimage_h
 
 #include <stdlib.h>
+#include <stdint.h>
 
 /* constants for the supported disk formats */
 #define MAXTRACKS 80

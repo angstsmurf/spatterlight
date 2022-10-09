@@ -6,7 +6,6 @@
 //
 
 #include <assert.h>
-#include <stdlib.h>
 #include "ringbuffer.h"
 
 // The hidden definition of our circular buffer structure
