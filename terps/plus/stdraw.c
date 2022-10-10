@@ -11,18 +11,6 @@
 #include "glk.h"
 #include "graphics.h"
 
-extern int x, y, count;
-extern int xlen, ylen;
-extern int xoff, yoff;
-
-typedef uint8_t RGB[3];
-
-typedef RGB PALETTE[16];
-
-extern PALETTE pal;
-
-extern winid_t Graphics;
-
 typedef struct {
     uint16_t x;
     uint16_t y;

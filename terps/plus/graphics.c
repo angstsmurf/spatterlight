@@ -22,7 +22,24 @@ int LastImgIndex;
 
 int upside_down = 0;
 
+int x = 0, y = 0, at_last_line = 0;
+
+int xlen=280, ylen=158;
+int xoff=0, yoff=0;
+
+int pixel_size;
+int x_offset, y_offset, right_margin;
+
+PALETTE pal;
+
 struct imgrec *Images;
+
+int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
+int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
+int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
+int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
+void DrawApple2ImageFromVideoMem(void);
+void ClearApple2ScreenMem(void);
 
 void DrawBlack(void)
 {
@@ -42,12 +59,75 @@ char *ShortNameFromType(char type, int index) {
     return result;
 }
 
-int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
-int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
-int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
-int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize);
-void DrawApple2ImageFromVideoMem(void);
-void ClearApple2ScreenMem(void);
+
+void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
+{
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+    xpos = xpos * pixel_size;
+
+    if (upside_down)
+        xpos = ImageWidth * pixel_size - xpos;
+
+    xpos += x_offset;
+
+    if (xpos < x_offset || xpos >= right_margin) {
+        return;
+    }
+
+    ypos = ypos * pixel_size;
+    if (upside_down)
+        ypos = (ImageHeight - 1) * pixel_size - ypos;
+    ypos += y_offset;
+
+    glk_window_fill_rect(Graphics, glk_color, xpos,
+                         ypos, pixel_size, pixel_size);
+}
+
+void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
+{
+    glui32 glk_color = ((pal[color][0] << 16)) | ((pal[color][1] << 8)) | (pal[color][2]);
+
+    xpos = xpos * pixel_size;
+
+    if (upside_down)
+        xpos = ImageWidth * pixel_size - xpos;
+    xpos += x_offset;
+
+    if (xpos < x_offset || xpos >= right_margin) {
+        return;
+    }
+
+    ypos = ypos * pixel_size;
+    if (upside_down) {
+        ypos = ImageHeight * pixel_size - ypos;
+        if (CurrentSys == SYS_ST)
+            ypos -= 3 * pixel_size;
+        else if (CurrentSys == SYS_ATARI8 || CurrentSys == SYS_MSDOS)
+            ypos -= pixel_size;
+    }
+    ypos += y_offset;
+
+    glk_window_fill_rect(Graphics, glk_color, xpos,
+                         ypos, pixel_size * 2, pixel_size);
+}
+
+void SetColor(int32_t index, const RGB *color)
+{
+    pal[index][0] = (*color)[0];
+    pal[index][1] = (*color)[1];
+    pal[index][2] = (*color)[2];
+}
+
+void SetRGB(int32_t index, int red, int green, int blue) {
+    red = red * 35.7;
+    green = green * 35.7;
+    blue = blue * 35.7;
+
+    pal[index][0] = red;
+    pal[index][1] = green;
+    pal[index][2] = blue;
+}
 
 int DrawImageWithName(char *filename)
 {

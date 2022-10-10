@@ -13,8 +13,6 @@
 #include "graphics.h"
 #include "common.h"
 
-extern int x, y, xlen, ylen, xoff, yoff;
-
 static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
 
