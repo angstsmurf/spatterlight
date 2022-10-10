@@ -320,11 +320,16 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     x = 0; y = 0;
 
-    ptr += 4;
+    ptr += 2;
 
-    // Comment this out until we start using it
-//    work = *ptr++;
-//    size_t size = work + *ptr++ * 256;
+    // For Atari 8-bit, this vaule is already datasize
+    // but on C64, datasize is the actual file size of the image
+    // file on disk
+    work = *ptr++;
+    size_t size = work + *ptr++ * 256;
+    if (size < datasize - 2) {
+        datasize = size + 2;
+    }
 
     // Get the offset
     xoff = *ptr++ - 3;
