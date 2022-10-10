@@ -105,6 +105,9 @@ struct scottrec {
 
 static const struct scottrec scott_registry[] = {
     { 0x44cd, 0x8b8f, PIRATE_ADVENTURE_IFID }, // Pirate Adventure z80
+    { 0x44af, 0x8c9e, PIRATE_ADVENTURE_IFID }, // Pirate Adventure z80 alt
+    { 0x44af, 0x8847, PIRATE_ADVENTURE_IFID }, // Pirate Adventure z80 alt 2
+    { 0x5bbf, 0x29fb, PIRATE_ADVENTURE_IFID }, // Pirate Adventure z80 Parsec
     { 0x432c, 0xa6df, VOODOO_CASTLE_IFID }, // Voodoo Castle z80
     { 0x4308, 0xa634, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a
     { 0x4308, 0xa2d2, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a3
