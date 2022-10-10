@@ -118,6 +118,8 @@ size_t file_length;
 int AnimationFlag = 0;
 
 int showing_inventory = 0;
+int showing_closeup = 0;
+int last_image_index = -1;
 int lastwasnewline = 0;
 
 extern struct SavedState *InitialState;
@@ -337,7 +339,15 @@ void Updates(event_t ev)
             if (showing_inventory == 1) {
                 UpdateUSInventory();
             } else {
+                int lastimg = last_image_index;
                 Look();
+                last_image_index = lastimg;
+                if (showing_closeup) {
+                    if (Game->type == US_VARIANT)
+                        DrawUSRoom(last_image_index);
+                    else
+                        DrawImage(last_image_index);
+                }
             }
 		}
 	} else if (ev.type == evtype_Timer) {
@@ -1462,7 +1472,7 @@ void HitEnter(void)
         } else
             Updates(ev);
     } while (result == 0);
-
+    showing_closeup = 0;
     return;
 }
 

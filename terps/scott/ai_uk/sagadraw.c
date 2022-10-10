@@ -975,6 +975,8 @@ void DrawSagaPictureNumber(int picture_number)
 
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
         img.yoff);
+
+    last_image_index = picture_number;
 }
 
 void DrawSagaPictureAtPos(int picture_number, int x, int y)

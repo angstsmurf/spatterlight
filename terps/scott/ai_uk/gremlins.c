@@ -340,6 +340,7 @@ void LoadExtraSpanishGremlinsC64Data(void) {
 void GremlinsAction(void)
 {
     DrawImage(68); /* Mogwai */
+    showing_closeup = 1;
     Display(Bottom, "\n%s\n", sys[HIT_ENTER]);
     HitEnter();
     Look();

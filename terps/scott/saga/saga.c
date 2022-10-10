@@ -124,6 +124,7 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
 }
 
 int DrawUSImage(USImage *image) {
+    last_image_index = image->index;
     if (image->systype == SYS_MSDOS)
         return DrawDOSImage(image);
     else if (image->systype == SYS_C64 || image->systype == SYS_ATARI8)

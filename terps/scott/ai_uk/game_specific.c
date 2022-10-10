@@ -72,6 +72,7 @@ void SecretAction(int p)
         } else if ((Items[7].Location == CARRIED || Items[7].Location == MyLoc) && Items[8].Location != CARRIED && Items[8].Location != MyLoc && Items[41].Location != CARRIED && Items[41].Location != MyLoc) {
             DrawImage(28);
         }
+        showing_closeup = 1;
         Output(sys[HIT_ENTER]);
         HitEnter();
         break;
@@ -549,6 +550,7 @@ void VoodooShowImageOnExamineUS(int noun) {
         if (Graphics)
             glk_window_clear(Graphics);
         if (DrawUSRoom(90 + image)) {
+            showing_closeup = 1;
             if (CurrentSys == SYS_APPLE2)
                 DrawApple2ImageFromVideoMem();
             Output(sys[HIT_ENTER]);
@@ -575,10 +577,12 @@ void CountShowImageOnExamineUS(int noun) {
     if (image >= 0) {
         if (Graphics)
             glk_window_clear(Graphics);
-        DrawUSRoom(90 + image);
-        if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
-        Output(sys[HIT_ENTER]);
-        HitEnter();
+        if (DrawUSRoom(90 + image)) {
+            showing_closeup = 1;
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
     }
 }

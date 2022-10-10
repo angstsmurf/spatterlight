@@ -44,6 +44,7 @@ void SherwoodAction(int p)
     case 1:
         DrawImage(0); /* Herne */
         Display(Bottom, "\n%s\n", sys[HIT_ENTER]);
+        showing_closeup = 1;
         HitEnter();
         Items[39].Location = 79;
         Look();

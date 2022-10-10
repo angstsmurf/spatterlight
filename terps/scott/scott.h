@@ -178,5 +178,7 @@ extern const char *game_file;
 extern int showing_inventory;
 extern MachineType CurrentSys;
 extern int lastwasnewline;
+extern int showing_closeup;
+extern int last_image_index;
 
 #endif /* scott_h */

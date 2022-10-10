@@ -59,11 +59,13 @@ void HulkShowImageOnExamineUS(int noun) {
 
     if (image >= 0) {
         glk_window_clear(Graphics);
-        DrawUSRoom(90 + image);
-        if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
-        Output(sys[HIT_ENTER]);
-        HitEnter();
+        if (DrawUSRoom(90 + image)) {
+            showing_closeup = 1;
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
     }
 }
 
@@ -107,6 +109,7 @@ void HulkShowImageOnExamine(int noun)
     }
     if (image) {
         DrawImage(image);
+        showing_closeup = 1;
         Output(sys[HIT_ENTER]);
         HitEnter();
     }
@@ -133,11 +136,13 @@ void HulkLook(void)
 void DrawHulkImage(int p)
 {
     if (CurrentGame == HULK_US) {
-        DrawUSRoom(p);
-        if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMem();
-        Output(sys[HIT_ENTER]);
-        HitEnter();
+        if (DrawUSRoom(p)) {
+            showing_closeup = 1;
+            if (CurrentSys == SYS_APPLE2)
+                DrawApple2ImageFromVideoMem();
+            Output(sys[HIT_ENTER]);
+            HitEnter();
+        }
         return;
     }
     int image = 0;
@@ -176,6 +181,7 @@ void DrawHulkImage(int p)
 
     if (image != 0) {
         DrawImage(image);
+        showing_closeup = 1;
         Output(sys[HIT_ENTER]);
         HitEnter();
     }
