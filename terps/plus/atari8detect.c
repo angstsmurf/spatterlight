@@ -12,6 +12,8 @@
 #include "common.h"
 #include "graphics.h"
 #include "definitions.h"
+#include "loaddatabase.h"
+#include "companionfile.h"
 
 #include "gameinfo.h"
 
@@ -158,7 +160,7 @@ static const struct imglist listSpidey[] = {
     { "S021", 0x15687 },
     { "S022", 0x15b64 },
     { "S023", 0x16179 },
-    { "S024", 0x16682 },
+//    { "S024", 0x16682 },
     { "S026", 0x16179 },
     { NULL, 0 }
 };
@@ -235,53 +237,8 @@ static const struct imglist listBanzai[] = {
     { NULL, 0, }
 };
 
-typedef enum {
-    TYPE_B,
-    TYPE_TWO,
-} CompanionNameType;
-
-static FILE *LookForAtari8CompanionFilename(int index, CompanionNameType type, size_t length) {
-    char sideB[length + 1];
-    memcpy(sideB, game_file, length + 1);
-    if (type == TYPE_B) {
-        sideB[index] = 'B';
-    } else {
-        sideB[index] = 't';
-        sideB[index + 1] = 'w';
-        sideB[index + 2] = 'o';
-    }
-    return fopen(sideB, "r");
-}
 
 
-static FILE *GetCompanionFile(void) {
-    FILE *result = NULL;
-    size_t gamefilelen = strlen(game_file);
-    char c;
-    for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
-        c = tolower(game_file[i]);
-        if (i > 3 && c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') {
-            if (gamefilelen > i + 2) {
-                c = game_file[i + 1];
-                if (c == ' ' || c == '_') {
-                    c = tolower(game_file[i + 2]);
-                    if (c == 'a') {
-                        result = LookForAtari8CompanionFilename(i + 2, TYPE_B, gamefilelen);
-                        if (result)
-                            return result;
-                    } else if (c == 'o' && gamefilelen > i + 4) {
-                        if (game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                            result = LookForAtari8CompanionFilename(i + 2, TYPE_TWO, gamefilelen);
-                            if (result)
-                                return result;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return NULL;
-}
 
 void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
     fprintf(stderr, "First 10 bytes at 0x%04zx: ", offset);
@@ -290,98 +247,67 @@ void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
     fprintf(stderr, "\n");
 }
 
-static int ExtractImagesFromAtariCompanionFile(FILE *infile)
-{
-    int work,work2;
-    int count;
+//int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
+//void DisplayInit(void);
+
+static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize) {
     size_t size;
 
-    count = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
-    Images = MemAlloc((count + 1) * sizeof(struct imgrec));
-
-    if (CurrentGame == SPIDERMAN)
-        count--;
-
-    int outpic;
-
     const struct imglist *list = listSpidey;
+    /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
+    /* (Not counting the title image on disk A in Spider-Man.) */
+    int count = 65;
     if (CurrentGame == BANZAI)
         list = listBanzai;
     else if (CurrentGame == FANTASTIC4)
         list = listFantastic;
 
+    Images = MemAlloc((count + 2) * sizeof(struct imgrec));
+
+//    DisplayInit();
+//    OpenGraphicsWindow();
+
+    int outpic;
+
     // Now loop round for each image
-    for (outpic = 0; outpic < count && list[outpic].filename != NULL; outpic++)
+    for (outpic = 0; outpic < count; outpic++)
     {
-        fseek(infile, list[outpic].offset, SEEK_SET);
+        uint8_t *ptr = data + list[outpic].offset;
 
-        size = fgetc(infile);
-        size += fgetc(infile) * 256 + 4;
+        size = *ptr++;
+        size += *ptr * 256 + 4;
 
-        fseek(infile, list[outpic].offset - 2, SEEK_SET);
+        if (list[outpic].offset >= datasize) {
+            fprintf(stderr, "Image %d (%s) offset %zx out of bounds. Size: %zx\n", outpic, list[outpic].filename, list[outpic].offset, datasize);
+            continue;
+        }
+        if (list[outpic].offset + size >= datasize) {
+            fprintf(stderr, "Image %d (%s) offset %zx out of bounds. image size: %zx, disk size: %zx\n", outpic, list[outpic].filename, list[outpic].offset, size, datasize);
+            size = datasize - list[outpic].offset + 2;
+        }
 
         Images[outpic].Filename = list[outpic].filename;
         Images[outpic].Data = MemAlloc(size);
         Images[outpic].Size = size;
-        size_t readsize = fread(Images[outpic].Data, 1, size, infile);
+        memcpy(Images[outpic].Data, data + list[outpic].offset - 2, size);
         if (list[outpic].offset < 0xb390 && list[outpic].offset + Images[outpic].Size > 0xb390) {
-            fseek(infile, 0xb410, SEEK_SET);
-            size_t expectedsize = size - 0xb390 + list[outpic].offset - 2;
-            size_t readsize2 = fread(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, 1, expectedsize, infile);
-            if (readsize2 != expectedsize)
-                fprintf(stderr, "Weird read for image %d. Expected %zu, got %zu\n", outpic, expectedsize, readsize2);
-
+            memcpy(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
         }
-        if (readsize != size)
-            fprintf(stderr, "Weird size for image %d. Expected %zu, got %zu\n", outpic, size, readsize);
 
-        size = Images[outpic].Data[2] + Images[outpic].Data[3] * 256;
-
-        fseek(infile, list[outpic].offset + size, SEEK_SET);
-
-        int found = 1;
-        work2 = fgetc(infile);
-        do
-        {
-            work = work2;
-            work2 = fgetc(infile);
-            size = (work2 * 256) + work;
-            if (feof(infile)) {
-                found = 0;
-                break;
-            }
-        } while ( size == 0 || size > 0x1600 || work == 0);
-        if (found) {
-            size_t possoff = ftell(infile) - 2;
-            int found2 = 0;
-            for (int i = 0; list[i].filename != NULL; i++) {
-                if (list[i].offset == possoff) {
-                    found2 = 1;
-                    break;
-                }
-            }
-            if (!found2)
-                fprintf(stderr, "Could not find offset %lx in database\n", possoff);
-        }
+//        DrawAtariC64ImageFromData(Images[outpic].Data, size);
+//        AnyKey(0, 0);
     }
 
     //{ "S000", 0, Found in disk image A at offset 6d97
 
     Images[outpic].Filename = NULL;
-    fclose(infile);
 
-    if (CurrentGame == SPIDERMAN) {
-        infile = fopen(game_file, "r");
-        if (infile)
-            fseek(infile, 0x6d95, SEEK_SET);
+    if (CurrentGame == SPIDERMAN && otherdisk) {
         Images[outpic].Filename = "S000";
         Images[outpic].Size = 0x0e96;
         Images[outpic].Data = MemAlloc(Images[outpic].Size);
-        size_t result = fread(Images[outpic].Data, Images[outpic].Size, 1, infile);
-        if (result != Images[outpic].Size)
-        fprintf(stderr, "Weird read for image %d. Expected %zu, got %zu\n", outpic, Images[outpic].Size, result);
+        memcpy(Images[outpic].Data, otherdisk + 0x6d95, Images[outpic].Size);
         Images[outpic + 1].Filename = NULL;
-        fclose(infile);
     }
     return 1;
 }
@@ -391,41 +317,51 @@ static const uint8_t atrheader[6] = { 0x96 , 0x02, 0x80, 0x16, 0x80, 0x00 };
 
 int DetectAtari8(uint8_t **sf, size_t *extent)
 {
+    uint8_t *main_disk = *sf;
+    size_t main_size = *extent;
+    int result = 0;
     size_t data_start = 0xff8e;
     // Header actually starts at offset 0xffc0 (0xff8e + 0x32).
     // We add 50 bytes at the head to match the C64 files.
 
-    if (*extent > MAX_LENGTH || *extent < data_start)
+    if (main_size > MAX_LENGTH || main_size < data_start)
         return 0;
 
     for (int i = 0; i < 6; i++)
         if ((*sf)[i] != atrheader[i])
             return 0;
 
-    size_t newlength = *extent - data_start;
-    uint8_t *datafile = MemAlloc(newlength);
-    memcpy(datafile, *sf + data_start, newlength);
+    size_t companionsize;
+    uint8_t *companionfile = GetCompanionFile(&companionsize);
 
-    if (datafile) {
-        free(*sf);
-        *sf = datafile;
-        *extent = newlength;
+    ImageWidth = 280;
+    ImageHeight = 158;
+    mem = main_disk + data_start; memlen = main_size - data_start;
+    result = LoadDatabaseBinary();
+    if (!result && companionfile != NULL && companionsize > data_start) {
+        debug_print("Could not find database in this file, trying the companion file\n");
+        mem = companionfile + data_start; memlen = companionsize - data_start;
+        result = LoadDatabaseBinary();
+        if (result) {
+            debug_print("Found database in companion file. Switching files.\n");
+            uint8_t *temp = companionfile;
+            size_t tempsize = companionsize;
+            companionfile = main_disk;
+            companionsize = main_size;
+            main_disk = temp;
+            main_size = tempsize;
+        }
+    }
+
+    if (result) {
         CurrentSys = SYS_ATARI8;
-        ImageWidth = 280;
-        ImageHeight = 158;
-        return 1;
-    }
-    return 0;
-}
+        if (companionfile) {
+            ExtractImagesFromAtariCompanionFile(companionfile, companionsize, main_disk, main_size);
+            free(companionfile);
+        }
+    } else
+        debug_print("Failed loading database\n");
 
-int LookForAtari8Images(uint8_t **sf, size_t *extent) {
-    FILE *CompanionFile = GetCompanionFile();
-    if (!CompanionFile) {
-        Images = MemAlloc(sizeof(imgrec));
-        Images[0].Filename = NULL;
-        return 0;
-    }
-    ExtractImagesFromAtariCompanionFile(CompanionFile);
-    return 1;
+    return result;
 }
 

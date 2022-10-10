@@ -11,6 +11,7 @@
 #include "common.h"
 #include "definitions.h"
 #include "graphics.h"
+#include "companionfile.h"
 
 #include "apple2detect.h"
 
@@ -245,8 +246,22 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     int actionsize = new[125490] + (new[125491] << 8);
     debug_print("Actionsize: %d\n", actionsize);
     if (actionsize < 4000 || actionsize > 7000) {
-        free(new);
-        return 0;
+        size_t companionsize;
+        uint8_t *companionfile = GetCompanionFile(&companionsize);
+        if (companionfile && companionsize >= dsk_image_size) {
+            free(new);
+            new = MemAlloc(companionsize);
+            offset = companionsize - 256;
+            for (int i = 0; i < companionsize && i < companionsize; i += 256) {
+                memcpy(new + offset, companionfile + i, 256);
+                offset -= 256;
+            }
+            actionsize = new[125490] + (new[125491] << 8);
+        }
+        if (actionsize < 4000 || actionsize > 7000) {
+            free(new);
+            return 0;
+        }
     }
 
     size_t datasize = dsk_image_size - 125438;

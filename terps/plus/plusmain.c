@@ -2204,17 +2204,17 @@ void glk_main(void) {
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
-        if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
-            Fatal("Could not detect game type");
+        if (!DetectAtari8(&mem, &memlen)) {
+            if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
+                Fatal("Could not detect game type");
+            }
+
+            if (!LoadDatabaseBinary()) {
+                Fatal("Could not load binary database");
+            }
         }
 
-        if (!LoadDatabaseBinary()) {
-            Fatal("Could not load binary database");
-        }
-
-        if (CurrentSys == SYS_ATARI8)
-            LookForAtari8Images(&mem, &memlen);
-        else if (CurrentSys == SYS_APPLE2)
+        if (CurrentSys == SYS_APPLE2)
             LookForApple2Images();
     }
 

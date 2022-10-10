@@ -1162,6 +1162,24 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
     return finaldict;
 }
 
+int SanityCheckHeader(void)
+{
+    int16_t v = GameHeader.NumItems;
+    if (v < 10 || v > 500)
+        return 0;
+    v = GameHeader.NumNouns; // Nouns
+    if (v < 50 || v > 190)
+        return 0;
+    v = GameHeader.NumVerbs; // Verbs
+    if (v < 30 || v > 190)
+        return 0;
+    v = GameHeader.NumRooms; // Number of rooms
+    if (v < 10 || v > 100)
+        return 0;
+
+    return 1;
+}
+
 int LoadDatabaseBinary(void)
 {
     int ni, as, na, nv, nn, nr, mc, pr, tr, lt, mn, trm, adv, prp, ss, unk1, oi, unk2;
@@ -1197,14 +1215,11 @@ int LoadDatabaseBinary(void)
 
     GameHeader.NumItems = ni;
     Counters[43] = ni;
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
     GameHeader.ActionSum = as;
     GameHeader.NumVerbs = nv;
     GameHeader.NumNouns = nn;
-    Verbs = MemAlloc(sizeof(char *) * (nv + 1));
-    Nouns = MemAlloc(sizeof(char *) * (nn + 1));
     GameHeader.NumRooms = nr;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+
     GameHeader.MaxCarry = mc;
     GameHeader.PlayerRoom = pr;
     MyLoc = pr;
@@ -1213,12 +1228,21 @@ int LoadDatabaseBinary(void)
     GameHeader.NumAdverbs = adv;
     GameHeader.NumSubStr = ss;
     GameHeader.NumObjImg = oi;
-    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
     GameHeader.NumMessages = mn;
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
 
     PrintHeaderInfo(GameHeader);
+
+    if (!SanityCheckHeader())
+        return 0;
+
+    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
+    Verbs = MemAlloc(sizeof(char *) * (nv + 1));
+    Nouns = MemAlloc(sizeof(char *) * (nn + 1));
+    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
+    Messages = MemAlloc(sizeof(char *) * (mn + 1));
+
 
     Counters[35] = nr;
     Counters[34] = trm;
