@@ -576,10 +576,16 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         image->datasize = size;
         image->systype = SYS_ATARI8;
         memcpy(image->imagedata, data + list[outpic].offset - 2, size);
+        /* Bytes 0xb390 to 0xb410 correspond to the content of sector 360 (0x0168) of the original Atari disk
+           which contains the volume table of contents (mostly a bitmap of used sectors). This is not part of the
+           graphics data, so we cut it out. */
         if (list[outpic].offset < 0xb390 && list[outpic].offset + image->datasize > 0xb390) {
             memcpy(image->imagedata + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
         }
 
+        /* Many images have black bars on one or more sides, probably used to center smaller images. The original
+           interpreters had a black background which hid this, but it looks strange if the background is not black,
+           so we crop them. */
         if (CurrentGame == VOODOO_CASTLE_US && image->usage == IMG_ROOM)
             image->cropleft = 8;
 
@@ -599,7 +605,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         image = image->next;
     }
 
-    /* Read inventory image from the other disk (boot) */
+    /* Read the inventory image from the boot disk */
     if (otherdisk && othersize > 0x988e + 0x5fd) {
         image->usage = IMG_ROOM;
         image->index = 98;
