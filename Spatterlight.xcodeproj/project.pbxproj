@@ -662,6 +662,7 @@
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
+		C372872B28F5D37400F5B90C /* AbuzeCrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C372872928F5D37400F5B90C /* AbuzeCrunch.c */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
@@ -3032,6 +3033,7 @@
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
 		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
+		C372872928F5D37400F5B90C /* AbuzeCrunch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AbuzeCrunch.c; sourceTree = "<group>"; };
 		C37344612804673F00D8AE01 /* extracttape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracttape.h; sourceTree = "<group>"; };
 		C37344622804673F00D8AE01 /* extracttape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracttape.c; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
@@ -6209,6 +6211,7 @@
 				C3F09D3E28888F890035DAC2 /* Intros.c */,
 				C3F09D3F28888F890035DAC2 /* FinalSuperComp.c */,
 				C3F09D4028888F890035DAC2 /* 1001card.c */,
+				C372872928F5D37400F5B90C /* AbuzeCrunch.c */,
 				C3F09D4128888F890035DAC2 /* ActionPacker.c */,
 				C3F09D4228888F890035DAC2 /* Expert.c */,
 				C3F09D4328888F890035DAC2 /* Cruel.c */,
@@ -7167,6 +7170,7 @@
 			);
 			mainGroup = 961CCE5E09F2375A00528FF9;
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
+			projectDirPath = "";
 			projectReferences = (
 				{
 					ProductGroup = C374D19726EE4B4F006F430E /* Products */;
@@ -7177,6 +7181,7 @@
 					ProjectRef = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
 				},
 			);
+			projectRoot = "";
 			targets = (
 				961CCEC309F239C100528FF9 /* Spatterlight */,
 				96A9BA780A06558F001B5B9B /* babel */,
@@ -8256,6 +8261,7 @@
 				C3F09D86288893040035DAC2 /* FinalSuperComp.c in Sources */,
 				C3F09D87288893040035DAC2 /* 1001card.c in Sources */,
 				C3F09D88288893040035DAC2 /* ActionPacker.c in Sources */,
+				C372872B28F5D37400F5B90C /* AbuzeCrunch.c in Sources */,
 				C3F09D89288893040035DAC2 /* Expert.c in Sources */,
 				C3F09D8A288893040035DAC2 /* Cruel.c in Sources */,
 				C3F09D8B288893040035DAC2 /* Megabyte.c in Sources */,

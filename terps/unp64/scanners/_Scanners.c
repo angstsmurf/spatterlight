@@ -29,7 +29,7 @@ Scnptr ScanFunc[] = {
     Scn_Cruel,
     Scn_PuCrunch
     //    ,Scn_MDG
-    //    ,Scn_AbuzeCrunch
+    ,Scn_AbuzeCrunch
     //    ,Scn_SledgeHammer
     //    ,Scn_TimCrunch
     //    ,Scn_TimeCruncher
@@ -424,15 +424,15 @@ void PrintInfo(unpstr *Unp, int id) {
     //    sprintf(appstr,"%s%s","AB","Cruncher");
     //    fprintf(stderr, DEPMASK,appstr,Unp->DepAdr);
     //    break;
-    //    case _I_ABUZECRUNCH:
-    //    fprintf(stderr, DEPMASK,"AbuzeCrunch",Unp->DepAdr);
-    //    break;
-    //    case _I_ABUZECR37:
-    //    fprintf(stderr, DEPMASK2,"AbuzeCrunch","v3.7",Unp->DepAdr);
-    //    break;
-    //    case _I_ABUZECR50:
-    //    fprintf(stderr, DEPMASK2,"AbuzeCrunch","v5.0",Unp->DepAdr);
-    //    break;
+    case _I_ABUZECRUNCH:
+    fprintf(stderr, DEPMASK,"AbuzeCrunch",Unp->DepAdr);
+    break;
+    case _I_ABUZECR37:
+        fprintf(stderr, DEPMASK2,"AbuzeCrunch","v3.7",Unp->DepAdr);
+        break;
+    case _I_ABUZECR50:
+        fprintf(stderr, DEPMASK2,"AbuzeCrunch","v5.0",Unp->DepAdr);
+        break;
     //    case _I_AEKCOD20 :
     //    sprintf(appstr,"%s %s","AEK","Coder");
     //    fprintf(stderr, DEPMASK2,appstr,"v2.0",Unp->DepAdr);

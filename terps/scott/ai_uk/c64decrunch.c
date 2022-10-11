@@ -133,7 +133,7 @@ static const struct c64rec c64_registry[] = {
     { GREMLINS_C64,        0x2ab00,   0xa1dc, TYPE_D64, 2, "-e0x1255", NULL, 2, 0, 0, 0, 0 }, // Gremlins C64 (D64) version alt 3  * ByteBoiler, Exomizer
     { GREMLINS_SPANISH_C64,0x2ab00,   0x2ad9, TYPE_D64, 1, NULL, NULL, 0, 0xd002, 0xbf8a, 0x1f00, 0 }, // Gremlins Spanish C64 (D64) PUCrunch Generic Hack
     { GREMLINS_C64,        0x2ab00,   0x4be2, TYPE_D64, 0, NULL, "G1", -0x8D, 0, 0, 0, 0 }, // Not compressed
-    { GREMLINS_C64,        0x2ab00,   0x5c7a, TYPE_D64, 3,"-a", NULL, 1, 0, 0, 0, 0 }, // CruelCrunch v2.5 -> ??? broken
+    { GREMLINS_C64,        0x2ab00,   0x5c7a, TYPE_D64, 3, "-e0x2ec2", NULL, 2, 0xc801, 0xd774, 0xbeb, 0 }, // CruelCrunch v2.5 -> AbuzeCrunch
     { GREMLINS_C64,        0x2ab00,   0x331a, TYPE_D64, 2, NULL, NULL, 0, 0xd80f, 0xc782, 0x1f00, 0 }, // Gremlins C64 (D64) version alt 5 * Beta Dynamic Compressor v3.x/FX * Mr.Cross v2.x
     { GREMLINS_GERMAN_C64, 0xc003,    0x558c, TYPE_T64, 1, NULL,       NULL, 0, 0xd801, 0xc6c0, 0x1f00, 0 }, // German Gremlins C64 (T64) * TBC Multicompactor v2.x
     { GREMLINS_GERMAN_C64, 0x2ab00,   0x6729, TYPE_D64, 2, NULL,       NULL, 0, 0xdc02, 0xcac1, 0x1f00, 0 }, // German Gremlins C64 (D64) version * Exomizer
@@ -614,8 +614,6 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
             switches[++numswitches] = strtok(NULL, " ");
     }
 
-//    writeToFile("/Users/administrator/Desktop/C64Raw", *sf, *extent);
-
     size_t result = 0;
 
     for (int i = 1; i <= record.decompress_iterations; i++) {
@@ -669,7 +667,13 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
         appendSIfiles(sf, extent);
     }
 
-    if (record.copysource != 0) {
+    if (CurrentGame == GREMLINS_C64 && record.copysource == 0xc801) {
+        uint8_t overlap[0x1000];
+        memcpy(overlap, *sf + 0xd801, 0x1000);
+        result = CopyData(record.copydest, record.copysource, sf, *extent, record.copysize);
+        *extent = result;
+        memcpy(*sf + 0xc774, overlap, 0x1000);
+    } else if (record.copysource != 0) {
         result = CopyData(record.copydest, record.copysource, sf, *extent,
             record.copysize);
         if (result) {
