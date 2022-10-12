@@ -1425,6 +1425,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.tads</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -1460,6 +1461,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.tads</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
