@@ -1272,6 +1272,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
 
         NSRect targetFrame = infoctl.window.frame;
+        NSRect visibleFrame = infoctl.window.screen.visibleFrame;
+        if (targetFrame.origin.y < visibleFrame.origin.y)
+            targetFrame.origin.y = visibleFrame.origin.y;
 
         [infoctl hideWindow];
 
