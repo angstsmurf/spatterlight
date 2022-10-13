@@ -1199,6 +1199,10 @@ int IsMysterious(void)
     return 0;
 }
 
+// There are four ZX Spectrum "scene releases" (by some guy in Denmark called Parsec)
+// which use RLE compression: Pirate Adventure, Voodoo Castle, Strange Odyssey and Buckaroo Banzai.
+// This function decompresses them.
+
 uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr) {
     uint8_t bVar1;
     uint8_t bVar2;

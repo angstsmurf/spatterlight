@@ -111,14 +111,14 @@ static const struct scottrec scott_registry[] = {
     { 0x432c, 0xa6df, VOODOO_CASTLE_IFID }, // Voodoo Castle z80
     { 0x4308, 0xa634, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a
     { 0x4308, 0xa2d2, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 a3
-    { 0x68ea, 0xd4b, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 Parsec
+    { 0x68ea, 0x0d4b, VOODOO_CASTLE_IFID }, // Voodoo Castle z80 Parsec
     { 0x431e, 0x7437, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80
     { 0x68de, 0xeead, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a
-    { 0x42f8, 0x70e1, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 a2
+    { 0x42f8, 0x70e1, STRANGE_ODYSSEY_IFID }, // Strange Odyssey z80 Parsec
 
     { 0x4024, 0x62c7, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80
     { 0x3ff8, 0x5fb4, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 alt
-    { 0x65d0, 0xd983, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 alt 2
+    { 0x65d0, 0xd983, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai z80 Parsec
 
     { 0x7d3c, 0x142b, GOLDEN_BATON_IFID }, // The Golden Baton Z80
     { 0x6f48, 0x2100, GOLDEN_BATON_IFID }, // The Golden Baton Z80 alt
