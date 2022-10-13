@@ -268,7 +268,7 @@ static void spatterglk_game_autorestore()
         }
         [TempLibrary setExtraUnarchiveHook:nil];
 
-        if (!newlib ||!((LibraryState *)newlib.extraData).active) {
+        if (!newlib||!((LibraryState *)newlib.extraData).active) {
             /* Without a Glk state, there's no point in even trying the VM state. We reset the game */
             NSLog(@"library autorestore failed!");
             win_reset();
