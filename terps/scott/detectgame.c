@@ -1274,7 +1274,7 @@ GameIDType DetectZXSpectrum(void) {
 
     if (!detectedGame && wasz80) {
         uint8_t *mem = entire_file;
-        uint16_t HL = mem[0x1b42] +  mem[0x1b43] * 0x100 - 0x4000;
+        uint16_t HL = mem[0x1b42] + mem[0x1b43] * 0x100 - 0x4000;
         uint8_t *result = DecompressParsec(&mem[0x0fff], &mem[0x07ff], &mem[HL]);
         if (result) {
             uint16_t BC = mem[0x1b48] +  mem[0x1b49] * 0x100 - 0x4000;
