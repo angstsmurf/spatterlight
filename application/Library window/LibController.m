@@ -162,6 +162,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
     BOOL verifyIsCancelled;
     NSTimer *verifyTimer;
+
+    IFDBDownloader *downloader;
 }
 
 @end
@@ -1770,10 +1772,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
-    if (!metadata || metadata.stories.count == 0)
-        return nil;
-    return ((IFStory *)(metadata.stories)[0]).identification.metadata;
+    @autoreleasepool {
+        if (!downloader || downloader.context != context)
+            downloader = [[IFDBDownloader alloc] initWithContext:context];
+        IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue andDownloader:downloader];
+        if (!metadata || metadata.stories.count == 0)
+            return nil;
+        return ((IFStory *)(metadata.stories)[0]).identification.metadata;
+    }
 }
 
 - (BOOL)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context{
