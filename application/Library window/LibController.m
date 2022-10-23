@@ -1677,6 +1677,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
                                 }
                             }
                             babel_release_ctx(context);
+                            free(context);
                         }
 
                         if (imgdata) {

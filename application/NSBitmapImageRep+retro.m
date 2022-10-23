@@ -84,6 +84,7 @@
     uint16_t *pictureNumberArray = get_all_picture_numbers();
 
     z_image *zimg = get_picture(pictureNumberArray[0]);
+    free(pictureNumberArray);
 
     if (zimg == NULL) {
         end_mg1_graphics();

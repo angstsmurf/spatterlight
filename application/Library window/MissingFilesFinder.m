@@ -97,6 +97,7 @@ extern NSArray *gGameFileTypes;
             [anAlert runModal];
         }
         babel_release_ctx(context);
+        free(context);
         return nil;
     }
 
@@ -112,10 +113,12 @@ extern NSArray *gGameFileTypes;
             [anAlert runModal];
         }
         babel_release_ctx(context);
+        free(context);
         return nil;
     }
 
     babel_release_ctx(context);
+    free(context);
     return @(buf);
 }
 
