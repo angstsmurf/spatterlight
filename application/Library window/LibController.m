@@ -252,7 +252,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
         for (NSMenuItem *menuitem in headerMenu.itemArray) {
             if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) {
-                menuitem.state = ![tableColumn isHidden];
+                menuitem.state = !tableColumn.hidden;
                 break;
             }
         }
@@ -290,8 +290,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     for (NSString *languageCode in ISOLanguageCodes) {
         languageWord = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
         if (languageWord) {
-            [mutablelanguageCodes setObject:languageCode
-                                     forKey:[englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode].lowercaseString];
+            mutablelanguageCodes[[englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode].lowercaseString] = languageCode;
         }
     }
 
@@ -370,7 +369,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         NSMutableSet *imagesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
         NSSet *ifidsToKeep = [[NSSet alloc] init];
 
-        for (GlkController *ctl in [_gameSessions allValues]) {
+        for (GlkController *ctl in _gameSessions.allValues) {
             if (forceQuit || !ctl.alive) {
                 [ctl.window close];
             } else {
@@ -541,10 +540,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
                 strongSelf->verifyIsCancelled = NO;
                 return;
             }
-            Game *game = [childContext objectWithID:[gameInMain objectID]];
+            Game *game = [childContext objectWithID:gameInMain.objectID];
             if (game) {
                 if (![[NSFileManager defaultManager] fileExistsAtPath:game.path] &&
-                    ![[NSFileManager defaultManager] fileExistsAtPath:[game urlForBookmark].path]) {
+                    ![[NSFileManager defaultManager] fileExistsAtPath:game.urlForBookmark.path]) {
                     if (deleteMissing) {
                         [childContext deleteObject:game];
                     } else if (game.found) {
@@ -786,7 +785,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (nullable GlkController *)activeGlkController {
-    Game *game = [[Preferences instance] currentGame];
+    Game *game = [Preferences instance].currentGame;
     if (!game)
         return nil;
     GlkController *gctl = _gameSessions[game.ifid];
@@ -837,7 +836,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = _gameTableModel[i];
-        NSURL *url = [game urlForBookmark];
+        NSURL *url = game.urlForBookmark;
         if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
             game.found = NO;
             [self lookForMissingFile:game];
@@ -879,7 +878,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     if (count) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
-        [alert setInformativeText:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]];
+        alert.informativeText = [NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"];
         [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
@@ -1096,7 +1095,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    Game *selectedGame = _gameTableModel[[rows firstIndex]];
+    Game *selectedGame = _gameTableModel[rows.firstIndex];
 
     NSSet *gamesWithTheme = selectedGame.theme.games;
     
@@ -1224,7 +1223,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
     if (action == @selector(myToggleSidebar:))
     {
-        NSString* title = [_leftView isHidden] ? NSLocalizedString(@"Show Sidebar", nil) : NSLocalizedString(@"Hide Sidebar", nil);
+        NSString* title = _leftView.hidden ? NSLocalizedString(@"Show Sidebar", nil) : NSLocalizedString(@"Hide Sidebar", nil);
         ((NSMenuItem*)menuItem).title = title;
     }
 
@@ -1258,7 +1257,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
     NSString *path = game.path;
     if (!path)
-        path = [game urlForBookmark].path;
+        path = game.urlForBookmark.path;
     if (!path)
         return;
     // First, we check if we have created this info window already
@@ -1359,7 +1358,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
-    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSPasteboard *pboard = sender.draggingPasteboard;
     if ([pboard.types containsObject:NSFilenamesPboardType]) {
         NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
         NSMutableArray *urls =
@@ -1688,7 +1687,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
                     } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
 
-                    if ([timestamp timeIntervalSinceNow] < -0.5) {
+                    if (timestamp.timeIntervalSinceNow < -0.5) {
                         NSError *error = nil;
                         if (private.hasChanges) {
                             if (![private save:&error]) {
@@ -1845,7 +1844,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSLog(@"write_xml_text: key:%@ val:%@", key, val);
 
     tagname = key.UTF8String;
-    s = [[NSString stringWithFormat:@"%@", val] UTF8String];
+    s = [NSString stringWithFormat:@"%@", val].UTF8String;
 
     fprintf(fp, "<%s>", tagname);
     while (*s) {
@@ -2113,7 +2112,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     // autorestoring by clicking the game in the library view
     // or similar.
 
-    NSURL *url = [game urlForBookmark];
+    NSURL *url = game.urlForBookmark;
     NSString *path = url.path;
     NSString *terp;
     GlkController *gctl = _gameSessions[game.ifid];
@@ -2204,7 +2203,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     for (GlkController *controller in _gameSessions.allValues)
         if (controller == glkctl) {
             NSArray *temp = [_gameSessions allKeysForObject:controller];
-            key = [temp objectAtIndex:0];
+            key = temp[0];
             break;
         }
     if (key) {
@@ -2293,7 +2292,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
             frame = [_gameTableView convertRect:frame toView:nil];
-            frame = [[self window] convertRectToScreen:frame];
+            frame = [self.window convertRectToScreen:frame];
         }
     }
     frame.origin.x += 12;
@@ -2600,7 +2599,7 @@ objectValueForTableColumn: (NSTableColumn*)column
                        value:@(offset)
                        range:NSMakeRange(0, attstr.length)];
 
-        [(NSTextFieldCell *)cell setAttributedStringValue:attstr];
+        ((NSTextFieldCell *)cell).attributedStringValue = attstr;
     }
 }
 
@@ -2702,9 +2701,9 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn
                     row:(NSInteger)row {
     if ([tableColumn.identifier isEqualToString:@"title"]) {
-        NSInteger tableColumnIndex = (NSInteger)[[tableView tableColumns] indexOfObject:tableColumn];
-        return [[tableView preparedCellAtColumn:tableColumnIndex
-                                            row:row] stringValue];
+        NSInteger tableColumnIndex = (NSInteger)[tableView.tableColumns indexOfObject:tableColumn];
+        return [tableView preparedCellAtColumn:tableColumnIndex
+                                            row:row].stringValue;
     }
     return nil;
 }
@@ -3072,7 +3071,7 @@ canCollapseSubview:(NSView *)subview
 
 - (void)stopTimer {
     if (timer != nil) {
-        if ([timer isValid]) {
+        if (timer.valid) {
             [timer invalidate];
         }
     }

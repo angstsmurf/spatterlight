@@ -143,7 +143,7 @@ extern NSArray *gGameFileTypes;
                 lastOperation = [self addSingleFile:url options:options];
             }
 
-            if ([timestamp timeIntervalSinceNow] < -0.3) {
+            if (timestamp.timeIntervalSinceNow < -0.3) {
                 [context safeSaveAndWait];
                 [_libController.coreDataManager saveChanges];
                 timestamp = [NSDate date];
@@ -346,7 +346,7 @@ extern NSArray *gGameFileTypes;
                 [alert runModal];
             });
         } else {
-            NSLog(@"%@: Recognized extension (%@) but unknown file format.", [path lastPathComponent], extension);
+            NSLog(@"%@: Recognized extension (%@) but unknown file format.", path.lastPathComponent, extension);
         }
         return nil;
     }
@@ -364,7 +364,6 @@ extern NSArray *gGameFileTypes;
     LibController *libController = _libController;
 
     [context performBlockAndWait:^{
-
         metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
@@ -373,7 +372,7 @@ extern NSArray *gGameFileTypes;
         if (!metadata)
         {
             if (blorb) {
-                NSData *mdbufData = [blorb metaData];
+                NSData *mdbufData = blorb.metaData;
                 if (mdbufData) {
                     metadata = [libController importMetadataFromXML:mdbufData inContext:context];
                     metadata.source = @(kInternal);
@@ -391,11 +390,11 @@ extern NSArray *gGameFileTypes;
                 }
                 if (![path isEqualToString:game.path])
                 {
-                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", [path lastPathComponent], path);
+                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", path.lastPathComponent, path);
                     [game bookmarkForPath:path];
                 }
                 if (![game.detectedFormat isEqualToString:@(format)]) {
-                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
+                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", path.lastPathComponent, format);
                     game.detectedFormat = @(format);
                 }
                 if (blorb) {
@@ -561,7 +560,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 - (void)lookForImagesForGame:(Game *)game {
     //    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
-    NSURL *dirUrl = [NSURL fileURLWithPath:[game.path stringByDeletingLastPathComponent] isDirectory:YES];
+    NSURL *dirUrl = [NSURL fileURLWithPath:(game.path).stringByDeletingLastPathComponent isDirectory:YES];
     // First check if there are other games in this folder
     NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
                                     includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
@@ -698,7 +697,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                     create:YES
                                     error:&error];
 
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
 
     NSString *screenDatPath = [path.stringByDeletingLastPathComponent
                                stringByAppendingPathComponent:@"SCREEN.DAT"];
@@ -741,7 +740,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                     create:YES
                                     error:&error];
 
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
 
     tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
 
