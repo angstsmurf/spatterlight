@@ -51,7 +51,7 @@
 - (CGFloat)widthForPointSize:(CGFloat)guess sampleText:(NSString *)text {
     NSFont *newFont = [NSFont fontWithDescriptor:self.fontDescriptor size:guess];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:newFont forKey:NSFontAttributeName];
+    dic[NSFontAttributeName] = newFont;
     CGFloat textWidth = [text sizeWithAttributes:dic].width;
     return textWidth;
 }

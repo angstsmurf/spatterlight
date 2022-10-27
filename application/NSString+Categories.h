@@ -15,10 +15,10 @@
 @property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
 + (NSString *)stringWithSummaryOfGames:(NSArray<Game*> *)games;
-- (NSString *)signatureFromFile;
-- (NSString *)scrubInvalidCharacters;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *signatureFromFile;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *scrubInvalidCharacters;
 //! Returns an \c NSArray of range values representing the lines in the string, including leading and trailing spaces (but strips leading and trailing blank lines)
-- (NSArray<NSValue*> *)lineRanges;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<NSValue *> *lineRanges;
 //! Returns an \c NSArray of range values representing the lines in the string, including leading and trailing spaces (but optionally strips leading and trailing blank lines)
 - (NSArray<NSValue*> *)lineRangesKeepEmptyLines:(BOOL)keepEmpty NS_SWIFT_NAME(lineRanges(keepEmptyLines:));
 
