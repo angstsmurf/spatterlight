@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
         NSDateFormatter *dateFormatter;
 
         NSString *keyVal;
-        NSArray *allKeys = [[[metadata entity] attributesByName] allKeys];
+        NSArray *allKeys = metadata.entity.attributesByName.allKeys;
         for (NSXMLNode *node in element.children) {
             keyVal = node.stringValue;
             for (NSString *key in allKeys) {
@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                         if ([key isEqualToString:@"forgiveness"])
                             metadata.forgivenessNumeric = forgiveness[keyVal];
                         if ([key isEqualToString:@"title"]) {
-                            NSString *title = [metadata.title stringByDecodingXMLEntities];
+                            NSString *title = (metadata.title).stringByDecodingXMLEntities;
                             if (title && title.length)
                                 metadata.title = title;
                         }

@@ -545,7 +545,7 @@
 
     if (self.framePending) {
         if (!NSEqualRects(self.frame, self.pendingFrame)) {
-            [super setFrame:self.pendingFrame];
+            super.frame = self.pendingFrame;
         }
         if (!NSEqualRects(_textview.frame, self.bounds)) {
             _textview.frame = self.bounds;
@@ -764,8 +764,8 @@
 
     }
 
-    if ([self inLiveResize]) {
-        [super setFrame:frame];
+    if (self.inLiveResize) {
+        super.frame = frame;
         self.framePending = NO;
     }
     dirty = YES;
@@ -827,9 +827,9 @@
 
     // Re-fill with spaces
     if (self.framePending) {
-        [self setFrame:self.pendingFrame];
+        self.frame = self.pendingFrame;
     } else
-        [self setFrame:self.frame];
+        self.frame = self.frame;
 
 //    if (currentZColor && bgnd != currentZColor.bg) {
 //        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
@@ -882,7 +882,7 @@
     // Speak each letter when typing in Bureaucracy form
     } else if (glkctl.form
                && string.length == 1
-               && [_keyPressTimeStamp timeIntervalSinceNow] > -0.5
+               && _keyPressTimeStamp.timeIntervalSinceNow > -0.5
                && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
         // Don't echo keys if speak command setting is off
         if (glkctl.theme.vOSpeakCommand) {
@@ -1147,7 +1147,7 @@
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
-        for (win in [glkctl.gwindows allValues]) {
+        for (win in (glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 [win grabFocus];
                 NSLog(@"GlkTextGridWindow: Passing on keypress");
@@ -1157,7 +1157,7 @@
         }
 
     // Stupid hack for Swedish keyboard
-    if (char_request && glkctl.bureaucracy && [evt keyCode] == 30)
+    if (char_request && glkctl.bureaucracy && evt.keyCode == 30)
         ch = '^';
 
     if (char_request && ch != keycode_Unknown) {
@@ -1573,7 +1573,7 @@
     // This is where things usually go wrong, i.e. the result is too short or too tall
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / [zorkFont boundingRectForFont].size.height;
+    CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
     if (isMonaco)
         yscale *= 1.1;
     [transform scaleXBy:1 yBy:yscale];

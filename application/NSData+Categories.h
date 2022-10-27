@@ -11,11 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Categories)
 
-- (NSString *)md5String;
-- (NSString *)sha256String;
-- (BOOL)isPlaceHolderImage;
-- (BOOL)isPNG;
-- (BOOL)isJPEG;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull md5String;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull sha256String;
+@property (NS_NONATOMIC_IOSONLY, getter=isPlaceHolderImage, readonly) BOOL placeHolderImage;
+@property (NS_NONATOMIC_IOSONLY, getter=isPNG, readonly) BOOL PNG;
+@property (NS_NONATOMIC_IOSONLY, getter=isJPEG, readonly) BOOL JPEG;
 - (nullable NSData *)reduceImageDimensionsTo:(NSSize)size;
 
 + (nullable NSData *)imageDataFromRetroURL:(NSURL *)url;

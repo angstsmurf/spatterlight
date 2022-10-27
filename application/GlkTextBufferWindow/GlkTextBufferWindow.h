@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate;
 - (void)scrollToTop;
 - (void)scrollToBottomAnimated:(BOOL)animate;
-- (BOOL)scrolledToBottom;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL scrolledToBottom;
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
@@ -53,9 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollWheelchanged:(NSEvent *)event;
 
-- (NSRange)editableRange;
-- (NSUInteger)numberOfColumns;
-- (NSUInteger)numberOfLines;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;
 
 @end
 

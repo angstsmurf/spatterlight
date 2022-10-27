@@ -45,7 +45,7 @@
 }
 
 - (Theme *)selectedTheme {
-    NSArray *selectedThemes = [self selectedObjects];
+    NSArray *selectedThemes = self.selectedObjects;
     if (selectedThemes && selectedThemes.count)
         return selectedThemes[0];
     return nil;

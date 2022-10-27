@@ -28,7 +28,7 @@
     return YES;
 }
 
-- (id)initWithContainerSize:(NSSize)size {
+- (instancetype)initWithContainerSize:(NSSize)size {
     self = [super initWithContainerSize:size];
 
     _marginImages = [[NSMutableArray alloc] init];

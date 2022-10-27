@@ -36,7 +36,7 @@
 - (void)quotebox:(NSUInteger)linesToSkip;
 - (void)quoteboxAdjustSize:(id)sender;
 
-- (NSUInteger)indexOfPos;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger indexOfPos;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 
@@ -44,6 +44,6 @@
 - (void)recalcBackground;
 - (void)speakStatus;
 
-- (NSSize)currentSizeInChars;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize currentSizeInChars;
 
 @end

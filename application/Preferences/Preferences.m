@@ -551,7 +551,7 @@ NSString *fontToString(NSFont *font) {
     _delaysCheckbox.state = theme.sADelays;
     _slowDrawCheckbox.state = theme.slowDrawing;
 
-    if ([[NSFontPanel sharedFontPanel] isVisible]) {
+    if ([NSFontPanel sharedFontPanel].visible) {
         if (!selectedFontButton)
             selectedFontButton = btnBufferFont;
         [self showFontPanel:selectedFontButton];
@@ -592,7 +592,7 @@ NSString *fontToString(NSFont *font) {
 - (Theme *)defaultTheme {
     if (_defaultTheme == nil) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:[self managedObjectContext]];
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
         NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -621,7 +621,7 @@ NSString *fontToString(NSFont *font) {
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = [self coreDataManager].mainManagedObjectContext;
+        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }
@@ -656,7 +656,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)adjustPreview:(id)sender {
-    NSRect previewFrame = [self.window.contentView frame];
+    NSRect previewFrame = (self.window.contentView).frame;
     previewFrame.origin.y = kDefaultPrefsLowerViewHeight + 1; // Plus one to allow for divider line
     previewFrame.size.height = previewFrame.size.height - kDefaultPrefsLowerViewHeight - 1;
     _sampleTextBorderView.frame = previewFrame;
@@ -665,8 +665,8 @@ NSString *fontToString(NSFont *font) {
     NSRect newSampleFrame = _sampleTextBorderView.bounds;
 
     newSampleFrame.origin = NSMakePoint(
-                                        round((NSWidth([_sampleTextBorderView bounds]) - NSWidth([sampleTextView frame])) / 2),
-                                        round((NSHeight([_sampleTextBorderView bounds]) - previewTextHeight) / 2)
+                                        round((NSWidth(_sampleTextBorderView.bounds) - NSWidth(sampleTextView.frame)) / 2),
+                                        round((NSHeight(_sampleTextBorderView.bounds) - previewTextHeight) / 2)
                                         );
     if (newSampleFrame.origin.x < 0)
         newSampleFrame.origin.x = 0;
@@ -990,7 +990,7 @@ NSString *fontToString(NSFont *font) {
 
 - (BOOL)notDuplicate:(NSString *)string {
     ThemeArrayController *arrayController = _arrayController;
-    NSArray *themes = [arrayController arrangedObjects];
+    NSArray *themes = arrayController.arrangedObjects;
     for (Theme *aTheme in themes) {
         if ([aTheme.name isEqualToString:string] && [themes indexOfObject:aTheme] != [themes indexOfObject:arrayController.selectedTheme])
             return NO;
@@ -1127,7 +1127,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
     Preferences * __weak weakSelf = self;
-    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *alertSuppressionKey = @"UseForAllAlertSuppression";
@@ -1162,7 +1162,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)addTheme:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
-    NSUInteger row = [arrayController selectionIndex];
+    NSUInteger row = arrayController.selectionIndex;
     if (row == NSNotFound)
         row = [arrayController.arrangedObjects count] - 1;
     if (row >= [arrayController.arrangedObjects count])
@@ -1281,14 +1281,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)editNewEntry:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
-    NSUInteger row = [arrayController selectionIndex];
+    NSUInteger row = arrayController.selectionIndex;
     if (row == NSNotFound)
         row = [arrayController.arrangedObjects count] - 1;
     if (row >= [arrayController.arrangedObjects count])
         row = 0;
 
     NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
-    if ([cellView.textField acceptsFirstResponder]) {
+    if ((cellView.textField).acceptsFirstResponder) {
         [cellView.window makeFirstResponder:cellView.textField];
         [themesTableView scrollRowToVisible:(NSInteger)row];
     }
@@ -1543,9 +1543,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeStylePopup:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger windowType = [_windowTypePopup selectedTag];
+    NSInteger windowType = _windowTypePopup.selectedTag;
     [defaults setInteger:windowType forKey:@"SelectedGlkWindowType"];
-    [defaults setInteger:[_styleNamePopup selectedTag] forKey:@"SelectedStyle"];
+    [defaults setInteger:_styleNamePopup.selectedTag forKey:@"SelectedStyle"];
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
@@ -1562,7 +1562,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeHyperlinkPopup:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger windowType = [_hyperlinksPopup selectedTag];
+    NSInteger windowType = _hyperlinksPopup.selectedTag;
     if ([defaults integerForKey:@"SelectedHyperlinkWindowType"] == windowType)
         return;
     [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
@@ -1580,7 +1580,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeUnderlineLinks:(id)sender {
-    NSInteger windowType = [_hyperlinksPopup selectedTag];
+    NSInteger windowType = _hyperlinksPopup.selectedTag;
     Theme *themeToChange;
     NSUnderlineStyle selectedStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
@@ -1906,7 +1906,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     Preferences * __weak weakSelf = self;
 
-    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -1960,14 +1960,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (themeToChange.borderBehavior == kUserOverride) {
         NSColorWell *colorWell = _borderColorWell;
         themeToChange.borderColor = colorWell.color;
-        if ([[NSColorPanel sharedColorPanel] isVisible])
+        if ([NSColorPanel sharedColorPanel].visible)
             [colorWell activate:YES];
     }
 }
 
 - (Theme *)cloneThemeIfNotEditable {
     if (!theme.editable) {
-        if ([themeDuplicationTimestamp timeIntervalSinceNow] > -0.5 && lastDuplicatedTheme && lastDuplicatedTheme.editable) {
+        if (themeDuplicationTimestamp.timeIntervalSinceNow > -0.5 && lastDuplicatedTheme && lastDuplicatedTheme.editable) {
             return lastDuplicatedTheme;
         }
 
@@ -2281,9 +2281,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)windowWillClose:(id)sender {
-    if ([[NSFontPanel sharedFontPanel] isVisible])
+    if ([NSFontPanel sharedFontPanel].visible)
         [[NSFontPanel sharedFontPanel] orderOut:self];
-    if ([[NSColorPanel sharedColorPanel] isVisible])
+    if ([NSColorPanel sharedColorPanel].visible)
         [[NSColorPanel sharedColorPanel] orderOut:self];
 }
 

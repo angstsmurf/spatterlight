@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)runCommandsFromFile:(NSString *)filename;
 - (void)restoreFromSaveFile:(NSString *)filename;
 - (void)copyPropertiesFrom:(CommandScriptHandler *)handler;
-- (nullable GlkWindow *)findGlkWindowWithInput;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow * _Nullable findGlkWindowWithInput;
 
 - (void)sendCommandLineToWindow:(GlkWindow *)win;
 - (void)sendCommandKeyPressToWindow:(GlkWindow *)win;

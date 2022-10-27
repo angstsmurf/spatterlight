@@ -39,7 +39,7 @@ static const NSUInteger OSPHashImageSideInPixels = 32;
     }
     double greyscalePixels[OSPHashImageSideInPixels][OSPHashImageSideInPixels] = {{0.0}};
     double dctPixels[OSPHashImageSideInPixels][OSPHashImageSideInPixels] = {{0.0}};
-    greyscale_pixels_rgba_32_32([pixels bytes], greyscalePixels);
+    greyscale_pixels_rgba_32_32(pixels.bytes, greyscalePixels);
     fast_dct_rgba_32_32(greyscalePixels, dctPixels);
     double dctAverage = fast_avg_no_first_el_rgba_8_8(dctPixels);
     SInt64 result = phash_rgba_8_8(dctPixels, dctAverage);

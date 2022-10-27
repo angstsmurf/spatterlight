@@ -39,7 +39,7 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
     if (!imageRep) {
         return nil;
     }
-    unsigned char *pixels = [imageRep bitmapData];
+    unsigned char *pixels = imageRep.bitmapData;
     NSData *result = [NSData dataWithBytes:pixels
                                     length:OSBytesPerRowForWidth(width) * height];
     return result;
@@ -75,7 +75,7 @@ OS_INLINE OS_ALWAYS_INLINE NSUInteger OSBytesPerRowForWidth(NSUInteger width)
     [sourceImageRep drawInRect:NSMakeRect(0, 0, width, height)];
     [context flushGraphics];
     [NSGraphicsContext restoreGraphicsState];
-    [imageRep setSize:NSMakeSize(width, height)];
+    imageRep.size = NSMakeSize(width, height);
     return imageRep;
 }
 

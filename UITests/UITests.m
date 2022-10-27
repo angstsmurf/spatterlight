@@ -358,7 +358,7 @@
 
         XCTAssert([saveDialog waitForExistenceWithTimeout:5]);
 
-        NSURL *path = [url URLByDeletingLastPathComponent];
+        NSURL *path = url.URLByDeletingLastPathComponent;
 
         [UITests typeURL:path intoFileDialog:saveDialog];
 
@@ -596,7 +596,7 @@
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"r"];
 
-    NSTimeInterval interval1 = [date timeIntervalSinceNow];
+    NSTimeInterval interval1 = date.timeIntervalSinceNow;
     NSLog(@"Time taken: %f", interval1);
 
     date = [NSDate date];
@@ -610,7 +610,7 @@
     [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     [textView typeText:@"t"];
 
-    NSTimeInterval interval2 = [date timeIntervalSinceNow];
+    NSTimeInterval interval2 = date.timeIntervalSinceNow;
 
     NSLog(@"Time taken: %f (accelerated) Previous unaccelerated time taken: %f Diff: %f", fabs(interval2), fabs(interval1), fabs(interval1) - fabs(interval2));
     // There might be a way to measure this, but this is not it.
@@ -949,7 +949,7 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"Bugged"];
-    if (![gameWindow exists])
+    if (!gameWindow.exists)
         gameWindow = app.windows[@"bugged.acd"];
 
     [UITests turnOnDeterminism:@"Default"];
@@ -977,7 +977,7 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"The Wyldkynd Project"];
-    if (![gameWindow exists])
+    if (!gameWindow.exists)
         gameWindow = app.windows[@"00 Wyldkynd Project.a3c"];
 
     [UITests turnOnDeterminism:@"Default"];
@@ -1082,7 +1082,7 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"Shades of Gray"];
-    if (![gameWindow exists])
+    if (!gameWindow.exists)
         gameWindow = app.windows[@"AGT-03201-0000E16C.agx"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;

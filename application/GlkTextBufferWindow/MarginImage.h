@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
 - (void)uncacheBounds;
-- (NSString *)customA11yLabel;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull customA11yLabel;
 
 - (void)dragMarginImageFrom:(NSTextView *)source event:(NSEvent *)event filename:(NSString *)filename rect:(NSRect)rect;
 

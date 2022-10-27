@@ -94,7 +94,7 @@
 
             if (event.type == NSEventTypeLeftMouseUp) {
                 *stop = YES;
-                if ([mouseTime timeIntervalSinceNow] > -0.5) {
+                if (mouseTime.timeIntervalSinceNow > -0.5) {
                     if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
                         [super mouseDown:theEvent];
                 }
@@ -261,7 +261,7 @@
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSPasteboard *pboard = sender.draggingPasteboard;
 
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     if ([delegate.glkctl.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:delegate])
@@ -406,7 +406,7 @@
 }
 
 - (NSArray *)accessibilityChildren {
-    NSArray *children = [super accessibilityChildren];
+    NSArray *children = super.accessibilityChildren;
 
     for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
         children = [children arrayByAddingObject:mi];

@@ -40,7 +40,7 @@ extern NSArray *gGameFileTypes;
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                                            fromBookmarkData:(NSData *)game.fileLocation];
 
-        NSString *path = [values objectForKey:NSURLPathKey];
+        NSString *path = values[NSURLPathKey];
 
         if (!path)
             path = game.path;
@@ -151,7 +151,7 @@ extern NSArray *gGameFileTypes;
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@",filename];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
                 for (Game *game in fetchedObjects) {
-                    [game urlForBookmark];
+                    game.urlForBookmark;
                 }
             }
         }
@@ -159,7 +159,7 @@ extern NSArray *gGameFileTypes;
 
     // Then we check all files with paths that contain adjacent directory names
     // This is mainly to catch all games in a downloaded IF-Comp directory tree
-    NSArray<NSString *> *directoryComponents = [directory pathComponents];
+    NSArray<NSString *> *directoryComponents = directory.pathComponents;
 
     NSUInteger componentIndex = directoryComponents.count - 1;
     if (directoryComponents.count > 7) {
@@ -175,7 +175,7 @@ extern NSArray *gGameFileTypes;
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     for (Game *game in fetchedObjects) {
-        [game urlForBookmark];
+        game.urlForBookmark;
     }
 
     // The we get all missing files in library and check if they can be found here
@@ -195,17 +195,17 @@ extern NSArray *gGameFileTypes;
     for (Game *game in fetchedObjects) {
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                              fromBookmarkData:(NSData *)game.fileLocation];
-        NSString *filename = [values objectForKey:NSURLPathKey];
+        NSString *filename = values[NSURLPathKey];
         if (!filename)
             filename = game.path;
 
         NSString *searchPath = [directory stringByAppendingPathComponent:filename.lastPathComponent];
         if ([[NSFileManager defaultManager] fileExistsAtPath:searchPath]) {
-            [filenames setObject:game forKey:searchPath];
+            filenames[searchPath] = game;
         } else {
             // If the missing game is not in the current directory, we check for a
             // common ancestor directory
-            NSArray<NSString *> *pathComponents = [filename.stringByDeletingLastPathComponent pathComponents];
+            NSArray<NSString *> *pathComponents = (filename.stringByDeletingLastPathComponent).pathComponents;
 
             NSEnumerator *enumerator = [pathComponents reverseObjectEnumerator];
             NSString *component;
@@ -268,7 +268,7 @@ extern NSArray *gGameFileTypes;
             NSModalResponse choice = [alert runModal];
             if (choice == NSAlertFirstButtonReturn) {
                 for (NSString *path in filenames) {
-                    Game *game = [filenames objectForKey:path];
+                    Game *game = filenames[path];
                     NSLog(@"Updating game %@ with new path %@", game.metadata.title, path);
                     [game bookmarkForPath:path];
                     game.found = YES;

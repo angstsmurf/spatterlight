@@ -74,7 +74,7 @@
 - (NSWindow *)importAndPlayGame:(NSString *)path;
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
-- (BOOL)hasActiveGames;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasActiveGames;
 - (void)runCommandsFromFile:(NSString *)filename;
 - (void)restoreFromSaveFile:(NSString *)filename;
 

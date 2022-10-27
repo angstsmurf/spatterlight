@@ -505,7 +505,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)selectFormat:(id)sender
 {
     NSPopUpButton       *button =                 (NSPopUpButton *)sender;
-    kSaveTextFormatType selectedItemTag = (kSaveTextFormatType)[button selectedItem].tag;
+    kSaveTextFormatType selectedItemTag = (kSaveTextFormatType)button.selectedItem.tag;
     NSString            *nameFieldString = self.savePanel.nameFieldStringValue;
     NSString            *trimmedNameFieldString = nameFieldString.stringByDeletingPathExtension;
     NSString            *extension;
@@ -516,7 +516,7 @@ fprintf(stderr, "%s\n",                                                    \
     extension = tagToString[@(selectedItemTag)];
 
     NSString *nameFieldStringWithExt = [NSString stringWithFormat:@"%@.%@", trimmedNameFieldString, extension];
-    [self.savePanel setNameFieldStringValue:nameFieldStringWithExt];
+    (self.savePanel).nameFieldStringValue = nameFieldStringWithExt;
 
     // If the Finder Preference "Show all filename extensions" is false or the
     // panel's extensionHidden property is YES (the default), then the

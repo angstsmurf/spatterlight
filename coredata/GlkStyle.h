@@ -39,10 +39,10 @@
 @property (nonatomic, retain) Theme *gridUsr1;
 @property (nonatomic, retain) Theme *gridUsr2;
 
-- (GlkStyle *)clone;
-- (NSSize)cellSize;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkStyle *clone;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize cellSize;
 - (void)createDefaultAttributeDictionary;
-- (BOOL)testGridStyle;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL testGridStyle;
 - (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;
 - (void)printDebugInfo;
 

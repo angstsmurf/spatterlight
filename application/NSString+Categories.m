@@ -159,7 +159,7 @@
     if (!games || games.count == 0)
         return nil;
 
-    NSString *gameString = [games objectAtIndex:0].metadata.title;
+    NSString *gameString = games[0].metadata.title;
     if (gameString.length > 40) {
         gameString = [gameString substringToIndex:39];
         gameString = [NSString stringWithFormat:@"%@…", gameString];
@@ -172,7 +172,7 @@
         return gameString;
 
     if (number == 1) {
-        NSString *gameString2 = [games objectAtIndex:1].metadata.title;
+        NSString *gameString2 = games[1].metadata.title;
         if (gameString2.length > 40) {
             gameString2 = [gameString2 substringToIndex:39];
             gameString2 = [NSString stringWithFormat:@"%@…", gameString2];

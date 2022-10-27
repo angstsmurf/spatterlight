@@ -432,7 +432,7 @@
     if (!largest)
         return nil;
 
-    NSArray *children = [[largest.moveRanges reverseObjectEnumerator] allObjects];
+    NSArray *children = [largest.moveRanges reverseObjectEnumerator].allObjects;
 
     if (children.count > 50)
         children = [children subarrayWithRange:NSMakeRange(0, 50)];

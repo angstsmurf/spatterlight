@@ -32,9 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 
-- (NSUInteger)findCurrentField;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger findCurrentField;
 
-- (BOOL)isForm;
+@property (NS_NONATOMIC_IOSONLY, getter=isForm, readonly) BOOL form;
 - (void)movedFromField;
 - (void)speakCurrentField;
 - (void)deferredSpeakCurrentField:(id)sender;

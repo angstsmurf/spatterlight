@@ -88,7 +88,7 @@ fprintf(stderr, "%s\n",                                                    \
     helpWindow.title = title;
 
     // Do nothing if we are already showing the text
-    if ((![helpWindow isVisible]) ||
+    if ((!helpWindow.visible) ||
         (![text.string isEqualToString:_textView.string])) {
         [_textView resetTextFinder];
 
@@ -250,7 +250,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
-    [window setTitle:[state decodeObjectOfClass:[NSString class] forKey:@"title"]];
+    window.title = [state decodeObjectOfClass:[NSString class] forKey:@"title"];
     NSString *searchString = [state decodeObjectOfClass:[NSString class] forKey:@"searchString"];
     if (searchString) {
         NSTextFinder *newFinder = _textView.textFinder;

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSAccessibilityCustomRotorItemResult *)commandHistoryRotor:(NSAccessibilityCustomRotor *)rotor
                                     resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13));
 
-- (NSArray *)createCustomRotors;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray * _Nonnull createCustomRotors;
 
 @end
 
