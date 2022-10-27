@@ -75,7 +75,7 @@ fprintf(stderr, "%s\n",                                                    \
     return YES;
 }
 
-- (id)initWithGlkController:(GlkController *)glkctl_ name:(NSInteger)name_ {
+- (instancetype)initWithGlkController:(GlkController *)glkctl_ name:(NSInteger)name_ {
 
     self = [super initWithGlkController:glkctl_ name:name_];
 
@@ -184,7 +184,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
-        
+
         underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
         [self recalcBackground];
     }
@@ -194,7 +194,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)setFrame:(NSRect)frame {
     GlkController *glkctl = self.glkctl;
-    
+
     if (glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
         // When we extend the height of the status
         // line in Curses in order to make the second line
@@ -218,7 +218,7 @@ fprintf(stderr, "%s\n",                                                    \
     self.framePending = YES;
     self.pendingFrame = frame;
 
-    if ([self inLiveResize])
+    if (self.inLiveResize)
         [self flushDisplay];
 }
 
@@ -328,7 +328,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.moveRanges.count) {
         NSRange range = self.moveRanges.firstObject.rangeValue;
         range.location += lines;
-        [self.moveRanges replaceObjectAtIndex:0 withObject:[NSValue valueWithRange:range]];
+        (self.moveRanges)[0] = [NSValue valueWithRange:range];
     }
     fence += lines;
 }
@@ -462,7 +462,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (line_request || self.glkctl.commandScriptRunning)
         storedNewline = nil;
 
-    if (line_request && [restoredWin.restoredInput length]) {
+    if (line_request && (restoredWin.restoredInput).length) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
@@ -844,7 +844,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
-    
+
     if (!str.length) {
         NSLog(@"Null string!");
         return;
@@ -992,7 +992,7 @@ fprintf(stderr, "%s\n",                                                    \
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus) {
         //        NSLog(@"%ld does not want focus", self.name);
-        for (win in [glkctl.gwindows allValues]) {
+        for (win in (glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
                 [win grabFocus];
@@ -1093,7 +1093,7 @@ fprintf(stderr, "%s\n",                                                    \
     else {
         if (line_request) {
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
-                [[glkctl window] makeFirstResponder:_textview];
+                [glkctl.window makeFirstResponder:_textview];
                 NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
                 if (selectedRange.location == NSNotFound || selectedRange.length == 0)
                     selectedRange = NSMakeRange(textstorage.length, 0);
@@ -1493,7 +1493,7 @@ replacementString:(id)repl {
 - (NSUInteger)numberOfLines {
     [self flushDisplay];
     NSUInteger numberOfLines, index, numberOfGlyphs =
-    [layoutmanager numberOfGlyphs];
+    layoutmanager.numberOfGlyphs;
     NSRange lineRange;
     for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
         [layoutmanager lineFragmentRectForGlyphAtIndex:index

@@ -58,7 +58,7 @@
 
     //    BOOL needDeleteOld  = false;
 
-    NSManagedObjectModel *mom = [self managedObjectModel];
+    NSManagedObjectModel *mom = self.managedObjectModel;
     if (!mom) {
         NSLog(@"%@:%@ ERROR! No model to generate a store from!", [self class], NSStringFromSelector(_cmd));
         return nil;
@@ -87,10 +87,10 @@
     if (needMigrate) {
         error = nil;
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [context setPersistentStoreCoordinator:coordinator];
+        context.persistentStoreCoordinator = coordinator;
         [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
         if (error != nil) {
-            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
             abort();
         }
     }
@@ -116,8 +116,8 @@
 
     if (!properties) {
         BOOL ok = NO;
-        if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error.code == NSFileReadNoSuchFileError) {
+            ok = [fileManager createDirectoryAtPath:applicationFilesDirectory.path withIntermediateDirectories:YES attributes:nil error:&error];
         }
         if (!ok) {
             [[NSApplication sharedApplication] presentError:error];
@@ -127,7 +127,7 @@
     } else {
         if (![properties[NSURLIsDirectoryKey] boolValue]) {
             // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
+            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", applicationFilesDirectory.path];
 
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
@@ -195,7 +195,7 @@
         }
         if (blockContainer.viewContext.undoManager == nil) {
             NSUndoManager *newManager = [[NSUndoManager alloc] init];
-            [newManager setLevelsOfUndo:10];
+            newManager.levelsOfUndo = 10;
             blockContainer.viewContext.undoManager = newManager;
         }
 
@@ -209,7 +209,7 @@
             NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
             [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
             if (error != nil) {
-                NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+                NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
                 abort();
             }
         }
@@ -225,7 +225,7 @@
         return privateManagedObjectContext;
     }
 
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
     if (!coordinator) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
@@ -251,11 +251,11 @@
     } else {
         _mainManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 
-        [_mainManagedObjectContext setParentContext:[self privateManagedObjectContext]];
+        _mainManagedObjectContext.parentContext = [self privateManagedObjectContext];
 
         if (_mainManagedObjectContext.undoManager == nil) {
             NSUndoManager *newManager = [[NSUndoManager alloc] init];
-            [newManager setLevelsOfUndo:10];
+            newManager.levelsOfUndo = 10;
             _mainManagedObjectContext.undoManager = newManager;
         }
     }
@@ -267,7 +267,7 @@
 - (NSURL *)applicationFilesDirectory
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *appSupportURL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
     return [appSupportURL URLByAppendingPathComponent:@"Spatterlight"];
 }
 

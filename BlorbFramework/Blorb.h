@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage;
 - (nullable BlorbResource *)findResourceOfUsage:(FourCharCode)usage;
 
-- (nullable NSData *)coverImageData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nullable coverImageData;
 
-- (nullable NSString *)ifidFromIFhd;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nullable ifidFromIFhd;
 
 @end
 

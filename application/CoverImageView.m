@@ -50,7 +50,7 @@
 - (void)positionImage {
     if (self.ratio == 0)
         return;
-    NSView *superview = [self superview];
+    NSView *superview = self.superview;
     NSSize windowSize = superview.frame.size;
 
     NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / self.ratio);

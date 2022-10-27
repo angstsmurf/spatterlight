@@ -75,7 +75,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
         case ' ': {
             if (!infocontroller.inAnimation) {
-                [[self window] performClose:nil];
+                [self.window performClose:nil];
             }
             break;
         }
@@ -120,7 +120,7 @@ fprintf(stderr, "%s\n",                                                    \
     self = [self init];
     if (self) {
         _game = game;
-        _path = [game urlForBookmark].path;
+        _path = game.urlForBookmark.path;
         if (!_path)
             _path = game.path;
         _meta = game.metadata;
@@ -488,7 +488,7 @@ fprintf(stderr, "%s\n",                                                    \
     CGImageRef windowSnapshot =
     CGWindowListCreateImage(CGRectNull,
                             kCGWindowListOptionIncludingWindow,
-                            (CGWindowID)[self.window windowNumber],
+                            (CGWindowID)(self.window).windowNumber,
                             kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
     snapshotLayer.frame = self.window.frame;
@@ -641,10 +641,10 @@ fprintf(stderr, "%s\n",                                                    \
 
         // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
         // Probably a good reason to use something else as key.
-        for (InfoController *controller in [libctrl.infoWindows allValues])
+        for (InfoController *controller in (libctrl.infoWindows).allValues)
             if (controller == self) {
                 NSArray *temp = [libctrl.infoWindows allKeysForObject:controller];
-                NSString *key = [temp objectAtIndex:0];
+                NSString *key = temp[0];
                 if (key) {
                     [libctrl.infoWindows removeObjectForKey:key];
                     return;
@@ -655,8 +655,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 + (CABasicAnimation *)fadeOutAnimation {
     CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
-    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    fadeOutAnimation.fromValue = @1.0f;
+    fadeOutAnimation.toValue = @0.0f;
     fadeOutAnimation.additive = NO;
     fadeOutAnimation.removedOnCompletion = NO;
     fadeOutAnimation.beginTime = 0.0;

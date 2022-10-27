@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
                            at:(NSUInteger)apos;
-- (NSString *)customA11yLabel;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull customA11yLabel;
 - (void)dragTextAttachmentFrom:(NSTextView *)source event:(NSEvent *)event filename:(NSString *)filename inRect:(NSRect)frame;
 
 @end

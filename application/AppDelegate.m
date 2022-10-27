@@ -189,7 +189,7 @@ PasteboardFilePasteLocation;
     NSError *error;
 
     if (!_helpLicenseWindow) {
-        _helpLicenseWindow = [self helpLicenseWindow];
+        _helpLicenseWindow = self.helpLicenseWindow;
     }
 
     NSAttributedString *content = [[NSAttributedString alloc]
@@ -211,7 +211,7 @@ PasteboardFilePasteLocation;
                   completionHandler:
 (void (^)(NSWindow *, NSError *))completionHandler {
     NSWindow *window = nil;
-    AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
+    AppDelegate *appDelegate = (AppDelegate *)NSApp.delegate;
     if ([identifier isEqualToString:@"library"]) {
         window = appDelegate.libctl.window;
     } else if ([identifier isEqualToString:@"licenseWin"]) {
@@ -554,13 +554,13 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
+    for (GlkController *glkctl in (_libctl.gameSessions).allValues) {
         [glkctl autoSaveOnExit];
     }
 
-    if ([[NSFontPanel sharedFontPanel] isVisible])
+    if ([NSFontPanel sharedFontPanel].visible)
         [[NSFontPanel sharedFontPanel] orderOut:self];
-    if ([[NSColorPanel sharedColorPanel] isVisible])
+    if ([NSColorPanel sharedColorPanel].visible)
         [[NSColorPanel sharedColorPanel] orderOut:self];
 
     NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
@@ -582,7 +582,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
-    return [_coreDataManager.mainManagedObjectContext undoManager];
+    return (_coreDataManager.mainManagedObjectContext).undoManager;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {

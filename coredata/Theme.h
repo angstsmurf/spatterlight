@@ -145,11 +145,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) Theme *lightTheme;
 @property (nullable, nonatomic, retain) Game *overrides;
 
-- (Theme *)clone;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;
 - (void)populateStyles;
-- (NSArray<GlkStyle *> *)allStyles;
-- (BOOL)hasCustomStyles;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<GlkStyle *> * _Nonnull allStyles;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCustomStyles;
 
 @end
 

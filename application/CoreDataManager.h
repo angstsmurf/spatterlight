@@ -24,7 +24,7 @@
 @property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
 
 - (instancetype)initWithModelName:(NSString *)aModelName;
-- (NSManagedObjectContext *)privateChildManagedObjectContext;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *privateChildManagedObjectContext;
 - (void)saveChanges;
 
 - (void)startIndexing;

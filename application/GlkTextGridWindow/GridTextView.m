@@ -35,7 +35,7 @@
         if (frame.size.height < theme.cellHeight + 2 * theme.gridMarginY)
             return;
     }
-    [super setFrame:frame];
+    super.frame = frame;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -52,7 +52,7 @@
 }
 
  - (NSArray *)accessibilityChildren {
-    NSArray *children = [super accessibilityChildren];
+    NSArray *children = super.accessibilityChildren;
     InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
     if (input) {
         MyFieldEditor *fieldEditor = (((GlkTextGridWindow *)self.delegate).input.fieldEditor);

@@ -272,7 +272,7 @@
         
         if (event.type == NSEventTypeLeftMouseUp) {
             *stop = YES;
-            if ([mouseTime timeIntervalSinceNow] > -0.5) {
+            if (mouseTime.timeIntervalSinceNow > -0.5) {
                 if (mouse_request && theEvent.clickCount == 1) {
                     [self.glkctl markLastSeen];
                     location.y = self.frame.size.height - location.y;
@@ -337,7 +337,7 @@
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
-        for (win in [self.glkctl.gwindows allValues]) {
+        for (win in (self.glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkGraphicsWindow: Passing on keypress");
                 [win keyDown:evt];
@@ -449,7 +449,7 @@
 }
 
 - (NSArray *)accessibilityChildren {
-    NSArray *children = [super accessibilityChildren];
+    NSArray *children = super.accessibilityChildren;
 
     if (subImages.count == 0 && self.theme.vOSpeakImages == kVOImageAll && showingImage) {
         [self createDummySubImage];

@@ -15,9 +15,9 @@
 
 + (void)checkThemesInContext:(NSManagedObjectContext *)context {
     //Loop through all attributes of theme and assign them to me
-    NSDictionary *attributes = [[NSEntityDescription
+    NSDictionary *attributes = [NSEntityDescription
                                  entityForName:@"Theme"
-                                 inManagedObjectContext:context] attributesByName];
+                                 inManagedObjectContext:context].attributesByName;
 
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
