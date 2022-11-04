@@ -52,7 +52,7 @@ struct settings_struct
     int force_arrange;
 };
 
-void sendmsg(int msg, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf);
+void sendmsg_glk(int msg, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf);
 void readmsg(struct message *msgbuf, char *buf);
 
 enum
