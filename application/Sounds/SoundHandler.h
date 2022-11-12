@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length;
 
--(BOOL)load;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL load;
 
 @property (copy, nullable) NSData *data;
 @property (strong, nullable) SoundFile *soundFile;

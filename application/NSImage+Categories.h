@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSImage (Categories)
 
 - (NSImage *)imageWithTint:(NSColor *)tint;
-- (nullable NSBitmapImageRep *)bitmapImageRepresentation;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSBitmapImageRep * _Nullable bitmapImageRepresentation;
 - (nullable NSImage *)resizedToPixelDimensions:(NSSize)newSize;
 
 @end

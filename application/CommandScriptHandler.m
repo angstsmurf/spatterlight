@@ -140,9 +140,9 @@ extern NSArray *gSaveFileTypes;
 - (BOOL)commandScriptInPasteboard:(NSPasteboard *)pboard fromWindow:(GlkWindow *)gwin {
     NSString *string = nil;
 
-    if ( [[pboard types] containsObject:NSStringPboardType] ) {
+    if ( [pboard.types containsObject:NSStringPboardType] ) {
         string = [pboard  stringForType:NSPasteboardTypeString];
-    } else if ( [[pboard types] containsObject:NSURLPboardType] ) {
+    } else if ( [pboard.types containsObject:NSURLPboardType] ) {
         NSURL *fileURL = [NSURL URLFromPasteboard:pboard];
         if ([gDocFileTypes indexOfObject:fileURL.pathExtension.lowercaseString] != NSNotFound) {
             [self runCommandsFromFile:fileURL.path inWindow:gwin];

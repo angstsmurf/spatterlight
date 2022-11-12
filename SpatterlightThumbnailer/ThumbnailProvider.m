@@ -177,6 +177,7 @@
     if (!format || !babel_get_authoritative_ctx(context))
     {
         babel_release_ctx(context);
+        free(context);
         return nil;
     }
 
@@ -186,10 +187,12 @@
     if (rv <= 0)
     {
         babel_release_ctx(context);
+        free(context);
         return nil;
     }
 
     babel_release_ctx(context);
+    free(context);
     return @(buf);
 }
 

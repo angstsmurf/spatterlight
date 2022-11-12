@@ -83,7 +83,6 @@ extern NSArray *gGameFileTypes;
 
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
-
             dispatch_async(dispatch_get_main_queue(), ^{
                 libController.addButton.enabled = YES;
                 libController.currentlyAddingGames = NO;
@@ -95,9 +94,8 @@ extern NSArray *gGameFileTypes;
         }];
     };
     
-    // End of the long block
-#pragma mark End of long completion handler
-    
+    // End of the block
+
     newOptions[@"completionHandler"] = internalHandler;
     
     [libController beginImporting];
@@ -123,42 +121,46 @@ extern NSArray *gGameFileTypes;
 
     NSOperation *lastOperation = nil;
 
-    for (NSURL *url in urls)
-    {
-        if (!_libController.currentlyAddingGames) {
-            if (internalHandler)
-                internalHandler();
-            return nil;
-        }
+    @autoreleasepool {
+        for (NSURL *url in urls)
+        {
+            if (!_libController.currentlyAddingGames) {
+                if (internalHandler)
+                    internalHandler();
+                return nil;
+            }
 
-        NSNumber *isDirectory = nil;
-        [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+            NSNumber *isDirectory = nil;
+            [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
 
-        if (isDirectory.boolValue) {
-            NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
-                                            includingPropertiesForKeys:@[NSURLIsDirectoryKey]
-                                                               options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                 error:nil];
-            lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
-        } else {
-            lastOperation = [self addSingleFile:url options:options];
-        }
+            if (isDirectory.boolValue) {
+                NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:url
+                                                includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                                                   options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                     error:nil];
+                lastOperation = [self addGamesFromURLsRecursively:contentsOfDir options:options];
+            } else {
+                lastOperation = [self addSingleFile:url options:options];
+            }
 
-        if ([timestamp timeIntervalSinceNow] < -0.3) {
-            [context safeSaveAndWait];
-            [_libController.coreDataManager saveChanges];
-            timestamp = [NSDate date];
+            if (timestamp.timeIntervalSinceNow < -0.3) {
+                [context safeSaveAndWait];
+                [_libController.coreDataManager saveChanges];
+                timestamp = [NSDate date];
+            }
         }
     }
 
     NSBlockOperation *finisher = nil;
     if (internalHandler) {
-        finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
-        if (lastOperation)
-            [finisher addDependency:lastOperation];
-        finisher.qualityOfService = NSQualityOfServiceUtility;
-        [_libController.downloadQueue addOperation:finisher];
-        lastOperation = nil;
+        @autoreleasepool {
+            finisher = [NSBlockOperation blockOperationWithBlock:internalHandler];
+            if (lastOperation)
+                [finisher addDependency:lastOperation];
+            finisher.qualityOfService = NSQualityOfServiceUtility;
+            [_libController.downloadQueue addOperation:finisher];
+            lastOperation = nil;
+        }
     }
     return lastOperation;
 }
@@ -288,9 +290,12 @@ extern NSArray *gGameFileTypes;
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
                 alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
                 [alert runModal];
+                babel_release_ctx(ctx);
+                free(ctx);
             });
         }
         babel_release_ctx(ctx);
+        free(ctx);
         return nil;
     }
 
@@ -300,6 +305,8 @@ extern NSArray *gGameFileTypes;
     rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
     if (rv <= 0)
     {
+        babel_release_ctx(ctx);
+        free(ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -310,13 +317,14 @@ extern NSArray *gGameFileTypes;
         } else {
             NSLog(@"Babel can not compute IFID from the file.");
         }
-        babel_release_ctx(ctx);
         return nil;
     }
 
     s = strchr(buf, ',');
     if (s) *s = 0;
     ifid = @(buf);
+    babel_release_ctx(ctx);
+    free(ctx);
 
     if ([ifid isEqualToString:@"ZCODE-5-------"] && [[path signatureFromFile] isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
         ifid = @"ZCODE-5-830222";
@@ -328,7 +336,7 @@ extern NSArray *gGameFileTypes;
            [@(format) isEqualToString:@"sagaplus"] ||
            [@(format) isEqualToString:@"scott"] )) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
-        ([extension isEqualToString:@"msa"] && ![@(format) isEqualToString:@"sagaplus"]) ||
+        (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![@(format) isEqualToString:@"sagaplus"]) ||
         (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"] && ![@(format) isEqualToString:@"taylor"] && ![@(format) isEqualToString:@"sagaplus"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -338,9 +346,8 @@ extern NSArray *gGameFileTypes;
                 [alert runModal];
             });
         } else {
-            NSLog(@"%@: Recognized extension (%@) but unknown file format.", [path lastPathComponent], extension);
+            NSLog(@"%@: Recognized extension (%@) but unknown file format.", path.lastPathComponent, extension);
         }
-        babel_release_ctx(ctx);
         return nil;
     }
 
@@ -357,7 +364,6 @@ extern NSArray *gGameFileTypes;
     LibController *libController = _libController;
 
     [context performBlockAndWait:^{
-
         metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
@@ -366,7 +372,7 @@ extern NSArray *gGameFileTypes;
         if (!metadata)
         {
             if (blorb) {
-                NSData *mdbufData = [blorb metaData];
+                NSData *mdbufData = blorb.metaData;
                 if (mdbufData) {
                     metadata = [libController importMetadataFromXML:mdbufData inContext:context];
                     metadata.source = @(kInternal);
@@ -384,11 +390,11 @@ extern NSArray *gGameFileTypes;
                 }
                 if (![path isEqualToString:game.path])
                 {
-                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", [path lastPathComponent], path);
+                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", path.lastPathComponent, path);
                     [game bookmarkForPath:path];
                 }
                 if (![game.detectedFormat isEqualToString:@(format)]) {
-                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
+                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", path.lastPathComponent, format);
                     game.detectedFormat = @(format);
                 }
                 if (blorb) {
@@ -442,8 +448,6 @@ extern NSArray *gGameFileTypes;
                 }
             }
         }
-
-        babel_release_ctx(ctx);
 
         game = (Game *) [NSEntityDescription
                          insertNewObjectForEntityForName:@"Game"
@@ -556,7 +560,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 - (void)lookForImagesForGame:(Game *)game {
     //    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
-    NSURL *dirUrl = [NSURL fileURLWithPath:[game.path stringByDeletingLastPathComponent] isDirectory:YES];
+    NSURL *dirUrl = [NSURL fileURLWithPath:(game.path).stringByDeletingLastPathComponent isDirectory:YES];
     // First check if there are other games in this folder
     NSArray *contentsOfDir = [filemgr contentsOfDirectoryAtURL:dirUrl
                                     includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
@@ -693,7 +697,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                     create:YES
                                     error:&error];
 
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
 
     NSString *screenDatPath = [path.stringByDeletingLastPathComponent
                                stringByAppendingPathComponent:@"SCREEN.DAT"];
@@ -736,7 +740,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                     create:YES
                                     error:&error];
 
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
 
     tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
 
@@ -783,6 +787,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
              [@(buf) stringByAppendingPathExtension:@"agx"]];
 
             babel_release_ctx(ctx);
+            free(ctx);
 
             [filemanager removeItemAtURL:cvtURL error:nil];
 
@@ -828,6 +833,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         NSLog(@"GameImporter: babel did not like the converted file");
     }
     babel_release_ctx(ctx);
+    free(ctx);
     return nil;
 }
 

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSMutableArray<MarginImage *> *marginImages;
 
-- (id)initWithContainerSize:(NSSize)size;
+- (instancetype)initWithContainerSize:(NSSize)size;
 - (void)clearImages;
 - (void)addImage:(NSImage *)image
            align:(NSInteger)align
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)drawRect:(NSRect)rect;
 - (void)invalidateLayout:(nullable id)sender;
 - (void)unoverlap:(MarginImage *)image;
-- (BOOL)hasMarginImages;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasMarginImages;
 - (NSUInteger)findHyperlinkAt:(NSPoint)p;
 - (void)flowBreakAt:(NSUInteger)pos;
 - (nullable MarginImage *)marginImageAt:(NSPoint)p;

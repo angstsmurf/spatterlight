@@ -659,7 +659,7 @@ fprintf(stderr, "%s\n",                                                    \
         titleYpos = NSMaxY(self.frame) - clipView.frame.size.height;
     }
 
-    NSPoint newOrigin = [clipView bounds].origin;
+    NSPoint newOrigin = clipView.bounds.origin;
     newOrigin.y = titleYpos;
 
     _animatingScroll = YES;
@@ -678,7 +678,7 @@ fprintf(stderr, "%s\n",                                                    \
     _animatingScroll = NO;
     NSClipView *clipView = (NSClipView *)self.superview;
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.001];
+    [NSAnimationContext currentContext].duration = 0.001;
     [[clipView animator] setBoundsOrigin:clipView.bounds.origin];
     [NSAnimationContext endGrouping];
 }
@@ -785,7 +785,7 @@ fprintf(stderr, "%s\n",                                                    \
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.4;
-        [[_downloadButton animator] setAlphaValue:0];
+        [_downloadButton animator].alphaValue = 0;
     } completionHandler:^{
         LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
         [libcontroller download:self.downloadButton];

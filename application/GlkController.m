@@ -96,7 +96,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation TempLibrary
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
     int version = [decoder decodeIntForKey:@"version"];
@@ -123,7 +123,7 @@ fprintf(stderr, "%s\n",                                                    \
     super.frame = frame;
     GlkController *glkctl = _glkctrl;
 
-    if ([glkctl isAlive] && !self.inLiveResize && !glkctl.ignoreResizes) {
+    if (glkctl.alive && !self.inLiveResize && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:frame];
     }
 }
@@ -270,7 +270,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self detectGame:game.ifid];
     }
 
-    NSURL *url = [game urlForBookmark];
+    NSURL *url = game.urlForBookmark;
     _gamefile = url.path;
 
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
@@ -305,7 +305,7 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldSpeakNewText = NO;
     _mustBeQuiet = YES;
 
-    _supportsAutorestore = [self.window isRestorable];
+    _supportsAutorestore = (self.window).restorable;
     game.autosaved = _supportsAutorestore;
     windowRestoredBySystem = windowRestoredBySystem_;
 
@@ -361,7 +361,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
     if (@available(macOS 10.13, *)) {
-        _voiceOverActive = [[NSWorkspace sharedWorkspace] isVoiceOverEnabled];
+        _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
         [notifications addObserver:self
                                                  selector:@selector(noteAccessibilityStatusChanged:)
                                                      name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
@@ -446,7 +446,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Check creation date of interpreter autosave file
     NSDictionary* attrs = [fileManager attributesOfItemAtPath:self.autosaveFileTerp error:&error];
     if (attrs) {
-        terpAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+        terpAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
     } else {
         NSLog(@"Error: %@", error);
     }
@@ -454,7 +454,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Check creation date of GUI autosave file
     attrs = [fileManager attributesOfItemAtPath:self.autosaveFileGUI error:&error];
     if (attrs) {
-        GUIAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+        GUIAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
         if (terpAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
             NSLog(@"GUI autosave file is created before terp autosave file!");
         }
@@ -491,7 +491,7 @@ fprintf(stderr, "%s\n",                                                    \
         // Get creation date of GUI late autosave
         attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
         if (attrs) {
-            GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+            GUILateAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
         } else {
             NSLog(@"Error: %@", error);
         }
@@ -664,7 +664,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
-    NSRect newContentFrame = [self.window.contentView frame];
+    NSRect newContentFrame = (self.window.contentView).frame;
     if (!(windowRestoredBySystem || _showingCoverImage)) {
         newContentFrame.size = [self defaultContentSize];
         NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
@@ -887,7 +887,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkController * __weak weakSelf = self;
 
-    [task setTerminationHandler:^(NSTask *aTask) {
+    task.terminationHandler = ^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
         GlkController *strongSelf = weakSelf;
         if(strongSelf) {
@@ -895,7 +895,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [strongSelf noteTaskDidTerminate:aTask];
             });
         }
-    }];
+    };
 
     _queue = [[NSMutableArray alloc] init];
 
@@ -1121,8 +1121,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     // Restore scroll position etc
-    for (win in [_gwindows allValues]) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]] && ![_windowsToRestore count]) {
+    for (win in _gwindows.allValues) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] && !_windowsToRestore.count) {
             [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
         }
         if (win.name == _firstResponderView) {
@@ -1300,7 +1300,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 // LibController calls this to reset non-running games
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
-    _gamefile = [aGame urlForBookmark].path;
+    _gamefile = aGame.urlForBookmark.path;
     aGame.autosaved = NO;
     if (!_gamefile)
         return;
@@ -1486,7 +1486,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkController * __weak weakSelf = self;
 
-    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
 
         weakSelf.mustBeQuiet = NO;
 
@@ -1517,7 +1517,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
-    if (lastResetTimestamp && [lastResetTimestamp timeIntervalSinceNow] < -1) {
+    if (lastResetTimestamp && lastResetTimestamp.timeIntervalSinceNow < -1) {
         restartingAlready = NO;
     }
 
@@ -1783,7 +1783,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     _windowsToBeAdded = [NSMutableArray new];
 
-    for (GlkWindow *win in [_gwindows allValues]) {
+    for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
     }
 
@@ -1819,7 +1819,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     // Guessing new window to focus on
-    for (GlkWindow *win in [_gwindows allValues]) {
+    for (GlkWindow *win in _gwindows.allValues) {
         if (win.wantsFocus) {
             [win grabFocus];
             return;
@@ -1828,7 +1828,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)markLastSeen {
-    for (GlkWindow *win in [_gwindows allValues]) {
+    for (GlkWindow *win in _gwindows.allValues) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [win markLastSeen];
         }
@@ -1836,7 +1836,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)performScroll {
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [win performScroll];
         }
@@ -1844,7 +1844,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender
                          toObject:(id)client {
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         if (win.input == client) {
             return win.input.fieldEditor;
         }
@@ -1891,7 +1891,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         CIImage *result = [mask valueForKey:kCIOutputImageKey];
 
-        CGRect extent = [result extent];
+        CGRect extent = result.extent;
         CGImageRef cgImage = [context createCGImage:result fromRect:extent];
 
         layer.contents = CFBridgingRelease(cgImage);
@@ -2040,7 +2040,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSRect contentframe = _contentView.frame;
     contentframe.origin = NSMakePoint(contentframe.origin.x + diff, contentframe.origin.y + diff);
     [self.window setFrame:frame display:NO];
-    [_contentView setFrame:contentframe];
+    _contentView.frame = contentframe;
     _movingBorder = NO;
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     NSNotification *notification = [[NSNotification alloc] initWithName:@"PreferencesChanged" object:_theme userInfo:nil];
@@ -2154,7 +2154,7 @@ fprintf(stderr, "%s\n",                                                    \
                                           force:YES];
     [self queueEvent:gevent];
 
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
     {
         win.theme = theme;
         [win prefsDidChange];
@@ -2316,8 +2316,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSDragOperation)draggingEntered:sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
 
-    if ( [[pboard types] containsObject:NSStringPboardType] ||
-        [[pboard types] containsObject:NSURLPboardType] ) {
+    if ( [pboard.types containsObject:NSStringPboardType] ||
+        [pboard.types containsObject:NSURLPboardType] ) {
         return NSDragOperationCopy;
     }
 
@@ -3062,7 +3062,7 @@ fprintf(stderr, "%s\n",                                                    \
         case LOADSOUND:
             buf[req->len] = 0;
             [_soundHandler handleLoadSoundNumber:req->a1
-                                            from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                            from:@(buf)
                                           offset:(NSUInteger)req->a2
                                           length:(NSUInteger)req->a3];
             break;
@@ -3374,7 +3374,7 @@ fprintf(stderr, "%s\n",                                                    \
                 lastRequest == SETZCOLOR ||
                 lastRequest == NEXTEVENT ||
                 lastRequest == MOVETO ||
-                [lastKeyTimestamp timeIntervalSinceNow] < -1) {
+                lastKeyTimestamp.timeIntervalSinceNow < -1) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
@@ -3390,7 +3390,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    if (!_adrianMole || [lastScriptKeyTimestamp timeIntervalSinceNow] < -0.5) {
+                    if (!_adrianMole || lastScriptKeyTimestamp.timeIntervalSinceNow < -0.5) {
                         [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
                         lastScriptKeyTimestamp = [NSDate date];
                     }
@@ -3580,7 +3580,7 @@ static BOOL pollMoreData(int fd) {
         [self performSelector:@selector(speakString:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
     }
 
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         [win terpDidStop];
 
     self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
@@ -3647,8 +3647,8 @@ if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER |
     ssize_t n, t;
     BOOL stop;
 
-    int readfd = [readfh fileDescriptor];
-    int sendfd = [sendfh fileDescriptor];
+    int readfd = readfh.fileDescriptor;
+    int sendfd = sendfh.fileDescriptor;
 
 again:
 
@@ -3769,7 +3769,7 @@ again:
     GlkWindow *largestWin = nil;
     CGFloat largestSize = 0;
 
-    NSArray *winArray = [_gwindows allValues];
+    NSArray *winArray = _gwindows.allValues;
 
     // Check for status window plus buffer window arrangement
     // and return the buffer window
@@ -3900,7 +3900,7 @@ again:
 - (void)storeScrollOffsets {
     if (_ignoreResizes)
         return;
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             ((GlkTextBufferWindow *)win).pendingScrollRestore = NO;
             [(GlkTextBufferWindow *)win storeScrollOffset];
@@ -3909,7 +3909,7 @@ again:
 }
 
 - (void)restoreScrollOffsets {
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
             [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
@@ -4017,7 +4017,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
                 context.duration = duration / 4;
-                [localContentView setFrame:newContentFrame];
+                localContentView.frame = newContentFrame;
                 [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
                 [weakSelf flushDisplay];
             }
@@ -4028,15 +4028,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                 [NSAnimationContext
                  runAnimationGroup:^(NSAnimationContext *context) {
                     context.duration = duration / 4;
-                    [[localSnapshot.contentView animator] setAlphaValue:0];
+                    [localSnapshot.contentView animator].alphaValue = 0;
                 }
                  completionHandler:^{
                     // Finally, we extend the content view vertically if needed.
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
                         context.duration = 0.1;
-                        [[localContentView animator]
-                         setFrame:[weakSelf contentFrameForFullscreen]];
+                        [localContentView animator].frame = [weakSelf contentFrameForFullscreen];
                     }
                      completionHandler:^{
                         // Hide the snapshot window.
@@ -4207,7 +4206,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
     [self contentDidResize:_contentView.frame];
-    for (GlkWindow *win in [_gwindows allValues])
+    for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
             [bufwin restoreScrollBarStyle];
@@ -4229,7 +4228,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [self showWindow:nil];
     CGImageRef windowSnapshot = CGWindowListCreateImage(CGRectNull,
                                                         kCGWindowListOptionIncludingWindow,
-                                                        (CGWindowID)[self.window windowNumber],
+                                                        (CGWindowID)(self.window).windowNumber,
                                                         kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [CALayer layer];
     snapshotLayer.frame = self.window.frame;
@@ -4489,7 +4488,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
     if (largest)
     {
-        if (largest != _spokeLast && [_speechTimeStamp timeIntervalSinceNow]  > -0.5)
+        if (largest != _spokeLast && _speechTimeStamp.timeIntervalSinceNow  > -0.5)
             return;
         _speechTimeStamp = [NSDate date];
         _spokeLast = largest;
@@ -4562,7 +4561,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         NSAccessibilityAnnouncementKey : string
     };
 
-    NSWindow *mainWin = [NSApp mainWindow];
+    NSWindow *mainWin = NSApp.mainWindow;
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(

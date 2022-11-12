@@ -88,7 +88,7 @@ static const NSCalendarUnit componentFlags = (NSCalendarUnitYear| NSCalendarUnit
 // Courtesy of dedan who mentions issues with Daylight Savings
 - (NSDate *) dateByAddingDays: (NSInteger) dDays {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    [dateComponents setDay:dDays];
+    dateComponents.day = dDays;
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
     return newDate;
 }

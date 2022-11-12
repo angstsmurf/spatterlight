@@ -54,7 +54,7 @@
     CGImageRef windowSnapshot =
     CGWindowListCreateImage(CGRectNull,
                             kCGWindowListOptionIncludingWindow,
-                            (CGWindowID)[_glkctl.window windowNumber],
+                            (CGWindowID)(_glkctl.window).windowNumber,
                             kCGWindowImageBoundsIgnoreFraming);
 
     CALayer *snapshotLayer = [[CALayer alloc] init];
@@ -172,8 +172,8 @@
         [glkctl adjustContentView];
 
         CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
-        fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+        fadeOutAnimation.fromValue = @1.0f;
+        fadeOutAnimation.toValue = @0.0f;
         fadeOutAnimation.additive = NO;
         fadeOutAnimation.removedOnCompletion = NO;
         fadeOutAnimation.beginTime = 0.0;
@@ -191,7 +191,7 @@
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
                 context.duration = 0.3;
-                [[backgroundColorWin animator] setAlphaValue:0];
+                [backgroundColorWin animator].alphaValue = 0;
             } completionHandler:^{
                 [backgroundColorWin orderOut:nil];
             }];
@@ -298,8 +298,8 @@
     [window makeFirstResponder:_imageView];
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.fromValue = @0.0f;
+    fadeInAnimation.toValue = @1.0f;
     fadeInAnimation.additive = NO;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.beginTime = 0.0;
@@ -338,8 +338,8 @@
         [self.glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
 
         CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
-        fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+        fadeOutAnimation.fromValue = @1.0f;
+        fadeOutAnimation.toValue = @0.0f;
         fadeOutAnimation.additive = NO;
         fadeOutAnimation.removedOnCompletion = NO;
         fadeOutAnimation.beginTime = 1.5;
@@ -477,8 +477,7 @@
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         // Make sure the window style mask does not
         // include full screen bit
-        [window
-         setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
+        window.styleMask = (NSUInteger)(window.styleMask & ~(NSUInteger)NSFullScreenWindowMask);
         [[window animator] setFrame:oldFrame display:YES];
     } completionHandler:^{
         [imageView positionImage];

@@ -50,7 +50,7 @@
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSPasteboard *pboard = sender.draggingPasteboard;
 
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)((NSTextField *)self.delegate).delegate;
    if ([delegate.glkctl.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:delegate])
@@ -122,7 +122,7 @@
 
         textField.delegate = self;
         if( [textField respondsToSelector: @selector(setInsertionPointColor:)] )
-            [textField setInsertionPointColor:self.textColor];
+            textField.insertionPointColor = self.textColor;
         NSRange newRange = NSMakeRange(textField.string.length,0);
         if (!NSEqualRanges(newRange, textField.selectedRange))
             textField.selectedRange = newRange;
@@ -244,7 +244,7 @@
         valid = NO;
     }
 
-    if ([*partialStringPtr length] > _maxLength) {
+    if ((*partialStringPtr).length > _maxLength) {
         *partialStringPtr = [origString copy];
         *proposedSelRangePtr = origSelRange;
         return NO;

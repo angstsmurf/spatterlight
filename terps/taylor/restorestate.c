@@ -4,7 +4,6 @@
 //
 //  Created by Administrator on 2022-01-10.
 //
-#include <stdlib.h>
 #include <string.h>
 
 #include "glk.h"

@@ -9,30 +9,34 @@
 
 @implementation IFictionMetadata
 
-- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue {
+- (instancetype)initWithData:(NSData *)data andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue andDownloader:(IFDBDownloader *)downloader {
   self = [super init];
   if (self) {
-    NSMutableArray *stories = [[NSMutableArray alloc] init];
+      @autoreleasepool {
+          NSMutableArray *stories = [[NSMutableArray alloc] init];
 
-    NSError *error;
-    NSXMLDocument *xml =
-        [[NSXMLDocument alloc] initWithData:data
-                                    options:NSXMLDocumentTidyXML
-                                      error:&error];
-    NSEnumerator *enumerator =
-        [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
-    for (NSXMLElement *child in enumerator) {
-        IFStory __block *story = nil;
-        [context performBlockAndWait:^{
-            story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue];
-        }];
+          NSError *error;
+          NSXMLDocument *xml =
+          [[NSXMLDocument alloc] initWithData:data
+                                      options:NSXMLDocumentTidyXML
+                                        error:&error];
 
-        if (story)
-            [stories addObject:story];
-    }
-    if (stories.count == 0)
-        return nil;
-    _stories = stories;
+          NSEnumerator *enumerator =
+          [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
+          for (NSXMLElement *child in enumerator) {
+              IFStory __block *story = nil;
+//              [context performBlockAndWait:^{
+                  story = [[IFStory alloc] initWithXMLElement:child andContext:context andQueue:queue andDownloader:downloader];
+//              }];
+
+              if (story)
+                  [stories addObject:story];
+          }
+
+          if (stories.count == 0)
+              return nil;
+          _stories = stories;
+      }
   }
   return self;
 }

@@ -28,6 +28,8 @@
  *
  */
 
+#include <stdint.h>
+
 #include "log.h"
 #include "membuf.h"
 

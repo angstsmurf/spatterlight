@@ -191,7 +191,7 @@ void SaveGame(void)
         snprintf(buf, sizeof buf, "%d\n", Counters[ct]);
         glk_put_string_stream(file, buf);
     }
-    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", BitFlags, ProtagonistString, AutoInventory, LastImgType, LastImgIndex);
+    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", BitFlags, ProtagonistString, AutoInventory, (int)LastImgType, LastImgIndex);
     glk_put_string_stream(file, buf);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         snprintf(buf, sizeof buf, "%hd\n", (short)Items[ct].Location);
@@ -235,7 +235,7 @@ int LoadGame(void)
     }
     glk_get_line_stream(file, buf, sizeof buf);
     result = sscanf(buf, "%llu %d %d %d %d\n", &BitFlags,  &ProtagonistString,
-                    &AutoInventory, &SavedImgType, &SavedImgIndex);
+                    &AutoInventory, (int *)&SavedImgType, &SavedImgIndex);
     debug_print("LoadGame: Result of sscanf: %d\n", result);
     if ((result < 3) || MyLoc > GameHeader.NumRooms || MyLoc < 1) {
         RecoverFromBadRestore(state);

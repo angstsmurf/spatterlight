@@ -10,17 +10,6 @@
 #include "graphics.h"
 #include "glk.h"
 
-extern int x, y, count;
-extern int xlen, ylen;
-extern int xoff, yoff;
-extern int size;
-
-typedef uint8_t RGB[3];
-
-extern winid_t Graphics;
-
-void PutDoublePixel(glsi32 x, glsi32 y, int32_t color);
-
 static void DrawA8C64Pixels(int pattern, int pattern2)
 {
     int pix1,pix2,pix3,pix4;
@@ -87,7 +76,7 @@ static const RGB agreen = { 0x08, 0x88, 0x17 };
 static const RGB dgreen = { 0x4f, 0x74, 0x20 };
 static const RGB darkergreen = { 0x08, 0x38, 0x00 };
 static const RGB ablue = { 0x36, 0x6e, 0xff };
-static const RGB ayellow = { 0xef, 0xf2, 0x58};
+static const RGB ayellow = { 0xef, 0xf2, 0x58 };
 static const RGB aorange = { 0xbf, 0x77, 0x30 };
 static const RGB abrown = { 0xab, 0x51, 0x1f };
 static const RGB dbrown = { 0x73, 0x2c, 0x00 };
@@ -95,7 +84,7 @@ static const RGB alred = { 0xc2, 0x52, 0x57 };
 static const RGB beige = { 0xff, 0x8f, 0x8f };
 static const RGB dred = { 0xa2, 0x3f, 0x40 };
 static const RGB agrey = { 0x92, 0x92, 0x92 };
-static const RGB lgrey = { 0xb4, 0xb5, 0xb4};
+static const RGB lgrey = { 0xb4, 0xb5, 0xb4 };
 static const RGB algreen = { 0x5f, 0x8f, 0x00 };
 static const RGB tan = { 0xaf, 0x99, 0x3a };
 static const RGB lilac = { 0x83, 0x58, 0xee };
@@ -333,8 +322,14 @@ int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize)
 
     ptr += 2;
 
+    // For Atari 8-bit, this vaule is already datasize
+    // but on C64, datasize is the actual file size of the image
+    // file on disk
     work = *ptr++;
-    size = work + *ptr++ * 256;
+    size_t size = work + *ptr++ * 256;
+    if (size < datasize - 2) {
+        datasize = size + 2;
+    }
 
     // Get the offset
     xoff = *ptr++ - 3;

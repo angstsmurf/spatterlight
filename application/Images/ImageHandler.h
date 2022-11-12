@@ -24,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageResource : NSObject
 
 - (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length;
-- (BOOL)load NS_SWIFT_UNAVAILABLE("Use the throwing method instead");
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL load NS_SWIFT_UNAVAILABLE("Use the throwing method instead");
 - (BOOL)loadWithError:(NSError**)outError;
-- (nullable NSImage *)createImage;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage * _Nullable createImage;
 
 @property (nullable) NSData *data;
 @property (nullable) ImageFile *imageFile;

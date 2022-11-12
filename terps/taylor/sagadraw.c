@@ -768,8 +768,8 @@ void SagaSetup(void)
                 for (i = 0; i < Game->number_of_patterns; i++) {
                     if (*pos == FileImage[patterns_lookup + i]) {
                         number--;
-                        size_t base = patterns_lookup + Game->number_of_patterns + i * 2;
-                        size_t newoffset = FileImage[base] + FileImage[base + 1] * 256 - 0x4000 + FileBaselineOffset;
+                        size_t baseoffset = patterns_lookup + Game->number_of_patterns + i * 2;
+                        size_t newoffset = FileImage[baseoffset] + FileImage[baseoffset + 1] * 256 - 0x4000 + FileBaselineOffset;
                         while (FileImage[newoffset] != Game->pattern_end_marker) {
                             instructions[number++] = FileImage[newoffset++];
                         }
@@ -1024,7 +1024,7 @@ static void replace_paper_and_ink(uint8_t before, uint8_t after) {
 
 void ClearGraphMem(void)
 {
-    bzero(buffer, 384 * 9);
+    memset(buffer, 0, 384 * 9);
 }
 
 void DrawTaylor(int loc)
@@ -1246,7 +1246,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
             offset += count;
         }
     } while (offset < offsetlimit);
-    
+
 draw_attributes:
 
     y = 0;

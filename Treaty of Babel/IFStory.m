@@ -27,7 +27,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation IFStory
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue {
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue andDownloader:(IFDBDownloader *)downloader {
     self = [super init];
     if (self) {
         NSXMLElement *idElement;
@@ -64,9 +64,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                       URI:@"http://ifdb.org/api/xmlns"];
         if (elements.count > 0) {
             _ifdb = [[IFDB alloc] initWithXMLElement:elements[0] andMetadata:metadata];
-            if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                IFDBDownloader *downLoader = [[IFDBDownloader alloc] initWithContext:context];
-                [downLoader downloadImageFor:metadata onQueue:queue forceDialog:NO];
+            if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL] && downloader) {
+                [downloader downloadImageFor:metadata onQueue:queue forceDialog:NO];
             }
         }
 

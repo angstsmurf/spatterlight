@@ -633,8 +633,7 @@ char **get_all_file_names(DiskImage *di, int *numfiles)
     return filenames;
 }
 
-static RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern,
-    FileType type)
+static RawDirEntry *find_file_entry(DiskImage *di, unsigned char *rawpattern)
 {
     unsigned char *buffer;
     TrackSector ts;
@@ -752,7 +751,7 @@ ImageFile *di_open(DiskImage *di, unsigned char *rawname, FileType type,
             rde = NULL;
 
         } else {
-            if ((rde = find_file_entry(di, rawname, type)) == NULL) {
+            if ((rde = find_file_entry(di, rawname)) == NULL) {
                 set_status(di, 62, 0, 0);
                 free(imgfile);
                 return NULL;

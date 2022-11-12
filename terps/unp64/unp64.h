@@ -101,7 +101,7 @@ void Scn_IDT(unpstr *);
 void Scn_Cruel(unpstr *);
 void Scn_PuCrunch(unpstr *);
 void Scn_MDG(unpstr *);
-// void Scn_AbuzeCrunch        (unpstr*);
+void Scn_AbuzeCrunch        (unpstr*);
 void Scn_SledgeHammer(unpstr *);
 void Scn_TimCrunch(unpstr *);
 void Scn_TimeCruncher(unpstr *);
@@ -336,10 +336,9 @@ enum stringpool_id {
   _I_HAPPYS22,
   _I_64ERAUTO,
   _I_AB_CRUNCH
-  //                   , _I_ABUZECRUNCH
-  //                   , _I_ABUZECR37
-  //                   , _I_ABUZECR50
-  ,
+, _I_ABUZECRUNCH
+, _I_ABUZECR37
+, _I_ABUZECR50,
   _I_AEKCOD20,
   _I_AEKCOD11,
   _I_SYNCRO13,

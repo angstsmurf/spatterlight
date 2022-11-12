@@ -17,7 +17,6 @@ extern int RoomSaved[]; /* Range unknown */
 
 extern int StopTime;
 extern int JustStarted;
-int just_undid = 0;
 
 struct SavedState *InitialState = NULL;
 static struct SavedState *ramsave = NULL;
@@ -84,10 +83,6 @@ void RestoreState(struct SavedState *state)
 
 void SaveUndo(void)
 {
-    if (just_undid) {
-        just_undid = 0;
-        return;
-    }
     if (last_undo == NULL) {
         last_undo = SaveCurrentState();
         oldest_undo = last_undo;
@@ -132,7 +127,6 @@ void RestoreUndo(void)
     free(current->ItemLocations);
     free(current);
     number_of_undos--;
-    just_undid = 1;
 }
 
 void RamSave(void)

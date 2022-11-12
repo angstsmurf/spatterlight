@@ -29,7 +29,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 
 + (void)rebuildTextAttributes;
 
-- (Theme *)cloneThemeIfNotEditable;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme *cloneThemeIfNotEditable;
 
 #pragma mark Themes menu
 

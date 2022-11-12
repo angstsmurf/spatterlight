@@ -707,7 +707,7 @@
         NSAccessibilityAnnouncementKey : [self constructMenuInstructionString]
     };
 
-    NSWindow *mainWin = [NSApp mainWindow];
+    NSWindow *mainWin = NSApp.mainWindow;
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(
@@ -723,7 +723,7 @@
         NSAccessibilityAnnouncementKey : @"If this is NOT a menu, press ESCAPE to DISMISS."
     };
 
-    NSWindow *mainWin = [NSApp mainWindow];
+    NSWindow *mainWin = NSApp.mainWindow;
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(
@@ -754,7 +754,7 @@
         NSAccessibilityAnnouncementKey : string
     };
 
-    NSWindow *mainWin = [NSApp mainWindow];
+    NSWindow *mainWin = NSApp.mainWindow;
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(

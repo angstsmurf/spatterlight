@@ -63,9 +63,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 //    NSLog(@"URLSession:didReceiveChallenge:");
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
-        if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
-            SecTrustRef trust = [protectionSpace serverTrust];
+        NSURLProtectionSpace *protectionSpace = challenge.protectionSpace;
+        if (protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+            SecTrustRef trust = protectionSpace.serverTrust;
 
             /***** Make specific changes to the trust policy here. *****/
 
@@ -271,7 +271,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         
         [localcontext performBlockAndWait:^{
             // Replace img with corresponding Image object in localcontext
-            img = [localcontext objectWithID:[img objectID]];
+            img = [localcontext objectWithID:img.objectID];
             
             newData = (NSData *)img.data;
             oldData = (NSData *)metadata.cover.data;

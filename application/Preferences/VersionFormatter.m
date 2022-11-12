@@ -60,7 +60,7 @@
             if ([proposedString rangeOfCharacterFromSet:lowerCaseSet].location == NSNotFound) {
                 return NO;
             } else {
-                *partialStringPtr = [proposedString uppercaseString];
+                *partialStringPtr = proposedString.uppercaseString;
                 proposedString = *partialStringPtr;
             }
         }
@@ -69,7 +69,7 @@
     }
 
 
-    if ([proposedString length] > 1) {
+    if (proposedString.length > 1) {
 
         // The original string has been modified by one or more characters (via pasting).
         // Either way compute how much of the proposed string can be accommodated.
@@ -102,7 +102,7 @@
 #endif
 
         // Assemble the final string
-        *partialStringPtr = [[NSString stringWithFormat:@"%@%@%@", prefix, insert, suffix] uppercaseString];
+        *partialStringPtr = [NSString stringWithFormat:@"%@%@%@", prefix, insert, suffix].uppercaseString;
 
         // Fix-up the proposed selection range
         proposedSelRangePtr->location = origSelRange.location + (NSUInteger)insertLength;
@@ -117,8 +117,8 @@
         valid = NO;
     }
 
-    if ([*partialStringPtr length] > 1) {
-        *partialStringPtr = [*partialStringPtr uppercaseString];
+    if ((*partialStringPtr).length > 1) {
+        *partialStringPtr = (*partialStringPtr).uppercaseString;
         NSRange newRange = [*partialStringPtr rangeOfCharacterFromSet:uppercaseSet];
         newRange.length = 1;
         *partialStringPtr = [*partialStringPtr substringWithRange:newRange];

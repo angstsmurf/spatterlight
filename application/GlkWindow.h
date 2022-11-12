@@ -61,7 +61,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
                hint:(NSUInteger)hint
               value:(NSInteger *)value;
 
-- (BOOL)wantsFocus;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL wantsFocus;
 - (void)grabFocus;
 - (void)flushDisplay;
 - (void)markLastSeen;
@@ -75,7 +75,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)initLine:(NSString *)buf maxLength:(NSUInteger)maxLength;
 - (void)initChar;
 - (void)cancelChar;
-- (NSString *)cancelLine;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *cancelLine;
 - (void)initMouse;
 - (void)cancelMouse;
 - (void)initHyperlink;
@@ -98,19 +98,19 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
 
-- (BOOL)hasCharRequest;
-- (BOOL)hasLineRequest;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCharRequest;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasLineRequest;
 
 - (void)sendCommandLine:(NSString *)command;
 - (void)sendKeypress:(unsigned)ch;
 
-- (NSArray *)links;
-- (NSArray *)images;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *links;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *images;
 
 - (void)repeatLastMove:(id)sender;;
 - (void)speakPrevious;
 - (void)speakNext;
-- (BOOL)setLastMove;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL setLastMove;
 - (void)adjustBZTerminators:(NSMutableDictionary *)terminators;
 
 - (NSView *)saveScrollbackAccessoryViewHasImages:(BOOL)hasImages;

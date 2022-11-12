@@ -11,9 +11,12 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 #include "glkstart.h"
 
 #include "common.h"
@@ -214,7 +217,8 @@ void OpenGraphicsWindow(void)
         pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
         x_offset = (graphwidth - optimal_width) / 2;
         winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                                    optimal_height, NULL);
     }
 
@@ -238,6 +242,7 @@ void SetTimer(glui32 milliseconds) {
 }
 
 void UpdateSettings(void) {
+#ifdef SPATTERLIGHT
     if (gli_sa_delays)
         Options &= ~NO_DELAYS;
     else
@@ -260,6 +265,7 @@ void UpdateSettings(void) {
     } else {
         ResetBit(GRAPHICSBIT);
     }
+#endif
 }
 
 void UpdateColorCycling(void);
@@ -659,9 +665,10 @@ static void Delay(float seconds)
         SetTimer(0);
 }
 
-static int RandomPercent(int n)
+int RandomPercent(int n)
 {
-    unsigned int rv = rand() << 6;
+    uint64_t rv = (uint64_t)rand() << 6;
+    rv &= 0xffffffff;
     rv %= 100;
     if (rv < n)
         return (1);
@@ -2101,6 +2108,10 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 void ResizeTitleImage(void) {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
+#ifdef SPATTERLIGHT
+    glk_window_set_background_color(Graphics, gbgcol);
+    glk_window_clear(Graphics);
+#endif
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
     pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
@@ -2111,8 +2122,10 @@ void ResizeTitleImage(void) {
 
 void DrawTitleImage(void) {
     DisplayInit();
+#ifdef SPATTERLIGHT
     if (!gli_enable_graphics)
         return;
+#endif
     glk_window_close(Top, NULL);
     Top = NULL;
     glk_window_close(Bottom, NULL);
@@ -2120,7 +2133,13 @@ void DrawTitleImage(void) {
 
     ResizeTitleImage();
 
-    glk_request_char_event(Graphics);
+    if (glk_gestalt_ext(gestalt_GraphicsCharInput, 0, NULL, 0)) {
+        glk_request_char_event(Graphics);
+    } else {
+        Bottom = glk_window_open(Graphics, winmethod_Below | winmethod_Fixed,
+                                 2, wintype_TextBuffer, GLK_BUFFER_ROCK);
+        glk_request_char_event(Bottom);
+    }
 
     if (DrawImageWithName("S000")) {
 
@@ -2131,8 +2150,10 @@ void DrawTitleImage(void) {
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
+#ifdef SPATTERLIGHT
                 if (!gli_enable_graphics)
                     break;
+#endif
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawImageWithName("S000");
@@ -2145,6 +2166,8 @@ void DrawTitleImage(void) {
         } while (ev.type != evtype_CharInput);
     }
 
+    if (Bottom != NULL)
+        glk_window_close(Bottom, NULL);
     glk_window_close(Graphics, NULL);
     Graphics = NULL;
     DisplayInit();
@@ -2182,17 +2205,17 @@ void glk_main(void) {
         memlen = fread(mem, 1, memlen, f);
         fclose(f);
 
-        if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectAtari8(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
-            Fatal("Could not detect game type");
+        if (!DetectAtari8(&mem, &memlen)) {
+            if (!DetectST(&mem, &memlen) && !DetectApple2(&mem, &memlen) && !DetectC64(&mem, &memlen)) {
+                Fatal("Could not detect game type");
+            }
+
+            if (!LoadDatabaseBinary()) {
+                Fatal("Could not load binary database");
+            }
         }
 
-        if (!LoadDatabaseBinary()) {
-            Fatal("Could not load binary database");
-        }
-
-        if (CurrentSys == SYS_ATARI8)
-            LookForAtari8Images(&mem, &memlen);
-        else if (CurrentSys == SYS_APPLE2)
+        if (CurrentSys == SYS_APPLE2)
             LookForApple2Images();
     }
 
@@ -2202,6 +2225,7 @@ void glk_main(void) {
         srand(1234);
     else
 #endif
+        srand((unsigned int)time(NULL));
 
     DrawTitleImage();
     UpdateSettings();

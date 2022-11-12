@@ -11,6 +11,7 @@
 @class IFBibliographic;
 @class IFCoverDescription;
 @class IFDB;
+@class IFDBDownloader;
 
 @interface IFStory : NSObject
 
@@ -19,6 +20,6 @@
 @property(readonly) IFCoverDescription *coverDescription;
 @property(readonly) IFDB *ifdb;
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context andQueue:(NSOperationQueue *)queue andDownloader:(IFDBDownloader *)downloader;
 
 @end

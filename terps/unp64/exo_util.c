@@ -25,10 +25,11 @@
  *
  */
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
 #include "exo_util.h"
-//#include "log.h"
-#include "stdlib.h"
-#include "string.h"
 
 int find_sys(const unsigned char *buf, int target)
 {

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property CGFloat ratio;
 
 - (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage;
-- (NSData *)pngData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nonnull pngData;
 - (void)processImage:(NSImage *)image;
 - (void)superMouseDown:(NSEvent*)event;
 - (void)paste:(id)sender;

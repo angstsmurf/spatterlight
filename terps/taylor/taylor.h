@@ -1,6 +1,7 @@
 #ifndef taylor_h
 #define taylor_h
 
+#include <stdlib.h>
 #include "glk.h"
 
 unsigned char WaitCharacter(void);

@@ -10,11 +10,11 @@
 
 @property (readonly, copy) NSString *formattedRelativeString;
 
-- (BOOL) isToday;
-- (BOOL) isYesterday;
+@property (NS_NONATOMIC_IOSONLY, getter=isToday, readonly) BOOL today;
+@property (NS_NONATOMIC_IOSONLY, getter=isYesterday, readonly) BOOL yesterday;
 
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate;
-- (BOOL) isThisWeek;
+@property (NS_NONATOMIC_IOSONLY, getter=isThisWeek, readonly) BOOL thisWeek;
 
 - (NSDate *) dateByAddingDays: (NSInteger) dDays;
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays;

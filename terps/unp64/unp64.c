@@ -167,7 +167,7 @@ void reinitUnp(void)
     Unp.Mon1st = 0;
 }
 /*****************************************************************************/
-int xxOpenFile(FILE **hh, unpstr *Unp, int p)
+int xxOpenFile(FILE **hh, unpstr *Unpstring, int p)
 {
     char *pp;
     char *nfmask = "%s not found\n";

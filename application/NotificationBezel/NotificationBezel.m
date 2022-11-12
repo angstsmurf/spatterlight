@@ -120,7 +120,7 @@
         NSAccessibilityAnnouncementKey : string
     };
 
-    NSWindow *mainWin = [NSApp mainWindow];
+    NSWindow *mainWin = NSApp.mainWindow;
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(

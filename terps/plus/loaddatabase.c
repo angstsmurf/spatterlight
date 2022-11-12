@@ -264,10 +264,10 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud) {
                     commapos = j;
                     j++;
                 }
-                int length = commapos - lastcomma;
-                if (length > 0) {
-                    dw->Word = MemAlloc(length);
-                    memcpy(dw->Word, &str[lastcomma + 1], length);
+                int remaining = commapos - lastcomma;
+                if (remaining > 0) {
+                    dw->Word = MemAlloc(remaining);
+                    memcpy(dw->Word, &str[lastcomma + 1], remaining);
                     dw->Group = group;
                     dw = &dictionary[++index];
                 }
@@ -320,19 +320,19 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud) {
                 } else if (str[j] == '=') {
                     nextisrep = 1;
                 }
-                int length = commapos - lastcomma - foundrep;
-                if (length > 0) {
+                int remaining = commapos - lastcomma - foundrep;
+                if (remaining > 0) {
                     if (foundrep) {
                         if (replace) {
                             free(replace);
                         }
-                        replace = MemAlloc(length);
-                        memcpy(replace, &str[lastcomma + 2], length);
+                        replace = MemAlloc(remaining);
+                        memcpy(replace, &str[lastcomma + 2], remaining);
                         if (loud)
                             debug_print("Found new replacement string \"%s\"\n", replace);
                     } else {
-                        s->SynonymString = MemAlloc(length);
-                        memcpy(s->SynonymString, &str[lastcomma + 1], length);
+                        s->SynonymString = MemAlloc(remaining);
+                        memcpy(s->SynonymString, &str[lastcomma + 1], remaining);
                         if (loud)
                             debug_print("Found new synonym string \"%s\"\n", s->SynonymString);
                         s = &syn[++index];
@@ -406,19 +406,19 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
                 } else if (str[j] == '=') {
                     nextisrep = 1;
                 }
-                int length = commapos - lastcomma - foundrep;
-                if (length > 0) {
+                int remaining = commapos - lastcomma - foundrep;
+                if (remaining > 0) {
                     if (foundrep) {
                         if (replace) {
                             free(replace);
                         }
-                        replace = MemAlloc(length);
-                        memcpy(replace, &str[lastcomma + 2], length);
+                        replace = MemAlloc(remaining);
+                        memcpy(replace, &str[lastcomma + 2], remaining);
                         if (loud)
                             debug_print("Found new replacement string \"%s\"\n", replace);
                     } else {
-                        s->SynonymString = MemAlloc(length);
-                        memcpy(s->SynonymString, &str[lastcomma + 1], length);
+                        s->SynonymString = MemAlloc(remaining);
+                        memcpy(s->SynonymString, &str[lastcomma + 1], remaining);
                         if (loud)
                             debug_print("Found new synonym string \"%s\"\n", s->SynonymString);
                         s = &syn[++index];
@@ -744,26 +744,26 @@ static void ReadAction(FILE *f, Action *ap) {
     memcpy(ap->Commands, commands, i);
 }
 
-static void PrintHeaderInfo(Header header)
+static void PrintHeaderInfo(Header h)
 {
-    debug_print("Number of items =\t%d\n", header.NumItems);
-    debug_print("sum of actions =\t%d\n", header.ActionSum);
-    debug_print("Number of nouns =\t%d\n", header.NumNouns);
-    debug_print("Number of verbs =\t%d\n", header.NumVerbs);
-    debug_print("Number of rooms =\t%d\n", header.NumRooms);
-    debug_print("Max carried items =\t%d\n", header.MaxCarry);
-    debug_print("Player start location =\t%d\n", header.PlayerRoom);
-    debug_print("Number of messages =\t%d\n", header.NumMessages);
-    debug_print("Treasure room =\t%d\n", header.TreasureRoom);
-    debug_print("Light source turns =\t%d\n", header.LightTime);
-    debug_print("Number of prepositions =\t%d\n", header.NumPreps);
-    debug_print("Number of adverbs =\t%d\n", header.NumAdverbs);
-    debug_print("Number of actions =\t%d\n", header.NumActions);
-    debug_print("Number of treasures =\t%d\n", header.Treasures);
-    debug_print("Number of synonym strings =\t%d\n", header.NumSubStr);
-    debug_print("Unknown1 =\t%d\n", header.Unknown1);
-    debug_print("Number of object images =\t%d\n", header.NumObjImg);
-    debug_print("Unknown3 =\t%d\n", header.Unknown2);
+    debug_print("Number of items =\t%d\n", h.NumItems);
+    debug_print("sum of actions =\t%d\n", h.ActionSum);
+    debug_print("Number of nouns =\t%d\n", h.NumNouns);
+    debug_print("Number of verbs =\t%d\n", h.NumVerbs);
+    debug_print("Number of rooms =\t%d\n", h.NumRooms);
+    debug_print("Max carried items =\t%d\n", h.MaxCarry);
+    debug_print("Player start location =\t%d\n", h.PlayerRoom);
+    debug_print("Number of messages =\t%d\n", h.NumMessages);
+    debug_print("Treasure room =\t%d\n", h.TreasureRoom);
+    debug_print("Light source turns =\t%d\n", h.LightTime);
+    debug_print("Number of prepositions =\t%d\n", h.NumPreps);
+    debug_print("Number of adverbs =\t%d\n", h.NumAdverbs);
+    debug_print("Number of actions =\t%d\n", h.NumActions);
+    debug_print("Number of treasures =\t%d\n", h.Treasures);
+    debug_print("Number of synonym strings =\t%d\n", h.NumSubStr);
+    debug_print("Unknown1 =\t%d\n", h.Unknown1);
+    debug_print("Number of object images =\t%d\n", h.NumObjImg);
+    debug_print("Unknown3 =\t%d\n", h.Unknown2);
 }
 
 static int SetGame(const char *id_string, size_t length) {
@@ -777,7 +777,7 @@ static int SetGame(const char *id_string, size_t length) {
 
 int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
     int result = 0;
-    char filename[1024];
+    char filename[2048];
     int n = sprintf(filename, "%s%s.PAK", DirPath, shortname);
     if (n > 0) {
         FILE *infile=fopen(filename,"rb");
@@ -1162,6 +1162,24 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud) {
     return finaldict;
 }
 
+int SanityCheckHeader(void)
+{
+    int16_t v = GameHeader.NumItems;
+    if (v < 10 || v > 500)
+        return 0;
+    v = GameHeader.NumNouns; // Nouns
+    if (v < 50 || v > 190)
+        return 0;
+    v = GameHeader.NumVerbs; // Verbs
+    if (v < 30 || v > 190)
+        return 0;
+    v = GameHeader.NumRooms; // Number of rooms
+    if (v < 10 || v > 100)
+        return 0;
+
+    return 1;
+}
+
 int LoadDatabaseBinary(void)
 {
     int ni, as, na, nv, nn, nr, mc, pr, tr, lt, mn, trm, adv, prp, ss, unk1, oi, unk2;
@@ -1197,14 +1215,11 @@ int LoadDatabaseBinary(void)
 
     GameHeader.NumItems = ni;
     Counters[43] = ni;
-    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
     GameHeader.ActionSum = as;
     GameHeader.NumVerbs = nv;
     GameHeader.NumNouns = nn;
-    Verbs = MemAlloc(sizeof(char *) * (nv + 1));
-    Nouns = MemAlloc(sizeof(char *) * (nn + 1));
     GameHeader.NumRooms = nr;
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+
     GameHeader.MaxCarry = mc;
     GameHeader.PlayerRoom = pr;
     MyLoc = pr;
@@ -1213,12 +1228,21 @@ int LoadDatabaseBinary(void)
     GameHeader.NumAdverbs = adv;
     GameHeader.NumSubStr = ss;
     GameHeader.NumObjImg = oi;
-    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
     GameHeader.NumMessages = mn;
-    Messages = MemAlloc(sizeof(char *) * (mn + 1));
     GameHeader.TreasureRoom = trm;
 
     PrintHeaderInfo(GameHeader);
+
+    if (!SanityCheckHeader())
+        return 0;
+
+    Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
+    Verbs = MemAlloc(sizeof(char *) * (nv + 1));
+    Nouns = MemAlloc(sizeof(char *) * (nn + 1));
+    Rooms = (Room *)MemAlloc(sizeof(Room) * (nr + 1));
+    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (oi + 1));
+    Messages = MemAlloc(sizeof(char *) * (mn + 1));
+
 
     Counters[35] = nr;
     Counters[34] = trm;

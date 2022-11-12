@@ -26,7 +26,7 @@
 }
 
 + (NSBitmapImageRep *)repFromNeoURL:(NSURL *)url {
-    const char *filename = [url fileSystemRepresentation];
+    const char *filename = url.fileSystemRepresentation;
 
     z_image *zimg = get_neo_picture(filename);
 
@@ -74,7 +74,7 @@
 
 + (NSBitmapImageRep *)repFromMG1URL:(NSURL *)url {
 
-    const char *filename = [url fileSystemRepresentation];
+    const char *filename = url.fileSystemRepresentation;
     init_mg1_graphics(filename);
     uint16_t numImages = get_number_of_mg1_images();
     if (numImages < 1) {
@@ -85,6 +85,7 @@
     uint16_t *pictureNumberArray = get_all_picture_numbers();
 
     z_image *zimg = get_picture(pictureNumberArray[0]);
+    free(pictureNumberArray);
 
     if (zimg == NULL) {
         end_mg1_graphics();

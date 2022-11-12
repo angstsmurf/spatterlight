@@ -9,7 +9,9 @@
 #include <strings.h>
 
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 #include "glkstart.h"
 #include "restorestate.h"
 #include "decompressz80.h"

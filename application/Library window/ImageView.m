@@ -421,7 +421,7 @@
 }
 
 - (void)keyDown:(NSEvent *)event {
-    NSString *characters = [event charactersIgnoringModifiers];
+    NSString *characters = event.charactersIgnoringModifiers;
     unichar key = '\0';
     if (characters.length)
         key = [characters characterAtIndex:0];
@@ -452,7 +452,7 @@
 }
 
 - (IBAction)reloadFromBlorb:(id)sender {
-    NSURL *url = [_game urlForBookmark];
+    NSURL *url = _game.urlForBookmark;
     if (!url)
         return;
     ImageView __weak *weakSelf = self;
@@ -466,7 +466,7 @@
         if (data) {
             [strongSelf processImageData:data sourceUrl:url.path dontAsk:YES];
             success = YES;
-            NSData *metadata = [blorb metaData];
+            NSData *metadata = blorb.metaData;
             if (metadata) {
                 NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
                 if (imageDescription.length)
@@ -880,7 +880,7 @@
 
         if (event.type == NSEventTypeLeftMouseUp) {
             *stop = YES;
-            if ([mouseTime timeIntervalSinceNow] > -0.5) {
+            if (mouseTime.timeIntervalSinceNow > -0.5) {
                 [self myMouseDown:event];
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {

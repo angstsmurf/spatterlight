@@ -14,7 +14,7 @@
 + (NSColor *)colorFromInteger:(NSInteger)c;
 + (NSColor *)colorFromData:(NSData *)data;
 
-- (NSInteger)integerColor;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger integerColor;
 - (BOOL)isEqualToColor:(NSColor *)color;
 
 @end

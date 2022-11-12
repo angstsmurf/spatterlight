@@ -64,7 +64,7 @@
             NSString *oldfilename = values[NSURLPathKey];
             oldfilename = oldfilename.lastPathComponent;
             NSString *newPath =
-            [[_handler.glkctl.gamefile stringByDeletingLastPathComponent] stringByAppendingPathComponent:oldfilename];
+            [(_handler.glkctl.gamefile).stringByDeletingLastPathComponent stringByAppendingPathComponent:oldfilename];
             if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
                 _URL = [NSURL fileURLWithPath:newPath];
                 _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
