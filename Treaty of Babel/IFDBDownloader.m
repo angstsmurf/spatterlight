@@ -165,7 +165,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             }
                         } else {
                             
-                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue];
+                            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:localContext andQueue:queue andDownloader:strongSelf];
                             
                             if (!result || result.stories.count == 0) {
 //                                NSLog(@"No metadata found!");
