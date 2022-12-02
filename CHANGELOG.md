@@ -1,9 +1,11 @@
 # Change log
 
 ## 0.9.9 (unreleased)
-- The ScottFree, TaylorMade and Plus engines code is a little more cross-platform friendly
+- Fixes a memory leak when interfacing with Babel
+- Fixes a memory leak when downloading info from IFDB
+- The ScottFree, TaylorMade and Plus engines code is a little more cross-platform-friendly
 - Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to room image
-- Both disk image files of a pair are now usually recognised and will open the correct game in Plus. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
+- Both disk image files of a pair are now usually recognised and will open the correct game in Plus, just like in ScottFree. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
 
 ## Release 0.9.8
 - Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*
