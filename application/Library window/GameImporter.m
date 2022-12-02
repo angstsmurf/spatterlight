@@ -68,8 +68,7 @@ extern NSArray *gGameFileTypes;
 
     LibController *libController = _libController;
 
-#pragma mark Long completion handler
-    // A long block that will run when all files are added
+    // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
 
