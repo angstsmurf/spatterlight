@@ -50,7 +50,7 @@ fprintf(stderr, "%s\n",                                                    \
     self = [super init];
     if (self) {
         _context = context;
-        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
 
         lastImageDownloadOperation = nil;
     }
