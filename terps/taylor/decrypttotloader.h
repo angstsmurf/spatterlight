@@ -1,8 +1,11 @@
 //
 //  decryptloader.h
-//  irmak
 //
-//  Created by Administrator on 2022-04-18.
+//  Part of the Taylormade interpreter
+//
+//  This code is for de-protecting the ZX Spectrum text-only version of Temple of Terror
+//
+//  Created by Petter Sjölund on 2022-04-18.
 //
 
 #ifndef decryptloader_h
