@@ -2002,12 +2002,6 @@ static void RunCommandTable(void)
                     Goto(26);
                     ActionsExecuted = 1;
                     return;
-                /* In circus tent, eyes open, Circus of Crime present */
-                } else if (Present(9) && ((IsThing && Flag[56] == 0) || (!IsThing && Flag[57] == 0))) {
-                    Message(16);
-                    Goto(27);
-                    ActionsExecuted = 1;
-                    return;
                 }
             }
             ExecuteLineCode(p + 2, &done);
