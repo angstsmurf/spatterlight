@@ -12,15 +12,16 @@
 #include "taylor.h"
 
 typedef struct {
-  uint8_t *imagedata;
-  uint8_t xoff;
-  uint8_t yoff;
-  uint8_t width;
-  uint8_t height;
+    uint8_t *imagedata;
+    size_t datasize;
+    uint8_t xoff;
+    uint8_t yoff;
+    uint8_t width;
+    uint8_t height;
 } Image;
 
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-                                     int xoff, int yoff);
+                                     int xoff, int yoff, size_t datasize);
 
 void DrawSagaPictureNumber(int picture_number);
 void DrawSagaPictureFromBuffer(void);

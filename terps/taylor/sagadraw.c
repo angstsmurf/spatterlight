@@ -535,7 +535,7 @@ static int isNthBitSet(unsigned const char c, int n)
 }
 
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-                                 int xoff, int yoff);
+                                 int xoff, int yoff, size_t datasize);
 
 struct image_patch {
     GameIDType id;
@@ -687,15 +687,19 @@ void SagaSetup(void)
             img->xoff = *pos++;
             img->yoff = *pos++;
             img->imagedata = pos;
+            img->datasize = EndOfGraphicsData - pos;
             if (picture_number == 17) {
-                img->imagedata = MemAlloc(607);
-                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 607));
+                img->imagedata = MemAlloc(608);
+                img->datasize = 608;
+                memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 608));
                 int patch = FindImagePatch(QUESTPROBE3, 55, 0);
                 Patch(img->imagedata, patch);
-            } else if (picture_number == 55 || picture_number == 18 || picture_number == 19) {
+            } else if (picture_number == 55 || (picture_number >= 18 && picture_number <= 20)) {
                 img->imagedata = images[17].imagedata;
+                img->datasize = images[17].datasize;
             } else if (picture_number == 56) {
                 img->imagedata = MemAlloc(403);
+                img->datasize = 403;
                 memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, 403));
                 int patch = FindImagePatch(QUESTPROBE3, 56, 0);
                 Patch(img->imagedata, patch);
@@ -783,6 +787,7 @@ void SagaSetup(void)
         instructions[number++] = 0xfe;
 
         img->imagedata = MemAlloc(number);
+        img->datasize = number;
         memcpy(img->imagedata, instructions, number);
 
         pos++;
@@ -1149,7 +1154,7 @@ void DrawTaylor(int loc)
 }
 
 uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
-                                 int xoff, int yoff)
+                                 int xoff, int yoff, size_t datasize)
 {
     if (dataptr == NULL)
         return NULL;
@@ -1161,7 +1166,7 @@ uint8_t *DrawSagaPictureFromData(uint8_t *dataptr, int xsize, int ysize,
 
     int version = 4;
 
-//    uint8_t *origptr = dataptr;
+    uint8_t *origptr = dataptr;
 
     offset = 0;
     int32_t character = 0;
@@ -1259,6 +1264,10 @@ draw_attributes:
     // Note version 3 count is inverse it is repeat previous colour
     // Whilst version0-2 count is repeat next character
     while (y < ysize) {
+        if (dataptr - origptr > datasize) {
+            fprintf(stderr, "DrawSagaPictureFromData: data offset %zu out of range! Image size %zu. Bailing!\n", dataptr - origptr, datasize);
+                return dataptr;
+        }
         data = *dataptr++;
 //        fprintf(stderr, "%03ld: read attribute data byte %02x\n", dataptr -
 //                origptr - 1, data);
@@ -1369,14 +1378,14 @@ void DrawSagaPictureNumber(int picture_number)
         return;
 
     DrawSagaPictureFromData(img.imagedata, img.width, img.height, img.xoff,
-                            img.yoff);
+                            img.yoff, img.datasize);
 }
 
 void DrawSagaPictureAtPos(int picture_number, int x, int y)
 {
     Image img = images[picture_number];
 
-    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y);
+    DrawSagaPictureFromData(img.imagedata, img.width, img.height, x, y, img.datasize);
 }
 
 void DrawSagaPictureFromBuffer(void)
