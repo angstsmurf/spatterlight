@@ -1350,13 +1350,13 @@ GameIDType DetectGame(const char *file_name)
                 detectedGame = CurrentGame;
         }
 
-        if (!detectedGame) { /* Not a C64 game, check if Apple 2 */
+        if (!detectedGame) { /* Not an Atari game, check if Apple 2 */
             result = DetectApple2(&entire_file, &file_length);
             if (result)
                 detectedGame = CurrentGame;
         }
 
-        if (!detectedGame) { /* Not an Atari game, check if ZX Spectrum */
+        if (!detectedGame) { /* Not an Apple 2 game, check if ZX Spectrum */
             detectedGame = DetectZXSpectrum();
         }
 
