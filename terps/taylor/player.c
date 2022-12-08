@@ -2308,6 +2308,21 @@ int glkunix_startup_code(glkunix_startup_t *data)
     EndOfData = FileImage + FileImageLen;
 
     fclose(f);
+
+#ifdef GARGLK
+    garglk_set_program_name("TaylorMade 1.0");
+    garglk_set_program_info("TaylorMade 1.0 by Alan Cox\n"
+                            "Glk port and graphics support by Petter Sjölund\n");
+    const char *s;
+    int dirlen = 0;
+    if ((s = strrchr(Filename, '/')) != NULL || (s = strrchr(Filename, '\\')) != NULL) {
+        dirlen = (int)(s - Filename + 1);
+        garglk_set_story_name(s + 1);
+    } else {
+        garglk_set_story_name(Filename);
+    }
+#endif
+
     return 1;
 }
 
