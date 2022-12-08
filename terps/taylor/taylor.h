@@ -29,7 +29,7 @@ void PrintFirstTenBytes(size_t offset);
 #define MAX_WORDLENGTH 128
 #define MAX_WORDS 128
 
-#define DEBUG_ACTIONS 1
+#define DEBUG_ACTIONS 0
 
 #define IsThing (Flag[31])
 
