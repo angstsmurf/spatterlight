@@ -2137,8 +2137,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
         return 0;
     
 #ifdef GARGLK
-    garglk_set_program_name("Plus 0.0");
-    garglk_set_program_info("Plus 0.0 by Petter Sjölund");
+    garglk_set_program_name("Plus 0.2");
+    garglk_set_program_info("Plus 0.2 by Petter Sjölund");
 #endif
     
     if (argc == 2) {
@@ -2148,6 +2148,11 @@ int glkunix_startup_code(glkunix_startup_t *data)
         int dirlen = 0;
         if ((s = strrchr(game_file, '/')) != NULL || (s = strrchr(game_file, '\\')) != NULL) {
             dirlen = (int)(s - game_file + 1);
+#ifdef GARGLK
+            garglk_set_story_name(s + 1);
+        } else {
+            garglk_set_story_name(game_file);
+#endif
         }
         if (dirlen) {
             DirPath = MemAlloc(dirlen + 1);
