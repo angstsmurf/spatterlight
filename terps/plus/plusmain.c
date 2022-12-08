@@ -89,6 +89,8 @@ int ImageHeight = 158;
 
 glui32 TimerRate = 0;
 
+static char DelimiterChar = '_';
+
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 {
     if (Transcript)
@@ -382,7 +384,14 @@ void AnyKey(int timeout, int message)
     return;
 }
 
-
+static void PrintWindowDelimiter(void)
+{
+    glk_window_get_size(Top, &TopWidth, &TopHeight);
+    glk_window_move_cursor(Top, 0, TopHeight - 1);
+    glk_stream_set_current(glk_window_get_stream(Top));
+    for (int i = 0; i < TopWidth; i++)
+        glk_put_char(DelimiterChar);
+}
 
 static void FlushRoomDescription(char *buf,  int transcript)
 {
@@ -446,9 +455,9 @@ static void FlushRoomDescription(char *buf,  int transcript)
         Display(Bottom, "%s", buf);
     }
     
-    //    if (print_delimiter) {
-    //        PrintWindowDelimiter();
-    //    }
+    if (print_delimiter) {
+        PrintWindowDelimiter();
+    }
     
     Transcript = StoredTranscript;
     if (buf != NULL) {
