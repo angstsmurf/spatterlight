@@ -270,7 +270,7 @@ glui32 *ToUnicode(const char *string)
     int dest = 0;
     for (i = 0; string[i] != 0 && i < 2047; i++) {
         char c = string[i];
-        if (c == '\n') {
+        if (c == 10 || c == 13) {
             lastwasnewline = 1;
             c = 10;
         } else
