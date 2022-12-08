@@ -1,8 +1,8 @@
 //
 //  decompressz80.h
-//  Spatterlight
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-01-24.
+//  Created by Petter Sjölund on 2022-01-24.
 //
 
 #ifndef decompressz80_h

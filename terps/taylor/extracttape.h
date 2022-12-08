@@ -1,8 +1,8 @@
 //
 //  extracttape.h
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-04-11.
+//  Created by Petter Sjölund on 2022-04-11.
 //
 
 #ifndef extracttape_h

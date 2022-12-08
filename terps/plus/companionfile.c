@@ -1,9 +1,10 @@
 //
 //  companionfile.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-10-10.
+//  Created by Petter Sjölund on 2022-10-10.
 //
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>

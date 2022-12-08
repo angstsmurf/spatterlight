@@ -1,9 +1,10 @@
 //
 //  c64decrunch.c
-//  scott
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-01-30.
+//  Created by Petter Sjölund on 2022-01-30.
 //
+
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>

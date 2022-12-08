@@ -1,8 +1,8 @@
 //
 //  gameinfo.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-30.
+//  Created by Petter Sjölund on 2022-01-30.
 //
 
 #include <stdio.h>

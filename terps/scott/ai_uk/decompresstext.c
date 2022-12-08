@@ -1,9 +1,10 @@
 //
 //  decompresstext.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
+
 #include <ctype.h>
 #include <string.h>
 

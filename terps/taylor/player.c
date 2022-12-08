@@ -1,3 +1,10 @@
+//
+//  player.c
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
+//
+//  Created by Petter Sjölund on 2022-04-05.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -2257,12 +2264,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
             if (*argv[1] != '-')
                 break;
             switch (argv[1][1]) {
-                    ///                case 'd':
-                    //                    Options |= DEBUGGING;
-                    //                    break;
-                    //                case 'w':
-                    //                    split_screen = 0;
-                    //                    break;
                 case 'n':
                     Options |= NO_DELAYS;
                     break;
@@ -2310,8 +2311,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     fclose(f);
 
 #ifdef GARGLK
-    garglk_set_program_name("TaylorMade 1.0");
-    garglk_set_program_info("TaylorMade 1.0 by Alan Cox\n"
+    garglk_set_program_name("TaylorMade 0.4");
+    garglk_set_program_info("TaylorMade 0.4 by Alan Cox\n"
                             "Glk port and graphics support by Petter Sjölund\n");
     const char *s;
     int dirlen = 0;

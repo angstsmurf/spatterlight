@@ -1,8 +1,8 @@
 //
 //  hulk.h
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-18.
+//  Created by Petter Sjölund on 2022-01-18.
 //
 
 #ifndef hulk_h

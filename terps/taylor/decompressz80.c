@@ -1,6 +1,6 @@
 /* decompressz80.c: This is a bare-minimum version of the z80
    handling code from libspectrum / Fuse, used to decompress
-   .z80 files in ScottFree.
+   .z80 files and read .tzx file in TaylorMade.
 
    I simply copied things from different places in the original source
    to make it compile and deleted anything I deemed unimportant for my

@@ -1,8 +1,8 @@
 //
 //  sagadraw.h
-//  SagaDraw
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2021-12-15.
+//  Created by Petter Sjölund on 2021-12-15.
 //
 
 #ifndef sagadraw_h

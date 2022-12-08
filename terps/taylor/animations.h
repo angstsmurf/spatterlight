@@ -1,8 +1,8 @@
 //
 //  animations.h
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-03-24.
+//  Created by Petter Sjölund on 2022-03-24.
 //
 
 #ifndef animations_h

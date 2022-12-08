@@ -1,9 +1,10 @@
 //
 //  game_specific.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-27.
+//  Created by Petter Sjölund on 2022-01-27.
 //
+
 #include <string.h>
 
 #include "game_specific.h"

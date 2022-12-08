@@ -1,8 +1,8 @@
 //
 //  line_drawing.h
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-03-03.
+//  Created by Petter Sjölund on 2022-03-03.
 //
 
 #ifndef line_drawing_h

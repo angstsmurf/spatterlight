@@ -1,8 +1,8 @@
 //
 //  animations.h
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-03-24.
+//  Created by Petter Sjölund on 2022-03-24.
 //
 
 #ifndef animations_h

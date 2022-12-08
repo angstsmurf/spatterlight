@@ -1,7 +1,13 @@
-/* Routine to draw the PC graphics from Claymorgue
+//
+//  pcdraw.c
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
+//
+//  Routines to draw MS-DOS bitmap graphics
+//  Based on code by David Lodge 29/04/2005
+//
+//  Original code at https://github.com/tautology0/textadventuregraphics
+//
 
- Code by David Lodge 29/04/2005
- */
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,9 +1,10 @@
 //
 //  apple2draw.c
-//  plus
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-08-18.
+//  Created by Petter Sjölund on 2022-08-18.
 //
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

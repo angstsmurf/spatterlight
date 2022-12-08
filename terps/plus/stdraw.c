@@ -1,5 +1,10 @@
-/* Routines to draw the Atari ST RLE graphics
- */
+//
+//  stdraw.c
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
+//  Routines to draw Atari ST graphics
+//
+//  Created by Petter Sjölund on 2022-01-30.
+//
 
 #include <stdio.h>
 #include <stdlib.h>

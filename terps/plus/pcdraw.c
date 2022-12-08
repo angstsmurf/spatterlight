@@ -1,7 +1,13 @@
-/* Routine to draw the PC graphics from Claymorgue
+//
+//  pcdraw.h
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
+//
+//  Based on code witten by David Lodge on 29/04/2005
+//  Routines to draw the PC graphics in Plus games
+//
+//  Original code at https://github.com/tautology0/textadventuregraphics
+//
 
- Code by David Lodge 29/04/2005
- */
 #include <stdio.h>
 #include <stdlib.h>
 

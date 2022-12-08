@@ -1,9 +1,10 @@
 //
 //  apple2draw.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-08-18.
+//  Created by Petter Sjölund on 2022-08-18.
 //
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -158,7 +159,7 @@ static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color)
 }
 
 #define BLACK   0
-#define PURPLE  0xD53EF9
+#define PURPLE  0xd53ef9
 #define BLUE    0x458ff7
 #define ORANGE  0xd7762c
 #define GREEN   0x64d440
@@ -171,6 +172,8 @@ static const int32_t hires_artifact_color_table[] =
 };
 
 static int32_t *m_hires_artifact_map = NULL;
+
+// This function and the one below are adapted from MAME
 
 static void generate_artifact_map(void) {
 // generate hi-res artifact data

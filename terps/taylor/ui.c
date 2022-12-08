@@ -1,3 +1,8 @@
+//
+//  restorestate.c
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
+//
+
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>

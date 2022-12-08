@@ -2,7 +2,7 @@
 //  plusmain.c
 //  The Plus interpreter
 //
-//  Created by Administrator on 2022-05-06.
+//  Created by Petter Sjölund on 2022-05-06.
 //
 
 #include <stdio.h>
@@ -595,8 +595,10 @@ void Look(int transcript) {
     
     ListExits();
 
-    if ((Options & FORCE_INVENTORY) && !(Options & FORCE_INVENTORY_OFF))
+    if ((Options & FORCE_INVENTORY) && !(Options & FORCE_INVENTORY_OFF)) {
+        WriteToRoomDescriptionStream("\n");
         ListInventory(1);
+    }
 
     WriteToRoomDescriptionStream(" ");
     FlushRoomDescription(buf, transcript);
@@ -2137,8 +2139,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
         return 0;
     
 #ifdef GARGLK
-    garglk_set_program_name("Plus 0.2");
-    garglk_set_program_info("Plus 0.2 by Petter Sjölund");
+    garglk_set_program_name("Plus 1.0");
+    garglk_set_program_info("Plus 1.0 by Petter Sjölund");
 #endif
     
     if (argc == 2) {

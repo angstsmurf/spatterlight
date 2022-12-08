@@ -1,8 +1,8 @@
 //
 //  apple2draw.h
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-09-17.
+//  Created by Petter Sjölund on 2022-09-17.
 //
 
 #ifndef apple2draw_h

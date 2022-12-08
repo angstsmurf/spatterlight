@@ -1,8 +1,8 @@
 //
 //  woz2nib.h
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-09-09.
+//  Created by Petter Sjölund on 2022-09-09.
 //  Based on woz2dsk.pl by LEE Sau Dan <leesaudan@gmail.com>
 //
 //  This is a quick translation of Perl code that I don't fully understand,

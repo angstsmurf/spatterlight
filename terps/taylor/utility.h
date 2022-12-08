@@ -1,8 +1,8 @@
 //
 //  utility.h
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-03-10.
+//  Created by Petter Sjölund on 2022-03-10.
 //
 
 #ifndef utility_h

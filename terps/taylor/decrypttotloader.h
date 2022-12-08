@@ -1,7 +1,7 @@
 //
 //  decryptloader.h
 //
-//  Part of the Taylormade interpreter
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
 //  This code is for de-protecting the ZX Spectrum text-only version of Temple of Terror
 //

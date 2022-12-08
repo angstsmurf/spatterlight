@@ -1,7 +1,13 @@
-/* Routine to draw the Atari 8-bit and C64 RLE graphics
+//
+//  atari8c64draw
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
+//
+//  Routines to draw Atari 8-bit and C64 RLE graphics
+//  Based on Code by David Lodge 29/04/2005
+//
+//  Original code at https://github.com/tautology0/textadventuregraphics
 
- Code by David Lodge 29/04/2005
- */
+
 #include <stdio.h>
 #include <stdlib.h>
 

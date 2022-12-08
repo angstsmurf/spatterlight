@@ -1,8 +1,8 @@
 //
 //  load_ti99_4a.h
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-02-12.
+//  Created by Petter Sjölund on 2022-02-12.
 //
 
 #ifndef load_ti99_4a_h

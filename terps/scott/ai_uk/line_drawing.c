@@ -1,5 +1,7 @@
-/*  This file is based on code from the Level9 interpreter by Simon Baldwin
- */
+//  line_drawing.c
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
+//
+//  This file is based on code from the Level9 interpreter by Simon Baldwin
 
 #include <string.h>
 #include <stdlib.h>

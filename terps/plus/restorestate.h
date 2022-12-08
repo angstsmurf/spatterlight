@@ -1,8 +1,8 @@
 //
 //  restorestate.h
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
 
 #ifndef restorestate_h

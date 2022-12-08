@@ -1,8 +1,12 @@
-/* Sagadraw v2.5
- Originally by David Lodge
-
- With help from Paul David Doherty (including the colour code)
- */
+//
+//  sagadraw.c
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
+//
+//  Based on code  by David Lodge
+//  with help from Paul David Doherty (including the colour code)
+//
+//  Original code at https://github.com/tautology0/textadventuregraphics
+//
 
 #include "glk.h"
 #include <stdio.h>

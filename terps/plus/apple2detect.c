@@ -1,8 +1,8 @@
 //
 //  apple2detect.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-08-03.
+//  Created by Petter Sjölund on 2022-08-03.
 //
 
 #include <stdlib.h>

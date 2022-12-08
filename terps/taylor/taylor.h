@@ -1,3 +1,10 @@
+//
+//  taylor.h
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
+//
+//  Created by Petter Sjölund on 2022-04-05.
+//
+
 #ifndef taylor_h
 #define taylor_h
 
