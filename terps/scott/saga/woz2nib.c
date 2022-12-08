@@ -145,7 +145,7 @@ static char *create_bitstring(uint8_t *bitstream, int bit_count) {
 // This is a translation of $trk =~ s{^0*(1.{7})}{}o;
 // Extract first '1' + 7 characters ("bits").
 // Truncate start of bitstring to first char ("bit") following this.
-// bitstring must be null terminated.
+// Bitstring must be null terminated.
 static char *extract_nibble(char *bitstring, int *length, char nibble[8]) {
     int i = 0;
 
@@ -193,7 +193,6 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len) {
     int woz_unpack_pos = 12;
     char magic[4];
     uint8_t fixed[4];
-//    uint32_t crc = 0;
     uint64_t crc = 0;
     for (int i = 0; i < 4; i++) {
         magic[i] = woz_buffer[i];
