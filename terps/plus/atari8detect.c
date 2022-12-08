@@ -239,18 +239,6 @@ static const struct imglist listBanzai[] = {
 };
 
 
-
-
-void PrintFirstTenBytes(uint8_t *ptr, size_t offset) {
-    fprintf(stderr, "First 10 bytes at 0x%04zx: ", offset);
-    for (int i = 0; i < 10; i++)
-        fprintf(stderr, "\\x%02x", ptr[offset + i]);
-    fprintf(stderr, "\n");
-}
-
-//int DrawAtariC64ImageFromData(uint8_t *ptr, size_t datasize);
-//void DisplayInit(void);
-
 static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize) {
     size_t size;
 
@@ -264,9 +252,6 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         list = listFantastic;
 
     Images = MemAlloc((count + 2) * sizeof(struct imgrec));
-
-//    DisplayInit();
-//    OpenGraphicsWindow();
 
     int outpic;
 
@@ -295,11 +280,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
             memcpy(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
         }
 
-//        DrawAtariC64ImageFromData(Images[outpic].Data, size);
-//        AnyKey(0, 0);
     }
-
-    //{ "S000", 0, Found in disk image A at offset 6d97
 
     Images[outpic].Filename = NULL;
 
