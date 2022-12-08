@@ -47,7 +47,6 @@ struct SavedState *SaveCurrentState(void)
 
     s->BitFlags = BitFlags;
     s->ProtagonistString = ProtagonistString;
-    s->AutoInventory = AutoInventory;
     s->LastImgType = LastImgType;
     s->LastImgIndex = LastImgIndex;
 
@@ -74,7 +73,6 @@ void RestoreState(struct SavedState *state)
 
     BitFlags = state->BitFlags;
     ProtagonistString = state->ProtagonistString;
-    AutoInventory = state->AutoInventory;
 
     SetBit(DRAWBIT);
     SetBit(STOPTIMEBIT);
@@ -174,7 +172,7 @@ void SaveGame(void)
 {
     strid_t file;
     frefid_t ref;
-    int ct;
+    int ct, dummy = 0;
     char buf[128];
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
@@ -191,7 +189,7 @@ void SaveGame(void)
         snprintf(buf, sizeof buf, "%d\n", Counters[ct]);
         glk_put_string_stream(file, buf);
     }
-    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", BitFlags, ProtagonistString, AutoInventory, (int)LastImgType, LastImgIndex);
+    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", BitFlags, ProtagonistString, dummy, (int)LastImgType, LastImgIndex);
     glk_put_string_stream(file, buf);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         snprintf(buf, sizeof buf, "%hd\n", (short)Items[ct].Location);
@@ -208,7 +206,7 @@ int LoadGame(void)
     strid_t file;
     frefid_t ref;
     char buf[128];
-    int ct = 0;
+    int ct = 0, dummy;
     short lo;
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
@@ -235,7 +233,7 @@ int LoadGame(void)
     }
     glk_get_line_stream(file, buf, sizeof buf);
     result = sscanf(buf, "%llu %d %d %d %d\n", &BitFlags,  &ProtagonistString,
-                    &AutoInventory, (int *)&SavedImgType, &SavedImgIndex);
+                    &dummy, (int *)&SavedImgType, &SavedImgIndex);
     debug_print("LoadGame: Result of sscanf: %d\n", result);
     if ((result < 3) || MyLoc > GameHeader.NumRooms || MyLoc < 1) {
         RecoverFromBadRestore(state);

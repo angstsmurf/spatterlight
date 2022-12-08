@@ -12,7 +12,6 @@ struct SavedState {
     uint16_t Counters[64];
     uint8_t ObjectLocations[256];
     uint64_t BitFlags;
-    int AutoInventory;
     int ProtagonistString;
     ImgType LastImgType;
     int LastImgIndex;

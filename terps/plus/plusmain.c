@@ -63,7 +63,6 @@ SystemType CurrentSys = SYS_UNKNOWN;
 uint16_t header[64];
 
 int16_t Counters[64]; /* Range unknown */
-int AutoInventory = 0;
 #define MAX_LOOPS 32
 
 int loops[MAX_LOOPS];

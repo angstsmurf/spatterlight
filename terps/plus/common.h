@@ -56,7 +56,6 @@ extern char **Messages;
 extern Action *Actions;
 
 extern uint64_t BitFlags;
-extern int AutoInventory;
 
 extern winid_t Bottom;
 
