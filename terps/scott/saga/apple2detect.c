@@ -846,7 +846,7 @@ uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
 
 uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize, int *isnib) {
 
-    char sideB[stringlen + 8];
+    char sideB[stringlen + 9];
     uint8_t *result = NULL;
 
     *isnib = 0;
@@ -887,26 +887,31 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
                 result = ReadA2DiskImageFile(sideB, filesize, isnib);
             }
         } else if (type == TYPE_B) {
-            for (int i = 0; i < 4; i++) {
-                sideB[stringlen + i + 3] = sideB[stringlen + i - 4];
+
+            // First we look for the period before the file extension
+            size_t ppos = stringlen - 1;
+            while(sideB[ppos] != '.' && ppos > 0)
+                ppos--;
+            if (ppos < 1)
+                return NULL;
+            // Then we copy the extension to the new end position
+            for (size_t i = ppos; i <= stringlen; i++) {
+                sideB[i + 7] = sideB[i];
             }
-            sideB[stringlen + 7] = '\0';
-            int pos = stringlen - 4;
-            sideB[pos++] = ' ';
-            sideB[pos++] = '(';
-            sideB[pos++] = 'b';
-            sideB[pos++] = 'o';
-            sideB[pos++] = 'o';
-            sideB[pos++] = 't';
-            sideB[pos] = ')';
-            debug_print("looking for companion file \"%s\"\n", sideB);
+            sideB[ppos++] = ' ';
+            sideB[ppos++] = '(';
+            sideB[ppos++] = 'b';
+            sideB[ppos++] = 'o';
+            sideB[ppos++] = 'o';
+            sideB[ppos++] = 't';
+            sideB[ppos] = ')';
+            debug_print("looking for companion file \"%s\".\n", sideB);
             result = ReadA2DiskImageFile(sideB, filesize, isnib);
         }
     }
 
     return result;
 }
-
 
 uint8_t *GetApple2CompanionFile(size_t *size, int *isnib) {
 

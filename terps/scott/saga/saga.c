@@ -634,14 +634,40 @@ uint8_t *ReadFileIfExists(const char *name, size_t *size)
 }
 
 int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2) {
+    while (length1 > 0 && str1[length1] != '.') {
+        length1--;
+    }
+    while (length2 > 0 && str2[length2] != '.') {
+        length2--;
+    }
     size_t length = MIN(length1, length2);
-    length1--;
-    length2--;
+    if (length <= 0)
+        return 0;
     for (int i = length; i > 0; i--) {
-        if (str1[length1--] != str2[length2--])
+        if (str1[length1--] != str2[length2--]) {
             return 0;
+        }
     }
     return 1;
+}
+
+const char *AddGameFileExtension(const char *filename, size_t gamefilelen, size_t *stringlength) {
+    char *new = NULL;
+    size_t extpos = gamefilelen;
+    while (extpos && game_file[extpos] != '.')
+        extpos--;
+    size_t extensionlength = gamefilelen - extpos;
+    char *extension = MemAlloc((int)extensionlength);
+    memcpy(extension, &game_file[extpos + 1], extensionlength);
+    extpos = *stringlength;
+    while (extpos && filename[extpos] != '.')
+        extpos--;
+    *stringlength = extpos + extensionlength;
+    new = MemAlloc((int)*stringlength + 1);
+    memcpy(new, filename, extpos + 1);
+    memcpy(new + extpos + 1, extension, extensionlength);
+    new[*stringlength] = 0;
+    return new;
 }
 
 const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2) {
@@ -656,7 +682,7 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
             *stringlength2 = list[i][1].stringlength;
             if (*stringlength2 == 0)
                 *stringlength2 = strlen(list[i][1].filename);
-            return list[i][1].filename;
+            return AddGameFileExtension(list[i][1].filename, stringlen, stringlength2);
         }
 
         *stringlength2 = list[i][1].stringlength;
@@ -668,7 +694,7 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
             *stringlength2 = list[i][0].stringlength;
             if (*stringlength2 == 0)
                 *stringlength2 = strlen(list[i][0].filename);
-            return list[i][0].filename;
+            return AddGameFileExtension(list[i][0].filename, stringlen, stringlength2);
         }
     }
 

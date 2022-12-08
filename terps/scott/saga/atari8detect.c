@@ -458,18 +458,24 @@ static uint8_t *LookForAtari8CompanionFilename(int index, CompanionNameType type
                 result = ReadFileIfExists(sideB, filesize);
             }
         } else if (type == TYPE_A) {
-            for (int i = 0; i < 5; i++) {
-                sideB[stringlen + i + 4] = sideB[stringlen + i - 4];
+            // First we look for the period before the file extension
+            size_t ppos = stringlen - 1;
+            while(sideB[ppos] != '.' && ppos > 0)
+                ppos--;
+            if (ppos < 1)
+                return NULL;
+            // Then we copy the extension to the new end position
+            for (size_t i = ppos; i <= stringlen; i++) {
+                sideB[i + 8] = sideB[i];
             }
-            int pos = stringlen - 4;
-            sideB[pos++] = '[';
-            sideB[pos++] = 'c';
-            sideB[pos++] = 'r';
-            sideB[pos++] = ' ';
-            sideB[pos++] = 'C';
-            sideB[pos++] = 'S';
-            sideB[pos++] = 'S';
-            sideB[pos] = ']';
+            sideB[ppos++] = '[';
+            sideB[ppos++] = 'c';
+            sideB[ppos++] = 'r';
+            sideB[ppos++] = ' ';
+            sideB[ppos++] = 'C';
+            sideB[ppos++] = 'S';
+            sideB[ppos++] = 'S';
+            sideB[ppos] = ']';
             debug_print("looking for companion file \"%s\"\n", sideB);
             result = ReadFileIfExists(sideB, filesize);
         }
