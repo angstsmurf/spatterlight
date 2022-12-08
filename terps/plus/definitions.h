@@ -111,7 +111,7 @@ typedef struct {
 
 typedef struct {
     char *Text;
-    int Exits[7];
+    int Exits[8];
     int Image;
 } Room;
 
