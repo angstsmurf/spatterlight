@@ -331,9 +331,11 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len) {
                         trks[idx].bitstream = malloc(6646);
                         memcpy(trks[idx].bitstream, chunk_data, 6646);
                         int newlen = chunkdatalen - 6656;
-                        uint8_t tempdata[newlen];
-                        memcpy(tempdata, chunk_data + 6656, newlen);
-                        memcpy(chunk_data, tempdata, newlen);
+                        if (newlen > 0) {
+                            uint8_t tempdata[newlen];
+                            memcpy(tempdata, chunk_data + 6656, newlen);
+                            memcpy(chunk_data, tempdata, newlen);
+                        }
                         chunkdatalen -= 6656;
                         idx++;
                     }
