@@ -267,6 +267,22 @@ void UpdateSettings(void) {
 #endif
 }
 
+static void FlushRoomDescription(char *buf,  int transcript);
+static void ListInventory(int upper);
+
+static void UpdateClaymorgueInventory(void) {
+    char *buf = MemAlloc(1000);
+    buf = memset(buf, 0, 1000);
+    room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
+    ListInventory(1);
+    FlushRoomDescription(buf, 0);
+    DrawRoomImage(33);
+    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
+        if (ObjectImages[ct].Room == 33 && Items[ObjectImages[ct].Object].Location == CARRIED) {
+            DrawItemImage(ObjectImages[ct].Image);
+        }
+}
+
 void UpdateColorCycling(void);
 
 static int AnimationCounter = 0;
@@ -286,11 +302,7 @@ void Updates(event_t ev)
         } else {
             SetBit(DRAWBIT);
             if (showing_inventory == 1) {
-                DrawRoomImage(33);
-                for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-                    if (ObjectImages[ct].Room == 33 && Items[ObjectImages[ct].Object].Location == CARRIED) {
-                        DrawItemImage(ObjectImages[ct].Image);
-                    }
+                UpdateClaymorgueInventory();
             } else {
                 Look(0);
                 if (SavedImgType == IMG_OBJECT)
@@ -384,7 +396,7 @@ static void FlushRoomDescription(char *buf,  int transcript)
     if (Transcript)
         glk_put_string_stream(Transcript, "\n");
     
-    //    int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
+    int print_delimiter = 1;
     
     if (split_screen) {
         glk_window_clear(Top);
@@ -399,8 +411,8 @@ static void FlushRoomDescription(char *buf,  int transcript)
             glk_window_get_size(Top, &TopWidth, &TopHeight);
             glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
                                        Top);
-            //        } else {
-            //            print_delimiter = 0;
+        } else {
+            print_delimiter = 0;
         }
         
         int line = 0;
@@ -475,8 +487,10 @@ static void ListExits(void)
         if (Rooms[MyLoc].Exits[i] != 0)
             numexits++;
     
-    if (numexits == 0)
+    if (numexits == 0) {
+        WriteToRoomDescriptionStream("\n");
         return;
+    }
     if (numexits > 1)
         WriteToRoomDescriptionStream(" I see exits ");
     else
@@ -494,7 +508,7 @@ static void ListExits(void)
             WriteToRoomDescriptionStream("%s", sys[i]);
             ct++;
         }
-    WriteToRoomDescriptionStream(". ");
+    WriteToRoomDescriptionStream(".\n");
 }
 
 static const char *IndefiniteArticle(const char *word) {
@@ -509,6 +523,7 @@ static const char *IndefiniteArticle(const char *word) {
 }
 
 void Look(int transcript) {
+    showing_inventory = 0;
     found_match = 1;
     if (IsSet(DRAWBIT)) {
         ResetBit(DRAWBIT);
@@ -570,8 +585,9 @@ void Look(int transcript) {
     WriteToRoomDescriptionStream(".");
     
     ListExits();
-    //    if ((AutoInventory || (Options & FORCE_INVENTORY)) && !(Options & FORCE_INVENTORY_OFF))
-    //        ListInventoryInUpperWindow();
+
+    if ((Options & FORCE_INVENTORY) && !(Options & FORCE_INVENTORY_OFF))
+        ListInventory(1);
 
     WriteToRoomDescriptionStream(" ");
     FlushRoomDescription(buf, transcript);
@@ -832,7 +848,22 @@ static void DoneIt(void)
     }
 }
 
-static void ListInventory(void)
+static void WriteToLowerWindow(const char *fmt, ...) {
+    va_list ap;
+    char msg[2048];
+
+    int size = sizeof msg;
+
+    va_start(ap, fmt);
+    vsnprintf(msg, size, fmt, ap);
+    va_end(ap);
+
+    glk_put_string_stream(glk_window_get_stream(Bottom), msg);
+    if (Transcript)
+        glk_put_string_stream(Transcript, msg);
+}
+
+static void ListInventory(int upper)
 {
     int i, ct = 0;
     int numcarried = 0;
@@ -842,7 +873,17 @@ static void ListInventory(void)
             numcarried++;
     }
 
-    SystemMessage(INVENTORY);
+    void (*print_function)(const char *fmt, ...);
+    if (upper) {
+        print_function = WriteToRoomDescriptionStream;
+    } else {
+        print_function = WriteToLowerWindow;
+    }
+
+    if (upper)
+        print_function("%s", sys[INVENTORY]);
+    else
+        SystemMessage(INVENTORY);
     
     for (i = 0; i <= GameHeader.NumItems; i++) {
         if (Items[i].Location == CARRIED) {
@@ -854,19 +895,22 @@ static void ListInventory(void)
             
             if (ct) {
                 if (ct == numcarried - 1)
-                    Output(", and");
+                    print_function(", and");
                 else
-                    Display(Bottom, "%s", sys[ITEM_DELIMITER]);
+                    print_function("%s", sys[ITEM_DELIMITER]);
             }
             
-            Display(Bottom, "%s%s", IndefiniteArticle(Items[i].Text), Items[i].Text);
+            print_function("%s%s", IndefiniteArticle(Items[i].Text), Items[i].Text);
             ct++;
         }
     }
     if (ct == 0)
-        Output(sys[NOTHING]);
+        print_function("%s", sys[NOTHING]);
     else
-        Output(".");
+        print_function(".");
+
+    if (upper)
+        print_function("\n");
 }
 
 static void ClearScreen(void)
@@ -1468,7 +1512,9 @@ debug_print("\nPerforming line %d: ", ct);
                     cc += 2;
                     break;
                 case 66:
-                    ListInventory();
+                    ListInventory(0);
+                    if (CurrentGame == CLAYMORGUE)
+                        UpdateClaymorgueInventory();
                     break;
                 case 67:
                     debug_print("Set bitflag 0\n");
