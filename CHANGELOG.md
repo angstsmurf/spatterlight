@@ -4,7 +4,11 @@
 - Fixes a memory leak when interfacing with Babel
 - Fixes a memory leak when downloading info from IFDB
 - The ScottFree, TaylorMade and Plus engines code is a little more cross-platform-friendly
-- Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to room image
+- Adds a line of underscores below the upper window in Plus
+- Implements inventory in the upper window in Plus
+- Fixes picking up the cannon in the TaylorMade version of *Questprobe featuring Human Torch and The Thing*
+- Fixes a problem where TADS files might not be openable in some cases if Gargoyle is installed on your system
+- Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to the room image
 - Both disk image files of a pair are now usually recognised and will open the correct game in Plus, just like in ScottFree. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
 
 ## Release 0.9.8
