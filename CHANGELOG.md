@@ -3,9 +3,11 @@
 ## 0.9.9 (unreleased)
 - Fixes a memory leak when interfacing with Babel
 - Fixes a memory leak when downloading info from IFDB
+- Fixes a memory leak when reading Commodore 64 disk images
 - The ScottFree, TaylorMade and Plus engines code is a little more cross-platform-friendly
 - Adds a line of underscores below the upper window in Plus
 - Implements inventory in the upper window in Plus
+- Adds support for the unfinished SAGA Plus game fragment *Questprobe Number 4: X-Men*
 - Fixes picking up the cannon in the TaylorMade version of *Questprobe featuring Human Torch and The Thing*
 - Fixes a problem where TADS files might not be openable in some cases if Gargoyle is installed on your system
 - Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to the room image
