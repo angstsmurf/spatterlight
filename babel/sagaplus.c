@@ -26,7 +26,8 @@ static const char *ifids[] = {
     "B5AF6E4DB3C3B2118FAEA3849F807617", // The Sorcerer Of Claymorgue Castle
     "DAEE386546CE71831DC365B0FF10F233", // Questprobe featuring Spider-Man
     "13EA7A22731E90598456D13311923833", // Buckaroo Banzai
-    "126E2481-30F5-46D4-ABDD-9339526F516B" // Fantastic Four
+    "126E2481-30F5-46D4-ABDD-9339526F516B", // Fantastic Four
+    "CAD0523C-5ED9-4337-85DA-A940FC36C118" // X-Men
 };
 
 typedef enum {
@@ -34,7 +35,8 @@ typedef enum {
     SORCERER_OF_CLAYMORGUE_CASTLE_IFID,
     QUESTPROBE_SPIDERMAN_IFID,
     BUCKAROO_BANZAI_IFID,
-    QUESTPROBE_FANTASTIC_FOUR_IFID
+    QUESTPROBE_FANTASTIC_FOUR_IFID,
+    QUESTPROBE_XMEN_IFID
 } IfidType;
 
 static const char *idstrings[] = {
@@ -42,7 +44,8 @@ static const char *idstrings[] = {
     "Sorcerer of Claymorgue Castle. SAGA#13.", // The Sorcerer Of Claymorgue Castle
     "SPIDER-MAN (tm)", // Questprobe featuring Spider-Man
     "BUCKAROO", // Buckaroo Banzai
-    "FF #1 " // Fantastic Four
+    "FF #1 ", // Fantastic Four
+    "X-MEN "
 };
 
 typedef enum {
@@ -50,7 +53,8 @@ typedef enum {
     SORCERER_OF_CLAYMORGUE_CASTLE_ID_STRING,
     QUESTPROBE_SPIDERMAN_ID_STRING,
     BUCKAROO_BANZAI_ID_STRING,
-    QUESTPROBE_FANTASTIC_FOUR_ID_STRING
+    QUESTPROBE_FANTASTIC_FOUR_ID_STRING,
+    QUESTPROBE_XMEN_ID_STRING
 } IdStringType;
 
 struct plusrec {
@@ -110,6 +114,7 @@ static const struct plusrec plus_registry[] = {
     { 0x23000, 0xd841, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Apple 2 alt
     { 0x23000, 0xf46f, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Apple 2 alt side A
     { 0x3426a, 0x8ffa, QUESTPROBE_FANTASTIC_FOUR_ID_STRING, QUESTPROBE_FANTASTIC_FOUR_IFID }, // Fantastic Four Atari ST
+    { 0xc480, 0xd462, QUESTPROBE_XMEN_ID_STRING, QUESTPROBE_XMEN_IFID }, // X-Men prototype
 
     { 0, 0, NO_ID_STRING, NO_IFID }
 };
