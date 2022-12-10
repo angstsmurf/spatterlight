@@ -283,18 +283,16 @@ extern NSArray *gGameFileTypes;
     format = babel_init_ctx((char*)path.UTF8String, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx))
     {
+        babel_release_ctx(ctx);
+        free(ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
                 alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
                 [alert runModal];
-                babel_release_ctx(ctx);
-                free(ctx);
             });
         }
-        babel_release_ctx(ctx);
-        free(ctx);
         return nil;
     }
 
