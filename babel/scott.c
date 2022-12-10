@@ -139,6 +139,7 @@ static const struct scottrec scott_registry[] = {
     { 0xb847, 0x22f8, TIME_MACHINE_IFID }, // The Time Machine (Tynesoft).tzx
     { 0xb80d, 0x12c2, TIME_MACHINE_IFID }, // The Time Machine TAP
     { 0x5032, 0x5635, TIME_MACHINE_IFID }, // The Time Machine C64
+   { 0x2ab00, 0xed21, TIME_MACHINE_IFID }, // The Time Machine D64 2
     { 0x8539, 0xad02, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80
     { 0x8699, 0xbb7b, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt
     { 0x7844, 0xd892, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 2
@@ -341,6 +342,7 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0xfd67, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64)
    { 0x2ab00, 0x7ece, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
    { 0x2ab00, 0x0b54, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
+   { 0x2ab00, 0xf70c, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
 
    { 0x2adab, 0x1fac, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xfbb6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
