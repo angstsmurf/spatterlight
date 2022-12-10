@@ -280,6 +280,8 @@ static const struct scottrec scott_registry[] = {
     { 0x16810, 0x3074, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt
     { 0x16810, 0x82c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt 2
 
+    { 0x2adab, 0x04c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version
+
     { 0xbae1, 0x0ec0, SECRET_MISSION_IFID }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, SECRET_MISSION_IFID }, // Secret Mission TAP image
     { 0x8723, 0xc6da, SECRET_MISSION_IFID }, // Secret Mission Z80
@@ -314,6 +316,10 @@ static const struct scottrec scott_registry[] = {
 
     { 0x16810, 0x4389, VOODOO_CASTLE_IFID }, // Voodoo Castle US v5.1-119 Atari 8-bit boot disk
     { 0x16810, 0x578d, VOODOO_CASTLE_IFID }, // Voodoo Castle US Atari 8-bit boot disk alt
+    { 0x2adab, 0xcb2b, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64
+    { 0x2ab00, 0x8969, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed
+    { 0x2ab00, 0x2682, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 2
+    { 0x2ab00, 0xac79, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 3 (toko)
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
     { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
