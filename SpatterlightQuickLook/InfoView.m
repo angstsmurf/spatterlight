@@ -70,37 +70,35 @@ fprintf(stderr, "%s\n",                                                    \
     NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
     para.alignment = alignment;
 
-    if (@available(macOS 10.13, *)) {
-        NSDictionary *activeStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"],
-            NSParagraphStyleAttributeName : para
-        };
-        NSDictionary *inactiveStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor disabledControlTextColor],
-            NSParagraphStyleAttributeName : para
-        };
+    NSDictionary *activeStarFormat = @{
+        NSFontAttributeName : currentFont,
+        NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"],
+        NSParagraphStyleAttributeName : para
+    };
+    NSDictionary *inactiveStarFormat = @{
+        NSFontAttributeName : currentFont,
+        NSForegroundColorAttributeName : [NSColor disabledControlTextColor],
+        NSParagraphStyleAttributeName : para
+    };
 
-        [starString appendAttributedString:[[NSAttributedString alloc]
-                                            initWithString:@"\n\n" attributes:activeStarFormat]];
+    [starString appendAttributedString:[[NSAttributedString alloc]
+                                        initWithString:@"\n\n" attributes:activeStarFormat]];
 
-        for (int i=0; i < totalNumberOfStars; ++i) {
-            //Full star
-            if (rating >= i+1) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
-            }
-            //Half star
-            else if (rating > i) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
-            }
-            // Grey star
-            else {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
-            }
+    for (int i=0; i < totalNumberOfStars; ++i) {
+        //Full star
+        if (rating >= i+1) {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
+        }
+        //Half star
+        else if (rating > i) {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
+        }
+        // Grey star
+        else {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
         }
     }
     return starString;
@@ -149,7 +147,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (font.pointSize > 25)
         para.maximumLineHeight = para.maximumLineHeight + 3;
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineSpacing = 1;
 
     if (font.pointSize > 25)
@@ -179,7 +177,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSTextField *textField = [InfoView customTextFieldWithFrame:contentRect];
 
-    textField.alignment = NSCenterTextAlignment;
+    textField.alignment = NSTextAlignmentCenter;
 
     NSLayoutConstraint *xPosConstraint =
     [NSLayoutConstraint constraintWithItem:textField
@@ -374,7 +372,7 @@ fprintf(stderr, "%s\n",                                                    \
         rating = somedata.myRating.integerValue;
     }
     
-    NSAttributedString *starString = [InfoView starString:rating alignment:NSCenterTextAlignment];
+    NSAttributedString *starString = [InfoView starString:rating alignment:NSTextAlignmentCenter];
 
     if (starString.length) {
         CGFloat offset = [starString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin].size.height * 0.3;
@@ -456,9 +454,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSTextField *field = (NSTextField *)lastView;
         NSMutableAttributedString *mutAttrStr = field.attributedStringValue.mutableCopy;
-        if (@available(macOS 10.13, *)) {
-            [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
-        }
+        [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
         field.attributedStringValue = mutAttrStr;
     }
 
@@ -597,12 +593,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (title.length) { // Every game will have a title unless something is broken
 
-        if (@available(macOS 10.11, *)) {
-            font = [NSFont systemFontOfSize:20 weight:NSFontWeightSemibold].copy;
-        } else {
-            font = [NSFont systemFontOfSize:20];
-            font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSBoldFontMask];
-        }
+        font = [NSFont systemFontOfSize:20 weight:NSFontWeightSemibold].copy;
 
         longestWord = @"";
 
@@ -631,7 +622,7 @@ fprintf(stderr, "%s\n",                                                    \
         rating = ((NSNumber *)metadict[@"myRating"]).integerValue;
     }
 
-    NSAttributedString *starString = [InfoView starString:rating alignment:NSCenterTextAlignment];
+    NSAttributedString *starString = [InfoView starString:rating alignment:NSTextAlignmentCenter];
 
     if (starString.length) {
         CGFloat offset = [starString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin].size.height * 0.3;
@@ -766,9 +757,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSTextField *field = (NSTextField *)lastView;
         NSMutableAttributedString *mutAttrStr = field.attributedStringValue.mutableCopy;
-        if (@available(macOS 10.13, *)) {
-            [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
-        }
+        [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
         field.attributedStringValue = mutAttrStr;
     } else {
         lastView = [self addSubViewWithtext:@"\n" andFont:font andSpaceBefore:0 andLastView:lastView];
@@ -810,11 +799,9 @@ fprintf(stderr, "%s\n",                                                    \
     if (!_leftDateView) {
         NSMutableDictionary *attributes = [NSMutableDictionary new];
         attributes[NSFontAttributeName] = [NSFont systemFontOfSize:11];
-
-        if (@available(macOS 10.13, *)) {
-            attributes[NSForegroundColorAttributeName]= [NSColor colorNamed:@"customControlColor"];
-        }
-
+        
+        attributes[NSForegroundColorAttributeName]= [NSColor colorNamed:@"customControlColor"];
+        
         NSMutableParagraphStyle *leftpara = [NSMutableParagraphStyle new];
         leftpara.alignment = NSTextAlignmentRight;
         leftpara.lineSpacing = 2;
@@ -834,14 +821,14 @@ fprintf(stderr, "%s\n",                                                    \
         contentRect.origin.y = NSMaxY(lastview.frame) + 24;
         _leftDateView = [InfoView customTextFieldWithFrame:contentRect];
 
-        _leftDateView.alignment = NSRightTextAlignment;
+        _leftDateView.alignment = NSTextAlignmentRight;
 
         _leftDateView.attributedStringValue = leftAttributedString;
         [self addSubview:_leftDateView];
         contentRect.origin.x = NSMaxX(_leftDateView.frame) + 10;
         _rightDateView = [InfoView customTextFieldWithFrame:contentRect];
 
-        _rightDateView.alignment = NSLeftTextAlignment;
+        _rightDateView.alignment = NSTextAlignmentLeft;
 
         NSLayoutConstraint *xPosConstraint =
         [NSLayoutConstraint constraintWithItem:_leftDateView

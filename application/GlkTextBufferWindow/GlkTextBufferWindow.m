@@ -1002,12 +1002,12 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
-                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
-                                      NSControlKeyMask | NSHelpKeyMask)));
-    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
-                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
-                                     NSControlKeyMask | NSHelpKeyMask)));
+    BOOL commandKeyOnly = ((flags & NSEventModifierFlagCommand) &&
+                           !(flags & (NSEventModifierFlagOption | NSEventModifierFlagShift |
+                                      NSEventModifierFlagControl | NSEventModifierFlagHelp)));
+    BOOL optionKeyOnly = ((flags & NSEventModifierFlagOption) &&
+                          !(flags & (NSEventModifierFlagCommand | NSEventModifierFlagShift |
+                                     NSEventModifierFlagControl | NSEventModifierFlagHelp)));
 
     if (ch == keycode_Up) {
         if (optionKeyOnly)
@@ -1100,7 +1100,7 @@ fprintf(stderr, "%s\n",                                                    \
                 _textview.selectedRange = selectedRange;
                 [_textview paste:nil];
                 return;
-            } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSCommandKeyMask) != NSCommandKeyMask) {
+            } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSEventModifierFlagCommand) != NSEventModifierFlagCommand) {
                 // Deselect text and move cursor to end to facilitate typing
                 NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
                 if (selectedRange.location == NSNotFound || (selectedRange.length == 0))
@@ -1415,7 +1415,10 @@ replacementString:(id)repl {
     return NO;
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
+
+- (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
+    if ((editedMask & NSTextStorageEditedCharacters) == 0)
+        return;
     if (!line_request)
         return;
 
@@ -1581,7 +1584,7 @@ replacementString:(id)repl {
 
     [src drawInRect:NSMakeRect(0, 0, dstsize.width, dstsize.height)
            fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation:NSCompositeSourceOver
+          operation:NSCompositingOperationSourceOver
            fraction:1.0
      respectFlipped:YES
               hints:nil];

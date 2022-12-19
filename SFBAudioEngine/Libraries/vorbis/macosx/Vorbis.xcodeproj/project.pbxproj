@@ -755,7 +755,7 @@
 					"$(INHERITED)",
 					"$(PROJECT_DIR)/include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -801,7 +801,7 @@
 					"$(INHERITED)",
 					"$(PROJECT_DIR)/include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",

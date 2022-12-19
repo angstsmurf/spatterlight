@@ -392,34 +392,30 @@ PasteboardFilePasteLocation;
 - (BOOL)application:(NSApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<NSUserActivityRestoring>> *restorableObjects))restorationHandler {
-    if (@available(macOS 10.13, *)) {
+    NSLog(@"continueUserActivity");
 
-        NSLog(@"continueUserActivity");
+    // We're coming from a search result
+    NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
 
-        // We're coming from a search result
-        NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+    if (searchableItemIdentifier.length) {
+        NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
 
-        if (searchableItemIdentifier.length) {
-            NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
-
-            NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
-            if (!context) {
-                NSLog(@"Could not create new context!");
-                return NO;
-            }
-
-            NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
-            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
-
-            id object = [context objectWithID:objectID];
-
-            if (!object) {
-                return NO;
-            }
-
-            [_libctl handleSpotlightSearchResult:object];
+        NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
+        if (!context) {
+            NSLog(@"Could not create new context!");
+            return NO;
         }
 
+        NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
+        NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+
+        id object = [context objectWithID:objectID];
+
+        if (!object) {
+            return NO;
+        }
+
+        [_libctl handleSpotlightSearchResult:object];
     }
 
     return YES;

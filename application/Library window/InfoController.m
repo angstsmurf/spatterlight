@@ -148,10 +148,8 @@ fprintf(stderr, "%s\n",                                                    \
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
     } else if (@available(macOS 11, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowBigSur"];
-    } else if (@available(macOS 10.13, *)) {
-            self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
     } else {
-        self.window.backgroundColor = [NSColor colorWithCalibratedRed:0.925 green:0.925 blue:0.925 alpha:1];
+            self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
     }
 
     [[NSNotificationCenter defaultCenter]
@@ -710,7 +708,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSWindow *)createFullScreenWindow {
     NSWindow *fullScreenWindow =
     [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.window.screen.frame.size }
-                                styleMask:NSBorderlessWindowMask
+                                styleMask:NSWindowStyleMaskBorderless
                                   backing:NSBackingStoreBuffered
                                     defer:NO
                                    screen:_libcontroller.window.screen];

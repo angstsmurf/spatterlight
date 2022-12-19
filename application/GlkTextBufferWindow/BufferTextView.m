@@ -83,7 +83,7 @@
             [super mouseDown:theEvent];
     } else {
 
-        NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+        NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
         NSTimeInterval timeout = NSEventDurationForever;
 
         CGFloat dragThreshold = 0.3;
@@ -344,61 +344,10 @@
     return [super becomeFirstResponder];
 }
 
-- (NSString *)accessibilityActionDescription:(NSString *)action {
-    if (@available(macOS 10.13, *)) {
-    } else {
-        if ([action isEqualToString:@"Repeat last move"])
-            return @"repeat the text output of the last move";
-        if ([action isEqualToString:@"Speak move before"])
-            return @"step backward through moves";
-        if ([action isEqualToString:@"Speak move after"])
-            return @"step forward through moves";
-        if ([action isEqualToString:@"Speak status bar"])
-            return @"read status bar text";
-    }
-
-    return [super accessibilityActionDescription:action];
-}
-
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     NSArray *actions = [delegate.glkctl accessibilityCustomActions];
     return actions;
-}
-
-
-- (NSArray *)accessibilityActionNames {
-    NSMutableArray *result = [[super accessibilityActionNames] mutableCopy];
-
-    if (@available(macOS 10.13, *)) {
-    } else {
-        [result addObjectsFromArray:@[
-            @"Repeat last move",
-            @"Speak move before",
-            @"Speak move after",
-            @"Speak status bar"
-        ]];
-    }
-    return result;
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-    if (@available(macOS 10.13, *)) {
-        [super accessibilityPerformAction:action];
-    } else {
-        GlkController *glkctl = ((GlkTextBufferWindow *)self.delegate).glkctl;
-
-        if ([action isEqualToString:@"Repeat last move"])
-            [glkctl speakMostRecent:nil];
-        else if ([action isEqualToString:@"Speak move before"])
-            [glkctl speakPrevious:nil];
-        else if ([action isEqualToString:@"Speak move after"])
-            [glkctl speakNext:nil];
-        else if ([action isEqualToString:@"Speak status bar"])
-            [glkctl speakStatus:nil];
-        else
-            [super accessibilityPerformAction:action];
-    }
 }
 
 - (NSArray *)accessibilityCustomRotors  {

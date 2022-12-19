@@ -47,7 +47,7 @@ void setdefaultworkdir(char **string)
         NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", [gFolderMap objectForKey:firstWord]];
 
         dirstr = [dirstr stringByAppendingString:@" Files"];
-        dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
         appSupportDir = [NSURL URLWithString:dirstr relativeToURL:appSupportDir];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];

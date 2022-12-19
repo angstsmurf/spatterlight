@@ -104,7 +104,7 @@
 
     [image drawInRect:rect
               fromRect:rect
-             operation:NSCompositeSourceOver
+            operation:NSCompositingOperationSourceOver
               fraction:1.0];
 }
 
@@ -223,7 +223,7 @@
 
         [src drawInRect:florpedRect
                fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-              operation:NSCompositeSourceOver
+              operation:NSCompositingOperationSourceOver
                fraction:1.0];
 
         [image unlockFocus];
@@ -261,7 +261,7 @@
     
     NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
     
-    NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+    NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
     
     CGFloat dragThreshold = 0.3;
@@ -406,7 +406,7 @@
     return dummy;
 }
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+- (NSArray *)accessibilityCustomActions {
     NSMutableArray *mutable = [NSMutableArray new];
 
     if (mouse_request) {

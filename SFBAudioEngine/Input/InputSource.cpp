@@ -6,7 +6,6 @@
 #include <os/log.h>
 
 #include "FileInputSource.h"
-#include "HTTPInputSource.h"
 #include "InMemoryFileInputSource.h"
 #include "InputSource.h"
 #include "MemoryInputSource.h"
@@ -40,9 +39,6 @@ SFB::InputSource::unique_ptr SFB::InputSource::CreateForURL(CFURLRef url, int fl
 		else
 			return unique_ptr(new FileInputSource(url));
 	}
-	else if(kCFCompareEqualTo == CFStringCompare(CFSTR("http"), scheme, kCFCompareCaseInsensitive)
-            || kCFCompareEqualTo == CFStringCompare(CFSTR("https"), scheme, kCFCompareCaseInsensitive))
-		return unique_ptr(new HTTPInputSource(url));
 
 	return nullptr;
 }

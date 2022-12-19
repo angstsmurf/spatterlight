@@ -9,7 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-API_AVAILABLE(macos(10.13))
 @interface MyCoreDataCoreSpotlightDelegate : NSCoreDataCoreSpotlightDelegate
 
 @end

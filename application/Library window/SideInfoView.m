@@ -129,7 +129,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (font.pointSize > 25)
         para.maximumLineHeight = para.maximumLineHeight + 3;
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineSpacing = 1;
 
     if (font.pointSize > 25)
@@ -702,7 +702,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     font = [NSFont titleBarFontOfSize:16];
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
     NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:

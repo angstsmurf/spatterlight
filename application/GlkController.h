@@ -175,7 +175,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 - (void)speakString:(NSString *)string;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *accessibilityCustomActions API_AVAILABLE(macos(10.13));
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *accessibilityCustomActions;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *createCustomRotors;
 
 - (void)forkInterpreterTask;

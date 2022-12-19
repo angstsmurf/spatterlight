@@ -78,7 +78,7 @@
     [(NSTextView *)[Preferences instance].dummyTextView changeAttributes:sender];
 }
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+- (NSArray *)accessibilityCustomActions {
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
     NSArray *actions = [delegate.glkctl accessibilityCustomActions];
     return actions;

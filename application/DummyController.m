@@ -47,7 +47,7 @@
 
 - (void)checkZMenu {}
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+- (NSArray *)accessibilityCustomActions {
     return @[];
 }
 

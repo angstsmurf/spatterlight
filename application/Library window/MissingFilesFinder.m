@@ -61,7 +61,7 @@ extern NSArray *gGameFileTypes;
             } else {
                 if (ifid) {
                     NSAlert *anAlert = [[NSAlert alloc] init];
-                    anAlert.alertStyle = NSInformationalAlertStyle;
+                    anAlert.alertStyle = NSAlertStyleInformational;
                     anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
                     anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title];
                     [anAlert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
@@ -259,7 +259,7 @@ extern NSArray *gGameFileTypes;
 
         if (filenames.count > 0) {
             NSAlert *alert = [[NSAlert alloc] init];
-            alert.alertStyle = NSInformationalAlertStyle;
+            alert.alertStyle = NSAlertStyleInformational;
             alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)];
             alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (matchedIfids.count > 1) ? @"them" : @"it"];
             [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];

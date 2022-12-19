@@ -130,8 +130,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)viewWillStartLiveResize {
     GlkController *glkctl = _glkctrl;
-    if ((glkctl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !glkctl.ignoreResizes)
+    if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes)
         [glkctl storeScrollOffsets];
 }
 
@@ -139,8 +139,8 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *glkctl = _glkctrl;
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
-    if ((glkctl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !glkctl.ignoreResizes) {
+    if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:self.frame];
         [glkctl restoreScrollOffsets];
     }
@@ -360,15 +360,11 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
-    if (@available(macOS 10.13, *)) {
-        _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
-        [notifications addObserver:self
-                                                 selector:@selector(noteAccessibilityStatusChanged:)
-                                                     name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
-                                                   object:nil];
-    } else {
-        _voiceOverActive = YES;
-    }
+    _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
+    [notifications addObserver:self
+                      selector:@selector(noteAccessibilityStatusChanged:)
+                          name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
+                        object:nil];
 
     [notifications
      addObserver:self
@@ -642,7 +638,7 @@ fprintf(stderr, "%s\n",                                                    \
     // we now re-enter fullscreen manually if the game was
     // closed in fullscreen mode.
     if (!windowRestoredBySystem && _inFullscreen
-        && (self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask) {
+        && (self.window.styleMask & NSWindowStyleMaskFullScreen) != NSWindowStyleMaskFullScreen) {
         _startingInFullscreen = YES;
         [self startInFullscreen];
     } else {
@@ -1335,27 +1331,16 @@ fprintf(stderr, "%s\n",                                                    \
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
+        NSError *error = nil;
 
-        if (@available(macOS 10.13, *)) {
-            NSError *error = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+        [data writeToFile:autosaveLate options:NSDataWritingAtomic error:&error];
 
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-            [data writeToFile:autosaveLate options:NSDataWritingAtomic error:&error];
-
-            if (error) {
-                NSLog(@"autoSaveOnExit: Write returned error: %@", [error localizedDescription]);
-                return;
-            }
-
-        } else {
-            // Fallback on earlier version
-            NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                        toFile:autosaveLate];
-            if (!res) {
-                NSLog(@"GUI autosave on exit failed!");
-                return;
-            }
+        if (error) {
+            NSLog(@"autoSaveOnExit: Write returned error: %@", [error localizedDescription]);
+            return;
         }
+
         _game.autosaved = YES;
     }
 }
@@ -1457,8 +1442,8 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
-    [encoder encodeBool:((self.window.styleMask & NSFullScreenWindowMask) ==
-                         NSFullScreenWindowMask)
+    [encoder encodeBool:((self.window.styleMask & NSWindowStyleMaskFullScreen) ==
+                         NSWindowStyleMaskFullScreen)
                  forKey:@"fullscreen"];
 
     [encoder encodeInteger:_turns forKey:@"turns"];
@@ -1595,38 +1580,13 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)handleAutosave:(NSInteger)hash {
     _autosaveTag = hash;
 
-    NSInteger res;
-
     @autoreleasepool {
-        if (@available(macOS 10.13, *)) {
-            NSError *error = nil;
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-            [data writeToFile:self.autosaveFileGUI options:NSDataWritingAtomic error:&error];
-            if (error) {
-                NSLog(@"handleAutosave: Write returned error: %@", [error localizedDescription]);
-                return;
-            }
-        } else {
-            // Fallback on earlier versions
-            NSString *tmplibpath =
-            [self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"];
-
-            res = [NSKeyedArchiver archiveRootObject:self
-                                              toFile:tmplibpath];
-            if (!res) {
-                NSLog(@"Window serialize failed!");
-                return;
-            }
-
-            [[NSFileManager defaultManager] removeItemAtPath:self.autosaveFileGUI error:nil];
-
-            NSError *error;
-            res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath
-                                                          toPath:self.autosaveFileGUI error:&error];
-            if (!res) {
-                NSLog(@"Could not move window autosave to final position! %@", error);
-                return;
-            }
+        NSError *error = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+        [data writeToFile:self.autosaveFileGUI options:NSDataWritingAtomic error:&error];
+        if (error) {
+            NSLog(@"handleAutosave: Write returned error: %@", [error localizedDescription]);
+            return;
         }
     }
 
@@ -1958,8 +1918,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSUInteger borders = (NSUInteger)_theme.border * 2;
 
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) { // We are not in fullscreen
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen) { // We are not in fullscreen
 
         newSize.width += borders;
         newSize.height += borders;
@@ -2027,8 +1987,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)noteBorderChanged:(NSNotification *)notify {
-    if (notify.object != _theme || (self.window.styleMask & NSFullScreenWindowMask) ==
-        NSFullScreenWindowMask || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
+    if (notify.object != _theme || (self.window.styleMask & NSWindowStyleMaskFullScreen) ==
+        NSWindowStyleMaskFullScreen || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
         return;
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
@@ -2241,8 +2201,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSLog(@"noteDefaultSizeChanged: Old contentView size: %@", NSStringFromSize(_contentView.frame.size));
 
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen) {
 
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
@@ -3925,7 +3885,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     // Make sure the window style mask includes the
     // full screen bit
-    window.styleMask = (window.styleMask | NSFullScreenWindowMask);
+    window.styleMask = (window.styleMask | NSWindowStyleMaskFullScreen);
 
     if (restoredController && restoredController.inFullscreen) {
         [self startGameInFullScreenAnimationWithDuration:duration];
@@ -3944,7 +3904,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // Make sure the snapshot window style mask includes the
     // full screen bit
     NSWindow *snapshotWindow = snapshotController.window;
-    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSFullScreenWindowMask);
+    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSWindowStyleMaskFullScreen);
     [snapshotWindow setFrame:window.frame display:YES];
 
     NSScreen *screen = window.screen;
@@ -4150,7 +4110,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         // include full screen bit
         context.duration = duration;
         [window
-         setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
+         setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSWindowStyleMaskFullScreen)];
         [[window animator] setFrame:oldFrame display:YES];
     }
      completionHandler:^{
@@ -4273,7 +4233,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // Some convenience methods
 - (void)adjustContentView {
     NSRect frame;
-    if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen ||
         _borderView.frame.size.width == self.window.screen.frame.size.width || (dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         frame = [self contentFrameForFullscreen];
@@ -4332,7 +4292,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     return NO;
 }
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+- (NSArray *)accessibilityCustomActions {
     NSAccessibilityCustomAction *speakMostRecent = [[NSAccessibilityCustomAction alloc]
                                                     initWithName:NSLocalizedString(@"repeat the text output of the last move", nil) target:self selector:@selector(speakMostRecent:)];
     NSAccessibilityCustomAction *speakPrevious = [[NSAccessibilityCustomAction alloc]
@@ -4346,26 +4306,24 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)noteAccessibilityStatusChanged:(NSNotification *)notify {
-    if(@available(macOS 10.13, *)) {
-        NSWorkspace * ws = [NSWorkspace sharedWorkspace];
-        _voiceOverActive = ws.voiceOverEnabled;
-        if (_voiceOverActive) {
-            if (_eventcount > 2 && !_mustBeQuiet) {
-                [self checkZMenu];
-                if (_zmenu) {
-                    [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
-                } else {
-                    GlkWindow *largest = [self largestWithMoves];
-                    if (largest) {
-                        [largest setLastMove];
-                        [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
-                    }
+    NSWorkspace * ws = [NSWorkspace sharedWorkspace];
+    _voiceOverActive = ws.voiceOverEnabled;
+    if (_voiceOverActive) {
+        if (_eventcount > 2 && !_mustBeQuiet) {
+            [self checkZMenu];
+            if (_zmenu) {
+                [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
+            } else {
+                GlkWindow *largest = [self largestWithMoves];
+                if (largest) {
+                    [largest setLastMove];
+                    [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
                 }
             }
-        } else {
-            _zmenu = nil;
-            _form = nil;
         }
+    } else {
+        _zmenu = nil;
+        _form = nil;
     }
 }
 

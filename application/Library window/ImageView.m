@@ -869,7 +869,7 @@
 
     NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
 
-    NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+    NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
 
     CGFloat dragThreshold = 0.3;

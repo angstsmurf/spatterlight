@@ -20,20 +20,18 @@
 @dynamic metadata;
 
 - (void)willSave {
-    if (@available(macOS 10.11, *)) {
-        if (!self.deleted)
-            return;
-        CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
-        NSString *identifier = self.objectID.URIRepresentation.absoluteString;
-        if (!identifier)
-            return;
-        [index deleteSearchableItemsWithIdentifiers:@[identifier]
-                                  completionHandler:^(NSError *blockerror){
-            if (blockerror) {
-                NSLog(@"Deleting searchable item for Image failed: %@", blockerror);
-            }
-        }];
-    }
+    if (!self.deleted)
+        return;
+    CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
+    NSString *identifier = self.objectID.URIRepresentation.absoluteString;
+    if (!identifier)
+        return;
+    [index deleteSearchableItemsWithIdentifiers:@[identifier]
+                              completionHandler:^(NSError *blockerror){
+        if (blockerror) {
+            NSLog(@"Deleting searchable item for Image failed: %@", blockerror);
+        }
+    }];
 }
 
 @end
