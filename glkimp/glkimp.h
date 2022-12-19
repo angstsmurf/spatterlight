@@ -67,6 +67,7 @@ extern char *gli_story_name;
 extern char *gli_story_title;
 extern char *gli_game_path;
 extern char *gli_parentdir;
+extern int gli_parentdirlength;
 
 void wintitle(void);
 

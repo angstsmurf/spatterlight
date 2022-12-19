@@ -18,13 +18,13 @@ static int loadimage(int image)
 
     if (!giblorb_is_resource_map())
     {
-        sprintf(filename, "%s/PIC%d", gli_parentdir, image);
-        
+        int namelength = image / 10 + 6;
+        snprintf(filename, namelength + gli_parentdirlength, "%s/PIC%d", gli_parentdir, image);
         fprintf(stderr, "loadimage %s in %s\n", filename, gli_parentdir);
         
         file = fopen(filename, "rb");
         if (!file) {
-            sprintf(filename, "%s.jpg", filename);
+            snprintf(filename, namelength + gli_parentdirlength + 5, "%s.jpg", filename);
             file = fopen(filename, "rb");
             if (!file)
                 return FALSE;

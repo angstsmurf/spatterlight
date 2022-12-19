@@ -23,7 +23,8 @@ static int loadsound(int sound)
     
     if (!giblorb_is_resource_map())
     {
-        sprintf(filename, "%s/SND%d", gli_parentdir, sound);
+        int namelength = sound / 10 + 6;
+        snprintf(filename, namelength + gli_parentdirlength, "%s/SND%d", gli_parentdir, sound);
 
         fprintf(stderr, "loadsound %s\n", filename);
 
