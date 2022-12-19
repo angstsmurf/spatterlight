@@ -926,9 +926,12 @@ looprecurse:
     if (*forcedname) {
         strcpy(name, forcedname);
     } else {
-        if (strlen(name) > 248) /* dirty hack in case name is REALLY long */
+        size_t ln = strlen(name);
+        if (ln > 248) {/* dirty hack in case name is REALLY long */
             name[248] = 0;
-        sprintf(name + strlen(name), ".%04x%s", r->pc,
+            ln = 248;
+        }
+        snprintf(name + strlen(name), sizeof(name) - ln, ".%04x%s", r->pc,
             (Unp.WrMemF | Unp.LfMemF ? ".clean" : ""));
     }
     //    h=fopen(name,"wb");
