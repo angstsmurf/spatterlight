@@ -225,7 +225,7 @@
 
     XCUIElement *alert = app.dialogs[@"alert"];
     if (alert.exists) {
-        [alert/*@START_MENU_TOKEN@*/.checkBoxes[@"Don't ask again"]/*[[".dialogs[@\"alert\"].checkBoxes[@\"Don't ask again\"]",".checkBoxes[@\"Don't ask again\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ click];
+        [alert.checkBoxes.firstMatch click];
         [alert.buttons[@"Okay"] click];
     }
 }
