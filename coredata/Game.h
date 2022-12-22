@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t checksum;
 @property (nullable, nonatomic, copy) NSString *compiler;
 @property (nullable, nonatomic, copy) NSString *detectedFormat;
+@property (nonatomic) int32_t like;
 @property (nullable, nonatomic, retain) NSObject *fileLocation;
 @property (nonatomic) BOOL found;
 @property (nullable, nonatomic, copy) NSString *group;

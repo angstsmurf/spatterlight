@@ -37,7 +37,7 @@
 #import "CoverImageHandler.h"
 #import "CoverImageView.h"
 #import "NotificationBezel.h"
-#include "FolderAccess.h"
+#import "FolderAccess.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -1321,8 +1321,8 @@ fprintf(stderr, "%s\n",                                                    \
     for (NSURL *url in urls) {
         error = nil;
         [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-//        if (error)
-//            NSLog(@"Error: %@", error);
+        //        if (error)
+        //            NSLog(@"Error: %@", error);
     }
 }
 
@@ -1598,15 +1598,6 @@ fprintf(stderr, "%s\n",                                                    \
  */
 
 #pragma mark Cocoa glue
-
-- (IBAction)showGameInfo:(id)sender {
-    [libcontroller showInfoForGame:_game toggle:NO];
-}
-
-- (IBAction)revealGameInFinder:(id)sender {
-    [[NSWorkspace sharedWorkspace] selectFile:_gamefile
-                     inFileViewerRootedAtPath:@""];
-}
 
 - (BOOL)isAlive {
     return !dead;
@@ -2329,7 +2320,7 @@ fprintf(stderr, "%s\n",                                                    \
 
             [[NSUserDefaults standardUserDefaults]
              setObject:theDoc.path
-                 .stringByDeletingLastPathComponent
+                .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theDoc.path).UTF8String;
         } else
@@ -2447,7 +2438,7 @@ fprintf(stderr, "%s\n",                                                    \
             NSURL *theFile = panel.URL;
             [[NSUserDefaults standardUserDefaults]
              setObject:theFile.path
-                 .stringByDeletingLastPathComponent
+                .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theFile.path).UTF8String;
         } else
@@ -2528,8 +2519,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (millisecs > 0) {
         if (millisecs < minTimer) {
-//            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
-//                  (unsigned long)millisecs, (unsigned long)minTimer);
+            //            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
+            //                  (unsigned long)millisecs, (unsigned long)minTimer);
             millisecs = minTimer;
         }
         if (_kerkerkruip && millisecs == 10) {
@@ -3546,6 +3537,8 @@ static BOOL pollMoreData(int fd) {
     self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
     [self performScroll];
     task = nil;
+    libcontroller.gameTableDirty = YES;
+    [libcontroller updateTableViews];
 
     // We autosave the UI but delete the terp autosave files
     if (!restartingAlready)
@@ -3582,8 +3575,8 @@ static BOOL pollMoreData(int fd) {
         redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
 
-if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
-    _shouldScrollOnCharEvent = YES;
+    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+        _shouldScrollOnCharEvent = YES;
 
     if (waitforfilename) {
         [_queue addObject:gevent];
@@ -4272,21 +4265,124 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                       round(NSHeight(_borderView.bounds) - border * 2));
 }
 
-#pragma mark Accessibility
+#pragma mark Menu Items
+
+- (IBAction)showGameInfo:(id)sender {
+    [libcontroller showInfoForGame:_game toggle:NO];
+}
+
+- (IBAction)revealGameInFinder:(id)sender {
+    [[NSWorkspace sharedWorkspace] selectFile:_gamefile
+                     inFileViewerRootedAtPath:@""];
+}
+
+- (IBAction)like:(id)sender {
+    if (_game.like == 1)
+        _game.like = 0;
+    else
+        _game.like = 1;
+}
+
+- (IBAction)dislike:(id)sender {
+    if (_game.like == 2)
+        _game.like = 0;
+    else
+        _game.like = 2;
+}
+
+- (IBAction)openIfdb:(id)sender {
+    NSString *urlString;
+    if (_game.metadata.tuid)
+        urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:_game.metadata.tuid];
+    else
+        urlString = [@"https://ifdb.tads.org/viewgame?ifid=" stringByAppendingString:_game.ifid];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
+}
+
+- (IBAction)download:(id)sender {
+    [libcontroller downloadMetadataForGames:@[_game]];
+}
+
+- (IBAction)applyTheme:(id)sender {
+    NSString *name = ((NSMenuItem *)sender).title;
+
+    Theme *theme = [LibController findTheme:name inContext:_game.managedObjectContext];
+
+    if (!theme) {
+        NSLog(@"applyTheme: found no theme with name %@", name);
+        return;
+    }
+
+    Preferences *prefwin = [Preferences instance];
+    if (prefwin) {
+        [prefwin restoreThemeSelection:theme];
+    }
+
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+}
+
+- (IBAction)deleteGame:(id)sender {
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
+    alert.informativeText = NSLocalizedString(@"Do you want to close this game and delete it from the library?", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+    NSInteger choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
+        _game.hidden = YES;
+        if ([libcontroller.currentSideView.objectID isEqual:_game.objectID])
+            [libcontroller clearSideView];
+        [self.window close];
+        [_game.managedObjectContext deleteObject:_game];
+    }
+}
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    if (!_voiceOverActive && (menuItem.action == @selector(speakMostRecent:) || menuItem.action == @selector(speakPrevious:) || menuItem.action == @selector(speakNext:) || menuItem.action == @selector(speakStatus:))) {
-        return NO;
-    }
-    if (menuItem.action == @selector(saveAsRTF:)) {
+
+    SEL action = menuItem.action;
+
+    if (action == @selector(speakMostRecent:) || action == @selector(speakPrevious:) || action == @selector(speakNext:) || action == @selector(speakStatus:)) {
+        return (_voiceOverActive);
+    } else if (action == @selector(saveAsRTF:)) {
         for (GlkWindow *win in _gwindows.allValues) {
             if ([win isKindOfClass:[GlkTextGridWindow class]] || [win isKindOfClass:[GlkTextBufferWindow class]])
                 return YES;
         }
         return NO;
+    } else if (action == @selector(like:)) {
+        if (_game.like == 1) {
+            menuItem.title = @"Liked";
+            menuItem.state = NSOnState;
+        } else {
+            menuItem.title = @"Like";
+            menuItem.state = NSOffState;
+        }
+    } else if (action == @selector(dislike:)) {
+        if (_game.like == 2) {
+            menuItem.title = @"Disliked";
+            menuItem.state = NSOnState;
+        } else {
+            menuItem.title = @"Disike";
+            menuItem.state = NSOffState;
+        }
+    } else if (action == @selector(applyTheme:)) {
+        for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
+            if ([item.title isEqual:_game.theme.name])
+                item.state = NSOnState;
+            else
+                item.state = NSOffState;
+        }
+    } else if (action == @selector(deleteGame:)) {
+        return (!_game.hidden);
     }
+
     return YES;
 }
+
+#pragma mark Accessibility
 
 - (BOOL)isAccessibilityElement {
     return NO;

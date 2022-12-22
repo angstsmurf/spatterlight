@@ -72,14 +72,30 @@ enum  {
 #include "ifiction.h"
 #include "treaty.h"
 
+@interface LibHelperTableView ()
+{
+    NSTrackingRectTag trackingTag;
+    BOOL mouseOverView;
+    NSInteger lastOverRow;
+
+}
+
+@property NSInteger mouseOverRow;
+
+@end
+
 @implementation LibHelperTableView
 
-// NSResponder (super)
 -(BOOL)becomeFirstResponder {
+    NSLog(@"becomeFirstResponder");
+    [self removeTrackingRect:trackingTag];
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
         [(LibController *)self.delegate enableClickToRenameAfterDelay];
+        trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
     }
+    mouseOverView = NO;
+    _mouseOverRow = -1;
     return flag;
 }
 
@@ -91,48 +107,83 @@ enum  {
         [super keyDown:event];
 }
 
-// NSTableView delegate
--(BOOL)tableView:(NSTableView *)tableView
-shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
-    return NO;
+- (void)awakeFromNib {
+    self.window.acceptsMouseMovedEvents = YES;
+    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
+    mouseOverView = NO;
+    _mouseOverRow = -1;
+    lastOverRow = -1;
 }
 
-- (void)textDidEndEditing:(NSNotification *)notification {
-    NSDictionary *userInfo;
-    NSDictionary *newUserInfo;
-    NSNumber *textMovement;
-    NSTextMovement movementCode;
+- (void)mouseEntered:(NSEvent*)theEvent {
+    mouseOverView = YES;
+}
 
-    userInfo = notification.userInfo;
-    textMovement = userInfo[@"NSTextMovement"];
-    movementCode = textMovement.integerValue;
+- (void)mouseMoved:(NSEvent*)theEvent {
+    if (mouseOverView) {
+        _mouseOverRow = [self rowAtPoint:[self convertPoint:theEvent.locationInWindow fromView:nil]];
+        if (lastOverRow == _mouseOverRow)
+            return;
+        else {
+            [(LibController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:_mouseOverRow];
 
-    // see if this a 'pressed-return' instance
-    if (movementCode == NSTextMovementReturn) {
-        // hijack the notification and pass a different textMovement value
-        textMovement = @(NSTextMovementOther);
-        newUserInfo = @{@"NSTextMovement" : textMovement};
-        notification = [NSNotification notificationWithName:notification.name
-                                                     object:notification.object
-                                                   userInfo:newUserInfo];
+            lastOverRow = _mouseOverRow;
+        }
     }
-
-    [super textDidEndEditing:notification];
 }
 
+- (void)mouseExited:(NSEvent *)theEvent
+{
+    mouseOverView = NO;
+    [(LibController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:-1];
+    _mouseOverRow = -1;
+    lastOverRow = -1;
+}
+
+- (void)scrollWheel:(NSEvent *)event {
+    [super scrollWheel:event];
+    [self removeTrackingRect:trackingTag];
+    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
+}
+
+- (void)viewDidEndLiveResize
+{
+    [super viewDidEndLiveResize];
+
+    [self removeTrackingRect:trackingTag];
+    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
+}
+
+@end
+
+@implementation MyIndicator
+- (void)mouseDown:(NSEvent *)event {
+    if (_tableView) {
+        [_tableView mouseDown:event];
+    } else {
+        [super mouseDown:event];
+    }
+}
+
+@end
+
+@implementation RatingsCellView
+@end
+
+@implementation ForgivenessCellView
+@end
+
+@implementation LikeCellView
 @end
 
 @interface LibController () <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
 
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
-    IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
 
     IBOutlet NSMenu *headerMenu;
-
-    BOOL gameTableDirty;
 
     BOOL canEdit;
     NSTimer *timer;
@@ -140,8 +191,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     NSString *searchString;
     CGFloat lastSideviewWidth;
     CGFloat lastSideviewPercentage;
-
-    Game *currentSideView;
 
     /* for the importing */
     NSInteger cursrc;
@@ -162,6 +211,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
     BOOL verifyIsCancelled;
     NSTimer *verifyTimer;
+
+    NSDictionary *forgiveness;
 }
 
 @end
@@ -223,10 +274,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     self.windowFrameAutosaveName = @"LibraryWindow";
     _gameTableView.autosaveName = @"GameTable";
     _gameTableView.autosaveTableColumns = YES;
+    _gameTableView.delegate = self;
 
     _gameTableView.action = @selector(doClick:);
     _gameTableView.doubleAction = @selector(doDoubleClick:);
     _gameTableView.target = self;
+
+    NSRect frame = _gameTableView.headerView.frame;
+    frame.size.height = 23;
+    _gameTableView.headerView.frame = frame;
 
     self.window.excludedFromWindowsMenu = YES;
     [self.window registerForDraggedTypes:@[ NSFilenamesPboardType ]];
@@ -293,6 +349,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     }
 
     languageCodes = mutablelanguageCodes;
+
+    forgiveness = @{
+        @"" : @(FORGIVENESS_NONE),
+        @"Cruel" : @(FORGIVENESS_CRUEL),
+        @"Nasty" : @(FORGIVENESS_NASTY),
+        @"Tough" : @(FORGIVENESS_TOUGH),
+        @"Polite" : @(FORGIVENESS_POLITE),
+        @"Merciful" : @(FORGIVENESS_MERCIFUL)
+    };
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
@@ -521,7 +586,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         return;
     }
 
-    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;
 
     LibController * __weak weakSelf = self;
@@ -618,9 +683,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
         if ((strongSelf.gameTableView.clickedRow != -1) && ![strongSelf.gameTableView isRowSelected:strongSelf.gameTableView.clickedRow])
             rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
-        if (rows.count && rows.count != strongSelf.gameTableModel.count)
-            [strongSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
-
         [LibController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
         [strongSelf.coreDataManager startIndexing];
@@ -740,7 +802,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
     [_coreDataManager stopIndexing];
 
-    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
@@ -866,7 +928,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         game = weakSelf.gameTableModel[idx];
         if (weakSelf.gameSessions[game.ifid] == nil) {
+            if ([game.objectID isEqual:weakSelf.currentSideView.objectID])
+                    [weakSelf clearSideView];
+//            BOOL sideViewGone = [game.objectID isEqual:weakSelf.currentSideView.objectID];
             [weakSelf.managedObjectContext deleteObject:game];
+//            if (sideViewGone)
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [weakSelf clearSideView];
+//                });
+
         } else {
             [running addObject:game];
         }
@@ -885,7 +955,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         if (choice == NSAlertFirstButtonReturn) {
             for (Game *toDelete in running) {
                 [_gameSessions[toDelete.ifid].window close];
+                if ([toDelete.objectID isEqual:_currentSideView.objectID])
+                    [self clearSideView];
+//                BOOL sideViewGone = [toDelete.objectID isEqual:_currentSideView.objectID];
                 [_managedObjectContext deleteObject:toDelete];
+//                if (sideViewGone)
+//                    [self clearSideView];
             }
         }
     }
@@ -1046,11 +1121,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         NSLog(@"Problem! %@",error);
     }
 
+    NSMenu *themesMenu2 = themesMenu.copy;
+
     for (Theme *theme in themes) {
         [themesMenu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
+        [themesMenu2 addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
     }
 
     _themesSubMenu.submenu = themesMenu;
+    _mainThemesSubMenu.submenu = themesMenu2;
 }
 
 - (IBAction) applyTheme:(id)sender {
@@ -1125,6 +1204,67 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     }];
 }
 
+- (IBAction)like:(id)sender {
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+    LibController * __weak weakSelf = self;
+
+    // If we clicked outside selected rows, only show info for clicked row
+    if (_gameTableView.clickedRow != -1 &&
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+
+    __block NSUInteger count = 0;
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        Game *game = weakSelf.gameTableModel[idx];
+        if (game.like == 1)
+            count++;
+    }];
+
+    BOOL allLiked = (count == rows.count);
+
+    // If all are liked: unlike all. If only some or none are liked: like all
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        Game *game = weakSelf.gameTableModel[idx];
+        if (allLiked)
+            game.like = 0;
+        else
+            game.like = 1;
+    }];
+}
+
+- (IBAction)dislike:(id)sender {
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+    LibController * __weak weakSelf = self;
+
+    // If we clicked outside selected rows, only show info for clicked row
+    if (_gameTableView.clickedRow != -1 &&
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+
+    __block NSUInteger count = 0;
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        Game *game = weakSelf.gameTableModel[idx];
+        if (game.like == 2)
+            count++;
+    }];
+
+    BOOL allDisliked = (count == rows.count);
+
+    // If all are disliked: undislike all. If only some or none are disliked: dislike all
+
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        Game *game = weakSelf.gameTableModel[idx];
+        if (allDisliked)
+            game.like = 0;
+        else
+            game.like = 2;
+    }];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
     NSInteger count = _gameTableView.numberOfSelectedRows;
@@ -1146,6 +1286,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             for (NSMenuItem *item in _themesSubMenu.submenu.itemArray) {
                 item.state = NSOffState;
             }
+            for (NSMenuItem *item in _mainThemesSubMenu.submenu.itemArray) {
+                item.state = NSOffState;
+            }
             enabledThemeItem = nil;
         }
         if (count > 0 && count < 10000) {
@@ -1159,6 +1302,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             if (themeNamesToSelect.count > 1)
                 state = NSMixedState;
             for (NSString *name in themeNamesToSelect) {
+                enabledThemeItem = [_mainThemesSubMenu.submenu itemWithTitle:name];
+                if (enabledThemeItem)
+                    enabledThemeItem.state = state;
                 enabledThemeItem = [_themesSubMenu.submenu itemWithTitle:name];
                 if (enabledThemeItem)
                     enabledThemeItem.state = state;
@@ -1218,6 +1364,42 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         }
         return NO;
     }
+
+    if (action == @selector(like:) || action == @selector(dislike:)) {
+        BOOL like = (action == @selector(like:));
+        NSArray *selection = [_gameTableModel objectsAtIndexes:rows];
+        int likecount[3] = { };
+        for (Game *game in selection) {
+            likecount[game.like]++;
+        }
+        if (like) {
+            if (likecount[1] > 0) {
+                menuItem.title = @"Liked";
+                if (likecount[0] > 0 || likecount[2] > 0) {
+                    menuItem.state = NSMixedState;
+                } else {
+                    menuItem.state = NSOnState;
+                }
+            } else {
+                menuItem.title = @"Like";
+                menuItem.state = NSOffState;
+            }
+        } else {
+            if (likecount[2] > 0) {
+                menuItem.title = @"Disliked";
+                if (likecount[0] > 0 || likecount[1] > 0) {
+                    menuItem.state = NSMixedState;
+                } else {
+                    menuItem.state = NSOnState;
+                }
+            } else {
+                menuItem.title = @"Dislike";
+                menuItem.state = NSOffState;
+            }
+        }
+        return YES;
+    }
+
 
     if (action == @selector(myToggleSidebar:))
     {
@@ -1384,16 +1566,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     Metadata *entry;
     NSString *key;
     NSString *keyVal;
-
-    NSDictionary *forgiveness = @{
-        @"" : @(FORGIVENESS_NONE),
-        @"Cruel" : @(FORGIVENESS_CRUEL),
-        @"Nasty" : @(FORGIVENESS_NASTY),
-        @"Tough" : @(FORGIVENESS_TOUGH),
-        @"Polite" : @(FORGIVENESS_POLITE),
-        @"Merciful" : @(FORGIVENESS_MERCIFUL)
-    };
-
 
     entry = [LibController fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
     if (!entry)
@@ -1584,7 +1756,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
         LibController * __weak weakSelf = self;
 
-        NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
+        NSManagedObjectContext *private = _coreDataManager.privateChildManagedObjectContext;
         private.undoManager = nil;
 
         [self beginImporting];
@@ -1671,7 +1843,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
                             if (format) {
                                 if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
                                     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-                                    imgdata = [blorb coverImageData];
+                                    imgdata = blorb.coverImageData;
                                     game.metadata.coverArtURL = path;
                                 }
                             }
@@ -1945,9 +2117,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (meta.cover) {
             NSData *data = (NSData *)meta.cover.data;
             NSString *type = @"png";
-            if ([data isJPEG])
+            if (data.JPEG)
                 type = @"jpg";
-            else if (![data isPNG])
+            else if (!data.PNG)
                 NSLog(@"Illegal image type!");
 
             NSImage *image = [[NSImage alloc] initWithData:data];
@@ -2203,6 +2375,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (key) {
         glkctl.window.delegate = nil;
         [_gameSessions removeObjectForKey:key];
+        _gameTableDirty = YES;
+        [self updateTableViews];
         [self performSelector:@selector(releaseGlkControllerNow:) withObject:glkctl afterDelay:1];
     }
 }
@@ -2223,6 +2397,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (NSWindow *)selectAndPlayGame:(Game *)game {
     [self selectGames:[NSSet setWithObject:game]];
+    [_gameTableView scrollRowToVisible:(NSInteger)[_gameTableModel indexOfObject:game]];
     return [self playGame:game];
 }
 
@@ -2250,7 +2425,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     searchString = [searchString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 
-    gameTableDirty = YES;
+    _gameTableDirty = YES;
     [self updateTableViews];
 }
 
@@ -2294,7 +2469,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return frame;
 }
 
-- (void) selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll {
+- (void)selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll {
     if (ifids.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
         for (NSString *ifid in ifids) {
@@ -2313,8 +2488,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         _selectedGames = [_gameTableModel objectsAtIndexes:indexSet];
-        if (shouldscroll && indexSet.count && !_currentlyAddingGames)
+        if (shouldscroll && indexSet.count && !_currentlyAddingGames) {
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
+        }
     }
 }
 
@@ -2328,8 +2504,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }];
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         _selectedGames = [_gameTableModel objectsAtIndexes:indexSet];
-        if (indexSet.count && indexSet.count < 50 && !_currentlyAddingGames)
-            [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
 
@@ -2380,7 +2554,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (void) updateTableViews {
-    if (!gameTableDirty)
+    if (!_gameTableDirty)
         return;
 
     NSError *error = nil;
@@ -2457,40 +2631,47 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         Metadata *a = aid.metadata;
         Metadata *b = bid.metadata;
-        if ([strongSelf.gameSortColumn isEqual:@"firstpublishedDate"])
-        {
+        if ([strongSelf.gameSortColumn isEqual:@"firstpublishedDate"]) {
             cmp = [LibController compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"added"] || [strongSelf.gameSortColumn isEqual:@"lastPlayed"])
-        {
+        } else if ([strongSelf.gameSortColumn isEqual:@"added"] || [strongSelf.gameSortColumn isEqual:@"lastPlayed"]) {
             cmp = [LibController compareDate:[aid valueForKey:strongSelf.gameSortColumn] withDate:[bid valueForKey:strongSelf.gameSortColumn] ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"lastModified"]) {
+        } else if ([strongSelf.gameSortColumn isEqual:@"lastModified"]) {
             cmp = [LibController compareDate:[a valueForKey:strongSelf.gameSortColumn] withDate:[b valueForKey:strongSelf.gameSortColumn] ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"found"]) {
+        } else if ([strongSelf.gameSortColumn isEqual:@"found"]) {
             NSString *string1 = aid.found?nil:@"A";
             NSString *string2 = bid.found?nil:@"A";
             cmp = [LibController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"forgivenessNumeric"]) {
+        } else if ([strongSelf.gameSortColumn isEqual:@"like"]) {
+            NSInteger numA = aid.like;
+            NSInteger numB = bid.like;
+            if (numA == 1) {
+                numA = 2;
+            } else if (numA == 2) {
+                numA = 1;
+            }
+            if (numB == 1) {
+                numB = 2;
+            } else if (numA == 2) {
+                numB = 1;
+            }
+            cmp = [LibController compareIntegers:numA and:numB ascending:strongSelf.sortAscending];
+            if (cmp) return cmp;
+        } else if ([strongSelf.gameSortColumn isEqual:@"forgivenessNumeric"]) {
             NSString *string1 = a.forgivenessNumeric ? [NSString stringWithFormat:@"%@", a.forgivenessNumeric] : nil;
             NSString *string2 = b.forgivenessNumeric ? [NSString stringWithFormat:@"%@", b.forgivenessNumeric] : nil;
             cmp = [LibController compareString:string1 withString:string2 ascending:strongSelf.sortAscending];
 
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"seriesnumber"]) {
+        } else if ([strongSelf.gameSortColumn isEqual:@"seriesnumber"]) {
             NSInteger numA = a.seriesnumber ? a.seriesnumber.integerValue : NSNotFound;
             NSInteger numB = b.seriesnumber ? b.seriesnumber.integerValue : NSNotFound;
             cmp = [LibController compareIntegers:numA and:numB ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
-        }
-        else if ([strongSelf.gameSortColumn isEqual:@"series"]) {
+        } else if ([strongSelf.gameSortColumn isEqual:@"series"]) {
             cmp = [LibController compareGame:a with:b key:strongSelf.gameSortColumn ascending:strongSelf.sortAscending];
             if (cmp == NSOrderedSame) {
                 NSInteger numA = a.seriesnumber ? a.seriesnumber.integerValue : NSNotFound;
@@ -2498,9 +2679,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 cmp = [LibController compareIntegers:numA and:numB ascending:strongSelf.sortAscending];
                 if (cmp) return cmp;
             } else return cmp;
-        }
-        else if (strongSelf.gameSortColumn)
-        {
+        } else if ([strongSelf.gameSortColumn isEqual:@"format"]) {
+            cmp = [LibController compareString:aid.detectedFormat withString:bid.detectedFormat ascending:strongSelf.sortAscending];
+            if (cmp) return cmp;
+        } else if (strongSelf.gameSortColumn) {
             cmp = [LibController compareGame:a with:b key:strongSelf.gameSortColumn ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         }
@@ -2518,7 +2700,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     [_gameTableModel sortUsingDescriptors:@[sort]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->gameTableDirty = NO;
+        self.gameTableDirty = NO;
         [self.gameTableView reloadData];
         [self selectGames:[NSSet setWithArray:self->_selectedGames]];
     });
@@ -2535,10 +2717,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             return;
         _gameSortColumn = sortDescriptor.key;
         _sortAscending = sortDescriptor.ascending;
-        gameTableDirty = YES;
+        _gameTableDirty = YES;
         [self updateTableViews];
-        NSIndexSet *rows = tableView.selectedRowIndexes;
-        [_gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     }
 }
 
@@ -2548,84 +2728,164 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     return 0;
 }
 
-- (id) tableView: (NSTableView*)tableView
-objectValueForTableColumn: (NSTableColumn*)column
-             row:(NSInteger)row
-{
+- (nullable NSView *)tableView:(NSTableView*)tableView viewForTableColumn:(nullable NSTableColumn *)column row:(NSInteger)row {
+
+    NSTableCellView *cellView = [tableView makeViewWithIdentifier:column.identifier owner:self];
+
     if (tableView == _gameTableView) {
+        NSString *string = nil;
         if ((NSUInteger)row >= _gameTableModel.count) return nil;
+
+        NSMutableAttributedString *headerAttrStr = column.headerCell.attributedStringValue.mutableCopy;
+
+        if (headerAttrStr.length) {
+            NSMutableDictionary *attributes = [headerAttrStr attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+            NSFont *font = nil;
+           if ([column.identifier isEqual:@"like"])
+                font = [NSFont systemFontOfSize:10 weight:NSFontWeightLight];
+            else if ([_gameSortColumn isEqualToString:column.identifier])
+                font = [NSFont systemFontOfSize:12 weight:NSFontWeightMedium];
+            else
+                font = [NSFont systemFontOfSize:12 weight:NSFontWeightLight];
+
+            attributes[NSFontAttributeName] = font;
+            column.headerCell.attributedStringValue = [[NSAttributedString alloc] initWithString:headerAttrStr.string attributes:attributes];
+        }
+
         Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
-        if ([column.identifier isEqual: @"found"]) {
-            return game.found?nil:@"!";
-        } else if ([column.identifier isEqual: @"format"]) {
+
+        NSString *identifier = column.identifier;
+
+        if ([identifier isEqual: @"found"]) {
+
+            if (!game.found) {
+                cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
+                cellView.imageView.accessibilityLabel = @"Game file not found";
+            } else {
+                BOOL playing = NO;
+                if (_gameSessions.count < 100) {
+                    for (GlkController *session in _gameSessions.allValues) {
+                        if ([session.game.ifid isEqual:game.ifid]) {
+                            if (session.alive) {
+                                cellView.imageView.image = [NSImage imageNamed:@"play"];
+                                cellView.imageView.accessibilityLabel = @"Game in progress";
+                            } else {
+                                cellView.imageView.image = [NSImage imageNamed:@"stop"];
+                                cellView.imageView.accessibilityLabel = @"Game stopped";
+                            }
+                            playing = YES;
+                            break;
+                        }
+                    }
+                }
+                if (!playing) {
+                    cellView.imageView.image = nil;
+                    cellView.imageView.accessibilityLabel = nil;
+                }
+            }
+        } else if ([identifier isEqual: @"like"]) {
+            LikeCellView *likeCellView = (LikeCellView *)cellView;
+            switch (game.like) {
+                case 2:
+                    likeCellView.likeButton.image = [NSImage imageNamed:@"heart.slash.fill"];
+                    likeCellView.toolTip = @"Disliked";
+                    break;
+                case 1:
+                    likeCellView.likeButton.image = [NSImage imageNamed:@"heart.fill"];
+                    likeCellView.toolTip = @"Liked";
+                    break;
+                default:
+                    if (row == _gameTableView.mouseOverRow) {
+                        likeCellView.likeButton.image =  [NSImage imageNamed:@"heart"];
+                    } else {
+                        likeCellView.likeButton.image = nil;
+                    }
+                    likeCellView.toolTip = @"Like";
+                    break;
+            }
+           return likeCellView;
+        } else if ([identifier isEqual: @"format"]) {
             if (!game.detectedFormat)
                 game.detectedFormat = meta.format;
-            return game.detectedFormat;
-        } else if ([column.identifier isEqual: @"added"] || [column.identifier  isEqual: @"lastPlayed"]) {
-            return [[game valueForKey: column.identifier] formattedRelativeString];
-        } else if ([column.identifier  isEqual: @"lastModified"]){
-            return [[meta valueForKey: column.identifier] formattedRelativeString];
+            string = game.detectedFormat;
+        } else if ([identifier isEqual: @"added"] || [identifier isEqual: @"lastPlayed"]) {
+            string = [[game valueForKey: identifier] formattedRelativeString];
+        } else if ([identifier isEqual: @"lastModified"]) {
+            string = [[meta valueForKey: identifier] formattedRelativeString];
+        } else if ([identifier isEqual: @"firstpublishedDate"]) {
+            NSDate *date = [meta valueForKey: identifier];
+            if (date) {
+                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+                string = [NSString stringWithFormat:@"%ld", components.year];
+            }
+        } else if ([identifier isEqual: @"forgivenessNumeric"]) {
+            ForgivenessCellView *forgivenessCell = (ForgivenessCellView *)cellView;
+            NSInteger value = meta.forgivenessNumeric.integerValue;
+            if (value < 0 || value > 5)
+                value = 0;
+            NSPopUpButton *popUp = forgivenessCell.popUpButton;
+            [popUp selectItem:[popUp.menu itemWithTag:value]];
+            if (value == 0) {
+                popUp.title = @"";
+            } else
+                popUp.title = meta.forgiveness;
+            popUp.cell.bordered = NO;
+            return forgivenessCell;
+        } else if ([identifier isEqual: @"starRating"] || [identifier isEqual: @"myRating"]) {
+            NSInteger value;
+            BOOL isMy = [identifier isEqual: @"myRating"];
+
+            RatingsCellView *indicatorCell = (RatingsCellView *)cellView;
+            NSLevelIndicator *indicator = indicatorCell.rating;
+
+            if (!isMy) {
+                value = meta.starRating.integerValue;
+                ((MyIndicator *)indicator).tableView = _gameTableView;
+            } else {
+                value = meta.myRating.integerValue;
+            }
+
+            if (value > 0 || (isMy && row == _gameTableView.mouseOverRow)) {
+                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
+            } else {
+                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAutomatic;
+            }
+            indicator.objectValue = @(value);
+            return indicatorCell;
         } else {
-            return [meta valueForKey: column.identifier];
+            string = [meta valueForKey: identifier];
         }
+        if (string == nil)
+            string = @"";
+        cellView.textField.stringValue = string;
+
     }
-    return nil;
+
+    return cellView;
 }
 
-- (void)tableView:(NSTableView *)tableView
-  willDisplayCell:(id)cell
-   forTableColumn:(NSTableColumn *)tableColumn
-              row:(NSInteger)row {
+- (IBAction)endedEditing:(id)sender {
+    NSTextField *textField = (NSTextField *)sender;
+    if (textField) {
 
-    CGFloat offset = 3; // Seems to look okay
+        NSInteger row = [_gameTableView rowForView:sender];
+        NSInteger col = [_gameTableView columnForView:sender];
 
-    if (cell == _foundIndicatorCell) {
-        NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
+        if (row >= (NSInteger)_gameTableModel.count) {
+            return;
+        }
 
-        NSFont *font = [NSFont fontWithName:@"Exclamation Circle New" size:14];
-
-        [attstr addAttribute:NSFontAttributeName
-                       value:font
-                       range:NSMakeRange(0, attstr.length)];
-
-        [attstr addAttribute:NSBaselineOffsetAttributeName
-                       value:@(offset)
-                       range:NSMakeRange(0, attstr.length)];
-
-        ((NSTextFieldCell *)cell).attributedStringValue = attstr;
-    }
-}
-
-- (void)tableView:(NSTableView *)tableView
-   setObjectValue:(id)value
-   forTableColumn:(NSTableColumn *)tableColumn
-              row:(NSInteger)row {
-    if (tableView == _gameTableView) {
         Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
-        NSString *key = tableColumn.identifier;
+        NSString *key = _gameTableView.tableColumns[(NSUInteger)col].identifier;
         NSString *oldval = [meta valueForKey:key];
 
-        if ([key isEqualToString:@"forgivenessNumeric"] && [value isEqual:@(FORGIVENESS_NONE)]) {
-            value = nil;
-            if ([oldval isEqual:@(FORGIVENESS_NONE)])
-                oldval = nil;
-        }
+        NSString *value = textField.stringValue;
 
-        if (([key isEqualToString:@"starRating"] || [key isEqualToString:@"myRating"]) && [value isEqual:@(0)])
-            value = nil;
-
-        if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgivenessNumeric"])
-            value = [NSString stringWithFormat:@"%@", value];
-
-        if ([value isKindOfClass:[NSString class]] && ((NSString*)value).length == 0)
-            value = nil;
-        
         if ([value isEqual: oldval] || (value == oldval))
             return;
 
-        [meta setValue: value forKey: key];
         meta.userEdited = @(YES);
         meta.source = @(kUser);
         game.metadata.lastModified = [NSDate date];
@@ -2633,10 +2893,14 @@ objectValueForTableColumn: (NSTableColumn*)column
         if ([key isEqualToString:@"firstpublishedDate"]) {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat = @"yyyy";
-            meta.firstpublished = [dateFormatter stringFromDate:meta.firstpublishedDate];
+            meta.firstpublishedDate = [dateFormatter dateFromString:value];
+            meta.firstpublished = value;
+            return;
         }
 
-        else if ([key isEqualToString:@"languageAsWord"]) {
+        [meta setValue: value forKey: key];
+
+        if ([key isEqualToString:@"languageAsWord"]) {
             // The player may have entered a language code such as "en"
             // but more likely a full word ("English".)
             // so we try to deal with both cases here to give proper
@@ -2661,13 +2925,191 @@ objectValueForTableColumn: (NSTableColumn*)column
                     }
                 }
                 meta.language = languageCode;
-                NSLog(@"Set value of language to %@", languageCode);
                 meta.languageAsWord = languageAsWord.capitalizedString;
             }
         }
-
-        NSLog(@"Set value of %@ to %@", key, value);
     }
+}
+
+
+- (IBAction)editedStarValue:(id)sender {
+    NSLevelIndicator *indicator = (NSLevelIndicator *)sender;
+    NSNumber *value = indicator.objectValue;
+    NSInteger integerValue;
+    if (value == nil)
+        integerValue = 0;
+    else
+        integerValue = value.integerValue;
+    NSInteger row = [_gameTableView rowForView:sender];
+
+    Game *game = _gameTableModel[(NSUInteger)row];
+    if (integerValue != game.metadata.myRating.integerValue && !(integerValue == 0 && game.metadata.myRating == nil)) {
+        if (integerValue == 0)
+            game.metadata.myRating = nil;
+        else
+            game.metadata.myRating = [NSString stringWithFormat:@"%@", value];
+    }
+}
+
+- (IBAction)changedForgivenessValue:(id)sender {
+    NSPopUpButton *popUp = (NSPopUpButton *)sender;
+    NSInteger selInteger = popUp.selectedItem.tag;
+    if (selInteger == 0)
+        popUp.title = @"";
+
+    NSInteger row = [_gameTableView rowForView:sender];
+    if (row == NSNotFound)
+        return;
+    Game *game = _gameTableModel[(NSUInteger)row];
+    if (selInteger != game.metadata.forgivenessNumeric.integerValue) {
+        if (selInteger == 0) {
+            if (game.metadata.forgivenessNumeric == nil)
+                return;
+            game.metadata.forgivenessNumeric = nil;
+            game.metadata.forgiveness = nil;
+        } else {
+            game.metadata.forgivenessNumeric = @(selInteger);
+            game.metadata.forgiveness = forgiveness[game.metadata.forgivenessNumeric];
+        }
+    }
+}
+- (IBAction)pushedContextualButton:(id)sender {
+    NSInteger row = [_gameTableView rowForView:sender];
+    if (![_gameTableView.selectedRowIndexes containsIndex:(NSUInteger)row])
+        [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)row] byExtendingSelection:NO];
+    [NSMenu popUpContextMenu:_gameTableView.menu withEvent:[[NSApplication sharedApplication] currentEvent] forView:sender];
+}
+
+- (IBAction)liked:(id)sender {
+    NSInteger row = [_gameTableView rowForView:sender];
+    if (row == NSNotFound)
+        return;
+    Game *game = _gameTableModel[(NSUInteger)row];
+    if (game.like == 1) {
+        game.like = 0;
+    } else {
+        game.like = 1;
+    }
+}
+
+- (void)mouseOverChangedFromRow:(NSInteger)lastRow toRow:(NSInteger)currentRow {
+
+    NSInteger likeColumnIdx = -1;
+    NSInteger myRatingColumnIdx = -1;
+
+
+    NSInteger index = 0;
+
+    for (NSTableColumn *column in _gameTableView.tableColumns) {
+        if (myRatingColumnIdx == -1 && [column.identifier isEqual:@"myRating"]) {
+            myRatingColumnIdx = index;
+        } else if (likeColumnIdx == -1 && [column.identifier isEqual:@"like"]) {
+            likeColumnIdx = index;
+        }
+
+        index++;
+    }
+
+    RatingsCellView *rating;
+    Game *game;
+
+    if (lastRow > -1) {
+        game = _gameTableModel[(NSUInteger)lastRow];
+        if (myRatingColumnIdx > -1 && game.metadata.myRating == 0) {
+            rating = [_gameTableView viewAtColumn:myRatingColumnIdx row:lastRow makeIfNecessary:NO];
+            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAutomatic;
+            rating.needsDisplay = YES;
+        }
+
+        if (likeColumnIdx > -1 && game.like == 0) {
+            LikeCellView *like = [_gameTableView viewAtColumn:likeColumnIdx row:lastRow makeIfNecessary:NO];
+            like.likeButton.image = nil;
+            like.needsDisplay = YES;
+        }
+    }
+
+    if (currentRow > -1) {
+        game = _gameTableModel[(NSUInteger)currentRow];
+
+        if (myRatingColumnIdx > -1 && game.metadata.myRating == 0) {
+            rating = [_gameTableView viewAtColumn:myRatingColumnIdx row:currentRow makeIfNecessary:NO];
+            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
+            rating.needsDisplay = YES;
+        }
+
+      
+        if (likeColumnIdx > -1 && game.like == 0) {
+            LikeCellView *like = [_gameTableView viewAtColumn:likeColumnIdx row:currentRow makeIfNecessary:NO];
+            like.likeButton.image = [NSImage imageNamed:@"heart"];
+            like.needsDisplay = YES;
+        }
+    }
+}
+
+
+- (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)columnIndex {
+    CGFloat longestWidth = 0.0;
+    if (tableView == _gameTableView) {
+
+        NSTableColumn *column = tableView.tableColumns[(NSUInteger)columnIndex];
+
+        NSString *identifier = column.identifier;
+
+        if ([identifier isEqual: @"found"] || [identifier isEqual: @"like"]) {
+            return column.maxWidth;
+        }
+
+        BOOL isTitle = [identifier isEqual: @"title"];
+        BOOL isFormat = [identifier isEqual: @"format"];
+        BOOL isDate = ([identifier isEqual: @"lastModified"] || [identifier isEqual: @"added"] || [identifier isEqual: @"lastPlayed"]);
+        BOOL isYear = [identifier isEqual: @"firstpublishedDate"];
+
+        NSSize headerSize = [column.headerCell.stringValue sizeWithAttributes:[column.headerCell.attributedStringValue attributesAtIndex:0 effectiveRange:nil]];
+
+        BOOL isSortColumn = [_gameSortColumn isEqualToString:column.identifier];
+
+        longestWidth = headerSize.width + 8;
+
+        if (isSortColumn) {
+            longestWidth += 24;
+        }
+
+        if ([identifier isEqual: @"starRating"] || [identifier isEqual: @"myRating"] || [identifier isEqual: @"forgivenessNumeric"]) {
+            return longestWidth;
+
+        }
+
+        for (Game *game in _gameTableModel) {
+            NSString *string;
+            if (isFormat) {
+                string = game.detectedFormat;
+            } else if (isDate) {
+                string = [[game valueForKey: identifier] formattedRelativeString];
+            } else if (isYear) {
+                NSDate *date = [game.metadata valueForKey: identifier];
+                if (date) {
+                    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+                    string = [NSString stringWithFormat:@"%ld", components.year];
+                } else {
+                    string = nil;
+                }
+            } else {
+                string = [game.metadata valueForKey:identifier];
+            }
+            if (string.length) {
+                CGFloat viewWidth =  [string sizeWithAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:12]}].width + 5;
+                if (isTitle)
+                    viewWidth += 25;
+                if (viewWidth > longestWidth) {
+                    longestWidth = viewWidth;
+                    if (longestWidth >= column.maxWidth)
+                        return column.maxWidth;
+                }
+            }
+        }
+    }
+
+    return longestWidth; // + 8; // some padding
 }
 
 - (void)tableViewSelectionDidChange:(id)notification {
@@ -2695,15 +3137,19 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn
                     row:(NSInteger)row {
     if ([tableColumn.identifier isEqualToString:@"title"]) {
-        NSInteger tableColumnIndex = (NSInteger)[tableView.tableColumns indexOfObject:tableColumn];
-        return [tableView preparedCellAtColumn:tableColumnIndex
-                                            row:row].stringValue;
+        return _gameTableModel[(NSUInteger)row].metadata.title;
     }
     return nil;
 }
 
+// NSTableView delegate
+//-(BOOL)tableView:(NSTableView *)tableView
+//shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
+//    return NO;
+//}
+
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    gameTableDirty = YES;
+    _gameTableDirty = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateTableViews];
     });
@@ -2734,7 +3180,12 @@ objectValueForTableColumn: (NSTableColumn*)column
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:insertedObjects];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
 
-    if (currentSideView.metadata && ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover]))
+    if (_currentSideView && [updatedObjects containsObject:_currentSideView]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateSideViewForce:YES];
+        });
+    }
+    if (_currentSideView.metadata && ([updatedObjects containsObject:_currentSideView.metadata] || [updatedObjects containsObject:_currentSideView.metadata.cover]))
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateSideViewForce:YES];
@@ -2742,29 +3193,35 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
 }
 
-- (void) updateSideViewForce:(BOOL)force
-{
-    if ([_splitView isSubviewCollapsed:_leftView])
+
+#pragma mark -
+#pragma mark SplitView stuff
+
+- (void) updateSideViewForce:(BOOL)force {
+    if ([_splitView isSubviewCollapsed:_leftView]) {
         return;
+    }
 
     Game *game = nil;
     NSString *string = nil;
 
     if (!_selectedGames || !_selectedGames.count || _selectedGames.count > 1) {
-
         string = (_selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
-
     } else {
         game = _selectedGames[0];
+        if (game.metadata.title.length == 0) {
+            game = nil;
+            string = @"No selection";
+        }
     }
 
-    if (force == NO && game && game == currentSideView) {
+    if (force == NO && game && game == _currentSideView) {
         // If game is already shown and force is NO,
         // don't recreate the side view
         return;
     }
 
-    [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
+    [_leftScrollView.documentView removeFromSuperview];
 
     if (NSWidth(_leftView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH)
         return;
@@ -2772,7 +3229,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.bounds];
     
     _leftScrollView.documentView = infoView;
-    //    _sideIfid.delegate = infoView;
 
     _sideIfid.stringValue = @"";
 
@@ -2787,11 +3243,17 @@ objectValueForTableColumn: (NSTableColumn*)column
         [infoView updateSideViewWithString:string];
     }
 
-    currentSideView = game;
+    _currentSideView = game;
 }
 
-#pragma mark -
-#pragma mark SplitView stuff
+- (void)clearSideView {
+    [_leftScrollView.documentView removeFromSuperview];
+    SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.bounds];
+    _leftScrollView.documentView = infoView;
+    _sideIfid.stringValue = @"";
+    [infoView updateSideViewWithString:@"No selection"];
+    _currentSideView = nil;
+}
 
 - (void)restoreSideViewSelection:(id)sender {
     [self updateSideViewForce:YES];
@@ -2906,7 +3368,7 @@ canCollapseSubview:(NSView *)subview
         [self.window setFrame:frame display:NO animate:YES];
     }
 
-    Metadata *meta = currentSideView.metadata;
+    Metadata *meta = _currentSideView.metadata;
 
     if (sideViewUpdatePending || (meta.blurb.length == 0 && meta.author.length == 0 && meta.headline.length == 0 && meta.cover == nil) ) {
         [self updateSideViewForce:NO];
@@ -2956,7 +3418,7 @@ canCollapseSubview:(NSView *)subview
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
     NSString *searchText = [state decodeObjectOfClass:[NSString class] forKey:@"searchText"];
-    gameTableDirty = YES;
+    _gameTableDirty = YES;
     if (searchText.length) {
         //        NSLog(@"Restored searchbar text %@", searchText);
         _searchField.stringValue = searchText;

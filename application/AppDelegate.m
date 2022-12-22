@@ -149,6 +149,7 @@ PasteboardFilePasteLocation;
     _libctl.window.restorable = YES;
     _libctl.window.restorationClass = [self class];
     _libctl.window.identifier = @"library";
+    _libctl.mainThemesSubMenu = _themesMenuItem;
 
     _prefctl = [[Preferences alloc] initWithWindowNibName:@"PrefsWindow"];
     _prefctl.window.restorable = YES;

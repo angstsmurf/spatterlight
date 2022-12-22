@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -136,30 +136,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" title="Save History..." id="390">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Reveal in Finder" keyEquivalent="r" id="391">
-                                <connections>
-                                    <action selector="revealGameInFinder:" target="-1" id="394"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Show Info" keyEquivalent="i" id="392">
-                                <connections>
-                                    <action selector="showGameInfo:" target="-1" id="393"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Play Game" keyEquivalent="p" id="395">
-                                <connections>
-                                    <action selector="play:" target="-1" id="881"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Reset Game" keyEquivalent="r" id="872">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="reset:" target="-1" id="874"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="397">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Close Window" keyEquivalent="w" id="253">
@@ -330,6 +306,87 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Game" id="YgY-MU-Rjt" userLabel="Game">
+                    <menu key="submenu" title="Game" id="3xu-Uj-RHK">
+                        <items>
+                            <menuItem title="Play Game" keyEquivalent="p" id="395">
+                                <connections>
+                                    <action selector="play:" target="-1" id="881"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reveal in Finder" keyEquivalent="r" id="391">
+                                <connections>
+                                    <action selector="revealGameInFinder:" target="-1" id="394"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="HGV-Mf-rD0"/>
+                            <menuItem title="Like" id="3GE-1L-h4y" userLabel="Like">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="like:" target="-1" id="kfK-Cz-j3d"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Dislike" id="Stf-zs-WW7" userLabel="Dislike">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="dislike:" target="-1" id="BGJ-Tz-qMw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="iMa-nl-zY9"/>
+                            <menuItem title="Download Info" id="W0T-Bc-58N">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="download:" target="-1" id="Rtd-sy-N6O"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show Info…" keyEquivalent="i" id="392" userLabel="Show Info…">
+                                <connections>
+                                    <action selector="showGameInfo:" target="-1" id="393"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open Ifdb page" id="beM-nl-BG5">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openIfdb:" target="-1" id="Mns-zh-h2P"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="WKS-vy-26w"/>
+                            <menuItem title="Apply Theme" id="08u-YF-ERJ" userLabel="Menu Item - Apply Theme">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="applyTheme:" target="-1" id="yMl-Hb-5YO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select Same Theme" id="RRb-ff-aO5" userLabel="Menu Item - Select Same">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectSameTheme:" target="-1" id="LQs-Dc-1Oe"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="VY6-Go-NN3"/>
+                            <menuItem title="Delete Game" id="gX0-wT-HL6" userLabel="Menu Item - Delete Selected">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <connections>
+                                    <action selector="deleteGame:" target="-1" id="Xl8-nt-ZgF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete Autosaves" id="NFV-IS-N2S">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="deleteSaves:" target="-1" id="bHA-cv-LCn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reset Game" keyEquivalent="r" id="872">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="reset:" target="-1" id="874"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="19">
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
@@ -409,6 +466,10 @@ CA
             </items>
             <point key="canvasLocation" x="39" y="121"/>
         </menu>
-        <customObject id="248" userLabel="Delegate" customClass="AppDelegate"/>
+        <customObject id="248" userLabel="Delegate" customClass="AppDelegate">
+            <connections>
+                <outlet property="themesMenuItem" destination="08u-YF-ERJ" id="0dy-u7-iWY"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

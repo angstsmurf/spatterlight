@@ -283,7 +283,7 @@
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {
             NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-            if (ABS(movedLocation.x - location.x) >dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
+            if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
                 *stop = YES;
                 
                 NSDraggingItem *dragItem;

@@ -25,4 +25,6 @@
 
 - (void)addToRecents:(NSArray *)URLs;
 
+@property (weak) IBOutlet NSMenuItem *themesMenuItem;
+
 @end

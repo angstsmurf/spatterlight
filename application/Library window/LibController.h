@@ -9,13 +9,29 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class CoreDataManager, Metadata, GlkController, InfoController, Game;
+@class CoreDataManager, Metadata, GlkController, InfoController, Game, Theme;
 
-@interface LibHelperTableView : NSTableView <NSTableViewDelegate>
+@interface RatingsCellView : NSTableCellView
+@property (strong) IBOutlet NSLevelIndicator *rating;
+@end
+
+@interface ForgivenessCellView : NSTableCellView
+@property (strong) IBOutlet NSPopUpButton *popUpButton;
+@end
+
+@interface LikeCellView : NSTableCellView
+@property (strong) IBOutlet NSButton *likeButton;
+@end
+
+@interface LibHelperTableView : NSTableView
+@end
+
+@interface MyIndicator : NSLevelIndicator
+@property (weak) IBOutlet LibHelperTableView *tableView;
 @end
 
 @interface LibController
-    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate>
+: NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate, NSTableViewDelegate, NSTableViewDataSource>
 
 @property NSURL *homepath;
 @property NSURL *imageDir;
@@ -27,6 +43,7 @@
 @property BOOL spinnerSpinning;
 @property BOOL downloadWasCancelled;
 @property BOOL sortAscending;
+@property BOOL gameTableDirty;
 @property NSString *gameSortColumn;
 
 @property (strong) CoreDataManager *coreDataManager;
@@ -35,7 +52,7 @@
 @property NSMutableDictionary <NSString *, InfoController *> *infoWindows;
 @property NSMutableDictionary <NSString *, GlkController *> *gameSessions;
 
-@property IBOutlet NSTableView *gameTableView;
+@property IBOutlet LibHelperTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;
 
 @property (strong) IBOutlet NSButton *addButton;
@@ -52,7 +69,8 @@
 @property (strong) IBOutlet NSProgressIndicator *progressCircle;
 @property NSProgressIndicator *spinner;
 
-@property (strong) IBOutlet NSMenuItem *themesSubMenu;
+@property (weak) IBOutlet NSMenuItem *themesSubMenu;
+@property (weak) NSMenuItem *mainThemesSubMenu;
 
 @property (strong) IBOutlet NSLayoutConstraint *leftViewConstraint;
 @property NSArray<Game *> *selectedGames;
@@ -62,6 +80,11 @@
 @property NSData *lastImageComparisonData;
 
 @property NSInteger undoGroupingCount;
+
+@property (weak) Game *currentSideView;
+
+- (void)clearSideView;
+
 
 - (void)beginImporting;
 - (void)endImporting;
@@ -99,6 +122,10 @@
 - (IBAction)deleteGame:(id)sender;
 - (IBAction)selectSameTheme:(id)sender;
 - (IBAction)deleteSaves:(id)sender;
+- (IBAction)openIfdb:(id)sender;
+- (IBAction)applyTheme:(id)sender;
+
+- (void)downloadMetadataForGames:(NSArray<Game *> *)games;
 
 - (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle;
 
@@ -118,10 +145,13 @@
 + (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
 + (void)fixMetadataWithNoIfidsInContext:(NSManagedObjectContext *)context;
-
 - (void)waitToReportMetadataImport;
 
++ (Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context;
+
 - (void)handleSpotlightSearchResult:(id)object;
+
+- (void)mouseOverChangedFromRow:(NSInteger)lastRow toRow:(NSInteger)currentRow;
 
 @property (strong) IBOutlet NSView *forceQuitView;
 @property (weak) IBOutlet NSButton *forceQuitCheckBox;
@@ -134,6 +164,9 @@
 @property (weak) IBOutlet NSButton *verifyReCheckbox;
 @property (weak) IBOutlet NSTextField *verifyFrequencyTextField;
 @property (weak) IBOutlet NSButton *verifyDeleteMissingCheckbox;
+
+- (IBAction)like:(id)sender;
+- (IBAction)dislike:(id)sender;
 
 - (void)startVerifyTimer;
 - (void)stopVerifyTimer;

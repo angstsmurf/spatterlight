@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -107,7 +107,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lTO-b9-SgP" userLabel="Line Spacing Image">
-                    <rect key="frame" x="11" y="331" width="27" height="23"/>
+                    <rect key="frame" x="12" y="333" width="21" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="Line spacing" id="0xe-US-EcM"/>
                 </imageView>
@@ -576,6 +576,16 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwC-C9-Oea" userLabel="Baseline Image">
+                    <rect key="frame" x="7" y="26" width="31" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="max.line.height" id="MbQ-x5-yaF"/>
+                </imageView>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHU-t1-F0w" userLabel="Baseline Image">
+                    <rect key="frame" x="117" y="26" width="31" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="min.line.height" id="mo2-bL-6wv"/>
+                </imageView>
             </subviews>
             <point key="canvasLocation" x="-196.5" y="139"/>
         </customView>
@@ -585,10 +595,12 @@
         <image name="Character spacing" width="22" height="21"/>
         <image name="First line" width="25" height="15"/>
         <image name="Leading margin" width="25" height="14"/>
-        <image name="Line spacing" width="19" height="23"/>
+        <image name="Line spacing" width="26" height="19"/>
         <image name="Space after" width="26" height="16"/>
         <image name="Space before" width="26" height="16"/>
         <image name="Trailing margin" width="25" height="14"/>
+        <image name="max.line.height" width="19" height="23"/>
+        <image name="min.line.height" width="19" height="23"/>
         <image name="text.aligncenter" width="14" height="15"/>
         <image name="text.alignleft" width="15" height="15"/>
         <image name="text.alignright" width="14" height="15"/>
