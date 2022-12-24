@@ -557,7 +557,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSArray *)accessibilityCustomActions {
-    NSArray *actions = [self.glkctl accessibilityCustomActions];
+    NSArray *actions = self.glkctl.accessibilityCustomActions;
     return actions;
 }
 

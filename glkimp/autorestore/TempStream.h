@@ -22,7 +22,7 @@
 - (void) copyToCStruct:(stream_t *)str;
 - (void) updateRegisterArray;
 - (void) updateResource;
-- (BOOL) reopenInternal;
+@property (readonly) BOOL reopenInternal;
 - (void) sanityCheck;
 
 @end

@@ -422,7 +422,7 @@
     }
 
     NSArray *actions = mutable;
-    actions = [actions arrayByAddingObjectsFromArray:[self.glkctl accessibilityCustomActions]];
+    actions = [actions arrayByAddingObjectsFromArray:self.glkctl.accessibilityCustomActions];
 
     return actions;
 }
@@ -590,7 +590,7 @@
     if (!image) {
         return nil;
     }
-    NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = image.bitmapImageRepresentation;
     if (!bitmaprep)
         return nil;
 

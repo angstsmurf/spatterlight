@@ -323,7 +323,7 @@ extern NSArray *gGameFileTypes;
     babel_release_ctx(ctx);
     free(ctx);
 
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [[path signatureFromFile] isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [path.signatureFromFile isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
         ifid = @"ZCODE-5-830222";
 
     if (([extension isEqualToString:@"dat"] &&
@@ -381,7 +381,7 @@ extern NSArray *gGameFileTypes;
             game = [LibController fetchGameForIFID:ifid inContext:context];
             if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
-                    game.hashTag = [path signatureFromFile];
+                    game.hashTag = path.signatureFromFile;
                 else if ([game.detectedFormat isEqualToString:@"zcode"]) {
                     [self addZCodeIDfromFile:path blorb:blorb toGame:game];
                 }
@@ -438,7 +438,7 @@ extern NSArray *gGameFileTypes;
                         metadata.coverArtURL = path;
                         [IFDBDownloader insertImageData:imageData inMetadata:metadata];
                         NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                        NSLog(@"Image md5: %@", [imageData md5String]);
+                        NSLog(@"Image md5: %@", imageData.md5String);
                         // 26BFA026324DC9C5B3080EA9769B29DE
                     }
                     else NSLog(@"Found no image in blorb file %@", path);
@@ -458,7 +458,7 @@ extern NSArray *gGameFileTypes;
         game.ifid = ifid;
         game.detectedFormat = @(format);
         if ([game.detectedFormat isEqualToString:@"glulx"]) {
-            game.hashTag = [path signatureFromFile];
+            game.hashTag = path.signatureFromFile;
         }
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];

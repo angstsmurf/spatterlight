@@ -89,7 +89,7 @@
 
 - (NSUInteger)findCurrentField {
     GlkTextGridWindow *view = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
-    NSUInteger inputIndex = [view indexOfPos];
+    NSUInteger inputIndex = view.indexOfPos;
     return [self fieldFromPos:inputIndex];
 }
 
@@ -325,7 +325,7 @@
 
 - (void)checkIfMoved {
     GlkTextGridWindow *view = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
-    NSUInteger currentPos = [view indexOfPos];
+    NSUInteger currentPos = view.indexOfPos;
     _didNotMove = ([self fieldFromPos:(NSUInteger)currentPos] == [self fieldFromPos:_lastCharacterPos] );
     _lastCharacterPos = currentPos;
 }

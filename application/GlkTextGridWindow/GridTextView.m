@@ -80,7 +80,7 @@
 
 - (NSArray *)accessibilityCustomActions {
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
-    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    NSArray *actions = delegate.glkctl.accessibilityCustomActions;
     return actions;
 }
 

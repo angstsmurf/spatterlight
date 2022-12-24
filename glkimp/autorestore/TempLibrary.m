@@ -83,7 +83,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
 	int version = [decoder decodeIntForKey:@"version"];
@@ -223,7 +223,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	return nil;
 }
 
-- (TempWindow *) getRootWindow {
+- (TempWindow *) rootWindow {
 
 	for (TempWindow *win in _windows) {
         if (win.tag == _rootwintag)
@@ -233,7 +233,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     return nil;
 }
 
-- (TempStream *) getCurrentStream {
+- (TempStream *) currentStream {
 
     for (TempStream *str in _streams) {
 		if (str.tag == _currentstrtag)

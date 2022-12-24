@@ -29,7 +29,7 @@
     return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
     _rock = [decoder decodeInt32ForKey:@"rock"];

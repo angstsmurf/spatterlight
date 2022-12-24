@@ -46,8 +46,8 @@ Identity of the current selected output stream */
 - (TempStream *) streamForTag:(glui32)tag;
 - (TempFileRef *) filerefForTag:(glui32)tag;
 
-- (TempWindow *) getRootWindow;
-- (TempStream *) getCurrentStream;
+@property (readonly, strong) TempWindow *rootWindow;
+@property (readonly, strong) TempStream *currentStream;
 
 - (void) sanityCheck;
 - (void) updateFromLibrary;

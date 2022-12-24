@@ -114,7 +114,7 @@
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
             id targetTextView = ((GlkTextBufferWindow *)view).textview;
-            NSArray *links = [view links];
+            NSArray *links = view.links;
 
             if (filterText.length && links.count) {
                 NSString __block *text = ((NSTextView *)targetTextView).string;
@@ -309,7 +309,7 @@
     NSArray *allWindows = _glkctl.gwindows.allValues;
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkTextGridWindow class]]) {
-            NSArray *viewimages = [view images];
+            NSArray *viewimages = view.images;
             NSString __block *label;
             if (filterText.length && viewimages.count) {
                 viewimages = [viewimages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
@@ -550,7 +550,7 @@
     NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
     [rotorsArray addObject:textSearchRotor];
     // Create the command history rotor
-    if ([glkctl largestWithMoves]) {
+    if (glkctl.largestWithMoves) {
         NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
         [rotorsArray addObject:commandHistoryRotor];
     }

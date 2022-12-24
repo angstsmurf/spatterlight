@@ -316,7 +316,7 @@
 - (NSData *)pngData {
     if (!self.image)
         NSLog(@"No image?");
-    NSBitmapImageRep *bitmaprep = [self.image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = self.image.bitmapImageRepresentation;
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

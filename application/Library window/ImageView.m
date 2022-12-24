@@ -461,7 +461,7 @@
         if (!strongSelf)
             return;
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-        NSData *data = [blorb coverImageData];
+        NSData *data = blorb.coverImageData;
         BOOL success = NO;
         if (data) {
             [strongSelf processImageData:data sourceUrl:url.path dontAsk:YES];
@@ -540,7 +540,7 @@
         if (result == NSModalResponseOK) {
             NSURL *url = panel.URL;
 
-            NSData *bitmapData = [self pngData];
+            NSData *bitmapData = self.pngData;
 
             NSError *error = nil;
 
@@ -671,7 +671,7 @@
         // (because it would be confusing to treat game files as image files)
         Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
         if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
-            data = [blorb coverImageData];
+            data = blorb.coverImageData;
             if (data) {
                 [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];
                 return YES;
@@ -926,7 +926,7 @@
     //sender has accepted the drag and now we need to send the data for the type we promised
     if ( [type isEqual:NSPasteboardTypePNG]) {
         //set data for PNG type on the pasteboard as requested
-        [sender setData:[self pngData] forType:NSPasteboardTypePNG];
+        [sender setData:self.pngData forType:NSPasteboardTypePNG];
     } else if ([type isEqualTo:PasteboardFilePromiseContent]) {
         // The receiver will send this asking for the content type for the drop, to figure out
         // whether it wants to/is able to accept the file type.
@@ -966,7 +966,7 @@
             index++;
         }
 
-        NSData *bitmapData = [self pngData];
+        NSData *bitmapData = self.pngData;
 
         NSError *error = nil;
 
@@ -992,7 +992,7 @@
           writePromiseToURL:(NSURL *)url
           completionHandler:(void (^)(NSError *errorOrNil))completionHandler {
 
-    NSData *bitmapData = [self pngData];
+    NSData *bitmapData = self.pngData;
 
     NSError *error = nil;
 
@@ -1013,7 +1013,7 @@
 - (NSData *)pngData {
     if (!self.image)
         NSLog(@"No image?");
-    NSBitmapImageRep *bitmaprep = [self.image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = self.image.bitmapImageRepresentation;
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

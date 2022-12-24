@@ -1239,7 +1239,7 @@ fprintf(stderr, "%s\n",                                                    \
         [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
         dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
         dirstr = [dirstr
-                  stringByAppendingPathComponent:[_gamefile signatureFromFile]];
+                  stringByAppendingPathComponent:_gamefile.signatureFromFile];
         dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
 
         appSupportURL = [NSURL URLWithString:dirstr
@@ -2589,17 +2589,17 @@ fprintf(stderr, "%s\n",                                                    \
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = [theme.bufferNormal.color integerColor];
+                *result = (theme.bufferNormal.color).integerColor;
             else
-                *result = [theme.gridNormal.color integerColor];
+                *result = (theme.gridNormal.color).integerColor;
 
             return YES;
         }
         if (hint == stylehint_BackColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = [theme.bufferBackground integerColor];
+                *result = theme.bufferBackground.integerColor;
             else
-                *result = [theme.gridBackground integerColor];
+                *result = theme.gridBackground.integerColor;
 
             return YES;
         }
@@ -2847,7 +2847,7 @@ fprintf(stderr, "%s\n",                                                    \
                 } else {
                     // If we are not autorestoring, try to guess an input window.
                     for (GlkWindow *win in _gwindows.allValues) {
-                        if ([win isKindOfClass:[GlkTextBufferWindow class]] && [win wantsFocus]) {
+                        if ([win isKindOfClass:[GlkTextBufferWindow class]] && win.wantsFocus) {
                             [win grabFocus];
                         }
                     }
@@ -3287,7 +3287,7 @@ fprintf(stderr, "%s\n",                                                    \
         case CANCELLINE:
             ans->cmd = OKAY;
             if (reqWin) {
-                NSString *str = [reqWin cancelLine];
+                NSString *str = reqWin.cancelLine;
                 ans->len = str.length * sizeof(unichar);
                 if (ans->len > GLKBUFSIZE)
                     ans->len = GLKBUFSIZE;
@@ -3429,7 +3429,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = (int)[banner numberOfColumns];
+                ans->a1 = (int)banner.numberOfColumns;
             }
             break;
 
@@ -3439,7 +3439,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->a1 = 0;
             if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = (int)[banner numberOfLines];
+                ans->a1 = (int)banner.numberOfLines;
             }
             break;
 
@@ -4410,7 +4410,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             if (_zmenu) {
                 [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
             } else {
-                GlkWindow *largest = [self largestWithMoves];
+                GlkWindow *largest = self.largestWithMoves;
                 if (largest) {
                     [largest setLastMove];
                     [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
@@ -4428,7 +4428,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)saveAsRTF:(id)sender {
-    GlkWindow *largest = [self largestWithMoves];
+    GlkWindow *largest = self.largestWithMoves;
     if (largest && [largest isKindOfClass:[GlkTextBufferWindow class]] ) {
         [largest saveAsRTF:self];
         return;
@@ -4561,7 +4561,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [_form deferredSpeakCurrentField:self];
         return;
     }
-    GlkWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
         if (sender != self)
             [self speakString:@"No last move to speak!"];
@@ -4571,7 +4571,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakPrevious:(id)sender {
-    GlkWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
         [self speakString:@"No previous move to speak!"];
         return;
@@ -4580,7 +4580,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakNext:(id)sender {
-    GlkWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
         [self speakString:@"No next move to speak!"];
         return;

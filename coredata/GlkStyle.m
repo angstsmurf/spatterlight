@@ -424,7 +424,7 @@
             styleValue = 0;
         }
         
-        NSString *styleName = [self testGridStyle]?gGridStyleNames[styleValue]:gBufferStyleNames[styleValue];
+        NSString *styleName = [self testGridStyle] ? gGridStyleNames[styleValue] : gBufferStyleNames[styleValue];
         NSLog(@"GlkStyle attribute: %ld (%@), count: %ld", styleValue, styleName, count);
     }
     

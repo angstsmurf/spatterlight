@@ -218,10 +218,10 @@ static Preferences *prefs = nil;
 
 + (void)rebuildTextAttributes {
     [theme populateStyles];
-    NSSize cellsize = [theme.gridNormal cellSize];
+    NSSize cellsize = theme.gridNormal.cellSize;
     theme.cellWidth = cellsize.width;
     theme.cellHeight = cellsize.height;
-    cellsize = [theme.bufferNormal cellSize];
+    cellsize = theme.bufferNormal.cellSize;
     theme.bufferCellWidth = cellsize.width;
     theme.bufferCellHeight = cellsize.height;
 }

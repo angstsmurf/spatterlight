@@ -447,7 +447,7 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
     if (line_request && textstorage.length > fence) {
-        NSAttributedString *input = [textstorage attributedSubstringFromRange:[self editableRange]];
+        NSAttributedString *input = [textstorage attributedSubstringFromRange:self.editableRange];
         [encoder encodeObject:input forKey:@"inputString"];
     }
 
@@ -466,7 +466,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
-            [textstorage deleteCharactersInRange:[self editableRange]];
+            [textstorage deleteCharactersInRange:self.editableRange];
         }
         [textstorage appendAttributedString:restoredInput];
     }
@@ -1033,7 +1033,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSNumber *key = @(ch);
     BOOL scrolled = NO;
 
-    if (!scrolling && !_pendingScroll && ![self scrolledToBottom]) {
+    if (!scrolling && !_pendingScroll && !self.scrolledToBottom) {
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
             case keycode_PageUp:
@@ -1094,7 +1094,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (line_request) {
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
                 [glkctl.window makeFirstResponder:_textview];
-                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, self.editableRange);
                 if (selectedRange.location == NSNotFound || selectedRange.length == 0)
                     selectedRange = NSMakeRange(textstorage.length, 0);
                 _textview.selectedRange = selectedRange;
@@ -1102,7 +1102,7 @@ fprintf(stderr, "%s\n",                                                    \
                 return;
             } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSEventModifierFlagCommand) != NSEventModifierFlagCommand) {
                 // Deselect text and move cursor to end to facilitate typing
-                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, self.editableRange);
                 if (selectedRange.location == NSNotFound || (selectedRange.length == 0))
                     selectedRange = NSMakeRange(textstorage.length, 0);
                 _textview.selectedRange = selectedRange;
@@ -1304,7 +1304,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     [textstorage
-     replaceCharactersInRange:[self editableRange]
+     replaceCharactersInRange:self.editableRange
      withString:cx];
     [_textview resetTextFinder];
 }
@@ -1315,7 +1315,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     [self flushDisplay];
     [textstorage
-     replaceCharactersInRange:[self editableRange]
+     replaceCharactersInRange:self.editableRange
      withString:cx];
     [_textview resetTextFinder];
 }

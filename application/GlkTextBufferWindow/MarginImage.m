@@ -50,7 +50,7 @@
         _container = sender;
 
         self.accessibilityParent = _container.textView;
-        self.accessibilityRoleDescription = [self customA11yLabel];
+        self.accessibilityRoleDescription = self.customA11yLabel;
     }
     return self;
 }
@@ -264,7 +264,7 @@
 - (NSData *)pngData {
     if (!_image)
         NSLog(@"No image?");
-    NSBitmapImageRep *bitmaprep = [_image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = _image.bitmapImageRepresentation;
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

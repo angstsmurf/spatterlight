@@ -17,7 +17,7 @@
 @property glui32 prev;
 @property glui32 next;
 
-- (id) initWithCStruct:(fileref_t *)ref;
+- (instancetype) initWithCStruct:(fileref_t *)ref;
 - (void) copyToCStruct:(fileref_t *)ref;
 - (void) sanityCheck;
 

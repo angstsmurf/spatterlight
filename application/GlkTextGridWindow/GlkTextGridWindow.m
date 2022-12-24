@@ -897,7 +897,7 @@
     if (!attrDict)
         NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
 
-    startpos = [self indexOfPos];
+    startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
@@ -969,22 +969,22 @@
             amountToDraw = string.length - pos;
         }
 
-        if ([self indexOfPos] + amountToDraw > textstoragelength)
-            amountToDraw = textstoragelength - [self indexOfPos] + 1;
+        if (self.indexOfPos + amountToDraw > textstoragelength)
+            amountToDraw = textstoragelength - self.indexOfPos + 1;
 
         if (amountToDraw < 1)
             break;
 
-        NSRange replaceRange = NSMakeRange([self indexOfPos], amountToDraw);
+        NSRange replaceRange = NSMakeRange(self.indexOfPos, amountToDraw);
         if (NSMaxRange(replaceRange) > textstoragelength) {
-            if ([self indexOfPos] > textstoragelength)
+            if (self.indexOfPos > textstoragelength)
                 return;
             else {
                 NSUInteger diff = NSMaxRange(replaceRange) - textstoragelength;
                 amountToDraw -= diff;
                 if (!amountToDraw)
                     return;
-                replaceRange = NSMakeRange([self indexOfPos], amountToDraw);
+                replaceRange = NSMakeRange(self.indexOfPos, amountToDraw);
             }
         }
 
@@ -1382,7 +1382,7 @@
 
 - (NSUInteger)unputString:(NSString *)buf {
 
-    NSUInteger endpos = [self indexOfPos];
+    NSUInteger endpos = self.indexOfPos;
     NSUInteger startpos = endpos - buf.length;
 
     if (endpos > _bufferTextStorage.length || startpos > endpos) {

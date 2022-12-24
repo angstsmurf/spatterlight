@@ -62,7 +62,7 @@
     return YES;
 }
 
-- (id) initWithCStruct:(window_t *)win {
+- (instancetype) initWithCStruct:(window_t *)win {
 
     self = [super init];
 
@@ -140,7 +140,7 @@
 }
 
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
     _tag = [decoder decodeInt32ForKey:@"tag"];
@@ -347,7 +347,7 @@
         if (win->line_terminators)
         {
             for (int i=0; i<win->termct; i++)
-                win->line_terminators[i]=(glui32)((NSNumber *)[line_terminators objectAtIndex:i]).intValue;
+                win->line_terminators[i]=(glui32)((NSNumber *)line_terminators[i]).intValue;
             win->line_terminators[win->termct] = 0;
         }
     } else win->line_terminators = NULL;

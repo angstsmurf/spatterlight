@@ -38,13 +38,13 @@ void setdefaultworkdir(char **string)
         if (error)
             NSLog(@"Could not find Application Support folder. Error: %@", error);
 
-        NSString *terpName = [NSString stringWithUTF8String:gli_program_name];
-        NSString *firstWord = [[[terpName componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
+        NSString *terpName = @(gli_program_name);
+        NSString *firstWord = [terpName componentsSeparatedByString:@" "][0].lowercaseString;
 
-        if ([firstWord isEqualToString:@"alan"] && [[[terpName componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"Alan 3"])
+        if ([firstWord isEqualToString:@"alan"] && [[terpName componentsSeparatedByString:@"."][0] isEqualToString:@"Alan 3"])
             firstWord = @"alan 3";
 
-        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", [gFolderMap objectForKey:firstWord]];
+        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", gFolderMap[firstWord]];
 
         dirstr = [dirstr stringByAppendingString:@" Files"];
         dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -82,10 +82,10 @@ void getautosavedir(char *file)
         NSError *error = nil;
 
         setdefaultworkdir(&autosavedir);
-        NSString *gamepath = [NSString stringWithUTF8String:file];
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        NSString *gamepath = @(file);
+        NSString *dirname = @(autosavedir);
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
-        dirname = [dirname stringByAppendingPathComponent:[gamepath signatureFromFile]];
+        dirname = [dirname stringByAppendingPathComponent:gamepath.signatureFromFile];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirname] withIntermediateDirectories:YES attributes:nil error:&error];
         if (error)
@@ -108,7 +108,7 @@ void gettempdir()
     @autoreleasepool {
         getworkdir();
 
-        NSString *string = [NSString stringWithUTF8String:gli_workdir];
+        NSString *string = @(gli_workdir);
         NSURL *desktopURL = [NSURL fileURLWithPath:string
                                        isDirectory:YES];
         NSError *error = nil;

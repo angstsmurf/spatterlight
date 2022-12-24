@@ -174,7 +174,7 @@
         return NO;
 
     if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:) || menuItem.action == @selector(uppercaseWord:) || menuItem.action == @selector(lowercaseWord:) || menuItem.action == @selector(capitalizeWord:)) {
-        NSRange editableRange = [delegate editableRange];
+        NSRange editableRange = delegate.editableRange;
 
         // If no line request, return NO
         if (editableRange.location == NSNotFound) {
@@ -268,7 +268,7 @@
         return YES;
     else {
         BOOL result = [super performDragOperation:sender];
-        NSRange editableRange = [delegate editableRange];
+        NSRange editableRange = delegate.editableRange;
         if (self.selectedRange.location < editableRange.location)
             self.selectedRange = NSMakeRange(editableRange.location, self.selectedRange.length);
         return result;
@@ -278,10 +278,10 @@
 - (NSRange)adjustedRange {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     NSRange selectedRange = self.selectedRange;
-    if (![delegate hasLineRequest])
+    if (!delegate.hasLineRequest)
         return selectedRange;
 
-    NSRange editableRange = [delegate editableRange];
+    NSRange editableRange = delegate.editableRange;
 
     if (selectedRange.location < editableRange.location && NSMaxRange(selectedRange) > editableRange.location) {
         return NSIntersectionRange(selectedRange, editableRange);
@@ -346,12 +346,12 @@
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    NSArray *actions = (delegate.glkctl).accessibilityCustomActions;
     return actions;
 }
 
 - (NSArray *)accessibilityCustomRotors  {
-    return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
+    return (((GlkTextBufferWindow *)self.delegate).glkctl).createCustomRotors;
 }
 
 - (NSArray *)accessibilityChildren {
