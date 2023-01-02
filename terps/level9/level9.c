@@ -2921,7 +2921,10 @@ void exit1(L9BYTE *d4,L9BYTE *d5,L9BYTE d6,L9BYTE d7)
 
 	/* notfn4 */
 notfn4:
-	d6=exitreversaltable[d6];
+    if (d6<16)
+        d6=exitreversaltable[d6];
+    else
+        d6=0;
 	a0=absdatablock;
 	*d5=1;
 
