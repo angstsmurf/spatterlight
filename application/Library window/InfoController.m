@@ -144,12 +144,14 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    if (@available(macOS 12, *)) {
+    if (@available(macOS 13, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowVentura"];
+    } else if (@available(macOS 12, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
     } else if (@available(macOS 11, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowBigSur"];
     } else {
-            self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
     }
 
     [[NSNotificationCenter defaultCenter]
