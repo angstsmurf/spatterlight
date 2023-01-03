@@ -16,7 +16,6 @@
 #import "NSDate+relative.h"
 #import "NSData+Categories.h"
 
-#import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Ifid.h"
@@ -258,8 +257,9 @@ enum  {
                                                   attributes:NULL
                                                        error:NULL];
 
-        _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-        _managedObjectContext = _coreDataManager.mainManagedObjectContext;
+        _persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
+        _managedObjectContext = _persistentContainer.viewContext;
+        _managedObjectContext.automaticallyMergesChangesFromParent = YES;
     }
     return self;
 }
@@ -380,7 +380,7 @@ enum  {
         [self verifyInBackground:nil];
     }
 
-    [_coreDataManager startIndexing];
+    [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
@@ -472,7 +472,7 @@ enum  {
             }
         }
 
-        [self.coreDataManager saveChanges];
+        [_managedObjectContext safeSave];
     }
 }
 
@@ -514,7 +514,7 @@ enum  {
             [_managedObjectContext deleteObject:img];
         }
 
-        [self.coreDataManager saveChanges];
+        [_managedObjectContext safeSave];
 
         // And then any orphaned ifids
         NSArray *ifidEntriesToDelete = [LibController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
@@ -525,12 +525,12 @@ enum  {
             [_managedObjectContext deleteObject:ifid];
         }
 
-        [self.coreDataManager saveChanges];
+        [_managedObjectContext safeSave];
 
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
-        [self.coreDataManager saveChanges];
+        [_managedObjectContext safeSave];
     }
 }
 
@@ -582,12 +582,12 @@ enum  {
         return;
     }
 
-    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
+    NSManagedObjectContext *childContext = _persistentContainer.newBackgroundContext;
     childContext.undoManager = nil;
 
     LibController * __weak weakSelf = self;
 
-    [_coreDataManager stopIndexing];
+    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
 
     [childContext performBlock:^{
         LibController *strongSelf = weakSelf;
@@ -615,7 +615,8 @@ enum  {
             }
             [childContext safeSave];
         }
-        [strongSelf.coreDataManager startIndexing];
+
+        [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
     }];
 }
 
@@ -681,8 +682,8 @@ enum  {
             rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
         [LibController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
-        [strongSelf.coreDataManager startIndexing];
-        
+        [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
+
         [strongSelf.managedObjectContext performBlock:^{
             while (strongSelf.undoGroupingCount > 0) {
                 [strongSelf.managedObjectContext.undoManager endUndoGrouping];
@@ -723,7 +724,7 @@ enum  {
                 [strongSelf waitToReportMetadataImport];
                 [strongSelf beginImporting];
                 [strongSelf importMetadataFromFile:url.path inContext:strongSelf.managedObjectContext];
-                [strongSelf.coreDataManager saveChanges];
+                [strongSelf.managedObjectContext safeSave];
                 [strongSelf endImporting];
             }];
         }
@@ -792,13 +793,13 @@ enum  {
 
     _downloadWasCancelled = NO;
 
-    [self.coreDataManager saveChanges];
+    [_managedObjectContext safeSave];
     [_managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
 
-    [_coreDataManager stopIndexing];
+    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
 
-    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
+    NSManagedObjectContext *childContext = _persistentContainer.newBackgroundContext;
     childContext.undoManager = nil;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
@@ -1030,12 +1031,14 @@ enum  {
         [self.managedObjectContext.undoManager beginUndoGrouping];
         self.undoGroupingCount++;
     }];
-    [_coreDataManager stopIndexing];
+
+    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
+
     _downloadWasCancelled = NO;
 
     [self beginImporting];
 
-    [self.coreDataManager saveChanges];
+    [_managedObjectContext safeSave];
 
     _lastImageComparisonData = nil;
 
@@ -1055,7 +1058,7 @@ enum  {
         [blockGames addObject:gameInMain.objectID];
     }
 
-    NSManagedObjectContext *childContext = _coreDataManager.privateChildManagedObjectContext;
+    NSManagedObjectContext *childContext = _persistentContainer.newBackgroundContext;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
     LibController * __weak weakSelf = self;
@@ -1752,7 +1755,7 @@ enum  {
 
         LibController * __weak weakSelf = self;
 
-        NSManagedObjectContext *private = _coreDataManager.privateChildManagedObjectContext;
+        NSManagedObjectContext *private = _persistentContainer.newBackgroundContext;
         private.undoManager = nil;
 
         [self beginImporting];
@@ -1878,7 +1881,7 @@ enum  {
                 } else NSLog(@"No changes to save in private");
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf.coreDataManager saveChanges];
+                    [strongSelf.managedObjectContext safeSave];
                     [strongSelf endImporting];
                     strongSelf.addButton.enabled = YES;
                     strongSelf.currentlyAddingGames = NO;

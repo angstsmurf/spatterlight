@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class CoreDataManager, Metadata, GlkController, InfoController, Game, Theme;
+@class Metadata, GlkController, InfoController, Game, Theme;
 
 @interface RatingsCellView : NSTableCellView
 @property (strong) IBOutlet NSLevelIndicator *rating;
@@ -46,7 +46,7 @@
 @property BOOL gameTableDirty;
 @property NSString *gameSortColumn;
 
-@property (strong) CoreDataManager *coreDataManager;
+@property (strong) NSPersistentContainer *persistentContainer;
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
 @property NSMutableDictionary <NSString *, InfoController *> *infoWindows;

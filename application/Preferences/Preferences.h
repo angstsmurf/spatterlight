@@ -23,7 +23,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 };
 
 
-@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver;
+@class Theme, Game, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate>
 
@@ -61,7 +61,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (strong) IBOutlet NSBox *sampleTextBorderView;
 
 @property (readonly) Theme *defaultTheme;
-@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSPersistentContainer *persistentContainer;
 @property (readonly) NSArray *sortDescriptors;
 @property (readonly) NSManagedObjectContext *managedObjectContext;
 @property (weak) Game *currentGame;

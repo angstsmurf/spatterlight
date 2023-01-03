@@ -4,9 +4,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class HelpPanelController, LibController, CoreDataManager;
-
-@class Preferences;
+@class HelpPanelController, LibController, Preferences, MyCoreDataCoreSpotlightDelegate;
+;
 
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> 
 
@@ -14,7 +13,11 @@
 @property LibController *libctl;
 @property HelpPanelController *helpLicenseWindow;
 
-@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSPersistentContainer *persistentContainer;
+@property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
+
+- (void)startIndexing;
+- (void)stopIndexing;
 
 - (IBAction)openDocument:(id)sender;
 

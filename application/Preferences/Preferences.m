@@ -3,7 +3,7 @@
 #import "DummyController.h"
 #import "GlkTextBufferWindow.h"
 
-#import "CoreDataManager.h"
+#import "NSManagedObjectContext+safeSave.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Theme.h"
@@ -139,9 +139,9 @@ static Preferences *prefs = nil;
     if (!name)
         name = @"Old settings";
 
-    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+    NSPersistentContainer *persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
 
-    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
+    NSManagedObjectContext *managedObjectContext = persistentContainer.viewContext;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSArray *fetchedObjects;
@@ -608,20 +608,20 @@ NSString *fontToString(NSFont *font) {
     return _defaultTheme;
 }
 
-@synthesize coreDataManager = _coreDataManager;
+@synthesize persistentContainer = _persistentContainer;
 
-- (CoreDataManager *)coreDataManager {
-    if (_coreDataManager == nil) {
-        _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+- (NSPersistentContainer *)persistentContainer {
+    if (_persistentContainer == nil) {
+        _persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
     }
-    return _coreDataManager;
+    return _persistentContainer;
 }
 
 @synthesize managedObjectContext = _managedObjectContext;
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
+        _managedObjectContext = self.persistentContainer.viewContext;
     }
     return _managedObjectContext;
 }
@@ -643,7 +643,7 @@ NSString *fontToString(NSFont *font) {
 
     [_glktxtbuf prefsDidChange];
 
-    [self.coreDataManager saveChanges];
+    [_managedObjectContext safeSave];
 
     if (!_previewShown)
         return;

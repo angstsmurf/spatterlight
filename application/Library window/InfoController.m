@@ -4,13 +4,13 @@
 #import "Metadata.h"
 #import "AppDelegate.h"
 #import "LibController.h"
-#import "CoreDataManager.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
 #import "ImageView.h"
 
 #import "Constants.h"
 
+#import <CoreData/CoreData.h>
 #import <QuartzCore/QuartzCore.h>
 
 #ifdef DEBUG
@@ -99,7 +99,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSWindowController *snapshotController;
 
-    CoreDataManager *coreDataManager;
+    NSPersistentContainer *persistentContainer;
     NSManagedObjectContext *managedObjectContext;
 }
 @end
@@ -109,8 +109,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (instancetype)init {
     self = [super initWithWindowNibName:@"InfoPanel"];
     if (self) {
-        coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-        managedObjectContext = coreDataManager.mainManagedObjectContext;
+        persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
+        managedObjectContext = persistentContainer.viewContext;
     }
 
     return self;

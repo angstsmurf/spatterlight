@@ -29,7 +29,6 @@
 
 #import "OSImageHashing.h"
 
-#import "CoreDataManager.h"
 #import "Preferences.h"
 
 #define FILTERTAG ((NSInteger) 100)
