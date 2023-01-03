@@ -1305,8 +1305,6 @@ void zprint_ret()
     zrtrue();
 }
 
-static bool prepare_color_opcode(int16_t &fg, int16_t &bg, Window *&win);
-
 void zerase_window()
 {
 #ifdef ZTERP_GLK
@@ -1333,6 +1331,7 @@ void zerase_window()
     default:
         break;
     }
+
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
 #ifdef SPATTERLIGHT
     // Hack to set upper window background to current background color.
@@ -1380,7 +1379,11 @@ static void set_cursor(uint16_t y, uint16_t x)
     if (y == 0) {
         y = 1;
     }
-    if (x == 0) {
+
+    // This handles 0, but also takes care of working around a bug in Inform’s
+    // “box" statement, which causes “x” to be negative if the box’s text is
+    // wider than the screen.
+    if (as_signed(x) < 1) {
         x = 1;
     }
 

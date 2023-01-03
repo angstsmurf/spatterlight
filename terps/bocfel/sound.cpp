@@ -112,6 +112,7 @@ void zsound_effect()
     number = zargs[0];
     effect = zargs[1];
 
+    // Beeps and boops aren’t supported.
     if (number == 1 || number == 2) {
 #ifdef SPATTERLIGHT
         win_beep(number);
