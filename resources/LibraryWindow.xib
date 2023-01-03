@@ -183,7 +183,11 @@
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h7e-QV-ss0">
                                                                             <rect key="frame" x="228" y="-1" width="16" height="16"/>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ellipsis" imagePosition="only" alignment="right" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Dpv-CH-A6Y">
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="16" id="chJ-Z6-AW9"/>
+                                                                                <constraint firstAttribute="height" constant="16" id="d0H-f0-fSC"/>
+                                                                            </constraints>
+                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ellipsis" imagePosition="only" alignment="right" alternateImage="ellipsis" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Dpv-CH-A6Y">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <connections>
@@ -326,7 +330,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="group" width="92" minWidth="60" maxWidth="700" hidden="YES" id="138">
+                                                        <tableColumn identifier="group" width="92" minWidth="40" maxWidth="200" hidden="YES" id="138">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Group">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -501,8 +505,8 @@
                                                                                 <font key="font" metaFont="cellTitle"/>
                                                                                 <menu key="menu" id="kmX-1c-H5y">
                                                                                     <items>
-                                                                                        <menuItem title="None" state="on" id="pES-90-7Fy"/>
-                                                                                        <menuItem isSeparatorItem="YES" id="d9M-yI-ANp"/>
+                                                                                        <menuItem title="None" state="on" identifier="none" id="pES-90-7Fy"/>
+                                                                                        <menuItem isSeparatorItem="YES" tag="-1" id="d9M-yI-ANp"/>
                                                                                         <menuItem title="Cruel" tag="1" id="x00-5K-lgQ"/>
                                                                                         <menuItem title="Nasty" tag="2" id="gpI-76-JEn"/>
                                                                                         <menuItem title="Tough" tag="3" id="uk7-TF-SrX"/>
@@ -528,7 +532,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="languageAsWord" width="92" minWidth="70" maxWidth="700" hidden="YES" id="180" userLabel="Table Column - Language">
+                                                        <tableColumn identifier="languageAsWord" width="92" minWidth="60" maxWidth="700" hidden="YES" id="180" userLabel="Table Column - Language">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Language">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -639,7 +643,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="myRating" width="75" minWidth="70" maxWidth="100" hidden="YES" id="196" userLabel="Table Column - My rating">
+                                                        <tableColumn identifier="myRating" width="75" minWidth="65" maxWidth="100" hidden="YES" id="196" userLabel="Table Column - My rating">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="My rating">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -673,7 +677,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="added" editable="NO" width="80" minWidth="75" maxWidth="80" hidden="YES" id="181" userLabel="Table Column - Added">
+                                                        <tableColumn identifier="added" editable="NO" width="80" minWidth="40" maxWidth="100" hidden="YES" id="181" userLabel="Table Column - Added">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Added">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -709,43 +713,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="lastPlayed" editable="NO" width="90" minWidth="75" maxWidth="90" hidden="YES" id="183" userLabel="Table Column - Last played">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Last played">
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                            </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="184">
-                                                                <font key="font" metaFont="cellTitle"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView translatesAutoresizingMaskIntoConstraints="NO" id="9iI-Od-NrG">
-                                                                    <rect key="frame" x="0.0" y="4" width="4" height="14"/>
-                                                                    <subviews>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HUt-pA-QEi">
-                                                                            <rect key="frame" x="2" y="1" width="4" height="15"/>
-                                                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="PAU-24-LVx">
-                                                                                <font key="font" metaFont="cellTitle"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="leading" secondItem="9iI-Od-NrG" secondAttribute="leading" constant="4" id="GtN-3L-IQF"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="HUt-pA-QEi" secondAttribute="trailing" id="SZQ-H6-t5l"/>
-                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="top" secondItem="9iI-Od-NrG" secondAttribute="top" constant="-2" id="b7n-ZR-zaj"/>
-                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="height" secondItem="9iI-Od-NrG" secondAttribute="height" constant="1" id="pDa-BD-nXx"/>
-                                                                    </constraints>
-                                                                    <connections>
-                                                                        <outlet property="textField" destination="HUt-pA-QEi" id="Ooi-UA-OUb"/>
-                                                                    </connections>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                        <tableColumn identifier="lastModified" editable="NO" width="90" minWidth="75" maxWidth="111" hidden="YES" id="194" userLabel="Table Column - Last modified">
+                                                        <tableColumn identifier="lastModified" editable="NO" width="90" minWidth="40" maxWidth="120" hidden="YES" id="194" userLabel="Table Column - Last modified">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Last modified">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -777,6 +745,42 @@
                                                                     </constraints>
                                                                     <connections>
                                                                         <outlet property="textField" destination="M1u-ME-c7B" id="Paz-g5-fk8"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
+                                                        </tableColumn>
+                                                        <tableColumn identifier="lastPlayed" editable="NO" width="90" minWidth="40" maxWidth="100" hidden="YES" id="183" userLabel="Table Column - Last played">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Last played">
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="184">
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView translatesAutoresizingMaskIntoConstraints="NO" id="9iI-Od-NrG">
+                                                                    <rect key="frame" x="0.0" y="4" width="4" height="14"/>
+                                                                    <subviews>
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HUt-pA-QEi">
+                                                                            <rect key="frame" x="2" y="1" width="4" height="15"/>
+                                                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="PAU-24-LVx">
+                                                                                <font key="font" metaFont="cellTitle"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="leading" secondItem="9iI-Od-NrG" secondAttribute="leading" constant="4" id="GtN-3L-IQF"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="HUt-pA-QEi" secondAttribute="trailing" id="SZQ-H6-t5l"/>
+                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="top" secondItem="9iI-Od-NrG" secondAttribute="top" constant="-2" id="b7n-ZR-zaj"/>
+                                                                        <constraint firstItem="HUt-pA-QEi" firstAttribute="height" secondItem="9iI-Od-NrG" secondAttribute="height" constant="1" id="pDa-BD-nXx"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="HUt-pA-QEi" id="Ooi-UA-OUb"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>

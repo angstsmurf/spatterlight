@@ -107,7 +107,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lTO-b9-SgP" userLabel="Line Spacing Image">
-                    <rect key="frame" x="12" y="333" width="21" height="19"/>
+                    <rect key="frame" x="11" y="333" width="21" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="Line spacing" id="0xe-US-EcM"/>
                 </imageView>

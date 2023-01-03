@@ -87,7 +87,6 @@ enum  {
 @implementation LibHelperTableView
 
 -(BOOL)becomeFirstResponder {
-    NSLog(@"becomeFirstResponder");
     [self removeTrackingRect:trackingTag];
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
@@ -132,8 +131,7 @@ enum  {
     }
 }
 
-- (void)mouseExited:(NSEvent *)theEvent
-{
+- (void)mouseExited:(NSEvent *)theEvent {
     mouseOverView = NO;
     [(LibController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:-1];
     _mouseOverRow = -1;
@@ -146,10 +144,8 @@ enum  {
     trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
 }
 
-- (void)viewDidEndLiveResize
-{
+- (void)viewDidEndLiveResize {
     [super viewDidEndLiveResize];
-
     [self removeTrackingRect:trackingTag];
     trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
 }
@@ -2741,12 +2737,16 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         if (headerAttrStr.length) {
             NSMutableDictionary *attributes = [headerAttrStr attributesAtIndex:0 effectiveRange:nil].mutableCopy;
             NSFont *font = nil;
-           if ([column.identifier isEqual:@"like"])
-                font = [NSFont systemFontOfSize:10 weight:NSFontWeightLight];
-            else if ([_gameSortColumn isEqualToString:column.identifier])
+            if ([_gameSortColumn isEqualToString:column.identifier])
                 font = [NSFont systemFontOfSize:12 weight:NSFontWeightMedium];
             else
-                font = [NSFont systemFontOfSize:12 weight:NSFontWeightLight];
+                font = [NSFont systemFontOfSize:12];
+            if (@available(macOS 13, *)) {
+                if ([column.identifier isEqual:@"like"])
+                    font = [NSFont systemFontOfSize:10];
+                else
+                    font = [NSFont systemFontOfSize:12 weight:NSFontWeightLight];
+            }
 
             attributes[NSFontAttributeName] = font;
             column.headerCell.attributedStringValue = [[NSAttributedString alloc] initWithString:headerAttrStr.string attributes:attributes];
@@ -2758,7 +2758,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         NSString *identifier = column.identifier;
 
         if ([identifier isEqual: @"found"]) {
-
             if (!game.found) {
                 cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
                 cellView.imageView.accessibilityLabel = @"Game file not found";
@@ -2812,9 +2811,9 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         } else if ([identifier isEqual: @"added"] || [identifier isEqual: @"lastPlayed"]) {
             string = [[game valueForKey: identifier] formattedRelativeString];
         } else if ([identifier isEqual: @"lastModified"]) {
-            string = [[meta valueForKey: identifier] formattedRelativeString];
+            string = [meta.lastModified formattedRelativeString];
         } else if ([identifier isEqual: @"firstpublishedDate"]) {
-            NSDate *date = [meta valueForKey: identifier];
+            NSDate *date = meta.firstpublishedDate;
             if (date) {
                 NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
                 string = [NSString stringWithFormat:@"%ld", components.year];
@@ -2825,14 +2824,25 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             if (value < 0 || value > 5)
                 value = 0;
             NSPopUpButton *popUp = forgivenessCell.popUpButton;
-            [popUp selectItem:[popUp.menu itemWithTag:value]];
+            NSMenuItem *none = popUp.menu.itemArray[0];
             if (value == 0) {
-                popUp.title = @"";
-            } else
+                [popUp selectItem:none];
+                none.state = NSOnState;
+                if (@available(macOS 10.14, *)) {
+                    popUp.title = @"";
+                } else {
+                    // 10.13 has a problem with showing the "empty" pop up button value
+                    none.title = @"  ";
+                    popUp.title = @"  ";
+                }
+            } else {
+                [popUp selectItem:[popUp.menu itemWithTag:value]];
                 popUp.title = meta.forgiveness;
+            }
             popUp.cell.bordered = NO;
             return forgivenessCell;
-        } else if ([identifier isEqual: @"starRating"] || [identifier isEqual: @"myRating"]) {
+        } else if ([identifier isEqual: @"starRating"] ||
+                   [identifier isEqual: @"myRating"]) {
             NSInteger value;
             BOOL isMy = [identifier isEqual: @"myRating"];
 
@@ -2859,9 +2869,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         if (string == nil)
             string = @"";
         cellView.textField.stringValue = string;
-
     }
-
     return cellView;
 }
 
@@ -2870,11 +2878,11 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     if (textField) {
 
         NSInteger row = [_gameTableView rowForView:sender];
-        NSInteger col = [_gameTableView columnForView:sender];
-
-        if (row >= (NSInteger)_gameTableModel.count) {
+        if ((NSUInteger)row >= _gameTableModel.count)
             return;
-        }
+        NSInteger col = [_gameTableView columnForView:sender];
+        if ((NSUInteger)col >= _gameTableView.tableColumns.count)
+            return;
 
         Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
@@ -2941,7 +2949,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     else
         integerValue = value.integerValue;
     NSInteger row = [_gameTableView rowForView:sender];
-
+    if ((NSUInteger)row >= _gameTableModel.count)
+        return;
     Game *game = _gameTableModel[(NSUInteger)row];
     if (integerValue != game.metadata.myRating.integerValue && !(integerValue == 0 && game.metadata.myRating == nil)) {
         if (integerValue == 0)
@@ -2954,11 +2963,19 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 - (IBAction)changedForgivenessValue:(id)sender {
     NSPopUpButton *popUp = (NSPopUpButton *)sender;
     NSInteger selInteger = popUp.selectedItem.tag;
-    if (selInteger == 0)
-        popUp.title = @"";
+    if (@available(macOS 10.14, *)) {
+        if (selInteger == 0) {
+            popUp.title = @"";
+        }
+    } else {
+        if (selInteger == 0) {
+            popUp.menu.itemArray[0].title = @"  ";
+            popUp.title = @"  ";
+        }
+    }
 
     NSInteger row = [_gameTableView rowForView:sender];
-    if (row == NSNotFound)
+    if ((NSUInteger)row >= _gameTableModel.count)
         return;
     Game *game = _gameTableModel[(NSUInteger)row];
     if (selInteger != game.metadata.forgivenessNumeric.integerValue) {
@@ -2975,6 +2992,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 }
 - (IBAction)pushedContextualButton:(id)sender {
     NSInteger row = [_gameTableView rowForView:sender];
+    if ((NSUInteger)row >= _gameTableModel.count)
+        return;
     if (![_gameTableView.selectedRowIndexes containsIndex:(NSUInteger)row])
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)row] byExtendingSelection:NO];
     [NSMenu popUpContextMenu:_gameTableView.menu withEvent:[[NSApplication sharedApplication] currentEvent] forView:sender];
@@ -2982,7 +3001,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 
 - (IBAction)liked:(id)sender {
     NSInteger row = [_gameTableView rowForView:sender];
-    if (row == NSNotFound)
+    if ((NSUInteger)row >= _gameTableModel.count)
         return;
     Game *game = _gameTableModel[(NSUInteger)row];
     if (game.like == 1) {
@@ -3046,13 +3065,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     }
 }
 
-
 - (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)columnIndex {
     CGFloat longestWidth = 0.0;
     if (tableView == _gameTableView) {
-
         NSTableColumn *column = tableView.tableColumns[(NSUInteger)columnIndex];
-
         NSString *identifier = column.identifier;
 
         if ([identifier isEqual: @"found"] || [identifier isEqual: @"like"]) {
@@ -3061,22 +3077,38 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 
         BOOL isTitle = [identifier isEqual: @"title"];
         BOOL isFormat = [identifier isEqual: @"format"];
-        BOOL isDate = ([identifier isEqual: @"lastModified"] || [identifier isEqual: @"added"] || [identifier isEqual: @"lastPlayed"]);
+        BOOL isDate = ([identifier isEqual: @"added"] || [identifier isEqual: @"lastPlayed"]);
         BOOL isYear = [identifier isEqual: @"firstpublishedDate"];
+        BOOL isModified = [identifier isEqual: @"lastModified"];
 
-        NSSize headerSize = [column.headerCell.stringValue sizeWithAttributes:[column.headerCell.attributedStringValue attributesAtIndex:0 effectiveRange:nil]];
+        BOOL isSortColumn = [_gameSortColumn isEqual:column.identifier];
 
-        BOOL isSortColumn = [_gameSortColumn isEqualToString:column.identifier];
+        NSSize headerSize;
+        if (@available(macOS 11, *)) {
+            headerSize = [column.headerCell.stringValue sizeWithAttributes:[column.headerCell.attributedStringValue attributesAtIndex:0 effectiveRange:nil]];
+        } else {
+            if (isSortColumn)
+                headerSize = [column.headerCell.stringValue sizeWithAttributes:@{NSFontAttributeName:[NSFont systemFontOfSize:12 weight:NSFontWeightMedium]}];
+            else
+                headerSize = [column.headerCell.stringValue sizeWithAttributes:@{NSFontAttributeName:[NSFont systemFontOfSize:12]}];
+        }
 
-        longestWidth = headerSize.width + 8;
+        longestWidth = headerSize.width + 9;
 
+        // Add width of sort direction indicator
         if (isSortColumn) {
             longestWidth += 24;
         }
 
+        if (@available(macOS 13, *)) {
+        } else {
+            if ([identifier isEqual: @"seriesnumber"] && longestWidth < 111) {
+                return 111;
+            }
+        }
+
         if ([identifier isEqual: @"starRating"] || [identifier isEqual: @"myRating"] || [identifier isEqual: @"forgivenessNumeric"]) {
             return longestWidth;
-
         }
 
         for (Game *game in _gameTableModel) {
@@ -3085,19 +3117,16 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 string = game.detectedFormat;
             } else if (isDate) {
                 string = [[game valueForKey: identifier] formattedRelativeString];
+            } else if (isModified) {
+                string = [game.metadata.lastModified formattedRelativeString];
             } else if (isYear) {
-                NSDate *date = [game.metadata valueForKey: identifier];
-                if (date) {
-                    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-                    string = [NSString stringWithFormat:@"%ld", components.year];
-                } else {
-                    string = nil;
-                }
+                string = game.metadata.firstpublished;
             } else {
                 string = [game.metadata valueForKey:identifier];
             }
             if (string.length) {
                 CGFloat viewWidth =  [string sizeWithAttributes:@{NSFontAttributeName: [NSFont systemFontOfSize:12]}].width + 5;
+                // Add width of context menu button
                 if (isTitle)
                     viewWidth += 25;
                 if (viewWidth > longestWidth) {
@@ -3109,7 +3138,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         }
     }
 
-    return longestWidth; // + 8; // some padding
+    return longestWidth;
 }
 
 - (void)tableViewSelectionDidChange:(id)notification {
@@ -3141,12 +3170,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     }
     return nil;
 }
-
-// NSTableView delegate
-//-(BOOL)tableView:(NSTableView *)tableView
-//shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
-//    return NO;
-//}
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     _gameTableDirty = YES;
@@ -3192,7 +3215,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         });
     }
 }
-
 
 #pragma mark -
 #pragma mark SplitView stuff
