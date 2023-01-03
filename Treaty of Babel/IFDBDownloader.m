@@ -189,7 +189,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         NSMutableSet *downloadedMetadata = [NSMutableSet new];
         
         for (Game *game in games) {
-            if ([downloadedMetadata containsObject:game.metadata])
+            if (game.metadata == nil || [downloadedMetadata containsObject:game.metadata])
                 continue;
             [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
@@ -214,6 +214,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             lastoperation = finisher;
         }
     }];
+
     if (lastImageDownloadOperation)
         lastoperation = lastImageDownloadOperation;
     lastImageDownloadOperation = nil;
