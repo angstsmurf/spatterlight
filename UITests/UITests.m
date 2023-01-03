@@ -405,6 +405,7 @@
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
+    XCUIElement *gameMenuBarItem = menuBarsQuery.menuBarItems[@"Game"];
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Open…"] click];
     XCUIElement *openDialog = app.dialogs.firstMatch;
@@ -416,7 +417,7 @@
 
     [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Open"];
 
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reveal in Finder"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reveal in Finder\"]",".menuItems[@\"Reveal in Finder\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
     [app terminate];
@@ -424,21 +425,27 @@
     [app launch];
     XCTAssert([app waitForExistenceWithTimeout:5]);
 
+    [menuBarsQuery.menuBarItems[@"Window"] click];
+    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
-    XCUIElement *searchSearchField = libraryWindow/*@START_MENU_TOKEN@*/.searchFields[@"Search"]/*[[".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *searchSearchField = app/*@START_MENU_TOKEN@*/.windows[@"library"].searchFields[@"Search"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]",".windows[@\"library\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/ ;
+
     XCUIElement *cancelButton = searchSearchField.buttons[@"cancel"];
     if (cancelButton.exists)
         [cancelButton click];
     [searchSearchField click];
     [searchSearchField typeText:@"image"];
-    [[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0] click];
 
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Show Info"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Show Info\"]",".menuItems[@\"Show Info\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [libraryWindow.splitGroups[@"SplitViewTotal"] click];
+    [[[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:1] childrenMatchingType:XCUIElementTypeTextField].element click];
+
+    [gameMenuBarItem.menuItems[@"Show Info…"] click];
     [app typeText:@" "];
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Play Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Play Game\"]",".menuItems[@\"Play Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
@@ -2134,8 +2141,10 @@
     [searchField click];
     [searchField typeText:gameName];
 
+    [libraryWindow.splitGroups[@"SplitViewTotal"] click];
+
     XCUIElement *gamesTable = libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    XCUIElement *textField = [[gamesTable.tableRows childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    XCUIElement *textField = [[[gamesTable.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:1] childrenMatchingType:XCUIElementTypeTextField].element;
     [textField click];
     return textField;
 }
