@@ -2859,7 +2859,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             if (value > 0 || (isMy && row == _gameTableView.mouseOverRow)) {
                 indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
             } else {
-                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAutomatic;
+                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityWhileEditing;
             }
             indicator.objectValue = @(value);
             return indicatorCell;
@@ -3036,7 +3036,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         game = _gameTableModel[(NSUInteger)lastRow];
         if (myRatingColumnIdx > -1 && game.metadata.myRating == 0) {
             rating = [_gameTableView viewAtColumn:myRatingColumnIdx row:lastRow makeIfNecessary:NO];
-            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAutomatic;
+            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityWhileEditing;
             rating.needsDisplay = YES;
         }
 

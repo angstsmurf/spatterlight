@@ -625,7 +625,7 @@
                                                                 <tableCellView translatesAutoresizingMaskIntoConstraints="NO" id="X72-dM-CpI" userLabel="Ifdb Ratings Cell View" customClass="RatingsCellView">
                                                                     <rect key="frame" x="0.0" y="4" width="63" height="11"/>
                                                                     <subviews>
-                                                                        <levelIndicator verticalHuggingPriority="750" ratingImage="star.fill" ratingPlaceholderImage="star" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-TA-ggV" userLabel="Ifdb Rating" customClass="MyIndicator">
+                                                                        <levelIndicator verticalHuggingPriority="750" placeholderVisibility="whileEditing" ratingImage="star.fill" ratingPlaceholderImage="star" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-TA-ggV" userLabel="Ifdb Rating" customClass="MyIndicator">
                                                                             <rect key="frame" x="3" y="1" width="60" height="12"/>
                                                                             <levelIndicatorCell key="cell" refusesFirstResponder="YES" alignment="left" doubleValue="3" maxValue="5" levelIndicatorStyle="rating" id="Gc5-md-Ii6"/>
                                                                             <color key="fillColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
@@ -656,7 +656,7 @@
                                                                 <tableCellView translatesAutoresizingMaskIntoConstraints="NO" id="IWn-Br-tWg" customClass="RatingsCellView">
                                                                     <rect key="frame" x="0.0" y="4" width="63" height="11"/>
                                                                     <subviews>
-                                                                        <levelIndicator verticalHuggingPriority="750" ratingImage="star.fill" ratingPlaceholderImage="star" translatesAutoresizingMaskIntoConstraints="NO" id="GTI-Qz-zdE" userLabel="My Rating">
+                                                                        <levelIndicator verticalHuggingPriority="750" placeholderVisibility="whileEditing" ratingImage="star.fill" ratingPlaceholderImage="star" translatesAutoresizingMaskIntoConstraints="NO" id="GTI-Qz-zdE" userLabel="My Rating">
                                                                             <rect key="frame" x="3" y="1" width="60" height="12"/>
                                                                             <levelIndicatorCell key="cell" editable="YES" alignment="left" doubleValue="3" maxValue="5" levelIndicatorStyle="rating" id="4ii-3a-hyF"/>
                                                                             <color key="fillColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
