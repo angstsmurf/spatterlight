@@ -664,7 +664,7 @@ enum  {
 
     LibController * __weak weakSelf = self;
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         LibController *strongSelf = weakSelf;
         if (!strongSelf)
             return;
@@ -1371,26 +1371,26 @@ enum  {
         }
         if (like) {
             if (likecount[1] > 0) {
-                menuItem.title = @"Liked";
+                menuItem.title = NSLocalizedString(@"Liked", nil);
                 if (likecount[0] > 0 || likecount[2] > 0) {
                     menuItem.state = NSMixedState;
                 } else {
                     menuItem.state = NSOnState;
                 }
             } else {
-                menuItem.title = @"Like";
+                menuItem.title = NSLocalizedString(@"Like", nil);
                 menuItem.state = NSOffState;
             }
         } else {
             if (likecount[2] > 0) {
-                menuItem.title = @"Disliked";
+                menuItem.title = NSLocalizedString(@"Disliked", nil);
                 if (likecount[0] > 0 || likecount[1] > 0) {
                     menuItem.state = NSMixedState;
                 } else {
                     menuItem.state = NSOnState;
                 }
             } else {
-                menuItem.title = @"Dislike";
+                menuItem.title = NSLocalizedString(@"Dislike", nil);;
                 menuItem.state = NSOffState;
             }
         }
@@ -2760,7 +2760,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         if ([identifier isEqual: @"found"]) {
             if (!game.found) {
                 cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
-                cellView.imageView.accessibilityLabel = @"Game file not found";
+                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game file not found", nil);
             } else {
                 BOOL playing = NO;
                 if (_gameSessions.count < 100) {
@@ -2768,10 +2768,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                         if ([session.game.ifid isEqual:game.ifid]) {
                             if (session.alive) {
                                 cellView.imageView.image = [NSImage imageNamed:@"play"];
-                                cellView.imageView.accessibilityLabel = @"Game in progress";
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game in progress", nil);
                             } else {
                                 cellView.imageView.image = [NSImage imageNamed:@"stop"];
-                                cellView.imageView.accessibilityLabel = @"Game stopped";
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game stopped", nil);
                             }
                             playing = YES;
                             break;
@@ -2788,11 +2788,11 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             switch (game.like) {
                 case 2:
                     likeCellView.likeButton.image = [NSImage imageNamed:@"heart.slash.fill"];
-                    likeCellView.toolTip = @"Disliked";
+                    likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
                     break;
                 case 1:
                     likeCellView.likeButton.image = [NSImage imageNamed:@"heart.fill"];
-                    likeCellView.toolTip = @"Liked";
+                    likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
                     break;
                 default:
                     if (row == _gameTableView.mouseOverRow) {
@@ -2800,7 +2800,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                     } else {
                         likeCellView.likeButton.image = nil;
                     }
-                    likeCellView.toolTip = @"Like";
+                    likeCellView.toolTip = NSLocalizedString(@"Like", nil);
                     break;
             }
            return likeCellView;
@@ -2914,7 +2914,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             // so we try to deal with both cases here to give proper
             // values to language as well as languageAsWord
             NSString *languageAsWord = value;
-            NSString *languageCode = value;
+            NSString *languageCode;
             if (languageAsWord.length > 1) {
                 // First we try to match the entered string to a language (in words)
                 languageCode = languageCodes[languageAsWord.lowercaseString];
