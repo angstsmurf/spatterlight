@@ -188,6 +188,8 @@ fprintf(stderr, "%s\n",                                                    \
                                 multiplier:1.0
                                   constant:0];
 
+    xPosConstraint.priority = 777;
+
     NSLayoutConstraint *yPosConstraint;
 
     if (lastView) {
@@ -217,6 +219,8 @@ fprintf(stderr, "%s\n",                                                    \
                                  attribute:NSLayoutAttributeWidth
                                 multiplier:1.0
                                   constant:-20];
+
+    widthConstraint.priority = 833;
 
     NSLayoutConstraint *rightMarginConstraint =
     [NSLayoutConstraint constraintWithItem:textField
@@ -393,6 +397,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                  multiplier:1.0
                                                    constant:0];
 
+    xPosConstraint.priority = 555;
+
     yPosConstraint = [NSLayoutConstraint constraintWithItem:divider
                                                   attribute:NSLayoutAttributeTop
                                                   relatedBy:NSLayoutRelationEqual
@@ -530,6 +536,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                   attribute:NSLayoutAttributeLeft
                                                  multiplier:1.0
                                                    constant:0];
+
+    xPosConstraint.priority = 600;
 
     topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                         attribute:NSLayoutAttributeTop
@@ -839,6 +847,8 @@ fprintf(stderr, "%s\n",                                                    \
                                     multiplier:1.0
                                       constant:10];
 
+        xPosConstraint.priority = 700;
+
         NSLayoutConstraint *yPosConstraint =
         [NSLayoutConstraint constraintWithItem:_leftDateView
                                      attribute:NSLayoutAttributeTop
@@ -857,6 +867,8 @@ fprintf(stderr, "%s\n",                                                    \
                                     multiplier:1.0
                                       constant:-25];
 
+        rightMarginConstraint.priority = 666;
+
         _rightDateView.attributedStringValue = rightAttributedString;
 
         [self addSubview:_rightDateView];
@@ -871,6 +883,7 @@ fprintf(stderr, "%s\n",                                                    \
                                      attribute:NSLayoutAttributeCenterX
                                     multiplier:1.0
                                       constant:-15];
+        xPosConstraint2.priority = 750;
 
         NSLayoutConstraint *yPosConstraint2 =
         [NSLayoutConstraint constraintWithItem:_rightDateView
@@ -1076,6 +1089,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                  multiplier:1.0
                                                    constant:0];
 
+    xPosConstraint.priority = 800;
+
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                    attribute:NSLayoutAttributeWidth
                                                    relatedBy:NSLayoutRelationEqual
@@ -1083,6 +1098,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                   multiplier:1.0
                                                     constant:NSWidth(_imageView.frame)];
+
+    widthConstraint.priority = 900;
 
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                     attribute:NSLayoutAttributeHeight
