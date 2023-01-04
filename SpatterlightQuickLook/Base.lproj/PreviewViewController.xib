@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="577" height="311"/>
                                 <subviews>
                                     <view horizontalHuggingPriority="2" verticalHuggingPriority="2" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" placeholderIntrinsicWidth="267" placeholderIntrinsicHeight="245" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2uh-cM-ZyM" userLabel="Image" customClass="NonInterpolatedImage">
-                                        <rect key="frame" x="20" y="33" width="259" height="245"/>
+                                        <rect key="frame" x="-21" y="33" width="300" height="245"/>
                                         <constraints>
                                             <constraint firstAttribute="width" priority="500" constant="300" placeholder="YES" id="Ulq-p5-scY"/>
                                         </constraints>
@@ -73,18 +73,18 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="O9p-Ni-vdu" firstAttribute="leading" secondItem="2uh-cM-ZyM" secondAttribute="trailing" constant="20" id="3kM-Jd-BJq"/>
-                                    <constraint firstItem="O9p-Ni-vdu" firstAttribute="centerY" secondItem="x61-Pl-enf" secondAttribute="centerY" id="AIY-5z-GIM"/>
-                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="centerY" secondItem="x61-Pl-enf" secondAttribute="centerY" id="JpQ-nH-oDt"/>
+                                    <constraint firstItem="O9p-Ni-vdu" firstAttribute="centerY" secondItem="x61-Pl-enf" secondAttribute="centerY" priority="401" id="AIY-5z-GIM"/>
+                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="centerY" secondItem="x61-Pl-enf" secondAttribute="centerY" priority="430" id="JpQ-nH-oDt"/>
                                     <constraint firstAttribute="centerX" secondItem="2uh-cM-ZyM" secondAttribute="trailing" priority="600" constant="10" id="O7b-Fu-ocs"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O9p-Ni-vdu" secondAttribute="bottom" constant="20" id="RxS-xK-pBV"/>
-                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x61-Pl-enf" secondAttribute="top" constant="20" id="Vre-VP-Ns6"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O9p-Ni-vdu" secondAttribute="bottom" priority="230" constant="20" id="RxS-xK-pBV"/>
+                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x61-Pl-enf" secondAttribute="top" priority="300" constant="20" id="Vre-VP-Ns6"/>
                                     <constraint firstItem="O9p-Ni-vdu" firstAttribute="width" relation="greaterThanOrEqual" secondItem="x61-Pl-enf" secondAttribute="width" multiplier="0.3" priority="250" constant="40" id="a5w-bA-c6X"/>
                                     <constraint firstAttribute="bottom" secondItem="O9p-Ni-vdu" secondAttribute="bottom" priority="900" constant="20" id="dh9-GH-3Eu"/>
                                     <constraint firstAttribute="trailing" secondItem="O9p-Ni-vdu" secondAttribute="trailing" constant="20" id="faV-1y-Jsk"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2uh-cM-ZyM" secondAttribute="bottom" constant="20" id="h2o-Jg-6fF"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2uh-cM-ZyM" secondAttribute="bottom" priority="333" constant="20" id="h2o-Jg-6fF"/>
                                     <constraint firstItem="O9p-Ni-vdu" firstAttribute="top" secondItem="x61-Pl-enf" secondAttribute="top" priority="750" constant="20" id="ijm-4z-t8g"/>
-                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="leading" secondItem="x61-Pl-enf" secondAttribute="leading" constant="20" id="nmP-Zz-YbW"/>
-                                    <constraint firstItem="O9p-Ni-vdu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x61-Pl-enf" secondAttribute="top" constant="20" id="tnd-oO-dAc"/>
+                                    <constraint firstItem="2uh-cM-ZyM" firstAttribute="leading" secondItem="x61-Pl-enf" secondAttribute="leading" priority="400" constant="20" id="nmP-Zz-YbW"/>
+                                    <constraint firstItem="O9p-Ni-vdu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x61-Pl-enf" secondAttribute="top" priority="400" constant="20" id="tnd-oO-dAc"/>
                                 </constraints>
                             </customView>
                         </subviews>
