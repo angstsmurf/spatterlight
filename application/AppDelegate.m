@@ -481,9 +481,12 @@ continueUserActivity:(NSUserActivity *)userActivity
 
             if (@available(macOS 10.15, *)) {
                 [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
                 _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
-
-                [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+#else
+                _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
+#endif
+                                      [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
                 [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
             }
 
@@ -599,8 +602,9 @@ continueUserActivity:(NSUserActivity *)userActivity
     if (@available(macOS 10.15, *)) {
         if (!_spotlightDelegate)
             return;
-
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
         [_spotlightDelegate startSpotlightIndexing];
+#endif
     }
 }
 
@@ -608,7 +612,9 @@ continueUserActivity:(NSUserActivity *)userActivity
     if (@available(macOS 10.15, *)) {
         if (!_spotlightDelegate)
             return;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
         [_spotlightDelegate stopSpotlightIndexing];
+#endif
     }
 }
 
