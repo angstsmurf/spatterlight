@@ -510,7 +510,6 @@ enum  {
 
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
-//            NSLog(@"Pruning image with original URL %@", img.originalURL);
             [_managedObjectContext deleteObject:img];
         }
 
@@ -521,7 +520,6 @@ enum  {
 
         counter += ifidEntriesToDelete.count;
         for (Ifid *ifid in ifidEntriesToDelete) {
-//            NSLog(@"Pruning ifid %@", ifid.ifidString);
             [_managedObjectContext deleteObject:ifid];
         }
 
@@ -1864,8 +1862,8 @@ enum  {
                                 if (error) {
                                     [[NSApplication sharedApplication] presentError:error];
                                 }
-                            } //else NSLog(@"Changes in private were saved");
-                        } //else NSLog(@"No changes to save in private");
+                            }
+                        }
                         timestamp = [NSDate date];
                     }
                 }
@@ -2475,7 +2473,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             Game *game = [LibController fetchGameForIFID:ifid inContext:_managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
-                //NSLog(@"Selecting game with ifid %@", ifid);
             } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
         }
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];

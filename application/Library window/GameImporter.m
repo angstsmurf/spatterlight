@@ -87,8 +87,6 @@ extern NSArray *gGameFileTypes;
                     [libController selectGamesWithIfids:select scroll:YES];
                 });
             });
-            if ([options[@"downloadInfo"] isEqual:@(YES)])
-                [LibController fixMetadataWithNoIfidsInContext:context];
         }];
     };
     
