@@ -83,7 +83,9 @@ extern NSArray *gGameFileTypes;
                 libController.addButton.enabled = YES;
                 libController.currentlyAddingGames = NO;
                 [libController endImporting];
-                [libController selectGamesWithIfids:select scroll:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    [libController selectGamesWithIfids:select scroll:YES];
+                });
             });
             if ([options[@"downloadInfo"] isEqual:@(YES)])
                 [LibController fixMetadataWithNoIfidsInContext:context];
