@@ -2393,9 +2393,19 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (NSWindow *)selectAndPlayGame:(Game *)game {
-    [self selectGames:[NSSet setWithObject:game]];
-    [_gameTableView scrollRowToVisible:(NSInteger)[_gameTableModel indexOfObject:game]];
-    return [self playGame:game];
+    NSLog(@"selectAndPlayGame: %@", game.metadata.title);
+    NSWindow *result = [self playGame:game];
+    NSUInteger gameIndex = [self.gameTableModel indexOfObject:game];
+    if (gameIndex >= (NSUInteger)self.gameTableView.numberOfRows) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+            [self selectGames:[NSSet setWithObject:game]];
+            [self.gameTableView scrollRowToVisible:(NSInteger)[self.gameTableModel indexOfObject:game]];
+        });
+    } else {
+        [self selectGames:[NSSet setWithObject:game]];
+        [self.gameTableView scrollRowToVisible:(NSInteger)gameIndex];
+    }
+    return result;
 }
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
@@ -3478,9 +3488,7 @@ canCollapseSubview:(NSView *)subview
             [self uncollapseLeftView];
         }
     }
-    double delayInSeconds = 0.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self updateSideViewForce:YES];
     });
 }
