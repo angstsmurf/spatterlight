@@ -6,7 +6,7 @@
 
 #define FORMAT scott
 #define HOME_PAGE "https://github.com/cspiegel/scottfree-glk"
-#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr"
+#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr,.sag"
 #define NO_METADATA
 #define NO_COVER
 

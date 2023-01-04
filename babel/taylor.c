@@ -6,7 +6,7 @@
 
 #define FORMAT taylor
 #define HOME_PAGE "https://github.com/EtchedPixels/TaylorMade"
-#define FORMAT_EXT ".sna,.tzx,.tap,.z80,.d64,.t64"
+#define FORMAT_EXT ".sna,.tzx,.tap,.z80,.d64,.t64,.tay,.taylor"
 #define NO_METADATA
 #define NO_COVER
 

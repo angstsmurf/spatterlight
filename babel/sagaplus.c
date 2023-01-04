@@ -6,7 +6,7 @@
 
 #define FORMAT sagaplus
 #define HOME_PAGE "https://github.com/angstsmurf/spatterlight/tree/master/terps/plus"
-#define FORMAT_EXT ".dat,.d64,.atr,.st,.msa,.dsk"
+#define FORMAT_EXT ".dat,.d64,.atr,.st,.msa,.dsk,.plus,.plu"
 #define NO_METADATA
 #define NO_COVER
 

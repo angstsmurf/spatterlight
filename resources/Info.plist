@@ -692,6 +692,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>saga</string>
+				<string>sag</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
@@ -851,6 +852,56 @@
 			<array>
 				<string>public.woz</string>
 			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>plus</string>
+				<string>plu</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Saga Plus Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plus</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tay</string>
+				<string>taylor</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>TaylorMade Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.tay</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -1419,6 +1470,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>saga</string>
+					<string>sag</string>
 				</array>
 			</dict>
 		</dict>
@@ -2044,6 +2096,64 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>woz</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Saga Plus Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>PLUS</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.plus</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>plus</string>
+					<string>plu</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TaylorMade Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>T</string>
+				<key>UTTypeIconText</key>
+				<string>TAYLOR</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.tay</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tay</string>
+					<string>taylor</string>
 				</array>
 			</dict>
 		</dict>
