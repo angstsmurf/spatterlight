@@ -951,8 +951,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>Bookmark</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SAVE</string>
 			</dict>
@@ -1561,8 +1559,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>IconGameHires</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>DAT</string>
 			</dict>
@@ -1590,8 +1586,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>IconGameHires</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SNAPSHOT</string>
 			</dict>
@@ -1676,12 +1670,12 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
-				<key>QUEST 4</key>
-				<string></string>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconBadgeName</key>
 				<string>Q</string>
+				<key>QUEST 4</key>
+				<string></string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.quest</string>
@@ -1708,8 +1702,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>Bookmark</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SAVE</string>
 			</dict>
@@ -1736,9 +1728,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>NEO IMAGE</string>
 			</dict>
@@ -1764,7 +1754,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>MCGA IMAGE</string>
 			</dict>
@@ -1884,7 +1874,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>D64</string>
 			</dict>
@@ -1944,7 +1934,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>FIAD</string>
 			</dict>
@@ -1971,7 +1961,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>DSK</string>
 			</dict>
@@ -2085,7 +2075,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>WOZ</string>
 			</dict>
@@ -2112,7 +2102,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>PLUS</string>
 			</dict>

@@ -25,10 +25,11 @@
 
 #include "babel_handler.h"
 
-@interface PreviewViewController () <QLPreviewingController>
-{
+@interface PreviewViewController () <QLPreviewingController> {
     BOOL iFiction;
     BOOL alreadySetupHorizontal;
+    BOOL imageIsNarrow;
+    BOOL switchingLayout;
 }
 
 @property (weak) IBOutlet NSScrollView *largeScrollView;
@@ -67,6 +68,11 @@
         _largeScrollView.frame = frame;
         self.preferredContentSize = size;
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidEndLiveResize:)
+                                                 name:NSWindowDidEndLiveResizeNotification
+                                               object:nil];
 }
 
 #pragma mark - Core Data stack
@@ -210,8 +216,6 @@
     }
     
     if (!metadata) {
-        //        error = [NSError errorWithDomain:NSCocoaErrorDomain code:101 userInfo:@{
-        //            NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No metadata!?!\n"]}];
         handler(error);
         return;
     }
@@ -248,7 +252,7 @@
 }
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
-    
+
     _ifid = nil;
     _addedFileInfo = NO;
     _showingIcon = NO;
@@ -396,96 +400,140 @@
         [_imageView addImageFromData:imageData];
     }
 
-    [self finalAdjustments:handler];
+    [self makeAdjustments:handler];
+    
+    switchingLayout = YES;
+    weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        PreviewViewController *strongSelf = weakSelf;
+        if (strongSelf) {
+            strongSelf->switchingLayout = NO;
+            if (!self.view.inLiveResize)
+                [strongSelf makeAdjustments:nil];
+        }
+    });
 }
 
 #pragma mark Layout
 
 - (void)drawVertical {
+    NSLog(@"drawVertical");
     if(!_vertical)
         return;
+
     _verticalView = [[InfoView alloc] initWithFrame:_largeScrollView.frame];
+    [_verticalView setContentHuggingPriority:750 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    [_verticalView setContentCompressionResistancePriority:250 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    [_verticalView setContentHuggingPriority:750 forOrientation:NSLayoutConstraintOrientationVertical];
+    [_verticalView setContentCompressionResistancePriority:250 forOrientation:NSLayoutConstraintOrientationVertical];
     _largeScrollView.documentView = _verticalView;
     [_verticalView updateWithDictionary:_metaDict];
 }
 
-- (void)drawHorizontal {
-    _largeScrollView.documentView = _horizontalView;
-    _horizontalView.frame = _largeScrollView.frame;
-    [self setUpHorizontalView];
-}
-
--(void)finalAdjustments:(void (^)(NSError * _Nullable))handler  {
-    NSScrollView *scrollView = _textview.enclosingScrollView;
-    NSView *superView = _imageView.superview;
-    NSSize viewSize = superView.frame.size;
-    _vertical = (viewSize.width - viewSize.height <= 20);
-    if (_vertical) {
-        [self drawVertical];
-        _showingView = YES;
-        handler(nil);
-    } else {
-        [self drawHorizontal];
-        CGFloat scrollheight = scrollView.frame.size.height;
-        CGFloat textheight = _textview.frame.size.height;
-        CGFloat viewheight = superView.frame.size.height;
-        [scrollView.contentView scrollToPoint:NSZeroPoint];
-        if (textheight < viewheight - 40 && scrollheight < textheight) {
-            NSRect frame = _textview.enclosingScrollView.frame;
-            //Text is mysteriously cropped at the bottom
-            CGFloat diff = ceil((textheight - scrollheight) / 2);
-            frame.size.height = textheight;
-            frame.origin.y -= diff;
-            scrollView.frame = frame;
-            scrollView.contentView.frame = scrollView.bounds;
+-(void)checkForChange {
+    BOOL wasVertical = _vertical;
+    _vertical = (self.view.frame.size.width - self.view.frame.size.height <= 20 || self.view.frame.size.width < 300);
+    if (!wasVertical && NSWidth(_textScrollView.frame) < 150)
+        _vertical = YES;
+    if (_vertical && !wasVertical) {
+        if (!switchingLayout) {
+            switchingLayout = YES;
+            PreviewViewController * __weak weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                PreviewViewController *strongSelf = weakSelf;
+                if (strongSelf) {
+                    strongSelf->switchingLayout = NO;
+                    [strongSelf drawVertical];
+                }
+            });
         }
-        _showingView = YES;
-        handler(nil);
+
+    } else if (!_vertical && wasVertical) {
+
+        if (!switchingLayout) {
+            switchingLayout = YES;
+            PreviewViewController * __weak weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                PreviewViewController *strongSelf = weakSelf;
+                if (strongSelf) {
+                    strongSelf->switchingLayout = NO;
+                    [strongSelf drawHorizontal];
+                }
+            });
+        }
+//        [self drawHorizontal];
+
     }
 }
 
--(void)viewWillLayout {
-    if (!_showingView || iFiction)
-        return;
-    NSSize viewSize = self.view.frame.size;
-    _vertical = (viewSize.width - viewSize.height <= 20);
-    if (_vertical && (_largeScrollView.documentView != _verticalView ||  NSWidth(self.view.frame) < NSWidth(_verticalView.frame))) {
-        // This .1 second delay prevents the tall and narrow view from sometimes
-        // getting the wrong width when added during live resize
-        PreviewViewController __weak *weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            PreviewViewController *strongSelf = weakSelf;
-            if (strongSelf) {
-                [strongSelf drawVertical];
-            }
-        });
-    } else if (!_vertical) {
-        if (_largeScrollView.documentView != _horizontalView)
-            [self drawHorizontal];
+
+-(void)makeAdjustments:(void (^)(NSError * _Nullable))handler  {
+    NSSize viewSize = _largeScrollView.frame.size;
+
+    if (viewSize.width < 1 || (viewSize.width > NSWidth(self.view.frame) && NSWidth(self.view.frame) > 1)) {
+        viewSize = self.view.frame.size;
+        _largeScrollView.frame = self.view.bounds;
+        _backgroundView.frame = self.view.bounds;
+    }
+
+    _vertical = (self.view.frame.size.width - self.view.frame.size.height <= 20 || self.view.frame.size.width < 300);
+    if (_vertical) {
+        [self drawVertical];
+        _showingView = YES;
+        if (handler)
+            handler(nil);
+    } else {
+        if (![self drawHorizontal] || NSWidth(_textScrollView.frame) < 150) {
+            _vertical = YES;
+            [self drawVertical];
+            _showingView = YES;
+            if (handler)
+                handler(nil);
+            return;
+        }
+        _showingView = YES;
+        if (handler)
+            handler(nil);
     }
 }
 
 - (void)viewDidLayout {
-    if (!_showingView || iFiction || _vertical)
+    [super viewDidLayout];
+    if (!_showingView || iFiction)
         return;
-    NSSize viewSize = self.view.frame.size;
-    NSScrollView *textScrollView = _textview.enclosingScrollView;
+    NSLog(@"viewDidLayout: imageView frame: %@", NSStringFromRect(_imageView.frame));
+    [self checkForChange];
+}
 
-    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:NSWidth(textScrollView.frame)];
-    if (textHeight <= viewSize.height - 40) {
-        _textClipHeight.constant = textHeight;
-    } else {
-        _textClipHeight.constant = viewSize.height - 40;
+-(void)afterLayoutAdjustments {
+    if (iFiction)
+        return;
+    if (!switchingLayout) {
+        switchingLayout = YES;
+        PreviewViewController * __weak weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            PreviewViewController *strongSelf = weakSelf;
+            if (strongSelf) {
+                strongSelf->switchingLayout = NO;
+                if (!self.view.inLiveResize)
+                 [strongSelf makeAdjustments:nil];
+            }
+        });
     }
+}
 
-    if (NSHeight(_imageView.frame) < NSHeight(textScrollView.frame)) {
-        _imageTopEqualsTextTop.active = YES;
-        _imageCenterYtoContainerCenter.active = YES;
-        _imageCenterYtoContainerCenter.priority = 250;
-    } else {
-        _imageTopEqualsTextTop.active = NO;
-        _imageCenterYtoContainerCenter.active = YES;
-        _imageCenterYtoContainerCenter.priority = 1000;
+- (void)windowDidEndLiveResize:(NSNotification *)notification {
+    if (!_showingView || iFiction)
+        return;
+    if ((NSWindow *)notification.object == self.view.window) {
+        // window matched
+        PreviewViewController * __weak weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            PreviewViewController *strongSelf = weakSelf;
+            if (strongSelf) {
+                [strongSelf afterLayoutAdjustments];
+            }
+        });
     }
 }
 
@@ -519,18 +567,70 @@
     return ceil(proposedRect.size.height + 20);
 }
 
-//- (void)debugPrintFinalLayout{
-//    NSLog(@"Final layout: view frame: %@ subview frame:%@ image view frame %@ scroll view frame:%@ text view frame:%@", NSStringFromRect(self.view.frame), NSStringFromRect(_imageView.superview.frame), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame), NSStringFromRect(_textview.frame));
-//    NSLog(@"Layout is %@", _vertical ? @"vertical" : @"horizontal");
-//    NSLog(@"Showing icon: %@", _showingIcon ? @"YES" : @"NO");
-//    NSLog(@"_textview.string.length:%ld", _textview.string.length);
-//}
+- (void)debugPrintFinalLayout {
+    NSLog(@"Final layout: view frame: %@ subview frame:%@ image view frame %@ scroll view frame:%@ text view frame:%@", NSStringFromRect(self.view.frame), NSStringFromRect(_imageView.superview.frame), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame), NSStringFromRect(_textview.frame));
+    NSLog(@"Layout is %@", _vertical ? @"vertical" : @"horizontal");
+    NSLog(@"Showing icon: %@", _showingIcon ? @"YES" : @"NO");
+    NSLog(@"_textview.string.length:%ld", _textview.string.length);
+}
 
-- (void)setUpHorizontalView {
-    NSView *superView = [InfoView addTopConstraintsToView:_backgroundView];
+- (void)viewWillLayout {
+    [super viewDidLayout];
+    if (!_showingView || iFiction)
+        return;
+
+    if (_vertical || _imageView.ratio == 0) {
+        return;
+    };
+
+    [self adjustConstraints:[self heightForString:_textview.textStorage andWidth:NSWidth(_horizontalView.frame) - NSMaxX(_imageView.frame) - 40]];
+}
+
+- (void)adjustConstraints:(CGFloat)textHeight {
+    _textClipHeight.constant = MIN(textHeight, NSHeight(_horizontalView.frame) - 40);
+
+    if (_textClipHeight.constant < 20) {
+        _textClipHeight.constant = 40;
+    }
+
+    CGFloat newImageHeight = NSHeight(_horizontalView.frame) - 40;
+    CGFloat newImageWidth = ceil(newImageHeight / _imageView.ratio);
+
+    [NSLayoutConstraint activateConstraints:@[_imagePinnedToContainerBottom, _imageTopToContainerTop, _imageBottomToContainerBottom, _centerImageVertically, _imageRatio]];
+
+    [NSLayoutConstraint deactivateConstraints:@[_imageBoxHeightTracksTextBox, _imageTrailingToCenterX]];
+
+    if (!imageIsNarrow) {
+        // Image is wide
+        NSLog(@"viewWillLayout: image is wide");
+        _imageTrailingToCenterX.active = YES;
+        newImageWidth = ceil(NSWidth(_horizontalView.frame) * 0.5);
+        newImageHeight = ceil(newImageWidth * _imageView.ratio);
+
+        if (newImageHeight >= NSHeight(_horizontalView.frame) - 40) {
+            // wide image fills vertically;
+            newImageHeight = NSHeight(_horizontalView.frame) - 40;
+            newImageWidth = ceil(newImageHeight / _imageView.ratio);
+            [NSLayoutConstraint deactivateConstraints:@[_centerImageVertically, _imageTrailingToCenterX]];
+        } else if (newImageHeight < _textClipHeight.constant) {
+            // text is taller than image
+            // Pinning image at text top
+            _imagePinnedToContainerBottom.active = NO;
+            _imageBoxHeightTracksTextBox.active = YES;
+        }
+    }
+
+    _imageWidthConstraint.constant = newImageWidth;
+}
+
+- (BOOL)drawHorizontal {
+    _largeScrollView.documentView = _horizontalView;
+    _horizontalView.frame = _largeScrollView.bounds;
+
+    NSView *superView = [InfoView addTopConstraintsToView:_horizontalView];
 
     [superView addConstraint:
-     [NSLayoutConstraint constraintWithItem:_backgroundView
+     [NSLayoutConstraint constraintWithItem:_horizontalView
                                   attribute:NSLayoutAttributeBottom
                                   relatedBy:NSLayoutRelationEqual
                                      toItem:superView
@@ -538,119 +638,109 @@
                                  multiplier:1.0
                                    constant:0]];
 
-    [_textview.enclosingScrollView.contentView scrollToPoint:NSZeroPoint];
 
-    if (alreadySetupHorizontal) {
-        return;
+    if (NSWidth(_horizontalView.frame) < 50 || NSHeight(_horizontalView.frame) < 50) {
+        _horizontalView.frame = self.view.bounds;
+        if (NSWidth(_horizontalView.frame) < 50 || NSHeight(_horizontalView.frame) < 50) {
+            _horizontalView.frame = NSMakeRect(0, 0, 565, 285);
+        }
     }
-    alreadySetupHorizontal = YES;
 
     NSSize imageSize = _imageView.originalImageSize;
     CGFloat ratio = _imageView.ratio;
+    if (ratio == 0)
+        ratio = 1;
 
-    CGFloat containerWidth = NSWidth(_backgroundView.frame);
-    CGFloat containerHeight = NSHeight(_backgroundView.frame);
+    CGFloat containerWidth = NSWidth(_horizontalView.frame);
+    CGFloat containerHeight = NSHeight(_horizontalView.frame);
 
-    CGFloat newHeight, newWidth;
+    CGFloat newImageHeight, newImageWidth;
     NSRect newImageFrame, newTextFrame;
 
-    _imageHeightTracksImageWidth =
-    [NSLayoutConstraint constraintWithItem:_imageView
-                                 attribute:NSLayoutAttributeHeight
-                                 relatedBy:NSLayoutRelationEqual
-                                    toItem:_imageView
-                                 attribute:NSLayoutAttributeWidth
-                                multiplier:ratio
-                                  constant:0];
-
-    [_backgroundView addConstraint:_imageHeightTracksImageWidth];
+    if (!_imageRatio) {
+        _imageRatio =
+        [NSLayoutConstraint constraintWithItem:_imageView
+                                     attribute:NSLayoutAttributeHeight
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:_imageView
+                                     attribute:NSLayoutAttributeWidth
+                                    multiplier:ratio
+                                      constant:0];
+        _imageRatio.priority = 900;
+        [_horizontalView addConstraint:_imageRatio];
+    }
 
     if (imageSize.height >= imageSize.width) {
         // Image is narrow
-        newHeight = containerHeight - 40;
-        newWidth = newHeight / ratio;
-
-        newImageFrame = _imageView.frame;
-        newImageFrame.size = NSMakeSize(newWidth, newWidth);
-        _imageView.frame = newImageFrame;
+        imageIsNarrow = YES;
+        newImageHeight = containerHeight - 40;
+        newImageWidth = ceil(newImageHeight / ratio);
     } else {
         // Image is wide
-        newWidth = containerWidth * 0.5 - 30;
-        newHeight = newWidth * ratio;
-        if (newHeight > containerHeight - 40) {
-            newHeight = containerHeight - 40;
-            newWidth = newHeight / ratio;
+        imageIsNarrow = NO;
+        newImageWidth = ceil(containerWidth * 0.5);
+        newImageHeight = ceil(newImageWidth * ratio);
+
+        if (newImageHeight >= containerHeight - 40) {
+            // wide image fills window vertically
+            newImageHeight = containerHeight - 40;
+            newImageWidth = ceil(newImageHeight / ratio);
         }
-
-        newImageFrame = _imageView.frame;
-        newImageFrame.size = NSMakeSize(newWidth, newHeight);
-        _imageView.frame = newImageFrame;
     }
 
-    NSScrollView *textScrollView = _textview.enclosingScrollView;
+    newImageFrame = NSMakeRect(20, 20, newImageWidth, newImageHeight);
 
-    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:NSWidth(textScrollView.frame)];
+    _imageWidthConstraint.constant = newImageWidth;
 
-    _textClipHeight =
-    [NSLayoutConstraint constraintWithItem:textScrollView
-                                 attribute:NSLayoutAttributeHeight
-                                 relatedBy:NSLayoutRelationEqual
-                                    toItem:nil
-                                 attribute:NSLayoutAttributeNotAnAttribute
-                                multiplier:1
-                                  constant:NSHeight(textScrollView.frame)];
-    _textClipHeight.priority = 900;
-    [_backgroundView addConstraint:_textClipHeight];
+#pragma mark TextView
 
-    newTextFrame = textScrollView.frame;
-    newTextFrame.size.width = containerWidth - NSWidth(newImageFrame) - 60;
-    newTextFrame.size.height = MIN(textHeight, containerHeight - 40);
-    newTextFrame.origin.x = NSMaxX(newTextFrame) + 20;
-    newTextFrame.origin.y = ceil((containerHeight - NSHeight(newTextFrame)) / 2);
-    textScrollView.frame = newTextFrame;
+    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:containerWidth - NSMaxX(newImageFrame) - 40];
 
-    if (textHeight <= containerHeight - 40) {
-        // All text fits on screen. Disable text scrollview top and bottom constraints
-        // And set a new fixed height
-        _textTopToContainerTop.active = NO;
-        _textBottomToContainerBottom.active = NO;
+    _textClipHeight.constant = MIN(textHeight, containerHeight - 40);
 
-        _textClipHeight.constant = textHeight;
-        _textview.frame = textScrollView.bounds;
-    } else {
-        // Text does not fit on screen. Set text scrollview height to container height
-        _textTopToContainerTop.active = YES;
-        _textBottomToContainerBottom.active = YES;
-        _textClipHeight.constant = containerHeight - 40;
+    if (_textClipHeight.constant < 20) {
+        NSLog(@"Error, containerHeight is %f", containerHeight);
+        _textClipHeight.constant = 245;
     }
 
-    _imageTopEqualsTextTop =
-    [NSLayoutConstraint constraintWithItem:_imageView
-                                 attribute:NSLayoutAttributeTop
-                                 relatedBy:NSLayoutRelationEqual
-                                    toItem:_textview
-                                 attribute:NSLayoutAttributeTop
-                                multiplier:1.0
-                                  constant:0];
-    _imageTopEqualsTextTop.active = NO;
+    newTextFrame = _textScrollView.frame;
+    newTextFrame.size.width = containerWidth - NSMaxX(newImageFrame) - 40;
+    newTextFrame.size.height = _textClipHeight.constant;
+    newTextFrame.origin.x = NSMaxX(newImageFrame) + 20;
+    CGFloat newHeightOffset = ceil((containerHeight - textHeight) / 2);
+    if (newHeightOffset < 20)
+        newHeightOffset = 20;
+    newTextFrame.origin.y = newHeightOffset;
 
-    [_backgroundView addConstraint:_imageTopEqualsTextTop];
-    _textview.frame = _textview.enclosingScrollView.bounds;
+    if (newTextFrame.size.width < 150)
+        return NO;
 
-    if (NSHeight(_imageView.frame) <= NSHeight(textScrollView.frame)) {
-        // Image height is less than text height
-        // Pinning image top to text top
-        _imageTopEqualsTextTop.active = YES;
-    } else {
-        //Image height is greater than text height
-        //Centering image vertically
-        _imageTopEqualsTextTop.active = NO;
+    _textScrollView.frame = newTextFrame;
+
+    newTextFrame = _textview.frame;
+    newTextFrame.size.width = _textScrollView.frame.size.width;
+    _textview.frame = newTextFrame;
+
+    if (!imageIsNarrow && newImageHeight < _textClipHeight.constant && newImageHeight + 20 + _textTopToContainerTop.constant < containerHeight) {
+        // text is taller than image
+        // Pinning image at text top
+        NSRect imageviewFrame = newImageFrame;
+        imageviewFrame.origin.x = 0;
+        imageviewFrame.origin.y = NSHeight(newTextFrame) - newImageHeight;
+        newImageFrame.size.height = NSHeight(newTextFrame);
+        newImageFrame.origin.y = newTextFrame.origin.y;
+        _imageView.frame = imageviewFrame;
     }
+
+    _imageBox.frame = newImageFrame;
 
     if (!_showingIcon)
         [self imageShadow];
     else
         _textLeadingTracksImageTrailing.constant = 0;
+
+    [self adjustConstraints:textHeight];
+    return YES;
 }
 
 #pragma mark Adding metadata
@@ -708,7 +798,20 @@
         [_imageView addImageFromData:imageData];
     }
 
-    [self finalAdjustments:handler];
+    [self makeAdjustments:handler];
+
+
+
+
+
+
+    PreviewViewController * __weak weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        PreviewViewController *strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf makeAdjustments:nil];
+        }
+    });
 }
 
 - (void)updateWithMetadata:(NSDictionary *)metadict url:(nullable NSURL *)url {

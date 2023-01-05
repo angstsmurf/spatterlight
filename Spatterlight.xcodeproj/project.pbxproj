@@ -622,6 +622,7 @@
 		C32A3D882719F34B0049C777 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
+		C33EAB382982F6550098CFD4 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C341A4A0272B265100A46ED4 /* ComparisonOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C341A49F272B265100A46ED4 /* ComparisonOperation.m */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; };
 		C343E4881ECC6744000F15B6 /* memicmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4871ECC6744000F15B6 /* memicmp.c */; };
@@ -8123,6 +8124,7 @@
 				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
 				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,
 				C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */,
+				C33EAB382982F6550098CFD4 /* NSFont+Categories.m in Sources */,
 				C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

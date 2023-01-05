@@ -22,19 +22,23 @@ API_AVAILABLE(macos(10.12))
 @property (readonly) NSPersistentContainer *persistentContainer;
 
 @property (unsafe_unretained) IBOutlet NSTextView *textview;
+@property (weak) IBOutlet NSView *textScrollView;
 
 @property (weak) IBOutlet NonInterpolatedImage *imageView;
+@property (weak) IBOutlet NSView *imageBox;
 
-@property (weak) IBOutlet NSLayoutConstraint *imageCenterYtoContainerCenter;
-@property (weak) IBOutlet NSLayoutConstraint *textBottomToContainerBottom;
-@property (weak) IBOutlet NSLayoutConstraint *textTopToContainerTop;
+@property (strong) NSLayoutConstraint *imageRatio;
 
-@property (weak) IBOutlet NSLayoutConstraint *imageTrailingToCenterX;
-@property (weak) IBOutlet NSLayoutConstraint *textWidthProportionalToContainer;
-@property (weak) IBOutlet NSLayoutConstraint *textLeadingTracksImageTrailing;
-
-@property NSLayoutConstraint *textClipHeight;
-@property NSLayoutConstraint *imageTopEqualsTextTop;
-@property NSLayoutConstraint *imageHeightTracksImageWidth;
+@property (strong) IBOutlet NSLayoutConstraint *imageBottomToContainerBottom;
+@property (strong) IBOutlet NSLayoutConstraint *imageBoxHeightTracksTextBox;
+@property (strong) IBOutlet NSLayoutConstraint *imageTopToContainerTop;
+@property (strong) IBOutlet NSLayoutConstraint *imagePinnedToContainerBottom;
+@property (strong) IBOutlet NSLayoutConstraint *imageTrailingToCenterX;
+@property (strong) IBOutlet NSLayoutConstraint *textBottomToContainerBottom;
+@property (strong) IBOutlet NSLayoutConstraint *textTopToContainerTop;
+@property (strong) IBOutlet NSLayoutConstraint *centerImageVertically;
+@property (strong) IBOutlet NSLayoutConstraint *textLeadingTracksImageTrailing;
+@property (strong) IBOutlet NSLayoutConstraint *textClipHeight;
+@property (strong) IBOutlet NSLayoutConstraint *imageWidthConstraint;
 
 @end
