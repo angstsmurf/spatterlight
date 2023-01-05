@@ -21,11 +21,11 @@ API_AVAILABLE(macos(10.12))
 
 @property (readonly) NSPersistentContainer *persistentContainer;
 
-@property (unsafe_unretained) IBOutlet NSTextView *textview;
-@property (weak) IBOutlet NSView *textScrollView;
+@property (strong) IBOutlet NSTextView *textview;
+@property (strong) IBOutlet NSScrollView *textScrollView;
 
-@property (weak) IBOutlet NonInterpolatedImage *imageView;
-@property (weak) IBOutlet NSView *imageBox;
+@property (strong) IBOutlet NonInterpolatedImage *imageView;
+@property (strong) IBOutlet NSView *imageBox;
 
 @property (strong) NSLayoutConstraint *imageRatio;
 
