@@ -31,7 +31,7 @@
 @end
 
 @interface LibController
-: NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate, NSTableViewDelegate, NSTableViewDataSource>
+: NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate, NSTableViewDelegate, NSTableViewDataSource, NSToolbarDelegate>
 
 @property NSURL *homepath;
 @property NSURL *imageDir;
@@ -101,7 +101,6 @@
 - (void)runCommandsFromFile:(NSString *)filename;
 - (void)restoreFromSaveFile:(NSString *)filename;
 
-- (IBAction)myToggleSidebar:(id)sender;
 - (IBAction)toggleColumn:(id)sender;
 
 - (IBAction)addGamesToLibrary:(id)sender;

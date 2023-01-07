@@ -2381,7 +2381,7 @@ struct GameInfo *DetectGame(size_t LocalVerbBase)
     return NULL;
 }
 
-void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
+static void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
 {
     FileImage = ParkedFile;
     FileImageLen = ParkedLength;
@@ -2390,7 +2390,7 @@ void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset
         free(CompanionFile);
 }
 
-void LookForSecondTOTGame(void)
+static void LookForSecondTOTGame(void)
 {
     size_t namelen = strlen(Filename);
     char *secondfile = MemAlloc(namelen + 1);
@@ -2482,8 +2482,6 @@ void LookForSecondTOTGame(void)
 
 void glk_main(void)
 {
-    /* The message analyser will look for version 0 games */
-
     if (DetectC64(&FileImage, &FileImageLen) != UNKNOWN_GAME) {
         EndOfData = FileImage + FileImageLen;
     }

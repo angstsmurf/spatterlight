@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,7 +32,6 @@
                 <outlet property="rightView" destination="127" id="356"/>
                 <outlet property="searchField" destination="131" id="176"/>
                 <outlet property="sideIfid" destination="163" id="171"/>
-                <outlet property="splitView" destination="124" id="170"/>
                 <outlet property="themesSubMenu" destination="454" id="478"/>
                 <outlet property="verifyDeleteMissingCheckbox" destination="OQn-6H-08f" id="bRF-fB-enA"/>
                 <outlet property="verifyFrequencyTextField" destination="J0R-Wk-Uqi" id="h0J-vp-VGH"/>
@@ -42,7 +42,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Interactive Fiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="5" userLabel="Library Window">
+        <window title="Interactive Fiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="5" userLabel="Library Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="216" y="-13" width="709" height="472"/>
@@ -834,7 +834,7 @@
                                         </buttonCell>
                                         <accessibility description="Hide or show the game info side bar"/>
                                         <connections>
-                                            <action selector="myToggleSidebar:" target="-2" id="fYg-Mv-okT"/>
+                                            <action selector="toggleSidebar:" target="-1" id="5BR-Fe-frf"/>
                                         </connections>
                                     </button>
                                     <button toolTip="Add games to the library" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
@@ -940,7 +940,7 @@
                             <real value="250"/>
                         </holdingPriorities>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="358"/>
+                            <outlet property="delegate" destination="Q6M-b7-ViT" id="PMn-kx-IDs"/>
                         </connections>
                     </splitView>
                 </subviews>
@@ -951,6 +951,34 @@
                     <constraint firstItem="124" firstAttribute="top" secondItem="6" secondAttribute="top" id="308"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="ED2CC28F-43A2-4C81-BE34-7D9038F792E0" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="CWh-bI-gPs">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="2aH-Mt-xLs"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="D3J-1z-efM"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="P0C-CQ-0Tr"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Vbr-kL-ffJ"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="sMG-hd-23e"/>
+                    <searchToolbarItem implicitItemIdentifier="3E3590E7-781C-4485-9895-DCD443CF5B12" label="Search" paletteLabel="Search" visibilityPriority="1001" id="epe-5U-Zrq">
+                        <nil key="toolTip"/>
+                        <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="c8K-vR-QXd">
+                            <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="m41-3w-ipk">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                        </searchField>
+                    </searchToolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="2aH-Mt-xLs"/>
+                    <toolbarItem reference="D3J-1z-efM"/>
+                    <toolbarItem reference="sMG-hd-23e"/>
+                    <toolbarItem reference="P0C-CQ-0Tr"/>
+                    <searchToolbarItem reference="epe-5U-Zrq"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="18"/>
             </connections>
@@ -1207,11 +1235,6 @@ CA
             </items>
             <point key="canvasLocation" x="-33" y="250"/>
         </menu>
-        <arrayController id="457" userLabel="Themes">
-            <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="459"/>
-            </connections>
-        </arrayController>
         <customView id="kXo-gL-wb8" userLabel="Force Quit View">
             <rect key="frame" x="0.0" y="0.0" width="284" height="21"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1296,6 +1319,24 @@ CA
             </subviews>
             <point key="canvasLocation" x="-122.5" y="-306"/>
         </customView>
+        <viewController id="0KA-3S-HRz" userLabel="Left View Controller">
+            <connections>
+                <outlet property="view" destination="125" id="fr0-Xd-c7J"/>
+            </connections>
+        </viewController>
+        <viewController id="31b-NX-DhA" userLabel="Right View Controller">
+            <connections>
+                <outlet property="view" destination="127" id="nMN-VN-x3x"/>
+            </connections>
+        </viewController>
+        <viewController id="Q6M-b7-ViT" userLabel="Split View Controller" customClass="SplitViewController">
+            <connections>
+                <outlet property="leftController" destination="0KA-3S-HRz" id="tBh-EW-dBh"/>
+                <outlet property="rightController" destination="31b-NX-DhA" id="reD-Ra-SI9"/>
+                <outlet property="splitView" destination="124" id="9Hh-XP-Qq6"/>
+                <outlet property="view" destination="124" id="CDW-PY-FSb"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
         <image name="ellipsis" width="16" height="16"/>

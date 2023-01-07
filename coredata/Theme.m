@@ -122,7 +122,7 @@
 
 	[cloned copyAttributesFrom:self];
 
-    NSString *trimmedString = [cloned.name substringFromIndex:(NSUInteger)MAX((int)[cloned.name length]-7, 0)]; //in case string is less than 7 characters long.
+    NSString *trimmedString = [cloned.name substringFromIndex:(NSUInteger)MAX((int)[cloned.name length] - 7, 0)]; //in case string is less than 7 characters long.
     if ([trimmedString isEqualToString:@" cloned"])
         cloned.name = [cloned.name stringByAppendingString:@" 2"];
     else
@@ -196,7 +196,7 @@
     }
 
     // We skip the first element (0), i.e. the Normal styles here
-    for (NSUInteger i = 1 ; i < style_NUMSTYLES ; i++)
+    for (NSUInteger i = 1; i < style_NUMSTYLES; i++)
 	{
         GlkStyle *style = [self valueForKey:gGridStyleNames[i]];
         // Delete all old GlkStyle objects that we do not want to keep

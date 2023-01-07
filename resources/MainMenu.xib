@@ -294,7 +294,7 @@ CA
                             <menuItem title="Show Sidebar" keyEquivalent="s" id="876">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="myToggleSidebar:" target="-1" id="VSe-eK-wdi"/>
+                                    <action selector="toggleSidebar:" target="-1" id="ffG-gy-cAr"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="687">

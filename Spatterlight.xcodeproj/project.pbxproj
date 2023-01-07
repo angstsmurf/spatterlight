@@ -678,6 +678,8 @@
 		C37EC5A8284807750084B841 /* plus in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C37EC5992847AA040084B841 /* plus */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C3836ED82789B569004B5061 /* seasofblood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seasofblood.c */; };
+		C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3853E5E29676561002D4A27 /* SplitViewController.m */; };
+		C3853E7129679175002D4A27 /* SplitView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3853E7029679175002D4A27 /* SplitView.storyboard */; };
 		C385B8B62757DFF700FE9AB3 /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C385B8B52757DFF700FE9AB3 /* vmuni_cs.cpp */; };
 		C386D530263F55930066BF5B /* ParagraphPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = C386D52E263F55920066BF5B /* ParagraphPopOver.m */; };
 		C386D631279E24B700D3BA46 /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C386D62F279E24B700D3BA46 /* decompressz80.c */; };
@@ -3056,6 +3058,9 @@
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
 		C3836ED42789B553004B5061 /* seasofblood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seasofblood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3836ED52789B553004B5061 /* seasofblood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seasofblood.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3853E5D29676561002D4A27 /* SplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
+		C3853E5E29676561002D4A27 /* SplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
+		C3853E7029679175002D4A27 /* SplitView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplitView.storyboard; sourceTree = "<group>"; };
 		C385B8B32757C35000FE9AB3 /* osstzprs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = osstzprs.h; sourceTree = "<group>"; };
 		C385B8B52757DFF700FE9AB3 /* vmuni_cs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vmuni_cs.cpp; path = glk/vmuni_cs.cpp; sourceTree = "<group>"; };
 		C386D52E263F55920066BF5B /* ParagraphPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParagraphPopOver.m; sourceTree = "<group>"; };
@@ -4561,6 +4566,7 @@
 				961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */,
 				C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */,
 				96A9BBA30A0668EB001B5B9B /* GameWindow.xib */,
+				C3853E7029679175002D4A27 /* SplitView.storyboard */,
 				6D73E55621873509009CD59A /* LibraryWindow.xib */,
 				96FBD8EF0A094E2F002F6087 /* InfoPanel.xib */,
 				6D85C896218BD6E00088D849 /* HelpPanelController.xib */,
@@ -5881,6 +5887,8 @@
 				C3191A9D266CDAF300528F6E /* ImageView.m */,
 				C32DBFA426714EFE00AB5704 /* MyFilePromiseProvider.h */,
 				C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */,
+				C3853E5D29676561002D4A27 /* SplitViewController.h */,
+				C3853E5E29676561002D4A27 /* SplitViewController.m */,
 			);
 			path = "Library window";
 			sourceTree = "<group>";
@@ -7247,6 +7255,7 @@
 				C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */,
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
 				96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */,
+				C3853E7129679175002D4A27 /* SplitView.storyboard in Resources */,
 				C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */,
 				C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */,
 				961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */,
@@ -7608,6 +7617,7 @@
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				C3AD648F261769DB008614C5 /* MarginImage.m in Sources */,
+				C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */,
 				C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */,
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
@@ -8949,7 +8959,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_BUILD = 0.9.9;
 				APP_VERSION = 0.9.9;
+				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_OSOBJECT_C_STYLE_CAST = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;
+				CLANG_TIDY_MISC_REDUNDANT_EXPRESSION = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -8982,6 +8999,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -8998,7 +9016,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_BUILD = 0.9.9;
 				APP_VERSION = 0.9.9;
+				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_OSOBJECT_C_STYLE_CAST = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;
+				CLANG_TIDY_MISC_REDUNDANT_EXPRESSION = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -9030,6 +9055,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -10347,7 +10373,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10387,7 +10413,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -10513,7 +10539,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10550,7 +10576,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -10751,7 +10777,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10789,7 +10815,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -10821,7 +10847,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10861,7 +10887,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INSTALL_PATH = "@executable_path";

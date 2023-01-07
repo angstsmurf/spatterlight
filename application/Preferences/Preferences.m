@@ -777,7 +777,7 @@ NSString *fontToString(NSFont *font) {
     currentFrame.size.height = newHeight;
 
     return currentFrame;
-};
+}
 
 - (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame {
     if (window != self.window)

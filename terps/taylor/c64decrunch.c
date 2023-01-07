@@ -319,7 +319,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record
     int numswitches = 0;
 
     if (record.switches != NULL) {
-        strcpy(string, record.switches);
+        strncpy(string, record.switches, strlen(record.switches));
         switches[numswitches] = strtok(string, " ");
 
         while (switches[numswitches] != NULL)

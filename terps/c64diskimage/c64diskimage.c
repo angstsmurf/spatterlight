@@ -251,7 +251,6 @@ static unsigned char *di_get_ts_addr(DiskImage *di, TrackSector ts)
 /* get error info for a sector */
 static int get_ts_doserr(DiskImage *di, TrackSector ts)
 {
-    //	return 1;
     if (di->errinfo == NULL) {
         return 1; /* return OK if image has no error info */
     }

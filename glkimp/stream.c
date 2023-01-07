@@ -246,7 +246,7 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
     }
 
     if (!fref->textmode)
-        strcat(modestr, "b");
+        strncat(modestr, "b", sizeof modestr - 1);
 
     fl = fopen(fref->filename, modestr);
     if (!fl) {
@@ -270,8 +270,9 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
 
     str->isbinary = !fref->textmode;
     str->file = fl;
-    str->filename = malloc(1 + strlen(fref->filename));
-	strcpy(str->filename, fref->filename);
+    size_t length = 1 + strlen(fref->filename);
+    str->filename = malloc(length);
+	strncpy(str->filename, fref->filename, length);
 
     str->lastop = 0;
 
@@ -461,11 +462,11 @@ strid_t gli_stream_open_pathname(char *pathname, int writemode,
     FILE *fl;
 
     if (!writemode)
-        strcpy(modestr, "r");
+        strncpy(modestr, "r", sizeof modestr);
     else
-        strcpy(modestr, "w");
+        strncpy(modestr, "w", sizeof modestr);
     if (!textmode)
-        strcat(modestr, "b");
+        strncat(modestr, "b", sizeof modestr - 1);
 
     fl = fopen(pathname, modestr);
     if (!fl) {
@@ -481,8 +482,9 @@ strid_t gli_stream_open_pathname(char *pathname, int writemode,
 
     str->isbinary = !textmode;
     str->file = fl;
-    str->filename = malloc(1 + strlen(pathname));
-	strcpy(str->filename, pathname);
+    size_t length = 1 + strlen(pathname);
+    str->filename = malloc(length);
+	strncpy(str->filename, pathname, length);
 
     str->lastop = 0;
 

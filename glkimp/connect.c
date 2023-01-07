@@ -228,8 +228,7 @@ void wintitle(void)
     size_t len = strlen(gli_story_title);
     if (len) {
         char *buf = malloc(len + 1);
-        strcpy(buf, gli_story_title);
-
+        strncpy(buf, gli_story_title, len + 1);
         if (strlen(buf))
         {
             sendmsg(SETTITLE, 0, 0, 0, 0, 0,
@@ -507,7 +506,7 @@ void win_loadimage(int resno, char *filename, int offset, int reslen)
         if (len)
         {
             char *buf = malloc(len + 1);
-            strcpy(buf, filename);
+            strncpy(buf, filename, len + 1);
             sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, buf);
             free(buf);
         }
@@ -586,7 +585,7 @@ void win_loadsound(int resno, char *filename, int offset, int reslen)
         if (len)
         {
             char *buf = malloc(len + 1);
-            strcpy(buf, filename);
+            strncpy(buf, filename, len + 1);
             sendmsg(LOADSOUND, resno, offset, reslen, 0, 0, len, buf);
             free(buf);
         }
@@ -702,7 +701,7 @@ void win_showerror(const char *str)
     size_t len = strlen(str);
     if (len) {
         char *buf = malloc(len + 1);
-        strcpy(buf, str);
+        strncpy(buf, str, len + 1);
 
         if (strlen(buf))
         {

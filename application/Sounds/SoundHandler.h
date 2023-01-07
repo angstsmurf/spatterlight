@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) NSURL *URL;
 @property (weak) SoundHandler *handler;
 
-@end;
+@end
 
 
 @interface SoundResource : NSObject

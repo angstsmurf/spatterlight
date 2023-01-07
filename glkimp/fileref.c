@@ -35,8 +35,9 @@ fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 
 	fref->rock = rock;
 
-	fref->filename = malloc(1 + strlen(filename));
-	strcpy(fref->filename, filename);
+    size_t length = 1 + strlen(filename);
+	fref->filename = malloc(length);
+    strncpy(fref->filename, filename, length);
 
 	fref->textmode = ((usage & fileusage_TextMode) != 0);
 	fref->filetype = (usage & fileusage_TypeMask);
@@ -118,7 +119,7 @@ frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
     size_t temppathsize = sizeof(tempdir);
     char *temppath = malloc(temppathsize + 19);
     snprintf(temppath, temppathsize, "%s", tempdir);
-    strcat(temppath, "/glktempfref-XXXXXX");
+    strncat(temppath, "/glktempfref-XXXXXX", temppathsize + 19);
 
     mkstemp(temppath);
 

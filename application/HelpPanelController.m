@@ -207,7 +207,7 @@ fprintf(stderr, "%s\n",                                                    \
     newFrame.origin.x = (screenframe.size.width - newFrame.size.width) / 2;
 
     return newFrame;
-};
+}
 
 - (id)accessibilityFocusedUIElement {
     return _textView;

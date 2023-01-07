@@ -328,6 +328,7 @@ extern NSArray *gGameFileTypes;
            [@(format) isEqualToString:@"advsys"] ||
            [@(format) isEqualToString:@"sagaplus"] ||
            [@(format) isEqualToString:@"scott"] )) ||
+        ([extension isEqualToString:@"sna"] && [@(format) isEqualToString:@"alan"]) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
         (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![@(format) isEqualToString:@"sagaplus"]) ||
         (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"] && ![@(format) isEqualToString:@"taylor"] && ![@(format) isEqualToString:@"sagaplus"])) {

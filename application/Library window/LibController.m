@@ -1397,13 +1397,6 @@ enum  {
         return YES;
     }
 
-
-    if (action == @selector(myToggleSidebar:))
-    {
-        NSString* title = _leftView.hidden ? NSLocalizedString(@"Show Sidebar", nil) : NSLocalizedString(@"Hide Sidebar", nil);
-        ((NSMenuItem*)menuItem).title = title;
-    }
-
     return YES;
 }
 
@@ -3227,6 +3220,78 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 }
 
 #pragma mark -
+#pragma mark ToolBar stuff
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+
+    /// Create a new NSToolbarItem, and then go through the process of setting up its attributes.
+//    if (itemIdentifier == addItem)
+//    if itemIdentifier == NSToolbarItem.Identifier.addItem {
+//        // Configure the Add toolbar item.
+//        var image: NSImage!
+//        if #available(OSX 11.0, *) {
+//            let config = NSImage.SymbolConfiguration(scale: .large)
+//            image = NSImage(systemSymbolName: "plus", accessibilityDescription: "Add")!.withSymbolConfiguration(config)
+//        } else {
+//            image = NSImage(named: NSImage.addTemplateName)
+//        }
+//        let segmentControl = NSSegmentedControl(images: [image], trackingMode: .selectOne, target: nil, action: nil)
+//
+//        let addMenu = NSMenu(title: "Add")
+//        addMenu.addItem(NSMenuItem(title: "Add Picture…", action: #selector(addPictureAction), keyEquivalent: ""))
+//        addMenu.addItem(NSMenuItem(title: "Add Group", action: #selector(addFolderAction), keyEquivalent: ""))
+//        segmentControl.setMenu(addMenu, forSegment: 0)
+//        segmentControl.setShowsMenuIndicator(true, forSegment: 0)
+//
+//        toolbarItem.view = segmentControl
+//        toolbarItem.label = "Add"
+//        toolbarItem.image = image
+//    } else if itemIdentifier == NSToolbarItem.Identifier.removeItem {
+//        // Configure the Remove toolbar item.
+//        if #available(OSX 11.0, *) {
+//            let config = NSImage.SymbolConfiguration(scale: .small)
+//            let image = NSImage(systemSymbolName: "minus", accessibilityDescription: "Remove")!.withSymbolConfiguration(config)
+//            toolbarItem.image = image
+//        } else {
+//            toolbarItem.image = NSImage(named: NSImage.removeTemplateName)
+//        }
+//        toolbarItem.action = #selector(removeAction)
+//        toolbarItem.label = "Remove"
+//    }
+
+    return toolbarItem;
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+
+    /** Note that the system adds the .toggleSideBar toolbar item to the toolbar to the far left.
+     This toolbar item hides and shows (toggle) the primary or side bar split-view item.
+
+     For this toolbar item to work, you need to set the split-view item's NSSplitViewItem.Behavior to sideBar,
+     which is already in the storyboard. Also note that the system automatically places .addItem and .removeItem to the far right.
+     */
+    //    var toolbarItemIdentifiers = [NSToolbarItem.Identifier]()
+    //    if #available(macOS 11.0, *) {
+    //        toolbarItemIdentifiers.append(.toggleSidebar)
+    //    }
+    //    toolbarItemIdentifiers.append(.addItem)
+    //    toolbarItemIdentifiers.append(.removeItem)
+    //    return toolbarItemIdentifiers
+
+    NSMutableArray<NSToolbarItemIdentifier> *toolbarItemIdentifiers = [NSMutableArray new];
+    if (@available(macOS 11.0, *)) {
+        [toolbarItemIdentifiers addObject:NSToolbarToggleSidebarItemIdentifier];
+    }
+
+    return toolbarItemIdentifiers;
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
+#pragma mark -
 #pragma mark SplitView stuff
 
 - (void) updateSideViewForce:(BOOL)force {
@@ -3322,15 +3387,6 @@ canCollapseSubview:(NSView *)subview
         result = ACTUAL_LEFT_VIEW_MIN_WIDTH;
 
     return result;
-}
-
--(IBAction)myToggleSidebar:(id)sender
-{
-    if ([_splitView isSubviewCollapsed:_leftView]) {
-        [self uncollapseLeftView];
-    } else {
-        [self collapseLeftView];
-    }
 }
 
 -(void)collapseLeftView
