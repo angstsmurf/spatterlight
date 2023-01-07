@@ -300,7 +300,7 @@ void Updates(event_t ev)
         OpenGraphicsWindow();
         if (AnimationRunning && LastAnimationBackground) {
             char buf[5];
-            snprintf(buf, 5, "S0%02d", LastAnimationBackground);
+            snprintf(buf, sizeof buf, "S0%02d", LastAnimationBackground);
             DrawImageWithName(buf);
         } else {
             SetBit(DRAWBIT);
@@ -428,7 +428,9 @@ static void FlushRoomDescription(char *buf,  int transcript)
         int line = 0;
         int index = 0;
         int i;
-        char string[TopWidth + 1];
+        if (TopWidth > 2047)
+            TopWidth = 2047;
+        char string[2048];
         for (line = 0; line < rows && index < length; line++) {
             for (i = 0; i < TopWidth; i++) {
                 string[i] = text_with_breaks[index++];

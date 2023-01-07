@@ -120,7 +120,9 @@ int SanityCheckHeader(void)
 uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
 {
     uint8_t *ptr = *pointer;
-    char dictword[info.word_length + 2];
+    if (info.word_length + 2 > 1024)
+        Fatal("Bad word length");
+    char dictword[1024];
     char c = 0;
     int wordnum = 0;
     int charindex = 0;
@@ -189,7 +191,7 @@ uint8_t *ReadDictionary(struct GameInfo info, uint8_t **pointer, int loud)
         }
         wordnum++;
 
-        if (c != 0 && c > 127)
+        if (c > 127)
             return ptr;
 
         charindex = 0;
@@ -367,6 +369,7 @@ int ParseHeader(int *h, HeaderType type, int *ni, int *na, int *nw, int *nr,
 void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
                      int tr, int wl, int lt, int mn, int trm)
 {
+#if (DEBUG_PRINT)
     uint16_t value;
     for (int i = 0; i < 13; i++) {
         value = h[i];
@@ -385,6 +388,7 @@ void PrintHeaderInfo(int *h, int ni, int na, int nw, int nr, int mc, int pr,
     debug_print("Treasure room: %d\n", trm);
     debug_print("Lightsource time left: %d\n", lt);
     debug_print("Number of treasures: %d\n", tr);
+#endif
 }
 
 typedef struct {
@@ -595,7 +599,7 @@ int TryLoadingOld(struct GameInfo info, int dict_start)
             if (charindex > 255)
                 break;
         }
-        if (c != 0 && c > 127)
+        if (c > 127)
             return 0;
     } while (ct < nr + 1);
 
@@ -951,7 +955,7 @@ int TryLoading(struct GameInfo info, int dict_start, int loud)
                     if (charindex > 255)
                         break;
                 }
-                if (c != 0 && c > 127)
+                if (c > 127)
                     return 0;
             } while (ct < nr + 1);
         } else {

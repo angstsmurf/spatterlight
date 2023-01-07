@@ -164,7 +164,7 @@ static const char *ReadWholeLine(FILE *f)
         }
     } while (c != EOF && (isspace((unsigned char)c) || c == '\"')); // Strip first hyphen
     do {
-        if (c == '\n' || c == 10 || c == 13 || c == EOF)
+        if (c == 10 || c == 13 || c == EOF)
             break;
         /* Pass only ASCII to Glk; the other reasonable option
          * would be to pass Latin-1, but it's probably safe to
@@ -777,8 +777,9 @@ static int SetGame(const char *id_string, size_t length) {
 
 int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
     int result = 0;
-    char filename[2048];
-    int n = snprintf(filename, DirPathLength + 9, "%s%s.PAK", DirPath, shortname);
+    size_t pathlen = DirPathLength + 9;
+    char *filename = MemAlloc(pathlen);
+    int n = snprintf(filename, pathlen, "%s%s.PAK", DirPath, shortname);
     if (n > 0) {
         FILE *infile=fopen(filename,"rb");
         if (infile) {
@@ -799,6 +800,7 @@ int FindAndAddImageFile(char *shortname, struct imgrec *rec) {
             debug_print("Could not find or read image file %s\n", filename);
         }
     }
+    free(filename);
     return result;
 }
 

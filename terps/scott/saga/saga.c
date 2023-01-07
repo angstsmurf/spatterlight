@@ -114,7 +114,7 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
         }
         wordnum++;
 
-        if (c != 0 && c > 127)
+        if (c > 127)
             return ptr;
 
         charindex = 0;
@@ -297,7 +297,7 @@ uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof) {
         debug_print("Unknown value %d: %d (%x)\n", i/2, val, val);
     }
 #endif
-    return ptr + count;
+    return  ptr + count;
 }
 
 int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int dict_start)

@@ -170,7 +170,7 @@ uint16_t checksum(uint8_t *sf, uint32_t extent)
     return c;
 }
 
-static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
+static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
 
 size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
@@ -465,7 +465,9 @@ void LoadC64USImages(uint8_t *data, size_t length) {
         unsigned char rawname[1024];
         if (filenames) {
             int imgindex = 0;
-            char *imagefiles[numfiles];
+            if (numfiles > 1024)
+                numfiles = 1024;
+            char *imagefiles[1024];
             for (int i = 0; i < numfiles; i++) {
                 if (issagaimg(filenames[i])) {
                     imagefiles[imgindex++] = filenames[i];
@@ -516,7 +518,7 @@ void LoadC64USImages(uint8_t *data, size_t length) {
     }
 }
 
-int DetectC64(uint8_t **sf, size_t *extent)
+GameIDType DetectC64(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < MIN_LENGTH)
         return 0;
@@ -550,7 +552,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                 if (buflen <= 0 || buflen > MAX_LENGTH)
                     return 0;
 
-                uint8_t megabuf[buflen];
+                uint8_t *megabuf = MemAlloc(buflen);
                 memcpy(megabuf, largest_file, newlength);
                 if (appendix != NULL) {
                     memcpy(megabuf + newlength + c64_registry[i].parameter, appendix + 2,
@@ -564,6 +566,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
                     memcpy(*sf, megabuf, newlength);
                     *extent = newlength;
                 }
+                free(megabuf);
 
             } else if (c64_registry[i].type == TYPE_T64) {
                 uint8_t *file_records = *sf + 64;
@@ -626,7 +629,7 @@ int DetectC64(uint8_t **sf, size_t *extent)
     return 0;
 }
 
-static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
+static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 {
     size_t length = *extent;
     size_t decompressed_length = *extent;
@@ -673,7 +676,7 @@ static int DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record)
 
     if (record.type == TYPE_US) {
         *extent = length;
-        return result;
+        return record.id;
     }
 
     for (int i = 0; games[i].Title != NULL; i++) {
