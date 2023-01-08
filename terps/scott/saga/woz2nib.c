@@ -190,6 +190,24 @@ static uint8_t bitstring2byte(char nibble[8]) {
     return result;
 }
 
+static char *swap_head_and_tail(char *bitstring, int head_len, int length) {
+    char *head = MemAlloc(head_len);
+    memcpy(head, bitstring, head_len);
+
+    int tail_len = length - head_len;
+    char *tail = MemAlloc(tail_len);
+    memcpy(tail, bitstring + head_len, tail_len);
+
+    memcpy(bitstring, tail, tail_len);
+    memcpy(bitstring + tail_len, head, head_len);
+    bitstring[length] = '\0';
+
+    free(head);
+    free(tail);
+
+    return bitstring;
+}
+
 
 uint8_t *woz2nib(uint8_t *ptr, size_t *len) {
     uint8_t tempout[300000];
@@ -444,57 +462,16 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len) {
                 sync_len = 72;
             char *pos = strstr(bitstring, sync_bytes[ns]);
             if (pos != NULL) { // Found sync bytes
-                int offset = (int)(pos - bitstring);
                 nr_sectors = ns;
-                int tail_len = bit_count - offset - sync_len;
-                int head_len = offset + sync_len;
-
-                char *head = MemAlloc(head_len);
-                memcpy(head, bitstring, head_len);
-
-                char *tail = MemAlloc(tail_len);
-                memcpy(tail, bitstring + head_len, tail_len);
-
-                memcpy(bitstring, tail, tail_len);
-                memcpy(bitstring + tail_len, head, head_len);
-                bitstring[bit_count] = '\0';
-                free(head);
-                free(tail);
+                bitstring = swap_head_and_tail(bitstring, (int)(pos - bitstring) + sync_len, bit_count);
                 break;
             } else { // has been split when linearizing the circular track?
                 debug_print ("rotate and retry by %d bits\n", sync_len);
-
-                int tail_len2 = bit_count - sync_len;
-
-                char *head2 = MemAlloc(sync_len);
-                memcpy(head2, bitstring + tail_len2, sync_len);
-
-                char *tail2 = MemAlloc(tail_len2);
-                memcpy(tail2, bitstring, tail_len2);
-
-                memcpy(bitstring, head2, sync_len);
-                memcpy(bitstring + sync_len, tail2, tail_len2);
-
-                free(head2);
-                free(tail2);
-
+                bitstring = swap_head_and_tail(bitstring, bit_count - sync_len, bit_count);
                 pos = strstr(bitstring, sync_bytes[ns]); //try once more...
                 if (pos != NULL) {
-                    int offset = (int)(pos - bitstring);
                     nr_sectors = ns;
-                    int tail_len3 = bit_count - offset - sync_len;
-                    int head_len3 = offset + sync_len;
-                    char *head3 = MemAlloc(head_len3);
-                    memcpy(head3, bitstring, head_len3);
-
-                    char *tail3 = MemAlloc(tail_len3);
-                    memcpy(tail3, bitstring + head_len3, tail_len3);
-
-                    memcpy(bitstring, tail3, tail_len3);
-                    memcpy(bitstring + tail_len3, head3, head_len3);
-                    bitstring[bit_count] = '\0';
-                    free(head3);
-                    free(tail3);
+                    bitstring = swap_head_and_tail(bitstring, (int)(pos - bitstring) + sync_len, bit_count);
                     break;
                 }
             }
