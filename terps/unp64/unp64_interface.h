@@ -1,8 +1,7 @@
 //
 //  unp64_interface.h
-//  Spatterlight
 //
-//  Created by Administrator on 2022-01-31.
+//  Created by Petter Sjölund on 2022-01-31.
 //
 
 #ifndef unp64_interface_h
