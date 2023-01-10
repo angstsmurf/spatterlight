@@ -403,8 +403,10 @@ void stash_library_sound_state(library_state_data *dat)
 
     auto channel = channels.at(Channels::Effects);
 
+    dat->autosave_version = 1;
     dat->routine = channel->routine;
     dat->queued_sound = channel->queued.number;
+    dat->queued_volume = channel->queued.volume;
     if (channels.loaded())
         dat->sound_channel_tag = channel->channel->tag;
 }
@@ -417,6 +419,8 @@ void recover_library_sound_state(library_state_data *dat)
     channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
     channel->routine = dat->routine;
     channel->queued.number = dat->queued_sound;
+    if (dat->autosave_version > 0)
+        channel->queued.volume = dat->queued_volume;
 }
 #endif
 
