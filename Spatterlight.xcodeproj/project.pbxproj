@@ -3295,6 +3295,10 @@
 		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
 		C3E49E1428D8AC0D009B94E7 /* ciderpress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ciderpress.c; sourceTree = "<group>"; };
 		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
+		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		C3E934AA296D9367000A0640 /* help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help.h; sourceTree = "<group>"; };
+		C3E934AB296D9385000A0640 /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
+		C3E934AC296D93C2000A0640 /* v1234.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v1234.h; sourceTree = "<group>"; };
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
@@ -3985,11 +3989,13 @@
 				6DD3D26C2512C11300667CA6 /* dict.h */,
 				6DB774AD2458B9B300EDC671 /* dict.cpp */,
 				6DB774AE2458B9B300EDC671 /* glkstart.cpp */,
+				C3E934AA296D9367000A0640 /* help.h */,
 				C319329327E401480054FE2C /* iff.h */,
 				C319328127E338100054FE2C /* iff.cpp */,
 				C319329527E401510054FE2C /* io.h */,
 				C319328027E338100054FE2C /* io.cpp */,
 				6DD3D26D2512C11300667CA6 /* help.h */,
+				C3E934AB296D9385000A0640 /* math.h */,
 				6DD3D2702512C11300667CA6 /* mathop.h */,
 				6DB774B12458B9B300EDC671 /* mathop.cpp */,
 				6DD3D2712512C11300667CA6 /* memory.h */,
@@ -4016,10 +4022,12 @@
 				6DB774BB2458B9B300EDC671 /* stack.cpp */,
 				C3FB3285269F5BEE00A1B09C /* stash.h */,
 				C3FB3286269F5BEE00A1B09C /* stash.cpp */,
+				C3E934A8296D932B000A0640 /* types.h */,
 				6DD3D27B2512C11300667CA6 /* unicode.h */,
 				6DB774BC2458B9B300EDC671 /* unicode.cpp */,
 				6DD3D27C2512C11300667CA6 /* util.h */,
 				6DB774BD2458B9B300EDC671 /* util.cpp */,
+				C3E934AC296D93C2000A0640 /* v1234.h */,
 				6DD3D27D2512C11300667CA6 /* zoom.h */,
 				6DB774BE2458B9B300EDC671 /* zoom.cpp */,
 				6DD3D27E2512C11300667CA6 /* zterp.h */,
