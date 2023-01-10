@@ -968,7 +968,9 @@ static void incrementVisits(int location) {
 static void revisited(void) {
     if (anyOutput)
         para();
+    setSubHeaderStyle();
     say(where(HERO, DIRECT));
+    setNormalStyle();
     printMessage(M_AGAIN);
     newline();
     describeInstances();

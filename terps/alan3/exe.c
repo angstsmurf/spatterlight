@@ -557,6 +557,7 @@ void showImage(int image, int align)
         (glk_gestalt(gestalt_DrawImage, wintype_TextBuffer) == 1)) {
         glk_window_flow_break(glkMainWin);
         printf("\n");
+        /* align will always be 0 as Alan don't have image align, so use margin left */
         ecode = glk_image_draw(glkMainWin, image, imagealign_MarginLeft, 0);
         (void)ecode;
     }
@@ -642,7 +643,11 @@ static int randomValue = 0;
 /*----------------------------------------------------------------------*/
 int randomInteger(int from, int to)
 {
+#ifdef SPATTERLIGHT
     if (regressionTestOption || gli_determinism) {
+#else
+    if (regressionTestOption) {
+#endif
         int ret = from + randomValue;
         /* Generate them in sequence */
         if (ret > to) {
@@ -745,7 +750,7 @@ void startTranscript(void) {
     /* If we couldn't open file, don't do transcript */
     if (transcriptFile == NULL) {
         transcriptOption = false;
-    }  else {
+    } else {
         transcriptOption = true;
         if (encodingOption == ENCODING_UTF) {
             uchar BOM[3] = {0xEF,0xBB,0xBF};

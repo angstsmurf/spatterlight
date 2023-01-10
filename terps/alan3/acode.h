@@ -7,7 +7,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef uint32_t Aptr;       /* Type for an ACODE pointer used in the structures */
+typedef uint32_t Aptr;       /* Type for a mapped possibly 64-bit pointer used in the structures */
 /* Aptrs are 32 bit to fit into the 32-bit structure of the Amachine,
    but represents a *real* pointer value, which on 64-bit machines are
    64bits. So an Aptr is a symbolic value for the actual address and
@@ -479,7 +479,7 @@ typedef struct ACodeHeader {
     char tag[4];                /* "ALAN" */
     char version[4];            /* Version of compiler */
     Aword uid;                  /* Unique id of the compiled game */
-    Aword size;                 /* Size of Acode-part of the file in Awords (strings are stored after) */
+    Aword size;                 /* Size in Awords of Acode-part of the file .acd file (strings are stored after) */
     /* Options */
     Abool pack;                  /* Is the text packed and encoded ? */
     Aword stringOffset;          /* Offset to string data in game file */
@@ -536,7 +536,7 @@ typedef struct Pre3_0beta2Header {
     char tag[4];              /* "ALAN" */
     char version[4];          /* Version of compiler */
     Aword uid;                /* Unique id of the compiled game */
-    Aword size;               /* Size of ACD-file in Awords */
+    Aword size;               /* Size in Awords of header + Acode part of .acd-file (strings are stored after) */
     /* Options */
     Abool pack;               /* Is the text packed ? */
     Aword stringOffset;       /* Offset to string data in game file */
@@ -592,7 +592,7 @@ typedef struct Pre3_0alpha5Header {
     char tag[4];              /* "ALAN" */
     char version[4];          /* Version of compiler */
     Aword uid;                /* Unique id of the compiled game */
-    Aword size;               /* Size of ACD-file in Awords */
+    Aword size;               /* Size in Awords of header + Acode part of .acd-file (strings are stored after) */
     /* Options */
     Abool pack;               /* Is the text packed ? */
     Aword stringOffset;       /* Offset to string data in game file */

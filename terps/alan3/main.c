@@ -45,7 +45,9 @@
 #include "glk.h"
 #include "glkio.h"
 
+#ifdef SPATTERLIGHT
 extern glui32 gli_determinism;
+#endif
 
 #ifdef HAVE_WINGLK
 #include "WinGlk.h"
@@ -434,7 +436,11 @@ static void checkDebug(void)
         tracePushOption = false;
     }
 
-    if (debugOption || regressionTestOption || gli_determinism) /* If debugging or regression testing... */
+#ifdef SPATTERLIGHT
+    if (debugOption || regressionTestOption || gli_determinism)
+#else
+    if (debugOption || regressionTestOption) /* If debugging or regression testing... */
+#endif
         srand(1);               /* ... use no randomization */
     else
         srand(time(0));         /* Else seed random generator */
