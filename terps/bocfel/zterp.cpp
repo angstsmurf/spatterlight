@@ -37,6 +37,7 @@
 #include "zterp.h"
 #include "blorb.h"
 #include "branch.h"
+#include "iff.h"
 #include "io.h"
 #include "memory.h"
 #include "meta.h"
@@ -167,7 +168,7 @@ static void find_id()
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
     });
 
-    std::stringstream ss;
+    std::ostringstream ss;
     ss << header.release << "-" << serial;
     if (std::strchr("012345679", serial[0]) != nullptr &&
         serial != "000000" &&
@@ -201,8 +202,9 @@ static void read_config()
         lineno++;
 
         auto comment = line.find('#');
-        if (comment != std::string::npos)
+        if (comment != std::string::npos) {
             line.erase(comment);
+        }
         line = rtrim(line);
 
         if (line.empty()) {
@@ -238,6 +240,24 @@ static void read_config()
             continue;
         }
 
+        try {
+            std::map<std::string, std::string> legacy_names = {
+                {"notes_editor", "editor"},
+                {"max_saves", "undo_slots"},
+            };
+
+            auto newkey = legacy_names.at(key);
+            std::cerr << *file << ":" << lineno << ": warning: configuration option " << key;
+            if (newkey.empty()) {
+                std::cerr << " no longer exists" << std::endl;
+                continue;
+            } else {
+                std::cerr << " is deprecated; it has been renamed " << newkey << std::endl;
+            }
+            key = newkey;
+        } catch (const std::out_of_range &) {
+        }
+
 #define START()		if (false) do { } while (false)
 
 #define BOOL(name)	else if (key == #name) do { \
@@ -254,8 +274,8 @@ static void read_config()
     char *endptr; \
     unsigned long n; \
     n = std::strtoul(val.c_str(), &endptr, 10); \
-    if (*endptr != 0) { \
-        std::cerr << *file << ":" << lineno << ": invalid value for " << #name << ": must be a number" << std::endl; \
+    if (val[0] == '-' || *endptr != 0) { \
+        std::cerr << *file << ":" << lineno << ": invalid value for " << #name << ": must be a non-negative number" << std::endl; \
     } else { \
         options.name = wrapper(n); \
     } \
@@ -316,7 +336,7 @@ static void read_config()
         BOOL  (disable_term_keys);
         STRING(username);
         BOOL  (disable_meta_commands);
-        NUMBER(max_saves);
+        NUMBER(undo_slots);
         NUMBER(int_number);
         CHAR  (int_version);
         BOOL  (disable_patches);
@@ -355,21 +375,13 @@ static void read_config()
         }
 
         else if (key == "patch") {
-            switch (apply_user_patch(val)) {
-            case PatchStatus::SyntaxError:
+            try {
+                apply_user_patch(val);
+            } catch (const PatchStatus::SyntaxError &) {
                 std::cerr << *file << ":" << lineno << ": syntax error in patch" << std::endl;
-                break;
-            case PatchStatus::NotFound:
+            } catch (const PatchStatus::NotFound &) {
                 std::cerr << *file << ":" << lineno << ": patch does not apply to this story" << std::endl;
-                break;
-            case PatchStatus::Ok:
-                break;
             }
-        }
-
-        // Legacy name.
-        else if (key == "notes_editor") {
-            options.editor = std::make_unique<std::string>(val);
         }
 
         else {
@@ -487,7 +499,7 @@ static void write_flags2()
             flags2 &= ~FLAGS2_PICTURES;
         }
 
-        if (options.max_saves == 0) {
+        if (options.undo_slots == 0) {
             flags2 &= ~FLAGS2_UNDO;
         }
 
@@ -578,7 +590,7 @@ static void process_alphabet_table()
             die("corrupted story: alphabet table out of range");
         }
 
-        std::memcpy(&atable[0], &memory[word(0x34)], 26 * 3);
+        std::memcpy(atable.data(), &memory[word(0x34)], 26 * 3);
 
         // Even with a new alphabet table, characters 6 and 7 from A2 must
         // remain the same (§3.5.5.1).
@@ -607,7 +619,8 @@ static void read_header_extension_table()
     }
 }
 
-void zterp_mouse_click(uint16_t x, uint16_t y) {
+void zterp_mouse_click(uint16_t x, uint16_t y)
+{
     if (mouse_click_addr != 0) {
         store_word(mouse_click_addr, x);
         store_word(mouse_click_addr + 2, y);
@@ -630,7 +643,7 @@ static void calculate_checksum(IO &io, long offset)
         uint32_t to_read = remaining < buf.size() ? remaining : buf.size();
 
         try {
-            io.read_exact(&buf[0], to_read);
+            io.read_exact(buf.data(), to_read);
         } catch (const IO::IOError &) {
             return;
         }
@@ -805,7 +818,7 @@ static void process_story(IO &io, long offset)
     }
 
     if (zversion >= 3) {
-        have_upperwin  = create_upperwin();
+        have_upperwin = create_upperwin();
     }
 
     if (options.transcript_on) {
@@ -984,7 +997,7 @@ void zrestore5()
         return;
     }
 
-    n = savefile->read(&buf[0], zargs[1]);
+    n = savefile->read(buf.data(), zargs[1]);
     for (size_t i = 0; i < n; i++) {
         user_store_byte(zargs[0] + i, buf[i]);
     }
@@ -1005,7 +1018,7 @@ static void real_main(int argc, char **argv)
 {
     struct {
         std::shared_ptr<IO> io;
-        long offset;
+        long offset = 0;
     } story;
 
     // strftime() is given the %c conversion specification, which is
@@ -1053,11 +1066,6 @@ static void real_main(int argc, char **argv)
         screen_puts("Cheat support disabled");
 #else
         screen_puts("Cheat support enabled");
-#endif
-#ifdef ZTERP_TANDY
-        screen_puts("The Tandy bit can be set");
-#else
-        screen_puts("The Tandy bit cannot be set");
 #endif
 
         auto config = zterp_os_rcfile(false);
@@ -1158,7 +1166,7 @@ static void real_main(int argc, char **argv)
 #ifdef ZTERP_GLK
         glk_set_style(style_Preformatted);
 #endif
-        screen_puts(story_id.c_str());
+        screen_puts(story_id);
     } else {
         start_story();
 
