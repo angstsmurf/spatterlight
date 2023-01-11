@@ -828,6 +828,7 @@
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
 		C3EC5026289C0C820078AB83 /* stdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EC5024289C0C820078AB83 /* stdraw.c */; };
+		C3ED4172296E895A006EACED /* time_cruncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED4171296E895A006EACED /* time_cruncher.cpp */; };
 		C3EEEF43296C9C050094DE93 /* 6502_emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF3D296C9C040094DE93 /* 6502_emu.cpp */; };
 		C3EEEF46296C9C050094DE93 /* exo_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF40296C9C050094DE93 /* exo_util.cpp */; };
 		C3EEEF4D296C9C120094DE93 /* unp64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF49296C9C120094DE93 /* unp64.cpp */; };
@@ -3303,6 +3304,7 @@
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
 		C3EC5024289C0C820078AB83 /* stdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdraw.c; sourceTree = "<group>"; };
+		C3ED4171296E895A006EACED /* time_cruncher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time_cruncher.cpp; sourceTree = "<group>"; };
 		C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 12.xcdatamodel"; sourceTree = "<group>"; };
 		C3EEEF3B296C9C040094DE93 /* 6502_emu.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = 6502_emu.h; sourceTree = "<group>"; };
 		C3EEEF3D296C9C040094DE93 /* 6502_emu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 6502_emu.cpp; sourceTree = "<group>"; };
@@ -6231,6 +6233,7 @@
 				C3EEEF55296C9CA30094DE93 /* section8.cpp */,
 				C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */,
 				C3EEEF56296C9CA30094DE93 /* tcs_crunch.cpp */,
+				C3ED4171296E895A006EACED /* time_cruncher.cpp */,
 				C3EEEF58296C9CA30094DE93 /* xtc.cpp */,
 			);
 			path = scanners;
@@ -8267,6 +8270,7 @@
 				C3EEEF60296C9CA40094DE93 /* eca.cpp in Sources */,
 				C3EEEF83296CC9890094DE93 /* mr_cross.cpp in Sources */,
 				C3EEEF61296C9CA40094DE93 /* exomizer.cpp in Sources */,
+				C3ED4172296E895A006EACED /* time_cruncher.cpp in Sources */,
 				C3EEEF46296C9C050094DE93 /* exo_util.cpp in Sources */,
 				C3EEEF6C296C9CA40094DE93 /* scanners.cpp in Sources */,
 				C3EEEF66296C9CA40094DE93 /* section8.cpp in Sources */,

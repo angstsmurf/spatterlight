@@ -61,6 +61,7 @@ void scnPuCrunch(UnpStr *unp);
 void scnSection8(UnpStr *unp);
 void scnTBCMultiComp(UnpStr *unp);
 void scnTCScrunch(UnpStr *unp);
+void scnTimeCruncher(UnpStr *unp);
 void scnXTC(UnpStr *unp);
 
 Scnptr g_scanFunc[] = {
@@ -77,6 +78,7 @@ Scnptr g_scanFunc[] = {
 	scnMrZ,
 	scnTCScrunch,
 	scnTBCMultiComp,
+    scnTimeCruncher,
 	scnXTC,
 	scnCCS,
 	scnMegabyte,

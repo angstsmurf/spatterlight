@@ -53,7 +53,7 @@ void scnExomizer(UnpStr *unp) {
 	mem = unp->_mem;
 	/* exomizer 3.x */
 	if (unp->_depAdr == 0) {
-		for (p = unp->_info->_end; p > unp->_info->_start; p--) {
+		for (p = unp->_info->_end - 1; p > unp->_info->_start; p--) {
 			if ((*(unsigned int *)(mem + p) == 0x100A8069) &&
 				(*(unsigned int *)(mem + p + 4) == 0xD0FD060F) &&
 				mem[p - 6] == 0x4c && mem[p - 4] == 0x01) {
@@ -113,7 +113,7 @@ void scnExomizer(UnpStr *unp) {
 	}
 	/* exomizer 1.x/2.x */
 	if (unp->_depAdr == 0) {
-		for (p = unp->_info->_end; p > unp->_info->_start; p--) {
+		for (p = unp->_info->_end - 1; p > unp->_info->_start; p--) {
 			if ((((*(unsigned int *)(mem + p) == 0x4CF7D088) &&
 				  (*(unsigned int *)(mem + p - 0x0d) == 0xD034C0C8)) ||
 				 ((*(unsigned int *)(mem + p) == 0x4CA7A438) &&
