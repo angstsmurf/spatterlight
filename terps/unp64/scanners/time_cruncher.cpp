@@ -59,7 +59,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x3ad;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x811;
-                unp->_retAdr = mem[0x966] | mem[0x967] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x966]);
                 unp->_endAdr = mem[0x829] | mem[0x82d] << 8;
                 unp->_fStrAf = 0xfc; /* to test */
                 unp->_idFlag = 1;
@@ -73,10 +73,10 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x83b + 0x84) == 0x0377204C) &&
                 (*(unsigned int *)(mem + 0x842) == 0x9D088FBD) &&
                 (*(unsigned int *)(mem + 0x846) == 0xD0E8080B)) {
-                unp->_depAdr = mem[0x839] | mem[0x83a] << 8;
+                unp->_depAdr = READ_LE_UINT16(&mem[0x839]);
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x80d;
-                unp->_retAdr = mem[0x864] | mem[0x865] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x864]);
                 unp->_endAdr = unp->_info->_end - 0x84;
                 unp->_strMem = 0x801;
                 if ((*(unsigned int *)(mem + 0x85c) == 0xFDA32058) &&
@@ -98,10 +98,10 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x83b + 0x9d) == 0x0377204C) &&
                 (*(unsigned int *)(mem + 0x84d) == 0x9D08a8BD) &&
                 (*(unsigned int *)(mem + 0x851) == 0xD0E8080B)) {
-                unp->_depAdr = mem[0x844] | mem[0x845] << 8;
+                unp->_depAdr = READ_LE_UINT16(&mem[0x844]);
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x810;
-                unp->_retAdr = mem[0x86f] | mem[0x870] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x86f]);
                 unp->_endAdr = unp->_info->_end - 0x9d;
                 unp->_strMem = 0x801;
                 if ((*(unsigned int *)(mem + 0x867) == 0xFDA32058) &&
@@ -131,7 +131,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x400;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x81a;
-                unp->_retAdr = mem[0x861] | mem[0x862] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x861]);
                 unp->_endAdr = unp->_info->_end - 0x62;
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
@@ -145,16 +145,16 @@ namespace Unp64 {
                 ((*(unsigned int *)(mem + 0x82c) == 0xAD4C2E85) || (*(unsigned int *)(mem + 0x82c) == 0xAD4Caf85)) &&
                 ((*(unsigned int *)(mem + 0x83b) & 0xf0ffffff) == 0x0077204C) &&
                 ((*(unsigned int *)(mem + 0x951) & 0xf0ffffff) == 0x003C4C68)) {
-                    unp->_depAdr = mem[0x82f] | mem[0x830] << 8;
+                    unp->_depAdr = READ_LE_UINT16(&mem[0x82f]);
                     //if( unp->_info->_run == -1 )
                     unp->_forced = 0x811;
                     for (q = 0x95f; q < 0x964; q++) {
                         if (mem[q] == 0x4c) {
-                            unp->_retAdr = mem[q + 1] | mem[q + 2] << 8;
+                            unp->_retAdr = READ_LE_UINT16(&mem[q + 1]);
                             break;
                         }
                     }
-                    unp->_endAdr = mem[0x833] | mem[0x834] << 8;
+                    unp->_endAdr = READ_LE_UINT16(&mem[0x833]);
                     unp->_strMem = 0x801; /* tested crunching a prg starting at $1000, it's decrunched at $801 anyway! */
                     /* ILS hack, has border flash at $3f2 left there by the preheader */
                     if ((mem[0x8c4] == 0xf2) &&
@@ -175,8 +175,8 @@ namespace Unp64 {
                 unp->_depAdr = 0x3aa;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x80b;
-                unp->_retAdr = mem[0x95e] | mem[0x95f] << 8;
-                unp->_endAdr = mem[0x830] | mem[0x831] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x95e]);
+                unp->_endAdr = READ_LE_UINT16(&mem[0x830]);
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
                 return;
@@ -191,8 +191,8 @@ namespace Unp64 {
                 unp->_depAdr = 0x3ae;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x80b;
-                unp->_retAdr = mem[0x95e] | mem[0x95f] << 8;
-                unp->_endAdr = mem[0x830] | mem[0x831] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x95e]);
+                unp->_endAdr = READ_LE_UINT16(&mem[0x830]);
                 unp->_fStrAf = 0xfc;
                 unp->_idFlag = 1;
                 return;
@@ -283,12 +283,12 @@ namespace Unp64 {
                             q += 2;
                             continue;
                         } else {
-                            unp->_retAdr = mem[q + 1] | mem[q + 2] << 8;
+                            unp->_retAdr = READ_LE_UINT16(&mem[q + 1]);
                             break;
                         }
                     }
                     if (mem[q] == 0x4c) {
-                        unp->_retAdr = mem[q + 1] | mem[q + 2] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[q + 1]);
                         break;
                     }
                 }
@@ -306,7 +306,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x818;
-                unp->_retAdr = mem[0x95c] | mem[0x95d] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x95c]);
                 unp->_endAdr = 0x2d;
                 unp->_strMem = 0x0801;
                 unp->_idFlag = 1;
@@ -323,7 +323,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x967;
-                unp->_retAdr = mem[0x934] | mem[0x935] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x934]);
                 unp->_endAdr = mem[0x833] | mem[0x837] << 8;
                 unp->_fStrAf = 0xfc;
 
@@ -347,7 +347,7 @@ namespace Unp64 {
                 unp->_endAdr = mem[0x833] | mem[0x837] << 8;
                 for (p = 0x91a; p < 0x931; p++) {
                     if ((*(unsigned int *)(mem + p) & 0xff00ffff) == 0x4c000185) {
-                        unp->_retAdr = mem[p + 4] | mem[p + 5] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[p + 4]);
                         unp->_fStrAf = 0xfc;
                     }
                 }
@@ -366,7 +366,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x813;
-                unp->_retAdr = mem[0x941] | mem[0x942] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x941]);
                 unp->_endAdr = mem[0x832] | mem[0x838] << 8;
                 unp->_fStrAf = 0xfc;
                 unp->_idFlag = 1;
@@ -381,7 +381,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x92f) == 0xA9D6D007)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x813;
-                unp->_retAdr = mem[0x940] | mem[0x941] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x940]);
                 unp->_endAdr = mem[0x831] | mem[0x837] << 8;
                 unp->_fStrAf = 0xfc;
                 unp->_idFlag = 1;
@@ -399,7 +399,7 @@ namespace Unp64 {
                     unp->_depAdr = 0x100;
                     if (unp->_info->_run == -1)
                         unp->_forced = 0x80d;
-                    unp->_retAdr = mem[0x934] | mem[0x935] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x934]);
                     unp->_endAdr = mem[0x833] | mem[0x837] << 8;
                     unp->_fStrAf = 0xfc;
                     unp->_idFlag = 1;
@@ -411,7 +411,7 @@ namespace Unp64 {
                     unp->_depAdr = 0x100;
                     if (unp->_info->_run == -1)
                         unp->_forced = 0x80d;
-                    unp->_retAdr = mem[0x929] | mem[0x92a] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x929]);
                     unp->_endAdr = mem[0x824] | mem[0x82a] << 8;
                     unp->_fStrAf = 0xfc;
                     unp->_idFlag = 1;
@@ -441,7 +441,7 @@ namespace Unp64 {
                 // Henk/HTL $91a, Matcham/NET $930
                 for (p = 0x91a; p < 0x931; p++) {
                     if ((*(unsigned int *)(mem + p) & 0xff00ffff) == 0x4c000185) {
-                        unp->_retAdr = mem[p + 4] | mem[p + 5] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[p + 4]);
                         unp->_fStrAf = 0xfc;
                         unp->_strAdC = 0xffff;
                     }
@@ -459,7 +459,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x400;
                 unp->_forced = 0x80b;
                 unp->_endAdr = mem[0x833] | mem[0x837] << 8;
-                unp->_retAdr = mem[0x91e] | mem[0x91f] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x91e]);
                 unp->_fStrAf = 0xfc;
                 unp->_idFlag = 1;
                 return;
@@ -477,7 +477,7 @@ namespace Unp64 {
                 unp->_endAdr = mem[0x82e] | mem[0x834] << 8;
                 for (p = 0x935; p < 0x93a; p++) {
                     if (*(mem + p) == 0x4c) {
-                        unp->_retAdr = mem[p + 1] | mem[p + 2] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[p + 1]);
                         unp->_fStrAf = 0xfc;
                     }
                 }
@@ -502,11 +502,11 @@ namespace Unp64 {
                             unp->_forced = p;
                     }
                 }
-                unp->_retAdr = mem[0x975] | mem[0x976] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x975]);
                 unp->_endAdr = mem[0x86c] | mem[0x872] << 8;
                 unp->_fStrAf = 0xfc;
                 if (unp->_debugP) {
-                    p = mem[0x850] | mem[0x851] << 8;
+                    p = READ_LE_UINT16(&mem[0x850]);
                     q = 40;
                     if (mem[0x852] == 0x49) {
                         for (q = 0; q < 40 && mem[p + q]; q++) {
@@ -527,7 +527,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x971) == 0x4C580185)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x80d;
-                unp->_retAdr = mem[0x975] | mem[0x976] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x975]);
                 unp->_endAdr = mem[0x86c] | mem[0x872] << 8;
                 unp->_fStrAf = 0xfc;
                 unp->_idFlag = 1;
@@ -544,12 +544,12 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 unp->_endAdr = mem[0x86c] | mem[0x872] << 8;
                 unp->_fStrAf = 0xfc;
-                unp->_retAdr = mem[0x975] | mem[0x976] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x975]);
                 if (unp->_retAdr == 0x3cd) {
-                    unp->_retAdr = mem[0x9e3] | mem[0x9e4] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x9e3]);
                     if (unp->_retAdr == 0xa659) {
                         mem[0x9e2] = 0x2c;
-                        unp->_retAdr = mem[0x9e6] | mem[0x9e7] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[0x9e6]);
                     }
                 }
                 unp->_idFlag = 1;
@@ -573,7 +573,7 @@ namespace Unp64 {
                 }
                 unp->_depAdr = 0x100;
                 unp->_endAdr = mem[0x833] | mem[0x837] << 8;
-                unp->_retAdr = mem[0x934] | mem[0x935] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x934]);
                 unp->_fStrAf = 0xfc;
                 /*HTL hack (lax $dd07)*/
                 if (*(unsigned int *)(mem + 0x822) == 0xE0DD07AF) {
@@ -595,13 +595,13 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x81e;
-                unp->_endAdr = mem[0x840] | mem[0x841] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x840]);
                 unp->_strMem = 0x801;
                 p = 0x96f;
                 if (mem[p] == 0x4c) {
-                    unp->_retAdr = mem[p + 1] | mem[p + 2] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[p + 1]);
                 } else if (mem[p + 1] == 0x4c) {
-                    unp->_retAdr = mem[p + 2] | mem[p + 3] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[p + 2]);
                 }
 
                 unp->_idFlag = 1;
@@ -617,8 +617,8 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x81b;
-                unp->_retAdr = mem[0x970] | mem[0x971] << 8;
-                unp->_endAdr = mem[0x83f] | mem[0x840] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x970]);
+                unp->_endAdr = READ_LE_UINT16(&mem[0x83f]);
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
                 return;
@@ -633,14 +633,14 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x96c) == 0xA2F0FEC6)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x824;
-                p = mem[0x980] | mem[0x981] << 8;
+                p = READ_LE_UINT16(&mem[0x980]);
                 if ((mem[0x97c] == 0x20) || (mem[0x97c] == 0x4c)) {
-                    q = mem[0x97d] | mem[0x97e] << 8;
+                    q = READ_LE_UINT16(&mem[0x97d]);
                     if (q != 0xa659)
                         p = q;
                 }
                 unp->_retAdr = p;
-                unp->_endAdr = mem[0x84c] | mem[0x84d] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x84c]);
                 //unp->_fStrAf=0xfc;
                 unp->_idFlag = 1;
                 return;
@@ -655,14 +655,14 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x96e) == 0xA2F0FEC6)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x824;
-                p = mem[0x982] | mem[0x983] << 8;
+                p = READ_LE_UINT16(&mem[0x982]);
                 if ((mem[0x97e] == 0x20) || (mem[0x97e] == 0x4c)) {
-                    q = mem[0x97f] | mem[0x980] << 8;
+                    q = READ_LE_UINT16(&mem[0x97f]);
                     if (q != 0xa659)
                         p = q;
                 }
                 unp->_retAdr = p;
-                unp->_endAdr = mem[0x84e] | mem[0x84f] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x84e]);
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
                 return;
@@ -676,9 +676,9 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x947) == 0xA2F0FEC6)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x80e;
-                unp->_retAdr = mem[0x94e] | mem[0x94f] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x94e]);
                 unp->_strMem = 0x801;
-                unp->_endAdr = mem[0x827] | mem[0x828] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x827]);
                 unp->_idFlag = 1;
                 return;
             }
@@ -693,11 +693,11 @@ namespace Unp64 {
                 unp->_forced = 0x817;
                 if (*(unsigned int *)(mem + 0x91f) == 0xA6592008) {
                     mem[0x920] = 0x2c;
-                    unp->_retAdr = mem[0x925] | mem[0x926] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x925]);
                 } else {
-                    unp->_retAdr = mem[0x921] | mem[0x922] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x921]);
                 }
-                unp->_endAdr = mem[0x848] | mem[0x849] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x848]);
                 unp->_endAdr++;
                 unp->_fStrAf = 0xfe;
                 unp->_idFlag = 1;
@@ -713,7 +713,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x8bf) == 0xa0033420)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x816;
-                unp->_retAdr = mem[0x94d] | mem[0x94e] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x94d]);
                 unp->_endAdr = 0x2d;
                 unp->_strMem = 0x0801;
                 unp->_idFlag = 1;
@@ -730,7 +730,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x812;
-                unp->_retAdr = mem[0x947] | mem[0x948] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x947]);
                 unp->_endAdr = 0x2d;
                 unp->_strMem = 0x0801;
                 unp->_idFlag = 1;
@@ -747,7 +747,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x810;
-                unp->_retAdr = mem[0x94c] | mem[0x94d] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x94c]);
                 unp->_endAdr = 0x2d;
                 unp->_strMem = 0x0801;
                 unp->_idFlag = 1;
@@ -764,7 +764,7 @@ namespace Unp64 {
                 unp->_depAdr = 0x3ad;
                 if (unp->_info->_run == -1)
                     unp->_forced = 0x81a;
-                unp->_retAdr = mem[0x96f] | mem[0x970] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x96f]);
                 unp->_endAdr = mem[0x832] | mem[0x836] << 8;
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
@@ -777,7 +777,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x875) == 0xF785FEA5) &&
                 (*(unsigned int *)(mem + 0x8c3) == 0x2001004C) &&
                 (*(unsigned int *)(mem + 0x9B4) == 0x01004C02)) {
-                unp->_depAdr = mem[0x82f] | mem[0x830] << 8;
+                unp->_depAdr = READ_LE_UINT16(&mem[0x82f]);
                 if (unp->_info->_run == -1) {
                     for (q = 0x810; q < 0x820; q++) {
                         if (*(unsigned int *)(mem + q) == 0x8600A278) {
@@ -792,11 +792,11 @@ namespace Unp64 {
                 }
                 for (q = 0x95f; q < 0x964; q++) {
                     if (mem[q] == 0x4c) {
-                        unp->_retAdr = mem[q + 1] | mem[q + 2] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[q + 1]);
                         break;
                     }
                 }
-                unp->_endAdr = mem[0x833] | mem[0x834] << 8;
+                unp->_endAdr = READ_LE_UINT16(&mem[0x833]);
                 unp->_strMem = 0x801;
                 unp->_idFlag = 1;
                 return;
@@ -813,14 +813,14 @@ namespace Unp64 {
                 unp->_depAdr = 0x100;
                 unp->_fStrAf = 0xfc;
                 unp->_strAdC = 0xffff;
-                unp->_retAdr = mem[0x91e] | mem[0x91f] << 8;
-                unp->_endAdr = mem[0x840] | mem[0x841] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x91e]);
+                unp->_endAdr = READ_LE_UINT16(&mem[0x840]);
                 if ((mem[0x813] == 0x78) && (mem[0x91d] == 0xee) &&
                     (*(unsigned int *)(mem + 0x819) == 0xF899083C)) {
                     unp->_forced = 0x813;
-                    unp->_retAdr = mem[0x953] | mem[0x954] << 8;
+                    unp->_retAdr = READ_LE_UINT16(&mem[0x953]);
                     if (unp->_retAdr == 0xa659)
-                        unp->_retAdr = mem[0x956] | mem[0x957] << 8;
+                        unp->_retAdr = READ_LE_UINT16(&mem[0x956]);
                     unp->_idFlag = 1;
                     return;
                 } else if ((mem[0x810] == 0x78) &&
@@ -868,8 +868,8 @@ namespace Unp64 {
                     if (mem[0x818] == 0x78)
                         unp->_forced = 0x818;
                 }
-                unp->_retAdr = mem[0x974] | mem[0x975] << 8;
-                unp->_endAdr = mem[0x840] | mem[0x841] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x974]);
+                unp->_endAdr = READ_LE_UINT16(&mem[0x840]);
                 unp->_idFlag = 1;
                 return;
             }
@@ -883,7 +883,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x8ae) == 0x08F00334)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x80b;
-                unp->_retAdr = mem[0x921] | mem[0x922] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x921]);
                 if (unp->_retAdr < 0x800)
                     unp->_rtAFrc = 1;
                 unp->_endAdr = mem[0x820] | mem[0x824] << 8;
@@ -900,7 +900,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x835) == 0x083DCEFD)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x81e;
-                unp->_retAdr = mem[0x94d] | mem[0x94e] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x94d]);
                 if (unp->_retAdr < 0x800)
                     unp->_rtAFrc = 1;
                 unp->_endAdr = 0x2d;
@@ -916,7 +916,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x8d1) == 0xD0066918)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x80b;
-                unp->_retAdr = mem[0x929] | mem[0x92a] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x929]);
                 if (unp->_retAdr < 0x800)
                     unp->_rtAFrc = 1;
                 unp->_endAdr = 0x2d;
@@ -933,7 +933,7 @@ namespace Unp64 {
                 (*(unsigned int *)(mem + 0x835) == 0x083DCEFD)) {
                 unp->_depAdr = 0x100;
                 unp->_forced = 0x817;
-                unp->_retAdr = mem[0x94d] | mem[0x94e] << 8;
+                unp->_retAdr = READ_LE_UINT16(&mem[0x94d]);
                 if (unp->_retAdr < 0x800)
                     unp->_rtAFrc = 1;
                 unp->_endAdr = 0x2d;
