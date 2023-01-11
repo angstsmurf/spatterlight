@@ -708,6 +708,47 @@ static RawDirEntry *alloc_file_entry(DiskImage *di, unsigned char *rawname,
     }
 }
 
+/* create a hacked fake file */
+ImageFile *di_create_file_from_ts(DiskImage *di, int track, int sector)
+{
+    ImageFile *imgfile;
+    unsigned char *p;
+
+    if ((imgfile = malloc(sizeof(*imgfile))) == NULL) {
+        return NULL;
+    }
+
+    memset(imgfile->visited, 0, sizeof(imgfile->visited));
+
+    imgfile->mode = 'r';
+
+    imgfile->ts.track = track;
+    imgfile->ts.sector = sector;
+
+    p = di_get_ts_addr(di, imgfile->ts);
+    imgfile->buffer = p + 2;
+
+    imgfile->nextts = next_ts_in_chain(di, imgfile->ts);
+
+    imgfile->buflen = 254;
+
+    if (!di_ts_is_valid(di->type, imgfile->nextts)) {
+        set_status(di, 66, imgfile->nextts.track, imgfile->nextts.sector);
+        free(imgfile);
+        return NULL;
+    }
+
+    imgfile->diskimage = di;
+    imgfile->rawdirentry = NULL;
+    imgfile->position = 0;
+    imgfile->bufptr = 0;
+
+    ++(di->openfiles);
+    set_status(di, 0, 0, 0);
+    return imgfile;
+}
+
+
 /* open a file */
 ImageFile *di_open(DiskImage *di, unsigned char *rawname, FileType type,
     char *mode)
