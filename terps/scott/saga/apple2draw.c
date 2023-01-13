@@ -129,6 +129,9 @@ int DrawScrambledApple2Image(uint8_t *ptr, size_t datasize) {
 
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
 {
+    if (ptr == NULL)
+        return 0;
+
     if (screenmem == NULL) {
         screenmem = MemAlloc(0x2000);
         ClearApple2ScreenMem();
