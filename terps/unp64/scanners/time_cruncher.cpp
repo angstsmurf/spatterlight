@@ -507,7 +507,6 @@ namespace Unp64 {
                 unp->_fStrAf = 0xfc;
                 if (unp->_debugP) {
                     p = READ_LE_UINT16(&mem[0x850]);
-                    q = 40;
                     if (mem[0x852] == 0x49) {
                         for (q = 0; q < 40 && mem[p + q]; q++) {
                             mem[p + q] ^= mem[0x853];
