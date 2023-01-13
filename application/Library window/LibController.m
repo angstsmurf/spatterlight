@@ -3042,7 +3042,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     RatingsCellView *rating;
     Game *game;
 
-    if (lastRow > -1) {
+    if (lastRow > -1 && lastRow < (NSInteger)_gameTableModel.count) {
         game = _gameTableModel[(NSUInteger)lastRow];
         if (myRatingColumnIdx > -1 && game.metadata.myRating == 0) {
             rating = [_gameTableView viewAtColumn:myRatingColumnIdx row:lastRow makeIfNecessary:NO];
