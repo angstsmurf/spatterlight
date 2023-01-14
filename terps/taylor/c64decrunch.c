@@ -41,19 +41,19 @@ static const struct c64rec c64_registry[] = {
     { QUESTPROBE3_64,  0x8298, 0xb93e, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
     { QUESTPROBE3_64,  0x2ab00, 0x863d, TYPE_D64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
     { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, 0 }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
-//    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2 }, // Rebel_Planet_1986_Adventure_International.d64, Broken
+    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2 }, // Rebel_Planet_1986_Adventure_International.d64
     { REBEL_PLANET_64, 0x2ab00, 0x932e, TYPE_D64, 1, NULL, 0 }, // Rebel_Planet_1986_Adventure_International_cr_TFF.d64
 
     { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
     { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
-//    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64, Broken, no images
+    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
 
     { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-//    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0}, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64, broken (no images)
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0}, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
     { TOT_TEXT_ONLY_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0 }, // Temple of Terror - Trianon.d64
@@ -351,6 +351,25 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record
 
     if (uncompressed != NULL)
         free(uncompressed);
+
+    uint8_t temp[0x2e79];
+
+    switch (record.chk) {
+        case 0xa46f:
+            memcpy(temp, *sf + 0x098a, 0x2e79);
+            memcpy(*sf + 0x198a, temp, 0x2e79);
+            break;
+        case 0x78ba:
+            memcpy(temp, *sf + 0xc802, 0x1400);
+            memcpy(*sf + 0x4808, temp, 0x1400);
+            break;
+        case 0xf3b4:
+            memcpy(temp, *sf + 0xd802, 0x1400);
+            memcpy(*sf + 0x4808, temp, 0x1400);
+            break;
+        default:
+            break;
+    }
 
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].gameID == record.id) {
