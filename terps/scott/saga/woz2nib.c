@@ -317,7 +317,6 @@ static SearchResultType find_in_bytes(uint8_t *bitstream) {
 static SearchResultType find_syncbytes(uint8_t *bitstream, int bitcount, int *pos) {
     int bytes = bitcount / 8;
     int repeats = bytes - 9;
-    uint8_t temp[10];
     SearchResultType result = FOUND_NONE;
     // Both sync byte sequences begin with 0xff, so first we do
     // a simple loop looking for that, without shifting any bits.
@@ -333,27 +332,27 @@ static SearchResultType find_syncbytes(uint8_t *bitstream, int bitcount, int *po
         }
     }
 
+    uint8_t temp[9];
     // Otherwise we will have to look harder, for byte pairs that can be left shifted to 0xff
-    // (although we currently do this rather inefficiently.)
     for (int i = 0; i < repeats; i++) {
         uint8_t b = bitstream[i];
         // Skip any bytes where the rightmost bit is unset
         // or the next byte has the leftmost bit unset
         if ((b & 0x01) != 0 && (bitstream[i + 1] & 0x80) != 0) {
-            memcpy(temp, &bitstream[i], 10);
             for (int j = 1; j < 8; j++) {
-                int carry = 0;
-                for (int k = 9; k >= 0; k--)
-                    carry = rotate_left_with_carry(&temp[k], carry);
-                if (temp[0] == 0xff) {
+                // Check if this bit and the next left shifted j places become 0xff
+                if (((bitstream[i] << j) | (bitstream[i + 1] >> (8 - j))) == 0xff) {
+                    // If so, copy the following 8 bytes to a buffer left shifted j positions,
+                    // and compare them to the sync byte sequences.
+                    for (int k = 8; k > 0; k--) {
+                        temp[k] = ((bitstream[i + k] << j) | (bitstream[i + k + 1] >> (8 - j)));
+                    }
                     result = find_in_bytes(temp);
                     if (result != FOUND_NONE) {
                         *pos = i * 8 + j;
                         return result;
                     }
                 }
-                if ((temp[0] & 0x01) == 0 || (temp[1] & 0x80) == 0)
-                    break;
             }
         }
     }
@@ -599,7 +598,7 @@ uint8_t *woz2nib(uint8_t *ptr, size_t *len) {
         if (result == FOUND_NONE) {
             bitstream = swap_head_and_tail(bitstream, bit_count - 72, bit_count);
             result = find_syncbytes(bitstream, trk->bit_count, &foundbitpos);
-     }
+        }
 
         switch (result) {
             case FOUND16:
