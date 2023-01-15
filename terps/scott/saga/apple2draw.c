@@ -110,11 +110,9 @@ int DrawScrambledApple2Image(uint8_t *ptr, size_t datasize) {
         }
 
         while (repeats--) {
-            uint16_t screenaddr = CalcScreenAddress(ypos);
-            screenmem[screenaddr + xpos] = work1;
+            screenmem[CalcScreenAddress(ypos) + xpos] = work1;
             ypos++;
-            screenaddr = CalcScreenAddress(ypos);
-            screenmem[screenaddr + xpos] = work2;
+            screenmem[CalcScreenAddress(ypos) + xpos] = work2;
             ypos++;
             if (height <= ypos) {
                 ypos = yoff;
