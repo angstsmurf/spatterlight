@@ -140,15 +140,6 @@ static int rotate_left_with_carry(uint8_t *byte, int last_carry)
     return carry;
 }
 
-static int rotate_right_with_carry(uint8_t *byte, int last_carry)
-{
-    int carry = ((*byte & 0x1) > 0);
-    *byte = *byte >> 1;
-    if (last_carry)
-        *byte |= 0x80;
-    return carry;
-}
-
 // This is a translation of $trk =~ s{^0*(1.{7})}{}o;
 // Extract first '1' + 7 characters ("bits").
 static uint8_t extract_nibble(uint8_t *bitstream, int bits, int *pos) {
@@ -166,8 +157,6 @@ static uint8_t extract_nibble(uint8_t *bitstream, int bits, int *pos) {
     int carry = 0;
     int shiftcount = 0;
     while ((bitstream[*pos] & 0x80) == 0) {
-        if (*pos >= bytes)
-            return 0;
         carry = rotate_left_with_carry(&bitstream[*pos + 1], carry);
         carry = rotate_left_with_carry(&bitstream[*pos], carry);
         shiftcount++;
@@ -180,9 +169,6 @@ static uint8_t extract_nibble(uint8_t *bitstream, int bits, int *pos) {
 
 static uint8_t *swap_head_and_tail(uint8_t *bitstream, int headbits, int bits) {
 
-    if (headbits > bits) {
-        headbits -= bits;
-    }
     int bitspill = bits % 8;
     int anybitspill = (bitspill != 0);
     int totalbytes = bits / 8 + anybitspill;
@@ -190,7 +176,6 @@ static uint8_t *swap_head_and_tail(uint8_t *bitstream, int headbits, int bits) {
     int anyheadspill = (headspill != 0);
     int tailbits = bits - headbits;
     int tailspill = tailbits % 8;
-    int anytailspill = (tailspill != 0);
     int headbytes = headbits / 8 + anyheadspill;
 
     uint8_t lastbyte = bitstream[totalbytes - 1];
@@ -198,48 +183,37 @@ static uint8_t *swap_head_and_tail(uint8_t *bitstream, int headbits, int bits) {
     if (anybitspill)
         lastbyte = (bitstream[totalbytes - 2] << bitspill) | (lastbyte >> (8 - bitspill));
 
-    uint8_t *head = MemAlloc(headbytes + 1);
-    memcpy(head, bitstream, headbytes);
-
-    int tailbytes = tailbits / 8 + anytailspill;
+    int tailbytes = tailbits / 8 + 2;
 
     // if there are spillover head bits, the tail copy must
     // include the last head byte,
     // then be left shifted (headspill) times
 
-    uint8_t *tail = MemAlloc(tailbytes + 1);
+    uint8_t *tail = MemAlloc(tailbytes);
 
-    memcpy(tail, bitstream + headbytes - anyheadspill, tailbytes + anyheadspill);
-
-    for (int i = 0; i < headspill; i++) {
-        int carry = 0;
-        for (int j = tailbytes - 1; j >= 0 ; j--) {
-            carry = rotate_left_with_carry(&tail[j], carry);
+    if (!anyheadspill) {
+        // If the number of head bits are cleanly divisible by 8 we don't need to do any shifting
+        memcpy(tail, bitstream + headbytes, tailbytes - 1);
+    } else {
+        for (int i = 0; i < tailbytes && headbytes + i < totalbytes; i++) {
+            tail[i] = (bitstream[headbytes - 1 + i] << headspill) | (bitstream[headbytes + i] >> (8 - headspill));
         }
     }
-
-    memcpy(bitstream, tail, tailbytes);
 
     // if there are spillover tail bits, the head copy must
     // then be right shifted (tailspill) times,
     // while shifting in the original last tail bits
     // we calculated as lastbyte above
 
-    uint8_t lastcopy = lastbyte;
-    for (int i = 0; i < tailspill; i++) {
-        int carry = lastcopy & 0x01;
-        for (int j = 0; j <= headbytes; j++) {
-            carry = rotate_right_with_carry(&head[j], carry);
-        }
-        lastcopy = lastcopy >> 1;
+    uint8_t *head = MemAlloc(headbytes + 1);
+
+    head[0] = (bitstream[0] >> tailspill) | (lastbyte << (8 - tailspill));
+    for (int i = 1; i <= headbytes; i++) {
+        head[i] = (bitstream[i] >> tailspill) | (bitstream[i - 1] << (8 - tailspill));
     }
 
-    memcpy(bitstream + tailbytes - anytailspill, head, headbytes + 1);
-
-    // This shouldn't be needed. Something in the above must be off-by-one.
-    if (!anytailspill) {
-        bitstream[tailbytes - 1] = lastbyte;
-    }
+    memcpy(bitstream, tail, tailbytes);
+    memcpy(bitstream + tailbits / 8, head, headbytes + 1);
 
     free(head);
     free(tail);
