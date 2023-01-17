@@ -145,7 +145,7 @@
 
         [self.layer addSublayer:_imageLayer];
 
-        if (@available(macOS 10.15, *)) {
+        if (@available(*, macOS 10.15)) {
         } else {
             CAShapeLayer *masklayer = [CAShapeLayer layer];
             masklayer.fillColor = NSColor.blackColor.CGColor;

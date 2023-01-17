@@ -29,6 +29,7 @@ fprintf(stderr, "%s\n",                                                    \
 #import "NotificationBezel.h"
 #import "AppDelegate.h"
 #import "LibController.h"
+#import "TableViewController.h"
 #import "DownloadOperation.h"
 #import "NSManagedObjectContext+safeSave.h"
 #import "ComparisonOperation.h"
@@ -337,7 +338,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         completionHandler();
     } else if (comparisonResult == kImageComparisonResultWantsUserInput) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+            TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl.tableViewController;
             if (!force && [libController.lastImageComparisonData isEqual:newData])
                 return;
             if (libController.downloadWasCancelled)

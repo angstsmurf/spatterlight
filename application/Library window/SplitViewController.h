@@ -9,9 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Game;
+
 @interface SplitViewController : NSSplitViewController
-@property (weak) IBOutlet NSViewController *leftController;
-@property (weak) IBOutlet NSViewController *rightController;
+
+@property Game *currentSideView;
 
 @end
 

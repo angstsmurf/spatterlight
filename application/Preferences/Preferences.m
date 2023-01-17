@@ -9,7 +9,7 @@
 #import "Theme.h"
 #import "ThemeArrayController.h"
 #import "GlkStyle.h"
-#import "LibController.h"
+#import "TableViewController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "BufferTextView.h"

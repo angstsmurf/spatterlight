@@ -6,16 +6,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Game, Metadata;
+@class Game, Metadata, TableViewController, CoreDataManager;
 
 void showInfoForFile(NSString *path, NSDictionary *info);
-
-@class LibController, CoreDataManager;
 
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 
 @property (weak) Game *game;
-@property (weak) LibController *libcontroller;
+@property (strong) TableViewController *libcontroller;
 
 @property NSString *path;
 @property Metadata *meta;

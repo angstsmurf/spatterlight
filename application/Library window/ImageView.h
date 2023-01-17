@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, readonly) NSImage *image;
 @property NSSet<NSPasteboardType> *acceptableTypes;
 
-@property NSSize intrinsic;
 @property CGFloat ratio;
 
 - (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage;

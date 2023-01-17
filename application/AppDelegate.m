@@ -15,6 +15,8 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 #import "FolderAccess.h"
+#import "LibController.h"
+#import "TableViewController.h"
 #import "Game.h"
 
 #ifdef DEBUG
@@ -146,17 +148,19 @@ PasteboardFilePasteLocation;
 
     addToRecents = YES;
 
-    _libctl = [[LibController alloc] init];
+
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"SplitView" bundle:nil];
+    _libctl = (LibController *)[storyboard instantiateControllerWithIdentifier:@"LibraryWindowController"];
+    _libctl.tableViewController = _tableViewController;
     _libctl.window.restorable = YES;
     _libctl.window.restorationClass = [self class];
     _libctl.window.identifier = @"library";
-    _libctl.mainThemesSubMenu = _themesMenuItem;
 
     _prefctl = [[Preferences alloc] initWithWindowNibName:@"PrefsWindow"];
     _prefctl.window.restorable = YES;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
-    _prefctl.libcontroller = _libctl;
+    _prefctl.libcontroller = _tableViewController;
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
         [FolderAccess deleteBookmarks];
@@ -229,18 +233,18 @@ PasteboardFilePasteLocation;
             if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
                 InfoController *infoctl =
                 [[InfoController alloc] initWithpath:path];
-                infoctl.libcontroller = appDelegate.libctl;
+                infoctl.libcontroller = appDelegate.libctl.tableViewController;
                 NSWindow *infoWindow = infoctl.window;
                 infoWindow.restorable = YES;
                 infoWindow.restorationClass = [AppDelegate class];
                 infoWindow.identifier =
                 [NSString stringWithFormat:@"infoWin%@", path];
-                (appDelegate.libctl.infoWindows)[path] = infoctl;
+                (appDelegate.libctl.tableViewController.infoWindows)[path] = infoctl;
                 window = infoctl.window;
             }
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
-            window = [appDelegate.libctl playGameWithIFID:ifid];
+            window = [appDelegate.libctl.tableViewController playGameWithIFID:ifid];
 
             // We delay the restoration of the window
             // that was key when closing here
@@ -275,25 +279,27 @@ PasteboardFilePasteLocation;
 
 - (IBAction)addGamesToLibrary:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl addGamesToLibrary:sender];
+    [_tableViewController addGamesToLibrary:sender];
 }
 
 - (IBAction)importMetadata:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl importMetadata:sender];
+    [_tableViewController importMetadata:sender];
 }
 
 - (IBAction)exportMetadata:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl exportMetadata:sender];
+    [_tableViewController exportMetadata:sender];
 }
 
 - (IBAction)deleteLibrary:(id)sender {
-    [_libctl deleteLibrary:sender];
+    [_libctl showWindow:sender];
+    [_tableViewController deleteLibrary:sender];
 }
 
 - (IBAction)pruneLibrary:(id)sender {
-    [_libctl pruneLibrary:sender];
+    [_libctl showWindow:sender];
+    [_tableViewController pruneLibrary:sender];
 }
 
 /*
@@ -318,7 +324,7 @@ PasteboardFilePasteLocation;
 
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
-    if ([_libctl hasActiveGames]) {
+    if ([_tableViewController hasActiveGames]) {
         [allowedTypes addObjectsFromArray:gDocFileTypes];
         [allowedTypes addObjectsFromArray:gSaveFileTypes];
     }
@@ -366,14 +372,14 @@ PasteboardFilePasteLocation;
     NSString *extension = path.pathExtension.lowercaseString;
 
     if ([extension isEqualToString:@"ifiction"]) {
-        [_libctl waitToReportMetadataImport];
-        [_libctl importMetadataFromFile:path inContext:_libctl.managedObjectContext];
-    } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
-        [_libctl runCommandsFromFile:path];
-    } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
-        [_libctl restoreFromSaveFile:path];
+        [_tableViewController waitToReportMetadataImport];
+        [_tableViewController importMetadataFromFile:path inContext:_libctl.managedObjectContext];
+    } else if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
+        [_tableViewController runCommandsFromFile:path];
+    } else if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
+        [_tableViewController restoreFromSaveFile:path];
     } else {
-        [_libctl importAndPlayGame:path];
+        [_tableViewController importAndPlayGame:path];
     }
 
     return YES;
@@ -417,7 +423,7 @@ continueUserActivity:(NSUserActivity *)userActivity
             return NO;
         }
 
-        [_libctl handleSpotlightSearchResult:object];
+        [_tableViewController handleSpotlightSearchResult:object];
     }
 
     return YES;
@@ -705,7 +711,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    for (GlkController *glkctl in (_libctl.gameSessions).allValues) {
+    for (GlkController *glkctl in (_tableViewController.gameSessions).allValues) {
         [glkctl autoSaveOnExit];
     }
 

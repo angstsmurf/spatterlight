@@ -5,16 +5,12 @@
 //  Created by Administrator on 2018-09-09.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "SideInfoView.h"
 
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-#import "LibController.h"
-#import "AppDelegate.h"
-#import "NSImage+Categories.h"
+#import "TableViewController.h"
 #import "ImageView.h"
 #import "NSFont+Categories.h"
 
@@ -227,7 +223,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self addSubview:textField];
 
-    [self addConstraints:@[ xPosConstraint, yPosConstraint ,widthConstraint, rightMarginConstraint ]];
+    [self addConstraints:@[ xPosConstraint, yPosConstraint, widthConstraint, rightMarginConstraint ]];
 
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
                                                                         attribute:NSLayoutAttributeHeight
@@ -320,12 +316,8 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat ratio = theImage.size.width / theImage.size.height;
 
         _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
-
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-
-        _imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
-        _imageView.intrinsic = _imageView.frame.size;
-
+        _imageView.frame = NSMakeRect(0,0, superViewWidth, superViewWidth / ratio);
         [self addSubview:_imageView];
 
         xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
@@ -352,6 +344,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                       multiplier:1.0
                                                         constant:0];
 
+        widthConstraint.priority = 500;
+
         heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                         attribute:NSLayoutAttributeHeight
                                                         relatedBy:NSLayoutRelationLessThanOrEqual
@@ -359,6 +353,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                         attribute:NSLayoutAttributeWidth
                                                        multiplier:(1 / ratio)
                                                          constant:0];
+
+        heightConstraint.priority = 1000;
 
         rightMarginConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                              attribute:NSLayoutAttributeRight
@@ -370,7 +366,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self addConstraint:xPosConstraint];
         [self addConstraint:yPosConstraint];
-        [self addConstraint:widthConstraint];
+//        [self addConstraint:widthConstraint];
         [self addConstraint:heightConstraint];
 
         rightMarginConstraint.priority = 999;
@@ -514,7 +510,6 @@ fprintf(stderr, "%s\n",                                                    \
                                                      constant:1];
 
     [self addSubview:divider];
-
     [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
     lastView = divider;
@@ -787,8 +782,8 @@ fprintf(stderr, "%s\n",                                                    \
         context.duration = 0.4;
         [_downloadButton animator].alphaValue = 0;
     } completionHandler:^{
-        LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-        [libcontroller download:self.downloadButton];
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"SideviewDownload" object:nil]];
     }];
 }
 

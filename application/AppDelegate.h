@@ -4,13 +4,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class HelpPanelController, LibController, Preferences, MyCoreDataCoreSpotlightDelegate;
-;
+@class HelpPanelController, LibController, Preferences, MyCoreDataCoreSpotlightDelegate, TableViewController;
 
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> 
 
 @property Preferences *prefctl;
 @property LibController *libctl;
+@property TableViewController *tableViewController;
+
 @property HelpPanelController *helpLicenseWindow;
 
 @property (readonly) NSPersistentContainer *persistentContainer;

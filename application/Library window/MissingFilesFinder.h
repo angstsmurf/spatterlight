@@ -7,13 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class Game, LibController;
+@class Game, TableViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MissingFilesFinder : NSObject
 
-- (void)lookForMissingFile:(Game *)game libController:(LibController *)libController;
+- (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController;
 
 @end
 

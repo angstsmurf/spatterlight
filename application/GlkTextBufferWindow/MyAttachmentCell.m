@@ -209,11 +209,9 @@
     NSDraggingItem *dragItem;
 
     if (@available(macOS 10.14, *)) {
-
         MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
 
         dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
-
     } else {
         NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
 

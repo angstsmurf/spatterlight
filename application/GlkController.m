@@ -7,6 +7,7 @@
 #import "GlkController.h"
 #import "Preferences.h"
 #import "LibController.h"
+#import "TableViewController.h"
 #import "GlkEvent.h"
 
 #import "GlkTextGridWindow.h"
@@ -15,6 +16,7 @@
 #import "BufferTextView.h"
 #import "GridTextView.h"
 
+#import "GlkSoundChannel.h"
 #import "GlkSoundChannel.h"
 #import "GlkStyle.h"
 
@@ -180,7 +182,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *restoredControllerLate;
     NSMutableData *bufferedData;
 
-    LibController *libcontroller;
+    TableViewController *libcontroller;
 
     NSSize lastSizeInChars;
     Theme *lastTheme;
@@ -253,7 +255,7 @@ fprintf(stderr, "%s\n",                                                    \
     _theme = game.theme;
     Theme *theme = _theme;
 
-    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl.tableViewController;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
@@ -1294,7 +1296,7 @@ fprintf(stderr, "%s\n",                                                    \
     return _autosaveFileTerp;
 }
 
-// LibController calls this to reset non-running games
+// TableViewController calls this to reset non-running games
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = aGame.urlForBookmark.path;
     aGame.autosaved = NO;
@@ -4306,7 +4308,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)applyTheme:(id)sender {
     NSString *name = ((NSMenuItem *)sender).title;
 
-    Theme *theme = [LibController findTheme:name inContext:_game.managedObjectContext];
+    Theme *theme = [TableViewController findTheme:name inContext:_game.managedObjectContext];
 
     if (!theme) {
         NSLog(@"applyTheme: found no theme with name %@", name);
@@ -4333,8 +4335,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     if (choice == NSAlertFirstButtonReturn) {
         _game.hidden = YES;
-        if ([libcontroller.currentSideView.objectID isEqual:_game.objectID])
-            [libcontroller clearSideView];
         [self.window close];
         [_game.managedObjectContext deleteObject:_game];
     }
@@ -4354,18 +4354,18 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         return NO;
     } else if (action == @selector(like:)) {
         if (_game.like == 1) {
-            menuItem.title = @"Liked";
+            menuItem.title = NSLocalizedString(@"Liked", nil);
             menuItem.state = NSOnState;
         } else {
-            menuItem.title = @"Like";
+            menuItem.title = NSLocalizedString(@"Like", nil);
             menuItem.state = NSOffState;
         }
     } else if (action == @selector(dislike:)) {
         if (_game.like == 2) {
-            menuItem.title = @"Disliked";
+            menuItem.title = NSLocalizedString(@"Disliked", nil);
             menuItem.state = NSOnState;
         } else {
-            menuItem.title = @"Disike";
+            menuItem.title = NSLocalizedString(@"Disike", nil);
             menuItem.state = NSOffState;
         }
     } else if (action == @selector(applyTheme:)) {

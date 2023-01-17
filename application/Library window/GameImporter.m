@@ -21,7 +21,7 @@
 // Treaty of babel header
 #include "babel_handler.h"
 
-#import "LibController.h"
+#import "TableViewController.h"
 
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
@@ -32,7 +32,7 @@ extern NSArray *gGameFileTypes;
 
 @implementation GameImporter
 
-- (instancetype)initWithLibController:(LibController *)libController {
+- (instancetype)initWithLibController:(TableViewController *)libController {
     self = [super init];
     if (self) {
         _libController = libController;
@@ -64,7 +64,7 @@ extern NSArray *gGameFileTypes;
     newOptions[@"reportFailure"] = @(reportFailure);
     newOptions[@"select"] = select;
 
-    LibController *libController = _libController;
+    TableViewController *libController = _libController;
 
     // A block that will run when all files are added
     // and all metadata is downloaded
@@ -80,8 +80,6 @@ extern NSArray *gGameFileTypes;
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                libController.addButton.enabled = YES;
-                libController.currentlyAddingGames = NO;
                 [libController endImporting];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
                     [libController selectGamesWithIfids:select scroll:YES];
@@ -355,10 +353,10 @@ extern NSArray *gGameFileTypes;
         return nil;
     }
 
-    LibController *libController = _libController;
+    TableViewController *libController = _libController;
 
     [context performBlockAndWait:^{
-        metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
+        metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
@@ -375,7 +373,7 @@ extern NSArray *gGameFileTypes;
                 else NSLog(@"Found no metadata in blorb file %@", path);
             }
         } else {
-            game = [LibController fetchGameForIFID:ifid inContext:context];
+            game = [TableViewController fetchGameForIFID:ifid inContext:context];
             if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
                     game.hashTag = path.signatureFromFile;

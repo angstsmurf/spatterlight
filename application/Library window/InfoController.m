@@ -3,7 +3,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "AppDelegate.h"
-#import "LibController.h"
+#import "TableViewController.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
 #import "ImageView.h"
@@ -589,7 +589,10 @@ fprintf(stderr, "%s\n",                                                    \
     CALayer *shadowLayer = snapshotView.layer.sublayers.firstObject;
     CALayer *snapshotLayer = snapshotView.layer.sublayers[1];
 
-    LibController *libctrl = _libcontroller;
+    TableViewController *libctrl = _libcontroller;
+
+    if (_libcontroller == nil)
+        NSLog(@"nil!");
 
     NSRect currentFrame = snapshotLayer.frame;
     NSRect targetFrame = [libctrl rectForLineWithIfid:_game.ifid];
@@ -709,16 +712,16 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSWindow *)createFullScreenWindow {
     NSWindow *fullScreenWindow =
-    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.window.screen.frame.size }
+    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.view.window.screen.frame.size }
                                 styleMask:NSWindowStyleMaskBorderless
                                   backing:NSBackingStoreBuffered
                                     defer:NO
-                                   screen:_libcontroller.window.screen];
+                                   screen:_libcontroller.view.window.screen];
     fullScreenWindow.animationBehavior = NSWindowAnimationBehaviorNone;
     fullScreenWindow.backgroundColor = NSColor.clearColor;
     fullScreenWindow.movableByWindowBackground = NO;
     fullScreenWindow.ignoresMouseEvents = YES;
-    fullScreenWindow.level = _libcontroller.window.level;
+    fullScreenWindow.level = _libcontroller.view.window.level;
     fullScreenWindow.hasShadow = NO;
     fullScreenWindow.opaque = NO;
     NSView *contentView = [[NSView alloc] initWithFrame:NSZeroRect];

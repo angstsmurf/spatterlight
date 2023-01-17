@@ -8,7 +8,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "NSString+Categories.h"
-#import "LibController.h"
+#import "TableViewController.h"
 
 #import "FolderAccess.h"
 #import "Constants.h"
@@ -21,7 +21,7 @@ extern NSArray *gGameFileTypes;
 
 @implementation MissingFilesFinder
 
-- (void)lookForMissingFile:(Game *)game libController:(LibController *)libController {
+- (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = NSLocalizedString(@"Cannot find the file.", nil);
     alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title];

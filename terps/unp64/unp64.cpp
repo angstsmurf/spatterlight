@@ -569,7 +569,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 	}
 
 	if (*forcedname) {
-		strcpy(name, forcedname);
+		strncpy(name, forcedname, 248);
 	} else {
 		size_t ln = strlen(name);
 		if (ln > 248) {/* dirty hack in case name is REALLY long */

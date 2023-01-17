@@ -14,6 +14,7 @@
 
 #import "AppDelegate.h"
 #import "LibController.h"
+#import "TableViewController.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -246,10 +247,6 @@
     _isSelected = NO;
     [self updateLayer];
     return YES;
-}
-
-- (NSSize) intrinsicContentSize {
-    return _intrinsic;
 }
 
 - (void)layout {
@@ -500,7 +497,7 @@
     Game *game = _game;
     NSOperationQueue *queue = self.workQueue;
 
-    LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+    TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl.tableViewController;
     libController.lastImageComparisonData = nil;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
