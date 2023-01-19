@@ -183,6 +183,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             }];
                         }
                     }];
+                } else if (reportFailure) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                        [IFDBDownloader showNoDataFoundBezel];
+                    }];
                 }
             }
         };
