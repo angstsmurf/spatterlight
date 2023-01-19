@@ -1811,9 +1811,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (!_contentView.layer.mask) {
         _contentView.layer.mask = [self createMaskLayer];
         maskLayer = _contentView.layer.mask;
-        maskLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+        maskLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
         maskLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-
         self.window.opaque = NO;
         self.window.backgroundColor = [NSColor clearColor];
     }
@@ -1830,7 +1829,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"createMaskLayer: Failed to load Narcolepsy image 3!");
         return nil;
     } else {
-        CIContext *context = [CIContext contextWithOptions:nil];
         CIImage *inputImage = [CIImage imageWithData:_imageHandler.resources[@(3)].data];
 
         CIFilter *invert = [CIFilter filterWithName:@"CIColorInvert"];
@@ -1845,7 +1843,7 @@ fprintf(stderr, "%s\n",                                                    \
         CIImage *result = [mask valueForKey:kCIOutputImageKey];
 
         CGRect extent = result.extent;
-        CGImageRef cgImage = [context createCGImage:result fromRect:extent];
+        CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:result fromRect:extent];
 
         layer.contents = CFBridgingRelease(cgImage);
     }
