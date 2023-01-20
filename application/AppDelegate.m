@@ -473,6 +473,15 @@ continueUserActivity:(NSUserActivity *)userActivity
 
             NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
 
+            if (needMigrate) {
+                [FolderAccess askForAccessToURL:targetURL andThenRunBlock:^{}];
+                if (![[NSFileManager defaultManager] isReadableFileAtPath:targetURL.path]) {
+                    needMigrate = NO;
+                    targetURL = groupURL;
+                }
+
+            }
+
             NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:targetURL];
 
             description.readOnly = NO;
@@ -512,20 +521,18 @@ continueUserActivity:(NSUserActivity *)userActivity
 
                 // If needed, migrate to a group store.
                 if (needMigrate) {
-                    [FolderAccess askForAccessToURL:targetURL andThenRunBlock:^{
-                        NSError *blockerror = nil;
-                        NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
-                        NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
-                        [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&blockerror];
-                        // We could delete the old store here, but it doesn't really hurt to keep it,
-                        // and it helps to have a non-sandboxed store around for development purposes.
-                        if (error != nil) {
-                            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
-                            abort();
-                        } else {
-                            NSLog(@"Successfully migrated store at %@ to %@", targetURL.absoluteString, groupURL.absoluteString);
-                        }
-                    }];
+                    error = nil;
+                    NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
+                    NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
+                    [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
+                    // We could delete the old store here, but it doesn't really hurt to keep it,
+                    // and it helps to have a non-sandboxed store around for development purposes.
+                    if (error != nil) {
+                        NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
+                        abort();
+                    } else {
+                        NSLog(@"Successfully migrated store at %@ to %@", targetURL.absoluteString, groupURL.absoluteString);
+                    }
                 }
             }];
         }
