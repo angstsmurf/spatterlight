@@ -849,7 +849,6 @@
 		C3EEEF6E296C9CA40094DE93 /* tbc_multicomp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */; };
 		C3EEEF6F296C9CA40094DE93 /* megabyte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF5E296C9CA40094DE93 /* megabyte.cpp */; };
 		C3EEEF75296CA8190094DE93 /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF74296CA8180094DE93 /* globals.cpp */; };
-		C3EEEF76296CA89B0094DE93 /* unp64_interface.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F09D3B28888F890035DAC2 /* unp64_interface.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3EEEF80296CC9890094DE93 /* abuze_crunch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7A296CC9890094DE93 /* abuze_crunch.cpp */; };
 		C3EEEF83296CC9890094DE93 /* mr_cross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7D296CC9890094DE93 /* mr_cross.cpp */; };
 		C3EEEF84296CC9890094DE93 /* mr_z.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF7E296CC9890094DE93 /* mr_z.cpp */; };
@@ -6365,7 +6364,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3EEEF76296CA89B0094DE93 /* unp64_interface.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
