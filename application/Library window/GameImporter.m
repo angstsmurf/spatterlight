@@ -470,16 +470,17 @@ extern NSArray *gGameFileTypes;
             _libController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
-
-            if (comparisonResult != kImageComparisonResultA && comparisonResult == kImageComparisonResultWantsUserInput) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                    if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
-                        [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
-                    }
-                });
-            } else {
-                [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+            if (comparisonResult != kImageComparisonResultB) {
+                if (comparisonResult == kImageComparisonResultWantsUserInput) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                        if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
+                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                        }
+                    });
+                } else {
+                    [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                }
             }
         }
     }
