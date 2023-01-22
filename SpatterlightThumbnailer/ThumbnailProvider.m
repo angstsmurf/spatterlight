@@ -54,7 +54,7 @@
     return _persistentContainer;
 }
 
-- (void)provideThumbnailForFileRequest:(QLFileThumbnailRequest *)request completionHandler:(void (^)(QLThumbnailReply * _Nullable, NSError * _Nullable))handler  API_AVAILABLE(macos(10.15)) API_AVAILABLE(macos(10.15)){
+- (void)provideThumbnailForFileRequest:(QLFileThumbnailRequest *)request completionHandler:(void (^)(QLThumbnailReply * _Nullable, NSError * _Nullable))handler  API_AVAILABLE(macos(10.15))){
 
     // There are three ways to provide a thumbnail through a QLThumbnailReply. Only one of them should be used.
 
