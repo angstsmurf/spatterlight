@@ -1987,6 +1987,8 @@ static void RunCommandTable(void)
     FoundMatch = 0;
 
     while(*p != 0x7F) {
+        /* Match input to table entry as VERB NOUN or NOUN VERB */
+        /* 126 is wildcard that matches any word */
         if(((*p == 126 || *p == Word[0]) &&
            (p[1] == 126 || p[1] == Word[1])) ||
            (*p == Word[1] && p[1] == Word[0]) ||
@@ -2000,7 +2002,7 @@ static void RunCommandTable(void)
             if (p[0] != 126) {
                 FoundMatch = 1;
             }
-            /* Work around some Questprobe bugs */
+            /* Work around a Questprobe 3 bug */
             if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
                 if (Present(33)) {
