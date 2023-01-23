@@ -733,10 +733,7 @@ static libspectrum_error read_blocks(const uint8_t *buffer,
     next_block = buffer;
 
     while (next_block < end) {
-
-        libspectrum_error error;
-
-        error = read_block(next_block, snap, &next_block, end, version, compressed);
+        libspectrum_error error = read_block(next_block, snap, &next_block, end, version, compressed);
         if (error != LIBSPECTRUM_ERROR_NONE)
             return error;
     }
