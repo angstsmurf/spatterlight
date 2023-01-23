@@ -59,7 +59,7 @@ unsigned int chunkIDAndLength(const void *data, unsigned int *chunkID) {
     return unpackLong((const char *)data + 4);
 }
 
-unsigned long paddedLength(unsigned long len) { return len + len % 2; }
+unsigned long paddedLength(unsigned long len) { return len += (len & 1); }
 
 void IFFCreateBuffer(IFFHandle *handle, unsigned long initialBufferSize) {
   handle->data = malloc(initialBufferSize);
