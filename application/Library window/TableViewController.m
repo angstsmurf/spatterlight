@@ -340,7 +340,6 @@ enum  {
     }
 
     [self rebuildThemesSubmenu];
-//    [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RecheckForMissing"]) {
         [self startVerifyTimer];
@@ -349,7 +348,7 @@ enum  {
 
     [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:self.selectedGames]];
     });
@@ -1368,7 +1367,6 @@ enum  {
                 menuItem.state = NSOffState;
             }
         }
-        return YES;
     }
     return YES;
 }

@@ -77,8 +77,17 @@ fprintf(stderr, "%s\n",                                                    \
         acceptableTypes = [NSSet setWithObject:NSURLPboardType];
         acceptableTypes = [acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
         [self registerForDraggedTypes:acceptableTypes.allObjects];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(windowDidResignKey:)
+                                                     name:NSWindowDidResignKeyNotification
+                                                   object:self.window];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL) isFlipped { return YES; }
@@ -270,7 +279,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSLayoutConstraint *yPosConstraint;
     NSLayoutConstraint *widthConstraint;
     NSLayoutConstraint *heightConstraint;
-    NSLayoutConstraint *rightMarginConstraint;
     NSLayoutConstraint *topSpacerYConstraint;
 
     NSFont *font;
@@ -318,6 +326,8 @@ fprintf(stderr, "%s\n",                                                    \
         _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         _imageView.frame = NSMakeRect(0,0, superViewWidth, superViewWidth / ratio);
+        _imageView.intrinsic = NSMakeSize(NSViewNoIntrinsicMetric, _imageView.frame.size.height);
+
         [self addSubview:_imageView];
 
         xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
@@ -354,23 +364,12 @@ fprintf(stderr, "%s\n",                                                    \
                                                        multiplier:(1 / ratio)
                                                          constant:0];
 
-        heightConstraint.priority = 1000;
-
-        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                             attribute:NSLayoutAttributeRight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self
-                                                             attribute:NSLayoutAttributeRight
-                                                            multiplier:1.0
-                                                              constant:0];
+        heightConstraint.priority = 499;
 
         [self addConstraint:xPosConstraint];
         [self addConstraint:yPosConstraint];
-//        [self addConstraint:widthConstraint];
+        [self addConstraint:widthConstraint];
         [self addConstraint:heightConstraint];
-
-        rightMarginConstraint.priority = 999;
-        [self addConstraint:rightMarginConstraint];
 
         lastView = _imageView;
     } else {
@@ -395,15 +394,13 @@ fprintf(stderr, "%s\n",                                                    \
                                                      multiplier:1.0
                                                        constant:0];
 
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
+        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                       attribute:NSLayoutAttributeTop
                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                          toItem:self
                                                       attribute:NSLayoutAttributeTop
                                                      multiplier:1.0
                                                        constant:clipView.frame.size.height/4];
-
-        yPosConstraint.priority = NSLayoutPriorityDefaultLow;
 
         widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                        attribute:NSLayoutAttributeWidth
@@ -415,7 +412,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
         [self addConstraint:xPosConstraint];
-        [self addConstraint:yPosConstraint];
+        [self addConstraint:topSpacerYConstraint];
         [self addConstraint:widthConstraint];
 
         lastView = topSpacer;
@@ -578,29 +575,22 @@ fprintf(stderr, "%s\n",                                                    \
     if (somedata.cover.data == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
-        CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
+        CGFloat topConstraintConstant = (windowHeight - totalHeight - 180) / 2;
         if (topConstraintConstant < 40)
             topConstraintConstant = 0;
 
-        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                            attribute:NSLayoutAttributeTop
-                                                            relatedBy:NSLayoutRelationLessThanOrEqual
-                                                               toItem:self
-                                                            attribute:NSLayoutAttributeTop
-                                                           multiplier:1.0
-                                                             constant:topConstraintConstant];
-
-        if (clipView.frame.size.height < self.frame.size.height) {
-            topSpacerYConstraint.constant = 0;
-            yPosConstraint.constant = 0;
-        }
-
-        [self addConstraint:topSpacerYConstraint];
-
+        topSpacerYConstraint.constant = topConstraintConstant;
     }
 
     if (_game != somegame) {
-        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
+        if (@available(macOS 11.0, *)) {
+        } else {
+            NSPoint newOrigin = clipView.bounds.origin;
+            newOrigin.y = -55;
+            [clipView setBoundsOrigin:newOrigin];
+        }
+
+//        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
     }
 
     _game = somegame;
@@ -819,6 +809,12 @@ fprintf(stderr, "%s\n",                                                    \
         [_imageView resignFirstResponder];
     }
 }
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    if (notification.object == self.window)
+        [self deselectImage];
+}
+
 
 @end
 

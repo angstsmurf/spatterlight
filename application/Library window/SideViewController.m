@@ -21,7 +21,7 @@
 
 @implementation SideViewController
 
-- (void)viewDidAppear {
+- (void)viewDidLoad {
 
     needsUpdate = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -35,10 +35,6 @@
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(splitViewWillResizeSubviews:)
-                                                 name:NSSplitViewWillResizeSubviewsNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(splitViewDidResizeSubviews:)
                                                  name:NSSplitViewDidResizeSubviewsNotification
                                                object:nil];
@@ -49,7 +45,6 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.zPosition = 10;
 
-//    CGFloat gradientHeight = self.view.frame.size.height / 2;
     CGFloat gradientHeight = 100;
 
 
@@ -57,7 +52,6 @@
     gradientLayer.frame = gradFrame;
 
 
-//    NSColor *color = [NSColor colorNamed:@"customBlackOrWhite"];
     NSColor *color = [NSColor windowBackgroundColor];
 
     gradientLayer.colors = @[
@@ -72,50 +66,32 @@
     return gradientView;
 }
 
-- (void)splitViewWillResizeSubviews:(NSNotification *)notification {
-//    CGFloat maxWidth = MIN(NSWidth(self.view.window.frame) / 2, NSWidth(self.view.window.screen.visibleFrame) / 2);
-//    if (maxWidth == 0)
-//        maxWidth = 140;
-//
-//    _widthConstraint.constant = maxWidth;
-}
-
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-//    CGFloat screenWidth = NSWidth(self.view.window.screen.visibleFrame);
-//    if (NSWidth(self.view.window.frame) > screenWidth) {
-//        CGRect new = self.view.window.frame;
-//        new.size.width = screenWidth;
-//        [self.view.window setFrame:new display:NO];
-//    }
-//
-//    CGFloat maxWidth = MIN(NSWidth(self.view.window.frame) / 2, NSWidth(self.view.window.screen.visibleFrame) / 2);
-//    if (maxWidth == 0)
-//        maxWidth = 50;
-//
-//    _widthConstraint.constant = maxWidth;
     Metadata *meta = _currentSideView.metadata;
     NSNotification *currentGame = [NSNotification notificationWithName:@"UpdateSideView" object:(_currentSideView == nil) ? nil: @[_currentSideView]];
-    if (sideViewUpdatePending || (meta.blurb.length == 0 && meta.author.length == 0 && meta.headline.length == 0 && meta.cover == nil) ) {
-        [self updateSideView:currentGame];
+    if (!sideViewUpdatePending) {
+        if (meta.blurb.length == 0 && meta.author.length == 0 && meta.headline.length == 0 && meta.cover == nil) {
+            [self updateSideView:currentGame];
 
-        if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
-            SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
-            [sideView deselectImage];
-            [sideView updateTitle];
-        }
-    } else {
-        sideViewUpdatePending = YES;
-        needsUpdate = YES;
-        double delayInSeconds = 0.4;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        SideViewController __weak *weakSelf = self;
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            SideViewController *strongSelf = weakSelf;
-            if (strongSelf && strongSelf->sideViewUpdatePending) {
-                [strongSelf updateSideView:currentGame];
+            if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
+                SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
+                [sideView deselectImage];
+                [sideView updateTitle];
             }
-        });
+        } else {
+            sideViewUpdatePending = YES;
+            needsUpdate = YES;
+            double delayInSeconds = 0.3;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            SideViewController __weak *weakSelf = self;
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                SideViewController *strongSelf = weakSelf;
+                if (strongSelf && strongSelf->sideViewUpdatePending) {
+                    [strongSelf updateSideView:currentGame];
+                }
+            });
+        }
     }
 }
 
@@ -181,7 +157,7 @@
     }
 
     if (needsUpdate == NO && game && game == _currentSideView) {
-        // If game is already shown and force is NO,
+        // If game is already shown and needsUpdate is NO,
         // don't recreate the side view
         return;
     }
@@ -189,9 +165,6 @@
     needsUpdate = NO;
 
     [_leftScrollView.documentView removeFromSuperview];
-
-//    if (NSWidth(leftView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH)
-//        return;
 
     NSRect frame = _leftScrollView.bounds;
     frame.size.height = self.view.window.contentView.frame.size.height;
@@ -217,8 +190,6 @@
     }
 
     _currentSideView = game;
-
-//    [_leftScrollView addFloatingSubview:[self gradientView] forAxis:NSEventGestureAxisVertical];
 }
 
 

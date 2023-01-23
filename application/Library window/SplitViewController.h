@@ -9,11 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Game;
-
 @interface SplitViewController : NSSplitViewController
-
-@property Game *currentSideView;
 
 @end
 

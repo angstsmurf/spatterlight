@@ -209,7 +209,6 @@ fprintf(stderr, "%s\n",                                                    \
             toolbarItem.minSize = NSMakeSize(100, 20);
         }
     }
-
     return toolbarItem;
 }
 
@@ -227,6 +226,11 @@ fprintf(stderr, "%s\n",                                                    \
     [toolbarItemIdentifiers addObject:addToLibrary];
     [toolbarItemIdentifiers addObject:showInfo];
     [toolbarItemIdentifiers addObject:playGame];
+
+    if (@available(macOS 11.0, *)) {
+    } else {
+        [toolbarItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
+    }
 
     [toolbarItemIdentifiers addObject:searchBar];
 
@@ -248,8 +252,9 @@ fprintf(stderr, "%s\n",                                                    \
         NSString *str;
         for (Game *game in _tableViewController.selectedGames) {
             str = game.ifid;
-            if (str)
+            if (str) {
                 [selectedGameIfids addObject:str];
+            }
         }
         [state encodeObject:selectedGameIfids forKey:@"selectedGames"];
     }
@@ -263,6 +268,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
     NSArray *selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
     [self.tableViewController updateTableViews];
-    [self.tableViewController selectGamesWithIfids:selectedIfids scroll:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        [self.tableViewController selectGamesWithIfids:selectedIfids scroll:NO];
+    });
 }
 @end

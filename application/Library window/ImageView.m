@@ -249,6 +249,14 @@
     return YES;
 }
 
+- (NSSize) intrinsicContentSize {
+    if (@available(macOS 10.14, *)) {
+        return [super intrinsicContentSize];
+    } else {
+        return _intrinsic;
+    }
+}
+
 - (void)layout {
     [super layout];
     [self positionImagelayer];
