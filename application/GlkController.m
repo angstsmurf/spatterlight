@@ -3572,7 +3572,8 @@ static BOOL pollMoreData(int fd) {
         lastArrangeValues = newArrangeValues;
         // Some Inform 7 games only resize graphics on evtype_Redraw
         // so we send a redraw event after every resize event
-        redrawEvent = [[GlkEvent alloc] initRedrawEvent];
+        if (_eventcount > 2)
+            redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
 
     if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
