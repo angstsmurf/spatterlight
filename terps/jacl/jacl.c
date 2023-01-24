@@ -24,6 +24,8 @@
 #include "glkterm/glk.h"
 #include "WinGlk.h"
 #endif
+#elif defined SPATTERLIGHT
+#include "glkimp.h"
 #endif
 
 #include "jacl.h"
@@ -184,6 +186,11 @@ glk_main(void)
 
 	frefid_t 		blorb_file;
 
+#ifdef SPATTERLIGHT
+    if (gli_determinism)
+        srand(1234);
+    else
+#endif
 	srand((int) time(NULL));
 
 	override[0] = 0;
@@ -228,7 +235,9 @@ glk_main(void)
 	}
 
 	/* OPEN THE BLORB FILE IF ONE EXISTS */
-#ifndef WINGLK
+#ifdef SPATTERLIGHT
+    blorb_file = garglk_fileref_create_in_game_dir(fileusage_BinaryMode, blorb, 0);
+#elif !(defined WINGLK)
 #ifdef GARGLK
 	// Per the Glk spec, Gargoyle appends ".glkdata" to files opened via the
 	// "normal" Glk routines (e.g. glk_fileref_create_by_name). JACL assumes
