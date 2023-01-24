@@ -930,7 +930,7 @@ read_gamefile()
 
 			wp = 3;
 
-			while (word[wp] != NULL && wp < MAX_WORDS) {
+			while (wp < MAX_WORDS && word[wp] != NULL) {
 				if ((current_name->next_name = (struct name_type *)
 					 malloc(sizeof(struct name_type))) == NULL)
 					outofmem();
