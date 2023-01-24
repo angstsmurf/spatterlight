@@ -1,0 +1,23 @@
+# MinGW Makefile for JACL Adventure Creation Language
+
+CC = gcc
+CFLAGS = -O2 -Wall
+
+all : winjacl garjacl bjorb
+
+bjorb : bjorb.c
+	$(CC) $(CFLAGS) -o bjorb bjorb.c
+
+winjacl : jacl.c jacl.h winglk_startup.c findroute.c interpreter.c loader.c glk_saver.c WinGlk/winglk_main.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h
+	$(CC) $(CFLAGS) -DGLK -mwindows -DWIN32 -DWINGLK -o winjacl jacl.c winglk_startup.c WinGlk/winglk_main.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c -IWinGlk -LWinGlk -lm -lglk;
+    
+garjacl : jacl.c jacl.h glk_startup.c findroute.c interpreter.c loader.c glk_saver.c Gargoyle/garglk_main.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h
+	$(CC) $(CFLAGS) -DGLK -mwindows -DGARGLK -o garjacl jacl.c glk_startup.c Gargoyle/garglk_main.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c -IGargoyle -L../bin -lm -lgarglk;
+    
+install: all
+	mv garjacl.exe ../bin
+	mv winjacl.exe ../bin
+	mv bjorb.exe ../bin
+
+clean:
+	rm -f *.o

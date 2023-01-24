@@ -1,0 +1,15 @@
+Copy the appropriate Makefile for your operating system to 'Makefile' in both
+this directory and the 'glkterm' directory and type 'make install'. 
+This will compile the interpreters relevant to your system and the 'bjorb' 
+utility then move the binaries to ../bin. 
+
+See the Installation chapter in the Author's Guide (../guide/installation.html) 
+for more information.
+
+The interpreters available to be built are:
+
+jacl    - compiled with Andrew Plotkin's GlkTerm and either Ncurses or PDCurses.
+cjacl   - compiled with Andrew Plotkin's CheapGlk. 
+garjacl - compiled with Tor Andersson/ Ben Cressey's Gargoyle. 
+winjacl - compiled with David Kinder's WinGlk (requires MinGW to be built).
+

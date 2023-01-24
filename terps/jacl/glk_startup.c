@@ -19,22 +19,13 @@
 
 int					jpp_error = FALSE;
 
-extern strid_t 		game_stream;
-extern char			game_file[];
-extern char			temp_buffer[];
-extern char			error_buffer[];
-extern char			processed_file[];
-#undef encrypt
-short int			doencrypt;
+short int			encrypt;
 extern short int	release;
 
 glkunix_startup_t *arguments;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-extern strid_t				blorb_stream;
-
-/* PROTOTYPE FOR NEEDED UTILITY FUNCTION */
-void create_paths();
+strid_t				blorb_stream;
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     {"", glkunix_arg_ValueFollows, "filename: The game file to load." },
@@ -74,7 +65,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 		 * LOOK THROUGH THE LIST FOR ANYTHING THAT NEEDS ACTING ON */
 		for (index = 0; index < data->argc; index++) {
 			if (!strcmp(*data->argv, "-noencrypt")) {
-				doencrypt = FALSE;
+				encrypt = FALSE;
 			} else if (!strcmp(*data->argv, "-release")) {
 				release = TRUE;
 			}

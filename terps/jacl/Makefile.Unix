@@ -1,0 +1,52 @@
+# Unix Makefile for JACL Adventure Creation Language
+
+CC = gcc
+CFLAGS = -Wall -O2
+
+all : jacl cgijacl fcgijacl garjacl bjorb
+
+bjorb : bjorb.c
+	$(CC) $(CFLAGS) -o bjorb bjorb.c
+
+jacl : libglkterm.a jacl.c jacl.h glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h libcsv.c csv.h 
+	$(CC) $(CFLAGS) -DGLK -o jacl jacl.c glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c libcsv.c csv.h -Iglkterm -Lglkterm -lglkterm -lm -lncurses;
+
+jaclw : libglktermw.a jacl.c jacl.h glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h libcsv.c csv.h
+	$(CC) $(CFLAGS) -DGLK -o jacl jacl.c glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c libcsv.c csv.h -Iglktermw -Lglktermw -lglktermw -lm -lncursesw;
+	
+cjacl : libcheapglk.a jacl.c jacl.h glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h
+	$(CC) $(CFLAGS) -DGLK -o cjacl jacl.c glk_startup.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c -ICheapGlk -LCheapGlk -lm -lcheapglk;
+	
+garjacl : jacl.c jacl.h glk_startup.c findroute.c interpreter.c loader.c glk_saver.c Gargoyle/garglk_main.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c types.h
+	$(CC) $(CFLAGS) -DGLK -DGARGLK -o garjacl jacl.c glk_startup.c Gargoyle/garglk_main.c findroute.c interpreter.c loader.c glk_saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.c encapsulate.c -IGargoyle -LGargoyle -lm -lgarglk;
+
+cgijacl : libcgihtml.a webjacl.o cgijacl.c interpreter.c findroute.c loader.c saver.c cgijacl.h logging.c parser.c display.c utils.c jpp.c resolvers.c errors.o encapsulate.o language.h types.h libcsv.c csv.h 
+	$(CC) $(CFLAGS) -DWEBJACL -o cgijacl cgijacl.c interpreter.c findroute.c loader.c saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.o encapsulate.o webjacl.o  libcsv.c csv.h -Icgihtml-1.69 -Iwebjacl -Lcgihtml-1.69 -lm -lcgihtml;
+    
+fcgijacl : libcgihtml.a cgijacl.c cgijacl.h interpreter.c findroute.c loader.c saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.o encapsulate.o language.h types.h libcsv.c csv.h 
+	$(CC) $(CFLAGS) -DFCGIJACL -o fcgijacl cgijacl.c interpreter.c findroute.c loader.c saver.c logging.c parser.c display.c utils.c jpp.c resolvers.c errors.o encapsulate.o  libcsv.c csv.h -Icgihtml-1.69 -Lcgihtml-1.69 -lm -lcgihtml -lfcgi;
+    
+webjacl.o : webjacl.c webjacl.h language.h
+	$(CC) $(CFLAGS) -o webjacl.o -c webjacl.c;
+
+libcheapglk.a :
+	cd CheapGlk; make libcheapglk.a
+
+libglktermw.a :
+	cd glktermw; make libglktermw.a
+
+libglkterm.a :
+	cd glkterm; make libglkterm.a
+
+libcgihtml.a :
+	cd cgihtml-1.69; make libcgihtml.a
+
+install: all
+	mv garjacl ../bin
+	mv jacl ../bin
+	mv bjorb ../bin
+	mv cgijacl ../bin
+	mv fcgijacl ../bin
+
+clean:
+	rm -f *.o
