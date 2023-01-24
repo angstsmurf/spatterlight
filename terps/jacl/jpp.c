@@ -176,11 +176,7 @@ process_file(const char *sourceFile1, const char *sourceFile2)
 			if (!encrypting && *stripped_line != '#' && *stripped_line != '\0' && do_encrypt & release) {
 				/* START ENCRYPTING FROM THE FIRST NON-COMMENT LINE IN
 				 * THE SOURCE FILE */
-#ifdef WIN32
-				fputs("#encrypted\r\n", outputFile);
-#else
 				fputs("#encrypted\n", outputFile);
-#endif
 				encrypting = TRUE;
 			} 
 
@@ -193,11 +189,7 @@ process_file(const char *sourceFile1, const char *sourceFile2)
 
 			lines_written++;
 			if (lines_written == 1) {
-#ifdef WIN32
-				sprintf(temp_buffer, "#processed:%d\r\n", INTERPRETER_VERSION);
-#else
 				sprintf(temp_buffer, "#processed:%d\n", INTERPRETER_VERSION);
-#endif
 				fputs(temp_buffer, outputFile);
 			}
 		}

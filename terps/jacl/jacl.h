@@ -18,7 +18,7 @@
 #endif
 
 #ifdef GLK
-#include <glk.h>
+#include "glk.h"
 #include "gi_blorb.h"
 #endif
 
@@ -32,14 +32,12 @@
 #define M_PI        3.14159265358979323846
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 #define DIR_SEPARATOR '\\'
 #define TEMP_DIR "temp\\"
 #define DATA_DIR "data\\"
 #define INCLUDE_DIR "include\\"
-#endif
-
-#ifndef WIN32
+#else
 #define DIR_SEPARATOR '/'
 #define DATA_DIR "data/"
 #define TEMP_DIR "temp/"

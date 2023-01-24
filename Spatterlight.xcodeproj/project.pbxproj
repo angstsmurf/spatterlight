@@ -8133,21 +8133,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C318F78A2741AA7B006D626A /* display.c in Sources */,
 				C318F78C2741AA7B006D626A /* jacl.c in Sources */,
-				C318F78E2741AA7B006D626A /* glk_saver.c in Sources */,
-				C318F78F2741AA7B006D626A /* utils.c in Sources */,
-				C318F7952741AA7B006D626A /* errors.c in Sources */,
-				C318F7902741AA7B006D626A /* libcsv.c in Sources */,
-				C318F78D2741AA7B006D626A /* resolvers.c in Sources */,
-				C318F7932741AA7B006D626A /* encapsulate.c in Sources */,
+				C318F7962741AA7B006D626A /* glk_startup.c in Sources */,
 				C318F7892741AA7B006D626A /* findroute.c in Sources */,
-				C318F7882741AA7B006D626A /* loader.c in Sources */,
 				C318F7912741AA7B006D626A /* interpreter.c in Sources */,
-				C318F78B2741AA7B006D626A /* jpp.c in Sources */,
+				C318F7882741AA7B006D626A /* loader.c in Sources */,
+				C318F78E2741AA7B006D626A /* glk_saver.c in Sources */,
 				C318F7942741AA7B006D626A /* logging.c in Sources */,
 				C318F7922741AA7B006D626A /* parser.c in Sources */,
-				C318F7962741AA7B006D626A /* glk_startup.c in Sources */,
+				C318F78A2741AA7B006D626A /* display.c in Sources */,
+				C318F78F2741AA7B006D626A /* utils.c in Sources */,
+				C318F78B2741AA7B006D626A /* jpp.c in Sources */,
+				C318F78D2741AA7B006D626A /* resolvers.c in Sources */,
+				C318F7952741AA7B006D626A /* errors.c in Sources */,
+				C318F7932741AA7B006D626A /* encapsulate.c in Sources */,
+				C318F7902741AA7B006D626A /* libcsv.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10314,7 +10314,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
 					GLK,
-					GARGLK,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -10323,7 +10322,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -10355,7 +10354,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
 					GLK,
-					GARGLK,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -10364,7 +10362,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

@@ -18,7 +18,7 @@
 
 #include "csv.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #ifndef GARGLK
 #include <windows.h>
 #include "glkterm/glk.h"
@@ -41,7 +41,7 @@
 #include <glkstart.h>
 #endif
 
-#ifndef GARGLK
+#if !(defined GARGLK || defined SPATTERLIGHT)
 #include "glkterm/gi_blorb.h"
 #include "glkterm/glk.h"
 #endif
@@ -235,15 +235,15 @@ glk_main(void)
 	}
 
 	/* OPEN THE BLORB FILE IF ONE EXISTS */
-#ifdef SPATTERLIGHT
-    blorb_file = garglk_fileref_create_in_game_dir(fileusage_BinaryMode, blorb, 0);
-#elif !(defined WINGLK)
-#ifdef GARGLK
+#if !(defined WINGLK)
+#if (defined GARGLK)
 	// Per the Glk spec, Gargoyle appends ".glkdata" to files opened via the
 	// "normal" Glk routines (e.g. glk_fileref_create_by_name). JACL assumes
 	// that it can open arbitrary files, and for that,
 	// glkunix_stream_open_pathname is required.
 	blorb_stream = glkunix_stream_open_pathname(blorb, 0, 0);
+#elif (defined SPATTERLIGHT)
+    blorb_file = garglk_fileref_create_in_game_dir(fileusage_BinaryMode, blorb, 0);
 #else
 	blorb_file = glk_fileref_create_by_name(fileusage_BinaryMode, blorb, 0);
 #endif

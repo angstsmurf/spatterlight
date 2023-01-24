@@ -195,7 +195,7 @@ stripwhite (char *string)
 
 	while (i >= 0 && ((jacl_whitespace (*(string+ i))) || *(string + i) == '\n' || *(string + i) == '\r')) i--;
 
-#ifdef WIN32
+#ifdef _WIN32
     i++;
 	*(string + i) = '\r';
 #endif
