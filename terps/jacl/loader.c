@@ -787,8 +787,7 @@ read_gamefile()
                     result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
                     fgets(text_buffer, 1024, file);
-#endif
-<<<<<<< HEAD
+#endif  
 					line++;
 				}
 				if (encrypted) jacl_decrypt(text_buffer);
