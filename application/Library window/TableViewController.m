@@ -207,6 +207,10 @@ enum  {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _infoWindows = [[NSMutableDictionary alloc] init];
+    _gameSessions = [[NSMutableDictionary alloc] init];
+    _gameTableModel = [[NSMutableArray alloc] init];
+
     AppDelegate *appdelegate = (AppDelegate*)NSApplication.sharedApplication.delegate;
     appdelegate.tableViewController = self;
 
@@ -282,10 +286,6 @@ enum  {
         @"Polite" : @(FORGIVENESS_POLITE),
         @"Merciful" : @(FORGIVENESS_MERCIFUL)
     };
-
-    _infoWindows = [[NSMutableDictionary alloc] init];
-    _gameSessions = [[NSMutableDictionary alloc] init];
-    _gameTableModel = [[NSMutableArray alloc] init];
 
     NSString *key;
     NSSortDescriptor *sortDescriptor;
