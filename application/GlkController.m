@@ -1120,7 +1120,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Restore scroll position etc
     for (win in _gwindows.allValues) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]] && !_windowsToRestore.count) {
+        if (!_windowsToRestore.count) {
             [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
         }
         if (win.name == _firstResponderView) {
