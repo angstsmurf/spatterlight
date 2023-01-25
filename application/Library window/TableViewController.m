@@ -71,7 +71,7 @@ enum  {
 
 
 @interface LibHelperTableView () {
-    NSTrackingRectTag trackingTag;
+    NSTrackingArea *trackingArea;
     BOOL mouseOverView;
     NSInteger lastOverRow;
 }
@@ -83,11 +83,9 @@ enum  {
 @implementation LibHelperTableView
 
 -(BOOL)becomeFirstResponder {
-    [self removeTrackingRect:trackingTag];
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
         [(TableViewController *)self.delegate enableClickToRenameAfterDelay];
-        trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
     }
     return flag;
 }
@@ -102,7 +100,8 @@ enum  {
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
+    trackingArea = [[NSTrackingArea alloc] initWithRect:self.frame options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways) owner:self userInfo:nil];
+    [self addTrackingArea:trackingArea];
     mouseOverView = NO;
     _mouseOverRow = -1;
     lastOverRow = -1;
@@ -119,7 +118,6 @@ enum  {
             return;
         else {
             [(TableViewController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:_mouseOverRow];
-
             lastOverRow = _mouseOverRow;
         }
     }
@@ -132,16 +130,10 @@ enum  {
     lastOverRow = -1;
 }
 
-- (void)scrollWheel:(NSEvent *)event {
-    [super scrollWheel:event];
-    [self removeTrackingRect:trackingTag];
-    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
-}
-
-- (void)viewDidEndLiveResize {
-    [super viewDidEndLiveResize];
-    [self removeTrackingRect:trackingTag];
-    trackingTag = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:NO];
+- (void)updateTrackingAreas {
+    [self removeTrackingArea:trackingArea];
+    trackingArea = [[NSTrackingArea alloc] initWithRect:self.frame options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways) owner:self userInfo:nil];
+    [self addTrackingArea:trackingArea];
 }
 
 @end
