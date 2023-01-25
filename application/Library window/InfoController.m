@@ -466,6 +466,11 @@ fprintf(stderr, "%s\n",                                                    \
     return managedObjectContext.undoManager;
 }
 
+- (void)windowDidResignKey:(NSNotification *)notification {
+    if (notification.object == self.window)
+        [imageView resignFirstResponder];
+}
+
 #pragma mark animation
 
 - (void)makeAndPrepareSnapshotWindow:(NSRect)startingframe {
