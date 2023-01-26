@@ -120,9 +120,6 @@ fprintf(stderr, "%s\n",                                                    \
     self = [self init];
     if (self) {
         _game = game;
-        _path = game.urlForBookmark.path;
-        if (!_path)
-            _path = game.path;
         _meta = game.metadata;
     }
     return self;
@@ -130,11 +127,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 // Used for window restoration
 
-- (instancetype)initWithpath:(NSString *)path {
+- (instancetype)initWithIfid:(NSString *)ifid {
     self = [self init];
     if (self) {
-        _path = path;
-        _game = [self fetchGameWithPath:path];
+        _game = [TableViewController fetchGameForIFID:ifid inContext:managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         }
@@ -194,36 +190,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 + (NSArray *)restorableStateKeyPaths {
     return @[
-        @"path", @"titleField.stringValue", @"authorField.stringValue",
+        @"titleField.stringValue", @"authorField.stringValue",
         @"headlineField.stringValue", @"descriptionText.string"
     ];
-}
-
-- (Game *)fetchGameWithPath:(NSString *)path {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@",path];
-
-    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"Found more than one entry with path %@",path);
-    }
-    else if (fetchedObjects.count == 0)
-    {
-        NSLog(@"fetchGameWithPath: Found no Game object with path %@", path);
-        return nil;
-    }
-
-    return fetchedObjects[0];
 }
 
 - (void)sizeToFitImageAnimate:(BOOL)animate {
@@ -326,18 +295,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)update {
-    if (!_path)
-        _path = _game.urlForBookmark.path;
-    if (!_path)
-        _path = _game.path;
-    if (_path)
-        self.window.representedFilename = _path;
     if (_meta.title.length) {
         self.window.title =
         [NSString stringWithFormat:@"%@ Info", _meta.title];
-    } else if (_path) {
-        self.window.title =
-        [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
     } else self.window.title = NSLocalizedString(@"Game Info", nil);
 
     if (_meta) {
@@ -628,6 +588,8 @@ fprintf(stderr, "%s\n",                                                    \
     positionAnimation.toValue = [NSValue valueWithPoint:point];
     positionAnimation.fillMode = kCAFillModeForwards;
 
+    NSString *ifid = _game.ifid;
+
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = .4;
@@ -647,17 +609,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self checkForKeyPressesDuringAnimation];
 
-        // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
-        // Probably a good reason to use something else as key.
-        for (InfoController *controller in (libctrl.infoWindows).allValues)
-            if (controller == self) {
-                NSArray *temp = [libctrl.infoWindows allKeysForObject:controller];
-                NSString *key = temp[0];
-                if (key) {
-                    [libctrl.infoWindows removeObjectForKey:key];
-                    return;
-                }
-            }
+        [libctrl.infoWindows removeObjectForKey:ifid];
     }];
 }
 

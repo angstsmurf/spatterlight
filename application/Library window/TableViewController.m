@@ -1401,22 +1401,20 @@ enum  {
 - (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle {
     InfoController *infoctl;
 
-    NSString *path = game.path;
-    if (!path)
-        path = game.urlForBookmark.path;
-    if (!path)
+    NSString *ifid = game.ifid;
+    if (!ifid)
         return;
     // First, we check if we have created this info window already
-    infoctl = _infoWindows[path];
+    infoctl = _infoWindows[ifid];
 
     if (!infoctl) {
         infoctl = [[InfoController alloc] initWithGame:game];
         infoctl.libcontroller = self;
-        _infoWindows[path] = infoctl;
+        _infoWindows[ifid] = infoctl;
         NSWindow *infoWindow = infoctl.window;
         infoWindow.restorable = YES;
         infoWindow.restorationClass = [AppDelegate class];
-        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
+        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", ifid];
 
         NSRect targetFrame = infoctl.window.frame;
         NSRect visibleFrame = infoctl.window.screen.visibleFrame;

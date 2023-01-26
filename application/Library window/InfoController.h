@@ -8,14 +8,11 @@
 
 @class Game, Metadata, TableViewController, CoreDataManager;
 
-void showInfoForFile(NSString *path, NSDictionary *info);
-
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 
 @property (weak) Game *game;
 @property (strong) TableViewController *libcontroller;
 
-@property NSString *path;
 @property Metadata *meta;
 
 @property BOOL inAnimation;
@@ -26,9 +23,7 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @property IBOutlet NSTextField *titleField;
 
 - (instancetype)initWithGame:(Game *)game;
-
-// Used for window restoration
-- (instancetype)initWithpath:(NSString *)path;
+- (instancetype)initWithIfid:(NSString *)ifid;
 
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;

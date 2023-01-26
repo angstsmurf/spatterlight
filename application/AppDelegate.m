@@ -229,19 +229,17 @@ PasteboardFilePasteLocation;
         [identifier substringToIndex:7];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
-            NSString *path = [identifier substringFromIndex:7];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                InfoController *infoctl =
-                [[InfoController alloc] initWithpath:path];
-                infoctl.libcontroller = appDelegate.libctl.tableViewController;
-                NSWindow *infoWindow = infoctl.window;
-                infoWindow.restorable = YES;
-                infoWindow.restorationClass = [AppDelegate class];
-                infoWindow.identifier =
-                [NSString stringWithFormat:@"infoWin%@", path];
-                (appDelegate.libctl.tableViewController.infoWindows)[path] = infoctl;
-                window = infoctl.window;
-            }
+            NSString *ifid = [identifier substringFromIndex:7];
+            InfoController *infoctl =
+            [[InfoController alloc] initWithIfid:ifid];
+            infoctl.libcontroller = appDelegate.libctl.tableViewController;
+            NSWindow *infoWindow = infoctl.window;
+            infoWindow.restorable = YES;
+            infoWindow.restorationClass = [AppDelegate class];
+            infoWindow.identifier =
+            [NSString stringWithFormat:@"infoWin%@", ifid];
+            (appDelegate.libctl.tableViewController.infoWindows)[ifid] = infoctl;
+            window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl.tableViewController playGameWithIFID:ifid];
