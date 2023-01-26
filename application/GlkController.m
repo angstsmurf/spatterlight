@@ -333,9 +333,6 @@ fprintf(stderr, "%s\n",                                                    \
     bufferedData = nil;
 
     self.window.title = game.metadata.title;
-    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
-        [self.window setValue:@2 forKey:@"tabbingMode"];
-    }
 
     waitforevent = NO;
     waitforfilename = NO;

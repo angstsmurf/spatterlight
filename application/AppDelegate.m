@@ -190,8 +190,8 @@ PasteboardFilePasteLocation;
 - (IBAction)showHelpFile:(id)sender {
     NSString *title = [sender title];
     NSURL *url = [[NSBundle mainBundle] URLForResource:title
-                 withExtension:@"rtf"
-                  subdirectory:@"docs"];
+                                         withExtension:@"rtf"
+                                          subdirectory:@"docs"];
     NSError *error;
 
     if (!_helpLicenseWindow) {
@@ -201,7 +201,7 @@ PasteboardFilePasteLocation;
     NSAttributedString *content = [[NSAttributedString alloc]
                                    initWithURL:url
                                    options:@{ NSDocumentTypeDocumentOption :
-                                        NSRTFTextDocumentType }
+                                                  NSRTFTextDocumentType }
                                    documentAttributes:nil
                                    error:&error];
 
@@ -254,9 +254,9 @@ PasteboardFilePasteLocation;
             completionHandlerCopy = completionHandler;
 
             if ([ifid isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"KeyWindowController"]])
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                completionHandlerCopy(window, nil);
-            });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    completionHandlerCopy(window, nil);
+                });
             else
                 completionHandler(window, nil);
 
@@ -501,7 +501,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 #else
                 _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
 #endif
-                                      [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
+                [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
                 [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
             }
 
@@ -674,11 +674,11 @@ continueUserActivity:(NSUserActivity *)userActivity
             if (restorable == 1)
                 msg = [msg
                        stringByAppendingString:
-                       @"\n(There is also an autorestorable game running.)"];
+                           @"\n(There is also an autorestorable game running.)"];
             else if (restorable > 1)
                 msg = [msg
                        stringByAppendingFormat:
-                       @"\n(There are also %ld autorestorable games running.)",
+                           @"\n(There are also %ld autorestorable games running.)",
                        restorable];
 
             NSAlert *anAlert = [[NSAlert alloc] init];
@@ -707,6 +707,10 @@ continueUserActivity:(NSUserActivity *)userActivity
     [defaults setObject:key.game.ifid forKey:@"KeyWindowController"];
 
     return NSTerminateNow;
+}
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    NSWindow.allowsAutomaticWindowTabbing = NO;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
