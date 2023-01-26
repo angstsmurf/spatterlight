@@ -10,6 +10,15 @@
 
 @implementation SplitViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showSideBarIfClosed:)
+                                                 name:@"ShowSideBar"
+                                               object:nil];
+}
+
 - (void)showSideBarIfClosed:(NSNotification *)notification {
     if (self.splitViewItems.firstObject.collapsed) {
         [self toggleSidebar:nil];
