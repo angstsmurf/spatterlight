@@ -54,6 +54,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSToolbarItemIdentifier showInfo;
     NSToolbarItemIdentifier playGame;
     NSToolbarItemIdentifier searchBar;
+    NSToolbarItemIdentifier mySpace;
 }
 
 @end
@@ -74,6 +75,7 @@ fprintf(stderr, "%s\n",                                                    \
     showInfo = @"showInfo";
     playGame = @"playGame";
     searchBar = @"searchBar";
+    mySpace = @"mySpace";
 
     // This view controller determines the window toolbar's content.
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
@@ -139,8 +141,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (MyButtonToolbarItem *)buttonToolbarItemWithImage:(NSString *)imageName selector:(SEL)selector label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier enabled:(BOOL)enabled {
     NSImage *image = [NSImage imageNamed:imageName];
-    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 20, 20)];
-    button.imageScaling = NSImageScaleProportionallyUpOrDown;
+    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 18, 18)];
+    button.imageScaling = NSImageScaleProportionallyDown;
     button.image = image;
     button.action = selector;
     button.target = self.tableViewController;
@@ -193,6 +195,9 @@ fprintf(stderr, "%s\n",                                                    \
         } else {
             return [self buttonToolbarItemWithImage:@"play.circle" selector:@selector(play:) label:@"Play" tooltip:@"Play selected game" identifier:itemIdentifier enabled:NO];
         }
+    } else if (itemIdentifier == mySpace) {
+        toolbarItem = [self buttonToolbarItemWithImage:@"play.circle" selector:nil label:nil tooltip:nil identifier:itemIdentifier enabled:NO];
+        toolbarItem.view.hidden = YES;
     } else if (itemIdentifier == searchBar) {
         NSSearchField *searchField = [[NSSearchField alloc] initWithFrame: CGRectZero];
         _searchField = searchField;
@@ -220,7 +225,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (@available(macOS 11.0, *)) {
     } else {
-        [toolbarItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
+        [toolbarItemIdentifiers addObject:mySpace];
     }
 
     [toolbarItemIdentifiers addObject:addToLibrary];
@@ -229,7 +234,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (@available(macOS 11.0, *)) {
     } else {
-        [toolbarItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
+        [toolbarItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
     }
 
     [toolbarItemIdentifiers addObject:searchBar];
