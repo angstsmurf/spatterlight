@@ -96,10 +96,10 @@
         <scene sceneID="xYL-HX-dLf">
             <objects>
                 <viewController identifier="OutlineViewController" storyboardIdentifier="OutlineViewController" showSeguePresentationStyle="single" id="Onb-kf-JYh" userLabel="Side View Controller" customClass="SideViewController" sceneMemberID="viewController">
-                    <customView key="view" identifier="splitViewLeft" verticalHuggingPriority="590" horizontalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="nco-ND-cnN" userLabel="Left View">
+                    <customView key="view" identifier="splitViewLeft" verticalHuggingPriority="590" horizontalCompressionResistancePriority="20" translatesAutoresizingMaskIntoConstraints="NO" id="nco-ND-cnN" userLabel="Left View">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="472"/>
                         <subviews>
-                            <textField identifier="SideIfid" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wOX-LD-GxP" userLabel="Side ifid">
+                            <textField identifier="SideIfid" verticalHuggingPriority="750" horizontalCompressionResistancePriority="20" translatesAutoresizingMaskIntoConstraints="NO" id="wOX-LD-GxP" userLabel="Side ifid">
                                 <rect key="frame" x="4" y="5" width="492" height="12"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" sendsActionOnEndEditing="YES" state="on" alignment="center" identifier="SIdeIfidCell" usesSingleLineMode="YES" id="VQ1-c9-omA">
                                     <font key="font" metaFont="miniSystem"/>
@@ -149,6 +149,7 @@
                     <connections>
                         <outlet property="clipView" destination="67R-an-UfZ" id="IoE-3m-aPr"/>
                         <outlet property="leftScrollView" destination="3eh-en-Vcc" id="I9U-oT-Ynz"/>
+                        <outlet property="scrollViewTopPin" destination="neb-rW-ZVD" id="clv-Xl-NSI"/>
                         <outlet property="sideIfid" destination="wOX-LD-GxP" id="fYJ-2L-LEs"/>
                         <outlet property="widthConstraint" destination="vrk-Ir-tVW" id="3G6-F1-j0j"/>
                     </connections>

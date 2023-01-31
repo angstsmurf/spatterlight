@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) Game *currentSideView;
 @property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 @property (weak) IBOutlet NSClipView *clipView;
+@property (strong) IBOutlet NSLayoutConstraint *scrollViewTopPin;
 
 @end
 

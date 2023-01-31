@@ -7,6 +7,7 @@
 
 #import "SplitViewController.h"
 #import "SideInfoView.h"
+#import "SideViewController.h"
 
 @implementation SplitViewController
 
@@ -27,9 +28,10 @@
 
 - (void)toggleSidebar:sender {
     if (self.splitViewItems.firstObject.collapsed) {
-        NSRect frame = self.splitViewItems.firstObject.viewController.view.frame;
-        frame.size.width = 190;
-        self.splitViewItems.firstObject.viewController.view.frame = frame;
+        SideViewController *sideViewController = (SideViewController *)self.splitViewItems.firstObject.viewController;
+        NSRect frame = sideViewController.view.frame;
+        frame.size.width = 200;
+        sideViewController.view.frame = frame;
     }
     [super toggleSidebar:sender];
 }

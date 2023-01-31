@@ -342,8 +342,11 @@ enum  {
     [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        NSArray<Game *> *selected = self.selectedGames;
+        if (selected.count > 2)
+            selected = @[self.selectedGames[0], self.selectedGames[1]];
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:self.selectedGames]];
+         postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
     });
 }
 
@@ -3172,9 +3175,13 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                     [prefs restoreThemeSelection:game.theme];
             }
         } else _selectedGames = @[];
+
+        NSArray<Game *> *selected = _selectedGames;
+        if (selected.count > 2)
+            selected = @[_selectedGames[0], _selectedGames[1]];
         
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:_selectedGames]];
+         postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
     }
 }
 

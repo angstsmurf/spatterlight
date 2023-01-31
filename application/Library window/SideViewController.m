@@ -15,6 +15,7 @@
 @interface SideViewController () {
     BOOL sideViewUpdatePending;
     BOOL needsUpdate;
+    NSArray<Game *> *selectedGames;
 }
 
 @end
@@ -24,6 +25,7 @@
 - (void)viewDidLoad {
 
     needsUpdate = YES;
+    selectedGames = @[];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -38,61 +40,37 @@
                                              selector:@selector(splitViewDidResizeSubviews:)
                                                  name:NSSplitViewDidResizeSubviewsNotification
                                                object:nil];
-//    [_leftScrollView addFloatingSubview:[self gradientView] forAxis:NSEventGestureAxisVertical];
-}
 
-- (NSView *)gradientView {
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.zPosition = 10;
-
-    CGFloat gradientHeight = 100;
-
-
-    NSRect gradFrame = NSMakeRect(0, 0, NSWidth(self.view.frame), gradientHeight);
-    gradientLayer.frame = gradFrame;
-
-
-    NSColor *color = [NSColor windowBackgroundColor];
-
-    gradientLayer.colors = @[
-        (id)[[color colorWithAlphaComponent:0.0] CGColor],
-        (id)[color CGColor]
-    ];
-
-    NSView *gradientView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, NSWidth(self.view.frame), gradientHeight)];
-
-    gradientView.layer = gradientLayer;
-
-    return gradientView;
-}
-
-
-- (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-    Metadata *meta = _currentSideView.metadata;
-    NSNotification *currentGame = [NSNotification notificationWithName:@"UpdateSideView" object:(_currentSideView == nil) ? nil: @[_currentSideView]];
-    if (!sideViewUpdatePending) {
-        if (meta.blurb.length == 0 && meta.author.length == 0 && meta.headline.length == 0 && meta.cover == nil) {
-            if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
-                SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
-                [sideView deselectImage];
-                [sideView updateTitle];
-            }
+    if (@available(macOS 11.0, *)) {
+    } else {
+        if (@available(macOS 10.14, *)) {
+            _scrollViewTopPin.constant = 57;
         } else {
-            sideViewUpdatePending = YES;
-            needsUpdate = YES;
-            double delayInSeconds = 0.3;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            SideViewController __weak *weakSelf = self;
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                SideViewController *strongSelf = weakSelf;
-                if (strongSelf && strongSelf->sideViewUpdatePending) {
-                    [strongSelf updateSideView:currentGame];
-                }
-            });
+            _scrollViewTopPin.constant = 55;
         }
     }
 }
 
+- (void)splitViewDidResizeSubviews:(NSNotification *)notification {
+
+    if (selectedGames.count == 0 || selectedGames.count > 1)
+        return;
+
+    NSNotification *currentGame = [NSNotification notificationWithName:@"UpdateSideView" object:selectedGames];
+
+    if (!sideViewUpdatePending) {
+        sideViewUpdatePending = YES;
+        needsUpdate = YES;
+        _leftScrollView.documentView.needsLayout = YES;
+        SideViewController __weak *weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            SideViewController *strongSelf = weakSelf;
+            if (strongSelf && strongSelf->sideViewUpdatePending) {
+                [strongSelf updateSideView:currentGame];
+            }
+        });
+    }
+}
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
@@ -136,17 +114,15 @@
 }
 
 - (void)updateSideView:(NSNotification *)notification {
-
     Game *game = nil;
     NSString *string = nil;
 
-    NSArray<Game *> *selectedGames = (NSArray<Game *> *)notification.object;
+    selectedGames = (NSArray<Game *> *)notification.object;
 
     sideViewUpdatePending = NO;
 
     if (!selectedGames || !selectedGames.count || selectedGames.count > 1) {
         string = (selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
-        NSLog(@"string: %@", string);
     } else {
         game = selectedGames[0];
         if (game.metadata.title.length == 0) {
@@ -163,15 +139,9 @@
 
     needsUpdate = NO;
 
+    SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.bounds];
+
     [_leftScrollView.documentView removeFromSuperview];
-
-    NSRect frame = _leftScrollView.bounds;
-    frame.size.height = self.view.window.contentView.frame.size.height;
-    CGFloat maxWidth = self.view.window.contentView.frame.size.width / 2;
-    if (frame.size.width > maxWidth && maxWidth > 0)
-        frame.size.width = maxWidth;
-    SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:frame];
-
     _leftScrollView.documentView = infoView;
 
     _sideIfid.stringValue = @"";
@@ -179,9 +149,6 @@
 
     if (game) {
         [infoView updateSideViewWithGame:game];
-        //NSLog(@"\nUpdating info pane for %@ with ifid %@", game.metadata.title, game.ifid);
-        //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
-
         if (game.ifid)
             _sideIfid.stringValue = game.ifid;
     } else if (string) {
