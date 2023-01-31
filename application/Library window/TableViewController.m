@@ -218,9 +218,10 @@ enum  {
     _gameTableView.doubleAction = @selector(doDoubleClick:);
     _gameTableView.target = self;
 
-    if (@available(macOS 11.0, *)) {
+    if (@available(macOS 10.15, *)) {
     } else {
-        _gameTableView.horizontalLine.hidden = YES;
+        [_gameTableView.horizontalLine removeFromSuperview];
+        _gameTableView.horizontalLine = nil;
     }
 
     _currentlyAddingGames = NO;
@@ -340,7 +341,7 @@ enum  {
 
     [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:self.selectedGames]];
     });
