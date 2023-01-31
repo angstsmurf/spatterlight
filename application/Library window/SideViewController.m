@@ -72,8 +72,6 @@
     NSNotification *currentGame = [NSNotification notificationWithName:@"UpdateSideView" object:(_currentSideView == nil) ? nil: @[_currentSideView]];
     if (!sideViewUpdatePending) {
         if (meta.blurb.length == 0 && meta.author.length == 0 && meta.headline.length == 0 && meta.cover == nil) {
-            [self updateSideView:currentGame];
-
             if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
                 SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
                 [sideView deselectImage];

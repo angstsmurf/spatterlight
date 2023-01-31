@@ -262,8 +262,6 @@ fprintf(stderr, "%s\n",                                                    \
 {
     NSClipView *clipView = (NSClipView *)self.superview;
 
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-
     Metadata *somedata = somegame.metadata;
 
     if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
