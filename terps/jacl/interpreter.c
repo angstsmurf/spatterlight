@@ -2952,7 +2952,7 @@ condition()
 
 	first = 1;
 
-	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
+	while (((first +2) < MAX_WORDS) && word[first + 2] != NULL) {
 		if (logic_test(first))
 			return (TRUE);
 		else
