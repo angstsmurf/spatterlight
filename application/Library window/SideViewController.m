@@ -123,7 +123,6 @@
 
     if (!selectedGames || !selectedGames.count || selectedGames.count > 1) {
         string = (selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
-        NSLog(@"string: %@", string);
     } else {
         game = selectedGames[0];
         if (game.metadata.title.length == 0) {
