@@ -25,5 +25,14 @@
     }
 }
 
+- (void)toggleSidebar:sender {
+    if (self.splitViewItems.firstObject.collapsed) {
+        NSRect frame = self.splitViewItems.firstObject.viewController.view.frame;
+        frame.size.width = 190;
+        self.splitViewItems.firstObject.viewController.view.frame = frame;
+    }
+    [super toggleSidebar:sender];
+}
+
 
 @end
