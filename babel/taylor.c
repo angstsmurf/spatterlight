@@ -135,17 +135,23 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
-    uint16_t chksum = checksum(sf, extent);
+    int calculated_checksum = 0;
+    uint16_t chksum;
 
     for (int i = 0; taylor_registry[i].length != 0; i++) {
-        if (extent == taylor_registry[i].length &&
-            chksum == taylor_registry[i].chk) {
-            if (ifid != NULL) {
-                size_t length = strlen(ifids[taylor_registry[i].ifid]);
-                strncpy(*ifid, ifids[taylor_registry[i].ifid], length);
-                (*ifid)[length] = 0;
+        if (extent == taylor_registry[i].length) {
+            if (calculated_checksum == 0) {
+                chksum = checksum(sf, extent);
+                calculated_checksum = 1;
             }
-            return VALID_STORY_FILE_RV;
+            if (chksum == taylor_registry[i].chk) {
+                if (ifid != NULL) {
+                    size_t length = strlen(ifids[taylor_registry[i].ifid]);
+                    strncpy(*ifid, ifids[taylor_registry[i].ifid], length);
+                    (*ifid)[length] = 0;
+                }
+                return VALID_STORY_FILE_RV;
+            }
         }
     }
     return INVALID_STORY_FILE_RV;
@@ -171,8 +177,6 @@ static int detect_verbs(unsigned char *sf, int32 extent) {
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
-
-//    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
 
     if (extent < 24 || extent > 300000)
         return INVALID_STORY_FILE_RV;

@@ -208,17 +208,23 @@ static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifi
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
-    uint16_t chksum = checksum(sf, extent);
+    int calculated_checksum = 0;
+    uint16_t chksum;
 
     for (int i = 0; plus_registry[i].ifid != NO_IFID; i++) {
-        if (extent == plus_registry[i].length &&
-            chksum == plus_registry[i].chk) {
-            if (ifid != NULL) {
-                size_t length = strlen(ifids[plus_registry[i].ifid]);
-                strncpy(*ifid, ifids[plus_registry[i].ifid], length);
-                (*ifid)[length] = 0;
+        if (extent == plus_registry[i].length) {
+            if (calculated_checksum == 0) {
+                chksum = checksum(sf, extent);
+                calculated_checksum = 1;
             }
-            return VALID_STORY_FILE_RV;
+            if (chksum == plus_registry[i].chk) {
+                size_t length = strlen(ifids[plus_registry[i].ifid]);
+                if (ifid != NULL) {
+                    strncpy(*ifid, ifids[plus_registry[i].ifid], length);
+                    (*ifid)[length] = 0;
+                }
+                return VALID_STORY_FILE_RV;
+            }
         }
     }
     return INVALID_STORY_FILE_RV;
