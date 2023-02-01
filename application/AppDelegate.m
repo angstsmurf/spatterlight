@@ -166,6 +166,15 @@ PasteboardFilePasteLocation;
         [FolderAccess deleteBookmarks];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startIndexing:)
+                                                 name:@"StartIndexing"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopIndexing:)
+                                                 name:@"StopIndexing"
+                                               object:nil];
 }
 
 #pragma mark -
@@ -611,7 +620,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     return [NSURL fileURLWithPath:homeString];
 }
 
-- (void)startIndexing {
+- (void)startIndexing:(NSNotification *)notification {
     if (@available(macOS 10.15, *)) {
         if (!_spotlightDelegate)
             return;
@@ -621,7 +630,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     }
 }
 
-- (void)stopIndexing {
+- (void)stopIndexing:(NSNotification *)notification {
     if (@available(macOS 10.15, *)) {
         if (!_spotlightDelegate)
             return;

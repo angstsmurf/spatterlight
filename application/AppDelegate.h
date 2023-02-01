@@ -17,8 +17,8 @@
 @property (readonly) NSPersistentContainer *persistentContainer;
 @property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
 
-- (void)startIndexing;
-- (void)stopIndexing;
+- (void)startIndexing:(NSNotification *)notification;
+- (void)stopIndexing:(NSNotification *)notification;;
 
 - (IBAction)openDocument:(id)sender;
 

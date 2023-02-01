@@ -339,7 +339,8 @@ enum  {
         [self verifyInBackground:nil];
     }
 
-    [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         NSArray<Game *> *selected = self.selectedGames;
@@ -575,7 +576,8 @@ enum  {
 
     TableViewController * __weak weakSelf = self;
 
-    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
 
     [childContext performBlock:^{
         TableViewController *strongSelf = weakSelf;
@@ -604,7 +606,8 @@ enum  {
             [childContext safeSave];
         }
 
-        [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
     }];
 }
 
@@ -672,7 +675,8 @@ enum  {
             rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
         [TableViewController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
-        [(AppDelegate*)NSApplication.sharedApplication.delegate startIndexing];
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 
         [strongSelf.managedObjectContext performBlock:^{
             while (strongSelf.undoGroupingCount > 0) {
@@ -773,7 +777,8 @@ enum  {
     [_managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
 
-    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
 
     NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
     childContext.undoManager = nil;
@@ -995,7 +1000,8 @@ enum  {
         self.undoGroupingCount++;
     }];
 
-    [(AppDelegate*)NSApplication.sharedApplication.delegate stopIndexing];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
 
     _downloadWasCancelled = NO;
 
