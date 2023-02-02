@@ -216,7 +216,7 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.magscrolls</string>
+				<string>public.magnetic</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -1087,7 +1087,7 @@
 				<string>MAGNETIC</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>public.magscrolls</string>
+			<string>public.magnetic</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1674,8 +1674,8 @@
 				<string>IconGameHires</string>
 				<key>UTTypeIconBadgeName</key>
 				<string>Q</string>
-				<key>QUEST 4</key>
-				<string></string>
+				<key>UTTypeIconText</key>
+				<string>QUEST 4</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.quest</string>
