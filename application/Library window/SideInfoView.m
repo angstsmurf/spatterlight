@@ -305,15 +305,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         heightConstraint.priority = 499;
 
-        [self addConstraint:xPosConstraint];
-        [self addConstraint:yPosConstraint];
-        [self addConstraint:widthConstraint];
-        [self addConstraint:heightConstraint];
+        [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
         lastView = _imageView;
     } else {
         _imageView = nil;
-        //NSLog(@"No image");
+        // No image
         topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
         topSpacer.boxType = NSBoxSeparator;
 
