@@ -1451,6 +1451,7 @@ enum  {
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index - 1] byExtendingSelection:NO];
         [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index - 1] toggle:NO];
+        [_gameTableView scrollRowToVisible:(NSInteger)index - 1];
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [InfoController closeStrayInfoWindows];
@@ -1463,6 +1464,7 @@ enum  {
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index + 1] byExtendingSelection:NO];
         [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index + 1] toggle:NO];
+        [_gameTableView scrollRowToVisible:(NSInteger)index + 1];
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [InfoController closeStrayInfoWindows];
