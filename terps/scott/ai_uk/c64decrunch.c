@@ -707,7 +707,7 @@ static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec record
         Fatal("Wrong game?");
     }
 
-    if (!TryLoading(*Game, offset, 0)) {
+    if (TryLoading(*Game, offset, 0) == UNKNOWN_GAME) {
         Fatal("Game could not be read!");
     }
 

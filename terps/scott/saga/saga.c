@@ -598,7 +598,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
             Items[index].Image = image++;
     } while (index != 255);
 
-    if (CurrentGame == HULK_C64) {
+    if (info.gameID == HULK_C64) {
         hulk_coordinates = 0x22cd;
         hulk_item_image_offsets = 0x2731;
         hulk_look_image_offsets = 0x2761;
@@ -606,7 +606,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
         hulk_image_offset = -0x7ff;
     }
 
-    return CurrentGame;
+    return info.gameID;
 }
 
 
