@@ -232,6 +232,7 @@ static const struct scottrec scott_registry[] = {
     { 0x9ef9, 0x4a01, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 3
     { 0xc01e, 0xa99d, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 4
     { 0xc01e, 0x2f60, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 5
+    { 0x9f36, 0x4b91, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 6
    { 0x2ab00, 0xcdd8, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (D64)
     { 0x8534, 0x623a, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (T64)
    { 0x2ab00, 0x2918, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (D64)
