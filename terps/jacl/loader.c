@@ -28,12 +28,14 @@ struct parameter_type *new_parameter;
 
 static struct string_type *current_string = NULL;
 static struct integer_type *current_integer = NULL;
+static struct attribute_type *current_attribute = NULL;
 static struct integer_type *last_system_integer = NULL;
 
 int                                value_resolved;
 
 static int legal_label_check(const char *word, int line, int type);
 static void create_language_constants(void);
+static void create_attribute(const char *name);
 static void set_defaults(void);
 static void build_grammar_table(struct word_type *pointer);
 static void free_from(struct word_type *x);
@@ -134,6 +136,9 @@ read_gamefile()
     create_integer ("local_a", 0);
     create_integer ("linebreaks", 1);
 
+    // CREATE DEFAULT ATTRIBUTE FOR BACKWARDS COMPATIBILITY
+    create_attribute("FIRST");
+
     /* STORE THIS SO THE SECOND PASS KNOWS WHERE TO START 
      * SETTING VALUES FROM (EVERYTHING BEFORE THIS IN THE
      * VARIABLE TABLE IS A SYSTEM VARIABLE */
@@ -207,7 +212,7 @@ read_gamefile()
     create_cinteger ("child", 7);
     create_cinteger ("index", 8);
     create_cinteger ("status", 9);
-    create_cinteger ("state", 10);
+    create_cinteger ("timer", 10);
     create_cinteger ("counter", 11);
     create_cinteger ("points", 12);
     create_cinteger ("class", 13);
@@ -221,7 +226,7 @@ read_gamefile()
     create_cinteger ("volume", 100);
     create_cinteger ("volume", 100);
     create_cinteger ("volume", 100);
-    create_cinteger ("timer", 500);
+    create_cinteger ("event_timer", 500);
 
     set_defaults();
 
@@ -460,32 +465,8 @@ read_gamefile()
                 if (word[1] == NULL) {
                     noproperr(line);
                     errors++;
-                } else if (legal_label_check(word[1], line, ATT_TYPE)) {    
-                    errors++;
-                } else if (current_attribute != NULL && current_attribute->value == 1073741824) {    
-                    maxatterr(line, 1);
-                    errors++;
                 } else {
-                    if ((new_attribute = (struct attribute_type *)
-                         malloc(sizeof(struct attribute_type))) == NULL)
-                        outofmem();
-                    else {
-                        if (attribute_table == NULL) {
-                            attribute_table = new_attribute;
-                            new_attribute->value = 1;
-                        } else {
-                            current_attribute->next_attribute = new_attribute;
-                            new_attribute->value = current_attribute->value * 2;
-                        }
-                        current_attribute = new_attribute;
-                        strncpy(current_attribute->name, word[1], 40);
-                        current_attribute->name[40] = 0;
-                        current_attribute->next_attribute = NULL;
-                    }
-
-                    /* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-                       ADDITIONAL CONSTANTS IF REQUIRED */
-                    index = 2;
+                    index = 1;
                     while (word[index] != NULL && index < MAX_WORDS) {
                         if (legal_label_check(word[index], line, ATT_TYPE)) {    
                             errors++;
@@ -493,17 +474,7 @@ read_gamefile()
                             maxatterr(line, index);
                             errors++;
                         } else {
-                            if ((new_attribute = (struct attribute_type *)
-                                 malloc(sizeof(struct attribute_type))) == NULL)
-                                outofmem();
-                            else {
-                                current_attribute->next_attribute = new_attribute;
-                                new_attribute->value = current_attribute->value * 2;
-                                current_attribute = new_attribute;
-                                strncpy(current_attribute->name, word[index], 40);
-                                current_attribute->name[40] = 0;
-                                current_attribute->next_attribute = NULL;
-                            }
+                            create_attribute(word[index]);
                         }
                         index++;
                     }
@@ -595,7 +566,8 @@ read_gamefile()
                         create_integer (word[1], default_value);
                     }
                 }
-            } else if (!strcmp(word[0], "integer")) {
+            } else if (!strcmp(word[0], "integer") 
+		    || !strcmp(word[0], "variable")) {
                 if (word[1] == NULL) {
                     noproperr(line);
                     errors++;
@@ -787,229 +759,239 @@ read_gamefile()
                     result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
                     fgets(text_buffer, 1024, file);
-#endif  
-					line++;
-				}
-				if (encrypted) jacl_decrypt(text_buffer);
-				if (text_buffer[0] == '}')
-					break;
-			}
-		} else if (!strcmp(word[0], "string_array")) {
-		} else if (!strcmp(word[0], "integer_array")) {
-			if (word[2] == NULL) {
-				noproperr(line);
-				errors++;
-			} else {
-				int x;
+#endif
+                    line++;
+                }
+                if (encrypted) jacl_decrypt(text_buffer);
+                encapsulate();
+                if (word[0] != NULL && !strcmp(word[0], "print")) {
+                    // NOW INSIDE A PRINT BLOCK, SKIP UNTIL '.' IS REACHED
+                    in_print = TRUE;
+                } else if (text_buffer[0] == '.') {
+                    // NOW BACK OUT OF THE PRINT BLOCK AGAIN
+                    in_print = FALSE;
+                } else if (text_buffer[0] == '}') {
+		    in_print = FALSE;
+                    break;
+                }
+            }
+        } else if (!strcmp(word[0], "string_array")) {
+        } else if (!strcmp(word[0], "integer_array")) {
+            if (word[2] == NULL) {
+                noproperr(line);
+                errors++;
+            } else {
+                int x;
 
-				/* THIS IS THE NUMBER OF ARRAY ELEMENTS TO MAKE */
-				index = value_of(word[2], FALSE);
-				if (!value_resolved) {
-					unkvalerr(line, 2);
-					errors++;
-				}
-			
-				for (x = 0; x < index; x++) {
-					current_integer = current_integer->next_integer;
-				}
-			}
-		} else if (!strcmp(word[0], "integer")) {
-			if (word[2] != NULL) {
-				current_integer = current_integer->next_integer;
-				current_integer->value = value_of(word[2], FALSE);
-				if (!value_resolved) {
-					unkvalerr(line, 2);
-					errors++;
-				}
-				index = 3;
-				while (word[index] != NULL && index < MAX_WORDS) {
-					current_integer = current_integer->next_integer;
-					current_integer->value = value_of(word[index], FALSE);
-					if (!value_resolved) {
-						unkvalerr(line, index);
-						errors++;
-					}
-					index++;
-				}
-			} else {
-				current_integer = current_integer->next_integer;
-				current_integer->value = FALSE;
-			}
+                /* THIS IS THE NUMBER OF ARRAY ELEMENTS TO MAKE */
+                index = value_of(word[2], FALSE);
+                if (!value_resolved) {
+                    unkvalerr(line, 2);
+                    errors++;
+                }
+            
+                for (x = 0; x < index; x++) {
+                    current_integer = current_integer->next_integer;
+                }
+            }
+        } else if (!strcmp(word[0], "integer")) {
+            if (word[2] != NULL) {
+                current_integer = current_integer->next_integer;
+                current_integer->value = value_of(word[2], FALSE);
+                if (!value_resolved) {
+                    unkvalerr(line, 2);
+                    errors++;
+                }
+                index = 3;
+                while (word[index] != NULL && index < MAX_WORDS) {
+                    current_integer = current_integer->next_integer;
+                    current_integer->value = value_of(word[index], FALSE);
+                    if (!value_resolved) {
+                        unkvalerr(line, index);
+                        errors++;
+                    }
+                    index++;
+                }
+            } else {
+                current_integer = current_integer->next_integer;
+                current_integer->value = FALSE;
+            }
 
-		/* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD */
-		/* ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
-		} else if (!strcmp(word[0], "constant"));
-		else if (!strcmp(word[0], "string"));
-		else if (!strcmp(word[0], "attribute"));
-		else if (!strcmp(word[0], "parameter"));
-		else if (!strcmp(word[0], "synonym"));
-		else if (!strcmp(word[0], "grammar"));
-		else if (!strcmp(word[0], "filter"));
-		else if (!strcmp(word[0], "has")) {
-			if (word[1] == NULL) {
-				noproperr(line);
-				errors++;
-			} else if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else {
-				for (index = 1; word[index] != NULL && index < MAX_WORDS; index++) {
-					if ((bit_mask = attribute_resolve(word[index]))) {
-						object[object_count]->attributes = object[object_count]->attributes | bit_mask;
-					} else if ((bit_mask = user_attribute_resolve(word[index]))) {
-						object[object_count]->user_attributes = object[object_count]->user_attributes | bit_mask;
-					} else {
-						unkatterr(line, index);
-						errors++;
-					}
-				}
-			}
-		} else if (!strcmp(word[0], "object")
-				   || !strcmp(word[0], "location")) {
-			object_count++;
+        /* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD */
+        /* ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
+        } else if (!strcmp(word[0], "constant"));
+        else if (!strcmp(word[0], "string"));
+        else if (!strcmp(word[0], "attribute"));
+        else if (!strcmp(word[0], "parameter"));
+        else if (!strcmp(word[0], "synonym"));
+        else if (!strcmp(word[0], "grammar"));
+        else if (!strcmp(word[0], "filter"));
+        else if (!strcmp(word[0], "has")) {
+            if (word[1] == NULL) {
+                noproperr(line);
+                errors++;
+            } else if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else {
+                for (index = 1; word[index] != NULL && index < MAX_WORDS; index++) {
+                    if ((bit_mask = attribute_resolve(word[index]))) {
+                        object[object_count]->attributes = object[object_count]->attributes | bit_mask;
+                    } else if ((bit_mask = user_attribute_resolve(word[index]))) {
+                        object[object_count]->user_attributes = object[object_count]->user_attributes | bit_mask;
+                    } else {
+                        unkatterr(line, index);
+                        errors++;
+                    }
+                }
+            }
+        } else if (!strcmp(word[0], "object")
+                   || !strcmp(word[0], "location")) {
+            object_count++;
 
-			if (!strcmp(word[0], "object")) {
-				object[object_count]->MASS = SCENERY;
-				if (location_count == 0)
-					object[object_count]->PARENT = 0;
-				else
-					object[object_count]->PARENT = location_count;
-			} else {
-				location_count = object_count;
-				object[object_count]->PARENT = 0;
-				object[object_count]->attributes =
-					object[object_count]->attributes | LOCATION;
-			}
+            if (!strcmp(word[0], "object")) {
+                object[object_count]->MASS = SCENERY;
+                if (location_count == 0)
+                    object[object_count]->PARENT = 0;
+                else
+                    object[object_count]->PARENT = location_count;
+            } else {
+                location_count = object_count;
+                object[object_count]->PARENT = 0;
+                object[object_count]->attributes =
+                    object[object_count]->attributes | LOCATION;
+            }
 
 
-			if ((object[object_count]->first_name =
-				 (struct name_type *) malloc(sizeof(struct name_type)))
-				== NULL)
-				outofmem();
-			else {
-				current_name = object[object_count]->first_name;
-				if (word[2] != NULL) {
-					strncpy(current_name->name, word[2], 40);
-				} else {
-					strncpy(current_name->name, object[object_count]->label, 40);
-				}
-				current_name->name[40] = 0;
-				current_name->next_name = NULL;
-			}
+            if ((object[object_count]->first_name =
+                 (struct name_type *) malloc(sizeof(struct name_type)))
+                == NULL)
+                outofmem();
+            else {
+                current_name = object[object_count]->first_name;
+                if (word[2] != NULL) {
+                    strncpy(current_name->name, word[2], 40);
+                } else {
+                    strncpy(current_name->name, object[object_count]->label, 40);
+                }
+                current_name->name[40] = 0;
+                current_name->next_name = NULL;
+            }
 
-			wp = 3;
+            wp = 3;
 
-			while (wp < MAX_WORDS && word[wp] != NULL) {
-				if ((current_name->next_name = (struct name_type *)
-					 malloc(sizeof(struct name_type))) == NULL)
-					outofmem();
-				else {
-					current_name = current_name->next_name;
-					strncpy(current_name->name, word[wp], 40);
-					current_name->name[40] = 0;
-					current_name->next_name = NULL;
-				}
-				wp++;
-			}
-		} else if (!strcmp(word[0], "plural")) {
-			if (word[1] == NULL) {
-				noproperr(line);
-				errors++;
-			} else {
-				if ((object[object_count]->first_plural =
-					 (struct name_type *) malloc(sizeof(struct name_type)))
-					== NULL)
-					outofmem();
-				else {
-					current_name = object[object_count]->first_plural;
-					strncpy(current_name->name, word[1], 40);
-					current_name->name[40] = 0;
-					current_name->next_name = NULL;
-				}
+            while (word[wp] != NULL && wp < MAX_WORDS) {
+                if ((current_name->next_name = (struct name_type *)
+                     malloc(sizeof(struct name_type))) == NULL)
+                    outofmem();
+                else {
+                    current_name = current_name->next_name;
+                    strncpy(current_name->name, word[wp], 40);
+                    current_name->name[40] = 0;
+                    current_name->next_name = NULL;
+                }
+                wp++;
+            }
+        } else if (!strcmp(word[0], "plural")) {
+            if (word[1] == NULL) {
+                noproperr(line);
+                errors++;
+            } else {
+                if ((object[object_count]->first_plural =
+                     (struct name_type *) malloc(sizeof(struct name_type)))
+                    == NULL)
+                    outofmem();
+                else {
+                    current_name = object[object_count]->first_plural;
+                    strncpy(current_name->name, word[1], 40);
+                    current_name->name[40] = 0;
+                    current_name->next_name = NULL;
+                }
 
-				wp = 2;
+                wp = 2;
 
-				while (word[wp] != NULL && wp < MAX_WORDS) {
-					if ((current_name->next_name = (struct name_type *)
-						 malloc(sizeof(struct name_type))) == NULL)
-						outofmem();
-					else {
-						current_name = current_name->next_name;
-						strncpy(current_name->name, word[wp], 40);
-						current_name->name[40] = 0;
-						current_name->next_name = NULL;
-					}
-					wp++;
-				}
-			}
-		} else if (!strcmp(word[0], "static")) {
-			if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else
-				object[object_count]->nosave = TRUE;
-		} else if (!strcmp(word[0], "player")) {
-			if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else
-				player = object_count;
-		} else if (!strcmp(word[0], "short")) {
-			if (word[2] == NULL) {
-				noproperr(line);
-				errors++;
-			} else if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else {
-				strncpy(object[object_count]->article, word[1], 10);
-				object[object_count]->article[10] = 0;
-				strncpy(object[object_count]->inventory, word[2], 40);
-				object[object_count]->inventory[40] = 0;
-			}
-		} else if (!strcmp(word[0], "definite")) {
-			if (word[1] == NULL) {
-				noproperr(line);
-				errors++;
-			} else if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else {
-				strncpy(object[object_count]->definite, word[1], 10);
-				object[object_count]->definite[10] = 0;
-			}
-		} else if (!strcmp(word[0], "long")) {
-			if (word[1] == NULL) {
-				noproperr(line);
-				errors++;
-			} else if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else {
-				strncpy(object[object_count]->described, word[1], 80);
-				object[object_count]->described[80] = 0;
-			}
-		} else if ((resolved_cinteger = cinteger_resolve(word[0])) != NULL) {
-			index = resolved_cinteger->value;
-			if (word[1] == NULL) {
-				noproperr(line);
-				errors++;
-			} else if (object_count == 0) {
-				noobjerr(line);
-				errors++;
-			} else if (!strcmp(word[1], "here")) {
-				object[object_count]->integer[index] = location_count;
-			} else {
-				object[object_count]->integer[index] = value_of(word[1], FALSE);
-				if (!value_resolved) {
-					unkvalerr(line, 1);
-					errors++;
-				}
-			}
-		} else {
-			unkkeyerr(line, 0);
-			errors++;
-		}
+                while (word[wp] != NULL && wp < MAX_WORDS) {
+                    if ((current_name->next_name = (struct name_type *)
+                         malloc(sizeof(struct name_type))) == NULL)
+                        outofmem();
+                    else {
+                        current_name = current_name->next_name;
+                        strncpy(current_name->name, word[wp], 40);
+                        current_name->name[40] = 0;
+                        current_name->next_name = NULL;
+                    }
+                    wp++;
+                }
+            }
+        } else if (!strcmp(word[0], "static")) {
+            if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else {
+                object[object_count]->nosave = TRUE;
+            }
+        } else if (!strcmp(word[0], "player")) {
+            if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else
+                player = object_count;
+        } else if (!strcmp(word[0], "short")) {
+            if (word[2] == NULL) {
+                noproperr(line);
+                errors++;
+            } else if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else {
+                strncpy(object[object_count]->article, word[1], 10);
+                object[object_count]->article[10] = 0;
+                strncpy(object[object_count]->inventory, word[2], 40);
+                object[object_count]->inventory[40] = 0;
+            }
+        } else if (!strcmp(word[0], "definite")) {
+            if (word[1] == NULL) {
+                noproperr(line);
+                errors++;
+            } else if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else {
+                strncpy(object[object_count]->definite, word[1], 10);
+                object[object_count]->definite[10] = 0;
+            }
+        } else if (!strcmp(word[0], "long")) {
+            if (word[1] == NULL) {
+                noproperr(line);
+                errors++;
+            } else if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else {
+                strncpy(object[object_count]->described, word[1], 80);
+                object[object_count]->described[80] = 0;
+            }
+        } else if ((resolved_cinteger = cinteger_resolve(word[0])) != NULL) {
+            index = resolved_cinteger->value;
+            if (word[1] == NULL) {
+                noproperr(line);
+                errors++;
+            } else if (object_count == 0) {
+                noobjerr(line);
+                errors++;
+            } else if (!strcmp(word[1], "here")) {
+                object[object_count]->integer[index] = location_count;
+            } else {
+                object[object_count]->integer[index] = value_of(word[1], FALSE);
+                if (!value_resolved) {
+                    unkvalerr(line, 1);
+                    errors++;
+                }
+            }
+        } else {
+            unkkeyerr(line, 0);
+            errors++;
+        }
 
 #ifdef GLK
         current_file_position = glk_stream_get_position(game_stream);
@@ -1419,6 +1401,30 @@ set_defaults()
     it = 0;
     her = 0;
     him = 0;
+}
+
+void
+create_attribute(const char *name) 
+{
+    struct attribute_type *new_attribute = NULL;
+    int index;
+
+  if ((new_attribute = (struct attribute_type *)
+     malloc(sizeof(struct attribute_type))) == NULL) {
+     outofmem();
+  } else {
+     if (attribute_table == NULL) {
+        attribute_table = new_attribute;
+        new_attribute->value = 1;
+     } else {
+        current_attribute->next_attribute = new_attribute;
+        new_attribute->value = current_attribute->value * 2;
+     }
+        current_attribute = new_attribute;
+        strncpy(current_attribute->name, name, 40);
+        current_attribute->name[40] = 0;
+        current_attribute->next_attribute = NULL;
+     }
 }
 
 void
