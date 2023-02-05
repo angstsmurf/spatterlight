@@ -55,9 +55,17 @@ static int extract_ifid(unsigned char *text, int32 offset, int32 extent, char *o
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     /* All supported Jacl files start with the same magic "word" */
-     if (extent > 13 && memcmp(storyvp, "#!../bin/jacl", 13) == 0)
-	 return VALID_STORY_FILE_RV;
-     return INVALID_STORY_FILE_RV;
+    if (extent > 13 && memcmp(storyvp, "#!../bin/jacl", 13) == 0)
+        return VALID_STORY_FILE_RV;
+    if (extent > 26 && memcmp(storyvp, "#!/usr/local/jacl/bin/jacl", 26) == 0)
+        return VALID_STORY_FILE_RV;
+    if (extent > 15 && memcmp(storyvp, "#!/usr/bin/jacl", 15) == 0)
+        return VALID_STORY_FILE_RV;
+    if (extent > 29 && memcmp(storyvp, "#!/usr/local/jacl/bin/cgijacl", 29) == 0)
+        return VALID_STORY_FILE_RV;
+    if (extent > 16 && memcmp(storyvp, "#!../bin/cgijacl", 16) == 0)
+        return VALID_STORY_FILE_RV;
+    return INVALID_STORY_FILE_RV;
 }
 
 static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int32 output_extent)
