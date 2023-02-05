@@ -2922,14 +2922,13 @@
 		C318F76C2741AA5B006D626A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; usesTabs = 0; };
 		C318F76D2741AA5B006D626A /* scott.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scott.h; sourceTree = "<group>"; usesTabs = 0; };
 		C318F76E2741AA5B006D626A /* bsd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bsd.c; sourceTree = "<group>"; usesTabs = 0; };
-		C318F7722741AA7B006D626A /* loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; };
+		C318F7722741AA7B006D626A /* loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = loader.c; path = ../../../Desktop/loader.c; sourceTree = "<group>"; };
 		C318F7732741AA7B006D626A /* csv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; };
 		C318F7742741AA7B006D626A /* findroute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = findroute.c; sourceTree = "<group>"; };
 		C318F7752741AA7B006D626A /* display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
 		C318F7762741AA7B006D626A /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		C318F7772741AA7B006D626A /* jpp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jpp.c; sourceTree = "<group>"; };
 		C318F7782741AA7B006D626A /* jacl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jacl.c; sourceTree = "<group>"; };
-		C318F7792741AA7B006D626A /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		C318F77A2741AA7B006D626A /* language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = language.h; sourceTree = "<group>"; };
 		C318F77B2741AA7B006D626A /* resolvers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = resolvers.c; sourceTree = "<group>"; };
 		C318F77C2741AA7B006D626A /* glk_saver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glk_saver.c; sourceTree = "<group>"; };
@@ -3242,6 +3241,7 @@
 		C3C72B6D278CB0F900E095A6 /* detectgame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detectgame.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detectgame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detectgame.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* scottdefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottdefines.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C886E729900E7B0085AF0D /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		C3C97EC028CB597200AFB837 /* atari8c64draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atari8c64draw.h; sourceTree = "<group>"; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
@@ -3305,7 +3305,7 @@
 		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
 		C3E49E1428D8AC0D009B94E7 /* ciderpress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ciderpress.c; sourceTree = "<group>"; };
 		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
-		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = types.h; sourceTree = "<group>"; };
 		C3E934AA296D9367000A0640 /* help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help.h; sourceTree = "<group>"; };
 		C3E934AB296D9385000A0640 /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		C3E934AC296D93C2000A0640 /* v1234.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v1234.h; sourceTree = "<group>"; };
@@ -5817,6 +5817,8 @@
 			isa = PBXGroup;
 			children = (
 				C318F7732741AA7B006D626A /* csv.h */,
+				C318F77D2741AA7B006D626A /* prototypes.h */,
+				C3C886E729900E7B0085AF0D /* types.h */,
 				C318F7722741AA7B006D626A /* loader.c */,
 				C318F7742741AA7B006D626A /* findroute.c */,
 				C318F7752741AA7B006D626A /* display.c */,
@@ -5825,11 +5827,9 @@
 				C318F7802741AA7B006D626A /* jacl.h */,
 				C318F7782741AA7B006D626A /* jacl.c */,
 				C318F77E2741AA7B006D626A /* constants.h */,
-				C318F7792741AA7B006D626A /* types.h */,
 				C318F77A2741AA7B006D626A /* language.h */,
 				C318F77B2741AA7B006D626A /* resolvers.c */,
 				C318F77C2741AA7B006D626A /* glk_saver.c */,
-				C318F77D2741AA7B006D626A /* prototypes.h */,
 				C318F77F2741AA7B006D626A /* utils.c */,
 				C318F7812741AA7B006D626A /* libcsv.c */,
 				C318F7822741AA7B006D626A /* interpreter.c */,
@@ -10284,6 +10284,7 @@
 		C318F75A2741AA10006D626A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -10318,17 +10319,21 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/glkimp\"";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/jacl\"";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
 		C318F75B2741AA10006D626A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -10358,11 +10363,14 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/glkimp\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/jacl\"";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};

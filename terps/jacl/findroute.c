@@ -295,31 +295,50 @@ static void setTest(void)
 int
 find_route(int fromRoom, int toRoom, int known)
 {
-	Set visited;
-	Queue q;
-	int firstTime;
-	int result = DIR_NONE;
+	// KNOWN INDICATES WHETHER THE LOCATION MUST HAVE BEEN 
+	// VISITED PREVIOUSLY. THIS IS NOT REQUIRED FOR NPCS.
 
-	setInit(&visited);
+	// CREATE AND INITIALISE THE QUEUE OF LOCATION TO PROCESS
+	Queue q;
 	qInit(&q);
 
-	qAppend(&q, fromRoom, DIR_NONE);
-	setAdd(&visited, fromRoom);
-	firstTime = 1;
+	// CREATE AND INITIALISE THE SET OF VISITED LOCATIONS
+	Set visited;
+	setInit(&visited);
 
+	int firstTime = TRUE;
+
+	int result = DIR_NONE;
+
+	// ADD THE STARTING LOCATION TO THE QUEUE FOR PROCESSING
+	qAppend(&q, fromRoom, DIR_NONE);
+
+	// ADD THE STARTING LOCATION TO THE SET OF VISITED LOCATIONS
+	setAdd(&visited, fromRoom);
+
+	// KEEP PROCESSING WHILE THERE ARE LOCATIONS LEFT IN THE QUEUE
 	while (!qIsEmpty(&q))
 	{
 		int n, dir, firstDir;
+
+		// POP THE LOCATION AT THE HEAD OF THE QUEUE (FIRST IN FIRST OUT)
+		// n IS THE LOCATION, firstDir IS THE EXIT THAT WAS PUSHED IN
+		// THE QUEUE.
 		qPop(&q, &n, &firstDir);
 
 		if (n == toRoom)
 		{
+			// HAVE ARRIVED AT THE DESTINATION, RETURN THE FIRST
+			// DIRECTION WALKED IN TO GET TO THE DESTINATION.
 			result = firstDir;
 			break;
 		}
 
+		// LOOP THROUGH ALL THE EXITS OF THE CURRENT LOCATION
 		for (dir = 0;dir < 12 ;dir++)
 		{
+			// SET THE DESTINATION TO THE LOCATION THIS DIRECTION
+			// LEADS TO.
 			int dest = object[n]->integer[dir];
 
 			if (dest < 1 || dest > objects) continue;
@@ -329,13 +348,24 @@ find_route(int fromRoom, int toRoom, int known)
 			if (dest != NOWHERE && !setContains(&visited, dest))
 			{
 				if (!known || (object[dest]->attributes & KNOWN)) {
+					// PUT THE DESTINATION LOCATION INTO THE QUEUE
+					// (IF THIS IS THE STARTING LOCATION) 
+					// AND STORE THE DIRECTION THAT LEAD TO IT
+					// firstTime IS CHECKED AS THE LOCATIONS REACHED
+					// FROM THE STARTING LOCATION ARE THE ONLY
+					// ONES THAT REALLY MATTER AS THIS FUNCTION
+					// ONLY RETURNS THE FIRST STEP, NOT THE FULL
+					// PATH. firstDir IS THE ORIGINAL DIRECTION
+					// SET OUT IN FROM THE STARTING LOCATION
 					qAppend(&q, dest, (firstTime ? dir : firstDir));
+
+					// ADD THE LOCATION TO THE SET OF LOCATIONS VISITED
 					setAdd(&visited, dest);
 				}
 			}
 		}
 
-		firstTime = 0;
+		firstTime = FALSE;
 	}
 
 	setDelete(&visited);

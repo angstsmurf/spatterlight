@@ -18,7 +18,7 @@
 #endif
 
 #ifdef GLK
-#include "glk.h"
+#include <glk.h>
 #include "gi_blorb.h"
 #endif
 

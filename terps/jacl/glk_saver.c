@@ -81,7 +81,7 @@ save_game(frefid_t saveref)
 	}
 
 	/* SAVE THE CURRENT VALUE OF THE GLK TIMER */
-	write_integer (bookmark, cinteger_resolve("timer")->value);
+	write_integer (bookmark, cinteger_resolve("event_timer")->value);
 
 	/* CLOSE THE STREAM */
 	glk_stream_close(bookmark, NULL);
@@ -178,7 +178,7 @@ restore_game(frefid_t saveref, int warn)
 
 	/* RESTORE THE CURRENT VALUE OF THE GLK TIMER */
 	counter = read_integer(bookmark);
-	cinteger_resolve("timer")->value = counter;
+	cinteger_resolve("event_timer")->value = counter;
 
 	/* SET THE GLK TIMER */
 	glk_request_timer_events((glui32) counter);

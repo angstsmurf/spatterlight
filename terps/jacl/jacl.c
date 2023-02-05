@@ -235,8 +235,8 @@ glk_main(void)
 	}
 
 	/* OPEN THE BLORB FILE IF ONE EXISTS */
-#if !(defined WINGLK)
-#if (defined GARGLK)
+#ifndef WINGLK
+#ifdef GARGLK
 	// Per the Glk spec, Gargoyle appends ".glkdata" to files opened via the
 	// "normal" Glk routines (e.g. glk_fileref_create_by_name). JACL assumes
 	// that it can open arbitrary files, and for that,
