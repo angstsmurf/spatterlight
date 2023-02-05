@@ -101,11 +101,14 @@ qPop(Queue *q, int *val, int *val2)
 
 	if (q->head == q->tail)
 	{
+        free(q->head);
 		q->head = q->tail = NULL;
 	}
 	else
 	{
+        QueueNode *old = q->head;
 		q->head = q->head->next;
+        free(old);
 	}
 }
 

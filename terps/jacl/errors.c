@@ -182,10 +182,11 @@ totalerrs(int errors)
 	log_error(error_buffer, PLUS_STDERR);
 }
 
-void
+__attribute__((noreturn)) void
 outofmem()
 {
 	log_error(OUT_OF_MEMORY, PLUS_STDERR);
 	terminate(49);
+    __builtin_unreachable(); 
 }
 

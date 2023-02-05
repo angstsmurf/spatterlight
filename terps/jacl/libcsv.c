@@ -157,10 +157,10 @@ int
 csv_fini(struct csv_parser *p, void (*cb1)(void *, size_t, void *), void (*cb2)(int c, void *), void *data)
 {
   /* Finalize parsing.  Needed, for example, when file does not end in a newline */
-  int quoted = p->quoted;
-  int pstate = p->pstate;
-  size_t spaces = p->spaces;
-  size_t entry_pos = p->entry_pos;
+  int quoted;
+  int pstate;
+  size_t spaces;
+  size_t entry_pos;
 
   if (p == NULL)
     return -1;
@@ -178,7 +178,7 @@ csv_fini(struct csv_parser *p, void (*cb1)(void *, size_t, void *), void (*cb2)(
       /* Fall-through */
     case FIELD_NOT_BEGUN:
     case FIELD_BEGUN:
-      quoted = p->quoted, pstate = p->pstate;
+      quoted = p->quoted;
       spaces = p->spaces, entry_pos = p->entry_pos;
       SUBMIT_FIELD(p);
       SUBMIT_ROW(p, -1);

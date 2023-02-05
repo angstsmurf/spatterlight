@@ -1101,7 +1101,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	int             counter;
 	int				first_word = TRUE;
 
-	struct word_type *terminator = scope_word->first_child;
+    struct word_type *terminator;
 	struct name_type *current_name;
 
 	matches = 0;
@@ -1487,7 +1487,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 				counter++;
 				current_name = current_name->next_name;
 			}
-			confidence[index] = ((confidence[index] - 1) * 100) / counter;
+            confidence[index] = (counter == 0) ? 0 : ((confidence[index] - 1) * 100) / counter;
 		}
 	}
 
@@ -1626,13 +1626,14 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	/* AN AMBIGUOUS REFERENCE WAS MADE. ATTEMPT TO CALL ALL THE disambiguate
 	 * FUNCTIONS TO SEE IF ANY OF THE OBJECT WANTS TO TAKE PREFERENCE IN
 	 * THIS CIRCUMSTANCE */
+
+    /*
 	int situation = noun_number;
 
 	if (finding_from) {
 		situation += 4;
 	}
 
-	/* 
 	for (index = 1; index <= objects; index++) {
 		if (confidence[index] != FALSE) {
 			strcpy(function_name, "disambiguate");

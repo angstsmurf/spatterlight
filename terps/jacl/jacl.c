@@ -114,7 +114,6 @@ int             player = 0;
 static int      noun3_backup;
 static int      player_backup = 0;
 
-static int      variable_contents;
 int             oec;
 int            *object_element_address,
 			   *object_backup_address;
@@ -440,8 +439,6 @@ glk_main(void)
 
 		command_encapsulate();
 		jacl_truncate();
-
-		index = 0;
 
 		/* SET THE INTEGER INTERRUPTED TO FALSE. IF THIS IS SET TO
 		 * TRUE BY ANY COMMAND, FURTHER PROCESSING WILL STOP */
@@ -901,8 +898,6 @@ newline()
 void
 more(const char* message)
 {
-	int character;
-
 	jacl_set_window(inputwin);
 
 	if (inputwin == promptwin) {
@@ -914,7 +909,7 @@ more(const char* message)
 	write_text(message);
 	glk_set_style(style_Normal);
 
-	character = get_key();
+	get_key();
 
 	if (inputwin == mainwin) newline();
 }
@@ -1636,7 +1631,7 @@ parse_utf8(unsigned char *buf, glui32 buflen,
             }
             res = (((val0 & 0xf)<<12)  & 0x0000f000);
             res |= (((val1 & 0x3f)<<6) & 0x00000fc0);
-            res |= (((val2 & 0x3f))    & 0x0000003f);
+            res |= (val2 & 0x3f);
             out[outpos++] = res;
             continue;
         }
@@ -1668,7 +1663,7 @@ parse_utf8(unsigned char *buf, glui32 buflen,
             res = (((val0 & 0x7)<<18)   & 0x1c0000);
             res |= (((val1 & 0x3f)<<12) & 0x03f000);
             res |= (((val2 & 0x3f)<<6)  & 0x000fc0);
-            res |= (((val3 & 0x3f))     & 0x00003f);
+            res |= (val3 & 0x3f);
             out[outpos++] = res;
             continue;
         }

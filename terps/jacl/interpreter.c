@@ -442,7 +442,7 @@ execute(const char *funcname)
 
             if (encrypted) jacl_decrypt(text_buffer);
 
-            while (text_buffer[0] != '.' || text_buffer[0] != '}') {
+            while (text_buffer[0] != '.' && text_buffer[0] != '}') {
                 // GET THE NEXT LINE
 #ifdef GLK
                 glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
@@ -1834,7 +1834,7 @@ execute(const char *funcname)
                         return (exit_function(TRUE));
                     } else {
                         *split_container = 0;
-                        match = source;        // THERE IS ALWAYS ONE MATCH, EVEN IF
+                        // THERE IS ALWAYS ONE MATCH, EVEN IF
                                             // NO DELIMETERS ARE FOUND
 
                         while ((match = strstr(source, delimiter))) {
@@ -3394,7 +3394,6 @@ inspect (int object_num)
         }
 
         write_text("^has user attributes: ");
-        attribute_value = 1;
     }
 
     if (pointer != NULL) {

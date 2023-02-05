@@ -1192,8 +1192,8 @@ object_resolve(const char *object_string)
 					"ERROR: Reference to 'self' from global function \"%s\".^",
 					executing_function->name);
 			write_text(error_buffer);
-		} else
-			return (executing_function->self);
+        } else
+            return (executing_function == NULL) ? -1 : (executing_function->self);
 	} else {
 		for (index = 1; index <= objects; index++) {
 			if (!strcmp(object_string, object[index]->label))
