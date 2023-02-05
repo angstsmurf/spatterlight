@@ -62,13 +62,15 @@ encapsulate()
 		case '"':
 			index++;
 			/* NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR 
-			 * THE COMMAND 'write'*/	
-			quoted[position] = 1;	
-
-			word[position] = &text_buffer[index];
-
-			if (position < MAX_WORDS)
-				position++;
+			 * THE COMMAND 'write'*/
+                if (position < MAX_WORDS) {
+                    
+                    quoted[position] = 1;	
+                    
+                    word[position] = &text_buffer[index];
+                    
+                    position++;
+                }
 
 			/* IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
 			 * OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
