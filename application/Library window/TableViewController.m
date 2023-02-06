@@ -1007,7 +1007,10 @@ enum  {
 
     [self beginImporting];
 
-    [self.managedObjectContext safeSave];
+    NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
+    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+
+    [childContext safeSave];
 
     _lastImageComparisonData = nil;
 
@@ -1025,9 +1028,6 @@ enum  {
     for (Game *gameInMain in games) {
         [blockGames addObject:gameInMain.objectID];
     }
-
-    NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
-    childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
     TableViewController * __weak weakSelf = self;
 
