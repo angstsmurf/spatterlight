@@ -1906,8 +1906,8 @@
     [incrementArrow click];
     [decrementArrow click];
 
-    [[[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:1] click];
-    
+    [/*@START_MENU_TOKEN@*/[[[XCUIApplication alloc] init].tabGroups containingType:XCUIElementTypeTab identifier:@"Themes"].element/*[["[[XCUIApplication alloc] init]",".dialogs[@\"Preferences\"]","[",".tabGroups containingType:XCUIElementTypeCheckBox identifier:@\"Games can set colors and styles\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Un-customize styles\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"action\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Gill Sans 12\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Courier 12\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Global\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Misc\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"VoiceOver\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Format\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Details\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Styles\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Themes\"].element",".dialogs[@\"preferences\"]"],[[[-1,0,1]],[[2,14],[2,13],[2,12],[2,11],[2,10],[2,9],[2,8],[2,7],[2,6],[2,5],[2,4],[2,3],[-1,15,2],[-1,1,2]],[[2,14],[2,13],[2,12],[2,11],[2,10],[2,9],[2,8],[2,7],[2,6],[2,5],[2,4],[2,3]]],[0,0]]@END_MENU_TOKEN@*/ click];    
+
     XCUIElement *actionButton = [[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:0];
 
     [actionButton click];
