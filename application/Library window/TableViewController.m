@@ -210,7 +210,6 @@ enum  {
         NSLog(@"Error! TableViewController has no managedObjectContext!");
     }
 
-    _gameTableView.autosaveName = @"GameTable";
     _gameTableView.autosaveTableColumns = YES;
     _gameTableView.delegate = self;
 
@@ -298,7 +297,7 @@ enum  {
         }
     }
 
-    NSArray *sortDescriptors = _gameTableView.sortDescriptors;
+    NSArray<NSSortDescriptor *> *sortDescriptors = _gameTableView.sortDescriptors;
 
     if (!sortDescriptors.count)
         _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
@@ -349,6 +348,7 @@ enum  {
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
     });
+    _gameTableView.autosaveName = @"GameTable";
 }
 
 - (LibController *)windowController {
