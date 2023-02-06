@@ -319,11 +319,6 @@ enum  {
                                                  name:@"SideviewDownload"
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(splitViewWillResizeSubviews:)
-                                                 name:NSSplitViewWillResizeSubviewsNotification
-                                               object:nil];
-
     _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:nil inContext:self.managedObjectContext] mutableCopy];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
@@ -3229,13 +3224,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             insertedMetadataCount++;
         }
     }
-}
-
--(void)splitViewWillResizeSubviews:(NSNotification *)notification {
-//    CGFloat maxWidth = MIN(NSWidth(self.view.window.frame), NSWidth(self.view.window.screen.visibleFrame));
-//    if (maxWidth == 0)
-//        maxWidth = 750;
-//    _widthConstraint.constant = maxWidth;
 }
 
 #pragma mark -
