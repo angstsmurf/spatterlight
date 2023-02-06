@@ -52,7 +52,9 @@ struct Channel {
     }
 
     ~Channel() {
+#ifndef SPATTERLIGHT
         glk_schannel_destroy(channel);
+#endif
     }
 
     Channel(const Channel &other) = delete;
@@ -421,6 +423,8 @@ void recover_library_sound_state(library_state_data *dat)
     channel->queued.number = dat->queued_sound;
     if (dat->autosave_version > 0)
         channel->queued.volume = dat->queued_volume;
+    else
+        channel->queued.volume = 8;
 }
 #endif
 
