@@ -134,7 +134,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         return nil;
     
     NSManagedObjectContext *localContext = games.firstObject.managedObjectContext;
-    
+
     NSOperation __block *lastoperation = nil;
     
     IFDBDownloader __weak *weakSelf = self;
@@ -254,7 +254,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 - (void)downloadImageFor:(Metadata *)metadata onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force {
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
-    
+
     NSString __block *coverArtURL = _coverArtUrl;
     BOOL __block giveup = NO;
     
