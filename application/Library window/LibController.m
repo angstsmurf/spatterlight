@@ -64,8 +64,6 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Window controller, menus and file dialogs.
 
 - (void)windowDidLoad {
-    //    NSLog(@"libctl: windowDidLoad");
-
     self.windowFrameAutosaveName = @"LibraryWindow";
     self.window.acceptsMouseMovedEvents = YES;
     self.window.excludedFromWindowsMenu = YES;
@@ -133,6 +131,8 @@ fprintf(stderr, "%s\n",                                                    \
         if (_tableViewController)
             [_tableViewController askToDownload];
     }
+    if (self.window.firstResponder == self.window)
+        [self.window makeFirstResponder:_tableViewController.gameTableView];
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
