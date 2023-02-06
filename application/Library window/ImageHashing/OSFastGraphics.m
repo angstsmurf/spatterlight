@@ -14,7 +14,7 @@
 #pragma mark - Common Macros
 
 #define GREYSCALE(red, green, blue) ((red + green + blue) / (double)3.0)
-#define SETBIT(i, k) (i |= ((SInt64)1 << (k)))
+#define SETBIT(i, k) (i |= ((uint64_t)1 << (k)))
 
 #pragma mark - Greyscale 32 x 32
 
@@ -282,9 +282,9 @@ inline double fast_avg_no_first_el_rgba_8_8(const double pixels[32][32])
 inline SInt64 phash_rgba_8_8(const double pixels[32][32], double dctAverage)
 {
     unsigned char cnt = 0;
-    SInt64 result = 0;
+    uint64_t result = 0;
     UNROLL_PHASH_X()
-    return result;
+    return (SInt64)result;
 }
 
 #undef UNROLL_PHASH_X
