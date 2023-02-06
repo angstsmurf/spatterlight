@@ -688,4 +688,39 @@ fprintf(stderr, "%s\n",                                                    \
     return fullScreenWindow;
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    return [self.libcontroller validateMenuItem:menuItem];
+}
+
+- (IBAction)like:(id)sender {
+    return [self.libcontroller like:sender];
+}
+- (IBAction)dislike:(id)sender {
+    return [self.libcontroller dislike:sender];
+}
+- (IBAction)play:(id)sender {
+    return [self.libcontroller play:sender];
+}
+- (IBAction)download:(id)sender {
+    return [self.libcontroller download:sender];
+}
+- (IBAction)revealGameInFinder:(id)sender {
+    return [self.libcontroller revealGameInFinder:sender];
+}
+- (IBAction)deleteGame:(id)sender {
+    return [self.libcontroller deleteGame:sender];
+}
+- (IBAction)selectSameTheme:(id)sender {
+    return [self.libcontroller selectSameTheme:sender];
+}
+- (IBAction)deleteSaves:(id)sender {
+    return [self.libcontroller deleteSaves:sender];
+}
+- (IBAction)openIfdb:(id)sender {
+    return [self.libcontroller openIfdb:sender];
+}
+- (IBAction)applyTheme:(id)sender {
+    return [self.libcontroller applyTheme:sender];
+}
+
 @end
