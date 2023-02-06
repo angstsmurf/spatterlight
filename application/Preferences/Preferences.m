@@ -643,7 +643,7 @@ NSString *fontToString(NSFont *font) {
 
     [_glktxtbuf prefsDidChange];
 
-    [_managedObjectContext safeSave];
+    [self.managedObjectContext safeSave];
 
     if (!_previewShown)
         return;

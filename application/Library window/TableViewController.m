@@ -463,7 +463,7 @@ enum  {
             }
         }
 
-        [_managedObjectContext safeSave];
+        [_managedObjectContext safeSaveAndWait];
     }
 }
 

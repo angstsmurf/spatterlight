@@ -325,7 +325,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 
                 [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
                     [IFDBDownloader insertImageData:data inMetadata:metadata];
-                    [localcontext safeSave];
                 }];
             }
         }
