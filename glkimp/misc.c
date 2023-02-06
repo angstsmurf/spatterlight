@@ -60,7 +60,7 @@ void glk_tick()
 {
 }
 
-void glk_exit()
+GLK_ATTRIBUTE_NORETURN void glk_exit()
 {
     if (gli_program_info != NULL)
         free(gli_program_info);
