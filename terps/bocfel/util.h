@@ -27,7 +27,11 @@ int16_t as_signed(uint16_t n);
 [[noreturn]]
 zprintflike(1, 2)
 void assert_fail(const char *fmt, ...);
+#ifdef SPATTERLIGHT
+#define ZASSERT(expr, ...) if(!(expr)) assert_fail(__VA_ARGS__);
+#else
 #define ZASSERT(expr, ...)	do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
+#endif
 #else
 #define ZASSERT(expr, ...)	((void)0)
 #endif
