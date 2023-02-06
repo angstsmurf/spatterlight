@@ -1151,6 +1151,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else {
         if (!_currentGame.metadata.title.length)
             _currentGame.metadata.title = _currentGame.path.lastPathComponent;
+        if (!_currentGame.metadata.title.length)
+            return NSLocalizedString(@"Error: Current game has no metadata!", nil);
         return [NSLocalizedString(@"Theme setting for game ", nil) stringByAppendingString:_currentGame.metadata.title];
     }
 }

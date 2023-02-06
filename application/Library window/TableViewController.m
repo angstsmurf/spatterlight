@@ -2330,7 +2330,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     } else
         gctl.window.restorable = NO;
 
-    gctl.window.title = game.metadata.title;
+    if (game.metadata.title.length)
+        gctl.window.title = game.metadata.title;
+    else
+        NSLog(@"Game has no metadata?");
 
     TableViewController __weak *weakSelf = self;
 

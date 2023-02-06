@@ -332,7 +332,8 @@ fprintf(stderr, "%s\n",                                                    \
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
     bufferedData = nil;
 
-    self.window.title = game.metadata.title;
+    if (game.metadata.title.length)
+        self.window.title = game.metadata.title;
 
     waitforevent = NO;
     waitforfilename = NO;
