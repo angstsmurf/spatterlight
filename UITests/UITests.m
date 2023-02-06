@@ -438,7 +438,6 @@
     [searchSearchField click];
     [searchSearchField typeText:@"image"];
 
-    [libraryWindow.splitGroups[@"SplitViewTotal"] click];
     [[[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:1] childrenMatchingType:XCUIElementTypeTextField].element click];
 
     [gameMenuBarItem.menuItems[@"Show Info…"] click];
@@ -449,7 +448,7 @@
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [libraryWindow.buttons[@"Play the selected game"] click];
+    [libraryWindow.toolbars.buttons[@"Play"] click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Clear Scrollback"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Clear Scrollback\"]",".menuItems[@\"Clear Scrollback\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
@@ -1766,7 +1765,7 @@
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *searchField = libraryWindow.searchFields[@"Search"];
+    XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
 
     [searchField click];
     
@@ -1777,7 +1776,7 @@
 
     [textField click];
 
-    [libraryWindow.buttons[@"Info about the selected game"] click];
+    [libraryWindow.toolbars.buttons[@"Show info"] click];
 
 
     infoWin = app.windows[@"imagetest.gblorb Info"];
@@ -1813,7 +1812,7 @@
     [self addAndSelectGame:@"curses.z5"];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-    XCUIElement *playButton = libraryWindow.buttons[@"Play the selected game"];
+    XCUIElement *playButton = libraryWindow.toolbars.buttons[@"Play"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
@@ -2111,7 +2110,7 @@
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
 
-        XCUIElement *addButton = libraryWindow.buttons[@"Add games to the library"];
+        XCUIElement *addButton = libraryWindow.toolbars.buttons[@"Add"];
 
         XCTAssert(addButton.exists);
         [addButton click];
@@ -2140,8 +2139,6 @@
 
     [searchField click];
     [searchField typeText:gameName];
-
-    [libraryWindow.splitGroups[@"SplitViewTotal"] click];
 
     XCUIElement *gamesTable = libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
     XCUIElement *textField = [[[gamesTable.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:1] childrenMatchingType:XCUIElementTypeTextField].element;
