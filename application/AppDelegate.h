@@ -4,7 +4,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class HelpPanelController, LibController, Preferences, MyCoreDataCoreSpotlightDelegate, TableViewController;
+@class HelpPanelController, LibController, Preferences, TableViewController, CoreDataManager;
 
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> 
 
@@ -14,11 +14,7 @@
 
 @property HelpPanelController *helpLicenseWindow;
 
-@property (readonly) NSPersistentContainer *persistentContainer;
-@property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
-
-- (void)startIndexing:(NSNotification *)notification;
-- (void)stopIndexing:(NSNotification *)notification;;
+@property (readonly) CoreDataManager *coreDataManager;
 
 - (IBAction)openDocument:(id)sender;
 

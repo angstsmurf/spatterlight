@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TableViewController;
+@class TableViewController, CoreDataManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSToolbarDelegate>
 
-@property (strong) NSPersistentContainer * _Nullable persistentContainer;
+@property (strong) CoreDataManager * _Nullable coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 
 @property (nonatomic, strong) TableViewController * _Nullable tableViewController;

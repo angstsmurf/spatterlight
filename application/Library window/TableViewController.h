@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Metadata, GlkController, InfoController, Game, Theme, SplitViewController, LibController;
+@class Metadata, GlkController, InfoController, Game, Theme, SplitViewController, LibController, CoreDataManager;
 
 @interface RatingsCellView : NSTableCellView
 @property (strong) IBOutlet NSLevelIndicator *rating;
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL gameTableDirty;
 @property NSString *gameSortColumn;
 
-@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property NSMutableDictionary <NSString *, InfoController *> *infoWindows;

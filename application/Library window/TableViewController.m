@@ -47,6 +47,8 @@
 #import "NSManagedObjectContext+safeSave.h"
 #import "SplitViewController.h"
 
+#import "CoreDataManager.h"
+
 enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 
 enum  {
@@ -361,16 +363,16 @@ enum  {
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = self.persistentContainer.viewContext;
+        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }
 
-- (NSPersistentContainer *)persistentContainer {
-    if (_persistentContainer == nil) {
-        _persistentContainer =  ((AppDelegate*)NSApplication.sharedApplication.delegate).persistentContainer;
+- (CoreDataManager *)coreDataManager {
+    if (_coreDataManager == nil) {
+        _coreDataManager =  ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
     }
-    return _persistentContainer;
+    return _coreDataManager;
 }
 
 - (NSMenuItem *)mainThemesSubMenu {
@@ -458,7 +460,7 @@ enum  {
             }
         }
 
-        [_managedObjectContext safeSaveAndWait];
+        [self.coreDataManager saveChanges];
     }
 }
 
@@ -499,7 +501,7 @@ enum  {
             [_managedObjectContext deleteObject:img];
         }
 
-        [_managedObjectContext safeSave];
+        [self.coreDataManager saveChanges];
 
         // And then any orphaned ifids
         NSArray *ifidEntriesToDelete = [TableViewController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
@@ -509,12 +511,12 @@ enum  {
             [_managedObjectContext deleteObject:ifid];
         }
 
-        [_managedObjectContext safeSave];
+        [self.coreDataManager saveChanges];
 
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.view.window.screen];
         [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
-        [_managedObjectContext safeSave];
+        [self.coreDataManager saveChanges];
     }
 }
 
@@ -566,7 +568,7 @@ enum  {
         return;
     }
 
-    NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;
 
     TableViewController * __weak weakSelf = self;
@@ -695,7 +697,7 @@ enum  {
                 [strongSelf waitToReportMetadataImport];
                 [strongSelf beginImporting];
                 [strongSelf importMetadataFromFile:url.path inContext:strongSelf.managedObjectContext];
-                [strongSelf.managedObjectContext safeSave];
+                [strongSelf.coreDataManager saveChanges];
                 [strongSelf endImporting];
             }];
         }
@@ -764,14 +766,14 @@ enum  {
 
     _downloadWasCancelled = NO;
 
-    [_managedObjectContext safeSave];
+    [self.coreDataManager saveChanges];
     [_managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
 
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
 
-    NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
@@ -998,10 +1000,10 @@ enum  {
 
     [self beginImporting];
 
-    NSManagedObjectContext *childContext = self.persistentContainer.newBackgroundContext;
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
-    [childContext safeSave];
+    [self.coreDataManager saveChanges];
 
     _lastImageComparisonData = nil;
 
@@ -1739,7 +1741,7 @@ enum  {
 
         TableViewController * __weak weakSelf = self;
 
-        NSManagedObjectContext *private = self.persistentContainer.newBackgroundContext;
+        NSManagedObjectContext *private = self.coreDataManager.privateChildManagedObjectContext;
         private.undoManager = nil;
 
         [self beginImporting];
@@ -1863,7 +1865,7 @@ enum  {
                 } else NSLog(@"No changes to save in private");
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf.managedObjectContext safeSave];
+                    [strongSelf.coreDataManager saveChanges];
                     [strongSelf endImporting];
                     strongSelf.currentlyAddingGames = NO;
                     [strongSelf askToDownload];

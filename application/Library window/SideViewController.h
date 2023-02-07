@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SideViewController : NSViewController
 
-@property (weak) IBOutlet NSLayoutConstraint *widthConstraint;
-
 @property (weak) IBOutlet NSTextField *sideIfid;
 @property (weak) IBOutlet NSScrollView *leftScrollView;
 

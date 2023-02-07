@@ -11,6 +11,7 @@
 #import "Metadata.h"
 #import "SideInfoView.h"
 #import "AppDelegate.h"
+#import "CoreDataManager.h"
 
 @interface SideViewController () {
     BOOL sideViewUpdatePending;
@@ -74,7 +75,7 @@
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).persistentContainer.viewContext;
+        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }

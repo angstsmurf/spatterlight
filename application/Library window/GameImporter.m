@@ -12,6 +12,8 @@
 #import "Metadata.h"
 #import "Image.h"
 
+#import "CoreDataManager.h"
+
 #import "IFDBDownloader.h"
 
 #import "NSString+Categories.h"
@@ -76,6 +78,7 @@ extern NSArray *gGameFileTypes;
         libController.currentlyAddingGames = NO;
 
         [context safeSaveAndWait];
+        [libController.coreDataManager saveChanges];
 
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
@@ -139,6 +142,7 @@ extern NSArray *gGameFileTypes;
 
             if (timestamp.timeIntervalSinceNow < -0.3) {
                 [context safeSaveAndWait];
+                [_libController.coreDataManager saveChanges];
                 timestamp = [NSDate date];
             }
         }

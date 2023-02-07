@@ -6,6 +6,9 @@
 
 #import "LibController.h"
 #import "AppDelegate.h"
+
+#import "CoreDataManager.h"
+
 #import "Game.h"
 
 #import "TableViewController.h"
@@ -107,7 +110,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).persistentContainer.viewContext;
+        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }

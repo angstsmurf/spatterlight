@@ -2,12 +2,11 @@
  * Application -- the main application controller
  */
 
-#import <CoreData/CoreData.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 
 #import "main.h"
 #import "Constants.h"
-#import "MyCoreDataCoreSpotlightDelegate.h"
+#import "CoreDataManager.h"
 #import "NSString+Categories.h"
 #import "AttributeDictionaryTransformer.h"
 #import "InsecureValueTransformer.h"
@@ -166,15 +165,6 @@ PasteboardFilePasteLocation;
         [FolderAccess deleteBookmarks];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(startIndexing:)
-                                                 name:@"StartIndexing"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stopIndexing:)
-                                                 name:@"StopIndexing"
-                                               object:nil];
 }
 
 #pragma mark -
@@ -415,7 +405,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     if (searchableItemIdentifier.length) {
         NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
 
-        NSManagedObjectContext *context = _persistentContainer.viewContext;
+        NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
         if (!context) {
             NSLog(@"Could not create new context!");
             return NO;
@@ -474,170 +464,17 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - Core Data stack
 
-@synthesize persistentContainer = _persistentContainer;
+@synthesize coreDataManager = _coreDataManager;
 
-- (NSPersistentContainer *)persistentContainer {
+- (CoreDataManager *)coreDataManager {
+    // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
-        if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
-
-            NSURL *groupURL = nil;
-            BOOL needMigrate = NO;
-
-            NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
-
-            if (needMigrate) {
-                [FolderAccess askForAccessToURL:targetURL andThenRunBlock:^{}];
-                if (![[NSFileManager defaultManager] isReadableFileAtPath:targetURL.path]) {
-                    needMigrate = NO;
-                    targetURL = groupURL;
-                }
-
-            }
-
-            NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:targetURL];
-
-            description.readOnly = NO;
-            description.shouldMigrateStoreAutomatically = YES;
-            description.shouldInferMappingModelAutomatically = YES;
-
-            if (@available(macOS 10.15, *)) {
-                [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-                _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
-#else
-                _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
-#endif
-                [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
-                [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
-            }
-
-            _persistentContainer.persistentStoreDescriptions = @[ description ];
-
-            NSPersistentContainer *blockContainer = _persistentContainer;
-
-            [blockContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
-
-                if (error != nil) {
-                    NSLog(@"Failed to load Core Data stack: %@", error);
-                    return;
-                }
-
-                if (blockContainer.viewContext.undoManager == nil) {
-                    NSUndoManager *newManager = [[NSUndoManager alloc] init];
-                    newManager.levelsOfUndo = 10;
-                    blockContainer.viewContext.undoManager = newManager;
-                }
-
-                blockContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-                blockContainer.viewContext.automaticallyMergesChangesFromParent = YES;
-
-                // If needed, migrate to a group store.
-                if (needMigrate) {
-                    error = nil;
-                    NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
-                    NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
-                    [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
-                    // We could delete the old store here, but it doesn't really hurt to keep it,
-                    // and it helps to have a non-sandboxed store around for development purposes.
-                    if (error != nil) {
-                        NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
-                        abort();
-                    } else {
-                        NSLog(@"Successfully migrated store at %@ to %@", targetURL.absoluteString, groupURL.absoluteString);
-                    }
-                }
-            }];
-        }
-    }
-    return _persistentContainer;
-}
-
-- (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL * __autoreleasing *)groupURL {
-
-    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
-
-    NSString *groupIdentifier =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-
-    NSError *error = nil;
-
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-
-    if (!properties) {
-        BOOL ok = NO;
-        if (error.code == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:applicationFilesDirectory.path withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [[NSApplication sharedApplication] presentError:error];
-            NSLog(@"Error: %@", error);
-            return nil;
-        }
-    } else {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", applicationFilesDirectory.path];
-
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
-
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
+        if (_coreDataManager == nil) {
+            _coreDataManager = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
         }
     }
 
-    *groupURL = [[fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] URLByAppendingPathComponent:@"Spatterlight.storedata"];
-
-    NSURL *targetURL = *groupURL;
-
-    if ([fileManager fileExistsAtPath:(*groupURL).path]) {
-        // The Core Data store already exists where we want it
-        *needMigrate = NO;
-    } else if ([fileManager fileExistsAtPath:oldURL.path]) {
-        // No group container Core Data store exists, but one in
-        // the non-sandboxed Application Support directory, so we try to migrate it.
-        targetURL = oldURL;
-        *needMigrate = YES;
-    }
-
-    return targetURL;
-}
-
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Spatterlight" in the user's Application Support directory.
-// In a sandboxed app, the systems always wants to return the path to the group container
-// Application Support dictionary in ~/Library/Group Containers, so we use this ugly hack to
-// get the one we want instead.
-
-- (NSURL *)applicationFilesDirectory {
-    NSString *homeString = NSHomeDirectory();
-    NSArray *pathComponents = homeString.pathComponents;
-    pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
-    homeString = [[NSString pathWithComponents:pathComponents] stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
-    return [NSURL fileURLWithPath:homeString];
-}
-
-- (void)startIndexing:(NSNotification *)notification {
-    if (@available(macOS 10.15, *)) {
-        if (!_spotlightDelegate)
-            return;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-        [_spotlightDelegate startSpotlightIndexing];
-#endif
-    }
-}
-
-- (void)stopIndexing:(NSNotification *)notification {
-    if (@available(macOS 10.15, *)) {
-        if (!_spotlightDelegate)
-            return;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-        [_spotlightDelegate stopSpotlightIndexing];
-#endif
-    }
+    return _coreDataManager;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app {
@@ -731,7 +568,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     if ([NSColorPanel sharedColorPanel].visible)
         [[NSColorPanel sharedColorPanel] orderOut:self];
 
-    NSManagedObjectContext *mainContext = _persistentContainer.viewContext;
+    NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
 
     [mainContext performBlockAndWait:^{
         NSError *error = nil;
@@ -750,7 +587,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
-    return _persistentContainer.viewContext.undoManager;
+    return (_coreDataManager.mainManagedObjectContext).undoManager;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {

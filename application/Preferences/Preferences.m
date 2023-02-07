@@ -3,7 +3,7 @@
 #import "DummyController.h"
 #import "GlkTextBufferWindow.h"
 
-#import "NSManagedObjectContext+safeSave.h"
+#import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Theme.h"
@@ -139,9 +139,9 @@ static Preferences *prefs = nil;
     if (!name)
         name = @"Old settings";
 
-    NSPersistentContainer *persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
+    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
 
-    NSManagedObjectContext *managedObjectContext = persistentContainer.viewContext;
+    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSArray *fetchedObjects;
@@ -608,20 +608,20 @@ NSString *fontToString(NSFont *font) {
     return _defaultTheme;
 }
 
-@synthesize persistentContainer = _persistentContainer;
+@synthesize coreDataManager = _coreDataManager;
 
-- (NSPersistentContainer *)persistentContainer {
-    if (_persistentContainer == nil) {
-        _persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
+- (CoreDataManager *)coreDataManager {
+    if (_coreDataManager == nil) {
+        _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
     }
-    return _persistentContainer;
+    return _coreDataManager;
 }
 
 @synthesize managedObjectContext = _managedObjectContext;
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = self.persistentContainer.viewContext;
+        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }
@@ -643,7 +643,7 @@ NSString *fontToString(NSFont *font) {
 
     [_glktxtbuf prefsDidChange];
 
-    [self.managedObjectContext safeSave];
+    [self.coreDataManager saveChanges];
 
     if (!_previewShown)
         return;
