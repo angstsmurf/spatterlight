@@ -113,11 +113,19 @@
 
     NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
+    NSURL *applicationFilesDirectory;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    NSString *teamPrefix =
+    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"teamPrefix"];
     NSString *groupIdentifier =
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+    if (teamPrefix.length) {
+        applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+    } else {
+        applicationFilesDirectory = [[fileManager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil] URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
+    }
 
     NSError *error = nil;
 
@@ -146,7 +154,7 @@
         }
     }
 
-    *groupURL = [[fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] URLByAppendingPathComponent:@"Spatterlight.storedata"];
+    *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
     NSURL *targetURL = *groupURL;
 
