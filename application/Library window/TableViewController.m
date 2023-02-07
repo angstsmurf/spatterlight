@@ -2901,7 +2901,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 - (IBAction)endedEditing:(id)sender {
     NSTextField *textField = (NSTextField *)sender;
     if (textField) {
-
         NSInteger row = [_gameTableView rowForView:sender];
         if ((NSUInteger)row >= _gameTableModel.count)
             return;
@@ -2914,10 +2913,18 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         NSString *key = _gameTableView.tableColumns[(NSUInteger)col].identifier;
         NSString *oldval = [meta valueForKey:key];
 
-        NSString *value = textField.stringValue;
-
+        NSString *value = [textField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (value.length == 0)
+            value = nil;
         if ([value isEqual: oldval] || (value == oldval))
             return;
+
+        if ([key isEqualToString:@"title"]) {
+            if (value.length == 0) {
+                textField.stringValue = meta.title;
+                return;
+            }
+        }
 
         meta.userEdited = @(YES);
         meta.source = @(kUser);
