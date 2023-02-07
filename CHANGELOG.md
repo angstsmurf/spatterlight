@@ -12,7 +12,7 @@
 - Fixes a memory leak when downloading info from IFDB
 - Fixes a memory leak when reading Commodore 64 disk images
 - The ScottFree, TaylorMade and Plus engines code is a little more cross-platform friendly
-- Adds a line of underscores below the upper window in Plus
+- Adds a line delimiter between the upper window and lower windows in Plus
 - Implements inventory in the upper window in Plus
 - Adds support for more ScottFree and TaylorMade game variants found on the Internet Archive
 - Adds support for the unfinished SAGA Plus game fragment *Questprobe Number 4: X-Men*
@@ -22,6 +22,9 @@
 - Both disk image files of a pair are now usually recognised and will open the correct game in Plus, just like in ScottFree. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
 - Some images in the Apple 2 version of *The Sorcerer of Claymorgue Castle* were cut off
 - Reading disk images in .woz format is a little faster
+- The Quick Look plugin should be more stable and less jittery during resize
+- Updates Bocfel to version 2.1
+- Corrects background and text in a couple of icons
 
 ## Release 0.9.8
 - Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*
