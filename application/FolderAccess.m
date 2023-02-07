@@ -100,6 +100,9 @@
     if (existingAncestor)
         return existingAncestor;
 
+    if (url.hasDirectoryPath)
+        return url;
+
     NSString *homeString = NSHomeDirectory();
     NSArray *pathComponents = homeString.pathComponents;
     pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
