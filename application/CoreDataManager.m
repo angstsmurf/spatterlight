@@ -117,7 +117,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     NSString *teamPrefix =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"teamPrefix"];
+    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TeamPrefix"];
     NSString *groupIdentifier =
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
