@@ -322,7 +322,7 @@ enum  {
     _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:nil inContext:self.managedObjectContext] mutableCopy];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
-    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibraryAgain"] == NO) {
+    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
         [self convertLibraryToCoreData];
     }
 
@@ -1868,7 +1868,7 @@ enum  {
                     strongSelf.currentlyAddingGames = NO;
                     [strongSelf askToDownload];
                 });
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibraryAgain"];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
             }];
         }];
     }
