@@ -759,8 +759,6 @@
 
         if (newImageHeight >= NSHeight(_horizontalView.frame) - 40) {
             // wide image fills vertically;
-            newImageHeight = NSHeight(_horizontalView.frame) - 40;
-            newImageWidth = ceil(newImageHeight / _imageView.ratio);
             _imagePinnedToContainerBottom.active = YES;
             _imageTrailingToCenterX.active = NO;
         } else if (newImageHeight < _textClipHeight.constant) {
