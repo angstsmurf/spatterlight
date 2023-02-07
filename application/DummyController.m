@@ -69,4 +69,8 @@
 - (void)deferredRestart:(id)sender {}
 - (void)setBorderColor:(NSColor *)color {}
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    return NO;
+}
+
 @end
