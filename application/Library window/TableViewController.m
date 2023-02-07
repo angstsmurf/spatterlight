@@ -208,10 +208,6 @@ enum  {
     AppDelegate *appdelegate = (AppDelegate*)NSApplication.sharedApplication.delegate;
     appdelegate.tableViewController = self;
 
-    if (self.managedObjectContext == nil) {
-        NSLog(@"Error! TableViewController has no managedObjectContext!");
-    }
-
     _gameTableView.autosaveTableColumns = YES;
     _gameTableView.delegate = self;
 
@@ -2545,7 +2541,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
 }
 
-- (void) updateTableViews {
+- (void)updateTableViews {
     if (!_gameTableDirty)
         return;
 
@@ -2553,7 +2549,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSArray<Game *> *searchResult = nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
 
     NSMutableArray<NSPredicate *> *predicateArray = [NSMutableArray new];
 

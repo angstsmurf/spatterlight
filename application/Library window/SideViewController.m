@@ -27,6 +27,19 @@
 
     needsUpdate = YES;
     selectedGames = @[];
+
+    if (@available(macOS 11.0, *)) {
+    } else {
+        if (@available(macOS 10.14, *)) {
+            _scrollViewTopPin.constant = 57;
+        } else {
+            _scrollViewTopPin.constant = 55;
+        }
+    }
+}
+
+- (void)viewDidAppear {
+    [super viewDidAppear];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -41,15 +54,6 @@
                                              selector:@selector(splitViewDidResizeSubviews:)
                                                  name:NSSplitViewDidResizeSubviewsNotification
                                                object:nil];
-
-    if (@available(macOS 11.0, *)) {
-    } else {
-        if (@available(macOS 10.14, *)) {
-            _scrollViewTopPin.constant = 57;
-        } else {
-            _scrollViewTopPin.constant = 55;
-        }
-    }
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {

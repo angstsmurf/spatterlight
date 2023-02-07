@@ -8,6 +8,7 @@
 
 #import "CoreDataManager.h"
 #import "MyCoreDataCoreSpotlightDelegate.h"
+#import "FolderAccess.h"
 
 @interface CoreDataManager () {
     NSString *modelName;
@@ -172,6 +173,14 @@
     BOOL needMigrate = NO;
 
     NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
+
+    if (needMigrate) {
+        [FolderAccess askForAccessToURL:targetURL andThenRunBlock:^{}];
+        if (![[NSFileManager defaultManager] isReadableFileAtPath:targetURL.path]) {
+            needMigrate = NO;
+            targetURL = groupURL;
+        }
+    }
 
     _persistentContainer = [[NSPersistentContainer alloc] initWithName:modelName];
 
