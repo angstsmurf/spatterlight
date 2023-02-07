@@ -839,7 +839,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     [container clearImages];
     for (NSView *view in _textview.subviews)
-        [view removeFromSuperview];
+        if ([view isKindOfClass:[MarginImage class]])
+            [view removeFromSuperview];
     self.moveRanges = [[NSMutableArray alloc] init];
 }
 
