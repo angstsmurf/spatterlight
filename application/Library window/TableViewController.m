@@ -192,6 +192,8 @@ enum  {
     NSTimer *verifyTimer;
 
     NSDictionary *forgiveness;
+
+    BOOL noUpdateOnNextModelChange;
 }
 
 @end
@@ -3174,9 +3176,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         if (_gameTableModel.count && rows.count) {
             _selectedGames = [_gameTableModel objectsAtIndexes:rows];
             Game *game = _selectedGames[0];
-            if (!game.theme)
+            if (!game.theme) {
+                noUpdateOnNextModelChange = YES;
                 game.theme = [Preferences currentTheme];
-            else {
+            } else {
                 Preferences *prefs = Preferences.instance;
                 if (prefs && prefs.currentGame == nil)
                     [prefs restoreThemeSelection:game.theme];
@@ -3201,10 +3204,14 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    _gameTableDirty = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateTableViews];
-    });
+    if (noUpdateOnNextModelChange) {
+        noUpdateOnNextModelChange = NO;
+    } else {
+        _gameTableDirty = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateTableViews];
+        });
+    }
     NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSSet *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
 
