@@ -266,11 +266,16 @@
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Spatterlight" in the user's Application Support directory.
+// In a sandboxed app, the system will always return the path to the Application Support directory
+// in ~/Library/Group Containers, so we use this hack to get the one we want instead.
+
 - (NSURL *)applicationFilesDirectory
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *appSupportURL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
-    return [appSupportURL URLByAppendingPathComponent:@"Spatterlight"];
+    NSString *homeString = NSHomeDirectory();
+    NSArray *pathComponents = homeString.pathComponents;
+    pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
+    homeString = [[NSString pathWithComponents:pathComponents] stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
+    return [NSURL fileURLWithPath:homeString];
 }
 
 - (void)saveChanges {
