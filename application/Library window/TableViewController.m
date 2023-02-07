@@ -664,10 +664,6 @@ enum  {
             [self.windowController.progIndicator stopAnimation:self];
         }
 
-        NSIndexSet *rows = strongSelf.gameTableView.selectedRowIndexes;
-
-        if ((strongSelf.gameTableView.clickedRow != -1) && ![strongSelf.gameTableView isRowSelected:strongSelf.gameTableView.clickedRow])
-            rows = [NSIndexSet indexSetWithIndex:(NSUInteger)strongSelf.gameTableView.clickedRow];
         [TableViewController fixMetadataWithNoIfidsInContext:strongSelf.managedObjectContext];
 
         [[NSNotificationCenter defaultCenter]
