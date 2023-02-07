@@ -2635,10 +2635,17 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)handlePrintOnWindow:(GlkWindow *)gwindow
                       style:(NSUInteger)style
-                     buffer:(unichar *)buf
+                     buffer:(char *)rawbuf
                      length:(size_t)len {
     NSString *str;
+    size_t bytesize = sizeof(unichar) * len;
+    unichar *buf = malloc(bytesize);
+    if (buf == NULL) {
+        NSLog(@"Out of memory!");
+        return;
+    }
 
+    memcpy(buf, rawbuf, bytesize);
     NSNumber *styleHintProportional = _bufferStyleHints[style][stylehint_Proportional];
     BOOL proportional = ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
                          (style & 0xff) != style_Preformatted &&
@@ -2717,6 +2724,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [gwindow putString:str style:style];
     windowdirty = YES;
+    free(buf);
 }
 
 - (void)handleSetTerminatorsOnWindow:(GlkWindow *)gwindow
@@ -3073,16 +3081,20 @@ fprintf(stderr, "%s\n",                                                    \
                 uint x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
-                struct sizewinrect *sizewin = (void*)buf;
+                struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
+
+                memcpy (sizewin, buf, sizeof(struct sizewinrect));
 
                 checksumWidth = sizewin->gamewidth;
                 checksumHeight = sizewin->gameheight;
 
                 if (fabs(checksumWidth - _contentView.frame.size.width) > 1.0) {
+                    free(sizewin);
                     break;
                 }
 
                 if (fabs(checksumHeight - _contentView.frame.size.height) > 1.0) {
+                    free(sizewin);
                     break;
                 }
 
@@ -3116,9 +3128,9 @@ fprintf(stderr, "%s\n",                                                    \
                 reqWin.autoresizingMask = hmask | vmask;
 
                 windowdirty = YES;
+                free(sizewin);
             } else
                 NSLog(@"sizwin: something went wrong.");
-
             break;
 
         case CLRWIN:
@@ -3176,7 +3188,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
-                                   buffer:(unichar *)buf
+                                   buffer:buf
                                    length:req->len / sizeof(unichar)];
             }
             break;
