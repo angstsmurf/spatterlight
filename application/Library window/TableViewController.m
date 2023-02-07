@@ -433,11 +433,11 @@ enum  {
 
         for (NSString *entity in entitiesToDelete) {
             NSFetchRequest *fetchEntities = [[NSFetchRequest alloc] init];
-            fetchEntities.entity = [NSEntityDescription entityForName:entity inManagedObjectContext:_managedObjectContext];
+            fetchEntities.entity = [NSEntityDescription entityForName:entity inManagedObjectContext:self.managedObjectContext];
             fetchEntities.includesPropertyValues = NO; //only fetch the managedObjectID
 
             NSError *error = nil;
-            NSArray *objectsToDelete = [_managedObjectContext executeFetchRequest:fetchEntities error:&error];
+            NSArray *objectsToDelete = [self.managedObjectContext executeFetchRequest:fetchEntities error:&error];
             if (error)
                 NSLog(@"deleteLibrary: %@", error);
 
@@ -454,7 +454,7 @@ enum  {
             }
 
             for (NSManagedObject *object in set) {
-                [_managedObjectContext deleteObject:object];
+                [self.managedObjectContext deleteObject:object];
             }
         }
 
@@ -477,36 +477,36 @@ enum  {
         [self cancel:nil];
 
         NSArray *gameEntriesToDelete =
-        [TableViewController fetchObjects:@"Game" predicate:@"hidden == YES" inContext:_managedObjectContext];
+        [TableViewController fetchObjects:@"Game" predicate:@"hidden == YES" inContext:self.managedObjectContext];
         NSUInteger counter = gameEntriesToDelete.count;
         for (Game *game in gameEntriesToDelete) {
-            [_managedObjectContext deleteObject:game];
+            [self.managedObjectContext deleteObject:game];
         }
 
         NSArray *metadataEntriesToDelete =
-        [TableViewController fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
+        [TableViewController fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:self.managedObjectContext];
         counter += metadataEntriesToDelete.count;
 
         for (Metadata *meta in metadataEntriesToDelete) {
-            [_managedObjectContext deleteObject:meta];
+            [self.managedObjectContext deleteObject:meta];
         }
 
         // Now we removed any orphaned images
-        NSArray *imageEntriesToDelete = [TableViewController fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
+        NSArray *imageEntriesToDelete = [TableViewController fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:self.managedObjectContext];
 
         counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
-            [_managedObjectContext deleteObject:img];
+            [self.managedObjectContext deleteObject:img];
         }
 
         [self.coreDataManager saveChanges];
 
         // And then any orphaned ifids
-        NSArray *ifidEntriesToDelete = [TableViewController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:_managedObjectContext];
+        NSArray *ifidEntriesToDelete = [TableViewController fetchObjects:@"Ifid" predicate:@"metadata == NIL" inContext:self.managedObjectContext];
 
         counter += ifidEntriesToDelete.count;
         for (Ifid *ifid in ifidEntriesToDelete) {
-            [_managedObjectContext deleteObject:ifid];
+            [self.managedObjectContext deleteObject:ifid];
         }
 
         [self.coreDataManager saveChanges];
@@ -765,7 +765,7 @@ enum  {
     _downloadWasCancelled = NO;
 
     [self.coreDataManager saveChanges];
-    [_managedObjectContext.undoManager beginUndoGrouping];
+    [self.managedObjectContext.undoManager beginUndoGrouping];
     _undoGroupingCount++;
 
     [[NSNotificationCenter defaultCenter]
@@ -916,7 +916,7 @@ enum  {
         if (choice == NSAlertFirstButtonReturn) {
             for (Game *toDelete in running) {
                 [_gameSessions[toDelete.ifid].window close];
-                [_managedObjectContext deleteObject:toDelete];
+                [self.managedObjectContext deleteObject:toDelete];
             }
         }
     }
@@ -986,7 +986,7 @@ enum  {
 }
 
 - (void)downloadMetadataForGames:(NSArray<Game *> *)games {
-    [_managedObjectContext performBlock:^{
+    [self.managedObjectContext performBlock:^{
         [self.managedObjectContext.undoManager beginUndoGrouping];
         self.undoGroupingCount++;
     }];
@@ -1883,10 +1883,10 @@ enum  {
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hasDownloaded = YES"];
 
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"askToDownload: Could not fetch Game entities: %@",error);
         return;
@@ -1894,10 +1894,10 @@ enum  {
 
     if (fetchedObjects.count == 0)
     {
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
         fetchRequest.predicate = nil;
         fetchRequest.includesPropertyValues = NO;
-        fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
         if (fetchedObjects.count < 5)
             return;
@@ -2032,7 +2032,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:self.managedObjectContext];
 
     switch (what) {
         case X_EDITED:
@@ -2050,7 +2050,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     NSError *error = nil;
-    NSArray *metadata = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *metadata = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
     if (!metadata) {
         NSLog(@"exportMetadataToFile: Could not fetch metadata list. Error: %@", error);
@@ -2236,7 +2236,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (nullable NSWindow *)playGameWithIFID:(NSString *)ifid {
-    Game *game = [TableViewController fetchGameForIFID:ifid inContext:_managedObjectContext];
+    Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
     if (!game) return nil;
     return [self playGame:game winRestore:YES];
 }
@@ -2370,7 +2370,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path {
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
 
-    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure:YES hide:hide];
+    Game *game = [self importGame:path inContext:self.managedObjectContext reportFailure:YES hide:hide];
     if (game) {
         return [self selectAndPlayGame:game];
     }
@@ -2447,7 +2447,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
 
     if (ifid.length) {
-        game = [TableViewController fetchGameForIFID:ifid inContext:_managedObjectContext];
+        game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
         if ([_gameTableModel containsObject:game]) {
             NSUInteger index = [_gameTableModel indexOfObject:game];
             frame = [_gameTableView rectOfRow:(NSInteger)index];
@@ -2464,7 +2464,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (ifids.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
         for (NSString *ifid in ifids) {
-            Game *game = [TableViewController fetchGameForIFID:ifid inContext:_managedObjectContext];
+            Game *game = [TableViewController fetchGameForIFID:ifid inContext:self.managedObjectContext];
             if (game) {
                 [newSelection addObject:game];
             } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
@@ -2574,7 +2574,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         fetchRequest.predicate = comp;
         error = nil;
-        searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        searchResult = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         if (error)
             NSLog(@"executeFetchRequest for searchString: %@", error);
 
@@ -2601,7 +2601,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         comp = [NSCompoundPredicate andPredicateWithSubpredicates: predicateArray];
         fetchRequest.predicate = comp;
         error = nil;
-        searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        searchResult = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     }
 
     _gameTableModel = searchResult.mutableCopy;
