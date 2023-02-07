@@ -119,7 +119,7 @@
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="500" height="449"/>
-                                            <size key="maxSize" width="500" height="10000000"/>
+                                            <size key="maxSize" width="1000" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
@@ -143,7 +143,6 @@
                             <constraint firstItem="3eh-en-Vcc" firstAttribute="trailing" secondItem="nco-ND-cnN" secondAttribute="trailing" id="kke-7Q-xig"/>
                             <constraint firstItem="3eh-en-Vcc" firstAttribute="top" secondItem="nco-ND-cnN" secondAttribute="top" id="neb-rW-ZVD"/>
                             <constraint firstAttribute="trailing" secondItem="wOX-LD-GxP" secondAttribute="trailing" constant="6" id="uwm-B3-4I8"/>
-                            <constraint firstAttribute="width" relation="lessThanOrEqual" priority="200" constant="700" id="vrk-Ir-tVW"/>
                         </constraints>
                     </customView>
                     <connections>
@@ -151,7 +150,6 @@
                         <outlet property="leftScrollView" destination="3eh-en-Vcc" id="I9U-oT-Ynz"/>
                         <outlet property="scrollViewTopPin" destination="neb-rW-ZVD" id="clv-Xl-NSI"/>
                         <outlet property="sideIfid" destination="wOX-LD-GxP" id="fYJ-2L-LEs"/>
-                        <outlet property="widthConstraint" destination="vrk-Ir-tVW" id="3G6-F1-j0j"/>
                     </connections>
                 </viewController>
                 <customObject id="NoO-x1-Wpf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

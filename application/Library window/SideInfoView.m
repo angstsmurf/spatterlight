@@ -253,6 +253,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSClipView *clipView = [SideInfoView addTopConstraintsToView:self];
 
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
+
     CGFloat superViewWidth = clipView.frame.size.width;
 
     if (somedata.cover.data)
@@ -570,6 +572,8 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     [titleField removeFromSuperview];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
 
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
