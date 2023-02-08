@@ -560,7 +560,7 @@
     _largeScrollView.documentView = _verticalView;
     _verticalView.imageData = imageData;
     [_verticalView updateWithDictionary:_metaDict];
-    [_largeScrollView.contentView scrollPoint:NSMakePoint(0, 0)];
+    [_largeScrollView.contentView scrollPoint:NSZeroPoint];
 }
 
 -(void)checkForChange {
@@ -661,6 +661,7 @@
     [super viewDidLayout];
     if (!_showingView || iFiction)
         return;
+    [_textScrollView.contentView scrollPoint:NSZeroPoint];
     [self checkForChange];
 }
 
@@ -679,6 +680,7 @@
                 newFrame.size.height = strongSelf.textClipHeight.constant;
                 newFrame.origin.y = ceil((NSHeight(strongSelf.horizontalView.frame) - newFrame.size.height) / 2);
                 strongSelf.textScrollView.frame = newFrame;
+                [strongSelf.textScrollView.contentView scrollPoint:NSZeroPoint];
             }
         });
     }
