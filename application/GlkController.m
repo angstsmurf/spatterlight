@@ -1028,14 +1028,12 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)restoreUI {
-    NSLog(@"GlkController restoreUI");
     // We try to restore the UI here, in order to catch things
     // like entered text and scrolling, that has changed the UI
     // but not sent any events to the interpreter process.
     // This method is called in handleRequest on NEXTEVENT.
 
     if (restoredUIOnly) {
-        NSLog(@"restoredUIOnly");
         restoredController = restoredControllerLate;
         _shouldShowAutorestoreAlert = NO;
     }
@@ -1062,13 +1060,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Copy all views and GlkWindow objects from restored Controller
     for (id key in restoredController.gwindows) {
-        NSLog(@"key: %@", key);
 
         win = _gwindows[key];
 
         if (!restoredUIOnly) {
             if (win) {
-                NSLog(@"removing win %ld from superview", win.name);
                 [win removeFromSuperview];
             }
             win = (restoredController.gwindows)[key];
@@ -1080,14 +1076,12 @@ fprintf(stderr, "%s\n",                                                    \
 
                 GlkTextGridWindow *aView = [self findGridWindowIn:scrollview];
                 while (aView) {
-                    NSLog(@"removing grid win %ld from superview", aView.name);
                     [aView removeFromSuperview];
                     aView = [self findGridWindowIn:scrollview];
                 }
 
                 GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
                 if (quotebox) {
-                    NSLog(@"found quotebox");
                     if (_quoteBoxes == nil)
                         _quoteBoxes = [[NSMutableArray alloc] init];
                     [quotebox removeFromSuperview];
@@ -1099,9 +1093,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            NSLog(@"remove win %ld from superview", win.name);
             [win removeFromSuperview];
-            NSLog(@"adding win %ld to contentview", win.name);
             [_contentView addSubview:win];
 
             win.glkctl = self;
@@ -4240,7 +4232,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
 // Some convenience methods
 - (void)adjustContentView {
-    NSLog(@"adjustContentView");
     NSRect frame;
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen ||
         _borderView.frame.size.width == self.window.screen.frame.size.width || (dead && _inFullscreen && windowRestoredBySystem)) {

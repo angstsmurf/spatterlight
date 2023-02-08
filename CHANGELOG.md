@@ -24,7 +24,9 @@
 - Reading disk images in .woz format is a little faster
 - The Quick Look plugin should be more stable and less jittery during resize
 - Updates Bocfel to version 2.1
-- Corrects background and text in a couple of icons
+- Works around a crash that could happen when autorestoring a game with open text search box
+- Updating the database from much older versions should work more reliably
+- Corrects background and text of a couple of icons
 
 ## Release 0.9.8
 - Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*
