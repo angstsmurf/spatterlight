@@ -2693,6 +2693,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         self.gameTableDirty = NO;
         [self.gameTableView reloadData];
         [self selectGames:[NSSet setWithArray:self->_selectedGames]];
+        [self invalidateRestorableState];
     });
 }
 
@@ -3171,8 +3172,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     NSTableView *tableView = [notification object];
     if (tableView == _gameTableView) {
         NSIndexSet *rows = tableView.selectedRowIndexes;
-
-        [self invalidateRestorableState];
         if (_gameTableModel.count && rows.count) {
             _selectedGames = [_gameTableModel objectsAtIndexes:rows];
             Game *game = _selectedGames[0];
