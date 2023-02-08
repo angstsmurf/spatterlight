@@ -1100,10 +1100,12 @@
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You wake painfully,'"];
@@ -1111,6 +1113,7 @@
     [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'"];
