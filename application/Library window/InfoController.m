@@ -89,8 +89,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface InfoController () <NSWindowDelegate, NSTextFieldDelegate>
-{
+@interface InfoController () {
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
     IBOutlet NSTextField *ifidField;
