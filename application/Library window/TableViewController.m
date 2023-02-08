@@ -192,8 +192,6 @@ enum  {
     NSTimer *verifyTimer;
 
     NSDictionary *forgiveness;
-
-    BOOL noUpdateOnNextModelChange;
 }
 
 @end
@@ -336,12 +334,16 @@ enum  {
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 
+    [self updateTableViews];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         NSArray<Game *> *selected = self.selectedGames;
         if (selected.count > 2)
             selected = @[self.selectedGames[0], self.selectedGames[1]];
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
+        if (selected.count == 1)
+            [self.gameTableView scrollRowToVisible:self.gameTableView.selectedRow];
     });
     _gameTableView.autosaveName = @"GameTable";
 }
@@ -3176,7 +3178,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             _selectedGames = [_gameTableModel objectsAtIndexes:rows];
             Game *game = _selectedGames[0];
             if (!game.theme) {
-                noUpdateOnNextModelChange = YES;
                 game.theme = [Preferences currentTheme];
             } else {
                 Preferences *prefs = Preferences.instance;
@@ -3203,14 +3204,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    if (noUpdateOnNextModelChange) {
-        noUpdateOnNextModelChange = NO;
-    } else {
-        _gameTableDirty = YES;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateTableViews];
-        });
-    }
+    _gameTableDirty = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateTableViews];
+    });
     NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSSet *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
 
