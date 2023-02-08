@@ -36,15 +36,6 @@
             _scrollViewTopPin.constant = 55;
         }
     }
-}
-
-- (void)viewDidAppear {
-    [super viewDidAppear];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(noteManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:self.managedObjectContext];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateSideView:)
                                                  name:@"UpdateSideView"
@@ -54,6 +45,14 @@
                                              selector:@selector(splitViewDidResizeSubviews:)
                                                  name:NSSplitViewDidResizeSubviewsNotification
                                                object:nil];
+}
+
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:self.managedObjectContext];
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
