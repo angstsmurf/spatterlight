@@ -245,6 +245,29 @@ enum  {
                                               attributes:NULL
                                                    error:NULL];
 
+    NSString *key;
+    NSSortDescriptor *sortDescriptor;
+
+    for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
+
+        key = tableColumn.identifier;
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key
+                                                       ascending:YES];
+        tableColumn.sortDescriptorPrototype = sortDescriptor;
+    }
+
+    NSArray<NSSortDescriptor *> *sortDescriptors = _gameTableView.sortDescriptors;
+
+    if (!sortDescriptors.count)
+        _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
+
+    // The "found" column seems to move about sometimes,
+    // so we move it back to the front here.
+    NSInteger foundColumnIndex = [_gameTableView columnWithIdentifier:@"found"];
+    if (foundColumnIndex != 0) {
+        [_gameTableView moveColumn:foundColumnIndex toColumn:0];
+    }
+
     NSRect frame = _gameTableView.headerView.frame;
     frame.size.height = 23;
     _gameTableView.headerView.frame = frame;
@@ -277,36 +300,6 @@ enum  {
         @"Merciful" : @(FORGIVENESS_MERCIFUL)
     };
 
-    NSString *key;
-    NSSortDescriptor *sortDescriptor;
-
-    for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
-
-        key = tableColumn.identifier;
-        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key
-                                                       ascending:YES];
-        tableColumn.sortDescriptorPrototype = sortDescriptor;
-
-        for (NSMenuItem *menuitem in _headerMenu.itemArray) {
-            if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) {
-                menuitem.state = !tableColumn.hidden;
-                break;
-            }
-        }
-    }
-
-    NSArray<NSSortDescriptor *> *sortDescriptors = _gameTableView.sortDescriptors;
-
-    if (!sortDescriptors.count)
-        _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
-
-    // The "found" column seems to move about sometimes,
-    // so we move it back to the front here.
-    NSInteger foundColumnIndex = [_gameTableView columnWithIdentifier:@"found"];
-    if (foundColumnIndex != 0) {
-        [_gameTableView moveColumn:foundColumnIndex toColumn:0];
-    }
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -338,14 +331,26 @@ enum  {
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         NSArray<Game *> *selected = self.selectedGames;
-        if (selected.count > 2)
-            selected = @[self.selectedGames[0], self.selectedGames[1]];
-        [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
         if (selected.count == 1)
             [self.gameTableView scrollRowToVisible:self.gameTableView.selectedRow];
     });
+
     _gameTableView.autosaveName = @"GameTable";
+    NSString *key;
+    for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
+        key = tableColumn.identifier;
+        for (NSMenuItem *menuitem in _headerMenu.itemArray) {
+            if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) {
+                menuitem.state = (tableColumn.hidden) ? NSOffState : NSOnState;
+                break;
+            }
+        }
+    }
+    NSArray<Game *> *selected = self.selectedGames;
+    if (selected.count > 2)
+        selected = @[self.selectedGames[0], self.selectedGames[1]];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
 }
 
 - (LibController *)windowController {
