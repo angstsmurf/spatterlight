@@ -2877,11 +2877,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                     NSFontAttributeName:[NSFont systemFontOfSize:12],
                 };
                 NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrDict];
-                CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
-                if ([constraintView respondsToSelector:NSSelectorFromString(@"setTopConstraint")])
-                    constraintView.topConstraint.constant = -2;
-                constraintView.textField.attributedStringValue = attrStr;
-                return constraintView;
+                cellView.textField.attributedStringValue = attrStr;
+                return cellView;
             } else {
                 if ([identifier isEqual:@"firstpublishedDate"] || [identifier isEqual:@"seriesnumber"]) {
                     CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
@@ -2900,6 +2897,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 - (IBAction)endedEditing:(id)sender {
     NSTextField *textField = (NSTextField *)sender;
     if (textField) {
+        canEdit = NO;
         NSInteger row = [_gameTableView rowForView:sender];
         if ((NSUInteger)row >= _gameTableModel.count)
             return;
@@ -3241,9 +3239,18 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 - (void)doClick:(id)sender {
     if (canEdit) {
         NSInteger row = _gameTableView.clickedRow;
-        if (row >= 0) {
-            [self startTimerWithTimeInterval:0.5
-                                    selector:@selector(renameByTimer:)];
+        if ([_gameTableView.selectedRowIndexes containsIndex:(NSUInteger)row]) {
+            TableViewController * __weak weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+                TableViewController *strongSelf = weakSelf;
+                if (strongSelf && strongSelf->canEdit) {
+                    NSInteger selectedRow = strongSelf.gameTableView.selectedRow;
+                    NSInteger column = strongSelf.gameTableView.selectedColumn;
+                    if (selectedRow != -1 && column != -1) {
+                        [strongSelf.gameTableView editColumn:column row:selectedRow withEvent:nil select:YES];
+                    }
+                }
+            });
         }
     }
 }
@@ -3253,48 +3260,19 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     if (_gameTableView.clickedRow == -1) {
         return;
     }
-
     [self enableClickToRenameAfterDelay];
     [self play:sender];
 }
 
 - (void)enableClickToRenameAfterDelay {
     canEdit = NO;
-    [self startTimerWithTimeInterval:0.2
-                            selector:@selector(enableClickToRenameByTimer:)];
-}
-
-- (void)enableClickToRenameByTimer:(id)sender {
-    canEdit = YES;
-}
-
-- (void)renameByTimer:(id)sender {
-    if (canEdit) {
-        NSInteger row = _gameTableView.selectedRow;
-        NSInteger column = _gameTableView.selectedColumn;
-
-        if (row != -1 && column != -1) {
-            [_gameTableView editColumn:column row:row withEvent:nil select:YES];
+    TableViewController * __weak weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        TableViewController *strongSelf = weakSelf;
+        if (strongSelf) {
+            strongSelf->canEdit = YES;
         }
-    }
-}
-
-- (void)startTimerWithTimeInterval:(NSTimeInterval)seconds
-                          selector:(SEL)selector {
-    [self stopTimer];
-    timer = [NSTimer scheduledTimerWithTimeInterval:seconds
-                                             target:self
-                                           selector:selector
-                                           userInfo:nil
-                                            repeats:NO];
-}
-
-- (void)stopTimer {
-    if (timer != nil) {
-        if (timer.valid) {
-            [timer invalidate];
-        }
-    }
+    });
 }
 
 @end
