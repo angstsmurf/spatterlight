@@ -2875,11 +2875,13 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             if (@available(macOS 11.0, *)) {
                 NSDictionary *attrDict = @{
                     NSFontAttributeName:[NSFont systemFontOfSize:12],
-                    NSBaselineOffsetAttributeName:@(-2)
                 };
                 NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrDict];
-                cellView.textField.attributedStringValue = attrStr;
-                return cellView;
+                CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
+                if ([constraintView respondsToSelector:NSSelectorFromString(@"setTopConstraint")])
+                    constraintView.topConstraint.constant = -2;
+                constraintView.textField.attributedStringValue = attrStr;
+                return constraintView;
             } else {
                 if ([identifier isEqual:@"firstpublishedDate"] || [identifier isEqual:@"seriesnumber"]) {
                     CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
