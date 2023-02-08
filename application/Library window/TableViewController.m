@@ -2745,7 +2745,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 font = [NSFont systemFontOfSize:12];
             }
 
-            if (@available(macOS 13, *)) {
+            if (@available(macOS 10.14, *)) {
                 if ([column.identifier isEqual:@"like"])
                     font = [NSFont systemFontOfSize:10];
             }
@@ -2870,34 +2870,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         }
         if (string == nil)
             string = @"";
-
-        if (@available(macOS 12.0, *)) {
-            if ([identifier isEqual:@"firstpublishedDate"] || [identifier isEqual:@"seriesnumber"]) {
-                CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
-                constraintView.topConstraint.constant = -2;
-                constraintView.textField.stringValue = string;
-                return (NSTableCellView *)constraintView;
-            }
-        } else {
-            if (@available(macOS 11.0, *)) {
-                NSDictionary *attrDict = @{
-                    NSFontAttributeName:[NSFont systemFontOfSize:12],
-                };
-                NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:string attributes:attrDict];
-                CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
-                if ([constraintView respondsToSelector:NSSelectorFromString(@"setTopConstraint")])
-                    constraintView.topConstraint.constant = 0;
-                constraintView.textField.attributedStringValue = attrStr;
-                return constraintView;
-            } else {
-                if ([identifier isEqual:@"firstpublishedDate"] || [identifier isEqual:@"seriesnumber"]) {
-                    CellViewWithConstraint *constraintView = (CellViewWithConstraint *)cellView;
-                    constraintView.topConstraint.constant = -1.5;
-                    constraintView.textField.stringValue = string;
-                    return (NSTableCellView *)constraintView;
-                }
-            }
-        }
 
         cellView.textField.stringValue = string;
     }
