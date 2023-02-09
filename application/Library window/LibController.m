@@ -57,7 +57,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSToolbarItemIdentifier showInfo;
     NSToolbarItemIdentifier playGame;
     NSToolbarItemIdentifier searchBar;
-    NSToolbarItemIdentifier mySpace;
 }
 
 @end
@@ -76,7 +75,6 @@ fprintf(stderr, "%s\n",                                                    \
     showInfo = @"showInfo";
     playGame = @"playGame";
     searchBar = @"searchBar";
-    mySpace = @"mySpace";
 
     // This view controller determines the window toolbar's content.
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
@@ -144,16 +142,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (MyButtonToolbarItem *)buttonToolbarItemWithImage:(NSString *)imageName selector:(SEL)selector label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier enabled:(BOOL)enabled {
     NSImage *image = [NSImage imageNamed:imageName];
-    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 18, 18)];
-    button.imageScaling = NSImageScaleProportionallyDown;
-    button.image = image;
-    button.action = selector;
-    button.target = self.tableViewController;
-    button.bordered = NO;
-    button.imagePosition = NSImageOnly;
-    button.state = NSOffState;
+    image.accessibilityDescription = tooltip;
+    NSSegmentedControl *button = [NSSegmentedControl segmentedControlWithImages:@[image] trackingMode:NSSegmentSwitchTrackingMomentary target: self.tableViewController action:selector];
     button.enabled = enabled;
-    [button setButtonType:NSMomentaryChangeButton];
     MyButtonToolbarItem *toolbarItem = [[MyButtonToolbarItem alloc] initWithItemIdentifier:identifier];
     toolbarItem.view = button;
     toolbarItem.label = NSLocalizedString(label, nil);
@@ -184,23 +175,20 @@ fprintf(stderr, "%s\n",                                                    \
         if (@available(macOS 11.0, *)) {
             return [self toolbarItemWithImage:@"plus.circle" selector:@selector(addGamesToLibrary:) label:@"Add" tooltip:@"Add games to library" identifier:itemIdentifier enabled:YES];
         } else {
-            return [self buttonToolbarItemWithImage:@"plus.circle" selector:@selector(addGamesToLibrary:) label:@"Add" tooltip:@"Add games to library" identifier:itemIdentifier enabled:YES];
+            return [self buttonToolbarItemWithImage:@"plus" selector:@selector(addGamesToLibrary:) label:@"Add" tooltip:@"Add games to library" identifier:itemIdentifier enabled:YES];
         }
     } else if (itemIdentifier == showInfo) {
         if (@available(macOS 11.0, *)) {
             return [self toolbarItemWithImage:@"eye.circle" selector:@selector(showGameInfo:) label:@"Show info" tooltip:@"Show info for selected game" identifier:itemIdentifier enabled:NO];
         } else {
-            return [self buttonToolbarItemWithImage:@"eye.circle" selector:@selector(showGameInfo:) label:@"Show Info" tooltip:@"Show info for selected game" identifier:itemIdentifier enabled:NO];
+            return [self buttonToolbarItemWithImage:@"eye.fill" selector:@selector(showGameInfo:) label:@"Show Info" tooltip:@"Show info for selected game" identifier:itemIdentifier enabled:NO];
         }
     } else if (itemIdentifier == playGame) {
         if (@available(macOS 11.0, *)) {
             return [self toolbarItemWithImage:@"play.circle" selector:@selector(play:) label:@"Play" tooltip:@"Play selected game" identifier:itemIdentifier enabled:NO];
         } else {
-            return [self buttonToolbarItemWithImage:@"play.circle" selector:@selector(play:) label:@"Play" tooltip:@"Play selected game" identifier:itemIdentifier enabled:NO];
+            return [self buttonToolbarItemWithImage:@"play.fill" selector:@selector(play:) label:@"Play" tooltip:@"Play selected game" identifier:itemIdentifier enabled:NO];
         }
-    } else if (itemIdentifier == mySpace) {
-        toolbarItem = [self buttonToolbarItemWithImage:@"play.circle" selector:nil label:nil tooltip:nil identifier:itemIdentifier enabled:NO];
-        toolbarItem.view.hidden = YES;
     } else if (itemIdentifier == searchBar) {
         NSSearchField *searchField = [[NSSearchField alloc] initWithFrame: CGRectZero];
         _searchField = searchField;
@@ -225,11 +213,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSMutableArray<NSToolbarItemIdentifier> *toolbarItemIdentifiers = [NSMutableArray new];
 
     [toolbarItemIdentifiers addObject:NSToolbarToggleSidebarItemIdentifier];
-
-    if (@available(macOS 11.0, *)) {
-    } else {
-        [toolbarItemIdentifiers addObject:mySpace];
-    }
 
     [toolbarItemIdentifiers addObject:addToLibrary];
     [toolbarItemIdentifiers addObject:showInfo];
