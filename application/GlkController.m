@@ -1036,6 +1036,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (restoredUIOnly) {
         restoredController = restoredControllerLate;
         _shouldShowAutorestoreAlert = NO;
+    } else {
+        _windowsToBeAdded = [[NSMutableArray alloc] init];
     }
 
     shouldRestoreUI = NO;
