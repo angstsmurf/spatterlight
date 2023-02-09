@@ -542,7 +542,7 @@
 
     [self adjustConstraints:textHeight];
 
-    [_textScrollView.contentView scrollToPoint:NSZeroPoint];
+    [_textScrollView.contentView scrollPoint:NSZeroPoint];
 
     return YES;
 }
@@ -661,28 +661,37 @@
     [super viewDidLayout];
     if (!_showingView || iFiction)
         return;
-    [_textScrollView.contentView scrollPoint:NSZeroPoint];
     [self checkForChange];
 }
 
 - (void)checkForCutOffText:(NSNotification *)notification {
-    if (notification.object == _textview && !_changing && !_vertical && !self.view.inLiveResize && NSHeight(_textview.frame) > NSHeight(_textScrollView.frame) && NSHeight(_textScrollView.frame) < NSHeight(_horizontalView.frame) - 40 && NSHeight(_textview.frame) - NSHeight(_textScrollView.frame) < 1000) {
-        _textClipHeight.constant = MIN(NSHeight(_textview.frame), NSHeight(_horizontalView.frame) - 40);
-        _forcedHeightForWidth = NSWidth(_textScrollView.frame);
-        self.view.needsLayout = YES;
-        _changing = YES;
-        PreviewViewController * __weak weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            PreviewViewController *strongSelf = weakSelf;
-            if (strongSelf && strongSelf.changing) {
-                strongSelf.changing = NO;
-                NSRect newFrame = strongSelf.textScrollView.frame;
-                newFrame.size.height = strongSelf.textClipHeight.constant;
-                newFrame.origin.y = ceil((NSHeight(strongSelf.horizontalView.frame) - newFrame.size.height) / 2);
-                strongSelf.textScrollView.frame = newFrame;
-                [strongSelf.textScrollView.contentView scrollPoint:NSZeroPoint];
-            }
-        });
+    if (notification.object == _textview && !_changing && !_vertical && !self.view.inLiveResize) {
+        if (NSHeight(_textview.frame) > NSHeight(_textScrollView.frame) && NSHeight(_textScrollView.frame) < NSHeight(_horizontalView.frame) - 40 && NSHeight(_textview.frame) - NSHeight(_textScrollView.frame) < 1000) {
+            _textClipHeight.constant = MIN(NSHeight(_textview.frame), NSHeight(_horizontalView.frame) - 40);
+            _forcedHeightForWidth = NSWidth(_textScrollView.frame);
+            self.view.needsLayout = YES;
+            _changing = YES;
+            PreviewViewController * __weak weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                PreviewViewController *strongSelf = weakSelf;
+                if (strongSelf && strongSelf.changing) {
+                    strongSelf.changing = NO;
+                    NSRect newFrame = strongSelf.textScrollView.frame;
+                    newFrame.size.height = strongSelf.textClipHeight.constant;
+                    newFrame.origin.y = ceil((NSHeight(strongSelf.horizontalView.frame) - newFrame.size.height) / 2);
+                    strongSelf.textScrollView.frame = newFrame;
+                    [strongSelf.textScrollView.contentView scrollPoint:NSZeroPoint];
+                }
+            });
+        } else {
+            PreviewViewController * __weak weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                PreviewViewController *strongSelf = weakSelf;
+                if (strongSelf) {
+                    [strongSelf.textScrollView.contentView scrollPoint:NSZeroPoint];
+                }
+            });
+        }
     }
 }
 
