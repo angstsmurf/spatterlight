@@ -12,6 +12,7 @@
 #import "SideInfoView.h"
 #import "AppDelegate.h"
 #import "CoreDataManager.h"
+#import "TableViewController.h"
 
 @interface SideViewController () {
     BOOL sideViewUpdatePending;
@@ -102,7 +103,18 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateSideView:nil];
         });
-
+    } else if (selectedGames.count > 1 && deletedObjects.count) {
+        NSArray<Game *> *selected = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController.selectedGames;
+        NSMutableArray *mutableSelected = selected.mutableCopy;
+        for (Game *game in deletedObjects) {
+            if ([selected containsObject:game])
+                [mutableSelected removeObject:game];
+        }
+        if (mutableSelected.count > 2)
+            mutableSelected = [mutableSelected subarrayWithRange:NSMakeRange(0, 2)].mutableCopy;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateSideView:[NSNotification notificationWithName:@"UpdateSideView" object:mutableSelected]];
+        });
     } else if (_currentSideView && [updatedObjects containsObject:_currentSideView]) {
         needsUpdate = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
