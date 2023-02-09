@@ -3188,12 +3188,18 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         }
     }
 
+    NSMutableArray<Game *> *gamesToDelete = [NSMutableArray arrayWithCapacity:insertedObjects.count];
+
     for (id obj in insertedObjects) {
         if (countingMetadataChanges &&
             [obj isKindOfClass:[Metadata class]]) {
             insertedMetadataCount++;
         }
+        if ([obj isKindOfClass:[Game class]] && ((Game *)obj).metadata.title.length == 0)
+            [gamesToDelete addObject:obj];
     }
+    for (Game *game in gamesToDelete)
+        [_managedObjectContext deleteObject:game];
 }
 
 #pragma mark -
