@@ -73,9 +73,9 @@ extern int			oops_word;
 struct	string_type	*resolved_string;
 #endif
 
-char            include_directory[81] = "\0";
-char            temp_directory[81] = "\0";
-char            data_directory[81] = "\0";
+char            include_directory[1024] = "\0";
+char            temp_directory[1024] = "\0";
+char            data_directory[1024] = "\0";
 char            special_prompt[81] = "\n: \0";
 char            file_prompt[5] = ": \0";
 char            bookmark[81] = "\0";
