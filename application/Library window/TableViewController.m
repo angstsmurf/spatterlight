@@ -329,12 +329,6 @@ enum  {
 
     [self updateTableViews];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        NSArray<Game *> *selected = self.selectedGames;
-        if (selected.count == 1)
-            [self.gameTableView scrollRowToVisible:self.gameTableView.selectedRow];
-    });
-
     _gameTableView.autosaveName = @"GameTable";
     NSString *key;
     for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
@@ -1013,7 +1007,7 @@ enum  {
     _lastImageComparisonData = nil;
 
     // This deselects all games
-    if (games.count > 10 && games.count == _gameTableModel.count)
+    if (_gameTableView.selectedRowIndexes.count > 10 && _gameTableView.selectedRowIndexes.count == _gameTableModel.count)
         [_gameTableView selectRowIndexes:[NSIndexSet new] byExtendingSelection:NO];
 
     _nestedDownload = _currentlyAddingGames;
@@ -3163,6 +3157,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
+        [self invalidateRestorableState];
     }
 }
 

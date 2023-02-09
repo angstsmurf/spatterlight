@@ -237,7 +237,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
-
+    [state encodeObject:@(self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds.origin.y) forKey:@"scrollPosition"];
     if (self.tableViewController.selectedGames.count) {
         NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:_tableViewController.selectedGames.count];
         NSString *str;
@@ -259,10 +259,15 @@ fprintf(stderr, "%s\n",                                                    \
             [self.tableViewController searchForGames:self.searchField];
         });
     }
+    NSNumber *scrollPosNum = [state decodeObjectOfClass:[NSNumber class] forKey:@"scrollPosition"];
+    CGFloat scrollPosition = scrollPosNum.floatValue;
     NSArray *selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
     [self.tableViewController updateTableViews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self.tableViewController selectGamesWithIfids:selectedIfids scroll:NO];
+        NSRect bounds = self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds;
+        bounds.origin.y = scrollPosition;
+        self.tableViewController.gameTableView.enclosingScrollView.contentView.bounds = bounds;
     });
 }
 @end
