@@ -2744,11 +2744,9 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             } else {
                 font = [NSFont systemFontOfSize:12];
             }
-
-            if (@available(macOS 10.14, *)) {
-                if ([column.identifier isEqual:@"like"])
-                    font = [NSFont systemFontOfSize:10];
-            }
+            
+            if ([column.identifier isEqual:@"like"])
+                font = [NSFont systemFontOfSize:10];
 
             attributes[NSFontAttributeName] = font;
             column.headerCell.attributedStringValue = [[NSAttributedString alloc] initWithString:headerAttrStr.string attributes:attributes];
@@ -2833,7 +2831,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 if (@available(macOS 10.14, *)) {
                     popUp.title = @"";
                 } else {
-                    // 10.13 has a problem with showing the "empty" pop up button value
+                    // 10.13 has a problem with showing the "empty" pop up button value, and draws a horizontal line instead.
                     none.title = @"  ";
                     popUp.title = @"  ";
                 }
@@ -3093,14 +3091,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         BOOL isSortColumn = [_gameSortColumn isEqual:column.identifier];
 
         NSSize headerSize;
-        if (@available(macOS 11, *)) {
-            headerSize = [column.headerCell.stringValue sizeWithAttributes:[column.headerCell.attributedStringValue attributesAtIndex:0 effectiveRange:nil]];
-        } else {
-            if (isSortColumn)
-                headerSize = [column.headerCell.stringValue sizeWithAttributes:@{NSFontAttributeName:[NSFont systemFontOfSize:12 weight:NSFontWeightMedium]}];
-            else
-                headerSize = [column.headerCell.stringValue sizeWithAttributes:@{NSFontAttributeName:[NSFont systemFontOfSize:12]}];
-        }
+        headerSize = [column.headerCell.stringValue sizeWithAttributes:[column.headerCell.attributedStringValue attributesAtIndex:0 effectiveRange:nil]];
 
         longestWidth = headerSize.width + 9;
 
@@ -3109,7 +3100,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             longestWidth += 24;
         }
 
-        if (@available(macOS 11.0, *)) {
+        if (@available(macOS 12.0, *)) {
         } else {
             if ([identifier isEqual:@"seriesnumber"] && longestWidth < 111) {
                 return 111;
