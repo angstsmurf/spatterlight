@@ -341,7 +341,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         completionHandler();
     } else if (comparisonResult == kImageComparisonResultWantsUserInput) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl.tableViewController;
+            TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController;
             if (!force && [libController.lastImageComparisonData isEqual:newData])
                 return;
             if (libController.downloadWasCancelled)

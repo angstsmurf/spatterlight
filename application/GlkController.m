@@ -255,7 +255,7 @@ fprintf(stderr, "%s\n",                                                    \
     _theme = game.theme;
     Theme *theme = _theme;
 
-    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl.tableViewController;
+    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).tableViewController;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
