@@ -1,6 +1,6 @@
 # Change log
 
-## 0.9.9 (unreleased)
+## Release 0.9.9
 - Now requires macOS 10.13 or later
 - New view-based table view with updated design
 - Table view is less eager to scroll automatically
