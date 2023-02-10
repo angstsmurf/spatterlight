@@ -8,6 +8,7 @@
 - Adds a main Game menu, for things that previously could only be done by right-clicking in the table view
 - The Format column was not sorted properly
 - The side view was not always updated when the game on display was deleted
+- Autorestoring at the first turn could add another layer of text views on top of the existing, that would then be autosaved, then another layer would be added if the game was immediately closed and then opened again, and so on
 - Fixes a memory leak when interfacing with Babel
 - Fixes a memory leak when downloading info from IFDB
 - Fixes a memory leak when reading Commodore 64 disk images
