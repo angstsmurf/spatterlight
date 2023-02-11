@@ -9184,6 +9184,7 @@
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Spatterlight;
 				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
@@ -9238,6 +9239,7 @@
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Spatterlight;
 				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
