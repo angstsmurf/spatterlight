@@ -228,7 +228,7 @@ typedef enum {
     FOUND13,
 } SearchResultType;
 
-const uint8_t syncbytes16[7] = {
+static const uint8_t syncbytes16[7] = {
     0xff, //    11111111
     0x3f, //    00111111
     0xcf, //    11001111
@@ -238,7 +238,7 @@ const uint8_t syncbytes16[7] = {
     0x00  //    00
 };
 
-const uint8_t syncbytes13[9] = {
+static const uint8_t syncbytes13[9] = {
     0xff, //    11111111
     0x7f, //    01111111
     0xbf, //    10111111

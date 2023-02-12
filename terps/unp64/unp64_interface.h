@@ -10,7 +10,7 @@ extern "C"
 
 #include <stdint.h>
 
-extern int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, char *settings[], int numSettings);
+extern int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, const char *settings);
 
 #ifdef __cplusplus
 }

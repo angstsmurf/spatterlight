@@ -3299,7 +3299,7 @@
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		C3D8177A256CBA20005DBC1F /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ti99_4a_terp.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ti99_4a_terp.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = ti99_4a_terp.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = application/CoreDataManager.h; sourceTree = SOURCE_ROOT; };
 		C3E1937E28628E8400E3B013 /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 		C3E1938028628E8400E3B013 /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
@@ -3343,7 +3343,6 @@
 		C3EEEF5D296C9CA40094DE93 /* tbc_multicomp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tbc_multicomp.cpp; sourceTree = "<group>"; };
 		C3EEEF5E296C9CA40094DE93 /* megabyte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megabyte.cpp; sourceTree = "<group>"; };
 		C3EEEF71296C9E810094DE93 /* types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = types.h; sourceTree = "<group>"; };
-		C3EEEF72296CA2730094DE93 /* endian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
 		C3EEEF73296CA3CC0094DE93 /* globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
 		C3EEEF74296CA8180094DE93 /* globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; };
 		C3EEEF7A296CC9890094DE93 /* abuze_crunch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abuze_crunch.cpp; sourceTree = "<group>"; };
@@ -6219,7 +6218,6 @@
 				C3EEEF71296C9E810094DE93 /* types.h */,
 				C3EEEF3B296C9C040094DE93 /* 6502_emu.h */,
 				C3EEEF3D296C9C040094DE93 /* 6502_emu.cpp */,
-				C3EEEF72296CA2730094DE93 /* endian.h */,
 				C3EEEF73296CA3CC0094DE93 /* globals.h */,
 				C3EEEF74296CA8180094DE93 /* globals.cpp */,
 				C3EEEF3F296C9C050094DE93 /* exo_util.h */,

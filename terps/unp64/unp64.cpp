@@ -85,7 +85,25 @@ int isBasicRun2(int pc) {
 		return 0;
 }
 
-int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, char *settings[], int numSettings) {
+int unp64cpp(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, const char *switches) {
+
+	char settings[4][64];
+	int numSettings = 0;
+
+	if (switches != NULL) {
+		Unp64::size_t string_length = std::strlen(switches);
+		char string[100];
+		if (string_length > 0 && string_length < 100) {
+			snprintf(string, sizeof string, "%s", switches);
+			char *setting = strtok(string, " ");
+			while (setting != NULL && numSettings < 4) {
+				snprintf(settings[numSettings], sizeof settings[numSettings], "%s", setting);
+				numSettings++;
+				setting = strtok(NULL, " ");
+			}
+		}
+	}
+
 	CpuCtx r[1];
 	LoadInfo info[1];
 	char name[260] = {0}, forcedname[260] = {0};
@@ -160,7 +178,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 
 	if ((_G(_unp)._recurs == 0) && (numSettings > 0)) {
 		while (p < numSettings) {
-			if (settings && settings[p][0] == '-') {
+			if (settings[p][0] == '-') {
 				switch (settings[p][1]) {
 				case '-':
 					p = numSettings;
@@ -379,7 +397,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 			return 0;
 
 		_G(_iter)++;
- 		if (_G(_iter) == iterMax) {
+		if (_G(_iter) == iterMax) {
 				return 0;
 		}
 
@@ -433,7 +451,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 				if (_G(_unp)._mon1st == 0) {
 					_G(_unp)._strMem = p;
 				}
-				_G(_unp)._mon1st = _G(_unp)._strMem;
+				_G(_unp)._mon1st = (unsigned int)_G(_unp)._strMem;
 				_G(_unp)._strMem = (p < _G(_unp)._strMem ? p : _G(_unp)._strMem);
 			}
 		}
@@ -448,8 +466,6 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 			return 0;
 
 		if ((mem[r->_pc] == 0x40) && (_G(_unp)._rtiFrc == 1)) {
-			if (nextInst(r) == 1)
-				return 0;
 			_G(_unp)._retAdr = r->_pc;
 			_G(_unp)._rtAFrc = 1;
 			if (_G(_unp)._retAdr < _G(_unp)._strMem)
@@ -496,9 +512,9 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 	}
 
 	if (_G(_unp)._fEndAf && _G(_unp)._monEnd) {
-		_G(_unp)._endAdC = mem[_G(_unp)._fEndAf] | mem[_G(_unp)._fEndAf + 1] << 8;
+		_G(_unp)._endAdC = (unsigned int)(mem[_G(_unp)._fEndAf] | mem[_G(_unp)._fEndAf + 1] << 8);
 		if ((int)_G(_unp)._endAdC > _G(_unp)._endAdr)
-			_G(_unp)._endAdr = _G(_unp)._endAdC;
+			_G(_unp)._endAdr = (int)_G(_unp)._endAdC;
 
 		_G(_unp)._endAdC = 0;
 		_G(_unp)._fEndAf = 0;
@@ -569,7 +585,7 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 	}
 
 	if (*forcedname) {
-		strncpy(name, forcedname, 248);
+		snprintf(name, sizeof name, "%s", forcedname);
 	} else {
 		size_t ln = strlen(name);
 		if (ln > 248) {/* dirty hack in case name is REALLY long */
@@ -691,8 +707,8 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 	mem[_G(_unp)._strMem - 2] = _G(_unp)._strMem & 0xff;
 	mem[_G(_unp)._strMem - 1] = _G(_unp)._strMem >> 8;
 
-	memcpy(destinationBuffer, mem + (_G(_unp)._strMem - 2), _G(_unp)._endAdr - _G(_unp)._strMem + 2);
-	*finalLength = _G(_unp)._endAdr - _G(_unp)._strMem + 2;
+	memcpy(destinationBuffer, mem + (_G(_unp)._strMem - 2), (size_t)(_G(_unp)._endAdr - _G(_unp)._strMem + 2));
+	*finalLength = (size_t)(_G(_unp)._endAdr - _G(_unp)._strMem + 2);
 
 	if (_G(_unp)._recurs) {
 		if (++_G(_unp)._recurs > RECUMAX)
@@ -706,21 +722,21 @@ int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t
 } // End of namespace Unp64
 
 
-int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, char *settings[], int numSettings) {
+int unp64(uint8_t *compressed, size_t length, uint8_t *destinationBuffer, size_t *finalLength, const char *settings) {
 
-    Unp64::size_t scottlength = (Unp64::size_t)length;
-    Unp64::size_t scottfinallength;
+	Unp64::size_t scottlength = (Unp64::size_t)length;
+	Unp64::size_t scottfinallength;
 
-    using namespace Unp64;
+	using namespace Unp64;
 
-    g_globals = new Globals;
+	g_globals = new Globals;
 
-    int result = unp64(compressed, scottlength, destinationBuffer, &scottfinallength, settings, numSettings);
+	int result = unp64cpp(compressed, scottlength, destinationBuffer, &scottfinallength, settings);
 
-    *finalLength = scottfinallength;
+	*finalLength = scottfinallength;
 
-    delete g_globals;
-    g_globals = nullptr;
+	delete g_globals;
+	g_globals = nullptr;
 
-    return result;
+	return result;
 }

@@ -58,6 +58,7 @@ static int FoundMatch;
 static int PrintedOK;
 int Redraw = 0;
 
+#define Location (Flag[0])
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])
 #define TurnsLow (Flag[26])
@@ -96,6 +97,8 @@ extern struct GameInfo games[];
 strid_t room_description_stream = NULL;
 
 extern int AnimationRunning;
+
+int DeferredGoto = 0;
 
 #ifdef DEBUG
 
@@ -862,7 +865,7 @@ static void NewGame(void)
         Flag[2] = 254;
         Flag[3] = 253;
     }
-    Flag[0] = 0;
+    Location = 0;
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
@@ -949,6 +952,10 @@ static int LoadPrompt(void)
 
     if (!YesOrNo()) {
         glk_window_clear(Bottom);
+        if (DeferredGoto == 1) {
+            Location = 1;
+            DeferredGoto = 0;
+        }
         return 0;
     } else {
         return LoadGame();
@@ -1290,8 +1297,12 @@ void Look(void) {
 static void Goto(unsigned char loc) {
     if (BaseGame == QUESTPROBE3 && !PrintedOK)
         Okay();
-    Flag[0] = loc;
-    Redraw = 1;
+    if (BaseGame == HEMAN && Location == 0 && loc == 1) {
+        DeferredGoto = 1;
+    } else {
+        Location = loc;
+        Redraw = 1;
+    }
 }
 
 static void Delay(unsigned char seconds) {
@@ -1305,7 +1316,7 @@ static void Delay(unsigned char seconds) {
     glk_cancel_char_event(Bottom);
 
     glk_request_timer_events(1000 * seconds);
-    
+
     event_t ev;
 
     do {
@@ -1880,7 +1891,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             }
             case SWITCHCHARACTER:
                 /* Go to the location of the other guy */
-                Flag[0] = ObjectLoc[arg1];
+                Location = ObjectLoc[arg1];
                 /* Pick him up, so that you don't see yourself */
                 GetObject(arg1);
                 Redraw = 1;
@@ -2486,7 +2497,9 @@ void glk_main(void)
 {
     if (DetectC64(&FileImage, &FileImageLen) != UNKNOWN_GAME) {
         EndOfData = FileImage + FileImageLen;
-    }
+    } else {
+        fprintf(stderr, "DetectC64 did not recognize the game\n");
+	}
 
 #ifdef DEBUG
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);

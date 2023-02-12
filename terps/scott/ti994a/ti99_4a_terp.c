@@ -467,8 +467,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
             if (opcode <= 182 && opcode <= GameHeader.NumMessages + 1) {
                 PrintMessage(opcode);
             } else {
-                debug_print("Unknown action %d [Param begins %d %d]\n",
-                            opcode, action_line[ptr - action_line], action_line[ptr - action_line + 1]);
+                debug_print("Unknown action %d [Param begins %d %d]\n", opcode, action_line[ptr - action_line], action_line[ptr - action_line + 1]);
                 break;
             }
             break;

@@ -38,7 +38,6 @@ Follows original disclaimer
  C++ version based on code adapted to ScummVM by Avijeet Maurya
  */
 
-#include "endian.h"
 #include "types.h"
 #include "unp64.h"
 
