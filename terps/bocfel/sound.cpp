@@ -224,7 +224,6 @@ void zsound_effect()
     uint16_t number = znargs == 0 ? 1 : zargs[0];
 
     if (number == 1 || number == 2) {
-
 #ifdef GLK_MODULE_GARGLKBLEEP
         garglk_zbleep(number);
 #elif defined(SPATTERLIGHT)
