@@ -710,6 +710,7 @@
 		C39D803D26BDFA4000500E1C /* Transcript of Transparent.txt in Resources */ = {isa = PBXBuildFile; fileRef = C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; };
+		C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1997D299982E300D27500 /* OSFastGraphics.m */; };
 		C3A2079A2727B1BE00BAAA24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A207982727B1BE00BAAA24 /* Security.framework */; };
 		C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA0C284BAE8400C8A693 /* parseinput.c */; };
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
@@ -887,7 +888,6 @@
 		C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F709162756127B00CAD227 /* DownloadButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F709152756127B00CAD227 /* DownloadButton.xib */; };
 		C3F890B528AEA72F00982E4D /* apple2draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F890B428AEA72F00982E4D /* apple2draw.c */; };
-		C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */; };
 		C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8832675FCE00076EAFB /* OSCategories.m */; };
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
 		C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.cpp */; };
@@ -3124,6 +3124,8 @@
 		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; };
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
+		C3A1997C299982E300D27500 /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
+		C3A1997D299982E300D27500 /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
 		C3A207982727B1BE00BAAA24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C3A3EA0B284BAE8400C8A693 /* parseinput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
 		C3A3EA0C284BAE8400C8A693 /* parseinput.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parseinput.c; sourceTree = "<group>"; };
@@ -3312,7 +3314,6 @@
 		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
 		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		C3E934AA296D9367000A0640 /* help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help.h; sourceTree = "<group>"; };
-		C3E934AB296D9385000A0640 /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		C3E934AC296D93C2000A0640 /* v1234.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v1234.h; sourceTree = "<group>"; };
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
@@ -3368,9 +3369,7 @@
 		C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BlorbFramework.docc; sourceTree = "<group>"; };
 		C3F709152756127B00CAD227 /* DownloadButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadButton.xib; sourceTree = "<group>"; };
 		C3F890B428AEA72F00982E4D /* apple2draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = apple2draw.c; sourceTree = "<group>"; };
-		C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
 		C3F9D8832675FCE00076EAFB /* OSCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCategories.m; sourceTree = "<group>"; };
-		C3F9D8852675FCE00076EAFB /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
 		C3F9D8862675FCE00076EAFB /* OSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCategories.h; sourceTree = "<group>"; };
 		C3F9D8892675FCF70076EAFB /* OSImageHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashing.m; sourceTree = "<group>"; };
 		C3F9D88A2675FCF70076EAFB /* OSImageHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSImageHashing.h; sourceTree = "<group>"; };
@@ -4008,7 +4007,6 @@
 				C319329527E401510054FE2C /* io.h */,
 				C319328027E338100054FE2C /* io.cpp */,
 				6DD3D26D2512C11300667CA6 /* help.h */,
-				C3E934AB296D9385000A0640 /* math.h */,
 				6DD3D2702512C11300667CA6 /* mathop.h */,
 				6DB774B12458B9B300EDC671 /* mathop.cpp */,
 				6DD3D2712512C11300667CA6 /* memory.h */,
@@ -6321,8 +6319,8 @@
 				C3F9D8892675FCF70076EAFB /* OSImageHashing.m */,
 				C3F9D8862675FCE00076EAFB /* OSCategories.h */,
 				C3F9D8832675FCE00076EAFB /* OSCategories.m */,
-				C3F9D8852675FCE00076EAFB /* OSFastGraphics.h */,
-				C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */,
+				C3A1997C299982E300D27500 /* OSFastGraphics.h */,
+				C3A1997D299982E300D27500 /* OSFastGraphics.m */,
 			);
 			path = ImageHashing;
 			sourceTree = "<group>";
@@ -7563,7 +7561,6 @@
 				C3CF369B2660207E004D0F7B /* neo.c in Sources */,
 				C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */,
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
-				C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
 				C38A9204270A036A00B969A4 /* DummyController.m in Sources */,
@@ -7619,6 +7616,7 @@
 				C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */,
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
+				C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
@@ -9011,6 +9009,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_PEDANTIC = NO;
@@ -10943,6 +10942,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/unp64\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -10950,6 +10950,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -10978,6 +10979,7 @@
 				GCC_C_LANGUAGE_STANDARD = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/terps/unp64\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -10985,6 +10987,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
