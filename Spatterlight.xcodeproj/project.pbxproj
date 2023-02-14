@@ -711,6 +711,12 @@
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; };
 		C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1997D299982E300D27500 /* OSFastGraphics.m */; };
+		C3A199812999D9B400D27500 /* tot.tay in Resources */ = {isa = PBXBuildFile; fileRef = C3A1997F2999D91B00D27500 /* tot.tay */; };
+		C3A199822999D9B400D27500 /* TaylorMade command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199802999D94000D27500 /* TaylorMade command script.txt */; };
+		C3A199842999DB5600D27500 /* Transcript of tot.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199832999DB5600D27500 /* Transcript of tot.txt */; };
+		C3A199862999E47800D27500 /* SPL13P.plus in Resources */ = {isa = PBXBuildFile; fileRef = C3A199852999E47800D27500 /* SPL13P.plus */; };
+		C3A199882999E4C600D27500 /* Plus command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199872999E4C500D27500 /* Plus command script.txt */; };
+		C3A1998A2999E63B00D27500 /* Transcript of SPL13P.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */; };
 		C3A2079A2727B1BE00BAAA24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A207982727B1BE00BAAA24 /* Security.framework */; };
 		C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA0C284BAE8400C8A693 /* parseinput.c */; };
 		C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA10284BAEA300C8A693 /* loaddatabase.c */; };
@@ -3126,6 +3132,12 @@
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A1997C299982E300D27500 /* OSFastGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFastGraphics.h; sourceTree = "<group>"; };
 		C3A1997D299982E300D27500 /* OSFastGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphics.m; sourceTree = "<group>"; };
+		C3A1997F2999D91B00D27500 /* tot.tay */ = {isa = PBXFileReference; lastKnownFileType = file; path = tot.tay; sourceTree = "<group>"; };
+		C3A199802999D94000D27500 /* TaylorMade command script.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TaylorMade command script.txt"; sourceTree = "<group>"; };
+		C3A199832999DB5600D27500 /* Transcript of tot.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of tot.txt"; sourceTree = "<group>"; };
+		C3A199852999E47800D27500 /* SPL13P.plus */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SPL13P.plus; sourceTree = "<group>"; };
+		C3A199872999E4C500D27500 /* Plus command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Plus command script.txt"; sourceTree = "<group>"; };
+		C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of SPL13P.txt"; sourceTree = "<group>"; };
 		C3A207982727B1BE00BAAA24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C3A3EA0B284BAE8400C8A693 /* parseinput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
 		C3A3EA0C284BAE8400C8A693 /* parseinput.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parseinput.c; sourceTree = "<group>"; };
@@ -6105,6 +6117,9 @@
 				C3EAD77E26D4539500AF31AF /* tildeath.gam */,
 				C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */,
 				C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */,
+				C3A1997F2999D91B00D27500 /* tot.tay */,
+				C3A199802999D94000D27500 /* TaylorMade command script.txt */,
+				C3A199832999DB5600D27500 /* Transcript of tot.txt */,
 				C39D803826BDEE8200500E1C /* Transparent.gblorb */,
 				C39D803A26BDF7C300500E1C /* Transparent command script.txt */,
 				C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */,
@@ -6137,6 +6152,9 @@
 				C354AA6D274D05D800C8D01D /* grail.j2 */,
 				C354AA6B274D05D800C8D01D /* Transcript of Unholy Grail.txt */,
 				C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */,
+				C3A199852999E47800D27500 /* SPL13P.plus */,
+				C3A199872999E4C500D27500 /* Plus command script.txt */,
+				C3A199892999E63A00D27500 /* Transcript of SPL13P.txt */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -7299,11 +7317,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A199842999DB5600D27500 /* Transcript of tot.txt in Resources */,
+				C3A199812999D9B400D27500 /* tot.tay in Resources */,
+				C3A199822999D9B400D27500 /* TaylorMade command script.txt in Resources */,
 				C354AA68274CD8D900C8D01D /* adv01.dat in Resources */,
 				C321419626CEA75A00B49504 /* praxix.z5 in Resources */,
 				C3D7CB2326CA9B4A006DE4CC /* Q.CGA in Resources */,
 				C3D7CB2426CA9B4A006DE4CC /* Q.L9 in Resources */,
 				C3D7CB2526CA9B4A006DE4CC /* mag.gfx in Resources */,
+				C3A1998A2999E63B00D27500 /* Transcript of SPL13P.txt in Resources */,
+				C3A199862999E47800D27500 /* SPL13P.plus in Resources */,
 				C3D7CB2626CA9B4A006DE4CC /* mag.mag in Resources */,
 				C3D7CB2726CA9B4A006DE4CC /* Hamper.taf in Resources */,
 				C3D7CB2126CA9B4A006DE4CC /* GBDATA in Resources */,
@@ -7328,6 +7351,7 @@
 				C3CC7FFA26C02180009B0B25 /* Elysium.t3 in Resources */,
 				C3CC7FF926C01F33009B0B25 /* The Elysium Enigma command script.txt in Resources */,
 				C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */,
+				C3A199882999E4C600D27500 /* Plus command script.txt in Resources */,
 				C3998E3526C9845A002C1E5D /* To Hell in a Hamper command script.txt in Resources */,
 				C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */,
 				C354AA72274D095400C8D01D /* bugged.dat in Resources */,

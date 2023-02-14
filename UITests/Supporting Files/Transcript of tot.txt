@@ -1,0 +1,1418 @@
+Start of transcript
+
+
+On the banks of the Catfish River which is spanned by a rope bridge. Moored nearby is an ancient sailing boat, the crew of which are shouting and yelling in a drunken and very threatening manner. 
+
+> INVENTORY
+You're carrying: Yaztromos spell book, Sword, Trident. 
+> READ BOOK
+The book contains 4 spells, sleep, dart, incendary and shrinking. To use say CAST followed by the name of the spell. Each spell can only be used once. 
+> CAST SLEEP ON PIRATES
+The spell works.
+On the banks of the Catfish River which is spanned by a rope bridge. Moored nearby is an ancient sailing boat, the crew of which is sleeping peacefully. 
+
+> GO BOAT
+
+On the deck of an ancient sail boat. You are surrounded by sleeping sailors. You can go east.  
+
+> EXAMINE DECK
+You have found something.
+On the deck of an ancient sail boat. You are surrounded by sleeping sailors. You can also see: Telescope. You can go east.  
+
+> GET TELESCOPE
+
+On the deck of an ancient sail boat. You are surrounded by sleeping sailors. You can go east.  
+
+The effects of your spell are wearing off, the pirates are waking. 
+> E
+The pirates are coming ashore.
+On the banks of the Catfish River which is spanned by a rope bridge. Moored nearby is an ancient sailing boat, the crew of which are shouting and yelling in a drunken and very threatening manner. 
+
+> GO BRIDGE
+
+On a rope bridge. You can go north, south.  
+
+> S
+The pirates are crossing the bridge.
+Scrubland. Close to the bank of a river, a rope bridge crosses it nearby. A column of smoke is rising to the East. You can go south, east.  
+
+> CUT ROPE
+
+Scrubland. Close to the bank of a river, The remains of a rope bridge can be seen dangling from the other side. A column of smoke is rising to the East. You can go south, east.  
+
+The pirates fall into the river and are eaten by crocodiles. 
+> EXAMINE SWORD
+It's a doubled edged broadsword. 
+> EXAMINE TRIDENT
+It's two metres long with three spikes on the end. 
+> S
+
+Scrubland. There is a patch of black ground here. You can go north, south.  
+
+> S
+
+Scrubland, by huge boulders. There is a torch lying on the ground. You can go north, south.  
+
+> GET TORCH
+
+Scrubland, by huge boulders. You can go north, south.  
+
+> N
+
+Scrubland. There is a patch of black ground here. You can go north, south.  
+
+> N
+
+Scrubland. Close to the bank of a river, The remains of a rope bridge can be seen dangling from the other side. A column of smoke is rising to the East. You can go south, east.  
+
+> E
+
+Scrubland, close by is a burning hut. You can also see: Two Dark Elves. You can go west.  
+
+> LIGHT TORCH
+OK 
+> EXAMINE ELVES
+They are dancing round the body of a man. 
+> KILL ELVES WITH SWORD
+Your opponent is dead.
+Scrubland, close by is a burning hut. You can also see: a man's body, Two dead Dark Elves. You can go west.  
+
+> EXAMINE MAN
+You have found something.
+Scrubland, close by is a burning hut. You can also see: a man's body, Two dead Dark Elves, Bow, Arrow. You can go west.  
+
+> GET BOW AND ARROW
+
+Scrubland, close by is a burning hut. You can also see: a man's body, Two dead Dark Elves, Arrow. You can go west.  
+
+
+Scrubland, close by is a burning hut. You can also see: a man's body, Two dead Dark Elves. You can go west.  
+> W
+
+Scrubland. Close to the bank of a river, The remains of a rope bridge can be seen dangling from the other side. A column of smoke is rising to the East. You can go south, east.  
+
+> S
+
+Scrubland. There is a patch of black ground here. You can go north, south.  
+
+> EXAMINE PATCH
+
+Scrubland. There is a patch of black ground here. You can also see: Bronze Medallion. You can go north, south.  
+
+> S
+
+Scrubland, by huge boulders. You can go north, south.  
+
+> CLIMB BOULDERS
+
+In a cave amongst boulders. You can also see: Cave Troll. You can go west.  
+
+The torchlight sends a huge Cave Troll screaming into the depths of the caves.
+In a cave amongst boulders. You can go west.  
+
+> EXAMINE CAVE
+It is empty apart from a small rock in one corner.
+In a cave amongst boulders. You can also see: small rock. You can go west.  
+
+> GET ROCK
+
+In a cave amongst boulders. You can go west.  
+
+> W
+
+Scrubland, by huge boulders. You can go north, south.  
+
+> DROP TORCH
+The torch goes out.
+Scrubland, by huge boulders. You can also see: Torch. You can go north, south.  
+
+> S
+
+Scrubland. You can also see: Harpy. You can go north, south.  
+
+> EXAMINE HARPY THEN DROP TRIDENT
+The razor sharp claws of the Harpy slash the air above your head.
+Scrubland. You can also see: Harpy. You can go north, south.  
+
+
+Scrubland. You can also see: Harpy, Trident. You can go north, south.  
+
+Scrubland. You can also see: Harpy, Trident. You can go north, south.  
+> S
+
+Scrubland. You can also see: Harpy, Pouch. You can go north.  
+
+> GET POUCH
+
+Scrubland. You can also see: Harpy. You can go north.  
+
+
+Scrubland. You can also see: Harpy. You can go north.  
+> EXAMINE POUCH
+A piece of paper flutters to the ground.
+Scrubland. You can also see: Harpy, Message. You can go north.  
+
+
+Scrubland. You can also see: Harpy, Message. You can go north.  
+> GET MESSAGE
+
+Scrubland. You can also see: Harpy. You can go north.  
+
+
+Scrubland. You can also see: Harpy. You can go north.  
+> READ MESSAGE AND DROP IT
+Yaztromo's message reads: Help is at hand.
+Scrubland. A Golden Eagle is circling. You can also see: Harpy. You can go north.  
+
+
+Scrubland. A Golden Eagle is circling. You can also see: Harpy. You can go north.  
+
+Scrubland. A Golden Eagle is circling. You can also see: Harpy, Message. You can go north.  
+The Eagle lands.
+Scrubland. You can also see: Harpy, Message, Golden Eagle. You can go north.  
+
+> EXAMINE EAGLE
+Looks like the closest thing around here to a Jumbo Jet.
+Scrubland. You can also see: Harpy, Message, Golden Eagle. You can go north.  
+
+> CLIMB ON EAGLE
+
+On the back of an eagle, flying across scrubland. 
+
+You are attacked by a terodactyl.
+On the back of an eagle, flying across scrubland. A Terodactyl is attacking the Eagle. 
+
+The Harpy and Pterodactyl attack each other, allowing escape. Press any key. The Eagle lands, you climb down and the Eagle flies off.
+Desert. You can also see: Large Skeleton. You can go south.  
+
+> EXAMINE SKELETON
+There's something there.
+Desert. You can also see: Large Skeleton, Small Wooden Box. You can go south.  
+
+> GET BOX
+
+Desert. You can also see: Large Skeleton. You can go south.  
+
+> OPEN BOX
+There's something there.
+Desert. You can also see: Large Skeleton, Mirror, Sealed Clay Pot. You can go south.  
+
+> GET MIRROR
+
+Desert. You can also see: Large Skeleton, Sealed Clay Pot. You can go south.  
+
+> DROP BOX
+
+Desert. You can also see: Large Skeleton, Small Wooden Box, Sealed Clay Pot. You can go south.  
+
+> S
+
+Desert. You can also see: Cactus. You can go north, south.  
+
+> CUT CACTUS
+
+Desert. You can also see: Cactus (cut top). You can go north, south.  
+
+> EXAMINE CACTUS
+It's full of water. 
+> DRINK WATER
+Very refreshing. 
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. There is something small, partially buried. You can also see: Basilisk. You can go north, south.  
+
+> POINT MIRROR AT BASILISK
+The deadly stare of the Basilisk reflects of the mirror turning him into stone.
+Desert. There is something small, partially buried. You can also see: statue of a Basilisk. You can go north, south.  
+
+> DROP MIRROR
+
+Desert. There is something small, partially buried. You can also see: Mirror, statue of a Basilisk. You can go north, south.  
+
+> DIG
+You have found something.
+Desert. You can also see: A small Bronze Bell, Mirror, statue of a Basilisk. You can go north, south.  
+
+> GET BELL
+
+Desert. You can also see: Mirror, statue of a Basilisk. You can go north, south.  
+
+> S
+
+Desert. Footprints lead west. You can go north, south, west.  
+
+> W
+
+Desert. Footprints lead east. You can also see: Dead Man. You can go east.  
+
+> EXAMINE MAN
+You have found something.
+Desert. Footprints lead east. You can also see: Dead Man, Bottle (Empty). You can go east.  
+
+> GET BOTTLE
+
+Desert. Footprints lead east. You can also see: Dead Man. You can go east.  
+
+> E
+
+Desert. Footprints lead west. You can go north, south, west.  
+
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. There is a black tent here. You can go north, south, west.  
+
+> ENTER TENT
+Abjul gives you refreshment, and asks if you wish to buy something.
+Inside the tent of Abjul the nomad. Scattered all around are many and various exotic items. You can also see: Bracelet of Mermaid Scales, Crystal Vase, Mongoose, Ivory Beetle Charm, Ebony Face Mask, Onyx Egg, Silver Button, Bone Flute, Sealing Wax. You can go east.  
+
+> EXAMINE POUCH
+You have 14 gold coins. 
+> BUY BRACELET
+
+Inside the tent of Abjul the nomad. Scattered all around are many and various exotic items. You can also see: Crystal Vase, Mongoose, Ivory Beetle Charm, Ebony Face Mask, Onyx Egg, Silver Button, Bone Flute, Sealing Wax. You can go east.  
+
+> BUY MONGOOSE
+
+Inside the tent of Abjul the nomad. Scattered all around are many and various exotic items. You can also see: Crystal Vase, Ivory Beetle Charm, Ebony Face Mask, Onyx Egg, Silver Button, Bone Flute, Sealing Wax. You can go east.  
+
+> BUY BUTTON
+
+Inside the tent of Abjul the nomad. Scattered all around are many and various exotic items. You can also see: Crystal Vase, Ivory Beetle Charm, Ebony Face Mask, Onyx Egg, Bone Flute, Sealing Wax. You can go east.  
+
+> E
+
+Desert. There is a black tent here. You can go north, south, west.  
+
+> W
+Suddenly the ground begins to shake, and a huge sandworm emerges and makes a grab for your leg.
+Desert. You can also see: Giant Sandworm. You can go east.  
+
+> THROW ROCK
+The rock chokes the Sandworm to death.
+Desert. You can also see: Giant Sandworms' body. You can go east.  
+
+> EXAMINE SANDWORM
+It's mouth is full of razor sharp teeth. 
+> E
+
+Desert. There is a black tent here. You can go north, south, west.  
+
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. In the distance you can see birds circling over trees. You can go north, south, east.  
+
+> E
+
+An oasis. The pool of crystal clear water beckons invitingly. You can go west.  
+
+> FILL BOTTLE
+
+> W
+
+Desert. In the distance you can see birds circling over trees. You can go north, south, east.  
+
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. You can go north, south.  
+
+> S
+
+Desert. In the distance you can see a walled city. You can go north, south.  
+
+> S
+
+Desert. There is a high stone wall here with a doorway. Your way is blocked by a large fiercesome looking Serpent Guard. You can go north.  
+
+> KICK SAND AT SERPENT GUARD
+The Serpent Guard is blinded. 
+> ENTER DOOR
+Out of the desert heat you quickly revive.
+A large square. A large stone archway is the only exit. 
+
+> GO ARCHWAY
+
+Staircase. You can go up, down.  
+
+> D
+
+Corridor. You can also see: Iron Casket. You can go south, up.  
+
+> EXAMINE CASKET
+You have found something.
+Corridor. You can also see: Shield, Iron Casket. You can go south, up.  
+
+> GET SHIELD
+
+Corridor. You can also see: Iron Casket. You can go south, up.  
+
+> EXAMINE SHIELD
+It has magical markings on it. 
+> S
+Suddenly a horrifying creature appears. It whispers the word DEATH in your ear, and then disappears.
+ 
+
+Press any key. 
+Corridor. You can go north, south.  
+
+The Messenger of Death will place the letters D E A T H ahead of you, read them all and die! 
+> S
+
+T-junction. Facing you on the wall are heavily patterned drapes. You can go north, east, west.  
+
+> W
+
+Corridor. You can go north, south.  
+
+> S
+
+Corridor. You can go south, east, west.  
+
+> S
+
+Corridor. It is spanned by a deep pit. You can go north.  
+
+> CLOSE EYES
+
+You can't see.  
+
+> JUMP OVER PIT
+
+You can't see.  
+
+> S
+
+You can't see.  
+
+> OPEN EYES
+
+Corridor. You can see an iron grille high up in the wall. You can go north, east, south.  
+
+> EXAMINE GRILLE
+The letter H has been drawn in chalk. 
+> E
+
+Corridor. You can go north, south.  
+
+> S
+
+A T-junction. There is a tall reptilion creature wearing armour and holding a curved sword. He is guarding a pile of sacks heaped up against the wall. You can go north, east, west.  
+
+> EXAMINE REPTILIAN
+He is a Lizard Man. 
+> CAST INCENDIARY AT LIZARD
+There is a flash as the spell works
+A T-junction. You can also see: Dead Lizard Man, Pile of Sacks. You can go north, east, west.  
+
+> EXAMINE LIZARD
+You have found something.
+A T-junction. You can also see: Iron Key, Dead Lizard Man, Pile of Sacks. You can go north, east, west.  
+
+> EXAMINE SACKS
+They are full of grain. 
+> E
+
+Dead-end. A ladder leads up through a hole in the ceiling. You can go west.  
+
+> CLIMB LADDER
+
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. He is holding a wooden pole. You can go down.  
+
+> TALK TO GNOME
+The Gnome offers to trade a Telescope for one of his treasures. 
+> GIVE TELESCOPE
+
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. He is holding a wooden pole. You can also see: Telescope. You can go down.  
+
+The Gnome takes the Telescope and points to a handle in the floor.
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. He is holding a wooden pole. You can go down.  
+
+> PULL HANDLE
+One of the slabs lifts up revealing a cavity. 
+> EXAMINE CAVITY
+You have found something.
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. He is holding a wooden pole. You can also see: Crystal Dragon. You can go down.  
+
+> GET DRAGON
+
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. He is holding a wooden pole. You can go down.  
+
+> KILL GNOME
+The Gnome drops the pole, and it turns into a large snake.
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. You can also see: Snake. You can go down.  
+
+> DROP MONGOOSE
+
+A small cluttered room, lit by a single candle on a table. A sinewy little gnome wearing ragged sackcloth crouches in a corner. You can also see: Snake, Mongoose. You can go down.  
+
+The Mongoose squares up to the snake, jumps forward and bites it at the base of the skull.
+A small cluttered room, lit by a single candle on a table. You can also see: Dead Snake, Mongoose. You can go down.  
+
+> D
+
+Dead-end. A ladder leads up through a hole in the ceiling. You can go west.  
+
+> W
+
+A T-junction. You can also see: Iron Key, Dead Lizard Man, Pile of Sacks. You can go north, east, west.  
+
+> W
+
+A dingy room. There are two archways set into the wall opposite you. A ratman chews on a Goblin carcass. You can go east.  
+
+> KILL RATMAN WITH SWORD
+Your opponent is dead.
+A dingy room. There are two archways set into the wall opposite you. You can also see: Goblin Carcass, Dead Ratman. You can go east.  
+
+> EXAMINE CARCASS
+There's something there.
+A dingy room. There are two archways set into the wall opposite you. You can also see: Goblin Carcass, Goblin Flesh, Dead Ratman. You can go east.  
+
+> GET FLESH
+
+A dingy room. There are two archways set into the wall opposite you. You can also see: Goblin Carcass, Dead Ratman. You can go east.  
+
+> POUR WATER ONTO FLESH
+OK 
+> DROP BOTTLE
+
+A dingy room. There are two archways set into the wall opposite you. You can also see: Goblin Carcass, Dead Ratman, Bottle (Empty). You can go east.  
+
+> GO LEFT ARCH
+
+Corridor. The floor is covered with broken glass. You can go north, south, east, northeast.  
+
+> N
+
+Corridor. Walking towards you, his armour hanging loosely on his yellow bones is a Skeleton Warrior. He is carrying a net. You can go north, south.  
+
+> N
+
+A room with two open stone coffers in it. You can go south.  
+
+> EXAMINE COFFERS
+They both contain something.
+A room with two open stone coffers in it. You can also see: Stone Cannonball, Hammer. You can go south.  
+
+> GET CANNONBALL
+
+A room with two open stone coffers in it. You can also see: Hammer. You can go south.  
+
+> DROP BOW
+
+A room with two open stone coffers in it. You can also see: Bow, Hammer. You can go south.  
+
+> DROP ARROW
+
+A room with two open stone coffers in it. You can also see: Bow, Arrow, Hammer. You can go south.  
+
+> GET HAMMER
+
+A room with two open stone coffers in it. You can also see: Bow, Arrow. You can go south.  
+
+> S
+
+Corridor. Walking towards you, his armour hanging loosely on his yellow bones is a Skeleton Warrior. He is carrying a net. You can go north, south.  
+
+> ROLL CANNONBALL AT SKELETON
+Strike!
+Corridor. There is a pile of bones here. You can also see: Net, Stone Cannonball. You can go north, south.  
+
+> GET NET
+
+Corridor. There is a pile of bones here. You can also see: Stone Cannonball. You can go north, south.  
+
+> GET CANNONBALL
+
+Corridor. There is a pile of bones here. You can go north, south.  
+
+> S
+
+Corridor. The floor is covered with broken glass. You can go north, south, east, northeast.  
+
+> S
+
+Corridor. A doorway in the left-hand wall is ornately carved with hideous creatures being consumed by flames. You can go north, west.  
+
+> W
+
+A corridor with a stone floor, on which a man is lying face down. You can go east, south, southeast.  
+
+> SE
+Suddenly your mind fills with horrific images. The whole room becomes engulfed in flame.
+A dusty room lit by torches set into the walls. You can go east, northwest.  
+
+> ROLL CANNONBALL EAST
+The cannonball rolls into the tunnel. A crossbow bolt flies out.
+A dusty room lit by torches set into the walls. You can also see: Crossbow Bolt. You can go east, northwest.  
+
+The nightmare continues. Your flesh is starting to burn. 
+> GET BOLT
+
+A dusty room lit by torches set into the walls. You can go east, northwest.  
+
+The nightmare continues. Your flesh is starting to burn. 
+> E
+
+A low narrow tunnel. Just in front of you is a trip wire which is linked You can also see: to a crossbow, which is pointing at your head. Stone Cannonball. 
+
+> GET CROSSBOW
+
+A low narrow tunnel. You can also see: There is an archway behind you. Stone Cannonball. 
+
+> LOAD CROSSBOW
+
+> GO ARCHWAY
+
+A dusty room lit by torches set into the walls. You can go east, northwest.  
+
+Suddenly your mind fills with horrific images. The whole room becomes engulfed in flame. 
+> NW
+
+A corridor with a stone floor, on which a man is lying face down. You can go east, south, southeast.  
+
+> E
+
+Corridor. A doorway in the left-hand wall is ornately carved with hideous creatures being consumed by flames. You can go north, west.  
+
+> GO DOOR
+
+An empty room apart from a large pile of bones lying in a corner. You hear growling coming from a low arch. You can go west.  
+
+
+An empty room apart from a large pile of bones lying in a corner. You hear growling coming from a low arch. You can go west.  
+Press any key. Suddenly a huge Death Dog bounds into the room. It sees you and attacks.
+An empty room apart from a large pile of bones lying in a corner. You can also see: There is a low arch in the far wall. Death Dog. You can go west.  
+
+> DROP FLESH
+
+An empty room apart from a large pile of bones lying in a corner. You can also see: There is a low arch in the far wall. Goblin Flesh (poisoned), Death Dog. You can go west.  
+
+The Death Dog springs forward and gobbles down the flesh greedily.
+An empty room apart from a large pile of bones lying in a corner. You can also see: There is a low arch in the far wall. Dead Death Dog. You can go west.  
+
+> GO ARCH
+
+A very dimly lit low narrow tunnel. You can also see: triangular stone. You can go north.  
+
+> GET STONE
+
+A very dimly lit low narrow tunnel. You can go north.  
+
+> N
+
+An empty room apart from a large pile of bones lying in a corner. You can also see: There is a low arch in the far wall. Dead Death Dog. You can go west.  
+
+> W
+
+Corridor. A doorway in the left-hand wall is ornately carved with hideous creatures being consumed by flames. You can go north, west.  
+
+> N
+
+Corridor. The floor is covered with broken glass. You can go north, south, east, northeast.  
+
+> NE
+
+Corridor. You can see an iron grille high up in the wall. You can go north, east, south.  
+
+> CLOSE EYES
+
+You can't see.  
+
+> N
+
+You can't see.  
+
+> JUMP OVER PIT
+
+You can't see.  
+
+> OPEN EYES
+
+Corridor. It is spanned by a deep pit. You can go north.  
+
+> N
+
+Corridor. You can go south, east, west.  
+
+> E
+
+Corridor. You can go north, south.  
+
+> N
+
+T-junction. Facing you on the wall are heavily patterned drapes. You can go north, east, west.  
+
+> EXAMINE DRAPES
+There's an iron door here. 
+> GO DOOR
+
+A dust-filled room with dried blood smeared all over the walls. There is a bucket hanging by a rope. In the wall is another door and a low arch from which you can hear scratching. You can go north.  
+
+> CUT ROPE
+The bucket falls.
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch from which you can hear scratching. You can also see: Bucket. You can go north.  
+
+A Giant Centipede rushes forward to bite you.
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch You can also see: Giant Centipede, Bucket. You can go north.  
+
+> FIRE CROSSBOW AT CENTIPEDE
+The bolt hits the monsters' skull.
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch You can also see: Dead Giant Centipede, Bucket. You can go north.  
+
+> DROP CROSSBOW
+You don't have it.
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch You can also see: Dead Giant Centipede, Bucket, Crossbow. You can go north.  
+
+> EXAMINE BUCKET
+You have found something.
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch You can also see: Dead Giant Centipede, Bucket, Bone Dragon, Crossbow. You can go north.  
+
+> GET DRAGON
+
+A dust-filled room with dried blood smeared all over the walls. In the wall is another door and a low arch You can also see: Dead Giant Centipede, Bucket, Crossbow. You can go north.  
+
+> GO DOOR
+
+Corridor. You can go south, east, west.  
+
+> S
+
+Corridor. It is spanned by a deep pit. You can go north.  
+
+> CLOSE EYES
+
+You can't see.  
+
+> JUMP OVER PIT
+
+You can't see.  
+
+> S
+
+You can't see.  
+
+> OPEN EYES
+
+Corridor. You can see an iron grille high up in the wall. You can go north, east, south.  
+
+> S
+
+Corridor. The floor is covered with broken glass. You can go north, south, east, northeast.  
+
+> S
+
+Corridor. A doorway in the left-hand wall is ornately carved with hideous creatures being consumed by flames. You can go north, west.  
+
+> W
+
+A corridor with a stone floor, on which a man is lying face down. You can go east, south, southeast.  
+
+> EXAMINE MAN
+You have found something.
+A corridor with a stone floor, on which a man is lying face down. You can also see: Gauntlet. You can go east, south, southeast.  
+
+> S
+
+Corridor. You can also see: Giant Glowing Moth. You can go north, south.  
+
+> CAST SHRINKING AT MOTH
+There is a flash as the spell works
+Corridor. You can also see: Glowing Moth. You can go north, south.  
+
+> DROP BOOK
+
+Corridor. You can also see: Yaztromos spell book, Glowing Moth. You can go north, south.  
+
+> GET MOTH
+
+Corridor. You can also see: Yaztromos spell book. You can go north, south.  
+
+> S
+
+A large chamber lit by torches mounted high on the walls. A massive bronze idol stands in the middle of the chamber with it's war hammer raised. There is an entrance to a tunnel in the far wall. You can go north.  
+
+> GO TUNNEL
+
+A flooded room. Water is flowing into it through the mouth of a lion's head set in the wall. You can go north.  
+
+> GO WATER
+
+Wading through waist deep water. You can go north.  
+
+The water starts to bubble violently as a hideous monster surfaces.
+Wading through waist deep water. You can also see: Tentacled Thing. You can go north.  
+
+> DROP BRACELET
+
+Wading through waist deep water. You can also see: Bracelet of Mermaid Scales, Tentacled Thing. You can go north.  
+
+As the bracelet sinks the monster disappears beneath the surface.
+Wading through waist deep water. You can also see: There is a tunnel to the south. You can go north.  
+
+> N
+
+A flooded room. Water is flowing into it through the mouth of a lion's head set in the wall. You can go north.  
+
+> N
+
+A large chamber lit by torches mounted high on the walls. A massive bronze idol stands in the middle of the chamber with it's war hammer raised. There is an entrance to a tunnel in the far wall. You can go north.  
+
+> N
+
+Corridor. You can also see: Yaztromos spell book. You can go north, south.  
+
+> N
+
+A corridor with a stone floor, on which a man is lying face down. You can also see: Gauntlet. You can go east, south, southeast.  
+
+> GET GAUNTLET
+
+A corridor with a stone floor, on which a man is lying face down. You can go east, south, southeast.  
+
+> S
+
+Corridor. You can also see: Yaztromos spell book. You can go north, south.  
+
+> S
+
+A large chamber lit by torches mounted high on the walls. A massive bronze idol stands in the middle of the chamber with it's war hammer raised. There is an entrance to a tunnel in the far wall. You can go north.  
+
+> GO TUNNEL
+
+A flooded room. Water is flowing into it through the mouth of a lion's head set in the wall. You can go north.  
+
+> GO WATER
+
+Wading through waist deep water. You can also see: There is a tunnel to the south. You can go north.  
+
+> S
+
+Corridor. You can go north, west, east.  
+
+> E
+The deadly stare of the phantom drains your strength.
+Corridor. You see a cloaked figure carrying a lantern. You can also see: Phantom. You can go north, east, west.  
+
+> DROP BUTTON
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: Phantom, Silver Button. You can go north, east, west.  
+
+The deadly stare of the phantom drains your strength. The presence of silver makes the phantom cringe, but before he can run he turns to dust.
+Corridor. You see a cloaked figure carrying a lantern. You can also see: Silver Button, Dust. You can go north, east, west.  
+
+> DROP BELL
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Silver Button, Dust. You can go north, east, west.  
+
+> DROP SHIELD
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Shield, Silver Button, Dust. You can go north, east, west.  
+
+> N
+
+Corridor. You can go north, west, east.  
+
+> W
+
+Dead-end. A solitary candle burns in an alcove. You can go east.  
+
+> EXAMINE ALCOVE
+There is a small box here.
+Dead-end. A solitary candle burns in an alcove. You can also see: small silver box. You can go east.  
+
+> GET BOX
+
+Dead-end. A solitary candle burns in an alcove. You can go east.  
+
+> OPEN BOX
+Something falls out.
+Dead-end. A solitary candle burns in an alcove. You can also see: Silver Dragon. You can go east.  
+
+> DROP BOX
+
+Dead-end. A solitary candle burns in an alcove. You can also see: small silver box, Silver Dragon. You can go east.  
+
+> GET DRAGON
+
+Dead-end. A solitary candle burns in an alcove. You can also see: small silver box. You can go east.  
+
+> E
+
+Corridor. You can go north, west, east.  
+
+> E
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Shield, Silver Button, Dust. You can go north, east, west.  
+
+> W
+
+Corridor. There is a chair, carved in the shape of a Sphinx against one wall. The other is adorned with splendid tapestries. You can go east, west.  
+
+> SIT CHAIR
+As you sit the chair starts to vibrate, which refreshes you. 
+> EXAMINE TAPESTRIES
+The Tapestries depict a fire breathing creature being smothered by cloth. 
+> GET TAPESTRY
+OK
+Corridor. There is a chair, carved in the shape of a Sphinx against one wall. The other is adorned with splendid tapestries. You can go east, west.  
+
+> W
+
+The end of a corridor. A crescent shaped pool is giving off a pungent smell of herbs. You can go east.  
+
+> DRINK POOL
+The liquid increases your strength greatly. 
+> E
+
+Corridor. There is a chair, carved in the shape of a Sphinx against one wall. The other is adorned with splendid tapestries. You can go east, west.  
+
+> E
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Shield, Silver Button, Dust. You can go north, east, west.  
+
+> E
+
+Corridor. The walls for approximately twenty metres are covered by murals depicting a great battle. You can go south, west.  
+
+> S
+
+Corridor. There is a door here. Agonised cries and a sadistic chuckle come from inside the room. You can go north, south.  
+
+> S
+
+A passage outside a door. You can go north, south.  
+
+> S
+
+End of a corridor. Doors lead off to both the left and right. You can go north.  
+
+> GO RIGHT DOOR
+
+A storeroom filled with vases, urns, rugs, boxes, cushions and chests. You can also see: A sinewy horned beast climbs out of an urn. It is a Fiend. You can go east.  
+
+> THROW TAPESTRY AT FIEND
+The Tapestry imprisones the Fiend in his jar.
+A storeroom filled with vases, urns, rugs, boxes, cushions and chests. You can also see: Tapestry. You can go east.  
+
+> EXAMINE VASE
+You have found something.
+A storeroom filled with vases, urns, rugs, boxes, cushions and chests. You can also see: Scorpion, Tapestry. You can go east.  
+
+> GET SCORPION
+
+A storeroom filled with vases, urns, rugs, boxes, cushions and chests. You can also see: Tapestry. You can go east.  
+
+> E
+
+End of a corridor. Doors lead off to both the left and right. You can go north.  
+
+> N
+
+A passage outside a door. You can go north, south.  
+
+> N
+
+Corridor. There is a door here. Agonised cries and a sadistic chuckle come from inside the room. You can go north, south.  
+
+> THROW SCORPION IN DOOR
+There is a yell from inside the room.
+Corridor. There is a door here. You can go north, south.  
+
+> GO DOOR
+
+A room which is filled with all kinds of implements of torture.a man, hanging from the ceiling by his wrists, screams with pain. You can also see: Torturer's body, Scorpion. You can go west.  
+
+> DROP GAUNTLET
+
+A room which is filled with all kinds of implements of torture.a man, hanging from the ceiling by his wrists, screams with pain. You can also see: Gauntlet, Torturer's body, Scorpion. You can go west.  
+
+> FREE MAN
+The man thanks you. He says his name is Thita. He turns and leaves the room. Press any key. 
+A room which is filled with all kinds of implements of torture. You can also see: Gauntlet, Torturer's body, Scorpion. You can go west.  
+
+> W
+
+Corridor. There is a door here. You can go north, south.  
+
+> S
+
+A passage outside a door. You can go north, south.  
+
+> GO DOOR
+
+A marble floored room which is bare except for the bronze head of a woman mounted on the opposite wall. You can go west.  
+
+Press any key. Welcome to the room of question. Answer me or die. Press any key. Name the Torturers victim? 
+> SAY THITA
+Correct. Take this.
+A marble floored room which is bare except for the bronze head of a woman mounted on the opposite wall. You can also see: Lodestone. You can go west.  
+
+> GET LODESTONE
+
+A marble floored room which is bare except for the bronze head of a woman mounted on the opposite wall. You can go west.  
+
+> W
+
+A passage outside a door. You can go north, south.  
+
+> S
+
+End of a corridor. Doors lead off to both the left and right. You can go north.  
+
+> GO LEFT DOOR
+
+An empty room. The floor is covered by a mosaic which contains the head of Medusa. There is a door in the wall on which there is a small box. You can go south, west.  
+
+> EXAMINE BOX
+It has a coin sized slot in it. 
+> DROP GOLD COIN IN SLOT
+A small panel flips round, there is a letter T on it. The Messenger of Death has struck. 
+> DROP POUCH
+
+An empty room. The floor is covered by a mosaic which contains the head of Medusa. There is a door in the wall on which there is a small box. You can also see: Pouch. You can go south, west.  
+
+> W
+
+End of a corridor. Doors lead off to both the left and right. You can go north.  
+
+> N
+
+A passage outside a door. You can go north, south.  
+
+> N
+
+Corridor. There is a door here. You can go north, south.  
+
+> N
+
+Corridor. The walls for approximately twenty metres are covered by murals depicting a great battle. You can go south, west.  
+
+> W
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Shield, Silver Button, Dust. You can go north, east, west.  
+
+> GET SHIELD
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: A small Bronze Bell, Silver Button, Dust. You can go north, east, west.  
+
+> GET BELL
+
+Corridor. You see a cloaked figure carrying a lantern. You can also see: Silver Button, Dust. You can go north, east, west.  
+
+> E
+
+Corridor. The walls for approximately twenty metres are covered by murals depicting a great battle. You can go south, west.  
+
+> S
+
+Corridor. There is a door here. You can go north, south.  
+
+> S
+
+A passage outside a door. You can go north, south.  
+
+> S
+
+End of a corridor. Doors lead off to both the left and right. You can go north.  
+
+> GO LEFT DOOR
+
+An empty room. The floor is covered by a mosaic which contains the head of Medusa. There is a door in the wall on which there is a small box. You can also see: Pouch. You can go south, west.  
+
+> S
+The letter A is painted on a door at the end. The Messenger of Death has struck.
+A corridor, which is very dimly lit. A door at the far end is almost invisible in the darkness. You can go north.  
+
+> GO DOOR
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. A deformed one-eyed mutant, who is carrying a silver rod, stands in front of you. You can also see: Locked door. You can go west.  
+
+Press any key. A bolt of light shoots out from the rod and burns a patch on the floor. 
+> RING BELL
+The Night Horror drops it's rod, and covers it's ears as it screams in silent agony. Then collapses onto the floor.
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: Night Horrors' Body, Silver Rod, Locked door. You can go west.  
+
+You can hear the muffled sound of machinery. 
+> DROP BELL
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: A small Bronze Bell, Night Horrors' Body, Silver Rod, Locked door. You can go west.  
+
+The ceiling is touching your head. 
+> GET ROD
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: A small Bronze Bell, Night Horrors' Body, Locked door. You can go west.  
+
+> EXAMINE NIGHT HORROR
+You have found something.
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: key, A small Bronze Bell, Night Horrors' Body, Locked door. You can go west.  
+
+> DROP NET
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: key, A small Bronze Bell, Night Horrors' Body, Net, Locked door. You can go west.  
+
+> GET KEY
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: A small Bronze Bell, Night Horrors' Body, Net, Locked door. You can go west.  
+
+> UNLOCK DOOR
+The door opens.
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: door, A small Bronze Bell, Night Horrors' Body, Net. You can go west.  
+
+> DROP KEY
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: key, door, A small Bronze Bell, Night Horrors' Body, Net. You can go west.  
+
+> GET NET
+
+A candle-lit chamber. The floor is covered with scraps of rotting food, matted hair and animal droppings. You can also see: key, door, A small Bronze Bell, Night Horrors' Body. You can go west.  
+
+> GO DOOR
+
+A small sparsely furnished room. There is a large wood carving on the wall. You can go north, south.  
+
+> DROP ROD
+
+A small sparsely furnished room. There is a large wood carving on the wall. You can also see: Silver Rod. You can go north, south.  
+
+> EXAMINE CARVING
+It depicts a city. There is a small crack in one of the buildings. 
+> EXAMINE BUILDING
+The roof is loose. 
+> GET ROOF
+There is a small cavity where the roof was.
+A small sparsely furnished room. There is a large wood carving on the wall. You can also see: Silver Rod. You can go north, south.  
+
+> DROP ROOF
+
+A small sparsely furnished room. There is a large wood carving on the wall. You can also see: small piece of wood, Silver Rod. You can go north, south.  
+
+> EXAMINE CAVITY
+There's something there.
+A small sparsely furnished room. There is a large wood carving on the wall. You can also see: small piece of wood, Ebony Dragon, Silver Rod. You can go north, south.  
+
+> GET DRAGON
+
+A small sparsely furnished room. There is a large wood carving on the wall. You can also see: small piece of wood, Silver Rod. You can go north, south.  
+
+> S
+
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Which is guarded by two Dark Disciples. You can go north, south.  
+
+> EXAMINE ALTER
+The Dark Disciples push you back. 
+> THROW NET AT DISCIPLES
+They get tangled up in it, attack them now, while you have the advantage.
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: There is a pile of arms and legs here. Net. You can go north, south.  
+
+> KILL DISCIPLES WITH SWORD
+You quickly overpower the servants of Leesha.
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Two Bodies, Net. You can go north, south.  
+
+> EXAMINE ALTER
+You have found something.
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Cross, Two Bodies, Net. You can go north, south.  
+
+> GET CROSS
+
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Two Bodies, Net. You can go north, south.  
+
+> EXAMINE CROSS
+It's stone. 
+> S
+
+A corridor with a door at the end. Four stone arms protrude from the walls of the passage, one is cutting the air with a razor sharp sword. You can go north.  
+
+> THROW LODESTONE
+The magnetic properties of the stone lock the swords inseperably together.
+A corridor with a door at the end. You can also see: Four swords are tangled up with each other. There is a door to the south. Lodestone. You can go north.  
+
+> GO DOOR
+
+In front of a curtain of golden rain. You can go north, east.  
+
+> E
+
+A corridor which finishes in a dead-end. You can also see: Mutant Orc. You can go west.  
+
+> KILL ORC WITH SWORD
+The strength gained from the Herbal liquid helps you overcome the Orc.
+A corridor which finishes in a dead-end. You can also see: Dead Mutant Orc. You can go west.  
+
+> EXAMINE ORC
+You have found something.
+A corridor which finishes in a dead-end. You can also see: circular stone, Dead Mutant Orc. You can go west.  
+
+> GET STONE
+
+A corridor which finishes in a dead-end. You can also see: Dead Mutant Orc. You can go west.  
+
+> W
+
+In front of a curtain of golden rain. You can go north, east.  
+
+> GO CURTAIN
+
+A luxurious chamber whose walls are decorated with frescos and paintings. You can go west.  
+
+> W
+
+Corridor. There are two doors facing you both have something drawn on them. You can go east.  
+
+> EXAMINE DOORS
+One bears the symbol of the sun the other the moon. 
+> GO MOON DOOR
+
+A chamber. The walls are covered with hieroglyphics. Three stone pots stand on top of a stone table. There is a door behind you. You can go south.  
+
+> EXAMINE POTS
+They are white, black and red. 
+> EXAMINE BLACK POT
+There's nothing special about it. 
+> EXAMINE RED POT
+Underneath the lid, written in charcoal, is the letter E. The Messenger of Death has struck. 
+> EXAMINE WHITE POT
+There's something there.
+A chamber. The walls are covered with hieroglyphics. Three stone pots stand on top of a stone table. There is a door behind you. You can also see: square stone. You can go south.  
+
+> S
+
+An empty room which is empty apart from a trap-door in the floor. You can go north, west.  
+
+> GO TRAPDOOR
+
+A very dark place. A cool draught blows in your face. You can go up.  
+
+> U
+
+An empty room which is empty apart from a trap-door in the floor. You can go north, west.  
+
+> DROP MOTH
+
+An empty room which is empty apart from a trap-door in the floor. You can also see: Glowing Moth. You can go north, west.  
+
+> DROP DRAGONS
+
+An empty room which is empty apart from a trap-door in the floor. You can also see: Glowing Moth, Bone Dragon, Crystal Dragon. You can go north, west.  
+
+> N
+
+A chamber. The walls are covered with hieroglyphics. Three stone pots stand on top of a stone table. There is a door behind you. You can also see: square stone. You can go south.  
+
+> GET STONE
+
+A chamber. The walls are covered with hieroglyphics. Three stone pots stand on top of a stone table. There is a door behind you. You can go south.  
+
+> GO DOOR
+
+Corridor. There are two doors facing you both have something drawn on them. You can go east.  
+
+> E
+
+A luxurious chamber whose walls are decorated with frescos and paintings. You can go west.  
+
+> GO CURTAIN
+
+In front of a curtain of golden rain. You can go north, east.  
+
+> N
+
+A corridor with a door at the end. You can also see: Four swords are tangled up with each other. There is a door to the south. Lodestone. You can go north.  
+
+> N
+
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Two Bodies, Net. You can go north, south.  
+
+> GET NET
+
+A large hall lined with armour and weapons. At the far end there is an alter. You can also see: Two Bodies. You can go north, south.  
+
+> S
+
+A corridor with a door at the end. You can also see: Four swords are tangled up with each other. There is a door to the south. Lodestone. You can go north.  
+
+> GO DOOR
+
+In front of a curtain of golden rain. You can go north, east.  
+
+> GO CURTAIN
+
+A luxurious chamber whose walls are decorated with frescos and paintings. You can go west.  
+
+> W
+
+Corridor. There are two doors facing you both have something drawn on them. You can go east.  
+
+> GO MOON DOOR
+
+A chamber. The walls are covered with hieroglyphics. Three stone pots stand on top of a stone table. There is a door behind you. You can go south.  
+
+> S
+
+An empty room which is empty apart from a trap-door in the floor. You can also see: Glowing Moth, Bone Dragon, Crystal Dragon. You can go north, west.  
+
+> W
+
+A treasure room. There are chalices, statuettes, chests filled with gems, caskets and hundreds of fabulous artefacts. You can go east, west.  
+
+> W
+
+Corridor. You can go north, south, east.  
+
+> S
+
+At the foot of a flight of stone steps. You can go north, up.  
+
+> U
+
+At the top of the steps in front of a huge solid oak door. It is closed. You can go down.  
+
+> D
+
+At the foot of a flight of stone steps. You can go north, up.  
+
+> N
+
+Corridor. You can go north, south, east.  
+
+> N
+
+A passage. There is a marble column in the centre of it with a bowl of grapes on it. You can go north, south.  
+
+> N
+The Guards look as if they are about to make mince meat out of you.
+A small chamber. It is the annexe to a large chamber which is visible through an archway. You can also see: Two Skeleton Men bar your way. You can go south.  
+
+> THROW NET
+The skeleton gets tangled in the net.
+A small chamber. It is the annexe to a large chamber which is visible through an archway. You can also see: There is an exit to the west. Pile of Bones, Net. You can go south.  
+
+> W
+
+A luxurious chamber. A high ceiling is supported by marble pillars. At the top of some steps there is a couch covered with satin cushions. Standing next to which is a beautiful woman. You can also see: Leesha's Servant, Leesha. You can go east, west.  
+
+The power of your shield momentarily protects you as the blind servant of Leesha hacks wildly at the air with his sword. 
+> KILL SERVANT WITH SWORD
+As you deal with the guard, Leesha turns and runs.
+A luxurious chamber. A high ceiling is supported by marble pillars. At the top of some steps there is a couch covered with satin cushions. You can go east, west.  
+
+> DROP SHIELD
+
+A luxurious chamber. A high ceiling is supported by marble pillars. At the top of some steps there is a couch covered with satin cushions. You can also see: Shield. You can go east, west.  
+
+> E
+
+A small chamber. It is the annexe to a large chamber which is visible through an archway. You can also see: There is an exit to the west. Pile of Bones, Net. You can go south.  
+
+> S
+
+A passage. There is a marble column in the centre of it with a bowl of grapes on it. You can go north, south.  
+
+> S
+
+Corridor. You can go north, south, east.  
+
+> E
+
+A treasure room. There are chalices, statuettes, chests filled with gems, caskets and hundreds of fabulous artefacts. You can go east, west.  
+
+> E
+
+An empty room which is empty apart from a trap-door in the floor. You can also see: Glowing Moth, Bone Dragon, Crystal Dragon. You can go north, west.  
+
+> GET DRAGONS
+
+An empty room which is empty apart from a trap-door in the floor. You can also see: Glowing Moth. You can go north, west.  
+
+> W
+
+A treasure room. There are chalices, statuettes, chests filled with gems, caskets and hundreds of fabulous artefacts. You can go east, west.  
+
+> W
+
+Corridor. You can go north, south, east.  
+
+> N
+
+A passage. There is a marble column in the centre of it with a bowl of grapes on it. You can go north, south.  
+
+> N
+
+A small chamber. It is the annexe to a large chamber which is visible through an archway. You can also see: There is an exit to the west. Pile of Bones, Net. You can go south.  
+
+> W
+
+A luxurious chamber. A high ceiling is supported by marble pillars. At the top of some steps there is a couch covered with satin cushions. You can also see: Shield. You can go east, west.  
+
+> W
+
+You are in a hallway, at the end of which is a doorway. There is a bronze dog shaped idol in the middle of the hallway. You can go north, east.  
+
+> EXAMINE IDOL
+There is something in the Idol's mouth. 
+> EXAMINE MOUTH
+There's something there.
+You are in a hallway, at the end of which is a doorway. There is a bronze dog shaped idol in the middle of the hallway. You can also see: Gold Dragon. You can go north, east.  
+
+> DROP SWORD
+
+You are in a hallway, at the end of which is a doorway. There is a bronze dog shaped idol in the middle of the hallway. You can also see: Sword, Gold Dragon. You can go north, east.  
+
+> GET DRAGON
+
+You are in a hallway, at the end of which is a doorway. There is a bronze dog shaped idol in the middle of the hallway. You can also see: Sword. You can go north, east.  
+
+> N
+Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.'
+Passage. You can also see: A Dwarf is crawling towards you. He is trying to tell you something. There is a massive stone door here with 4 small holes in it. You can go south.  
+
+> EXAMINE HOLES
+They are Triangle, Circle, Square and Cross shaped. Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.' 
+> INSERT TRIANGULAR STONE
+OK Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.' 
+> INSERT CIRCULAR STONE
+OK Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.' 
+> INSERT SQUARE STONE
+OK Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.' 
+> INSERT CROSS
+OK Press any key. The Dwarf whispers 'Hurry. Malbordus is close to victory.'
+Passage. You can also see: A Dwarf is crawling towards you. He is trying to tell you something. There is an open stone door here. You can go south.  
+
+> GO DOOR
+
+A cold room with a high vaulted ceiling. There is a circular pit in the middle of the room. You can also see: Malbordus. You can go south.  
+
+His power is increasing, you have little time. 
+> SMASH DRAGONS
+As you bring the hammer downon the Dragon Artifacts, the power of Malbordus diminishes. You have won. Malbordus is defeated. 
+A cold room with a high vaulted ceiling. There is a circular pit in the middle of the room. You can go south.  
+
+Game's over. Play again (Y/N) ? Y
+
+Welcome to TEMPLE OF TERROR. 
+Restore a saved game ? N
+
+On the banks of the Catfish River which is spanned by a rope bridge. Moored nearby is an ancient sailing boat, the crew of which are shouting and yelling in a drunken and very threatening manner. 
+> TRANSCRIPT OFF
+
+
+End of transcript

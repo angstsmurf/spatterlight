@@ -1474,6 +1474,81 @@
     XCTAssert([transcript isEqualToString:facit]);
 }
 
+- (void)testTaylor {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"tot.tay"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"tot.tay"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"TaylorMade"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"tot"];
+
+    gameWindow = app.windows[@"tot.tay"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:25];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tot.tay.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
+- (void)testPlus {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"SPL13P.plus"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"SPL13P.plus"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"Plus"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"SPL13P"];
+
+    gameWindow = app.windows[@"SPL13P.plus"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:25];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of SPL13P.plus.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
+
 - (void)testEditMenu {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
