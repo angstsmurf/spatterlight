@@ -861,8 +861,6 @@ static void MoveItemAToLocOfItemB(int itemA, int itemB)
 
 static void DoneIt(void)
 {
-//    if (split_screen && Top)
-//        Look(1);
     Output("\n");
     lastwasnewline = 1;
     SystemMessage(PLAY_AGAIN);
