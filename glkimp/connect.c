@@ -735,6 +735,13 @@ int win_cols(int name)
     return wmsg.a1;
 }
 
+int win_canprint(glui32 val)
+{
+    sendmsg(CANPRINT, val, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
 void win_select(event_t *event, int block)
 {
     int i;

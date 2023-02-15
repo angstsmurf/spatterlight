@@ -51,8 +51,10 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
                 /* If we're doing UTF-8 output, we can print any Unicode
                  character. Except control characters. */
                 if (gli_utf8output) {
-                    if (val >= 160 && val < 0x200000)
-                        return gestalt_CharOutput_ExactPrint;
+                    if (val >= 160 && val < 0x200000) {
+                        int result = win_canprint(val);
+                        return (result == 1) ? gestalt_CharOutput_ExactPrint : gestalt_CharOutput_CannotPrint;
+                    }
                 }
                 return gestalt_CharOutput_CannotPrint;
             }

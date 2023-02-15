@@ -148,6 +148,7 @@ void win_showerror(const char *str);
 void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
+int win_canprint(glui32 val);
 
 void gli_close_all_file_streams(void);
 

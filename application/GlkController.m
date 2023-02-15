@@ -67,10 +67,10 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
 //    "UNPAUSE",         "BEEP",
 //    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "NEXTEVENT",
-//    "EVTARRANGE",      "EVTREDRAW",        "EVTLINE",     "EVTKEY",
-//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS",         "EVTQUIT" };
+//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+//    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
+//    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
+//    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -2814,6 +2814,48 @@ fprintf(stderr, "%s\n",                                                    \
     return [win unputString:str];
 }
 
+- (NSInteger)handleCanPrintGlyph:(NSInteger)glyph {
+    unichar uniglyph[1];
+    uniglyph[0] = (unichar)glyph;
+    NSString *str = [NSString stringWithCharacters:uniglyph length:1];
+    return [GlkController unicodeAvailableForChar:str];
+}
+
++ (BOOL)unicodeAvailableForChar:(NSString *)charString {
+    NSData *refUnicodePng = [GlkController tiffWithChar:@"\u1fff"];
+    NSData *myTiff = [GlkController tiffWithChar:charString];
+    return ![refUnicodePng isEqual:myTiff];
+}
+
++ (NSData *)tiffWithChar:(NSString *)charStr {
+    NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:8.0] };
+    NSSize size = [charStr sizeWithAttributes:attributes];
+
+    NSInteger width = (NSInteger)ceil(size.width);
+    NSInteger height = (NSInteger)ceil(size.height);
+    if (width == 0 || height == 0)
+        return nil;
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
+                             initWithBitmapDataPlanes:NULL
+                             pixelsWide:width
+                             pixelsHigh:height
+                             bitsPerSample:8
+                             samplesPerPixel:4
+                             hasAlpha:YES
+                             isPlanar:NO
+                             colorSpaceName:NSDeviceRGBColorSpace
+                             bytesPerRow:width * 4
+                             bitsPerPixel:32];
+    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:ctx];
+    [charStr drawAtPoint:NSZeroPoint withAttributes:attributes];
+    [ctx flushGraphics];
+    NSData *tiff = [NSBitmapImageRep TIFFRepresentationOfImageRepsInArray:@[rep]];
+    [NSGraphicsContext restoreGraphicsState];
+    return tiff;
+}
+
 
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
@@ -3074,6 +3116,12 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Window sizing, printing, drawing …
         case SHOWERROR:
             [self handleShowError:(char *)buf length:req->len];
+
+        case CANPRINT:
+            ans->cmd = OKAY;
+            ans->a1 = (int)[self handleCanPrintGlyph:req->a1];
+            break;
+
         case SIZWIN:
             if (reqWin) {
                 uint x0, y0, x1, y1, checksumWidth, checksumHeight;
