@@ -1263,10 +1263,6 @@ void gli_window_put_char(window_t *win, unsigned chr)
     {
         case wintype_TextBuffer:
         case wintype_TextGrid:
-            if (chr >= 0xd800 && chr <= 0xdfff) {
-                // These UCS-4 characters have no valid Unicode equivalent
-                chr = 0xfffd;
-            }
             if (chr <= 0xffff) {
                 // This is a UCS-2 character
                 win_print(win->peer, chr, win->style);
