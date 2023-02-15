@@ -732,7 +732,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
 
     NSURL *desktopURL = [NSURL fileURLWithPath:origpath
-                                   isDirectory:YES];
+                                   isDirectory:NO];
 
 
     NSURL *temporaryDirectoryURL = [filemanager
@@ -760,6 +760,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     task = [[NSTask alloc] init];
     task.launchPath = exepath;
     task.arguments = @[ @"-o", tempFilePath, origpath ];
+
+    [FolderAccess askForAccessToURL:desktopURL andThenRunBlock:^{}];
+
     [task launch];
     [task waitUntilExit];
     status = task.terminationStatus;
