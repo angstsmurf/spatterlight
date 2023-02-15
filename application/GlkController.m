@@ -2814,17 +2814,19 @@ fprintf(stderr, "%s\n",                                                    \
     return [win unputString:str];
 }
 
-- (NSInteger)handleCanPrintGlyph:(NSInteger)glyph {
-    unichar uniglyph[1];
-    uniglyph[0] = (unichar)glyph;
-    NSString *str = [NSString stringWithCharacters:uniglyph length:1];
+- (NSInteger)handleCanPrintGlyph:(glui32)glyph {
+    glui32 uniglyph[1];
+    uniglyph[0] = glyph;
+    NSData *data = [NSData dataWithBytes:uniglyph length:4];
+    NSString *str  = [[NSString alloc] initWithData:data
+                                encoding:NSUTF32LittleEndianStringEncoding];
     return [GlkController unicodeAvailableForChar:str];
 }
 
 + (BOOL)unicodeAvailableForChar:(NSString *)charString {
-    NSData *refUnicodePng = [GlkController tiffWithChar:@"\u1fff"];
+    NSData *refUnicodeTiff = [GlkController tiffWithChar:@"\u1fff"];
     NSData *myTiff = [GlkController tiffWithChar:charString];
-    return ![refUnicodePng isEqual:myTiff];
+    return ![refUnicodeTiff isEqual:myTiff];
 }
 
 + (NSData *)tiffWithChar:(NSString *)charStr {
@@ -2835,6 +2837,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSInteger height = (NSInteger)ceil(size.height);
     if (width == 0 || height == 0)
         return nil;
+
     NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
                              initWithBitmapDataPlanes:NULL
                              pixelsWide:width
@@ -2846,6 +2849,7 @@ fprintf(stderr, "%s\n",                                                    \
                              colorSpaceName:NSDeviceRGBColorSpace
                              bytesPerRow:width * 4
                              bitsPerPixel:32];
+
     NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:ctx];
@@ -3119,7 +3123,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case CANPRINT:
             ans->cmd = OKAY;
-            ans->a1 = (int)[self handleCanPrintGlyph:req->a1];
+            ans->a1 = (int)[self handleCanPrintGlyph:(glui32)req->a1];
             break;
 
         case SIZWIN:
