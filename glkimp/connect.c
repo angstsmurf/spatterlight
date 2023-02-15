@@ -124,7 +124,8 @@ void readmsg(struct message *msgbuf, char *buf)
         }
     }
 
-    buf[msgbuf->len] = 0;
+    if (msgbuf->len != 0)
+        buf[msgbuf->len] = 0;
 }
 
 void win_hello(void)
@@ -152,7 +153,7 @@ void win_hello(void)
 
 void win_flush(void)
 {
-    if (buffering == BUFNONE)
+    if (buffering == BUFNONE || bufferlen == 0)
         return;
 
     //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
@@ -189,7 +190,7 @@ void win_print(int name, int ch, int at)
     if (buffering == BUFPRINT && (unsigned long)bufferlen >= PBUFSIZE)
         win_flush();
 
-    if (buffering == BUFNONE)
+    if (buffering != BUFPRINT)
     {
         buffering = BUFPRINT;
         bufferwin = name;
