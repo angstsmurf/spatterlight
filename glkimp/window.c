@@ -1257,13 +1257,32 @@ void glk_cancel_mouse_event(window_t *win)
  * Text output and cursor positioning
  */
 
-void gli_window_put_char(window_t *win, unsigned ch)
+void gli_window_put_char(window_t *win, unsigned chr)
 {
     switch (win->type)
     {
         case wintype_TextBuffer:
         case wintype_TextGrid:
-            win_print(win->peer, ch, win->style);
+            if (chr >= 0xd800 && chr <= 0xdfff) {
+                // These UCS-4 characters have no valid Unicode equivalent
+                chr = 0xfffd;
+            }
+            if (chr <= 0xffff) {
+                // This is a UCS-2 character
+                win_print(win->peer, chr, win->style);
+            } else if (chr <= 0x10ffff) {
+                // This is a character that can be represented by a surrogate pair
+                // 000uuuuuxxxxxxxxxxxxxxxx -> 110110wwwwxxxxxx 110111xxxxxxxxxx (wwww = uuuuu-1)
+                win_flush();
+                int w = (chr >> 16) - 1;
+                int x = (chr & 0xffff);
+                win_print(win->peer, 0xd800 | (w << 6) | (x >> 10), win->style);
+                win_print(win->peer, 0xdc00 | (x & 0x3ff), win->style);
+            } else {
+                // This is a UCS-4 character outside the range of allowed unicode values
+                win_print(win->peer, 0xfffd, win->style);
+            }
+
             break;
     }
 }
