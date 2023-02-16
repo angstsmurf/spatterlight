@@ -1,5 +1,15 @@
 # Change log
 
+## 1.0 (unreleased)
+- Support for output and input of glyphs outside the Basic Multilingual Plane
+- Output characters could in some situations be randomly erased
+- Opening of d$$ format AGT files was broken
+- Certain Commodore 64 games were recognised but would not start
+- Implements Glk gestalt_CharOutput check for printable characters
+- Adds ram save and ram restore to the Plus interpreter
+- Playing Plus games without graphics files could make the status window blank
+- Transcripts in Plus, Scott and Taylormade no longer have hard line breaks where the lines ended on-screen in room descriptions
+
 ## Release 0.9.9
 - Now requires macOS 10.13 or later
 - New view-based table view with updated design
