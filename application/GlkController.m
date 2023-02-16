@@ -3120,6 +3120,7 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Window sizing, printing, drawing …
         case SHOWERROR:
             [self handleShowError:(char *)buf length:req->len];
+            break;
 
         case CANPRINT:
             ans->cmd = OKAY;
