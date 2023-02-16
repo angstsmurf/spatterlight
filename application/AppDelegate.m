@@ -143,10 +143,19 @@ PasteboardFilePasteLocation;
     PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
     PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
 
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
+        [FolderAccess deleteBookmarks];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
+    }
+
     [FolderAccess loadBookmarks];
 
     addToRecents = YES;
 
+    if (!self.coreDataManager.persistentContainer) {
+        NSLog(@"No persistentContainer?");
+        abort();
+    }
 
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"SplitView" bundle:nil];
     _libctl = (LibController *)[storyboard instantiateControllerWithIdentifier:@"LibraryWindowController"];
@@ -160,11 +169,6 @@ PasteboardFilePasteLocation;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
     _prefctl.libcontroller = _tableViewController;
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
-        [FolderAccess deleteBookmarks];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
-    }
 }
 
 #pragma mark -

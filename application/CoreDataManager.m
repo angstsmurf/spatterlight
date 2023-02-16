@@ -9,6 +9,7 @@
 #import "CoreDataManager.h"
 #import "MyCoreDataCoreSpotlightDelegate.h"
 #import "FolderAccess.h"
+#import "AppDelegate.h"
 
 @interface CoreDataManager () {
     NSString *modelName;
