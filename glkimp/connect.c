@@ -969,7 +969,7 @@ again:
             break;
 
         case EVTQUIT:
-            gli_close_all_file_streams();
+            glk_exit();
             break;
 
         default:
