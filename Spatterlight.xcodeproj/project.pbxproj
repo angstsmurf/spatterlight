@@ -655,8 +655,6 @@
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
-		C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; };
-		C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C363030B26ECF4CF0028FBC8 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
@@ -1478,7 +1476,6 @@
 				C377BE462997FFC500CEB123 /* libunp64.dylib in Embed Frameworks */,
 				C377BE452997FFA800CEB123 /* libglkimp.dylib in Embed Frameworks */,
 				C3F53C6C271BBAB100538393 /* BlorbFramework.framework in Embed Frameworks */,
-				C363030D26ECF4CF0028FBC8 /* Ogg.framework in Embed Frameworks */,
 				C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -3035,7 +3032,6 @@
 		C35D520726F24142002E2F59 /* FolderAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderAccess.m; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
-		C363030B26ECF4CF0028FBC8 /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36B3890271F710200756D94 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		C36B3891271F710200756D94 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		C36B3893271F712600756D94 /* NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonInterpolatedImage.m; sourceTree = "<group>"; };
@@ -3464,7 +3460,6 @@
 				C31AF2F427165168007B7120 /* CoreData.framework in Frameworks */,
 				6D76780022B17AB200C80DDE /* QuartzCore.framework in Frameworks */,
 				C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */,
-				C363030C26ECF4CF0028FBC8 /* Ogg.framework in Frameworks */,
 				C31AF2FA271652A0007B7120 /* CoreSpotlight.framework in Frameworks */,
 				C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */,
 				C37E676426E992590005873E /* AudioUnit.framework in Frameworks */,
@@ -4614,7 +4609,6 @@
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
 				C31AF2F5271651C4007B7120 /* CoreServices.framework */,
-				C363030B26ECF4CF0028FBC8 /* Ogg.framework */,
 				C37E676326E992590005873E /* AudioUnit.framework */,
 				C37E676126E992440005873E /* AudioToolbox.framework */,
 				C38C226025CC7EB3004C4D68 /* QuickLook.framework */,
