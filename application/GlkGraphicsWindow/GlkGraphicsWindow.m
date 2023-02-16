@@ -156,9 +156,14 @@
     dirty = YES;
 }
 
-- (void)fillRects:(struct fillrect *)rects count:(NSInteger)count {
+- (void)fillRects:(struct fillrect *)rawrects count:(NSInteger)count {
     NSSize size;
     NSInteger i;
+
+    size_t rectssize = (size_t)count * sizeof(struct fillrect);
+
+    struct fillrect *rects = malloc(rectssize);
+    memcpy(rects, rawrects, rectssize);
 
     size = _image.size;
 

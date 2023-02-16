@@ -3222,10 +3222,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FILLRECT:
             if (reqWin) {
-                NSInteger realcount = req->len / sizeof(struct fillrect);
-                if (realcount == req->a2) {
-                    [reqWin fillRects:(struct fillrect *)buf count:req->a2];
-                }
+                [reqWin fillRects:(struct fillrect *)buf count:req->a2];
             }
             break;
 
