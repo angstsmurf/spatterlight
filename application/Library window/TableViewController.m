@@ -398,6 +398,7 @@ enum  {
     if (choice == NSAlertFirstButtonReturn) {
 
         [self cancel:nil];
+        [self.coreDataManager saveChanges];
 
         BOOL forceQuit = _forceQuitCheckBox.state == NSOnState;
 
