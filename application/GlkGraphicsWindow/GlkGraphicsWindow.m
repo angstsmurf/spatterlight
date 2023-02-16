@@ -160,36 +160,37 @@
     NSSize size;
     NSInteger i;
 
-    size_t rectssize = (size_t)count * sizeof(struct fillrect);
-
-    struct fillrect *rects = malloc(rectssize);
-    memcpy(rects, rawrects, rectssize);
-
     size = _image.size;
 
     if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
         return;
+
+    size_t rectssize = (size_t)count * sizeof(struct fillrect);
+
+    struct fillrect *rects = malloc(rectssize);
+    memcpy(rects, rawrects, rectssize);
 
     NSRect unionRect = NSZeroRect;
     if (count) {
         unionRect.origin.x = rects[0].x;
         unionRect.origin.y = rects[0].y;
     }
-        [_image lockFocus];
-        uint32_t current_color = zcolor_Default;
-        for (i = 0; i < count; i++) {
-            if (current_color != rects[i].color)
+    [_image lockFocus];
+    uint32_t current_color = zcolor_Default;
+    for (i = 0; i < count; i++) {
+        if (current_color != rects[i].color)
             [[NSColor colorFromInteger:rects[i].color] set];
-            current_color = rects[i].color;
-            NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
-            NSRectFill(rect);
-            unionRect = NSUnionRect(unionRect, rect);
-        }
-        [_image unlockFocus];
+        current_color = rects[i].color;
+        NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
+        NSRectFill(rect);
+        unionRect = NSUnionRect(unionRect, rect);
+    }
+    [_image unlockFocus];
     [dirtyRects addObject:@(unionRect)];
     [self pruneSubimagesInRect:unionRect];
     dirty = YES;
     _showingImage = YES;
+    free(rects);
 }
 
 - (void)flushDisplay {
