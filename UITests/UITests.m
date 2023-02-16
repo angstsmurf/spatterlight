@@ -863,6 +863,9 @@
 
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
     if (licensewinWindow.exists) {
+        XCUIElementQuery *menuBarsQuery = [[XCUIApplication alloc] init].menuBars;
+        [menuBarsQuery.menuBarItems[@"Window"] click];
+        [/*@START_MENU_TOKEN@*/[menuBarsQuery.menus containingType:XCUIElementTypeMenuItem identifier:@"Spatterlight Help"].menuItems[@"GNU Public License"]/*[["menuBarsQuery",".menuBarItems[@\"Help\"]",".menus.menuItems[@\"GNU Public License\"]",".menuItems[@\"GNU Public License\"]","[",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Fonts License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"SDL License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Alan License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Hugo License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Glulxe License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Spatterlight Help\"].menuItems[@\"GNU Public License\"]"],[[[-1,0,1]],[[4,10],[4,9],[4,8],[4,7],[4,6],[4,5],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
         [licensewinWindow.buttons[@"Understood"] click];
     }
 

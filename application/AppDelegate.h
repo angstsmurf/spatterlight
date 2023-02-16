@@ -12,8 +12,7 @@
 @property LibController *libctl;
 @property TableViewController *tableViewController;
 
-@property HelpPanelController *helpLicenseWindow;
-
+@property (weak) HelpPanelController *helpLicenseWindow;
 @property (readonly) CoreDataManager *coreDataManager;
 
 - (IBAction)openDocument:(id)sender;
