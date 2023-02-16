@@ -1160,6 +1160,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     line = [line scrubInvalidCharacters];
+    line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     if (self.glkctl.beyondZork) {
         if (terminator == keycode_Home) {
