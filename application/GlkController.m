@@ -1160,10 +1160,8 @@ fprintf(stderr, "%s\n",                                                    \
         _theme = stashedTheme;
         _stashedTheme = nil;
     }
-    [self adjustContentView];
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
-    [self sendArrangeEventWithFrame:_contentView.frame force:YES];
     _shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window
