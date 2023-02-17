@@ -266,10 +266,6 @@
 
     GlkTextGridWindow *restoredWin = (GlkTextGridWindow *)win;
     line_request = [restoredWin hasLineRequest];
-    if (restoredWin.framePending)
-        self.frame = restoredWin.pendingFrame;
-    else
-        self.frame = restoredWin.frame;
 
     if (restoredWin.bufferTextStorage)
         _bufferTextStorage = restoredWin.bufferTextStorage;
@@ -653,7 +649,10 @@
 
         NSMutableDictionary *attrDict = [styles[style_Normal] mutableCopy];
 
-        if (cols == 0 || rows == 0 || !_bufferTextStorage || !_bufferTextStorage.length) {
+        if (cols == 0 || rows == 0)
+            _bufferTextStorage = nil;
+
+        if (!_bufferTextStorage || !_bufferTextStorage.length) {
             NSString *spaces = [[[NSString alloc] init]
                                 stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
                                 withString:@" "

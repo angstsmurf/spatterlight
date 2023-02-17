@@ -1105,6 +1105,9 @@ fprintf(stderr, "%s\n",                                                    \
         win.frame = laterWin.frame;
     }
 
+    // This makes autorestoring in fullscreen a little less flickery
+    [self adjustContentView];
+
     if (restoredControllerLate.bgcolor)
         [self setBorderColor:restoredControllerLate.bgcolor];
 
