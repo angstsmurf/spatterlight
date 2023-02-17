@@ -196,7 +196,7 @@
     return [NSString stringWithFormat:@"%@ and %@ other games", gameString, numberString];
 }
 
-// Returns an NSArray of range values, including leading and trailing spaces (but strips leading and traling blank lines)
+// Returns an NSArray of range values, including leading and trailing spaces (but strips leading and trailing blank lines)
 - (NSArray *)lineRanges {
     return [self lineRangesKeepEmptyLines:NO];
 }
@@ -204,7 +204,7 @@
 - (NSArray *)lineRangesKeepEmptyLines:(BOOL)keepEmpty {
     NSUInteger stringLength = self.length;
     NSRange linerange;
-    NSMutableArray *lines = [[NSMutableArray alloc] init];
+    NSMutableArray<NSValue *> *lines = [[NSMutableArray alloc] init];
     for (NSUInteger index = 0; index < stringLength;) {
         // This includes newlines
         linerange = [self lineRangeForRange:NSMakeRange(index, 0)];
