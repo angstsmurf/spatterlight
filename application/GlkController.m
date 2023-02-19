@@ -17,7 +17,6 @@
 #import "GridTextView.h"
 
 #import "GlkSoundChannel.h"
-#import "GlkSoundChannel.h"
 #import "GlkStyle.h"
 
 #import "Game.h"
