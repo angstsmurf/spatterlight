@@ -832,6 +832,8 @@
 		C3D7CB2B26CAA2F7006DE4CC /* Transcript of Magnetic.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB2A26CAA2F7006DE4CC /* Transcript of Magnetic.txt */; };
 		C3D7CB2D26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB2C26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt */; };
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
+		C3D8817F29A1BAE50085C383 /* Transcript of Praxix old.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */; };
+		C3D8818029A1BAE50085C383 /* Transcript of TerpEtude old.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */; };
 		C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */; };
 		C3E1938128628E8400E3B013 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E1937E28628E8400E3B013 /* restorestate.c */; };
 		C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
@@ -3308,6 +3310,8 @@
 		C3D7CB2C26CAA781006DE4CC /* Transcript of To Hell in a Hamper.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of To Hell in a Hamper.txt"; sourceTree = "<group>"; };
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		C3D8177A256CBA20005DBC1F /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
+		C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix old.rtf"; sourceTree = "<group>"; };
+		C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude old.rtf"; sourceTree = "<group>"; };
 		C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ti99_4a_terp.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = ti99_4a_terp.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = application/CoreDataManager.h; sourceTree = SOURCE_ROOT; };
@@ -6136,9 +6140,11 @@
 				C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */,
 				C321419526CEA75A00B49504 /* praxix.z5 */,
 				C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */,
+				C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */,
 				C321419726CEA7B100B49504 /* etude.z5 */,
 				C321419E26CECD9000B49504 /* TerpEtude command script.txt */,
 				C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */,
+				C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */,
 				C354AA67274CD8D900C8D01D /* adv01.dat */,
 				C37391BC27A128E4009147EF /* Transcript of adv01.txt */,
 				C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */,
@@ -7346,6 +7352,8 @@
 				C3CC7FF926C01F33009B0B25 /* The Elysium Enigma command script.txt in Resources */,
 				C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */,
 				C3A199882999E4C600D27500 /* Plus command script.txt in Resources */,
+				C3D8818029A1BAE50085C383 /* Transcript of TerpEtude old.rtf in Resources */,
+				C3D8817F29A1BAE50085C383 /* Transcript of Praxix old.rtf in Resources */,
 				C3998E3526C9845A002C1E5D /* To Hell in a Hamper command script.txt in Resources */,
 				C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */,
 				C354AA72274D095400C8D01D /* bugged.dat in Resources */,

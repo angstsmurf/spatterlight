@@ -864,9 +864,10 @@
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
     if (licensewinWindow.exists) {
         XCUIElementQuery *menuBarsQuery = [[XCUIApplication alloc] init].menuBars;
-        [menuBarsQuery.menuBarItems[@"Window"] click];
-        [/*@START_MENU_TOKEN@*/[menuBarsQuery.menus containingType:XCUIElementTypeMenuItem identifier:@"Spatterlight Help"].menuItems[@"GNU Public License"]/*[["menuBarsQuery",".menuBarItems[@\"Help\"]",".menus.menuItems[@\"GNU Public License\"]",".menuItems[@\"GNU Public License\"]","[",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Fonts License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"SDL License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Alan License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Hugo License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Glulxe License\"].menuItems[@\"GNU Public License\"]",".menus containingType:XCUIElementTypeMenuItem identifier:@\"Spatterlight Help\"].menuItems[@\"GNU Public License\"]"],[[[-1,0,1]],[[4,10],[4,9],[4,8],[4,7],[4,6],[4,5],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
-        [licensewinWindow.buttons[@"Understood"] click];
+        [menuBarsQuery.menuBarItems[@"Help"] click];
+        [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"GNU Public License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"GNU Public License\"]",".menuItems[@\"GNU Public License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+        [app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"GNU Public License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[@"Understood"] click];
+
     }
 
     XCUIElement *textField = [self addAndSelectGame:@"Elysium.t3"];
@@ -1340,9 +1341,17 @@
     XCTAssert([textView waitForExistenceWithTimeout:1]);
     [textView typeText:@"all\n"];
 
-    NSURL *url = [testBundle URLForResource:@"Transcript of Praxix"
-                              withExtension:@"rtf"
-                               subdirectory:nil];
+    NSURL *url;
+
+    if (@available(macOS 12.0, *)) {
+        url = [testBundle URLForResource:@"Transcript of Praxix"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    } else {
+        url = [testBundle URLForResource:@"Transcript of Praxix old"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    }
 
     NSError *error = nil;
     NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
@@ -1380,9 +1389,17 @@
 
     [self openCommandScript:@"TerpEtude"];
 
-    NSURL *url = [testBundle URLForResource:@"Transcript of TerpEtude"
-                              withExtension:@"rtf"
-                               subdirectory:nil];
+    NSURL *url;
+
+    if (@available(macOS 12.0, *)) {
+        url = [testBundle URLForResource:@"Transcript of TerpEtude"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    } else {
+        url = [testBundle URLForResource:@"Transcript of TerpEtude old"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    }
 
     NSError *error = nil;
     NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
@@ -1987,7 +2004,9 @@
     [incrementArrow click];
     [decrementArrow click];
 
-    [/*@START_MENU_TOKEN@*/[[[XCUIApplication alloc] init].tabGroups containingType:XCUIElementTypeTab identifier:@"Themes"].element/*[["[[XCUIApplication alloc] init]",".dialogs[@\"Preferences\"]","[",".tabGroups containingType:XCUIElementTypeCheckBox identifier:@\"Games can set colors and styles\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Un-customize styles\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"action\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Gill Sans 12\"].element",".tabGroups containingType:XCUIElementTypeButton identifier:@\"Courier 12\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Global\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Misc\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"VoiceOver\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Format\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Details\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Styles\"].element",".tabGroups containingType:XCUIElementTypeTab identifier:@\"Themes\"].element",".dialogs[@\"preferences\"]"],[[[-1,0,1]],[[2,14],[2,13],[2,12],[2,11],[2,10],[2,9],[2,8],[2,7],[2,6],[2,5],[2,4],[2,3],[-1,15,2],[-1,1,2]],[[2,14],[2,13],[2,12],[2,11],[2,10],[2,9],[2,8],[2,7],[2,6],[2,5],[2,4],[2,3]]],[0,0]]@END_MENU_TOKEN@*/ click];    
+    XCUIElement *stylesTab = app/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
+    [app/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [stylesTab click];
 
     XCUIElement *actionButton = [[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:0];
 
