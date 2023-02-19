@@ -399,7 +399,6 @@ enum  {
 
         [self cancel:nil];
         [self.coreDataManager saveChanges];
-
         BOOL forceQuit = _forceQuitCheckBox.state == NSOnState;
 
         CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
@@ -418,6 +417,10 @@ enum  {
 
         for (GlkController *ctl in _gameSessions.allValues) {
             if (forceQuit || !ctl.alive) {
+                if (_infoWindows[ctl.game.ifid]) {
+                    _infoWindows[ctl.game.ifid].inDeletion = YES;
+                    [((NSWindowController *)_infoWindows[ctl.game.ifid]).window performClose:nil];
+                }
                 [ctl.window close];
             } else {
                 Game *game = ctl.game;
@@ -1410,7 +1413,7 @@ enum  {
     // First, we check if we have created this info window already
     infoctl = _infoWindows[ifid];
 
-    if (!infoctl) {
+    if (!infoctl || infoctl.inDeletion) {
         infoctl = [[InfoController alloc] initWithGame:game];
         infoctl.libcontroller = self;
         _infoWindows[ifid] = infoctl;
@@ -2178,10 +2181,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.found = NO;
 
     [self updateTableViews];
-
-    double delayInSeconds = 0.3;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         [self selectGames:[NSSet setWithObject:game]];
 
         [[NSNotificationCenter defaultCenter]
@@ -2361,13 +2361,26 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [_gameSessions removeObjectForKey:key];
         _gameTableDirty = YES;
         [self updateTableViews];
-        [self performSelector:@selector(releaseGlkControllerNow:) withObject:glkctl afterDelay:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            [glkctl terminateTask];
+        });
     }
 }
 
-- (void)releaseGlkControllerNow:(GlkController *)glkctl {
-    [glkctl terminateTask];
+- (void)releaseInfoController:(InfoController *)infoctl {
+    NSString *key = nil;
+    for (InfoController *controller in _infoWindows.allValues)
+        if (controller == infoctl) {
+            NSArray *temp = [_infoWindows allKeysForObject:controller];
+            key = temp[0];
+            break;
+        }
+    if (key) {
+        infoctl.window.delegate = nil;
+        [_infoWindows removeObjectForKey:key];
+    }
 }
+
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path {
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];

@@ -82,6 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSWindow *)playGame:(Game *)game winRestore:(BOOL)systemWindowRestoration;
 - (nullable NSWindow *)playGameWithIFID:(NSString *)ifid;
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
+- (void)releaseInfoController:(InfoController *)infoctl;
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path;
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;

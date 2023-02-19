@@ -21,12 +21,6 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-@interface InfoPanel : NSWindow
-
-@property BOOL disableConstrainedWindow;
-
-@end
-
 @implementation InfoPanel
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen {
@@ -97,9 +91,6 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet ImageView *imageView;
 
     NSWindowController *snapshotController;
-
-    CoreDataManager *coreDataManager;
-    NSManagedObjectContext *managedObjectContext;
 }
 @end
 
@@ -107,12 +98,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (instancetype)init {
     self = [super initWithWindowNibName:@"InfoPanel"];
-    if (self) {
-        coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-        managedObjectContext = coreDataManager.mainManagedObjectContext;
-    }
 
     return self;
+}
+
+- (NSManagedObjectContext *)managedObjectContext {
+    if (_managedObjectContext == nil) {
+        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
+    }
+    return _managedObjectContext;
+}
+
+- (CoreDataManager *)coreDataManager {
+    if (_coreDataManager == nil) {
+        _coreDataManager =  ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
+    }
+    return _coreDataManager;
 }
 
 - (instancetype)initWithGame:(Game *)game  {
@@ -120,16 +121,18 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _game = game;
         _meta = game.metadata;
+        _ifid = game.ifid;
     }
     return self;
 }
 
 // Used for window restoration
 
-- (instancetype)initWithIfid:(NSString *)ifid {
+- (instancetype)initWithIfid:(NSString *)initIfid {
     self = [self init];
     if (self) {
-        _game = [TableViewController fetchGameForIFID:ifid inContext:managedObjectContext];
+        _ifid = initIfid;
+        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         }
@@ -149,11 +152,22 @@ fprintf(stderr, "%s\n",                                                    \
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
     }
 
+    if (!_game) {
+        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
+        if (_game) {
+            _meta = _game.metadata;
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                [self.window performClose:nil];
+            });
+        }
+    }
+
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
-     object:managedObjectContext];
+     object:self.managedObjectContext];
 
     if (imageView) {
         imageView.game = _game;
@@ -264,17 +278,24 @@ fprintf(stderr, "%s\n",                                                    \
     NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSSet *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
     NSSet *refreshedObjects =  (notification.userInfo)[NSRefreshedObjectsKey];
-    if ([deletedObjects containsObject:_game])
+    if ([deletedObjects containsObject:_game]) {
+        _inDeletion = YES;
+        InfoController * __weak weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.window performClose:nil];
+            [weakSelf.window performClose:nil];
         });
+    }
     if (!updatedObjects)
         updatedObjects = [NSSet new];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
     if (updatedObjects.count && ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])) {
+        InfoController * __weak weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self update];
-            [self updateImage];
+            InfoController *strongSelf = weakSelf;
+            if (strongSelf) {
+                [strongSelf update];
+                [strongSelf updateImage];
+            }
         });
     }
 }
@@ -331,6 +352,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(NSNotification *)notification {
 
+    if (_inDeletion) {
+        _inDeletion = NO;
+        [_libcontroller releaseInfoController:self];
+        return;
+    }
     // Make sure that all edits are saved
     if (_titleField.stringValue.length && ![_meta.title isEqualToString:_titleField.stringValue])
         _meta.title = _titleField.stringValue;
@@ -360,6 +386,7 @@ fprintf(stderr, "%s\n",                                                    \
                 next = windowArray.lastObject;
             else
                 next = windowArray[index - 1];
+            next.inDeletion = NO;
             [next.window makeKeyAndOrderFront:nil];
         }
     }
@@ -422,7 +449,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
-    return managedObjectContext.undoManager;
+    return self.managedObjectContext.undoManager;
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification {
@@ -587,7 +614,7 @@ fprintf(stderr, "%s\n",                                                    \
     positionAnimation.toValue = [NSValue valueWithPoint:point];
     positionAnimation.fillMode = kCAFillModeForwards;
 
-    NSString *ifid = _game.ifid;
+    NSString *blockIfid = _ifid;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -607,8 +634,8 @@ fprintf(stderr, "%s\n",                                                    \
         self->snapshotController = nil;
 
         [self checkForKeyPressesDuringAnimation];
-
-        [libctrl.infoWindows removeObjectForKey:ifid];
+        if (libctrl.infoWindows && blockIfid.length && libctrl.infoWindows[blockIfid])
+            [libctrl.infoWindows removeObjectForKey:blockIfid];
     }];
 }
 
