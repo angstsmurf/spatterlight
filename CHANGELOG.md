@@ -9,6 +9,7 @@
 - Adds ram save and ram restore to the Plus interpreter
 - Playing Plus games without graphics files could make the status window blank
 - Transcripts in Plus, Scott and Taylormade no longer have hard line breaks where the lines ended on-screen in room descriptions
+- Info windows could be left behind after deleting library
 
 ## Release 0.9.9
 - Now requires macOS 10.13 or later
