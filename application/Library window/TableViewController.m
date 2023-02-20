@@ -419,7 +419,6 @@ enum  {
             if (forceQuit || !ctl.alive) {
                 if (_infoWindows[ctl.game.ifid]) {
                     _infoWindows[ctl.game.ifid].inDeletion = YES;
-                    [((NSWindowController *)_infoWindows[ctl.game.ifid]).window performClose:nil];
                 }
                 [ctl.window close];
             } else {
