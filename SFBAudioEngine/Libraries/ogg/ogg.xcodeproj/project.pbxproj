@@ -7,26 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B4ED37F9ADD34147A4A8DB72 /* crctable.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F29050F60E4F0FAD0F2136 /* crctable.h */; };
-		B64B41CEE3FF406583234415 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 150495F84A794200890D9E4D /* bitwise.c */; };
-		C3224D7726ECD147008D8B3F /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = C3224D7626ECD147008D8B3F /* ogg.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3224D7926ECD156008D8B3F /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = C3224D7826ECD156008D8B3F /* os_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E69CE076017A43A9A9176FF9 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D14CD46AA284680B7D97E1A /* framing.c */; };
+		C3A7175829A464D900568D4E /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 150495F84A794200890D9E4D /* bitwise.c */; };
+		C3A7175929A464D900568D4E /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D14CD46AA284680B7D97E1A /* framing.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		150495F84A794200890D9E4D /* bitwise.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = bitwise.c; path = src/bitwise.c; sourceTree = "<group>"; };
-		3D9548E267A3491B86A2CB0C /* Ogg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ogg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F29050F60E4F0FAD0F2136 /* crctable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = crctable.h; path = src/crctable.h; sourceTree = "<group>"; };
 		9D14CD46AA284680B7D97E1A /* framing.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = framing.c; path = src/framing.c; sourceTree = "<group>"; };
-		C3224D7626ECD147008D8B3F /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = src/ogg.h; sourceTree = "<group>"; };
-		C3224D7826ECD156008D8B3F /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = src/os_types.h; sourceTree = "<group>"; };
-		C3224D7A26ECD182008D8B3F /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config_types.h; path = src/config_types.h; sourceTree = "<group>"; };
-		C3B636CF26FBE7B80026ABBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3224D7A26ECD182008D8B3F /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config_types.h; sourceTree = "<group>"; };
+		C3A7175229A4648800568D4E /* libogg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libogg.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3A7176629A468B300568D4E /* ogg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = include/ogg/ogg.h; sourceTree = "<group>"; };
+		C3A7176729A468EB00568D4E /* os_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = include/ogg/os_types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		769169BB7DC746F5A33D3F12 /* Frameworks */ = {
+		C3A7175029A4648800568D4E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -40,8 +36,8 @@
 			isa = PBXGroup;
 			children = (
 				C3224D7A26ECD182008D8B3F /* config_types.h */,
-				C3224D7626ECD147008D8B3F /* ogg.h */,
-				C3224D7826ECD156008D8B3F /* os_types.h */,
+				C3A7176629A468B300568D4E /* ogg.h */,
+				C3A7176729A468EB00568D4E /* os_types.h */,
 				96F29050F60E4F0FAD0F2136 /* crctable.h */,
 			);
 			name = "Header Files";
@@ -50,7 +46,6 @@
 		5BAC836F1A0A4DA988E61F8D /* ogg */ = {
 			isa = PBXGroup;
 			children = (
-				C3B636CF26FBE7B80026ABBE /* Info.plist */,
 				478DB117C2D54ED0A1457BCD /* Header Files */,
 				F90A5A41659340A1A40B284D /* Source Files */,
 			);
@@ -68,7 +63,7 @@
 		BA653C90FBF846608FFB0342 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D9548E267A3491B86A2CB0C /* Ogg.framework */,
+				C3A7175229A4648800568D4E /* libogg.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -85,35 +80,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		9D0C4A47DF924CD385E25C94 /* Headers */ = {
+		C3A7174E29A4648800568D4E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3224D7726ECD147008D8B3F /* ogg.h in Headers */,
-				C3224D7926ECD156008D8B3F /* os_types.h in Headers */,
-				B4ED37F9ADD34147A4A8DB72 /* crctable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		591F0804854D4483B078CAFD /* ogg */ = {
+		C3A7175129A4648800568D4E /* ogg */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED2E07C6E62046DB8D757965 /* Build configuration list for PBXNativeTarget "ogg" */;
+			buildConfigurationList = C3A7175329A4648800568D4E /* Build configuration list for PBXNativeTarget "ogg" */;
 			buildPhases = (
-				9D0C4A47DF924CD385E25C94 /* Headers */,
-				EDE27B2E56614D64897D53C7 /* Sources */,
-				769169BB7DC746F5A33D3F12 /* Frameworks */,
+				C3A7174E29A4648800568D4E /* Headers */,
+				C3A7174F29A4648800568D4E /* Sources */,
+				C3A7175029A4648800568D4E /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ogg;
-			productName = ogg;
-			productReference = 3D9548E267A3491B86A2CB0C /* Ogg.framework */;
-			productType = "com.apple.product-type.framework";
+			productName = oggstatic;
+			productReference = C3A7175229A4648800568D4E /* libogg.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -122,6 +114,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					C3A7175129A4648800568D4E = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
 			};
 			buildConfigurationList = A46D5ACD550846899726D8A6 /* Build configuration list for PBXProject "ogg" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -135,18 +132,18 @@
 			projectDirPath = ../;
 			projectRoot = "";
 			targets = (
-				591F0804854D4483B078CAFD /* ogg */,
+				C3A7175129A4648800568D4E /* ogg */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EDE27B2E56614D64897D53C7 /* Sources */ = {
+		C3A7174F29A4648800568D4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B64B41CEE3FF406583234415 /* bitwise.c in Sources */,
-				E69CE076017A43A9A9176FF9 /* framing.c in Sources */,
+				C3A7175829A464D900568D4E /* bitwise.c in Sources */,
+				C3A7175929A464D900568D4E /* framing.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +166,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "";
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -208,7 +205,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "";
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -231,45 +228,6 @@
 			};
 			name = RelWithDebInfo;
 		};
-		0FA62AF0E4BB41A98B002D71 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = "";
-				DYLIB_CURRENT_VERSION = 0.8.5;
-				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					ogg_EXPORTS,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = ogg/Info.plist;
-				INSTALL_PATH = "@rpath";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-					"-fPIC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
-				PRODUCT_NAME = Ogg;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				USE_HEADERMAP = YES;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = Release;
-		};
 		4F655557B21C49EE82EEBB1E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -286,7 +244,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "";
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -309,45 +267,6 @@
 			};
 			name = Release;
 		};
-		8B1204C67EA342D880914A07 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = "";
-				DYLIB_CURRENT_VERSION = 0.8.5;
-				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					ogg_EXPORTS,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = ogg/Info.plist;
-				INSTALL_PATH = "@rpath";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-					"-fPIC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
-				PRODUCT_NAME = Ogg;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				USE_HEADERMAP = YES;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = MinSizeRel;
-		};
 		A17111BB457D49BC9659EC06 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -364,7 +283,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "";
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -388,80 +307,154 @@
 			};
 			name = Debug;
 		};
-		B45C050997394945913DB60D /* RelWithDebInfo */ = {
+		C3A7175429A4648800568D4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = 0.8.5;
-				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					ogg_EXPORTS,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = ogg/Info.plist;
-				INSTALL_PATH = "@rpath";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-					"-fPIC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
-				PRODUCT_NAME = Ogg;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				USE_HEADERMAP = YES;
-				WARNING_CFLAGS = "$(inherited)";
-			};
-			name = RelWithDebInfo;
-		};
-		FA628AA48F12441D80F172B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = "";
-				DYLIB_CURRENT_VERSION = 0.8.5;
-				EXECUTABLE_PREFIX = "";
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
-					ogg_EXPORTS,
+					"DEBUG=1",
+					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = ogg/Info.plist;
-				INSTALL_PATH = "@rpath";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "   -fPIC ";
-				PRODUCT_BUNDLE_IDENTIFIER = org.xiph.ogg;
-				PRODUCT_NAME = Ogg;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SECTORDER_FLAGS = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USE_HEADERMAP = YES;
-				WARNING_CFLAGS = "$(inherited)";
+				SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
+		};
+		C3A7175529A4648800568D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				DYLIB_CURRENT_VERSION = 0.8.5;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		C3A7175629A4648800568D4E /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				DYLIB_CURRENT_VERSION = 0.8.5;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				USE_HEADERMAP = NO;
+			};
+			name = MinSizeRel;
+		};
+		C3A7175729A4648800568D4E /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				DYLIB_CURRENT_VERSION = 0.8.5;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ogg/include\"";
+				USE_HEADERMAP = NO;
+			};
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
@@ -477,13 +470,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		ED2E07C6E62046DB8D757965 /* Build configuration list for PBXNativeTarget "ogg" */ = {
+		C3A7175329A4648800568D4E /* Build configuration list for PBXNativeTarget "ogg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FA628AA48F12441D80F172B5 /* Debug */,
-				0FA62AF0E4BB41A98B002D71 /* Release */,
-				8B1204C67EA342D880914A07 /* MinSizeRel */,
-				B45C050997394945913DB60D /* RelWithDebInfo */,
+				C3A7175429A4648800568D4E /* Debug */,
+				C3A7175529A4648800568D4E /* Release */,
+				C3A7175629A4648800568D4E /* MinSizeRel */,
+				C3A7175729A4648800568D4E /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

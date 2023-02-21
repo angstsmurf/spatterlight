@@ -65,7 +65,7 @@
 		C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9126ECD2BA008D8B3F /* libvorbis.a */; };
 		C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9526ECD2BA008D8B3F /* libvorbisfile.a */; };
 		C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C34B271E26EAC168001A1714 /* libdumb.a */; };
-		C374D1C126EE4DC6006F430E /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C374D1BE26EE4CC2006F430E /* Ogg.framework */; };
+		C3A7176529A4654200568D4E /* liboggstatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A7176029A4653800568D4E /* liboggstatic.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +110,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3D9548E267A3491B86A2CB0C;
 			remoteInfo = ogg;
+		};
+		C3A7175F29A4653800568D4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C374D1B926EE4CC2006F430E /* ogg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3A7175229A4648800568D4E;
+			remoteInfo = oggstatic;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -207,7 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C374D1C126EE4DC6006F430E /* Ogg.framework in Frameworks */,
+				C3A7176529A4654200568D4E /* liboggstatic.a in Frameworks */,
 				C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */,
 				C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */,
 				C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */,
@@ -380,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				C374D1BE26EE4CC2006F430E /* Ogg.framework */,
+				C3A7176029A4653800568D4E /* liboggstatic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -525,6 +533,13 @@
 			fileType = wrapper.framework;
 			path = Ogg.framework;
 			remoteRef = C374D1BD26EE4CC2006F430E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3A7176029A4653800568D4E /* liboggstatic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liboggstatic.a;
+			remoteRef = C3A7175F29A4653800568D4E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
