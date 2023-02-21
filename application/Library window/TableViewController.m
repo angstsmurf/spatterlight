@@ -345,6 +345,14 @@ enum  {
         selected = @[self.selectedGames[0], self.selectedGames[1]];
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
+
+    [InfoController closeStrayInfoWindows];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+        [InfoController closeStrayInfoWindows];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+            [InfoController closeStrayInfoWindows];
+        });
+    });
 }
 
 - (LibController *)windowController {
