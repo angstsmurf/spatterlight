@@ -4,15 +4,12 @@
 
 #import <BlorbFramework/Blorb.h>
 
-#import "LibController.h"
 #import "AppDelegate.h"
-
 #import "CoreDataManager.h"
-
 #import "Game.h"
-
 #import "TableViewController.h"
 
+#import "LibController.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
