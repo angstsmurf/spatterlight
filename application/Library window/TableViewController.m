@@ -2803,8 +2803,13 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                     }
                 }
                 if (!playing) {
-                    cellView.imageView.image = nil;
-                    cellView.imageView.accessibilityLabel = nil;
+                    if (game.autosaved) {
+                        cellView.imageView.image = [NSImage imageNamed:@"pause.fill"];
+                        cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game is autosaved", nil);
+                    } else {
+                        cellView.imageView.image = nil;
+                        cellView.imageView.accessibilityLabel = nil;
+                    }
                 }
             }
         } else if ([identifier isEqual:@"like"]) {

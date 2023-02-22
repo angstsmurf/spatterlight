@@ -1339,7 +1339,7 @@ fprintf(stderr, "%s\n",                                                    \
             return;
         }
 
-        _game.autosaved = YES;
+        _game.autosaved = !dead;
     }
 }
 

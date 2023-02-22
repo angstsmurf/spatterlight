@@ -16,7 +16,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="65" y="641" width="700" height="472"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
                         <value key="minSize" type="size" width="320" height="300"/>
                         <view key="contentView" id="6Nu-bo-Af0">
                             <rect key="frame" x="0.0" y="0.0" width="700" height="472"/>
@@ -551,7 +551,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="forgivenessNumeric" width="85" minWidth="60" maxWidth="102" hidden="YES" id="Iax-dW-mkG" userLabel="Table Column - Forgiveness">
+                                                <tableColumn identifier="forgivenessNumeric" width="85" minWidth="60" maxWidth="106" hidden="YES" id="Iax-dW-mkG" userLabel="Table Column - Forgiveness">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Forgiveness">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -890,7 +890,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="RdB-iu-Q8E">
-                                <rect key="frame" x="0.0" y="413" width="762" height="5"/>
+                                <rect key="frame" x="0.0" y="409" width="762" height="5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="QSM-Dg-Ud4"/>
                                 </constraints>
@@ -900,7 +900,7 @@
                             <constraint firstAttribute="height" constant="472" placeholder="YES" id="0ie-Rp-PUI"/>
                             <constraint firstAttribute="bottom" secondItem="N28-3A-g5e" secondAttribute="bottom" id="Wee-x3-goK"/>
                             <constraint firstItem="N28-3A-g5e" firstAttribute="top" secondItem="ZUG-Zy-Fye" secondAttribute="top" constant="-1" id="XNF-hQ-B2B"/>
-                            <constraint firstItem="RdB-iu-Q8E" firstAttribute="top" secondItem="N28-3A-g5e" secondAttribute="top" constant="57" id="axT-dS-tAL"/>
+                            <constraint firstItem="RdB-iu-Q8E" firstAttribute="top" secondItem="N28-3A-g5e" secondAttribute="top" constant="61" id="axT-dS-tAL"/>
                             <constraint firstAttribute="trailing" secondItem="N28-3A-g5e" secondAttribute="trailing" priority="999" id="d7b-PC-RN3"/>
                             <constraint firstItem="N28-3A-g5e" firstAttribute="leading" secondItem="ZUG-Zy-Fye" secondAttribute="leading" priority="999" id="eha-uh-Dls"/>
                             <constraint firstItem="RdB-iu-Q8E" firstAttribute="leading" secondItem="N28-3A-g5e" secondAttribute="leading" id="kQq-mb-Pzq"/>
