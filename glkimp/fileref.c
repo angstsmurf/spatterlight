@@ -211,7 +211,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
     len += strlen(gli_workdir);
     suffix = gli_suffix_for_usage(usage);
     len += strlen(suffix);
-    snprintf(buf2, len + 1, "%s/%s%s", gli_workdir, buf, suffix);
+    snprintf(buf2, len + 2, "%s/%s%s", gli_workdir, buf, suffix);
 
     fref = gli_new_fileref(buf2, usage, rock);
     if (!fref) {
