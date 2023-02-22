@@ -271,6 +271,15 @@ enum  {
     NSRect frame = _gameTableView.headerView.frame;
     frame.size.height = 23;
     _gameTableView.headerView.frame = frame;
+
+    if (@available(macOS 11.0, *)) {
+        NSArray *games = [TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
+        if (games.count == 0)
+            self.view.window.subtitle = @"No games";
+        else if (games.count == 1)
+            self.view.window.subtitle = @"1 game";
+        self.view.window.subtitle = [NSString stringWithFormat:@"%ld games", games.count];
+    }
 }
 
 - (void)viewDidAppear {
@@ -3214,6 +3223,16 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             [obj isKindOfClass:[Metadata class]]) {
             insertedMetadataCount++;
         }
+    }
+
+    if (@available(macOS 11.0, *)) {
+        NSArray *games = [TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
+        if (games.count == 0)
+            self.view.window.subtitle = @"No games";
+        else if (games.count == 1)
+            self.view.window.subtitle = @"1 game";
+        else
+            self.view.window.subtitle = [NSString stringWithFormat:@"%ld games", games.count];
     }
 }
 
