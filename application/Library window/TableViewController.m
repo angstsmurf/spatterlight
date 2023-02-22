@@ -319,7 +319,7 @@ enum  {
                                                  name:@"SideviewDownload"
                                                object:nil];
 
-    _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:nil inContext:self.managedObjectContext] mutableCopy];
+    _gameTableModel = [[TableViewController fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext] mutableCopy];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
     if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
@@ -397,7 +397,6 @@ enum  {
     }
     return _mainThemesSubMenu;
 }
-
 
 - (IBAction)deleteLibrary:(id)sender {
     NSAlert *alert = [[NSAlert alloc] init];
@@ -2586,9 +2585,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     NSMutableArray<NSPredicate *> *predicateArray = [NSMutableArray new];
 
-    NSPredicate *notHidden = [NSPredicate predicateWithFormat:@"hidden == NO"];
-
-    [predicateArray addObject:notHidden];
+    [predicateArray addObject:[NSPredicate predicateWithFormat:@"hidden == NO"]];
 
     NSCompoundPredicate *comp;
 
