@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516,
     // Window height minus window top border
-    kDefaultPrefsLowerViewHeight = 350
+    kDefaultPrefsLowerViewHeight = 358
 } kDefaultPrefWindowSize;
 
 typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
@@ -57,8 +57,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 - (void)updatePrefsPanel;
 
 @property BOOL previewShown;
-@property (strong) GlkTextBufferWindow *glktxtbuf;
-@property (strong) IBOutlet NSBox *sampleTextBorderView;
+@property (strong) IBOutlet NSView *sampleTextBorderView;
 
 @property (readonly) Theme *defaultTheme;
 @property (readonly) CoreDataManager *coreDataManager;

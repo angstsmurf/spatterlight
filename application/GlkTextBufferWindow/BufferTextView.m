@@ -8,7 +8,6 @@
 #import "BufferTextView.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkController.h"
-#import "DummyController.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"
@@ -166,9 +165,6 @@
     BOOL isValidItem = NO;
     BOOL waseditable = self.editable;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-
-    if ([delegate.glkctl isKindOfClass:[DummyController class]] && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
-        return NO;
 
     if (menuItem.action == @selector(changeLayoutOrientation:) || menuItem.action == NSSelectorFromString(@"addLinksInSelection:") || menuItem.action == NSSelectorFromString(@"replaceTextInSelection:") || menuItem.action == NSSelectorFromString(@"replaceQuotesInSelection:") || menuItem.action == NSSelectorFromString(@"replaceDashesInSelection:"))
         return NO;

@@ -4,7 +4,6 @@
 
 #import "Constants.h"
 #import "GlkController.h"
-#import "DummyController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"
@@ -616,23 +615,21 @@ fprintf(stderr, "%s\n",                                                    \
             [newstyles addObject:[NSNull null]];
     }
 
-    if (![glkctl isKindOfClass:[DummyController class]]) {
-        NSInteger marginX = self.theme.bufferMarginX;
-        NSInteger marginY = self.theme.bufferMarginY;
-
-        BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
-        CGFloat heightDiff = marginY - _textview.textContainerInset.height;
-
-        _textview.textContainerInset = NSMakeSize(marginX, marginY);
-
-        // If the Y margin has changed, we must adjust the text view
-        // here to make the scrollview aware of this, otherwise we might
-        // not be able to scroll to the bottom.
-        if (marginHeightChanged) {
-            NSRect newTextviewFrame = _textview.frame;
-            newTextviewFrame.size.height += heightDiff * 2;
-            _textview.frame = newTextviewFrame;
-        }
+    NSInteger marginX = self.theme.bufferMarginX;
+    NSInteger marginY = self.theme.bufferMarginY;
+    
+    BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
+    CGFloat heightDiff = marginY - _textview.textContainerInset.height;
+    
+    _textview.textContainerInset = NSMakeSize(marginX, marginY);
+    
+    // If the Y margin has changed, we must adjust the text view
+    // here to make the scrollview aware of this, otherwise we might
+    // not be able to scroll to the bottom.
+    if (marginHeightChanged) {
+        NSRect newTextviewFrame = _textview.frame;
+        newTextviewFrame.size.height += heightDiff * 2;
+        _textview.frame = newTextviewFrame;
     }
 
     // We can think of attributes as special characters in the mutable attributed
@@ -726,8 +723,7 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.selectedRange = selectedRange;
     }
 
-    if (![glkctl isKindOfClass:[DummyController class]] && self.glkctl.isAlive) {
-
+    if (self.glkctl.isAlive) {
         if (different) {
             // Set style for hyperlinks
             NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];

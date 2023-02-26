@@ -657,6 +657,7 @@
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C36B3892271F710200756D94 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3891271F710200756D94 /* InfoView.m */; };
 		C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C36B3893271F712600756D94 /* NonInterpolatedImage.m */; };
+		C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */; };
 		C372018E27E47E4D00F6BE55 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C372018D27E47E4D00F6BE55 /* layouttext.c */; };
 		C37238A926B6FB65002A4053 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
@@ -688,7 +689,6 @@
 		C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38784F426582AE200B4D886 /* ImageCompareViewController.xib */; };
 		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
 		C38A881327D2092500AE917E /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C38A881227D2092500AE917E /* ringbuffer.c */; };
-		C38A9204270A036A00B969A4 /* DummyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A9203270A036A00B969A4 /* DummyController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
@@ -3039,6 +3039,8 @@
 		C36B3893271F712600756D94 /* NonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonInterpolatedImage.m; sourceTree = "<group>"; };
 		C36B3894271F712700756D94 /* NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonInterpolatedImage.h; sourceTree = "<group>"; };
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		C36DFEDD29AA2F6800EC83A6 /* PreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewController.h; sourceTree = "<group>"; };
+		C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewController.m; sourceTree = "<group>"; };
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
 		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
@@ -3089,8 +3091,6 @@
 		C38974F6275336DB00876AF1 /* index.htm */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.htm; sourceTree = "<group>"; };
 		C38A881127D2092500AE917E /* ringbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		C38A881227D2092500AE917E /* ringbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ringbuffer.c; sourceTree = "<group>"; };
-		C38A9202270A036A00B969A4 /* DummyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DummyController.h; sourceTree = "<group>"; };
-		C38A9203270A036A00B969A4 /* DummyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyController.m; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C38D6ECD27CFCC5400328B12 /* line_drawing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line_drawing.c; sourceTree = "<group>"; };
@@ -4538,8 +4538,6 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
 				C38101291EDA297E00B87B68 /* GlkController.m */,
-				C38A9202270A036A00B969A4 /* DummyController.h */,
-				C38A9203270A036A00B969A4 /* DummyController.m */,
 				C3CF3694265FA461004D0F7B /* CoverImageView.h */,
 				C3CF3693265FA461004D0F7B /* CoverImageView.m */,
 				C3CB504A2662606600A95BE2 /* CoverImageHandler.h */,
@@ -5876,6 +5874,8 @@
 				C386D52E263F55920066BF5B /* ParagraphPopOver.m */,
 				961CCEE309F239E700528FF9 /* Preferences.h */,
 				961CCEE409F239E700528FF9 /* Preferences.m */,
+				C36DFEDD29AA2F6800EC83A6 /* PreviewController.h */,
+				C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -7589,7 +7589,6 @@
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
-				C38A9204270A036A00B969A4 /* DummyController.m in Sources */,
 				C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
 				C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */,
@@ -7603,6 +7602,7 @@
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				C39147482974C48C00692B9E /* TableViewController.m in Sources */,
 				C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */,
+				C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
 				C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */,
