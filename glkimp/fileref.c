@@ -300,7 +300,6 @@ glui32 glk_fileref_does_file_exist(fileref_t *fref)
 	/* This is sort of Unix-specific, but probably any stdio library
      will implement at least this much of stat(). */
 
-    fprintf(stderr, "glk_fileref_does_file_exist: filename: \"%s\"\n", fref->filename);
 	if (stat(fref->filename, &buf))
 		return 0;
 
