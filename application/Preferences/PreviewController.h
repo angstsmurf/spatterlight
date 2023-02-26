@@ -13,12 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewController : NSViewController
 
-@property (weak) IBOutlet NSLayoutConstraint *textHeight;
 @property (weak) Theme *theme;
+@property (weak) IBOutlet NSLayoutConstraint *textHeight;
 @property (strong) IBOutlet NSTextView *sampleTextView;
 
 - (CGFloat)calculateHeight;
-- (void)scrollToTop:(id)sender;
 
 @end
 

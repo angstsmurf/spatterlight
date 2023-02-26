@@ -82,8 +82,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
-    BOOL zooming;
-    CGFloat previewTextHeight;
     CGFloat defaultWindowHeight;
 
     NSDictionary *catalinaSoundsToBigSur;
@@ -587,11 +585,6 @@ NSString *fontToString(NSFont *font) {
         return frameSize;
     }
 
-    if (zooming) {
-        zooming = NO;
-        return frameSize;
-    }
-
     if (frameSize.height <= defaultWindowHeight) {
         _previewShown = NO;
     } else {
@@ -618,7 +611,6 @@ NSString *fontToString(NSFont *font) {
 
     if (!_previewShown) {
         newHeight = defaultWindowHeight;
-        zooming = YES;
     } else {
         newHeight = [self calculatePreviewHeight];
         _previewHeight.constant = newHeight;

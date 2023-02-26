@@ -28,8 +28,6 @@
 
 @interface PreviewController ()
 
-@property (strong) IBOutlet NSScrollView *sampleScrollView;
-
 @end
 
 @implementation PreviewController
@@ -67,11 +65,11 @@
     _sampleTextView.backgroundColor = _theme.bufferBackground;
     self.view.layer.backgroundColor = _theme.bufferBackground.CGColor;
     self.view.needsLayout = YES;
-}
-
-
-- (void)scrollToTop:(id)sender {
-    [_sampleScrollView.contentView scrollToPoint:NSZeroPoint];
+    if (NSWidth(_sampleTextView.frame) == 0) {
+        NSRect frame = _sampleTextView.frame;
+        frame.size.width = NSWidth(_sampleTextView.enclosingScrollView.frame);
+        _sampleTextView.frame = frame;
+    }
 }
 
 - (CGFloat)calculateHeight {
