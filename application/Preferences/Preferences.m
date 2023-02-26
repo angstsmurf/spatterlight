@@ -1,6 +1,6 @@
-#import "Preferences.h"
-#import "AppDelegate.h"
+#include "glk.h"
 
+#import "AppDelegate.h"
 #import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -17,7 +17,7 @@
 #import "NotificationBezel.h"
 #import "PreviewController.h"
 
-#include "glk.h"
+#import "Preferences.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1916,8 +1916,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     attr[@"Font"] = selectedFont;
     attr[@"NSDocumentBackgroundColor"] = selectedDocumentColor;
 
-//    [self.window makeFirstResponder:self.window];
-
     [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
 
     NSFontPanel *fontPanel = [NSFontPanel sharedFontPanel];
@@ -1925,9 +1923,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         fontPanel.delegate = self.dummyTextView;
         [fontPanel makeKeyAndOrderFront:self];
     }
-    NSLog(@"fontPanel visible: %@", fontPanel.visible ? @"YES" : @"NO");
-    NSLog(@"fontPanel exists: %@", [NSFontPanel sharedFontPanelExists] ? @"YES" : @"NO");
-    NSLog(@"fontPanel.delegate == self.dummyTextView: %@", fontPanel.delegate == self.dummyTextView ? @"YES" : @"NO");
 
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     fontManager.target = self.dummyTextView;
