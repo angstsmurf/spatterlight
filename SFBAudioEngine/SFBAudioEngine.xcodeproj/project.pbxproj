@@ -65,7 +65,6 @@
 		C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9126ECD2BA008D8B3F /* libvorbis.a */; };
 		C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3224D9526ECD2BA008D8B3F /* libvorbisfile.a */; };
 		C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C34B271E26EAC168001A1714 /* libdumb.a */; };
-		C3A7176529A4654200568D4E /* liboggstatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A7176029A4653800568D4E /* liboggstatic.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,19 +103,12 @@
 			remoteGlobalIDString = C3B854F826E7B136001059B8;
 			remoteInfo = dumb;
 		};
-		C374D1BD26EE4CC2006F430E /* PBXContainerItemProxy */ = {
+		C3FDA6CA29AB7999005336BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C374D1B926EE4CC2006F430E /* ogg.xcodeproj */;
+			containerPortal = C3FDA68929AB77FF005336BD /* ogg.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 3D9548E267A3491B86A2CB0C;
+			remoteGlobalIDString = C3FDA68229AB77FF005336BD;
 			remoteInfo = ogg;
-		};
-		C3A7175F29A4653800568D4E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C374D1B926EE4CC2006F430E /* ogg.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C3A7175229A4648800568D4E;
-			remoteInfo = oggstatic;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -206,7 +198,7 @@
 		32E7376D10B913AE00094C8A /* OggVorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggVorbisDecoder.h; sourceTree = "<group>"; };
 		C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
 		C34B271326EAC168001A1714 /* dumb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = dumb.xcodeproj; path = Libraries/dumb/dumb.xcodeproj; sourceTree = "<group>"; };
-		C374D1B926EE4CC2006F430E /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
+		C3FDA68929AB77FF005336BD /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +206,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3A7176529A4654200568D4E /* liboggstatic.a in Frameworks */,
 				C374D1C026EE4DB8006F430E /* libdumb.a in Frameworks */,
 				C3224D9A26ECD338008D8B3F /* libvorbisfile.a in Frameworks */,
 				C3224D9926ECD331008D8B3F /* libvorbis.a in Frameworks */,
@@ -234,7 +225,7 @@
 			children = (
 				32AEB27B1409AC84001F9A60 /* SFBAudioEngine */,
 				C34B271326EAC168001A1714 /* dumb.xcodeproj */,
-				C374D1B926EE4CC2006F430E /* ogg.xcodeproj */,
+				C3FDA68929AB77FF005336BD /* ogg.xcodeproj */,
 				C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				3210AB8E17B9BF8000743639 /* Products */,
@@ -383,11 +374,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C374D1BA26EE4CC2006F430E /* Products */ = {
+		C3FDA6C729AB7999005336BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C374D1BE26EE4CC2006F430E /* Ogg.framework */,
-				C3A7176029A4653800568D4E /* liboggstatic.a */,
+				C3FDA6CB29AB7999005336BD /* libogg.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -477,8 +467,8 @@
 					ProjectRef = C34B271326EAC168001A1714 /* dumb.xcodeproj */;
 				},
 				{
-					ProductGroup = C374D1BA26EE4CC2006F430E /* Products */;
-					ProjectRef = C374D1B926EE4CC2006F430E /* ogg.xcodeproj */;
+					ProductGroup = C3FDA6C729AB7999005336BD /* Products */;
+					ProjectRef = C3FDA68929AB77FF005336BD /* ogg.xcodeproj */;
 				},
 				{
 					ProductGroup = C3224D8826ECD2BA008D8B3F /* Products */;
@@ -528,18 +518,11 @@
 			remoteRef = C34B271D26EAC168001A1714 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C374D1BE26EE4CC2006F430E /* Ogg.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Ogg.framework;
-			remoteRef = C374D1BD26EE4CC2006F430E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3A7176029A4653800568D4E /* liboggstatic.a */ = {
+		C3FDA6CB29AB7999005336BD /* libogg.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = liboggstatic.a;
-			remoteRef = C3A7175F29A4653800568D4E /* PBXContainerItemProxy */;
+			path = libogg.a;
+			remoteRef = C3FDA6CA29AB7999005336BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
