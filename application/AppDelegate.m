@@ -567,11 +567,6 @@ continueUserActivity:(NSUserActivity *)userActivity
         [glkctl autoSaveOnExit];
     }
 
-    if ([NSFontPanel sharedFontPanel].visible)
-        [[NSFontPanel sharedFontPanel] orderOut:self];
-    if ([NSColorPanel sharedColorPanel].visible)
-        [[NSColorPanel sharedColorPanel] orderOut:self];
-
     NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
 
     [mainContext performBlockAndWait:^{
@@ -609,6 +604,15 @@ continueUserActivity:(NSUserActivity *)userActivity
             }
         }
     });
+}
+
+- (void)applicationDidUpdate:(NSNotification *)notification {
+    NSApplication *app = (NSApplication *)notification.object;
+    for (NSWindow *win in app.windows) {
+        if (([win isKindOfClass:[NSFontPanel class]] || [win isKindOfClass:[NSColorPanel class]]) && win.visible) {
+            win.restorable = NO;
+        }
+    }
 }
 
 @end
