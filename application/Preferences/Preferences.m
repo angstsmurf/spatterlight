@@ -1938,9 +1938,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else {
         fontManager = self.dummyTextView.sender;
     }
-    NSFont *newFont = nil;
+    NSFont *newFont = [NSFont systemFontOfSize:12];
     if (selectedFontButton) {
-        newFont = [fontManager convertFont:[fontManager selectedFont]];
+        newFont = [fontManager convertFont:newFont];
     } else {
         NSLog(@"Error! Preferences changeFont called with no font selected");
         return;
