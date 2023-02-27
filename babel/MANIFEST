@@ -30,7 +30,7 @@ tads.h                          Prototypes for tads2.c and tads3.c
 tads.c                          Common functions for TADS modules
 tads2.c                         Treaty of Babel module for tads2
 tads3.c                         Treaty of Babel module for tads3
-twine.c                         Treaty of Babel module for Twine
+html.c                          Treaty of Babel module for HTML
 zcode.c                         Treaty of Babel module for zcode
 README.md                       documentation
 MANIFEST                        this file
