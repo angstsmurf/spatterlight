@@ -588,8 +588,8 @@ NSString *fontToString(NSFont *font) {
     if (frameSize.height <= defaultWindowHeight) {
         _previewShown = NO;
     } else {
-        if (frameSize.height > self.window.frame.size.height) { // We are enlarging
-            CGFloat maxHeight = [self calculatePreviewHeight] + 40;
+        if (frameSize.height > NSHeight(self.window.frame)) { // We are enlarging
+            CGFloat maxHeight = MAX([self calculatePreviewHeight] + 40, NSHeight(self.window.frame));
             if (frameSize.height > maxHeight)
                 frameSize.height = maxHeight;
         }
