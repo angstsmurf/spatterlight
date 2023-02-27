@@ -73,13 +73,8 @@
 }
 
 - (CGFloat)calculateHeight {
-    NSTextView *textview = [[NSTextView alloc] initWithFrame:_sampleTextView.frame];
-    if (textview == nil) {
-        return 0;
-    }
-
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[_sampleTextView.textStorage copy]];
-    CGFloat textWidth = textview.frame.size.width;
+    CGFloat textWidth = _sampleTextView.frame.size.width;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
 
@@ -96,8 +91,7 @@
 - (void)viewWillLayout {
     [super viewDidLayout];
 
-    CGFloat textHeight = [self calculateHeight];
-    _textHeight.constant = MIN(textHeight, NSHeight(self.view.frame));
+    _textHeight.constant = MIN([self calculateHeight], NSHeight(self.view.frame));
 
     if (_textHeight.constant < 20) {
         _textHeight.constant = 40;
