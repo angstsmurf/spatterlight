@@ -10,6 +10,8 @@
 - Playing Plus games without graphics files could make the status window blank
 - Transcripts in Plus, Scott and Taylormade no longer have hard line breaks where the lines ended on-screen in room descriptions
 - Info windows could be left behind after deleting library
+- Fonts could be impossible to select under certain circumstances
+- Font panel and colour picker are no longer restored when restarting Spatterlight
 
 ## Release 0.9.9
 - Now requires macOS 10.13 or later
