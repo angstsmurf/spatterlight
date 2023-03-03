@@ -86,10 +86,28 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
+
+    NSToolbarItemIdentifier themesPanel;
+    NSToolbarItemIdentifier stylesPanel;
+    NSToolbarItemIdentifier presentationPanel;
+    NSToolbarItemIdentifier formatPanel;
+    NSToolbarItemIdentifier voiceOverPanel;
+    NSToolbarItemIdentifier miscPanel;
+    NSToolbarItemIdentifier globalPanel;
 }
 
 @property (strong) IBOutlet PreviewController *previewController;
 @property (strong) IBOutlet NSLayoutConstraint *previewHeight;
+
+@property (strong) IBOutlet NSView *themesView;
+@property (strong) IBOutlet NSView *stylesView;
+@property (strong) IBOutlet NSView *presentationView;
+@property (strong) IBOutlet NSView *formatView;
+@property (strong) IBOutlet NSView *voiceOverView;
+@property (strong) IBOutlet NSView *miscView;
+@property (strong) IBOutlet NSView *globalView;
+
+
 
 @end
 
@@ -353,6 +371,26 @@ NSString *fontToString(NSFont *font) {
 
     self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
+
+    themesPanel = @"themes";
+    stylesPanel = @"styles";
+    presentationPanel = @"presentation";
+    formatPanel = @"format";
+    voiceOverPanel = @"voiceOver";
+    miscPanel = @"misc";
+    globalPanel = @"global";
+
+    // This view controller determines the window toolbar's content.
+    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
+    toolbar.delegate = self;
+    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+    toolbar.allowsUserCustomization = NO;
+    if (@available(macOS 11.0, *)) {
+        self.window.toolbarStyle = NSWindowToolbarStylePreference;
+    }
+    self.window.toolbar = toolbar;
+
+    toolbar.selectedItemIdentifier = themesPanel;
 
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
@@ -2083,5 +2121,100 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)setDummyTextView:(DummyTextView *)dummyTextView {
     _dummyTextView = dummyTextView;
 }
+
+#pragma mark Toolbar
+
+- (NSToolbarItem *)toolbarItemWithImage:(NSString *)imageName label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier {
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+    NSImage *image = nil;
+    if (@available(macOS 11.0, *)) {
+        NSImageSymbolConfiguration *config = [NSImageSymbolConfiguration configurationWithScale:NSImageSymbolScaleMedium];
+        image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:tooltip];
+        if (!image)
+            image = [NSImage imageNamed:imageName];
+        image = [image imageWithSymbolConfiguration:config];
+    } else {
+        image = [NSImage imageNamed:imageName];
+        image.accessibilityDescription = tooltip;
+    }
+    
+    toolbarItem.image = image;
+    toolbarItem.action = @selector(switchToPanel:);
+    toolbarItem.target = self;
+    toolbarItem.label = NSLocalizedString(label, nil);
+    toolbarItem.toolTip = NSLocalizedString(tooltip, nil);
+    return toolbarItem;
+}
+
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    NSToolbarItem *toolbarItem = nil;
+
+    if (itemIdentifier == themesPanel) {
+        return [self toolbarItemWithImage:@"paintbrush" label:@"Themes" tooltip:@"Select and organize themes" identifier:itemIdentifier];
+    } else if (itemIdentifier == stylesPanel) {
+        return [self toolbarItemWithImage:@"butterfly" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == presentationPanel) {
+        return [self toolbarItemWithImage:@"theatermask.and.paintbrush" label:@"Details" tooltip:@"Presentation settings not covered by Glk styles" identifier:itemIdentifier];
+    } else if (itemIdentifier == formatPanel) {
+        return [self toolbarItemWithImage:@"compass.drawing" label:@"Format" tooltip:@"Format-specific settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == voiceOverPanel) {
+        return [self toolbarItemWithImage:@"voiceover" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == miscPanel) {
+        return [self toolbarItemWithImage:@"gearshape" label:@"Misc" tooltip:@"Miscellaneous settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == globalPanel) {
+        return [self toolbarItemWithImage:@"globe" label:@"Global" tooltip:@"Settings that apply to all themes" identifier:itemIdentifier];
+    }
+    return toolbarItem;
+}
+
+- (void)switchToPanel:(NSToolbarItem *)item {
+    NSDictionary<NSToolbarItemIdentifier, NSView *> *buttonToView = @{
+         themesPanel:_themesView,
+         stylesPanel:_stylesView,
+        presentationPanel:_presentationView,
+         formatPanel:_formatView,
+      voiceOverPanel:_voiceOverView,
+           miscPanel:_miscView,
+         globalPanel:_globalView
+    };
+
+    NSView *preferencePane = buttonToView[item.itemIdentifier];
+    if (!preferencePane)
+        return;
+
+    NSWindow *window = self.window;
+    if (window.contentView == preferencePane) {
+        return;
+    }
+
+    window.title = item.label;
+
+    NSRect newFrame = window.frame;
+    NSRect frameForContent = [window frameRectForContentRect:preferencePane.frame];
+    newFrame.size.height = NSHeight(frameForContent);
+    newFrame.origin.y -= NSHeight(frameForContent) - NSHeight(window.frame);
+    window.contentView = preferencePane;
+    [window setFrame:newFrame display:YES animate:YES];
+    window.initialFirstResponder = preferencePane;
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+
+    NSMutableArray<NSToolbarItemIdentifier> *toolbarItemIdentifiers = [NSMutableArray new];
+
+    [toolbarItemIdentifiers addObjectsFromArray:@[themesPanel, stylesPanel, presentationPanel, formatPanel, voiceOverPanel, miscPanel, globalPanel]];
+
+    return toolbarItemIdentifiers;
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
 
 @end

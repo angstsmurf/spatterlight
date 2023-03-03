@@ -11,7 +11,8 @@ typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
 };
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
-    kDefaultPrefWindowWidth = 516,
+    kDefaultPrefWindowWidth = 520
+    ,
     // Window height minus window top border
     kDefaultPrefsLowerViewHeight = 358
 } kDefaultPrefWindowSize;
@@ -25,7 +26,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, TableViewController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
 
-@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate>
+@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate, NSToolbarDelegate>
 
 + (void)rebuildTextAttributes;
 
