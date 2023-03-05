@@ -79,10 +79,14 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSTableView *themesTableView;
 
+    NSDictionary<NSToolbarItemIdentifier, NSView *> *itemIdentifierToViewDict;
+
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
     CGFloat defaultWindowHeight;
+    NSView *currentPanel;
+    CGFloat currentPanelHeight;
 
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
@@ -97,7 +101,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 @property (strong) IBOutlet PreviewController *previewController;
-@property (strong) IBOutlet NSLayoutConstraint *previewHeight;
+@property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
 
 @property (strong) IBOutlet NSView *themesView;
 @property (strong) IBOutlet NSView *stylesView;
@@ -106,8 +110,9 @@ fprintf(stderr, "%s\n",                                                    \
 @property (strong) IBOutlet NSView *voiceOverView;
 @property (strong) IBOutlet NSView *miscView;
 @property (strong) IBOutlet NSView *globalView;
-
-
+@property (strong) IBOutlet NSView *belowView;
+@property (strong) IBOutlet NSLayoutConstraint *belowHeightConstraint;
+@property (strong) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @end
 
@@ -250,34 +255,7 @@ NSString *fontToString(NSFont *font) {
 
     disregardTableSelection = YES;
 
-    NSRect winRect = [self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, kDefaultPrefsLowerViewHeight)];
-
-    defaultWindowHeight = NSHeight(winRect);
-
-    if (self.window.minSize.height != defaultWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
-        NSSize minSize = self.window.minSize;
-        minSize.height = defaultWindowHeight;
-        minSize.width = kDefaultPrefWindowWidth;
-        self.window.minSize = minSize;
-    }
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
-
-    if (!_previewShown) {
-        [self resizeWindowToHeight:defaultWindowHeight];
-    } else {
-        CGFloat restoredHeight = NSHeight(self.window.frame);
-
-        // Hack to fix weird bug where a sliver of the preview window
-        // keeps showing on restart
-        if (restoredHeight < defaultWindowHeight + 10) {
-            [self togglePreview:nil];
-        } else {
-            if (restoredHeight <= defaultWindowHeight)
-                [self resizeWindowToHeight:[self calculatePreviewHeight]];
-        }
-    }
 
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
@@ -331,14 +309,6 @@ NSString *fontToString(NSFont *font) {
 
     _previewController.theme = theme;
 
-    // Sample text view
-    CGFloat sampleY = kDefaultPrefsLowerViewHeight + 1;
-    NSRect newSampleFrame = NSMakeRect(0, sampleY, self.window.frame.size.width, ((NSView *)self.window.contentView).frame.size.height - sampleY);
-    _sampleTextBorderView.frame = newSampleFrame;
-
-    _divider.frame = NSMakeRect(0, kDefaultPrefsLowerViewHeight, self.window.frame.size.width, 1);
-    _divider.autoresizingMask = NSViewMaxYMargin;
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
                                                  name:@"PreferencesChanged"
@@ -357,20 +327,15 @@ NSString *fontToString(NSFont *font) {
     prefs = self;
     [self updatePrefsPanel];
 
-    NSScrollView *scrollView = _scrollView;
-
-    scrollView.scrollerStyle = NSScrollerStyleOverlay;
-    scrollView.drawsBackground = YES;
-    scrollView.hasHorizontalScroller = NO;
-    scrollView.hasVerticalScroller = YES;
-    scrollView.verticalScroller.alphaValue = 100;
-    scrollView.autohidesScrollers = YES;
-    scrollView.borderType = NSNoBorder;
+    _scrollView.scrollerStyle = NSScrollerStyleOverlay;
+    _scrollView.drawsBackground = YES;
+    _scrollView.hasHorizontalScroller = NO;
+    _scrollView.hasVerticalScroller = YES;
+    _scrollView.verticalScroller.alphaValue = 100;
+    _scrollView.autohidesScrollers = YES;
+    _scrollView.borderType = NSNoBorder;
 
     [self changeThemeName:theme.name];
-
-    self.windowFrameAutosaveName = @"PrefsPanel";
-    themesTableView.autosaveName = @"ThemesTable";
 
     themesPanel = @"themes";
     stylesPanel = @"styles";
@@ -380,7 +345,18 @@ NSString *fontToString(NSFont *font) {
     miscPanel = @"misc";
     globalPanel = @"global";
 
-    // This view controller determines the window toolbar's content.
+#pragma mark Init toolbar
+
+   itemIdentifierToViewDict = @{
+        themesPanel:_themesView,
+        stylesPanel:_stylesView,
+        presentationPanel:_presentationView,
+        formatPanel:_formatView,
+        voiceOverPanel:_voiceOverView,
+        miscPanel:_miscView,
+        globalPanel:_globalView
+    };
+
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
     toolbar.delegate = self;
     toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
@@ -390,7 +366,55 @@ NSString *fontToString(NSFont *font) {
     }
     self.window.toolbar = toolbar;
 
-    toolbar.selectedItemIdentifier = themesPanel;
+    if (toolbar.selectedItemIdentifier == nil)
+        toolbar.selectedItemIdentifier = themesPanel;
+
+    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
+
+    if (!_belowView.subviews.count) {
+        currentPanel = _themesView;
+    } else {
+        currentPanel = _belowView.subviews[0];
+    }
+    currentPanelHeight = NSHeight(currentPanel.frame);
+    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
+
+    NSRect prevFrame = _sampleTextBorderView.frame;
+    if (!_previewShown) {
+        defaultWindowHeight = NSHeight(self.window.frame) - NSHeight(prevFrame);
+        NSLog(@"Preview not shown. Preview height: %f Resizing window to height %f", NSHeight(prevFrame), defaultWindowHeight);
+        _previewHeightConstraint.constant = 0;
+        [self resizeWindowToHeight:defaultWindowHeight];
+    } else {
+        NSLog(@"Preview shown. Preview height: %f", NSHeight(prevFrame));
+        _previewHeightConstraint.constant = NSHeight(prevFrame);
+        if (NSHeight(self.window.frame) <= defaultWindowHeight) {
+            NSLog(@"window height: %f, less than default window height: %f, resizing window to %f", NSHeight(self.window.frame), defaultWindowHeight, [self calculateWindowHeightWithPreview]);
+            [self resizeWindowToHeight:[self calculateWindowHeightWithPreview]];
+        }
+        [_previewController fixScrollBar];
+    }
+
+    BOOL found = NO;
+    for (NSToolbarItem *item in toolbar.items) {
+        if ([item.itemIdentifier isEqual:toolbar.selectedItemIdentifier]) {
+            [self switchToPanel:item];
+            found = YES;
+            break;
+        }
+    }
+
+    if (!found)
+        [self switchToPanel:toolbar.items[0]];
+
+
+    self.windowFrameAutosaveName = @"PrefsPanel";
+    themesTableView.autosaveName = @"ThemesTable";
+
+    if (!_previewShown) {
+        if (!NSEqualRects(self.window.frame, [self.window frameRectForContentRect:currentPanel.frame]))
+            NSLog(@"Error! Wrong window size!");
+    }
 
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
@@ -601,7 +625,6 @@ NSString *fontToString(NSFont *font) {
 
 - (NSSize)windowWillResize:(NSWindow *)window
                     toSize:(NSSize)frameSize {
-
     if (window != self.window) {
         return frameSize;
     }
@@ -610,7 +633,7 @@ NSString *fontToString(NSFont *font) {
         _previewShown = NO;
     } else {
         if (frameSize.height > NSHeight(self.window.frame)) { // We are enlarging
-            CGFloat maxHeight = MAX([self calculatePreviewHeight] + 40, NSHeight(self.window.frame));
+            CGFloat maxHeight = MAX([self calculateWindowHeightWithPreview] + 40, NSHeight(self.window.frame));
             if (frameSize.height > maxHeight)
                 frameSize.height = maxHeight;
         }
@@ -633,8 +656,8 @@ NSString *fontToString(NSFont *font) {
     if (!_previewShown) {
         newHeight = defaultWindowHeight;
     } else {
-        newHeight = [self calculatePreviewHeight];
-        _previewHeight.constant = newHeight;
+        newHeight = [self calculateWindowHeightWithPreview];
+        _previewHeightConstraint.constant = [_previewController calculateHeight] + 40;
     }
 
     NSRect currentFrame = window.frame;
@@ -694,16 +717,16 @@ NSString *fontToString(NSFont *font) {
          [[prefsPanel animator]
           setFrame:winrect
           display:YES];
-        [_previewHeight.animator setConstant:NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight];
+        [_previewHeightConstraint.animator setConstant:NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight];
         [_previewController.textHeight.animator setConstant:MIN(NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight, [_previewController calculateHeight])];
      } completionHandler:^{}];
 }
 
-- (CGFloat)calculatePreviewHeight {
+- (CGFloat)calculateWindowHeightWithPreview {
 
     CGFloat proposedHeight = [_previewController calculateHeight];
 
-    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40; //2 * (theme.border + theme.bufferMarginY);
+    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40;
     CGRect screenframe = [NSScreen mainScreen].visibleFrame;
 
     if (totalHeight > screenframe.size.height) {
@@ -855,6 +878,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
+    [state encodeObject:(NSString *)self.window.toolbar.selectedItemIdentifier forKey:@"selectedItemIdentifier"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -864,6 +888,18 @@ textShouldEndEditing:(NSText *)fieldEditor {
         for (NSButton *button in fontsButtons) {
             if ([button.identifier isEqualToString:selectedfontString]) {
                 selectedFontButton = button;
+            }
+        }
+    }
+    NSToolbarItemIdentifier tii = [state decodeObjectOfClass:[NSString class] forKey:@"selectedItemIdentifier"];
+    if (tii) {
+        NSLog(@"Restored NSToolbarItemIdentifier %@", tii);
+        self.window.toolbar.selectedItemIdentifier = tii;
+
+        for (NSToolbarItem *item in self.window.toolbar.items) {
+            if ([item.itemIdentifier isEqual:tii]) {
+                [self switchToPanel:item];
+                break;
             }
         }
     }
@@ -1086,7 +1122,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         _previewShown = NO;
     } else {
         _previewShown = YES;
-        [self resizeWindowToHeight:[self calculatePreviewHeight]];
+        [self resizeWindowToHeight:[self calculateWindowHeightWithPreview]];
     }
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
@@ -2133,34 +2169,52 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)switchToPanel:(NSToolbarItem *)item {
-    NSDictionary<NSToolbarItemIdentifier, NSView *> *buttonToView = @{
-         themesPanel:_themesView,
-         stylesPanel:_stylesView,
-        presentationPanel:_presentationView,
-         formatPanel:_formatView,
-      voiceOverPanel:_voiceOverView,
-           miscPanel:_miscView,
-         globalPanel:_globalView
-    };
-
-    NSView *preferencePane = buttonToView[item.itemIdentifier];
+    NSView *preferencePane = itemIdentifierToViewDict[item.itemIdentifier];
     if (!preferencePane)
         return;
 
+    currentPanel = preferencePane;
+    currentPanelHeight = NSHeight(preferencePane.frame);
+    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
+    self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
+
     NSWindow *window = self.window;
-    if (window.contentView == preferencePane) {
+    if (_belowView.subviews.count &&  _belowView.subviews[0] == currentPanel) {
         return;
     }
 
     window.title = item.label;
 
     NSRect newFrame = window.frame;
-    NSRect frameForContent = [window frameRectForContentRect:preferencePane.frame];
-    newFrame.size.height = NSHeight(frameForContent);
-    newFrame.origin.y -= NSHeight(frameForContent) - NSHeight(window.frame);
-    window.contentView = preferencePane;
-    [window setFrame:newFrame display:YES animate:YES];
-    window.initialFirstResponder = preferencePane;
+    NSRect frameForContent = [window frameRectForContentRect:currentPanel.frame];
+
+    CGFloat previewHeight = NSHeight(_sampleTextBorderView.frame);
+    _previewHeightConstraint.constant = previewHeight;
+
+    newFrame.size.height = NSHeight(frameForContent) + previewHeight;
+
+    if (NSHeight(newFrame) > NSHeight(self.window.screen.visibleFrame)) {
+        newFrame.size.height = NSHeight(self.window.screen.visibleFrame);
+        frameForContent.size.height = NSHeight(self.window.screen.visibleFrame);
+        _previewHeightConstraint.constant = NSHeight(newFrame) - defaultWindowHeight;
+    }
+
+    newFrame.origin.y -= NSHeight(frameForContent) - NSHeight(window.frame) + previewHeight;
+
+    if (_belowView.subviews.count)
+        [_belowView.subviews[0] removeFromSuperview];
+    [_belowView addSubview:currentPanel];
+    currentPanel.frame = _belowView.bounds;
+    currentPanel.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+
+    _bottomConstraint.active = NO;
+    _belowHeightConstraint.constant = currentPanelHeight;
+
+    [self.window setFrame:newFrame
+                      display:YES animate:YES];
+
+    _bottomConstraint.active = YES;
+    window.initialFirstResponder = currentPanel;
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {

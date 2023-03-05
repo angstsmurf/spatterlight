@@ -11,10 +11,7 @@ typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
 };
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
-    kDefaultPrefWindowWidth = 520
-    ,
-    // Window height minus window top border
-    kDefaultPrefsLowerViewHeight = 358
+    kDefaultPrefWindowWidth = 560
 } kDefaultPrefWindowSize;
 
 typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
