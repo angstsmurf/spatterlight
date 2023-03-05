@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) IBOutlet NSTextView *sampleTextView;
 
 - (CGFloat)calculateHeight;
+- (void)updatePreviewText;
+- (void)fixScrollBar;
 
 @end
 

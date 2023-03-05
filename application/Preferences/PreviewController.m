@@ -38,6 +38,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePreferencesChanged:) name:@"PreferencesChanged" object:nil];
 }
 
+- (void)fixScrollBar {
+    NSScrollView *scrollview = _sampleTextView.enclosingScrollView;
+    scrollview.scrollerStyle = NSScrollerStyleOverlay;
+    scrollview.drawsBackground = YES;
+    scrollview.backgroundColor = _sampleTextView.backgroundColor;
+    scrollview.hasHorizontalScroller = NO;
+    scrollview.hasVerticalScroller = YES;
+    scrollview.verticalScroller.alphaValue = 100;
+    scrollview.autohidesScrollers = YES;
+}
+
 
 #pragma mark Preview
 
@@ -50,6 +61,11 @@
 }
 
 - (void)updatePreviewText {
+    if (NSWidth(_sampleTextView.frame) != NSWidth(_sampleTextView.enclosingScrollView.frame)) {
+        NSRect frame = _sampleTextView.frame;
+        frame.size.width = NSWidth(_sampleTextView.enclosingScrollView.frame);
+        _sampleTextView.frame = frame;
+    }
     NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
     NSMutableDictionary *attributes = _theme.bufSubH.attributeDict.mutableCopy;
 
@@ -65,11 +81,6 @@
     _sampleTextView.backgroundColor = _theme.bufferBackground;
     self.view.layer.backgroundColor = _theme.bufferBackground.CGColor;
     self.view.needsLayout = YES;
-    if (NSWidth(_sampleTextView.frame) == 0) {
-        NSRect frame = _sampleTextView.frame;
-        frame.size.width = NSWidth(_sampleTextView.enclosingScrollView.frame);
-        _sampleTextView.frame = frame;
-    }
 }
 
 - (CGFloat)calculateHeight {
@@ -90,11 +101,10 @@
 
 - (void)viewWillLayout {
     [super viewDidLayout];
-
-    _textHeight.constant = MIN([self calculateHeight], NSHeight(self.view.frame));
-
-    if (_textHeight.constant < 20) {
-        _textHeight.constant = 40;
+    _textHeight.constant = [self calculateHeight];
+    if (_textHeight.constant > NSHeight(self.view.frame)) {
+        [self fixScrollBar];
+        _textHeight.constant = NSHeight(self.view.frame);
     }
 }
 
