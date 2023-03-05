@@ -449,25 +449,8 @@ NSString *fontToString(NSFont *font) {
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
 
-    wint_t windowType = (wint_t)[defaults integerForKey:@"SelectedHyperlinkWindowType"];
-    if (windowType != wintype_TextGrid && windowType != wintype_TextBuffer) {
-        windowType = wintype_TextGrid;
-        [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
-    }
-
-    [_hyperlinksPopup selectItemWithTag:windowType];
-
-    switch (windowType) {
-        case wintype_TextGrid:
-            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        case wintype_TextBuffer:
-            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        default:
-            NSLog(@"Unhandled link window type");
-            break;
-    }
+    _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+    _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
@@ -1389,29 +1372,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
 
-- (IBAction)changeHyperlinkPopup:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger windowType = _hyperlinksPopup.selectedTag;
-    if ([defaults integerForKey:@"SelectedHyperlinkWindowType"] == windowType)
-        return;
-    [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
-    switch (windowType) {
-        case wintype_TextGrid:
-            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        case wintype_TextBuffer:
-            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        default:
-            NSLog(@"Unhandled hyperlink window type");
-            break;
-    }
-}
-
 - (IBAction)changeUnderlineLinks:(id)sender {
-    NSInteger windowType = _hyperlinksPopup.selectedTag;
     Theme *themeToChange;
-    NSUnderlineStyle selectedStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+    NSInteger windowType = (sender == _btnUnderlineLinksGrid) ? wintype_TextGrid : wintype_TextBuffer;
+    NSUnderlineStyle selectedStyle = (((NSButton *)sender).state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
         case wintype_TextGrid:
             if (theme.gridLinkStyle == selectedStyle)

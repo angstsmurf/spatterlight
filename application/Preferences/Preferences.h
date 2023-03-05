@@ -129,8 +129,8 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet NSColorWell *borderColorWell;
 @property (weak) IBOutlet NSButton *btnShowBezels;
 
-@property (weak) IBOutlet NSPopUpButton *hyperlinksPopup;
-@property (weak) IBOutlet NSButton *btnUnderlineLinks;
+@property (weak) IBOutlet NSButton *btnUnderlineLinksGrid;
+@property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
 
 @property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;
