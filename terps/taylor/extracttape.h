@@ -1,15 +1,15 @@
 //
 //  extracttape.h
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-04-11.
+//  Created by Petter Sjölund on 2022-04-11.
 //
 
 #ifndef extracttape_h
 #define extracttape_h
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 uint8_t *GetTZXBlock(int blockno, uint8_t *srcbuf, size_t *length);
 uint8_t *DeAlkatraz(uint8_t *raw_data, uint8_t *target, size_t offset, uint16_t IX, uint16_t DE, uint8_t *loacon, uint8_t add1, uint8_t add2, int selfmodify);

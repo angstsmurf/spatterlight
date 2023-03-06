@@ -20,11 +20,8 @@
 #endif
 
 @interface GlkGraphicsWindow () <NSSecureCoding> {
-    NSImage *image;
-
     BOOL mouse_request;
     BOOL transparent;
-    BOOL showingImage;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
 }
@@ -44,12 +41,12 @@
     self = [super initWithGlkController:glkctl_ name:name_];
 
     if (self) {
-        image = [[NSImage alloc] initWithSize:NSZeroSize];
+        _image = [[NSImage alloc] initWithSize:NSZeroSize];
         bgnd = 0xFFFFFF; // White
 
         mouse_request = NO;
         transparent = NO;
-        showingImage = NO;
+        _showingImage = NO;
         subImages = [NSMutableArray new];
         dirtyRects = [NSMutableArray new];
     }
@@ -60,11 +57,11 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
+        _image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
-        showingImage = [decoder decodeBoolForKey:@"showingImage"];
+        _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
     }
@@ -73,11 +70,25 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:image forKey:@"image"];
+    [encoder encodeObject:_image forKey:@"image"];
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
-    [encoder encodeBool:showingImage forKey:@"showingImage"];
+    [encoder encodeBool:_showingImage forKey:@"showingImage"];
+}
+
+- (void)postRestoreAdjustments:(GlkWindow *)win {
+    GlkGraphicsWindow *gwin = (GlkGraphicsWindow *)win;
+    if (gwin.showingImage) {
+        GlkGraphicsWindow * __weak weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            GlkGraphicsWindow *strongSelf = weakSelf;
+            if (strongSelf && NSEqualSizes(strongSelf.frame.size, gwin.image.size)) {
+                strongSelf.image = gwin.image.copy;
+                strongSelf.needsDisplay = YES;
+            }
+        });
+    }
 }
 
 - (BOOL)isOpaque {
@@ -102,9 +113,9 @@
         NSRectFill(rect);
     }
 
-    [image drawInRect:rect
+    [_image drawInRect:rect
               fromRect:rect
-             operation:NSCompositeSourceOver
+            operation:NSCompositingOperationSourceOver
               fraction:1.0];
 }
 
@@ -112,7 +123,7 @@
 
     frame.origin.y = round(frame.origin.y);
     
-    if (NSEqualRects(frame, self.frame) && !NSEqualSizes(image.size, NSZeroSize))
+    if (NSEqualRects(frame, self.frame) && !NSEqualSizes(_image.size, NSZeroSize))
         return;
 
     super.frame = frame;
@@ -121,17 +132,17 @@
         return;
 
     // First we store the current contents
-    NSImage *oldimage = image;
+    NSImage *oldimage = _image;
 
     // Then we create a new image, filling it with background color
     if (!transparent) {
 
-        image = [[NSImage alloc] initWithSize:frame.size];
+        _image = [[NSImage alloc] initWithSize:frame.size];
 
-        [image lockFocus];
+        [_image lockFocus];
         [[NSColor colorFromInteger:bgnd] set];
         NSRectFill(self.bounds);
-        [image unlockFocus];
+        [_image unlockFocus];
     }
 
     // The we draw the old contents over it
@@ -145,35 +156,41 @@
     dirty = YES;
 }
 
-- (void)fillRects:(struct fillrect *)rects count:(NSInteger)count {
+- (void)fillRects:(struct fillrect *)rawrects count:(NSInteger)count {
     NSSize size;
     NSInteger i;
 
-    size = image.size;
+    size = _image.size;
 
     if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
         return;
+
+    size_t rectssize = (size_t)count * sizeof(struct fillrect);
+
+    struct fillrect *rects = malloc(rectssize);
+    memcpy(rects, rawrects, rectssize);
 
     NSRect unionRect = NSZeroRect;
     if (count) {
         unionRect.origin.x = rects[0].x;
         unionRect.origin.y = rects[0].y;
     }
-        [image lockFocus];
-        uint32_t current_color = zcolor_Default;
-        for (i = 0; i < count; i++) {
-            if (current_color != rects[i].color)
+    [_image lockFocus];
+    uint32_t current_color = zcolor_Default;
+    for (i = 0; i < count; i++) {
+        if (current_color != rects[i].color)
             [[NSColor colorFromInteger:rects[i].color] set];
-            current_color = rects[i].color;
-            NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
-            NSRectFill(rect);
-            unionRect = NSUnionRect(unionRect, rect);
-        }
-        [image unlockFocus];
+        current_color = rects[i].color;
+        NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
+        NSRectFill(rect);
+        unionRect = NSUnionRect(unionRect, rect);
+    }
+    [_image unlockFocus];
     [dirtyRects addObject:@(unionRect)];
     [self pruneSubimagesInRect:unionRect];
     dirty = YES;
-    showingImage = YES;
+    _showingImage = YES;
+    free(rects);
 }
 
 - (void)flushDisplay {
@@ -189,7 +206,7 @@
 
 - (NSRect)florpCoords:(NSRect)r {
     NSRect res = r;
-    NSSize size = image.size;
+    NSSize size = _image.size;
     res.origin.y = size.height - res.origin.y - res.size.height;
     return res;
 }
@@ -202,8 +219,12 @@
             style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
-    if (NSEqualSizes(image.size, NSZeroSize)) {
-        return;
+    if (NSEqualSizes(_image.size, NSZeroSize)) {
+        if (!NSEqualSizes(self.frame.size, NSZeroSize)) {
+            _image = [[NSImage alloc] initWithSize:self.frame.size];
+        } else {
+            return;
+        }
     }
 
     if (w == 0)
@@ -214,7 +235,7 @@
     NSRect florpedRect;
 
     @autoreleasepool {
-        [image lockFocus];
+        [_image lockFocus];
 
         [NSGraphicsContext currentContext].imageInterpolation =
         NSImageInterpolationHigh;
@@ -223,13 +244,13 @@
 
         [src drawInRect:florpedRect
                fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-              operation:NSCompositeSourceOver
+              operation:NSCompositingOperationSourceOver
                fraction:1.0];
 
-        [image unlockFocus];
+        [_image unlockFocus];
     }
 
-    showingImage = YES;
+    _showingImage = YES;
     dirty = YES;
     [dirtyRects addObject:@(florpedRect)];
 
@@ -261,7 +282,7 @@
     
     NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
     
-    NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+    NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
     
     CGFloat dragThreshold = 0.3;
@@ -283,17 +304,15 @@
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {
             NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-            if (ABS(movedLocation.x - location.x) >dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
+            if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
                 *stop = YES;
                 
                 NSDraggingItem *dragItem;
                 
                 if (@available(macOS 10.14, *)) {
-                    
                     MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
                     
                     dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
-                    
                 } else {
                     NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
                     
@@ -303,7 +322,7 @@
                     dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
                 }
                 
-                [dragItem setDraggingFrame:self.bounds contents:image];
+                [dragItem setDraggingFrame:self.bounds contents:_image];
                 [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
             }
         }
@@ -388,7 +407,7 @@
             NSLog(@"GlkGraphicsWindow images: returning %ld subimages", subImages.count);
             return subImages;
         }
-    } else if (self.theme.vOSpeakImages == kVOImageAll && showingImage) {
+    } else if (self.theme.vOSpeakImages == kVOImageAll && _showingImage) {
         return @[ [self createDummySubImage] ];
     }
 
@@ -406,7 +425,7 @@
     return dummy;
 }
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+- (NSArray *)accessibilityCustomActions {
     NSMutableArray *mutable = [NSMutableArray new];
 
     if (mouse_request) {
@@ -422,7 +441,7 @@
     }
 
     NSArray *actions = mutable;
-    actions = [actions arrayByAddingObjectsFromArray:[self.glkctl accessibilityCustomActions]];
+    actions = [actions arrayByAddingObjectsFromArray:self.glkctl.accessibilityCustomActions];
 
     return actions;
 }
@@ -451,7 +470,7 @@
 - (NSArray *)accessibilityChildren {
     NSArray *children = super.accessibilityChildren;
 
-    if (subImages.count == 0 && self.theme.vOSpeakImages == kVOImageAll && showingImage) {
+    if (subImages.count == 0 && self.theme.vOSpeakImages == kVOImageAll && _showingImage) {
         [self createDummySubImage];
     }
 
@@ -587,10 +606,10 @@
 }
 
 - (nullable NSData *)pngData {
-    if (!image) {
+    if (!_image) {
         return nil;
     }
-    NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = _image.bitmapImageRepresentation;
     if (!bitmaprep)
         return nil;
 

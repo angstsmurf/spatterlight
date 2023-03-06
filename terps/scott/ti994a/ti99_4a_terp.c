@@ -281,7 +281,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 #ifdef DEBUG_ACTIONS
             debug_print(
                 "Item %d (%s) is removed from the game (put in room 0).\n",
-                    *ptr, Items[*ptr].Text);
+                *ptr, Items[*ptr].Text);
 #endif
             Items[*(ptr++)].Location = 0;
             break;
@@ -371,7 +371,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 #ifdef DEBUG_ACTIONS
             fprintf(stderr,
                 "Player now carries item %d (%s).\n",
-                    *ptr, Items[*ptr].Text);
+                *ptr, Items[*ptr].Text);
 #endif
             Items[*(ptr++)].Location = CARRIED;
             break;
@@ -417,7 +417,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
 #ifdef DEBUG_ACTIONS
             fprintf(stderr,
                 "%d is added to currentCounter. Result: %d\n",
-                    *ptr, CurrentCounter + *ptr);
+                *ptr, CurrentCounter + *ptr);
 #endif
             CurrentCounter += *(ptr++);
             break;
@@ -467,9 +467,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
             if (opcode <= 182 && opcode <= GameHeader.NumMessages + 1) {
                 PrintMessage(opcode);
             } else {
-                index = ptr - action_line;
-                debug_print("Unknown action %d [Param begins %d %d]\n",
-                        opcode, action_line[index], action_line[index + 1]);
+                debug_print("Unknown action %d [Param begins %d %d]\n", opcode, action_line[ptr - action_line], action_line[ptr - action_line + 1]);
                 break;
             }
             break;

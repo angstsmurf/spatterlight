@@ -1,23 +1,24 @@
 //
 //  saga.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-09-29.
+//  Created by Petter Sjölund on 2022-09-29.
 //
 
-#include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "scott.h"
-#include "detectgame.h"
-#include "sagagraphics.h"
-#include "pcdraw.h"
-#include "atari8c64draw.h"
 #include "apple2draw.h"
+#include "atari8c64draw.h"
+#include "detectgame.h"
+#include "pcdraw.h"
+#include "sagagraphics.h"
+#include "scott.h"
 
 #include "saga.h"
 
+// clang-format off
 
 static const char *DOSFilenames[] =
   { "B01024R", "B01044I", "R0109",   "R0190",
@@ -35,7 +36,10 @@ static const char *DOSFilenames[] =
     "R0187",   "B01022R", "B01040R", "R0103",  "R0188",
     "B01023I", "B01042I", "R0104",   "R0189",  NULL };
 
-int LoadDOSImages(void) {
+// clang-format on
+
+int LoadDOSImages(void)
+{
     USImages = new_image();
 
     struct USImage *image = USImages;
@@ -105,16 +109,16 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
             Nouns[wordnum] = MemAlloc(charindex + 1);
             memcpy((char *)Nouns[wordnum], dictword, charindex + 1);
             debug_print("Nouns %d: \"%s\"\n", wordnum,
-                    Nouns[wordnum]);
+                Nouns[wordnum]);
         } else {
             Verbs[wordnum - nn] = MemAlloc(charindex + 1);
             memcpy((char *)Verbs[wordnum - nn], dictword, charindex + 1);
             debug_print("Verbs %d: \"%s\"\n", wordnum - nn,
-                    Verbs[wordnum - nn]);
+                Verbs[wordnum - nn]);
         }
         wordnum++;
 
-        if (c != 0 && c > 127)
+        if (c > 127)
             return ptr;
 
         charindex = 0;
@@ -123,7 +127,8 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
     return ptr;
 }
 
-int DrawUSImage(USImage *image) {
+int DrawUSImage(USImage *image)
+{
     last_image_index = image->index;
     if (image->systype == SYS_MSDOS)
         return DrawDOSImage(image);
@@ -134,7 +139,8 @@ int DrawUSImage(USImage *image) {
     return 0;
 }
 
-void DrawInventoryImages(void) {
+void DrawInventoryImages(void)
+{
     struct USImage *image = USImages;
     if (image != NULL) {
         do {
@@ -146,7 +152,8 @@ void DrawInventoryImages(void) {
     }
 }
 
-void DrawRoomObjectImages(void) {
+void DrawRoomObjectImages(void)
+{
     struct USImage *image = USImages;
     if (image != NULL) {
         do {
@@ -158,7 +165,8 @@ void DrawRoomObjectImages(void) {
     }
 }
 
-int DrawUSRoom(int room) {
+int DrawUSRoom(int room)
+{
     struct USImage *image = USImages;
     if (image != NULL) {
         do {
@@ -171,7 +179,8 @@ int DrawUSRoom(int room) {
     return 0;
 }
 
-void DrawUSRoomObject(int item) {
+void DrawUSRoomObject(int item)
+{
     struct USImage *image = USImages;
     if (image != NULL) {
         do {
@@ -196,28 +205,28 @@ void LookUS(void)
 
     if (CurrentGame == HULK_US && USImages && USImages->systype != SYS_APPLE2)
         switch (MyLoc) {
-            case 5: // Tunnel going outside
-            case 6:
-                room = 3;
-                break;
-            case 7: // Field
-            case 8:
-                room = 4;
-                break;
-            case 10: // Hole
-            case 11:
-                room = 9;
-                break;
-            case 13: // Dome
-            case 14:
-                room = 2;
-                break;
-            case 17: // warp
-            case 18:
-                room = 16;
-                break;
-            default:
-                break;
+        case 5: // Tunnel going outside
+        case 6:
+            room = 3;
+            break;
+        case 7: // Field
+        case 8:
+            room = 4;
+            break;
+        case 10: // Hole
+        case 11:
+            room = 9;
+            break;
+        case 13: // Dome
+        case 14:
+            room = 2;
+            break;
+        case 17: // warp
+        case 18:
+            room = 16;
+            break;
+        default:
+            break;
         }
 
     if (!DrawUSRoom(room)) {
@@ -290,15 +299,18 @@ static int SanityCheckScottFreeHeader(int ni, int na, int nw, int nr, int mc)
     return 1;
 }
 
-uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof) {
+uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof)
+{
+#if (DEBUG_PRINT)
     for (int i = 0; i < count && ptr + i + 1 < eof; i += 2) {
-        uint16_t val =  ptr[i] + ptr[i+1] * 0x100;
-        debug_print("Unknown value %d: %d (%x)\n", i/2, val, val);
+        uint16_t val = ptr[i] + ptr[i + 1] * 0x100;
+        debug_print("Unknown value %d: %d (%x)\n", i / 2, val, val);
     }
-    return  ptr + count;
+#endif
+    return ptr + count;
 }
 
-int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int dict_start)
+GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int dict_start)
 {
     int ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -315,7 +327,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     if (dict_start) {
         file_baseline_offset = dict_start - info.start_of_dictionary - 645;
         debug_print("LoadBinaryDatabase: file baseline offset:%d\n",
-                file_baseline_offset);
+            file_baseline_offset);
         offset = info.start_of_header + file_baseline_offset;
         ptr = SeekToPos(data, offset);
     } else {
@@ -350,17 +362,17 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     }
 
     if (ptr == NULL)
-        return 0;
+        return UNKNOWN_GAME;
 
     ptr = ReadHeader(ptr);
 
     ParseHeader(header, US_HEADER, &ni, &na, &nw, &nr, &mc, &pr, &tr,
-                &wl, &lt, &mn, &trm);
+        &wl, &lt, &mn, &trm);
 
     PrintHeaderInfo(header, ni, na, nw, nr, mc, pr, tr, wl, lt, mn, trm);
 
     if (!SanityCheckScottFreeHeader(ni, na, nw, nr, mc))
-        return 0;
+        return UNKNOWN_GAME;
 
     GameHeader.NumItems = ni;
     Items = (Item *)MemAlloc(sizeof(Item) * (ni + 1));
@@ -385,7 +397,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     if (dict_start) {
         if (header[0] != info.word_length || header[1] != info.number_of_words || header[2] != info.number_of_actions || header[3] != info.number_of_items || header[4] != info.number_of_messages || header[5] != info.number_of_rooms || header[6] != info.max_carried) {
             //    debug_print("Non-matching header\n");
-            return 0;
+            return UNKNOWN_GAME;
         }
     }
 
@@ -395,7 +407,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
         ptr++;
 
     if (ptr - data >= length - 2)
-        return 0;
+        return UNKNOWN_GAME;
 
     ptr = ReadUSDictionary(ptr);
 
@@ -494,7 +506,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     }
 
     // Image strings lookup table
-    ptr = Skip(ptr, (ni + 1) * 4,  data + length);
+    ptr = Skip(ptr, (ni + 1) * 4, data + length);
 
 #pragma mark Actions
 
@@ -559,7 +571,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
     // Return if not reading UK Hulk
     if (!dict_start) {
         ptr = Skip(ptr, 0xe4, data + length);
-        return 1;
+        return CurrentGame;
     }
 
 #pragma mark room images
@@ -579,7 +591,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
 #pragma mark item images
 
     if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0)
-        return 0;
+        return UNKNOWN_GAME;
 
     ip = Items;
 
@@ -596,7 +608,7 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
             Items[index].Image = image++;
     } while (index != 255);
 
-    if (CurrentGame == HULK_C64) {
+    if (info.gameID == HULK_C64) {
         hulk_coordinates = 0x22cd;
         hulk_item_image_offsets = 0x2731;
         hulk_look_image_offsets = 0x2761;
@@ -604,9 +616,8 @@ int LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info, int d
         hulk_image_offset = -0x7ff;
     }
 
-    return 1;
+    return info.gameID;
 }
-
 
 uint8_t *ReadFileIfExists(const char *name, size_t *size)
 {
@@ -633,18 +644,47 @@ uint8_t *ReadFileIfExists(const char *name, size_t *size)
     return result;
 }
 
-int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2) {
+int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2)
+{
+    while (length1 > 0 && str1[length1] != '.') {
+        length1--;
+    }
+    while (length2 > 0 && str2[length2] != '.') {
+        length2--;
+    }
     size_t length = MIN(length1, length2);
-    length1--;
-    length2--;
+    if (length <= 0)
+        return 0;
     for (int i = length; i > 0; i--) {
-        if (str1[length1--] != str2[length2--])
+        if (str1[length1--] != str2[length2--]) {
             return 0;
+        }
     }
     return 1;
 }
 
-const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2) {
+const char *AddGameFileExtension(const char *filename, size_t gamefilelen, size_t *stringlength)
+{
+    char *new = NULL;
+    size_t extpos = gamefilelen;
+    while (extpos && game_file[extpos] != '.')
+        extpos--;
+    size_t extensionlength = gamefilelen - extpos;
+    char *extension = MemAlloc((int)extensionlength);
+    memcpy(extension, &game_file[extpos + 1], extensionlength);
+    extpos = *stringlength;
+    while (extpos && filename[extpos] != '.')
+        extpos--;
+    *stringlength = extpos + extensionlength;
+    new = MemAlloc((int)*stringlength + 1);
+    memcpy(new, filename, extpos + 1);
+    memcpy(new + extpos + 1, extension, extensionlength);
+    new[*stringlength] = 0;
+    return new;
+}
+
+const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2)
+{
 
     for (int i = 0; list[i][0].filename != NULL; i++) {
         *stringlength2 = list[i][0].stringlength;
@@ -656,7 +696,7 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
             *stringlength2 = list[i][1].stringlength;
             if (*stringlength2 == 0)
                 *stringlength2 = strlen(list[i][1].filename);
-            return list[i][1].filename;
+            return AddGameFileExtension(list[i][1].filename, stringlen, stringlength2);
         }
 
         *stringlength2 = list[i][1].stringlength;
@@ -668,14 +708,15 @@ const char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t s
             *stringlength2 = list[i][0].stringlength;
             if (*stringlength2 == 0)
                 *stringlength2 = strlen(list[i][0].filename);
-            return list[i][0].filename;
+            return AddGameFileExtension(list[i][0].filename, stringlen, stringlength2);
         }
     }
 
     return NULL;
 }
 
-char *LookInDatabase(const pairrec list[][2], size_t stringlen) {
+char *LookInDatabase(const pairrec list[][2], size_t stringlen)
+{
     size_t resultlen;
     const char *foundname = LookForCompanionFilenameInDatabase(list, stringlen, &resultlen);
     if (foundname != NULL) {

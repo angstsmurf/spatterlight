@@ -6,7 +6,7 @@
 
 #define FORMAT scott
 #define HOME_PAGE "https://github.com/cspiegel/scottfree-glk"
-#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr"
+#define FORMAT_EXT ".dat,.saga,.sna,.tzx,.tap,.z80,.d64,.t64,.dsk,.woz,.fiad,.atr,.sag"
 #define NO_METADATA
 #define NO_COVER
 
@@ -139,6 +139,7 @@ static const struct scottrec scott_registry[] = {
     { 0xb847, 0x22f8, TIME_MACHINE_IFID }, // The Time Machine (Tynesoft).tzx
     { 0xb80d, 0x12c2, TIME_MACHINE_IFID }, // The Time Machine TAP
     { 0x5032, 0x5635, TIME_MACHINE_IFID }, // The Time Machine C64
+   { 0x2ab00, 0xed21, TIME_MACHINE_IFID }, // The Time Machine D64 2
     { 0x8539, 0xad02, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80
     { 0x8699, 0xbb7b, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt
     { 0x7844, 0xd892, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 2
@@ -231,6 +232,7 @@ static const struct scottrec scott_registry[] = {
     { 0x9ef9, 0x4a01, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 3
     { 0xc01e, 0xa99d, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 4
     { 0xc01e, 0x2f60, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 5
+    { 0x9f36, 0x4b91, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk Z80 alt 6
    { 0x2ab00, 0xcdd8, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (D64)
     { 0x8534, 0x623a, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk C64 (T64)
    { 0x2ab00, 0x2918, QUESTPROBE_HULK_IFID }, // Questprobe 1 - The Hulk US (D64)
@@ -280,6 +282,8 @@ static const struct scottrec scott_registry[] = {
     { 0x16810, 0x3074, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt
     { 0x16810, 0x82c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure v5.0-408 Atari 8 boot disk alt 2
 
+    { 0x2adab, 0x04c5, PIRATE_ADVENTURE_IFID }, // Pirate Adventure C64 S.A.G.A version
+
     { 0xbae1, 0x0ec0, SECRET_MISSION_IFID }, // Secret Mission.tzx
     { 0xbaa7, 0xfc85, SECRET_MISSION_IFID }, // Secret Mission TAP image
     { 0x8723, 0xc6da, SECRET_MISSION_IFID }, // Secret Mission Z80
@@ -314,6 +318,10 @@ static const struct scottrec scott_registry[] = {
 
     { 0x16810, 0x4389, VOODOO_CASTLE_IFID }, // Voodoo Castle US v5.1-119 Atari 8-bit boot disk
     { 0x16810, 0x578d, VOODOO_CASTLE_IFID }, // Voodoo Castle US Atari 8-bit boot disk alt
+    { 0x2adab, 0xcb2b, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64
+    { 0x2ab00, 0x8969, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed
+    { 0x2ab00, 0x2682, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 2
+    { 0x2ab00, 0xac79, VOODOO_CASTLE_IFID }, // Voodoo Castle US C64 packed 3 (toko)
 
     { 0x38f00, 0xf8eb, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ)
     { 0x39559, 0x4c17, STRANGE_ODYSSEY_IFID }, // Strange Odyssey US (WOZ) alt
@@ -334,6 +342,8 @@ static const struct scottrec scott_registry[] = {
     { 0xbc5f, 0x492c, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (T64) alt 3
    { 0x2ab00, 0xfd67, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64)
    { 0x2ab00, 0x7ece, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
+   { 0x2ab00, 0x0b54, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
+   { 0x2ab00, 0xf70c, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
 
    { 0x2adab, 0x1fac, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xfbb6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)

@@ -9,7 +9,6 @@
 #include "AudioDecoder.h"
 #include "CFErrorUtilities.h"
 #include "CFWrapper.h"
-#include "HTTPInputSource.h"
 #include "LoopableRegionDecoder.h"
 #include "SFBCStringForOSType.h"
 

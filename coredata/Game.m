@@ -19,6 +19,7 @@
 @dynamic checksum;
 @dynamic compiler;
 @dynamic detectedFormat;
+@dynamic like;
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;

@@ -1,8 +1,8 @@
 //
 //  restorestate.h
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
 
 #ifndef restorestate_h
@@ -12,7 +12,6 @@ struct SavedState {
     uint16_t Counters[64];
     uint8_t ObjectLocations[256];
     uint64_t BitFlags;
-    int AutoInventory;
     int ProtagonistString;
     ImgType LastImgType;
     int LastImgIndex;

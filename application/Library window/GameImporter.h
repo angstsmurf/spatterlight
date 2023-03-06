@@ -7,13 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class Game, LibController;
+@class Game, TableViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GameImporter : NSObject
 
-- (instancetype)initWithLibController:(LibController *)libController;
+- (instancetype)initWithLibController:(TableViewController *)libController;
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
 
-@property (weak) LibController *libController;
+@property (strong) TableViewController *libController;
 
 @property NSMutableSet *downloadedMetadata;
 

@@ -5,7 +5,6 @@
 extern char tempdir[BUFLEN];
 
 extern char *autosavedir;
-extern char *gli_parentdir;
 
 extern void getworkdir(void);
 extern void getautosavedir(char *file);

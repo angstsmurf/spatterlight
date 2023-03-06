@@ -1,9 +1,44 @@
 # Change log
 
-## 0.9.9 (unreleased)
+## 1.0 (unreleased)
+- Support for output and input of glyphs outside the Basic Multilingual Plane
+- Output characters could in some situations be randomly erased
+- Opening of d$$ format AGT files was broken
+- Certain Commodore 64 games were recognised but would not start
+- Implements Glk gestalt_CharOutput check for printable characters
+- Adds ram save and ram restore to the Plus interpreter
+- Playing Plus games without graphics files could make the status window blank
+- Transcripts in Plus, Scott and Taylormade no longer have hard line breaks where the lines ended on-screen in room descriptions
+- Info windows could be left behind after deleting library
+
+## Release 0.9.9
+- Now requires macOS 10.13 or later
+- New view-based table view with updated design
+- Table view is less eager to scroll automatically
+- Adds a Like column
+- Adds a main Game menu, for things that previously could only be done by right-clicking in the table view
+- The Format column was not sorted properly
+- The side view was not always updated when the game on display was deleted
+- Autorestoring at the first turn could add another layer of text views on top of the existing. This would be autosaved, then another layer would be added if the game was immediately closed and opened again, and so on
+- Fixes a memory leak when interfacing with Babel
+- Fixes a memory leak when downloading info from IFDB
+- Fixes a memory leak when reading Commodore 64 disk images
 - The ScottFree, TaylorMade and Plus engines code is a little more cross-platform friendly
-- Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to room image
-- Both disk image files of a pair are now usually recognised and will open the correct game in Plus. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
+- Adds a line delimiter between the upper and lower windows in Plus
+- Implements inventory in the upper window in Plus
+- Adds support for more ScottFree and TaylorMade game variants found on the Internet Archive
+- Adds support for the unfinished SAGA Plus game fragment *Questprobe Number 4: X-Men*
+- Fixes picking up the cannon in the TaylorMade version of *Questprobe featuring Human Torch and The Thing*
+- Fixes a problem where TADS files might not be openable in some cases if Gargoyle is installed on your system, and a similar problem with Magnetic Scrolls files
+- Resizing the window in a ScottFree game when viewing a closeup image will no longer switch to the room image
+- Both disk image files of a pair are now usually recognised and will open the correct game in Plus, just like in ScottFree. Previously only side A files worked in Atari 8-bit games and only side B in Apple 2 games, which was kind of confusing
+- Some images in the Apple 2 version of *The Sorcerer of Claymorgue Castle* were cut off
+- Reading disk images in .woz format is a little faster
+- The Quick Look plugin should be more stable and less jittery during resize
+- Updates Bocfel to version 2.1
+- Works around a crash that could happen when autorestoring a game with open text search box
+- Updating the database from much older versions should work more reliably
+- Background and text of a couple of icons has been corrected. Quest 4 games had no text and generic icons had no moon
 
 ## Release 0.9.8
 - Adds support for some of the graphics used in the S.A.G.A. (Scott Adams Graphic Adventures) releases of the Scott Adams games. The bitmap formats used by Apple 2, Atari 8-bit, IBM PC and Commodore 64 are supported. Not yet supported are the line drawing graphics of the earlier releases or the tile-based graphics of *Return to Pirate's Isle*

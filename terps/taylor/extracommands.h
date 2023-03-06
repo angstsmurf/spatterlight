@@ -1,8 +1,8 @@
 //
 //  extracommands.h
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-04-05.
+//  Created by Petter Sjölund on 2022-04-05.
 //
 
 #ifndef extracommands_h

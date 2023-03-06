@@ -1,8 +1,8 @@
 //
 //  c64detect.h
-//  Plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-30.
+//  Created by Petter Sjölund on 2022-01-30.
 //
 
 #ifndef c64detect_h

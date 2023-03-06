@@ -8,7 +8,6 @@
 #import "BufferTextView.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkController.h"
-#import "DummyController.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"
@@ -83,7 +82,7 @@
             [super mouseDown:theEvent];
     } else {
 
-        NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+        NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
         NSTimeInterval timeout = NSEventDurationForever;
 
         CGFloat dragThreshold = 0.3;
@@ -167,14 +166,11 @@
     BOOL waseditable = self.editable;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-    if ([delegate.glkctl isKindOfClass:[DummyController class]] && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
-        return NO;
-
     if (menuItem.action == @selector(changeLayoutOrientation:) || menuItem.action == NSSelectorFromString(@"addLinksInSelection:") || menuItem.action == NSSelectorFromString(@"replaceTextInSelection:") || menuItem.action == NSSelectorFromString(@"replaceQuotesInSelection:") || menuItem.action == NSSelectorFromString(@"replaceDashesInSelection:"))
         return NO;
 
     if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:) || menuItem.action == @selector(uppercaseWord:) || menuItem.action == @selector(lowercaseWord:) || menuItem.action == @selector(capitalizeWord:)) {
-        NSRange editableRange = [delegate editableRange];
+        NSRange editableRange = delegate.editableRange;
 
         // If no line request, return NO
         if (editableRange.location == NSNotFound) {
@@ -268,7 +264,7 @@
         return YES;
     else {
         BOOL result = [super performDragOperation:sender];
-        NSRange editableRange = [delegate editableRange];
+        NSRange editableRange = delegate.editableRange;
         if (self.selectedRange.location < editableRange.location)
             self.selectedRange = NSMakeRange(editableRange.location, self.selectedRange.length);
         return result;
@@ -278,10 +274,10 @@
 - (NSRange)adjustedRange {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     NSRange selectedRange = self.selectedRange;
-    if (![delegate hasLineRequest])
+    if (!delegate.hasLineRequest)
         return selectedRange;
 
-    NSRange editableRange = [delegate editableRange];
+    NSRange editableRange = delegate.editableRange;
 
     if (selectedRange.location < editableRange.location && NSMaxRange(selectedRange) > editableRange.location) {
         return NSIntersectionRange(selectedRange, editableRange);
@@ -344,65 +340,14 @@
     return [super becomeFirstResponder];
 }
 
-- (NSString *)accessibilityActionDescription:(NSString *)action {
-    if (@available(macOS 10.13, *)) {
-    } else {
-        if ([action isEqualToString:@"Repeat last move"])
-            return @"repeat the text output of the last move";
-        if ([action isEqualToString:@"Speak move before"])
-            return @"step backward through moves";
-        if ([action isEqualToString:@"Speak move after"])
-            return @"step forward through moves";
-        if ([action isEqualToString:@"Speak status bar"])
-            return @"read status bar text";
-    }
-
-    return [super accessibilityActionDescription:action];
-}
-
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    NSArray *actions = (delegate.glkctl).accessibilityCustomActions;
     return actions;
 }
 
-
-- (NSArray *)accessibilityActionNames {
-    NSMutableArray *result = [[super accessibilityActionNames] mutableCopy];
-
-    if (@available(macOS 10.13, *)) {
-    } else {
-        [result addObjectsFromArray:@[
-            @"Repeat last move",
-            @"Speak move before",
-            @"Speak move after",
-            @"Speak status bar"
-        ]];
-    }
-    return result;
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-    if (@available(macOS 10.13, *)) {
-        [super accessibilityPerformAction:action];
-    } else {
-        GlkController *glkctl = ((GlkTextBufferWindow *)self.delegate).glkctl;
-
-        if ([action isEqualToString:@"Repeat last move"])
-            [glkctl speakMostRecent:nil];
-        else if ([action isEqualToString:@"Speak move before"])
-            [glkctl speakPrevious:nil];
-        else if ([action isEqualToString:@"Speak move after"])
-            [glkctl speakNext:nil];
-        else if ([action isEqualToString:@"Speak status bar"])
-            [glkctl speakStatus:nil];
-        else
-            [super accessibilityPerformAction:action];
-    }
-}
-
 - (NSArray *)accessibilityCustomRotors  {
-    return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
+    return (((GlkTextBufferWindow *)self.delegate).glkctl).createCustomRotors;
 }
 
 - (NSArray *)accessibilityChildren {

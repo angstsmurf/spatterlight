@@ -66,7 +66,7 @@
     return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
 	_tag = [decoder decodeInt32ForKey:@"tag"];
@@ -122,7 +122,7 @@
     ref->textmode = _textmode;
     if (URL)
     {
-        const char *path = [URL fileSystemRepresentation];
+        const char *path = URL.fileSystemRepresentation;
         char *urlpath = malloc(1 + strlen(path));
 
         strncpy(urlpath, path, strlen(path));

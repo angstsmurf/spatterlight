@@ -59,6 +59,8 @@
             attributeSet.rating = @(rating);
         attributeSet.contentDescription = metadata.blurb;
 
+        attributeSet.thumbnailData = (NSData *)metadata.cover.data;
+
         attributeSet.artist = metadata.author;
         attributeSet.genre = metadata.genre;
         attributeSet.originalFormat = metadata.format;

@@ -6,31 +6,34 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Game, Metadata;
+@class Game, Metadata, TableViewController, CoreDataManager;
 
-void showInfoForFile(NSString *path, NSDictionary *info);
+@interface InfoPanel : NSWindow
 
-@class LibController, CoreDataManager;
+@property BOOL disableConstrainedWindow;
+
+@end
 
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 
 @property (weak) Game *game;
-@property (weak) LibController *libcontroller;
+@property (strong) TableViewController *libcontroller;
+@property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, weak) CoreDataManager *coreDataManager;
+@property NSString *ifid;
 
-@property NSString *path;
 @property Metadata *meta;
 
 @property BOOL inAnimation;
 @property BOOL downArrowWhileInAnimation;
 @property BOOL upArrowWhileInAnimation;
 
+@property BOOL inDeletion;
 
 @property IBOutlet NSTextField *titleField;
 
 - (instancetype)initWithGame:(Game *)game;
-
-// Used for window restoration
-- (instancetype)initWithpath:(NSString *)path;
+- (instancetype)initWithIfid:(NSString *)ifid;
 
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;

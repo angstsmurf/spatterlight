@@ -1,13 +1,16 @@
 //
 //  companionfile.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-10-10.
+//  Created by Petter Sjölund on 2022-10-10.
 //
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "common.h"
+
 #include "companionfile.h"
 
 typedef enum {
@@ -20,11 +23,16 @@ typedef enum {
     TYPE_2,
 } CompanionNameType;
 
-static int StripBrackets(char sideB[], size_t length) {
+static int StripBrackets(char sideB[], size_t length)
+{
     int left_bracket = 0;
     int right_bracket = 0;
-    if (length > 4) {
-        for (int i = (int)length - 4; i > 0; i--) {
+    size_t ppos = length - 1;
+    while (sideB[ppos] != '.' && ppos > 0)
+        ppos--;
+    size_t extlen = length - ppos;
+    if (length > extlen) {
+        for (int i = (int)ppos; i > 0; i--) {
             char c = sideB[i];
             if (c == ']') {
                 if (right_bracket == 0) {
@@ -41,10 +49,12 @@ static int StripBrackets(char sideB[], size_t length) {
                 }
             }
         }
-        if (right_bracket && left_bracket) {
+        if (right_bracket && left_bracket && length > right_bracket + extlen) {
             right_bracket++;
-            while(right_bracket <= length)
+            for (int i = 0; i < extlen; i++) {
                 sideB[left_bracket++] = sideB[right_bracket++];
+            }
+            sideB[left_bracket] = '\0';
             return 1;
         }
     }
@@ -63,7 +73,6 @@ size_t GetFileLength(FILE *in)
     fseek(in, SEEK_SET, 0);
     return length;
 }
-
 
 uint8_t *ReadFileIfExists(const char *name, size_t *size)
 {
@@ -90,37 +99,38 @@ uint8_t *ReadFileIfExists(const char *name, size_t *size)
     return result;
 }
 
-static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize) {
+static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize)
+{
 
     char sideB[stringlen + 10];
     uint8_t *result = NULL;
 
     memcpy(sideB, game_file, stringlen + 1);
-    switch(type) {
-        case TYPE_A:
-            sideB[index] = 'A';
-            break;
-        case TYPE_B:
-            sideB[index] = 'B';
-            break;
-        case TYPE_1:
-            sideB[index] = '1';
-            break;
-        case TYPE_2:
-            sideB[index] = '2';
-            break;
-        case TYPE_ONE:
-            sideB[index] = 'o';
-            sideB[index + 1] = 'n';
-            sideB[index + 2] = 'e';
-            break;
-        case TYPE_TWO:
-            sideB[index] = 't';
-            sideB[index + 1] = 'w';
-            sideB[index + 2] = 'o';
-            break;
-        case TYPE_NONE:
-            break;
+    switch (type) {
+    case TYPE_A:
+        sideB[index] = 'A';
+        break;
+    case TYPE_B:
+        sideB[index] = 'B';
+        break;
+    case TYPE_1:
+        sideB[index] = '1';
+        break;
+    case TYPE_2:
+        sideB[index] = '2';
+        break;
+    case TYPE_ONE:
+        sideB[index] = 'o';
+        sideB[index + 1] = 'n';
+        sideB[index + 2] = 'e';
+        break;
+    case TYPE_TWO:
+        sideB[index] = 't';
+        sideB[index + 1] = 'w';
+        sideB[index + 2] = 'o';
+        break;
+    case TYPE_NONE:
+        break;
     }
 
     debug_print("looking for companion file \"%s\"\n", sideB);
@@ -134,7 +144,7 @@ static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size
         } else if (type == TYPE_A) {
             // First we look for the period before the file extension
             size_t ppos = stringlen - 1;
-            while(sideB[ppos] != '.' && ppos > 0)
+            while (sideB[ppos] != '.' && ppos > 0)
                 ppos--;
             if (ppos < 1)
                 return NULL;
@@ -158,8 +168,8 @@ static uint8_t *LookForCompanionFilename(int index, CompanionNameType type, size
     return result;
 }
 
-
-uint8_t *GetCompanionFile(size_t *size) {
+uint8_t *GetCompanionFile(size_t *size)
+{
 
     size_t gamefilelen = strlen(game_file);
     uint8_t *result = NULL;
@@ -170,10 +180,10 @@ uint8_t *GetCompanionFile(size_t *size) {
         char cminus1 = tolower(game_file[i - 1]);
         /* Pairs like side 1.dsk, side 2.dsk */
         if (i > 3 && ((c == 'e' && cminus1 == 'd' && tolower(game_file[i - 2]) == 'i' && tolower(game_file[i - 3]) == 's') ||
-                      /* Pairs like disk 1.dsk, disk 2.dsk */
-                      (c == 'k' && cminus1 && tolower(game_file[i - 2] == 'i') && tolower(game_file[i - 3]) == 'd') ||
-                      /* Pairs like hulk1.dsk, hulk2.dsk */
-                      (c == '.' && (cminus1 == '1' || cminus1 == '2' || cminus1 == 'a' || cminus1 == 'b')) )) {
+                /* Pairs like disk 1.dsk, disk 2.dsk */
+                (c == 'k' && cminus1 && tolower(game_file[i - 2] == 'i') && tolower(game_file[i - 3]) == 'd') ||
+                /* Pairs like hulk1.dsk, hulk2.dsk */
+                (c == '.' && (cminus1 == '1' || cminus1 == '2' || cminus1 == 'a' || cminus1 == 'b')))) {
             if (gamefilelen > i + 2) {
                 if (c != '.')
                     c = game_file[i + 1];
@@ -185,28 +195,28 @@ uint8_t *GetCompanionFile(size_t *size) {
                         c = tolower(game_file[i + 2]);
                     CompanionNameType type = TYPE_NONE;
                     switch (c) {
-                        case 'a':
-                            type = TYPE_B;
-                            break;
-                        case 'b':
-                            type = TYPE_A;
-                            break;
-                        case 't':
-                            if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
-                                type =  TYPE_ONE;
-                            }
-                            break;
-                        case 'o':
-                            if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                                type = TYPE_TWO;
-                            }
-                            break;
-                        case '2':
-                            type= TYPE_1;
-                            break;
-                        case '1':
-                            type = TYPE_2;
-                            break;
+                    case 'a':
+                        type = TYPE_B;
+                        break;
+                    case 'b':
+                        type = TYPE_A;
+                        break;
+                    case 't':
+                        if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
+                            type = TYPE_ONE;
+                        }
+                        break;
+                    case 'o':
+                        if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
+                            type = TYPE_TWO;
+                        }
+                        break;
+                    case '2':
+                        type = TYPE_1;
+                        break;
+                    case '1':
+                        type = TYPE_2;
+                        break;
                     }
                     if (type != TYPE_NONE)
                         result = LookForCompanionFilename(i + 2, type, gamefilelen, size);
@@ -218,4 +228,3 @@ uint8_t *GetCompanionFile(size_t *size) {
     }
     return NULL;
 }
-

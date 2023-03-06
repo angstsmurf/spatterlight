@@ -23,8 +23,8 @@
 #include <map>
 #include <memory>
 #include <new>
-#include <string>
 #include <sstream>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -42,6 +42,8 @@
 #include "types.h"
 #include "util.h"
 #include "zterp.h"
+
+using namespace std::literals;
 
 enum class StoreWhere {
     Variable,
@@ -64,7 +66,7 @@ static CallFrame *fp;
 #define BASE_OF_FRAMES	frames
 static CallFrame *TOP_OF_FRAMES;
 #define CURRENT_FRAME	(fp - 1)
-#define NFRAMES		((long)(fp - frames))
+#define NFRAMES		(static_cast<long>(fp - frames))
 
 static uint16_t *stack;
 static uint16_t *sp;
@@ -114,11 +116,10 @@ private:
 
 struct SaveStack {
     std::deque<SaveState> states;
-    unsigned long max;
+    unsigned long max = 0;
 
     void push(SaveState state) {
         // If the maximum number has been reached, drop the last element.
-        // A negative value for max_saves means there is no maximum.
         //
         // Small note: calling @restore_undo twice should succeed both times
         // if @save_undo was called twice (or three, four, etc. times). If
@@ -320,8 +321,7 @@ void start_v6()
 #ifdef ZTERP_GLK
 uint16_t internal_call(uint16_t routine)
 {
-    int saved_nargs = znargs;
-    uint16_t saved_arg = zargs[0];
+    std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
 
     znargs = 1;
     zargs[0] = routine;
@@ -329,8 +329,8 @@ uint16_t internal_call(uint16_t routine)
 
     process_instructions();
 
-    znargs = saved_nargs;
-    zargs[0] = saved_arg;
+    std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
+    znargs = saved_args.size();
 
     return pop_stack();
 }
@@ -611,7 +611,7 @@ static IFF::TypeID write_stks(IO &savefile)
 
 static IFF::TypeID write_anno(IO &savefile)
 {
-    std::string anno = "Interpreter: Bocfel "_s + ZTERP_VERSION;
+    std::string anno = "Interpreter: Bocfel "s + ZTERP_VERSION;
     savefile.write_exact(anno.c_str(), anno.size());
 
     return IFF::TypeID(&"ANNO");
@@ -648,7 +648,7 @@ static void write_undo_msav(IO &savefile, SaveStackType type)
         }
 
         savefile.write32(state->quetzal.size());
-        savefile.write_exact(&state->quetzal[0], state->quetzal.size());
+        savefile.write_exact(state->quetzal.data(), state->quetzal.size());
     }
 }
 
@@ -769,7 +769,7 @@ static void read_mem(IFF &iff)
         if (size > 0) {
             try {
                 buf.resize(size);
-                iff.io()->read_exact(&buf[0], size);
+                iff.io()->read_exact(buf.data(), size);
             } catch (const std::bad_alloc &) {
                 throw RestoreError("unable to allocate memory for CMem");
             } catch (const IO::IOError &) {
@@ -834,7 +834,7 @@ static void read_stks(IFF &iff)
             throw RestoreError(fstring("frame #%lu pc out of range (0x%lx)", static_cast<unsigned long>(frameno), static_cast<unsigned long>(frame_pc)));
         }
 
-        add_frame(frame_pc, sp, nlocals, nargs, (frame[3] & 0x10) ? 0xff + 1 : frame[4]);
+        add_frame(frame_pc, sp, nlocals, nargs, ((frame[3] & 0x10) == 0x10) ? 0xff + 1 : frame[4]);
 
         for (int i = 0; i < nlocals; i++) {
             uint16_t l;
@@ -949,14 +949,13 @@ static void read_bfzs_specific(IFF &iff, SaveType savetype, SaveOpcode &saveopco
 // autorestore at all.
 static void read_undo_msav(IO &savefile, uint32_t size, SaveStackType type)
 {
-    uint32_t version;
-    uint32_t count;
-    SaveStack &save_stack = save_stacks[type];
-    size_t actual_size = 0;
     bool updated_seen_save_undo = seen_save_undo;
 
     try {
-        version = savefile.read32();
+        uint32_t version = savefile.read32();
+        uint32_t count;
+        SaveStack &save_stack = save_stacks[type];
+        size_t actual_size = 0;
         if (version != 0) {
             return;
         }
@@ -995,10 +994,10 @@ static void read_undo_msav(IO &savefile, uint32_t size, SaveStackType type)
 
             quetzal_size = savefile.read32();
             quetzal.resize(quetzal_size);
-            savefile.read_exact(&quetzal[0], quetzal_size);
+            savefile.read_exact(quetzal.data(), quetzal_size);
 
             if (count - i <= save_stack.max) {
-                auto newstate = SaveState(static_cast<SaveType>(savetype), desc.c_str(), quetzal);
+                SaveState newstate(static_cast<SaveType>(savetype), desc.c_str(), quetzal);
                 temp.push(std::move(newstate));
             }
 
@@ -1142,12 +1141,16 @@ static bool restore_quetzal(std::shared_ptr<IO> savefile, SaveType savetype, Sav
 
         if (iff->find(IFF::TypeID(&"Bfhs"), size)) {
             if (savetype == SaveType::Autosave || !options.disable_history_playback) {
-                long start = iff->io()->tell();
+                try {
+                    long start = iff->io()->tell();
 
-                screen_read_bfhs(*iff->io(), savetype == SaveType::Autosave);
+                    screen_read_bfhs(*iff->io(), savetype == SaveType::Autosave);
 
-                if (iff->io()->tell() - start != size) {
-                    throw RestoreError("history size mismatch");
+                    if (iff->io()->tell() - start != size) {
+                        throw RestoreError("history size mismatch");
+                    }
+                } catch (const IO::IOError &) {
+                    throw RestoreError("can't find location in file");
                 }
             }
         } else if (savetype == SaveType::Autosave) {
@@ -1327,7 +1330,7 @@ SaveResult push_save(SaveStackType type, SaveType savetype, SaveOpcode saveopcod
             return SaveResult::Failure;
         }
 
-        auto newstate = SaveState(savetype, desc, savefile.get_memory());
+        SaveState newstate(savetype, desc, savefile.get_memory());
         s.push(std::move(newstate));
 
         return SaveResult::Success;
@@ -1397,7 +1400,7 @@ bool drop_save(SaveStackType type, size_t i)
     return true;
 }
 
-void list_saves(SaveStackType type, void (*printer)(const char *))
+void list_saves(SaveStackType type, void (*printer)(const std::string &))
 {
     SaveStack &s = save_stacks[type];
     auto nsaves = s.states.size();
@@ -1408,14 +1411,14 @@ void list_saves(SaveStackType type, void (*printer)(const char *))
     }
 
     for (auto p = s.states.crbegin(); p != s.states.crend(); ++p) {
-        std::stringstream ss;
+        std::ostringstream ss;
 
         ss << nsaves << ". " << (p->desc.empty() ? "<no description>" : p->desc);
         if (nsaves == 1) {
             ss << " *";
         }
 
-        printer(ss.str().c_str());
+        printer(ss.str());
 
         nsaves--;
     }
@@ -1631,7 +1634,7 @@ void init_stack(bool first_run)
 
     // Free all @save_undo save states.
     save_stacks[SaveStackType::Game].clear();
-    save_stacks[SaveStackType::Game].max = options.max_saves;
+    save_stacks[SaveStackType::Game].max = options.undo_slots;
     seen_save_undo = false;
 
     // Free all /ps save states.

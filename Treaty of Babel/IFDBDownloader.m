@@ -29,6 +29,7 @@ fprintf(stderr, "%s\n",                                                    \
 #import "NotificationBezel.h"
 #import "AppDelegate.h"
 #import "LibController.h"
+#import "TableViewController.h"
 #import "DownloadOperation.h"
 #import "NSManagedObjectContext+safeSave.h"
 #import "ComparisonOperation.h"
@@ -50,7 +51,7 @@ fprintf(stderr, "%s\n",                                                    \
     self = [super init];
     if (self) {
         _context = context;
-        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+        defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
 
         lastImageDownloadOperation = nil;
     }
@@ -133,7 +134,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         return nil;
     
     NSManagedObjectContext *localContext = games.firstObject.managedObjectContext;
-    
+
     NSOperation __block *lastoperation = nil;
     
     IFDBDownloader __weak *weakSelf = self;
@@ -182,6 +183,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                             }];
                         }
                     }];
+                } else if (reportFailure) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+                        [IFDBDownloader showNoDataFoundBezel];
+                    }];
                 }
             }
         };
@@ -189,7 +194,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         NSMutableSet *downloadedMetadata = [NSMutableSet new];
         
         for (Game *game in games) {
-            if ([downloadedMetadata containsObject:game.metadata])
+            if (game.metadata == nil || [downloadedMetadata containsObject:game.metadata])
                 continue;
             [downloadedMetadata addObject:game.metadata];
             DownloadOperation *operation;
@@ -214,6 +219,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             lastoperation = finisher;
         }
     }];
+
     if (lastImageDownloadOperation)
         lastoperation = lastImageDownloadOperation;
     lastImageDownloadOperation = nil;
@@ -248,7 +254,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 - (void)downloadImageFor:(Metadata *)metadata onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force {
     NSManagedObjectContext *localcontext = metadata.managedObjectContext;
-    
+
     NSString __block *coverArtURL = _coverArtUrl;
     BOOL __block giveup = NO;
     
@@ -319,7 +325,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 
                 [strongSelf checkIfUserWants:data ratherThan:oldData force:force completionHandler:^{
                     [IFDBDownloader insertImageData:data inMetadata:metadata];
-                    [localcontext safeSave];
                 }];
             }
         }
@@ -336,7 +341,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         completionHandler();
     } else if (comparisonResult == kImageComparisonResultWantsUserInput) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            LibController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+            TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController;
             if (!force && [libController.lastImageComparisonData isEqual:newData])
                 return;
             if (libController.downloadWasCancelled)

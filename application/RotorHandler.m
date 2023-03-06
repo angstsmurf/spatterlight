@@ -26,7 +26,7 @@
 
 
 - (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
-                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
 
     if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
         NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
@@ -46,7 +46,7 @@
     return nil;
 }
 
-- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction  API_AVAILABLE(macos(10.13)){
+- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction {
 
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
@@ -92,7 +92,7 @@
 }
 
 - (NSAccessibilityCustomRotorItemResult *)linksRotor:(NSAccessibilityCustomRotor *)rotor
-                           resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+                           resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
 
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
@@ -114,7 +114,7 @@
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
             id targetTextView = ((GlkTextBufferWindow *)view).textview;
-            NSArray *links = [view links];
+            NSArray *links = view.links;
 
             if (filterText.length && links.count) {
                 NSString __block *text = ((NSTextView *)targetTextView).string;
@@ -180,7 +180,7 @@
 }
 
 - (NSAccessibilityCustomRotorItemResult *)glkWindowRotor:(NSAccessibilityCustomRotor *)rotor
-                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
@@ -291,7 +291,7 @@
 
 
 - (NSAccessibilityCustomRotorItemResult *)imagesRotor:(NSAccessibilityCustomRotor *)rotor
-                            resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+                            resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
 
     if (_glkctl.theme.vOSpeakImages == kVOImageNone) {
         return nil;
@@ -309,7 +309,7 @@
     NSArray *allWindows = _glkctl.gwindows.allValues;
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkTextGridWindow class]]) {
-            NSArray *viewimages = [view images];
+            NSArray *viewimages = view.images;
             NSString __block *label;
             if (filterText.length && viewimages.count) {
                 viewimages = [viewimages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
@@ -419,7 +419,7 @@
 
 
 - (NSAccessibilityCustomRotorItemResult *)commandHistoryRotor:(NSAccessibilityCustomRotor *)rotor
-                                    resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+                                    resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
 
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
@@ -519,51 +519,47 @@
 }
 
 - (NSArray *)createCustomRotors {
-    if (@available(macOS 10.13, *)) {
-        NSMutableArray *rotorsArray = [[NSMutableArray alloc] init];
+    NSMutableArray *rotorsArray = [[NSMutableArray alloc] init];
 
-        BOOL hasLinks = NO;
-        BOOL hasImages = NO;
-        GlkController *glkctl = _glkctl;
+    BOOL hasLinks = NO;
+    BOOL hasImages = NO;
+    GlkController *glkctl = _glkctl;
 
-        for (GlkWindow *view in glkctl.gwindows.allValues) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
-                hasLinks = YES;
-            }
-            if (![view isKindOfClass:[GlkTextGridWindow class]] && view.images.count) {
-                hasImages = YES;
-            }
+    for (GlkWindow *view in glkctl.gwindows.allValues) {
+        if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
+            hasLinks = YES;
         }
-
-        // Create the link rotor
-        if (hasLinks) {
-            NSAccessibilityCustomRotor *linkRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeLink itemSearchDelegate:self];
-            [rotorsArray addObject:linkRotor];
+        if (![view isKindOfClass:[GlkTextGridWindow class]] && view.images.count) {
+            hasImages = YES;
         }
-
-        // Create the images rotor
-        if (hasImages && glkctl.theme.vOSpeakImages != kVOImageNone) {
-            NSAccessibilityCustomRotor *imagesRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeImage itemSearchDelegate:self];
-            [rotorsArray addObject:imagesRotor];
-        }
-
-        // Create the text search rotor.
-        NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
-        [rotorsArray addObject:textSearchRotor];
-        // Create the command history rotor
-        if ([glkctl largestWithMoves]) {
-            NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
-            [rotorsArray addObject:commandHistoryRotor];
-        }
-        // Create the Glk windows rotor
-        if (glkctl.gwindows.count) {
-            NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
-            [rotorsArray addObject:glkWindowRotor];
-        }
-        return rotorsArray;
-    } else {
-        return @[];
     }
+
+    // Create the link rotor
+    if (hasLinks) {
+        NSAccessibilityCustomRotor *linkRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeLink itemSearchDelegate:self];
+        [rotorsArray addObject:linkRotor];
+    }
+
+    // Create the images rotor
+    if (hasImages && glkctl.theme.vOSpeakImages != kVOImageNone) {
+        NSAccessibilityCustomRotor *imagesRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeImage itemSearchDelegate:self];
+        [rotorsArray addObject:imagesRotor];
+    }
+
+    // Create the text search rotor.
+    NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
+    [rotorsArray addObject:textSearchRotor];
+    // Create the command history rotor
+    if (glkctl.largestWithMoves) {
+        NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
+        [rotorsArray addObject:commandHistoryRotor];
+    }
+    // Create the Glk windows rotor
+    if (glkctl.gwindows.count) {
+        NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
+        [rotorsArray addObject:glkWindowRotor];
+    }
+    return rotorsArray;
 }
 
 @end

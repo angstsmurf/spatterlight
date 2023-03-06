@@ -1,17 +1,18 @@
 //
 //  extracommands.c
-//  taylor
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-04-05.
+//  Created by Petter Sjölund on 2022-04-05.
 //
-#include <string.h>
-#include <stdint.h>
-#include <ctype.h>
 
+#include <ctype.h>
+#include <stdint.h>
+#include <string.h>
+
+#include "extracommands.h"
+#include "parseinput.h"
 #include "restorestate.h"
 #include "utility.h"
-#include "parseinput.h"
-#include "extracommands.h"
 
 typedef enum {
     NO_COMMAND,
@@ -106,13 +107,13 @@ const extra_command ExtraCommandsKey[] = {
 extern int ShouldRestart;
 extern int StopTime;
 extern int Redraw;
+extern int WordsInInput;
 
 extern winid_t Bottom;
 
 int YesOrNo(void);
 void SaveGame(void);
 int LoadGame(void);
-
 
 static void TranscriptOn(void)
 {
@@ -124,7 +125,7 @@ static void TranscriptOn(void)
     }
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_Transcript,
-                                       filemode_Write, 0);
+        filemode_Write, 0);
     if (ref == NULL)
         return;
 
@@ -139,7 +140,7 @@ static void TranscriptOn(void)
     char *start_of_transcript = "Start of transcript\n\n";
     glk_put_string_stream(Transcript, start_of_transcript);
     glk_put_string_stream(glk_window_get_stream(Bottom),
-                          "Transcript is now on.\n");
+        "Transcript is now on.\n");
 }
 
 static void TranscriptOff(void)
@@ -155,7 +156,7 @@ static void TranscriptOff(void)
     glk_stream_close(Transcript, NULL);
     Transcript = NULL;
     glk_put_string_stream(glk_window_get_stream(Bottom),
-                          "Transcript is now off.\n");
+        "Transcript is now off.\n");
 }
 
 static int ParseExtraCommand(char *p)
@@ -167,12 +168,12 @@ static int ParseExtraCommand(char *p)
         return NO_COMMAND;
     int j = 0;
     int found = 0;
-    while(ExtraCommands[j] != NULL) {
+    while (ExtraCommands[j] != NULL) {
         size_t commandlen = strlen(ExtraCommands[j]);
         if (commandlen == len) {
             char *c = p;
             found = 1;
-            for(int i = 0; i < len; i++) {
+            for (int i = 0; i < len; i++) {
                 if (tolower(*c++) != ExtraCommands[j][i]) {
                     found = 0;
                     break;
@@ -193,73 +194,73 @@ int TryExtraCommand(void)
 {
     int verb = ParseExtraCommand(InputWordStrings[WordPositions[0]]);
     int noun = NO_COMMAND;
-    if (WordPositions[1] != WordPositions[0])
-        noun = ParseExtraCommand(InputWordStrings[WordPositions[1]]);
+    if (WordPositions[0] + 1 < WordsInInput)
+        noun = ParseExtraCommand(InputWordStrings[WordPositions[0] + 1]);
     if (noun == NO_COMMAND)
         noun = Word[1];
 
     StopTime = 1;
     Redraw = 1;
     switch (verb) {
-        case RESTORE:
-            if (noun == NO_COMMAND || noun == GAME) {
-                LoadGame();
-                return 1;
+    case RESTORE:
+        if (noun == NO_COMMAND || noun == GAME) {
+            LoadGame();
+            return 1;
+        }
+        break;
+    case RESTART:
+        if (noun == NO_COMMAND || noun == GAME) {
+            Display(Bottom, "Restart? (Y/N) ");
+            if (YesOrNo()) {
+                ShouldRestart = 1;
             }
-            break;
-        case RESTART:
-            if (noun == NO_COMMAND || noun == GAME) {
-                Display(Bottom, "Restart? (Y/N) ");
-                if (YesOrNo()) {
-                    ShouldRestart = 1;
-                }
-                return 1;
-            }
-            break;
-        case SAVE_EXTR:
-            if (noun == NO_COMMAND || noun == GAME) {
-                SaveGame();
-                return 1;
-            }
-            break;
-        case UNDO:
-            if (noun == NO_COMMAND || noun == COMMAND) {
-                RestoreUndo(1);
-                return 1;
-            }
-            break;
-        case RAM:
-            if (noun == RESTORE) {
-                RamLoad();
-                return 1;
-            } else if (noun == SAVE_EXTR) {
-                RamSave(1);
-                return 1;
-            }
-            break;
-        case RAMSAVE_EXTR:
-            if (noun == NO_COMMAND) {
-                RamSave(1);
-                return 1;
-            }
-            break;
-        case RAMLOAD_EXTR:
-            if (noun == NO_COMMAND) {
-                RamLoad();
-                return 1;
-            }
-            break;
-        case SCRIPT:
-            if (noun == ON || noun == 0) {
-                TranscriptOn();
-                return 1;
-            } else if (noun == OFF) {
-                TranscriptOff();
-                return 1;
-            }
-            break;
-        default:
-            break;
+            return 1;
+        }
+        break;
+    case SAVE_EXTR:
+        if (noun == NO_COMMAND || noun == GAME) {
+            SaveGame();
+            return 1;
+        }
+        break;
+    case UNDO:
+        if (noun == NO_COMMAND || noun == COMMAND) {
+            RestoreUndo(1);
+            return 1;
+        }
+        break;
+    case RAM:
+        if (noun == RESTORE) {
+            RamLoad();
+            return 1;
+        } else if (noun == SAVE_EXTR) {
+            RamSave(1);
+            return 1;
+        }
+        break;
+    case RAMSAVE_EXTR:
+        if (noun == NO_COMMAND) {
+            RamSave(1);
+            return 1;
+        }
+        break;
+    case RAMLOAD_EXTR:
+        if (noun == NO_COMMAND) {
+            RamLoad();
+            return 1;
+        }
+        break;
+    case SCRIPT:
+        if (noun == ON || noun == 0) {
+            TranscriptOn();
+            return 1;
+        } else if (noun == OFF) {
+            TranscriptOff();
+            return 1;
+        }
+        break;
+    default:
+        break;
     }
 
     StopTime = 0;

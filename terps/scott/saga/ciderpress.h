@@ -1,8 +1,8 @@
 //
 //  ciderpress.h
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-09-29.
+//  Created by Petter Sjölund on 2022-09-29.
 //  This is based on parts of the Ciderpress source.
 //  See https://github.com/fadden/ciderpress for the full version.
 //

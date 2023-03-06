@@ -1,45 +1,45 @@
 //
 //  apple2detect.c
-//  scottfree
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-08-03.
+//  Created by Petter Sjölund on 2022-08-03.
 //
 
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
-#include "scott.h"
-#include "scottdefines.h"
-#include "saga.h"
-#include "sagagraphics.h"
-#include "woz2nib.h"
+#include "apple2draw.h"
 #include "ciderpress.h"
 #include "hulk.h"
-#include "apple2draw.h"
+#include "saga.h"
+#include "sagagraphics.h"
+#include "scott.h"
+#include "scottdefines.h"
+#include "woz2nib.h"
 
 #include "apple2detect.h"
 
 static const pairrec a2companionlist[][2] = {
-    {{ 0x23000, 0xa989, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79}, { 0x23000, 0x5750, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 }},
+    { { 0x23000, 0xa989, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79 }, { 0x23000, 0x5750, "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 } },
 
-    {{ 0x39557, 0x3ff3, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 },{ 0x39557, 0x374e, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 }},
+    { { 0x39557, 0x3ff3, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39557, 0x374e, "SAGA #1 - Adventureland v2.0-416 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
 
-    {{ 0x39567, 0x8aa4, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 93 },{ 0x39567, 0xcf60, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 99 }},
+    { { 0x39567, 0x8aa4, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 93 }, { 0x39567, 0xcf60, "SAGA #2 - Pirate Adventure v2.1-408 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 99 } },
 
-    {{ 0x39554, 0xbbd3, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 95 }, { 0x39554, 0x361a, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 101 }},
+    { { 0x39554, 0xbbd3, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 95 }, { 0x39554, 0x361a, "SAGA #3 - Mission Impossible v2.1-306 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 101 } },
 
-    {{ 0x39558, 0x958f, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39558, 0xff6a, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 }},
+    { { 0x39558, 0x958f, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 90 }, { 0x39558, 0xff6a, "SAGA #4 - Voodoo Castle v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 96 } },
 
-    {{ 0x23000, 0xedf, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A.dsk", 75}, { 0x23000, 0x09f4, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot.dsk", 82 }},
+    { { 0x23000, 0xedf, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side A.dsk", 75 }, { 0x23000, 0x09f4, "Scott Adams Graphic Adventure 5 - The Count v2.1-115 (4am crack) side B - boot.dsk", 82 } },
 
-    {{ 0x39589, 0x7010, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 86 }, { 0x39589, 0xbf0e, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 92 }},
+    { { 0x39589, 0x7010, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 86 }, { 0x39589, 0xbf0e, "SAGA #5 - The Count v2.1-115 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 92 } },
 
-    {{ 0x39589, 0xee5d, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 92 }, { 0x39589, 0x4c17, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 98 }},
+    { { 0x39589, 0xee5d, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side A)[48K].woz", 92 }, { 0x39589, 0x4c17, "SAGA #6 - Strange Odyssey v2.1-119 (1982)(Adventure International)(II+)(US)(Side B)(Boot)[48K].woz", 98 } },
 
-    {{ 0x23000, 0xd8ca, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk", 81 }, { 0x23000, 0xd700, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk", 88 }},
+    { { 0x23000, 0xd8ca, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side A.dsk", 81 }, { 0x23000, 0xd700, "Scott Adams Graphic Adventure 6 - Strange Odyssey v2.1-119 (4am crack) side B - boot.dsk", 88 } },
 
-    {{ 0,0, NULL }, { 0,0, NULL }}
+    { { 0, 0, NULL }, { 0, 0, NULL } }
 };
 
 typedef struct imglist {
@@ -91,10 +91,10 @@ static const imglist a2listHulk[] = {
     { IMG_ROOM, 97, 0x19400, 0x63c }, // outlet
     { IMG_ROOM, 99, 0x19b00, 0xe1b }, // title
 
-    { IMG_INV_OBJ, 1, 0x1aa00, 0x523 }, // rage (Hulk with bag)
-    { IMG_INV_OBJ, 2, 0x1b000, 0x83 }, // mirror
-    { IMG_INV_OBJ, 3, 0x1b100, 0x102 }, // broken chair
-    { IMG_INV_OBJ, 4, 0x1b300, 0x3e }, // gem 1
+    { IMG_INV_OBJ, 01, 0x1aa00, 0x523 }, // rage (Hulk with bag)
+    { IMG_INV_OBJ, 02, 0x1b000, 0x83 }, // mirror
+    { IMG_INV_OBJ, 03, 0x1b100, 0x102 }, // broken chair
+    { IMG_INV_OBJ, 04, 0x1b300, 0x3e }, // gem 1
     { IMG_INV_OBJ, 12, 0x1b400, 0x3e }, // gem 2
 
     { IMG_ROOM_OBJ, 13, 0x1b500, 0xc2 }, // pit
@@ -150,7 +150,6 @@ static const imglist a2listHulk[] = {
     { IMG_ROOM_OBJ, 72, 0x20700, 0x3f }, // Wax in room
 
     { IMG_INV_OBJ, 51, 0x21200, 0x3c }, // gem 16
-
 
     { 0, 0, 0, 0 }
 };
@@ -267,7 +266,6 @@ static const imglist a2listHulk126[] = {
     { 0, 0, 0, 0 }
 };
 
-
 static const imglist a2listClaymorgue[] = {
     { IMG_ROOM, 0, 0x1000, 0x01ac }, // Too dark
     { IMG_ROOM, 1, 0x01200, 0x0c4a }, // field
@@ -284,16 +282,16 @@ static const imglist a2listClaymorgue[] = {
     { IMG_ROOM, 12, 0x08b00, 0x0a00 }, // dungeon cell
     { IMG_ROOM, 13, 0x09800, 0x0914 }, // anteroom
     { IMG_ROOM, 14, 0x0a200, 0x0858 }, // staircase
-    { IMG_ROOM, 15, 0x0ab00, 0x06fe }, // loft above ballroom
+    { IMG_ROOM, 15, 0x0ab00, 0x08d8 }, // loft above ballroom
     { IMG_ROOM, 16, 0x0b400, 0x111a }, // in the moat
     { IMG_ROOM, 17, 0x0c600, 0x00a0 }, // underwater
-    { IMG_ROOM, 18, 0x0c700, 0x0cfe }, // *I'm under the stairs
+    { IMG_ROOM, 18, 0x0c700, 0x1358 }, // *I'm under the stairs
     { IMG_ROOM, 19, 0x0db00, 0x14d0 }, // hollow tree
     { IMG_ROOM, 20, 0x0f000, 0x090e }, // pool of dirty water
     { IMG_ROOM, 21, 0x0fa00, 0x0916 }, // kitchen
     { IMG_ROOM, 22, 0x10400, 0x07a0 }, // *I'm on a box
     { IMG_ROOM, 23, 0x10c00, 0x09e2 }, // box
-    { IMG_ROOM, 24, 0x11600, 0x10fe }, // dusty room
+    { IMG_ROOM, 24, 0x11600, 0x111a }, // dusty room
     { IMG_ROOM, 25, 0x12800, 0x0558 }, // stone staircase
     { IMG_ROOM, 26, 0x12e00, 0x1550 }, // damp cavern
     { IMG_ROOM, 27, 0x14400, 0x0c28 }, // stone grotto
@@ -386,25 +384,25 @@ static const imglist a2listClaymorgue126[] = {
     { IMG_ROOM, 2, 0x1f00, 0x67a }, // *I'm on a Drawbridge
     { IMG_ROOM, 3, 0x2600, 0x116a }, // courtyard
     { IMG_ROOM, 4, 0x3800, 0xb41 }, // magic fountain
-//    { IMG_ROOM, 5, 0x4400, 0xdbc }, // stream of lava
+    //    { IMG_ROOM, 5, 0x4400, 0xdbc }, // stream of lava
     { IMG_ROOM, 6, 0x5000, 0xdbc }, // on top of the fountain
     { IMG_ROOM, 7, 0x5e00, 0x78b }, // ball room
     { IMG_ROOM, 8, 0x6600, 0xa75 }, // on a large chandelier
     { IMG_ROOM, 9, 0x7100, 0x4aa }, // forest of enchantment
     { IMG_ROOM, 10, 0x7600, 0x9f8 }, // plain room
-    { IMG_ROOM, 11, 0x7f00, 0x9f8 }, // storeroom
-    { IMG_ROOM, 12, 0x8b00, 0x9f8 }, // dungeon cell
+    { IMG_ROOM, 11, 0x7f00, 0xb4a }, // storeroom
+    { IMG_ROOM, 12, 0x8b00, 0xb8f }, // dungeon cell
     { IMG_ROOM, 13, 0x9700, 0x134e }, // anteroom
-    { IMG_ROOM, 14, 0xa000, 0x66f }, // staircase
-    { IMG_ROOM, 15, 0xa900, 0x66f }, // loft above ballroom
+    { IMG_ROOM, 14, 0xa000, 0x85c }, // staircase
+    { IMG_ROOM, 15, 0xa900, 0x85e }, // loft above ballroom
     { IMG_ROOM, 16, 0xb200, 0x1100 }, // I'm in the water of a moat
     { IMG_ROOM, 17, 0xc400, 0x7d }, // I'm underwater in thick murky fluid
-    { IMG_ROOM, 18, 0xc500, 0x1100 }, // I'm under the stairs
-//    { IMG_ROOM, 19, 0xd200, 0x1131 }, // hollow tree sign says drop stars here
+    { IMG_ROOM, 18, 0xc500, 0x4b7 }, // I'm under the stairs
+    //    { IMG_ROOM, 19, 0xd200, 0x1131 }, // hollow tree sign says drop stars here
     { IMG_ROOM, 20, 0xee00, 0x8fb }, // pool of dirty water
     { IMG_ROOM, 21, 0xf800, 0x8e1 }, // kitchen
     { IMG_ROOM, 22, 0x10200, 0x1130 }, // I'm on a box
-    { IMG_ROOM, 23, 0x10a00, 0x9b0 }, // inside box
+    { IMG_ROOM, 23, 0x10a00, 0x9c6 }, // inside box
     { IMG_ROOM, 24, 0x11400, 0x10c9 }, // dusty room
     { IMG_ROOM, 25, 0x12500, 0x11f9 }, // stone staircase
     { IMG_ROOM, 26, 0x12b00, 0xce6 }, // damp cavern
@@ -436,12 +434,12 @@ static const imglist a2listClaymorgue126[] = {
     { IMG_INV_OBJ, 20, 0x1b400, 0x41 }, // Magic mirror
     { IMG_INV_OBJ, 24, 0x1b500, 0x4e }, // Fire spell
 
-    { IMG_ROOM_OBJ, 26, 0x1b600, 0x11f9}, // Fallen Chandelier
+    { IMG_ROOM_OBJ, 26, 0x1b600, 0x11f9 }, // Fallen Chandelier
 
     { IMG_INV_OBJ, 28, 0x1ba00, 0x45 }, // Broken glass
 
-    { IMG_ROOM_OBJ, 30, 0x1bb00, 0x196}, // Open door
-    { IMG_ROOM_OBJ, 32, 0x1bd00, 0x14d}, // Open door 2
+    { IMG_ROOM_OBJ, 30, 0x1bb00, 0x196 }, // Open door
+    { IMG_ROOM_OBJ, 32, 0x1bd00, 0x14d }, // Open door 2
 
     { IMG_INV_OBJ, 33, 0x1bf00, 0x52 }, // Spell of Methuselah
     { IMG_INV_OBJ, 34, 0x1c000, 0x4b }, // Seed spell
@@ -569,9 +567,9 @@ static const imglist a2listCount[] = {
     { IMG_INV_OBJ, 65, 0x18a00, 0x6e }, // Letter
     { IMG_ROOM_OBJ, 67, 0x18b00, 0x54e }, // Mouldy old skeleton with a stake in the rib cage
     { IMG_INV_OBJ, 70, 0x19100, 0x68 }, // Century worth of dust
-    { IMG_ROOM_OBJ, 80, 0x19200, 0x1a8 },  // Mirror in room
-    { IMG_ROOM_OBJ, 81, 0x19500, 0x150 },  // other end of sheet
-    { IMG_ROOM_OBJ, 82, 0x19700, 0x206 },  // Coat-of-Arms (4) on wall
+    { IMG_ROOM_OBJ, 80, 0x19200, 0x1a8 }, // Mirror in room
+    { IMG_ROOM_OBJ, 81, 0x19500, 0x150 }, // other end of sheet
+    { IMG_ROOM_OBJ, 82, 0x19700, 0x206 }, // Coat-of-Arms (4) on wall
 
     { 0, 0, 0, 0 }
 };
@@ -670,10 +668,10 @@ static const imglist a2listVoodoo[] = {
 static uint8_t *GetApple2CompanionFile(size_t *size, int *isnib);
 static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, int isnib);
 
-int DetectApple2(uint8_t **sf, size_t *extent)
+GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
-        return 0;
+        return UNKNOWN_GAME;
 
     if ((*sf)[0] == 'W' && (*sf)[1] == 'O' && (*sf)[2] == 'Z') {
         uint8_t *result = woz2nib(*sf, extent);
@@ -731,7 +729,6 @@ int DetectApple2(uint8_t **sf, size_t *extent)
     uint8_t *database = NULL;
     size_t newlength = 0;
 
-
     if (datafile) {
         size_t data_start = 0x135;
 
@@ -746,20 +743,20 @@ int DetectApple2(uint8_t **sf, size_t *extent)
         memcpy(database, datafile + data_start, newlength);
     } else {
         debug_print("Failed loading database\n");
-        return 0;
+        return UNKNOWN_GAME;
     }
 
     if (database) {
-        int result = LoadBinaryDatabase(database, newlength, *Game, 0);
-        if (!result && newlength > 0x3d00) {
+        GameIDType result = LoadBinaryDatabase(database, newlength, *Game, 0);
+        if (result == UNKNOWN_GAME && newlength > 0x3d00) {
             result = LoadBinaryDatabase(database + 0x3d00, newlength - 0x3d00, *Game, 0);
         }
 
-        if (!result && newlength > 0x3803) {
+        if (result == UNKNOWN_GAME && newlength > 0x3803) {
             result = LoadBinaryDatabase(database + 0x3803, newlength - 0x3803, *Game, 0);
         }
 
-        if (result) {
+        if (result != UNKNOWN_GAME) {
             CurrentSys = SYS_APPLE2;
 
             ImageWidth = 280;
@@ -779,27 +776,32 @@ int DetectApple2(uint8_t **sf, size_t *extent)
                 ExtractImagesFromApple2CompanionFile(companionfile, companionsize, isnib);
                 free(companionfile);
             } else if (USImages != NULL) {
-                free (USImages->imagedata);
-                free (USImages);
+                free(USImages->imagedata);
+                free(USImages);
                 USImages = NULL;
             }
         } else
             debug_print("Failed loading database\n");
-        free (datafile);
-        free (database);
+        free(datafile);
+        free(database);
         return result;
     } else {
-        free (datafile);
+        free(datafile);
         debug_print("Failed loading database\n");
-        return 0;
+        return UNKNOWN_GAME;
     }
 }
 
-static int StripParens(char sideA[], size_t length) {
+static int StripParens(char sideA[], size_t length)
+{
     int left_paren = 0;
     int right_paren = 0;
+    size_t ppos = length - 1;
+    while (sideA[ppos] != '.' && ppos > 0)
+        ppos--;
+    size_t extlen = length - ppos;
     if (length > 4) {
-        for (int i = length - 4; i > 0; i--) {
+        for (int i = (int)ppos; i > 0; i--) {
             char c = sideA[i];
             if (c == ')') {
                 if (right_paren == 0) {
@@ -818,12 +820,11 @@ static int StripParens(char sideA[], size_t length) {
                 }
             }
         }
-        if (right_paren && left_paren && length > right_paren + 4) {
+        if (right_paren && left_paren && length > right_paren + extlen) {
             right_paren++;
-            sideA[left_paren++] = sideA[right_paren++];
-            sideA[left_paren++] = sideA[right_paren++];
-            sideA[left_paren++] = sideA[right_paren++];
-            sideA[left_paren++] = sideA[right_paren++];
+            for (int i = 0; i < extlen; i++) {
+                sideA[left_paren++] = sideA[right_paren++];
+            }
             sideA[left_paren] = '\0';
             return 1;
         }
@@ -831,7 +832,8 @@ static int StripParens(char sideA[], size_t length) {
     return 0;
 }
 
-uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib) {
+uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
+{
     uint8_t *result = ReadFileIfExists(filename, filesize);
     if (result && *filesize > 4 && result[0] == 'W' && result[1] == 'O' && result[2] == 'Z') {
         uint8_t *result2 = woz2nib(result, filesize);
@@ -844,38 +846,39 @@ uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
     return result;
 }
 
-uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize, int *isnib) {
+uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t stringlen, size_t *filesize, int *isnib)
+{
 
-    char sideB[stringlen + 8];
+    char *sideB = MemAlloc(stringlen + 9);
     uint8_t *result = NULL;
 
     *isnib = 0;
     memcpy(sideB, game_file, stringlen + 1);
-    switch(type) {
-        case TYPE_A:
-            sideB[index] = 'A';
-            break;
-        case TYPE_B:
-            sideB[index] = 'B';
-            break;
-        case TYPE_1:
-            sideB[index] = '1';
-            break;
-        case TYPE_2:
-            sideB[index] = '2';
-            break;
-        case TYPE_ONE:
-            sideB[index] = 'o';
-            sideB[index + 1] = 'n';
-            sideB[index + 2] = 'e';
-            break;
-        case TYPE_TWO:
-            sideB[index] = 't';
-            sideB[index + 1] = 'w';
-            sideB[index + 2] = 'o';
-            break;
-        case TYPE_NONE:
-            break;
+    switch (type) {
+    case TYPE_A:
+        sideB[index] = 'A';
+        break;
+    case TYPE_B:
+        sideB[index] = 'B';
+        break;
+    case TYPE_1:
+        sideB[index] = '1';
+        break;
+    case TYPE_2:
+        sideB[index] = '2';
+        break;
+    case TYPE_ONE:
+        sideB[index] = 'o';
+        sideB[index + 1] = 'n';
+        sideB[index + 2] = 'e';
+        break;
+    case TYPE_TWO:
+        sideB[index] = 't';
+        sideB[index + 1] = 'w';
+        sideB[index + 2] = 'o';
+        break;
+    case TYPE_NONE:
+        break;
     }
 
     debug_print("looking for companion file \"%s\"\n", sideB);
@@ -887,28 +890,36 @@ uint8_t *LookForA2CompanionFilename(int index, CompanionNameType type, size_t st
                 result = ReadA2DiskImageFile(sideB, filesize, isnib);
             }
         } else if (type == TYPE_B) {
-            for (int i = 0; i < 4; i++) {
-                sideB[stringlen + i + 3] = sideB[stringlen + i - 4];
+
+            // First we look for the period before the file extension
+            size_t ppos = stringlen - 1;
+            while (sideB[ppos] != '.' && ppos > 0)
+                ppos--;
+            if (ppos < 1) {
+                free(sideB);
+                return NULL;
             }
-            sideB[stringlen + 7] = '\0';
-            int pos = stringlen - 4;
-            sideB[pos++] = ' ';
-            sideB[pos++] = '(';
-            sideB[pos++] = 'b';
-            sideB[pos++] = 'o';
-            sideB[pos++] = 'o';
-            sideB[pos++] = 't';
-            sideB[pos] = ')';
-            debug_print("looking for companion file \"%s\"\n", sideB);
+            // Then we copy the extension to the new end position
+            for (size_t i = ppos; i <= stringlen; i++) {
+                sideB[i + 7] = sideB[i];
+            }
+            sideB[ppos++] = ' ';
+            sideB[ppos++] = '(';
+            sideB[ppos++] = 'b';
+            sideB[ppos++] = 'o';
+            sideB[ppos++] = 'o';
+            sideB[ppos++] = 't';
+            sideB[ppos] = ')';
+            debug_print("looking for companion file \"%s\".\n", sideB);
             result = ReadA2DiskImageFile(sideB, filesize, isnib);
         }
     }
-
+    free(sideB);
     return result;
 }
 
-
-uint8_t *GetApple2CompanionFile(size_t *size, int *isnib) {
+uint8_t *GetApple2CompanionFile(size_t *size, int *isnib)
+{
 
     *size = 0;
     *isnib = 0;
@@ -928,36 +939,35 @@ uint8_t *GetApple2CompanionFile(size_t *size, int *isnib) {
     char c;
     for (int i = (int)gamefilelen - 1; i >= 0 && game_file[i] != '/' && game_file[i] != '\\'; i--) {
         c = tolower(game_file[i]);
-        if (i > 3 && ((c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') ||
-                      (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
+        if (i > 3 && ((c == 'e' && game_file[i - 1] == 'd' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 's') || (c == 'k' && game_file[i - 1] == 's' && game_file[i - 2] == 'i' && tolower(game_file[i - 3]) == 'd'))) {
             if (gamefilelen > i + 2) {
                 c = game_file[i + 1];
                 if (c == ' ' || c == '_') {
                     c = tolower(game_file[i + 2]);
                     CompanionNameType type = TYPE_NONE;
                     switch (c) {
-                        case 'a':
-                            type = TYPE_B;
-                            break;
-                        case 'b':
-                            type = TYPE_A;
-                            break;
-                        case 't':
-                            if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
-                                type =  TYPE_ONE;
-                            }
-                            break;
-                        case 'o':
-                            if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
-                                type = TYPE_TWO;
-                            }
-                            break;
-                        case '2':
-                            type= TYPE_1;
-                            break;
-                        case '1':
-                            type = TYPE_2;
-                            break;
+                    case 'a':
+                        type = TYPE_B;
+                        break;
+                    case 'b':
+                        type = TYPE_A;
+                        break;
+                    case 't':
+                        if (gamefilelen > i + 4 && game_file[i + 3] == 'w' && game_file[i + 4] == 'o') {
+                            type = TYPE_ONE;
+                        }
+                        break;
+                    case 'o':
+                        if (gamefilelen > i + 4 && game_file[i + 3] == 'n' && game_file[i + 4] == 'e') {
+                            type = TYPE_TWO;
+                        }
+                        break;
+                    case '2':
+                        type = TYPE_1;
+                        break;
+                    case '1':
+                        type = TYPE_2;
+                        break;
                     }
                     if (type != TYPE_NONE)
                         result = LookForA2CompanionFilename(i + 2, type, gamefilelen, size, isnib);
@@ -976,28 +986,27 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
 
     const struct imglist *list;
 
-
-    switch(CurrentGame) {
-        case CLAYMORGUE_US:
-            list = a2listClaymorgue;
-            break;
-        case CLAYMORGUE_US_126:
-            list = a2listClaymorgue126;
-            break;
-        case HULK_US:
-            list = a2listHulk;
-            break;
-        case HULK_US_PREL:
-            list = a2listHulk126;
-            break;
-        case COUNT_US:
-            list = a2listCount;
-            break;
-        case VOODOO_CASTLE_US:
-            list = a2listVoodoo;
-            break;
-        default:
-            return 0;
+    switch (CurrentGame) {
+    case CLAYMORGUE_US:
+        list = a2listClaymorgue;
+        break;
+    case CLAYMORGUE_US_126:
+        list = a2listClaymorgue126;
+        break;
+    case HULK_US:
+        list = a2listHulk;
+        break;
+    case HULK_US_PREL:
+        list = a2listHulk126;
+        break;
+    case COUNT_US:
+        list = a2listCount;
+        break;
+    case VOODOO_CASTLE_US:
+        list = a2listVoodoo;
+        break;
+    default:
+        return 0;
     }
 
     struct USImage *image = new_image();
@@ -1011,8 +1020,7 @@ static int ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t datasize, 
         InitNibImage(data, datasize);
     }
     // Now loop round for each image
-    for (outpic = 0; list[outpic].offset != 0; outpic++)
-    {
+    for (outpic = 0; list[outpic].offset != 0; outpic++) {
         size_t size = list[outpic].size + 4;
 
         image->usage = list[outpic].usage;

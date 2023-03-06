@@ -4,7 +4,6 @@
 
 #import "Constants.h"
 #import "GlkController.h"
-#import "DummyController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"
@@ -23,7 +22,7 @@
 
 
 #ifdef DEBUG
-#define NSLog(FORMAT, ...)                                                     \
+#define NSLog(FORMAT, ...)                                                 \
 fprintf(stderr, "%s\n",                                                    \
 [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
 #else
@@ -447,7 +446,7 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
     if (line_request && textstorage.length > fence) {
-        NSAttributedString *input = [textstorage attributedSubstringFromRange:[self editableRange]];
+        NSAttributedString *input = [textstorage attributedSubstringFromRange:self.editableRange];
         [encoder encodeObject:input forKey:@"inputString"];
     }
 
@@ -466,7 +465,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
-            [textstorage deleteCharactersInRange:[self editableRange]];
+            [textstorage deleteCharactersInRange:self.editableRange];
         }
         [textstorage appendAttributedString:restoredInput];
     }
@@ -478,7 +477,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     _restoredFindBarVisible = restoredWin.restoredFindBarVisible;
     _restoredSearch = restoredWin.restoredSearch;
-    [self restoreTextFinder];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        [self restoreTextFinder];
+    });
 
     _restoredLastVisible = restoredWin.restoredLastVisible;
     _restoredScrollOffset = restoredWin.restoredScrollOffset;
@@ -613,23 +615,21 @@ fprintf(stderr, "%s\n",                                                    \
             [newstyles addObject:[NSNull null]];
     }
 
-    if (![glkctl isKindOfClass:[DummyController class]]) {
-        NSInteger marginX = self.theme.bufferMarginX;
-        NSInteger marginY = self.theme.bufferMarginY;
-
-        BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
-        CGFloat heightDiff = marginY - _textview.textContainerInset.height;
-
-        _textview.textContainerInset = NSMakeSize(marginX, marginY);
-
-        // If the Y margin has changed, we must adjust the text view
-        // here to make the scrollview aware of this, otherwise we might
-        // not be able to scroll to the bottom.
-        if (marginHeightChanged) {
-            NSRect newTextviewFrame = _textview.frame;
-            newTextviewFrame.size.height += heightDiff * 2;
-            _textview.frame = newTextviewFrame;
-        }
+    NSInteger marginX = self.theme.bufferMarginX;
+    NSInteger marginY = self.theme.bufferMarginY;
+    
+    BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
+    CGFloat heightDiff = marginY - _textview.textContainerInset.height;
+    
+    _textview.textContainerInset = NSMakeSize(marginX, marginY);
+    
+    // If the Y margin has changed, we must adjust the text view
+    // here to make the scrollview aware of this, otherwise we might
+    // not be able to scroll to the bottom.
+    if (marginHeightChanged) {
+        NSRect newTextviewFrame = _textview.frame;
+        newTextviewFrame.size.height += heightDiff * 2;
+        _textview.frame = newTextviewFrame;
     }
 
     // We can think of attributes as special characters in the mutable attributed
@@ -723,8 +723,7 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.selectedRange = selectedRange;
     }
 
-    if (![glkctl isKindOfClass:[DummyController class]] && self.glkctl.isAlive) {
-
+    if (self.glkctl.isAlive) {
         if (different) {
             // Set style for hyperlinks
             NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
@@ -839,7 +838,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     [container clearImages];
     for (NSView *view in _textview.subviews)
-        [view removeFromSuperview];
+        if ([view isKindOfClass:[MarginImage class]])
+            [view removeFromSuperview];
     self.moveRanges = [[NSMutableArray alloc] init];
 }
 
@@ -1002,12 +1002,12 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
-                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
-                                      NSControlKeyMask | NSHelpKeyMask)));
-    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
-                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
-                                     NSControlKeyMask | NSHelpKeyMask)));
+    BOOL commandKeyOnly = ((flags & NSEventModifierFlagCommand) &&
+                           !(flags & (NSEventModifierFlagOption | NSEventModifierFlagShift |
+                                      NSEventModifierFlagControl | NSEventModifierFlagHelp)));
+    BOOL optionKeyOnly = ((flags & NSEventModifierFlagOption) &&
+                          !(flags & (NSEventModifierFlagCommand | NSEventModifierFlagShift |
+                                     NSEventModifierFlagControl | NSEventModifierFlagHelp)));
 
     if (ch == keycode_Up) {
         if (optionKeyOnly)
@@ -1033,7 +1033,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSNumber *key = @(ch);
     BOOL scrolled = NO;
 
-    if (!scrolling && !_pendingScroll && ![self scrolledToBottom]) {
+    if (!scrolling && !_pendingScroll && !self.scrolledToBottom) {
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
             case keycode_PageUp:
@@ -1094,15 +1094,15 @@ fprintf(stderr, "%s\n",                                                    \
         if (line_request) {
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
                 [glkctl.window makeFirstResponder:_textview];
-                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, self.editableRange);
                 if (selectedRange.location == NSNotFound || selectedRange.length == 0)
                     selectedRange = NSMakeRange(textstorage.length, 0);
                 _textview.selectedRange = selectedRange;
                 [_textview paste:nil];
                 return;
-            } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSCommandKeyMask) != NSCommandKeyMask) {
+            } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSEventModifierFlagCommand) != NSEventModifierFlagCommand) {
                 // Deselect text and move cursor to end to facilitate typing
-                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, self.editableRange);
                 if (selectedRange.location == NSNotFound || (selectedRange.length == 0))
                     selectedRange = NSMakeRange(textstorage.length, 0);
                 _textview.selectedRange = selectedRange;
@@ -1304,7 +1304,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     [textstorage
-     replaceCharactersInRange:[self editableRange]
+     replaceCharactersInRange:self.editableRange
      withString:cx];
     [_textview resetTextFinder];
 }
@@ -1315,7 +1315,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     [self flushDisplay];
     [textstorage
-     replaceCharactersInRange:[self editableRange]
+     replaceCharactersInRange:self.editableRange
      withString:cx];
     [_textview resetTextFinder];
 }
@@ -1415,7 +1415,10 @@ replacementString:(id)repl {
     return NO;
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
+
+- (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
+    if ((editedMask & NSTextStorageEditedCharacters) == 0)
+        return;
     if (!line_request)
         return;
 
@@ -1581,7 +1584,7 @@ replacementString:(id)repl {
 
     [src drawInRect:NSMakeRect(0, 0, dstsize.width, dstsize.height)
            fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation:NSCompositeSourceOver
+          operation:NSCompositingOperationSourceOver
            fraction:1.0
      respectFlipped:YES
               hints:nil];

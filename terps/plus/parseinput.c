@@ -1,25 +1,26 @@
 //
 //  parseinput.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-06-04.
+//  Created by Petter Sjölund on 2022-06-04.
 //
 
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "glk.h"
 
 #include "common.h"
 #include "definitions.h"
-#include "restorestate.h"
 #include "extracommands.h"
 #include "parseinput.h"
+#include "restorestate.h"
 
 char **InputWordStrings = NULL;
 int WordsInInput = 0;
 int WordIndex = 0;
+int InitialIndex = 0;
 int ProtagonistString = 0;
 
 DictWord *Verbs;
@@ -29,7 +30,8 @@ DictWord *Prepositions;
 
 int LastVerb = 0, LastNoun = 0, LastPrep = 0, LastPartp = 0, LastNoun2 = 0, LastAdverb = 0;
 
-void FreeInputWords(void) {
+void FreeInputWords(void)
+{
     WordIndex = 0;
     if (InputWordStrings != NULL) {
         for (int i = 0; i < WordsInInput && InputWordStrings[i] != NULL; i++) {
@@ -42,7 +44,8 @@ void FreeInputWords(void) {
     WordsInInput = 0;
 }
 
-int CompareUpToHashSign(char *word1, char *word2) {
+int CompareUpToHashSign(char *word1, char *word2)
+{
     size_t len1 = strlen(word1);
     size_t len2 = strlen(word2);
     size_t longest = MAX(len1, len2);
@@ -57,7 +60,8 @@ int CompareUpToHashSign(char *word1, char *word2) {
     return 1;
 }
 
-int YesOrNo(void) {
+int YesOrNo(void)
+{
     glk_request_char_event(Bottom);
 
     event_t ev;
@@ -135,10 +139,11 @@ static int MatchingChars(const char *synonym, const char *original)
             return 0;
     }
 
-    return (i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i-1] == 0)));
+    return (i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i - 1] == 0)));
 }
 
-static int IsSynonymMatch(const char *synonym, const char *original) {
+static int IsSynonymMatch(const char *synonym, const char *original)
+{
     char c = synonym[0];
     if (c == 0)
         return -1;
@@ -153,13 +158,13 @@ static int IsSynonymMatch(const char *synonym, const char *original) {
     return -1;
 }
 
-static char *StripDoubleSpaces(char *result, int *len) {
+static char *StripDoubleSpaces(char *result, int *len)
+{
     int found = 0;
     do {
         found = 0;
         for (int i = 0; i < *len - 1; i++) {
-            if (isspace(result[i]) && isspace(result[i + 1]))
-            {
+            if (isspace(result[i]) && isspace(result[i + 1])) {
                 found = 1;
                 char new[512];
                 if (i > 0)
@@ -181,11 +186,11 @@ static char *StripDoubleSpaces(char *result, int *len) {
     return result;
 }
 
-static char *StripPunctuation(char *buf, int *len) {
+static char *StripPunctuation(char *buf, int *len)
+{
     for (int i = 0; i < *len; i++) {
         char c = buf[i];
-        if (c == '.' || c == ',' || c == ':' || c == ';' || c == '\'' || c == '\"' || c == '-' || c == '!')
-        {
+        if (c == '.' || c == ',' || c == ':' || c == ';' || c == '\'' || c == '\"' || c == '-' || c == '!') {
             buf[i] = ' ';
         }
     }
@@ -194,7 +199,6 @@ static char *StripPunctuation(char *buf, int *len) {
     memcpy(final, buf, *len + 1);
     return final;
 }
-
 
 static char *ConcatStrings(const char *head, int headlen, const char *mid, int midlen, const char *tail, int taillen)
 {
@@ -208,7 +212,6 @@ static char *ConcatStrings(const char *head, int headlen, const char *mid, int m
         result = StripDoubleSpaces(result, &totallen);
     return result;
 }
-
 
 static char *ReplaceString(char *source, const char *pattern, const char *replacement, int *startpos)
 {
@@ -240,7 +243,7 @@ static char *ReplaceString(char *source, const char *pattern, const char *replac
 static char *ReplaceSynonyms(char *buf, int *len)
 {
     char *result = MemAlloc(*len + 1);
-    for(int i = 0; i < *len; i++)
+    for (int i = 0; i < *len; i++)
         result[i] = toupper(buf[i]);
     result = StripDoubleSpaces(result, len);
     int finallen = (int)strlen(result);
@@ -313,27 +316,34 @@ static char **SplitIntoWords(const char *string, int length)
 
 WordToken *TokenWords = NULL;
 
-static int IntendedAsVerb(int i) {
-    if (i == 0)
+static int IntendedAsVerb(int i)
+{
+    if (i == InitialIndex || i == 0)
         return 1;
-    for (int j = i; j >= 0; j--)
-        if (TokenWords[j].Type != ADVERB_TYPE)
-            return 0;
-    return 1;
+    /* if the word before was an adverb and the one before that was not a verb */
+    if (TokenWords[i - 1].Type == ADVERB_TYPE && (i == InitialIndex + 1 || (i > InitialIndex + 1 && TokenWords[i - 2].Type != VERB_TYPE)))
+        return 1;
+    return 0;
 }
 
-static void WordNotFoundError(int i) {
-    if (IntendedAsVerb(i))
-        Display(Bottom, "I don't know how to %s something! ", InputWordStrings[i]);
+static void WordNotFoundError(int i)
+{
+    if (TokenWords[i].Type == ADVERB_TYPE)
+        Display(Bottom, "%s do what?\n", InputWordStrings[i]);
+    else if (IntendedAsVerb(i))
+        Display(Bottom, "I don't know how to %s something!\n", InputWordStrings[i]);
     else
-        Display(Bottom, "I don't know what %s means. ", InputWordStrings[i]);
+        Display(Bottom, "I don't know what %s means.\n", InputWordStrings[i]);
 }
 
-static int TokenizeInputWords(void) {
+static int TokenizeInputWords(void)
+{
     if (TokenWords != NULL)
         free(TokenWords);
     int word_not_found = -1;
     int found_verb = 0;
+    int verb_position = -1;
+
     TokenWords = MemAlloc(WordsInInput * sizeof(WordToken));
     int result = 0;
 
@@ -344,6 +354,7 @@ static int TokenizeInputWords(void) {
             if (result > 0) {
                 debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
                 found_verb = 1;
+                verb_position = i;
                 TokenWords[i].Index = result;
                 TokenWords[i].Type = VERB_TYPE;
                 continue;
@@ -397,16 +408,17 @@ static int TokenizeInputWords(void) {
             TokenWords[i].Index = result;
             TokenWords[i].Type = VERB_TYPE;
             found_verb = 1;
+            verb_position = i;
             continue;
         }
 
         result = ParseWord(InputWordStrings[i], ExtraWords);
         if (result > 0) {
             debug_print("Found extra word %s at %d\n", InputWordStrings[i], i);
-            if (result == 1) {
+            if (result == COM_IT) {
                 TokenWords[i].Index = LastNoun;
                 TokenWords[i].Type = NOUN_TYPE;
-            } else if (result ==4) {
+            } else if (result == COM_WHERE) {
                 Output("I'm only your puppet! You must figure things out for yourself! ");
                 WordIndex = 255;
                 return 0;
@@ -417,36 +429,40 @@ static int TokenizeInputWords(void) {
             continue;
         }
 
+        TokenWords[i].Type = WORD_NOT_FOUND;
         word_not_found = i;
     }
 
     /* We wait to report "word not recognized" errors until we have tokenized all words   */
-    /* as we want to give other errors priority. Also helps deciding whether "The rest of */
     /* as we want to give other errors priority. Also helps deciding whether to say       */
     /* "The rest of your command was ignored." */
     if (word_not_found >= 0) {
+        if (!found_verb || verb_position > word_not_found)
+            WordNotFoundError(0);
+        if (word_not_found != 0)
+            for (int j = 1; j <= word_not_found; j++)
+                if (TokenWords[j].Type == WORD_NOT_FOUND)
+                    WordNotFoundError(j);
         WordIndex = word_not_found;
-        WordNotFoundError(word_not_found);
         return 0;
     }
 
     return 1;
 }
 
-int IsNextParticiple(int partp, int noun2) {
+int IsNextParticiple(int partp, int noun2)
+{
     if (WordIndex >= WordsInInput) {
         return 0;
     }
     if (partp == 1) { // None
         return 0;
     }
-    if (TokenWords[WordIndex].Type == NOUN_TYPE && partp == 2 &&
-        (noun2 == 0 || TokenWords[WordIndex].Index == noun2)) {
+    if (TokenWords[WordIndex].Type == NOUN_TYPE && partp == 2 && (noun2 == 0 || TokenWords[WordIndex].Index == noun2)) {
         CurPartp = 2;
         CurNoun2 = TokenWords[WordIndex++].Index;
         return 1;
-    } else if (TokenWords[WordIndex].Type == PREPOSITION_TYPE && WordIndex < WordsInInput - 1 &&
-        (partp == 0 || TokenWords[WordIndex].Index == partp)) {
+    } else if (TokenWords[WordIndex].Type == PREPOSITION_TYPE && WordIndex < WordsInInput - 1 && (partp == 0 || TokenWords[WordIndex].Index == partp)) {
         if (TokenWords[WordIndex + 1].Type == NOUN_TYPE && (noun2 == 0 || TokenWords[WordIndex + 1].Index == noun2)) {
             CurPartp = TokenWords[WordIndex++].Index;
             CurNoun2 = TokenWords[WordIndex++].Index;
@@ -468,14 +484,11 @@ static int CommandFromTokens(int verb, int noun)
         return 1;
     }
 
-    int initialindex = WordIndex;
+    InitialIndex = WordIndex;
 
     for (int i = WordIndex; i < WordsInInput; i++) {
-        size_t len = strlen(InputWordStrings[i]);
         char str[128];
-        for (int j = 0; j < len; j++)
-            str[j] = InputWordStrings[i][j];
-        str[len] = 0;
+        snprintf(str, sizeof str, "%s", InputWordStrings[i]);
         debug_print("Word %d: %s\n", i, str);
     }
 
@@ -486,12 +499,22 @@ static int CommandFromTokens(int verb, int noun)
         if (WordIndex < WordsInInput) {
             nextword = ParseWord(InputWordStrings[WordIndex], ExtraWords);
         }
-        if (nextword < 9) {
+        /* The extra command words before ON are verbs */
+        /* and we want verb only or verb + noun/preposition, */
+        /* not two verbs. */
+        if (nextword < COM_ON) {
             nextword = 0;
-        } else WordIndex++;
-        int result = PerformExtraCommand(word, nextword);
-        if (result < 3)
-            return result;
+        };
+        ExtraCommandResult result = PerformExtraCommand(word, nextword);
+        if (result != RESULT_NOT_UNDERSTOOD) {
+            if (result == RESULT_AGAIN)
+                return 0;
+            SetBit(STOPTIMEBIT);
+            WordIndex += (result == RESULT_TWO_WORDS);
+            return 1;
+        } else {
+            WordIndex = InitialIndex;
+        }
     }
 
     CurPartp = 0;
@@ -514,9 +537,10 @@ static int CommandFromTokens(int verb, int noun)
     }
 
     if (verb == 0) {
-        WordNotFoundError(0);
-        Output("\nTry again please. ");
-        WordIndex = WordsInInput;
+        WordNotFoundError(InitialIndex);
+        Output("Try again please. ");
+        StopProcessingCommand();
+        SetBit(STOPTIMEBIT);
         return 1;
     }
 
@@ -600,7 +624,7 @@ static int CommandFromTokens(int verb, int noun)
         debug_print("Found participle but no second noun. This should never happen.\n");
     }
 
-    if (WordIndex <= initialindex)
+    if (WordIndex <= InitialIndex)
         WordIndex++;
 
     debug_print("Index: %d Words in input: %d ", WordIndex, WordsInInput);
@@ -664,17 +688,19 @@ static void LineInput(void)
     } while (WordsInInput == 0 || InputWordStrings == NULL);
 }
 
-static int RemainderContainsVerb(void) {
+static int RemainderContainsVerb(void)
+{
     debug_print("RemainderContainsVerb: WordIndex: %d WordsInInput: %d\n", WordIndex, WordsInInput);
     if (WordIndex < WordsInInput - 1) {
-        for (int i = 0; i < WordsInInput; i++)
+        for (int i = WordIndex; i < WordsInInput; i++)
             if (TokenWords[i].Type == VERB_TYPE)
                 return 1;
     }
     return 0;
 }
 
-void StopProcessingCommand(void) {
+void StopProcessingCommand(void)
+{
     if (RemainderContainsVerb()) {
         Output("\nThe rest of your input was ignored. ");
     }
@@ -698,7 +724,8 @@ int GetInput(void)
 
         if (!TokenizeInputWords()) {
             if (WordIndex < 255)
-                Output("\nTry again please. ");
+                Output("Try again please. ");
+            SetBit(STOPTIMEBIT);
             StopProcessingCommand();
             return 1;
         }

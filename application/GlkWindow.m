@@ -556,8 +556,8 @@ fprintf(stderr, "%s\n",                                                    \
    return [self.glkctl createCustomRotors];
 }
 
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
-    NSArray *actions = [self.glkctl accessibilityCustomActions];
+- (NSArray *)accessibilityCustomActions {
+    NSArray *actions = self.glkctl.accessibilityCustomActions;
     return actions;
 }
 

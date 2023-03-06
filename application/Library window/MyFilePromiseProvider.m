@@ -32,7 +32,7 @@
     ImageView *imageView = (ImageView *)self.delegate;
 
     if ([type isEqual: NSPasteboardTypePNG]) {
-        return [imageView pngData];
+        return imageView.pngData;
     }
 
     return [super pasteboardPropertyListForType: type];

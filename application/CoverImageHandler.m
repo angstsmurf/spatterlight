@@ -59,7 +59,7 @@
 
     CALayer *snapshotLayer = [[CALayer alloc] init];
     NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSBorderlessWindowMask
+                                                   styleMask: NSWindowStyleMaskBorderless
                                                      backing: NSBackingStoreBuffered
                                                        defer: YES];
     newWin.opaque = NO;
@@ -76,7 +76,7 @@
 
 - (NSWindow *)backgroundColorWindow {
     NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSBorderlessWindowMask
+                                                   styleMask: NSWindowStyleMaskBorderless
                                                      backing: NSBackingStoreBuffered
                                                        defer: YES];
     newWin.opaque = YES;
@@ -88,7 +88,7 @@
 
 - (NSWindow *)fadeWindow {
     NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSBorderlessWindowMask
+                                                   styleMask: NSWindowStyleMaskBorderless
                                                      backing: NSBackingStoreBuffered
                                                        defer: YES];
     newWin.opaque = NO;
@@ -477,7 +477,7 @@
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         // Make sure the window style mask does not
         // include full screen bit
-        window.styleMask = (NSUInteger)(window.styleMask & ~(NSUInteger)NSFullScreenWindowMask);
+        window.styleMask = (window.styleMask & ~NSWindowStyleMaskFullScreen);
         [[window animator] setFrame:oldFrame display:YES];
     } completionHandler:^{
         [imageView positionImage];
@@ -492,7 +492,7 @@
     if (!_enterFullscreenWindow) {
         _enterFullscreenWindow =
         [[NSWindow alloc] initWithContentRect:NSZeroRect
-                                    styleMask: NSBorderlessWindowMask
+                                    styleMask: NSWindowStyleMaskBorderless
                                       backing: NSBackingStoreBuffered
                                         defer: YES];
     }

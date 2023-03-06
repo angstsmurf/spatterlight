@@ -15,6 +15,7 @@
 // along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstring>
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -24,11 +25,18 @@
 #include "util.h"
 #include "zterp.h"
 
+#ifdef ZTERP_GLK
+extern "C" {
+#include <glk.h>
+}
+#endif
+
 struct Replacement {
     uint32_t addr;
-    size_t n;
+    uint32_t n;
     std::vector<uint8_t> in;
     std::vector<uint8_t> out;
+    std::function<bool()> active = [] { return true; };
 };
 
 struct Patch {
@@ -38,6 +46,25 @@ struct Patch {
     uint16_t checksum;
     std::vector<Replacement> replacements;
 };
+
+// The Bureaucracy patch assumes that timed input is available, as it
+// uses that to simulate a sleep. If timed input is not available,
+// though, it will instead just be a regular @read_char, which will
+// block till the user hits a key. This is worse behavior than the
+// default, which is to effectively not sleep at all. Timed input is
+// only available with Glk, and then only if the Glk implementation
+// supports timers.
+#ifdef ZTERP_GLK
+static bool bureaucracy_active()
+{
+    return glk_gestalt(gestalt_Timer, 0);
+}
+#else
+static bool bureaucracy_active()
+{
+    return false;
+}
+#endif
 
 static std::vector<Patch> patches = {
     // There are several patches for Beyond Zork.
@@ -274,6 +301,7 @@ static std::vector<Patch> patches = {
                 0x2128c, 18,
                 {0x02, 0x00, 0x01, 0x00, 0x00, 0x10, 0x00, 0x1e, 0x00, 0xd0, 0x2f, 0xde, 0x5c, 0x00, 0x02, 0xd6, 0x2f, 0x03},
                 {0x01, 0x00, 0x01, 0x56, 0x01, 0x0a, 0x01, 0xf6, 0x63, 0x01, 0x01, 0x84, 0xa7, 0x00, 0xb0, 0x00, 0x00, 0xb0},
+                bureaucracy_active,
             }
         }
     },
@@ -284,6 +312,7 @@ static std::vector<Patch> patches = {
                 0x212d0, 18,
                 {0x02, 0x00, 0x01, 0x00, 0x00, 0x10, 0x00, 0x1e, 0x00, 0xd0, 0x2f, 0xde, 0x64, 0x00, 0x02, 0xd6, 0x2f, 0x03},
                 {0x01, 0x00, 0x01, 0x56, 0x01, 0x0a, 0x01, 0xf6, 0x63, 0x01, 0x01, 0x84, 0xb8, 0x00, 0xb0, 0x00, 0x00, 0xb0},
+                bureaucracy_active,
             }
         }
     },
@@ -294,6 +323,7 @@ static std::vector<Patch> patches = {
                 0x212c8, 18,
                 {0x02, 0x00, 0x01, 0x00, 0x00, 0x10, 0x00, 0x1e, 0x00, 0xd0, 0x2f, 0xdc, 0xce, 0x00, 0x02, 0xd6, 0x2f, 0x03},
                 {0x01, 0x00, 0x01, 0x56, 0x01, 0x0a, 0x01, 0xf6, 0x63, 0x01, 0x01, 0x84, 0xb6, 0x00, 0xb0, 0x00, 0x00, 0xb0},
+                bureaucracy_active,
             }
         }
     },
@@ -391,9 +421,9 @@ static bool apply_patch(const Replacement &r)
 {
     if (r.addr >= header.static_start &&
         r.addr + r.n < memory_size &&
-        std::memcmp(&memory[r.addr], &r.in[0], r.n) == 0) {
+        std::memcmp(&memory[r.addr], r.in.data(), r.n) == 0) {
 
-        std::memcpy(&memory[r.addr], &r.out[0], r.n);
+        std::memcpy(&memory[r.addr], r.out.data(), r.n);
 
         return true;
     }
@@ -409,7 +439,9 @@ void apply_patches()
             patch.checksum == header.checksum) {
 
             for (const auto &replacement : patch.replacements) {
-                apply_patch(replacement);
+                if (replacement.active()) {
+                    apply_patch(replacement);
+                }
             }
         }
     }
@@ -418,17 +450,17 @@ void apply_patches()
 static bool read_into(std::vector<uint8_t> &buf, long count)
 {
     for (long i = 0; i < count; i++) {
-        long byte;
+        long b;
         bool valid;
         char *p = std::strtok(nullptr, " \t[],");
         if (p == nullptr) {
             return false;
         }
-        byte = parseint(p, 16, valid);
-        if (!valid || byte < 0 || byte > 255) {
+        b = parseint(p, 16, valid);
+        if (!valid || b < 0 || b > 255) {
             return false;
         }
-        buf.push_back(byte);
+        buf.push_back(b);
     }
 
     return true;
@@ -440,13 +472,13 @@ static bool read_into(std::vector<uint8_t> &buf, long count)
 //
 // For example, one of the Stationfall fixes would look like this:
 //
-// 0xd3d4 3 0x31 0x0c 0x73 0x51 0x73 0x0c
+// 0xe3fe 3 0x31 0x0c 0x77 0x51 0x77 0x0c
 //
 // Square brackets and commas are treated as whitespace for the actual
 // bytes, so for convenience this could also be written:
 //
-// 0xd3d4 3 [0x31, 0x0c, 0x73] [0x51, 0x73, 0x0c]
-PatchStatus apply_user_patch(std::string patchstr)
+// 0xe3fe 3 [0x31, 0x0c, 0x77] [0x51, 0x77, 0x0c]
+void apply_user_patch(std::string patchstr)
 {
     char *p;
     bool valid;
@@ -455,26 +487,26 @@ PatchStatus apply_user_patch(std::string patchstr)
 
     p = std::strtok(&patchstr[0], " \t");
     if (p == nullptr) {
-        return PatchStatus::SyntaxError;
+        throw PatchStatus::SyntaxError();
     }
 
     addr = parseint(p, 16, valid);
     if (!valid) {
-        return PatchStatus::SyntaxError;
+        throw PatchStatus::SyntaxError();
     }
 
     p = std::strtok(nullptr, " \t");
     if (p == nullptr) {
-        return PatchStatus::SyntaxError;
+        throw PatchStatus::SyntaxError();
     }
 
     count = parseint(p, 10, valid);
     if (!valid) {
-        return PatchStatus::SyntaxError;
+        throw PatchStatus::SyntaxError();
     }
 
     if (!read_into(in, count) || !read_into(out, count)) {
-        return PatchStatus::SyntaxError;
+        throw PatchStatus::SyntaxError();
     }
 
     Replacement replacement = {
@@ -484,5 +516,7 @@ PatchStatus apply_user_patch(std::string patchstr)
         out,
     };
 
-    return apply_patch(replacement) ? PatchStatus::Ok : PatchStatus::NotFound;
+    if (!apply_patch(replacement)) {
+        throw PatchStatus::NotFound();
+    }
 }

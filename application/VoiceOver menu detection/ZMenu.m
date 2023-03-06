@@ -342,7 +342,7 @@
         }
         if (viewString && view.frame.size.height > 0 && viewString.length < 4000) {
             [_viewStrings addObject:viewString];
-            NSArray *lines = [viewString lineRanges];
+            NSArray *lines = viewString.lineRanges;
             NSUInteger line = 0;
             NSArray *currentCluster;
             NSArray *lastCluster = @[];

@@ -2,7 +2,6 @@
  * Application -- the main application controller
  */
 
-#import <CoreData/CoreData.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 
 #import "main.h"
@@ -15,6 +14,8 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 #import "FolderAccess.h"
+#import "LibController.h"
+#import "TableViewController.h"
 #import "Game.h"
 
 #ifdef DEBUG
@@ -79,8 +80,9 @@ PasteboardFilePasteLocation;
         @"hex", @"taf", @"z1",   @"z2",   @"z3",    @"z4",    @"z5",
         @"z6",  @"z7",  @"z8",   @"cas",  @"asl",   @"saga",  @"jacl",
         @"j2",  @"ulx", @"blb",  @"zlb",  @"blorb", @"glb",   @"gblorb",
-        @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb", @"atr",
-        @"st",  @"msa", @"woz"
+        @"d64", @"t64", @"fiad", @"dsk",  @"quill", @"zblorb",@"atr",
+        @"st",  @"msa", @"woz",  @"sag",  @"plus",  @"plu",   @"tay",
+        @"taylor"
     ];
 
     gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
@@ -141,11 +143,23 @@ PasteboardFilePasteLocation;
     PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
     PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
 
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
+        [FolderAccess deleteBookmarks];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
+    }
+
     [FolderAccess loadBookmarks];
 
     addToRecents = YES;
 
-    _libctl = [[LibController alloc] init];
+    if (!self.coreDataManager.persistentContainer) {
+        NSLog(@"No persistentContainer?");
+        abort();
+    }
+
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"SplitView" bundle:nil];
+    _libctl = (LibController *)[storyboard instantiateControllerWithIdentifier:@"LibraryWindowController"];
+    _libctl.tableViewController = _tableViewController;
     _libctl.window.restorable = YES;
     _libctl.window.restorationClass = [self class];
     _libctl.window.identifier = @"library";
@@ -154,12 +168,7 @@ PasteboardFilePasteLocation;
     _prefctl.window.restorable = YES;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
-    _prefctl.libcontroller = _libctl;
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasDeletedSecurityBookmarks"]) {
-        [FolderAccess deleteBookmarks];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasDeletedSecurityBookmarks"];
-    }
+    _prefctl.libcontroller = _tableViewController;
 }
 
 #pragma mark -
@@ -184,8 +193,8 @@ PasteboardFilePasteLocation;
 - (IBAction)showHelpFile:(id)sender {
     NSString *title = [sender title];
     NSURL *url = [[NSBundle mainBundle] URLForResource:title
-                 withExtension:@"rtf"
-                  subdirectory:@"docs"];
+                                         withExtension:@"rtf"
+                                          subdirectory:@"docs"];
     NSError *error;
 
     if (!_helpLicenseWindow) {
@@ -195,7 +204,7 @@ PasteboardFilePasteLocation;
     NSAttributedString *content = [[NSAttributedString alloc]
                                    initWithURL:url
                                    options:@{ NSDocumentTypeDocumentOption :
-                                        NSRTFTextDocumentType }
+                                                  NSRTFTextDocumentType }
                                    documentAttributes:nil
                                    error:&error];
 
@@ -223,22 +232,20 @@ PasteboardFilePasteLocation;
         [identifier substringToIndex:7];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
-            NSString *path = [identifier substringFromIndex:7];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                InfoController *infoctl =
-                [[InfoController alloc] initWithpath:path];
-                infoctl.libcontroller = appDelegate.libctl;
-                NSWindow *infoWindow = infoctl.window;
-                infoWindow.restorable = YES;
-                infoWindow.restorationClass = [AppDelegate class];
-                infoWindow.identifier =
-                [NSString stringWithFormat:@"infoWin%@", path];
-                (appDelegate.libctl.infoWindows)[path] = infoctl;
-                window = infoctl.window;
-            }
+            NSString *ifid = [identifier substringFromIndex:7];
+            InfoController *infoctl =
+            [[InfoController alloc] initWithIfid:ifid];
+            infoctl.libcontroller = appDelegate.libctl.tableViewController;
+            NSWindow *infoWindow = infoctl.window;
+            infoWindow.restorable = YES;
+            infoWindow.restorationClass = [AppDelegate class];
+            infoWindow.identifier =
+            [NSString stringWithFormat:@"infoWin%@", ifid];
+            (appDelegate.libctl.tableViewController.infoWindows)[ifid] = infoctl;
+            window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
-            window = [appDelegate.libctl playGameWithIFID:ifid];
+            window = [appDelegate.libctl.tableViewController playGameWithIFID:ifid];
 
             // We delay the restoration of the window
             // that was key when closing here
@@ -248,9 +255,9 @@ PasteboardFilePasteLocation;
             completionHandlerCopy = completionHandler;
 
             if ([ifid isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"KeyWindowController"]])
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                completionHandlerCopy(window, nil);
-            });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    completionHandlerCopy(window, nil);
+                });
             else
                 completionHandler(window, nil);
 
@@ -273,25 +280,27 @@ PasteboardFilePasteLocation;
 
 - (IBAction)addGamesToLibrary:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl addGamesToLibrary:sender];
+    [_tableViewController addGamesToLibrary:sender];
 }
 
 - (IBAction)importMetadata:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl importMetadata:sender];
+    [_tableViewController importMetadata:sender];
 }
 
 - (IBAction)exportMetadata:(id)sender {
     [_libctl showWindow:sender];
-    [_libctl exportMetadata:sender];
+    [_tableViewController exportMetadata:sender];
 }
 
 - (IBAction)deleteLibrary:(id)sender {
-    [_libctl deleteLibrary:sender];
+    [_libctl showWindow:sender];
+    [_tableViewController deleteLibrary:sender];
 }
 
 - (IBAction)pruneLibrary:(id)sender {
-    [_libctl pruneLibrary:sender];
+    [_libctl showWindow:sender];
+    [_tableViewController pruneLibrary:sender];
 }
 
 /*
@@ -316,7 +325,7 @@ PasteboardFilePasteLocation;
 
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
-    if ([_libctl hasActiveGames]) {
+    if ([_tableViewController hasActiveGames]) {
         [allowedTypes addObjectsFromArray:gDocFileTypes];
         [allowedTypes addObjectsFromArray:gSaveFileTypes];
     }
@@ -364,14 +373,14 @@ PasteboardFilePasteLocation;
     NSString *extension = path.pathExtension.lowercaseString;
 
     if ([extension isEqualToString:@"ifiction"]) {
-        [_libctl waitToReportMetadataImport];
-        [_libctl importMetadataFromFile:path inContext:_libctl.managedObjectContext];
-    } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
-        [_libctl runCommandsFromFile:path];
-    } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
-        [_libctl restoreFromSaveFile:path];
+        [_tableViewController waitToReportMetadataImport];
+        [_tableViewController importMetadataFromFile:path inContext:_libctl.managedObjectContext];
+    } else if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
+        [_tableViewController runCommandsFromFile:path];
+    } else if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
+        [_tableViewController restoreFromSaveFile:path];
     } else {
-        [_libctl importAndPlayGame:path];
+        [_tableViewController importAndPlayGame:path];
     }
 
     return YES;
@@ -392,34 +401,30 @@ PasteboardFilePasteLocation;
 - (BOOL)application:(NSApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<NSUserActivityRestoring>> *restorableObjects))restorationHandler {
-    if (@available(macOS 10.13, *)) {
+    NSLog(@"continueUserActivity");
 
-        NSLog(@"continueUserActivity");
+    // We're coming from a search result
+    NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
 
-        // We're coming from a search result
-        NSString *searchableItemIdentifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+    if (searchableItemIdentifier.length) {
+        NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
 
-        if (searchableItemIdentifier.length) {
-            NSLog(@"searchableItemIdentifier: %@", searchableItemIdentifier);
-
-            NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
-            if (!context) {
-                NSLog(@"Could not create new context!");
-                return NO;
-            }
-
-            NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
-            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
-
-            id object = [context objectWithID:objectID];
-
-            if (!object) {
-                return NO;
-            }
-
-            [_libctl handleSpotlightSearchResult:object];
+        NSManagedObjectContext *context = _coreDataManager.mainManagedObjectContext;
+        if (!context) {
+            NSLog(@"Could not create new context!");
+            return NO;
         }
 
+        NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
+        NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+
+        id object = [context objectWithID:objectID];
+
+        if (!object) {
+            return NO;
+        }
+
+        [_tableViewController handleSpotlightSearchResult:object];
     }
 
     return YES;
@@ -517,11 +522,11 @@ continueUserActivity:(NSUserActivity *)userActivity
             if (restorable == 1)
                 msg = [msg
                        stringByAppendingString:
-                       @"\n(There is also an autorestorable game running.)"];
+                           @"\n(There is also an autorestorable game running.)"];
             else if (restorable > 1)
                 msg = [msg
                        stringByAppendingFormat:
-                       @"\n(There are also %ld autorestorable games running.)",
+                           @"\n(There are also %ld autorestorable games running.)",
                        restorable];
 
             NSAlert *anAlert = [[NSAlert alloc] init];
@@ -552,16 +557,15 @@ continueUserActivity:(NSUserActivity *)userActivity
     return NSTerminateNow;
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    NSWindow.allowsAutomaticWindowTabbing = NO;
+}
+
 - (void)applicationWillTerminate:(NSNotification *)notification {
 
-    for (GlkController *glkctl in (_libctl.gameSessions).allValues) {
+    for (GlkController *glkctl in (_tableViewController.gameSessions).allValues) {
         [glkctl autoSaveOnExit];
     }
-
-    if ([NSFontPanel sharedFontPanel].visible)
-        [[NSFontPanel sharedFontPanel] orderOut:self];
-    if ([NSColorPanel sharedColorPanel].visible)
-        [[NSColorPanel sharedColorPanel] orderOut:self];
 
     NSManagedObjectContext *mainContext = _coreDataManager.mainManagedObjectContext;
 
@@ -600,6 +604,15 @@ continueUserActivity:(NSUserActivity *)userActivity
             }
         }
     });
+}
+
+- (void)applicationDidUpdate:(NSNotification *)notification {
+    NSApplication *app = (NSApplication *)notification.object;
+    for (NSWindow *win in app.windows) {
+        if (([win isKindOfClass:[NSFontPanel class]] || [win isKindOfClass:[NSColorPanel class]]) && win.visible) {
+            win.restorable = NO;
+        }
+    }
 }
 
 @end

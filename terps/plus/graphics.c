@@ -1,8 +1,8 @@
 //
 //  graphics.c
-//  Plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-06-04.
+//  Created by Petter Sjölund on 2022-06-04.
 //
 
 #include <string.h>
@@ -12,10 +12,10 @@
 #include "glkimp.h"
 #endif
 
+#include "animations.h"
 #include "common.h"
 #include "graphics.h"
 #include "loaddatabase.h"
-#include "animations.h"
 
 ImgType LastImgType;
 int LastImgIndex;
@@ -24,8 +24,8 @@ int upside_down = 0;
 
 int x = 0, y = 0, at_last_line = 0;
 
-int xlen=280, ylen=158;
-int xoff=0, yoff=0;
+int xlen = 280, ylen = 158;
+int xoff = 0, yoff = 0;
 
 int pixel_size;
 int x_offset, y_offset, right_margin;
@@ -43,14 +43,15 @@ void ClearApple2ScreenMem(void);
 
 void DrawBlack(void)
 {
-    glk_window_fill_rect(Graphics, y_offset, x_offset, 0, ImageWidth * pixel_size,
-                         ImageHeight * pixel_size);
+    glk_window_fill_rect(Graphics, 0, x_offset, y_offset, (glui32)(ImageWidth * pixel_size),
+        (glui32)(ImageHeight * pixel_size));
     LastImgType = NO_IMG;
 }
 
-char *ShortNameFromType(char type, int index) {
+char *ShortNameFromType(char type, int index)
+{
     char buf[5];
-    int n = sprintf(buf, "%c0%02d", type, index);
+    int n = snprintf(buf, sizeof buf, "%c0%02d", type, index);
     if (n < 0)
         return NULL;
     size_t len = strlen(buf) + 1;
@@ -58,7 +59,6 @@ char *ShortNameFromType(char type, int index) {
     memcpy(result, buf, len);
     return result;
 }
-
 
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
 {
@@ -81,7 +81,7 @@ void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,
-                         ypos, pixel_size, pixel_size);
+        ypos, pixel_size, pixel_size);
 }
 
 void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
@@ -109,7 +109,7 @@ void PutDoublePixel(glsi32 xpos, glsi32 ypos, int32_t color)
     ypos += y_offset;
 
     glk_window_fill_rect(Graphics, glk_color, xpos,
-                         ypos, pixel_size * 2, pixel_size);
+        ypos, pixel_size * 2, pixel_size);
 }
 
 void SetColor(int32_t index, const RGB *color)
@@ -119,7 +119,8 @@ void SetColor(int32_t index, const RGB *color)
     pal[index][2] = (*color)[2];
 }
 
-void SetRGB(int32_t index, int red, int green, int blue) {
+void SetRGB(int32_t index, int red, int green, int blue)
+{
     red = red * 35.7;
     green = green * 35.7;
     blue = blue * 35.7;
@@ -134,7 +135,7 @@ int DrawImageWithName(char *filename)
     debug_print("DrawImageWithName %s\n", filename);
 
     int i;
-    for (i = 0; Images[i].Filename != NULL; i++ )
+    for (i = 0; Images[i].Filename != NULL; i++)
         if (strcmp(filename, Images[i].Filename) == 0)
             break;
 
@@ -153,18 +154,18 @@ int DrawImageWithName(char *filename)
     if (!IsSet(GRAPHICSBIT))
         return 0;
 
-    switch(Images[i].Filename[0]) {
-        case 'B':
-            LastImgType = IMG_OBJECT;
-            break;
-        case 'R':
-            LastImgType = IMG_ROOM;
-            break;
-        case 'S':
-            LastImgType = IMG_SPECIAL;
-            break;
-        default:
-            debug_print("DrawImageWithName: Unknown image type!\n");
+    switch (Images[i].Filename[0]) {
+    case 'B':
+        LastImgType = IMG_OBJECT;
+        break;
+    case 'R':
+        LastImgType = IMG_ROOM;
+        break;
+    case 'S':
+        LastImgType = IMG_SPECIAL;
+        break;
+    default:
+        debug_print("DrawImageWithName: Unknown image type!\n");
     }
 
     LastImgIndex = Images[i].Filename[3] - '0' + 10 * (Images[i].Filename[2] - '0');
@@ -179,26 +180,28 @@ int DrawImageWithName(char *filename)
         return DrawDOSImageFromData(Images[i].Data, Images[i].Size);
 }
 
-void DrawItemImage(int item) {
+void DrawItemImage(int item)
+{
     LastImgType = IMG_OBJECT;
     LastImgIndex = item;
-    char buf[1024];
+    char buf[5];
 
-        int n = sprintf( buf, "B0%02d", item);
-        if (n < 0)
-            return;
+    int n = snprintf(buf, sizeof buf, "B0%02d", item);
+    if (n < 0)
+        return;
 
     upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
 
     DrawImageWithName(buf);
 }
 
-int DrawCloseup(int img) {
+int DrawCloseup(int img)
+{
     LastImgType = IMG_SPECIAL;
     LastImgIndex = img;
-    char buf[1024];
+    char buf[5];
 
-    int n = sprintf( buf, "S0%02d", img);
+    int n = snprintf(buf, sizeof buf, "S0%02d", img);
     if (n < 0)
         return 0;
 
@@ -219,12 +222,13 @@ int DrawCloseup(int img) {
 
 void ClearApple2ScreenMem(void);
 
-int DrawRoomImage(int roomimg) {
+int DrawRoomImage(int roomimg)
+{
     LastImgType = IMG_ROOM;
     LastImgIndex = roomimg;
 
     char buf[5];
-    int n = sprintf( buf, "R0%02d", roomimg);
+    int n = snprintf(buf, sizeof buf, "R0%02d", roomimg);
     if (n < 0)
         return 0;
     buf[4] = 0;
@@ -263,7 +267,6 @@ void DrawCurrentRoom(void)
         }
     }
 
-
     if (Rooms[MyLoc].Image == 255) {
         CloseGraphicsWindow();
         return;
@@ -290,7 +293,7 @@ void DrawCurrentRoom(void)
     }
 
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
-        if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc ) {
+        if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc) {
             DrawItemImage(ObjectImages[ct].Image);
         }
 

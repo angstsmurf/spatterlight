@@ -57,6 +57,8 @@ typedef struct library_state_data_struct {
     int sound_channel_tag;
     long last_random_seed;
     int random_calls_count;
+    int queued_volume;
+    int autosave_version;
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

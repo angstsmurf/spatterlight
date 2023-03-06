@@ -1,16 +1,17 @@
 //
 //  parser.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-19.
+//  Created by Petter Sjölund on 2022-01-19.
 //
+
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "scottdefines.h"
 #include "parser.h"
 #include "scott.h"
+#include "scottdefines.h"
 
 #include "bsd.h"
 
@@ -28,7 +29,6 @@ static int WordsInInput = 0;
 static int lastnoun = 0;
 
 static glui32 *FirstErrorMessage = NULL;
-
 
 const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
     NULL, "north", "south", "east", "west", "up", "down",
@@ -155,9 +155,22 @@ extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
 };
 
 const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
-    NULL, "game", "story", "on", "off", "load",
-    "restore", "save", "move", "command", "turn",
-    "all", "everything", "it", " ", " ",
+    NULL,
+    "game",
+    "story",
+    "on",
+    "off",
+    "load",
+    "restore",
+    "save",
+    "move",
+    "command",
+    "turn",
+    "all",
+    "everything",
+    "it",
+    " ",
+    " ",
 };
 
 const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
@@ -270,7 +283,7 @@ glui32 *ToUnicode(const char *string)
     int dest = 0;
     for (i = 0; string[i] != 0 && i < 2047; i++) {
         char c = string[i];
-        if (c == '\n') {
+        if (c == 10 || c == 13) {
             lastwasnewline = 1;
             c = 10;
         } else
@@ -340,8 +353,8 @@ glui32 *ToUnicode(const char *string)
             case '}':
                 unichar = 0xfc;
                 break;
-                case 12:
-                    unichar = 0xf6;
+            case 12:
+                unichar = 0xf6;
                 break;
             case '{':
                 unichar = 0xe4;
@@ -427,7 +440,8 @@ static char *FromUnicode(glui32 *unicode_string, int origlength)
     return result;
 }
 
-static int MatchYMCA(glui32 *string, int length, int index) {
+static int MatchYMCA(glui32 *string, int length, int index)
+{
     const char *ymca = "y.m.c.a.";
     int i;
     for (i = 0; i < 8; i++) {
@@ -465,53 +479,50 @@ void SplitIntoWords(glui32 *string, int length)
     for (int i = 0; string[i] != 0 && i < length && word_index < MAX_WORDS; i++) {
         foundspace = 0;
         switch (string[i]) {
-            case 'y':
-            {
-                int ymca = MatchYMCA(string, length, i);
-                if (ymca > 3)
-                {
-                    /* Start a new word */
-                    startpos[words_found] = i;
-                    wordlength[words_found] = ymca;
-                    words_found++;
-                    wordlength[words_found] = 0;
-                    i += ymca;
-                    if (i < length)
-                        foundspace = 1;
-                    lastwasspace = 0;
-                }
+        case 'y': {
+            int ymca = MatchYMCA(string, length, i);
+            if (ymca > 3) {
+                /* Start a new word */
+                startpos[words_found] = i;
+                wordlength[words_found] = ymca;
+                words_found++;
+                wordlength[words_found] = 0;
+                i += ymca;
+                if (i < length)
+                    foundspace = 1;
+                lastwasspace = 0;
             }
+        } break;
+            /* Unicode space and tab variants */
+        case ' ':
+        case '\t':
+        case '!':
+        case '?':
+        case '\"':
+        case 0x83: // ¿
+        case 0x80: // ¡
+        case 0xa0: // non-breaking space
+        case 0x2000: // en quad
+        case 0x2001: // em quad
+        case 0x2003: // em
+        case 0x2004: // three-per-em
+        case 0x2005: // four-per-em
+        case 0x2006: // six-per-em
+        case 0x2007: // figure space
+        case 0x2009: // thin space
+        case 0x200A: // hair space
+        case 0x202f: // narrow no-break space
+        case 0x205f: // medium mathematical space
+        case 0x3000: // ideographic space
+            foundspace = 1;
             break;
-                /* Unicode space and tab variants */
-            case ' ':
-            case '\t':
-            case '!':
-            case '?':
-            case '\"':
-            case 0x83: // ¿
-            case 0x80: // ¡
-            case 0xa0: // non-breaking space
-            case 0x2000: // en quad
-            case 0x2001: // em quad
-            case 0x2003: // em
-            case 0x2004: // three-per-em
-            case 0x2005: // four-per-em
-            case 0x2006: // six-per-em
-            case 0x2007: // figure space
-            case 0x2009: // thin space
-            case 0x200A: // hair space
-            case 0x202f: // narrow no-break space
-            case 0x205f: // medium mathematical space
-            case 0x3000: // ideographic space
-                foundspace = 1;
-                break;
-            case '.':
-            case ',':
-            case ';':
-                foundcomma = 1;
-                break;
-            default:
-                break;
+        case '.':
+        case ',':
+        case ';':
+            foundcomma = 1;
+            break;
+        default:
+            break;
         }
         if (!foundspace) {
             if (lastwasspace || foundcomma) {
@@ -590,7 +601,7 @@ void LineInput(void)
     return;
 }
 
- int WhichWord(const char *word, const char **list, int word_length,
+int WhichWord(const char *word, const char **list, int word_length,
     int list_length)
 {
     int n = 1;
@@ -767,10 +778,10 @@ static int FindExtaneousWords(int *index, int noun)
     if (list == NULL) {
         if (*index >= WordsInInput)
             *index = WordsInInput - 1;
-//        debug_print("FindExtaneousWords Error: I don't know what a \"%s\" is\n", CharWords[*index]);
+        //        debug_print("FindExtaneousWords Error: I don't know what a \"%s\" is\n", CharWords[*index]);
         CreateErrorMessage(sys[I_DONT_KNOW_WHAT_A], UnicodeWords[*index], sys[IS]);
     } else {
-//        debug_print("FindExtaneousWords Error: I don't understand\n");
+        //        debug_print("FindExtaneousWords Error: I don't understand\n");
         CreateErrorMessage(sys[I_DONT_UNDERSTAND], NULL, NULL);
     }
 
@@ -832,7 +843,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         if (CurrentGame != GREMLINS_GERMAN && CurrentGame != GREMLINS_GERMAN_C64) {
             if (!previous) {
                 CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
-                                   sys[SOMETHING]);
+                    sys[SOMETHING]);
                 return NULL;
             } else {
                 verbindex = previous->verbwordindex;
@@ -855,10 +866,10 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
     if (i == WordsInInput) {
         if (lastverb) {
             return CreateCommandStruct(lastverb, verb, previous->verbwordindex, i,
-                                       previous);
+                previous);
         } else if (found_noun_at_verb_position) {
             CreateErrorMessage(sys[I_DONT_KNOW_HOW_TO], UnicodeWords[i - 1],
-                               sys[SOMETHING]);
+                sys[SOMETHING]);
             return NULL;
         } else {
             return CreateCommandStruct(verb, 0, i - 1, i, previous);
@@ -880,7 +891,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         if (list == ExtraNouns && i < WordsInInput && noun - GameHeader.NumWords == ALL) {
             int stringlength = strlen(CharWords[i]);
             except = WhichWord(CharWords[i], ExtraCommands, stringlength,
-                                   NUMBER_OF_EXTRA_COMMANDS);
+                NUMBER_OF_EXTRA_COMMANDS);
         }
         if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, noun) != 0)
             return NULL;
@@ -910,7 +921,7 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
         if (i < WordsInInput && verb - GameHeader.NumWords == ALL) {
             int stringlength = strlen(CharWords[i]);
             except = WhichWord(CharWords[i], ExtraCommands, stringlength,
-                               NUMBER_OF_EXTRA_COMMANDS);
+                NUMBER_OF_EXTRA_COMMANDS);
         }
         if (ExtraCommandsKey[except] != EXCEPT && FindExtaneousWords(&i, 0) != 0)
             return NULL;
@@ -924,7 +935,9 @@ static struct Command *CommandFromStrings(int index, struct Command *previous)
 static int CreateAllCommands(struct Command *command)
 {
 
-    int exceptions[GameHeader.NumItems];
+    if (GameHeader.NumItems > 2048)
+        Fatal("Bad number of items");
+    int exceptions[2048];
     int exceptioncount = 0;
 
     int location = CARRIED;
@@ -966,7 +979,7 @@ static int CreateAllCommands(struct Command *command)
                 found = 1;
                 c->verb = command->verb;
                 c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
-                                    GameHeader.NumWords);
+                    GameHeader.NumWords);
                 c->item = i;
                 c->next = NULL;
                 c->nounwordindex = 0;

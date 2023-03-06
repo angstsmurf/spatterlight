@@ -60,8 +60,12 @@ void glk_tick()
 {
 }
 
-void glk_exit()
+GLK_ATTRIBUTE_NORETURN void glk_exit()
 {
+    gli_stop_all_sound_channels();
+    gli_close_all_file_streams();
+    win_flush();
+
     if (gli_program_info != NULL)
         free(gli_program_info);
     if (gli_game_path != NULL)
@@ -78,11 +82,6 @@ void glk_exit()
         free(autosavedir);
     if (gli_parentdir != NULL)
         free(gli_parentdir);
-
-    win_flush();
-
-    gli_stop_all_sound_channels();
-    gli_close_all_file_streams();
 
     close(0);
     close(1);

@@ -16,7 +16,6 @@
 
 #include <initializer_list>
 #include <string>
-#include <vector>
 
 #include "types.h"
 #include "util.h"
@@ -39,8 +38,18 @@ extern "C" {
 #include <glkstart.h>
 }
 
-glkunix_argumentlist_t glkunix_arguments[] =
-{
+// The “standard” function (provided by remglk as an extension) for
+// getting a filename from a fileref is glkunix_fileref_get_filename;
+// Gargoyle has always had the function garglk_fileref_get_name for this
+// purpose, but has now adopted the remglk name for greater
+// compatibility. If building under garglk, and the newer name is not
+// available, fall back to the known-to-exist original name. Otherwise,
+// use the new name.
+#if defined(GARGLK) && !defined(GLKUNIX_FILEREF_GET_FILENAME)
+#define glkunix_fileref_get_filename garglk_fileref_get_name
+#endif
+
+glkunix_argumentlist_t glkunix_arguments[] = {
 #include "help.h"
     { const_cast<char *>(""),		glkunix_arg_ValueFollows,	const_cast<char *>("file to load") },
     { nullptr, glkunix_arg_End, nullptr }
@@ -57,7 +66,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 {
     process_arguments(data->argc, data->argv);
 
-    if (arg_status == ArgStatus::Help) {
+    if (arg_status != ArgStatus::Ok) {
         return 1;
     }
 
@@ -80,7 +89,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
         ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
         if (ref != nullptr) {
-            const char *filename = garglk_fileref_get_name(ref);
+            const char *filename = glkunix_fileref_get_filename(ref);
             if (filename != nullptr) {
                 game_file = filename;
             }
@@ -99,8 +108,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     return 1;
 }
 #elif defined(ZTERP_GLK_WINGLK)
-#include <cstdio>
 #include <cstdlib>
+#include <sstream>
 
 #include <WinGlk.h>
 
@@ -132,18 +141,18 @@ static void startup()
 
     process_arguments(__argc, __argv);
 
-    if (arg_status == ArgStatus::Help) {
+    if (arg_status != ArgStatus::Ok) {
         return;
     }
 
     if (game_file.empty()) {
         const char *patterns = "*.z1;*.z2;*.z3;*.z4;*.z5;*.z6;*.z7.*.z8;*.zblorb;*.zlb;*.blorb;*.blb";
-        char filter[512];
+        std::ostringstream filter;
         const char *filename;
 
-        std::snprintf(filter, sizeof filter, "Z-Code Files (%s)|%s|All Files (*.*)|*.*||", patterns, patterns);
+        filter << "Z-Code Files (" << patterns << ")|" << patterns << "|All Files (*.*)|*.*||";
 
-        filename = winglk_get_initial_filename(nullptr, "Choose a Z-Code Game", filter);
+        filename = winglk_get_initial_filename(nullptr, "Choose a Z-Code Game", filter.str().c_str());
         if (filename != nullptr) {
             game_file = filename;
         }
@@ -166,7 +175,7 @@ static void startup()
         if (!filename.empty()) {
             auto dot = filename.find_last_of('.');
             if (dot != std::string::npos) {
-                filename = filename.substr(0, dot);
+                filename.resize(dot);
             }
 
             sglk_set_basename(&filename[0]);
@@ -176,7 +185,7 @@ static void startup()
     }
 }
 
-int WINAPI WinMain(HINSTANCE instance, HINSTANCE previnstance, LPSTR cmdline, int cmdshow)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     if (!InitGlk(0x00000700)) {
         std::exit(EXIT_FAILURE);

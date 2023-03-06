@@ -1,8 +1,8 @@
 //
 //  gameinfo.h
-//  Spatterlight
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-09.
+//  Created by Petter Sjölund on 2022-01-09.
 //
 
 #ifndef gameinfo_h

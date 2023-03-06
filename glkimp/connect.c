@@ -124,7 +124,8 @@ void readmsg(struct message *msgbuf, char *buf)
         }
     }
 
-    buf[msgbuf->len] = 0;
+    if (msgbuf->len != 0)
+        buf[msgbuf->len] = 0;
 }
 
 void win_hello(void)
@@ -152,7 +153,7 @@ void win_hello(void)
 
 void win_flush(void)
 {
-    if (buffering == BUFNONE)
+    if (buffering == BUFNONE || bufferlen == 0)
         return;
 
     //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
@@ -189,7 +190,7 @@ void win_print(int name, int ch, int at)
     if (buffering == BUFPRINT && (unsigned long)bufferlen >= PBUFSIZE)
         win_flush();
 
-    if (buffering == BUFNONE)
+    if (buffering != BUFPRINT)
     {
         buffering = BUFPRINT;
         bufferwin = name;
@@ -228,8 +229,7 @@ void wintitle(void)
     size_t len = strlen(gli_story_title);
     if (len) {
         char *buf = malloc(len + 1);
-        strcpy(buf, gli_story_title);
-
+        strncpy(buf, gli_story_title, len + 1);
         if (strlen(buf))
         {
             sendmsg(SETTITLE, 0, 0, 0, 0, 0,
@@ -507,7 +507,7 @@ void win_loadimage(int resno, char *filename, int offset, int reslen)
         if (len)
         {
             char *buf = malloc(len + 1);
-            strcpy(buf, filename);
+            strncpy(buf, filename, len + 1);
             sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, buf);
             free(buf);
         }
@@ -586,7 +586,7 @@ void win_loadsound(int resno, char *filename, int offset, int reslen)
         if (len)
         {
             char *buf = malloc(len + 1);
-            strcpy(buf, filename);
+            strncpy(buf, filename, len + 1);
             sendmsg(LOADSOUND, resno, offset, reslen, 0, 0, len, buf);
             free(buf);
         }
@@ -702,7 +702,7 @@ void win_showerror(const char *str)
     size_t len = strlen(str);
     if (len) {
         char *buf = malloc(len + 1);
-        strcpy(buf, str);
+        strncpy(buf, str, len + 1);
 
         if (strlen(buf))
         {
@@ -732,6 +732,13 @@ int win_cols(int name)
 {
     win_flush();
     sendmsg(BANNERCOLS, name, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
+int win_canprint(glui32 val)
+{
+    sendmsg(CANPRINT, val, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
 }
@@ -836,16 +843,37 @@ again:
             event->win = gli_window_for_peer(wmsg.a1);
             event->val2 = wmsg.a3;
 
+            int final_length = wmsg.a2;
             event->val1 = MIN(wmsg.a2, event->win->line.cap);
             unsigned short *ibuf = (unsigned short*)wbuf;
 
             if (event->win->line_request_uni)
             {
+                int length = event->val1;
                 glui32 *obuf = event->win->line.buf;
-                for (i = 0; i < (int)event->val1; i++)
-                    obuf[i] = ibuf[i];
+                int writepos = 0;
+                for (i = 0; i < length; i++) {
+                    int32_t chr = ibuf[i];
+                    if (chr >= 0xd800 && chr <= 0xdbff && i+1 < length && ibuf[i+1] >= 0xdc00 && ibuf[i+1] <= 0xdfff) {
+                        // This is the first character of a surrogate pair
+                        int high = ibuf[++i];
+
+                        int32_t w = (chr & ~0xd800)>>6;
+                        int32_t x = ((chr&0x3f)<<10)|(high&~0xdc00);
+                        int32_t u = w + 1;
+
+                        chr = (u<<16)|x;
+                        final_length--;
+                    } else if (chr >= 0xd800 && chr <= 0xdfff) {
+                        // This is a lone surrogate character (can't be translated)
+                        chr = 0xfffd;
+                    }
+
+                    obuf[writepos++] = chr;
+                }
                 if (event->win->echostr)
-                    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
+                    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, writepos);
+                event->val1 = writepos;
             }
             else
             {
@@ -856,7 +884,7 @@ again:
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
             }
 
-            event->win->str->readcount += event->val1;
+            event->win->str->readcount += final_length;
             
             if (gli_unregister_arr)
             {
@@ -941,7 +969,7 @@ again:
             break;
 
         case EVTQUIT:
-            gli_close_all_file_streams();
+            glk_exit();
             break;
 
         default:

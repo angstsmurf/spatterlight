@@ -71,7 +71,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
         
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        NSString *dirname = @(autosavedir);
         if (!dirname) {
             return;
         }
@@ -125,7 +125,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:nil];
         if (!res) {
             /* We don't abort out in this case; we leave the game autosave in place by itself, which is not ideal but better than data loss. */
-            win_showerror([@"Could not move autosave plist to final position." UTF8String]);
+            win_showerror(@"Could not move autosave plist to final position.".UTF8String);
             NSLog(@"Could not move library autosave to final position (continuing)");
         }
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
@@ -201,9 +201,9 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
             delete[] c;
         }
         
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        NSString *dirname = @(autosavedir);
         if (!dirname.length) {
-            win_showerror([@"Could not create autosave folder name." UTF8String]);
+            win_showerror(@"Could not create autosave folder name.".UTF8String);
             return false;
         }
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];

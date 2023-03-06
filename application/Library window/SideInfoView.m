@@ -5,16 +5,12 @@
 //  Created by Administrator on 2018-09-09.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "SideInfoView.h"
 
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-#import "LibController.h"
-#import "AppDelegate.h"
-#import "NSImage+Categories.h"
+#import "TableViewController.h"
 #import "ImageView.h"
 #import "NSFont+Categories.h"
 
@@ -26,27 +22,6 @@ fprintf(stderr, "%s\n",                                                    \
 #else
 #define NSLog(...)
 #endif
-
-@interface VerticallyCenteredTextFieldCell : NSTextFieldCell
-
-@end
-
-@implementation VerticallyCenteredTextFieldCell
-- (NSRect) titleRectForBounds:(NSRect)frame {
-
-    CGFloat stringHeight = self.attributedStringValue.size.height;
-    NSRect titleRect = [super titleRectForBounds:frame];
-    CGFloat oldOriginY = frame.origin.y;
-    titleRect.origin.y = frame.origin.y + (frame.size.height - stringHeight) / 2.0;
-    titleRect.size.height = titleRect.size.height - (titleRect.origin.y - oldOriginY);
-    return titleRect;
-}
-
-- (void) drawInteriorWithFrame:(NSRect)cFrame inView:(NSView*)cView {
-    [super drawInteriorWithFrame:[self titleRectForBounds:cFrame] inView:cView];
-}
-
-@end
 
 @interface SideInfoView ()
 {
@@ -81,8 +56,17 @@ fprintf(stderr, "%s\n",                                                    \
         acceptableTypes = [NSSet setWithObject:NSURLPboardType];
         acceptableTypes = [acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
         [self registerForDraggedTypes:acceptableTypes.allObjects];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(windowDidResignKey:)
+                                                     name:NSWindowDidResignKeyNotification
+                                                   object:self.window];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL) isFlipped { return YES; }
@@ -129,7 +113,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (font.pointSize > 25)
         para.maximumLineHeight = para.maximumLineHeight + 3;
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineSpacing = 1;
 
     if (font.pointSize > 25)
@@ -157,8 +141,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSTextField *textField = [[NSTextField alloc] initWithFrame:contentRect];
 
-//    textField.delegate = self;
-
     textField.translatesAutoresizingMaskIntoConstraints = NO;
 
     textField.bezeled=NO;
@@ -170,17 +152,17 @@ fprintf(stderr, "%s\n",                                                    \
     textField.allowsEditingTextAttributes = YES;
     textField.alignment = para.alignment;
 
-    [textField.cell setWraps:YES];
-    [textField.cell setScrollable:NO];
+    textField.cell.wraps = YES;
+    textField.cell.scrollable = NO;
 
     [textField setContentCompressionResistancePriority:25 forOrientation:NSLayoutConstraintOrientationHorizontal];
     [textField setContentCompressionResistancePriority:25 forOrientation:NSLayoutConstraintOrientationVertical];
 
     NSLayoutConstraint *xPosConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                      attribute:NSLayoutAttributeLeft
+                                                                      attribute:NSLayoutAttributeLeading
                                                                       relatedBy:NSLayoutRelationEqual
                                                                          toItem:self
-                                                                      attribute:NSLayoutAttributeLeft
+                                                                      attribute:NSLayoutAttributeLeading
                                                                      multiplier:1.0
                                                                        constant:10];
 
@@ -216,10 +198,10 @@ fprintf(stderr, "%s\n",                                                    \
                                                                         constant:-20];
 
     NSLayoutConstraint *rightMarginConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                             attribute:NSLayoutAttributeRight
+                                                                             attribute:NSLayoutAttributeTrailing
                                                                              relatedBy:NSLayoutRelationEqual
                                                                                 toItem:self
-                                                                             attribute:NSLayoutAttributeRight
+                                                                             attribute:NSLayoutAttributeTrailing
                                                                             multiplier:1.0
                                                                               constant:-10];
 
@@ -227,7 +209,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self addSubview:textField];
 
-    [self addConstraints:@[ xPosConstraint, yPosConstraint ,widthConstraint, rightMarginConstraint ]];
+    [self addConstraints:@[ xPosConstraint, yPosConstraint, widthConstraint, rightMarginConstraint ]];
 
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
                                                                         attribute:NSLayoutAttributeHeight
@@ -244,21 +226,8 @@ fprintf(stderr, "%s\n",                                                    \
     return textField;
 }
 
-- (void)scrollWheel:(NSEvent *)event {
-    [super scrollWheel:event];
-
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    if (_animatingScroll) {
-        [self cancelScrollAnimation];
-    }
-}
-
 - (void)updateSideViewWithGame:(Game *)somegame
 {
-    NSClipView *clipView = (NSClipView *)self.superview;
-
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-
     Metadata *somedata = somegame.metadata;
 
     if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
@@ -274,7 +243,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSLayoutConstraint *yPosConstraint;
     NSLayoutConstraint *widthConstraint;
     NSLayoutConstraint *heightConstraint;
-    NSLayoutConstraint *rightMarginConstraint;
     NSLayoutConstraint *topSpacerYConstraint;
 
     NSFont *font;
@@ -283,34 +251,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
+    NSClipView *clipView = [SideInfoView addTopConstraintsToView:self];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
+
     CGFloat superViewWidth = clipView.frame.size.width;
-
-    if (superViewWidth < 24)
-        return;
-
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                         attribute:NSLayoutAttributeLeft
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeLeft
-                                                        multiplier:1.0
-                                                          constant:0]];
-
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                         attribute:NSLayoutAttributeRight
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeRight
-                                                        multiplier:1.0
-                                                          constant:0]];
-
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                         attribute:NSLayoutAttributeTop
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeTop
-                                                        multiplier:1.0
-                                                          constant:0]];
 
     if (somedata.cover.data)
     {
@@ -320,19 +265,17 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat ratio = theImage.size.width / theImage.size.height;
 
         _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
-
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-
-        _imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
-        _imageView.intrinsic = _imageView.frame.size;
+        _imageView.frame = NSMakeRect(0,0, superViewWidth, superViewWidth / ratio);
+        _imageView.intrinsic = NSMakeSize(NSViewNoIntrinsicMetric, _imageView.frame.size.height);
 
         [self addSubview:_imageView];
 
         xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                      attribute:NSLayoutAttributeLeft
+                                                      attribute:NSLayoutAttributeLeading
                                                       relatedBy:NSLayoutRelationEqual
                                                          toItem:self
-                                                      attribute:NSLayoutAttributeLeft
+                                                      attribute:NSLayoutAttributeLeading
                                                      multiplier:1.0
                                                        constant:0];
 
@@ -352,6 +295,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                       multiplier:1.0
                                                         constant:0];
 
+        widthConstraint.priority = 500;
+
         heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                         attribute:NSLayoutAttributeHeight
                                                         relatedBy:NSLayoutRelationLessThanOrEqual
@@ -360,26 +305,14 @@ fprintf(stderr, "%s\n",                                                    \
                                                        multiplier:(1 / ratio)
                                                          constant:0];
 
-        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                             attribute:NSLayoutAttributeRight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self
-                                                             attribute:NSLayoutAttributeRight
-                                                            multiplier:1.0
-                                                              constant:0];
+        heightConstraint.priority = 499;
 
-        [self addConstraint:xPosConstraint];
-        [self addConstraint:yPosConstraint];
-        [self addConstraint:widthConstraint];
-        [self addConstraint:heightConstraint];
-
-        rightMarginConstraint.priority = 999;
-        [self addConstraint:rightMarginConstraint];
+        [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
         lastView = _imageView;
     } else {
         _imageView = nil;
-        //NSLog(@"No image");
+        // No image
         topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
         topSpacer.boxType = NSBoxSeparator;
 
@@ -392,22 +325,20 @@ fprintf(stderr, "%s\n",                                                    \
 
 
         xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                      attribute:NSLayoutAttributeLeft
+                                                      attribute:NSLayoutAttributeLeading
                                                       relatedBy:NSLayoutRelationEqual
                                                          toItem:self
-                                                      attribute:NSLayoutAttributeLeft
+                                                      attribute:NSLayoutAttributeLeading
                                                      multiplier:1.0
                                                        constant:0];
 
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
+        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                       attribute:NSLayoutAttributeTop
                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                          toItem:self
                                                       attribute:NSLayoutAttributeTop
                                                      multiplier:1.0
                                                        constant:clipView.frame.size.height/4];
-
-        yPosConstraint.priority = NSLayoutPriorityDefaultLow;
 
         widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                        attribute:NSLayoutAttributeWidth
@@ -419,7 +350,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
         [self addConstraint:xPosConstraint];
-        [self addConstraint:yPosConstraint];
+        [self addConstraint:topSpacerYConstraint];
         [self addConstraint:widthConstraint];
 
         lastView = topSpacer;
@@ -482,10 +413,10 @@ fprintf(stderr, "%s\n",                                                    \
     divider.translatesAutoresizingMaskIntoConstraints = NO;
 
     xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                      toItem:self
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                  multiplier:1.0
                                                    constant:0];
 
@@ -514,7 +445,6 @@ fprintf(stderr, "%s\n",                                                    \
                                                      constant:1];
 
     [self addSubview:divider];
-
     [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
     lastView = divider;
@@ -583,29 +513,22 @@ fprintf(stderr, "%s\n",                                                    \
     if (somedata.cover.data == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
-        CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
+        CGFloat topConstraintConstant = (windowHeight - totalHeight - 180) / 2;
         if (topConstraintConstant < 40)
             topConstraintConstant = 0;
 
-        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                            attribute:NSLayoutAttributeTop
-                                                            relatedBy:NSLayoutRelationLessThanOrEqual
-                                                               toItem:self
-                                                            attribute:NSLayoutAttributeTop
-                                                           multiplier:1.0
-                                                             constant:topConstraintConstant];
-
-        if (clipView.frame.size.height < self.frame.size.height) {
-            topSpacerYConstraint.constant = 0;
-            yPosConstraint.constant = 0;
-        }
-
-        [self addConstraint:topSpacerYConstraint];
-
+        topSpacerYConstraint.constant = topConstraintConstant;
     }
 
     if (_game != somegame) {
-        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
+        if (@available(macOS 11.0, *)) {
+        } else {
+            NSPoint newOrigin = clipView.bounds.origin;
+            newOrigin.y = -55;
+            [clipView setBoundsOrigin:newOrigin];
+        }
+
+//        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
     }
 
     _game = somegame;
@@ -631,78 +554,32 @@ fprintf(stderr, "%s\n",                                                    \
     titleField.attributedStringValue = titleString;
 }
 
-- (void)fixScroll:(id)sender {
-
-    NSClipView *clipView = (NSClipView *)self.superview;
-
-    if ([sender floatValue] != clipView.bounds.origin.y)
-        return;
-
-    if (clipView.frame.size.height >= self.frame.size.height) {
-        return;
-    }
-
-    if (clipView.frame.size.height >= NSMaxY(titleField.frame)) {
-        return;
-    }
-
-    CGFloat titleYpos;
-    if (_game.metadata.cover.data)
-        titleYpos = NSMaxY(_imageView.frame);
-    else
-        titleYpos = 0;
-
-    if (titleYpos < 0) {
-        titleYpos = 0;
-    }
-    if (titleYpos > NSMaxY(self.frame) - clipView.frame.size.height) {
-        titleYpos = NSMaxY(self.frame) - clipView.frame.size.height;
-    }
-
-    NSPoint newOrigin = clipView.bounds.origin;
-    newOrigin.y = titleYpos;
-
-    _animatingScroll = YES;
-    [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 4;
-
-        [[clipView animator] setBoundsOrigin:newOrigin];
-    }
-     completionHandler:^{
-        self.animatingScroll = NO;
-    }];
-}
-
-- (void)cancelScrollAnimation {
-    _animatingScroll = NO;
-    NSClipView *clipView = (NSClipView *)self.superview;
-    [NSAnimationContext beginGrouping];
-    [NSAnimationContext currentContext].duration = 0.001;
-    [[clipView animator] setBoundsOrigin:clipView.bounds.origin];
-    [NSAnimationContext endGrouping];
-}
-
 - (void)updateSideViewWithString:(NSString *)aString {
     NSFont *font;
-    NSClipView *clipView = (NSClipView *)self.superview;
+
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+
+    NSClipView *clipView = [SideInfoView addTopConstraintsToView:self];
+
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:clipView
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1.0
+                                                      constant:0]];
     if (!aString)
         return;
+
     [titleField removeFromSuperview];
-    titleField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, clipView.frame.size.width, clipView.frame.size.height)];
-    titleField.drawsBackground = NO;
-    self.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    titleField.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    titleField.cell = [[VerticallyCenteredTextFieldCell alloc] initTextCell:aString];
-
-    [self addSubview:titleField];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
 
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
     font = [NSFont titleBarFontOfSize:16];
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
     NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -715,13 +592,61 @@ fprintf(stderr, "%s\n",                                                    \
                                  nil];
 
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:aString attributes:attr];
+
+    NSRect rect = NSZeroRect;
+    rect.size = [aString sizeWithAttributes:attr];
+    titleField = [[NSTextField alloc] initWithFrame:rect];
+
     titleField.attributedStringValue = attrString;
+    titleField.translatesAutoresizingMaskIntoConstraints = NO;
+    titleField.bezeled = NO;
+    titleField.drawsBackground = NO;
+    titleField.bordered = NO;
+    titleField.alignment = NSTextAlignmentCenter;
+    titleField.editable = NO;
+    titleField.allowsEditingTextAttributes = YES;
+
+    [self addSubview:titleField];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
+                                                     attribute:NSLayoutAttributeLeading
+                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeLeading
+                                                    multiplier:1.0
+                                                      constant:0]];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
+                                                     attribute:NSLayoutAttributeTrailing
+                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeTrailing
+                                                    multiplier:1.0
+                                                      constant:0]];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
+                                                     attribute:NSLayoutAttributeCenterY
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeCenterY
+                                                    multiplier:1.0
+                                                      constant:-20]];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0]];
+
+    [titleField setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     if (_game && !_game.hasDownloaded) {
         if (!_downloadButton)
             _downloadButton = [self createDownloadButton];
         if (_downloadButton.superview != titleField) {
-            [titleField addSubview:_downloadButton];
+            [self addSubview:_downloadButton];
             _downloadButton.toolTip = NSLocalizedString(@"Download game info", nil);
 
             // We need to add these constraints in order to make the button
@@ -764,6 +689,38 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
++ (NSClipView *)addTopConstraintsToView:(NSView *)view {
+
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+
+    NSClipView *clipView = (NSClipView *)view.superview;
+
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                         attribute:NSLayoutAttributeLeading
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeLeading
+                                                        multiplier:1.0
+                                                          constant:0]];
+
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                         attribute:NSLayoutAttributeTrailing
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeTrailing
+                                                        multiplier:1.0
+                                                          constant:0]];
+
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeTop
+                                                        multiplier:1.0
+                                                          constant:0]];
+    return clipView;
+}
+
 #pragma mark Download button
 - (NSButton *)createDownloadButton {
     // The actual size and position of the button is taken care of
@@ -787,8 +744,8 @@ fprintf(stderr, "%s\n",                                                    \
         context.duration = 0.4;
         [_downloadButton animator].alphaValue = 0;
     } completionHandler:^{
-        LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-        [libcontroller download:self.downloadButton];
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"SideviewDownload" object:nil]];
     }];
 }
 
@@ -824,6 +781,12 @@ fprintf(stderr, "%s\n",                                                    \
         [_imageView resignFirstResponder];
     }
 }
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    if (notification.object == self.window)
+        [self deselectImage];
+}
+
 
 @end
 

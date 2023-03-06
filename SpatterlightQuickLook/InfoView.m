@@ -64,43 +64,44 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSUInteger totalNumberOfStars = 5;
     NSFont *currentFont = [NSFont fontWithName:@"SF Pro" size:12];
-    if (!currentFont)
-        currentFont = [NSFont systemFontOfSize:20];
+    BOOL noSF = NO;
+    if (!currentFont) {
+        currentFont = [NSFont systemFontOfSize:13];
+        noSF = YES;
+    }
 
     NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
     para.alignment = alignment;
 
-    if (@available(macOS 10.13, *)) {
-        NSDictionary *activeStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"],
-            NSParagraphStyleAttributeName : para
-        };
-        NSDictionary *inactiveStarFormat = @{
-            NSFontAttributeName : currentFont,
-            NSForegroundColorAttributeName : [NSColor disabledControlTextColor],
-            NSParagraphStyleAttributeName : para
-        };
+    NSDictionary *activeStarFormat = @{
+        NSFontAttributeName : currentFont,
+        NSForegroundColorAttributeName : [NSColor colorNamed:@"customControlColor"],
+        NSParagraphStyleAttributeName : para
+    };
+    NSDictionary *inactiveStarFormat = @{
+        NSFontAttributeName : currentFont,
+        NSForegroundColorAttributeName : [NSColor colorNamed:@"customDisabledColor"],
+        NSParagraphStyleAttributeName : para
+    };
 
-        [starString appendAttributedString:[[NSAttributedString alloc]
-                                            initWithString:@"\n\n" attributes:activeStarFormat]];
+    [starString appendAttributedString:[[NSAttributedString alloc]
+                                        initWithString:@"\n\n" attributes:activeStarFormat]];
 
-        for (int i=0; i < totalNumberOfStars; ++i) {
-            //Full star
-            if (rating >= i+1) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
-            }
-            //Half star
-            else if (rating > i) {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
-            }
-            // Grey star
-            else {
-                [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
-            }
+    for (int i=0; i < totalNumberOfStars; ++i) {
+        //Full star
+        if (rating >= i+1) {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:noSF ? NSLocalizedString(@"\u2605 ", nil) : NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
+        }
+        //Half star
+        else if (rating > i) {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
+        }
+        // Grey star
+        else {
+            [starString appendAttributedString:[[NSAttributedString alloc]
+                                                initWithString:noSF ? NSLocalizedString(@"\u2606 ", nil) : NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
         }
     }
     return starString;
@@ -135,8 +136,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSTextField *)addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView {
-    if (!font)
-        NSLog(@"Font is nil!");
 
     NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
 
@@ -144,13 +143,17 @@ fprintf(stderr, "%s\n",                                                    \
     para.maximumLineHeight = para.minimumLineHeight;
 
     if (font.pointSize > 40)
-        para.maximumLineHeight = para.maximumLineHeight + 3;
+        para.maximumLineHeight += 3;
 
     if (font.pointSize > 25)
-        para.maximumLineHeight = para.maximumLineHeight + 3;
+        para.maximumLineHeight += 3;
 
-    para.alignment = NSCenterTextAlignment;
+    para.alignment = NSTextAlignmentCenter;
     para.lineSpacing = 1;
+
+    if (font.pointSize == 12.5) {
+        para.lineSpacing = 2;
+    }
 
     if (font.pointSize > 25)
         para.lineSpacing = 0.2f;
@@ -179,7 +182,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSTextField *textField = [InfoView customTextFieldWithFrame:contentRect];
 
-    textField.alignment = NSCenterTextAlignment;
+    textField.alignment = NSTextAlignmentCenter;
 
     NSLayoutConstraint *xPosConstraint =
     [NSLayoutConstraint constraintWithItem:textField
@@ -189,6 +192,8 @@ fprintf(stderr, "%s\n",                                                    \
                                  attribute:NSLayoutAttributeCenterX
                                 multiplier:1.0
                                   constant:0];
+
+    xPosConstraint.priority = 777;
 
     NSLayoutConstraint *yPosConstraint;
 
@@ -211,29 +216,24 @@ fprintf(stderr, "%s\n",                                                    \
                                                        constant:space];
     }
 
-    NSLayoutConstraint *widthConstraint =
-    [NSLayoutConstraint constraintWithItem:textField
-                                 attribute:NSLayoutAttributeWidth
-                                 relatedBy:NSLayoutRelationLessThanOrEqual
-                                    toItem:self
-                                 attribute:NSLayoutAttributeWidth
-                                multiplier:1.0
-                                  constant:-20];
-
     NSLayoutConstraint *rightMarginConstraint =
     [NSLayoutConstraint constraintWithItem:textField
-                                 attribute:NSLayoutAttributeRight
+                                 attribute:NSLayoutAttributeTrailing
                                  relatedBy:NSLayoutRelationEqual
                                     toItem:self
-                                 attribute:NSLayoutAttributeRight
+                                 attribute:NSLayoutAttributeTrailing
                                 multiplier:1.0
                                   constant:-10];
 
+    rightMarginConstraint.priority = 900;
+
     textField.attributedStringValue = attrString;
+
+    [textField setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     [self addSubview:textField];
 
-    [self addConstraints:@[ xPosConstraint, yPosConstraint ,widthConstraint, rightMarginConstraint ]];
+    [self addConstraints:@[ xPosConstraint, yPosConstraint, rightMarginConstraint ]];
 
     NSLayoutConstraint *heightConstraint =
     [NSLayoutConstraint constraintWithItem:textField
@@ -244,6 +244,7 @@ fprintf(stderr, "%s\n",                                                    \
                                 multiplier:1.0
                                   constant: contentRect.size.height + 1];
 
+    heightConstraint.priority = 900;
     [self addConstraint:heightConstraint];
 
     totalHeight += NSHeight(textField.bounds) + space;
@@ -281,6 +282,7 @@ fprintf(stderr, "%s\n",                                                    \
     topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
     topSpacer.boxType = NSBoxSeparator;
 
+    [topSpacer setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     [self addSubview:topSpacer];
 
@@ -290,12 +292,13 @@ fprintf(stderr, "%s\n",                                                    \
 
 
     xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                      toItem:self
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                  multiplier:1.0
                                                    constant:0];
+    xPosConstraint.priority = 900;
 
     topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                         attribute:NSLayoutAttributeTop
@@ -308,19 +311,18 @@ fprintf(stderr, "%s\n",                                                    \
     topSpacerYConstraint.priority = NSLayoutPriorityDefaultLow;
 
     widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                   attribute:NSLayoutAttributeWidth
-                                                   relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                   attribute:NSLayoutAttributeTrailing
+                                                   relatedBy:NSLayoutRelationEqual
                                                       toItem:self
-                                                   attribute:NSLayoutAttributeWidth
+                                                   attribute:NSLayoutAttributeTrailing
                                                   multiplier:1.0
                                                     constant:0];
-
 
     [self addConstraints:@[xPosConstraint, topSpacerYConstraint, widthConstraint]];
 
     lastView = topSpacer;
 
-    if (somedata.title) { // Every game will have a title unless something is broken
+    if (somedata.title.length) { // Every game will have a title unless something is broken
         font = [NSFont systemFontOfSize:20];
 
         longestWord = @"";
@@ -373,8 +375,8 @@ fprintf(stderr, "%s\n",                                                    \
     } else if (somedata.myRating.length) {
         rating = somedata.myRating.integerValue;
     }
-    
-    NSAttributedString *starString = [InfoView starString:rating alignment:NSCenterTextAlignment];
+
+    NSAttributedString *starString = [InfoView starString:rating alignment:NSTextAlignmentCenter];
 
     if (starString.length) {
         CGFloat offset = [starString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin].size.height * 0.3;
@@ -388,10 +390,10 @@ fprintf(stderr, "%s\n",                                                    \
     divider.translatesAutoresizingMaskIntoConstraints = NO;
 
     xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                      toItem:self
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                  multiplier:1.0
                                                    constant:0];
 
@@ -404,10 +406,10 @@ fprintf(stderr, "%s\n",                                                    \
                                                    constant:spaceBefore * 0.9];
 
     widthConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                   attribute:NSLayoutAttributeWidth
+                                                   attribute:NSLayoutAttributeTrailing
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:self
-                                                   attribute:NSLayoutAttributeWidth
+                                                   attribute:NSLayoutAttributeTrailing
                                                   multiplier:1.0
                                                     constant:0];
 
@@ -419,13 +421,15 @@ fprintf(stderr, "%s\n",                                                    \
                                                    multiplier:1.0
                                                      constant:1];
 
+    [divider setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
+
     [self addSubview:divider];
 
     [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
     lastView = divider;
 
-    if (somedata.headline) {
+    if (somedata.headline.length) {
         font = [NSFont systemFontOfSize:12];
 
         font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSSmallCapsFontMask];
@@ -433,14 +437,14 @@ fprintf(stderr, "%s\n",                                                    \
         lastView = [self addSubViewWithtext:somedata.headline.uppercaseString andFont:font andSpaceBefore:4 andLastView:lastView];
     }
 
-    if (somedata.author) {
+    if (somedata.author.length) {
         font = [[NSFontManager sharedFontManager] convertFont:[NSFont systemFontOfSize:14] toHaveTrait:NSItalicFontMask];
 
         lastView = [self addSubViewWithtext:somedata.author andFont:font andSpaceBefore:25 andLastView:lastView];
     }
 
-    if (somedata.blurb) {
-        lastView = [self addSubViewWithtext:somedata.blurb andFont:[NSFont systemFontOfSize:14] andSpaceBefore:23 andLastView:lastView];
+    if (somedata.blurb.length) {
+        lastView = [self addSubViewWithtext:somedata.blurb andFont:[NSFont systemFontOfSize:12.5 weight:NSFontWeightLight] andSpaceBefore:23 andLastView:lastView];
     }
 
     font = [NSFont systemFontOfSize:11];
@@ -451,14 +455,12 @@ fprintf(stderr, "%s\n",                                                    \
     else
         ifid = somedata.ifids.anyObject.ifidString;
 
-    if (ifid) {
+    if (ifid.length) {
         lastView = [self addSubViewWithtext:[NSString stringWithFormat:@"IFID: %@\n", ifid.uppercaseString] andFont:font andSpaceBefore:23 andLastView:lastView];
 
         NSTextField *field = (NSTextField *)lastView;
         NSMutableAttributedString *mutAttrStr = field.attributedStringValue.mutableCopy;
-        if (@available(macOS 10.13, *)) {
-            [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
-        }
+        [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
         field.attributedStringValue = mutAttrStr;
     }
 
@@ -485,7 +487,6 @@ fprintf(stderr, "%s\n",                                                    \
                                  attribute:NSLayoutAttributeTop
                                 multiplier:1.0
                                   constant:topConstraintConstant];
-    newTopSpacerConstraint.priority = 1000;
     newTopSpacerConstraint.active = NO;
 
     [self addConstraint:newTopSpacerConstraint];
@@ -519,6 +520,7 @@ fprintf(stderr, "%s\n",                                                    \
     topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
     topSpacer.boxType = NSBoxSeparator;
 
+    [topSpacer setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     [self addSubview:topSpacer];
 
@@ -528,10 +530,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 
     xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                      toItem:self
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                  multiplier:1.0
                                                    constant:0];
 
@@ -543,13 +545,11 @@ fprintf(stderr, "%s\n",                                                    \
                                                        multiplier:1.0
                                                          constant:0];
 
-    topSpacerYConstraint.priority = NSLayoutPriorityDefaultLow;
-
     widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                   attribute:NSLayoutAttributeRight
+                                                   attribute:NSLayoutAttributeTrailing
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:self
-                                                   attribute:NSLayoutAttributeRight
+                                                   attribute:NSLayoutAttributeTrailing
                                                   multiplier:1.0
                                                     constant:0];
 
@@ -571,16 +571,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                       attribute:NSLayoutAttributeBottom
                                                      multiplier:1.0
                                                        constant:10];
-        NSLayoutConstraint *imageWidthConstraint =
-        [NSLayoutConstraint constraintWithItem:_imageView
-                                     attribute:NSLayoutAttributeWidth
-                                     relatedBy:NSLayoutRelationLessThanOrEqual
-                                        toItem:self
-                                     attribute:NSLayoutAttributeWidth
-                                    multiplier:1.0
-                                      constant:0];
-
-        [self addConstraints:@[yPosConstraint, imageWidthConstraint]];
+        [self addConstraints:@[yPosConstraint]];
 
         [_imageView addImageFromData:_imageData];
         if (metadict[@"coverArtDescription"])
@@ -597,12 +588,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (title.length) { // Every game will have a title unless something is broken
 
-        if (@available(macOS 10.11, *)) {
-            font = [NSFont systemFontOfSize:20 weight:NSFontWeightSemibold].copy;
-        } else {
-            font = [NSFont systemFontOfSize:20];
-            font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSBoldFontMask];
-        }
+        font = [NSFont systemFontOfSize:20 weight:NSFontWeightSemibold].copy;
 
         longestWord = @"";
 
@@ -615,7 +601,7 @@ fprintf(stderr, "%s\n",                                                    \
             font = [font fontToFitWidth:superViewWidth - 24 sampleText:longestWord];
         }
 
-        spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height;
+        spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.3;
 
         lastView = [self addSubViewWithtext:title andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
     } else {
@@ -631,7 +617,7 @@ fprintf(stderr, "%s\n",                                                    \
         rating = ((NSNumber *)metadict[@"myRating"]).integerValue;
     }
 
-    NSAttributedString *starString = [InfoView starString:rating alignment:NSCenterTextAlignment];
+    NSAttributedString *starString = [InfoView starString:rating alignment:NSTextAlignmentCenter];
 
     if (starString.length) {
         CGFloat offset = [starString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin].size.height * 0.3;
@@ -645,10 +631,10 @@ fprintf(stderr, "%s\n",                                                    \
     divider.translatesAutoresizingMaskIntoConstraints = NO;
 
     xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                      toItem:self
-                                                  attribute:NSLayoutAttributeLeft
+                                                  attribute:NSLayoutAttributeLeading
                                                  multiplier:1.0
                                                    constant:0];
 
@@ -660,11 +646,13 @@ fprintf(stderr, "%s\n",                                                    \
                                                  multiplier:1.0
                                                    constant:spaceBefore * 0.9];
 
+    yPosConstraint.priority = 900;
+
     widthConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                   attribute:NSLayoutAttributeWidth
+                                                   attribute:NSLayoutAttributeTrailing
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:self
-                                                   attribute:NSLayoutAttributeWidth
+                                                   attribute:NSLayoutAttributeTrailing
                                                   multiplier:1.0
                                                     constant:0];
 
@@ -675,6 +663,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                     attribute:NSLayoutAttributeNotAnAttribute
                                                    multiplier:1.0
                                                      constant:1];
+
+    [divider setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     [self addSubview:divider];
 
@@ -708,7 +698,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSString *blurb = metadict[@"blurb"];
     if (blurb.length) {
-        lastView = [self addSubViewWithtext:blurb andFont:[NSFont systemFontOfSize:14] andSpaceBefore:23 andLastView:lastView];
+        lastView = [self addSubViewWithtext:blurb andFont:[NSFont systemFontOfSize:12.5 weight:NSFontWeightLight] andSpaceBefore:23 andLastView:lastView];
     }
 
     spaceBefore = 24;
@@ -766,9 +756,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSTextField *field = (NSTextField *)lastView;
         NSMutableAttributedString *mutAttrStr = field.attributedStringValue.mutableCopy;
-        if (@available(macOS 10.13, *)) {
-            [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
-        }
+        [mutAttrStr addAttribute:NSForegroundColorAttributeName value:[NSColor colorNamed:@"customControlColor"] range:NSMakeRange(0, mutAttrStr.length)];
         field.attributedStringValue = mutAttrStr;
     } else {
         lastView = [self addSubViewWithtext:@"\n" andFont:font andSpaceBefore:0 andLastView:lastView];
@@ -811,9 +799,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSMutableDictionary *attributes = [NSMutableDictionary new];
         attributes[NSFontAttributeName] = [NSFont systemFontOfSize:11];
 
-        if (@available(macOS 10.13, *)) {
-            attributes[NSForegroundColorAttributeName]= [NSColor colorNamed:@"customControlColor"];
-        }
+        attributes[NSForegroundColorAttributeName]= [NSColor colorNamed:@"customControlColor"];
 
         NSMutableParagraphStyle *leftpara = [NSMutableParagraphStyle new];
         leftpara.alignment = NSTextAlignmentRight;
@@ -834,23 +820,25 @@ fprintf(stderr, "%s\n",                                                    \
         contentRect.origin.y = NSMaxY(lastview.frame) + 24;
         _leftDateView = [InfoView customTextFieldWithFrame:contentRect];
 
-        _leftDateView.alignment = NSRightTextAlignment;
+        _leftDateView.alignment = NSTextAlignmentRight;
 
         _leftDateView.attributedStringValue = leftAttributedString;
         [self addSubview:_leftDateView];
         contentRect.origin.x = NSMaxX(_leftDateView.frame) + 10;
         _rightDateView = [InfoView customTextFieldWithFrame:contentRect];
 
-        _rightDateView.alignment = NSLeftTextAlignment;
+        _rightDateView.alignment = NSTextAlignmentLeft;
 
         NSLayoutConstraint *xPosConstraint =
         [NSLayoutConstraint constraintWithItem:_leftDateView
-                                     attribute:NSLayoutAttributeLeft
+                                     attribute:NSLayoutAttributeLeading
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:self
-                                     attribute:NSLayoutAttributeLeft
+                                     attribute:NSLayoutAttributeLeading
                                     multiplier:1.0
                                       constant:10];
+
+        xPosConstraint.priority = 700;
 
         NSLayoutConstraint *yPosConstraint =
         [NSLayoutConstraint constraintWithItem:_leftDateView
@@ -860,15 +848,18 @@ fprintf(stderr, "%s\n",                                                    \
                                      attribute:NSLayoutAttributeBottom
                                     multiplier:1.0
                                       constant:24];
+        yPosConstraint.priority = 900;
 
         NSLayoutConstraint *rightMarginConstraint =
         [NSLayoutConstraint constraintWithItem:_leftDateView
-                                     attribute:NSLayoutAttributeRight
+                                     attribute:NSLayoutAttributeTrailing
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:self
                                      attribute:NSLayoutAttributeCenterX
                                     multiplier:1.0
                                       constant:-25];
+
+        rightMarginConstraint.priority = 666;
 
         _rightDateView.attributedStringValue = rightAttributedString;
 
@@ -878,12 +869,13 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSLayoutConstraint *xPosConstraint2 =
         [NSLayoutConstraint constraintWithItem:_rightDateView
-                                     attribute:NSLayoutAttributeLeft
+                                     attribute:NSLayoutAttributeLeading
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:self
                                      attribute:NSLayoutAttributeCenterX
                                     multiplier:1.0
                                       constant:-15];
+        xPosConstraint2.priority = 750;
 
         NSLayoutConstraint *yPosConstraint2 =
         [NSLayoutConstraint constraintWithItem:_rightDateView
@@ -893,24 +885,26 @@ fprintf(stderr, "%s\n",                                                    \
                                      attribute:NSLayoutAttributeBottom
                                     multiplier:1.0
                                       constant:24];
+        yPosConstraint.priority = 900;
 
         NSLayoutConstraint *rightMarginConstraint2 =
         [NSLayoutConstraint constraintWithItem:_rightDateView
-                                     attribute:NSLayoutAttributeRight
+                                     attribute:NSLayoutAttributeTrailing
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:self
-                                     attribute:NSLayoutAttributeRight
+                                     attribute:NSLayoutAttributeTrailing
                                     multiplier:1.0
                                       constant:-10];
+        rightMarginConstraint2.priority = 650;
 
         [self addConstraints:@[ xPosConstraint2, yPosConstraint2, rightMarginConstraint2]];
     } else {
         NSDictionary *leftDict = [_leftDateView.attributedStringValue attributesAtIndex:0 effectiveRange:nil];
         NSDictionary *rightDict = [_rightDateView.attributedStringValue attributesAtIndex:0 effectiveRange:nil];
         _leftDateView.attributedStringValue = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat:@"%@\n%@",
-                                                _leftDateView.stringValue, description] attributes:leftDict];
+                                                                                           _leftDateView.stringValue, description] attributes:leftDict];
         _rightDateView.attributedStringValue = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat:@"%@\n%@",
-                                      _rightDateView.stringValue, dateString] attributes:rightDict];
+                                                                                            _rightDateView.stringValue, dateString] attributes:rightDict];
 
         CGRect contentRect = [_rightDateView.attributedStringValue boundingRectWithSize:CGSizeMake(floor((self.frame.size.width - 34) / 2), FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin];
         NSRect leftFrame = _leftDateView.frame;
@@ -931,18 +925,18 @@ fprintf(stderr, "%s\n",                                                    \
     NSView *clipView = view.superview;
 
     [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                         attribute:NSLayoutAttributeLeft
+                                                         attribute:NSLayoutAttributeLeading
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:clipView
-                                                         attribute:NSLayoutAttributeLeft
+                                                         attribute:NSLayoutAttributeLeading
                                                         multiplier:1.0
                                                           constant:0]];
 
     [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                         attribute:NSLayoutAttributeRight
+                                                         attribute:NSLayoutAttributeTrailing
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:clipView
-                                                         attribute:NSLayoutAttributeRight
+                                                         attribute:NSLayoutAttributeTrailing
                                                         multiplier:1.0
                                                           constant:0]];
 
@@ -1008,7 +1002,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                       attribute:NSLayoutAttributeTop
                                                      multiplier:1.0
                                                        constant:20];
-        yPosConstraint.priority = 500;
+        yPosConstraint.priority = 950;
 
         [self addConstraint:yPosConstraint];
 
@@ -1039,6 +1033,7 @@ fprintf(stderr, "%s\n",                                                    \
                                  attribute:NSLayoutAttributeBottom
                                 multiplier:1.0
                                   constant:0];
+    bottomPinConstraint.priority = 950;
     [self addConstraint:bottomPinConstraint];
 
     NSLayoutConstraint *topSpacerYConstraint =
@@ -1079,34 +1074,39 @@ fprintf(stderr, "%s\n",                                                    \
     _imageView = [[NonInterpolatedImage alloc] initWithFrame:imageFrame];
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
+    [_imageView setContentCompressionResistancePriority:250 forOrientation:NSLayoutConstraintOrientationHorizontal];
+
     [self addSubview:_imageView];
 
     NSLayoutConstraint *xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                  attribute:NSLayoutAttributeCenterX
-                                                  relatedBy:NSLayoutRelationEqual
-                                                     toItem:self
-                                                  attribute:NSLayoutAttributeCenterX
-                                                 multiplier:1.0
-                                                   constant:0];
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                     multiplier:1.0
+                                                                       constant:0];
+
+    xPosConstraint.priority = 800;
 
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                   attribute:NSLayoutAttributeWidth
-                                                   relatedBy:NSLayoutRelationEqual
-                                                      toItem:nil
-                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                  multiplier:1.0
-                                                    constant:NSWidth(_imageView.frame)];
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                      multiplier: NSWidth(imageFrame) / NSWidth(self.frame)
+                                                                        constant:0];
 
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                    attribute:NSLayoutAttributeHeight
-                                                    relatedBy:NSLayoutRelationEqual
-                                                       toItem:nil
-                                                    attribute:NSLayoutAttributeNotAnAttribute
-                                                   multiplier:1.0
-                                                     constant:NSHeight(_imageView.frame)];
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                           toItem:_imageView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                       multiplier:(1 / ratio)
+                                                                         constant:0];
+
+    heightConstraint.priority = 499;
 
     [self addConstraints:@[xPosConstraint, widthConstraint, heightConstraint]];
 }
 
 @end
-

@@ -234,7 +234,7 @@ static void spatterglk_game_autorestore()
 
         TempLibrary *newlib = nil;
         getautosavedir(gamefile->filename);
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        NSString *dirname = @(autosavedir);
         if (!dirname || dirname.length == 0)
             return;
         NSString *glksavepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
@@ -366,7 +366,7 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
     if (!gli_enable_autosave)
         return;
 
-    if (lasteventtype == evtype_Timer && [lastAutosaveTimestamp timeIntervalSinceNow] > -0.05) {
+    if (lasteventtype == evtype_Timer && lastAutosaveTimestamp.timeIntervalSinceNow > -0.05) {
 //        NSLog(@"last autosave was less than 0.05 seconds ago. skipping this one.");
         return;
     }
@@ -407,7 +407,7 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
             return;
 
         getautosavedir(gamefile->filename);
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        NSString *dirname = @(autosavedir);
         if (!dirname)
             return;
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
@@ -629,7 +629,7 @@ static void recover_library_state(LibraryState *library_state)
 
             if (library_state.accel_params) {
                 for (int ix=0; ix<library_state.accel_params.count; ix++) {
-                    NSNumber *num = [library_state.accel_params objectAtIndex:ix];
+                    NSNumber *num = library_state.accel_params[ix];
                     glui32 param = num.unsignedIntValue;
                     accel_set_param(ix, param);
                 }
@@ -729,7 +729,7 @@ static void recover_library_state(LibraryState *library_state)
         _accel_params = [NSMutableArray arrayWithCapacity:count];
         for (int ix=0; ix<count; ix++) {
             glui32 param = accel_get_param(ix);
-            [_accel_params addObject:[NSNumber numberWithUnsignedInt:param]];
+            [_accel_params addObject:@(param)];
         }
 
         NSMutableArray *accel_funcs = [NSMutableArray arrayWithCapacity:8];

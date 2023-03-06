@@ -4,16 +4,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class HelpPanelController, LibController, CoreDataManager;
-
-@class Preferences;
+@class HelpPanelController, LibController, Preferences, TableViewController, CoreDataManager;
 
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> 
 
 @property Preferences *prefctl;
 @property LibController *libctl;
-@property HelpPanelController *helpLicenseWindow;
+@property TableViewController *tableViewController;
 
+@property (weak) HelpPanelController *helpLicenseWindow;
 @property (readonly) CoreDataManager *coreDataManager;
 
 - (IBAction)openDocument:(id)sender;
@@ -24,5 +23,7 @@
 - (IBAction)pruneLibrary:(id)sender;
 
 - (void)addToRecents:(NSArray *)URLs;
+
+@property (weak) IBOutlet NSMenuItem *themesMenuItem;
 
 @end

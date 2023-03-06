@@ -1,0 +1,862 @@
+Start of transcript
+
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a raised drawbridge. I see exits to the north, south, and west. 
+
+O.K., I WANT YOU TO ENTER MOAT
+
+O.K.
+
+I'm in the thick, smelly and murky looking waters of a moat, and I see here a large snoring sleeping moat monster (Oh boy does he look mean!). 
+
+O.K., I WANT YOU TO HOLD BREATH
+
+O.K.
+
+O.K., I WANT YOU TO SWIM DOWN
+
+O.K.
+
+I'm underwater in thick murky fluid, and I see here a soggy towel. 
+
+O.K., I WANT YOU TO GET TOWEL
+
+I've got a soggy towel.
+
+I'm underwater in thick murky fluid. 
+
+O.K., I WANT YOU TO SWIM DOWN
+
+O.K. Argh!
+
+I'm underwater in thick murky fluid. 
+
+O.K., I WANT YOU TO SWIM EAST
+
+O.K. Argh!
+
+I'm in a pool of dirty smelly murky water. I see an exit up. 
+
+O.K., I WANT YOU TO BREATHE
+
+O.K. I breathe.
+
+O.K., I WANT YOU TO U
+
+O.K. I go -UP-.
+
+I'm in a kitchen, and I see here a large drain area set into the floor it looks hip deep in dirty water, and a large wooden crate. I see an exit south. 
+
+O.K., I WANT YOU TO GET CRATE
+
+I've got a large wooden crate.
+
+I'm in a kitchen, and I see here a large drain area set into the floor it looks hip deep in dirty water. I see an exit south. 
+
+O.K., I WANT YOU TO S
+
+O.K. I go SOUTH.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain, a spell of Permeability, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP CRATE
+
+I leave a large wooden crate.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO S
+
+O.K. I go SOUTH.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PUSH EAST
+
+O.K. I see wall moves.
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here a stone door. I see an exit west. 
+
+O.K., I WANT YOU TO CAST SEED AT STONE DOOR
+
+I am now invoking a seed spell. O.K. Open SESAME SEED! Spell works!
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here an open door. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PULL WEST
+
+O.K. I see wall moves.
+
+I'm in a vacant room, and I see here a spell of Methuselah, and a spell of Unravelment. I see an exit east. 
+
+O.K., I WANT YOU TO GET UNRAVELMENT
+
+I've got a spell of Unravelment.
+
+I'm in a vacant room, and I see here a spell of Methuselah. I see an exit east. 
+
+O.K., I WANT YOU TO GET METHUSELAH
+
+I've got a spell of Methuselah.
+
+I'm in a vacant room. I see an exit east. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PUSH SOUTH
+
+O.K. I see wall moves.
+
+I'm in a storeroom, and I see here a *STAR, a sign: "STAIRWAY CONDEMED", and a staircase. I see exits to the north, and down. 
+
+O.K., I WANT YOU TO D
+
+O.K. I go -DOWN-.
+
+I'm on a wooden staircase, and I see here large rabid looking rats. I see exits to the up, and down. 
+
+O.K., I WANT YOU TO CAST LYCANTHROPE AT ME
+
+I am now invoking a Lycanthrope spell. Spell works! I see rats scuttling into their hole.
+
+I'm on a wooden staircase. I see exits to the up, and down. 
+
+O.K., I WANT YOU TO ENTER HOLE
+
+O.K.
+
+I'm under the stairs, and I see here a *STAR. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm under the stairs. 
+
+O.K., I WANT YOU TO ENTER HOLE
+
+O.K.
+
+I'm on a wooden staircase. I see exits to the up, and down. 
+
+O.K., I WANT YOU TO WALK UP
+
+O.K. I go -UP-.
+
+I'm in a storeroom, and I see here a *STAR, a sign: "STAIRWAY CONDEMED", and a staircase. I see exits to the north, and down. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a storeroom, and I see here a sign: "STAIRWAY CONDEMED", and a staircase. I see exits to the north, and down. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP STAR
+
+I leave a *STAR.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP STAR
+
+I leave a *STAR.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a ball room, and I see here a chandelier near ceiling, and an end of a rope tied to the wall, the other end goes up to the chandelier. I see an exit west. 
+
+O.K., I WANT YOU TO CAST UNRAVELMENT AT ROPE
+
+I am now invoking a spell of Unravelment. O.K. Spell works!
+
+I'm in a ball room, and I see here a chandelier near ceiling, and an end of a rope tied to the wall, the other end goes up to the chandelier. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in an entryway, and I see here a raised drawbridge, and an old lever in wall. I see an exit east. 
+
+O.K., I WANT YOU TO PULL LEVER
+
+O.K. Crash! It breaks!
+
+I'm in an entryway, and I see here a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO DROP WOOD
+
+I leave a piece of wood.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a kitchen, and I see here a large drain area set into the floor it looks hip deep in dirty water. I see an exit south. 
+
+O.K., I WANT YOU TO OPEN CABINET
+
+I got a spell of Bliss.
+
+I'm in a kitchen, and I see here a large drain area set into the floor it looks hip deep in dirty water. I see an exit south. 
+
+O.K., I WANT YOU TO ENTER DRAIN
+
+O.K.
+
+I'm in a pool of dirty smelly murky water. I see an exit up. 
+
+O.K., I WANT YOU TO HOLD BREATH
+
+O.K. Chandelier fell with a crash.
+
+I'm in a pool of dirty smelly murky water. I see an exit up. 
+
+O.K., I WANT YOU TO SWIM DOWN
+
+
+I'm underwater in thick murky fluid. 
+
+O.K., I WANT YOU TO SWIM DOWN
+
+O.K.
+
+I'm underwater in thick murky fluid. 
+
+O.K., I WANT YOU TO SWIM DOWN
+
+O.K. Argh!
+
+I'm underwater in thick murky fluid. 
+
+O.K., I WANT YOU TO SWIM DOWN
+
+O.K. Argh!
+
+I'm underwater in thick murky fluid, and I see here the moat bottom. 
+
+O.K., I WANT YOU TO LOOK BOTTOM
+
+O.K. I got a *STAR.
+
+O.K., I WANT YOU TO CAST BLISS AT ME
+
+I am now invoking a spell of Bliss. Spell works! Whoosh! I'm shot out of the water like a slick watermelon seed! Argh! I breathe.
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a lowered drawbridge. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO CROSS DRAWBRIDGE
+
+O.K.
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO S
+
+O.K. I go SOUTH.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PUSH EAST
+
+O.K. I see wall moves.
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here an open door. I see an exit west. 
+
+O.K., I WANT YOU TO ENTER DOOR
+
+O.K.
+
+I'm on a stone staircase. I see exits to the up, and down. 
+
+O.K., I WANT YOU TO D
+
+O.K. I go -DOWN-.
+
+I'm in a damp cavern, and I see here a hot bubbling lava stream. I see an exit up. 
+
+O.K., I WANT YOU TO WRING TOWEL
+
+O.K.
+
+I'm in a damp cavern, and I see here a hot bubbling lava stream. I see an exit up. 
+
+O.K., I WANT YOU TO DRY TOWEL ON LAVA
+
+O.K.
+
+I'm in a damp cavern, and I see here a hot bubbling lava stream. I see an exit up. 
+
+O.K., I WANT YOU TO CROSS LAVA
+
+O.K.
+
+I'm over a stream of hot and bubbling lava, and I see here a grotto to the south, and a cave to the north. I see exits to the north, and south. 
+
+O.K., I WANT YOU TO S
+
+O.K. I go SOUTH.
+
+I'm in a stone grotto, and I see here a *STAR, and a Dizzy Dean spell. I see an exit north. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a stone grotto, and I see here a Dizzy Dean spell. I see an exit north. 
+
+O.K., I WANT YOU TO GET DIZZY DEAN
+
+I've got a Dizzy Dean spell.
+
+I'm in a stone grotto. I see an exit north. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm over a stream of hot and bubbling lava, and I see here a grotto to the south, and a cave to the north. I see exits to the north, and south. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a damp cavern, and I see here a hot bubbling lava stream. I see an exit up. 
+
+O.K., I WANT YOU TO U
+
+O.K. I go -UP-.
+
+I'm on a stone staircase. I see exits to the up, and down. 
+
+O.K., I WANT YOU TO U
+
+O.K. I go -UP-.
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here an open door. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP STAR
+
+I leave a *STAR.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP STAR
+
+I leave a *STAR.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a large wooden crate, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET CRATE
+
+I've got a large wooden crate.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a ball room, and I see here a fallen Chandelier. I see an exit west. 
+
+O.K., I WANT YOU TO GO CHANDELIER
+
+O.K.
+
+I'm on a large chandelier, and I see here a *STAR, broken glass, and a ballroom. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm on a large chandelier, and I see here broken glass, and a ballroom. 
+
+O.K., I WANT YOU TO CAST WICKED QUEEN AT BROKEN GLASS
+
+I am now invoking the spell of the Wicked Queen. O.K. Spell works!
+
+I'm on a large chandelier, and I see here a magic looking mirror with gold filigree edges, and a ballroom. 
+
+O.K., I WANT YOU TO GET MIRROR
+
+I've got a magic looking mirror with gold filigree edges.
+
+I'm on a large chandelier, and I see here a ballroom. 
+
+O.K., I WANT YOU TO CAST LIGHT SQUARED SPELL AT MIRROR
+
+I am now invoking a light squared spell. O.K. Spell works! Light light (unheavy lamp) rises!
+
+I'm on a large chandelier, and I see here a loft. 
+
+O.K., I WANT YOU TO GO LOFT
+
+Chandelier fell with a crash.
+
+I'm in a loft high above the ballroom, and I see here a potion. 
+
+O.K., I WANT YOU TO THROW CRATE
+
+O.K. Crash!
+
+I'm in a loft high above the ballroom, and I see here a potion. 
+
+O.K., I WANT YOU TO GET POTION
+
+I've got a potion.
+
+I'm in a loft high above the ballroom. 
+
+O.K., I WANT YOU TO JUMP
+
+I fall! Spell works!
+
+I'm in a ball room, and I see here a fallen Chandelier, and a large wooden crate. I see an exit west. 
+
+O.K., I WANT YOU TO CLIMB CRATE
+
+O.K.
+
+I'm on a box, and I see here a hole. 
+
+O.K., I WANT YOU TO ENTER HOLE
+
+O.K.
+
+I'm in a box, and I see here a hole, and a piece of metal. 
+
+O.K., I WANT YOU TO GET METAL
+
+I've got a piece of metal.
+
+I'm in a box, and I see here a hole. 
+
+O.K., I WANT YOU TO ENTER HOLE
+
+O.K.
+
+I'm on a box, and I see here a hole. 
+
+O.K., I WANT YOU TO JUMP
+
+O.K.
+
+I'm in a ball room, and I see here a fallen Chandelier, and a large wooden crate. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and fire bricks like those in a fireplace. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET BRICK
+
+I've got fire bricks like those in a fireplace.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO CROSS DRAWBRIDGE
+
+O.K.
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO LOOK BATTLEMENTS
+
+I see a tin can up there.
+
+O.K., I WANT YOU TO CAST DIZZY SPELL AT ME
+
+I am now invoking a Dizzy Dean spell. Spell works! Everything spins around!
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO THROW BRICK AT CAN
+
+O.K. Spell works! I hit it!
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and a tin can. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET CAN
+
+I've got a tin can.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO OPEN CAN WITH METAL
+
+O.K.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, and a spell of Permeability. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP CAN
+
+I leave an open can.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, and an open can. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP METAL
+
+I leave a piece of metal.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP TOWEL
+
+I leave a towel.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO S
+
+O.K. I go SOUTH.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PUSH EAST
+
+O.K. I see wall moves.
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here an open door. I see an exit west. 
+
+O.K., I WANT YOU TO GET DUST
+
+O.K.
+
+I'm in a dusty room which looks like it hasn't been occupied in ages, and I see here an open door. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO DRINK POTION
+
+O.K.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO PUSH DOWN
+
+I fall!
+
+I'm in a dragon's lair, and I see here a *STAR, and an old vicious looking dragon. I see an exit up. 
+
+O.K., I WANT YOU TO THROW DUST
+
+O.K. ACHOOOO! Dragon moves.
+
+I'm in a dragon's lair, and I see here a *STAR, an old vicious looking dragon, and a hole. I see an exit up. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a dragon's lair, and I see here an old vicious looking dragon, and a hole. I see an exit up. 
+
+O.K., I WANT YOU TO LOOK DRAGON
+
+O.K. I got a *STAR.
+
+O.K., I WANT YOU TO ENTER HOLE
+
+O.K.
+
+I'm in a ancient wizard's workshop, and I see here a *STAR, and a firefly spell. I see an exit west. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a ancient wizard's workshop, and I see here a firefly spell. I see an exit west. 
+
+O.K., I WANT YOU TO GET FIREFLY
+
+I've got a firefly spell.
+
+I'm in a ancient wizard's workshop. I see an exit west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a dragon's lair, and I see here an old vicious looking dragon, and a hole. I see an exit up. 
+
+O.K., I WANT YOU TO U
+
+O.K. I go -UP-.
+
+I'm in a plain room that still has some interesting features. I see an exit north. 
+
+O.K., I WANT YOU TO N
+
+O.K. I go NORTH.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DROP METHUSELAH
+
+I leave a spell of Methuselah.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, a spell of Permeability, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET PERMEABILITY
+
+I've got a spell of Permeability.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, a towel, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET TOWEL
+
+I've got a towel.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO LOOK CAN
+
+O.K. I got a *STAR.
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO CROSS DRAWBRIDGE
+
+O.K.
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a lowered drawbridge. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO DIG
+
+O.K. I got a *STAR.
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a lowered drawbridge. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO W
+
+O.K. I go WEST.
+
+I'm in the Forest of Enchantment, strange sounds always seem to come from where I'm not. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO CAST FIRE AT TREE
+
+I am now invoking a spell of fire. O.K. Spell works!
+
+I'm in the Forest of Enchantment, strange sounds always seem to come from where I'm not, and I see here ashes. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO LOOK ASHES
+
+I got a *STAR.
+
+O.K., I WANT YOU TO CAST PERMEABILITY AT TREE
+
+I am now invoking a spell of Permeability. O.K. Spell works!
+
+I can't see. It is too dark 
+
+O.K., I WANT YOU TO CAST FIREFLY AT ME
+
+I am now invoking a firefly spell. I feel very odd!
+
+I'm in a hollow tree. A sign here says: "Drop Stars here.". 
+
+O.K., I WANT YOU TO DROP ALL STARS
+
+I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR.
+
+I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, and a *STAR. 
+
+O.K., I WANT YOU TO DROP TOWEL
+
+I leave a towel.
+
+I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, and a towel. 
+
+O.K., I WANT YOU TO CAST YOHO AT ME
+
+I am now invoking a spell of YOHO. Spell works!
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a lowered drawbridge. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO CROSS DRAWBRIDGE
+
+O.K.
+
+I'm on a drawbridge, and I see here a moat. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in an entryway, and I see here a piece of wood, and a lowered drawbridge. I see exits to the east, and west. 
+
+O.K., I WANT YOU TO E
+
+O.K. I go EAST.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, a spell of Methuselah, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET METHUSELAH
+
+I've got a spell of Methuselah.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a *STAR, a *STAR, a *STAR, a *STAR, a magic water fountain, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO GET ALL STARS
+
+I've got a *STAR. I've got a *STAR. I've got a *STAR. I've got a *STAR.
+
+I'm in a courtyard inside a large and mystical looking castle, and I see here a magic water fountain, an open can, and a piece of metal. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO ENTER FOUNTAIN
+
+O.K.
+
+I'm in a magic fountain the water feels strange, and I see here a *STAR, and a courtyard. 
+
+O.K., I WANT YOU TO CAST METHUSELAH AT ME
+
+I am now invoking a spell of Methuselah. Spell works!
+
+I'm in a magic fountain the water feels strange, and I see here a *STAR, and a courtyard. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a magic fountain the water feels strange, and I see here a courtyard. 
+
+O.K., I WANT YOU TO CLIMB FOUNTAIN
+
+O.K.
+
+I'm on top of the magic fountain, and I see here a large dark air shaft going into the centerpiece, and a water outlet spewing out water. I see an exit down. 
+
+O.K., I WANT YOU TO ENTER SHAFT
+
+O.K.
+
+I'm in a dank, dim and very smelly old dungeon cell, and I see here an oaken door, an air shaft, and a *STAR. 
+
+O.K., I WANT YOU TO GET STAR
+
+I've got a *STAR.
+
+I'm in a dank, dim and very smelly old dungeon cell, and I see here an oaken door, and an air shaft. 
+
+O.K., I WANT YOU TO CAST YOHO AT ME
+
+I am now invoking a spell of YOHO. Spell works! I feel very odd!
+
+I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, and a towel. 
+
+O.K., I WANT YOU TO DROP ALL STARS
+
+I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR. I leave a *STAR.
+
+I'm in a hollow tree. A sign here says: "Drop Stars here.", and I see here a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a *STAR, a towel, and a *STAR. 
+
+O.K., I WANT YOU TO SCORE
+
+I've stored 13 stars. On a scale of 0 to 100 that is a 100. I am 36 years old, The wizard appears and says: "Great, you've found them. You are now promoted to Apprentice First Class! Congratulations!"
+The game is now over. Play again? Y
+
+
+Adventure 13 by Scott Adams, dedicated to: Roe Adams (not a relative) and Richard Adams (Brother and favorite Beta Tester)!
+
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a raised drawbridge. I see exits to the north, south, east, and west. 
+
+O.K., I WANT YOU TO TRANSCRIPT OFF
+
+
+End of transcript

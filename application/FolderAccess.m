@@ -71,15 +71,13 @@
                 openPanel.canChooseDirectories = YES;
                 openPanel.canCreateDirectories = NO;
                 openPanel.directoryURL = bookmarkURL;
-
-                [openPanel beginWithCompletionHandler:^(NSInteger result) {
-                    if (result == NSModalResponseOK) {
-                        NSURL *blockURL = openPanel.URL;
-                        [FolderAccess storeBookmark:blockURL];
-                        [FolderAccess saveBookmarks];
-                        block();
-                    }
-                }];
+                NSModalResponse result = [openPanel runModal];
+                if (result == NSModalResponseOK) {
+                    NSURL *blockURL = openPanel.URL;
+                    [FolderAccess storeBookmark:blockURL];
+                    [FolderAccess saveBookmarks];
+                    block();
+                }
                 return;
             }
         }
@@ -101,6 +99,9 @@
     NSURL *existingAncestor = [FolderAccess existingAncestor:url];
     if (existingAncestor)
         return existingAncestor;
+
+    if (url.hasDirectoryPath)
+        return url;
 
     NSString *homeString = NSHomeDirectory();
     NSArray *pathComponents = homeString.pathComponents;

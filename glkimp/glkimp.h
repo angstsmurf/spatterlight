@@ -67,6 +67,7 @@ extern char *gli_story_name;
 extern char *gli_story_title;
 extern char *gli_game_path;
 extern char *gli_parentdir;
+extern int gli_parentdirlength;
 
 void wintitle(void);
 
@@ -147,6 +148,7 @@ void win_showerror(const char *str);
 void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
+int win_canprint(glui32 val);
 
 void gli_close_all_file_streams(void);
 

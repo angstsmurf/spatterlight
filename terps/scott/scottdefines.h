@@ -1,8 +1,8 @@
 //
 //  scottdefines.h
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
 
 #ifndef scottdefines_h
@@ -128,11 +128,10 @@ typedef enum {
     SYS_TI994A
 } MachineType;
 
-
 typedef enum {
     IMG_ROOM,
     IMG_ROOM_OBJ,
-    IMG_INV_OBJ,
+    IMG_INV_OBJ
 } USImageType;
 
 typedef enum {
@@ -233,7 +232,7 @@ typedef enum {
     SECRET_MISSION_VARIANT,
     SEAS_OF_BLOOD_VARIANT,
     US_VARIANT,
-    OLD_STYLE,
+    OLD_STYLE
 } GameType;
 
 typedef enum {
@@ -243,7 +242,15 @@ typedef enum {
     C64 = 0x8
 } Subtype;
 
-typedef enum { NO_PALETTE, ZX, ZXOPT, C64A, C64B, C64C, VGA } palette_type;
+typedef enum {
+    NO_PALETTE,
+    ZX,
+    ZXOPT,
+    C64A,
+    C64B,
+    C64C,
+    VGA
+} palette_type;
 
 typedef enum {
     NO_HEADER,

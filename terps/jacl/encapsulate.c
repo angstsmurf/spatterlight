@@ -90,10 +90,11 @@ encapsulate()
 					percented[position]++;
                     break;
 				}
-				word[position] = &text_buffer[index];
+                if (position < MAX_WORDS) {
+                    word[position] = &text_buffer[index];
+                    position++;
+                }
 				new_word = FALSE;
-				if (position < MAX_WORDS)
-					position++;
 			}
 			break;
 		}

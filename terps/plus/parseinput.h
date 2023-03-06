@@ -1,8 +1,8 @@
 //
 //  parseinput.h
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-06-04.
+//  Created by Petter Sjölund on 2022-06-04.
 //
 
 #ifndef parseinput_h

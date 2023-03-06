@@ -225,7 +225,7 @@
 
     XCUIElement *alert = app.dialogs[@"alert"];
     if (alert.exists) {
-        [alert/*@START_MENU_TOKEN@*/.checkBoxes[@"Don't ask again"]/*[[".dialogs[@\"alert\"].checkBoxes[@\"Don't ask again\"]",".checkBoxes[@\"Don't ask again\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ click];
+        [alert.checkBoxes.firstMatch click];
         [alert.buttons[@"Okay"] click];
     }
 }
@@ -405,6 +405,7 @@
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
+    XCUIElement *gameMenuBarItem = menuBarsQuery.menuBarItems[@"Game"];
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Open…"] click];
     XCUIElement *openDialog = app.dialogs.firstMatch;
@@ -416,7 +417,7 @@
 
     [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Open"];
 
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reveal in Finder"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reveal in Finder\"]",".menuItems[@\"Reveal in Finder\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
     [app terminate];
@@ -424,25 +425,30 @@
     [app launch];
     XCTAssert([app waitForExistenceWithTimeout:5]);
 
+    [menuBarsQuery.menuBarItems[@"Window"] click];
+    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
-    XCUIElement *searchSearchField = libraryWindow/*@START_MENU_TOKEN@*/.searchFields[@"Search"]/*[[".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCUIElement *searchSearchField = app/*@START_MENU_TOKEN@*/.windows[@"library"].searchFields[@"Search"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"].searchFields[@\"Search\"]",".searchFields[@\"Search\"]",".windows[@\"library\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/ ;
+
     XCUIElement *cancelButton = searchSearchField.buttons[@"cancel"];
     if (cancelButton.exists)
         [cancelButton click];
     [searchSearchField click];
     [searchSearchField typeText:@"image"];
-    [[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0] click];
 
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Show Info"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Show Info\"]",".menuItems[@\"Show Info\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0] click];
+
+    [gameMenuBarItem.menuItems[@"Show Info…"] click];
     [app typeText:@" "];
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Play Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Play Game\"]",".menuItems[@\"Play Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [fileMenuBarItem click];
+    [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [libraryWindow.buttons[@"Play the selected game"] click];
+    [libraryWindow.toolbars.buttons[@"Play"] click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Clear Scrollback"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Clear Scrollback\"]",".menuItems[@\"Clear Scrollback\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
@@ -857,7 +863,11 @@
 
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
     if (licensewinWindow.exists) {
-        [licensewinWindow.buttons[@"Understood"] click];
+        XCUIElementQuery *menuBarsQuery = [[XCUIApplication alloc] init].menuBars;
+        [menuBarsQuery.menuBarItems[@"Help"] click];
+        [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"GNU Public License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"GNU Public License\"]",".menuItems[@\"GNU Public License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+        [app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"GNU Public License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[@"Understood"] click];
+
     }
 
     XCUIElement *textField = [self addAndSelectGame:@"Elysium.t3"];
@@ -1094,10 +1104,12 @@
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
 
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You wake painfully,'"];
@@ -1105,6 +1117,7 @@
     [self waitForExpectations:@[expectation] timeout:5];
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
     predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'"];
@@ -1328,9 +1341,17 @@
     XCTAssert([textView waitForExistenceWithTimeout:1]);
     [textView typeText:@"all\n"];
 
-    NSURL *url = [testBundle URLForResource:@"Transcript of Praxix"
-                              withExtension:@"rtf"
-                               subdirectory:nil];
+    NSURL *url;
+
+    if (@available(macOS 12.0, *)) {
+        url = [testBundle URLForResource:@"Transcript of Praxix"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    } else {
+        url = [testBundle URLForResource:@"Transcript of Praxix old"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    }
 
     NSError *error = nil;
     NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
@@ -1368,9 +1389,17 @@
 
     [self openCommandScript:@"TerpEtude"];
 
-    NSURL *url = [testBundle URLForResource:@"Transcript of TerpEtude"
-                              withExtension:@"rtf"
-                               subdirectory:nil];
+    NSURL *url;
+
+    if (@available(macOS 12.0, *)) {
+        url = [testBundle URLForResource:@"Transcript of TerpEtude"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    } else {
+        url = [testBundle URLForResource:@"Transcript of TerpEtude old"
+                           withExtension:@"rtf"
+                            subdirectory:nil];
+    }
 
     NSError *error = nil;
     NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
@@ -1464,6 +1493,81 @@
 
     XCTAssert([transcript isEqualToString:facit]);
 }
+
+- (void)testTaylor {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"tot.tay"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"tot.tay"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"TaylorMade"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"tot"];
+
+    gameWindow = app.windows[@"tot.tay"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:25];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tot.tay.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
+- (void)testPlus {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+
+    XCUIElement *textField = [self addAndSelectGame:@"SPL13P.plus"];
+
+    [textField doubleClick];
+
+    XCUIElement *gameWindow = app.windows[@"SPL13P.plus"];
+    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
+    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+
+    [UITests turnOnDeterminism:@"Default"];
+
+    [textView typeText:@"transcript\r"];
+    NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
+
+    [self openCommandScript:@"Plus"];
+
+    NSString *facit = [self comparisonTranscriptFor:@"SPL13P"];
+
+    gameWindow = app.windows[@"SPL13P.plus"];
+    textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
+    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
+    [self waitForExpectations:@[expectation] timeout:25];
+
+    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of SPL13P.plus.txt"];
+
+    NSError *error = nil;
+    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
+
+    if (error)
+        NSLog(@"Error: %@", error);
+
+    XCTAssert([transcript isEqualToString:facit]);
+}
+
 
 - (void)testEditMenu {
     XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -1759,7 +1863,7 @@
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *searchField = libraryWindow.searchFields[@"Search"];
+    XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
 
     [searchField click];
     
@@ -1770,7 +1874,7 @@
 
     [textField click];
 
-    [libraryWindow.buttons[@"Info about the selected game"] click];
+    [libraryWindow.toolbars.buttons[@"Show info"] click];
 
 
     infoWin = app.windows[@"imagetest.gblorb Info"];
@@ -1806,7 +1910,7 @@
     [self addAndSelectGame:@"curses.z5"];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
-    XCUIElement *playButton = libraryWindow.buttons[@"Play the selected game"];
+    XCUIElement *playButton = libraryWindow.toolbars.buttons[@"Play"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
@@ -1900,8 +2004,10 @@
     [incrementArrow click];
     [decrementArrow click];
 
-    [[[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:1] click];
-    
+    XCUIElement *stylesTab = app/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
+    [app/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [stylesTab click];
+
     XCUIElement *actionButton = [[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:0];
 
     [actionButton click];
@@ -2104,7 +2210,7 @@
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
 
-        XCUIElement *addButton = libraryWindow.buttons[@"Add games to the library"];
+        XCUIElement *addButton = libraryWindow.toolbars.buttons[@"Add"];
 
         XCTAssert(addButton.exists);
         [addButton click];
@@ -2134,10 +2240,10 @@
     [searchField click];
     [searchField typeText:gameName];
 
-    XCUIElement *gamesTable = libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    XCUIElement *textField = [[gamesTable.tableRows childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
-    [textField click];
-    return textField;
+    XCUIElement *gamesTableRow =
+    [[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0];
+    [gamesTableRow click];
+    return gamesTableRow;
 }
 
 - (BOOL)doesGameExist:(NSString *)game {

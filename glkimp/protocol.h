@@ -122,6 +122,7 @@ enum
 
     QUOTEBOX,
     SHOWERROR,
+    CANPRINT,
     
     NEXTEVENT,
     EVTARRANGE,

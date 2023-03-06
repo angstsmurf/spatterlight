@@ -16,19 +16,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) GlkController *glkctl;
 
-- (nullable NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction  API_AVAILABLE(macos(10.13));
+- (nullable NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction;
 
 - (nullable NSAccessibilityCustomRotorItemResult *)linksRotor:(NSAccessibilityCustomRotor *)rotor
-                           resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13));
+                           resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters;
 
 - (nullable NSAccessibilityCustomRotorItemResult *)glkWindowRotor:(NSAccessibilityCustomRotor *)rotor
-                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13));
+                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters;
 
 - (nullable NSAccessibilityCustomRotorItemResult *)imagesRotor:(NSAccessibilityCustomRotor *)rotor
-                            resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13));
+                            resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters;
 
 - (nullable NSAccessibilityCustomRotorItemResult *)commandHistoryRotor:(NSAccessibilityCustomRotor *)rotor
-                                    resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13));
+                                    resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray * _Nonnull createCustomRotors;
 

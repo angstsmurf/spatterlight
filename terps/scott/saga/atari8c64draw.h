@@ -1,8 +1,8 @@
 //
 //  atari8c64draw.h
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-09-09.
+//  Created by Petter Sjölund on 2022-09-09.
 //
 
 #ifndef atari8c64draw_h

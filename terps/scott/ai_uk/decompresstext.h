@@ -1,15 +1,15 @@
 //
 //  decompresstext.h
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
 
 #ifndef decompresstext_h
 #define decompresstext_h
 
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 char *DecompressText(uint8_t *source, int stringindex);
 

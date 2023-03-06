@@ -1,14 +1,13 @@
 //
 //  gameinfo.c
-//  Plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-30.
+//  Created by Petter Sjölund on 2022-01-30.
 //
 
 #include <stdio.h>
 
 #include "definitions.h"
-
 
 const struct GameInfo games[] = {
     {
@@ -31,7 +30,6 @@ const struct GameInfo games[] = {
         6, // special images
     },
 
-
     {
         "Questprobe 2: Spider-Man",
         "SPIDER-MAN (tm)",
@@ -45,17 +43,24 @@ const struct GameInfo games[] = {
     {
         "Questprobe 3: Fantastic Four",
         "FF #1 ",
-        FANTASTIC4,                  // game ID
+        FANTASTIC4, // game ID
 
         21, // room images
         22, // item images
         21, // special images
     },
 
-
     {
-        NULL
-    }
+        "Questprobe 4: X-Men (Unfinished)",
+        "X-MEN ",
+        XMEN, // game ID
+
+        0, // room images
+        0, // item images
+        0, // special images
+    },
+
+    { NULL }
 };
 
 /* This is supposed to be the original ScottFree system
@@ -90,7 +95,7 @@ const char *sysdict[MAX_SYSMESS] = {
     "\" something. ",
     "I don't know what a \"",
     "\" is. ",
-    "You can't see. It is too dark! ",
+    "You can't see. It is too dark!\n",
     "You are in a ",
     "\nYou can also see: ",
     "Obvious exits: ",
@@ -116,22 +121,22 @@ const char *sysdict[MAX_SYSMESS] = {
     "no",
     "\nAnswer yes or no. ",
     "Are you sure? ",
-    "Move undone.",
-    "Can't undo on first turn.",
-    "No more undo states stored.",
-    "Saved.",
+    "Move undone. ",
+    "Can't undo on first turn. ",
+    "No more undo states stored. ",
+    "Saved. ",
     "You can't use ALL with that verb. ",
-    "Transcript is now off.\n",
-    "Transcript is now on.\n",
-    "No transcript is currently running.\n",
-    "A transcript is already running.\n",
+    "Transcript is now off. ",
+    "Transcript is now on. ",
+    "No transcript is currently running. ",
+    "A transcript is already running. ",
     "Failed to create transcript file. ",
     "Start of transcript\n\n",
-    "\n\nEnd of transcript\n",
-    "BAD DATA! Invalid save file.",
-    "State saved.\n",
-    "State restored.\n",
-    "No saved state exists.\n"
+    "\nEnd of transcript\n",
+    "BAD DATA! Invalid save file. ",
+    "State saved. ",
+    "State restored. ",
+    "No saved state exists. "
 };
 
 /* These are supposed to be the original ScottFree system
@@ -166,7 +171,7 @@ const char *sysdict_i_am[MAX_SYSMESS] = {
     "\" something. ",
     "I don't know what a \"",
     "\" is. ",
-    "I can't see. It is too dark! ",
+    "I can't see. It is too dark!\n",
     "I'm in a ",
     ", and I see here",
     "I see an exit ",

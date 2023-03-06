@@ -1,8 +1,8 @@
 //
 //  layouttext.c
-//  scott
+//  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
-//  Created by Administrator on 2022-01-11.
+//  Created by Petter Sjölund on 2022-01-11.
 //
 
 #include <ctype.h>
@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "utility.h"
+
 #include "layouttext.h"
 
 static int FindBreak(const char *buf, int pos, int columns)
@@ -65,6 +66,10 @@ char *LineBreakText(char *source, int columns, int *rows, int *length)
             }
 
             buf[destpos++] = source[sourcepos++];
+
+            if (destpos >= 768) {
+                return NULL;
+            }
 
             if (source[sourcepos] == 10 || source[sourcepos] == 13)
                 col--;

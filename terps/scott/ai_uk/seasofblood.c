@@ -1,8 +1,8 @@
 //
 //  seasofblood.c
-//  Spatterlight
+//  Part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-08.
+//  Created by Petter Sjölund on 2022-01-08.
 //
 
 #include <ctype.h>
@@ -631,7 +631,7 @@ int roll_dice(int strike, int stamina, int boatflag)
 
             rolls++;
 
-            if (rolls % 2)
+            if (rolls & 1)
                 left_dice = 1 + rand() % 6;
             else
                 right_dice = 1 + rand() % 6;

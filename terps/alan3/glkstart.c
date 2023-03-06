@@ -105,6 +105,7 @@ static void openResourceFile() {
                                                  resourceFileName, 0);
 #endif
 
+#ifdef SPATTERLIGHT
     free(resourceFileRef->filename);
     size_t filename_length = 0;
     if (originalFileName == NULL)
@@ -112,7 +113,7 @@ static void openResourceFile() {
     filename_length = strlen(originalFileName);
     resourceFileRef->filename = malloc(1 + filename_length);
     strcpy(resourceFileRef->filename, originalFileName);
-
+#endif
     if (glk_fileref_does_file_exist(resourceFileRef)) {
         resourceFile = glk_stream_open_file(resourceFileRef, filemode_Read, 0);
         ecode = giblorb_set_resource_map(resourceFile);
@@ -160,7 +161,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
         terminate(1);
     }
 
+#ifdef SPATTERLIGHT
     glkunix_set_base_file(adventureFileName);
+#endif
 
     /* Open any possible blorb resource file */
     openResourceFile();

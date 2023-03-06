@@ -246,7 +246,7 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
     }
 
     if (!fref->textmode)
-        strcat(modestr, "b");
+        strncat(modestr, "b", sizeof modestr - 1);
 
     fl = fopen(fref->filename, modestr);
     if (!fl) {
@@ -270,8 +270,9 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
 
     str->isbinary = !fref->textmode;
     str->file = fl;
-    str->filename = malloc(1 + strlen(fref->filename));
-	strcpy(str->filename, fref->filename);
+    size_t length = 1 + strlen(fref->filename);
+    str->filename = malloc(length);
+	strncpy(str->filename, fref->filename, length);
 
     str->lastop = 0;
 
@@ -461,11 +462,11 @@ strid_t gli_stream_open_pathname(char *pathname, int writemode,
     FILE *fl;
 
     if (!writemode)
-        strcpy(modestr, "r");
+        strncpy(modestr, "r", sizeof modestr);
     else
-        strcpy(modestr, "w");
+        strncpy(modestr, "w", sizeof modestr);
     if (!textmode)
-        strcat(modestr, "b");
+        strncat(modestr, "b", sizeof modestr - 1);
 
     fl = fopen(pathname, modestr);
     if (!fl) {
@@ -481,8 +482,9 @@ strid_t gli_stream_open_pathname(char *pathname, int writemode,
 
     str->isbinary = !textmode;
     str->file = fl;
-    str->filename = malloc(1 + strlen(pathname));
-	strcpy(str->filename, pathname);
+    size_t length = 1 + strlen(pathname);
+    str->filename = malloc(length);
+	strncpy(str->filename, pathname, length);
 
     str->lastop = 0;
 
@@ -1584,7 +1586,7 @@ void glk_put_buffer(char *buf, glui32 len)
 void glk_put_buffer_stream(stream_t *str, char *buf, glui32 len)
 {
     if (!str) {
-        gli_strict_warning("put_string_stream: invalid ref");
+        gli_strict_warning("put_buffer_stream: invalid ref");
         return;
     }
     gli_put_buffer(str, buf, len);
@@ -1607,7 +1609,7 @@ void glk_put_char_uni(glui32 ch)
 void glk_put_char_stream_uni(stream_t *str, glui32 ch)
 {
     if (!str) {
-        gli_strict_warning("put_char_stream: invalid ref");
+        gli_strict_warning("put_char_stream_uni: invalid ref");
         return;
     }
     gli_put_char_uni(str, ch);
@@ -1633,7 +1635,7 @@ void glk_put_string_stream_uni(stream_t *str, glui32 *us)
     glui32 val;
 
     if (!str) {
-        gli_strict_warning("put_string_stream: invalid ref");
+        gli_strict_warning("put_string_stream_uni: invalid ref");
         return;
     }
 
@@ -1658,7 +1660,7 @@ void glk_put_buffer_stream_uni(stream_t *str, glui32 *buf, glui32 len)
 {
     glui32 ix;
     if (!str) {
-        gli_strict_warning("put_string_stream: invalid ref");
+        gli_strict_warning("put_buffer_stream_uni: invalid ref");
         return;
     }
     for (ix=0; ix<len; ix++) {

@@ -3,7 +3,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "AppDelegate.h"
-#import "LibController.h"
+#import "TableViewController.h"
 #import "CoreDataManager.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
@@ -20,12 +20,6 @@ fprintf(stderr, "%s\n",                                                    \
 #else
 #define NSLog(...)
 #endif
-
-@interface InfoPanel : NSWindow
-
-@property BOOL disableConstrainedWindow;
-
-@end
 
 @implementation InfoPanel
 
@@ -89,8 +83,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface InfoController () <NSWindowDelegate, NSTextFieldDelegate>
-{
+@interface InfoController () {
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
     IBOutlet NSTextField *ifidField;
@@ -98,9 +91,6 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet ImageView *imageView;
 
     NSWindowController *snapshotController;
-
-    CoreDataManager *coreDataManager;
-    NSManagedObjectContext *managedObjectContext;
 }
 @end
 
@@ -108,33 +98,41 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (instancetype)init {
     self = [super initWithWindowNibName:@"InfoPanel"];
-    if (self) {
-        coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-        managedObjectContext = coreDataManager.mainManagedObjectContext;
-    }
 
     return self;
+}
+
+- (NSManagedObjectContext *)managedObjectContext {
+    if (_managedObjectContext == nil) {
+        _managedObjectContext = self.coreDataManager.mainManagedObjectContext;
+    }
+    return _managedObjectContext;
+}
+
+- (CoreDataManager *)coreDataManager {
+    if (_coreDataManager == nil) {
+        _coreDataManager =  ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
+    }
+    return _coreDataManager;
 }
 
 - (instancetype)initWithGame:(Game *)game  {
     self = [self init];
     if (self) {
         _game = game;
-        _path = game.urlForBookmark.path;
-        if (!_path)
-            _path = game.path;
         _meta = game.metadata;
+        _ifid = game.ifid;
     }
     return self;
 }
 
 // Used for window restoration
 
-- (instancetype)initWithpath:(NSString *)path {
+- (instancetype)initWithIfid:(NSString *)initIfid {
     self = [self init];
     if (self) {
-        _path = path;
-        _game = [self fetchGameWithPath:path];
+        _ifid = initIfid;
+        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
         if (_game) {
             _meta = _game.metadata;
         }
@@ -144,21 +142,32 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    if (@available(macOS 12, *)) {
+    if (@available(macOS 13, *)) {
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowVentura"];
+    } else if (@available(macOS 12, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowMonterey"];
     } else if (@available(macOS 11, *)) {
         self.window.backgroundColor = [NSColor colorNamed:@"customWindowBigSur"];
-    } else if (@available(macOS 10.13, *)) {
-            self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
     } else {
-        self.window.backgroundColor = [NSColor colorWithCalibratedRed:0.925 green:0.925 blue:0.925 alpha:1];
+        self.window.backgroundColor = [NSColor colorNamed:@"customWindowColor"];
+    }
+
+    if (!_game) {
+        _game = [TableViewController fetchGameForIFID:_ifid inContext:self.managedObjectContext];
+        if (_game) {
+            _meta = _game.metadata;
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                [self.window performClose:nil];
+            });
+        }
     }
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
-     object:managedObjectContext];
+     object:self.managedObjectContext];
 
     if (imageView) {
         imageView.game = _game;
@@ -194,36 +203,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 + (NSArray *)restorableStateKeyPaths {
     return @[
-        @"path", @"titleField.stringValue", @"authorField.stringValue",
+        @"titleField.stringValue", @"authorField.stringValue",
         @"headlineField.stringValue", @"descriptionText.string"
     ];
-}
-
-- (Game *)fetchGameWithPath:(NSString *)path {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@",path];
-
-    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"Found more than one entry with path %@",path);
-    }
-    else if (fetchedObjects.count == 0)
-    {
-        NSLog(@"fetchGameWithPath: Found no Game object with path %@", path);
-        return nil;
-    }
-
-    return fetchedObjects[0];
 }
 
 - (void)sizeToFitImageAnimate:(BOOL)animate {
@@ -296,17 +278,24 @@ fprintf(stderr, "%s\n",                                                    \
     NSSet *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSSet *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
     NSSet *refreshedObjects =  (notification.userInfo)[NSRefreshedObjectsKey];
-    if ([deletedObjects containsObject:_game])
+    if ([deletedObjects containsObject:_game]) {
+        _inDeletion = YES;
+        InfoController * __weak weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.window performClose:nil];
+            [weakSelf.window performClose:nil];
         });
+    }
     if (!updatedObjects)
         updatedObjects = [NSSet new];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
     if (updatedObjects.count && ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])) {
+        InfoController * __weak weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self update];
-            [self updateImage];
+            InfoController *strongSelf = weakSelf;
+            if (strongSelf) {
+                [strongSelf update];
+                [strongSelf updateImage];
+            }
         });
     }
 }
@@ -326,18 +315,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)update {
-    if (!_path)
-        _path = _game.urlForBookmark.path;
-    if (!_path)
-        _path = _game.path;
-    if (_path)
-        self.window.representedFilename = _path;
     if (_meta.title.length) {
         self.window.title =
         [NSString stringWithFormat:@"%@ Info", _meta.title];
-    } else if (_path) {
-        self.window.title =
-        [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
     } else self.window.title = NSLocalizedString(@"Game Info", nil);
 
     if (_meta) {
@@ -372,6 +352,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(NSNotification *)notification {
 
+    if (_inDeletion) {
+        _inDeletion = NO;
+        [_libcontroller releaseInfoController:self];
+        return;
+    }
     // Make sure that all edits are saved
     if (_titleField.stringValue.length && ![_meta.title isEqualToString:_titleField.stringValue])
         _meta.title = _titleField.stringValue;
@@ -401,6 +386,7 @@ fprintf(stderr, "%s\n",                                                    \
                 next = windowArray.lastObject;
             else
                 next = windowArray[index - 1];
+            next.inDeletion = NO;
             [next.window makeKeyAndOrderFront:nil];
         }
     }
@@ -463,7 +449,12 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
-    return managedObjectContext.undoManager;
+    return self.managedObjectContext.undoManager;
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    if (notification.object == self.window)
+        [imageView resignFirstResponder];
 }
 
 #pragma mark animation
@@ -589,7 +580,10 @@ fprintf(stderr, "%s\n",                                                    \
     CALayer *shadowLayer = snapshotView.layer.sublayers.firstObject;
     CALayer *snapshotLayer = snapshotView.layer.sublayers[1];
 
-    LibController *libctrl = _libcontroller;
+    TableViewController *libctrl = _libcontroller;
+
+    if (_libcontroller == nil)
+        NSLog(@"nil!");
 
     NSRect currentFrame = snapshotLayer.frame;
     NSRect targetFrame = [libctrl rectForLineWithIfid:_game.ifid];
@@ -620,6 +614,8 @@ fprintf(stderr, "%s\n",                                                    \
     positionAnimation.toValue = [NSValue valueWithPoint:point];
     positionAnimation.fillMode = kCAFillModeForwards;
 
+    NSString *blockIfid = _ifid;
+
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = .4;
@@ -638,18 +634,8 @@ fprintf(stderr, "%s\n",                                                    \
         self->snapshotController = nil;
 
         [self checkForKeyPressesDuringAnimation];
-
-        // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
-        // Probably a good reason to use something else as key.
-        for (InfoController *controller in (libctrl.infoWindows).allValues)
-            if (controller == self) {
-                NSArray *temp = [libctrl.infoWindows allKeysForObject:controller];
-                NSString *key = temp[0];
-                if (key) {
-                    [libctrl.infoWindows removeObjectForKey:key];
-                    return;
-                }
-            }
+        if (libctrl.infoWindows && blockIfid.length && libctrl.infoWindows[blockIfid])
+            [libctrl.infoWindows removeObjectForKey:blockIfid];
     }];
 }
 
@@ -709,16 +695,16 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSWindow *)createFullScreenWindow {
     NSWindow *fullScreenWindow =
-    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.window.screen.frame.size }
-                                styleMask:NSBorderlessWindowMask
+    [[NSWindow alloc] initWithContentRect:(CGRect){ .size = _libcontroller.view.window.screen.frame.size }
+                                styleMask:NSWindowStyleMaskBorderless
                                   backing:NSBackingStoreBuffered
                                     defer:NO
-                                   screen:_libcontroller.window.screen];
+                                   screen:_libcontroller.view.window.screen];
     fullScreenWindow.animationBehavior = NSWindowAnimationBehaviorNone;
     fullScreenWindow.backgroundColor = NSColor.clearColor;
     fullScreenWindow.movableByWindowBackground = NO;
     fullScreenWindow.ignoresMouseEvents = YES;
-    fullScreenWindow.level = _libcontroller.window.level;
+    fullScreenWindow.level = _libcontroller.view.window.level;
     fullScreenWindow.hasShadow = NO;
     fullScreenWindow.opaque = NO;
     NSView *contentView = [[NSView alloc] initWithFrame:NSZeroRect];
@@ -726,6 +712,41 @@ fprintf(stderr, "%s\n",                                                    \
     contentView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
     fullScreenWindow.contentView = contentView;
     return fullScreenWindow;
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    return [self.libcontroller validateMenuItem:menuItem];
+}
+
+- (IBAction)like:(id)sender {
+    return [self.libcontroller like:sender];
+}
+- (IBAction)dislike:(id)sender {
+    return [self.libcontroller dislike:sender];
+}
+- (IBAction)play:(id)sender {
+    return [self.libcontroller play:sender];
+}
+- (IBAction)download:(id)sender {
+    return [self.libcontroller download:sender];
+}
+- (IBAction)revealGameInFinder:(id)sender {
+    return [self.libcontroller revealGameInFinder:sender];
+}
+- (IBAction)deleteGame:(id)sender {
+    return [self.libcontroller deleteGame:sender];
+}
+- (IBAction)selectSameTheme:(id)sender {
+    return [self.libcontroller selectSameTheme:sender];
+}
+- (IBAction)deleteSaves:(id)sender {
+    return [self.libcontroller deleteSaves:sender];
+}
+- (IBAction)openIfdb:(id)sender {
+    return [self.libcontroller openIfdb:sender];
+}
+- (IBAction)applyTheme:(id)sender {
+    return [self.libcontroller applyTheme:sender];
 }
 
 @end

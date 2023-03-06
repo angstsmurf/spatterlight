@@ -216,7 +216,7 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.magscrolls</string>
+				<string>public.magnetic</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -692,6 +692,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>saga</string>
+				<string>sag</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
@@ -852,11 +853,65 @@
 				<string>public.woz</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>plus</string>
+				<string>plu</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Saga Plus Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plus</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tay</string>
+				<string>taylor</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>TaylorMade Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.tay</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -869,6 +924,8 @@
 	<string>$(APP_BUILD)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
+	<key>TeamPrefix</key>
+	<string>$(TeamIdentifierPrefix)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.adventure-games</string>
 	<key>NSAppTransportSecurity</key>
@@ -900,8 +957,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>Bookmark</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SAVE</string>
 			</dict>
@@ -1038,7 +1093,7 @@
 				<string>MAGNETIC</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>public.magscrolls</string>
+			<string>public.magnetic</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -1427,6 +1482,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>saga</string>
+					<string>sag</string>
 				</array>
 			</dict>
 		</dict>
@@ -1525,8 +1581,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>IconGameHires</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>DAT</string>
 			</dict>
@@ -1554,8 +1608,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>IconGameHires</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SNAPSHOT</string>
 			</dict>
@@ -1641,12 +1693,12 @@
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
-				<key>QUEST 4</key>
-				<string></string>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconBadgeName</key>
 				<string>Q</string>
+				<key>UTTypeIconText</key>
+				<string>QUEST 4</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.quest</string>
@@ -1673,8 +1725,6 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>Bookmark</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
 				<key>UTTypeIconText</key>
 				<string>SAVE</string>
 			</dict>
@@ -1701,9 +1751,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>NEO IMAGE</string>
 			</dict>
@@ -1729,7 +1777,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>MCGA IMAGE</string>
 			</dict>
@@ -1849,7 +1897,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>D64</string>
 			</dict>
@@ -1909,7 +1957,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>FIAD</string>
 			</dict>
@@ -1936,7 +1984,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>DSK</string>
 			</dict>
@@ -2050,7 +2098,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
+				<string>IconGameHires</string>
 				<key>UTTypeIconText</key>
 				<string>WOZ</string>
 			</dict>
@@ -2061,6 +2109,64 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>woz</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Saga Plus Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconText</key>
+				<string>PLUS</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.plus</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>plus</string>
+					<string>plu</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TaylorMade Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>T</string>
+				<key>UTTypeIconText</key>
+				<string>TAYLOR</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.tay</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tay</string>
+					<string>taylor</string>
 				</array>
 			</dict>
 		</dict>

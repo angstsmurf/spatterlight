@@ -13,7 +13,9 @@
     doesn't have to exist. In practice, it's small.
 */
 
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 
 #ifndef GLK_START_H
 #define GLK_START_H
@@ -28,6 +30,18 @@
 #define glkunix_arg_ValueCanFollow (3)
 #define glkunix_arg_NumberValue (4)
 
+#ifndef SPATTERLIGHT
+typedef struct glkunix_argumentlist_struct {
+    char *name;
+    int argtype;
+    char *desc;
+} glkunix_argumentlist_t;
+
+typedef struct glkunix_startup_struct {
+    int argc;
+    char **argv;
+} glkunix_startup_t;
+#endif
 
 /* The list of command-line arguments; this should be defined in your code. */
 extern glkunix_argumentlist_t glkunix_arguments[];

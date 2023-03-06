@@ -1,8 +1,8 @@
 //
 //  load_ti99_4a.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-02-12.
+//  Created by Petter Sjölund on 2022-02-12.
 //
 
 #include <assert.h>
@@ -10,14 +10,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "scott.h"
 #include "load_ti99_4a.h"
+#include "scott.h"
 
 #include "detectgame.h"
 #include "scottgameinfo.h"
 
-
 #define PACKED __attribute__((__packed__))
+
+// clang-format off
 
 struct DATAHEADER {
     uint8_t    num_objects;                         /* number of objects */
@@ -46,6 +47,8 @@ struct DATAHEADER {
     uint16_t   p_explicit            PACKED;        /* pointer to explicit action table */
     uint16_t   p_implicit            PACKED;        /* pointer to implicit actions */
 };
+
+// clang-format on
 
 int max_messages;
 int max_item_descr;
@@ -118,7 +121,7 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
 //    debug_print("Unknown: %d\n", header.strange);
 //}
 
-static int TryLoadingTI994A(struct DATAHEADER dh, int loud);
+static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud);
 
 GameIDType DetectTI994A()
 {
@@ -344,23 +347,23 @@ static uint8_t *LoadTitleScreen(void)
             if (c & 0x80) /* if not 7-bit ascii */
                 c = '?';
             switch (c) {
-                case '\\':
-                    c = ' ';
-                    break;
-                case '(':
-                    parens = 1;
-                    break;
-                case ')':
-                    if (!parens)
-                        c = '@';
-                    parens = 0;
-                    break;
-                case '|':
-                    if (*p != ' ')
-                        c = 12;
-                    break;
-                default:
-                    break;
+            case '\\':
+                c = ' ';
+                break;
+            case '(':
+                parens = 1;
+                break;
+            case ')':
+                if (!parens)
+                    c = '@';
+                parens = 0;
+                break;
+            case '|':
+                if (*p != ' ')
+                    c = 12;
+                break;
+            default:
+                break;
             }
             buf[offset++] = c;
             if (offset >= 3072)
@@ -375,7 +378,7 @@ static uint8_t *LoadTitleScreen(void)
     return result;
 }
 
-static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
+static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
 {
     int ni, nw, nr, mc, pr, tr, wl, lt, mn, trm;
     int ct;
@@ -477,7 +480,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
 #pragma mark room connections
 #endif
     if (SeekIfNeeded(FixAddress(FixWord(dh.p_room_exit)), &offset, &ptr) == 0)
-        return 0;
+        return UNKNOWN_GAME;
 
     ct = 0;
     rp = Rooms;
@@ -494,7 +497,7 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
 #pragma mark item locations
 #endif
     if (SeekIfNeeded(FixAddress(FixWord(dh.p_orig_items)), &offset, &ptr) == 0)
-        return 0;
+        return UNKNOWN_GAME;
 
     ct = 0;
     ip = Items;
@@ -530,10 +533,12 @@ static int TryLoadingTI994A(struct DATAHEADER dh, int loud)
     ct = 0;
     ip = Items;
 
-    int objectlinks[ni + 1];
+    if (ni >= 1024)
+        Fatal("Bad number of items");
+    int objectlinks[1024];
 
     if (SeekIfNeeded(FixAddress(FixWord(dh.p_obj_link)), &offset, &ptr) == 0)
-        return 0;
+        return UNKNOWN_GAME;
 
     do {
         objectlinks[ct] = *(ptr++ - file_baseline_offset);

@@ -36,9 +36,9 @@
 */
 
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
 
 /* Sizes of some of the arrays in the snap structure */
@@ -473,8 +473,6 @@ libspectrum_error internal_z80_read(libspectrum_snap *snap,
     const uint8_t *buffer,
     size_t buffer_length);
 
-//size_t writeToFile(const char *name, uint8_t *data, size_t size);
-
 uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
 {
     libspectrum_snap *snap = libspectrum_new(libspectrum_snap, 1);
@@ -494,10 +492,8 @@ uint8_t *DecompressZ80(uint8_t *raw_data, size_t length)
     for (int i = 0; i < SNAPSHOT_RAM_PAGES; i++)
         if (snap->pages[i] != NULL)
             free(snap->pages[i]);
+
     free(snap);
-
-//    writeToFile("/Users/administrator/Desktop/Z80Decompressed", uncompressed, 0xC000);
-
     return uncompressed;
 }
 
@@ -735,10 +731,7 @@ static libspectrum_error read_blocks(const uint8_t *buffer,
     next_block = buffer;
 
     while (next_block < end) {
-
-        libspectrum_error error;
-
-        error = read_block(next_block, snap, &next_block, end, version, compressed);
+        libspectrum_error error = read_block(next_block, snap, &next_block, end, version, compressed);
         if (error != LIBSPECTRUM_ERROR_NONE)
             return error;
     }

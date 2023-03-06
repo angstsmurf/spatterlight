@@ -1,20 +1,21 @@
 //
 //  restorestate.c
-//  plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
-#include <stdlib.h>
+
+#include <inttypes.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#include "glk.h"
-#include "common.h"
 #include "animations.h"
+#include "common.h"
+#include "glk.h"
 #include "graphics.h"
 #include "parseinput.h"
 #include "restorestate.h"
-
 
 #define MAX_UNDOS 100
 
@@ -27,6 +28,7 @@ extern uint8_t ObjectLoc[];
 extern winid_t Bottom;
 
 int JustRestored = 0;
+int JustRestarted = 0;
 ImgType SavedImgType;
 int SavedImgIndex;
 
@@ -47,7 +49,6 @@ struct SavedState *SaveCurrentState(void)
 
     s->BitFlags = BitFlags;
     s->ProtagonistString = ProtagonistString;
-    s->AutoInventory = AutoInventory;
     s->LastImgType = LastImgType;
     s->LastImgIndex = LastImgIndex;
 
@@ -74,7 +75,6 @@ void RestoreState(struct SavedState *state)
 
     BitFlags = state->BitFlags;
     ProtagonistString = state->ProtagonistString;
-    AutoInventory = state->AutoInventory;
 
     SetBit(DRAWBIT);
     SetBit(STOPTIMEBIT);
@@ -87,7 +87,10 @@ void RestoreState(struct SavedState *state)
         ResetBit(9);
         ResetBit(10);
     }
-    Look(1);
+    if (JustRestarted && CurrentGame != BANZAI)
+        Look(0);
+    else
+        Look(1);
     if (CurrentGame == FANTASTIC4) {
         LastImgType = state->LastImgType;
         LastImgIndex = state->LastImgIndex;
@@ -135,13 +138,15 @@ void RestoreUndo(int game)
         SystemMessage(NO_UNDO_STATES);
         return;
     }
+
+    if (game)
+        SystemMessage(MOVE_UNDONE);
+
     struct SavedState *current = last_undo;
     last_undo = current->previousState;
     if (last_undo->previousState == NULL)
         oldest_undo = last_undo;
     RestoreState(last_undo);
-    if (game)
-        SystemMessage(MOVE_UNDONE);
     free(current);
     number_of_undos--;
 }
@@ -155,18 +160,18 @@ void RamSave(int game)
 
     ramsave = SaveCurrentState();
     if (game)
-        Display(Bottom, "State saved.\n");
+        SystemMessage(STATE_SAVED);
 }
 
 void RamLoad(void)
 {
     if (ramsave == NULL) {
-        Display(Bottom, "No saved state exists.\n");
+        SystemMessage(NO_SAVED_STATE);
         return;
     }
 
+    SystemMessage(STATE_RESTORED);
     RestoreState(ramsave);
-    Display(Bottom, "State restored.\n");
     SaveUndo();
 }
 
@@ -174,11 +179,11 @@ void SaveGame(void)
 {
     strid_t file;
     frefid_t ref;
-    int ct;
+    int ct, dummy = 0;
     char buf[128];
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
-                                       filemode_Write, 0);
+        filemode_Write, 0);
     if (ref == NULL)
         return;
 
@@ -191,7 +196,7 @@ void SaveGame(void)
         snprintf(buf, sizeof buf, "%d\n", Counters[ct]);
         glk_put_string_stream(file, buf);
     }
-    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", BitFlags, ProtagonistString, AutoInventory, (int)LastImgType, LastImgIndex);
+    snprintf(buf, sizeof buf, "%llu %d %d %d %d\n", (unsigned long long)BitFlags, ProtagonistString, dummy, (int)LastImgType, LastImgIndex);
     glk_put_string_stream(file, buf);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         snprintf(buf, sizeof buf, "%hd\n", (short)Items[ct].Location);
@@ -208,11 +213,11 @@ int LoadGame(void)
     strid_t file;
     frefid_t ref;
     char buf[128];
-    int ct = 0;
+    int ct = 0, dummy;
     short lo;
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
-                                       filemode_Read, 0);
+        filemode_Read, 0);
     if (ref == NULL)
         return 0;
 
@@ -227,15 +232,17 @@ int LoadGame(void)
 
     for (ct = 0; ct < 64; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%hd", &Counters[ct]);
+        result = sscanf(buf, "%" SCNu16, &Counters[ct]);
         if (result != 1) {
             RecoverFromBadRestore(state);
             return 0;
         }
     }
     glk_get_line_stream(file, buf, sizeof buf);
-    result = sscanf(buf, "%llu %d %d %d %d\n", &BitFlags,  &ProtagonistString,
-                    &AutoInventory, (int *)&SavedImgType, &SavedImgIndex);
+    int SavedImgTypeInt;
+    result = sscanf(buf, "%" SCNu64 " %d %d %d %d\n", &BitFlags, &ProtagonistString,
+        &dummy, &SavedImgTypeInt, &SavedImgIndex);
+    SavedImgType = SavedImgTypeInt;
     debug_print("LoadGame: Result of sscanf: %d\n", result);
     if ((result < 3) || MyLoc > GameHeader.NumRooms || MyLoc < 1) {
         RecoverFromBadRestore(state);
@@ -246,10 +253,7 @@ int LoadGame(void)
         glk_get_line_stream(file, buf, sizeof buf);
         result = sscanf(buf, "%hd\n", &lo);
         Items[ct].Location = (unsigned char)lo;
-        if (result != 1 || (Items[ct].Location > GameHeader.NumRooms &&
-                            Items[ct].Location != CARRIED &&
-                            Items[ct].Location != HIDDEN &&
-                            Items[ct].Location != HELD_BY_OTHER_GUY)) {
+        if (result != 1 || (Items[ct].Location > GameHeader.NumRooms && Items[ct].Location != CARRIED && Items[ct].Location != HIDDEN && Items[ct].Location != HELD_BY_OTHER_GUY)) {
             fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s, is in room %d)\n", ct, Items[ct].Text, Items[ct].Location);
             RecoverFromBadRestore(state);
             return 0;
@@ -271,7 +275,7 @@ int LoadGame(void)
     LastImgIndex = SavedImgIndex;
 
     SetBit(DRAWBIT);
-    Look(1);
+    Look(0);
 
     if (LastImgType == IMG_SPECIAL) {
         DrawCloseup(LastImgIndex);
@@ -288,6 +292,7 @@ int LoadGame(void)
 void RestartGame(void)
 {
     FreeInputWords();
+    JustRestarted = 1;
     RestoreState(InitialState);
     JustStarted = 0;
     lastwasnewline = 1;

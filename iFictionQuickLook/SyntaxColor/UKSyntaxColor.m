@@ -112,9 +112,7 @@
         NSString * colorName =  [vCurrComponent objectForKey: @"Color"];
         NSColor*    vColor;
         if (colorName && colorName.length) {
-            if (@available(macOS 10.13, *)) {
-                vColor = [NSColor colorNamed:colorName];
-            }
+            vColor = [NSColor colorNamed:colorName];
         }
 
         if( !vColor )

@@ -1,9 +1,10 @@
 //
 //  robinofsherwood.c
-//  scott
+//  part of ScottFree, an interpreter for adventures in Scott Adams format
 //
-//  Created by Administrator on 2022-01-10.
+//  Created by Petter Sjölund on 2022-01-10.
 //
+
 #include <ctype.h>
 #include <string.h>
 
@@ -248,7 +249,7 @@ void UpdateRobinOfSherwoodAnimations(void)
 GameIDType LoadExtraSherwoodData(void)
 {
 
-#pragma mark room images
+    // room images
 
     int offset = 0x3d99 + file_baseline_offset;
     uint8_t *ptr;
@@ -272,7 +273,7 @@ GameIDType LoadExtraSherwoodData(void)
         }
     }
 
-#pragma mark rooms
+    // rooms
 
     ct = 0;
     rp = Rooms;
@@ -330,7 +331,7 @@ GameIDType LoadExtraSherwoodData(void)
 GameIDType LoadExtraSherwoodData64(void)
 {
 
-#pragma mark room images
+    // room images
 
     int offset = 0x1ffd + file_baseline_offset;
     uint8_t *ptr;
@@ -355,7 +356,7 @@ GameIDType LoadExtraSherwoodData64(void)
         }
     }
 
-#pragma mark rooms
+    // rooms
 
     ct = 0;
     rp = Rooms;

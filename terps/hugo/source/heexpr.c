@@ -400,7 +400,11 @@ int GetVal()
 
 		case VAR_T:                     /* variable */
 		{
-			val = var[(i=MEM(++codeptr))];
+            i=MEM(++codeptr);
+            if (i >= 0 && i < MAXLOCALS + MAXGLOBALS)
+                val = var[i];
+            else
+                val = 0;
 
 			if (game_version >= 22)
 			{

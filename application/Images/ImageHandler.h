@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) NSData *bookmark;
 @property (nullable) NSURL *URL;
 
-@end;
+@end
 
 
 @interface ImageResource : NSObject

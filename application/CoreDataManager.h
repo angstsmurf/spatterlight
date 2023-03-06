@@ -27,7 +27,4 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *privateChildManagedObjectContext;
 - (void)saveChanges;
 
-- (void)startIndexing;
-- (void)stopIndexing;
-
 @end

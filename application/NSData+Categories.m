@@ -111,7 +111,7 @@
     image = [image resizedToPixelDimensions:newImageSize];
     image.size = newImageSize;
 
-    NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+    NSBitmapImageRep *bitmaprep = image.bitmapImageRepresentation;
 
     NSDictionary *props = @{ NSImageCompressionFactor: @(0.5) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypeJPEG properties:props];

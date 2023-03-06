@@ -350,7 +350,7 @@
                 [image.image
                         drawInRect:bounds
                           fromRect:NSMakeRect(0, 0, size.width, size.height)
-                 operation:NSCompositeSourceOver
+                 operation:NSCompositingOperationSourceOver
                           fraction:1.0
                     respectFlipped:YES
                              hints:nil];

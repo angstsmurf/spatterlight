@@ -23,7 +23,7 @@
 // Treaty of babel header
 #include "babel_handler.h"
 
-#import "LibController.h"
+#import "TableViewController.h"
 
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
@@ -34,7 +34,7 @@ extern NSArray *gGameFileTypes;
 
 @implementation GameImporter
 
-- (instancetype)initWithLibController:(LibController *)libController {
+- (instancetype)initWithLibController:(TableViewController *)libController {
     self = [super init];
     if (self) {
         _libController = libController;
@@ -66,10 +66,9 @@ extern NSArray *gGameFileTypes;
     newOptions[@"reportFailure"] = @(reportFailure);
     newOptions[@"select"] = select;
 
-    LibController *libController = _libController;
+    TableViewController *libController = _libController;
 
-#pragma mark Long completion handler
-    // A long block that will run when all files are added
+    // A block that will run when all files are added
     // and all metadata is downloaded
     void (^internalHandler)(void) = ^void() {
 
@@ -84,13 +83,11 @@ extern NSArray *gGameFileTypes;
         [FolderAccess releaseBookmark:[FolderAccess suitableDirectoryForURL:urls.firstObject]];
         [context performBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                libController.addButton.enabled = YES;
-                libController.currentlyAddingGames = NO;
                 [libController endImporting];
-                [libController selectGamesWithIfids:select scroll:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                    [libController selectGamesWithIfids:select scroll:YES];
+                });
             });
-            if ([options[@"downloadInfo"] isEqual:@(YES)])
-                [LibController fixMetadataWithNoIfidsInContext:context];
         }];
     };
     
@@ -284,18 +281,16 @@ extern NSArray *gGameFileTypes;
     format = babel_init_ctx((char*)path.UTF8String, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx))
     {
+        babel_release_ctx(ctx);
+        free(ctx);
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
                 alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
                 [alert runModal];
-                babel_release_ctx(ctx);
-                free(ctx);
             });
         }
-        babel_release_ctx(ctx);
-        free(ctx);
         return nil;
     }
 
@@ -326,7 +321,7 @@ extern NSArray *gGameFileTypes;
     babel_release_ctx(ctx);
     free(ctx);
 
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [[path signatureFromFile] isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [path.signatureFromFile isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
         ifid = @"ZCODE-5-830222";
 
     if (([extension isEqualToString:@"dat"] &&
@@ -335,6 +330,7 @@ extern NSArray *gGameFileTypes;
            [@(format) isEqualToString:@"advsys"] ||
            [@(format) isEqualToString:@"sagaplus"] ||
            [@(format) isEqualToString:@"scott"] )) ||
+        ([extension isEqualToString:@"sna"] && [@(format) isEqualToString:@"alan"]) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"]) ||
         (([extension isEqualToString:@"msa"] || [extension isEqualToString:@"st"]) && ![@(format) isEqualToString:@"sagaplus"]) ||
         (([extension isEqualToString:@"d64"] || [extension isEqualToString:@"dsk"]) && ![@(format) isEqualToString:@"scott"] && ![@(format) isEqualToString:@"taylor"] && ![@(format) isEqualToString:@"sagaplus"])) {
@@ -361,10 +357,10 @@ extern NSArray *gGameFileTypes;
         return nil;
     }
 
-    LibController *libController = _libController;
+    TableViewController *libController = _libController;
 
     [context performBlockAndWait:^{
-        metadata = [LibController fetchMetadataForIFID:ifid inContext:context];
+        metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
 
         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
@@ -381,10 +377,10 @@ extern NSArray *gGameFileTypes;
                 else NSLog(@"Found no metadata in blorb file %@", path);
             }
         } else {
-            game = [LibController fetchGameForIFID:ifid inContext:context];
+            game = [TableViewController fetchGameForIFID:ifid inContext:context];
             if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
-                    game.hashTag = [path signatureFromFile];
+                    game.hashTag = path.signatureFromFile;
                 else if ([game.detectedFormat isEqualToString:@"zcode"]) {
                     [self addZCodeIDfromFile:path blorb:blorb toGame:game];
                 }
@@ -441,7 +437,7 @@ extern NSArray *gGameFileTypes;
                         metadata.coverArtURL = path;
                         [IFDBDownloader insertImageData:imageData inMetadata:metadata];
                         NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                        NSLog(@"Image md5: %@", [imageData md5String]);
+                        NSLog(@"Image md5: %@", imageData.md5String);
                         // 26BFA026324DC9C5B3080EA9769B29DE
                     }
                     else NSLog(@"Found no image in blorb file %@", path);
@@ -461,7 +457,7 @@ extern NSArray *gGameFileTypes;
         game.ifid = ifid;
         game.detectedFormat = @(format);
         if ([game.detectedFormat isEqualToString:@"glulx"]) {
-            game.hashTag = [path signatureFromFile];
+            game.hashTag = path.signatureFromFile;
         }
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
@@ -478,16 +474,17 @@ extern NSArray *gGameFileTypes;
             _libController.lastImageComparisonData = newImageData;
             NSData *oldImageData = (NSData *)game.metadata.cover.data;
             kImageComparisonResult comparisonResult = [ImageCompareViewController chooseImageA:newImageData orB:oldImageData source:kImageComparisonDownloaded force:NO];
-
-            if (comparisonResult != kImageComparisonResultA && comparisonResult == kImageComparisonResultWantsUserInput) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-                    if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
-                        [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
-                    }
-                });
-            } else {
-                [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+            if (comparisonResult != kImageComparisonResultB) {
+                if (comparisonResult == kImageComparisonResultWantsUserInput) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                        if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
+                            [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                        }
+                    });
+                } else {
+                    [IFDBDownloader insertImageData:newImageData inMetadata:game.metadata];
+                }
             }
         }
     }
@@ -536,22 +533,27 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     NSData *mem = [NSData dataWithContentsOfFile:file];
     uint8_t *memory = (uint8_t *)mem.bytes;
 
-    int dictionary = word(memory, 0x08);
-    int static_start = word(memory, 0x0e);
+    uint16_t dictionary = word(memory, 0x08);
+    uint32_t static_start = word(memory, 0x0e);
 
-    if(dictionary != 0 && dictionary < static_start)
+    if (dictionary != 0 && dictionary < static_start)
     {   // corrupted story: dictionary is not in static memory
         return NO;
     }
 
-    int objects = word(memory, 0x0a);
+    uint16_t objects = word(memory, 0x0a);
     int zversion = memory[0x00];
-    int propsize = (zversion <= 3 ? 62UL : 126UL);
+    unsigned long propsize = (zversion <= 3 ? 62UL : 126UL);
 
     if(objects < 64 ||
        objects + propsize > static_start)
     {
         // corrupted story: object table is not in dynamic memory
+        return NO;
+    }
+
+    if (static_start < 64UL + 480UL + propsize) {
+        // corrupted story: dynamic memory too small
         return NO;
     }
     return YES;
@@ -730,7 +732,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
 
     NSURL *desktopURL = [NSURL fileURLWithPath:origpath
-                                   isDirectory:YES];
+                                   isDirectory:NO];
 
 
     NSURL *temporaryDirectoryURL = [filemanager
@@ -758,6 +760,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     task = [[NSTask alloc] init];
     task.launchPath = exepath;
     task.arguments = @[ @"-o", tempFilePath, origpath ];
+
+    [FolderAccess askForAccessToURL:desktopURL andThenRunBlock:^{}];
+
     [task launch];
     [task waitUntilExit];
     status = task.terminationStatus;

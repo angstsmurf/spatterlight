@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516,
     // Window height minus window top border
-    kDefaultPrefsLowerViewHeight = 350
+    kDefaultPrefsLowerViewHeight = 358
 } kDefaultPrefWindowSize;
 
 typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
@@ -23,7 +23,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 };
 
 
-@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver;
+@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, TableViewController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate>
 
@@ -57,8 +57,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 - (void)updatePrefsPanel;
 
 @property BOOL previewShown;
-@property (strong) GlkTextBufferWindow *glktxtbuf;
-@property (strong) IBOutlet NSBox *sampleTextBorderView;
+@property (strong) IBOutlet NSView *sampleTextBorderView;
 
 @property (readonly) Theme *defaultTheme;
 @property (readonly) CoreDataManager *coreDataManager;
@@ -67,7 +66,7 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) Game *currentGame;
 @property BOOL oneThemeForAll;
 @property BOOL adjustSize;
-@property (weak) LibController *libcontroller;
+@property (weak) TableViewController *libcontroller;
 
 @property BOOL inMagnification;
 

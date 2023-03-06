@@ -183,7 +183,7 @@
 - (BlorbResource *)findResourceOfUsage:(FourCharCode)usage {
   for (NSUInteger i = 0; i < _resources.count; ++i) {
     BlorbResource *resource = _resources[i];
-    if ([resource usage] == usage)
+    if (resource.usage == usage)
       return resource;
   }
   return nil;
@@ -194,11 +194,11 @@
   BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
   if (resource) {
     const unsigned char *ptr = data.bytes;
-    ptr += [resource start];
+    ptr += resource.start;
     FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
     if (chunkID == IFFID('Z', 'C', 'O', 'D')) {
-      NSRange range = NSMakeRange([resource start] + 8, len);
+      NSRange range = NSMakeRange(resource.start + 8, len);
       return [data subdataWithRange:range];
     }
   }
@@ -210,10 +210,10 @@
   BlorbResource *resource = [self findResourceOfUsage:PictureResource];
   if (resource) {
     const unsigned char *ptr = data.bytes;
-    ptr += [resource start];
+    ptr += resource.start;
     FourCharCode chunkID;
     unsigned int len = chunkIDAndLength(ptr, &chunkID);
-    NSRange range = NSMakeRange([resource start] + 8, len);
+    NSRange range = NSMakeRange(resource.start + 8, len);
     return [data subdataWithRange:range];
   }
   return nil;

@@ -1,8 +1,8 @@
 //
 //  layouttext.c
-//  Plus
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2022-01-11.
+//  Created by Petter Sjölund on 2022-01-11.
 //
 
 #include <ctype.h>
@@ -15,7 +15,7 @@ static int FindBreak(const char *buf, int pos, int columns)
 {
     if (isspace((unsigned char)buf[pos]))
         return 0;
-    
+
     int diff = 0;
 
     while (diff < columns && !isspace((unsigned char)buf[pos])) {
