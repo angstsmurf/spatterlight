@@ -682,7 +682,7 @@ static void i18n_exit(int exit_code, z_ucs *error_message)
 }
 
 
-char *get_default_locale_name()
+static char *get_default_locale_name(void)
 {
   if (default_locale_name_in_utf8 == NULL)
     if ((default_locale_name_in_utf8

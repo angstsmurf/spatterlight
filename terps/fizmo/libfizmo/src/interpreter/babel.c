@@ -601,6 +601,7 @@ void store_babel_info_timestamps(struct babel_info *babel)
 }
 
 
+static void abort_timestamp_input(void);
 void abort_timestamp_input()
 {
   if (timestamp_input != NULL)

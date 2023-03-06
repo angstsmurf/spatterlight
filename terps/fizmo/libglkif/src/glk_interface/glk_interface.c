@@ -61,7 +61,7 @@ static void stream_hexnum(glsi32 val);
    it creates a new window; after that it returns the window it first
    created.
    */
-static winid_t get_error_win()
+static winid_t get_error_win(void)
 {
   static winid_t errorwin = NULL;
 

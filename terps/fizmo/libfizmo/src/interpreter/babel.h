@@ -74,12 +74,12 @@ struct babel_story_info
 
 void free_babel_info(struct babel_info *babel);
 void free_babel_story_info(struct babel_story_info *b_info);
-struct babel_info *load_babel_info();
+struct babel_info *load_babel_info(void);
 struct babel_story_info *get_babel_story_info(uint16_t release, char *serial,
     uint16_t checksum, struct babel_info *babel, bool babel_from_blorb);
 void store_babel_info_timestamps(struct babel_info *babel);
 bool babel_files_have_changed(struct babel_info *babel);
-bool babel_available();
+bool babel_available(void);
 
 #ifndef DISABLE_BABEL
 struct babel_info *load_babel_info_from_blorb(z_file *infile, int length,

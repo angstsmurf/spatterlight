@@ -129,19 +129,19 @@ z_file *glkint_open_interface(z_file *(*game_open_func)(z_file *))
   return story_stream;
 }
 
-char *glkint_get_interface_name()
+char *glkint_get_interface_name(void)
 { return interface_name; }
 
-bool glkint_return_false()
+bool glkint_return_false(void)
 { return false; }
 
-bool glkint_return_true()
+bool glkint_return_true(void)
 { return true; }
 
-uint8_t glkint_return_0()
+uint8_t glkint_return_0(void)
 { return 0; }
 
-uint8_t glkint_return_1()
+uint8_t glkint_return_1(void)
 { return 1; }
 
 /* This is called after an autosave-restore (iOS only). We've just
@@ -253,20 +253,20 @@ void glkint_stash_library_state(library_state_data *dat)
     }
 }
 
-uint16_t glkint_get_screen_height()
+uint16_t glkint_get_screen_height(void)
 {
   return screenestheight;
 }
 
-uint16_t glkint_get_screen_width()
+uint16_t glkint_get_screen_width(void)
 {
   return screenestwidth;
 }
 
-z_colour glkint_get_default_foreground_colour()
+z_colour glkint_get_default_foreground_colour(void)
 { return Z_COLOUR_BLACK; }
 
-z_colour glkint_get_default_background_colour()
+z_colour glkint_get_default_background_colour(void)
 { return Z_COLOUR_WHITE; }
 
 int glkint_parse_config_parameter(char *UNUSED(key), char *UNUSED(value))
@@ -277,7 +277,7 @@ char *glkint_get_config_value(char *UNUSED(key))
   return NULL;
 }
 
-char **glkint_get_config_option_names()
+char **glkint_get_config_option_names(void)
 {
   return NULL;
 }
@@ -301,7 +301,7 @@ void glkint_link_interface_to_story(struct z_story *UNUSED(story))
 }
 
 /* Called at @restart time. */
-void glkint_reset_interface()
+void glkint_reset_interface(void)
 {
   if (statuswin) {
     glk_window_close(statuswin, NULL);
@@ -709,14 +709,14 @@ void glkint_set_cursor(int16_t line, int16_t column,
 }
 
 /* Glk doesn't support this. */
-uint16_t glkint_get_cursor_row()
+uint16_t glkint_get_cursor_row(void)
 {
     fprintf(stderr, "ERROR: glkint_get_cursor_row() not implemented\n");
     return 0;
 }
 
 /* Glk doesn't support this. */
-uint16_t glkint_get_cursor_column()
+uint16_t glkint_get_cursor_column(void)
 {
     fprintf(stderr, "ERROR: glkint_get_cursor_column() not implemented\n");
     return 0;
@@ -728,7 +728,7 @@ void glkint_erase_line_value(uint16_t UNUSED(start_position))
 void glkint_erase_line_pixels(uint16_t UNUSED(start_position))
 { }
 
-void glkint_output_interface_info()
+void glkint_output_interface_info(void)
 {
   (void)streams_latin1_output(interface_name);
   (void)streams_latin1_output(" interface version ");
@@ -736,7 +736,7 @@ void glkint_output_interface_info()
   (void)streams_latin1_output("\n");
 }
 
-void glkint_game_was_restored_and_history_modified()
+void glkint_game_was_restored_and_history_modified(void)
 { }
 
 int glkint_prompt_for_filename(char *UNUSED(filename_suggestion),

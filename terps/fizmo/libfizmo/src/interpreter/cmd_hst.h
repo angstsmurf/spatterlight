@@ -39,7 +39,7 @@
 #include "config.h"
 
 void store_command_in_history(zscii *new_command);
-int get_number_of_stored_commands();
+int get_number_of_stored_commands(void);
 zscii *get_command_from_history(unsigned int command_index);
 
 #endif /* cmd_hst_h_INCLUDED */

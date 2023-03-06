@@ -233,7 +233,7 @@ static int zchar_storage_write(unsigned int five_bits)
 // contain an extra empty padding word. Technically it should be okay though,
 // the spec says that an "indefinite sequence of shift and shift lock
 // characters is legal" (section 3.2.4).
-void zchar_storage_reset()
+static void zchar_storage_reset(void)
 {
   zchar_storage_output_index = zchar_storage_output;
   zchar_storage_word = 0;

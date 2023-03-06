@@ -63,14 +63,14 @@ struct z_stack_container
 };
 
 void z_stack_push_word(uint16_t data);
-uint16_t z_stack_pull_word();
-uint16_t z_stack_peek_word();
+uint16_t z_stack_pull_word(void);
+uint16_t z_stack_peek_word(void);
 void drop_z_stack_words(int byte_counter);
-/*@only@*/ struct z_stack_container *create_new_stack();
+/*@only@*/ struct z_stack_container *create_new_stack(void);
 void delete_stack_container(struct z_stack_container *stack_data);
 /*@dependent@*/ uint16_t *allocate_z_stack_words(uint32_t byte_counter);
 void restore_old_stack(/*@only@*/ struct z_stack_container *old_stack_data);
-void store_first_stack_frame();
+void store_first_stack_frame(void);
 void store_followup_stack_frame_header(uint8_t number_of_locals,
     bool discard_result, uint8_t nof_arguments_supplied,
     uint16_t stack_words_from_routine, uint32_t return_pc,

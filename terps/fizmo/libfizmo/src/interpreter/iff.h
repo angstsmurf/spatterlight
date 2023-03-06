@@ -52,7 +52,7 @@ int end_current_chunk(z_file *iff_file);
 int close_simple_iff_file(z_file *iff_file);
 int find_chunk(char *id, z_file *iff_file);
 int read_chunk_length(z_file *iff_file);
-int get_last_chunk_length();
+int get_last_chunk_length(void);
 int write_four_byte_number(uint32_t number, z_file *iff_file);
 uint32_t read_four_byte_number(z_file *iff_file);
 char *read_form_type(z_file *iff_file);

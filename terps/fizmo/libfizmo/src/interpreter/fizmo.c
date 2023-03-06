@@ -1387,7 +1387,7 @@ void fizmo_start(z_file* story_stream, z_file *blorb_stream,
         number_of_stack_frames = 0;
         stack_words_from_active_routine = 0;
         number_of_locals_active = 0;
-        store_first_stack_frame(true, 0, 0, 0);
+        store_first_stack_frame();
 
         if ((fsi->setfilepos(
                 active_z_story->z_story_file,

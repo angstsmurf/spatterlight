@@ -58,7 +58,7 @@ typedef struct
 } list;
 
 
-list *create_list();
+list *create_list(void);
 int add_list_element(list *l, void *value);
 int get_list_size(list *l);
 void *get_list_element(list *l, int list_index);

@@ -755,7 +755,7 @@ bool is_valid_libfizmo_config_key(char *key)
 }
 
 
-char *get_user_homedir()
+char *get_user_homedir(void)
 {
 #if !defined (__WIN32__)
   struct passwd *pw_entry;
@@ -780,7 +780,7 @@ char *get_user_homedir()
 }
 
 
-void init_config_default_values() {
+void init_config_default_values(void) {
   set_configuration_value("save-text-history-paragraphs", "1000");
 }
 

@@ -42,10 +42,10 @@
 #define DEBUGGER_IP_ADDRESS "127.0.0.1"
 
 void add_breakpoint(uint32_t breakpoint_pc);
-void debugger_story_has_been_loaded();
-void do_breakpoint_actions();
-void debugger();
-void debugger_interpreter_stopped();
+void debugger_story_has_been_loaded(void);
+void do_breakpoint_actions(void);
+void debugger(void);
+void debugger_interpreter_stopped(void);
 
 #endif /* debugger_h_INCLUDED */
 

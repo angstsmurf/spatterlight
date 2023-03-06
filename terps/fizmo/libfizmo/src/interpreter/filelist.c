@@ -118,7 +118,7 @@ void new_file_searched(char *filename, char *UNUSED(dirname))
 }
 
 
-void free_unquote_buffers()
+static void free_unquote_buffers(void)
 {
   if (unquoted_serial_input != NULL)
   {
@@ -163,7 +163,7 @@ void free_unquote_buffers()
 }
 
 
-void abort_entry_input()
+static void abort_entry_input(void)
 {
   if (serial_input != NULL)
   {
@@ -269,7 +269,7 @@ void free_z_story_list(struct z_story_list *story_list)
 }
 
 
-int parse_next_story_entry()
+static int parse_next_story_entry(void)
 {
   int index;
   int data;
@@ -530,8 +530,7 @@ static z_file *open_story_list(bool write_enabled)
   return result;
 }
 
-
-struct z_story_list_entry *store_current_entry()
+static struct z_story_list_entry *store_current_entry(void)
 {
   struct z_story_list_entry *result;
 
@@ -559,7 +558,7 @@ struct z_story_list_entry *store_current_entry()
 }
 
 
-struct z_story_list_entry *add_entry_to_story_list(
+static struct z_story_list_entry *add_entry_to_story_list(
     struct z_story_list *story_list, char *title, char *author, char *language,
     char *description, char *serial, int version, int length,
     uint16_t checksum, uint16_t release, char *story_filename,
@@ -642,7 +641,7 @@ struct z_story_list_entry *add_entry_to_story_list(
 }
 
 
-struct z_story_list *get_empty_z_story_list()
+static struct z_story_list *get_empty_z_story_list(void)
 {
   struct z_story_list *result;
 
@@ -1108,7 +1107,7 @@ static int count_files(char *abs_dir_name, bool recursive)
   int dirname_size = 0;
   int len;
   int result = 0;
-  char *cwd = fsi->get_cwd(NULL, 0);
+  char *cwd = fsi->get_cwd();
 
   if ((fsi->ch_dir(abs_dir_name)) == -1)
   {
@@ -1266,7 +1265,7 @@ void build_filelist(char *root_dir, struct z_story_list *story_list,
     else
     {
       // Avoid relative names like "./zork1.z3".
-      absrootdir = fsi->get_cwd(NULL, 0);
+      absrootdir = fsi->get_cwd();
       search_dir(absrootdir, &new_file_searched, story_list, recursive, babel);
       free(absrootdir);
     }
@@ -1277,7 +1276,7 @@ void build_filelist(char *root_dir, struct z_story_list *story_list,
 }
 
 
-void save_story_list(struct z_story_list *story_list)
+static void save_story_list(struct z_story_list *story_list)
 {
   z_file *out;
   struct z_story_list_entry *entry;

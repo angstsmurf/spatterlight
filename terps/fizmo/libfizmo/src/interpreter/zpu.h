@@ -75,7 +75,7 @@ extern int terminate_interpreter;
 void parse_opcode(uint8_t *z_instr, uint8_t *z_instr_form,
     uint8_t *result_number_of_operands, uint8_t **instr_ptr);
 void interpret_from_address(uint32_t start_address);
-void interpret_resume();
+void interpret_resume(void);
 uint16_t interpret_from_call(uint32_t routine_address);
 void interpret_from_call_without_result(uint32_t routine_address);
 void read_z_result_variable(void);
@@ -90,7 +90,7 @@ void dump_stack(void);
 void dump_locals(void);
 
 #ifdef ENABLE_TRACING
-void dump_dynamic_memory_to_tracelog();
+void dump_dynamic_memory_to_tracelog(void);
 #endif // ENABLE_TRACING
 
 #endif // zpu_h_INCLUDED

@@ -63,10 +63,10 @@ struct z_story_list_entry
 
 void free_z_story_list(struct z_story_list *story_list);
 void free_z_story_list_entry(struct z_story_list_entry *entry);
-struct z_story_list *get_z_story_list();
+struct z_story_list *get_z_story_list(void);
 struct z_story_list_entry *get_z_story_entry_from_list(char *serial,
     uint16_t release, uint16_t checksum);
-struct z_story_list *update_fizmo_story_list();
+struct z_story_list *update_fizmo_story_list(void);
 void detect_and_add_single_z_file(char *input_filename, char *blorb_filename);
 void search_directory(char *absolute_dirname, bool recursive);
 

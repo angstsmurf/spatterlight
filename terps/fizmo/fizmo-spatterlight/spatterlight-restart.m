@@ -29,6 +29,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #import <Foundation/Foundation.h>
+#include "spatterlight-restart.h"
+#include "spatterlight-autosave.h"
 
 static int can_restart = NO;
 
@@ -37,12 +39,12 @@ void spatterlight_set_can_restart_flag(int val)
 	can_restart = val;
 }
 
-int spatterlight_can_restart_cleanly()
+int spatterlight_can_restart_cleanly(void)
 {
 	return can_restart;
 }
 
-void spatterlight_shut_down_process()
+void spatterlight_shut_down_process(void)
 {
 	/* Yes, we really do want to exit the app here. A fatal error has occurred at the interpreter level, so we can't restart it cleanly. The user has either hit a "goodbye" dialog button or the Home button; either way, it's time for suicide. */
 	NSLog(@"spatterlight_shut_down_process: goodbye!");

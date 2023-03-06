@@ -37,7 +37,7 @@
 
 #include "../tools/types.h"
 
-void init_streams();
+void init_streams(char*);
 void open_input_stream_1(void);
 void close_input_stream_1(void);
 int streams_z_ucs_output(z_ucs *z_ucs_output);

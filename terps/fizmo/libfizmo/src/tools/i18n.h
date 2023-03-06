@@ -66,15 +66,15 @@ void i18n_translate_and_exit(z_ucs *module_name, int string_code,
 size_t i18n_message_length(z_ucs *module_name, int string_code, ...);
 z_ucs *i18n_translate_to_string(z_ucs *module_name, int string_code, ...);
 
-char *get_i18n_search_path();
+char *get_i18n_search_path(void);
 int set_i18n_search_path(char *path);
 
-z_ucs *get_current_locale_name();
-char *get_current_locale_name_in_utf8();
+z_ucs *get_current_locale_name(void);
+char *get_current_locale_name_in_utf8(void);
 int set_current_locale_name(char *new_locale_name);
-char **get_available_locale_names();
+char **get_available_locale_names(void);
 char *get_i18n_default_search_path(void);
-void free_i18n_memory();
+void free_i18n_memory(void);
 
 #endif /* i18n_h_INCLUDED */
 

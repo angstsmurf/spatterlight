@@ -172,7 +172,7 @@ int glkint_closefile(z_file *file_to_close)
   }
 }
 
-int glkint_readchar(z_file *fileref)
+static int glkint_readchar(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.readchar(fileref);
@@ -185,7 +185,7 @@ int glkint_readchar(z_file *fileref)
   }
 }
 
-size_t glkint_readchars(void *ptr, size_t len, z_file *fileref)
+static size_t glkint_readchars(void *ptr, size_t len, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.readchars(ptr, len, fileref);
@@ -193,7 +193,7 @@ size_t glkint_readchars(void *ptr, size_t len, z_file *fileref)
     return glk_get_buffer_stream((strid_t)fileref->file_object, ptr, len);
 }
 
-int glkint_writechar(int ch, z_file *fileref)
+static int glkint_writechar(int ch, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.writechar(ch, fileref);
@@ -204,7 +204,7 @@ int glkint_writechar(int ch, z_file *fileref)
   }
 }
 
-size_t glkint_writechars(void *ptr, size_t len, z_file *fileref)
+static size_t glkint_writechars(void *ptr, size_t len, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.writechars(ptr, len, fileref);
@@ -215,7 +215,7 @@ size_t glkint_writechars(void *ptr, size_t len, z_file *fileref)
   }
 }
 
-int glkint_writestring(char *s, z_file *fileref)
+static int glkint_writestring(char *s, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.writestring(s, fileref);
@@ -224,7 +224,7 @@ int glkint_writestring(char *s, z_file *fileref)
 }
 
 
-int glkint_writeucsstring(z_ucs *s, z_file *fileref)
+static int glkint_writeucsstring(z_ucs *s, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.writeucsstring(s, fileref);
@@ -237,7 +237,7 @@ int glkint_writeucsstring(z_ucs *s, z_file *fileref)
 }
 
 
-int glkint_vfileprintf(z_file *fileref, char *format, va_list ap)
+static int glkint_vfileprintf(z_file *fileref, char *format, va_list ap)
 {
   long ret_val;
   size_t new_size;
@@ -264,7 +264,7 @@ int glkint_vfileprintf(z_file *fileref, char *format, va_list ap)
   return glkint_writestring(vsnprintf_buf, fileref);
 }
 
-int glkint_fileprintf(z_file *fileref, char *format, ...)
+static int glkint_fileprintf(z_file *fileref, char *format, ...)
 {
   va_list args;
   int result;
@@ -278,7 +278,7 @@ int glkint_fileprintf(z_file *fileref, char *format, ...)
   return result;
 }
 
-int glkint_vfilescanf(z_file *fileref, char *format, va_list ap)
+static int glkint_vfilescanf(z_file *fileref, char *format, va_list ap)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.vfilescanf(fileref, format, ap);
@@ -292,7 +292,7 @@ int glkint_vfilescanf(z_file *fileref, char *format, va_list ap)
   }
 }
 
-int glkint_filescanf(z_file *fileref, char *format, ...)
+static int glkint_filescanf(z_file *fileref, char *format, ...)
 {
   va_list args;
   int result;
@@ -306,7 +306,7 @@ int glkint_filescanf(z_file *fileref, char *format, ...)
   return result;
 }
 
-long glkint_getfilepos(z_file *fileref)
+static long glkint_getfilepos(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.getfilepos(fileref);
@@ -314,7 +314,7 @@ long glkint_getfilepos(z_file *fileref)
     return glk_stream_get_position((strid_t)fileref->file_object);
 }
 
-int glkint_setfilepos(z_file *fileref, long seek, int whence)
+static int glkint_setfilepos(z_file *fileref, long seek, int whence)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.setfilepos(fileref, seek, whence);
@@ -334,7 +334,7 @@ int glkint_setfilepos(z_file *fileref, long seek, int whence)
 }
 
 
-int glkint_unreadchar(int c, z_file *fileref)
+static int glkint_unreadchar(int c, z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.unreadchar(c, fileref);
@@ -349,7 +349,7 @@ int glkint_unreadchar(int c, z_file *fileref)
 }
 
 
-int glkint_flushfile(z_file *fileref)
+static int glkint_flushfile(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.flushfile(fileref);
@@ -364,7 +364,7 @@ int glkint_flushfile(z_file *fileref)
 }
 
 
-time_t glkint_get_last_file_mod_timestamp(z_file *fileref)
+static time_t glkint_get_last_file_mod_timestamp(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.get_last_file_mod_timestamp(fileref);
@@ -379,7 +379,7 @@ time_t glkint_get_last_file_mod_timestamp(z_file *fileref)
 }
 
 
-int glkint_get_fileno(z_file *fileref)
+static int glkint_get_fileno(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.get_fileno(fileref);
@@ -394,7 +394,7 @@ int glkint_get_fileno(z_file *fileref)
 }
 
 
-FILE* glkint_get_stdio_stream(z_file *fileref)
+static FILE* glkint_get_stdio_stream(z_file *fileref)
 {
   if (fileref->implementation == FILE_IMPLEMENTATION_STDIO)
     return z_filesys_interface_c.get_stdio_stream(fileref);
@@ -409,19 +409,19 @@ FILE* glkint_get_stdio_stream(z_file *fileref)
 }
 
 
-char *glkint_get_cwd()
+static char *glkint_get_cwd(void)
 {
   return getcwd(NULL, 0);
 }
 
 
-int glkint_ch_dir(char* dirname)
+static int glkint_ch_dir(char* dirname)
 {
   return chdir(dirname);
 }
 
 
-z_dir* glkint_open_dir(char *dirname)
+static z_dir* glkint_open_dir(char *dirname)
 {
   z_dir *result;
 
@@ -438,7 +438,7 @@ z_dir* glkint_open_dir(char *dirname)
 }
 
 
-int glkint_close_dir(z_dir *dirref)
+static int glkint_close_dir(z_dir *dirref)
 {
   int result;
 
@@ -448,7 +448,7 @@ int glkint_close_dir(z_dir *dirref)
 }
 
 
-int glkint_read_dir(struct z_dir_ent *result, z_dir *dirref)
+static int glkint_read_dir(struct z_dir_ent *result, z_dir *dirref)
 {
   struct dirent *dir_ent;
 
@@ -466,7 +466,7 @@ static int glkint_make_dir(char *path)
 }
 
 
-bool glkint_is_filename_directory(char *filename)
+static bool glkint_is_filename_directory(char *filename)
 {
   int filedes;
   struct stat stat_buf;

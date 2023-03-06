@@ -34,10 +34,11 @@
 #include "glk.h"
 #include "glkstart.h"
 #include "fileref.h"
+#include "tools/types.h"
 
 #import "TempLibrary.h"
 
-extern int spatterlight_do_autosave(glui32 eventaddr);
+extern int spatterlight_do_autosave(/*glui32 eventaddr*/ void);
 extern int spatterlight_restore_autosave(z_file *save_file);
 extern void spatterlight_clear_autosave(void);
 extern void spatterlight_set_can_restart_flag(int);

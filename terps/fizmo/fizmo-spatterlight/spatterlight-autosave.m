@@ -55,7 +55,7 @@ char normal_start_save[1024] = ""; /* Not actually used */
  
 	This is called in the VM thread, just before setting up line input and calling glk_select(). (So no window will actually be requesting line input at this time.)
  */
-int spatterlight_do_autosave() {
+int spatterlight_do_autosave(void) {
 
     //spatterlight_clear_autosave();
 
@@ -139,7 +139,7 @@ void spatterlight_queue_autosave(NSString *pathnameval) {
 }
 
 
-z_file *spatterlight_find_autosave() {
+z_file *spatterlight_find_autosave(void) {
 
 	if (strcmp(normal_start_save, "")) {
         frefid_t fref = gli_new_fileref(normal_start_save, fileusage_SavedGame, 1);
@@ -169,7 +169,7 @@ z_file *spatterlight_find_autosave() {
 
 /* Delete an autosaved game, if one exists.
  */
-void spatterlight_clear_autosave() {
+void spatterlight_clear_autosave(void) {
 
     getautosavedir(gamefilestream->filename);
 

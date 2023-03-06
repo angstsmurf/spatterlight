@@ -88,18 +88,18 @@ void fizmo_start(z_file* story_stream, z_file *blorb_stream,
     z_file *restore_on_start_file);
 void fizmo_new_screen_size(uint16_t width, uint16_t height);
 
-void write_interpreter_info_into_header();
+void write_interpreter_info_into_header(void);
 int close_interface(z_ucs *error_message);
 void *fizmo_malloc(size_t size);
 void *fizmo_realloc(void *ptr, size_t size);
 char *fizmo_strdup(char *s1);
 int ensure_mem_size(char **ptr, int *current_size, int size);
-void ensure_dot_fizmo_dir_exists();
+void ensure_dot_fizmo_dir_exists(void);
 char *quote_special_chars(char *s);
 char *unquote_special_chars(char *s);
 #ifndef DISABLE_CONFIGFILES
-char *get_fizmo_config_dir_name();
-int parse_fizmo_config_files();
+char *get_fizmo_config_dir_name(void);
+int parse_fizmo_config_files(void);
 #endif // DISABLE_CONFIGFILES
 
 #ifndef fizmo_c_INCLUDED 

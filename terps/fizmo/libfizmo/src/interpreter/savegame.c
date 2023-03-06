@@ -504,7 +504,7 @@ static int _handle_save_or_restore_failure(bool evaluate_result,
 }
 
 
-int get_paragraph_save_amount()
+static int get_paragraph_save_amount(void)
 {
   char *nof_paragraphs_as_string
     = get_configuration_value("save-text-history-paragraphs");

@@ -41,33 +41,33 @@
 
 struct z_screen_interface
 {
-  char* (*get_interface_name)();
+  char* (*get_interface_name)(void);
 
-  bool (*is_status_line_available)();
-  bool (*is_split_screen_available)();
-  bool (*is_variable_pitch_font_default)();
-  bool (*is_colour_available)();
-  bool (*is_picture_displaying_available)();
-  bool (*is_bold_face_available)();
-  bool (*is_italic_available)();
-  bool (*is_fixed_space_font_available)();
-  bool (*is_timed_keyboard_input_available)();
-  bool (*is_preloaded_input_available)();
-  bool (*is_character_graphics_font_availiable)();
-  bool (*is_picture_font_availiable)();
-  uint16_t (*get_screen_height_in_lines)();
-  uint16_t (*get_screen_width_in_characters)();
-  uint16_t (*get_screen_width_in_units)();
-  uint16_t (*get_screen_height_in_units)();
-  uint8_t (*get_font_width_in_units)();
-  uint8_t (*get_font_height_in_units)();
-  z_colour (*get_default_foreground_colour)();
-  z_colour (*get_default_background_colour)();
-  uint8_t (*get_total_width_in_pixels_of_text_sent_to_output_stream_3)();
+  bool (*is_status_line_available)(void);
+  bool (*is_split_screen_available)(void);
+  bool (*is_variable_pitch_font_default)(void);
+  bool (*is_colour_available)(void);
+  bool (*is_picture_displaying_available)(void);
+  bool (*is_bold_face_available)(void);
+  bool (*is_italic_available)(void);
+  bool (*is_fixed_space_font_available)(void);
+  bool (*is_timed_keyboard_input_available)(void);
+  bool (*is_preloaded_input_available)(void);
+  bool (*is_character_graphics_font_availiable)(void);
+  bool (*is_picture_font_availiable)(void);
+  uint16_t (*get_screen_height_in_lines)(void);
+  uint16_t (*get_screen_width_in_characters)(void);
+  uint16_t (*get_screen_width_in_units)(void);
+  uint16_t (*get_screen_height_in_units)(void);
+  uint8_t (*get_font_width_in_units)(void);
+  uint8_t (*get_font_height_in_units)(void);
+  z_colour (*get_default_foreground_colour)(void);
+  z_colour (*get_default_background_colour)(void);
+  uint8_t (*get_total_width_in_pixels_of_text_sent_to_output_stream_3)(void);
 
   int (*parse_config_parameter)(char *key, char *value);
   char* (*get_config_value)(char *key);
-  char** (*get_config_option_names)();
+  char** (*get_config_option_names)(void);
 
   // This function is called from the interpreter once the story has been
   // read into memory and variables like version etc habe been initialized.
@@ -77,7 +77,7 @@ struct z_screen_interface
   void (*link_interface_to_story)(struct z_story *story);
 
   // "reset_interface" Called in case of a restart.
-  void (*reset_interface)();
+  void (*reset_interface)(void);
 
   // close_interface is called if either the game is quit by the "QUIT"
   // opcode or in case an error has occured. In case of a regular quit,
@@ -113,13 +113,13 @@ struct z_screen_interface
   // Must allow moving of cursor in lower window to make print_table work.
   void (*set_cursor)(int16_t line, int16_t column, int16_t window);
 
-  uint16_t (*get_cursor_row)();
-  uint16_t (*get_cursor_column)();
+  uint16_t (*get_cursor_row)(void);
+  uint16_t (*get_cursor_column)(void);
   void (*erase_line_value)(uint16_t start_position);
   void (*erase_line_pixels)(uint16_t start_position);
-  void (*output_interface_info)();
-  bool (*input_must_be_repeated_by_story)();
-  void (*game_was_restored_and_history_modified)(); // interface might want
+  void (*output_interface_info)(void);
+  bool (*input_must_be_repeated_by_story)(void);
+  void (*game_was_restored_and_history_modified)(void); // interface might want
   // to redraw the screen
   int (*prompt_for_filename)(char *filename_suggestion, z_file **result_file,
       char *directory, int filetype_or_mode, int fileaccess); // optional
@@ -127,7 +127,7 @@ struct z_screen_interface
   // k, -1 on error or -2 in case user cancelled (ESC or similar).
 
   // interface custom procedures for autosave (at @read time) and restore
-  int (*do_autosave)(); // optional
+  int (*do_autosave)(void); // optional
   int (*restore_autosave)(z_file *savefile); // optional
 };
 
