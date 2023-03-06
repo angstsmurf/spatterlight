@@ -1940,7 +1940,8 @@ enum  {
 }
 
 - (nullable Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue];
+    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
+    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context andQueue:self.downloadQueue andDownloader:downloader];
     if (!metadata || metadata.stories.count == 0)
         return nil;
     return ((IFStory *)(metadata.stories)[0]).identification.metadata;
