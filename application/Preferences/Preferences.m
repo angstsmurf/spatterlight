@@ -2137,7 +2137,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         image = [NSImage imageNamed:imageName];
         image.accessibilityDescription = tooltip;
     }
-    
+
     toolbarItem.image = image;
     toolbarItem.action = @selector(switchToPanel:);
     toolbarItem.target = self;
@@ -2153,13 +2153,21 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (itemIdentifier == themesPanel) {
         return [self toolbarItemWithImage:@"paintbrush" label:@"Themes" tooltip:@"Select and organize themes" identifier:itemIdentifier];
     } else if (itemIdentifier == stylesPanel) {
-        return [self toolbarItemWithImage:@"butterfly" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+        if (@available(macOS 11.0, *)) {
+            return [self toolbarItemWithImage:@"butterfly" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+        } else {
+            return [self toolbarItemWithImage:@"butterfly.square" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+        }
     } else if (itemIdentifier == presentationPanel) {
         return [self toolbarItemWithImage:@"theatermask.and.paintbrush" label:@"Details" tooltip:@"Presentation settings not covered by Glk styles" identifier:itemIdentifier];
     } else if (itemIdentifier == formatPanel) {
         return [self toolbarItemWithImage:@"compass.drawing" label:@"Format" tooltip:@"Format-specific settings" identifier:itemIdentifier];
     } else if (itemIdentifier == voiceOverPanel) {
-        return [self toolbarItemWithImage:@"voiceover" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+        if (@available(macOS 11.0, *)) {
+            return [self toolbarItemWithImage:@"voiceover" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+        } else {
+            return [self toolbarItemWithImage:@"voiceover.square" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+        }
     } else if (itemIdentifier == miscPanel) {
         return [self toolbarItemWithImage:@"gearshape" label:@"Misc" tooltip:@"Miscellaneous settings" identifier:itemIdentifier];
     } else if (itemIdentifier == globalPanel) {
