@@ -108,7 +108,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="155" y="449" width="560" height="355"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <value key="minSize" type="size" width="560" height="355"/>
+            <value key="minSize" type="size" width="560" height="165"/>
             <value key="maxSize" type="size" width="560" height="10000"/>
             <view key="contentView" id="408">
                 <rect key="frame" x="0.0" y="0.0" width="560" height="355"/>
@@ -149,7 +149,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Cre-Ix-Qxy" secondAttribute="trailing" constant="20" id="Pyq-9i-KQ8"/>
-                            <constraint firstAttribute="height" priority="250" constant="150" id="bvZ-hE-qfL"/>
+                            <constraint firstAttribute="height" priority="250" constant="1" id="bvZ-hE-qfL"/>
                             <constraint firstItem="Cre-Ix-Qxy" firstAttribute="centerY" secondItem="sMS-2X-Ptg" secondAttribute="centerY" id="cQ6-Ho-h09"/>
                             <constraint firstItem="Cre-Ix-Qxy" firstAttribute="leading" secondItem="sMS-2X-Ptg" secondAttribute="leading" constant="20" id="eN5-n8-7m8"/>
                         </constraints>
@@ -183,11 +183,11 @@
             <point key="canvasLocation" x="37" y="-409.5"/>
         </window>
         <customView id="Kqs-Yu-Lte" userLabel="Themes Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="397"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="354"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-DC-aRi">
-                    <rect key="frame" x="-2" y="372" width="564" height="17"/>
+                    <rect key="frame" x="-2" y="329" width="564" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Theme setting for all games" usesSingleLineMode="YES" id="OX6-Me-WFt">
                         <font key="font" metaFont="smallSystem"/>
@@ -196,7 +196,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-7r-qmI">
-                    <rect key="frame" x="18" y="48.5" width="37" height="14"/>
+                    <rect key="frame" x="18" y="44.5" width="37" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Create a new theme based on the current theme and assign it to the current game, if there is one, or to all games, if "Changes apply to all…" is checked.</string>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="MPB-Sw-JNe">
@@ -208,14 +208,14 @@
                     </connections>
                 </button>
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJn-XP-T1R">
-                    <rect key="frame" x="20" y="76" width="520" height="285"/>
+                    <rect key="frame" x="20" y="71" width="520" height="247"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="nuy-We-W0h">
-                        <rect key="frame" x="0.0" y="0.0" width="520" height="285"/>
+                        <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="ThemesTable" rowSizeStyle="automatic" viewBased="YES" id="QwY-Jk-kmn">
-                                <rect key="frame" x="0.0" y="0.0" width="520" height="285"/>
+                                <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -290,7 +290,7 @@
                     </scroller>
                 </scrollView>
                 <button toolTip="Delete the current theme. Any games using it will be assigned the theme it is based on." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NbE-Ta-Bvm">
-                    <rect key="frame" x="43" y="48" width="40.5" height="14"/>
+                    <rect key="frame" x="43" y="44" width="40.5" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Mcu-sD-kAr">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -301,7 +301,7 @@
                     </connections>
                 </button>
                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-UJ-wqB">
-                    <rect key="frame" x="81" y="46" width="35" height="18"/>
+                    <rect key="frame" x="81" y="42" width="35" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="OYG-LJ-Hpm" id="KJY-1P-1Ze">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -348,7 +348,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UVa-PZ-kOL">
-                    <rect key="frame" x="140" y="46" width="249" height="18"/>
+                    <rect key="frame" x="145" y="42" width="249" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Changes apply to all games in library" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="40" inset="2" id="nVw-f0-6lI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -359,7 +359,7 @@
                     </connections>
                 </button>
                 <button toolTip="Adapt the window size when changing settings to keep the width in characters constant." fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-zs-auO">
-                    <rect key="frame" x="140" y="23" width="279" height="18"/>
+                    <rect key="frame" x="145" y="19" width="279" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Adjust window size when changing theme" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="40" inset="2" id="ba4-FL-aqa">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -370,7 +370,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-1291" y="1024.5"/>
+            <point key="canvasLocation" x="-1291" y="1003"/>
         </customView>
         <customView id="sUR-oS-224" userLabel="Glk Style Settings">
             <rect key="frame" x="0.0" y="0.0" width="560" height="304"/>
@@ -1957,6 +1957,7 @@
         </customView>
         <customObject id="QYi-b0-cbk" customClass="PreviewController">
             <connections>
+                <outlet property="previewHeightConstraint" destination="bvZ-hE-qfL" id="ScY-LF-5jY"/>
                 <outlet property="sampleTextView" destination="C38-uz-9GH" id="051-gZ-ArO"/>
                 <outlet property="textHeight" destination="dNt-Gz-mQt" id="3Vd-nr-QKC"/>
                 <outlet property="view" destination="sMS-2X-Ptg" id="sqO-cB-Wf4"/>

@@ -85,8 +85,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL disregardTableSelection;
     CGFloat defaultWindowHeight;
+    CGFloat restoredPreviewHeight;
     NSView *currentPanel;
-    CGFloat currentPanelHeight;
 
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
@@ -110,6 +110,7 @@ fprintf(stderr, "%s\n",                                                    \
 @property (strong) IBOutlet NSView *voiceOverView;
 @property (strong) IBOutlet NSView *miscView;
 @property (strong) IBOutlet NSView *globalView;
+
 @property (strong) IBOutlet NSView *belowView;
 @property (strong) IBOutlet NSLayoutConstraint *belowHeightConstraint;
 @property (strong) IBOutlet NSLayoutConstraint *bottomConstraint;
@@ -337,6 +338,8 @@ NSString *fontToString(NSFont *font) {
 
     [self changeThemeName:theme.name];
 
+#pragma mark Init toolbar
+
     themesPanel = @"themes";
     stylesPanel = @"styles";
     presentationPanel = @"presentation";
@@ -345,9 +348,7 @@ NSString *fontToString(NSFont *font) {
     miscPanel = @"misc";
     globalPanel = @"global";
 
-#pragma mark Init toolbar
-
-   itemIdentifierToViewDict = @{
+    itemIdentifierToViewDict = @{
         themesPanel:_themesView,
         stylesPanel:_stylesView,
         presentationPanel:_presentationView,
@@ -376,47 +377,39 @@ NSString *fontToString(NSFont *font) {
     } else {
         currentPanel = _belowView.subviews[0];
     }
-    currentPanelHeight = NSHeight(currentPanel.frame);
-    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
+
+    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
 
     NSRect prevFrame = _sampleTextBorderView.frame;
     if (!_previewShown) {
-        defaultWindowHeight = NSHeight(self.window.frame) - NSHeight(prevFrame);
-        NSLog(@"Preview not shown. Preview height: %f Resizing window to height %f", NSHeight(prevFrame), defaultWindowHeight);
         _previewHeightConstraint.constant = 0;
-        [self resizeWindowToHeight:defaultWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
-        NSLog(@"Preview shown. Preview height: %f", NSHeight(prevFrame));
-        _previewHeightConstraint.constant = NSHeight(prevFrame);
-        if (NSHeight(self.window.frame) <= defaultWindowHeight) {
-            NSLog(@"window height: %f, less than default window height: %f, resizing window to %f", NSHeight(self.window.frame), defaultWindowHeight, [self calculateWindowHeightWithPreview]);
-            [self resizeWindowToHeight:[self calculateWindowHeightWithPreview]];
+        if (restoredPreviewHeight == 0) {
+            restoredPreviewHeight = NSHeight(self.window.frame) - defaultWindowHeight;
+            if (restoredPreviewHeight <= 0)
+                restoredPreviewHeight = [_previewController calculateHeight] + 40;
         }
+        [self resizeWindowToHeight:restoredPreviewHeight + defaultWindowHeight animate:NO];
         [_previewController fixScrollBar];
     }
 
     BOOL found = NO;
     for (NSToolbarItem *item in toolbar.items) {
         if ([item.itemIdentifier isEqual:toolbar.selectedItemIdentifier]) {
-            [self switchToPanel:item];
+            [self switchToPanel:item resizePreview:YES];
             found = YES;
             break;
         }
     }
 
     if (!found)
-        [self switchToPanel:toolbar.items[0]];
+        [self switchToPanel:toolbar.items[0] resizePreview:YES];
 
+    [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 
     self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
-
-    if (!_previewShown) {
-        if (!NSEqualRects(self.window.frame, [self.window frameRectForContentRect:currentPanel.frame]))
-            NSLog(@"Error! Wrong window size!");
-    }
-
-    [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
 
 #pragma mark Update panels
@@ -629,18 +622,11 @@ NSString *fontToString(NSFont *font) {
         return frameSize;
     }
 
-    if (frameSize.height <= defaultWindowHeight) {
-        _previewShown = NO;
-    } else {
-        if (frameSize.height > NSHeight(self.window.frame)) { // We are enlarging
-            CGFloat maxHeight = MAX([self calculateWindowHeightWithPreview] + 40, NSHeight(self.window.frame));
-            if (frameSize.height > maxHeight)
-                frameSize.height = maxHeight;
-        }
-        _previewShown = YES;
+    if (frameSize.height > defaultWindowHeight && frameSize.height > NSHeight(self.window.frame)) { // We are enlarging
+        CGFloat maxHeight = MAX([self calculateWindowHeightWithPreview] + 40, NSHeight(self.window.frame));
+        if (frameSize.height > maxHeight)
+            frameSize.height = maxHeight;
     }
-
-    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
     return frameSize;
 }
@@ -678,7 +664,7 @@ NSString *fontToString(NSFont *font) {
     return YES;
 }
 
-- (void)resizeWindowToHeight:(CGFloat)height {
+- (void)resizeWindowToHeight:(CGFloat)height animate:(BOOL)animate {
     NSWindow *prefsPanel = self.window;
 
     CGFloat oldheight = NSHeight(prefsPanel.frame);
@@ -708,18 +694,24 @@ NSString *fontToString(NSFont *font) {
     if (NSMinY(winrect) < 0)
         winrect.origin.y = NSMinY(screenframe);
 
-    Preferences * __weak weakSelf = self;
+    CGFloat newPrevHeightConstant = NSHeight(winrect) - defaultWindowHeight;
+    CGFloat newTextHeightConstant = MIN(newPrevHeightConstant, [_previewController calculateHeight]);
 
-    CGFloat blockDefaultWindowHeight = defaultWindowHeight;
-    [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.3;
-         [[prefsPanel animator]
-          setFrame:winrect
-          display:YES];
-        [_previewHeightConstraint.animator setConstant:NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight];
-        [_previewController.textHeight.animator setConstant:MIN(NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight, [_previewController calculateHeight])];
-     } completionHandler:^{}];
+    if (!animate) {
+        _previewHeightConstraint.constant = newPrevHeightConstant;
+        _previewController.textHeight.constant = newTextHeightConstant;
+        [self.window setFrame:winrect display:YES];
+    } else {
+        [NSAnimationContext
+         runAnimationGroup:^(NSAnimationContext *context) {
+            context.duration = 0.3;
+            [[prefsPanel animator]
+             setFrame:winrect
+             display:YES];
+            [_previewHeightConstraint.animator setConstant:newPrevHeightConstant];
+            [_previewController.textHeight.animator setConstant:newTextHeightConstant];
+        } completionHandler:^{}];
+    }
 }
 
 - (CGFloat)calculateWindowHeightWithPreview {
@@ -757,6 +749,17 @@ NSString *fontToString(NSFont *font) {
              postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
         });
     }
+}
+
+- (void)windowDidEndLiveResize:(id)sender {
+    _previewShown = (NSHeight(self.window.frame) > defaultWindowHeight);
+
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
+
+    PreviewController *blockPrevCtrl = _previewController;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [blockPrevCtrl scrollToTop];
+        });
 }
 
 #pragma mark Themes Table View Magic
@@ -879,6 +882,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
     [state encodeObject:(NSString *)self.window.toolbar.selectedItemIdentifier forKey:@"selectedItemIdentifier"];
+    [state encodeObject:@(NSHeight(_previewController.view.frame)) forKey:@"previewHeight"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -891,17 +895,37 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    NSToolbarItemIdentifier tii = [state decodeObjectOfClass:[NSString class] forKey:@"selectedItemIdentifier"];
-    if (tii) {
-        NSLog(@"Restored NSToolbarItemIdentifier %@", tii);
-        self.window.toolbar.selectedItemIdentifier = tii;
+
+    NSToolbarItem *restoredItem = nil;
+
+    NSToolbarItemIdentifier toolbarItemIdentifier = [state decodeObjectOfClass:[NSString class] forKey:@"selectedItemIdentifier"];
+    if (toolbarItemIdentifier) {
+        self.window.toolbar.selectedItemIdentifier = toolbarItemIdentifier;
 
         for (NSToolbarItem *item in self.window.toolbar.items) {
-            if ([item.itemIdentifier isEqual:tii]) {
-                [self switchToPanel:item];
+            if ([item.itemIdentifier isEqual:toolbarItemIdentifier]) {
+                restoredItem = item;
                 break;
             }
         }
+    }
+
+    NSNumber *previewHeightNumber = (NSNumber *)[state decodeObjectOfClass:[NSNumber class] forKey:@"previewHeight"];
+    if (previewHeightNumber) {
+        restoredPreviewHeight = previewHeightNumber.floatValue;
+        _previewHeightConstraint.constant = restoredPreviewHeight;
+    } else {
+        restoredPreviewHeight = 0;
+    }
+
+    if (restoredItem || previewHeightNumber) {
+        currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
+        defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
+        CGFloat blockHeight = defaultWindowHeight;
+        [self switchToPanel:restoredItem resizePreview:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [self resizeWindowToHeight:previewHeightNumber.floatValue + blockHeight animate:YES];
+        });
     }
 }
 
@@ -1118,11 +1142,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)togglePreview:(id)sender {
     if (_previewShown) {
-        [self resizeWindowToHeight:defaultWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight animate:YES];
         _previewShown = NO;
     } else {
         _previewShown = YES;
-        [self resizeWindowToHeight:[self calculateWindowHeightWithPreview]];
+        [self resizeWindowToHeight:[self calculateWindowHeightWithPreview] animate:YES];
     }
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
@@ -1777,8 +1801,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     theme.border = [sender intValue];
     NSInteger diff = theme.border - oldBorder;
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"BorderChanged"
-                      object:theme
+     postNotificationName:@"BorderChanged"
+     object:theme
      userInfo:@{@"diff":@(diff)}];
 }
 - (IBAction)changeAutomaticBorderColor:(id)sender {
@@ -2097,9 +2121,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (NSFontPanelModeMask)validModesForFontPanel:(NSFontPanel *)fontPanel {
     return NSFontPanelAllModesMask;
-//    NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask |
-//    NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
-//    NSFontPanelDocumentColorEffectModeMask;
 }
 
 - (void)windowWillClose:(id)sender {
@@ -2177,17 +2198,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)switchToPanel:(NSToolbarItem *)item {
+    [self switchToPanel:item resizePreview:NO];
+}
+
+- (void)switchToPanel:(NSToolbarItem *)item resizePreview:(BOOL)resizePreview {
     NSView *preferencePane = itemIdentifierToViewDict[item.itemIdentifier];
     if (!preferencePane)
         return;
 
     currentPanel = preferencePane;
-    currentPanelHeight = NSHeight(preferencePane.frame);
+
+    CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
+
     defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
     self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
 
     NSWindow *window = self.window;
-    if (_belowView.subviews.count &&  _belowView.subviews[0] == currentPanel) {
+    if (_belowView.subviews.count && _belowView.subviews[0] == currentPanel) {
         return;
     }
 
@@ -2196,7 +2223,17 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSRect newFrame = window.frame;
     NSRect frameForContent = [window frameRectForContentRect:currentPanel.frame];
 
-    CGFloat previewHeight = NSHeight(_sampleTextBorderView.frame);
+    CGFloat previewHeight = 0;
+
+    if (_previewShown) {
+        previewHeight = resizePreview ? _previewHeightConstraint.constant : NSHeight(_sampleTextBorderView.frame);
+        if (restoredPreviewHeight != 0) {
+            previewHeight = restoredPreviewHeight;
+        }
+    }
+
+    restoredPreviewHeight = 0;
+
     _previewHeightConstraint.constant = previewHeight;
 
     newFrame.size.height = NSHeight(frameForContent) + previewHeight;
@@ -2218,11 +2255,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
     _bottomConstraint.active = NO;
     _belowHeightConstraint.constant = currentPanelHeight;
 
-    [self.window setFrame:newFrame
-                      display:YES animate:YES];
+    PreviewController* blockPrevCtrl = _previewController;
 
-    _bottomConstraint.active = YES;
-    window.initialFirstResponder = currentPanel;
+    Preferences * __weak weakSelf = self;
+
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.3;
+        [self.window.animator setFrame:newFrame display:YES];
+    } completionHandler:^{
+        Preferences *strongSelf = weakSelf;
+        if (strongSelf) {
+            strongSelf.bottomConstraint.active = YES;
+            strongSelf.window.initialFirstResponder = preferencePane;
+
+            [blockPrevCtrl scrollToTop];
+        }
+    }];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
