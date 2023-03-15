@@ -2765,7 +2765,9 @@ fprintf(stderr, "%s\n",                                                    \
                 } else {
                     NSLog(@"Illegal line terminator request: %x", buf[i]);
                 }
-            } else NSLog(@"Illegal line terminator request: %x", buf[i]);
+            } else {
+                NSLog(@"Illegal line terminator request: %x", buf[i]);
+            }
         }
     }
     gwindow.terminatorsPending = YES;
@@ -2853,7 +2855,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:ctx];
-    [charStr drawAtPoint:NSZeroPoint withAttributes:attributes];
+    [NSLocalizedString(charStr, nil) drawAtPoint:NSZeroPoint withAttributes:attributes];
     [ctx flushGraphics];
     NSData *tiff = [NSBitmapImageRep TIFFRepresentationOfImageRepsInArray:@[rep]];
     [NSGraphicsContext restoreGraphicsState];

@@ -157,17 +157,18 @@ static void load_resources(void)
     /* 7 for the worst case of needing to add .blorb to the end plus the
      * null character.
      */
-    char *filename = (char *)malloc(strlen(game_file.c_str()) + 7);
+    size_t stringlength = strlen(game_file.c_str()) + 7;
+    char *filename = (char *)malloc(stringlength);
     if(filename != NULL)
     {
         const char *exts[] = { ".blb", ".blorb" };
         
-        strcpy(filename, game_file.c_str());
+        strncpy(filename, game_file.c_str(), stringlength);
         for(size_t i = 0; blorbfile == NULL && i < (sizeof exts) / (sizeof *exts); i++)
         {
             char *p = strrchr(filename, '.');
             if(p != NULL) *p = 0;
-            strcat(filename, exts[i]);
+            strncat(filename, exts[i], 7);
             
             for (stream = glk_stream_iterate(NULL, NULL); stream; stream = glk_stream_iterate(stream, NULL))
             {

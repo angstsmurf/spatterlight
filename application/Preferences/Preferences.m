@@ -380,7 +380,6 @@ NSString *fontToString(NSFont *font) {
 
     defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
 
-    NSRect prevFrame = _sampleTextBorderView.frame;
     if (!_previewShown) {
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
@@ -2156,7 +2155,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         image = [image imageWithSymbolConfiguration:config];
     } else {
         image = [NSImage imageNamed:imageName];
-        image.accessibilityDescription = tooltip;
+        image.accessibilityDescription = NSLocalizedString(tooltip, nil);
     }
 
     toolbarItem.image = image;

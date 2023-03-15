@@ -8,7 +8,6 @@
 #import "Theme.h"
 #import "GlkStyle.h"
 
-#import "Preferences.h"
 #import "PreviewController.h"
 
 @interface PreviewTextView : NSTextView
@@ -73,9 +72,9 @@
     NSParagraphStyle *para = _theme.bufferNormal.attributeDict[NSParagraphStyleAttributeName];
     attributes[NSParagraphStyleAttributeName] = para;
     
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"Palace Gate" attributes:attributes]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:@" A tide of perambulators surges north along the crowded Broad Walk. " attributes:_theme.bufferNormal.attributeDict]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"(Trinity, Brian Moriarty, Infocom 1986)" attributes:_theme.bufEmph.attributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Palace Gate", nil) attributes:attributes]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@" A tide of perambulators surges north along the crowded Broad Walk. ", nil) attributes:_theme.bufferNormal.attributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(Trinity, Brian Moriarty, Infocom 1986)", nil) attributes:_theme.bufEmph.attributeDict]];
     [_sampleTextView.textStorage setAttributedString:attrStr];
     [_sampleTextView.layoutManager ensureLayoutForTextContainer:_sampleTextView.textContainer];
     _textHeight.constant = NSHeight(_sampleTextView.frame);
