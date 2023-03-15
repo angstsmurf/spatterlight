@@ -96,7 +96,7 @@
     [self saveNonParagraphChange:_style.attributeDict.mutableCopy];
 }
 
-// Baseline offset and character spacing are not NSParagraghStyle properties,
+// Baseline offset and character spacing are not NSParagraphStyle properties,
 // so the methods that change those pass their modified attribute dictionary here
 - (void)saveNonParagraphChange:(NSMutableDictionary *)attDict {
     Theme *theme = [[Preferences instance] cloneThemeIfNotEditable];
