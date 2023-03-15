@@ -8,6 +8,7 @@
 #import "Theme.h"
 #import "GlkStyle.h"
 
+#import "Preferences.h"
 #import "PreviewController.h"
 
 @interface PreviewTextView : NSTextView
@@ -100,12 +101,28 @@
 }
 
 - (void)viewWillLayout {
-    [super viewDidLayout];
-    _textHeight.constant = [self calculateHeight];
+    [super viewWillLayout];
+    CGFloat constant = [self calculateHeight];
+    if ( _textHeight.constant != constant)
+        _textHeight.constant = constant;
     if (_textHeight.constant > NSHeight(self.view.frame)) {
         [self fixScrollBar];
         _textHeight.constant = NSHeight(self.view.frame);
     }
+    [self scrollToTop];
 }
+
+- (void)viewDidLayout {
+    [super viewDidLayout];
+    [self scrollToTop];
+}
+
+- (void)scrollToTop {
+    NSClipView* clipView = _sampleTextView.enclosingScrollView.contentView;
+    NSRect bounds = clipView.bounds;
+    bounds.origin = NSZeroPoint;
+    clipView.bounds = bounds;
+}
+
 
 @end
