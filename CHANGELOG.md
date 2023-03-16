@@ -1,7 +1,12 @@
 # Change log
 
-## 1.0 (unreleased)
-- Support for output and input of glyphs outside the Basic Multilingual Plane
+## 1.0
+- New preferences panel design with standard toolbar
+- The "Cover image" and "Animate scrolling" settings have moved from the Misc tab to the Details tab, because I decided that Details should be "presentation" settings while Misc is "under the hood" settings
+- The Format tab no longer has sub-tabs, but now has settings for both Z-machine and Scott Adams games on the same tab
+- Shows a "paused" status icon next to autosaved games in the game list, to complement the existing "playing" and "stopped" status icons
+- The library window has a subtitle which shows the number of games in the library
+- Support for output and input of Unicode glyphs outside the Basic Multilingual Plane
 - Output characters could in some situations be randomly erased
 - Opening of d$$ format AGT files was broken
 - Certain Commodore 64 games were recognised but would not start
@@ -12,6 +17,7 @@
 - Info windows could be left behind after deleting library
 - Fonts could be impossible to select under certain circumstances
 - Font panel and colour picker are no longer restored when restarting Spatterlight
+- File extensions were missing their last character
 
 ## Release 0.9.9
 - Now requires macOS 10.13 or later
