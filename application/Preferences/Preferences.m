@@ -2237,13 +2237,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     newFrame.size.height = NSHeight(frameForContent) + previewHeight;
 
-    if (NSHeight(newFrame) > NSHeight(self.window.screen.visibleFrame)) {
-        newFrame.size.height = NSHeight(self.window.screen.visibleFrame);
-        frameForContent.size.height = NSHeight(self.window.screen.visibleFrame);
-        _previewHeightConstraint.constant = NSHeight(newFrame) - defaultWindowHeight;
+    NSRect visibleFrame = self.window.screen.visibleFrame;
+    if (NSHeight(newFrame) > NSHeight(visibleFrame)) {
+        newFrame.size.height = NSHeight(visibleFrame);
+        frameForContent.size.height = NSHeight(visibleFrame);
+        previewHeight = NSHeight(newFrame) - defaultWindowHeight;
+        if (previewHeight < 0)
+            previewHeight = 0;
+        _previewHeightConstraint.constant = previewHeight;
     }
 
     newFrame.origin.y -= NSHeight(frameForContent) - NSHeight(window.frame) + previewHeight;
+
+    if (newFrame.origin.y < NSMinY(visibleFrame))
+        newFrame.origin.y = NSMinY(visibleFrame);
 
     if (_belowView.subviews.count)
         [_belowView.subviews[0] removeFromSuperview];
