@@ -1850,13 +1850,13 @@ static ActionResultType PerformLine(int ct)
                 cc += 2;
                 break;
             case 126:
-                debug_print("Counter (Counter %d) = Counter %d\n", arg2, arg1);
-                Counters[ca2] = ca1;
+                debug_print("Counter %d = Counter (Counter %d (%d))\n", arg1, arg2, ca2);
+                Counters[arg1] = Counters[ca2];
                 cc += 2;
                 break;
             case 127:
-                debug_print("Counter %d = Counter (Counter %d)\n", arg2, arg1);
-                Counters[arg2] = Counters[ca1];
+                debug_print("Counter (Counter %d (%d)) = Counter %d\n", arg2, ca2, arg1);
+                Counters[ca2] = Counters[arg1];
                 cc += 2;
                 break;
             case 128:
