@@ -1148,7 +1148,7 @@ static ActionResultType TestConditions(uint16_t *ptr)
             dv2 = ptr[cc++];
             debug_print("Is description of room %d (counter %d) (%d) == Message %d?\n", Counters[dv], dv, Rooms[Counters[dv]].Exits[6], dv2);
             if (Rooms[Counters[dv]].Exits[6] != dv2)
-                return ACT_FAILURE;
+                current_result = 0;
             break;
         case 8:
             debug_print("Is bitflag %d set?\n", dv);
