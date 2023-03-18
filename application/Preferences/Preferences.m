@@ -384,12 +384,10 @@ NSString *fontToString(NSFont *font) {
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
-        if (restoredPreviewHeight == 0) {
-            restoredPreviewHeight = NSHeight(self.window.frame) - defaultWindowHeight;
-            if (restoredPreviewHeight <= 0)
-                restoredPreviewHeight = [_previewController calculateHeight] + 40;
-        }
-        [self resizeWindowToHeight:restoredPreviewHeight + defaultWindowHeight animate:NO];
+        CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
+        if (height <= 0)
+            height = [_previewController calculateHeight] + 40;
+        [self resizeWindowToHeight:height + defaultWindowHeight animate:NO];
         [_previewController fixScrollBar];
     }
 
