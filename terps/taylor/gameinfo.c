@@ -27,16 +27,16 @@ struct GameInfo games[NUMGAMES] = {
         0x67ba, // start_of_flags
         0x50a3, // start_of_item_locations
         0x2000, // start_of_messages
-        0, // second message bank
+        0,      // second message bank
 
         0x6100, // start_of_characters;
         0x6916, // start_of_image_data;
         0x381c, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
+        0x001c, // number of patterns
+        0x009f, // patterns end marker
         0x878b, // start of room image instructions
-        57, // number_of_image blocks;
-        ZXOPT, // palette
+        57,     // number_of_image blocks;
+        ZXOPT   // palette
     },
 
     {
@@ -55,16 +55,16 @@ struct GameInfo games[NUMGAMES] = {
         0xc1bc, // start_of_flags
         0x2dfd, // start_of_item_locations
         0x0142, // start_of_messages
-        0, // second message bank
+        0,      // second message bank
 
         0xbb02, // start_of_characters;
         0x6058, // start_of_image_data;
         0x381c, // image patterns lookup table;
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
-        0x87a6 - 0x1B, // start of room image instructions
-        57, // number_of_image blocks;
-        C64A, // palette
+        0x001c, // number of patterns
+        0x009f, // patterns end marker
+        0x878b, // start of room image instructions
+        57,     // number_of_image blocks;
+        C64A    // palette
     },
 
     {
@@ -85,14 +85,14 @@ struct GameInfo games[NUMGAMES] = {
         0x5e05, // start_of_messages
         0x6f19, // second message bank
 
-        0x810e, // start_of_characters;
-        0x9139, // start_of_image_data;
-        0, // image patterns lookup table; •
-        0, // number of patterns •
-        0, // patterns end marker •
+        0x810e, // start_of_characters
+        0x9139, // start_of_image_data
+        0,      // image patterns lookup table
+        0,      // number of patterns
+        0,      // patterns end marker
         0x87a6, // start of room image instructions
-        167, // number_of_image blocks;
-        ZXOPT, // palette
+        167,    // number_of_image blocks
+        ZXOPT   // palette
     },
 
     {
@@ -115,12 +115,12 @@ struct GameInfo games[NUMGAMES] = {
 
         0xb78c, // start_of_characters
         0x7f02, // start_of_image_data
-        0, // image patterns lookup table
-        0, // number of patterns
-        0, // patterns end marker
+        0,      // image patterns lookup table
+        0,      // number of patterns
+        0,      // patterns end marker
         0xadea, // start of room image instructions
-        167, // number_of_image blocks
-        C64B, // palette
+        167,    // number_of_image blocks
+        C64B    // palette
     },
 
     {
@@ -139,16 +139,16 @@ struct GameInfo games[NUMGAMES] = {
         0x2051, // start_of_flags
         0x76a8, // start_of_item_locations
         0x3e26, // start_of_messages
-        0, // second message bank
+        0,      // second message bank
 
         0x8350, // start_of_characters
         0x8708, // start_of_image_data
-        0, // image patterns lookup table
-        0, // number of patterns
-        0, // patterns end marker
+        0,      // image patterns lookup table
+        0,      // number of patterns
+        0,      // patterns end marker
         0x7798, // start of room image instructions
-        114, // number_of_image blocks;
-        ZXOPT, // palette
+        114,    // number_of_image blocks;
+        ZXOPT   // palette
     },
 
     {
@@ -172,11 +172,11 @@ struct GameInfo games[NUMGAMES] = {
         0x8603, // start_of_characters
         0x8d13, // start_of_image_data
         0x3703, // image patterns lookup table
-        0x1c, // number of patterns
-        0x9f, // patterns end marker
+        0x001c, // number of patterns
+        0x009f, // patterns end marker
         0x7adf, // start of room image instructions
-        139, // number_of_image blocks
-        ZXOPT, // palette
+        139,    // number_of_image blocks
+        ZXOPT   // palette
     },
 
     {
@@ -199,12 +199,12 @@ struct GameInfo games[NUMGAMES] = {
 
         0x8008, // start_of_characters;
         0x8718, // start_of_image_data;
-        0, // image patterns lookup table;
-        0, // number of patterns
-        0, // patterns end marker
+        0,      // image patterns lookup table;
+        0,      // number of patterns
+        0,      // patterns end marker
         0x4808, // start of room image instructions
-        139, // number_of_image blocks;
-        C64B, // palette
+        139,    // number_of_image blocks;
+        C64B    // palette
     },
 
     {
@@ -228,11 +228,11 @@ struct GameInfo games[NUMGAMES] = {
         0x83cb, // start_of_characters;
         0x8a33, // start_of_image_blocks;
         0x3837, // image patterns lookup table;
-        0x12, // number of patterns
-        0xaa, // patterns end marker
+        0x0012, // number of patterns
+        0x00aa, // patterns end marker
         0x7b75, // start of room image instructions
-        143, // number_of_image blocks;
-        ZXOPT, // palette
+        143,    // number_of_image blocks;
+        ZXOPT   // palette
     },
 
     {
@@ -253,14 +253,14 @@ struct GameInfo games[NUMGAMES] = {
         0x5fd9, // start_of_messages
         0x73b7, // second message bank
 
-        0, // start_of_characters;
-        0, // start_of_image_blocks;
-        0, // image patterns lookup table;
-        0, // number of patterns
-        0, // patterns end marker
-        0, // start of room image instructions
-        0, // number_of_image blocks;
-        0, // palette
+        0,      // start_of_characters;
+        0,      // start_of_image_blocks;
+        0,      // image patterns lookup table;
+        0,      // number of patterns
+        0,      // patterns end marker
+        0,      // start of room image instructions
+        0,      // number_of_image blocks;
+        0       // palette
     },
 
     {
@@ -284,11 +284,11 @@ struct GameInfo games[NUMGAMES] = {
         0x83cb, // start_of_characters;
         0x8a33, // start_of_image_blocks;
         0x3837, // image patterns lookup table;
-        0x12,   // number of patterns
-        0xaa,   // patterns end marker
+        0x0012, // number of patterns
+        0x00aa, // patterns end marker
         0x7b75, // start of room image instructions
         143,    // number_of_image blocks;
-        ZXOPT,  // palette
+        ZXOPT   // palette
     },
 
     {
@@ -316,7 +316,7 @@ struct GameInfo games[NUMGAMES] = {
         0,      // patterns end marker
         0x4708, // start of room image instructions
         143,    // number_of_image blocks;
-        C64B,   // palette
+        C64B    // palette
     },
 
     {
@@ -337,14 +337,14 @@ struct GameInfo games[NUMGAMES] = {
         0x6438, // start_of_messages
         0x7816, // second message bank
 
-        0, // start_of_characters;
-        0, // start_of_image_blocks;
-        0, // image patterns lookup table;
-        0, // number of patterns
-        0, // patterns end marker
-        0, // start of room image instructions
-        0, // number_of_image blocks;
-        C64B, // palette
+        0,      // start_of_characters;
+        0,      // start_of_image_blocks;
+        0,      // image patterns lookup table;
+        0,      // number of patterns
+        0,      // patterns end marker
+        0,      // start of room image instructions
+        0,      // number_of_image blocks;
+        C64B    // palette
     },
 
     {
@@ -372,7 +372,7 @@ struct GameInfo games[NUMGAMES] = {
         0,      // patterns end marker
         0x16ea, // start of room image instructions
         143,    // number_of_image blocks;
-        C64B,   // palette
+        C64B    // palette
     },
 
     {
@@ -400,7 +400,7 @@ struct GameInfo games[NUMGAMES] = {
         0x8e,   // patterns end marker
         0x8279, // start of room image instructions
         210,    // number_of_image blocks;
-        ZXOPT,  // palette
+        ZXOPT   // palette
     },
 
     {
@@ -428,7 +428,7 @@ struct GameInfo games[NUMGAMES] = {
         0,      // patterns end marker
         0x0012, // start of room image instructions
         210,    // number_of_image blocks;
-        C64B,   // palette
+        C64B    // palette
     },
 // clang-format on
 
