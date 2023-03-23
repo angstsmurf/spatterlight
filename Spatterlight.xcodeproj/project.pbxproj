@@ -2288,7 +2288,7 @@
 		9650329009F29EE20083E64E /* variable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = variable.c; sourceTree = "<group>"; };
 		965032A809F29EE20083E64E /* he.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = he.c; path = source/he.c; sourceTree = "<group>"; };
 		965032A909F29EE20083E64E /* hebuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hebuffer.c; path = source/hebuffer.c; sourceTree = "<group>"; };
-		965032AB09F29EE20083E64E /* heexpr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heexpr.c; path = source/heexpr.c; sourceTree = "<group>"; };
+		965032AB09F29EE20083E64E /* heexpr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heexpr.c; path = source/heexpr.c; sourceTree = "<group>"; usesTabs = 1; };
 		965032AD09F29EE20083E64E /* heglkunix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglkunix.c; path = heglk/heglkunix.c; sourceTree = "<group>"; };
 		965032AE09F29EE20083E64E /* heheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heheader.h; path = source/heheader.h; sourceTree = "<group>"; };
 		965032AF09F29EE20083E64E /* hemisc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hemisc.c; path = source/hemisc.c; sourceTree = "<group>"; };
