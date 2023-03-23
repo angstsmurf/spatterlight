@@ -499,7 +499,6 @@ AddFontCode:
 			thisline = thisline - linebreaklen;
 			linebreak = 0;
 			linebreaklen = 0;
-			startofline = 0;
 #ifdef USE_TEXTBUFFER
 			bufferbreak = 0;
 			bufferbreaklen = 0;

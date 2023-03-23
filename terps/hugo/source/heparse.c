@@ -207,11 +207,9 @@ void AddPossibleObject(int obj, char type, unsigned int w)
 
 void AdvanceGrammar(void)
 {
-	int a;
-
 	defseg = gameseg;
 
-	switch (a = Peek(grammaraddr))
+	switch (Peek(grammaraddr))
 	{
 		case FORWARD_SLASH_T:
 		case HELD_T:
@@ -1713,7 +1711,7 @@ RestoreTempArrays:
 	k = 10;                       /* best (i.e., lowest) match */
 	for (j=1; j<=mobjs; j++)
 	{
-		if ((m = ObjWord(pobj, mobj[j]))==noun)
+		if (ObjWord(pobj, mobj[j]) == noun)
 		{
 			k = noun;
 			i++;
@@ -1815,7 +1813,7 @@ int MatchWord(int *wordnum)
 	if (wd[*wordnum]==0)
 		return 0;
 
-	switch ((t = Peek(grammaraddr)))
+	switch (Peek(grammaraddr))
 	{
 		/* the verb ("*") */
 		case ASTERISK_T:

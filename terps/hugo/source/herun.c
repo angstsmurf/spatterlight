@@ -2772,8 +2772,6 @@ void RunWindow(void)
 		/* Set up default top, left, etc. as character coordinates,
 		   and save the current physical window data
 		*/
-		left = physical_windowleft/FIXEDCHARWIDTH + 1;
-		top = physical_windowtop/FIXEDLINEHEIGHT + 1;
 		right = physical_windowright/FIXEDCHARWIDTH + 1;
 		bottom = physical_windowbottom/FIXEDLINEHEIGHT + 1;
 
