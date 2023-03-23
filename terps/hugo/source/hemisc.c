@@ -712,7 +712,7 @@ unsigned int Dict()
 	codeptr += 2;                           /* "(" */
 
 	if (MEM(codeptr)==PARSE_T || MEM(codeptr)==WORD_T)
-		strcpy(line, GetWord(GetValue()));
+		strncpy(line, GetWord(GetValue()), 1025);
 	else
 	{
 		/* Get the array address to read the to-be-
@@ -795,39 +795,39 @@ void FatalError(int n)
 	switch (n)
 	{
 		case MEMORY_E:
-			{sprintf(line, "Out of memory\n");
+			{snprintf(line, 1025, "Out of memory\n");
 			break;}
 
 		case OPEN_E:
-			{sprintf(line, "Cannot open file\n");
+			{snprintf(line, 1025, "Cannot open file\n");
 			break;}
 
 		case READ_E:
-			{sprintf(line, "Cannot read from file\n");
+			{snprintf(line, 1025, "Cannot read from file\n");
 			break;}
 
 		case WRITE_E:
-			{sprintf(line, "Cannot write to save file\n");
+			{snprintf(line, 1025, "Cannot write to save file\n");
 			break;}
 
 		case EXPECT_VAL_E:
-			{sprintf(line, "Expecting value at $%s\n", PrintHex(codeptr));
+			{snprintf(line, 1025, "Expecting value at $%s\n", PrintHex(codeptr));
 			break;}
 
 		case UNKNOWN_OP_E:
-			{sprintf(line, "Unknown operation at $%s\n", PrintHex(codeptr));
+			{snprintf(line, 1025, "Unknown operation at $%s\n", PrintHex(codeptr));
 			break;}
 
 		case ILLEGAL_OP_E:
-			{sprintf(line, "Illegal operation at $%s\n", PrintHex(codeptr));
+			{snprintf(line, 1025, "Illegal operation at $%s\n", PrintHex(codeptr));
 			break;}
 
 		case OVERFLOW_E:
-			{sprintf(line, "Overflow at $%s\n", PrintHex(codeptr));
+			{snprintf(line, 1025, "Overflow at $%s\n", PrintHex(codeptr));
 			break;}
 
 		case DIVIDE_E:
-			{sprintf(line, "Divide by zero at $%s\n", PrintHex(codeptr));
+			{snprintf(line, 1025, "Divide by zero at $%s\n", PrintHex(codeptr));
 			break;}
 	}
 
@@ -909,7 +909,7 @@ void FileIO(void)
 	ioerror = 0;
 	
 	/* Make sure the filename is legal, 8 alphanumeric characters or less */
-	strcpy(line, GetWord(fnameval));
+	strncpy(line, GetWord(fnameval), 1025);
 	if (strlen(line) > 8) goto LeaveFileIO;
 	for (i=0; i<(int)strlen(line); i++)
 	{
@@ -928,7 +928,7 @@ void FileIO(void)
 	hugo_splitpath(program_path, drive, dir, fname, ext);
 	hugo_makepath(fileiopath, drive, dir, GetWord(fnameval), "");
 #else
-	strcpy(fileiopath, GetWord(fnameval));
+	strncpy(fileiopath, GetWord(fnameval), MAXPATH);
 #endif
 
 	if (iotype==WRITEFILE_T)        /* "writefile" */
@@ -1082,9 +1082,9 @@ void GetCommand(void)
 	hugo_getline(a);
 #endif
 	during_player_input = false;
-	strcpy(buffer, Rtrim(buffer));
+	strncpy(buffer, Rtrim(buffer), MAXBUFFER + MAXWORDS);
 
-	strcpy(parseerr, "");
+	strncpy(parseerr, "", MAXBUFFER + 1);
 
 	full = 1;
 	remaining = 0;
@@ -1343,9 +1343,9 @@ void LoadGame(void)
 		hugo_cleanup_screen();
 		hugo_clearfullscreen();
 #endif
-		sprintf(line, "Hugo Compiler v%d.%d or later required.\n", HEVERSION, HEREVISION);
+		snprintf(line, 1025, "Hugo Compiler v%d.%d or later required.\n", HEVERSION, HEREVISION);
 		if (game_version>0)
-			sprintf(line+strlen(line), "File \"%s\" is v%d.%d.\n", gamefile, game_version/10, game_version%10);
+			snprintf(line+strlen(line), 1025, "File \"%s\" is v%d.%d.\n", gamefile, game_version/10, game_version%10);
 
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
@@ -1364,7 +1364,7 @@ void LoadGame(void)
 		hugo_cleanup_screen();
 		hugo_clearfullscreen();
 #endif
-		sprintf(line, "File \"%s\" is incorrect or unknown version.\n", gamefile);
+		snprintf(line, 1025, "File \"%s\" is incorrect or unknown version.\n", gamefile);
 
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
@@ -1497,15 +1497,15 @@ void LoadGame(void)
 	
 	/* build punctuation string (additional user-specified punctuation) */
 	synptr = 2;
-	strcpy(punc_string, "");
+	strncpy(punc_string, "", 64);
 	for (i=1; i<=syncount; i++)
 	{
 		defseg = syntable;
 		if (Peek(synptr)==3)	/* 3 = punctuation */
 		{
-			strcpy(line, GetWord(PeekWord(synptr+1)));
+			strncpy(line, GetWord(PeekWord(synptr+1)), 1025);
 			if (strlen(line) + strlen(punc_string) > 63) break;
-			strcat(punc_string, line);
+			strncat(punc_string, line, 64);
 		}
 		synptr+=5;
 	}

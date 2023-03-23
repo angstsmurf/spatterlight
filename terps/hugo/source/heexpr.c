@@ -125,14 +125,14 @@ int EvalExpr(int p)
 				if (next_prec >= last_precedence)
 				{
 #if defined (DEBUG_PRECEDENCE)
-sprintf(line, "Not preferring %s to %s because of previous level %d", token[eval[p+7]], token[oper], last_precedence);
+snprintf(line, 1025, "Not preferring %s to %s because of previous level %d", token[eval[p+7]], token[oper], last_precedence);
 Printout(line);
 #endif
 					goto ReturnResult;
 				}
 
 #if defined (DEBUG_PRECEDENCE)
-sprintf(line, "Preferring %s to %s", token[eval[p+7]], token[oper]);
+snprintf(line, 1025, "Preferring %s to %s", token[eval[p+7]], token[oper]);
 Printout(line);
 #endif
 
@@ -148,7 +148,7 @@ Printout(line);
 		}
 
 #if defined (DEBUG_PRECEDENCE)
-sprintf(line, "Solving %d %s %d", n1, token[oper], n2);
+snprintf(line, 1025, "Solving %d %s %d", n1, token[oper], n2);
 Printout(line);
 #endif
 
@@ -273,7 +273,7 @@ ReturnResult:
 #if defined (DEBUG_EXPR_EVAL)
 	if (p==0 && exprt)
 	{
-		sprintf(line, " = %d", result);
+		snprintf(line, 1025, " = %d", result);
 		AP(line);
 	}
 #endif
@@ -1100,7 +1100,7 @@ void PrintExpr(void)
 		{
 			case 0:
 			{
-				sprintf(line, "%d ", eval[i + 1]);
+				snprintf(line, 1025, "%d ", eval[i + 1]);
 				strcat(e, line);
 				break;
 			}
@@ -1114,7 +1114,7 @@ void PrintExpr(void)
 				if (token[eval[i+1]][0]=='~')
 					strcat(e, "\\");
 				if (eval[i+1] != 255)
-					{sprintf(line, "%s ", token[eval[i+1]]);
+					{snprintf(line, 1025, "%s ", token[eval[i+1]]);
 					strcat(e, line);}
 				break;
 			}

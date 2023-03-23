@@ -619,18 +619,18 @@ int MatchCommand()
 
 		/* Rebuild the corrected buffer */
 		oopscount = 1;
-		strcpy(line, word[2]);
+		strncpy(line, word[2], 1025);
 		for (i=1; i<=(int)strlen(errbuf); i++)
 		{
 			if (!strcmp(Mid(errbuf, i, strlen(oops)), oops))
 				break;
 		}
 
-		strcpy(buffer, errbuf);
+		strncpy(buffer, errbuf, MAXBUFFER + MAXWORDS);
 		buffer[i-1] = '\0';
-		strcat(buffer, line);
+		strncat(buffer, line, MAXBUFFER + MAXWORDS);
 
-		strcat(buffer, Right(errbuf, strlen(errbuf) - i - strlen(oops) + 1));
+		strncat(buffer, Right(errbuf, strlen(errbuf) - i - strlen(oops) + 1), MAXBUFFER + MAXWORDS);
 
 		SeparateWords();
 		if (!Parse())
@@ -847,7 +847,7 @@ GotVerb:
 
 	obj_match_state = 0;
 	starts_with_verb = 1;
-	strcpy(parseerr, word[1]);
+	strncpy(parseerr, word[1], MAXBUFFER + 1);
 
 	if (Peek(grammaraddr)==XVERB_T) xverb = true;
 	grammaraddr += 2 + numverbs * 2;
@@ -1041,8 +1041,8 @@ int MatchObject(int *wordnum)
 		*/
 		if (word[*wordnum][0]!='~' && word[*wordnum][0]!='\0')
 		{
-			if (parseerr[0]!='\0') strcat(parseerr, " ");
-			strcat(parseerr, word[*wordnum]);
+			if (parseerr[0]!='\0') strncat(parseerr, " ", MAXBUFFER + 1);
+			strncat(parseerr, word[*wordnum], MAXBUFFER + 1);
 
 			flag = 0;
 			for (i=0; i<objects; i++)
@@ -1113,7 +1113,7 @@ int MatchObject(int *wordnum)
 				/* If checking the xobject */
 				if (obj_match_state==1)
 				{
-					strcpy(parseerr, word[1]);
+					strncpy(parseerr, word[1], MAXBUFFER + 1);
 					/* "...can't use multiple objects..."
 					   (as indirect objects) */
 					ParseError(7, 0);
@@ -1183,7 +1183,7 @@ Clarify:
 		/* If checking the xobject or addressing a command */
 		if (obj_match_state==1 || speaking)
 		{
-			strcpy(parseerr, word[1]);
+			strncpy(parseerr, word[1], MAXBUFFER + 1);
 			/* "...can't use multiple objects..."
 			   (as indirect objects) */
 			ParseError(7, 0);
@@ -1227,7 +1227,7 @@ Clarify:
 		{
 			if (!objcount && !speaking)
 			{
-				strcpy(parseerr, word[1]);
+				strncpy(parseerr, word[1], MAXBUFFER + 1);
 				ParseError(9, 0);   /* "Nothing to (verb)..." */
 				return 0;
 			}
@@ -1512,7 +1512,7 @@ Clarify:
 					if (strcmp(Name(i), ""))
 					{
 						pobj = i;
-						sprintf(line, "(%s)", Name(i));
+						snprintf(line, 1025, "(%s)", Name(i));
 						AP(line);
 						goto RestoreTempArrays;
 					}
@@ -1638,8 +1638,8 @@ RestoreTempArrays:
 			strcpy(buffer, "");
 			for (i=1; i<=wtemp; i++)
 			{
-				strcat(buffer, GetWord(wdtemp[i]));
-				strcat(buffer, " ");
+				strncat(buffer, GetWord(wdtemp[i]), MAXBUFFER+MAXWORDS);
+				strncat(buffer, " ", MAXBUFFER+MAXWORDS);
 			}
 			SeparateWords();
 
@@ -1658,7 +1658,7 @@ RestoreTempArrays:
 			i = Peek(grammaraddr);
 			if (objcount>1 && i!=MULTI_T && i!=MULTIHELD_T && i!=MULTINOTHELD_T)
 			{
-				strcpy(parseerr, word[1]);
+				strncpy(parseerr, word[1], MAXBUFFER + 1);
 				/* "You can't...multiple objects." */
 				ParseError(3, 0);
 				return 0;
@@ -1788,7 +1788,7 @@ RestoreTempArrays:
 			else
 			{
 				/* No objects found */
-				strcpy(parseerr, word[1]);
+				strncpy(parseerr, word[1], MAXBUFFER + 1);
 				ParseError(9, 0);   /* "Nothing to (verb)..." */
 				return 0;
 			}
@@ -1985,7 +1985,7 @@ CheckWordorString:
 							multicheck != MULTIHELD_T &&
 							multicheck != MULTINOTHELD_T)
 						{
-							strcpy(parseerr, word[1]);
+							strncpy(parseerr, word[1], MAXBUFFER + 1);
 							/* "You can't...multiple objects." */
 							ParseError(3, 0);
 							return 2;
@@ -2214,7 +2214,7 @@ int Parse()
 	{
 		if (word[i][0]=='\"' && foundstring==0)
 		{
-			strcpy(parsestr, word[i]);
+			strncpy(parsestr, word[i], MAXBUFFER + 1);
 			foundstring = 1;
 			wd[i] = UNKNOWN_WORD;
 		}
@@ -2231,7 +2231,7 @@ int Parse()
 #endif
 				parsed_number = atoi(word[i]);
 				if (parseerr[0]=='\0')
-					strcpy(parseerr, word[i]);
+					strncpy(parseerr, word[i], MAXBUFFER + 1);
 			}
 
 			/* Otherwise it must be a dictionary entry */
@@ -2243,8 +2243,8 @@ int Parse()
 NotinDictionary:
 					if (!notfound_word)
 					{
-						strcpy(parseerr, word[i]);
-						strcpy(oops, word[i]);
+						strncpy(parseerr, word[i], MAXBUFFER + 1);
+						strncpy(oops, word[i], MAXBUFFER + 1);
 
 						notfound_word = i;
 					}
@@ -2258,15 +2258,13 @@ NotinDictionary:
 	*/
 	if (notfound_word)
 	{
-		i = notfound_word;
-
 		/* "...can't use the word..." */
 		ParseError(1, 0);
-		strcpy(errbuf, "");
+		strncpy(errbuf, "", MAXBUFFER + 1);
 		for (i=1; i<=words; i++)
 		{
-			strcat(errbuf, word[i]);
-			if (i != words) strcat(errbuf, " ");
+			strncat(errbuf, word[i], MAXBUFFER + 1);
+			if (i != words) strncat(errbuf, " ", MAXBUFFER + 1);
 		}
 
 		return 0;
@@ -2304,7 +2302,7 @@ NotinDictionary:
 
 							for (k=words; k>i; k--)
 							{
-								strcpy(tempword, word[k]);
+								strncpy(tempword, word[k], 81);
 								word[k] += m;
 								strcpy(word[k], tempword);
 							}
@@ -2325,7 +2323,7 @@ NotinDictionary:
 					{
 						if (wd[i+1]==PeekWord(synptr+3))
 						{
-							strcat(word[i], word[i+1]);
+                            memmove(word[i] + strlen(word[i]), word[i+1], strlen(word[i+1]) + 1);
 							wd[i] = FindWord(word[i]);
 							KillWord(i+1);
 						}
@@ -2411,7 +2409,7 @@ void ParseError(int e, int a)
 			break;
 
 		case 1:
-			sprintf(line, "You can't use the word \"%s\".", parseerr);
+			snprintf(line, 1025, "You can't use the word \"%s\".", parseerr);
 			AP(line);
 			break;
 
@@ -2420,7 +2418,7 @@ void ParseError(int e, int a)
 			break;
 
 		case 3:
-			sprintf(line, "You can't %s multiple objects.", parseerr);
+			snprintf(line, 1025, "You can't %s multiple objects.", parseerr);
 			AP(line);
 			break;
 
@@ -2429,7 +2427,7 @@ void ParseError(int e, int a)
 			break;
 
 		case 5:
-			sprintf(line, "You haven't seen any \"%s\", nor are you likely to in the near future even if such a thing exists.", parseerr);
+			snprintf(line, 1025, "You haven't seen any \"%s\", nor are you likely to in the near future even if such a thing exists.", parseerr);
 			AP(line);
 			break;
 
@@ -2443,7 +2441,7 @@ void ParseError(int e, int a)
 
 		case 8:
 		{
-			sprintf(line, "Which %s do you mean, ", !parse_called_twice?parseerr:"exactly");
+			snprintf(line, 1025, "Which %s do you mean, ", !parse_called_twice?parseerr:"exactly");
 			count = 1;
 			for (k=0; k<pobjcount; k++)
 			{
@@ -2453,13 +2451,13 @@ void ParseError(int e, int a)
 				{
 					if (count==pobjcount)
 					{
-						if (count > 2) strcat(line, ",");
-						strcat(line, " or ");
+						if (count > 2) strncat(line, ",", 1025);
+						strncat(line, " or ", 1025);
 					}
 					else
 					{
 						if (count != 1)
-							strcat(line, ", ");
+							strncat(line, ", ", 1025);
 					}
 					if (GetProp(i, article, 1, 0))
 					{
@@ -2472,19 +2470,19 @@ void ParseError(int e, int a)
 							sprintf(line+strlen(line), "%s ", w);
 						*/
 						/* We'll just use "the" */
-						if (w) strcat(line, "the ");
+						if (w) strncat(line, "the ", 1025);
 					}
-					strcat(line, Name(i));
+					strncat(line, Name(i), 1025);
 					count++;
 				}
 			}
-			strcat(line, "?");
+			strncat(line, "?", 1025);
 			AP(line);
 			break;
 		}
 
 		case 9:
-			sprintf(line, "Nothing to %s.", parseerr);
+			snprintf(line, 1025, "Nothing to %s.", parseerr);
 			AP(line);
 			break;
 
@@ -2497,7 +2495,7 @@ void ParseError(int e, int a)
 			break;
 
 		case 12:
-			sprintf(line, "You can't do that with the %s.", Name(a));
+			snprintf(line, 1025, "You can't do that with the %s.", Name(a));
 			AP(line);
 			break;
 
@@ -2604,8 +2602,8 @@ void SeparateWords(void)
 	}
 	word[1] = buffer;
 
-	strcpy(a, buffer);
-	strcpy(buffer, "");
+	strncpy(a, buffer, 1025);
+	strncpy(buffer, "", MAXBUFFER+MAXWORDS);
 	
 	for (i=1; i<=(int)strlen(a); i++)
 	{
@@ -2616,7 +2614,7 @@ void SeparateWords(void)
 
 		if (b[0]=='\"' && inquote==1)
 		{
-			strcpy(buffer+bloc, b);
+			strncpy(buffer+bloc, b, MAXBUFFER+MAXWORDS);
 			bloc++;
 			inquote++;
 		}
@@ -2633,7 +2631,7 @@ void SeparateWords(void)
 
 			if (b[0]=='\"' && inquote==0)
 			{
-				strcpy(buffer+bloc, b);
+				strncpy(buffer+bloc, b, MAXBUFFER+MAXWORDS);
 				bloc++;
 				inquote = 1;
 			}
@@ -2656,7 +2654,7 @@ void SeparateWords(void)
 			}
 			else
 			{
-				strcpy(buffer+bloc, b);
+				strncpy(buffer+bloc, b, MAXBUFFER+MAXWORDS);
 				bloc++;
 			}
 		}
@@ -2669,13 +2667,13 @@ void SeparateWords(void)
 		/* Convert hours:minutes time to minutes only */
 		if (strcspn(word[i], ":")!=strlen(word[i]) && strlen(word[i])<=5)
 		{
-			strcpy(w1, Left(word[i], strcspn(word[i], ":")));
-			strcpy(w2, Right(word[i], strlen(word[i]) - strcspn(word[i], ":") - 1));
+			strncpy(w1, Left(word[i], strcspn(word[i], ":")), 17);
+			strncpy(w2, Right(word[i], strlen(word[i]) - strcspn(word[i], ":") - 1), 17);
 			n1 = (short)atoi(w1);
 			n2 = (short)atoi(w2);
 
 			if (!strcmp(Left(w2, 1), "0"))
-				strcpy(w2, Right(w2, strlen(w2) - 1));
+				strncpy(w2, Right(w2, strlen(w2) - 1), 17);
 
 			/* If this is indeed a hh:mm time, write it back
 			   as the modified word, storing the original hh:mm
@@ -2683,7 +2681,7 @@ void SeparateWords(void)
 			*/
 			if (!strcmp(w1, itoa((int)n1, temp, 10)) && !strcmp(w2, itoa((int)n2, temp, 10)) && (n1 > 0 && n1 < 25) && (n2 >= 0 && n2 < 60))
 			{
-				strcpy(parseerr, word[i]);
+				strncpy(parseerr, word[i], MAXBUFFER + 1);
 				itoa(n1 * 60 + n2, word[i], 10);
 			}
 		}
@@ -2834,10 +2832,10 @@ int ValidObj(int obj)
 			{
 				if (obj != (int)PeekWord(grammaraddr+2))
 				{
-					strcpy(parseerr, "");
+					strncpy(parseerr, "", MAXBUFFER + 1);
 					if (GetProp(obj, article, 1, 0))
 						strcpy(parseerr, "the ");
-					strcat(parseerr, Name(obj));
+					strncat(parseerr, Name(obj), MAXBUFFER + 1);
 
 					/* "...can't do that with..." */
 					ParseError(12, obj);
@@ -2858,10 +2856,10 @@ int ValidObj(int obj)
 			*/
 			if (!TestAttribute(obj, attr, nattr))
 			{
-				strcpy(parseerr, "");
+				strncpy(parseerr, "", MAXBUFFER + 1);
 				if (GetProp(obj, article, 1, 0))
 					strcpy(parseerr, "the ");
-				strcat(parseerr, Name(obj));
+				strncat(parseerr, Name(obj), MAXBUFFER + 1);
 
 				/* "...can't do that with..." */
 				ParseError(12, obj);

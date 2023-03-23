@@ -99,7 +99,7 @@ int he_main(int argc, char *argv[])
 #endif
 	SetupDisplay();
 
-	strcpy(pbuffer, "");
+	strncpy(pbuffer, "", MAXBUFFER*2+1);
 
 	gameseg = 0;
 

@@ -346,9 +346,9 @@ long FindResource(char *filename, char *resname)
 
 	resource_file = NULL;
 
-	strcpy(loaded_filename, filename);
-	strcpy(loaded_resname, resname);
-	if (!strcmp(filename, "")) strcpy(loaded_filename, resname);
+	strncpy(loaded_filename, filename, MAX_RES_PATH);
+	strncpy(loaded_resname, resname, MAX_RES_PATH);
+	if (!strcmp(filename, "")) strncpy(loaded_filename, resname, MAX_RES_PATH);
 
 	/* See if the file is supposed to be in a resourcefile to
 	   begin with
@@ -533,12 +533,12 @@ static int GetResourceParameters(char *filename, char *resname)
 		return 0;
 	}
 
-	strcpy(filename, GetWord((unsigned int)f));
+	strncpy(filename, GetWord((unsigned int)f), MAX_RES_PATH);
 
 	if (MEM(codeptr++)!=EOL_T)	/* two or more parameters */
 	{
 		strupr(filename);
-		strcpy(resname, GetWord(GetValue()));
+		strncpy(resname, GetWord(GetValue()), MAX_RES_PATH);
 		if (MEM(codeptr++)==COMMA_T)
 		{
 			extra_param = GetValue();
@@ -547,8 +547,8 @@ static int GetResourceParameters(char *filename, char *resname)
 	}
 	else				/* only one parameter */
 	{
-		strcpy(resname, filename);
-		strcpy(filename, "");
+		strncpy(resname, filename, MAX_RES_PATH);
+		strncpy(filename, "", MAX_RES_PATH);
 	}
 
 	return true;

@@ -218,8 +218,8 @@ RestartDebugger:
 Start:
 	stack_depth = 0;
 
-	strcpy(errbuf, "");
-	strcpy(oops, "");
+	strncpy(errbuf, "", MAXBUFFER + 1);
+	strncpy(oops, "", MAXBUFFER + 1);
 
 	do
 	{
@@ -324,7 +324,7 @@ FreshInput:
 */
 								while (buffer[strlen(buffer)-1]==0x0d || buffer[strlen(buffer)-1]==0x0a)
 									buffer[strlen(buffer)-1] = '\0';
-								sprintf(line, "\n%s%s", GetWord(var[prompt]), buffer);
+								snprintf(line, 1025, "\n%s%s", GetWord(var[prompt]), buffer);
 								if (script)
 									/* fprintf() this way for Glk */
 									if (fprintf(script, "%s", "\n")<0)
@@ -368,7 +368,7 @@ RecordedNewline:;
 
 					if (!strcmp(buffer, "") || buffer[0]=='.')
 					{
-						strcpy(parseerr, "");
+						strncpy(parseerr, "", MAXBUFFER + 1);
 
 						/* "What?" */
 						ParseError(0, 0);
@@ -431,13 +431,13 @@ Skipmc:;
 		{
 			if (parsestr[0]=='\"')
 			{
-				strcpy(parseerr, Right(parsestr, strlen(parsestr)-1));
+				strncpy(parseerr, Right(parsestr, strlen(parsestr)-1), MAXBUFFER + 1);
 				if (parseerr[strlen(parseerr)-1]=='\"')
 					parseerr[strlen(parseerr)-1] = '\0';
 			}
 		}
 		else
-			strcpy(parseerr, "");
+			strncpy(parseerr, "", MAXBUFFER + 1);
 
 		/* default actor */
 		var[actor] = var[player];
@@ -506,7 +506,7 @@ NextPerform:
 					   trash passlocal[])
 					*/
 					if (parseerr[0]=='\0' && parsestr[0]=='\0')
-						strcpy(parseerr, Name(objlist[i]));
+						strncpy(parseerr, Name(objlist[i]), MAXBUFFER + 1);
 
 					/* Set up arguments for Perform */
 					passlocal[0] = var[verbroutine];
@@ -563,7 +563,7 @@ NextPerform:
 					for (i=0; i<objcount; i++)
 					{
 						if (parseerr[0]=='\0' && parsestr[0]=='\0')
-							strcpy(parseerr, Name(objlist[i]));
+							strncpy(parseerr, Name(objlist[i]), MAXBUFFER + 1);
 
 						if (ValidObj(objlist[i]) &&
 							((objcount>1 && objlist[i]!=var[xobject]) || objcount==1))
@@ -578,7 +578,7 @@ NextPerform:
 								*/
 								if (objcount > 1)
 								{
-									sprintf(line, "%s:  \\;", Name(var[object]));
+									snprintf(line, 1025, "%s:  \\;", Name(var[object]));
 									AP(line);
 								}
 
@@ -858,7 +858,7 @@ void RunInput(void)
 {
 	int i;
 
-	strcpy(parseerr, "");
+	strncpy(parseerr, "", MAXBUFFER + 1);
 
 	Flushpbuffer();
 
@@ -870,7 +870,7 @@ void RunInput(void)
 	if (debugger_collapsing) return;
 #endif
 
-	strcpy(buffer, Rtrim(strlwr(buffer)));
+	strncpy(buffer, Rtrim(strlwr(buffer)), MAXBUFFER+MAXWORDS);
 
 	SeparateWords();
 
@@ -882,10 +882,10 @@ void RunInput(void)
 		if (wd[i]==UNKNOWN_WORD)
 		{
 			wd[i] = 0;
-			strcpy(parseerr, word[i]);
+			strncpy(parseerr, word[i], MAXBUFFER + 1);
 			if (parseerr[0]=='\"')
 			{
-				strcpy(parseerr, Right(parseerr, strlen(parseerr)-1));
+				strncpy(parseerr, Right(parseerr, strlen(parseerr)-1), MAXBUFFER + 1);
 				if (parseerr[strlen(parseerr)-1]=='\"')
 					parseerr[strlen(parseerr)-1] = '\0';
 			}
@@ -974,7 +974,7 @@ void RunPrint(void)
 
 	while (MEM(codeptr) != EOL_T)
 	{
-		strcpy(line, "");
+		strncpy(line, "", 1025);
 
 		switch (MEM(codeptr))
 		{
@@ -1003,7 +1003,7 @@ void RunPrint(void)
 					a = (int)(ACTUAL_LINELENGTH() / ratio);
 				}
 #endif
-				strcpy(line, "");
+				strncpy(line, "", 1025);
 				l = 0;
 				if (a*FIXEDCHARWIDTH >
 					hugo_textwidth(pbuffer)+currentpos-hugo_charwidth(' '))
@@ -1066,7 +1066,7 @@ void RunPrint(void)
 				a = GetValue();
 				if (!number)
 				{
-					strcpy(line, GetWord(a));
+					strncpy(line, GetWord(a), 1025);
 				}
 				else
 				{
@@ -1079,7 +1079,7 @@ void RunPrint(void)
 						capital = 0;
 					}
 					else
-						sprintf(line, "%X", a);
+						snprintf(line, 1025, "%X", a);
 
 					number = 0;
 					hexnumber = 0;
@@ -1091,7 +1091,7 @@ void RunPrint(void)
 		if (MEM(codeptr)==SEMICOLON_T)
 		{
 			codeptr++;
-			strcat(line, "\\;");
+			strncat(line, "\\;", 1025);
 		}
 		if (capital)
 		{
@@ -1454,7 +1454,7 @@ void RunRoutine(long addr)
 	{
 		if (codeptr != addr)
 		{
-			sprintf(line, "[ROUTINE:  $%6s]", PrintHex(addr));
+			snprintf(line, 1025, "[ROUTINE:  $%6s]", PrintHex(addr));
 			AP(line);
 			wascalled = 1;
 		}
@@ -1587,7 +1587,7 @@ ContinueRunning:
 #if defined (DEBUG_CODE)
 		if (!inwindow)
 		{
-			sprintf(line, "[%6s:  %s]", PrintHex(codeptr), token[t]);
+			snprintf(line, 1025, "[%6s:  %s]", PrintHex(codeptr), token[t]);
 			AP(line);
 		}
 #endif
@@ -1773,10 +1773,10 @@ ProcessToken:
 			case TEXTDATA_T:        /* printed text from file */
 			{
 				textaddr = Peek(codeptr+1)*65536L+(long)PeekWord(codeptr+2);
-				strcpy(line, GetText(textaddr));
+				strncpy(line, GetText(textaddr), 1025);
 				codeptr += 4;
 				if (Peek(codeptr)==SEMICOLON_T)
-					{strcat(line, "\\;");
+					{strncat(line, "\\;", 1025);
 					codeptr++;}
 				if (capital)
 					{line[0] = (char)toupper((int)line[0]);
@@ -1830,8 +1830,8 @@ ProcessToken:
 Printcharloop:
 				codeptr++;
 				i = GetValue();
-				if (capital) sprintf(line, "%c\\;", toupper(i));
-				else sprintf(line, "%c\\;", i);
+				if (capital) snprintf(line, 1025, "%c\\;", toupper(i));
+				else snprintf(line, 1025, "%c\\;", i);
 				capital = 0;
 				AP(line);
 				if (Peek(codeptr)==COMMA_T)
@@ -2315,7 +2315,7 @@ ReturnfromRoutine:
 
 /*#elif defined (DEBUG_CODE)
 	if (wascalled)
-		{sprintf(line, "[RETURNING %d]", ret);
+		{snprintf(line, 1025, "[RETURNING %d]", ret);
 		AP(line);}
 */
 #endif
@@ -2562,7 +2562,7 @@ int RunString()
 		maxlen = GetValue();
 	if (Peek(codeptr)==CLOSE_BRACKET_T) codeptr++;
 
-	strcpy(line, GetWord(dword));
+	strncpy(line, GetWord(dword), 1025);
 
 	defseg = arraytable;
 	pos = 0;
