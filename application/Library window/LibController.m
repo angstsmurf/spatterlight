@@ -23,6 +23,7 @@ fprintf(stderr, "%s\n",                                                    \
 @end
 
 @implementation MyButtonToolbarItem
+
 - (void)validate {
     // validate content view
     NSControl *control = (NSControl *)self.view;
