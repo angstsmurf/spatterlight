@@ -1528,7 +1528,7 @@ L9BOOL intinitialise(char*filename,char*picname)
 		for (i=0;i<12;i++)
 		{
 			L9UINT16 d0=L9WORD(startdata+hdoffset+i*2);
-			L9Pointers[i]= (i!=11 && d0>=0x8000 && d0<=0x9000) ? workspace.listarea+d0-0x8000 : startdata+d0;
+			L9Pointers[i]= (i!=11 && d0>=0x8000 && d0<=0x9000) ? workspace.listarea+(d0-0x8000) : startdata+d0;
 		}
 		absdatablock=L9Pointers[0];
 		dictdata=L9Pointers[1];
