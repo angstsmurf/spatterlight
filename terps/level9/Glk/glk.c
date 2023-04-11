@@ -371,11 +371,11 @@ gln_get_buffer_crc (const void *void_buffer, size_t length, size_t padding)
   /* Start with zero in the crc, then update using table entries. */
   crc = 0;
   for (index = 0; index < length; index++)
-    crc = crc_table[(crc ^ buffer[index]) & UCHAR_MAX] ^ (crc >> CHAR_BIT);
+    crc = crc_table[(gln_uint16)(crc ^ buffer[index]) & UCHAR_MAX] ^ (crc >> CHAR_BIT);
 
   /* Add in any requested NUL padding bytes. */
   for (index = 0; index < padding; index++)
-    crc = crc_table[crc & UCHAR_MAX] ^ (crc >> CHAR_BIT);
+    crc = crc_table[(gln_uint16)(crc & UCHAR_MAX)] ^ (crc >> CHAR_BIT);
 
   return crc;
 }
