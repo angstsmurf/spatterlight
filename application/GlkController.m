@@ -2825,43 +2825,33 @@ fprintf(stderr, "%s\n",                                                    \
     return [GlkController unicodeAvailableForChar:str];
 }
 
++ (BOOL)isCharacter:(NSString *)character supportedByFont:(NSString *)fontName
+{
+    if (character.length == 0 || character.length > 2) {
+        return NO;
+    }
+    CTFontRef ctFont = CTFontCreateWithName((CFStringRef)fontName, 8, NULL);
+    CGGlyph glyphs[2];
+    BOOL ret = NO;
+    UniChar characters[2];
+    characters[0] = [character characterAtIndex:0];
+    if(character.length == 2) {
+        characters[1] = [character characterAtIndex:1];
+    }
+    ret = CTFontGetGlyphsForCharacters(ctFont, characters, glyphs, (CFIndex)character.length);
+    CFRelease(ctFont);
+    return ret;
+}
+
 + (BOOL)unicodeAvailableForChar:(NSString *)charString {
-    NSData *refUnicodeTiff = [GlkController tiffWithChar:@"\u1fff"];
-    NSData *myTiff = [GlkController tiffWithChar:charString];
-    return ![refUnicodeTiff isEqual:myTiff];
+    NSArray<NSString *> *fontlist = NSFontManager.sharedFontManager.availableFonts;
+    for (NSString *fontName in fontlist) {
+        if ([GlkController isCharacter:charString supportedByFont:fontName]) {
+            return YES;
+        }
+    }
+    return NO;
 }
-
-+ (NSData *)tiffWithChar:(NSString *)charStr {
-    NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:8.0] };
-    NSSize size = [charStr sizeWithAttributes:attributes];
-
-    NSInteger width = (NSInteger)ceil(size.width);
-    NSInteger height = (NSInteger)ceil(size.height);
-    if (width == 0 || height == 0)
-        return nil;
-
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
-                             initWithBitmapDataPlanes:NULL
-                             pixelsWide:width
-                             pixelsHigh:height
-                             bitsPerSample:8
-                             samplesPerPixel:4
-                             hasAlpha:YES
-                             isPlanar:NO
-                             colorSpaceName:NSDeviceRGBColorSpace
-                             bytesPerRow:width * 4
-                             bitsPerPixel:32];
-
-    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:ctx];
-    [NSLocalizedString(charStr, nil) drawAtPoint:NSZeroPoint withAttributes:attributes];
-    [ctx flushGraphics];
-    NSData *tiff = [NSBitmapImageRep TIFFRepresentationOfImageRepsInArray:@[rep]];
-    [NSGraphicsContext restoreGraphicsState];
-    return tiff;
-}
-
 
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
