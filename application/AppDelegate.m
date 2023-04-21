@@ -118,7 +118,12 @@ PasteboardFilePasteLocation;
                        @"gridUsr2",
                        ];
 
-    gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
+    gExtMap = @{
+                   @"acd" : @"alan2",
+                   @"a3c" : @"alan3",
+                   @"d$$" : @"agility",
+                   @"z6"  : @"bocfel6"
+    };
 
     gFormatMap = @{
                    @"adrift" : @"scare",

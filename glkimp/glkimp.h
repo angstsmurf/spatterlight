@@ -281,20 +281,12 @@ struct glk_window_struct {
     int char_request_uni;
     int mouse_request;
     int hyper_request;
-    //int more_request;
-    //int scroll_request;
-    //int image_loaded;
 
     glui32 echo_line_input;
     glui32 *line_terminators;
     glui32 termct;
 
     glui32 style;
-
-    //void *linebuf;
-    //glui32 linebuflen;
-    //int linecap;
-    //gidispatch_rock_t inarrayrock;
 
     attr_t attr;
 

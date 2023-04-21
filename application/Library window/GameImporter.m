@@ -414,6 +414,11 @@ extern NSArray *gGameFileTypes;
 
         if (!metadata.format)
             metadata.format = @(format);
+
+        if ([metadata.format isEqualToString:@"zcode"] && [extension isEqualToString:@"z6"]) {
+            metadata.format = @"zcode6";
+        }
+
         if (!metadata.title || metadata.title.length == 0)
         {
             metadata.title = path.lastPathComponent;
@@ -462,6 +467,8 @@ extern NSArray *gGameFileTypes;
         if ([game.detectedFormat isEqualToString:@"zcode"]) {
             [self addZCodeIDfromFile:path blorb:blorb toGame:game];
         }
+        if ([game.detectedFormat isEqualToString:@"zcode"] && [extension isEqualToString:@"z6"])
+            game.detectedFormat = @"zcode6";
     }];
 
     return game;
