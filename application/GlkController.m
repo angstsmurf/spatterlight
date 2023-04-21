@@ -1192,6 +1192,7 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"tads2"  : @"TADS",
                                      @"tads3"  : @"TADS",
                                      @"zcode"  : @"Bocfel",
+                                     @"zcode6"  : @"Bocfel6",
                                      @"sagaplus" : @"Plus",
                                      @"scott"  : @"ScottFree",
                                      @"jacl"   : @"JACL",
