@@ -39,6 +39,7 @@
                 <outlet property="btnRemove" destination="NbE-Ta-Bvm" id="ELg-BJ-bgz"/>
                 <outlet property="btnShowBezels" destination="pEQ-Lz-dz3" id="AIu-ee-eMw"/>
                 <outlet property="btnSmartQuotes" destination="Twh-3N-orY" id="cLS-jR-E8s"/>
+                <outlet property="btnSmoothScroll" destination="mgM-r8-mmm" id="nHX-Ov-2bt"/>
                 <outlet property="btnSpaceFormat" destination="q9V-JA-J9c" id="fH2-y6-H2r"/>
                 <outlet property="btnUnderlineLinksBuffer" destination="Xjq-eM-ndI" id="VGS-8j-DTa"/>
                 <outlet property="btnUnderlineLinksGrid" destination="OFj-Nn-eRz" id="Y9E-ML-p7Q"/>
@@ -48,6 +49,7 @@
                 <outlet property="clrBufferFg" destination="dN3-ZI-PPw" id="GEB-6O-DdP"/>
                 <outlet property="clrGridBg" destination="7UF-NC-8m2" id="3Py-Co-ZJv"/>
                 <outlet property="clrGridFg" destination="S1C-Jy-WhH" id="flP-1N-0QH"/>
+                <outlet property="compromiseZArrowsMenuItem" destination="c6B-jA-wap" id="hJx-G6-FEc"/>
                 <outlet property="coverImagePopup" destination="RTY-hG-q0B" id="G4a-YX-h24"/>
                 <outlet property="delaysCheckbox" destination="0SI-L5-3sn" id="J9h-Pc-eh4"/>
                 <outlet property="detailsHeader" destination="fGi-Ga-kml" id="jYr-Rj-VEe"/>
@@ -77,7 +79,10 @@
                 <outlet property="recheckFrequencyTextfield" destination="EpP-jS-USn" id="KCs-Tx-chp"/>
                 <outlet property="recheckMissingCheckbox" destination="Nbr-Od-Iwa" id="eGG-HS-nvs"/>
                 <outlet property="sampleTextBorderView" destination="sMS-2X-Ptg" id="U0B-wm-Gsx"/>
+                <outlet property="scrollView" destination="AJn-XP-T1R" id="g5X-1I-i0v"/>
                 <outlet property="slowDrawCheckbox" destination="cFf-OI-7lG" id="Nwx-WY-JIV"/>
+                <outlet property="standardZArrowsMenuItem" destination="oIP-mr-bpC" id="QQq-LB-n5o"/>
+                <outlet property="strictZArrowsMenuItem" destination="Vgi-vE-t9F" id="8WO-fR-Mbd"/>
                 <outlet property="styleNamePopup" destination="YlM-je-Ts8" id="GSh-LJ-d1O"/>
                 <outlet property="stylesHeader" destination="zGf-Ud-SAQ" id="Eyx-58-RXg"/>
                 <outlet property="stylesView" destination="sUR-oS-224" id="UYh-cW-Iy9"/>
@@ -89,7 +94,9 @@
                 <outlet property="timerSlider" destination="MVJ-4j-e2V" id="6tc-i2-1Ft"/>
                 <outlet property="timerTextField" destination="Jl5-j7-i1B" id="GD4-k0-pEL"/>
                 <outlet property="txtBorder" destination="CJo-Tg-RUP" id="wOR-I1-5W1"/>
+                <outlet property="txtBufferMargin" destination="3lM-Qi-nfu" id="Ref-Si-P4B"/>
                 <outlet property="txtCols" destination="jLj-ua-c2M" id="YaK-hE-YJQ"/>
+                <outlet property="txtGridMargin" destination="kul-5n-eXQ" id="Vcp-cG-7PE"/>
                 <outlet property="txtRows" destination="tjH-43-p1e" id="bJ2-Ai-Bia"/>
                 <outlet property="vOHeader" destination="TeO-g4-ts0" id="TBs-fs-k1R"/>
                 <outlet property="vOImagesButton" destination="r0q-14-d14" id="X1f-vQ-iGE"/>
@@ -128,7 +135,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="520" height="100"/>
+                                            <size key="minSize" width="57" height="100"/>
                                             <size key="maxSize" width="560" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
