@@ -219,8 +219,8 @@
             style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
-    if (NSEqualSizes(_image.size, NSZeroSize)) {
-        if (!NSEqualSizes(self.frame.size, NSZeroSize)) {
+    if (_image.size.width == 0 || _image.size.height == 0) {
+        if (NSWidth(self.frame) != 0 && NSHeight(self.frame) != 0) {
             _image = [[NSImage alloc] initWithSize:self.frame.size];
         } else {
             return;

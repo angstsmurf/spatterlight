@@ -130,6 +130,8 @@
         return nil;
 
     NSArray *reps = [NSBitmapImageRep imageRepsWithData:_data];
+    if (reps.count == 0)
+        return nil;
     NSImageRep *rep = reps[0];
     NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
@@ -251,6 +253,10 @@
 
     [self setImageID:resno filename:path length:length offset:offset];
     _lastimage = [_resources[@(resno)] createImage];
+    if (_lastimage == nil) {
+        _lastimageresno = -1;
+        return;
+    }
     [_imageCache setObject:_lastimage forKey:@(resno)];
     _lastimageresno = resno;
 }
