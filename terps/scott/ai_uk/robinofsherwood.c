@@ -248,7 +248,6 @@ void UpdateRobinOfSherwoodAnimations(void)
 
 GameIDType LoadExtraSherwoodData(void)
 {
-
     // room images
 
     int offset = 0x3d99 + file_baseline_offset;
@@ -278,8 +277,6 @@ GameIDType LoadExtraSherwoodData(void)
     ct = 0;
     rp = Rooms;
 
-    int actual_room_number = 0;
-
     ptr = SeekToPos(entire_file, 0x5b7e + file_baseline_offset);
     if (ptr == 0)
         return 0;
@@ -288,12 +285,10 @@ GameIDType LoadExtraSherwoodData(void)
         rp->Text = DecompressText(ptr, ct);
         *(rp->Text) = tolower(*(rp->Text));
         ct++;
-        actual_room_number++;
         if (ct == 11) {
             for (int i = 0; i < 61; i++) {
                 rp++;
                 rp->Text = "in Sherwood Forest";
-                actual_room_number++;
             }
         }
         rp++;
@@ -330,7 +325,6 @@ GameIDType LoadExtraSherwoodData(void)
 
 GameIDType LoadExtraSherwoodData64(void)
 {
-
     // room images
 
     int offset = 0x1ffd + file_baseline_offset;
@@ -361,8 +355,6 @@ GameIDType LoadExtraSherwoodData64(void)
     ct = 0;
     rp = Rooms;
 
-    int actual_room_number = 0;
-
     offset = 0x402e + file_baseline_offset;
 
     ptr = SeekToPos(entire_file, offset);
@@ -373,12 +365,10 @@ GameIDType LoadExtraSherwoodData64(void)
         rp->Text = DecompressText(ptr, ct);
         *(rp->Text) = tolower(*(rp->Text));
         ct++;
-        actual_room_number++;
         if (ct == 11) {
             for (int i = 0; i < 61; i++) {
                 rp++;
                 rp->Text = "in Sherwood Forest";
-                actual_room_number++;
             }
         }
         rp++;
