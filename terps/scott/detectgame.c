@@ -1379,10 +1379,10 @@ GameIDType DetectGame(const char *file_name)
 
     switch (detectedGame) {
     case ROBIN_OF_SHERWOOD:
-        LoadExtraSherwoodData();
+        LoadExtraSherwoodData(0);
         break;
     case ROBIN_OF_SHERWOOD_C64:
-        LoadExtraSherwoodData64();
+        LoadExtraSherwoodData(1);
         break;
     case SEAS_OF_BLOOD:
         LoadExtraSeasOfBloodData();
