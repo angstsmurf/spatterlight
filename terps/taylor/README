@@ -1,3 +1,6 @@
+April 2023 note: This is a fork of the original TaylorMade interpreter by Alan Cox. I've ported it to the Glk api and added support for "Questprobe featuring The Human Torch and The Thing", graphics and animations, and a couple of beeps in "Rebel Planet". -- Petter Sjölund
+
+Original README:
 
 	TaylorMade v0.4		(c) 2004 - 2016 Alan Cox
 				All Rights Reserved
