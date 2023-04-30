@@ -182,7 +182,7 @@ const struct GameInfo games[] = {
         FOLLOWS, // start_of_item_locations
 
         0x2539, // start_of_system_messages
-        0x28de, // start of directions
+        0x28e1, // start of directions
 
         0, // start_of_characters
         0, // start_of_image_data
