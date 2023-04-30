@@ -1385,10 +1385,10 @@ GameIDType DetectGame(const char *file_name)
         LoadExtraSherwoodData(1);
         break;
     case SEAS_OF_BLOOD:
-        LoadExtraSeasOfBloodData();
+        LoadExtraSeasOfBloodData(0);
         break;
     case SEAS_OF_BLOOD_C64:
-        LoadExtraSeasOfBlood64Data();
+        LoadExtraSeasOfBloodData(1);
         break;
     case CLAYMORGUE:
         for (int i = OK; i <= RESUME_A_SAVED_GAME; i++)
