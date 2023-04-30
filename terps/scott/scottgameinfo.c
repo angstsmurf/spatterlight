@@ -2420,7 +2420,7 @@ const struct GameInfo games[] = {
         0x8ba5, // start_of_image_data
         0x8CBB, // image_address_offset
         139,    // number_of_pictures
-        C64B,   // palette
+        C64D,   // palette
         4       // picture_format_version
     },
 
