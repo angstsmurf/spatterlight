@@ -1420,7 +1420,7 @@ GameIDType DetectGame(const char *file_name)
         Claymorgue64Sysmess();
         break;
     case GREMLINS_GERMAN_C64:
-        LoadExtraGermanGremlinsc64Data();
+        LoadExtraGermanGremlinsC64Data();
         break;
     case SPIDERMAN_C64:
         Spiderman64Sysmess();
@@ -1495,7 +1495,7 @@ GameIDType DetectGame(const char *file_name)
         LoadExtraGermanGremlinsData();
         break;
     case GREMLINS_GERMAN_C64:
-        LoadExtraGermanGremlinsc64Data();
+        LoadExtraGermanGremlinsC64Data();
         break;
     case PERSEUS_ITALIAN:
         PerseusItalianSysmess();
