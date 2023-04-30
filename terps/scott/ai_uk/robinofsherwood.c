@@ -246,7 +246,7 @@ void UpdateRobinOfSherwoodAnimations(void)
     }
 }
 
-GameIDType LoadExtraSherwoodData(int c64)
+void LoadExtraSherwoodData(int c64)
 {
     // room images
 
@@ -255,7 +255,7 @@ GameIDType LoadExtraSherwoodData(int c64)
     uint8_t *ptr= SeekToPos(entire_file, offset);
 
     if (ptr == 0)
-        return 0;
+        return;
 
     int ct;
     Room *rp = Rooms;
@@ -280,7 +280,7 @@ GameIDType LoadExtraSherwoodData(int c64)
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
-        return 0;
+        return;
 
     do {
         rp->Text = DecompressText(ptr, ct);
@@ -374,7 +374,7 @@ GameIDType LoadExtraSherwoodData(int c64)
 
     ptr = SeekToPos(entire_file, offset);
     if (ptr == 0)
-        return 0;
+        return;
 
     int cells = 555;
     forest_images = MemAlloc(cells);
@@ -382,5 +382,4 @@ GameIDType LoadExtraSherwoodData(int c64)
     for (int i = 0; i < cells; i++)
         forest_images[i] = *(ptr++);
 
-    return (c64 == 1) ? ROBIN_OF_SHERWOOD_C64 : ROBIN_OF_SHERWOOD;
 }
