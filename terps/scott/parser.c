@@ -19,7 +19,6 @@
 #define MAX_WORDS 128
 #define MAX_BUFFER 128
 
-extern strid_t Transcript;
 extern struct Command *CurrentCommand;
 
 glui32 **UnicodeWords = NULL;
@@ -581,11 +580,6 @@ void LineInput(void)
         }
 
         unibuf[ev.val1] = 0;
-
-        if (Transcript) {
-            glk_put_string_stream_uni(Transcript, unibuf);
-            glk_put_char_stream_uni(Transcript, 10);
-        }
 
         lastwasnewline = 1;
 
