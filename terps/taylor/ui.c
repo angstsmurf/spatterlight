@@ -61,8 +61,6 @@ void Display(winid_t w, const char *fmt, ...)
     va_end(ap);
 
     glk_put_string_stream(glk_window_get_stream(w), msg);
-    if (Transcript && w == Bottom)
-        glk_put_string_stream(Transcript, msg);
 }
 
 void HitEnter(void)

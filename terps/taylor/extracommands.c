@@ -141,6 +141,7 @@ static void TranscriptOn(void)
     glk_put_string_stream(Transcript, start_of_transcript);
     glk_put_string_stream(glk_window_get_stream(Bottom),
         "Transcript is now on.\n");
+    glk_window_set_echo_stream(Bottom, Transcript);
 }
 
 static void TranscriptOff(void)
@@ -154,6 +155,7 @@ static void TranscriptOff(void)
     glk_put_string_stream(Transcript, end_of_transcript);
 
     glk_stream_close(Transcript, NULL);
+    glk_window_set_echo_stream(Bottom, NULL);
     Transcript = NULL;
     glk_put_string_stream(glk_window_get_stream(Bottom),
         "Transcript is now off.\n");

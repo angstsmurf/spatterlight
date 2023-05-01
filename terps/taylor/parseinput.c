@@ -139,11 +139,6 @@ void LineInput(void)
         int length = ev.val1;
         buf[length] = 0;
 
-        if (Transcript) {
-            glk_put_string_stream(Transcript, buf);
-            glk_put_string_stream(Transcript, "\n");
-        }
-
         SplitIntoWords(buf, length);
 
         if (WordsInInput >= MAX_WORDS) {
