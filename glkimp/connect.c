@@ -321,6 +321,7 @@ void win_delwin(int name)
 
 void win_sizewin(int name, int x0, int y0, int x1, int y1)
 {
+    fprintf(stderr, "win_sizewin %d x0 %d y0 %d x1 %d y1 %d\n", name, x0, y0, x1, y1);
     win_flush();
     /* The window size may have changed before the message reaches the
      window server, so we send (what this interpreter process thinks is)
@@ -395,6 +396,7 @@ void win_timer(int millisecs)
 
 void win_initchar(int name)
 {
+    fprintf(stderr, "win_initchar\n");
     win_flush();
     sendmsg(INITCHAR, name, 0, 0, 0, 0, 0, NULL);
 }
@@ -407,6 +409,7 @@ void win_cancelchar(int name)
 
 void win_initline(int name, int cap, int len, void *buf)
 {
+    fprintf(stderr, "win_initline\n");
     win_flush();
 
     window_t *win = gli_window_for_peer(name);
@@ -684,6 +687,7 @@ void win_autosave(int hash)
 
 void win_setzcolor(int name, glui32 fg, glui32 bg)
 {
+    fprintf(stderr, "win_setzcolor win peer %d, fg 0x%x (%d), bg 0x%x (%d)\n", name, fg, fg, bg, bg);
     win_flush();
     sendmsg(SETZCOLOR, name, fg, bg, 0, 0, 0, NULL);
 }

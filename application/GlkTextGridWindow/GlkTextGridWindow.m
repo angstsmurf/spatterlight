@@ -483,6 +483,7 @@
 
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
+    NSLog(@"GlkTextGridWindow %ld setBgColor: 0x%lx (%ld)", self.name, (long)bc, bc);
 
     [self recalcBackground];
 }
@@ -594,6 +595,8 @@
     if (frame.size.height == 0) {
         return;
     }
+
+    NSLog(@"GlkTextGridWindow %ld: set frame to %@", self.name, NSStringFromRect(frame));
 
     NSSize screensize = NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX);
     if (glkctl) {
@@ -802,6 +805,7 @@
 
 - (void)moveToColumn:(NSUInteger)c row:(NSUInteger)r {
 
+//    NSLog(@"GlkTextGridWindow %ld: moved to %ld, %ld", self.name, c, r);
     //For Bureaucracy form accessibility
     if (self.glkctl.form
        && (r != ypos || abs((int)c - (int)xpos) > 1)) {
@@ -859,6 +863,8 @@
     NSUInteger length = string.length;
     NSUInteger startpos;
     NSUInteger pos = 0;
+
+//    NSLog(@"GlkTextGridWindow: Printing at position %ld, %ld: \"%@\"", xpos, ypos, string);
 
     GlkController *glkctl = self.glkctl;
 

@@ -623,6 +623,7 @@ static void read_header_extension_table()
 
 void zterp_mouse_click(uint16_t x, uint16_t y)
 {
+    fprintf(stderr, "zterp_mouse_click x:%d y:%d\n", x, y);
     if (mouse_click_addr != 0) {
         store_word(mouse_click_addr, x);
         store_word(mouse_click_addr + 2, y);

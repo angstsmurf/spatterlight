@@ -666,7 +666,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Just start the game with no autorestore or fullscreen or resetting
     NSRect newContentFrame = (self.window.contentView).frame;
     if (!(windowRestoredBySystem || _showingCoverImage)) {
-        newContentFrame.size = [self defaultContentSize];
+//        newContentFrame.size = [self defaultContentSize];
+        newContentFrame.size = NSMakeSize(640, 400);
         NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
         NSRect screenFrame = self.window.screen.visibleFrame;
         // Make sure that the window is shorter than the screen
@@ -2515,6 +2516,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
     NSInteger i;
 
+    NSLog(@"\nCreating new window of type %ld and name %ld", wintype, name);
+
     if (_theme == nil) {
         NSLog(@"Theme nil?");
         _theme = [Preferences currentTheme];
@@ -2777,7 +2780,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     str = [NSString stringWithCharacters:buf length:len];
-
+    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
     windowdirty = YES;
     free(buf);
@@ -3208,7 +3211,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-
+                NSLog(@"Resize window %ld to %@", reqWin.name, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
