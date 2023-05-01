@@ -64,28 +64,35 @@ void zjump()
 
 void zjz()
 {
+    fprintf(stderr, "z_jz %d (%d)\n", zargs[0], (short) zargs[0] == 0);
     branch_if(zargs[0] == 0);
 }
 
 void zje()
 {
     if (znargs == 1) {
+        fprintf(stderr, "zje %d\n", zargs[0]);
         branch_if(false);
     } else if (znargs == 2) {
+        fprintf(stderr, "zje %d %d\n", zargs[0], zargs[1]);
         branch_if(zargs[0] == zargs[1]);
     } else if (znargs == 3) {
+        fprintf(stderr, "zje %d %d %d\n", zargs[0], zargs[1], zargs[2]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2]);
     } else {
+        fprintf(stderr, "zje %d %d %d %d\n", zargs[0], zargs[1], zargs[2], zargs[3]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2] || zargs[0] == zargs[3]);
     }
 }
 
 void zjl()
 {
+    fprintf(stderr, "zjl: branch if %d < %d\n", as_signed(zargs[0]), as_signed(zargs[1]));
     branch_if(as_signed(zargs[0]) < as_signed(zargs[1]));
 }
 
 void zjg()
 {
+    fprintf(stderr, "zjg: branch if %d > %d\n", as_signed(zargs[0]), as_signed(zargs[1]));
     branch_if(as_signed(zargs[0]) > as_signed(zargs[1]));
 }

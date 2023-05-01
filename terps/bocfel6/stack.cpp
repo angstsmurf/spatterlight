@@ -252,6 +252,7 @@ void zload()
 
 void zstore()
 {
+    fprintf(stderr, "zstore %d %d\n", zargs[0], zargs[1]);
     // The z-spec 1.1 requires indirect variable references to the stack not to push/pop
     if (zargs[0] == 0) {
         *stack_top_element() = zargs[1];

@@ -39,6 +39,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
             break;
         case wintype_TextGrid:
             win->peer = win_newwin(wintype_TextGrid);
+            fprintf(stderr, "gli_new_window: created new text grid window with peer %d\n", win->peer);
             if (win->peer == -1)
             {
                 gli_strict_warning("gli_new_window: failed to create peer window");
