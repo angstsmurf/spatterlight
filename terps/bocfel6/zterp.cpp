@@ -54,6 +54,7 @@
 
 #ifdef ZTERP_GLK
 #include <glk.h>
+#include "glkimp.h"
 #endif
 
 std::string game_file;
@@ -437,9 +438,11 @@ static void write_flags1()
         }
 
         if (zversion == 6) {
-            flags1 &= ~(FLAGS1_PICTURES | FLAGS1_SOUND);
+            flags1 |= FLAGS1_PICTURES;
             if (sound_loaded()) {
                 flags1 |= FLAGS1_SOUND;
+            } else {
+                flags1 &= ~FLAGS1_SOUND;
             }
         }
 
@@ -493,9 +496,9 @@ static void write_flags2()
         if (!sound_loaded()) {
             flags2 &= ~FLAGS2_SOUND;
         }
-        if (zversion >= 6) {
-            flags2 &= ~FLAGS2_MENUS;
-        }
+//        if (zversion >= 6) {
+//            flags2 &= ~FLAGS2_MENUS;
+//        }
 
         if (options.disable_graphics_font) {
             flags2 &= ~FLAGS2_PICTURES;
@@ -531,6 +534,9 @@ static void write_header_extension_table()
     }
 }
 
+extern uint16_t letterwidth;
+extern uint16_t letterheight;
+
 // Various parts of the header (those marked “Rst” in §11) should be
 // updated by the interpreter. This function does that. This is also
 // used when restoring, because the save file might have come from an
@@ -558,14 +564,17 @@ void write_header()
         store_byte(0x20, height > 254 ? 254 : height);
         store_byte(0x21, width > 255 ? 255 : width);
 
+        width = width * letterwidth;
+        height = gscreenh;
+
         if (zversion >= 5) {
             // Screen width and height in units.
             store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
             store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
 
-            // Font width and height in units.
-            store_byte(0x26, 1);
-            store_byte(0x27, 1);
+            // Font height and width in units.
+            store_byte(0x26, letterheight);
+            store_byte(0x27, letterwidth);
 
             // Default background and foreground colors.
             store_byte(0x2c, 1);
@@ -625,8 +634,8 @@ void zterp_mouse_click(uint16_t x, uint16_t y)
 {
     fprintf(stderr, "zterp_mouse_click x:%d y:%d\n", x, y);
     if (mouse_click_addr != 0) {
-        store_word(mouse_click_addr, x);
-        store_word(mouse_click_addr + 2, y);
+        store_word(mouse_click_addr, (x + 1) * letterwidth);
+        store_word(mouse_click_addr + 2, y * letterheight);
     }
 }
 
@@ -821,8 +830,7 @@ static void process_story(IO &io, long offset)
     }
 
     if (zversion >= 3) {
-//        have_upperwin = create_upperwin();
-        have_upperwin = false;
+        have_upperwin = create_upperwin();
     }
 
     if (options.transcript_on) {
