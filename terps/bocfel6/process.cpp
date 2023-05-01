@@ -262,10 +262,10 @@ void setup_opcodes()
     setup_single_opcode(5, 6, Opcount::Ext, 0x02, zlog_shift);
     setup_single_opcode(5, 6, Opcount::Ext, 0x03, zart_shift);
     setup_single_opcode(5, 6, Opcount::Ext, 0x04, zset_font);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x05, znop); // XXX draw_picture
+    setup_single_opcode(6, 6, Opcount::Ext, 0x05, zdraw_picture);
     setup_single_opcode(6, 6, Opcount::Ext, 0x06, zpicture_data);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x07, znop); // XXX erase_picture
-    setup_single_opcode(6, 6, Opcount::Ext, 0x08, znop); // XXX set_margins
+    setup_single_opcode(6, 6, Opcount::Ext, 0x07, zerase_picture);
+    setup_single_opcode(6, 6, Opcount::Ext, 0x08, zset_margins);
     setup_single_opcode(5, 6, Opcount::Ext, 0x09, zsave_undo);
     setup_single_opcode(5, 6, Opcount::Ext, 0x0a, zrestore_undo);
     setup_single_opcode(5, 6, Opcount::Ext, 0x0b, zprint_unicode);

@@ -280,7 +280,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     _terpname = terpname_;
 
-    if ([_terpname isEqualToString:@"bocfel"])
+    if ([_terpname isEqualToString:@"bocfel"] || [_terpname isEqualToString:@"bocfel6"])
         _usesFont3 = YES;
 
     /* Setup blank style hints for both kinds of windows */
@@ -863,7 +863,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     task.launchPath = terppath;
     task.arguments = @[ _gamefile ];
-    if ([_terpname isEqualToString:@"bocfel"]) {
+    if ([_terpname isEqualToString:@"bocfel"] || [_terpname isEqualToString:@"bocfel6"]) {
         NSArray *extraBocfelOptions =
         @[@"-n", [NSString stringWithFormat:@"%d", theme.zMachineTerp],
           @"-N", theme.zMachineLetter];

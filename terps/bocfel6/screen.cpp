@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <array>
 #include <bitset>
+#include <cmath>
 #include <cstdarg>
 #include <cstdlib>
 #include <cstring>
@@ -110,6 +111,9 @@ static bool have_unicode;
 
 static bool cursor_on;
 
+uint16_t letterwidth = 0;
+uint16_t letterheight = 0;
+
 struct Window {
     Style style;
     Color fg_color = Color(), bg_color = Color();
@@ -118,8 +122,25 @@ struct Window {
 
 #ifdef ZTERP_GLK
     winid_t id = nullptr;
-    long x = 0, y = 0; // Only meaningful for window 1
+    long x_origin = 1, y_origin = 1;
     bool has_echo = false;
+
+    winid_t graphic_window = nullptr;
+    winid_t text_window = nullptr;
+
+    uint16_t y_size;
+    uint16_t x_size;
+    uint16_t y_cursor = 1;
+    uint16_t x_cursor = 1;
+    uint16_t left;
+    uint16_t right;
+    uint16_t nl_routine;
+    uint16_t nl_countdown;
+    uint16_t font_size;
+    uint16_t attribute;
+    uint16_t line_count;
+    uint16_t true_fore;
+    uint16_t true_back;
 #endif
 };
 
@@ -139,8 +160,8 @@ struct Line {
 
 static Window *upperwin = &windows[1];
 static Window statuswin;
-static long upper_window_height = 0;
-static long upper_window_width = 0;
+//static long upper_window_height = 0;
+//static long upper_window_width = 0;
 static winid_t errorwin;
 #endif
 
@@ -204,7 +225,9 @@ private:
         ~Table() {
             user_store_word(m_addr, m_idx - 2);
             if (zversion == 6) {
-                store_word(0x30, m_idx - 2);
+
+                fprintf(stderr,  "Storing %d as stream 3 width\n", (m_idx - 2) * letterwidth);
+                store_word(0x30, (m_idx - 2) * letterwidth);
             }
         }
 
@@ -540,6 +563,25 @@ void screen_set_header_bit(bool set)
     }
 }
 
+static void v6sizewin(Window *win) {
+    if (win->id == nullptr)
+        return;
+    int x0 = win->x_origin <= 1 ? 0 : (int)(win->x_origin / letterwidth + 1) * letterwidth;
+    int y0 = win->y_origin <= 1 ? 0 : (int)win->y_origin - 1;
+    int x1 = x0 + win->x_size;
+    if (x1 + letterwidth > gscreenw)
+        x1 = gscreenw;
+    int y1 = y0 + win->y_size;
+    if (y0 + letterheight > gscreenh)
+        y0 = gscreenh;
+    win_sizewin(win->id->peer, x0, y0, x1, y1);
+    win->id->bbox.x0 = x0;
+    win->id->bbox.y0 = y0;
+    win->id->bbox.x1 = x1;
+    win->id->bbox.y1 = y1;
+}
+
+
 static void transcribe(uint32_t c)
 {
     if (streams.test(STREAM_TRANS)) {
@@ -603,7 +645,7 @@ static void put_char_base(uint16_t c, bool unicode)
             }
 #ifdef ZTERP_GLK
             if (streams.test(STREAM_SCREEN) && curwin->id != nullptr) {
-                if (curwin == upperwin) {
+                if (curwin->id->type == wintype_TextGrid) {
                     // Interpreters seem to have differing ideas about what
                     // happens when the cursor reaches the end of a line in the
                     // upper window. Some wrap, some let it run off the edge (or,
@@ -612,11 +654,11 @@ static void put_char_base(uint16_t c, bool unicode)
                     // Frotz and don’t wrap.
 
                     if (c == UNICODE_LINEFEED) {
-                        if (upperwin->y < upper_window_height) {
+//                        if (curwin->ypos <= curwin->y_size - gcellh) {
                             // Glk wraps, so printing a newline when the cursor has
                             // already reached the edge of the screen will produce two
                             // newlines.
-                            if (upperwin->x < upper_window_width) {
+                            if (curwin->x_cursor <= curwin->x_size - letterwidth) {
                                 xglk_put_char(c);
                             }
 
@@ -624,12 +666,14 @@ static void put_char_base(uint16_t c, bool unicode)
                             // (because the cursor is at the edge), setting
                             // upperwin->x to 0 will cause the next character to be on
                             // the next line because the text will have wrapped.
-                            upperwin->x = 0;
-                            upperwin->y++;
-                        }
-                    } else if (upperwin->x < upper_window_width && upperwin->y < upper_window_height) {
-                        upperwin->x++;
+                            curwin->x_origin = 1;
+                            curwin->y_origin += gcellh;
+//                        }
+                    } else if (curwin->x_cursor < curwin->x_size) { //} && curwin->ypos < curwin->y_size) {
+                        curwin->x_cursor += letterwidth;
                         xglk_put_char(c);
+                    } else {
+                        fprintf(stderr, "Tried printing out of bounds. curwin->x_cursor == %hu, curwin->x_size == %d\n", curwin->x_cursor, curwin->x_size);
                     }
                 } else {
                     xglk_put_char(c);
@@ -671,6 +715,31 @@ static void put_char_base(uint16_t c, bool unicode)
     }
 }
 
+
+void remap_win_to_buffer(Window *win) {
+    fprintf(stderr, "Deleting graphics window with peer %d", win->id->peer);
+    bool charevent = win->id->char_request || win->id->char_request_uni;
+    if (charevent)
+        glk_cancel_char_event(win->id);
+    gli_delete_window(win->id);
+    win->id = nullptr;
+    win->id = gli_new_window(wintype_TextBuffer, 0);
+    glk_request_char_event_uni(win->id);
+    fprintf(stderr, " and creating a new buffer window with peer %d\n", win->id->peer);
+    glk_window_set_background_color(win->id, gargoyle_color(win->bg_color));
+    v6sizewin(win);
+    glk_stream_set_current(win->id->str);
+}
+
+void remap_win_to_grid(Window *win) {
+    fprintf(stderr, "Deleting graphics window with peer %d", win->id->peer);
+    gli_delete_window(win->id);
+    win->id = gli_new_window(wintype_TextGrid, 0);
+    fprintf(stderr, " and creating a new grid window with peer %d\n", win->id->peer);
+    glk_window_set_background_color(win->id, gargoyle_color(win->bg_color));
+    v6sizewin(win);
+}
+
 static void put_char_u(uint16_t c)
 {
     put_char_base(c, true);
@@ -678,6 +747,7 @@ static void put_char_u(uint16_t c)
 
 void put_char(uint8_t c)
 {
+    fprintf(stderr, "put_char \"%c\" (%d) x_cursor:%d\n", c, c, curwin->x_cursor);
     put_char_base(c, false);
 }
 
@@ -878,14 +948,17 @@ static void set_current_window(Window *window)
 {
     curwin = window;
 
-#ifdef ZTERP_GLK
-    if (curwin == upperwin && upperwin->id != nullptr) {
-        upperwin->x = upperwin->y = 0;
-        glk_window_move_cursor(upperwin->id, 0, 0);
-    }
+//#ifdef ZTERP_GLK
+//    if (curwin == upperwin && upperwin->id != nullptr) {
+//        upperwin->xpos = upperwin->ypos = 0;
+//        glk_window_move_cursor(upperwin->id, 0, 0);
+//    }
 
-    glk_set_window(curwin->id);
-#endif
+    if (curwin->id != nullptr) {
+        fprintf(stderr, "set_current_window peer %d\n", window->id->peer);
+        glk_set_window(curwin->id);
+    }
+//#endif
 
     set_current_style();
 }
@@ -902,6 +975,12 @@ static Window *find_window(uint16_t window)
         return curwin;
     }
 
+//    if (windows[w].id == nullptr) {
+//        windows[w].id = gli_new_window(wintype_TextGrid, 0);
+//        win_sizewin(windows[w].id->peer, (int)windows[w].x_origin, (int)windows[w].y_origin, (int)windows[w].x_origin + windows[w].x_size, (int)windows[w].y_origin + windows[w].y_size);
+//        win_moveto(windows[w].id->peer, (windows[w].x_cursor - 1) / gcellw, ((int)windows[w].y_cursor - 1) / gcellh);
+//    }
+
     return &windows[w];
 }
 
@@ -911,16 +990,16 @@ static void perform_upper_window_resize(long new_height)
     glui32 actual_height;
 
     glk_window_set_arrangement(glk_window_get_parent(upperwin->id), winmethod_Above | winmethod_Fixed, new_height, upperwin->id);
-    upper_window_height = new_height;
+    upperwin->y_size = new_height;
 
     // Glk might resize the window to a smaller height than was requested,
     // so track the actual height, not the requested height.
     glk_window_get_size(upperwin->id, nullptr, &actual_height);
-    if (actual_height != upper_window_height) {
+    if (actual_height != upperwin->y_size) {
         // This message probably won’t be seen in a window since the upper
         // window is likely covering everything, but try anyway.
         show_message("Unable to fulfill window size request: wanted %ld, got %lu", new_height, static_cast<unsigned long>(actual_height));
-        upper_window_height = actual_height;
+        upperwin->y_size = actual_height;
     }
 }
 
@@ -956,13 +1035,16 @@ static void clear_window(Window *window)
 
     glk_window_clear(window->id);
 
-    window->x = window->y = 0;
+    window->x_cursor = window->y_cursor = 1;
+    if (window->id->type == wintype_TextGrid)
+        glk_window_move_cursor(window->id, 0, 0);
 }
 #endif
 
 static void resize_upper_window(long nlines, bool from_game)
 {
 #ifdef ZTERP_GLK
+    upperwin->y_size = nlines * gcellh;
     if (upperwin->id == nullptr) {
         return;
     }
@@ -977,11 +1059,11 @@ static void resize_upper_window(long nlines, bool from_game)
     }
 #endif
 
-    long previous_height = upper_window_height;
+    long previous_height = upperwin->y_size;
 
     if (from_game) {
         delayed_window_shrink = nlines;
-        if (upper_window_height <= nlines || saw_input) {
+        if (upperwin->y_size <= nlines || saw_input) {
             update_delayed();
         }
 #ifdef SPATTERLIGHT
@@ -1002,8 +1084,8 @@ static void resize_upper_window(long nlines, bool from_game)
 
     // If the window is being created, or if it’s shrinking and the cursor
     // is no longer inside the window, move the cursor to the origin.
-    if (previous_height == 0 || upperwin->y >= nlines) {
-        upperwin->x = upperwin->y = 0;
+    if (previous_height == 0 || upperwin->y_origin >= nlines) {
+        upperwin->x_origin = upperwin->y_origin = 0;
         if (nlines > 0) {
             glk_window_move_cursor(upperwin->id, 0, 0);
         }
@@ -1029,10 +1111,11 @@ void close_upper_window()
     set_current_window(mainwin);
 }
 
+//Provide screen size in character cells (as in text grid windows).
 void get_screen_size(unsigned int &width, unsigned int &height)
 {
-#ifdef ZTERP_GLK
-    glui32 w, h;
+//#ifdef ZTERP_GLK
+//    glui32 w, h;
 
     // The main window can be proportional, and if so, its width is not
     // generally useful because games tend to care about width with a
@@ -1040,40 +1123,53 @@ void get_screen_size(unsigned int &width, unsigned int &height)
     // is available, use that to calculate the width, because these
     // windows will have a fixed-width font. The height is the combined
     // height of all windows.
-    glk_window_get_size(mainwin->id, &w, &h);
-    height = h;
-    if (statuswin.id != nullptr) {
-        glk_window_get_size(statuswin.id, &w, &h);
-        height += h;
-    }
-    if (upperwin->id != nullptr) {
-        glk_window_get_size(upperwin->id, &w, &h);
-        height += h;
-    }
-    width = w;
-#else
-    std::tie(width, height) = zterp_os_get_screen_size();
-#endif
+//    glk_window_get_size(mainwin->id, &w, &h);
+//    height = h;
+//    if (statuswin.id != nullptr) {
+//        glk_window_get_size(statuswin.id, &w, &h);
+//        height += h;
+//    }
+//    if (upperwin->id != nullptr) {
+//        glk_window_get_size(upperwin->id, &w, &h);
+//        height += h;
+//    }
+//    width = w;
+//#else
+//    std::tie(width, height) = zterp_os_get_screen_size();
+//#endif
+//
+//    // XGlk does not report the size of textbuffer windows, and
+//    // zterp_os_get_screen_size() may not be able to get the screen
+//    // size, so use reasonable defaults in those cases.
+//    if (width == 0) {
+//        width = 80;
+//    }
+//    if (height == 0) {
+//        height = 24;
+//    }
+//
+//    // Terrible hack: Because V6 is not properly supported, the window to
+//    // which Journey writes its story is completely covered up by window
+//    // 1. For the same reason, only the bottom 6 lines of window 1 are
+//    // actually useful, even though the game expands it to cover the whole
+//    // screen. By pretending that the screen height is only 6, the main
+//    // window, where text is actually sent, becomes visible.
+//    if (is_game(Game::Journey) && height > 6) {
+//        height = 6;
+//    }
+    winid_t dummywin = gli_new_window(wintype_TextGrid, 0);
+    dummywin->bbox.x0 = 0;
+    dummywin->bbox.y0 = 0;
+    dummywin->bbox.x1 = gscreenw;
+    dummywin->bbox.y1 = gscreenh;
+    glui32 actual_width_in_chars;
+    glk_window_get_size(dummywin, &actual_width_in_chars, nullptr);
+    gli_delete_window(dummywin);
 
-    // XGlk does not report the size of textbuffer windows, and
-    // zterp_os_get_screen_size() may not be able to get the screen
-    // size, so use reasonable defaults in those cases.
-    if (width == 0) {
-        width = 80;
-    }
-    if (height == 0) {
-        height = 24;
-    }
-
-    // Terrible hack: Because V6 is not properly supported, the window to
-    // which Journey writes its story is completely covered up by window
-    // 1. For the same reason, only the bottom 6 lines of window 1 are
-    // actually useful, even though the game expands it to cover the whole
-    // screen. By pretending that the screen height is only 6, the main
-    // window, where text is actually sent, becomes visible.
-    if (is_game(Game::Journey) && height > 6) {
-        height = 6;
-    }
+    letterwidth = (uint16_t)gcellw;
+    letterheight = (uint16_t)gcellh;
+    width = actual_width_in_chars + 1;
+    height = gscreenh / letterheight;
 }
 
 #ifdef ZTERP_GLK
@@ -1310,62 +1406,107 @@ void zprint_ret()
 
 void zerase_window()
 {
+    fprintf(stderr, "zerase_window %d\n", as_signed(zargs[0]));
 #ifdef ZTERP_GLK
     switch (as_signed(zargs[0])) {
     case -2:
         for (auto &window : windows) {
             clear_window(&window);
         }
+            for (int i = 2; i < 8; i++) {
+                if (windows[i].id != nullptr) {
+                    gli_delete_window(windows[i].id);
+                    windows[i].id = nullptr;
+                }
+            }
         break;
     case -1:
-        close_upper_window();
+//            close_upper_window();
         // fallthrough
-    case 0:
+            for (int i = 2; i < 8; i++) {
+                Window *win = &windows[i];
+                win->x_origin = 1;
+                win->y_origin = 1;
+                win->x_size = 0;
+                win->y_size = 0;
+                if (win->id != nullptr) {
+                    gli_delete_window(win->id);
+                    win->id = nullptr;
+                }
+            }
+//            if (mainwin->id != nullptr && mainwin->id->type != wintype_TextBuffer) {
+//                remap_win_to_buffer(mainwin);
+//            }
+//            mainwin->x_origin = 1;
+//            mainwin->y_origin = 1;
+//            mainwin->x_size = gli_screenwidth;
+//            mainwin->y_size = gli_screenheight;
+//            v6sizewin(mainwin);
+            break;
         // 8.7.3.2.1 says V5+ should have the cursor set to 1, 1 of the
         // erased window; V4 the lower window goes bottom left, the upper
         // to 1, 1. Glk doesn’t give control over the cursor when
         // clearing, and that doesn’t really seem to be an issue; so just
         // call glk_window_clear().
-        clear_window(mainwin);
-        break;
-    case 1:
-        clear_window(upperwin);
-        break;
     default:
+        clear_window(&windows[zargs[0]]);
         break;
     }
 
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
-#ifdef SPATTERLIGHT
-    // Hack to set upper window background to current background color.
-    win_setbgnd(upperwin->id->peer, gargoyle_color(style_window()->bg_color));
-#endif
     set_current_style();
 #endif
 }
+
+/*
+ * units_left
+ *
+ * Return the #screen units from the cursor to the end of the line.
+ *
+ */
+static int units_left(void)
+{
+    return curwin->x_size - curwin->right - curwin->x_cursor + 1;
+} /* units_left */
+
 
 void zerase_line()
 {
 #ifdef ZTERP_GLK
     // XXX V6 does pixel handling here.
-    if (zargs[0] != 1 || curwin != upperwin || upperwin->id == nullptr) {
-        return;
-    }
+//    if (zargs[0] != 1 || curwin != upperwin || upperwin->id == nullptr) {
+//        return;
+//    }
 
-    for (long i = upperwin->x; i < upper_window_width; i++) {
+    fprintf(stderr, "zerase_line %d\n", zargs[0]);
+    if (curwin->id == nullptr)
+        curwin->id = gli_new_window(wintype_TextGrid, 0);
+
+    uint16_t pixels = zargs[0];
+
+    /* Clipping at the right margin of the current window */
+    if (--pixels == 0 || pixels > units_left())
+        pixels = units_left();
+
+    uint16_t chars = pixels / letterwidth;
+    fprintf(stderr, "Erasing line by printing %d blank spaces\n", chars);
+
+    for (long i = 0; i < chars; i++) {
         xglk_put_char(UNICODE_SPACE);
     }
 
-    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+    win_moveto(curwin->id->peer, (curwin->x_cursor - 1) / letterwidth, (curwin->y_cursor - 1) / letterheight);
 #endif
 }
 
 // XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
-static void set_cursor(uint16_t y, uint16_t x)
+static void set_cursor(uint16_t y, uint16_t x, uint16_t winid)
 {
 #ifdef ZTERP_GLK
     // All the windows in V6 can have their cursor positioned; if V6 ever
     // comes about this should be fixed.
+
+    Window *win = find_window(winid);
 
     // -1 and -2 are V6 only, but at least Zracer passes -1 (or it’s
     // trying to position the cursor to line 65535; unlikely!)
@@ -1373,6 +1514,9 @@ static void set_cursor(uint16_t y, uint16_t x)
         cursor_on = false;
         fprintf(stderr, "bocfel: screen: set_cursor(-1), cursor off\n");
         return;
+    }
+    if (win->id != nullptr && win->id->type == wintype_Graphics) {
+        remap_win_to_buffer(win);
     }
     if (as_signed(y) == -2) {
         fprintf(stderr, "bocfel: screen: set_cursor(-2), cursor on\n");
@@ -1385,40 +1529,74 @@ static void set_cursor(uint16_t y, uint16_t x)
     // §8.7.2.3 says 1,1 is the top-left, but at least one program (Paint
     // and Corners) uses @set_cursor 0 0 to go to the top-left; so
     // special-case it.
-    if (y == 0) {
-        y = 1;
-    }
+//    if (y == 0) {
+//        y = 1;
+//    }
 
     // This handles 0, but also takes care of working around a bug in Inform’s
-    // “box" statement, which causes “x” to be negative if the box’s text is
-    // wider than the screen.
-    if (as_signed(x) < 1) {
-        x = 1;
+//    // “box" statement, which causes “x” to be negative if the box’s text is
+//    // wider than the screen.
+//    if (as_signed(x) < 1) {
+//        x = 1;
+//    }
+
+    /* Protect the margins */
+    if (y == 0)        /* use cursor line if y-coordinate is 0 */
+        y = win->y_cursor;
+    if (x == 0)        /* use cursor column if x-coordinate is 0 */
+        x = win->x_cursor;
+    if (x <= win->left || x > win->x_size - win->right) {
+        fprintf(stderr, "set_cursor: tried to move x_cursor outside window. win->x_size: %d x:%d changing to %d\n", win->x_size, x, win->left + 1);
+        x = win->left + 1;
     }
 
-    if (curwin->id != nullptr) {
-        curwin->x = x - 1;
-        curwin->y = y - 1;
+    win->x_cursor = x;
+    win->y_cursor = y;
 
-        win_moveto(curwin->id->peer, x - 1, y - 1);
+    glsi32 cellypos = (y - 1) / letterheight;
+    float cellxpos = (x - 1) / letterwidth;
+    if (cellxpos >= 2)
+        cellxpos--;
+    else if (cellxpos > 0)
+        cellxpos = 1;
+
+    if (win->id != nullptr) {
+        win_moveto(win->id->peer, (glsi32)cellxpos, cellypos);
+    } else {
+        fprintf(stderr, "set_cursor: current window has no glk counterpart.\n");
     }
 #endif
 }
 
 void zset_cursor()
 {
-    set_cursor(zargs[0], zargs[1]);
+
+//VAR:239 F 4 set_cursor line column
+//    6 set_cursor line column window
+//    Move cursor in the current window to the position (x,y) (in units) relative to (1,1) in the top left. (In Version 6 the window is supplied and need not be the current one. Also, if the cursor would lie outside the current margin settings, it is moved to the left margin of the current line.)
+//    In Version 6, set_cursor -1 turns the cursor off, and either set_cursor -2 or set_cursor -2 0 turn it back on. It is not known what, if anything, this second argument means: in all known cases it is 0.
+    uint16_t winid = zargs[2];
+    if (znargs < 3)
+        winid = -3;
+    if (znargs < 3)
+        fprintf(stderr, "zset_cursor %d %d\n", as_signed(zargs[0]), zargs[1]);
+    else
+        fprintf(stderr, "zset_cursor %d %d %d\n", as_signed(zargs[0]), zargs[1], zargs[2]);
+    set_cursor(zargs[0], zargs[1], winid);
+    fprintf(stderr, "xcursor of curwin: %d\n", curwin->x_cursor);
 }
 
 void zget_cursor()
 {
-#ifdef ZTERP_GLK
-    user_store_word(zargs[0] + 0, upperwin->y + 1);
-    user_store_word(zargs[0] + 2, upperwin->x + 1);
-#else
-    user_store_word(zargs[0] + 0, 1);
-    user_store_word(zargs[0] + 2, 1);
-#endif
+    uint16_t y, x;
+
+    y = curwin->y_cursor;
+    x = curwin->x_cursor;
+
+    fprintf(stderr, "zget_cursor: result: x: %d y: %d\n", x, y);
+
+    user_store_word(zargs[0] + 0, y);
+    user_store_word(zargs[0] + 2, x);
 }
 
 static bool prepare_color_opcode(int16_t &fg, int16_t &bg, Window *&win)
@@ -1441,6 +1619,7 @@ static bool prepare_color_opcode(int16_t &fg, int16_t &bg, Window *&win)
 
 void zset_colour()
 {
+    fprintf(stderr, "zset_colour: fg %d bg %d win %d\n", zargs[0], zargs[1], zargs[2]);
     int16_t fg, bg;
     Window *win;
 
@@ -1489,41 +1668,80 @@ void zset_true_colour()
     }
 }
 
-void update_bbox(winid_t win, int x0, int y0, int x1, int y1) {
-    if (win == nullptr)
-        return;
-    win->bbox.x0 = x0;
-    win->bbox.y0 = y0;
-    win->bbox.x1 = x1;
-    win->bbox.y1 = y1;
-}
-
 void zmove_window()
 {
-    fprintf(stderr, "zmove_window %d %d %d\n", zargs[0], zargs[1], zargs[2]);
     Window *win = find_window(zargs[0]);
+
+    fprintf(stderr, "zmove_window win %d y %d x %d (y_size %d x_size %d)\n", zargs[0], zargs[1], zargs[2], win->y_size, win->x_size);
+
     int16_t y = zargs[1];
     int16_t x = zargs[2];
-    int width = win->id->bbox.x1 - win->id->bbox.x0;
-    int height = win->id->bbox.y1 - win->id->bbox.y0;
-    win_sizewin(win->id->peer, x, y, x + width, y + height);
-    update_bbox(win->id, x, y, x + width, y + height);
+    win->y_origin = y;
+    win->x_origin = x;
+    if (win->y_size == 0)
+        win->y_size = 1;
+    if (win->x_size == 0)
+        win->x_size = 1;
+//    int width = win->x_size;
+//    int height = win->y_size;
+
+//    if (win == curwin)
+//        update_cursor();
+
+    if (win->id != nullptr)
+        v6sizewin(win);
 }
+
+/*
+ * reset_cursor
+ *
+ * Reset the cursor of a given window to its initial position.
+ *
+ */
+static void reset_cursor(uint16_t win)
+{
+    fprintf(stderr, "reset_cursor: win[%d] y_cursor was %d is %d\n", win, windows[win].y_cursor , (int)gcellh);
+    fprintf(stderr, "reset_cursor: win[%d] x_cursor was %d is %d\n", win, windows[win].x_cursor , windows[win].left + 1);
+    windows[win].y_cursor = 1;
+    windows[win].x_cursor = windows[win].left + 1;
+
+} /* reset_cursor */
 
 void zwindow_size()
 {
-    fprintf(stderr, "zwindow_size %d %d %d\n", zargs[0], zargs[1], zargs[2]);
     Window *win = find_window(zargs[0]);
+
+    fprintf(stderr, "zwindow_size win %d height %d width %d\n", zargs[0], zargs[1], zargs[2]);
+
+    if (win->id != nullptr && win->id->type == wintype_Graphics) {
+        remap_win_to_buffer(win);
+    }
+
+    if (win->id != nullptr && win->id->type == wintype_TextBuffer && glk_stream_get_position(win->id->str) == 0) {
+        fprintf(stderr, "HACK Deleting buffer window and re-creating it in front\n");
+        gli_delete_window(win->id);
+        win->id = gli_new_window(wintype_TextBuffer, 0);
+        fprintf(stderr, "END OF HACK\n");
+    }
+
+
     int16_t height = zargs[1];
     int16_t width = zargs[2];
 
-    win_sizewin(win->id->peer, win->id->bbox.x0, win->id->bbox.y0, win->id->bbox.x0 + width, win->id->bbox.y0 + height);
-    update_bbox(win->id, win->id->bbox.x0, win->id->bbox.y0, win->id->bbox.x0 + width, win->id->bbox.y0 + height);
+    win->y_size = height;
+    win->x_size = width;
+
+
+    /* Keep the cursor within the window */
+
+    if (win->y_cursor > zargs[1] || win->x_cursor > zargs[2])
+        reset_cursor(zargs[0]);
+    v6sizewin(win);
 }
 
 void zwindow_style()
 {
-    fprintf(stderr, "zwindow_style %d %d %d\n", zargs[0], zargs[1], zargs[2]);
+    fprintf(stderr, "zwindow_style window %d flags 0x%x operation %d\n", zargs[0], zargs[1], zargs[2]);
 }
 
 // V6 has per-window styles, but all others have a global style; in this
@@ -1553,6 +1771,10 @@ static bool is_valid_font(Window::Font font)
 
 void zset_font()
 {
+    if (znargs == 1)
+        fprintf(stderr, "zset_font %d\n", zargs[0]);
+    else if (znargs == 2)
+        fprintf(stderr, "zset_font %d window %d\n", zargs[0], zargs[1]);
     Window *win = curwin;
 
     if (zversion == 6 && znargs == 2 && as_signed(zargs[1]) != -3) {
@@ -1577,13 +1799,14 @@ void zset_font()
 void zprint_table()
 {
     uint16_t text = zargs[0], width = zargs[1], height = zargs[2], skip = zargs[3];
+    fprintf(stderr, "zprint_table %d width %d height %d skip %d\n", text, width, height, skip);
     uint16_t n = 0;
 
 #ifdef ZTERP_GLK
     uint16_t start = 0; // initialize to appease g++
 
-    if (curwin == upperwin) {
-        start = upperwin->x + 1;
+    if (curwin->id->type == wintype_TextGrid) {
+        start = upperwin->x_cursor + 1;
     }
 #endif
 
@@ -1602,8 +1825,8 @@ void zprint_table()
         if (i + 1 != height) {
             n += skip;
 #ifdef ZTERP_GLK
-            if (curwin == upperwin) {
-                set_cursor(upperwin->y + 2, start);
+            if (curwin->id->type == wintype_TextGrid) {
+                set_cursor(upperwin->y_cursor + 2, start, -3);
             } else
 #endif
             {
@@ -1615,6 +1838,8 @@ void zprint_table()
 
 void zprint_char()
 {
+    fprintf(stderr, "zprint_char %d\n", zargs[0]);
+
     // Check 32 (space) first: a cursory examination of story files
     // indicates that this is the most common value passed to @print_char.
     // This appears to be due to V4+ games blanking the upper window.
@@ -1627,6 +1852,7 @@ void zprint_char()
 
 void zprint_num()
 {
+    fprintf(stderr, "zprint_num\n");
     std::ostringstream ss;
 
     ss << as_signed(zargs[0]);
@@ -1637,26 +1863,54 @@ void zprint_num()
 
 void zprint_addr()
 {
+    fprintf(stderr, "zprint_addr\n");
     print_handler(zargs[0], nullptr);
 }
 
 void zprint_paddr()
 {
+    fprintf(stderr, "zprint_paddr\n");
     print_handler(unpack_string(zargs[0]), nullptr);
 }
 
 // XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
 void zsplit_window()
 {
-    if (zargs[0] == 0) {
-        close_upper_window();
-    } else {
-        resize_upper_window(zargs[0], true);
-    }
+
+    Window *upper = &windows[1];
+    Window *lower = &windows[0];
+    uint16_t height = zargs[0];
+
+    fprintf(stderr, "z_split_window %d: before: status window (win 1) height: %d ypos: %ld main window (win 0) height: %d ypos:%ld\n", zargs[0], upper->y_size, upper->y_origin, lower->y_size, lower->y_origin);
+
+    /* Cursor of upper window mustn't be swallowed by the lower window */
+    upper->y_cursor += upper->y_origin - 1;
+
+    upper->y_origin = 1;
+    upper->y_size = height;
+
+    if ((short)upper->y_cursor > (short)upper->y_size)
+        reset_cursor(1);
+    /* Cursor of lower window mustn't be swallowed by the upper window */
+    lower->y_cursor += lower->y_origin - 1 - height;
+
+    lower->y_origin = 1 + height;
+    lower->y_size = gscreenh - height;
+    if ((short)lower->y_cursor < 1)
+        reset_cursor(0);
+    if (upper->id == nullptr)
+        upper->id = gli_new_window(wintype_TextGrid, 0);
+    v6sizewin(upper);
+    if (lower->id == nullptr)
+        lower->id = gli_new_window(wintype_TextBuffer, 0);
+    v6sizewin(lower);
+
+    fprintf(stderr, "z_split_window %d: result: status window (win 1) height: %d ypos: %ld main window (win 0) height: %d ypos:%ld\n", zargs[0], upper->y_size, upper->y_origin, lower->y_size, lower->y_origin);
 }
 
 void zset_window()
 {
+    fprintf(stderr, "zset_window %d\n", zargs[0]);
     set_current_window(find_window(zargs[0]));
 }
 
@@ -1676,7 +1930,7 @@ static void window_change()
 
         glk_window_get_size(upperwin->id, &w, &h);
 
-        upper_window_width = w;
+        upperwin->x_size = w * letterwidth;
 
         resize_upper_window(h, false);
     }
@@ -1690,14 +1944,25 @@ static void window_change()
     if (zversion >= 4) {
         unsigned width, height;
 
+        letterwidth = gcellw;
+        letterheight = gcellh;
         get_screen_size(width, height);
+
+        width = width * letterwidth;
+        height = height * letterheight;
+        fprintf(stderr, "window_change: width: %d height: %d\n", width, height);
+
 
         store_byte(0x20, height > 254 ? 254 : height);
         store_byte(0x21, width > 255 ? 255 : width);
 
         if (zversion >= 5) {
+            // Screen width and height in pixels.
             store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
             store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
+            // Font height and width in pixels.
+            store_byte(0x26, letterheight);
+            store_byte(0x27, letterwidth);
         }
     } else {
         zshow_status();
@@ -1710,6 +1975,7 @@ static bool timer_running;
 
 static void start_timer(uint16_t n)
 {
+    fprintf(stderr, "start_timer %d\n", n);
     if (!timer_available()) {
         return;
     }
@@ -2303,17 +2569,17 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         // or input was canceled, to the end of the input.
         if (curwin == upperwin) {
             if (input.term != ZSCII_NEWLINE) {
-                upperwin->x += input.len;
+                upperwin->x_origin += input.len;
             }
 
-            if (input.term == ZSCII_NEWLINE || upperwin->x >= upper_window_width) {
-                upperwin->x = 0;
-                if (upperwin->y < upper_window_height) {
-                    upperwin->y++;
+            if (input.term == ZSCII_NEWLINE || upperwin->x_origin >= upperwin->x_size) {
+                upperwin->x_origin = 0;
+                if (upperwin->y_origin < upperwin->y_size) {
+                    upperwin->y_origin++;
                 }
             }
 
-            glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+            glk_window_move_cursor(upperwin->id, upperwin->x_origin - 1, upperwin->y_origin - 1);
         }
     }
 
@@ -2423,6 +2689,11 @@ void zread_char()
 
     store(input.key);
 }
+
+void zread_mouse() {
+    fprintf(stderr, "z_read_mouse\n");
+}
+
 
 #ifdef ZTERP_GLK
 static void status_putc(uint8_t c)
@@ -2545,8 +2816,8 @@ static bool read_handler()
     }
 
 #ifdef ZTERP_GLK
-    starting_x = upperwin->x + 1;
-    starting_y = upperwin->y + 1;
+    starting_x = upperwin->x_origin + 1;
+    starting_y = upperwin->y_origin + 1;
 #endif
 
     if (zversion <= 3) {
@@ -2610,7 +2881,7 @@ static bool read_handler()
             // be allowed. At least by keeping the cursor on the second line,
             // proper user input will occur.
             if (curwin == upperwin) {
-                long max = input.preloaded > upperwin->x ? upperwin->x : input.preloaded;
+                long max = input.preloaded > upperwin->x_origin ? upperwin->x_origin : input.preloaded;
                 long start = input.preloaded - max;
                 glui32 unput = garglk_unput_string_count_uni(&line32[start]);
 
@@ -2618,7 +2889,7 @@ static bool read_handler()
                 // (or only partially so), reduce the current and starting X
                 // coordinates by the number of unput characters, since that is
                 // where Gargoyle will logically be starting input.
-                curwin->x -= unput;
+                curwin->x_origin -= unput;
                 starting_x -= unput;
             } else {
                 garglk_unput_string_uni(line32.data());
@@ -2679,11 +2950,11 @@ static bool read_handler()
             // clean slate to work with. Replace the cursor where it was at the
             // start of input.
             if (curwin == upperwin) {
-                set_cursor(starting_y, starting_x);
+                set_cursor(starting_y, starting_x, -3);
                 for (int i = 0; i < input.len; i++) {
                     put_char_u(UNICODE_SPACE);
                 }
-                set_cursor(starting_y, starting_x);
+                set_cursor(starting_y, starting_x, -3);
             }
 #endif
 
@@ -2847,6 +3118,21 @@ void zcheck_unicode()
     store(res);
 }
 
+//static struct {
+//    enum story story_id;
+//    int pic;
+//    int pic1;
+//    int pic2;
+//} mapper[] = {
+//    { ZORK_ZERO,  5, 497, 498},
+//    { ZORK_ZERO,  6, 501, 502},
+//    { ZORK_ZERO,  7, 499, 500},
+//    { ZORK_ZERO,  8, 503, 504},
+//    {    ARTHUR, 54, 170, 171},
+//    {    SHOGUN, 50,  61,  62},
+//    {   UNKNOWN,  0,   0,   0}
+//};
+
 // Should picture_data and get_wind_prop be moved to a V6 source file?
 void zpicture_data()
 {
@@ -2855,13 +3141,99 @@ void zpicture_data()
         user_store_word(zargs[1] + 2, 0);
     }
 
-    // No pictures means no valid pictures, so never branch.
-    branch_if(false);
+    glui32 pic = zargs[0];
+    uint16_t table = zargs[1];
+    glui32 height, width;
+    int i;
+
+    bool avail = glk_image_get_info(pic, &width, &height);
+
+//    for (i = 0; mapper[i].story_id != UNKNOWN; i++)
+//        if (story_id == mapper[i].story_id) {
+//            if (pic == mapper[i].pic) {
+//                int height2, width2;
+//
+//                avail &=
+//                os_picture_data(mapper[i].pic1, &height2,
+//                                &width2);
+//                avail &=
+//                os_picture_data(mapper[i].pic2, &height2,
+//                                &width2);
+//
+//                height += height2;
+//
+//            } else if (pic == mapper[i].pic1
+//                       || pic == mapper[i].pic2)
+//                avail = FALSE;
+//        }
+
+    user_store_word(zargs[1] + 0, height * 2);
+    user_store_word(zargs[1] + 2, width * 2);
+
+    branch_if(avail);
+}
+
+void remap_win_to_graphics(Window *win) {
+    if (win->id != nullptr) {
+        if (win->id->type == wintype_Graphics)
+            return;
+        if (win->text_window != nullptr && win->text_window != win->id)
+            gli_delete_window(win->text_window);
+        win->text_window = win->id;
+        fprintf(stderr, "Backgrounding text window with peer %d\n", win->id->peer);
+    }
+    win->id = gli_new_window(wintype_Graphics, 0);
+    fprintf(stderr, " and creating a new graphics window with peer %d\n", win->id->peer);
+    glui32 bg = gargoyle_color(win->bg_color);
+    glk_window_set_background_color(win->id, bg);
+    v6sizewin(win);
+    glk_window_clear(win->id);
+}
+
+void zdraw_picture()
+{
+
+
+    uint16_t y = zargs[1];
+    uint16_t x = zargs[2];
+
+    if (y == 0)        /* use cursor line if y-coordinate is 0 */
+        y = curwin->y_cursor;
+    if (x == 0)        /* use cursor column if x-coordinate is 0 */
+        x = curwin->x_cursor;
+//EXT:5 5 6 draw_picture picture-number y x
+//    Displays the picture with the given number. (y,x) coordinates (of the top left of the picture) are each optional, in that a value of zero for y or x means the cursor y or × coordinate in the current window. It is illegal to call this with an invalid picture number.
+
+    fprintf(stderr, "zdraw_picture: %d %d %d\n", zargs[0], zargs[1], zargs[2]);
+    glui32 width, height;
+    glk_image_get_info(zargs[0], &width, &height);
+
+    if (curwin->id == nullptr || curwin->id->type == wintype_TextGrid || (curwin->id->type == wintype_TextBuffer && width * 2 > curwin->x_size / 2)) {
+        if (curwin->id != nullptr)
+            fprintf(stderr, "Trying to draw picture in text grid. ");
+        fprintf(stderr, "Remapping to graphics window.\n");
+        remap_win_to_graphics(curwin);
+    }
+    glk_image_draw_scaled(curwin->id, zargs[0], x - 1, y - 1, width * 2, height * 2);
+}
+
+void zerase_picture() {
+//EXT:7 7 6 erase_picture picture-number y x
+//    Like draw_picture, but paints the appropriate region to the background colour for the given window. It is illegal to call this with an invalid picture number.
+    fprintf(stderr, "zerase_picture: %d %d %d\n", zargs[0], zargs[1], zargs[2]);
+}
+
+void zset_margins() {
+//EXT:8 8 6 set_margins left right window
+//    Sets the margin widths (in pixels) on the left and right for the given window (which are by default 0). If the cursor is overtaken and now lies outside the margins altogether, move it back to the left margin of the current line (see S8.8.3.2.2.1).
+    fprintf(stderr, "zset_margins: %d %d %d\n", zargs[0], zargs[1], zargs[2]);
 }
 
 void zget_wind_prop()
 {
-    uint8_t font_width = 1, font_height = 1;
+    fprintf(stderr, "zget_wind_prop: win %d prop %d\n", as_signed(zargs[0]) , zargs[1]);
+
+    uint8_t font_width = letterwidth, font_height = letterheight;
     uint16_t val;
     Window *win;
 
@@ -2870,28 +3242,28 @@ void zget_wind_prop()
     // These are mostly bald-faced lies.
     switch (zargs[1]) {
     case 0: // y coordinate
-        val = 0;
+        val = win->y_origin;
         break;
     case 1: // x coordinate
-        val = 0;
+        val = win->x_origin;
         break;
     case 2:  // y size
-        val = word(0x24) * font_height;
+            val = win->y_size; // word(0x24) * font_height;
         break;
     case 3:  // x size
-        val = word(0x22) * font_width;
+            val = win->x_size; //word(0x22) * font_width;
         break;
     case 4:  // y cursor
-        val = 0;
+        val = win->y_cursor;
         break;
     case 5:  // x cursor
-        val = 0;
+        val = win->x_cursor;
         break;
     case 6: // left margin size
-        val = 0;
+        val = win->left;
         break;
     case 7: // right margin size
-        val = 0;
+        val = win->right;
         break;
     case 8: // newline interrupt routine
         val = 0;
@@ -2927,7 +3299,14 @@ void zget_wind_prop()
         die("unknown window property: %u", static_cast<unsigned int>(zargs[1]));
     }
 
+    fprintf(stderr, "zget_wind_prop: result %d\n", val);
+
     store(val);
+}
+
+void zput_wind_prop()
+{
+    fprintf(stderr, "zput_wind_prop: win %d prop %d val %d\n", zargs[0], zargs[1], zargs[2]);
 }
 
 // This is not correct, because @output_stream does not work as it
@@ -2940,11 +3319,13 @@ void zget_wind_prop()
 // main window for the time being.
 void zprint_form()
 {
-    Window *saved = curwin;
+    fprintf(stderr, "zprint_form:  %d\n", zargs[0]);
 
-    curwin = mainwin;
+//    Window *saved = curwin;
+//
+//    curwin = mainwin;
 #ifdef ZTERP_GLK
-    glk_set_window(mainwin->id);
+//    glk_set_window(mainwin->id);
 #endif
 
     for (uint16_t i = 0; i < user_word(zargs[0]); i++) {
@@ -2953,10 +3334,10 @@ void zprint_form()
 
     put_char(ZSCII_NEWLINE);
 
-    curwin = saved;
-#ifdef ZTERP_GLK
-    glk_set_window(curwin->id);
-#endif
+//    curwin = saved;
+//#ifdef ZTERP_GLK
+//    glk_set_window(curwin->id);
+//#endif
 }
 
 void zmake_menu()
@@ -3047,6 +3428,7 @@ bool create_statuswin()
 {
 #ifdef ZTERP_GLK
     statuswin.id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 1, wintype_TextGrid, 0);
+    fprintf(stderr, "create_statuswin: created grid window with peer %d\n", statuswin.id->peer);
     return statuswin.id != nullptr;
 #else
     return false;
@@ -3059,22 +3441,25 @@ bool create_upperwin()
     // The upper window appeared in V3. */
     if (zversion >= 3) {
         upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 0);
-        upperwin->x = upperwin->y = 0;
-        upper_window_height = 0;
+        upperwin->x_origin = upperwin->y_origin = 0;
+        upperwin->y_size = 0;
 
         if (upperwin->id != nullptr) {
             glui32 w, h;
 
             glk_window_get_size(upperwin->id, &w, &h);
-            upper_window_width = w;
+            upperwin->x_size = w;
 
-            if (h != 0 || upper_window_width == 0) {
+            if (h != 0 || upperwin->x_size == 0) {
                 glk_window_close(upperwin->id, nullptr);
                 upperwin->id = nullptr;
             }
         }
     }
 
+    fprintf(stderr, "create_upperwin: created grid window with peer %d\n", upperwin->id->peer);
+    if (upperwin != &windows[1])
+        fprintf(stderr, "upperwin != &windows[1]\n");
     return upperwin->id != nullptr;
 #else
     return false;
@@ -3090,7 +3475,7 @@ IFF::TypeID screen_write_scrn(IO &io)
 
     io.write8(curwin - windows.data());
 #ifdef ZTERP_GLK
-    io.write16(upper_window_height);
+    io.write16(upperwin->y_size);
     io.write16(starting_x);
     io.write16(starting_y);
 #else
@@ -3197,14 +3582,14 @@ void screen_read_scrn(IO &io, uint32_t size)
     resize_upper_window(new_upper_window_height, false);
 
 #ifdef ZTERP_GLK
-    if (new_x > upper_window_width) {
-        new_x = upper_window_width;
+    if (new_x > upperwin->x_size) {
+        new_x = upperwin->x_size;
     }
-    if (new_y > upper_window_height) {
-        new_y = upper_window_height;
+    if (new_y > upperwin->y_size) {
+        new_y = upperwin->y_size;
     }
     if (new_y != 0 && new_x != 0) {
-        set_cursor(new_y, new_x);
+        set_cursor(new_y, new_x, -3);
     }
 #endif
 
@@ -3560,6 +3945,14 @@ void init_screen(bool first_run)
         window.style.reset();
         window.fg_color = window.bg_color = Color();
         window.font = Window::Font::Normal;
+        window.y_cursor = 1;
+        window.x_cursor = 1;
+        window.x_origin = 0;
+        window.y_origin = 0;
+        window.left = 0;
+        window.right = 0;
+        window.x_size = gscreenw;
+        window.y_size = gscreenh;
 
 #ifdef ZTERP_GLK
         clear_window(&window);
@@ -3610,40 +4003,40 @@ void init_screen(bool first_run)
 // any active sound commands.
 void stash_library_state(library_state_data *dat)
 {
-    if (dat) {
-        if ( windows[0].id)
-            dat->wintag0 = windows[0].id->tag;
-        if ( windows[1].id)
-            dat->wintag1 = windows[1].id->tag;
-        if ( windows[2].id)
-            dat->wintag2 = windows[2].id->tag;
-        if ( windows[3].id)
-            dat->wintag3 = windows[3].id->tag;
-        if ( windows[4].id)
-            dat->wintag4 = windows[4].id->tag;
-        if ( windows[5].id)
-            dat->wintag5 = windows[5].id->tag;
-        if ( windows[6].id)
-            dat->wintag6 = windows[6].id->tag;
-        if ( windows[7].id)
-            dat->wintag7 = windows[7].id->tag;
-
-        if (curwin->id)
-            dat->curwintag = curwin->id->tag;
-        if (mainwin->id)
-            dat->mainwintag = mainwin->id->tag;
-        if (statuswin.id)
-            dat->statuswintag = statuswin.id->tag;
-        if (errorwin && errorwin->tag)
-            dat->errorwintag = errorwin->tag;
-        if (upperwin->id)
-            dat->upperwintag = upperwin->id->tag;
-
-        dat->last_random_seed = last_random_seed;
-        dat->random_calls_count = random_calls_count;
-
-        stash_library_sound_state(dat);
-    }
+//    if (dat) {
+//        if ( windows[0].id)
+//            dat->wintag0 = windows[0].id->tag;
+//        if ( windows[1].id)
+//            dat->wintag1 = windows[1].id->tag;
+//        if ( windows[2].id)
+//            dat->wintag2 = windows[2].id->tag;
+//        if ( windows[3].id)
+//            dat->wintag3 = windows[3].id->tag;
+//        if ( windows[4].id)
+//            dat->wintag4 = windows[4].id->tag;
+//        if ( windows[5].id)
+//            dat->wintag5 = windows[5].id->tag;
+//        if ( windows[6].id)
+//            dat->wintag6 = windows[6].id->tag;
+//        if ( windows[7].id)
+//            dat->wintag7 = windows[7].id->tag;
+//
+//        if (curwin->id)
+//            dat->curwintag = curwin->id->tag;
+//        if (mainwin->id)
+//            dat->mainwintag = mainwin->id->tag;
+//        if (statuswin.id)
+//            dat->statuswintag = statuswin.id->tag;
+//        if (errorwin && errorwin->tag)
+//            dat->errorwintag = errorwin->tag;
+//        if (upperwin->id)
+//            dat->upperwintag = upperwin->id->tag;
+//
+//        dat->last_random_seed = last_random_seed;
+//        dat->random_calls_count = random_calls_count;
+//
+//        stash_library_sound_state(dat);
+//    }
 }
 
 // This is called during an autorestore. It recreatets the relations

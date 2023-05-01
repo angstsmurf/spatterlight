@@ -461,7 +461,7 @@
     GlkController *glkctl = self.glkctl;
 
     NSString *detectedFormat = glkctl.game.detectedFormat;
-    if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
+    if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"] || [detectedFormat isEqualToString:@"zcode6"])) {
         bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
     }
 
