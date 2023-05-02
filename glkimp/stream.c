@@ -750,13 +750,11 @@ static void gli_put_char_uni(stream_t *str, glui32 ch)
                         str->bufeof = str->bufptr;
                 }
             }
-            else {
-                if (str->ubufptr < str->ubufend) {
+            else if (str->ubufptr < str->ubufend) {
                     *(str->ubufptr) = ch;
                     str->ubufptr++;
                     if (str->ubufptr > str->ubufeof)
                         str->ubufeof = str->ubufptr;
-                }
             }
             break;
         case strtype_Window:
@@ -770,10 +768,8 @@ static void gli_put_char_uni(stream_t *str, glui32 ch)
 
 			if (!gli_utf8output)
                 gli_window_put_char(str->win, (ch & 0xFF));
-            //putc((ch & 0xFF), stdout);
             else
             	gli_window_put_char(str->win, ch);
-            //gli_putchar_utf8(ch, stdout); FIXME
             if (str->win->echostr)
                 gli_put_char_uni(str->win->echostr, ch);
             break;
