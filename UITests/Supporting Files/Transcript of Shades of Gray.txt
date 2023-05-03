@@ -400,17 +400,17 @@ They are as nondescript as any crowd of people, and they're doing their best to 
 The tent is bright and colorful.  There is a sign attached to the flap.
 
 > read sign
-                  /=====================================\
-                  |                                     |
-                  |        MAGDALENA ROSENSTEIN         |
-                  |     Certified Gypsy Kabbalist       |
-                  |                                     |
-                  |         Fortunes told, and          |
-                  |          Memory Restored            |
-                  |                                     |
-                  |       NO Psychopaths or Fools       |
-                  |                                     |
-                  \=====================================/
+                  ╔═════════════════════════════════════╗
+                  ║                                     ║
+                  ║        MAGDALENA ROSENSTEIN         ║
+                  ║     Certified Gypsy Kabbalist       ║
+                  ║                                     ║
+                  ║         Fortunes told, and          ║
+                  ║          Memory Restored            ║
+                  ║                                     ║
+                  ║       NO Psychopaths or Fools       ║
+                  ║                                     ║
+                  ╚═════════════════════════════════════╝
 
 > n
 You are standing atop a bright, sunny hilltop, looking down on the Acropolis in Athens.  It looks as if a theatrical production is being staged.  Posters advertising the show are pinned to the olive trees that surround you on top of the hill.  Tracks run down to the south and the west.
@@ -683,23 +683,23 @@ She clears off a space on her desk with a sweep of her arm, and lays out eleven 
 
 [Press any key...]
 x
-                  /======\                                    Wheel of
-                  | 7    | Judgment                            Fortune
-                  |      |                                    /======\
-        The       |      |       The                   The    | 11   |
-       Devil      \======/      Lovers              Magician  |      |
-      /======\    /1=====\     /======\              /======\ |      |
-      | 4    |    | /2===+=\   | 5    |              | 10   | \======/
-      |      |   /+=+=====\|   |      |     Justice  |      |
-      |      |   | 3      ||   |      |     /======\ |      |
-      \======/   |        ||   \======/     | 9    | \======/
- (1) The Hermit  \========+/      The World |      |
- (2) The Fool    The Tower         /======\ |      |
- (3) The Moon     /======\         | 8    | \======/
-                  | 6    |         |      |
-                  |      |         |      |
-                  |      |         \======/
-                  \======/
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
 
 > x hermit. ask lady about hermit.
 [x -> examine]
@@ -1679,23 +1679,23 @@ Even with your eyes closed you can feel Magdalena's sharp gaze.  "That card made
 Magdalena snaps her fingers.  "Come back to this world now, Austin.  Open your eyes.  Look around you."
 
 > look
-                  /======\                                    Wheel of
-                  | 7    | Judgment                            Fortune
-                  |      |                                    /======\
-        The       |      |       The                   The    | 11   |
-       Devil      \======/      Lovers              Magician  |      |
-      /======\    /1=====\     /======\              /======\ |      |
-      | 4    |    | /2===+=\   | 5    |              | 10   | \======/
-      |      |   /+=+=====\|   |      |     Justice  |      |
-      |      |   | 3      ||   |      |     /======\ |      |
-      \======/   |        ||   \======/     | 9    | \======/
- (1) The Hermit  \========+/      The World |      |
- (2) The Fool    The Tower         /======\ |      |
- (3) The Moon     /======\         | 8    | \======/
-                  | 6    |         |      |
-                  |      |         |      |
-                  |      |         \======/
-                  \======/
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
 
 > concentrate on justice.
 As you concentrate on the Justice card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
@@ -2201,23 +2201,23 @@ Magdalena indulges in a few hearty guffaws.  "So who's the hero and who's the vi
 Magdalena snaps her fingers.  "Come back to this world now, Austin.  Open your eyes.  Look around you."
 
 > look
-                  /======\                                    Wheel of
-                  | 7    | Judgment                            Fortune
-                  |      |                                    /======\
-        The       |      |       The                   The    | 11   |
-       Devil      \======/      Lovers              Magician  |      |
-      /======\    /1=====\     /======\              /======\ |      |
-      | 4    |    | /2===+=\   | 5    |              | 10   | \======/
-      |      |   /+=+=====\|   |      |     Justice  |      |
-      |      |   | 3      ||   |      |     /======\ |      |
-      \======/   |        ||   \======/     | 9    | \======/
- (1) The Hermit  \========+/      The World |      |
- (2) The Fool    The Tower         /======\ |      |
- (3) The Moon     /======\         | 8    | \======/
-                  | 6    |         |      |
-                  |      |         |      |
-                  |      |         \======/
-                  \======/
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
 
 > think about magician.
 As you concentrate on the Magician card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
