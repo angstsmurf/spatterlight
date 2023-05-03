@@ -1852,7 +1852,7 @@ void os_get_special_path(char *buf, size_t buflen,
  *   TADS 3 interpreter - system configuration files.  This is used for files
  *   that affect all games, and generally all users on the system, so it
  *   should be in a central location.  On Windows, for example, we simply
- *   store these files in the install directory containing the intepreter
+ *   store these files in the install directory containing the interpreter
  *   binary.  
  */
 #define OS_GSP_T3_SYSCONFIG  6
@@ -3095,7 +3095,7 @@ void os_more_prompt();
  *   
  *   If this is a TEXT-ONLY interpreter: DO NOT define USE_HTML.
  *   
- *   If this is a MULTIMEDIA (HTML TADS) intepreter: #define USE_HTML
+ *   If this is a MULTIMEDIA (HTML TADS) interpreter: #define USE_HTML
  *   
  *   (This really should be called something like OS_USE_HTML - the USE_ name
  *   is for historical reasons.  This purpose of this macro is to configure
