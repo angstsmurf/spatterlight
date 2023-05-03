@@ -54,6 +54,7 @@ const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "load",
     "#restore",
     "transcript",
+    "#transcript",
     "script",
     "#script",
     "oops",
@@ -85,6 +86,7 @@ const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "load",
     "#restore",
     "transcript",
+    "#transcript",
     "script",
     "#script",
     "oops",
@@ -120,6 +122,7 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "load",
     "#restore",
     "transcript",
+    "#transcript",
     "script",
     "#script",
     "oops",
@@ -147,7 +150,7 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
 
 extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
     NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
-    RESTORE, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
+    RESTORE, SCRIPT, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
     RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE,
     RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT,
     RESTORE, RESTORE, SCRIPT, UNDO, RESTART
