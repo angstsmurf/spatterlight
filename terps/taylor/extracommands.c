@@ -161,7 +161,7 @@ static void TranscriptOff(void)
         "Transcript is now off.\n");
 }
 
-static int ParseExtraCommand(char *p)
+int ParseExtraCommand(char *p)
 {
     if (p == NULL)
         return NO_COMMAND;
@@ -190,7 +190,7 @@ static int ParseExtraCommand(char *p)
     return NO_COMMAND;
 }
 
-extern uint8_t Word[];
+extern int Word[];
 
 int TryExtraCommand(void)
 {

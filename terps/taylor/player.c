@@ -2070,7 +2070,7 @@ static int IsDir(unsigned char word)
 static void RunOneInput(void)
 {
     PrintedOK = 0;
-    if (Word[0] == 0 && Word[1] == 0) {
+    if (Word[0] == EXTRA_COMMAND || Word[1] == EXTRA_COMMAND || (Word[0] == 0 && Word[1] == 0)) {
         if (TryExtraCommand() == 0) {
             OutCaps();
             SysMessage(I_DONT_UNDERSTAND);

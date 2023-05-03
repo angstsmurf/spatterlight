@@ -19,7 +19,7 @@
 // Input separated into word strings
 char **InputWordStrings = NULL;
 // The indices of the words in InputWordStrings, 0 if not found
-uint8_t Word[5];
+uint16_t Word[5];
 // The positions in InputWordStrings of the words in Word
 int WordPositions[5];
 // The number of word strings in InputWordStrings
@@ -195,6 +195,11 @@ int ParseWord(char *p)
                 words += 5;
             }
         }
+    }
+
+    int result = ParseExtraCommand(p);
+    if (result) {
+        return EXTRA_COMMAND;
     }
     return 0;
 }

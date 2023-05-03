@@ -302,7 +302,7 @@ extern size_t AnimationData;
 
 extern size_t VerbBase;
 extern char LastChar;
-extern uint8_t Word[];
+extern uint16_t Word[];
 extern int PendSpace;
 extern int FirstAfterInput;
 extern int LastVerb;
