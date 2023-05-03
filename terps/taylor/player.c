@@ -963,7 +963,6 @@ static int RecursionGuard = 0;
 
 static void QuitGame(void)
 {
-    SaveUndo();
     if (LastChar == '\n')
         OutReplace(' ');
     OutFlush();
@@ -2563,6 +2562,7 @@ void glk_main(void)
     while (1) {
         if (ShouldRestart) {
             RestartGame();
+            SaveUndo();
         } else if (!StopTime)
             SaveUndo();
         Parser();
