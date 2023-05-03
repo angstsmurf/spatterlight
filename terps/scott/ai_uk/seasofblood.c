@@ -617,14 +617,14 @@ int roll_dice(int strike, int stamina, int boatflag)
                 their_dice_stopped = 0;
                 print_sum(our_turn, their_result, strike);
                 our_turn = 1;
-                glk_window_clear(Bottom);
                 glk_cancel_char_event(Top);
-                glk_request_char_event(Top);
                 glk_stream_set_current(glk_window_get_stream(Bottom));
+                glk_window_clear(Bottom);
                 glk_put_string("Your throw\n");
                 glk_put_string("<ENTER> to stop dice");
                 if (!boatflag)
                     glk_put_string("    <X> to run");
+                glk_request_char_event(Top);
             } else if (our_turn == 0) {
                 glk_request_timer_events(delay);
             }
@@ -638,6 +638,7 @@ int roll_dice(int strike, int stamina, int boatflag)
 
             update_dice(our_turn, left_dice, right_dice);
             if (our_turn == 0 && rolls == enemy_rolls) {
+                SOBPrint(Bottom, "\n");
                 glk_window_clear(Bottom);
                 their_result = left_dice + right_dice + strike;
                 SOBPrint(Bottom, "Their result: %d + %d + %d = %d\n", left_dice,
@@ -703,6 +704,7 @@ void battle_loop(int strike, int stamina, int boatflag)
     do {
         int result = roll_dice(strike, stamina, boatflag);
         glk_cancel_char_event(Top);
+        SOBPrint(Bottom, "\n");
         glk_window_clear(Bottom);
         clear_stamina();
         glk_stream_set_current(glk_window_get_stream(Bottom));
@@ -736,9 +738,8 @@ void battle_loop(int strike, int stamina, int boatflag)
             SOBPrint(Bottom, "%s", battle_messages[11 + rand() % 5 + 16 * boatflag]);
         }
 
-        glk_put_string("\n\n");
-
         if (Counters[3] > 0 && stamina > 0) {
+            glk_put_string("\n\n");
             glk_put_string("<ENTER> to roll dice");
             if (!boatflag)
                 glk_put_string("    <X> to run");
@@ -748,6 +749,7 @@ void battle_loop(int strike, int stamina, int boatflag)
         update_result(1, 9, Counters[3], boatflag);
 
         BattleHitEnter(strike, stamina, boatflag);
+        SOBPrint(Bottom, "\n");
         glk_window_clear(Bottom);
 
     } while (stamina > 0 && Counters[3] > 0);
