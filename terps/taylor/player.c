@@ -54,7 +54,7 @@ int NumLowObjects;
 
 static int ActionsExecuted;
 static int FoundMatch;
-static int PrintedOK;
+int PrintedOK;
 int Redraw = 0;
 
 #define Location (Flag[0])

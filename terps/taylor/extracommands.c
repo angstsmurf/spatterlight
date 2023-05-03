@@ -191,6 +191,7 @@ int ParseExtraCommand(char *p)
 }
 
 extern int Word[];
+extern int PrintedOK;
 
 int TryExtraCommand(void)
 {
@@ -202,6 +203,7 @@ int TryExtraCommand(void)
         noun = Word[1];
 
     StopTime = 1;
+    PrintedOK = 1;
     Redraw = 1;
     switch (verb) {
     case RESTORE:
