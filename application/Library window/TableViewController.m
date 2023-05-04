@@ -2399,7 +2399,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path {
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
-
     Game *game = [self importGame:path inContext:self.managedObjectContext reportFailure:YES hide:hide];
     if (game) {
         return [self selectAndPlayGame:game];
@@ -2424,7 +2423,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
-    return [importer importGame:path inContext:context reportFailure:report hide:hide];
+    Game *result =  [importer importGame:path inContext:context reportFailure:report hide:hide];
+
+    if (!result.metadata.cover)
+        [importer lookForImagesForGame:result];
+    return result;
 }
 
 - (IBAction)cancel:(id)sender {

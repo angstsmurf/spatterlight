@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options;
-
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
+- (void)lookForImagesForGame:(Game *)game;
 
 @property (strong) TableViewController *libController;
 
