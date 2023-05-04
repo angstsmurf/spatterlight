@@ -104,7 +104,7 @@ Drawing Codes:
 0xF7		743A arg1 } Rebel Planet: Stop drawing if alcove is unlocked
 0xF6		744E arg1 } set A to 0 4 or 8 and call same method
 0xF5		7444 arg1 }
-0xF4		7458 arg1 
+0xF4		7458 arg1
 	End if object arg1 is not present
 0xF3		7409 Mirror top half vertically
 0xF2		7331 arg1 arg2 arg3 arg4 Mirror area horizontally
