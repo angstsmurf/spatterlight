@@ -53,7 +53,6 @@ size_t AnimationData = 0;
 int NumLowObjects;
 
 static int ActionsExecuted;
-static int FoundMatch;
 int PrintedOK;
 int Redraw = 0;
 
@@ -90,6 +89,9 @@ static int LastNoun = 0;
 int LastVerb = 0;
 static int GoVerb = 0;
 
+static int FoundVerb = 0;
+static int FoundNoun = 0;
+
 struct GameInfo *Game = NULL;
 extern struct GameInfo games[];
 
@@ -98,6 +100,7 @@ strid_t room_description_stream = NULL;
 extern int AnimationRunning;
 
 static int DeferredGoto = 0;
+static int InKaylethPreview = 0;
 
 #ifdef DEBUG
 
@@ -783,6 +786,10 @@ static unsigned char NumObjects()
 {
     if (Version == QUESTPROBE3_TYPE)
         return 49;
+
+    /* This removes one weird empty "You notice." in Kayleth */
+    if (BaseGame == KAYLETH)
+        return 120;
     return Flag[6];
 }
 
@@ -2004,19 +2011,23 @@ static void RunCommandTable(void)
 
     int done = 0;
     ActionsExecuted = 0;
-    FoundMatch = 0;
+    FoundVerb = 0;
+    FoundNoun = 0;
 
     while (*p != 0x7F) {
+
+        if (p[0] == Word[0] || p[0] == Word[1])
+            FoundVerb = 1;
+        if (p[1] == Word[0] || p[1] == Word[1])
+            FoundNoun = 1;
+
         /* Match input to table entry as VERB NOUN or NOUN VERB */
         /* 126 is wildcard that matches any word */
-        if (((*p == 126 || *p == Word[0]) && (p[1] == 126 || p[1] == Word[1])) || (*p == Word[1] && p[1] == Word[0]) || (BaseGame != QUESTPROBE3 && (*p == 126 || *p == Word[1]) && (p[1] == 126 || p[1] == Word[0]))) {
+        if (((*p == 126 || *p == Word[0]) && (p[1] == 126 || p[1] == Word[1])) || ((*p == 126 || *p == Word[1]) && (p[1] == 126 || p[1] == Word[0])) ) {
 #ifdef DEBUG
             PrintWord(p[0]);
             PrintWord(p[1]);
 #endif
-            if (p[0] != 126) {
-                FoundMatch = 1;
-            }
             /* Work around a Questprobe 3 bug */
             if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
@@ -2066,10 +2077,21 @@ static int IsDir(unsigned char word)
         return (word <= 10);
 }
 
+extern int found_extra_command;
+
 static void RunOneInput(void)
 {
     PrintedOK = 0;
-    if (Word[0] == EXTRA_COMMAND || Word[1] == EXTRA_COMMAND || (Word[0] == 0 && Word[1] == 0)) {
+
+    if (found_extra_command) {
+        found_extra_command = 0;
+        if (TryExtraCommand()) {
+            if (Redraw)
+                Look();
+            return;
+        }
+    }
+    if (Word[0] == 0 && Word[1] == 0) {
         if (TryExtraCommand() == 0) {
             OutCaps();
             SysMessage(I_DONT_UNDERSTAND);
@@ -2111,24 +2133,30 @@ static void RunOneInput(void)
                 RunCommandTable();
             }
             if (ActionsExecuted == 0) {
-                if (IsDir(OriginalVerb) || (Word[0] == GoVerb && IsDir(Word[1])))
+                if (IsDir(OriginalVerb) || (Word[0] == GoVerb && IsDir(Word[1]))) {
                     SysMessage(YOU_CANT_GO_THAT_WAY);
-                else if (FoundMatch)
+                } else if (FoundVerb) {
                     SysMessage(THATS_BEYOND_MY_POWER);
-                else
+                } else if (FoundNoun == 1)  {
+                    SysMessage(I_DONT_UNDERSTAND_THAT_VERB);
+                } else {
                     SysMessage(I_DONT_UNDERSTAND);
+                }
                 OutFlush();
                 StopTime = 1;
                 return;
             }
-        } else
+        } else {
+            if (Redraw)
+                Look();
             return;
+        }
     }
 
     if (Word[0] != 0)
         LastVerb = Word[0];
 
-    if (Redraw && !(BaseGame == REBEL_PLANET && MyLoc == 250)) {
+    if (Redraw && !((BaseGame == REBEL_PLANET && MyLoc == 250) || (BaseGame == KAYLETH && MyLoc == 15))) {
         Look();
     }
 
@@ -2559,18 +2587,27 @@ void glk_main(void)
         OutFlush();
         Look();
     }
+
+    if (BaseGame == KAYLETH)
+        InKaylethPreview = 1;
+
     while (1) {
         if (ShouldRestart) {
             RestartGame();
-            SaveUndo();
-        } else if (!StopTime)
+            if (BaseGame != KAYLETH)
+                SaveUndo();
+        } else if (!StopTime && !InKaylethPreview)
             SaveUndo();
         Parser();
         FirstAfterInput = 1;
         RunOneInput();
-        if (StopTime)
+        if (StopTime) {
             StopTime--;
-        else
+        } else if (!InKaylethPreview) {
             JustStarted = 0;
+        }
+        if (MyLoc == 1) {
+            InKaylethPreview = 0;
+        }
     }
 }

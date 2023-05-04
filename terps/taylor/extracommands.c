@@ -23,11 +23,11 @@ typedef enum {
     RAMLOAD_EXTR,
     UNDO,
     RAM,
+    SCRIPT,
     GAME,
     COMMAND,
     ALL,
     IT,
-    SCRIPT,
     ON,
     OFF
 } extra_command;
@@ -109,7 +109,7 @@ extern int StopTime;
 extern int Redraw;
 extern int WordsInInput;
 extern int PrintedOK;
-extern uint16_t Word[];
+extern uint8_t Word[];
 
 extern winid_t Bottom;
 
@@ -192,12 +192,21 @@ int ParseExtraCommand(char *p)
     return NO_COMMAND;
 }
 
+extern int found_extra_command;
+
 int TryExtraCommand(void)
 {
-    int verb = ParseExtraCommand(InputWordStrings[WordPositions[0]]);
+    found_extra_command = 0;
+    int verb_position = WordPositions[0];
+    int verb = ParseExtraCommand(InputWordStrings[verb_position]);
     int noun = NO_COMMAND;
-    if (WordPositions[0] + 1 < WordsInInput)
-        noun = ParseExtraCommand(InputWordStrings[WordPositions[0] + 1]);
+
+    if (verb > SCRIPT && verb_position > 0) {
+        verb_position--;
+        verb = ParseExtraCommand(InputWordStrings[verb_position]);
+    }
+    if (verb_position + 1 < WordsInInput)
+        noun = ParseExtraCommand(InputWordStrings[verb_position + 1]);
     if (noun == NO_COMMAND)
         noun = Word[1];
 

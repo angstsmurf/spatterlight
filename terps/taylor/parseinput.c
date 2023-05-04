@@ -19,7 +19,7 @@
 // Input separated into word strings
 char **InputWordStrings = NULL;
 // The indices of the words in InputWordStrings, 0 if not found
-uint16_t Word[5];
+uint8_t Word[5];
 // The positions in InputWordStrings of the words in Word
 int WordPositions[5];
 // The number of word strings in InputWordStrings
@@ -160,6 +160,8 @@ void LineInput(void)
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
 static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
+int found_extra_command = 0;
+
 int ParseWord(char *p)
 {
     char buf[5];
@@ -197,9 +199,8 @@ int ParseWord(char *p)
         }
     }
 
-    int result = ParseExtraCommand(p);
-    if (result) {
-        return EXTRA_COMMAND;
+    if (ParseExtraCommand(p)) {
+        found_extra_command = 1;
     }
     return 0;
 }
@@ -248,6 +249,8 @@ static int FindNextCommandDelimiter(void)
 void Parser(void)
 {
     int i;
+
+    found_extra_command = 0;
 
     /* Is there input remaining to be analyzed? */
     if (!FindNextCommandDelimiter()) {

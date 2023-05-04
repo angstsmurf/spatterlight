@@ -15,6 +15,7 @@
 
 extern int StopTime;
 extern int JustStarted;
+int just_undid = 0;
 
 extern uint8_t Flag[];
 extern uint8_t ObjectLoc[];
@@ -58,6 +59,10 @@ void RestoreState(struct SavedState *state)
 
 void SaveUndo(void)
 {
+    if (just_undid) {
+        just_undid = 0;
+        return;
+    }
     if (last_undo == NULL) {
         last_undo = SaveCurrentState();
         oldest_undo = last_undo;
@@ -82,15 +87,16 @@ void SaveUndo(void)
     }
 }
 
-void RestoreUndo(int game)
+void RestoreUndo(int from_player)
 {
-    StopTime = 2;
     if (JustStarted) {
         Display(Bottom, "You can't undo on first turn\n");
+        StopTime = 2;
         return;
     }
     if (last_undo == NULL || last_undo->previousState == NULL) {
         Display(Bottom, "No undo states remaining\n");
+        StopTime = 2;
         return;
     }
     struct SavedState *current = last_undo;
@@ -98,8 +104,10 @@ void RestoreUndo(int game)
     if (last_undo->previousState == NULL)
         oldest_undo = last_undo;
     RestoreState(last_undo);
-    if (game)
+    if (from_player) {
         Display(Bottom, "Move undone.\n");
+        just_undid = 1;
+    }
     free(current);
     number_of_undos--;
 }
