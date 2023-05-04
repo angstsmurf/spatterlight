@@ -97,7 +97,7 @@ strid_t room_description_stream = NULL;
 
 extern int AnimationRunning;
 
-int DeferredGoto = 0;
+static int DeferredGoto = 0;
 
 #ifdef DEBUG
 

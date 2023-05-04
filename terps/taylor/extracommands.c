@@ -108,6 +108,8 @@ extern int ShouldRestart;
 extern int StopTime;
 extern int Redraw;
 extern int WordsInInput;
+extern int PrintedOK;
+extern uint16_t Word[];
 
 extern winid_t Bottom;
 
@@ -189,9 +191,6 @@ int ParseExtraCommand(char *p)
     }
     return NO_COMMAND;
 }
-
-extern int Word[];
-extern int PrintedOK;
 
 int TryExtraCommand(void)
 {
