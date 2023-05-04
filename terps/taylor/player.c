@@ -1964,6 +1964,7 @@ static unsigned char *NextLine(unsigned char *p)
 static void DrawExtraQP3Images(void)
 {
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
+        // Patch broken cannon image
         DrawSagaPictureNumber(46);
         buffer[32 * 8 + 25][8] &= 191;
         buffer[32 * 9 + 25][8] &= 191;
