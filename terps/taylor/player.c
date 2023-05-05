@@ -1187,7 +1187,6 @@ static void ListExits(int caps)
 
 static void RunStatusTable(void);
 static void DrawExtraQP3Images(void);
-extern uint8_t buffer[768][9];
 
 void Look(void)
 {
@@ -1961,17 +1960,13 @@ static unsigned char *NextLine(unsigned char *p)
     return p;
 }
 
+/* Draw two images that are unused in the original game */
 static void DrawExtraQP3Images(void)
 {
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
-        // Patch broken cannon image
-        DrawSagaPictureNumber(46);
-        buffer[32 * 8 + 25][8] &= 191;
-        buffer[32 * 9 + 25][8] &= 191;
-        buffer[32 * 9 + 26][8] &= 191;
-        buffer[32 * 9 + 27][8] &= 191;
-        DrawSagaPictureFromBuffer();
+        PatchAndDrawQP3Cannon();
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
+        /* Draw close-up of Thing */
         DrawSagaPictureNumber(53);
         DrawSagaPictureFromBuffer();
     }

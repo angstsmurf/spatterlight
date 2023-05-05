@@ -35,7 +35,7 @@ static int KaylethAnimationIndex = 0;
 static int AnimationStage = 0;
 static int ClickShelfStage = 0;
 
-extern uint8_t buffer[384][9];
+extern uint8_t screenbuf[768][9];
 extern Image *images;
 extern int draw_to_buffer;
 
@@ -53,35 +53,35 @@ static void AnimateStars(void)
             /* because the bytes are flipped in our implementation */
             /* for some reason */
             for (int col = 15; col > 5; col--) {
-                uint8_t attribute = buffer[col + line * 32][8];
+                uint8_t attribute = screenbuf[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 for (int bit = 0; bit < 8; bit++) {
-                    if ((buffer[col + line * 32][pixrow] & (1 << bit)) != 0) {
+                    if ((screenbuf[col + line * 32][pixrow] & (1 << bit)) != 0) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_right_with_carry(&(buffer[col + line * 32][pixrow]), carry);
+                carry = rotate_right_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
             }
             if (carry) {
-                buffer[line * 32 + 15][pixrow] = buffer[line * 32 + 15][pixrow] | 128;
+                screenbuf[line * 32 + 15][pixrow] = screenbuf[line * 32 + 15][pixrow] | 128;
             }
             carry = 0;
             /* Then the right half */
             for (int col = 16; col < 26; col++) {
-                uint8_t attribute = buffer[col + line * 32][8];
+                uint8_t attribute = screenbuf[col + line * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((buffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                    if ((screenbuf[col + line * 32][pixrow] & (1 << pix)) != 0) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
-                carry = rotate_left_with_carry(&(buffer[col + line * 32][pixrow]), carry);
+                carry = rotate_left_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
             }
-            buffer[line * 32 + 16][pixrow] = buffer[line * 32 + 16][pixrow] | carry;
+            screenbuf[line * 32 + 16][pixrow] = screenbuf[line * 32 + 16][pixrow] | carry;
         }
     }
 }
@@ -93,7 +93,7 @@ static void AnimateForcefield(void)
     RectFill(104, 16, 48, 39, 0, 0);
     /* We go line by line and pixel row by pixel row */
 
-    uint8_t colour = buffer[2 * 32 + 13][8];
+    uint8_t colour = screenbuf[2 * 32 + 13][8];
     glui32 ink = Remap(colour & 0x7);
 
     for (int line = 2; line < 7; line++) {
@@ -101,7 +101,7 @@ static void AnimateForcefield(void)
             carry = 0;
             for (int col = 13; col < 19; col++) {
                 for (int pix = 0; pix < 8; pix++) {
-                    if ((buffer[col + line * 32][pixrow] & (1 << pix)) != 0) {
+                    if ((screenbuf[col + line * 32][pixrow] & (1 << pix)) != 0) {
                         PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
                     }
                 }
@@ -109,9 +109,9 @@ static void AnimateForcefield(void)
                 /* byte by byte, but we actually rotate to the left */
                 /* because the bytes are flipped in our implementation */
                 /* for some reason */
-                carry = rotate_left_with_carry(&(buffer[col + line * 32][pixrow]), carry);
+                carry = rotate_left_with_carry(&(screenbuf[col + line * 32][pixrow]), carry);
             }
-            buffer[line * 32 + 13][pixrow] = buffer[line * 32 + 13][pixrow] | carry;
+            screenbuf[line * 32 + 13][pixrow] = screenbuf[line * 32 + 13][pixrow] | carry;
         }
     }
 }
@@ -122,7 +122,7 @@ static void FillCell(int cell, glui32 ink)
     int starty = (cell / 32) * 8;
     for (int pixrow = 0; pixrow < 8; pixrow++) {
         for (int pix = 0; pix < 8; pix++) {
-            if ((buffer[cell][pixrow] & (1 << pix)) == 0) {
+            if ((screenbuf[cell][pixrow] & (1 << pix)) == 0) {
                 PutPixel(startx + pix, starty + pixrow, ink);
             }
         }
@@ -178,21 +178,21 @@ static void AnimateKaylethClickShelves(int stage)
                 int ypos = line * 8 + i + stage;
                 if (ypos > 79)
                     ypos = ypos - 80;
-                uint8_t attribute = buffer[col + (ypos / 8) * 32][8];
+                uint8_t attribute = screenbuf[col + (ypos / 8) * 32][8];
                 glui32 ink = attribute & 7;
                 ink += 8 * ((attribute & 64) == 64);
-                attribute = buffer[col + ((79 - ypos) / 8) * 32][8];
+                attribute = screenbuf[col + ((79 - ypos) / 8) * 32][8];
                 glui32 ink2 = attribute & 7;
                 ink2 += 8 * ((attribute & 64) == 64);
                 ink = Remap(ink);
                 ink2 = Remap(ink2);
                 for (int j = 0; j < 8; j++)
                     if (col > 15) {
-                        if ((buffer[col + line * 32][i] & (1 << j)) != 0) {
+                        if ((screenbuf[col + line * 32][i] & (1 << j)) != 0) {
                             PutPixel(col * 8 + j, ypos, ink);
                         }
                     } else {
-                        if ((buffer[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
+                        if ((screenbuf[col + (9 - line) * 32][7 - i] & (1 << j)) != 0) {
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
                     }
