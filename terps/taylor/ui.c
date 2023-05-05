@@ -160,7 +160,7 @@ static void WordFlush(winid_t win)
 }
 
 extern strid_t room_description_stream;
-extern char *roomdescbuf;
+char *roomdescbuf = NULL;
 
 void TopWindow(void)
 {
@@ -263,10 +263,6 @@ static void FlushRoomDescription(void)
         roomdescbuf = NULL;
     }
 }
-
-char *roomdescbuf = NULL;
-
-extern int PendSpace;
 
 void BottomWindow(void)
 {

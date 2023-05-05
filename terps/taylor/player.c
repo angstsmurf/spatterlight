@@ -56,16 +56,6 @@ static int ActionsExecuted;
 int PrintedOK;
 int Redraw = 0;
 
-#define Location (Flag[0])
-#define OtherGuyLoc (Flag[1])
-#define OtherGuyInv (Flag[3])
-#define TurnsLow (Flag[26])
-#define TurnsHigh (Flag[27])
-#define ThingAsphyx (Flag[47])
-#define TorchAsphyx (Flag[48])
-#define DrawImages (Flag[52])
-#define Q3SwitchedWatch (Flag[126])
-
 int FirstAfterInput = 0;
 
 int StopTime = 0;
@@ -808,10 +798,10 @@ static int CarryItem(void)
     if (Version == QUESTPROBE3_TYPE)
         return 1;
     /* Flag 5: items carried, flag 4: max carried */
-    if (Flag[5] == Flag[4] && CurrentGame != BLIZZARD_PASS)
+    if (ItemsCarried == MaxCarried && CurrentGame != BLIZZARD_PASS)
         return 0;
-    if (Flag[5] < 255)
-        Flag[5]++;
+    if (ItemsCarried < 255)
+        ItemsCarried++;
     return 1;
 }
 
@@ -824,8 +814,8 @@ static int DarkFlag(void)
 
 static void DropItem(void)
 {
-    if (Version != QUESTPROBE3_TYPE && Flag[5] > 0)
-        Flag[5]--;
+    if (Version != QUESTPROBE3_TYPE && ItemsCarried > 0)
+        ItemsCarried--;
 }
 
 static void Put(unsigned char obj, unsigned char loc)
@@ -871,7 +861,7 @@ static void NewGame(void)
         Flag[2] = 254;
         Flag[3] = 253;
     }
-    Location = 0;
+    MyLoc = 0;
     memcpy(ObjectLoc, FileImage + ObjLocBase, NumObjects());
     if (WaitFlag() != -1)
         Flag[WaitFlag()] = 0;
@@ -957,7 +947,7 @@ static int LoadPrompt(void)
     if (!YesOrNo()) {
         glk_window_clear(Bottom);
         if (DeferredGoto == 1) {
-            Location = 1;
+            MyLoc = 1;
             DeferredGoto = 0;
         }
         return 0;
@@ -1115,7 +1105,7 @@ static void DropAll(int loud)
     if (loud & !found) {
         OutString("You have nothing to drop. ");
     }
-    Flag[5] = 0;
+    ItemsCarried = 0;
 }
 
 static int GetObject(unsigned char obj)
@@ -1305,10 +1295,10 @@ static void Goto(unsigned char loc)
 {
     if (BaseGame == QUESTPROBE3 && !PrintedOK)
         Okay();
-    if (BaseGame == HEMAN && Location == 0 && loc == 1) {
+    if (BaseGame == HEMAN && MyLoc == 0 && loc == 1) {
         DeferredGoto = 1;
     } else {
-        Location = loc;
+        MyLoc = loc;
         Redraw = 1;
     }
 }
@@ -1906,7 +1896,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
         }
         case SWITCHCHARACTER:
             /* Go to the location of the other guy */
-            Location = ObjectLoc[arg1];
+            MyLoc = ObjectLoc[arg1];
             /* Pick him up, so that you don't see yourself */
             GetObject(arg1);
             Redraw = 1;
