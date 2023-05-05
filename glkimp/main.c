@@ -89,7 +89,6 @@ strid_t glkunix_stream_open_pathname(char *pathname, glui32 textmode,
                                      glui32 rock)
 {
     if (!inittime)
-        //return 0;
         gli_strict_warning("glkunix_stream_open_pathname called outside glkunix_startup_code");
     return gli_stream_open_pathname(pathname, FALSE, (textmode != 0), rock);
 }
