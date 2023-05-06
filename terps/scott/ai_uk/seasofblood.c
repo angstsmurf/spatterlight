@@ -619,9 +619,9 @@ int roll_dice(int strike, int stamina, int boatflag)
                 our_turn = 1;
                 glk_cancel_char_event(Top);
                 glk_stream_set_current(glk_window_get_stream(Bottom));
+                SOBPrint(Bottom, "\n");
                 glk_window_clear(Bottom);
-                glk_put_string("Your throw\n");
-                glk_put_string("<ENTER> to stop dice");
+                glk_put_string("Your throw\n<ENTER> to stop dice");
                 if (!boatflag)
                     glk_put_string("    <X> to run");
                 glk_request_char_event(Top);
@@ -653,6 +653,8 @@ int roll_dice(int strike, int stamina, int boatflag)
                 update_dice(our_turn, left_dice, right_dice);
                 our_result = left_dice + right_dice + 9;
                 print_sum(our_turn, our_result, 9);
+                SOBPrint(Bottom, "\nYour result: %d + %d + %d = %d\n", left_dice,
+                         right_dice, strike, our_result);
                 if (their_result > our_result) {
                     return LOSS;
                 } else if (our_result > their_result) {
@@ -712,7 +714,7 @@ void battle_loop(int strike, int stamina, int boatflag)
             Counters[3] -= 2;
 
             if (Counters[3] <= 0) {
-                SOBPrint(Bottom, "%s\n",
+                SOBPrint(Bottom, "%s",
                     boatflag ? "THE BANSHEE HAS BEEN SUNK!"
                              : "YOU HAVE BEEN KILLED!");
                 Counters[3] = 0;
@@ -724,7 +726,7 @@ void battle_loop(int strike, int stamina, int boatflag)
         } else if (result == VICTORY) {
             stamina -= 2;
             if (stamina <= 0) {
-                glk_put_string("YOU HAVE WON!\n");
+                glk_put_string("YOU HAVE WON!");
                 BitFlags &= ~(1 << 6);
                 stamina = 0;
             } else {
@@ -739,8 +741,7 @@ void battle_loop(int strike, int stamina, int boatflag)
         }
 
         if (Counters[3] > 0 && stamina > 0) {
-            glk_put_string("\n\n");
-            glk_put_string("<ENTER> to roll dice");
+            glk_put_string("\n\n<ENTER> to roll dice");
             if (!boatflag)
                 glk_put_string("    <X> to run");
         }
@@ -749,7 +750,7 @@ void battle_loop(int strike, int stamina, int boatflag)
         update_result(1, 9, Counters[3], boatflag);
 
         BattleHitEnter(strike, stamina, boatflag);
-        SOBPrint(Bottom, "\n");
+        SOBPrint(Bottom, "\n\n");
         glk_window_clear(Bottom);
 
     } while (stamina > 0 && Counters[3] > 0);
