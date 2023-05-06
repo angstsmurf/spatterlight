@@ -135,6 +135,7 @@ void AdventurelandAction(int p)
     DrawImage(image);
     Output("\n");
     Output(sys[HIT_ENTER]);
+    showing_closeup = 1;
     HitEnter();
     return;
 }
