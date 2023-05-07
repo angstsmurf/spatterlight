@@ -1744,8 +1744,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
         case GOTO:
             /*
                  He-Man moves the the player to a special "By the power of Grayskull" room
-                 and then issues an undo to return to the previous room
-                 */
+                 and then issues an undo to return to the previous room.
+            */
             if (BaseGame == HEMAN && arg1 == 83)
                 SaveUndo();
             Goto(arg1);
@@ -2017,7 +2017,8 @@ static void RunCommandTable(void)
 
         /* Match input to table entry as VERB NOUN or NOUN VERB */
         /* 126 is wildcard that matches any word */
-        if (((*p == 126 || *p == Word[0]) && (p[1] == 126 || p[1] == Word[1])) || ((*p == 126 || *p == Word[1]) && (p[1] == 126 || p[1] == Word[0])) ) {
+        if (((*p == 126 || *p == Word[0]) && (p[1] == 126 || p[1] == Word[1])) ||
+            ((*p == 126 || *p == Word[1]) && (p[1] == 126 || p[1] == Word[0]))) {
 #ifdef DEBUG
             PrintWord(p[0]);
             PrintWord(p[1]);
