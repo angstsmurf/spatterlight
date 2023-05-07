@@ -750,7 +750,11 @@ static void PrintNumber(unsigned char n)
 {
     char buf[4];
     char *p = buf;
-    snprintf(buf, sizeof buf, "%d", (int)n);
+    if (n == 0)
+        snprintf(buf, sizeof buf, "00");
+    else
+        snprintf(buf, sizeof buf, "%d", (int)n);
+
     while (*p)
         OutChar(*p++);
 }
