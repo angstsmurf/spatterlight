@@ -1180,7 +1180,7 @@ static void ListExits(int caps)
 }
 
 static void RunStatusTable(void);
-static void DrawExtraQP3Images(void);
+static void QP3DrawExtraImages(void);
 
 void Look(void)
 {
@@ -1286,7 +1286,7 @@ void Look(void)
             StopTime = 0;
             DrawImages = 255;
             RunStatusTable();
-            DrawExtraQP3Images();
+            QP3DrawExtraImages();
             StopTime = tempstop;
         } else {
             glk_window_clear(Graphics);
@@ -1955,7 +1955,7 @@ static unsigned char *NextLine(unsigned char *p)
 }
 
 /* Draw two images that are unused in the original game */
-static void DrawExtraQP3Images(void)
+static void QP3DrawExtraImages(void)
 {
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
         PatchAndDrawQP3Cannon();
