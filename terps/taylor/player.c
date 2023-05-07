@@ -2157,10 +2157,16 @@ static void RunOneInput(void)
 
     Redraw = 0;
 
-    if (Version == QUESTPROBE3_TYPE && Flag[WaitFlag()] > 1)
+    if (WaitFlag() != -1 && Flag[WaitFlag()] > 1)
         Flag[WaitFlag()]++;
 
     do {
+        if (WaitFlag() != -1 && Flag[WaitFlag()]) {
+            Flag[WaitFlag()]--;
+            if (LastChar != '\n')
+                OutChar('\n');
+        }
+
         if (Version == QUESTPROBE3_TYPE) {
             DrawImages = 0;
             RunStatusTable();
@@ -2168,7 +2174,7 @@ static void RunOneInput(void)
             int tempstop = StopTime;
             StopTime = 0;
             RunStatusTable();
-            DrawExtraQP3Images();
+            QP3DrawExtraImages();
             StopTime = tempstop;
         } else {
             RunStatusTable();
@@ -2178,11 +2184,7 @@ static void RunOneInput(void)
             Look();
         }
         Redraw = 0;
-        if (WaitFlag() != -1 && Flag[WaitFlag()]) {
-            Flag[WaitFlag()]--;
-            if (LastChar != '\n')
-                OutChar('\n');
-        }
+
     } while (WaitFlag() != -1 && Flag[WaitFlag()] > 0);
     if (AnimationRunning)
         glk_request_timer_events(AnimationRunning);
