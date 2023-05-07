@@ -1276,7 +1276,7 @@ void Look(void)
 
     BottomWindow();
 
-    if (MyLoc != 0 && !NoGraphics) {
+    if (MyLoc != 0 && !NoGraphics && gli_enable_graphics) {
         if (Resizing) {
             DrawSagaPictureFromBuffer();
             return;
@@ -1909,6 +1909,8 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             *done = 1;
             break;
         case IMAGE:
+            if (!gli_enable_graphics)
+                break;
             if (MyLoc == 3 || Flag[DarkFlag()]) {
                 DrawBlack();
                 break;
@@ -1957,6 +1959,8 @@ static unsigned char *NextLine(unsigned char *p)
 /* Draw two images that are unused in the original game */
 static void QP3DrawExtraImages(void)
 {
+    if (!gli_enable_graphics)
+        return;
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
         PatchAndDrawQP3Cannon();
     } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
