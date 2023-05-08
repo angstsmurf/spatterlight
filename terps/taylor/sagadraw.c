@@ -1140,6 +1140,10 @@ void DrawTaylor(int loc)
             flip_area_vertically(*(ptr + 1), *(ptr + 2), *(ptr + 4), *(ptr + 3));
             ptr = ptr + 4;
             break;
+        case 0xeb:
+        case 0xea:
+                fprintf(stderr, "Unimplemented draw instruction 0x%02x!\n", *ptr);
+                break;
         case 0xe9:
             // fprintf(stderr, "0xe9: (77ac) replace paper and ink %d for colour %d?\n",  *(ptr + 1), *(ptr + 2));
             replace_paper_and_ink(*(ptr + 1), *(ptr + 2));

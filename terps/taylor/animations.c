@@ -224,9 +224,17 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
         int Stage = *ptr;
         ptr++;
         uint8_t *LastInstruction = ptr;
-        if (ObjectLoc[*ptr] != MyLoc && *ptr != 0 && *ptr != 122) {
+
+        int obj0loc = ObjectLoc[0];
+        ObjectLoc[0] = MyLoc;
+        if (Flag[10] > 1)
+            ObjectLoc[122] = MyLoc;
+
+        if (ObjectLoc[*ptr] != MyLoc) {
             //Returning because location of object *ptr is not current location
-            return 0;
+            ObjectLoc[0] = obj0loc;
+            ObjectLoc[122] = DESTROYED;
+            return 1;
         }
         ptr++;
         // Reset animation if we are in a new room
@@ -240,13 +248,21 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 
         // This is needed to make conveyor belt animation 2 smooth
         // (the one you see after getting up)
-        // No idea why, this code is still largely a mystery
-        if (KaylethAnimationIndex == 2 && AnimationRate == 50)
-            AnimationRate = 10;
+        if (KaylethAnimationIndex == 2 && AnimationRate == 50) {
+            int counter = *(ptr + 1) + 1;
+            if (counter == 20) {
+                DrawTaylor(114);
+                DrawSagaPictureFromBuffer();
+            } else if (counter == 40) {
+                DrawTaylor(109);
+                DrawSagaPictureFromBuffer();
+            }
+        }
 
         if (AnimationRate != 0xff) {
             ptr++;
             (*ptr)++;
+            int result = 1;
             if (AnimationRate == *ptr) {
                 *ptr = 0;
                 // Draw "room image" *(ptr + 1) (Actually an animation frame)
@@ -257,7 +273,9 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
                 (*ptr) += 3;
                 return result;
             }
-            return 1;
+            ObjectLoc[0] = obj0loc;
+            ObjectLoc[122] = DESTROYED;
+            return result;
         } else {
             ptr = LastInstruction + 1;
             *ptr = Stage;
