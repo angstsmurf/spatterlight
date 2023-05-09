@@ -89,14 +89,14 @@ void SaveUndo(void)
 
 void RestoreUndo(int from_player)
 {
+    just_undid = 1;
+
     if (JustStarted) {
         Display(Bottom, "You can't undo on first turn\n");
-        just_undid = 1;
         return;
     }
     if (last_undo == NULL || last_undo->previousState == NULL) {
         Display(Bottom, "No undo states remaining\n");
-        just_undid = 1;
         return;
     }
     struct SavedState *current = last_undo;
@@ -106,7 +106,8 @@ void RestoreUndo(int from_player)
     RestoreState(last_undo);
     if (from_player) {
         Display(Bottom, "Move undone.\n");
-        just_undid = 1;
+    } else {
+        just_undid = 0;
     }
     free(current);
     number_of_undos--;

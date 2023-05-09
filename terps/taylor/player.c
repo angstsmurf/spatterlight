@@ -935,6 +935,7 @@ int LoadGame(void)
         glk_window_clear(Bottom);
         Look();
         free(state);
+        InKaylethPreview = 0;
     }
     glk_stream_close(stream, NULL);
     glk_fileref_destroy(fileref);
