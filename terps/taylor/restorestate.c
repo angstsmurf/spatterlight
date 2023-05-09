@@ -91,12 +91,12 @@ void RestoreUndo(int from_player)
 {
     if (JustStarted) {
         Display(Bottom, "You can't undo on first turn\n");
-        StopTime = 2;
+        just_undid = 1;
         return;
     }
     if (last_undo == NULL || last_undo->previousState == NULL) {
         Display(Bottom, "No undo states remaining\n");
-        StopTime = 2;
+        just_undid = 1;
         return;
     }
     struct SavedState *current = last_undo;

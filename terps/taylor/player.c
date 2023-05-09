@@ -90,7 +90,7 @@ strid_t room_description_stream = NULL;
 extern int AnimationRunning;
 
 static int DeferredGoto = 0;
-static int InKaylethPreview = 0;
+int InKaylethPreview = 0;
 
 #ifdef DEBUG
 

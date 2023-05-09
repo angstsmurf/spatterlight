@@ -109,6 +109,7 @@ extern int StopTime;
 extern int Redraw;
 extern int WordsInInput;
 extern int PrintedOK;
+extern int InKaylethPreview;
 extern uint8_t Word[];
 
 extern winid_t Bottom;
@@ -196,6 +197,8 @@ extern int FoundExtraCommand;
 
 int TryExtraCommand(void)
 {
+    if (InKaylethPreview)
+        return 0;
     FoundExtraCommand = 0;
     int verb_position = WordPositions[0];
     int verb = ParseExtraCommand(InputWordStrings[verb_position]);
