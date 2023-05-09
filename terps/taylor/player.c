@@ -2518,6 +2518,8 @@ static void LookForSecondTOTGame(void)
     EndOfData = FileImage + FileImageLen;
 }
 
+void LoadKaylethAnimationData(void);
+
 void glk_main(void)
 {
     if (DetectC64(&FileImage, &FileImageLen) != UNKNOWN_GAME) {
@@ -2584,8 +2586,10 @@ void glk_main(void)
         Look();
     }
 
-    if (BaseGame == KAYLETH)
+    if (BaseGame == KAYLETH) {
+        LoadKaylethAnimationData();
         InKaylethPreview = 1;
+    }
 
     while (1) {
         if (ShouldRestart) {

@@ -201,87 +201,118 @@ static void AnimateKaylethClickShelves(int stage)
     }
 }
 
+struct KaylethAnimationFrame {
+    int counter_to_draw_at;
+    int counter;
+    int image;
+};
+
+struct KaylethAnimation {
+    int start_frame;
+    int required_object;
+    int number_of_frames;
+    int current_frame;
+    struct KaylethAnimationFrame *frames;
+};
+
+struct KaylethAnimation **KaylethAnimations = NULL;
+
+// This is really the number of rooms. We use NULL for rooms without animation.
+#define NUMBER_OF_KAYLETH_ANIMATIONS 92
+
+void LoadKaylethAnimationData(void)
+{
+    KaylethAnimations = MemAlloc(sizeof(struct KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
+    KaylethAnimations[0] = NULL;
+    uint8_t *ptr = &FileImage[AnimationData];
+    int counter = 0;
+    while (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
+        while (*ptr == 0xff) {
+            // No animation for this room
+            KaylethAnimations[counter] = NULL;
+            counter++;
+            ptr++;
+        }
+        if (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
+            struct KaylethAnimation *anim = MemAlloc(sizeof(struct KaylethAnimation));
+            anim->start_frame = *ptr / 3;
+            ptr++;
+            anim->current_frame = 0;
+            anim->required_object = *ptr;
+            ptr += 2; // Skipping skip byte, always zero initially
+            anim->number_of_frames = 0;
+            for (int i = 0; ptr[i] != 0xff; i += 3) {
+                anim->number_of_frames++;
+            }
+            anim->frames = MemAlloc(anim->number_of_frames * sizeof(struct KaylethAnimationFrame));
+            for (int i = 0; i < anim->number_of_frames; i++) {
+                anim->frames[i].counter_to_draw_at = *ptr;
+                anim->frames[i].counter = 0;
+                ptr += 2; // Skipping counter byte, always zero initially
+                anim->frames[i].image = *ptr++;
+            }
+
+            // Hack Azap chamber animations to look more like the original
+            if (anim->frames[0].image == 118) {
+                anim->frames[1].counter_to_draw_at = 5;
+                anim->frames[3].counter_to_draw_at = 5;
+                anim->frames[4].counter_to_draw_at = 8;
+            }
+
+            KaylethAnimations[counter++] = anim;
+
+            ptr++;
+        }
+    }
+
+    // Hack assembly line animation 2 to look more like the original
+    KaylethAnimations[2]->frames[0].counter_to_draw_at = 10;
+    KaylethAnimations[2]->frames[1].counter_to_draw_at = 20;
+    KaylethAnimations[2]->frames[2].counter_to_draw_at = 20;
+}
+
 static int UpdateKaylethAnimationFrames(void) // Draw animation frame
 {
-    if (MyLoc == 0) {
+    if (KaylethAnimations[MyLoc] == NULL) {
         return 0;
     }
 
-    uint8_t *ptr = &FileImage[AnimationData];
-    int counter = 0;
-    // Jump to animation index equal to location index
-    // Animations are delimited by 0xff
-    do {
-        if (*ptr == 0xff)
-            counter++;
-        ptr++;
-    } while (counter < MyLoc);
+    // Temporarily set object 0 to this location
+    int obj0loc = ObjectLoc[0];
+    ObjectLoc[0] = MyLoc;
+    // And object 122 if the destroyer droid has caught us
+    if (Flag[10] > 1)
+        ObjectLoc[122] = MyLoc;
 
-    while (1) {
-        if (*ptr == 0xff) {
-            return 0;
-        }
-        int Stage = *ptr;
-        ptr++;
-        uint8_t *LastInstruction = ptr;
+    struct KaylethAnimation *anim = KaylethAnimations[MyLoc];
 
-        int obj0loc = ObjectLoc[0];
-        ObjectLoc[0] = MyLoc;
-        if (Flag[10] > 1)
-            ObjectLoc[122] = MyLoc;
+    // Reset animation if we are in a new room
+    if (KaylethAnimationIndex != MyLoc) {
+        KaylethAnimationIndex = MyLoc;
+        anim->current_frame = 0;
+    }
 
-        if (ObjectLoc[*ptr] != MyLoc) {
-            //Returning because location of object *ptr is not current location
-            ObjectLoc[0] = obj0loc;
-            ObjectLoc[122] = DESTROYED;
-            return 1;
-        }
-        ptr++;
-        // Reset animation if we are in a new room
-        if (KaylethAnimationIndex != MyLoc) {
-            KaylethAnimationIndex = MyLoc;
-            *ptr = 0;
-        }
+    if (ObjectLoc[anim->required_object] == MyLoc) {
 
-        ptr += *ptr + 1;
-        int AnimationRate = *ptr;
+        struct KaylethAnimationFrame *frame = &anim->frames[anim->current_frame];
 
-        // This is needed to make conveyor belt animation 2 smooth
-        // (the one you see after getting up)
-        if (KaylethAnimationIndex == 2 && AnimationRate == 50) {
-            int counter = *(ptr + 1) + 1;
-            if (counter == 20) {
-                DrawTaylor(114);
-                DrawSagaPictureFromBuffer();
-            } else if (counter == 40) {
-                DrawTaylor(109);
-                DrawSagaPictureFromBuffer();
+        if (frame->counter >= frame->counter_to_draw_at) {
+            DrawTaylor(frame->image);
+            DrawSagaPictureFromBuffer();
+            anim->current_frame++;
+            frame->counter = 0;
+            if (anim->current_frame >= anim->number_of_frames) {
+                anim->current_frame = anim->start_frame;
             }
-        }
-
-        if (AnimationRate != 0xff) {
-            ptr++;
-            (*ptr)++;
-            int result = 1;
-            if (AnimationRate == *ptr) {
-                *ptr = 0;
-                // Draw "room image" *(ptr + 1) (Actually an animation frame)
-                int result = *(ptr + 1);
-                DrawTaylor(result);
-                DrawSagaPictureFromBuffer();
-                ptr = LastInstruction + 1;
-                (*ptr) += 3;
-                return result;
-            }
-            ObjectLoc[0] = obj0loc;
-            ObjectLoc[122] = DESTROYED;
-            return result;
         } else {
-            ptr = LastInstruction + 1;
-            *ptr = Stage;
-            ptr -= 2;
+            frame->counter++;
         }
     }
+
+    // Reset the temporarily moved objects
+    ObjectLoc[0] = obj0loc;
+    ObjectLoc[122] = DESTROYED;
+    return 1;
 }
 
 void UpdateKaylethAnimations(void)
@@ -388,11 +419,8 @@ void StartAnimations(void)
             speed = 20;
             KaylethAnimationIndex = 0;
         }
-        if (ObjectLoc[0] == MyLoc) { // Azap chamber
-            if (CurrentGame == KAYLETH_64)
-                speed = 30;
-            else
-                speed = 13;
+        if (ObjectLoc[0] == MyLoc && CurrentGame == KAYLETH_64) { // Azap chamber
+            speed = 30;
         }
         switch (MyLoc) {
         case 1:
@@ -407,14 +435,21 @@ void StartAnimations(void)
             else
                 speed = 40;
             break;
-        case 53: // Twin peril forest
-            speed = 350;
-            break;
-        case 56: // Citadel of Zenron
-            speed = 40;
+        case 32: // Videodrome
+            speed = 50;
             break;
         case 36: // Guard dome
             speed = 12;
+            break;
+        case 52:
+        case 53: // Twin peril forest
+            if (ObjectLoc[30] == MyLoc) {
+                speed = 150;
+                UpdateKaylethAnimationFrames();
+            }
+            break;
+        case 56: // Citadel of Zenron
+            speed = 40;
             break;
         default:
             break;
