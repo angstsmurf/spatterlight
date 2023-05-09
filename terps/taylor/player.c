@@ -1276,7 +1276,7 @@ void Look(void)
 
     BottomWindow();
 
-    if (MyLoc != 0 && !NoGraphics && gli_enable_graphics) {
+    if (MyLoc != 0 && !NoGraphics && TAYLOR_GRAPHICS_ENABLED && Graphics) {
         if (Resizing) {
             DrawSagaPictureFromBuffer();
             return;
@@ -1909,7 +1909,7 @@ static void ExecuteLineCode(unsigned char *p, int *done)
             *done = 1;
             break;
         case IMAGE:
-            if (!gli_enable_graphics)
+            if (!TAYLOR_GRAPHICS_ENABLED)
                 break;
             if (MyLoc == 3 || Flag[DarkFlag()]) {
                 DrawBlack();
@@ -1959,7 +1959,7 @@ static unsigned char *NextLine(unsigned char *p)
 /* Draw two images that are unused in the original game */
 static void QP3DrawExtraImages(void)
 {
-    if (!gli_enable_graphics)
+    if (!TAYLOR_GRAPHICS_ENABLED)
         return;
     if (MyLoc == 34 && ObjectLoc[29] == 34) {
         PatchAndDrawQP3Cannon();
@@ -2072,14 +2072,13 @@ static int IsDir(unsigned char word)
         return (word <= 10);
 }
 
-extern int found_extra_command;
+extern int FoundExtraCommand;
 
 static void RunOneInput(void)
 {
     PrintedOK = 0;
 
-    if (found_extra_command) {
-        found_extra_command = 0;
+    if (FoundExtraCommand) {
         if (TryExtraCommand()) {
             if (Redraw)
                 Look();

@@ -192,11 +192,11 @@ int ParseExtraCommand(char *p)
     return NO_COMMAND;
 }
 
-extern int found_extra_command;
+extern int FoundExtraCommand;
 
 int TryExtraCommand(void)
 {
-    found_extra_command = 0;
+    FoundExtraCommand = 0;
     int verb_position = WordPositions[0];
     int verb = ParseExtraCommand(InputWordStrings[verb_position]);
     int noun = NO_COMMAND;

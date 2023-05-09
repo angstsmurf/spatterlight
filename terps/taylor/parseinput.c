@@ -27,6 +27,8 @@ int WordsInInput = 0;
 // The index in InputWordStrings of the next command
 int WordIndex = 0;
 
+int FoundExtraCommand = 0;
+
 void FreeInputWords(void)
 {
     WordIndex = 0;
@@ -160,8 +162,6 @@ void LineInput(void)
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
 static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
-int found_extra_command = 0;
-
 int ParseWord(char *p)
 {
     char buf[5];
@@ -200,7 +200,7 @@ int ParseWord(char *p)
     }
 
     if (ParseExtraCommand(p)) {
-        found_extra_command = 1;
+        FoundExtraCommand = 1;
     }
     return 0;
 }
@@ -250,7 +250,7 @@ void Parser(void)
 {
     int i;
 
-    found_extra_command = 0;
+    FoundExtraCommand = 0;
 
     /* Is there input remaining to be analyzed? */
     if (!FindNextCommandDelimiter()) {

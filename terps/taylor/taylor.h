@@ -52,6 +52,12 @@ void PrintFirstTenBytes(size_t offset);
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
+#ifdef SPATTERLIGHT
+#define TAYLOR_GRAPHICS_ENABLED gli_enable_graphics
+#else
+#define TAYLOR_GRAPHICS_ENABLED glk_gestalt(gestalt_Graphics, 0)
+#endif
+
 #define MyLoc (Flag[0])
 #define OtherGuyLoc (Flag[1])
 #define OtherGuyInv (Flag[3])

@@ -336,7 +336,7 @@ void Updates(event_t ev)
         CloseGraphicsWindow();
         Look();
         Resizing = 0;
-    } else if (ev.type == evtype_Timer && gli_enable_graphics) {
+    } else if (ev.type == evtype_Timer && TAYLOR_GRAPHICS_ENABLED) {
         switch (BaseGame) {
         case REBEL_PLANET:
             UpdateRebelAnimations();
