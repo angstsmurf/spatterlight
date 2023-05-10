@@ -36,6 +36,7 @@ glui32 TopHeight = 1; /* Height of top window */
 
 int Options; /* Option flags */
 int LineEvent = 0;
+int GraphicsOff = 0;
 
 winid_t FindGlkWindowWithRock(glui32 rock)
 {
@@ -287,27 +288,34 @@ void UpdateSettings(void)
         Options |= NO_DELAYS;
 
     switch (gli_sa_inventory) {
-    case 0:
-        Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-        break;
-    case 1:
-        Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-        break;
-    case 2:
-        Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-        break;
+        case 0:
+            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+            break;
+        case 1:
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+        case 2:
+            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+            break;
     }
 
     switch (gli_sa_palette) {
-    case 0:
-        Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
-        break;
-    case 1:
-        Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-        break;
-    case 2:
-        Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-        break;
+        case 0:
+            Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
+            break;
+        case 1:
+            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+            break;
+        case 2:
+            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+            break;
+    }
+
+    if (gli_enable_graphics && GraphicsOff) {
+        GraphicsOff = 0;
+        Resizing = 0;
+    } else if (!gli_enable_graphics) {
+        GraphicsOff = 1;
     }
 #endif
     palette_type previous_pal = palchosen;
