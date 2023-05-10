@@ -182,7 +182,7 @@ extern int AutoInventory;
 extern int WeAreBigEndian;
 extern int CurrentCounter;
 extern int RoomSaved[];
-extern uint64_t Options;
+extern int Options;
 extern int StopTime;
 extern int should_look_in_transcript;
 extern int ImageWidth;

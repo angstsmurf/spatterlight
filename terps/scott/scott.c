@@ -91,7 +91,7 @@ int RoomSaved[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
 long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
 int AutoInventory = 0;
-uint64_t Options; /* Option flags set */
+int Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
 int ImageWidth = 255;
@@ -1360,7 +1360,7 @@ static void TranscriptOff(void)
 
 static void FlickerOn(void)
 {
-    if (Options & FLICKER) {
+    if (Options & FLICKER_ON) {
         Output("Flicker is already on");
     } else {
         Output("Flicker is now on");
@@ -1369,17 +1369,17 @@ static void FlickerOn(void)
         Output(" (but delays are off, so it won't have any effect.)");
     else Output(".");
     Output("\n");
-    Options |= FLICKER;
+    Options |= FLICKER_ON;
 }
 
 static void FlickerOff(void)
 {
-    if (Options & FLICKER) {
+    if (Options & FLICKER_ON) {
         Output("Flicker is now off.");
     } else {
         Output("Flicker is already off.");
     }
-    Options &= ~FLICKER;
+    Options &= ~FLICKER_ON;
 }
 
 int PerformExtraCommand(int extra_stop_time)
@@ -1654,7 +1654,7 @@ void GoTo(int loc)
     MyLoc = loc;
     should_look_in_transcript = 1;
     Look();
-    if (oldloc != MyLoc && (Options & FLICKER))
+    if (oldloc != MyLoc && (Options & FLICKER_ON))
         Delay(0.2);
 }
 
@@ -2489,7 +2489,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
                 Options |= NO_DELAYS;
                 break;
             case 'f':
-                Options |= FLICKER;
+                Options |= FLICKER_ON;
                 break;
             }
             argv++;
