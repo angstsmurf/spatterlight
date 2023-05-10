@@ -91,7 +91,7 @@ int RoomSaved[16] = { 0, 0, 0, 0, 0, 0, 0, 0,
 long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
 int AutoInventory = 0;
-int Options; /* Option flags set */
+uint64_t Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
 int ImageWidth = 255;
@@ -1358,6 +1358,30 @@ static void TranscriptOff(void)
     Output(sys[TRANSCRIPT_OFF]);
 }
 
+static void FlickerOn(void)
+{
+    if (Options & FLICKER) {
+        Output("Flicker is already on");
+    } else {
+        Output("Flicker is now on");
+    }
+    if (Options & NO_DELAYS)
+        Output(" (but delays are off, so it won't have any effect.)");
+    else Output(".");
+    Output("\n");
+    Options |= FLICKER;
+}
+
+static void FlickerOff(void)
+{
+    if (Options & FLICKER) {
+        Output("Flicker is now off.");
+    } else {
+        Output("Flicker is already off.");
+    }
+    Options &= ~FLICKER;
+}
+
 int PerformExtraCommand(int extra_stop_time)
 {
     struct Command command = *CurrentCommand;
@@ -1438,6 +1462,15 @@ int PerformExtraCommand(int extra_stop_time)
         break;
     case EXCEPT:
         FreeCommands();
+    case FLICKER:
+        if (noun == ON || noun == 0) {
+            FlickerOn();
+            return 1;
+        } else if (noun == OFF) {
+            FlickerOff();
+            return 1;
+        }
+        break;
     }
 
     StopTime = 0;
@@ -1617,9 +1650,12 @@ void GoTo(int loc)
     debug_print("player location is now room %d (%s).\n", loc,
                 Rooms[loc].Text);
 #endif
+    int oldloc = MyLoc;
     MyLoc = loc;
     should_look_in_transcript = 1;
     Look();
+    if (oldloc != MyLoc && (Options & FLICKER))
+        Delay(0.2);
 }
 
 void GoToStoredLoc(void)
@@ -2451,6 +2487,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
                 break;
             case 'n':
                 Options |= NO_DELAYS;
+                break;
+            case 'f':
+                Options |= FLICKER;
                 break;
             }
             argv++;

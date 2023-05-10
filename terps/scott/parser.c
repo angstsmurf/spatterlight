@@ -73,6 +73,7 @@ const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "#qsave",
     "except",
     "but",
+    "#flicker",
     "", "", "", "", ""
 };
 
@@ -105,6 +106,7 @@ const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "#qsave",
     "ausser",
     "bis",
+    "#flicker",
     "laden",
     "wiederherstellen",
     "transkript",
@@ -141,6 +143,7 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "#qsave",
     "excepto",
     "menos",
+    "#flicker",
     "reanuda",
     "cargar",
     "transcripcion",
@@ -152,7 +155,7 @@ extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
     NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
     RESTORE, SCRIPT, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
     RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE,
-    RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT,
+    RAMSAVE, RAMSAVE, RAMSAVE, EXCEPT, EXCEPT, FLICKER,
     RESTORE, RESTORE, SCRIPT, UNDO, RESTART
 };
 
