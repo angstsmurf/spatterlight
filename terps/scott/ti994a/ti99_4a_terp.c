@@ -268,13 +268,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
             break;
 
         case 221: /* go to room */
-#ifdef DEBUG_ACTIONS
-            debug_print("player location is now room %d (%s).\n", *ptr,
-                Rooms[*ptr].Text);
-#endif
-            MyLoc = *(ptr++);
-            should_look_in_transcript = 1;
-            Look();
+            GoTo(*(ptr++));
             break;
 
         case 222: /* move item p to room 0 */

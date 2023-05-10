@@ -142,6 +142,7 @@ void SaveGame(void);
 void PrintNoun(void);
 int PrintScore(void);
 void MoveItemAToLocOfItemB(int itemA, int itemB);
+void GoTo(int loc);
 void GoToStoredLoc(void);
 void SwapLocAndRoomflag(int index);
 void SwapItemLocations(int itemA, int itemB);

@@ -1604,6 +1604,17 @@ void MoveItemAToLocOfItemB(int itemA, int itemB)
         should_look_in_transcript = 1;
 }
 
+void GoTo(int loc)
+{
+#ifdef DEBUG_ACTIONS
+    debug_print("player location is now room %d (%s).\n", loc,
+                Rooms[loc].Text);
+#endif
+    MyLoc = loc;
+    should_look_in_transcript = 1;
+    Look();
+}
+
 void GoToStoredLoc(void)
 {
 #ifdef DEBUG_ACTIONS
@@ -1935,13 +1946,7 @@ static ActionResultType PerformLine(int ct)
                 should_look_in_transcript = 1;
                 break;
             case 54:
-#ifdef DEBUG_ACTIONS
-                debug_print("player location is now room %d (%s).\n", param[pptr],
-                    Rooms[param[pptr]].Text);
-#endif
-                MyLoc = param[pptr++];
-                should_look_in_transcript = 1;
-                Look();
+                GoTo(param[pptr++]);
                 break;
             case 55:
 #ifdef DEBUG_ACTIONS
