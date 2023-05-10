@@ -107,9 +107,9 @@ void SecretAction(int p)
 void AdventurelandDarkness(void)
 {
     if ((Rooms[MyLoc].Image & 128) == 128)
-        BitFlags |= 1 << DARKBIT;
+        SetDark();
     else
-        BitFlags &= ~(1 << DARKBIT);
+        SetLight();
 }
 
 void AdventurelandAction(int p)

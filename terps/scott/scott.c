@@ -917,6 +917,11 @@ void OutputNumber(int a) { Display(Bottom, "%d", a); }
 #pragma mark Room description
 #endif
 
+static int ItIsDark(void)
+{
+    return ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
+}
+
 void DrawBlack(void)
 {
     glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
@@ -946,7 +951,7 @@ void DrawRoomImage(void)
         AdventurelandDarkness();
     }
 
-    int dark = ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc);
+    int dark = ItIsDark();
 
     if (dark && Graphics != NULL && (Rooms[MyLoc].Image != 255 || Game->type == US_VARIANT)) {
         vector_image_shown = -1;
@@ -1115,7 +1120,7 @@ void Look(void)
         glk_put_char_stream_uni(Transcript, 10);
     }
 
-    if ((BitFlags & (1 << DARKBIT)) && Items[LIGHT_SOURCE].Location != CARRIED && Items[LIGHT_SOURCE].Location != MyLoc) {
+    if (ItIsDark()) {
         WriteToRoomDescriptionStream("%s", sys[TOO_DARK_TO_SEE]);
         FlushRoomDescription(buf);
         return;
@@ -1262,7 +1267,7 @@ static void LoadGame(void)
 
     /* Backward compatibility */
     if (DarkFlag)
-        BitFlags |= (1 << 15);
+        SetBitFlag(15);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
         result = sscanf(buf, "%hd\n", &lo);
@@ -1611,6 +1616,39 @@ void GoToStoredLoc(void)
     should_look_in_transcript = 1;
 }
 
+void SetBitFlag(int bit) {
+#ifdef DEBUG_ACTIONS
+    debug_print("Bitflag %d is set\n", bit);
+#endif
+    BitFlags |= 1 << bit;
+}
+
+void ClearBitFlag(int bit) {
+#ifdef DEBUG_ACTIONS
+    debug_print("Bitflag %d is cleared\n", bit);
+#endif
+    BitFlags &= ~(1 << bit);
+}
+
+static void ChangeDarkness(int dark) {
+    int was_dark = ItIsDark();
+    if (dark) {
+        SetBitFlag(DARKBIT);
+        should_look_in_transcript = (should_look_in_transcript == 1 || was_dark == 0);
+    } else {
+        ClearBitFlag(DARKBIT);
+        should_look_in_transcript = (should_look_in_transcript == 1 || was_dark == 1);
+    }
+}
+
+void SetDark(void) {
+    ChangeDarkness(1);
+}
+
+void SetLight(void) {
+    ChangeDarkness(0);
+}
+
 void SwapLocAndRoomflag(int index)
 {
 #ifdef DEBUG_ACTIONS
@@ -1687,7 +1725,7 @@ void PlayerIsDead(void)
     debug_print("Player is dead\n");
 #endif
     Output(sys[IM_DEAD]);
-    BitFlags &= ~(1 << DARKBIT);
+    SetLight();
     MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
 }
 
@@ -1914,16 +1952,13 @@ static ActionResultType PerformLine(int ct)
                 Items[param[pptr++]].Location = 0;
                 break;
             case 56:
-                BitFlags |= 1 << DARKBIT;
+                SetDark();
                 break;
             case 57:
-                BitFlags &= ~(1 << DARKBIT);
+                SetLight();
                 break;
             case 58:
-#ifdef DEBUG_ACTIONS
-                debug_print("Bitflag %d is set\n", param[pptr]);
-#endif
-                BitFlags |= (1 << param[pptr++]);
+                SetBitFlag(param[pptr++]);
                 break;
             case 59:
 #ifdef DEBUG_ACTIONS
@@ -1933,10 +1968,7 @@ static ActionResultType PerformLine(int ct)
                 Items[param[pptr++]].Location = 0;
                 break;
             case 60:
-#ifdef DEBUG_ACTIONS
-                debug_print("BitFlag %d is cleared\n", param[pptr]);
-#endif
-                BitFlags &= ~(1 << param[pptr++]);
+                ClearBitFlag(param[pptr++]);
                 break;
             case 61:
                 PlayerIsDead();
@@ -1969,15 +2001,15 @@ static ActionResultType PerformLine(int ct)
                 StopTime = 2;
                 break;
             case 67:
-                BitFlags |= (1 << 0);
+                SetBitFlag(0);
                 break;
             case 68:
-                BitFlags &= ~(1 << 0);
+                ClearBitFlag(0);
                 break;
             case 69:
                 GameHeader.LightTime = LightRefill;
                 Items[LIGHT_SOURCE].Location = CARRIED;
-                BitFlags &= ~(1 << LIGHTOUTBIT);
+                ClearBitFlag(LIGHTOUTBIT);
                 break;
             case 70:
                 ClearScreen(); /* pdd. */
@@ -2110,7 +2142,7 @@ static ActionResultType PerformLine(int ct)
 #endif
                 if (CurrentGame != HULK && CurrentGame != HULK_C64 && CurrentGame != HULK_US) {
                     pptr++;
-                } else if (!(BitFlags & (1 << DARKBIT)))
+                } else if (!ItIsDark())
                     DrawHulkImage(param[pptr++]);
                 break;
             default:
@@ -2146,9 +2178,7 @@ static void PrintTakenOrDropped(int index)
 
 static ExplicitResultType PerformActions(int vb, int no)
 {
-    int dark = BitFlags & (1 << DARKBIT);
-    if (Items[LIGHT_SOURCE].Location == MyLoc || Items[LIGHT_SOURCE].Location == CARRIED)
-        dark = 0;
+    int dark = ItIsDark();
     int ct = 0;
     ExplicitResultType flag;
     int doagain = 0;
@@ -2179,11 +2209,9 @@ static ExplicitResultType PerformActions(int vb, int no)
             return ER_SUCCESS;
         }
         if (dark) {
-            BitFlags &= ~(1 << DARKBIT);
+            SetLight();
             MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             Output(sys[YOU_FELL_AND_BROKE_YOUR_NECK]);
-            BitFlags &= ~(1 << DARKBIT);
-            MyLoc = GameHeader.NumRooms; /* It seems to be what the code says! */
             return ER_SUCCESS;
         }
         Output(sys[YOU_CANT_GO_THAT_WAY]);
@@ -2618,7 +2646,7 @@ Distributed under the GNU software license\n\n");
         if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
             GameHeader.LightTime--;
             if (GameHeader.LightTime < 1) {
-                BitFlags |= (1 << LIGHTOUTBIT);
+                SetBitFlag(LIGHTOUTBIT);
                 if (Items[LIGHT_SOURCE].Location == CARRIED || Items[LIGHT_SOURCE].Location == MyLoc) {
                     Output(sys[LIGHT_HAS_RUN_OUT]);
                 }

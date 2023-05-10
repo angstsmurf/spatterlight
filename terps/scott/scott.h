@@ -152,6 +152,10 @@ void PlayerIsDead(void);
 void UpdateSettings(void);
 winid_t FindGlkWindowWithRock(glui32 rock);
 void OpenTopWindow(void);
+void SetDark(void);
+void SetLight(void);
+void SetBitFlag(int bit);
+void ClearBitFlag(int bit);
 
 extern struct GameInfo *Game;
 extern Header GameHeader;

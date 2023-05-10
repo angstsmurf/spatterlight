@@ -718,7 +718,7 @@ void battle_loop(int strike, int stamina, int boatflag)
                     boatflag ? "THE BANSHEE HAS BEEN SUNK!"
                              : "YOU HAVE BEEN KILLED!");
                 Counters[3] = 0;
-                BitFlags |= (1 << 6);
+                SetBitFlag(6);
                 Counters[7] = 0;
             } else {
                 SOBPrint(Bottom, "%s", battle_messages[1 + rand() % 5 + 16 * boatflag]);
@@ -727,13 +727,13 @@ void battle_loop(int strike, int stamina, int boatflag)
             stamina -= 2;
             if (stamina <= 0) {
                 glk_put_string("YOU HAVE WON!");
-                BitFlags &= ~(1 << 6);
+                ClearBitFlag(6);
                 stamina = 0;
             } else {
                 SOBPrint(Bottom, "%s", battle_messages[6 + rand() % 5 + 16 * boatflag]);
             }
         } else if (result == FLEE) {
-            BitFlags |= (1 << 6);
+            SetBitFlag(6);
             MyLoc = SavedRoom;
             return;
         } else {
