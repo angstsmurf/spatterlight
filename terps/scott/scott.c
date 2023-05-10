@@ -229,11 +229,11 @@ static void PrintWindowDelimiter(void)
     glk_window_move_cursor(Top, 0, TopHeight - 1);
     glk_stream_set_current(glk_window_get_stream(Top));
     if (Options & SPECTRUM_STYLE)
-        for (int i = 0; i < TopWidth; i++)
+        for (unsigned i = 0; i < TopWidth; i++)
             glk_put_char('*');
     else {
         glk_put_char('<');
-        for (int i = 0; i < TopWidth - 2; i++)
+        for (unsigned i = 0; i < TopWidth - 2; i++)
             glk_put_char('-');
         glk_put_char('>');
     }
@@ -924,8 +924,8 @@ static int ItIsDark(void)
 
 void DrawBlack(void)
 {
-    glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
-        12 * 8 * pixel_size);
+    glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * (glui32)pixel_size,
+        12 * 8 * (glui32)pixel_size);
 }
 
 void DrawImage(int image)
@@ -1490,7 +1490,7 @@ static int YesOrNo(void)
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
             glk_put_char_stream(glk_window_get_stream(Bottom), ev.val1);
-            const char reply = tolower(ev.val1);
+            const char reply = tolower((char)ev.val1);
             if (reply == y) {
                 result = 1;
             } else if (reply == n) {

@@ -626,7 +626,7 @@ int roll_dice(int strike, int stamina, int boatflag)
                     glk_put_string("    <X> to run");
                 glk_request_char_event(Top);
             } else if (our_turn == 0) {
-                glk_request_timer_events(delay);
+                glk_request_timer_events((glui32)delay);
             }
 
             rolls++;
