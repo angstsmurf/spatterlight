@@ -208,7 +208,7 @@ struct KaylethAnimationFrame {
 };
 
 struct KaylethAnimation {
-    int start_frame;
+    int loop_to;
     int required_object;
     int number_of_frames;
     int current_frame;
@@ -235,7 +235,7 @@ void LoadKaylethAnimationData(void)
         }
         if (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
             struct KaylethAnimation *anim = MemAlloc(sizeof(struct KaylethAnimation));
-            anim->start_frame = *ptr / 3;
+            anim->loop_to = *ptr / 3; // The frame to loop back to after reaching the end. Usually 0.
             ptr++;
             anim->current_frame = 0;
             anim->required_object = *ptr;
@@ -302,7 +302,7 @@ static int UpdateKaylethAnimationFrames(void) // Draw animation frame
             anim->current_frame++;
             frame->counter = 0;
             if (anim->current_frame >= anim->number_of_frames) {
-                anim->current_frame = anim->start_frame;
+                anim->current_frame = anim->loop_to;
             }
         } else {
             frame->counter++;
