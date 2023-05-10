@@ -2253,7 +2253,7 @@ static ExplicitResultType PerformActions(int vb, int no)
         while (ct <= GameHeader.NumActions) {
             int verbvalue, nounvalue;
             verbvalue = Actions[ct].Vocab;
-            /* Think this is now right. If a line we run has an action73
+            /* Think this is now right. If a line we run has an action 73
            run all following lines with vocab of 0,0 */
             if (vb != 0 && (doagain && verbvalue != 0))
                 break;
