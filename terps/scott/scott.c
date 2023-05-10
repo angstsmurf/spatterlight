@@ -1289,6 +1289,7 @@ static void LoadGame(void)
     SaveUndo();
     JustStarted = 0;
     StopTime = 1;
+    should_look_in_transcript = 1;
 }
 
 static void RestartGame(void)
@@ -1298,6 +1299,7 @@ static void RestartGame(void)
     RestoreState(InitialState);
     JustStarted = 0;
     StopTime = 0;
+    Display(Bottom, "\n\n");
     glk_window_clear(Bottom);
     OpenTopWindow();
     should_restart = 0;
@@ -1329,6 +1331,10 @@ static void TranscriptOn(void)
     glui32 *start_of_transcript = ToUnicode(sys[TRANSCRIPT_START]);
     glk_put_string_stream_uni(Transcript, start_of_transcript);
     free(start_of_transcript);
+
+    print_look_to_transcript = 1;
+    Look();
+
     glk_put_string_stream(glk_window_get_stream(Bottom),
         (char *)sys[TRANSCRIPT_ON]);
     glk_window_set_echo_stream(Bottom, Transcript);
@@ -1450,6 +1456,7 @@ static int YesOrNo(void)
     do {
         glk_select(&ev);
         if (ev.type == evtype_CharInput) {
+            glk_put_char_stream(glk_window_get_stream(Bottom), ev.val1);
             const char reply = tolower(ev.val1);
             if (reply == y) {
                 result = 1;
@@ -2044,9 +2051,11 @@ static ActionResultType PerformLine(int ct)
 #ifdef DEBUG_ACTIONS
                 debug_print("LOOK\n");
 #endif
+                print_look_to_transcript = 1;
                 if (split_screen)
                     Look();
-                should_look_in_transcript = 1;
+                print_look_to_transcript =
+                should_look_in_transcript = 0;
                 break;
             case 77:
                 if (CurrentCounter >= 1)
