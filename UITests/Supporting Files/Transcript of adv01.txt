@@ -1,6 +1,12 @@
 Start of transcript
 
 
+I'm in a forest
+
+Obvious exits: North, South, East, West.
+
+I can also see: Trees - 
+
 Tell me what to do ? E
 
 I'm in a sunny meadow
@@ -32,7 +38,7 @@ Tell me what to do ? GET OX
 O.K. 
 
 Tell me what to do ? SAY BUNYON
-
+bunyon
 Something I'm holding vibrates and...
 I'm carrying: 
 Nothing.
@@ -987,6 +993,8 @@ Well done.
 
 
 The game is now over. Play again?
+y
+
 A voice BOOOOMS out:
 
 Welcome to Adventure number: 1 "ADVENTURELAND".
