@@ -47,6 +47,7 @@
 @dynamic doStyles;
 @dynamic editable;
 @dynamic errorHandling;
+@dynamic flicker;
 @dynamic gridBackground;
 @dynamic gridLinkColor;
 @dynamic gridLinkStyle;

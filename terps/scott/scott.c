@@ -178,6 +178,11 @@ void UpdateSettings(void)
     else
         Options |= NO_DELAYS;
 
+    if (gli_flicker)
+        Options |= FLICKER_ON;
+    else
+        Options &= ~FLICKER_ON;
+
     switch (gli_sa_inventory) {
     case 0:
         Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);

@@ -81,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL doStyles;
 @property (nonatomic) BOOL editable;
 @property (nonatomic) int32_t errorHandling;
+@property (nonatomic) BOOL flicker;
 @property (nullable, nonatomic, retain) NSColor *gridBackground;
 @property (nullable, nonatomic, retain) NSColor *gridLinkColor;
 @property (nonatomic) int32_t gridLinkStyle;
