@@ -215,7 +215,7 @@ struct KaylethAnimation {
     struct KaylethAnimationFrame *frames;
 };
 
-struct KaylethAnimation **KaylethAnimations = NULL;
+static struct KaylethAnimation **KaylethAnimations = NULL;
 
 // This is really the number of rooms. We use NULL for rooms without animation.
 #define NUMBER_OF_KAYLETH_ANIMATIONS 92
