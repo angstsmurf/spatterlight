@@ -20,6 +20,11 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
     kAskIfReplace,
 };
 
+typedef NS_ENUM(NSUInteger, kModeType) {
+    kDarkMode,
+    kLightMode
+};
+
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, TableViewController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
 
@@ -51,18 +56,25 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 
 + (Preferences *)instance;
 
-+ (void)changeCurrentGame:(Game *)game;
++ (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;
+
++ (kModeType)currentSystemMode;
 
 @property BOOL previewShown;
 @property (strong) IBOutlet NSView *sampleTextBorderView;
 
-@property (readonly) Theme *defaultTheme;
+@property (nonatomic) Theme *defaultTheme ;
+@property Theme *darkTheme;
+@property Theme *lightTheme;
+@property BOOL darkOverrideActive;
+@property BOOL lightOverrideActive;
+
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
 @property (readonly) NSManagedObjectContext *managedObjectContext;
-@property (weak) Game *currentGame;
-@property BOOL oneThemeForAll;
+@property (nonatomic, weak) Game *currentGame;
+@property (nonatomic) BOOL oneThemeForAll;
 @property BOOL adjustSize;
 @property (weak) TableViewController *libcontroller;
 
@@ -71,8 +83,8 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet ThemeArrayController *arrayController;
 @property (weak) IBOutlet NSScrollView *scrollView;
 
-@property (weak) IBOutlet NSTextFieldCell *detailsHeader;
 @property (weak) IBOutlet NSTextFieldCell *themesHeader;
+@property (weak) IBOutlet NSTextFieldCell *detailsHeader;
 @property (weak) IBOutlet NSTextFieldCell *miscHeader;
 @property (weak) IBOutlet NSTextFieldCell *vOHeader;
 @property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
@@ -85,6 +97,9 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet NSButton *btnAdd;
 @property (weak) IBOutlet NSButton *btnRemove;
 @property (weak) IBOutlet NSBox *divider;
+
+@property (strong) IBOutlet NSMenuItem *lightModeMenuItem;
+@property (strong) IBOutlet NSMenuItem *darkModeMenuItem;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
@@ -138,6 +153,9 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
 @property (weak) IBOutlet NSButton *slowDrawCheckbox;
+@property (strong) IBOutlet NSButton *hardDarkCheckbox;
+@property (strong) IBOutlet NSButton *hardLightCheckbox;
+@property (strong) IBOutlet NSButton *scottAdamsFlickerCheckbox;
 
 @property DummyTextView *dummyTextView;
 

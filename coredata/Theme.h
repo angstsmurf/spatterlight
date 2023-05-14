@@ -87,6 +87,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
+@property (nonatomic) BOOL hardDark;
+@property (nonatomic) BOOL hardLight;
+@property (nonatomic) BOOL hardLightOrDark;
 @property (nonatomic) int32_t imageSizing;
 @property (nonatomic) int32_t justify;
 @property (nonatomic) int32_t maxCols;

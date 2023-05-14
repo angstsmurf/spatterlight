@@ -249,23 +249,22 @@ fprintf(stderr, "%s\n",                                                    \
     skipNextScriptCommand = NO;
 
     _game = game_;
-
     Game *game = _game;
-    _theme = game.theme;
-    Theme *theme = _theme;
+
+    [Preferences changeCurrentGlkController:self];
+    [self noteColorModeChanged:nil];
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).tableViewController;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
-    if (!theme.name) {
+    if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
         game.theme = [Preferences currentTheme];
         _theme = game.theme;
-        theme = _theme;
     }
 
-    if (theme.nohacks) {
+    if (_theme.nohacks) {
         [self resetGameDetection];
     } else {
         [self detectGame:game.ifid];
@@ -386,6 +385,8 @@ fprintf(stderr, "%s\n",                                                    \
      name:NSManagedObjectContextObjectsDidChangeNotification
      object:game.managedObjectContext];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"ColorModeChanged" object:nil];
+
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
     _windowPreFullscreenFrame = self.window.frame;
@@ -398,11 +399,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     _borderView.wantsLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    _lastAutoBGColor = theme.bufferBackground;
-    if (theme.borderBehavior == kUserOverride)
-        [self setBorderColor:theme.borderColor];
+    _lastAutoBGColor = _theme.bufferBackground;
+    if (_theme.borderBehavior == kUserOverride)
+        [self setBorderColor:_theme.borderColor];
     else
-        [self setBorderColor:theme.bufferBackground];
+        [self setBorderColor:_theme.bufferBackground];
 
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -410,11 +411,11 @@ fprintf(stderr, "%s\n",                                                    \
     lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
-    if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
-    if (_supportsAutorestore && theme.autosave &&
+    if (_supportsAutorestore && _theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
@@ -1602,7 +1603,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
-    [Preferences changeCurrentGame:_game];
+    [Preferences changeCurrentGlkController:self];
     if (!dead) {
         if (_eventcount > 1 && !_shouldShowAutorestoreAlert)
             _mustBeQuiet = NO;
@@ -1671,7 +1672,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(id)sender {
     if (windowClosedAlready) {
-        NSLog(@"windowWillClose called twice!");
+        NSLog(@"windowWillClose called twice! Returning");
         return;
     } else windowClosedAlready = YES;
 
@@ -1687,10 +1688,16 @@ fprintf(stderr, "%s\n",                                                    \
     [_soundHandler stopAllAndCleanUp];
 
     if (_game && [Preferences instance].currentGame == _game) {
-        Game *remainingGameSession = nil;
-        if (libcontroller && libcontroller.gameSessions.count)
-            remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
-        [Preferences changeCurrentGame:remainingGameSession];
+        GlkController *remainingGameSession = nil;
+        if (libcontroller) {
+            for (GlkController *session in
+            libcontroller.gameSessions.allValues)
+                if (session != self) {
+                    remainingGameSession = session;
+                    break;
+                }
+        }
+        [Preferences changeCurrentGlkController:remainingGameSession];
     }
 
     if (timer) {
@@ -2020,7 +2027,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_game) {
         if (!_stashedTheme) {
-            _theme = _game.theme;
+            if ([Preferences instance].lightOverrideActive)
+                _theme = [Preferences instance].lightTheme;
+            else if ([Preferences instance].darkOverrideActive)
+                _theme = [Preferences instance].darkTheme;
+            else
+                _theme = _game.theme;
             theme = _theme;
         }
     } else {
@@ -2125,6 +2137,34 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldStoreScrollOffset = YES;
 }
 
+- (void)noteColorModeChanged:(NSNotification *)notification {
+    Theme *oldTheme = _theme;
+    if ([Preferences instance].darkOverrideActive) {
+        if ([Preferences instance].darkTheme) {
+            if (_theme != [Preferences instance].darkTheme) {
+                _theme = [Preferences instance].darkTheme;
+            }
+        } else {
+            NSLog(@"ERROR: darkOverrideActive but no hard dark theme exists, use normal selected theme");
+            _theme = _game.theme;
+        }
+    } else if ([Preferences instance].lightOverrideActive) {
+        if ([Preferences instance].lightTheme) {
+            if (_theme != [Preferences instance].lightTheme) {
+                _theme = [Preferences instance].lightTheme;
+            }
+        } else {
+            NSLog(@"ERROR: lightOverrideActive but no hard light theme exists, use normal selected theme");
+            _theme = _game.theme;
+        }
+    } else {
+        _theme = _game.theme;
+    }
+
+    if (_theme != oldTheme) {
+        [self notePreferencesChanged:[NSNotification notificationWithName:@"PreferencesChanged" object:_theme]];
+    }
+}
 
 
 #pragma mark Zoom
@@ -4418,6 +4458,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             menuItem.state = NSOffState;
         }
     } else if (action == @selector(applyTheme:)) {
+        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
+            return NO;
         for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
             if ([item.title isEqual:_game.theme.name])
                 item.state = NSOnState;
