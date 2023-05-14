@@ -53,6 +53,9 @@
 @dynamic gridLinkStyle;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
+@dynamic hardDark;
+@dynamic hardLight;
+@dynamic hardLightOrDark;
 @dynamic imageSizing;
 @dynamic justify;
 @dynamic maxCols;
