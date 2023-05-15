@@ -1712,7 +1712,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
             if (_lightOverrideActive) {
                 lightOrDarkWasRemoved = YES;;
             }
-
         }
     }
 
