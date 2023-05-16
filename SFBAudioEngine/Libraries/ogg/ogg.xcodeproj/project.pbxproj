@@ -15,7 +15,7 @@
 
 /* Begin PBXFileReference section */
 		C3FDA68229AB77FF005336BD /* libogg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libogg.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3FDA6BB29AB784E005336BD /* framing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = framing.c; path = src/framing.c; sourceTree = "<group>"; };
+		C3FDA6BB29AB784E005336BD /* framing.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = framing.c; path = src/framing.c; sourceTree = "<group>"; tabWidth = 2; };
 		C3FDA6BC29AB784E005336BD /* bitwise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitwise.c; path = src/bitwise.c; sourceTree = "<group>"; };
 		C3FDA6CC29AB7A1B005336BD /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = src/os_types.h; sourceTree = "<group>"; };
 		C3FDA6CD29AB7A1B005336BD /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = src/ogg.h; sourceTree = "<group>"; };
