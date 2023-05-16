@@ -1,8 +1,8 @@
 # Change log
 
 ## 1.1
-- Themes can be designated to be used in Dark and Light mode, overriding all other theme settings. New checkboxes and menu items in the preferences window are added for this.
-- Margin settings in the preferences were not working correctly.
+- Themes can be designated for use in Dark and Light mode, overriding all other theme settings. New checkboxes and menu items in the preferences window are added for this.
+- Margin settings in the preferences work correctly again.
 - Authentic flicker option for the upper window in ScottFree. Some original interpreters would flicker visibly whenever the player was temporarily transported between rooms for programming reasons. There is now a checkbox for this in the Format preferences tab.
 - AGT games show the unicode equivalents of MS-DOS symbols.
 - Increased undo limit in TADS games.
@@ -11,10 +11,10 @@
 - Battles in *Seas of Blood* are printed to the transcript.
 - The C64 palette of *Seas of Blood* is now closer to the original.
 - One C64 version of *Questprobe featuring The Human Torch and The Thing* was broken, preventing The Human Torch from flying over the tarpit.
-- Some images in the Apple 2 version of *Questprobe featuring The Human Torch and The Thing* were showing up at the wrong places.
+- Some images in the Apple 2 version of *Questprobe featuring The Human Torch and The Thing* were mixed up, showing at the wrong moments.
 - ZX Spectrum *Buckaroo Banzai* had broken directions.
-- One animation in Kayleth (the firing android) was missing. Other animations are closer to how they looked on the original hardware, and the animation code is a little more readable.
-- Energy display in *Rebel Planet* said 0 where it should say 00.
+- One animation in *Kayleth* (the firing android) was missing. Other animations are now closer to how they looked on the original hardware, and the animation code is a little more readable.
+- Energy display in *Rebel Planet* said "0" where it should say "00".
 - Multiple waiting in the TaylorMade games should now match the originals. It actually waits one extra turn, but won't print a message for the last one.
 - The *Questprobe 4* fragment should work as well as in the original interpreter.
 - TaylorMade now gives the same error messages as the originals: One of three depending on whether it understood none of the input words ("I can’t compute that... sorry!"), only understood a noun but no verb ("Please try varying that verb"), or found a verb but no matching command ("That’s not possible.")
