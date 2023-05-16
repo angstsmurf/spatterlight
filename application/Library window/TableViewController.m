@@ -3184,10 +3184,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 game.theme = [Preferences currentTheme];
             } else {
                 Preferences *prefs = Preferences.instance;
-                if (prefs && prefs.currentGame == nil) {
-                    if (!prefs.lightOverrideActive && !prefs.darkOverrideActive && self.view.window.keyWindow) {
-                        [prefs restoreThemeSelection:game.theme];
-                    }
+                if (prefs && prefs.currentGame == nil && !prefs.lightOverrideActive && !prefs.darkOverrideActive && self.view.window.keyWindow) {
+                    [prefs restoreThemeSelection:game.theme];
                 }
             }
         } else _selectedGames = @[];
