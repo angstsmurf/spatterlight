@@ -1364,21 +1364,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (action == @selector(applyToSelected:)) {
         if (_oneThemeForAll || selectedGames.count == 0) {
             return NO;
-        } else {
-            for (Game *game in selectedGames) {
-                if (game.theme != theme)
-                    return YES;
-            }
-            return NO;
         }
     } else if (action == @selector(selectUsingTheme:)) {
-        if (theme.games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive)
+        if (theme.games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
             return NO;
-        for (Game *game in theme.games) {
-            if ([selectedGames indexOfObject:game] == NSNotFound)
-                return YES;
         }
-        return NO;
     } else if (action == @selector(deleteUserThemes:)) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSArray *fetchedObjects;
