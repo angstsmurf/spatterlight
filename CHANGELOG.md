@@ -1,6 +1,6 @@
 # Change log
 
-## 1.1
+## Release 1.1
 - Themes can be designated for use in Dark and Light mode, overriding all other theme settings. New checkboxes and menu items in the preferences window are added for this.
 - Margin settings in the preferences work correctly again.
 - Authentic flicker option for the upper window in ScottFree. Some original interpreters would flicker visibly whenever the player was temporarily transported between rooms for programming reasons. There is now a checkbox for this in the Format preferences tab.
