@@ -1,4 +1,3 @@
-#include <sys/time.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import "AppDelegate.h"
