@@ -409,13 +409,16 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
             }
         }
 
-        const char *filename = "/Users/administrator/Desktop/dum.tiff";
+        frefid_t fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+
+        const char *filename = fileref->filename;
 
         writeToTIFF(filename, pixmap, pixlength, width);
         free(pixmap);
 
         win_purgeimage(172);
         win_loadimage(172, filename, 0, pixlength);
+        glk_fileref_destroy(fileref);
         ratio = 84.0 / 314.0;
         int width = gscreenw - gcellw * 2 - 4;
         yorigin = width * ratio;
@@ -434,12 +437,14 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
 
         draw_indexed_png(pixmap, pixlength, w, 0, 0, res);
 
-        const char *filename = "/Users/administrator/Desktop/dum2.tiff";
+        frefid_t fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+        const char *filename = fileref->filename;
 
         writeToTIFF(filename, pixmap, pixlength, w);
 
         win_purgeimage(173);
         win_loadimage(173, filename, 0, pixlength);
+        glk_fileref_destroy(fileref);
 
         int width = gscreenw - gcellw * 2;
         float ratio = 84.0 / 314.0;
