@@ -246,6 +246,7 @@
         _lastimageresno = -1;
     else
         _lastimageresno = resno;
+    NSLog(@"handleFindImageNumber %ld: result:%@", resno, result ? @"YES":@"NO");
     return result;
 }
 
@@ -262,6 +263,8 @@
         // Hack for placeholder images, which only have dimensions, no content.
         NSInteger width = ((const unsigned char *)(_resources[@(resno)].data.bytes))[3] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[2] * 0x100;
         NSInteger height = ((const unsigned char *)(_resources[@(resno)].data.bytes))[7] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[6] * 0x100;
+        NSLog(@"handleLoadImageNumber: Found placeholder image %ld with width %ld and height %ld", resno, width, height);
+
         // No size must be 0, or both will be, so we add a "rounding error"
         _lastimage = [[NSImage alloc] initWithSize:NSMakeSize(width + 0.01, height + 0.01)];
     } else
@@ -305,6 +308,15 @@
         label = _resources[@(_lastimageresno)].a11yDescription;
     }
     return label;
+}
+
+- (void)purgeImage:(NSInteger)resno {
+    if (resno < 0)
+        return;
+    _lastimageresno = -1;
+    _lastimage = nil;
+    [_imageCache removeObjectForKey:@(resno)];
+    _resources[@(resno)] = nil;
 }
 
 @end

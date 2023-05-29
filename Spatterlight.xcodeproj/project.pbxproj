@@ -207,8 +207,8 @@
 		961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* Hugo License.rtf */; };
 		961DC9370A108DE10044A0D4 /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 961DC9360A108DE10044A0D4 /* quill.c */; };
 		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; };
-		9650378009F2A2CE0083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
-		9650378109F2A2CE0083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		9650371C09F29F690083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		9650371D09F29F690083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		9650378909F2A2F20083E64E /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032CC09F29EE20083E64E /* os_glk.c */; };
 		9650378A09F2A2F20083E64E /* scdebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D209F29EE20083E64E /* scdebug.c */; };
 		9650378B09F2A2F20083E64E /* scevents.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D309F29EE20083E64E /* scevents.c */; };
@@ -464,6 +464,7 @@
 		C30135BF27219AC60006B85C /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30135BD27219AC60006B85C /* DownloadOperation.m */; };
 		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
+		C30384292A185802004F814D /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C30384282A1857F4004F814D /* libz.1.2.8.tbd */; };
 		C30451BE26A971B7006E3D51 /* test_stories.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = C3CEC2C326A6D1F900120469 /* test_stories.iFiction */; };
 		C30451C026A98540006E3D51 /* imagetest.gblorb in Resources */ = {isa = PBXBuildFile; fileRef = C30451BF26A971DD006E3D51 /* imagetest.gblorb */; };
 		C30451C226A9A8A5006E3D51 /* Transcript of autosavetest.txt in Resources */ = {isa = PBXBuildFile; fileRef = C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */; };
@@ -498,6 +499,7 @@
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
+		C31231072A18BEBA00450D4E /* drawpng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31231042A18BEBA00450D4E /* drawpng.cpp */; };
 		C317CE4C278DB5AD00D85288 /* layouttext.c in Sources */ = {isa = PBXBuildFile; fileRef = C317CE4B278DB5AD00D85288 /* layouttext.c */; };
 		C318F76F2741AA5B006D626A /* scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76A2741AA5B006D626A /* scott.c */; };
 		C318F7702741AA5B006D626A /* bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C318F76E2741AA5B006D626A /* bsd.c */; };
@@ -600,6 +602,7 @@
 		C377BE452997FFA800CEB123 /* libglkimp.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C377BE462997FFC500CEB123 /* libunp64.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C377BE472997FFD800CEB123 /* libc64diskimage.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3F06B93288D429200AC7FDE /* libc64diskimage.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C37C1C772A1E0F1900D433CF /* drawpng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31231042A18BEBA00450D4E /* drawpng.cpp */; };
 		C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.m */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
 		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
@@ -840,6 +843,7 @@
 		C3F09D9E2888933F0035DAC2 /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C3F09DA12888934E0035DAC2 /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
+		C3F2782C2A1ADE2800663BFD /* writetiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F2782A2A1ADE2800663BFD /* writetiff.cpp */; };
 		C3F3A2332894237500C8739F /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F3A2322894237500C8739F /* atari8detect.c */; };
 		C3F53C5F271BB8BE00538393 /* BlorbFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F53C5C271BB8BE00538393 /* BlorbFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F53C64271BB93300538393 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
@@ -2690,6 +2694,8 @@
 		C30135BC27219AC60006B85C /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
 		C30135BD27219AC60006B85C /* DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadOperation.m; sourceTree = "<group>"; };
 		C301D30C25D35E9300DC4A2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		C30384222A1831FF004F814D /* libz.1.2.13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.13.dylib; path = ../../../opt/homebrew/Cellar/zlib/1.2.13/lib/libz.1.2.13.dylib; sourceTree = "<group>"; };
+		C30384282A1857F4004F814D /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		C30451BF26A971DD006E3D51 /* imagetest.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = imagetest.gblorb; sourceTree = "<group>"; };
 		C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of autosavetest.txt"; sourceTree = "<group>"; };
 		C305EA1C264B014D009DC78C /* CommandScriptHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandScriptHandler.h; sourceTree = "<group>"; };
@@ -2744,6 +2750,8 @@
 		C311DEFF25C472E500484639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C311DF0025C472E500484639 /* SpatterlightQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpatterlightQuickLook.entitlements; sourceTree = "<group>"; };
 		C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
+		C31231042A18BEBA00450D4E /* drawpng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drawpng.cpp; sourceTree = "<group>"; };
+		C31231062A18BEBA00450D4E /* drawpng.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = drawpng.h; sourceTree = "<group>"; };
 		C313318626FD48CD00593EF6 /* osspatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osspatter.h; path = glk/osspatter.h; sourceTree = "<group>"; };
 		C313318826FD493300593EF6 /* osfrobtads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osfrobtads.h; path = glk/osfrobtads.h; sourceTree = "<group>"; };
 		C317CE4A278DB5AD00D85288 /* layouttext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -3247,6 +3255,8 @@
 		C3F09D7F288892BD0035DAC2 /* libunp64.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libunp64.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BureaucracyForm.h; sourceTree = "<group>"; };
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
+		C3F2782A2A1ADE2800663BFD /* writetiff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = writetiff.cpp; sourceTree = "<group>"; };
+		C3F2782B2A1ADE2800663BFD /* writetiff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = writetiff.h; sourceTree = "<group>"; };
 		C3F3A2312894237500C8739F /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
 		C3F3A2322894237500C8739F /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
 		C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlorbFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3531,6 +3541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3A5F1C129F151BB0039B810 /* libglkimp.dylib in Frameworks */,
+				C30384292A185802004F814D /* libz.1.2.8.tbd in Frameworks */,
 				C3A5F1C629F151C30039B810 /* libglkmain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4282,6 +4293,8 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C30384282A1857F4004F814D /* libz.1.2.8.tbd */,
+				C30384222A1831FF004F814D /* libz.1.2.13.dylib */,
 				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
@@ -5696,6 +5709,10 @@
 				C3A5F1D029F153350039B810 /* process.cpp */,
 				C3A5F1FD29F153350039B810 /* random.h */,
 				C3A5F1D629F153350039B810 /* random.cpp */,
+				C31231062A18BEBA00450D4E /* drawpng.h */,
+				C31231042A18BEBA00450D4E /* drawpng.cpp */,
+				C3F2782B2A1ADE2800663BFD /* writetiff.h */,
+				C3F2782A2A1ADE2800663BFD /* writetiff.cpp */,
 				C3A5F1EF29F153350039B810 /* screen.h */,
 				C3A5F1D729F153350039B810 /* screen.cpp */,
 				C3A5F1CD29F153350039B810 /* sound.h */,
@@ -7314,6 +7331,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+<<<<<<< HEAD
+=======
+		965036FD09F29F020083E64E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37C1C772A1E0F1900D433CF /* drawpng.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+>>>>>>> d3682f59 (BOCFEL6: Initial commit of Arthur stuff)
 		9650376B09F2A2CE0083E64E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7889,9 +7917,11 @@
 				C3A5F21B29F153350039B810 /* sound.cpp in Sources */,
 				C3A5F20D29F153350039B810 /* screen.cpp in Sources */,
 				C3A5F20729F153350039B810 /* zterp.cpp in Sources */,
+				C31231072A18BEBA00450D4E /* drawpng.cpp in Sources */,
 				C3A5F21329F153350039B810 /* mathop.cpp in Sources */,
 				C3A5F20929F153350039B810 /* objects.cpp in Sources */,
 				C3A5F22529F153350039B810 /* stash.cpp in Sources */,
+				C3F2782C2A1ADE2800663BFD /* writetiff.cpp in Sources */,
 				C3A5F20529F153350039B810 /* process.cpp in Sources */,
 				C3A5F22729F153350039B810 /* spatterlight-autosave.mm in Sources */,
 				C3A5F21729F153350039B810 /* stack.cpp in Sources */,
@@ -10190,6 +10220,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/zlib/1.2.13/lib,
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10228,6 +10262,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/zlib/1.2.13/lib,
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

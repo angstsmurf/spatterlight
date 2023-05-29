@@ -144,6 +144,9 @@ enum class Game {
 #ifdef SPATTERLIGHT
     BeyondZork,
     MadBomber,
+    Arthur,
+    ZorkZero,
+    Shogun
 #endif
 };
 

@@ -666,8 +666,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Just start the game with no autorestore or fullscreen or resetting
     NSRect newContentFrame = (self.window.contentView).frame;
     if (!(windowRestoredBySystem || _showingCoverImage)) {
-//        newContentFrame.size = [self defaultContentSize];
-        newContentFrame.size = NSMakeSize(640, 400);
+        newContentFrame.size = [self defaultContentSize];
         NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
         NSRect screenFrame = self.window.screen.visibleFrame;
         // Make sure that the window is shorter than the screen
@@ -3552,6 +3551,10 @@ fprintf(stderr, "%s\n",                                                    \
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
                 ans->a1 = (int)banner.numberOfLines;
             }
+            break;
+
+        case PURGEIMG:
+            [_imageHandler purgeImage:req->a1];
             break;
 
         default:

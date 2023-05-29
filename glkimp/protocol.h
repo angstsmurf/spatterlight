@@ -124,7 +124,8 @@ enum
     QUOTEBOX,
     SHOWERROR,
     CANPRINT,
-    
+    PURGEIMG,
+
     NEXTEVENT,
     EVTARRANGE,
     EVTREDRAW,
