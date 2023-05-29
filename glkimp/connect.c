@@ -260,6 +260,8 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
         bufferlen = 0;
     }
 
+    if (color == zcolor_Default)
+        color = gbgcol;
     rbuf[bufferlen].color = color;
     rbuf[bufferlen].x = x;
     rbuf[bufferlen].y = y;
@@ -504,7 +506,7 @@ int win_findimage(int resno)
     return wmsg.a1;
 }
 
-void win_loadimage(int resno, char *filename, int offset, int reslen)
+void win_loadimage(int resno, const char *filename, int offset, int reslen)
 {
     win_flush();
     if (gli_enable_graphics)
@@ -537,7 +539,7 @@ void win_sizeimage(glui32 *width, glui32 *height)
     }
 }
 
-void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height)
+void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
     win_flush();
     if (gli_enable_graphics)
@@ -545,8 +547,8 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 
         window_t *win = gli_window_for_peer(name);
 
-        drawstruct->x = val1;
-        drawstruct->y = val2;
+        drawstruct->x = x;
+        drawstruct->y = y;
         drawstruct->width = width;
         drawstruct->height = height;
         drawstruct->style = win->style;
@@ -748,6 +750,11 @@ int win_canprint(glui32 val)
     sendmsg(CANPRINT, val, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
+}
+
+void win_purgeimage(glui32 val)
+{
+    sendmsg(PURGEIMG, val, 0, 0, 0, 0, 0, NULL);
 }
 
 void win_select(event_t *event, int block)

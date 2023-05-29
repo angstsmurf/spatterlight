@@ -278,7 +278,7 @@ void setup_opcodes()
     setup_single_opcode(6, 6, Opcount::Ext, 0x14, znop); // XXX scroll_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x15, zpop_stack);
     setup_single_opcode(6, 6, Opcount::Ext, 0x16, zread_mouse); // XXX read_mouse
-    setup_single_opcode(6, 6, Opcount::Ext, 0x17, znop); // XXX mouse_window
+    setup_single_opcode(6, 6, Opcount::Ext, 0x17, zmouse_window); // XXX mouse_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x18, zpush_stack);
     setup_single_opcode(6, 6, Opcount::Ext, 0x19, zput_wind_prop);
     setup_single_opcode(6, 6, Opcount::Ext, 0x1a, zprint_form);

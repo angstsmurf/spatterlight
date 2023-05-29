@@ -137,6 +137,10 @@ static void initialize_games()
 #ifdef SPATTERLIGHT
         { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
         { Game::MadBomber, { "3-971123-caad" } },
+        { Game::Arthur, { "74-890714" } },
+        { Game::ZorkZero, { "393-890714" } },
+        { Game::Shogun, { "322-890706" } },
+
 #endif
     };
 
@@ -564,15 +568,26 @@ void write_header()
         store_byte(0x20, height > 254 ? 254 : height);
         store_byte(0x21, width > 255 ? 255 : width);
 
-        width = width * letterwidth;
-        height = gscreenh;
-
-        if (zversion >= 5) {
+        if (zversion == 5 || zversion == 7) {
             // Screen width and height in units.
             store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
             store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
 
             // Font height and width in units.
+            store_byte(0x26, letterheight);
+            store_byte(0x27, letterwidth);
+
+            // Default background and foreground colors.
+            store_byte(0x2c, 1);
+            store_byte(0x2d, 1);
+        } else if (zversion == 6) {
+            width = gscreenw;
+            height = gscreenh;
+            // Screen width and height in pixels.
+            store_word(0x22, gscreenw > UINT16_MAX ? UINT16_MAX : gscreenw);
+            store_word(0x24, gscreenh > UINT16_MAX ? UINT16_MAX : gscreenh);
+
+            // Font height and width in pixels.
             store_byte(0x26, letterheight);
             store_byte(0x27, letterwidth);
 
@@ -634,8 +649,13 @@ void zterp_mouse_click(uint16_t x, uint16_t y)
 {
     fprintf(stderr, "zterp_mouse_click x:%d y:%d\n", x, y);
     if (mouse_click_addr != 0) {
-        store_word(mouse_click_addr, (x + 1) * letterwidth);
-        store_word(mouse_click_addr + 2, y * letterheight);
+        if (zversion == 6 && !is_game(Game::Journey)) {
+            store_word(mouse_click_addr, (x + 1));
+            store_word(mouse_click_addr + 2, y);
+        } else {
+            store_word(mouse_click_addr, (x + 1) * letterwidth);
+            store_word(mouse_click_addr + 2, y * letterheight);
+        }
     }
 }
 

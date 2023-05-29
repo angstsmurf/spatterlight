@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
                          from:(NSString *)path
                        offset:(NSUInteger)offset
                        length:(NSUInteger)length;
+- (void)purgeImage:(NSInteger)resno;
 
 @end
 

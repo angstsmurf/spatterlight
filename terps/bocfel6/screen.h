@@ -128,6 +128,7 @@ void zsplit_window();
 void zset_window();
 void zread_char();
 void zread_mouse();
+void zmouse_window();
 void zshow_status();
 void zread();
 void zprint_unicode();
