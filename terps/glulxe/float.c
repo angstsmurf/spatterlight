@@ -15,7 +15,7 @@
 
 #ifndef FLOAT_NOT_NATIVE
 
-int init_float() 
+int init_float(void) 
 {
     /* Check and make sure the native float format is really
        IEEE-754 single-precision. */

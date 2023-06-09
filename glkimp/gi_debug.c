@@ -23,7 +23,7 @@ void gidebug_debugging_available(gidebug_cmd_handler cmdhandler, gidebug_cycle_h
     debug_cycle_handler = cyclehandler;
 }
 
-int gidebug_debugging_is_available()
+int gidebug_debugging_is_available(void)
 {
     return (debug_cmd_handler != NULL);
 }

@@ -445,7 +445,7 @@ void setup_profile(strid_t stream, char *filename)
     /* Profiling is not compiled in. Do nothing. */
 }
 
-int init_profile()
+int init_profile(void)
 {
     /* Profiling is not compiled in. Do nothing. */
     return TRUE;

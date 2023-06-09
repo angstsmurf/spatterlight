@@ -544,7 +544,7 @@ void glk_stream_set_current(stream_t *str)
     gli_stream_set_current(str);
 }
 
-strid_t glk_stream_get_current()
+strid_t glk_stream_get_current(void)
 {
     if (gli_currentstr)
         return gli_currentstr;
@@ -1773,7 +1773,7 @@ void gli_replace_stream_list(stream_t *newlist) /* Only used by autorestore */
     gli_streamlist = newlist;
 }
 
-void gli_sanity_check_streams()
+void gli_sanity_check_streams(void)
 {
     if (gli_currentstr && !gli_stream_for_tag(gli_currentstr->tag))
         fprintf(stderr, "sanity_check: current stream not listed\n");

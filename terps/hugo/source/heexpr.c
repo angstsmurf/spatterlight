@@ -287,7 +287,7 @@ ReturnResult:
 	a value from a simple data type.
 */
 
-int GetVal()
+int GetVal(void)
 {
 	char a = 0;
 	char tempinexpr, tempgetaddress, tempinobj;
@@ -751,7 +751,7 @@ int GetVal()
 	Does any reckoning for more sophisticated constructions.
 */
 
-int GetValue()
+int GetValue(void)
 {
 	char noself = 0;
 	int p, n;

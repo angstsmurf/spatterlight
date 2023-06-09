@@ -59,7 +59,7 @@ typedef struct accelentry_struct {
 
 static accelentry_t **accelentries = NULL;
 
-void init_accel()
+void init_accel(void)
 {
     accelentries = NULL;
 }
@@ -184,7 +184,7 @@ void accel_set_param(glui32 index, glui32 val)
 }
 
 /* This is used only for autosave. */
-glui32 accel_get_param_count()
+glui32 accel_get_param_count(void)
 {
     return 9;
 }

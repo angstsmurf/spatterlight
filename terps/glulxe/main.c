@@ -33,7 +33,7 @@ static void stream_hexnum(glsi32 val);
    The top-level routine. This does everything, and consequently is
    very simple. 
 */
-void glk_main()
+void glk_main(void)
 {
   vm_exited_cleanly = FALSE;
   
@@ -94,7 +94,7 @@ void set_library_autorestore_hook(void (*func)(void))
    it creates a new window; after that it returns the window it first
    created.
 */
-static winid_t get_error_win()
+static winid_t get_error_win(void)
 {
   static winid_t errorwin = NULL;
 

@@ -84,7 +84,7 @@ static void traceRuleStart(int rule, char *what) {
     printf("[%d]), %s", current.location, what);
 }
 
-static bool detailedTraceOn() {
+static bool detailedTraceOn(void) {
     return traceInstructionOption || traceSourceOption || tracePushOption || traceStackOption;
 }
 
@@ -192,7 +192,7 @@ static void evaluateRulesBeta2(void)
 
 
 /*======================================================================*/
-void resetRules() {
+void resetRules(void) {
     int i;
     for (i = 1; !isEndOfArray(&rules[i-1]); i++) {
         rulesAdmin[i-1].alreadyRun = false;

@@ -520,7 +520,7 @@ static void reversePreAlpha5Header(Pre3_0alpha5Header *hdr)
 
 
 /*----------------------------------------------------------------------*/
-static void reversePreAlpha5() {
+static void reversePreAlpha5(void) {
     /* NOTE that the reversePreXXX() have different header definitions */
     Pre3_0alpha5Header *header = (Pre3_0alpha5Header *)memory;
 
@@ -561,7 +561,7 @@ static void reversePreBeta2Header(Pre3_0beta2Header *hdr)
 
 
 /*----------------------------------------------------------------------*/
-static void reversePreBeta2() {
+static void reversePreBeta2(void) {
     /* NOTE that the reversePreXXX() have different header definitions */
     Pre3_0beta2Header *header = (Pre3_0beta2Header *)memory;
 

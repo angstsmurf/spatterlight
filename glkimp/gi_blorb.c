@@ -97,7 +97,7 @@ static void *giblorb_malloc(glui32 len);
 static void *giblorb_realloc(void *ptr, glui32 len);
 static void giblorb_free(void *ptr);
 
-static giblorb_err_t giblorb_initialize()
+static giblorb_err_t giblorb_initialize(void)
 {
     return giblorb_err_None;
 }

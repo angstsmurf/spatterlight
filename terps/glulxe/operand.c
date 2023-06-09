@@ -69,7 +69,7 @@ static operandlist_t list_LLLLSS = { 6, 4, array_LLLLSS };
    Set up the fast-lookup array of operandlists. This is called just
    once, when the terp starts up. 
 */
-void init_operands()
+void init_operands(void)
 {
   int ix;
   for (ix=0; ix<0x80; ix++)

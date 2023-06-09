@@ -188,7 +188,7 @@ bool equalStrings(char *str1, char *str2)
 
 
 /*======================================================================*/
-int littleEndian() {
+int littleEndian(void) {
   int x = 1;
   return (*(char *)&x == 1);
 }

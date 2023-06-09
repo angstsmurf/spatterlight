@@ -53,7 +53,7 @@ void stream_get_iosys(glui32 *mode, glui32 *rock)
   *rock = iosys_rock;
 }
 
-static void stream_setup_unichar()
+static void stream_setup_unichar(void)
 {
 #ifdef GLK_MODULE_UNICODE
 
@@ -669,7 +669,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
 /* stream_get_table():
    Get the current table address. 
 */
-glui32 stream_get_table()
+glui32 stream_get_table(void)
 {
   return stringtable;
 }

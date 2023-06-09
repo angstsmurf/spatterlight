@@ -10,7 +10,7 @@
 /* is_gamefile_valid():
    Check guess what.
 */
-int is_gamefile_valid()
+int is_gamefile_valid(void)
 {
   unsigned char buf[8];
   int res;

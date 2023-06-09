@@ -60,7 +60,7 @@ static int reposition_write(dest_t *dest, glui32 pos);
 /* init_serial():
    Set up the undo chain and anything else that needs to be set up.
 */
-int init_serial()
+int init_serial(void)
 {
   undo_chain_num = 0;
   undo_chain_size = max_undo_level;
@@ -88,7 +88,7 @@ int init_serial()
 /* final_serial():
    Clean up memory when the VM shuts down.
 */
-void final_serial()
+void final_serial(void)
 {
   if (undo_chain) {
     int ix;
@@ -113,7 +113,7 @@ void final_serial()
    Add a state pointer to the undo chain. This returns 0 on success,
    1 on failure.
 */
-glui32 perform_saveundo()
+glui32 perform_saveundo(void)
 {
   dest_t dest;
   glui32 res;
@@ -216,7 +216,7 @@ glui32 perform_saveundo()
    and valstackbase registers are invalid; they must be rebuilt from
    the stack.
 */
-glui32 perform_restoreundo()
+glui32 perform_restoreundo(void)
 {
   dest_t dest;
   glui32 res, val;
@@ -286,7 +286,7 @@ glui32 perform_restoreundo()
 /* has_undo():
    Return 0 if an undo state is available, 1 if not.
 */
-glui32 has_undo()
+glui32 has_undo(void)
 {
   if (undo_chain_size == 0 || undo_chain_num == 0)
     return 1;
@@ -296,7 +296,7 @@ glui32 has_undo()
 /* discard_undo():
    Drop the most recent undo state, if there are any.
 */
-void discard_undo()
+void discard_undo(void)
 {
   if (undo_chain_size == 0 || undo_chain_num == 0)
     return;
@@ -1211,7 +1211,7 @@ static glui32 read_stackstate(dest_t *dest, glui32 chunklen, int portable)
   return 0;
 }
 
-glui32 perform_verify()
+glui32 perform_verify(void)
 {
   glui32 len, localchecksum, newlen;
   unsigned char buf[4];

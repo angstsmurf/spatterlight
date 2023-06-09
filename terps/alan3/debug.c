@@ -497,7 +497,7 @@ void showSourceLine(int fileNumber, int line) {
 
 
 /*----------------------------------------------------------------------*/
-static void listFiles() {
+static void listFiles(void) {
     SourceFileEntry *entry;
     int i = 0;
     for (entry = pointerTo(header->sourceFileTable); *((Aword*)entry) != EOF; entry++) {
@@ -508,7 +508,7 @@ static void listFiles() {
 
 
 /*----------------------------------------------------------------------*/
-static void listLines() {
+static void listLines(void) {
     SourceLineEntry *entry;
     for (entry = pointerTo(header->sourceLineTable); *((Aword*)entry) != EOF; entry++)
         printf("  %s:%d\n", sourceFileName(entry->file), entry->line);
@@ -532,7 +532,7 @@ static int findSourceLineIndex(SourceLineEntry *entry, int file, int line) {
 
 
 /*----------------------------------------------------------------------*/
-static void listBreakpoints() {
+static void listBreakpoints(void) {
     int i;
     bool found = false;
 
@@ -560,7 +560,7 @@ int breakpointIndex(int file, int line) {
 
 
 /*----------------------------------------------------------------------*/
-static int availableBreakpointSlot() {
+static int availableBreakpointSlot(void) {
     int i;
 
     for (i = 0; i < BREAKPOINTMAX; i++)
@@ -726,7 +726,7 @@ static char *padding(DebugParseEntry *entry, int maxLength) {
 
 
 /*----------------------------------------------------------------------*/
-static void handleHelpCommand() {
+static void handleHelpCommand(void) {
     if (!regressionTestOption)
         output(alan.longHeader);
 
@@ -813,7 +813,7 @@ static void displaySourceLocation(int line, int fileNumber) {
 
 
 /*----------------------------------------------------------------------*/
-static void toggleSectionTrace() {
+static void toggleSectionTrace(void) {
     if ((saved_traceSection = !saved_traceSection))
         printf("Section trace on.");
     else
@@ -821,7 +821,7 @@ static void toggleSectionTrace() {
 }
 
 /*----------------------------------------------------------------------*/
-static void toggleInstructionTrace() {
+static void toggleInstructionTrace(void) {
     if ((saved_traceInstruction = !saved_traceInstruction))
         printf("Instruction trace on.");
     else
@@ -829,7 +829,7 @@ static void toggleInstructionTrace() {
 }
 
 /*----------------------------------------------------------------------*/
-static void toggleSourceTrace() {
+static void toggleSourceTrace(void) {
     if ((saved_traceSource = !saved_traceSource))
         printf("Source code trace on.");
     else
@@ -838,7 +838,7 @@ static void toggleSourceTrace() {
 
 
 /*----------------------------------------------------------------------*/
-static void togglePushTrace() {
+static void togglePushTrace(void) {
     if ((saved_tracePush = !saved_tracePush))
         printf("Stack Push trace on.");
     else
@@ -847,7 +847,7 @@ static void togglePushTrace() {
 
 
 /*----------------------------------------------------------------------*/
-static void toggleStackTrace() {
+static void toggleStackTrace(void) {
     if ((saved_traceStack = !saved_traceStack))
         printf("Full stack trace on.");
     else
@@ -856,7 +856,7 @@ static void toggleStackTrace() {
 
 
 /*----------------------------------------------------------------------*/
-static int parseTraceCommand() {
+static int parseTraceCommand(void) {
     char *subcommand = strtok(NULL, "");
     DebugParseEntry *entry;
     if (subcommand == 0)
@@ -894,7 +894,7 @@ static void printTrace(void) {
 
 
 /*----------------------------------------------------------------------*/
-static void handleTraceCommand() {
+static void handleTraceCommand(void) {
     char subcommand = parseTraceCommand();
 
     switch (subcommand) {
@@ -951,7 +951,7 @@ static void handleNextCommand(bool calledFromBreakpoint) {
 
 
 /*----------------------------------------------------------------------*/
-static void handleLocationsCommand() {
+static void handleLocationsCommand(void) {
     char *parameter = strtok(NULL, "");
     if (parameter == 0)
         listLocations();
@@ -961,7 +961,7 @@ static void handleLocationsCommand() {
 
 
 /*----------------------------------------------------------------------*/
-static void handleActorsCommand() {
+static void handleActorsCommand(void) {
     char *parameter = strtok(NULL, "");
     if (parameter == NULL)
         listActors();
@@ -971,7 +971,7 @@ static void handleActorsCommand() {
 
 
 /*----------------------------------------------------------------------*/
-static void handleClassesCommand() {
+static void handleClassesCommand(void) {
     char *parameter = strtok(NULL, "");
     if (parameter == NULL || strchr(parameter, '*') != 0) {
         output("Classes:");
@@ -986,7 +986,7 @@ static void handleClassesCommand() {
 
 
 /*----------------------------------------------------------------------*/
-static void handleObjectsCommand() {
+static void handleObjectsCommand(void) {
     char *parameter = strtok(NULL, "");
     if (parameter == NULL)
         listObjects();
@@ -996,7 +996,7 @@ static void handleObjectsCommand() {
 
 
 /*----------------------------------------------------------------------*/
-static void handleInstancesCommand() {
+static void handleInstancesCommand(void) {
     char *parameter = strtok(NULL, "");
     int i;
 
@@ -1015,7 +1015,7 @@ static void handleInstancesCommand() {
 }
 
 /*----------------------------------------------------------------------*/
-static bool exactSameVersion() {
+static bool exactSameVersion(void) {
     return header->version[3] == alan.version.version
         && header->version[2] == alan.version.revision
         && header->version[1] == alan.version.correction

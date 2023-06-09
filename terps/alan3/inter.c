@@ -215,7 +215,7 @@ static void traceInstruction5(char *name, Aword p1, Aword p2, Aword p3, Aword p4
 
 
 /*----------------------------------------------------------------------*/
-static void moveToStackTraceField() {
+static void moveToStackTraceField(void) {
     if (!resultTraced) {
         printf("%11s", "");       /* Move past result field */
         resultTraced = true;
@@ -256,7 +256,7 @@ static void tracePC(int pc) {
 static bool skipStackDump = false; /* Need to be able to skip it for some outputs */
 
 /*----------------------------------------------------------------------*/
-static void traceSkip() {
+static void traceSkip(void) {
     if (traceInstructionOption) {
         printf("\n    :");
         skipStackDump = true;
@@ -501,7 +501,7 @@ static char *pointerValue(Aptr address) {
 }
 
 /*----------------------------------------------------------------------*/
-static void traceStringTopValue() {
+static void traceStringTopValue(void) {
     if (traceInstructionOption) {
         printf("=%10s", stringValue(top(stack)));
         resultTraced = true;
@@ -509,7 +509,7 @@ static void traceStringTopValue() {
 }
 
 /*----------------------------------------------------------------------*/
-static void traceBooleanTopValue() {
+static void traceBooleanTopValue(void) {
     if (traceInstructionOption) {
         printf("=%-10s", top(stack)?"TRUE":"FALSE");
         resultTraced = true;
@@ -517,7 +517,7 @@ static void traceBooleanTopValue() {
 }
 
 /*----------------------------------------------------------------------*/
-static void traceIntegerTopValue() {
+static void traceIntegerTopValue(void) {
     if (traceInstructionOption) {
         printf("=%-10d", top(stack));
         resultTraced = true;
@@ -525,7 +525,7 @@ static void traceIntegerTopValue() {
 }
 
 /*----------------------------------------------------------------------*/
-static void tracePointerTopValue() {
+static void tracePointerTopValue(void) {
     if (traceInstructionOption) {
         printf("=%-10s", pointerValue(top(stack)));
         resultTraced = true;
@@ -533,7 +533,7 @@ static void tracePointerTopValue() {
 }
 
 /*----------------------------------------------------------------------*/
-static void traceInstanceTopValue() {
+static void traceInstanceTopValue(void) {
     if (traceInstructionOption) {
         printf("=%ld ('", (long)top(stack));
         traceSay(top(stack));

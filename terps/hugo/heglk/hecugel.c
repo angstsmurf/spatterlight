@@ -285,7 +285,7 @@ void hugo_blockfree(void *block)
     free(block);
 }
 
-void hugo_closefiles()
+void hugo_closefiles(void)
 {
     /* Glk closes all files at glk_exit() */
 }
@@ -481,7 +481,7 @@ int hugo_iskeywaiting(void)
 }
 
 
-void hugo_scrollwindowup()
+void hugo_scrollwindowup(void)
 {
     /* Glk should look after this for us */
 }
@@ -1743,7 +1743,7 @@ void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int sh
     win_maketransparent(wins[i].win->peer);
 }
 
-void heglk_adjust_future_boy_windows() {
+void heglk_adjust_future_boy_windows(void) {
     if (!isfutureboy)
         return;
     int type;
@@ -2214,7 +2214,7 @@ void hugo_settextpos(int x, int y)
 }
 
 /* Check if the current "context" wins[curwin] has a corresponding Glk Window object. If not, create one */
-static void hugo_mapcurwin()
+static void hugo_mapcurwin(void)
 {
     //        LOG("hugo_mapcurwin\n");
 

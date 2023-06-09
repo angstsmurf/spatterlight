@@ -46,7 +46,7 @@ static char *token = NULL;
 
 
 /*======================================================================*/
-void forceNewPlayerInput() {
+void forceNewPlayerInput(void) {
     setEndOfArray(&playerWords[currentWordIndex]);
 }
 
@@ -140,7 +140,7 @@ static char *gettoken(char *buf) {
 }
 
 
-static void printPrompt() {
+static void printPrompt(void) {
     if (header->prompt) {
         anyOutput = false;
         interpret(header->prompt);

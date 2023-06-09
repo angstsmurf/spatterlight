@@ -41,7 +41,7 @@ void (*stream_unichar_handler)(glui32 ch);
    Read in the game file and build the machine, allocating all the memory
    necessary.
 */
-void setup_vm()
+void setup_vm(void)
 {
   unsigned char buf[4 * 7];
   int res;
@@ -129,7 +129,7 @@ void setup_vm()
 /* finalize_vm():
    Deallocate all the memory and shut down the machine.
 */
-void finalize_vm()
+void finalize_vm(void)
 {
   stream_set_table(0);
 
@@ -150,7 +150,7 @@ void finalize_vm()
    game. This is called both at startup time, and when the machine
    performs a "restart" opcode. 
 */
-void vm_restart()
+void vm_restart(void)
 {
   glui32 lx;
   int res;

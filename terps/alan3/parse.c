@@ -105,7 +105,7 @@ static bool endOfPlayerCommand(int wordIndex) {
 }
 
 /*----------------------------------------------------------------------*/
-static void handleDirectionalCommand() {
+static void handleDirectionalCommand(void) {
     verbWord = playerWords[currentWordIndex].code;
     currentWordIndex++;
     if (!endOfPlayerCommand(currentWordIndex))
@@ -182,7 +182,7 @@ static void errorAfterExcept(int butWordIndex) {
 }
 
 /*----------------------------------------------------------------------*/
-static int fakePlayerWordForAll() {
+static int fakePlayerWordForAll(void) {
     /* Look through the dictionary and find any ALL_WORD, then add a
        player word so that it can be used in the message */
     int p, d;

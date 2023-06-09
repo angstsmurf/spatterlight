@@ -58,7 +58,7 @@ void glulx_setrandom(glui32 seed)
 }
 
 /* Return a random number in the range 0 to 2^32-1. */
-glui32 glulx_random()
+glui32 glulx_random(void)
 {
   randomcallscount++;
   return (random() << 16) ^ random();

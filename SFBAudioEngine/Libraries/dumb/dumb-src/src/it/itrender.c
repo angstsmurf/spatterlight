@@ -41,7 +41,7 @@
 
 // #define BIT_ARRAY_BULLSHIT
 
-static IT_PLAYING *new_playing() {
+static IT_PLAYING *new_playing(void) {
     IT_PLAYING *r = (IT_PLAYING *)malloc(sizeof(*r));
     if (r) {
         r->resampler.fir_resampler_ratio = 0.0;

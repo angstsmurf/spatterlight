@@ -65,7 +65,7 @@ void createStringLiteral(char *unquotedString) {
 }
 
 /*----------------------------------------------------------------------*/
-void freeLiterals() {
+void freeLiterals(void) {
     int i;
 
     for (i = 0; i <= litCount; i++)

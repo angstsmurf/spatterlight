@@ -702,7 +702,7 @@ ContextCommandLoop:
 	Dynamically creates a new dictionary entry.
 */
 
-unsigned int Dict()
+unsigned int Dict(void)
 {
 	int i, len = 256;
 	unsigned int arr;
@@ -1000,7 +1000,7 @@ LeaveFileIO:
 
 /* FLUSHPBUFFER */
 
-void Flushpbuffer()
+void Flushpbuffer(void)
 {
 	if (pbuffer[0]=='\0') return;
 
@@ -2497,7 +2497,7 @@ HUGO_FILE TrytoOpen(char *f, char *p, char *d)
 
 /* UNDO */
 
-int Undo()
+int Undo(void)
 {
 	int count = 0, n;
 	int turns, turncount, tempptr;

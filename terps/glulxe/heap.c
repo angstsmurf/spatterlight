@@ -39,7 +39,7 @@ static heapblock_t *heap_tail = NULL;
    Set the heap state to inactive, and free the block lists. This is
    called when the game starts or restarts.
 */
-void heap_clear()
+void heap_clear(void)
 {
   while (heap_head) {
     heapblock_t *blo = heap_head;
@@ -65,14 +65,14 @@ void heap_clear()
 /* heap_is_active():
    Returns whether the heap is active.
 */
-int heap_is_active() {
+int heap_is_active(void) {
   return (heap_start != 0);
 }
 
 /* heap_get_start():
    Returns the start address of the heap, or 0 if the heap is not active.
  */
-glui32 heap_get_start() {
+glui32 heap_get_start(void) {
   return heap_start;
 }
 

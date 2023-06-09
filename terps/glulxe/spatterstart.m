@@ -225,7 +225,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 /* This is the library_autorestore_hook, which will be called from glk_main() between VM setup and the beginning of the execution loop. (VM thread)
  */
-static void spatterglk_game_autorestore()
+static void spatterglk_game_autorestore(void)
 {
     if (!gli_enable_autosave)
         return;
