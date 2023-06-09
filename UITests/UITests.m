@@ -189,8 +189,10 @@
     [UITests selectTheme:theme];
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.toolbars.buttons[@"Details"] click];
     [app.checkBoxes[@"Animate scrolling"] click];
+
+    [app.toolbars.buttons[@"Misc"] click];
     [app.checkBoxes[@"Determinism"] click];
 
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
@@ -202,7 +204,7 @@
         theme = @"Default";
     XCUIApplication *app = [[XCUIApplication alloc] init];
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
-    XCUIElement *themesTab = app.tabs[@"Themes"];
+    XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     if (themesTab.exists)
         [themesTab click];
     [app.tables.staticTexts[theme] click];
@@ -520,7 +522,7 @@
 - (void)testAutosave {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
 
     XCUIElement *textField = [self addAndSelectGame:@"autosavetest.gblorb"];
 
@@ -538,11 +540,11 @@
     }
 
     [app/*@START_MENU_TOKEN@*/.windows[@"library"].tables[@"Games"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]",".windows[@\"library\"]"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
-    XCUIElement *themesTab = app.tabs[@"Themes"];
+    XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     if (themesTab.exists)
         [themesTab click];
     [app/*@START_MENU_TOKEN@*/.tables.staticTexts[@"Zoom"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".scrollViews.tables",".tableRows",".cells.staticTexts[@\"Zoom\"]",".staticTexts[@\"Zoom\"]",".tables",".dialogs[@\"preferences\"]"],[[[-1,6,3],[-1,2,3],[-1,1,2],[-1,7,1],[-1,0,1]],[[-1,6,3],[-1,2,3],[-1,1,2]],[[-1,6,3],[-1,2,3]],[[-1,5],[-1,4],[-1,3,4]],[[-1,5],[-1,4]]],[0,0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.toolbars.buttons[@"Details"] click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Animate scrolling"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Animate scrolling\"]",".checkBoxes[@\"Animate scrolling\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
 
@@ -760,7 +762,7 @@
 - (void)testGlulxe {
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
 
     XCUIElement *textField = [self addAndSelectGame:@"Transparent.gblorb"];
 
@@ -777,15 +779,17 @@
     }
 
     [app/*@START_MENU_TOKEN@*/.windows[@"library"].tables[@"Games"]/*[[".windows[@\"Interactive Fiction\"]",".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]",".windows[@\"library\"]"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1,2]],[[-1,3],[-1,2]]],[0,0]]@END_MENU_TOKEN@*/ typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
-    XCUIElement *themesTab = app.tabs[@"Themes"];
+    XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     if (themesTab.exists)
         [themesTab click];
     [app.tables.staticTexts[@"Lectrote Dark"] click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.toolbars.buttons[@"Details"] click];
     [app.checkBoxes[@"Animate scrolling"] click];
+    [app.toolbars.buttons[@"Misc"] click];
     [app.checkBoxes[@"Determinism"] click];
 
-    XCUIElement *timerField = [app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ childrenMatchingType:XCUIElementTypeTextField].element;
+    XCUIElement *preferences = app.dialogs[@"preferences"];
+    XCUIElement *timerField = [preferences childrenMatchingType:XCUIElementTypeTextField].element;
     [timerField click];
     [timerField doubleClick];
     [timerField typeText:@"1000\r"];
@@ -1290,9 +1294,10 @@
     [UITests selectTheme:@"Default"];
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Details\"]",".tabs[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Details\"]",".toolbars.buttons[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *field = [[app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    XCUIElement *preferences = app.dialogs[@"preferences"];
+    XCUIElement *field = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
     NSString *value = field.value;
     [field doubleClick];
     [field typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
@@ -1740,7 +1745,7 @@
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
 
     XCUIElement *textField = [self addAndSelectGame:@"curses.z5"];
     [textField rightClick];
@@ -1909,15 +1914,14 @@
 
     [self addAndSelectGame:@"curses.z5"];
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
     XCUIElement *playButton = libraryWindow.toolbars.buttons[@"Play"];
     [playButton click];
 
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
 
-    XCUIElement *preferences = app.dialogs[@"Preferences"];
-
-    XCUIElement *themesTab = preferences.tabs[@"Themes"];
+    XCUIElement *preferences = app.dialogs[@"preferences"];
+    XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     [themesTab click];
 
     XCUIElementQuery *tables = preferences.tables;
@@ -1933,18 +1937,17 @@
     [tables.staticTexts[@"Spatterlight Classic"] click];
     [tables.staticTexts[@"Zoom"] click];
 
-    [preferences/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    
-    XCUIElementQuery *tabGroupsQuery = app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    [preferences.toolbars.buttons[@"Glk Styles"] click];
+
+    XCUIElementQuery *tabGroupsQuery = app.groups;
 
     XCUIElementQuery *buttonQuery = [tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] ;
 
     [[buttonQuery elementBoundByIndex:0] click];
-    
+
     XCUIElement *xcuiClosewindowButton = app.windows[@"Fonts"].buttons[XCUIIdentifierCloseWindow];
     [xcuiClosewindowButton click];
     [[buttonQuery elementBoundByIndex:1] click];
-    [xcuiClosewindowButton click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0] click];
     [app.menuItems[@"Buffer"] click];
     [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1] click];
@@ -1956,7 +1959,7 @@
     [app.windows[@"Colors"]/*@START_MENU_TOKEN@*/.radioButtons[@"Lavender"]/*[[".splitGroups",".radioGroups[@\"Pencils\"].radioButtons[@\"Lavender\"]",".radioButtons[@\"Lavender\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app.windows[@"Colors"].buttons[XCUIIdentifierCloseWindow] click];
 
-    [[[[app/*@START_MENU_TOKEN@*/.tabGroups/*[[".dialogs[@\"Preferences\"].tabGroups",".dialogs[@\"preferences\"].tabGroups",".tabGroups"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:1] click];
+    [[[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:1] click];
 
     XCUIElementQuery *popoversQuery = /*@START_MENU_TOKEN@*/app.popovers/*[["app",".dialogs[@\"Preferences\"]",".tabGroups","[",".buttons matchingIdentifier:@\"action\"].popovers",".popovers",".dialogs[@\"preferences\"]"],[[[-1,0,1]],[[-1,5],[3,4],[-1,2,3],[-1,6,2],[-1,1,2]],[[-1,5],[3,4],[-1,2,3]],[[-1,5],[3,4]]],[0,0]]@END_MENU_TOKEN@*/;
     XCUIElement *textField = [[[popoversQuery childrenMatchingType:XCUIElementTypeTextField] matchingIdentifier:@"0"] elementBoundByIndex:0];
@@ -2004,8 +2007,8 @@
     [incrementArrow click];
     [decrementArrow click];
 
-    XCUIElement *stylesTab = app/*@START_MENU_TOKEN@*/.tabs[@"Styles"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Styles\"]",".tabs[@\"Styles\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    XCUIElement *stylesTab = app.toolbars.buttons[@"Glk Styles"];
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Themes\"]",".toolbars.buttons[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [stylesTab click];
 
     XCUIElement *actionButton = [[[tabGroupsQuery childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"action"] elementBoundByIndex:0];
@@ -2089,62 +2092,63 @@
     XCUIElement *alert = app/*@START_MENU_TOKEN@*/.sheets[@"alert"]/*[[".dialogs[@\"Preferences\"].sheets[@\"alert\"]",".dialogs[@\"preferences\"].sheets[@\"alert\"]",".sheets[@\"alert\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
     if (alert.exists)
         [alert.buttons[@"Okay"] click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Details\"]",".tabs[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Details\"]",".toolbars.buttons[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Enable sound"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Enable sound\"]",".checkBoxes[@\"Enable sound\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Enable graphics"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Enable graphics\"]",".checkBoxes[@\"Enable graphics\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Smart quotes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Smart quotes\"]",".checkBoxes[@\"Smart quotes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"No double spaces"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"No double spaces\"]",".checkBoxes[@\"No double spaces\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    textField = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    textField = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
     [textField doubleClick];
     [textField typeText:@"40\r"];
     
-    textField2 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
+    textField2 = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
     [textField2 doubleClick];
     [textField2 typeText:@"200\r"];
 
-    XCUIElement *textField5 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
+    XCUIElement *textField5 = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
     [textField5 click];
     [textField5 typeText:@"1\r"];
 
-    XCUIElement *colorWell = [tabGroupsQuery childrenMatchingType:XCUIElementTypeColorWell].element;
+    XCUIElement *colorWell = [preferences childrenMatchingType:XCUIElementTypeColorWell].element;
     [colorWell click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Automatic"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Automatic\"]",".checkBoxes[@\"Automatic\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [colorWell click];
     [app.windows[@"Colors"]/*@START_MENU_TOKEN@*/.radioButtons[@"Licorice"]/*[[".splitGroups",".radioGroups[@\"Pencils\"].radioButtons[@\"Licorice\"]",".radioButtons[@\"Licorice\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app.windows[@"Colors"].buttons[XCUIIdentifierCloseWindow] click];
 
-    textField3 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
+    textField3 = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
     [textField3 click];
     [textField3 typeText:@"0\r"];
     [textField3 typeText:@"1000\r"];
 
-    XCUIElement *formatTab = app.tabs[@"Format"];
-    [formatTab click];
+    [[[preferences childrenMatchingType:XCUIElementTypePopUpButton] element] click];
+    [app/*@START_MENU_TOKEN@*/.menuItems[@"Show and wait for key"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show and wait for key\"]",".menuItems[@\"Show and wait for key\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app.checkBoxes[@"Animate scrolling"] click];
+
+    XCUIElement *formatTab = app.toolbars.buttons[@"Format"];
     [formatTab click];
 
-    XCUIElement *zCodeTab = app.tabs[@"Z-machine"];
-    [zCodeTab click];
-    [zCodeTab click];
+    [[[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:5] click];
 
-    [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:3] click];
     [app.menuItems[@"Replaced by \u2318↑ and \u2318↓"] click];
     [app/*@START_MENU_TOKEN@*/.popUpButtons[@"Popup"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.popUpButtons[@\"Popup\"]",".popUpButtons[@\"Popup\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Funky"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons[@\"Popup\"]",".menus.menuItems[@\"Funky\"]",".menuItems[@\"Funky\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton = [[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:2];
+
+    XCUIElement *popUpButton = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:2];
     [popUpButton click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Bubble"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Bubble\"]",".menuItems[@\"Bubble\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton2 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0];
+    XCUIElement *popUpButton2 = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0];
     [popUpButton2 click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"1. DECSystem-20"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"1. DECSystem-20\"]",".menuItems[@\"1. DECSystem-20\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    textField = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
+    textField = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
     [textField click];
     [textField typeText:@"ÅÖL\r"];
 
-    textField2 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    textField2 = [[preferences childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
     [textField2 click];
     [textField2 typeText:@"1000\r"];
     [textField2 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
@@ -2152,26 +2156,25 @@
     [textField2 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
     [textField2 typeText:@"\r"];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Fancy quote boxes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Fancy quote boxes\"]",".checkBoxes[@\"Fancy quote boxes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"VoiceOver"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"VoiceOver\"]",".tabs[@\"VoiceOver\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"VoiceOver"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"VoiceOver\"]",".toolbars.buttons[@\"VoiceOver\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [popUpButton2 click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Text, index, and total"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Text, index, and total\"]",".menuItems[@\"Text, index, and total\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    XCUIElement *popUpButton3 = [[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1];
+    XCUIElement *popUpButton3 = [[preferences childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1];
     [popUpButton3 click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"All"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"All\"]",".menuItems[@\"All\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Speak commands"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Speak commands\"]",".checkBoxes[@\"Speak commands\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Misc\"]",".tabs[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Misc"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Misc\"]",".toolbars.buttons[@\"Misc\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
-    textField4 = [tabGroupsQuery childrenMatchingType:XCUIElementTypeTextField].element;
+    textField4 = [preferences childrenMatchingType:XCUIElementTypeTextField].element;
     [textField4 doubleClick];
     [textField4 typeText:@"5000\r"];
     [textField4 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
     [textField4 typeKey:XCUIKeyboardKeyDelete modifierFlags:XCUIKeyModifierNone];
     [textField4 typeText:@"\r"];
 
-    [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:1] click];
-    [app/*@START_MENU_TOKEN@*/.menuItems[@"Show and wait for key"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show and wait for key\"]",".menuItems[@\"Show and wait for key\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
-    [[[tabGroupsQuery childrenMatchingType:XCUIElementTypePopUpButton] elementBoundByIndex:0] click];
+    [[[preferences childrenMatchingType:XCUIElementTypePopUpButton] element] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Show errors"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show errors\"]",".menuItems[@\"Show errors\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
 
     XCUIElement *autosaveAndAutorestoreCheckBox = app/*@START_MENU_TOKEN@*/.checkBoxes[@"Autosave and autorestore"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Autosave and autorestore\"]",".checkBoxes[@\"Autosave and autorestore\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
@@ -2184,8 +2187,8 @@
 
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Game specific hacks"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Game specific hacks\"]",".checkBoxes[@\"Game specific hacks\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Determinism"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Determinism\"]",".checkBoxes[@\"Determinism\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Animate scrolling"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Animate scrolling\"]",".checkBoxes[@\"Animate scrolling\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [app/*@START_MENU_TOKEN@*/.tabs[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.tabs[@\"Themes\"]",".tabs[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+
+    [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Themes"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Themes\"]",".toolbars.buttons[@\"Themes\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [app/*@START_MENU_TOKEN@*/.checkBoxes[@"Changes apply to all games in library"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.checkBoxes[@\"Changes apply to all games in library\"]",".checkBoxes[@\"Changes apply to all games in library\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     alert = app.sheets[@"alert"];
     if (alert.exists)
@@ -2205,7 +2208,7 @@
 
     XCUIApplication *app = [[XCUIApplication alloc] init];
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
     NSString *gameName = game.stringByDeletingPathExtension;
     if (![self doesGameExist:gameName]) {
@@ -2254,7 +2257,7 @@
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
 
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"Interactive Fiction"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
+    XCUIElement *libraryWindow = app.windows[@"library"];
 
     XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
     XCTAssert([searchField waitForExistenceWithTimeout:5]);

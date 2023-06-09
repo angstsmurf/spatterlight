@@ -129,7 +129,7 @@ global unsigned short compass_rose; /* Used to pass compass info to
 
 
 /* --------------------------------------------------------------------	*/
-/*  Game State					 			*/  
+/*  Game State			                                          		 			*/
 /* --------------------------------------------------------------------	*/
 
 global rbool quitflag, deadflag, winflag, endflag;

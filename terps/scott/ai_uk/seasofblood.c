@@ -371,7 +371,7 @@ static void setup_battle_screen(int boatflag)
         glk_window_clear(RightDiceWin);
     }
 
-    if (palchosen == C64B)
+    if (palchosen >= C64A)
         dice_colour = 0x5f48e9;
     else
         dice_colour = 0xff0000;
@@ -617,16 +617,16 @@ int roll_dice(int strike, int stamina, int boatflag)
                 their_dice_stopped = 0;
                 print_sum(our_turn, their_result, strike);
                 our_turn = 1;
-                glk_window_clear(Bottom);
                 glk_cancel_char_event(Top);
-                glk_request_char_event(Top);
                 glk_stream_set_current(glk_window_get_stream(Bottom));
-                glk_put_string("Your throw\n");
-                glk_put_string("<ENTER> to stop dice");
+                SOBPrint(Bottom, "\n");
+                glk_window_clear(Bottom);
+                glk_put_string("Your throw\n<ENTER> to stop dice");
                 if (!boatflag)
                     glk_put_string("    <X> to run");
+                glk_request_char_event(Top);
             } else if (our_turn == 0) {
-                glk_request_timer_events(delay);
+                glk_request_timer_events((glui32)delay);
             }
 
             rolls++;
@@ -638,6 +638,7 @@ int roll_dice(int strike, int stamina, int boatflag)
 
             update_dice(our_turn, left_dice, right_dice);
             if (our_turn == 0 && rolls == enemy_rolls) {
+                SOBPrint(Bottom, "\n");
                 glk_window_clear(Bottom);
                 their_result = left_dice + right_dice + strike;
                 SOBPrint(Bottom, "Their result: %d + %d + %d = %d\n", left_dice,
@@ -652,6 +653,8 @@ int roll_dice(int strike, int stamina, int boatflag)
                 update_dice(our_turn, left_dice, right_dice);
                 our_result = left_dice + right_dice + 9;
                 print_sum(our_turn, our_result, 9);
+                SOBPrint(Bottom, "\nYour result: %d + %d + %d = %d\n", left_dice,
+                         right_dice, strike, our_result);
                 if (their_result > our_result) {
                     return LOSS;
                 } else if (our_result > their_result) {
@@ -703,6 +706,7 @@ void battle_loop(int strike, int stamina, int boatflag)
     do {
         int result = roll_dice(strike, stamina, boatflag);
         glk_cancel_char_event(Top);
+        SOBPrint(Bottom, "\n");
         glk_window_clear(Bottom);
         clear_stamina();
         glk_stream_set_current(glk_window_get_stream(Bottom));
@@ -710,11 +714,11 @@ void battle_loop(int strike, int stamina, int boatflag)
             Counters[3] -= 2;
 
             if (Counters[3] <= 0) {
-                SOBPrint(Bottom, "%s\n",
+                SOBPrint(Bottom, "%s",
                     boatflag ? "THE BANSHEE HAS BEEN SUNK!"
                              : "YOU HAVE BEEN KILLED!");
                 Counters[3] = 0;
-                BitFlags |= (1 << 6);
+                SetBitFlag(6);
                 Counters[7] = 0;
             } else {
                 SOBPrint(Bottom, "%s", battle_messages[1 + rand() % 5 + 16 * boatflag]);
@@ -722,24 +726,22 @@ void battle_loop(int strike, int stamina, int boatflag)
         } else if (result == VICTORY) {
             stamina -= 2;
             if (stamina <= 0) {
-                glk_put_string("YOU HAVE WON!\n");
-                BitFlags &= ~(1 << 6);
+                glk_put_string("YOU HAVE WON!");
+                ClearBitFlag(6);
                 stamina = 0;
             } else {
                 SOBPrint(Bottom, "%s", battle_messages[6 + rand() % 5 + 16 * boatflag]);
             }
         } else if (result == FLEE) {
-            BitFlags |= (1 << 6);
+            SetBitFlag(6);
             MyLoc = SavedRoom;
             return;
         } else {
             SOBPrint(Bottom, "%s", battle_messages[11 + rand() % 5 + 16 * boatflag]);
         }
 
-        glk_put_string("\n\n");
-
         if (Counters[3] > 0 && stamina > 0) {
-            glk_put_string("<ENTER> to roll dice");
+            glk_put_string("\n\n<ENTER> to roll dice");
             if (!boatflag)
                 glk_put_string("    <X> to run");
         }
@@ -748,6 +750,7 @@ void battle_loop(int strike, int stamina, int boatflag)
         update_result(1, 9, Counters[3], boatflag);
 
         BattleHitEnter(strike, stamina, boatflag);
+        SOBPrint(Bottom, "\n\n");
         glk_window_clear(Bottom);
 
     } while (stamina > 0 && Counters[3] > 0);
@@ -762,15 +765,13 @@ void swap_stamina_and_crew_strength(void)
 
 extern int draw_to_buffer;
 
-int LoadExtraSeasOfBloodData(void)
+void LoadExtraSeasOfBloodData(int c64)
 {
     draw_to_buffer = 1;
 
-    int offset;
-
 #pragma mark Enemy table
 
-    offset = 0x47b7 + file_baseline_offset;
+    int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);
 
     uint8_t *ptr = SeekToPos(entire_file, offset);
 
@@ -784,63 +785,8 @@ int LoadExtraSeasOfBloodData(void)
 
 #pragma mark Battle messages
 
-    ptr = SeekToPos(entire_file, 0x71DA + file_baseline_offset);
+    offset = file_baseline_offset + ((c64 == 1) ? 0x82f6 : 0x71da);
 
-    for (int i = 0; i < 32; i++) {
-        battle_messages[i] = DecompressText(ptr, i);
-    }
-
-#pragma mark Extra image data
-
-    offset = 0x7af5 - 16357 + file_baseline_offset;
-
-    int data_length = 2010;
-
-    blood_image_data = MemAlloc(data_length);
-    ptr = SeekToPos(entire_file, offset);
-    for (int i = 0; i < data_length; i++)
-        blood_image_data[i] = *(ptr++);
-
-#pragma mark System messages
-
-    for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
-        sys[i] = system_messages[4 - I_DONT_UNDERSTAND + i];
-
-    for (int i = YOU_ARE; i <= HIT_ENTER; i++)
-        sys[i] = system_messages[13 - YOU_ARE + i];
-
-    sys[OK] = system_messages[2];
-    sys[PLAY_AGAIN] = system_messages[3];
-    sys[YOURE_CARRYING_TOO_MUCH] = system_messages[27];
-
-    Items[125].Text = "A loose plank";
-    Items[125].AutoGet = "PLAN";
-
-    return 0;
-}
-
-int LoadExtraSeasOfBlood64Data(void)
-{
-    draw_to_buffer = 1;
-
-    int offset;
-
-#pragma mark Enemy table
-
-    offset = 0x3fee + file_baseline_offset;
-    uint8_t *ptr;
-
-    ptr = SeekToPos(entire_file, offset);
-
-    int ct;
-    for (ct = 0; ct < 124; ct++) {
-        enemy_table[ct] = *(ptr++);
-        if (enemy_table[ct] == 0xff)
-            break;
-    }
-#pragma mark Battle messages
-
-    offset = 0x82f6 + file_baseline_offset;
     ptr = SeekToPos(entire_file, offset);
 
     for (int i = 0; i < 32; i++) {
@@ -849,52 +795,64 @@ int LoadExtraSeasOfBlood64Data(void)
 
 #pragma mark Extra image data
 
-    offset = 0x5299 + file_baseline_offset;
+    offset = file_baseline_offset + ((c64 == 1) ? 0x5299: 0x3b10);
 
     int data_length = 2010;
 
     blood_image_data = MemAlloc(data_length);
 
     ptr = SeekToPos(entire_file, offset);
-    for (int i = 0; i < data_length; i++) {
-        blood_image_data[i] = *(ptr++);
-    }
+
+    memcpy(blood_image_data, ptr, data_length);
 
 #pragma mark System messages
 
-    SysMessageType messagekey[] = {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST,
-        UP,
-        DOWN,
-        EXITS,
-        YOU_SEE,
-        YOU_ARE,
-        YOU_CANT_GO_THAT_WAY,
-        OK,
-        WHAT_NOW,
-        HUH,
-        YOU_HAVE_IT,
-        YOU_HAVENT_GOT_IT,
-        DROPPED,
-        TAKEN,
-        INVENTORY,
-        YOU_DONT_SEE_IT,
-        THATS_BEYOND_MY_POWER,
-        DIRECTION,
-        YOURE_CARRYING_TOO_MUCH,
-        PLAY_AGAIN,
-        RESUME_A_SAVED_GAME,
-        YOU_CANT_DO_THAT_YET,
-        I_DONT_UNDERSTAND,
-        NOTHING
-    };
+    if (c64 == 1) {
+        SysMessageType messagekey[] = {
+            NORTH,
+            SOUTH,
+            EAST,
+            WEST,
+            UP,
+            DOWN,
+            EXITS,
+            YOU_SEE,
+            YOU_ARE,
+            YOU_CANT_GO_THAT_WAY,
+            OK,
+            WHAT_NOW,
+            HUH,
+            YOU_HAVE_IT,
+            YOU_HAVENT_GOT_IT,
+            DROPPED,
+            TAKEN,
+            INVENTORY,
+            YOU_DONT_SEE_IT,
+            THATS_BEYOND_MY_POWER,
+            DIRECTION,
+            YOURE_CARRYING_TOO_MUCH,
+            PLAY_AGAIN,
+            RESUME_A_SAVED_GAME,
+            YOU_CANT_DO_THAT_YET,
+            I_DONT_UNDERSTAND,
+            NOTHING
+        };
 
-    for (int i = 0; i < 27; i++) {
-        sys[messagekey[i]] = system_messages[i];
+        for (int i = 0; i < 27; i++) {
+            sys[messagekey[i]] = system_messages[i];
+        }
+    } else {
+        for (int i = I_DONT_UNDERSTAND; i <= THATS_BEYOND_MY_POWER; i++)
+            sys[i] = system_messages[4 - I_DONT_UNDERSTAND + i];
+
+        for (int i = YOU_ARE; i <= HIT_ENTER; i++)
+            sys[i] = system_messages[13 - YOU_ARE + i];
+
+        sys[OK] = system_messages[2];
+        sys[PLAY_AGAIN] = system_messages[3];
+        sys[YOURE_CARRYING_TOO_MUCH] = system_messages[27];
+
+        Items[125].Text = "A loose plank";
+        Items[125].AutoGet = "PLAN";
     }
-
-    return 0;
 }

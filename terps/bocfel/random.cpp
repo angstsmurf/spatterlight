@@ -41,7 +41,7 @@
 //
 // In other saves (normal and meta), the state of the PRNG is never
 // stored. Doing so portably would be impossible since different
-// interpreters use different PRNGs, and intepreters may even be using
+// interpreters use different PRNGs, and interpreters may even be using
 // non-deterministic RNGs, e.g. /dev/urandom on Linux. Even if a private
 // chunk were used (such as that used for autosaves), Infocom never
 // intended for seeds to be stored anyway: per the EZIP documentation:

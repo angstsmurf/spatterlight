@@ -1,44 +1,39 @@
-#include <sys/time.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "Constants.h"
-
 #import "AppDelegate.h"
-#import "GlkController.h"
-#import "Preferences.h"
-#import "LibController.h"
-#import "TableViewController.h"
-#import "GlkEvent.h"
-
-#import "GlkTextGridWindow.h"
-#import "GlkTextBufferWindow.h"
-#import "GlkGraphicsWindow.h"
 #import "BufferTextView.h"
-#import "GridTextView.h"
-
+#import "BureaucracyForm.h"
+#import "CommandScriptHandler.h"
+#import "Constants.h"
+#import "CoverImageHandler.h"
+#import "CoverImageView.h"
+#import "FolderAccess.h"
+#import "GlkController.h"
+#import "GlkGraphicsWindow.h"
+#import "GlkEvent.h"
 #import "GlkSoundChannel.h"
 #import "GlkStyle.h"
+#import "GlkTextBufferWindow.h"
+#import "GlkTextGridWindow.h"
+#import "GridTextView.h"
+#import "InfoController.h"
+#import "InputTextField.h"
+#import "ImageHandler.h"
+#import "LibController.h"
+#import "Metadata.h"
+#import "NotificationBezel.h"
+#import "Preferences.h"
+#import "RotorHandler.h"
+#import "SoundHandler.h"
+#import "TableViewController.h"
+#import "ZMenu.h"
 
 #import "Game.h"
 #import "Theme.h"
 #import "Image.h"
-#import "ZMenu.h"
-#import "BureaucracyForm.h"
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
-
-#import "RotorHandler.h"
-#import "InfoController.h"
-#import "InputTextField.h"
-#import "ImageHandler.h"
-#import "SoundHandler.h"
-#import "Metadata.h"
-#import "CommandScriptHandler.h"
-#import "CoverImageHandler.h"
-#import "CoverImageView.h"
-#import "NotificationBezel.h"
-#import "FolderAccess.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -249,23 +244,22 @@ fprintf(stderr, "%s\n",                                                    \
     skipNextScriptCommand = NO;
 
     _game = game_;
-
     Game *game = _game;
-    _theme = game.theme;
-    Theme *theme = _theme;
+
+    [Preferences changeCurrentGlkController:self];
+    [self noteColorModeChanged:nil];
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).tableViewController;
 
     [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
-    if (!theme.name) {
+    if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
         game.theme = [Preferences currentTheme];
         _theme = game.theme;
-        theme = _theme;
     }
 
-    if (theme.nohacks) {
+    if (_theme.nohacks) {
         [self resetGameDetection];
     } else {
         [self detectGame:game.ifid];
@@ -386,6 +380,8 @@ fprintf(stderr, "%s\n",                                                    \
      name:NSManagedObjectContextObjectsDidChangeNotification
      object:game.managedObjectContext];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"ColorModeChanged" object:nil];
+
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
     _windowPreFullscreenFrame = self.window.frame;
@@ -398,11 +394,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     _borderView.wantsLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    _lastAutoBGColor = theme.bufferBackground;
-    if (theme.borderBehavior == kUserOverride)
-        [self setBorderColor:theme.borderColor];
+    _lastAutoBGColor = _theme.bufferBackground;
+    if (_theme.borderBehavior == kUserOverride)
+        [self setBorderColor:_theme.borderColor];
     else
-        [self setBorderColor:theme.bufferBackground];
+        [self setBorderColor:_theme.bufferBackground];
 
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -410,11 +406,11 @@ fprintf(stderr, "%s\n",                                                    \
     lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
-    if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
-    if (_supportsAutorestore && theme.autosave &&
+    if (_supportsAutorestore && _theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
@@ -1602,7 +1598,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
-    [Preferences changeCurrentGame:_game];
+    [Preferences changeCurrentGlkController:self];
     if (!dead) {
         if (_eventcount > 1 && !_shouldShowAutorestoreAlert)
             _mustBeQuiet = NO;
@@ -1671,7 +1667,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(id)sender {
     if (windowClosedAlready) {
-        NSLog(@"windowWillClose called twice!");
+        NSLog(@"windowWillClose called twice! Returning");
         return;
     } else windowClosedAlready = YES;
 
@@ -1687,10 +1683,16 @@ fprintf(stderr, "%s\n",                                                    \
     [_soundHandler stopAllAndCleanUp];
 
     if (_game && [Preferences instance].currentGame == _game) {
-        Game *remainingGameSession = nil;
-        if (libcontroller && libcontroller.gameSessions.count)
-            remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
-        [Preferences changeCurrentGame:remainingGameSession];
+        GlkController *remainingGameSession = nil;
+        if (libcontroller) {
+            for (GlkController *session in
+            libcontroller.gameSessions.allValues)
+                if (session != self) {
+                    remainingGameSession = session;
+                    break;
+                }
+        }
+        [Preferences changeCurrentGlkController:remainingGameSession];
     }
 
     if (timer) {
@@ -2020,7 +2022,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_game) {
         if (!_stashedTheme) {
-            _theme = _game.theme;
+            if ([Preferences instance].lightOverrideActive)
+                _theme = [Preferences instance].lightTheme;
+            else if ([Preferences instance].darkOverrideActive)
+                _theme = [Preferences instance].darkTheme;
+            else
+                _theme = _game.theme;
             theme = _theme;
         }
     } else {
@@ -2125,6 +2132,34 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldStoreScrollOffset = YES;
 }
 
+- (void)noteColorModeChanged:(NSNotification *)notification {
+    Theme *oldTheme = _theme;
+    if ([Preferences instance].darkOverrideActive) {
+        if ([Preferences instance].darkTheme) {
+            if (_theme != [Preferences instance].darkTheme) {
+                _theme = [Preferences instance].darkTheme;
+            }
+        } else {
+            NSLog(@"ERROR: darkOverrideActive but no hard dark theme exists, use normal selected theme");
+            _theme = _game.theme;
+        }
+    } else if ([Preferences instance].lightOverrideActive) {
+        if ([Preferences instance].lightTheme) {
+            if (_theme != [Preferences instance].lightTheme) {
+                _theme = [Preferences instance].lightTheme;
+            }
+        } else {
+            NSLog(@"ERROR: lightOverrideActive but no hard light theme exists, use normal selected theme");
+            _theme = _game.theme;
+        }
+    } else {
+        _theme = _game.theme;
+    }
+
+    if (_theme != oldTheme) {
+        [self notePreferencesChanged:[NSNotification notificationWithName:@"PreferencesChanged" object:_theme]];
+    }
+}
 
 
 #pragma mark Zoom
@@ -2765,7 +2800,9 @@ fprintf(stderr, "%s\n",                                                    \
                 } else {
                     NSLog(@"Illegal line terminator request: %x", buf[i]);
                 }
-            } else NSLog(@"Illegal line terminator request: %x", buf[i]);
+            } else {
+                NSLog(@"Illegal line terminator request: %x", buf[i]);
+            }
         }
     }
     gwindow.terminatorsPending = YES;
@@ -2823,43 +2860,33 @@ fprintf(stderr, "%s\n",                                                    \
     return [GlkController unicodeAvailableForChar:str];
 }
 
++ (BOOL)isCharacter:(NSString *)character supportedByFont:(NSString *)fontName
+{
+    if (character.length == 0 || character.length > 2) {
+        return NO;
+    }
+    CTFontRef ctFont = CTFontCreateWithName((CFStringRef)fontName, 8, NULL);
+    CGGlyph glyphs[2];
+    BOOL ret = NO;
+    UniChar characters[2];
+    characters[0] = [character characterAtIndex:0];
+    if(character.length == 2) {
+        characters[1] = [character characterAtIndex:1];
+    }
+    ret = CTFontGetGlyphsForCharacters(ctFont, characters, glyphs, (CFIndex)character.length);
+    CFRelease(ctFont);
+    return ret;
+}
+
 + (BOOL)unicodeAvailableForChar:(NSString *)charString {
-    NSData *refUnicodeTiff = [GlkController tiffWithChar:@"\u1fff"];
-    NSData *myTiff = [GlkController tiffWithChar:charString];
-    return ![refUnicodeTiff isEqual:myTiff];
+    NSArray<NSString *> *fontlist = NSFontManager.sharedFontManager.availableFonts;
+    for (NSString *fontName in fontlist) {
+        if ([GlkController isCharacter:charString supportedByFont:fontName]) {
+            return YES;
+        }
+    }
+    return NO;
 }
-
-+ (NSData *)tiffWithChar:(NSString *)charStr {
-    NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:8.0] };
-    NSSize size = [charStr sizeWithAttributes:attributes];
-
-    NSInteger width = (NSInteger)ceil(size.width);
-    NSInteger height = (NSInteger)ceil(size.height);
-    if (width == 0 || height == 0)
-        return nil;
-
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
-                             initWithBitmapDataPlanes:NULL
-                             pixelsWide:width
-                             pixelsHigh:height
-                             bitsPerSample:8
-                             samplesPerPixel:4
-                             hasAlpha:YES
-                             isPlanar:NO
-                             colorSpaceName:NSDeviceRGBColorSpace
-                             bytesPerRow:width * 4
-                             bitsPerPixel:32];
-
-    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:ctx];
-    [charStr drawAtPoint:NSZeroPoint withAttributes:attributes];
-    [ctx flushGraphics];
-    NSData *tiff = [NSBitmapImageRep TIFFRepresentationOfImageRepsInArray:@[rep]];
-    [NSGraphicsContext restoreGraphicsState];
-    return tiff;
-}
-
 
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
@@ -4426,6 +4453,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             menuItem.state = NSOffState;
         }
     } else if (action == @selector(applyTheme:)) {
+        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
+            return NO;
         for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
             if ([item.title isEqual:_game.theme.name])
                 item.state = NSOnState;

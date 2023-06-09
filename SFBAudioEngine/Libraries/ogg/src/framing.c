@@ -639,7 +639,8 @@ int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
 */
 
 long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
-  unsigned char *page=oy->data+oy->returned;
+  unsigned char *page=oy->data;
+  if(oy->returned)page+=oy->returned;
   unsigned char *next;
   long bytes=oy->fill-oy->returned;
 

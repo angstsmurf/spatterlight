@@ -47,11 +47,15 @@
 @dynamic doStyles;
 @dynamic editable;
 @dynamic errorHandling;
+@dynamic flicker;
 @dynamic gridBackground;
 @dynamic gridLinkColor;
 @dynamic gridLinkStyle;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
+@dynamic hardDark;
+@dynamic hardLight;
+@dynamic hardLightOrDark;
 @dynamic imageSizing;
 @dynamic justify;
 @dynamic maxCols;

@@ -23,11 +23,11 @@ typedef enum {
     RAMLOAD_EXTR,
     UNDO,
     RAM,
+    SCRIPT,
     GAME,
     COMMAND,
     ALL,
     IT,
-    SCRIPT,
     ON,
     OFF
 } extra_command;
@@ -50,10 +50,12 @@ const char *ExtraCommands[] = {
     "quickload",
     "ramrestore",
     "#quickload",
+    "#qload",
     "quicksave",
     "qsave",
     "ramsave",
     "#quicksave",
+    "#qsave",
     "game",
     "story",
     "move",
@@ -86,6 +88,8 @@ const extra_command ExtraCommandsKey[] = {
     RAMLOAD_EXTR,
     RAMLOAD_EXTR,
     RAMLOAD_EXTR,
+    RAMLOAD_EXTR,
+    RAMSAVE_EXTR,
     RAMSAVE_EXTR,
     RAMSAVE_EXTR,
     RAMSAVE_EXTR,
@@ -108,6 +112,9 @@ extern int ShouldRestart;
 extern int StopTime;
 extern int Redraw;
 extern int WordsInInput;
+extern int PrintedOK;
+extern int InKaylethPreview;
+extern uint8_t Word[];
 
 extern winid_t Bottom;
 
@@ -141,6 +148,7 @@ static void TranscriptOn(void)
     glk_put_string_stream(Transcript, start_of_transcript);
     glk_put_string_stream(glk_window_get_stream(Bottom),
         "Transcript is now on.\n");
+    glk_window_set_echo_stream(Bottom, Transcript);
 }
 
 static void TranscriptOff(void)
@@ -154,12 +162,13 @@ static void TranscriptOff(void)
     glk_put_string_stream(Transcript, end_of_transcript);
 
     glk_stream_close(Transcript, NULL);
+    glk_window_set_echo_stream(Bottom, NULL);
     Transcript = NULL;
     glk_put_string_stream(glk_window_get_stream(Bottom),
         "Transcript is now off.\n");
 }
 
-static int ParseExtraCommand(char *p)
+int ParseExtraCommand(char *p)
 {
     if (p == NULL)
         return NO_COMMAND;
@@ -188,18 +197,28 @@ static int ParseExtraCommand(char *p)
     return NO_COMMAND;
 }
 
-extern uint8_t Word[];
+extern int FoundExtraCommand;
 
 int TryExtraCommand(void)
 {
-    int verb = ParseExtraCommand(InputWordStrings[WordPositions[0]]);
+    if (InKaylethPreview)
+        return 0;
+    FoundExtraCommand = 0;
+    int verb_position = WordPositions[0];
+    int verb = ParseExtraCommand(InputWordStrings[verb_position]);
     int noun = NO_COMMAND;
-    if (WordPositions[0] + 1 < WordsInInput)
-        noun = ParseExtraCommand(InputWordStrings[WordPositions[0] + 1]);
+
+    if (verb > SCRIPT && verb_position > 0) {
+        verb_position--;
+        verb = ParseExtraCommand(InputWordStrings[verb_position]);
+    }
+    if (verb_position + 1 < WordsInInput)
+        noun = ParseExtraCommand(InputWordStrings[verb_position + 1]);
     if (noun == NO_COMMAND)
         noun = Word[1];
 
     StopTime = 1;
+    PrintedOK = 1;
     Redraw = 1;
     switch (verb) {
     case RESTORE:

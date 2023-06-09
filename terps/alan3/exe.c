@@ -146,8 +146,10 @@ void sys(Aword fpos, Aword len)
     char *command;
 
     command = getStringFromFile(fpos, len);
+#if 0
     if (system(command) == -1)
         /* Ignore errors */;
+#endif
     deallocate(command);
 }
 

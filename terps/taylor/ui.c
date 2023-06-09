@@ -36,6 +36,7 @@ glui32 TopHeight = 1; /* Height of top window */
 
 int Options; /* Option flags */
 int LineEvent = 0;
+int GraphicsOff = 0;
 
 winid_t FindGlkWindowWithRock(glui32 rock)
 {
@@ -61,8 +62,6 @@ void Display(winid_t w, const char *fmt, ...)
     va_end(ap);
 
     glk_put_string_stream(glk_window_get_stream(w), msg);
-    if (Transcript && w == Bottom)
-        glk_put_string_stream(Transcript, msg);
 }
 
 void HitEnter(void)
@@ -162,7 +161,7 @@ static void WordFlush(winid_t win)
 }
 
 extern strid_t room_description_stream;
-extern char *roomdescbuf;
+char *roomdescbuf = NULL;
 
 void TopWindow(void)
 {
@@ -266,10 +265,6 @@ static void FlushRoomDescription(void)
     }
 }
 
-char *roomdescbuf = NULL;
-
-extern int PendSpace;
-
 void BottomWindow(void)
 {
     WordFlush(Top);
@@ -293,27 +288,34 @@ void UpdateSettings(void)
         Options |= NO_DELAYS;
 
     switch (gli_sa_inventory) {
-    case 0:
-        Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-        break;
-    case 1:
-        Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-        break;
-    case 2:
-        Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-        break;
+        case 0:
+            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
+            break;
+        case 1:
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+        case 2:
+            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
+            break;
     }
 
     switch (gli_sa_palette) {
-    case 0:
-        Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
-        break;
-    case 1:
-        Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-        break;
-    case 2:
-        Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-        break;
+        case 0:
+            Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
+            break;
+        case 1:
+            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+            break;
+        case 2:
+            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+            break;
+    }
+
+    if (gli_enable_graphics && GraphicsOff) {
+        GraphicsOff = 0;
+        Resizing = 0;
+    } else if (!gli_enable_graphics) {
+        GraphicsOff = 1;
     }
 #endif
     palette_type previous_pal = palchosen;
@@ -342,7 +344,7 @@ void Updates(event_t ev)
         CloseGraphicsWindow();
         Look();
         Resizing = 0;
-    } else if (ev.type == evtype_Timer) {
+    } else if (ev.type == evtype_Timer && TAYLOR_GRAPHICS_ENABLED) {
         switch (BaseGame) {
         case REBEL_PLANET:
             UpdateRebelAnimations();

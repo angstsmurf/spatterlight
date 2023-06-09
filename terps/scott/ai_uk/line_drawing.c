@@ -3,13 +3,14 @@
 //
 //  This file is based on code from the Level9 interpreter by Simon Baldwin
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "line_drawing.h"
 #include "ringbuffer.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include <stdlib.h>
-#include <string.h>
 
 struct line_image *LineImages;
 

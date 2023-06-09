@@ -73,6 +73,8 @@ static void TranscriptOn(void)
     glk_put_string_stream(glk_window_get_stream(Bottom),
         (char *)sys[TRANSCRIPT_ON]);
 
+    glk_window_set_echo_stream(Bottom, Transcript);
+
     Look(1);
 }
 
@@ -85,6 +87,8 @@ static void TranscriptOff(void)
 
     glk_put_string_stream(Transcript, (char *)sys[TRANSCRIPT_END]);
 
+    glk_window_set_echo_stream(Bottom, NULL);
+
     glk_stream_close(Transcript, NULL);
     Transcript = NULL;
     SystemMessage(TRANSCRIPT_OFF);
@@ -94,12 +98,12 @@ ExtraCommandResult PerformExtraCommand(int command, int nextcommand)
 {
     switch (command) {
     case COM_AGAIN:
-        CurVerb = LastVerb;
-        CurNoun = LastNoun;
-        CurPrep = LastPrep;
-        CurPartp = LastPartp;
-        CurNoun2 = LastNoun2;
-        CurAdverb = LastAdverb;
+        CurrentVerb = LastVerb;
+        CurrentNoun = LastNoun;
+        CurrentPrep = LastPrep;
+        CurrentPartp = LastPartp;
+        CurrentNoun2 = LastNoun2;
+        CurrentAdverb = LastAdverb;
         return RESULT_AGAIN;
     case COM_UNDO:
         RestoreUndo(1);

@@ -106,9 +106,9 @@ char *Ltrim(char a[])
 #else
 	temp = &tempstring[0];
 #endif
-	strcpy(temp, a);
+	strncpy(temp, a, 1025);
 	while (temp[0]==' ' || temp[0]=='\t')
-		strcpy(temp, temp+1);
+		strncpy(temp, temp+1, 1025);
 	return temp;
 }
 

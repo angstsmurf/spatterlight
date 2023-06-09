@@ -1269,6 +1269,9 @@ enum  {
     }
 
     if (action == @selector(applyTheme:)) {
+        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
+            return NO;
+
         if (enabledThemeItem != nil) {
             for (NSMenuItem *item in _themesSubMenu.submenu.itemArray) {
                 item.state = NSOffState;
@@ -1278,6 +1281,7 @@ enum  {
             }
             enabledThemeItem = nil;
         }
+
         if (count > 0 && count < 10000) {
             NSMutableSet<NSString *> __block *themeNamesToSelect = [NSMutableSet new];
             [rows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -2349,7 +2353,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{
         weakSelf.gameSessions[game.ifid] = gctl;
         game.lastPlayed = [NSDate date];
-        [Preferences changeCurrentGame:game];
         [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
         [((AppDelegate *)[NSApplication sharedApplication].delegate)
          addToRecents:@[ url ]];
@@ -2400,7 +2403,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path {
     BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
-
     Game *game = [self importGame:path inContext:self.managedObjectContext reportFailure:YES hide:hide];
     if (game) {
         return [self selectAndPlayGame:game];
@@ -2425,7 +2427,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
-    return [importer importGame:path inContext:context reportFailure:report hide:hide];
+    Game *result =  [importer importGame:path inContext:context reportFailure:report hide:hide];
+
+    if (!result.metadata.cover)
+        [importer lookForImagesForGame:result];
+    return result;
 }
 
 - (IBAction)cancel:(id)sender {
@@ -3179,8 +3185,9 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 game.theme = [Preferences currentTheme];
             } else {
                 Preferences *prefs = Preferences.instance;
-                if (prefs && prefs.currentGame == nil)
+                if (prefs && prefs.currentGame == nil && !prefs.lightOverrideActive && !prefs.darkOverrideActive && self.view.window.keyWindow) {
                     [prefs restoreThemeSelection:game.theme];
+                }
             }
         } else _selectedGames = @[];
 

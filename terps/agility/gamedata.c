@@ -847,6 +847,7 @@ void reinit_dict(void)
   auxsyn=rmalloc(sizeof(slist)*TOTAL_VERB);
   auxcomb=NULL; num_auxcomb=0;
   preplist=rmalloc(sizeof(slist)*TOTAL_VERB);
+  memset(preplist, 0, sizeof(slist)*TOTAL_VERB);
   verbflag=rmalloc(sizeof(uchar)*TOTAL_VERB);
 
   if (!agx_file) 

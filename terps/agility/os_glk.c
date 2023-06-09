@@ -260,6 +260,25 @@ gagt_strncasecmp (const char *s1, const char *s2, size_t n)
 }
 
 static int
+gagt_strncasecmpuni (const glui32 *s1, const char *s2, size_t n)
+{
+  size_t index;
+
+  for (index = 0; index < n; index++)
+  {
+    int diff;
+
+    char c = (char)(s1[index] & 0xff);
+
+    diff = glk_char_to_lower (c) - glk_char_to_lower (s2[index]);
+    if (diff < 0 || diff > 0)
+      return diff < 0 ? -1 : 1;
+  }
+
+  return 0;
+}
+
+static int
 gagt_strcasecmp (const char *s1, const char *s2)
 {
   size_t s1len, s2len;
@@ -488,6 +507,19 @@ typedef const struct
   const unsigned char cp437;      /* Code page 437 character. */
   const unsigned char iso8859_1;  /* ISO 8859 Latin-1 character. */
 } gagt_char_t;
+
+static glui32 CP437_to_Unicode[] =
+{
+  0x00C7,0x00FC,0x00E9,0x00E2,0x00E4,0x00E0,0x00E5,0x00E7,0x00EA,0x00EB,0x00E8,0x00EF,0x00EE,0x00EC,0x00C4,0x00C5,
+  0x00C9,0x00E6,0x00C6,0x00F4,0x00F6,0x00F2,0x00FB,0x00F9,0x00FF,0x00D6,0x00DC,0x00A2,0x00A3,0x00A5,0x20A7,0x0192,
+  0x00E1,0x00ED,0x00F3,0x00FA,0x00F1,0x00D1,0x00AA,0x00BA,0x00BF,0x2310,0x00AC,0x00BD,0x00BC,0x00A1,0x00AB,0x00BB,
+  0x2591,0x2592,0x2593,0x2502,0x2524,0x2561,0x2562,0x2556,0x2555,0x2563,0x2551,0x2557,0x255D,0x255C,0x255B,0x2510,
+  0x2514,0x2534,0x252C,0x251C,0x2500,0x253C,0x255E,0x255F,0x255A,0x2554,0x2569,0x2566,0x2560,0x2550,0x256C,0x2567,
+  0x2568,0x2564,0x2565,0x2559,0x2558,0x2552,0x2553,0x256B,0x256A,0x2518,0x250C,0x2588,0x2584,0x258C,0x2590,0x2580,
+  0x03B1,0x00DF,0x0393,0x03C0,0x03A3,0x03C3,0x00B5,0x03C4,0x03A6,0x0398,0x03A9,0x03B4,0x221E,0x03C6,0x03B5,0x2229,
+  0x2261,0x00B1,0x2265,0x2264,0x2320,0x2321,0x00F7,0x2248,0x00B0,0x2219,0x00B7,0x221A,0x207F,0x00B2,0x25A0,0x00A0
+};
+
 typedef gagt_char_t *gagt_charref_t;
 
 static gagt_char_t GAGT_CHAR_TABLE[] = {
@@ -713,10 +745,32 @@ gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
       cp437 = from_string[index];
       iso8859_1 = table[cp437];
 
-      to_string[index] = iso8859_1 ? iso8859_1 : cp437;
-    }
+    to_string[index] = iso8859_1 ? iso8859_1 : cp437;
+  }
 
   to_string[index] = '\0';
+}
+
+
+/*
+ * gagt_cp_to_uni()
+ *
+ * Convert a string from code page 437 into UTF-32.
+ */
+static void
+gagt_cp_to_uni (const unsigned char *from_string, glui32 *to_string)
+{
+  int length = strlen(from_string);
+  int i;
+  for (i = 0; i < length; i++) {
+    to_string[i] = from_string[i] & 0xff;
+    if (from_string[i] >= 0x80)
+    {
+      to_string[i] = CP437_to_Unicode[from_string[i] - 0x80];
+    }
+  }
+
+  to_string[length] = 0;
 }
 
 
@@ -790,7 +844,7 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
  * that don't support separate windows.  We also need a copy of the last
  * status buffer printed for non-windowing Glk libraries, for comparison.
  */
-static char *gagt_status_buffer = NULL,
+static glui32 *gagt_status_buffer = NULL,
             *gagt_status_buffer_printed = NULL;
 
 /*
@@ -813,8 +867,8 @@ agt_statline (const char *cp_string)
   assert (cp_string);
 
   free (gagt_status_buffer);
-  gagt_status_buffer = gagt_malloc (strlen (cp_string) + 1);
-  gagt_cp_to_iso ((const unsigned char *)cp_string, (unsigned char *)gagt_status_buffer);
+  gagt_status_buffer = gagt_malloc ((strlen (cp_string) + 1) * sizeof(glui32));
+  gagt_cp_to_uni ((const unsigned char *)cp_string, (glui32 *)gagt_status_buffer);
 
   gagt_debug ("agt_statline", "string='%s'", cp_string);
 }
@@ -872,6 +926,26 @@ gagt_status_update_extended (void)
     }
 }
 
+glui32 strlen_uni(glui32 *s)
+{
+  glui32 length = 0;
+  while (*s++) length++;
+  return length;
+}
+
+glsi32 strcmp_uni(glui32 *s1, glui32 *s2)
+{
+  glui32 length1 = strlen_uni(s1);
+  glui32 length2 = strlen_uni(s2);
+  glui32 length = ((length2 > length1) ? length1 : length2);
+  for (int i = 0; i < length; i++) {
+    if (s1[i] != s2[i]) {
+      return ((s1[i] > s2[i]) ? 1 : -1);
+    }
+  }
+  return 0;
+}
+
 
 /*
  * gagt_status_update()
@@ -915,9 +989,9 @@ gagt_status_update (void)
            * current status window width if necessary, then try adding a
            * second line if extended status enabled.
            */
-          print_width = width < strlen (gagt_status_buffer)
-                        ? width : strlen (gagt_status_buffer);
-          glk_put_buffer (gagt_status_buffer, print_width);
+          print_width = width < strlen_uni (gagt_status_buffer)
+                        ? width : strlen_uni (gagt_status_buffer);
+          glk_put_buffer_uni (gagt_status_buffer, print_width);
 
           if (gagt_extended_status_enabled)
             gagt_status_update_extended ();
@@ -959,7 +1033,7 @@ gagt_status_print (void)
    */
   if (!gagt_status_buffer
       || (gagt_status_buffer_printed
-          && strcmp (gagt_status_buffer, gagt_status_buffer_printed) == 0))
+          && strcmp_uni (gagt_status_buffer, gagt_status_buffer_printed) == 0))
     return;
 
   /* Set fixed width font to try to preserve status line formatting. */
@@ -971,13 +1045,14 @@ gagt_status_print (void)
    * AGiliTy puts leading/trailing spaces on its status lines.
    */
   glk_put_string ("[");
-  glk_put_string (gagt_status_buffer);
+  glk_put_string_uni (gagt_status_buffer);
   glk_put_string ("]\n");
 
   /* Save the details of the printed status buffer. */
   free (gagt_status_buffer_printed);
-  gagt_status_buffer_printed = gagt_malloc (strlen (gagt_status_buffer) + 1);
-  strcpy (gagt_status_buffer_printed, gagt_status_buffer);
+  glui32 length = (strlen_uni (gagt_status_buffer) + 1) * sizeof(glui32);
+  gagt_status_buffer_printed = gagt_malloc (length);
+  memcpy(gagt_status_buffer_printed, gagt_status_buffer, length);
 }
 
 
@@ -1588,8 +1663,8 @@ static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
  * null terminator -- not needed since we retain length.
  */
 typedef struct {
-  unsigned char *data;        /* Buffered character data. */
-  unsigned char *attributes;  /* Parallel character attributes, packed. */
+  glui32 *data;        /* Buffered character data. */
+  glui32 *attributes;  /* Parallel character attributes, packed. */
   int allocation;             /* Bytes allocated to each of the above. */
   int length;                 /* Amount of data actually buffered. */
 } gagt_string_t;
@@ -1644,8 +1719,8 @@ static gagt_string_t gagt_current_buffer = { NULL, NULL, 0, 0 };
  * String append, move, and allocation free for string_t buffers.
  */
 static void
-gagt_string_append (gagt_stringref_t buffer, const char *string,
-                    unsigned char packed_attributes)
+gagt_string_append (gagt_stringref_t buffer, glui32 *string,
+                    glui32 packed_attributes)
 {
   int length, bytes;
 
@@ -1653,8 +1728,10 @@ gagt_string_append (gagt_stringref_t buffer, const char *string,
    * Find the size we'll need from the line buffer to add this string,
    * and grow buffer if necessary.
    */
-  length = strlen (string);
-  for (bytes = buffer->allocation; bytes < buffer->length + length; )
+  length = strlen_uni (string);
+  if (length == 0)
+    return;
+  for (bytes = buffer->allocation; bytes < (buffer->length + length) * sizeof(glui32); )
     bytes = bytes == 0 ? 1 : bytes << 1;
 
   if (bytes > buffer->allocation)
@@ -1666,8 +1743,8 @@ gagt_string_append (gagt_stringref_t buffer, const char *string,
     }
 
   /* Add string to the line buffer, and store packed text attributes. */
-  memcpy (buffer->data + buffer->length, string, length);
-  memset (buffer->attributes + buffer->length, packed_attributes, length);
+  memcpy (buffer->data + buffer->length, string, length * sizeof(glui32));
+  memset (buffer->attributes + buffer->length, packed_attributes, length * sizeof(glui32));
 
   buffer->length += length;
 }
@@ -1720,7 +1797,7 @@ gagt_get_string_outdent (const gagt_stringref_t buffer)
 
   outdent = 0;
   for (index = buffer->length - 1;
-       index >= 0 && isspace (buffer->data[index]); index--)
+       index >= 0 && buffer->data[index] == 32; index--)
     outdent++;
 
   return outdent;
@@ -1810,7 +1887,7 @@ agt_puts (const char *cp_string)
 
   if (!BATCH_MODE)
     {
-      char *iso_string;
+      glui32 *iso_string;
       unsigned char packed;
       int length;
 
@@ -1822,14 +1899,16 @@ agt_puts (const char *cp_string)
        * Convert the buffer from IBM cp 437 to Glk's ISO 8859 Latin-1, and
        * add string and packed text attributes to the current line buffer.
        */
-      iso_string = gagt_malloc (length + 1);
-      gagt_cp_to_iso ((const unsigned char *)cp_string, (unsigned char *)iso_string);
+      iso_string = gagt_malloc ((length + 1) * sizeof(glui32));
+      gagt_cp_to_uni ((const unsigned char *)cp_string, (glui32 *)iso_string);
       packed = gagt_pack_current_attributes ();
       gagt_string_append (&gagt_current_buffer, iso_string, packed);
 
       /* Add the string to any script file. */
-      if (script_on)
-        textputs (scriptfile, iso_string);
+      if (script_on) {
+        gagt_cp_to_iso(cp_string, (char *)cp_string);
+        textputs (scriptfile, cp_string);
+      }
 
       free (iso_string);
       gagt_debug ("agt_puts", "string='%s'", cp_string);
@@ -3004,8 +3083,8 @@ gagt_compare_special_line (const char *compare, const gagt_lineref_t line)
    * indent and outdent) also matches, ignoring case.
    */
   return strlen (compare) == line->real_length
-         && gagt_strncasecmp (compare,
-                              (char *)line->buffer.data + line->indent,
+         && gagt_strncasecmpuni (line->buffer.data + line->indent,
+                              compare,
                               line->real_length) == 0;
 }
 
@@ -3129,13 +3208,14 @@ gagt_display_special (const gagt_specialref_t special, glui32 current_style)
 {
   glui32 set_style;
   int index, marker, length;
-  const char *string;
+  glui32 *string;
   assert (special);
 
   /* Extract replacement string and length. */
-  string = special->replace;
-  assert (string);
-  length = strlen (string);
+  assert (special->replace);
+  length = strlen (special->replace);
+  string = gagt_malloc((length + 1) * sizeof(glui32));
+  gagt_cp_to_uni(special->replace, string);
 
   set_style = current_style;
 
@@ -3151,7 +3231,7 @@ gagt_display_special (const gagt_specialref_t special, glui32 current_style)
           glui32 style;
 
           /* Flush delayed output accumulated so far, excluding escape. */
-          glk_put_buffer ((char *) string + marker, index - marker);
+          glk_put_buffer_uni((glui32 *) string + marker, index - marker);
           marker = index + 2;
 
           /* Determine any new text style. */
@@ -3186,7 +3266,7 @@ gagt_display_special (const gagt_specialref_t special, glui32 current_style)
 
   /* Output any remaining delayed characters. */
   if (marker < length)
-    glk_put_buffer ((char *) string + marker, length - marker);
+    glk_put_buffer_uni ((glui32 *) string + marker, length - marker);
 
   return set_style;
 }
@@ -3223,13 +3303,15 @@ gagt_display_silence_help_hints (void)
   gagt_help_hints_silenced = TRUE;
 }
 
+static void
+gagt_styled_string (glui32 style, const char *message);
+
 static glui32
 gagt_display_provide_help_hint (glui32 current_style)
 {
   if (gagt_help_requested && !gagt_help_hints_silenced)
     {
-      glk_set_style (style_Emphasized);
-      glk_put_string ("[Try 'glk help' for help on special interpreter"
+      gagt_styled_string(style_Emphasized, "[Try 'glk help' for help on special interpreter"
                       " commands]\n");
 
       gagt_help_requested = FALSE;
@@ -3250,7 +3332,7 @@ gagt_display_provide_help_hint (glui32 current_style)
  * The function handles a flag to coerce fixed width font.
  */
 static glui32
-gagt_display_text_element (const char *string, const unsigned char *attributes,
+gagt_display_text_element (glui32 *string, glui32 *attributes,
                            int length, glui32 current_style, int fixed_width)
 {
   int marker, index;
@@ -3286,9 +3368,8 @@ gagt_display_text_element (const char *string, const unsigned char *attributes,
       style = gagt_select_style (&attribute_set);
       if (style != set_style)
         {
-          glk_put_buffer ((char *) string + marker, index - marker);
+          glk_put_buffer_uni ((glui32 *) string + marker, index - marker);
           marker = index;
-
           glk_set_style (style);
           set_style = style;
         }
@@ -3296,7 +3377,7 @@ gagt_display_text_element (const char *string, const unsigned char *attributes,
 
   /* Output any remaining delayed characters. */
   if (marker < length)
-    glk_put_buffer ((char *) string + marker, length - marker);
+    glk_put_buffer_uni ((glui32 *) string + marker, length - marker);
 
   return set_style;
 }
@@ -3341,7 +3422,7 @@ gagt_display_line (const gagt_lineref_t line, glui32 current_style,
     }
 
   /* Display this line segment. */
-  set_style = gagt_display_text_element ((const char *)line->buffer.data + start,
+  set_style = gagt_display_text_element ((glui32 *)line->buffer.data + start,
                                          line->buffer.attributes + start,
                                          length, current_style, fixed_width);
 
@@ -3490,7 +3571,7 @@ gagt_display_auto (void)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
-  style = gagt_display_text_element ((char *)gagt_current_buffer.data,
+  style = gagt_display_text_element ((glui32 *)gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length, style, FALSE);
 }
@@ -3539,7 +3620,7 @@ gagt_display_manual (int fixed_width)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
-  style = gagt_display_text_element ((char *)gagt_current_buffer.data,
+  style = gagt_display_text_element (gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length,
                                      style, fixed_width);
@@ -3699,9 +3780,15 @@ gagt_styled_string (glui32 style, const char *message)
 {
   assert (message);
 
+  glui32 length = strlen(message);
+  if (length == 0)
+    return;
+  glui32 *unibuffer = gagt_malloc((length + 1) * sizeof(glui32));
+  gagt_cp_to_uni(message, unibuffer);
   glk_set_style (style);
-  glk_put_string ((char *) message);
+  glk_put_string_uni (unibuffer);
   glk_set_style (style_Normal);
+  free(unibuffer);
 }
 
 static void
@@ -4061,7 +4148,7 @@ gagt_command_script (const char *argument)
           return;
         }
 
-      gagt_transcript_stream = glk_stream_open_file (fileref,
+      gagt_transcript_stream = glk_stream_open_file_uni (fileref,
                                                      filemode_WriteAppend, 0);
       glk_fileref_destroy (fileref);
       if (!gagt_transcript_stream)
@@ -5275,9 +5362,10 @@ agt_input (int in_type)
       if (chars > 0)
         {
           /* Echo the line just read in input style. */
-          glk_set_style (style_Input);
-          glk_put_buffer (buffer, chars);
-          glk_set_style (style_Normal);
+          char *message = gagt_malloc(chars + 1);
+          memcpy(message, buffer, chars);
+          message[chars] = '\0';
+          gagt_styled_string(style_Input, message);
 
           /*
            * Convert the string from Glk's ISO 8859 Latin-1 to IBM cp 437,
@@ -5373,8 +5461,10 @@ agt_input (int in_type)
    * Convert from Glk's ISO 8859 Latin-1 to IBM cp 437, and add to any script.
    */
   gagt_iso_to_cp ((unsigned char *)buffer, (unsigned char *)buffer);
-  if (script_on)
+  if (script_on) {
     textputs (scriptfile, buffer);
+    textputs (scriptfile, "\n");
+  }
 
   gagt_debug ("agt_input", "in_type=%d -> '%s'", in_type, buffer);
   return buffer;
@@ -5432,9 +5522,7 @@ agt_getkey (rbool echo_char)
           buffer[2] = '\0';
 
           /* Echo the character just read in input style. */
-          glk_set_style (style_Input);
-          glk_put_string (buffer);
-          glk_set_style (style_Normal);
+          gagt_styled_string(style_Input, buffer);
 
           /*
            * Convert from Glk's ISO 8859 Latin-1 to IBM cp 437, add to any
@@ -5484,9 +5572,7 @@ agt_getkey (rbool echo_char)
    * great if we don't write out the character, and also a newline (c.f.
    * the "Yes/No" confirmation of the QUIT command)...
    */
-  glk_set_style (style_Input);
-  glk_put_string (buffer);
-  glk_set_style (style_Normal);
+  gagt_styled_string(style_Input, buffer);
 
   /*
    * Convert from Glk's ISO 8859 Latin-1 to IBM cp 437, and add to any
@@ -6523,8 +6609,7 @@ gagt_finalizer (void)
           glk_cancel_char_event (gagt_main_window);
           glk_cancel_line_event (gagt_main_window, NULL);
 
-          glk_set_style (style_Alert);
-          glk_put_string ("\n\nHit any key to exit.\n");
+          gagt_styled_string(style_Alert, "\n\nHit any key to exit.\n");
           glk_request_char_event (gagt_main_window);
           gagt_event_wait (evtype_CharInput, &event);
         }

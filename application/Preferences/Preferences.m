@@ -1,21 +1,22 @@
 #include "glk.h"
 
 #import "AppDelegate.h"
+#import "BufferTextView.h"
+#import "BuiltInThemes.h"
+#import "Constants.h"
 #import "CoreDataManager.h"
 #import "Game.h"
+#import "GlkController.h"
+#import "GlkStyle.h"
 #import "Metadata.h"
+#import "NotificationBezel.h"
+#import "NSColor+integer.h"
+#import "NSString+Categories.h"
+#import "ParagraphPopOver.h"
+#import "PreviewController.h"
+#import "TableViewController.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
-#import "GlkStyle.h"
-#import "TableViewController.h"
-#import "NSString+Categories.h"
-#import "NSColor+integer.h"
-#import "BufferTextView.h"
-#import "Constants.h"
-#import "BuiltInThemes.h"
-#import "ParagraphPopOver.h"
-#import "NotificationBezel.h"
-#import "PreviewController.h"
 
 #import "Preferences.h"
 
@@ -79,17 +80,41 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSTableView *themesTableView;
 
+    NSDictionary<NSToolbarItemIdentifier, NSView *> *itemIdentifierToViewDict;
+
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
     CGFloat defaultWindowHeight;
+    CGFloat restoredPreviewHeight;
+    NSView *currentPanel;
 
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
+
+    NSToolbarItemIdentifier themesPanel;
+    NSToolbarItemIdentifier stylesPanel;
+    NSToolbarItemIdentifier presentationPanel;
+    NSToolbarItemIdentifier formatPanel;
+    NSToolbarItemIdentifier voiceOverPanel;
+    NSToolbarItemIdentifier miscPanel;
+    NSToolbarItemIdentifier globalPanel;
 }
 
 @property (strong) IBOutlet PreviewController *previewController;
-@property (strong) IBOutlet NSLayoutConstraint *previewHeight;
+@property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
+
+@property (strong) IBOutlet NSView *themesView;
+@property (strong) IBOutlet NSView *stylesView;
+@property (strong) IBOutlet NSView *presentationView;
+@property (strong) IBOutlet NSView *formatView;
+@property (strong) IBOutlet NSView *voiceOverView;
+@property (strong) IBOutlet NSView *miscView;
+@property (strong) IBOutlet NSView *globalView;
+
+@property (strong) IBOutlet NSView *belowView;
+@property (strong) IBOutlet NSLayoutConstraint *belowHeightConstraint;
+@property (strong) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @end
 
@@ -168,12 +193,22 @@ static Preferences *prefs = nil;
     [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
 }
 
-+ (void)changeCurrentGame:(Game *)game {
++ (void)changeCurrentGlkController:(GlkController *)ctrl {
     if (prefs) {
-        prefs.currentGame = game;
-        if (!game.theme)
-            game.theme = theme;
+        if (prefs.currentGame == ctrl.game)
+            return;
+        if (ctrl == nil) {
+            prefs.currentGame = nil;
+        } else {
+            prefs.currentGame = ctrl.game;
+            if (!ctrl.theme)
+                ctrl.theme = theme;
+            theme = ctrl.theme;
+            if (!ctrl.game.theme)
+                ctrl.game.theme = theme;
+        }
         [prefs restoreThemeSelection:theme];
+        prefs.themesHeader.stringValue = [prefs themeScopeTitle];
     }
 }
 
@@ -232,34 +267,7 @@ NSString *fontToString(NSFont *font) {
 
     disregardTableSelection = YES;
 
-    NSRect winRect = [self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, kDefaultPrefsLowerViewHeight)];
-
-    defaultWindowHeight = NSHeight(winRect);
-
-    if (self.window.minSize.height != defaultWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
-        NSSize minSize = self.window.minSize;
-        minSize.height = defaultWindowHeight;
-        minSize.width = kDefaultPrefWindowWidth;
-        self.window.minSize = minSize;
-    }
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
-
-    if (!_previewShown) {
-        [self resizeWindowToHeight:defaultWindowHeight];
-    } else {
-        CGFloat restoredHeight = NSHeight(self.window.frame);
-
-        // Hack to fix weird bug where a sliver of the preview window
-        // keeps showing on restart
-        if (restoredHeight < defaultWindowHeight + 10) {
-            [self togglePreview:nil];
-        } else {
-            if (restoredHeight <= defaultWindowHeight)
-                [self resizeWindowToHeight:[self calculatePreviewHeight]];
-        }
-    }
 
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
@@ -313,13 +321,99 @@ NSString *fontToString(NSFont *font) {
 
     _previewController.theme = theme;
 
-    // Sample text view
-    CGFloat sampleY = kDefaultPrefsLowerViewHeight + 1;
-    NSRect newSampleFrame = NSMakeRect(0, sampleY, self.window.frame.size.width, ((NSView *)self.window.contentView).frame.size.height - sampleY);
-    _sampleTextBorderView.frame = newSampleFrame;
+    [self findDarkAndLightThemes];
+    if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
+        _lightOverrideActive = YES;
+    } else if (_darkTheme && [Preferences currentSystemMode] == kDarkMode) {
+        _darkOverrideActive = YES;
+    }
 
-    _divider.frame = NSMakeRect(0, kDefaultPrefsLowerViewHeight, self.window.frame.size.width, 1);
-    _divider.autoresizingMask = NSViewMaxYMargin;
+    _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
+    _themesHeader.stringValue = [self themeScopeTitle];
+
+    _adjustSize = [defaults boolForKey:@"AdjustSize"];
+
+    prefs = self;
+
+    _scrollView.scrollerStyle = NSScrollerStyleOverlay;
+    _scrollView.drawsBackground = YES;
+    _scrollView.hasHorizontalScroller = NO;
+    _scrollView.hasVerticalScroller = YES;
+    _scrollView.verticalScroller.alphaValue = 100;
+    _scrollView.autohidesScrollers = YES;
+    _scrollView.borderType = NSNoBorder;
+
+    [self changeThemeName:theme.name];
+
+#pragma mark Init toolbar
+
+    themesPanel = @"themes";
+    stylesPanel = @"styles";
+    presentationPanel = @"presentation";
+    formatPanel = @"format";
+    voiceOverPanel = @"voiceOver";
+    miscPanel = @"misc";
+    globalPanel = @"global";
+
+    itemIdentifierToViewDict = @{
+        themesPanel:_themesView,
+        stylesPanel:_stylesView,
+        presentationPanel:_presentationView,
+        formatPanel:_formatView,
+        voiceOverPanel:_voiceOverView,
+        miscPanel:_miscView,
+        globalPanel:_globalView
+    };
+
+    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
+    toolbar.delegate = self;
+    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+    toolbar.allowsUserCustomization = NO;
+    if (@available(macOS 11.0, *)) {
+        self.window.toolbarStyle = NSWindowToolbarStylePreference;
+    }
+    self.window.toolbar = toolbar;
+
+    if (toolbar.selectedItemIdentifier == nil)
+        toolbar.selectedItemIdentifier = themesPanel;
+
+    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
+
+    if (!_belowView.subviews.count) {
+        currentPanel = _themesView;
+    } else {
+        currentPanel = _belowView.subviews[0];
+    }
+
+    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
+
+    if (!_previewShown) {
+        _previewHeightConstraint.constant = 0;
+        [self resizeWindowToHeight:defaultWindowHeight animate:NO];
+    } else {
+        CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
+        if (height <= 0)
+            height = [_previewController calculateHeight] + 40;
+        [self resizeWindowToHeight:height + defaultWindowHeight animate:NO];
+        [_previewController fixScrollBar];
+    }
+
+    BOOL found = NO;
+    for (NSToolbarItem *item in toolbar.items) {
+        if ([item.itemIdentifier isEqual:toolbar.selectedItemIdentifier]) {
+            [self switchToPanel:item resizePreview:YES];
+            found = YES;
+            break;
+        }
+    }
+
+    if (!found)
+        [self switchToPanel:toolbar.items[0] resizePreview:YES];
+
+    [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
+
+    self.windowFrameAutosaveName = @"PrefsPanel";
+    themesTableView.autosaveName = @"ThemesTable";
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
@@ -331,31 +425,175 @@ NSString *fontToString(NSFont *font) {
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
 
-    _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
-    _themesHeader.stringValue = [self themeScopeTitle];
-
-    _adjustSize = [defaults boolForKey:@"AdjustSize"];
-
-    prefs = self;
-    [self updatePrefsPanel];
-
-    NSScrollView *scrollView = _scrollView;
-
-    scrollView.scrollerStyle = NSScrollerStyleOverlay;
-    scrollView.drawsBackground = YES;
-    scrollView.hasHorizontalScroller = NO;
-    scrollView.hasVerticalScroller = YES;
-    scrollView.verticalScroller.alphaValue = 100;
-    scrollView.autohidesScrollers = YES;
-    scrollView.borderType = NSNoBorder;
-
-    [self changeThemeName:theme.name];
-
-    self.windowFrameAutosaveName = @"PrefsPanel";
-    themesTableView.autosaveName = @"ThemesTable";
-
-    [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
 }
+
+#pragma mark Color mode changes
+
+
++ (kModeType)currentSystemMode {
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleInterfaceStyle"] isEqualToString:@"Dark"])
+        return kDarkMode;
+    return kLightMode;
+}
+
+- (void)noteColorModeChanged:(NSNotification *)notification {
+    if ([Preferences currentSystemMode] == kDarkMode) {
+        if (_darkTheme) {
+            _darkOverrideActive = YES;
+            [[NSNotificationCenter defaultCenter]
+             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_darkTheme]];
+        } else {
+            if (_lightOverrideActive || _darkOverrideActive)
+                [self lightOrDarkOverrideWasRemoved];
+            return;
+        }
+        _lightOverrideActive = NO;
+    } else {
+        if (_lightTheme) {
+            _lightOverrideActive = YES;
+            [[NSNotificationCenter defaultCenter]
+             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_lightTheme]];
+        } else {
+            if (_darkOverrideActive || _darkOverrideActive)
+                [self lightOrDarkOverrideWasRemoved];
+            return;
+        }
+        _darkOverrideActive = NO;
+    }
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+    _themesHeader.stringValue = [self themeScopeTitle];
+}
+
+- (void)lightOrDarkOverrideWasRemoved {
+    _lightOverrideActive = NO;
+    _darkOverrideActive = NO;
+    _themesHeader.stringValue = [self themeScopeTitle];
+    if (self.window.keyWindow) {
+        if (_oneThemeForAll) {
+            self.oneThemeForAll = YES;
+        } else if (_currentGame) {
+            _currentGame.theme = theme;
+        }
+    } else if (_currentGame) {
+        [prefs restoreThemeSelection:_currentGame.theme];
+    }
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+}
+
+- (void)findDarkAndLightThemes {
+    _darkTheme = nil;
+    _lightTheme = nil;
+    _lightOverrideActive = NO;
+    _darkOverrideActive = NO;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardDark == YES"];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count) {
+        _darkTheme = fetchedObjects[0];
+        _darkTheme.hardLightOrDark = YES;
+        if (fetchedObjects.count > 1) {
+            for (Theme *wrong in fetchedObjects) {
+                if (wrong != _darkTheme)
+                    wrong.hardDark = NO;
+            }
+
+        }
+    } else {
+        if (error != nil) {
+            NSLog(@"NO darkTheme: %@", error);
+        }
+        _darkTheme = nil;
+    }
+
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLight == YES"];
+    error = nil;
+    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count) {
+        _lightTheme = fetchedObjects[0];
+        _lightTheme.hardLightOrDark = YES;
+        if (fetchedObjects.count > 1) {
+            for (Theme *wrong in fetchedObjects) {
+                if (wrong != _lightTheme) {
+                    wrong.hardLight = NO;
+                }
+            }
+
+        }
+    } else {
+        if (error != nil) {
+            NSLog(@"NO lightTheme: %@", error);
+        }
+        _lightTheme = nil;
+    }
+
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLightOrDark == YES"];
+    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (Theme *wrong in fetchedObjects) {
+        if (!wrong.hardDark && !wrong.hardLight)
+            wrong.hardLightOrDark = NO;
+    }
+}
+
+- (IBAction)useInLightMode:(id)sender {
+    if (_lightModeMenuItem.state == NSOnState) {
+        _hardLightCheckbox.state = NSOffState;
+    } else {
+        _hardLightCheckbox.state = NSOnState;
+    }
+    [self changeHardLightTheme:_hardLightCheckbox];
+    if (!theme.hardLight) {
+        //We switched off the light theme override. Current game (or all) gets this theme applied
+        if (_oneThemeForAll) {
+            self.oneThemeForAll = YES;
+        } else if (_currentGame) {
+            [theme addGames:[NSSet setWithObject:_currentGame]];
+        }
+    }
+}
+
+- (IBAction)useInDarkMode:(id)sender {
+    if (_darkModeMenuItem.state == NSOnState) {
+        _hardDarkCheckbox.state = NSOffState;
+    } else {
+        _hardDarkCheckbox.state = NSOnState;
+    }
+    [self changeHardDarkTheme:_hardDarkCheckbox];
+    if (!theme.hardDark) {
+        // We switched off the dark theme override. Current game (or all) gets this theme applied
+        if (_oneThemeForAll) {
+            self.oneThemeForAll = YES;
+        } else if (_currentGame) {
+            [theme addGames:[NSSet setWithObject:_currentGame]];
+        }
+    }
+}
+
+- (IBAction)clearLightDarkOverrides:(id)sender {
+    [self findDarkAndLightThemes];
+    if (_darkTheme) {
+        _darkTheme.hardDark = NO;
+        _darkTheme.hardLightOrDark = NO;
+        _darkTheme = nil;
+    }
+    if (_lightTheme) {
+        _lightTheme.hardLight = NO;
+        _lightTheme.hardLightOrDark = NO;
+        _lightTheme = nil;
+    }
+    [self lightOrDarkOverrideWasRemoved];
+    theme = _arrayController.selectedTheme;
+    if (_oneThemeForAll)
+        self.oneThemeForAll = YES;
+    else
+        _currentGame.theme = theme;
+    [self updatePrefsPanel];
+}
+
 
 #pragma mark Update panels
 
@@ -411,25 +649,8 @@ NSString *fontToString(NSFont *font) {
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
 
-    wint_t windowType = (wint_t)[defaults integerForKey:@"SelectedHyperlinkWindowType"];
-    if (windowType != wintype_TextGrid && windowType != wintype_TextBuffer) {
-        windowType = wintype_TextGrid;
-        [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
-    }
-
-    [_hyperlinksPopup selectItemWithTag:windowType];
-
-    switch (windowType) {
-        case wintype_TextGrid:
-            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        case wintype_TextBuffer:
-            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        default:
-            NSLog(@"Unhandled link window type");
-            break;
-    }
+    _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
+    _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
@@ -492,6 +713,13 @@ NSString *fontToString(NSFont *font) {
     _delaysCheckbox.state = theme.sADelays;
     _slowDrawCheckbox.state = theme.slowDrawing;
 
+    _hardDarkCheckbox.state = theme.hardDark;
+    _darkModeMenuItem.state = theme.hardDark;
+    _hardLightCheckbox.state = theme.hardLight;
+    _lightModeMenuItem.state = theme.hardLight;
+
+    _scottAdamsFlickerCheckbox.state = theme.flicker;
+
     if ([NSFontPanel sharedFontPanel].visible) {
         if (!selectedFontButton)
             selectedFontButton = btnBufferFont;
@@ -510,25 +738,13 @@ NSString *fontToString(NSFont *font) {
     return (windowType == wintype_TextGrid) ? gGridStyleNames[styleValue] : gBufferStyleNames[styleValue];
 }
 
-@synthesize currentGame = _currentGame;
-
 - (void)setCurrentGame:(Game *)currentGame {
     _currentGame = currentGame;
     _themesHeader.stringValue = [self themeScopeTitle];
-    if (currentGame == nil) {
-        NSLog(@"Preferences currentGame was set to nil");
-        return;
-    }
-    if (currentGame.theme != theme) {
+    if (currentGame && currentGame.theme != theme && !(_darkOverrideActive || _lightOverrideActive)) {
         [self restoreThemeSelection:currentGame.theme];
     }
 }
-
-- (Game *)currentGame {
-    return _currentGame;
-}
-
-@synthesize defaultTheme = _defaultTheme;
 
 - (Theme *)defaultTheme {
     if (_defaultTheme == nil) {
@@ -580,23 +796,15 @@ NSString *fontToString(NSFont *font) {
 
 - (NSSize)windowWillResize:(NSWindow *)window
                     toSize:(NSSize)frameSize {
-
     if (window != self.window) {
         return frameSize;
     }
 
-    if (frameSize.height <= defaultWindowHeight) {
-        _previewShown = NO;
-    } else {
-        if (frameSize.height > self.window.frame.size.height) { // We are enlarging
-            CGFloat maxHeight = [self calculatePreviewHeight] + 40;
-            if (frameSize.height > maxHeight)
-                frameSize.height = maxHeight;
-        }
-        _previewShown = YES;
+    if (frameSize.height > defaultWindowHeight && frameSize.height > NSHeight(self.window.frame)) { // We are enlarging
+        CGFloat maxHeight = MAX([self calculateWindowHeightWithPreview] + 40, NSHeight(self.window.frame));
+        if (frameSize.height > maxHeight)
+            frameSize.height = maxHeight;
     }
-
-    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
     return frameSize;
 }
@@ -612,8 +820,8 @@ NSString *fontToString(NSFont *font) {
     if (!_previewShown) {
         newHeight = defaultWindowHeight;
     } else {
-        newHeight = [self calculatePreviewHeight];
-        _previewHeight.constant = newHeight;
+        newHeight = [self calculateWindowHeightWithPreview];
+        _previewHeightConstraint.constant = [_previewController calculateHeight] + 40;
     }
 
     NSRect currentFrame = window.frame;
@@ -634,7 +842,7 @@ NSString *fontToString(NSFont *font) {
     return YES;
 }
 
-- (void)resizeWindowToHeight:(CGFloat)height {
+- (void)resizeWindowToHeight:(CGFloat)height animate:(BOOL)animate {
     NSWindow *prefsPanel = self.window;
 
     CGFloat oldheight = NSHeight(prefsPanel.frame);
@@ -664,25 +872,31 @@ NSString *fontToString(NSFont *font) {
     if (NSMinY(winrect) < 0)
         winrect.origin.y = NSMinY(screenframe);
 
-    Preferences * __weak weakSelf = self;
+    CGFloat newPrevHeightConstant = NSHeight(winrect) - defaultWindowHeight;
+    CGFloat newTextHeightConstant = MIN(newPrevHeightConstant, [_previewController calculateHeight]);
 
-    CGFloat blockDefaultWindowHeight = defaultWindowHeight;
-    [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.3;
-         [[prefsPanel animator]
-          setFrame:winrect
-          display:YES];
-        [_previewHeight.animator setConstant:NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight];
-        [_previewController.textHeight.animator setConstant:MIN(NSHeight(weakSelf.window.frame) - blockDefaultWindowHeight, [_previewController calculateHeight])];
-     } completionHandler:^{}];
+    if (!animate) {
+        _previewHeightConstraint.constant = newPrevHeightConstant;
+        _previewController.textHeight.constant = newTextHeightConstant;
+        [self.window setFrame:winrect display:YES];
+    } else {
+        [NSAnimationContext
+         runAnimationGroup:^(NSAnimationContext *context) {
+            context.duration = 0.3;
+            [[prefsPanel animator]
+             setFrame:winrect
+             display:YES];
+            [_previewHeightConstraint.animator setConstant:newPrevHeightConstant];
+            [_previewController.textHeight.animator setConstant:newTextHeightConstant];
+        } completionHandler:^{}];
+    }
 }
 
-- (CGFloat)calculatePreviewHeight {
+- (CGFloat)calculateWindowHeightWithPreview {
 
     CGFloat proposedHeight = [_previewController calculateHeight];
 
-    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40; //2 * (theme.border + theme.bufferMarginY);
+    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40;
     CGRect screenframe = [NSScreen mainScreen].visibleFrame;
 
     if (totalHeight > screenframe.size.height) {
@@ -713,6 +927,17 @@ NSString *fontToString(NSFont *font) {
              postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
         });
     }
+}
+
+- (void)windowDidEndLiveResize:(id)sender {
+    _previewShown = (NSHeight(self.window.frame) > defaultWindowHeight);
+
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
+
+    PreviewController *blockPrevCtrl = _previewController;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [blockPrevCtrl scrollToTop];
+        });
 }
 
 #pragma mark Themes Table View Magic
@@ -750,23 +975,24 @@ NSString *fontToString(NSFont *font) {
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
 
-        if (_oneThemeForAll) {
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-            NSArray *fetchedObjects;
-            NSError *error;
-            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
-            fetchRequest.includesPropertyValues = NO;
-            fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-            [theme addGames:[NSSet setWithArray:fetchedObjects]];
-        } else if (_currentGame) {
-            _currentGame.theme = theme;
+        if (!_lightOverrideActive && !_darkOverrideActive) {
+            if (_oneThemeForAll) {
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                NSArray *fetchedObjects;
+                NSError *error;
+                fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+                fetchRequest.includesPropertyValues = NO;
+                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+                [theme addGames:[NSSet setWithArray:fetchedObjects]];
+            } else if (_currentGame) {
+                _currentGame.theme = theme;
+            }
         }
 
         // Send notification that theme has changed -- trigger configure events
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
     }
-    return;
 }
 
 - (void)changeThemeName:(NSString *)name {
@@ -834,6 +1060,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
+    [state encodeObject:(NSString *)self.window.toolbar.selectedItemIdentifier forKey:@"selectedItemIdentifier"];
+    [state encodeObject:@(NSHeight(_previewController.view.frame)) forKey:@"previewHeight"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -846,6 +1074,38 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
+
+    NSToolbarItem *restoredItem = nil;
+
+    NSToolbarItemIdentifier toolbarItemIdentifier = [state decodeObjectOfClass:[NSString class] forKey:@"selectedItemIdentifier"];
+    if (toolbarItemIdentifier) {
+        self.window.toolbar.selectedItemIdentifier = toolbarItemIdentifier;
+
+        for (NSToolbarItem *item in self.window.toolbar.items) {
+            if ([item.itemIdentifier isEqual:toolbarItemIdentifier]) {
+                restoredItem = item;
+                break;
+            }
+        }
+    }
+
+    NSNumber *previewHeightNumber = (NSNumber *)[state decodeObjectOfClass:[NSNumber class] forKey:@"previewHeight"];
+    if (previewHeightNumber) {
+        restoredPreviewHeight = previewHeightNumber.floatValue;
+        _previewHeightConstraint.constant = restoredPreviewHeight;
+    } else {
+        restoredPreviewHeight = 0;
+    }
+
+    if (restoredItem || previewHeightNumber) {
+        currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
+        defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
+        CGFloat blockHeight = defaultWindowHeight;
+        [self switchToPanel:restoredItem resizePreview:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [self resizeWindowToHeight:previewHeightNumber.floatValue + blockHeight animate:YES];
+        });
+    }
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -853,8 +1113,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 #pragma mark Action menu
-
-@synthesize oneThemeForAll = _oneThemeForAll;
 
 - (void)setOneThemeForAll:(BOOL)oneThemeForAll {
     _oneThemeForAll = oneThemeForAll;
@@ -871,10 +1129,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else {
         _btnOneThemeForAll.state = NSOffState;
     }
-}
-
-- (BOOL)oneThemeForAll {
-    return _oneThemeForAll;
 }
 
 - (IBAction)clickedOneThemeForAll:(id)sender {
@@ -936,6 +1190,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSString *)themeScopeTitle {
+    if (_lightOverrideActive) return NSLocalizedString(@"Light theme override active", nil);
+    if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", nil);
+
     if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
     if (_currentGame == nil) {
         return NSLocalizedString(@"No game is currently running", nil);
@@ -976,6 +1233,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (!themeToRemove.editable) {
         NSBeep();
         return;
+    }
+    if (themeToRemove.hardLightOrDark) {
+        if (themeToRemove.hardDark) {
+            self.darkTheme = nil;
+            if (_darkOverrideActive) {
+                [self lightOrDarkOverrideWasRemoved];
+            }
+        } else {
+            self.lightTheme = nil;
+            if (_lightOverrideActive) {
+                [self lightOrDarkOverrideWasRemoved];
+            }
+        }
     }
     Theme *ancestor = themeToRemove.defaultParent;
     if (!ancestor)
@@ -1036,6 +1306,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     [theme addGames:orphanedGames];
     arrayController.selectedObjects = @[theme];
+    [self findDarkAndLightThemes];
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
@@ -1061,11 +1332,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)togglePreview:(id)sender {
     if (_previewShown) {
-        [self resizeWindowToHeight:defaultWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight animate:YES];
         _previewShown = NO;
     } else {
         _previewShown = YES;
-        [self resizeWindowToHeight:[self calculatePreviewHeight]];
+        [self resizeWindowToHeight:[self calculateWindowHeightWithPreview] animate:YES];
     }
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
@@ -1093,26 +1364,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (action == @selector(applyToSelected:)) {
         if (_oneThemeForAll || selectedGames.count == 0) {
             return NO;
-        } else {
-            for (Game *game in selectedGames) {
-                if (game.theme != theme)
-                    return YES;
-            }
+        }
+    } else if (action == @selector(selectUsingTheme:)) {
+        if (theme.games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
             return NO;
         }
-    }
-
-    if (action == @selector(selectUsingTheme:)) {
-        if (theme.games.count == 0)
-            return NO;
-        for (Game *game in theme.games) {
-            if ([selectedGames indexOfObject:game] == NSNotFound)
-                return YES;
-        }
-        return NO;
-    }
-
-    if (action == @selector(deleteUserThemes:)) {
+    } else if (action == @selector(deleteUserThemes:)) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSArray *fetchedObjects;
         NSError *error;
@@ -1124,15 +1381,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (fetchedObjects == nil || fetchedObjects.count == 0) {
             return NO;
         }
-    }
-
-    if (action == @selector(editNewEntry:))
+    } else if (action == @selector(editNewEntry:)) {
         return theme.editable;
 
-    if (action == @selector(togglePreview:))
-    {
+    } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
         ((NSMenuItem*)menuItem).title = title;
+    } else if (action == @selector(clearLightDarkOverrides:)) {
+        return (_darkTheme || _lightTheme);
     }
 
     return YES;
@@ -1351,29 +1607,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
 
-- (IBAction)changeHyperlinkPopup:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger windowType = _hyperlinksPopup.selectedTag;
-    if ([defaults integerForKey:@"SelectedHyperlinkWindowType"] == windowType)
-        return;
-    [defaults setInteger:windowType forKey:@"SelectedHyperlinkWindowType"];
-    switch (windowType) {
-        case wintype_TextGrid:
-            _btnUnderlineLinks.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        case wintype_TextBuffer:
-            _btnUnderlineLinks.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
-            break;
-        default:
-            NSLog(@"Unhandled hyperlink window type");
-            break;
-    }
-}
-
 - (IBAction)changeUnderlineLinks:(id)sender {
-    NSInteger windowType = _hyperlinksPopup.selectedTag;
     Theme *themeToChange;
-    NSUnderlineStyle selectedStyle = (_btnUnderlineLinks.state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
+    NSInteger windowType = (sender == _btnUnderlineLinksGrid) ? wintype_TextGrid : wintype_TextBuffer;
+    NSUnderlineStyle selectedStyle = (((NSButton *)sender).state == NSOnState) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
         case wintype_TextGrid:
             if (theme.gridLinkStyle == selectedStyle)
@@ -1390,6 +1627,88 @@ textShouldEndEditing:(NSText *)fieldEditor {
         default:
             NSLog(@"Unhandled hyperlink window type");
             break;
+    }
+}
+
+- (IBAction)changeHardDarkTheme:(id)sender {
+    BOOL lightOrDarkWasRemoved = NO;
+    theme.hardDark = (_hardDarkCheckbox.state == NSOnState);
+    if (theme.hardDark) {
+        // The Use in dark mode checkbox was switched on.
+        // Switch off the other one
+        _hardLightCheckbox.state = NSOffState;
+        // If this was the light theme, nil it
+        if (_lightTheme == theme) {
+            _lightTheme = nil;
+            if (_lightOverrideActive) {
+                lightOrDarkWasRemoved = YES;;
+            }
+        }
+        theme.hardLight = NO;
+        if (_darkTheme && _darkTheme != theme) {
+            // Reset any previous dark theme
+            _darkTheme.hardDark = NO;
+            _darkTheme.hardLightOrDark = NO;
+        }
+        theme.hardLightOrDark = YES;
+        _darkTheme = theme;
+    } else {
+        // The use in dark mode checkbox was switched off
+        // This means that both checkboxes are off
+        theme.hardLightOrDark = NO;
+        if (_darkTheme == theme) {
+            _darkTheme = nil;
+            if (_darkOverrideActive) {
+                lightOrDarkWasRemoved = YES;
+            }
+        }
+    }
+
+    if (lightOrDarkWasRemoved) {
+        [self lightOrDarkOverrideWasRemoved];
+    } else {
+        [self noteColorModeChanged:nil];
+    }
+}
+
+- (IBAction)changeHardLightTheme:(id)sender {
+    BOOL lightOrDarkWasRemoved = NO;
+    theme.hardLight = (_hardLightCheckbox.state == NSOnState);
+    if (theme.hardLight) {
+        // The Use in light mode checkbox was switched on
+        // Switch off the other one
+        _hardDarkCheckbox.state = NSOffState;
+        // If this was the dark theme, nil it
+        theme.hardDark = NO;
+        if (_darkTheme == theme) {
+            if (_darkOverrideActive) {
+                lightOrDarkWasRemoved = YES;;
+            }
+            _darkTheme = nil;
+        }
+        if (_lightTheme && _lightTheme != theme) {
+            // Reset any previous light theme
+            _lightTheme.hardLight = NO;
+            _lightTheme.hardLightOrDark = NO;
+        }
+        theme.hardLightOrDark = YES;
+        _lightTheme = theme;
+    } else {
+        // The use in light mode checkbox was switched off
+        // This means that both checkboxes are off
+        theme.hardLightOrDark = NO;
+        if (_lightTheme == theme) {
+            _lightTheme = nil;
+            if (_lightOverrideActive) {
+                lightOrDarkWasRemoved = YES;;
+            }
+        }
+    }
+
+    if (lightOrDarkWasRemoved) {
+        [self lightOrDarkOverrideWasRemoved];
+    } else {
+        [self noteColorModeChanged:nil];
     }
 }
 
@@ -1568,6 +1887,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeScottAdamsSlowDraw:(id)sender {
     [self changeBooleanAttribute:@"slowDrawing" fromButton:sender];
 }
+- (IBAction)changeScottAdamsFlicker:(id)sender {
+    [self changeBooleanAttribute:@"flicker" fromButton:sender];
+}
 
 #pragma mark Misc menu
 
@@ -1739,8 +2061,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     theme.border = [sender intValue];
     NSInteger diff = theme.border - oldBorder;
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"BorderChanged"
-                      object:theme
+     postNotificationName:@"BorderChanged"
+     object:theme
      userInfo:@{@"diff":@(diff)}];
 }
 - (IBAction)changeAutomaticBorderColor:(id)sender {
@@ -2059,9 +2381,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (NSFontPanelModeMask)validModesForFontPanel:(NSFontPanel *)fontPanel {
     return NSFontPanelAllModesMask;
-//    NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask |
-//    NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
-//    NSFontPanelDocumentColorEffectModeMask;
 }
 
 - (void)windowWillClose:(id)sender {
@@ -2083,5 +2402,161 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)setDummyTextView:(DummyTextView *)dummyTextView {
     _dummyTextView = dummyTextView;
 }
+
+#pragma mark Toolbar
+
+- (NSToolbarItem *)toolbarItemWithImage:(NSString *)imageName label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier {
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+    NSImage *image = nil;
+    if (@available(macOS 11.0, *)) {
+        NSImageSymbolConfiguration *config = [NSImageSymbolConfiguration configurationWithScale:NSImageSymbolScaleMedium];
+        image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:tooltip];
+        if (!image)
+            image = [NSImage imageNamed:imageName];
+        image = [image imageWithSymbolConfiguration:config];
+    } else {
+        image = [NSImage imageNamed:imageName];
+        image.accessibilityDescription = NSLocalizedString(tooltip, nil);
+    }
+
+    toolbarItem.image = image;
+    toolbarItem.action = @selector(switchToPanel:);
+    toolbarItem.target = self;
+    toolbarItem.label = NSLocalizedString(label, nil);
+    toolbarItem.toolTip = NSLocalizedString(tooltip, nil);
+    return toolbarItem;
+}
+
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    NSToolbarItem *toolbarItem = nil;
+
+    if (itemIdentifier == themesPanel) {
+        return [self toolbarItemWithImage:@"paintbrush" label:@"Themes" tooltip:@"Select and organize themes" identifier:itemIdentifier];
+    } else if (itemIdentifier == stylesPanel) {
+        if (@available(macOS 11.0, *)) {
+            return [self toolbarItemWithImage:@"butterfly" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+        } else {
+            return [self toolbarItemWithImage:@"butterfly.square" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+        }
+    } else if (itemIdentifier == presentationPanel) {
+        return [self toolbarItemWithImage:@"theatermask.and.paintbrush" label:@"Details" tooltip:@"Presentation settings not covered by Glk styles" identifier:itemIdentifier];
+    } else if (itemIdentifier == formatPanel) {
+        return [self toolbarItemWithImage:@"compass.drawing" label:@"Format" tooltip:@"Format-specific settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == voiceOverPanel) {
+        if (@available(macOS 11.0, *)) {
+            return [self toolbarItemWithImage:@"voiceover" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+        } else {
+            return [self toolbarItemWithImage:@"voiceover.square" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+        }
+    } else if (itemIdentifier == miscPanel) {
+        return [self toolbarItemWithImage:@"gearshape" label:@"Misc" tooltip:@"Miscellaneous settings" identifier:itemIdentifier];
+    } else if (itemIdentifier == globalPanel) {
+        return [self toolbarItemWithImage:@"globe" label:@"Global" tooltip:@"Settings that apply to all themes" identifier:itemIdentifier];
+    }
+    return toolbarItem;
+}
+
+- (void)switchToPanel:(NSToolbarItem *)item {
+    [self switchToPanel:item resizePreview:NO];
+}
+
+- (void)switchToPanel:(NSToolbarItem *)item resizePreview:(BOOL)resizePreview {
+    NSView *preferencePane = itemIdentifierToViewDict[item.itemIdentifier];
+    if (!preferencePane)
+        return;
+
+    currentPanel = preferencePane;
+
+    CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
+
+    defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]);
+    self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
+
+    NSWindow *window = self.window;
+    if (_belowView.subviews.count && _belowView.subviews[0] == currentPanel) {
+        return;
+    }
+
+    window.title = item.label;
+
+    NSRect newFrame = window.frame;
+    NSRect frameForContent = [window frameRectForContentRect:currentPanel.frame];
+
+    CGFloat previewHeight = 0;
+
+    if (_previewShown) {
+        previewHeight = resizePreview ? _previewHeightConstraint.constant : NSHeight(_sampleTextBorderView.frame);
+        if (restoredPreviewHeight != 0) {
+            previewHeight = restoredPreviewHeight;
+        }
+    }
+
+    restoredPreviewHeight = 0;
+
+    _previewHeightConstraint.constant = previewHeight;
+
+    newFrame.size.height = NSHeight(frameForContent) + previewHeight;
+
+    NSRect visibleFrame = self.window.screen.visibleFrame;
+    if (NSHeight(newFrame) > NSHeight(visibleFrame)) {
+        newFrame.size.height = NSHeight(visibleFrame);
+        frameForContent.size.height = NSHeight(visibleFrame);
+        previewHeight = NSHeight(newFrame) - defaultWindowHeight;
+        if (previewHeight < 0)
+            previewHeight = 0;
+        _previewHeightConstraint.constant = previewHeight;
+    }
+
+    newFrame.origin.y -= NSHeight(frameForContent) - NSHeight(window.frame) + previewHeight;
+
+    if (newFrame.origin.y < NSMinY(visibleFrame))
+        newFrame.origin.y = NSMinY(visibleFrame);
+
+    if (_belowView.subviews.count)
+        [_belowView.subviews[0] removeFromSuperview];
+    [_belowView addSubview:currentPanel];
+    currentPanel.frame = _belowView.bounds;
+    currentPanel.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+
+    _bottomConstraint.active = NO;
+    _belowHeightConstraint.constant = currentPanelHeight;
+
+    PreviewController* blockPrevCtrl = _previewController;
+
+    Preferences * __weak weakSelf = self;
+
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.3;
+        [self.window.animator setFrame:newFrame display:YES];
+    } completionHandler:^{
+        Preferences *strongSelf = weakSelf;
+        if (strongSelf) {
+            strongSelf.bottomConstraint.active = YES;
+            strongSelf.window.initialFirstResponder = preferencePane;
+
+            [blockPrevCtrl scrollToTop];
+        }
+    }];
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+
+    NSMutableArray<NSToolbarItemIdentifier> *toolbarItemIdentifiers = [NSMutableArray new];
+
+    [toolbarItemIdentifiers addObjectsFromArray:@[themesPanel, stylesPanel, presentationPanel, formatPanel, voiceOverPanel, miscPanel, globalPanel]];
+
+    return toolbarItemIdentifiers;
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
 
 @end
