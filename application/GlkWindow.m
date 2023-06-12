@@ -67,7 +67,7 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Pad9,
                                nil];
 
-        if (glkctl.beyondZork) {
+        if (glkctl.beyondZork || [glkctl zVersion6]) {
             [self adjustBZTerminators:_pendingTerminators];
         }
 

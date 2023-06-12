@@ -60,7 +60,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     }
 
     if (autosavedir == NULL) {
-        int len = game_file.size();
+        int len = (int)game_file.size();
         char *c = new char[len + 1];
         std::copy(game_file.begin(), game_file.end(), c);
         c[len] = '\0';
@@ -194,7 +194,7 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         return false;
     @autoreleasepool {
         if (autosavedir == NULL) {
-            int len = game_file.size();
+            int len = (int)game_file.size();
             char *c = new char[len + 1];
             std::copy(game_file.begin(), game_file.end(), c);
             c[len] = '\0';

@@ -115,6 +115,8 @@ void zdiv()
 
 void zmod()
 {
+    fprintf(stderr, "zmod %d %d (%d)\n", zargs[0], zargs[1], as_signed(zargs[0]) % as_signed(zargs[1]));
+
     ZASSERT(zargs[1] != 0, "divide by zero");
     store(as_signed(zargs[0]) % as_signed(zargs[1]));
 }

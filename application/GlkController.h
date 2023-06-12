@@ -98,7 +98,12 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL narcolepsy;
 @property BOOL thaumistry;
 @property BOOL trinity;
+@property BOOL zorkZero;
+@property BOOL arthur;
+@property BOOL shogun;
 @property BOOL usesFont3;
+
+- (BOOL)zVersion6;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;

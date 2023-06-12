@@ -43,7 +43,7 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.beyondZork)
+    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.beyondZork || ((GlkTextGridWindow *)self.delegate).glkctl.zVersion6)
     [super mouseDown:theEvent];
 }
 

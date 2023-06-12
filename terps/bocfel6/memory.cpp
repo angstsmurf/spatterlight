@@ -222,6 +222,6 @@ void zstoreb()
 
 void zstorew()
 {
-    fprintf(stderr, "zstorew 0x%x 0x%x\n", zargs[0] + (2 * zargs[1]), zargs[2]);
+    fprintf(stderr, "zstorew 0x%x 0x%x\n", zargs[0] + 2 * zargs[1], zargs[2]);
     user_store_word(zargs[0] + (2 * zargs[1]), zargs[2]);
 }

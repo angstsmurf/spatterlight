@@ -130,17 +130,16 @@ static void initialize_games()
 
     std::map<Game, std::set<std::string>> gamemap = {
         { Game::Infocom1234, infocom1234 },
-        { Game::Journey, { "83-890706" } },
+        { Game::Journey, { "46-880603", "142-890205", "2-890303", "11-890304", "3-890310", "5-890310", "10-890313", "26-890316", "30-890322", "51-890522", "54-890526", "77-890616", "79-890627", "83-890706" } },
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
         { Game::Stationfall, { "1-861017", "63-870218", "87-870326", "107-870430" } },
 #ifdef SPATTERLIGHT
         { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
         { Game::MadBomber, { "3-971123-caad" } },
-        { Game::Arthur, { "74-890714" } },
-        { Game::ZorkZero, { "393-890714" } },
-        { Game::Shogun, { "322-890706" } },
-
+        { Game::Arthur, { "40-890502", "41-890504", "54-890606", "63-890622", "74-890714" } },
+        { Game::Shogun, { "278-890209", "278-890211", "279-890217", "280-890217", "281-890222", "282-890224", "283-890238", "284-890302", "286-890306", "288-890308", "289-890309", "290-890311", "291-890313", "292-890314", "295-890321", "311-890510", "320-890627", "321-891629", "322-890706" } },
+        { Game::ZorkZero, { "0-870831", "1-871030", "74-880114", "96-880224", "153-880510", "242-880830", "242-880901", "296-881019", "66-890111", "343-890217", "366-890323", "383-890602", "387-890612", "392-890714", "393-890714" } }
 #endif
     };
 
@@ -581,11 +580,23 @@ void write_header()
             store_byte(0x2c, 1);
             store_byte(0x2d, 1);
         } else if (zversion == 6) {
-            width = gscreenw;
-            height = gscreenh;
+
             // Screen width and height in pixels.
-            store_word(0x22, gscreenw > UINT16_MAX ? UINT16_MAX : gscreenw);
-            store_word(0x24, gscreenh > UINT16_MAX ? UINT16_MAX : gscreenh);
+            if (is_game(Game::Journey)) {
+                width = width * letterwidth;
+                fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
+                fprintf(stderr, "Journey: screen height in characters: %d\n", height);
+                height = gscreenh;
+
+                fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == 4 ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
+
+            } else {
+                height = gscreenh;
+                width = gscreenw;
+            }
+
+            store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
+            store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
 
             // Font height and width in pixels.
             store_byte(0x26, letterheight);
@@ -645,16 +656,16 @@ static void read_header_extension_table()
     }
 }
 
-void zterp_mouse_click(uint16_t x, uint16_t y)
+void zterp_mouse_click(uint16_t x, uint16_t y, bool multiply_by_char, uint16_t yoffset)
 {
-    fprintf(stderr, "zterp_mouse_click x:%d y:%d\n", x, y);
+    fprintf(stderr, "zterp_mouse_click x:%d y:%d, multiply by char:%s\n", x, y, multiply_by_char ? "YES" : "NO");
     if (mouse_click_addr != 0) {
-        if (zversion == 6 && !is_game(Game::Journey)) {
-            store_word(mouse_click_addr, (x + 1));
-            store_word(mouse_click_addr + 2, y);
+        if (!multiply_by_char) {
+            store_word(mouse_click_addr, x);
+            store_word(mouse_click_addr + 2, y + yoffset);
         } else {
             store_word(mouse_click_addr, (x + 1) * letterwidth);
-            store_word(mouse_click_addr + 2, y * letterheight);
+            store_word(mouse_click_addr + 2, y * letterheight + yoffset);
         }
     }
 }

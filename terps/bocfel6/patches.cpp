@@ -490,7 +490,7 @@ void apply_user_patch(std::string patchstr)
         throw PatchStatus::SyntaxError();
     }
 
-    addr = parseint(p, 16, valid);
+    addr = (uint32_t)parseint(p, 16, valid);
     if (!valid) {
         throw PatchStatus::SyntaxError();
     }
@@ -500,7 +500,7 @@ void apply_user_patch(std::string patchstr)
         throw PatchStatus::SyntaxError();
     }
 
-    count = parseint(p, 10, valid);
+    count = (uint32_t)parseint(p, 10, valid);
     if (!valid) {
         throw PatchStatus::SyntaxError();
     }

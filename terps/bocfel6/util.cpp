@@ -75,7 +75,7 @@ void assert_fail(const char *fmt, ...)
     str = vstring(fmt, ap);
     va_end(ap);
 
-    str += fstring(" (pc = 0x%lx)", current_instruction);
+    str += fstring(" (pc = 0x%x)", current_instruction);
 
     die("%s", str.c_str());
 }
