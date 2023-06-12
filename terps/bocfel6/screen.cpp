@@ -394,8 +394,6 @@ static glui32 gargoyle_color(const Color &color)
 }
 #endif
 
-bool showing_arthur_frame = false;
-
 #ifdef ZTERP_GLK
 // These functions make it so that code elsewhere needn’t check have_unicode before printing.
 static void xglk_put_char(uint16_t c)
@@ -1856,19 +1854,14 @@ void zerase_window()
     int win = as_signed(zargs[0]);
 
     if (is_game(Game::Arthur)) {
-//        if (win == 7) {
-//            glk_window_fill_rect(graphics_win_glk, gargoyle_color(windows[7].bg_color), 0, 0, gscreenw, gscreenh);
-//        }
-        if (win < 0 || win == 7)
-            showing_arthur_frame = false;
-        if (win < 0 || win > 1) {
-            clear_virtual_draw();
+        if ((win < 0 || (win > 1 && win != 3)) && !(win == -3 && (curwin == upperwin || curwin == &windows[3]))) {
+            clear_image_buffer();
         }
     }
 
     if (is_game(Game::ZorkZero)) {
         if (win < 0 || win == 7 || win == 1)
-            clear_virtual_draw();
+            clear_image_buffer();
     }
 
     if (win == 0 && screenmode == MODE_HINTS)
@@ -2922,6 +2915,18 @@ static uint8_t zscii_from_glk(glui32 key)
 }
 #endif
 
+static void flush_image_buffer(void) {
+    if (current_graphics_buf_win == nullptr)
+        current_graphics_buf_win = graphics_win_glk;
+    if (is_game(Game::Arthur) && screenmode == MODE_NORMAL) {
+        draw_to_buffer(current_graphics_buf_win, 54, 8, 8);
+        flush_bitmap(current_graphics_buf_win);
+        draw_arthur_side_images(current_graphics_buf_win);
+    } else {
+        flush_bitmap(current_graphics_buf_win);
+    }
+}
+
 // Attempt to read input from the user. The input type can be either a
 // single character or a full line. If “timer” is not zero, a timer is
 // started that fires off every “timer” tenths of a second (if the value
@@ -3038,10 +3043,8 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         case evtype_Timer:
             ZASSERT(timer != 0, "got unexpected evtype_Timer");
 
-                if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
-                    if (current_graphics_buf_win == nullptr)
-                        current_graphics_buf_win = graphics_win_glk;
-                    flush_bitmap(current_graphics_buf_win);
+                if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+                    flush_image_buffer();
                 }
 
             stop_timer();
@@ -3304,28 +3307,31 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             }
 
 
-            if (is_game(Game::Arthur) && input.term != ZSCII_NEWLINE) {
-                switch(input.term) {
-                    case ZSCII_F1:
-                        screenmode = MODE_NORMAL;
-                        break;
-                    case ZSCII_F2:
-                        screenmode = MODE_MAP;
-                        break;
-                    case ZSCII_F3:
-                        screenmode = MODE_INVENTORY;
-                        break;
-                    case ZSCII_F4:
-                        screenmode = MODE_STATUS;
-                        break;
-                    case ZSCII_F5:
-                        screenmode = MODE_ROOM_DESC;
-                        break;
-                    case ZSCII_F6:
-                        screenmode = MODE_NOGRAPHICS;
-                        break;
-                    default:
-                        break;
+            if (is_game(Game::Arthur)) {
+                v6_delete_glk_win(windows[3].id);
+                if (input.term != ZSCII_NEWLINE) {
+                    switch(input.term) {
+                        case ZSCII_F1:
+                            screenmode = MODE_NORMAL;
+                            break;
+                        case ZSCII_F2:
+                            screenmode = MODE_MAP;
+                            break;
+                        case ZSCII_F3:
+                            screenmode = MODE_INVENTORY;
+                            break;
+                        case ZSCII_F4:
+                            screenmode = MODE_STATUS;
+                            break;
+                        case ZSCII_F5:
+                            screenmode = MODE_ROOM_DESC;
+                            break;
+                        case ZSCII_F6:
+                            screenmode = MODE_NOGRAPHICS;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
     }
@@ -3402,10 +3408,8 @@ void zread_char()
 
     input.type = Input::Type::Char;
 
-    if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
-        if (current_graphics_buf_win == nullptr)
-            current_graphics_buf_win = graphics_win_glk;
-        flush_bitmap(current_graphics_buf_win);
+    if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+        flush_image_buffer();
     }
 
 //    if (options.autosave && !in_interrupt()) {
@@ -3572,10 +3576,8 @@ static bool read_handler()
     uint16_t timer = 0;
     uint16_t routine = zargs[3];
 
-    if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
-        if (current_graphics_buf_win == nullptr)
-            current_graphics_buf_win = graphics_win_glk;
-        flush_bitmap(current_graphics_buf_win);
+    if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+        flush_image_buffer();
     }
 
     if (options.autosave && !in_interrupt()) {
@@ -3899,7 +3901,7 @@ static struct {
     { Game::ZorkZero,  6, 501, 502},
     { Game::ZorkZero,  7, 499, 500},
     { Game::ZorkZero,  8, 503, 504},
-    { Game::Arthur,   54, 170, 171},
+//    { Game::Arthur,   54, 170, 171},
     { Game::Shogun,   50,  61,  62},
     { Game::Infocom1234,   0,   0,   0}
 };
@@ -4051,28 +4053,13 @@ void zdraw_picture()
                 win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
             }
             screenmode = MODE_NORMAL;
-            clear_virtual_draw();
+            clear_image_buffer();
             glk_window_fill_rect(graphics_win_glk, gbgcol, 0, 0, gscreenw, gscreenh);
             float scaledwidth = (float)width * imagescalex;
             draw_indexed_png_scaled(graphics_win_glk, 59, gscreenw - scaledwidth + 1, 0, imagescalex, false);
             draw_indexed_png_scaled(graphics_win_glk, 3, 0, 0, imagescalex, false);
             draw_indexed_png_scaled(graphics_win_glk, 59, 0, height * imagescalex, imagescalex, true);
             draw_indexed_png_scaled(graphics_win_glk, 3, gscreenw - scaledwidth + 1, height * imagescalex, imagescalex, true);
-            return;
-        }
-    }
-
-    if (is_game(Game::Arthur)) {
-
-        if (pic >= 1 && pic <= 3) {
-            if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
-                current_graphics_buf_win = v6_new_window(wintype_Graphics, 0);
-                win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-                glk_window_fill_rect(current_graphics_buf_win, gbgcol, 0, 0, gscreenw, gscreenh);
-            }
-            screenmode = MODE_SLIDESHOW;
-            glk_image_draw_scaled(current_graphics_buf_win, pic, x, y, width * imagescaley, height * imagescaley);
-            glk_request_mouse_event(current_graphics_buf_win);
             return;
         }
     }
@@ -4140,39 +4127,41 @@ void zdraw_picture()
     }
 
     if (is_game(Game::Arthur)) {
+
+        if (pic >= 1 && pic <= 3) {
+            if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
+                current_graphics_buf_win = v6_new_window(wintype_Graphics, 0);
+                win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+                glk_window_fill_rect(current_graphics_buf_win, gbgcol, 0, 0, gscreenw, gscreenh);
+            }
+            screenmode = MODE_SLIDESHOW;
+            glk_request_mouse_event(current_graphics_buf_win);
+        }
+
+        else if (current_graphics_buf_win == nullptr) {
+            current_graphics_buf_win = graphics_win_glk;
+        }
+
         fprintf(stderr, "Drawing image %d at x:%d y:%d width:%d height:%d\n", pic, x, y, width, height);
         if (width <= 130 && height <= 72 &&
-            (zargs[0] < 106 || pic > 149)) {
-            virtual_draw(pic, x, y);
-            if (!showing_arthur_frame)
-                return;
-        }
-
-        if (pic == 137) {
-            screenmode = MODE_MAP;
-            showing_arthur_frame = false;
-            glk_window_fill_rect(graphics_win_glk, gargoyle_color(windows[7].bg_color), 0, 0, gscreenw, gscreenh);
-            glk_image_draw_scaled(win->id, 137, 0, 0, gscreenw, height * imagescaley);
-            fprintf(stderr, "height of map: %f\n", height * imagescaley);
-            return;
-        }
-
-        if (pic == 54 || showing_arthur_frame) {
+            (pic < 106 || pic > 149)) {
             screenmode = MODE_NORMAL;
-            pic_height = draw_arthur_room_and_border(graphics_win_glk);
-            pic_height += gcellh;
-            showing_arthur_frame = true;
+            int offsetx = 30;
+            int offsety = 110 - (gscreenh / 2);
+            x += offsetx;
+            y += offsety;
+        } else if (pic == 137) {
+            screenmode = MODE_MAP;
+        } else if (pic == 54) {
+            screenmode = MODE_NORMAL;
+            pic_height = (gscreenw - gcellw * 2) * (84.0 / 314.0) + 2 * gcellh - 1;
             return;
         }
 
-        if (pic >= 106 || pic <= 149) {
-            showing_arthur_frame = false;
-            glk_image_draw_scaled(graphics_win_glk, pic, x, y, width * imagescaley, height * imagescaley);
-            return;
-        }
+        draw_to_buffer(current_graphics_buf_win, pic, x, y);
+        return;
     }
 
-//    float scale = 2.0;
     if (win->id->type == wintype_TextBuffer) {
         if (!is_game(Game::Shogun))
             pending_flowbreak = true;
