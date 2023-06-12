@@ -331,7 +331,7 @@ uint16_t internal_call(uint16_t routine)
     process_instructions();
 
     std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
-    znargs = saved_args.size();
+    znargs = (int)saved_args.size();
 
     return pop_stack();
 }
@@ -460,7 +460,7 @@ static std::vector<uint8_t> compress_memory()
         // Count zeroes. Stop counting when:
         // • The end of dynamic memory is reached, or
         // • A non-zero value is found
-        while (i < header.static_start && (byte(i) ^ dynamic_memory[i]) == 0) {
+        while (i < header.static_start && (byte((uint32_t)i) ^ dynamic_memory[i]) == 0) {
             i++;
         }
 
@@ -480,7 +480,7 @@ static std::vector<uint8_t> compress_memory()
         }
 
         // The current byte differs from the story, so write it.
-        compressed.push_back(byte(i) ^ dynamic_memory[i]);
+        compressed.push_back(byte((uint32_t)i) ^ dynamic_memory[i]);
 
         i++;
     }
@@ -555,7 +555,7 @@ static IFF::TypeID write_mem(IO &savefile)
         // uncompressed; in this case, don’t use compressed memory.
         if (compressed.size() < header.static_start) {
             mem = compressed.data();
-            memsize = compressed.size();
+            memsize = (uint32_t)compressed.size();
             type = IFF::TypeID(&"CMem");
         }
     } catch (const std::bad_alloc &) {
@@ -634,7 +634,7 @@ static void write_undo_msav(IO &savefile, SaveStackType type)
     SaveStack &s = save_stacks[type];
 
     savefile.write32(0); // Version
-    savefile.write32(s.states.size());
+    savefile.write32((uint32_t)s.states.size());
 
     for (auto state = s.states.crbegin(); state != s.states.crend(); ++state) {
         if (type == SaveStackType::Game) {
@@ -643,12 +643,12 @@ static void write_undo_msav(IO &savefile, SaveStackType type)
             if (state->desc.empty()) {
                 savefile.write32(0);
             } else {
-                savefile.write32(state->desc.size());
+                savefile.write32((uint32_t)state->desc.size());
                 savefile.write_exact(state->desc.c_str(), state->desc.size());
             }
         }
 
-        savefile.write32(state->quetzal.size());
+        savefile.write32((uint32_t)state->quetzal.size());
         savefile.write_exact(state->quetzal.data(), state->quetzal.size());
     }
 }
@@ -684,7 +684,7 @@ static void write_chunk(IO &io, IFF::TypeID (*writefunc)(IO &savefile, Types... 
     size = end_pos - chunk_pos - 8;
     io.seek(chunk_pos, IO::SeekFrom::Start);
     io.write32(type.val());
-    io.write32(size);
+    io.write32((uint32_t)size);
     io.seek(end_pos, IO::SeekFrom::Start);
     if ((size & 1) == 1) {
         io.write8(0); // padding
@@ -745,7 +745,7 @@ static bool save_quetzal(IO &savefile, SaveType savetype, SaveOpcode saveopcode,
 
         file_size = savefile.tell();
         savefile.seek(4, IO::SeekFrom::Start);
-        savefile.write32(file_size - 8); // entire file size minus 8 (FORM + size)
+        savefile.write32((uint32_t)file_size - 8); // entire file size minus 8 (FORM + size)
 
         return true;
     } catch (const IO::IOError &) {
@@ -1493,7 +1493,7 @@ static void args_stash_backup()
 static bool args_stash_restore()
 {
     std::copy(zargs_stash.begin(), zargs_stash.end(), zargs.begin());
-    znargs = zargs_stash.size();
+    znargs = (int)zargs_stash.size();
 
     return true;
 }

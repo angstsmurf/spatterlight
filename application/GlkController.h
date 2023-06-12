@@ -91,16 +91,20 @@ typedef enum kGameIdentity : NSUInteger {
     kGameIsGeneric,
     kGameIsAdrianMole,
     kGameIsAnchorheadOriginal,
+    kGameIsArthur,
     kGameIsBeyondZork,
     kGameIsBureaucracy,
     kGameIsAColderLight,
     kGameIsCurses,
     kGameIsDeadCities,
+    kGameIsJourney,
     kGameIsJuniorArithmancer,
     kGameIsKerkerkruip,
     kGameIsNarcolepsy,
+    kGameIsShogun,
     kGameIsThaumistry,
     kGameIsTrinity,
+    kGameIsZorkZero,
 } kGameIdentity;
 
 @property kGameIdentity gameID;
@@ -117,6 +121,8 @@ typedef enum kGameState : NSUInteger {
 @property kGameState gameState;
 
 @property BOOL usesFont3;
+
+- (BOOL)zVersion6;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;

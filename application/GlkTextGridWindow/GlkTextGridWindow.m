@@ -864,7 +864,7 @@
     NSUInteger startpos;
     NSUInteger pos = 0;
 
-//    NSLog(@"GlkTextGridWindow: Printing at position %ld, %ld: \"%@\"", xpos, ypos, string);
+    NSLog(@"GlkTextGridWindow %ld: Printing at position %ld, %ld: \"%@\"", self.name, xpos, ypos, string);
 
     GlkController *glkctl = self.glkctl;
 

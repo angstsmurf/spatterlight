@@ -184,7 +184,7 @@ static bool meta_debug_scan(const std::string &string)
             }
 
             for (size_t addr = 0; addr < header.static_start - 2; addr++) {
-                if (word(addr) != value) {
+                if (word((uint32_t)addr) != value) {
                     invalid_addr.insert(addr);
                 }
                 if (invalid_addr.find(addr) == invalid_addr.end()) {
@@ -244,7 +244,7 @@ static bool meta_debug_print(const std::string &string)
         return true;
     }
 
-    screen_printf("%ld (0x%lx)\n", static_cast<long>(as_signed(word(addr))), static_cast<unsigned long>(word(addr)));
+    screen_printf("%ld (0x%lx)\n", static_cast<long>(as_signed(word((uint32_t)addr))), static_cast<unsigned long>(word((uint32_t)addr)));
 
     return true;
 }
@@ -414,7 +414,7 @@ static void watch_none()
 void watch_check(uint16_t addr, unsigned long oldval, unsigned long newval)
 {
     if (watch_addresses[addr] && oldval != newval) {
-        screen_printf("[%s changed: %lu -> %lu (pc = 0x%lx)]\n", addrstring(addr).c_str(), oldval, newval, current_instruction);
+        screen_printf("[%s changed: %lu -> %lu (pc = 0x%x)]\n", addrstring(addr).c_str(), oldval, newval, current_instruction);
     }
 }
 

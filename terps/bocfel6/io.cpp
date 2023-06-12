@@ -253,7 +253,7 @@ void IO::seek(long offset, SeekFrom whence)
         return;
 #ifdef ZTERP_GLK
     case Type::Glk:
-        glk_stream_set_position(m_file.glk.get(), offset, whence == SeekFrom::Start ? seekmode_Start : whence == SeekFrom::Current ? seekmode_Current : seekmode_End);
+        glk_stream_set_position(m_file.glk.get(), (glsi32)offset, whence == SeekFrom::Start ? seekmode_Start : whence == SeekFrom::Current ? seekmode_Current : seekmode_End);
         return; // glk_stream_set_position can’t signal failure
 #endif
     default:
@@ -321,7 +321,7 @@ size_t IO::read(void *buf, size_t n)
         }
 #ifdef ZTERP_GLK
         case Type::Glk: {
-            glui32 s32 = glk_get_buffer_stream(m_file.glk.get(), static_cast<char *>(buf), n - total);
+            glui32 s32 = glk_get_buffer_stream(m_file.glk.get(), static_cast<char *>(buf), (glui32)(n - total));
             // This should only happen if m_file.glk is invalid.
             if (s32 == static_cast<glui32>(-1)) {
                 s = 0;
@@ -394,7 +394,7 @@ size_t IO::write(const void *buf, size_t n)
     }
 #ifdef ZTERP_GLK
     case Type::Glk:
-        glk_put_buffer_stream(m_file.glk.get(), const_cast<char *>(static_cast<const char *>(buf)), n);
+        glk_put_buffer_stream(m_file.glk.get(), const_cast<char *>(static_cast<const char *>(buf)), (glui32)n);
         return n; // glk_put_buffer_stream() can’t signal a short write
 #endif
     default:

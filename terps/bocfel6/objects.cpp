@@ -439,6 +439,7 @@ void print_object(uint16_t obj, void (*outc)(uint8_t))
 
 void zprint_obj()
 {
+    fprintf(stderr, "zprint_obj %d\n", zargs[0]);
     check_zero(false, false);
 
     print_object(zargs[0], nullptr);

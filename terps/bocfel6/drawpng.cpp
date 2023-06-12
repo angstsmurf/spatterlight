@@ -32,6 +32,9 @@ if (DEBUG_PNG)                       \
 fprintf(stderr, fmt, ##__VA_ARGS__); \
 } while (0)
 
+extern float imagescalex;
+extern float imagescaley;
+
 size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
     FILE *fptr = fopen(name, "w");
@@ -55,6 +58,8 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width)
         fprintf(stderr, "File open error!\n");
         return;
     }
+
+    fprintf(stderr, "writeToTIFF: name \"%s\", width %d height %lu\n", name, width, size / width);
 
     writetiff(fptr, data, (uint32_t)size, width);
 
@@ -114,8 +119,10 @@ uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_output_siz
 static uint32_t read32be(uint8_t *ptr, int index) { return (static_cast<uint32_t>(ptr[index]) << 24) | (static_cast<uint32_t>(ptr[index + 1]) << 16) | (static_cast<uint32_t>(ptr[index + 2]) <<  8) | (static_cast<uint32_t>(ptr[index + 3]) <<  0);
 }
 
-static bool isadaptive(int picnum) {
+bool isadaptive(int picnum) {
     auto map = giblorb_get_resource_map();
+    if (map == nullptr)
+        return false;
     giblorb_result_t res;
     if (giblorb_load_chunk_by_type(map, giblorb_method_Memory, &res, IFF::TypeID(&"APal").val(), 0) == giblorb_err_None) {
         for (int i = 0; i < res.length; i += 4) {
@@ -221,9 +228,14 @@ int adjust_gamma(int intValue) {
     return theLinearValue <= 0.0031308f ? (int)(theLinearValue * 12.92f * 256) : (int)((powf (theLinearValue, 1.0f/x) * 1.055f - 0.055f) * 256) ;
 }
 
+static int palentries = 0;
+
 void extract_palette(int picnum) {
 
     auto map = giblorb_get_resource_map();
+    if (map == nullptr) {
+        return;
+    }
     giblorb_result_t res;
     if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, picnum) != giblorb_err_None) {
         return;
@@ -240,7 +252,7 @@ void extract_palette(int picnum) {
         return;
     if (palette != NULL)
         free(palette);
-    int palentries = chunks[palidx].length / 3;
+    palentries = chunks[palidx].length / 3;
     debug_png_print("Constructing palette with %d entries\n", palentries);
     palette = (struct rbg *)malloc(sizeof(struct rbg) * palentries);
     for (int i = 0; i < chunks[palidx].length; i += 3) {
@@ -254,71 +266,123 @@ void extract_palette(int picnum) {
 
 
 static uint8_t *set_pixel(int palval, uint8_t *ptr) {
+    if (palval >= palentries) {
+        return ptr + 4;
+    }
     if (palval != 0) {
         *ptr++ = palette[palval].red;
         *ptr++ = palette[palval].green;
         *ptr++ = palette[palval].blue;
         *ptr++ = 255; // Fully opaque
-                         //            glui32 glk_color = ((palette[nibble].red << 16) | (palette[nibble].green << 8) | palette[nibble].blue);
-                         //            glk_window_fill_rect(winid, glk_color, xpos * 2 + x, ypos * 2 + y, 2, 2);
     } else {
         ptr += 4;
     }
     return ptr;
 }
 
-//void draw_indexed_png(winid_t winid, int x, int y, giblorb_result_t res) {
-static void draw_indexed_png(uint8_t *pixmap, size_t pixlength, int pixwidth, int x, int y, giblorb_result_t res) {
+static void draw_indexed_png(uint8_t *pixmap, size_t pixmapsize, int pixwidth, int x, int y, giblorb_result_t res, bool flipped) {
 
     struct png_chunk chunks[64];
 
-    int dataidx, palidx;
+    int dataidx, palidx, xpos, ypos;
 
     bool result = read_png((uint8_t *)res.data.ptr, res.length, chunks, &dataidx, &palidx);
 
     if (!result)
         return;
 
-    fprintf(stderr, "draw_indexed_png: width: %d\n", pngheader.width);
+    int stride = pngheader.width / 2 + 1 + (pngheader.width % 2);
 
-    //    size_t needed = (pngheader.width + 1) * (pngheader.height + 1);
-    size_t needed = 13272;
+    size_t needed = stride * pngheader.height;
     debug_png_print("Needed space for image data: %zu\n", needed);
 
     uint8_t *inflate_output = decompress_idat(chunks[dataidx].data, chunks[dataidx].length, needed);
-
-
-//    writeToFile("/Users/administrator/Desktop/dum", inflate_output, needed);
-
-
-    //    total_out    uLong    13272
-
-    int xpos = x;
-    int ypos = y;
-    int stride = pngheader.width / 2 + 1 + (pngheader.width % 2);
 
     uint8_t *pixptr = pixmap;
 
     for (int i = 0; i < needed; i++) {
         ypos = y + (i / stride);
-        xpos = x + (i % stride) * 2;
-        xpos -= 2;
+        if (flipped)
+            ypos = pngheader.height + y - ypos - 1;
+        xpos = x + (i % stride) * 2 - 2;
 
         // Skip the "filter" byte at the start of each row
         if (xpos < x || xpos > pngheader.width + x)
             continue;
-        if (ypos > pngheader.height + y - (pngheader.height % 2))
+        if (ypos >= pngheader.height + y || ypos < y)
             break;
         uint8_t nibble = inflate_output[i] >> 4;
         pixptr = &pixmap[(ypos * pixwidth + xpos) * 4];
-        if (pixptr - pixmap >= pixlength)
+        if (pixptr - pixmap + 3 > pixmapsize)
             break;
-        pixptr = set_pixel(nibble, pixptr);
+        set_pixel(nibble, pixptr);
         pixptr = &pixmap[(ypos * pixwidth + xpos + 1) * 4];
         uint8_t nibble2 = inflate_output[i] & 0xf;
         pixptr = set_pixel(nibble2, pixptr);
     }
+}
 
+static void draw_2_bit_indexed_png(uint8_t *pixmap, size_t pixmapsize, int pixwidth, int x, int y, giblorb_result_t res, bool flipped) {
+
+    struct png_chunk chunks[64];
+
+    int dataidx, palidx, xpos, ypos;
+
+    bool result = read_png((uint8_t *)res.data.ptr, res.length, chunks, &dataidx, &palidx);
+
+    if (!result)
+        return;
+
+    int stride = pngheader.width / 4 + 1 + (pngheader.width % 2);
+
+    size_t needed = stride * pngheader.height;
+    debug_png_print("Needed space for image data: %zu\n", needed);
+
+    uint8_t *inflate_output = decompress_idat(chunks[dataidx].data, chunks[dataidx].length, needed);
+
+    uint8_t *pixptr = pixmap;
+
+    for (int i = 0; i < needed; i++) {
+        ypos = y + (i / stride);
+        if (flipped)
+            ypos = pngheader.height + y - ypos - 1;
+        xpos = x + (i % stride) * 4 - 4;
+
+        // Skip the "filter" byte at the start of each row
+        if (xpos < x || xpos > pngheader.width + x)
+            continue;
+        if (ypos >= pngheader.height + y || ypos < y)
+            break;
+        uint8_t nibble = inflate_output[i] >> 6;
+        pixptr = &pixmap[(ypos * pixwidth + xpos) * 4];
+        if (pixptr - pixmap + 3 > pixmapsize)
+            break;
+        set_pixel(nibble, pixptr);
+        pixptr = &pixmap[(ypos * pixwidth + xpos + 1) * 4];
+        uint8_t nibble2 = (inflate_output[i] >> 4) & 3;
+        set_pixel(nibble2, pixptr);
+        pixptr = &pixmap[(ypos * pixwidth + xpos + 2) * 4];
+        nibble2 = (inflate_output[i] >> 2) & 3;
+        set_pixel(nibble2, pixptr);
+        pixptr = &pixmap[(ypos * pixwidth + xpos + 3) * 4];
+        nibble2 = inflate_output[i] & 3;
+        pixptr = set_pixel(nibble2, pixptr);
+    }
+}
+
+uint8_t *pixmap = nullptr;
+frefid_t fileref = nullptr;
+
+void clear_buffer(void) {
+    fprintf(stderr, "Clearing buffer!\n");
+    if (pixmap != nullptr) {
+        free(pixmap);
+        pixmap = nullptr;
+    }
+    if (fileref != nullptr) {
+        glk_fileref_destroy(fileref);
+        fileref = nullptr;
+    }
 }
 
 struct VirtualDrawList {
@@ -331,6 +395,7 @@ static VirtualDrawList drawlist[8];
 
 void clear_virtual_draw(void) {
     fprintf(stderr, "Clearing virtual draws\n");
+    clear_buffer();
     for (int i = 0; i < 8; i++) {
         if (drawlist[i].pic_idx == -1)
             return;
@@ -352,7 +417,8 @@ void virtual_draw(int picidx, int x, int y) {
     fprintf(stderr, "Error: VirtualDrawList full!\n");
 }
 
-int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height) {
+int draw_arthur_room_and_border(winid_t winid) {
+    fprintf(stderr, "draw_arthur_frame_scaled\n");
     win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
     glk_window_fill_rect(winid, gbgcol, 0, 0, gscreenw, gscreenh);
     auto map = giblorb_get_resource_map();
@@ -361,37 +427,25 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
     int yorigin = 0;
     if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, 54) == giblorb_err_None) {
 
-        float ratio = (float)width / (float)height;
+//        float ratio = (float)width / (float)height;
 
-//        int pixheight = (float)gscreenw / ratio;
-        int pixheight = height;
+//        fprintf(stderr, "draw_arthur_frame_scaled: gscreenw: %d gscreenh: %d width %d ratio %f pixheight %d x:%d y:%d\n", gscreenw, gscreenh, width, ratio, pixheight, x, y);
 
+        int width = 320;
+        int height = 200;
 
-
-        fprintf(stderr, "draw_arthur_frame_scaled: gscreenw: %d gscreenh: %d width %d ratio %f pixheight %d x:%d y:%d\n", gscreenw, gscreenh, width, ratio, pixheight, x, y);
-
-        int32_t pixlength = width * pixheight * 4;
-        fprintf(stderr, "Allocated %d bytes\n", pixlength);
-        uint8_t *pixmap = (uint8_t *)malloc(pixlength);
+        int32_t pixmapsize = width * height * 4;
+        fprintf(stderr, "Allocated %d bytes\n", pixmapsize);
+        uint8_t *pixmap = (uint8_t *)malloc(pixmapsize);
         // Fill with 0: every pixel is initially transparent
-        memset(pixmap, 0, pixlength);
+        memset(pixmap, 0, pixmapsize);
 
-        draw_indexed_png(pixmap, pixlength, width, 0, 0, res);
-//
-//        giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, 170);
-//        draw_indexed_png(pixmap, pixlength, width, 2, 84 + 8, res);
-//
-//        giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, 171);
-//        draw_indexed_png(pixmap, pixlength, width, 310, 84 + 8, res);
-
-
-//        writeToFile("/Users/administrator/Desktop/lastpic.png", (uint8_t *)res.data.ptr, res.length);
-
+        draw_indexed_png(pixmap, pixmapsize, width, 0, 0, res, false);
 
         if (drawlist[0].pic_idx != -1) {
             int offsetx = 0, offsety = 0;
             int i = 0;
-            while (i < 8 && drawlist[i].pic_idx != -1) {
+            for (i = 0; i < 8 && drawlist[i].pic_idx != -1; i++) {
                 glui32 w, h;
                 glk_image_get_info(drawlist[i].pic_idx, &w, &h);
                 if (i == 0) {
@@ -399,30 +453,28 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
                     offsety = drawlist[0].y;
                 }
                 giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, drawlist[i].pic_idx);
-//              float scale = 2.0 * (float)gscreenw / 640.0;
-                int scale = 2.0;
 
-                draw_indexed_png(pixmap, pixlength, width, 92 + (drawlist[i].x - offsetx) / scale, 7 + (drawlist[i].y - offsety) / scale, res);
-                fprintf(stderr, "Drawing from draw list: image %d at xpos %d and ypos %d. offsetx:%d offsety:%d\n", drawlist[i].pic_idx, 92 + (drawlist[i].x - offsetx) / scale, 7 + (drawlist[i].y - offsety) / scale, offsetx, offsety);
+                draw_indexed_png(pixmap, pixmapsize, width, 92 + (float)(drawlist[i].x - offsetx) / imagescalex, 7 + (float)(drawlist[i].y - offsety) / imagescaley, res, false);
+                fprintf(stderr, "Drawing from draw list: image %d at xpos %f and ypos %f. offsetx:%d offsety:%d imagescalex: %f imagescaley: %f\n", drawlist[i].pic_idx, 92 + (drawlist[i].x - offsetx) / imagescalex, 7 + (drawlist[i].y - offsety) / imagescaley, offsetx, offsety, imagescalex, imagescaley);
                 fprintf(stderr, "drawlist[%d].x: %d drawlist[%d].y: %d\n", i, drawlist[i].x, i, drawlist[i].y);
-                i++;
             }
         }
 
-        frefid_t fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+        if (fileref == nullptr)
+            fileref = glk_fileref_create_temp(fileusage_Data, NULL);
 
         const char *filename = fileref->filename;
+        fprintf(stderr, "draw_arthur_frame_scaled: temp filename: \"%s\"\n", filename);
 
-        writeToTIFF(filename, pixmap, pixlength, width);
+        writeToTIFF(filename, pixmap, pixmapsize, width);
         free(pixmap);
 
         win_purgeimage(172);
-        win_loadimage(172, filename, 0, pixlength);
-        glk_fileref_destroy(fileref);
-        ratio = 84.0 / 314.0;
-        int width = gscreenw - gcellw * 2 - 4;
-        yorigin = width * ratio;
-        win_drawimage(winid->peer, gcellw + 4, gcellh, width, yorigin);
+        win_loadimage(172, filename, 0, pixmapsize);
+
+        int final_width = gscreenw - gcellw + 4;// - 4;
+        yorigin = height * imagescaley;
+        win_drawimage(winid->peer, gcellw + 4, gcellh, final_width, yorigin);
     }
 
     if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, 170) == giblorb_err_None) {
@@ -430,21 +482,22 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
         glui32 w, h;
         glk_image_get_info(170, &w, &h);
 
-        int32_t pixlength = w * h * 4;
-        uint8_t *pixmap = (uint8_t *)malloc(pixlength);
+        int32_t pixmapsize = w * h * 4;
+        uint8_t *pixmap = (uint8_t *)malloc(pixmapsize);
         // Fill with 0: every pixel is initially transparent
-        memset(pixmap, 0, pixlength);
+        memset(pixmap, 0, pixmapsize);
 
-        draw_indexed_png(pixmap, pixlength, w, 0, 0, res);
+        draw_indexed_png(pixmap, pixmapsize, w, 0, 0, res, false);
 
-        frefid_t fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+        if (fileref == nullptr)
+            fileref = glk_fileref_create_temp(fileusage_Data, NULL);
         const char *filename = fileref->filename;
+        fprintf(stderr, "draw_arthur_frame_scaled: temp filename: \"%s\"\n", filename);
 
-        writeToTIFF(filename, pixmap, pixlength, w);
+        writeToTIFF(filename, pixmap, pixmapsize, w);
 
         win_purgeimage(173);
-        win_loadimage(173, filename, 0, pixlength);
-        glk_fileref_destroy(fileref);
+        win_loadimage(173, filename, 0, pixmapsize);
 
         int width = gscreenw - gcellw * 2;
         float ratio = 84.0 / 314.0;
@@ -452,16 +505,96 @@ int draw_arthur_frame_scaled(winid_t winid, int x, int y, int width, int height)
         yorigin = width * ratio + gcellh - 1;
         win_drawimage(winid->peer, gcellw + 8, yorigin, 6, gscreenh - yorigin - gcellh);
         win_drawimage(winid->peer, gcellw + 8, yorigin, 6, 200);
-        win_drawimage(winid->peer, 687, yorigin, 6, gscreenh - yorigin - gcellh);
-        win_drawimage(winid->peer, 687, yorigin, 6, 200);
+        int right_xorigin = width - 3;
+        win_drawimage(winid->peer, right_xorigin, yorigin, 6, gscreenh - yorigin - gcellh);
+        win_drawimage(winid->peer, right_xorigin, yorigin, 6, 200);
 
         free(pixmap);
 
     }
-    if (ggridmarginy == 0)
-        yorigin -= (yorigin % (int)gcellh);
     return yorigin;
-//
-//    if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, 171) == giblorb_err_None) {
-//        writeToFile("/Users/administrator/Desktop/171.png", (uint8_t *)res.data.ptr, res.length);    }
+}
+
+static struct {
+    int pic;
+    int pic1;
+    int pic2;
+} mapper[] = {
+    { 5, 497, 498},
+    { 6, 501, 502},
+    { 7, 499, 500},
+    { 8, 503, 504},
+};
+
+void draw_indexed_png_scaled(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped) {
+    fprintf(stderr, "Drawing indexed png %d scaled to %f\n", picnum, scalefactor);
+    auto map = giblorb_get_resource_map();
+    giblorb_result_t res;
+
+    glui32 width, height;
+    glk_image_get_info(picnum, &width, &height);
+    if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, picnum) == giblorb_err_None) {
+        int32_t pixmapsize = width * height * 4;
+        fprintf(stderr, "Allocated %d bytes\n", pixmapsize);
+        uint8_t *pixmap = (uint8_t *)malloc(pixmapsize);
+        // Fill with 0: every pixel is initially transparent
+        memset(pixmap, 0, pixmapsize);
+        if (pngheader.bit_depth == 4)
+            draw_indexed_png(pixmap, pixmapsize, width, 0, 0, res, flipped);
+        else if (pngheader.bit_depth == 2)
+            draw_2_bit_indexed_png(pixmap, pixmapsize, width, 0, 0, res, flipped);
+
+        if (fileref == nullptr)
+            fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+
+        const char *filename = fileref->filename;
+        fprintf(stderr, "draw_indexed_png_scaled: temp filename: \"%s\"\n", filename);
+
+        writeToTIFF(filename, pixmap, pixmapsize, width);
+        free(pixmap);
+
+        win_purgeimage(picnum);
+        win_loadimage(picnum, filename, 0, pixmapsize);
+        glk_fileref_destroy(fileref);
+        fileref = nullptr;
+        win_drawimage(winid->peer, x, y, width * scalefactor, height * scalefactor);
+    }
+}
+
+#define pixlength 320 * 200 * 4
+
+void flush_bitmap(winid_t winid) {
+    fprintf(stderr, "flush_bitmap win %d\n", winid->peer);
+    if (winid->type != wintype_Graphics)
+        fprintf(stderr, "ERROR: window is not graphics\n");
+    if (pixmap == nullptr) {
+        fprintf(stderr, "flush_bitmap: No pixmap\n");
+        return;
+    }
+    if (fileref == nullptr)
+        fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+    const char *filename = fileref->filename;
+    fprintf(stderr, "flush_bitmap: temp filename: \"%s\"\n", filename);
+    writeToTIFF(filename, pixmap, pixlength, 320);
+
+    win_purgeimage(600);
+    win_loadimage(600, filename, 0, (int)pixlength);
+    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / 320.0 * 200.0);
+//    memset(pixmap, 0, pixlength);
+}
+
+void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
+    fprintf(stderr, "draw_to_buffer %d picnum %d x: %d y: %d\n", winid->peer, picnum, x, y);
+    auto map = giblorb_get_resource_map();
+    if (map == nullptr)
+        return;
+    giblorb_result_t res;
+    giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, picnum);
+//    int scale = 2.0;
+    if (pixmap == nullptr) {
+        win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
+        glk_window_fill_rect(winid, gbgcol, 0, 0, gscreenw, gscreenh);
+        pixmap = (uint8_t *)malloc(pixlength);
+    }
+    draw_indexed_png(pixmap, pixlength, 320, (float)x / imagescalex, (float)y / imagescaley, res, false);
 }

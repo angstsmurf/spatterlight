@@ -762,6 +762,10 @@ fprintf(stderr, "%s\n",                                                    \
     restoredController = nil;
 }
 
+- (BOOL)zVersion6 {
+    return (_shogun || _arthur || _zorkZero);
+}
+
 - (void)detectGame:(NSString *)ifid {
     NSString *l9Substring = nil;
     if (ifid.length >= 10)
@@ -807,9 +811,52 @@ fprintf(stderr, "%s\n",                                                    \
         _gameID = kGameIsTrinity;
     } else if ([ifid isEqualToString:@"CF619423-EEC7-4E83-8C66-AE7182D55C89"]) {
         _gameID = kGameIsJuniorArithmancer;
+    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
+               [ifid isEqualToString:@"ZCODE-1-871030"] ||
+               [ifid isEqualToString:@"ZCODE-74-880114"] ||
+               [ifid isEqualToString:@"ZCODE-96-880224"] ||
+               [ifid isEqualToString:@"ZCODE-153-880510"] ||
+               [ifid isEqualToString:@"ZCODE-242-880830"] ||
+               [ifid isEqualToString:@"ZCODE-242-880901"] ||
+               [ifid isEqualToString:@"ZCODE-296-881019"] ||
+               [ifid isEqualToString:@"ZCODE-66-890111"] ||
+               [ifid isEqualToString:@"ZCODE-343-890217"] ||
+               [ifid isEqualToString:@"ZCODE-366-890323"] ||
+               [ifid isEqualToString:@"ZCODE-383-890602"] ||
+               [ifid isEqualToString:@"ZCODE-387-890612"] ||
+               [ifid isEqualToString:@"ZCODE-392-890714"] ||
+               [ifid isEqualToString:@"ZCODE-393-890714"]) {
+        _gameID = kGameIsZorkZero;
+    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
+               [ifid isEqualToString:@"ZCODE-40-890502"] ||
+               [ifid isEqualToString:@"ZCODE-41-890504"] ||
+               [ifid isEqualToString:@"ZCODE-54-890606"] ||
+               [ifid isEqualToString:@"ZCODE-63-890622"] ||
+               [ifid isEqualToString:@"ZCODE-74-890714"] ) {
+        _gameID = kGameIsArthur;
+    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
+               [ifid isEqualToString:@"ZCODE-278-890209"] ||
+               [ifid isEqualToString:@"ZCODE-278-890211"] ||
+               [ifid isEqualToString:@"ZCODE-279-890217"] ||
+               [ifid isEqualToString:@"ZCODE-280-890217"] ||
+               [ifid isEqualToString:@"ZCODE-281-890222"] ||
+               [ifid isEqualToString:@"ZCODE-282-890224"] ||
+               [ifid isEqualToString:@"ZCODE-283-890238"] ||
+               [ifid isEqualToString:@"ZCODE-284-890302"] ||
+               [ifid isEqualToString:@"ZCODE-286-890306"] ||
+               [ifid isEqualToString:@"ZCODE-288-890308"] ||
+               [ifid isEqualToString:@"ZCODE-289-890309"] ||
+               [ifid isEqualToString:@"ZCODE-290-890311"] ||
+               [ifid isEqualToString:@"ZCODE-291-890313"] ||
+               [ifid isEqualToString:@"ZCODE-292-890314"] ||
+               [ifid isEqualToString:@"ZCODE-295-890321"] ||
+               [ifid isEqualToString:@"ZCODE-311-890510"] ||
+               [ifid isEqualToString:@"ZCODE-320-890627"] ||
+               [ifid isEqualToString:@"ZCODE-321-891629"] ||
+               [ifid isEqualToString:@"ZCODE-322-890706"]) {
+        _gameID = kGameIsShogun;
     } else {
-        _gameID = kGameIsGeneric;
-    }
+        _gameID = kGameIsGeneric;    }
 }
 
 - (void)resetGameDetection {
@@ -2813,7 +2860,7 @@ fprintf(stderr, "%s\n",                                                    \
             myDict[key] = @(YES);
         } else {
             // Convert input terminator keys for Beyond Zork arrow keys hack
-            if (_gameID == kGameIsBeyondZork) {
+            if (_gameID == kGameIsBeyondZork || [self zVersion6]) {
                 if (_theme.bZTerminator != kBZArrowsOriginal) {
                     if (buf[i] == keycode_Left) {
                         myDict[@"storedLeft"] = @(YES);
@@ -3101,8 +3148,11 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
+                NSLog(@"SIZEIMAGE: %@", NSStringFromSize(size));
                 ans->a1 = (int)size.width;
                 ans->a2 = (int)size.height;
+            } else {
+                NSLog(@"SIZEIMAGE: No last image found!");
             }
         }
             break;

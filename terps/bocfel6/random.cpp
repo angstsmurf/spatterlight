@@ -146,7 +146,7 @@ static void seed_random(uint32_t seed)
 #ifdef SPATTERLIGHT
             last_random_seed = *options.random_seed;
 #endif
-            zterp_srand(*options.random_seed);
+            zterp_srand((uint32_t)*options.random_seed);
         }
     } else {
         mode = Mode::Predictable;

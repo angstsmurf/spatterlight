@@ -159,7 +159,7 @@ uint32_t unpack_routine(uint16_t addr);
 uint32_t unpack_string(uint16_t addr);
 void store(uint16_t v);
 
-void zterp_mouse_click(uint16_t x, uint16_t y);
+void zterp_mouse_click(uint16_t x, uint16_t y, bool multiply_by_char, uint16_t yoffset);
 
 void znop();
 void zrestart();
