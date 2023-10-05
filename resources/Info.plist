@@ -6,6 +6,8 @@
 	<string>fonts</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -119,6 +121,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>dat</string>
+				<string>data</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
@@ -313,6 +316,7 @@
 				<string>z3</string>
 				<string>z4</string>
 				<string>z5</string>
+				<string>z6</string>
 				<string>z7</string>
 				<string>z8</string>
 			</array>
@@ -908,12 +912,10 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundleDisplayName</key>
-	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -924,8 +926,6 @@
 	<string>$(APP_BUILD)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
-	<key>TeamPrefix</key>
-	<string>$(TeamIdentifierPrefix)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.adventure-games</string>
 	<key>NSAppTransportSecurity</key>
@@ -941,6 +941,8 @@
 	<string>NSApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<false/>
+	<key>TeamPrefix</key>
+	<string>$(TeamIdentifierPrefix)</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -1304,7 +1306,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -1340,7 +1342,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+					<string>application/x-blorb;profile="glulx"</string>
 				</array>
 			</dict>
 		</dict>
@@ -1575,6 +1577,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>dat</string>
+					<string>data</string>
 				</array>
 			</dict>
 		</dict>

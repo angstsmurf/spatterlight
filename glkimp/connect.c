@@ -58,6 +58,10 @@ int gli_sa_inventory = 0;
 int gli_sa_palette = 0;
 int gli_slowdraw = 0;
 int gli_flicker = 0;
+int gli_zmachine_terp = 0;
+int gli_z6_graphics = 0;
+int gli_z6_colorize = 0;
+int gli_z6_sim_16_cols = 0;
 
 uint32_t gtimerinterval = 0;
 
@@ -245,6 +249,7 @@ void wintitle(void)
 
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
+    fprintf(stderr, "win_fillrect name %d color %d x %d y %d w %d h %d\n", name, color, x, y, w, h);
     if (buffering == BUFPRINT)
         win_flush();
 
@@ -317,6 +322,7 @@ int win_newwin(int type)
 
 void win_delwin(int name)
 {
+    fprintf(stderr, "win_delwin %d\n", name);
     win_flush();
     sendmsg(DELWIN, name, 0, 0, 0, 0, 0, NULL);
 }
@@ -378,6 +384,7 @@ void win_clear(int name)
 
 void win_moveto(int name, int x, int y)
 {
+    fprintf(stderr, "win_moveto: x:%d y:%d peer:%d\n", x, y, name);
     win_flush();
     sendmsg(MOVETO, name, x, y, 0, 0, 0, NULL);
 }
@@ -541,6 +548,7 @@ void win_sizeimage(glui32 *width, glui32 *height)
 
 void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
+    fprintf(stderr, "win_drawimage in win %d x:%d y:%d width:%d height:%d\n", name, x, y, width, height);
     win_flush();
     if (gli_enable_graphics)
     {
@@ -661,6 +669,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 
 void win_setbgnd(int name, glui32 color)
 {
+    fprintf(stderr, "win_setbgnd:%06x\n",color);
     win_flush();
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
@@ -696,6 +705,7 @@ void win_setzcolor(int name, glui32 fg, glui32 bg)
 
 void win_setreverse(int name, int reverse)
 {
+    fprintf(stderr, "win_setreverse peer %d reverse %d\n", name, reverse);
     win_flush();
     sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
 }
@@ -811,6 +821,10 @@ again:
                 gli_sa_display_style == settings->sa_display_style &&
                 gli_slowdraw == settings->slowdraw &&
                 gli_flicker == settings->flicker &&
+                gli_zmachine_terp == settings->zmachine_terp &&
+                gli_z6_graphics == settings->z6_graphics &&
+                gli_z6_colorize == settings->z6_colorize &&
+                gli_z6_sim_16_cols == settings->z6_sim_16_cols &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -841,8 +855,12 @@ again:
             gli_sa_display_style = settings->sa_display_style;
             gli_slowdraw = settings->slowdraw;
             gli_flicker = settings->flicker;
+            gli_zmachine_terp = settings->zmachine_terp;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
+            gli_z6_graphics = settings->z6_graphics;
+            gli_z6_colorize = settings->z6_colorize;
+            gli_z6_sim_16_cols = settings->z6_sim_16_cols;
             gli_windows_rearrange();
             break;
 
@@ -943,9 +961,12 @@ again:
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL)
+                fprintf(stderr, "ERROR: Mouse request from invalid window!\n");
+            else
+                event->win->mouse_request = FALSE;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
-            event->win->mouse_request = FALSE;
             break;
         case EVTTIMER:
 #ifdef DEBUG

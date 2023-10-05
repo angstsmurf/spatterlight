@@ -870,7 +870,7 @@ extern const int adjective;
 extern const int article;
 
 /* "display" object properties */
-extern const int screenwidth;
+extern const int hw_screenwidth;
 extern const int screenheight;
 extern const int linelength;
 extern const int windowlines;

@@ -137,6 +137,7 @@ PasteboardFilePasteLocation;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"bocfel",
+                   @"zcode6" : @"bocfel6",
                    @"quest4" : @"geas",
                    @"jacl" : @"jacl",
                    @"sagaplus" : @"plus",

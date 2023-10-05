@@ -52,6 +52,9 @@
 #include "unicode.h"
 #include "util.h"
 
+#include "entrypoints.hpp"
+#include "extract_apple_2.h"
+
 #ifdef ZTERP_GLK
 #include <glk.h>
 #include "glkimp.h"
@@ -76,6 +79,8 @@ const std::string &get_story_id()
 // this knowledge is necessary.
 int zversion;
 static int zwhich;
+
+int pixversion;
 
 Header header;
 
@@ -111,6 +116,11 @@ uint32_t unpack_routine(uint16_t addr)
 uint32_t unpack_string(uint16_t addr)
 {
     return (uint32_t)(addr * unpack_multiplier) + header.S_O;
+}
+
+uint32_t pack_routine(uint32_t addr)
+{
+    return (uint32_t)(addr - header.R_O) / unpack_multiplier ;
 }
 
 void store(uint16_t v)
@@ -540,6 +550,75 @@ static void write_header_extension_table()
 extern uint16_t letterwidth;
 extern uint16_t letterheight;
 
+unsigned int width, height;
+
+void update_header_with_new_size(void) {
+
+    // Interpreter number & version.
+//    if (options.int_number < 1 || options.int_number > 11) {
+//        options.int_number = DEFAULT_INT_NUMBER;
+//    }
+    options.int_number = gli_zmachine_terp;
+    store_byte(0x1e, options.int_number);
+    store_byte(0x1f, options.int_version);
+
+    get_screen_size(width, height);
+
+    // Screen height and width.
+    // A height of 255 means infinite, so cap at 254.
+    store_byte(0x20, height > 254 ? 254 : height);
+    store_byte(0x21, width > 255 ? 255 : width);
+
+    if (zversion == 5 || zversion == 7) {
+        // Screen width and height in units.
+        store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
+        store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
+
+        // Font height and width in units.
+        store_byte(0x26, letterheight);
+        store_byte(0x27, letterwidth);
+
+        // Default background and foreground colors.
+        store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
+        store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
+    } else if (zversion == 6) {
+
+        // Screen width and height in pixels.
+       if (is_game(Game::Journey)) {
+
+           width = width * letterwidth;
+           if (options.int_number == INTERP_MACINTOSH) {
+               height = (height * letterheight) * (letterheight / gcellh);
+           } else {
+               height = height * letterheight;
+           }
+        //            width = width * letterwidth;
+        //            fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
+        //            fprintf(stderr, "Journey: screen height in characters: %d\n", height);
+        //            height = gscreenh;
+        //
+        //            fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == INTERP_AMIGA ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
+
+       } else {
+           width = gscreenw;
+           height = gscreenh;
+       }
+
+        store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
+        store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
+
+        // Font height and width in pixels.
+        store_byte(0x26, letterheight);
+        store_byte(0x27, letterwidth);
+
+        // Default background and foreground colors.
+        if (!is_game(Game::Shogun)) {
+            store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
+            store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
+        }
+    }
+}
+
 // Various parts of the header (those marked “Rst” in §11) should be
 // updated by the interpreter. This function does that. This is also
 // used when restoring, because the save file might have come from an
@@ -551,61 +630,7 @@ void write_header()
     write_header_extension_table();
 
     if (zversion >= 4) {
-        unsigned int width, height;
-
-        // Interpreter number & version.
-        if (options.int_number < 1 || options.int_number > 11) {
-            options.int_number = DEFAULT_INT_NUMBER;
-        }
-        store_byte(0x1e, options.int_number);
-        store_byte(0x1f, options.int_version);
-
-        get_screen_size(width, height);
-
-        // Screen height and width.
-        // A height of 255 means infinite, so cap at 254.
-        store_byte(0x20, height > 254 ? 254 : height);
-        store_byte(0x21, width > 255 ? 255 : width);
-
-        if (zversion == 5 || zversion == 7) {
-            // Screen width and height in units.
-            store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
-            store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
-
-            // Font height and width in units.
-            store_byte(0x26, letterheight);
-            store_byte(0x27, letterwidth);
-
-            // Default background and foreground colors.
-            store_byte(0x2c, 1);
-            store_byte(0x2d, 1);
-        } else if (zversion == 6) {
-
-            // Screen width and height in pixels.
-            if (is_game(Game::Journey)) {
-                width = width * letterwidth;
-                fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
-                fprintf(stderr, "Journey: screen height in characters: %d\n", height);
-                height = gscreenh;
-
-                fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == 4 ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
-
-            } else {
-                height = gscreenh;
-                width = gscreenw;
-            }
-
-            store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
-            store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
-
-            // Font height and width in pixels.
-            store_byte(0x26, letterheight);
-            store_byte(0x27, letterwidth);
-
-            // Default background and foreground colors.
-            store_byte(0x2c, 1);
-            store_byte(0x2d, 1);
-        }
+        update_header_with_new_size();
     }
 
     // Standard revision #
@@ -656,17 +681,16 @@ static void read_header_extension_table()
     }
 }
 
-void zterp_mouse_click(uint16_t x, uint16_t y, bool multiply_by_char, uint16_t yoffset)
+void zterp_mouse_click(uint16_t x, uint16_t y, int xoffset, int yoffset, float xmultiplier, float ymultiplier)
 {
-    fprintf(stderr, "zterp_mouse_click x:%d y:%d, multiply by char:%s\n", x, y, multiply_by_char ? "YES" : "NO");
+    fprintf(stderr, "zterp_mouse_click x:%d y:%d\n", (int16_t)((float)x * xmultiplier) + xoffset, (int16_t)((float)y * ymultiplier) + yoffset);
+
+    fprintf(stderr, "y: %d * %f = %f\n", y, ymultiplier, (float)y * ymultiplier);
+    fprintf(stderr, "%f + %d = %f\n", (float)y * ymultiplier, yoffset, (float)y * ymultiplier + yoffset);
+
     if (mouse_click_addr != 0) {
-        if (!multiply_by_char) {
-            store_word(mouse_click_addr, x);
-            store_word(mouse_click_addr + 2, y + yoffset);
-        } else {
-            store_word(mouse_click_addr, (x + 1) * letterwidth);
-            store_word(mouse_click_addr + 2, y * letterheight + yoffset);
-        }
+        store_word(mouse_click_addr, (int16_t)((float)x * xmultiplier) + xoffset);
+        store_word(mouse_click_addr + 2, (int16_t)(((float)y * ymultiplier) + yoffset));
     }
 }
 
@@ -713,6 +737,33 @@ static void process_story(IO &io, long offset)
         io.read_exact(memory, memory_size);
     } catch (const IO::IOError &) {
         die("unable to read from story file");
+    }
+
+    // Hack to read data file from Apple 2 Woz format disk images
+    if (memory[0] == 'W' && memory[1] == 'O' && memory[2] == 'Z') {
+        size_t file_length;
+
+        uint8_t *newmemory;
+
+        // Don't extract pictures if we already found our preferred format
+        if (graphics_type == gli_z6_graphics) {
+            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
+        } else {
+            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
+            
+            graphics_type = kGraphicsTypeApple2;
+            options.int_number = INTERP_APPLE_IIE;
+            store_byte(0x1e, options.int_number);
+            hw_screenwidth = 140;
+            pixelwidth = 2.0;
+        }
+        if (newmemory) {
+            free(memory);
+            memory = newmemory;
+        } else {
+            die("unable to read from woz disk image");
+        }
+        memory_size = (uint32_t)file_length;
     }
 
     zversion = byte(0x00);
@@ -855,6 +906,9 @@ static void process_story(IO &io, long offset)
     if (!options.disable_patches) {
         apply_patches();
     }
+
+    if (zversion == 6)
+        find_entrypoints(header.static_start, memory_size - 12);
 
     if (zversion <= 3) {
         have_statuswin = create_statuswin();

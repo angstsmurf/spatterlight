@@ -187,6 +187,7 @@ uint16_t variable(uint16_t var)
 
 void store_variable(uint16_t var, uint16_t n)
 {
+    fprintf(stderr, "store_variable %d (0x%02x), %d (0x%02x)\n", var, var, n, n);
     ZASSERT(var < 0x100, "unable to decode variable %u", static_cast<unsigned int>(var));
 
     if (var == 0) { // Stack
@@ -320,6 +321,42 @@ void start_v6()
 }
 
 #ifdef ZTERP_GLK
+
+uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg)
+{
+    std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
+
+    znargs = 2;
+    zargs[0] = routine;
+    zargs[1] = arg;
+    call(StoreWhere::Push);
+
+    process_instructions();
+
+    std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
+    znargs = (int)saved_args.size();
+
+    return pop_stack();
+}
+
+uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2)
+{
+    std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
+
+    znargs = 3;
+    zargs[0] = routine;
+    zargs[1] = arg1;
+    zargs[2] = arg2;
+    call(StoreWhere::Push);
+
+    process_instructions();
+
+    std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
+    znargs = (int)saved_args.size();
+
+    return pop_stack();
+}
+
 uint16_t internal_call(uint16_t routine)
 {
     std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
@@ -1311,6 +1348,7 @@ void zrestore()
     // @save cannot be called inside an interrupt), so reset the level
     // back to zero.
     if (success) {
+        update_user_defined_colors();
         throw Operation::Restore(saveopcode);
     }
 }

@@ -185,7 +185,7 @@ int GetProp(int obj, int p, int n, char s)
 		/* no display.<prop> #2, etc. */
 		if (n==1 && p<=pointer_y)
 		{
-			if (p==screenwidth)
+			if (p==hw_screenwidth)
 #if defined (GLK) && defined (ACTUAL_LINELENGTH)
 				g = ACTUAL_LINELENGTH();
 #else

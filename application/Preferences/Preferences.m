@@ -687,6 +687,10 @@ NSString *fontToString(NSFont *font) {
     _bZVerticalTextField.integerValue = theme.bZAdjustment;
     _bZVerticalStepper.integerValue = theme.bZAdjustment;
 
+    [_z6GraphicsPopup selectItemWithTag:theme.z6GraphicsType];
+    _z6ColorizeCheckBox.state = theme.z6Colorize1Bit ? NSOnState : NSOffState;
+    _z6Sim16ColoursCheckBox.state = theme.z6Simulate16Color ? NSOnState : NSOffState;
+
     _btnSmoothScroll.state = theme.smoothScroll;
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
@@ -1887,6 +1891,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeQuoteBoxCheckBox:(id)sender {
     [self changeBooleanAttribute:@"quoteBox" fromButton:sender];
+}
+
+#pragma mark Z Machine version 6 stuff
+
+- (IBAction)changez6GraphicsMenu:(id)sender {
+    [self changeMenuAttribute:@"z6GraphicsType" fromPopUp:sender];
+}
+
+- (IBAction)changez6ColorizeCheckBox:(id)sender {
+    [self changeBooleanAttribute:@"z6Colorize1Bit" fromButton:sender];
+}
+
+- (IBAction)changez6sim16ColorCheckBox:(id)sender {
+    [self changeBooleanAttribute:@"z6Simulate16Color" fromButton:sender];
 }
 
 #pragma mark Scott Adams menu

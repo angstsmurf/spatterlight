@@ -13,6 +13,6 @@
 #include "io.h"
 #include "types.h"
 
-void writetiff(FILE *fptr, uint8_t *pixarray, uint32_t pixarraysize, int nx);
+void writetiff(FILE *fptr, uint8_t *pixarray, uint32_t pixarraysize, int width);
 
 #endif /* writetiff_hpp */

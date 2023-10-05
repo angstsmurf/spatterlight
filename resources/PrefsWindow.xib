@@ -111,6 +111,9 @@
                 <outlet property="voiceOverView" destination="U1d-3r-zfM" id="1nI-uQ-hh8"/>
                 <outlet property="window" destination="407" id="765"/>
                 <outlet property="windowTypePopup" destination="Jxm-9E-Ync" id="Hv4-wg-XJ6"/>
+                <outlet property="z6ColorizeCheckBox" destination="IU9-H8-DUt" id="87Q-Zn-1rZ"/>
+                <outlet property="z6GraphicsPopup" destination="NKj-S5-Sfz" id="I8I-5P-Qoz"/>
+                <outlet property="z6Sim16ColoursCheckBox" destination="VRh-BF-oz9" id="qDJ-sx-q5R"/>
                 <outlet property="zVersionTextField" destination="6B5-IO-e9W" id="jwN-QB-cx6"/>
                 <outlet property="zcodeHeader" destination="l66-NN-F50" id="W1I-Sp-q6C"/>
                 <outlet property="zterpMenu" destination="6De-b0-cB0" id="9uo-ZB-Xff"/>
@@ -226,7 +229,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="nuy-We-W0h">
                         <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="ThemesTable" rowSizeStyle="automatic" viewBased="YES" id="QwY-Jk-kmn">
                                 <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
@@ -1050,11 +1053,11 @@
         </customView>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="8bM-HF-6YZ" userLabel="Format Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="460"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="539"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-7T-XS8">
-                    <rect key="frame" x="-2" y="435" width="564" height="17"/>
+                    <rect key="frame" x="-2" y="514" width="564" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Settings for theme Default" usesSingleLineMode="YES" id="l66-NN-F50">
                         <font key="font" metaFont="smallSystem"/>
@@ -1062,8 +1065,17 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5L-Nt-fC9">
+                    <rect key="frame" x="-2" y="484" width="564" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Specific to Z-machine games" id="TEv-pj-l2l">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbp-xp-72w">
-                    <rect key="frame" x="43" y="375" width="154" height="16"/>
+                    <rect key="frame" x="43" y="454" width="154" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Beyond Zork arrow keys:" usesSingleLineMode="YES" id="e8w-xX-ZXY">
                         <font key="font" metaFont="system"/>
@@ -1071,69 +1083,32 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pu3-o1-tDI">
-                    <rect key="frame" x="77" y="277" width="120" height="16"/>
+                <popUpButton toolTip="Resolve the conflict between Beyond Zork's usage of arrow keys and the standard behavior to step through command history. " verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOb-mm-Uja">
+                    <rect key="frame" x="197" y="447" width="207" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Interpreter version:" usesSingleLineMode="YES" id="h7a-MT-Bfz">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6De-b0-cB0">
-                    <rect key="frame" x="197" y="271" width="207" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <string key="toolTip">Sets the Z-code interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of some Infocom games.</string>
-                    <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="pUC-Po-vac" id="7S7-jE-hTF">
+                    <popUpButtonCell key="cell" type="push" title="↑ and ↓ work as in original" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oIP-mr-bpC" id="COo-em-V8P">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="wj5-RS-pHn">
+                        <menu key="menu" id="fau-OE-Vj6">
                             <items>
-                                <menuItem title="0. Empty" hidden="YES" id="anh-sF-n14">
+                                <menuItem title="↑ and ↓ work as in original" state="on" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history." id="oIP-mr-bpC" userLabel="Standard">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="1. DECSystem-20" tag="1" id="imX-e5-G2g">
+                                <menuItem title="Replaced by ⌘↑ and ⌘↓" tag="1" toolTip="⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history like in other games." id="c6B-jA-wap" userLabel="Swapped">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="2. Apple IIe" tag="2" id="UWX-2G-zRw">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="3. Macintosh" tag="3" id="Oi5-6P-dD9">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="4. Amiga" state="on" tag="4" id="pUC-Po-vac">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="5. Atari ST" tag="5" id="JwM-hE-tZD">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="6. IBM PC" tag="6" id="fhq-jO-WXN">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="7. Commodore 128" tag="7" id="iZ7-pD-bxT">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="8. Commodore 64" tag="8" id="4UF-Gk-2lF">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="9. Apple IIc" tag="9" id="BC6-aI-HCu">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="10. Apple IIgs" tag="10" id="NhQ-ew-Hcx" userLabel="10: Apple IIGS">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="11. Tandy Color" tag="11" id="qPb-A4-DsI">
+                                <menuItem title="↑↓ and ←→ as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." id="Vgi-vE-t9F" userLabel="Strict">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="changeZterpMenu:" target="-2" id="v21-z4-0yo"/>
+                        <action selector="changeBZArrowsMenu:" target="-2" id="xRI-nl-C4k"/>
                     </connections>
                 </popUpButton>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyE-31-4p4">
-                    <rect key="frame" x="80" y="340" width="117" height="16"/>
+                    <rect key="frame" x="80" y="419" width="117" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="High system beep:" usesSingleLineMode="YES" id="8lk-zD-Gh4">
                         <font key="font" metaFont="system"/>
@@ -1142,7 +1117,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="This sound is used in some Infocom games when the score goes up." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZgZ-KI-sE8">
-                    <rect key="frame" x="197" y="333" width="207" height="25"/>
+                    <rect key="frame" x="197" y="412" width="207" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Y6e-Ph-Nbw" id="8BX-bb-56w">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1204,7 +1179,7 @@
                     </connections>
                 </popUpButton>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZB-Aw-cwI">
-                    <rect key="frame" x="84" y="313" width="113" height="16"/>
+                    <rect key="frame" x="84" y="392" width="113" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Low system beep:" usesSingleLineMode="YES" id="cAG-dj-bI0">
                         <font key="font" metaFont="system"/>
@@ -1213,7 +1188,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="This sound is used in some Infocom games to announce warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2A-r7-Oue">
-                    <rect key="frame" x="197" y="306" width="207" height="25"/>
+                    <rect key="frame" x="197" y="385" width="207" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fOm-nF-5oT" id="P8D-W7-SWR">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1273,8 +1248,69 @@
                         <action selector="changeBeepLowMenu:" target="-2" id="fJi-aG-nKK"/>
                     </connections>
                 </popUpButton>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pu3-o1-tDI">
+                    <rect key="frame" x="77" y="356" width="120" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Interpreter version:" usesSingleLineMode="YES" id="h7a-MT-Bfz">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6De-b0-cB0">
+                    <rect key="frame" x="197" y="350" width="207" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Sets the Z-code interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of some Infocom games.</string>
+                    <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="pUC-Po-vac" id="7S7-jE-hTF">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="wj5-RS-pHn">
+                            <items>
+                                <menuItem title="0. Empty" hidden="YES" id="anh-sF-n14">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="1. DECSystem-20" tag="1" id="imX-e5-G2g">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="2. Apple IIe" tag="2" id="UWX-2G-zRw">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="3. Macintosh" tag="3" id="Oi5-6P-dD9">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="4. Amiga" state="on" tag="4" id="pUC-Po-vac">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="5. Atari ST" tag="5" id="JwM-hE-tZD">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="6. IBM PC" tag="6" id="fhq-jO-WXN">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="7. Commodore 128" tag="7" id="iZ7-pD-bxT">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="8. Commodore 64" tag="8" id="4UF-Gk-2lF">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="9. Apple IIc" tag="9" id="BC6-aI-HCu">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="10. Apple IIgs" tag="10" id="NhQ-ew-Hcx" userLabel="10: Apple IIGS">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="11. Tandy Color" tag="11" id="qPb-A4-DsI">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="changeZterpMenu:" target="-2" id="v21-z4-0yo"/>
+                    </connections>
+                </popUpButton>
                 <textField toolTip="Version letter used by Z-code interpreters. Games will sometimes print this, otherwise it has no effect." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6B5-IO-e9W">
-                    <rect key="frame" x="408" y="274" width="25" height="21"/>
+                    <rect key="frame" x="408" y="353" width="25" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="Z" drawsBackground="YES" usesSingleLineMode="YES" id="aA8-0R-Xot">
                         <font key="font" metaFont="smallSystem"/>
@@ -1289,69 +1325,8 @@
                         <outlet property="formatter" destination="B2Q-lK-znP" id="cEf-UX-nHe"/>
                     </connections>
                 </textField>
-                <button toolTip="Show quote boxes as floating, fading windows." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FC7-pa-Rgw">
-                    <rect key="frame" x="198" y="219" width="140" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Fancy quote boxes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0QR-ab-KZI">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changeQuoteBoxCheckBox:" target="-2" id="0m7-xK-Qcv"/>
-                    </connections>
-                </button>
-                <button toolTip="Some games pause for dramatic effect. Turn it off here." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SI-L5-3sn">
-                    <rect key="frame" x="198" y="88" width="67" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Delays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4AK-pT-gl4">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changeScottAdamsDelay:" target="-2" id="Mfd-cg-vXv"/>
-                    </connections>
-                </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2z-zF-leq">
-                    <rect key="frame" x="42" y="121" width="155" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Upper window inventory:" id="QZE-7T-mZB">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton toolTip="Whether to show inventory in the status window. Required for some TI-99/4A games." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xf-qh-Vim">
-                    <rect key="frame" x="197" y="114" width="207" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wKL-gP-zkE" id="IZu-Eq-dT6">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="DYI-Er-htq">
-                            <items>
-                                <menuItem title="Automatic" state="on" id="wKL-gP-zkE"/>
-                                <menuItem title="On" tag="1" id="Jrs-OK-CF6"/>
-                                <menuItem title="Off" tag="2" id="ib2-wg-acs"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <action selector="changeScottAdamsInventory:" target="-2" id="Wss-H3-l50"/>
-                    </connections>
-                </popUpButton>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-OI-7lG">
-                    <rect key="frame" x="198" y="66" width="149" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <string key="toolTip">Slow down vector graphics drawing to simulate the look on the original machines. Currently only works in the 11 Mysterious Adventures.</string>
-                    <buttonCell key="cell" type="check" title="Slow vector drawing" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aUU-IN-zWc">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changeScottAdamsSlowDraw:" target="-2" id="FeH-NG-bF5"/>
-                    </connections>
-                </button>
                 <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Useful in Beyond Zork." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mZ-cN-L2R">
-                    <rect key="frame" x="198" y="244" width="203" height="16"/>
+                    <rect key="frame" x="198" y="328" width="203" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Graphic font vertical adjustment:" usesSingleLineMode="YES" id="VrB-gs-vFa">
                         <font key="font" metaFont="system"/>
@@ -1360,7 +1335,7 @@
                     </textFieldCell>
                 </textField>
                 <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Useful in Beyond Zork." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="gPR-Kk-wPd">
-                    <rect key="frame" x="404" y="243" width="27" height="18"/>
+                    <rect key="frame" x="404" y="327" width="27" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="pGd-xy-4dU">
                         <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="XIB-uC-kZd">
@@ -1381,24 +1356,79 @@
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-li-puR">
-                    <rect key="frame" x="428" y="239" width="19" height="26"/>
+                    <rect key="frame" x="428" y="323" width="19" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="RA1-Ez-l5G"/>
                     <connections>
                         <action selector="changeBZVerticalAdjustment:" target="-2" id="adk-zn-g9M"/>
                     </connections>
                 </stepper>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5L-Nt-fC9">
-                    <rect key="frame" x="-2" y="405" width="564" height="16"/>
+                <button toolTip="Show quote boxes as floating, fading windows." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FC7-pa-Rgw">
+                    <rect key="frame" x="198" y="303" width="140" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Specific to Z-machine games" id="TEv-pj-l2l">
+                    <buttonCell key="cell" type="check" title="Fancy quote boxes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0QR-ab-KZI">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeQuoteBoxCheckBox:" target="-2" id="0m7-xK-Qcv"/>
+                    </connections>
+                </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ABB-t1-qvi">
+                    <rect key="frame" x="76" y="273" width="121" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Preferred graphics:" id="4Zh-PD-KZB">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NKj-S5-Sfz">
+                    <rect key="frame" x="197" y="266" width="207" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Amiga/Mac Color" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wWt-o9-vF8" id="LPc-RN-6NV">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="heo-Od-g9l">
+                            <items>
+                                <menuItem title="Amiga/Mac Color" state="on" id="wWt-o9-vF8" userLabel="Amiga/Mac color"/>
+                                <menuItem title="Mac B/W" tag="1" id="wxC-Zm-mpC" userLabel="Mac B/W"/>
+                                <menuItem title="Apple II" tag="2" id="S5x-hb-euD" userLabel="Apple II"/>
+                                <menuItem title="VGA" tag="3" id="vD0-l6-PA1" userLabel="VGA"/>
+                                <menuItem title="EGA" tag="4" id="Eq6-mz-Ig8" userLabel="EGA"/>
+                                <menuItem title="CGA" tag="5" id="Zbp-qu-Mcu" userLabel="CGA"/>
+                                <menuItem title="Blorb" tag="6" id="die-Q8-CK0" userLabel="Blorb"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="changez6GraphicsMenu:" target="-2" id="UMs-Ld-fZB"/>
+                    </connections>
+                </popUpButton>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IU9-H8-DUt">
+                    <rect key="frame" x="198" y="244" width="163" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Colorize 1-bit graphics" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qQK-qq-dPC">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changez6ColorizeCheckBox:" target="-2" id="jAh-u8-3Xc"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRh-BF-oz9">
+                    <rect key="frame" x="198" y="222" width="169" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Simulate limited palette" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VUV-UZ-0uX">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changez6sim16ColorCheckBox:" target="-2" id="QiL-Ro-HZF"/>
+                    </connections>
+                </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOm-Ik-6b4">
-                    <rect key="frame" x="-2" y="178" width="564" height="16"/>
+                    <rect key="frame" x="-2" y="179" width="564" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Specific to Scott Adams style games" id="hhd-nX-YS1">
                         <font key="font" usesAppearanceFont="YES"/>
@@ -1406,8 +1436,17 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2o-if-GSb">
+                    <rect key="frame" x="106" y="149" width="91" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Image palette:" id="4uq-cs-Wof">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <popUpButton toolTip="Try to make the colors look like on one of the original machines." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQ0-dI-BSS">
-                    <rect key="frame" x="197" y="141" width="207" height="25"/>
+                    <rect key="frame" x="197" y="142" width="207" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="AdZ-1F-ake" id="zTl-zA-T3p">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1426,41 +1465,58 @@
                         <action selector="changeScottAdamsPalette:" target="-2" id="Wao-wl-ayF"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2o-if-GSb">
-                    <rect key="frame" x="106" y="148" width="91" height="16"/>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2z-zF-leq">
+                    <rect key="frame" x="42" y="122" width="155" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Image palette:" id="4uq-cs-Wof">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Upper window inventory:" id="QZE-7T-mZB">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton toolTip="Resolve the conflict between Beyond Zork's usage of arrow keys and the standard behavior to step through command history. " verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOb-mm-Uja">
-                    <rect key="frame" x="197" y="368" width="207" height="25"/>
+                <popUpButton toolTip="Whether to show inventory in the status window. Required for some TI-99/4A games." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xf-qh-Vim">
+                    <rect key="frame" x="197" y="115" width="207" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="↑ and ↓ work as in original" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oIP-mr-bpC" id="COo-em-V8P">
+                    <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wKL-gP-zkE" id="IZu-Eq-dT6">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="fau-OE-Vj6">
+                        <menu key="menu" id="DYI-Er-htq">
                             <items>
-                                <menuItem title="↑ and ↓ work as in original" state="on" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history." id="oIP-mr-bpC" userLabel="Standard">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Replaced by ⌘↑ and ⌘↓" tag="1" toolTip="⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history like in other games." id="c6B-jA-wap" userLabel="Swapped">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="↑↓ and ←→ as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." id="Vgi-vE-t9F" userLabel="Strict">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
+                                <menuItem title="Automatic" state="on" id="wKL-gP-zkE"/>
+                                <menuItem title="On" tag="1" id="Jrs-OK-CF6"/>
+                                <menuItem title="Off" tag="2" id="ib2-wg-acs"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="changeBZArrowsMenu:" target="-2" id="xRI-nl-C4k"/>
+                        <action selector="changeScottAdamsInventory:" target="-2" id="Wss-H3-l50"/>
                     </connections>
                 </popUpButton>
+                <button toolTip="Some games pause for dramatic effect. Turn it off here." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SI-L5-3sn">
+                    <rect key="frame" x="198" y="89" width="67" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Delays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4AK-pT-gl4">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeScottAdamsDelay:" target="-2" id="Mfd-cg-vXv"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-OI-7lG">
+                    <rect key="frame" x="198" y="67" width="149" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Slow down vector graphics drawing to simulate the look on the original machines. Currently only works in the 11 Mysterious Adventures.</string>
+                    <buttonCell key="cell" type="check" title="Slow vector drawing" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aUU-IN-zWc">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeScottAdamsSlowDraw:" target="-2" id="FeH-NG-bF5"/>
+                    </connections>
+                </button>
                 <button toolTip="The room description will flicker at certain places like some original interpreters." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kFW-u2-bVp">
-                    <rect key="frame" x="198" y="44" width="66" height="18"/>
+                    <rect key="frame" x="198" y="45" width="66" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Flicker" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IAz-Z3-Tr3">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1471,7 +1527,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="493" y="915"/>
+            <point key="canvasLocation" x="493" y="954.5"/>
         </customView>
         <customView id="U1d-3r-zfM" userLabel="VoiceOver Settings">
             <rect key="frame" x="0.0" y="0.0" width="560" height="239"/>

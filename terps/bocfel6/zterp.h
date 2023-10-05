@@ -130,6 +130,7 @@ struct Header {
 };
 
 extern int zversion;
+extern int pixversion;
 extern Header header;
 extern std::array<uint8_t, 26 * 3> atable;
 
@@ -156,10 +157,12 @@ void write_header();
 void start_story();
 
 uint32_t unpack_routine(uint16_t addr);
+uint32_t pack_routine(uint32_t addr);
 uint32_t unpack_string(uint16_t addr);
 void store(uint16_t v);
 
-void zterp_mouse_click(uint16_t x, uint16_t y, bool multiply_by_char, uint16_t yoffset);
+void zterp_mouse_click(uint16_t x, uint16_t y, int xoffset, int yoffset, float xmultiplier, float ymultiplier);
+
 
 void znop();
 void zrestart();
@@ -168,5 +171,6 @@ void zverify();
 void zpiracy();
 void zsave5();
 void zrestore5();
+void update_header_with_new_size(void);
 
 #endif

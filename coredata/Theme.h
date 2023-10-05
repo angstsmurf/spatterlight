@@ -58,6 +58,7 @@ typedef NS_ENUM(int32_t, kZ6GraphicsPrefsType) {
     kZ6Blorb
 };
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject

@@ -40,6 +40,7 @@ extern "C" {
 
 #ifdef SPATTERLIGHT
 #include "spatterlight-autosave.h"
+#include "entrypoints.hpp"
 #endif
 
 uint32_t pc;
@@ -298,7 +299,7 @@ void setup_opcodes()
 // @read_char interrupt routine is called.
 void process_instructions()
 {
-    static bool handled_autosave = false;
+//    static bool handled_autosave = false;
 
 //    if (options.autosave && !handled_autosave) {
 //        SaveOpcode saveopcode;
@@ -324,7 +325,113 @@ void process_instructions()
 #endif
 
         current_instruction = pc;
-        opcode = byte(pc++);
+
+
+        if (is_game(Game::Shogun)) {
+//            if (pc == 0x132e1) {
+//                fprintf(stderr, "Called V-VERSION at 0x132e1!\n");
+//                V_VERSION();
+//            } else if (pc == 0x134a5) {
+//                fprintf(stderr, "Returned from V-VERSION at 0x134a5!\n");
+//                centeredText = false;
+//                set_current_style();
+//            } else if (pc == 0x12149) {
+//                fprintf(stderr, "Called SETUP-TEXT-AND-STATUS at 0x12149!\n");
+//            } else if (pc == 0x121fc) {
+//                fprintf(stderr, "Returned from SETUP-TEXT-AND-STATUS at 0x121fc!\n");
+//                after_SETUP_TEXT_AND_STATUS();
+//            } else if (pc == 0x11b8b) {
+//                fprintf(stderr, "Returned from SETUP-TEXT-AND-STATUS at 0x121fc!\n");
+//                after_SETUP_TEXT_AND_STATUS();
+////            } else if (pc == 0x10c61) {
+//            } else if (pc == 0x10c6b) {
+//                fprintf(stderr, "Called SCENE-SELECT at 0x10c6b!\n");
+//                SCENE_SELECT();
+//            } else if (pc == 0x10bb1) {
+//                fprintf(stderr, "Called SCENE-SELECT at 0x10bb1!\n");
+////                SCENE_SELECT();
+//            } else if (pc == 0x134c1) {
+//                fprintf(stderr, "Called V-CREDITS at 0x134c1!\n");
+//                centeredText = true;
+//                set_current_style();
+//            } else if (pc == 0x13523) {
+//                fprintf(stderr, "Returned from V-CREDITS at 0x13523!\n");
+//                centeredText = false;
+//                set_current_style();
+//            } else if (pc == 0x11129) {
+//                fprintf(stderr, "Called GOTO-SCENE at 0x11129!\n");
+//                GOTO_SCENE();
+//            } else if (pc == 0x17707) {
+//                fprintf(stderr, "Returning from V-HINT at 0x17707!\n");
+//                after_V_HINT();
+//            } else if (pc == 0x118a7) {
+//                fprintf(stderr, "Called V-DEFINE at 0x118a7!\n");
+//                V_DEFINE();
+//            } else if (pc == 0x112ed) {
+//                fprintf(stderr, "Called V-DEFINE at 0x112ed!\n");
+//                V_DEFINE();
+//            } else if (pc == 0x11107) {
+//                fprintf(stderr, "Returning from V-DEFINE at 0x11107!\n");
+//                after_V_DEFINE();
+//            } else if (pc == 0x10ce7) {
+//                fprintf(stderr, "Returning from V-DEFINE at 0x10ce7!\n");
+//                after_V_DEFINE();
+//            } else if (pc == 0x11c1c) {
+//                fprintf(stderr, "printing Function Keys at 0x11c1c!\n");
+//                before_define_print();
+//            } else if (pc == 0x11c27) {
+//                fprintf(stderr, "finished printing Function Keys at 0x11c27!\n");
+//                after_define_print();
+
+//            } else
+            fprintf(stderr, "pc == 0x%04x\n", pc);
+//            if (pc == 0x4b1b5)
+//                fprintf(stderr, "INIT-HINT-SCREEN at 0x4b1b5!\n");
+//            if (pc == 0x4afb3)
+//                fprintf(stderr, "DISPLAY-HINT at 0x4afb3!\n");
+//            if (pc == 0x4adb8)
+//                fprintf(stderr, "returning from DISPLAY-HINT at 0x4adb8!\n");
+            check_entrypoints(pc);
+        } else if (is_game(Game::ZorkZero)) {
+//            if (pc == 0x1b859) {
+//                fprintf(stderr, "SPLIT-BY-PICTURE ended at 0x1b859!\n");
+//                after_SPLIT_BY_PICTURE();
+//            } else if (pc == 0x35fe9) {
+//                fprintf(stderr, "Called INIT-HINT-SCREEN at 0x35fe9!\n");
+//                INIT_HINT_SCREEN();
+//            } else if (pc == 0x35a1c) {
+//                fprintf(stderr, "Called LEAVE-HINT-SCREEN at 0x35a1c!\n");
+//                LEAVE_HINT_SCREEN();
+//            } else if (pc == 0x12cc3) {
+//                fprintf(stderr, "Called V-DEFINE at 0x12cc3!\n");
+//                V_DEFINE();
+//            } else if (pc == 0x1b94a) {
+//                fprintf(stderr, "Returned from V-DEFINE at 0x1b94a!\n");
+//                after_V_DEFINE();
+//            } else
+                fprintf(stderr, "pc == 0x%04x\n", pc);
+            check_entrypoints(pc);
+        } else if (is_game(Game::Arthur)) {
+//            if (pc == 0x3a3fd) {
+//                fprintf(stderr, "Calling LEAVE-HINT-SCREEN at 0x3a3fd\n");
+//                LEAVE_HINT_SCREEN();
+//            } else if (pc == 0x3a3ed) {
+//                fprintf(stderr, "Called INIT-HINT-SCREEN at 0x3a3ed!\n");
+//                INIT_HINT_SCREEN();
+//            } else
+                fprintf(stderr, "pc == 0x%04x\n", pc);
+            check_entrypoints(pc);
+        } else if (is_game(Game::Journey)) {
+//            if (pc == 0x6553)
+//                fprintf(stderr, "Here?");
+            check_entrypoints(pc);
+            fprintf(stderr, "pc == 0x%04x\n", pc);
+        }
+
+
+
+
+            opcode = byte(pc++);
 
         if (opcode < 0x80) { // long 2OP
             znargs = 2;

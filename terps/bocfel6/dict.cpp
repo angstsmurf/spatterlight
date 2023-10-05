@@ -154,6 +154,11 @@ uint16_t Dictionary::find(const uint8_t *token, size_t len) const {
     return m_base + (ret - &memory[m_base]);
 }
 
+uint16_t find_string_in_dictionary(const std::vector<uint8_t> str) {
+    Dictionary dictionary(header.dictionary);
+    return dictionary.find(str.data(), str.size());
+}
+
 static uint16_t lookup_replacement(uint16_t original, const std::vector<uint8_t> &replacement, const Dictionary &dictionary)
 {
     uint16_t d;
