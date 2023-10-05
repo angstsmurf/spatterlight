@@ -861,8 +861,6 @@
     NSUInteger startpos;
     NSUInteger pos = 0;
 
-    NSLog(@"GlkTextGridWindow %ld: Printing at position %ld, %ld: \"%@\"", self.name, xpos, ypos, string);
-
     GlkController *glkctl = self.glkctl;
 
     NSUInteger textstoragelength = _bufferTextStorage.length;
@@ -942,6 +940,9 @@
         NSLog(@"printToWindow: ypos outside visible range");
         return;
     }
+
+
+    NSLog(@"GlkTextGridWindow %ld: Printing at position %ld, %ld: \"%@\". Reverse video: %@ zcolors: %lx, %lx", self.name, xpos, ypos, string, self.currentReverseVideo ? @"YES":@"NO", currentZColor.fg, currentZColor.bg);
 
     // Check for newlines in string to write
     NSUInteger x;

@@ -37,7 +37,7 @@ const int adjective = 4;
 const int article = 5;
 
 /* "display" object properties */
-const int screenwidth = 1;
+const int hw_screenwidth = 1;
 const int screenheight = 2;
 const int linelength = 3;
 const int windowlines = 4;

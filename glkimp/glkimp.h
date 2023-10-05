@@ -55,6 +55,11 @@ extern int gli_sa_inventory;
 extern int gli_sa_palette;
 extern int gli_slowdraw;
 extern int gli_flicker;
+extern int gli_zmachine_terp;
+extern int gli_z6_graphics;
+extern int gli_z6_colorize;
+extern int gli_z6_sim_16_cols;
+
 
 extern glui32 tagcounter;
 extern glui32 lasteventtype;

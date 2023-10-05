@@ -578,7 +578,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.beyondZork) {
+    if (glkctl.beyondZork || glkctl.zVersion6) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -871,15 +871,15 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
+ static const char *stylenames[] =
+{
+    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+};
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-//    NSLog(@"printToWindow:\"%@\" style:%s", str, stylenames[stylevalue]);
+    NSLog(@"GlkTextBufferWindow %ld printToWindow:\"%@\" style:%s", self.name, str, stylenames[stylevalue]);
 
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
@@ -889,7 +889,7 @@ fprintf(stderr, "%s\n",                                                    \
             stylevalue = style_Normal;
         }
     }
-    //    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
+    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -1083,7 +1083,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self travelBackwardInHistory];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
-                                (self.glkctl.beyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
+                                ((self.glkctl.beyondZork || self.glkctl.zVersion6) && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -1159,7 +1159,7 @@ fprintf(stderr, "%s\n",                                                    \
     line = [line scrubInvalidCharacters];
     line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    if (self.glkctl.beyondZork) {
+    if (self.glkctl.beyondZork || self.glkctl.zVersion6) {
         if (terminator == keycode_Home) {
             terminator = keycode_Up;
         } else if (terminator == keycode_End) {

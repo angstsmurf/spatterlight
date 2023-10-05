@@ -964,6 +964,7 @@ void gli_stream_echo_line_uni(stream_t *str, glui32 *buf, glui32 len)
 
 static glsi32 gli_get_char(stream_t *str, int want_unicode)
 {
+    fprintf(stderr, "gli_get_char\n");
     if (!str || !str->readable)
         return -1;
 

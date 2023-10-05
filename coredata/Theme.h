@@ -48,6 +48,17 @@ typedef NS_ENUM(int32_t, kBZArrowsPrefsType) {
     kBZArrowsOriginal,
 };
 
+typedef NS_ENUM(int32_t, kZ6GraphicsPrefsType) {
+    kZ6Amiga,
+    kZ6MacBW,
+    kZ6Apple2,
+    kZ6VGA,
+    kZ6EGA,
+    kZ6CGA,
+    kZ6Blorb
+};
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
@@ -119,6 +130,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t vOSpeakInputType;
 @property (nonatomic) kVOImagePrefsType vOSpeakImages;
 @property (nonatomic) kVOMenuPrefsType vOSpeakMenu;
+
+@property (nonatomic) kZ6GraphicsPrefsType z6GraphicsType;
+@property (nonatomic) BOOL z6Colorize1Bit;
+@property (nonatomic) BOOL z6Simulate16Color;
+
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;
 @property (nullable, nonatomic, retain) GlkStyle *bufEmph;

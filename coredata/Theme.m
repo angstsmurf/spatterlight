@@ -85,6 +85,9 @@
 @dynamic vOSpeakImages;
 @dynamic vOSpeakInputType;
 @dynamic vOSpeakMenu;
+@dynamic z6GraphicsType;
+@dynamic z6Colorize1Bit;
+@dynamic z6Simulate16Color;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;

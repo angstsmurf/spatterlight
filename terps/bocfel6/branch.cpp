@@ -23,6 +23,7 @@
 
 void branch_if(bool do_branch)
 {
+    fprintf(stderr, "branch_if %s\n", do_branch ? "true" : "false");
     uint8_t branch;
     uint16_t offset;
 
@@ -55,6 +56,7 @@ void branch_if(bool do_branch)
 
 void zjump()
 {
+    fprintf(stderr, "zjump %d\n", as_signed(zargs[0]));
     // -= 2 because pc has been advanced past the jump instruction.
     pc += as_signed(zargs[0]);
     pc -= 2;
@@ -74,13 +76,13 @@ void zje()
         fprintf(stderr, "zje %d\n", zargs[0]);
         branch_if(false);
     } else if (znargs == 2) {
-        fprintf(stderr, "zje %d %d\n", zargs[0], zargs[1]);
+        fprintf(stderr, "zje %d == %d\n", zargs[0], zargs[1]);
         branch_if(zargs[0] == zargs[1]);
     } else if (znargs == 3) {
-        fprintf(stderr, "zje %d %d %d\n", zargs[0], zargs[1], zargs[2]);
+        fprintf(stderr, "zje %d == %d OR %d\n", zargs[0], zargs[1], zargs[2]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2]);
     } else {
-        fprintf(stderr, "zje %d %d %d %d\n", zargs[0], zargs[1], zargs[2], zargs[3]);
+        fprintf(stderr, "zje %d == %d OR %d OR %d\n", zargs[0], zargs[1], zargs[2], zargs[3]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2] || zargs[0] == zargs[3]);
     }
 }

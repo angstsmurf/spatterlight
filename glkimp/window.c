@@ -49,6 +49,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
             break;
         case wintype_TextBuffer:
             win->peer = win_newwin(wintype_TextBuffer);
+            fprintf(stderr, "gli_new_window: created new text buffer window with peer %d\n", win->peer);
             if (win->peer == -1)
             {
                 gli_strict_warning("gli_new_window: failed to create peer window");
@@ -59,6 +60,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
         case wintype_Graphics:
             win->background = 0x00ffffff;
             win->peer = win_newwin(wintype_Graphics);
+            fprintf(stderr, "gli_new_window: created new graphics window with peer %d\n", win->peer);
             if (win->peer == -1)
             {
                 gli_strict_warning("gli_new_window: failed to create peer window");
@@ -120,14 +122,24 @@ void gli_delete_window(window_t *win)
 {
     window_t *prev, *next;
 
+    fprintf(stderr, "gli_delete_window: deleting a window with tag %d, peer %d and type ", win->tag, win->peer);
+
+    if (gli_rootwin == win)
+        gli_rootwin = NULL;
+
     switch (win->type)
     {
         case wintype_Blank:
+            fprintf(stderr, "blank");
             break;
         case wintype_Pair:
+            fprintf(stderr, "pair");
             break;
         case wintype_TextBuffer:
+            fprintf(stderr, "buffer");
         case wintype_TextGrid:
+            if (win->type == wintype_TextGrid)
+                fprintf(stderr, "grid");
             win_delwin(win->peer);
             if (win->line.buf)
             {
@@ -140,6 +152,7 @@ void gli_delete_window(window_t *win)
             }
             break;
         case wintype_Graphics:
+            fprintf(stderr, "graphics");
             win_delwin(win->peer);
             break;
     }
@@ -174,6 +187,8 @@ void gli_delete_window(window_t *win)
     if (next)
         next->prev = prev;
 
+    fprintf(stderr, ".\n");
+    
     free(win);
 }
 
@@ -1169,6 +1184,7 @@ void glk_request_mouse_event(window_t *win)
     switch (win->type)
     {
         case wintype_TextGrid:
+            fprintf(stderr, "Requesting mouse input in grid window %d\n", win->peer);
         case wintype_Graphics:
             win->mouse_request = TRUE;
             win_initmouse(win->peer);

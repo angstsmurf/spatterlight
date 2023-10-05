@@ -19,6 +19,9 @@
 
 #include "types.h"
 #include "util.h"
+#include "image.h"
+#include "extract_image_data.hpp"
+#include "find_graphics_files.hpp"
 #include "zterp.h"
 
 extern "C" {
@@ -209,6 +212,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 // Blorb file that goes with the selected story.
 static void load_resources()
 {
+
 #ifdef ZTERP_GLK_BLORB
     auto set_map = [](const std::string &blorb_file) {
         strid_t file = load_file(blorb_file);
@@ -222,10 +226,20 @@ static void load_resources()
         return false;
     };
 
+    
+    // Return if game_file is blorb
     if (set_map(game_file)) {
         return;
     }
 
+#ifdef SPATTERLIGHT
+    // Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
+
+    find_graphics_files();
+    load_best_graphics();
+
+#else
+    // if we didn't find any of the above, look for separate blorb file
     for (const auto &ext : {".blb", ".blorb"}) {
         std::string blorb_file = game_file;
         auto dot = blorb_file.rfind('.');
@@ -236,8 +250,13 @@ static void load_resources()
         }
 
         if (set_map(blorb_file)) {
+            image_count = extract_images_from_blorb(&raw_images);
+            graphics_type = kGraphicsTypeBlorb;
+            hw_screenwidth = 320;
+            pixelwidth = 1.0;
             return;
         }
     }
+#endif
 #endif
 }
