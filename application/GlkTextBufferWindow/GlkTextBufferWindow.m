@@ -954,6 +954,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSUInteger)unputString:(NSString *)buf {
+    [self flushDisplay];
      NSUInteger result = 0;
      NSUInteger initialLength = textstorage.length;
      NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
