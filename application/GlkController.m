@@ -626,7 +626,6 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
     if (restoredTheme && restoredTheme != theme) {
         _theme = restoredTheme;
-        theme = _theme;
     } else _stashedTheme = nil;
 
     // If this is not a window restoration done by the system,
