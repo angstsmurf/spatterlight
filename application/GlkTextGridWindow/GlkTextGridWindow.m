@@ -49,7 +49,6 @@
     BOOL hyper_request;
     BOOL mouse_request;
     BOOL transparent;
-
     NSInteger terminator;
 }
 @end
