@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)releaseInfoController:(InfoController *)infoctl;
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path;
-- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
+- (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
 - (void)runCommandsFromFile:(NSString *)filename;
 - (void)restoreFromSaveFile:(NSString *)filename;
