@@ -258,7 +258,14 @@
         return;
 
     [self setImageID:resno filename:path length:length offset:offset];
-    _lastimage = [_resources[@(resno)] createImage];
+    if (length == 8) {
+        // Hack for placeholder images, which only have dimensions, no content.
+        NSInteger width = ((const unsigned char *)(_resources[@(resno)].data.bytes))[3] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[2] * 0x100;
+        NSInteger height = ((const unsigned char *)(_resources[@(resno)].data.bytes))[7] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[6] * 0x100;
+        // No size must be 0, or both will be, so we add a "rounding error"
+        _lastimage = [[NSImage alloc] initWithSize:NSMakeSize(width + 0.01, height + 0.01)];
+    } else
+        _lastimage = [_resources[@(resno)] createImage];
     if (_lastimage == nil) {
         _lastimageresno = -1;
         return;
