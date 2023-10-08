@@ -1628,14 +1628,14 @@ replacementString:(id)repl {
                                          at:textstorage.length];
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
-        if (_lastchar != '\n' && textstorage.length) {
+        if (textstorage.length == 0) {
+            [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
+        } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
-            return;
-        } else {
-            [container addImage:image align: align at:
-             textstorage.length linkid:(NSUInteger)self.currentHyperlink];
-            cell.marginImage = container.marginImages.lastObject;
         }
+        
+        [container addImage:image align:align at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+        cell.marginImage = container.marginImages.lastObject;
     }
 
     att.attachmentCell = cell;
