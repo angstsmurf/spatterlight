@@ -33,16 +33,9 @@
 @property NSUInteger quoteboxVerticalOffset;
 @property (weak) NSScrollView *quoteboxParent;
 
-- (void)quotebox:(NSUInteger)linesToSkip;
-- (void)quoteboxAdjustSize:(id)sender;
-
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger indexOfPos;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
-
-- (void)deferredGrabFocus:(id)sender;
-- (void)recalcBackground;
-- (void)speakStatus;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSSize currentSizeInChars;
 

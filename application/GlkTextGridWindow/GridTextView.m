@@ -8,9 +8,6 @@
 #import "GridTextView.h"
 #import "GlkTextGridWindow.h"
 #import "GlkController.h"
-#import "InputTextField.h"
-#import "Theme.h"
-#import "Preferences.h"
 
 /*
  * Extend NSTextView to ...
@@ -30,11 +27,6 @@
     // calls and skip them.
     if (self.inLiveResize && frame.size.height < self.frame.size.height)
         return;
-    if (frame.size.height < self.frame.size.height && frame.size.height > 0) {
-        Theme *theme = ((GlkTextGridWindow *)self.delegate).theme;
-        if (frame.size.height < theme.cellHeight + 2 * theme.gridMarginY)
-            return;
-    }
     super.frame = frame;
 }
 
@@ -51,19 +43,6 @@
    return [((GlkTextGridWindow *)self.delegate).glkctl createCustomRotors];
 }
 
- - (NSArray *)accessibilityChildren {
-    NSArray *children = super.accessibilityChildren;
-    InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
-    if (input) {
-        MyFieldEditor *fieldEditor = (((GlkTextGridWindow *)self.delegate).input.fieldEditor);
-        if (fieldEditor) {
-            if ([children indexOfObject:fieldEditor] == NSNotFound)
-                children = [children arrayByAddingObject:fieldEditor];
-        }
-    }
-    return children;
-}
-
 - (void)mouseMoved:(NSEvent *)event {
     [super mouseMoved:event];
     if ([[NSCursor currentCursor] isEqualTo:[NSCursor IBeamCursor]])
@@ -72,10 +51,6 @@
 
 - (NSTouchBar *)makeTouchBar {
   return nil;
-}
-
-- (void)changeAttributes:(id)sender {
-    [(NSTextView *)[Preferences instance].dummyTextView changeAttributes:sender];
 }
 
 - (NSArray *)accessibilityCustomActions {

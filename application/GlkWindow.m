@@ -1,12 +1,8 @@
+#include "glk_dummy_defs.h"
+
 #import "GlkWindow.h"
 #import "GlkController.h"
 #import "GlkTextGridWindow.h"
-
-#import "ZColor.h"
-#import "InputHistory.h"
-#import "Theme.h"
-
-#include "glkimp.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -55,25 +51,10 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Up,
                                @(NO), @keycode_Down,
                                @(NO), @keycode_Escape,
-                               @(NO), @keycode_Pad0,
-                               @(NO), @keycode_Pad1,
-                               @(NO), @keycode_Pad2,
-                               @(NO), @keycode_Pad3,
-                               @(NO), @keycode_Pad4,
-                               @(NO), @keycode_Pad5,
-                               @(NO), @keycode_Pad6,
-                               @(NO), @keycode_Pad7,
-                               @(NO), @keycode_Pad8,
-                               @(NO), @keycode_Pad9,
                                nil];
-
-        if (glkctl.beyondZork) {
-            [self adjustBZTerminators:_pendingTerminators];
-        }
 
         _currentTerminators = _pendingTerminators;
         self.canDrawConcurrently = YES;
-        usingStyles = self.theme.doStyles;
     }
 
     return self;
@@ -90,14 +71,12 @@ fprintf(stderr, "%s\n",                                                    \
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _styleHints = [decoder decodeObjectOfClass:[NSArray class] forKey:@"styleHints"];
         styles = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"styles"];
-        currentZColor =  [decoder decodeObjectOfClass:[ZColor class] forKey:@"currentZColor"];
         _currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         _framePending = [decoder decodeBoolForKey:@"framePending"];
         _pendingFrame = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"pendingFrame"]).rectValue;
         _moveRanges = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"moveRanges"];
         moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
-        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
         usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
         underlineLinks = [decoder decodeBoolForKey:@"underlineLinks"];
     }
@@ -311,49 +290,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSArray *)images {
     NSLog(@"images in %@ not implemented", [self class]);
     return @[];
-}
-
-// Convert key terminators for Beyond Zork arrow keys hack/setting
-- (void)adjustBZTerminators:(NSMutableDictionary *)terminators {
-    if (_theme.bZTerminator == kBZArrowsOriginal) {
-        if (terminators[@(keycode_Left)] == nil) {
-            terminators[@(keycode_Left)] = terminators[@"storedLeft"];
-            terminators[@"storedLeft"] = nil;
-            
-            terminators[@(keycode_Right)] = terminators[@"storedRight"];
-            terminators[@"storedRight"] = nil;
-        }
-    } else {
-        if (terminators[@(keycode_Left)] != nil) {
-            terminators[@"storedLeft"] = terminators[@(keycode_Left)];
-            terminators[@(keycode_Left)] = nil;
-
-            terminators[@"storedRight"] = terminators[@(keycode_Right)];
-            terminators[@(keycode_Right)] = nil;
-        }
-    }
-
-    // We don't hack the up and down keys for grid windows
-    if ([self isKindOfClass:[GlkTextGridWindow class]])
-        return;
-
-    if (_theme.bZTerminator != kBZArrowsSwapped) {
-        if (terminators[@(keycode_Up)] == nil) {
-            terminators[@(keycode_Up)] = terminators[@(keycode_Home)];
-            terminators[@(keycode_Home)] = nil;
-
-            terminators[@(keycode_Down)] = terminators[@(keycode_End)];
-            terminators[@(keycode_End)] = nil;
-        }
-    } else {
-        if (terminators[@(keycode_Home)] == nil) {
-            terminators[@(keycode_Home)] = terminators[@(keycode_Up)];
-            terminators[@(keycode_Up)] = nil;
-
-            terminators[@(keycode_End)] = terminators[@(keycode_Down)];
-            terminators[@(keycode_Down)] = nil;
-        }
-    }
 }
 
 - (IBAction)saveAsRTF:(id)sender {

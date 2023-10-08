@@ -8,12 +8,6 @@
 #import "BufferTextView.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkController.h"
-#import "MarginContainer.h"
-#import "MarginImage.h"
-#import "CommandScriptHandler.h"
-#import "Preferences.h"
-#import "Game.h"
-
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
@@ -60,7 +54,6 @@
     [NSGraphicsContext currentContext].imageInterpolation =
     NSImageInterpolationHigh;
     [super drawRect:rect];
-    [(MarginContainer *)self.textContainer drawRect:rect];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event {
@@ -75,45 +68,8 @@
     NSPoint adjustedPoint = location;
     adjustedPoint.x -= self.textContainerInset.width;
     adjustedPoint.y -= self.textContainerInset.height;
-
-    MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:adjustedPoint];
-    if (!marginImage) {
-        if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
-            [super mouseDown:theEvent];
-    } else {
-
-        NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
-        NSTimeInterval timeout = NSEventDurationForever;
-
-        CGFloat dragThreshold = 0.3;
-
-        [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
-
-            if (!event) { return; }
-
-            if (event.type == NSEventTypeLeftMouseUp) {
-                *stop = YES;
-                if (mouseTime.timeIntervalSinceNow > -0.5) {
-                    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
-                        [super mouseDown:theEvent];
-                }
-            } else if (event.type == NSEventTypeLeftMouseDragged) {
-                NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-                if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
-                    *stop = YES;
-
-                    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-                    NSString *filename = delegate.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
-
-                    NSRect bounds = marginImage.bounds;
-                    bounds.origin.x += self.textContainerInset.width;
-                    bounds.origin.y += self.textContainerInset.height;
-
-                    [marginImage dragMarginImageFrom:self event:event filename:filename rect:bounds];
-                }
-            }
-        }];
-    }
+    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
+        [super mouseDown:theEvent];
 }
 
 // Change mouse cursor when over margin images
@@ -121,11 +77,6 @@
     NSPoint point = [self convertPoint:event.locationInWindow fromView:nil];
     point.x -= self.textContainerInset.width;
     point.y -= self.textContainerInset.height;
-    MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:point];
-    if (marginImage) {
-        [marginImage cursorUpdate];
-        return;
-    }
     [super mouseMoved:event];
 }
 
@@ -249,7 +200,6 @@
     NSString* string = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
 
     if ([string rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]].location != NSNotFound) {
-        [delegate.glkctl.commandScriptHandler startCommandScript:string inWindow:delegate];
         return;
     }
     self.selectedRange = [self adjustedRange];
@@ -260,15 +210,11 @@
     NSPasteboard *pboard = sender.draggingPasteboard;
 
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-    if ([delegate.glkctl.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:delegate])
-        return YES;
-    else {
         BOOL result = [super performDragOperation:sender];
         NSRange editableRange = delegate.editableRange;
         if (self.selectedRange.location < editableRange.location)
             self.selectedRange = NSMakeRange(editableRange.location, self.selectedRange.length);
         return result;
-    }
 }
 
 - (NSRange)adjustedRange {
@@ -286,14 +232,7 @@
     }
 }
 
-- (void)scrollWheel:(NSEvent *)event {
-    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-    [delegate scrollWheelchanged:(NSEvent *)event];
-    [super scrollWheel:event];
-}
-
 - (void)changeAttributes:(id)sender {
-    [(NSTextView *)[Preferences instance].dummyTextView changeAttributes:sender];
 }
 
 #pragma mark Text Finder
@@ -352,16 +291,6 @@
 
 - (NSArray *)accessibilityChildren {
     NSArray *children = super.accessibilityChildren;
-
-    for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
-        children = [children arrayByAddingObject:mi];
-        NSRect bounds = [mi boundsWithLayout:self.layoutManager];
-        bounds = NSAccessibilityFrameInView(self, bounds);
-        bounds.origin.x += self.textContainerInset.width;
-        bounds.origin.y -= self.textContainerInset.height;
-
-        mi.accessibilityFrame = bounds;
-    }
     return children;
 }
 

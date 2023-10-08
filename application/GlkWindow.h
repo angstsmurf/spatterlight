@@ -111,7 +111,6 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)speakPrevious;
 - (void)speakNext;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL setLastMove;
-- (void)adjustBZTerminators:(NSMutableDictionary *)terminators;
 
 - (NSView *)saveScrollbackAccessoryViewHasImages:(BOOL)hasImages;
 - (void)selectFormat:(id)sender;

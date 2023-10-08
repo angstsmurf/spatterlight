@@ -36,22 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) GlkTextGridWindow *quoteBox;
 
-- (void)recalcBackground;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
-- (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate;
 - (void)scrollToTop;
 - (void)scrollToBottomAnimated:(BOOL)animate;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL scrolledToBottom;
-- (void)storeScrollOffset;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
 - (void)forceLayout;
-
-- (void)padWithNewlines:(NSUInteger)lines;
-
-- (void)scrollWheelchanged:(NSEvent *)event;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;

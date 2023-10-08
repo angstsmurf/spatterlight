@@ -6,7 +6,7 @@
 
 @class HelpPanelController, LibController, Preferences, TableViewController, CoreDataManager;
 
-@interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> 
+@interface AppDelegate : NSObject <NSWindowDelegate> 
 
 @property Preferences *prefctl;
 @property LibController *libctl;
@@ -17,10 +17,7 @@
 
 - (IBAction)openDocument:(id)sender;
 
-- (IBAction)showPrefs:(id)sender;
-- (IBAction)showLibrary:(id)sender;
 - (IBAction)showHelpFile:(id)sender;
-- (IBAction)pruneLibrary:(id)sender;
 
 - (void)addToRecents:(NSArray *)URLs;
 
