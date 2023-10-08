@@ -130,8 +130,14 @@
         return nil;
 
     NSArray *reps = [NSBitmapImageRep imageRepsWithData:_data];
-    if (reps.count == 0)
-        return nil;
+    if (reps.count == 0) {
+        if (_filename.length && _offset == 0) {
+            NSImage *dummy = [[NSImage alloc] initWithContentsOfFile:_filename];
+            reps = dummy.representations;
+        }
+        if (reps.count == 0)
+            return nil;
+    }
     NSImageRep *rep = reps[0];
     NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
