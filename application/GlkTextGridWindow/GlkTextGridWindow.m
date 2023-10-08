@@ -610,8 +610,11 @@
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
 
+    CGFloat containerInsetHeight = _textview.textContainerInset.height * 2;
+    if (containerInsetHeight > frame.size.height)
+        containerInsetHeight = 0;
     NSUInteger newrows = (NSUInteger)round((frame.size.height
-                                            - (_textview.textContainerInset.height * 2) ) /
+                                            - containerInsetHeight) /
                                            self.theme.cellHeight);
 
     if (newrows == 0 && frame.size.height > 0)
