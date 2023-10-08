@@ -12,7 +12,7 @@
 #import "NSBitmapImageRep+retro.h"
 #import "NSImage+Categories.h"
 
-@implementation NSData (MD5)
+@implementation NSData (Categories)
 
 - (NSString *)md5String {
     unsigned char resultCString[CC_MD5_DIGEST_LENGTH];
@@ -76,17 +76,17 @@
 
 + (nullable NSData *)imageDataFromRetroURL:(NSURL *)url {
     NSBitmapImageRep *rep = [NSBitmapImageRep repFromURL:url];
-    NSData *data = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
+    NSData *data = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
     return data;
 }
 + (nullable NSData *)imageDataFromNeoURL:(NSURL *)url {
     NSBitmapImageRep *rep = [NSBitmapImageRep repFromNeoURL:url];
-    NSData *data = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
+    NSData *data = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
     return data;
 }
 + (nullable NSData *)imageDataFromMG1URL:(NSURL *)url {
     NSBitmapImageRep *rep = [NSBitmapImageRep repFromMG1URL:url];
-    NSData *data = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
+    NSData *data = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
     return data;
 }
 

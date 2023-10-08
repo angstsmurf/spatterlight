@@ -47,11 +47,13 @@
 
     NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
 
+    // TODO: better colorspace for NEO files?
     CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
 
-    CFDataRef cfData = CFDataCreate(nil, zimg->data, (CFIndex)(zimg->width * zimg->height * bytesPerPixel));
+    NSData *data =
+    [NSData dataWithBytes:zimg->data length:(NSUInteger)(zimg->width * zimg->height * bytesPerPixel)];
 
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData(cfData);
+    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
 
     CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
 
@@ -62,7 +64,6 @@
         CFRelease(img);
     }
 
-    CFRelease(cfData);
     CFRelease(deviceColorSpace);
     CFRelease(cgDataProvider);
 
@@ -103,11 +104,12 @@
 
     NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
 
+    // TODO: better colorspace for MG1 files?
     CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
-    CFDataRef cfData =
-    CFDataCreate(nil, zimg->data, (CFIndex)(zimg->width * zimg->height * bytesPerPixel));
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData(cfData);
-
+    NSData *data =
+    [NSData dataWithBytes:zimg->data length:(NSUInteger)(zimg->width * zimg->height * bytesPerPixel)];
+    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
+    
     CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
 
     NSBitmapImageRep *rep = nil;
@@ -117,7 +119,6 @@
         CFRelease(img);
     }
 
-    CFRelease(cfData);
     CFRelease(deviceColorSpace);
     CFRelease(cgDataProvider);
 

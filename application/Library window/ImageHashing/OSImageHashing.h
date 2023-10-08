@@ -9,7 +9,7 @@
 //  Copyright © 2015 Andreas Meingast. All rights reserved.
 //
 
-#include <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
