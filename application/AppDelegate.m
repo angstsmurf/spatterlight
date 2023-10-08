@@ -61,7 +61,7 @@ PasteboardFilePasteLocation;
         [NSValueTransformer setValueTransformer:dicTransformer
                                         forName:@"AttributeDictionaryTransformer"];
 
-        ColorTransformer *colorTransformer = [[ColorTransformer alloc] init];
+        ColorTransformer *colorTransformer = [ColorTransformer new];
         [NSValueTransformer setValueTransformer:colorTransformer
                                         forName:@"ColorTransformer"];
     } else {

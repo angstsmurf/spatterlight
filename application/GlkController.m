@@ -3161,7 +3161,7 @@ fprintf(stderr, "%s\n",                                                    \
 
                 struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
 
-                memcpy (sizewin, buf, sizeof(struct sizewinrect));
+                memcpy(sizewin, buf, sizeof(struct sizewinrect));
 
                 checksumWidth = sizewin->gamewidth;
                 checksumHeight = sizewin->gameheight;
