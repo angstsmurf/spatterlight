@@ -2322,9 +2322,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     terp = gExtMap[path.pathExtension.lowercaseString];
+
     if (!terp)
         terp = gFormatMap[game.detectedFormat];
-
 
     if (!terp) {
         NSAlert *alert = [[NSAlert alloc] init];
@@ -2426,9 +2426,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
     GameImporter *importer = [[GameImporter alloc] initWithLibController:self];
-    Game *result =  [importer importGame:path inContext:context reportFailure:report hide:hide];
+    Game *result = [importer importGame:path inContext:context reportFailure:report hide:hide];
 
-    if (!result.metadata.cover)
+    if (result && !result.metadata.cover)
         [importer lookForImagesForGame:result];
     return result;
 }
