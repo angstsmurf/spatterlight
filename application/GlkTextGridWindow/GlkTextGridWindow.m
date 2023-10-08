@@ -473,7 +473,7 @@
     if (!bgcolor)
         bgcolor = self.theme.gridBackground;
 
-    if (transparent)
+    if (transparent || bgnd == zcolor_Transparent)
         bgcolor = [NSColor clearColor];
     else
         [glkctl setBorderColor:bgcolor fromWindow:self];
