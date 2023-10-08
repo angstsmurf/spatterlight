@@ -715,7 +715,7 @@ void win_showerror(const char *str)
     }
 }
 
-void win_reset()
+void win_reset(void)
 {
     win_flush();
     sendmsg(RESET, 0, 0, 0, 0, 0, 0, NULL);

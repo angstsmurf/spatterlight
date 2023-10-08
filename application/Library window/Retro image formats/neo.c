@@ -161,7 +161,7 @@ z_image * get_neo_picture(const char *neo_filename)
 
 
 
-int end_neo_graphics()
+int end_neo_graphics(void)
 {
     if (neo_file != NULL)
         fclose(neo_file);

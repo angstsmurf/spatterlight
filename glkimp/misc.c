@@ -14,7 +14,7 @@ void (*gli_unregister_arr)(void *array, glui32 len, char *typecode, gidispatch_r
 long (*gli_locate_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock, int *elemsizeref);
 gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typecode, void **arrayref);
 
-void gli_initialize_misc()
+void gli_initialize_misc(void)
 {
     int ix;
     int res;
@@ -56,11 +56,11 @@ unsigned char glk_char_to_upper(unsigned char ch)
     return char_toupper_table[ch];
 }
 
-void glk_tick()
+void glk_tick(void)
 {
 }
 
-GLK_ATTRIBUTE_NORETURN void glk_exit()
+GLK_ATTRIBUTE_NORETURN void glk_exit(void)
 {
     gli_stop_all_sound_channels();
     gli_close_all_file_streams();

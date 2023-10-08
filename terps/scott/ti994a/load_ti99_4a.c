@@ -123,7 +123,7 @@ static void GetMaxTI99Items(struct DATAHEADER dh)
 
 static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud);
 
-GameIDType DetectTI994A()
+GameIDType DetectTI994A(void)
 {
     int offset = FindCode("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
     if (offset == -1)

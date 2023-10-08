@@ -60,7 +60,7 @@ void setdefaultworkdir(char **string)
     (*string)[length] = 0;
 }
 
-void getworkdir()
+void getworkdir(void)
 {
     /* if we have already set a work dir path, we return right away */
     if (gli_workdir != NULL) {
@@ -98,7 +98,7 @@ void getautosavedir(char *file)
     }
 }
 
-void gettempdir()
+void gettempdir(void)
 {
     /* if we have already set an autosave dir path, we return right away */
     if (strcmp(tempdir, "")) {

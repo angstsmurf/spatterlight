@@ -549,7 +549,7 @@ static void OutReplace(char c)
     LastChar = c;
 }
 
-static void OutKillSpace()
+static void OutKillSpace(void)
 {
     PendSpace = 0;
 }
@@ -759,24 +759,24 @@ static void PrintNumber(unsigned char n)
         OutChar(*p++);
 }
 
-static unsigned char Destroyed()
+static unsigned char Destroyed(void)
 {
     return 252;
 }
 
-static unsigned char Carried()
+static unsigned char Carried(void)
 {
     return Flag[2];
 }
 
-static unsigned char Worn()
+static unsigned char Worn(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 0;
     return Flag[3];
 }
 
-static unsigned char NumObjects()
+static unsigned char NumObjects(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 49;
@@ -787,7 +787,7 @@ static unsigned char NumObjects()
     return Flag[6];
 }
 
-static int WaitFlag()
+static int WaitFlag(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 5;
@@ -1473,7 +1473,7 @@ static void Q3AdjustActions(unsigned char op, unsigned char *arg1, unsigned char
     }
 }
 
-static int TwoConditionParameters()
+static int TwoConditionParameters(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 16;
@@ -1481,7 +1481,7 @@ static int TwoConditionParameters()
         return 21;
 }
 
-static int TwoActionParameters()
+static int TwoActionParameters(void)
 {
     if (Version == QUESTPROBE3_TYPE)
         return 18;

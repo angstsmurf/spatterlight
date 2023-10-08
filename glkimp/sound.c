@@ -298,7 +298,7 @@ channel_t *gli_schan_for_tag(int tag)
     return NULL;
 }
 
-void gli_stop_all_sound_channels()
+void gli_stop_all_sound_channels(void)
 {
     channel_t *chan;
 

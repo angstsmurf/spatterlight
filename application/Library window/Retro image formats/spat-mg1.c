@@ -203,7 +203,7 @@ static int read_24bit(FILE *in, uint32_t *data)
 }
 
 
-int end_mg1_graphics()
+int end_mg1_graphics(void)
 {
     if (mg1_file != NULL)
         fclose(mg1_file);
@@ -302,13 +302,13 @@ int init_mg1_graphics(const char *mg1_filename)
 }
 
 
-uint16_t get_number_of_mg1_images()
+uint16_t get_number_of_mg1_images(void)
 {
   return mg1_file == NULL ? 0 : header.nof_images;
 }
 
 
-uint16_t *get_all_picture_numbers()
+uint16_t *get_all_picture_numbers(void)
 {
   uint16_t *result;
   int image_index;

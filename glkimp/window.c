@@ -595,12 +595,12 @@ glui32 glk_window_get_rock(window_t *win)
     return win->rock;
 }
 
-window_t *gli_window_get()
+window_t *gli_window_get(void)
 {
     return gli_rootwin;
 }
 
-winid_t glk_window_get_root()
+winid_t glk_window_get_root(void)
 {
     if (!gli_rootwin) {
         for (window_t *win = glk_window_iterate(NULL, NULL); win; win = glk_window_iterate(win, NULL)) {
@@ -1364,7 +1364,7 @@ void gli_replace_window_list(window_t *newlist) /* Only used by autorestore */
     gli_windowlist = newlist;
 }
 
-void gli_sanity_check_windows()
+void gli_sanity_check_windows(void)
 {
     if (gli_rootwin && !gli_windowlist)
         fprintf(stderr, "sanity_check: root window but no listed windows\n");

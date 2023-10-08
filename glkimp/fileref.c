@@ -387,7 +387,7 @@ void gli_replace_fileref_list(fileref_t *newlist) /* Only used by autorestore */
     gli_filereflist = newlist;
 }
 
-void gli_sanity_check_filerefs()
+void gli_sanity_check_filerefs(void)
 {
     for (fileref_t *fref = glk_fileref_iterate(NULL, NULL); fref; fref = glk_fileref_iterate(fref, NULL)) {
         if (!fref->filename)
