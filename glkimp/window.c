@@ -25,8 +25,10 @@ void gli_windows_rearrange(void);
 window_t *gli_new_window(glui32 type, glui32 rock)
 {
     window_t *win = (window_t *)malloc(sizeof(window_t));
-    if (!win)
+    if (!win) {
+        gli_strict_warning("gli_new_window: malloc error. Failed to create new window");
         return NULL;
+    }
 
     win->peer = -1;
     win->tag = generate_tag(); /* For serialization */
@@ -39,7 +41,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
             win->peer = win_newwin(wintype_TextGrid);
             if (win->peer == -1)
             {
-                gli_strict_warning("window_open: failed to create peer window");
+                gli_strict_warning("gli_new_window: failed to create peer window");
                 free(win);
                 return 0;
             }
@@ -48,7 +50,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
             win->peer = win_newwin(wintype_TextBuffer);
             if (win->peer == -1)
             {
-                gli_strict_warning("window_open: failed to create peer window");
+                gli_strict_warning("gli_new_window: failed to create peer window");
                 free(win);
                 return 0;
             }
@@ -58,7 +60,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
             win->peer = win_newwin(wintype_Graphics);
             if (win->peer == -1)
             {
-                gli_strict_warning("window_open: failed to create peer window");
+                gli_strict_warning("gli_new_window: failed to create peer window");
                 free(win);
                 return 0;
             }
