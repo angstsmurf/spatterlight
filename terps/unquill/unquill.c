@@ -483,7 +483,7 @@ void opch32(char ch)
 #endif
 }
 
-int getch()
+int getch(void)
 {
     event_t event;
     

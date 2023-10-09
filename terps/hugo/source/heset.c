@@ -551,7 +551,7 @@ static unsigned int GetAnonymousFunction(long addr)
 
 /* SETCOMPOUND */
 
-static int SetCompound()
+static int SetCompound(void)
 {
 	if (Peek(codeptr)==DECIMAL_T)		/* obj.property */
 	{

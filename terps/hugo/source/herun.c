@@ -1119,7 +1119,7 @@ void RunPrint(void)
 
 /* RUNRESTART */
 
-int RunRestart()
+int RunRestart(void)
 {
 	unsigned int a;
 	long i = 0;
@@ -1329,7 +1329,7 @@ RestoreError:
 
 #endif	// RESTOREGAMEDATA_REPLACED
 
-int RunRestore()
+int RunRestore(void)
 {
 #if !defined (GLK)
 	save = NULL;
@@ -2413,7 +2413,7 @@ SaveError:
 
 #endif	// SAVEGAMEDATA_REPLACED
 
-int RunSave()
+int RunSave(void)
 {
 #ifdef PALMOS
 	/* Prevent simultaneous access to the same db record */
@@ -2469,7 +2469,7 @@ SaveError:
 
 /* RUNSCRIPTSET */
 
-int RunScriptSet()
+int RunScriptSet(void)
 {
 	remaining = 0;
 
@@ -2526,7 +2526,7 @@ int RunScriptSet()
 	As in 'x = string(<array>, "<string>"[, maxlen]'.
 */
 
-int RunString()
+int RunString(void)
 {
 	int i, pos;
 	unsigned int aaddr;                     /* array address   */
