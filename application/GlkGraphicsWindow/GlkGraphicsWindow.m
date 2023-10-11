@@ -106,13 +106,7 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-
     rect = NSIntersectionRect(rect, self.bounds);
-
-    if (!transparent) {
-        [[NSColor colorFromInteger:bgnd] set];
-        NSRectFill(rect);
-    }
 
     [_image drawInRect:rect
               fromRect:rect
