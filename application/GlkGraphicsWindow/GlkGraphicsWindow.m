@@ -102,7 +102,6 @@
 
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
-
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
@@ -117,12 +116,11 @@
 
     [_image drawInRect:rect
               fromRect:rect
-            operation:NSCompositingOperationSourceOver
+             operation:NSCompositingOperationSourceOver
               fraction:1.0];
 }
 
 - (void)setFrame:(NSRect)frame {
-
     frame.origin.y = round(frame.origin.y);
     
     if (NSEqualRects(frame, self.frame) && !NSEqualSizes(_image.size, NSZeroSize))
@@ -138,7 +136,6 @@
 
     // Then we create a new image, filling it with background color
     if (!transparent) {
-
         _image = [[NSImage alloc] initWithSize:frame.size];
 
         [_image lockFocus];
@@ -279,7 +276,6 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-
     NSDate *mouseTime = [NSDate date];
     
     NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
@@ -340,12 +336,10 @@
 }
 
 - (void)initChar {
-    // NSLog(@"init char in %d", name);
     char_request = YES;
 }
 
 - (void)cancelChar {
-    // NSLog(@"cancel char in %d", name);
     char_request = NO;
 }
 
@@ -370,7 +364,6 @@
     if (char_request && ch != keycode_Unknown) {
         [self.glkctl markLastSeen];
 
-        // NSLog(@"char event from %d", name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
         char_request = NO;
