@@ -190,13 +190,13 @@ extern glui32 localsbase;
 extern glui32 endmem;
 extern glui32 protectstart, protectend;
 extern glui32 prevpc;
-extern glui32 randomcallscount;
-extern glui32 lastrandomseed;
+extern glui32 xo_table[4];
 
 extern void (*stream_char_handler)(unsigned char ch);
 extern void (*stream_unichar_handler)(glui32 ch);
 
 /* main.c */
+extern glui32 init_rng_seed;
 extern void set_library_start_hook(void (*)(void));
 extern void set_library_autorestore_hook(void (*)(void));
 extern void fatal_error_handler(char *str, char *arg, int useval, glsi32 val); // GLK_ATTRIBUTE_NORETURN;
@@ -385,11 +385,6 @@ extern int init_float(void);
 extern glui32 encode_float(gfloat32 val);
 extern gfloat32 decode_float(glui32 val);
 
-/* Uncomment this definition if your powf() function does not support
-   all the corner cases specified by C99. If you uncomment this,
-   osdepend.c will provide a safer implementation of glulx_powf(). */
-/* #define FLOAT_COMPILE_SAFER_POWF (1) */
-
 extern gfloat32 glulx_powf(gfloat32 val1, gfloat32 val2);
 
 #ifdef DOUBLE_SUPPORT
@@ -400,6 +395,8 @@ typedef double gfloat64;
 
 extern void encode_double(gfloat64 val, glui32 *reshi, glui32 *reslo);
 extern gfloat64 decode_double(glui32 valhi, glui32 vallo);
+
+extern gfloat64 glulx_pow(gfloat64 val1, gfloat64 val2);
 
 #endif /* DOUBLE_SUPPORT */
 

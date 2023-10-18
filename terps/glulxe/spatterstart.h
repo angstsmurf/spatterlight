@@ -8,7 +8,9 @@
 
 @class GlulxAccelEntry, GlkObjIdEntry;
 
-extern void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
+void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
+void xo_seed_random_4(glui32 seed0, glui32 seed1, glui32 seed2, glui32 seed3);
+
 
 NSDate *lastAutosaveTimestamp;
 
@@ -28,8 +30,7 @@ NSDate *lastAutosaveTimestamp;
 @property NSMutableArray<NSNumber *> *accel_params;
 @property NSMutableArray<GlulxAccelEntry *> *accel_funcs;
 @property glui32 gamefiletag;
-@property glui32 randomcallscount;
-@property glui32 lastrandomseed;
+@property NSArray<NSNumber *> *xo_table;
 @property NSMutableArray<GlkObjIdEntry *> *id_map_list;
 
 @end

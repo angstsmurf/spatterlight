@@ -63,10 +63,14 @@ static int reposition_write(dest_t *dest, glui32 pos);
 int init_serial()
 {
   undo_chain_num = 0;
-  undo_chain_size = max_undo_level;
-  undo_chain = (unsigned char **)glulx_malloc(sizeof(unsigned char *) * undo_chain_size);
-  if (!undo_chain)
-    return FALSE;
+  undo_chain_size = 0;
+  undo_chain = NULL;
+  if (max_undo_level > 0) {
+    undo_chain_size = max_undo_level;
+    undo_chain = (unsigned char **)glulx_malloc(sizeof(unsigned char *) * undo_chain_size);
+    if (!undo_chain)
+      return FALSE;
+  }
 
 #ifdef SERIALIZE_CACHE_RAM
   {
@@ -280,6 +284,9 @@ glui32 perform_restoreundo()
     dest.ptr = NULL;
   }
 
+  if (heapsumarr) 
+    glulx_free(heapsumarr);
+  
   return res;
 }
 
@@ -570,6 +577,9 @@ glui32 perform_restore(strid_t str, int fromshell)
       res = heap_apply_summary(heapsumlen, heapsumarr);
     }
   }
+
+  if (heapsumarr) 
+    glulx_free(heapsumarr);
 
   if (res)
     return 1;
@@ -1213,12 +1223,12 @@ static glui32 read_stackstate(dest_t *dest, glui32 chunklen, int portable)
 
 glui32 perform_verify()
 {
-  glui32 len, localchecksum, newlen;
+  glui32 len, checksum, newlen;
   unsigned char buf[4];
   glui32 val, newsum, ix;
 
   len = gamefile_len;
-  localchecksum = 0;
+  checksum = 0;
 
   if (len < 256 || (len & 0xFF) != 0)
     return 1;
@@ -1237,7 +1247,7 @@ glui32 perform_verify()
         return 1;
     }
     if (ix == 8)
-      localchecksum = val;
+      checksum = val;
     else
       newsum += val;
   }
@@ -1251,7 +1261,7 @@ glui32 perform_verify()
     newsum += val;
   }
 
-  if (newsum != localchecksum)
+  if (newsum != checksum)
     return 1;
 
   return 0;  
