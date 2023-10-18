@@ -201,9 +201,9 @@ fprintf(stderr, "%s\n",                                                    \
         // reduce the height of the buffer window below it.
         // This is mainly to prevent the search bar from
         // being partially hidden under the status window.
-        for (GlkTextGridWindow *grid in glkctl.contentView.subviews) {
+        for (GlkTextGridWindow *grid in glkctl.gameView.subviews) {
             if ([grid isKindOfClass:[GlkTextGridWindow class]]) {
-                frame.size.height = glkctl.contentView.frame.size.height - grid.pendingFrame.size.height;
+                frame.size.height = glkctl.gameView.frame.size.height - grid.pendingFrame.size.height;
                 frame.origin.y = NSMaxY(grid.pendingFrame);
                 break;
             }
@@ -240,8 +240,8 @@ fprintf(stderr, "%s\n",                                                    \
             if ([container hasMarginImages])
                 [container invalidateLayout:nil];
 
-            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
             super.frame = self.pendingFrame;
@@ -747,11 +747,11 @@ fprintf(stderr, "%s\n",                                                    \
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
         }
@@ -1747,8 +1747,8 @@ replacementString:(id)repl {
     // Send an arrange event to The Colder Light in order
     // to make it update its title bar
     if (glkctl.colderLight) {
-        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.contentView.frame.size.width
-                                                    height:(NSInteger)glkctl.contentView.frame.size.height
+        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
+                                                    height:(NSInteger)glkctl.gameView.frame.size.height
                                                      theme:glkctl.theme
                                                      force:YES];
         [glkctl queueEvent:gev];

@@ -36,7 +36,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
-@property IBOutlet GlkHelperView *contentView;
+@property IBOutlet GlkHelperView *gameView;
 
 // stylehints need to be copied to new windows, so we keep the values around
 
@@ -48,7 +48,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) NSTimeInterval storedTimerLeft;
 @property(readonly) NSTimeInterval storedTimerInterval;
 @property(readonly) NSRect storedWindowFrame;
-@property(readonly) NSRect storedContentFrame;
+@property(readonly) NSRect storedGameViewFrame;
 @property(readonly) NSRect storedBorderFrame;
 
 @property NSRect windowPreFullscreenFrame;

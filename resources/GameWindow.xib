@@ -9,7 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="GlkController">
             <connections>
                 <outlet property="borderView" destination="6" id="20"/>
-                <outlet property="contentView" destination="7" id="13"/>
+                <outlet property="gameView" destination="7" id="13"/>
                 <outlet property="window" destination="5" id="9"/>
             </connections>
         </customObject>

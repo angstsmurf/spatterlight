@@ -332,7 +332,7 @@ fprintf(stderr, "%s\n",                                                    \
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
 
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     windowdirty = NO;
 
@@ -636,10 +636,10 @@ fprintf(stderr, "%s\n",                                                    \
         _startingInFullscreen = YES;
         [self startInFullscreen];
     } else {
-        _contentView.autoresizingMask =
+        _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
         [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
-        _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
     [self adjustContentView];
@@ -698,11 +698,11 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:newWindowFrame display:NO];
         [self adjustContentView];
     }
-    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+    lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
-        _contentView.autoresizingMask =
+        _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
         restoredController = nil;
         _coverController = [[CoverImageHandler alloc] initWithController:self];
@@ -728,8 +728,8 @@ fprintf(stderr, "%s\n",                                                    \
         .size;
     [self.window setContentSize:defsize];
     _borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
-    _contentView.frame = restoredController.storedContentFrame;
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _gameView.frame = restoredController.storedGameViewFrame;
+    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
@@ -910,7 +910,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self queueEvent:gevent];
 
     if (!(_inFullscreen && windowRestoredBySystem)) {
-        [self sendArrangeEventWithFrame:_contentView.frame force:NO];
+        [self sendArrangeEventWithFrame:_gameView.frame force:NO];
     }
 
     restartingAlready = NO;
@@ -1052,7 +1052,7 @@ fprintf(stderr, "%s\n",                                                    \
     _gridStyleHints = restoredController.gridStyleHints;
 
     // Restore frame size
-    _contentView.frame = restoredControllerLate.storedContentFrame;
+    _gameView.frame = restoredControllerLate.storedGameViewFrame;
 
     // Copy all views and GlkWindow objects from restored Controller
     for (id key in restoredController.gwindows) {
@@ -1090,7 +1090,7 @@ fprintf(stderr, "%s\n",                                                    \
             }
 
             [win removeFromSuperview];
-            [_contentView addSubview:win];
+            [_gameView addSubview:win];
 
             win.glkctl = self;
             win.theme = _theme;
@@ -1363,8 +1363,8 @@ fprintf(stderr, "%s\n",                                                    \
         _windowPreFullscreenFrame =
         [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
 
-        _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
-        _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
+        _storedGameViewFrame = [decoder decodeRectForKey:@"contentFrame"];
+        _storedBorderFrame = [self.window contentRectForFrameRect:_storedWindowFrame];
 
         _bgcolor = [decoder decodeObjectOfClass:[NSColor class] forKey:@"backgroundColor"];
 
@@ -1400,8 +1400,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
-    [encoder encodeRect:_contentView.frame forKey:@"contentFrame"];
-    [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
+    [encoder encodeRect:_gameView.frame forKey:@"contentFrame"];
 
     [encoder encodeObject:_bgcolor forKey:@"backgroundColor"];
 
@@ -1724,7 +1723,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     for (GlkWindow *win in _windowsToBeAdded) {
-        [_contentView addSubview:win];
+        [_gameView addSubview:win];
     }
 
     if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
@@ -1805,9 +1804,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)adjustMaskLayer:(id)sender {
     CALayer *maskLayer = nil;
-    if (!_contentView.layer.mask) {
-        _contentView.layer.mask = [self createMaskLayer];
-        maskLayer = _contentView.layer.mask;
+    if (!_gameView.layer.mask) {
+        _gameView.layer.mask = [self createMaskLayer];
+        maskLayer = _gameView.layer.mask;
         maskLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
         maskLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
         self.window.opaque = NO;
@@ -1815,7 +1814,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (maskLayer) {
-        maskLayer.frame = _contentView.bounds;
+        maskLayer.frame = _gameView.bounds;
     }
 }
 
@@ -1884,7 +1883,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     lastContentResize = frame;
-    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+    lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
 
     if (frame.origin.x < 0 || frame.origin.y < 0 || frame.size.width < 0 || frame.size.height < 0) {
         // Negative height happens during the fullscreen animation. We just ignore it
@@ -1902,7 +1901,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)zoomContentToSize:(NSSize)newSize {
     _ignoreResizes = YES;
-    NSRect oldframe = _contentView.frame;
+    NSRect oldframe = _gameView.frame;
 
     NSUInteger borders = (NSUInteger)_theme.border * 2;
 
@@ -1930,7 +1929,7 @@ fprintf(stderr, "%s\n",                                                    \
         winrect.origin.y -= offset;
 
         [self.window setFrame:winrect display:YES];
-        _contentView.frame = [self contentFrameForWindowed];
+        _gameView.frame = [self contentFrameForWindowed];
     } else {
         // We are in fullscreen
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
@@ -1950,7 +1949,7 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
 
-        _contentView.frame = newframe;
+        _gameView.frame = newframe;
     }
     _ignoreResizes = NO;
 }
@@ -1981,16 +1980,16 @@ fprintf(stderr, "%s\n",                                                    \
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
     NSInteger diff = ((NSNumber *)notify.userInfo[@"diff"]).integerValue;
-    _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
+    _gameView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
     NSRect frame = self.window.frame;
     frame.origin = NSMakePoint(frame.origin.x - diff, frame.origin.y - diff);
     frame.size = NSMakeSize(frame.size.width + (diff * 2), frame.size.height + (diff * 2));
-    NSRect contentframe = _contentView.frame;
+    NSRect contentframe = _gameView.frame;
     contentframe.origin = NSMakePoint(contentframe.origin.x + diff, contentframe.origin.y + diff);
     [self.window setFrame:frame display:NO];
-    _contentView.frame = contentframe;
+    _gameView.frame = contentframe;
     _movingBorder = NO;
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     NSNotification *notification = [[NSNotification alloc] initWithName:@"PreferencesChanged" object:_theme userInfo:nil];
     [self notePreferencesChanged:notification];
 }
@@ -2066,7 +2065,7 @@ fprintf(stderr, "%s\n",                                                    \
             NSSize newSizeIncludingBorders = NSMakeSize(newContentSize.width + borders, newContentSize.height + borders);
 
             if (!NSEqualSizes(_borderView.bounds.size, newSizeIncludingBorders)
-                || !NSEqualSizes(_contentView.bounds.size, newContentSize)) {
+                || !NSEqualSizes(_gameView.bounds.size, newContentSize)) {
                 [self zoomContentToSize:newContentSize];
                 //                NSLog(@"Changed window size to keep size in char cells constant. Previous size in char cells: %@ Current size in char cells: %@", NSStringFromSize(lastSizeInChars), NSStringFromSize([self contentSizeToCharCells:_contentView.frame.size]));
             }
@@ -2074,7 +2073,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     lastTheme = theme;
-    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+    lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
 
     [self adjustContentView];
 
@@ -2091,8 +2090,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkEvent *gevent;
 
-    CGFloat width = _contentView.frame.size.width;
-    CGFloat height = _contentView.frame.size.height;
+    CGFloat width = _gameView.frame.size.width;
+    CGFloat height = _gameView.frame.size.height;
 
     if (width < 0)
         width = 0;
@@ -2122,7 +2121,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     // Reset any Narcolepsy window mask
-    _contentView.layer.mask = nil;
+    _gameView.layer.mask = nil;
 
     if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
         [self adjustMaskLayer:nil];
@@ -2210,7 +2209,7 @@ fprintf(stderr, "%s\n",                                                    \
         sizeAfterZoom = [self defaultContentSize];
         NSLog(@"noteDefaultSizeChanged: New default size: %@", NSStringFromSize(sizeAfterZoom));
     }
-    NSRect oldframe = _contentView.frame;
+    NSRect oldframe = _gameView.frame;
 
     // Prevent the window from shrinking when zooming in or growing when
     // zooming out, which might otherwise happen at edge cases
@@ -2220,7 +2219,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    NSLog(@"noteDefaultSizeChanged: Old contentView size: %@", NSStringFromSize(_contentView.frame.size));
+    NSLog(@"noteDefaultSizeChanged: Old contentView size: %@", NSStringFromSize(_gameView.frame.size));
 
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen) {
@@ -2244,7 +2243,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
         [self.window setFrame:winrect display:NO animate:NO];
-        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
+        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_gameView.frame.size));
 
     } else {
         NSUInteger borders = (NSUInteger)_theme.border * 2;
@@ -2260,8 +2259,8 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
 
-        _contentView.frame = newframe;
-        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_contentView.frame.size));
+        _gameView.frame = newframe;
+        NSLog(@"noteDefaultSizeChanged: New contentView size: %@", NSStringFromSize(_gameView.frame.size));
     }
 }
 
@@ -3165,12 +3164,12 @@ fprintf(stderr, "%s\n",                                                    \
                 checksumWidth = sizewin->gamewidth;
                 checksumHeight = sizewin->gameheight;
 
-                if (fabs(checksumWidth - _contentView.frame.size.width) > 1.0) {
+                if (fabs(checksumWidth - _gameView.frame.size.width) > 1.0) {
                     free(sizewin);
                     break;
                 }
 
-                if (fabs(checksumHeight - _contentView.frame.size.height) > 1.0) {
+                if (fabs(checksumHeight - _gameView.frame.size.height) > 1.0) {
                     free(sizewin);
                     break;
                 }
@@ -3190,13 +3189,13 @@ fprintf(stderr, "%s\n",                                                    \
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
                 NSAutoresizingMaskOptions vmask = NSViewMaxYMargin;
 
-                if (fabs(NSMaxX(rect) - _contentView.frame.size.width) < 2.0 &&
+                if (fabs(NSMaxX(rect) - _gameView.frame.size.width) < 2.0 &&
                     rect.size.width > 0) {
                     // If window is at right edge, attach to that edge
                     hmask = NSViewWidthSizable;
                 }
 
-                if (fabs(NSMaxY(rect) - _contentView.frame.size.height) < 2.0 &&
+                if (fabs(NSMaxY(rect) - _gameView.frame.size.height) < 2.0 &&
                     rect.size.height > 0) {
                     // If window is at bottom, attach to bottom
                     vmask = NSViewHeightSizable;
@@ -3765,7 +3764,7 @@ again:
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
-    CGFloat relativeSize = (windowsize.width * windowsize.height) / (_contentView.bounds.size.width * _contentView.bounds.size.height);
+    CGFloat relativeSize = (windowsize.width * windowsize.height) / (_gameView.bounds.size.width * _gameView.bounds.size.height);
     if (relativeSize < 0.70 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
         return;
 
@@ -3858,21 +3857,21 @@ again:
         [_coverController.imageView positionImage];
     }
 
-    _contentView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    _gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
     _borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 
     if (!inFullScreenResize) {
         NSSize borderSize = _borderView.frame.size;
-        NSRect contentFrame = _contentView.frame;
+        NSRect contentFrame = _gameView.frame;
         CGFloat midWidth = borderSize.width / 2;
         if (contentFrame.origin.x > midWidth ||  NSMaxX(contentFrame) < midWidth) {
             contentFrame.origin.x = round(borderSize.width - NSWidth(contentFrame) / 2);
-            _contentView.frame = contentFrame;
+            _gameView.frame = contentFrame;
         }
         if (NSWidth(contentFrame) > borderSize.width - 2 * _theme.border || borderSize.width < borderSize.height) {
             contentFrame.size.width = ceil(borderSize.width - 2 * _theme.border);
             contentFrame.origin.x = _theme.border;
-            _contentView.frame = contentFrame;
+            _gameView.frame = contentFrame;
         }
     }
 
@@ -3927,11 +3926,11 @@ again:
     _inFullscreen = NO;
     _ignoreResizes = NO;
     inFullScreenResize = NO;
-    _contentView.alphaValue = 1;
+    _gameView.alphaValue = 1;
     [window setFrame:_windowPreFullscreenFrame display:YES];
-    _contentView.frame = [self contentFrameForWindowed];
+    _gameView.frame = [self contentFrameForWindowed];
     [self restoreScrollOffsets];
-    _contentView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    _gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
     _borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 }
 
@@ -4012,16 +4011,16 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
     _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
+    _gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    NSView *localContentView = _contentView;
+    NSView *localContentView = _gameView;
     NSView *localBorderView = _borderView;
     NSWindow *localSnapshot = snapshotController.window;
 
     GlkController * __weak weakSelf = self;
     // Hide contentview
-    _contentView.alphaValue = 0;
+    _gameView.alphaValue = 0;
 
     // Our animation will be broken into five steps.
     [NSAnimationContext
@@ -4170,16 +4169,16 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     oldFrame.size.width =
-    _contentView.frame.size.width + _theme.border * 2;
+    _gameView.frame.size.width + _theme.border * 2;
 
     inFullScreenResize = YES;
 
-    _contentView.autoresizingMask =
+    _gameView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
     NSWindow __weak *localWindow = self.window;
     NSView __weak *localBorderView = _borderView;
-    NSView __weak *localContentView =_contentView;
+    NSView __weak *localContentView =_gameView;
     GlkController * __weak weakSelf = self;
 
     [NSAnimationContext
@@ -4203,11 +4202,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     _ignoreResizes = NO;
     inFullScreenResize = NO;
-    if (_contentView.frame.size.width < 200)
+    if (_gameView.frame.size.width < 200)
         [self adjustContentView];
-    [self contentDidResize:_contentView.frame];
-    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
-    _contentView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    [self contentDidResize:_gameView.frame];
+    lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
+    _gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
     [self restoreScrollOffsets];
 }
 
@@ -4215,7 +4214,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _ignoreResizes = NO;
     _inFullscreen = NO;
     inFullScreenResize = NO;
-    [self contentDidResize:_contentView.frame];
+    [self contentDidResize:_gameView.frame];
     [self restoreScrollOffsets];
     if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
         // FIXME: Very ugly hack to fix the Narcolepsy mask layer
@@ -4228,7 +4227,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self.window setFrame:newFrame display:YES];
         [self adjustMaskLayer:nil];
     }
-    _contentView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    _gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 }
 
 - (void)startInFullscreen {
@@ -4238,12 +4237,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
 
-    _contentView.frame = [self contentFrameForWindowed];
+    _gameView.frame = [self contentFrameForWindowed];
 
-    _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
+    _gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    [self contentDidResize:_contentView.frame];
+    [self contentDidResize:_gameView.frame];
     for (GlkWindow *win in _gwindows.allValues)
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
@@ -4332,7 +4331,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (!NSEqualRects(self.window.frame, windowframe))
         [self.window setFrame:windowframe display:YES];
 
-    _contentView.frame = frame;
+    _gameView.frame = frame;
 }
 
 - (NSRect)contentFrameForWindowed {
@@ -4345,8 +4344,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (NSRect)contentFrameForFullscreen {
     NSUInteger border = (NSUInteger)_theme.border;
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
-                             NSWidth(_contentView.frame)) / 2),
-                      border, NSWidth(_contentView.frame),
+                             NSWidth(_gameView.frame)) / 2),
+                      border, NSWidth(_gameView.frame),
                       round(NSHeight(_borderView.bounds) - border * 2));
 }
 
