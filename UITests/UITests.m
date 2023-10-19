@@ -31,9 +31,10 @@
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Delete Library…"] click];
-    XCUIElement *alertDialog = app.dialogs[@"alert"];
+    XCUIElement *alertDialog = app.dialogs.firstMatch;
+    XCTAssert([alertDialog waitForExistenceWithTimeout:5]);
     XCUIElement *checkbox = alertDialog.checkBoxes[@"Force quit running games and delete them."];
-    if (checkbox.exists)
+    if (checkbox.exists && [checkbox.value isEqual:@0])
         [checkbox click];
     [alertDialog.buttons[@"Delete Library"] click];
 
@@ -67,7 +68,17 @@
 
     XCUIElement *openButton = dialog.buttons[buttonText];
 
-    XCTAssert(openButton.exists);
+    XCTAssert([openButton waitForExistenceWithTimeout:5]);
+    [openButton click];
+}
+
++ (void)typeURL:(NSURL *)url intoApp:(XCUIApplication *)app andPressButtonWithText:(NSString *)buttonText
+{
+    [UITests typeURL:url intoApp:app];
+
+    XCUIElement *openButton = app.buttons[buttonText].firstMatch;
+
+    XCTAssert([openButton waitForExistenceWithTimeout:5]);
     [openButton click];
 }
 
@@ -97,6 +108,23 @@
         [goButton click];
     }
 
+}
+
++ (void)typeURL:(NSURL *)url intoApp:(XCUIApplication *)app {
+    [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
+
+    XCUIElement *sheet = app.sheets.firstMatch;
+    if(![sheet waitForExistenceWithTimeout:5]) {
+        [app typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
+    }
+
+    XCTAssert([sheet waitForExistenceWithTimeout:5]);
+
+    XCUIElement *input = sheet.textFields.firstMatch;
+    XCTAssert([input waitForExistenceWithTimeout:5]);
+
+    [input typeText:url.path];
+    [input typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
 + (NSString *)transcriptFromFile:(NSString *)fileName {
@@ -212,18 +240,16 @@
 
 - (void)openCommandScript:(NSString *)name {
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    XCUIElementQuery *menuBarsQuery = app.menuBars;
-    [menuBarsQuery.menuBarItems[@"File"] click];
-    [menuBarsQuery.menuItems[@"Open…"] click];
+
+    [app typeKey:@"o" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierCommand];
+
     name = [NSString stringWithFormat:@"%@ command script", name];
 
     NSURL *url = [testBundle URLForResource:name
                               withExtension:@"txt"
                                subdirectory:nil];
 
-    XCUIElement *openPanel = app.dialogs.firstMatch;
-
-    [UITests typeURL:url intoFileDialog:openPanel andPressButtonWithText:@"Open"];
+    [UITests typeURL:url intoApp:app andPressButtonWithText:@"Open"];
 
     XCUIElement *alert = app.dialogs[@"alert"];
     if (alert.exists) {
@@ -341,14 +367,12 @@
     }
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Open…"] click];
-    XCUIElement *openDialog = app.dialogs.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
     NSURL *url = [testBundle URLForResource:@"curses"
                               withExtension:@"z5"
                                subdirectory:nil];
 
-    [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Open"];
+    [UITests typeURL:url intoApp:app andPressButtonWithText:@"Open"];
 
     NSArray *menuItemTitles = @[@"Edited Entries", @"Games in Library", @"Complete Database"];
 
@@ -410,14 +434,12 @@
     XCUIElement *gameMenuBarItem = menuBarsQuery.menuBarItems[@"Game"];
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Open…"] click];
-    XCUIElement *openDialog = app.dialogs.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
     NSURL *url = [testBundle URLForResource:@"imagetest"
                               withExtension:@"gblorb"
                                subdirectory:nil];
 
-    [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Open"];
+    [UITests typeURL:url intoApp:app andPressButtonWithText:@"Open"];
 
     [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reveal in Finder"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reveal in Finder\"]",".menuItems[@\"Reveal in Finder\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
@@ -428,7 +450,7 @@
     XCTAssert([app waitForExistenceWithTimeout:5]);
 
     [menuBarsQuery.menuBarItems[@"Window"] click];
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
 
@@ -444,12 +466,18 @@
 
     [gameMenuBarItem.menuItems[@"Show Info…"] click];
     [app typeText:@" "];
+    [[[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0] click];
     [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Play Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Play Game\"]",".menuItems[@\"Play Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    XCUIElement *gameWindow = app.windows[@"imagetest.gblorb"];
+    [gameWindow click];
     [gameMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Reset Game"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Reset Game\"]",".menuItems[@\"Reset Game\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    [gameWindow click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Close Window"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Close Window\"]",".menuItems[@\"Close Window\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
+    libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
+    XCTAssert([libraryWindow waitForExistenceWithTimeout:5]);
     [libraryWindow.toolbars.buttons[@"Play"] click];
     [fileMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Clear Scrollback"]/*[[".menuBarItems[@\"File\"]",".menus.menuItems[@\"Clear Scrollback\"]",".menuItems[@\"Clear Scrollback\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
@@ -457,6 +485,7 @@
     XCUIElement *gamewin = app.windows[@"imagetest.gblorb"];
 
     XCUIElement *textView = [gamewin.scrollViews[@"buffer scroll view"] childrenMatchingType:XCUIElementTypeTextView].element;
+    [textView click];
     [textView typeText:@"image\r"];
     [textView typeText:@"image left link\r"];
 
@@ -468,10 +497,11 @@
         [fileMenuBarItem click];
         [menuBarsQuery.menuItems[@"Save Scrollback…"] click];
         XCUIElement *savePanel = gamewin.sheets[@"save-panel"];
+        XCTAssert([savePanel waitForExistenceWithTimeout:5]);
         XCUIElement *popUp;
         for (NSString *popupTitle in menuItemTitles) {
             popUp = savePanel.popUpButtons[popupTitle];
-            if ([popUp waitForExistenceWithTimeout:1]) {
+            if ([popUp waitForExistenceWithTimeout:5]) {
                 break;
             }
         }
@@ -968,6 +998,7 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [gameWindow click];
     [self openCommandScript:@"Bugged"];
 
     NSString *facit = [self comparisonTranscriptFor:@"Bugged"];
@@ -995,7 +1026,7 @@
         gameWindow = app.windows[@"00 Wyldkynd Project.a3c"];
 
     [UITests turnOnDeterminism:@"Default"];
-
+    [gameWindow click];
     [self openCommandScript:@"The Wyldkynd Project"];
 
     NSString *facit = [self comparisonTranscriptFor:@"The Wyldkynd Project"];
@@ -1075,6 +1106,7 @@
 
     [UITests turnOnDeterminism:@"DOSBox"];
 
+    [gameWindow click];
     [self openCommandScript:@"The Sound of One Hand Clapping"];
 
     NSString *facit = [self comparisonTranscriptFor:@"The Sound of One Hand Clapping"];
@@ -1102,6 +1134,7 @@
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
+    [textView click];
 
     // Wait for initial text to show
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'or <other> to start the game'"];
@@ -1250,6 +1283,8 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView click];
+
     [app typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [app typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [app typeKey:@" " modifierFlags:XCUIKeyModifierNone];
@@ -1268,11 +1303,18 @@
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
     [self waitForExpectations:@[expectation] timeout:80];
 
+    [textView click];
+
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierNone];
+    [textView click];
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView click];
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView click];
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
-    [textView typeText:@"  glk script off\r"];
+    [textView click];
+    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    [textView typeText:@"glk script off\r"];
 
     NSError *error = nil;
 
@@ -1392,6 +1434,7 @@
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
+    [gameWindow click];
     [self openCommandScript:@"TerpEtude"];
 
     NSURL *url;
@@ -1436,6 +1479,8 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView click];
+
     [textView typeText:@"transcript\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -1475,6 +1520,7 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView click];
     [textView typeText:@"transcript\r"];
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
 
@@ -1507,11 +1553,14 @@
     [textField doubleClick];
 
     XCUIElement *gameWindow = app.windows[@"tot.tay"];
+    if (![gameWindow exists])
+        gameWindow = app.windows[@"Temple of Terror"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView click];
     [textView typeText:@"transcript\r"];
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
 
@@ -1549,9 +1598,11 @@
 
     [UITests turnOnDeterminism:@"Default"];
 
+    [textView click];
     [textView typeText:@"transcript\r"];
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
 
+    [textView click];
     [self openCommandScript:@"Plus"];
 
     NSString *facit = [self comparisonTranscriptFor:@"SPL13P"];
@@ -1793,9 +1844,10 @@
     [infoWin.menuItems[@"Delete"] click];
 
     alert = app.dialogs.firstMatch;
-    if (alert.exists) {
-        [alert.buttons[@"Delete"] click];
-    }
+    XCTAssert([alert waitForExistenceWithTimeout:5]);
+    [alert.buttons[@"Delete"] click];
+
+    image = [infoWin childrenMatchingType:XCUIElementTypeImage].firstMatch;
 
     [self forceClickElement:image];
     [infoWin.menuItems[@"Paste"] click];
@@ -1805,10 +1857,9 @@
     [infoWin.menuItems[@"Add description"] click];
 
     alert = app.dialogs.firstMatch;
-    if (alert.exists) {
-        [alert.textFields.firstMatch typeText:@"Some ancient, broken, rocks with a subway map of Paris in front."];
-        [alert.buttons[@"Okay"] click];
-    }
+    XCTAssert([alert waitForExistenceWithTimeout:5]);
+    [alert.textFields.firstMatch typeText:@"Some ancient, broken, rocks with a subway map of Paris in front."];
+    [alert.buttons[@"Okay"] click];
 
     [infoWin.buttons[XCUIIdentifierCloseWindow] click];
 
@@ -1856,14 +1907,12 @@
     XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
     [fileMenuBarItem click];
     [menuBarsQuery.menuItems[@"Open…"] click];
-    XCUIElement *openDialog = app.dialogs.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
 
     NSURL *url = [testBundle URLForResource:@"imagetest"
                               withExtension:@"gblorb"
                                subdirectory:nil];
 
-    [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Open"];
+    [UITests typeURL:url intoApp:app andPressButtonWithText:@"Open"];
 
     [menuBarsQuery.menuBarItems[@"Window"] click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Interactive Fiction"]/*[[".menuBarItems[@\"Window\"]",".menus.menuItems[@\"Interactive Fiction\"]",".menuItems[@\"Interactive Fiction\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
@@ -1887,9 +1936,6 @@
     [self forceClickElement:image];
     [infoWin.menuItems[@"Select Image File…"] click];
 
-    openDialog = app.sheets.firstMatch;
-    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
-
     url = [testBundle URLForResource:@"imagetest"
                        withExtension:@"gblorb"
                         subdirectory:nil];
@@ -1897,6 +1943,8 @@
     NSURL *path = url.URLByDeletingLastPathComponent;
     path = [path URLByAppendingPathComponent:@"curses.png"];
 
+    XCUIElement *openDialog = app.sheets.firstMatch;
+    XCTAssert([openDialog waitForExistenceWithTimeout:5]);
     [UITests typeURL:path intoFileDialog:openDialog andPressButtonWithText:@"Open"];
 
     [self forceClickElement:image];

@@ -2,7 +2,7 @@ Start of a transcript of
 
 Transparent
 An interactive exploration by Hanon Ondricek
-Release 7 / Serial number 150401 / Inform 7 build 6L38 (I6/v6.33 lib 6/12N)
+Release 7 / Serial number 150401 / Inform 7 build 6L38 (I6/v6.33 lib 6/12N) 
 Identification number: //73E32658-3590-41F4-9234-9BC3EC9E405C//
 Interpreter version 0.6.1 / VM 3.1.3 / Library serial number 080126
 Standard Rules version 3/120430 by Graham Nelson
