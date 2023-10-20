@@ -148,7 +148,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopVerifyTimer;
 
 @property (strong) IBOutlet NSView *forceQuitView;
-@property (weak) IBOutlet NSButton *forceQuitCheckBox;
+@property (strong) IBOutlet NSButton *forceQuitCheckBox;
+@property (strong) IBOutlet NSView *addToLibraryView;
+@property (strong) IBOutlet NSButton *addToLibraryCheckBox;
 
 @property (strong) IBOutlet NSView *downloadCheckboxView;
 @property (weak) IBOutlet NSButton *lookForCoverImagesCheckBox;

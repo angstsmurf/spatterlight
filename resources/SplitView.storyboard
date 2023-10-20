@@ -166,11 +166,11 @@
                         <subviews>
                             <scrollView horizontalCompressionResistancePriority="310" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="N28-3A-g5e">
                                 <rect key="frame" x="0.0" y="0.0" width="762" height="473"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="wuf-ni-l4A">
+                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="wuf-ni-l4A">
                                     <rect key="frame" x="0.0" y="0.0" width="762" height="473"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="GameTableView" rowHeight="14" rowSizeStyle="automatic" headerView="kXX-38-a4R" viewBased="YES" id="k0a-Om-UZ7" customClass="LibHelperTableView">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="GameTableView" rowHeight="14" rowSizeStyle="automatic" headerView="kXX-38-a4R" viewBased="YES" id="k0a-Om-UZ7" customClass="LibHelperTableView">
                                             <rect key="frame" x="0.0" y="0.0" width="762" height="445"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="0.0" height="8"/>
@@ -908,12 +908,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addToLibraryCheckBox" destination="uVj-Q5-Ky3" id="s9w-CA-x9g"/>
+                        <outlet property="addToLibraryView" destination="BdJ-jG-Nhg" id="St1-yR-Mzf"/>
                         <outlet property="downloadCheckboxView" destination="Ifo-Vk-DuE" id="xcV-I4-kLC"/>
                         <outlet property="downloadGameInfoCheckBox" destination="35z-SN-bWL" id="bFE-Qt-Nuj"/>
                         <outlet property="exportTypeControl" destination="211-JF-Ghd" id="2C1-TU-iaB"/>
                         <outlet property="exportTypeView" destination="ecQ-U8-xM6" id="fyx-6n-SLk"/>
-                        <outlet property="forceQuitCheckBox" destination="uVj-Q5-Ky3" id="sHp-aB-u16"/>
-                        <outlet property="forceQuitView" destination="BdJ-jG-Nhg" id="GR4-aW-NNN"/>
+                        <outlet property="forceQuitCheckBox" destination="02o-F2-4C8" id="g5G-hD-UnL"/>
+                        <outlet property="forceQuitView" destination="X9D-cW-RrT" id="6kG-WG-RGP"/>
                         <outlet property="gameTableView" destination="k0a-Om-UZ7" id="2xR-le-9M9"/>
                         <outlet property="headerMenu" destination="Eb3-bV-wYv" id="KhB-GJ-5J0"/>
                         <outlet property="lookForCoverImagesCheckBox" destination="CH9-xc-H2w" id="xHK-Fh-GdN"/>
@@ -925,14 +927,28 @@
                     </connections>
                 </viewController>
                 <customObject id="EFT-Q0-BAj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customView id="BdJ-jG-Nhg" userLabel="Force Quit View">
-                    <rect key="frame" x="0.0" y="0.0" width="284" height="21"/>
+                <customView id="BdJ-jG-Nhg" userLabel="Add To Library View">
+                    <rect key="frame" x="0.0" y="0.0" width="108" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="uVj-Q5-Ky3">
+                            <rect key="frame" x="-2" y="3" width="108" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="check" title="Add to library" bezelStyle="regularSquare" imagePosition="left" inset="2" id="icI-tW-JDm">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                </customView>
+                <customView id="X9D-cW-RrT" userLabel="Force Quit View">
+                    <rect key="frame" x="0.0" y="0.0" width="284" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="02o-F2-4C8">
                             <rect key="frame" x="-2" y="4" width="286" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Force quit running games and delete them." bezelStyle="regularSquare" imagePosition="left" inset="2" id="icI-tW-JDm">
+                            <buttonCell key="cell" type="check" title="Force quit running games and delete them." bezelStyle="regularSquare" imagePosition="left" inset="2" id="BjU-Jx-TsO">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
