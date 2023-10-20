@@ -445,7 +445,7 @@ fprintf(stderr, "%s\n",                                                    \
                                 NSDocumentTypeDocumentAttribute :
                                     NSRTFTextDocumentType
                             }];
-                    writeResult = [data writeToURL:theFile options:NSDataWritingAtomic error:&error];
+                    writeResult = [data writeToURL:theFile options:0 error:&error];
                 }
             }
             if (!writeResult || error)
