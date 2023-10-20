@@ -807,7 +807,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // find the second newline from the end
     for (i = 0; i < length; i++) {
-        if ([string characterAtIndex:length - i - 1] == '\n') {
+        if ([string characterAtIndex:length - i - 1] == '\n' || [string characterAtIndex:length - i - 1] == '\r') {
             if (found) {
                 break;
             } else {
@@ -815,11 +815,15 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
     }
-    if (i < length)
+    if (i < length) {
         prompt = i;
-    else {
-        prompt = 0;
+    } else {
         // Found no newline
+        if (length > 1000) {
+            prompt = 0;
+        } else {
+            prompt = length;
+        }
     }
 
     line_request = NO;
