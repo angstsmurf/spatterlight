@@ -437,8 +437,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                 error:&error];
 
                 } else {
-                    NSData *data;
-                    data = [mutattstr
+                    NSData *data = [mutattstr
                             RTFFromRange:NSMakeRange(0,
                                                      mutattstr.length)
                             documentAttributes:@{
