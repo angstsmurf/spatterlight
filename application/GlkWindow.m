@@ -464,7 +464,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 300, 32.0)];
 
-    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 60, 22)];
+    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 2, 60, 22)];
     label.editable = NO;
     label.stringValue = NSLocalizedString(@"Format:", nil);
     label.bordered = NO;
