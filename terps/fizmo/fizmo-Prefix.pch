@@ -1,9 +1,0 @@
-//
-// Prefix header for all source files of the 'fizmo' target in the 'Spatterlight' project. Adapted from IosFizmo by Andrew Plotkin.
-//
-
-#ifdef __OBJC__
-	#import <Foundation/Foundation.h>
-#else
-	#include "fizmo-config.h"
-#endif
