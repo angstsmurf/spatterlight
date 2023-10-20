@@ -203,7 +203,6 @@
 		961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2309F2940F00528FF9 /* Credits.rtf */; };
 		961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2909F2940F00528FF9 /* GNU Public License.rtf */; };
 		961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* Hugo License.rtf */; };
-		961CCF4709F2947700528FF9 /* SDL License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2B09F2940F00528FF9 /* SDL License.rtf */; };
 		961DC9370A108DE10044A0D4 /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 961DC9360A108DE10044A0D4 /* quill.c */; };
 		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; };
 		9650378009F2A2CE0083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -1368,7 +1367,6 @@
 				6D70DA80218B3F210022E13B /* Alan License.rtf in Copy Documentation Files */,
 				961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */,
 				961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */,
-				961CCF4709F2947700528FF9 /* SDL License.rtf in Copy Documentation Files */,
 			);
 			name = "Copy Documentation Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1958,7 +1956,6 @@
 		961CCF2509F2940F00528FF9 /* IconGame.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconGame.icns; sourceTree = "<group>"; };
 		961CCF2909F2940F00528FF9 /* GNU Public License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "GNU Public License.rtf"; sourceTree = "<group>"; };
 		961CCF2A09F2940F00528FF9 /* Hugo License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Hugo License.rtf"; sourceTree = "<group>"; };
-		961CCF2B09F2940F00528FF9 /* SDL License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "SDL License.rtf"; sourceTree = "<group>"; };
 		961CCF2C09F2940F00528FF9 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrefsWindow.xib; sourceTree = "<group>"; };
 		961DC9360A108DE10044A0D4 /* quill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quill.c; sourceTree = "<group>"; };
@@ -4164,7 +4161,6 @@
 				6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */,
 				961CCF2909F2940F00528FF9 /* GNU Public License.rtf */,
 				961CCF2A09F2940F00528FF9 /* Hugo License.rtf */,
-				961CCF2B09F2940F00528FF9 /* SDL License.rtf */,
 			);
 			path = docs;
 			sourceTree = "<group>";

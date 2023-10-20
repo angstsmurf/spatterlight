@@ -339,8 +339,8 @@ PasteboardFilePasteLocation;
                       boolForKey:@"AddToLibrary"];
 
     [panel beginWithCompletionHandler:^(NSInteger result) {
+        NSButton *finalButton = (NSButton*)panel.accessoryView;
         if (result == NSModalResponseOK) {
-            NSButton *finalButton = (NSButton*)panel.accessoryView;
             BOOL addToLibrary = (finalButton.state == NSOnState); ;
             [[NSUserDefaults standardUserDefaults]
              setBool:addToLibrary forKey:@"AddToLibrary"];

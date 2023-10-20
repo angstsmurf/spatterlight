@@ -450,11 +450,6 @@ CA
                                     <action selector="showHelpFile:" target="-1" id="444"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="SDL License" id="346">
-                                <connections>
-                                    <action selector="showHelpFile:" target="-1" id="445"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Fonts License" id="882" userLabel="Menu Item - Fonts License">
                                 <connections>
                                     <action selector="showHelpFile:" target="-1" id="883"/>

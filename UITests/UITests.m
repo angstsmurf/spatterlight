@@ -1782,8 +1782,6 @@
     [helpMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Alan License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"Alan License\"]",".menuItems[@\"Alan License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
     [helpMenuBarItem click];
-    [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"SDL License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"SDL License\"]",".menuItems[@\"SDL License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
-    [helpMenuBarItem click];
     [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"Fonts License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"Fonts License\"]",".menuItems[@\"Fonts License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
