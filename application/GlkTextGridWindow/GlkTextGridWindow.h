@@ -22,7 +22,6 @@
 @property NSString *enteredTextSoFar;
 
 @property BOOL hasNewText;
-@property BOOL cellsizeRecursionLock;
 
 
 // For Bureacracy form accessibility
