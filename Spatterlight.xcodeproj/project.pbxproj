@@ -60,8 +60,6 @@
 		6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D85C895218BD6E00088D849 /* HelpPanelController.m */; };
 		6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C896218BD6E00088D849 /* HelpPanelController.xib */; };
 		6D85C899218BE4AC0088D849 /* Glulxe License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */; };
-		6D8BCB41225E4CF800696057 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
-		6D8BCB42225E4CF800696057 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
 		6DB774C02458B9B300EDC671 /* blorb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AB2458B9B300EDC671 /* blorb.cpp */; };
 		6DB774C12458B9B300EDC671 /* branch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AC2458B9B300EDC671 /* branch.cpp */; };
@@ -209,8 +207,6 @@
 		961CCF4609F2947700528FF9 /* Hugo License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* Hugo License.rtf */; };
 		961DC9370A108DE10044A0D4 /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 961DC9360A108DE10044A0D4 /* quill.c */; };
 		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; };
-		9650371C09F29F690083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
-		9650371D09F29F690083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		9650378909F2A2F20083E64E /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032CC09F29EE20083E64E /* os_glk.c */; };
 		9650378A09F2A2F20083E64E /* scdebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D209F29EE20083E64E /* scdebug.c */; };
 		9650378B09F2A2F20083E64E /* scevents.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032D309F29EE20083E64E /* scevents.c */; };
@@ -866,6 +862,8 @@
 		C3F53C6D271BBAC200538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
 		C3F53C71271BBB0A00538393 /* BlorbFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F53C5A271BB8BE00538393 /* BlorbFramework.framework */; };
+		C3F5D9022AE3F01600F56FE5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		C3F5D90B2AE3F03000F56FE5 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C3F62A372A64A7CF0091F683 /* woz2nib.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AEA28CB1A7A00D293BE /* woz2nib.c */; };
 		C3F62A392A64A8320091F683 /* ciderpress.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F62A382A64A8320091F683 /* ciderpress.c */; };
 		C3F62A3A2A64A90E0091F683 /* libreadwoz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F62A322A64A78E0091F683 /* libreadwoz.dylib */; };
@@ -953,13 +951,6 @@
 			remoteInfo = glkmain;
 		};
 		9650316509F2974A0083E64E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
-			remoteInfo = glkimp;
-		};
-		9650376809F2A2CE0083E64E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
@@ -1378,6 +1369,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = C3F09D7E288892BD0035DAC2;
 			remoteInfo = unp64;
+		};
+		C3F5D9032AE3F01600F56FE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEB609F2396500528FF9;
+			remoteInfo = glkmain;
+		};
+		C3F5D9082AE3F01D00F56FE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
+		};
+		C3F5D90D2AE3F03000F56FE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
 		};
 		C3F62A3C2A64A90E0091F683 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3416,8 +3428,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9650378009F2A2CE0083E64E /* libglkimp.dylib in Frameworks */,
-				9650378109F2A2CE0083E64E /* libglkmain.a in Frameworks */,
+				C3F5D90B2AE3F03000F56FE5 /* libglkimp.dylib in Frameworks */,
+				C3F5D9022AE3F01600F56FE5 /* libglkmain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6417,8 +6429,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				9650376709F2A2CE0083E64E /* PBXTargetDependency */,
 				9650376909F2A2CE0083E64E /* PBXTargetDependency */,
+				C3F5D9042AE3F01600F56FE5 /* PBXTargetDependency */,
+				C3F5D9092AE3F01D00F56FE5 /* PBXTargetDependency */,
+				C3F5D90E2AE3F03000F56FE5 /* PBXTargetDependency */,
 			);
 			name = scare;
 			productName = frotz;
@@ -7460,14 +7474,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		965036FD09F29F020083E64E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C37C1C772A1E0F1900D433CF /* drawpng.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9650376B09F2A2CE0083E64E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -8231,11 +8237,6 @@
 			target = 961CCE7A09F237E700528FF9 /* glkimp */;
 			targetProxy = 9650316509F2974A0083E64E /* PBXContainerItemProxy */;
 		};
-		9650376709F2A2CE0083E64E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 961CCE7A09F237E700528FF9 /* glkimp */;
-			targetProxy = 9650376809F2A2CE0083E64E /* PBXContainerItemProxy */;
-		};
 		9650376909F2A2CE0083E64E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
@@ -8525,6 +8526,21 @@
 			isa = PBXTargetDependency;
 			target = C3F09D7E288892BD0035DAC2 /* unp64 */;
 			targetProxy = C3F09D9F288893480035DAC2 /* PBXContainerItemProxy */;
+		};
+		C3F5D9042AE3F01600F56FE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEB609F2396500528FF9 /* glkmain */;
+			targetProxy = C3F5D9032AE3F01600F56FE5 /* PBXContainerItemProxy */;
+		};
+		C3F5D9092AE3F01D00F56FE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = C3F5D9082AE3F01D00F56FE5 /* PBXContainerItemProxy */;
+		};
+		C3F5D90E2AE3F03000F56FE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = C3F5D90D2AE3F03000F56FE5 /* PBXContainerItemProxy */;
 		};
 		C3F62A3D2A64A90E0091F683 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
