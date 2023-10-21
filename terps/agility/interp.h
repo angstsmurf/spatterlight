@@ -129,7 +129,7 @@ global unsigned short compass_rose; /* Used to pass compass info to
 
 
 /* --------------------------------------------------------------------	*/
-/*  Game State			                                          		 			*/
+/*  Game State					 			*/  
 /* --------------------------------------------------------------------	*/
 
 global rbool quitflag, deadflag, winflag, endflag;
@@ -225,7 +225,7 @@ global int vb;
 global integer actor, dobj, iobj;
 global parse_rec *actor_rec, *dobj_rec, *iobj_rec;
 global word prep;
-global parse_rec *curr_creat_rec; 
+global parse_rec *curr_creat_rec;
                 /* Creature currently behaving in a hostile way:
 		   used to fill in $c_name$ messages */
 

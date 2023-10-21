@@ -445,7 +445,6 @@ static parse_rec *copy_list(parse_rec *list)
   parse_rec *cpy;
   int i;
 
-  cpy=new_list();
   for(i=0;list[i].info!=D_END;i++);
   cpy=rmalloc(sizeof(parse_rec)*(i+1));
   memcpy(cpy,list,(i+1)*sizeof(parse_rec));
@@ -809,7 +808,7 @@ static parse_rec *disambig_a_noun(parse_rec *list, int ofs, int ambig_type)
 			from the player (to avoid giving things away) but 
 			just take the first one. */
 
-  cnt=2; /* Arbitrary number > 1 */
+/*  cnt=2; Arbitrary number > 1 */
   one_in_scope=0;
   max_disambig_score=-1000;  /* Nothing built in returns anything lower than 0,
 				but some game author might come up with a 

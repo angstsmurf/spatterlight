@@ -442,9 +442,10 @@ char *readln(genfile f, char *buff, int n)
       buff=rrealloc(buff,buffsize*sizeof(char));
     }
 
-    if (c==0) c=FORMAT_CODE;
-    else if (c!='\t') {if (i<n) buff[i++]=c;}
-    else for(j=0;j<5 && i<n;j++) buff[i++]=' ';    
+    if (c!=0) {
+      if (c!='\t') {if (i<n) buff[i++]=c;}
+      else for(j=0;j<5 && i<n;j++) buff[i++]=' '; 
+    }
 
     /* We can't exit the loop if i>n since we still need to discard
        the rest of the line */

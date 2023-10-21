@@ -17,7 +17,7 @@
     in interface.c or the memory-allocation code in util.c.  If you
     find yourself needing to do more than that, get in touch with me.)  */
 
-
+#undef _WIN32 /* GARGLK */
 
 
 /* Default to PLAIN platform */
@@ -293,8 +293,14 @@
  * AGiliTy code.  The os_glk.c module handles the translations.
  */
 #ifdef GLK  
+/*
+ * Gargoyle expects a Unix-like system (including Windows with MinGW);
+ * strcasecmp() and strncasecmp() are POSIX, so can be assumed to exist.
+ */
+#if 0
 #define NEED_STR_CMP			/* Inherited from PLAIN. */
 #define NEED_STRN_CMP			/* Inherited from PLAIN. */
+#endif
 #define BUFF_SIZE	0		/* Inherited from PLAIN. */
 #define CBUF_SIZE	(5000L)		/* Inherited from PLAIN. */
 #define INBUFF_SIZE	(1024)		/* Inherited from PLAIN. */
@@ -307,10 +313,12 @@
 #define fnamecmp	strcasecmp	/* Case insensitive filename compare. */
 #undef PLAIN
 
+#if 0
 #ifdef __APPLE__
 #undef NEED_STR_CMP
 #undef NEED_STRN_CMP
 #endif /* __APPLE__ */
+#endif
 
 #endif
 
@@ -353,10 +361,12 @@
 #include <unistd.h>
 #endif
 
+#if 0
 #ifdef __STRICT_ANSI__
 #define NEED_STR_CMP
 #define NEED_STRN_CMP
 #undef HAVE_STRDUP
+#endif
 #endif
 
 #ifndef fix_ascii

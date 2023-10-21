@@ -41,6 +41,9 @@
 #include <stdio.h>
 #include <string.h>
 
+/* For strcasecmp() and strncasecemp(). */
+#include <strings.h>
+
 /* Platform-specific configuration info */
 #include "config.h"
 
