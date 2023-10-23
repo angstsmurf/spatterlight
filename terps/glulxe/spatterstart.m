@@ -564,7 +564,10 @@ static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder)
             [encoder encodeInt32:library_state.iosys_mode forKey:@"glulx_iosys_mode"];
             [encoder encodeInt32:library_state.iosys_rock forKey:@"glulx_iosys_rock"];
             [encoder encodeInt32:library_state.stringtable forKey:@"glulx_stringtable"];
-            [encoder encodeObject:library_state.xo_table forKey:@"glulx_xo_table"];
+
+            [encoder encodeInt32:library_state.usenative forKey:@"glulx_usenative"];
+            if (library_state.randarray)
+                [encoder encodeObject:library_state.randarray forKey:@"glulx_xo_table"];
 
             if (library_state.accel_params)
                 [encoder encodeObject:library_state.accel_params forKey:@"glulx_accel_params"];
@@ -594,7 +597,8 @@ static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder)
             library_state.iosys_rock = [decoder decodeInt32ForKey:@"glulx_iosys_rock"];
             library_state.stringtable = [decoder decodeInt32ForKey:@"glulx_stringtable"];
 
-            library_state.xo_table = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_xo_table"];
+            library_state.usenative = [decoder decodeInt32ForKey:@"glulx_usenative"];
+            library_state.randarray = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_xo_table"];
             library_state.accel_params = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_params"];
             library_state.accel_funcs = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_funcs"];
             library_state.gamefiletag = [decoder decodeInt32ForKey:@"glulx_gamefiletag"];
@@ -620,11 +624,20 @@ static void recover_library_state(LibraryState *library_state)
 
 
             // Restore random number generator state
-            if (library_state.xo_table) {
-                xo_seed_random_4(library_state.xo_table[0].intValue,
-                                 library_state.xo_table[1].intValue,
-                                 library_state.xo_table[2].intValue,
-                                 library_state.xo_table[3].intValue);
+
+            if (library_state.randarray.count == 4) {
+                glui32 temprandstate[4] = {
+                    library_state.randarray[0].intValue,
+                    library_state.randarray[1].intValue,
+                    library_state.randarray[2].intValue,
+                    library_state.randarray[3].intValue
+                };
+
+                glulx_random_set_detstate(
+                                          library_state.usenative, temprandstate, 4);
+            } else {
+                glulx_random_set_detstate(
+                                          library_state.usenative, NULL, 0);
             }
 
             if (library_state.accel_params) {
@@ -744,7 +757,14 @@ static void recover_library_state(LibraryState *library_state)
             NSLog(@"LibraryState initWithLibrary: No gamefile?");
         }
 
-        _xo_table = @[@(xo_table[0]), @(xo_table[1]), @(xo_table[2]), @(xo_table[3])];
+        int usenative = FALSE;
+        glui32 *randarray = NULL;
+        int randcount = 0;
+        glulx_random_get_detstate(&usenative, &randarray, &randcount);
+        _usenative = usenative;
+        if (randarray && randcount == 4) {
+            _randarray = @[@(randarray[0]), @(randarray[1]), @(randarray[2]), @(randarray[3])];
+        }
 
         _id_map_list = [NSMutableArray arrayWithCapacity:4];
 

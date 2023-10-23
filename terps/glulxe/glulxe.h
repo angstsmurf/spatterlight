@@ -190,7 +190,6 @@ extern glui32 localsbase;
 extern glui32 endmem;
 extern glui32 protectstart, protectend;
 extern glui32 prevpc;
-extern glui32 xo_table[4];
 
 extern void (*stream_char_handler)(unsigned char ch);
 extern void (*stream_unichar_handler)(glui32 ch);
@@ -293,6 +292,8 @@ extern void *glulx_realloc(void *ptr, glui32 len);
 extern void glulx_free(void *ptr);
 extern void glulx_setrandom(glui32 seed);
 extern glui32 glulx_random(void);
+extern void glulx_random_get_detstate(int *usenative, glui32 **arr, int *count);
+extern void glulx_random_set_detstate(int usenative, glui32 *arr, int count);
 extern void glulx_sort(void *addr, int count, int size, 
   int (*comparefunc)(void *p1, void *p2));
 
