@@ -34,7 +34,7 @@
 
 static glui32 xo_random(void);
 static void xo_seed_random(glui32 seed);
-void xo_seed_random_4(glui32 seed0, glui32 seed1, glui32 seed2, glui32 seed3);
+static void xo_seed_random_4(glui32 seed0, glui32 seed1, glui32 seed2, glui32 seed3);
 
 #ifdef OS_STDC
 
@@ -71,11 +71,6 @@ void glulx_free(void *ptr)
 
 #include <time.h>
 #include <stdlib.h>
-
-glui32 randomcallscount;
-glui32 lastrandomseed;
-
-extern glui32 gli_determinism;
 
 /* Allocate a chunk of memory. */
 void *glulx_malloc(glui32 len)
@@ -261,10 +256,26 @@ glui32 glulx_random(void)
    Adapted from: https://prng.di.unimi.it/xoshiro128starstar.c
    About this algorithm: https://prng.di.unimi.it/
 */
+static uint32_t xo_table[4] = { 0, 0, 0, 0 };
 
-uint32_t xo_table[4];
+/* The get_detstate() and set_detstate() routines save and restore the
+   entire RNG state. These are used only by autorestore. */
+void glulx_random_get_detstate(int *usenative, glui32 **arr, int *count)
+{
+    *usenative = rand_use_native;
+    *arr = xo_table;
+    *count = 4;
+}
 
-void xo_seed_random_4(glui32 seed0, glui32 seed1, glui32 seed2, glui32 seed3)
+void glulx_random_set_detstate(int usenative, glui32 *arr, int count)
+{
+    rand_use_native = usenative;
+    if (count == 4) {
+        xo_seed_random_4(arr[0], arr[1], arr[2], arr[3]);
+    }
+}
+
+static void xo_seed_random_4(glui32 seed0, glui32 seed1, glui32 seed2, glui32 seed3)
 {
     /* Set up the 128-bit state from four integers. Use this if you can get
        four high-quality random values. */
