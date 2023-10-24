@@ -105,6 +105,15 @@
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
+- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
+    NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
+}
+
+- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
+    NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
+    return nil;
+}
+
 - (void)drawRect:(NSRect)rect {
     rect = NSIntersectionRect(rect, self.bounds);
 
