@@ -336,14 +336,14 @@ static std::vector<EntryPoint> entrypoints = {
 
 #pragma mark Journey
 
-    {
-        Game::Journey,
-        "INTRO",
-        { 0xF1, 0x7F, 0x00, 0xBB},
-        -6,
-        0,
-        INTRO
-    },
+//    {
+//        Game::Journey,
+//        "INTRO",
+//        { 0xF1, 0x7F, 0x00, 0xBB},
+//        -6,
+//        0,
+//        INTRO
+//    },
 
     {
         Game::Journey,
@@ -367,7 +367,7 @@ static std::vector<EntryPoint> entrypoints = {
         Game::Journey,
         "after TITLE PAGE alt",
         { 0xf6, 0x7f, 0x01, 0x00, 0xa0, 0x41, 0xc5},
-        0,
+        4,
         0,
         after_TITLE_PAGE
     },
@@ -376,7 +376,7 @@ static std::vector<EntryPoint> entrypoints = {
         Game::Journey,
         "after TITLE PAGE alt 2",
         { 0xf6, 0x7f, 0x01, 0x00, 0xbe },
-        0,
+        4,
         0,
         after_TITLE_PAGE
     },

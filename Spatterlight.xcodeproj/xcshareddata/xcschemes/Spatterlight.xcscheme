@@ -78,7 +78,7 @@
          <EnvironmentVariable
             key = "CUGELWAIT"
             value = "30"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>

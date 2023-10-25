@@ -24,6 +24,7 @@
 @property BOOL hasNewText;
 
 
+
 // For Bureacracy form accessibility
 @property NSDate *keyPressTimeStamp;
 @property NSString *lastKeyPress;

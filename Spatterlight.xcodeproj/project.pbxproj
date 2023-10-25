@@ -576,6 +576,7 @@
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; };
 		C344B2CC26E4DA87004B0A8F /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; };
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C347C9D92AF64A1800D28349 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B204D32AC4349700464E6B /* libz.tbd */; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
@@ -696,7 +697,6 @@
 		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
 		C3B148B227FD881400844708 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B148B127FD881400844708 /* animations.c */; };
 		C3B202D12A8FFBE4001A7A8C /* libreadwoz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F62A322A64A78E0091F683 /* libreadwoz.dylib */; };
-		C3B204D42AC434A800464E6B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B204D32AC4349700464E6B /* libz.tbd */; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; };
@@ -2930,6 +2930,8 @@
 		C36B3896271F718300756D94 /* ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		C36DFEDD29AA2F6800EC83A6 /* PreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewController.h; sourceTree = "<group>"; };
 		C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewController.m; sourceTree = "<group>"; };
+		C36F71D52AEAF53700695A16 /* libZW.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libZW.tbd; path = usr/lib/i18n/libZW.tbd; sourceTree = SDKROOT; };
+		C36F71D62AEAF54600695A16 /* libz.1.2.12.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.12.tbd; path = usr/lib/libz.1.2.12.tbd; sourceTree = SDKROOT; };
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
 		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
@@ -3614,7 +3616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3A5F1C129F151BB0039B810 /* libglkimp.dylib in Frameworks */,
-				C3B204D42AC434A800464E6B /* libz.tbd in Frameworks */,
+				C347C9D92AF64A1800D28349 /* libz.tbd in Frameworks */,
 				C3A5F1C629F151C30039B810 /* libglkmain.a in Frameworks */,
 				C3F62A3A2A64A90E0091F683 /* libreadwoz.dylib in Frameworks */,
 			);
@@ -4375,6 +4377,8 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C36F71D62AEAF54600695A16 /* libz.1.2.12.tbd */,
+				C36F71D52AEAF53700695A16 /* libZW.tbd */,
 				C3B204D32AC4349700464E6B /* libz.tbd */,
 				C30384282A1857F4004F814D /* libz.1.2.8.tbd */,
 				C30384222A1831FF004F814D /* libz.1.2.13.dylib */,
@@ -10400,7 +10404,7 @@
 				HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/homebrew/Cellar/zlib/1.2.13/lib,
+					"$(SDKROOT)/usr/lib/i18n",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -10442,7 +10446,7 @@
 				HEADER_SEARCH_PATHS = $PROJECT_DIR/glkimp;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/homebrew/Cellar/zlib/1.2.13/lib,
+					"$(SDKROOT)/usr/lib/i18n",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

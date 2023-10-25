@@ -859,6 +859,14 @@
     [self printToWindow:string style:stylevalue];
 }
 
+static const char *stylenames[] =
+{
+    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+};
+
+
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
     NSUInteger startpos;
@@ -944,8 +952,7 @@
         return;
     }
 
-
-    NSLog(@"GlkTextGridWindow %ld: Printing at position %ld, %ld: \"%@\". Reverse video: %@ zcolors: %lx, %lx", self.name, xpos, ypos, string, self.currentReverseVideo ? @"YES":@"NO", currentZColor.fg, currentZColor.bg);
+    NSLog(@"GlkTextGridWindow %ld Printing at position %ld, %ld: \"%@\" style:%s zcolor:%@ reverse video: %@", self.name, xpos, ypos, string, stylenames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO");
 
     // Check for newlines in string to write
     NSUInteger x;

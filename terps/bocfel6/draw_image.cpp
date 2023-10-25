@@ -119,7 +119,8 @@ void flush_bitmap(winid_t winid) {
     win_purgeimage(600);
     win_loadimage(600, filename, 0, pixlength);
     free(filename);
-    glk_window_fill_rect(winid, user_selected_background , 0, 0, gscreenw, gscreenh);
+    glk_window_set_background_color(winid, user_selected_background);
+    glk_window_clear(winid);
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / hw_screenwidth / pixelwidth * height);
 }
 
@@ -371,7 +372,8 @@ static uint8_t *decompress_image(ImageStruct *image) {
 void ensure_pixmap(winid_t winid) {
     if (pixmap == nullptr) {
         win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_fill_rect(winid, gbgcol, 0, 0, gscreenw, gscreenh);
+        glk_window_set_background_color(winid, gbgcol);
+        glk_window_clear(winid);
         pixmap = (uint8_t *)calloc(1, pixlength);
     }
 }
