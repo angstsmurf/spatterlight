@@ -1591,8 +1591,8 @@ int os_gen_temp_filename(char *buf, size_t buflen)
      *   quality RNG, so the chances of collisions with other filenames
      *   should be effectively zero. 
      */
-    sprintf(fname, "TADS-%08lx-%08lx-%08lx-%08lx.tmp",
-            isaac_rand(), isaac_rand(), isaac_rand(), isaac_rand());
+    snprintf(fname, sizeof(fname), "TADS-%08lx-%08lx-%08lx-%08lx.tmp",
+             isaac_rand(), isaac_rand(), isaac_rand(), isaac_rand());
 
     /* build the full path */
     os_build_full_path(buf, buflen, tmpdir, fname);

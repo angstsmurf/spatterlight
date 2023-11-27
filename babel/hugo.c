@@ -134,8 +134,8 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output,
         if (!isalnum(ser[j]))
             ser[j] = '-';
 
-    sprintf(buffer, "HUGO-%d-%02X-%02X-%s", story_file[0], story_file[1],
-            story_file[2], ser);
+    snprintf(buffer, sizeof(buffer), "HUGO-%d-%02X-%02X-%s", story_file[0], story_file[1],
+             story_file[2], ser);
 
     ASSERT_OUTPUT_SIZE((signed)strlen(buffer) + 1);
     strcpy((char *)output, buffer);

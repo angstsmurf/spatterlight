@@ -48,7 +48,7 @@ static int print_objid(int obj)
   char *s;
   int n;
 
-  sprintf(buff,"%4d: ",obj);
+  snprintf(buff,sizeof(buff),"%4d: ",obj);
   writestr(buff);
   s=objname(obj);
   for(n=0;s[n]!=0;n++)
@@ -161,9 +161,9 @@ static void var_edit(int vtype)
     writeln("");
     for(i=0;i<=imax;i++) {
       switch (vtype) {
-	case 0:sprintf(sbuff,"[Var%3d]=%4ld",i,(long)agt_var[i]);break;
-	case 1:sprintf(sbuff,"[Cnt%3d]=%4ld",i,(long)agt_counter[i]);break;
-	case 2:sprintf(sbuff,"%3d%c",i,flag[i]?'t':'f');break;
+	case 0:snprintf(sbuff,sizeof(sbuff),"[Var%3d]=%4ld",i,(long)agt_var[i]);break;
+	case 1:snprintf(sbuff,sizeof(sbuff),"[Cnt%3d]=%4ld",i,(long)agt_counter[i]);break;
+	case 2:snprintf(sbuff,sizeof(sbuff),"%3d%c",i,flag[i]?'t':'f');break;
 	}
       writetbl(sbuff,(vtype==2)? 5 : 20);
     }
@@ -180,8 +180,8 @@ static void var_edit(int vtype)
       if (i<=imax) {
 	if (vtype!=2) {
 	  if (vtype==0)
-	    sprintf(sbuff,"[Var%d]=%ld",i,(long)agt_var[i]);
-	  else sprintf(sbuff,"[Cnt%d]=%ld (-1 means it's off)",
+      snprintf(sbuff,sizeof(sbuff),"[Var%d]=%ld",i,(long)agt_var[i]);
+	  else snprintf(sbuff,sizeof(sbuff),"[Cnt%d]=%ld (-1 means it's off)",
 		       i,(long)agt_counter[i]);
 	  writestr(sbuff);
 	  writestr("; new value = ");
@@ -216,7 +216,7 @@ static void edit_str(void)
     writeln("User Definable Strings");
     writeln("");
     for(i=0;i<MAX_USTR;i++) {
-      sprintf(buff,"%2d:",i+1);
+      snprintf(buff,sizeof(buff),"%2d:",i+1);
       writestr(buff);
       writeln(userstr[i]);
     }
@@ -279,7 +279,7 @@ static int writedir(int index,int dir,int obj)
 {
   char sbuff[40];
 
-  sprintf(sbuff,"%2d.%-2s %d",index,exitname[dir],obj);
+  snprintf(sbuff,sizeof(sbuff),"%2d.%-2s %d",index,exitname[dir],obj);
   writestr(sbuff);
   return strlen(sbuff);
 }
@@ -289,7 +289,7 @@ void writenum(char *propname,int n)
   char sbuff[20];
 
   writestr(propname);
-  sprintf(sbuff,"%4d",n);
+  snprintf(sbuff,sizeof(sbuff),"%4d",n);
   writeln(sbuff);
 }
    
@@ -301,7 +301,7 @@ static void writeflags(char *flagname, int32 flags)
   writestr(flagname);
   for(i=0;i<32;i++) {
     if (flags & 1) { 
-      sprintf(sbuff,"%2d ",i);
+      snprintf(sbuff,sizeof(sbuff),"%2d ",i);
       writestr(sbuff);
     } else
       writestr("   ");
@@ -659,11 +659,11 @@ static void set_debug_options(void)
     agt_clrscr();
     writeln("DEBUGGING OPTIONS:");
     writeln("");
-    sprintf(buff,"  1. Trace metacommands: %s",yesnostr[DEBUG_AGT_CMD]);
+    snprintf(buff,sizeof(buff),"  1. Trace metacommands: %s",yesnostr[DEBUG_AGT_CMD]);
     writeln(buff);
-    sprintf(buff,"  2. Trace ANY metacommands: %s",yesnostr[debug_any]);
+    snprintf(buff,sizeof(buff),"  2. Trace ANY metacommands: %s",yesnostr[debug_any]);
     writeln(buff);
-    sprintf(buff,"  3. Trace during disambiguation: %s",
+    snprintf(buff,sizeof(buff),"  3. Trace during disambiguation: %s",
 	    yesnostr[debug_disambig]);
     writeln(buff);  
     writeln("");

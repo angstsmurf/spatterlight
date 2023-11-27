@@ -359,7 +359,7 @@ glk_main(void)
 					/* A SOUND HAS FINISHED PLAYING CALL +sound_finished
 					 * WITH THE RESOUCE NUMBER AS THE FIRST ARGUMENT
 					 * AND THE CHANNEL NUMBER AS THE SECOND ARGUMENT */
-					sprintf(temp_buffer, "+sound_finished<%d<%d", (int) ev.val1, (int) ev.val2 - 1);
+					snprintf(temp_buffer, sizeof(temp_buffer), "+sound_finished<%d<%d", (int) ev.val1, (int) ev.val2 - 1);
 					execute(temp_buffer);
                     break;
 
@@ -625,7 +625,7 @@ word_check()
 		write_text("Public License along with this program; if not, write ");
 		write_text("to the Free Software Foundation, Inc., 675 Mass Ave, ");
 		write_text("Cambridge, MA 02139, USA.^^");
-		sprintf(temp_buffer, "OBJECTS DEFINED:   %d^", objects);
+        snprintf(temp_buffer, sizeof(temp_buffer), "OBJECTS DEFINED:   %d^", objects);
 		write_text(temp_buffer);
 		TIME->value = FALSE;
 	} else {
@@ -644,10 +644,10 @@ version_info()
 {
 	char            buffer[80];
 
-	sprintf(buffer, "JACL Interpreter v%d.%d.%d ", J_VERSION, J_RELEASE,
+	snprintf(buffer, sizeof(buffer), "JACL Interpreter v%d.%d.%d ", J_VERSION, J_RELEASE,
 			J_BUILD);
 	write_text(buffer);
-	sprintf(buffer, "/ %d object.^", MAX_OBJECTS);
+	snprintf(buffer, sizeof(buffer), "/ %d object.^", MAX_OBJECTS);
 	write_text(buffer);
 	write_text("Copyright (c) 1992-2010 Stuart Allen.^^");
 }
@@ -866,7 +866,7 @@ status_line()
 
 		/* BUILD THE SCORE/ MOVES STRING */
 		temp_buffer[0] = 0;
-		sprintf (temp_buffer, "Score: %d  Moves: %d", SCORE->value, TOTAL_MOVES->value);
+		snprintf (temp_buffer, sizeof(temp_buffer), "Score: %d  Moves: %d", SCORE->value, TOTAL_MOVES->value);
 
 		cursor = status_width - strlen(temp_buffer);
 		cursor--;
@@ -943,7 +943,7 @@ get_number(insist, low, high)
 
     status_line();
 
-	sprintf(temp_buffer, cstring_resolve("TYPE_NUMBER")->value, low, high);
+	snprintf(temp_buffer, sizeof(temp_buffer), cstring_resolve("TYPE_NUMBER")->value, low, high);
 
     /* THIS LOOP IS IDENTICAL TO THE MAIN COMMAND LOOP IN glk_main(). */
 

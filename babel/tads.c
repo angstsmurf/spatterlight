@@ -964,14 +964,14 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     {
         char buf[200];
         
-        sprintf(buf,
-                "    <cover>\n"
-                "        <format>%s</format>\n"
-                "        <height>%lu</height>\n"
-                "        <width>%lu</width>\n"
-                "    </cover>\n",
-                art_fmt == PNG_COVER_FORMAT ? "png" : "jpg",
-                (long)art_ht, (long)art_wid);
+        snprintf(buf, sizeof(buf),
+                 "    <cover>\n"
+                 "        <format>%s</format>\n"
+                 "        <height>%lu</height>\n"
+                 "        <width>%lu</width>\n"
+                 "    </cover>\n",
+                 art_fmt == PNG_COVER_FORMAT ? "png" : "jpg",
+                 (long)art_ht, (long)art_wid);
 
         write_ifiction_z(&ctx, buf);
     }

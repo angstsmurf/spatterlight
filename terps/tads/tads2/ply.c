@@ -198,8 +198,8 @@ startover:
             {
                 char buf[60 + OSFNMAX];
 
-                sprintf(buf, "\n\nError: unable to restore file \"%s\"\n\n",
-                        restore_fname);
+                snprintf(buf, sizeof(buf), "\n\nError: unable to restore file \"%s\"\n\n",
+                         restore_fname);
                 os_printz(buf);
             }
         }

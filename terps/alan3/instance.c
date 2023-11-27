@@ -102,7 +102,7 @@ void setInstanceAttribute(int instance, int attribute, Aptr value)
                changed so describe next time */
             admin[instance].visitsCount = 0;
     } else {
-        sprintf(str, "Can't SET/MAKE instance (%d).", instance);
+        snprintf(str, sizeof(str), "Can't SET/MAKE instance (%d).", instance);
         syserr(str);
     }
 }
@@ -156,7 +156,7 @@ Aword getInstanceAttribute(int instance, int attribute)
             else
                 return getAttribute(admin[instance].attributes, attribute);
         } else {
-            sprintf(str, "Can't ATTRIBUTE instance %d.", instance);
+            snprintf(str, sizeof(str), "Can't ATTRIBUTE instance %d.", instance);
             syserr(str);
             // No return from syserr()
             return EOF;
@@ -190,10 +190,10 @@ static void verifyInstance(int instance, char *action) {
     char message[200];
 
     if (instance == 0) {
-        sprintf(message, "Can't %s instance (%d).", action, instance);
+        snprintf(message, sizeof(message), "Can't %s instance (%d).", action, instance);
         syserr(message);
     } else if (instance > header->instanceMax) {
-        sprintf(message, "Can't %s instance (%d > instanceMax).", action, instance);
+        snprintf(message, sizeof(message), "Can't %s instance (%d > instanceMax).", action, instance);
         syserr(message);
     }
 }
@@ -479,7 +479,7 @@ void sayInteger(int value)
     char buf[25];
 
     if (isHere(HERO, false)) {
-        sprintf(buf, "%d", value);
+        snprintf(buf, sizeof(buf), "%d", value);
         output(buf);
     }
 }
@@ -516,7 +516,7 @@ static char *wordWithCode(int classBit, int code) {
     for (w = 0; w < dictionarySize; w++)
         if (dictionary[w].code == code && ((classBit&dictionary[w].classBits) != 0))
             return pointerTo(dictionary[w].string);
-    sprintf(str, "Could not find word of class %d with code %d.", classBit, code);
+    snprintf(str, sizeof(str), "Could not find word of class %d with code %d.", classBit, code);
     syserr(str);
     return NULL;
 }

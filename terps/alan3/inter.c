@@ -89,7 +89,7 @@ static void traceInstruction1(char *name, Aword p1) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d ", p1);
+    snprintf(buf1, sizeof(buf1), "%6d ", p1);
 
     printf(format, name, buf1, "", "", "");
 }
@@ -109,7 +109,7 @@ static void traceInstruction1R(char *name, Aword p1, Aword result) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d ", p1);
+    snprintf(buf1, sizeof(buf1), "%6d ", p1);
 
     printf(format, name, buf1, "", "", "");
     printf("=%-7d ", result);
@@ -124,8 +124,8 @@ static void traceInstruction2(char *name, Aword p1, Aword p2) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d,", p1);
-    sprintf(buf2, "%6d ", p2);
+    snprintf(buf1, sizeof(buf1), "%6d,", p1);
+    snprintf(buf2, sizeof(buf2), "%6d ", p2);
 
     printf(format, name, buf1, buf2, "", "");
 }
@@ -146,7 +146,7 @@ static void traceInstruction2ds(char *name, Aword p1, char *p2) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d ", p1);
+    snprintf(buf1, sizeof(buf1), "%6d ", p1);
     printf(format, name, buf1, p2, "", "");
 }
 
@@ -157,7 +157,7 @@ static void traceInstruction2sd(char *name, char *p1, Aword p2) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf2, "%6d ", p2);
+    snprintf(buf2, sizeof(buf2), "%6d ", p2);
     printf(format, name, p1, buf2, "", "");
 }
 
@@ -170,9 +170,9 @@ static void traceInstruction3(char *name, Aword p1, Aword p2, Aword p3) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d,", p1);
-    sprintf(buf2, "%6d,", p2);
-    sprintf(buf3, "%6d ", p3);
+    snprintf(buf1, sizeof(buf1), "%6d,", p1);
+    snprintf(buf2, sizeof(buf2), "%6d,", p2);
+    snprintf(buf3, sizeof(buf3), "%6d ", p3);
 
     printf(format, name, buf1, buf2, buf3, "");
 }
@@ -186,8 +186,8 @@ static void traceInstruction3dds(char *name, Aword p1, Aword p2, char *p3) {
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d,", p1);
-    sprintf(buf2, "%6d,", p2);
+    snprintf(buf1, sizeof(buf1), "%6d,", p1);
+    snprintf(buf2, sizeof(buf2), "%6d,", p2);
 
     printf(format, name, buf1, buf2, p3, "");
 }
@@ -204,11 +204,11 @@ static void traceInstruction5(char *name, Aword p1, Aword p2, Aword p3, Aword p4
     if (!traceInstructionOption)
         return;
 
-    sprintf(buf1, "%6d,", p1);
-    sprintf(buf2, "%6d,", p2);
-    sprintf(buf3, "%6d,", p3);
-    sprintf(buf4, "%6d,", p4);
-    sprintf(buf5, "%6d ", p5);
+    snprintf(buf1, sizeof(buf1), "%6d,", p1);
+    snprintf(buf2, sizeof(buf2), "%6d,", p2);
+    snprintf(buf3, sizeof(buf3), "%6d,", p3);
+    snprintf(buf4, sizeof(buf4), "%6d,", p4);
+    snprintf(buf5, sizeof(buf5), "%6d ", p5);
 
     printf(format, name, buf1, buf2, buf3, buf4, buf5);
 }
@@ -488,7 +488,7 @@ static char *booleanValue(Abool value) {
 static char *stringValue(Aptr address) {
     static char string[1000];
 
-    sprintf(string, "0x%lx (\"%s\")\t\t", (unsigned long) address, (char *)fromAptr(address));
+    snprintf(string, sizeof(string), "0x%lx (\"%s\")\t\t", (unsigned long) address, (char *)fromAptr(address));
     return string;
 }
 
@@ -496,7 +496,7 @@ static char *stringValue(Aptr address) {
 static char *pointerValue(Aptr address) {
     static char string[100];
 
-    sprintf(string, "@%lx ",(unsigned long) address);
+    snprintf(string, sizeof(string), "@%lx ",(unsigned long) address);
     return string;
 }
 
