@@ -151,7 +151,7 @@ extern NSArray *gGameFileTypes;
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@",filename];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
                 for (Game *game in fetchedObjects) {
-                    game.urlForBookmark;
+                    [game urlForBookmark];
                 }
             }
         }
@@ -175,7 +175,7 @@ extern NSArray *gGameFileTypes;
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     for (Game *game in fetchedObjects) {
-        game.urlForBookmark;
+        [game urlForBookmark];
     }
 
     // The we get all missing files in library and check if they can be found here

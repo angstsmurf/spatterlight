@@ -102,15 +102,15 @@ static void print_nlist(parse_rec *n)
   for(c=0;n->info!=D_END && c<20;n++,c++)
     if (n->info==D_AND) writestr(" AND ");
     else if (n->info==D_NUM) {  /* Number entered */
-      sprintf(buff,"#%ld(%d); ",n->num,n->obj);
+      snprintf(buff,sizeof(buff),"#%ld(%d); ",n->num,n->obj);
       writestr(buff);
     } else if (n->obj<0) {
       writestr(dict[-(n->obj)]);
-      sprintf(buff,"(%d); ",n->obj);
+      snprintf(buff,sizeof(buff),"(%d); ",n->obj);
       writestr(buff);
     } else {
       s=objname(n->obj);writestr(s);rfree(s);
-      sprintf(buff,"(%d) ['%s %s']; ",n->obj,dict[n->adj],dict[n->noun]);
+      snprintf(buff,sizeof(buff),"(%d) ['%s %s']; ",n->obj,dict[n->adj],dict[n->noun]);
       writestr(buff);      
     }
   if (n->info!=D_END) writestr("///");
@@ -912,7 +912,7 @@ static int disambig_phrase(parse_rec **ilist,parse_rec *truenoun,int tn_ofs,
 	   if (list[i].info!=D_NUM || list[i].obj!=0)
 	     s=objname(list[i].obj);
 	   else { s=rmalloc(30*sizeof(char));
-		  sprintf(s,"%ld",list[i].num);}
+		  snprintf(s,30,"%ld",list[i].num);}
 	   writestr(s);
 	   rfree(s);
 	 }

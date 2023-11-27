@@ -287,9 +287,9 @@ void statusline(void)
 needsp = FALSE;
   say(where(HERO));
   if (header->maxscore > 0)
-    sprintf(line, "Score %d(%d)/%d moves", cur.score, (int)header->maxscore, cur.tick);
+    snprintf(line, sizeof(line), "Score %d(%d)/%d moves", cur.score, (int)header->maxscore, cur.tick);
   else
-    sprintf(line, "%d moves", cur.tick);
+    snprintf(line, sizeof(line), "%d moves", cur.tick);
   glk_window_move_cursor(glkStatusWin, glkWidth - col - strlen(line), 0);
   printf(line);
   needsp = FALSE;
@@ -1255,11 +1255,11 @@ static void do_it()
 	if (alt[i]->action != 0) {
 	  if (trcflg) {
 	    if (i == 0)
-	      strcpy(trace, "GLOBAL");
+	      strncpy(trace, "GLOBAL", sizeof(trace));
 	    else if (i == 1)
-	      strcpy(trace, "in LOCATION");
+	      strncpy(trace, "in LOCATION", sizeof(trace));
 	    else
-	      sprintf(trace, "in PARAMETER %d", i-1);
+          snprintf(trace, sizeof(trace), "in PARAMETER %d", i-1);
 	    if (alt[i]->qual == (Aword)Q_BEFORE)
 	      printf("\n<VERB %d, %s (BEFORE), Body:>\n", cur.vrb, trace);
 	    else
@@ -1281,11 +1281,11 @@ static void do_it()
 	if (!done[i] && alt[i]->action != 0) {
 	  if (trcflg) {
 	    if (i == 0)
-	      strcpy(trace, "GLOBAL");
+	      strncpy(trace, "GLOBAL", sizeof(trace));
 	    else if (i == 1)
-	      strcpy(trace, "in LOCATION");
+	      strncpy(trace, "in LOCATION", sizeof(trace));
 	    else
-	      sprintf(trace, "in PARAMETER %d", i-1);
+          snprintf(trace, sizeof(trace), "in PARAMETER %d", i-1);
 	    printf("\n<VERB %d, %s, Body:>\n", cur.vrb, trace);
 	  }
 	  interpret(alt[i]->action);
@@ -1302,11 +1302,11 @@ static void do_it()
       if (!done[i] && alt[i]->action != 0) {
 	if (trcflg) {
 	  if (i == 0)
-	    strcpy(trace, "GLOBAL");
+	    strncpy(trace, "GLOBAL", sizeof(trace));
 	  else if (i == 1)
-	    strcpy(trace, "in LOCATION");
+	    strncpy(trace, "in LOCATION", sizeof(trace));
 	  else
-	    sprintf(trace, "in PARAMETER %d", i-1);
+	    snprintf(trace, sizeof(trace), "in PARAMETER %d", i-1);
 	  printf("\n<VERB %d, %s (AFTER), Body:>\n", cur.vrb, trace);
 	}
 	interpret(alt[i]->action);
@@ -1344,7 +1344,7 @@ void action(plst)
        over this position (and replace it by each present in the plst)
      */
     for (mpos = 0; params[mpos].code != 0; mpos++); /* Find multiple position */
-    sprintf(marker, "($%d)", mpos+1); /* Prepare a printout with $1/2/3 */
+    snprintf(marker, sizeof(marker), "($%d)", mpos+1); /* Prepare a printout with $1/2/3 */
     for (i = 0; (int)plst[i].code != EOF; i++) {
       params[mpos] = plst[i];
       output(marker);
@@ -1469,7 +1469,7 @@ static void checkvers(header)
 #endif
       if (errflg) {
 	char str[80];
-	sprintf(str, "Incompatible version of ACODE program. Game is %ld.%ld, interpreter %ld.%ld.",
+	snprintf(str, sizeof(str), "Incompatible version of ACODE program. Game is %ld.%ld, interpreter %ld.%ld.",
 		(long) (header->vers[0]),
 		(long) (header->vers[1]),
 		(long) alan.version.version,
@@ -1535,8 +1535,8 @@ static void load()
 #endif
   }
   if (crc != tmphdr.acdcrc) {
-    sprintf(err, "Checksum error in .ACD file (0x%lx instead of 0x%lx).",
-	    (unsigned long) crc, (unsigned long) tmphdr.acdcrc);
+    snprintf(err, sizeof(err), "Checksum error in .ACD file (0x%lx instead of 0x%lx).",
+	     (unsigned long) crc, (unsigned long) tmphdr.acdcrc);
     if (errflg)
       syserr(err);
     else {
@@ -1869,7 +1869,7 @@ static void openFiles()
       namstart++;
 
     time(&tick);
-    sprintf(logfnm, "%s%d%s.log", namstart, (int)tick, usr);
+    snprintf(logfnm, sizeof(logfnm), "%s%d%s.log", namstart, (int)tick, usr);
     if ((logfil = fopen(logfnm, "w")) == NULL)
       logflg = FALSE;
   }

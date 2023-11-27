@@ -89,7 +89,7 @@ static void trdptf(const char *fmt, ...)
 
     /* format the string */
     va_start(va, fmt);
-    vsprintf(buf, fmt, va);
+    vsnprintf(buf, sizeof(buf), fmt, va);
     va_end(va);
 
     /* print the formatted buffer */
@@ -720,7 +720,7 @@ static void trdlogerr(void *ctx0, char *fac, int err,
     char      msg[256];
 
     /* display the prefix message to the console and log file */
-    sprintf(buf, TRDLOGERR_PREFIX, fac, err);
+    snprintf(buf, sizeof(buf), TRDLOGERR_PREFIX, fac, err);
     trdptf("%s", buf);
     out_logfile_print(buf, FALSE);
 

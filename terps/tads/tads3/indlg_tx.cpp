@@ -162,8 +162,8 @@ int CVmConsole::input_dialog(VMG_ int /*icon_id*/,
                     post_len = sizeof(buf) - 5 - pre_len;
 
                 /* reformat the response string */
-                sprintf(buf, "%.*s(%c)%.*s",
-                        (int)pre_len, cur, *(p + 1), (int)post_len, p + 2);
+                snprintf(buf, sizeof(buf), "%.*s(%c)%.*s",
+                         (int)pre_len, cur, *(p + 1), (int)post_len, p + 2);
 
                 /* display it */
                 format_text(vmg_ buf);

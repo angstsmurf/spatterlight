@@ -162,10 +162,10 @@ void score(sc)
 
   if (sc == 0) {
     prmsg(M_SCORE1);
-    sprintf(buf, "%d", cur.score);
+    snprintf(buf, sizeof(buf), "%d", cur.score);
     output(buf);
     prmsg(M_SCORE2);
-    sprintf(buf, "%ld.", (unsigned long) header->maxscore);
+    snprintf(buf, sizeof(buf), "%ld.", (unsigned long) header->maxscore);
     output(buf);
   } else {
     cur.score += scores[sc-1];
@@ -413,7 +413,7 @@ void make(id, atr, val)
   else if (isAct(id))
     makact(id, atr, val);
   else {
-    sprintf(str, "Can't MAKE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't MAKE item (%ld).", (unsigned long) id);
     syserr(str);
   }
 }
@@ -474,7 +474,7 @@ void set(id, atr, val)
   else if (isAct(id))
     setact(id, atr, val);
   else {
-    sprintf(str, "Can't SET item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't SET item (%ld).", (unsigned long) id);
     syserr(str);
   }
 }
@@ -573,7 +573,7 @@ void incr(id, atr, step)
   else if (isAct(id))
     incract(id, atr, step);
   else {
-    sprintf(str, "Can't INCR item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't INCR item (%ld).", (unsigned long) id);
     syserr(str);
   }
 }
@@ -594,7 +594,7 @@ void decr(id, atr, step)
   else if (isAct(id))
     incract(id, atr, -step);
   else {
-    sprintf(str, "Can't DECR item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't DECR item (%ld).", (unsigned long) id);
     syserr(str);
   }
 }
@@ -651,7 +651,7 @@ static Aptr litatr(lit, atr)
   if (atr == 1)
     return litValues[lit-LITMIN].value;
   else {
-    sprintf(str, "Unknown attribute for literal (%ld).", (unsigned long) atr);
+    snprintf(str, sizeof(str), "Unknown attribute for literal (%ld).", (unsigned long) atr);
     syserr(str);
   }
   return(EOF);
@@ -676,7 +676,7 @@ Aptr attribute(id, atr)
   else if (isLit(id))
     return litatr(id, atr);
   else {
-    sprintf(str, "Can't ATTRIBUTE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't ATTRIBUTE item (%ld).", (unsigned long) id);
     syserr(str);
   }
   return(EOF);
@@ -742,7 +742,7 @@ Aword where(id)
   else if (isAct(id))
     return actloc(id);
   else {
-    sprintf(str, "Can't WHERE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't WHERE item (%ld).", (unsigned long) id);
     syserr(str);
   }
   return(EOF);
@@ -899,7 +899,7 @@ void locate(id, whr)
   else if (isAct(id))
     locact(id, whr);
   else {
-    sprintf(str, "Can't LOCATE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't LOCATE item (%ld).", (unsigned long) id);
     syserr(str);
   }
 }
@@ -953,7 +953,7 @@ Abool isHere(id)
   else if (isAct(id))
     return acthere(id);
   else {
-    sprintf(str, "Can't HERE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't HERE item (%ld).", (unsigned long) id);
     syserr(str);
   }
   return(EOF);
@@ -1007,7 +1007,7 @@ Abool isNear(id)
   else if (isAct(id))
     return actnear(id);
   else {
-    sprintf(str, "Can't NEAR item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't NEAR item (%ld).", (unsigned long) id);
     syserr(str);
   }
   return(EOF);
@@ -1086,7 +1086,7 @@ void sayint(val)
   char buf[25];
 
   if (isHere(HERO)) {
-    sprintf(buf, "%ld", (unsigned long) val);
+    snprintf(buf, sizeof(buf), "%ld", (unsigned long) val);
     output(buf);
   }
 }
@@ -1158,7 +1158,7 @@ void say(id)
     else if (isLit(id))
       saylit(id);
     else {
-      sprintf(str, "Can't SAY item (%ld).", (unsigned long) id);
+      snprintf(str, sizeof(str), "Can't SAY item (%ld).", (unsigned long) id);
       syserr(str);
     }
   }
@@ -1255,7 +1255,7 @@ void describe(id)
   else if (isAct(id))
     dscract(id);
   else {
-    sprintf(str, "Can't DESCRIBE item (%ld).", (unsigned long) id);
+    snprintf(str, sizeof(str), "Can't DESCRIBE item (%ld).", (unsigned long) id);
     syserr(str);
   }
 
@@ -1279,7 +1279,7 @@ void use(act, scr)
   char str[80];
 
   if (!isAct(act)) {
-    sprintf(str, "Item is not an Actor (%ld).", (unsigned long) act);
+    snprintf(str, sizeof(str), "Item is not an Actor (%ld).", (unsigned long) act);
     syserr(str);
   }
 

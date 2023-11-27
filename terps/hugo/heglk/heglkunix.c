@@ -69,7 +69,7 @@ glkunix_startup_error (char *fmt, ...)
 	      break;
 
 	    case 'd':
-	      sprintf (int_buf, "%d", va_arg (ap, int));
+	      snprintf (int_buf, sizeof(int_buf), "%d", va_arg (ap, int));
 	      glk_put_string (int_buf);
 	      break;
 
