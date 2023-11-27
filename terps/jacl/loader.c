@@ -13,10 +13,10 @@
  * WITH IS ENCRYPTED */
 int					encrypted = FALSE;
 
-extern char			text_buffer[];
-extern char         temp_buffer[];
+extern char			text_buffer[1024];
+extern char         temp_buffer[1024];
 extern char			prefix[];
-extern char			error_buffer[];
+extern char			error_buffer[1024];
 extern char			*word[];
 extern int			quoted[];
 extern int			punctuated[];
@@ -1151,7 +1151,7 @@ legal_label_check(word, line, type)
 		!strcmp(word, "noun4") ||
 		!strcmp(word, "objects") ||
 		validate (word)) {
-		sprintf(error_buffer, ILLEGAL_LABEL, line, word);
+		snprintf(error_buffer, sizeof(error_buffer), ILLEGAL_LABEL, line, word);
 		log_error(error_buffer, PLUS_STDERR);
 
 		return (TRUE);
@@ -1159,7 +1159,7 @@ legal_label_check(word, line, type)
 
 	if (type == CSTR_TYPE) {
 		if (!strcmp(word, "command_prompt")) {
-			sprintf(error_buffer, USED_LABEL_STR, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_STR, line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
 			return (TRUE);
@@ -1168,7 +1168,7 @@ legal_label_check(word, line, type)
 
 	while (integer_pointer != NULL && type != INT_TYPE) {
 		if (!strcmp(word, integer_pointer->name)) {
-			sprintf(error_buffer, USED_LABEL_INT, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_INT, line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
 			return (TRUE);
@@ -1179,7 +1179,7 @@ legal_label_check(word, line, type)
 
 	while (cinteger_pointer != NULL && type != CINT_TYPE) {
 		if (!strcmp(word, cinteger_pointer->name)) {
-			sprintf(error_buffer, USED_LABEL_CINT, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_CINT, line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
 			return (TRUE);
@@ -1189,7 +1189,7 @@ legal_label_check(word, line, type)
 
 	while (string_pointer != NULL && type != STR_TYPE) {
 		if (!strcmp(word, string_pointer->name)) {
-			sprintf(error_buffer, USED_LABEL_STR, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_STR, line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
 			return (TRUE);
@@ -1199,7 +1199,7 @@ legal_label_check(word, line, type)
 
 	while (cstring_pointer != NULL && type != CSTR_TYPE) {
 		if (!strcmp(word, cstring_pointer->name)) {
-			sprintf(error_buffer, USED_LABEL_CSTR, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_CSTR, line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
 			return (TRUE);
@@ -1210,7 +1210,7 @@ legal_label_check(word, line, type)
 	/* DON'T CHECK FOR ATT_TYPE AS YOU CAN'T HAVE ATTRIBUTE ARRAYS. */
 	while (attribute_pointer != NULL) {
 		if (!strcmp(word, attribute_pointer->name)) {
-			sprintf(error_buffer, USED_LABEL_ATT, line, word);
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_ATT, line, word);
 			write_text(error_buffer);
 
 			return (TRUE);
@@ -1220,7 +1220,7 @@ legal_label_check(word, line, type)
 
 	for (index = 1; index <= objects; index++) {
 		if (!strcmp(word, object[index]->label)) {
-			sprintf(error_buffer, USED_LABEL_OBJ,
+			snprintf(error_buffer, sizeof(error_buffer), USED_LABEL_OBJ,
 				line, word);
 			log_error(error_buffer, PLUS_STDERR);
 
@@ -1261,7 +1261,7 @@ restart_game()
 
 			/* STORE A COPY OF THE CURRENT VOLUME FOR ACCESS
 			 * FROM JACL CODE */
-			sprintf(temp_buffer, "volume[%d]", index);
+			snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", index);
 			cinteger_resolve(temp_buffer)->value = 100;
 		}
 	}

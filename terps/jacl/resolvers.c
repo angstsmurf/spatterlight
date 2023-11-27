@@ -34,9 +34,9 @@ extern struct word_type			*grammar_table;
 extern struct synonym_type		*synonym_table;
 extern struct filter_type		*filter_table;
 
-extern char						function_name[];
-extern char						temp_buffer[];
-extern char						error_buffer[];
+extern char						function_name[81];
+extern char						temp_buffer[1024];
+extern char						error_buffer[1024];
 extern char  			        integer_buffer[16];
 
 #ifndef GLK
@@ -62,8 +62,8 @@ extern int						*object_backup_address;
 
 extern int						value_resolved;
 
-char 							macro_function[84];
-int								value_has_been_resolved;
+static char 					macro_function[84];
+static int						value_has_been_resolved;
 
 int            *
 container_resolve(container_name)
@@ -174,17 +174,17 @@ text_of(string)
 	} else if ((resolved_integer = integer_resolve(string)) != NULL) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		sprintf(integer_buffer, "%d", resolved_integer->value);
+		snprintf(integer_buffer, sizeof(integer_buffer), "%d", resolved_integer->value);
 		return(integer_buffer);
 	} else if ((resolved_cinteger = cinteger_resolve(string)) != NULL) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		sprintf(integer_buffer, "%d", resolved_cinteger->value);
+		snprintf(integer_buffer, sizeof(integer_buffer), "%d", resolved_cinteger->value);
 		return(integer_buffer);
 	} else if (object_element_resolve(string)) {
         value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
-		sprintf(integer_buffer, "%d", oec);
+		snprintf(integer_buffer, sizeof(integer_buffer), "%d", oec);
 		return(integer_buffer);
 	} else if ((index = object_resolve(string)) != -1) {
         value_has_been_resolved = FALSE;
@@ -200,7 +200,7 @@ text_of(string)
 		return (resolved_cstring->value);
 	} else if (function_resolve(string) != NULL) {
         value_has_been_resolved = FALSE;
-		sprintf(integer_buffer, "%d", execute(string));
+		snprintf(integer_buffer, sizeof(integer_buffer), "%d", execute(string));
 		return(integer_buffer);
 #ifndef GLK
 #ifndef __NDS__
@@ -793,9 +793,9 @@ expand_function(name)
 		object_element_resolve(&expression[delimiter])) {
 		/* THE DELIMETER RESOLVES TO A CONSTANT, VARIABLE OR OBJECT
 		 * ELEMENT, SO TAKE NOTE OF THAT */
-		sprintf(function_name, "%ld", value_of(&expression[delimiter], TRUE));
+		snprintf(function_name, sizeof(function_name), "%ld", value_of(&expression[delimiter], TRUE));
 	} else {
-		strcpy(function_name, &expression[delimiter]);
+		strncpy(function_name, &expression[delimiter], sizeof(function_name));
 	}
 	strcat(function_name, "_");
 	strcat(function_name, object[index]->label);
@@ -1024,7 +1024,7 @@ macro_resolve(testString)
 		strcpy (macro_function, "+macro_");
 		strcat (macro_function, &expression[delimiter]);
 		strcat (macro_function, "<");
-		sprintf (temp_buffer, "%d", index);
+		snprintf (temp_buffer, sizeof(temp_buffer), "%d", index);
 		strcat (macro_function, temp_buffer);
 
 		// BUILD THE FUNCTION NAME AND PASS THE OBJECT AS 
@@ -1211,7 +1211,7 @@ object_element_resolve(testString)
 	counter = value_of(&expression[delimiter], TRUE);
 
 	if (counter < 0 || counter > 15) {
-		sprintf(error_buffer,
+		snprintf(error_buffer, sizeof(error_buffer),
 				"ERROR: In function \"%s\", element \"%s\" out of range (%d).^",
 				executing_function->name, &expression[delimiter], counter);
 		write_text(error_buffer);
@@ -1244,7 +1244,7 @@ object_resolve(object_string)
 	else if (!strcmp(object_string, "self") ||
 			 !strcmp(object_string, "this")) {
 		if (executing_function != NULL && executing_function->self == 0) {
-			sprintf(error_buffer,
+			snprintf(error_buffer, sizeof(error_buffer),
 					"ERROR: Reference to 'self' from global function \"%s\".^",
 					executing_function->name);
 			write_text(error_buffer);

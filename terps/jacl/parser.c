@@ -70,10 +70,10 @@ char            				before_function[84];
 char            				after_function[84];
 char            				local_after_function[84];
 
-extern char						text_buffer[];
-extern char						function_name[];
-extern char						temp_buffer[];
-extern char						error_buffer[];
+extern char						text_buffer[1024];
+extern char						function_name[81];
+extern char						temp_buffer[1024];
+extern char						error_buffer[1024];
 extern char						override[];
 extern char						*word[];
 
@@ -167,7 +167,7 @@ parser()
 					if (last_exact == -1) {
 						write_text (cstring_resolve("NO_MULTI_START")->value);
 					} else {
-						sprintf(error_buffer, cstring_resolve("NO_MULTI_VERB")->value, word[last_exact]);
+						snprintf(error_buffer, sizeof(error_buffer), cstring_resolve("NO_MULTI_VERB")->value, word[last_exact]);
 						write_text(error_buffer);
 					}
 
@@ -691,7 +691,7 @@ build_object_list(scope_word, noun_number)
 				 * RESOLVED LIST */
 				noun_number = noun_number + 2;
 			} else {
-				sprintf (error_buffer, cstring_resolve("DOUBLE_EXCEPT")->value, except_word);	
+				snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("DOUBLE_EXCEPT")->value, except_word);	
 				write_text (error_buffer);
 				custom_error = TRUE;
 				return (FALSE);
@@ -1051,7 +1051,7 @@ verify_from_object(from_object)
 	//if (!(object[from_object]->attributes & CONTAINER) &&
 	//	!(object[from_object]->attributes & SURFACE) &&
 	//	!(object[from_object]->attributes & ANIMATE)) {
-	//	sprintf (error_buffer, FROM_NON_CONTAINER, from_word);	
+	//	snprintf (error_buffer, sizeof(error_buffer), FROM_NON_CONTAINER, from_word);	
 	//	write_text (error_buffer);
 	//	custom_error = TRUE;
 	//	return (FALSE);
@@ -1059,9 +1059,9 @@ verify_from_object(from_object)
 	if (object[from_object]->attributes & CONTAINER && object[from_object]->attributes & CLOSED) {
 		//printf("--- container is concealing\n");
         if (object[from_object]->attributes & FEMALE) {
-			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));	
+			snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));	
 		} else {
-			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));	
+			snprintf (error_buffer, sizeof(error_buffer), cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));	
 		}
 		write_text(error_buffer);
 		custom_error = TRUE;
@@ -1070,13 +1070,13 @@ verify_from_object(from_object)
 	 * IF THE PERSON IS POSSESSIVE LET THE LIBRARY HANDLE THE RESPONSE
 	} else if (object[from_object]->attributes & POSSESSIVE) {
 		//printf("--- container is closed\n");
-		sprintf (error_buffer, PERSON_POSSESSIVE, sentence_output(from_object, TRUE));	
+		snprintf (error_buffer, sizeof(error_buffer), PERSON_POSSESSIVE, sentence_output(from_object, TRUE));	
 		write_text(error_buffer);
 		custom_error = TRUE;
 		return (FALSE);
 	} else if (object[from_object]->attributes & CONCEALING) {
 		//printf("--- container is closed\n");
-		sprintf (error_buffer, PERSON_CONCEALING, sentence_output(from_object, TRUE));	
+		snprintf (error_buffer, sizeof(error_buffer), PERSON_CONCEALING, sentence_output(from_object, TRUE));	
 		write_text(error_buffer);
 		custom_error = TRUE;
 		return (FALSE);*/
@@ -1712,7 +1712,7 @@ noun_resolve(scope_word, finding_from, noun_number)
 	for (index = 1; index <= objects; index++) {
 		if (confidence[index] != FALSE) {
 			possible_objects[counter] = index;
-			sprintf(text_buffer, "  [%d] ", counter);
+			snprintf(text_buffer, sizeof(text_buffer), "  [%d] ", counter);
 			write_text(text_buffer);
 			sentence_output(index, 0);
 			write_text(temp_buffer);
@@ -1877,7 +1877,7 @@ find_parent(index)
 
 		if (index == parent) {
 			/* THIS OBJECT HAS ITS PARENT SET TO ITSELF */
-			sprintf(error_buffer, SELF_REFERENCE, executing_function->name, object[index]->label);
+			snprintf(error_buffer, sizeof(error_buffer), SELF_REFERENCE, executing_function->name, object[index]->label);
 			log_error(error_buffer, PLUS_STDOUT);
 			return (FALSE);
 		} else	if (!(object[parent]->attributes & LOCATION) 
@@ -1933,7 +1933,7 @@ parent_of(parent, child, restricted)
 
 		if (index == child) {
 			/* THIS CHILD HAS IT'S PARENT SET TO ITSELF */
-			sprintf(error_buffer, SELF_REFERENCE, executing_function->name, object[index]->label);
+			snprintf(error_buffer, sizeof(error_buffer), SELF_REFERENCE, executing_function->name, object[index]->label);
 			log_error(error_buffer, PLUS_STDOUT);
 			//printf("--- self parent.\n");
 			return (FALSE);
