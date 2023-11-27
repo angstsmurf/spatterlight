@@ -17,7 +17,7 @@ extern struct string_type       *string_table;
 
 extern schanid_t				sound_channel[];
 
-extern char						temp_buffer[];
+extern char						temp_buffer[1024];
 
 extern int						objects;
 extern int						integers;
@@ -96,7 +96,7 @@ save_game(saveref)
 
 	/* SAVE THE CURRENT VOLUME OF EACH OF THE SOUND CHANNELS */
 	for (index = 0; index < 8; index++) {
-		sprintf(temp_buffer, "volume[%d]", index);
+		snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", index);
 		write_integer (bookmark, cinteger_resolve(temp_buffer)->value);
 	}
 
@@ -188,7 +188,7 @@ restore_game(saveref, warn)
 
 	/* RESTORE THE CURRENT VOLUME OF EACH OF THE SOUND CHANNELS */
 	for (index = 0; index < 8; index++) {
-		sprintf(temp_buffer, "volume[%d]", index);
+		snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", index);
 		counter = read_integer(bookmark);
 		cinteger_resolve(temp_buffer)->value = counter;
 

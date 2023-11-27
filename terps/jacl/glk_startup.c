@@ -22,7 +22,7 @@ int					jpp_error = FALSE;
 extern strid_t 		game_stream;
 extern char			game_file[];
 extern char			temp_buffer[];
-extern char			error_buffer[];
+extern char			error_buffer[1024];
 extern char			processed_file[];
 #undef encrypt
 short int			doencrypt;
@@ -61,7 +61,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	 * GENERALLY BE LIMITED TO FINDING AND OPENING DATA FILES.  */
 
 	if (arguments->argc == 1) {
-		sprintf (error_buffer, "%s^", NO_GAME);
+		snprintf (error_buffer, sizeof(error_buffer), "%s^", NO_GAME);
 		jpp_error = TRUE;
 
 		/* WE NEED TO RETURN TRUE HERE SO THE INTERPRETER WILL OPEN A

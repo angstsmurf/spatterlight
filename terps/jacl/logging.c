@@ -36,7 +36,7 @@ log_error(message, console)
     event_t			event;
 
 	// BUILD A STRING SUITABLE FOR DISPLAY ON THE CONSOLE.
-	sprintf(consoleMessage, "ERROR: %s^", message);
+	snprintf(consoleMessage, sizeof(consoleMessage), "ERROR: %s^", message);
 
 	glk_set_style(style_Alert);
 	write_text(consoleMessage);

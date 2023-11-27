@@ -218,10 +218,10 @@ extern struct word_type			*grammar_table;
 extern struct synonym_type		*synonym_table;
 extern struct filter_type		*filter_table;
 
-extern char						function_name[];
-extern char						temp_buffer[];
-extern char						error_buffer[];
-extern char						proxy_buffer[];
+extern char						function_name[81];
+extern char						temp_buffer[1024];
+extern char						error_buffer[1024];
+extern char						proxy_buffer[1024];
 
 extern char						default_function[];
 extern char						override[];
@@ -245,6 +245,7 @@ extern int						value_resolved;
 extern FILE           			*transcript;
 extern char						margin_string[];
 
+extern char  					integer_buffer[16];
 char  					        integer_buffer[16];
 char							called_name[1024];
 char							scope_criterion[24];
@@ -314,7 +315,7 @@ cb1 (void *s, size_t i, void *not_used) {
 	//sprintf (temp_buffer, "Trying to set field %d to equal %s^", field_no, (char *) s);
 	//write_text(temp_buffer);
 
-	sprintf (temp_buffer, "field[%d]", field_no);
+	snprintf (temp_buffer, sizeof(temp_buffer), "field[%d]", field_no);
 
 	if ((resolved_cstring = cstring_resolve(temp_buffer)) != NULL) {
 		//write_text("Resolved ");
@@ -322,7 +323,7 @@ cb1 (void *s, size_t i, void *not_used) {
         //write_text("^");
 		strncpy (resolved_cstring->value, s, i);
 		resolved_cstring->value[i] = 0;
-		//sprintf(temp_buffer, "Setting field %d to ~%s~^", field_no, (char *) s);
+		//snprintf(temp_buffer, sizeof(temp_buffer), "Setting field %d to ~%s~^", field_no, (char *) s);
 		//write_text(temp_buffer);
 		// INCREMENT THE FIELD NUMBER SO THE NEXT ONE GETS STORED IN THE RIGHT CONSTANT
 		field_no++;	
@@ -404,7 +405,7 @@ execute(funcname)
 	strncpy (function_name, executing_function->name, 80);
 	strncpy (cstring_resolve("function_name")->value, executing_function->name, 80);
 
-	//sprintf(temp_buffer, "--- starting to execute %s^", function_name);
+	//snprintf(temp_buffer, sizeof(temp_buffer), "--- starting to execute %s^", function_name);
 	//write_text(temp_buffer);
 
 	// JUMP TO THE POINT IN THE PROCESSED GAME FILE WHERE THIS FUNCTION STARTS 
@@ -429,7 +430,7 @@ execute(funcname)
 				// THIS ENDWHILE COMMAND WAS BEING EXECUTED, 
 				// NOT JUST COUNTED.
 				if (top_of_while == FALSE) {
-					sprintf(error_buffer, NO_WHILE, executing_function->name);
+					snprintf(error_buffer, sizeof(error_buffer), NO_WHILE, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
 #ifdef GLK
@@ -446,7 +447,7 @@ execute(funcname)
 				// THIS ENDITERATE COMMAND WAS BEING EXECUTED, 
 				// NOT JUST COUNTED.
 				if (top_of_iterate == FALSE) {
-					sprintf(error_buffer, NO_ITERATE, executing_function->name);
+					snprintf(error_buffer, sizeof(error_buffer), NO_ITERATE, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
 #ifdef GLK
@@ -463,7 +464,7 @@ execute(funcname)
 				// THIS ENDUPDATE COMMAND WAS BEING EXECUTED, 
 				// NOT JUST COUNTED.
 				if (top_of_update == FALSE) {
-					sprintf(error_buffer, NO_UPDATE, executing_function->name);
+					snprintf(error_buffer, sizeof(error_buffer), NO_UPDATE, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
 #ifdef GLK
@@ -534,7 +535,7 @@ execute(funcname)
 					return(exit_function (TRUE));
 				} else {
 					if (top_of_do_loop == FALSE) {
-						sprintf(error_buffer, NO_REPEAT, executing_function->name);
+						snprintf(error_buffer, sizeof(error_buffer), NO_REPEAT, executing_function->name);
 						log_error(error_buffer, PLUS_STDOUT);
 					} else if (!condition()) {
 #ifdef GLK
@@ -551,7 +552,7 @@ execute(funcname)
 					return(exit_function (TRUE));
 				} else {
 					if (top_of_do_loop == FALSE) {
-						sprintf(error_buffer, NO_REPEAT, executing_function->name);
+						snprintf(error_buffer, sizeof(error_buffer), NO_REPEAT, executing_function->name);
 						log_error(error_buffer, PLUS_STDOUT);
 					} else if (!and_condition()) {
 #ifdef GLK
@@ -591,7 +592,7 @@ execute(funcname)
 				}
 
 				if (infile == NULL) {
-    				sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
+					snprintf(error_buffer, sizeof(error_buffer), "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
 					log_error(error_buffer, LOG_ONLY);
     				infile = NULL;
   				} else {
@@ -608,7 +609,7 @@ execute(funcname)
 							//sprintf (temp_buffer, "Read ~%s~ with %d bytes.^", csv_buffer, i);
 							//write_text(temp_buffer);
     						if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (void *) NULL) != i) {
-      							sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
+								snprintf(error_buffer, sizeof(error_buffer), "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
 								log_error(error_buffer, PLUS_STDOUT);
       							fclose(infile);
       							infile = NULL;
@@ -673,7 +674,7 @@ execute(funcname)
 				}
 
 				if (infile == NULL) {
-    				sprintf(error_buffer, "Failed to open input CSV file ~%s~: %s\n", in_name, strerror(errno));
+					snprintf(error_buffer, sizeof(error_buffer), "Failed to open input CSV file ~%s~: %s\n", in_name, strerror(errno));
 					log_error(error_buffer, LOG_ONLY);
 					if (outfile != NULL) {
 						fclose(outfile);
@@ -682,7 +683,7 @@ execute(funcname)
 					return(exit_function (TRUE));
   				} else {
 					if (outfile == NULL) {
-    					sprintf(error_buffer, "Failed to open output CSV file ~%s~: %s\n", out_name, strerror(errno));
+						snprintf(error_buffer, sizeof(error_buffer), "Failed to open output CSV file ~%s~: %s\n", out_name, strerror(errno));
 						log_error(error_buffer, LOG_ONLY);
 						if (infile != NULL) {
 	    					fclose(infile);
@@ -700,7 +701,7 @@ execute(funcname)
                						jacl_sleep(1000); 
                						continue; 
           						} 
-         						sprintf(error_buffer, "File busy unable to get lock on output file.\n"); 
+								snprintf(error_buffer, sizeof(error_buffer), "File busy unable to get lock on output file.\n");
 								log_error(error_buffer, PLUS_STDOUT);
 								return(exit_function (TRUE));
       						} 
@@ -718,7 +719,7 @@ execute(funcname)
                						jacl_sleep(1000); 
                						continue; 
           						} 
-         						sprintf(error_buffer, "File busy unable to get lock on input file.\n"); 
+								snprintf(error_buffer, sizeof(error_buffer), "File busy unable to get lock on input file.\n");
 								log_error(error_buffer, PLUS_STDOUT);
 								return(exit_function (TRUE));
       						} 
@@ -735,7 +736,7 @@ execute(funcname)
 	            			if (!feof(infile)) {
 	  							i = strlen(csv_buffer);
 	    						if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (int *) &field_no) != i) {
-	      							sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
+									snprintf(error_buffer, sizeof(error_buffer), "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
 									log_error(error_buffer, PLUS_STDOUT);
 									read_lck.l_type = F_UNLCK;	// SETTING A READ LOCK
   									fcntl(read_fd, F_SETLK, &read_lck);
@@ -812,7 +813,7 @@ execute(funcname)
 
 			} else if (!strcmp(word[0], "endloop")) {
 				if (top_of_loop == FALSE) {
-					sprintf(error_buffer, NO_LOOP, executing_function->name);
+					snprintf(error_buffer, sizeof(error_buffer), NO_LOOP, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
 					*loop_integer += 1;
@@ -922,7 +923,7 @@ execute(funcname)
 				}
 			} else if (!strcmp(word[0], "endselect")) {
 				if (top_of_select == FALSE) {
-					sprintf(error_buffer, NO_LOOP, executing_function->name);
+					snprintf(error_buffer, sizeof(error_buffer), NO_LOOP, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
 					if (select_next(select_integer, criterion_type, criterion_value, scope_criterion)) {
@@ -1003,7 +1004,7 @@ execute(funcname)
 
 						/* STORE A COPY OF THE CURRENT VOLUME FOR ACCESS
 						 * FROM JACL CODE */
-						sprintf(temp_buffer, "volume[%d]", channel);
+						snprintf(temp_buffer, sizeof(temp_buffer), "volume[%d]", channel);
 						cinteger_resolve(temp_buffer)->value = volume;
 
 						/* NOW SCALE THE 0-100 VOLUME TO THE 0-65536 EXPECTED
@@ -1067,7 +1068,7 @@ execute(funcname)
 							 * NOTIFICATION EVENT CAN USE THE INFORMATION
 							 * IT HAS 1 ADDED TO IT SO THAT IT IS A NON-ZERO
 							 * NUMBER AND THE EVENT IS ACTIVATED */
-							sprintf(error_buffer, "Unable to play sound: %ld", value_of(word[1], FALSE));
+							snprintf(error_buffer, sizeof(error_buffer), "Unable to play sound: %ld", value_of(word[1], FALSE));
 							log_error(error_buffer, PLUS_STDERR);
 						}
 					}
@@ -1080,7 +1081,7 @@ execute(funcname)
 						return(exit_function (TRUE));
 					} else {
 						if (glk_image_draw(mainwin, (glui32) value_of(word[1], TRUE), imagealign_InlineDown, 0) == 0) {
-							sprintf(error_buffer, "Unable to draw image: %ld", value_of(word[1], FALSE));
+							snprintf(error_buffer, sizeof(error_buffer), "Unable to draw image: %ld", value_of(word[1], FALSE));
 							log_error(error_buffer, PLUS_STDERR);
 						}
 					}
@@ -1452,13 +1453,13 @@ execute(funcname)
 			} else if (!strcmp(word[0], "prompt")) {
 				/* USED TO OUTPUT A HTML INPUT CONTROL THAT CONTAINS SESSION INFORMATION */
 				if (word[1] != NULL) {
-					sprintf(temp_buffer, "<input id=\"JACLCommandPrompt\" type=text name=~command~ onKeyPress=~%s~>\n", word[1]);
+					snprintf(temp_buffer, sizeof(temp_buffer), "<input id=\"JACLCommandPrompt\" type=text name=~command~ onKeyPress=~%s~>\n", word[1]);
 					write_text(temp_buffer);
 				} else {
-					sprintf(temp_buffer, "<input id=\"JACLCommandPrompt\" type=text name=~command~>\n");
+					snprintf(temp_buffer, sizeof(temp_buffer), "<input id=\"JACLCommandPrompt\" type=text name=~command~>\n");
 					write_text(temp_buffer);
 				}
-				sprintf(temp_buffer, "<input type=hidden name=\"user_id\" value=\"%s\">", user_id);
+				snprintf(temp_buffer, sizeof(temp_buffer), "<input type=hidden name=\"user_id\" value=\"%s\">", user_id);
 				write_text(temp_buffer);
 			} else if (!strcmp(word[0], "style")) {
 				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK 
@@ -1624,7 +1625,7 @@ execute(funcname)
 						if (argstart != NULL)
 							*argstart = 0;
 						
-						sprintf(error_buffer, UNDEFINED_FUNCTION, executing_function->name, string_buffer);
+						snprintf(error_buffer, sizeof(error_buffer), UNDEFINED_FUNCTION, executing_function->name, string_buffer);
 						log_error(error_buffer, PLUS_STDOUT);
 					} else {
 						execute(string_buffer);
@@ -1646,7 +1647,7 @@ execute(funcname)
 #endif
 #endif
 						write_text(cstring_resolve("SCORE_UP")->value);
-						sprintf(temp_buffer, "%ld", value_of(word[1], TRUE));
+						snprintf(temp_buffer, sizeof(temp_buffer), "%ld", value_of(word[1], TRUE));
 						write_text(temp_buffer);
 						if (value_of(word[1], TRUE) == 1) {
 							write_text(cstring_resolve("POINT")->value);
@@ -1851,9 +1852,9 @@ execute(funcname)
 
 						while ((match = strstr(source, delimiter))) {
 							*match = 0;
-							strcpy(container_buffer, var_text_of_word(4));
+							strncpy(container_buffer, var_text_of_word(4), sizeof(container_buffer));
 							strcat(container_buffer, "[");
-							sprintf(integer_buffer, "%d", *split_container);
+							snprintf(integer_buffer, sizeof(integer_buffer), "%d", *split_container);
 							strcat(container_buffer, integer_buffer);
 							strcat(container_buffer, "]");
 
@@ -1866,9 +1867,9 @@ execute(funcname)
 								(*split_container)++;
 							}
 						}
-						strcpy(container_buffer, var_text_of_word(4));
+						strncpy(container_buffer, var_text_of_word(4), sizeof(container_buffer));
 						strcat(container_buffer, "[");
-						sprintf(integer_buffer, "%d", *split_container);
+						snprintf(integer_buffer, sizeof(integer_buffer), "%d", *split_container);
 						strcat(container_buffer, integer_buffer);
 						strcat(container_buffer, "]");
 
@@ -2103,7 +2104,7 @@ execute(funcname)
 								*container = *container % counter;
 							else if (word[mark][0] == '/') {
 								if (counter == 0) {
-									sprintf(error_buffer, DIVIDE_BY_ZERO,
+									snprintf(error_buffer, sizeof(error_buffer), DIVIDE_BY_ZERO,
 											executing_function->name);
 									log_error(error_buffer, PLUS_STDOUT);
 								} else
@@ -2115,7 +2116,7 @@ execute(funcname)
 							} else if (word[mark][0] == '=') {
 								*container = counter; 
 							} else {
-								sprintf(error_buffer, ILLEGAL_OPERATOR,
+								snprintf(error_buffer, sizeof(error_buffer), ILLEGAL_OPERATOR,
 										executing_function->name,
 										word[2]);
 								log_error(error_buffer, PLUS_STDOUT);
@@ -2184,7 +2185,7 @@ execute(funcname)
 					outfile = fopen(temp_buffer, "ab");
 
 					if (outfile == NULL) {
-    					sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
+    					snprintf(error_buffer, sizeof(error_buffer), "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
 						log_error(error_buffer, PLUS_STDOUT);
   					} else {
 						for (counter = 2; word[counter] != NULL && counter < MAX_WORDS; counter++) {
@@ -2327,7 +2328,7 @@ execute(funcname)
 					execution_level++;
 				}
 			} else {
-				sprintf(error_buffer, UNKNOWN_COMMAND,
+				snprintf(error_buffer, sizeof(error_buffer), UNKNOWN_COMMAND,
 						executing_function->name, word[0]);
 				log_error(error_buffer, PLUS_STDOUT);
 			}
@@ -3091,7 +3092,7 @@ logic_test(first)
 			}
 		}
 	} else {
-		sprintf(error_buffer,
+		snprintf(error_buffer, sizeof(error_buffer),
 				"ERROR: In function \"%s\", illegal operator \"%s\".^",
 				executing_function->name, word[2]);
 		write_text(error_buffer);
@@ -3186,7 +3187,7 @@ str_test(first)
 		else
 			return (FALSE);
 	} else {
-		sprintf(error_buffer,
+		snprintf(error_buffer, sizeof(error_buffer),
 				"ERROR: In function \"%s\", illegal operator \"%s\".^",
 				executing_function->name, word[2]);
 		write_text(error_buffer);
@@ -3233,10 +3234,10 @@ clear_cinteger(name)
 		current_cinteger = cinteger_table;
 		previous_cinteger = cinteger_table;
 		while (current_cinteger != NULL) {
-			//sprintf(temp_buffer, "--- checking integer %s^", current_cinteger->name);
+			//snprintf(temp_buffer, sizeof(temp_buffer), "--- checking integer %s^", current_cinteger->name);
 			//write_text(temp_buffer);
 			if (!strcmp(current_cinteger->name, name)) {
-				//sprintf(temp_buffer, "--- found integer %s^", name);
+				//snprintf(temp_buffer, sizeof(temp_buffer), "--- found integer %s^", name);
 				//write_text(temp_buffer);
 				/* FREE THIS CONSTANT */
 				if (previous_cinteger == current_cinteger) {
@@ -3384,12 +3385,12 @@ inspect (object_num)
 		while (location_elements[index] != NULL) {
 			if (index < 12) {
 				if (object[object_num]->integer[index] < 1 || object[object_num]->integer[index] > objects) {
-					sprintf(temp_buffer, "%s: nowhere (%d)^", location_elements[index], object[object_num]->integer[index]);
+					snprintf(temp_buffer, sizeof(temp_buffer), "%s: nowhere (%d)^", location_elements[index], object[object_num]->integer[index]);
 				} else {
-					sprintf(temp_buffer, "%s: %s (%d)^", location_elements[index], object[object[object_num]->integer[index]]->label, object[object_num]->integer[index]);
+					snprintf(temp_buffer, sizeof(temp_buffer), "%s: %s (%d)^", location_elements[index], object[object[object_num]->integer[index]]->label, object[object_num]->integer[index]);
 				}
 			} else {
-				sprintf(temp_buffer, "%s: %d^", location_elements[index], object[object_num]->integer[index]);
+				snprintf(temp_buffer, sizeof(temp_buffer), "%s: %d^", location_elements[index], object[object_num]->integer[index]);
 			}
 			write_text(temp_buffer);
 			index++;
@@ -3397,9 +3398,9 @@ inspect (object_num)
 	} else {
 		while (object_elements[index] != NULL) {
 			if (index == 0) {
-				sprintf(temp_buffer, "%s: %s (%d)^", object_elements[index], object[object[object_num]->integer[index]]->label, object[object_num]->integer[index]);
+				snprintf(temp_buffer, sizeof(temp_buffer), "%s: %s (%d)^", object_elements[index], object[object[object_num]->integer[index]]->label, object[object_num]->integer[index]);
 			} else {
-				sprintf(temp_buffer, "%s: %d^", object_elements[index], object[object_num]->integer[index]);
+				snprintf(temp_buffer, sizeof(temp_buffer), "%s: %d^", object_elements[index], object[object_num]->integer[index]);
 			}
 			write_text(temp_buffer);
 			index++;

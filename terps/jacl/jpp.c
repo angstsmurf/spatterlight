@@ -22,8 +22,8 @@
 #include "prototypes.h"
 #include <string.h>
 
-extern char			text_buffer[];
-extern char			temp_buffer[];
+extern char			text_buffer[1024];
+extern char			temp_buffer[1024];
 extern char			*word[];
 extern short int	quoted[];
 extern short int	punctuated[];
@@ -33,14 +33,14 @@ extern char			user_id[];
 extern char			prefix[];
 extern char			game_path[];
 extern char			game_file[];
-extern char			processed_file[];
+extern char			processed_file[256];
 
 extern short int	encrypted;
 
 extern char			include_directory[];
 extern char			temp_directory[];
 
-extern char			error_buffer[];
+extern char			error_buffer[1024];
 
 int					lines_written;
 
@@ -77,7 +77,7 @@ jpp()
 
 		result = fgets(text_buffer, 1024, inputFile);
 		if (!result) {
-			sprintf(error_buffer, CANT_OPEN_SOURCE, game_file);
+			snprintf(error_buffer, sizeof(error_buffer), CANT_OPEN_SOURCE, game_file);
 			return (FALSE);
 		}
 
@@ -87,7 +87,7 @@ jpp()
 				 * DIRECTLY */
 				if (sscanf(text_buffer, "#processed:%d", &game_version)) {
 					if (INTERPRETER_VERSION < game_version) {
-						sprintf (error_buffer, OLD_INTERPRETER, game_version);
+						snprintf (error_buffer, sizeof(error_buffer), OLD_INTERPRETER, game_version);
 						return (FALSE);
 					}
 				}
@@ -105,20 +105,20 @@ jpp()
 
 		fclose(inputFile);
 	} else {
-		sprintf (error_buffer, NOT_FOUND);
+		snprintf (error_buffer, sizeof(error_buffer), NOT_FOUND);
 		return (FALSE);
 	}
 
 	/* SAVE A TEMPORARY FILENAME INTO PROCESSED_FILE */
-	sprintf(processed_file, "%s%s.j2", temp_directory, prefix);
+	snprintf(processed_file, sizeof(processed_file), "%s%s.j2", temp_directory, prefix);
 
 	/* ATTEMPT TO OPEN THE PROCESSED FILE IN THE TEMP DIRECTORY */
 	if ((outputFile = fopen(processed_file, "w")) == NULL) {
 		/* NO LUCK, TRY OPEN THE PROCESSED FILE IN THE CURRENT DIRECTORY */
-		sprintf(processed_file, "%s.j2", prefix);
+		snprintf(processed_file, sizeof(processed_file), "%s.j2", prefix);
 		if ((outputFile = fopen(processed_file, "w")) == NULL) {
 			/* NO LUCK, CAN'T CONTINUE */
-			sprintf(error_buffer, CANT_OPEN_PROCESSED, processed_file);
+			snprintf(error_buffer, sizeof(error_buffer), CANT_OPEN_PROCESSED, processed_file);
 			return (FALSE);
 		}
 	}
@@ -149,12 +149,12 @@ process_file(sourceFile1, sourceFile2)
 	if ((inputFile = fopen(sourceFile1, "r")) == NULL) {
 		if (sourceFile2 != NULL) {
 			if ((inputFile = fopen(sourceFile2, "r")) == NULL) {
-				sprintf(error_buffer, CANT_OPEN_OR, sourceFile1, sourceFile2);
+				snprintf(error_buffer, sizeof(error_buffer), CANT_OPEN_OR, sourceFile1, sourceFile2);
 				return (FALSE);
 			}
 
 		} else {
-			sprintf(error_buffer, CANT_OPEN_SOURCE, sourceFile1);
+			snprintf(error_buffer, sizeof(error_buffer), CANT_OPEN_SOURCE, sourceFile1);
 			return (FALSE);
 		}
 	}
@@ -162,7 +162,7 @@ process_file(sourceFile1, sourceFile2)
 	*text_buffer = 0;
 
 	if (fgets(text_buffer, 1024, inputFile) == NULL) {
-		sprintf (error_buffer, READ_ERROR);
+		snprintf (error_buffer, sizeof(error_buffer), READ_ERROR);
 		return (FALSE);
 	}
 
@@ -185,7 +185,7 @@ process_file(sourceFile1, sourceFile2)
 					return (FALSE);
 				}
 			} else {
-				sprintf (error_buffer, BAD_INCLUDE);
+				snprintf (error_buffer, sizeof(error_buffer), BAD_INCLUDE);
 				return (FALSE);
 			}
 		} else {
@@ -213,9 +213,9 @@ process_file(sourceFile1, sourceFile2)
 			lines_written++;
 			if (lines_written == 1) {
 #ifdef WIN32
-				sprintf(temp_buffer, "#processed:%d\r\n", INTERPRETER_VERSION);
+				snprintf(temp_buffer, sizeof(temp_buffer), "#processed:%d\r\n", INTERPRETER_VERSION);
 #else
-				sprintf(temp_buffer, "#processed:%d\n", INTERPRETER_VERSION);
+				snprintf(temp_buffer, sizeof(temp_buffer), "#processed:%d\n", INTERPRETER_VERSION);
 #endif
 				fputs(temp_buffer, outputFile);
 			}
