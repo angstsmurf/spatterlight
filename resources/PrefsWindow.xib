@@ -510,7 +510,7 @@
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="HJ4-4n-x3g">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="17"/>
-                                    <imageReference key="image" image="arrow.left.arrow.right" symbolScale="default" renderingMode="template"/>
+                                    <imageReference key="image" image="arrow.left.arrow.right" catalog="system" symbolScale="default" renderingMode="template"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -597,7 +597,7 @@
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="Bmm-oP-coZ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="17"/>
-                                    <imageReference key="image" image="arrow.left.arrow.right" symbolScale="default" renderingMode="template"/>
+                                    <imageReference key="image" image="arrow.left.arrow.right" catalog="system" symbolScale="default" renderingMode="template"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -2101,6 +2101,6 @@
         <image name="NSActionTemplate" width="20" height="20"/>
         <image name="NSAddTemplate" width="18" height="17"/>
         <image name="NSRemoveTemplate" width="18" height="5"/>
-        <image name="arrow.left.arrow.right" width="14" height="14"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="16" height="17"/>
     </resources>
 </document>

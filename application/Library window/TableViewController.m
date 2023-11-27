@@ -2786,7 +2786,12 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 
         if ([identifier isEqual:@"found"]) {
             if (!game.found) {
-                cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
+                if (@available(macOS 11.0, *)) {
+                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"exclamationmark.circle" accessibilityDescription:NSLocalizedString(@"File not found", nil)];
+                } else {
+                    cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
+                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"File not found", nil);
+                }
                 cellView.imageView.accessibilityLabel = NSLocalizedString(@"File not found", nil);
             } else {
                 BOOL playing = NO;
@@ -2794,11 +2799,23 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                     for (GlkController *session in _gameSessions.allValues) {
                         if ([session.game.ifid isEqual:game.ifid]) {
                             if (session.alive) {
-                                cellView.imageView.image = [NSImage imageNamed:@"play"];
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"In progress", nil);
+                                if (@available(macOS 11.0, *)) {
+                                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"play.fill" accessibilityDescription:NSLocalizedString(@"In progress", nil)];
+                                } else {
+                                    cellView.imageView.image = [NSImage imageNamed:@"play"];
+                                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"In progress", nil);
+
+                                }
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game in progress", nil);
                             } else {
-                                cellView.imageView.image = [NSImage imageNamed:@"stop"];
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Stopped", nil);
+                                if (@available(macOS 11.0, *)) {
+                                    cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"stop.fill" accessibilityDescription:NSLocalizedString(@"Stopped", nil)];
+                                } else {
+                                    cellView.imageView.image = [NSImage imageNamed:@"stop"];
+                                    cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Stopped", nil);
+
+                                }
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game stopped", nil);
                             }
                             playing = YES;
                             break;
@@ -2807,7 +2824,12 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 }
                 if (!playing) {
                     if (game.autosaved) {
-                        cellView.imageView.image = [NSImage imageNamed:@"pause.fill"];
+                        if (@available(macOS 11.0, *)) {
+                            cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"pause.fill" accessibilityDescription:NSLocalizedString(@"Autosaved", nil)];
+                        } else {
+                            cellView.imageView.image = [NSImage imageNamed:@"pause.fill"];
+                            cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Autosaved", nil);
+                        }
                         cellView.imageView.accessibilityLabel = NSLocalizedString(@"Autosaved", nil);
                     } else {
                         cellView.imageView.image = nil;
@@ -2819,19 +2841,33 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             LikeCellView *likeCellView = (LikeCellView *)cellView;
             switch (game.like) {
                 case 2:
-                    likeCellView.likeButton.image = [NSImage imageNamed:@"heart.slash.fill"];
-
+                    if (@available(macOS 11.0, *)) {
+                        likeCellView.likeButton.image = [NSImage imageWithSystemSymbolName:@"heart.slash.fill" accessibilityDescription:NSLocalizedString(@"Disliked", nil)];
+                    } else {
+                        likeCellView.likeButton.image = [NSImage imageNamed:@"heart.slash.fill"];
+                        likeCellView.likeButton.image.accessibilityDescription = NSLocalizedString(@"Disliked", nil);
+                    }
                     likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
                     likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", nil);
                     break;
                 case 1:
-                    likeCellView.likeButton.image = [NSImage imageNamed:@"heart.fill"];
+                    if (@available(macOS 11.0, *)) {
+                        likeCellView.likeButton.image = [NSImage imageWithSystemSymbolName:@"heart.fill" accessibilityDescription:NSLocalizedString(@"Liked", nil)];
+                    } else {
+                        likeCellView.likeButton.image = [NSImage imageNamed:@"heart.fill"];
+                        likeCellView.likeButton.image.accessibilityDescription = NSLocalizedString(@"Liked", nil);
+                    }
                     likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
                     likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", nil);
                     break;
                 default:
                     if (row == _gameTableView.mouseOverRow) {
-                        likeCellView.likeButton.image =  [NSImage imageNamed:@"heart"];
+                        if (@available(macOS 11.0, *)) {
+                            likeCellView.likeButton.image = [NSImage imageWithSystemSymbolName:@"heart" accessibilityDescription:NSLocalizedString(@"Like", nil)];
+                        } else {
+                            likeCellView.likeButton.image =  [NSImage imageNamed:@"heart"];
+                            likeCellView.likeButton.image.accessibilityDescription = NSLocalizedString(@"Like", nil);
+                        }
                     } else {
                         likeCellView.likeButton.image = nil;
                     }
