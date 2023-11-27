@@ -2804,7 +2804,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                                 } else {
                                     cellView.imageView.image = [NSImage imageNamed:@"play"];
                                     cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"In progress", nil);
-
                                 }
                                 cellView.imageView.accessibilityLabel = NSLocalizedString(@"In progress", nil);
                             } else {
@@ -2813,7 +2812,6 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                                 } else {
                                     cellView.imageView.image = [NSImage imageNamed:@"stop"];
                                     cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Stopped", nil);
-
                                 }
                                 cellView.imageView.accessibilityLabel = NSLocalizedString(@"Stopped", nil);
                             }
