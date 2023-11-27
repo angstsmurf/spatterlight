@@ -457,6 +457,6 @@ int putdword(char *p,int w)
 void nerror(char *fmt,int n)
 {
     char buf[100];
-    sprintf(buf,fmt,n);
+    snprintf(buf,sizeof(buf),fmt,n);
     error(buf);
 }

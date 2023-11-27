@@ -327,7 +327,7 @@ void pnumber(int n)
 {
     char buf[10];
 
-    sprintf(buf,"%d",n);
+    snprintf(buf,sizeof(buf),"%d",n);
     trm_str(buf);
 }
 

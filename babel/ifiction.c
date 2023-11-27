@@ -169,7 +169,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
         for(i=0;leaf_tags[i];i++) {
             if (strcmp(parent->tag,leaf_tags[i])==0)
             {
-                sprintf(ebuf, "Error: (line %d) Tag <%s> is not permitted within tag <%s>",
+                snprintf(ebuf,sizeof(ebuf), "Error: (line %d) Tag <%s> is not permitted within tag <%s>",
                     xtg->beginl,xtg->tag,parent->tag);
                 err_h(ebuf,ectx);
             }
@@ -181,7 +181,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
         for(i=0;one_per[i];i++) {
             if (strcmp(one_per[i],xtg->tag)==0) {
                 if (parent->occurences[i]) { 
-                    sprintf(ebuf,"Error: (line %d) Found more than one <%s> within <%s>",xtg->beginl,xtg->tag,
+                    snprintf(ebuf,sizeof(ebuf),"Error: (line %d) Found more than one <%s> within <%s>",xtg->beginl,xtg->tag,
                         parent->tag);
                     err_h(ebuf,ectx);
                 }
@@ -194,7 +194,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
     for(i=0;required[i];i+=2)
         if (strcmp(required[i],xtg->tag)==0 && !xtg->rocurrences[i])
         {
-            sprintf(ebuf,"Error: (line %d) Tag <%s> is required within <%s>",xtg->beginl, required[i+1],xtg->tag);
+            snprintf(ebuf,sizeof(ebuf),"Error: (line %d) Tag <%s> is required within <%s>",xtg->beginl, required[i+1],xtg->tag);
             err_h(ebuf,ectx);
         }
     if (parent && strcmp(parent->tag,"identification")==0)
@@ -210,7 +210,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
                 memcpy(bf,xtg->begin,xtg->end-xtg->begin);
                 bf[xtg->end-xtg->begin]=0;
                 xti->format=-1;
-                sprintf(ebuf,"Warning: (line %d) Unknown format %s.",xtg->beginl,bf);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Unknown format %s.",xtg->beginl,bf);
                 err_h(ebuf,ectx);
             }
         }
@@ -223,18 +223,18 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
             sscanf(xtg->begin,"%d",&i);
             if (i<120)
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art width should not be less than 120.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art width should not be less than 120.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
             if (i>1200)
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art width should not exceed 1200.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art width should not exceed 1200.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
             if (!xti->width) xti->width=i;
             if (xti->height && (xti->width> 2 * xti->height || xti->height > 2 * xti->width))
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art aspect ratio exceeds 2:1.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art aspect ratio exceeds 2:1.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
 
@@ -245,25 +245,25 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
             sscanf(xtg->begin,"%d",&i);
             if (i<120)
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art height should not be less than 120.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art height should not be less than 120.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
             if (i>1200)
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art height should not exceed 1200.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art height should not exceed 1200.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
             if (!xti->height) xti->height=i;
             if (xti->width && (xti->width> 2 * xti->height || xti->height > 2 * xti->width))
             {
-                sprintf(ebuf,"Warning: (line %d) Cover art aspect ratio exceeds 2:1.",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Cover art aspect ratio exceeds 2:1.",xtg->beginl);
                 err_h(ebuf,ectx);
             }
 
         }
         if (strcmp(xtg->tag,"format")==0 && memcmp(xtg->begin,"jpg",3) && memcmp(xtg->begin,"png",3))
         {
-            sprintf(ebuf,"Warning: (line %d) <format> should be one of: png, jpg.",xtg->beginl);
+            snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) <format> should be one of: png, jpg.",xtg->beginl);
             err_h(ebuf,ectx);
         }
     }
@@ -273,31 +273,31 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
         if (strcmp(xtg->tag,"description")) {
             if (isspace(*xtg->begin)|| isspace(*(xtg->end-1)))
             {
-                sprintf(ebuf,"Warning: (line %d) Extraneous spaces at beginning or end of tag <%s>.",xtg->beginl,xtg->tag);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Extraneous spaces at beginning or end of tag <%s>.",xtg->beginl,xtg->tag);
                 err_h(ebuf,ectx);
             }
             for(p=xtg->begin;p<xtg->end-1;p++)
 
                 if (isspace(*p) && isspace(*(p+1)))
                 {
-                    sprintf(ebuf,"Warning: (line %d) Extraneous spaces found in tag <%s>.",xtg->beginl, xtg->tag);
+                    snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Extraneous spaces found in tag <%s>.",xtg->beginl, xtg->tag);
                     err_h(ebuf,ectx);
                 }
                 else if (isspace(*p) && *p!=' ')
                 {
-                    sprintf(ebuf,"Warning: (line %d) Improper whitespace character found in tag <%s>.",xtg->beginl, xtg->tag);
+                    snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Improper whitespace character found in tag <%s>.",xtg->beginl, xtg->tag);
                     err_h(ebuf,ectx);
 
                 }
         }
         if (strcmp(xtg->tag, "description") && xtg->end-xtg->begin > 240)
         { 
-            sprintf(ebuf,"Warning: (line %d) Tag <%s> length exceeds treaty guidelines",xtg->beginl, xtg->tag);
+            snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Tag <%s> length exceeds treaty guidelines",xtg->beginl, xtg->tag);
             err_h(ebuf,ectx);
         }
         if (strcmp(xtg->tag, "description")==0 && xtg->end-xtg->begin > 2400)
         {
-            sprintf(ebuf,"Warning: (line %d) Tag <%s> length exceeds treaty guidelines",xtg->beginl, xtg->tag);
+            snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Tag <%s> length exceeds treaty guidelines",xtg->beginl, xtg->tag);
             err_h(ebuf,ectx);
         }
         if (strcmp(xtg->tag,"firstpublished")==0)
@@ -317,7 +317,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
                     !isdigit(xtg->begin[8]) ||
                     !isdigit(xtg->begin[9]))))
             {
-                sprintf(ebuf,"Warning: (line %d) Tag <%s> should be format YYYY or YYYY-MM-DD",xtg->beginl, xtg->tag);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Tag <%s> should be format YYYY or YYYY-MM-DD",xtg->beginl, xtg->tag);
                 err_h(ebuf,ectx);
             }
         }
@@ -326,13 +326,13 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
             char *l;
             if (*xtg->begin=='0' && xtg->end!=xtg->begin+1)
             {
-                sprintf(ebuf,"Warning: (line %d) Tag <%s> should not use leading zeroes",xtg->beginl, xtg->tag);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Tag <%s> should not use leading zeroes",xtg->beginl, xtg->tag);
                 err_h(ebuf,ectx);
             }
 
             for(l=xtg->begin;l<xtg->end;l++) if (!isdigit(*l))
                                              {
-                                                 sprintf(ebuf,"Warning: (line %d) Tag <%s> should be a positive number",xtg->beginl, xtg->tag);
+                                                 snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Tag <%s> should be a positive number",xtg->beginl, xtg->tag);
                                                  err_h(ebuf,ectx);
                                              }
         }
@@ -342,7 +342,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
             for(l=0;zarfian[l];l++) if (memcmp(xtg->begin,zarfian[l],strlen(zarfian[l]))==0) break;
             if (!zarfian[l])
             {
-                sprintf(ebuf,"Warning: (line %d) <forgiveness> should be one of: Merciful, Polite, Tough, Cruel",xtg->beginl);
+                snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) <forgiveness> should be one of: Merciful, Polite, Tough, Cruel",xtg->beginl);
                 err_h(ebuf,ectx);
             }
         }
@@ -352,7 +352,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
         for(i=0;format_registry[i];i++) if (strcmp(xtg->tag,format_registry[i])==0) break;
         if (format_registry[i] && xti->format !=i)
         {
-            sprintf(ebuf,"Warning: (line %d) Found <%s> tag, but story is identified as %s.",xtg->beginl, xtg->tag, format_registry[xti->format]);
+            snprintf(ebuf,sizeof(ebuf),"Warning: (line %d) Found <%s> tag, but story is identified as %s.",xtg->beginl, xtg->tag, format_registry[xti->format]);
             err_h(ebuf,ectx);
         }
     }
@@ -440,7 +440,7 @@ void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHand
                     {
                         xtg->end=xml-1;
                         parse=xtg->next;
-                        sprintf(ebuffer,"Error: (line %d) unclosed <%s> tag",xtg->beginl,xtg->tag);
+                        snprintf(ebuffer,sizeof(ebuffer),"Error: (line %d) unclosed <%s> tag",xtg->beginl,xtg->tag);
                         error_handler(ebuffer,error_ctx);
                         ifiction_validate_tag(xtg,&xti,error_handler, error_ctx);
                         close_tag(xtg,close_ctx);
@@ -458,7 +458,7 @@ void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHand
                 }
                 else
                 { 
-                    sprintf(ebuffer,"Error: (line %d) saw </%s> without <%s>",getln(xml), buffer,buffer);
+                    snprintf(ebuffer,sizeof(ebuffer),"Error: (line %d) saw </%s> without <%s>",getln(xml), buffer,buffer);
                     error_handler(ebuffer,error_ctx);
                 }
             }
@@ -496,7 +496,7 @@ void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHand
          That can't be right. What should xtg->end be set to? */
         xtg->end=aep-1;
         parse=xtg->next;
-        sprintf(ebuffer,"Error: (line %d) Unclosed tag <%s>",xtg->beginl,xtg->tag);
+        snprintf(ebuffer,sizeof(ebuffer),"Error: (line %d) Unclosed tag <%s>",xtg->beginl,xtg->tag);
         ifiction_validate_tag(xtg,&xti,error_handler, error_ctx);
         close_tag(xtg,close_ctx);
         free(xtg);

@@ -78,12 +78,12 @@ void set_statline()
   time_out(timestr);
 
   switch(statusmode) {
-     case 0:sprintf(r_stat,"Score: %ld  Moves: %d",tscore,turncnt);break;
-     case 1:sprintf(r_stat,"Score: %ld   %s",tscore,timestr);break;
-     case 2:sprintf(r_stat,"Moves: %d",turncnt);break;
-     case 3:sprintf(r_stat,"%s",timestr);break;
+     case 0:snprintf(r_stat,sizeof(r_stat),"Score: %ld  Moves: %d",tscore,turncnt);break;
+     case 1:snprintf(r_stat,sizeof(r_stat),"Score: %ld   %s",tscore,timestr);break;
+     case 2:snprintf(r_stat,sizeof(r_stat),"Moves: %d",turncnt);break;
+     case 3:snprintf(r_stat,sizeof(r_stat),"%s",timestr);break;
      case 4:r_stat[0]='\0';break;  /* 'Trinity style' status line */
-     case 5:sprintf(r_stat,"Score: %ld",tscore);break;
+     case 5:snprintf(r_stat,sizeof(r_stat),"Score: %ld",tscore);break;
      }
 }
 
@@ -480,7 +480,7 @@ static char *wordvar_match(const char **pvarname,char match_type,
       return NULL;
     
    /* Now to convert hold_val into a string */ 
-    sprintf(fill_buff,"%d",hold_val);
+    snprintf(fill_buff,sizeof(fill_buff),"%d",hold_val);
 
   }
   return fill_buff;
@@ -891,8 +891,8 @@ void print_score(void)
 
   if (score_mode<5) {
     if (score_mode==0 || score_mode==1 || score_mode==4)
-      sprintf(s,"Your score is %ld (out of %ld possible).",tscore,max_score);
-    else sprintf(s,"Your score is %ld.",tscore);
+      snprintf(s,sizeof(s),"Your score is %ld (out of %ld possible).",tscore,max_score);
+    else snprintf(s,sizeof(s),"Your score is %ld.",tscore);
     writeln(s);
   }
 
@@ -908,9 +908,9 @@ void print_score(void)
 	totroom++; 
       }
     if (score_mode%2==0) 
-      sprintf(s,"You have visited %d locations (out of %d in the game)",rmcnt,
+      snprintf(s,sizeof(s),"You have visited %d locations (out of %d in the game)",rmcnt,
 	      totroom);
-    else sprintf(s,"You have visited %d locations.",rmcnt);
+    else snprintf(s,sizeof(s),"You have visited %d locations.",rmcnt);
     writeln(s);
   }
 }

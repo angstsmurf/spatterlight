@@ -146,7 +146,7 @@ int tio_input_dialog(int icon_id, const char *prompt,
             if (*p == '&')
             {
                 /* reformat the response string */
-                sprintf(buf, "%.*s(%c)%s", (int)(p - cur), cur, *(p+1), p+2);
+                snprintf(buf, sizeof(buf), "%.*s(%c)%s", (int)(p - cur), cur, *(p+1), p+2);
 
                 /* display it */
                 outformat(buf);

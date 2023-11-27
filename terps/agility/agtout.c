@@ -631,7 +631,7 @@ void msg_out(void)
 
   printf("\n\nMessages:\n");
   for(i=0;i<last_message;i++) {
-    sprintf(s,"MSG %d",i+1);
+    snprintf(s,sizeof(s),"MSG %d",i+1);
     print_descr(s,msg_ptr[i],2);
   }
 }
@@ -648,7 +648,7 @@ void stdmsg_out(void)
     return;
   }
   for(i=0;i<NUM_ERR;i++) {
-    sprintf(s,"STD MSG %d",i+1);
+    snprintf(s,sizeof(s),"STD MSG %d",i+1);
     print_descr(s,err_ptr[i],1);
   }
 }

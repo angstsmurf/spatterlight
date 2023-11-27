@@ -3646,21 +3646,21 @@ gagt_display_debug (void)
       gagt_paragraphref_t paragraph;
 
       paragraph = line->paragraph;
-      sprintf (buffer,
-               "%2d:%2d->%2ld A=%-3d L=%-2d I=%-2d O=%-2d R=%-2d %c%c| ",
-               paragraph ? paragraph->id + 1 : 0,
-               paragraph ? paragraph->line_count : 0,
-               paragraph && paragraph->special
+      snprintf (buffer, sizeof(buffer),
+                "%2d:%2d->%2ld A=%-3d L=%-2d I=%-2d O=%-2d R=%-2d %c%c| ",
+                paragraph ? paragraph->id + 1 : 0,
+                paragraph ? paragraph->line_count : 0,
+                paragraph && paragraph->special
                    ? paragraph->special - GAGT_SPECIALS + 1 : 0,
-               line->buffer.allocation, line->buffer.length,
-               line->indent, line->outdent,
-               line->real_length,
-               line->is_hyphenated ? 'h' : '_',
-               line->is_blank ? 'b' :
-                 line->font_hint == HINT_PROPORTIONAL ? 'P' :
-                 line->font_hint == HINT_PROPORTIONAL_NEWLINE ? 'N' :
-                 line->font_hint == HINT_PROPORTIONAL_NEWLINE_STANDOUT ? 'S' :
-                 line->font_hint == HINT_FIXED_WIDTH ? 'F' : '_');
+                line->buffer.allocation, line->buffer.length,
+                line->indent, line->outdent,
+                line->real_length,
+                line->is_hyphenated ? 'h' : '_',
+                line->is_blank ? 'b' :
+                  line->font_hint == HINT_PROPORTIONAL ? 'P' :
+                  line->font_hint == HINT_PROPORTIONAL_NEWLINE ? 'N' :
+                  line->font_hint == HINT_PROPORTIONAL_NEWLINE_STANDOUT ? 'S' :
+                  line->font_hint == HINT_FIXED_WIDTH ? 'F' : '_');
       glk_put_string (buffer);
 
       glk_put_buffer ((char *)line->buffer.data, line->buffer.length);
@@ -3669,10 +3669,10 @@ gagt_display_debug (void)
 
   if (gagt_current_buffer.length > 0)
     {
-      sprintf (buffer,
-               "__,__->__ A=%-3d L=%-2d I=__ O=__ R=__ %s| ",
-               gagt_current_buffer.allocation, gagt_current_buffer.length,
-               gagt_help_requested ? "HR" : "__");
+      snprintf (buffer, sizeof(buffer),
+                "__,__->__ A=%-3d L=%-2d I=__ O=__ R=__ %s| ",
+                gagt_current_buffer.allocation, gagt_current_buffer.length,
+                gagt_help_requested ? "HR" : "__");
       glk_put_string (buffer);
 
       glk_put_buffer ((char *)gagt_current_buffer.data, gagt_current_buffer.length);
@@ -4626,7 +4626,7 @@ gagt_command_width (const char *argument)
     }
 
   gagt_normal_string ("Glk's current display width is approximately ");
-  sprintf (buffer, "%d", status_width);
+  snprintf (buffer, sizeof(buffer), "%d", status_width);
   gagt_normal_string (buffer);
   gagt_normal_string (status_width == 1 ? " character" : " characters");
   gagt_normal_string (".\n");
@@ -4764,8 +4764,8 @@ gagt_command_print_version_number (glui32 version)
 {
   char buffer[64];
 
-  sprintf (buffer, "%u.%u.%u",
-           version >> 16, (version >> 8) & 0xff, version & 0xff);
+  snprintf (buffer, sizeof(buffer), "%u.%u.%u",
+            version >> 16, (version >> 8) & 0xff, version & 0xff);
   gagt_normal_string (buffer);
 }
 

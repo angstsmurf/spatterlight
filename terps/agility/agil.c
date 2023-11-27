@@ -203,10 +203,10 @@ static void print_title(fc_type fc)
   agt_textcolor(-1);
   s=rmalloc(80);
   if (height<=screen_height-5)
-    sprintf(s,"AGiliTy: "
+    snprintf(s,80,"AGiliTy: "
 	    "The (Mostly) Universal AGT Interpreter  %s",version_str);
   else 
-    sprintf(s,"Being run by AGiliTy  %s, "
+    snprintf(s,80,"Being run by AGiliTy  %s, "
 	    "Copyright (C) 1996-99,2001 Robert Masenten",
 	    version_str);
   writeln(s);
@@ -505,8 +505,8 @@ static void mainloop(void)
   while(!quitflag)
     {
       if (DEBUG_MEM) {
-	sprintf(memstr,
-         "A:%ld F:%ld  Delta:%ld   Size:%ld+%ld=%ld (%ld left)\n", 
+	snprintf(memstr, sizeof(memstr),
+          "A:%ld F:%ld  Delta:%ld   Size:%ld+%ld=%ld (%ld left)\n",
 		ralloc_cnt,rfree_cnt,ralloc_cnt-rfree_cnt,
 		rm_start_size,rm_size-rm_start_size,rm_size,
 		rm_freesize);

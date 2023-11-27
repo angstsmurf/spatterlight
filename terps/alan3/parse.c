@@ -624,9 +624,9 @@ static char *classNameAndId(int classId) {
     static char buffer[1000] = "";
 
     if (classId != -1)
-        sprintf(buffer, "%s[%d]", idOfClass(classId), classId);
+        snprintf(buffer, sizeof(buffer), "%s[%d]", idOfClass(classId), classId);
     else
-        sprintf(buffer, "Container");
+        strncpy(buffer, "Container", sizeof(buffer));
     return buffer;
 }
 
@@ -638,9 +638,9 @@ static char *parameterNumberAndName(int parameterNumber) {
     char *parameterName = parameterNameInSyntax(current.syntax, parameterNumber);
 
     if (parameterName != NULL)
-        sprintf(buffer, "%s(#%d)", parameterName, parameterNumber);
+        snprintf(buffer, sizeof(buffer), "%s(#%d)", parameterName, parameterNumber);
     else
-        sprintf(buffer, "#%d", parameterNumber);
+        snprintf(buffer, sizeof(buffer), "#%d", parameterNumber);
     return buffer;
 }
 
@@ -886,7 +886,7 @@ static void checkRestrictedParameters(ParameterPosition parameterPositions[], El
                         /* It wasn't ALL, we need to say something about it, so
                          * prepare a printout with $1/2/3
                          */
-                        sprintf(marker, "($%ld)", (unsigned long) restriction->parameterNumber);
+                        snprintf(marker, sizeof(marker), "($%ld)", (unsigned long) restriction->parameterNumber);
                         setGlobalParameters(localParameters);
                         output(marker);
                         runRestriction(restriction, localParameters);

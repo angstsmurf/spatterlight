@@ -98,7 +98,7 @@ void rprintf(const char *fmt, ...)
   va_list args;
 
   va_start(args,fmt);
-  vsprintf(s,fmt,args);
+  vsnprintf(s,sizeof(s),fmt,args);
   va_end(args);
   i=strlen(s)-1;
   if (i>=0 && s[i]=='\n') {
@@ -349,8 +349,9 @@ void build_trans_ascii(void)
 void print_error(char *fname, filetype ext, char *err, rbool ferr)
 {
   char *estring; /* Hold error string */
-  estring=rmalloc(strlen(err)+strlen(fname)+2);
-  sprintf(estring,err,fname);
+  size_t estrLen = strlen(err)+strlen(fname)+2;
+  estring=rmalloc(estrLen);
+  snprintf(estring,estrLen,err,fname);
   if (ferr) fatal(estring); else writeln(estring);
   rfree(estring);
 }
@@ -558,7 +559,7 @@ long buffopen(fc_type fc,filetype ext,long minbuff,char *rectype,long recnum)
   if (agx_file) block_size=minbuff; /* Just for the beginning */
 
   if (block_size % recnum !=0) {
-      sprintf(ebuff,"Fractional record count in %s file.",rectype);
+      snprintf(ebuff,sizeof(ebuff),"Fractional record count in %s file.",rectype);
       agtwarn(ebuff,0);}
   buff_rsize=recsize=block_size/recnum;
   if (buff_rsize>minbuff) buff_rsize=minbuff;
@@ -640,7 +641,7 @@ static void buffreopen(long f_ofs, long file_recsize, long recnum,
   block_size=bl_size;   /* Size of the entire block (all records) */
   if (block_size % recnum !=0) {
     /* Check that the number of records divides the block size evenly */
-      sprintf(ebuff,"Fractional record count in %s block.",rectype);
+      snprintf(ebuff,sizeof(ebuff),"Fractional record count in %s block.",rectype);
       agtwarn(ebuff,0);}
   buff_rsize=recsize=block_size/recnum;
   if (buff_rsize>file_recsize) buff_rsize=file_recsize;

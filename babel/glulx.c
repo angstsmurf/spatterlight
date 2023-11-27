@@ -61,10 +61,10 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
   memcpy(ser,bb+2,6);
   ser[6]=0;
   for(i=0;i<6;i++) if (!isalnum(ser[i])) ser[i]='-';
-  sprintf(buffer,"GLULX-%u-%s-%04X",k,ser,j);
+  snprintf(buffer,sizeof(buffer),"GLULX-%u-%s-%04X",k,ser,j);
  }
  else
-  sprintf(buffer,"GLULX-%08X-%08X",k,j);
+  snprintf(buffer,sizeof(buffer),"GLULX-%08X-%08X",k,j);
 
  ASSERT_OUTPUT_SIZE((signed) strlen(buffer)+1);
  strcpy((char *)output,buffer);

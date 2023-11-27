@@ -873,7 +873,7 @@ if (n==UNKNOWN_OP_E || n==ILLEGAL_OP_E || n==EXPECT_VAL_E || n==OVERFLOW_E)
 	fprintf(stderr, "\n");
 }
 */
-	sprintf(fatalerrorline, "\nFatal Error:  %s", line);
+	snprintf(fatalerrorline, sizeof(fatalerrorline), "\nFatal Error:  %s", line);
 	PRINTFATALERROR(fatalerrorline);
 
 	hugo_closefiles();
@@ -1666,7 +1666,7 @@ char *PrintHex(long a)
 	static char hex[7];
 	int h = 0;
 
-	strcpy(hex, "");
+	memset(hex, 0, sizeof(hex));
 
 	if (a < 0L) a = 0;
 

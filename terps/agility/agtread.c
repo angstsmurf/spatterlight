@@ -53,9 +53,10 @@ const uchar agt18_statmode[]={0,4,3,1};
 static void fatals(char *msg,char *fname)
 {
   char *err;
+  size_t strlength = strlen(msg)+strlen(fname)+1;
 
-  err=rmalloc(strlen(msg)+strlen(fname)+1);
-  sprintf(err,msg,fname);
+  err=rmalloc(strlength);
+  snprintf(err,strlength,msg,fname);
   rfree(fname);
   fatal(err);
   rfree(err); /* This should never be executed */

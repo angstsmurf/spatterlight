@@ -25,7 +25,7 @@ void glkio_printf(char *fmt, ...)
   else
   {
     char buf[1024];	/* FIXME: buf size should be foolproof */
-    vsprintf(buf, fmt, argp);
+    vsnprintf(buf, sizeof(buf), fmt, argp);
     glk_put_string(buf);
   }
   va_end(argp);

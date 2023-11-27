@@ -601,7 +601,7 @@ int agt_menu(char *header,int size,int width,menuentry *menu)
   for(i=0;i<colheight;i++) {
     for(j=0;j<numcol;j++) {
       if (j*colheight+i>=size) break;
-      sprintf(sbuff,"%2d.",j*colheight+i+1);
+      snprintf(sbuff,sizeof(sbuff),"%2d.",j*colheight+i+1);
       writestr(sbuff);
       writestr(menu[j*colheight+i]);
       if (j<numcol-1) padout(width-3-strlen(menu[j*colheight+i]));

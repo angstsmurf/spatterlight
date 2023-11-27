@@ -145,9 +145,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
 #endif
     char info[200];
 #ifdef GIT_VERSION
-    sprintf(info, "%s Interpreter by Thomas Nilefalk\nFrom git %s\n", alan.shortHeader, GIT_VERSION);
+    snprintf(info, sizeof(info), "%s Interpreter by Thomas Nilefalk\nFrom git %s\n", alan.shortHeader, GIT_VERSION);
 #else
-    sprintf(info, "%s Interpreter by Thomas Nilefalk\n", alan.shortHeader);
+    snprintf(info, sizeof(info), "%s Interpreter by Thomas Nilefalk\n", alan.shortHeader);
 #endif
     garglk_set_program_info(info);
 #endif

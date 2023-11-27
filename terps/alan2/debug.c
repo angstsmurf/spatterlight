@@ -50,7 +50,7 @@ static void showatrs(atradr)
 
   i = 1;
   for (at = (AtrElem *) addrTo(atradr); !endOfTable(at); at++) {
-    sprintf(str, "$i%3ld: %ld (%s)", (long) i, (unsigned long) at->val, (char *) addrTo(at->stradr));
+    snprintf(str, sizeof(str), "$i%3ld: %ld (%s)", (long) i, (unsigned long) at->val, (char *) addrTo(at->stradr));
 #if ISO == 0
     fromIso(str, str);
 #endif
@@ -71,7 +71,7 @@ static void showobjs()
 
   output("OBJECTS:");
   for (obj = OBJMIN; obj <= OBJMAX; obj++) {
-    sprintf(str, "$i%3ld: ", (long) obj);
+    snprintf(str, sizeof(str), "$i%3ld: ", (long) obj);
     output(str);
     say(obj);
   }
@@ -92,16 +92,16 @@ static void showobj(obj)
 
 
   if (!isObj(obj)) {
-    sprintf(str, "Object number out of range. Between %ld and %ld, please.", (unsigned long) OBJMIN, (unsigned long) OBJMAX);
+    snprintf(str, sizeof(str), "Object number out of range. Between %ld and %ld, please.", (unsigned long) OBJMIN, (unsigned long) OBJMAX);
     output(str);
     return;
   }
 
-  sprintf(str, "OBJECT %d :", obj);
+  snprintf(str, sizeof(str), "OBJECT %d :", obj);
   output(str);
   say(obj);
 
-  sprintf(str, "$iLocation = %ld", (unsigned long) where(obj));
+  snprintf(str, sizeof(str), "$iLocation = %ld", (unsigned long) where(obj));
   output(str);
   if (isLoc(objs[OBJ].loc))
     say(objs[OBJ].loc);
@@ -139,7 +139,7 @@ static void showcnts()
 
   output("CONTAINERS:");
   for (cnt = CNTMIN; cnt <= CNTMAX; cnt++) {
-    sprintf(str, "$i%3ld: ", (long) cnt);
+    snprintf(str, sizeof(str), "$i%3ld: ", (long) cnt);
     output(str);
     if (cnts[CNT].nam != 0)
       interpret(cnts[CNT].nam);
@@ -166,19 +166,19 @@ static void showcnt(cnt)
 #define  CNT (cnt-CNTMIN)
 
   if (cnt < CNTMIN || cnt > CNTMAX) {
-    sprintf(str, "Container number out of range. Between %ld and %ld, please.", (unsigned long) CNTMIN, (unsigned long) CNTMAX);
+    snprintf(str, sizeof(str), "Container number out of range. Between %ld and %ld, please.", (unsigned long) CNTMIN, (unsigned long) CNTMAX);
     output(str);
     return;
   }
 
-  sprintf(str, "CONTAINER %d :", cnt);
+  snprintf(str, sizeof(str), "CONTAINER %d :", cnt);
   output(str);
   if (cnts[CNT].nam != 0)
     interpret(cnts[CNT].nam);
   if (cnts[CNT].parent != 0) {
     cnt = cnts[CNT].parent;
     say(cnt);
-    sprintf(str, "$iLocation = %ld", (unsigned long) where(cnt));
+    snprintf(str, sizeof(str), "$iLocation = %ld", (unsigned long) where(cnt));
     output(str);
   }
   output("$iContains ");
@@ -188,7 +188,7 @@ static void showcnt(cnt)
 	output("$n");
 	found = TRUE;
       }
-      sprintf(str, "$t$t%d: ", i);
+      snprintf(str, sizeof(str), "$t$t%d: ", i);
       output(str);
       say(i);
     }
@@ -211,7 +211,7 @@ static void showlocs()
 
   output("LOCATIONS:");
   for (loc = LOCMIN; loc <= LOCMAX; loc++) {
-    sprintf(str, "$i%3ld: ", (long) loc);
+    snprintf(str, sizeof(str), "$i%3ld: ", (long) loc);
     output(str);
     say(loc);
   }
@@ -231,12 +231,12 @@ static void showloc(loc)
 
   
   if (!isLoc(loc)) {
-    sprintf(str, "Location number out of range. Between %ld and %ld, please.", (unsigned long) LOCMIN, (unsigned long) LOCMAX);
+    snprintf(str, sizeof(str), "Location number out of range. Between %ld and %ld, please.", (unsigned long) LOCMIN, (unsigned long) LOCMAX);
     output(str);
     return;
   }
 
-  sprintf(str, "LOCATION %d :", loc);
+  snprintf(str, sizeof(str), "LOCATION %d :", loc);
   output(str);
   say(loc);
 
@@ -256,7 +256,7 @@ static void showacts()
 
   output("ACTORS:");
   for (act = ACTMIN; act <= ACTMAX; act++) {
-    sprintf(str, "$i%3ld:", (long) act);
+    snprintf(str, sizeof(str), "$i%3ld:", (long) act);
     output(str);
     say(act);
   }
@@ -276,18 +276,18 @@ static void showact(act)
   Boolean oldstp;
   
   if (!isAct(act)) {
-    sprintf(str, "Actor number out of range. Between %ld and %ld, please.", (unsigned long) ACTMIN, (unsigned long) ACTMAX);
+    snprintf(str, sizeof(str), "Actor number out of range. Between %ld and %ld, please.", (unsigned long) ACTMIN, (unsigned long) ACTMAX);
     output(str);
     return;
   }
   
-  sprintf(str, "ACTOR %d :", act);
+  snprintf(str, sizeof(str), "ACTOR %d :", act);
   output(str);
   oldstp = stpflg; stpflg = FALSE; /* Make sure not to trace this! */
   say(act);
   stpflg = oldstp;
 
-  sprintf(str, "$iLocation = %ld", (unsigned long) acts[act-ACTMIN].loc);
+  snprintf(str, sizeof(str), "$iLocation = %ld", (unsigned long) acts[act-ACTMIN].loc);
   output(str);
   if (isLoc(acts[act-ACTMIN].loc))
     say(acts[act-ACTMIN].loc);
@@ -296,10 +296,10 @@ static void showact(act)
   else
     output("Illegal location!");
 
-  sprintf(str, "$iScript = %ld", (unsigned long) acts[act-ACTMIN].script);
+  snprintf(str, sizeof(str), "$iScript = %ld", (unsigned long) acts[act-ACTMIN].script);
   output(str);
 
-  sprintf(str, "$iStep = %ld", (unsigned long) acts[act-ACTMIN].step);
+  snprintf(str, sizeof(str), "$iStep = %ld", (unsigned long) acts[act-ACTMIN].step);
   output(str);
 
   output("$iAttributes =");
@@ -319,7 +319,7 @@ static void showevts()
 
   output("EVENTS:");
   for (evt = EVTMIN; evt <= EVTMAX; evt++) {
-    sprintf(str, "$i%d (%s):", evt, (char *)addrTo(evts[evt-EVTMIN].stradr));
+    snprintf(str, sizeof(str), "$i%d (%s):", evt, (char *)addrTo(evts[evt-EVTMIN].stradr));
 #if ISO == 0
     fromIso(str, str);
 #endif
@@ -329,7 +329,7 @@ static void showevts()
       if ((scheduled = ((unsigned int)eventq[i].event == evt)))
 	break;
     if (scheduled) {
-      sprintf(str, "Scheduled for +%d, at ", eventq[i].time-cur.tick);
+      snprintf(str, sizeof(str), "Scheduled for +%d, at ", eventq[i].time-cur.tick);
       output(str);
       say(eventq[i].where);
     } else

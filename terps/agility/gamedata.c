@@ -868,14 +868,14 @@ void reinit_dict(void)
 
   for(i=0;i<DVERB;i++)
     {
-      sprintf(buff,"dummy_verb%d",i+1);
+      snprintf(buff,sizeof(buff),"dummy_verb%d",i+1);
       auxsyn[i+BASE_VERB]=synptr;
       addsyn(add0_dict(buff));
       addsyn(-1);
     }
   for(i=0;i<MAX_SUB;i++)
     {
-      sprintf(buff,"subroutine%d",i+1);
+      snprintf(buff,sizeof(buff),"subroutine%d",i+1);
       auxsyn[i+BASE_VERB+DVERB]=synptr;
       addsyn( sub_name[i]=add0_dict(buff) ); 
       addsyn(-1);
@@ -1052,6 +1052,7 @@ static int cmdverb_code(word w)
 char *objname(int i)  /* returns malloc'd name string of object i */
 {
   char *s;
+  size_t sLen;
 
   if (i<0) 
     return rstrdup(dict[-i]);
@@ -1077,9 +1078,10 @@ char *objname(int i)  /* returns malloc'd name string of object i */
       return concdup(dict[adjw],dict[nounw]);
     }
  /* At this point we can't get a name: return ILLn. */
-  s=rmalloc(3+1+(5*sizeof(int))/2+1);    
+  sLen = 3+1+(5*sizeof(int))/2+1;
+  s=rmalloc(sLen);
          /* Make sure we have enough space in case i is big */
-  sprintf(s,"ILL%d",i);
+  snprintf(s,sLen,"ILL%d",i);
   return s;
 }
 

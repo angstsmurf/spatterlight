@@ -62,7 +62,7 @@ static void showAttributes(AttributeEntry *attributes)
 
     i = 1;
     for (at = attributes; !isEndOfArray(at); at++) {
-        sprintf(str, "$i$t%s[%d] = %d", (char *) pointerTo(at->id), at->code, (int)at->value);
+        snprintf(str, sizeof(str), "$i$t%s[%d] = %d", (char *) pointerTo(at->id), at->code, (int)at->value);
         output(str);
         i++;
     }
@@ -83,7 +83,7 @@ static void showContents(int cnt)
                 found = true;
             output("$i$t");
             say(i);
-            sprintf(str, "[%d] ", i);
+            snprintf(str, sizeof(str), "[%d] ", i);
             output(str);
         }
     }
@@ -104,7 +104,7 @@ static char *idOfInstance(int instance) {
 static void sayInstanceNumberAndName(int ins) {
     char buf[1000];
 
-    sprintf(buf, "[%d] %s (\"$$", ins, idOfInstance(ins));
+    snprintf(buf, sizeof(buf), "[%d] %s (\"$$", ins, idOfInstance(ins));
     output(buf);
     say(ins);
     output("$$\")");
@@ -168,7 +168,7 @@ static void showInstance(int ins)
     char str[80];
 
     if (ins > header->instanceMax || ins < 1) {
-        sprintf(str, "Instance index %d is out of range.", ins);
+        snprintf(str, sizeof(str), "Instance index %d is out of range.", ins);
         output(str);
         return;
     }
@@ -176,12 +176,12 @@ static void showInstance(int ins)
     output("The");
     sayInstanceNumberAndName(ins);
     if (instances[ins].parent) {
-        sprintf(str, "Isa %s[%d]", idOfClass(instances[ins].parent), instances[ins].parent);
+        snprintf(str, sizeof(str), "Isa %s[%d]", idOfClass(instances[ins].parent), instances[ins].parent);
         output(str);
     }
 
     if (!isA(ins, header->locationClassId) || (isA(ins, header->locationClassId) && admin[ins].location != 0)) {
-        sprintf(str, "$iLocation:");
+        strncpy(str, "$iLocation:", sizeof(str));
         output(str);
         needSpace = true;
         sayLocationOfInstance(ins, NULL);
@@ -197,7 +197,7 @@ static void showInstance(int ins)
         if (admin[ins].script == 0)
             output("$iIs idle");
         else {
-            sprintf(str, "$iExecuting script: %d, Step: %d", admin[ins].script, admin[ins].step);
+            snprintf(str, sizeof(str), "$iExecuting script: %d, Step: %d", admin[ins].script, admin[ins].step);
             output(str);
         }
     }
@@ -223,7 +223,7 @@ static void showObject(int obj)
 
 
     if (!isAObject(obj)) {
-        sprintf(str, "Instance %d is not an object", obj);
+        snprintf(str, sizeof(str), "Instance %d is not an object", obj);
         output(str);
         return;
     }
@@ -303,7 +303,7 @@ static void showClassInheritance(int c) {
     if (classes[c].parent != 0) {
         output(", Isa");
         printClassName(classes[c].parent);
-        sprintf(str, "[%d]", classes[c].parent);
+        snprintf(str, sizeof(str), "[%d]", classes[c].parent);
         output(str);
     }
 }
@@ -315,14 +315,14 @@ static void showClass(int cla)
     char str[80];
 
     if (cla < 1) {
-        sprintf(str, "Class index %d is out of range.", cla);
+        snprintf(str, sizeof(str), "Class index %d is out of range.", cla);
         output(str);
         return;
     }
 
     output("$t");
     printClassName(cla);
-    sprintf(str, "[%d]", cla);
+    snprintf(str, sizeof(str), "[%d]", cla);
     output(str);
     showClassInheritance(cla);
 }
@@ -333,7 +333,7 @@ static void listClass(int c)
 {
     char str[80];
 
-    sprintf(str, "%3d: ", c);
+    snprintf(str, sizeof(str), "%3d: ", c);
     output(str);
     printClassName(c);
     showClassInheritance(c);
@@ -377,14 +377,14 @@ static void showLocation(int loc)
 
 
     if (!isALocation(loc)) {
-        sprintf(str, "Instance %d is not a location.", loc);
+        snprintf(str, sizeof(str), "Instance %d is not a location.", loc);
         output(str);
         return;
     }
 
     output("The ");
     say(loc);
-    sprintf(str, "(%d) Isa location :", loc);
+    snprintf(str, sizeof(str), "(%d) Isa location :", loc);
     output(str);
 
     output("$iAttributes =");
@@ -410,7 +410,7 @@ static void showActor(int act)
     char str[80];
 
     if (!isAActor(act)) {
-        sprintf(str, "Instance %d is not an actor.", act);
+        snprintf(str, sizeof(str), "Instance %d is not an actor.", act);
         output(str);
         return;
     }
@@ -428,14 +428,14 @@ static void showEvents(void)
 
     output("Events:");
     for (event = 1; event <= header->eventMax; event++) {
-        sprintf(str, "$i%d [%s]:", event, (char *)pointerTo(events[event].id));
+        snprintf(str, sizeof(str), "$i%d [%s]:", event, (char *)pointerTo(events[event].id));
         output(str);
         scheduled = false;
         for (i = 0; i < eventQueueTop; i++)
             if ((scheduled = (eventQueue[i].event == event)))
                 break;
         if (scheduled) {
-            sprintf(str, "Scheduled for +%d, at ", eventQueue[i].after);
+            snprintf(str, sizeof(str), "Scheduled for +%d, at ", eventQueue[i].after);
             output(str);
             say(eventQueue[i].where);
         } else
@@ -588,7 +588,7 @@ static void setBreakpoint(int file, int line) {
                 printf("Line %d not available\n", line);
             } else {
                 if (entry[lineIndex].line != line)
-                    sprintf(leadingText, "Line %d not available, breakpoint instead", line);
+                    snprintf(leadingText, sizeof(leadingText), "Line %d not available, breakpoint instead", line);
                 breakpoint[i].file = entry[lineIndex].file;
                 breakpoint[i].line = entry[lineIndex].line;
                 printf("%s set at %s:%d\n", leadingText, sourceFileName(entry[lineIndex].file), entry[lineIndex].line);
@@ -741,7 +741,7 @@ static void handleHelpCommand() {
     output("$nADBG Commands (can be abbreviated):");
     for (entry = commandEntries; entry->command != NULL; entry++) {
         char buf[200];
-        sprintf(buf, "$i%s %s %s$n$t$t-- %s", entry->command, entry->parameter, padding(entry, maxLength), entry->helpText);
+        snprintf(buf, sizeof(buf), "$i%s %s %s$n$t$t-- %s", entry->command, entry->parameter, padding(entry, maxLength), entry->helpText);
         output(buf);
     }
 }
