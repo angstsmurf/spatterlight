@@ -171,8 +171,7 @@
 
 - (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage {
   NSMutableArray<BlorbResource *> *array = [NSMutableArray array];
-  for (NSUInteger i = 0; i < _resources.count; ++i) {
-    BlorbResource *resource = _resources[i];
+  for (BlorbResource *resource in _resources) {
     if (resource.usage == usage)
       [array addObject:resource];
   }
@@ -180,8 +179,7 @@
 }
 
 - (BlorbResource *)findResourceOfUsage:(FourCharCode)usage {
-  for (NSUInteger i = 0; i < _resources.count; ++i) {
-    BlorbResource *resource = _resources[i];
+  for (BlorbResource *resource in _resources) {
     if (resource.usage == usage)
       return resource;
   }

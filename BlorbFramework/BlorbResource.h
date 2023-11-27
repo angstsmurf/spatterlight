@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) FourCharCode usage;
 @property(readonly) unsigned int number;
 @property(readonly) unsigned int start;
-@property(nullable) NSString *descriptiontext;
-@property(nullable) NSString *chunkType;
+@property(copy, nullable) NSString *descriptiontext;
+@property(copy, nullable) NSString *chunkType;
 
 - (instancetype)initWithUsage:(FourCharCode)usage
                        number:(unsigned int)number
