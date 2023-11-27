@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -508,7 +508,7 @@
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="HJ4-4n-x3g">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="17"/>
-                                    <imageReference key="image" image="arrow.left.arrow.right" symbolScale="default" renderingMode="template"/>
+                                    <imageReference key="image" image="arrow.left.arrow.right" catalog="system" symbolScale="default" renderingMode="template"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -595,7 +595,7 @@
                                 <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="Bmm-oP-coZ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="17"/>
-                                    <imageReference key="image" image="arrow.left.arrow.right" symbolScale="default" renderingMode="template"/>
+                                    <imageReference key="image" image="arrow.left.arrow.right" catalog="system" symbolScale="default" renderingMode="template"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -2051,6 +2051,6 @@
         <image name="NSActionTemplate" width="20" height="20"/>
         <image name="NSAddTemplate" width="18" height="17"/>
         <image name="NSRemoveTemplate" width="18" height="5"/>
-        <image name="arrow.left.arrow.right" width="14" height="14"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="16" height="17"/>
     </resources>
 </document>
