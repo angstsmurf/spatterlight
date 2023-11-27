@@ -437,15 +437,14 @@ fprintf(stderr, "%s\n",                                                    \
                                                 error:&error];
 
                 } else {
-                    NSData *data;
-                    data = [mutattstr
+                    NSData *data = [mutattstr
                             RTFFromRange:NSMakeRange(0,
                                                      mutattstr.length)
                             documentAttributes:@{
                                 NSDocumentTypeDocumentAttribute :
                                     NSRTFTextDocumentType
                             }];
-                    writeResult = [data writeToURL:theFile options:NSDataWritingAtomic error:&error];
+                    writeResult = [data writeToURL:theFile options:0 error:&error];
                 }
             }
             if (!writeResult || error)
@@ -464,7 +463,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 300, 32.0)];
 
-    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 60, 22)];
+    NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 2, 60, 22)];
     label.editable = NO;
     label.stringValue = NSLocalizedString(@"Format:", nil);
     label.bordered = NO;

@@ -699,8 +699,8 @@ static void print_license(void)
 	  "Software Foundation, Inc., 59 Temple Place, Suite 330, "
 	  "Boston, MA  02111-1307  USA");
   writeln("");
-  writeln("  Send comments and bug reports to Robert Masenten at:");
-  writeln("      rcm-math@pacbell.net");
+  writeln("  Bugs can be reported at this project's GitHub page at "
+    "https://github.com/DavidKinder/Windows-AGiliTy/");
   writeln("");
   writeln("ACKNOWLEDGMENTS");
   writeln("Thanks to Jay Goemmer, who has sent me pages and pages of "

@@ -274,7 +274,6 @@ void putstate(uchar *gs) /* Restores games state. */
   if (objprop!=NULL) {
     i=objextsize(1);
     read_recblock(objprop,FT_INT32,i,bp,0);
-    bp+=ft_leng[FT_INT32]*i;
   }
   set_internal_buffer(NULL);
 

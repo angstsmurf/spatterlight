@@ -152,7 +152,7 @@ GetNextWord:
 			for (a=1; a<=(int)MAXWORDS; a++)
 			{
 				if ((unsigned short)wd[a]!=UNKNOWN_WORD)
-					strncpy(buffer+t, GetWord(wd[a]), MAXBUFFER + MAXWORDS);
+					strncpy(buffer+t, GetWord(wd[a]), MAXBUFFER + MAXWORDS - t);
 				else
 					itoa(parsed_number, buffer+t, 10);
 			        word[a] = buffer + t;

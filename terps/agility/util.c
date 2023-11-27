@@ -442,9 +442,10 @@ char *readln(genfile f, char *buff, int n)
       buff=rrealloc(buff,buffsize*sizeof(char));
     }
 
-    if (c==0) c=FORMAT_CODE;
-    else if (c!='\t') {if (i<n) buff[i++]=c;}
-    else for(j=0;j<5 && i<n;j++) buff[i++]=' ';    
+    if (c!=0) {
+      if (c!='\t') {if (i<n) buff[i++]=c;}
+      else for(j=0;j<5 && i<n;j++) buff[i++]=' '; 
+    }
 
     /* We can't exit the loop if i>n since we still need to discard
        the rest of the line */
@@ -906,7 +907,7 @@ static int agx_decode_version(int vercode)
     case 15500:return AGTME155;
     case 16000:return AGTME16;
     case 20000:return AGX00;
-    default:agtwarn("Unrecognize AGT version",0);
+    default:agtwarn("Unrecognized AGT version",0);
       return 0;
     }
 }
@@ -1026,7 +1027,7 @@ static void read_filerec(const file_info *rec_desc, const uchar *filedata)
 	*p(char*)=dictstr+fixsign32(filedata[0],filedata[1],
 				    filedata[2],filedata[3]);
 	break;
-      default:fatal("Unreconized field type");
+      default:fatal("Unrecognized field type");
     }
     filedata+=ft_leng[rec_desc->ftype];
   }
@@ -1144,7 +1145,7 @@ static void write_filerec(const file_info *rec_desc, uchar *filedata)
 	  filedata[3]=(delta>>24)&0xFF;
 	  break;
 	}
-      default:fatal("Unreconized field type");
+      default:fatal("Unrecognized field type");
       }
     filedata+=ft_leng[rec_desc->ftype];
   }

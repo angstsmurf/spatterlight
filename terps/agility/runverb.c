@@ -265,7 +265,7 @@ static void v_eat(int vc,parse_rec *nounrec)
 
   if (noun[dobj-first_noun].movable) it_destroy(dobj);
   if (noun[dobj-first_noun].poisonous) {
-    sysmsgd(129,"Unfortunatly, $n_pro$ $n_was$ poisonous.",nounrec);
+    sysmsgd(129,"Unfortunately, $n_pro$ $n_was$ poisonous.",nounrec);
     deadflag=1;
   }
 }
@@ -757,8 +757,8 @@ static void v_attack(uchar missile,parse_rec *targrec,parse_rec *weprec)
       if (noun[wep-first_noun].drinkable) {  /* i.e. a liquid */
 	alt_sysmsg(msgnum+1,"$You$ splash $the_o$$object$ with "
 		   "$the_n$$noun$, but the liquid quickly evaporates "
-		   "without noticable effect.",weprec,targrec);
-	it_destroy(wep);	
+		   "without noticeable effect.",weprec,targrec);
+	it_destroy(wep);
       } else {
 	alt_sysmsg(msgnum,
 		   "$You$ strike at $the_o$$object$ with $the_n$$noun$, "
@@ -969,7 +969,9 @@ static void v_quit(void)
   }
 }
 
-const char dirname[12][10]={"north","south","east","west",
+// Gargoyle: this was originally called "dirname", but that conflicts
+// with the POSIX function of the same name.
+const char directions[12][10]={"north","south","east","west",
 			      "northeast","northwest","southeast","southwest",
 			      "up","down","in","out"};
 
@@ -992,7 +994,7 @@ void v_listexit(void)
 	if (j>1) writestr(", ");
 	if (j>1 && j==k) writestr("or ");
 	if (i<8) writestr("the ");
-	writestr(dirname[i]);
+	writestr(directions[i]);
       }
     writeln(".");
   }
@@ -1053,7 +1055,7 @@ static int checkgram(int vb,int dobj,word prep, int iobj, rbool redir_flag)
     msgnum=5;
     if (vb==31) msgnum=155; /* Talk */
     if (vb==34) msgnum=160; /* Ask */
-    sysmsg(5,"You can't use ALL with '$verb$'.");return -1;}
+    sysmsg(msgnum,"You can't use ALL with '$verb$'.");return -1;}
   return 0;
 }
 
@@ -1386,7 +1388,7 @@ void exec_verb(void)
     if (DEBUG_AGT_CMD)
       debugout("*** Scanning (after) metacommands ****\n");
     /* Normal treatment */
-    turndone=turndone||metacommand_cycle(save_vb,&redir_flag);
+    metacommand_cycle(save_vb,&redir_flag);
   }
 
   if (aver>=AGT15 && !quitflag && !endflag && !deadflag) {
@@ -1397,7 +1399,6 @@ void exec_verb(void)
     clear_stack();
     if ((PURE_METAVERB || !was_metaverb) && 
 	2==scan_metacommand(0,57,0,0,0,NULL)) 
-      turndone=1;
     supress_debug=0;
   }
 

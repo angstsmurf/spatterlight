@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSCache<NSNumber *, NSImage *> *imageCache;
 
 @property NSInteger lastimageresno;
-@property NSImage *lastimage;
+@property (nullable) NSImage *lastimage;
 @property NSMutableDictionary <NSNumber *, ImageResource *> *resources;
 @property NSMutableDictionary <NSString *, ImageFile *> *files;
 

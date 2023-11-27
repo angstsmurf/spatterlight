@@ -44,20 +44,20 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSMutableDictionary *)coloredAttributes:(NSMutableDictionary *)dict {
-    if (_fg != zcolor_Default && _fg != zcolor_Current) {
+    if (_fg != zcolor_Default && _fg != zcolor_Current && _fg != zcolor_Transparent) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
-    if (_bg != zcolor_Default && _bg != zcolor_Current) {
+    if (_bg != zcolor_Default && _bg != zcolor_Current && _bg != zcolor_Transparent) {
         dict[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return dict;
 }
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict {
-    if (_fg != zcolor_Default && _fg != zcolor_Current) {
+    if (_fg != zcolor_Default && _fg != zcolor_Current && _fg != zcolor_Transparent) {
         dict[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
-    if (_bg != zcolor_Default && _bg != zcolor_Current) {
+    if (_bg != zcolor_Default && _bg != zcolor_Current && _bg != zcolor_Transparent) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return dict;
@@ -70,6 +70,8 @@ fprintf(stderr, "%s\n",                                                    \
         fgstring = @"zcolor_Current";
     } else if (_fg == zcolor_Default) {
         fgstring = @"zcolor_Default";
+    } else if (_fg == zcolor_Transparent) {
+        fgstring = @"zcolor_Transparent";
     } else {
         fgstring = [NSString stringWithFormat:@"%lx", (long)_fg];
     }
@@ -78,6 +80,8 @@ fprintf(stderr, "%s\n",                                                    \
         bgstring = @"zcolor_Current";
     } else if (_bg == zcolor_Default) {
         bgstring = @"zcolor_Default";
+    } else if (_bg == zcolor_Transparent) {
+        bgstring = @"zcolor_Transparent";
     } else {
         bgstring = [NSString stringWithFormat:@"%lx", (long)_bg];
     }

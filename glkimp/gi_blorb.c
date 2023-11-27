@@ -479,7 +479,10 @@ giblorb_err_t giblorb_load_resource(giblorb_map_t *map, glui32 method,
     
     sample.usage = usage;
     sample.resnum = resnum;
-    
+
+    if (map == NULL)
+        return giblorb_err_NotAMap;
+
     found = giblorb_bsearch(&sample, map->ressorted, map->numresources);
     
     if (!found)

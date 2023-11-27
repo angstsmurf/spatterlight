@@ -25,7 +25,7 @@
 #define  VB_RAND2      0x00C39EC3
 #define  VB_RAND3      0x00FFFFFF
 #define  VB_INIT       0x00A09E86
-static int32 vbr_state;
+static int64_t vbr_state;
 
 void *my_malloc(int32, char *);
 int32 ifiction_get_IFID(char *, char *, int32);

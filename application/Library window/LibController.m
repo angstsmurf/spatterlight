@@ -259,7 +259,13 @@ fprintf(stderr, "%s\n",                                                    \
     }
     NSNumber *scrollPosNum = [state decodeObjectOfClass:[NSNumber class] forKey:@"scrollPosition"];
     CGFloat scrollPosition = scrollPosNum.floatValue;
-    NSArray *selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
+    NSArray *selectedIfids;
+    if (@available(macOS 11.0, *)) {
+        selectedIfids = [state decodeArrayOfObjectsOfClasses:[NSSet setWithObject:[NSString class]] forKey:@"selectedGames"];
+    } else {
+        selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
+    }
+
     [self.tableViewController updateTableViews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [self.tableViewController selectGamesWithIfids:selectedIfids scroll:NO];

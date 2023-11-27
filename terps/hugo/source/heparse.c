@@ -2652,7 +2652,7 @@ void SeparateWords(void)
 			}
 			else
 			{
-				strncpy(buffer+bloc, b, MAXBUFFER+MAXWORDS);
+				strncpy(buffer+bloc, b, MAXBUFFER+MAXWORDS - bloc);
 				bloc++;
 			}
 		}

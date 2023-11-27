@@ -1002,7 +1002,7 @@ gagt_status_update (void)
            * We don't (yet) have a status line.  Perhaps we're at the
            * very start of a game.  Print a standard message.
            */
-          glk_put_string ("Glk AGiliTy version 1.1.1.1");
+          glk_put_string ("Glk AGiliTy version 1.1.2");
         }
 
       glk_set_window (gagt_main_window);
@@ -3571,7 +3571,7 @@ gagt_display_auto (void)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
-  style = gagt_display_text_element ((glui32 *)gagt_current_buffer.data,
+  gagt_display_text_element ((glui32 *)gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length, style, FALSE);
 }
@@ -3620,7 +3620,7 @@ gagt_display_manual (int fixed_width)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
-  style = gagt_display_text_element (gagt_current_buffer.data,
+  gagt_display_text_element (gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length,
                                      style, fixed_width);

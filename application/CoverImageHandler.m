@@ -163,12 +163,12 @@
             CGFloat border = glkctl.theme.border;
             preFullscreen.size.width -= 2 * border;
 
-            glkctl.contentView.frame = NSMakeRect(NSMidX(glkctl.borderView.frame) - NSMidX(preFullscreen),
+            glkctl.gameView.frame = NSMakeRect(NSMidX(glkctl.borderView.frame) - NSMidX(preFullscreen),
                 border,
                 NSWidth(preFullscreen),
                 NSHeight(glkctl.borderView.frame) - 2 * border);
         }
-        [glkctl.borderView addSubview:glkctl.contentView];
+        [glkctl.borderView addSubview:glkctl.gameView];
         [glkctl adjustContentView];
 
         CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -183,7 +183,7 @@
         glkctl.showingCoverImage = NO;
         // FIXME: Just fork the interpreter NSTask here instead
         glkctl.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        glkctl.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        glkctl.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
         [glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
 
@@ -362,7 +362,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [fadeWindow orderOut:nil];
             // Why do these need to be reset here?
-            blockController.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+            blockController.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
             blockController.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         });
     });
@@ -408,7 +408,7 @@
     CGFloat fullScreenHeight = borderFinalFrame.size.height;
 
     NSView *borderview = glkctl.borderView;
-    NSView *gameContentView = glkctl.contentView;
+    NSView *gameContentView = glkctl.gameView;
     borderview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     gameContentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
@@ -461,7 +461,7 @@
 - (void)exitFullscreenWithDuration:(NSTimeInterval)duration {
     NSWindow *window = _glkctl.window;
     NSRect oldFrame = _glkctl.windowPreFullscreenFrame;
-    NSView *gameContentView = _glkctl.contentView;
+    NSView *gameContentView = _glkctl.gameView;
 
     _backgroundView.frame = window.contentView.frame;
     _imageView.frame = _backgroundView.frame;

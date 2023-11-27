@@ -732,7 +732,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
     if (datafile) {
         size_t data_start = 0x135;
 
-        // Header actually starts at offset 0x016d (0x135 + 0x38).
+        // Header actually starts at offset 0x16d (0x135 + 0x38).
         // We add 50 bytes before the head to match the C64 files.
 
         if (*extent > MAX_LENGTH || *extent < data_start)

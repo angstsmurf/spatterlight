@@ -61,7 +61,7 @@ PasteboardFilePasteLocation;
         [NSValueTransformer setValueTransformer:dicTransformer
                                         forName:@"AttributeDictionaryTransformer"];
 
-        ColorTransformer *colorTransformer = [[ColorTransformer alloc] init];
+        ColorTransformer *colorTransformer = [ColorTransformer new];
         [NSValueTransformer setValueTransformer:colorTransformer
                                         forName:@"ColorTransformer"];
     } else {
@@ -333,16 +333,14 @@ PasteboardFilePasteLocation;
     panel.directoryURL = directory;
     panel.message = NSLocalizedString(@"Please select a game", nil);
 
-    NSButton *checkbox = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 30)];
-    checkbox.buttonType = NSSwitchButton;
-    checkbox.title = NSLocalizedString(@"Add to library", @"");
-    checkbox.state = [[NSUserDefaults standardUserDefaults]
+    panel.accessoryView = _tableViewController.addToLibraryCheckBox;
+    NSButton *finalButton = (NSButton *)panel.accessoryView;
+    finalButton.state = [[NSUserDefaults standardUserDefaults]
                       boolForKey:@"AddToLibrary"];
-    panel.accessoryView = checkbox;
 
     [panel beginWithCompletionHandler:^(NSInteger result) {
+        NSButton *finalButton = (NSButton*)panel.accessoryView;
         if (result == NSModalResponseOK) {
-            NSButton *finalButton = (NSButton*)panel.accessoryView;
             BOOL addToLibrary = (finalButton.state == NSOnState); ;
             [[NSUserDefaults standardUserDefaults]
              setBool:addToLibrary forKey:@"AddToLibrary"];

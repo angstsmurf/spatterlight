@@ -464,7 +464,7 @@ const char* averstr[]={"????","1.0","1.18",
 		       "Magx"};
 
 const char *portstr=PORTSTR;
-const char *version_str="version 1.1.1";
+const char *version_str="version 1.1.2";
 
 const char nonestr[5]={4,'n','o','n','e'};
 static const char NONEstr[5]={4,'N','O','N','E'};

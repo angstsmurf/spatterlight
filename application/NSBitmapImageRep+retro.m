@@ -109,7 +109,7 @@
     NSData *data =
     [NSData dataWithBytes:zimg->data length:(NSUInteger)(zimg->width * zimg->height * bytesPerPixel)];
     CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
-
+    
     CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
 
     NSBitmapImageRep *rep = nil;

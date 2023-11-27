@@ -1,1 +1,0 @@
-Noch nicht in libglkif implementiert.

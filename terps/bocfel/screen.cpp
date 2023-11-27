@@ -1388,6 +1388,11 @@ static void set_cursor(uint16_t y, uint16_t x)
         x = 1;
     }
 
+#ifdef SPATTERLIGHT
+    if (y > gscreenh / gcellh)
+        return;
+#endif
+
     // This is actually illegal, but some games (e.g. Beyond Zork) expect it to work.
     if (y > upper_window_height) {
         resize_upper_window(y, true);

@@ -49,7 +49,6 @@
     BOOL hyper_request;
     BOOL mouse_request;
     BOOL transparent;
-
     NSInteger terminator;
 }
 @end
@@ -440,11 +439,11 @@
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
             [self checkForUglyBorder];
@@ -473,7 +472,7 @@
     if (!bgcolor)
         bgcolor = self.theme.gridBackground;
 
-    if (transparent)
+    if (transparent || bgnd == zcolor_Transparent)
         bgcolor = [NSColor clearColor];
     else
         [glkctl setBorderColor:bgcolor fromWindow:self];
@@ -600,7 +599,7 @@
     if (glkctl) {
         screensize = glkctl.window.screen.visibleFrame.size;
         if (frame.size.height > screensize.height)
-        frame.size.height = glkctl.contentView.frame.size.height;
+        frame.size.height = glkctl.gameView.frame.size.height;
     }
 
     _textview.textContainerInset =
@@ -610,8 +609,11 @@
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
 
+    CGFloat containerInsetHeight = _textview.textContainerInset.height * 2;
+    if (containerInsetHeight > frame.size.height)
+        containerInsetHeight = 0;
     NSUInteger newrows = (NSUInteger)round((frame.size.height
-                                            - (_textview.textContainerInset.height * 2) ) /
+                                            - containerInsetHeight) /
                                            self.theme.cellHeight);
 
     if (newrows == 0 && frame.size.height > 0)
@@ -1582,6 +1584,7 @@
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
     para.maximumLineHeight = self.theme.cellHeight;
+    para.minimumLineHeight = self.theme.cellHeight;
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
 
     styles[style_BlockQuote] = beyondZorkStyle;

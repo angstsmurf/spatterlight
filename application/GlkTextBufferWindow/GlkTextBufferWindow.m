@@ -201,9 +201,9 @@ fprintf(stderr, "%s\n",                                                    \
         // reduce the height of the buffer window below it.
         // This is mainly to prevent the search bar from
         // being partially hidden under the status window.
-        for (GlkTextGridWindow *grid in glkctl.contentView.subviews) {
+        for (GlkTextGridWindow *grid in glkctl.gameView.subviews) {
             if ([grid isKindOfClass:[GlkTextGridWindow class]]) {
-                frame.size.height = glkctl.contentView.frame.size.height - grid.pendingFrame.size.height;
+                frame.size.height = glkctl.gameView.frame.size.height - grid.pendingFrame.size.height;
                 frame.origin.y = NSMaxY(grid.pendingFrame);
                 break;
             }
@@ -240,8 +240,8 @@ fprintf(stderr, "%s\n",                                                    \
             if ([container hasMarginImages])
                 [container invalidateLayout:nil];
 
-            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
             super.frame = self.pendingFrame;
@@ -655,7 +655,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (!self.theme.doStyles) {
                 NSMutableDictionary *newLineAttributes = [storedNewline attributesAtIndex:0 effectiveRange:nil].mutableCopy;
                 ZColor *zcolor = newLineAttributes[@"ZColor"];
-                if (zcolor && zcolor.bg != zcolor_Current && zcolor.bg != zcolor_Default) {
+                if (zcolor && zcolor.bg != zcolor_Current && zcolor.bg != zcolor_Default && zcolor.bg != zcolor_Transparent) {
                     newLineAttributes[NSBackgroundColorAttributeName] = nil;
                     storedNewline = [[NSAttributedString alloc] initWithString:@"\n" attributes:newLineAttributes];
                 }
@@ -747,11 +747,11 @@ fprintf(stderr, "%s\n",                                                    \
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
         }
@@ -807,7 +807,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // find the second newline from the end
     for (i = 0; i < length; i++) {
-        if ([string characterAtIndex:length - i - 1] == '\n') {
+        if ([string characterAtIndex:length - i - 1] == '\n' || [string characterAtIndex:length - i - 1] == '\r') {
             if (found) {
                 break;
             } else {
@@ -815,11 +815,15 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
     }
-    if (i < length)
+    if (i < length) {
         prompt = i;
-    else {
-        prompt = 0;
+    } else {
         // Found no newline
+        if (length > 1000) {
+            prompt = 0;
+        } else {
+            prompt = length;
+        }
     }
 
     line_request = NO;
@@ -849,10 +853,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Null string!");
         return;
     }
-//    if ([str characterAtIndex:(str.length - 1)] == '\0')
-//        NSLog(@"Null terminated string!");
-//    if ([str characterAtIndex:0] == '\0')
-//        NSLog(@"Null prefixed string!");
 
     if (bufferTextstorage.length > 50000)
         bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
@@ -958,6 +958,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSUInteger)unputString:(NSString *)buf {
+    [self flushDisplay];
      NSUInteger result = 0;
      NSUInteger initialLength = textstorage.length;
      NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
@@ -1248,7 +1249,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)recalcInputAttributes {
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Transparent) {
         inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
     }
 
@@ -1632,14 +1633,14 @@ replacementString:(id)repl {
                                          at:textstorage.length];
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
-        if (_lastchar != '\n' && textstorage.length) {
+        if (textstorage.length == 0) {
+            [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
+        } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
-            return;
-        } else {
-            [container addImage:image align: align at:
-             textstorage.length linkid:(NSUInteger)self.currentHyperlink];
-            cell.marginImage = container.marginImages.lastObject;
         }
+        
+        [container addImage:image align:align at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+        cell.marginImage = container.marginImages.lastObject;
     }
 
     att.attachmentCell = cell;
@@ -1750,8 +1751,8 @@ replacementString:(id)repl {
     // Send an arrange event to The Colder Light in order
     // to make it update its title bar
     if (glkctl.colderLight) {
-        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.contentView.frame.size.width
-                                                    height:(NSInteger)glkctl.contentView.frame.size.height
+        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
+                                                    height:(NSInteger)glkctl.gameView.frame.size.height
                                                      theme:glkctl.theme
                                                      force:YES];
         [glkctl queueEvent:gev];

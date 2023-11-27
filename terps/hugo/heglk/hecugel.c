@@ -1740,7 +1740,6 @@ void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int sh
     heglk_sizeifexists(i);
     win_fillrect(wins[i].win->peer, hugo_color(wins[i].bg), 0, 0, abs(x1-x0), abs(y1-y0));
     win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight);
-    win_maketransparent(wins[i].win->peer);
 }
 
 void heglk_adjust_future_boy_windows(void) {

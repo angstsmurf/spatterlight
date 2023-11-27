@@ -293,6 +293,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = cab->u.ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
+                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -310,6 +311,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = cab->u.uch;
               if (!substring) {
                 push_callstub(0x11, 0);
+                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -463,6 +465,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
               ival = ch & 0xFF;
               if (!substring) {
                 push_callstub(0x11, 0);
+                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
@@ -480,6 +483,7 @@ void stream_string(glui32 addr, int inmiddle, int bitnum)
             case iosys_Filter: 
               if (!substring) {
                 push_callstub(0x11, 0);
+                substring = TRUE;
               }
               pc = addr;
               push_callstub(0x10, bitnum);
