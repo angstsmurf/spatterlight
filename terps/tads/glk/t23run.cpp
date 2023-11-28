@@ -215,25 +215,25 @@ void glk_main(void)
         glk_set_window(mainwin);
 
          /* copyright-date-string */
-        sprintf(copyright,
-                "TADS Interpreter - "
-                "Copyright (c) 1993, 2004 Michael J. Roberts\n"
-                "TADS 2 VM version " TADS_RUNTIME_VERSION " / "
-                "T3 VM version " T3VM_VSN_STRING "\n\n");
+        snprintf(copyright, sizeof(copyright),
+                 "TADS Interpreter - "
+                 "Copyright (c) 1993, 2004 Michael J. Roberts\n"
+                 "TADS 2 VM version " TADS_RUNTIME_VERSION " / "
+                 "T3 VM version " T3VM_VSN_STRING "\n\n");
         glk_put_string(copyright);
 
-        sprintf(errorload,
-                "Error: you didn't specify a game file name on the command "
-                "line, or the command "
-                "options are incorrect. You must specify the name of "
-                "the game file you would "
-                "like to run.\n"
-                "\n"
-                "If you'd like a list of command-line options for TADS 2 "
-                "games, specify -help2 "
-                "instead of giving a game file name. Or, if you'd like a "
-                "list of command-line "
-                "options for TADS 3, specify -help3.\n");
+        snprintf(errorload, sizeof(errorload),
+                 "Error: you didn't specify a game file name on the command "
+                 "line, or the command "
+                 "options are incorrect. You must specify the name of "
+                 "the game file you would "
+                 "like to run.\n"
+                 "\n"
+                 "If you'd like a list of command-line options for TADS 2 "
+                 "games, specify -help2 "
+                 "instead of giving a game file name. Or, if you'd like a "
+                 "list of command-line "
+                 "options for TADS 3, specify -help3.\n");
         glk_put_string(errorload);
 
         /* pause (if desired by OS layer) and exit */
@@ -264,9 +264,9 @@ void glk_main(void)
 
         case VM_GGT_INVALID:
             /* invalid file type */
-            sprintf(buf,
-                    "The file you have selected (%s) is not a valid game file.\n",
-                    fname);
+            snprintf(buf, sizeof(buf),
+                     "The file you have selected (%s) is not a valid game file.\n",
+                     fname);
             mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
             glk_set_window(mainwin);
             glk_put_string(buf);
@@ -274,7 +274,7 @@ void glk_main(void)
 
         case VM_GGT_NOT_FOUND:
             /* file not found */
-            sprintf(buf, "The game file (%s) cannot be found.\n", prog_arg);
+            snprintf(buf, sizeof(buf), "The game file (%s) cannot be found.\n", prog_arg);
             mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
             glk_set_window(mainwin);
             glk_put_string(buf);
@@ -282,14 +282,14 @@ void glk_main(void)
 
         case VM_GGT_AMBIG:
             /* ambiguous file */
-            sprintf(buf,"The game file (%s) cannot be found exactly as given, "
-                        "but multiple game "
-                        "files with this name and different default suffixes "
-                        "(.gam, .t3) exist. "
-                        "Please specify the full name of the file, including the "
-                        "suffix, that you "
-                        "wish to use.\n",
-                   prog_arg);
+            snprintf(buf, sizeof(buf), "The game file (%s) cannot be found exactly as given, "
+                         "but multiple game "
+                         "files with this name and different default suffixes "
+                         "(.gam, .t3) exist. "
+                         "Please specify the full name of the file, including the "
+                         "suffix, that you "
+                         "wish to use.\n",
+                    prog_arg);
             mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
             glk_set_window(mainwin);
             glk_put_string(buf);

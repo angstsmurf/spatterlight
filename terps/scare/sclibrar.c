@@ -1416,7 +1416,7 @@ lib_cmd_history_common (sc_gameref_t game, sc_int limit)
           sc_char buffer[64];
 
           /* Write the history entry sequence. */
-          sprintf (buffer, "%4ld -- Time ", sequence);
+          snprintf (buffer, sizeof(buffer), "%4ld -- Time ", sequence);
           if_print_string (buffer);
 
           /* Separate the timestamp out into components. */
@@ -1426,13 +1426,13 @@ lib_cmd_history_common (sc_gameref_t game, sc_int limit)
 
           /* Print playing time as "[HHh ][M]Mm SSs". */
           if (hr > 0)
-            sprintf (buffer, "%ldh %02ldm %02lds", hr, min, sec);
+            snprintf (buffer, sizeof(buffer), "%ldh %02ldm %02lds", hr, min, sec);
           else
-            sprintf (buffer, "%ldm %02lds", min, sec);
+            snprintf (buffer, sizeof(buffer), "%ldm %02lds", min, sec);
           if_print_string (buffer);
 
           /* Follow up with the turns count, and the command string itself. */
-          sprintf (buffer, ", turn %ld : ", turns);
+          snprintf (buffer, sizeof(buffer), ", turn %ld : ", turns);
           if_print_string (buffer);
           if_print_string (command);
           if_print_character ('\n');
@@ -1932,7 +1932,7 @@ lib_cmd_statusline (sc_gameref_t game)
           sc_char buffer[32];
 
           if_print_string ("Score: ");
-          sprintf (buffer, "%ld", score);
+          snprintf (buffer, sizeof(buffer), "%ld", score);
           if_print_string (buffer);
         }
     }
@@ -1964,7 +1964,7 @@ lib_cmd_version (sc_gameref_t game)
   major = SCARE_EMULATION / 1000;
   minor = (SCARE_EMULATION % 1000) / 100;
   point = SCARE_EMULATION % 100;
-  sprintf (buffer, "%ld.%02ld.%02ld", major, minor, point);
+  snprintf (buffer, sizeof(buffer), "%ld.%02ld.%02ld", major, minor, point);
   if_print_string (buffer);
   if_print_string (" compatible], ");
 
@@ -2007,7 +2007,7 @@ lib_cmd_wait (sc_gameref_t game)
       sc_char buffer[32];
 
       pf_buffer_string (filter, "(");
-      sprintf (buffer, "%ld", game->waitturns);
+      snprintf (buffer, sizeof(buffer), "%ld", game->waitturns);
       pf_buffer_string (filter, buffer);
       pf_buffer_string (filter,
                         game->waitturns == 1 ? " turn)\n" : " turns)\n");
@@ -2040,7 +2040,7 @@ lib_cmd_wait_number (sc_gameref_t game)
   game->waitturns = waitturns;
 
   if_print_string ("The game will now wait ");
-  sprintf (buffer, "%ld", waitturns);
+  snprintf (buffer, sizeof(buffer), "%ld", waitturns);
   if_print_string (buffer);
   if_print_string (waitturns == 1 ? " turn" : " turns");
   if_print_string (" for each 'wait' command you enter.\n");
@@ -2184,9 +2184,9 @@ lib_cmd_time (sc_gameref_t game)
   min = (timestamp % SECS_PER_HOUR) / MINS_PER_HOUR;
   sec = timestamp % SECS_PER_MINUTE;
   if (hr > 0)
-    sprintf (buffer, "%ldh %02ldm %02lds", hr, min, sec);
+    snprintf (buffer, sizeof(buffer), "%ldh %02ldm %02lds", hr, min, sec);
   else
-    sprintf (buffer, "%ldm %02lds", min, sec);
+    snprintf (buffer, sizeof(buffer), "%ldm %02lds", min, sec);
 
   /* Print the game's elapsed time. */
   if_print_string ("You have been running the game for ");
@@ -4088,18 +4088,18 @@ lib_cmd_count (sc_gameref_t game)
 
   /* Print the player limits and amounts used. */
   pf_buffer_string (filter, "Size:    You have ");
-  sprintf (buffer, "%ld", size);
+  snprintf (buffer, sizeof(buffer), "%ld", size);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, ".  The most you can hold is ");
-  sprintf (buffer, "%ld", obj_get_player_size_limit (game));
+  snprintf (buffer, sizeof(buffer), "%ld", obj_get_player_size_limit (game));
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, ".\n");
 
   pf_buffer_string (filter, "Weight:  You have ");
-  sprintf (buffer, "%ld", weight);
+  snprintf (buffer, sizeof(buffer), "%ld", weight);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, ".  The most you can hold is ");
-  sprintf (buffer, "%ld", obj_get_player_weight_limit (game));
+  snprintf (buffer, sizeof(buffer), "%ld", obj_get_player_weight_limit (game));
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, ".\n");
 
@@ -9555,7 +9555,7 @@ lib_cmd_turns (sc_gameref_t game)
   sc_char buffer[32];
 
   pf_buffer_string (filter, "You have taken ");
-  sprintf (buffer, "%ld", game->turns);
+  snprintf (buffer, sizeof(buffer), "%ld", game->turns);
   pf_buffer_string (filter, buffer);
   if (game->turns == 1)
     pf_buffer_string (filter, " turn so far.\n");
@@ -9590,13 +9590,13 @@ lib_cmd_score (sc_gameref_t game)
                                          "Your score is ",
                                          "My score is ",
                                          "%player%'s score is "));
-  sprintf (buffer, "%ld", game->score);
+  snprintf (buffer, sizeof(buffer), "%ld", game->score);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, " out of a maximum of ");
-  sprintf (buffer, "%ld", max_score);
+  snprintf (buffer, sizeof(buffer), "%ld", max_score);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, ".  (");
-  sprintf (buffer, "%ld", percent);
+  snprintf (buffer, sizeof(buffer), "%ld", percent);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, "%)\n");
 

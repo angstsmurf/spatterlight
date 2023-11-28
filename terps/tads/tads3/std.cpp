@@ -780,7 +780,7 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                     case ']':
                     case ' ':
                         /* use % encoding for special characters */
-                        sprintf(buf, "%%%02x", (unsigned)(uchar)*txt);
+                        snprintf(buf, sizeof(buf), "%%%02x", (unsigned)(uchar)*txt);
                         need += 3;
                         for (i = 0 ; i < 3 ; ++i)
                         {
@@ -816,7 +816,7 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                 /* the value is an int, formatted in decimal */
                 {
                     int ival = va_arg(args, int);
-                    sprintf(buf, "%d", ival);
+                    snprintf(buf, sizeof(buf), "%d", ival);
 
                     /* check for '%dth' notation (1st, 2nd, etc) */
                     nth = check_nth(fmt, ival);
@@ -886,17 +886,17 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
 
             case 'u':
                 /* the value is an int, formatted as unsigned decimal */
-                sprintf(buf, "%u", va_arg(args, int));
+                snprintf(buf, sizeof(buf), "%u", va_arg(args, int));
                 goto num_common;
 
             case 'x':
                 /* the value is an int, formatted in hex */
-                sprintf(buf, "%x", va_arg(args, int));
+                snprintf(buf, sizeof(buf), "%x", va_arg(args, int));
                 goto num_common;
 
             case 'o':
                 /* the value is an int, formatted in hex */
-                sprintf(buf, "%o", va_arg(args, int));
+                snprintf(buf, sizeof(buf), "%o", va_arg(args, int));
                 goto num_common;
 
             case 'l':
@@ -905,22 +905,22 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                 {
                 case 'd':
                     /* it's a long, formatted in decimal */
-                    sprintf(buf, "%ld", va_arg(args, long));
+                    snprintf(buf, sizeof(buf), "%ld", va_arg(args, long));
                     goto num_common;
 
                 case 'u':
                     /* it's a long, formatted as unsigned decimal */
-                    sprintf(buf, "%lu", va_arg(args, long));
+                    snprintf(buf, sizeof(buf), "%lu", va_arg(args, long));
                     goto num_common;
 
                 case 'x':
                     /* it's a long, formatted in hex */
-                    sprintf(buf, "%lx", va_arg(args, long));
+                    snprintf(buf, sizeof(buf), "%lx", va_arg(args, long));
                     goto num_common;
 
                 case 'o':
                     /* it's a long, formatted in octal */
-                    sprintf(buf, "%lo", va_arg(args, long));
+                    snprintf(buf, sizeof(buf), "%lo", va_arg(args, long));
                     goto num_common;
 
                 default:
@@ -1350,9 +1350,9 @@ void t3_list_memory_blocks(void (*cb)(const char *))
     /* display the list of undeleted memory blocks */
     for (mem = mem_head, cnt = 0 ; mem ; mem = mem->nxt, ++cnt)
     {
-        sprintf(buf, "  addr=%lx, id=%ld, siz=%lu" OS_MEM_PREFIX_FMT "\n",
-                (long)(mem + 1), mem->id, (unsigned long)mem->siz
-                OS_MEM_PREFIX_FMT_VARS(mem));
+        snprintf(buf, sizeof(buf), "  addr=%lx, id=%ld, siz=%lu" OS_MEM_PREFIX_FMT "\n",
+                 (long)(mem + 1), mem->id, (unsigned long)mem->siz
+                 OS_MEM_PREFIX_FMT_VARS(mem));
         (*cb)(buf);
     }
 
@@ -1360,7 +1360,7 @@ void t3_list_memory_blocks(void (*cb)(const char *))
     mem_mutex.unlock();
 
     /* display totals */
-    sprintf(buf, "\nTotal blocks in use: %d\n", cnt);
+    snprintf(buf, sizeof(buf), "\nTotal blocks in use: %d\n", cnt);
     (*cb)(buf);
 }
 

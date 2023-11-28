@@ -617,14 +617,14 @@ run_notify_score_change (sc_gameref_t game)
   if (game->score > undo->score)
     {
       if_print_string ("(Your score has increased by ");
-      sprintf (buffer, "%ld", game->score - undo->score);
+      snprintf (buffer, sizeof(buffer), "%ld", game->score - undo->score);
       if_print_string (buffer);
       if_print_string (")\n");
     }
   else if (game->score < undo->score)
     {
       if_print_string ("(Your score has decreased by ");
-      sprintf (buffer, "%ld", undo->score - game->score);
+      snprintf (buffer, sizeof(buffer), "%ld", undo->score - game->score);
       if_print_string (buffer);
       if_print_string (")\n");
     }

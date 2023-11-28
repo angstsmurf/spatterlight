@@ -939,8 +939,8 @@ uip_match_variable (sc_ptnoderef_t node)
               sc_char value[32];
 
               /* Compare numeric against the current string position. */
-              sprintf (value, "%ld", vt_rvalue.integer);
-              length = strlen (value);
+              snprintf (value, sizeof(value), "%ld", vt_rvalue.integer);
+              length = strnlen (value, sizeof(value));
               if (strncmp (uip_string + uip_posn, value, length) == 0)
                 {
                   /* Integer match, advance position and return. */
