@@ -84,7 +84,7 @@ osfildef *CCharmap::open_map_file_syn(class CResLoader *res_loader,
         {
             /* rebuild the name as "isoX" */
             char buf[25];
-            sprintf(buf, "iso%d", num);
+            snprintf(buf, sizeof(buf), "iso%d", num);
             
             /* try loading it */
             if ((fp = open_map_file(res_loader, buf, map_type)) != 0)
@@ -101,7 +101,7 @@ osfildef *CCharmap::open_map_file_syn(class CResLoader *res_loader,
     {
         /* it's all digits - try making it "cpXXXX" */
         char buf[25];
-        sprintf(buf, "cp%d", num);
+        snprintf(buf, sizeof(buf), "cp%d", num);
         if ((fp = open_map_file(res_loader, buf, map_type)) != 0)
             return fp;
     }
@@ -120,7 +120,7 @@ osfildef *CCharmap::open_map_file_syn(class CResLoader *res_loader,
     {
         /* try making it "cpXXXX" */
         char buf[25];
-        sprintf(buf, "cp%d", num);
+        snprintf(buf, sizeof(buf), "cp%d", num);
         if ((fp = open_map_file(res_loader, buf, map_type)) != 0)
             return fp;
     }
@@ -1005,7 +1005,7 @@ size_t CCharmapToLocal::source_esc_cb(wchar_t ch, char **dest, size_t *len)
     size_t copylen;
     
     /* prepare our own representation */
-    sprintf(buf, "\\u%04x", (unsigned int)ch);
+    snprintf(buf, sizeof(buf), "\\u%04x", (unsigned int)ch);
 
     /* copy the whole thing if possible, but limit to the available space */
     copylen = 6;

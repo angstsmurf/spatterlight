@@ -3572,7 +3572,7 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
 
                     /* format it to a buffer and copy to the output */
                     char ubuf[60];
-                    sprintf(ubuf, "%.0lf", utime);
+                    snprintf(ubuf, sizeof(ubuf), "%.0lf", utime);
                     wrtstr(ubuf);
                 }
                 break;

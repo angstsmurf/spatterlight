@@ -731,9 +731,9 @@ void CVmFormatter::write_tab(VMG_ int indent, int multiple)
          *   the underlying system is HTML - generate an appropriate <TAB>
          *   sequence to produce the desired effect 
          */
-        sprintf(buf, "<TAB %s=%d>",
-                indent != 0 ? "INDENT" : "MULTIPLE",
-                indent != 0 ? indent : multiple);
+        snprintf(buf, sizeof(buf), "<TAB %s=%d>",
+                 indent != 0 ? "INDENT" : "MULTIPLE",
+                 indent != 0 ? indent : multiple);
             
         /* write it out */
         buffer_string(vmg_ buf);

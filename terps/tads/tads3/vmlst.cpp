@@ -2829,7 +2829,7 @@ void CVmObjList::join(VMG_ vm_val_t *retval,
             {
             case VM_INT:
                 /* integer - format in decimal */
-                sprintf(buf, "%ld", (long)ele.val.intval);
+                snprintf(buf, sizeof(buf), "%ld", (long)ele.val.intval);
                 es = buf;
                 es_len = strlen(es);
                 break;

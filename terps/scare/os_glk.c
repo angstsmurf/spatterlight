@@ -916,7 +916,7 @@ gsc_status_update (void)
           status = sc_get_game_status_line (gsc_game);
           if (!gsc_is_string_usable (status))
             {
-              sprintf (score, "Score: %ld", sc_get_game_score (gsc_game));
+              snprintf (score, sizeof(score), "Score: %ld", sc_get_game_score (gsc_game));
               status = score;
             }
 
@@ -985,7 +985,7 @@ gsc_status_print (void)
       status = sc_get_game_status_line (gsc_game);
       if (!gsc_is_string_usable (status))
         {
-          sprintf (score, "Score: %ld", sc_get_game_score (gsc_game));
+          snprintf (score, sizeof(score), "Score: %ld", sc_get_game_score (gsc_game));
           status = score;
         }
 
@@ -2093,10 +2093,10 @@ gsc_command_print_version_number (glui32 version)
 {
   char buffer[64];
 
-  sprintf (buffer, "%lu.%lu.%lu",
-          (unsigned long) version >> 16,
-          (unsigned long) (version >> 8) & 0xff,
-          (unsigned long) version & 0xff);
+  snprintf (buffer, sizeof(buffer), "%lu.%lu.%lu",
+           (unsigned long) version >> 16,
+           (unsigned long) (version >> 8) & 0xff,
+           (unsigned long) version & 0xff);
   gsc_normal_string (buffer);
 }
 

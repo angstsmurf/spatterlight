@@ -291,12 +291,12 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
      *   the day of the month, with a leading space for numbers less than
      *   ten, and "yyyy" is the year. 
      */
-    sprintf(timebuf, "'%.3s %2d %4d'",
-            tstr + 4, tblk->tm_mday, tblk->tm_year + 1900);
+    snprintf(timebuf, sizeof(timebuf), "'%.3s %2d %4d'",
+             tstr + 4, tblk->tm_mday, tblk->tm_year + 1900);
     add_define("__DATE__", timebuf);
 
     /* add the __TIME__ macro - 24-hour "hh:mm:ss" format */
-    sprintf(timebuf, "'%.8s'", tstr + 11);
+    snprintf(timebuf, sizeof(timebuf), "'%.8s'", tstr + 11);
     add_define("__TIME__", timebuf);
 
     /* 
@@ -5243,7 +5243,7 @@ int CTcTokenizer::substitute_macro_actuals(
             for (i = entry->get_argc() - 1 ; argofs[i] != 0 ; ++i) ;
 
             /* make a string out of the variable argument count */
-            sprintf(buf, "%d", i - (entry->get_argc() - 1));
+            snprintf(buf, sizeof(buf), "%d", i - (entry->get_argc() - 1));
 
             /* add the argument count to the output buffer */
             subexp->append(buf, strlen(buf));
