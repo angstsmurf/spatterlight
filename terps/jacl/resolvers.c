@@ -66,8 +66,7 @@ static char 					macro_function[84];
 static int						value_has_been_resolved;
 
 int            *
-container_resolve(container_name)
-	 char           *container_name;
+container_resolve(char *container_name)
 {
 	container_name = arg_text_of(container_name);
 
@@ -95,8 +94,7 @@ container_resolve(container_name)
 }
 
 char		   *
-var_text_of_word(wordnumber)
-	int			wordnumber;
+var_text_of_word(int wordnumber)
 {
     char *value;
 
@@ -115,8 +113,7 @@ var_text_of_word(wordnumber)
 }
 
 char		   *
-arg_text_of_word(wordnumber)
-	int			wordnumber;
+arg_text_of_word(int wordnumber)
 {
     char *value;
 
@@ -135,8 +132,7 @@ arg_text_of_word(wordnumber)
 }
 
 char		   *
-text_of_word(wordnumber)
-	int			wordnumber;
+text_of_word(int wordnumber)
 {
     char *value;
 
@@ -155,8 +151,7 @@ text_of_word(wordnumber)
 }
 
 char           *
-text_of(string)
-	 char           *string;
+text_of(char *string)
 {
 	struct integer_type *resolved_integer;
 	struct cinteger_type *resolved_cinteger;
@@ -219,8 +214,7 @@ text_of(string)
 }
 
 char           *
-arg_text_of(string)
-	 char           *string;
+arg_text_of(char *string)
 {
 	struct string_type *resolved_string;
 	struct string_type *resolved_cstring;
@@ -243,8 +237,7 @@ arg_text_of(string)
 }
 
 int
-validate(string)
-	 char            *string;
+validate(char *string)
 {
 	int             index,
 	                count;
@@ -269,9 +262,7 @@ validate(string)
 }
 
 long
-value_of(value, run_time)
-	 char*           value;
-     int			 run_time;
+value_of(char *value, int run_time)
 {
 	long            compare;
 
@@ -355,8 +346,7 @@ value_of(value, run_time)
 }
 
 struct integer_type *
-integer_resolve(name)
-	 char            *name;
+integer_resolve(char *name)
 {
 	int             index,
 					iterator,
@@ -419,9 +409,7 @@ integer_resolve(name)
 }
 
 struct integer_type *
-integer_resolve_indexed(name, index)
-	char           *name;
-	int				index;
+integer_resolve_indexed(char *name, int index)
 {
 	struct integer_type *pointer = integer_table;
 
@@ -448,8 +436,7 @@ integer_resolve_indexed(name, index)
 }
 
 struct cinteger_type *
-cinteger_resolve(name)
-	 char            *name;
+cinteger_resolve(char *name)
 {
 	int             index,
 					iterator,
@@ -512,9 +499,7 @@ cinteger_resolve(name)
 }
 
 struct cinteger_type *
-cinteger_resolve_indexed(name, index)
-	char           *name;
-	int				index;
+cinteger_resolve_indexed(char *name, int index)
 {
 	struct cinteger_type *pointer = cinteger_table;
 
@@ -541,8 +526,7 @@ cinteger_resolve_indexed(name, index)
 }
 
 struct string_type *
-string_resolve(name)
-	 char            *name;
+string_resolve(char *name)
 {
 	int             index,
 					iterator,
@@ -596,9 +580,7 @@ string_resolve(name)
 }
 
 struct string_type *
-string_resolve_indexed(name, index)
-	char           *name;
-	int				index;
+string_resolve_indexed(char *name, int index)
 {
 	struct string_type *pointer = string_table;
 
@@ -625,8 +607,7 @@ string_resolve_indexed(name, index)
 }
 
 struct string_type *
-cstring_resolve(name)
-	 char            *name;
+cstring_resolve(char *name)
 {
 	int             index,
 					iterator,
@@ -680,9 +661,7 @@ cstring_resolve(name)
 }
 
 struct string_type *
-cstring_resolve_indexed(name, index)
-	 char           *name;
-	int				index;
+cstring_resolve_indexed(char *name, int index)
 {
 	struct string_type *pointer = cstring_table;
 
@@ -709,8 +688,7 @@ cstring_resolve_indexed(name, index)
 }
 
 struct function_type *
-function_resolve(name)
-	 char          *name;
+function_resolve(char *name)
 {
 	char           *full_name;
 	char			core_name[84];
@@ -752,8 +730,7 @@ function_resolve(name)
 }
 
 char *
-expand_function(name)
-	 char           *name;
+expand_function(char *name)
 {
 	/* THIS FUNCTION TAKES A SCOPE FUNCTION CALL SUCH AS noun1.function
 	 * AND REOLVE THE ACTUAL FUNCTION NAME SUCH AS function_key */
@@ -804,8 +781,7 @@ expand_function(name)
 }
 
 char *
-macro_resolve(testString)
-	 char           *testString;
+macro_resolve(char *testString)
 {
 	int             index,
 	                counter;
@@ -1038,8 +1014,7 @@ macro_resolve(testString)
 }
 
 int
-count_resolve(testString)
-	 char            *testString;
+count_resolve(char *testString)
 {
 	struct function_type 	*resolved_function = NULL;
 
@@ -1055,8 +1030,7 @@ count_resolve(testString)
 }
 
 int
-array_length_resolve(testString)
-	 char            *testString;
+array_length_resolve(char *testString)
 {
 	int             counter = 0;
 	char            *array_name = &testString[1];
@@ -1131,8 +1105,7 @@ array_length_resolve(testString)
 }
 
 int
-object_element_resolve(testString)
-	 char            *testString;
+object_element_resolve(char *testString)
 {
 	int             index,
 					iterator,
@@ -1224,8 +1197,7 @@ object_element_resolve(testString)
 }
 
 int
-object_resolve(object_string)
-	 char            object_string[];
+object_resolve(char object_string[])
 {
 	int             index;
 
@@ -1261,8 +1233,7 @@ object_resolve(object_string)
 }
 
 long
-attribute_resolve(attribute)
-	 char           *attribute;
+attribute_resolve(char *attribute)
 {
 	long            bit_mask;
 
@@ -1368,8 +1339,7 @@ attribute_resolve(attribute)
 }
 
 long
-user_attribute_resolve(name)
-	char           *name;
+user_attribute_resolve(char *name)
 {
 	struct attribute_type *pointer = attribute_table;
 

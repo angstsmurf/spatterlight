@@ -92,7 +92,7 @@ extern struct object_type		*object[];
 extern struct variable_type		*variable[];
 
 void
-parser()
+parser(void)
 {
 	// THIS FUNCTION COMPARES THE WORDS IN THE PLAYER'S COMMAND TO THE
 	// GRAMMAR TREE OF POSSIBLE COMMANDS
@@ -343,8 +343,7 @@ parser()
  * OR 0 IF IT IS EMPTY. THE FIRST OBJECT IN THE LIST IS THE FIRST
  * ELEMENT THAT IS NON-ZERO BEFORE THE max-size IS REACHED. */
 int
-first_available(list_number)
-	int			list_number;
+first_available(int list_number)
 {
 	int index;
 
@@ -364,8 +363,7 @@ first_available(list_number)
 }
 
 void
-call_functions(base_name)
-	char			*base_name;
+call_functions(char *base_name)
 {
 	/* THIS FUNCTION CALLS ALL THE APPROPRIATE JACL FUNCTIONS TO RESPOND
 	 * TO A PLAYER'S COMMAND GIVEN A BASE FUNCTION NAME AND THE CURRENT
@@ -526,9 +524,7 @@ call_functions(base_name)
 }
 
 struct word_type *
-object_match(iterator, noun_number)
-	struct word_type	*iterator;
-	int					noun_number;
+object_match(struct word_type *iterator, int noun_number)
 {
 	/* THIS FUNCTION LOOPS THROUGH ALL THE POSIBILITIES IN THE CURRENT LEVEL
 	 * OF THE GRAMMAR TREE TO SEE IF THERE ARE ANY OBJECT PLACE HOLDERS */
@@ -573,8 +569,7 @@ object_match(iterator, noun_number)
 }
 
 struct word_type *
-exact_match(pointer)
-	 struct word_type *pointer;
+exact_match(struct word_type *pointer)
 {
 	/* THIS FUNCTION LOOPS THROUGH ALL THE POSIBILITIES IN THE CURRENT LEVEL
 	 * OF THE GRAMMAR TREE TO SEE IF THERE ARE ANY EXACT MATCHES WITH THE 
@@ -635,9 +630,7 @@ is_terminator(scope_word)
 }
 
 int
-build_object_list(scope_word, noun_number)
-	struct word_type	*scope_word;
-	int					noun_number;
+build_object_list(struct word_type *scope_word, int noun_number)
 {
 	/* THIS FUNCTION BUILDS A LIST OF OBJECTS FROM THE PLAYER'S COMMAND
      * AND RETURNS THE NUMBER OF OBJECTS IN THAT LIST */
@@ -808,8 +801,7 @@ build_object_list(scope_word, noun_number)
 }
 
 void
-set_them(noun_number)
-	int		noun_number;
+set_them(int noun_number)
 {
 	int index, counter;
 
@@ -844,9 +836,7 @@ set_them(noun_number)
 }
 
 void
-add_all(scope_word, noun_number)
-	struct word_type	*scope_word;
-	int					noun_number;
+add_all(struct word_type *scope_word, int noun_number)
 {
 	int index, counter;
 
@@ -866,8 +856,7 @@ add_all(scope_word, noun_number)
 }
 
 int
-is_child_of_from(child)
-	int			child;
+is_child_of_from(int child)
 {
 	/* THIS FUNCTION DETERMINES IF THE PASSED OBJECT IS A CHILD OF ANY OF
 	 * THE RESOLVED 'FROM' OBJECTS, OR ANY OBJECT IN A FROM OBJECT */
@@ -900,8 +889,7 @@ is_child_of_from(child)
 }
 
 int
-is_direct_child_of_from(child)
-	int			child;
+is_direct_child_of_from(int child)
 {
 	/* THIS FUNCTION DETERMINES IF THE PASSED OBJECT IS A CHILD OF ANY OF
 	 * THE RESOLVED 'FROM' OBJECTS, OR ANY OBJECT IN A FROM OBJECT */
@@ -925,9 +913,7 @@ is_direct_child_of_from(child)
 }
 
 int
-get_from_object(scope_word, noun_number)
-	struct word_type		*scope_word;
-	int						noun_number;
+get_from_object(struct word_type *scope_word, int noun_number)
 {
 	/* THIS FUNCTION LOOKS AHEAD TO FIND IF THE CURRENT OBJECT REFERENCE
 	 * IS QUALIFIED BY A 'FROM' WORD. IT RETURNS FALSE ON AN ERROR 
@@ -1044,8 +1030,7 @@ get_from_object(scope_word, noun_number)
 }
 
 int
-verify_from_object(from_object)
-	int			from_object;
+verify_from_object(int from_object)
 {
 	//printf("--- from object is %s\n", object[from_object]->label);	
 	//if (!(object[from_object]->attributes & CONTAINER) &&
@@ -1087,9 +1072,7 @@ verify_from_object(from_object)
 }
 
 void
-add_to_list(noun_number, resolved_object)
-	int			noun_number;
-	int			resolved_object;
+add_to_list(int noun_number, int resolved_object)
 {
 	/* ADD THIS OBJECT TO THE OBJECT LIST DEPENDING */
 	/* AND SET IT, THEM, HER AND HIM */
@@ -1109,10 +1092,7 @@ add_to_list(noun_number, resolved_object)
 }
 
 int
-noun_resolve(scope_word, finding_from, noun_number)
-	struct word_type 	*scope_word;
-	int					finding_from;
-	int					noun_number;
+noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 {
 	/* THIS FUNCTION STARTS LOOKING AT THE PLAYER'S COMMAND FROM wp ONWARDS
 	 * AND LOOKS FOR OBJECTS IN THE SCOPE SPECIFIED BY THE GRAMMAR ELEMENT
@@ -1543,7 +1523,7 @@ noun_resolve(scope_word, finding_from, noun_number)
 
 			if (finding_from) {
 				if (strcmp(scope_word->word, "*anywhere") && strcmp(scope_word->word, "**anywhere")) {
-					if (scope(index, "*present") == FALSE) {
+					if (scope(index, "*present", 0) == FALSE) {
 						matches--;
 						confidence[index] = FALSE;
 						continue;
@@ -1762,7 +1742,7 @@ noun_resolve(scope_word, finding_from, noun_number)
 }
 
 void
-diagnose()
+diagnose(void)
 {
 	if (custom_error) {
 		TIME->value = FALSE;
@@ -1783,10 +1763,7 @@ diagnose()
 }
 
 int
-scope(index, expected, restricted)
-         int             index;
-         char           *expected;
-		 int			 restricted;
+scope(int index, char *expected, int restricted)
 {
 	/* THIS FUNCTION DETERMINES IF THE SPECIFIED OBJECT IS IN THE SPECIFIED
 	 * SCOPE - IT RETURNS TRUE IF SO, FALSE IF NOT. */
@@ -1860,8 +1837,7 @@ scope(index, expected, restricted)
 }
 
 int
-find_parent(index)
-	 int             index;
+find_parent(int index)
 {
 	/* THIS FUNCTION WILL SET THE GLOBAL VARIABLE parent TO 
 	 * THE OBJECT THAT IS AT THE TOP OF THE POSSESSION TREE.
@@ -1907,10 +1883,7 @@ find_parent(index)
 }
 
 int
-parent_of(parent, child, restricted)
-	 int             parent,
-	                 child,
-					 restricted;
+parent_of(int parent, int child, int restricted)
 {
 	/* THIS FUNCTION WILL CLIMB THE OBJECT TREE STARTING AT 'CHILD' UNTIL
 	 * 'PARENT' IS REACHED (RETURN TRUE), OR THE TOP OF THE TREE OR A CLOSED

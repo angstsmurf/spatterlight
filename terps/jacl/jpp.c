@@ -134,9 +134,7 @@ jpp()
 }
 
 int
-process_file(sourceFile1, sourceFile2)
-	 char           *sourceFile1;
-	 char           *sourceFile2;
+process_file(char *sourceFile1, char *sourceFile2)
 {
 	char            temp_buffer1[1025];
 	char            temp_buffer2[1025];

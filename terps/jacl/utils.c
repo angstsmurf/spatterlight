@@ -30,7 +30,7 @@ extern char            			data_directory[];
 extern char            			temp_buffer[1024];
 
 void
-eachturn()
+eachturn(void)
 {
 	/* INCREMENT THE TOTAL NUMBER OF MOVES MADE AND CALL THE 'EACHTURN'
 	 * FUNCTION FOR THE CURRENT LOCATION AND THE GLOBAL 'EACHTURN'
@@ -53,7 +53,7 @@ eachturn()
 }
 
 int
-get_here()
+get_here(void)
 {
 	/* THIS FUNCTION RETURNS THE VALUE OF 'here' IN A SAFE, ERROR CHECKED
 	 * WAY */
@@ -72,8 +72,7 @@ get_here()
 }
 
 char *
-strip_return (string)
-	char *string;
+strip_return (char *string)
 {
 	/* STRIP ANY TRAILING RETURN OR NEWLINE OFF THE END OF A STRING */
 	int index;
@@ -92,7 +91,7 @@ strip_return (string)
 }
 
 int
-random_number()
+random_number(void)
 {
 	/* GENERATE A RANDOM NUMBER BETWEEN 0 AND THE CURRENT VALUE OF
 	 * THE JACL VARIABLE MAX_RAND */
@@ -102,8 +101,7 @@ random_number()
 }
 
 void
-create_paths(full_path)
-	char		*full_path;
+create_paths(char *full_path)
 {
 	int				index;
 	char           *last_slash;
@@ -181,8 +179,7 @@ create_paths(full_path)
 }
 
 int
-jacl_whitespace(character)
-	int character;
+jacl_whitespace(int character)
 {
 	/* CHECK IF A CHARACTER IS CONSIDERED WHITE SPACE IN THE JACL LANGUAGE */
 	switch (character) {
@@ -196,8 +193,7 @@ jacl_whitespace(character)
 }
 
 char *
-stripwhite (string)
-		char *string;
+stripwhite (char *string)
 {
     int i;
 
@@ -221,8 +217,7 @@ stripwhite (string)
 }
 
 void
-jacl_encrypt(string)
-  char *string;
+jacl_encrypt(char *string)
 {
 	int index, length;
 
@@ -237,8 +232,7 @@ jacl_encrypt(string)
 }
 
 void
-jacl_decrypt(string)
-  char *string;
+jacl_decrypt(char *string)
 {
 	int index, length;
 
