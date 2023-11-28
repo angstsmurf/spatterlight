@@ -34,8 +34,7 @@ extern int						parent;
 extern int    			        noun[];
 
 int
-save_game(saveref)
-	 frefid_t           saveref;
+save_game(frefid_t saveref)
 {
 	struct integer_type *current_integer = integer_table;
     struct function_type *current_function = function_table;
@@ -111,9 +110,7 @@ save_game(saveref)
 }
 
 int
-restore_game(saveref, warn)
-	 frefid_t           saveref;
-	 int			 	warn;
+restore_game(frefid_t saveref, int warn)
 {
 	struct integer_type *current_integer = integer_table;
     struct function_type *current_function = function_table;

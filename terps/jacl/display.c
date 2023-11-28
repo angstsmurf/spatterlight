@@ -24,8 +24,7 @@ extern int						custom_error;
 extern int						spaced;
 
 int
-check_light(where)
-	 int             where;
+check_light(int where)
 {
 	int             index;
 
@@ -34,7 +33,7 @@ check_light(where)
 	else {
 		for (index = 1; index <= objects; index++) {
 			if ((object[index]->attributes & LUMINOUS)
-				&& scope(index, "*present"))
+				&& scope(index, "*present", 0))
 				return (TRUE);
 		}
 	}
@@ -42,9 +41,7 @@ check_light(where)
 }
 
 char *
-sentence_output(index, capital)
-	 int             index;
-	 int             capital;
+sentence_output(int index, int capital)
 {
 	if (!strcmp(object[index]->article, "name")) {
 		strcpy(temp_buffer, object[index]->inventory);
@@ -61,8 +58,7 @@ sentence_output(index, capital)
 }
 
 char *
-isnt_output(index)
-	 int             index;
+isnt_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL)
 		return (cstring_resolve("ARENT")->value);
@@ -71,8 +67,7 @@ isnt_output(index)
 }
 
 char *
-is_output(index)
-	 int             index;
+is_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL)
 		return (cstring_resolve("ARE")->value);
@@ -81,9 +76,7 @@ is_output(index)
 }
 
 char *
-sub_output(index, capital)
-	 int             index;
-	 int             capital;
+sub_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL) {
 		strcpy(temp_buffer, cstring_resolve("THEY_WORD")->value);
@@ -108,9 +101,7 @@ sub_output(index, capital)
 }
 
 char *
-obj_output(index, capital)
-	 int             index;
-	 int             capital;
+obj_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL) {
 		strcpy(temp_buffer, cstring_resolve("THEM_WORD")->value);
@@ -135,8 +126,7 @@ obj_output(index, capital)
 }
 
 char *
-it_output(index)
-	 int             index;
+it_output(int index, int capital)
 {
 	if (object[index]->attributes & ANIMATE) {
 		return sentence_output(index, FALSE);
@@ -150,9 +140,7 @@ it_output(index)
 }
 
 char *
-that_output(index, capital)
-	 int             index;
-	 int             capital;
+that_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL) {
 		strcpy(temp_buffer, cstring_resolve("THOSE_WORD")->value);
@@ -167,8 +155,7 @@ that_output(index, capital)
 }
 
 char *
-doesnt_output(index)
-	 int             index;
+doesnt_output(int index, int unused)
 {
 	if (object[index]->attributes & PLURAL)
 		return (cstring_resolve("DONT")->value);
@@ -177,8 +164,7 @@ doesnt_output(index)
 }
 
 char *
-does_output(index)
-	 int             index;
+does_output(int index, int capital)
 {
 	if (object[index]->attributes & PLURAL)
 		return (cstring_resolve("DO")->value);
@@ -187,9 +173,7 @@ does_output(index)
 }
 
 char *
-list_output(index, capital)
-	 int             index;
-	 int             capital;
+list_output(int index, int capital)
 {
 	if (!strcmp(object[index]->article, "name")) {
 		strcpy(temp_buffer, object[index]->inventory);
@@ -206,9 +190,7 @@ list_output(index, capital)
 }
 
 char *
-plain_output(index, capital)
-	 int             index;
-	 int             capital;
+plain_output(int index, int capital)
 {
 	strcpy(temp_buffer, object[index]->inventory);
 
@@ -219,8 +201,7 @@ plain_output(index, capital)
 }
 
 char *
-long_output(index)
-	 int             index;
+long_output(int index)
 {
 	if (!strcmp(object[index]->described, "function")) {
 		strcpy(function_name, "long_");
@@ -248,7 +229,7 @@ no_it()
 }
 
 void
-look_around()
+look_around(void)
 {
 	/* THIS FUNCTION DISPLAYS THE DESCRIPTION OF THE CURRENT LOCATION ALONG
 	 * WITH ANY OBJECTS CURRENTLY IN IT */
