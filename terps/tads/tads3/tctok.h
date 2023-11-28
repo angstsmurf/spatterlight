@@ -2424,7 +2424,7 @@ public:
 private:
     /* generate the expansion text into our internal buffer */
     static void gen_expansion(CTcTokenizer *tok)
-        { sprintf(buf_, "%ld", tok->get_last_linenum()); }
+        { snprintf(buf_, sizeof(buf_), "%ld", tok->get_last_linenum()); }
 
     /* internal buffer */
     static char buf_[20];

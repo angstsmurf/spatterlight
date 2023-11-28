@@ -3960,7 +3960,7 @@ void CVmRun::validate_bifptr(VMG0_)
     {
         /* invalid entry - throw an error */
         char buf[20];
-        sprintf(buf, "#%d", bifp->val.bifptr.set_idx);
+        snprintf(buf, sizeof(buf), "#%d", bifp->val.bifptr.set_idx);
         err_throw_a(VMERR_UNAVAIL_INTRINSIC, 2,
                     ERR_TYPE_INT, bifp->val.bifptr.func_idx,
                     ERR_TYPE_CHAR, buf);

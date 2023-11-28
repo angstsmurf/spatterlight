@@ -435,7 +435,7 @@ const char *vm_val_t::cast_to_string(VMG_ vm_val_t *new_str) const
         {
             /* format the number into a temporary buffer */
             char buf[20];
-            sprintf(buf, "%ld", (long)val.intval);
+            snprintf(buf, sizeof(buf), "%ld", (long)val.intval);
 
             /* create a new string object for the number */
             new_str->set_obj(

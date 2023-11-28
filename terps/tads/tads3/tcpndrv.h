@@ -1454,12 +1454,14 @@ public:
     /* build a descriptive message about the argument list, for errors */
     const char *get_argc_desc(char *buf)
     {
+        /* see CTcSymFunc::gen_code_call and CTPNReplaced::gen_code_call,
+         * the only places that call this function. Their buffer sizes are 128. */
         if (varargs_)
-            sprintf(buf, "%d+", argc_);
+            snprintf(buf, 128, "%d+", argc_);
         else if (opt_argc_ != 0)
-            sprintf(buf, "%d-%d", argc_, argc_ + opt_argc_);
+            snprintf(buf, 128, "%d-%d", argc_, argc_ + opt_argc_);
         else
-            sprintf(buf, "%d", argc_);
+            snprintf(buf, 128, "%d", argc_);
 
         return buf;
     }

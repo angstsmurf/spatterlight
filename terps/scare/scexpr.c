@@ -1065,7 +1065,7 @@ expr_eval_action (sc_int token)
          * The leading space on positive values matches the Runner.
          */
         val = expr_eval_pop_integer ();
-        sprintf (buffer, "% ld", val);
+        snprintf (buffer, sizeof(buffer), "% ld", val);
         expr_eval_push_string (buffer);
         break;
       }

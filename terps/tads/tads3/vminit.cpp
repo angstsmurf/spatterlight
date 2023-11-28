@@ -266,7 +266,7 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
                           VMERR_NO_CHARMAP_FILE, TRUE);
 
         /* format it */
-        sprintf(buf, msg, charset);
+        snprintf(buf, sizeof(buf), msg, charset);
 
         /* display it */
         opts->clientifc->display_error(VMGLOB_ADDR, 0, buf, TRUE);

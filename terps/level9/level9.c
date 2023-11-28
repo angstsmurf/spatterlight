@@ -347,7 +347,7 @@ void printstring(char*buf)
 void printdecimald0(int d0)
 {
 	char temp[12];
-	sprintf(temp,"%d",d0);
+	snprintf(temp,sizeof(temp),"%d",d0);
 	printstring(temp);
 }
 
@@ -357,7 +357,7 @@ void error(char *fmt,...)
 	int i;
 	va_list ap;
 	va_start(ap,fmt);
-	vsprintf(buf,fmt,ap);
+	vsnprintf(buf,sizeof(buf),fmt,ap);
 	va_end(ap);
 	for (i=0;i< (int) strlen(buf);i++)
 		os_printchar(buf[i]);

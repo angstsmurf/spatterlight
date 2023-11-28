@@ -393,37 +393,37 @@ void CTcT3Unasm::disasm_instr(CTcUnasSrc *src, CTcUnasOut *out, char ch_op)
                 
             case VM_OBJ:
                 dt = "object";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
                 
             case VM_PROP:
                 dt = "prop";
-                sprintf(valbuf, "0x%04x", osrp2(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%04x", osrp2(ch+1));
                 break;
                 
             case VM_INT:
                 dt = "int";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
 
             case VM_ENUM:
                 dt = "enum";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
                 
             case VM_SSTRING:
                 dt = "sstring";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
                 
             case VM_LIST:
                 dt = "list";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
                 
             case VM_FUNCPTR:
                 dt = "funcptr";
-                sprintf(valbuf, "0x%08lx", t3rp4u(ch+1));
+                snprintf(valbuf, sizeof(valbuf), "0x%08lx", t3rp4u(ch+1));
                 break;
 
             default:

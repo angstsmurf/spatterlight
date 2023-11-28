@@ -1866,7 +1866,7 @@ startover:
             int     cnt;
             
             (void)tioshow(ctx->voccxtio);
-            sprintf(buf, "... %s (", cmd[cur]);
+            snprintf(buf, sizeof(buf), "... %s (", cmd[cur]);
             p = buf + strlen(buf);
             cnt = 0;
             for (i = 0 ; i < sizeof(type_names)/sizeof(type_names[0]) ; ++i)
@@ -2067,11 +2067,11 @@ static int vocgol(voccxdef *ctx, objnum *list, uint *flags, char **wrdlst,
     {
         char buf[128];
 
-        sprintf(buf, "... %s (treating as %s%s)\\n", wrd,
-                (wrdtyp == PRP_ADJ ? "adjective" :
-                 wrdtyp == PRP_NOUN ? "noun" :
-                 wrdtyp == PRP_INVALID ? "unknown" : "plural"),
-                (wrdtyp == PRP_NOUN && try_plural ? " + plural" : ""));
+        snprintf(buf, sizeof(buf), "... %s (treating as %s%s)\\n", wrd,
+                 (wrdtyp == PRP_ADJ ? "adjective" :
+                  wrdtyp == PRP_NOUN ? "noun" :
+                  wrdtyp == PRP_INVALID ? "unknown" : "plural"),
+                 (wrdtyp == PRP_NOUN && try_plural ? " + plural" : ""));
         tioputs(ctx->vocxtio, buf);
     }
 
@@ -7152,8 +7152,8 @@ static int vocready(voccxdef *ctx, char *cmd[], int *typelist, int cur,
         {
             char buf[128];
             
-            sprintf(buf, ". executing verb:  %s %s\\n",
-                    vverb, vprep ? vprep : "");
+            snprintf(buf, sizeof(buf), ". executing verb:  %s %s\\n",
+                     vverb, vprep ? vprep : "");
             tioputs(ctx->vocxtio, buf);
         }
 
@@ -8168,7 +8168,7 @@ void *voc_stk_alo(voccxdef *ctx, uint siz)
         char buf[20];
         
         maxsiz = ctx->voc_stk_cur - ctx->voc_stk_ptr;
-        sprintf(buf, "%u\n", maxsiz);
+        snprintf(buf, sizeof(buf), "%u\n", maxsiz);
         os_printz(buf);
     }
 }

@@ -1489,7 +1489,7 @@ const char *CTcConstVal::cvt_to_str(char *buf, size_t bufl,
         if (bufl < 12)
             return 0;
 
-        sprintf(buf, "%ld", get_val_int());
+        snprintf(buf, bufl, "%ld", get_val_int());
         *result_len = strlen(buf);
         return buf;
 

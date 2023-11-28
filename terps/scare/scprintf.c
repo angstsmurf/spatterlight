@@ -256,7 +256,7 @@ pf_interpolate_vars (const sc_char *string, sc_var_setref_t vars)
           {
             sc_char value[32];
 
-            sprintf (value, "%ld", vt_rvalue.integer);
+            snprintf (value, sizeof(value), "%ld", vt_rvalue.integer);
             buffer = sc_realloc (buffer, strlen (buffer) + strlen (value) + 1);
             strcat (buffer, value);
             break;

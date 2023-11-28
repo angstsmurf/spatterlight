@@ -244,7 +244,7 @@ ser_buffer_int (sc_int value)
   sc_char buffer[32];
 
   /* Convert to a string and buffer that. */
-  sprintf (buffer, "%ld", value);
+  snprintf (buffer, sizeof(buffer), "%ld", value);
   ser_buffer_string (buffer);
 }
 
@@ -254,7 +254,7 @@ ser_buffer_int_special (sc_int value)
   sc_char buffer[32];
 
   /* Weirdo formatting for compatibility. */
-  sprintf (buffer, "% ld ", value);
+  snprintf (buffer, sizeof(buffer), "% ld ", value);
   ser_buffer_string (buffer);
 }
 
@@ -264,7 +264,7 @@ ser_buffer_uint (sc_uint value)
   sc_char buffer[32];
 
   /* Convert to a string and buffer that. */
-  sprintf (buffer, "%lu", value);
+  snprintf (buffer, sizeof(buffer), "%lu", value);
   ser_buffer_string (buffer);
 }
 

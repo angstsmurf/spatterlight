@@ -776,9 +776,9 @@ int vm_run_image_main(CVmMainClientIfc *clientifc,
         /* show the usage message if allowed */
         if (params.load_from_exe && !usage_err)
         {
-            sprintf(buf, "An error occurred loading the T3 VM program from "
-                    "the embedded data file.  This application executable "
-                    "file might be corrupted.\n");
+            snprintf(buf, sizeof(buf), "An error occurred loading the T3 VM program from "
+                     "the embedded data file.  This application executable "
+                     "file might be corrupted.\n");
 
             /* display the message */
             clientifc->display_error(0, 0, buf, FALSE);
@@ -786,40 +786,40 @@ int vm_run_image_main(CVmMainClientIfc *clientifc,
         else if (!hide_usage)
         {
             /* build the usage message */
-            sprintf(buf,
-                    "%s\n"
-                    "usage: %s [options] %sarguments]\n"
-                    "options:\n"
-                    "  -banner - show the version/copyright banner\n"
-                    "  -cs xxx - use character set 'xxx' for keyboard "
-                    "and display\n"
-                    "  -csl xxx - use character set 'xxx' for log files\n"
-                    "  -d path - set default directory for file operations\n"
-                    "  -i file - read command input from file (quiet mode)\n"
-                    "  -I file - read command input from file (echo mode)\n"
-                    "  -l file - log all console input/output to file\n"
-                    "  -norand - don't seed the random number generator\n"
-                    "  -ns##   - set the network safety level for Client "
-                    "and Server (each # is from\n"
-                    "            0 to 2 - 0 is the least restrictive, 2 "
-                    "allows no network access)\n"
-                    "  -o file - log console input to file\n"
-                    "  -plain  - run in plain mode (no cursor positioning, "
-                    "colors, etc.)\n"
-                    "  -r file - restore saved state from file\n"
-                    "  -R dir  - set directory for external resources\n"
-                    "  -s##    - set file safety level for read & write "
-                    "(each # is from 0 to 4;\n"
-                    "            0 is the least restrictive, 4 prohibits all "
-                    "file access)\n"
-                    "  -sd dir - set the sandbox directory for file "
-                    "safety restrictions\n"
-                    "\n"
-                    "If provided, the optional extra arguments are passed "
-                    "to the program's\n"
-                    "main entrypoint.\n",
-                    T3VM_BANNER_STRING, executable_name,
-                    params.load_from_exe ? "[- " : "<image-file-name> [");
+            snprintf(buf, sizeof(buf),
+                     "%s\n"
+                     "usage: %s [options] %sarguments]\n"
+                     "options:\n"
+                     "  -banner - show the version/copyright banner\n"
+                     "  -cs xxx - use character set 'xxx' for keyboard "
+                     "and display\n"
+                     "  -csl xxx - use character set 'xxx' for log files\n"
+                     "  -d path - set default directory for file operations\n"
+                     "  -i file - read command input from file (quiet mode)\n"
+                     "  -I file - read command input from file (echo mode)\n"
+                     "  -l file - log all console input/output to file\n"
+                     "  -norand - don't seed the random number generator\n"
+                     "  -ns##   - set the network safety level for Client "
+                     "and Server (each # is from\n"
+                     "            0 to 2 - 0 is the least restrictive, 2 "
+                     "allows no network access)\n"
+                     "  -o file - log console input to file\n"
+                     "  -plain  - run in plain mode (no cursor positioning, "
+                     "colors, etc.)\n"
+                     "  -r file - restore saved state from file\n"
+                     "  -R dir  - set directory for external resources\n"
+                     "  -s##    - set file safety level for read & write "
+                     "(each # is from 0 to 4;\n"
+                     "            0 is the least restrictive, 4 prohibits all "
+                     "file access)\n"
+                     "  -sd dir - set the sandbox directory for file "
+                     "safety restrictions\n"
+                     "\n"
+                     "If provided, the optional extra arguments are passed "
+                     "to the program's\n"
+                     "main entrypoint.\n",
+                     T3VM_BANNER_STRING, executable_name,
+                     params.load_from_exe ? "[- " : "<image-file-name> [");
             
             /* display the message */
             clientifc->display_error(0, 0, buf, FALSE);

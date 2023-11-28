@@ -346,7 +346,7 @@ int os_get_status()
 void os_score(int score, int turncount)
 {
     char buf[40];
-    sprintf(buf, "%d/%d", score, turncount);
+    snprintf(buf, sizeof(buf), "%d/%d", score, turncount);
     os_strsc(buf);
 }
 
@@ -371,8 +371,8 @@ static void os_status_redraw(void)
     glk_window_get_size(statuswin, &wid, NULL);
     div = wid - strlen(rbuf) - 3;
 
-    sprintf(fmt, " %%%ds %%s ", - (int)div);
-    sprintf(buf, fmt, lbuf, rbuf);
+    snprintf(fmt, sizeof(fmt), " %%%ds %%s ", - (int)div);
+    snprintf(buf, sizeof(buf), fmt, lbuf, rbuf);
 
     glk_window_clear(statuswin);
     glk_set_window(statuswin);

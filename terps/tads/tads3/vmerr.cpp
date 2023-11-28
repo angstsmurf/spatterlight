@@ -787,9 +787,9 @@ size_t err_format_msg(char *outbuf, size_t outbuflen,
             case 'd':
                 src = srcbuf;
                 if (typ == ERR_TYPE_INT)
-                    sprintf(srcbuf, "%d", exc->get_param_int(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%d", exc->get_param_int(curarg));
                 else if (typ == ERR_TYPE_ULONG)
-                    sprintf(srcbuf, "%ld", exc->get_param_ulong(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%ld", exc->get_param_ulong(curarg));
                 else
                     src = "d";
                 break;
@@ -797,9 +797,9 @@ size_t err_format_msg(char *outbuf, size_t outbuflen,
             case 'u':
                 src = srcbuf;
                 if (typ == ERR_TYPE_INT)
-                    sprintf(srcbuf, "%u", exc->get_param_int(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%u", exc->get_param_int(curarg));
                 else if (typ == ERR_TYPE_ULONG)
-                    sprintf(srcbuf, "%lu", exc->get_param_ulong(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%lu", exc->get_param_ulong(curarg));
                 else
                     src = "u";
                 break;
@@ -807,9 +807,9 @@ size_t err_format_msg(char *outbuf, size_t outbuflen,
             case 'x':
                 src = srcbuf;
                 if (typ == ERR_TYPE_INT)
-                    sprintf(srcbuf, "%x", exc->get_param_int(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%x", exc->get_param_int(curarg));
                 else if (typ == ERR_TYPE_ULONG)
-                    sprintf(srcbuf, "%lx", exc->get_param_ulong(curarg));
+                    snprintf(srcbuf, sizeof(srcbuf), "%lx", exc->get_param_ulong(curarg));
                 else
                     src = "x";
                 break;

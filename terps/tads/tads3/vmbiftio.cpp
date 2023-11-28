@@ -119,7 +119,7 @@ void CVmBifTIO::say_to_console(VMG_ CVmConsole *console, uint argc)
 
         case VM_INT:
             /* convert it to a string */
-            sprintf(buf + 2, "%ld", (long)val.val.intval);
+            snprintf(buf + 2, sizeof(buf) - 2, "%ld", (long)val.val.intval);
 
             /* set its length */
             len = strlen(buf + 2);
@@ -589,7 +589,7 @@ void CVmBifTIO::inputevent(VMG_ uint argc)
         /* log it */
         {
             char buf[20];
-            sprintf(buf, "%d", info.cmd_id);
+            snprintf(buf, sizeof(20), "%d", info.cmd_id);
             G_console->log_event(vmg_ OS_EVT_COMMAND,
                                  buf, strlen(buf), TRUE);
         }
@@ -988,7 +988,7 @@ void CVmBifTIO::inputdialog(VMG_ uint argc)
                                        default_resp, cancel_resp);
 
         /* log the event */
-        sprintf(numbuf, "%d", resp);
+        snprintf(numbuf, sizeof(numbuf), "%d", resp);
         G_console->log_event(vmg_ VMCON_EVT_DIALOG,
                              numbuf, strlen(numbuf), TRUE);
     }
@@ -1370,10 +1370,10 @@ void CVmBifTIO::sysinfo(VMG_ uint argc)
         {
             char buf[30];
 
-            sprintf(buf, "%d.%d.%d",
-                    (int)((T3VM_VSN_NUMBER >> 16) & 0xffff),
-                    (int)((T3VM_VSN_NUMBER >> 8) & 0xff),
-                    (int)(T3VM_VSN_NUMBER & 0xff));
+            snprintf(buf, sizeof(buf), "%d.%d.%d",
+                     (int)((T3VM_VSN_NUMBER >> 16) & 0xffff),
+                     (int)((T3VM_VSN_NUMBER >> 8) & 0xff),
+                     (int)(T3VM_VSN_NUMBER & 0xff));
             retval_str(vmg_ buf);
         }
         break;

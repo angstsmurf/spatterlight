@@ -4568,6 +4568,7 @@
 				965032E609F29EE20083E64E /* scutils.c */,
 				965032E709F29EE20083E64E /* scvars.c */,
 			);
+			indentWidth = 2;
 			path = scare;
 			sourceTree = "<group>";
 		};
