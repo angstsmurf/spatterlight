@@ -140,9 +140,9 @@ extern NSArray *gSaveFileTypes;
 - (BOOL)commandScriptInPasteboard:(NSPasteboard *)pboard fromWindow:(GlkWindow *)gwin {
     NSString *string = nil;
 
-    if ( [pboard.types containsObject:NSStringPboardType] ) {
+    if ( [pboard.types containsObject:NSPasteboardTypeString] ) {
         string = [pboard  stringForType:NSPasteboardTypeString];
-    } else if ( [pboard.types containsObject:NSURLPboardType] ) {
+    } else if ( [pboard.types containsObject:NSPasteboardTypeURL] ) {
         NSURL *fileURL = [NSURL URLFromPasteboard:pboard];
         if ([gDocFileTypes indexOfObject:fileURL.pathExtension.lowercaseString] != NSNotFound) {
             [self runCommandsFromFile:fileURL.path inWindow:gwin];
@@ -283,11 +283,11 @@ extern NSArray *gSaveFileTypes;
 
 - (void)copyPropertiesFrom:(CommandScriptHandler *)handler {
     _commandIndex = handler.commandIndex;
-    _commandString = handler.commandString;
-    _commandArray = handler.commandArray;
+    _commandString = [handler.commandString copy];
+    _commandArray = [handler.commandArray copy];
     _lastCommandWindow = handler.lastCommandWindow;
     _lastCommandType = handler.lastCommandType;
-    _untypedCharacters = handler.untypedCharacters;
+    _untypedCharacters = [handler.untypedCharacters copy];
     if (_untypedCharacters.length)
         _lastCommandType = kCommandTypeChar;
     _glkctl.commandScriptRunning = YES;

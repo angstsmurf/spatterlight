@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) GlkController *glkctl;
 
-@property (nullable) NSString *commandString;
-@property (nullable) NSString *untypedCharacters;
-@property (nullable) NSArray <NSValue *> *commandArray;
+@property (nullable, copy) NSString *commandString;
+@property (nullable, copy) NSString *untypedCharacters;
+@property (nullable, copy) NSArray <NSValue *> *commandArray;
 @property NSUInteger commandIndex;
 @property NSInteger lastCommandWindow;
 @property kLastCommandType lastCommandType;
