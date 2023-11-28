@@ -61,7 +61,7 @@
         self.enabled = YES;
 
         nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
-        _acceptableTypes = [NSSet setWithObject:NSURLPboardType];
+        _acceptableTypes = [NSSet setWithObject:NSPasteboardTypeURL];
         _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
         [self registerForDraggedTypes:_acceptableTypes.allObjects];
         _numberForSelfSourcedDrag = NSNotFound;

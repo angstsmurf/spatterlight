@@ -70,13 +70,13 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         
-        NSString *dirname = @(autosavedir);
+        NSString *dirname = [fileManager stringWithFileSystemRepresentation:autosavedir length:strlen(autosavedir)];
         if (!dirname) {
             return;
         }
 
-        NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error = nil;
 
         // Rename any existing autosave file

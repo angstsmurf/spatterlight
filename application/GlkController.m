@@ -253,7 +253,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).tableViewController;
 
-    [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
+    [self.window registerForDraggedTypes:@[ NSPasteboardTypeURL, NSPasteboardTypeString]];
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
@@ -2317,8 +2317,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSDragOperation)draggingEntered:sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
 
-    if ( [pboard.types containsObject:NSStringPboardType] ||
-        [pboard.types containsObject:NSURLPboardType] ) {
+    if ( [pboard.types containsObject:NSPasteboardTypeString] ||
+        [pboard.types containsObject:NSPasteboardTypeURL] ) {
         return NSDragOperationCopy;
     }
 
