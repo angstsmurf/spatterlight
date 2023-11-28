@@ -53,7 +53,7 @@ fprintf(stderr, "%s\n",                                                    \
     self = [super initWithFrame:frameRect];
     if (self) {
         nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
-        acceptableTypes = [NSSet setWithObject:NSURLPboardType];
+        acceptableTypes = [NSSet setWithObject:NSPasteboardTypeURL];
         acceptableTypes = [acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
         [self registerForDraggedTypes:acceptableTypes.allObjects];
 
