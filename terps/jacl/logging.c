@@ -13,9 +13,7 @@ extern char						prefix[];
 
 #ifdef __NDS__
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(char *message, int console)
 {
 	char 			consoleMessage[256];
 
@@ -26,9 +24,7 @@ log_error(message, console)
 #endif
 #ifdef GLK
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(char *message, int console)
 {
 	/* LOG A MESSAGE TO THE CONSOLE */
 
@@ -52,8 +48,7 @@ extern char						error_log[];
 extern char						access_log[];
 
 void
-log_access(message)
-	 char           *message;
+log_access(char *message)
 {
 	/* LOG A MESSAGE TO THE ACCESS LOG */
 
@@ -109,9 +104,7 @@ log_debug(message, console)
 }
 
 void
-log_message(message, console)
-	char        *message;
-	int			console;
+log_message(char *message, int console)
 {
 	FILE           *errorLog = fopen(error_log, "a");
 	time_t          tnow;

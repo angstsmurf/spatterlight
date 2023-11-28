@@ -14,6 +14,7 @@
 #include "glk.h"
 #include "glkstart.h"
 #include "language.h"
+#include "types.h"
 #include "prototypes.h"
 #include <string.h>
 

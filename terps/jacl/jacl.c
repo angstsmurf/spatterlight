@@ -693,8 +693,7 @@ save_game_state()
 }
 
 int
-save_interaction(filename)
-	char 		*filename;
+save_interaction(char *filename)
 {
 	frefid_t saveref;
 
@@ -775,8 +774,7 @@ restore_game_state()
 }
 
 void
-write_text(string_buffer)
-	 char            *string_buffer;
+write_text(char *string_buffer)
 {
 	int             index,
 					length;
@@ -886,8 +884,7 @@ newline()
 }
 
 void
-more(message)
-	char* message;
+more(char* message)
 {
 	int character;
 
@@ -930,10 +927,7 @@ get_key()
 }
 
 int
-get_number(insist, low, high)
-	int		insist;
-	int		low;
-	int		high;
+get_number(int insist, int low, int high)
 {
     char *cx;
 	char commandbuf[256];
@@ -1098,8 +1092,7 @@ get_yes_or_no(void)
 }
 
 char
-get_character(message)
-    char			*message;
+get_character(char *message)
 {
     char *cx;
 	char commandbuf[256];
@@ -1313,8 +1306,7 @@ walking_thru()
 }
 
 int
-restore_interaction(filename)
-	char 		*filename;
+restore_interaction(char *filename)
 {
 	frefid_t saveref;
 
@@ -1373,8 +1365,7 @@ glk_get_bin_line_stream(file_stream, buffer, max_length)
 }
 
 void
-jacl_set_window(new_window)
-	winid_t	new_window;
+jacl_set_window(winid_t new_window)
 {
 	current_window = new_window;
 	glk_set_window(new_window);
@@ -1402,9 +1393,7 @@ int end;
 #endif
 
 char *
-object_generator(text, state)
-char* text;
-int state;
+object_generator(char* text, int state)
 {
     static int len;
     static struct command_type* now;
@@ -1428,7 +1417,7 @@ int state;
                    THEM TO THE COMPLETION LIST */
                 current_name = object[index]->first_name;
                 while (current_name) {
-                    add_word (current_name);
+                    add_word (current_name->name);
                     current_name = current_name->next_name;
                 }
             }
@@ -1450,9 +1439,7 @@ int state;
 }
 
 char *
-verb_generator(text, state)
-char* text;
-int state;
+verb_generator(char* text, int state)
 {
     static int len;
     static struct command_type* now;
@@ -1496,8 +1483,7 @@ int state;
 /* ADD A COPY OF STRING TO A LIST OF STRINGS IF IT IS NOT
    ALREADY IN THE LIST. THIS IS FOR THE USE OF READLINE */
 void
-add_word(word)
-char * word;
+add_word(char *word)
 {
     static struct command_type *current_word = NULL;
     struct command_type *previous_word = NULL;

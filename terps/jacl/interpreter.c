@@ -252,8 +252,7 @@ char							scope_criterion[24];
 char							*output;
 
 void
-terminate(code)
-	 int             code;
+terminate(int code)
 {
 	// FREE ANY EXTRA RAM ALLOCATED BY THE CSV PARSER
 	csv_free(&parser_csv);
@@ -346,8 +345,7 @@ cb2 (int c, void *not_used) {
 }
 
 int
-execute(funcname)
-	 char           *funcname;
+execute(char *funcname)
 {
 	int             index;
 	int             counter;
@@ -880,7 +878,7 @@ execute(funcname)
 					criterion_type = CRI_USER_ATTRIBUTE;
 				} else {
 					// USE VALUE OF AS A CATCH ALL IF IT IS NOT AN ATTRIBUTE OR SCOPE
-					criterion_value = value_of(argument_buffer);
+					criterion_value = value_of(argument_buffer, 0);
 
 					if (value_resolved) {
 						criterion_type = CRI_PARENT;
@@ -926,7 +924,7 @@ execute(funcname)
 					snprintf(error_buffer, sizeof(error_buffer), NO_LOOP, executing_function->name);
 					log_error(error_buffer, PLUS_STDOUT);
 				} else {
-					if (select_next(select_integer, criterion_type, criterion_value, scope_criterion)) {
+					if (select_next(/*select_integer, criterion_type, criterion_value, scope_criterion*/)) {
 #ifdef GLK
 						glk_stream_set_position(game_stream, top_of_select, seekmode_Start);
 #else
@@ -944,7 +942,7 @@ execute(funcname)
 			} else if (!strcmp(word[0], "cursor")) {
 				if (word[2] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return(exit_function (TRUE));
 				} else {
 					if (current_window == statuswin) {
@@ -1089,7 +1087,7 @@ execute(funcname)
 			} else if (!strcmp(word[0], "askstring") || !strcmp(word[0], "getstring")) {
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					/* GET A POINTER TO THE STRING BEING MODIFIED */
@@ -1761,7 +1759,7 @@ execute(funcname)
 			} else if (!strcmp(word[0], "length")) {
 				if (word[2] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return(exit_function (TRUE));
 				} else {
 					if ((container = container_resolve(word[1])) == NULL) {
@@ -1837,7 +1835,7 @@ execute(funcname)
 
 				if (word[4] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					split_container = container_resolve(var_text_of_word(1));
@@ -1889,7 +1887,7 @@ execute(funcname)
 
 				if (word[2] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					/* GET A POINTER TO THE STRING BEING MODIFIED */
@@ -1921,7 +1919,7 @@ execute(funcname)
 	
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					/* GET A POINTER TO THE STRING BEING MODIFIED */
@@ -2276,7 +2274,7 @@ execute(funcname)
 				current_level++;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else if (and_strcondition()) {
 					execution_level++;
@@ -2286,7 +2284,7 @@ execute(funcname)
 				current_level++;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else if (strcondition()) {
 					execution_level++;
@@ -2295,7 +2293,7 @@ execute(funcname)
 				current_level++;
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					/* RESOLVE ALL THE TEXT AND STORE IT IN A TEMPORARY BUFFER*/
@@ -2313,7 +2311,7 @@ execute(funcname)
 				current_level++;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else if (condition()) {
 					execution_level++;
@@ -2322,7 +2320,7 @@ execute(funcname)
 				current_level++;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else if (and_condition()) {
 					execution_level++;
@@ -2358,8 +2356,7 @@ execute(funcname)
 }
 
 int
-exit_function(return_code)
-	int			return_code;
+exit_function(int return_code)
 {
 	if (infile != NULL) {
 		read_lck.l_type = F_UNLCK;	// SETTING A READ LOCK
@@ -2382,9 +2379,7 @@ exit_function(return_code)
 }
 
 char *
-object_names(object_index, names_buffer)
-	 int             object_index;
-	 char			*names_buffer;
+object_names(int object_index, char *names_buffer)
 {
 	/* THIS FUNCTION CREATES A LIST OF ALL AN OBJECT'S NAMES.
 	   THE escape ARGUMENT INDICATES WHETHER A + SIGN SHOULD BE
@@ -2402,11 +2397,7 @@ object_names(object_index, names_buffer)
 }
 
 int
-distance(x1, y1, x2, y2)
-	 double          x1,
-	                 y1,
-	                 x2,
-	                 y2;
+distance(double x1, double y1, double x2, double y2)
 {
 	/* THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS IN A 
 	   TWO-DIMENSIONAL PLANE */
@@ -2458,11 +2449,7 @@ distance(x1, y1, x2, y2)
 }
 
 void
-new_position(x1, y1, bearing, velocity)
-	 double          x1,
-	                 y1,
-	                 bearing,
-	                 velocity;
+new_position(double x1, double y1, double bearing, double velocity)
 {
 	double          delta_x,
 	                delta_y;
@@ -2509,11 +2496,7 @@ new_position(x1, y1, bearing, velocity)
 }
 
 int
-bearing(x1, y1, x2, y2)
-	 double          x1,
-	                 y1,
-	                 x2,
-	                 y2;
+bearing(double x1, double y1, double x2, double y2)
 {
 	int             quadrant;
 	double          delta_x,
@@ -2559,8 +2542,7 @@ bearing(x1, y1, x2, y2)
 }
 
 void
-set_arguments(function_call)
-  char		*function_call;
+set_arguments(char *function_call)
 {
 	/* THIS FUNCTION CREATES AN ARRAY OF JACL INTEGER CONSTANTS TO
 	   REPRESENT THE ARGUMENTS PASSED TO A JACL FUNCTION */
@@ -2651,7 +2633,7 @@ set_arguments(function_call)
 }
 
 void
-pop_stack()
+pop_stack(void)
 {
 	int index, counter;
 
@@ -2729,12 +2711,13 @@ pop_stack()
 }
 
 void
-push_stack(file_pointer)
+push_stack(
 #ifdef GLK
-	 glsi32          file_pointer;
+	 glsi32          file_pointer
 #else
-	 long          file_pointer;
+	 long          file_pointer
 #endif
+)
 {
 	/* COPY ALL THE CURRENT SYSTEM DATA ONTO THE STACK */
 	int index;
@@ -2945,7 +2928,7 @@ push_proxy()
 }
 
 int
-condition()
+condition(void)
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN TRUE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'TRUE' */
@@ -2963,7 +2946,7 @@ condition()
 }
 
 int
-and_condition()
+and_condition(void)
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN FALSE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'FALSE' */
@@ -2981,8 +2964,7 @@ and_condition()
 }
 
 int
-logic_test(first)
-	 int             first;
+logic_test(int first)
 {
 	long            index,
 	                compare;
@@ -3012,13 +2994,13 @@ logic_test(first)
 			unkobjrun(first);
 			return (FALSE);
 		} else
-			return (scope(index, word[first + 2]));
+			return (scope(index, word[first + 2], 0));
 	} else if (!strcmp(word[first + 1], "isnt")) {
 		if (index < 1 || index > objects) {
 			unkobjrun(first);
 			return (FALSE);
 		} else
-			return (!scope(index, word[first + 2]));
+			return (!scope(index, word[first + 2], 0));
 	} else if (!strcmp(word[first + 1], "has"))
 		if (index < 1 || index > objects) {
 			unkobjrun(first);
@@ -3101,7 +3083,7 @@ logic_test(first)
 }
 
 int
-strcondition()
+strcondition(void)
 {
 	int             first;
 
@@ -3117,7 +3099,7 @@ strcondition()
 }
 
 int
-and_strcondition()
+and_strcondition(void)
 {
 	int             first;
 
@@ -3133,8 +3115,7 @@ and_strcondition()
 }
 
 int
-str_test(first)
-	 int             first;
+str_test(int first)
 {
 	char  *index;
 	char  *compare;
@@ -3196,9 +3177,7 @@ str_test(first)
 }
 
 void
-add_cinteger(name, value)
-  char *name;
-  int   value;
+add_cinteger(char *name, int value)
 {
 	/* THIS FUNCTION ADDS A NEW JACL CONSTANT TO THE LIST */
 
@@ -3224,8 +3203,7 @@ add_cinteger(name, value)
 }
 
 void
-clear_cinteger(name)
-  char *name;
+clear_cinteger(char *name)
 {
     /* FREE CONSTANTS THAT HAVE SUPPLIED NAME*/
 
@@ -3261,9 +3239,7 @@ clear_cinteger(name)
 }
 
 void
-add_cstring(name, value)
-  char *name;
-  char *value;
+add_cstring(char *name, char *value)
 {
 	/* ADD A STRING CONSTANT WITH THE SUPPLIED NAME AND VALUE */
 
@@ -3290,8 +3266,7 @@ add_cstring(name, value)
 }
 
 void
-clear_cstring(name)
-  char *name;
+clear_cstring(char *name)
 {
     /* FREE CONSTANTS THAT HAVE SUPPLIED NAME*/
 	if (cstring_table != NULL) {
@@ -3319,8 +3294,7 @@ clear_cstring(name)
 }
 
 void
-inspect (object_num) 
-	int		object_num;
+inspect (int object_num)
 {
 	// THIS FUNCTION DISPLAYS THE STATE OF A JACL OBJECT FOR DEBUGGING
 
@@ -3409,9 +3383,7 @@ inspect (object_num)
 }
 
 int
-grand_of(child, objs_only)
-     int             child,
-                     objs_only;
+grand_of(int child, int objs_only)
 {
     /* THIS FUNCTION WILL CLIMB THE OBJECT TREE STARTING AT 'CHILD' UNTIL
      * A 'PARENT' IS REACHED */
@@ -3484,7 +3456,7 @@ select_next()
 				}
 				break;
 			case CRI_SCOPE:
-				if (scope(*select_integer, scope_criterion)) {
+				if (scope(*select_integer, scope_criterion, 0)) {
 					if (!criterion_negate) {
 						return TRUE;
 					}
