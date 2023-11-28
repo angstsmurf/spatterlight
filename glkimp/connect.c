@@ -21,13 +21,13 @@ static struct sizewinrect *sizewin = (void*)wbuf;
 static struct drawrect *drawstruct = (void*)wbuf;
 static struct settings_struct *settings = (void*)wbuf;
 
-int readfd = 0;
-int sendfd = 1;
+static int readfd = 0;
+static int sendfd = 1;
 
-int buffering = BUFNONE;
-int bufferwin = -1;
-int bufferatt = -1;
-int bufferlen = 0;
+static int buffering = BUFNONE;
+static int bufferwin = -1;
+static int bufferatt = -1;
+static int bufferlen = 0;
 
 int gli_utf8output = TRUE;
 int gli_utf8input = TRUE;

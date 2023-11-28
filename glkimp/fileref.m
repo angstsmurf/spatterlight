@@ -7,7 +7,7 @@
 char *autosavedir = NULL;
 char tempdir[BUFLEN] = "";
 
-void setdefaultworkdir(char **string)
+static void setdefaultworkdir(char **string)
 {
     size_t length;
     @autoreleasepool {

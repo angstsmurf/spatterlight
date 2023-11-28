@@ -168,7 +168,7 @@ char *gli_program_info = NULL;
 char *gli_story_name = NULL;
 char *gli_story_title = NULL;
 
-void malloc_and_set_string(char **variable, const char *string)
+static void malloc_and_set_string(char **variable, const char *string)
 {
     size_t length = strlen(string);
 
