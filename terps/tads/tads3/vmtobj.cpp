@@ -2114,7 +2114,7 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
                                  vm_val_t *retval, uint *in_argc)
 {
     static CVmNativeCodeDesc desc(1);
-    int cnt;
+    int cnt = 0;
     int i;
     vm_val_t ele;
     int sc_cnt;

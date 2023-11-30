@@ -659,7 +659,7 @@ CVmNetFile *CVmObjFile::get_filename_arg(
     os_filetype_t file_type, const char *mime_type)
 {
     /* figure the network file access mode */
-    int nmode;
+    int nmode = 0;
     switch (access)
     {
     case VMOBJFILE_ACCESS_READ:
