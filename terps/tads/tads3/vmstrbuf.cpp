@@ -191,7 +191,7 @@ vm_obj_id_t CVmObjStringBuffer::create_from_stack(
     VMG_ const uchar **pc_ptr, uint argc)
 {
     vm_obj_id_t id;
-    int alo, inc;
+    int alo=0, inc=0;
 
     /* get the arguments */
     if (argc == 0)

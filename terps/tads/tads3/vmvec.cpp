@@ -1353,7 +1353,7 @@ int CVmObjVector::getp_copy_from(VMG_ vm_obj_id_t self, vm_val_t *retval,
     G_stk->pop(&src_val);
 
     /* make sure the source argument is list-like, and get its length */
-    int src_cnt;
+    int src_cnt = 0;
     if (!src_val.is_listlike(vmg0_)
         || (src_cnt = src_val.ll_length(vmg0_)) < 0)
         err_throw(VMERR_BAD_TYPE_BIF);
