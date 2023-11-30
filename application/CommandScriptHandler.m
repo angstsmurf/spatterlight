@@ -25,12 +25,12 @@ extern NSArray *gSaveFileTypes;
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-    _commandString = [decoder decodeObjectOfClass:[NSString class] forKey:@"commandString"];
-    _commandArray = [decoder decodeObjectOfClass:[NSArray<NSValue *> class] forKey:@"commandArray"];
+    self.commandString = [decoder decodeObjectOfClass:[NSString class] forKey:@"commandString"];
+    self.commandArray = [decoder decodeObjectOfClass:[NSArray<NSValue *> class] forKey:@"commandArray"];
     _commandIndex = (NSUInteger)[decoder decodeIntegerForKey:@"commandIndex"];
     _lastCommandWindow = [decoder decodeIntegerForKey:@"lastCommandWindow"];
     _lastCommandType = (kLastCommandType)[decoder decodeIntegerForKey:@"lastCommandType"];
-    _untypedCharacters = [decoder decodeObjectOfClass:[NSString class] forKey:@"untypedCharacters"];
+    self.untypedCharacters = [decoder decodeObjectOfClass:[NSString class] forKey:@"untypedCharacters"];
     }
     return self;
 }

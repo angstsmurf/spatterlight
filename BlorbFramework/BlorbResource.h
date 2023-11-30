@@ -13,22 +13,3 @@ NS_ENUM(FourCharCode) {
     PictureResource = 0x50696374,
     SoundResource = 0x536e6420
 };
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface BlorbResource : NSObject
-
-@property(readonly) FourCharCode usage;
-@property(readonly) unsigned int number;
-@property(readonly) unsigned int start;
-@property(copy, nullable) NSString *descriptiontext;
-@property(copy, nullable) NSString *chunkType;
-
-- (instancetype)initWithUsage:(FourCharCode)usage
-                       number:(unsigned int)number
-                        start:(unsigned int)start NS_DESIGNATED_INITIALIZER;
-- (instancetype)init __attribute__((unavailable));
-
-@end
-
-NS_ASSUME_NONNULL_END
