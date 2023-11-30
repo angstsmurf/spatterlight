@@ -77,7 +77,9 @@
 /* define the hash functions that you need          */
 
 //#define SHA_2           /* for dynamic hash length  */  // $$$MJR - removed
+#if !defined(SPATTERLIGHT)
 #define SHA_256
+#endif
 //#define SHA_384  // $$$MJR - removed
 //#define SHA_512  // $$$MJR - removed
 
@@ -120,6 +122,31 @@
 #    include <sys/param.h>
 #elif defined(SPATTERLIGHT)
 #    include <sys/param.h>
+#endif
+
+#if defined(SPATTERLIGHT)
+# include <CommonCrypto/CommonCrypto.h>
+void sha256_begin(sha256_ctx ctx[1])
+{
+    static_assert(sizeof(sha256_ctx) == sizeof(CC_SHA256_CTX), "Oops, can't use CommonCrypto as it is!");
+    CC_SHA256_Init((CC_SHA256_CTX*)ctx);
+}
+
+void sha256_hash(const unsigned char data[], unsigned long len, sha256_ctx ctx[1])
+{
+    static_assert(sizeof(sha256_ctx) == sizeof(CC_SHA256_CTX), "Oops, can't use CommonCrypto as it is!");
+    CC_SHA256_Update((CC_SHA256_CTX*)ctx, data, len);
+}
+
+void sha256_end(unsigned char hval[], sha256_ctx ctx[1])
+{
+    static_assert(sizeof(sha256_ctx) == sizeof(CC_SHA256_CTX), "Oops, can't use CommonCrypto as it is!");
+    CC_SHA256_Final(hval, (CC_SHA256_CTX*)ctx);
+}
+#define sha256_begin           CC_SHA256_Init
+#define sha256_hash(__a, __B, __C) CC_SHA256_Update(__C, __a, __B)
+#define sha256_end             CC_SHA256_Final
+#define sha256_ctx             CC_SHA256_CTX
 #endif
 
 /*  2. BYTE ORDER IN 32-BIT WORDS

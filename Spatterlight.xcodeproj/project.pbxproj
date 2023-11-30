@@ -1408,6 +1408,8 @@
 		55368B6E272BF24700740A0A /* geas-impl.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-impl.hh"; sourceTree = "<group>"; };
 		55368B6F272BF24700740A0A /* reserved_words.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reserved_words.hh; sourceTree = "<group>"; };
 		55368B70272BF24700740A0A /* geas-runner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-runner.cc"; sourceTree = "<group>"; };
+		55A01EDA2B188142003D7C18 /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		55A01EDB2B188178003D7C18 /* sha2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
 		6D212736246BDC4E00D775A8 /* NSColor+integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+integer.h"; sourceTree = "<group>"; };
 		6D212737246BDC4E00D775A8 /* NSColor+integer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+integer.m"; sourceTree = "<group>"; };
 		6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -4867,8 +4869,10 @@
 		965033CE09F29EE20083E64E /* tads3 */ = {
 			isa = PBXGroup;
 			children = (
+				55A01EDA2B188142003D7C18 /* md5.h */,
 				C3B3775B1ECBA060006432BE /* md5.cpp */,
 				C3B3775D1ECBA06E006432BE /* resload.cpp */,
+				55A01EDB2B188178003D7C18 /* sha2.h */,
 				C3B3775E1ECBA082006432BE /* sha2.cpp */,
 				C3B377861ECBA23C006432BE /* vmbignumlib.cpp */,
 				C3B377A21ECBA41B006432BE /* vmconhtm.cpp */,
@@ -9316,6 +9320,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -9360,6 +9365,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9393,6 +9399,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SPATTERLIGHT,
@@ -9426,6 +9433,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -9469,6 +9477,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

@@ -382,6 +382,14 @@ md5_finish(md5_state_t *pms, md5_byte_t digest[16])
         digest[i] = (md5_byte_t)(pms->abcd[i >> 2] >> ((i & 3) << 3));
 }
 
+#if defined(SPATTERLIGHT)
+# include <CommonCrypto/CommonCrypto.h>
+#define md5_init           CC_MD5_Init
+#define md5_append         CC_MD5_Update
+#define md5_finish(__B, __A)         CC_MD5_Final(__A, __B)
+#define md5_state_t        CC_MD5_CTX
+#endif
+
 /* ------------------------------------------------------------------------ */
 /*
  *   E-Z MD5 [MJR addition] 
