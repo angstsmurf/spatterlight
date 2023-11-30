@@ -1,4 +1,5 @@
 #import <QuartzCore/QuartzCore.h>
+#import <CoreImage/CoreImage.h>
 
 #import "AppDelegate.h"
 #import "BufferTextView.h"

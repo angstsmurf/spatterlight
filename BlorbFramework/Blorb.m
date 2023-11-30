@@ -13,6 +13,7 @@
 #import "BlorbResource.h"
 #import "NSData+Categories.h"
 #include "iff.h"
+#import <BlorbFramework/BlorbFramework-Swift.h>
 
 @interface Blorb () {
   NSData *data;
@@ -216,9 +217,7 @@
   return nil;
 }
 
-- (NSData *)metaData {
-  return metaData;
-}
+@synthesize metaData;
 
 - (NSData *)coverImageData {
   NSArray<BlorbResource *> *images = [self resourcesForUsage:PictureResource];
