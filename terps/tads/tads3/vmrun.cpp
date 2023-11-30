@@ -5227,7 +5227,7 @@ inline int CVmRun::get_prop_no_eval(VMG_ const vm_val_t **target_obj,
                                     const vm_val_t **self,
                                     vm_val_t *new_self)
 {
-    int found;
+    int found = -1;
     const char *target_ptr;
     
     /* 

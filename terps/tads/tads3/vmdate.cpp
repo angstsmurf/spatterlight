@@ -2314,7 +2314,7 @@ vm_obj_id_t CVmObjDate::create_from_stack(VMG_ const uchar **pc_ptr, uint argc)
              && (str = G_stk->get(1)->get_as_string(vmg0_)) != 0)
     {
         /* check the type code */
-        double dn, dms;
+        double dn = 0, dms;
         if (vmb_get_len(str) == 1 && (str[2] == 'U' || str[2] == 'u'))
         {
             /* 

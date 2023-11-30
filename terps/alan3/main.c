@@ -646,14 +646,14 @@ static void openFiles(void)
     char str[256];
 
     /* Open Acode file */
-    strcpy(codfnm, adventureFileName);
+    strncpy(codfnm, adventureFileName, sizeof(codfnm));
     if ((codfil = fopen(codfnm, READ_MODE)) == NULL) {
         snprintf(str, sizeof(str), "Can't open adventure code file '%s'.", codfnm);
         playererr(str);
     }
 
     /* Open Text file */
-    strcpy(txtfnm, adventureFileName);
+    strncpy(txtfnm, adventureFileName, sizeof(txtfnm));
     if ((textFile = fopen(txtfnm, READ_MODE)) == NULL) {
         snprintf(str, sizeof(str), "Can't open adventure text data file '%s'.", txtfnm);
         apperr(str);
