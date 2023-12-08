@@ -249,7 +249,7 @@ void wintitle(void)
 
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
-    fprintf(stderr, "win_fillrect name %d color %d x %d y %d w %d h %d\n", name, color, x, y, w, h);
+//    fprintf(stderr, "win_fillrect name %d color %d x %d y %d w %d h %d\n", name, color, x, y, w, h);
     if (buffering == BUFPRINT)
         win_flush();
 
