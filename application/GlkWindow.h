@@ -82,6 +82,8 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)cancelHyperlink;
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg;
+- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr;
+- (NSMutableAttributedString *)applyReverseOnly:(NSMutableAttributedString *)attStr;
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
 

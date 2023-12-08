@@ -278,7 +278,112 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
-    NSLog(@"ZColors in %@ not implemented", [self class]);
+
+    if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
+        // If there already was a previous active zcolor, we
+        // deactivate it here, unless it uses the same colors as the new one.
+        currentZColor = nil;
+    }
+
+    if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
+        currentZColor =
+        [[ZColor alloc] initWithText:fg background:bg];
+    }
+}
+
+- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
+    NSUInteger textstoragelength = attStr.length;
+
+    GlkWindow * __weak weakSelf = self;
+    NSColor *blockBgCol;
+    if ([self isKindOfClass:[GlkTextGridWindow class]])
+        blockBgCol = self.theme.gridBackground;
+    else
+        blockBgCol = self.theme.bufferBackground;
+
+    if (self.theme.doStyles) {
+        [attStr
+         enumerateAttribute:@"ZColor"
+         inRange:NSMakeRange(0, textstoragelength)
+         options:0
+         usingBlock:^(id value, NSRange range, BOOL *stop) {
+            if (!value) {
+                return;
+            }
+            ZColor *z = value;
+            [attStr
+             enumerateAttributesInRange:range
+             options:0
+             usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+                NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+                NSMutableDictionary *mutDict = [dict mutableCopy];
+                if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                    // Style has stylehint_ReverseColor set,
+                    // So we apply Zcolor with reversed attributes
+                    mutDict = [z reversedAttributes:mutDict];
+                } else {
+                    // Apply Zcolor normally
+                    mutDict = [z coloredAttributes:mutDict];
+                }
+                [attStr addAttributes:mutDict range:range2];
+            }];
+        }];
+    }
+
+    [attStr
+     enumerateAttribute:@"ReverseVideo"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+        [attStr
+         enumerateAttributesInRange:range
+         options:0
+         usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+            NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+            BOOL zcolorValue = (dict[@"ZColor"] != nil);
+            if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+                NSMutableDictionary *mutDict = [dict mutableCopy];
+                mutDict = [weakSelf reversedAttributes:mutDict background:blockBgCol];
+                [attStr addAttributes:mutDict range:range2];
+            }
+        }];
+    }];
+
+    return attStr;
+}
+
+- (NSMutableAttributedString *)applyReverseOnly:(NSMutableAttributedString *)attStr {
+    NSUInteger textstoragelength = attStr.length;
+
+    GlkWindow * __weak weakSelf = self;
+    NSColor *blockBgCol;
+    if ([self isKindOfClass:[GlkTextGridWindow class]])
+        blockBgCol = self.theme.gridBackground;
+    else
+        blockBgCol = self.theme.bufferBackground;
+
+    [attStr
+     enumerateAttribute:@"ReverseVideo"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+        [attStr
+         enumerateAttributesInRange:range
+         options:0
+         usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+            NSMutableDictionary *mutDict = [dict mutableCopy];
+            mutDict = [weakSelf reversedAttributes:mutDict background:blockBgCol];
+            [attStr addAttributes:mutDict range:range2];
+        }];
+    }];
+
+    return attStr;
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
