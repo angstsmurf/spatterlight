@@ -1004,13 +1004,12 @@ gms_graphics_color_luminance (gms_rgbref_t rgb_color)
  * correction.
  */
 static int
-gms_graphics_compare_luminance (const void *void_first,
-                                const void *void_second)
+gms_graphics_compare_luminance (const void *void_first, const void *void_second)
 {
-  long first = *(long *) void_first;
-  long second = *(long *) void_second;
+    int first = *(int *) void_first;
+    int second = *(int *) void_second;
 
-  return first > second ? 1 : second > first ? -1 : 0;
+    return first > second ? 1 : second > first ? -1 : 0;
 }
 
 static long
