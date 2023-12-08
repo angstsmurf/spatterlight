@@ -218,6 +218,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (self.inLiveResize)
         [self flushDisplay];
+
+//    NSLog(@"GlkTextBufferWindow %ld setFrame:%@", self.name, NSStringFromRect(frame));
 }
 
 - (void)flushDisplay {
@@ -878,7 +880,7 @@ fprintf(stderr, "%s\n",                                                    \
 };
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-    NSLog(@"GlkTextBufferWindow %ld printToWindow:\"%@\" style:%s", self.name, str, stylenames[stylevalue]);
+    NSLog(@"GlkTextBufferWindow %ld printToWindow:\"%@\" style:%s zcolor:%@ reverse video: %@ frame:%@", self.name, str, stylenames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO", NSStringFromRect(self.frame));
 
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];

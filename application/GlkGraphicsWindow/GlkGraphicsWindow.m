@@ -105,13 +105,18 @@
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
-- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
-    NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
+- (void)clear {
+    struct fillrect clearrect;
+    clearrect.color = (uint32_t)bgnd;
+    clearrect.x = 0;
+    clearrect.y = 0;
+    clearrect.w = (short)self.bounds.size.width;
+    clearrect.w = (short)self.bounds.size.height;
+    [self fillRects:&clearrect count:1];
 }
 
-- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
+- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
-    return nil;
 }
 
 - (void)drawRect:(NSRect)rect {

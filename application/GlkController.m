@@ -47,25 +47,25 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
-//    "INITCHAR",        "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
-//    "UNPAUSE",         "BEEP",
-//    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
-//    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
-//    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
+    "INITCHAR",        "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
+    "UNPAUSE",         "BEEP",
+    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
+    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
+    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
+    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -1792,6 +1792,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _windowsToBeAdded) {
         [_gameView addSubview:win];
+//        NSLog(@"GlkController flushDisplay:Added %@ %ld", win.className, win.name);
     }
 
     if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
@@ -1805,6 +1806,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     for (GlkWindow *win in _windowsToBeRemoved) {
+//        NSLog(@"GlkController flushDisplay:Deleted %@ %ld", win.className, win.name);
         [win removeFromSuperview];
         win.glkctl = nil;
     }
@@ -2963,7 +2965,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    // NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -3108,6 +3110,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case DELWIN:
             if (reqWin) {
+                NSLog(@"DELWIN: Deleting window %d of type %@", req->a1, reqWin.className);
                 [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
@@ -3260,7 +3263,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-                NSLog(@"Resize window %ld to %@", reqWin.name, NSStringFromRect(rect));
+                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
