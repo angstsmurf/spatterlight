@@ -316,17 +316,17 @@ PasteboardFilePasteLocation;
     panel.message = NSLocalizedString(@"Please select a game", nil);
 
     panel.accessoryView = _tableViewController.addToLibraryCheckBox;
-    NSButton *finalButton = (NSButton *)panel.accessoryView;
-    finalButton.state = [[NSUserDefaults standardUserDefaults]
+    NSButton *addToLibraryCheckBox = (NSButton *)panel.accessoryView;
+    addToLibraryCheckBox.state = [[NSUserDefaults standardUserDefaults]
                       boolForKey:@"AddToLibrary"];
 
     [panel beginWithCompletionHandler:^(NSInteger result) {
-        NSButton *finalButton = (NSButton*)panel.accessoryView;
+        NSButton *blockAddToLibraryCheckBox = (NSButton*)panel.accessoryView;
         if (result == NSModalResponseOK) {
-            BOOL addToLibrary = (finalButton.state == NSOnState); ;
+            BOOL addToLibrary = (blockAddToLibraryCheckBox.state == NSOnState); ;
             [[NSUserDefaults standardUserDefaults]
              setBool:addToLibrary forKey:@"AddToLibrary"];
-            [Preferences instance].addToLibraryCheckbox.state = finalButton.state;
+            [Preferences instance].addToLibraryCheckbox.state = blockAddToLibraryCheckBox.state;
 
             NSURL *theDoc = panel.URLs.firstObject;
             if (theDoc) {
