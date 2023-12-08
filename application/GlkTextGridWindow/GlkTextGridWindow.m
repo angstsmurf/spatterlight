@@ -1072,29 +1072,28 @@
     if (mouse_request) {
         [self.glkctl markLastSeen];
 
-        NSPoint p;
-        p = theEvent.locationInWindow;
+        NSPoint p, point_in_window;
+        point_in_window = theEvent.locationInWindow;
 
-        p = [_textview convertPoint:p fromView:nil];
+        point_in_window = [_textview convertPoint:point_in_window fromView:nil];
 
-        p.x -= _textview.textContainerInset.width;
-        p.y -= _textview.textContainerInset.height;
+        point_in_window.x -= _textview.textContainerInset.width;
+        point_in_window.y -= _textview.textContainerInset.height;
 
         NSUInteger charIndex =
-        [_textview.layoutManager characterIndexForPoint:p
+        [_textview.layoutManager characterIndexForPoint:point_in_window
                                        inTextContainer:container
               fractionOfDistanceBetweenInsertionPoints:nil];
 
         p.y = charIndex / (cols + 1);
         p.x = charIndex % (cols + 1);
-
+        if (p.x >= cols)
+            p.x = point_in_window.x / self.theme.cellWidth;
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows) {
-            if (mouse_request) {
-                gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
-                [self.glkctl queueEvent:gev];
-                mouse_request = NO;
-                return YES;
-            }
+            gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
+            [self.glkctl queueEvent:gev];
+            mouse_request = NO;
+            return YES;
         }
     }
     return NO;
