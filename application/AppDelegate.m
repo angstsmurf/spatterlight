@@ -228,11 +228,10 @@ PasteboardFilePasteLocation;
     } else if ([identifier isEqualToString:@"preferences"]) {
         window = appDelegate.prefctl.window;
     } else {
-        NSString *firstLetters =
-        [identifier substringToIndex:7];
+        NSString *firstLetters = [identifier substringToIndex:7];
+        NSString *ifid = [identifier substringFromIndex:7];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
-            NSString *ifid = [identifier substringFromIndex:7];
             InfoController *infoctl =
             [[InfoController alloc] initWithIfid:ifid];
             infoctl.libcontroller = appDelegate.libctl.tableViewController;
@@ -244,24 +243,7 @@ PasteboardFilePasteLocation;
             (appDelegate.libctl.tableViewController.infoWindows)[ifid] = infoctl;
             window = infoctl.window;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
-            NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl.tableViewController playGameWithIFID:ifid];
-
-            // We delay the restoration of the window
-            // that was key when closing here
-            // in order to make it more likely
-            // that it restores on top, as key
-            void(^completionHandlerCopy)(NSWindow *, NSError *);
-            completionHandlerCopy = completionHandler;
-
-            if ([ifid isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"KeyWindowController"]])
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-                    completionHandlerCopy(window, nil);
-                });
-            else
-                completionHandler(window, nil);
-
-            return;
         }
     }
     completionHandler(window, nil);
