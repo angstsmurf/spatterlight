@@ -12,6 +12,8 @@ static int isbit7set(uint8_t val) {
     return val >> 7;
 }
 
+// This seems to  be functionally equivalent to ms_extract1() in Magnetic,
+// i.e. it uses Magnetic Scrolls image compression
 uint8_t *decompress_amiga(ImageStruct *image) {
     uint8_t compressed_byte = 0;
     uint8_t bytevalue;
@@ -57,7 +59,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
             color_index = bytevalue + 0x10;
             buffer[index++] = color_index;
         } else for (int i = (bytevalue & 0x017f) + 1; i > 0 && index < finalsize; i--) {
-            // Repeat previous value (bytevalue - bit 7 + 1) number of times
+            // Use previous value. Repeat (bytevalue - bit 7 + 1) times
             buffer[index++] = color_index;
         }
     } while (index < finalsize);
