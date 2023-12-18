@@ -2203,9 +2203,13 @@ void do_cmp(void)
 
 	tmp = arg1;
 	tmparg[0] = arg1[0];
-	tmparg[1] = arg1[1];
-	tmparg[2] = arg1[2];
-	tmparg[3] = arg1[3];
+    if (opsize != 0)
+        tmparg[1] = arg1[1];
+    if (opsize == 2)
+    {
+        tmparg[2] = arg1[2];
+        tmparg[3] = arg1[3];
+    }
 	arg1 = tmparg;
 	quick_flag = 0;
 	do_sub(0);
