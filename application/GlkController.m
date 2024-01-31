@@ -855,8 +855,24 @@ static const char *msgnames[] = {
                [ifid isEqualToString:@"ZCODE-321-891629"] ||
                [ifid isEqualToString:@"ZCODE-322-890706"]) {
         _gameID = kGameIsShogun;
+    } else if ([ifid isEqualToString:@"ZCODE-142-890205"] ||
+               [ifid isEqualToString:@"ZCODE-2-890303"] ||
+               [ifid isEqualToString:@"ZCODE-11-890304"] ||
+               [ifid isEqualToString:@"ZCODE-3-890310"] ||
+               [ifid isEqualToString:@"ZCODE-5-890310"] ||
+               [ifid isEqualToString:@"ZCODE-10-890313"] ||
+               [ifid isEqualToString:@"ZCODE-26-890316"] ||
+               [ifid isEqualToString:@"ZCODE-30-890322"] ||
+               [ifid isEqualToString:@"ZCODE-51-890322"] ||
+               [ifid isEqualToString:@"ZCODE-54-890526"] ||
+               [ifid isEqualToString:@"ZCODE-76-890615"] ||
+               [ifid isEqualToString:@"ZCODE-77-890616"] ||
+               [ifid isEqualToString:@"ZCODE-79-890627"] ||
+               [ifid isEqualToString:@"ZCODE-83-890706"]) {
+        _gameID = kGameIsJourney;
     } else {
-        _gameID = kGameIsGeneric;    }
+        _gameID = kGameIsGeneric;
+    }
 }
 
 - (void)resetGameDetection {
