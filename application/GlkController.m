@@ -28,6 +28,7 @@
 #import "SoundHandler.h"
 #import "TableViewController.h"
 #import "ZMenu.h"
+#import "JourneyMenuHandler.h"
 
 #import "Game.h"
 #import "Theme.h"
@@ -63,6 +64,8 @@ static const char *msgnames[] = {
     "UNPAUSE",         "BEEP",
     "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
     "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+    "PURGEIMG",        "MENU",
+
     "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
     "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
     "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
@@ -192,6 +195,7 @@ static const char *msgnames[] = {
     kVOMenuPrefsType lastVOSpeakMenu;
 }
 
+@property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
 @property BOOL shouldShowAutorestoreAlert;
 
 @end
@@ -1582,6 +1586,7 @@ static const char *msgnames[] = {
      object: readfh];
 
     _commandScriptHandler = nil;
+    _journeyMenuHandler = nil;
 
     if (task) {
         // Stop the interpreter
@@ -2978,6 +2983,19 @@ static const char *msgnames[] = {
     return NO;
 }
 
+- (JourneyMenuHandler *)journeyMenuHandler {
+    if (_journeyMenuHandler == nil) {
+        GlkTextGridWindow *gridwindow = nil;
+        for (GlkWindow *win in _gwindows.allValues)
+            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+                gridwindow = (GlkTextGridWindow *)win;
+                break;
+            }
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow];
+    }
+    return _journeyMenuHandler;
+}
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
@@ -3625,6 +3643,11 @@ static const char *msgnames[] = {
         case PURGEIMG:
             [_imageHandler purgeImage:req->a1];
             break;
+
+        case MENUITEM: {
+            [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
+             break;
+        }
 
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
@@ -4526,6 +4549,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self.window close];
         [_game.managedObjectContext deleteObject:_game];
     }
+}
+
+- (void)journeyPartyAction:(id)sender {
+    [self.journeyMenuHandler journeyPartyAction:sender];
+}
+- (void)journeyMemberVerbAction:(id)sender {
+    [self.journeyMenuHandler journeyMemberVerbAction:sender];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {

@@ -767,6 +767,19 @@ void win_purgeimage(glui32 val)
     sendmsg(PURGEIMG, val, 0, 0, 0, 0, 0, NULL);
 }
 
+void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
+{
+    if (len <= 1 || len > 15)
+        return;
+
+    win_flush();
+
+    if (str == NULL)
+        len = 0;
+
+    sendmsg(MENUITEM, type, column, line, stopflag, 0, len, str);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;

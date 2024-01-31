@@ -129,6 +129,7 @@ enum
     SHOWERROR,
     CANPRINT,
     PURGEIMG,
+    MENUITEM,
 
     NEXTEVENT,
     EVTARRANGE,

@@ -294,7 +294,7 @@ void tokenize(uint16_t text, uint16_t parse, uint16_t dictaddr, bool flag)
     user_store_byte(parse + 1, found);
 }
 
-static void encode_text(uint32_t text, uint16_t len, uint16_t coded)
+void encode_text(uint32_t text, uint16_t len, uint16_t coded)
 {
     ZASSERT(text + len < memory_size, "reported text length extends beyond memory size");
 

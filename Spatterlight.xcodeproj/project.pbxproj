@@ -808,6 +808,7 @@
 		C3EAD77F26D4539500AF31AF /* tildeath.gam in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD77E26D4539500AF31AF /* tildeath.gam */; };
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
+		C3EBED0F2B6681C3001D02A1 /* JourneyMenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EBED0E2B6681C3001D02A1 /* JourneyMenuHandler.m */; };
 		C3EC5026289C0C820078AB83 /* stdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EC5024289C0C820078AB83 /* stdraw.c */; };
 		C3ED4172296E895A006EACED /* time_cruncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED4171296E895A006EACED /* time_cruncher.cpp */; };
 		C3EEEF43296C9C050094DE93 /* 6502_emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EEEF3D296C9C040094DE93 /* 6502_emu.cpp */; };
@@ -3272,6 +3273,8 @@
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
+		C3EBED0D2B6681C3001D02A1 /* JourneyMenuHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JourneyMenuHandler.h; sourceTree = "<group>"; };
+		C3EBED0E2B6681C3001D02A1 /* JourneyMenuHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JourneyMenuHandler.m; sourceTree = "<group>"; };
 		C3EC5024289C0C820078AB83 /* stdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdraw.c; sourceTree = "<group>"; };
 		C3ED4171296E895A006EACED /* time_cruncher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time_cruncher.cpp; sourceTree = "<group>"; };
 		C3EE1A6127CACFE30008D790 /* Spatterlight 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 12.xcdatamodel"; sourceTree = "<group>"; };
@@ -5511,6 +5514,8 @@
 				C3D81779256CBA20005DBC1F /* InputTextField.m */,
 				C35ED513256DD37A00C14847 /* InputHistory.h */,
 				C35ED514256DD37A00C14847 /* InputHistory.m */,
+				C3EBED0D2B6681C3001D02A1 /* JourneyMenuHandler.h */,
+				C3EBED0E2B6681C3001D02A1 /* JourneyMenuHandler.m */,
 			);
 			path = "Input related classes";
 			sourceTree = "<group>";
@@ -7423,6 +7428,7 @@
 				C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
 				C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */,
+				C3EBED0F2B6681C3001D02A1 /* JourneyMenuHandler.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				C35D520826F24142002E2F59 /* FolderAccess.m in Sources */,

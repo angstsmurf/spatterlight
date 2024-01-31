@@ -13,6 +13,7 @@ extern "C" {
 #include "screen.h"
 #include "zterp.h"
 #include "memory.h"
+#include "entrypoints.hpp"
 
 #include "draw_image.hpp"
 #include "arthur.hpp"
@@ -128,11 +129,9 @@ void adjust_arthur_room_image(int picnum, int width, int height, int *x, int *y)
 
 void draw_arthur_room_image(int picnum) {
     int x, y, width, height;
-//    K-PIC-CHURCHYARD=4
-
-    //     K-PIC-PARADE-AREA=17
+    // K-PIC-CHURCHYARD=4
+    // K-PIC-PARADE-AREA=17
     // K-PIC-AIR-SCENE=163
-
 
     if (picnum == 17 || picnum == 163) {
         get_image_size(picnum, &width, &height);
@@ -274,4 +273,169 @@ void arthur_window_adjustments(void) {
         }
     }
     flush_bitmap(current_graphics_buf_win);
+}
+
+void adjust_arthur_windows(void) {
+    int x_margin;
+    get_image_size(100, &x_margin, nullptr); // Get width of dummy "margin" image
+    if (screenmode != MODE_SLIDESHOW && screenmode != MODE_NOGRAPHICS && screenmode != MODE_HINTS) {
+        fprintf(stderr, "adjusting margins in adjust_arthur_windows\n");
+        adjust_arthur_top_margin();
+        upperwin->y_origin = arthur_text_top_margin;
+        int width_in_chars = ((float)(gscreenw - 2 * x_margin * imagescalex) / gcellw);
+        upperwin->x_size = width_in_chars * gcellw;
+        upperwin->x_origin = (gscreenw - upperwin->x_size) / 2;
+        if (graphics_type == kGraphicsTypeApple2)
+            upperwin->x_origin += imagescalex;
+        mainwin->x_size = upperwin->x_size;
+        mainwin->x_origin = upperwin->x_origin;
+        windows[2].x_origin = upperwin->x_origin;
+        windows[2].x_size = upperwin->x_size;
+        upperwin->y_size = gcellh + 2 * ggridmarginy;
+        mainwin->y_origin = upperwin->y_origin + upperwin->y_size;
+        mainwin->y_size = gscreenh - mainwin->y_origin - 1;
+        v6_sizewin(upperwin);
+        v6_sizewin(mainwin);
+        windows[2].y_origin = 1;
+        windows[2].y_size = arthur_text_top_margin;
+    }
+    if (screenmode == MODE_INVENTORY || screenmode == MODE_STATUS) {
+        windows[2].y_origin = 1;
+        windows[2].x_origin = upperwin->x_origin;
+        if (windows[2].id && (windows[2].id->type != wintype_TextGrid || is_win_covered(&windows[2], windows[2].zpos))) {
+            v6_delete_win(&windows[2]);
+        }
+        if (windows[2].id == nullptr) {
+            v6_remap_win_to_grid(&windows[2]);
+        }
+        if (graphics_win_glk) {
+            glk_window_set_background_color(graphics_win_glk, user_selected_background);
+            glk_window_clear(graphics_win_glk);
+        }
+    } else if (screenmode == MODE_HINTS) {
+        win_setbgnd(mainwin->id->peer, user_selected_background);
+        mainwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+        mainwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
+        if (get_global(fg_global_idx) == 1) {
+            //            garglk_set_zcolors(gfgcol, gbgcol);
+            //            mainwin->fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
+            //            mainwin->bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
+            //            mainwin->style.reset(STYLE_REVERSE);
+            //            set_current_style();
+        } else {
+            //            garglk_set_zcolors(user_selected_foreground, user_selected_background);
+        }
+        return;
+    } else if (screenmode == MODE_MAP) {
+        int mapheight;
+        get_image_size(137, nullptr, &mapheight); // Get height of map background image
+        windows[2].y_origin = 0;
+        windows[2].y_size = mapheight;
+        windows[2].x_origin = x_margin;
+        windows[2].x_size = hw_screenwidth - 2 * x_margin;
+        v6_delete_win(&windows[2]);
+    } else if (screenmode == MODE_ROOM_DESC) {
+        if (windows[2].id && (windows[2].id->type != wintype_TextBuffer || is_win_covered(&windows[2], windows[2].zpos))) {
+            v6_delete_win(&windows[2]);
+        }
+        v6_remap_win_to_buffer(&windows[2]);
+        glk_window_clear(graphics_win_glk);
+    } else if (screenmode == MODE_NOGRAPHICS) {
+    } else if (windows[2].id) {
+        v6_delete_win(&windows[2]);
+        curwin->zpos = 0;
+    }
+    v6_sizewin(&windows[2]);
+}
+
+void INIT_HINT_SCREEN(void) {
+    screenmode = MODE_HINTS;
+    if (is_game(Game::ZorkZero) && (graphics_type == kGraphicsTypeApple2 || graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA)) {
+        v6_delete_win(upperwin);
+        upperwin->id = gli_new_window(wintype_TextGrid, 0);
+    } else {
+        if (upperwin->id) {
+            glk_window_set_background_color(upperwin->id, user_selected_foreground);
+        }
+    }
+}
+
+void LEAVE_HINT_SCREEN(void) {
+    screenmode = MODE_NORMAL;
+    v6_delete_win(mainwin);
+    v6_delete_win(&windows[7]);
+
+    v6_remap_win_to_buffer(mainwin);
+    if (!is_game(Game::ZorkZero)) {
+        upperwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+        upperwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
+    } else if (upperwin->id) {
+        win_maketransparent(upperwin->id->peer);
+    }
+    glk_window_clear(mainwin->id);
+    glk_window_clear(upperwin->id);
+}
+
+
+void DISPLAY_HINT(void) {
+    v6_delete_win(mainwin);
+    v6_remap_win_to_buffer(mainwin);
+}
+
+void after_DISPLAY_HINT(void) {
+    v6_delete_win(mainwin);
+    v6_remap_win_to_grid(mainwin);
+    glk_window_set_background_color(mainwin->id, user_selected_background);
+}
+
+void V_COLOR(void) {
+    fprintf(stderr, "V-COLOR\n");
+    int fg = get_global(fg_global_idx);
+    int bg = get_global(bg_global_idx);
+    fprintf(stderr, "V_COLOR: fg: 0x%x (%d) bg 0x%x (%d)\n", fg, fg, bg, bg);
+    if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+        set_global(fg_global_idx, 1);
+    }
+    if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+        set_global(bg_global_idx, 1);
+    }
+}
+
+//static void window_change(void);
+
+void after_V_COLOR(void) {
+    fprintf(stderr, "after V-COLOR\n");
+
+    fprintf(stderr, "Value of fg global variable: %d Value of bg global variable: %d\n", get_global(fg_global_idx), get_global(bg_global_idx));
+
+    update_user_defined_colors();
+
+    //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
+    //    v6_delete_win(mainwin);
+    //    mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
+    //    v6_sizewin(mainwin);
+    //    win_setbgnd(mainwin->id->peer, user_selected_background);
+    //    window_change();
+}
+
+
+void UPDATE_STATUS_LINE(void) {
+    fprintf(stderr, "UPDATE_STATUS_LINE\n");
+}
+
+
+void RT_UPDATE_PICT_WINDOW(void) {
+    fprintf(stderr, "RT_UPDATE_PICT_WINDOW\n");
+}
+
+void RT_UPDATE_INVT_WINDOW(void) {
+    fprintf(stderr, "RT_UPDATE_INVT_WINDOW\n");
+}
+
+void RT_UPDATE_STAT_WINDOW(void) {
+    fprintf(stderr, "RT_UPDATE_STAT_WINDOW\n");
+}
+
+void RT_UPDATE_MAP_WINDOW(void) {
+    fprintf(stderr, "RT_UPDATE_MAP_WINDOW\n");
 }

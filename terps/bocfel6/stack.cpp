@@ -357,6 +357,25 @@ uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg
     return pop_stack();
 }
 
+uint16_t internal_call_with_3_args(uint16_t routine, uint16_t arg1, uint16_t arg2, uint16_t arg3)
+{
+    std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
+
+    znargs = 4;
+    zargs[0] = routine;
+    zargs[1] = arg1;
+    zargs[2] = arg2;
+    zargs[3] = arg3;
+    call(StoreWhere::Push);
+
+    process_instructions();
+
+    std::copy(saved_args.begin(), saved_args.end(), zargs.begin());
+    znargs = (int)saved_args.size();
+
+    return pop_stack();
+}
+
 uint16_t internal_call(uint16_t routine)
 {
     std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);

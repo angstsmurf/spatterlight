@@ -90,6 +90,11 @@ enum interpreterNumber {
     INTERP_TANDY = 11
 };
 
+#define GLOBAL(X)   (header.globals + X * 2)
+#define get_global(X)    word(GLOBAL(X))
+#define set_global(X, Y)    store_word(GLOBAL(X), Y)
+
+
 
 zprintflike(1, 2)
 void show_message(const char *fmt, ...);
@@ -149,36 +154,17 @@ void after_SETUP_TEXT_AND_STATUS(void);
 void after_V_HINT(void);
 void V_DEFINE(void);
 void after_V_DEFINE(void);
-void DISPLAY_HINT(void);
-void after_DISPLAY_HINT(void);
-void V_COLOR(void);
-void after_V_COLOR(void);
+
+
 void MAC_II(void);
 void after_MAC_II(void);
-void UPDATE_STATUS_LINE(void);
-void RT_UPDATE_PICT_WINDOW(void);
-void RT_UPDATE_INVT_WINDOW(void);
-void RT_UPDATE_STAT_WINDOW(void);
-void RT_UPDATE_MAP_WINDOW(void);
 
 // Zork 0
 void after_SPLIT_BY_PICTURE(void);
-void INIT_HINT_SCREEN(void);
-void LEAVE_HINT_SCREEN(void);
+
 void V_REFRESH(void);
 void CENTER(void);
 void V_MODE(void);
-
-// Journey
-void INTRO(void);
-void after_TITLE_PAGE(void);
-void after_INTRO(void);
-void REFRESH_SCREEN(void);
-void INIT_SCREEN(void);
-void DIVIDER(void);
-void BOLD_CURSOR(void);
-void BOLD_PARTY_CURSOR(void);
-
 
 void zoutput_stream();
 void zinput_stream();
@@ -257,6 +243,18 @@ struct Window {
 
 void v6_sizewin(Window *win);
 void v6_delete_win(Window *win);
+winid_t v6_new_glk_window(glui32 type, glui32 rock);
+void set_cursor(uint16_t y, uint16_t x, uint16_t winid);
+void set_current_window(Window *window);
+void window_change(void);
+void transcribe(uint32_t c);
+uint8_t read_char(void);
+int count_characters_in_zstring(uint16_t str);
+
+void v6_restore_hacks(void);
+void v6_remap_win_to_buffer(Window *win);
+void v6_remap_win_to_grid(Window *win);
+bool is_win_covered(Window *win, int zpos);
 
 enum V6ScreenMode {
     MODE_NORMAL,
@@ -269,10 +267,20 @@ enum V6ScreenMode {
     MODE_Z0GAME,
     MODE_HINTS,
     MODE_CREDITS,
-    MODE_DEFINE
+    MODE_DEFINE,
+    MODE_INITIAL_QUESTION
 };
 
 extern V6ScreenMode screenmode;
 extern winid_t current_graphics_buf_win;
+
+extern std::array<Window, 8> windows;
+extern uint16_t letterwidth;
+extern uint16_t letterheight;
+extern winid_t graphics_win_glk;
+extern glui32 latest_picture;
+extern glui32 user_selected_foreground, user_selected_background;
+
+
 
 #endif

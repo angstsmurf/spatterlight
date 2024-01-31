@@ -6,6 +6,8 @@
 //
 #include "zterp.h"
 #include "screen.h"
+#include "journey.hpp"
+#include "arthur.hpp"
 #include "memory.h"
 
 #include "dict.h"
@@ -345,46 +347,46 @@ static std::vector<EntryPoint> entrypoints = {
 //        INTRO
 //    },
 
-    {
-        Game::Journey,
-        "INTRO alt",
-        { 0xF1, 0x7F, 0x00, 0xBB},
-        -5,
-        0,
-        INTRO
-    },
+//    {
+//        Game::Journey,
+//        "INTRO alt",
+//        { 0xF1, 0x7F, 0x00, 0xBB},
+//        -5,
+//        0,
+//        INTRO
+//    },
 
-    {
-        Game::Journey,
-        "after TITLE PAGE",
-        { 0xf6, 0x7f, 0x01, 0x00, 0xa0, 0x3f, 0xc7},
-        4,
-        0,
-        after_TITLE_PAGE
-    },
-
-    {
-        Game::Journey,
-        "after TITLE PAGE alt",
-        { 0xf6, 0x7f, 0x01, 0x00, 0xa0, 0x41, 0xc5},
-        4,
-        0,
-        after_TITLE_PAGE
-    },
-
-    {
-        Game::Journey,
-        "after TITLE PAGE alt 2",
-        { 0xf6, 0x7f, 0x01, 0x00, 0xbe },
-        4,
-        0,
-        after_TITLE_PAGE
-    },
+//    {
+//        Game::Journey,
+//        "after TITLE PAGE",
+//        { 0xf6, 0x7f, 0x01, 0x00, 0xa0, 0x3f, 0xc7},
+//        4,
+//        0,
+//        after_TITLE_PAGE
+//    },
+//
+//    {
+//        Game::Journey,
+//        "after TITLE PAGE alt",
+//        { 0xf6, 0x7f, 0x01, 0x00, 0xa0, 0x41, 0xc5},
+//        4,
+//        0,
+//        after_TITLE_PAGE
+//    },
+//
+//    {
+//        Game::Journey,
+//        "after TITLE PAGE alt 2",
+//        { 0xf6, 0x7f, 0x01, 0x00, 0xbe },
+//        4,
+//        0,
+//        after_TITLE_PAGE
+//    },
 
     {
         Game::Journey,
         "after INTRO",
-        {},
+        { 0xF1, 0x7F, 0x00, 0xBB },
         0,
         0,
         after_INTRO
@@ -402,7 +404,8 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Journey,
         "INIT-SCREEN",
-        { 0x41, 0x8f, 0x06, 0x51 },
+//        { 0x41, 0x8f, 0x06, 0x51 },
+        { 0xb0, 0x00, 0x8f, 0x06 },
         0,
         0,
         INIT_SCREEN
@@ -437,21 +440,113 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Journey,
+        "WCENTER",
+//        { 0xd9, 0x2f, 0x02, 0x81, 0x01, 0x02 },
+        {0xb0, 0xd9, 0x2f, 0x02, 0x81, 0x01},
+        0,
+        0,
+        WCENTER
+    },
+
+    {
+        Game::Journey,
         "BOLD-CURSOR",
-        { 0xda, 0x1f, 0x01, 0x17, 0x01, 0x55},
+        { 0xda, 0x1f, 0x01, 0x17, 0x01, 0x55 },
         0,
         0,
         BOLD_CURSOR
     },
 
+//    {
+//        Game::Journey,
+//        "BOLD-PARTY-CURSOR",
+//        { 0xda, 0x1f, 0x01, 0x17, 0x01, 0x2d },
+//        0,
+//        0,
+//        BOLD_PARTY_CURSOR
+//    },
+
     {
         Game::Journey,
-        "BOLD-PARTY-CURSOR",
-        { 0xda, 0x1f, 0x01, 0x17, 0x01, 0x2d},
+        "PRINT-COLUMNS",
+//        {  0x2d, 0x04, 0x1e, 0xda },
+        {  0xb0, 0x2d, 0x04, 0x1e, 0xda },
         0,
         0,
-        BOLD_PARTY_CURSOR
+        PRINT_COLUMNS
     },
+
+
+    {
+        Game::Journey,
+        "PRINT-CHARACTER-COMMANDS",
+//        {  0x0D, 0x03, 0x05, 0x2D },
+        {0xb0, 0x0d, 0x03, 0x05, 0x2d, 0x06},
+        0,
+        0,
+        PRINT_CHARACTER_COMMANDS
+    },
+
+    {
+        Game::Journey,
+        "REFRESH-CHARACTER-COMMAND-AREA",
+        {0xab, 0x01, 0x00, 0x00},
+        0,
+        0,
+        REFRESH_CHARACTER_COMMAND_AREA
+    },
+
+    {
+        Game::Journey,
+        "GRAPHIC-STAMP",
+
+        {0xb0, 0x4f,  0x5f, 0x00, 0x05},
+        0,
+        0,
+        GRAPHIC_STAMP
+    },
+
+    {
+        Game::Journey,
+        "READ-ELVISH",
+
+        {0xff, 0x7f, 0x01, 0xc5, 0x0d, 0x01, 0x78  },
+        7,
+        0,
+        READ_ELVISH
+    },
+
+    {
+        Game::Journey,
+        "CHANGE-NAME",
+
+        {0xb0, 0x2d, 0x04, 0x8f},
+        0,
+        0,
+        CHANGE_NAME
+    },
+
+    {
+        Game::Journey,
+        "ERASE-COMMAND",
+
+        {0xb0, 0xee, 0xbf, 0x01},
+        0,
+        0,
+        ERASE_COMMAND
+    },
+
+//    {
+//        Game::Journey,
+//        "END-CHANGE-NAME",
+//
+//        {0x88, 0x10, 0x89, 0x00, 0xa0, 0x00, 0x50},
+//        0,
+//        0,
+//        END_CHANGE_NAME
+//    },
+
+
 
 #pragma mark Shogun
 
@@ -632,7 +727,6 @@ void find_color_globals(void) {
     int start = 0;
     int color_return_address = 0;
     int mac_ii_return_address = 0;
-    int intro_return_address = 0;
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
             fg_global_idx = memory[entrypoint.found_at_address - 0xd] - 0x10;
@@ -677,17 +771,14 @@ void find_color_globals(void) {
             refresh_screen_address = entrypoint.found_at_address - 1;
         } else if (entrypoint.fn == DIVIDER && entrypoint.found_at_address != 0) {
             global_text_window_left_idx = memory[entrypoint.found_at_address + 31] - 0x10;
-        } else if (entrypoint.fn == INTRO && entrypoint.found_at_address != 0) {
+        } else if (entrypoint.fn == after_INTRO && entrypoint.found_at_address != 0) {
             start = entrypoint.found_at_address;
             for (int i = start; i < memory_size - 12; i++) {
                 if (memory[i] == 0xb0) {
-                    intro_return_address = i;
+                    entrypoint.found_at_address = i;
                     break;
                 }
             }
-        } else if (entrypoint.fn == after_INTRO && intro_return_address != 0) {
-            entrypoint.found_at_address = intro_return_address;
-            fprintf(stderr, "after_INTRO at: 0x%x\n", entrypoint.found_at_address);
         }
         
     }

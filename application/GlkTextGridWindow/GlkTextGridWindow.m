@@ -1035,6 +1035,15 @@ static const char *stylenames[] =
     return NSMakeSize(cols, rows);
 }
 
+- (unichar)characterAtPoint:(NSPoint)point {
+    NSSize size = [self currentSizeInChars];
+    NSUInteger index = (NSUInteger)(point.y * (size.width + 1.0) + point.x);
+    if (textstorage.length <= index)
+        return 0;
+    return [textstorage.string characterAtIndex:index];
+}
+
+
 #pragma mark Hyperlinks
 
 - (void)initHyperlink {
