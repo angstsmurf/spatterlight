@@ -2467,11 +2467,13 @@ fprintf(stderr, "%s\n",                                                    \
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theFile.path).UTF8String;
-        } else
-            s = "";
+            reply.len = strlen(s);
+        } else {
+            s = nil;
+            reply.len = 0;
+        }
 
         reply.cmd = OKAY;
-        reply.len = strlen(s);
 
         write((int)sendfd, &reply, sizeof(struct message));
         if (reply.len)

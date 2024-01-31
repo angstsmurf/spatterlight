@@ -228,14 +228,14 @@ frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode, glui32 rock)
 {
 	fileref_t *fref;
 	char *buf;
-	unsigned long val;
+	unsigned long val = 0;
 
 	if (fmode == filemode_Read)
 		buf = win_promptopen(usage & fileusage_TypeMask);
 	else
 		buf = win_promptsave(usage & fileusage_TypeMask);
-
-	val = strlen(buf);
+    if (buf != NULL)
+        val = strlen(buf);
 	if (!val)
 	{
 		/* The player just hit return. It would be nice to provide a
