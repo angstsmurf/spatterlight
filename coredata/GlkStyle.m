@@ -156,6 +156,7 @@
     NSInteger value;
     NSUInteger i;
     NSFontTraitMask mask;
+    BOOL isBufferStyle = ![self testGridStyle];
 
     for (i = 0 ; i < stylehint_NUMHINTS ; i++ ){
         if ([hints[i] isNotEqualTo:[NSNull null]]) {
@@ -200,7 +201,7 @@
                      */
 
                 case stylehint_Size:
-                    if (![self testGridStyle]) {
+                    if (isBufferStyle) {
                         CGFloat size = font.matrix[0] + value * 2;
                         font = [fontmgr convertFont:font toSize:size];
                     }
@@ -232,7 +233,7 @@
                                         toHaveTrait:NSFixedPitchFontMask];
 
                         // This usually does not work, so we hack it to use the preformatted style font
-                        if (![self testGridStyle] && ([fontmgr traitsOfFont:font] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
+                        if (isBufferStyle && ([fontmgr traitsOfFont:font] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
                             Theme *theme = [self findTheme];
                             if (theme) {
                                 NSFont *fixedWidth = theme.bufPre.font;
@@ -271,10 +272,10 @@
                             if (!theme)
                                 bgcolor = [NSColor whiteColor];
                             else {
-                                if ([self testGridStyle])
-                                    bgcolor = theme.gridBackground;
-                                else
+                                if (isBufferStyle)
                                     bgcolor = theme.bufferBackground;
+                                else
+                                    bgcolor = theme.gridBackground;
                             }
                         }
                         attributes[NSForegroundColorAttributeName] = bgcolor;
