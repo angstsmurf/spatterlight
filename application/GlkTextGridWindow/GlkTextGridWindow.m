@@ -890,8 +890,8 @@
     }
 
     if (xpos > cols) {
-        ypos += (xpos / cols);
-        xpos = (xpos % cols);
+        ypos += xpos / cols;
+        xpos = xpos % cols;
     }
     NSMutableDictionary *attrDict = [styles[stylevalue] mutableCopy];
 
