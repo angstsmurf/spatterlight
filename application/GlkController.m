@@ -2930,7 +2930,7 @@ static const char *msgnames[] = {
     uniglyph[0] = glyph;
     NSData *data = [NSData dataWithBytes:uniglyph length:4];
     NSString *str  = [[NSString alloc] initWithData:data
-                                encoding:NSUTF32LittleEndianStringEncoding];
+                                           encoding:NSUTF32LittleEndianStringEncoding];
     return [GlkController unicodeAvailableForChar:str];
 }
 
