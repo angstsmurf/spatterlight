@@ -26,4 +26,7 @@
 
 @property (weak) IBOutlet NSMenuItem *themesMenuItem;
 
+@property (weak) IBOutlet NSMenuItem *journeyPartyMenuItem;
+@property (weak) IBOutlet NSMenuItem *journeyIndividualCommandsMenuItem;
+
 @end

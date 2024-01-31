@@ -414,6 +414,105 @@ static std::vector<Patch> patches = {
             },
         }
     },
+
+    {
+        "Journey", &"890706", 83, 0xd2b8,
+        {
+            // REFRESH-CHARACTER-COMMAND-AREA
+            {
+                0x50b1, 4,
+                {0x54, 0x1e, 0x04, 0x00},
+                {0xab, 0x01, 0x00, 0x00},
+            },
+            // GRAPHIC-STAMP
+            {
+                0x4975, 5,
+                {0x4f, 0x5f, 0x00, 0x05, 0x4f},
+                {0xb0, 0x4f,  0x5f, 0x00, 0x05},
+            },
+
+             // INIT-SCREEN
+            {
+                0x4da5, 4,
+                {0x41, 0x8f, 0x06, 0x51},
+                {0xb0, 0x00, 0x8f, 0x06},
+            },
+
+            // CHANGE-NAME hyphen
+            {
+                0x7a0f, 1,
+                {0x2d},
+                {0x5f},
+            },
+
+            // CHANGE-NAME hyphen 2
+            {
+                0x7a19, 1,
+                {0x2d},
+                {0x5f},
+            },
+
+            // DIVIDER
+            {
+                0x194c9, 4,
+                {0xff, 0x7f, 0x01, 0xc5},
+                {0xb0, 0xff, 0x7f, 0x01},
+            },
+
+            // WCENTER
+            {
+                0x4935, 6,
+                {0xd9, 0x2f, 0x02, 0x81, 0x01, 0x02},
+                {0xb0, 0xd9, 0x2f, 0x02, 0x81, 0x01},
+            },
+
+            // GET-COMMAND
+            {
+                0x4b65, 4,
+                {0x42, 0xc8, 0x0c, 0x4b},
+                {0x42, 0xc8, 0x0d, 0x4b},
+            },
+
+            // CHANGE-NAME
+            {
+                0x78dd, 3,
+                {0x2d, 0x04, 0xb3},
+                {0xb0, 0x2d, 0x04},
+            },
+
+            // READ-ELVISH
+            {
+                0x7bb8, 2,
+                {0x2d, 0x05},
+                {0xab, 0x01}, // RET L00
+            },
+
+            // PRINT-COLUMNS
+            {
+                0x5f7d, 5,
+                {  0x2d, 0x04, 0x1e, 0xda, 0x1f },
+                {  0xb0, 0x2d, 0x04, 0x1e, 0xda },
+            },
+
+            // ERASE-COMMAND
+            {
+                0x5298, 4,
+                {  0xee, 0xbf, 0x01, 0xb0 },
+                {  0xb0, 0xee, 0xbf, 0x01 },
+            },
+
+            // PRINT-CHARACTER-COMMANDS
+            {
+                0x5b59, 6,
+                {  0x0d, 0x03, 0x05, 0x2d, 0x06, 0x1e },
+                {  0xb0, 0x0d, 0x03, 0x05, 0x2d, 0x06 },
+            },
+
+
+
+
+        }
+    },
 #endif
 };
 

@@ -248,6 +248,24 @@ void ztest_attr()
     branch_if((byte(addr) & ATTR_BIT(zargs[1])) != 0);
 }
 
+bool internal_test_attr(uint16_t object, uint16_t attribute)
+{
+    check_attr(attribute);
+
+    uint16_t addr = find_object(object) + (attribute / 8);
+
+    return ((byte(addr) & ATTR_BIT(attribute)) != 0);
+}
+
+void internal_set_attr(uint16_t object, uint16_t attribute)
+{
+    check_attr(attribute);
+
+    uint16_t addr = find_object(object) + (attribute / 8);
+
+    store_byte(addr, byte(addr) | ATTR_BIT(attribute));
+}
+
 void zset_attr()
 {
     check_zero(false, false);
@@ -316,6 +334,7 @@ void zget_parent()
 
 void zput_prop()
 {
+    fprintf(stderr, "zput_prop 0x%x 0x%x 0x%x\n", zargs[0], zargs[1], zargs[2]);
     check_zero(false, false);
     check_propnum(zargs[1]);
 
@@ -331,6 +350,25 @@ void zput_prop()
         user_store_byte(propaddr, zargs[2] & 0xff);
     } else {
         user_store_word(propaddr, zargs[2]);
+    }
+}
+
+void internal_put_prop(uint16_t object, uint16_t property, uint16_t value)
+{
+    check_propnum(property);
+
+    uint16_t propaddr, proplen;
+    bool found;
+
+    found = find_property(object, property, propaddr, proplen);
+
+    ZASSERT(found, "broken story: no prop");
+    ZASSERT(proplen == 1 || proplen == 2, "broken story: property too long: %u", static_cast<unsigned int>(proplen));
+
+    if (proplen == 1) {
+        user_store_byte(propaddr, value & 0xff);
+    } else {
+        user_store_word(propaddr, value);
     }
 }
 
@@ -359,6 +397,26 @@ void zget_prop()
         store(word(i));
     }
 }
+
+uint16_t internal_get_prop(int obj, int prop) {
+    check_propnum(prop);
+
+    uint16_t propaddr, proplen;
+
+    if (find_property(obj, prop, propaddr, proplen)) {
+        if (proplen == 1) {
+            return user_byte(propaddr);
+        } else {
+            return user_word(propaddr);
+        }
+    } else {
+        uint16_t i;
+
+        i = header.objects + (2 * (prop - 1));
+        return word(i);
+    }
+}
+
 
 void zget_prop_len()
 {

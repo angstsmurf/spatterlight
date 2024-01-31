@@ -46,6 +46,7 @@
 - (void)recalcBackground;
 - (void)speakStatus;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) NSSize currentSizeInChars;
+- (NSSize)currentSizeInChars;
+- (unichar)characterAtPoint:(NSPoint)point;
 
 @end

@@ -507,6 +507,7 @@ void process_loop()
             } else if (restore.saveopcode == SaveOpcode::ReadChar) {
                 synthetic_call = zread_char;
             }
+            v6_restore_hacks();
         } catch (const Operation::Quit &) {
             break;
         }

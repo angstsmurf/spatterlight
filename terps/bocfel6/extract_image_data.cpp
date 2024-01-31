@@ -267,6 +267,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
     for (int i = first; i <= last; i++) {
         if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, i) == giblorb_err_None) {
             glui32 width, height;
+            win_purgeimage(i);
             glk_image_get_info(i, &width, &height);
             (*image_list)[index].index = i;
             (*image_list)[index].type = kGraphicsTypeBlorb;

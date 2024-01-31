@@ -204,7 +204,7 @@ void zscan_table()
 
 void zloadw()
 {
-    fprintf(stderr, "zloadw 0x%x (0x%x)\n", zargs[0] + (2 * zargs[1]), word(zargs[0] + (2 * zargs[1])));
+    fprintf(stderr, "zloadw 0x%x (0x%x) (table 0x%x, offset 0x%x)\n", zargs[0] + (2 * zargs[1]), word(zargs[0] + (2 * zargs[1])), zargs[0], zargs[1]);
     store(user_word(zargs[0] + (2 * zargs[1])));
 }
 

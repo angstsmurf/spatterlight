@@ -9,6 +9,7 @@
 #define draw_image_hpp
 
 #include <stdio.h>
+#include "image.h"
 
 ImageStruct *find_image(int picnum);
 bool get_image_size(int picnum, int *width, int *height);
@@ -25,5 +26,7 @@ void draw_arthur_side_images(winid_t winid);
 void draw_centered_title_image(int picnum);
 
 extern int last_slideshow_pic;
+extern int32_t monochrome_black;
+extern int32_t monochrome_white;
 
 #endif /* draw_image_hpp */

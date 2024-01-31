@@ -49,7 +49,7 @@ static const uint8_t ega_colormap[16][3] =
     { 255,255,255 }
 };
 
-float hw_screenwidth = 320;
+float hw_screenwidth = 320.0;
 float pixelwidth = 1.0;
 
 ImageStruct *find_image(int picnum) {
@@ -427,6 +427,8 @@ void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float 
     free(filename);
     float xscalefactor = scalefactor * pixelwidth;
     fprintf(stderr, "draw_inline_image: image width = %d * scale %f == %f\n", image->width, xscalefactor, image->width * xscalefactor);
+    fprintf(stderr, "draw_inline_image: image height = %d * scale %f == %f\n", image->height, scalefactor, image->height * scalefactor);
+    fprintf(stderr, "draw_inline_image: final pixel width: %f final pixel height: %f\n", xscalefactor, scalefactor);
     if (x < 0)
         x = 0;
     win_drawimage(winid->peer, x, y, image->width * xscalefactor, image->height * scalefactor);

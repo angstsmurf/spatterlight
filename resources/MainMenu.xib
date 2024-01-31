@@ -387,6 +387,38 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Journey Party" hidden="YES" id="2ub-3z-YG9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="cXD-nf-FMV">
+                        <items>
+                            <menuItem title="Item 1" id="jzK-HW-ymM">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="vfm-cR-oBm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="FfB-7J-mV2">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Individual Commands" hidden="YES" id="eeN-yc-KW2">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="Yap-sH-vbD">
+                        <items>
+                            <menuItem title="Item 1" id="nIS-58-KpA">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="365-5i-7aM">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="dtw-jI-RpL">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="19">
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
@@ -463,6 +495,8 @@ CA
         </menu>
         <customObject id="248" userLabel="Delegate" customClass="AppDelegate">
             <connections>
+                <outlet property="journeyIndividualCommandsMenuItem" destination="eeN-yc-KW2" id="SCk-fs-xlC"/>
+                <outlet property="journeyPartyMenuItem" destination="2ub-3z-YG9" id="0gg-uT-Xwg"/>
                 <outlet property="themesMenuItem" destination="08u-YF-ERJ" id="0dy-u7-iWY"/>
             </connections>
         </customObject>
