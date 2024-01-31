@@ -1,8 +1,11 @@
 //
 //  Blorb.m
-//  Yazmin
+//  Spatterlight
 //
-//  Created by David Schweinsberg on 21/11/07.
+//  Based on code from Yazmin by David Schweinsberg
+//  https://github.com/yazmin
+
+//  Original code created by David Schweinsberg on 21/11/07.
 //  Copyright 2007 David Schweinsberg. All rights reserved.
 //
 
@@ -84,13 +87,11 @@
           NSRange range =
           NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
           metaData = [data subdataWithRange:range];
-          //          NSLog(@"Found metadata. len:%d", len);
         }
 
         else if (chunkID == IFFID('F', 's', 'p', 'c')) {
           // Frontispiece - Cover picture index
           frontispiece  = unpackLong(ptr + 8);
-          //          NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
         }
 
         else if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
@@ -102,7 +103,6 @@
             encoding = NSUTF16BigEndianStringEncoding;
 
           _optionalChunks[chunkString] = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:encoding];
-          //          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
         }
         else if (chunkID == IFFID('I', 'F', 'h', 'd')) {
           // Game Identifier Chunk
@@ -145,7 +145,6 @@
             }
           }
         }
-
         ptr += paddedLength(len) + 8;
       }
     }
