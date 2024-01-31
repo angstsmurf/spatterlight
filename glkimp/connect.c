@@ -281,6 +281,8 @@ char *win_promptsave(int type)
     win_flush();
     sendmsg(PROMPTSAVE, type, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
+    if (wmsg.len == 0)
+        return NULL;
     return wbuf;
 }
 
