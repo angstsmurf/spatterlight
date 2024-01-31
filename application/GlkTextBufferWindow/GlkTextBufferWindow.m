@@ -1673,9 +1673,8 @@ replacementString:(id)repl {
     [_textview resetTextFinder];
 
     // NSLog(@"adding flowbreak");
-    unichar uc[1];
-    uc[0] = NSAttachmentCharacter;
-    [textstorage.mutableString appendString:[NSString stringWithCharacters:uc
+    unichar uc = NSAttachmentCharacter;
+    [textstorage.mutableString appendString:[NSString stringWithCharacters:&uc
                                                                     length:1]];
     [container flowBreakAt:textstorage.length - 1];
 }
