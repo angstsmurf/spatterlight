@@ -101,6 +101,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL zorkZero;
 @property BOOL arthur;
 @property BOOL shogun;
+@property BOOL journey;
 @property BOOL usesFont3;
 
 - (BOOL)zVersion6;
