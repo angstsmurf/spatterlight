@@ -1766,6 +1766,9 @@ static const char *msgnames[] = {
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+    if (_journeyMenuHandler) {
+        [self.journeyMenuHandler deleteAllJourneyMenus];
+    }
 
     [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
 
