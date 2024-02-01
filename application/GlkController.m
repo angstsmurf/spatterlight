@@ -1749,6 +1749,9 @@ static const char *msgnames[] = {
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+    if (_journeyMenuHandler) {
+        [self.journeyMenuHandler deleteAllJourneyMenus];
+    }
 
     if (_game && [Preferences instance].currentGame == _game) {
         GlkController *remainingGameSession = nil;
