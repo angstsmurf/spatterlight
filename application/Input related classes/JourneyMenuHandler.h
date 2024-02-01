@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)journeyPartyAction:(id)sender;
 - (void)journeyMemberVerbAction:(id)sender;
+- (void)deleteAllJourneyMenus;
 
 @property BOOL showsJourneyMenus;
 @property (weak) GlkController *delegate;

@@ -216,7 +216,10 @@ errorDescription:(NSString * __autoreleasing *)error
 }
 
 - (void)displayAlertWithTextEntry:(NSString *)messageText elvish:(BOOL)elvish {
-
+    if (!self.delegate.voiceOverActive) {
+        [self deleteAllJourneyMenus];
+        return;
+    }
     NSView *accessoryView = [self textEntryAccessoryViewElvish:elvish];
 
     NSAlert *journeyDialog = [NSAlert new];
@@ -242,6 +245,10 @@ errorDescription:(NSString * __autoreleasing *)error
 }
 
 - (void)displayAlertWithText:(NSString *)messageText {
+    if (!self.delegate.voiceOverActive) {
+        [self deleteAllJourneyMenus];
+        return;
+    }
     NSAlert *journeyDialog = [NSAlert new];
 
     journeyDialog.messageText = messageText;
@@ -261,6 +268,10 @@ errorDescription:(NSString * __autoreleasing *)error
 }
 
 - (void)displayAlertMenuWithMessageText:(NSString *)messageText {
+    if (!self.delegate.voiceOverActive) {
+        [self deleteAllJourneyMenus];
+        return;
+    }
     NSMutableArray *strings = [NSMutableArray new];
     for (JourneyMenuItem *dialogMenuItem in _journeyDialogMenuItems) {
         if (![dialogMenuItem.title isEqualToString:@"[cancel]"])
@@ -332,6 +343,27 @@ errorDescription:(NSString * __autoreleasing *)error
     return YES;
 }
 
+- (void)deleteAllJourneyMenus {
+    NSMenuItem *journeyMembersMenu = ((AppDelegate*)NSApplication.sharedApplication.delegate).journeyIndividualCommandsMenuItem;
+    NSMenuItem *journeyPartyMenu = ((AppDelegate*)NSApplication.sharedApplication.delegate).journeyPartyMenuItem;
+
+    journeyMembersMenu.hidden = YES;
+    journeyMembersMenu.enabled = NO;
+    [journeyMembersMenu.submenu removeAllItems];
+    journeyPartyMenu.hidden = YES;
+    journeyPartyMenu.enabled = NO;
+    [journeyPartyMenu.submenu removeAllItems];
+    journeyVerbMenuItems = [NSMutableArray new];
+    journeyGlueStrings = [NSMutableArray new];
+    journeyPartyMenuItems = [NSMutableArray new];
+    journeyLastPartyMenuItems = [NSMutableArray new];
+    _journeyDialogMenuItems = [NSMutableArray new];
+    shouldStartNewJourneyPartyMenu = YES;
+    shouldStartNewJourneyDialogMenu = YES;
+    shouldStartNewJourneyMembersMenu = YES;
+    skipNextDialog = YES;
+}
+
 - (void)handleMenuItemOfType:(JourneyMenuType)type column:(NSUInteger)column line:(NSUInteger)line stopflag:(BOOL)stopflag text:(char *)buf length:(NSUInteger)len {
 
    if (type == kJMenuTypeTextEntry) {
@@ -360,21 +392,7 @@ errorDescription:(NSString * __autoreleasing *)error
     NSMenuItem *journeyPartyMenu = ((AppDelegate*)NSApplication.sharedApplication.delegate).journeyPartyMenuItem;
 
     if (type == kJMenuTypeDeleteAll) {
-        journeyMembersMenu.hidden = YES;
-        journeyMembersMenu.enabled = NO;
-        [journeyMembersMenu.submenu removeAllItems];
-        journeyPartyMenu.hidden = YES;
-        journeyPartyMenu.enabled = NO;
-        [journeyPartyMenu.submenu removeAllItems];
-        journeyVerbMenuItems = [NSMutableArray new];
-        journeyGlueStrings = [NSMutableArray new];
-        journeyPartyMenuItems = [NSMutableArray new];
-        journeyLastPartyMenuItems = [NSMutableArray new];
-        _journeyDialogMenuItems = [NSMutableArray new];
-        shouldStartNewJourneyPartyMenu = YES;
-        shouldStartNewJourneyDialogMenu = YES;
-        shouldStartNewJourneyMembersMenu = YES;
-        skipNextDialog = YES;
+        [self deleteAllJourneyMenus];
         return;
     }
 
@@ -411,6 +429,10 @@ errorDescription:(NSString * __autoreleasing *)error
         shouldStartNewJourneyPartyMenu = stopflag;
         if (stopflag) {
             if ([item.title isEqualToString:@"[cancel]"]) {
+                if (!self.delegate.voiceOverActive) {
+                    [self deleteAllJourneyMenus];
+                    return;
+                }
                 if ([self partyIsEqualToLast]) {
                     shouldStartNewJourneyPartyMenu = YES;
                     return;
