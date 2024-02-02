@@ -311,7 +311,7 @@ errorDescription:(NSString * __autoreleasing *)error
 
     _journeyTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0, 10.0, 100, 22.0)];
 
-    JourneyTextFormatter *formatter = [[JourneyTextFormatter alloc] initWithMaxLength:13 elvish:elvish];
+    JourneyTextFormatter *formatter = [[JourneyTextFormatter alloc] initWithMaxLength:(elvish ? 13 : 8) elvish:elvish];
 
     _journeyTextField.formatter = formatter;
 
