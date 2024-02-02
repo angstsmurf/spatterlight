@@ -181,11 +181,10 @@
         size = self.bufferNormal.cellSize;
         self.bufferCellWidth = size.width;
         self.bufferCellHeight = size.height;
-//        NSLog(@"Created a new normal buffer style for theme %@", self.name);
     }
 
 
-    if (!self.gridNormal) {
+    if (!self.gridNormal || self.cellHeight == 0 || self.cellWidth == 0) {
         self.gridNormal = (GlkStyle *) [NSEntityDescription
                                         insertNewObjectForEntityForName:@"GlkStyle"
                                         inManagedObjectContext:self.managedObjectContext];
@@ -193,7 +192,15 @@
         size = self.gridNormal.cellSize;
         self.cellWidth = size.width;
         self.cellHeight = size.height;
-//        NSLog(@"Created a new normal grid style for theme %@", self.name);
+    }
+
+    NSParagraphStyle *parastyle = self.gridNormal.attributeDict[NSParagraphStyleAttributeName];
+    if (parastyle && parastyle.maximumLineHeight == 0) {
+        NSMutableParagraphStyle *mutable = parastyle.mutableCopy;
+        mutable.maximumLineHeight = self.cellHeight;
+        NSMutableDictionary *mutAtt = self.gridNormal.attributeDict.mutableCopy;
+        mutAtt[NSParagraphStyleAttributeName] = mutable;
+        self.gridNormal.attributeDict = mutAtt;
     }
 
     // We skip the first element (0), i.e. the Normal styles here
