@@ -36,8 +36,6 @@ glui32 SCREEN_WIDTH_in_chars, SCREEN_HEIGHT_in_chars;
 
 void adjust_journey_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixwidth) {
 
-    journey_image_x = *x;
-    journey_image_y = *y;
     journey_image_width = width;
     journey_image_height = height;
     journey_image_scale = (float)winwidth / ((float)width * (float)pixwidth) ;
@@ -50,8 +48,7 @@ void adjust_journey_image(int picnum, int *x, int *y, int width, int height, int
         journey_image_x = 0;
         journey_image_y = (winheight - height * journey_image_scale) / 2;
     }
-    fprintf(stderr, "adjust_journey_image: window width: %d pixwidth: %f image width = %d * scale %f == %f\nimage height = %d * scale %f == %f\n", winwidth, pixwidth, width, journey_image_scale, (float)width * journey_image_scale, height, journey_image_scale, (float)height * journey_image_scale);
-
+    
     *scale = journey_image_scale;
 
     *x = journey_image_x;
