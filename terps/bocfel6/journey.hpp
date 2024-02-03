@@ -15,6 +15,8 @@ void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float 
 void update_journey_on_resize(void);
 void resize_journey_windows_after_restore(void);
 
+void draw_flashing_journey_cursor(void);
+
 // Journey
 //void INTRO(void);
 //void after_TITLE_PAGE(void);
