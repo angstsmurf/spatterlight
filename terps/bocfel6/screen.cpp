@@ -3070,6 +3070,8 @@ int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
 glui32 latest_picture = 0;
 
+bool switch_to_allowed_interpreter_number(void);
+
 void window_change(void)
 {
     // When a textgrid (the upper window) in Gargoyle is rearranged, it
@@ -3109,86 +3111,90 @@ void window_change(void)
         letterheight = gcellh;
         update_header_with_new_size();
 
-        if (last_z6_preferred_graphics != gli_z6_graphics) {
-            last_z6_preferred_graphics = gli_z6_graphics;
-            no_size_change = false;
-            // We may have switched preferred graphics to the one we already fell back on
-            if (graphics_type != gli_z6_graphics) {
-                free_images();
-                size_t dummy_file_length;
-                image_count = 0;
+        if (zversion == 6)  {
+            switch_to_allowed_interpreter_number();
 
-                bool found = false;
-                bool was_apple = (graphics_type == kGraphicsTypeApple2);
-                if (gli_z6_graphics == kGraphicsTypeApple2) {
+            if (last_z6_preferred_graphics != gli_z6_graphics) {
+                last_z6_preferred_graphics = gli_z6_graphics;
+                no_size_change = false;
+                // We may have switched preferred graphics to the one we already fell back on
+                if (graphics_type != gli_z6_graphics) {
+                    free_images();
                     size_t dummy_file_length;
                     image_count = 0;
-                    uint8_t *dummy = extract_apple_2((const char *)game_file.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
-                    if (image_count > 0) {
-                        found = true;
-                        graphics_type = kGraphicsTypeApple2;
-                        options.int_number = INTERP_APPLE_IIE;
-                        store_byte(0x1e, options.int_number);
-                        hw_screenwidth = 140;
-                        pixelwidth = 2.0;
+
+                    bool found = false;
+                    bool was_apple = (graphics_type == kGraphicsTypeApple2);
+                    if (gli_z6_graphics == kGraphicsTypeApple2) {
+                        size_t dummy_file_length;
+                        image_count = 0;
+                        uint8_t *dummy = extract_apple_2((const char *)game_file.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
+                        if (image_count > 0) {
+                            found = true;
+                            graphics_type = kGraphicsTypeApple2;
+                            options.int_number = INTERP_APPLE_IIE;
+                            store_byte(0x1e, options.int_number);
+                            hw_screenwidth = 140;
+                            pixelwidth = 2.0;
+                        }
+                        if (dummy != nullptr)
+                            free(dummy);
                     }
-                    if (dummy != nullptr)
-                        free(dummy);
-                }
 
-                if (!found) {
-                    find_graphics_files();
-                    load_best_graphics();
-                }
-
-                // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again
-                if (graphics_type == kGraphicsTypeNoGraphics && was_apple) {
-                    uint8_t *dummy = extract_apple_2((const char *)game_file.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
-                    if (dummy != nullptr) {
-                        graphics_type = kGraphicsTypeApple2;
-                        free(dummy);
+                    if (!found) {
+                        find_graphics_files();
+                        load_best_graphics();
                     }
-                }
 
-                if (is_game(Game::Arthur))
-                    set_global(global_map_grid_y_idx, 0);
+                    // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again
+                    if (graphics_type == kGraphicsTypeNoGraphics && was_apple) {
+                        uint8_t *dummy = extract_apple_2((const char *)game_file.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
+                        if (dummy != nullptr) {
+                            graphics_type = kGraphicsTypeApple2;
+                            free(dummy);
+                        }
+                    }
+
+                    if (is_game(Game::Arthur))
+                        set_global(global_map_grid_y_idx, 0);
+                }
             }
-        }
 
-        if (gli_z6_colorize && 
-            (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
-            monochrome_black = darkest(gfgcol, gbgcol);
-            monochrome_white = brightest(gfgcol, gbgcol);
-        } else {
-            monochrome_black = 0;
-            monochrome_white = 0xffffff;
-        }
+            if (gli_z6_colorize &&
+                (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
+                monochrome_black = darkest(gfgcol, gbgcol);
+                monochrome_white = brightest(gfgcol, gbgcol);
+            } else {
+                monochrome_black = 0;
+                monochrome_white = 0xffffff;
+            }
 
-        if (user_selected_foreground == zcolor_map[13])
-            user_selected_foreground = gfgcol;
-        if (user_selected_background == zcolor_map[14])
-            user_selected_background = gbgcol;
+            if (user_selected_foreground == zcolor_map[13])
+                user_selected_foreground = gfgcol;
+            if (user_selected_background == zcolor_map[14])
+                user_selected_background = gbgcol;
 
-        update_color(SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR, gfgcol);
-        update_color(SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR, gbgcol);
+            update_color(SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR, gfgcol);
+            update_color(SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR, gbgcol);
 
-        adjust_image_scale();
+            adjust_image_scale();
 
-        if (current_graphics_buf_win) {
-            if (!no_size_change)
-                win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-            if (user_selected_background != lastbg)
-                glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-        }
-        if (mainwin->id && !(mainwin->id->peer == lastpeer && user_selected_background == lastbg)) {
-            win_setbgnd(mainwin->id->peer, user_selected_background);
-        }
-        lastbg = user_selected_background;
+            if (current_graphics_buf_win) {
+                if (!no_size_change)
+                    win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+                if (user_selected_background != lastbg)
+                    glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+            }
+            if (mainwin->id && !(mainwin->id->peer == lastpeer && user_selected_background == lastbg)) {
+                win_setbgnd(mainwin->id->peer, user_selected_background);
+            }
+            lastbg = user_selected_background;
 
-        if (is_game(Game::Arthur)) {
-            arthur_window_adjustments();
-        } else if (is_game(Game::Journey)) {
-            update_journey_on_resize();
+            if (is_game(Game::Arthur)) {
+                arthur_window_adjustments();
+            } else if (is_game(Game::Journey)) {
+                update_journey_on_resize();
+            }
         }
 
     } else {
@@ -5711,6 +5717,32 @@ void screen_save_persistent_transcript()
     }
 }
 
+bool switch_to_allowed_interpreter_number(void) {
+    switch(options.int_number) {
+        case INTERP_CBM_64:
+        case INTERP_DEC_20:
+        case INTERP_CBM_128:
+        case INTERP_TANDY:
+            fprintf(stderr, "Changing interpeter version to MS-DOS.\n");
+            options.int_number = INTERP_MSDOS;
+            return false;
+        case INTERP_DEFAULT:
+        case INTERP_ATARI_ST:
+            fprintf(stderr, "Changing interpeter version to Amiga.\n");
+            options.int_number = INTERP_AMIGA;
+            return false;
+        case INTERP_APPLE_IIC:
+        case INTERP_APPLE_IIGS:
+            fprintf(stderr, "Changing interpeter version to Apple IIe.\n");
+            options.int_number = INTERP_APPLE_IIE;
+            return false;
+        default:
+            // Keeping the interpeter version selection
+            break;
+    }
+    return true;
+}
+
 void init_screen(bool first_run)
 {
     zcolor_map[13] = gfgcol;
@@ -5759,6 +5791,7 @@ void init_screen(bool first_run)
         close_upper_window();
 
     if (zversion == 6) {
+        switch_to_allowed_interpreter_number();
         adjust_image_scale();
         glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Oblique);
         if (!is_game(Game::ZorkZero)) {
