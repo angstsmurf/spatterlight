@@ -160,9 +160,16 @@ static void initialize_games()
     }
 }
 
+static Game cached_current_game = Game::NotAGame;
+
 bool is_game(Game game)
 {
-    return games.find(game) != games.end();
+    if (cached_current_game == Game::NotAGame) {
+        bool result = games.find(game) != games.end();
+        if (result)
+            cached_current_game = game;
+    }
+    return (game == cached_current_game);
 }
 
 // Find a story ID roughly in the form of an IFID according to §2.2.2.1

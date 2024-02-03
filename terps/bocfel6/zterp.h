@@ -147,7 +147,8 @@ enum class Game {
     MadBomber,
     Arthur,
     ZorkZero,
-    Shogun
+    Shogun,
+    NotAGame
 #endif
 };
 
