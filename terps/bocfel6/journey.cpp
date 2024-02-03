@@ -108,19 +108,6 @@ int16_t selected_journey_column = -1;
 #define H_LINE 39
 
 
-// convert coordinates from chars to pixels? GPOS
-int pixelpos(int C, int F){
-    if (F == 1)
-        return C;
-    else
-        return (C - 1) * F + 1;
-}
-
-// <ROUTINE GPOS (C F)
-// <COND (<EQUAL? .F 1> .C)
-//(T
-// <+ <* <- .C 1> .F> 1>)>>
-
 void FONT3_LINE(int LN, int CHR, int L, int R) {
     glk_set_style(style_BlockQuote);
     glk_window_move_cursor(curwin->id, 0, LN - 1);
@@ -280,35 +267,23 @@ void update_internal_globals(void) {
     int NAME_COLUMN = PARTY_COMMAND_COLUMN + COMMAND_WIDTH;
     set_global(0xa3, NAME_COLUMN);
 
-    // NAME_RIGHT: End of second column in pixels. Only used to position arrows.
-    int NAME_RIGHT = (PARTY_COMMAND_COLUMN + COMMAND_WIDTH + NAME_WIDTH - 2) * letterwidth;
-    set_global(0x2d, NAME_RIGHT);
-
     int CHR_COMMAND_COLUMN = NAME_COLUMN + NAME_WIDTH;
     set_global(0x28, CHR_COMMAND_COLUMN);
 
     int COMMAND_OBJECT_COLUMN = CHR_COMMAND_COLUMN + COMMAND_WIDTH;
     set_global(0xb0, COMMAND_OBJECT_COLUMN);
+//    int RIGHT_COLUMN_WIDTH = (SCREEN_WIDTH_in_chars - BORDER_FLAG) * letterwidth - RIGHT_COLUMN_LEFT_EDGE;
 
+//    set_global(0x0, RIGHT_COLUMN_WIDTH);
+//    set_global(0x15, RIGHT_COLUMN_LEFT_EDGE);
 
-    int fifth_column = PARTY_COMMAND_COLUMN + NAME_WIDTH + 3 * COMMAND_WIDTH + 1;
-
-    // Start position in pixels of right-most (fifth) column. Only used in READ-ELVISH.
-    int RIGHT_COLUMN_LEFT_EDGE = fifth_column * letterwidth;
-
-    // Width in pixels of right-most (fifth) column. Only used in READ-ELVISH.
-    int RIGHT_COLUMN_WIDTH = (SCREEN_WIDTH_in_chars - BORDER_FLAG) * letterwidth - RIGHT_COLUMN_LEFT_EDGE;
-
-    set_global(0x0, RIGHT_COLUMN_WIDTH);
-    set_global(0x15, RIGHT_COLUMN_LEFT_EDGE);
-
-    int LONG_ARROW_WIDTH = 2.0 + 3.0 * gcellw;
-    int SHORT_ARROW_WIDTH = 2.0 + 2.0 * gcellw;
-    int NO_ARROW_WIDTH = 2.0 + 1.0 * gcellw;
-
-    set_global(0x7a, LONG_ARROW_WIDTH);
-    set_global(0x76, SHORT_ARROW_WIDTH);
-    set_global(0x60, NO_ARROW_WIDTH);
+//    int LONG_ARROW_WIDTH = 2.0 + 3.0 * gcellw;
+//    int SHORT_ARROW_WIDTH = 2.0 + 2.0 * gcellw;
+//    int NO_ARROW_WIDTH = 2.0 + 1.0 * gcellw;
+//
+//    set_global(0x7a, LONG_ARROW_WIDTH);
+//    set_global(0x76, SHORT_ARROW_WIDTH);
+//    set_global(0x60, NO_ARROW_WIDTH);
 }
 
 int party_pcm(int chr) {
