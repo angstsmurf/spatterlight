@@ -277,6 +277,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }
 
+#pragma mark Z-colors
+
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
 
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
@@ -401,6 +403,32 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)sendCommandLine:(NSString *)command {
     NSLog(@"sendCommandLine in %@ not implemented", [self class]);
+}
+
+- (BOOL)appendString:(NSString *)stringToWrite toURL:(NSURL *)url encoding:(NSStringEncoding)enc
+{
+    BOOL result = YES;
+    NSError *error = nil;
+    NSFileHandle *fh = [NSFileHandle fileHandleForWritingToURL:url error:&error];
+    if (!fh) {
+        error = nil;
+        if (![stringToWrite writeToURL:url atomically:YES encoding:enc error:&error] || error) {
+            if (error) {
+                NSLog(@"appendString error: %@", error);
+            }
+            return NO;
+        }
+        return YES;
+    }
+    @try {
+        [fh seekToEndOfFile];
+        [fh writeData:[stringToWrite dataUsingEncoding:enc]];
+    }
+    @catch (NSException *ex) {
+        result = NO;
+    }
+    [fh closeFile];
+    return result;
 }
 
 - (void)sendKeypress:(unsigned)ch {

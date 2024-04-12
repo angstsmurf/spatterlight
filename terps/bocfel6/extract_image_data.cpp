@@ -109,48 +109,48 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 {
     int i;
     uint8_t *ptr = data;
-    header_t header;
+    header_t imgheader;
     pdirectory_t *directory;
 
     ptr = data + offset;
-    header.part = read_byte(&ptr);
+    imgheader.part = read_byte(&ptr);
     *image_list = NULL;
 
-    if (header.part != disk) {
+    if (imgheader.part != disk) {
         // Wrong part
         return 0;
     }
 
     bool byteswap = (*type == kGraphicsTypeVGA || *type == kGraphicsTypeEGA || *type == kGraphicsTypeCGA);
 
-    header.flags = read_byte(&ptr);
+    imgheader.flags = read_byte(&ptr);
 
     // A file named "pic.data" may contain colour Amiga graphics or monochrome Mac graphics,
     // but the flags always seem to equal 0xe (14) if the graphics are monochrome.
     // (Amiga graphics data and Mac colour graphics data are identical.)
-    if (header.flags == 0xe) {
+    if (imgheader.flags == 0xe) {
         if (*type == kGraphicsTypeAmiga)
             *type = kGraphicsTypeMacBW;
     } else if (*type == kGraphicsTypeMacBW) {
         *type = kGraphicsTypeAmiga;
     }
-    header.unknown1 = byte_swap(byteswap, read_word(&ptr));
-    header.images = byte_swap(byteswap, read_word(&ptr));
-    header.unknown2 = byte_swap(byteswap, read_word (&ptr));
-    header.dir_size = read_byte (&ptr);
-    header.unknown3 = read_byte (&ptr);
-    header.checksum = byte_swap(byteswap, read_word(&ptr));
-    header.unknown4 = byte_swap(byteswap, read_word(&ptr));
-    header.version = byte_swap(byteswap, read_word(&ptr));
+    imgheader.unknown1 = byte_swap(byteswap, read_word(&ptr));
+    imgheader.images = byte_swap(byteswap, read_word(&ptr));
+    imgheader.unknown2 = byte_swap(byteswap, read_word (&ptr));
+    imgheader.dir_size = read_byte (&ptr);
+    imgheader.unknown3 = read_byte (&ptr);
+    imgheader.checksum = byte_swap(byteswap, read_word(&ptr));
+    imgheader.unknown4 = byte_swap(byteswap, read_word(&ptr));
+    imgheader.version = byte_swap(byteswap, read_word(&ptr));
 
-    if ((directory = (pdirectory_t *) calloc((size_t) header.images, sizeof (pdirectory_t))) == NULL) {
+    if ((directory = (pdirectory_t *) calloc((size_t) imgheader.images, sizeof (pdirectory_t))) == NULL) {
         fprintf (stderr, "Insufficient memory\n");
         exit (EXIT_FAILURE);
     }
 
-    for (i = 0; i < header.images; i++) {
+    for (i = 0; i < imgheader.images; i++) {
         directory[i].image_number = byte_swap(byteswap, read_word(&ptr));
-        if (header.dir_size == 8) {
+        if (imgheader.dir_size == 8) {
             directory[i].image_width = read_byte(&ptr);
             directory[i].image_height = read_byte(&ptr);
             directory[i].image_flags = read_byte(&ptr);
@@ -165,13 +165,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         if (directory[i].image_data_addr != 0) {
             directory[i].next_data_addr = (uint32_t)datasize;
         }
-        if ((unsigned int) header.dir_size == 14) {
+        if ((unsigned int) imgheader.dir_size == 14) {
             directory[i].image_cm_addr = read_24bit(&ptr);
-        } else if (header.dir_size == 16 ){
+        } else if (imgheader.dir_size == 16 ){
             directory[i].image_cm_addr = read_24bit(&ptr);
             // lookup table offset must be doubled
             directory[i].image_lookup_addr = read_word(&ptr) * 2;
-        } else if (header.dir_size != 8) {
+        } else if (imgheader.dir_size != 8) {
             directory[i].image_cm_addr = 0;
             read_byte(&ptr);
         }
@@ -180,9 +180,9 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     memcpy(lookup_table, ptr, 256);
 
     // Ugly calculation of data size by looking for following image offset
-    for (i = 0; i < header.images - 1; i++) {
+    for (i = 0; i < imgheader.images - 1; i++) {
         if (directory[i].image_data_addr != 0) {
-            for (int j = i + 1; j < header.images - 1; j++) {
+            for (int j = i + 1; j < imgheader.images - 1; j++) {
                 if (directory[j].image_data_addr > directory[i].image_data_addr) {
                     directory[i].next_data_addr = directory[j].image_data_addr;
                     break;
@@ -191,13 +191,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         }
     }
 
-    *image_list = (ImageStruct *)calloc(header.images, sizeof(ImageStruct));
+    *image_list = (ImageStruct *)calloc(imgheader.images, sizeof(ImageStruct));
     if (*image_list == NULL) {
         fprintf(stderr, "Out of memory\n");
         exit(EXIT_FAILURE);
     }
 
-    for (i = 0; i < header.images; i++) {
+    for (i = 0; i < imgheader.images; i++) {
         (*image_list)[i].index = directory[i].image_number;
         (*image_list)[i].width = directory[i].image_width;
         (*image_list)[i].height = directory[i].image_height;
@@ -214,7 +214,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         memcpy((*image_list)[i].data, data + directory[i].image_data_addr, length);
         if (directory[i].image_flags & 1) {
             (*image_list)[i].transparency = 1;
-            if (header.dir_size == 8) {
+            if (imgheader.dir_size == 8) {
                 (*image_list)[i].transparent_color = directory[i].image_flags >> 4;
             } else {
                 (*image_list)[i].transparent_color = directory[i].image_flags >> 12;
@@ -235,9 +235,9 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     }
 
     free(directory);
-    *version = header.version;
+    *version = imgheader.version;
 
-    return header.images;
+    return imgheader.images;
 }
 
 int extract_images_from_blorb(ImageStruct **image_list)
@@ -267,7 +267,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
     for (int i = first; i <= last; i++) {
         if (giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Pict, i) == giblorb_err_None) {
             glui32 width, height;
-            win_purgeimage(i);
+            win_purgeimage(i, 0, 0);
             glk_image_get_info(i, &width, &height);
             (*image_list)[index].index = i;
             (*image_list)[index].type = kGraphicsTypeBlorb;

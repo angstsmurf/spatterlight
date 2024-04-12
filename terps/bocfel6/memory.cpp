@@ -135,6 +135,9 @@ void store_word(uint32_t addr, uint16_t val)
     }
 #endif
 
+    if (addr == header.globals + 0x1c *2) {
+        fprintf(stderr, "store_word: storing 0x%x in global FG-COLOR (0x1c)\n", val);
+    }
     memory[addr + 0] = val >> 8;
     memory[addr + 1] = val & 0xff;
 }

@@ -6,11 +6,13 @@
 //
 #include "zterp.h"
 #include "screen.h"
+#include "memory.h"
+#include "dict.h"
+
+#include "zorkzero.hpp"
 #include "journey.hpp"
 #include "arthur.hpp"
-#include "memory.h"
-
-#include "dict.h"
+#include "shogun.hpp"
 
 #include "entrypoints.hpp"
 
@@ -49,6 +51,7 @@ static std::vector<EntryPoint> entrypoints = {
         after_SPLIT_BY_PICTURE
     },
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "INIT-HINT-SCREEN",
@@ -78,6 +81,7 @@ static std::vector<EntryPoint> entrypoints = {
 
 
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "LEAVE_HINT_SCREEN",
@@ -87,6 +91,7 @@ static std::vector<EntryPoint> entrypoints = {
         LEAVE_HINT_SCREEN
     },
 
+    // Shared with Shogun
 //    B310E622 00
     {
         Game::ZorkZero,
@@ -117,6 +122,7 @@ static std::vector<EntryPoint> entrypoints = {
         V_REFRESH
     },
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "DISPLAY-HINT",
@@ -126,6 +132,7 @@ static std::vector<EntryPoint> entrypoints = {
         DISPLAY_HINT
     },
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "after DISPLAY-HINT",
@@ -208,6 +215,7 @@ static std::vector<EntryPoint> entrypoints = {
         CENTER
     },
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "V-COLOR",
@@ -217,6 +225,7 @@ static std::vector<EntryPoint> entrypoints = {
         V_COLOR
     },
 
+    // Shared with Arthur
     {
         Game::ZorkZero,
         "after V-COLOR",
@@ -225,6 +234,25 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         after_V_COLOR
     },
+
+    {
+        Game::ZorkZero,
+        "INIT-STATUS-LINE",
+        { 0xb0, 0x0d, 0x02, 0x01, 0x0d, 0x05 },
+        0,
+        0,
+        INIT_STATUS_LINE
+    },
+
+    {
+        Game::ZorkZero,
+        "UPDATE-STATUS-LINE",
+        { 0xb1, 0xeb, 0x7f, 0x01 },
+        0,
+        0,
+        UPDATE_STATUS_LINE
+    },
+
 
 #pragma mark Arthur
 

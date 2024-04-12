@@ -7,6 +7,7 @@
 #include "glk.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
+#import "GlkEvent.h"
 
 #import "GlkController.h"
 #import "NSString+Categories.h"
@@ -126,9 +127,16 @@ extern NSArray *gSaveFileTypes;
         keyPress = keycode_Return;
         if (_untypedCharacters.length)
             _untypedCharacters = @"";
+    } else {
+        keyPress = chartokeycode(keyPress);
     }
 
     [win sendKeypress:keyPress];
+
+//    if (self.glkctl.journey) {
+//        NSLog(@"CommandScriptHandler sendCommandKeyPressToWindow: sent key press %u to window %ld", keyPress, win.name);
+//    }
+
     if (_untypedCharacters.length > 1)
         _untypedCharacters = [_untypedCharacters substringFromIndex:1];
     else

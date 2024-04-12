@@ -70,8 +70,8 @@ enum AnsiColour {
     LIGHTGREY_COLOUR = 10,     /* INTERP_AMIGA only */
     MEDIUMGREY_COLOUR = 11,     /* INTERP_AMIGA only */
     DARKGREY_COLOUR = 12,     /* INTERP_AMIGA only */
-    SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR = 13,
-    SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR = 14,
+    SPATTERLIGHT_CURRENT_FOREGROUND = 13,
+    SPATTERLIGHT_CURRENT_BACKGROUND = 14,
     TRANSPARENT_COLOUR = 15,    /* ZSpec 1.1 */
 };
 
@@ -144,27 +144,7 @@ void screen_save_persistent_transcript();
 void set_current_style(void);
 void update_user_defined_colors(void);
 
-void SCENE_SELECT(void);
-void GOTO_SCENE(void);
-void V_VERSION(void);
-void after_V_VERSION(void);
-void V_CREDITS(void);
-void after_V_CREDITS(void);
-void after_SETUP_TEXT_AND_STATUS(void);
-void after_V_HINT(void);
-void V_DEFINE(void);
-void after_V_DEFINE(void);
 
-
-void MAC_II(void);
-void after_MAC_II(void);
-
-// Zork 0
-void after_SPLIT_BY_PICTURE(void);
-
-void V_REFRESH(void);
-void CENTER(void);
-void V_MODE(void);
 
 void zoutput_stream();
 void zinput_stream();
@@ -250,11 +230,18 @@ void window_change(void);
 void transcribe(uint32_t c);
 uint8_t read_char(void);
 int count_characters_in_zstring(uint16_t str);
+int count_characters_in_object(uint16_t obj);
+
+glui32 darkest(glui32 col1, glui32 col2);
+glui32 brightest(glui32 col1, glui32 col2);
 
 void v6_restore_hacks(void);
 void v6_remap_win_to_buffer(Window *win);
 void v6_remap_win_to_grid(Window *win);
 bool is_win_covered(Window *win, int zpos);
+void flush_image_buffer(void);
+glui32 rgb_colour_from_index(uint16_t index);
+void v6_delete_glk_win(winid_t glkwin);
 
 enum V6ScreenMode {
     MODE_NORMAL,
@@ -278,9 +265,10 @@ extern std::array<Window, 8> windows;
 extern uint16_t letterwidth;
 extern uint16_t letterheight;
 extern winid_t graphics_win_glk;
-extern glui32 latest_picture;
+extern glui32 current_picture;
 extern glui32 user_selected_foreground, user_selected_background;
 
-
+extern int a2_graphical_banner_height;
+extern int buffer_xpos;
 
 #endif

@@ -7,9 +7,11 @@
 
 void print_object(uint16_t obj, void (*outc)(uint8_t));
 uint16_t internal_get_prop(int obj, int prop);
+uint16_t property_address(uint16_t n);
 void internal_put_prop(uint16_t object, uint16_t property, uint16_t value);
 bool internal_test_attr(uint16_t object, uint16_t attribute);
 void internal_set_attr(uint16_t object, uint16_t attribute);
+void internal_clear_attr(uint16_t object, uint16_t attribute);
 
 void zget_sibling();
 void zget_child();

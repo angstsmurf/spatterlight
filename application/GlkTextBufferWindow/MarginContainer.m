@@ -73,14 +73,17 @@
 }
 
 - (void)addImage:(NSImage *)image
-           align:(NSInteger)align
-              at:(NSUInteger)top
+           index:(NSInteger)index
+       alignment:(NSInteger)alignment
+              at:(NSUInteger)pos
           linkid:(NSUInteger)linkid {
     MarginImage *mi = [[MarginImage alloc] initWithImage:image
-                                                   align:align
-                                                  linkid:linkid
-                                                      at:top
+                                                   index:index
+                                               alignment:alignment
+                                                  linkId:linkid
+                                                      at:pos
                                                   sender:self];
+    NSLog(@"MarginContainer addImage %ld", index);
     [_marginImages addObject:mi];
     [self.layoutManager textContainerChangedGeometry:self];
 }

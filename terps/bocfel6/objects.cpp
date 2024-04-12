@@ -56,7 +56,7 @@ static uint16_t find_object(uint16_t n)
 #define set_sibling(obj1, obj2)		set_relation(obj1, obj2, OFFSET_SIBLING)
 #define set_child(obj1, obj2)		set_relation(obj1, obj2, OFFSET_CHILD)
 
-static uint16_t property_address(uint16_t n)
+uint16_t property_address(uint16_t n)
 {
     return word(find_object(n) + OFFSET_PROP);
 }
@@ -266,6 +266,15 @@ void internal_set_attr(uint16_t object, uint16_t attribute)
     store_byte(addr, byte(addr) | ATTR_BIT(attribute));
 }
 
+void internal_clear_attr(uint16_t object, uint16_t attribute)
+{
+    check_attr(attribute);
+
+    uint16_t addr = find_object(object) + (attribute / 8);
+
+    store_byte(addr, byte(addr) & ~ATTR_BIT(attribute));
+}
+
 void zset_attr()
 {
     check_zero(false, false);
@@ -284,6 +293,7 @@ void zclear_attr()
     uint16_t addr = find_object(zargs[0]) + (zargs[1] / 8);
 
     store_byte(addr, byte(addr) & ~ATTR_BIT(zargs[1]));
+    fprintf(stderr, "zclear_attr addr: %x zargs[1]:%x zargs[0]:%x\n", addr, zargs[1], zargs[0]);
 }
 #undef ATTR_BIT
 

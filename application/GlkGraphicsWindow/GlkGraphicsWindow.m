@@ -375,6 +375,20 @@
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
         char_request = NO;
+
+        // Unless reading from script, append all key presses to script file
+//        if (self.glkctl.journey && !self.glkctl.commandScriptRunning) {
+//            unichar charToAppend = [str characterAtIndex:[str length] - 1];
+//            BOOL isNewline = [[NSCharacterSet newlineCharacterSet] characterIsMember:charToAppend];
+//            NSString *stringToAppend = isNewline ? @"\n" : [NSString stringWithFormat:@"%@\n", str];
+//            BOOL result = [self appendString:stringToAppend toURL:[NSURL fileURLWithPath:@"/Users/administrator/Desktop/Hitler.txt"] encoding:NSUTF8StringEncoding];
+//            if (!result) {
+//                NSLog(@"Error! Could not log keypress to file!");
+//            } else {
+//                NSLog(@"GlkTextBufferWindow keyDown: Wrote key press %hu (%d) (\"%@\") to command script file", charToAppend, ch, isNewline ? @"newline" : str);
+//            }
+//        }
+        
         return;
     }
 }

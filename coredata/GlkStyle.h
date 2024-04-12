@@ -42,7 +42,7 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkStyle *clone;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSSize cellSize;
 - (void)createDefaultAttributeDictionary;
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL testGridStyle;
+- (BOOL)testGridStyle;
 - (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;
 - (void)printDebugInfo;
 

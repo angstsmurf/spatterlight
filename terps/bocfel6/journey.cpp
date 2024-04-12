@@ -34,7 +34,7 @@ static float journey_image_scale = 1.0;
 
 glui32 SCREEN_WIDTH_in_chars, SCREEN_HEIGHT_in_chars;
 
-void adjust_journey_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixwidth) {
+void journey_adjust_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixwidth) {
 
     journey_image_width = width;
     journey_image_height = height;
@@ -55,7 +55,7 @@ void adjust_journey_image(int picnum, int *x, int *y, int width, int height, int
     *y = journey_image_y;
 }
 
-void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
+static void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
 
     int stamp_offset_x = 0, stamp_offset_y = 0, width, height;
 
@@ -80,8 +80,7 @@ void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float 
     draw_inline_image(win, picnum, stamp_x, stamp_y, journey_image_scale, false);
 }
 
-
-void draw_journey_title_image(void) {
+static void draw_journey_title_image(void) {
     float scale;
     int x, y, width, height;
     winid_t win = windows[3].id;
@@ -92,23 +91,18 @@ void draw_journey_title_image(void) {
     glk_window_set_background_color(win, monochrome_black);
     glk_window_clear(win);
     get_image_size(160, &width, &height);
-    adjust_journey_image(160, &x, &y, width, height, gscreenw, gscreenh, &scale, pixelwidth);
+    journey_adjust_image(160, &x, &y, width, height, gscreenw, gscreenh, &scale, pixelwidth);
     draw_inline_image(win, 160, x, y, scale, false);
 }
 
-
-
-
 int16_t selected_journey_line = -1;
 int16_t selected_journey_column = -1;
-
 
 #define THICK_V_LINE 57
 #define THIN_V_LINE 41
 #define H_LINE 39
 
-
-void FONT3_LINE(int LN, int CHR, int L, int R) {
+static void journey_font3_line(int LN, int CHR, int L, int R) {
     glk_set_style(style_BlockQuote);
     glk_window_move_cursor(curwin->id, 0, LN - 1);
     glk_put_char(L);
@@ -119,9 +113,9 @@ void FONT3_LINE(int LN, int CHR, int L, int R) {
 
 }
 
-int refresh_journey_character_command_area(int LN);
+static int journey_refresh_character_command_area(int LN);
 
-void SETUP_WINDOWS(void) {
+static void SETUP_WINDOWS(void) {
     int PW = get_global(0xa9); // PW = BASE-PICTURE-WIDTH
     int PH = get_global(0x27); // PH = BASE-PICTURE-HEIGHT
     int OFF = 6;
@@ -158,24 +152,24 @@ void SETUP_WINDOWS(void) {
     set_global(0x38, TEXT_WINDOW_LEFT);
 }
 
-bool qset(uint16_t obj, int16_t bit) { // Test attribute, set it, return test result.
+static bool qset(uint16_t obj, int16_t bit) { // Test attribute, set it, return test result.
     bool result = internal_test_attr(obj, bit);
     internal_set_attr(obj, bit);
     return result;
 }
 
-void adjust_journey_windows(bool restoring);
+static void journey_adjust_windows(bool restoring);
 
-void update_screen_size(void) {
+static void update_screen_size(void) {
     glk_window_get_size(windows[1].id, &SCREEN_WIDTH_in_chars, &SCREEN_HEIGHT_in_chars);
 
     set_global(0x83, SCREEN_WIDTH_in_chars); // GLOBAL SCREEN-WIDTH
     set_global(0x64, SCREEN_HEIGHT_in_chars); // GLOBAL SCREEN-HEIGHT
 }
 
-bool BORDER_FLAG, FONT3_FLAG;
+static bool BORDER_FLAG, FONT3_FLAG;
 
-void update_internal_globals(void) {
+static void update_internal_globals(void) {
 
     int BLACK_PICTURE_BORDER;
     int FWC_FLAG;
@@ -287,7 +281,7 @@ void update_internal_globals(void) {
 //    set_global(0x60, NO_ARROW_WIDTH);
 }
 
-int party_pcm(int chr) {
+static int party_pcm(int chr) {
     uint16_t party_table = get_global(0x63); // global 0x63 is PARTY table
     uint16_t MAX = user_word(party_table);
     for (int cnt = 1; cnt <= MAX; cnt++) {
@@ -297,7 +291,7 @@ int party_pcm(int chr) {
     return 0;
 }
 
-bool bad_character(uint8_t c, bool elvish) {
+static bool bad_character(uint8_t c, bool elvish) {
     if (c >= 'A' && c <= 'Z')
         return false;
     if (c >= 'a' && c <= 'z')
@@ -315,9 +309,9 @@ enum inputMode {
     INPUT_NAME,
 };
 
-inputMode current_input = INPUT_PARTY;
+static inputMode current_input = INPUT_PARTY;
 
-void underscore_or_square() {
+static void underscore_or_square() {
     if (FONT3_FLAG) {
         glk_put_char('_');
     } else {
@@ -325,14 +319,14 @@ void underscore_or_square() {
     }
 }
 
-uint16_t input_length = 0;
-uint16_t max_length = 0;
-uint16_t from_command_start_line = 0;
-uint16_t input_column = 0;
-uint16_t input_line = 0;
-uint16_t input_table = 0;
+static uint16_t input_length = 0;
+static uint16_t max_length = 0;
+static uint16_t from_command_start_line = 0;
+static uint16_t input_column = 0;
+static uint16_t input_line = 0;
+static uint16_t input_table = 0;
 
-void move_journey_cursor(int column, int line) {
+void move_v6_cursor(int column, int line) {
     set_cursor(line * letterwidth, column * letterwidth, 1);
 
     if (column <= 1)
@@ -348,25 +342,25 @@ void move_journey_cursor(int column, int line) {
 
 void debug_print_str(uint8_t c);
 
-void debug_PRINT_STRING(uint16_t str) {
+static void debug_PRINT_STRING(uint16_t str) {
     print_handler(unpack_string(str), debug_print_str);
 }
 
-int GET_COMMAND(int cmd);
+static int GET_COMMAND(int cmd);
 
 
 static char *string_buf_ptr = nullptr;
 static int string_buf_pos = 0;
 static int string_maxlen = 0;
 
-void print_to_string_buffer(uint8_t c) {
+static void print_to_string_buffer(uint8_t c) {
 
     if (string_buf_pos < string_maxlen)
         string_buf_ptr[string_buf_pos++] = c;
 }
 
 
-int print_zstr_to_cstr(uint16_t addr, char *str) {
+static int print_zstr_to_cstr(uint16_t addr, char *str) {
     int length = count_characters_in_zstring(addr);
     if (length < 2)
         return 0;
@@ -379,7 +373,7 @@ int print_zstr_to_cstr(uint16_t addr, char *str) {
 }
 
 
-int print_tag_route_to_str(char *str) {
+static int print_tag_route_to_str(char *str) {
     int name_length = get_global(0x1b);
     int name_table = get_global(0xba) + 4;
     for (int i = 0; i < name_length; i++) {
@@ -393,7 +387,7 @@ int print_tag_route_to_str(char *str) {
     return name_length + 6;
 }
 
-void create_journey_party_menu(void) {
+static void create_journey_party_menu(void) {
 
     fprintf(stderr, "create_journey_party_menu");
     int object;
@@ -440,7 +434,7 @@ struct JourneyMenu {
     int column;
 };
 
-void create_submenu(JourneyMenu *m, int object, int objectindex) {
+static void create_submenu(JourneyMenu *m, int object, int objectindex) {
     uint16_t command_table = word(get_global(0x32) + objectindex * 2);
     m->submenu_entries = 0;
     if (!internal_test_attr(object, 0x17)) { // flag 0x17 is SHADOW flag
@@ -463,7 +457,7 @@ void create_submenu(JourneyMenu *m, int object, int objectindex) {
 }
 
 
-void create_journey_menu(JourneyMenuType type, bool prsi) {
+static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
     struct JourneyMenu menu[10];
 
@@ -547,51 +541,12 @@ void create_journey_menu(JourneyMenuType type, bool prsi) {
     }
 }
 
-void print_input(inputMode mode) {
-    switch (mode) {
-        case INPUT_PARTY:
-            fprintf(stderr, "PARTY");
-            break;
-        case INPUT_SPECIAL:
-            fprintf(stderr, "SPELLS");
-            break;
-        case INPUT_OBJECT:
-            fprintf(stderr, "OBJECT");
-            break;
-        case INPUT_ELVISH:
-            fprintf(stderr, "ELVISH");
-            break;
-        case INPUT_NAME:
-            fprintf(stderr, "NAME");
-            break;
-        default:
-            fprintf(stderr, "(unknown mode)");
-            break;
-    }
-}
-
-void change_input(inputMode mode) {
-    if (current_input == mode) {
-        fprintf(stderr, "change_input to ");
-        print_input(mode);
-        fprintf(stderr, ": No change\n");
-        return;
-    }
-
-    fprintf(stderr, "change_input: changed from ");
-    print_input(current_input);
-    fprintf(stderr, " to ");
-    print_input(mode);
-    fprintf(stderr, "\n");
-    current_input = mode;
-}
-
 extern bool journey_cursor_timer;
 extern bool journey_cursor_reverse;
 
 #pragma mark Input
 
-uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool elvish, uint8_t *kbd) {
+static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool elvish, uint8_t *kbd) {
 
     input_column = x;
     input_line = y;
@@ -601,7 +556,7 @@ uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool 
     from_command_start_line = y - get_global(0x0e); // COMMAND-START-LINE
 
     set_current_window(&windows[1]);
-    move_journey_cursor(input_column, input_line);
+    move_v6_cursor(input_column, input_line);
 
     if (!FONT3_FLAG) {
         garglk_set_reversevideo(1);
@@ -611,7 +566,7 @@ uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool 
         underscore_or_square();
     }
 
-    move_journey_cursor(input_column, input_line);
+    move_v6_cursor(input_column, input_line);
 
     int start = input_column;
 
@@ -636,14 +591,14 @@ uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool 
                 continue;
             } else {
                 if (input_column < SCREEN_WIDTH_in_chars - 1) {
-                    move_journey_cursor(input_column, input_line);
+                    move_v6_cursor(input_column, input_line);
                     underscore_or_square();
                 }
                 input_column--;
                 input_length--;
-                move_journey_cursor(input_column, input_line);
+                move_v6_cursor(input_column, input_line);
                 underscore_or_square();
-                move_journey_cursor(input_column, input_line);
+                move_v6_cursor(input_column, input_line);
             }
         } else {
             
@@ -664,7 +619,7 @@ uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool 
             }
 
             if (input_column < SCREEN_WIDTH_in_chars) {
-                move_journey_cursor(input_column, input_line);
+                move_v6_cursor(input_column, input_line);
                 put_char(character);
             }
             user_store_byte(table + input_length, character);
@@ -681,19 +636,19 @@ uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool 
     garglk_set_reversevideo(0);
 
     if (elvish) {
-        move_journey_cursor(start, input_line);
+        move_v6_cursor(start, input_line);
         for (int i = 0; i < max_length; i++) {
             put_char(UNICODE_SPACE);
         }
     }
 
     set_current_window(&windows[0]);
-    change_input(INPUT_PARTY);
+    current_input = INPUT_PARTY;
     return input_length;
 }
 
 
-int GET_COMMAND(int cmd) {
+static int GET_COMMAND(int cmd) {
     int COMMAND_WIDTH = get_global(0xb8);
     if (COMMAND_WIDTH < 13) {
         int STR = user_word(cmd + 10);
@@ -703,15 +658,11 @@ int GET_COMMAND(int cmd) {
     return user_word(cmd);
 }
 
-void PRINT_COMMAND(int cmd) {
+static void PRINT_COMMAND(int cmd) {
     print_handler(unpack_string(GET_COMMAND(cmd)), nullptr);
 }
 
-void debug_PRINT_COMMAND(uint16_t cmd) {
-    print_handler(unpack_string(GET_COMMAND(cmd)), debug_print_str);
-}
-
-int GET_DESC(int obj) {
+static int GET_DESC(int obj) {
     int STR;
     if (SCREEN_WIDTH_in_chars < 0x32) {
         STR = internal_get_prop(obj, 0x2b);
@@ -727,7 +678,7 @@ int GET_DESC(int obj) {
 }
 
 
-int PRINT_DESC(int obj, bool cmd) {
+static int PRINT_DESC(int obj, bool cmd) {
     int NAME_TBL = get_global(0xba) + 2;
     int TAG_NAME_LENGTH = get_global(0x1b);
     int TAG_OBJECT = 0x01a3;
@@ -750,12 +701,12 @@ int PRINT_DESC(int obj, bool cmd) {
     return count_characters_in_zstring(str);
 }
 
-void erase_journey_command_chars(int LN, int COL, int num_spaces) {
+static void journey_erase_command_chars(int LN, int COL, int num_spaces) {
 
     if (options.int_number == INTERP_MSDOS) {
-        move_journey_cursor(COL - 1, LN);
+        move_v6_cursor(COL - 1, LN);
     } else {
-        move_journey_cursor(COL, LN);
+        move_v6_cursor(COL, LN);
     }
 
     bool in_leftmost_column = (COL > SCREEN_WIDTH_in_chars * 0.7);
@@ -784,11 +735,11 @@ void erase_journey_command_chars(int LN, int COL, int num_spaces) {
     }
 
 
-    move_journey_cursor(COL, LN);
+    move_v6_cursor(COL, LN);
 }
 
 
-void erase_journey_command_pixels(int pix) {
+static void journey_erase_command_pixels(int pix) {
     int NAME_WIDTH_PIX = get_global(0x82);
 
     int COMMAND_WIDTH = get_global(0xb8);
@@ -821,7 +772,7 @@ void erase_journey_command_pixels(int pix) {
     }
 }
 
-void print_journey_character_commands(bool CLEAR) {
+static void journey_print_character_commands(bool CLEAR) {
     fprintf(stderr, "print_journey_character_commands: CLEAR: %s\n", CLEAR ? "true" : "false");
 
     // Prints the character names and arrows, and their commands in the three rightmost columns.
@@ -838,7 +789,7 @@ void print_journey_character_commands(bool CLEAR) {
     }
 
     if (!CLEAR)
-        create_journey_menu(kJMenuTypeMembers, false);
+        journey_create_menu(kJMenuTypeMembers, false);
 
     PTBL = get_global(0x63);  // global 0x63 is PARTY table: <GLOBAL PARTY <TABLE 5 BERGON PRAXIX ESHER TAG 0>>
 
@@ -853,7 +804,7 @@ void print_journey_character_commands(bool CLEAR) {
         CHR = word(PTBL + 2 * i); // <GET .PTBL 1>
         POS = get_global(0xa3); // NAME-COLUMN
 
-        erase_journey_command_chars(LN, POS, NAME_WIDTH - 1);
+        journey_erase_command_chars(LN, POS, NAME_WIDTH - 1);
 
         // global 0x80 is SUBGROUP-MODE
         // attribute 0x2a is SUBGROUP flag
@@ -867,15 +818,15 @@ void print_journey_character_commands(bool CLEAR) {
             if (SCREEN_WIDTH_in_chars < 55) { // (<L? ,SCREEN-WIDTH ,8-WIDTH
 
                 if (NAME_WIDTH - namelength - 2 < SHORT_ARROW_WIDTH) {
-                    move_journey_cursor(NAME_RIGHT - NO_ARROW_WIDTH, LN);
+                    move_v6_cursor(NAME_RIGHT - NO_ARROW_WIDTH, LN);
                     glk_put_string(const_cast<char*>(">"));
                 } else {
-                    move_journey_cursor(NAME_RIGHT - SHORT_ARROW_WIDTH, LN);
+                    move_v6_cursor(NAME_RIGHT - SHORT_ARROW_WIDTH, LN);
                     glk_put_string(const_cast<char*>("->"));
                 }
 
             } else {
-                move_journey_cursor(NAME_RIGHT - LONG_ARROW_WIDTH, LN);
+                move_v6_cursor(NAME_RIGHT - LONG_ARROW_WIDTH, LN);
                 glk_put_string(const_cast<char*>("-->"));
             }
         }
@@ -896,7 +847,7 @@ void print_journey_character_commands(bool CLEAR) {
 
             // Print up to three verbs for each character to the right, or just erase the fields
             for (int j = 0; j <= 2; j++) {
-                erase_journey_command_chars(LN, POS, COMMAND_WIDTH - 1);
+                journey_erase_command_chars(LN, POS, COMMAND_WIDTH - 1);
 
                 if (should_print_command) {
                     PRINT_COMMAND(word(BTBL + j * 2));
@@ -922,14 +873,14 @@ bool journey_read_elvish(int actor) {
     //  actor is set to 0x78 (Tag) by default
 
     int COL = get_global(0xb0); // COMMAND-OBJECT-COLUMN
-    print_journey_character_commands(true); // <CLEAR-FIELDS>
+    journey_print_character_commands(true); // <CLEAR-FIELDS>
 
     user_store_byte(get_global(0x75), 0x14); // <PUTB ,E-LEXV 0 20>
     user_store_byte(get_global(0x34), 0x32); // <PUTB ,E-INBUF 0 50>
 
     int LN = get_global(0x0e) + party_pcm(actor) - 1; // COMMAND-START-LINE
 
-    move_journey_cursor(get_global(0x28), LN); // CHR-COMMAND-COLUMN
+    move_v6_cursor(get_global(0x28), LN); // CHR-COMMAND-COLUMN
     glk_put_string_stream(windows[1].id->str, const_cast<char*>("says..."));
 
     int MAX = SCREEN_WIDTH_in_chars - get_global(0xb0) - 2;
@@ -938,9 +889,9 @@ bool journey_read_elvish(int actor) {
 
     uint16_t offset = journey_read_keyboard_line(COL, LN, TBL, MAX, true, nullptr);
 
-    refresh_journey_character_command_area(get_global(0x0e) - 1); // <REFRESH-CHARACTER-COMMAND-AREA <- ,COMMAND-START-LINE 1>>
+    journey_refresh_character_command_area(get_global(0x0e) - 1); // <REFRESH-CHARACTER-COMMAND-AREA <- ,COMMAND-START-LINE 1>>
 
-    change_input(INPUT_PARTY);
+    current_input = INPUT_PARTY;
 
     set_global(0x79, 1); // <SETG UPDATE-FLAG T>
 
@@ -993,7 +944,7 @@ void journey_change_name() {
     }
 }
 
-void init_journey_screen(void) {
+void journey_init_screen(void) {
     Window *lastwin = curwin;
     set_current_window(&windows[1]);
     glk_window_clear(windows[1].id);
@@ -1012,9 +963,9 @@ void init_journey_screen(void) {
 
     // Draw a line at the top with a centered "JOURNEY"
     if (BORDER_FLAG) {
-        FONT3_LINE(1, H_LINE, 47, 48);
+        journey_font3_line(1, H_LINE, 47, 48);
         int x = SCREEN_WIDTH_in_chars / 2 - 2;
-        move_journey_cursor(x, 0);
+        move_v6_cursor(x, 0);
         glk_put_string(const_cast<char*>("JOURNEY"));
     }
 
@@ -1026,7 +977,7 @@ void init_journey_screen(void) {
     int LN;
     for (LN = TOP_SCREEN_LINE; LN != COMMAND_START_LINE - 1; LN++) {
         if (!BORDER_FLAG) {
-            move_journey_cursor(TEXT_WINDOW_LEFT - 1, LN);
+            move_v6_cursor(TEXT_WINDOW_LEFT - 1, LN);
             if (FONT3_FLAG) {
                 glk_set_style(style_BlockQuote);
                 glk_put_char(THIN_V_LINE);
@@ -1038,11 +989,11 @@ void init_journey_screen(void) {
             }
         } else {
             glk_set_style(style_BlockQuote);
-            move_journey_cursor(0, LN);
+            move_v6_cursor(0, LN);
             glk_put_char(THIN_V_LINE);
-            move_journey_cursor(TEXT_WINDOW_LEFT - 1, LN);
+            move_v6_cursor(TEXT_WINDOW_LEFT - 1, LN);
             glk_put_char(THIN_V_LINE);
-            move_journey_cursor(SCREEN_WIDTH_in_chars, LN);
+            move_v6_cursor(SCREEN_WIDTH_in_chars, LN);
             glk_put_char(40);
             glk_set_style(style_Normal);
         }
@@ -1051,12 +1002,12 @@ void init_journey_screen(void) {
     // Draw horizontal line above "command area"
     if (FONT3_FLAG) {
         if (BORDER_FLAG) {
-            FONT3_LINE(LN, H_LINE, THIN_V_LINE, 40);
+            journey_font3_line(LN, H_LINE, THIN_V_LINE, 40);
         } else {
-            FONT3_LINE(LN, H_LINE, H_LINE, H_LINE);
+            journey_font3_line(LN, H_LINE, H_LINE, H_LINE);
         }
     } else {
-        move_journey_cursor(0, LN);
+        move_v6_cursor(0, LN);
         garglk_set_reversevideo(1);
         for (int i = 0; i < SCREEN_WIDTH_in_chars; i++)
             glk_put_char(UNICODE_SPACE);
@@ -1065,7 +1016,7 @@ void init_journey_screen(void) {
 
     // Draw bottom border line
     if (BORDER_FLAG) {
-        FONT3_LINE(SCREEN_HEIGHT_in_chars, 38, 46, 49);
+        journey_font3_line(SCREEN_HEIGHT_in_chars, 38, 46, 49);
     }
 
     if (!FONT3_FLAG) {
@@ -1079,14 +1030,14 @@ void init_journey_screen(void) {
 
     // Print "The Party" centered over the name column
     int x = NAME_COLUMN + (NAME_WIDTH - WIDTH) / 2 - 1;
-    move_journey_cursor(x, LN);
+    move_v6_cursor(x, LN);
     glk_put_string(const_cast<char*>("The Party"));
 
     // Print "Individual Commands" centered in the empty space to the right of "The Party" text
     WIDTH = 19; // WIDTH = TEXT_WIDTH("Individual Commands");
 
     int CHR_COMMAND_COLUMN = get_global(0x28);
-    move_journey_cursor(CHR_COMMAND_COLUMN + (SCREEN_WIDTH_in_chars - CHR_COMMAND_COLUMN - WIDTH) / 2 + (FONT3_FLAG ? 1 : 0),  LN);
+    move_v6_cursor(CHR_COMMAND_COLUMN + (SCREEN_WIDTH_in_chars - CHR_COMMAND_COLUMN - WIDTH) / 2 + (FONT3_FLAG ? 1 : 0),  LN);
 
     glk_put_string(const_cast<char*>("Individual Commands"));
 
@@ -1113,28 +1064,28 @@ void TAG_ROUTE_PRINT(void) {
 
 void PRINT_CHARACTER_COMMANDS(void) {
     if (current_input == INPUT_OBJECT || current_input == INPUT_SPECIAL) {
-        change_input(INPUT_PARTY);
+        current_input = INPUT_PARTY;
         number_of_printed_journey_words = 0;
     }
-    print_journey_character_commands(variable(1) == 1 ? true : false);
+    journey_print_character_commands(variable(1) == 1 ? true : false);
 }
 
 
 void READ_ELVISH(void) {
-    change_input(INPUT_ELVISH);
+    current_input = INPUT_ELVISH;
     store_variable(1, (journey_read_elvish(variable(1)) ? 1 : 0));
 }
 
 void CHANGE_NAME(void) {
-    change_input(INPUT_NAME);
+    current_input = INPUT_NAME;
     journey_change_name();
 }
 
 void ERASE_COMMAND(void) {
-    erase_journey_command_pixels(variable(1));
+    journey_erase_command_pixels(variable(1));
 }
 
-void print_journey_columns(bool PARTY, bool PRSI) {
+static void journey_print_columns(bool PARTY, bool PRSI) {
     fprintf(stderr, "print_journey_columns: PARTY: %s PRSI: %s\n", PARTY ? "true" : "false", PRSI ? "true" : "false");
     int column, table, object;
     int line = get_global(0x0e); // COMMAND-START-LINE (G0e)
@@ -1149,14 +1100,14 @@ void print_journey_columns(bool PARTY, bool PRSI) {
     } else  {
         column = get_global(0xb0) + (PRSI ? COMMAND_WIDTH : 0); // COMMAND-OBJECT-COLUMN (Gb0) + COMMAND-WIDTH (Gb8)
         table = O_TABLE + (PRSI ? 10 : 0);;
-        create_journey_menu(kJMenuTypeObjects, PRSI);
+        journey_create_menu(kJMenuTypeObjects, PRSI);
     }
 
     int table_count = user_word(table);
 
     for (int i = 1; i <= table_count; i++) {
         object = user_word(table + 2 * i);
-        erase_journey_command_chars(line, column, COMMAND_WIDTH - 1);
+        journey_erase_command_chars(line, column, COMMAND_WIDTH - 1);
         if (PARTY) {
             if (object == 0x3ea7 // TAG-ROUTE-COMMAND
                 && get_global(0x1b) // TAG-NAME-LENGTH (G1b)
@@ -1176,24 +1127,24 @@ void print_journey_columns(bool PARTY, bool PRSI) {
         }
     }
 //    if (SCREEN_WIDTH_in_chars < 60) {
-        refresh_journey_character_command_area(get_global(0x0e) - 1);
+        journey_refresh_character_command_area(get_global(0x0e) - 1);
 //    }
 }
 
 void PRINT_COLUMNS(void) {
     fprintf(stderr, "PRINT-COLUMNS: Local variable 0:%d Local variable 1:%d \n", variable(1), variable(2));
     if (variable(1) == 1) {
-        change_input(INPUT_PARTY);
+        current_input = INPUT_PARTY;
         create_journey_party_menu();
     } else if (variable(2) == 1) {
-        change_input(INPUT_SPECIAL);
+        current_input = INPUT_SPECIAL;
     } else {
-        change_input(INPUT_OBJECT);
+        current_input = INPUT_OBJECT;
     }
-    print_journey_columns(variable(1), variable(2));
+    journey_print_columns(variable(1), variable(2));
 }
 
-int refresh_journey_character_command_area(int LN) {
+static int journey_refresh_character_command_area(int LN) {
     fprintf(stderr, "called refresh_journey_character_command_area(LN %d)\n", LN);
     int POS;
 
@@ -1215,12 +1166,12 @@ int refresh_journey_character_command_area(int LN) {
 
     while (++LN <= COMMAND_START_LINE + 4) {
         POS = 1;
-        move_journey_cursor(POS, LN);
+        move_v6_cursor(POS, LN);
         while (POS <= SCREEN_WIDTH_in_chars) {
             if (FONT3_FLAG) {
                 if (POS != 1 && POS < SCREEN_WIDTH_in_chars - 5) {
                     glk_set_style(style_BlockQuote);
-                    move_journey_cursor(POS, LN);
+                    move_v6_cursor(POS, LN);
                     if (POS == COMMAND_WIDTH || POS == COMMAND_WIDTH + 1 || POS == COMMAND_WIDTH + NAME_WIDTH + 1 || POS == COMMAND_WIDTH + NAME_WIDTH) {
                         glk_put_char(THICK_V_LINE);
                     } else {
@@ -1229,12 +1180,12 @@ int refresh_journey_character_command_area(int LN) {
                     glk_set_style(style_Normal);
                 } else if (POS == 1 && BORDER_FLAG) {
                     glk_set_style(style_BlockQuote);
-                    move_journey_cursor(POS, LN);
+                    move_v6_cursor(POS, LN);
                     glk_put_char(THIN_V_LINE);
                     glk_set_style(style_Normal);
                 }
             } else if (POS != 1 && POS < SCREEN_WIDTH_in_chars - 5) {
-                move_journey_cursor(POS - 1, LN);
+                move_v6_cursor(POS - 1, LN);
                 garglk_set_reversevideo(1);
                 glk_put_char(UNICODE_SPACE);
                 garglk_set_reversevideo(0);
@@ -1244,7 +1195,7 @@ int refresh_journey_character_command_area(int LN) {
                 POS += NAME_WIDTH;
             } else {
                 if (COMMAND_WIDTH_PIX == 0) {
-                    move_journey_cursor(PARTY_COMMAND_COLUMN, LN);
+                    move_v6_cursor(PARTY_COMMAND_COLUMN, LN);
                 }
                 POS += COMMAND_WIDTH;
             }
@@ -1252,7 +1203,7 @@ int refresh_journey_character_command_area(int LN) {
 
         if (BORDER_FLAG) {
             glk_set_style(style_BlockQuote);
-            move_journey_cursor(SCREEN_WIDTH_in_chars, LN);
+            move_v6_cursor(SCREEN_WIDTH_in_chars, LN);
             glk_put_char(40); // Draw right border char (40)
             glk_set_style(style_Normal);
         }
@@ -1267,10 +1218,10 @@ int refresh_journey_character_command_area(int LN) {
 void REFRESH_CHARACTER_COMMAND_AREA(void) {
     fprintf(stderr, "REFRESH-CHARACTER-COMMAND-AREA: Local variable 0:%d \n", variable(1));
     int LN = variable(1);
-    refresh_journey_character_command_area(LN);
+    journey_refresh_character_command_area(LN);
 }
 
-void print_globals(void) {
+static void print_globals(void) {
     fprintf(stderr, "Let's only support r83 for now\n");
     fprintf(stderr, "MOUSETBL is global 0xbd (0x%x)\n", get_global(0xbd));
 
@@ -1310,8 +1261,8 @@ void print_globals(void) {
     fprintf(stderr, "COMMAND-OBJECT-COLUMN is global 0xb0 (0x%x) (%d)\n", get_global(0xb0), get_global(0xb0));
 }
 
-void reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
-    move_journey_cursor(x + 1, y + 1);
+static void journey_reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
+    move_v6_cursor(x + 1, y + 1);
     glk_set_style(style_Normal);
     if (!FONT3_FLAG) {
         garglk_set_reversevideo(1);
@@ -1336,15 +1287,15 @@ void reprint_partial_input(int x, int y, int length_so_far, int max_length, int1
     garglk_set_reversevideo(0);
 }
 
-void resize_journey_windows_after_restore() {
+void journey_resize_windows_after_restore() {
     win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
     internal_set_attr(68, 0x2e);
     screenmode = MODE_NORMAL;
-    change_input(INPUT_PARTY);
-    adjust_journey_windows(true);
+    current_input = INPUT_PARTY;
+    journey_adjust_windows(true);
 }
 
-void resize_journey_graphics_and_buffer_windows(void) {
+static void journey_resize_graphics_and_buffer_windows(void) {
 
     int text_window_left = get_global(global_text_window_left_idx);
 
@@ -1398,7 +1349,7 @@ void resize_journey_graphics_and_buffer_windows(void) {
 
 #pragma mark adjust_journey_windows
 
-void adjust_journey_windows(bool restoring) {
+static void journey_adjust_windows(bool restoring) {
     // Window 0: Text buffer
     // Window 1: Fullscreen grid window
     // Window 3: Graphics window
@@ -1437,34 +1388,34 @@ void adjust_journey_windows(bool restoring) {
     fprintf(stderr, "selected_journey_column is %d\n", selected_journey_column);
 
     // Draw borders
-    init_journey_screen();
+    journey_init_screen();
 
     // Redraw vertical lines in command area (the bottom five rows)
-    refresh_journey_character_command_area(SCREEN_HEIGHT_in_chars - 5 - BORDER_FLAG);
+    journey_refresh_character_command_area(SCREEN_HEIGHT_in_chars - 5 - BORDER_FLAG);
 
     if (screenmode == MODE_NORMAL) {
 
         set_global(0x40, 0); // SMART-DEFAULT-FLAG
 
         // Print party (the leftmost) column (call print columns with PARTY flag set
-        print_journey_columns(true, false);
+        journey_print_columns(true, false);
 
         if (current_input != INPUT_PARTY) {
             // If the player is currently entering text, redraw typed text at new position
             if (current_input == INPUT_NAME ) {
-                reprint_partial_input(get_global(0xb8) + 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length, input_table);
+                journey_reprint_partial_input(get_global(0xb8) + 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length, input_table);
             } else if (current_input == INPUT_ELVISH ) {
-                move_journey_cursor(get_global(0x28), get_global(0x0e) + from_command_start_line);
+                move_v6_cursor(get_global(0x28), get_global(0x0e) + from_command_start_line);
                 glk_put_string_stream(windows[1].id->str, const_cast<char*>("says..."));
-                reprint_partial_input(get_global(0xb0) - 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length - 1, input_table);
+                journey_reprint_partial_input(get_global(0xb0) - 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length - 1, input_table);
             } else {
-                print_journey_columns(false, current_input == INPUT_SPECIAL);
+                journey_print_columns(false, current_input == INPUT_SPECIAL);
             }
         }
 
         if (current_input != INPUT_NAME) {
             // Print character names and arrows, and corresponding verbs in the three rightmost columns
-            print_journey_character_commands(false);
+            journey_print_character_commands(false);
         }
 
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
@@ -1491,7 +1442,7 @@ void adjust_journey_windows(bool restoring) {
 
     fprintf(stderr, "After REFRESH-SCREEN: MOUSETBL 0 is 0x%x, MOUSETBL 1 is 0x%x\n", word(mousetbl), word(mousetbl + 2));
 
-    resize_journey_graphics_and_buffer_windows();
+    journey_resize_graphics_and_buffer_windows();
 
 
     // Redraw image(s)
@@ -1523,14 +1474,14 @@ void adjust_journey_windows(bool restoring) {
         if (!FONT3_FLAG) {
             garglk_set_reversevideo(1);
         }
-        draw_flashing_journey_cursor();
+        journey_draw_flashing_cursor();
     }
 }
 
-void draw_flashing_journey_cursor(void) {
+void journey_draw_flashing_cursor(void) {
     if (input_column > SCREEN_WIDTH_in_chars - 1)
         return;
-    move_journey_cursor(input_column, input_line);
+    move_v6_cursor(input_column, input_line);
 
     if (journey_cursor_reverse || FONT3_FLAG)
         garglk_set_reversevideo(1);
@@ -1544,7 +1495,7 @@ void draw_flashing_journey_cursor(void) {
     else
         garglk_set_reversevideo(1);
     
-    move_journey_cursor(input_column, input_line);
+    move_v6_cursor(input_column, input_line);
     journey_cursor_reverse = !journey_cursor_reverse;
     glk_request_timer_events(300 + (journey_cursor_reverse ? 600 : 0));
 }
@@ -1621,9 +1572,9 @@ void INIT_SCREEN(void) {
         read_char();
         screenmode = MODE_CREDITS;
         win_setbgnd(windows[0].id->peer, user_selected_background);
-        adjust_journey_windows(false);
+        journey_adjust_windows(false);
     } else {
-        init_journey_screen();
+        journey_init_screen();
     }
 }
 
@@ -1654,7 +1605,7 @@ void WCENTER(void) {
     glk_set_style(style_Normal);
 }
 
-void update_journey_on_resize(void) {
+void journey_update_on_resize(void) {
     // Window 0: Text buffer
     // Window 1: Fullscreen grid window
     // Window 3: Graphics window
@@ -1679,7 +1630,7 @@ void update_journey_on_resize(void) {
 
         draw_journey_title_image();
     } else {
-        adjust_journey_windows(false);
+        journey_adjust_windows(false);
     }
 }
 

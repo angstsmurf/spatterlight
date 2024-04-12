@@ -25,6 +25,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
     BOOL usingStyles;
     BOOL underlineLinks;
 
+    int32_t z6GraphicsType;
     /* For command history */
     InputHistory *history;
 
@@ -122,5 +123,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 @property NSSavePanel *savePanel;
 @property NSPopUpButton *accessoryPopUp;
+
+- (BOOL)appendString:(NSString *)stringToWrite toURL:(NSURL *)url encoding:(NSStringEncoding)enc;
 
 @end

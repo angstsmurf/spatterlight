@@ -586,30 +586,30 @@ void update_header_with_new_size(void) {
         store_byte(0x27, letterwidth);
 
         // Default background and foreground colors.
-        store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
-        store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
+        store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND);
+        store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND);
     } else if (zversion == 6) {
 
         // Screen width and height in pixels.
-       if (is_game(Game::Journey)) {
-
-           width = width * letterwidth;
-           if (options.int_number == INTERP_MACINTOSH) {
-               height = (height * letterheight) * (letterheight / gcellh);
-           } else {
-               height = height * letterheight;
-           }
-        //            width = width * letterwidth;
-        //            fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
-        //            fprintf(stderr, "Journey: screen height in characters: %d\n", height);
-        //            height = gscreenh;
-        //
-        //            fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == INTERP_AMIGA ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
-
-       } else {
+//       if (is_game(Game::Journey)) {
+//
+//           width = width * letterwidth;
+//           if (options.int_number == INTERP_MACINTOSH) {
+//               height = (height * letterheight) * (letterheight / gcellh);
+//           } else {
+//               height = height * letterheight;
+//           }
+//        //            width = width * letterwidth;
+//        //            fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
+//        //            fprintf(stderr, "Journey: screen height in characters: %d\n", height);
+//        //            height = gscreenh;
+//        //
+//        //            fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == INTERP_AMIGA ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
+//
+//       } else {
            width = gscreenw;
            height = gscreenh;
-       }
+//       }
 
         store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
         store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
@@ -619,9 +619,12 @@ void update_header_with_new_size(void) {
         store_byte(0x27, letterwidth);
 
         // Default background and foreground colors.
-        if (!is_game(Game::Shogun)) {
-            store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
-            store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
+        if (!is_game(Game::Shogun) && !is_game(Game::ZorkZero)) {
+            store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND);
+            store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND);
+        } else {
+            store_byte(0x2c, 1);
+            store_byte(0x2d, 1);
         }
     }
 }
@@ -732,6 +735,8 @@ static void calculate_checksum(IO &io, long offset)
     checksum_verified = checksum == header.checksum;
 }
 
+static uint8_t *watched_address;
+
 static void process_story(IO &io, long offset)
 {
     try {
@@ -745,6 +750,13 @@ static void process_story(IO &io, long offset)
     } catch (const IO::IOError &) {
         die("unable to read from story file");
     }
+
+//    for (int i = 0x70a5; i < 0x70a5 + 24; i++) {
+//
+//        fprintf(stderr, "SL-LOC-TBL: mem at %x: %x\n", i, memory[i]);
+//    }
+
+    watched_address = &memory[0x70a6];
 
     // Hack to read data file from Apple 2 Woz format disk images
     if (memory[0] == 'W' && memory[1] == 'O' && memory[2] == 'Z') {

@@ -13,7 +13,6 @@
 #include "glk.h"
 
 @interface MyAttachmentCell () <NSSecureCoding> {
-    NSInteger align;
     NSString *baseFilename;
     CGFloat lastXHeight;
     CGFloat lastAscender;
@@ -32,12 +31,12 @@
 }
 
 - (instancetype)initImageCell:(NSImage *)image
-                 andAlignment:(NSInteger)analignment
+                 andAlignment:(NSInteger)alignment
                     andAttStr:(NSAttributedString *)anattrstr
                            at:(NSUInteger)apos {
     self = [super initImageCell:image];
     if (self) {
-        align = analignment;
+        _align = alignment;
         _attrstr = anattrstr;
         _pos = apos;
         if (image.accessibilityDescription.length) {
@@ -51,7 +50,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        align = [decoder decodeIntegerForKey:@"align"];
+        _align = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
         lastXHeight = [decoder decodeDoubleForKey:@"lastXHeight"];
@@ -64,7 +63,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeInteger:align forKey:@"align"];
+    [encoder encodeInteger:_align forKey:@"align"];
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
     [encoder encodeObject:self.accessibilityLabel forKey:@"label"];
     [encoder encodeDouble:lastXHeight forKey:@"lastXHeight"];
@@ -81,7 +80,7 @@
                            inRect:(NSRect)cellFrame
                            ofView:(NSView *)controlView
                  atCharacterIndex:(NSUInteger)charIndex {
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
         return NO;
             }
     if (theEvent.type == NSEventTypeLeftMouseDragged || theEvent.type == NSEventTypeLeftMouseDown) {
@@ -113,9 +112,9 @@
     else
         lastXHeight = xHeight;
 
-    if (align == imagealign_InlineCenter) {
+    if (_align == imagealign_InlineCenter) {
         return NSMakePoint(0, -(self.image.size.height / 2) + xHeight / 2);
-    } else if (align == imagealign_InlineDown) {
+    } else if (_align == imagealign_InlineDown) {
         return NSMakePoint(0, -self.image.size.height + ascender);
     }
 
@@ -123,7 +122,7 @@
 }
 
 - (NSSize)cellSize {
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
         return NSZeroSize;
     }
     return [super cellSize];
@@ -133,7 +132,7 @@
                proposedLineFragment:(NSRect)lineFrag
                       glyphPosition:(NSPoint)position
                      characterIndex:(NSUInteger)charIndex {
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (_align == imagealign_MarginLeft || _align == imagealign_MarginRight) {
         return NSZeroRect;
     }
     return [super cellFrameForTextContainer:textContainer
@@ -144,7 +143,7 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame
                inView:(NSView *)controlView {
-    switch (align) {
+    switch (_align) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -158,7 +157,7 @@
 - (void)drawWithFrame:(NSRect)cellFrame
                inView:(NSView *)controlView
        characterIndex:(NSUInteger)charIndex {
-    switch (align) {
+    switch (_align) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -174,7 +173,7 @@
                inView:(NSView *)controlView
        characterIndex:(NSUInteger)charIndex
         layoutManager:(NSLayoutManager *)layoutManager  {
-    switch (align) {
+    switch (_align) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;
@@ -191,7 +190,7 @@
 - (void)highlight:(BOOL)flag
         withFrame:(NSRect)cellFrame
            inView:(NSView *)controlView {
-    switch (align) {
+    switch (_align) {
         case imagealign_MarginLeft:
         case imagealign_MarginRight:
             break;

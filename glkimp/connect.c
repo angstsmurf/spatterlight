@@ -208,7 +208,7 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
-glui32 win_unprint(int name, glui32 *s, int len)
+glui32 win_unprint(int name, glui32 *str, int len)
 {
     if (!len)
         return 0;
@@ -217,7 +217,7 @@ glui32 win_unprint(int name, glui32 *s, int len)
 
     glui32 ix;
     for (ix=0; ix<len; ix++) {
-         pbuf[ix] = s[ix];
+         pbuf[ix] = str[ix];
     }
 
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
@@ -674,6 +674,12 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
+void win_refresh(int name, float xscale, float yscale)
+{
+    win_flush();
+    sendmsg(REFRESH, name, (int)(xscale * 1000), (int)(yscale * 1000), 0, 0, 0, NULL);
+}
+
 //void win_sound_notify(glui32 snd, glui32 notify)
 void win_sound_notify(int snd, int notify)
 {
@@ -762,17 +768,34 @@ int win_canprint(glui32 val)
     return wmsg.a1;
 }
 
-void win_purgeimage(glui32 val)
+void win_purgeimage(glui32 resno, const char *filename, int reslen)
 {
-    sendmsg(PURGEIMG, val, 0, 0, 0, 0, 0, NULL);
+    win_flush();
+
+    if (gli_enable_graphics)
+    {
+        int len = 0;
+        if (filename != NULL) {
+            len = (int)strlen(filename);
+        }
+        if (len)
+        {
+            char *buf = malloc(len + 1);
+            strncpy(buf, filename, len + 1);
+            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, buf);
+            free(buf);
+        } else {
+            sendmsg(PURGEIMG, resno, 0, 0, 0, 0, 0, NULL);
+        }
+    }
 }
 
 void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
 {
+    win_flush();
+
     if (len <= 1 || len > 15)
         return;
-
-    win_flush();
 
     if (str == NULL)
         len = 0;

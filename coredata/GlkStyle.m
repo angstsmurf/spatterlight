@@ -97,8 +97,7 @@
     return size;
 }
 
--(void)createDefaultAttributeDictionary {
-    
+- (void)createDefaultAttributeDictionary {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     NSFont *font;
     

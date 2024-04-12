@@ -32,10 +32,12 @@ void after_DISPLAY_HINT(void);
 void V_COLOR(void);
 void after_V_COLOR(void);
 
-void UPDATE_STATUS_LINE(void);
 void RT_UPDATE_PICT_WINDOW(void);
 void RT_UPDATE_INVT_WINDOW(void);
 void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
+
+extern int arthur_text_top_margin;
+extern uint8_t global_map_grid_y_idx;
 
 #endif /* arthur_hpp */

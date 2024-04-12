@@ -17,6 +17,7 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width);
 void clear_image_buffer(void);
 void flush_bitmap(winid_t winid);
 void extract_palette(ImageStruct *image);
+ImageStruct *recreate_image(glui32 picnum, int flipped);
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped);
 void draw_to_buffer(winid_t winid, int picnum, int x, int y);
 void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y);

@@ -507,10 +507,25 @@ static std::vector<Patch> patches = {
                 {  0x0d, 0x03, 0x05, 0x2d, 0x06, 0x1e },
                 {  0xb0, 0x0d, 0x03, 0x05, 0x2d, 0x06 },
             },
+        }
+    },
 
+    {
+        "Zork Zero", &"890714", 393, 0x791c,
+        {
+            // UPDATE-STATUS-LINE
+            {
+                0xeb61, 4,
+                { 0xeb, 0x7f, 0x01, 0xbe },
+                { 0xb1, 0xeb, 0x7f, 0x01 },
+            },
 
-
-
+            // INIT-STATUS-LINE
+            {
+                0x1b9e1, 6,
+                { 0x0d, 0x02, 0x01, 0x0d, 0x05, 0x40 },
+                { 0xb0, 0x0d, 0x02, 0x01, 0x0d, 0x05 },
+            }
         }
     },
 #endif
