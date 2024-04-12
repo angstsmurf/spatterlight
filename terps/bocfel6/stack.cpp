@@ -324,6 +324,8 @@ void start_v6()
 
 uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg)
 {
+    fprintf(stderr, "internal_call_with_arg 0x%x 0x%x\n", routine, arg);
+
     std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
 
     znargs = 2;
@@ -378,6 +380,7 @@ uint16_t internal_call_with_3_args(uint16_t routine, uint16_t arg1, uint16_t arg
 
 uint16_t internal_call(uint16_t routine)
 {
+    fprintf(stderr, "internal_call 0x%x\n", routine);
     std::vector<uint16_t> saved_args(zargs.begin(), zargs.begin() + znargs);
 
     znargs = 1;

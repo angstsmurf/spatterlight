@@ -113,20 +113,34 @@ void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
+// This is both used for glk_window_set_background_color() and
+// and, against the Glk spec, to change the background on-the-fly
+// of buffer and grid windows.
 void win_setbgnd(int name, glui32 color);
+
+// Redraw a buffer window with current styles,
+// against the Glk spec.
+void win_refresh(int name, float xscale, float yscale);
+
 void win_clear(int name);
 void win_moveto(int name, int x, int y);
+
+// Infocom beep 1 or 2
 void win_beep(int type);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
 void win_print(int name, int ch, int at);
-glui32 win_unprint(int name, glui32 *s, int len);
+
+// Glk extension from Gargoyle needed to support
+// pre-loaded line input. If the string str matches
+// the latest text output, delete this.
+glui32 win_unprint(int name, glui32 *str, int len);
 
 void win_fillrect(int name, glui32 color, int left, int top, int width, int height);
 void win_flowbreak(int name);
 int  win_findimage(int resno);
-void win_loadimage(int resno, const char *filename, int offset, int len);
+void win_loadimage(int resno, const char *filename, int offset, int reslen);
 void win_sizeimage(glui32 *width, glui32 *height);
 void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height);
 
@@ -155,7 +169,7 @@ void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
 int win_canprint(glui32 val);
-void win_purgeimage(glui32 val);
+void win_purgeimage(glui32 imageindex, const char *filename, int reslen);
 
 enum JourneyMenuType {
     kJMenuTypeParty,

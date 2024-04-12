@@ -31,7 +31,7 @@ extern uint8_t global_map_grid_y_idx;
 static bool showing_wide_arthur_room_image = false;
 static int arthur_diffx = 0, arthur_diffy = 0;
 
-extern int arthur_text_top_margin;
+int arthur_text_top_margin = -1;
 int arthur_pic_top_margin = 0;
 
 bool is_arthur_stamp_image(int picnum) {
@@ -257,7 +257,7 @@ void arthur_window_adjustments(void) {
             v6_sizewin(upperwin);
         }
 
-        store_word(header.globals + (update_global_idx * 2), 0);
+        set_global(update_global_idx, 0);
         internal_call(pack_routine(update_status_bar_address));
     } else {
         clear_image_buffer();
@@ -393,10 +393,10 @@ void V_COLOR(void) {
     int fg = get_global(fg_global_idx);
     int bg = get_global(bg_global_idx);
     fprintf(stderr, "V_COLOR: fg: 0x%x (%d) bg 0x%x (%d)\n", fg, fg, bg, bg);
-    if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+    if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
         set_global(fg_global_idx, 1);
     }
-    if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+    if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
         set_global(bg_global_idx, 1);
     }
 }
@@ -418,10 +418,6 @@ void after_V_COLOR(void) {
     //    window_change();
 }
 
-
-void UPDATE_STATUS_LINE(void) {
-    fprintf(stderr, "UPDATE_STATUS_LINE\n");
-}
 
 
 void RT_UPDATE_PICT_WINDOW(void) {

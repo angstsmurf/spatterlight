@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)padWithNewlines:(NSUInteger)lines;
 
 - (void)scrollWheelchanged:(NSEvent *)event;
+- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;

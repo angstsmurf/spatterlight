@@ -53,9 +53,9 @@ static const char *msgnames[] = {
     "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
     "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
     "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
-    "INITCHAR",        "CANCELCHAR",
+    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
+    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
+    "TIMER",           "INITCHAR",         "CANCELCHAR",
     "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
     "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
     "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
@@ -2056,6 +2056,10 @@ static const char *msgnames[] = {
     Theme *theme = _theme;
     size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
     size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: charCellsToContentSize: Height is NaN!");
+        size.height = 10;
+    }
     return size;
 }
 
@@ -2065,6 +2069,10 @@ static const char *msgnames[] = {
     Theme *theme = _theme;
     size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
     size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: contentSizeToCharCells: Height is NaN!");
+        size.height = 1;
+    }
     return size;
 }
 
@@ -3176,7 +3184,7 @@ static const char *msgnames[] = {
             [_imageHandler handleLoadImageNumber:req->a1
                                             from:@(buf)
                                           offset:(NSUInteger)req->a2
-                                          length:(NSUInteger)req->a3];
+                                          size:(NSUInteger)req->a3];
             break;
 
         case SIZEIMAGE:
@@ -3271,7 +3279,7 @@ static const char *msgnames[] = {
 
         case SIZWIN:
             if (reqWin) {
-                uint x0, y0, x1, y1, checksumWidth, checksumHeight;
+                int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
                 struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
@@ -3644,12 +3652,29 @@ static const char *msgnames[] = {
             break;
 
         case PURGEIMG:
-            [_imageHandler purgeImage:req->a1];
+            if (req->len) {
+                buf[req->len] = 0;
+                [_imageHandler purgeImage:req->a1
+                                     withReplacement:@(buf)
+                                   size:(NSUInteger)req->a2];
+            } else {
+                [_imageHandler purgeImage:req->a1
+                                     withReplacement:nil
+                                   size:0];
+            }
+            break;
+
+        case REFRESH:
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
+                reqWin.styleHints = _bufferStyleHints;
+                [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+                [reqWin prefsDidChange];
+            }
             break;
 
         case MENUITEM: {
             [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
-             break;
+            break;
         }
 
         default:

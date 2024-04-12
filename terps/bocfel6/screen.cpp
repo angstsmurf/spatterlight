@@ -266,9 +266,7 @@ struct Input {
 float imagescalex = 1.0, imagescaley = 1.0;
 int last_z6_preferred_graphics = 0;
 
-static int a2_graphical_banner_height = 0;
-static int shogun_graphical_banner_width_left = 0;
-static int shogun_graphical_banner_width_right = 0;
+int a2_graphical_banner_height = 0;
 
 // Convert a 15-bit color to a 24-bit color.
 uint32_t screen_convert_color(uint16_t color)
@@ -338,6 +336,10 @@ void update_user_defined_colors(void) {
         return;
     user_selected_foreground = zcolor_map[get_global(fg_global_idx)];
     user_selected_background = zcolor_map[get_global(bg_global_idx)];
+}
+
+glui32 rgb_colour_from_index(uint16_t index) {
+    return zcolor_map[index];
 }
 
 
@@ -421,14 +423,14 @@ static void set_window_style(const Window *win)
         style.reset(STYLE_FIXED);
     }
 
-    if (is_game(Game::ZorkZero) && win == upperwin && win->id && win->id->type == wintype_TextGrid) {
-        if (graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) {
-            garglk_set_zcolors(0, zcolor_Current);
-        } else if (!(graphics_type == kGraphicsTypeApple2 && screenmode == MODE_HINTS)) {
-           garglk_set_zcolors(0xffffff, zcolor_Current);
-        }
-        return;
-    }
+//    if (is_game(Game::ZorkZero) && win == upperwin && win->id && win->id->type == wintype_TextGrid) {
+//        if (graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) {
+//            garglk_set_zcolors(monochrome_black, zcolor_Current);
+//        } else if (!(graphics_type == kGraphicsTypeApple2 && screenmode == MODE_HINTS)) {
+//           garglk_set_zcolors(0xffffff, zcolor_Current);
+//        }
+//        return;
+//    }
 
     int calculated_style = gargoyle_style(style);
 
@@ -452,23 +454,36 @@ static void set_window_style(const Window *win)
 
     glk_set_style(calculated_style);
 
+    if (win->id) {
+        
+        
+        
+        //    if (is_game(Game::Shogun) && win == upperwin && screenmode == MODE_NORMAL) {
+        //        garglk_set_reversevideo(1);
+        //        return;
+        //    }
+        
+        
+        garglk_set_reversevideo(style.test(STYLE_REVERSE));
+        
+        glui32 foreground = gargoyle_color(win->fg_color);
+        glui32 background = gargoyle_color(win->bg_color);
+        if (foreground == gfgcol) {
+            foreground = zcolor_Default;
+        }
 
-//    if (is_game(Game::Shogun) && win == upperwin && screenmode == MODE_NORMAL) {
-//        garglk_set_reversevideo(1);
-//        return;
-//    }
+        if (background == gbgcol) {
+            background = zcolor_Default;
+        }
 
+        if (is_game(Game::ZorkZero)) {
+            foreground = zcolor_Default;
+            background = zcolor_Default;
+//            update_z0_colors(nullptr, nullptr);
+        }
 
-    garglk_set_reversevideo(style.test(STYLE_REVERSE));
-
-    glui32 foreground = gargoyle_color(win->fg_color);
-    glui32 background = gargoyle_color(win->bg_color);
-    if (foreground == gfgcol && background == gbgcol) {
-        foreground = zcolor_Default;
-        background = zcolor_Default;
+        garglk_set_zcolors(foreground, background);
     }
-
-    garglk_set_zcolors(foreground, background);
 #else
     // Yes, there are three ways to indicate that a fixed-width font should be used.
     bool use_fixed_font = style.test(STYLE_FIXED) || curwin->font == Window::Font::Fixed || header_fixed_font;
@@ -727,20 +742,8 @@ void v6_sizewin(Window *win) {
             fprintf(stderr, "unknown (%d)", win->id->type);
     }
 
-    int x0 = win->x_origin <= 1 ? 0 : (int)win->x_origin - 1; //(int)(win->x_origin / letterwidth + 1) * letterwidth;
-//    if (is_game(Game::Journey))
-//        x0 = (int)(win->x_origin / letterwidth + ((win->x_origin == 1) ? 0 : 1)) * letterwidth;
+    int x0 = win->x_origin <= 1 ? 0 : (int)win->x_origin - 1; 
     int y0 = win->y_origin <= 1 ? 0 : (int)win->y_origin - 1;
-
-
-//    if (is_game(Game::Journey) && screenmode == MODE_NORMAL && win == &windows[1]) {
-//        win->x_origin = 0;
-//        win->y_origin = 0;
-//        win->x_size = gscreenw;
-//        win->y_size = gscreenh;
-//        x0 = 0;
-//        y0 = 0;
-//    }
 
     int x1 = x0 + win->x_size;
     if (x1 + letterwidth > gscreenw)
@@ -778,10 +781,10 @@ winid_t v6_new_glk_window(glui32 type, glui32 rock) {
             glk_set_echo_line_event(result, 0);
             break;
         case wintype_TextGrid:
-            if (is_game(Game::ZorkZero)) {
-                win_maketransparent(result->peer);
-                glk_request_mouse_event(result);
-            }
+//            if (is_game(Game::ZorkZero)) {
+//                win_maketransparent(result->peer);
+//                glk_request_mouse_event(result);
+//            }
 //            else win_setbgnd(result->peer, user_selected_background);
             break;
         default:
@@ -825,7 +828,7 @@ void v6_delete_win(Window *win) {
 
 void v6_restore_hacks(void) {
     if (is_game(Game::Journey)) {
-        resize_journey_windows_after_restore();
+        journey_resize_windows_after_restore();
     }
 }
 
@@ -874,7 +877,7 @@ void v6_remap_win_to_grid(Window *win) {
     if (win == upperwin && is_game(Game::Arthur))
         win->style.set(STYLE_REVERSE);
 
-    glk_window_set_background_color(win->id, gargoyle_color(win->bg_color));
+    win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
 
 //    win_setreverse(win->id->peer, win->style.test(STYLE_REVERSE));
 //    win_setzcolor(win->id->peer, gargoyle_color(win->fg_color),  gargoyle_color(win->bg_color));
@@ -943,264 +946,12 @@ Window *v6_remap_win_to_graphics(Window *win) {
     return result;
 }
 
-void SCENE_SELECT(void) {
-    v6_delete_win(mainwin);
-    v6_delete_win(&windows[2]);
-    mainwin->id = v6_new_glk_window(wintype_TextGrid, 0);
-    win_setbgnd(mainwin->id->peer, user_selected_background);
-    mainwin->x_origin = shogun_graphical_banner_width_left + letterwidth;
-    if (mainwin->x_origin == 0)
-        mainwin->x_origin = letterwidth * 2;
-    mainwin->x_size = gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right - letterwidth * 2;
-    v6_sizewin(mainwin);
-    windows[2].id = v6_new_glk_window(wintype_TextGrid, 0);
-}
-
 void adjust_image_scale(void) {
     imagescalex = (float)gscreenw / hw_screenwidth;
     imagescaley = imagescalex / pixelwidth;
 }
 
-int arthur_text_top_margin = -1;
-
-extern uint8_t global_map_grid_y_idx;
-
-void adjust_shogun_window(void) {
-    mainwin->x_cursor = 0;
-    mainwin->y_cursor = 0;
-    mainwin->x_size = gscreenw;
-
-    if (graphics_type == kGraphicsTypeApple2) {
-        screenmode = MODE_NORMAL;
-        upperwin->y_size = 2 * letterheight;
-        v6_sizewin(upperwin);
-        windows[6].y_origin = upperwin->y_size + 1;
-        windows[6].y_size = a2_graphical_banner_height;
-        v6_sizewin(&windows[6]);
-        mainwin->y_origin = windows[6].y_origin + windows[6].y_size;
-        mainwin->y_size = gscreenh - mainwin->y_origin;
-    } else {
-        if (upperwin->id == nullptr)
-            upperwin->id = v6_new_glk_window(wintype_TextGrid, 0);
-        upperwin->x_origin = shogun_graphical_banner_width_left;
-        upperwin->x_size = gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right;
-        upperwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        upperwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        upperwin->style.reset(STYLE_REVERSE);
-        glk_window_set_background_color(mainwin->id, user_selected_foreground);
-        mainwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        mainwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        win_setbgnd(mainwin->id->peer, user_selected_background);
-        mainwin->x_origin = upperwin->x_origin;
-        mainwin->x_size = upperwin->x_size;
-        v6_sizewin(upperwin);
-    }
-    v6_sizewin(mainwin);
-    glk_set_window(mainwin->id);
-}
-
-
-void after_SETUP_TEXT_AND_STATUS(void) {
-    if (screenmode == MODE_NORMAL) {
-        adjust_shogun_window();
-        if (graphics_type == kGraphicsTypeApple2) {
-            if (upperwin->id == nullptr) {
-                upperwin->id = v6_new_glk_window(wintype_TextGrid, 0);
-            }
-            v6_sizewin(upperwin);
-            glk_window_clear(upperwin->id);
-        }
-    } else if (screenmode == MODE_HINTS) {
-        upperwin->y_size = 3 * gcellh + 2 * ggridmarginy;
-        v6_delete_win(mainwin);
-        v6_remap_win_to_grid(mainwin);
-        win_setbgnd(mainwin->id->peer, user_selected_background);
-        if (graphics_type == kGraphicsTypeApple2) {
-            windows[7].y_origin = upperwin->y_size + 1;
-            mainwin->y_origin = windows[7].y_origin + windows[7].y_size;
-            mainwin->y_size = gscreenh - mainwin->y_origin;
-        } else if (graphics_type != kGraphicsTypeMacBW && graphics_type != kGraphicsTypeCGA) {
-            win_maketransparent(upperwin->id->peer);
-        } else if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeAmiga) {
-            upperwin->x_origin = shogun_graphical_banner_width_left;
-            upperwin->x_size = gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right;
-            mainwin->x_origin = upperwin->x_origin;
-            mainwin->x_size = upperwin->x_size;
-            v6_sizewin(upperwin);
-            v6_sizewin(mainwin);
-        }
-    }
-}
-
-// Shogun
-void after_V_HINT(void) {
-    screenmode = MODE_NORMAL;
-    v6_delete_win(mainwin);
-    mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
-    adjust_shogun_window();
-//    if (graphics_type == kGraphicsTypeApple2)
-//        win_setbgnd(upperwin->id->peer, 0xffffff);
-}
-
-
-void GOTO_SCENE(void) {
-    screenmode = MODE_NORMAL;
-    v6_delete_win(mainwin);
-    mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
-    v6_delete_win(&windows[7]);
-    adjust_shogun_window();
-}
-
-void V_VERSION(void) {
-    if (screenmode == MODE_SLIDESHOW) {
-        if (windows[7].id != graphics_win_glk)
-            v6_delete_win(&windows[7]);
-        if (graphics_type == kGraphicsTypeApple2) {
-            windows[7].id = v6_new_glk_window(wintype_TextGrid, 0);
-            if (a2_graphical_banner_height == 0) {
-                int width, height;
-                get_image_size(3, &width, &height);
-                a2_graphical_banner_height = height * (gscreenw / ((float)width * 2.0));
-            }
-            windows[7].y_origin = a2_graphical_banner_height + 1;
-            windows[7].x_origin = 0;
-            windows[7].x_size = gscreenw;
-            windows[7].y_size = gscreenh - (2 * a2_graphical_banner_height + 4 * letterheight);
-        } else {
-            v6_delete_win(upperwin);
-            windows[7].id = v6_new_glk_window(wintype_TextBuffer, 0);
-            windows[7].y_origin = letterheight * 3;
-            windows[7].x_origin = shogun_graphical_banner_width_left + imagescalex;
-            windows[7].x_size = gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right - letterwidth;
-            windows[7].y_size = gscreenh - 7 * letterheight;
-        }
-        v6_sizewin(&windows[7]);
-        windows[7].zpos = max_zpos;
-        glk_set_window(windows[7].id);
-        centeredText = true;
-        set_current_style();
-        screenmode = MODE_CREDITS;
-    }
-}
-
-void after_V_VERSION(void) {
-    centeredText = false;
-    set_current_style();
-}
-
-void V_CREDITS(void) {
-    if (!centeredText) {
-        centeredText = true;
-        set_current_style();
-    }
-}
-
-void after_V_CREDITS(void) {
-    if (centeredText) {
-        centeredText = false;
-        set_current_style();
-    }
-}
-
-void V_DEFINE(void) {
-    update_user_defined_colors();
-    glk_window_set_background_color(graphics_win_glk, user_selected_background);
-    glk_window_clear(graphics_win_glk);
-    screenmode = MODE_DEFINE;
-    if (!is_game(Game::ZorkZero)) {
-        v6_delete_win(mainwin);
-        v6_delete_win(upperwin);
-        if (!windows[2].id)
-            windows[2].id = v6_new_glk_window(wintype_TextGrid, 0);
-        glk_request_mouse_event(windows[2].id);
-        windows[2].style.reset(STYLE_REVERSE);
-    }
-}
-
-void after_V_DEFINE(void) {
-    screenmode = MODE_NORMAL;
-    v6_delete_win(&windows[2]);
-    v6_remap_win_to_buffer(mainwin);
-}
-
-void after_SPLIT_BY_PICTURE(void) {
-    if (screenmode == MODE_HINTS) {
-        upperwin->y_size = 3 * gcellh + 2 * ggridmarginy;
-        v6_sizewin(upperwin);
-        v6_delete_win(mainwin);
-        v6_remap_win_to_grid(mainwin);
-        if (graphics_type == kGraphicsTypeApple2) {
-            glk_request_char_event(mainwin->id);
-            glk_request_mouse_event(mainwin->id);
-            windows[7].y_origin = upperwin->y_size + 1;
-            int width, height;
-            get_image_size(8, &width, &height);
-
-            float scale = gscreenw / ((float)width * 2.0);
-            a2_graphical_banner_height = height * scale;
-            windows[7].y_size = a2_graphical_banner_height;
-            windows[7].x_size = gscreenw;
-            if (windows[7].id != graphics_win_glk) {
-                fprintf(stderr, "windows[7].id != graphics_win_glk!\n");
-                v6_delete_win(&windows[7]);
-            }
-            glk_window_set_background_color(graphics_win_glk, user_selected_background);
-            glk_window_clear(graphics_win_glk);
-            mainwin->y_origin = windows[7].y_origin + windows[7].y_size;
-            mainwin->y_size = gscreenh - mainwin->y_origin;
-            v6_sizewin(mainwin);
-            mainwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-            mainwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-            set_current_style();
-            glk_window_clear(mainwin->id);
-        }
-    } else if (screenmode == MODE_NOGRAPHICS) {
-//        v6_delete_win(upperwin);
-//        upperwin->id = gli_new_window(wintype_TextGrid, 0);
-//        win_setbgnd(upperwin->id->peer, user_selected_foreground);
-//        upperwin->style.set(STYLE_REVERSE);
-        mainwin->x_size = gscreenw;
-        v6_sizewin(mainwin);
-    }
-}
-
-
-
-void V_REFRESH(void) {
-    fprintf(stderr, "V-REFRESH\n");
-    if (screenmode == MODE_DEFINE) {
-        screenmode = MODE_NORMAL;
-        v6_delete_win(&windows[2]);
-        v6_remap_win_to_buffer(mainwin);
-    }
-}
-
 int buffer_xpos = 0;
-
-void CENTER(void) {
-    V_CREDITS();
-    buffer_xpos = 0;
-}
-
-void V_MODE(void) {
-    if (screenmode != MODE_NOGRAPHICS) {
-        screenmode = MODE_NOGRAPHICS;
-        glk_window_clear(current_graphics_buf_win);
-    } else {
-        screenmode = MODE_NORMAL;
-    }
-}
-
-void MAC_II(void) {
-    windows[7].x_size = 640;
-}
-
-void after_MAC_II(void) {
-    windows[7].x_size = gscreenw;
-}
-
-
-
 
 bool flowbreak_after_next_newline = false;
 bool pending_flowbreak = false;
@@ -2151,8 +1902,15 @@ void zerase_window()
     }
 
     if (is_game(Game::ZorkZero)) {
-        if (win < 0 || win == 7 || win == 1)
+        if (win < 0 || win == 7 || win == 1) {
             clear_image_buffer();
+            if (win != 1) {
+                z0_update_colors();
+                z0_clear_margin_images();
+                win_refresh(windows[0].id->peer, 0, 0);
+                win_setbgnd(windows[0].id->peer, user_selected_background);
+            }
+        }
     }
 
     if (win == 0 && screenmode == MODE_HINTS ) {
@@ -2279,24 +2037,6 @@ void zerase_line()
 
     glk_window_move_cursor(curwin->id, (curwin->x_cursor - 1) / letterwidth, (curwin->y_cursor - 1) / letterheight);
 #endif
-}
-
-static void adjust_zork0(void) {
-    fprintf(stderr, "adjust_zork0\n");
-//    float ypos;
-//    if (graphics_type == kGraphicsTypeMacBW)
-//        ypos = imagescaley * 45.0;
-//    else
-//        ypos = imagescaley * 34.0;
-//    ypos += gcellh;
-//    mainwin->y_origin = (int)ypos;
-//    mainwin->y_size = gscreenh - mainwin->y_origin - gcellh;
-//    mainwin->x_size = gli_screenwidth - mainwin->x_origin * 2;
-//    v6_sizewin(mainwin);
-    upperwin->y_origin = 4 * imagescaley;
-    if (graphics_type == kGraphicsTypeMacBW)
-        upperwin->y_origin = 9 * imagescaley;
-    v6_sizewin(upperwin);
 }
 
 #pragma mark set_cursor
@@ -2511,19 +2251,20 @@ void zset_colour()
         }
 
         if (is_game(Game::Journey)) {
-            if (fg == SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR && bg == SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+            if (fg == SPATTERLIGHT_CURRENT_BACKGROUND && bg == SPATTERLIGHT_CURRENT_FOREGROUND) {
                 win->style.set(STYLE_REVERSE);
                 set_current_style();
                 return;
             }
-            if (fg == SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR && bg == SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR) {
+            if (fg == SPATTERLIGHT_CURRENT_FOREGROUND && bg == SPATTERLIGHT_CURRENT_FOREGROUND) {
                 win->style.reset(STYLE_REVERSE);
                 set_current_style();
                 return;
             }
         }
 
-        if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
+//        if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
+        if (is_game(Game::Shogun)) {
             if (screenmode == MODE_DEFINE && is_game(Game::ZorkZero)) {
                 if (fg == 9 && bg == 2) {
                     fg = get_global((bg_global_idx));
@@ -2563,8 +2304,8 @@ void zset_colour()
                         win_maketransparent(win->id->peer);
                     }
                 } else if (is_game(Game::ZorkZero) && graphics_type == kGraphicsTypeApple2) {
-                    win->fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
-                    win->bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
+                    win->fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
+                    win->bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
                     set_current_style();
                 }
                 fprintf(stderr, "Tried to make win %d transparent\n", win->index);
@@ -2578,6 +2319,9 @@ void zset_colour()
         }
 
         set_current_style();
+
+        if (is_game(Game::ZorkZero))
+            z0_update_colors();
     }
 }
 
@@ -2956,6 +2700,12 @@ int count_characters_in_zstring(uint16_t str) {
     return string_length_counter;
 }
 
+int count_characters_in_object(uint16_t obj) {
+    string_length_counter = 0;
+    print_zcode(property_address(obj) + 1, false, count_print_str);
+    return string_length_counter;
+}
+
 void zprint_paddr()
 {
 //    fprintf(stderr, "zprint_paddr 0x%x (%x)\n", unpack_string(zargs[0]), zargs[0]);
@@ -3054,8 +2804,6 @@ glui32 brightest(glui32 col1, glui32 col2) {
         return col1;
 }
 
-static void flush_image_buffer(void);
-
 //extern uint32_t update_status_bar_address;
 //extern uint32_t update_picture_address;
 //extern uint32_t update_inventory_address;
@@ -3068,7 +2816,7 @@ static void flush_image_buffer(void);
 
 int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
-glui32 latest_picture = 0;
+glui32 current_picture = 0;
 
 bool switch_to_allowed_interpreter_number(void);
 
@@ -3111,8 +2859,12 @@ void window_change(void)
         letterheight = gcellh;
         update_header_with_new_size();
 
-        if (zversion == 6)  {
+        if (zversion == 6) {
             switch_to_allowed_interpreter_number();
+
+            if (is_game(Game::ZorkZero)) {
+                z0_update_colors();
+            }
 
             if (last_z6_preferred_graphics != gli_z6_graphics) {
                 last_z6_preferred_graphics = gli_z6_graphics;
@@ -3155,27 +2907,36 @@ void window_change(void)
                         }
                     }
 
-                    if (is_game(Game::Arthur))
+                    if (is_game(Game::Arthur)) {
                         set_global(global_map_grid_y_idx, 0);
+                    }
                 }
             }
 
-            if (gli_z6_colorize &&
-                (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
-                monochrome_black = darkest(gfgcol, gbgcol);
-                monochrome_white = brightest(gfgcol, gbgcol);
-            } else {
-                monochrome_black = 0;
-                monochrome_white = 0xffffff;
+
+            if (!is_game(Game::ZorkZero)) {
+                // if this is Zork Zero, the below is already done in update_z0_colors()
+                if (gli_z6_colorize &&
+                    (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
+                    monochrome_black = darkest(user_selected_foreground, user_selected_background);
+                    monochrome_white = brightest(user_selected_foreground, user_selected_background);
+                } else {
+                    monochrome_black = 0;
+                    monochrome_white = 0xffffff;
+                }
             }
 
-            if (user_selected_foreground == zcolor_map[13])
-                user_selected_foreground = gfgcol;
-            if (user_selected_background == zcolor_map[14])
-                user_selected_background = gbgcol;
+            if (!is_game(Game::ZorkZero) || !gli_enable_styles) {
 
-            update_color(SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR, gfgcol);
-            update_color(SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR, gbgcol);
+//                if (user_selected_foreground == zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND])
+                    user_selected_foreground = gfgcol;
+//                if (user_selected_background == zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND])
+                    user_selected_background = gbgcol;
+
+                update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
+                update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
+            }
+            
 
             adjust_image_scale();
 
@@ -3193,7 +2954,9 @@ void window_change(void)
             if (is_game(Game::Arthur)) {
                 arthur_window_adjustments();
             } else if (is_game(Game::Journey)) {
-                update_journey_on_resize();
+                journey_update_on_resize();
+            } else if (is_game(Game::ZorkZero)) {
+                z0_update_on_resize();
             }
         }
 
@@ -3321,7 +3084,7 @@ static void restart_read_events(Line &line, const Input &input, bool enable_mous
         } else {
             glk_request_mouse_event(curwin->id);
             glk_request_mouse_event(upperwin->id);
-            if (is_game(Game::ZorkZero) && screenmode == MODE_MAP) {
+            if (is_game(Game::ZorkZero)) {
                 glk_request_mouse_event(current_graphics_buf_win);
             }
         }
@@ -3496,7 +3259,7 @@ static uint8_t zscii_from_glk(glui32 key)
 }
 #endif
 
-static void flush_image_buffer(void) {
+void flush_image_buffer(void) {
     if (current_graphics_buf_win == nullptr)
         current_graphics_buf_win = graphics_win_glk;
     if (is_game(Game::Arthur) && screenmode == MODE_NORMAL) {
@@ -3583,7 +3346,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             glk_request_mouse_event(curwin->id);
             if (upperwin->id)
                 glk_request_mouse_event(upperwin->id);
-            if (is_game(Game::ZorkZero) && screenmode == MODE_MAP) {
+            if (is_game(Game::ZorkZero)) {
                 glk_request_mouse_event(current_graphics_buf_win);
             }
         }
@@ -3640,7 +3403,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 }
 
                 if (journey_cursor_timer) {
-                    draw_flashing_journey_cursor();
+                    journey_draw_flashing_cursor();
                     break;
                 }
 
@@ -3815,22 +3578,22 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 if (zversion == 6 && ev.win && ev.win->type == wintype_TextGrid) {
                     xmultiplier = letterwidth;
                     ymultiplier = letterheight;
-                    if (is_game(Game::ZorkZero)) {
-                        if (screenmode == MODE_NORMAL) {
-                            xoffset = letterwidth + ggridmarginx;
-                            if (graphics_type == kGraphicsTypeApple2) {
-                                curwin->last_click_x = -1;
-                                curwin->last_click_y = -1;
-                                yoffset = -3 * imagescaley + ggridmarginy;
-                                xmultiplier = gcellw;
-                                ymultiplier = gcellh;
-                                fprintf(stderr, "yoffset: %hd, xmultiplier: %f, ymultiplier: %f\n", yoffset, xmultiplier, ymultiplier);
-                                fprintf(stderr, "Upperwin y_size: %d\n", upperwin->y_size);
-//                                if (ymultiplier * (float)(ev.val2 + 1) + yoffset > 80)
-//                                    yoffset += 80 - (ymultiplier * (float)(ev.val2 + 1) + yoffset);
-                            }
-                        }
-                    }
+                    //                    if (is_game(Game::ZorkZero)) {
+                    //                        if (screenmode == MODE_NORMAL) {
+                    //                            xoffset =  0;
+                    //                            if (graphics_type == kGraphicsTypeApple2) {
+                    //                                curwin->last_click_x = -1;
+                    //                                curwin->last_click_y = -1;
+                    //                                yoffset = -3 * imagescaley + ggridmarginy;
+                    //                                xmultiplier = gcellw;
+                    //                                ymultiplier = gcellh;
+                    //                                fprintf(stderr, "yoffset: %hd, xmultiplier: %f, ymultiplier: %f\n", yoffset, xmultiplier, ymultiplier);
+                    //                                fprintf(stderr, "Upperwin y_size: %d\n", upperwin->y_size);
+                    ////                                if (ymultiplier * (float)(ev.val2 + 1) + yoffset > 80)
+                    ////                                    yoffset += 80 - (ymultiplier * (float)(ev.val2 + 1) + yoffset);
+                    //                            }
+                    //                        }
+                    //                }
                     if (screenmode == MODE_HINTS) {
                         if (ev.win == mainwin->id) {
                             yoffset = mainwin->y_origin - letterheight;
@@ -3839,6 +3602,10 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                         yoffset = windows[2].y_origin - letterheight + ggridmarginy;
                         xoffset = windows[2].x_origin - letterwidth + ggridmarginx;
                     }
+                }
+
+                if (is_game(Game::ZorkZero)) {
+                    glk_request_mouse_event(current_graphics_buf_win);
                 }
 
                 if (is_game(Game::Arthur) && screenmode == MODE_MAP) {
@@ -4617,9 +4384,9 @@ void zdraw_picture()
     fprintf(stderr, "zdraw_picture: %d %d %d\n", zargs[0], as_signed(zargs[1]), as_signed(zargs[2]));
     fprintf(stderr, "in window %d\n", curwin->index);
     int width, height;
-    latest_picture = zargs[0];
+    current_picture = zargs[0];
 //    extract_palette(pic);
-    get_image_size(latest_picture, &width, &height);
+    get_image_size(current_picture, &width, &height);
 
     if (width == 0 && height == 0)
         return;
@@ -4627,11 +4394,11 @@ void zdraw_picture()
     if (is_game(Game::Arthur)) {
         // Skip Arthur "sidebars"
         // We draw them in flush_image_buffer() instead
-        if (latest_picture == 170 || latest_picture == 171) {
+        if (current_picture == 170 || current_picture == 171) {
             return;
         }
         // Intro "slideshow"
-        if (latest_picture >= 1 && latest_picture <= 3) {
+        if (current_picture >= 1 && current_picture <= 3) {
             if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
                 current_graphics_buf_win = v6_new_glk_window(wintype_Graphics, 0);
                 glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
@@ -4640,12 +4407,12 @@ void zdraw_picture()
             screenmode = MODE_SLIDESHOW;
             glk_request_mouse_event(current_graphics_buf_win);
             ensure_pixmap(current_graphics_buf_win);
-            if (latest_picture == 3) {
+            if (current_picture == 3) {
                 arthur_intro_timer = true;
                 glk_request_timer_events(500);
                 return;
             }
-            draw_centered_title_image(latest_picture);
+            draw_centered_title_image(current_picture);
             return;
         }
 
@@ -4655,21 +4422,21 @@ void zdraw_picture()
 
 
         // Room images
-        if (is_arthur_room_image(latest_picture) || is_arthur_stamp_image(latest_picture)) { // Pictures 106-149 are map images
+        if (is_arthur_room_image(current_picture) || is_arthur_stamp_image(current_picture)) { // Pictures 106-149 are map images
             screenmode = MODE_NORMAL;
             ensure_pixmap(current_graphics_buf_win);
-            draw_arthur_room_image(latest_picture);
+            draw_arthur_room_image(current_picture);
             return;
-        } else if (is_arthur_map_image(latest_picture)) {
+        } else if (is_arthur_map_image(current_picture)) {
             screenmode = MODE_MAP;
-            if (latest_picture == 137) {// map background
+            if (current_picture == 137) {// map background
                 glk_request_mouse_event(graphics_win_glk);
             }
             else {
-                draw_arthur_map_image(latest_picture, x, y);
+                draw_arthur_map_image(current_picture, x, y);
                 return;
             }
-        } else if (latest_picture == 54) { // Border image, drawn in flush_image_buffer()
+        } else if (current_picture == 54) { // Border image, drawn in flush_image_buffer()
             screenmode = MODE_NORMAL;
             if (arthur_intro_timer) {
                 arthur_intro_timer = 0;
@@ -4680,36 +4447,43 @@ void zdraw_picture()
             return;
         }
 
-        draw_to_buffer(current_graphics_buf_win, latest_picture, x, y);
+        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
         return;
     }
 
-    if (graphics_type != kGraphicsTypeApple2 && graphics_type != kGraphicsTypeMacBW && graphics_type != kGraphicsTypeCGA && graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeBlorb)
+    /* The following is necessary to make Amiga and Macintosh story
+     files work with MCGA graphics files.  Some screen-filling
+     pictures of the original Amiga release like the borders of
+     Zork Zero were split into several MCGA pictures (left, right
+     and top borders).  We pretend this has not happened. */
+
+    // Currently only used for Shogun
+
+    if (graphics_type == kGraphicsTypeVGA || kGraphicsTypeEGA) {
         for (int i = 0; mapper[i].story_id != Game::Infocom1234; i++) {
-            if (is_game(mapper[i].story_id)) {
-                if (latest_picture == mapper[i].pic) {
-                    if (mapper[i].story_id == Game::ZorkZero) {
-                        if (latest_picture == 8) {
-                            screenmode = MODE_HINTS;
-                            windows[7].id = nullptr;
-                            glk_request_mouse_event(upperwin->id);
-                        } else {
-                            screenmode = MODE_NORMAL;
-                        }
-                    }
-                    if (current_graphics_buf_win && current_graphics_buf_win != graphics_win_glk) {
-                        v6_delete_glk_win(current_graphics_buf_win);
-                    }
-                    current_graphics_buf_win = graphics_win_glk;
-                    int ypos = height * imagescaley;
-                    draw_to_buffer(current_graphics_buf_win, mapper[i].pic1, 0, ypos);
-                    int w;
-                    get_image_size(mapper[i].pic2, &w, nullptr);
-                    draw_to_buffer(current_graphics_buf_win, mapper[i].pic2, gscreenw - (w + 2) * imagescaley, ypos);
-                    break;
+            if (is_game(mapper[i].story_id) && current_picture == mapper[i].pic) {
+//                if (mapper[i].story_id == Game::ZorkZero) {
+//                    if (picture == 8) {
+//                        screenmode = MODE_HINTS;
+//                        windows[7].id = nullptr;
+//                        glk_request_mouse_event(upperwin->id);
+//                    } else {
+//                        screenmode = MODE_NORMAL;
+//                    }
+//                }
+                if (current_graphics_buf_win && current_graphics_buf_win != graphics_win_glk) {
+                    v6_delete_glk_win(current_graphics_buf_win);
                 }
+                current_graphics_buf_win = graphics_win_glk;
+                int ypos = height * imagescaley;
+                draw_to_buffer(current_graphics_buf_win, mapper[i].pic1, 0, ypos);
+                int w;
+                get_image_size(mapper[i].pic2, &w, nullptr);
+                draw_to_buffer(current_graphics_buf_win, mapper[i].pic2, gscreenw - (w + 2) * imagescaley, ypos);
+                break;
             }
         }
+    }
 
     if (is_game(Game::Journey)) {
         if (win->id && win->id->type != wintype_Graphics) {
@@ -4721,14 +4495,14 @@ void zdraw_picture()
             glk_window_clear(win->id);
 
             float scale;
-            adjust_journey_image(latest_picture, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
-            draw_inline_image(win->id, latest_picture, x, y, scale, false);
+            journey_adjust_image(current_picture, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
+            draw_inline_image(win->id, current_picture, x, y, scale, false);
         }
         return;
     }
 
     if (is_game(Game::Shogun)) {
-        if (latest_picture == 1) {
+        if (current_picture == 1) {
             win->id = v6_new_glk_window(wintype_Graphics, 0);
             win->x_size = gscreenw;
             win->y_size = gscreenh;
@@ -4738,13 +4512,13 @@ void zdraw_picture()
             int ypos = gscreenh - height * scale + 1 + 2 * (graphics_type == kGraphicsTypeMacBW);
             glk_window_set_background_color(win->id, 0xffffff);
             glk_window_clear(win->id);
-            draw_inline_image(win->id, latest_picture, 0, ypos, scale, false);
+            draw_inline_image(win->id, current_picture, 0, ypos, scale, false);
             screenmode = MODE_SLIDESHOW;
             glk_request_mouse_event(win->id);
             return;
         }
 
-        if ((latest_picture == 4 || latest_picture == 50) && graphics_type == kGraphicsTypeApple2) {
+        if ((current_picture == 4 || current_picture == 50) && graphics_type == kGraphicsTypeApple2) {
             v6_delete_win(&windows[7]);
             v6_delete_win(&windows[6]);
             v6_delete_win(win);
@@ -4754,7 +4528,7 @@ void zdraw_picture()
             win->y_size = height * scale;
             a2_graphical_banner_height = win->y_size;
             fprintf(stderr, "Shogun: set a2_graphical_banner_height to %d\n", a2_graphical_banner_height);
-            if (latest_picture == 50) {
+            if (current_picture == 50) {
                 fprintf(stderr, "Shogun drawing image 50 at hints screen. Adjust windows again\n");
                 upperwin->y_size = 3 * letterheight;
                 windows[7].y_origin = upperwin->y_size + 1;
@@ -4765,7 +4539,7 @@ void zdraw_picture()
             }
             v6_sizewin(win);
             win->zpos = max_zpos++;
-            draw_inline_image(win->id, latest_picture, 0, 0, scale, false);
+            draw_inline_image(win->id, current_picture, 0, 0, scale, false);
 //            if (pic == 4) {
 //                adjust_shogun_window();
 //            }
@@ -4773,7 +4547,7 @@ void zdraw_picture()
             return;
         }
 
-        if (is_shogun_border_image(latest_picture)) {
+        if (is_shogun_border_image(current_picture)) {
 //            if (screenmode != MODE_NORMAL)
             if (current_graphics_buf_win && current_graphics_buf_win != graphics_win_glk) {
                 v6_delete_glk_win(current_graphics_buf_win);
@@ -4788,14 +4562,14 @@ void zdraw_picture()
             if (graphics_type != kGraphicsTypeApple2) {
                 if (graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeAmiga) {
                     float scale = (float)gscreenw / ((float)width);
-                    draw_inline_image(graphics_win_glk, latest_picture, 0, 0, scale, false);
-                    if (latest_picture == 3) {
+                    draw_inline_image(graphics_win_glk, current_picture, 0, 0, scale, false);
+                    if (current_picture == 3) {
                         if (graphics_type == kGraphicsTypeMacBW) {
-                            draw_inline_image(graphics_win_glk, latest_picture, 0, height * scale, scale, true);
+                            draw_inline_image(graphics_win_glk, current_picture, 0, height * scale, scale, true);
                             shogun_graphical_banner_width_left = scale * 44;
                             shogun_graphical_banner_width_right = scale * 45;
                         } else {
-                            draw_inline_image(graphics_win_glk, latest_picture, 0, (height - 2) * scale, scale, true);
+                            draw_inline_image(graphics_win_glk, current_picture, 0, (height - 2) * scale, scale, true);
                             shogun_graphical_banner_width_left = scale * 23.4;
                             shogun_graphical_banner_width_right = scale * 22.6;
                         }
@@ -4803,9 +4577,9 @@ void zdraw_picture()
                     adjust_shogun_window();
                     return;
                 } else {
-                    if (latest_picture == 59)
+                    if (current_picture == 59)
                         return;
-                    if (latest_picture == 3) {
+                    if (current_picture == 3) {
                         float scaledwidth = (float)width * imagescalex;
                         shogun_graphical_banner_width_left = scaledwidth + imagescalex;
                         shogun_graphical_banner_width_right = scaledwidth + imagescalex;
@@ -4816,14 +4590,14 @@ void zdraw_picture()
                         draw_inline_image(graphics_win_glk, 59, 0, ypos - imagescaley * 2, imagescaley * 1.05, true);
                         draw_inline_image(graphics_win_glk, 3, 0, 0, imagescaley, false);
                         draw_inline_image(graphics_win_glk, 3, gscreenw - scaledwidth + imagescalex, ypos, imagescaley, true);
-                    } if (latest_picture == 50) {
+                    } if (current_picture == 50) {
                         draw_inline_image(graphics_win_glk, 50, 0, 0, imagescaley, false);
                         draw_inline_image(graphics_win_glk, 61, 0, height * imagescaley, imagescaley, false);
                         draw_inline_image(graphics_win_glk, 61, 0, (height + 160) * imagescaley, imagescaley, false);
                         draw_inline_image(graphics_win_glk, 62, gscreenw - 57 * imagescalex, height * imagescaley, imagescaley, false);
                         draw_inline_image(graphics_win_glk, 62, gscreenw - 57 * imagescalex, (height + 161) * imagescaley, imagescaley, false);
                     } else {
-                        draw_inline_image(graphics_win_glk, latest_picture, x, y, imagescaley, false);
+                        draw_inline_image(graphics_win_glk, current_picture, x, y, imagescaley, false);
                     }
                     adjust_shogun_window();
                     return;
@@ -4831,9 +4605,9 @@ void zdraw_picture()
             } else {
                 float scale = gscreenw / ((float)width * pixelwidth);
                 a2_graphical_banner_height = height * scale;
-                if (latest_picture == 3) {
-                    draw_inline_image(graphics_win_glk, latest_picture, 0, 0, scale, false);
-                    draw_inline_image(graphics_win_glk, latest_picture, 0, gscreenh - height * scale, scale, false);
+                if (current_picture == 3) {
+                    draw_inline_image(graphics_win_glk, current_picture, 0, 0, scale, false);
+                    draw_inline_image(graphics_win_glk, current_picture, 0, gscreenh - height * scale, scale, false);
                 }
 
             }
@@ -4849,7 +4623,13 @@ void zdraw_picture()
 
     if (is_game(Game::ZorkZero)) {
 
-        if (latest_picture == 1 || latest_picture == 25 || latest_picture == 163 || (latest_picture >= 34 && latest_picture <= 40 && screenmode == MODE_NORMAL)) {
+        if (current_picture == zorkzero_title_image || current_picture == zorkzero_encyclopaedia_border || current_picture == zorkzero_map_border || (is_zorkzero_rebus_image(current_picture) && screenmode == MODE_NORMAL)) {
+
+            // Removes extra graphics window that appears after resizing map?
+            if (win->id != nullptr && win->id != graphics_win_glk) {
+                v6_delete_glk_win(win->id);
+            }
+
             win->id = v6_new_glk_window(wintype_Graphics, 0);
             win->x_origin = 1;
             win->y_origin = 1;
@@ -4857,8 +4637,8 @@ void zdraw_picture()
             win->y_size = gscreenh;
             v6_sizewin(win);
             win->zpos = max_zpos;
-            if (latest_picture == 1 || graphics_type == kGraphicsTypeApple2) {
-                draw_to_buffer(win->id, latest_picture, 0, 0);
+            if (current_picture == 1 || graphics_type == kGraphicsTypeApple2) {
+                draw_to_buffer(win->id, current_picture, 0, 0);
                 glk_window_set_background_color(win->id, 0);
                 glk_window_clear(win->id);
             }
@@ -4868,21 +4648,21 @@ void zdraw_picture()
             glk_request_mouse_event(win->id);
         }
 
-        if (is_zorkzero_border_image(latest_picture)) {
-            if (screenmode != MODE_NORMAL && windows[7].id && windows[7].id->type == wintype_Graphics) {
-                v6_delete_win(&windows[7]);
-                current_graphics_buf_win = graphics_win_glk;
-            }
-            screenmode = MODE_NORMAL;
-            glk_request_mouse_event(current_graphics_buf_win);
-        }
-
-        if (is_zorkzero_game_bg(latest_picture)) {
+//        if (is_zorkzero_border_image(picture)) {
+//            if (screenmode != MODE_NORMAL && windows[7].id && windows[7].id->type == wintype_Graphics) {
+//                v6_delete_win(&windows[7]);
+//                current_graphics_buf_win = graphics_win_glk;
+//            }
+//            screenmode = MODE_NORMAL;
+//            glk_request_mouse_event(current_graphics_buf_win);
+//        }
+        glk_request_mouse_event(current_graphics_buf_win);
+        if (is_zorkzero_game_bg(current_picture)) {
             screenmode = MODE_Z0GAME;
             upperwin->y_origin += imagescaley * 2;
             v6_sizewin(upperwin);
             mainwin->y_size = imagescaley * 75;
-            if (latest_picture == 99)
+            if (current_picture == 99)
                 mainwin->y_size = imagescaley * 49;
             v6_sizewin(mainwin);
             glk_cancel_line_event(mainwin->id, nullptr);
@@ -4890,9 +4670,9 @@ void zdraw_picture()
         if (!win->id || win->id->type != wintype_TextBuffer) {
             if (current_graphics_buf_win == nullptr)
                 current_graphics_buf_win = graphics_win_glk;
-            draw_to_buffer(current_graphics_buf_win, latest_picture, x, y);
-            if (screenmode == MODE_NORMAL && graphics_type != kGraphicsTypeApple2)
-                adjust_zork0();
+            draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+//            if (screenmode == MODE_NORMAL && graphics_type != kGraphicsTypeApple2)
+//                adjust_zork0();
             return;
         }
     }
@@ -4926,9 +4706,10 @@ void zdraw_picture()
         float inline_scale = 2.0;
         if (graphics_type == kGraphicsTypeMacBW)
             inline_scale = imagescalex;
-        draw_inline_image(win->id, latest_picture , x < width ? imagealign_MarginLeft : imagealign_MarginRight, 0, inline_scale, false);
+        draw_inline_image(win->id, current_picture , x < width ? imagealign_MarginLeft : imagealign_MarginRight, current_picture, inline_scale, false);
+        z0_add_margin_image(current_picture);
     }  else {
-        draw_inline_image(win->id, latest_picture, x, y, imagescalex, false);
+        draw_inline_image(win->id, current_picture, x, y, imagescalex, false);
     }
 }
 
@@ -5463,11 +5244,11 @@ void screen_read_bfhs(IO &io, bool autosave)
         int fg = get_global(fg_global_idx);
         int bg = get_global(bg_global_idx);
         if (fg == 1) {
-            fg = SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR;
+            fg = SPATTERLIGHT_CURRENT_FOREGROUND;
             set_global(fg_global_idx, fg);
         }
         if (bg == 1) {
-            bg = SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR;
+            bg = SPATTERLIGHT_CURRENT_BACKGROUND;
             set_global(bg_global_idx, bg);
         }
         if (zversion == 6 && !is_game(Game::Journey)) {
@@ -5745,8 +5526,8 @@ bool switch_to_allowed_interpreter_number(void) {
 
 void init_screen(bool first_run)
 {
-    zcolor_map[13] = gfgcol;
-    zcolor_map[14] = gbgcol;
+    zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] = gfgcol;
+    zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] = gbgcol;
 
     user_selected_foreground = gfgcol;
     user_selected_background = gbgcol;
@@ -5761,12 +5542,12 @@ void init_screen(bool first_run)
         window.index = i++;
         window.style.reset();
         //        if (is_game(Game::Shogun)) {
-        if (!(zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR] == gbgcol)) {
+        if (!(zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol)) {
             window.fg_color = Color();
             window.bg_color = Color();
         } else {
-            window.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
-            window.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
+            window.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
+            window.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
         }
 //        } else {
 //            window.fg_color = window.bg_color = Color();
@@ -5799,6 +5580,14 @@ void init_screen(bool first_run)
             glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
             glk_stylehint_clear(wintype_TextBuffer, style_User1, stylehint_Proportional);
             glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Proportional);
+
+            glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+            glk_stylehint_set(wintype_TextGrid, style_User2, stylehint_ReverseColor, 1);
+            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
+
+            glk_stylehint_set(wintype_TextGrid, style_Emphasized, stylehint_ReverseColor, 1);
+
+
         }
 
         if (graphics_type == kGraphicsTypeAmiga) {
@@ -5824,7 +5613,6 @@ void init_screen(bool first_run)
         // style_User2
         //    glk_stylehint_set(wintype_AllTypes, GStyleItalicFixed, stylehint_Oblique, 1);
         //    glk_stylehint_set(wintype_AllTypes, GStyleItalicFixed, stylehint_Proportional, 0);
-
 
         if (!is_game(Game::Journey)) {
             if (first_run) {
@@ -5854,7 +5642,8 @@ void init_screen(bool first_run)
             mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
             glk_set_echo_line_event(mainwin->id, 0);
             v6_sizewin(mainwin);
-        } else if (first_run) { // If this is Journey
+
+        } else if (first_run) { // Only runs if this is Journey
             if (mainwin->id) {
                 glk_window_close(mainwin->id, 0);
                 mainwin->id = nullptr;

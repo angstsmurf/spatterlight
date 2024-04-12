@@ -116,8 +116,7 @@ void flush_bitmap(winid_t winid) {
 
     float height = pixlength / hw_screenwidth / 4;
 
-    win_purgeimage(600);
-    win_loadimage(600, filename, 0, pixlength);
+    win_purgeimage(600, filename, pixlength);
     free(filename);
     glk_window_set_background_color(winid, user_selected_background);
     glk_window_clear(winid);
@@ -177,18 +176,22 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
 
     for (int i = 0; i < smallbitmapsize; i += 4) {
         ypos = y + (i / stride);
+
         if (flipped)
             ypos = height + y - ypos - 1;
+
         xpos = x + (i % stride) / 4;
 
-        if (xpos < x || xpos > width + x)
+        // Clip at left and right edge
+        if (xpos < x || xpos >= width + x)
             continue;
         if (ypos >= height + y || ypos < y)
             break;
+
         pixptr = *largebitmap + ((ypos * largebitmapwidth + xpos) * 4);
+        // Skip transparent pixels
         if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
             break;
-        // Skip transparent pixels
         } else if (*(smallbitmap + i + 3) != 0) {
             memcpy(pixptr, smallbitmap + i, 4);
         }
@@ -369,10 +372,11 @@ static uint8_t *decompress_image(ImageStruct *image) {
     }
     return result;
 }
+
 void ensure_pixmap(winid_t winid) {
     if (pixmap == nullptr) {
         win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_set_background_color(winid, gbgcol);
+        glk_window_set_background_color(winid, user_selected_background);
         glk_window_clear(winid);
         pixmap = (uint8_t *)calloc(1, pixlength);
     }
@@ -399,21 +403,20 @@ void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
     draw_to_pixmap(image, &pixmap, &pixlength, hw_screenwidth, x, y, imagescalex, imagescaley);
 }
 
-void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped) {
-    fprintf(stderr, "Drawing image %d scaled to %f\n", picnum, scalefactor);
-
+ImageStruct *recreate_image(glui32 picnum, int flipped) {
     ImageStruct *image = find_image(picnum);
     if (image == nullptr)
-        return;
+        return nullptr;
 
     uint8_t *result = decompress_image(image);
     if (result == nullptr)
-        return;
+        return nullptr;
 
     extract_palette(image);
     int32_t pixmapsize = image->width * image->height * 4;
 
     char *filename = create_temp_tiff_file_name();
+    fprintf(stderr, "recreate_image %d, filename \"%s\"\n", picnum, filename);
 
     if (flipped) {
         result = flip_bitmap(image, result);
@@ -422,15 +425,23 @@ void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float 
     writeToTIFF(filename, result, pixmapsize, image->width);
     free(result);
 
-    win_purgeimage(picnum);
-    win_loadimage(picnum, filename, 0, pixmapsize);
+    win_purgeimage(picnum, filename, pixmapsize);
     free(filename);
+    return image;
+}
+
+void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped) {
+    fprintf(stderr, "Drawing image %d scaled to %f\n", picnum, scalefactor);
+
+    ImageStruct *image = recreate_image(picnum,flipped);
+    if (image == nullptr)
+        return;
+
     float xscalefactor = scalefactor * pixelwidth;
-    fprintf(stderr, "draw_inline_image: image width = %d * scale %f == %f\n", image->width, xscalefactor, image->width * xscalefactor);
-    fprintf(stderr, "draw_inline_image: image height = %d * scale %f == %f\n", image->height, scalefactor, image->height * scalefactor);
-    fprintf(stderr, "draw_inline_image: final pixel width: %f final pixel height: %f\n", xscalefactor, scalefactor);
+
     if (x < 0)
         x = 0;
+
     win_drawimage(winid->peer, x, y, image->width * xscalefactor, image->height * scalefactor);
 }
 

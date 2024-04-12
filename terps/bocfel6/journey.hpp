@@ -9,13 +9,14 @@
 #define journey_hpp
 
 #include <stdio.h>
-void adjust_journey_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
-void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixelwidth);
+void journey_adjust_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
 
-void update_journey_on_resize(void);
-void resize_journey_windows_after_restore(void);
+void journey_update_on_resize(void);
+void journey_resize_windows_after_restore(void);
 
-void draw_flashing_journey_cursor(void);
+void journey_draw_flashing_cursor(void);
+
+void move_v6_cursor(int column, int line);
 
 // Journey
 //void INTRO(void);

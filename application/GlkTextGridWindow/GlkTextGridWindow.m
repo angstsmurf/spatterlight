@@ -354,8 +354,6 @@
         if (glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
-        NSUInteger textstoragelength = textstorage.length;
-
         /* reassign styles to attributedstrings */
         // We create a copy of the text storage
         _bufferTextStorage = [textstorage mutableCopy];
@@ -365,7 +363,7 @@
          NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
-         enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
+         enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
          usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
@@ -917,7 +915,7 @@ static const char *stylenames[] =
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
-        NSLog(@"Printed outside grid window visible range! (%@)", string);
+        NSLog(@"Printed outside grid window visible range! (%@) startpos: %ld textstoragelength: %ld", string, startpos, textstoragelength);
         return;
     }
 
@@ -952,7 +950,13 @@ static const char *stylenames[] =
         return;
     }
 
-    NSLog(@"GlkTextGridWindow %ld Printing at position %ld, %ld: \"%@\" style:%s zcolor:%@ reverse video: %@", self.name, xpos, ypos, string, stylenames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO");
+    NSColor *fgcol = attrDict[NSForegroundColorAttributeName];
+    NSColor *bgcol = attrDict[NSBackgroundColorAttributeName];
+    BOOL reverseColor = [self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)];
+
+
+
+    NSLog(@"GlkTextGridWindow %ld Printing at position %ld, %ld: \"%@\" style:%s zcolor:%@ reverse video: %@ fg:%lx bg:%lx stylehint_ReverseColor:%@", self.name, xpos, ypos, string, stylenames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO", [fgcol integerColor], [bgcol integerColor], reverseColor ? @"YES" : @"NO");
 
     // Check for newlines in string to write
     NSUInteger x;

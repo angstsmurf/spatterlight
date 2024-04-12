@@ -15,7 +15,7 @@ struct fillrect
 
 struct sizewinrect
 {
-    glui32 x0, y0, x1, y1, gamewidth, gameheight;
+    glsi32 x0, y0, x1, y1, gamewidth, gameheight;
 };
 
 struct drawrect
@@ -83,6 +83,7 @@ enum
     CLEARHINT,
     STYLEMEASURE,
     SETBGND,
+    REFRESH,
     SETTITLE,
     AUTOSAVE,
     RESET,

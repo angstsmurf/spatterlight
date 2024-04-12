@@ -18,6 +18,7 @@
 #import "MarginImage.h"
 #import "BufferTextView.h"
 #import "GridTextView.h"
+#import "ImageHandler.h"
 #include "glkimp.h"
 
 
@@ -1073,6 +1074,19 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self sendKeypress:ch];
 
+        // Unless reading from script, append all key presses to script file
+//        if (self.glkctl.journey && !self.glkctl.commandScriptRunning) {
+//            unichar charToAppend = [str characterAtIndex:[str length] - 1];
+//            BOOL isNewline = [[NSCharacterSet newlineCharacterSet] characterIsMember:charToAppend];
+//            NSString *stringToAppend = isNewline ? @"\n" : [NSString stringWithFormat:@"%@\n", str];
+//            BOOL result = [self appendString:stringToAppend toURL:[NSURL fileURLWithPath:@"/Users/administrator/Desktop/Hitler.txt"] encoding:NSUTF8StringEncoding];
+//            if (!result) {
+//                NSLog(@"Error! Could not log keypress to file!");
+//            } else {
+//                NSLog(@"GlkTextBufferWindow keyDown: Wrote key press %hu (%d) (\"%@\") to command script file", charToAppend, ch, isNewline ? @"newline" : str);
+//            }
+//        }
+
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
         NSString *line = [textstorage.string substringFromIndex:fence];
@@ -1610,8 +1624,8 @@ replacementString:(id)repl {
 }
 
 - (void)drawImage:(NSImage *)image
-             val1:(NSInteger)align
-             val2:(NSInteger)unused
+             val1:(NSInteger)alignment
+             val2:(NSInteger)index
             width:(NSInteger)w
            height:(NSInteger)h
             style:(NSUInteger)style {
@@ -1642,18 +1656,18 @@ replacementString:(id)repl {
 
     MyAttachmentCell *cell =
     [[MyAttachmentCell alloc] initImageCell:image
-                               andAlignment:align
+                               andAlignment:alignment
                                   andAttStr:textstorage
                                          at:textstorage.length];
 
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
         if (textstorage.length == 0) {
             [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
         } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
         }
         
-        [container addImage:image align:align at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+        [container addImage:image index:index alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
     }
 
@@ -1692,6 +1706,41 @@ replacementString:(id)repl {
         NSString *filename = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
         [attachment dragTextAttachmentFrom:view event:event filename:filename inRect:rect];
     }
+}
+
+- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
+
+    if (xscale == 0 || yscale == 0)
+        return;
+    NSLog(@"GlkTextBufferWindow %ld updateMarginImages", self.name);
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+
+        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
+        if (cell.align != imagealign_MarginLeft &&  cell.align != imagealign_MarginRight)
+            return;
+
+
+        MarginImage *mimg = cell.marginImage;
+
+        NSUInteger index = [container.marginImages indexOfObject:mimg];
+        if (index == NSNotFound) {
+            return;
+        }
+        [container.marginImages removeObject:mimg];
+        if ([self.glkctl.imageHandler handleFindImageNumber:mimg.index]) {
+            NSImage *img = self.glkctl.imageHandler.lastimage;
+            img = [self scaleImage:img size:NSMakeSize(img.size.width * xscale, img.size.height * yscale)];
+            [container addImage:img index:mimg.index alignment:mimg.alignment at:mimg.pos linkid:0];
+            cell.marginImage = container.marginImages.lastObject;
+        }
+    }];
 }
 
 #pragma mark Hyperlinks
