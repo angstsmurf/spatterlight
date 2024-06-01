@@ -1967,6 +1967,8 @@ replacementString:(id)repl {
         scrolling = YES;
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
             context.duration = MAX(0.002 * diff, 0.3);
+            if (context.duration > 1)
+                context.duration = 1;
             clipView.animator.boundsOrigin = newBounds.origin;
         } completionHandler:^{
             self->scrolling = NO;
