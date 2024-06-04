@@ -2502,7 +2502,7 @@ static const char *msgnames[] = {
         case fileusage_InputRecord:
             prompt = @"Save recording: ";
             ext = @"rec";
-            filename = @"Recordning of ";
+            filename = @"Recording of ";
             break;
         default:
             prompt = @"Save: ";
