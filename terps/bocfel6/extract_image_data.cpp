@@ -222,10 +222,10 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         }
 
         if (directory[i].image_lookup_addr != 0) {
-            (*image_list)[i].lookup = myalloc(256);
-            memcpy((*image_list)[i].lookup, data + directory[i].image_lookup_addr, 256);
+            (*image_list)[i].huffman_tree = myalloc(256);
+            memcpy((*image_list)[i].huffman_tree, data + directory[i].image_lookup_addr, 256);
         } else {
-            (*image_list)[i].lookup = lookup_table;
+            (*image_list)[i].huffman_tree = lookup_table;
         }
 
         if (directory[i].image_cm_addr != 0) {
