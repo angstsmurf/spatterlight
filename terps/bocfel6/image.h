@@ -33,7 +33,7 @@ struct ImageStruct {
     size_t datasize;
     GraphicsType type;
     uint8_t *palette;
-    uint8_t *lookup;
+    uint8_t *huffman_tree;
 };
 
 typedef struct ImageStruct ImageStruct;

@@ -45,12 +45,12 @@ void free_images(void) {
             free(img->data);
         if (img->palette)
             free(img->palette);
-        if (img->lookup && img->lookup != lookup_table) {
+        if (img->huffman_tree && img->huffman_tree != lookup_table) {
             for (int j = 0; j < image_count; j++) {
-                if (j != i && raw_images[j].lookup == img->lookup && raw_images[j].lookup != lookup_table)
-                    raw_images[j].lookup = nullptr;
+                if (j != i && raw_images[j].huffman_tree == img->huffman_tree && raw_images[j].huffman_tree != lookup_table)
+                    raw_images[j].huffman_tree = nullptr;
             }
-            free(img->lookup);
+            free(img->huffman_tree);
         }
     }
 }

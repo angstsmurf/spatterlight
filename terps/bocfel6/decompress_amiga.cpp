@@ -8,66 +8,65 @@
 #include <stdlib.h>
 #include "decompress_amiga.hpp"
 
-static int isbit7set(uint8_t val) {
-    return val >> 7;
-}
-
-// This seems to  be functionally equivalent to ms_extract1() in Magnetic,
-// i.e. it uses Magnetic Scrolls image compression
+// This is similar to the image compression used by Magnetic Scrolls.
+// The code below is based on ms_extract1() in the Magnetic interpreter.
 uint8_t *decompress_amiga(ImageStruct *image) {
-    uint8_t compressed_byte = 0;
-    uint8_t bytevalue;
+    uint8_t encoded_byte = 0;
+    uint8_t repeats = 0;
     uint8_t color_index = 0;
-    int index = 0;
-    int total_bytes_read = 0;
-
-    // Skip first 6 bytes
-    uint8_t *ptr = image->data + 6;
 
     size_t finalsize = image->width * image->height;
     uint8_t *buffer = (uint8_t *)malloc(finalsize);
     if (buffer == nullptr)
         exit(1);
 
-    int counter = 1;
+    // Skip first 6 bytes
+    int j = 6;
+    int bit = 7;
 
-    do {
-        bytevalue = 0;
-        int found = 0;
+    for (int i = 0; i < finalsize; i++, repeats--) {
+        if (repeats == 0) {
+            // Repeat while bit 7 of count is unset
+            while (repeats < 0x80) {
+                // This conditional is inverted in
+                // the Magnetic code in ms_extract1().
+                // That code will add 1 and read from the subsequent byte in the array if the bit is *unset*.
+                // Here we do that if the bit is *set*.
+                if (image->data[j] & (1 << bit)) {
+                    repeats = image->huffman_tree[2 * repeats + 1];
+                } else {
+                    repeats = image->huffman_tree[2 * repeats];
+                }
 
-        while (!found) {
-            if (--counter <= 0) {
-                counter = 8;
-                compressed_byte = *ptr++;
-                total_bytes_read++;
-                if (total_bytes_read > finalsize) {
-                    fprintf(stderr, "Read %d bytes, which is too many (expected final size: %zu). Something is wrong.\n", total_bytes_read, finalsize);
+                if (!bit)
+                    j++;
+
+                if (j > image->datasize) {
+                    fprintf(stderr, "Read %d bytes, which is out of range (expected data size: %zu). Something is wrong.\n", j, image->datasize);
                     free(buffer);
                     return nullptr;
                 }
 
+                bit = bit ? bit - 1 : 7;
             }
-            do {
-                bytevalue = image->lookup[(bytevalue << 1) + isbit7set(compressed_byte)];
-                compressed_byte <<= 1;
-                found = isbit7set(bytevalue);
-            } while (!found && --counter);
+
+            repeats &= 0x7f;
+            if (repeats >= 0x10) {
+                // We subtract 1 less here than the
+                // Magnetic code in ms_extract1()
+                repeats -= 0xf;
+            }  else {
+                color_index = repeats;
+                repeats = 1;
+            }
         }
 
-        bytevalue -= 0x90;
-        if (isbit7set(bytevalue)) {
-            color_index = bytevalue + 0x10;
-            buffer[index++] = color_index;
-        } else for (int i = (bytevalue & 0x017f) + 1; i > 0 && index < finalsize; i--) {
-            // Use previous value. Repeat (bytevalue - bit 7 + 1) times
-            buffer[index++] = color_index;
-        }
-    } while (index < finalsize);
+        buffer[i] = color_index;
+    }
 
-    // Every pixel value (palette index) from the second line down
-    // has to be XORed with the corresponding pixel in the line above it
     for (int i = image->width; i < finalsize; i++) {
         buffer[i] ^= buffer[i - image->width];
     }
+
     return buffer;
 }
