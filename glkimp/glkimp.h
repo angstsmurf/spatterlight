@@ -113,8 +113,8 @@ void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
-// This is both used for glk_window_set_background_color() and
-// and, against the Glk spec, to change the background on-the-fly
+// This is both used for glk_window_set_background_color() and,
+//  against the Glk spec, to change the background on-the-fly
 // of buffer and grid windows.
 void win_setbgnd(int name, glui32 color);
 
