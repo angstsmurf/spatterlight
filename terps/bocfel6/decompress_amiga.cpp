@@ -64,6 +64,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
         buffer[i] = color_index;
     }
 
+    // XOR with the corresponding byte in the line above
     for (int i = image->width; i < finalsize; i++) {
         buffer[i] ^= buffer[i - image->width];
     }
