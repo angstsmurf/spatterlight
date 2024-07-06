@@ -840,6 +840,14 @@
 //        [self recalcBackground];
 //    }
 
+    if (self.currentReverseVideo == YES) {
+        if (currentZColor && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
+            bgnd = currentZColor.fg;
+        } else {
+            bgnd = self.theme.gridNormal.color.integerColor;
+        }
+    }
+
     if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
         if (_textview.textStorage.length) {
             selectedRange = NSMakeRange(_textview.textStorage.length - 1, 0);
