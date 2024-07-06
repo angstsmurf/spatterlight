@@ -502,7 +502,6 @@ NSString *fontToString(NSFont *font) {
                 if (wrong != _darkTheme)
                     wrong.hardDark = NO;
             }
-
         }
     } else {
         if (error != nil) {
