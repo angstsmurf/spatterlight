@@ -408,7 +408,7 @@
 
 //        [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
 
-        // Now we can replace the text storager
+        // Now we can replace the text storage
         [textstorage setAttributedString:_bufferTextStorage];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
