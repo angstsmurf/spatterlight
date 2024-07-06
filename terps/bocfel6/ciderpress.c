@@ -973,7 +973,6 @@ static void AddFileToList(A2File *file)
  */
 static void LowerASCII(uint8_t filename[kFileNameBufLen])
 {
-
     int len = kMaxFileName;
     uint8_t *buf = filename;
     while (len--) {
