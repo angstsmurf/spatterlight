@@ -539,6 +539,11 @@ NSString *fontToString(NSFont *font) {
         if (!wrong.hardDark && !wrong.hardLight)
             wrong.hardLightOrDark = NO;
     }
+
+    if (_lightTheme && _lightTheme == _darkTheme) {
+        _darkTheme = nil;
+        _lightTheme.hardDark = NO;
+    }
 }
 
 - (IBAction)useInLightMode:(id)sender {
