@@ -158,7 +158,7 @@ void glk_window_fill_rect(winid_t win, glui32 color,
         return;
     }
 #ifdef DEBUG
-    fprintf(stderr, "win_fillrect called with color %d\n", color);
+    fprintf(stderr, "win_fillrect called with color %d left %d top %d width %d height %d\n", color, left, top, width, height);
 #endif
     win_fillrect(win->peer, color, left, top, width, height);
 }
