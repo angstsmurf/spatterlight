@@ -827,8 +827,9 @@
     // Re-fill with spaces
     if (self.framePending) {
         self.frame = self.pendingFrame;
-    } else
+    } else {
         self.frame = self.frame;
+    }
 
 //    if (currentZColor && bgnd != currentZColor.bg) {
 //        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
@@ -838,10 +839,11 @@
 //    }
 
     if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
-        if (_textview.textStorage.length)
+        if (_textview.textStorage.length) {
             selectedRange = NSMakeRange(_textview.textStorage.length - 1, 0);
-        else
+        } else {
             selectedRange = NSMakeRange(0, 0);
+        }
     }
     _textview.selectedRange = selectedRange;
 }
