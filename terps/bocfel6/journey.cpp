@@ -17,7 +17,7 @@ extern "C" {
 #include "process.h"
 #include "unicode.h"
 #include "dict.h"
-
+#include "v6_shared.hpp"
 #include "draw_image.hpp"
 #include "journey.hpp"
 
@@ -27,6 +27,9 @@ enum StampBits {
   kStampRightBit = 1,
   kStampBottomBit = 2
 };
+
+#define JOURNEY_BG_GRID windows[1]
+#define JOURNEY_GRAPHICS_WIN windows[3]
 
 static int journey_image_x, journey_image_y, journey_image_width, journey_image_height;
 
@@ -83,7 +86,7 @@ static void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where,
 static void draw_journey_title_image(void) {
     float scale;
     int x, y, width, height;
-    winid_t win = windows[3].id;
+    winid_t win = JOURNEY_GRAPHICS_WIN.id;
     if (win == nullptr || win->type != wintype_Graphics) {
         fprintf(stderr, "draw_journey_title_image: glk window error!\n");
         return;
@@ -115,11 +118,11 @@ static void journey_font3_line(int LN, int CHR, int L, int R) {
 
 static int journey_refresh_character_command_area(int LN);
 
-static void SETUP_WINDOWS(void) {
+static void journey_setup_windows(void) {
     int PW = get_global(0xa9); // PW = BASE-PICTURE-WIDTH
     int PH = get_global(0x27); // PH = BASE-PICTURE-HEIGHT
     int OFF = 6;
-    int TEXT_WINDOW_LEFT = get_global(0x38);
+    int TEXT_WINDOW_LEFT;
     bool GOOD = false;
 
     bool APPLE2 = (options.int_number == INTERP_APPLE_IIC || options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_APPLE_IIGS);
@@ -161,7 +164,7 @@ static bool qset(uint16_t obj, int16_t bit) { // Test attribute, set it, return 
 static void journey_adjust_windows(bool restoring);
 
 static void update_screen_size(void) {
-    glk_window_get_size(windows[1].id, &SCREEN_WIDTH_in_chars, &SCREEN_HEIGHT_in_chars);
+    glk_window_get_size(JOURNEY_BG_GRID.id, &SCREEN_WIDTH_in_chars, &SCREEN_HEIGHT_in_chars);
 
     set_global(0x83, SCREEN_WIDTH_in_chars); // GLOBAL SCREEN-WIDTH
     set_global(0x64, SCREEN_HEIGHT_in_chars); // GLOBAL SCREEN-HEIGHT
@@ -327,7 +330,9 @@ static uint16_t input_line = 0;
 static uint16_t input_table = 0;
 
 void move_v6_cursor(int column, int line) {
-    set_cursor(line * letterwidth, column * letterwidth, 1);
+//    set_cursor(line * letterheight, column * letterwidth, 1);
+    JOURNEY_BG_GRID.x_cursor = line * letterheight;
+    JOURNEY_BG_GRID.y_cursor = column * letterwidth;
 
     if (column <= 1)
         column = 0;
@@ -337,7 +342,7 @@ void move_v6_cursor(int column, int line) {
         line = 0;
     else
         line--;
-    glk_window_move_cursor(windows[1].id, column, line);
+    glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
 }
 
 void debug_print_str(uint8_t c);
@@ -359,17 +364,21 @@ static void print_to_string_buffer(uint8_t c) {
         string_buf_ptr[string_buf_pos++] = c;
 }
 
-
-static int print_zstr_to_cstr(uint16_t addr, char *str) {
+int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
     int length = count_characters_in_zstring(addr);
     if (length < 2)
         return 0;
     string_buf_ptr = str;
     string_buf_pos = 0;
-    string_maxlen = 15;
+    string_maxlen = maxlen;
     print_handler(unpack_string(addr), print_to_string_buffer);
     str[length] = 0;
     return length;
+}
+
+
+int print_zstr_to_cstr(uint16_t addr, char *str) {
+    return print_long_zstr_to_cstr(addr, str, 15);
 }
 
 
@@ -555,7 +564,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
     input_table = table;
     from_command_start_line = y - get_global(0x0e); // COMMAND-START-LINE
 
-    set_current_window(&windows[1]);
+    set_current_window(&JOURNEY_BG_GRID);
     move_v6_cursor(input_column, input_line);
 
     if (!FONT3_FLAG) {
@@ -585,7 +594,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
         }
         journey_cursor_reverse = false;
         glk_request_timer_events(10);
-        if (character == 0x7f || character == ZSCII_DELETE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
+        if (character == 0x7f || character == ZSCII_BACKSPACE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
             if (input_length == 0) {
                 win_beep(1);
                 continue;
@@ -642,7 +651,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
         }
     }
 
-    set_current_window(&windows[0]);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
     current_input = INPUT_PARTY;
     return input_length;
 }
@@ -720,16 +729,16 @@ static void journey_erase_command_chars(int LN, int COL, int num_spaces) {
     }
 
     for (int i = 0; i < num_spaces; i++)
-        glk_put_char_stream(windows[1].id->str, UNICODE_SPACE);
+        glk_put_char_stream(JOURNEY_BG_GRID.id->str, UNICODE_SPACE);
 
     if (!in_leftmost_column) {
         if (!FONT3_FLAG) {
             garglk_set_reversevideo(1);
-            glk_put_char_stream(windows[1].id->str, UNICODE_SPACE);
+            glk_put_char_stream(JOURNEY_BG_GRID.id->str, UNICODE_SPACE);
             garglk_set_reversevideo(0);
         } else if (COL > SCREEN_WIDTH_in_chars * 0.5) {
             glk_set_style(style_BlockQuote);
-            glk_put_char_stream(windows[1].id->str, THIN_V_LINE);
+            glk_put_char_stream(JOURNEY_BG_GRID.id->str, THIN_V_LINE);
             glk_set_style(style_Normal);
         }
     }
@@ -793,7 +802,7 @@ static void journey_print_character_commands(bool CLEAR) {
 
     PTBL = get_global(0x63);  // global 0x63 is PARTY table: <GLOBAL PARTY <TABLE 5 BERGON PRAXIX ESHER TAG 0>>
 
-    set_current_window(&windows[1]);
+    set_current_window(&JOURNEY_BG_GRID);
 
     int COMMAND_WIDTH = get_global(0xb8);
     int NAME_WIDTH = get_global(0xa2);
@@ -866,7 +875,7 @@ static void journey_print_character_commands(bool CLEAR) {
         internal_call(pack_routine(0x64bc)); //    SMART_DEFAULT();
     }
 
-    set_current_window(&windows[0]);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
 }
 
 bool journey_read_elvish(int actor) {
@@ -881,7 +890,7 @@ bool journey_read_elvish(int actor) {
     int LN = get_global(0x0e) + party_pcm(actor) - 1; // COMMAND-START-LINE
 
     move_v6_cursor(get_global(0x28), LN); // CHR-COMMAND-COLUMN
-    glk_put_string_stream(windows[1].id->str, const_cast<char*>("says..."));
+    glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
 
     int MAX = SCREEN_WIDTH_in_chars - get_global(0xb0) - 2;
 
@@ -923,7 +932,7 @@ void journey_change_name() {
     int LN = get_global(0x0e) + party_pcm(0x78) - 1; // <SET LN <- <+ ,COMMAND-START-LINE <PARTY-PCM ,TAG>> 1>
     uint16_t TBL = get_global(0xba) + 2; // NAME-TBL
 
-    uint8_t key;
+    uint8_t key = 0;
     uint16_t offset = journey_read_keyboard_line(COL, LN, TBL, MAX, false, &key);
 
     if (offset == 0) {
@@ -946,8 +955,8 @@ void journey_change_name() {
 
 void journey_init_screen(void) {
     Window *lastwin = curwin;
-    set_current_window(&windows[1]);
-    glk_window_clear(windows[1].id);
+    set_current_window(&JOURNEY_BG_GRID);
+    glk_window_clear(JOURNEY_BG_GRID.id);
 
     update_internal_globals();
 
@@ -957,7 +966,7 @@ void journey_init_screen(void) {
     int TOP_SCREEN_LINE = get_global(0x25);
     int COMMAND_START_LINE = get_global(0x0e);
 
-    SETUP_WINDOWS();
+    journey_setup_windows();
     int TEXT_WINDOW_LEFT = get_global(0x38);
 
 
@@ -1092,7 +1101,7 @@ static void journey_print_columns(bool PARTY, bool PRSI) {
 
     int COMMAND_WIDTH = get_global(0xb8);
     int O_TABLE = get_global(0x14); // O-TABLE (object table)
-    set_current_window(&windows[1]);
+    set_current_window(&JOURNEY_BG_GRID);
 
     if (PARTY) {
         column = get_global(0xb4); // PARTY-COMMAND-COLUMN Global b4
@@ -1162,7 +1171,7 @@ static int journey_refresh_character_command_area(int LN) {
     int PARTY_COMMAND_COLUMN = get_global(0xb4);
 
     Window *lastwin = curwin;
-    set_current_window(&windows[1]);
+    set_current_window(&JOURNEY_BG_GRID);
 
     while (++LN <= COMMAND_START_LINE + 4) {
         POS = 1;
@@ -1287,7 +1296,7 @@ static void journey_reprint_partial_input(int x, int y, int length_so_far, int m
     garglk_set_reversevideo(0);
 }
 
-void journey_resize_windows_after_restore() {
+void journey_update_after_restore() {
     win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
     internal_set_attr(68, 0x2e);
     screenmode = MODE_NORMAL;
@@ -1305,46 +1314,47 @@ static void journey_resize_graphics_and_buffer_windows(void) {
     // Window 3: Graphics window
 
     if (BORDER_FLAG) {
-        windows[3].x_origin = ggridmarginx + gcellw + 5;
-        windows[3].y_origin = ggridmarginy + gcellh + 1;
+        JOURNEY_GRAPHICS_WIN.x_origin = ggridmarginx + gcellw + 5;
+        JOURNEY_GRAPHICS_WIN.y_origin = ggridmarginy + gcellh + 1;
     } else {
-        if (FONT3_FLAG) {
-            windows[3].x_origin = ggridmarginx + 1;
-        } else {
-            windows[3].x_origin = ggridmarginx + 1;
-        }
-        windows[3].y_origin = ggridmarginy + 1;
+//        if (FONT3_FLAG) {
+//            JOURNEY_GRAPHICS_WIN.x_origin = ggridmarginx + 1;
+//        } else {
+            JOURNEY_GRAPHICS_WIN.x_origin = ggridmarginx + 1;
+//        }
+        JOURNEY_GRAPHICS_WIN.y_origin = ggridmarginy + 1;
     }
 
     if (SCREEN_HEIGHT_in_chars < 5)
         update_screen_size();
 
-    windows[3].x_size = (float)(text_window_left - 2) * gcellw - windows[3].x_origin + ggridmarginx + (FONT3_FLAG ? 0 : 2);
+    JOURNEY_GRAPHICS_WIN.x_size = (float)(text_window_left - 2) * gcellw - JOURNEY_GRAPHICS_WIN.x_origin + ggridmarginx + (FONT3_FLAG ? 0 : 2);
 
-    windows[0].x_origin = windows[3].x_origin + windows[3].x_size + gcellw + (FONT3_FLAG ? 3 : 0);
-    windows[0].x_size = (SCREEN_WIDTH_in_chars - text_window_left + 1) * gcellw;
-    windows[0].y_origin = windows[3].y_origin;
+    if (!V6_TEXT_BUFFER_WINDOW.id) {
+        V6_TEXT_BUFFER_WINDOW.id = v6_new_glk_window(wintype_TextBuffer, 0);
+    }
 
     int command_start_line = SCREEN_HEIGHT_in_chars - 4 - (BORDER_FLAG ? 1 : 0);
 
-    windows[0].y_size = (command_start_line - 2) * gcellh - FONT3_FLAG;
+    uint16_t x_size = (SCREEN_WIDTH_in_chars - text_window_left + 1) * gcellw;
+    uint16_t y_size = (command_start_line - 2) * gcellh - FONT3_FLAG;
+
     if (BORDER_FLAG) {
-        windows[0].x_size -= gcellw;
-        windows[0].y_size -= gcellh;
-    }
-    windows[3].y_size = windows[0].y_size;
-
-    if (windows[3].id == nullptr) {
-        windows[3].id = v6_new_glk_window(wintype_Graphics, 0);
-        if (windows[3].id != nullptr)
-            glk_window_set_background_color(windows[3].id, monochrome_black);
-    }
-    if (!windows[0].id) {
-        windows[0].id = v6_new_glk_window(wintype_TextBuffer, 0);
+        x_size -= gcellw;
+        y_size -= gcellh;
     }
 
-    v6_sizewin(&windows[0]);
-    v6_sizewin(&windows[3]);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, JOURNEY_GRAPHICS_WIN.x_origin + JOURNEY_GRAPHICS_WIN.x_size + gcellw + (FONT3_FLAG ? 3 : 0), JOURNEY_GRAPHICS_WIN.y_origin, x_size, y_size);
+
+    JOURNEY_GRAPHICS_WIN.y_size = y_size;
+
+    if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
+        JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics, 0);
+        if (JOURNEY_GRAPHICS_WIN.id != nullptr)
+            glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
+    }
+
+    v6_sizewin(&JOURNEY_GRAPHICS_WIN);
 }
 
 #pragma mark adjust_journey_windows
@@ -1368,18 +1378,18 @@ static void journey_adjust_windows(bool restoring) {
     fprintf(stderr, "adjust_journey_windows: inital global values:\n");
     print_globals();
 
-    if (windows[1].id && windows[1].id->type != wintype_TextGrid)
-        v6_delete_win(&windows[1]);
+    if (JOURNEY_BG_GRID.id && JOURNEY_BG_GRID.id->type != wintype_TextGrid)
+        v6_delete_win(&JOURNEY_BG_GRID);
 
-    if (windows[1].id == nullptr) {
-        windows[1].id = v6_new_glk_window(wintype_TextGrid, 0);
+    if (JOURNEY_BG_GRID.id == nullptr) {
+        JOURNEY_BG_GRID.id = v6_new_glk_window(wintype_TextGrid, 0);
     }
 
-    windows[1].x_size = gscreenw;
-    windows[1].y_size = gscreenh;
-    v6_sizewin(&windows[1]);
+    JOURNEY_BG_GRID.x_size = gscreenw;
+    JOURNEY_BG_GRID.y_size = gscreenh;
+    v6_sizewin(&JOURNEY_BG_GRID);
 
-    windows[1].style.reset(STYLE_REVERSE);
+    JOURNEY_BG_GRID.style.reset(STYLE_REVERSE);
 
     int16_t mousetbl = get_global(0xbd);
     fprintf(stderr, "MOUSETBL 0 is 0x%x (%d)\n", word(mousetbl), (int16_t)word(mousetbl));
@@ -1406,7 +1416,7 @@ static void journey_adjust_windows(bool restoring) {
                 journey_reprint_partial_input(get_global(0xb8) + 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length, input_table);
             } else if (current_input == INPUT_ELVISH ) {
                 move_v6_cursor(get_global(0x28), get_global(0x0e) + from_command_start_line);
-                glk_put_string_stream(windows[1].id->str, const_cast<char*>("says..."));
+                glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
                 journey_reprint_partial_input(get_global(0xb0) - 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length - 1, input_table);
             } else {
                 journey_print_columns(false, current_input == INPUT_SPECIAL);
@@ -1447,8 +1457,8 @@ static void journey_adjust_windows(bool restoring) {
 
     // Redraw image(s)
     // (unless we have no graphics)
-    if (windows[3].id != nullptr) {
-        glk_window_clear(windows[3].id);
+    if (JOURNEY_GRAPHICS_WIN.id != nullptr) {
+        glk_window_clear(JOURNEY_GRAPHICS_WIN.id);
         internal_call(pack_routine(0x49fc)); // ROUTINE GRAPHIC
 
         uint16_t HERE = get_global(0x0f);
@@ -1469,7 +1479,7 @@ static void journey_adjust_windows(bool restoring) {
 
         input_line = get_global(0x0e) + from_command_start_line;
 
-        set_current_window(&windows[1]);
+        set_current_window(&JOURNEY_BG_GRID);
 
         if (!FONT3_FLAG) {
             garglk_set_reversevideo(1);
@@ -1536,11 +1546,11 @@ void after_INTRO(void) {
 
 void GRAPHIC_STAMP(void) {
     int16_t picnum, where = 0;
-    if (znargs > 0 && windows[3].id != nullptr) {
+    if (znargs > 0 && JOURNEY_GRAPHICS_WIN.id != nullptr) {
         picnum = variable(1);
         if (znargs > 1)
             where = variable(2);
-        draw_journey_stamp_image(windows[3].id, picnum, where, pixelwidth);
+        draw_journey_stamp_image(JOURNEY_GRAPHICS_WIN.id, picnum, where, pixelwidth);
     }
 }
 
@@ -1560,18 +1570,18 @@ void INIT_SCREEN(void) {
         // Show title image and wait for key press
 
         // We delete the graphics window to make it recreate on top
-        v6_delete_win(&windows[3]);
-        glk_window_clear(windows[0].id);
+        v6_delete_win(&JOURNEY_GRAPHICS_WIN);
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         screenmode = MODE_SLIDESHOW;
         // We do a fake resize event to draw the title image
         // (This will recreate the graphics window)
         window_change();
-        win_setbgnd(windows[0].id->peer, monochrome_black);
-        glk_request_mouse_event(windows[3].id);
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, monochrome_black);
+        glk_request_mouse_event(JOURNEY_GRAPHICS_WIN.id);
         glk_request_char_event(curwin->id);
         read_char();
         screenmode = MODE_CREDITS;
-        win_setbgnd(windows[0].id->peer, user_selected_background);
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         journey_adjust_windows(false);
     } else {
         journey_init_screen();
@@ -1616,17 +1626,17 @@ void journey_update_on_resize(void) {
     set_global(0x89, gcellh); // GLOBAL CHRV
 
     if (screenmode == MODE_INITIAL_QUESTION) {
-        windows[0].x_size = gscreenw;
-        windows[0].y_size = gscreenh;
-        v6_sizewin(&windows[0]);
+        V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
+        V6_TEXT_BUFFER_WINDOW.y_size = gscreenh;
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     } else if (screenmode == MODE_SLIDESHOW) {
-        if (!windows[3].id) {
-            windows[3].id = v6_new_glk_window(wintype_Graphics, 0);
+        if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
+            JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics, 0);
         }
-        windows[3].x_size = gscreenw;
-        windows[3].y_size = gscreenh;
+        JOURNEY_GRAPHICS_WIN.x_size = gscreenw;
+        JOURNEY_GRAPHICS_WIN.y_size = gscreenh;
 
-        v6_sizewin(&windows[3]);
+        v6_sizewin(&JOURNEY_GRAPHICS_WIN);
 
         draw_journey_title_image();
     } else {
@@ -1639,9 +1649,9 @@ void journey_update_on_resize(void) {
 
 //    glk_stylehint_set(wintype_TextBuffer, style_Subheader, stylehint_Justification, stylehint_just_Centered);
 //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_Justification, stylehint_just_Centered);
-//    remap_win_to_buffer(&windows[0]);
+//    remap_win_to_buffer(&V6_TEXT_BUFFER_WINDOW);
 
-//    glk_window_clear(windows[0].id);
+//    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 //}
 
 
@@ -1650,7 +1660,7 @@ void journey_update_on_resize(void) {
 ////    centeredText = false;
 ////    glk_stylehint_set(wintype_TextBuffer, style_Subheader, stylehint_Justification, stylehint_just_LeftFlush);
 ////    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_Justification, stylehint_just_LeftFlush);
-////    v6_delete_win(&windows[0]);
-////    remap_win_to_buffer(&windows[0]);
-////    v6_sizewin(&windows[0]);
+////    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+////    remap_win_to_buffer(&V6_TEXT_BUFFER_WINDOW);
+////    v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 //}

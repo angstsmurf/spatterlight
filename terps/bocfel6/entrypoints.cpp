@@ -52,14 +52,14 @@ static std::vector<EntryPoint> entrypoints = {
     },
 
     // Shared with Arthur
-    {
-        Game::ZorkZero,
-        "INIT-HINT-SCREEN",
-        { 0xED, 0x3F, 0xFF, 0xFF, 0xEB, 0x7F, 0x07, 0xA0 },
-        0,
-        0,
-        INIT_HINT_SCREEN
-    },
+//    {
+//        Game::ZorkZero,
+//        "INIT-HINT-SCREEN",
+//        { 0xED, 0x3F, 0xFF, 0xFF, 0xEB, 0x7F, 0x07, 0xA0 },
+//        0,
+//        0,
+//        INIT_HINT_SCREEN
+//    },
 
     {
         Game::ZorkZero,
@@ -82,21 +82,21 @@ static std::vector<EntryPoint> entrypoints = {
 
 
     // Shared with Arthur
-    {
-        Game::ZorkZero,
-        "LEAVE_HINT_SCREEN",
-        { 0x10, 0xE6, 0x22, 0x00},
-        -4,
-        0,
-        LEAVE_HINT_SCREEN
-    },
+//    {
+//        Game::ZorkZero,
+//        "LEAVE_HINT_SCREEN",
+//        { 0x10, 0xE6, 0x22, 0x00},
+//        -4,
+//        0,
+//        LEAVE_HINT_SCREEN
+//    },
 
     // Shared with Shogun
 //    B310E622 00
     {
         Game::ZorkZero,
         "V-DEFINE",
-        { 0xA0, 0x00, 0xCA, 0xBE, 0x06 },
+        { 0xb0, 0x98, 0x40, 0x00, 0xa0, 0x00 },
         0,
         0,
         V_DEFINE
@@ -125,31 +125,42 @@ static std::vector<EntryPoint> entrypoints = {
     // Shared with Arthur
     {
         Game::ZorkZero,
-        "DISPLAY-HINT",
-        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+        "DO-HINTS",
+        { 0xef, 0x1f, 0xff, 0xff, 0x00, 0xb0 },
         0,
         0,
-        DISPLAY_HINT
+        DO_HINTS
     },
+
 
     // Shared with Arthur
-    {
-        Game::ZorkZero,
-        "after DISPLAY-HINT",
-        { 0xBE, 0x12, 0x17, 0xFF, 0xFD, 0x04, 0x02, 0xBE, 0x12, 0x57},
-        0,
-        0,
-        after_DISPLAY_HINT
-    },
+//    {
+//        Game::ZorkZero,
+//        "DISPLAY-HINT",
+//        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+//        0,
+//        0,
+//        DISPLAY_HINT
+//    },
 
-    {
-        Game::ZorkZero,
-        "after DISPLAY-HINT alt",
-        { 0xA0, 0x03, 0xBE, 0xC8, 0xB1},
-        0,
-        0,
-        after_DISPLAY_HINT
-    },
+    // Shared with Arthur
+//    {
+//        Game::ZorkZero,
+//        "after DISPLAY-HINT",
+//        { 0xBE, 0x12, 0x17, 0xFF, 0xFD, 0x04, 0x02, 0xBE, 0x12, 0x57},
+//        0,
+//        0,
+//        after_DISPLAY_HINT
+//    },
+
+//    {
+//        Game::ZorkZero,
+//        "after DISPLAY-HINT alt",
+//        { 0xA0, 0x03, 0xBE, 0xC8, 0xB1},
+//        0,
+//        0,
+//        after_DISPLAY_HINT
+//    },
 
     {
         Game::ZorkZero,
@@ -253,44 +264,178 @@ static std::vector<EntryPoint> entrypoints = {
         UPDATE_STATUS_LINE
     },
 
+    {
+        Game::ZorkZero,
+        "DRAW-TOWER",
+        { 0xb0, 0x7f, 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57},
+        0,
+        0,
+        DRAW_TOWER
+    },
+
+    {
+        Game::ZorkZero,
+        "B-MOUSE-PEG-PICK",
+        { 0xab, 0x02, 0x4f, 0x2b },
+        0,
+        0,
+        B_MOUSE_PEG_PICK
+    },
+
+    {
+        Game::ZorkZero,
+        "B-MOUSE-WEIGHT-PICK",
+        { 0xab, 0x02, 0xbd, 0x01, 0xdb },
+        0,
+        0,
+        B_MOUSE_WEIGHT_PICK
+    },
+
+    {
+        Game::ZorkZero,
+        "SETUP-PBOZ",
+        { 0xb0, 0x01, 0x02, 0xcb, 0x1f, 0x01, 0x59, 0x07 },
+        0,
+        0,
+        SETUP_PBOZ
+    },
+
+    {
+        Game::ZorkZero,
+        "PBOZ-CLICK",
+        { 0xab, 0x02, 0x02, 0xda, 0x4f, 0xbd, 0x01, 0xd8 },
+        0,
+        0,
+        PBOZ_CLICK
+    },
+
+    {
+        Game::ZorkZero,
+        "PEG-GAME",
+        { 0xa0, 0x02, 0xe8, 0x56, 0x02, 0x02, 0x00 },
+        0,
+        0,
+        PEG_GAME
+    },
+
+    {
+        Game::ZorkZero,
+        "DISPLAY-MOVES",
+        { 0xf3, 0x3f, 0xff, 0xff, 0xbb, 0xf3, 0x7f, 0x01, 0x55, 0x84, 0x02, 0x00},
+        0,
+        0,
+        DISPLAY_MOVES
+    },
+
+    {
+        Game::ZorkZero,
+        "SETUP-SN",
+        { 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57, 0x49, 0x01, 0x01},
+        43,
+        0,
+        SETUP_SN
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-SN-BOXES",
+        { 0xb0, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, 0xbd, 0x01, 0xd6 },
+        0,
+        0,
+        DRAW_SN_BOXES
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-PILE",
+        { 0xb0, 0x7f, 0x01, 0xcf, 0x2f, 0x73, 0xf9, 0x01, 0x02 },
+        0,
+        0,
+        DRAW_PILE
+    },
+
+    {
+        Game::ZorkZero,
+        "DRAW-FLOWERS",
+        { 0xb0, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, 0x97, 0x3d, 0x73, 0xf9, 0x00 },
+        0,
+        0,
+        DRAW_FLOWERS
+    },
+
+    {
+        Game::ZorkZero,
+        "SN-CLICK",
+        { 0xab, 0x02, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, 0x6e, 0x3b, 0xc2 },
+        0,
+        0,
+        SN_CLICK
+    },
+
+    {
+        Game::ZorkZero,
+        "SETUP-FANUCCI",
+        { 0xb0, 0x40, 0x00, 0xa0, 0x00, 0xc8 },
+        0,
+        0,
+        SETUP_FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
+        "FANUCCI",
+        { 0xb0, 0x4f, 0xbd, 0x01, 0x80 },
+        0,
+        0,
+        FANUCCI
+    },
 
 #pragma mark Arthur
 
-    {
-        Game::Arthur,
-        "INIT-HINT-SCREEN",
-        { 0xEB, 0x7F, 0x00, 0x9B, 0x01, 0x00, 0x00, 0x9F },
-        -9,
-        0,
-        INIT_HINT_SCREEN
-    },
+        {
+            Game::Arthur,
+            "DO-HINTS",
+            { 0xb0, 0xf1, 0x7f, 0xef, 0x1f, 0xff, 0xff, 0x00},
+            0,
+            0,
+            DO_HINTS
+        },
 
-    {
-        Game::Arthur,
-        "LEAVE_HINT_SCREEN",
-        { 0x03, 0xFF, 0x7F, 0x03, 0xC5, 0x0D, 0x03, 0x01, 0xeb  },
-        -3,
-        0,
-        LEAVE_HINT_SCREEN
-    },
-
-    {
-        Game::Arthur,
-        "DISPLAY-HINT",
-        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
-        0,
-        0,
-        DISPLAY_HINT
-    },
-
-    {
-        Game::Arthur,
-        "after DISPLAY-HINT",
-        { 0xBE, 0x12, 0x17, 0xFF, 0xFD, 0x04, 0x02, 0xBE, 0x12, 0x57},
-        0,
-        0,
-        after_DISPLAY_HINT
-    },
+//    {
+//        Game::Arthur,
+//        "INIT-HINT-SCREEN",
+//        { 0xEB, 0x7F, 0x00, 0x9B, 0x01, 0x00, 0x00, 0x9F },
+//        -9,
+//        0,
+//        INIT_HINT_SCREEN
+//    },
+//
+//    {
+//        Game::Arthur,
+//        "LEAVE_HINT_SCREEN",
+//        { 0x03, 0xFF, 0x7F, 0x03, 0xC5, 0x0D, 0x03, 0x01, 0xeb  },
+//        -3,
+//        0,
+//        LEAVE_HINT_SCREEN
+//    },
+//
+//    {
+//        Game::Arthur,
+//        "DISPLAY-HINT",
+//        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
+//        0,
+//        0,
+//        DISPLAY_HINT
+//    },
+//
+//    {
+//        Game::Arthur,
+//        "after DISPLAY-HINT",
+//        { 0xBE, 0x12, 0x17, 0xFF, 0xFD, 0x04, 0x02, 0xBE, 0x12, 0x57},
+//        0,
+//        0,
+//        after_DISPLAY_HINT
+//    },
 
 //    {
 //        Game::Arthur,
@@ -325,7 +470,7 @@ static std::vector<EntryPoint> entrypoints = {
         { 0xeb, 0x7f, 0x01, 0xf1, 0x7f, 0x01 },
         0,
         0,
-        UPDATE_STATUS_LINE
+        ARTHUR_UPDATE_STATUS_LINE
     },
 
     {
@@ -595,29 +740,29 @@ static std::vector<EntryPoint> entrypoints = {
         after_V_VERSION
     },
 
-    //    {
-    //        Game::Shogun,
-    //        "SETUP-TEXT-AND-STATUS",
-    //        { 0xff, 0x7f, 0x01, 0xc5 , 0x0d, 0x01, 0x02, 0x0f },
-    //        0,
-    //        0,
-    //        after_SETUP_TEXT_AND_STATUS
-    //    },
-
     {
         Game::Shogun,
-        "After SETUP-TEXT-AND-STATUS",
-        { 0x05, 0x00, 0x04, 0x00, 0xb8 },
-        4,
+        "SETUP-TEXT-AND-STATUS",
+        { 0xb0, 0x7f, 0x01, 0xc5 , 0x0d, 0x01, 0x02, 0x0f },
         0,
-        after_SETUP_TEXT_AND_STATUS
+        0,
+        SETUP_TEXT_AND_STATUS
     },
+
+//    {
+//        Game::Shogun,
+//        "After SETUP-TEXT-AND-STATUS",
+//        { 0x05, 0x00, 0x04, 0x00, 0xb8 },
+//        4,
+//        0,
+//        SETUP_TEXT_AND_STATUS
+//    },
 
     {
         Game::Shogun,
         "SCENE-SELECT",
         { 0x06, 0xBE, 0x13, 0x5F, 0x07, 0x02 },
-        1,
+        -9,
         0,
         SCENE_SELECT
     },
@@ -649,69 +794,81 @@ static std::vector<EntryPoint> entrypoints = {
         GOTO_SCENE
     },
 
-
     {
         Game::Shogun,
-        "INIT-HINT-SCREEN",
-        { 0xEB, 0x7F, 0x07, 0xED, 0x7F},
+        "DO-HINTS",
+        { 0xb0, 0xf1, 0x7f, 0xef, 0x1f, 0xff, 0xff, 0x00},
         0,
         0,
-        INIT_HINT_SCREEN
+        DO_HINTS
     },
 
-    {
-        Game::Shogun,
-        "after V-HINT",
-        { 0x11, 0x86, 0x21, 0xE0 , 0x04, 0x61},
-        -1,
-        0,
-        after_V_HINT
-    },
 
-    {
-        Game::Shogun,
-        "DISPLAY-HINT",
-        { 0x4F, 0x01, 0x00, 0x02, 0xF3 },
-        0,
-        0,
-        DISPLAY_HINT
-    },
+//    {
+//        Game::Shogun,
+//        "INIT-HINT-SCREEN",
+//        { 0xEB, 0x7F, 0x07, 0xED, 0x7F},
+//        0,
+//        0,
+//        INIT_HINT_SCREEN
+//    },
 
-    {
-        Game::Shogun,
-        "after DISPLAY-HINT",
-        { 0xF5, 0x7F, 0x01, 0x8C, 0xFE, 0x8B, 0x00},
-        -5,
-        0,
-        after_DISPLAY_HINT
-    },
-
-    {
-        Game::Shogun,
-        "after DISPLAY-HINT alt ",
-        { 0xB1, 0xF5, 0x7F, 0x01, 0x8C, 0xFE },
-        -4,
-        0,
-        after_DISPLAY_HINT
-    },
+//    {
+//        Game::Shogun,
+//        "after V-HINT",
+//        { 0x11, 0x86, 0x21, 0xE0 , 0x04, 0x61},
+//        -1,
+//        0,
+//        after_V_HINT
+//    },
+//
+//    {
+//        Game::Shogun,
+//        "DISPLAY-HINT",
+//        { 0x4F, 0x01, 0x00, 0x02, 0xF3 },
+//        0,
+//        0,
+//        DISPLAY_HINT
+//    },
+//
+//    {
+//        Game::Shogun,
+//        "after DISPLAY-HINT",
+//        { 0xF5, 0x7F, 0x01, 0x8C, 0xFE, 0x8B, 0x00},
+//        -5,
+//        0,
+//        after_DISPLAY_HINT
+//    },
+//
+//    {
+//        Game::Shogun,
+//        "after DISPLAY-HINT alt ",
+//        { 0xB1, 0xF5, 0x7F, 0x01, 0x8C, 0xFE },
+//        -4,
+//        0,
+//        after_DISPLAY_HINT
+//    },
 
     {
         Game::Shogun,
         "V-DEFINE",
-        { 0xED, 0x3F, 0xFF, 0xFF, 0x36 },
+//        { 0xED, 0x3F, 0xFF, 0xFF, 0x36 },
+        { 0xb0, 0xed, 0x3f, 0xFF, 0x36 },
+
+//        { 0xb0, 0x95, 0x43, 0x02 },
         0,
         0,
         V_DEFINE
     },
 
-    {
-        Game::Shogun,
-        "after V-DEFINE",
-        { 0x04, 0x7F, 0x01, 0x00, 0xEB, 0x7F, 0x00, 0xED, 0x7F, 0x00 },
-        -1,
-        0,
-        after_V_DEFINE
-    },
+//    {
+//        Game::Shogun,
+//        "after V-DEFINE",
+//        { 0x04, 0x7F, 0x01, 0x00, 0xEB, 0x7F, 0x00, 0xED, 0x7F, 0x00 },
+//        -1,
+//        0,
+//        after_V_DEFINE
+//    },
 
 
     {
@@ -749,6 +906,101 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         after_MAC_II
     },
+
+    {
+        Game::Shogun,
+        "DISPLAY-BORDER",
+        { 0xb0, 0x95, 0x43, 0x02, 0x09, 0x0a, 0x48 },
+        0,
+        0,
+        shogun_DISPLAY_BORDER
+    },
+
+    {
+        Game::Shogun,
+        "GET-FROM-MENU",
+        { 0xab, 0x01, 0x04, 0xc5, 0x0d, 0x04, 0x01  },
+        0,
+        0,
+        GET_FROM_MENU
+    },
+
+    {
+        Game::Shogun,
+        "UPDATE-STATUS-LINE",
+        { 0xb0, 0x00, 0x08, 0x00, 0x47 },
+        0,
+        0,
+        shogun_UPDATE_STATUS_LINE
+    },
+
+    {
+        Game::Shogun,
+        "INTERLUDE-STATUS-LINE",
+        { 0xb0, 0x95, 0x43, 0x02, 0x09, 0x0a, 0xdd },
+        0,
+        0,
+        INTERLUDE_STATUS_LINE
+    },
+
+    {
+        Game::Shogun,
+        "CENTER-PIC-X",
+        { 0xb0, 0x06, 0x8f, 0x01, 0x4e, 0x16, 0x40, 0x8f },
+        0,
+        0,
+        CENTER_PIC_X
+    },
+
+    {
+        Game::Shogun,
+        "CENTER-PIC",
+        { 0xb0, 0x06, 0x8f, 0x01, 0x4e, 0x16, 0x40, 0xbe },
+        0,
+        0,
+        CENTER_PIC
+    },
+
+
+//    {
+//        Game::Shogun,
+//        "MARGINAL-PIC",
+//        { 0xb0, 0x7f, 0x02, 0xc5 },
+//        0,
+//        0,
+//        MARGINAL_PIC
+//    },
+
+
+
+    {
+        Game::Shogun,
+        "DISPLAY-MAZE",
+        { 0xb0, 0x19, 0xa0, 0xed, 0x7f, 0x00, 0xbe, 0x06, 0x4f, 0x2c },
+        0,
+        0,
+        DISPLAY_MAZE
+    },
+
+    {
+        Game::Shogun,
+        "DISPLAY-MAZE-PIC",
+        { 0xb0, 0x01, 0xc0, 0xcf, 0x1f, 0x4f, 0x86, 0x00, 0x04 },
+        0,
+        0,
+        DISPLAY_MAZE_PIC
+    },
+
+    {
+        Game::Shogun,
+        "MAZE-MOUSE-F",
+        { 0xab, 0x01, 0x4f, 0x86, 0x01, 0x05 },
+        0,
+        0,
+        MAZE_MOUSE_F
+    },
+
+
 };
 
 void find_color_globals(void) {
@@ -781,7 +1033,7 @@ void find_color_globals(void) {
         } else if (entrypoint.fn == after_MAC_II && mac_ii_return_address != 0) {
             entrypoint.found_at_address = mac_ii_return_address;
             fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
-        } else if (entrypoint.fn == UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+        } else if (entrypoint.fn == ARTHUR_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
             update_status_bar_address = entrypoint.found_at_address - 1;
             update_global_idx = memory[update_status_bar_address + 0xd] - 0x10;
         } else if (entrypoint.fn == RT_UPDATE_PICT_WINDOW && entrypoint.found_at_address != 0) {

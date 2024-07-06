@@ -193,6 +193,10 @@ void store_variable(uint16_t var, uint16_t n)
     if (var == 0) { // Stack
         push_stack(n);
     } else if (var <= 0x0f) { // Locals
+
+        if (var > CURRENT_FRAME->nlocals) {
+            fprintf(stderr, "error\n");
+        }
         ZASSERT(var <= CURRENT_FRAME->nlocals, "attempting to store to nonexistent local variable %d: routine has %d", static_cast<int>(var), CURRENT_FRAME->nlocals);
         CURRENT_FRAME->locals[var - 1] = n;
     } else if (var <= 0xff) { // Globals
@@ -476,6 +480,10 @@ void zrfalse()
 void zcheck_arg_count()
 {
     branch_if(zargs[0] <= CURRENT_FRAME->nargs);
+}
+
+uint16_t internal_arg_count(void) {
+    return CURRENT_FRAME->nargs;
 }
 
 void zpop_stack()
@@ -1292,6 +1300,28 @@ bool do_save(SaveType savetype, SaveOpcode saveopcode)
         return false;
     }
 
+    return true;
+}
+
+bool super_hacky_shogun_menu_save(SaveType savetype, SaveOpcode saveopcode)
+{
+
+    auto savefile = open_savefile(savetype, IO::Mode::WriteOnly);
+
+    if (savefile == nullptr) {
+        return false;
+    }
+
+    uint32_t stored_pc = pc;
+    pc--;
+
+    if (!save_quetzal(*savefile, savetype, saveopcode, true)) {
+        warning("error while writing save file");
+        pc = stored_pc;
+        return false;
+    }
+
+    pc = stored_pc;
     return true;
 }
 

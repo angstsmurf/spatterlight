@@ -242,6 +242,7 @@ bool is_win_covered(Window *win, int zpos);
 void flush_image_buffer(void);
 glui32 rgb_colour_from_index(uint16_t index);
 void v6_delete_glk_win(winid_t glkwin);
+void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 
 enum V6ScreenMode {
     MODE_NORMAL,
@@ -250,11 +251,13 @@ enum V6ScreenMode {
     MODE_INVENTORY,
     MODE_STATUS,
     MODE_ROOM_DESC,
-    MODE_NOGRAPHICS,
-    MODE_Z0GAME,
+    MODE_NO_GRAPHICS,
+    MODE_Z0_GAME,
     MODE_HINTS,
     MODE_CREDITS,
     MODE_DEFINE,
+    MODE_SHOGUN_MENU,
+    MODE_SHOGUN_MAZE,
     MODE_INITIAL_QUESTION
 };
 

@@ -8,6 +8,11 @@
 #ifndef draw_image_hpp
 #define draw_image_hpp
 
+extern "C" {
+#include "glk.h"
+#include "glkimp.h"
+}
+
 #include <stdio.h>
 #include "image.h"
 
@@ -20,11 +25,13 @@ void extract_palette(ImageStruct *image);
 ImageStruct *recreate_image(glui32 picnum, int flipped);
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped);
 void draw_to_buffer(winid_t winid, int picnum, int x, int y);
-void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y);
+void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, bool flipped);
 void draw_to_pixmap_unscaled(int image, int x, int y);
+void draw_to_pixmap_unscaled_flipped(int image, int x, int y);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
 void draw_centered_title_image(int picnum);
+void draw_pixel_on_bitmap(int x, int y);
 
 extern int last_slideshow_pic;
 extern int32_t monochrome_black;

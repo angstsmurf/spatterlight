@@ -26,6 +26,7 @@ void INIT_HINT_SCREEN(void);
 void LEAVE_HINT_SCREEN(void);
 
 
+void DO_HINTS(void);
 void DISPLAY_HINT(void);
 void after_DISPLAY_HINT(void);
 
@@ -36,6 +37,10 @@ void RT_UPDATE_PICT_WINDOW(void);
 void RT_UPDATE_INVT_WINDOW(void);
 void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
+
+void ARTHUR_UPDATE_STATUS_LINE(void);
+
+bool arthur_display_picture(glsi32 x, glsi32 y);
 
 extern int arthur_text_top_margin;
 extern uint8_t global_map_grid_y_idx;

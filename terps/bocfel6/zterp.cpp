@@ -751,10 +751,6 @@ static void process_story(IO &io, long offset)
         die("unable to read from story file");
     }
 
-//    for (int i = 0x70a5; i < 0x70a5 + 24; i++) {
-//
-//        fprintf(stderr, "SL-LOC-TBL: mem at %x: %x\n", i, memory[i]);
-//    }
 
     watched_address = &memory[0x70a6];
 

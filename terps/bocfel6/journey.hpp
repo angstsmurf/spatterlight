@@ -12,7 +12,7 @@
 void journey_adjust_image(int picnum, int *x, int *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
 
 void journey_update_on_resize(void);
-void journey_resize_windows_after_restore(void);
+void journey_update_after_restore(void);
 
 void journey_draw_flashing_cursor(void);
 

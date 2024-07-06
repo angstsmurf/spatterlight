@@ -10,12 +10,13 @@ extern "C" {
 #include "glkimp.h"
 }
 
+#include "draw_image.hpp"
+#include "entrypoints.hpp"
+#include "memory.h"
 #include "screen.h"
 #include "zterp.h"
-#include "memory.h"
-#include "entrypoints.hpp"
+#include "v6_shared.hpp"
 
-#include "draw_image.hpp"
 #include "arthur.hpp"
 
 extern float imagescalex, imagescaley;
@@ -185,6 +186,8 @@ void draw_arthur_map_image(int picnum, int x, int y) {
     draw_to_pixmap_unscaled(picnum, x, y);
 }
 
+void ARTHUR_UPDATE_STATUS_LINE(void) {}
+
 extern std::array<Window, 8> windows;
 extern Window *mainwin, *curwin, *upperwin;
 
@@ -197,7 +200,7 @@ void arthur_window_adjustments(void) {
         v6_delete_win(&windows[3]);
     }
     if (screenmode != MODE_SLIDESHOW) {
-        if (screenmode != MODE_NOGRAPHICS) {
+        if (screenmode != MODE_NO_GRAPHICS) {
             fprintf(stderr, "adjusting margins in window_change\n");
             int x_margin = 0, y_margin = 0;
             get_image_size(100, &x_margin, &y_margin);
@@ -231,6 +234,7 @@ void arthur_window_adjustments(void) {
 
             if (screenmode == MODE_HINTS) {
                 glk_window_clear(current_graphics_buf_win);
+                redraw_hint_screen_on_resize();
                 return;
             }
 
@@ -278,7 +282,7 @@ void arthur_window_adjustments(void) {
 void adjust_arthur_windows(void) {
     int x_margin;
     get_image_size(100, &x_margin, nullptr); // Get width of dummy "margin" image
-    if (screenmode != MODE_SLIDESHOW && screenmode != MODE_NOGRAPHICS && screenmode != MODE_HINTS) {
+    if (screenmode != MODE_SLIDESHOW && screenmode != MODE_NO_GRAPHICS && screenmode != MODE_HINTS) {
         fprintf(stderr, "adjusting margins in adjust_arthur_windows\n");
         adjust_arthur_top_margin();
         upperwin->y_origin = arthur_text_top_margin;
@@ -340,7 +344,7 @@ void adjust_arthur_windows(void) {
         }
         v6_remap_win_to_buffer(&windows[2]);
         glk_window_clear(graphics_win_glk);
-    } else if (screenmode == MODE_NOGRAPHICS) {
+    } else if (screenmode == MODE_NO_GRAPHICS) {
     } else if (windows[2].id) {
         v6_delete_win(&windows[2]);
         curwin->zpos = 0;
@@ -435,3 +439,64 @@ void RT_UPDATE_STAT_WINDOW(void) {
 void RT_UPDATE_MAP_WINDOW(void) {
     fprintf(stderr, "RT_UPDATE_MAP_WINDOW\n");
 }
+
+extern bool arthur_intro_timer;
+
+bool arthur_display_picture(glsi32 x, glsi32 y) {
+    // Skip Arthur "sidebars"
+    // We draw them in flush_image_buffer() instead
+    if (current_picture == 170 || current_picture == 171) {
+        return true;
+    }
+    // Intro "slideshow"
+    if (current_picture >= 1 && current_picture <= 3) {
+        if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
+            current_graphics_buf_win = v6_new_glk_window(wintype_Graphics, 0);
+            glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+            win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+        }
+        screenmode = MODE_SLIDESHOW;
+        glk_request_mouse_event(current_graphics_buf_win);
+        ensure_pixmap(current_graphics_buf_win);
+        if (current_picture == 3) {
+            arthur_intro_timer = true;
+            glk_request_timer_events(500);
+            return true;
+        }
+        draw_centered_title_image(current_picture);
+        return true;
+    }
+
+    else if (current_graphics_buf_win == nullptr) {
+        current_graphics_buf_win = graphics_win_glk;
+    }
+
+
+    // Room images
+    if (is_arthur_room_image(current_picture) || is_arthur_stamp_image(current_picture)) { // Pictures 106-149 are map images
+        screenmode = MODE_NORMAL;
+        ensure_pixmap(current_graphics_buf_win);
+        draw_arthur_room_image(current_picture);
+        return true;
+    } else if (is_arthur_map_image(current_picture)) {
+        screenmode = MODE_MAP;
+        if (current_picture == 137) {// map background
+            glk_request_mouse_event(graphics_win_glk);
+        }
+        else {
+            draw_arthur_map_image(current_picture, x, y);
+            return true;
+        }
+    } else if (current_picture == 54) { // Border image, drawn in flush_image_buffer()
+        screenmode = MODE_NORMAL;
+        if (arthur_intro_timer) {
+            arthur_intro_timer = 0;
+            glk_request_timer_events(0);
+        }
+        return true;
+    }
+
+    draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+    return true;
+}
+

@@ -694,6 +694,7 @@
 		C3AD648F261769DB008614C5 /* MarginImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD648E261769DB008614C5 /* MarginImage.m */; };
 		C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD64DD26176DC5008614C5 /* GridTextView.m */; };
 		C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
+		C3AFD40D2C15ACB000ABCF8D /* v6_shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3AFD40B2C15ACB000ABCF8D /* v6_shared.cpp */; };
 		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
 		C3B148B227FD881400844708 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B148B127FD881400844708 /* animations.c */; };
 		C3B202D12A8FFBE4001A7A8C /* libreadwoz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F62A322A64A78E0091F683 /* libreadwoz.dylib */; };
@@ -3102,6 +3103,8 @@
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
+		C3AFD40B2C15ACB000ABCF8D /* v6_shared.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_shared.cpp; sourceTree = "<group>"; };
+		C3AFD40C2C15ACB000ABCF8D /* v6_shared.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_shared.hpp; sourceTree = "<group>"; };
 		C3B1489727FCD55400844708 /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
 		C3B1489827FCD55400844708 /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
 		C3B148AF27FD881400844708 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
@@ -5784,6 +5787,8 @@
 				C3F314EB2A6AA99300806AA9 /* shogun.cpp */,
 				C31C087A2A770D1600EF231C /* zorkzero.hpp */,
 				C31C08792A770D1600EF231C /* zorkzero.cpp */,
+				C3AFD40C2C15ACB000ABCF8D /* v6_shared.hpp */,
+				C3AFD40B2C15ACB000ABCF8D /* v6_shared.cpp */,
 				C3F4F4012A63FF6C00FD4C2D /* draw_apple_2.h */,
 				C3F4F4032A63FF6C00FD4C2D /* draw_apple_2.cpp */,
 				C3403B012A655251000A7028 /* draw_image.hpp */,
@@ -8068,6 +8073,7 @@
 				C3F4F40B2A64083100FD4C2D /* extract_apple_2.cpp in Sources */,
 				C31103172A7BB0EB00796B82 /* decompress_vga.cpp in Sources */,
 				C3A5F20929F153350039B810 /* objects.cpp in Sources */,
+				C3AFD40D2C15ACB000ABCF8D /* v6_shared.cpp in Sources */,
 				C3403B022A655251000A7028 /* draw_image.cpp in Sources */,
 				C3A5F22529F153350039B810 /* stash.cpp in Sources */,
 				C3F2782C2A1ADE2800663BFD /* writetiff.cpp in Sources */,

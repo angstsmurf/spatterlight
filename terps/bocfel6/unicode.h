@@ -7,7 +7,7 @@
 
 #include "types.h"
 
-constexpr uint16_t UNICODE_DELETE          = 8;
+constexpr uint16_t UNICODE_BACKSPACE       = 8;
 constexpr uint16_t UNICODE_LINEFEED        = 10;
 constexpr uint16_t UNICODE_CARRIAGE_RETURN = 13;
 constexpr uint16_t UNICODE_ESCAPE          = 27;
@@ -17,7 +17,7 @@ constexpr uint16_t UNICODE_REPLACEMENT     = 65533;
 constexpr uint8_t LATIN1_LINEFEED     = 10;
 constexpr uint8_t LATIN1_QUESTIONMARK = 63;
 
-constexpr uint8_t ZSCII_DELETE       = 8;
+constexpr uint8_t ZSCII_BACKSPACE    = 8;
 constexpr uint8_t ZSCII_NEWLINE      = 13;
 constexpr uint8_t ZSCII_ESCAPE       = 27;
 constexpr uint8_t ZSCII_SPACE        = 32;

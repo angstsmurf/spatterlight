@@ -13,6 +13,7 @@ extern "C" {
 
 #include "zterp.h"
 #include "image.h"
+#include "extract_apple_2.h"
 
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
@@ -100,13 +101,31 @@ void find_graphics_files(void)
                     }
                     index++;
                 }
+
+                // Search for Apple 2 woz files
+                for (const auto &ext : {".woz", " side 1.woz", " - Side 1.woz"}) {
+                    auto path = game_file;
+                    auto zorkpos = path.rfind("ZORK0.");
+                    if (zorkpos != std::string::npos) {
+                        path.replace(zorkpos, std::string::npos, "Zork Zero.");
+                        dotpos = path.rfind('.');
+                    }
+                    path.replace(dotpos, std::string::npos, ext);
+                    strid_t file = load_file(path);
+                    if (file != nullptr) {
+                        found_graphics_files.at(kGraphicsFileWoz) = path;
+                        fprintf(stderr, "found .woz file to use for Apple 2 graphics\n");
+                        glk_stream_close(file, nullptr);
+                        break;
+                    }
+                }
             }
             break;
         }
     }
 
 
-    // otherwise keep looking
+    // Next, we look for external blorb files
     for (const auto &ext : {".blb", ".blorb"}) {
         std::string blorb_file = game_file;
         auto dot = blorb_file.rfind('.');
@@ -140,16 +159,31 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
 void extract_from_file(std::string path, GraphicsType type) {
     strid_t file = load_file(path);
     if (file != nullptr) {
-        glui32 file_length;
-        uint8_t *file_data = read_from_file(file, &file_length);
+        glui32 file_length = 0;
+        uint8_t *file_data;
+
+        if (type == kGraphicsTypeApple2) {
+            glk_stream_close(file, nullptr);
+            size_t dummy_file_length;
+            file_data = extract_apple_2(path.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
+        } else {
+            file_data = read_from_file(file, &file_length);
+        }
+
         if (file_data == nullptr)
             return;
+
         graphics_type = type;
-        if (type == kGraphicsTypeBlorb)
+        if (type == kGraphicsTypeBlorb) {
             image_count = extract_images_from_blorb(&raw_images);
-        else
+        } else if (type == kGraphicsTypeApple2) {
+            free(file_data);
+        } else {
             image_count = extract_images(file_data, file_length, 1, 0, &raw_images, &pixversion, &graphics_type);
-        glk_stream_close(file, nullptr);
+        }
+
+        if (type != kGraphicsTypeApple2)
+            glk_stream_close(file, nullptr);
 
         if (image_count == 0)
             return;
@@ -228,7 +262,11 @@ void load_best_graphics(void) {
             }
             break;
         case kGraphicsTypeApple2:
-            found = false;
+            if (found_graphics_files.at(kGraphicsFileWoz).size() != 0) {
+                extract_from_file(found_graphics_files.at(kGraphicsFileWoz), kGraphicsTypeApple2);
+            } else {
+                found = false;
+            }
             break;
         case kGraphicsTypeBlorb:
             if (found_graphics_files.at(kGraphicsFileBlorb).size() != 0) {

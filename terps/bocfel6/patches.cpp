@@ -511,23 +511,227 @@ static std::vector<Patch> patches = {
     },
 
     {
+        "Shogun", &"890706", 322, 0x5c88,
+        {
+
+            // V-DEFINE
+            {
+                0x1193b, 4,
+                { 0xed, 0x3f, 0xff, 0xff },
+                { 0xb0, 0xed, 0x3f, 0xff },
+            },
+
+            // DO-HINTS
+            {
+                0x4abc9, 3,
+                { 0xf1, 0x7f, 0x00 },
+                { 0xb0, 0xf1, 0x7f },
+            },
+
+            // DISPLAY-BORDER
+            {
+                0x126a3, 3,
+                { 0xc1, 0x95, 0x43 },
+                { 0xb0, 0x95, 0x43 },
+            },
+
+            // GET-FROM-MENU
+            {
+                0x11e69, 2,
+                { 0xff, 0x7f },
+                { 0xab, 0x01 } // RET L00
+            },
+
+
+            // SCENE-SELECT
+            {
+                0x10cf5, 2,
+                { 0xcf, 0x1f },
+                { 0xb0, 0x1f }
+            },
+
+            // UPDATE-STATUS-LINE
+            {
+                0x12309, 1,
+
+                { 0x0f },
+                { 0xb0 }
+            },
+
+            // INTERLUDE-STATUS-LINE
+            {
+                0x124dd, 1,
+                { 0xc1 },
+                { 0xb0 }
+            },
+
+            // SETUP-TEXT-AND-STATUS
+            {
+                0x12201, 1,
+                { 0xff },
+                { 0xb0 } 
+            },
+
+            // CENTER-PIC-X
+            {
+                0x1272d, 1,
+                { 0xbe },
+                { 0xb0 }
+            },
+
+            // CENTER-PIC
+            {
+                0x12779, 1,
+                { 0xbe },
+                { 0xb0 }
+            },
+
+//            // MARGINAL-PIC
+//            {
+//                0x127f5, 1,
+//                { 0xff },
+//                { 0xb0 }
+//            },
+
+
+            // DISPLAY-MAZE
+            {
+                0x3db2d, 1,
+                { 0x8f },
+                { 0xb0 }
+            },
+
+            // DISPLAY-MAZE-PIC
+            {
+                0x3da15, 1,
+                { 0xa0 },
+                { 0xb0 }
+            },
+
+            // MAZE-MOUSE-F
+            {
+                0x3d8d5, 2,
+                { 0xcf, 0x1f },
+                { 0xab, 0x01 } // RET L00
+            },
+        }
+    },
+
+    {
+        "Arthur", &"890714", 74, 0xd526,
+        {
+            // DO-HINTS
+            {
+                0x393b9, 3,
+                { 0xf1, 0x7f, 0x00 },
+                { 0xb0, 0xf1, 0x7f },
+            }
+        }
+    },
+
+    {
         "Zork Zero", &"890714", 393, 0x791c,
         {
             // UPDATE-STATUS-LINE
             {
                 0xeb61, 4,
                 { 0xeb, 0x7f, 0x01, 0xbe },
-                { 0xb1, 0xeb, 0x7f, 0x01 },
+                { 0xb1, 0xeb, 0x7f, 0x01 }
             },
 
             // INIT-STATUS-LINE
             {
                 0x1b9e1, 6,
                 { 0x0d, 0x02, 0x01, 0x0d, 0x05, 0x40 },
-                { 0xb0, 0x0d, 0x02, 0x01, 0x0d, 0x05 },
+                { 0xb0, 0x0d, 0x02, 0x01, 0x0d, 0x05 }
+            },
+
+            // V-DEFINE
+            {
+                0x12dd0, 6,
+                { 0x98, 0x40, 0x00, 0xa0, 0x00, 0xca },
+                { 0xb0, 0x98, 0x40, 0x00, 0xa0, 0x00 }
+            },
+
+            // DO-HINTS
+            {
+                0x35a40, 6,
+                { 0xef, 0x1f, 0xff, 0xff, 0x00, 0x88 },
+                { 0xef, 0x1f, 0xff, 0xff, 0x00, 0xb0 }
+            },
+
+            // DRAW-TOWER
+            {
+                0x327ad, 3,
+                { 0xed, 0x7f, 0x07 },
+                { 0xb0, 0x7f, 0x07 }
+            },
+
+            // B-MOUSE-PEG-PICK
+            {
+                0x3232d, 3,
+                { 0xbe, 0x06, 0x4f },
+                { 0xab, 0x02, 0x4f } // 0xab 0x02: RET L01
+            },
+
+            // B-MOUSE-WEIGHT-PICK
+            {
+                0x323b5, 3,
+                { 0xda, 0x4f, 0xbd },
+                { 0xab, 0x02, 0xbd } // 0xab 0x02: RET L01
+            },
+
+            // SETUP-PBOZ
+            {
+                0x225bd, 3,
+                { 0x0d, 0x01, 0x02 },
+                { 0xb0, 0x01, 0x02 }
+            },
+
+            // PBOZ-CLICK
+            {
+                0x22491, 3,
+                { 0x0d, 0x05, 0x02 },
+                { 0xab, 0x02, 0x02 }  // 0xab 0x02: RET L01
+            },
+
+            // DRAW-SN-BOXES
+            {
+                0x33fdd, 3,
+                { 0x0d, 0x05, 0x01 },
+                { 0xb0, 0x05, 0x01 }
+            },
+
+            // DRAW-PILE
+            {
+                0x3405d, 3,
+                { 0xeb, 0x7f, 0x01 },
+                { 0xb0, 0x7f, 0x01 }
+            },
+
+            // DRAW-FLOWERS
+            {
+                0x34101, 3,
+                { 0x0d, 0x01, 0x01 },
+                { 0xb0, 0x01, 0x01 }
+            },
+
+            // SETUP-FANUCCI
+            {
+                0x2a069, 3,
+                { 0x98, 0x40, 0x00 },
+                { 0xb0, 0x40, 0x00 }
+            },
+
+            // FANUCCI
+            {
+                0x2a2c9, 3,
+                { 0xda, 0x4f, 0xbd },
+                { 0xb0, 0x4f, 0xbd },
             }
-        }
-    },
+        },
+
+    }
 #endif
 };
 
@@ -547,6 +751,7 @@ static bool apply_patch(const Replacement &r)
 
 void apply_patches()
 {
+    fprintf(stderr, "apply_patches: header.checksum %x\n", header.checksum);
     for (const auto &patch : patches) {
         if (std::memcmp(*patch.serial, header.serial, sizeof header.serial) == 0 &&
             patch.release == header.release &&

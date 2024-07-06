@@ -51,6 +51,7 @@ extern "C" {
 #include "journey.hpp"
 #include "shogun.hpp"
 #include "zorkzero.hpp"
+#include "v6_shared.hpp"
 #include "find_graphics_files.hpp"
 #include "extract_apple_2.h"
 
@@ -336,6 +337,12 @@ void update_user_defined_colors(void) {
         return;
     user_selected_foreground = zcolor_map[get_global(fg_global_idx)];
     user_selected_background = zcolor_map[get_global(bg_global_idx)];
+    if (user_selected_foreground == zcolor_Default) {
+        user_selected_foreground = gfgcol;
+    }
+    if (user_selected_background == zcolor_Default) {
+        user_selected_background = gbgcol;
+    }
 }
 
 glui32 rgb_colour_from_index(uint16_t index) {
@@ -769,6 +776,15 @@ void v6_sizewin(Window *win) {
         set_cursor(win->y_cursor, win->x_cursor, win->index);
 }
 
+void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+    win->x_origin = x;
+    win->y_origin = y;
+    win->x_size = width;
+    win->y_size = height;
+    v6_sizewin(win);
+}
+
+
 winid_t v6_new_glk_window(glui32 type, glui32 rock) {
     max_zpos++;
     winid_t result = gli_new_window(type, rock);
@@ -781,11 +797,6 @@ winid_t v6_new_glk_window(glui32 type, glui32 rock) {
             glk_set_echo_line_event(result, 0);
             break;
         case wintype_TextGrid:
-//            if (is_game(Game::ZorkZero)) {
-//                win_maketransparent(result->peer);
-//                glk_request_mouse_event(result);
-//            }
-//            else win_setbgnd(result->peer, user_selected_background);
             break;
         default:
             break;
@@ -828,7 +839,9 @@ void v6_delete_win(Window *win) {
 
 void v6_restore_hacks(void) {
     if (is_game(Game::Journey)) {
-        journey_resize_windows_after_restore();
+        journey_update_after_restore();
+    } else if (is_game(Game::Shogun)) {
+        shogun_update_after_restore();
     }
 }
 
@@ -857,7 +870,7 @@ void v6_remap_win_to_buffer(Window *win) {
     fprintf(stderr, " and creating a new buffer window with peer %d\n", win->id->peer);
     win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
     v6_sizewin(win);
-    glk_stream_set_current(win->id->str);
+    glk_set_window(win->id);
     buffer_win_glk = win->id;
     win->zpos = buffer_zpos;
     glk_set_echo_line_event(win->id, 0);
@@ -892,13 +905,12 @@ void v6_remap_win_to_grid(Window *win) {
 }
 
 
-Window *v6_remap_win_to_graphics(Window *win) {
+void v6_remap_win_to_graphics(Window *win) {
     if (is_game(Game::Shogun) && win == &windows[7]) {
-        return nullptr;
+        return;
     }
-    if (win->id != nullptr) {
-        if (win->id->type == wintype_Graphics)
-            return win;
+    if (win->id != nullptr && win->id->type == wintype_Graphics) {
+        return;
     }
 
     Window *result = win;
@@ -943,7 +955,7 @@ Window *v6_remap_win_to_graphics(Window *win) {
     }
     graphics_win_glk = result->id;
     result->zpos = graphics_zpos;
-    return result;
+    return;
 }
 
 void adjust_image_scale(void) {
@@ -1069,12 +1081,12 @@ static void put_char_base(uint16_t c, bool unicode)
 
             if (curwin->id == nullptr) {
                 v6_remap_win_to_grid(curwin);
-                if (is_game(Game::ZorkZero) && screenmode != MODE_HINTS && curwin == upperwin) {
-                    curwin->x_origin += 3 * letterwidth;
-                    curwin->y_origin += letterheight;
-                    curwin->x_size += 2 * letterwidth;
-//                    win_maketransparent(curwin->id->peer);
-                }
+//                if (is_game(Game::ZorkZero) && screenmode != MODE_HINTS && curwin == upperwin) {
+//                    curwin->x_origin += 3 * letterwidth;
+//                    curwin->y_origin += letterheight;
+//                    curwin->x_size += 2 * letterwidth;
+////                    win_maketransparent(curwin->id->peer);
+//                }
                 v6_sizewin(curwin);
             }
             if (streams.test(STREAM_SCREEN) && curwin->id != nullptr) {
@@ -1906,7 +1918,7 @@ void zerase_window()
             clear_image_buffer();
             if (win != 1) {
                 z0_update_colors();
-                z0_clear_margin_images();
+                clear_margin_image_list();
                 win_refresh(windows[0].id->peer, 0, 0);
                 win_setbgnd(windows[0].id->peer, user_selected_background);
             }
@@ -1920,8 +1932,12 @@ void zerase_window()
         }
     }
 
-    if (is_game(Game::Shogun) && win == 2) {
-        v6_delete_win(&windows[2]);
+    if (is_game(Game::Shogun)) {
+        if (win == 2) {
+            v6_delete_win(&windows[2]);
+        } else if (win <= 0) {
+            clear_margin_image_list();
+        }
     }
 
     switch (as_signed(zargs[0])) {
@@ -2957,6 +2973,8 @@ void window_change(void)
                 journey_update_on_resize();
             } else if (is_game(Game::ZorkZero)) {
                 z0_update_on_resize();
+            } else if (is_game(Game::Shogun)) {
+                shogun_update_on_resize();
             }
         }
 
@@ -3488,7 +3506,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             // Standard.
             if (zversion == 4) {
                 switch (ev.val1) {
-                case keycode_Delete: input.key = ZSCII_DELETE; break;
+                case keycode_Delete: input.key = ZSCII_BACKSPACE; break;
                 case keycode_Return: input.key = ZSCII_NEWLINE; break;
 
                 default:
@@ -3507,7 +3525,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 }
             } else {
                 switch (ev.val1) {
-                case keycode_Delete: input.key = ZSCII_DELETE; break;
+                case keycode_Delete: input.key = ZSCII_BACKSPACE; break;
                 case keycode_Return: input.key = ZSCII_NEWLINE; break;
                 case keycode_Escape: input.key = ZSCII_ESCAPE; break;
                 case keycode_Up:     input.key = ZSCII_UP; break;
@@ -3578,37 +3596,40 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 if (zversion == 6 && ev.win && ev.win->type == wintype_TextGrid) {
                     xmultiplier = letterwidth;
                     ymultiplier = letterheight;
-                    //                    if (is_game(Game::ZorkZero)) {
-                    //                        if (screenmode == MODE_NORMAL) {
-                    //                            xoffset =  0;
-                    //                            if (graphics_type == kGraphicsTypeApple2) {
-                    //                                curwin->last_click_x = -1;
-                    //                                curwin->last_click_y = -1;
-                    //                                yoffset = -3 * imagescaley + ggridmarginy;
-                    //                                xmultiplier = gcellw;
-                    //                                ymultiplier = gcellh;
-                    //                                fprintf(stderr, "yoffset: %hd, xmultiplier: %f, ymultiplier: %f\n", yoffset, xmultiplier, ymultiplier);
-                    //                                fprintf(stderr, "Upperwin y_size: %d\n", upperwin->y_size);
-                    ////                                if (ymultiplier * (float)(ev.val2 + 1) + yoffset > 80)
-                    ////                                    yoffset += 80 - (ymultiplier * (float)(ev.val2 + 1) + yoffset);
-                    //                            }
-                    //                        }
-                    //                }
-                    if (screenmode == MODE_HINTS) {
-                        if (ev.win == mainwin->id) {
-                            yoffset = mainwin->y_origin - letterheight;
-                        }
-                    } else if (screenmode == MODE_DEFINE) {
-                        yoffset = windows[2].y_origin - letterheight + ggridmarginy;
-                        xoffset = windows[2].x_origin - letterwidth + ggridmarginx;
+                    glk_request_mouse_event(ev.win);
+
+                        // We hack the "define" and "hints" code
+                        // to use standard Glk text grid window
+                        // coordinates (i.e. character-based.)
+                        if (screenmode == MODE_DEFINE || screenmode == MODE_HINTS || screenmode == MODE_Z0_GAME || is_game(Game::Shogun)) {
+                            xoffset = 0;
+                            xmultiplier = 1;
+                            ymultiplier = 1;
+
+                            if (screenmode == MODE_HINTS && ev.win == windows[0].id) {
+                                // We add the upper window height if
+                                // click was in the lower window.
+                                yoffset = 3;
+                            } else {
+                                yoffset = 0;
+                            }
                     }
                 }
 
                 if (is_game(Game::ZorkZero)) {
-                    glk_request_mouse_event(current_graphics_buf_win);
-                }
-
-                if (is_game(Game::Arthur) && screenmode == MODE_MAP) {
+                    // We hack the "define" and "hints" code
+                    // to use standard Glk text grid window
+                    // coordinates (i.e. character-based.)
+                    if (screenmode != MODE_DEFINE && screenmode != MODE_HINTS) {
+                        glk_request_mouse_event(current_graphics_buf_win);
+//                        xoffset = -1;
+//                        yoffset = -1;
+                    }
+                    if (screenmode == MODE_HINTS) {
+                        glk_request_mouse_event(windows[0].id);
+                        glk_request_mouse_event(windows[1].id);
+                    }
+                } else if (screenmode == MODE_SHOGUN_MAZE || (is_game(Game::Arthur) && screenmode == MODE_MAP)) {
                     glk_request_mouse_event(graphics_win_glk);
                     xmultiplier = 1 / imagescalex;
                     ymultiplier = 1 / imagescaley;
@@ -3682,6 +3703,10 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             // to the screen after it’s been entered. This will echo it
             // where appropriate, for both canceled and completed input.
             if (curwin->has_echo) {
+                bool transcript_set = (word(0x10) & FLAGS2_TRANSCRIPT) == FLAGS2_TRANSCRIPT;
+
+                store_word(0x10, word(0x10) & ~FLAGS2_TRANSCRIPT);
+
                 glk_set_style(style_Input);
                 for (glui32 i = 0; i < input.len; i++) {
                     xglk_put_char(input.line[i]);
@@ -3691,6 +3716,10 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     xglk_put_char(UNICODE_LINEFEED);
                 }
                 set_current_style();
+                if (transcript_set) {
+                    store_word(0x10, word(0x10) | FLAGS2_TRANSCRIPT);
+
+                }
             }
 
         // If the current window is the upper window, the position of
@@ -3737,7 +3766,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                             screenmode = MODE_ROOM_DESC;
                             break;
                         case ZSCII_F6:
-                            screenmode = MODE_NOGRAPHICS;
+                            screenmode = MODE_NO_GRAPHICS;
                             break;
                         default:
                             break;
@@ -3776,7 +3805,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
         if (line.empty()) {
             input.key = ZSCII_NEWLINE;
-        } else if (line[0] == UNICODE_DELETE) {
+        } else if (line[0] == UNICODE_BACKSPACE) {
             input.key = ZSCII_DELETE;
         } else if (line[0] == UNICODE_ESCAPE) {
             input.key = ZSCII_ESCAPE;
@@ -3833,8 +3862,14 @@ void zread_char()
 
     input.type = Input::Type::Char;
 
+    // Why is this done here?
     if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+        glui32 stored_bg = user_selected_background;
+        if (is_game(Game::ZorkZero) && current_picture == zorkzero_title_image && gli_enable_styles) {
+            user_selected_background = monochrome_black;
+        }
         flush_image_buffer();
+        user_selected_background = stored_bg;
     }
 
 //    if (options.autosave && !in_interrupt()) {
@@ -4317,20 +4352,20 @@ void zcheck_unicode()
     store(res);
 }
 
-static struct {
-    enum Game story_id;
-    glui32 pic;
-    glui32 pic1;
-    glui32 pic2;
-} mapper[] = {
-//    { Game::ZorkZero,  5, 497, 498},
-//    { Game::ZorkZero,  6, 501, 502},
-//    { Game::ZorkZero,  7, 499, 500},
-//    { Game::ZorkZero,  8, 503, 504},
-//    { Game::Arthur,   54, 170, 171},
-    { Game::Shogun,   50,  61,  62},
-    { Game::Infocom1234,   0,   0,   0}
-};
+//static struct {
+//    enum Game story_id;
+//    glui32 pic;
+//    glui32 pic1;
+//    glui32 pic2;
+//} mapper[] = {
+////    { Game::ZorkZero,  5, 497, 498},
+////    { Game::ZorkZero,  6, 501, 502},
+////    { Game::ZorkZero,  7, 499, 500},
+////    { Game::ZorkZero,  8, 503, 504},
+////    { Game::Arthur,   54, 170, 171},
+//    { Game::Shogun,   50,  61,  62},
+//    { Game::Infocom1234,   0,   0,   0}
+//};
 
 // Should picture_data and get_wind_prop be moved to a V6 source file?
 void zpicture_data()
@@ -4356,8 +4391,8 @@ void zpicture_data()
         user_store_word(table + 0, height);
         user_store_word(table + 2, width);
     } else {
-        user_store_word(table + 0, round((float)height * imagescaley));
-        user_store_word(table + 2, round((float)width * imagescalex));
+        user_store_word(table + 0, round(height * imagescaley));
+        user_store_word(table + 2, round(width * imagescalex));
     }
 
     branch_if(avail);
@@ -4369,8 +4404,6 @@ void zdraw_picture()
 {
     glsi32 y = as_signed(zargs[1]);
     glsi32 x = as_signed(zargs[2]);
-
-//    int i;
 
     Window *win = curwin;
 
@@ -4385,107 +4418,15 @@ void zdraw_picture()
     fprintf(stderr, "in window %d\n", curwin->index);
     int width, height;
     current_picture = zargs[0];
-//    extract_palette(pic);
     get_image_size(current_picture, &width, &height);
 
     if (width == 0 && height == 0)
         return;
 
     if (is_game(Game::Arthur)) {
-        // Skip Arthur "sidebars"
-        // We draw them in flush_image_buffer() instead
-        if (current_picture == 170 || current_picture == 171) {
+        if (arthur_display_picture(x, y))
             return;
-        }
-        // Intro "slideshow"
-        if (current_picture >= 1 && current_picture <= 3) {
-            if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
-                current_graphics_buf_win = v6_new_glk_window(wintype_Graphics, 0);
-                glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-                win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-            }
-            screenmode = MODE_SLIDESHOW;
-            glk_request_mouse_event(current_graphics_buf_win);
-            ensure_pixmap(current_graphics_buf_win);
-            if (current_picture == 3) {
-                arthur_intro_timer = true;
-                glk_request_timer_events(500);
-                return;
-            }
-            draw_centered_title_image(current_picture);
-            return;
-        }
-
-        else if (current_graphics_buf_win == nullptr) {
-            current_graphics_buf_win = graphics_win_glk;
-        }
-
-
-        // Room images
-        if (is_arthur_room_image(current_picture) || is_arthur_stamp_image(current_picture)) { // Pictures 106-149 are map images
-            screenmode = MODE_NORMAL;
-            ensure_pixmap(current_graphics_buf_win);
-            draw_arthur_room_image(current_picture);
-            return;
-        } else if (is_arthur_map_image(current_picture)) {
-            screenmode = MODE_MAP;
-            if (current_picture == 137) {// map background
-                glk_request_mouse_event(graphics_win_glk);
-            }
-            else {
-                draw_arthur_map_image(current_picture, x, y);
-                return;
-            }
-        } else if (current_picture == 54) { // Border image, drawn in flush_image_buffer()
-            screenmode = MODE_NORMAL;
-            if (arthur_intro_timer) {
-                arthur_intro_timer = 0;
-                glk_request_timer_events(0);
-            }
-//            if (graphics_type == kGraphicsTypeApple2) // Except if Apple 2
-//                draw_to_buffer(current_graphics_buf_win, pic, 0, 0);
-            return;
-        }
-
-        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
-        return;
-    }
-
-    /* The following is necessary to make Amiga and Macintosh story
-     files work with MCGA graphics files.  Some screen-filling
-     pictures of the original Amiga release like the borders of
-     Zork Zero were split into several MCGA pictures (left, right
-     and top borders).  We pretend this has not happened. */
-
-    // Currently only used for Shogun
-
-    if (graphics_type == kGraphicsTypeVGA || kGraphicsTypeEGA) {
-        for (int i = 0; mapper[i].story_id != Game::Infocom1234; i++) {
-            if (is_game(mapper[i].story_id) && current_picture == mapper[i].pic) {
-//                if (mapper[i].story_id == Game::ZorkZero) {
-//                    if (picture == 8) {
-//                        screenmode = MODE_HINTS;
-//                        windows[7].id = nullptr;
-//                        glk_request_mouse_event(upperwin->id);
-//                    } else {
-//                        screenmode = MODE_NORMAL;
-//                    }
-//                }
-                if (current_graphics_buf_win && current_graphics_buf_win != graphics_win_glk) {
-                    v6_delete_glk_win(current_graphics_buf_win);
-                }
-                current_graphics_buf_win = graphics_win_glk;
-                int ypos = height * imagescaley;
-                draw_to_buffer(current_graphics_buf_win, mapper[i].pic1, 0, ypos);
-                int w;
-                get_image_size(mapper[i].pic2, &w, nullptr);
-                draw_to_buffer(current_graphics_buf_win, mapper[i].pic2, gscreenw - (w + 2) * imagescaley, ypos);
-                break;
-            }
-        }
-    }
-
-    if (is_game(Game::Journey)) {
+    } else if (is_game(Game::Journey)) {
         if (win->id && win->id->type != wintype_Graphics) {
             v6_delete_win(win);
         }
@@ -4499,199 +4440,17 @@ void zdraw_picture()
             draw_inline_image(win->id, current_picture, x, y, scale, false);
         }
         return;
-    }
-
-    if (is_game(Game::Shogun)) {
-        if (current_picture == 1) {
-            win->id = v6_new_glk_window(wintype_Graphics, 0);
-            win->x_size = gscreenw;
-            win->y_size = gscreenh;
-            v6_sizewin(win);
-            win->zpos = max_zpos++;
-            float scale = gscreenw / ((float)width * pixelwidth);
-            int ypos = gscreenh - height * scale + 1 + 2 * (graphics_type == kGraphicsTypeMacBW);
-            glk_window_set_background_color(win->id, 0xffffff);
-            glk_window_clear(win->id);
-            draw_inline_image(win->id, current_picture, 0, ypos, scale, false);
-            screenmode = MODE_SLIDESHOW;
-            glk_request_mouse_event(win->id);
+    } else if (is_game(Game::Shogun)) {
+        if (current_picture == kShogunTitleImage) {
+            shogun_draw_title_image();
             return;
         }
-
-        if ((current_picture == 4 || current_picture == 50) && graphics_type == kGraphicsTypeApple2) {
-            v6_delete_win(&windows[7]);
-            v6_delete_win(&windows[6]);
-            v6_delete_win(win);
-            win->id = v6_new_glk_window(wintype_Graphics, 0);
-            float scale = gscreenw / ((float)width * pixelwidth);
-            win->x_size = width * scale * pixelwidth;
-            win->y_size = height * scale;
-            a2_graphical_banner_height = win->y_size;
-            fprintf(stderr, "Shogun: set a2_graphical_banner_height to %d\n", a2_graphical_banner_height);
-            if (current_picture == 50) {
-                fprintf(stderr, "Shogun drawing image 50 at hints screen. Adjust windows again\n");
-                upperwin->y_size = 3 * letterheight;
-                windows[7].y_origin = upperwin->y_size + 1;
-                mainwin->y_origin = win->y_origin + win->y_size;
-                mainwin->y_size = gscreenh - mainwin->y_origin;
-                v6_sizewin(upperwin);
-                v6_sizewin(mainwin);
-            }
-            v6_sizewin(win);
-            win->zpos = max_zpos++;
-            draw_inline_image(win->id, current_picture, 0, 0, scale, false);
-//            if (pic == 4) {
-//                adjust_shogun_window();
-//            }
-            graphics_zpos = -1;
+        if (win->index == 0) {
+            shogun_display_inline_image(x < width ? imagealign_MarginLeft : imagealign_MarginRight);
             return;
         }
-
-        if (is_shogun_border_image(current_picture)) {
-//            if (screenmode != MODE_NORMAL)
-            if (current_graphics_buf_win && current_graphics_buf_win != graphics_win_glk) {
-                v6_delete_glk_win(current_graphics_buf_win);
-            }
-            current_graphics_buf_win = graphics_win_glk;
-            win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
-//            screenmode = MODE_NORMAL;
-            clear_image_buffer();
-            glk_window_clear(graphics_win_glk);
-
-
-            if (graphics_type != kGraphicsTypeApple2) {
-                if (graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeAmiga) {
-                    float scale = (float)gscreenw / ((float)width);
-                    draw_inline_image(graphics_win_glk, current_picture, 0, 0, scale, false);
-                    if (current_picture == 3) {
-                        if (graphics_type == kGraphicsTypeMacBW) {
-                            draw_inline_image(graphics_win_glk, current_picture, 0, height * scale, scale, true);
-                            shogun_graphical_banner_width_left = scale * 44;
-                            shogun_graphical_banner_width_right = scale * 45;
-                        } else {
-                            draw_inline_image(graphics_win_glk, current_picture, 0, (height - 2) * scale, scale, true);
-                            shogun_graphical_banner_width_left = scale * 23.4;
-                            shogun_graphical_banner_width_right = scale * 22.6;
-                        }
-                    }
-                    adjust_shogun_window();
-                    return;
-                } else {
-                    if (current_picture == 59)
-                        return;
-                    if (current_picture == 3) {
-                        float scaledwidth = (float)width * imagescalex;
-                        shogun_graphical_banner_width_left = scaledwidth + imagescalex;
-                        shogun_graphical_banner_width_right = scaledwidth + imagescalex;
-                        int ypos = height * imagescaley;
-                        if (graphics_type == kGraphicsTypeCGA)
-                            ypos -= 5 * imagescaley;
-                        draw_inline_image(graphics_win_glk, 59, gscreenw - scaledwidth + imagescalex, 0, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 59, 0, ypos - imagescaley * 2, imagescaley * 1.05, true);
-                        draw_inline_image(graphics_win_glk, 3, 0, 0, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 3, gscreenw - scaledwidth + imagescalex, ypos, imagescaley, true);
-                    } if (current_picture == 50) {
-                        draw_inline_image(graphics_win_glk, 50, 0, 0, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 61, 0, height * imagescaley, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 61, 0, (height + 160) * imagescaley, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 62, gscreenw - 57 * imagescalex, height * imagescaley, imagescaley, false);
-                        draw_inline_image(graphics_win_glk, 62, gscreenw - 57 * imagescalex, (height + 161) * imagescaley, imagescaley, false);
-                    } else {
-                        draw_inline_image(graphics_win_glk, current_picture, x, y, imagescaley, false);
-                    }
-                    adjust_shogun_window();
-                    return;
-                }
-            } else {
-                float scale = gscreenw / ((float)width * pixelwidth);
-                a2_graphical_banner_height = height * scale;
-                if (current_picture == 3) {
-                    draw_inline_image(graphics_win_glk, current_picture, 0, 0, scale, false);
-                    draw_inline_image(graphics_win_glk, current_picture, 0, gscreenh - height * scale, scale, false);
-                }
-
-            }
-            return;
-
-
-        } else if (win == &windows[6]) {
-            // The original interpreter draws Shogun inline images to window 6,
-            // so we redirect them to the main text buffer window here.
-            win = mainwin;
-        }
-    }
-
-    if (is_game(Game::ZorkZero)) {
-
-        if (current_picture == zorkzero_title_image || current_picture == zorkzero_encyclopaedia_border || current_picture == zorkzero_map_border || (is_zorkzero_rebus_image(current_picture) && screenmode == MODE_NORMAL)) {
-
-            // Removes extra graphics window that appears after resizing map?
-            if (win->id != nullptr && win->id != graphics_win_glk) {
-                v6_delete_glk_win(win->id);
-            }
-
-            win->id = v6_new_glk_window(wintype_Graphics, 0);
-            win->x_origin = 1;
-            win->y_origin = 1;
-            win->x_size = gscreenw;
-            win->y_size = gscreenh;
-            v6_sizewin(win);
-            win->zpos = max_zpos;
-            if (current_picture == 1 || graphics_type == kGraphicsTypeApple2) {
-                draw_to_buffer(win->id, current_picture, 0, 0);
-                glk_window_set_background_color(win->id, 0);
-                glk_window_clear(win->id);
-            }
-
-            screenmode = MODE_MAP;
-            current_graphics_buf_win = win->id;
-            glk_request_mouse_event(win->id);
-        }
-
-//        if (is_zorkzero_border_image(picture)) {
-//            if (screenmode != MODE_NORMAL && windows[7].id && windows[7].id->type == wintype_Graphics) {
-//                v6_delete_win(&windows[7]);
-//                current_graphics_buf_win = graphics_win_glk;
-//            }
-//            screenmode = MODE_NORMAL;
-//            glk_request_mouse_event(current_graphics_buf_win);
-//        }
-        glk_request_mouse_event(current_graphics_buf_win);
-        if (is_zorkzero_game_bg(current_picture)) {
-            screenmode = MODE_Z0GAME;
-            upperwin->y_origin += imagescaley * 2;
-            v6_sizewin(upperwin);
-            mainwin->y_size = imagescaley * 75;
-            if (current_picture == 99)
-                mainwin->y_size = imagescaley * 49;
-            v6_sizewin(mainwin);
-            glk_cancel_line_event(mainwin->id, nullptr);
-        }
-        if (!win->id || win->id->type != wintype_TextBuffer) {
-            if (current_graphics_buf_win == nullptr)
-                current_graphics_buf_win = graphics_win_glk;
-            draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
-//            if (screenmode == MODE_NORMAL && graphics_type != kGraphicsTypeApple2)
-//                adjust_zork0();
-            return;
-        }
-    }
-
-    if (width <= 130 && height <= 72 &&
-        ((win->id == nullptr || win->id->type == wintype_TextGrid || (win->id->type == wintype_TextBuffer && !(is_game(Game::Shogun)) && x > width)))) {
-        if (win->id != nullptr) {
-            if (win->id->type == wintype_TextGrid)
-                fprintf(stderr, "Trying to draw picture in text grid. ");
-            else
-                fprintf(stderr, "Trying to draw picture in text buffer. ");
-        }
-        fprintf(stderr, "Remapping to graphics window.\n");
-//        if (!is_game(Game::Journey)) {
-//            win->x_origin = win->y_origin = 1;
-//            win->x_size = gscreenw;
-//            win->y_size = gscreenh;
-//        }
-        win = v6_remap_win_to_graphics(curwin);
+    } else if (is_game(Game::ZorkZero) && z0_display_picture(x, y, win)) {
+        return;
     }
 
     if (!win->id)
@@ -4700,17 +4459,7 @@ void zdraw_picture()
     if (!win->id)
         return;
 
-    if (win->id->type == wintype_TextBuffer) {
-        if (!is_game(Game::Shogun))
-            pending_flowbreak = true;
-        float inline_scale = 2.0;
-        if (graphics_type == kGraphicsTypeMacBW)
-            inline_scale = imagescalex;
-        draw_inline_image(win->id, current_picture , x < width ? imagealign_MarginLeft : imagealign_MarginRight, current_picture, inline_scale, false);
-        z0_add_margin_image(current_picture);
-    }  else {
-        draw_inline_image(win->id, current_picture, x, y, imagescalex, false);
-    }
+    draw_inline_image(win->id, current_picture, x, y, imagescaley, false);
 }
 
 void zerase_picture() {
@@ -4751,13 +4500,6 @@ void zget_wind_prop()
                     break;
                 }
 
-//                if (is_game(Game::Journey) && win == &windows[1]) {
-//                    unsigned int w, h;
-//                    get_screen_size(w, h);
-//                    val = h * letterheight;
-//                    break;
-//                }
-
                 glui32 h;
                 glk_window_get_size(win->id, NULL, &h);
                 val = h * letterheight;
@@ -4769,10 +4511,6 @@ void zget_wind_prop()
                 glui32 w;
                 glk_window_get_size(win->id, &w, NULL);
                 val = w * letterwidth; //(w + 2) * font_width;
-//                if (is_game(Game::Journey) && win == &windows[1]) {
-//                    val = gscreenw;
-//                    break;
-//                }
             } else {
                 val = win->x_size;
             }
@@ -5532,7 +5270,7 @@ void init_screen(bool first_run)
     user_selected_foreground = gfgcol;
     user_selected_background = gbgcol;
 
-    if (gli_z6_colorize) {
+    if (gli_z6_colorize && (gli_z6_graphics == kGraphicsTypeMacBW || gli_z6_graphics == kGraphicsTypeCGA)) {
         monochrome_black = darkest(gfgcol, gbgcol);
         monochrome_white = brightest(gfgcol, gbgcol);
     }
@@ -5580,14 +5318,6 @@ void init_screen(bool first_run)
             glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
             glk_stylehint_clear(wintype_TextBuffer, style_User1, stylehint_Proportional);
             glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Proportional);
-
-            glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
-            glk_stylehint_set(wintype_TextGrid, style_User2, stylehint_ReverseColor, 1);
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
-
-            glk_stylehint_set(wintype_TextGrid, style_Emphasized, stylehint_ReverseColor, 1);
-
-
         }
 
         if (graphics_type == kGraphicsTypeAmiga) {
@@ -5640,7 +5370,7 @@ void init_screen(bool first_run)
             graphics_win_glk->bbox.x1 = gscreenw;
             graphics_win_glk->bbox.y1 = gscreenh;
             mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
-            glk_set_echo_line_event(mainwin->id, 0);
+//            glk_set_echo_line_event(mainwin->id, 0);
             v6_sizewin(mainwin);
 
         } else if (first_run) { // Only runs if this is Journey
@@ -5676,6 +5406,11 @@ void init_screen(bool first_run)
         } else {
             screenmode = MODE_NORMAL;
         }
+
+        if (is_game(Game::ZorkZero)) {
+            z0_update_colors();
+        }
+
     }
 
 #ifdef ZTERP_GLK
@@ -5716,7 +5451,7 @@ void init_screen(bool first_run)
     stream_tables.clear();
 
     set_current_window(mainwin);
-    glk_set_echo_line_event(mainwin->id, 0);
+//    glk_set_echo_line_event(mainwin->id, 0);
 }
 
 #ifdef SPATTERLIGHT

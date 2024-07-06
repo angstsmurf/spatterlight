@@ -31,6 +31,7 @@ uint16_t internal_call(uint16_t routine);
 uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg);
 uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2);
 uint16_t internal_call_with_3_args(uint16_t routine, uint16_t arg1, uint16_t arg2, uint16_t arg3);
+uint16_t internal_arg_count(void);
 #endif
 void do_return(uint16_t retval);
 
@@ -45,6 +46,8 @@ enum class SaveOpcode {
     Read = 0,
     ReadChar = 1,
 };
+
+bool super_hacky_shogun_menu_save(SaveType savetype, SaveOpcode saveopcode);
 
 bool do_save(SaveType savetype, SaveOpcode saveopcode);
 bool do_restore(SaveType savetype, SaveOpcode &saveopcode);
