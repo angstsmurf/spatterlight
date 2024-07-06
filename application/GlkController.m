@@ -3667,9 +3667,10 @@ static const char *msgnames[] = {
         case REFRESH:
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = _bufferStyleHints;
-                [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
-                [reqWin prefsDidChange];
+                if (req->a2 > 0)
+                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             }
+            [reqWin prefsDidChange];
             break;
 
         case MENUITEM: {
