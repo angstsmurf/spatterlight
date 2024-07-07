@@ -721,10 +721,6 @@ void v6_sizewin(Window *win) {
     if (win->id == nullptr)
         return;
 
-    if (is_game(Game::Shogun) && screenmode == MODE_CREDITS && win == &windows[7]) {
-        return;
-    }
-
     fprintf(stderr, "v6sizewin: resizing window %d of type ", win->index);
     switch(win->id->type) {
         case wintype_Graphics:
@@ -847,27 +843,13 @@ void v6_restore_hacks(void) {
 
 void v6_remap_win_to_buffer(Window *win) {
 
-    if (is_game(Game::Shogun) && win == &windows[7]) {
-        return;
-    }
-
     if (win->id && win->id->type == wintype_TextBuffer) {
         return;
     }
 
-//    if (buffer_win_glk) {
-//        win->id = buffer_win_glk;
-//        if(is_win_covered(win, buffer_zpos)) {
-//            fprintf(stderr, "Window is covered by another window. Re-creating it in front\n");
-//            v6_delete_win(win);
-//            win->id = v6_new_glk_window(wintype_TextBuffer, 0);
-//        }
-//    } else {
-        win->id = v6_new_glk_window(wintype_TextBuffer);
-//    }
+    win->id = v6_new_glk_window(wintype_TextBuffer);
 
-    //    glk_request_char_event_uni(win->id);
-    fprintf(stderr, " and creating a new buffer window with peer %d\n", win->id->peer);
+    fprintf(stderr, "Creating a new buffer window with peer %d\n", win->id->peer);
     win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
     v6_sizewin(win);
     glk_set_window(win->id);
@@ -906,9 +888,6 @@ void v6_remap_win_to_grid(Window *win) {
 
 
 void v6_remap_win_to_graphics(Window *win) {
-    if (is_game(Game::Shogun) && win == &windows[7]) {
-        return;
-    }
     if (win->id != nullptr && win->id->type == wintype_Graphics) {
         return;
     }
@@ -1081,12 +1060,6 @@ static void put_char_base(uint16_t c, bool unicode)
 
             if (curwin->id == nullptr) {
                 v6_remap_win_to_grid(curwin);
-//                if (is_game(Game::ZorkZero) && screenmode != MODE_HINTS && curwin == upperwin) {
-//                    curwin->x_origin += 3 * letterwidth;
-//                    curwin->y_origin += letterheight;
-//                    curwin->x_size += 2 * letterwidth;
-////                    win_maketransparent(curwin->id->peer);
-//                }
                 v6_sizewin(curwin);
             }
             if (streams.test(STREAM_SCREEN) && curwin->id != nullptr) {
@@ -1603,49 +1576,6 @@ void close_upper_window()
 //Provide screen size in character cells (as in text grid windows).
 void get_screen_size(unsigned int &width, unsigned int &height)
 {
-//#ifdef ZTERP_GLK
-//    glui32 w, h;
-
-    // The main window can be proportional, and if so, its width is not
-    // generally useful because games tend to care about width with a
-    // fixed font. If a status window is available, or if an upper window
-    // is available, use that to calculate the width, because these
-    // windows will have a fixed-width font. The height is the combined
-    // height of all windows.
-//    glk_window_get_size(mainwin->id, &w, &h);
-//    height = h;
-//    if (statuswin.id != nullptr) {
-//        glk_window_get_size(statuswin.id, &w, &h);
-//        height += h;
-//    }
-//    if (upperwin->id != nullptr) {
-//        glk_window_get_size(upperwin->id, &w, &h);
-//        height += h;
-//    }
-//    width = w;
-//#else
-//    std::tie(width, height) = zterp_os_get_screen_size();
-//#endif
-//
-//    // XGlk does not report the size of textbuffer windows, and
-//    // zterp_os_get_screen_size() may not be able to get the screen
-//    // size, so use reasonable defaults in those cases.
-//    if (width == 0) {
-//        width = 80;
-//    }
-//    if (height == 0) {
-//        height = 24;
-//    }
-//
-//    // Terrible hack: Because V6 is not properly supported, the window to
-//    // which Journey writes its story is completely covered up by window
-//    // 1. For the same reason, only the bottom 6 lines of window 1 are
-//    // actually useful, even though the game expands it to cover the whole
-//    // screen. By pretending that the screen height is only 6, the main
-//    // window, where text is actually sent, becomes visible.
-//    if (is_game(Game::Journey) && height > 6) {
-//        height = 6;
-//    }
     fprintf(stderr, "(Creating dummy window to measure width)\n");
     winid_t dummywin = gli_new_window(wintype_TextGrid, 0);
     dummywin->bbox.x0 = 0;
@@ -1925,13 +1855,6 @@ void zerase_window()
         }
     }
 
-    if (win == 0 && screenmode == MODE_HINTS ) {
-//        clear_window(upperwin);
-        if (is_game(Game::ZorkZero) && graphics_type != kGraphicsTypeApple2) {
-            v6_delete_win(&windows[7]);
-        }
-    }
-
     if (is_game(Game::Shogun)) {
         if (win == 2) {
             v6_delete_win(&windows[2]);
@@ -1956,20 +1879,16 @@ void zerase_window()
         break;
     case -1:
             // unsplits the screen and clears the lot
-//            close_upper_window();
         // fallthrough
             clear_image_buffer();
             for (auto &window : windows) {
                 clear_window(&window);
             }
-//            clear_window(&windows[0]);
-//            clear_window(&windows[1]);
+
             for (int i = 2; i < 8; i++) {
                 Window *win = &windows[i];
                 win->x_origin = 1;
                 win->y_origin = 1;
-//                win->x_size = 0;
-//                win->y_size = 0;
                 if (win->id != nullptr &&
                     !((is_game(Game::Arthur) || is_game(Game::ZorkZero) || is_game(Game::Shogun)) && i == 7)) {
                     v6_delete_glk_win(win->id);
@@ -2034,10 +1953,7 @@ void zerase_line()
     uint16_t chars = pixels / letterwidth;
     glui32 width;
     glk_window_get_size(curwin->id, &width, NULL);
-//    if (is_game(Game::Journey) && options.int_number == INTERP_AMIGA) {
-//        width -= 4;
-//        chars = pixels / gcellw;
-//    }
+
     if ((curwin->x_cursor - 1) / gcellw + chars > width) {
         chars = width - ((curwin->x_cursor - 1) / gcellw);
     }
@@ -2254,17 +2170,8 @@ void zset_colour()
             }
         }
 
-//        if (is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
         if (is_game(Game::Shogun)) {
-            if (screenmode == MODE_DEFINE && is_game(Game::ZorkZero)) {
-                if (fg == 9 && bg == 2) {
-                    fg = get_global((bg_global_idx));
-                    bg = get_global((fg_global_idx));
-                } else {
-                    fg = get_global((fg_global_idx));
-                    bg = get_global((bg_global_idx));
-                }
-            } else if (win == mainwin) {
+            if (win == mainwin) {
                 fg = get_global((fg_global_idx));
                 bg = get_global((bg_global_idx));
             } else if (win == upperwin && screenmode == MODE_HINTS && graphics_type == kGraphicsTypeCGA) {
@@ -2361,26 +2268,6 @@ void zmove_window()
         win->y_size = 1;
     if (win->x_size == 0)
         win->x_size = 1;
-//    if (is_game(Game::Shogun) && screenmode == MODE_HINTS && win == mainwin) {
-//        win->y_origin += letterheight;
-////        win->y_size = gscreenh - win->y_origin;
-//    }
-//    int width = win->x_size;
-//    int height = win->y_size;
-
-//    if (win == curwin)
-//        update_cursor();
-
-//    glui32 text_color, background_color;
-//    if (win->id && glk_style_measure(win->id, style_Normal, stylehint_TextColor, &text_color) && text_color != zcolor_Default && text_color != zcolor_Current) {
-//        win->fg_color = Color(Color::Mode::True, screen_convert_colour_to_15_bit(text_color));
-//    }
-//    if (win->id && glk_style_measure(win->id, style_Normal, stylehint_BackColor, &background_color) && background_color != zcolor_Default && background_color != zcolor_Current) {
-//        win->bg_color = Color(Color::Mode::True, screen_convert_colour_to_15_bit(background_color));
-//    }
-
-//    win->fg_color = Color(Color::Mode::True, screen_convert_colour_to_15_bit(user_selected_foreground));
-//    win->bg_color = Color(Color::Mode::True, screen_convert_colour_to_15_bit(user_selected_background));
 
     if (win->id != nullptr)
         v6_sizewin(win);
@@ -2435,15 +2322,12 @@ void zwindow_size()
         win->id = nullptr;
         if (win == upperwin) {
             v6_remap_win_to_grid(win);
-//            set_current_style();
         } else {
             win->id = v6_new_glk_window(type);
             win->zpos = max_zpos;
-//            set_current_style();
         }
     }
 
-//    if (is_game(Game::Shogun) && screenmode == MODE_HINTS && win == upperwin && graphics_type == kGraphicsTypeMacBW) {
     if (screenmode == MODE_HINTS && win == upperwin) {
         upperwin->y_size = 3 * gcellh + 2 * ggridmarginy;
     }
@@ -2509,9 +2393,6 @@ void zset_text_style()
         selected_journey_column = 0;
         if (xpos == get_global(0x28) - 1)
             selected_journey_column = 1;
-        fprintf(stderr, "CHR-COMMAND-COLUMN is global 0x28 (0x%x) (%d)\n", get_global(0x28), get_global(0x28));
-        fprintf(stderr, "COMMAND-OBJECT-COLUMN is global 0xb0 (0x%x) (%d)\n", get_global(0xb0), get_global(0xb0));
-        fprintf(stderr, "COMMAND-WIDTH is global 0xb8 (0x%x) (%d)\n", get_global(0xb8), get_global(0xb8));
         if (xpos == get_global(0x28) + get_global(0xb8) - 1)
             selected_journey_column = 2;
         if (xpos == get_global(0xb0) + get_global(0xb8) - 1)
@@ -2548,7 +2429,6 @@ void zset_text_style()
         history.add_style();
     }
 
-//    if (is_game(Game::ZorkZero) && screenmode == MODE_HINTS && zargs[0] < 2) {
     if (zargs[0] < 2) {
         garglk_set_reversevideo(zargs[0]);
     }
@@ -2598,15 +2478,6 @@ void zprint_table()
 
 #ifdef ZTERP_GLK
     uint16_t start = 0; // initialize to appease g++
-
-//    if (is_game(Game::Shogun) && curwin->id != nullptr && curwin->id->type == wintype_TextGrid && is_win_covered(curwin, curwin->zpos)) {
-//        v6_delete_glk_win(curwin->id);
-////        curwin->x_size += 2 * letterwidth;
-//    }
-//
-//    if (is_game(Game::Shogun) && curwin == &windows[7]) {
-//        curwin = mainwin;
-//    }
 
     if (curwin->id == NULL || (curwin == upperwin && curwin->id->type != wintype_TextGrid)) {
         v6_remap_win_to_grid(curwin);
@@ -3597,8 +3468,6 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     // coordinates (i.e. character-based.)
                     if (screenmode != MODE_DEFINE && screenmode != MODE_HINTS) {
                         glk_request_mouse_event(current_graphics_buf_win);
-//                        xoffset = -1;
-//                        yoffset = -1;
                     }
                     if (screenmode == MODE_HINTS) {
                         glk_request_mouse_event(windows[0].id);
@@ -4469,12 +4338,6 @@ void zget_wind_prop()
         break;
     case 2:  // y size
             if (win->id && win->id->type == wintype_TextGrid) {
-
-                if (is_game(Game::Shogun) && screenmode == MODE_CREDITS && win == &windows[7]) {
-                    val = gscreenh;
-                    break;
-                }
-
                 glui32 h;
                 glk_window_get_size(win->id, NULL, &h);
                 val = h * letterheight;

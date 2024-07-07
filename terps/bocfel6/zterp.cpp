@@ -589,28 +589,11 @@ void update_header_with_new_size(void) {
         store_byte(0x2c, SPATTERLIGHT_CURRENT_BACKGROUND);
         store_byte(0x2d, SPATTERLIGHT_CURRENT_FOREGROUND);
     } else if (zversion == 6) {
-
+        
         // Screen width and height in pixels.
-//       if (is_game(Game::Journey)) {
-//
-//           width = width * letterwidth;
-//           if (options.int_number == INTERP_MACINTOSH) {
-//               height = (height * letterheight) * (letterheight / gcellh);
-//           } else {
-//               height = height * letterheight;
-//           }
-//        //            width = width * letterwidth;
-//        //            fprintf(stderr, "Journey: screen width in pixels: %d\nSCREEN-WIDTH: %d COMMAND-WIDTH: %d\n", width, width / letterwidth, (width / letterwidth) / 5);
-//        //            fprintf(stderr, "Journey: screen height in characters: %d\n", height);
-//        //            height = gscreenh;
-//        //
-//        //            fprintf(stderr, "Journey: screen height in pixels: %d\nSCREEN-HEIGHT: %d COMMAND-START-LINE: %d gcellh:%f SCREEN-HEIGHT * gcellh: %f\n", height, height / letterheight, height / letterheight - (options.int_number == INTERP_AMIGA ? 5 : 4), gcellh, (float)(height / letterheight) * gcellh);
-//
-//       } else {
-           width = gscreenw;
-           height = gscreenh;
-//       }
-
+        width = gscreenw;
+        height = gscreenh;
+        
         store_word(0x22, width > UINT16_MAX ? UINT16_MAX : width);
         store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
 
