@@ -1384,9 +1384,7 @@ static void journey_adjust_windows(bool restoring) {
         JOURNEY_BG_GRID.id = v6_new_glk_window(wintype_TextGrid);
     }
 
-    JOURNEY_BG_GRID.x_size = gscreenw;
-    JOURNEY_BG_GRID.y_size = gscreenh;
-    v6_sizewin(&JOURNEY_BG_GRID);
+    v6_define_window(&JOURNEY_BG_GRID, 1, 1, gscreenw, gscreenh);
 
     JOURNEY_BG_GRID.style.reset(STYLE_REVERSE);
 
