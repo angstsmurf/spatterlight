@@ -330,9 +330,8 @@ static uint16_t input_line = 0;
 static uint16_t input_table = 0;
 
 void move_v6_cursor(int column, int line) {
-//    set_cursor(line * letterheight, column * letterwidth, 1);
-    JOURNEY_BG_GRID.x_cursor = line * letterheight;
-    JOURNEY_BG_GRID.y_cursor = column * letterwidth;
+    JOURNEY_BG_GRID.x_cursor = column * letterwidth;
+    JOURNEY_BG_GRID.y_cursor = line * letterheight;
 
     if (column <= 1)
         column = 0;
