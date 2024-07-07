@@ -427,7 +427,7 @@ void z0_resize_status_windows(void) {
 //    }
 
     if (z0_left_status_window == nullptr) {
-        z0_left_status_window = v6_new_glk_window(wintype_TextGrid, 0);
+        z0_left_status_window = v6_new_glk_window(wintype_TextGrid);
         fprintf(stderr, "z0_resize_status_windows: creating a new left status window with peer %d\n", z0_left_status_window->peer);
         if (BORDER_ON)
             win_maketransparent(z0_left_status_window->peer);
@@ -482,7 +482,7 @@ void z0_resize_status_windows(void) {
     }
 
     if (z0_right_status_window == nullptr) {
-        z0_right_status_window = v6_new_glk_window(wintype_TextGrid, 0);
+        z0_right_status_window = v6_new_glk_window(wintype_TextGrid);
         fprintf(stderr, "z0_resize_status_windows: creating a new right status window with peer %d\n", z0_right_status_window->peer);
         win_maketransparent(z0_right_status_window->peer);
     }
@@ -813,7 +813,7 @@ void fanucci_window(int index, int x, int y, int num_chars) {
     }
 
     if (win->id == nullptr) {
-        win->id = v6_new_glk_window(wintype_TextGrid, 0);
+        win->id = v6_new_glk_window(wintype_TextGrid);
     }
     win_maketransparent(win->id->peer);
     v6_sizewin(win);
@@ -1155,7 +1155,7 @@ void redraw_fanucci(void) {
     glk_put_string(const_cast<char*>("Jester's Score:  000"));
 
     if (z0_right_status_window == nullptr) {
-        z0_right_status_window = v6_new_glk_window(wintype_TextGrid, 0);
+        z0_right_status_window = v6_new_glk_window(wintype_TextGrid);
     }
 
     win_sizewin(z0_right_status_window->peer, MAX(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0), y, gscreenw - x, y + V6_STATUS_WINDOW.y_size);
@@ -1210,7 +1210,7 @@ void redraw_fanucci(void) {
 
     // And a separate grid window for the commands
     if (fanucci_command_grid == nullptr)
-        fanucci_command_grid = v6_new_glk_window(wintype_TextGrid, 0);
+        fanucci_command_grid = v6_new_glk_window(wintype_TextGrid);
 
     win_maketransparent(fanucci_command_grid->peer);
 
@@ -1891,7 +1891,7 @@ bool z0_display_picture(int x, int y, Window *win) {
         }
 
         if (win->id == nullptr)
-            win->id = v6_new_glk_window(wintype_Graphics, 0);
+            win->id = v6_new_glk_window(wintype_Graphics);
         v6_define_window(win, 1, 1, gscreenw, gscreenh);
 
         current_graphics_buf_win = win->id;
@@ -1902,7 +1902,7 @@ bool z0_display_picture(int x, int y, Window *win) {
         else
             screenmode = MODE_SLIDESHOW;
         if (current_picture == zorkzero_encyclopedia_border) {
-            windows[3].id = v6_new_glk_window(wintype_TextBuffer, 0);
+            windows[3].id = v6_new_glk_window(wintype_TextBuffer);
             win_setbgnd(windows[3].id->peer, encyclopedia_background_color());
         }
     }

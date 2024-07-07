@@ -223,7 +223,7 @@ struct Window {
 
 void v6_sizewin(Window *win);
 void v6_delete_win(Window *win);
-winid_t v6_new_glk_window(glui32 type, glui32 rock);
+winid_t v6_new_glk_window(glui32 type);
 void set_cursor(uint16_t y, uint16_t x, uint16_t winid);
 void set_current_window(Window *window);
 void window_change(void);

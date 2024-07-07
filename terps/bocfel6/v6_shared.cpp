@@ -321,7 +321,7 @@ void V_DEFINE(void) {
     Window *win = &DEFINE_GRID_WINDOW;
 
     if (win->id == nullptr) {
-        win->id = v6_new_glk_window(wintype_TextGrid, 0);
+        win->id = v6_new_glk_window(wintype_TextGrid);
     }
 
     winid_t gwin = win->id;

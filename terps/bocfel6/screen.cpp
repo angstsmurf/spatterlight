@@ -785,9 +785,9 @@ void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint1
 }
 
 
-winid_t v6_new_glk_window(glui32 type, glui32 rock) {
+winid_t v6_new_glk_window(glui32 type) {
     max_zpos++;
-    winid_t result = gli_new_window(type, rock);
+    winid_t result = gli_new_window(type, 0);
     switch (type) {
         case wintype_Graphics:
             graphics_zpos = max_zpos;
@@ -863,7 +863,7 @@ void v6_remap_win_to_buffer(Window *win) {
 //            win->id = v6_new_glk_window(wintype_TextBuffer, 0);
 //        }
 //    } else {
-        win->id = v6_new_glk_window(wintype_TextBuffer, 0);
+        win->id = v6_new_glk_window(wintype_TextBuffer);
 //    }
 
     //    glk_request_char_event_uni(win->id);
@@ -885,7 +885,7 @@ void v6_remap_win_to_grid(Window *win) {
             return;
     }
 
-    win->id = v6_new_glk_window(wintype_TextGrid, 0);
+    win->id = v6_new_glk_window(wintype_TextGrid);
     fprintf(stderr, " and creating a new grid window with peer %d\n", win->id->peer);
     if (win == upperwin && is_game(Game::Arthur))
         win->style.set(STYLE_REVERSE);
@@ -921,7 +921,7 @@ void v6_remap_win_to_graphics(Window *win) {
     target_win = graphics_win_glk;
 
     if (!target_win) {
-        result->id = v6_new_glk_window(wintype_Graphics, 0);
+        result->id = v6_new_glk_window(wintype_Graphics);
         if (result->id != nullptr) {
             recreated = true;
             fprintf(stderr, " and creating a new graphics window with peer %d\n", win->id->peer);
@@ -938,7 +938,7 @@ void v6_remap_win_to_graphics(Window *win) {
         if (charevent)
             glk_cancel_char_event(result->id);
         v6_delete_win(result);
-        result->id = v6_new_glk_window(wintype_Graphics, 0);
+        result->id = v6_new_glk_window(wintype_Graphics);
         if (result->id != nullptr)
             recreated = true;
     }
@@ -2462,7 +2462,7 @@ void zwindow_size()
             v6_remap_win_to_grid(win);
 //            set_current_style();
         } else {
-            win->id = v6_new_glk_window(type, 0);
+            win->id = v6_new_glk_window(type);
             win->zpos = max_zpos;
 //            set_current_style();
         }
@@ -2777,7 +2777,7 @@ void zsplit_window()
         v6_sizewin(upper);
     }
     if (lower->id == nullptr) {
-        lower->id = v6_new_glk_window(wintype_TextBuffer, 0);
+        lower->id = v6_new_glk_window(wintype_TextBuffer);
         lower->zpos = max_zpos;
         glk_set_echo_line_event(lower->id, 0);
     }
@@ -5369,7 +5369,7 @@ void init_screen(bool first_run)
             graphics_win_glk->bbox.y0 = 0;
             graphics_win_glk->bbox.x1 = gscreenw;
             graphics_win_glk->bbox.y1 = gscreenh;
-            mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
+            mainwin->id = v6_new_glk_window(wintype_TextBuffer);
 //            glk_set_echo_line_event(mainwin->id, 0);
             v6_sizewin(mainwin);
 
@@ -5385,7 +5385,7 @@ void init_screen(bool first_run)
             upperwin->x_size = gscreenw;
             upperwin->y_size = gscreenh;
             v6_sizewin(upperwin);
-            mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
+            mainwin->id = v6_new_glk_window(wintype_TextBuffer);
             mainwin->x_origin = 1;
             mainwin->y_origin = 1;
             mainwin->x_size = gscreenw;

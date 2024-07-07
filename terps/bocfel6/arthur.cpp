@@ -416,7 +416,7 @@ void after_V_COLOR(void) {
 
     //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
     //    v6_delete_win(mainwin);
-    //    mainwin->id = v6_new_glk_window(wintype_TextBuffer, 0);
+    //    mainwin->id = v6_new_glk_window(wintype_TextBuffer);
     //    v6_sizewin(mainwin);
     //    win_setbgnd(mainwin->id->peer, user_selected_background);
     //    window_change();
@@ -451,7 +451,7 @@ bool arthur_display_picture(glsi32 x, glsi32 y) {
     // Intro "slideshow"
     if (current_picture >= 1 && current_picture <= 3) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
-            current_graphics_buf_win = v6_new_glk_window(wintype_Graphics, 0);
+            current_graphics_buf_win = v6_new_glk_window(wintype_Graphics);
             glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
             win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         }

@@ -89,7 +89,7 @@ void GOTO_SCENE(void) {
 ////        adjust_shogun_window();
 ////        if (graphics_type == kGraphicsTypeApple2) {
 ////            if (V6_STATUS_WINDOW.id == nullptr) {
-////                V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid, 0);
+////                V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
 ////            }
 ////            v6_sizewin(&V6_STATUS_WINDOW);
 ////            glk_window_clear(V6_STATUS_WINDOW.id);
@@ -216,7 +216,7 @@ void update_status_line(bool interlude) {
     glui32 width;
     winid_t gwin = V6_STATUS_WINDOW.id;
     if (gwin == nullptr) {
-        V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid, 0);
+        V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
         gwin = V6_STATUS_WINDOW.id;
         v6_sizewin(&V6_STATUS_WINDOW);
     }
@@ -456,7 +456,7 @@ int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
     uint16_t cnt = user_word(menu); // first word of table is number of elements
 
     v6_delete_win(&SHOGUN_MENU_WINDOW);
-    SHOGUN_MENU_WINDOW.id = v6_new_glk_window(wintype_TextGrid, 0);
+    SHOGUN_MENU_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
     
     update_menu();
     set_current_window(&SHOGUN_MENU_WINDOW);
@@ -572,7 +572,7 @@ int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
     shogun_display_border((ShogunBorderType)get_global(CURRENT_BORDER));
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     v6_delete_win(&windows[5]);
-    windows[5].id = v6_new_glk_window(wintype_TextGrid, 0);
+    windows[5].id = v6_new_glk_window(wintype_TextGrid);
 
     int left_margin;
     get_image_size(P_BORDER_LOC, &left_margin, nullptr);
@@ -795,7 +795,7 @@ void CENTER_PIC(void) {
         v6_delete_win(&windows[4]);
     }
     if (windows[4].id == nullptr) {
-        windows[4].id = v6_new_glk_window(wintype_Graphics, 0);
+        windows[4].id = v6_new_glk_window(wintype_Graphics);
     }
     int width, height;
     get_image_size(P_CREST, &width, &height);
@@ -996,7 +996,7 @@ void adjust_shogun_window(void) {
         V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
     } else {
         if (V6_STATUS_WINDOW.id == nullptr)
-            V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid, 0);
+            V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
         v6_define_window(&V6_STATUS_WINDOW, shogun_graphical_banner_width_left, 1, gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right + imagescalex, 2 * (gcellh + ggridmarginy));
         V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
         V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
@@ -1016,7 +1016,7 @@ void shogun_draw_title_image(void) {
     Window *win = &windows[7];
     winid_t gwin = win->id;
     if (gwin == nullptr) {
-        win->id = v6_new_glk_window(wintype_Graphics, 0);
+        win->id = v6_new_glk_window(wintype_Graphics);
         gwin = win->id;
         glk_request_mouse_event(gwin);
     }
@@ -1072,7 +1072,7 @@ void shogun_update_on_resize(void) {
             return;
         }
         if (SHOGUN_MAZE_WINDOW.id == nullptr) {
-            SHOGUN_MAZE_WINDOW.id = v6_new_glk_window(wintype_Graphics, 0);
+            SHOGUN_MAZE_WINDOW.id = v6_new_glk_window(wintype_Graphics);
         }
         SHOGUN_MAZE_WINDOW.x_size = gscreenw;
         SHOGUN_MAZE_WINDOW.y_size = gscreenh;

@@ -1331,7 +1331,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
     JOURNEY_GRAPHICS_WIN.x_size = (float)(text_window_left - 2) * gcellw - JOURNEY_GRAPHICS_WIN.x_origin + ggridmarginx + (FONT3_FLAG ? 0 : 2);
 
     if (!V6_TEXT_BUFFER_WINDOW.id) {
-        V6_TEXT_BUFFER_WINDOW.id = v6_new_glk_window(wintype_TextBuffer, 0);
+        V6_TEXT_BUFFER_WINDOW.id = v6_new_glk_window(wintype_TextBuffer);
     }
 
     int command_start_line = SCREEN_HEIGHT_in_chars - 4 - (BORDER_FLAG ? 1 : 0);
@@ -1349,7 +1349,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
     JOURNEY_GRAPHICS_WIN.y_size = y_size;
 
     if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
-        JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics, 0);
+        JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics);
         if (JOURNEY_GRAPHICS_WIN.id != nullptr)
             glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
     }
@@ -1382,7 +1382,7 @@ static void journey_adjust_windows(bool restoring) {
         v6_delete_win(&JOURNEY_BG_GRID);
 
     if (JOURNEY_BG_GRID.id == nullptr) {
-        JOURNEY_BG_GRID.id = v6_new_glk_window(wintype_TextGrid, 0);
+        JOURNEY_BG_GRID.id = v6_new_glk_window(wintype_TextGrid);
     }
 
     JOURNEY_BG_GRID.x_size = gscreenw;
@@ -1631,7 +1631,7 @@ void journey_update_on_resize(void) {
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     } else if (screenmode == MODE_SLIDESHOW) {
         if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
-            JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics, 0);
+            JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics);
         }
         JOURNEY_GRAPHICS_WIN.x_size = gscreenw;
         JOURNEY_GRAPHICS_WIN.y_size = gscreenh;
