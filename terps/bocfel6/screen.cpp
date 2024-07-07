@@ -2074,15 +2074,11 @@ void set_cursor(uint16_t y, uint16_t x, uint16_t winid)
         if (curwin == upperwin || curwin == &windows[7]) {
             if (win->id && win->id->type == wintype_Graphics && win->id != graphics_win_glk) {
                 v6_delete_win(win);
-//                win->id = nullptr;
                 screenmode = MODE_NORMAL;
                 current_graphics_buf_win = graphics_win_glk;
             }
             v6_remap_win_to_grid(win);
             fprintf(stderr, "Trying to move cursor in graphics window. Remapping to grid\n");
-//            if (is_game(Game::ZorkZero)) {
-//                glk_request_mouse_event(grid_win_glk);
-//            }
         } else {
             fprintf(stderr, "Trying to move cursor in graphics window. Remapping to buffer(?)\n");
             v6_remap_win_to_buffer(win);
@@ -2130,30 +2126,9 @@ void set_cursor(uint16_t y, uint16_t x, uint16_t winid)
     if (!is_game(Game::Journey) && !(curwin->id != nullptr && curwin->id->type == wintype_TextBuffer)) {
         if (cellxpos >= 2) {
             cellxpos--;
-            if (is_game(Game::ZorkZero) && curwin == upperwin && screenmode == MODE_NORMAL) {
-                if (x > win->x_size / 2) {
-                    cellxpos -= 3;
-                    switch (graphics_type) {
-                        case kGraphicsTypeMacBW:
-                            cellxpos -= 1;
-                            break;
-                        case kGraphicsTypeApple2:
-                            cellxpos -= 2;
-                            break;
-                        default:
-                            break;
-                    }
-                } else if (graphics_type == kGraphicsTypeMacBW) {
-                    cellxpos += 1;
-                }
-            }
         } else if (cellxpos > 0) {
             cellxpos = 1;
         }
-    }
-
-    if (is_game(Game::Shogun) && win == upperwin && cellxpos == 1) {
-        cellxpos = 0;
     }
 
     if (win->id != nullptr) {
