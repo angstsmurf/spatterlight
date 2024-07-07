@@ -26,6 +26,8 @@ void add_margin_image_to_list(int image);
 void clear_margin_image_list(void);
 void refresh_margin_images(void);
 
+void DO_HINTS(void);
+
 #define V6_TEXT_BUFFER_WINDOW windows[0]
 #define V6_STATUS_WINDOW windows[1]
 

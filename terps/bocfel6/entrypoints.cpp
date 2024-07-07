@@ -13,6 +13,7 @@
 #include "journey.hpp"
 #include "arthur.hpp"
 #include "shogun.hpp"
+#include "v6_shared.hpp"
 
 #include "entrypoints.hpp"
 
@@ -392,59 +393,14 @@ static std::vector<EntryPoint> entrypoints = {
 
 #pragma mark Arthur
 
-        {
-            Game::Arthur,
-            "DO-HINTS",
-            { 0xb0, 0xf1, 0x7f, 0xef, 0x1f, 0xff, 0xff, 0x00},
-            0,
-            0,
-            DO_HINTS
-        },
-
-//    {
-//        Game::Arthur,
-//        "INIT-HINT-SCREEN",
-//        { 0xEB, 0x7F, 0x00, 0x9B, 0x01, 0x00, 0x00, 0x9F },
-//        -9,
-//        0,
-//        INIT_HINT_SCREEN
-//    },
-//
-//    {
-//        Game::Arthur,
-//        "LEAVE_HINT_SCREEN",
-//        { 0x03, 0xFF, 0x7F, 0x03, 0xC5, 0x0D, 0x03, 0x01, 0xeb  },
-//        -3,
-//        0,
-//        LEAVE_HINT_SCREEN
-//    },
-//
-//    {
-//        Game::Arthur,
-//        "DISPLAY-HINT",
-//        { 0xF1, 0x7F, 0x00, 0xED, 0x7F, 0x00, 0xEB },
-//        0,
-//        0,
-//        DISPLAY_HINT
-//    },
-//
-//    {
-//        Game::Arthur,
-//        "after DISPLAY-HINT",
-//        { 0xBE, 0x12, 0x17, 0xFF, 0xFD, 0x04, 0x02, 0xBE, 0x12, 0x57},
-//        0,
-//        0,
-//        after_DISPLAY_HINT
-//    },
-
-//    {
-//        Game::Arthur,
-//        "V-COLOR",
-//        { 0x80, 0xA5, 0xCF, 0x2F},
-//        2,
-//        0,
-//        V_COLOR
-//    },
+    {
+        Game::Arthur,
+        "DO-HINTS",
+        { 0xb0, 0xf1, 0x7f, 0xef, 0x1f, 0xff, 0xff, 0x00},
+        0,
+        0,
+        DO_HINTS
+    },
 
     {
         Game::Arthur,
@@ -630,15 +586,6 @@ static std::vector<EntryPoint> entrypoints = {
         BOLD_CURSOR
     },
 
-//    {
-//        Game::Journey,
-//        "BOLD-PARTY-CURSOR",
-//        { 0xda, 0x1f, 0x01, 0x17, 0x01, 0x2d },
-//        0,
-//        0,
-//        BOLD_PARTY_CURSOR
-//    },
-
     {
         Game::Journey,
         "PRINT-COLUMNS",
@@ -709,18 +656,6 @@ static std::vector<EntryPoint> entrypoints = {
         ERASE_COMMAND
     },
 
-//    {
-//        Game::Journey,
-//        "END-CHANGE-NAME",
-//
-//        {0x88, 0x10, 0x89, 0x00, 0xa0, 0x00, 0x50},
-//        0,
-//        0,
-//        END_CHANGE_NAME
-//    },
-
-
-
 #pragma mark Shogun
 
     {
@@ -748,15 +683,6 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         SETUP_TEXT_AND_STATUS
     },
-
-//    {
-//        Game::Shogun,
-//        "After SETUP-TEXT-AND-STATUS",
-//        { 0x05, 0x00, 0x04, 0x00, 0xb8 },
-//        4,
-//        0,
-//        SETUP_TEXT_AND_STATUS
-//    },
 
     {
         Game::Shogun,
@@ -787,67 +713,12 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Shogun,
-        "GOTO-SCENE",
-        { 0xFF, 0x7F, 0x02, 0xC5, 0x2D, 0x02 },
-        0,
-        0,
-        GOTO_SCENE
-    },
-
-    {
-        Game::Shogun,
         "DO-HINTS",
         { 0xb0, 0xf1, 0x7f, 0xef, 0x1f, 0xff, 0xff, 0x00},
         0,
         0,
         DO_HINTS
     },
-
-
-//    {
-//        Game::Shogun,
-//        "INIT-HINT-SCREEN",
-//        { 0xEB, 0x7F, 0x07, 0xED, 0x7F},
-//        0,
-//        0,
-//        INIT_HINT_SCREEN
-//    },
-
-//    {
-//        Game::Shogun,
-//        "after V-HINT",
-//        { 0x11, 0x86, 0x21, 0xE0 , 0x04, 0x61},
-//        -1,
-//        0,
-//        after_V_HINT
-//    },
-//
-//    {
-//        Game::Shogun,
-//        "DISPLAY-HINT",
-//        { 0x4F, 0x01, 0x00, 0x02, 0xF3 },
-//        0,
-//        0,
-//        DISPLAY_HINT
-//    },
-//
-//    {
-//        Game::Shogun,
-//        "after DISPLAY-HINT",
-//        { 0xF5, 0x7F, 0x01, 0x8C, 0xFE, 0x8B, 0x00},
-//        -5,
-//        0,
-//        after_DISPLAY_HINT
-//    },
-//
-//    {
-//        Game::Shogun,
-//        "after DISPLAY-HINT alt ",
-//        { 0xB1, 0xF5, 0x7F, 0x01, 0x8C, 0xFE },
-//        -4,
-//        0,
-//        after_DISPLAY_HINT
-//    },
 
     {
         Game::Shogun,
@@ -860,16 +731,6 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         V_DEFINE
     },
-
-//    {
-//        Game::Shogun,
-//        "after V-DEFINE",
-//        { 0x04, 0x7F, 0x01, 0x00, 0xEB, 0x7F, 0x00, 0xED, 0x7F, 0x00 },
-//        -1,
-//        0,
-//        after_V_DEFINE
-//    },
-
 
     {
         Game::Shogun,

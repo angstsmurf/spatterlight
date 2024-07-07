@@ -352,46 +352,6 @@ void adjust_arthur_windows(void) {
     v6_sizewin(&windows[2]);
 }
 
-void INIT_HINT_SCREEN(void) {
-    screenmode = MODE_HINTS;
-    if (is_game(Game::ZorkZero) && (graphics_type == kGraphicsTypeApple2 || graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA)) {
-        v6_delete_win(upperwin);
-        upperwin->id = gli_new_window(wintype_TextGrid, 0);
-    } else {
-        if (upperwin->id) {
-            glk_window_set_background_color(upperwin->id, user_selected_foreground);
-        }
-    }
-}
-
-void LEAVE_HINT_SCREEN(void) {
-    screenmode = MODE_NORMAL;
-    v6_delete_win(mainwin);
-    v6_delete_win(&windows[7]);
-
-    v6_remap_win_to_buffer(mainwin);
-    if (!is_game(Game::ZorkZero)) {
-        upperwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        upperwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-    } else if (upperwin->id) {
-        win_maketransparent(upperwin->id->peer);
-    }
-    glk_window_clear(mainwin->id);
-    glk_window_clear(upperwin->id);
-}
-
-
-void DISPLAY_HINT(void) {
-    v6_delete_win(mainwin);
-    v6_remap_win_to_buffer(mainwin);
-}
-
-void after_DISPLAY_HINT(void) {
-    v6_delete_win(mainwin);
-    v6_remap_win_to_grid(mainwin);
-    glk_window_set_background_color(mainwin->id, user_selected_background);
-}
-
 void V_COLOR(void) {
     fprintf(stderr, "V-COLOR\n");
     int fg = get_global(fg_global_idx);

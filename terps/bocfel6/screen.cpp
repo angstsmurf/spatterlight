@@ -3124,13 +3124,15 @@ static uint8_t zscii_from_glk(glui32 key)
 #endif
 
 void flush_image_buffer(void) {
-    if (current_graphics_buf_win == nullptr)
-        current_graphics_buf_win = graphics_win_glk;
-    if (is_game(Game::Arthur) && screenmode == MODE_NORMAL) {
-        glk_window_clear(graphics_win_glk);
-        draw_arthur_side_images(graphics_win_glk);
-    } else {
-        flush_bitmap(current_graphics_buf_win);
+    if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+        if (current_graphics_buf_win == nullptr)
+            current_graphics_buf_win = graphics_win_glk;
+        if (is_game(Game::Arthur) && screenmode == MODE_NORMAL) {
+            glk_window_clear(graphics_win_glk);
+            draw_arthur_side_images(graphics_win_glk);
+        } else {
+            flush_bitmap(current_graphics_buf_win);
+        }
     }
 }
 
@@ -3274,9 +3276,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
             ZASSERT(timer != 0, "got unexpected evtype_Timer");
 
-            if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
-                flush_image_buffer();
-            }
+            flush_image_buffer();
 
             stop_timer();
 
@@ -3707,11 +3707,8 @@ void zread_char()
     input.type = Input::Type::Char;
 
     // Why is this done here?
-    if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
+    if (is_game(Game::Arthur)) {
         glui32 stored_bg = user_selected_background;
-        if (is_game(Game::ZorkZero) && current_picture == zorkzero_title_image && gli_enable_styles) {
-            user_selected_background = monochrome_black;
-        }
         flush_image_buffer();
         user_selected_background = stored_bg;
     }
@@ -3880,9 +3877,7 @@ static bool read_handler()
     uint16_t timer = 0;
     uint16_t routine = zargs[3];
 
-    if (is_game(Game::ZorkZero) || is_game(Game::Shogun) || is_game(Game::Arthur)) {
-        flush_image_buffer();
-    }
+    flush_image_buffer();
 
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT

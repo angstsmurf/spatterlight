@@ -19,12 +19,9 @@ void shogun_draw_title_image(void);
 void shogun_update_after_restore(void);
 
 void SCENE_SELECT(void);
-void GOTO_SCENE(void);
 void V_VERSION(void);
 void after_V_VERSION(void);
 void SETUP_TEXT_AND_STATUS(void);
-//void after_V_HINT(void);
-void after_V_DEFINE(void);
 void MAC_II(void);
 void after_MAC_II(void);
 void shogun_DISPLAY_BORDER(void);

@@ -22,13 +22,6 @@ void arthur_window_adjustments(void);
 void adjust_arthur_windows(void);
 
 
-void INIT_HINT_SCREEN(void);
-void LEAVE_HINT_SCREEN(void);
-
-
-void DO_HINTS(void);
-void DISPLAY_HINT(void);
-void after_DISPLAY_HINT(void);
 
 void V_COLOR(void);
 void after_V_COLOR(void);

@@ -29,11 +29,7 @@ int shogun_graphical_banner_width_right = 0;
 #define SHOGUN_MAZE_WINDOW windows[3]
 #define SHOGUN_MENU_WINDOW windows[2]
 
-//#define P_BORDER 3
-//#define P_BORDER2 4
-
 #define P_HINT_LOC 49
-//#define P_HINT_BORDER 50
 
 #define P_BORDER_R 59
 #define P_BORDER2_R 60
@@ -55,77 +51,14 @@ bool is_shogun_border_image(int picnum) {
 }
 
 
-//void after_V_DEFINE(void) {
-//    screenmode = MODE_NORMAL;
-//    v6_delete_win(&SHOGUN_MENU_WINDOW);
-//    v6_remap_win_to_buffer(&windows[0]);
-//}
-
-
-
-void GOTO_SCENE(void) {
-//    screenmode = MODE_NORMAL;
-//    v6_delete_win(&windows[0]);
-//    windows[0].id = v6_new_glk_window(wintype_TextBuffer, 0);
-//    v6_delete_win(&windows[7]);
-//    adjust_shogun_window();
-}
-
-// Shogun
-//void after_V_HINT(void) {
-//    screenmode = MODE_NORMAL;
-//    v6_delete_win(&windows[0]);
-//    windows[0].id = v6_new_glk_window(wintype_TextBuffer, 0);
-//    adjust_shogun_window();
-//    //    if (graphics_type == kGraphicsTypeApple2)
-//    //        win_setbgnd(V6_STATUS_WINDOW.id->peer, 0xffffff);
-//}
-
 #define P_BORDER_LOC 2
 #define STATUS_LINES 2
-
-//void after_SETUP_TEXT_AND_STATUS(void) {
-//    if (screenmode == MODE_NORMAL) {
-////        adjust_shogun_window();
-////        if (graphics_type == kGraphicsTypeApple2) {
-////            if (V6_STATUS_WINDOW.id == nullptr) {
-////                V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
-////            }
-////            v6_sizewin(&V6_STATUS_WINDOW);
-////            glk_window_clear(V6_STATUS_WINDOW.id);
-////        }
-//    } else if (screenmode == MODE_HINTS) {
-////        V6_STATUS_WINDOW.y_size = 3 * gcellh + 2 * ggridmarginy;
-////        v6_delete_win(&windows[0]);
-////        v6_remap_win_to_grid(&windows[0]);
-////        win_setbgnd(windows[0].id->peer, user_selected_background);
-////        if (graphics_type == kGraphicsTypeApple2) {
-////            windows[7].y_origin = V6_STATUS_WINDOW.y_size + 1;
-////            windows[0].y_origin = windows[7].y_origin + windows[7].y_size;
-////            windows[0].y_size = gscreenh - windows[0].y_origin;
-////        } else if (graphics_type != kGraphicsTypeMacBW && graphics_type != kGraphicsTypeCGA) {
-////            win_maketransparent(V6_STATUS_WINDOW.id->peer);
-////        } else if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeAmiga) {
-////            V6_STATUS_WINDOW.x_origin = shogun_graphical_banner_width_left;
-////            V6_STATUS_WINDOW.x_size = gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right;
-////            windows[0].x_origin = V6_STATUS_WINDOW.x_origin;
-////            windows[0].x_size = V6_STATUS_WINDOW.x_size;
-////            v6_sizewin(&V6_STATUS_WINDOW);
-////            v6_sizewin(&windows[0]);
-////        }
-//    }
-//}
 
 void setup_text_and_status(int P) {
     if (P == 0)
         P = P_BORDER_LOC;
     int X, HIGH = gscreenh, WIDE = gscreenw, SLEFT = 0, SHIGH = STATUS_LINES * (gcellh + ggridmarginy);
     if (graphics_type != kGraphicsTypeApple2) {
-//        get_image_size(P, &X, nullptr);
-//        WIDE -= X * 2;
-//        SLEFT += X;
-//        v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  SHIGH);
-
         v6_define_window(&V6_STATUS_WINDOW, shogun_graphical_banner_width_left, 1, gscreenw - shogun_graphical_banner_width_left - shogun_graphical_banner_width_right + imagescalex, 2 * (gcellh + ggridmarginy));
     } else { // Apple 2
         int border_height;
@@ -155,37 +88,6 @@ void setup_text_and_status(int P) {
 void SETUP_TEXT_AND_STATUS(void) {
     setup_text_and_status(variable(1));
 }
-
-
-// <ROUTINE SETUP-TEXT-AND-STATUS ("OPT" (P ,P-BORDER-LOC) // Optional argument P, default value 2 (P-BORDER-LOC)
-//                                "AUX" X (HIGH <LOWCORE VWRD>) // Local variables X, HIGH (vertical screen height), WIDE, SLEFT, SHIGH
-//                                (WIDE <LOWCORE HWRD>) (SLEFT 1) // WIDE is set to screen width
-//                                (SHIGH <* ,STATUS-LINES ,FONT-Y>))
-// <COND (<NOT <APPLE?>> ;"only apples have no borders" // Account for side images
-//       <PICINF .P ,YX-TBL>
-//       <SET X <GET ,YX-TBL 1>> // X = width of img P (usually img 2)
-//       <SET SLEFT <+ .X .SLEFT>> // SLEF += X
-//       <COND (<NOT <EQUAL? .P ,P-BORDER-LOC>> // if (P != 2) SHIGH = height of img P
-//              <SET SHIGH <GET ,YX-TBL 0>>)>
-//       <SET WIDE <- .WIDE <* .X 2>>> // WIDE -= X * 2
-//       <WINDEF ,S-STATUS 1 .SLEFT .SHIGH .WIDE>) // window S-STATUS: top 1 left SLEFT height SHIGH width WIDE
-//(ELSE // if APPLE
-// <COND (<EQUAL? .P ,P-HINT-LOC> if P == P-HINT-LOC (49) (We are showing hints)
-//        <COND (<PICINF ,P-HINT-BORDER ,YX-TBL>
-//               <SETG BORDER-HEIGHT <GET ,YX-TBL 0>>)>
-//        <SET SHIGH <+ ,BORDER-HEIGHT <* 3 ,FONT-Y>>>
-//        <WINDEF ,S-STATUS 1 .SLEFT .SHIGH .WIDE>)
-// (ELSE (We are not showing hints)
-//  <COND (<PICINF ,P-BORDER ,YX-TBL> // P-BORDER = 3
-//         <SETG BORDER-HEIGHT <GET ,YX-TBL 0>>)> BORDER-HEIGHT = height of image 3
-//  <WINDEF ,S-BORDER
-//  <+ 1 .SHIGH> 1
-//  <- .HIGH .SHIGH> .WIDE> // window S-BORDER: top: SHIGH + 1 left: 1 height: HIGH - SHIGH width WIDE
-//  <WINDEF ,S-STATUS 1 .SLEFT .SHIGH .WIDE>
-//  <SET SHIGH <+ .SHIGH ,BORDER-HEIGHT>>)>)>
-// <WINDEF ,S-TEXT
-// <+ 1 .SHIGH> .SLEFT
-// <- .HIGH .SHIGH> .WIDE>>
 
 #define S_ERASMUS 1
 #define S_VOYAGE 6
@@ -226,7 +128,6 @@ void update_status_line(bool interlude) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
     win_setbgnd(gwin->peer, user_selected_background);
-//    win_refresh(gwin->peer, 0, 0);
 
     garglk_set_reversevideo(1);
     glk_window_clear(gwin);
@@ -241,7 +142,6 @@ void update_status_line(bool interlude) {
         glk_window_move_cursor(gwin, width / 2 - 3, 0);
         glk_put_string(const_cast<char*>("SHOGUN"));
     }
-//    store_word(0x8, word(0x8) & 0xfffb); // set refresh flag to false;
     glk_window_move_cursor(gwin, 0, 1);
     if (here != 0 && !interlude) {
         set_global(0x15, here); // <SETG SHERE ,HERE>
