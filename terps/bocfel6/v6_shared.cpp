@@ -460,10 +460,14 @@ void V_DEFINE(void) {
                             } else {
                                 glk_put_char(chr);
                             }
-                            // print cursor at the new position
+                            // print cursor at the new position if we are not at max
                             if (length + 2 < user_byte(fdef)) {
                                 print_reverse_video_space();
                                 glk_window_move_cursor(gwin, length + 5, global_define_line + 1);
+                            } else {
+                                // print cursor at end of line if we are at max
+                                glk_window_move_cursor(gwin, user_byte(fdef) + 3, global_define_line + 1);
+                                print_reverse_video_space();
                             }
                         }
                     } else {

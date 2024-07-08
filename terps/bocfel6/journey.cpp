@@ -549,9 +549,6 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
     }
 }
 
-extern bool journey_cursor_timer;
-extern bool journey_cursor_reverse;
-
 #pragma mark Input
 
 static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool elvish, uint8_t *kbd) {
@@ -582,17 +579,12 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
 
     uint8_t character;
 
-    // Starting cursor timer.
-    journey_cursor_timer = true;
-    journey_cursor_reverse = false;
-    glk_request_timer_events(10);
+    journey_draw_cursor();
 
     while ((character = read_char()) != ZSCII_NEWLINE) {
         if (FONT3_FLAG) {
             garglk_set_reversevideo(0);
         }
-        journey_cursor_reverse = false;
-        glk_request_timer_events(10);
         if (character == 0x7f || character == ZSCII_BACKSPACE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
             if (input_length == 0) {
                 win_beep(1);
@@ -601,12 +593,13 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
                 if (input_column < SCREEN_WIDTH_in_chars - 1) {
                     move_v6_cursor(input_column, input_line);
                     underscore_or_square();
+                } else {
+                    move_v6_cursor(SCREEN_WIDTH_in_chars - 1, input_line);
+                    underscore_or_square();
                 }
                 input_column--;
                 input_length--;
-                move_v6_cursor(input_column, input_line);
-                underscore_or_square();
-                move_v6_cursor(input_column, input_line);
+                journey_draw_cursor();
             }
         } else {
             
@@ -633,15 +626,9 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
             user_store_byte(table + input_length, character);
             input_column++;
             input_length++;
+            journey_draw_cursor();
         }
     }
-
-//  Input is finished. Switching off cursor timer and any reverse video.
-    journey_cursor_timer = false;
-    journey_cursor_reverse = false;
-    glk_request_timer_events(0);
-
-    garglk_set_reversevideo(0);
 
     if (elvish) {
         move_v6_cursor(start, input_line);
@@ -1410,7 +1397,7 @@ static void journey_adjust_windows(bool restoring) {
         if (current_input != INPUT_PARTY) {
             // If the player is currently entering text, redraw typed text at new position
             if (current_input == INPUT_NAME ) {
-                journey_reprint_partial_input(get_global(0xb8) + 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length, input_table);
+                journey_reprint_partial_input(get_global(0xa3) - 1, get_global(0x0e) + from_command_start_line - 1, input_length, max_length, input_table);
             } else if (current_input == INPUT_ELVISH ) {
                 move_v6_cursor(get_global(0x28), get_global(0x0e) + from_command_start_line);
                 glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
@@ -1469,7 +1456,7 @@ static void journey_adjust_windows(bool restoring) {
     if (current_input == INPUT_NAME || current_input == INPUT_ELVISH) {
 
         if (current_input == INPUT_NAME) {
-            input_column = get_global(0xb8) + 2 + input_length;
+            input_column = get_global(0xa3) + input_length;
         } else {
             input_column = get_global(0xb0) + input_length;
         }
@@ -1478,19 +1465,16 @@ static void journey_adjust_windows(bool restoring) {
 
         set_current_window(&JOURNEY_BG_GRID);
 
-        if (!FONT3_FLAG) {
-            garglk_set_reversevideo(1);
-        }
-        journey_draw_flashing_cursor();
+        journey_draw_cursor();
     }
 }
 
-void journey_draw_flashing_cursor(void) {
+void journey_draw_cursor(void) {
     if (input_column > SCREEN_WIDTH_in_chars - 1)
         return;
     move_v6_cursor(input_column, input_line);
 
-    if (journey_cursor_reverse || FONT3_FLAG)
+    if (FONT3_FLAG)
         garglk_set_reversevideo(1);
     else
         garglk_set_reversevideo(0);
@@ -1501,10 +1485,9 @@ void journey_draw_flashing_cursor(void) {
         garglk_set_reversevideo(0);
     else
         garglk_set_reversevideo(1);
+
     
     move_v6_cursor(input_column, input_line);
-    journey_cursor_reverse = !journey_cursor_reverse;
-    glk_request_timer_events(300 + (journey_cursor_reverse ? 600 : 0));
 }
 
 

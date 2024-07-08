@@ -1925,21 +1925,3 @@ bool z0_display_picture(int x, int y, Window *win) {
 
     return false;
 }
-
-//bool z0_cursor_reverse = true;
-//
-//void z0_move_cursor(int column, int line) {
-//    //    set_cursor(line * letterheight, column * letterwidth, 1);
-//    V6_STATUS_WINDOW.x_cursor = column * letterwidth;
-//    V6_STATUS_WINDOW.y_cursor = line * letterheight;
-//
-//    if (column <= 1)
-//        column = 0;
-//    else
-//        column--;
-//    if (line <= 1)
-//        line = 0;
-//    else
-//        line--;
-//    glk_window_move_cursor(V6_STATUS_WINDOW.id, column, line);
-//}

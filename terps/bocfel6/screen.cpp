@@ -3137,8 +3137,6 @@ void flush_image_buffer(void) {
 }
 
 bool arthur_intro_timer = false;
-bool journey_cursor_timer = false;
-bool journey_cursor_reverse = true;
 
 // Attempt to read input from the user. The input type can be either a
 // single character or a full line. If “timer” is not zero, a timer is
@@ -3242,7 +3240,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         break;
     }
 
-    if (timer != 0 && !arthur_intro_timer && !journey_cursor_timer) {
+    if (timer != 0 && !arthur_intro_timer) {
         start_timer(timer);
     }
 
@@ -3265,11 +3263,6 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     stop_timer();
                     restart_read_events(line, input, enable_mouse);
                     start_timer(timer);
-                    break;
-                }
-
-                if (journey_cursor_timer) {
-                    journey_draw_flashing_cursor();
                     break;
                 }
 
@@ -3690,8 +3683,9 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 uint8_t read_char(void) {
     Input input;
     input.type = Input::Type::Char;
+    glk_request_timer_events(0);
 
-    if (!get_input(1, 0, input))
+    if (!get_input(0, 0, input))
         return 0;
     return input.key;
 }

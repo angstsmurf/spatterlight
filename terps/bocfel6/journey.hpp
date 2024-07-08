@@ -14,7 +14,7 @@ void journey_adjust_image(int picnum, int *x, int *y, int width, int height, int
 void journey_update_on_resize(void);
 void journey_update_after_restore(void);
 
-void journey_draw_flashing_cursor(void);
+void journey_draw_cursor(void);
 
 void move_v6_cursor(int column, int line);
 
