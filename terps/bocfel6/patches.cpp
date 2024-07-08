@@ -507,6 +507,24 @@ static std::vector<Patch> patches = {
                 {  0x0d, 0x03, 0x05, 0x2d, 0x06, 0x1e },
                 {  0xb0, 0x0d, 0x03, 0x05, 0x2d, 0x06 },
             },
+
+            // Later versions of Journey change font by calling a routine named
+            // CHANGE-FONT. (Earlier versions call the FONT/set_font opcode
+            // directly.) This routine returns false unless the argument is 3 or 4,
+            // meaning that it will never set the font back to the standard font 1
+            // (unless font 3 or 4 are unavailable, when it will fall back to this.)
+
+            // This is likely unintentional, and we want it to be able to set the font
+            // in the main buffer text window back to 1, otherwise it will always use
+            // fixed-width font 4. We patch this by replacing the RFALSE label
+            // with a jump to the <FONT 1> instruction at the end of the routine.
+            {
+                0x4757, 1,
+                {  0x40 },
+                {  0x4b },
+            },
+
+
         }
     },
 

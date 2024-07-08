@@ -1907,15 +1907,6 @@ void zerase_window()
         break;
     }
 
-    if (is_game(Game::Journey)) {
-        if (win == 3)
-            return;
-        if (mainwin->font == Window::Font::Fixed) {
-            fprintf(stderr, "Windows 2 font is fixed!\n");
-        }
-        mainwin->font = Window::Font::Normal;
-    }
-
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
     set_current_style();
 #endif
