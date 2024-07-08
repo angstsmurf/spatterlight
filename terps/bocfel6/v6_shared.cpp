@@ -302,9 +302,7 @@ void V_DEFINE(void) {
         win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
         glk_window_set_background_color(graphics_win_glk, user_selected_background);
         v6_delete_win(&windows[1]);
-        //        v6_delete_win(&windows[0]);
-
-    } else {
+    } else { // Game is Shogun
         fkeys = 0x4dc8;
         v6_delete_win(&windows[1]);
     }

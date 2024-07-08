@@ -2291,11 +2291,6 @@ void zwindow_size()
     int16_t height = zargs[1];
     int16_t width = zargs[2];
 
-//    if (width % letterwidth == 1)
-//        width = float((width - 1) / letterwidth + 1) * gcellw;
-//    else
-//        fprintf(stderr, "width (%d) %% letterwidth (%d) == %d\n", width, letterwidth, width % letterwidth);
-
     win->y_size = height;
     win->x_size = width;
 
@@ -2317,18 +2312,6 @@ void zwindow_size()
             win->id = v6_new_glk_window(type);
             win->zpos = max_zpos;
         }
-    }
-
-    if (screenmode == MODE_HINTS && win == upperwin) {
-        upperwin->y_size = 3 * gcellh + 2 * ggridmarginy;
-    }
-
-    if (zargs[0] == 2 && screenmode == MODE_DEFINE) {
-        win->x_size = 35 * gcellw + 1 +  2 * ggridmarginx;
-    }
-
-    if (zargs[0] == 2 && is_game(Game::Shogun)) {
-        win->x_size = (win->x_size / letterwidth) * gcellw + 2 * ggridmarginx;
     }
 
     v6_sizewin(win);
@@ -2561,16 +2544,11 @@ int count_characters_in_object(uint16_t obj) {
 
 void zprint_paddr()
 {
-//    fprintf(stderr, "zprint_paddr 0x%x (%x)\n", unpack_string(zargs[0]), zargs[0]);
-//    fprintf(stderr, "\"");
-//    print_zcode(unpack_string(zargs[0]), false, debug_print_str);
-//    fprintf(stderr, "\"\n");
     print_handler(unpack_string(zargs[0]), nullptr);
 }
 
 void zsplit_window()
 {
-
     Window *upper = &windows[1];
     Window *lower = &windows[0];
     uint16_t height = zargs[0];
@@ -2593,17 +2571,6 @@ void zsplit_window()
     if ((short)lower->y_cursor < 1)
         reset_cursor(0);
 
-    // Called by Arthur INIT-HINT-SCREEN function
-    if (zversion == 6 && screenmode == MODE_HINTS) {
-        glk_window_clear(graphics_win_glk);
-        v6_delete_win(lower);
-        v6_remap_win_to_grid(lower);
-        upperwin->y_size = 3 * gcellh + 2 * ggridmarginy;
-        v6_sizewin(upper);
-        return;
-    }
-
-
     if (height == 0) {
         if (upper->id != nullptr)
             v6_delete_glk_win(upper->id);
@@ -2619,8 +2586,6 @@ void zsplit_window()
         glk_set_echo_line_event(lower->id, 0);
     }
     v6_sizewin(lower);
-
-    fprintf(stderr, "z_split_window %d: result: status window (win 1) height: %d ypos: %ld main window (win 0) height: %d ypos:%ld\n", zargs[0], upper->y_size, upper->y_origin, lower->y_size, lower->y_origin);
 }
 
 void zset_window()
@@ -2656,14 +2621,6 @@ glui32 brightest(glui32 col1, glui32 col2) {
     else
         return col1;
 }
-
-//extern uint32_t update_status_bar_address;
-//extern uint32_t update_picture_address;
-//extern uint32_t update_inventory_address;
-//extern uint32_t update_stats_address;
-//extern uint32_t update_map_address;
-//extern uint8_t update_global_idx;
-
 
 #pragma mark window change on resize events
 
@@ -3691,20 +3648,7 @@ void zread_char()
 
     input.type = Input::Type::Char;
 
-    // Why is this done here?
-    if (is_game(Game::Arthur)) {
-        glui32 stored_bg = user_selected_background;
-        flush_image_buffer();
-        user_selected_background = stored_bg;
-    }
-
-//    if (options.autosave && !in_interrupt()) {
-//#ifdef SPATTERLIGHT
-//        spatterlight_do_autosave(SaveOpcode::ReadChar);
-//#else
-//        do_save(SaveType::Autosave, SaveOpcode::ReadChar);
-//#endif
-//    }
+    flush_image_buffer();
 
     if (zversion >= 4 && znargs > 1) {
         timer = zargs[1];
@@ -5097,7 +5041,6 @@ void init_screen(bool first_run)
     for (auto &window : windows) {
         window.index = i++;
         window.style.reset();
-        //        if (is_game(Game::Shogun)) {
         if (!(zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol)) {
             window.fg_color = Color();
             window.bg_color = Color();
@@ -5105,9 +5048,6 @@ void init_screen(bool first_run)
             window.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
             window.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
         }
-//        } else {
-//            window.fg_color = window.bg_color = Color();
-//        }
         window.font = Window::Font::Normal;
         window.y_cursor = 1;
         window.x_cursor = 1;
