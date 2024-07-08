@@ -196,7 +196,7 @@ static void update_internal_globals(void) {
         case INTERP_APPLE_IIC:
         case INTERP_APPLE_IIE:
         case INTERP_APPLE_IIGS:
-            BORDER_FLAG = true;
+            BORDER_FLAG = false;
             FONT3_FLAG = false;
             BLACK_PICTURE_BORDER = 0;
             break;
