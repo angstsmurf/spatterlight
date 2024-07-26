@@ -172,6 +172,8 @@
 
 - (NSString *)ifidFromFile:(NSString *)path {
     void *context = get_babel_ctx();
+    if (context == nil)
+        return nil;
     char *format = babel_init_ctx((char*)path.UTF8String, context);
     if (!format || !babel_get_authoritative_ctx(context))
     {
