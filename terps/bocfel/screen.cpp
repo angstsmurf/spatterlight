@@ -983,6 +983,8 @@ static void resize_upper_window(long nlines, bool from_game)
             update_delayed();
         }
 #ifdef SPATTERLIGHT
+        // Spatterlight's "fancy quotebox" hack breaks Mad Bomber
+        // so we add another hack to special-case that game
         else if (!is_game(Game::MadBomber) && gli_enable_quoteboxes) {
             win_quotebox(upperwin->id->peer, (int)nlines);
             update_delayed();
