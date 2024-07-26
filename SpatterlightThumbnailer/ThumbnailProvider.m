@@ -46,7 +46,6 @@
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
                 if (error != nil) {
                     NSLog(@"Failed to load Core Data stack: %@", error);
-                    abort();
                 }
             }];
         }
