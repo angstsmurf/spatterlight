@@ -12,7 +12,7 @@ enum { BUFNONE, BUFPRINT, BUFRECT };
 
 static struct message wmsg;
 static char wbuf[GLKBUFSIZE];
-static unsigned short *pbuf = (void*)wbuf;
+static uint16_t *pbuf = (void*)wbuf;
 
 /* These structs are used to transmit information that
   won't fit into the standard message struct */
@@ -162,7 +162,7 @@ void win_flush(void)
     if (buffering == BUFPRINT)
     {
         sendmsg(PRINT, bufferwin, bufferatt, 0, 0, 0,
-                bufferlen * sizeof(unsigned short),
+                bufferlen * sizeof(uint16_t),
                 (char*)pbuf);
     }
 
@@ -217,7 +217,7 @@ glui32 win_unprint(int name, glui32 *s, int len)
     }
 
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
-            len * sizeof(unsigned short),
+            len * sizeof(uint16_t),
             (char *)pbuf);
 
     readmsg(&wmsg, wbuf);
@@ -425,7 +425,7 @@ void win_initline(int name, int cap, int len, void *buf)
         }
     }
 
-    sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(unsigned short), (char *)pbuf);
+    sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(uint16_t), (char *)pbuf);
 }
 
 void win_cancelline(int name, int cap, int *len, char *buf)
@@ -433,7 +433,7 @@ void win_cancelline(int name, int cap, int *len, char *buf)
     win_flush();
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, buf);
-    *len = (int)wmsg.len / sizeof(unsigned short);
+    *len = (int)wmsg.len / sizeof(uint16_t);
 }
 
 void win_setlink(int name, int val)
@@ -848,7 +848,7 @@ again:
 
             int final_length = wmsg.a2;
             event->val1 = MIN(wmsg.a2, event->win->line.cap);
-            unsigned short *ibuf = (unsigned short*)wbuf;
+            uint16_t *ibuf = (uint16_t *)wbuf;
 
             if (event->win->line_request_uni)
             {
