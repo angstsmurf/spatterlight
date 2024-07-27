@@ -15,6 +15,7 @@ extern "C" {
 #include "decompress_vga.hpp"
 #include "writetiff.h"
 #include "util.h"
+#include "arthur.hpp"
 
 #include "draw_image.hpp"
 
@@ -150,13 +151,9 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
 
     if (x < 0)
         x = 0;
-//    if (y < 0)
-//        y = 0;
+
     if (x > largebitmapwidth)
         x = largebitmapwidth - width;
-//    int largebitmapheight = *largebitmapsize / largebitmapwidth / 4;
-//    if (y > largebitmapheight)
-//        y = largebitmapheight - height;
 
     int newsize = largebitmapwidth * (y + height) * 4;
 
@@ -201,15 +198,68 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
     }
 }
 
-void draw_pixel_on_bitmap(int x, int y) {
+void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height) {
 
-    uint8_t *pixptr = pixmap + ((y * (int)hw_screenwidth + x) * 4);
+    int xpos, ypos;
 
-    *pixptr++ = 0xff;
-    *pixptr++ = 0;
-    *pixptr++ = 0;
-    *pixptr++ = 0xff;
+    int stride = width * 4;
 
+    if (x < 0)
+        x = 0;
+
+    int screenwidth = (int)hw_screenwidth;
+
+    if (x > screenwidth)
+        x = screenwidth - width;
+
+    int newsize = screenwidth * (y + height) * 4;
+
+    // Extend large bitmap downward if necessary
+    if (pixlength < newsize) {
+        uint8_t *temp = (uint8_t *)calloc(1, newsize);
+        memcpy(temp, pixmap, pixlength);
+        pixlength = newsize;
+        free(pixmap);
+        pixmap = temp;
+    }
+
+    uint8_t *pixptr;
+
+    int rectsize = width * height * 4;
+
+    uint8_t r, g, b;
+    r = (color >> 16) & 0xff;
+    g = (color >> 8) & 0xff;
+    b = color & 0xff;
+
+    for (int i = 0; i < rectsize; i += 4) {
+
+        ypos = y + i / stride;
+
+        if (ypos < 0) {
+            continue;
+        }
+
+        xpos = x + (i % stride) / 4;
+
+        // Clip at left and right edges
+        if (xpos < x || xpos >= width + x)
+            continue;
+        if (ypos >= height + y || ypos < y)
+            break;
+
+        pixptr = pixmap + ((ypos * screenwidth + xpos) * 4);
+
+        // halt if we are at end
+        if (pixptr - pixmap + 3 > pixlength || i + 3 > rectsize) {
+            break;
+        } else {
+            *(pixptr) = r;
+            *(pixptr + 1) = g;
+            *(pixptr + 2) = b;
+            *(pixptr + 3) = 0xff;
+        }
+    }
 }
 
 static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *bitmap) {
@@ -446,7 +496,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float scalefactor, bool flipped) {
     fprintf(stderr, "Drawing image %d scaled to %f\n", picnum, scalefactor);
 
-    ImageStruct *image = recreate_image(picnum,flipped);
+    ImageStruct *image = recreate_image(picnum, flipped);
     if (image == nullptr)
         return;
 
@@ -471,6 +521,10 @@ void draw_to_pixmap_unscaled_flipped(int image, int x, int y) {
 }
 
 extern int arthur_pic_top_margin;
+
+extern bool showing_wide_arthur_room_image;
+
+extern glui32 current_picture;
 
 void draw_arthur_side_images(winid_t winid) {
     ensure_pixmap(winid);
@@ -508,6 +562,10 @@ void draw_arthur_side_images(winid_t winid) {
 
     draw_to_pixmap_unscaled(170, left_margin + 1 + left_offset, y_margin + top_margin - 2);
     draw_to_pixmap_unscaled(171, hw_screenwidth - x_margin + right_offset, y_margin + top_margin - 2);
+
+    if (showing_wide_arthur_room_image) {
+        draw_arthur_room_image(current_picture);
+    }
 
     flush_bitmap(winid);
 }
