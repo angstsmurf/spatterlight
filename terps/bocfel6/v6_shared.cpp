@@ -19,7 +19,7 @@
 
 #include "v6_shared.hpp"
 
-#define DEFINE_GRID_WINDOW windows[2]
+#define DEFINITIONS_WINDOW windows[2]
 
 enum EntryNameType {
     HINT_TOPIC,
@@ -90,23 +90,23 @@ void print_right_justified_number(int number) {
 #define ARTHUR_K_HINT_ITEMS 0x432e
 #define ARTHUR_LAST_OBJECT 0x137
 
-int line_clicked(void) {
+static int line_clicked(void) {
     uint16_t mouse_click_addr = header.extension_table + 2;
     int y = word(mouse_click_addr + 2);
     return y;
 }
 
-void print_reverse_video_space(void) {
+static void print_reverse_video_space(void) {
     garglk_set_reversevideo(1);
     glk_put_char(UNICODE_SPACE);
     garglk_set_reversevideo(0);
 }
 
 // <CONSTANT FKEYS <PLTABLE !.L>>>
-uint16_t fkeys = 0xce2a;
+static uint16_t fkeys = 0xce2a;
 
 // Return width of the widest user-defined command
-int soft_commands_width(void) {
+static int soft_commands_width(void) {
     int widest = 0;
     int num_commands = user_word(fkeys) / 2;
     int fkey = fkeys + 2;
@@ -128,12 +128,12 @@ int soft_commands_width(void) {
 
 int define_window_width = 0;
 
-void print_center_table(int y, uint16_t string) {
+static void print_center_table(int y, uint16_t string) {
     if (define_window_width == 0)
         define_window_width = soft_commands_width();
 
     int length = count_characters_in_zstring(string);
-    Window win = DEFINE_GRID_WINDOW;
+    Window win = DEFINITIONS_WINDOW;
     winid_t gwin = win.id;
     glui32 width;
     glk_window_get_size(gwin, &width, nullptr);
@@ -148,7 +148,7 @@ void print_center_table(int y, uint16_t string) {
     print_handler(unpack_string(string), nullptr);
 }
 
-uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bool bytewise) {
+static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bool bytewise) {
     for (uint16_t i = 0; i < length; i++) {
         if ((bytewise && user_byte(address) == value) ||
             (!bytewise && user_word(address) == value)) {
@@ -164,7 +164,7 @@ uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bool byte
 // Print a single define menu line.
 // Either a function key name + an editable command
 // or a hard-coded menu item such as Save Definitions.
-void display_soft(int function_key, int index, bool inverse) {
+static void display_soft(int function_key, int index, bool inverse) {
 
     uint16_t fnames;
 
@@ -179,17 +179,17 @@ void display_soft(int function_key, int index, bool inverse) {
     y = index + 1;
     if ((int16_t)user_word(function_key) < 0) { // hard-coded menu item
         if (fdef != 0) {
-            DEFINE_GRID_WINDOW.x_cursor = 1;
-            DEFINE_GRID_WINDOW.y_cursor = y * gcellh;
+            DEFINITIONS_WINDOW.x_cursor = 1;
+            DEFINITIONS_WINDOW.y_cursor = y * gcellh;
             if (inverse) {
                 garglk_set_reversevideo(1);
             }
             print_center_table(y, user_word(fdef));
         }
     } else {
-        glk_window_move_cursor(DEFINE_GRID_WINDOW.id, 0, y);
-        DEFINE_GRID_WINDOW.x_cursor = 1;
-        DEFINE_GRID_WINDOW.y_cursor = y * gcellh + 1;
+        glk_window_move_cursor(DEFINITIONS_WINDOW.id, 0, y);
+        DEFINITIONS_WINDOW.x_cursor = 1;
+        DEFINITIONS_WINDOW.y_cursor = y * gcellh + 1;
 
         uint16_t key_name_string = scan_table(user_word(function_key), fnames, user_word(fnames - 2), false);
         if (key_name_string != 0) {
@@ -217,19 +217,19 @@ void display_soft(int function_key, int index, bool inverse) {
 
         // Print cursor if this is the selected line
         if (!inverse) {
-            glk_window_move_cursor(DEFINE_GRID_WINDOW.id, x, y);
+            glk_window_move_cursor(DEFINITIONS_WINDOW.id, x, y);
             print_reverse_video_space();
-            glk_window_move_cursor(DEFINE_GRID_WINDOW.id, x, y);
+            glk_window_move_cursor(DEFINITIONS_WINDOW.id, x, y);
         }
     }
     garglk_set_reversevideo(0);
 }
 
-int global_define_line = 0;
+static int global_define_line = 0;
 
-void display_softs(void) {
+static void display_softs(void) {
     uint16_t number_of_lines = user_word(fkeys) / 2;
-    winid_t win = DEFINE_GRID_WINDOW.id;
+    winid_t win = DEFINITIONS_WINDOW.id;
     glk_set_window(win);
     glui32 width;
     glk_window_get_size(win, &width, nullptr);
@@ -252,13 +252,15 @@ void z0_erase_screen(void) {
         gli_delete_window(z0_right_status_window);
         z0_right_status_window = nullptr;
     }
-    glk_window_clear(windows[0].id);
-    glk_window_clear(windows[1].id);
+    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    if (V6_STATUS_WINDOW.id != nullptr)
+        glk_window_clear(V6_STATUS_WINDOW.id);
     glk_window_clear(graphics_win_glk);
 }
 
 
-void resize_definitions_window(void) {
+void adjust_definitions_window(void) {
     uint8_t SCRH = byte(0x21);
     uint8_t SCRV = byte(0x20);
 
@@ -269,20 +271,17 @@ void resize_definitions_window(void) {
     int16_t linmax = user_word(fkeys) / 2;
 
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gfgcol);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gbgcol);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 
-    v6_define_window( &DEFINE_GRID_WINDOW, gcellw * left - ggridmarginx, gcellh * (SCRV - linmax) / 2 - ggridmarginy, (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx, (linmax + 1) * gcellh + 2 * ggridmarginy);
+    v6_delete_win(&DEFINITIONS_WINDOW);
+    DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
 
-    winid_t win = DEFINE_GRID_WINDOW.id;
-  
-    glk_set_window(win);
+    v6_define_window( &DEFINITIONS_WINDOW, gcellw * left - ggridmarginx, gcellh * (SCRV - linmax) / 2 - ggridmarginy, (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx, (linmax + 1) * gcellh + 2 * ggridmarginy);
 
-    garglk_set_zcolors(gfgcol, gbgcol);
-    win_setbgnd(win->peer, gbgcol);
-
-    glk_window_clear(win);
-    glk_request_mouse_event(win);
+    glk_set_window(DEFINITIONS_WINDOW.id);
+    win_setbgnd(DEFINITIONS_WINDOW.id->peer, user_selected_background);
+    glk_request_mouse_event(DEFINITIONS_WINDOW.id);
 
     display_softs();
 
@@ -299,36 +298,27 @@ void V_DEFINE(void) {
     if (is_game(Game::ZorkZero)) {
         fkeys = 0xce2a;
         update_user_defined_colors();
-        win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_set_background_color(graphics_win_glk, user_selected_background);
-        v6_delete_win(&windows[1]);
     } else { // Game is Shogun
         fkeys = 0x4dc8;
-        v6_delete_win(&windows[1]);
     }
 
+    win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
+    v6_delete_win(&V6_STATUS_WINDOW);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-    glk_window_clear(graphics_win_glk);
     screenmode = MODE_DEFINE;
 
     fkey = fkeys + 2;
     fdef = user_word(fkey + 2);
-
-    z0_erase_screen();
-
-    Window *win = &DEFINE_GRID_WINDOW;
-
-    if (win->id == nullptr) {
-        win->id = v6_new_glk_window(wintype_TextGrid);
-    }
-
-    winid_t gwin = win->id;
-
     linmax = user_word(fkeys) / 2;
 
     global_define_line = 0;
 
-    resize_definitions_window();
+    adjust_definitions_window();
+
+    z0_erase_screen();
+
+    winid_t gwin = DEFINITIONS_WINDOW.id;
 
     bool finished = false;
 
@@ -488,12 +478,12 @@ void V_DEFINE(void) {
         }
     };
 
-    v6_delete_win(win);
+    v6_delete_win(&DEFINITIONS_WINDOW);
     screenmode = MODE_NORMAL;
     if (is_game(Game::ZorkZero)) {
         z0_update_on_resize();
     } else {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
+        // Game is Shogun
         internal_call(pack_routine(0x183a4)); // V-REFRESH
     }
 }
@@ -604,31 +594,10 @@ static void redraw_hints_windows(void) {
             upperwin_foreground = 0;
     }
 
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, upperwin_foreground);
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
-
-//    garglk_set_zcolors(upperwin_foreground, upperwin_background);
-//    garglk_set_reversevideo(0);
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-
-//    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
-
-
-//    V6_TEXT_BUFFER_WINDOW.bg_color = V6_STATUS_WINDOW.bg_color;
-
-
-
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-//    garglk_set_zcolors(monochrome_black, monochrome_white);
     garglk_set_zcolors(user_selected_foreground, user_selected_background);
 
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-
-//    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
 
     int width = 1;
@@ -768,7 +737,6 @@ uint16_t h_quest_num = 1;
 
 // We could use the original function hear instead
 static bool rt_see_qst(int16_t obj) {
-//    fprintf(stderr, "rt_see_qst 0x%x (%d)\n", obj, obj);
     if (obj == 0)
         return true;
     if (obj < 0 || obj > ARTHUR_LAST_OBJECT)

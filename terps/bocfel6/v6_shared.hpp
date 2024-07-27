@@ -15,7 +15,7 @@ extern "C" {
 
 #include <stdio.h>
 
-void resize_definitions_window(void);
+void adjust_definitions_window(void);
 void redraw_hint_screen_on_resize(void);
 void print_number(int number);
 void print_right_justified_number(int number);
