@@ -3388,6 +3388,8 @@ static const char *msgnames[] = {
                                     style:(NSUInteger)req->a2
                                    buffer:buf
                                    length:req->len / sizeof(unichar)];
+            } else {
+                NSLog(@"Print to non-existent window!");
             }
             break;
 

@@ -769,8 +769,19 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingClear = YES;
     storedNewline = nil;
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
-    if (currentZColor && currentZColor.bg != zcolor_Current)
-        bgnd = currentZColor.bg;
+
+    if (self.currentReverseVideo == YES) {
+        if (currentZColor && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
+            bgnd = currentZColor.fg;
+        } else {
+            bgnd = self.theme.gridNormal.color.integerColor;
+        }
+    } else if (currentZColor && bgnd != currentZColor.bg) {
+        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
+            bgnd = currentZColor.bg;
+        }
+    }
+
     [self recalcBackground];
 }
 

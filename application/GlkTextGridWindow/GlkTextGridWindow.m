@@ -833,20 +833,12 @@
         self.frame = self.frame;
     }
 
-//    if (currentZColor && bgnd != currentZColor.bg) {
-//        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
-//            bgnd = currentZColor.bg;
-//        }
-//        [self recalcBackground];
-//    }
-
-    if (self.currentReverseVideo == YES) {
-        if (currentZColor && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
-            bgnd = currentZColor.fg;
-        } else {
-            bgnd = self.theme.gridNormal.color.integerColor;
-        }
-    }
+    //    if (currentZColor && bgnd != currentZColor.bg) {
+    //        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
+    //            bgnd = currentZColor.bg;
+    //        }
+    //        [self recalcBackground];
+    //    }
 
     if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
         if (_textview.textStorage.length) {

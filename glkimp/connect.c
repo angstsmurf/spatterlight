@@ -669,7 +669,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 
 void win_setbgnd(int name, glui32 color)
 {
-    fprintf(stderr, "win_setbgnd:%06x\n",color);
+    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
     win_flush();
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
