@@ -9,11 +9,11 @@
 #define shogun_hpp
 
 #include <stdio.h>
-bool is_shogun_inline_image(int picnum);
-bool is_shogun_map_image(int picnum);
-bool is_shogun_border_image(int picnum);
+//bool is_shogun_inline_image(int picnum);
+//bool is_shogun_map_image(int picnum);
+//bool is_shogun_border_image(int picnum);
 
-void adjust_shogun_window(void);
+//void adjust_shogun_window(void);
 void shogun_update_on_resize(void);
 void shogun_draw_title_image(void);
 void shogun_update_after_restore(void);
@@ -36,11 +36,12 @@ void DISPLAY_MAZE(void);
 void DISPLAY_MAZE_PIC(void);
 void MAZE_MOUSE_F(void);
 
-
-#define kShogunHintBorder 50
 #define kShogunTitleImage 1
 
+#define P_HINT_LOC 49
+
 enum ShogunBorderType {
+    NO_BORDER = 0,
     P_BORDER = 3,
     P_BORDER2 = 4,
     P_HINT_BORDER = 50
@@ -48,8 +49,6 @@ enum ShogunBorderType {
 
 void shogun_display_border(ShogunBorderType border);
 void shogun_display_inline_image(glui32 align);
-
-extern int shogun_graphical_banner_width_left;
-extern int shogun_graphical_banner_width_right;
+void shogun_erase_screen(void);
 
 #endif /* shogun_hpp */
