@@ -39,6 +39,7 @@ void DRAW_FLOWERS(void);
 void SN_CLICK(void);
 void FANUCCI(void);
 void SETUP_FANUCCI(void);
+void V_MAP_LOOP(void);
 
 enum BorderType {
     CASTLE_BORDER = 5,
@@ -133,8 +134,6 @@ bool is_zorkzero_tower_image(int pic);
 bool is_zorkzero_peggleboz_image(int pic);
 bool is_zorkzero_peggleboz_box_image(int pic);
 
-glsi32 encyclopedia_background_color(void);
-
 extern winid_t z0_left_status_window;
 extern winid_t z0_right_status_window;
 
@@ -144,8 +143,6 @@ void z0_update_colors(void);
 void refresh_margin_images(void);
 void clear_margin_image_list(void);
 void z0_resize_status_windows(void);
-
-void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y);
 
 bool z0_display_picture(int x, int y, Window *win);
 
