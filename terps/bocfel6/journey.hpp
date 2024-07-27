@@ -19,15 +19,12 @@ void journey_draw_cursor(void);
 void move_v6_cursor(int column, int line);
 
 // Journey
-//void INTRO(void);
-//void after_TITLE_PAGE(void);
 void after_INTRO(void);
 void REFRESH_SCREEN(void);
 void INIT_SCREEN(void);
 void DIVIDER(void);
 void WCENTER(void);
 void BOLD_CURSOR(void);
-//void BOLD_PARTY_CURSOR(void);
 void PRINT_COLUMNS(void);
 void PRINT_CHARACTER_COMMANDS(void);
 void REFRESH_CHARACTER_COMMAND_AREA(void);

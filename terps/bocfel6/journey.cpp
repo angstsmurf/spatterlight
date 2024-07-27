@@ -444,34 +444,43 @@ struct JourneyMenu {
     int column;
 };
 
+
+#define SUBGROUP_BIT 0x2a
+#define SHADOW_BIT 0x17
+
+#define MAX_SUBMENU_ITEMS 6
+
 static void create_submenu(JourneyMenu *m, int object, int objectindex) {
     uint16_t command_table = word(get_global(0x32) + objectindex * 2);
-    m->submenu_entries = 0;
-    if (!internal_test_attr(object, 0x17)) { // flag 0x17 is SHADOW flag
-        for (int i = 0; i <= 2; i++) {
-            uint16_t command = user_word(command_table + i * 2);
-            uint16_t str = word(command);
-            if (str != 0 && count_characters_in_zstring(str) > 1) {
-                if (m->submenu == nullptr) {
-                    m->submenu = (struct JourneyMenu *)malloc(sizeof(struct JourneyMenu) * 3);
-                }
-                struct JourneyMenu *submenu = &(m->submenu[m->submenu_entries]);
-                submenu->length = print_zstr_to_cstr(str, submenu->name);
-                submenu->line = m->line;
-                m->submenu_entries++;
-                submenu->column = m->column + m->submenu_entries;
-                fprintf(stderr, "verb submenu item %d: \"%s\"\n", m->submenu_entries, submenu->name);
+    if (!internal_test_attr(object, SHADOW_BIT)) {
+        m->submenu_entries = 0;
+    }
+    for (int i = 0; i <= 2; i++) {
+        uint16_t command = user_word(command_table + i * 2);
+        uint16_t str = word(command);
+        if (str != 0 && count_characters_in_zstring(str) > 1) {
+            if (m->submenu == nullptr) {
+                m->submenu = (struct JourneyMenu *)malloc(sizeof(struct JourneyMenu) * MAX_SUBMENU_ITEMS);
             }
+            struct JourneyMenu *submenu = &(m->submenu[m->submenu_entries]);
+            submenu->length = print_zstr_to_cstr(str, submenu->name);
+            submenu->line = m->line;
+            m->submenu_entries++;
+            if (m->submenu_entries > MAX_SUBMENU_ITEMS) {
+                fprintf(stderr, "Error! Too manu submenu items\n");
+                return;
+            }
+            submenu->column = m->column + i;
+//            fprintf(stderr, "verb submenu item %d: \"%s\"\n", m->submenu_entries, submenu->name);
         }
     }
 }
-
 
 static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
     struct JourneyMenu menu[10];
 
-    fprintf(stderr, "create_journey_menu\n");
+//    fprintf(stderr, "create_journey_menu\n");
     int table, table_count;
     if (type == kJMenuTypeObjects) {
         table = get_global(0x14) + (prsi ? 10 : 0);
@@ -485,11 +494,10 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
     bool subgroup = (get_global(0x80) == 1);
     int menu_counter = 0;
-    int submenu_counter = 0;
 
     for (int i = 1; i <= table_count; i++) {
         uint16_t object = word(table + 2 * i);
-        if (object != 0 && !(subgroup && !internal_test_attr(object, 0x2a))) {
+        if (object != 0 && (!(subgroup && !internal_test_attr(object, SUBGROUP_BIT)) || internal_test_attr(object, SHADOW_BIT))) {
 
             m = &menu[menu_counter];
 
@@ -514,8 +522,15 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             if (m->length > 1) {
                 m->line = i - 1;
                 if (type == kJMenuTypeMembers) {
-                    m->column = 1;
-                    create_submenu(m, object, i);
+                    m->column = 2;
+                    // Hack to add "shadow" menus to the previous submenu
+                    // instead of creating a new one.
+                    // This assumes that the shadow menu is always the last one.
+                    if (internal_test_attr(object, SHADOW_BIT)) {
+                        menu_counter--;
+                        menu[menu_counter].line++;
+                    }
+                    create_submenu(&menu[menu_counter], object, i);
                 } else {
                     m->column = 3 + ((menu_counter > 4 || prsi) ? 1 : 0);
                 }
@@ -543,7 +558,8 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
         if (m->submenu != nullptr) {
             for (int j = 0; j < m->submenu_entries; j++) {
                 struct JourneyMenu *submenu = &(m->submenu[j]);
-                win_menuitem(kJMenuTypeVerbs, submenu->column, submenu->line, (j == submenu_counter - 1), submenu->name, submenu->length);
+//                fprintf(stderr, "Sending submenu command %s line %d column %d stop %d length %d\n", submenu->name, submenu->line, submenu->column, (j == m->submenu_entries - 1), submenu->length);
+                win_menuitem(kJMenuTypeVerbs, submenu->column, submenu->line, (j == m->submenu_entries - 1), submenu->name, submenu->length);
             }
             free(m->submenu);
             m->submenu = nullptr;
@@ -805,7 +821,7 @@ static void journey_print_character_commands(bool CLEAR) {
 
         // global 0x80 is SUBGROUP-MODE
         // attribute 0x2a is SUBGROUP flag
-        if (CHR != 0 && !(get_global(0x80) && !internal_test_attr(CHR, 0x2a))) {
+        if (CHR != 0 && !(get_global(0x80) && !internal_test_attr(CHR, SUBGROUP_BIT))) {
             int namelength = PRINT_DESC(CHR, false);
 
             uint16_t LONG_ARROW_WIDTH = 3;
@@ -836,11 +852,23 @@ static void journey_print_character_commands(bool CLEAR) {
             uint16_t BTBL = word(get_global(0x32) + i * 2);
 
             bool SUBGROUP_MODE = (get_global(0x80) == 1); // global 0x80 is SUBGROUP-MODE
-            bool SUBGROUP = internal_test_attr(CHR, 0x2a); // flag 0x2a is SUBGROUP flag
-            bool SHADOW = internal_test_attr(CHR, 0x17); // flag 0x17 is SHADOW flag
-            fprintf(stderr, "SUBGROUP_MODE: %s SUBGROUP flag: %s SHADOW flag: %s\n", SUBGROUP_MODE ? "true" : "false", SUBGROUP ? "true" : "false",SHADOW ? "true" : "false" );
+            bool SUBGROUP = internal_test_attr(CHR, SUBGROUP_BIT); // flag 0x2a is SUBGROUP flag
+            // if the SHADOW_BIT of a character is set, the character name is hidden
+            // and its commands "belong" to the visible character above.
+            // This is used to give Praxis more than three commands in the mines.
+            bool SHADOW = internal_test_attr(CHR, SHADOW_BIT); // flag 0x17 is SHADOW flag
+//            fprintf(stderr, "SUBGROUP_MODE: %s SUBGROUP flag: %s SHADOW flag: %s\n", SUBGROUP_MODE ? "true" : "false", SUBGROUP ? "true" : "false",SHADOW ? "true" : "false" );
 
-            bool should_print_command = (!CLEAR && CHR != 0 && !(SUBGROUP_MODE && !SUBGROUP) && !SHADOW);
+            bool should_print_command = true;
+
+            if (CLEAR || CHR == 0) {
+                should_print_command = false;
+            // The SHADOW bit trumps subgroup mode: if it is set,
+            // commands will be printed even though the character
+            // does not belong to the subgroup.
+            } else if ((SUBGROUP_MODE && SUBGROUP) || SHADOW) {
+                should_print_command = true;
+            }
 
             // Print up to three verbs for each character to the right, or just erase the fields
             for (int j = 0; j <= 2; j++) {
