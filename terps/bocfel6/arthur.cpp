@@ -29,8 +29,7 @@ extern uint32_t update_map_address;
 extern uint8_t update_global_idx;
 extern uint8_t global_map_grid_y_idx;
 
-static bool showing_wide_arthur_room_image = false;
-static int arthur_diffx = 0, arthur_diffy = 0;
+bool showing_wide_arthur_room_image = false;
 
 int arthur_text_top_margin = -1;
 int arthur_pic_top_margin = 0;
@@ -59,7 +58,7 @@ bool is_arthur_stamp_image(int picnum) {
     return false;
 }
 
-bool is_arthur_room_image(int picnum) {
+static bool is_arthur_room_image(int picnum) {
     switch (picnum) {
         case 101:
         case 102:
@@ -89,14 +88,15 @@ bool is_arthur_map_image(int picnum) {
     return (picnum >= 105 && picnum <= 153);
 }
 
+
+#define K_PIC_BANNER_MARGIN 100
+#define K_MAP_SCROLL 137
+
 void adjust_arthur_top_margin(void) {
     int mapheight, borderheight;
-    get_image_size(137, nullptr, &mapheight); // Get height of map background image
-    get_image_size(100, nullptr, &borderheight); // Get height of border measuring dummy image
+    get_image_size(K_MAP_SCROLL, nullptr, &mapheight); // Get height of map background image
+    get_image_size(K_PIC_BANNER_MARGIN, nullptr, &borderheight); // Get height of border measuring dummy image
     float y_margin = mapheight * imagescaley;
-//    arthur_text_top_margin = (ceil(y_margin / gcellh) + 1) * gcellh;
-//    if (graphics_type == kGraphicsTypeApple2)
-//        arthur_text_top_margin -= gcellh;
     arthur_text_top_margin = ceil(y_margin / gcellh) * gcellh;
     arthur_pic_top_margin = arthur_text_top_margin / imagescaley - borderheight - 4;
     if (arthur_pic_top_margin < 0)
@@ -105,28 +105,6 @@ void adjust_arthur_top_margin(void) {
     fprintf(stderr, "Arthur pic top: %d\n", arthur_pic_top_margin);
 }
 
-void adjust_arthur_room_image(int picnum, int width, int height, int *x, int *y) {
-    int newx = *x, newy = *y;
-    if (is_arthur_room_image(picnum)) {
-        newx = ceil(((float)gscreenw - (float)width * imagescalex) / 2.0);
-        newy = arthur_pic_top_margin;
-
-        if (graphics_type == kGraphicsTypeMacBW) {
-            newy = (newy + 12) * imagescaley;
-            newx++;
-        } else {
-            newy = (newy + 8) * imagescaley;
-        }
-        arthur_diffx = newx - *x;
-        arthur_diffy = newy - *y;
-    } else if (is_arthur_stamp_image(picnum)) {
-        newx = *x + arthur_diffx;
-        newy = *y + arthur_diffy;
-    }
-
-    *x = newx;
-    *y = newy;
-}
 
 void draw_arthur_room_image(int picnum) {
     int x, y, width, height;
@@ -142,9 +120,10 @@ void draw_arthur_room_image(int picnum) {
         showing_wide_arthur_room_image = false;
     }
 
-    //    if (is_arthur_room_image(picnum)) {
     x = ((hw_screenwidth - width) / 2.0);
     y = arthur_pic_top_margin;
+    if (showing_wide_arthur_room_image)
+        y--;
 
     if (graphics_type == kGraphicsTypeMacBW) {
         y += 11;
@@ -152,7 +131,7 @@ void draw_arthur_room_image(int picnum) {
     } else {
         y += 7;
     }
-    //    }
+
     if (is_arthur_stamp_image(picnum)) {
         //    K-PIC-ISLAND-DOOR=158
         if (picnum == 158)
@@ -173,9 +152,9 @@ void draw_arthur_room_image(int picnum) {
 }
 
 
-void draw_arthur_map_image(int picnum, int x, int y) {
+static void draw_arthur_map_image(int picnum, int x, int y) {
     int x_margin;
-    get_image_size(100, &x_margin, nullptr);
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr);
     x += x_margin;
     if (options.int_number == INTERP_MACINTOSH)
         y--;
@@ -191,8 +170,19 @@ void ARTHUR_UPDATE_STATUS_LINE(void) {}
 extern std::array<Window, 8> windows;
 extern Window *mainwin, *curwin, *upperwin;
 
+// Window 0 (S-TEXT) is the standard V6 text buffer window
+// Window 1 (S-WINDOW) is the standard V6 status window
+
+// Window 2 is the small room graphics window at top, not including banners
+// Window 3 is the inverted error window at the bottom
+
+// Windows 5 and 6 are left and right banners, but are only used when erasing
+// banner graphics. The banners are drawn to window S-FULL (7)
+
+// Window 7 (S-FULL) is the standard V6 fullscreen window
+
 // Called on window_changed();
-void arthur_window_adjustments(void) {
+void arthur_update_on_resize(void) {
     adjust_arthur_top_margin();
 
     // We delete Arthur error window on resize
@@ -203,7 +193,7 @@ void arthur_window_adjustments(void) {
         if (screenmode != MODE_NO_GRAPHICS) {
             fprintf(stderr, "adjusting margins in window_change\n");
             int x_margin = 0, y_margin = 0;
-            get_image_size(100, &x_margin, &y_margin);
+            get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
 
             x_margin *= imagescalex;
             y_margin *= imagescaley;
@@ -246,8 +236,9 @@ void arthur_window_adjustments(void) {
 
             if (screenmode == MODE_NORMAL) {
                 internal_call_with_arg(pack_routine(update_picture_address), 1);
-                if (!showing_wide_arthur_room_image)
-                    draw_arthur_side_images(current_graphics_buf_win);
+                draw_arthur_side_images(current_graphics_buf_win);
+                if (showing_wide_arthur_room_image)
+                    draw_arthur_room_image(current_picture);
             } else if (screenmode == MODE_INVENTORY) {
                 internal_call_with_arg(pack_routine(update_inventory_address), 1);
             } else if (screenmode == MODE_STATUS) {
@@ -264,6 +255,8 @@ void arthur_window_adjustments(void) {
         set_global(update_global_idx, 0);
         internal_call(pack_routine(update_status_bar_address));
     } else {
+        v6_delete_glk_win(current_graphics_buf_win);
+        current_graphics_buf_win = v6_new_glk_window(wintype_Graphics);
         clear_image_buffer();
         ensure_pixmap(current_graphics_buf_win);
         mainwin->x_size = gscreenw;
@@ -279,9 +272,14 @@ void arthur_window_adjustments(void) {
     flush_bitmap(current_graphics_buf_win);
 }
 
+#define ROOM_GRAPHIC_WIN windows[2]
+
+
+// Only called when set_current_window is called with 2,
+// I when the room graphics window is set to current
 void adjust_arthur_windows(void) {
     int x_margin;
-    get_image_size(100, &x_margin, nullptr); // Get width of dummy "margin" image
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr); // Get width of dummy "margin" image
     if (screenmode != MODE_SLIDESHOW && screenmode != MODE_NO_GRAPHICS && screenmode != MODE_HINTS) {
         fprintf(stderr, "adjusting margins in adjust_arthur_windows\n");
         adjust_arthur_top_margin();
@@ -293,24 +291,25 @@ void adjust_arthur_windows(void) {
             upperwin->x_origin += imagescalex;
         mainwin->x_size = upperwin->x_size;
         mainwin->x_origin = upperwin->x_origin;
-        windows[2].x_origin = upperwin->x_origin;
-        windows[2].x_size = upperwin->x_size;
+        ROOM_GRAPHIC_WIN.x_origin = upperwin->x_origin;
+        ROOM_GRAPHIC_WIN.x_size = upperwin->x_size;
         upperwin->y_size = gcellh + 2 * ggridmarginy;
         mainwin->y_origin = upperwin->y_origin + upperwin->y_size;
         mainwin->y_size = gscreenh - mainwin->y_origin - 1;
         v6_sizewin(upperwin);
         v6_sizewin(mainwin);
-        windows[2].y_origin = 1;
-        windows[2].y_size = arthur_text_top_margin;
+        ROOM_GRAPHIC_WIN.y_origin = 1;
+        ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin;
     }
     if (screenmode == MODE_INVENTORY || screenmode == MODE_STATUS) {
-        windows[2].y_origin = 1;
-        windows[2].x_origin = upperwin->x_origin;
-        if (windows[2].id && (windows[2].id->type != wintype_TextGrid || is_win_covered(&windows[2], windows[2].zpos))) {
-            v6_delete_win(&windows[2]);
+        ROOM_GRAPHIC_WIN.y_origin = 1;
+        ROOM_GRAPHIC_WIN.x_origin = upperwin->x_origin;
+        if (ROOM_GRAPHIC_WIN.id && ROOM_GRAPHIC_WIN.id->type != wintype_TextGrid) {
+            v6_delete_win(&ROOM_GRAPHIC_WIN);
         }
-        if (windows[2].id == nullptr) {
-            v6_remap_win_to_grid(&windows[2]);
+
+        if (ROOM_GRAPHIC_WIN.id == nullptr) {
+            v6_remap_win_to_grid(&ROOM_GRAPHIC_WIN);
         }
         if (graphics_win_glk) {
             glk_window_set_background_color(graphics_win_glk, user_selected_background);
@@ -320,68 +319,28 @@ void adjust_arthur_windows(void) {
         win_setbgnd(mainwin->id->peer, user_selected_background);
         mainwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
         mainwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        if (get_global(fg_global_idx) == 1) {
-            //            garglk_set_zcolors(gfgcol, gbgcol);
-            //            mainwin->fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND_COLOUR);
-            //            mainwin->bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND_COLOUR);
-            //            mainwin->style.reset(STYLE_REVERSE);
-            //            set_current_style();
-        } else {
-            //            garglk_set_zcolors(user_selected_foreground, user_selected_background);
-        }
         return;
     } else if (screenmode == MODE_MAP) {
         int mapheight;
-        get_image_size(137, nullptr, &mapheight); // Get height of map background image
-        windows[2].y_origin = 0;
-        windows[2].y_size = mapheight;
-        windows[2].x_origin = x_margin;
-        windows[2].x_size = hw_screenwidth - 2 * x_margin;
-        v6_delete_win(&windows[2]);
+        get_image_size(K_MAP_SCROLL, nullptr, &mapheight); // Get height of map background image
+        ROOM_GRAPHIC_WIN.y_origin = 0;
+        ROOM_GRAPHIC_WIN.y_size = mapheight;
+        ROOM_GRAPHIC_WIN.x_origin = x_margin;
+        ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
+        v6_delete_win(&ROOM_GRAPHIC_WIN);
     } else if (screenmode == MODE_ROOM_DESC) {
-        if (windows[2].id && (windows[2].id->type != wintype_TextBuffer || is_win_covered(&windows[2], windows[2].zpos))) {
-            v6_delete_win(&windows[2]);
+
+        if (ROOM_GRAPHIC_WIN.id &&ROOM_GRAPHIC_WIN.id->type != wintype_TextBuffer) {
+            v6_delete_win(&ROOM_GRAPHIC_WIN);
         }
-        v6_remap_win_to_buffer(&windows[2]);
+        v6_remap_win_to_buffer(&ROOM_GRAPHIC_WIN);
         glk_window_clear(graphics_win_glk);
     } else if (screenmode == MODE_NO_GRAPHICS) {
-    } else if (windows[2].id) {
-        v6_delete_win(&windows[2]);
-        curwin->zpos = 0;
+    } else if (ROOM_GRAPHIC_WIN.id) {
+        v6_delete_win(&ROOM_GRAPHIC_WIN);
     }
-    v6_sizewin(&windows[2]);
+    v6_sizewin(&ROOM_GRAPHIC_WIN);
 }
-
-void V_COLOR(void) {
-    fprintf(stderr, "V-COLOR\n");
-    int fg = get_global(fg_global_idx);
-    int bg = get_global(bg_global_idx);
-    fprintf(stderr, "V_COLOR: fg: 0x%x (%d) bg 0x%x (%d)\n", fg, fg, bg, bg);
-    if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
-        set_global(fg_global_idx, 1);
-    }
-    if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
-        set_global(bg_global_idx, 1);
-    }
-}
-
-//static void window_change(void);
-
-void after_V_COLOR(void) {
-    fprintf(stderr, "after V-COLOR\n");
-
-    fprintf(stderr, "Value of fg global variable: %d Value of bg global variable: %d\n", get_global(fg_global_idx), get_global(bg_global_idx));
-
-    update_user_defined_colors();
-
-    //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-    //    v6_delete_win(mainwin);
-    //    mainwin->id = v6_new_glk_window(wintype_TextBuffer);
-    //    v6_sizewin(mainwin);
-    //    win_setbgnd(mainwin->id->peer, user_selected_background);
-    //    window_change();
-}
-
 
 
 void RT_UPDATE_PICT_WINDOW(void) {
@@ -409,7 +368,7 @@ bool arthur_display_picture(glsi32 x, glsi32 y) {
         return true;
     }
     // Intro "slideshow"
-    if (current_picture >= 1 && current_picture <= 3) {
+    if ((current_picture >= 1 && current_picture <= 3) || current_picture == 84 || current_picture == 85) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_win_glk) {
             current_graphics_buf_win = v6_new_glk_window(wintype_Graphics);
             glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
@@ -440,10 +399,9 @@ bool arthur_display_picture(glsi32 x, glsi32 y) {
         return true;
     } else if (is_arthur_map_image(current_picture)) {
         screenmode = MODE_MAP;
-        if (current_picture == 137) {// map background
+        if (current_picture == K_MAP_SCROLL) {// map background
             glk_request_mouse_event(graphics_win_glk);
-        }
-        else {
+        } else {
             draw_arthur_map_image(current_picture, x, y);
             return true;
         }
@@ -459,4 +417,3 @@ bool arthur_display_picture(glsi32 x, glsi32 y) {
     draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
     return true;
 }
-
