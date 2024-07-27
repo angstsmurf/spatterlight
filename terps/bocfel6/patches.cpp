@@ -632,6 +632,14 @@ static std::vector<Patch> patches = {
                 { 0xcf, 0x1f },
                 { 0xab, 0x01 } // RET L00
             },
+
+            // This messes up input buffer length. Could probably be fixed thru MARGINAL-PIC instead
+            // SET-MARGIN
+            {
+                0x1298d, 1,
+                { 0xbe },
+                { 0xb0 }
+            },
         }
     },
 

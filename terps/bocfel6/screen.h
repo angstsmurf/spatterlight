@@ -214,7 +214,7 @@ struct Window {
     uint16_t true_fore;
     uint16_t true_back;
     uint16_t index;
-    int zpos;
+//    int zpos;
     uint16_t last_click_x;
     uint16_t last_click_y;
     uint16_t lastline[512];
@@ -238,7 +238,7 @@ glui32 brightest(glui32 col1, glui32 col2);
 void v6_restore_hacks(void);
 void v6_remap_win_to_buffer(Window *win);
 void v6_remap_win_to_grid(Window *win);
-bool is_win_covered(Window *win, int zpos);
+//bool is_win_covered(Window *win, int zpos);
 void flush_image_buffer(void);
 glui32 rgb_colour_from_index(uint16_t index);
 void v6_delete_glk_win(winid_t glkwin);
@@ -271,7 +271,6 @@ extern winid_t graphics_win_glk;
 extern glui32 current_picture;
 extern glui32 user_selected_foreground, user_selected_background;
 
-extern int a2_graphical_banner_height;
 extern int buffer_xpos;
 
 #endif

@@ -391,6 +391,15 @@ static std::vector<EntryPoint> entrypoints = {
         FANUCCI
     },
 
+    {
+        Game::ZorkZero,
+        "V-MAP-LOOP",
+        { 0x88, 0x1e, 0xff, 0x00 },
+        0,
+        0,
+        V_MAP_LOOP
+    },
+
 #pragma mark Arthur
 
     {
@@ -732,6 +741,7 @@ static std::vector<EntryPoint> entrypoints = {
         V_DEFINE
     },
 
+    // Shared with Arthur
     {
         Game::Shogun,
         "V-COLOR",
@@ -741,6 +751,7 @@ static std::vector<EntryPoint> entrypoints = {
         V_COLOR
     },
 
+    // Shared with Arthur
     {
         Game::Shogun,
         "after V-COLOR",
@@ -875,7 +886,7 @@ void find_color_globals(void) {
             start = entrypoint.found_at_address + 12;
             fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
             for (int i = start; i < memory_size - 12; i++) {
-                if (memory[i] == 0xb8) {
+                if (memory[i] == 0xb8 || memory[i] == 0xb0 ) {
                     color_return_address = i;
                     break;
                 }
