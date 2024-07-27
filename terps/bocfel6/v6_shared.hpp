@@ -28,6 +28,11 @@ void refresh_margin_images(void);
 
 void DO_HINTS(void);
 
+extern uint8_t fg_global_idx, bg_global_idx;
+
+void V_COLOR(void);
+void after_V_COLOR(void);
+
 #define V6_TEXT_BUFFER_WINDOW windows[0]
 #define V6_STATUS_WINDOW windows[1]
 
