@@ -11,7 +11,6 @@
 // This is similar to the image compression used by Magnetic Scrolls.
 // The code below is based on ms_extract1() in the Magnetic interpreter.
 uint8_t *decompress_amiga(ImageStruct *image) {
-    uint8_t encoded_byte = 0;
     uint8_t repeats = 0;
     uint8_t color_index = 0;
 
