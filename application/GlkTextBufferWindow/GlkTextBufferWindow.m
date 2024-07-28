@@ -1771,8 +1771,9 @@ replacementString:(id)repl {
     NSRect line;
 
     _printPositionOnInput = textstorage.length;
-    if (fence > 0)
+    if (fence > 0 && !char_request) {
         _printPositionOnInput = fence;
+    }
 
     if (textstorage.length == 0) {
         _lastseen = 0;
