@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reset;
 - (void)saveHistory:(NSString *)line;
 - (nullable NSString *)travelBackwardInHistory:(nullable NSString *)currentInput;
+- (BOOL)empty;
+
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nullable travelForwardInHistory;
 
 @end

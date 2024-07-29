@@ -1301,28 +1301,33 @@ fprintf(stderr, "%s\n",                                                    \
 
     cx = [history travelBackwardInHistory:cx];
 
-    if (!cx) {
-        [self.glkctl speakString:@"Start of command history"];
-        return;
+    if (cx) {
+        [textstorage
+         replaceCharactersInRange:self.editableRange
+         withString:cx];
+        [_textview resetTextFinder];
+    } else {
+        if ([history empty])
+            [self.glkctl speakString:@"No commands entered"];
+        else
+            [self.glkctl speakString:@"Start of command history"];
     }
-
-    [textstorage
-     replaceCharactersInRange:self.editableRange
-     withString:cx];
-    [_textview resetTextFinder];
 }
 
 - (void)travelForwardInHistory {
     NSString *cx = [history travelForwardInHistory];
-    if (!cx) {
-        [self.glkctl speakString:@"End of command history"];
-        return;
+    if (cx) {
+        [self flushDisplay];
+        [textstorage
+         replaceCharactersInRange:self.editableRange
+         withString:cx];
+        [_textview resetTextFinder];
+    } else {
+        if ([history empty])
+            [self.glkctl speakString:@"No commands entered"];
+        else
+            [self.glkctl speakString:@"End of command history"];
     }
-    [self flushDisplay];
-    [textstorage
-     replaceCharactersInRange:self.editableRange
-     withString:cx];
-    [_textview resetTextFinder];
 }
 
 #pragma mark Beyond Zork font

@@ -137,4 +137,8 @@
     }
 }
 
+- (BOOL)empty {
+    return (history.count == 0);
+}
+
 @end

@@ -1424,6 +1424,11 @@
     if (cx) {
         self.input.stringValue = cx;
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
+    }  else {
+        if ([history empty])
+            [self.glkctl speakString:@"No commands entered"];
+        else
+            [self.glkctl speakString:@"Start of command history"];
     }
 }
 
@@ -1434,6 +1439,11 @@
     if (cx) {
         self.input.stringValue = cx;
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
+    } else {
+        if ([history empty])
+            [self.glkctl speakString:@"No commands entered"];
+        else
+            [self.glkctl speakString:@"End of command history"];
     }
 }
 
