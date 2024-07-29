@@ -1301,8 +1301,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     cx = [history travelBackwardInHistory:cx];
 
-    if (!cx)
+    if (!cx) {
+        [self.glkctl speakString:@"Start of command history"];
         return;
+    }
 
     [textstorage
      replaceCharactersInRange:self.editableRange
@@ -1312,8 +1314,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)travelForwardInHistory {
     NSString *cx = [history travelForwardInHistory];
-    if (!cx)
+    if (!cx) {
+        [self.glkctl speakString:@"End of command history"];
         return;
+    }
     [self flushDisplay];
     [textstorage
      replaceCharactersInRange:self.editableRange
