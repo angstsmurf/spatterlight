@@ -87,17 +87,24 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
 
-@property BOOL adrianMole;
-@property BOOL anchorheadOrig;
-@property BOOL beyondZork;
-@property BOOL bureaucracy;
-@property BOOL colderLight;
-@property BOOL curses;
-@property BOOL deadCities;
-@property BOOL kerkerkruip;
-@property BOOL narcolepsy;
-@property BOOL thaumistry;
-@property BOOL trinity;
+typedef enum kGameIdentity : NSUInteger {
+    kGameIsGeneric,
+    kGameIsAdrianMole,
+    kGameIsAnchorheadOriginal,
+    kGameIsBeyondZork,
+    kGameIsBureaucracy,
+    kGameIsAColderLight,
+    kGameIsCurses,
+    kGameIsDeadCities,
+    kGameIsJuniorArithmancer,
+    kGameIsKerkerkruip,
+    kGameIsNarcolepsy,
+    kGameIsThaumistry,
+    kGameIsTrinity,
+} kGameIdentity;
+
+@property kGameIdentity gameID;
+
 @property BOOL usesFont3;
 
 @property NSInteger autosaveVersion;

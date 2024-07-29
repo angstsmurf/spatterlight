@@ -53,7 +53,7 @@
     // If the current game is Bureaucracy and the initial text
     // in the grid window is one of the four form titles, then
     // we can be be pretty sure that this is it
-    if (_glkctl.bureaucracy) {
+    if (_glkctl.gameID == kGameIsBureaucracy) {
         for (GlkTextGridWindow *win in _glkctl.gwindows.allValues) {
             if ([win isKindOfClass:[GlkTextGridWindow class]]) {
                 _attrStr = win.textview.textStorage;

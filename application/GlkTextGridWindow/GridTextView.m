@@ -43,7 +43,7 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.beyondZork)
+    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.gameID == kGameIsBeyondZork)
     [super mouseDown:theEvent];
 }
 

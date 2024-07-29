@@ -194,7 +194,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)setFrame:(NSRect)frame {
     GlkController *glkctl = self.glkctl;
 
-    if (glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
+    if (glkctl.gameID == kGameIsCurses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
         // When we extend the height of the status
         // line in Curses in order to make the second line
         // visible when showing quote boxes, we also need to
@@ -578,7 +578,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.beyondZork) {
+    if (glkctl.gameID == kGameIsBeyondZork) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -862,7 +862,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self printToWindow:str style:stylevalue];
 
-    if (self.glkctl.deadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
+    if (self.glkctl.gameID == kGameIsDeadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
         // Turn this off by disabling game specific hacks in preferences.
@@ -1079,11 +1079,11 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
-                                (self.glkctl.beyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
+                                (self.glkctl.gameID == kGameIsBeyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
         [self travelBackwardInHistory];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
-                                (self.glkctl.beyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
+                                (self.glkctl.gameID == kGameIsBeyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -1159,7 +1159,7 @@ fprintf(stderr, "%s\n",                                                    \
     line = [line scrubInvalidCharacters];
     line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    if (self.glkctl.beyondZork) {
+    if (self.glkctl.gameID == kGameIsBeyondZork) {
         if (terminator == keycode_Home) {
             terminator = keycode_Up;
         } else if (terminator == keycode_End) {
@@ -1754,7 +1754,7 @@ replacementString:(id)repl {
     GlkController *glkctl = self.glkctl;
     // Send an arrange event to The Colder Light in order
     // to make it update its title bar
-    if (glkctl.colderLight) {
+    if (glkctl.gameID == kGameIsAColderLight) {
         GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
                                                     height:(NSInteger)glkctl.gameView.frame.size.height
                                                      theme:glkctl.theme

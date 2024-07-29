@@ -406,7 +406,7 @@ fprintf(stderr, "%s\n",                                                    \
     lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
-    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+    if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
@@ -755,57 +755,51 @@ fprintf(stderr, "%s\n",                                                    \
     if ([l9Substring isEqualToString:@"LEVEL9-001"] || // The Secret Diary of Adrian Mole
         [l9Substring isEqualToString:@"LEVEL9-002"] || // The Growing Pains of Adrian Mole
         [l9Substring isEqualToString:@"LEVEL9-019"]) { // The Archers
-        _adrianMole = YES;
+        _gameID = kGameIsAdrianMole;
     } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
-        _anchorheadOrig = YES;
+        _gameID = kGameIsAnchorheadOriginal;
     } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
                [ifid isEqualToString:@"ZCODE-49-870917"] ||
                [ifid isEqualToString:@"ZCODE-51-870923"] ||
                [ifid isEqualToString:@"ZCODE-57-871221"] ||
                [ifid isEqualToString:@"ZCODE-60-880610"]) {
-        _beyondZork = YES;
+        _gameID = kGameIsBeyondZork;
     } else if ([ifid isEqualToString:@"ZCODE-86-870212"] ||
                [ifid isEqualToString:@"ZCODE-116-870602"] ||
                [ifid isEqualToString:@"ZCODE-160-880521"]) {
-        _bureaucracy = YES;
+        _gameID = kGameIsBureaucracy;
     } else if ([ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
-        _colderLight = YES;
+        _gameID = kGameIsAColderLight;
     } else if ([ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
                [ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
                [ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
                [ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
                [ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
-        _curses = YES;
+        _gameID = kGameIsCurses;
     } else if ([ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
-        _deadCities = YES;
+        _gameID = kGameIsDeadCities;
     } else if ([ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
-        _kerkerkruip = YES;
+        _gameID = kGameIsKerkerkruip;
     } else if ([ifid isEqualToString:@"GLULX-1-040108-D8D78266"]) {
-        _narcolepsy = YES;
+        _gameID = kGameIsNarcolepsy;
     } else if ([ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
-        _thaumistry = YES;
+        _gameID = kGameIsThaumistry;
     } else if ([ifid isEqualToString:@"ZCODE-1-851202"] ||
                [ifid isEqualToString:@"ZCODE-1-860221"] ||
                [ifid isEqualToString:@"ZCODE-14-860313"] ||
                [ifid isEqualToString:@"ZCODE-11-860509"] ||
                [ifid isEqualToString:@"ZCODE-12-860926"] ||
                [ifid isEqualToString:@"ZCODE-15-870628"]) {
-        _trinity = YES;
+        _gameID = kGameIsTrinity;
+    } else if ([ifid isEqualToString:@"CF619423-EEC7-4E83-8C66-AE7182D55C89"]) {
+        _gameID = kGameIsJuniorArithmancer;
+    } else {
+        _gameID = kGameIsGeneric;
     }
 }
 
 - (void)resetGameDetection {
-    _adrianMole = NO;
-    _anchorheadOrig = NO;
-    _beyondZork = NO;
-    _bureaucracy = NO;
-    _colderLight = NO;
-    _curses = NO;
-    _deadCities = NO;
-    _kerkerkruip = NO;
-    _narcolepsy = NO;
-    _thaumistry = NO;
-    _trinity = NO;
+    _gameID = kGameIsGeneric;
 }
 
 - (void)forkInterpreterTask {
@@ -1726,7 +1720,7 @@ fprintf(stderr, "%s\n",                                                    \
         [_gameView addSubview:win];
     }
 
-    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+    if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
@@ -2123,7 +2117,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Reset any Narcolepsy window mask
     _gameView.layer.mask = nil;
 
-    if (self.narcolepsy && theme.doGraphics && theme.doStyles) {
+    if (self.gameID == kGameIsNarcolepsy && theme.doGraphics && theme.doStyles) {
         [self adjustMaskLayer:nil];
     }
 
@@ -2552,7 +2546,7 @@ fprintf(stderr, "%s\n",                                                    \
             //                  (unsigned long)millisecs, (unsigned long)minTimer);
             millisecs = minTimer;
         }
-        if (_kerkerkruip && millisecs == 10) {
+        if (_gameID == kGameIsKerkerkruip && millisecs == 10) {
             [timer invalidate];
             NSLog(@"Kerkerkruip tried to start a 10 millisecond timer.");
             return;
@@ -2773,7 +2767,7 @@ fprintf(stderr, "%s\n",                                                    \
         key = @(buf[i]);
 
         // Convert input terminator keys for Beyond Zork arrow keys hack
-        if (_beyondZork && _theme.bZTerminator == kBZArrowsSwapped && [gwindow isKindOfClass:[GlkTextBufferWindow class]]) {
+        if (_gameID == kGameIsBeyondZork && _theme.bZTerminator == kBZArrowsSwapped && [gwindow isKindOfClass:[GlkTextBufferWindow class]]) {
             if (buf[i] == keycode_Up) {
                 key = @(keycode_Home);
             } else if (buf[i] == keycode_Down) {
@@ -2786,7 +2780,7 @@ fprintf(stderr, "%s\n",                                                    \
             myDict[key] = @(YES);
         } else {
             // Convert input terminator keys for Beyond Zork arrow keys hack
-            if (_beyondZork) {
+            if (_gameID == kGameIsBeyondZork) {
                 if (_theme.bZTerminator != kBZArrowsOriginal) {
                     if (buf[i] == keycode_Left) {
                         myDict[@"storedLeft"] = @(YES);
@@ -3348,7 +3342,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
-            if (reqWin && !_colderLight && !skipNextScriptCommand) {
+            if (reqWin && _gameID != kGameIsAColderLight && !skipNextScriptCommand) {
                 NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)];
                 if (!preloaded.length || [preloaded characterAtIndex:0] == '\0')
                     preloaded = @"";
@@ -3361,7 +3355,7 @@ fprintf(stderr, "%s\n",                                                    \
                 _shouldSpeakNewText = YES;
 
                 // Check if we are in Beyond Zork Definitions menu
-                if (_beyondZork)
+                if (_gameID == kGameIsBeyondZork)
                     _shouldCheckForMenu = YES;
             }
             skipNextScriptCommand = NO;
@@ -3424,7 +3418,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    if (!_adrianMole || lastScriptKeyTimestamp.timeIntervalSinceNow < -0.5) {
+                    if (_gameID != kGameIsAdrianMole || lastScriptKeyTimestamp.timeIntervalSinceNow < -0.5) {
                         [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
                         lastScriptKeyTimestamp = [NSDate date];
                     }
@@ -3790,7 +3784,7 @@ again:
 
     _bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
-    if (_narcolepsy && theme.doStyles && theme.doGraphics) {
+    if (_gameID == kGameIsNarcolepsy && theme.doStyles && theme.doGraphics) {
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
@@ -4216,7 +4210,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     inFullScreenResize = NO;
     [self contentDidResize:_gameView.frame];
     [self restoreScrollOffsets];
-    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+    if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         // FIXME: Very ugly hack to fix the Narcolepsy mask layer
         // It breaks when exiting fullscreen after the player
         // manually has resized the window in windowed mode.
@@ -4554,7 +4548,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         }
 
         // Bureaucracy form accessibility
-        if (!_zmenu && _bureaucracy) {
+        if (!_zmenu && _gameID == kGameIsBureaucracy) {
             if (!_form) {
                 _form = [[BureaucracyForm alloc] initWithGlkController:self];
             }

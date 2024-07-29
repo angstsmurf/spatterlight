@@ -306,7 +306,7 @@
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.beyondZork) {
+    if (glkctl.gameID == kGameIsBeyondZork) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -624,7 +624,7 @@
     // Because our quote box hack assumes that the status line is 1 row
     // and Curses status line has 2 rows, we need a Curses-specific hack
     // to prevent the lower line from being cut off.
-    if (newrows == 1 && glkctl.curses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
+    if (newrows == 1 && glkctl.gameID == kGameIsCurses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
         self.pendingFrame = frame;
@@ -1106,7 +1106,7 @@
     dirty = YES;
 
     // Draw Bureaucracy form cursor
-    if (self.glkctl.bureaucracy) {
+    if (self.glkctl.gameID == kGameIsBureaucracy) {
         self.currentReverseVideo = YES;
         [self putString:@" " style:style_Normal];
         self.currentReverseVideo = NO;
@@ -1121,7 +1121,7 @@
     // Remove leftover "cursors"
     // when running command scripts in
     // Bureaucracy form
-    if (self.glkctl.bureaucracy && self.glkctl.commandScriptRunning) {
+    if (self.glkctl.gameID == kGameIsBureaucracy && self.glkctl.commandScriptRunning) {
         self.currentReverseVideo = NO;
         [self putString:@" " style:style_Normal];
         xpos--;
@@ -1138,7 +1138,7 @@
 
     GlkController *glkctl = self.glkctl;
 
-    if ((flags & NSEventModifierFlagNumericPad) && !glkctl.bureaucracy && ch >= '0' && ch <= '9')
+    if ((flags & NSEventModifierFlagNumericPad) && glkctl.gameID != kGameIsBureaucracy && ch >= '0' && ch <= '9')
         ch = keycode_Pad0 - (ch - '0');
 
     GlkWindow *win;
@@ -1154,13 +1154,13 @@
         }
 
     // Stupid hack for Swedish keyboard
-    if (char_request && glkctl.bureaucracy && evt.keyCode == 30)
+    if (char_request && glkctl.gameID == kGameIsBureaucracy && evt.keyCode == 30)
         ch = '^';
 
     if (char_request && ch != keycode_Unknown) {
         [glkctl markLastSeen];
 
-        if (glkctl.bureaucracy) {
+        if (glkctl.gameID == kGameIsBureaucracy) {
             // Bureacracy on Bocfel will try to convert these keycodes
             // to characters and then error out with
             // "fatal error: @print_char called with invalid character"
@@ -1197,7 +1197,7 @@
         if (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)]) {
             terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
 
-            if (glkctl.beyondZork) {
+            if (glkctl.gameID == kGameIsBeyondZork) {
                 if (terminator == keycode_Home) {
                     NSLog(@"Gridwin keyDown changed keycode_Home to keycode_Up");
                     terminator = keycode_Up;
@@ -1577,9 +1577,9 @@
 
     NSRect frame = self.frame;
     frame.size = boxSize;
-    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (glkctl.gameID != kGameIsTrinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
     frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y +
-                          (_quoteboxVerticalOffset + 2 * (glkctl.curses == YES)) * self.theme.cellHeight);
+                          (_quoteboxVerticalOffset + 2 * (glkctl.gameID == kGameIsCurses)) * self.theme.cellHeight);
 
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
     if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {
