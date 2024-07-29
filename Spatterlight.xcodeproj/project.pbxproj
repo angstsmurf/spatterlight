@@ -2737,8 +2737,6 @@
 		C30135BC27219AC60006B85C /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
 		C30135BD27219AC60006B85C /* DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadOperation.m; sourceTree = "<group>"; };
 		C301D30C25D35E9300DC4A2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		C30384222A1831FF004F814D /* libz.1.2.13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.13.dylib; path = ../../../opt/homebrew/Cellar/zlib/1.2.13/lib/libz.1.2.13.dylib; sourceTree = "<group>"; };
-		C30384282A1857F4004F814D /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		C30451BF26A971DD006E3D51 /* imagetest.gblorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = imagetest.gblorb; sourceTree = "<group>"; };
 		C30451C126A9A8A5006E3D51 /* Transcript of autosavetest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of autosavetest.txt"; sourceTree = "<group>"; };
 		C3054EC52A7F921300DD5367 /* entrypoints.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints.cpp; sourceTree = "<group>"; };
@@ -2933,7 +2931,6 @@
 		C36DFEDD29AA2F6800EC83A6 /* PreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewController.h; sourceTree = "<group>"; };
 		C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewController.m; sourceTree = "<group>"; };
 		C36F71D52AEAF53700695A16 /* libZW.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libZW.tbd; path = usr/lib/i18n/libZW.tbd; sourceTree = SDKROOT; };
-		C36F71D62AEAF54600695A16 /* libz.1.2.12.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.12.tbd; path = usr/lib/libz.1.2.12.tbd; sourceTree = SDKROOT; };
 		C370B15227D0DD9400EB3F02 /* line_drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_drawing.h; sourceTree = "<group>"; };
 		C372018B27E47E4D00F6BE55 /* layouttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layouttext.h; sourceTree = "<group>"; };
 		C372018D27E47E4D00F6BE55 /* layouttext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = layouttext.c; sourceTree = "<group>"; };
@@ -4383,11 +4380,8 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C36F71D62AEAF54600695A16 /* libz.1.2.12.tbd */,
 				C36F71D52AEAF53700695A16 /* libZW.tbd */,
 				C3B204D32AC4349700464E6B /* libz.tbd */,
-				C30384282A1857F4004F814D /* libz.1.2.8.tbd */,
-				C30384222A1831FF004F814D /* libz.1.2.13.dylib */,
 				C3A207982727B1BE00BAAA24 /* Security.framework */,
 				C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */,
 				C31AF2F7271651E3007B7120 /* CoreFoundation.framework */,
