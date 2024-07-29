@@ -2083,7 +2083,7 @@
 		965032BF09F29EE20083E64E /* porting.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = porting.txt; path = terps/level9/porting.txt; sourceTree = SOURCE_ROOT; };
 		965032C109F29EE20083E64E /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		965032C309F29EE20083E64E /* emu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = emu.c; path = Generic/emu.c; sourceTree = "<group>"; };
-		965032C409F29EE20083E64E /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/magnetic/Glk/glk.c; sourceTree = SOURCE_ROOT; };
+		965032C409F29EE20083E64E /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/magnetic/Glk/glk.c; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		965032C809F29EE20083E64E /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		965032CA09F29EE20083E64E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		965032CB09F29EE20083E64E /* os_ansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_ansi.c; sourceTree = "<group>"; };
