@@ -6294,9 +6294,9 @@ glkunix_startup_code (glkunix_startup_t * data)
 type32 spatterlight_rseed(type32 seed)
 {
     if (gli_determinism)
-        return 1234;
+      return 1234;
     else
-        return seed;
+      return seed;
 }
 
 #endif
