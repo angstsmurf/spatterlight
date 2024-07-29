@@ -2820,11 +2820,14 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             switch (game.like) {
                 case 2:
                     likeCellView.likeButton.image = [NSImage imageNamed:@"heart.slash.fill"];
+
                     likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
+                    likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", nil);
                     break;
                 case 1:
                     likeCellView.likeButton.image = [NSImage imageNamed:@"heart.fill"];
                     likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
+                    likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", nil);
                     break;
                 default:
                     if (row == _gameTableView.mouseOverRow) {
@@ -2833,6 +2836,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                         likeCellView.likeButton.image = nil;
                     }
                     likeCellView.toolTip = NSLocalizedString(@"Like", nil);
+                    likeCellView.accessibilityLabel = NSLocalizedString(@"Not liked", nil);
                     break;
             }
             return likeCellView;

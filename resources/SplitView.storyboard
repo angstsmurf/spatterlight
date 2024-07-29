@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="JBx-dL-I1G">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="JBx-dL-I1G">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -668,6 +668,7 @@
                                                                         <constraint firstAttribute="width" constant="9" id="Ini-Oh-vb0" userLabel="width = 12"/>
                                                                         <constraint firstAttribute="height" constant="9" id="cMf-7B-TG2" userLabel="height = 12"/>
                                                                     </constraints>
+                                                                    <accessibility description="Like"/>
                                                                     <connections>
                                                                         <action selector="liked:" target="xKf-di-cEY" id="s2Y-UK-SlV"/>
                                                                     </connections>
