@@ -4713,9 +4713,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     GlkWindow *largest = nil;
     NSMutableArray *windowsWithMoves = _gwindows.allValues.mutableCopy;
     for (GlkWindow *view in _gwindows.allValues) {
+        // Remove all Glk windows without text from array
         if (!view.moveRanges || !view.moveRanges.count) {
-            // Remove all GlkTextBufferWindow objects with no list of previous moves
-            if (!_quoteBoxes && ([view isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)view).quoteBox))
+            // An empty window with an attached quotebox is still considered to have text
+            if (!(_quoteBoxes && ([view isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)view).quoteBox)))
                 [windowsWithMoves removeObject:view];
         }
     }
