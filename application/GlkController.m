@@ -4683,7 +4683,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakString:(NSString *)string {
-    if (!string || string.length == 0 || !_voiceOverActive || !_game || [Preferences instance].currentGame != _game) {
+    if (!string || string.length == 0 || !_voiceOverActive ||
+        !_game || [Preferences instance].currentGame != _game) {
         return;
     }
 
