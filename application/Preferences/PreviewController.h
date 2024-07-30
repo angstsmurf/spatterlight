@@ -7,14 +7,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Theme;
+@class Theme, PreviewTextView;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewController : NSViewController
 
 @property (weak) Theme *theme;
-@property (strong) IBOutlet NSTextView *sampleTextView;
+@property (strong) IBOutlet PreviewTextView *sampleTextView;
 
 @property (weak) IBOutlet NSLayoutConstraint *textHeight;
 @property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
