@@ -1306,7 +1306,9 @@ fprintf(stderr, "%s\n",                                                    \
          replaceCharactersInRange:self.editableRange
          withString:cx];
         [_textview resetTextFinder];
-    } else {
+    }
+
+   if (!cx.length) {
         if ([history empty])
             [self.glkctl speakString:@"No commands entered"];
         else
@@ -1322,7 +1324,9 @@ fprintf(stderr, "%s\n",                                                    \
          replaceCharactersInRange:self.editableRange
          withString:cx];
         [_textview resetTextFinder];
-    } else {
+    }
+
+    if (!cx.length) {
         if ([history empty])
             [self.glkctl speakString:@"No commands entered"];
         else
