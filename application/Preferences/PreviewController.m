@@ -57,7 +57,6 @@
     _theme = (Theme *)notify.object;
     [self updatePreviewText];
     _textHeight.constant = MIN(NSHeight(self.view.frame), NSHeight(_sampleTextView.frame));
-
 }
 
 - (void)updatePreviewText {
