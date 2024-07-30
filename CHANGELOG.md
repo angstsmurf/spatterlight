@@ -1,5 +1,23 @@
 # Change log
 
+## Unreleased
+- An empty file with a garbage name would be written to the user directory when a save request was cancelled.
+- Limits the duration of smooth scrolling.
+- The VoiceOver Command History rotor would be confused by char requests, and by Glk graphic windows.
+- Thumbnailer extension would generate a crash report if no Core Data library was present.
+- The library view "Like" buttons now have more descriptive accessibility labels.
+- Improves VoiceOver feedback when stepping through the command history.
+- Sets "Don't detect menus" as default.
+- Switching off menu detection manually would sometimes not work.
+- When opening preferences, VoiceOver would speak the sample text even when it was hidden.
+- When multiple games were running, VoiceOver would sometimes speak text from backgrounded games.
+- Default name of input recording files would be named "Recordning[sic] of [game title]".
+- The "Add to library" option when opening a game file was truncated.
+- Adds a patch that fixes crashes in the Z-code game Transporter.
+- Updates Glulxe to 0.6.1, with an improved random number generator.
+- Updates Bocfel to 2.1.2. Includes fixes for missing text in Trinity and Beyond Zork.
+- Updates Magnetic to 2.3.1. No functional changes.
+
 ## Release 1.1
 - Themes can be designated for use in Dark and Light mode, overriding all other theme settings. New checkboxes and menu items in the preferences window are added for this.
 - Margin settings in the preferences work correctly again.
