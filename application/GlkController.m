@@ -189,6 +189,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSDate *lastScriptKeyTimestamp;
     NSDate *lastKeyTimestamp;
     NSDate *lastResetTimestamp;
+
+    kVOMenuPrefsType lastVOSpeakMenu;
 }
 
 @property BOOL shouldShowAutorestoreAlert;
@@ -2010,7 +2012,6 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
     Theme *theme = _theme;
-    NSUInteger lastVOSpeakMenu = (NSUInteger)theme.vOSpeakMenu;
 
     if (_game) {
         if (!_stashedTheme) {
@@ -2038,7 +2039,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self detectGame:_game.ifid];
     }
 
-    if (!theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
+    if (theme.vOSpeakMenu == kVOMenuNone) { // "Check for menu" was switched off
         if (_zmenu) {
             [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
             _zmenu = nil;
@@ -2047,9 +2048,11 @@ fprintf(stderr, "%s\n",                                                    \
             [NSObject cancelPreviousPerformRequestsWithTarget:_form];
             _form = nil;
         }
-    } else if (theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
+    } else if (lastVOSpeakMenu == kVOMenuNone && theme.vOSpeakMenu != kVOMenuNone) { // "Check for menu" was switched on
         [self checkZMenu];
     }
+
+    lastVOSpeakMenu = theme.vOSpeakMenu;
 
     _shouldStoreScrollOffset = NO;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
@@ -4534,7 +4537,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 #pragma mark ZMenu
 
 - (void)checkZMenu {
-    if (!_voiceOverActive || _mustBeQuiet || !_theme.vOSpeakMenu)
+    if (!_voiceOverActive || _mustBeQuiet || _theme.vOSpeakMenu == kVOMenuNone)
         return;
     if (_shouldCheckForMenu) {
         _shouldCheckForMenu = NO;
