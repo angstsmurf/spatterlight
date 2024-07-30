@@ -388,9 +388,11 @@ NSString *fontToString(NSFont *font) {
     defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
 
     if (!_previewShown) {
+        _previewController.view.hidden = YES;
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
+        _previewController.view.hidden = NO;
         CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
         if (height <= 0)
             height = [_previewController calculateHeight] + 40;
