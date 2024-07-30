@@ -4621,8 +4621,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             }
         }
     }
-    if (largest)
-    {
+    if (largest) {
         if (largest != _spokeLast && _speechTimeStamp.timeIntervalSinceNow  > -0.5)
             return;
         _speechTimeStamp = [NSDate date];
