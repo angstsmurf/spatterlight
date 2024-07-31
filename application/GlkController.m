@@ -4487,6 +4487,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _voiceOverActive = ws.voiceOverEnabled;
     if (_voiceOverActive) {
         if (_eventcount > 2 && !_mustBeQuiet) {
+            _shouldCheckForMenu = YES;
             [self checkZMenu];
             if (_zmenu) {
                 [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
