@@ -14,9 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZMenu : NSObject
 
 @property(weak) GlkController *glkctl;
-@property NSMutableArray<NSValue *> *lines;
+
+// viewStrings holds the eligible texts from every Glk window,
+// one NSString per window
 @property NSMutableArray<NSString *> *viewStrings;
+
+// Menu lines stored as NSValue objects holding NSRanges
+// (referring to the string in attrStr)
+@property NSMutableArray<NSValue *> *lines;
+
+// attrStr is an attributed string containing the text of all menu lines,
+// excluding the menu commands. This is the string that the NSRanges
+// in the "lines" array above refer to
 @property NSAttributedString *attrStr;
+
 @property NSDictionary<NSString *, NSString *> *menuCommands;
 @property NSArray<NSString *> *menuKeys;
 @property NSUInteger selectedLine;

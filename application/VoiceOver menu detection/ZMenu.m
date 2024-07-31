@@ -509,6 +509,7 @@
     return substring;
 }
 
+// Returns the length of any prefix consisting of space characters (including '>')
 - (NSInteger)leftMarginInRange:(NSValue *)rangeValue andString:(NSString *)string {
     NSRange range = rangeValue.rangeValue;
     NSRange allText = NSMakeRange(0, string.length);
