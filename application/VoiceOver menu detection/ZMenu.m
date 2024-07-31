@@ -344,7 +344,13 @@
         } else {
             viewString = nil;
         }
-        if (viewString && view.frame.size.height > 0 && viewString.length < 4000) {
+        NSUInteger maxLength;
+        if ([view isKindOfClass:[GlkTextGridWindow class]]) {
+            maxLength = 10000;
+        } else {
+            maxLength = 4000;
+        }
+        if (viewString.length > 0 && viewString.length < maxLength && view.frame.size.height > 0) {
             [_viewStrings addObject:viewString];
             NSArray *lines = viewString.lineRanges;
             NSUInteger line = 0;

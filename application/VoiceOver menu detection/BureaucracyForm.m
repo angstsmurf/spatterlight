@@ -57,7 +57,7 @@
         for (GlkTextGridWindow *win in _glkctl.gwindows.allValues) {
             if ([win isKindOfClass:[GlkTextGridWindow class]]) {
                 _attrStr = win.textview.textStorage;
-                if (_attrStr && _attrStr.length < 4000) {
+                if (_attrStr && _attrStr.length < 10000) {
                     if ([self detectForm]) {
                         _fields = [self extractFieldRanges];
                         _infoFieldRange = [self findInfoFieldRange];
