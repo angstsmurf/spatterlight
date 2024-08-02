@@ -4507,10 +4507,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 }
 
-- (void)deferredSpeakLargest:(id)sender {
-    [self speakLargest:_gwindows.allValues];
-}
-
 - (IBAction)saveAsRTF:(id)sender {
     GlkWindow *largest = self.largestWithMoves;
     if (largest && [largest isKindOfClass:[GlkTextBufferWindow class]] ) {
