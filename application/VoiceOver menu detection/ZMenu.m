@@ -30,10 +30,11 @@
 
 - (BOOL)isMenu {
     GlkController *glkctl = _glkctl;
-    if (glkctl.gameID == kGameIsJuniorArithmancer) {
-        return NO;
-    }
-
+//    if (glkctl.gameID == kGameIsJuniorArithmancer) {
+//        NSLog(@"isMenu returned NO because the game is Junior Arithmancer.");
+//        return NO;
+//    }
+//    NSLog(@"isMenu called, checking for menu.");
     NSString *format = glkctl.game.detectedFormat;
     unichar initialChar;
 
@@ -48,11 +49,15 @@
             initialChar = u'•';
         else
             initialChar = '>';
-    } else return NO; // We only support menus in Glulx or Zcode or Hugo or Tads 3
+    } else {
+//        NSLog(@"isMenu returned NO because the game type is not Glulx or Zcode or Hugo or Tads 3.");
+        return NO; // We only support menus in Glulx or Zcode or Hugo or Tads 3
+    }
 
     _lines = [[self findLargestClusterStartingWithCharacter:initialChar] mutableCopy];
 
     if (_lines == nil || !_lines.count) {
+//        NSLog(@"isMenu returned NO because it could find no cluster of lines.");
         return NO;
     }
 
@@ -61,7 +66,8 @@
 
     // Check if the number of lines are within bounds
     if (_lines.count > maxLines) {
-        NSLog(@"Too many lines (%ld). Not in a menu", _lines.count);
+//        NSLog(@"isMenu returned NO because it found too many lines. Lines found: %ld. Max: %ld", _lines.count, maxLines);
+//        NSLog(@"Too many lines (%ld). Not in a menu", _lines.count);
         return NO;
     }
 
@@ -69,8 +75,10 @@
 
     // Thaumistry has no pattern and uses bullets instead of greater than. Check window setup: Two buffer windows, one with only one line
     if (glkctl.gameID == kGameIsThaumistry) {
-        if (![self checkForThaumistryMenu])
+        if (![self checkForThaumistryMenu]) {
+//            NSLog(@"isMenu returned NO because the game is Thaumistry and checkForThaumistryMenu returned NO");
             return NO;
+        }
     } else {
         // Now we look for instructions pattern: " = ", "[N]ext" etc, depending on system
         if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"]) {
@@ -103,6 +111,7 @@
                     // DecSystem-20 but not VT220
                     _menuCommands = [self extractMenuCommandsUsingRegex:@"(Use the (UP and DOWN) arrow keys(?s).+?(?=>))"];
                     if (!_menuCommands.count) {
+//                        NSLog(@"isMenu returned NO because the game is Beyond Zork and it could not find any menu commands");
                         return NO;
                     }
                 } else {
@@ -121,13 +130,21 @@
                 // The Unforgotten has no instructions, so check for title
                 if ([format isEqualToString:@"zcode"]) {
                     _menuCommands = [self extractMenuCommandsUsingRegex:@"(Unforgotten)\\s+(By Quintin Pan)"];
-                }
-                if (!_menuCommands.count) {
-                    // If we didn't find a pattern, decide this is not a menu
-                    return NO;
+                    if (!_menuCommands.count) {
+                        _menuCommands = [self extractMenuCommandsUsingRegex:@"(\\w+)=(.+?(?=  |\\n| \\n|$))"];
+                        if (!_menuCommands.count) {
+                            // If we still didn't find a pattern, decide this is not a menu
+//                            NSLog(@"isMenu returned NO because it could not find any menu commands");
+                            return NO;
+                        } else {
+                            _recheckNeeded = YES;
+                        }
+                    } else {
+                        // Hack to remove the empty line in The Unforgotten
+                        [_lines removeObjectAtIndex:3];
+                    }
                 } else {
-                    // Hack to remove the empty line in The Unforgotten
-                    [_lines removeObjectAtIndex:3];
+                    return NO;
                 }
             }
         }
@@ -135,6 +152,7 @@
         if (_recheckNeeded) {
             _lines.array = [self recheckClusterStartingWithCharacter:initialChar];
             if (!_lines.count) {
+//                NSLog(@"isMenu returned NO because it could not find any menu lines, despite checking twice");
                 //Failed recheck. Give up.
                 return NO;
             }
@@ -155,8 +173,23 @@
 
     // If we find no currently selected line, decide this is not a menu
     if (_selectedLine == NSNotFound) {
+//        NSLog(@"isMenu returned NO because it could not find any currently selected line");
         return NO;
     }
+
+//    NSLog(@"Found the following menu commands (%ld):", _menuCommands.count);
+
+//    for (NSString *key in _menuCommands.allKeys) {
+//        NSLog(@" %@ = \"%@\"", key, _menuCommands[key]);
+//    }
+
+//    NSLog(@"Found the following menu lines (%ld):", _lines.count);
+//    for (NSString *line in _lines)  {
+//        NSLog(@"%@", line);
+//    }
+//
+//    NSLog(@"Selected line %ld: \"%@\"", _selectedLine,
+//          [self menuLineStringWithIndex:YES total:YES instructions:YES]);
 
     return YES;
 }
@@ -337,7 +370,7 @@
     NSString *viewString;
     GlkWindow *viewWithCluster;
     GlkController *glkctl = _glkctl;
-    BOOL isHugo = [glkctl.game.detectedFormat isEqualToString:@"hugo"];
+    BOOL isHugo = [glkctl.game.detectedFormat isEqualToString:@"hugo"] || glkctl.gameID == kGameIsVespers;
     for (GlkWindow *view in glkctl.gwindows.allValues) {
         if ([view isKindOfClass:[GlkTextGridWindow class]] || [view isKindOfClass:[GlkTextBufferWindow class]]) {
             viewString = ((GlkTextBufferWindow *)view).textview.string;
@@ -547,18 +580,25 @@
     [NSRegularExpression regularExpressionWithPattern:regexString
                                               options:0
                                                 error:&error];
+
+//    NSLog(@"Original lines count:%ld", _lines.count);
+
     for (NSString *string in _viewStrings) {
         if ([string isNotEqualTo:[NSNull null]] && string.length) {
+//            NSLog(@"extractMenuCommandsUsingRegex \"%@\" from string \"%@\"", regexString, string);
             NSArray *matches =
             [regex matchesInString:string
                            options:0
                              range:NSMakeRange(0, string.length)];
+            NSRange valueRange;
+            NSString *key;
             for (NSTextCheckingResult *match in matches) {
-                NSRange valueRange = [match rangeAtIndex:1];
+                valueRange = [match rangeAtIndex:1];
+//                NSLog(@"Length of value: %ld", valueRange.length);
                 NSRange keyRange = [match rangeAtIndex:2];
-                NSString *key = [string substringWithRange:keyRange];
+//                NSLog(@"Length of key: %ld", keyRange.length);
+                key = [string substringWithRange:keyRange];
                 NSString *value = [string substringWithRange:valueRange];
-
                 if (key.length) {
                     menuDict[key] = value;
                     [keys addObject:key];
@@ -585,6 +625,11 @@
                         while ([string rangeIsEmpty:_lines.firstObject] && _lines.count)
                             [_lines removeObjectAtIndex:0];
                     }
+                }
+                if (matches.count == 1 && _lines.count == 1 && string.length > 400 && valueRange.location > string.length / 2 && key.length) {
+//                    NSLog(@"Only found 1 match at the end part of long string");
+                    menuDict[key] = nil;
+                    continue;
                 }
                 break;
             }

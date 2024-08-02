@@ -793,6 +793,9 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-12-860926"] ||
                [ifid isEqualToString:@"ZCODE-15-870628"]) {
         _gameID = kGameIsTrinity;
+    } else if ([ifid isEqualToString:@"ZCODE-1-050929-F8AB"] ||
+               [ifid isEqualToString:@"ZCODE-1-051128-B5AA"]) {
+        _gameID = kGameIsVespers;
     } else if ([ifid isEqualToString:@"CF619423-EEC7-4E83-8C66-AE7182D55C89"]) {
         _gameID = kGameIsJuniorArithmancer;
     } else {
@@ -4547,6 +4550,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
             _zmenu.glkctl = nil;
             _zmenu = nil;
+        } else {
+            NSLog(@"isMenu found a menu!");
         }
 
         // Bureaucracy form accessibility
