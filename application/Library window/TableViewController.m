@@ -2787,7 +2787,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         if ([identifier isEqual:@"found"]) {
             if (!game.found) {
                 cellView.imageView.image = [NSImage imageNamed:@"exclamationmark.circle"];
-                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game file not found", nil);
+                cellView.imageView.accessibilityLabel = NSLocalizedString(@"File not found", nil);
             } else {
                 BOOL playing = NO;
                 if (_gameSessions.count < 100) {
@@ -2795,10 +2795,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                         if ([session.game.ifid isEqual:game.ifid]) {
                             if (session.alive) {
                                 cellView.imageView.image = [NSImage imageNamed:@"play"];
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game in progress", nil);
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"In progress", nil);
                             } else {
                                 cellView.imageView.image = [NSImage imageNamed:@"stop"];
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game stopped", nil);
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Stopped", nil);
                             }
                             playing = YES;
                             break;
@@ -2808,7 +2808,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 if (!playing) {
                     if (game.autosaved) {
                         cellView.imageView.image = [NSImage imageNamed:@"pause.fill"];
-                        cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game is autosaved", nil);
+                        cellView.imageView.accessibilityLabel = NSLocalizedString(@"Autosaved", nil);
                     } else {
                         cellView.imageView.image = nil;
                         cellView.imageView.accessibilityLabel = nil;
