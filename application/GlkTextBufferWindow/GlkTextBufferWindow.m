@@ -2162,6 +2162,16 @@ replacementString:(id)repl {
     [self.glkctl speakString:str];
 }
 
+- (void)speakStatus {
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
+    if (glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
+    [glkctl speakString:textstorage.string];
+}
+
+
 #pragma mark Accessibility
 
 - (BOOL)isAccessibilityElement {
