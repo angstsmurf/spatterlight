@@ -112,6 +112,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)repeatLastMove:(id)sender;;
 - (void)speakPrevious;
 - (void)speakNext;
+- (void)speakStatus;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL setLastMove;
 - (void)adjustBZTerminators:(NSMutableDictionary *)terminators;
 

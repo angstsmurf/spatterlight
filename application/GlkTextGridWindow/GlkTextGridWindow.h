@@ -42,7 +42,6 @@
 
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
-- (void)speakStatus;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSSize currentSizeInChars;
 

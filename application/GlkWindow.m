@@ -651,6 +651,11 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"speakNext in %@ not implemented", [self class]);
 }
 
+- (void)speakStatus {
+    NSLog(@"speakStatus in %@ not implemented", [self class]);
+}
+
+
 - (BOOL)setLastMove {
     NSLog(@"setLastMove in %@ not implemented", [self class]);
     return NO;
