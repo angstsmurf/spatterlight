@@ -2,7 +2,7 @@
     This is based on parts of the Ciderpress source.
     See https://github.com/fadden/ciderpress for the full version.
 
-    Includes fragments from of a2tools by Terry Kyriacopoulos and Paul Schlyter
+    Includes fragments from a2tools by Terry Kyriacopoulos and Paul Schlyter
 */
 
 #include <assert.h>
