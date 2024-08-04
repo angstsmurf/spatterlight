@@ -4723,6 +4723,21 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)speakStatus:(id)sender {
     GlkWindow *win;
 
+    // Lazy heuristic to find Tads 3 status window: if there are more than one window and
+    // only one of them sits at the top, pick that one
+    if ( _gwindows.allValues.count > 1 && [_game.detectedFormat isEqualToString:@"tads3"]) {
+        NSMutableArray<GlkWindow *> *array = [[NSMutableArray alloc] initWithCapacity: _gwindows.allValues.count];
+        for (win in _gwindows.allValues) {
+            if (win.frame.origin.y == 0 && ![win isKindOfClass:[GlkGraphicsWindow class]]) {
+                [array addObject:win];
+            }
+        }
+        if (array.count == 1) {
+            [array.firstObject speakStatus];
+            return;
+        }
+    }
+
     // Try to find status window to pass this on to
     for (win in _gwindows.allValues) {
         if ([win isKindOfClass:[GlkTextGridWindow class]]) {
