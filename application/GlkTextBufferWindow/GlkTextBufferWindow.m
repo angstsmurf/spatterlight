@@ -137,6 +137,7 @@ fprintf(stderr, "%s\n",                                                    \
         [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
                                 textContainer:container];
 
+        _textview.editable = NO;
         _textview.minSize = NSMakeSize(1, 10000000);
         _textview.maxSize = NSMakeSize(10000000, 10000000);
 
@@ -176,8 +177,6 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.linkTextAttributes = linkAttributes;
 
         [_textview enableCaret:nil];
-
-        scrollview.accessibilityLabel = @"buffer scroll view";
 
         [self addSubview:scrollview];
 
@@ -354,7 +353,6 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview = _textview.enclosingScrollView;
         if (!scrollview)
             NSLog(@"scrollview nil!");
-        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
         scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
@@ -365,7 +363,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self restoreScrollBarStyle];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
-        _textview.editable = line_request;
+        _textview.editable = NO;
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
 
         echo_toggle_pending = [decoder decodeBoolForKey:@"echo_toggle_pending"];
@@ -474,6 +472,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSRange allText = NSMakeRange(0, textstorage.length + 1);
     _restoredSelection = NSIntersectionRange(allText, _restoredSelection);
     _textview.selectedRange = _restoredSelection;
+    _textview.editable = line_request;
 
     _restoredFindBarVisible = restoredWin.restoredFindBarVisible;
     _restoredSearch = restoredWin.restoredSearch;

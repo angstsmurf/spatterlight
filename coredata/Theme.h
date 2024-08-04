@@ -48,6 +48,16 @@ typedef NS_ENUM(int32_t, kBZArrowsPrefsType) {
     kBZArrowsOriginal,
 };
 
+typedef NS_ENUM(int32_t, kZ6GraphicsPrefsType) {
+    kZ6Amiga,
+    kZ6MacBW,
+    kZ6Apple2,
+    kZ6VGA,
+    kZ6EGA,
+    kZ6CGA,
+    kZ6Blorb
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
@@ -90,12 +100,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hardDark;
 @property (nonatomic) BOOL hardLight;
 @property (nonatomic) BOOL hardLightOrDark;
-@property (nonatomic) int32_t imageSizing;
-@property (nonatomic) int32_t justify;
-@property (nonatomic) int32_t maxCols;
-@property (nonatomic) int32_t maxRows;
-@property (nonatomic) int32_t minCols;
-@property (nonatomic) int32_t minRows;
 @property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
@@ -114,11 +118,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t winSpacingY;
 @property (nonatomic) int32_t zMachineTerp;
 @property (nullable, nonatomic, copy) NSString *zMachineLetter;
-@property (nonatomic) int32_t vOExtraElements;
+
+@property (nonatomic) double vOHackDelay;
+@property (nonatomic) BOOL vODelayOn;
 @property (nonatomic) int32_t vOSpeakCommand;
-@property (nonatomic) int32_t vOSpeakInputType;
 @property (nonatomic) kVOImagePrefsType vOSpeakImages;
 @property (nonatomic) kVOMenuPrefsType vOSpeakMenu;
+
+@property (nonatomic) kZ6GraphicsPrefsType z6GraphicsType;
+@property (nonatomic) BOOL z6Colorize1Bit;
+@property (nonatomic) BOOL z6Simulate16Color;
+
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;
 @property (nullable, nonatomic, retain) GlkStyle *bufEmph;
