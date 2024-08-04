@@ -1,15 +1,16 @@
 # Change log
 
 ## Unreleased
-- An empty file with a garbage name would be written to the user directory when a save request was cancelled.
+- A save file with a garbage single-character name would be written to the user directory when a save request was cancelled.
 - Limits the duration of smooth scrolling.
 - The VoiceOver Command History rotor would be confused by char requests, and by Glk graphic windows.
-- Thumbnailer extension would generate a crash report if no Core Data library was present.
-- The library view "Like" buttons now have more descriptive accessibility labels.
-- Improves VoiceOver feedback when stepping through the command history.
+- Thumbnailer extension would generate a crash report when no Core Data library was found.
+- The library view "Like" buttons have more descriptive accessibility labels.
+- Improves VoiceOver feedback when stepping through the command history (not to be confused with the Command History custom rotor).
 - Sets "Don't detect menus" as default.
 - Switching off menu detection manually would sometimes not work.
-- When opening preferences, VoiceOver would speak the sample text even when it was hidden.
+- New settings for when to interrupt VoiceOver. When a game window gets focus, VoiceOver will start speaking the entire scrollback from the very beginning, which can be a lot. We have always tried to interrupt it by speaking just the text of the latest move instead, but there are now controls to set how long to wait before the interruption and also a way to turn this hack off entirely.
+- When selecting the preferences panel, VoiceOver would speak the sample text even when it was hidden.
 - When multiple games were running, VoiceOver would sometimes speak text from backgrounded games.
 - Default name of input recording files would be named "Recordning[sic] of [game title]".
 - The "Add to library" option when opening a game file was truncated.
