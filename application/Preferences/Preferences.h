@@ -108,6 +108,8 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSPopUpButton *vOMenuButton;
 @property (weak) IBOutlet NSPopUpButton *vOImagesButton;
 @property (weak) IBOutlet NSButton *btnVOSpeakCommands;
+@property (weak) IBOutlet NSSlider *vODelaySlider;
+@property (weak) IBOutlet NSButton *vODelayCheckbox;
 
 @property (weak) IBOutlet NSPopUpButton *beepHighMenu;
 @property (weak) IBOutlet NSPopUpButton *beepLowMenu;

@@ -657,6 +657,9 @@ NSString *fontToString(NSFont *font) {
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
     [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
+    _vODelaySlider.doubleValue = theme.vOHackDelay;
+    _vODelaySlider.enabled = theme.vODelayOn;
+    _vODelayCheckbox.state = theme.vODelayOn ? NSOnState : NSOffState;
 
     NSString *beepHigh = theme.beepHigh;
     NSString *beepLow = theme.beepLow;
@@ -1795,6 +1798,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOSpeakImages = (int)[sender selectedTag];
 }
+- (IBAction)changeVODelaySlider:(id)sender {
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOHackDelay = [sender doubleValue];
+}
+
+- (IBAction)changeVODelayCheckbox:(id)sender {
+    [self changeBooleanAttribute:@"vODelayOn" fromButton:sender];
+    _vODelaySlider.enabled = (_vODelayCheckbox.state == NSOnState);
+}
+
 
 #pragma mark ZCode menu
 

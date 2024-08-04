@@ -105,6 +105,17 @@ typedef enum kGameIdentity : NSUInteger {
 
 @property kGameIdentity gameID;
 
+typedef enum kGameState : NSUInteger {
+    kGameStateUnknown,
+    kGameJustStartedNormally,
+    kGameJustAutorestored,
+    kGameIsRunning,
+    kGameIsShowingCoverImage,
+    kGameIsDead
+} kGameState;
+
+@property kGameState gameState;
+
 @property BOOL usesFont3;
 
 @property NSInteger autosaveVersion;
@@ -117,10 +128,38 @@ typedef enum kGameIdentity : NSUInteger {
 
 @property ZMenu *zmenu;
 @property BOOL shouldCheckForMenu;
+
+// shouldSpeakNewText only applies to the call to
+// speakNewText in flushDisplay.
+
+// Its purpose is mainly to avoid speaking the same
+// move several times in a row, but also to make
+// sure that new moves are spoken even if they
+// contain the exact same text as the last.
+
+// It is set to YES when the game starts and whenever
+// a new command is entered by the player
+// (including single-key presses and link mouseclicks.)
 @property BOOL shouldSpeakNewText;
+
+// mustBeQuiet will override shouldSpeakNewText
+// without changing its value. If an alert appears, or
+// the game is reset, or the game crashes or is closed,
+// we want VoiceOver to announce this without getting
+// interrupted by the announcement of a new move
+// in flushDisplay, but we also don't want to worry
+// about restoring the state of shouldSpeakNewText if we
+// set mustBeQuiet to YES and then back to NO.
+
+// mustBeQuiet also makes sure that this window won't
+// speak if VoiceOver is switched on when a different
+// window is key
 @property BOOL mustBeQuiet;
+
 @property NSDate *speechTimeStamp;
-@property GlkWindow *spokeLast;
+@property NSDate *lastResetTimestamp;
+@property NSString *lastSpokenString;
+
 @property BureaucracyForm *form;
 
 @property NSString *pendingErrorMessage;

@@ -815,6 +815,7 @@
 }
 
 - (void)clear {
+    _hasNewText = NO;
     NSRange selectedRange = _textview.selectedRange;
     if (!_bufferTextStorage.length)
         return;

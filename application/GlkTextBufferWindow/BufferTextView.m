@@ -331,15 +331,6 @@
     return YES;
 }
 
-- (BOOL)becomeFirstResponder {
-    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)self.delegate;
-    if (!bufWin.glkctl.mustBeQuiet && bufWin.moveRanges.count > 1) {
-        [bufWin setLastMove];
-        [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
-    }
-    return [super becomeFirstResponder];
-}
-
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     NSArray *actions = (delegate.glkctl).accessibilityCustomActions;
