@@ -885,7 +885,7 @@
                && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
         // Don't echo keys if speak command setting is off
         if (glkctl.theme.vOSpeakCommand) {
-            [glkctl speakString:string];
+            [glkctl speakStringNow:string];
         }
         glkctl.form.dontSpeakField = YES;
     }
@@ -1429,9 +1429,9 @@
 
     if (!cx.length) {
         if ([history empty])
-            [self.glkctl speakString:@"No commands entered"];
+            [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakString:@"Start of command history"];
+            [self.glkctl speakStringNow:@"Start of command history"];
     }
 }
 
@@ -1446,9 +1446,9 @@
 
     if (!cx.length) {
         if ([history empty])
-            [self.glkctl speakString:@"No commands entered"];
+            [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakString:@"Start of command history"];
+            [self.glkctl speakStringNow:@"Start of command history"];
     }
 }
 
@@ -1634,7 +1634,7 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
     if (glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-    [glkctl speakString:textstorage.string];
+    [glkctl speakStringNow:textstorage.string];
 }
 
 - (BOOL)setLastMove {
@@ -1653,11 +1653,11 @@
     NSString *str = [textstorage.string substringWithRangeValue:self.moveRanges.lastObject];
 
     if (!str.length) {
-        [self.glkctl speakString:@"No last move to speak"];
+        [self.glkctl speakStringNow:@"No last move to speak"];
         return;
     }
 
-    [self.glkctl speakString:str];
+    [self.glkctl speakStringNow:str];
 }
 
 - (void)speakPrevious {
@@ -1671,7 +1671,7 @@
         moveRangeIndex = 0;
     }
     NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakString:str];
+    [self.glkctl speakStringNow:str];
 }
 
 - (void)speakNext {
@@ -1690,7 +1690,7 @@
     }
 
     NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakString:str];
+    [self.glkctl speakStringNow:str];
 }
 
 - (NSArray *)links {

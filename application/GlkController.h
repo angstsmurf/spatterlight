@@ -220,6 +220,7 @@ typedef enum kGameState : NSUInteger {
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow *largestWithMoves;
 
 - (void)speakString:(NSString *)string;
+- (void)speakStringNow:(NSString *)string;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *accessibilityCustomActions;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *createCustomRotors;

@@ -755,7 +755,7 @@ fprintf(stderr, "%s\n",                                                    \
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:screen];
         [bezel showGameOver];
-        [weakSelf speakString:title];
+        [weakSelf speakStringNow:title];
     });
 
     restoredController = nil;
@@ -1703,7 +1703,7 @@ fprintf(stderr, "%s\n",                                                    \
         GlkController *remainingGameSession = nil;
         if (libcontroller) {
             for (GlkController *session in
-            libcontroller.gameSessions.allValues)
+                 libcontroller.gameSessions.allValues)
                 if (session != self) {
                     remainingGameSession = session;
                     break;
@@ -2877,7 +2877,7 @@ fprintf(stderr, "%s\n",                                                    \
     uniglyph[0] = glyph;
     NSData *data = [NSData dataWithBytes:uniglyph length:4];
     NSString *str  = [[NSString alloc] initWithData:data
-                                encoding:NSUTF32LittleEndianStringEncoding];
+                                           encoding:NSUTF32LittleEndianStringEncoding];
     return [GlkController unicodeAvailableForChar:str];
 }
 
@@ -3635,7 +3635,7 @@ static BOOL pollMoreData(int fd) {
     } else {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [bezel showGameOver];
-        [self performSelector:@selector(speakString:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
+        [self performSelector:@selector(speakStringNow:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
     }
 
     for (GlkWindow *win in _gwindows.allValues)
@@ -4688,7 +4688,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
         if (sender != self)
-            [self speakString:@"No last move to speak!"];
+            [self speakStringNow:@"No last move to speak!"];
         return;
     }
 
@@ -4705,7 +4705,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)speakPrevious:(id)sender {
     GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
-        [self speakString:@"No previous move to speak!"];
+        [self speakStringNow:@"No previous move to speak!"];
         return;
     }
     [mainWindow speakPrevious];
@@ -4714,7 +4714,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (IBAction)speakNext:(id)sender {
     GlkWindow *mainWindow = self.largestWithMoves;
     if (!mainWindow) {
-        [self speakString:@"No next move to speak!"];
+        [self speakStringNow:@"No next move to speak!"];
         return;
     }
     [mainWindow speakNext];
@@ -4745,12 +4745,17 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             return;
         }
     }
-    [self speakString:@"No status window found!"];
+    [self speakStringNow:@"No status window found!"];
 }
 
 - (void)forceSpeech {
     _lastSpokenString = nil;
     _speechTimeStamp = [NSDate distantPast];
+}
+
+- (void)speakStringNow:(NSString *)string {
+    [self forceSpeech];
+    [self speakString:string];
 }
 
 - (void)speakString:(NSString *)string {

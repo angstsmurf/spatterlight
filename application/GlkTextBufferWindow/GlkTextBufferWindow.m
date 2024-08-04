@@ -1309,9 +1309,9 @@ fprintf(stderr, "%s\n",                                                    \
 
    if (!cx.length) {
         if ([history empty])
-            [self.glkctl speakString:@"No commands entered"];
+            [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakString:@"Start of command history"];
+            [self.glkctl speakStringNow:@"Start of command history"];
     }
 }
 
@@ -1327,9 +1327,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (!cx.length) {
         if ([history empty])
-            [self.glkctl speakString:@"No commands entered"];
+            [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakString:@"End of command history"];
+            [self.glkctl speakStringNow:@"End of command history"];
     }
 }
 
@@ -2119,7 +2119,7 @@ replacementString:(id)repl {
     }
 
     if (!str.length) {
-        [glkctl speakString:@"No last move to speak"];
+        [glkctl speakStringNow:@"No last move to speak"];
         return;
     }
 
@@ -2138,7 +2138,7 @@ replacementString:(id)repl {
         moveRangeIndex = 0;
     }
     NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakString:str];
+    [self.glkctl speakStringNow:str];
 }
 
 - (void)speakNext {
@@ -2159,7 +2159,7 @@ replacementString:(id)repl {
     }
 
     NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakString:str];
+    [self.glkctl speakStringNow:str];
 }
 
 - (void)speakStatus {
@@ -2168,7 +2168,7 @@ replacementString:(id)repl {
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
     if (glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-    [glkctl speakString:textstorage.string];
+    [glkctl speakStringNow:textstorage.string];
 }
 
 
