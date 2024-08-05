@@ -3632,7 +3632,7 @@ gms_hint_display_text (const struct ms_hint hints[],
     {
       char buffer[16];
 
-      sprintf (buffer, "%3d.  ", index + 1);
+      snprintf (buffer, sizeof(buffer), "%3d.  ", index + 1);
       gms_hint_text_print (buffer);
 
       gms_hint_text_print (index < cursor[node]
@@ -4355,11 +4355,11 @@ gms_command_graphics (const char *argument)
               gms_normal_string (is_animated ? "an animated" : "a");
               gms_normal_string (" picture loaded, ");
 
-              sprintf (buffer, "%d", width);
+              snprintf (buffer, sizeof(buffer), "%d", width);
               gms_normal_string (buffer);
               gms_normal_string (" by ");
 
-              sprintf (buffer, "%d", height);
+              snprintf (buffer, sizeof(buffer), "%d", height);
               gms_normal_string (buffer);
 
               gms_normal_string (" pixels.\n");
@@ -4382,7 +4382,7 @@ gms_command_graphics (const char *argument)
               gms_normal_string ("Graphics are ");
               gms_normal_string (is_active ? "active, " : "displayed, ");
 
-              sprintf (buffer, "%d", color_count);
+              snprintf (buffer, sizeof(buffer), "%d", color_count);
               gms_normal_string (buffer);
               gms_normal_string (" colours");
 
@@ -4657,7 +4657,7 @@ gms_command_print_version_number (glui32 version)
 {
   char buffer[64];
 
-  sprintf (buffer, "%lu.%lu.%lu",
+  snprintf (buffer, sizeof(buffer), "%lu.%lu.%lu",
 #ifdef GARGLK
           (unsigned long) version >> 16,
           (unsigned long) (version >> 8) & 0xff,
