@@ -2806,7 +2806,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                                     cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"In progress", nil);
 
                                 }
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game in progress", nil);
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"In progress", nil);
                             } else {
                                 if (@available(macOS 11.0, *)) {
                                     cellView.imageView.image = [NSImage imageWithSystemSymbolName:@"stop.fill" accessibilityDescription:NSLocalizedString(@"Stopped", nil)];
@@ -2815,7 +2815,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                                     cellView.imageView.image.accessibilityDescription = NSLocalizedString(@"Stopped", nil);
 
                                 }
-                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Game stopped", nil);
+                                cellView.imageView.accessibilityLabel = NSLocalizedString(@"Stopped", nil);
                             }
                             playing = YES;
                             break;
