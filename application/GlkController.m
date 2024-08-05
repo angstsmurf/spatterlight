@@ -767,7 +767,7 @@ static const char *msgnames[] = {
 }
 
 - (BOOL)zVersion6 {
-    return (_shogun || _arthur || _zorkZero);
+    return (_gameID == kGameIsArthur || _gameID == kGameIsJourney || _gameID == kGameIsShogun ||  _gameID == kGameIsZorkZero);
 }
 
 - (void)detectGame:(NSString *)ifid {
