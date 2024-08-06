@@ -4762,11 +4762,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (void)speakString:(NSString *)string {
 
     if (string.length == 0 || !_voiceOverActive ||
-        !_game || [Preferences instance].currentGame != _game) {
-        return;
-    }
-
-    if ([string isEqualToString: _lastSpokenString] && _speechTimeStamp.timeIntervalSinceNow  > -3) {
+        ([string isEqualToString: _lastSpokenString] && _speechTimeStamp.timeIntervalSinceNow  > -3)) {
         return;
     }
 
@@ -4782,14 +4778,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         NSAccessibilityAnnouncementKey : string
     };
 
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification,
-                                                    announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                self.window,
+                                                NSAccessibilityAnnouncementRequestedNotification,
+                                                announcementInfo);
 }
 
 - (GlkWindow *)largestWithMoves {

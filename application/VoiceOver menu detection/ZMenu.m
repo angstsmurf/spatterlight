@@ -718,13 +718,9 @@
         NSAccessibilityAnnouncementKey : [self constructMenuInstructionString]
     };
 
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                _glkctl.window,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 //    [self performSelector:@selector(speakEscape:) withObject:nil afterDelay:6];
 }
 
@@ -734,13 +730,10 @@
         NSAccessibilityAnnouncementKey : @"If this is NOT a menu, press ESCAPE to DISMISS."
     };
 
-    NSWindow *mainWin = NSApp.mainWindow;
 
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                _glkctl.window,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 }
 
 - (void)speakString:(NSString *)string {
@@ -765,13 +758,9 @@
         NSAccessibilityAnnouncementKey : string
     };
 
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                _glkctl.window,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 }
 
 - (NSString *)constructMenuInstructionString {

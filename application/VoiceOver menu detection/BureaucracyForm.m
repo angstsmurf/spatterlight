@@ -276,13 +276,9 @@
         NSAccessibilityAnnouncementKey : @"You mave review the form by stepping through previous moves."
     };
 
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                _glkctl.window,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 }
 
 - (void)speakError {
@@ -313,14 +309,10 @@
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
         NSAccessibilityAnnouncementKey : string
     };
-
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    
+    NSAccessibilityPostNotificationWithUserInfo(
+                                                _glkctl.window,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 }
 
 - (void)checkIfMoved {
