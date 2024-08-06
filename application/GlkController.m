@@ -252,7 +252,7 @@ fprintf(stderr, "%s\n",                                                    \
     [Preferences changeCurrentGlkController:self];
     [self noteColorModeChanged:nil];
 
-    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).tableViewController;
+    libcontroller = ((AppDelegate *)NSApp.delegate).tableViewController;
 
     [self.window registerForDraggedTypes:@[ NSPasteboardTypeURL, NSPasteboardTypeString]];
 

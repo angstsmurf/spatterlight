@@ -29,7 +29,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSControl *control = (NSControl *)self.view;
     SEL action = self.action;
     if (control && action) {
-        id validator = [[NSApplication sharedApplication] targetForAction:action to:self.target from:self];
+        id validator = [NSApp targetForAction:action to:self.target from:self];
         BOOL enabled;
         if ([validator conformsToProtocol:@protocol(NSUserInterfaceValidations)]) {
             enabled = [validator validateUserInterfaceItem:self];
@@ -106,14 +106,14 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager.mainManagedObjectContext;
+        _managedObjectContext = ((AppDelegate*)NSApp.delegate).coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }
 
 - (TableViewController *)tableViewController {
     if (_tableViewController == nil) {
-        _tableViewController = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController;
+        _tableViewController = ((AppDelegate*)NSApp.delegate).tableViewController;
     }
     return _tableViewController;
 }

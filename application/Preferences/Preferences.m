@@ -155,7 +155,7 @@ static Preferences *prefs = nil;
     if (!name)
         name = @"Old settings";
 
-    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+    CoreDataManager *coreDataManager = ((AppDelegate*)NSApp.delegate).coreDataManager;
 
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
@@ -778,7 +778,7 @@ NSString *fontToString(NSFont *font) {
 
 - (CoreDataManager *)coreDataManager {
     if (_coreDataManager == nil) {
-        _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+        _coreDataManager = ((AppDelegate*)NSApp.delegate).coreDataManager;
     }
     return _coreDataManager;
 }

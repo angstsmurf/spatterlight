@@ -79,7 +79,7 @@
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext == nil) {
-        _managedObjectContext = ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager.mainManagedObjectContext;
+        _managedObjectContext = ((AppDelegate*)NSApp.delegate).coreDataManager.mainManagedObjectContext;
     }
     return _managedObjectContext;
 }
@@ -104,7 +104,7 @@
             [self updateSideView:nil];
         });
     } else if (selectedGames.count > 1 && deletedObjects.count) {
-        NSArray<Game *> *selected = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController.selectedGames;
+        NSArray<Game *> *selected = ((AppDelegate*)NSApp.delegate).tableViewController.selectedGames;
         NSMutableArray *mutableSelected = selected.mutableCopy;
         for (Game *game in deletedObjects) {
             if ([selected containsObject:game])

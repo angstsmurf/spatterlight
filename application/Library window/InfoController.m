@@ -111,7 +111,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (CoreDataManager *)coreDataManager {
     if (_coreDataManager == nil) {
-        _coreDataManager =  ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
+        _coreDataManager =  ((AppDelegate*)NSApp.delegate).coreDataManager;
     }
     return _coreDataManager;
 }
@@ -652,7 +652,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 + (void)closeStrayInfoWindows {
-    NSArray *windows = [NSApplication sharedApplication].windows;
+    NSArray *windows = NSApp.windows;
     for (NSWindow *window in windows)
         if ([window isKindOfClass:[InfoPanel class]] && ![window.delegate isKindOfClass:[InfoController class]])
             [window close];

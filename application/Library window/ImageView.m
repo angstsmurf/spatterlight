@@ -505,7 +505,7 @@
     Game *game = _game;
     NSOperationQueue *queue = self.workQueue;
 
-    TableViewController *libController = ((AppDelegate*)NSApplication.sharedApplication.delegate).tableViewController;
+    TableViewController *libController = ((AppDelegate*)NSApp.delegate).tableViewController;
     libController.lastImageComparisonData = nil;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

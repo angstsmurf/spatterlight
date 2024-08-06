@@ -292,7 +292,7 @@ PasteboardFilePasteLocation;
 - (IBAction)openDocument:(id)sender {
     NSLog(@"appdel: openDocument");
 
-    NSArray *windows = [NSApplication sharedApplication].windows;
+    NSArray *windows = NSApp.windows;
     for (NSWindow *window in windows) {
         if ([window isKindOfClass:[NSOpenPanel class]]) {
             [window makeKeyAndOrderFront:nil];

@@ -205,7 +205,7 @@ enum  {
     _gameSessions = [[NSMutableDictionary alloc] init];
     _gameTableModel = [[NSMutableArray alloc] init];
 
-    AppDelegate *appdelegate = (AppDelegate*)NSApplication.sharedApplication.delegate;
+    AppDelegate *appdelegate = (AppDelegate*)NSApp.delegate;
     appdelegate.tableViewController = self;
 
     _gameTableView.autosaveTableColumns = YES;
@@ -366,7 +366,7 @@ enum  {
 
 - (LibController *)windowController {
     if (_windowController == nil) {
-        _windowController = ((AppDelegate*)NSApplication.sharedApplication.delegate).libctl;
+        _windowController = ((AppDelegate*)NSApp.delegate).libctl;
         if (!_windowController) {
             _windowController = (LibController *)self.view.window.delegate;
         }
@@ -386,14 +386,14 @@ enum  {
 
 - (CoreDataManager *)coreDataManager {
     if (_coreDataManager == nil) {
-        _coreDataManager =  ((AppDelegate*)NSApplication.sharedApplication.delegate).coreDataManager;
+        _coreDataManager =  ((AppDelegate*)NSApp.delegate).coreDataManager;
     }
     return _coreDataManager;
 }
 
 - (NSMenuItem *)mainThemesSubMenu {
     if (_mainThemesSubMenu == nil) {
-        _mainThemesSubMenu = ((AppDelegate*)NSApplication.sharedApplication.delegate).themesMenuItem;
+        _mainThemesSubMenu = ((AppDelegate*)NSApp.delegate).themesMenuItem;
     }
     return _mainThemesSubMenu;
 }
@@ -1868,7 +1868,7 @@ enum  {
                             if (![private save:&error]) {
                                 NSLog(@"Unable to Save Changes of private managed object context!");
                                 if (error) {
-                                    [[NSApplication sharedApplication] presentError:error];
+                                    [NSApp presentError:error];
                                 }
                             }
                         }
@@ -1881,7 +1881,7 @@ enum  {
                     if (![private save:&error]) {
                         NSLog(@"Unable to Save Changes of private managed object context!");
                         if (error) {
-                            [[NSApplication sharedApplication] presentError:error];
+                            [NSApp presentError:error];
                         }
                     } else NSLog(@"Changes in private were saved");
                 } else NSLog(@"No changes to save in private");
@@ -2353,7 +2353,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         weakSelf.gameSessions[game.ifid] = gctl;
         game.lastPlayed = [NSDate date];
         [gctl runTerp:terp withGame:game reset:NO winRestore:systemWindowRestoration];
-        [((AppDelegate *)[NSApplication sharedApplication].delegate)
+        [((AppDelegate *)NSApp.delegate)
          addToRecents:@[ url ]];
     }];
 
@@ -3077,7 +3077,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         return;
     if (![_gameTableView.selectedRowIndexes containsIndex:(NSUInteger)row])
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)row] byExtendingSelection:NO];
-    [NSMenu popUpContextMenu:_gameTableView.menu withEvent:[[NSApplication sharedApplication] currentEvent] forView:sender];
+    [NSMenu popUpContextMenu:_gameTableView.menu withEvent:[NSApp currentEvent] forView:sender];
 }
 
 - (IBAction)liked:(id)sender {
