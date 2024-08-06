@@ -116,8 +116,8 @@
 
 - (void)speakString:(NSString *)string {
     NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : string
+        NSAccessibilityPriorityKey:@(NSAccessibilityPriorityHigh),
+        NSAccessibilityAnnouncementKey:string
     };
 
     NSWindow *mainWin = NSApp.mainWindow;
