@@ -77,7 +77,7 @@
             if (glkctl.gameID == kGameIsBeyondZork) {
                 pattern = @"(Use the (↑ and ↓) keys(?s).+?(?=>))";
             } else if (glkctl.gameID == kGameIsAnchorheadOriginal) {
-                    pattern = @"\\[press (BACKSPACE) (to return to .+)\\]";
+                pattern = @"\\[press (BACKSPACE) (to return to .+)\\]";
             } else {
                 // First group: word before " = ". Second group: anything after " = "
                 // until two spaces or newline or space + newline
@@ -118,16 +118,19 @@
                     }
                 }
             } else {
-                // The Unforgotten has no instructions, so check for title
-                if ([format isEqualToString:@"zcode"]) {
+                if (glkctl.gameID == kGameIsVespers) {
+                    // Vespers have some menus with instructions like "P=Go up", i.e. no spaces around the "="
+                    _menuCommands = [self extractMenuCommandsUsingRegex:@"(\\w+)=(.+?(?=  |\\n| \\n|$))"];
+                } else if ([format isEqualToString:@"zcode"]) {
+                    // The Unforgotten has no instructions, so check for title
                     _menuCommands = [self extractMenuCommandsUsingRegex:@"(Unforgotten)\\s+(By Quintin Pan)"];
+                    // Hack to skip the empty fourth line in The Unforgotten
+                    if (_menuCommands.count)
+                        [_lines removeObjectAtIndex:3];
                 }
                 if (!_menuCommands.count) {
                     // If we didn't find a pattern, decide this is not a menu
                     return NO;
-                } else {
-                    // Hack to remove the empty line in The Unforgotten
-                    [_lines removeObjectAtIndex:3];
                 }
             }
         }
@@ -553,10 +556,12 @@
             [regex matchesInString:string
                            options:0
                              range:NSMakeRange(0, string.length)];
+            NSRange valueRange;
+            NSString *key;
             for (NSTextCheckingResult *match in matches) {
-                NSRange valueRange = [match rangeAtIndex:1];
+                valueRange = [match rangeAtIndex:1];
                 NSRange keyRange = [match rangeAtIndex:2];
-                NSString *key = [string substringWithRange:keyRange];
+                key = [string substringWithRange:keyRange];
                 NSString *value = [string substringWithRange:valueRange];
 
                 if (key.length) {
@@ -585,6 +590,15 @@
                         while ([string rangeIsEmpty:_lines.firstObject] && _lines.count)
                             [_lines removeObjectAtIndex:0];
                     }
+                }
+
+                // If we only found 1 match, in the latter
+                // half of long string, this is probably a
+                // false positive.
+                // This fixes Junior Arithmancer.
+                if (matches.count == 1 && _lines.count == 1 && string.length > 400 && valueRange.location > string.length / 2 && key.length) {
+                    menuDict[key] = nil;
+                    continue;
                 }
                 break;
             }
@@ -631,6 +645,7 @@
         return;
     NSString *selectedLineString;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
     // We use the number of menu lines as a proxy to see if we have just switched to a new menu
     if (_lastNumberOfItems && _lastNumberOfItems != _lines.count)
         _haveSpokenMenu = NO;
@@ -638,21 +653,23 @@
 
     GlkController *glkctl = _glkctl;
     if (!_haveSpokenMenu) {
-        NSString *titleString = [self constructMenuTitleString];
-        if (titleString.length) {
-            titleString = [NSString stringWithFormat:@"We are in a menu, \"%@.\"\n", titleString];
-        } else {
-            titleString = @"We are in a menu.\n";
-        }
-        selectedLineString = [titleString stringByAppendingString:[self menuLineStringWithIndex:YES total:YES instructions:YES]];
         _haveSpokenMenu = YES;
-        [self speakString:selectedLineString];
+        [self speakString:[self menuLineStringWithTitle:YES Index:YES total:YES instructions:YES]];
         return;
     } else if (sender == glkctl) {
         selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
     } else {
         selectedLineString = [self menuLineStringWithIndex:(glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
+
+        // Speak the instructions after 5 seconds, which is assumed to be long enough
+        // to not interrupt the speaking of the selected line
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+
+        // Hack for Beyond Zork
+        // If selected string is equal to last spoken string,
+        // repeat the last move of the first buffer window found that does not
+        // contain the text "Are you sure you want to leave the story now?"
+        // FIXME: I actually have no idea why we are doing this.
         if (glkctl.gameID == kGameIsBeyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
             for (GlkWindow *view in glkctl.gwindows.allValues) {
                 if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
@@ -660,6 +677,7 @@
                     NSString *string = bufWin.textview.string;
                     if ([string rangeOfString:@"Are you sure you want to leave the story now?"].location != NSNotFound) {
                         [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
+                        return;
                     }
                 }
             }
@@ -669,7 +687,22 @@
     [self speakString:selectedLineString];
 }
 
-- (NSString *)menuLineStringWithIndex:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions {
+- (NSString *)menuLineStringWithTitle:(BOOL)useTitle Index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
+    NSString *menuLineString = [self menuLineStringWithIndex:useIndex total:useTotal instructions:useInstructions];
+    if (useTitle) {
+        NSString *titleString = [self constructMenuTitleString];
+        if (titleString.length) {
+            titleString = [NSString stringWithFormat:@"We are in a menu, \"%@.\"\n", titleString];
+        } else {
+            titleString = @"We are in a menu.\n";
+        }
+        menuLineString = [titleString stringByAppendingString:menuLineString];
+    }
+    return menuLineString;
+}
+
+
+- (NSString *)menuLineStringWithIndex:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
     NSRange selectedLineRange = _lines[_selectedLine].rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.length);
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
@@ -695,9 +728,9 @@
         }
     }
 
-    if (index) {
+    if (useIndex) {
         NSString *indexString = [NSString stringWithFormat:@".\nMenu item %ld", _selectedLine + 1];
-        if (total) {
+        if (useTotal) {
             indexString = [indexString stringByAppendingString:
                            [NSString stringWithFormat:@" of %ld", _lines.count]];
         }
@@ -705,7 +738,7 @@
         menuItemString = [menuItemString stringByAppendingString:indexString];
     }
 
-    if (instructions) {
+    if (useInstructions) {
         menuItemString = [menuItemString stringByAppendingString:[self constructMenuInstructionString]];
     }
 
@@ -717,19 +750,6 @@
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
         NSAccessibilityAnnouncementKey : [self constructMenuInstructionString]
     };
-
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                _glkctl.window,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-//    [self performSelector:@selector(speakEscape:) withObject:nil afterDelay:6];
-}
-
-- (void)speakEscape:(id)sender {
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
-        NSAccessibilityAnnouncementKey : @"If this is NOT a menu, press ESCAPE to DISMISS."
-    };
-
 
     NSAccessibilityPostNotificationWithUserInfo(
                                                 _glkctl.window,
@@ -757,6 +777,10 @@
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
         NSAccessibilityAnnouncementKey : string
     };
+
+    // Try to avoid speaking the same line twice
+    _glkctl.lastSpokenString = string;
+    _glkctl.speechTimeStamp = [NSDate date];
 
     NSAccessibilityPostNotificationWithUserInfo(
                                                 _glkctl.window,

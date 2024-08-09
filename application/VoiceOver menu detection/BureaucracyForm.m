@@ -164,7 +164,16 @@
     return infoString;
 }
 
-- (NSString *)constructFieldStringWithIndex:(BOOL)useIndex andTotal:(BOOL)useTotal {
+- (NSString *)fieldStringWithTitle:(BOOL)useTitle andIndex:(BOOL)useIndex andTotal:(BOOL)useTotal {
+    NSString *fieldString = [self fieldStringWithIndex:YES andTotal:YES];
+    if (useTitle) {
+        fieldString = [NSString stringWithFormat:@"%@: %@ %@", _titlestring, [self constructInputString], fieldString];
+    }
+    return fieldString;
+}
+
+
+- (NSString *)fieldStringWithIndex:(BOOL)useIndex andTotal:(BOOL)useTotal {
     NSUInteger index = [self findCurrentField];
     if (index == NSNotFound)
         return @"";
@@ -215,12 +224,6 @@
     [moves addObject:val];
 }
 
-- (void)deferredSpeakString:(id)sender {
-
-    [self speakString:(NSString *)sender];
-
-}
-
 - (void)speakCurrentField {
     if (_dontSpeakField == YES) {
         _dontSpeakField = NO;
@@ -245,14 +248,8 @@
     Theme *theme = self.glkctl.theme;
 
     if (!_haveSpokenForm || sender == self.glkctl) {
-        selectedFieldString =
-        [self constructFieldStringWithIndex:YES andTotal:YES];
-        if (!_haveSpokenForm) {
-            NSString *titleString = [_titlestring stringByAppendingString:@": "];
-            titleString = [titleString stringByAppendingString:[self constructInputString]];
-            selectedFieldString = [titleString stringByAppendingString:selectedFieldString];
-            _haveSpokenForm = YES;
-        }
+        selectedFieldString = [self fieldStringWithTitle:!_haveSpokenForm andIndex:YES andTotal:YES];
+        _haveSpokenForm = YES;
     } else {
         if (theme.vOSpeakCommand)
             selectedFieldString = [self constructInputString];
@@ -260,7 +257,7 @@
         if (!_didNotMove)
             selectedFieldString =
             [selectedFieldString stringByAppendingString:
-             [self constructFieldStringWithIndex:(theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(theme.vOSpeakMenu == kVOMenuTotal)]];
+             [self fieldStringWithIndex:(theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
     [self speakString:selectedFieldString];
@@ -296,7 +293,7 @@
     else
         errorString = [self constructInfoString];
     errorString = [errorString stringByAppendingString:
-                   [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
+                   [self fieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
     [self speakString:errorString];
     _speakingError = NO;
 }
@@ -309,7 +306,11 @@
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
         NSAccessibilityAnnouncementKey : string
     };
-    
+
+    // Try to avoid speaking the same line twice
+    _glkctl.lastSpokenString = string;
+    _glkctl.speechTimeStamp = [NSDate date];
+
     NSAccessibilityPostNotificationWithUserInfo(
                                                 _glkctl.window,
                                                 NSAccessibilityAnnouncementRequestedNotification, announcementInfo);

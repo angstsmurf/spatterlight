@@ -101,6 +101,7 @@ typedef enum kGameIdentity : NSUInteger {
     kGameIsNarcolepsy,
     kGameIsThaumistry,
     kGameIsTrinity,
+    kGameIsVespers
 } kGameIdentity;
 
 @property kGameIdentity gameID;

@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)speakCurrentField;
 - (void)deferredSpeakCurrentField:(id)sender;
 - (void)speakError;
+- (NSString *)fieldStringWithTitle:(BOOL)useTitle andIndex:(BOOL)useIndex andTotal:(BOOL)useTotal;
 
 @end
 

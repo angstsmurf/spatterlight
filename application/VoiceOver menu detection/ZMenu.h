@@ -38,9 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSUInteger lastNumberOfItems;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
+
 @property (NS_NONATOMIC_IOSONLY, getter=isMenu, readonly) BOOL menu;
 - (void)speakSelectedLine;
 - (void)deferredSpeakSelectedLine:(id)sender;
+
+- (NSString *)menuLineStringWithTitle:(BOOL)title Index:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions;
+
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger findSelectedLine;
 
 @end
