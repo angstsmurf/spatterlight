@@ -163,8 +163,13 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL windowRestoredBySystem;
     BOOL shouldRestoreUI;
+
+    // When a game supports autosave, but is still on its first turn,
+    // so that no interpreter autosave file exists, we still restore the UI
+    // to catch entered text and scroll position
     BOOL restoredUIOnly;
 
+    // Used for fullscreen animation
     NSWindowController *snapshotController;
 
     BOOL windowClosedAlready;
@@ -185,11 +190,13 @@ fprintf(stderr, "%s\n",                                                    \
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 
+    // Command script handling
     BOOL skipNextScriptCommand;
     NSDate *lastScriptKeyTimestamp;
     NSDate *lastKeyTimestamp;
 
     kVOMenuPrefsType lastVOSpeakMenu;
+    BOOL shouldAddTitlePrefixToSpeech;
 }
 
 @property BOOL shouldShowAutorestoreAlert;
@@ -1608,25 +1615,12 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGlkController:self];
-    _lastSpokenString = nil;
-
-    [self guessFocus];
-
     // dead is YES before the interpreter process has started
-    // so none of the below will run when the game starts
     if (!dead) {
-        if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
-            _mustBeQuiet = NO;
-        }
-        if (_voiceOverActive) {
-            _shouldCheckForMenu = YES;
-            [self checkZMenuAndSpeak:NO];
-            if (_gameState != kGameJustStartedNormally && _theme.vODelayOn) {
-                [self speakMostRecentAfterDelay:7];
-            }
-        }
-        _gameState = kGameIsRunning;
+        [self guessFocus];
+        [self speakOnBecomingKey];
     } else if (_gameState == kGameIsDead && _theme.vODelayOn) {
+        // Game did become key while dead / game over
         [self speakMostRecentAfterDelay:4];
     }
 }
@@ -1764,13 +1758,14 @@ fprintf(stderr, "%s\n",                                                    \
         win.glkctl = nil;
     }
 
-    [self checkZMenuAndSpeak:YES];
-
-    if (_shouldSpeakNewText && !_zmenu && !_form) {
-        [self forceSpeech];
-        [self speakNewText];
+    if (_voiceOverActive && _shouldSpeakNewText && !_mustBeQuiet) {
+        [self checkZMenuAndSpeak:YES];
+        if (!_zmenu && !_form) {
+            [self forceSpeech];
+            [self speakNewText];
+        }
+        _shouldSpeakNewText = NO;
     }
-    _shouldSpeakNewText = NO;
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
@@ -4526,6 +4521,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             _shouldCheckForMenu = YES;
             [self checkZMenuAndSpeak:NO];
             if (_eventcount > 2 && !_mustBeQuiet && _theme.vODelayOn) {
+                shouldAddTitlePrefixToSpeech = (_theme.vOHackDelay == 0);
                 [self speakMostRecentAfterDelay:3];
             }
         } else {
@@ -4661,20 +4657,29 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
             GlkTextGridWindow *box = _quoteBoxes.lastObject;
 
             NSString *str = box.textview.string;
-            str = [@"QUOTE: \n\n" stringByAppendingString:str];
-            [self speakString:str];
-        } else {
-            [largest repeatLastMove:nil];
+            if (str.length) {
+                str = [@"QUOTE: \n\n" stringByAppendingString:str];
+                [self speakString:str];
+                return;
+            }
         }
+        [largest repeatLastMove:nil];
     }
 }
 
-- (void)speakMostRecentAfterDelay:(CGFloat)delay {
-    delay *= _theme.vOHackDelay;
-    delay *= NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)delay), dispatch_get_main_queue(), ^(void) {
-        [self speakMostRecent:self];
-    });
+- (void)speakOnBecomingKey {
+    if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
+        _mustBeQuiet = NO;
+    }
+    if (_voiceOverActive) {
+        _shouldCheckForMenu = YES;
+        [self checkZMenuAndSpeak:NO];
+        if (_theme.vODelayOn && _gameState != kGameJustStartedNormally) {
+            shouldAddTitlePrefixToSpeech = (_theme.vOHackDelay == 0);
+            [self speakMostRecentAfterDelay:5];
+        }
+    }
+    _gameState = kGameIsRunning;
 }
 
 #pragma mark Speak previous moves
@@ -4682,11 +4687,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // If sender == self, never announce "No last move to speak!"
 - (IBAction)speakMostRecent:(id)sender {
     if (_zmenu) {
-        [_zmenu deferredSpeakSelectedLine:self];
+        NSString *menuString = [_zmenu menuLineStringWithTitle:YES Index:YES total:YES instructions:YES];
+        _zmenu.haveSpokenMenu = YES;
+        [self speakString:menuString];
         return;
-    }
-    if (_form) {
-        [_form deferredSpeakCurrentField:self];
+    } else if (_form) {
+        NSString *formString = [_form fieldStringWithTitle:YES andIndex:YES andTotal:YES];
+        _form.haveSpokenForm = YES;
+        [self speakString:formString];
         return;
     }
     GlkWindow *mainWindow = self.largestWithMoves;
@@ -4696,14 +4704,30 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         return;
     }
 
-    // Hack to prevent interrupting text if the "interruption text" is the same as Spatterlight is speaking
-    // anyway (because we just became key window)
-    if (sender == self && _lastSpokenString == nil && [mainWindow isKindOfClass:[GlkTextBufferWindow class]]) {
-        _lastSpokenString = ((GlkTextBufferWindow *)mainWindow).textview.string;
-        _speechTimeStamp = [NSDate date];
+    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]]) {
+        // Hack to prevent interrupting text if the "interruption text" is the same as Spatterlight is speaking
+        // anyway (because we just became key window or the text was cleared)
+        if (sender == self && (_lastSpokenString == nil || ((GlkTextBufferWindow *)mainWindow).printPositionOnInput == 0)) {
+            //    if (sender == self && _lastSpokenString == nil) {
+            if (_lastSpokenString == nil)
+                _lastSpokenString = ((GlkTextBufferWindow *)mainWindow).textview.string;
+            _speechTimeStamp = [NSDate date];
+        }
+    }
+
+    if (_quoteBoxes.count) {
+        _speechTimeStamp = [NSDate distantPast];
     }
     [mainWindow setLastMove];
     [mainWindow repeatLastMove:nil];
+}
+
+- (void)speakMostRecentAfterDelay:(CGFloat)delay {
+    delay *= _theme.vOHackDelay;
+    delay *= NSEC_PER_SEC;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)delay), dispatch_get_main_queue(), ^(void) {
+        [self speakMostRecent:self];
+    });
 }
 
 - (IBAction)speakPrevious:(id)sender {
@@ -4763,12 +4787,18 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakString:(NSString *)string {
-
-    if (string.length == 0 || !_voiceOverActive ||
-        ([string isEqualToString: _lastSpokenString] && _speechTimeStamp.timeIntervalSinceNow  > -3)) {
-        return;
+    NSString *newString = string;
+    if (shouldAddTitlePrefixToSpeech) {
+        newString = [NSString stringWithFormat:@"Now in, %@: %@", _game.metadata.title, string];
+        shouldAddTitlePrefixToSpeech = NO;
     }
 
+    if (string.length == 0 || !_voiceOverActive)
+        return;
+
+    if ([string isEqualToString: _lastSpokenString] &&_speechTimeStamp.timeIntervalSinceNow > -3) {
+        return;
+    }
     _speechTimeStamp = [NSDate date];
     _lastSpokenString = string;
 
@@ -4777,8 +4807,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     string = [string stringByTrimmingCharactersInSet:charset];
 
     NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : string
+        NSAccessibilityPriorityKey:@(NSAccessibilityPriorityHigh),
+        NSAccessibilityAnnouncementKey:newString
     };
 
     NSAccessibilityPostNotificationWithUserInfo(
