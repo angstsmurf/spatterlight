@@ -528,6 +528,48 @@ static std::vector<Patch> patches = {
             },
         }
     },
+
+    // Unforgotten attempts to sleep with the following:
+    //
+    //
+    //      @aread local2 0 30 PauseFunc -> local3;
+    //
+    //
+    // However, since local2 is a local variable with value 0 instead of a
+    // text buffer, this is asking to read from/write to address 0. This
+    // works in some interpreters, but Bocfel is more strict, and aborts
+    // the program. Rewrite this instead to:
+    //
+    // @read_char 1 30 PauseFunc -> local3;
+    // @nop; ! This is for padding.
+    {
+        "Unforgotten", &"050930", 1, 0x3ebc,
+        {
+            {
+                0x1d9f7, 8,
+                {0xe4, 0x94, 0x02, 0x00, 0x1e, 0x77, 0x5d, 0x03},
+                {0xf6, 0x53, 0x01, 0x1e, 0x77, 0x5d, 0x03, 0xb4},
+            },
+
+            {
+                0x1dd34, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd47, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd5a, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+        }
+    },
 #endif
 };
 
