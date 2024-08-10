@@ -663,6 +663,7 @@ NSString *fontToString(NSFont *font) {
     [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
     _vODelaySlider.doubleValue = theme.vOHackDelay;
     _vODelaySlider.enabled = theme.vODelayOn;
+    _vODelaySlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld%%", (NSInteger)round(_vODelaySlider.doubleValue * 100.0)];
     _vODelayCheckbox.state = theme.vODelayOn ? NSOnState : NSOffState;
 
     NSString *beepHigh = theme.beepHigh;
@@ -1807,6 +1808,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeVODelaySlider:(id)sender {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOHackDelay = [sender doubleValue];
+    _vODelaySlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld%%", (NSInteger)round(_vODelaySlider.doubleValue * 100.0)];
 }
 
 - (IBAction)changeVODelayCheckbox:(id)sender {
