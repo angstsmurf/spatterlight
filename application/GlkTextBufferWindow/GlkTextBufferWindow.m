@@ -1033,7 +1033,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSNumber *key = @(ch);
     BOOL scrolled = NO;
 
-    if (!scrolling && !_pendingScroll && !self.scrolledToBottom) {
+    if (!scrolling && !_pendingScroll && !self.scrolledToBottom && !self.glkctl.voiceOverActive) {
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
             case keycode_PageUp:
