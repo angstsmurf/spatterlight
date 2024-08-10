@@ -150,6 +150,7 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;
 @property (weak) IBOutlet NSButton *recheckMissingCheckbox;
 @property (weak) IBOutlet NSTextField *recheckFrequencyTextfield;
+@property (weak) IBOutlet NSButton *saveInGameDirCheckbox;
 
 @property (weak) IBOutlet NSPopUpButton *palettePopup;
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;

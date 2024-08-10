@@ -700,6 +700,8 @@ NSString *fontToString(NSFont *font) {
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
+    _saveInGameDirCheckbox.state = [defaults boolForKey:@"SaveInGameDirectory"] ? NSOnState : NSOffState;
+
     _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSOnState : NSOffState;
 
     if (theme.minTimer != 0) {
@@ -2000,6 +2002,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeCheckFrequency:(id)sender {
     [[NSUserDefaults standardUserDefaults] setInteger:[sender intValue] forKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.integerValue = (NSInteger)round([sender floatValue]);
+}
+
+- (IBAction)changeSaveToGameDir:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"SaveInGameDirectory"];
 }
 
 #pragma mark End of Global menu

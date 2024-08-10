@@ -2409,10 +2409,16 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)handleSavePrompt:(int)fileusage {
     _commandScriptRunning = NO;
     _commandScriptHandler = nil;
-    NSURL *directory =
-    [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
-                            objectForKey:@"SaveDirectory"]
-               isDirectory:YES];
+    NSURL *directory;
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"SaveInGameDirectory"]) {
+        directory = [[_game urlForBookmark] URLByDeletingLastPathComponent];
+    } else {
+        directory =
+        [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
+                                objectForKey:@"SaveDirectory"]
+                   isDirectory:YES];
+    }
+
     NSSavePanel *panel = [NSSavePanel savePanel];
     NSString *prompt;
     NSString *ext;

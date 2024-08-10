@@ -36,4 +36,5 @@
 	AddToLibrary = YES;
 	RecheckForMissing = NO;
 	RecheckFrequency = 30;
+	SaveInGameDirectory = NO;
 }
