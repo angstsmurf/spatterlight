@@ -178,6 +178,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         [_textview enableCaret:nil];
 
+        scrollview.accessibilityLabel = @"buffer scroll view";
+
         [self addSubview:scrollview];
 
         if (self.glkctl.usesFont3)
@@ -353,6 +355,7 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview = _textview.enclosingScrollView;
         if (!scrollview)
             NSLog(@"scrollview nil!");
+        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
         scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
