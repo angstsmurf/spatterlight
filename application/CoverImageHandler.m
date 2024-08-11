@@ -181,6 +181,7 @@
         fadeOutAnimation.fillMode = kCAFillModeForwards;
 
         glkctl.showingCoverImage = NO;
+        glkctl.gameState = kGameJustStartedNormally;
         // FIXME: Just fork the interpreter NSTask here instead
         glkctl.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         glkctl.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;

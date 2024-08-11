@@ -336,7 +336,9 @@
     self.smoothScroll = YES;
     self.vOSpeakCommand = YES;
     self.vOSpeakImages = kVOImageWithDescriptionOnly;
-    self.vOSpeakMenu = kVOMenuNone;
+    self.vOSpeakMenu = kVOMenuTextOnly;
+    self.vODelayOn = YES;
+    self.vOHackDelay = 4.0;
     self.zMachineLetter = @"S";
     self.zMachineTerp = 4; // Amiga
     self.nohacks = NO;

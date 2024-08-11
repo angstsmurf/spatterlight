@@ -156,7 +156,7 @@
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" valueTransformerName="ColorTransformer"/>
         <attribute name="vODelayOn" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="vOHackDelay" optional="YES" attributeType="Double" minValueString="0" maxValueString="2" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="vOHackDelay" optional="YES" attributeType="Double" minValueString="0" maxValueString="10" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="vOSpeakCommand" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="vOSpeakImages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="vOSpeakMenu" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>

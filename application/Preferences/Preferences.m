@@ -663,7 +663,7 @@ NSString *fontToString(NSFont *font) {
     [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
     _vODelaySlider.doubleValue = theme.vOHackDelay;
     _vODelaySlider.enabled = theme.vODelayOn;
-    _vODelaySlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld%%", (NSInteger)round(_vODelaySlider.doubleValue * 100.0)];
+    _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
     _vODelayCheckbox.state = theme.vODelayOn ? NSOnState : NSOffState;
 
     NSString *beepHigh = theme.beepHigh;
@@ -736,6 +736,15 @@ NSString *fontToString(NSFont *font) {
         if (!selectedFontButton)
             selectedFontButton = btnBufferFont;
         [self showFontPanel:selectedFontButton];
+    }
+}
+
+- (NSString *)secondsAccessibilityString {
+    CGFloat fractional = _vODelaySlider.doubleValue - _vODelaySlider.integerValue;
+    if (fractional < 0.05 || fractional > 0.95) {
+        return [NSString stringWithFormat:@"%ld seconds", (long)round(_vODelaySlider.doubleValue)];
+    } else {
+        return [NSString stringWithFormat:@"%.1f seconds", _vODelaySlider.doubleValue];
     }
 }
 
@@ -1808,7 +1817,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeVODelaySlider:(id)sender {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOHackDelay = [sender doubleValue];
-    _vODelaySlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld%%", (NSInteger)round(_vODelaySlider.doubleValue * 100.0)];
+    _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
 }
 
 - (IBAction)changeVODelayCheckbox:(id)sender {

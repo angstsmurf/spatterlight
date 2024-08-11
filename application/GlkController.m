@@ -359,7 +359,7 @@ fprintf(stderr, "%s\n",                                                    \
             _windowPreFullscreenFrame = self.window.frame;
         }
         [self forkInterpreterTask];
-        _gameState = kGameIsRunning;
+        _gameState = kGameJustStartedNormally;
         return;
     }
 
@@ -1615,13 +1615,17 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGlkController:self];
+
     // dead is YES before the interpreter process has started
     if (!dead) {
         [self guessFocus];
+        if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
+            _mustBeQuiet = NO;
+        }
         [self speakOnBecomingKey];
     } else if (_gameState == kGameIsDead && _theme.vODelayOn) {
         // Game did become key while dead / game over
-        [self speakMostRecentAfterDelay:4];
+        [self speakMostRecentAfterDelay];
     }
 }
 
@@ -1758,13 +1762,16 @@ fprintf(stderr, "%s\n",                                                    \
         win.glkctl = nil;
     }
 
-    if (_voiceOverActive && _shouldSpeakNewText && !_mustBeQuiet) {
-        [self checkZMenuAndSpeak:YES];
-        if (!_zmenu && !_form) {
-            [self forceSpeech];
-            [self speakNewText];
+    if (_shouldSpeakNewText) {
+        if (_voiceOverActive && !_mustBeQuiet) {
+            [self checkZMenuAndSpeak:YES];
+            if (!_zmenu && !_form) {
+                [self forceSpeech];
+                [self speakNewText];
+            }
+            _shouldSpeakNewText = NO;
         }
-        _shouldSpeakNewText = NO;
+        _gameState = kGameIsRunning;
     }
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
@@ -4523,17 +4530,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
-        if (_voiceOverActive) {
-            _shouldCheckForMenu = YES;
-            [self checkZMenuAndSpeak:NO];
-            if (_eventcount > 2 && !_mustBeQuiet && _theme.vODelayOn) {
-                shouldAddTitlePrefixToSpeech = (_theme.vOHackDelay == 0);
-                [self speakMostRecentAfterDelay:3];
-            }
-        } else {
-            _zmenu = nil;
-            _form = nil;
-        }
+        [self speakOnBecomingKey];
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
@@ -4674,18 +4671,16 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakOnBecomingKey {
-    if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
-        _mustBeQuiet = NO;
-    }
     if (_voiceOverActive) {
         _shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
-        if (_theme.vODelayOn && _gameState != kGameJustStartedNormally) {
-            shouldAddTitlePrefixToSpeech = (_theme.vOHackDelay == 0);
-            [self speakMostRecentAfterDelay:5];
+        if (_theme.vODelayOn && !_mustBeQuiet && _gameState != kGameJustStartedNormally) {
+            [self speakMostRecentAfterDelay];
         }
+    } else {
+        _zmenu = nil;
+        _form = nil;
     }
-    _gameState = kGameIsRunning;
 }
 
 #pragma mark Speak previous moves
@@ -4728,8 +4723,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [mainWindow repeatLastMove:nil];
 }
 
-- (void)speakMostRecentAfterDelay:(CGFloat)delay {
-    delay *= _theme.vOHackDelay;
+- (void)speakMostRecentAfterDelay {
+    CGFloat delay = _theme.vOHackDelay;
+    shouldAddTitlePrefixToSpeech = (delay < 1);
     delay *= NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)delay), dispatch_get_main_queue(), ^(void) {
         [self speakMostRecent:self];
