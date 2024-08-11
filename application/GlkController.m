@@ -4788,10 +4788,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
 - (void)speakString:(NSString *)string {
     NSString *newString = string;
-    if (shouldAddTitlePrefixToSpeech) {
-        newString = [NSString stringWithFormat:@"Now in, %@: %@", _game.metadata.title, string];
-        shouldAddTitlePrefixToSpeech = NO;
-    }
 
     if (string.length == 0 || !_voiceOverActive)
         return;
@@ -4799,12 +4795,18 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if ([string isEqualToString: _lastSpokenString] &&_speechTimeStamp.timeIntervalSinceNow > -3) {
         return;
     }
+
     _speechTimeStamp = [NSDate date];
     _lastSpokenString = string;
 
     NSString *charSetString = @"\u00A0 >\n_";
     NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
-    string = [string stringByTrimmingCharactersInSet:charset];
+    newString = [newString stringByTrimmingCharactersInSet:charset];
+
+    if (shouldAddTitlePrefixToSpeech) {
+        newString = [NSString stringWithFormat:@"Now in, %@: %@", _game.metadata.title, newString];
+        shouldAddTitlePrefixToSpeech = NO;
+    }
 
     NSDictionary *announcementInfo = @{
         NSAccessibilityPriorityKey:@(NSAccessibilityPriorityHigh),
