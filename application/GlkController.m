@@ -200,6 +200,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 @property BOOL shouldShowAutorestoreAlert;
+@property NSURL *saveDir;
 
 @end
 
@@ -2418,7 +2419,11 @@ fprintf(stderr, "%s\n",                                                    \
     _commandScriptHandler = nil;
     NSURL *directory;
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"SaveInGameDirectory"]) {
-        directory = [[_game urlForBookmark] URLByDeletingLastPathComponent];
+        if (!_saveDir) {
+            directory = [[_game urlForBookmark] URLByDeletingLastPathComponent];
+        } else {
+            directory = _saveDir;
+        }
     } else {
         directory =
         [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
@@ -2502,6 +2507,7 @@ fprintf(stderr, "%s\n",                                                    \
              setObject:theFile.path
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
+            self.saveDir = theFile.URLByDeletingLastPathComponent;
             s = (theFile.path).UTF8String;
             reply.len = strlen(s);
         } else {
