@@ -592,14 +592,6 @@
                     }
                 }
 
-                // If we only found 1 match, in the latter
-                // half of long string, this is probably a
-                // false positive.
-                // This fixes Junior Arithmancer.
-                if (matches.count == 1 && _lines.count == 1 && string.length > 400 && valueRange.location > string.length / 2 && key.length) {
-                    menuDict[key] = nil;
-                    continue;
-                }
                 break;
             }
         }
