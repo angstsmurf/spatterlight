@@ -499,11 +499,13 @@
         XCUIElement *savePanel = gamewin.sheets[@"save-panel"];
         XCTAssert([savePanel waitForExistenceWithTimeout:5]);
         XCUIElement *popUp;
-        for (NSString *popupTitle in menuItemTitles) {
-            popUp = savePanel.popUpButtons[popupTitle];
-            if ([popUp waitForExistenceWithTimeout:5]) {
-                break;
-            }
+
+        if ([savePanel.popUpButtons[@"Rich Text Format without images"] waitForExistenceWithTimeout:0.5]) {
+            popUp = savePanel.popUpButtons[@"Rich Text Format without images"];
+        } else if ([savePanel.popUpButtons[@"Rich Text Format with images"] waitForExistenceWithTimeout:0.5]) {
+            popUp = savePanel.popUpButtons[@"Rich Text Format with images"];
+        } else {
+            popUp = savePanel.popUpButtons[@"PlainText"];
         }
         [popUp click];
 
