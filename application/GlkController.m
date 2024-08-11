@@ -2418,17 +2418,17 @@ fprintf(stderr, "%s\n",                                                    \
     _commandScriptRunning = NO;
     _commandScriptHandler = nil;
     NSURL *directory;
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"SaveInGameDirectory"]) {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    if ([defaults boolForKey:@"SaveInGameDirectory"]) {
         if (!_saveDir) {
             directory = [[_game urlForBookmark] URLByDeletingLastPathComponent];
         } else {
             directory = _saveDir;
         }
     } else {
-        directory =
-        [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
-                                objectForKey:@"SaveDirectory"]
-                   isDirectory:YES];
+        directory = [NSURL fileURLWithPath:
+                     [defaults objectForKey:@"SaveDirectory"]
+                                isDirectory:YES];
     }
 
     NSSavePanel *panel = [NSSavePanel savePanel];
@@ -2503,7 +2503,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
-            [[NSUserDefaults standardUserDefaults]
+            [defaults
              setObject:theFile.path
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
