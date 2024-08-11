@@ -476,6 +476,7 @@
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C309886225CB1ADF00750F72 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
+		C30C57D72C68C31900C2AAAF /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C30C57D52C68C31800C2AAAF /* options.cpp */; };
 		C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD728CA2C0300D293BE /* atari8detect.c */; };
 		C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; };
 		C30C7ADC28CA2C2100D293BE /* pcdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7ADB28CA2C2100D293BE /* pcdraw.c */; };
@@ -1521,7 +1522,6 @@
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
 		6DD3D26C2512C11300667CA6 /* dict.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = dict.h; sourceTree = "<group>"; tabWidth = 4; };
-		6DD3D26D2512C11300667CA6 /* help.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = help.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2702512C11300667CA6 /* mathop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = mathop.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2712512C11300667CA6 /* memory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = memory.h; sourceTree = "<group>"; tabWidth = 4; };
 		6DD3D2722512C11300667CA6 /* meta.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; path = meta.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -2658,6 +2658,8 @@
 		C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCoreDataCoreSpotlightDelegate.m; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
+		C30C57D52C68C31800C2AAAF /* options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = options.cpp; sourceTree = "<group>"; };
+		C30C57D62C68C31800C2AAAF /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
 		C30C7AD528CA2C0300D293BE /* apple2detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple2detect.h; sourceTree = "<group>"; };
 		C30C7AD628CA2C0300D293BE /* atari8detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atari8detect.h; sourceTree = "<group>"; };
 		C30C7AD728CA2C0300D293BE /* atari8detect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atari8detect.c; sourceTree = "<group>"; };
@@ -3105,7 +3107,6 @@
 		C3E49E1428D8AC0D009B94E7 /* ciderpress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ciderpress.c; sourceTree = "<group>"; };
 		C3E8153F288C4AFE003C4FEB /* atari8c64draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari8c64draw.c; sourceTree = "<group>"; };
 		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		C3E934AA296D9367000A0640 /* help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help.h; sourceTree = "<group>"; };
 		C3E934AC296D93C2000A0640 /* v1234.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v1234.h; sourceTree = "<group>"; };
 		C3EAD77E26D4539500AF31AF /* tildeath.gam */ = {isa = PBXFileReference; lastKnownFileType = file; path = tildeath.gam; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
@@ -3588,12 +3589,10 @@
 				6DD3D26C2512C11300667CA6 /* dict.h */,
 				6DB774AD2458B9B300EDC671 /* dict.cpp */,
 				6DB774AE2458B9B300EDC671 /* glkstart.cpp */,
-				C3E934AA296D9367000A0640 /* help.h */,
 				C319329327E401480054FE2C /* iff.h */,
 				C319328127E338100054FE2C /* iff.cpp */,
 				C319329527E401510054FE2C /* io.h */,
 				C319328027E338100054FE2C /* io.cpp */,
-				6DD3D26D2512C11300667CA6 /* help.h */,
 				6DD3D2702512C11300667CA6 /* mathop.h */,
 				6DB774B12458B9B300EDC671 /* mathop.cpp */,
 				6DD3D2712512C11300667CA6 /* memory.h */,
@@ -3602,6 +3601,8 @@
 				6DB774B32458B9B300EDC671 /* meta.cpp */,
 				6DD3D2732512C11300667CA6 /* objects.h */,
 				6DB774B42458B9B300EDC671 /* objects.cpp */,
+				C30C57D62C68C31800C2AAAF /* options.h */,
+				C30C57D52C68C31800C2AAAF /* options.cpp */,
 				6DD3D2742512C11300667CA6 /* osdep.h */,
 				6DB774B52458B9B300EDC671 /* osdep.cpp */,
 				6DD3D2752512C11300667CA6 /* patches.h */,
@@ -6934,6 +6935,7 @@
 				C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */,
 				6DB774C72458B9B300EDC671 /* memory.cpp in Sources */,
 				C319329D27E407700054FE2C /* spatterlight-autosave.mm in Sources */,
+				C30C57D72C68C31900C2AAAF /* options.cpp in Sources */,
 				6DB774C82458B9B300EDC671 /* meta.cpp in Sources */,
 				6DB774C92458B9B300EDC671 /* objects.cpp in Sources */,
 				6DB774CA2458B9B300EDC671 /* osdep.cpp in Sources */,
