@@ -96,6 +96,7 @@ typedef enum kGameIdentity : NSUInteger {
     kGameIsAColderLight,
     kGameIsCurses,
     kGameIsDeadCities,
+    kGameIsJuniorArithmancer,
     kGameIsKerkerkruip,
     kGameIsNarcolepsy,
     kGameIsThaumistry,
