@@ -815,8 +815,6 @@ fprintf(stderr, "%s\n",                                                    \
     } else if ([ifid isEqualToString:@"ZCODE-1-050929-F8AB"] ||
                [ifid isEqualToString:@"ZCODE-1-051128-B5AA"]) {
         _gameID = kGameIsVespers;
-    } else if ([ifid isEqualToString:@"CF619423-EEC7-4E83-8C66-AE7182D55C89"]) {
-        _gameID = kGameIsJuniorArithmancer;
     } else {
         _gameID = kGameIsGeneric;
     }

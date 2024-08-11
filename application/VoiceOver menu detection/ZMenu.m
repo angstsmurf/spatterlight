@@ -30,9 +30,6 @@
 
 - (BOOL)isMenu {
     GlkController *glkctl = _glkctl;
-    if (glkctl.gameID == kGameIsJuniorArithmancer) {
-        return NO;
-    }
 
     NSString *format = glkctl.game.detectedFormat;
     unichar initialChar;
