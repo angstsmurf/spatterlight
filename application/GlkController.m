@@ -2085,8 +2085,14 @@ fprintf(stderr, "%s\n",                                                    \
 
     lastVOSpeakMenu = theme.vOSpeakMenu;
 
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+
+    if (![defaults boolForKey:@"SaveInGameDirectory"]) {
+        self.saveDir = nil;
+    }
+
     _shouldStoreScrollOffset = NO;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
+    if ([defaults boolForKey:@"AdjustSize"]) {
         if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
             NSUInteger borders = (NSUInteger)theme.border * 2;
@@ -2503,11 +2509,10 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
-            [defaults
-             setObject:theFile.path
-                .stringByDeletingLastPathComponent
-             forKey:@"SaveDirectory"];
             self.saveDir = theFile.URLByDeletingLastPathComponent;
+            [defaults
+             setObject:self.saveDir.path
+             forKey:@"SaveDirectory"];
             s = (theFile.path).UTF8String;
             reply.len = strlen(s);
         } else {
