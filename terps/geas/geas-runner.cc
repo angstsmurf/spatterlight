@@ -38,13 +38,13 @@ using namespace std;
 static const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
 static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
 
-static const ObjectRecord *get_obj_record (const vector<ObjectRecord> &v, const string &name)
-{
-  for (const auto &i : v)
-    if (ci_equal (i.name, name))
-      return &i;
-  return NULL;
-}
+//static const ObjectRecord *get_obj_record (const vector<ObjectRecord> &v, const string &name)
+//{
+//  for (const auto &i : v)
+//    if (ci_equal (i.name, name))
+//      return &i;
+//  return NULL;
+//}
 
 
 
@@ -1269,7 +1269,7 @@ void geas_implementation::run_command (const string &s1)
 		// SENSITIVE?
 		if (tok == "override")
 		  {
-		    overridden = true;
+//		    overridden = true;
 		    scr_starts = c2;
 		  }
 		string scr = line.substr (scr_starts);
@@ -1335,7 +1335,7 @@ void geas_implementation::run_command (const string &s1)
 		// SENSITIVE?
 		if (tok == "override")
 		  {
-		    overridden = true;
+//		    overridden = true;
 		    scr_starts = c2;
 		  }
 		string scr = line.substr (scr_starts);

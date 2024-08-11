@@ -40,7 +40,7 @@ int countargs(const char *cmdline)
         case 0:                                 /* skip leading white space */
             while (isspace((unsigned char)*p)) p++;
             if (!*p) break;            /* If there's nothing left, get out. */
-            state = 1;
+//            state = 1;
             /* fall through */;
 
         case 1:                                                /* begin arg */

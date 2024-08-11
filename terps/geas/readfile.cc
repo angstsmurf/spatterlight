@@ -141,12 +141,12 @@ static bool is_define (const string &s)
   return get_token(s) == "define";
 }
 
-static bool is_define (const string &s, const string &t)
-{
-  std::string::size_type t1, t2 = 0;
-  return next_token (s, t1, t2) == "define" &&
-    next_token (s, t1, t2) == t;
-}
+//static bool is_define (const string &s, const string &t)
+//{
+//  std::string::size_type t1, t2 = 0;
+//  return next_token (s, t1, t2) == "define" &&
+//    next_token (s, t1, t2) == t;
+//}
 
 static bool is_start_textmode (const string &s)
 {
@@ -1206,7 +1206,7 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   /* Pass 4:  trim lines, drop blank lines, combine elses */
   
   in_text_block = false;
-  int_proc_count = 0;
+//  int_proc_count = 0;
   for (uint line = 0; line < v2.size(); line ++)
     {
       string str = v2[line];
