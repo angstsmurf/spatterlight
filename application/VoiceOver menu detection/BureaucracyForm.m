@@ -260,7 +260,8 @@
              [self fieldStringWithIndex:(theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
-    [self speakString:selectedFieldString];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [_glkctl speakStringNow:selectedFieldString];
     if (!_haveSpokenInstructions) {
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:7];
         _haveSpokenInstructions = YES;
@@ -294,26 +295,9 @@
         errorString = [self constructInfoString];
     errorString = [errorString stringByAppendingString:
                    [self fieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
-    [self speakString:errorString];
-    _speakingError = NO;
-}
-
-- (void)speakString:(NSString *)string {
-    if (!string || string.length == 0)
-        return;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : string
-    };
-
-    // Try to avoid speaking the same line twice
-    _glkctl.lastSpokenString = string;
-    _glkctl.speechTimeStamp = [NSDate date];
-
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                _glkctl.window,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    [_glkctl speakStringNow:errorString];
+    _speakingError = NO;
 }
 
 - (void)checkIfMoved {

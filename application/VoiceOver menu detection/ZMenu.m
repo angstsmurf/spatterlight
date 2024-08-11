@@ -765,18 +765,7 @@
 
     }
 
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : string
-    };
-
-    // Try to avoid speaking the same line twice
-    _glkctl.lastSpokenString = string;
-    _glkctl.speechTimeStamp = [NSDate date];
-
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                _glkctl.window,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    [_glkctl speakStringNow:string];
 }
 
 - (NSString *)constructMenuInstructionString {
