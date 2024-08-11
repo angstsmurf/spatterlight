@@ -657,11 +657,10 @@
         // to not interrupt the speaking of the selected line
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
 
-        // Hack for Beyond Zork
-        // If selected string is equal to last spoken string,
-        // repeat the last move of the first buffer window found that does not
-        // contain the text "Are you sure you want to leave the story now?"
-        // FIXME: I actually have no idea why we are doing this.
+        // If we have chosen Quit from the Beyond Zork start menu,
+        // this makes sure that the text "Are you sure you want
+        // to leave the story now?" is spoken instead of the selected
+        // menu line (which is still just "Quit".)
         if (glkctl.gameID == kGameIsBeyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
             for (GlkWindow *view in glkctl.gwindows.allValues) {
                 if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
