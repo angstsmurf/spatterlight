@@ -4819,6 +4819,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
     newString = [newString stringByTrimmingCharactersInSet:charset];
 
+    if (newString.length == 0)
+        newString = string;
+
     if (shouldAddTitlePrefixToSpeech) {
         newString = [NSString stringWithFormat:@"Now in, %@: %@", _game.metadata.title, newString];
         shouldAddTitlePrefixToSpeech = NO;
