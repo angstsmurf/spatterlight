@@ -2509,9 +2509,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
-            self.saveDir = theFile.URLByDeletingLastPathComponent;
+            if ([defaults boolForKey:@"SaveInGameDirectory"]) {
+                self.saveDir = theFile.URLByDeletingLastPathComponent;
+            }
             [defaults
-             setObject:self.saveDir.path
+             setObject:theFile.path
+                .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theFile.path).UTF8String;
             reply.len = strlen(s);
