@@ -271,7 +271,7 @@
 - (void)speakInstructions:(id)sender {
     NSDictionary *announcementInfo = @{
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
-        NSAccessibilityAnnouncementKey : @"You mave review the form by stepping through previous moves."
+        NSAccessibilityAnnouncementKey : @"You may review the form by stepping through previous moves."
     };
 
     NSAccessibilityPostNotificationWithUserInfo(
