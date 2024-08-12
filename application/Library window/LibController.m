@@ -261,7 +261,11 @@ fprintf(stderr, "%s\n",                                                    \
     CGFloat scrollPosition = scrollPosNum.floatValue;
     NSArray *selectedIfids;
     if (@available(macOS 11.0, *)) {
-        selectedIfids = [state decodeArrayOfObjectsOfClasses:[NSSet setWithObject:[NSString class]] forKey:@"selectedGames"];
+        @try {
+            selectedIfids = [state decodeArrayOfObjectsOfClasses:[NSSet setWithObject:[NSString class]] forKey:@"selectedGames"];
+        } @catch (NSException *exception) {
+            selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
+        }
     } else {
         selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
     }
