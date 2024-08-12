@@ -164,6 +164,7 @@ typedef enum kGameState : NSUInteger {
 @property BureaucracyForm *form;
 
 @property NSString *pendingErrorMessage;
+@property NSDate *errorTimeStamp;
 
 @property NSMutableArray<GlkTextGridWindow *> *quoteBoxes;
 

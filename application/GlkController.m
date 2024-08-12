@@ -2880,6 +2880,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     if (_theme.errorHandling == IGNORE_ERRORS) {
         _pendingErrorMessage = str;
+        _errorTimeStamp = [NSDate date];
         return;
     }
     _pendingErrorMessage = nil;
@@ -3652,7 +3653,7 @@ static BOOL pollMoreData(int fd) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
-        if (_pendingErrorMessage)
+        if (_pendingErrorMessage && _errorTimeStamp.timeIntervalSinceNow > -3)
             alert.informativeText = _pendingErrorMessage;
         _pendingErrorMessage = nil;
         _mustBeQuiet = YES;
