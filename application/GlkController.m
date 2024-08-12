@@ -4688,7 +4688,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (_voiceOverActive) {
         _shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
-        if (_theme.vODelayOn && !_mustBeQuiet && _gameState != kGameJustStartedNormally) {
+        if (_theme.vODelayOn && !_mustBeQuiet) {
             [self speakMostRecentAfterDelay];
         }
     } else {
@@ -4719,15 +4719,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         return;
     }
 
-    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]]) {
-        // Hack to prevent interrupting text if the "interruption text" is the same as Spatterlight is speaking
-        // anyway (because we just became key window or the text was cleared)
-        if (sender == self && (_lastSpokenString == nil || ((GlkTextBufferWindow *)mainWindow).printPositionOnInput == 0)) {
-            //    if (sender == self && _lastSpokenString == nil) {
-            if (_lastSpokenString == nil)
-                _lastSpokenString = ((GlkTextBufferWindow *)mainWindow).textview.string;
-            _speechTimeStamp = [NSDate date];
-        }
+    // Hack to prevent interrupting text if the "interruption text" is the same as Spatterlight is speaking
+    // anyway (because we just became key window or the text was cleared)
+    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && sender == self && [mainWindow wantsFocus] &&
+        (_lastSpokenString == nil || ((GlkTextBufferWindow *)mainWindow).printPositionOnInput == 0)) {
+        if (_lastSpokenString == nil)
+            _lastSpokenString = ((GlkTextBufferWindow *)mainWindow).textview.string;
+        _speechTimeStamp = [NSDate date];
     }
 
     if (_quoteBoxes.count) {
