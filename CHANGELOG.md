@@ -8,16 +8,17 @@
 - Thumbnailer extension would generate a crash report when no Core Data library was found.
 - The library view "Like" buttons have more descriptive accessibility labels.
 - Improves VoiceOver feedback when stepping through the command history (not to be confused with the Command History custom rotor).
+- *Junior Arithmancer* is no longer described by VoiceOver as showing a menu.
 - Menu detection now works even if the game window is large.
 - Improved menu detection in *Vespers*.
-- The spells window in *Junior Arithmancer* is no longer detected as a menu.
 - Switching off menu detection manually would sometimes not have any effect until restart.
 - New settings for when to interrupt VoiceOver. When a game window gets focus, the standard behaviour of VoiceOver is to start speaking the entire scrollback from the very beginning, which can be a lot. We have always tried to interrupt this by speaking just the text of the latest move instead, but there are now controls to set how long to wait before the interruption, and also a way to turn this hack off entirely.
-- When selecting the preferences panel, VoiceOver would speak the sample text even when it was hidden.
+- When selecting the preferences panel, VoiceOver would speak the sample text even if it was hidden.
 - Spatterlight's invisibile "more prompt" mode was confusing to VoiceOver users, and is now disabled while VoiceOver is active.
 - When multiple games were running, VoiceOver would sometimes speak text from backgrounded games.
 - Default name of input recording files would be named "Recordning[sic] of [game title]".
 - The "Add to library" option when opening a game file was truncated.
+- Old, unrelated error messaged would sometimes be displayed on game crash.
 - Adds patches that fix crashes in the Z-code games *Transporter* and *Unforgotten*.
 - Turns on abbreviation expansion in Scare, which fixes *The Cellar* and maybe others.
 - Updates Glulxe to 0.6.1, with an improved random number generator.
