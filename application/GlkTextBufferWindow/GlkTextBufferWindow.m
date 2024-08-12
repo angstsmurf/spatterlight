@@ -1831,7 +1831,8 @@ replacementString:(id)repl {
                                         inTextContainer:container
                fractionOfDistanceBetweenInsertionPoints:nil];
 
-    lastVisible--;
+    if (lastVisible != 0)
+        lastVisible--;
     if (lastVisible >= textstorage.length) {
         NSLog(@"lastCharacter index (%ld) is outside textstorage length (%ld)",
               lastVisible, textstorage.length);
