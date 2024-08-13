@@ -388,11 +388,9 @@ NSString *fontToString(NSFont *font) {
     defaultWindowHeight = NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]);
 
     if (!_previewShown) {
-        _previewController.view.hidden = YES;
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
-        _previewController.view.hidden = NO;
         CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
         if (height <= 0)
             height = [_previewController calculateHeight] + 40;
@@ -868,6 +866,9 @@ NSString *fontToString(NSFont *font) {
 
     CGFloat oldheight = NSHeight(prefsPanel.frame);
 
+    _previewController.view.hidden = NO;
+    BOOL shouldHideOnCompletion = (height == defaultWindowHeight);
+
     if (ceil(height) == ceil(oldheight)) {
         return;
     }
@@ -909,7 +910,11 @@ NSString *fontToString(NSFont *font) {
              display:YES];
             [_previewHeightConstraint.animator setConstant:newPrevHeightConstant];
             [_previewController.textHeight.animator setConstant:newTextHeightConstant];
-        } completionHandler:^{}];
+        } completionHandler:^{
+            if (shouldHideOnCompletion) {
+                self.previewController.view.hidden = YES;
+            }
+        }];
     }
 }
 
@@ -950,10 +955,15 @@ NSString *fontToString(NSFont *font) {
     }
 }
 
+- (void)windowWillStartLiveResize:(NSNotification *)notification {
+    _previewController.view.hidden = NO;
+}
+
 - (void)windowDidEndLiveResize:(id)sender {
     _previewShown = (NSHeight(self.window.frame) > defaultWindowHeight);
 
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
+    _previewController.view.hidden = !_previewShown;
 
     PreviewController *blockPrevCtrl = _previewController;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
