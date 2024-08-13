@@ -143,7 +143,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="520" height="100"/>
+                                            <size key="minSize" width="57" height="100"/>
                                             <size key="maxSize" width="560" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -1498,7 +1498,7 @@
                         <action selector="changeVOSpeakCommands:" target="-2" id="tWC-bp-Xz2"/>
                     </connections>
                 </button>
-                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is5-dA-QbR">
+                <slider toolTip="How long to wait until interrupting VoiceOver." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is5-dA-QbR">
                     <rect key="frame" x="201" y="54" width="331" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" alignment="left" maxValue="8" doubleValue="4" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="6uy-PU-lRD">
@@ -1585,6 +1585,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKN-OD-Jn0">
                     <rect key="frame" x="198" y="91" width="255" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Speak the last move when game window moves to front, to prevent VoiceOver from reading all the game text from the start. Does not work reliably.</string>
                     <buttonCell key="cell" type="check" title="Interrupt VoiceOver when appropriate" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cGf-Uz-tR1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -1912,9 +1913,10 @@
                         <action selector="resetDialogs:" target="-2" id="N8S-5S-Ng4"/>
                     </connections>
                 </button>
-                <button toolTip="Open save dialogs in the same location as the game file." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1l-fq-rvt">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1l-fq-rvt">
                     <rect key="frame" x="196" y="211" width="167" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Open save dialogs initially in the same location as the game file. When this is off, save dialogs default to the Documents folder.</string>
                     <buttonCell key="cell" type="check" title="Save to game directory" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Jha-mh-yUf">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
