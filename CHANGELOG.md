@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.2.5
 - A save file with a garbage single-character name would be written to the user directory when a save request was cancelled.
 - Limits the duration of smooth scrolling.
 - Adds a preference to open the save dialog in the game file directory by default.
@@ -8,7 +8,7 @@
 - Thumbnailer extension would generate a crash report when no Core Data library was found.
 - The library view "Like" buttons have more descriptive accessibility labels.
 - Improves VoiceOver feedback when stepping through the command history (not to be confused with the Command History custom rotor).
-- *Junior Arithmancer* is no longer described by VoiceOver as showing a menu.
+- *Junior Arithmancer* is no longer detected by VoiceOver as showing a menu.
 - Menu detection now works even if the game window is large.
 - Improved menu detection in *Vespers*.
 - Switching off menu detection manually would sometimes not have any effect until restart.
@@ -18,7 +18,7 @@
 - When multiple games were running, VoiceOver would sometimes speak text from backgrounded games.
 - Default name of input recording files would be named "Recordning[sic] of [game title]".
 - The "Add to library" option when opening a game file was truncated.
-- Old, unrelated error messaged would sometimes be displayed on game crash.
+- Unrelated error messaged would sometimes be displayed on game crash.
 - Adds patches that fix crashes in the Z-code games *Transporter* and *Unforgotten*.
 - Turns on abbreviation expansion in Scare, which fixes *The Cellar* and maybe others.
 - Updates Glulxe to 0.6.1, with an improved random number generator.
