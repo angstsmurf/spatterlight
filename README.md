@@ -47,6 +47,16 @@ Cryptozookeeper: https://youtu.be/1MkdVnhZRl8
 
 Hugo Tetris: https://youtu.be/G-tTzXso6AA
 
+Adventure International showcase: https://youtu.be/p5Oelhsmzco
+
+Rebel Planet and Kayleth: https://youtu.be/RygPK26_e5Q
+
+The Sorcerer of Claymorgue Castle (Atari ST): https://youtu.be/vvoFQ49VLgE
+
+Questprobe 2 featuring Spider-Man (Atari ST): https://youtu.be/_wA7gEhTeZE
+
+Questprobe: Featuring Human Torch and the Thing (Atari ST): https://youtu.be/IK_KpdVIOIg
+
 # Compiling
 
 Building the current version has only been tried on macOS 11 Big Sur and Xcode 13. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.10 Yosemite, though.
