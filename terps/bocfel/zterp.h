@@ -56,7 +56,7 @@ constexpr uint16_t FLAGS2_MENUS      = 1U << 8;
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
 #ifdef SPATTERLIGHT
-#define mouse_available()	(zversion == 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
+#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
 #else
 #define mouse_available()   (zversion == 5 && (word(0x10) & FLAGS2_MOUSE))
 #endif
