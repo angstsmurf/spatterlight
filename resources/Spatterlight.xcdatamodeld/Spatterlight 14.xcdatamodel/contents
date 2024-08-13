@@ -166,7 +166,7 @@
         <attribute name="z6GraphicsType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="z6Simulate16Color" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="zMachineLetter" optional="YES" attributeType="String" defaultValueString="S"/>
-        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" defaultValueString="4" usesScalarValueType="YES"/>
+        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" minValueString="1" maxValueString="11" defaultValueString="4" usesScalarValueType="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle"/>
         <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufBlock" inverseEntity="GlkStyle"/>
         <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufEmph" inverseEntity="GlkStyle"/>

@@ -680,7 +680,7 @@ NSString *fontToString(NSFont *font) {
 
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
-    [_zterpMenu selectItemAtIndex:theme.zMachineTerp];
+    [_zterpMenu selectItemWithTag:theme.zMachineTerp];
     [_bZArrowsMenu selectItemWithTag:theme.bZTerminator];
 
     _zVersionTextField.stringValue = theme.zMachineLetter;
