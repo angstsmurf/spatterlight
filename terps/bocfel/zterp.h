@@ -58,7 +58,7 @@ constexpr uint16_t FLAGS2_MENUS      = 1U << 8;
 #ifdef SPATTERLIGHT
 #define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
 #else
-#define mouse_available()   (zversion == 5 && (word(0x10) & FLAGS2_MOUSE))
+#define mouse_available()   (zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
 #endif
 
 struct Header {
