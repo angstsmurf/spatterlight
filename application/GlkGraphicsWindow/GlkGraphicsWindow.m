@@ -105,6 +105,20 @@
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
+- (void)clear {
+    NSColor *color;
+    if (transparent)
+        color = NSColor.clearColor;
+    else
+        color = [NSColor colorFromInteger:bgnd];
+
+    [color setFill];
+    NSRectFill(self.bounds);
+    _showingImage = NO;
+    subImages = nil;
+    dirty = YES;
+}
+
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
 }
