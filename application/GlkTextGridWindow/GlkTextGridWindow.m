@@ -306,7 +306,7 @@
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.gameID == kGameIsBeyondZork) {
+    if ((glkctl.gameID == kGameIsBeyondZork || [glkctl zVersion6])) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -1201,7 +1201,7 @@
         if (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)]) {
             terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
 
-            if (glkctl.gameID == kGameIsBeyondZork) {
+            if (glkctl.gameID == kGameIsBeyondZork || [glkctl zVersion6]) {
                 if (terminator == keycode_Home) {
                     NSLog(@"Gridwin keyDown changed keycode_Home to keycode_Up");
                     terminator = keycode_Up;

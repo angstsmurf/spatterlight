@@ -67,7 +67,7 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Pad9,
                                nil];
 
-        if (glkctl.gameID == kGameIsBeyondZork) {
+        if (_glkctl.gameID == kGameIsBeyondZork || [_glkctl zVersion6]) {
             [self adjustBZTerminators:_pendingTerminators];
         }
 

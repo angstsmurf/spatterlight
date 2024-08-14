@@ -90,21 +90,27 @@ typedef enum kMinimumWindowSize : NSUInteger {
 typedef enum kGameIdentity : NSUInteger {
     kGameIsGeneric,
     kGameIsAdrianMole,
+    kGameIsArthur,
     kGameIsAnchorheadOriginal,
     kGameIsBeyondZork,
     kGameIsBureaucracy,
     kGameIsAColderLight,
     kGameIsCurses,
     kGameIsDeadCities,
+    kGameIsJourney,
     kGameIsJuniorArithmancer,
     kGameIsKerkerkruip,
     kGameIsNarcolepsy,
+    kGameIsShogun,
     kGameIsThaumistry,
     kGameIsTrinity,
-    kGameIsVespers
+    kGameIsVespers,
+    kGameIsZorkZero
 } kGameIdentity;
 
 @property kGameIdentity gameID;
+
+- (BOOL)zVersion6;
 
 typedef enum kGameState : NSUInteger {
     kGameStateUnknown,

@@ -580,7 +580,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.gameID == kGameIsBeyondZork) {
+    if (glkctl.gameID == kGameIsBeyondZork || [glkctl zVersion6]) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -1081,11 +1081,11 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
-                                (self.glkctl.gameID == kGameIsBeyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
+                                ((self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
         [self travelBackwardInHistory];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
-                                (self.glkctl.gameID == kGameIsBeyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
+                                ((self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -1161,7 +1161,7 @@ fprintf(stderr, "%s\n",                                                    \
     line = [line scrubInvalidCharacters];
     line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    if (self.glkctl.gameID == kGameIsBeyondZork) {
+    if (self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) {
         if (terminator == keycode_Home) {
             terminator = keycode_Up;
         } else if (terminator == keycode_End) {
