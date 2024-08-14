@@ -144,6 +144,10 @@
         [self setValue:[theme valueForKey:attr] forKey:attr];
 	}
 
+    self.hardDark = NO;
+    self.hardLight = NO;
+    self.hardLightOrDark = NO;
+
     self.editable = YES;
 
     //Loop through all relationships, and clone them if nil in target.
