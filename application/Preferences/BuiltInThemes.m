@@ -72,6 +72,10 @@
     if (exists && !force)
         return oldTheme;
 
+    Theme *defaultTheme = [BuiltInThemes findOrCreateTheme:@"Spatterlight Classic" inContext:context alreadyExists:&exists];
+
+    BOOL foundDifference = NO;
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *name;
     CGFloat size;
@@ -96,7 +100,14 @@
     oldTheme.editable = YES;
 
     name = [defaults objectForKey:@"GridFontName"];
+
+    if (![defaultTheme.gridNormal.font.fontName isEqualToString:name])
+        foundDifference = YES;
+
     size = [[defaults objectForKey:@"GridFontSize"] doubleValue];
+    if (defaultTheme.gridNormal.font.pointSize != size)
+        foundDifference = YES;
+
     oldTheme.gridNormal.font = [NSFont fontWithName:name size:size];
 
     if (!oldTheme.gridNormal.font) {
@@ -108,7 +119,15 @@
     oldTheme.gridNormal.color = [NSColor colorFromData:[defaults objectForKey:@"GridForeground"]];
 
     name = [defaults objectForKey:@"BufferFontName"];
+
+    if (![defaultTheme.bufferNormal.font.fontName isEqualToString:name])
+        foundDifference = YES;
+
     size = [[defaults objectForKey:@"BufferFontSize"] doubleValue];
+
+    if (defaultTheme.bufferNormal.font.pointSize != size)
+        foundDifference = YES;
+
     oldTheme.bufferNormal.font = [NSFont fontWithName:name size:size];
     if (!oldTheme.bufferNormal.font) {
         NSLog(@"pref: failed to create buffer font '%@'", name);
@@ -118,7 +137,14 @@
     oldTheme.bufferNormal.color = [NSColor colorFromData:[defaults objectForKey:@"BufferForeground"]];
 
     name = [defaults objectForKey:@"InputFontName"];
+    if (![defaultTheme.bufInput.font.fontName isEqualToString:name]) {
+        foundDifference = YES;
+    }
+
     size = [[defaults objectForKey:@"InputFontSize"] doubleValue];
+    if (defaultTheme.bufInput.font.pointSize != size)
+        foundDifference = YES;
+
     oldTheme.bufInput.font = [NSFont fontWithName:name size:size];
 
     NSFont *bufbold = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:oldTheme.bufferNormal.font];
@@ -147,6 +173,53 @@
 
     oldTheme.defaultParent = [BuiltInThemes createDefaultThemeInContext:context forceRebuild:NO];
 
+    if (!foundDifference) {
+        NSDictionary *attributesToDefaultsDict =
+        @{ @"defaultCols": @"DefaultWidth",
+           @"defaultRows": @"DefaultHeight",
+           @"smartQuotes": @"SmartQuotes",
+           @"spaceFormat": @"SpaceFormat",
+           @"doGraphics": @"EnableGraphics",
+           @"doSound": @"EnableSound",
+           @"doStyles": @"EnableStyles",
+           @"gridMarginX": @"GridMargin",
+           @"bufferMarginX": @"BufferMargin",
+           @"border": @"Border",
+        };
+
+        NSDictionary *attributes = [NSEntityDescription
+                                    entityForName:@"Theme"
+                                    inManagedObjectContext:context].attributesByName;
+
+        for (NSString *attr in attributes) {
+            id defaultsValue = [defaults objectForKey:attributesToDefaultsDict[attr]];
+
+            if (defaultsValue == nil) {
+                continue;
+            }
+
+            id value = [oldTheme valueForKey:attr];
+            if (value == nil)
+                value = [oldTheme.defaultParent valueForKey:attr];
+
+            if ([value isKindOfClass:[NSColor class]]) {
+                continue;
+            }
+
+            if (value && ![value isEqual:defaultsValue]) {
+                if ([value isKindOfClass:[NSNumber class]] &&
+                    ((NSNumber *)value).intValue == ((NSString *)defaultsValue).intValue) {
+                    continue;
+                }
+                foundDifference = YES;
+                break;
+            }
+        }
+        if (!foundDifference) {
+            [context deleteObject:oldTheme];
+            return nil;
+        }
+    }
     return oldTheme;
 }
 
@@ -216,9 +289,9 @@
 
     classicTheme.bZAdjustment = -8;
 
-    classicTheme.dashes = YES;
-    classicTheme.defaultRows = 30;
-    classicTheme.defaultCols = 62;
+    classicTheme.dashes = NO;
+    classicTheme.defaultRows = 50;
+    classicTheme.defaultCols = 80;
     classicTheme.doStyles = YES;
     classicTheme.smartQuotes = YES;
     classicTheme.spaceFormat = TAG_SPACES_ONE;
@@ -233,10 +306,16 @@
 
     classicTheme.gridLinkStyle = NSUnderlineStyleSingle;
 
+    classicTheme.gridNormal.font = [NSFont fontWithName:@"Monaco" size:12];
+
     classicTheme.gridBackground = [NSColor blackColor];
     classicTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+
+    classicTheme.bufferNormal.font = [NSFont fontWithName:@"Helvetica" size:13];
+
     classicTheme.bufferBackground = [NSColor whiteColor];
 
+    classicTheme.bufInput.font = [NSFont fontWithName:@"Helvetica-Bold" size:13];
     classicTheme.bufInput.color = [NSColor colorWithDeviceRed:0.137 green:0.431 blue:0.145 alpha:1.0];
     classicTheme.bufInput.autogenerated = NO;
 

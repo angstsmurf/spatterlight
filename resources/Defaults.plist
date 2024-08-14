@@ -4,7 +4,7 @@
 	OneThemeForAll = YES;
 	ShowThemePreview = NO;
 	ShowSidebar = NO;
-	Border = 10;
+	Border = 0;
 	DefaultWidth = 80;
 	DefaultHeight = 50;
 	GridForeground = <000000>;
