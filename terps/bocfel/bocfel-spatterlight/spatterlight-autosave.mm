@@ -278,6 +278,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:library_state.statuswintag forKey:@"bocfel_statuswintag"];
     [encoder encodeInt32:library_state.upperwintag forKey:@"bocfel_upperwintag"];
     [encoder encodeInt32:library_state.errorwintag forKey:@"bocfel_errorwintag"];
+    [encoder encodeInt32:library_state.graphicswintag forKey:@"bocfel_graphicswintag"];
     [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
     [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
@@ -300,6 +301,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.statuswintag = [decoder decodeInt32ForKey:@"bocfel_statuswintag"];
     library_state.upperwintag = [decoder decodeInt32ForKey:@"bocfel_upperwintag"];
     library_state.errorwintag = [decoder decodeInt32ForKey:@"bocfel_errorwintag"];
+    library_state.graphicswintag = [decoder decodeInt32ForKey:@"bocfel_graphicswintag"];
     library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
     library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
