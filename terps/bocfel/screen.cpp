@@ -302,6 +302,7 @@ public:
     void clear();
     void draw(glui32 pic, const ImageGeometry *geom, glui32 w, glui32 h) const;
     winid_t id() const { return m_id; }
+    void set_id(winid_t w) { m_id = w; }
     Type type() const { return m_type; }
     double ratio() const { return m_ratio; }
 
@@ -4957,6 +4958,9 @@ void stash_library_state(library_state_data *dat)
         if (upperwin->id)
             dat->upperwintag = upperwin->id->tag;
 
+        if (graphics_window.id())
+            dat->graphicswintag = graphics_window.id()->tag;
+
         dat->last_random_seed = last_random_seed;
         dat->random_calls_count = random_calls_count;
 
@@ -4980,6 +4984,7 @@ void recover_library_state(library_state_data *dat)
         windows[7].id = gli_window_for_tag(dat->wintag7);
         statuswin.id = gli_window_for_tag(dat->statuswintag);
         errorwin = gli_window_for_tag(dat->errorwintag);
+        graphics_window.set_id(gli_window_for_tag(dat->graphicswintag));
         for (int i = 0; i < 8; i++)
         {
             if (windows[i].id) {

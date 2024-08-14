@@ -52,6 +52,7 @@ typedef struct library_state_data_struct {
     int statuswintag;
     int errorwintag;
     int upperwintag;
+    int graphicswintag;
     uint16_t routine;
     int queued_sound;
     int sound_channel_tag;
