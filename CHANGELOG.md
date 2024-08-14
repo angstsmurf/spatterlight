@@ -1,4 +1,10 @@
 # Change log
+## Unreleased
+- Fixes mouse support in Bocfel for the v6 games.
+- Extends arrow key settings for Beyond Zork to the v6 games.
+- Makes the Old settings theme possible to delete.
+- Duplicating a theme set as designated dark or light theme would make the copy designated dark or light theme as well.
+- Fixes a problem where the Z-machine interpreter number could be set to an illegal value.
 
 ## Release 1.2.5
 - A save file with a garbage single-character name would be written to the user directory when a save request was cancelled.
@@ -10,7 +16,7 @@
 - Improves VoiceOver feedback when stepping through the command history (not to be confused with the Command History custom rotor).
 - *Junior Arithmancer* is no longer detected by VoiceOver as showing a menu.
 - Menu detection now works even if the game window is large.
-- Improved menu detection in *Vespers*.
+- Improves menu detection in *Vespers*.
 - Switching off menu detection manually would sometimes not have any effect until restart.
 - New settings for when to interrupt VoiceOver. When a game window gets focus, the standard behaviour of VoiceOver is to start speaking the entire scrollback from the very beginning, which can be a lot. We have always tried to interrupt this by speaking just the text of the latest move instead, but there are now controls to set how long to wait before the interruption, and also a way to turn this hack off entirely.
 - When selecting the preferences panel, VoiceOver would speak the sample text even if it was hidden.
