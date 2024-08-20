@@ -47,25 +47,27 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
-//    "INITCHAR",        "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
-//    "UNPAUSE",         "BEEP",
-//    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
-//    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
-//    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
+    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
+    "TIMER",           "INITCHAR",         "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
+    "UNPAUSE",         "BEEP",
+    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
+    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+    "PURGEIMG",        "MENU",
+
+    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
+    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
+    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -2059,6 +2061,10 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
     size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: charCellsToContentSize: Height is NaN!");
+        size.height = 10;
+    }
     return size;
 }
 
@@ -2068,6 +2074,10 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
     size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: contentSizeToCharCells: Height is NaN!");
+        size.height = 1;
+    }
     return size;
 }
 
@@ -2625,6 +2635,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
     NSInteger i;
 
+    NSLog(@"\nCreating new window of type %ld and name %ld", wintype, name);
+
     if (_theme == nil) {
         NSLog(@"Theme nil?");
         _theme = [Preferences currentTheme];
@@ -2887,7 +2899,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     str = [NSString stringWithCharacters:buf length:len];
-
+//    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
     windowdirty = YES;
     free(buf);
@@ -3025,7 +3037,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    // NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -3170,6 +3182,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case DELWIN:
             if (reqWin) {
+                NSLog(@"DELWIN: Deleting window %d of type %@", req->a1, reqWin.className);
                 [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
@@ -3210,8 +3223,11 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
+                NSLog(@"SIZEIMAGE: %@", NSStringFromSize(size));
                 ans->a1 = (int)size.width;
                 ans->a2 = (int)size.height;
+            } else {
+                NSLog(@"SIZEIMAGE: No last image found!");
             }
         }
             break;
@@ -3319,7 +3335,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-
+//                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
@@ -3399,6 +3415,8 @@ fprintf(stderr, "%s\n",                                                    \
                                     style:(NSUInteger)req->a2
                                    buffer:buf
                                    length:req->len / sizeof(unichar)];
+            } else {
+                NSLog(@"Print to non-existent window!");
             }
             break;
 
@@ -3931,6 +3949,11 @@ again:
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
+
+//    NSLog(@"Trying to set border color to %06lx", (long)color.integerColor);
+    if (color.integerColor == 0xffff)
+        NSLog(@"Wrong color?");
+
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         _borderView.layer.backgroundColor = color.CGColor;
 

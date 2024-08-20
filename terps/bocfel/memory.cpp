@@ -178,6 +178,7 @@ void zcopy_table()
 
 void zscan_table()
 {
+    fprintf(stderr, "zscan_table 0x%x for 0x%x\n", zargs[1], zargs[0]);
     uint16_t addr = zargs[1];
 
     if (znargs < 4) {
@@ -203,20 +204,24 @@ void zscan_table()
 
 void zloadw()
 {
+    fprintf(stderr, "zloadw 0x%x (0x%x) (table 0x%x, offset 0x%x)\n", zargs[0] + (2 * zargs[1]), word(zargs[0] + (2 * zargs[1])), zargs[0], zargs[1]);
     store(user_word(zargs[0] + (2 * zargs[1])));
 }
 
 void zloadb()
 {
+    fprintf(stderr, "zloadb 0x%x (0x%x)\n", zargs[0] + zargs[1], byte(zargs[0] + zargs[1]));
     store(user_byte(zargs[0] + zargs[1]));
 }
 
 void zstoreb()
 {
+    fprintf(stderr, "zstoreb 0x%x 0x%x\n", zargs[0] + zargs[1], zargs[2]);
     user_store_byte(zargs[0] + zargs[1], zargs[2]);
 }
 
 void zstorew()
 {
+    fprintf(stderr, "zstorew 0x%x 0x%x\n", zargs[0] + 2 * zargs[1], zargs[2]);
     user_store_word(zargs[0] + (2 * zargs[1]), zargs[2]);
 }

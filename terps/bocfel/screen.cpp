@@ -1285,6 +1285,7 @@ static void resize_upper_window(long nlines, bool from_game)
 
 void close_upper_window()
 {
+    fprintf(stderr, "close_upper_window\n");
     // The upper window is never destroyed; rather, when it’s closed, it
     // shrinks to zero height.
     resize_upper_window(0, true);
@@ -1861,6 +1862,7 @@ void zerase_window()
 
     switch (as_signed(zargs[0])) {
     case -2:
+        fprintf(stderr, "zerase_window -2: clear all windows\n");
         for (auto &window : windows) {
             clear_window(&window);
         }

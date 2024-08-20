@@ -179,6 +179,9 @@ uint16_t variable(uint16_t var)
     if (var == 0) { // Stack
         return pop_stack();
     } else if (var <= 0x0f) { // Locals
+        if (var > CURRENT_FRAME->nlocals) {
+            fprintf(stderr, "error! NFRAMES:%ld pc:%lx\n", NFRAMES, pc);
+        }
         ZASSERT(var <= CURRENT_FRAME->nlocals, "attempting to read from nonexistent local variable %d: routine has %d", static_cast<int>(var), CURRENT_FRAME->nlocals);
         return CURRENT_FRAME->locals[var - 1];
     } else if (var <= 0xff) { // Globals
@@ -194,6 +197,7 @@ uint16_t variable(uint16_t var)
 
 void store_variable(uint16_t var, uint16_t n)
 {
+    fprintf(stderr, "store_variable %d (L%02d), %d (0x%02x)\n", var, var - 1, n, n);
     ZASSERT(var < 0x100, "unable to decode variable %u", static_cast<unsigned int>(var));
 
     if (var == 0) { // Stack

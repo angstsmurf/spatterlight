@@ -46,8 +46,10 @@ void branch_if(bool do_branch)
     if ((branch & 0x80) == 0x80) {
         if (offset > 1) {
             pc += as_signed(offset) - 2;
+            fprintf(stderr, "(branch to %lx)\n", pc);
             ZASSERT(pc < memory_size, "branch to invalid address 0x%lx", static_cast<unsigned long>(pc));
         } else {
+            fprintf(stderr, "(do not branch)\n");
             do_return(offset);
         }
     }
@@ -55,6 +57,7 @@ void branch_if(bool do_branch)
 
 void zjump()
 {
+    fprintf(stderr, "zjump %d\n", as_signed(zargs[0]));
     // -= 2 because pc has been advanced past the jump instruction.
     pc += as_signed(zargs[0]);
     pc -= 2;
@@ -64,28 +67,35 @@ void zjump()
 
 void zjz()
 {
+    fprintf(stderr, "z_jz %d (%d)\n", zargs[0], (short) zargs[0] == 0);
     branch_if(zargs[0] == 0);
 }
 
 void zje()
 {
     if (znargs == 1) {
+        fprintf(stderr, "zje %d\n", zargs[0]);
         branch_if(false);
     } else if (znargs == 2) {
+        fprintf(stderr, "zje %d == %d\n", zargs[0], zargs[1]);
         branch_if(zargs[0] == zargs[1]);
     } else if (znargs == 3) {
+        fprintf(stderr, "zje %d == %d OR %d\n", zargs[0], zargs[1], zargs[2]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2]);
     } else {
+        fprintf(stderr, "zje %d == %d OR %d OR %d\n", zargs[0], zargs[1], zargs[2], zargs[3]);
         branch_if(zargs[0] == zargs[1] || zargs[0] == zargs[2] || zargs[0] == zargs[3]);
     }
 }
 
 void zjl()
 {
+    fprintf(stderr, "zjl: branch if %d < %d\n", as_signed(zargs[0]), as_signed(zargs[1]));
     branch_if(as_signed(zargs[0]) < as_signed(zargs[1]));
 }
 
 void zjg()
 {
+    fprintf(stderr, "zjg: branch if %d > %d\n", as_signed(zargs[0]), as_signed(zargs[1]));
     branch_if(as_signed(zargs[0]) > as_signed(zargs[1]));
 }

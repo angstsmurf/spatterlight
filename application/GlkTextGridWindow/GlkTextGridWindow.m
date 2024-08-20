@@ -855,6 +855,13 @@
     [self printToWindow:string style:stylevalue];
 }
 
+static const char *stylenames[] =
+{
+    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+};
+
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
     NSUInteger startpos;
@@ -905,7 +912,7 @@
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
-        NSLog(@"Printed outside grid window visible range! (%@)", string);
+        NSLog(@"Printed outside grid window visible range! (%@) xpos: %ld ypos:%ld", string, xpos, ypos);
         return;
     }
 
@@ -939,6 +946,13 @@
         NSLog(@"printToWindow: ypos outside visible range");
         return;
     }
+
+    NSColor *fgcol = attrDict[NSForegroundColorAttributeName];
+    NSColor *bgcol = attrDict[NSBackgroundColorAttributeName];
+    BOOL reverseColor = [self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)];
+
+//    NSLog(@"GlkTextGridWindow %ld Printing at position %ld, %ld: \"%@\" style:%s zcolor:%@ reverse video: %@ fg:%lx bg:%lx stylehint_ReverseColor:%@", self.name, xpos, ypos, string, stylenames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO", [fgcol integerColor], [bgcol integerColor], reverseColor ? @"YES" : @"NO");
+
 
     // Check for newlines in string to write
     NSUInteger x;
