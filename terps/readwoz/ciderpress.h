@@ -19,4 +19,6 @@ void FreeDiskImage(void);
 uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t datasize);
 uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2);
 
+uint8_t *ReadInfocomV6File(uint8_t *data, size_t *len, int *game, int *diskindex);
+
 #endif /* ciderpress_h */

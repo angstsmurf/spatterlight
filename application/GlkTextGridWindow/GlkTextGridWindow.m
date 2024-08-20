@@ -354,8 +354,6 @@
         if (glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
-        NSUInteger textstoragelength = textstorage.length;
-
         /* reassign styles to attributedstrings */
         // We create a copy of the text storage
         _bufferTextStorage = [textstorage mutableCopy];
@@ -365,7 +363,7 @@
          NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
-         enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
+         enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
          usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
@@ -801,7 +799,6 @@
 }
 
 - (void)moveToColumn:(NSUInteger)c row:(NSUInteger)r {
-
     //For Bureaucracy form accessibility
     if (self.glkctl.form
        && (r != ypos || abs((int)c - (int)xpos) > 1)) {
@@ -905,7 +902,6 @@
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
-        NSLog(@"Printed outside grid window visible range! (%@)", string);
         return;
     }
 
@@ -1020,6 +1016,15 @@
 - (NSSize)currentSizeInChars {
     return NSMakeSize(cols, rows);
 }
+
+- (unichar)characterAtPoint:(NSPoint)point {
+    NSSize size = [self currentSizeInChars];
+    NSUInteger index = (NSUInteger)(point.y * (size.width + 1.0) + point.x);
+    if (textstorage.length <= index)
+        return 0;
+    return [textstorage.string characterAtIndex:index];
+}
+
 
 #pragma mark Hyperlinks
 
@@ -1488,7 +1493,7 @@
     [transform scaleBy:zorkFont.pointSize];
     CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
     if (isMonaco)
-        yscale *= 1.1;
+        yscale *= 1.5;
     [transform scaleXBy:1 yBy:yscale];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];

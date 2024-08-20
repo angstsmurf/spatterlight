@@ -80,6 +80,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)cancelMouse;
 - (void)initHyperlink;
 - (void)cancelHyperlink;
+- (void)recalcBackground;
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg;
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr;

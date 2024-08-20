@@ -15,7 +15,7 @@ struct fillrect
 
 struct sizewinrect
 {
-    glui32 x0, y0, x1, y1, gamewidth, gameheight;
+    glsi32 x0, y0, x1, y1, gamewidth, gameheight;
 };
 
 struct drawrect
@@ -48,6 +48,10 @@ struct settings_struct
     int sa_palette;
     int slowdraw;
     int flicker;
+    int zmachine_terp;
+    int z6_graphics;
+    int z6_colorize;
+    int z6_sim_16_cols;
     int determinism;
     int error_handling;
     int force_arrange;
@@ -124,7 +128,9 @@ enum
     QUOTEBOX,
     SHOWERROR,
     CANPRINT,
-    
+    PURGEIMG,
+    MENUITEM,
+
     NEXTEVENT,
     EVTARRANGE,
     EVTREDRAW,

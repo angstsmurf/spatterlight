@@ -58,6 +58,12 @@ int gli_sa_inventory = 0;
 int gli_sa_palette = 0;
 int gli_slowdraw = 0;
 int gli_flicker = 0;
+int gli_zmachine_terp = 0;
+int gli_z6_graphics = 0;
+int gli_z6_colorize = 0;
+int gli_z6_sim_16_cols = 0;
+
+int gli_block_rearrange = 0;
 
 uint32_t gtimerinterval = 0;
 
@@ -204,7 +210,7 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
-glui32 win_unprint(int name, glui32 *s, int len)
+glui32 win_unprint(int name, glui32 *str, int len)
 {
     if (!len)
         return 0;
@@ -213,7 +219,7 @@ glui32 win_unprint(int name, glui32 *s, int len)
 
     glui32 ix;
     for (ix=0; ix<len; ix++) {
-         pbuf[ix] = s[ix];
+         pbuf[ix] = str[ix];
     }
 
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
@@ -245,6 +251,7 @@ void wintitle(void)
 
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
+//    fprintf(stderr, "win_fillrect name %d color %d x %d y %d w %d h %d\n", name, color, x, y, w, h);
     if (buffering == BUFPRINT)
         win_flush();
 
@@ -260,6 +267,15 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
         bufferlen = 0;
     }
 
+    if (color == zcolor_Default) {
+        color = gbgcol;
+        fprintf(stderr, "win_fillrect called with color zcolor_Default!\n");
+    }
+
+    if (color == zcolor_Cursor || color == zcolor_Current || color == zcolor_Transparent) {
+        fprintf(stderr, "win_fillrect called with illegal zcolor! (%d)\n", color);
+        return;
+    }
     rbuf[bufferlen].color = color;
     rbuf[bufferlen].x = x;
     rbuf[bufferlen].y = y;
@@ -464,11 +480,6 @@ void win_set_echo(int name, int val)
 
 void win_set_terminators(int name, glui32 *keycodes, int count)
 {
-#ifdef DEBUG
-    //	fprintf(stderr, "sent TERMINATORS win: %u count:%u\n",name, count);
-    //	for (int i=0; i < count; i++)
-    //		fprintf(stderr, "keycode %d = %u\n", i, keycodes[i]);
-#endif
     win_flush();
     sendmsg(TERMINATORS, name, count, 0, 0, 0, sizeof(glui32) * count, (char *)keycodes);
 }
@@ -534,7 +545,7 @@ void win_sizeimage(glui32 *width, glui32 *height)
     }
 }
 
-void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height)
+void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
     win_flush();
     if (gli_enable_graphics)
@@ -542,8 +553,8 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 
         window_t *win = gli_window_for_peer(name);
 
-        drawstruct->x = val1;
-        drawstruct->y = val2;
+        drawstruct->x = x;
+        drawstruct->y = y;
         drawstruct->width = width;
         drawstruct->height = height;
         drawstruct->style = win->style;
@@ -656,6 +667,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 
 void win_setbgnd(int name, glui32 color)
 {
+//    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
     win_flush();
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
@@ -746,6 +758,41 @@ int win_canprint(glui32 val)
     return wmsg.a1;
 }
 
+void win_purgeimage(glui32 resno, const char *filename, int reslen)
+{
+    win_flush();
+
+    if (gli_enable_graphics)
+    {
+        int len = 0;
+        if (filename != NULL) {
+            len = (int)strlen(filename);
+        }
+        if (len)
+        {
+            char *buf = malloc(len + 1);
+            strncpy(buf, filename, len + 1);
+            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, buf);
+            free(buf);
+        } else {
+            sendmsg(PURGEIMG, resno, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+}
+
+void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
+{
+    win_flush();
+
+    if (len <= 1 || len > 15)
+        return;
+
+    if (str == NULL)
+        len = 0;
+
+    sendmsg(MENUITEM, type, column, line, stopflag, 0, len, str);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;
@@ -800,6 +847,10 @@ again:
                 gli_sa_display_style == settings->sa_display_style &&
                 gli_slowdraw == settings->slowdraw &&
                 gli_flicker == settings->flicker &&
+                gli_zmachine_terp == settings->zmachine_terp &&
+                gli_z6_graphics == settings->z6_graphics &&
+                gli_z6_colorize == settings->z6_colorize &&
+                gli_z6_sim_16_cols == settings->z6_sim_16_cols &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -830,9 +881,14 @@ again:
             gli_sa_display_style = settings->sa_display_style;
             gli_slowdraw = settings->slowdraw;
             gli_flicker = settings->flicker;
+            gli_zmachine_terp = settings->zmachine_terp;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
-            gli_windows_rearrange();
+            gli_z6_graphics = settings->z6_graphics;
+            gli_z6_colorize = settings->z6_colorize;
+            gli_z6_sim_16_cols = settings->z6_sim_16_cols;
+            if (!gli_block_rearrange)
+                gli_windows_rearrange();
             break;
 
         case EVTREDRAW:
@@ -932,9 +988,13 @@ again:
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL) {
+                fprintf(stderr, "ERROR: Mouse request from invalid window!\n");
+                goto again;
+            } else
+                event->win->mouse_request = FALSE;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
-            event->win->mouse_request = FALSE;
             break;
         case EVTTIMER:
 #ifdef DEBUG

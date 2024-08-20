@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollWheelchanged:(NSEvent *)event;
 
+- (NSString *)lastMoveString;
+
+@property NSInteger lastNewTextOnTurn;
+
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "debugprint.h"
 
@@ -36,8 +37,6 @@ enum {
  * ===========================================================================
  */
 
-const int kMaxSectors = 32;
-
 // clang-format off
 
 /* do we need a way to override these? */
@@ -54,7 +53,6 @@ static const int kTSOffset = 0x0c;             // first T/S entry in a T/S list
 // clang-format on
 
 static const int kMaxTSIterations = 32;
-#define kMaxFileName 30
 #define kFileNameBufLen 31
 
 #define kMaxCatalogSectors 64 // two tracks on a 32-sector disk
@@ -83,6 +81,14 @@ typedef struct TrackSector {
 } TrackSector;
 
 TrackSector fCatalogSectors[kMaxCatalogSectors];
+
+/* assorted constants */
+enum {
+    kMaxFileName = 30,
+    kFssep = ':',
+    kInvalidBlockNum = 1,       // boot block, can't be in file
+    kMaxBlocksPerIndex = 256,
+};
 
 // clang-format off
 
@@ -197,6 +203,15 @@ enum {
     kNibbleDataEpilogLen = 3 // de aa eb
 };
 
+typedef enum {              // sector ordering for "sector" format images
+    kSectorOrderUnknown = 0,
+    kSectorOrderProDOS = 1,     // written as series of ProDOS blocks
+    kSectorOrderDOS = 2,        // written as series of DOS sectors
+    kSectorOrderCPM = 3,        // written as series of 1K CP/M blocks
+    kSectorOrderPhysical = 4,   // written as un-interleaved sectors
+    kSectorOrderMax,            // (used for array sizing)
+} SectorOrder;
+
 typedef struct {
     char description[32];
     short numSectors; // 13 or 16 (or 18?)
@@ -230,9 +245,8 @@ static const uint8_t kDiskBytes62[64] = {
 static uint8_t *kInvDiskBytes62 = NULL;
 #define kInvInvalidValue 0xff
 
-uint8_t *fNibbleTrackBuf = NULL; // allocated on heap
-
-int fNibbleTrackLoaded = -1; // track currently in buffer
+static uint8_t *fNibbleTrackBuf = NULL; // allocated on heap
+static int fNibbleTrackLoaded = -1; // track currently in buffer
 
 static uint8_t *rawdata = NULL;
 static size_t rawdatalen = 0;
@@ -244,12 +258,53 @@ typedef enum { // format of the image data stream
     kPhysicalFormatNib525_Var = 4, // 5.25" disk (variable len, e.g. ".app")
 } PhysicalFormat;
 
-const int kTrackLenNib525 = 6656;
-const int kTrackLenNb2525 = 6384;
+static const int kTrackLenNib525 = 6656;
 
-PhysicalFormat physical = kPhysicalFormatNib525_6656;
+static const int kBlkSize = 512;
+static const int kVolHeaderBlock = 2;          // block where Volume Header resides
+static const int kMinReasonableBlocks = 16;    // min size for ProDOS volume
+static const int kExpectedBitmapStart = 6;     // block# where vol bitmap should start
+static const int kMaxCatalogIterations = 1024; // theoretical max is 32768?
+static const int kMaxDirectoryDepth = 64;      // not sure what ProDOS limit is
 
-struct A2FileDOS {
+/*
+ * Directory header.  All fields not marked as "only for subdirs" also apply
+ * to the volume directory header.
+ */
+typedef struct DirHeader {
+    uint8_t     storageType;
+    char        dirName[kMaxFileName+1];
+    uint8_t     version;
+    uint8_t     minVersion;
+    uint8_t     access;
+    uint8_t     entryLength;
+    uint8_t     entriesPerBlock;
+    uint16_t    fileCount;
+    /* the rest are only for subdirs */
+    uint16_t    parentPointer;
+    uint8_t     parentEntry;
+    uint8_t     parentEntryLength;
+} DirHeader;
+
+/* contents of a directory entry */
+typedef struct DirEntry {
+    int             storageType;
+    char            fileName[kMaxFileName+1];   // shows lower case
+    uint8_t         fileType;
+    uint16_t        keyPointer;
+    uint16_t        blocksUsed;
+    uint32_t        eof;
+    uint8_t         version;
+    uint8_t         minVersion;
+    uint8_t         access;
+    uint16_t        auxType;
+    uint16_t        headerPointer;
+} DirEntry;
+
+typedef struct DirEntry DirEntry;
+
+
+struct A2File {
     int starting_block;
     int fTSListTrack;
     int fTSListSector;
@@ -268,22 +323,73 @@ struct A2FileDOS {
     int fOffset;
     int fOpenEOF;
     int fOpenSectorsUsed;
-    struct A2FileDOS *prev;
-    struct A2FileDOS *next;
+    struct A2File *prev;
+    struct A2File *next;
+
+    // ProDOS-specific
+    long fBlockCount;
+    uint16_t *fBlockList;
+    char *pathName;
+    DirEntry fDirEntry;
 };
 
-typedef struct A2FileDOS A2FileDOS;
+typedef struct A2File A2File;
 
-A2FileDOS *firstfile = NULL;
-A2FileDOS *lastfile = NULL;
+typedef enum {
+    kStorageDeleted         = 0,      /* indicates deleted file */
+    kStorageSeedling        = 1,      /* <= 512 bytes */
+    kStorageSapling         = 2,      /* < 128KB */
+    kStorageTree            = 3,      /* < 16MB */
+    kStoragePascalVolume    = 4,      /* see ProDOS technote 25 */
+    kStorageExtended        = 5,      /* forked */
+    kStorageDirectory       = 13,
+    kStorageSubdirHeader    = 14,
+    kStorageVolumeDirHeader = 15,
+} StorageType;
+
+
+static A2File *firstfile = NULL;
+static A2File *lastfile = NULL;
 
 static int fFirstCatTrack;
 static int fFirstCatSector;
 static int fVTOCVolumeNumber;
 static int fVTOCNumTracks;
 static int fVTOCNumSectors;
-
 uint8_t fVTOC[kSectorSize];
+
+static char fVolumeName[30];
+static char fVolumeID[31];
+
+static int fBitMapPointer;
+static int fTotalBlocks;
+
+static long            fNumTracks = -1;     // for sector-addressable images
+static int             fNumSectPerTrack = -1;   // (ditto)
+static long            fNumBlocks = -1;     // for 512-byte block-addressable images
+
+typedef enum {              // main filesystem format (based on NuFX enum)
+    kFormatUnknown = 0,
+    kFormatProDOS = 1,
+    kFormatDOS33 = 2,
+    kFormatDOS32 = 3,
+    kFormatGenericPhysicalOrd = 30, // unknown, but physical-sector-ordered
+    kFormatGenericProDOSOrd = 31,   // unknown, but ProDOS-block-ordered
+    // try to keep this in an unsigned char, e.g. for CP clipboard
+} FSFormat;
+
+PhysicalFormat  fPhysical = kPhysicalFormatNib525_6656;;
+
+static int fHasSectors;    // image is sector-addressable
+static int fHasBlocks;     // image is block-addressable
+static int fHasNibbles;    // image is nibble-addressable
+
+static const int kDefaultTSAlloc = 2;
+static const int kDefaultIndexAlloc = 8;
+
+static const int kTrackCount525 = 35;      // expected #of tracks on 5.25 img
+
+typedef enum { kInitUnknown = 0, kInitHeaderOnly, kInitFull } InitMode;
 
 static void *MemAlloc(size_t size)
 {
@@ -293,6 +399,22 @@ static void *MemAlloc(size_t size)
         exit(1);
     }
     return (t);
+}
+
+/*
+ * Get values from a memory buffer.
+ */
+static uint16_t GetShortLE(const uint8_t* ptr)
+{
+    return *ptr | (uint16_t) *(ptr+1) << 8;
+}
+
+static uint32_t GetLongLE(const uint8_t* ptr)
+{
+    return *ptr |
+    (uint32_t) *(ptr+1) << 8 |
+    (uint32_t) *(ptr+2) << 16 |
+    (uint32_t) *(ptr+3) << 24;
 }
 
 static uint8_t access_ringbuf(ringbuf_handle_t ringbuf, int index)
@@ -305,7 +427,7 @@ static uint8_t access_ringbuf(ringbuf_handle_t ringbuf, int index)
     if (index >= ringbuf->size)
         index -= ringbuf->size;
     if (index < 0)
-        index = ringbuf->size - index;
+        index = (int)ringbuf->size - index;
     uint8_t *buffer = *(ringbuf->buffer);
 
     return buffer[index];
@@ -351,7 +473,7 @@ static void DecodeAddr(ringbuf_handle_t ringbuffer, int offset,
     *pChksum = ConvFrom44(access_ringbuf(ringbuffer, offset + 6), access_ringbuf(ringbuffer, offset + 7));
 }
 
-const NibbleDescr nibbleDescr = {
+static const NibbleDescr nibbleDescr = {
     "DOS 3.3 Standard",
     16, // number of sectors
     { 0xd5, 0xaa, 0x96 }, // addrProlog
@@ -367,7 +489,7 @@ const NibbleDescr nibbleDescr = {
     2, // epilog verify count
 };
 
-const NibbleDescr *pNibbleDescr = &nibbleDescr;
+static const NibbleDescr *fpNibbleDescr = &nibbleDescr;
 
 /*
  * Find the start of the data field of a sector in nibblized data.
@@ -377,9 +499,8 @@ const NibbleDescr *pNibbleDescr = &nibbleDescr;
 static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
     int sector, int *pVol)
 {
-    //DIError dierr;
     long trackLen = ringbuffer->size;
-    const int kMaxDataReach = trackLen; // fairly arbitrary
+    const int kMaxDataReach = (int)trackLen; // fairly arbitrary
 
     assert(sector >= 0 && sector < 16);
 
@@ -388,7 +509,7 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
     for (i = 0; i < trackLen; i++) {
         int foundAddr = 0;
 
-        if (access_ringbuf(ringbuffer, i) == pNibbleDescr->addrProlog[0] && access_ringbuf(ringbuffer, i + 1) == pNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == pNibbleDescr->addrProlog[2]) {
+        if (access_ringbuf(ringbuffer, i) == fpNibbleDescr->addrProlog[0] && access_ringbuf(ringbuffer, i + 1) == fpNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == fpNibbleDescr->addrProlog[2]) {
             foundAddr = 1;
         }
 
@@ -400,14 +521,14 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
             DecodeAddr(ringbuffer, i + 3, &hdrVol, &hdrTrack, &hdrSector,
                 &hdrChksum);
 
-            if (pNibbleDescr->addrVerifyTrack && track != hdrTrack) {
+            if (fpNibbleDescr->addrVerifyTrack && track != hdrTrack) {
                 debug_print("Track mismatch");
                 debug_print("  Track mismatch (T=%d) got T=%d,S=%d", track, hdrTrack, hdrSector);
                 continue;
             }
 
-            if (pNibbleDescr->addrVerifyChecksum) {
-                if ((pNibbleDescr->addrChecksumSeed ^ hdrVol ^ hdrTrack ^ hdrSector ^ hdrChksum) != 0) {
+            if (fpNibbleDescr->addrVerifyChecksum) {
+                if ((fpNibbleDescr->addrChecksumSeed ^ hdrVol ^ hdrTrack ^ hdrSector ^ hdrChksum) != 0) {
                     debug_print("   Addr checksum mismatch (want T=%d,S=%d, got T=%d,S=%d)", track, sector, hdrTrack, hdrSector);
                     continue;
                 }
@@ -416,18 +537,18 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
             i += 3;
 
             int j;
-            for (j = 0; j < pNibbleDescr->addrEpilogVerifyCount; j++) {
-                if (access_ringbuf(ringbuffer, i + 8 + j) != pNibbleDescr->addrEpilog[j]) {
+            for (j = 0; j < fpNibbleDescr->addrEpilogVerifyCount; j++) {
+                if (access_ringbuf(ringbuffer, i + 8 + j) != fpNibbleDescr->addrEpilog[j]) {
                     //debug_print("   Bad epilog byte %d (%02x vs %02x)",
                     //    j, buffer[i+8+j], pNibbleDescr->addrEpilog[j]);
                     break;
                 }
             }
-            if (j != pNibbleDescr->addrEpilogVerifyCount)
+            if (j != fpNibbleDescr->addrEpilogVerifyCount)
                 continue;
 
 #ifdef NIB_VERBOSE_DEBUG
-            debug_print("    Good header, T=%d,S=%d (looking for T=%d,S=%d)",
+            debug_print("    Good header, T=%d,S=%d (looking for T=%d,S=%d)\n",
                 hdrTrack, hdrSector, track, sector);
 #endif
 
@@ -440,7 +561,7 @@ static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
              * field of the next sector.
              */
             for (j = 0; j < kMaxDataReach; j++) {
-                if (access_ringbuf(ringbuffer, i + j) == pNibbleDescr->dataProlog[0] && access_ringbuf(ringbuffer, i + j + 1) == pNibbleDescr->dataProlog[1] && access_ringbuf(ringbuffer, i + j + 2) == pNibbleDescr->dataProlog[2]) {
+                if (access_ringbuf(ringbuffer, i + j) == fpNibbleDescr->dataProlog[0] && access_ringbuf(ringbuffer, i + j + 1) == fpNibbleDescr->dataProlog[1] && access_ringbuf(ringbuffer, i + j + 2) == fpNibbleDescr->dataProlog[2]) {
                     *pVol = hdrVol;
                     int idx = i + j + 3;
                     while (idx >= ringbuffer->size)
@@ -464,7 +585,7 @@ static DIError DecodeNibbleData(ringbuf_handle_t ringbuffer, int idx,
     uint8_t *sctBuf)
 {
     uint8_t twos[kChunkSize62 * 3]; // 258
-    int chksum = pNibbleDescr->dataChecksumSeed;
+    int chksum = fpNibbleDescr->dataChecksumSeed;
     uint8_t decodedVal;
     int i;
 
@@ -505,7 +626,7 @@ static DIError DecodeNibbleData(ringbuf_handle_t ringbuffer, int idx,
     assert(decodedVal < sizeof(kDiskBytes62));
     chksum ^= decodedVal;
 
-    if (pNibbleDescr->dataVerifyChecksum && chksum != 0) {
+    if (fpNibbleDescr->dataVerifyChecksum && chksum != 0) {
         debug_print("    NIB bad data checksum");
         return kDIErrBadChecksum;
     }
@@ -528,7 +649,8 @@ static DIError CopyBytesOut(void *buf, size_t offset, int size)
 /*
  * Handle sector order conversions.
  */
-static DIError CalcSectorAndOffset(long track, int sector, size_t *pOffset, int *pNewSector)
+static DIError CalcSectorAndOffset(long track, int sector, SectorOrder imageOrder,
+                                   SectorOrder fsOrder, size_t *pOffset, int *pNewSector)
 {
     /*
      * Sector order conversions.  No table is needed for Copy ][+ format,
@@ -539,12 +661,19 @@ static DIError CalcSectorAndOffset(long track, int sector, size_t *pOffset, int 
         0, 13, 11, 9, 7, 5, 3, 1, 14, 12, 10, 8, 6, 4, 2, 15
     };
 
+    static const int raw2prodos[16] = {
+        0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15
+    };
+    static const int prodos2raw[16] = {
+        0, 2, 4, 6, 8, 10, 12, 14, 1, 3, 5, 7, 9, 11, 13, 15
+    };
+
     if (track < 0 || track >= kNumTracks) {
-        debug_print(" DI read invalid track %ld", track);
+        debug_print(" DI read invalid track %ld\n", track);
         return kDIErrInvalidTrack;
     }
     if (sector < 0 || sector >= kNumSectPerTrack) {
-        debug_print(" DI read invalid sector %d", sector);
+        debug_print(" DI read invalid sector %d\n", sector);
         return kDIErrInvalidSector;
     }
 
@@ -564,10 +693,41 @@ static DIError CalcSectorAndOffset(long track, int sector, size_t *pOffset, int 
 
     /* convert request to "raw" sector number */
 
-    if (physical == kPhysicalFormatNib525_6656)
-        newSector = dos2raw[sector];
-    else
-        newSector = sector;
+    /* convert request to "raw" sector number */
+    switch (fsOrder) {
+        case kSectorOrderProDOS:
+            newSector = prodos2raw[sector];
+            break;
+        case kSectorOrderDOS:
+            newSector = dos2raw[sector];
+            break;
+        case kSectorOrderPhysical:  // used for Copy ][+
+            newSector = sector;
+            break;
+        case kSectorOrderUnknown:
+            // should never happen; fall through to "default"
+        default:
+            newSector = sector;
+            break;
+    }
+
+    /* convert "raw" request to the image's ordering */
+    switch (imageOrder) {
+        case kSectorOrderProDOS:
+            newSector = raw2prodos[newSector];
+            break;
+//        case kSectorOrderDOS:
+//            newSector = raw2dos[newSector];
+//            break;
+        case kSectorOrderPhysical:
+            //newSector = newSector;
+            break;
+        case kSectorOrderUnknown:
+            // should never happen; fall through to "default"
+        default:
+            //newSector = newSector;
+            break;
+    }
 
     offset += newSector * kSectorSize;
 
@@ -585,7 +745,7 @@ static DIError LoadNibbleTrack(long track, long *pTrackLen)
     long offset;
     assert(track >= 0 && track < kMaxNibbleTracks525);
 
-    if (physical != kPhysicalFormatNib525_6656)
+    if (fPhysical != kPhysicalFormatNib525_6656)
         return kDIErrNotSupported;
 
     *pTrackLen = kTrackLenNib525;
@@ -613,11 +773,11 @@ static DIError LoadNibbleTrack(long track, long *pTrackLen)
     /*
      * Read the entire track into memory.
      */
-    dierr = CopyBytesOut(fNibbleTrackBuf, offset, *pTrackLen);
+    dierr = CopyBytesOut(fNibbleTrackBuf, offset, (int)*pTrackLen);
     if (dierr != kDIErrNone)
         return dierr;
 
-    fNibbleTrackLoaded = track;
+    fNibbleTrackLoaded = (int)track;
 
     return dierr;
 }
@@ -630,20 +790,20 @@ static DIError LoadNibbleTrack(long track, long *pTrackLen)
  */
 static DIError ReadNibbleSector(long track, int sector, uint8_t *buf)
 {
-    if (pNibbleDescr == NULL) {
+    if (fpNibbleDescr == NULL) {
         /* disk has no recognizable sectors */
         debug_print(" DI ReadNibbleSector: pNibbleDescr is NULL, returning failure");
         return kDIErrBadNibbleSectors;
     }
-    if (sector >= pNibbleDescr->numSectors) {
+    if (sector >= fpNibbleDescr->numSectors) {
         /* e.g. trying to read sector 14 on a 13-sector disk */
         debug_print(" DI ReadNibbleSector: bad sector number request");
         return kDIErrInvalidSector;
     }
 
-    assert(pNibbleDescr != NULL);
+    assert(fpNibbleDescr != NULL);
     assert(track >= 0 && track < kNumTracks);
-    assert(sector >= 0 && sector < pNibbleDescr->numSectors);
+    assert(sector >= 0 && sector < fpNibbleDescr->numSectors);
 
     DIError dierr = kDIErrNone;
     long trackLen;
@@ -661,7 +821,7 @@ static DIError ReadNibbleSector(long track, int sector, uint8_t *buf)
     ringbuffer->buffer = &fNibbleTrackBuf;
     ringbuffer->initialized = 1;
 
-    sectorIdx = FindNibbleSectorStart(ringbuffer, track, sector,
+    sectorIdx = FindNibbleSectorStart(ringbuffer, (int)track, sector,
         &vol);
     if (sectorIdx < 0) {
         return kDIErrSectorUnreadable;
@@ -681,7 +841,7 @@ void InitNibImage(uint8_t *data, size_t datasize)
     rawdatalen = datasize;
     fNibbleTrackLoaded = -1;
 
-    physical = kPhysicalFormatNib525_6656;
+    fPhysical = kPhysicalFormatNib525_6656;
 }
 
 void InitDskImage(uint8_t *data, size_t datasize)
@@ -689,7 +849,7 @@ void InitDskImage(uint8_t *data, size_t datasize)
     rawdata = data;
     rawdatalen = datasize;
 
-    physical = kPhysicalFormatSectors;
+    fPhysical = kPhysicalFormatSectors;
 }
 
 void FreeDiskImage(void)
@@ -702,11 +862,15 @@ void FreeDiskImage(void)
         fNibbleTrackBuf = NULL;
     }
     while (firstfile != NULL) {
-        A2FileDOS *nextfile = firstfile->next;
+        A2File *nextfile = firstfile->next;
         if (firstfile->tsList != NULL)
             free(firstfile->tsList);
         if (firstfile->indexList != NULL)
             free(firstfile->indexList);
+        if (firstfile->fBlockList != NULL)
+            free(firstfile->fBlockList);
+        if (firstfile->pathName != NULL)
+            free(firstfile->pathName);
         free(firstfile);
         firstfile = nextfile;
     }
@@ -720,17 +884,17 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
     rawdata = data;
     rawdatalen = datasize;
 
-    physical = kPhysicalFormatNib525_6656;
+    fPhysical = kPhysicalFormatNib525_6656;
 
     uint8_t buf[0x100];
 
     size_t pOffset;
     int pNewSector;
-    int track = offset / 0x1000;
+    int track = (int)(offset / 0x1000);
     int sector = (offset % 0x1000) / 0x100;
 
     for (int remaining = (int)size; remaining > 0; remaining -= 0x100) {
-        DIError error = CalcSectorAndOffset(track, sector, &pOffset, &pNewSector);
+        DIError error = CalcSectorAndOffset(track, sector, kSectorOrderPhysical, kSectorOrderDOS, &pOffset, &pNewSector);
         if (error != kDIErrNone) {
             fprintf(stderr, "Error while calculating sector and offset of nib!\n");
             free(result);
@@ -761,7 +925,7 @@ uint8_t *ReadImageFromNib(size_t offset, size_t size, uint8_t *data, size_t data
  *
  * Returns 0 on success, nonzero on failure.
  */
-static DIError ReadTrackSector(long track, int sector, void *buf)
+static DIError ReadTrackSector(long track, int sector, SectorOrder imageOrder, SectorOrder fsOrder, void *buf)
 {
     DIError dierr;
     size_t offset;
@@ -770,14 +934,13 @@ static DIError ReadTrackSector(long track, int sector, void *buf)
     if (buf == NULL)
         return kDIErrInvalidArg;
 
-    dierr = CalcSectorAndOffset(track, sector,
-        &offset, &newSector);
+    dierr = CalcSectorAndOffset(track, sector, imageOrder, fsOrder, &offset, &newSector);
     if (dierr != kDIErrNone)
         return dierr;
 
     assert(offset + kSectorSize <= fLength);
 
-    if (physical == kPhysicalFormatNib525_6656)
+    if (fPhysical == kPhysicalFormatNib525_6656)
         dierr = ReadNibbleSector(track, newSector, buf);
     else
         dierr = CopyBytesOut(buf, offset, kSectorSize);
@@ -785,7 +948,7 @@ static DIError ReadTrackSector(long track, int sector, void *buf)
     return dierr;
 }
 
-static void AddFileToList(A2FileDOS *file)
+static void AddFileToList(A2File *file)
 {
     if (firstfile == NULL) {
         firstfile = file;
@@ -872,7 +1035,7 @@ static void FixFilename(uint8_t filename[kFileNameBufLen])
  * entries have been copied.  If it looks to be partially valid, only the
  * valid parts are copied out, with the rest zeroed.
  */
-static DIError ExtractTSPairs(A2FileDOS *DOSFile, const uint8_t *sctBuf, TrackSector *tsList,
+static DIError ExtractTSPairs(A2File *DOSFile, const uint8_t *sctBuf, TrackSector *tsList,
     int *pLastNonZero)
 {
     DIError dierr = kDIErrNone;
@@ -913,8 +1076,6 @@ bail:
     return dierr;
 }
 
-const int kDefaultTSAlloc = 2;
-const int kDefaultIndexAlloc = 8;
 
 /*
  * Load the T/S list for this file.
@@ -938,7 +1099,7 @@ const int kDefaultIndexAlloc = 8;
  * impossible.  Currently this isn't a problem, but for e.g. T/S lists
  * with garbage at the end would could deal with the problem more generally.
  */
-static DIError LoadTSList(A2FileDOS *DOSFile)
+static DIError LoadTSList(A2File *DOSFile)
 {
     DIError dierr = kDIErrNone;
 
@@ -994,7 +1155,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
         indexList[indexCount].sector = sector;
         indexCount++;
 
-        dierr = ReadTrackSector(track, sector, sctBuf);
+        dierr = ReadTrackSector(track, sector, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -1048,8 +1209,7 @@ static DIError LoadTSList(A2FileDOS *DOSFile)
             /* this was the last one */
             if (lastNonZero == -1) {
                 /* this is ALWAYS the case for a newly-created file */
-                //LOGI(" DOS33 odd -- last T/S sector of '%s' was empty",
-                //  GetPathName());
+                //debug_print(" DOS33 odd -- last T/S sector of '%s' was empty",
             }
             tsCount += lastNonZero + 1;
         }
@@ -1084,7 +1244,7 @@ bail:
  * Files read back as they would from ProDOS, i.e. if you read a binary
  * file you won't see the 4 bytes of length and address.
  */
-static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
+static DIError Read(A2File *pFile, uint8_t *buf, size_t len, size_t *pActual)
 {
     debug_print(" DOS reading %lu bytes from '%s' (offset=%ld)\n",
         (unsigned long)len, pFile->fFileName, (long)pFile->fOffset);
@@ -1125,11 +1285,9 @@ static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
         }
 
         if (pFile->tsList[tsIndex].track == 0 && pFile->tsList[tsIndex].sector == 0) {
-            //LOGI(" DOS sparse sector T=%d S=%d",
-            //  TSTrack(fTSList[tsIndex]), TSSector(fTSList[tsIndex]));
             memset(sctBuf, 0, sizeof(sctBuf));
         } else {
-            dierr = ReadTrackSector(pFile->tsList[tsIndex].track, pFile->tsList[tsIndex].sector, sctBuf);
+            dierr = ReadTrackSector(pFile->tsList[tsIndex].track, pFile->tsList[tsIndex].sector, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
             if (dierr != kDIErrNone) {
                 debug_print(" DOS error reading file '%s'\n", pFile->fFileName);
                 return dierr;
@@ -1152,9 +1310,126 @@ static DIError Read(A2FileDOS *pFile, uint8_t *buf, size_t len, size_t *pActual)
 }
 
 /*
+ * Determine whether an image uses a linear mapping.  This allows us to
+ * optimize block reads & writes, very useful when dealing with logical
+ * volumes under Windows (which also use 512-byte blocks).
+ */
+static int IsLinearBlocks(SectorOrder imageOrder, SectorOrder fsOrder)
+{
+    /*
+     * Any time fOrder==fFileSysOrder, we know that we have a linear
+     * mapping.  This holds true for reading ProDOS blocks from a ".po"
+     * file or reading DOS sectors from a ".do" file.
+     */
+    return (fsOrder == kPhysicalFormatSectors && fHasBlocks &&
+            imageOrder == fsOrder);
+}
+
+
+/*
+ * Read a 512-byte block.
+ *
+ * Copies 512 bytes into "*buf".
+ */
+static DIError ReadBlockSwapped(long block, void* buf, SectorOrder imageOrder,
+                         SectorOrder fsOrder)
+{
+    if (!fHasBlocks)
+        return kDIErrUnsupportedAccess;
+    if (block < 0 || block >= fNumBlocks)
+        return kDIErrInvalidBlock;
+    if (buf == NULL)
+        return kDIErrInvalidArg;
+
+    DIError dierr;
+    long track, blkInTrk;
+
+    if (fHasSectors && !IsLinearBlocks(imageOrder, fsOrder)) {
+        /* run it through the t/s call so we handle DOS ordering */
+        track = block / (fNumSectPerTrack/2);
+        blkInTrk = block - (track * (fNumSectPerTrack/2));
+        dierr = ReadTrackSector(track, (int)blkInTrk*2, imageOrder, fsOrder, buf);
+        if (dierr != kDIErrNone)
+            return dierr;
+        dierr = ReadTrackSector(track, (int)blkInTrk*2+1, imageOrder, fsOrder,                                       (char*)buf+kSectorSize);
+    } else if (fHasBlocks) {
+        /* no sectors, so no swapping; must be linear blocks */
+        if (imageOrder != fsOrder) {
+            debug_print(" DI NOTE: ReadBlockSwapped on non-sector (%d/%d)",
+                 imageOrder, fsOrder);
+        }
+        dierr = CopyBytesOut(buf, (off_t) block * kBlkSize, kBlkSize);
+    } else {
+        dierr = kDIErrInternal;
+    }
+
+bail:
+    return dierr;
+}
+
+
+/*
+ * Read a chunk of data from whichever fork is open.
+ */
+static DIError ProDOSRead(A2File *pFile, void* buf, size_t len, size_t* pActual)
+{
+    /*
+     * Don't allow them to read past the end of the file.  The length value
+     * stored in pFile->fLength already has pFile->fDataOffset subtracted
+     * from the actual data length, so don't factor it in again.
+     */
+    if (pFile->fOffset + (long)len > pFile->fOpenEOF) {
+        if (pActual == NULL)
+            return kDIErrDataUnderrun;
+        len = (size_t)(pFile->fOpenEOF - pFile->fOffset);
+    }
+    if (pActual != NULL)
+        *pActual = len;
+    long incrLen = len;
+
+    DIError dierr = kDIErrNone;
+    uint8_t blkBuf[kBlkSize];
+    long blockIndex = (long) (pFile->fOffset / kBlkSize);
+    int bufOffset = (int) (pFile->fOffset % kBlkSize);
+    size_t thisCount;
+
+    if (len == 0) {
+        return kDIErrNone;
+    }
+    assert(pFile->fOpenEOF != 0);
+
+    assert(blockIndex >= 0 && blockIndex < pFile->fBlockCount);
+
+    while (len) {
+        dierr = ReadBlockSwapped(pFile->fBlockList[blockIndex],
+                                 blkBuf, kSectorOrderPhysical,
+                                 kSectorOrderProDOS);
+        if (dierr != kDIErrNone) {
+            debug_print(" ProDOS error reading block [%ld]=%d of '%s'",
+                        blockIndex, pFile->fBlockList[blockIndex], pFile->pathName);
+            return dierr;
+        }
+        thisCount = kBlkSize - bufOffset;
+        if (thisCount > len)
+            thisCount = len;
+
+        memcpy(buf, blkBuf + bufOffset, thisCount);
+        len -= thisCount;
+        buf = (char*)buf + thisCount;
+
+        bufOffset = 0;
+        blockIndex++;
+    }
+
+    pFile->fOffset += incrLen;
+
+    return dierr;
+}
+
+/*
  * Set up state for this file.
  */
-static DIError Open(A2FileDOS *pOpenFile)
+static DIError Open(A2File *pOpenFile)
 {
     DIError dierr = kDIErrNone;
 
@@ -1165,17 +1440,307 @@ static DIError Open(A2FileDOS *pOpenFile)
     }
 
     pOpenFile->fOffset = 0;
-    pOpenFile->fOpenEOF = fLength;
+    pOpenFile->fOpenEOF = (int)fLength;
     pOpenFile->fOpenSectorsUsed = pOpenFile->fLengthInSectors;
 
-//    fpOpenFile = pOpenFile;     // add it to our single-member "open file set"
-//    *ppOpenFile = pOpenFile;
-//    pOpenFile = NULL;
-//
 bail:
-    //    delete pOpenFile;
     return dierr;
 }
+
+/*
+ * Load the block list from a directory, which is essentially a linear
+ * linked list.
+ */
+static DIError LoadDirectoryBlockList(A2File *pFile, uint16_t keyBlock,
+                                             long eof, long* pBlockCount, uint16_t** pBlockList)
+{
+    DIError dierr = kDIErrNone;
+    uint8_t blkBuf[kBlkSize];
+    uint16_t* list = NULL;
+    uint16_t* listPtr;
+    int iterations;
+    long count;
+
+    assert(pFile->fDirEntry.eof < 1024*1024*16);
+    count = (pFile->fDirEntry.eof + kBlkSize -1) / kBlkSize;
+    if (count == 0)
+        count = 1;
+    list = MemAlloc(sizeof(uint16_t) * count+1);
+    if (list == NULL) {
+        dierr = kDIErrMalloc;
+        goto bail;
+    }
+
+    /* this should take care of trailing sparse entries */
+    memset(list, 0, sizeof(uint16_t) * count);
+    list[count] = kInvalidBlockNum;     // overrun check
+
+    iterations = 0;
+    listPtr = list;
+
+    while (keyBlock && iterations < kMaxCatalogIterations) {
+        if (keyBlock < 2 ||
+            keyBlock >= fNumBlocks)
+        {
+            debug_print(" ProDOS ERROR: directory block %u out of range", keyBlock);
+            dierr = kDIErrInvalidBlock;
+            goto bail;
+        }
+
+        *listPtr++ = keyBlock;
+
+        dierr = ReadBlockSwapped(keyBlock, blkBuf,kSectorOrderPhysical,
+                                 kSectorOrderProDOS);
+        if (dierr != kDIErrNone)
+            goto bail;
+
+        keyBlock = GetShortLE(&blkBuf[0x02]);
+        iterations++;
+    }
+    if (iterations == kMaxCatalogIterations) {
+        debug_print(" ProDOS subdir iteration count exceeded");
+        dierr = kDIErrDirectoryLoop;
+        goto bail;
+    }
+
+    assert(list[count] == kInvalidBlockNum);
+
+    *pBlockCount = count;
+    *pBlockList = list;
+
+bail:
+    if (dierr != kDIErrNone)
+        free(list);
+    return dierr;
+}
+
+
+/*
+ * Copy the entries from the index block in "block" to "list", copying
+ * at most "maxCount" entries.
+ */
+static DIError LoadIndexBlock(uint16_t block, uint16_t* list,
+                                     long maxCount)
+{
+    DIError dierr = kDIErrNone;
+    uint8_t blkBuf[kBlkSize];
+    int i;
+
+    if (maxCount > kMaxBlocksPerIndex)
+        maxCount = kMaxBlocksPerIndex;
+
+    dierr = ReadBlockSwapped(block, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+    if (dierr != kDIErrNone)
+        goto bail;
+
+    //debug_print("LOADING 0x%04x", block);
+    for (i = 0; i < maxCount; i++) {
+        *list++ = blkBuf[i] | (uint16_t) blkBuf[i+256] << 8;
+    }
+
+bail:
+    return dierr;
+}
+
+
+
+/*
+ * Gather a linear, non-sparse list of file blocks into an array.
+ *
+ * Pass in the storage type and top-level key block.  Separation of
+ * extended files should have been handled by the caller.  This loads the
+ * list for only one fork.
+ *
+ * There are two kinds of sparse: sparse *inside* data, and sparse
+ * *past* data.  The latter is interesting, because there is no need
+ * to create space in index blocks to hold it.  Thus, a sapling could
+ * hold a file with an EOF of 16MB.
+ *
+ * If "pIndexBlockCount" and "pIndexBlockList" are non-NULL, then we
+ * also accumulate the list of index blocks and return those as well.
+ * For a Tree-structured file, the first entry in the index list is
+ * the master index block.
+ *
+ * The caller must delete[] "*pBlockList" and "*pIndexBlockList".
+ */
+static DIError LoadBlockList(A2File *pFile, int storageType, uint16_t keyBlock,
+                                    long eof, long* pBlockCount, uint16_t** pBlockList,
+                                    long* pIndexBlockCount, uint16_t** pIndexBlockList)
+{
+    if (storageType == kStorageDirectory ||
+        storageType == kStorageVolumeDirHeader)
+    {
+        assert(pIndexBlockList == NULL && pIndexBlockCount == NULL);
+        return LoadDirectoryBlockList(pFile, keyBlock, eof, pBlockCount, pBlockList);
+    }
+
+    assert(keyBlock != 0);
+    assert(pBlockCount != NULL);
+    assert(pBlockList != NULL);
+    assert(*pBlockList == NULL);
+    if (storageType != kStorageSeedling &&
+        storageType != kStorageSapling &&
+        storageType != kStorageTree)
+    {
+        /*
+         * We can get here if somebody puts a bad storage type inside the
+         * extended key block of a forked file.  Bad storage types on other
+         * kinds of files are caught earlier.
+         */
+        debug_print(" ProDOS unexpected storageType %d in '%s'",
+             storageType, pFile->pathName);
+        return kDIErrNotSupported;
+    }
+
+    DIError dierr = kDIErrNone;
+    uint16_t* list = NULL;
+    long count;
+
+    assert(eof < 1024*1024*16);
+    count = (eof + kBlkSize -1) / kBlkSize;
+    if (count == 0)
+        count = 1;
+    list = MemAlloc(sizeof(uint16_t) * (count + 1));
+    if (list == NULL) {
+        dierr = kDIErrMalloc;
+        goto bail;
+    }
+
+    if (pIndexBlockList != NULL) {
+        assert(pIndexBlockCount != NULL);
+        assert(*pIndexBlockList == NULL);
+    }
+
+    /* this should take care of trailing sparse entries */
+    memset(list, 0, sizeof(uint16_t) * count);
+    list[count] = kInvalidBlockNum;     // overrun check
+
+    if (storageType == kStorageSeedling) {
+        list[0] = keyBlock;
+
+        if (pIndexBlockList != NULL) {
+            *pIndexBlockCount = 0;
+            *pIndexBlockList = NULL;
+        }
+    } else if (storageType == kStorageSapling) {
+        dierr = LoadIndexBlock(keyBlock, list, count);
+        if (dierr != kDIErrNone)
+            goto bail;
+
+        if (pIndexBlockList != NULL) {
+            *pIndexBlockCount = 1;
+            *pIndexBlockList = MemAlloc(sizeof(uint16_t));
+            **pIndexBlockList = keyBlock;
+        }
+    } else if (storageType == kStorageTree) {
+        uint8_t blkBuf[kBlkSize];
+        uint16_t* listPtr = list;
+        uint16_t* outIndexPtr = NULL;
+        long countDown = count;
+        int idx = 0;
+
+        dierr = ReadBlockSwapped(keyBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        if (dierr != kDIErrNone)
+            goto bail;
+
+        if (pIndexBlockList != NULL) {
+            int numIndices = ((int)count + kMaxBlocksPerIndex-1) / kMaxBlocksPerIndex;
+            numIndices++;   // add one for the master index block
+            *pIndexBlockList = MemAlloc(sizeof(uint16_t) * numIndices);
+            outIndexPtr = *pIndexBlockList;
+            *outIndexPtr++ = keyBlock;
+            *pIndexBlockCount = 1;
+        }
+
+        while (countDown) {
+            long blockCount = countDown;
+            if (blockCount > kMaxBlocksPerIndex)
+                blockCount = kMaxBlocksPerIndex;
+            uint16_t idxBlock;
+
+            idxBlock = blkBuf[idx] | (uint16_t) blkBuf[idx+256] << 8;
+            if (idxBlock == 0) {
+                /* fully sparse index block */
+                //debug_print(" ProDOS that's seriously sparse (%d)!", idx);
+                memset(listPtr, 0, blockCount * sizeof(uint16_t));
+                if (pIndexBlockList != NULL) {
+                    *outIndexPtr++ = idxBlock;
+                    (*pIndexBlockCount)++;
+                }
+            } else {
+                dierr = LoadIndexBlock(idxBlock, listPtr, blockCount);
+                if (dierr != kDIErrNone)
+                    goto bail;
+
+                if (pIndexBlockList != NULL) {
+                    *outIndexPtr++ = idxBlock;
+                    (*pIndexBlockCount)++;
+                }
+            }
+
+            idx++;
+            listPtr += blockCount;
+            countDown -= blockCount;
+        }
+    }
+
+    assert(list[count] == kInvalidBlockNum);
+
+    *pBlockCount = count;
+    *pBlockList = list;
+
+bail:
+    if (dierr != kDIErrNone) {
+        free(list);
+        assert(*pBlockList == NULL);
+
+        if (pIndexBlockList != NULL && *pIndexBlockList != NULL) {
+            free(*pIndexBlockList);
+            *pIndexBlockList = NULL;
+        }
+    }
+    return dierr;
+}
+
+
+static DIError ProDOSOpen(A2File *pOpenFile)
+{
+    DIError dierr = kDIErrNone;
+
+    DirEntry dirEntry = pOpenFile->fDirEntry;
+        if (dirEntry.storageType == kStorageDirectory ||
+            dirEntry.storageType == kStorageVolumeDirHeader)
+    {
+        dierr = LoadDirectoryBlockList(pOpenFile, dirEntry.keyPointer,
+                                       dirEntry.eof, &pOpenFile->fBlockCount,
+                                       &pOpenFile->fBlockList);
+        pOpenFile->fOpenEOF = dirEntry.eof;
+    } else if (dirEntry.storageType == kStorageSeedling ||
+               dirEntry.storageType == kStorageSapling ||
+               dirEntry.storageType == kStorageTree)
+    {
+        dierr = LoadBlockList(pOpenFile, dirEntry.storageType, dirEntry.keyPointer,
+                              dirEntry.eof, &pOpenFile->fBlockCount,
+                              &pOpenFile->fBlockList, NULL, NULL);
+        pOpenFile->fOpenEOF = dirEntry.eof;
+    } else {
+        debug_print("PrODOS can't open unknown storage type %d",
+             dirEntry.storageType);
+        dierr = kDIErrBadDirectory;
+        goto bail;
+    }
+    if (dierr != kDIErrNone) {
+        debug_print(" ProDOS open failed");
+        goto bail;
+    }
+
+    pOpenFile->fOffset = 0;
+
+bail:
+//    delete pOpenFile;
+    return dierr;
+}
+
 
 /*
  * Process the list of files in one sector of the catalog.
@@ -1186,7 +1751,7 @@ bail:
 static DIError ProcessCatalogSector(int catTrack, int catSect,
     const uint8_t *sctBuf)
 {
-    A2FileDOS *pFile;
+    A2File *pFile;
     const uint8_t *pEntry;
     int i;
 
@@ -1194,7 +1759,7 @@ static DIError ProcessCatalogSector(int catTrack, int catSect,
 
     for (i = 0; i < kCatalogEntriesPerSect; i++) {
         if (pEntry[0x00] != kEntryUnused && pEntry[0x00] != kEntryDeleted) {
-            pFile = MemAlloc(sizeof(A2FileDOS));
+            pFile = MemAlloc(sizeof(A2File));
             pFile->prev = NULL;
             pFile->next = NULL;
 
@@ -1252,6 +1817,8 @@ static DIError ProcessCatalogSector(int catTrack, int catSect,
             pFile->tsList = NULL;
             pFile->tsCount = 0;
             pFile->indexList = NULL;
+            pFile->fBlockList = NULL;
+            pFile->pathName = NULL;
             pFile->indexCount = 0;
             pFile->fOffset = 0;
             pFile->fOpenEOF = 0;
@@ -1266,6 +1833,483 @@ static DIError ProcessCatalogSector(int catTrack, int catSect,
     return kDIErrNone;
 }
 
+
+/*
+ * Run through the list of files and find one that matches (case-insensitive).
+ *
+ * This does not attempt to open files in sub-volumes.  We could, but it's
+ * likely that the application has "decorated" the name in some fashion,
+ * e.g. by prepending the sub-volume's volume name to the filename.  May
+ * be best to let the application dig for the sub-volume.
+ */
+static A2File* GetFileByName(A2File* pFile, const char* fileName)
+{
+    pFile = pFile->next;
+    while (pFile != NULL) {
+        if (strcasecmp(pFile->pathName, fileName) == 0)
+            return pFile;
+
+        pFile = pFile->next;
+    }
+
+    return NULL;
+}
+
+
+/*
+ * Pull the directory header out of the first block of a directory.
+ */
+static DIError GetDirHeader(const uint8_t* blkBuf, DirHeader* pHeader)
+{
+    int nameLen;
+
+    pHeader->storageType = (blkBuf[0x04] & 0xf0) >> 4;
+
+    nameLen = blkBuf[0x04] & 0x0f;
+    memcpy(pHeader->dirName, &blkBuf[0x05], nameLen);
+    pHeader->dirName[nameLen] = '\0';
+    pHeader->version = blkBuf[0x20];
+    pHeader->minVersion = blkBuf[0x21];
+    pHeader->access = blkBuf[0x22];
+    pHeader->entryLength = blkBuf[0x23];
+    pHeader->entriesPerBlock = blkBuf[0x24];
+    pHeader->fileCount = GetShortLE(&blkBuf[0x25]);
+    pHeader->parentPointer = GetShortLE(&blkBuf[0x27]);
+    pHeader->parentEntry = blkBuf[0x29];
+    pHeader->parentEntryLength = blkBuf[0x2a];
+
+    if (pHeader->entryLength * pHeader->entriesPerBlock > kBlkSize ||
+        pHeader->entryLength * pHeader->entriesPerBlock == 0)
+    {
+        debug_print(" ProDOS invalid subdir header: entryLen=%d, entriesPerBlock=%d",
+             pHeader->entryLength, pHeader->entriesPerBlock);
+        return kDIErrBadDirectory;
+    }
+
+    return kDIErrNone;
+}
+
+static DIError SlurpEntries(A2File* pParent, const DirHeader* pHeader,
+                     const uint8_t* blkBuf, int skipFirst, int* pCount,
+                     const char* basePath, uint16_t thisBlock, int depth);
+
+/*
+ * Pass in the number of the first block of the directory.
+ *
+ * Start with "pParent" set to the magic entry for the volume dir.
+ */
+static DIError RecursiveDirAdd(A2File* pParent, uint16_t dirBlock,
+                        const char* basePath, int depth)
+{
+    DIError dierr = kDIErrNone;
+    DirHeader header;
+    uint8_t blkBuf[kBlkSize];
+    int numEntries, iterations, foundCount;
+    int first;
+
+    /* if we get too deep, assume it's a loop */
+    if (depth > kMaxDirectoryDepth) {
+        dierr = kDIErrDirectoryLoop;
+        goto bail;
+    }
+
+    if (dirBlock < kVolHeaderBlock || dirBlock >= fNumBlocks) {
+        debug_print(" ProDOS ERROR: directory block %u out of range", dirBlock);
+        dierr = kDIErrInvalidBlock;
+        goto bail;
+    }
+
+    numEntries = 1;
+    iterations = 0;
+    foundCount = 0;
+    first = 1;
+
+    while (dirBlock && iterations < kMaxCatalogIterations) {
+        dierr = ReadBlockSwapped(dirBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        if (dierr != kDIErrNone)
+            goto bail;
+
+        if (first) {
+            /* this is the directory header entry */
+            dierr = GetDirHeader(blkBuf, &header);
+            if (dierr != kDIErrNone)
+                goto bail;
+            numEntries = header.fileCount;
+        }
+
+        /* slurp the entries out of this block */
+        dierr = SlurpEntries(pParent, &header, blkBuf, first, &foundCount,
+                             basePath, dirBlock, depth);
+        if (dierr != kDIErrNone)
+            goto bail;
+
+        dirBlock = GetShortLE(&blkBuf[0x02]);
+        if (dirBlock != 0 &&
+            (dirBlock < 2 || dirBlock >= fNumBlocks))
+        {
+            debug_print(" ProDOS ERROR: invalid dir link block %u in base='%s'",
+                        dirBlock, basePath);
+            dierr = kDIErrInvalidBlock;
+            goto bail;
+        }
+        first = 0;
+        iterations++;
+    }
+    if (iterations == kMaxCatalogIterations) {
+        debug_print(" ProDOS subdir iteration count exceeded");
+        dierr = kDIErrDirectoryLoop;
+        goto bail;
+    }
+    if (foundCount != numEntries) {
+        /* not significant; just means somebody isn't updating correctly */
+        debug_print(" ProDOS WARNING: numEntries=%d foundCount=%d in base='%s'",
+                    numEntries, foundCount, basePath);
+    }
+
+bail:
+    return dierr;
+}
+
+static char NameToLower(char ch)
+{
+    if (ch == '.')
+        return ' ';
+    else
+        return tolower(ch);
+}
+
+
+static void GenerateLowerCaseName(const char* upperName,
+                                         char* lowerName, uint16_t lcFlags)
+{
+    int nameLen = (int)strlen(upperName);
+    int bit;
+    assert(nameLen <= kMaxFileName);
+
+    /* handle lower-case conversion; see GS/OS tech note #8 */
+    if (lcFlags != 0 && !(lcFlags & 0x8000)) {
+        // Should be zero or 0x8000 plus other bits; shouldn't be
+        //  bunch of bits without 0x8000 or 0x8000 by itself.  Not
+        //  really a problem, just unexpected.
+        memcpy(lowerName, upperName, kMaxFileName);
+        return;
+    }
+    for (bit = 0; bit < nameLen; bit++) {
+        lcFlags <<= 1;
+        if ((lcFlags & 0x8000) != 0)
+            lowerName[bit] = NameToLower(upperName[bit]);
+        else
+            lowerName[bit] = upperName[bit];
+    }
+    for ( ; bit < kMaxFileName; bit++)
+        lowerName[bit] = '\0';
+}
+
+static void InitDirEntry(DirEntry* pEntry,
+                                const uint8_t* entryBuf)
+{
+    int nameLen;
+
+    pEntry->storageType = (entryBuf[0x00] & 0xf0) >> 4;
+    nameLen = entryBuf[0x00] & 0x0f;
+    memcpy(pEntry->fileName, &entryBuf[0x01], nameLen);
+    pEntry->fileName[nameLen] = '\0';
+    pEntry->keyPointer = GetShortLE(&entryBuf[0x11]);
+    pEntry->blocksUsed = GetShortLE(&entryBuf[0x13]);
+    pEntry->eof = GetLongLE(&entryBuf[0x15]);
+    pEntry->eof &= 0x00ffffff;
+    pEntry->version = entryBuf[0x1c];
+    pEntry->minVersion = entryBuf[0x1d];
+    pEntry->access = entryBuf[0x1e];
+    pEntry->auxType = GetShortLE(&entryBuf[0x1f]);
+    pEntry->headerPointer = GetShortLE(&entryBuf[0x25]);
+
+    /* generate the name into the buffer; does not null-terminate */
+    if (pEntry->minVersion & 0x80) {
+        GenerateLowerCaseName(pEntry->fileName, pEntry->fileName,
+                                            GetShortLE(&entryBuf[0x1c]));
+    }
+    pEntry->fileName[sizeof(pEntry->fileName)-1] = '\0';
+}
+
+/*
+ * Set the full pathname to a combination of the base path and the
+ * current file's name.
+ *
+ * If we're in the volume directory, pass in "" for the base path (not NULL).
+ */
+static void SetPathName(A2File *pFile, const char* basePath, const char* fileName)
+{
+    assert(basePath != NULL && fileName != NULL);
+    if (pFile->pathName != NULL)
+        free(pFile->pathName);
+
+    size_t baseLen = strlen(basePath);
+    size_t fileNameLen = strlen(fileName);
+    pFile->pathName = MemAlloc(baseLen + 1 + fileNameLen + 1);
+    strncpy(pFile->pathName, basePath, baseLen + 1);
+    if (baseLen != 0 &&
+        !(baseLen == 1 && basePath[0] == ':'))
+    {
+        *(pFile->pathName + baseLen) = kFssep;
+        baseLen++;
+    }
+    strncpy(pFile->pathName + baseLen, fileName, baseLen + 1 + fileNameLen + 1);
+}
+
+
+/*
+ * Slurp the entries out of a single ProDOS directory block.
+ *
+ * Recursively calls RecursiveDirAdd for directories.
+ *
+ * "*pFound" is increased by the number of valid entries found in this block.
+ */
+static DIError SlurpEntries(A2File* pParent, const DirHeader* pHeader,
+                                   const uint8_t* blkBuf, int skipFirst, int* pCount,
+                                   const char* basePath, uint16_t thisBlock, int depth)
+{
+    DIError dierr = kDIErrNone;
+    int entriesThisBlock = pHeader->entriesPerBlock;
+    const uint8_t* entryBuf;
+    A2File* pFile;
+
+    int idx = 0;
+    entryBuf = &blkBuf[0x04];
+    if (skipFirst) {
+        entriesThisBlock--;
+        entryBuf += pHeader->entryLength;
+        idx++;
+    }
+
+    for ( ; entriesThisBlock > 0 ;
+         entriesThisBlock--, idx++, entryBuf += pHeader->entryLength)
+    {
+        if (entryBuf >= blkBuf + kBlkSize) {
+            debug_print("  ProDOS whoops, just walked out of dirent buffer");
+            return kDIErrBadDirectory;
+        }
+
+        if ((entryBuf[0x00] & 0xf0) == kStorageDeleted) {
+            /* skip deleted entries */
+            continue;
+        }
+
+        pFile = MemAlloc(sizeof(A2File));
+        if (pFile == NULL) {
+            dierr = kDIErrMalloc;
+            goto bail;
+        }
+        memset(pFile, 0, sizeof(A2File));
+        pFile->tsList = NULL;
+
+        DirEntry* pEntry;
+        pEntry = &pFile->fDirEntry;
+        InitDirEntry(pEntry, entryBuf);
+
+        SetPathName(pFile, basePath, pEntry->fileName);
+
+        if (pEntry->keyPointer <= kVolHeaderBlock) {
+            debug_print("ProDOS invalid key pointer %d on '%s'",
+                 pEntry->keyPointer, pFile->pathName);
+        }
+
+        AddFileToList(pFile);
+        (*pCount)++;
+
+        if (pEntry->storageType == kStorageDirectory) {
+            // don't need to check for kStorageVolumeDirHeader here
+            dierr = RecursiveDirAdd(pFile, pEntry->keyPointer,
+                                    pFile->pathName, depth+1);
+            if (dierr != kDIErrNone) {
+                if (dierr == kDIErrCancelled)
+                    goto bail;
+
+                dierr = kDIErrNone;
+            }
+        }
+    }
+
+bail:
+    return dierr;
+}
+
+/*
+ * Set the volume ID field.
+ */
+static void SetVolumeID(void)
+{
+    snprintf(fVolumeID, 31, "ProDOS /%s", fVolumeName);
+}
+
+static DIError DetermineVolDirLen(uint16_t nextBlock, uint16_t* pBlocksUsed) {
+    DIError dierr = kDIErrNone;
+    uint8_t blkBuf[kBlkSize];
+    uint16_t blocksUsed = 1;
+    int iterCount = 0;
+
+    // Traverse the volume directory chain, counting blocks.  Normally this will have 4, but
+    // variations are possible.
+    while (nextBlock != 0) {
+        blocksUsed++;
+
+        if (nextBlock < 2 || nextBlock >= fNumBlocks) {
+            debug_print(" ProDOS ERROR: invalid volume dir link block %u", nextBlock);
+            dierr = kDIErrInvalidBlock;
+            goto bail;
+        }
+        dierr = ReadBlockSwapped(nextBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+        if (dierr != kDIErrNone) {
+            goto bail;
+        }
+
+        nextBlock = GetShortLE(&blkBuf[0x02]);
+
+        // Watch for infinite loop.
+        iterCount++;
+        if (iterCount > fNumBlocks) {
+            debug_print(" ProDOS ERROR: infinite vol directory loop found");
+            dierr = kDIErrDirectoryLoop;
+            goto bail;
+        }
+    }
+
+bail:
+    *pBlocksUsed = blocksUsed;
+    return dierr;
+}
+
+
+/*
+ * Read some interesting fields from the volume header.
+ *
+ * The "test" function verified certain things, e.g. the storage type
+ * is $f and the volume name length is nonzero.
+ */
+static DIError LoadVolHeaderProDOS(void)
+{
+    DIError dierr = kDIErrNone;
+    uint8_t blkBuf[kBlkSize];
+    int nameLen;
+
+    A2File* pFile = NULL;
+
+    dierr = ReadBlockSwapped(kVolHeaderBlock, blkBuf, kSectorOrderPhysical, kSectorOrderProDOS);
+    if (dierr != kDIErrNone)
+        goto bail;
+
+    nameLen = blkBuf[0x04] & 0x0f;
+    memcpy(fVolumeName, &blkBuf[0x05], nameLen);
+    fVolumeName[nameLen] = '\0';
+
+    fBitMapPointer = GetShortLE(&blkBuf[0x27]);
+    fTotalBlocks = GetShortLE(&blkBuf[0x29]);
+
+    if (blkBuf[0x1b] & 0x80) {
+        /*
+         * Handle lower-case conversion; see GS/OS tech note #8.  Unlike
+         * filenames, volume names are not allowed to contain spaces.  If
+         * they try it we just ignore them.
+         *
+         * Technote 8 doesn't actually talk about volume names.  By
+         * experimentation the field was discovered at offset 0x1a from
+         * the start of the block, which is marked as "reserved" in Beneath
+         * Apple ProDOS.
+         */
+        uint16_t lcFlags = GetShortLE(&blkBuf[0x1a]);
+
+        GenerateLowerCaseName(fVolumeName, fVolumeName, lcFlags);
+    }
+
+    if (fTotalBlocks <= kVolHeaderBlock) {
+        /* incr to min; don't use max, or bitmap count may be too large */
+        debug_print(" ProDOS found tiny fTotalBlocks (%d), increasing to minimum",
+             fTotalBlocks);
+        fTotalBlocks = kMinReasonableBlocks;
+    } else if (fTotalBlocks != fNumBlocks) {
+        if (fTotalBlocks != 65535 || fNumBlocks != 65536) {
+            debug_print(" ProDOS WARNING: total (%u) != img (%ld)",
+                 fTotalBlocks, fNumBlocks);
+        }
+
+        /*
+         * For safety (esp. vol bitmap read), constrain fTotalBlocks.  We might
+         * consider not doing this for ".hdv", which can start small and then
+         * expand as files are added.  (Check "fExpanded".)
+         */
+        if (fTotalBlocks > fNumBlocks) {
+            fTotalBlocks = (uint16_t) fNumBlocks;
+        }
+    }
+
+    /*
+     * Test for funky volume bitmap pointer.  Some disks (e.g. /RAM and
+     * ProSel-16) truncate the volume directory to eke a little more storage
+     * out of a disk.  There's nothing wrong with that, but we don't want to
+     * try to use a volume bitmap pointer of zero or 0xffff, because it's
+     * probably garbage.
+     */
+    if (fBitMapPointer != kExpectedBitmapStart) {
+        if (fBitMapPointer <= kVolHeaderBlock ||
+            fBitMapPointer > kExpectedBitmapStart)
+        {
+            fBitMapPointer = 6;     // just fix it and hope for the best
+        }
+    }
+
+    SetVolumeID();
+
+    /*
+     * Create a "magic" directory entry for the volume directory.
+     *
+     * Normally these values are pulled out of the file entry in the parent
+     * directory.  Here, we synthesize them from the volume dir header.
+     */
+    pFile = MemAlloc(sizeof(A2File));
+    if (pFile == NULL) {
+        dierr = kDIErrMalloc;
+        goto bail;
+    }
+    memset(pFile, 0, sizeof(A2File));
+    pFile->tsList = NULL;
+
+    DirEntry* pEntry;
+    pEntry = &pFile->fDirEntry;
+
+    int foundStorage;
+    foundStorage = (blkBuf[0x04] & 0xf0) >> 4;
+    if (foundStorage != kStorageVolumeDirHeader) {
+        debug_print(" ProDOS WARNING: unexpected vol dir file type %d",
+             pEntry->storageType);
+        /* keep going */
+    }
+    pEntry->storageType = kStorageVolumeDirHeader;
+    strncpy(pEntry->fileName, fVolumeName, sizeof(fVolumeName));
+    pFile->pathName = MemAlloc(nameLen + 2);
+    pFile->pathName[0] = ':';
+    memcpy(pFile->pathName + 1, pEntry->fileName, nameLen);
+    pEntry->fileName[nameLen] = '\0';
+    pEntry->keyPointer = kVolHeaderBlock;
+    dierr = DetermineVolDirLen(GetShortLE(&blkBuf[0x02]), &pEntry->blocksUsed);
+    if (dierr != kDIErrNone) {
+        goto bail;
+    }
+    pEntry->eof = pEntry->blocksUsed * 512;
+    pEntry->version = blkBuf[0x20];
+    pEntry->minVersion = blkBuf[0x21];
+    pEntry->access = blkBuf[0x22];
+    pEntry->auxType = 0;
+    pEntry->headerPointer = 0;
+
+    AddFileToList(pFile);
+    pFile = NULL;
+
+bail:
+    if (pFile)
+        free(pFile);
+    return dierr;
+}
+
 /*
  * Read some fields from the disk Volume Table of Contents.
  */
@@ -1273,7 +2317,7 @@ static DIError ReadVTOC(void)
 {
     DIError dierr;
 
-    dierr = ReadTrackSector(kVTOCTrack, kVTOCSector, fVTOC);
+    dierr = ReadTrackSector(kVTOCTrack, kVTOCSector, kSectorOrderPhysical, kSectorOrderDOS, fVTOC);
     if (dierr != kDIErrNone)
         goto bail;
 
@@ -1325,7 +2369,7 @@ static DIError ReadCatalog(void)
     memset(fCatalogSectors, 0, sizeof(fCatalogSectors));
 
     while (catTrack != 0 && catSect != 0 && iterations < kMaxCatalogSectors) {
-        dierr = ReadTrackSector(catTrack, catSect, sctBuf);
+        dierr = ReadTrackSector(catTrack, catSect, kSectorOrderPhysical, kSectorOrderDOS, sctBuf);
         if (dierr != kDIErrNone)
             goto bail;
 
@@ -1369,10 +2413,10 @@ bail:
     return dierr;
 }
 
-static A2FileDOS *find_file_named(char *name)
+static A2File *find_file_named(char *name)
 {
     debug_print("find_file_named: \"%s\"\n", name);
-    A2FileDOS *file = firstfile;
+    A2File *file = firstfile;
     while (file != NULL) {
         debug_print("Comparing to file named: \"%s\"\n", (char *)file->fFileName);
         if (strcmp(name, (char *)file->fFileName) == 0)
@@ -1382,9 +2426,9 @@ static A2FileDOS *find_file_named(char *name)
     return file;
 }
 
-static A2FileDOS *find_SAGA_database(void)
+static A2File *find_SAGA_database(void)
 {
-    A2FileDOS *file = firstfile;
+    A2File *file = firstfile;
     while (file != NULL) {
         char *name = (char *)file->fFileName;
         debug_print("Comparing to file named: \"%s\"\n", name);
@@ -1410,7 +2454,7 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
     uint8_t *buf = NULL;
     ReadVTOC();
     ReadCatalog();
-    A2FileDOS *file = find_SAGA_database();
+    A2File *file = find_SAGA_database();
     if (file) {
         Open(file);
         buf = MemAlloc(file->fLengthInSectors * kSectorSize);
@@ -1455,5 +2499,118 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
         free(m2temp);
     }
 
+    return buf;
+}
+
+A2File* GetNextFile(A2File *pFile)
+{
+    if (pFile == NULL)
+        return firstfile;
+    else
+        return pFile->next;
+}
+
+/*
+ * Get things rolling.
+ *
+ * Since we're assured that this is a valid disk, errors encountered from here
+ * on out must be handled somehow, possibly by claiming that the disk has
+ * no files on it.
+ */
+DIError InitializeProDOS(InitMode initMode)
+{
+    DIError dierr = kDIErrNone;
+
+    fHasNibbles = fHasSectors = 1;
+    fNumTracks = kTrackCount525;
+    fNumSectPerTrack = fpNibbleDescr->numSectors;
+
+    /*
+     * Compute the number of blocks.  For a 13-sector disk, block access
+     * is not possible.
+     *
+     * For nibble formats, we have to base the block count on the number
+     * of sectors rather than the file length.
+     */
+    assert(fNumSectPerTrack > 0);
+
+    if ((fNumSectPerTrack & 0x01) == 0) {
+        /* not a 13-sector disk, so define blocks in terms of sectors */
+        /* (effects of sector pairing are already taken into account) */
+        fHasBlocks = 1;
+        fNumBlocks = (fNumTracks * fNumSectPerTrack) / 2;
+    }
+
+    dierr = LoadVolHeaderProDOS();
+    if (dierr != kDIErrNone)
+        goto bail;
+
+    /* volume dir is guaranteed to come first; if not, we need a lookup func */
+    A2File* pVolumeDir = GetNextFile(NULL);
+
+    dierr = RecursiveDirAdd(pVolumeDir, kVolHeaderBlock, "", 0);
+    if (dierr != kDIErrNone) {
+        debug_print(" ProDOS RecursiveDirAdd failed");
+        goto bail;
+    }
+
+bail:
+    return dierr;
+}
+
+const char *titles[] = { "ZORK0", "SHOGUN", "JOURNEY", "ARTHUR", NULL };
+
+uint8_t *ReadInfocomV6File(uint8_t *data, size_t *len, int *game, int *diskindex)
+{
+    rawdata = data;
+    rawdatalen = *len;
+
+    uint8_t *buf = NULL;
+
+    DIError dierr = InitializeProDOS(kInitFull);
+
+    if (dierr != kDIErrNone) {
+        fprintf(stderr, "Error reading list of files from disk\n");
+        goto bail;
+    }
+
+    int index = -1;
+
+    int i;
+    for (i = 0; titles[i]; i++) {
+        size_t length = strlen (titles[i]);
+        if (!strncmp (fVolumeName, titles[i], length)) {
+            index = fVolumeName[length + 1] - '0';
+            break;
+        }
+    }
+    if (i > 3 || index < 1 || index > 5) {
+        fprintf(stderr, "Not a recoginized Apple 2 Infocom V6 game!\n");
+        goto bail;
+    }
+
+    if (game)
+        *game = i;
+    if (diskindex)
+        *diskindex = index;
+
+    char filename[64];
+    snprintf(filename, 64, "%s.D%d", titles[i], index);
+
+    A2File *file = GetFileByName(firstfile, filename);
+    if (file) {
+        if (ProDOSOpen(file) != kDIErrNone) {
+            fprintf(stderr, "ProDOSOpen returned error\n");
+        }
+        buf = MemAlloc(file->fDirEntry.blocksUsed * kBlkSize);
+        size_t actual;
+        if (ProDOSRead(file, buf, file->fDirEntry.blocksUsed * kBlkSize - 1, &actual) != kDIErrNone) {
+            fprintf(stderr, "ProDOSRead returned error\n");
+        }
+        *len = actual;
+    }
+
+bail:
+    FreeDiskImage();
     return buf;
 }

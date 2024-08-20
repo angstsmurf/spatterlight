@@ -112,17 +112,6 @@ typedef enum kGameIdentity : NSUInteger {
 
 - (BOOL)zVersion6;
 
-typedef enum kGameState : NSUInteger {
-    kGameStateUnknown,
-    kGameJustStartedNormally,
-    kGameJustAutorestored,
-    kGameIsRunning,
-    kGameIsShowingCoverImage,
-    kGameIsDead
-} kGameState;
-
-@property kGameState gameState;
-
 @property BOOL usesFont3;
 
 @property NSInteger autosaveVersion;
@@ -168,6 +157,8 @@ typedef enum kGameState : NSUInteger {
 @property NSString *lastSpokenString;
 
 @property BureaucracyForm *form;
+
+@property BOOL shouldShowAutorestoreAlert;
 
 @property NSString *pendingErrorMessage;
 @property NSDate *errorTimeStamp;

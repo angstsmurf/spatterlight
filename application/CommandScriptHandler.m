@@ -7,6 +7,7 @@
 #include "glk.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
+#import "GlkEvent.h"
 
 #import "GlkController.h"
 #import "NSString+Categories.h"
@@ -126,6 +127,8 @@ extern NSArray *gSaveFileTypes;
         keyPress = keycode_Return;
         if (_untypedCharacters.length)
             _untypedCharacters = @"";
+    } else if (_glkctl.gameID == kGameIsJourney) {
+        keyPress = chartokeycode(keyPress);
     }
 
     [win sendKeypress:keyPress];

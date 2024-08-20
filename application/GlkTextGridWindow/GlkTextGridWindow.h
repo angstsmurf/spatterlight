@@ -43,6 +43,7 @@
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) NSSize currentSizeInChars;
+- (NSSize)currentSizeInChars;
+- (unichar)characterAtPoint:(NSPoint)point;
 
 @end

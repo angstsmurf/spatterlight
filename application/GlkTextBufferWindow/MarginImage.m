@@ -28,23 +28,26 @@
 - (instancetype)init {
     return [self
         initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"]
-                align:kAlignLeft
-               linkid:0
+            index:0
+            alignment:kAlignLeft
+            linkId:0
                    at:0
                sender:self];
 }
 
 - (instancetype)initWithImage:(NSImage *)animage
-                        align:(NSInteger)analign
-                       linkid:(NSUInteger)linkid
+                       index:(NSInteger)index
+                    alignment:(NSInteger)alignment
+                       linkId:(NSUInteger)linkId
                            at:(NSUInteger)apos
                        sender:(id)sender {
     self = [super init];
     if (self) {
         _image = animage;
-        _alignment = analign;
+        _index = index;
+        _alignment = alignment;
         _bounds = NSZeroRect;
-        _linkid = linkid;
+        _linkid = linkId;
         _pos = apos;
         recalc = YES;
         _container = sender;

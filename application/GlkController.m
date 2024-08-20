@@ -28,6 +28,7 @@
 #import "SoundHandler.h"
 #import "TableViewController.h"
 #import "ZMenu.h"
+#import "JourneyMenuHandler.h"
 
 #import "Game.h"
 #import "Theme.h"
@@ -52,9 +53,9 @@ fprintf(stderr, "%s\n",                                                    \
 //    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "BANNERCOLS",       "BANNERLINES",  "TIMER",
-//    "INITCHAR",        "CANCELCHAR",
+//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",
+//    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
+//    "TIMER",           "INITCHAR",         "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
 //    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
@@ -63,6 +64,8 @@ fprintf(stderr, "%s\n",                                                    \
 //    "UNPAUSE",         "BEEP",
 //    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
 //    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+//    "PURGEIMG",        "MENU",
+//
 //    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
 //    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
 //    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
@@ -197,9 +200,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     kVOMenuPrefsType lastVOSpeakMenu;
     BOOL shouldAddTitlePrefixToSpeech;
+    BOOL changedBorderThisTurn;
 }
 
-@property BOOL shouldShowAutorestoreAlert;
+@property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
 @property NSURL *saveDir;
 
 @end
@@ -251,8 +255,6 @@ fprintf(stderr, "%s\n",                                                    \
     _ignoreResizes = YES;
 
     skipNextScriptCommand = NO;
-
-    _gameState = kGameStateUnknown;
 
     _game = game_;
     Game *game = _game;
@@ -362,7 +364,6 @@ fprintf(stderr, "%s\n",                                                    \
             _windowPreFullscreenFrame = self.window.frame;
         }
         [self forkInterpreterTask];
-        _gameState = kGameJustStartedNormally;
         return;
     }
 
@@ -439,7 +440,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)runTerpWithAutorestore {
-    _gameState = kGameJustAutorestored;
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -613,7 +613,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
-                    NSLog(@"Autorestore alert suppressed");
+                    // Autorestore alert suppressed
                     if (![defaults boolForKey:@"AlwaysAutorestore"]) {
                         // The user has checked "Remember this choice" when
                         // choosing to not autorestore
@@ -721,7 +721,6 @@ fprintf(stderr, "%s\n",                                                    \
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
-        _gameState = kGameIsShowingCoverImage;
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
@@ -730,7 +729,6 @@ fprintf(stderr, "%s\n",                                                    \
         [_coverController showLogoWindow];
     } else {
         [self forkInterpreterTask];
-        _gameState = kGameIsRunning;
     }
 }
 
@@ -743,7 +741,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     dead = YES;
-    _gameState = kGameIsDead;
 
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
 
@@ -1195,6 +1192,16 @@ fprintf(stderr, "%s\n",                                                    \
         [self.commandScriptHandler copyPropertiesFrom:restoredController.commandScriptHandler];
     }
 
+    if (_gameID == kGameIsJourney && restoredController.journeyMenuHandler) {
+        self.journeyMenuHandler = restoredController.journeyMenuHandler;
+        restoredController.journeyMenuHandler = nil;
+        _journeyMenuHandler.delegate = self;
+        _journeyMenuHandler.textGridWindow = (GlkTextGridWindow *)_gwindows[@(_journeyMenuHandler.gridTextWinName)];
+        _journeyMenuHandler.textBufferWindow = (GlkTextBufferWindow *)_gwindows[@(_journeyMenuHandler.bufferTextWinName)];
+
+        [_journeyMenuHandler showJourneyMenus];
+    }
+
     // Restore scroll position etc
     for (win in _gwindows.allValues) {
         if (!_windowsToRestore.count) {
@@ -1231,8 +1238,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (void)postRestoreArrange:(id)sender {
-    if (_shouldShowAutorestoreAlert && !_startingInFullscreen) {
-        _shouldShowAutorestoreAlert = NO;
+    if (!_startingInFullscreen) {
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
     }
 
@@ -1473,6 +1479,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (_commandScriptRunning)
             _commandScriptHandler = [decoder decodeObjectOfClass:[CommandScriptHandler class] forKey:@"commandScriptHandler"];
 
+        _journeyMenuHandler = [decoder decodeObjectOfClass:[JourneyMenuHandler class] forKey:@"journeyMenuHandler"];
+        if (_journeyMenuHandler)
+            _journeyMenuHandler.delegate = self;
         restoredController = nil;
     }
     return self;
@@ -1497,6 +1506,7 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeObject:_soundHandler forKey:@"soundHandler"];
     [encoder encodeObject:_imageHandler forKey:@"imageHandler"];
+    [encoder encodeObject:_journeyMenuHandler forKey:@"journeyMenuHandler"];
 
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
@@ -1536,6 +1546,21 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)showAutorestoreAlert:(id)userInfo {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+    NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
+
+    if ([defaults boolForKey:alertSuppressionKey] == YES)
+        _shouldShowAutorestoreAlert = NO;
+
+    if (!_shouldShowAutorestoreAlert) {
+        _mustBeQuiet = NO;
+        [_journeyMenuHandler recreateDialog];
+        return;
+    }
+
+    if (dead)
+        return;
 
     _mustBeQuiet = YES;
 
@@ -1554,15 +1579,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         weakSelf.mustBeQuiet = NO;
 
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-        NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
-        NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
-
         if (anAlert.suppressionButton.state == NSOnState) {
             // Suppress this alert from now on
             [defaults setBool:YES forKey:alertSuppressionKey];
         }
+
+        weakSelf.shouldShowAutorestoreAlert = NO;
 
         if (result == NSAlertSecondButtonReturn) {
             [self reset:nil];
@@ -1576,7 +1598,8 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
 
-        weakSelf.shouldShowAutorestoreAlert = NO;
+        if (weakSelf.gameID == kGameIsJourney)
+            [weakSelf.journeyMenuHandler recreateDialog];
     }];
 }
 
@@ -1597,6 +1620,7 @@ fprintf(stderr, "%s\n",                                                    \
      object: readfh];
 
     _commandScriptHandler = nil;
+    _journeyMenuHandler = nil;
 
     if (task) {
         // Stop the interpreter
@@ -1691,15 +1715,21 @@ fprintf(stderr, "%s\n",                                                    \
         if (_eventcount > 1 && !_shouldShowAutorestoreAlert) {
             _mustBeQuiet = NO;
         }
+
+        if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turns > 1]) {
+                return;
+        }
+
         [self speakOnBecomingKey];
-    } else if (_gameState == kGameIsDead && _theme.vODelayOn) {
-        // Game did become key while dead / game over
+    } else if (_theme.vODelayOn) { // If the game has ended
         [self speakMostRecentAfterDelay];
     }
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification {
     _mustBeQuiet = YES;
+    [_journeyMenuHandler captureMembersMenu];
+    [_journeyMenuHandler hideJourneyMenus];
 }
 
 - (BOOL)windowShouldClose:(id)sender {
@@ -1767,6 +1797,15 @@ fprintf(stderr, "%s\n",                                                    \
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+    if (_journeyMenuHandler) {
+        [_journeyMenuHandler captureMembersMenu];
+        [self.journeyMenuHandler hideJourneyMenus];
+    }
+
+    if (_theme.autosave == NO) {
+        _game.autosaved = NO;
+        [self deleteAutosaveFiles];
+    }
 
     [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
 
@@ -1805,16 +1844,17 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)flushDisplay {
     [Preferences instance].inMagnification = NO;
 
-    if (windowdirty) {
-        GlkWindow *largest = [self largestWindow];
-        if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
-            [(GlkTextBufferWindow *)largest recalcBackground];
-        windowdirty = NO;
-    }
-
     for (GlkWindow *win in _windowsToBeAdded) {
         [_gameView addSubview:win];
     }
+
+    if (windowdirty && !changedBorderThisTurn) {
+        GlkWindow *largest = [self largestWindow];
+        if (largest)
+            [largest recalcBackground];
+        windowdirty = NO;
+    }
+    changedBorderThisTurn = NO;
 
     if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
@@ -1824,7 +1864,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
-        if (!_voiceOverActive || _mustBeQuiet) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] &&
+            (!_voiceOverActive || _mustBeQuiet)) {
             [win setLastMove];
         }
     }
@@ -1843,14 +1884,24 @@ fprintf(stderr, "%s\n",                                                    \
             }
             _shouldSpeakNewText = NO;
         }
-        _gameState = kGameIsRunning;
     }
+
+    if (_journeyMenuHandler)
+        [_journeyMenuHandler flushDisplay];
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
 
 
 - (void)guessFocus {
+    if (_gameID == kGameIsJourney && _voiceOverActive) {
+        GlkWindow *win = [self largestWithMoves];
+        if (win && [win isKindOfClass:[GlkTextBufferWindow class]]) {
+            [win grabFocus];
+            return;
+        }
+    }
+
     id focuswin = self.window.firstResponder;
     while (focuswin) {
         if ([focuswin isKindOfClass:[NSView class]]) {
@@ -2059,6 +2110,10 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
     size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: charCellsToContentSize: Height is NaN!");
+        size.height = 10;
+    }
     return size;
 }
 
@@ -2068,6 +2123,10 @@ fprintf(stderr, "%s\n",                                                    \
     Theme *theme = _theme;
     size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
     size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
+    if (isnan(size.height) || isinf(size.height)) {
+        NSLog(@"ERROR: contentSizeToCharCells: Height is NaN!");
+        size.height = 1;
+    }
     return size;
 }
 
@@ -2482,6 +2541,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (reply.len)
             write((int)sendfd, s, reply.len);
         self.mustBeQuiet = NO;
+        // Needed to prevent Journey dialog from popping up after closing file dialog
+        if (self.gameID == kGameIsJourney)
+            self.journeyMenuHandler.skipNextDialog = YES;
     }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
@@ -2520,7 +2582,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         directory = [NSURL fileURLWithPath:
                      [defaults objectForKey:@"SaveDirectory"]
-                                isDirectory:YES];
+                               isDirectory:YES];
     }
 
     NSSavePanel *panel = [NSSavePanel savePanel];
@@ -2887,9 +2949,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     str = [NSString stringWithCharacters:buf length:len];
-
+//    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
-    windowdirty = YES;
     free(buf);
 }
 
@@ -3022,10 +3083,27 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
+- (nullable JourneyMenuHandler *)journeyMenuHandler {
+    if (_journeyMenuHandler == nil) {
+        GlkTextGridWindow *gridwindow = nil;
+        GlkTextBufferWindow *bufferwindow = nil;
+        for (GlkWindow *win in _gwindows.allValues)
+            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+                gridwindow = (GlkTextGridWindow *)win;
+            } else if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                bufferwindow = (GlkTextBufferWindow *)win;
+            }
+        if (gridwindow == nil || bufferwindow == nil)
+            return nil;
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
+    }
+    return _journeyMenuHandler;
+}
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    // NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -3198,7 +3276,7 @@ fprintf(stderr, "%s\n",                                                    \
             [_imageHandler handleLoadImageNumber:req->a1
                                             from:@(buf)
                                           offset:(NSUInteger)req->a2
-                                          length:(NSUInteger)req->a3];
+                                            size:(NSUInteger)req->a3];
             break;
 
         case SIZEIMAGE:
@@ -3210,8 +3288,11 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
+                NSLog(@"SIZEIMAGE: %@", NSStringFromSize(size));
                 ans->a1 = (int)size.width;
                 ans->a2 = (int)size.height;
+            } else {
+                NSLog(@"SIZEIMAGE: No last image found!");
             }
         }
             break;
@@ -3290,7 +3371,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case SIZWIN:
             if (reqWin) {
-                uint x0, y0, x1, y1, checksumWidth, checksumHeight;
+                int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
                 struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
@@ -3319,7 +3400,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-
+//                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
@@ -3360,6 +3441,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (req->a1 == -1) {
                 _lastAutoBGColor = bg;
                 [self setBorderColor:bg];
+                changedBorderThisTurn = YES;
             }
 
             if (reqWin) {
@@ -3394,11 +3476,13 @@ fprintf(stderr, "%s\n",                                                    \
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
-            if (reqWin) {
+            if (reqWin && req->len) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
                                    buffer:buf
                                    length:req->len / sizeof(unichar)];
+            } else {
+                NSLog(@"Print to non-existent window!");
             }
             break;
 
@@ -3662,6 +3746,24 @@ fprintf(stderr, "%s\n",                                                    \
             }
             break;
 
+        case PURGEIMG:
+            if (req->len) {
+                buf[req->len] = 0;
+                [_imageHandler purgeImage:req->a1
+                          withReplacement:@(buf)
+                                     size:(NSUInteger)req->a2];
+            } else {
+                [_imageHandler purgeImage:req->a1
+                          withReplacement:nil
+                                     size:0];
+            }
+            break;
+
+        case MENUITEM: {
+            [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
+            break;
+        }
+
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
             break;
@@ -3718,13 +3820,10 @@ static BOOL pollMoreData(int fd) {
 }
 
 - (void)noteTaskDidTerminate:(id)sender {
-    NSLog(@"glkctl: noteTaskDidTerminate");
-
     if (windowClosedAlready)
         return;
 
     dead = YES;
-    _gameState = kGameIsDead;
     restartingAlready = NO;
 
     if (timer) {
@@ -3748,8 +3847,18 @@ static BOOL pollMoreData(int fd) {
     } else {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [bezel showGameOver];
-        [self performSelector:@selector(speakStringNow:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSAccessibilityPostNotificationWithUserInfo(
+                                                        NSApp.mainWindow,
+                                                        NSAccessibilityAnnouncementRequestedNotification,
+                                                        @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
+                                                          NSAccessibilityAnnouncementKey: [NSString stringWithFormat:@"%@ has finished.", self.game.metadata.title]
+                                                        });
+        });
     }
+
+    [_journeyMenuHandler deleteAllJourneyMenus];
 
     for (GlkWindow *win in _gwindows.allValues)
         [win terpDidStop];
@@ -3898,6 +4007,8 @@ again:
 #pragma mark Border color
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
+    if (changedBorderThisTurn)
+        return;
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
@@ -3931,13 +4042,17 @@ again:
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
+
+//    NSLog(@"Trying to set border color to %06lx", (long)color.integerColor);
+    if (color.integerColor == 0xffff)
+        NSLog(@"Wrong color?");
+
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         _borderView.layer.backgroundColor = color.CGColor;
 
         [Preferences instance].borderColorWell.color = color;
     }
 }
-
 
 - (GlkWindow *)largestWindow {
     GlkWindow *largestWin = nil;
@@ -4282,12 +4397,15 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
          completionHandler:^{
             GlkController *strongSelf = weakSelf;
             // Finally, we get the content view into position ...
-            [strongSelf enableArrangementEvents];
-            [strongSelf sendArrangeEventWithFrame:[strongSelf contentFrameForFullscreen] force:NO];
+            if (strongSelf) {
 
-            if (stashShouldShowAlert && strongSelf)
+                [strongSelf enableArrangementEvents];
+                [strongSelf sendArrangeEventWithFrame:[strongSelf contentFrameForFullscreen] force:NO];
+
+                strongSelf.shouldShowAutorestoreAlert = stashShouldShowAlert;
                 [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
-            [strongSelf restoreScrollOffsets];
+                [strongSelf restoreScrollOffsets];
+            }
         }];
     }];
 }
@@ -4392,10 +4510,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
 - (void)deferredEnterFullscreen:(id)sender {
     [self.window toggleFullScreen:nil];
-    if (_shouldShowAutorestoreAlert) {
-        _shouldShowAutorestoreAlert = NO;
-        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
-    }
+    [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
 }
 
 - (CALayer *)takeSnapshot {
@@ -4559,6 +4674,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 }
 
+- (void)journeyPartyAction:(id)sender {
+    [self.journeyMenuHandler journeyPartyAction:sender];
+}
+
+- (void)journeyMemberVerbAction:(id)sender {
+    [self.journeyMenuHandler journeyMemberVerbAction:sender];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
 
     SEL action = menuItem.action;
@@ -4631,7 +4754,19 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
-        [self speakOnBecomingKey];
+        if (_voiceOverActive) { // VoiceOver was switched on
+            // Don't speak or change menus unless we are the top game
+            if ([Preferences.instance currentGame] == _game && !dead) {
+                [_journeyMenuHandler showJourneyMenus];
+                if (_journeyMenuHandler.shouldShowDialog) {
+                    [_journeyMenuHandler recreateDialog];
+                } else {
+                    [self speakOnBecomingKey];
+                }
+            }
+        } else { // VoiceOver was switched off
+            [_journeyMenuHandler hideJourneyMenus];
+        }
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
@@ -4908,24 +5043,36 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         newString = string;
 
     if (shouldAddTitlePrefixToSpeech) {
-        newString = [NSString stringWithFormat:@"Now in, %@: %@", _game.metadata.title, newString];
+        newString = [NSString stringWithFormat:@"Now in, %@: %@", [self gameTitle], newString];
         shouldAddTitlePrefixToSpeech = NO;
     }
 
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey:@(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey:newString
-    };
+    NSWindow *window = self.window;
+
+    if (_gameID == kGameIsJourney && Preferences.instance.currentGame == _game) {
+        window = NSApp.mainWindow;
+    }
 
     NSAccessibilityPostNotificationWithUserInfo(
-                                                self.window,
+                                                window,
                                                 NSAccessibilityAnnouncementRequestedNotification,
-                                                announcementInfo);
+                                                @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
+                                                  NSAccessibilityAnnouncementKey: newString
+                                                });
 }
 
 - (GlkWindow *)largestWithMoves {
     // Find a "main text window"
     GlkWindow *largest = nil;
+
+// This somewhat reduces VoiceOver confusingly speaking of the command area grid in Journey
+    if (_gameID == kGameIsJourney) {
+        for (GlkWindow *view in _gwindows.allValues) {
+            if ([view isKindOfClass:[GlkTextBufferWindow class]])
+                return view;
+        }
+    }
+
     NSMutableArray *windowsWithMoves = _gwindows.allValues.mutableCopy;
     for (GlkWindow *view in _gwindows.allValues) {
         // Remove all Glk windows without text from array
@@ -4969,6 +5116,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         _rotorHandler.glkctl = self;
     }
     return _rotorHandler.createCustomRotors;
+}
+
+- (NSString *)gameTitle {
+    return _game.metadata.title;
 }
 
 @end

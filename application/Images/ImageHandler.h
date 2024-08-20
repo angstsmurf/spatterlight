@@ -55,7 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleLoadImageNumber:(NSInteger)resno
                          from:(NSString *)path
                        offset:(NSUInteger)offset
-                       length:(NSUInteger)length;
+                       size:(NSUInteger)size;
+
+- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)path
+            size:(NSUInteger)size;
 
 @end
 

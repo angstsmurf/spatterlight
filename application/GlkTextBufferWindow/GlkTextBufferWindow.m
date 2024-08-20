@@ -282,7 +282,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)scrollWheelchanged:(NSEvent *)event {
-     if (self.glkctl.commandScriptRunning) {
+    if (self.glkctl.commandScriptRunning) {
         if (pauseScrolling && event.scrollingDeltaY < 0) {
             if (NSHeight(_textview.bounds) - NSMaxY(scrollview.contentView.bounds) < NSHeight(scrollview.contentView.bounds)) {
                 // Scrollbar moved down close enough to bottom. Resume scrolling.
@@ -378,7 +378,7 @@ fprintf(stderr, "%s\n",                                                    \
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
-        .rangeValue;
+            .rangeValue;
         _textview.selectedRange = _restoredSelection;
 
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
@@ -494,8 +494,12 @@ fprintf(stderr, "%s\n",                                                    \
     lastAtTop = _restoredAtTop;
     lastAtBottom = _restoredAtBottom;
 
+    self.moveRanges = restoredWin.moveRanges;
+
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
+
+    _lastNewTextOnTurn = self.glkctl.turns;
 
     for (MarginImage *img in container.marginImages) {
         img.container = container;
@@ -619,12 +623,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger marginX = self.theme.bufferMarginX;
     NSInteger marginY = self.theme.bufferMarginY;
-    
+
     BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
     CGFloat heightDiff = marginY - _textview.textContainerInset.height;
-    
+
     _textview.textContainerInset = NSMakeSize(marginX, marginY);
-    
+
     // If the Y margin has changed, we must adjust the text view
     // here to make the scrollview aware of this, otherwise we might
     // not be able to scroll to the bottom.
@@ -961,14 +965,14 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSUInteger)unputString:(NSString *)buf {
     [self flushDisplay];
-     NSUInteger result = 0;
-     NSUInteger initialLength = textstorage.length;
-     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
-     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
-         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
-         result = initialLength - textstorage.length;
-     }
-     return result;
+    NSUInteger result = 0;
+    NSUInteger initialLength = textstorage.length;
+    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
+    if ([stringToRemove isEqualToString:buf.uppercaseString]) {
+        [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
+        result = initialLength - textstorage.length;
+    }
+    return result;
 }
 
 - (void)echo:(BOOL)val {
@@ -1133,8 +1137,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)sendCommandLine:(NSString *)line {
     if (echo) {
         NSAttributedString *att = [[NSAttributedString alloc]
-                  initWithString:line
-                  attributes:_inputAttributes];
+                                   initWithString:line
+                                   attributes:_inputAttributes];
         [textstorage appendAttributedString:att];
     }
     [self sendInputLine:line withTerminator:0];
@@ -1313,7 +1317,7 @@ fprintf(stderr, "%s\n",                                                    \
         [_textview resetTextFinder];
     }
 
-   if (!cx.length) {
+    if (!cx.length) {
         if ([history empty])
             [self.glkctl speakStringNow:@"No commands entered"];
         else
@@ -1519,7 +1523,7 @@ replacementString:(id)repl {
     NSRange lineRange;
     for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
         [layoutmanager lineFragmentRectForGlyphAtIndex:index
-                                               effectiveRange:&lineRange];
+                                        effectiveRange:&lineRange];
         index = NSMaxRange(lineRange);
     }
     return numberOfLines;
@@ -1576,10 +1580,10 @@ replacementString:(id)repl {
         NSSearchField __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(
                                                     NSView *subview, NSUInteger idx, BOOL *stop) {
-            foundView = weak_findSearchField(subview);
-            if (foundView)
-                *stop = YES;
-        }];
+                                                        foundView = weak_findSearchField(subview);
+                                                        if (foundView)
+                                                            *stop = YES;
+                                                    }];
         return foundView;
     };
 
@@ -1614,8 +1618,8 @@ replacementString:(id)repl {
 }
 
 - (void)drawImage:(NSImage *)image
-             val1:(NSInteger)align
-             val2:(NSInteger)unused
+             val1:(NSInteger)alignment
+             val2:(NSInteger)index
             width:(NSInteger)w
            height:(NSInteger)h
             style:(NSUInteger)style {
@@ -1646,18 +1650,18 @@ replacementString:(id)repl {
 
     MyAttachmentCell *cell =
     [[MyAttachmentCell alloc] initImageCell:image
-                               andAlignment:align
+                               andAlignment:alignment
                                   andAttStr:textstorage
                                          at:textstorage.length];
 
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
         if (textstorage.length == 0) {
             [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
         } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
         }
-        
-        [container addImage:image align:align at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+
+        [container addImage:image index:index alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
     }
 
@@ -1948,7 +1952,6 @@ replacementString:(id)repl {
 }
 
 - (BOOL)scrolledToBottom {
-    //    NSLog(@"GlkTextBufferWindow %ld: scrolledToBottom?", self.name);
     NSView *clipView = scrollview.contentView;
 
     // At least the start screen of Kerkerkruip uses a buffer window
@@ -1962,7 +1965,6 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animate {
-    //    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
     lastAtTop = NO;
     lastAtBottom = YES;
 
@@ -1998,7 +2000,6 @@ replacementString:(id)repl {
 }
 
 - (BOOL)scrolledToTop {
-    //    NSLog(@"GlkTextBufferWindow %ld scrolledToTop", self.name);
     NSView *clipView = scrollview.contentView;
     if (!clipView) {
         return NO;
@@ -2010,12 +2011,10 @@ replacementString:(id)repl {
 - (void)scrollToTop {
     if (pauseScrolling)
         return;
-//    NSLog(@"scrollToTop");
     lastAtTop = YES;
     lastAtBottom = NO;
 
     [scrollview.contentView scrollToPoint:NSZeroPoint];
-//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 #pragma mark Speech
@@ -2062,6 +2061,7 @@ replacementString:(id)repl {
         return NO;
     moveRangeIndex = self.moveRanges.count;
     [self.moveRanges addObject:[NSValue valueWithRange:currentMove]];
+    _lastNewTextOnTurn = self.glkctl.turns;
     return YES;
 }
 
@@ -2103,6 +2103,16 @@ replacementString:(id)repl {
     return string;
 }
 
+- (NSString *)lastMoveString {
+    NSString *str = @"";
+
+    if (self.moveRanges.count) {
+        moveRangeIndex = self.moveRanges.count - 1;
+        str = [self stringFromRangeVal:self.moveRanges.lastObject];
+    }
+    return str;
+}
+
 - (void)repeatLastMove:(id)sender {
     GlkController *glkctl = self.glkctl;
     if (glkctl.zmenu)
@@ -2110,12 +2120,7 @@ replacementString:(id)repl {
     if (glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
 
-    NSString *str = @"";
-
-    if (self.moveRanges.count) {
-        moveRangeIndex = self.moveRanges.count - 1;
-        str = [self stringFromRangeVal:self.moveRanges.lastObject];
-    }
+    NSString *str = [self lastMoveString];
 
     if (glkctl.quoteBoxes.count) {
         GlkTextGridWindow *box = glkctl.quoteBoxes.lastObject;

@@ -1113,7 +1113,7 @@ static void deduce_sizes(fc_type fc, rbool diag)
   synlist=rmalloc(sizeof(slist)*TOTAL_VERB);
   comblist=NULL; /* The original AGT didn't support multi-word verbs */
   num_comb=0;
-  userprep=NULL; /* ... nor did it allow user-defined prepostions */
+  userprep=NULL; /* ... nor did it allow user-defined prepositions */
   num_prep=0;
 
   if (numglobal>0)

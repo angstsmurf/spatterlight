@@ -287,7 +287,7 @@
     if (exists && !force)
         return classicTheme;
 
-    classicTheme.bZAdjustment = -8;
+    classicTheme.bZAdjustment = 0;
 
     classicTheme.dashes = NO;
     classicTheme.defaultRows = 50;
@@ -609,7 +609,7 @@
     if (exists && !force)
         return dosTheme;
 
-    dosTheme.bZAdjustment = -3;
+    dosTheme.bZAdjustment = 0;
 
     dosTheme.dashes = NO;
     dosTheme.defaultRows = 24;
@@ -650,6 +650,10 @@
 
     dosTheme.bufferCellHeight = size.height;
     dosTheme.bufferCellWidth = size.width;
+
+    NSMutableDictionary *dict = [dosTheme.gridNormal.attributeDict mutableCopy];
+    dict[NSBaselineOffsetAttributeName] = @(-2);
+    dosTheme.gridNormal.attributeDict = dict;
 
     [dosTheme populateStyles];
 
