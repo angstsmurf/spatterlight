@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1610"
+   LastUpgradeVersion = "1630"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -77,11 +77,6 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <RemoteRunnable
-         runnableDebuggingMode = "0"
-         BundleIdentifier = "net.ccxvii.spatterlight"
-         RemotePath = "/Users/administrator/Library/Developer/Xcode/DerivedData/Spatterlight-aaaxipizdtogdqgzrqyiafjywwqp/Build/Products/Debug/Spatterlight.app">
-      </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -94,7 +89,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-com.apple.CoreData.ConcurrencyDebug 1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
