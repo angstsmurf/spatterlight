@@ -165,7 +165,7 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
         return url.URLByDeletingLastPathComponent.URLByDeletingLastPathComponent;
     }
 
-    NSString *parentDir = url.path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+    NSString *parentDir = url.path.stringByDeletingLastPathComponent;
 
     if (parentDir.length < homeString.length)
         parentDir = homeString;
