@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -387,6 +387,38 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Journey Party" hidden="YES" id="JeB-Bo-cfu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="bra-c6-Rvb">
+                        <items>
+                            <menuItem title="Item 1" id="DIu-iz-zjf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="Lmn-je-8Me">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="1OK-k3-zGg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Individual Commands" hidden="YES" id="cz7-Gk-39Q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="cSl-0X-SGE">
+                        <items>
+                            <menuItem title="Item 1" id="fl0-g8-2oL">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="Lkg-d6-Fak">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="1WW-wx-iBn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="19">
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
@@ -463,6 +495,8 @@ CA
         </menu>
         <customObject id="248" userLabel="Delegate" customClass="AppDelegate">
             <connections>
+                <outlet property="journeyIndividualCommandsMenuItem" destination="cz7-Gk-39Q" id="TEl-Us-pS1"/>
+                <outlet property="journeyPartyMenuItem" destination="JeB-Bo-cfu" id="yAn-0V-FJJ"/>
                 <outlet property="themesMenuItem" destination="08u-YF-ERJ" id="0dy-u7-iWY"/>
             </connections>
         </customObject>
