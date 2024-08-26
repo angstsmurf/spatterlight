@@ -5396,6 +5396,8 @@
 				C33B4502257E84500017EA26 /* ZMenu.m */,
 				C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */,
 				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
+				C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */,
+				C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */,
 			);
 			path = "VoiceOver menu detection";
 			sourceTree = "<group>";
@@ -5407,8 +5409,6 @@
 				C3D81779256CBA20005DBC1F /* InputTextField.m */,
 				C35ED513256DD37A00C14847 /* InputHistory.h */,
 				C35ED514256DD37A00C14847 /* InputHistory.m */,
-				C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */,
-				C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */,
 			);
 			path = "Input related classes";
 			sourceTree = "<group>";
