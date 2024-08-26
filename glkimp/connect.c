@@ -756,6 +756,41 @@ int win_canprint(glui32 val)
     return wmsg.a1;
 }
 
+void win_purgeimage(glui32 resno, const char *filename, int reslen)
+{
+    win_flush();
+
+    if (gli_enable_graphics)
+    {
+        int len = 0;
+        if (filename != NULL) {
+            len = (int)strlen(filename);
+        }
+        if (len)
+        {
+            char *buf = malloc(len + 1);
+            strncpy(buf, filename, len + 1);
+            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, buf);
+            free(buf);
+        } else {
+            sendmsg(PURGEIMG, resno, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+}
+
+void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
+{
+    win_flush();
+
+    if (len <= 1 || len > 15)
+        return;
+
+    if (str == NULL)
+        len = 0;
+
+    sendmsg(MENUITEM, type, column, line, stopflag, 0, len, str);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;

@@ -28,6 +28,7 @@
 #import "SoundHandler.h"
 #import "TableViewController.h"
 #import "ZMenu.h"
+#import "JourneyMenuHandler.h"
 
 #import "Game.h"
 #import "Theme.h"
@@ -201,6 +202,7 @@ static const char *msgnames[] = {
     BOOL shouldAddTitlePrefixToSpeech;
 }
 
+@property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
 @property BOOL shouldShowAutorestoreAlert;
 @property NSURL *saveDir;
 
@@ -1599,6 +1601,7 @@ static const char *msgnames[] = {
      object: readfh];
 
     _commandScriptHandler = nil;
+    _journeyMenuHandler = nil;
 
     if (task) {
         // Stop the interpreter
@@ -1769,6 +1772,14 @@ static const char *msgnames[] = {
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+    if (_journeyMenuHandler) {
+        [self.journeyMenuHandler deleteAllJourneyMenus];
+    }
+
+    if (_theme.autosave == NO) {
+        _game.autosaved = NO;
+        [self deleteAutosaveFiles];
+    }
 
     [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
 
@@ -3034,6 +3045,19 @@ static const char *msgnames[] = {
     return NO;
 }
 
+- (JourneyMenuHandler *)journeyMenuHandler {
+    if (_journeyMenuHandler == nil) {
+        GlkTextGridWindow *gridwindow = nil;
+        for (GlkWindow *win in _gwindows.allValues)
+            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+                gridwindow = (GlkTextGridWindow *)win;
+                break;
+            }
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow];
+    }
+    return _journeyMenuHandler;
+}
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
@@ -3679,6 +3703,33 @@ static const char *msgnames[] = {
                 ans->a1 = (int)banner.numberOfLines;
             }
             break;
+
+        case PURGEIMG:
+            if (req->len) {
+                buf[req->len] = 0;
+                [_imageHandler purgeImage:req->a1
+                                     withReplacement:@(buf)
+                                   size:(NSUInteger)req->a2];
+            } else {
+                [_imageHandler purgeImage:req->a1
+                                     withReplacement:nil
+                                   size:0];
+            }
+            break;
+
+        case REFRESH:
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
+                reqWin.styleHints = _bufferStyleHints;
+                if (req->a2 > 0)
+                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+            }
+            [reqWin prefsDidChange];
+            break;
+
+        case MENUITEM: {
+            [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
+            break;
+        }
 
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
@@ -4580,6 +4631,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self.window close];
         [_game.managedObjectContext deleteObject:_game];
     }
+}
+
+- (void)journeyPartyAction:(id)sender {
+    [self.journeyMenuHandler journeyPartyAction:sender];
+}
+- (void)journeyMemberVerbAction:(id)sender {
+    [self.journeyMenuHandler journeyMemberVerbAction:sender];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {

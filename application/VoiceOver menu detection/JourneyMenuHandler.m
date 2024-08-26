@@ -171,16 +171,6 @@ errorDescription:(NSString * __autoreleasing *)error
         }
 }
 
-- (void)printCharactersAtPoints:(NSPoint)point {
-    for (NSInteger i = -1; i <= 1; i++)
-        for (NSInteger j = -1; j <= 1; j++) {
-            NSPoint newpoint = NSMakePoint(point.x + j, point.y + i);
-            if (newpoint.x < 0 || newpoint.y < 0)
-                continue;
-            unichar c = [_textGridWindow characterAtPoint:newpoint];
-            NSLog(@"Character at %@ :\"%@\" (%hu)", NSStringFromPoint(newpoint), [NSString stringWithCharacters:&c length:1], c);
-        }
-}
 
 - (void)sendCorrespondingMouseEventForMenuItem:(JourneyMenuItem *)item {
     NSUInteger x = 0;
@@ -209,7 +199,7 @@ errorDescription:(NSString * __autoreleasing *)error
     NSPoint point = NSMakePoint(x, y);
 
     NSLog(@"Simulated mouse click at %@", NSStringFromPoint(point));
-    [self printCharactersAtPoints:point];
+//    [self printCharactersAtPoints:point];
     [self.delegate markLastSeen];
     GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:point forWindow:_textGridWindow.name];
     [self.delegate queueEvent:gev];
@@ -416,8 +406,10 @@ errorDescription:(NSString * __autoreleasing *)error
             return;
         }
 
-        journeyPartyMenu.hidden = NO;
-        journeyPartyMenu.enabled = YES;
+        if (_delegate.voiceOverActive) {
+            journeyPartyMenu.hidden = NO;
+            journeyPartyMenu.enabled = YES;
+        }
 
         if (shouldStartNewJourneyPartyMenu) {
             [journeyPartyMenu.submenu removeAllItems];
@@ -461,8 +453,10 @@ errorDescription:(NSString * __autoreleasing *)error
             return;
         }
 
-        journeyMembersMenu.hidden = NO;
-        journeyMembersMenu.enabled = YES;
+        if (_delegate.voiceOverActive) {
+            journeyMembersMenu.hidden = NO;
+            journeyMembersMenu.enabled = YES;
+        }
 
         if (shouldStartNewJourneyMembersMenu) {
             [journeyMembersMenu.submenu removeAllItems];
