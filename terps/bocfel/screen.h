@@ -17,6 +17,10 @@ extern "C" {
 #include "types.h"
 #include "util.h"
 
+#ifdef SPATTERLIGHT
+#include "v6_image.h"
+#endif
+
 // Represents a Z-machine color.
 //
 // If mode is ANSI, value is a color in the range [1, 12], representing
@@ -150,6 +154,47 @@ void zget_wind_prop();
 void zprint_form();
 void zmake_menu();
 void zbuffer_screen();
+
+#ifdef SPATTERLIGHT
+
+extern GraphicsType graphics_type;
+extern bool centeredText;
+
+struct Window {
+    Style style;
+    //    Color fg_color = Color(), bg_color = Color();
+    Color fg_color = Color(Color::Mode::ANSI, 13), bg_color = Color(Color::Mode::ANSI, 14);
+    enum class Font { Query, Normal, Picture, Character, Fixed } font = Font::Normal;
+
+    winid_t id = nullptr;
+    long x = 0, y = 0; // The hold Glk 0-based values, not Z-machine 1-based
+    bool has_echo = false;
+
+    uint16_t y_size;
+    uint16_t x_size;
+    uint16_t y_origin = 1;
+    uint16_t x_origin = 1;
+    uint16_t index;
+    uint16_t last_click_x;
+    uint16_t last_click_y;
+};
+
+extern glui32 user_selected_foreground, user_selected_background;
+extern bool is_spatterlight_journey;
+extern std::array<Window, 8> windows;
+
+uint8_t internal_read_char(void);
+int count_characters_in_zstring(uint16_t str);
+void v6_sizewin(Window *win);
+void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height);
+void v6_restore_hacks(void);
+bool v6_switch_to_allowed_interpreter_number(void);
+void journey_sync_upperwin_size(glui32 width, glui32 height);
+
+void set_current_window(Window *window);
+void transcribe(uint32_t c);
+
+#endif
 
 void zjourney_dial();
 

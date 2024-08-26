@@ -25,6 +25,15 @@ extern "C" {
 
 static uint8_t table[1024];
 
+static size_t filesize;
+static size_t totalfilesize;
+
+static uint8_t *final_game;
+static size_t writepos;
+
+static bool table_is_set = false;
+
+
 #define    EXIT_FAILURE    1
 #define    EXIT_SUCCESS    0
 
@@ -108,6 +117,22 @@ size_t fpinlengths[5] = { 0, 0, 0, 0, 0 };
 
 static off_t find_graphics_offset (int disk);
 
+static void set_table(void) {
+    writepos = 0;
+    uint8_t *data = fpin[0];
+    if (data == nullptr) {
+        fprintf(stderr, "Apple 2 disk data not initialized!\n");
+        return;
+    }
+    memset(table, 0, 1024);
+    memcpy(table, fpin[0], 512);
+
+    if (GET_WORD(table,0) > 256) {
+        memcpy(table + 512, data + 512, 512);
+    }
+    table_is_set = true;
+}
+
 static void free_fpin(void) {
     for (int i = 0; i < 5; i++) {
         if (fpin[i] != nullptr) {
@@ -116,15 +141,20 @@ static void free_fpin(void) {
         }
         fpinlengths[i] = 0;
     }
+    table_is_set = false;
 }
 
-uint8_t *extract_apple_2(const char *filename, size_t *file_length, ImageStruct **raw_images, int *num_images, int *version) {
+static int global_numdisks = 0;
 
+static int populate_fpin(const char *filename, size_t *file_length) {
+    if (fpin[0] != nullptr)
+        return global_numdisks;
     size_t filenamelen = strlen(filename);
-    int game, index;
+    int game = -1, index;
 
-    uint8_t *finalresult = NULL;
     uint8_t *rawdata = data_from_woz(filename, filenamelen, &game, &index, file_length);
+
+    global_numdisks = 5 - (game == 0);
 
     if (rawdata) {
         fpin[index - 1] = rawdata;
@@ -151,9 +181,8 @@ uint8_t *extract_apple_2(const char *filename, size_t *file_length, ImageStruct 
 
         memcpy(newfile, filename, filenamelen);
 
-        int numdisks = 5 - (game == 0);
         if (numidx >= 0) {
-            for (int i = 0; i < numdisks; i++) {
+            for (int i = 0; i < global_numdisks; i++) {
                 if (i != index - 1) {
                     newfile[numidx] = '1' + i;
                     int index2;
@@ -164,52 +193,90 @@ uint8_t *extract_apple_2(const char *filename, size_t *file_length, ImageStruct 
                     if (fpin[i] == nullptr) {
                         fprintf(stderr, "Cound not extract file from disk %d!\n", i + 1);
                         free_fpin();
-                        return nullptr;
+                        return 0;
                     }
                 }
             }
         }
+        return global_numdisks;
+    }
+    return 0;
+}
 
-        finalresult = get_large_apple_game(file_length);
+static int extract_apple2_images(ImageStruct **raw, int *version, int numdisks) {
 
-        if (raw_images != nullptr) {
-            ImageStruct *tempimages[5];
-            int tempimagenum[5];
-            int totalimages = 0;
-            
-            for (int i = 0; i < numdisks; i++) {
-                off_t offset = find_graphics_offset(i+1);
-                if (offset != 0) {
-                    // Trying to extract images from disk i + 1
-                    GraphicsType type = kGraphicsTypeApple2;
-                    tempimagenum[i] = extract_images(fpin[i], fpinlengths[i], i + 1, offset, &tempimages[i], version, &type);
-                    totalimages += tempimagenum[i];
-                }
-            }
-            *raw_images = (ImageStruct *)calloc(totalimages, sizeof(ImageStruct));
-            int index = 0;
-            for (int i = 0; i < numdisks; i++) {
-                if (tempimagenum[i] > 0) {
-                    for (int j = 0; j < tempimagenum[i]; j++) {
-                        (*raw_images)[index].index = tempimages[i][j].index;
-                        (*raw_images)[index].width = tempimages[i][j].width;
-                        (*raw_images)[index].height = tempimages[i][j].height;
-                        (*raw_images)[index].type = kGraphicsTypeApple2;
-                        (*raw_images)[index].data = tempimages[i][j].data;
-                        (*raw_images)[index].datasize = tempimages[i][j].datasize;
-                        (*raw_images)[index].transparency = tempimages[i][j].transparency;
-                        (*raw_images)[index].transparent_color = tempimages[i][j].transparent_color;
-                        index++;
-                    }
-                }
-                if (tempimages[i] != NULL)
-                    free(tempimages[i]);
-            }
-            *num_images = index;
+    ImageStruct *tempimages[5];
+
+    int tempimagenum[5];
+    int totalimages = 0;
+
+    for (int i = 0; i < numdisks; i++) {
+        off_t offset = find_graphics_offset(i+1);
+        if (offset != 0) {
+            // Trying to extract images from disk i + 1
+            GraphicsType type = kGraphicsTypeApple2;
+            tempimagenum[i] = extract_images(fpin[i], fpinlengths[i], i + 1, offset, &tempimages[i], version, &type);
+            totalimages += tempimagenum[i];
+        } else {
+            tempimagenum[i] = 0;
+            tempimages[i] = nullptr;
         }
     }
-    free_fpin();
+
+    int idx = 0;
+    *raw = (ImageStruct *)calloc(totalimages, sizeof(ImageStruct));
+    for (int i = 0; i < numdisks; i++) {
+        if (tempimagenum[i] > 0) {
+            for (int j = 0; j < tempimagenum[i]; j++) {
+                (*raw)[idx].index = tempimages[i][j].index;
+                (*raw)[idx].width = tempimages[i][j].width;
+                (*raw)[idx].height = tempimages[i][j].height;
+                (*raw)[idx].type = kGraphicsTypeApple2;
+                (*raw)[idx].data = tempimages[i][j].data;
+                (*raw)[idx].datasize = tempimages[i][j].datasize;
+                (*raw)[idx].transparency = tempimages[i][j].transparency;
+                (*raw)[idx].transparent_color = tempimages[i][j].transparent_color;
+                idx++;
+            }
+        }
+        if (tempimages[i] != nullptr)
+            free(tempimages[i]);
+    }
+    return idx;
+}
+
+
+uint8_t *extract_apple_2(const char *filename, size_t *file_length, ImageStruct **rawimg, int *num_images, int *version) {
+
+    int numdisks = populate_fpin(filename, file_length);
+    if (numdisks == 0) {
+        free_fpin();
+        return nullptr;
+    }
+    uint8_t *finalresult = get_large_apple_game(file_length);
+
+    if (rawimg != nullptr) {
+        *num_images = extract_apple2_images(rawimg, version, numdisks);
+    }
+
     return finalresult;
+}
+
+int extract_apple_2_images(const char *filename, ImageStruct **rawimg, int *version) {
+
+    size_t dummy_file_length;
+
+    int numdisks = populate_fpin(filename, &dummy_file_length);
+    if (numdisks == 0) {
+        free_fpin();
+        return 0;
+    }
+
+    set_table();
+
+    int numimages = extract_apple2_images(rawimg, version, numdisks);
+
+    return numimages;
 }
 
 static uint16_t read_table_word (int offs) {
@@ -274,11 +341,7 @@ static off_t find_graphics_offset(int disk) {
     return 0;
 }/* find_graphics_offset */
 
-static size_t filesize;
-static size_t totalfilesize;
 
-static uint8_t *final_game;
-static size_t writepos;
 
 static void trans(int disk, int phys_block) {
     uint8_t buf[256];
@@ -310,15 +373,11 @@ static void trans(int disk, int phys_block) {
 }/* trans */
 
 static uint8_t *get_large_apple_game(size_t *outgoing_filesize) {
-    writepos = 0;
+
+    if (!table_is_set)
+        set_table();
+
     uint8_t *data1 = fpin[0];
-
-    memset(table, 0, 1024);
-    memcpy(table, data1, 512);
-
-    if (GET_WORD(table,0) > 256) {
-        memcpy(table + 512, data1 + 512, 512);
-    }
 
     int disk;
     uint16_t phys_block = 0;

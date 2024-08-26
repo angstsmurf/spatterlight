@@ -16,4 +16,14 @@ void find_graphics_files(void);
 void load_best_graphics(void);
 void free_images(void);
 
+enum GraphicsFile {
+    kGraphicsFileCPic = 0,
+    kGraphicsFilePic = 1,
+    kGraphicsFileMG1 = 2,
+    kGraphicsFileEG1 = 3,
+    kGraphicsFileCG1 = 4,
+    kGraphicsFileBlorb = 5,
+    kGraphicsFileWoz = 6
+};
+
 #endif /* find_graphics_files_hpp */

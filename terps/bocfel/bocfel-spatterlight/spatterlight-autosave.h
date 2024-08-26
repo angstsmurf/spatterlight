@@ -34,9 +34,24 @@
 #define SPATTERLIGHT_AUTOSAVE_H
 
 #include "stack.h"
+#include "v6_specific.h"
 
 void spatterlight_do_autosave(enum SaveOpcode saveopcode);
 bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode);
+
+struct JourneyWords {
+    uint16_t pcm;
+    uint16_t pcf;
+    uint16_t str;
+};
+
+enum inputMode {
+    INPUT_PARTY,
+    INPUT_OBJECT,
+    INPUT_SPECIAL,
+    INPUT_ELVISH,
+    INPUT_NAME,
+};
 
 typedef struct library_state_data_struct {
     int wintag0;
@@ -53,13 +68,24 @@ typedef struct library_state_data_struct {
     int errorwintag;
     int upperwintag;
     int graphicswintag;
+
     uint16_t routine;
     int queued_sound;
     int sound_channel_tag;
     long last_random_seed;
     int random_calls_count;
     int queued_volume;
+
     int autosave_version;
+
+    V6ScreenMode screenmode;
+
+    int selected_journey_line;
+    int selected_journey_column;
+    inputMode current_input_mode;
+    int current_input_length;
+    int number_of_journey_words;
+    struct JourneyWords journey_words[4];
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

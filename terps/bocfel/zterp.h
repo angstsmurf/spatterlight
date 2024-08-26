@@ -84,6 +84,10 @@ extern int zversion;
 extern Header header;
 extern std::array<uint8_t, 26 * 3> atable;
 
+#ifdef SPATTERLIGHT
+extern int pixversion;
+#endif
+
 const std::string &get_story_id();
 
 enum class Game {
@@ -110,6 +114,9 @@ void start_story();
 uint32_t unpack_routine(uint16_t addr);
 uint32_t unpack_string(uint16_t addr);
 void store(uint16_t v);
+#ifdef SPATTERLIGHT
+uint32_t pack_routine(uint32_t addr);
+#endif
 
 void zterp_mouse_click(uint16_t x, uint16_t y);
 

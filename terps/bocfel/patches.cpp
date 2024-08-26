@@ -487,151 +487,6 @@ static std::vector<Patch> base_patches = {
         "Wishbringer", "880706", 23, 0x4222,
         {{ 0x1f910, 1, {0xbc}, {0xb4} }},
     },
-};
-
-// These patches help with the V6 hacks.
-static std::vector<Patch> v6_patches = {
-    {
-        "Arthur", "890714", 74, 0xd526,
-        {
-            // In the intro to Arthur, two images are shown in immediate
-            // succession:
-            //
-            // <RT-CENTER-PIC ,K-PIC-SWORD>
-            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>
-            //
-            // This is presumably under the assmption that drawing is
-            // slow, so it will look like a small animation. On modern
-            // systems K-PIC-SWORD won't be seen in this sequence, so
-            // this patch rewrites the code to add a 1s sleep call via
-            // @read_char. There are two calls to @set_cursor (to hide
-            // the cursor) which have no effect in Bocfel, giving 8
-            // total bytes to work with, which is enough to add the new
-            // call. The following:
-            //
-            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n         #19234 #03
-            // <CURSET -1> ;"Make cursor go away."     |   set_cursor      #ffff
-            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char       #01 #96 #11d64 -> -(SP)
-            // <CURSET -2> ;"Make cursor come back."   |   set_cursor      #fffe
-            //
-            // is replaced with:
-            //
-            // <INPUT 1 10 ,RT-STOP-READ>              |   read_char        #01 #0a #11d64 -> -(SP)
-            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n          #19234 #03
-            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char        #01 #96 #11d64 -> -(SP)
-            // <NOOP>                                  |   nop
-            {
-                0x10e76, 20,
-                {0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xef, 0x3f, 0xff, 0xfe},
-                {0xf6, 0x53, 0x01, 0x0a, 0x20, 0x7d, 0x00, 0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xb4}
-            },
-
-            // Parser messages are meant to be displayed on the bottom
-            // of the screen, but since Bocfel doesn’t have real V6
-            // window support, the messages are displayed inline as with
-            // most other Infocom games. However, the messages are
-            // printed in reverse video (in fact, the current color is
-            // looked up with @get_wind_prop, @set_colour is called with
-            // the values swapped, the message is printed, and then
-            // @set_colour puts things back). This might look OK with
-            // the parser messages in a separate window, but it’s
-            // jarring interleaved with user input, so this removes the
-            // calls to @set_colour entirely.
-            { 0x1124b, 3, {0x7b, 0x0d, 0x0c}, {0xb4, 0xb4, 0xb4} },
-            { 0x11257, 3, {0x7b, 0x0c, 0x0d}, {0xb4, 0xb4, 0xb4} },
-        },
-    },
-
-    {
-        "Shogun", "890706", 322, 0x5c88,
-        {
-            // Avoid calling a function that prints too many newlines
-            // during interludes.
-            { 0x12771, 1, {0xda}, {0xb0} },
-
-            // Shogun uses @set_text_style to switch to reverse video on
-            // Amiga only; otherwise it uses @set_colour. This
-            // unconditionally uses @set_text_style, for better results.
-            { 0x11865, 4, {0x41, 0x43, 0x04, 0x46}, {0xf1, 0x7f, 0x01, 0xb0} },
-        }
-    },
-
-    {
-        "Journey", "890706", 83, 0xd2b8,
-        {
-            // The DIAL-GRAPHICS routine calls GRAPHICS with the
-            // specified arrow and location; since the same arrows are
-            // used for both dials, the offset for the arrows can’t be
-            // determined just by the picture number. Instead rewrite
-            // the calls to a custom zjourney_dial(), passing 0 for the
-            // left arrow, and 1 for the right.
-            {
-                0x307b9, 6,
-                {0xf9, 0x59, 0xef, 0x00, 0x00, 0x00},
-                {0xbe, JOURNEY_DIAL_EXT, 0x9f, 0x97, 0x00, 0xb4}
-            },
-            {
-                0x307c7, 6,
-                {0xe0, 0x58, 0xef, 0x00, 0x00, 0xff},
-                {0xbe, JOURNEY_DIAL_EXT, 0x9f, 0x97, 0x01, 0xb0}
-            },
-
-            // The Amiga version of Journey draws a box around the
-            // entire screen. This is not possible with Glk (at least
-            // not in a way that wouldn’t require loads of special-
-            // casing); and even worse, Bocfel hacks around some
-            // Journey/Glk issues by pretending the screen height is 6,
-            // so that Journey won’t expand the upper window to extend
-            // across the whole screen, with the side effect that the
-            // calculation of the border is broken, causing an apparent
-            // hang that is effectively this, but slow, since it’s
-            // interpreted:
-            //
-            // uint16_t val = 1;
-            // while (val++ != 0) { }
-            //
-            // Border drawing is controlled by the global variable
-            // BORDER-FLAG (G9f), which is only set for Amiga. This
-            // patch ensures that BORDER-FLAG is never set, so the game
-            // never tries to draw the border.
-            { 0x4dcf, 3, {0x0d, 0xaf, 0x01}, {0x0d, 0xaf, 0x00} },
-        }
-    },
-
-    {
-        "Zork Zero", "890714", 393, 0x791c,
-        {
-            // In Fanucci, Zork Zero displays labels under each card
-            // (DISCARD, 1, 2, 3, 4). This is done in a graphics window,
-            // though, and Glk doesn’t support text in graphics windows.
-            // It would probably be possible to create a new text window
-            // just below the graphics window and put this text in
-            // there, but since it’s not crucial to the game, as you can
-            // either use the mouse to click, or just infer/look up
-            // which cards are which, replace the entire sequence of
-            // moving the cursor and writing text with @nop.
-            {
-                0x2a127, 63,
-                {0xef, 0xaf, 0x03, 0x04, 0xb2, 0x11, 0x24, 0x38, 0x98, 0x11, 0x04, 0x18, 0x97, 0x91, 0x25, 0xef,
-                 0xaf, 0x03, 0x05, 0xe5, 0x7f, 0x31, 0x74, 0x05, 0x06, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f,
-                 0x32, 0x56, 0x06, 0x02, 0x00, 0x74, 0x05, 0x00, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f, 0x33,
-                 0x56, 0x06, 0x03, 0x00, 0x74, 0x05, 0x00, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f, 0x34},
-
-                {0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
-                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
-                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
-                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4}
-            },
-
-            // Zork Zero only allows the compass to be clicked when the
-            // machine is an Apple II, Macintosh, Amiga, or IBM PC. But
-            // the mouse works under Glk regardless (if the Glk
-            // implementation supports mouse clicks). This bypasses the
-            // mouse check, allowing the compass rose to be clicked no
-            // matter which interpreter number is selected.
-            { 0x1c20d, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
-        },
-    },
 #ifdef SPATTERLIGHT
     // The Blorb demo “The Spy Who Came In From The Garden” seems to
     // always be in a state of disrepair. One particular version appears
@@ -721,6 +576,153 @@ static std::vector<Patch> v6_patches = {
         }
     },
 #endif
+};
+
+// These patches help with the V6 hacks.
+static std::vector<Patch> v6_patches = {
+    {
+        "Arthur", "890714", 74, 0xd526,
+        {
+            // In the intro to Arthur, two images are shown in immediate
+            // succession:
+            //
+            // <RT-CENTER-PIC ,K-PIC-SWORD>
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>
+            //
+            // This is presumably under the assmption that drawing is
+            // slow, so it will look like a small animation. On modern
+            // systems K-PIC-SWORD won't be seen in this sequence, so
+            // this patch rewrites the code to add a 1s sleep call via
+            // @read_char. There are two calls to @set_cursor (to hide
+            // the cursor) which have no effect in Bocfel, giving 8
+            // total bytes to work with, which is enough to add the new
+            // call. The following:
+            //
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n         #19234 #03
+            // <CURSET -1> ;"Make cursor go away."     |   set_cursor      #ffff
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char       #01 #96 #11d64 -> -(SP)
+            // <CURSET -2> ;"Make cursor come back."   |   set_cursor      #fffe
+            //
+            // is replaced with:
+            //
+            // <INPUT 1 10 ,RT-STOP-READ>              |   read_char        #01 #0a #11d64 -> -(SP)
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n          #19234 #03
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char        #01 #96 #11d64 -> -(SP)
+            // <NOOP>                                  |   nop
+            {
+                0x10e76, 20,
+                {0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x0a, 0x20, 0x7d, 0x00, 0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xb4}
+            },
+
+            // Parser messages are meant to be displayed on the bottom
+            // of the screen, but since Bocfel doesn’t have real V6
+            // window support, the messages are displayed inline as with
+            // most other Infocom games. However, the messages are
+            // printed in reverse video (in fact, the current color is
+            // looked up with @get_wind_prop, @set_colour is called with
+            // the values swapped, the message is printed, and then
+            // @set_colour puts things back). This might look OK with
+            // the parser messages in a separate window, but it’s
+            // jarring interleaved with user input, so this removes the
+            // calls to @set_colour entirely.
+            { 0x1124b, 3, {0x7b, 0x0d, 0x0c}, {0xb4, 0xb4, 0xb4} },
+            { 0x11257, 3, {0x7b, 0x0c, 0x0d}, {0xb4, 0xb4, 0xb4} },
+        },
+    },
+
+    {
+        "Shogun", "890706", 322, 0x5c88,
+        {
+            // Avoid calling a function that prints too many newlines
+            // during interludes.
+            { 0x12771, 1, {0xda}, {0xb0} },
+
+            // Shogun uses @set_text_style to switch to reverse video on
+            // Amiga only; otherwise it uses @set_colour. This
+            // unconditionally uses @set_text_style, for better results.
+            { 0x11865, 4, {0x41, 0x43, 0x04, 0x46}, {0xf1, 0x7f, 0x01, 0xb0} },
+        }
+    },
+
+#ifndef SPATTERLIGHT
+    {
+        "Journey", "890706", 83, 0xd2b8,
+        {
+            // The DIAL-GRAPHICS routine calls GRAPHICS with the
+            // specified arrow and location; since the same arrows are
+            // used for both dials, the offset for the arrows can’t be
+            // determined just by the picture number. Instead rewrite
+            // the calls to a custom zjourney_dial(), passing 0 for the
+            // left arrow, and 1 for the right.
+            {
+                0x307b9, 6,
+                {0xf9, 0x59, 0xef, 0x00, 0x00, 0x00},
+                {0xbe, JOURNEY_DIAL_EXT, 0x9f, 0x97, 0x00, 0xb4}
+            },
+            {
+                0x307c7, 6,
+                {0xe0, 0x58, 0xef, 0x00, 0x00, 0xff},
+                {0xbe, JOURNEY_DIAL_EXT, 0x9f, 0x97, 0x01, 0xb0}
+            },
+
+            // The Amiga version of Journey draws a box around the
+            // entire screen. This is not possible with Glk (at least
+            // not in a way that wouldn’t require loads of special-
+            // casing); and even worse, Bocfel hacks around some
+            // Journey/Glk issues by pretending the screen height is 6,
+            // so that Journey won’t expand the upper window to extend
+            // across the whole screen, with the side effect that the
+            // calculation of the border is broken, causing an apparent
+            // hang that is effectively this, but slow, since it’s
+            // interpreted:
+            //
+            // uint16_t val = 1;
+            // while (val++ != 0) { }
+            //
+            // Border drawing is controlled by the global variable
+            // BORDER-FLAG (G9f), which is only set for Amiga. This
+            // patch ensures that BORDER-FLAG is never set, so the game
+            // never tries to draw the border.
+            { 0x4dcf, 3, {0x0d, 0xaf, 0x01}, {0x0d, 0xaf, 0x00} },
+        }
+    },
+#endif
+
+    {
+        "Zork Zero", "890714", 393, 0x791c,
+        {
+            // In Fanucci, Zork Zero displays labels under each card
+            // (DISCARD, 1, 2, 3, 4). This is done in a graphics window,
+            // though, and Glk doesn’t support text in graphics windows.
+            // It would probably be possible to create a new text window
+            // just below the graphics window and put this text in
+            // there, but since it’s not crucial to the game, as you can
+            // either use the mouse to click, or just infer/look up
+            // which cards are which, replace the entire sequence of
+            // moving the cursor and writing text with @nop.
+            {
+                0x2a127, 63,
+                {0xef, 0xaf, 0x03, 0x04, 0xb2, 0x11, 0x24, 0x38, 0x98, 0x11, 0x04, 0x18, 0x97, 0x91, 0x25, 0xef,
+                 0xaf, 0x03, 0x05, 0xe5, 0x7f, 0x31, 0x74, 0x05, 0x06, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f,
+                 0x32, 0x56, 0x06, 0x02, 0x00, 0x74, 0x05, 0x00, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f, 0x33,
+                 0x56, 0x06, 0x03, 0x00, 0x74, 0x05, 0x00, 0x00, 0xef, 0xaf, 0x03, 0x00, 0xe5, 0x7f, 0x34},
+
+                {0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
+                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
+                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4,
+                 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4}
+            },
+
+            // Zork Zero only allows the compass to be clicked when the
+            // machine is an Apple II, Macintosh, Amiga, or IBM PC. But
+            // the mouse works under Glk regardless (if the Glk
+            // implementation supports mouse clicks). This bypasses the
+            // mouse check, allowing the compass rose to be clicked no
+            // matter which interpreter number is selected.
+            { 0x1c20d, 3, {0xa0, 0x00, 0xce}, {0xb4, 0xb4, 0xb4} },
+        },
+    },
 };
 
 static bool apply_patch(const Replacement &r)

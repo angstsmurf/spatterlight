@@ -50,8 +50,18 @@
 #include "unicode.h"
 #include "util.h"
 
+#ifdef SPATTERLIGHT
+#include "entrypoints.hpp"
+#include "extract_apple_2.h"
+#include "extract_apple_2.h"
+#include "v6_specific.h"
+#endif
+
 #ifdef ZTERP_GLK
 #include <glk.h>
+#ifdef SPATTERLIGHT
+#include "glkimp.h"
+#endif
 #endif
 
 using namespace std::literals;
@@ -74,6 +84,10 @@ const std::string &get_story_id()
 // this knowledge is necessary.
 int zversion;
 static int zwhich;
+
+#ifdef SPATTERLIGHT
+int pixversion;
+#endif
 
 Header header;
 
@@ -111,6 +125,13 @@ uint32_t unpack_string(uint16_t addr)
     return (addr * unpack_multiplier) + header.S_O;
 }
 
+#ifdef SPATTERLIGHT
+uint32_t pack_routine(uint32_t addr)
+{
+    return (uint32_t)(addr - header.R_O) / unpack_multiplier ;
+}
+#endif
+
 void store(uint16_t v)
 {
     store_variable(byte(pc++), v);
@@ -143,7 +164,11 @@ static void initialize_games()
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
         { Game::Arthur, { "74-890714" } },
+#ifdef SPATTERLIGHT
+        { Game::Journey, { "142-890205", "2-890303", "11-890304", "3-890310", "5-890310", "10-890313", "26-890316", "30-890322", "51-890522", "54-890526", "76-890615", "77-890616", "79-890627", "83-890706" } },
+#else
         { Game::Journey, { "83-890706" } },
+#endif
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
         { Game::Shogun, { "322-890706" } },
@@ -347,6 +372,12 @@ void write_header()
     if (zversion >= 4) {
         unsigned int width, height;
 
+#ifdef SPATTERLIGHT
+        options.int_number = gli_zmachine_terp;
+        if (is_spatterlight_journey) {
+            v6_switch_to_allowed_interpreter_number();
+        }
+#endif
         store_byte(0x1e, options.int_number);
         store_byte(0x1f, options.int_version);
 
@@ -473,6 +504,33 @@ static void process_story(IO &io, long offset)
         die("unable to read from story file");
     }
 
+#ifdef SPATTERLIGHT
+    // Hack to read data file from Apple 2 Woz format disk images
+    if (memory[0] == 'W' && memory[1] == 'O' && memory[2] == 'Z') {
+        size_t file_length;
+
+        uint8_t *newmemory;
+
+        // Don't extract pictures if we have set another preferred graphics format
+        if (graphics_type == gli_z6_graphics && graphics_type != kGraphicsTypeApple2) {
+            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
+        } else {
+            newmemory = extract_apple_2((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
+
+            graphics_type = kGraphicsTypeApple2;
+            //            options.int_number = INTERP_APPLE_IIE;
+            //            store_byte(0x1e, options.int_number);
+            hw_screenwidth = 140;
+            pixelwidth = 2.0;
+        }
+        if (newmemory) {
+            free(memory);
+            memory = newmemory;
+        }
+        memory_size = (uint32_t)file_length;
+    }
+#endif
+
     zversion = byte(0x00);
     if (zversion < 1 || zversion > 8) {
         die("only z-code versions 1-8 are supported");
@@ -484,17 +542,17 @@ static void process_story(IO &io, long offset)
     }
 
     switch (zwhich) {
-    case 1: case 2: case 3:
-        unpack_multiplier = 2;
-        break;
-    case 4: case 5: case 6: case 7:
-        unpack_multiplier = 4;
-        break;
-    case 8:
-        unpack_multiplier = 8;
-        break;
-    default:
-        die("unhandled z-machine version: %d", zwhich);
+        case 1: case 2: case 3:
+            unpack_multiplier = 2;
+            break;
+        case 4: case 5: case 6: case 7:
+            unpack_multiplier = 4;
+            break;
+        case 8:
+            unpack_multiplier = 8;
+            break;
+        default:
+            die("unhandled z-machine version: %d", zwhich);
     }
 
     header.pc = word(0x06);
@@ -630,6 +688,12 @@ static void process_story(IO &io, long offset)
         apply_v6_patches();
     }
 
+#ifdef SPATTERLIGHT
+    if (is_game(Game::Journey)) {
+        is_spatterlight_journey = true;
+        find_entrypoints();
+    }
+#endif
     if (zversion <= 3) {
         have_statuswin = create_statuswin();
     }
@@ -983,6 +1047,9 @@ static void real_main(int argc, char **argv)
         user_store_word(0x10, word(0x10));
 
         if (zversion == 6 && options.warn_on_v6) {
+#ifdef SPATTERLIGHT
+            if (!is_spatterlight_journey)
+#endif
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");
         }
 

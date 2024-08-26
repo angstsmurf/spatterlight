@@ -301,6 +301,10 @@ static void encode_text(uint32_t text, uint16_t len, uint16_t coded)
     }
 }
 
+void public_encode_text(uint32_t text, uint16_t len, uint16_t coded) {
+    encode_text(text, len, coded);
+}
+
 void ztokenise()
 {
     if (znargs < 3) {

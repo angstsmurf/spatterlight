@@ -18,16 +18,6 @@ extern "C" {
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
 
-enum GraphicsFile {
-    kGraphicsFileCPic = 0,
-    kGraphicsFilePic = 1,
-    kGraphicsFileMG1 = 2,
-    kGraphicsFileEG1 = 3,
-    kGraphicsFileCG1 = 4,
-    kGraphicsFileBlorb = 5,
-    kGraphicsFileWoz = 6
-};
-
 std::array<std::string, 7> found_graphics_files;
 
 // Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
@@ -164,22 +154,17 @@ void extract_from_file(std::string path, GraphicsType type) {
 
         if (type == kGraphicsTypeApple2) {
             glk_stream_close(file, nullptr);
-            size_t dummy_file_length;
-            file_data = extract_apple_2(path.c_str(), &dummy_file_length, &raw_images, &image_count, &pixversion);
+            image_count = extract_apple_2_images(path.c_str(), &raw_images, &pixversion);
         } else {
             file_data = read_from_file(file, &file_length);
+            if (file_data == nullptr)
+                return;
         }
-
-        if (file_data == nullptr)
-            return;
 
         graphics_type = type;
         if (type == kGraphicsTypeBlorb) {
             image_count = extract_images_from_blorb(&raw_images);
-        } else if (type == kGraphicsTypeApple2) {
-            free(file_data);
-            file_data = nullptr;
-        } else {
+        } else if (type != kGraphicsTypeApple2) {
             image_count = extract_images(file_data, file_length, 1, 0, &raw_images, &pixversion, &graphics_type);
         }
 

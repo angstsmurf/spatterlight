@@ -99,6 +99,7 @@ void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int h
 
 static void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
 
+    fprintf(stderr, "draw_journey_stamp_image: picnum %d where:%d\n", picnum, where);
     int stamp_offset_x = 0, stamp_offset_y = 0, width, height;
 
     if (where > 0) {
@@ -133,9 +134,7 @@ static void draw_journey_title_image(void) {
     }
     glk_window_set_background_color(win, monochrome_black);
     glk_window_clear(win);
-
-    win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
-    win_setbgnd(JOURNEY_BG_GRID.id->peer, monochrome_black);
+    win_setbgnd(-1, monochrome_black);
 
     get_image_size(160, &width, &height);
     journey_adjust_image(160, &x, &y, width, height, gscreenw, gscreenh, &scale, pixelwidth);
@@ -162,7 +161,6 @@ static void journey_setup_windows(void) {
 
     bool APPLE2 = (options.int_number == INTERP_APPLE_IIC || options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_APPLE_IIGS);
 
-    //    if (!APPLE2 || PH == 0) {
     int width, height;
     GOOD = get_image_size(2, &width, &height);
     if (!GOOD) {
@@ -203,6 +201,8 @@ static void update_screen_size(void) {
 
     set_global(jg.SCREEN_WIDTH, SCREEN_WIDTH_in_chars);
     set_global(jg.SCREEN_HEIGHT, SCREEN_HEIGHT_in_chars);
+
+    journey_sync_upperwin_size(SCREEN_WIDTH_in_chars, SCREEN_HEIGHT_in_chars);
 }
 
 
@@ -530,6 +530,8 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
                     m->column = 3 + ((menu_counter > 4 || prsi) ? 1 : 0);
                 }
                 menu_counter++;
+                if (menu_counter >= 10)
+                    return;
             }
         }
     }
@@ -952,8 +954,6 @@ bool journey_read_elvish(int actor) {
 }
 
 void journey_change_name() {
-    // <TURN-ON-CURSOR>  <CURSET -2>>
-
     int MAX;
     if (SCREEN_WIDTH_in_chars < 50) // 8-WIDTH
         MAX = 5;
@@ -977,7 +977,7 @@ void journey_change_name() {
         // Do the change
         internal_call(pack_routine(jr.REMOVE_TRAVEL_COMMAND));
 
-        encode_text(TBL, offset, get_global(jg.TAG_NAME)); //  <ZWSTR ,NAME-TBL .OFF 2 ,TAG-NAME>
+        public_encode_text(TBL, offset, get_global(jg.TAG_NAME)); //  <ZWSTR ,NAME-TBL .OFF 2 ,TAG-NAME>
 
         // Set which single letter key to use for selecting protagonist
         internal_put_prop(jo.TAG_OBJECT, ja.KBD, key); // <PUTP ,TAG-OBJECT ,P?KBD .KBD>
@@ -1091,7 +1091,6 @@ void journey_init_screen(void) {
 }
 
 void TAG_ROUTE_PRINT(void) {
-//    int width_12 = 71;
     int TAG_NAME_LENGTH = get_global(jg.TAG_NAME_LENGTH);
     int NAME_TBL = get_global(jg.NAME_TBL) + 4;
 
@@ -1129,7 +1128,6 @@ void ERASE_COMMAND(void) {
 }
 
 static void journey_print_columns(bool PARTY, bool PRSI) {
-//    fprintf(stderr, "print_journey_columns: PARTY: %s PRSI: %s\n", PARTY ? "true" : "false", PRSI ? "true" : "false");
     int column, table, object;
     int line = get_global(jg.COMMAND_START_LINE);
 
@@ -1329,7 +1327,6 @@ void recover_journey_state(library_state_data *dat) {
         printed_journey_words[i].pcf = dat->journey_words[i].pcf;
         printed_journey_words[i].pcm = dat->journey_words[i].pcm;
     }
-
 }
 
 static void journey_reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
@@ -1402,11 +1399,6 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 
     int text_window_left = get_global(jg.TEXT_WINDOW_LEFT);
 
-    // Resize windows.
-    // Window 0: Text buffer. Receives most keypresses.
-    // Window 1: Fullscreen grid window
-    // Window 3: Graphics window
-
     if (BORDER_FLAG) {
         JOURNEY_GRAPHICS_WIN.x_origin = ggridmarginx + gcellw + 5;
         JOURNEY_GRAPHICS_WIN.y_origin = ggridmarginy + gcellh + 1;
@@ -1424,11 +1416,6 @@ static void journey_resize_graphics_and_buffer_windows(void) {
         journey_text_buffer = &windows[ja.buffer_window_index];
     }
 
-
-    if (!journey_text_buffer->id) {
-        journey_text_buffer->id = v6_new_glk_window(wintype_TextBuffer);
-    }
-
     int command_start_line = SCREEN_HEIGHT_in_chars - 4 - (BORDER_FLAG ? 1 : 0);
 
     uint16_t x_size = (SCREEN_WIDTH_in_chars - text_window_left + 1) * gcellw;
@@ -1443,12 +1430,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 
     JOURNEY_GRAPHICS_WIN.y_size = y_size;
 
-    if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
-        fprintf(stderr, "JOURNEY_GRAPHICS_WIN.id == nullptr!\n");
-//        JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics);
-    } else {
-        glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
-    }
+    glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
 
     v6_sizewin(&JOURNEY_GRAPHICS_WIN);
 }
@@ -1458,8 +1440,9 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 static void journey_adjust_windows(bool restoring) {
     fprintf(stderr, "journey_adjust_windows(%s)\n", restoring ? "true" : "false");
 
-    // Window 0: Text buffer
+    // Window 0: Text buffer (in later versions) Receives most keypresses.
     // Window 1: Fullscreen grid window
+    //(Window 2: Used in place of window 0 in earlier versions)
     // Window 3: Graphics window
 
     // First (leftmost) column (x:1 or x:2) PARTY-COMMAND-COLUMN: party commands such as Proceed
@@ -1472,26 +1455,17 @@ static void journey_adjust_windows(bool restoring) {
     // It will contain a second list of objects (such as targets in CAST GLOW ON)
     // or a third column of individual commands
 
-    if (JOURNEY_BG_GRID.id && JOURNEY_BG_GRID.id->type != wintype_TextGrid) {
-        v6_delete_win(&JOURNEY_BG_GRID);
-    }
-
-    if (JOURNEY_BG_GRID.id == nullptr) {
-        JOURNEY_BG_GRID.id = v6_new_glk_window(wintype_TextGrid);
-    }
-
     v6_define_window(&JOURNEY_BG_GRID, 1, 1, gscreenw, gscreenh);
 
     JOURNEY_BG_GRID.style.reset(STYLE_REVERSE);
 
-    // Draw borders
+    // Draw borders, depending on interpreter setting
     journey_init_screen();
 
     // Redraw vertical lines in command area (the bottom five rows)
     journey_refresh_character_command_area(SCREEN_HEIGHT_in_chars - 5 - BORDER_FLAG);
 
     if (screenmode == MODE_NORMAL) {
-
         set_global(jg.SMART_DEFAULT_FLAG, 0); // SMART-DEFAULT-FLAG
 
         // Print party (the leftmost) column (call print columns with PARTY flag set
@@ -1640,15 +1614,13 @@ void INIT_SCREEN(void) {
         glk_window_clear(journey_text_buffer->id);
         screenmode = MODE_SLIDESHOW;
         // We do a fake resize event to draw the title image
-        // (This will recreate the graphics window)
-        window_change();
+        journey_update_on_resize();
         glk_request_mouse_event(JOURNEY_GRAPHICS_WIN.id);
         glk_request_char_event(curwin->id);
         internal_read_char();
         screenmode = MODE_CREDITS;
-        win_setbgnd(journey_text_buffer->id->peer, user_selected_background);
-        win_setbgnd(JOURNEY_BG_GRID.id->peer, user_selected_background);
         journey_adjust_windows(false);
+        win_setbgnd(-1, user_selected_background);
     } else if (screenmode != MODE_CREDITS){
         journey_init_screen();
     }
@@ -1677,7 +1649,6 @@ void WCENTER(void) {
     print_zstr_to_cstr(stringnum, str);
     str[7] = 0;
     if (strcmp(str, "JOURNEY") == 0)
-//    if (stringnum == 0x06ff)
         glk_set_style(style_User1);
     else
         glk_set_style(style_User2);
@@ -1689,9 +1660,9 @@ void COMPLETE_DIAL_GRAPHICS(void) {}
 
 void journey_update_on_resize(void) {
     fprintf(stderr, "journey_update_on_resize\n");
-    // Window 0: Text buffer
+    // Window 0: Text buffer (in later versions)
     // Window 1: Fullscreen grid window
-    //(Window 2: Replaces window 0 in early versions)
+    //(Window 2: Used in place of window 0 in earlier versions)
     // Window 3: Graphics window
 
     if (jg.INTERPRETER != 0)
@@ -1710,9 +1681,6 @@ void journey_update_on_resize(void) {
         JOURNEY_GRAPHICS_WIN.y_size = 0;
         v6_sizewin(&JOURNEY_GRAPHICS_WIN);
     } else if (screenmode == MODE_SLIDESHOW) {
-        if (JOURNEY_GRAPHICS_WIN.id == nullptr) {
-            JOURNEY_GRAPHICS_WIN.id = v6_new_glk_window(wintype_Graphics);
-        }
         JOURNEY_GRAPHICS_WIN.x_size = gscreenw;
         JOURNEY_GRAPHICS_WIN.y_size = gscreenh;
 
@@ -1721,10 +1689,15 @@ void journey_update_on_resize(void) {
         draw_journey_title_image();
     } else {
         journey_adjust_windows(false);
+        glui32 result;
+        glk_style_measure(JOURNEY_BG_GRID.id, style_Normal, stylehint_BackColor, &result);
+        win_setbgnd(-1, result);
     }
 }
 
 void journey_pre_save_hacks(void) {
+    // Try to make the save file Frotz compatible.
+    // Still haven't worked out how to do this.
     set_global(jg.CHRH, 0x08);
     set_global(jg.CHRV, 0x10);
     if (jg.NAME_WIDTH_PIX != 0)
@@ -1734,12 +1707,11 @@ void journey_pre_save_hacks(void) {
     set_global(jg.SCREEN_HEIGHT, 0x19);
     set_global(jg.SCREEN_WIDTH, 0x50);
 }
+
 void journey_post_save_hacks(void) {
     if (jg.INTERPRETER != 0)
-        set_global(jg.INTERPRETER, options.int_number); // GLOBAL INTERPRETER
+        set_global(jg.INTERPRETER, options.int_number);
     set_global(jg.CHRH, 1);
     set_global(jg.CHRV, 1);
     update_internal_globals();
 }
-
-
