@@ -2339,8 +2339,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         gctl.window.restorable = YES;
         gctl.window.restorationClass = [AppDelegate class];
         gctl.window.identifier = [NSString stringWithFormat:@"gameWin%@", game.ifid];
-    } else
+    } else {
         gctl.window.restorable = NO;
+    }
 
     if (game.metadata.title.length)
         gctl.window.title = game.metadata.title;

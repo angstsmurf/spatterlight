@@ -311,8 +311,10 @@ fprintf(stderr, "%s\n",                                                    \
     _shouldSpeakNewText = NO;
     _mustBeQuiet = YES;
 
-    _supportsAutorestore = (self.window).restorable;
-    game.autosaved = _supportsAutorestore;
+    _supportsAutorestore = self.window.restorable;
+    if (_theme.autosave == NO)
+        self.window.restorable = NO;
+    game.autosaved = (_supportsAutorestore && _theme.autosave);
     windowRestoredBySystem = windowRestoredBySystem_;
 
     _shouldShowAutorestoreAlert = NO;
@@ -1320,7 +1322,7 @@ fprintf(stderr, "%s\n",                                                    \
         appSupportURL = [NSURL URLWithString:dirstr
                                relativeToURL:appSupportURL];
 
-        if (_supportsAutorestore) {
+        if (_supportsAutorestore && _theme.autosave) {
             [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
                                      withIntermediateDirectories:YES
                                                       attributes:nil
@@ -1417,6 +1419,9 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         _game.autosaved = !dead;
+    } else {
+        [self deleteAutosaveFiles];
+        _game.autosaved = NO;
     }
 }
 
@@ -1700,7 +1705,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)windowShouldClose:(id)sender {
     NSAlert *alert;
 
-    if (dead || _supportsAutorestore) {
+    if (dead || (_supportsAutorestore && _theme.autosave)) {
         return YES;
     }
 
@@ -2150,6 +2155,21 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     lastVOSpeakMenu = theme.vOSpeakMenu;
+
+    if (_supportsAutorestore) {
+        if (theme.autosave == NO) {
+            if (_game.autosaved) {
+                [self deleteAutosaveFiles];
+            }
+            _game.autosaved = NO;
+            _hasAutoSaved = NO;
+            self.window.restorable = NO;
+        } else {
+            self.window.restorable = YES;
+            _game.autosaved = YES;
+            [self handleAutosave:self.autosaveTag];
+        }
+    }
 
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
 

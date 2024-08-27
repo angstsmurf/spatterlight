@@ -17,6 +17,7 @@
 #import "LibController.h"
 #import "TableViewController.h"
 #import "Game.h"
+#import "Theme.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -479,7 +480,7 @@ continueUserActivity:(NSUserActivity *)userActivity
         id glkctl = window.delegate;
         if ([glkctl isKindOfClass:[GlkController class]] &&
             [glkctl isAlive]) {
-            if (((GlkController *)glkctl).supportsAutorestore) {
+            if (((GlkController *)glkctl).supportsAutorestore && ((GlkController *)glkctl).theme.autosave) {
                 restorable++;
                 if (window.keyWindow)
                     key = glkctl;
