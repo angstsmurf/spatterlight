@@ -2538,7 +2538,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         a = [a substringFromIndex: 4];
     if ([b hasPrefix: @"The "] || [b hasPrefix: @"the "])
         b = [b substringFromIndex: 4];
-    return [a localizedCaseInsensitiveCompare: b];
+    return [a localizedStandardCompare: b];
 }
 
 + (NSInteger)compareGame:(Metadata *)a with:(Metadata *)b key:(id)key ascending:(BOOL)ascending {

@@ -377,7 +377,7 @@ fprintf(stderr, "%s\n",                                                    \
          ^NSComparisonResult(InfoController * obj1, InfoController * obj2){
             NSString *title1 = obj1.titleField.stringValue;
             NSString *title2 = obj2.titleField.stringValue;
-            return [title1 localizedCaseInsensitiveCompare:title2];
+            return [title1 localizedStandardCompare:title2];
         }];
         NSUInteger index = [windowArray indexOfObject:self];
         if (index != NSNotFound) {
