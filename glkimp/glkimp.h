@@ -113,15 +113,24 @@ void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
+// This is both used for glk_window_set_background_color() and,
+//  against the Glk spec, to change the background on-the-fly
+// of buffer and grid windows.
 void win_setbgnd(int name, glui32 color);
 void win_clear(int name);
 void win_moveto(int name, int x, int y);
+
+// Infocom beep 1 or 2
 void win_beep(int type);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
 void win_print(int name, int ch, int at);
-glui32 win_unprint(int name, glui32 *s, int len);
+
+// Glk extension from Gargoyle needed to support
+// pre-loaded line input. If the string str matches
+// the latest text output, delete this.
+glui32 win_unprint(int name, glui32 *str, int len);
 
 void win_fillrect(int name, glui32 color, int left, int top, int width, int height);
 void win_flowbreak(int name);
