@@ -2541,7 +2541,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         directory = [NSURL fileURLWithPath:
                      [defaults objectForKey:@"SaveDirectory"]
-                                isDirectory:YES];
+                               isDirectory:YES];
     }
 
     NSSavePanel *panel = [NSSavePanel savePanel];
