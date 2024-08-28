@@ -155,6 +155,21 @@ void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
 int win_canprint(glui32 val);
+void win_purgeimage(glui32 imageindex, const char *filename, int reslen);
+
+enum JourneyMenuType {
+    kJMenuTypeParty,
+    kJMenuTypeMembers,
+    kJMenuTypeVerbs,
+    kJMenuTypeGlue,
+    kJMenuTypeObjects,
+    kJMenuTypeTextEntry,
+    kJMenuTypeDeleteAll
+};
+
+typedef enum JourneyMenuType JourneyMenuType;
+
+void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len);
 
 void gli_close_all_file_streams(void);
 
