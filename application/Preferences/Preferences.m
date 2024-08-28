@@ -710,6 +710,7 @@ NSString *fontToString(NSFont *font) {
         if (_timerTextField.integerValue != (1000.0 / theme.minTimer)) {
             _timerTextField.integerValue = (long)(1000.0 / theme.minTimer);
         }
+        _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
     }
 
     _libraryAtStartCheckbox.state = [defaults boolForKey:@"ShowLibrary"] ? NSOnState : NSOffState;
@@ -1971,6 +1972,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     themeToChange.minTimer = (1000.0 / [sender integerValue]);
     _timerTextField.integerValue = [sender integerValue];
     _timerSlider.integerValue = [sender integerValue];
+    _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
 }
 
 - (IBAction)changeDeterminism:(id)sender {
