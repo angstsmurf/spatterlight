@@ -3045,7 +3045,7 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
-- (JourneyMenuHandler *)journeyMenuHandler {
+- (nullable JourneyMenuHandler *)journeyMenuHandler {
     if (_journeyMenuHandler == nil) {
         GlkTextGridWindow *gridwindow = nil;
         for (GlkWindow *win in _gwindows.allValues)
@@ -3053,6 +3053,8 @@ fprintf(stderr, "%s\n",                                                    \
                 gridwindow = (GlkTextGridWindow *)win;
                 break;
             }
+        if (gridwindow == nil)
+            return nil;
         _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow];
     }
     return _journeyMenuHandler;
