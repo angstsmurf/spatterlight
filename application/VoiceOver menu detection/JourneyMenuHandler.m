@@ -215,7 +215,7 @@ errorDescription:(NSString * __autoreleasing *)error
     NSAlert *journeyDialog = [NSAlert new];
 
     journeyDialog.accessoryView = accessoryView;
-    journeyDialog.messageText = messageText;
+    journeyDialog.messageText = NSLocalizedString(messageText, nil);
 
     JourneyMenuHandler __weak *weakSelf = self;
 
@@ -274,7 +274,7 @@ errorDescription:(NSString * __autoreleasing *)error
 //    journeyDialog.alertStyle = NSAlertStyleWarning;
     journeyDialog.accessoryView = accessoryView;
 
-    journeyDialog.messageText = messageText;
+    journeyDialog.messageText = NSLocalizedString(messageText, nil);
     [journeyDialog addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [journeyDialog addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
