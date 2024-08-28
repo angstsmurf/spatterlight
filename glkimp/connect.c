@@ -208,7 +208,7 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
-glui32 win_unprint(int name, glui32 *s, int len)
+glui32 win_unprint(int name, glui32 *str, int len)
 {
     if (!len)
         return 0;
@@ -217,7 +217,7 @@ glui32 win_unprint(int name, glui32 *s, int len)
 
     glui32 ix;
     for (ix=0; ix<len; ix++) {
-         pbuf[ix] = s[ix];
+         pbuf[ix] = str[ix];
     }
 
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
@@ -544,7 +544,7 @@ void win_sizeimage(glui32 *width, glui32 *height)
     }
 }
 
-void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height)
+void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
     fprintf(stderr, "win_drawimage in win %d x:%d y:%d width:%d height:%d\n", name, x, y, width, height);
     win_flush();
@@ -553,8 +553,8 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 
         window_t *win = gli_window_for_peer(name);
 
-        drawstruct->x = val1;
-        drawstruct->y = val2;
+        drawstruct->x = x;
+        drawstruct->y = y;
         drawstruct->width = width;
         drawstruct->height = height;
         drawstruct->style = win->style;
