@@ -122,6 +122,9 @@ void gli_delete_window(window_t *win)
 {
     window_t *prev, *next;
 
+    if (gli_rootwin == win)
+        gli_rootwin = NULL;
+
     switch (win->type)
     {
         case wintype_Blank:
