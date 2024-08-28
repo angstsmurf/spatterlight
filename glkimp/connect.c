@@ -265,6 +265,15 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
         bufferlen = 0;
     }
 
+    if (color == zcolor_Default) {
+        color = gbgcol;
+        fprintf(stderr, "win_fillrect called with color zcolor_Default!\n");
+    }
+
+    if (color == zcolor_Cursor || color == zcolor_Current || color == zcolor_Transparent) {
+        fprintf(stderr, "win_fillrect called with illegal zcolor! (%d)\n", color);
+        return;
+    }
     rbuf[bufferlen].color = color;
     rbuf[bufferlen].x = x;
     rbuf[bufferlen].y = y;
