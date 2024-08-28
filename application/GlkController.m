@@ -3708,12 +3708,12 @@ static const char *msgnames[] = {
             if (req->len) {
                 buf[req->len] = 0;
                 [_imageHandler purgeImage:req->a1
-                                     withReplacement:@(buf)
-                                   size:(NSUInteger)req->a2];
+                          withReplacement:@(buf)
+                                     size:(NSUInteger)req->a2];
             } else {
                 [_imageHandler purgeImage:req->a1
-                                     withReplacement:nil
-                                   size:0];
+                          withReplacement:nil
+                                     size:0];
             }
             break;
 
