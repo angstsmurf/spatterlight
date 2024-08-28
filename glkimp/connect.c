@@ -501,7 +501,7 @@ int win_findimage(int resno)
     return wmsg.a1;
 }
 
-void win_loadimage(int resno, char *filename, int offset, int reslen)
+void win_loadimage(int resno, const char *filename, int offset, int reslen)
 {
     win_flush();
     if (gli_enable_graphics)
