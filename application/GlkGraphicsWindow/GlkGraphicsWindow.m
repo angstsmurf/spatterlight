@@ -105,6 +105,10 @@
     [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
 }
 
+- (void)recalcBackground {
+    [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
+}
+
 - (void)clear {
     NSColor *color;
     if (transparent)
@@ -120,7 +124,7 @@
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
-    NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
+    [self setBgColor:bg];
 }
 
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
