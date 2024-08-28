@@ -989,9 +989,13 @@ again:
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL) {
+                fprintf(stderr, "ERROR: Mouse request from invalid window!\n");
+                goto again;
+            } else
+                event->win->mouse_request = FALSE;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
-            event->win->mouse_request = FALSE;
             break;
         case EVTTIMER:
 #ifdef DEBUG
