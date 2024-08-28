@@ -257,13 +257,13 @@
 - (void)handleLoadImageNumber:(NSInteger)resno
                          from:(NSString *)path
                        offset:(NSUInteger)offset
-                       length:(NSUInteger)length {
+                       size:(NSUInteger)size {
 
     if ([self imageIsLoaded:resno])
         return;
 
-    [self setImageID:resno filename:path length:length offset:offset];
-    if (length == 8) {
+    [self setImageID:resno filename:path size:size offset:offset];
+    if (size == 8) {
         // Hack for placeholder images, which only have dimensions, no content.
         NSInteger width = ((const unsigned char *)(_resources[@(resno)].data.bytes))[3] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[2] * 0x100;
         NSInteger height = ((const unsigned char *)(_resources[@(resno)].data.bytes))[7] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[6] * 0x100;
@@ -281,7 +281,7 @@
     _lastimageresno = resno;
 }
 
-- (void)setImageID:(NSInteger)resno filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset {
+- (void)setImageID:(NSInteger)resno filename:(nullable NSString *)filename size:(NSUInteger)length offset:(NSUInteger)offset {
 
     ImageResource *res = _resources[@(resno)];
 
@@ -312,6 +312,28 @@
         label = _resources[@(_lastimageresno)].a11yDescription;
     }
     return label;
+}
+
+- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)replacementPath size:(NSUInteger)replacementSize {
+    if (resno < 0)
+        return;
+
+    [_imageCache removeObjectForKey:@(resno)];
+    _resources[@(resno)] = nil;
+
+    if (!replacementPath) {
+        _lastimageresno = -1;
+        _lastimage = nil;
+    } else {
+        [self setImageID:resno filename:replacementPath size:replacementSize offset:0];
+        _lastimage = [_resources[@(resno)] createImage];
+        if (_lastimage == nil) {
+            _lastimageresno = -1;
+            return;
+        }
+        [_imageCache setObject:_lastimage forKey:@(resno)];
+        _lastimageresno = resno;
+    }
 }
 
 @end

@@ -3235,7 +3235,7 @@ static const char *msgnames[] = {
             [_imageHandler handleLoadImageNumber:req->a1
                                             from:@(buf)
                                           offset:(NSUInteger)req->a2
-                                          length:(NSUInteger)req->a3];
+                                            size:(NSUInteger)req->a3];
             break;
 
         case SIZEIMAGE:
