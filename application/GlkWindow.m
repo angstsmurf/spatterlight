@@ -661,6 +661,10 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
+- (void)recalcBackground {
+    NSLog(@"recalcBackground in %@ not implemented", [self class]);
+}
+
 - (NSArray *)accessibilityCustomRotors  {
     return [self.glkctl createCustomRotors];
 }
