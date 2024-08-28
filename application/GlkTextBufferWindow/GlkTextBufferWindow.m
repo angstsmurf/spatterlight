@@ -1614,8 +1614,8 @@ replacementString:(id)repl {
 }
 
 - (void)drawImage:(NSImage *)image
-             val1:(NSInteger)align
-             val2:(NSInteger)unused
+             val1:(NSInteger)alignment
+             val2:(NSInteger)index
             width:(NSInteger)w
            height:(NSInteger)h
             style:(NSUInteger)style {
@@ -1646,18 +1646,18 @@ replacementString:(id)repl {
 
     MyAttachmentCell *cell =
     [[MyAttachmentCell alloc] initImageCell:image
-                               andAlignment:align
+                               andAlignment:alignment
                                   andAttStr:textstorage
                                          at:textstorage.length];
 
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+    if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
         if (textstorage.length == 0) {
             [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
         } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
         }
         
-        [container addImage:image align:align at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+        [container addImage:image index:index alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
     }
 
