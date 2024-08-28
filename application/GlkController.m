@@ -48,27 +48,27 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-static const char *msgnames[] = {
-    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
-    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
-    "TIMER",           "INITCHAR",         "CANCELCHAR",
-    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
-    "UNPAUSE",         "BEEP",
-    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
-    "PURGEIMG",        "MENU",
-
-    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
-    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
-    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
+//static const char *msgnames[] = {
+//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",
+//    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
+//    "TIMER",           "INITCHAR",         "CANCELCHAR",
+//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
+//    "UNPAUSE",         "BEEP",
+//    "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
+//    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
+//    "PURGEIMG",        "MENU",
+//
+//    "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
+//    "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
+//    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
 
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
@@ -3715,15 +3715,6 @@ static const char *msgnames[] = {
                           withReplacement:nil
                                      size:0];
             }
-            break;
-
-        case REFRESH:
-            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
-                reqWin.styleHints = _bufferStyleHints;
-                if (req->a2 > 0)
-                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
-            }
-            [reqWin prefsDidChange];
             break;
 
         case MENUITEM: {
