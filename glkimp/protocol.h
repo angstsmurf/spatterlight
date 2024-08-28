@@ -48,6 +48,10 @@ struct settings_struct
     int sa_palette;
     int slowdraw;
     int flicker;
+    int zmachine_terp;
+    int z6_graphics;
+    int z6_colorize;
+    int z6_sim_16_cols;
     int determinism;
     int error_handling;
     int force_arrange;
