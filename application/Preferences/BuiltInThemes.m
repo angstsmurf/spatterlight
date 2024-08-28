@@ -65,7 +65,7 @@
     //    [BuiltInThemes createSTThemeInContext:managedObjectContext forceRebuild:force];
 }
 
-+ (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
++ (nullable Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
 
     BOOL exists = NO;
     Theme *oldTheme = [BuiltInThemes findOrCreateTheme:@"Old settings" inContext:context alreadyExists:&exists];

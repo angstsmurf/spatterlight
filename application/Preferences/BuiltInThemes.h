@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)createBuiltInThemesInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
 
-+ (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
++ (nullable Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
 + (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
 
 @end
