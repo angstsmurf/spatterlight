@@ -19,8 +19,8 @@ fprintf(stderr, "%s\n",                                                    \
 @implementation GlkWindow
 
 + (BOOL) supportsSecureCoding {
-     return YES;
- }
+    return YES;
+}
 
 + (BOOL)isCompatibleWithResponsiveScrolling {
     return YES;
@@ -141,7 +141,7 @@ fprintf(stderr, "%s\n",                                                    \
               value:(NSInteger *)value {
 
     NSNumber *valObj = nil;
-    
+
     if (style >= style_NUMSTYLES)
         return NO;
 
@@ -152,7 +152,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     valObj = hintsForStyle[hint];
     if ([valObj isNotEqualTo:[NSNull null]])
-       *value = valObj.integerValue;
+        *value = valObj.integerValue;
 
     return [valObj isNotEqualTo:[NSNull null]];
 }
@@ -187,7 +187,7 @@ fprintf(stderr, "%s\n",                                                    \
     // NSLog(@"grab focus in window %ld", self.name);
     [self.window makeFirstResponder:self];
     NSAccessibilityPostNotification(
-        self, NSAccessibilityFocusedUIElementChangedNotification);
+                                    self, NSAccessibilityFocusedUIElementChangedNotification);
 }
 
 - (void)flushDisplay {
@@ -424,7 +424,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (terminators[@(keycode_Left)] == nil) {
             terminators[@(keycode_Left)] = terminators[@"storedLeft"];
             terminators[@"storedLeft"] = nil;
-            
+
             terminators[@(keycode_Right)] = terminators[@"storedRight"];
             terminators[@"storedRight"] = nil;
         }
@@ -531,8 +531,8 @@ fprintf(stderr, "%s\n",                                                    \
                     wrapper = [mutattstr
                                RTFDFileWrapperFromRange:NSMakeRange(0, mutattstr.length)
                                documentAttributes:@{
-                                   NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType
-                               }];
+                        NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType
+                    }];
 
                     writeResult = [wrapper writeToURL:theFile
                                               options:
@@ -543,12 +543,12 @@ fprintf(stderr, "%s\n",                                                    \
 
                 } else {
                     NSData *data = [mutattstr
-                            RTFFromRange:NSMakeRange(0,
-                                                     mutattstr.length)
-                            documentAttributes:@{
-                                NSDocumentTypeDocumentAttribute :
-                                    NSRTFTextDocumentType
-                            }];
+                                    RTFFromRange:NSMakeRange(0,
+                                                             mutattstr.length)
+                                    documentAttributes:@{
+                        NSDocumentTypeDocumentAttribute :
+                            NSRTFTextDocumentType
+                    }];
                     writeResult = [data writeToURL:theFile options:0 error:&error];
                 }
             }
@@ -662,7 +662,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSArray *)accessibilityCustomRotors  {
-   return [self.glkctl createCustomRotors];
+    return [self.glkctl createCustomRotors];
 }
 
 - (NSArray *)accessibilityCustomActions {
