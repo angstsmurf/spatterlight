@@ -3330,7 +3330,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case SIZWIN:
             if (reqWin) {
-                uint x0, y0, x1, y1, checksumWidth, checksumHeight;
+                int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
                 struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
