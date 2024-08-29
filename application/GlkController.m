@@ -2915,7 +2915,6 @@ fprintf(stderr, "%s\n",                                                    \
     str = [NSString stringWithCharacters:buf length:len];
 //    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
-    windowdirty = YES;
     free(buf);
 }
 
