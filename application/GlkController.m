@@ -3439,7 +3439,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
-            if (reqWin) {
+            if (reqWin && req->len) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
                                    buffer:buf
