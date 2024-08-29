@@ -200,6 +200,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     kVOMenuPrefsType lastVOSpeakMenu;
     BOOL shouldAddTitlePrefixToSpeech;
+
+    BOOL changedBorderThisTurn;
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
@@ -1818,16 +1820,17 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)flushDisplay {
     [Preferences instance].inMagnification = NO;
 
-    if (windowdirty) {
-        GlkWindow *largest = [self largestWindow];
-        if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
-            [(GlkTextBufferWindow *)largest recalcBackground];
-        windowdirty = NO;
-    }
-
     for (GlkWindow *win in _windowsToBeAdded) {
         [_gameView addSubview:win];
     }
+
+    if (windowdirty && !changedBorderThisTurn) {
+        GlkWindow *largest = [self largestWindow];
+        if (largest)
+            [largest recalcBackground];
+        windowdirty = NO;
+    }
+    changedBorderThisTurn = NO;
 
     if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
         [self adjustMaskLayer:nil];
@@ -3402,6 +3405,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (req->a1 == -1) {
                 _lastAutoBGColor = bg;
                 [self setBorderColor:bg];
+                changedBorderThisTurn = YES;
             }
 
             if (reqWin) {
@@ -3960,6 +3964,8 @@ again:
 #pragma mark Border color
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
+    if (changedBorderThisTurn)
+        return;
     NSSize windowsize = aWindow.bounds.size;
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
@@ -4004,7 +4010,6 @@ again:
         [Preferences instance].borderColorWell.color = color;
     }
 }
-
 
 - (GlkWindow *)largestWindow {
     GlkWindow *largestWin = nil;
