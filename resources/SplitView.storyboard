@@ -178,7 +178,7 @@
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn identifier="found" editable="NO" width="20" minWidth="20" maxWidth="20" id="Az2-2Y-fSq" userLabel="Found">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -193,14 +193,14 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BoZ-SA-3gD">
-                                                                    <rect key="frame" x="24" y="0.0" width="0.0" height="42"/>
+                                                                    <rect key="frame" x="13" y="0.0" width="0.0" height="42"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyDown" id="2FP-6p-kNF"/>
                                                                     <color key="contentTintColor" name="customBlackOrWhite"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <constraints>
+                                                                <constraint firstItem="BoZ-SA-3gD" firstAttribute="centerX" secondItem="D47-RF-8C1" secondAttribute="centerX" id="Yp8-sk-xme"/>
                                                                 <constraint firstItem="BoZ-SA-3gD" firstAttribute="height" secondItem="D47-RF-8C1" secondAttribute="height" id="jVG-Kg-QWt"/>
-                                                                <constraint firstAttribute="trailing" secondItem="BoZ-SA-3gD" secondAttribute="trailing" constant="2" id="xGe-kg-7io"/>
                                                                 <constraint firstItem="BoZ-SA-3gD" firstAttribute="top" secondItem="D47-RF-8C1" secondAttribute="top" id="yEu-01-FWv"/>
                                                             </constraints>
                                                             <connections>
