@@ -5319,6 +5319,7 @@ void init_screen(bool first_run)
     }
 
     if (is_spatterlight_journey) {
+        gli_block_rearrange = 1;
         winid_t lastmain = mainwin->id;
         if (mainwin != &windows[ja.buffer_window_index]) {
             if (lastmain && lastmain != windows[ja.buffer_window_index].id) {

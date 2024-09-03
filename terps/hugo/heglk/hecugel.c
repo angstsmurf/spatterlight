@@ -719,6 +719,8 @@ void hugo_init_screen(void)
     FIXEDCHARWIDTH = 1;
     FIXEDLINEHEIGHT = 1;
 
+	gli_block_rearrange = 1;
+
     screenwidth_in_chars = heglk_get_linelength();
     screenheight_in_chars = heglk_get_screenheight();
 

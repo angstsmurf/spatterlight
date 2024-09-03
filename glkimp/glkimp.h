@@ -74,6 +74,7 @@ extern char *gli_story_title;
 extern char *gli_game_path;
 extern char *gli_parentdir;
 extern int gli_parentdirlength;
+extern int gli_block_rearrange;
 
 void wintitle(void);
 

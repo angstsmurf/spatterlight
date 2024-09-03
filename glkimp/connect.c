@@ -63,6 +63,8 @@ int gli_z6_graphics = 0;
 int gli_z6_colorize = 0;
 int gli_z6_sim_16_cols = 0;
 
+int gli_block_rearrange = 0;
+
 uint32_t gtimerinterval = 0;
 
 uint32_t gfgcol = 0;
@@ -898,7 +900,8 @@ again:
             gli_z6_graphics = settings->z6_graphics;
             gli_z6_colorize = settings->z6_colorize;
             gli_z6_sim_16_cols = settings->z6_sim_16_cols;
-            gli_windows_rearrange();
+            if (!gli_block_rearrange)
+                gli_windows_rearrange();
             break;
 
         case EVTREDRAW:
