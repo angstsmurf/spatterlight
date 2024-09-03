@@ -660,6 +660,8 @@ NSString *fontToString(NSFont *font) {
     [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
     [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
     _vODelaySlider.doubleValue = theme.vOHackDelay;
+    _vODelayTextField.doubleValue = theme.vOHackDelay;
+    _vODelayTextField.enabled = theme.vODelayOn;
     _vODelaySlider.enabled = theme.vODelayOn;
     _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
     _vODelayCheckbox.state = theme.vODelayOn ? NSOnState : NSOffState;
@@ -1831,6 +1833,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 - (IBAction)changeVODelaySlider:(id)sender {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
+    _vODelaySlider.doubleValue = [sender doubleValue];
+    _vODelayTextField.doubleValue = [sender doubleValue];
     themeToChange.vOHackDelay = [sender doubleValue];
     _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
 }
@@ -1838,6 +1842,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (IBAction)changeVODelayCheckbox:(id)sender {
     [self changeBooleanAttribute:@"vODelayOn" fromButton:sender];
     _vODelaySlider.enabled = (_vODelayCheckbox.state == NSOnState);
+    _vODelayTextField.enabled = _vODelaySlider.enabled;
 }
 
 
