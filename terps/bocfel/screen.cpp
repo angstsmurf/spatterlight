@@ -2487,8 +2487,7 @@ static void window_change()
                     }
 
                     if (!found) {
-                        find_graphics_files();
-                        load_best_graphics();
+                        find_and_load_z6_graphics();
                     }
 
                     // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again

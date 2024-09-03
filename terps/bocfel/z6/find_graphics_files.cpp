@@ -46,7 +46,7 @@ void free_images(void) {
     }
 }
 
-void find_graphics_files(void)
+void find_graphics_files(const std::string &file_name)
 {
     auto set_map = [](const std::string &blorb_file) {
         strid_t file = load_file(blorb_file);
@@ -63,50 +63,56 @@ void find_graphics_files(void)
 
 
     for (const auto &delimiter : {'/', '\\', ':'}) {
-        auto dirpos = game_file.rfind(delimiter);
+        auto dirpos = file_name.rfind(delimiter);
         if (dirpos != std::string::npos) {
-            auto dir = game_file.substr(0, dirpos + 1);
+            auto dir = file_name.substr(0, dirpos + 1);
             int index = kGraphicsFileCPic;
             for (const auto &filename : {"CPIC.DATA", "PIC.DATA"}) {
-                auto path = dir + filename;
-                strid_t file = load_file(path);
-                if (file != nullptr) {
-                    found_graphics_files.at(index) = path;
-                    fprintf(stderr, "found graphics file of type \"%s\"\n", filename);
-                    glk_stream_close(file, nullptr);
+                if (found_graphics_files.at(index).size() == 0) {
+                    auto path = dir + filename;
+                    strid_t file = load_file(path);
+                    if (file != nullptr) {
+                        found_graphics_files.at(index) = path;
+                        fprintf(stderr, "found graphics file of type \"%s\"\n", filename);
+                        glk_stream_close(file, nullptr);
+                    }
                 }
                 index++;
             }
 
-            auto dotpos = game_file.rfind('.');
+            auto dotpos = file_name.rfind('.');
             if (dotpos != std::string::npos) {
                 for (const auto &extension : {".MG1", ".EG1", ".CG1"}) {
-                    auto path = game_file;
-                    path.replace(dotpos, std::string::npos, extension);
-                    strid_t file = load_file(path);
-                    if (file != nullptr) {
-                        found_graphics_files.at(index) = path;
-                        fprintf(stderr, "found graphics file of type \"%s\"\n", extension);
-                        glk_stream_close(file, nullptr);
+                    if (found_graphics_files.at(index).size() == 0) {
+                        auto path = file_name;
+                        path.replace(dotpos, std::string::npos, extension);
+                        strid_t file = load_file(path);
+                        if (file != nullptr) {
+                            found_graphics_files.at(index) = path;
+                            fprintf(stderr, "found graphics file of type \"%s\"\n", extension);
+                            glk_stream_close(file, nullptr);
+                        }
                     }
                     index++;
                 }
 
-                // Search for Apple 2 woz files
-                for (const auto &ext : {".woz", " side 1.woz", " - Side 1.woz"}) {
-                    auto path = game_file;
-                    auto zorkpos = path.rfind("ZORK0.");
-                    if (zorkpos != std::string::npos) {
-                        path.replace(zorkpos, std::string::npos, "Zork Zero.");
-                        dotpos = path.rfind('.');
-                    }
-                    path.replace(dotpos, std::string::npos, ext);
-                    strid_t file = load_file(path);
-                    if (file != nullptr) {
-                        found_graphics_files.at(kGraphicsFileWoz) = path;
-                        fprintf(stderr, "found .woz file to use for Apple 2 graphics\n");
-                        glk_stream_close(file, nullptr);
-                        break;
+                if (found_graphics_files.at(kGraphicsFileWoz).size() == 0) {
+                    // Search for Apple 2 woz files
+                    for (const auto &ext : {".woz", " side 1.woz", " - Side 1.woz"}) {
+                        auto path = file_name;
+//                        auto zorkpos = path.rfind("ZORK0.");
+//                        if (zorkpos != std::string::npos) {
+//                            path.replace(zorkpos, std::string::npos, "Zork Zero.");
+//                            dotpos = path.rfind('.');
+//                        }
+                        path.replace(dotpos, std::string::npos, ext);
+                        strid_t file = load_file(path);
+                        if (file != nullptr) {
+                            found_graphics_files.at(kGraphicsFileWoz) = path;
+                            fprintf(stderr, "found .woz file to use for Apple 2 graphics\n");
+                            glk_stream_close(file, nullptr);
+                            break;
+                        }
                     }
                 }
             }
@@ -115,20 +121,22 @@ void find_graphics_files(void)
     }
 
 
-    // Next, we look for external blorb files
-    for (const auto &ext : {".blb", ".blorb"}) {
-        std::string blorb_file = game_file;
-        auto dot = blorb_file.rfind('.');
-        if (dot != std::string::npos) {
-            blorb_file.replace(dot, std::string::npos, ext);
-        } else {
-            blorb_file += ext;
-        }
+    if (found_graphics_files.at(kGraphicsFileBlorb) == "") {
+        // Next, we look for external blorb files
+        for (const auto &ext : {".blb", ".blorb"}) {
+            std::string blorb_file = file_name;
+            auto dot = blorb_file.rfind('.');
+            if (dot != std::string::npos) {
+                blorb_file.replace(dot, std::string::npos, ext);
+            } else {
+                blorb_file += ext;
+            }
 
-        if (set_map(blorb_file)) {
-            fprintf(stderr, "found graphics file of type blorb.\n");
-            found_graphics_files.at(kGraphicsFileBlorb) = game_file;
-            return;
+            if (set_map(blorb_file)) {
+                fprintf(stderr, "found graphics file of type blorb.\n");
+                found_graphics_files.at(kGraphicsFileBlorb) = file_name;
+                return;
+            }
         }
     }
 }
@@ -199,7 +207,7 @@ void extract_from_file(std::string path, GraphicsType type) {
 
         if (graphics_type == kGraphicsTypeEGA) {
             // look for .EG2 file and load additional pictures from it
-            auto dotpos = game_file.rfind('.');
+            auto dotpos = path.rfind('.');
             if (dotpos != std::string::npos) {
                 path.replace(dotpos, std::string::npos, ".EG2");
                 file = load_file(path);
@@ -318,4 +326,19 @@ void load_best_graphics(void) {
     }
 
     return;
+}
+
+void find_and_load_z6_graphics(void) {
+    find_graphics_files(game_file);
+    std::string file_name = game_file;
+    size_t delimiterpos = file_name.rfind('/');
+    size_t dotpos = file_name.rfind('.');
+
+    if (delimiterpos != std::string::npos) {
+        file_name.replace(delimiterpos, dotpos - delimiterpos, "/journey");
+        if (file_name != game_file) {
+            find_graphics_files(file_name);
+        }
+    }
+    load_best_graphics();
 }

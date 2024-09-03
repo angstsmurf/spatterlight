@@ -22,11 +22,6 @@
 #include "types.h"
 #include "zterp.h"
 
-#ifdef SPATTERLIGHT
-#include "extract_image_data.hpp"
-#include "find_graphics_files.hpp"
-#endif
-
 extern "C" {
 #include <glk.h>
 }
@@ -235,14 +230,6 @@ static void load_resources()
         return;
     }
 
-#ifdef SPATTERLIGHT
-    // Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
-
-    find_graphics_files();
-    load_best_graphics();
-
-    // if we didn't find any of the above, look for separate blorb file
-#else
     for (const auto &ext : {".blb", ".blorb"}) {
         std::string blorb_file = game_file;
         auto dot = blorb_file.rfind('.');
@@ -256,6 +243,5 @@ static void load_resources()
             return;
         }
     }
-#endif
 #endif
 }

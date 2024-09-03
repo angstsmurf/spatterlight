@@ -53,7 +53,7 @@
 #ifdef SPATTERLIGHT
 #include "entrypoints.hpp"
 #include "extract_apple_2.h"
-#include "extract_apple_2.h"
+#include "find_graphics_files.hpp"
 #include "v6_specific.h"
 #endif
 
@@ -1033,6 +1033,9 @@ static void real_main(int argc, char **argv)
 
     process_story(*story.io, story.offset);
 
+    if (is_spatterlight_journey) {
+        find_and_load_z6_graphics();
+    }
 
     if (options.show_id) {
 #ifdef ZTERP_GLK
