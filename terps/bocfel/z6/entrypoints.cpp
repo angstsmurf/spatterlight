@@ -295,6 +295,16 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Journey,
+        "TELL-AMOUNTS",
+        { 0x41, 0x01, 0x0f, 0xc5, 0xb2 },
+        0,
+        0,
+        false,
+        TELL_AMOUNTS
+    },
+
+    {
+        Game::Journey,
         "DIVIDER",
         { 0xFF, 0x7F, 0x01, 0xC5, 0x0D, 0x01, 0x04},
         0,
@@ -602,8 +612,12 @@ void find_globals(void) {
         } else if (entrypoint.fn == REFRESH_CHARACTER_COMMAND_AREA && entrypoint.found_at_address != 0) {
             store_byte(entrypoint.found_at_address, 0xab);
             store_byte(entrypoint.found_at_address + 1, 0x01);
+        }  else if (entrypoint.fn == TELL_AMOUNTS && entrypoint.found_at_address != 0 && header.release >= 51) {
+            uint32_t offset = entrypoint.found_at_address;
+            store_byte(offset + 4, 0xb4);
+            store_byte(offset + 5, 0xb4);
+            store_byte(offset + 6, 0xb4);
         }
-        
     }
 }
 

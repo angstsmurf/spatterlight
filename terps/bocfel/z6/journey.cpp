@@ -1657,6 +1657,7 @@ void WCENTER(void) {
 }
 
 void COMPLETE_DIAL_GRAPHICS(void) {}
+void TELL_AMOUNTS(void) {}
 
 void journey_update_on_resize(void) {
     fprintf(stderr, "journey_update_on_resize\n");

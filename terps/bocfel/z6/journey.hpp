@@ -41,6 +41,7 @@ void READ_ELVISH(void);
 void CHANGE_NAME(void);
 void ERASE_COMMAND(void);
 void COMPLETE_DIAL_GRAPHICS(void);
+void TELL_AMOUNTS(void);
 
 extern int16_t selected_journey_line;
 extern int16_t selected_journey_column;
