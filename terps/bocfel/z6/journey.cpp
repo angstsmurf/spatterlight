@@ -97,9 +97,9 @@ void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int h
     *y = journey_image_y;
 }
 
-static void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
+static void journey_draw_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
 
-    fprintf(stderr, "draw_journey_stamp_image: picnum %d where:%d\n", picnum, where);
+    fprintf(stderr, "journey_draw_stamp_image: picnum %d where:%d\n", picnum, where);
     int stamp_offset_x = 0, stamp_offset_y = 0, width, height;
 
     if (where > 0) {
@@ -123,7 +123,7 @@ static void draw_journey_stamp_image(winid_t win, int16_t picnum, int16_t where,
     draw_inline_image(win, picnum, stamp_x, stamp_y, journey_image_scale, false);
 }
 
-static void draw_journey_title_image(void) {
+static void journey_draw_title_image(void) {
     float scale;
     uint16_t x, y;
     int width, height;
@@ -1521,7 +1521,6 @@ static void journey_adjust_windows(bool restoring) {
     // Redraw image(s)
     // (unless we have no graphics)
     if (JOURNEY_GRAPHICS_WIN.id != nullptr) {
-        glk_window_clear(JOURNEY_GRAPHICS_WIN.id);
         internal_call(pack_routine(jr.GRAPHIC));
 
         uint16_t HERE = get_global(jg.HERE);
@@ -1591,7 +1590,7 @@ void GRAPHIC_STAMP(void) {
         picnum = variable(1);
         if (znargs > 1)
             where = variable(2);
-        draw_journey_stamp_image(JOURNEY_GRAPHICS_WIN.id, picnum, where, pixelwidth);
+        journey_draw_stamp_image(JOURNEY_GRAPHICS_WIN.id, picnum, where, pixelwidth);
     }
 }
 
@@ -1619,6 +1618,7 @@ void INIT_SCREEN(void) {
         glk_request_char_event(curwin->id);
         internal_read_char();
         screenmode = MODE_CREDITS;
+        glk_window_clear(JOURNEY_GRAPHICS_WIN.id);
         journey_adjust_windows(false);
         win_setbgnd(-1, user_selected_background);
     } else if (screenmode != MODE_CREDITS){
@@ -1686,7 +1686,7 @@ void journey_update_on_resize(void) {
 
         v6_sizewin(&JOURNEY_GRAPHICS_WIN);
 
-        draw_journey_title_image();
+        journey_draw_title_image();
     } else {
         journey_adjust_windows(false);
         glui32 result;

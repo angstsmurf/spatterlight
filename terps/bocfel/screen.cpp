@@ -4271,7 +4271,6 @@ void zdraw_picture()
             win = &windows[3];
         }
         if (win->id != nullptr) {
-            glk_window_set_background_color(win->id, monochrome_black);
             glk_window_clear(win->id);
 
             float scale;
