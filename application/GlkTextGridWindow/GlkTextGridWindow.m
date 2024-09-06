@@ -354,8 +354,6 @@
         if (glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
-        NSUInteger textstoragelength = textstorage.length;
-
         /* reassign styles to attributedstrings */
         // We create a copy of the text storage
         _bufferTextStorage = [textstorage mutableCopy];
@@ -365,7 +363,7 @@
          NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
-         enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
+         enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
          usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
