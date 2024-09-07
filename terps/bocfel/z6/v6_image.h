@@ -48,7 +48,6 @@ extern float imagescaley;
 extern float hw_screenwidth;
 extern float pixelwidth;
 
-extern int image_count;
 extern GraphicsType graphics_type;
 
 #endif /* v6_image_h */

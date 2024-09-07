@@ -331,6 +331,9 @@
             _lastimageresno = -1;
             return;
         }
+        if (_lastimage.accessibilityDescription.length == 0) {
+            _lastimage.accessibilityDescription = _imageDescriptions[@(resno)];
+        }
         [_imageCache setObject:_lastimage forKey:@(resno)];
         _lastimageresno = resno;
     }
