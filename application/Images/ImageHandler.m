@@ -169,6 +169,7 @@
         _files = [NSMutableDictionary new];
         _lastimageresno = -1;
         _imageCache = [NSCache new];
+        _imageDescriptions = [NSMutableDictionary new];
     }
     return self;
 }
@@ -217,8 +218,10 @@
 }
 
 - (void)cacheImagesFromBlorb:(NSURL *)file {
-    if (![Blorb isBlorbURL:file])
-        return;
+    if (![Blorb isBlorbURL:file]) {
+        NSString *newPath = [[file.path stringByDeletingPathExtension] stringByAppendingPathExtension:@"blb"];
+        file = [NSURL fileURLWithPath:newPath];
+    }
     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:file]];
     NSArray *resources = [blorb resourcesForUsage:PictureResource];
     for (BlorbResource *res in resources) {
@@ -228,6 +231,7 @@
         imgres.data = data;
         imgres.a11yDescription = res.descriptiontext;
         _resources[@(resno)] = imgres;
+        _imageDescriptions[@(resno)] = res.descriptiontext;
 //        if (res.descriptiontext)
 //            NSLog(@"Cached image %ld with path: %@ offset: %u length: %ld text:%@", resno, file.path, res.start, data.length, res.descriptiontext);
     }
