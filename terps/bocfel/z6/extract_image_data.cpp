@@ -274,7 +274,9 @@ int extract_images_from_blorb(ImageStruct **image_list)
             (*image_list)[index].width = width;
             (*image_list)[index].height = height;
             if (res.data.ptr != nullptr && res.length > 8) {
-                (*image_list)[index].data = (uint8_t *)res.data.ptr;
+                void *datacopy = malloc(res.length);
+                memcpy(datacopy, res.data.ptr, res.length);
+                (*image_list)[index].data = (uint8_t *)datacopy;
                 (*image_list)[index].datasize = res.length;
                 (*image_list)[index].palette = extract_palette_from_png_data((*image_list)[index].data, (*image_list)[index].datasize);
             }

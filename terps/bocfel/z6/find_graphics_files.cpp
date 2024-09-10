@@ -121,7 +121,7 @@ void find_graphics_files(const std::string &file_name)
     }
 
 
-    if (found_graphics_files.at(kGraphicsFileBlorb) == "") {
+    if (found_graphics_files.at(kGraphicsFileBlorb).size() == 0) {
         // Next, we look for external blorb files
         for (const auto &ext : {".blb", ".blorb"}) {
             std::string blorb_file = file_name;
@@ -134,7 +134,7 @@ void find_graphics_files(const std::string &file_name)
 
             if (set_map(blorb_file)) {
                 fprintf(stderr, "found graphics file of type blorb.\n");
-                found_graphics_files.at(kGraphicsFileBlorb) = file_name;
+                found_graphics_files.at(kGraphicsFileBlorb) = blorb_file;
                 return;
             }
         }
