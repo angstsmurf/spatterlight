@@ -4401,6 +4401,15 @@ void zpicture_data()
 
 #ifdef SPATTERLIGHT
     if (is_spatterlight_journey) {
+
+        if (zargs[0] == 0) {
+            // Return pixversion
+            user_store_word(zargs[1] + 0, image_count);
+            user_store_word(zargs[1] + 2, pixversion);
+            branch_if(1);
+            return;
+        }
+
         glui32 pic = zargs[0];
         uint16_t table = zargs[1];
         int height = 1, width = 1;
