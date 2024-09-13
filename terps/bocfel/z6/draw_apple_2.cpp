@@ -107,7 +107,7 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
                     memcpy(temp, image->data, newsize);
                     free(image->data);
                     image->data = temp;
-                    fprintf(stderr, "Shaved off %lu bytes. New size: %lu\n", image->datasize - newsize, newsize);
+                    fprintf(stderr, "decompress_apple2: Shaved off %lu bytes. New size: %lu\n", image->datasize - newsize, newsize);
                     image->datasize = newsize;
                 }
                 return result;

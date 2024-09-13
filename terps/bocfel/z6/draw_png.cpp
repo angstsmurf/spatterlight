@@ -74,8 +74,6 @@ static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_out
     inflate(&infstream, Z_NO_FLUSH);
     inflateEnd(&infstream);
 
-    fprintf(stderr, "decompress_idat: output length == %d\n", infstream.avail_out);
-
     return (uint8_t *)output;
 }
 

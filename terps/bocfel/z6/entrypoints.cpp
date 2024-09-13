@@ -384,15 +384,12 @@ int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t
         if (pattern[i] == WILDCARD) {
             *vals[valindex++] = byte(offset + i);
             last_match_offset = offset + i;
-            fprintf(stderr, "Found value 0x%x at offset 0x%x\n", *vals[valindex - 1], offset + i);
         }
     }
     return last_match_offset;
 }
 
-int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search
-                               ) {
-    fprintf(stderr, "find_16_bit_values_in_pattern, starting at 0x%x\n", startpos);
+int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
         return -1;
@@ -402,7 +399,6 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
         if (pattern[i] == WILDCARD && pattern[i + 1] == WILDCARD) {
             *vals[valindex++] = word(offset + i);
             last_match_offset = offset + i;
-            fprintf(stderr, "Found value 0x%x at offset 0x%x\n", *vals[valindex - 1], offset + i);
         }
     }
     return last_match_offset;
@@ -635,7 +631,6 @@ void find_entrypoints(void) {
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
-                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), entrypoint.found_at_address);
                     start = entrypoint.found_at_address;
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
@@ -647,81 +642,12 @@ void find_entrypoints(void) {
     }
 
     find_globals();
-
-    fprintf(stderr, "\nFILL_CHARACTER_TBL: 0x%x\n", jr.FILL_CHARACTER_TBL);
-    fprintf(stderr, "SMART_DEFAULT: 0x%x\n", jr.SMART_DEFAULT);
-    fprintf(stderr, "MASSAGE_ELVISH: 0x%x\n", jr.MASSAGE_ELVISH);
-    fprintf(stderr, "PARSE_ELVISH: 0x%x\n", jr.PARSE_ELVISH);
-    fprintf(stderr, "ILLEGAL_NAME: 0x%x\n", jr.ILLEGAL_NAME);
-    fprintf(stderr, "REMOVE_TRAVEL_COMMAND: 0x%x\n", jr.REMOVE_TRAVEL_COMMAND);
-    fprintf(stderr, "BOLD_PARTY_CURSOR: 0x%x\n", jr.BOLD_PARTY_CURSOR);
-    fprintf(stderr, "BOLD_CURSOR: 0x%x\n", jr.BOLD_CURSOR);
-    fprintf(stderr, "BOLD_OBJECT_CURSOR: 0x%x\n", jr.BOLD_OBJECT_CURSOR);
-    fprintf(stderr, "GRAPHIC: 0x%x\n", jr.GRAPHIC);
-    fprintf(stderr, "COMPLETE_DIAL_GRAPHICS: 0x%x\n", jr.COMPLETE_DIAL_GRAPHICS);
-
-    fprintf(stderr, "\nbuffer_window_index: 0x%x\n", ja.buffer_window_index);
-    fprintf(stderr, "\n•SEEN: 0x%x\n", ja.SEEN);
-    fprintf(stderr, "KBD: 0x%x\n", ja.KBD);
-    fprintf(stderr, "SHADOW: 0x%x\n", ja.SHADOW);
-    fprintf(stderr, "SUBGROUP: 0x%x\n", ja.SUBGROUP);
-    fprintf(stderr, "SDESC: 0x%x\n", ja.SDESC);
-    fprintf(stderr, "DESC8: 0x%x\n", ja.DESC8);
-    fprintf(stderr, "DESC12: 0x%x\n", ja.DESC12);
-    fprintf(stderr, "\n•START_LOC: 0x%x\n", jo.START_LOC);
-    fprintf(stderr, "TAG_OBJECT: 0x%x\n", jo.TAG_OBJECT);
-    fprintf(stderr, "TAG_ROUTE_COMMAND: 0x%x\n", jo.TAG_ROUTE_COMMAND);
-    fprintf(stderr, "TAG: 0x%x\n", jo.TAG);
-    fprintf(stderr, "PRAXIX: 0x%x\n", jo.PRAXIX);
-    fprintf(stderr, "BERGON: 0x%x\n", jo.BERGON);
-
-    fprintf(stderr, "\nCOMMAND_START_LINE: 0x%x (0x%x)\n", jg.COMMAND_START_LINE, GLOBAL(jg.COMMAND_START_LINE));
-    fprintf(stderr, "NAME_COLUMN: 0x%x (0x%x)\n", jg.NAME_COLUMN, GLOBAL(jg.NAME_COLUMN));
-    fprintf(stderr, "PARTY_COMMAND_COLUMN: 0x%x (0x%x)\n", jg.PARTY_COMMAND_COLUMN, GLOBAL(jg.PARTY_COMMAND_COLUMN));
-    fprintf(stderr, "CHR_COMMAND_COLUMN: 0x%x(0x%x)\n", jg.CHR_COMMAND_COLUMN, GLOBAL(jg.CHR_COMMAND_COLUMN));
-    fprintf(stderr, "COMMAND_OBJECT_COLUMN: 0x%x (0x%x)\n", jg.COMMAND_OBJECT_COLUMN, GLOBAL(jg.COMMAND_OBJECT_COLUMN));
-    fprintf(stderr, "COMMAND_WIDTH: 0x%x (0x%x)\n", jg.COMMAND_WIDTH, GLOBAL(jg.COMMAND_WIDTH));
-    fprintf(stderr, "•COMMAND_WIDTH_PIX: 0x%x (0x%x)\n", jg.COMMAND_WIDTH_PIX, GLOBAL(jg.COMMAND_WIDTH_PIX));
-    fprintf(stderr, "NAME_WIDTH: 0x%x (0x%x)\n", jg.NAME_WIDTH, GLOBAL(jg.NAME_WIDTH));
-    fprintf(stderr, "•NAME_WIDTH_PIX: 0x%x (0x%x)\n", jg.NAME_WIDTH_PIX, GLOBAL(jg.NAME_WIDTH_PIX));
-    fprintf(stderr, "•INTERPRETER: 0x%x (0x%x)\n", jg.INTERPRETER, GLOBAL(jg.INTERPRETER));
-    fprintf(stderr, "\nCHRV: 0x%x (0x%x)\n", jg.CHRV, GLOBAL(jg.CHRV));
-    fprintf(stderr, "CHRH: 0x%x (0x%x)\n", jg.CHRH, GLOBAL(jg.CHRH));
-    fprintf(stderr, "SCREEN_HEIGHT: 0x%x (0x%x)\n", jg.SCREEN_HEIGHT, GLOBAL(jg.SCREEN_HEIGHT));
-    fprintf(stderr, "SCREEN_WIDTH: 0x%x (0x%x)\n", jg.SCREEN_WIDTH, GLOBAL(jg.SCREEN_WIDTH));
-    fprintf(stderr, "\n•BORDER_FLAG: 0x%x\n", jg.BORDER_FLAG);
-    fprintf(stderr, "•FONT3_FLAG: 0x%x\n", jg.FONT3_FLAG);
-
-    fprintf(stderr, "•FWC_FLAG: 0x%x\n", jg.FWC_FLAG);
-    fprintf(stderr, "•BLACK_PICTURE_BORDER: 0x%x\n", jg.BLACK_PICTURE_BORDER);
-    fprintf(stderr, "\nHERE: 0x%x\n", jg.HERE);
-
-    fprintf(stderr, "\nTOP_SCREEN_LINE: 0x%x\n", jg.TOP_SCREEN_LINE);
-    fprintf(stderr, "TEXT_WINDOW_LEFT: 0x%x\n", jg.TEXT_WINDOW_LEFT);
-    fprintf(stderr, "\nE_LEXV: 0x%x\n", jg.E_LEXV);
-    fprintf(stderr, "E_INBUF: 0x%x\n", jg.E_INBUF);
-    fprintf(stderr, "E_TEMP: 0x%x\n", jg.E_TEMP);
-    fprintf(stderr, "E_TEMP_LEN: 0x%x\n", jg.E_TEMP_LEN);
-
-    fprintf(stderr, "\nPARTY: 0x%x\n", jg.PARTY);
-    fprintf(stderr, "PARTY_COMMANDS: 0x%x\n", jg.PARTY_COMMANDS);
-    fprintf(stderr, "CHARACTER_INPUT_TBL: 0x%x\n", jg.CHARACTER_INPUT_TBL);
-    fprintf(stderr, "O_TABLE: 0x%x\n", jg.O_TABLE);
-
-    fprintf(stderr, "\nTAG_NAME: 0x%x\n", jg.TAG_NAME);
-    fprintf(stderr, "NAME_TBL: 0x%x\n", jg.NAME_TBL);
-    fprintf(stderr, "TAG_NAME_LENGTH: 0x%x\n", jg.TAG_NAME_LENGTH);
-
-    fprintf(stderr, "\nUPDATE_FLAG: 0x%x\n", jg.UPDATE_FLAG);
-    fprintf(stderr, "SMART_DEFAULT_FLAG: 0x%x\n", jg.SMART_DEFAULT_FLAG);
-    fprintf(stderr, "SUBGROUP_MODE: 0x%x\n", jg.SUBGROUP_MODE);
 }
 
 
 void check_entrypoints(uint32_t pc) {
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game) && pc == entrypoint.found_at_address) {
-            fprintf(stderr, "Found entrypoint %s at pc 0x%04x. Calling function.\n", entrypoint.title.c_str(), entrypoint.found_at_address);
             (entrypoint.fn)();
         }
     }

@@ -98,8 +98,6 @@ void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int h
 }
 
 static void journey_draw_stamp_image(winid_t win, int16_t picnum, int16_t where, float pixwidth) {
-
-    fprintf(stderr, "journey_draw_stamp_image: picnum %d where:%d\n", picnum, where);
     int stamp_offset_x = 0, stamp_offset_y = 0, width, height;
 
     if (where > 0) {
@@ -342,7 +340,6 @@ static void underscore_or_square() {
 }
 
 static void move_v6_cursor(int column, int line) {
-    fprintf(stderr, "move_v6_cursor x:%d y:%d\n", column, line);
     if (column < 1)
         column = 0;
     else
@@ -417,8 +414,6 @@ static int print_tag_route_to_str(char *str) {
 }
 
 static void create_journey_party_menu(void) {
-
-    fprintf(stderr, "create_journey_party_menu");
     int object;
 
     char str[15];
@@ -466,7 +461,6 @@ static void create_submenu(JourneyMenu *m, int object, int objectindex) {
                 return;
             }
             submenu->column = m->column + i;
-//            fprintf(stderr, "verb submenu item %d: \"%s\"\n", m->submenu_entries, submenu->name);
         }
     }
 }
@@ -475,7 +469,6 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
     struct JourneyMenu menu[10];
 
-//    fprintf(stderr, "create_journey_menu\n");
     int table, table_count;
     if (type == kJMenuTypeObjects) {
         table = get_global(jg.O_TABLE) + (prsi ? 10 : 0);
@@ -542,7 +535,6 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             char string[15];
             int len = print_zstr_to_cstr(jword->str, string);
             if (len > 1) {
-                fprintf(stderr, "Sending glue menu command %s line %d length %d\n", string, jword->pcm, len);
                 win_menuitem(kJMenuTypeGlue, jword->pcf, jword->pcm - 1, 0, string, len);
             }
         }
@@ -555,7 +547,6 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
         if (m->submenu != nullptr) {
             for (int j = 0; j < m->submenu_entries; j++) {
                 struct JourneyMenu *submenu = &(m->submenu[j]);
-//                fprintf(stderr, "Sending submenu command %s line %d column %d stop %d length %d\n", submenu->name, submenu->line, submenu->column, (j == m->submenu_entries - 1), submenu->length);
                 win_menuitem(kJMenuTypeVerbs, submenu->column, submenu->line, (j == m->submenu_entries - 1), submenu->name, submenu->length);
             }
             free(m->submenu);
@@ -734,8 +725,6 @@ static int PRINT_DESC(int obj, bool cmd) {
 }
 
 static void journey_erase_command_chars(int LN, int COL, int num_spaces) {
-
-    fprintf(stderr, "journey_erase_command_chars ln:%d col:%d spaces:%d\n", LN, COL, num_spaces);
     if (options.int_number == INTERP_MSDOS) {
         move_v6_cursor(COL - 1, LN);
     } else {
@@ -773,8 +762,6 @@ static void journey_erase_command_chars(int LN, int COL, int num_spaces) {
 
 
 static void journey_erase_command_pixels(int pix) {
-    fprintf(stderr, "journey_erase_command_pixels:%d\n", pix);
-
     glk_window_move_cursor(curwin->id, curwin->x, curwin->y);
 
     int NAME_WIDTH_PIX = get_global(jg.NAME_WIDTH_PIX);
@@ -806,8 +793,6 @@ static void journey_erase_command_pixels(int pix) {
 }
 
 static void journey_print_character_commands(bool CLEAR) {
-    fprintf(stderr, "print_journey_character_commands: CLEAR: %s\n", CLEAR ? "true" : "false");
-
     // Prints the character names and arrows, and their commands in the three rightmost columns.
     // If CLEAR is true, the three columns to the right of the character names will be cleared.
 
@@ -1171,7 +1156,6 @@ static void journey_print_columns(bool PARTY, bool PRSI) {
 }
 
 void PRINT_COLUMNS(void) {
-    fprintf(stderr, "PRINT-COLUMNS: Local variable 0:%d Local variable 1:%d \n", variable(1), variable(2));
     if (variable(1) == 1) {
         journey_current_input = INPUT_PARTY;
         create_journey_party_menu();
@@ -1184,7 +1168,6 @@ void PRINT_COLUMNS(void) {
 }
 
 static int journey_refresh_character_command_area(int16_t LN) {
-    fprintf(stderr, "called refresh_journey_character_command_area(LN %d)\n", LN);
     int16_t POS;
 
     update_internal_globals();
@@ -1255,48 +1238,9 @@ static int journey_refresh_character_command_area(int16_t LN) {
 }
 
 void REFRESH_CHARACTER_COMMAND_AREA(void) {
-    fprintf(stderr, "REFRESH-CHARACTER-COMMAND-AREA: Local variable 0:%d \n", variable(1));
     int LN = variable(1);
     journey_refresh_character_command_area(LN);
 }
-
-//static void print_globals(void) {
-//    fprintf(stderr, "Let's only support r83 for now\n");
-//    fprintf(stderr, "MOUSETBL is global 0xbd (0x%x)\n", get_global(0xbd));
-//    fprintf(stderr, "MOUSE-INFO-TBL is global 0x16 (0x%x)\n", get_global(0x16));
-//
-//    fprintf(stderr, "SAVED-PCM is 0x%x (%d)\n", get_global(0x08), (int16_t)get_global(0x08));
-//    fprintf(stderr, "SAVED-PCF is 0x%x (%d)\n", get_global(0x98), (int16_t)get_global(0x98));
-//    fprintf(stderr, "BORDER-FLAG is global 0x9f (%x)\n", get_global(0x9f));
-//    fprintf(stderr, "FONT3-FLAG is global 0x31 (%x)\n", get_global(0x31));
-//    fprintf(stderr, "FWC-FLAG is global 0xb9 (%x)\n", get_global(0xb9));
-//    fprintf(stderr, "BLACK-PICTURE-BORDER is global 0x72 (%x)\n", get_global(0x72));
-//    fprintf(stderr, "CHRH is global 0x92 (0x%x) (%d)\n", get_global(0x92), get_global(0x92));
-//    fprintf(stderr, "gcellw is %f\n", gcellw);
-//    fprintf(stderr, "CHRV is global 0x89 (0x%x) (%d)\n", get_global(0x89), get_global(0x89));
-//    fprintf(stderr, "gcellh is %f\n", gcellh);
-//    fprintf(stderr, "SCREEN-WIDTH is global 0x83 (0x%x) (%d)\n", get_global(0x83), get_global(0x83));
-//    fprintf(stderr, "gscreenw is %d\n", gscreenw);
-//    fprintf(stderr, "gscreenw / gcellw is %f\n", gscreenw / gcellw);
-//
-//    fprintf(stderr, "SCREEN-HEIGHT is global 0x64 (0x%x) (%d)\n", get_global(0x64), get_global(0x64));
-//    fprintf(stderr, "gscreenh is %d\n", gscreenh);
-////    fprintf(stderr, "gscreenh / letterheight is %d\n", gscreenh / letterheight);
-//    fprintf(stderr, "gscreenh / gcellh is %f\n", gscreenh / gcellh);
-//
-//    fprintf(stderr, "TOP-SCREEN-LINE is global 0x25 (0x%x) (%d)\n", get_global(0x25), get_global(0x25));
-//    fprintf(stderr, "COMMAND-START-LINE is global 0x0e (0x%x) (%d)\n", get_global(0x0e), get_global(0x0e));
-//    fprintf(stderr, "COMMAND-WIDTH is global 0xb8 (0x%x) (%d)\n", get_global(0xb8), get_global(0xb8));
-//    fprintf(stderr, "COMMAND-WIDTH-PIX is global 0x6d (0x%x) (%d)\n", get_global(0x6d), get_global(0x6d));
-//    fprintf(stderr, "NAME-WIDTH is global 0xa2 (0x%x) (%d)\n", get_global(0xa2), get_global(0xa2));
-//    fprintf(stderr, "NAME-WIDTH-PIX is global 0x82 (0x%x) (%d)\n", get_global(0x82), get_global(0x82));
-//    fprintf(stderr, "NAME-RIGHT is global 0x2d (0x%x) (%d)\n", get_global(0x2d), get_global(0x2d));
-//
-//    fprintf(stderr, "PARTY-COMMAND-COLUMN is global 0xb4 (0x%x) (%d)\n", get_global(0xb4), get_global(0xb4));
-//    fprintf(stderr, "NAME-COLUMN is global 0xa3 (0x%x) (%d)\n", get_global(0xa3), get_global(0xa3));
-//    fprintf(stderr, "CHR-COMMAND-COLUMN is global 0x28 (0x%x) (%d)\n", get_global(0x28), get_global(0x28));
-//    fprintf(stderr, "COMMAND-OBJECT-COLUMN is global 0xb0 (0x%x) (%d)\n", get_global(0xb0), get_global(0xb0));
-//}
 
 void stash_journey_state(library_state_data *dat) {
     if (!dat)
@@ -1371,7 +1315,6 @@ void journey_update_after_restore() {
 }
 
 void journey_update_after_autorestore() {
-    fprintf(stderr, "journey_update_after_autorestore\n");
     // Do not redraw
     store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
 }
@@ -1438,8 +1381,6 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 #pragma mark adjust_journey_windows
 
 static void journey_adjust_windows(bool restoring) {
-    fprintf(stderr, "journey_adjust_windows(%s)\n", restoring ? "true" : "false");
-
     // Window 0: Text buffer (in later versions) Receives most keypresses.
     // Window 1: Fullscreen grid window
     //(Window 2: Used in place of window 0 in earlier versions)
@@ -1553,7 +1494,6 @@ void redraw_vertical_lines_if_needed(void) {
 }
 
 void BOLD_CURSOR(void) {
-    fprintf(stderr, "BOLD-CURSOR(");
     selected_journey_line = variable(1);
     selected_journey_column = variable(2);
 
@@ -1573,14 +1513,12 @@ void BOLD_PARTY_CURSOR(void) {
 }
 
 void BOLD_OBJECT_CURSOR(void) {
-    fprintf(stderr, "BOLD-OBJECT-CURSOR(");
     selected_journey_line = variable(1);
     selected_journey_column = variable(2);
     redraw_vertical_lines_if_needed();
 }
 
 void after_INTRO(void) {
-    fprintf(stderr, "after_INTRO\n");
     screenmode = MODE_NORMAL;
 }
 
@@ -1596,13 +1534,10 @@ void GRAPHIC_STAMP(void) {
 
 
 void REFRESH_SCREEN(void) {
-    fprintf(stderr, "REFRESH-SCREEN\n");
     store_variable(1, 0);
 }
 
 void INIT_SCREEN(void) {
-    fprintf(stderr, "INIT-SCREEN\n");
-
     // We check if START-LOC has the SEEN flag set
     // This will be false at the start of the game
     // and on restart.
@@ -1627,7 +1562,6 @@ void INIT_SCREEN(void) {
 }
 
 void DIVIDER(void) {
-    fprintf(stderr, "DIVIDER\n");
     glk_set_style(style_User2);
     glk_put_string(const_cast<char*>("\n\n***\n\n"));
     transcribe(UNICODE_LINEFEED);
@@ -1643,7 +1577,6 @@ void DIVIDER(void) {
 }
 
 void WCENTER(void) {
-    fprintf(stderr, "WCENTER\n");
     int16_t stringnum = variable(1);
     char str[1024];
     print_zstr_to_cstr(stringnum, str);
@@ -1660,7 +1593,6 @@ void COMPLETE_DIAL_GRAPHICS(void) {}
 void TELL_AMOUNTS(void) {}
 
 void journey_update_on_resize(void) {
-    fprintf(stderr, "journey_update_on_resize\n");
     // Window 0: Text buffer (in later versions)
     // Window 1: Fullscreen grid window
     //(Window 2: Used in place of window 0 in earlier versions)

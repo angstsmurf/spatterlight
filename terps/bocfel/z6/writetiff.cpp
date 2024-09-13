@@ -31,7 +31,7 @@ static void write32BE(FILE *fptr, uint32_t offset) {
 void writetiff(FILE *fptr, uint8_t *pixarray, uint32_t pixarraysize, int width) {
 
     uint16_t height = pixarraysize / (width * 4);
-    fprintf(stderr, "writetiff: width %d height %d pixarraysize: %d\n", width, height, pixarraysize);
+
     /* Write the header */
     writehexstring(fptr, "4d4d002a");    /* Big endian & TIFF identifier */
     uint32_t offset = pixarraysize + 8;

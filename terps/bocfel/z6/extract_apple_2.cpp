@@ -66,9 +66,6 @@ static uint8_t *data_from_woz(const char *filename, size_t filenamelen, int *gam
         extension[2] = tolower(filename[filenamelen-2]);
         extension[1] = tolower(filename[filenamelen-3]);
         extension[0] = tolower(filename[filenamelen-4]);
-//        if (strcmp(".woz", extension) != 0) {
-//            fprintf(stderr, "Unknown extension \"%s\". Is this really a woz file?\n", extension);
-//        }
     }
 
     *file_length = get_file_length(fp);
@@ -85,9 +82,6 @@ static uint8_t *data_from_woz(const char *filename, size_t filenamelen, int *gam
     size_t actual_size = fread(entire_file, 1, *file_length, fp) ;
     if (actual_size != *file_length) {
         fprintf(stderr, "Expected %ld, got %ld\n", *file_length, actual_size);
-//        perror ("fread");
-//        fclose(fp);
-//        return NULL;
     }
 
     fclose(fp);
@@ -191,7 +185,7 @@ static int populate_fpin(const char *filename, size_t *file_length) {
                         fpinlengths[i] = *file_length;
                     }
                     if (fpin[i] == nullptr) {
-                        fprintf(stderr, "Cound not extract file from disk %d!\n", i + 1);
+                        fprintf(stderr, "Could not extract file from disk %d!\n", i + 1);
                         free_fpin();
                         return 0;
                     }
@@ -280,12 +274,7 @@ int extract_apple_2_images(const char *filename, ImageStruct **rawimg, int *vers
 }
 
 static uint16_t read_table_word (int offs) {
-
-//    if (offs >= sizeof (table) / sizeof (table[0]))
-//        fprintf(stderr, "Disk image has bad format. offs: %d sizeof (table) / sizeof (table[0]: %ld\n", offs, sizeof (table) / sizeof (table[0]));
-
     return GET_WORD(table,offs);
-
 }/* read_table_word */
 
 
@@ -316,9 +305,6 @@ static void find_story_block (uint16_t log_block, int *disk, uint16_t *phys_bloc
             }
         }
     }
-
-//    fprintf(stderr, "Disk image has bad format. Disk: %d b1: %d b2: %d log_block: %d\n", *disk, b1, b2, log_block);
-
 }/* find_story_block */
 
 static off_t find_graphics_offset(int disk) {

@@ -73,7 +73,6 @@ void find_graphics_files(const std::string &file_name)
                     strid_t file = load_file(path);
                     if (file != nullptr) {
                         found_graphics_files.at(index) = path;
-                        fprintf(stderr, "found graphics file of type \"%s\"\n", filename);
                         glk_stream_close(file, nullptr);
                     }
                 }
@@ -89,7 +88,6 @@ void find_graphics_files(const std::string &file_name)
                         strid_t file = load_file(path);
                         if (file != nullptr) {
                             found_graphics_files.at(index) = path;
-                            fprintf(stderr, "found graphics file of type \"%s\"\n", extension);
                             glk_stream_close(file, nullptr);
                         }
                     }
@@ -109,7 +107,6 @@ void find_graphics_files(const std::string &file_name)
                         strid_t file = load_file(path);
                         if (file != nullptr) {
                             found_graphics_files.at(kGraphicsFileWoz) = path;
-                            fprintf(stderr, "found .woz file to use for Apple 2 graphics\n");
                             glk_stream_close(file, nullptr);
                             break;
                         }
@@ -133,7 +130,6 @@ void find_graphics_files(const std::string &file_name)
             }
 
             if (set_map(blorb_file)) {
-                fprintf(stderr, "found graphics file of type blorb.\n");
                 found_graphics_files.at(kGraphicsFileBlorb) = blorb_file;
                 return;
             }

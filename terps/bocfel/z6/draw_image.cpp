@@ -76,8 +76,6 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width)
         return;
     }
 
-    fprintf(stderr, "writeToTIFF: name \"%s\", width %d height %lu\n", name, width, size / (width * 4));
-
     writetiff(fptr, data, (uint32_t)size, width);
 
     fclose(fptr);
@@ -104,7 +102,6 @@ static char *create_temp_tiff_file_name(void) {
 extern glui32 user_selected_background;
 
 void flush_bitmap(winid_t winid) {
-    fprintf(stderr, "flush_bitmap win %d\n", winid->peer);
     if (winid->type != wintype_Graphics)
         fprintf(stderr, "ERROR: window is not graphics\n");
     if (pixmap == nullptr) {
@@ -146,8 +143,6 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
     int width = smallbitmapwidth;
     int stride = width * 4;
     int height = smallbitmapsize / stride;
-
-    fprintf(stderr, "draw_bitmap_on_bitmap: x: %d y %d width: %d height: %d smallbitmapsize: %d largebitmapsize: %d\n", x, y, width, height, smallbitmapsize, *largebitmapsize);
 
     if (x < 0)
         x = 0;
@@ -460,8 +455,6 @@ void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int s
 }
 
 void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
-    fprintf(stderr, "draw_to_buffer %d picnum %d x: %d y: %d\n", winid->peer, picnum, x, y);
-
     ImageStruct *image = find_image(picnum);
     if (image == nullptr)
         return;
@@ -497,8 +490,6 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
 }
 
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float scalefactor, bool flipped) {
-    fprintf(stderr, "draw_inline_image: Drawing image %d scaled to %f\n", picnum, scalefactor);
-
     ImageStruct *image = recreate_image(picnum, flipped);
     if (image == nullptr)
         return;
@@ -575,7 +566,6 @@ extern glui32 current_picture;
 
 
 void clear_image_buffer(void) {
-    fprintf(stderr, "Clearing buffer!\n");
     if (pixmap != nullptr) {
         free(pixmap);
         pixmap = nullptr;
@@ -592,5 +582,4 @@ void draw_centered_title_image(int picnum) {
     y = (gscreenh / imagescaley - height) / 2;
     draw_to_pixmap_unscaled(picnum, x, y);
     last_slideshow_pic = picnum;
-    fprintf(stderr, "draw_centered_title_image: hw_screenwidth: %f image width: %d x: %d y: %d graphics_type: %d\n", hw_screenwidth, width, x, y, graphics_type);
 }
