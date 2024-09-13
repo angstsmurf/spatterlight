@@ -15,6 +15,7 @@
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="Application" id="56">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Application" systemMenu="apple" id="57">
                         <items>
                             <menuItem title="About Spatterlight" id="58">
@@ -68,6 +69,7 @@
                     </menu>
                 </menuItem>
                 <menuItem title="File" id="250">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="251">
                         <items>
                             <menuItem title="Open…" keyEquivalent="o" id="252">
@@ -273,6 +275,7 @@ CA
                     </menu>
                 </menuItem>
                 <menuItem title="View" id="545">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="626">
                         <items>
                             <menuItem title="Actual Size" keyEquivalent="0" id="868">
@@ -307,6 +310,7 @@ CA
                     </menu>
                 </menuItem>
                 <menuItem title="Game" id="YgY-MU-Rjt" userLabel="Game">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Game" id="3xu-Uj-RHK">
                         <items>
                             <menuItem title="Play Game" keyEquivalent="p" id="395">
@@ -387,39 +391,8 @@ CA
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Journey Party" hidden="YES" id="JeB-Bo-cfu">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" id="bra-c6-Rvb">
-                        <items>
-                            <menuItem title="Item 1" id="DIu-iz-zjf">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Item 2" id="Lmn-je-8Me">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Item 3" id="1OK-k3-zGg">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem title="Individual Commands" hidden="YES" id="cz7-Gk-39Q">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" id="cSl-0X-SGE">
-                        <items>
-                            <menuItem title="Item 1" id="fl0-g8-2oL">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Item 2" id="Lkg-d6-Fak">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Item 3" id="1WW-wx-iBn">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
                 <menuItem title="Window" id="19">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="24">
                         <items>
                             <menuItem title="Minimize" keyEquivalent="m" id="23">
@@ -452,6 +425,7 @@ CA
                     </menu>
                 </menuItem>
                 <menuItem title="Help" id="340">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" id="341">
                         <items>
                             <menuItem title="Spatterlight Help" keyEquivalent="?" id="351">
@@ -486,6 +460,38 @@ CA
                                 <connections>
                                     <action selector="showHelpFile:" target="-1" id="883"/>
                                 </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Journey Party" hidden="YES" id="JeB-Bo-cfu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="bra-c6-Rvb">
+                        <items>
+                            <menuItem title="Item 1" id="DIu-iz-zjf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="Lmn-je-8Me">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="1OK-k3-zGg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Individual Commands" hidden="YES" id="cz7-Gk-39Q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="cSl-0X-SGE">
+                        <items>
+                            <menuItem title="Item 1" id="fl0-g8-2oL">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="Lkg-d6-Fak">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="1WW-wx-iBn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
                     </menu>
