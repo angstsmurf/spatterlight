@@ -91,11 +91,11 @@
     NSFont *font;
     
     if ([self testGridStyle]) {
-        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a grid style. Setting font to Source Code Pro 11");
+//        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a grid style. Setting font to Source Code Pro 11");
         font = [NSFont fontWithName:@"Source Code Pro" size:11];
 
     } else {
-        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a buffer style. Setting font to Helvetica 13");
+//        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a buffer style. Setting font to Helvetica 13");
         font = [NSFont fontWithName:@"Helvetica" size:13];
     }
 
