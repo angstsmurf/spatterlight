@@ -607,7 +607,7 @@ global word *old_agt_verb; /* List of non-canonical verb synonyms in the
 			      expanded as dummy verbs. */
 
 
-global slist *userprep; /* Array of user-defined prepostions */
+global slist *userprep; /* Array of user-defined prepositions */
 
 global word flag_noun[MAX_FLAG_NOUN],*globalnoun;
 global word pix_name[MAX_PIX];

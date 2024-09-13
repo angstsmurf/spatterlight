@@ -3784,7 +3784,7 @@ void CHtmlDbgExprWin::load_config(CHtmlDebugConfig *config,
         }
     }
 
-    /* fix up postions */
+    /* fix up positions */
     fix_positions(0);
 }
 
