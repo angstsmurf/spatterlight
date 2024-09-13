@@ -331,14 +331,12 @@ int win_newwin(int type)
 
 void win_delwin(int name)
 {
-    fprintf(stderr, "win_delwin %d\n", name);
     win_flush();
     sendmsg(DELWIN, name, 0, 0, 0, 0, 0, NULL);
 }
 
 void win_sizewin(int name, int x0, int y0, int x1, int y1)
 {
-    fprintf(stderr, "win_sizewin %d x0 %d y0 %d x1 %d y1 %d\n", name, x0, y0, x1, y1);
     win_flush();
     /* The window size may have changed before the message reaches the
      window server, so we send (what this interpreter process thinks is)
@@ -393,7 +391,6 @@ void win_clear(int name)
 
 void win_moveto(int name, int x, int y)
 {
-    fprintf(stderr, "win_moveto: x:%d y:%d peer:%d\n", x, y, name);
     win_flush();
     sendmsg(MOVETO, name, x, y, 0, 0, 0, NULL);
 }
@@ -414,7 +411,6 @@ void win_timer(int millisecs)
 
 void win_initchar(int name)
 {
-    fprintf(stderr, "win_initchar\n");
     win_flush();
     sendmsg(INITCHAR, name, 0, 0, 0, 0, 0, NULL);
 }
@@ -427,7 +423,6 @@ void win_cancelchar(int name)
 
 void win_initline(int name, int cap, int len, void *buf)
 {
-    fprintf(stderr, "win_initline\n");
     win_flush();
 
     window_t *win = gli_window_for_peer(name);
@@ -485,11 +480,6 @@ void win_set_echo(int name, int val)
 
 void win_set_terminators(int name, glui32 *keycodes, int count)
 {
-#ifdef DEBUG
-    //	fprintf(stderr, "sent TERMINATORS win: %u count:%u\n",name, count);
-    //	for (int i=0; i < count; i++)
-    //		fprintf(stderr, "keycode %d = %u\n", i, keycodes[i]);
-#endif
     win_flush();
     sendmsg(TERMINATORS, name, count, 0, 0, 0, sizeof(glui32) * count, (char *)keycodes);
 }
@@ -557,7 +547,6 @@ void win_sizeimage(glui32 *width, glui32 *height)
 
 void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
-    fprintf(stderr, "win_drawimage in win %d x:%d y:%d width:%d height:%d\n", name, x, y, width, height);
     win_flush();
     if (gli_enable_graphics)
     {
@@ -678,7 +667,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 
 void win_setbgnd(int name, glui32 color)
 {
-    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
+//    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
     win_flush();
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
@@ -707,14 +696,12 @@ void win_autosave(int hash)
 
 void win_setzcolor(int name, glui32 fg, glui32 bg)
 {
-    fprintf(stderr, "win_setzcolor win peer %d, fg 0x%x (%d), bg 0x%x (%d)\n", name, fg, fg, bg, bg);
     win_flush();
     sendmsg(SETZCOLOR, name, fg, bg, 0, 0, 0, NULL);
 }
 
 void win_setreverse(int name, int reverse)
 {
-    fprintf(stderr, "win_setreverse peer %d reverse %d\n", name, reverse);
     win_flush();
     sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
 }
