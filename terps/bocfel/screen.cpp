@@ -1342,7 +1342,6 @@ static void resize_upper_window(long nlines, bool from_game)
 
 void close_upper_window()
 {
-    fprintf(stderr, "close_upper_window\n");
     // The upper window is never destroyed; rather, when it’s closed, it
     // shrinks to zero height.
     resize_upper_window(0, true);
@@ -1926,7 +1925,7 @@ void zerase_window()
 
     switch (as_signed(zargs[0])) {
     case -2:
-        fprintf(stderr, "zerase_window -2: clear all windows\n");
+        // clear all windows
         for (auto &window : windows) {
             clear_window(&window);
         }
@@ -2095,17 +2094,14 @@ bool v6_switch_to_allowed_interpreter_number(void) {
         case INTERP_DEC_20:
         case INTERP_CBM_128:
         case INTERP_TANDY:
-            fprintf(stderr, "Changing interpeter version to MS-DOS.\n");
             options.int_number = INTERP_MSDOS;
             return false;
         case INTERP_DEFAULT:
         case INTERP_ATARI_ST:
-            fprintf(stderr, "Changing interpeter version to Amiga.\n");
             options.int_number = INTERP_AMIGA;
             return false;
         case INTERP_APPLE_IIC:
         case INTERP_APPLE_IIGS:
-            fprintf(stderr, "Changing interpeter version to Apple IIe.\n");
             options.int_number = INTERP_APPLE_IIE;
             return false;
         default:
@@ -5315,7 +5311,6 @@ void init_screen(bool first_run)
             window.x_origin = 1;
             window.y_origin = 1;
             window.x_size = gscreenw;
-            fprintf(stderr, "Setting x_size of window %d to gscreenw, %d\n", window.index, gscreenw);
             window.y_size = gscreenh;
         }
 #endif
@@ -5395,7 +5390,6 @@ void init_screen(bool first_run)
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
             get_image_size(1, &width, nullptr);
-            fprintf(stderr, "Width of image 1: %d\n", width);
             if ((is_game(Game::Arthur) && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_game(Game::Shogun) && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
                 hw_screenwidth = 480;
@@ -5445,7 +5439,6 @@ void init_screen(bool first_run)
 
         if (journey_window == nullptr) {
             fprintf(stderr, "Failed to create Journey graphics window!?");
-            //                        return false;
         }
         windows[3].id = journey_window;
         windows[3].x_size = 0;
@@ -5454,9 +5447,6 @@ void init_screen(bool first_run)
 
 //        win_setbgnd(mainwin->id->peer, user_selected_background);
 //        win_setbgnd(windows[1].id->peer, user_selected_background);
-
-        //                fprintf(stderr, "Screen height (pixels)%d letterheight: %d screen height / letterheight: %d\n", gscreenh, letterheight, gscreenh / letterheight);
-        //        fprintf(stderr, "Screen width (pixels)%d letterwidth: %d screen width / letterwidth: %d\n", gscreenw, letterwidth, gscreenw / letterwidth);
 
         win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
         screenmode = MODE_INITIAL_QUESTION;

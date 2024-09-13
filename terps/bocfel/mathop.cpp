@@ -24,13 +24,11 @@
 
 void zinc()
 {
-    fprintf(stderr, "zinc %d (%d)\n", zargs[0],  variable(zargs[0]) + 1);
     store_variable(zargs[0], variable(zargs[0]) + 1);
 }
 
 void zdec()
 {
-    fprintf(stderr, "zdec %d (%d)\n", zargs[0],  variable(zargs[0]) - 1);
     store_variable(zargs[0], variable(zargs[0]) - 1);
 }
 
@@ -53,7 +51,6 @@ void zdec_chk()
         newval = as_signed(variable(zargs[0]));
     }
 
-    fprintf(stderr, "branch if %d is less than %d\n", newval, val);
     branch_if(newval < val);
 }
 
@@ -71,7 +68,6 @@ void zinc_chk()
         newval = as_signed(variable(zargs[0]));
     }
 
-    fprintf(stderr, "branch if %d is greater than %d\n", newval, val);
     branch_if(newval > val);
 }
 
@@ -92,36 +88,27 @@ void zand()
 
 void zadd()
 {
-    fprintf(stderr, "zadd %d %d (%d)\n", zargs[0], zargs[1], (short) zargs[0] + (short) zargs[1]);
     store(zargs[0] + zargs[1]);
 }
 
 void zsub()
 {
-    fprintf(stderr, "zsub %d %d (%d)\n", zargs[0], zargs[1], (short) zargs[0] - (short) zargs[1]);
-
     store(zargs[0] - zargs[1]);
 }
 
 void zmul()
 {
-    fprintf(stderr, "zmul %d %d (%d)\n", zargs[0], zargs[1], (short) zargs[0] * (short) zargs[1]);
-
     store(static_cast<uint32_t>(zargs[0]) * static_cast<uint32_t>(zargs[1]));
 }
 
 void zdiv()
 {
-    fprintf(stderr, "zdiv %d %d (%d)\n", zargs[0], zargs[1], as_signed(zargs[0]) / as_signed(zargs[1]));
-
     ZASSERT(zargs[1] != 0, "divide by zero");
     store(as_signed(zargs[0]) / as_signed(zargs[1]));
 }
 
 void zmod()
 {
-    fprintf(stderr, "zmod %d %d (%d)\n", zargs[0], zargs[1], as_signed(zargs[0]) % as_signed(zargs[1]));
-
     ZASSERT(zargs[1] != 0, "divide by zero");
     store(as_signed(zargs[0]) % as_signed(zargs[1]));
 }

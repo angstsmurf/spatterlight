@@ -483,7 +483,6 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     int32_t pixmapsize = image->width * image->height * 4;
 
     char *filename = create_temp_tiff_file_name();
-    fprintf(stderr, "recreate_image %d, filename \"%s\"\n", picnum, filename);
 
     if (flipped) {
         result = flip_bitmap(image, result);
