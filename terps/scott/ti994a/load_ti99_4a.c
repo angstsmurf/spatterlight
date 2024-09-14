@@ -544,6 +544,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
         objectlinks[ct] = *(ptr++ - file_baseline_offset);
         if (objectlinks[ct] && objectlinks[ct] <= nw) {
             ip->AutoGet = (char *)Nouns[objectlinks[ct]];
+            /* Fix for missing AutoGet word in Colossal Cave */
             if (ct == 3 && strncmp("bird", Items[ct].Text, 4) == 0)
                 ip->AutoGet = "BIRD";
         } else {

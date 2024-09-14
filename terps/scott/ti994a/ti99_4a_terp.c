@@ -238,7 +238,7 @@ static ActionResultType PerformTI99Line(const uint8_t *action_line)
         case 217:
             break;
 
-        case 218:
+        case 218: /* try */
             if (try_index >= 32) {
                 Fatal("ERROR Hit upper limit on try method.\n");
             }
