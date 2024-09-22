@@ -615,7 +615,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
-                    NSLog(@"Autorestore alert suppressed");
+                    // Autorestore alert suppressed
                     if (![defaults boolForKey:@"AlwaysAutorestore"]) {
                         // The user has checked "Remember this choice" when
                         // choosing to not autorestore
@@ -2641,8 +2641,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
     NSInteger i;
 
-    NSLog(@"\nCreating new window of type %ld and name %ld", wintype, name);
-
     if (_theme == nil) {
         NSLog(@"Theme nil?");
         _theme = [Preferences currentTheme];
@@ -3202,7 +3200,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         case DELWIN:
             if (reqWin) {
-                NSLog(@"DELWIN: Deleting window %d of type %@", req->a1, reqWin.className);
                 [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
@@ -3775,8 +3772,6 @@ static BOOL pollMoreData(int fd) {
 }
 
 - (void)noteTaskDidTerminate:(id)sender {
-    NSLog(@"glkctl: noteTaskDidTerminate");
-
     if (windowClosedAlready)
         return;
 

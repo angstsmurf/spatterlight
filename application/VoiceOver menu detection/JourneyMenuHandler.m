@@ -190,10 +190,8 @@ errorDescription:(NSString * __autoreleasing *)error
     // Check if we are in border mode (i.e. if interpreter is set to Amiga)
     unichar c = [_textGridWindow characterAtPoint:NSZeroPoint];
     if (c == '/') {
-        NSLog(@"We seem to have a border");
+        // We seem to have a border
         y--;
-    } else {
-        NSLog(@"We seem to have not have a border. c == \"%@\"", [NSString stringWithCharacters:&c length:1]);
     }
 
     NSPoint point = NSMakePoint(x, y);

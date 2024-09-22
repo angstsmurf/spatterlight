@@ -1948,7 +1948,6 @@ replacementString:(id)repl {
 }
 
 - (BOOL)scrolledToBottom {
-    //    NSLog(@"GlkTextBufferWindow %ld: scrolledToBottom?", self.name);
     NSView *clipView = scrollview.contentView;
 
     // At least the start screen of Kerkerkruip uses a buffer window
@@ -1962,7 +1961,6 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animate {
-    //    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
     lastAtTop = NO;
     lastAtBottom = YES;
 
@@ -1998,7 +1996,6 @@ replacementString:(id)repl {
 }
 
 - (BOOL)scrolledToTop {
-    //    NSLog(@"GlkTextBufferWindow %ld scrolledToTop", self.name);
     NSView *clipView = scrollview.contentView;
     if (!clipView) {
         return NO;
@@ -2010,12 +2007,10 @@ replacementString:(id)repl {
 - (void)scrollToTop {
     if (pauseScrolling)
         return;
-//    NSLog(@"scrollToTop");
     lastAtTop = YES;
     lastAtBottom = NO;
 
     [scrollview.contentView scrollToPoint:NSZeroPoint];
-//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 #pragma mark Speech

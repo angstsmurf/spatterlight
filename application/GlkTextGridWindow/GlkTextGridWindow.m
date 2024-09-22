@@ -902,7 +902,6 @@
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
-        NSLog(@"Printed outside grid window visible range! (%@) xpos: %ld ypos:%ld", string, xpos, ypos);
         return;
     }
 
