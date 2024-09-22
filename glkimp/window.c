@@ -988,7 +988,6 @@ void glk_request_char_event(window_t *win)
             /* extension */
         case wintype_TextBuffer:
         case wintype_TextGrid:
-            fprintf(stderr, "Requesting keyboard input in window %d (type %d)\n", win->peer, win->type);
             win->char_request = TRUE;
             win->char_request_uni = FALSE;
             win_initchar(win->peer);
