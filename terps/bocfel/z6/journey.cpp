@@ -530,6 +530,7 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
     }
 
     if (type == kJMenuTypeObjects) {
+        // Add "glue words" such as "cast" "elevation" "at"
         for (int i = 0; i < number_of_printed_journey_words; i++) {
             JourneyWords *jword = &(printed_journey_words[i]);
             char string[15];
@@ -537,6 +538,26 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             if (len > 1) {
                 win_menuitem(kJMenuTypeGlue, jword->pcf, jword->pcm - 1, 0, string, len);
             }
+        }
+
+        // Hack for Musings dialog
+        if (menu_counter == 0) {
+            int line = 0;
+            int column = 3;
+            for (int i = 1; i <= table_count; i++) {
+                char string[15];
+                uint16_t object = word(table + 2 * i);
+                uint16_t addr = internal_get_prop(object, ja.SDESC);
+                int len = print_zstr_to_cstr(addr, string);
+                if (len > 1) {
+                    if (line > 4) {
+                        line = 0;
+                        column++;
+                    }
+                    win_menuitem(kJMenuTypeObjects, column, line++, (i == table_count), string, len);
+                }
+            }
+            return;
         }
     }
 
@@ -817,6 +838,9 @@ static void journey_print_character_commands(bool CLEAR) {
     int NAME_WIDTH = get_global(jg.NAME_WIDTH);
     int NAME_RIGHT = get_global(jg.CHR_COMMAND_COLUMN) - 2;
 
+    int number_of_printed_party_members = 0;
+    int number_of_printed_verbs_and_objects = 0;
+
     // Print up to 5 character names and arrows
     for (int i = 1; i <= 5; i++) {
         CHR = word(PTBL + 2 * i); // <GET .PTBL 1>
@@ -847,6 +871,7 @@ static void journey_print_character_commands(bool CLEAR) {
                 move_v6_cursor(NAME_RIGHT - LONG_ARROW_WIDTH, LN);
                 glk_put_string(const_cast<char*>("-->"));
             }
+            number_of_printed_party_members++;
         }
 
         if (journey_current_input == INPUT_PARTY) {
@@ -879,6 +904,7 @@ static void journey_print_character_commands(bool CLEAR) {
 
                 if (should_print_command) {
                     PRINT_COMMAND(word(BTBL + j * 2));
+                    number_of_printed_verbs_and_objects++;
                 }
 
                 POS += COMMAND_WIDTH;
@@ -894,13 +920,15 @@ static void journey_print_character_commands(bool CLEAR) {
         internal_call(pack_routine(jr.SMART_DEFAULT)); //    SMART_DEFAULT();
     }
 
+    // Delete the Individual Commands menu when the columns to the right are empty
+    if (number_of_printed_party_members == 0 && number_of_printed_verbs_and_objects == 0)
+        win_menuitem(kJMenuTypeDeleteMembers, 0, 0, false, nullptr, 15);
+
     set_current_window(&windows[ja.buffer_window_index]);
 }
 
 bool journey_read_elvish(int actor) {
-    //  actor is set to 0x78 (Tag) by default
-
-    int COL = get_global(jg.COMMAND_OBJECT_COLUMN); // COMMAND-OBJECT-COLUMN
+    int COL = get_global(jg.COMMAND_OBJECT_COLUMN);
     journey_print_character_commands(true); // <CLEAR-FIELDS>
 
     user_store_byte(get_global(jg.E_LEXV), 0x14); // <PUTB ,E-LEXV 0 20>
@@ -1100,6 +1128,7 @@ void PRINT_CHARACTER_COMMANDS(void) {
 
 void READ_ELVISH(void) {
     journey_current_input = INPUT_ELVISH;
+    // actor (journey_read_elvish argument) is set to Tag by default
     store_variable(1, (journey_read_elvish(variable(1)) ? 1 : 0));
 }
 

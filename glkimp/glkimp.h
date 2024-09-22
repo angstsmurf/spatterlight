@@ -174,6 +174,7 @@ typedef enum JourneyMenuType {
     kJMenuTypeGlue,
     kJMenuTypeObjects,
     kJMenuTypeTextEntry,
+    kJMenuTypeDeleteMembers,
     kJMenuTypeDeleteAll
 } JourneyMenuType;
 

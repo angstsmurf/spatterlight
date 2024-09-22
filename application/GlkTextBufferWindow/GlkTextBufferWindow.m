@@ -2098,6 +2098,16 @@ replacementString:(id)repl {
     return string;
 }
 
+- (NSString *)lastMoveString {
+    NSString *str = @"";
+
+    if (self.moveRanges.count) {
+        moveRangeIndex = self.moveRanges.count - 1;
+        str = [self stringFromRangeVal:self.moveRanges.lastObject];
+    }
+    return str;
+}
+
 - (void)repeatLastMove:(id)sender {
     GlkController *glkctl = self.glkctl;
     if (glkctl.zmenu)
@@ -2105,12 +2115,7 @@ replacementString:(id)repl {
     if (glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
 
-    NSString *str = @"";
-
-    if (self.moveRanges.count) {
-        moveRangeIndex = self.moveRanges.count - 1;
-        str = [self stringFromRangeVal:self.moveRanges.lastObject];
-    }
+    NSString *str = [self lastMoveString];
 
     if (glkctl.quoteBoxes.count) {
         GlkTextGridWindow *box = glkctl.quoteBoxes.lastObject;
