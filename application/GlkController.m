@@ -200,7 +200,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     kVOMenuPrefsType lastVOSpeakMenu;
     BOOL shouldAddTitlePrefixToSpeech;
-
     BOOL changedBorderThisTurn;
 }
 
@@ -4619,6 +4618,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 - (void)journeyPartyAction:(id)sender {
     [self.journeyMenuHandler journeyPartyAction:sender];
 }
+
 - (void)journeyMemberVerbAction:(id)sender {
     [self.journeyMenuHandler journeyMemberVerbAction:sender];
 }
