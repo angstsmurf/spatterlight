@@ -258,8 +258,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     skipNextScriptCommand = NO;
 
-    _gameState = kGameStateUnknown;
-
     _game = game_;
     Game *game = _game;
 
@@ -368,7 +366,6 @@ fprintf(stderr, "%s\n",                                                    \
             _windowPreFullscreenFrame = self.window.frame;
         }
         [self forkInterpreterTask];
-        _gameState = kGameJustStartedNormally;
         return;
     }
 
@@ -445,7 +442,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)runTerpWithAutorestore {
-    _gameState = kGameJustAutorestored;
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -727,7 +723,6 @@ fprintf(stderr, "%s\n",                                                    \
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
-        _gameState = kGameIsShowingCoverImage;
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
@@ -736,7 +731,6 @@ fprintf(stderr, "%s\n",                                                    \
         [_coverController showLogoWindow];
     } else {
         [self forkInterpreterTask];
-        _gameState = kGameIsRunning;
     }
 }
 
@@ -749,7 +743,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     dead = YES;
-    _gameState = kGameIsDead;
 
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
 
@@ -1699,8 +1692,8 @@ fprintf(stderr, "%s\n",                                                    \
             _mustBeQuiet = NO;
         }
         [self speakOnBecomingKey];
-    } else if (_gameState == kGameIsDead && _theme.vODelayOn) {
-        // Game did become key while dead / game over
+    } else if (_theme.vODelayOn) {
+        // If the game has ended
         [self speakMostRecentAfterDelay];
     }
 }
@@ -1859,7 +1852,6 @@ fprintf(stderr, "%s\n",                                                    \
             }
             _shouldSpeakNewText = NO;
         }
-        _gameState = kGameIsRunning;
     }
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
@@ -3789,7 +3781,6 @@ static BOOL pollMoreData(int fd) {
         return;
 
     dead = YES;
-    _gameState = kGameIsDead;
     restartingAlready = NO;
 
     if (timer) {
