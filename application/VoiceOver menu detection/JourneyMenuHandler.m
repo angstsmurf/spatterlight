@@ -799,7 +799,7 @@ errorDescription:(NSString * __autoreleasing *)error
     if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet) {
         return;
     }
-    if (_restoredShowingDialog && !_shouldShowDialog) {
+    if (_restoredShowingDialog) {
         _shouldShowDialog = YES;
     }
     _restoredShowingDialog = NO;
