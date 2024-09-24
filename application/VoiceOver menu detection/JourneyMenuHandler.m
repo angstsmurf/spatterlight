@@ -355,8 +355,7 @@ errorDescription:(NSString * __autoreleasing *)error
 
 
 // Shows modal dialog with text field and OK button.
-// The "elvish" flag is a shorthand for all text entry
-// that is not player name change
+// The "elvish" flag is a shorthand for all text entry that is not player name change.
 - (void)displayAlertWithTextEntry:(NSString *)messageText elvish:(BOOL)elvish {
     if (elvish)
         _storedDialogType = kJourneyDialogTextEntryElvish;
@@ -418,7 +417,7 @@ errorDescription:(NSString * __autoreleasing *)error
     }];
 }
 
-// Show a modal dialog with messagetext and popup menu multiple choice + OK and Cancel buttons
+// Show a modal dialog with message text and popup menu multiple choice + OK and Cancel buttons
 - (void)displayPopupMenuWithMessageText:(NSString *)messageText {
     _storedDialogType = kJourneyDialogMultipleChoice;
     NSAlert *journeyDialog = [self journeyAlertWithText:messageText];
