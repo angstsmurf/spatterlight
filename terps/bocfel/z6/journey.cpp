@@ -921,8 +921,11 @@ static void journey_print_character_commands(bool CLEAR) {
     }
 
     // Delete the Individual Commands menu when the columns to the right are empty
-    if (number_of_printed_party_members == 0 && number_of_printed_verbs_and_objects == 0)
+    // (and also update party menu)
+    if (number_of_printed_party_members == 0 && number_of_printed_verbs_and_objects == 0) {
         win_menuitem(kJMenuTypeDeleteMembers, 0, 0, false, nullptr, 15);
+        create_journey_party_menu();
+    }
 
     set_current_window(&windows[ja.buffer_window_index]);
 }
