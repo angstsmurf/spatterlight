@@ -489,12 +489,10 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
             m = &menu[menu_counter];
 
-            int TAG_OBJECT = jo.TAG_OBJECT;
-            int TAG = jo.TAG;
             int TAG_NAME_LENGTH = get_global(jg.TAG_NAME_LENGTH);
             int NAME_TBL = get_global(jg.NAME_TBL) + 2;
 
-            if ((object == TAG_OBJECT || object == TAG) && TAG_NAME_LENGTH != 0) {
+            if ((object == jo.TAG_OBJECT || object == jo.TAG) && TAG_NAME_LENGTH != 0) {
                 for (uint16_t j = 0; j < TAG_NAME_LENGTH; j++) {
                     m->name[j] = user_byte(NAME_TBL++);
                 }
