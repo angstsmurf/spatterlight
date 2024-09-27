@@ -1819,6 +1819,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
+        if (!_voiceOverActive || _mustBeQuiet) {
+            [win setLastMove];
+        }
     }
 
     for (GlkWindow *win in _windowsToBeRemoved) {
