@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JourneyMenuHandler : NSObject
 
-- (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow;
+- (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow bufferWindow:(GlkTextBufferWindow *)bufferwindow;
 - (void)handleMenuItemOfType:(JourneyMenuType)type column:(NSUInteger)column line:(NSUInteger)line stopflag:(BOOL)stopflag text:(char *_Nullable)buf length:(NSUInteger)len;
 
 - (void)sendCorrespondingMouseEventForMenuItem:(JourneyMenuItem *)item;
@@ -35,11 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showJourneyMenus;
 - (void)captureMembersMenu;
 - (void)recreateDialog;
+- (void)flushDisplay;
 - (BOOL)updateOnBecameKey:(BOOL)recreateDialog;
 
 @property BOOL showsJourneyMenus;
 @property (weak) GlkController *delegate;
 @property (weak) GlkTextGridWindow *textGridWindow;
+@property (weak) GlkTextBufferWindow *textBufferWindow;
 
 @property NSPopUpButton *journeyPopupButton;
 @property NSTextField *journeyTextField;
@@ -65,9 +67,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray<NSMenuItem *> *capturedMembersMenu;
 
 @property NSInteger gridTextWinName;
+@property NSInteger bufferTextWinName;
 @property BOOL shouldShowDialog;
 @property BOOL reallyShowingDialog;
 @property BOOL restoredShowingDialog;
+@property BOOL lastDialogAddedMove;
+@property BOOL restoredDialogAddedMove;
 @property BOOL skipNextDialog;
 
 @property kJourneyDialogType storedDialogType;

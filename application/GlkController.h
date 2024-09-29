@@ -158,6 +158,8 @@ typedef enum kGameIdentity : NSUInteger {
 
 @property BureaucracyForm *form;
 
+@property BOOL shouldShowAutorestoreAlert;
+
 @property NSString *pendingErrorMessage;
 @property NSDate *errorTimeStamp;
 

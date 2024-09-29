@@ -8,6 +8,8 @@
 #import "AppDelegate.h"
 #import "GlkController.h"
 #import "GlkTextGridWindow.h"
+#import "GlkTextBufferWindow.h"
+#import "BufferTextView.h"
 #import "GlkEvent.h"
 #import "InputTextField.h"
 #import "JourneyMenuHandler.h"
@@ -162,7 +164,7 @@ errorDescription:(NSString * __autoreleasing *)error
     return YES;
 }
 
-- (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow {
+- (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow bufferWindow:(GlkTextBufferWindow *)bufferwindow {
     self = [super init];
     if (self) {
         shouldStartNewJourneyPartyMenu = YES;
@@ -170,6 +172,7 @@ errorDescription:(NSString * __autoreleasing *)error
         shouldStartNewJourneyDialogMenu = YES;
         self.delegate = delegate;
         self.textGridWindow = gridwindow;
+        self.textBufferWindow = bufferwindow;
         self.journeyDialogClosedTimestamp = [NSDate distantPast];
     }
     return self;
@@ -184,9 +187,12 @@ errorDescription:(NSString * __autoreleasing *)error
         self.journeyLastPartyMenuItems = [decoder decodeObjectOfClass:[NSArray class] forKey:@"journeyLastPartyMenuItems"];
         self.journeyGlueStrings = [decoder decodeObjectOfClass:[NSArray class] forKey:@"journeyGlueStrings"];
         self.capturedMembersMenu = [decoder decodeObjectOfClass:[NSArray class] forKey:@"capturedMembersMenu"];
-        self.gridTextWinName = [decoder decodeIntegerForKey:@"textGridWinName"];
+        self.gridTextWinName = [decoder decodeIntegerForKey:@"gridTextWinName"];
+        self.bufferTextWinName = [decoder decodeIntegerForKey:@"bufferTextWinName"];
         self.shouldShowDialog = [decoder decodeBoolForKey:@"shouldShowDialog"];
         _restoredShowingDialog = self.shouldShowDialog;
+        self.lastDialogAddedMove = [decoder decodeBoolForKey:@"lastDialogAddedMove"];
+        self.restoredDialogAddedMove = self.lastDialogAddedMove;
         self.storedDialogType = (kJourneyDialogType)[decoder decodeIntegerForKey:@"storedDialogType"];
         self.storedDialogText = [decoder decodeObjectOfClass:[NSString class] forKey:@"storedDialogText"];
         self->shouldStartNewJourneyDialogMenu = [decoder decodeBoolForKey:@"shouldStartNewJourneyDialogMenu"];
@@ -205,14 +211,14 @@ errorDescription:(NSString * __autoreleasing *)error
     [encoder encodeObject:_journeyGlueStrings forKey:@"journeyGlueStrings"];
     [encoder encodeObject:_capturedMembersMenu forKey:@"capturedMembersMenu"];
 
-    [encoder encodeInteger:_textGridWindow.name forKey:@"textGridWinName"];
+    [encoder encodeInteger:_textGridWindow.name forKey:@"gridTextWinName"];
+    [encoder encodeInteger:_textBufferWindow.name forKey:@"bufferTextWinName"];
 
     [encoder encodeBool:shouldStartNewJourneyDialogMenu forKey:@"shouldStartNewJourneyDialogMenu"];
     [encoder encodeBool:_shouldShowDialog forKey:@"shouldShowDialog"];
-
+    [encoder encodeBool:_lastDialogAddedMove forKey:@"lastDialogAddedMove"];
     [encoder encodeInteger:_storedDialogType forKey:@"storedDialogType"];
     [encoder encodeObject:_storedDialogText forKey:@"storedDialogText"];
-
 }
 
 - (NSMenuItem *)journeyPartyMenu {
@@ -333,8 +339,9 @@ errorDescription:(NSString * __autoreleasing *)error
 }
 
 - (nullable NSAlert *)journeyAlertWithText:(NSString *)text {
-    if (_shouldShowDialog || _reallyShowingDialog)
+    if (_shouldShowDialog || _reallyShowingDialog) {
         return nil;
+    }
 
     _skipNextDialog = NO;
 
@@ -351,6 +358,15 @@ errorDescription:(NSString * __autoreleasing *)error
     journeyDialog.messageText = NSLocalizedString(text, nil);
     _reallyShowingDialog = YES;
     return journeyDialog;
+}
+
+- (void)prepareAlertWithText:(NSString *)text type:(kJourneyDialogType)type {
+    if (!_reallyShowingDialog) {
+        _journeyDialogClosedTimestamp = [NSDate distantPast];
+    }
+    _storedDialogText = text;
+    _storedDialogType = type;
+    _shouldShowDialog = YES;
 }
 
 
@@ -587,7 +603,7 @@ errorDescription:(NSString * __autoreleasing *)error
         } else {
             messageText = @"Please enter a new name for the main character:";
         }
-        [self displayAlertWithTextEntry:messageText elvish:elvish];
+        [self prepareAlertWithText:messageText type:elvish ? kJourneyDialogTextEntryElvish : kJourneyDialogTextEntry];
         return;
     }
 
@@ -640,7 +656,7 @@ errorDescription:(NSString * __autoreleasing *)error
                     _journeyDialogMenuItems = _journeyPartyMenuItems;
                     _journeyLastPartyMenuItems = _journeyPartyMenuItems;
                     _shouldShowDialog = NO;
-                    [self displayPopupMenuWithMessageText:@"Please Select One:"];
+                    [self prepareAlertWithText:@"Please Select One:" type:kJourneyDialogMultipleChoice];
                     return;
                 } else {
                     _journeyLastPartyMenuItems = [NSMutableArray new];
@@ -745,13 +761,6 @@ errorDescription:(NSString * __autoreleasing *)error
 
                 _shouldShowDialog = NO;
 
-//                 This does not work, because it adds the move *before* the one we want.
-//                if (_journeyVerbMenuItems.count == 0 && [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1) {
-//                    [_delegate flushDisplay];
-//                    GlkTextBufferWindow *bwin = (GlkTextBufferWindow *)[_delegate largestWithMoves];
-//                    messageText = [NSString stringWithFormat:@"\"%@\"\n\n%@",  bwin.lastMoveString, messageText];
-//                }
-
                 if (_journeyDialogMenuItems.count <= 2) {
 
                     // Musings dialog hack
@@ -760,10 +769,10 @@ errorDescription:(NSString * __autoreleasing *)error
                     }
                     messageText = [messageText stringByAppendingString:@" "];
                     messageText = [messageText stringByAppendingString:_journeyDialogMenuItems.firstObject.title];
-                    [self displayAlertWithText:messageText];
+                    [self prepareAlertWithText:messageText type:kJourneyDialogSingleChoice];
                 } else {
                     messageText = [messageText stringByAppendingString:@":"];
-                    [self displayPopupMenuWithMessageText:messageText];
+                    [self prepareAlertWithText:messageText type:kJourneyDialogMultipleChoice];
                 }
                 _journeyGlueStrings = [NSMutableArray new];
             }
@@ -792,19 +801,47 @@ errorDescription:(NSString * __autoreleasing *)error
 
 - (void)recreateDialog {
     [self showJourneyMenus];
-    if ([_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1) {
+
+    _lastDialogAddedMove = (_textBufferWindow.lastNewTextOnTurn == _delegate.turns);
+
+    if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
         return;
     }
-    if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet) {
-        return;
-    }
+
     if (_restoredShowingDialog) {
         _shouldShowDialog = YES;
     }
     _restoredShowingDialog = NO;
-    if (!_delegate.voiceOverActive || !_shouldShowDialog || _delegate.gameID != kGameIsJourney)
+
+    // Whether the current move has printed text
+    // that we should add to the dialog
+    // (to make VoiceOver read it to the player)
+    if (_restoredDialogAddedMove) {
+        _lastDialogAddedMove = YES;
+    }
+    _restoredDialogAddedMove = NO;
+
+    if (!_delegate.voiceOverActive || !_shouldShowDialog || _delegate.gameID != kGameIsJourney) {
         return;
+    }
     _shouldShowDialog = NO;
+
+    if (_textBufferWindow.lastNewTextOnTurn == _delegate.turns || _lastDialogAddedMove) {
+        NSString *lastMoveString = [_textBufferWindow.lastMoveString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (lastMoveString.length == 0) {
+            lastMoveString = _textBufferWindow.textview.string;
+        }
+        if (lastMoveString.length > 500) {
+            NSRange lastNewLine = [lastMoveString rangeOfString:@"\n" options:NSBackwardsSearch];
+            if (lastNewLine.location == NSNotFound) {
+                lastNewLine.location = lastMoveString.length - 500;
+            }
+            lastMoveString = [lastMoveString substringFromIndex:lastNewLine.location + 1];
+        }
+
+        _storedDialogText = [NSString stringWithFormat:@"\"%@\"\n\n%@",  lastMoveString, _storedDialogText];
+    }
+
     switch (_storedDialogType) {
         case kJourneyDialogTextEntry:
             [self displayAlertWithTextEntry:_storedDialogText elvish:NO];
@@ -828,9 +865,11 @@ errorDescription:(NSString * __autoreleasing *)error
         if (!_textGridWindow)
             _textGridWindow =
             (GlkTextGridWindow *)_delegate.gwindows[@(_gridTextWinName)];
+        if (!_textBufferWindow)
+            _textBufferWindow =
+            (GlkTextBufferWindow *)_delegate.gwindows[@(_bufferTextWinName)];
         [self recreateJourneyMenus];
         if (_delegate.mustBeQuiet) {
-            NSLog(@"updateOnBecameKey: reset _journeyDialogClosedTimestamp because _mustBeQuiet is YES");
             _journeyDialogClosedTimestamp = [NSDate date];
         }
         if (recreateDialog) {
@@ -841,6 +880,12 @@ errorDescription:(NSString * __autoreleasing *)error
         }
     }
     return NO;
+}
+
+- (void)flushDisplay {
+    if (_shouldShowDialog && _delegate.turns > 1) {
+        [self recreateDialog];
+    }
 }
 
 @end

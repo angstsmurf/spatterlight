@@ -204,7 +204,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
-@property BOOL shouldShowAutorestoreAlert;
 @property NSURL *saveDir;
 
 @end
@@ -1198,6 +1197,8 @@ fprintf(stderr, "%s\n",                                                    \
         restoredController.journeyMenuHandler = nil;
         _journeyMenuHandler.delegate = self;
         _journeyMenuHandler.textGridWindow = (GlkTextGridWindow *)_gwindows[@(_journeyMenuHandler.gridTextWinName)];
+        _journeyMenuHandler.textBufferWindow = (GlkTextBufferWindow *)_gwindows[@(_journeyMenuHandler.bufferTextWinName)];
+
         [_journeyMenuHandler showJourneyMenus];
     }
 
@@ -1545,8 +1546,15 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)showAutorestoreAlert:(id)userInfo {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+    NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
 
-    if (!_shouldShowAutorestoreAlert && !_mustBeQuiet) {
+    if ([defaults boolForKey:alertSuppressionKey] == YES)
+        _shouldShowAutorestoreAlert = NO;
+
+    if (!_shouldShowAutorestoreAlert) {
+        _mustBeQuiet = NO;
         [_journeyMenuHandler recreateDialog];
         return;
     }
@@ -1571,15 +1579,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         weakSelf.mustBeQuiet = NO;
 
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-        NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
-        NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
-
         if (anAlert.suppressionButton.state == NSOnState) {
             // Suppress this alert from now on
             [defaults setBool:YES forKey:alertSuppressionKey];
         }
+
+        weakSelf.shouldShowAutorestoreAlert = NO;
 
         if (result == NSAlertSecondButtonReturn) {
             [self reset:nil];
@@ -1593,7 +1598,6 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
 
-        weakSelf.shouldShowAutorestoreAlert = NO;
         [weakSelf.journeyMenuHandler recreateDialog];
     }];
 }
@@ -1716,8 +1720,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         [self speakOnBecomingKey];
-    } else if (_theme.vODelayOn) {
-        // If the game has ended
+    } else if (_theme.vODelayOn) { // If the game has ended
         [self speakMostRecentAfterDelay];
     }
 }
@@ -1860,7 +1863,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
-        if (!_voiceOverActive || _mustBeQuiet) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] &&
+            (!_voiceOverActive || _mustBeQuiet)) {
             [win setLastMove];
         }
     }
@@ -1880,6 +1884,9 @@ fprintf(stderr, "%s\n",                                                    \
             _shouldSpeakNewText = NO;
         }
     }
+
+    if (_journeyMenuHandler)
+        [_journeyMenuHandler flushDisplay];
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
@@ -3077,14 +3084,16 @@ fprintf(stderr, "%s\n",                                                    \
 - (nullable JourneyMenuHandler *)journeyMenuHandler {
     if (_journeyMenuHandler == nil) {
         GlkTextGridWindow *gridwindow = nil;
+        GlkTextBufferWindow *bufferwindow = nil;
         for (GlkWindow *win in _gwindows.allValues)
             if ([win isKindOfClass:[GlkTextGridWindow class]]) {
                 gridwindow = (GlkTextGridWindow *)win;
-                break;
+            } else if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                bufferwindow = (GlkTextBufferWindow *)win;
             }
-        if (gridwindow == nil)
+        if (gridwindow == nil || bufferwindow == nil)
             return nil;
-        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow];
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
     }
     return _journeyMenuHandler;
 }

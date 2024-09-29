@@ -494,8 +494,12 @@ fprintf(stderr, "%s\n",                                                    \
     lastAtTop = _restoredAtTop;
     lastAtBottom = _restoredAtBottom;
 
+    self.moveRanges = restoredWin.moveRanges;
+
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
+
+    _lastNewTextOnTurn = self.glkctl.turns;
 
     for (MarginImage *img in container.marginImages) {
         img.container = container;
@@ -2057,6 +2061,7 @@ replacementString:(id)repl {
         return NO;
     moveRangeIndex = self.moveRanges.count;
     [self.moveRanges addObject:[NSValue valueWithRange:currentMove]];
+    _lastNewTextOnTurn = self.glkctl.turns;
     return YES;
 }
 
