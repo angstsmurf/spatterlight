@@ -282,7 +282,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)scrollWheelchanged:(NSEvent *)event {
-     if (self.glkctl.commandScriptRunning) {
+    if (self.glkctl.commandScriptRunning) {
         if (pauseScrolling && event.scrollingDeltaY < 0) {
             if (NSHeight(_textview.bounds) - NSMaxY(scrollview.contentView.bounds) < NSHeight(scrollview.contentView.bounds)) {
                 // Scrollbar moved down close enough to bottom. Resume scrolling.
@@ -378,7 +378,7 @@ fprintf(stderr, "%s\n",                                                    \
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
-        .rangeValue;
+            .rangeValue;
         _textview.selectedRange = _restoredSelection;
 
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
@@ -619,12 +619,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger marginX = self.theme.bufferMarginX;
     NSInteger marginY = self.theme.bufferMarginY;
-    
+
     BOOL marginHeightChanged = (marginY != _textview.textContainerInset.height);
     CGFloat heightDiff = marginY - _textview.textContainerInset.height;
-    
+
     _textview.textContainerInset = NSMakeSize(marginX, marginY);
-    
+
     // If the Y margin has changed, we must adjust the text view
     // here to make the scrollview aware of this, otherwise we might
     // not be able to scroll to the bottom.
@@ -961,14 +961,14 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSUInteger)unputString:(NSString *)buf {
     [self flushDisplay];
-     NSUInteger result = 0;
-     NSUInteger initialLength = textstorage.length;
-     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
-     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
-         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
-         result = initialLength - textstorage.length;
-     }
-     return result;
+    NSUInteger result = 0;
+    NSUInteger initialLength = textstorage.length;
+    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
+    if ([stringToRemove isEqualToString:buf.uppercaseString]) {
+        [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
+        result = initialLength - textstorage.length;
+    }
+    return result;
 }
 
 - (void)echo:(BOOL)val {
@@ -1133,8 +1133,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)sendCommandLine:(NSString *)line {
     if (echo) {
         NSAttributedString *att = [[NSAttributedString alloc]
-                  initWithString:line
-                  attributes:_inputAttributes];
+                                   initWithString:line
+                                   attributes:_inputAttributes];
         [textstorage appendAttributedString:att];
     }
     [self sendInputLine:line withTerminator:0];
@@ -1313,7 +1313,7 @@ fprintf(stderr, "%s\n",                                                    \
         [_textview resetTextFinder];
     }
 
-   if (!cx.length) {
+    if (!cx.length) {
         if ([history empty])
             [self.glkctl speakStringNow:@"No commands entered"];
         else
@@ -1519,7 +1519,7 @@ replacementString:(id)repl {
     NSRange lineRange;
     for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
         [layoutmanager lineFragmentRectForGlyphAtIndex:index
-                                               effectiveRange:&lineRange];
+                                        effectiveRange:&lineRange];
         index = NSMaxRange(lineRange);
     }
     return numberOfLines;
@@ -1576,10 +1576,10 @@ replacementString:(id)repl {
         NSSearchField __block *foundView = nil;
         [view.subviews enumerateObjectsUsingBlock:^(
                                                     NSView *subview, NSUInteger idx, BOOL *stop) {
-            foundView = weak_findSearchField(subview);
-            if (foundView)
-                *stop = YES;
-        }];
+                                                        foundView = weak_findSearchField(subview);
+                                                        if (foundView)
+                                                            *stop = YES;
+                                                    }];
         return foundView;
     };
 
@@ -1656,7 +1656,7 @@ replacementString:(id)repl {
         } else if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
         }
-        
+
         [container addImage:image index:index alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
     }
