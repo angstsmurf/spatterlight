@@ -250,7 +250,6 @@
         _lastimageresno = -1;
     else
         _lastimageresno = resno;
-    NSLog(@"handleFindImageNumber %ld: result:%@", resno, result ? @"YES":@"NO");
     return result;
 }
 
