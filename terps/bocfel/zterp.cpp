@@ -148,10 +148,6 @@ static void initialize_games()
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
         { Game::Shogun, { "322-890706" } },
         { Game::Stationfall, { "1-861017", "63-870218", "87-870326", "107-870430" } },
-#ifdef SPATTERLIGHT
-        { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
-        { Game::MadBomber, { "3-971123-caad" } },
-#endif
         { Game::ZorkZero, { "393-890714" } },
         { Game::MysteriousAdventures, mysterious },
     };

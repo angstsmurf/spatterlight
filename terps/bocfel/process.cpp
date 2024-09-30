@@ -39,10 +39,6 @@ extern "C" {
 #include "zoom.h"
 #include "zterp.h"
 
-#ifdef SPATTERLIGHT
-#include "spatterlight-autosave.h"
-#endif
-
 unsigned long pc;
 unsigned long current_instruction;
 
@@ -308,12 +304,9 @@ void process_instructions()
         SaveOpcode saveopcode;
 
         handled_autosave = true;
-#ifdef SPATTERLIGHT
-        if (spatterlight_restore_autosave(&saveopcode)) {
-#else
+
         if (do_restore(SaveType::Autosave, saveopcode)) {
             show_message("Continuing last session from autosave");
-#endif
             throw Operation::Restore(saveopcode);
         }
     }

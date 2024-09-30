@@ -24,7 +24,7 @@ private:
 
 extern std::string game_file;
 
-#define ZTERP_VERSION	"2.2"
+#define ZTERP_VERSION	"2.2.1"
 
 // v3
 constexpr uint8_t FLAGS1_STATUSTYPE  = 1U << 1;
@@ -55,11 +55,7 @@ constexpr uint16_t FLAGS2_MENUS      = 1U << 8;
 
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
-#ifdef SPATTERLIGHT
-#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
-#else
-#define mouse_available()   (zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
-#endif
+#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
 
 struct Header {
     uint16_t pc;
@@ -94,10 +90,6 @@ enum class Game {
     Planetfall,
     Shogun,
     Stationfall,
-#ifdef SPATTERLIGHT
-    BeyondZork,
-    MadBomber,
-#endif
     ZorkZero,
     MysteriousAdventures,
 };

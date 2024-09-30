@@ -43,18 +43,7 @@
 #ifdef ZTERP_GLK
 extern "C" {
 #include <glk.h>
-#ifdef SPATTERLIGHT
-#include "glkimp.h"
-#endif
 }
-
-#ifdef SPATTERLIGHT
-#include "random.h"
-#include "spatterlight-autosave.h"
-
-extern long last_random_seed;
-extern int random_calls_count;
-#endif
 
 #if defined(GLK_MODULE_IMAGE) && defined(ZTERP_GLK_BLORB)
 #define ZTERP_GLK_GRAPHICS
@@ -302,7 +291,6 @@ public:
     void clear();
     void draw(glui32 pic, const ImageGeometry *geom, glui32 w, glui32 h) const;
     winid_t id() const { return m_id; }
-    void set_id(winid_t w) { m_id = w; }
     Type type() const { return m_type; }
     double ratio() const { return m_ratio; }
 
@@ -561,6 +549,8 @@ static void xglk_put_char_stream(strid_t s, uint32_t c)
 }
 #endif
 
+static bool set_force_fixed = false;
+
 static void set_window_style(const Window *win)
 {
 #ifdef ZTERP_GLK
@@ -571,6 +561,10 @@ static void set_window_style(const Window *win)
 
 #ifdef GLK_MODULE_GARGLKTEXT
     if (curwin->font == Window::Font::Fixed || header_fixed_font) {
+        style.set(STYLE_FIXED);
+    }
+
+    if (curwin == mainwin && set_force_fixed) {
         style.set(STYLE_FIXED);
     }
 
@@ -586,6 +580,10 @@ static void set_window_style(const Window *win)
 #else
     // Yes, there are three ways to indicate that a fixed-width font should be used.
     bool use_fixed_font = style.test(STYLE_FIXED) || curwin->font == Window::Font::Fixed || header_fixed_font;
+
+    if (curwin == mainwin && set_force_fixed) {
+        use_fixed_font = true;
+    }
 
     // Glk can’t mix other styles with fixed-width, but the upper window
     // is always fixed, so if it is selected, there is no need to
@@ -614,6 +612,13 @@ static void set_window_style(const Window *win)
 #else
     zterp_os_set_style(win->style, win->fg_color, win->bg_color);
 #endif
+}
+
+bool screen_toggle_force_fixed()
+{
+    set_force_fixed = !set_force_fixed;
+    set_window_style(mainwin);
+    return set_force_fixed;
 }
 
 static void set_current_style()
@@ -793,11 +798,6 @@ static void put_char_base(uint16_t c, bool unicode)
             // newline, and this makes the most sense, so don’t do any
             // translation in that case.
             if (curwin->font == Window::Font::Character && !options.disable_graphics_font && c != UNICODE_LINEFEED) {
-#ifdef SPATTERLIGHT
-                // Spatterlight uses a real Font 3 and does not need any conversion.
-                // We use the BlockQuote style to mark Font 3 because it has no other special use.
-                glk_set_style(style_BlockQuote);
-#else
                 zscii = unicode_to_zscii[c];
 
                 // These four characters have a “built-in” reverse video (see §16).
@@ -807,7 +807,6 @@ static void put_char_base(uint16_t c, bool unicode)
                 }
 
                 c = zscii_to_font3[zscii];
-#endif
             }
 #ifdef ZTERP_GLK
             if (streams.test(OSTREAM_SCREEN) && curwin->id != nullptr) {
@@ -1233,16 +1232,6 @@ static void resize_upper_window(long nlines, bool from_game)
         return;
     }
 
-#ifdef SPATTERLIGHT
-    // Hack to clear upper window when its height is set to 0.
-    // This probably doesn't need to be here, but there is currently
-    // an incompatibility with Hugo if this is done in the common window code.
-    if(nlines == 0)
-    {
-        glk_window_clear(upperwin->id);
-    }
-#endif
-
     long previous_height = upper_window_height;
 
     if (from_game) {
@@ -1250,14 +1239,6 @@ static void resize_upper_window(long nlines, bool from_game)
         if (upper_window_height <= nlines || saw_input) {
             update_delayed();
         }
-#ifdef SPATTERLIGHT
-        // Spatterlight's "fancy quotebox" hack breaks Mad Bomber
-        // so we add another hack to special-case that game
-        else if (!is_game(Game::MadBomber) && gli_enable_quoteboxes) {
-            win_quotebox(upperwin->id->peer, (int)nlines);
-            update_delayed();
-        }
-#endif
         saw_input = false;
 
         // §8.6.1.1.2
@@ -1385,25 +1366,11 @@ static void term_keys_add(uint8_t key)
     case ZSCII_F11:   insert_key(keycode_Func11); break;
     case ZSCII_F12:   insert_key(keycode_Func12); break;
 
-#ifdef SPATTERLIGHT
-            // Spatterlight supports keypad 0–9
-        case ZSCII_KEY0:  insert_key(keycode_Pad0); break;
-        case ZSCII_KEY1:  insert_key(keycode_Pad1); break;
-        case ZSCII_KEY2:  insert_key(keycode_Pad2); break;
-        case ZSCII_KEY3:  insert_key(keycode_Pad3); break;
-        case ZSCII_KEY4:  insert_key(keycode_Pad4); break;
-        case ZSCII_KEY5:  insert_key(keycode_Pad5); break;
-        case ZSCII_KEY6:  insert_key(keycode_Pad6); break;
-        case ZSCII_KEY7:  insert_key(keycode_Pad7); break;
-        case ZSCII_KEY8:  insert_key(keycode_Pad8); break;
-        case ZSCII_KEY9:  insert_key(keycode_Pad9); break;
-#else
     // Keypad 0–9 should be here, but Glk doesn’t support that.
     case ZSCII_KEY0: case ZSCII_KEY1: case ZSCII_KEY2: case ZSCII_KEY3:
     case ZSCII_KEY4: case ZSCII_KEY5: case ZSCII_KEY6: case ZSCII_KEY7:
     case ZSCII_KEY8: case ZSCII_KEY9:
         break;
-#endif
 
     case ZSCII_CLICK_SINGLE:
         term_mouse = true;
@@ -1598,7 +1565,7 @@ bool GraphicsWindow::resize(Type type)
             {GraphicsWindow::Type::ArthurBanner, {320, 96}},
             {GraphicsWindow::Type::ArthurDemon, {254, 164}},
             {GraphicsWindow::Type::ZorkZeroTitle, {320, 240}},
-            {GraphicsWindow::Type::ZorkZeroBorder, {320, 40}},
+            {GraphicsWindow::Type::ZorkZeroBorder, {320, 39}},
             {GraphicsWindow::Type::ZorkZero320, {320, 200}},
             {GraphicsWindow::Type::ShogunMaze, {274, 140}},
             {GraphicsWindow::Type::Mysterious, {512, 208}},
@@ -1899,10 +1866,6 @@ void zerase_window()
     }
 
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
-#ifdef SPATTERLIGHT
-    // Hack to set upper window background to current background color.
-    win_setbgnd(upperwin->id->peer, gargoyle_color(style_window()->bg_color));
-#endif
     set_current_style();
 #endif
 }
@@ -1952,11 +1915,6 @@ static void set_cursor(uint16_t y, uint16_t x)
     if (as_signed(x) < 1) {
         x = 1;
     }
-
-#ifdef SPATTERLIGHT
-    if (y > gscreenh / gcellh)
-        return;
-#endif
 
     // This is actually illegal, but some games (e.g. Beyond Zork) expect it to work.
     if (y > upper_window_height) {
@@ -2515,7 +2473,6 @@ static bool istream_read_from_file(Input &input)
 static uint8_t zscii_from_glk(glui32 key)
 {
     switch (key) {
-    case 13:             return ZSCII_NEWLINE;
     case keycode_Up:     return ZSCII_UP;
     case keycode_Down:   return ZSCII_DOWN;
     case keycode_Left:   return ZSCII_LEFT;
@@ -2532,18 +2489,6 @@ static uint8_t zscii_from_glk(glui32 key)
     case keycode_Func10: return ZSCII_F10;
     case keycode_Func11: return ZSCII_F11;
     case keycode_Func12: return ZSCII_F12;
-#ifdef SPATTERLIGHT
-    case keycode_Pad0: return ZSCII_KEY0;
-    case keycode_Pad1: return ZSCII_KEY1;
-    case keycode_Pad2: return ZSCII_KEY2;
-    case keycode_Pad3: return ZSCII_KEY3;
-    case keycode_Pad4: return ZSCII_KEY4;
-    case keycode_Pad5: return ZSCII_KEY5;
-    case keycode_Pad6: return ZSCII_KEY6;
-    case keycode_Pad7: return ZSCII_KEY7;
-    case keycode_Pad8: return ZSCII_KEY8;
-    case keycode_Pad9: return ZSCII_KEY9;
-#endif
     }
 
     return ZSCII_NEWLINE;
@@ -2765,18 +2710,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 case keycode_Func10: input.key = ZSCII_F10; break;
                 case keycode_Func11: input.key = ZSCII_F11; break;
                 case keycode_Func12: input.key = ZSCII_F12; break;
-#ifdef SPATTERLIGHT
-                case keycode_Pad0: input.key = ZSCII_KEY0; break;
-                case keycode_Pad1: input.key = ZSCII_KEY1; break;
-                case keycode_Pad2: input.key = ZSCII_KEY2; break;
-                case keycode_Pad3: input.key = ZSCII_KEY3; break;
-                case keycode_Pad4: input.key = ZSCII_KEY4; break;
-                case keycode_Pad5: input.key = ZSCII_KEY5; break;
-                case keycode_Pad6: input.key = ZSCII_KEY6; break;
-                case keycode_Pad7: input.key = ZSCII_KEY7; break;
-                case keycode_Pad8: input.key = ZSCII_KEY8; break;
-                case keycode_Pad9: input.key = ZSCII_KEY9; break;
-#endif
+
                 default:
                     input.key = ZSCII_QUESTIONMARK;
 
@@ -2987,11 +2921,7 @@ void zread_char()
     input.type = Input::Type::Char;
 
     if (options.autosave && !in_interrupt()) {
-#ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcode::ReadChar);
-#else
         do_save(SaveType::Autosave, SaveOpcode::ReadChar);
-#endif
     }
 
     if (zversion >= 4 && znargs > 1) {
@@ -3129,11 +3059,7 @@ static bool read_handler()
     uint16_t routine = zargs[3];
 
     if (options.autosave && !in_interrupt()) {
-#ifdef SPATTERLIGHT
-        spatterlight_do_autosave(SaveOpcode::Read);
-#else
         do_save(SaveType::Autosave, SaveOpcode::Read);
-#endif
     }
 
 #ifdef ZTERP_GLK
@@ -4922,93 +4848,3 @@ void init_screen(bool first_run)
 
     set_current_window(mainwin);
 }
-
-#ifdef SPATTERLIGHT
-// This is called during an autosave. It saves the relations
-// between Bocfel specific structures and Glk objects, and also
-// any active sound commands.
-void stash_library_state(library_state_data *dat)
-{
-    if (dat) {
-        if ( windows[0].id)
-            dat->wintag0 = windows[0].id->tag;
-        if ( windows[1].id)
-            dat->wintag1 = windows[1].id->tag;
-        if ( windows[2].id)
-            dat->wintag2 = windows[2].id->tag;
-        if ( windows[3].id)
-            dat->wintag3 = windows[3].id->tag;
-        if ( windows[4].id)
-            dat->wintag4 = windows[4].id->tag;
-        if ( windows[5].id)
-            dat->wintag5 = windows[5].id->tag;
-        if ( windows[6].id)
-            dat->wintag6 = windows[6].id->tag;
-        if ( windows[7].id)
-            dat->wintag7 = windows[7].id->tag;
-
-        if (curwin->id)
-            dat->curwintag = curwin->id->tag;
-        if (mainwin->id)
-            dat->mainwintag = mainwin->id->tag;
-        if (statuswin.id)
-            dat->statuswintag = statuswin.id->tag;
-        if (errorwin && errorwin->tag)
-            dat->errorwintag = errorwin->tag;
-        if (upperwin->id)
-            dat->upperwintag = upperwin->id->tag;
-
-        if (graphics_window.id())
-            dat->graphicswintag = graphics_window.id()->tag;
-
-        dat->last_random_seed = last_random_seed;
-        dat->random_calls_count = random_calls_count;
-
-        stash_library_sound_state(dat);
-    }
-}
-
-// This is called during an autorestore. It recreatets the relations
-// between Bocfel specific structures and Glk objects, and any
-// active sound commands.
-void recover_library_state(library_state_data *dat)
-{
-    if (dat) {
-        windows[0].id = gli_window_for_tag(dat->wintag0);
-        windows[1].id = gli_window_for_tag(dat->wintag1);
-        windows[2].id = gli_window_for_tag(dat->wintag2);
-        windows[3].id = gli_window_for_tag(dat->wintag3);
-        windows[4].id = gli_window_for_tag(dat->wintag4);
-        windows[5].id = gli_window_for_tag(dat->wintag5);
-        windows[6].id = gli_window_for_tag(dat->wintag6);
-        windows[7].id = gli_window_for_tag(dat->wintag7);
-        statuswin.id = gli_window_for_tag(dat->statuswintag);
-        errorwin = gli_window_for_tag(dat->errorwintag);
-        graphics_window.set_id(gli_window_for_tag(dat->graphicswintag));
-        for (int i = 0; i < 8; i++)
-        {
-            if (windows[i].id) {
-                if (windows[i].id->tag == dat->mainwintag) {
-                    mainwin = &windows[i];
-                }
-                if (windows[i].id->tag == dat->curwintag) {
-                    curwin = &windows[i];
-                }
-                if (windows[i].id->tag == dat->upperwintag)
-                {
-                    upperwin = &windows[i];
-                    if (mouse_available())
-                        glk_request_mouse_event(upperwin->id);
-                }
-            }
-        }
-
-        seed_random((uint32_t)last_random_seed);
-        random_calls_count = 0;
-        for (int i = 0; i < dat->random_calls_count; i++)
-            zterp_rand();
-
-        recover_library_sound_state(dat);
-    }
-}
-#endif

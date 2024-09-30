@@ -60,11 +60,7 @@ struct Options {
     std::unique_ptr<unsigned long> random_seed = nullptr;
     std::unique_ptr<std::string> random_device = nullptr;
 
-#ifdef SPATTERLIGHT
-    bool autosave = true;
-#else
     bool autosave = false;
-#endif
     bool persistent_transcript = false;
     std::unique_ptr<std::string> editor = nullptr;
     bool warn_on_v6 = true;

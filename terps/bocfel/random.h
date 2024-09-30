@@ -12,9 +12,4 @@ void random_read_rand(IO &io);
 
 void zrandom();
 
-#ifdef SPATTERLIGHT
-uint32_t zterp_rand();
-void seed_random(uint32_t seed);
-#endif
-
 #endif

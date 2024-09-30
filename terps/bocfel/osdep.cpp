@@ -31,10 +31,7 @@
 
 #ifdef ZTERP_GLK
 extern "C" {
-#include "glk.h"
-#ifdef SPATTERLIGHT
-#include "fileref.h"
-#endif
+#include <glk.h>
 }
 #endif
 
@@ -1012,33 +1009,6 @@ void zterp_os_set_style(const Style &style, const Color &fg, const Color &bg)
 }
 #define have_zterp_os_set_style
 #endif
-
-#endif
-
-
-// ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║ SPATTERLIGHT functions                                                       ║
-// ╚══════════════════════════════════════════════════════════════════════════════╝
-#ifdef SPATTERLIGHT
-
-std::string convertToString(char* a)
-{
-    int i;
-    std::string s = "";
-    for (i = 0; a[i] != '\0'; i++) {
-        s = s + a[i];
-    }
-    return s;
-}
-
-std::unique_ptr<std::string> zterp_os_autosave_name()
-{
-    getautosavedir((char *)game_file.c_str());
-    std::string s = convertToString(autosavedir);
-    return std::make_unique<std::string>(s + "/autosave.glksave");
-}
-
-#define have_zterp_os_autosave_name
 
 #endif
 

@@ -43,7 +43,7 @@
 //
 // In other saves (normal and meta), the state of the PRNG is never
 // stored. Doing so portably would be impossible since different
-// interpreters use different PRNGs, and interpreters may even be using
+// interpreters use different PRNGs, and intepreters may even be using
 // non-deterministic RNGs, e.g. /dev/urandom on Linux. Even if a private
 // chunk were used (such as that used for autosaves), Infocom never
 // intended for seeds to be stored anyway: per the EZIP documentation:
@@ -66,11 +66,6 @@ static enum class Mode {
 // The PRNG used here is Xorshift32.
 static uint32_t xstate;
 
-#ifdef SPATTERLIGHT
-long last_random_seed = 0;
-int random_calls_count = 0;
-#endif
-
 static void zterp_srand(uint32_t s)
 {
     if (s == 0) {
@@ -82,11 +77,7 @@ static void zterp_srand(uint32_t s)
 
 static std::ifstream random_file;
 
-#ifdef SPATTERLIGHT
-uint32_t zterp_rand()
-#else
 static uint32_t zterp_rand()
-#endif
 {
     if (mode == Mode::Random && random_file.is_open()) {
         uint32_t value;
@@ -103,10 +94,6 @@ static uint32_t zterp_rand()
     xstate ^= xstate >> 17;
     xstate ^= xstate <<  5;
 
-#ifdef SPATTERLIGHT
-    random_calls_count++;
-#endif
-
     return xstate;
 }
 
@@ -117,17 +104,8 @@ static uint32_t zterp_rand()
 //
 // Otherwise, set the PRNG to predictable mode and seed with the
 // provided value.
-#ifdef SPATTERLIGHT
-void seed_random(uint32_t seed)
-#else
 static void seed_random(uint32_t seed)
-#endif
 {
-#ifdef SPATTERLIGHT
-
-    random_calls_count = 0;
-
-#endif
     if (seed == 0) {
         mode = Mode::Random;
 
@@ -140,21 +118,14 @@ static void seed_random(uint32_t seed)
             for (size_t i = 0; i < sizeof t; i++) {
                 s = s * (UCHAR_MAX + 2U) + p[i];
             }
-#ifdef SPATTERLIGHT
-            last_random_seed = s;
-#endif
+
             zterp_srand(s);
         } else {
-#ifdef SPATTERLIGHT
-            last_random_seed = *options.random_seed;
-#endif
             zterp_srand(*options.random_seed);
         }
     } else {
         mode = Mode::Predictable;
-#ifdef SPATTERLIGHT
-        last_random_seed = seed;
-#endif
+
         zterp_srand(seed);
     }
 }
