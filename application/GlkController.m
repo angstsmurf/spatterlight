@@ -1192,7 +1192,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self.commandScriptHandler copyPropertiesFrom:restoredController.commandScriptHandler];
     }
 
-    if (restoredController.journeyMenuHandler) {
+    if (_gameID == kGameIsJourney && restoredController.journeyMenuHandler) {
         self.journeyMenuHandler = restoredController.journeyMenuHandler;
         restoredController.journeyMenuHandler = nil;
         _journeyMenuHandler.delegate = self;
@@ -1598,7 +1598,8 @@ fprintf(stderr, "%s\n",                                                    \
             }
         }
 
-        [weakSelf.journeyMenuHandler recreateDialog];
+        if (weakSelf.gameID == kGameIsJourney)
+            [weakSelf.journeyMenuHandler recreateDialog];
     }];
 }
 
@@ -2541,7 +2542,8 @@ fprintf(stderr, "%s\n",                                                    \
             write((int)sendfd, s, reply.len);
         self.mustBeQuiet = NO;
         // Needed to prevent Journey dialog from popping up after closing file dialog
-        self.journeyMenuHandler.skipNextDialog = YES;
+        if (self.gameID == kGameIsJourney)
+            self.journeyMenuHandler.skipNextDialog = YES;
     }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
