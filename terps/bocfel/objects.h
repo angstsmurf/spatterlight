@@ -23,4 +23,13 @@ void zget_prop();
 void zjin();
 void zprint_obj();
 
+#ifdef SPATTERLIGHT
+void internal_put_prop(uint16_t object, uint16_t property, uint16_t value);
+bool internal_test_attr(uint16_t object, uint16_t attribute);
+void internal_set_attr(uint16_t object, uint16_t attribute);
+void internal_clear_attr(uint16_t object, uint16_t attribute);
+int16_t internal_get_parent(int16_t obj);
+uint16_t internal_get_prop(int obj, int prop);
+#endif
+
 #endif

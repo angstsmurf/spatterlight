@@ -30,6 +30,16 @@
 
 #ifdef ZTERP_GLK
 #include <glk.h>
+#ifdef SPATTERLIGHT
+extern glui32 gli_error_handling;
+
+enum
+{
+    IGNORE_ERRORS,
+    DISPLAY_ERRORS,
+    ERRORS_ARE_FATAL
+};
+#endif // SPATTERLIGHT
 #endif
 
 // Values are usually stored in a uint16_t because most parts of the

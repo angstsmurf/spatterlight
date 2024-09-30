@@ -55,7 +55,11 @@ constexpr uint16_t FLAGS2_MENUS      = 1U << 8;
 
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
-#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
+#ifdef SPATTERLIGHT
+#define mouse_available()	(zversion >= 5 && (word(0x10) & FLAGS2_MOUSE || is_game(Game::BeyondZork) ))
+#else
+#define mouse_available()   (zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
+#endif
 
 struct Header {
     uint16_t pc;
@@ -80,6 +84,10 @@ extern int zversion;
 extern Header header;
 extern std::array<uint8_t, 26 * 3> atable;
 
+#ifdef SPATTERLIGHT
+extern int pixversion;
+#endif
+
 const std::string &get_story_id();
 
 enum class Game {
@@ -90,6 +98,10 @@ enum class Game {
     Planetfall,
     Shogun,
     Stationfall,
+#ifdef SPATTERLIGHT
+    BeyondZork,
+    MadBomber,
+#endif
     ZorkZero,
     MysteriousAdventures,
 };
@@ -102,6 +114,9 @@ void start_story();
 uint32_t unpack_routine(uint16_t addr);
 uint32_t unpack_string(uint16_t addr);
 void store(uint16_t v);
+#ifdef SPATTERLIGHT
+uint32_t pack_routine(uint32_t addr);
+#endif
 
 void zterp_mouse_click(uint16_t x, uint16_t y);
 

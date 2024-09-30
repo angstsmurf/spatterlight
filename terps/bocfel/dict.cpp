@@ -301,6 +301,12 @@ static void encode_text(uint32_t text, uint16_t len, uint16_t coded)
     }
 }
 
+#ifdef SPATTERLIGHT
+void public_encode_text(uint32_t text, uint16_t len, uint16_t coded) {
+    encode_text(text, len, coded);
+}
+#endif
+
 void ztokenise()
 {
     if (znargs < 3) {

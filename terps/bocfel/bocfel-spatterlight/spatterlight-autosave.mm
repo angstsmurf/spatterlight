@@ -37,6 +37,7 @@ extern "C" {
 
 #include "zterp.h"
 #include "stack.h"
+#include "process.h"
 #include "spatterlight-autosave.h"
 
 #import "TempLibrary.h"
@@ -86,8 +87,14 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         [fileManager removeItemAtPath:oldgamepath error:&error];
         [fileManager moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
 
+        unsigned long stored_pc = pc;
+        if (saveopcode == SaveOpcode::None) {
+            saveopcode = SaveOpcode::ReadChar;
+            pc--;
+        }
         bool res;
         res = do_save(SaveType::Autosave, saveopcode);
+        pc = stored_pc;
         
         if (!res) {
             win_showerror("Failed to autosave.");
@@ -186,6 +193,8 @@ static void load_resources(void)
         giblorb_set_resource_map(blorbfile);
 }
 
+extern bool just_autorestored;
+
 // Restore an autosaved game, if one exists.
 // Returns true if the game was restored successfully, false if not.
 bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
@@ -260,6 +269,9 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         } else { win_reset(); exit(0); }
         
     }
+    
+    just_autorestored = true;
+
     return true;
 }
 
@@ -284,6 +296,24 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
     [encoder encodeInt64:(int64_t)library_state.last_random_seed forKey:@"bocfel_last_random_seed"];
     [encoder encodeInt32:(int32_t)library_state.random_calls_count forKey:@"bocfel_random_calls_count"];
+
+    [encoder encodeInt32:(int32_t)library_state.screenmode forKey:@"bocfel_screenmode"];
+    [encoder encodeInt32:(int32_t)library_state.selected_journey_line forKey:@"bocfel_selected_journey_line"];
+    [encoder encodeInt32:(int32_t)library_state.selected_journey_column forKey:@"bocfel_selected_journey_column"];
+    [encoder encodeInt32:(int32_t)library_state.current_input_mode forKey:@"bocfel_current_input_mode"];
+    [encoder encodeInt32:(int32_t)library_state.current_input_length forKey:@"bocfel_current_input_length"];
+
+    if (library_state.number_of_journey_words > 0) {
+        NSMutableArray<NSArray *> *tempMutArray = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_journey_words];
+
+        for (int i = 0; i < library_state.number_of_journey_words; i++) {
+            NSArray<NSNumber *> *tempArray = @[@(library_state.journey_words[i].str), @(library_state.journey_words[i].pcf), @(library_state.journey_words[i].pcm)];
+            [tempMutArray addObject:tempArray];
+        }
+
+        [encoder encodeObject:tempMutArray forKey:@"bocfel_printed_journey_words"];
+    }
+
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
@@ -307,4 +337,20 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
     library_state.last_random_seed = [decoder decodeInt64ForKey:@"bocfel_last_random_seed"];
     library_state.random_calls_count = [decoder decodeInt32ForKey:@"bocfel_random_calls_count"];
+
+    library_state.screenmode = (V6ScreenMode)[decoder decodeInt32ForKey:@"bocfel_screenmode"];
+    library_state.selected_journey_line = [decoder decodeInt32ForKey:@"bocfel_selected_journey_line"];
+    library_state.selected_journey_column = [decoder decodeInt32ForKey:@"bocfel_selected_journey_column"];
+    library_state.current_input_mode = (inputMode)[decoder decodeInt32ForKey:@"bocfel_current_input_mode"];
+    library_state.current_input_length = [decoder decodeInt32ForKey:@"bocfel_current_input_length"];
+
+    NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
+    library_state.number_of_journey_words = tempArray.count;
+    NSUInteger i = 0;
+    for (NSArray *array in tempArray) {
+        library_state.journey_words[i].str = ((NSNumber *)[array objectAtIndex:0]).intValue;
+        library_state.journey_words[i].pcf = ((NSNumber *)[array objectAtIndex:1]).intValue;
+        library_state.journey_words[i].pcm = ((NSNumber *)[array objectAtIndex:2]).intValue;
+        i++;
+    }
 }

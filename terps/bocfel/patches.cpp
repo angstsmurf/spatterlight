@@ -491,6 +491,95 @@ static std::vector<Patch> base_patches = {
 #ifdef ZTERP_STATIC_PATCH_FILE
 #include ZTERP_STATIC_PATCH_FILE
 #endif
+#ifdef SPATTERLIGHT
+    // The Blorb demo “The Spy Who Came In From The Garden” seems to
+    // always be in a state of disrepair. One particular version appears
+    // to work better than most, but for a bad call to @sound_effect:
+    //
+    // [Routine number;
+    //     @sound_effect number 2 255 4;
+    // ];
+    //
+    // The “4” above is a routine to call, which is clearly invalid.
+    // The easiest way to work around this is to just rewrite it to not
+    // include the routine call; this becomes:
+    //
+    // @sound_effect number 2 255;
+    // @nop; ! This is for padding.
+    {
+        "The Spy Who Came In From The Garden", "980124", 1, 0x260,
+        {
+            {
+                0xb6c2, 5,
+                {0x95, 0x01, 0x02, 0xff, 0x01},
+                {0x97, 0x01, 0x02, 0xff, 0xb4},
+            },
+        }
+    },
+
+    // Transporter tries to read a property of non-existent objects,
+    // so we add a bounds check.
+    {
+        "Transporter", "960729", 1, 0x1ac6,
+        {
+            {
+                0x4bd1, 28,
+
+                {0x41, 0x01, 0x00, 0x00, 0x03, 0xb1, 0x52, 0x01,
+                    0x01, 0x03, 0x52, 0x01, 0x01, 0x00, 0x2d, 0xff,
+                    0x00, 0xa0, 0xff, 0xc5, 0xa4, 0xff, 0xff, 0xe8,
+                    0xbf, 0xff, 0x57, 0x00},
+
+                {0x42, 0x01, 0x01, 0x80, 0x09, 0xc3, 0x8f, 0x01,
+                    0x02, 0x31, 0x00, 0x03, 0xb1, 0x52, 0x01, 0x01,
+                    0x03, 0x2d, 0xff, 0x03, 0xa0, 0xff, 0xc5, 0xa4,
+                    0xff, 0xff, 0x57, 0xff}
+            },
+        }
+    },
+
+    // Unforgotten attempts to sleep with the following:
+    //
+    //
+    //      @aread local2 0 30 PauseFunc -> local3;
+    //
+    //
+    // However, since local2 is a local variable with value 0 instead of a
+    // text buffer, this is asking to read from/write to address 0. This
+    // works in some interpreters, but Bocfel is more strict, and aborts
+    // the program. Rewrite this instead to:
+    //
+    // @read_char 1 30 PauseFunc -> local3;
+    // @nop; ! This is for padding.
+    {
+        "Unforgotten", "050930", 1, 0x3ebc,
+        {
+            {
+                0x1d9f7, 8,
+                {0xe4, 0x94, 0x02, 0x00, 0x1e, 0x77, 0x5d, 0x03},
+                {0xf6, 0x53, 0x01, 0x1e, 0x77, 0x5d, 0x03, 0xb4},
+            },
+
+            {
+                0x1dd34, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd47, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+
+            {
+                0x1dd5a, 8,
+                {0xe4, 0x94, 0x01, 0x00, 0x01, 0x77, 0x5d, 0x02},
+                {0xf6, 0x53, 0x01, 0x01, 0x77, 0x5d, 0x02, 0xb4},
+            },
+        }
+    },
+#endif
 };
 
 // These patches help with the V6 hacks.
@@ -560,6 +649,7 @@ static std::vector<Patch> v6_patches = {
         }
     },
 
+#ifndef SPATTERLIGHT
     {
         "Journey", "890706", 83, 0xd2b8,
         {
@@ -601,6 +691,7 @@ static std::vector<Patch> v6_patches = {
             { 0x4dcf, 3, {0x0d, 0xaf, 0x01}, {0x0d, 0xaf, 0x00} },
         }
     },
+#endif
 
     {
         "Zork Zero", "890714", 393, 0x791c,

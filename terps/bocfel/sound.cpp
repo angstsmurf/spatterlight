@@ -33,6 +33,10 @@ extern "C" {
 #if defined(GLK_MODULE_SOUND2) && defined(ZTERP_GLK_BLORB)
 #include <gi_blorb.h>
 #endif
+#ifdef SPATTERLIGHT
+#include "glkimp.h"
+#include "spatterlight-autosave.h"
+#endif
 }
 #endif
 
@@ -48,7 +52,9 @@ struct Channel {
     }
 
     ~Channel() {
+#ifndef SPATTERLIGHT
         glk_schannel_destroy(channel);
+#endif
     }
 
     Channel(const Channel &other) = delete;
@@ -220,6 +226,8 @@ void zsound_effect()
     if (number == 1 || number == 2) {
 #ifdef GLK_MODULE_GARGLKBLEEP
         garglk_zbleep(number);
+#elif defined(SPATTERLIGHT)
+        win_beep(number);
 #endif
         return;
     }
@@ -387,3 +395,35 @@ void zsound_effect()
     }
 #endif
 }
+
+#ifdef SPATTERLIGHT
+void stash_library_sound_state(library_state_data *dat)
+{
+    if (!dat)
+        return;
+
+    auto channel = channels.at(Channels::Effects);
+
+    dat->autosave_version = 1;
+    dat->routine = channel->routine;
+    dat->queued_sound = channel->queued.number;
+    dat->queued_volume = channel->queued.volume;
+    if (channels.loaded())
+        dat->sound_channel_tag = channel->channel->tag;
+}
+
+void recover_library_sound_state(library_state_data *dat)
+{
+    if (!dat)
+        return;
+    auto channel = channels.at(Channels::Effects);
+    channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
+    channel->routine = dat->routine;
+    channel->queued.number = dat->queued_sound;
+    if (dat->autosave_version > 0)
+        channel->queued.volume = dat->queued_volume;
+    else
+        channel->queued.volume = 8;
+}
+#endif
+
