@@ -1895,10 +1895,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)guessFocus {
     if (_gameID == kGameIsJourney && _voiceOverActive) {
-        GlkWindow *win = [self largestWithMoves];
-        if (win && [win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [win grabFocus];
-            return;
+        for (GlkWindow *win in _gwindows.allValues) {
+            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                [win grabFocus];
+                return;
+            }
         }
     }
 
