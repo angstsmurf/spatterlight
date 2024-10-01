@@ -3289,7 +3289,6 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
-                NSLog(@"SIZEIMAGE: %@", NSStringFromSize(size));
                 ans->a1 = (int)size.width;
                 ans->a2 = (int)size.height;
             } else {
