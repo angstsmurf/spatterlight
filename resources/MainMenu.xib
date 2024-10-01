@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -466,7 +466,7 @@ CA
                 </menuItem>
                 <menuItem title="Journey Party" hidden="YES" id="JeB-Bo-cfu">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" id="bra-c6-Rvb">
+                    <menu key="submenu" title="Journey Party" id="bra-c6-Rvb">
                         <items>
                             <menuItem title="Item 1" id="DIu-iz-zjf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -482,7 +482,7 @@ CA
                 </menuItem>
                 <menuItem title="Individual Commands" hidden="YES" id="cz7-Gk-39Q">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" id="cSl-0X-SGE">
+                    <menu key="submenu" title="Individual Commands" id="cSl-0X-SGE">
                         <items>
                             <menuItem title="Item 1" id="fl0-g8-2oL">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -497,7 +497,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="39" y="121"/>
+            <point key="canvasLocation" x="120" y="116"/>
         </menu>
         <customObject id="248" userLabel="Delegate" customClass="AppDelegate">
             <connections>
