@@ -3329,6 +3329,9 @@ uint8_t internal_read_char(void) {
     input.type = Input::Type::Char;
     glk_request_timer_events(0);
 
+    glk_cancel_line_event(curwin->id, nullptr);
+    glk_cancel_char_event(curwin->id);
+
     if (options.autosave && !in_interrupt()) {
         spatterlight_do_autosave(SaveOpcode::None);
     }
