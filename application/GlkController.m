@@ -5092,7 +5092,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                 [windowsWithMoves addObject:view];
         }
         if (!windowsWithMoves.count) {
-            NSLog(@"largestWithMoves: No windows with text!");
+            // No windows with text
             return nil;
         }
     }
