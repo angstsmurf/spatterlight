@@ -182,7 +182,7 @@
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" allowsUndo="NO" alignment="left" usesSingleLineMode="YES" id="Wis-du-bbS">
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" allowsUndo="NO" alignment="center" usesSingleLineMode="YES" id="Wis-du-bbS">
                                                         <font key="font" metaFont="cellTitle"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
