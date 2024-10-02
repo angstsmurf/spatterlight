@@ -242,7 +242,11 @@ void exe_one()
                 break;
     case OP_MATCH:
                 p2 = *sp++;
-                *sp = (match(*sp,nouns[p2-1],adjectives[p2-1]) ? T : NIL);
+                if (p2 <= 0 || p2 > 20) {
+                   *sp = NIL;
+                } else {
+                   *sp = (match(*sp,nouns[p2-1],adjectives[p2-1]) ? T : NIL);
+                }
                 break;
     case OP_SAVE:
                 if ((*sp = db_save()) == NIL)     // VB: added if
