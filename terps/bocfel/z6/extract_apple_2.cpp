@@ -173,7 +173,7 @@ static int populate_fpin(const char *filename, size_t *file_length) {
 
         char newfile[1024];
 
-        memcpy(newfile, filename, filenamelen);
+        memcpy(newfile, filename, filenamelen + 1);
 
         if (numidx >= 0) {
             for (int i = 0; i < global_numdisks; i++) {
