@@ -613,6 +613,7 @@
 		C37EC5A72847CD620084B841 /* sagaplus.c in Sources */ = {isa = PBXBuildFile; fileRef = C37EC5A62847CD620084B841 /* sagaplus.c */; };
 		C37EC5A8284807750084B841 /* plus in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C37EC5992847AA040084B841 /* plus */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
+		C3824B4C2CAD821F00D58EFC /* libreadwoz.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3836ED82789B569004B5061 /* seasofblood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seasofblood.c */; };
 		C384A6722C6EAEC30081FC50 /* journey.hpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63602C6E1293000F90A8 /* journey.hpp */; };
 		C384A6742C6EAEDF0081FC50 /* extract_apple_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635E2C6E1193000F90A8 /* extract_apple_2.cpp */; };
@@ -1260,6 +1261,20 @@
 			remoteGlobalIDString = 961CCEC309F239C100528FF9;
 			remoteInfo = Spatterlight;
 		};
+		C3824B4E2CAE7FAA00D58EFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
+			remoteInfo = glkimp;
+		};
+		C3824B502CAE7FB200D58EFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 961CCEB609F2396500528FF9;
+			remoteInfo = glkmain;
+		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1401,6 +1416,7 @@
 			buildActionMask = 2147483647;
 			dstSubfolderSpec = 10;
 			files = (
+				C3824B4C2CAD821F00D58EFC /* libreadwoz.dylib in Embed Frameworks */,
 				C377BE472997FFD800CEB123 /* libc64diskimage.dylib in Embed Frameworks */,
 				C377BE462997FFC500CEB123 /* libunp64.dylib in Embed Frameworks */,
 				C377BE452997FFA800CEB123 /* libglkimp.dylib in Embed Frameworks */,
@@ -3248,9 +3264,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C384A68B2C6EB64E0081FC50 /* libz.tbd in Frameworks */,
-				6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */,
 				C3ED63262C6E1014000F90A8 /* libreadwoz.dylib in Frameworks */,
 				6DB774D52458BAE000EDC671 /* libglkimp.dylib in Frameworks */,
+				6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6109,6 +6125,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				C3824B512CAE7FB200D58EFC /* PBXTargetDependency */,
+				C3824B4F2CAE7FAA00D58EFC /* PBXTargetDependency */,
 				C3ED63292C6E1014000F90A8 /* PBXTargetDependency */,
 			);
 			name = bocfel;
@@ -8218,6 +8236,16 @@
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = C318F7AB2741B33D006D626A /* PBXContainerItemProxy */;
+		};
+		C3824B4F2CAE7FAA00D58EFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCE7A09F237E700528FF9 /* glkimp */;
+			targetProxy = C3824B4E2CAE7FAA00D58EFC /* PBXContainerItemProxy */;
+		};
+		C3824B512CAE7FB200D58EFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 961CCEB609F2396500528FF9 /* glkmain */;
+			targetProxy = C3824B502CAE7FB200D58EFC /* PBXContainerItemProxy */;
 		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
