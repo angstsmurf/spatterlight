@@ -9,9 +9,13 @@
 #include "memory.h"
 #include "dict.h"
 
+#include "arthur.hpp"
 #include "journey.hpp"
+#include "v6_shared.hpp"
 
 #include "entrypoints.hpp"
+
+uint8_t fg_global_idx = 0, bg_global_idx = 0;
 
 struct EntryPoint {
     Game game;
@@ -26,6 +30,112 @@ struct EntryPoint {
 #define WILDCARD 0xf8
 
 static std::vector<EntryPoint> entrypoints = {
+
+#pragma mark Arthur
+
+    {
+        Game::Arthur,
+        "INIT-STATUS-LINE",
+        { 0x41, WILDCARD, 0x00, 0x71, 0x54  },
+        0,
+        0,
+        false,
+        INIT_STATUS_LINE,
+    },
+
+    {
+        Game::Arthur,
+        "after INIT-STATUS-LINE",
+        { 0xef, 0x5f, 0x01, 0x01, 0xeb, 0x7f, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0xb0 },
+        0x16,
+        0,
+        false,
+        after_INIT_STATUS_LINE
+    },
+
+    {
+        Game::Arthur,
+        "UPDATE-STATUS-LINE",
+        { 0xeb, 0x7f, 0x01, 0xf1, 0x7f, 0x01 },
+        0,
+        0,
+        false,
+        ARTHUR_UPDATE_STATUS_LINE
+    },
+
+
+    {
+        Game::Arthur,
+        "V-COLOR",
+        { 0xc1, 0x95, WILDCARD, 0x09, 0x02, 0x0a, 0x69},
+        0,
+        0,
+        false,
+        V_COLOR
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-STAT-WINDOW",
+        { 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0xa0 },
+        0,
+        0,
+        false,
+        RT_UPDATE_STAT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-INVT-WINDOW",
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0xbe },
+        0,
+        0,
+        false,
+        RT_UPDATE_INVT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-MAP-WINDOW",
+        { 0xEB, 0x7F, 0x02, 0xBE, 0x12, 0x57, 0x02, 0x01, 0x02, 0xA0 },
+        -0x16,
+        0,
+        false,
+        RT_UPDATE_MAP_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-PICT-WINDOW",
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0x41 },
+        0,
+        0,
+        false,
+        RT_UPDATE_PICT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "DO-HINTS",
+        { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00,  0x88, WILDCARD, WILDCARD, 0x02},
+        0,
+        0,
+        true,
+        DO_HINTS
+    },
+
+    {
+        Game::Arthur,
+        "after V-COLOR",
+        {},
+        0,
+        0,
+        false,
+        after_V_COLOR
+    },
+
+#pragma mark Journey
+
     {
         Game::Journey,
         "WCENTER",
@@ -404,7 +514,54 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     return last_match_offset;
 }
 
-void find_globals(void) {
+void find_arthur_globals(void) {
+    int start = 0;
+    int color_return_address = 0;
+//    int mac_ii_return_address = 0;
+    for (auto &entrypoint : entrypoints) {
+        if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
+            fg_global_idx = memory[entrypoint.found_at_address - 0xd] - 0x10;
+            bg_global_idx = memory[entrypoint.found_at_address + 0x4] - 0x10;
+            start = entrypoint.found_at_address + 12;
+            fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+            for (int i = start; i < memory_size - 12; i++) {
+                if (memory[i] == 0xb8 || memory[i] == 0xb0 ) {
+                    color_return_address = i;
+                    break;
+                }
+            }
+        } else if (entrypoint.fn == after_V_COLOR && color_return_address != 0) {
+            entrypoint.found_at_address = color_return_address;
+            fprintf(stderr, "after_V_COLOR at: 0x%x\n", entrypoint.found_at_address);
+//        } else if (entrypoint.fn == MAC_II && entrypoint.found_at_address != 0) {
+//            start = entrypoint.found_at_address;
+//            for (int i = start; i < memory_size - 12; i++) {
+//                if (memory[i] == 0xb1) {
+//                    mac_ii_return_address = i - 6;
+//                    break;
+//                }
+//            }
+//        } else if (entrypoint.fn == after_MAC_II && mac_ii_return_address != 0) {
+//            entrypoint.found_at_address = mac_ii_return_address;
+//            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
+        } else if (entrypoint.fn == ARTHUR_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+            ar.UPDATE_STATUS_LINE = entrypoint.found_at_address - 1;
+            ag.UPDATE = memory[ar.UPDATE_STATUS_LINE + 0xd] - 0x10;
+        } else if (entrypoint.fn == RT_UPDATE_PICT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_PICT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_UPDATE_INVT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_INVT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_UPDATE_STAT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_STAT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_UPDATE_MAP_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_MAP_WINDOW = entrypoint.found_at_address - 1;
+            ag.MAP_Y = memory[ar.RT_UPDATE_MAP_WINDOW + 2] - 0x10;
+        }
+
+    }
+}
+
+void find_journey_globals(void) {
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
 
@@ -627,21 +784,30 @@ void find_entrypoints(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
+            fprintf(stderr, "Looking for entrypoint %s\n", entrypoint.title.c_str());
             if (entrypoint.pattern.size()) {
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
                     start = entrypoint.found_at_address;
+                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
                     }
+                } else {
+                    fprintf(stderr, "Did not find it!\n");
                 }
+            } else {
+                fprintf(stderr, "Did not find it! (No pattern)\n");
             }
         }
     }
 
-    find_globals();
+    if (is_spatterlight_arthur)
+        find_arthur_globals();
+    else
+        find_journey_globals();
 }
 
 
