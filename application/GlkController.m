@@ -1392,6 +1392,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)deleteAutosaveFiles {
+    if (self.autosaveFileGUI == nil || self.autosaveFileTerp == nil)
+        return;
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
@@ -1811,7 +1813,12 @@ fprintf(stderr, "%s\n",                                                    \
         [self deleteAutosaveFiles];
     }
 
-    [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
+
+    @try {
+        [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
+    } @catch (NSException *ex) {
+        NSLog(@"%@", ex);
+    }
 
     if (_game && [Preferences instance].currentGame == _game) {
         GlkController *remainingGameSession = nil;
