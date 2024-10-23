@@ -614,6 +614,8 @@
 		C37EC5A8284807750084B841 /* plus in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = C37EC5992847AA040084B841 /* plus */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C3824B4C2CAD821F00D58EFC /* libreadwoz.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3ED63132C6E0E64000F90A8 /* libreadwoz.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C3824B7A2CAEF0A800D58EFC /* arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B792CAEF0A800D58EFC /* arthur.cpp */; };
+		C3824B7E2CAEF0F200D58EFC /* v6_shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */; };
 		C3836ED82789B569004B5061 /* seasofblood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seasofblood.c */; };
 		C384A6722C6EAEC30081FC50 /* journey.hpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63602C6E1293000F90A8 /* journey.hpp */; };
 		C384A6742C6EAEDF0081FC50 /* extract_apple_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635E2C6E1193000F90A8 /* extract_apple_2.cpp */; };
@@ -2886,6 +2888,10 @@
 		C37EC5992847AA040084B841 /* plus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plus; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37EC5A62847CD620084B841 /* sagaplus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagaplus.c; sourceTree = "<group>"; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
+		C3824B782CAEF0A800D58EFC /* arthur.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = arthur.hpp; sourceTree = "<group>"; };
+		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
+		C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_shared.hpp; sourceTree = "<group>"; };
+		C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_shared.cpp; sourceTree = "<group>"; };
 		C3836ED42789B553004B5061 /* seasofblood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seasofblood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3836ED52789B553004B5061 /* seasofblood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seasofblood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decompress_amiga.hpp; sourceTree = "<group>"; };
@@ -5862,8 +5868,12 @@
 			isa = PBXGroup;
 			children = (
 				C3ED635D2C6E1193000F90A8 /* v6_image.h */,
+				C3824B782CAEF0A800D58EFC /* arthur.hpp */,
+				C3824B792CAEF0A800D58EFC /* arthur.cpp */,
 				C3ED63602C6E1293000F90A8 /* journey.hpp */,
 				C3ED635F2C6E1293000F90A8 /* journey.cpp */,
+				C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */,
+				C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */,
 				C3ED63542C6E1192000F90A8 /* entrypoints.hpp */,
 				C3ED63552C6E1192000F90A8 /* entrypoints.cpp */,
 				C3ED63502C6E1192000F90A8 /* extract_apple_2.h */,
@@ -7094,10 +7104,12 @@
 				6DB774C02458B9B300EDC671 /* blorb.cpp in Sources */,
 				C384A67E2C6EAF780081FC50 /* decompress_vga.cpp in Sources */,
 				6DB774C12458B9B300EDC671 /* branch.cpp in Sources */,
+				C3824B7A2CAEF0A800D58EFC /* arthur.cpp in Sources */,
 				6DB774C22458B9B300EDC671 /* dict.cpp in Sources */,
 				6DB774C32458B9B300EDC671 /* glkstart.cpp in Sources */,
 				6DB774C62458B9B300EDC671 /* mathop.cpp in Sources */,
 				C3FB3287269F5BEE00A1B09C /* stash.cpp in Sources */,
+				C3824B7E2CAEF0F200D58EFC /* v6_shared.cpp in Sources */,
 				6DB774C72458B9B300EDC671 /* memory.cpp in Sources */,
 				C319329D27E407700054FE2C /* spatterlight-autosave.mm in Sources */,
 				C30C57D72C68C31900C2AAAF /* options.cpp in Sources */,
