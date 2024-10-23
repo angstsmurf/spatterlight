@@ -331,7 +331,7 @@ void process_instructions()
 
         current_instruction = pc;
 #ifdef SPATTERLIGHT
-        if (zversion == 6) {
+        if (is_spatterlight_journey) {
             check_entrypoints(pc);
         }
 #endif
