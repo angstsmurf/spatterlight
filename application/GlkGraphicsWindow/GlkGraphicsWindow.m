@@ -97,6 +97,7 @@
 }
 
 - (void)clear {
+    NSLog(@"GlkGraphicsWindow %ld clear", self.name);
     NSColor *color;
     if (transparent)
         color = NSColor.clearColor;
@@ -238,6 +239,8 @@
         w = (NSInteger)srcsize.width;
     if (h == 0)
         h = (NSInteger)srcsize.height;
+
+    NSLog(@"GlkGraphicsWindow %ld drawImage width: %ld height: %ld", self.name, w, h);
 
     NSRect florpedRect;
 

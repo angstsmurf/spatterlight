@@ -1,6 +1,8 @@
 #include "glkimp.h"
 #include "protocol.h"
 
+#define DEBUG
+
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
 #define RBUFSIZE (GLKBUFSIZE / sizeof(struct fillrect))
 
@@ -547,6 +549,8 @@ void win_sizeimage(glui32 *width, glui32 *height)
 
 void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
+    fprintf(stderr, "win_drawimage: name: %d x:%d y:%d width:%d height:%d\n", name, x, y, width, height);
+
     win_flush();
     if (gli_enable_graphics)
     {
@@ -897,7 +901,7 @@ again:
 
         case EVTLINE:
 #ifdef DEBUG
-            //fprintf(stderr, "line input event\n");
+            fprintf(stderr, "win_select: received line input event for win peer %d\n", wmsg.a1);
 #endif
 
             event->type = evtype_LineInput;
@@ -965,7 +969,7 @@ again:
 
         case EVTKEY:
 #ifdef DEBUG
-            fprintf(stderr, "key input event for %d\n", wmsg.a1);
+            fprintf(stderr, "win_select: received key input event for win peer %d\n", wmsg.a1);
 #endif
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
@@ -984,7 +988,7 @@ again:
 
         case EVTMOUSE:
 #ifdef DEBUG
-            fprintf(stderr, "mouse input event\n");
+            fprintf(stderr, "win_select: received mouse input event for win peer %d\n", wmsg.a1);
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);

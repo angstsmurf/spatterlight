@@ -3033,7 +3033,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     str = [NSString stringWithCharacters:buf length:len];
-//    NSLog(@"\"%@\"", str);
+    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
     free(buf);
 }
@@ -3491,7 +3491,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-//                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
+                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
