@@ -41,10 +41,10 @@ struct dictionaryKey {
 };
 
 struct dictionaryKey dictKeys[] = {
-    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0", 8 },
-    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0", 7 },
-    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN\0", 17 }, // Claymorgue
-    { FOUR_LETTER_COMPRESSED, "aUTOgO\0", 7 },
+    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO", 8 },
+    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO", 7 },
+    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN", 17 }, // Claymorgue
+    { FOUR_LETTER_COMPRESSED, "aUTOgO", 7 },
     { GERMAN_C64, "gEHENSTEIGE", 11 }, // Gremlins German C64
     { GERMAN, "\xc7"
               "EHENSTEIGE",
@@ -469,8 +469,9 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
             &tr, &wl, &lt, &mn, &trm))
         return UNKNOWN_GAME;
 
-    if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-        //        debug_print("Non-matching header\n");
+    if (ni != info.number_of_items || na != info.number_of_actions ||
+        nw != info.number_of_words || nr != info.number_of_rooms ||
+        mc != info.max_carried) {
         return UNKNOWN_GAME;
     }
 
@@ -1189,7 +1190,13 @@ int IsMysterious(void)
 {
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].subtype & MYSTERIOUS) {
-            if (games[i].number_of_items == GameHeader.NumItems && games[i].number_of_actions == GameHeader.NumActions && games[i].number_of_words == GameHeader.NumWords && games[i].number_of_rooms == GameHeader.NumRooms && games[i].max_carried == GameHeader.MaxCarry && games[i].word_length == GameHeader.WordLength && games[i].number_of_messages == GameHeader.NumMessages)
+            if (games[i].number_of_items == GameHeader.NumItems &&
+                games[i].number_of_actions == GameHeader.NumActions &&
+                games[i].number_of_words == GameHeader.NumWords &&
+                games[i].number_of_rooms == GameHeader.NumRooms &&
+                games[i].max_carried == GameHeader.MaxCarry &&
+                games[i].word_length == GameHeader.WordLength &&
+                games[i].number_of_messages == GameHeader.NumMessages)
                 return 1;
         }
     }

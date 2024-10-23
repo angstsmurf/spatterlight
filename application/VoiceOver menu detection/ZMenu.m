@@ -14,6 +14,7 @@
 #import "GlkGraphicsWindow.h"
 #import "Game.h"
 #import "Theme.h"
+#import "InfocomV6MenuHandler.h"
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
@@ -39,16 +40,21 @@
 
     _isTads3 = [format isEqualToString:@"tads3"];
 
-    if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"] || [format isEqualToString:@"hugo"]) {
-        initialChar = ' ';
-    } else if (_isTads3) {
+    if (_isTads3) {
         // If Tads 3: look for a cluster of lines where all start with a '>'.
         // '•' is only used in Thaumistry: Charm's Way.
         if (glkctl.gameID == kGameIsThaumistry)
             initialChar = u'•';
         else
             initialChar = '>';
-    } else return NO; // We only support menus in Glulx or Zcode or Hugo or Tads 3
+    } else if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"] || [format isEqualToString:@"hugo"]) {
+        if (glkctl.showingInfocomV6Menu) {
+            return YES;
+        }
+        initialChar = ' ';
+    } else {
+        return NO; // We only support menus in Glulx or Zcode or Hugo or Tads 3
+    }
 
     _lines = [[self findLargestClusterStartingWithCharacter:initialChar] mutableCopy];
 
@@ -165,6 +171,9 @@
 }
 
 - (NSUInteger)findSelectedLine {
+    if (_glkctl.showingInfocomV6Menu) {
+        return _glkctl.infocomV6MenuHandler.selectedLine;
+    }
     if (_lines.count == 1)
         return 0;
     NSUInteger guess = [self findLeadingSelectionCharacter];
@@ -639,14 +648,14 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
     // We use the number of menu lines as a proxy to see if we have just switched to a new menu
-    if (_lastNumberOfItems && _lastNumberOfItems != _lines.count)
+    if (_lastNumberOfItems && _lastNumberOfItems != _lines.count && !_glkctl.showingInfocomV6Menu)
         _haveSpokenMenu = NO;
     _lastNumberOfItems = _lines.count;
 
     GlkController *glkctl = _glkctl;
     if (!_haveSpokenMenu) {
         _haveSpokenMenu = YES;
-        [self speakString:[self menuLineStringWithTitle:YES Index:YES total:YES instructions:YES]];
+        [self speakString:[self menuLineStringWithTitle:YES index:YES total:YES instructions:YES]];
         return;
     } else if (sender == glkctl) {
         selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
@@ -678,7 +687,12 @@
     [self speakString:selectedLineString];
 }
 
-- (NSString *)menuLineStringWithTitle:(BOOL)useTitle Index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
+- (NSString *)menuLineStringWithTitle:(BOOL)useTitle index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
+
+    if (_glkctl.showingInfocomV6Menu) {
+        return [_glkctl.infocomV6MenuHandler menuLineStringWithTitle:useTitle index:useIndex total:useTotal instructions:useInstructions];
+    }
+
     NSString *menuLineString = [self menuLineStringWithIndex:useIndex total:useTotal instructions:useInstructions];
     if (useTitle) {
         NSString *titleString = [self constructMenuTitleString];
@@ -694,6 +708,11 @@
 
 
 - (NSString *)menuLineStringWithIndex:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
+
+    if (_glkctl.showingInfocomV6Menu) {
+        return [_glkctl.infocomV6MenuHandler menuLineStringWithTitle:NO index:useIndex total:useTotal instructions:useInstructions];
+    }
+
     NSRange selectedLineRange = _lines[_selectedLine].rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.length);
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
@@ -768,6 +787,11 @@
 }
 
 - (NSString *)constructMenuInstructionString {
+
+    if (_glkctl.showingInfocomV6Menu) {
+        return [_glkctl.infocomV6MenuHandler constructMenuInstructionString];
+    }
+
     NSString *string = @"";
     if (_glkctl.gameID == kGameIsBeyondZork) {
         string = _menuCommands[_menuKeys.firstObject];

@@ -420,7 +420,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
     do {
         string_length = *(ptr++);
         if (string_length == 0) {
-            rp->Text = ".\0";
+            rp->Text = ".";
         } else {
             rp->Text = MemAlloc(string_length + 1);
             for (int i = 0; i < string_length; i++) {
@@ -441,7 +441,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
     do {
         string_length = *(ptr++);
         if (string_length == 0) {
-            string = ".\0";
+            string = ".";
         } else {
             string = MemAlloc(string_length + 1);
             for (int i = 0; i < string_length; i++) {
@@ -462,7 +462,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, struct GameInfo info
     do {
         string_length = *(ptr++);
         if (string_length == 0) {
-            ip->Text = ".\0";
+            ip->Text = ".";
             ip->AutoGet = NULL;
         } else {
             ip->Text = MemAlloc(string_length + 1);

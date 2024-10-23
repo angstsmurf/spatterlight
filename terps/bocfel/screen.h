@@ -162,10 +162,13 @@ void zbuffer_screen();
 extern GraphicsType graphics_type;
 extern bool centeredText;
 
+extern winid_t current_graphics_buf_win;
+extern winid_t graphics_bg_glk;
+extern winid_t graphics_fg_glk;
+
 struct Window {
     Style style;
-    //    Color fg_color = Color(), bg_color = Color();
-    Color fg_color = Color(Color::Mode::ANSI, 13), bg_color = Color(Color::Mode::ANSI, 14);
+    Color fg_color = Color(), bg_color = Color();
     enum class Font { Query, Normal, Picture, Character, Fixed } font = Font::Normal;
 
     winid_t id = nullptr;
@@ -183,6 +186,7 @@ struct Window {
 
 extern glui32 user_selected_foreground, user_selected_background;
 extern bool is_spatterlight_journey;
+extern bool is_spatterlight_arthur;
 extern std::array<Window, 8> windows;
 
 uint8_t internal_read_char(void);
@@ -191,8 +195,21 @@ void v6_sizewin(Window *win);
 void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 void v6_restore_hacks(void);
 bool v6_switch_to_allowed_interpreter_number(void);
-void journey_sync_upperwin_size(glui32 width, glui32 height);
+void v6_delete_win(Window *win);
+void v6_delete_glk_win(winid_t win);
+void v6_remap_win(Window *win, int type, winid_t *stored_win);
+void v6_remap_win_to_grid(Window *win);
+void v6_remap_win_to_buffer(Window *win);
+void update_user_defined_colours(void);
+void flush_image_buffer(void);
 
+void v6_sync_upperwin_size(glui32 width, glui32 height);
+void v6_get_and_sync_upperwin_size(void);
+
+void update_arthur_colours(void);
+
+
+void window_change(void);
 void set_current_window(Window *window);
 void transcribe(uint32_t c);
 

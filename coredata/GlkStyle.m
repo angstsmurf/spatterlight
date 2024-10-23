@@ -136,6 +136,9 @@
 
     NSMutableDictionary *attributes = [self.attributeDict mutableCopy];
 
+    if (hints.count == 0)
+        return attributes;
+
     NSFont *font = attributes[NSFontAttributeName];
     NSFontManager *fontmgr = [NSFontManager sharedFontManager];
 

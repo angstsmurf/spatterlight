@@ -127,7 +127,7 @@ void getautosavedir(char *file)
 
 void gettempdir(void)
 {
-    /* if we have already set an autosave dir path, we return right away */
+    /* if we have already set a temp dir path, we return right away */
     if (strcmp(tempdir, "")) {
         return;
     }

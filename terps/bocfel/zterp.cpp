@@ -1,18 +1,6 @@
 // Copyright 2009-2021 Chris Spiegel.
 //
-// This file is part of Bocfel.
-//
-// Bocfel is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License, version
-// 2 or 3, as published by the Free Software Foundation.
-//
-// Bocfel is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
+// SPDX-License-Identifier: MIT
 
 #include <algorithm>
 #include <array>
@@ -168,11 +156,14 @@ static void initialize_games()
 
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
+#ifndef SPATTERLIGHT
+
         { Game::Arthur, { "74-890714" } },
-#ifdef SPATTERLIGHT
-        { Game::Journey, { "142-890205", "2-890303", "11-890304", "3-890310", "5-890310", "10-890313", "26-890316", "30-890322", "51-890522", "54-890526", "76-890615", "77-890616", "79-890627", "83-890706" } },
-#else
         { Game::Journey, { "83-890706" } },
+#else
+        { Game::Arthur, { "40-890502", "41-890504", "54-890606", "63-890622", "74-890714" } },
+
+        { Game::Journey, { "142-890205", "2-890303", "11-890304", "3-890310", "5-890310", "10-890313", "26-890316", "30-890322", "51-890522", "54-890526", "76-890615", "77-890616", "79-890627", "83-890706" } },
 #endif
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
@@ -379,7 +370,7 @@ void write_header()
 
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_journey || is_spatterlight_arthur) {
             v6_switch_to_allowed_interpreter_number();
         }
 #endif
@@ -696,8 +687,11 @@ static void process_story(IO &io, long offset)
 #ifdef SPATTERLIGHT
     if (is_game(Game::Journey)) {
         is_spatterlight_journey = true;
-        find_entrypoints();
+    } else if (is_game(Game::Arthur)) {
+        is_spatterlight_arthur = true;
     }
+    if (is_spatterlight_journey || is_spatterlight_arthur)
+        find_entrypoints();
 #endif
     if (zversion <= 3) {
         have_statuswin = create_statuswin();
@@ -1039,7 +1033,7 @@ static void real_main(int argc, char **argv)
     process_story(*story.io, story.offset);
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey) {
+    if (is_spatterlight_journey || is_spatterlight_arthur) {
         find_and_load_z6_graphics();
     }
 #endif
@@ -1057,7 +1051,7 @@ static void real_main(int argc, char **argv)
         user_store_word(0x10, word(0x10));
 
 #ifdef SPATTERLIGHT
-        if (!is_spatterlight_journey) {
+        if (!is_spatterlight_journey && !is_spatterlight_arthur) {
 #endif
         if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");

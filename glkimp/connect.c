@@ -1,6 +1,8 @@
 #include "glkimp.h"
 #include "protocol.h"
 
+//#define DEBUG
+
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
 #define RBUFSIZE (GLKBUFSIZE / sizeof(struct fillrect))
 
@@ -59,9 +61,9 @@ int gli_sa_palette = 0;
 int gli_slowdraw = 0;
 int gli_flicker = 0;
 int gli_zmachine_terp = 0;
+int gli_zmachine_no_err_win = 0;
 int gli_z6_graphics = 0;
 int gli_z6_colorize = 0;
-int gli_z6_sim_16_cols = 0;
 
 int gli_block_rearrange = 0;
 
@@ -672,7 +674,12 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
-//void win_sound_notify(glui32 snd, glui32 notify)
+void win_refresh(int name, float xscale, float yscale)
+{
+    win_flush();
+    sendmsg(REFRESH, name, (int)(xscale * 1000), (int)(yscale * 1000), 0, 0, 0, NULL);
+}
+
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG
@@ -780,12 +787,9 @@ void win_purgeimage(glui32 resno, const char *filename, int reslen)
     }
 }
 
-void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
+void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
 {
     win_flush();
-
-    if (len <= 1 || len > 15)
-        return;
 
     if (str == NULL)
         len = 0;
@@ -850,7 +854,7 @@ again:
                 gli_zmachine_terp == settings->zmachine_terp &&
                 gli_z6_graphics == settings->z6_graphics &&
                 gli_z6_colorize == settings->z6_colorize &&
-                gli_z6_sim_16_cols == settings->z6_sim_16_cols &&
+                gli_zmachine_no_err_win == settings->zmachine_no_err_win &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -882,11 +886,11 @@ again:
             gli_slowdraw = settings->slowdraw;
             gli_flicker = settings->flicker;
             gli_zmachine_terp = settings->zmachine_terp;
+            gli_zmachine_no_err_win = settings->zmachine_no_err_win;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
             gli_z6_graphics = settings->z6_graphics;
             gli_z6_colorize = settings->z6_colorize;
-            gli_z6_sim_16_cols = settings->z6_sim_16_cols;
             if (!gli_block_rearrange)
                 gli_windows_rearrange();
             break;
@@ -897,7 +901,7 @@ again:
 
         case EVTLINE:
 #ifdef DEBUG
-            //fprintf(stderr, "line input event\n");
+            fprintf(stderr, "win_select: received line input event for win peer %d\n", wmsg.a1);
 #endif
 
             event->type = evtype_LineInput;
@@ -965,7 +969,7 @@ again:
 
         case EVTKEY:
 #ifdef DEBUG
-            fprintf(stderr, "key input event for %d\n", wmsg.a1);
+            fprintf(stderr, "win_select: received key input event for win peer %d\n", wmsg.a1);
 #endif
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
@@ -984,7 +988,7 @@ again:
 
         case EVTMOUSE:
 #ifdef DEBUG
-            fprintf(stderr, "mouse input event\n");
+            fprintf(stderr, "win_select: received mouse input event for win peer %d\n", wmsg.a1);
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);

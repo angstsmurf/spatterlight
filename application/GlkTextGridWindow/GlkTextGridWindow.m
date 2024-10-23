@@ -578,11 +578,11 @@
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
-
     GlkController *glkctl = self.glkctl;
 
-    if (glkctl.ignoreResizes)
+    if (glkctl.ignoreResizes) {
         return;
+    }
 
     NSUInteger r;
 
@@ -597,14 +597,15 @@
     if (glkctl) {
         screensize = glkctl.window.screen.visibleFrame.size;
         if (frame.size.height > screensize.height)
-        frame.size.height = glkctl.gameView.frame.size.height;
+            frame.size.height = glkctl.gameView.frame.size.height;
     }
 
     _textview.textContainerInset =
-        NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+    NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
-    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0)
+    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0) {
         return;
+    }
 
     CGFloat margins = (_textview.textContainerInset.width + container.lineFragmentPadding) * 2;
     if (margins > frame.size.width)
@@ -642,8 +643,9 @@
 
     if ((NSInteger)newcols > 0 && (NSInteger)newrows > 0) {
 
-        if (self.inLiveResize && newcols < cols)
+        if (self.inLiveResize && newcols < cols) {
             return;
+        }
 
         _selectedRow = _restoredSelection.location / (cols + 1);
         _selectedCol = _restoredSelection.location % (cols + 1);
@@ -848,6 +850,7 @@
         }
     }
     _textview.selectedRange = selectedRange;
+    [self recalcBackground];
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
@@ -873,8 +876,10 @@
         } else return;
     }
 
-    if (cols == 0 || rows == 0 || length == 0)
+    if (cols == 0 || rows == 0 || length == 0) {
+        NSLog(@"GlkTextGridWindow printToWindow: (cols == 0 || rows == 0 || length == 0). bailing.");
         return;
+    }
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -898,42 +903,14 @@
         ypos += xpos / cols;
         xpos = xpos % cols;
     }
-    NSMutableDictionary *attrDict = [styles[stylevalue] mutableCopy];
-
-    if (!attrDict)
-        NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
+    NSMutableDictionary *attrDict = [self getCurrentAttributesForStyle:stylevalue];
 
     startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
+        NSLog(@"GlkTextGridWindow printToWindow: Outside visible range! startpos:%ld textstoragelength:%ld", startpos, textstoragelength);
         // We are outside window visible range!
         // Do nothing
         return;
-    }
-
-    if (currentZColor) {
-        attrDict[@"ZColor"] = currentZColor;
-        if (self.theme.doStyles) {
-            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                attrDict = [currentZColor reversedAttributes:attrDict];
-                //  If the style has the reverseColor hint set, we apply the zcolors in reverse
-            } else {
-                attrDict = [currentZColor coloredAttributes:attrDict];
-                // Otherwise we apply the zcolors normally");
-            }
-        }
-    }
-
-    if (self.currentReverseVideo) {
-        attrDict[@"ReverseVideo"] = @(YES);
-        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-            // If the current colours are not already reversed by stylehint_ReverseColor,
-            // we reverse the colours here
-            attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
-        }
-    }
-
-    if (self.currentHyperlink) {
-        attrDict[NSLinkAttributeName] = @(self.currentHyperlink);
     }
 
     if (ypos > rows) {
@@ -941,9 +918,9 @@
         return;
     }
 
-    // Check for newlines in string to write
-    NSUInteger x;
-    for (x = 0; x < length; x++) {
+    // Check for newlines in string to write.
+    // length - 1 because we don't care about newlines at the very end.
+    for (NSUInteger x = 0; x < length - 1; x++) {
         if ([string characterAtIndex:x] == '\n' ||
             [string characterAtIndex:x] == '\r') {
             [self printToWindow:[string substringToIndex:x] style:stylevalue];
@@ -1497,8 +1474,8 @@
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
     CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
-    if (isMonaco)
-        yscale *= 1.5;
+    if (isMonaco && self.glkctl.gameID == kGameIsJourney)
+        yscale *= 1.2;
     [transform scaleXBy:1 yBy:yscale];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
@@ -1563,12 +1540,6 @@
     }];
 
     GlkController *glkctl = self.glkctl;
-    if (!glkctl.quoteBoxes)
-        glkctl.quoteBoxes = [[NSMutableArray alloc] init];
-
-    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
-    box.quoteboxSize = NSMakeSize(width, height);
-    [box makeTransparent];
 
     GlkTextBufferWindow *lowerView;
 
@@ -1579,17 +1550,30 @@
 
     NSTextView *superView = lowerView.textview;
 
-    [box.textview.textStorage setAttributedString:quoteAttStr];
+    if (glkctl.theme.zMachineNoErrWin) {
+        [lowerView putString:quoteAttStr.string style:style_Preformatted];
+    }
 
-    box.alphaValue = 0;
+    if (glkctl.theme.quoteBox) {
+        if (!glkctl.quoteBoxes)
+            glkctl.quoteBoxes = [[NSMutableArray alloc] init];
 
-    [glkctl.quoteBoxes addObject:box];
-    lowerView.quoteBox = box;
-    box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedOnPAC = 0;
-    glkctl.numberOfPrintsAndClears = 0;
-    box.quoteboxParent = superView.enclosingScrollView;
-    [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
+        GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
+        box.quoteboxSize = NSMakeSize(width, height);
+        [box makeTransparent];
+
+        [box.textview.textStorage setAttributedString:quoteAttStr];
+
+        box.alphaValue = 0;
+
+        [glkctl.quoteBoxes addObject:box];
+        lowerView.quoteBox = box;
+        box.quoteboxVerticalOffset = linesToSkip;
+        box.quoteboxAddedOnPAC = 0;
+        glkctl.numberOfPrintsAndClears = 0;
+        box.quoteboxParent = superView.enclosingScrollView;
+        [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
+    }
 }
 
 - (void)quoteboxAdjustSize:(id)sender {

@@ -30,11 +30,14 @@ void draw_to_pixmap_unscaled(int image, int x, int y);
 void draw_to_pixmap_unscaled_flipped(int image, int x, int y);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
-void draw_centered_title_image(int picnum);
+void draw_centered_image(int picnum, float scale, int width, int height);
+float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);
 
 extern int last_slideshow_pic;
 extern int32_t monochrome_black;
 extern int32_t monochrome_white;
+
+extern bool image_needs_redraw;
 
 #endif /* draw_image_hpp */

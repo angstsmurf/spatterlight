@@ -9,9 +9,13 @@
 #include "memory.h"
 #include "dict.h"
 
+#include "arthur.hpp"
 #include "journey.hpp"
+#include "v6_shared.hpp"
 
 #include "entrypoints.hpp"
+
+uint8_t fg_global_idx = 0, bg_global_idx = 0;
 
 struct EntryPoint {
     Game game;
@@ -26,6 +30,182 @@ struct EntryPoint {
 #define WILDCARD 0xf8
 
 static std::vector<EntryPoint> entrypoints = {
+
+#pragma mark Arthur
+
+    {
+        Game::Arthur,
+        "Arthur INIT-STATUS-LINE",
+        { 0x41, WILDCARD, 0x00, 0x71, 0x54  },
+        0,
+        0,
+        true,
+        arthur_INIT_STATUS_LINE,
+    },
+
+    {
+        Game::Arthur,
+        "UPDATE-STATUS-LINE",
+        { 0xeb, 0x7f, 0x01, 0xf1, 0x7f, 0x01 },
+        0,
+        0,
+        false,
+        ARTHUR_UPDATE_STATUS_LINE
+    },
+
+    {
+        Game::Arthur,
+        "RT-AUTHOR-OFF",
+        { 0xf3, 0x3f, 0xff, 0xfd, 0x43, WILDCARD, 0x00, 0x45},
+        0,
+        0,
+        true,
+        RT_AUTHOR_OFF
+    },
+
+    {
+        Game::Arthur,
+        "V-COLOR",
+        { 0x41, WILDCARD, 0x03, 0x00, WILDCARD, 0x88, WILDCARD, WILDCARD, 0x00 },
+        0,
+        0,
+        false,
+        V_COLOR
+    },
+
+    {
+        Game::Arthur,
+        "after V-COLOR",
+        {},
+        0,
+        0,
+        false,
+        after_V_COLOR
+    },
+
+    {
+        Game::Arthur,
+        "RT-HOT-KEY",
+        {0xff, 0x7f, 0x02, 0xc7, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0xff, 0x7f, 0x03, 0xc5 },
+        0,
+        0,
+        true,
+        RT_HOT_KEY
+    },
+
+    {
+        Game::Arthur,
+        "RT-HOT-KEY alt",
+        {0xff, 0x7f, 0x02, 0xc7, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x41, 0x01, 0x85, 0x52 },
+        0,
+        0,
+        true,
+        RT_HOT_KEY
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-STAT-WINDOW",
+        { 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0xa0 },
+        0,
+        0,
+        false,
+        RT_UPDATE_STAT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-INVT-WINDOW",
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0xbe },
+        0,
+        0,
+        false,
+        RT_UPDATE_INVT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-DESC-WINDOW",
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x01, 0xa0, 0x01, 0x4a},
+        0,
+        0,
+        false,
+        RT_UPDATE_DESC_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-MAP-WINDOW",
+        { 0xEB, 0x7F, 0x02, 0xBE, 0x12, 0x57, 0x02, 0x01, 0x02, 0xa0 },
+        -0x16,
+        0,
+        false,
+        RT_UPDATE_MAP_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-UPDATE-PICT-WINDOW",
+        { 0xeb, 0x7f, 0x02, 0xbe, 0x12, 0x57, 0x02, 0x01, 0x02, 0x41 },
+        0,
+        0,
+        false,
+        RT_UPDATE_PICT_WINDOW
+    },
+
+    {
+        Game::Arthur,
+        "RT-TH-EXCALIBUR",
+        { 0x54, 0x00, 0x01, 0x00, 0xef, 0xaf, 0x04, 0x00, 0xf1, 0x7f, 0x02 },
+        0,
+        0,
+        false,
+        RT_TH_EXCALIBUR
+    },
+
+    {
+        Game::Arthur,
+        "DO-HINTS",
+        { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00,  0x88, WILDCARD, WILDCARD, 0x02},
+        0,
+        0,
+        true,
+        DO_HINTS
+    },
+
+
+    {
+        Game::Arthur,
+        "DO-HINTS alt",
+        { 0xf1, 0x7f, 0x00, 0x88, WILDCARD, WILDCARD, 0x02, 0xbe, 0x12, 0x57, 0x00, 0x01, 0x02 },
+        0,
+        0,
+        true,
+        DO_HINTS
+    },
+
+    {
+        Game::Arthur,
+        "DISPLAY-HINT",
+        { 0xf1, 0x7f, 0x00, 0xed, 0x7f, 0x00, 0xeb, 0x7f, 0x01, 0xf9},
+        0,
+        0,
+        false,
+        DISPLAY_HINT
+    },
+
+    {
+        Game::Arthur,
+        "RT-SEE-QST",
+        { 0xa0, 0x01, 0xc1, 0x22, 0x00, 0x01, 0x48 },
+        0,
+        0,
+        false,
+        RT_SEE_QST
+    },
+
+#pragma mark Journey
+
     {
         Game::Journey,
         "WCENTER",
@@ -404,7 +584,135 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     return last_match_offset;
 }
 
-void find_globals(void) {
+static uint32_t end_of_color_addr = 0;
+
+void find_arthur_globals(void) {
+    int start = 0;
+    for (auto &entrypoint : entrypoints) {
+
+        if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x09, 0x0d, WILDCARD, 0x02}, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                fprintf(stderr, "Error! Could not find color globals!\n");
+            } else {
+                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+                start = find_pattern_in_mem({0xb8}, start, 200);
+                if (start != -1) {
+                    end_of_color_addr = start;
+                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
+                }
+            }
+        } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
+            entrypoint.found_at_address = end_of_color_addr;
+            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
+        } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({0xb0, WILDCARD, 0x00, 0x71}, {&ag.GL_WINDOW_TYPE}, entrypoint.found_at_address, 100);
+            if (start == -1) {
+                fprintf(stderr, "Error! Did not find ag.GL_WINDOW_TYPE!\n");
+                start = entrypoint.found_at_address;
+            }
+
+            start = find_globals_in_pattern({0xf1, 0x7f, 0x00, 0x0d, 0x56, 0x00, 0xef, 0x5f, 0x01, 0x01}, {&ag.GL_TIME_WIDTH }, start, 300);
+            if (start == -1) {
+                fprintf(stderr, "Error! Did not find ag.GL_TIME_WIDTH\n");
+                start = entrypoint.found_at_address;
+            }
+
+            start = find_globals_in_pattern({0xef, 0x5f, 0x01, 0x01, 0xeb, 0x7f, 0x00,
+                0x0d, WILDCARD, 0x00,
+                0x0d, WILDCARD, 0x00,
+                0x0d, WILDCARD, 0x00,
+                0x0d, WILDCARD, 0x00,
+                0x0d, WILDCARD, 0x00,
+                0xb0}, {&ag.GL_SL_HERE, &ag.GL_SL_VEH, &ag.GL_SL_HIDE, &ag.GL_SL_TIME, &ag.GL_SL_FORM }, start, 300);
+
+            if (start == -1) {
+                fprintf(stderr, "Error! Did not find global in pattern!\n");
+            }
+
+
+        } else if (entrypoint.fn == ARTHUR_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
+            ar.UPDATE_STATUS_LINE = entrypoint.found_at_address - 1;
+            ag.UPDATE = memory[ar.UPDATE_STATUS_LINE + 0xd] - 0x10;
+        } else if (entrypoint.fn == RT_UPDATE_PICT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_PICT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_TH_EXCALIBUR && entrypoint.found_at_address != 0) {
+            start = find_pattern_in_mem({0xf1, 0x7f, 0x02}, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                // Patch <HLIGHT ,H-BOLD> to bold fixed-width, which we have
+                // mapped to style_User1, (set to bold, centered text) which
+                // matches the style of the original centered "THE END" text.
+
+                memory[start + 2] = 0x0a;
+            }
+        } else if (entrypoint.fn == RT_UPDATE_INVT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_INVT_WINDOW = entrypoint.found_at_address - 1;
+
+            // Patch to to fix second vertical bar not being drawn at certain sizes.
+            // The purpose of the original code seems to be to avoid drawing at third bar at the right edge
+            // but instead it skips the second bar if the window width in characters is evenly divisible by 3.
+            // Not sure if it is broken in the original as well or if it is due to us measuring window width
+            // differently.
+
+            // We just patch the line that adds 1 to the width to subtract 1 instead.
+
+            // ADD (SP)+,#01 -> -(SP) becomes
+            // SUB (SP)+,#01 -> -(SP)
+            start = find_pattern_in_mem({0x54, 0x00, 0x01, 0x00}, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                store_byte(start, 0x55);
+            }
+
+        } else if (entrypoint.fn == RT_UPDATE_STAT_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_STAT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_UPDATE_DESC_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_DESC_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_UPDATE_MAP_WINDOW && entrypoint.found_at_address != 0) {
+            ar.RT_UPDATE_MAP_WINDOW = entrypoint.found_at_address - 1;
+            find_globals_in_pattern({0xa0, WILDCARD, 0x55, 0xbe, 0x06}, {&ag.GL_MAP_GRID_Y}, entrypoint.found_at_address, 10);
+        } else if (entrypoint.fn == RT_AUTHOR_OFF && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({0x3f, 0xff, 0xfd, 0x43, WILDCARD, 0x00, 0x45}, {&ag.GL_AUTHOR_SIZE}, entrypoint.found_at_address, 100);
+            if (start == -1) {
+                fprintf(stderr, "ERROR: Could not find ag.GL_AUTHOR_SIZE!!\n");
+            } else {
+                fprintf(stderr, "ag.GL_AUTHOR_SIZE = 0x%x\n", ag.GL_AUTHOR_SIZE);
+            }
+            start = find_16_bit_values_in_pattern({ 0xd9, 0x0f, WILDCARD, WILDCARD, WILDCARD, WILDCARD }, { &at.K_DIROUT_TBL, &at.K_DIROUT_TBL, &at.K_DIROUT_TBL }, start, 100);
+            if (start == -1) {
+                fprintf(stderr, "ERROR: Could not find at.K_DIROUT_TBL!!\n");
+            } else {
+                fprintf(stderr, "at.K_DIROUT_TBL = 0x%x\n", at.K_DIROUT_TBL);
+            }
+        } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
+            start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
+                start = find_16_bit_values_in_pattern({0xd4, 0x1f, WILDCARD, WILDCARD, 0x02, 0x09, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x00}, {&at.K_HINT_ITEMS, &at.K_HINT_ITEMS}, start, 300);
+                if (start != -1) {
+                    fprintf(stderr, "at.K_HINT_ITEMS = 0x%x\n", at.K_HINT_ITEMS);
+                    start = find_globals_in_pattern({0xf7, 0xab, WILDCARD, 0x09, 0x00, 0x04, 0xc2}, {&hint_chapter_global_idx}, start, 100);
+                    if (start != -1) {
+                        fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
+                        start = find_globals_in_pattern({0x2d, 0x04, 0x07, 0xda, 0x2f, WILDCARD, WILDCARD, 0x04, 0x0d, WILDCARD, 0x01 }, {&hint_quest_global_idx, &hint_quest_global_idx, &hint_quest_global_idx}, start, 200);
+                        if (start != -1) {
+                            fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
+                        }
+                    }
+                }
+            }
+
+        } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
+            start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04  }, { &seen_hints_table_addr }, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
+            }
+        } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
+            ar.RT_SEE_QST = entrypoint.found_at_address - 1;
+        }
+    }
+}
+
+void find_journey_globals(void) {
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
 
@@ -511,7 +819,7 @@ void find_globals(void) {
 
             offset = find_values_in_pattern({ 0xed, 0x7f, WILDCARD, 0xb0}, {&ja.buffer_window_index}, entrypoint.found_at_address, 500);
             if (offset == -1) {
-                fprintf(stderr, "Error!\n");
+                fprintf(stderr, "Error! Did not find values in pattern!\n");
                 offset = entrypoint.found_at_address;
             }
             for (int i = offset; i < memory_size - 12; i++) {
@@ -608,6 +916,7 @@ void find_globals(void) {
         } else if (entrypoint.fn == REFRESH_CHARACTER_COMMAND_AREA && entrypoint.found_at_address != 0) {
             store_byte(entrypoint.found_at_address, 0xab);
             store_byte(entrypoint.found_at_address + 1, 0x01);
+        // Patch out repeated words when listing essences and reagents in later version when screen is narrow
         }  else if (entrypoint.fn == TELL_AMOUNTS && entrypoint.found_at_address != 0 && header.release >= 51) {
             uint32_t offset = entrypoint.found_at_address;
             store_byte(offset + 4, 0xb4);
@@ -627,28 +936,40 @@ void find_entrypoints(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
+            fprintf(stderr, "Looking for entrypoint %s\n", entrypoint.title.c_str());
             if (entrypoint.pattern.size()) {
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, start, end - start);
                 if (offset != -1) {
                     entrypoint.found_at_address = offset + entrypoint.offset;
                     start = entrypoint.found_at_address;
+                    fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), start);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
                     }
+                } else {
+                    fprintf(stderr, "Did not find it!\n");
                 }
+            } else {
+                fprintf(stderr, "Did not find it! (No pattern)\n");
             }
         }
     }
 
-    find_globals();
+    if (is_spatterlight_arthur)
+        find_arthur_globals();
+    else
+        find_journey_globals();
 }
 
 
 void check_entrypoints(uint32_t pc) {
     for (auto &entrypoint : entrypoints) {
-        if (is_game(entrypoint.game) && pc == entrypoint.found_at_address) {
+        if (pc == entrypoint.found_at_address) {
             (entrypoint.fn)();
+        }
+        if (entrypoint.found_at_address > pc) {
+            break;
         }
     }
 }

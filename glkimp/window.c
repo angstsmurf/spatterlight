@@ -714,8 +714,9 @@ void glk_set_window(window_t *win)
 {
     if (!win)
         glk_stream_set_current(NULL);
-    else
+    else {
         glk_stream_set_current(win->str);
+    }
 }
 
 void gli_windows_unechostream(stream_t *str)
@@ -1005,6 +1006,8 @@ void glk_request_line_event(window_t *win, char *buf, glui32 maxlen, glui32 init
         gli_strict_warning("request_line_event: invalid ref");
         return;
     }
+
+    fprintf(stderr, "glk_request_line_event peer %d\n", win->peer);
 
     if (win->char_request || win->line_request)
     {
@@ -1302,22 +1305,8 @@ void glk_window_clear(window_t *win)
         gli_strict_warning("window_clear: window has pending line request");
         return;
     }
-    
-    switch (win->type)
-    {
-        case wintype_TextBuffer:
-            win_clear(win->peer);
-            break;
-        case wintype_TextGrid:
-            win_clear(win->peer);
-            break;
-        case wintype_Graphics:
-            win_fillrect(win->peer, win->background,
-                         0, 0,
-                         win->bbox.x1 - win->bbox.x0,
-                         win->bbox.y1 - win->bbox.y0);
-            break;
-    }
+
+    win_clear(win->peer);
 }
 
 void glk_window_move_cursor(window_t *win, glui32 xpos, glui32 ypos)

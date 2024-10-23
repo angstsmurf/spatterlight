@@ -372,7 +372,7 @@ static uint8_t *LoadTitleScreen(void)
         buf[offset++] = '\n';
     }
 
-    buf[offset] = '\0';
+    buf[offset] = 0;
     uint8_t *result = MemAlloc(offset + 1);
     memcpy(result, buf, offset + 1);
     return result;
@@ -432,7 +432,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
     do {
         rp->Text = GetTI994AString(dh.p_room_descr, ct);
         if (rp->Text == NULL)
-            rp->Text = ".\0";
+            rp->Text = ".";
         if (loud)
             debug_print("Room %d: %s\n", ct, rp->Text);
         rp->Image = 255;
@@ -447,7 +447,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
     while (ct < mn + 1) {
         Messages[ct] = GetTI994AString(dh.p_message, ct);
         if (Messages[ct] == NULL)
-            Messages[ct] = ".\0";
+            Messages[ct] = ".";
         if (loud)
             debug_print("Message %d: %s\n", ct, Messages[ct]);
         ct++;
@@ -461,7 +461,7 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
     do {
         ip->Text = GetTI994AString(dh.p_obj_descr, ct);
         if (ip->Text == NULL) {
-            ip->Text = ".\0";
+            ip->Text = ".";
             ip->AutoGet = NULL;
         }
         if (ip->Text && ip->Text[0] == '*')
@@ -515,10 +515,10 @@ static GameIDType TryLoadingTI994A(struct DATAHEADER dh, int loud)
     LoadTI994ADict(dh.p_noun_table, dh.num_nouns + 1, Nouns);
 
     for (int i = 1; i <= dh.num_nouns - dh.num_verbs; i++)
-        Verbs[dh.num_verbs + i] = ".\0";
+        Verbs[dh.num_verbs + i] = ".";
 
     for (int i = 1; i <= dh.num_verbs - dh.num_nouns; i++)
-        Nouns[dh.num_nouns + i] = ".\0";
+        Nouns[dh.num_nouns + i] = ".";
 
     if (loud) {
         for (int i = 0; i <= GameHeader.NumWords; i++)

@@ -188,9 +188,9 @@ void FillInGermanSystemMessages(void)
 
 void LoadExtraGermanGremlinsC64Data(void)
 {
-    Verbs[0] = "AUTO\0";
-    Nouns[0] = "ANY\0";
-    Nouns[28] = "*Y.M.C\0";
+    Verbs[0] = "AUTO";
+    Nouns[0] = "ANY";
+    Nouns[28] = "*Y.M.C";
 
     // These are broken in some versions
     Actions[0].Condition[0] = 1005;
@@ -242,9 +242,9 @@ void LoadExtraGermanGremlinsC64Data(void)
 
 void LoadExtraGermanGremlinsData(void)
 {
-    Verbs[0] = "AUTO\0";
-    Nouns[0] = "ANY\0";
-    Nouns[28] = "*Y.M.C\0";
+    Verbs[0] = "AUTO";
+    Nouns[0] = "ANY";
+    Nouns[28] = "*Y.M.C";
 
     Messages[90] = "Ehe ich etwas anderes mache, much aich erst alles andere fallenlassen. ";
     FillInGermanSystemMessages();
