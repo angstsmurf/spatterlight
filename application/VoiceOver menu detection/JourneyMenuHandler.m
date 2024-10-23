@@ -648,7 +648,9 @@ errorDescription:(NSString * __autoreleasing *)error
             if (stopflag) {
                 if (stringIsCancel) {
                     if ([self partyIsEqualToLast] || _skipNextDialog) {
-                        self.journeyPartyMenu.hidden = NO;
+                        if (_delegate.voiceOverActive) {
+                            self.journeyPartyMenu.hidden = NO;
+                        }
                         shouldStartNewJourneyPartyMenu = YES;
                         _skipNextDialog = NO;
                         return;
