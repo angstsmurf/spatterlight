@@ -936,6 +936,10 @@ fprintf(stderr, "%s\n",                                                    \
     task.launchPath = terppath;
     task.arguments = @[ _gamefile ];
     if ([_terpname isEqualToString:@"bocfel"]) {
+        // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
+        if (theme.zMachineTerp < 1 || theme.zMachineTerp > 11) {
+            theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
+        }
         NSArray *extraBocfelOptions =
         @[@"-n", [NSString stringWithFormat:@"%d", theme.zMachineTerp],
           @"-N", theme.zMachineLetter];
