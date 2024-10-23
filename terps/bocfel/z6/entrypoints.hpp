@@ -13,6 +13,6 @@
 void find_entrypoints(void);
 void check_entrypoints(uint32_t pc);
 
-//extern uint8_t fg_global_idx, bg_global_idx;
+extern uint8_t fg_global_idx, bg_global_idx;
 
 #endif /* entrypoints_hpp */
