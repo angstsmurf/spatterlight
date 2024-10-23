@@ -506,7 +506,7 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             m->submenu = nullptr;
 
             if (m->length > 1) {
-                m->line = i - 1;
+                m->line = (i - 1) % 5;
                 if (type == kJMenuTypeMembers) {
                     m->column = 2;
                     // Hack to add "shadow" menus to the previous submenu
@@ -521,7 +521,7 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
                     m->column = 3 + ((menu_counter > 4 || prsi) ? 1 : 0);
                 }
                 menu_counter++;
-                if (menu_counter >= 10)
+                if (menu_counter > 10)
                     return;
             }
         }
