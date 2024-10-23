@@ -55,6 +55,7 @@ extern "C" {
 #include "extract_apple_2.h"
 #include "find_graphics_files.hpp"
 #include "journey.hpp"
+#include "arthur.hpp"
 #include "random.h"
 #include "v6_specific.h"
 
@@ -127,6 +128,15 @@ int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
 glui32 current_picture = 0;
 bool is_spatterlight_journey = false;
+bool is_spatterlight_arthur = false;
+
+// Full-window size background or in front
+// Background during normal play with text windows on top,
+// or in front during Zork 0 map or "slideshows"
+winid_t current_graphics_buf_win = nullptr;
+winid_t graphics_bg_glk = nullptr;
+winid_t graphics_fg_glk = nullptr;
+
 #endif
 
 // Flag describing whether the header bit meaning “fixed font” is set.
@@ -443,7 +453,14 @@ private:
             }
 
             if (zversion == 6) {
-                store_word(0x30, m_idx - 2);
+                if (is_spatterlight_arthur) {
+                    int16_t wordwidth = m_idx - 4;
+                    if (wordwidth < 1)
+                        wordwidth = 1;
+                    store_word(0x30, wordwidth);
+                } else {
+                    store_word(0x30, m_idx - 2);
+                }
             }
         }
 
@@ -524,6 +541,19 @@ static glui32 zcolor_map[] = {
 
 #ifdef SPATTERLIGHT
 glui32 user_selected_foreground = 0, user_selected_background = 0xffffff;
+
+void update_user_defined_colors(void) {
+    if (fg_global_idx == 0 || bg_global_idx == 0)
+        return;
+    user_selected_foreground = zcolor_map[get_global(fg_global_idx)];
+    user_selected_background = zcolor_map[get_global(bg_global_idx)];
+    if (user_selected_foreground == zcolor_Default) {
+        user_selected_foreground = gfgcol;
+    }
+    if (user_selected_background == zcolor_Default) {
+        user_selected_background = gbgcol;
+    }
+}
 #endif
 
 void update_color(int which, unsigned long color)
@@ -948,6 +978,7 @@ static void put_char_u(uint16_t c)
 
 void put_char(uint8_t c)
 {
+    fprintf(stderr, "%c", c);
     put_char_base(c, false);
 }
 
@@ -1205,11 +1236,19 @@ static
 #endif
 void set_current_window(Window *window)
 {
+    if (window->id != nullptr) {
+        fprintf(stderr, "set_current_window peer %d (index %d)\n", window->id->peer, window->index);
+        glk_set_window(window->id);
+    } else {
+        fprintf(stderr, "set_current_window index %d (no glk win)\n", window->index);
+    }
     curwin = window;
 
 #ifdef ZTERP_GLK
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_journey)
+    if (is_spatterlight_arthur) {
+        arthur_change_current_window();
+    } else if (!is_spatterlight_journey)
 #endif
     if (curwin == upperwin && upperwin->id != nullptr) {
         upperwin->x = upperwin->y = 0;
@@ -1309,7 +1348,7 @@ static void resize_upper_window(long nlines, bool from_game)
 
 #ifdef SPATTERLIGHT
 
-    if (is_spatterlight_journey)
+    if (is_spatterlight_journey || is_spatterlight_arthur)
         return;
 
     // Hack to clear upper window when its height is set to 0.
@@ -1929,6 +1968,7 @@ void zerase_window()
 {
 #ifdef ZTERP_GLK
 
+#ifndef SPATTERLIGHT
 #ifdef ZTERP_GLK_GRAPHICS
     // Special case for the intro.
     if (arthur_hack && (current_instruction == 0x10c3b || current_instruction == 0x10c61 || current_instruction == 0x10e8a)) {
@@ -1943,8 +1983,9 @@ void zerase_window()
         return;
     }
 #endif
-
-    switch (as_signed(zargs[0])) {
+#endif
+    int32_t arg0 = as_signed(zargs[0]);
+    switch (arg0) {
     case -2:
         for (auto &window : windows) {
             clear_window(&window);
@@ -1952,6 +1993,11 @@ void zerase_window()
         break;
     case -1:
         close_upper_window();
+
+        if (is_game(Game::Arthur) && screenmode == MODE_SLIDESHOW) {
+            clear_image_buffer();
+            arthur_toggle_slideshow_windows();
+        }
         // fallthrough
     case 0:
         // 8.7.3.2.1 says V5+ should have the cursor set to 1, 1 of the
@@ -2144,6 +2190,84 @@ void v6_restore_hacks(void) {
         }
     }
 }
+
+void v6_delete_glk_win(winid_t glkwin) {
+    if (glkwin == nullptr)
+        return;
+
+    if (graphics_bg_glk == glkwin) {
+        graphics_bg_glk = nullptr;
+    }
+    //    if (buffer_win_glk == glkwin) {
+    //        buffer_win_glk = nullptr;
+    //    }
+
+    if (current_graphics_buf_win == glkwin) {
+        current_graphics_buf_win = nullptr;
+    }
+
+    for (auto &window : windows) {
+        if (window.id == glkwin) {
+            window.id = nullptr;
+        }
+    }
+
+    gli_delete_window(glkwin);
+}
+
+
+void v6_delete_win(Window *win) {
+    if (win == nullptr || win->id == nullptr)
+        return;
+    v6_delete_glk_win(win->id);
+    win->id = nullptr;
+}
+void v6_remap_win_to_grid(Window *win) {
+
+    if (win->id) {
+        if (win->id->type == wintype_TextGrid)
+            return;
+    }
+
+    win->id = gli_new_window(wintype_TextGrid, 0);
+//    fprintf(stderr, " and creating a new grid window with peer %d\n", win->id->peer);
+    if (win == upperwin && is_game(Game::Arthur))
+        win->style.set(STYLE_REVERSE);
+    //    glk_window_clear(win->id);
+
+    win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
+
+    //    win_setreverse(win->id->peer, win->style.test(STYLE_REVERSE));
+    //    win_setzcolor(win->id->peer, gargoyle_color(win->fg_color),  gargoyle_color(win->bg_color));
+
+    //    win->zpos = max_zpos;
+
+    if (win == curwin) {
+        glk_set_window(win->id);
+        set_current_style();
+    }
+    v6_sizewin(win);
+}
+
+void v6_remap_win_to_buffer(Window *win) {
+
+    if (win->id && win->id->type == wintype_TextBuffer) {
+        return;
+    }
+
+    win->id = gli_new_window(wintype_TextBuffer, 0);
+
+    fprintf(stderr, "Creating a new buffer window with peer %d\n", win->id->peer);
+    win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
+    v6_sizewin(win);
+    glk_set_window(win->id);
+    //    buffer_win_glk = win->id;
+    //    win->zpos = buffer_zpos;
+    glk_set_echo_line_event(win->id, 0);
+}
+
+
+
 #endif
 
 void zget_cursor()
@@ -2224,6 +2348,7 @@ void zset_true_colour()
         set_current_style();
     }
 }
+
 
 // V6 has per-window styles, but all others have a global style; in this
 // case, track styles via the main window.
@@ -2409,10 +2534,14 @@ glui32 brightest(glui32 col1, glui32 col2) {
 #endif
 
 #ifdef ZTERP_GLK
-static void window_change()
+#ifndef SPATTERLIGHT
+static
+#endif
+void window_change()
 {
 #ifdef ZTERP_GLK_GRAPHICS
-    graphics_window.destroy();
+    if (!is_spatterlight_arthur)
+        graphics_window.destroy();
 #ifndef SPATTERLIGHT
     close_journey_window();
 #endif
@@ -2461,12 +2590,12 @@ static void window_change()
         }
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_journey  || is_spatterlight_arthur) {
             v6_switch_to_allowed_interpreter_number();
         }
         store_byte(0x1e, options.int_number);
 
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_journey || is_spatterlight_arthur) {
 
             glui32 w, h;
             glk_window_get_size(windows[1].id, &w, &h);
@@ -2516,9 +2645,9 @@ static void window_change()
                         }
                     }
 
-                    //                    if (is_game(Game::Arthur)) {
-                    //                        set_global(global_map_grid_y_idx, 0);
-                    //                    }
+                    if (is_game(Game::Arthur)) {
+                        set_global(ag.MAP_Y, 0);
+                    }
                 }
             }
 
@@ -2562,9 +2691,9 @@ static void window_change()
 //            }
 //            lastbg = user_selected_background;
 
-//            if (is_game(Game::Arthur)) {
-//                arthur_update_on_resize();
-//            } else 
+            if (is_spatterlight_arthur) {
+                arthur_update_on_resize();
+            } else 
                 if (is_spatterlight_journey) {
                 journey_update_on_resize();
 //            } else if (is_game(Game::ZorkZero)) {
@@ -2887,6 +3016,20 @@ static uint8_t zscii_from_glk(glui32 key)
 }
 #endif
 
+void flush_image_buffer(void) {
+    if (is_spatterlight_arthur || is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
+        if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
+            current_graphics_buf_win = graphics_bg_glk;
+        }
+        if (is_spatterlight_arthur && screenmode == MODE_NORMAL) {
+            glk_window_clear(graphics_bg_glk);
+            draw_arthur_side_images(graphics_bg_glk);
+        } else if (current_graphics_buf_win != nullptr) {
+            flush_bitmap(current_graphics_buf_win);
+        }
+    }
+}
+
 // Attempt to read input from the user. The input type can be either a
 // single character or a full line. If “timer” is not zero, a timer is
 // started that fires off every “timer” tenths of a second (if the value
@@ -3001,6 +3144,8 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
         case evtype_Timer:
             ZASSERT(timer != 0, "got unexpected evtype_Timer");
+
+            flush_image_buffer();
 
             stop_timer();
 
@@ -3253,6 +3398,11 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         }
 
 #ifdef ZTERP_GLK_GRAPHICS
+#ifdef SPATTERLIGHT
+        if (is_spatterlight_arthur) {
+            arthur_hotkeys(input.term);
+        } else
+#endif
         if (arthur_hack && input.term == ZSCII_F6) {
             graphics_window.destroy();
         }
@@ -3350,6 +3500,9 @@ void zread_char()
     input.type = Input::Type::Char;
 
 #ifdef SPATTERLIGHT
+
+    flush_image_buffer();
+
     if (just_autorestored) {
         just_autorestored = false;
         if (is_spatterlight_journey && journey_autorestore_internal_read_char_hacks()) {
@@ -3499,6 +3652,8 @@ static bool read_handler()
     input.preloaded = 0;
     uint16_t timer = 0;
     uint16_t routine = zargs[3];
+
+    flush_image_buffer();
 
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
@@ -4296,6 +4451,11 @@ void zdraw_picture()
             draw_inline_image(win->id, current_picture, x, y, scale, false);
         }
         return;
+    } else if (is_spatterlight_arthur) {
+        current_picture = pic;
+        if (arthur_display_picture(pic, x, y)) {
+            return;
+        }
     }
 #endif
     if (glk_image_get_info(pic, &w, &h)) {
@@ -4418,7 +4578,7 @@ void zpicture_data()
 #ifdef ZTERP_GLK_GRAPHICS
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey) {
+    if (is_spatterlight_journey || is_spatterlight_arthur) {
 
         if (zargs[0] == 0) {
             // Return pixversion
@@ -4555,7 +4715,13 @@ void zget_wind_prop()
         val = word(0x24) * font_height;
         break;
     case 3:  // x size
-        val = word(0x22) * font_width;
+        if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
+            glui32 w;
+            glk_window_get_size(win->id, &w, NULL);
+            val = w;
+        } else {
+            val = word(0x22) * font_width;
+        }
         break;
     case 4:  // y cursor
         val = 0;
@@ -5320,7 +5486,7 @@ void init_screen(bool first_run)
         window.font = Window::Font::Normal;
 
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_journey || is_spatterlight_arthur) {
             window.index = i++;
             window.style.reset();
             if (!(zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol)) {
@@ -5345,6 +5511,8 @@ void init_screen(bool first_run)
     }
 
 #ifdef SPATTERLIGHT
+    // Journey uses a different "text buffer window" index in early versions,
+    // so we change mainwin to point at the right one here.
     if (is_spatterlight_journey) {
         gli_block_rearrange = 1;
         winid_t lastmain = mainwin->id;
@@ -5368,7 +5536,7 @@ void init_screen(bool first_run)
     // graphics) to be seen. Things could get pretty jumbled but it’s
     // not inherently worse than a chunk of output missing.
 #ifdef SPATTERLIGHT
-    if (options.redirect_v6_windows && !is_spatterlight_journey) {
+    if (options.redirect_v6_windows && !is_spatterlight_journey && !is_spatterlight_arthur) {
 #else
     if (options.redirect_v6_windows) {
 #endif
@@ -5410,20 +5578,20 @@ void init_screen(bool first_run)
 #endif
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey) {
+    if (is_spatterlight_journey || is_spatterlight_arthur) {
         adjust_image_scale();
         glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Oblique);
-        if (!is_game(Game::ZorkZero)) {
+//        if (!is_game(Game::ZorkZero)) {
             glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Justification, stylehint_just_Centered);
             glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
             glk_stylehint_clear(wintype_TextBuffer, style_User1, stylehint_Proportional);
             glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Proportional);
-        }
+//        }
 
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
             get_image_size(1, &width, nullptr);
-            if ((is_game(Game::Arthur) && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_game(Game::Shogun) && width == 479)) {
+            if ((is_spatterlight_arthur && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_game(Game::Shogun) && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
                 hw_screenwidth = 480;
                 for (int i = 0; i < image_count; i++) {
@@ -5437,27 +5605,42 @@ void init_screen(bool first_run)
 
             winid_t rootwin = glk_window_get_root();
             glk_window_close(rootwin, 0);
-            upperwin->id = glk_window_open(nullptr, 0, 10, wintype_TextGrid, 2);
-            if (upperwin->id == nullptr) {
-                fprintf(stderr, "Failed to create upperwin->id !?");
-            }
-            mainwin = &windows[ja.buffer_window_index];
-            mainwin->id = glk_window_open(upperwin->id, winmethod_Above | winmethod_Fixed, gscreenh / 2, wintype_TextBuffer, 1);
-            if (mainwin->id == nullptr) {
-                fprintf(stderr, "Failed to create mainwin->id !?");
-            }
-            journey_window = glk_window_open(mainwin->id, winmethod_Left | winmethod_Fixed, 0, wintype_Graphics, 0);
-            if (journey_window == nullptr) {
-                fprintf(stderr, "Failed to create Journey graphics window!?");
-            }
+            if (is_spatterlight_journey) {
+                upperwin->id = glk_window_open(nullptr, 0, 10, wintype_TextGrid, 2);
+                if (upperwin->id == nullptr) {
+                    fprintf(stderr, "Failed to create upperwin->id !?");
+                }
+                mainwin = &windows[ja.buffer_window_index];
+                mainwin->id = glk_window_open(upperwin->id, winmethod_Above | winmethod_Fixed, gscreenh / 2, wintype_TextBuffer, 1);
+                if (mainwin->id == nullptr) {
+                    fprintf(stderr, "Failed to create mainwin->id !?");
+                }
+                journey_window = glk_window_open(mainwin->id, winmethod_Left | winmethod_Fixed, 0, wintype_Graphics, 0);
+                if (journey_window == nullptr) {
+                    fprintf(stderr, "Failed to create Journey graphics window!?");
+                }
 
-            v6_sizewin(upperwin);
+                v6_sizewin(upperwin);
+            } else if (is_spatterlight_arthur) {
+                gli_block_rearrange = 1;
+                graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
+                graphics_window.set_id(graphics_bg_glk);
+                mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
+                upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
+                graphics_fg_glk = glk_window_open(upperwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_Graphics, 4);
+                win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
+                win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+                current_graphics_buf_win = nullptr;
+                windows[7].id = graphics_fg_glk;
+            }
         }
 
-        glui32 w, h;
-        glk_window_get_size(upperwin->id, &w, &h);
-        journey_sync_upperwin_size(w, h);
 
+        if (is_spatterlight_journey) {
+            glui32 w, h;
+            glk_window_get_size(upperwin->id, &w, &h);
+            journey_sync_upperwin_size(w, h);
+        }
 
         // We must reset the size here, otherwise
         // the main window will be small on restart
@@ -5470,19 +5653,28 @@ void init_screen(bool first_run)
         
 //        win_setbgnd(-1, user_selected_background);
 
-        if (journey_window == nullptr) {
-            fprintf(stderr, "Failed to create Journey graphics window!?");
+        if (is_spatterlight_journey) {
+
+            if (journey_window == nullptr) {
+                fprintf(stderr, "Failed to create Journey graphics window!?");
+            }
+            windows[3].id = journey_window;
+            windows[3].x_size = 0;
+            windows[3].y_size = 0;
+            v6_sizewin(&windows[3]);
+
+            win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
+
+            screenmode = MODE_INITIAL_QUESTION;
+        } else if (is_spatterlight_arthur) {
+            screenmode = MODE_SLIDESHOW;
         }
-        windows[3].id = journey_window;
-        windows[3].x_size = 0;
-        windows[3].y_size = 0;
-        v6_sizewin(&windows[3]);
+
 
 //        win_setbgnd(mainwin->id->peer, user_selected_background);
 //        win_setbgnd(windows[1].id->peer, user_selected_background);
 
-        win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
-        screenmode = MODE_INITIAL_QUESTION;
+
     }
 #endif
 

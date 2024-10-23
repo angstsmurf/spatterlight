@@ -15,12 +15,14 @@ extern "C" {
 #include "decompress_vga.hpp"
 #include "writetiff.h"
 #include "util.h"
-//#include "arthur.hpp"
+#include "arthur.hpp"
 
 #include "draw_image.hpp"
 
 ImageStruct *raw_images;
 int image_count;
+
+extern int current_image;
 
 enum PaletteColours {
     RED   = 0,
@@ -76,6 +78,7 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width)
         return;
     }
 
+    fprintf(stderr, "writeToTIFF: filename: %s\n", name);
     writetiff(fptr, data, (uint32_t)size, width);
 
     fclose(fptr);
@@ -520,49 +523,49 @@ extern bool showing_wide_arthur_room_image;
 
 extern glui32 current_picture;
 
-//void draw_arthur_side_images(winid_t winid) {
-//    ensure_pixmap(winid);
-//
-//    int top_margin = arthur_pic_top_margin;
-//    int left_margin = 0;
-//    int left_offset = 0;
-//    int right_offset = 2;
-//
-//    if (graphics_type == kGraphicsTypeMacBW) {
-//        left_margin = 5;
-//    } else if (graphics_type == kGraphicsTypeAmiga) {
-//        left_margin = 2;
-//    } else if (graphics_type == kGraphicsTypeApple2) {
-//        left_margin = 0;
-//    } else {
-//        left_offset = -1;
-//        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeBlorb) {
-//            right_offset = 9;
-//            left_margin = 3;
-//        } else {
-//            right_offset = 18;
-//            left_margin = 6;
-//        }
-//    }
-//
-//    // 54 is top border image
-//
-//    draw_to_pixmap_unscaled(54, left_margin, top_margin);
-//
-//    int x_margin = 0, y_margin = 0;
-//    get_image_size(100, &x_margin, &y_margin);
-//
-//    // images 170 and 171 are side bar images
-//
-//    draw_to_pixmap_unscaled(170, left_margin + 1 + left_offset, y_margin + top_margin - 2);
-//    draw_to_pixmap_unscaled(171, hw_screenwidth - x_margin + right_offset, y_margin + top_margin - 2);
-//
-//    if (showing_wide_arthur_room_image) {
-//        draw_arthur_room_image(current_picture);
-//    }
-//
-//    flush_bitmap(winid);
-//}
+void draw_arthur_side_images(winid_t winid) {
+    ensure_pixmap(winid);
+
+    int top_margin = arthur_pic_top_margin;
+    int left_margin = 0;
+    int left_offset = 0;
+    int right_offset = 2;
+
+    if (graphics_type == kGraphicsTypeMacBW) {
+        left_margin = 5;
+    } else if (graphics_type == kGraphicsTypeAmiga) {
+        left_margin = 2;
+    } else if (graphics_type == kGraphicsTypeApple2) {
+        left_margin = 0;
+    } else {
+        left_offset = -1;
+        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeBlorb) {
+            right_offset = 9;
+            left_margin = 3;
+        } else {
+            right_offset = 18;
+            left_margin = 6;
+        }
+    }
+
+    // 54 is top border image
+
+    draw_to_pixmap_unscaled(54, left_margin, top_margin);
+
+    int x_margin = 0, y_margin = 0;
+    get_image_size(100, &x_margin, &y_margin);
+
+    // images 170 and 171 are side bar images
+
+    draw_to_pixmap_unscaled(170, left_margin + 1 + left_offset, y_margin + top_margin - 2);
+    draw_to_pixmap_unscaled(171, hw_screenwidth - x_margin + right_offset, y_margin + top_margin - 2);
+
+    if (showing_wide_arthur_room_image) {
+        arthur_draw_room_image(current_picture);
+    }
+
+    flush_bitmap(winid);
+}
 
 
 void clear_image_buffer(void) {
