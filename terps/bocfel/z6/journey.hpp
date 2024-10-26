@@ -46,10 +46,6 @@ void TELL_AMOUNTS(void);
 extern int16_t selected_journey_line;
 extern int16_t selected_journey_column;
 
-//extern uint32_t init_screen_address;
-//extern uint32_t refresh_screen_address;
-//extern uint8_t global_text_window_left_idx;
-
 typedef struct JourneyGlobals {
     uint8_t COMMAND_START_LINE; // G0e•
     uint8_t NAME_COLUMN; // Ga3•
