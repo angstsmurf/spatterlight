@@ -480,7 +480,7 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
 
     struct JourneyMenu *m;
 
-    bool subgroup = (get_global(jg.SUBGROUP_MODE) == 1);
+    bool subgroup = (get_global(jg.SUBGROUP_MODE) == 1 && type != kJMenuTypeObjects);
     int menu_counter = 0;
 
     for (int i = 1; i <= table_count; i++) {
@@ -536,26 +536,6 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             if (len > 1) {
                 win_menuitem(kJMenuTypeGlue, jword->pcf, jword->pcm - 1, 0, string, len);
             }
-        }
-
-        // For Musings dialog and prsi (Praxix special input)
-        if (menu_counter == 0) {
-            int line = 0;
-            int column = (prsi ? 4 : 3);
-            for (int i = 1; i <= table_count; i++) {
-                char string[15];
-                uint16_t object = word(table + 2 * i);
-                uint16_t addr = internal_get_prop(object, ja.SDESC);
-                int len = print_zstr_to_cstr(addr, string);
-                if (len > 1) {
-                    if (line > 4) {
-                        line = 0;
-                        column++;
-                    }
-                    win_menuitem(kJMenuTypeObjects, column, line++, (i == table_count), string, len);
-                }
-            }
-            return;
         }
     }
 
@@ -1143,15 +1123,15 @@ void ERASE_COMMAND(void) {
 }
 
 static void journey_print_columns(bool PARTY, bool PRSI) {
-//    PRSI means Praxis special input.
-//    This only seems to occur in the latter half of the game,
-//    and is shifted one column to the right compared to other input.
+
+//  PRSI means Praxis special input.
+//  This is used when requesting a target for a spell,
+//  and only accepts input in the rightmost column.
 
     int column, table, object;
     int line = get_global(jg.COMMAND_START_LINE);
 
     int COMMAND_WIDTH = get_global(jg.COMMAND_WIDTH);
-    int O_TABLE = get_global(jg.O_TABLE); // O-TABLE (object table)
     set_current_window(&JOURNEY_BG_GRID);
 
     if (PARTY) {
@@ -1159,7 +1139,7 @@ static void journey_print_columns(bool PARTY, bool PRSI) {
         table = get_global(jg.PARTY_COMMANDS);
     } else  {
         column = get_global(jg.COMMAND_OBJECT_COLUMN) + (PRSI ? COMMAND_WIDTH : 0);
-        table = O_TABLE + (PRSI ? 10 : 0);;
+        table = get_global(jg.O_TABLE) + (PRSI ? 10 : 0);
         journey_create_menu(kJMenuTypeObjects, PRSI);
     }
 
