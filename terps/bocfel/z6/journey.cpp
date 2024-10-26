@@ -538,10 +538,10 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
             }
         }
 
-        // Hack for Musings dialog
+        // For Musings dialog and prsi (Praxix special input)
         if (menu_counter == 0) {
             int line = 0;
-            int column = 3;
+            int column = (prsi ? 4 : 3);
             for (int i = 1; i <= table_count; i++) {
                 char string[15];
                 uint16_t object = word(table + 2 * i);
@@ -1143,6 +1143,10 @@ void ERASE_COMMAND(void) {
 }
 
 static void journey_print_columns(bool PARTY, bool PRSI) {
+//    PRSI means Praxis special input.
+//    This only seems to occur in the latter half of the game,
+//    and is shifted one column to the right compared to other input.
+
     int column, table, object;
     int line = get_global(jg.COMMAND_START_LINE);
 
