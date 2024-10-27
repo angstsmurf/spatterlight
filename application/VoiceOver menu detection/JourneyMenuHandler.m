@@ -743,6 +743,11 @@ errorDescription:(NSString * __autoreleasing *)error
                 NSString *messageText = @"";
                 NSUInteger actorline = _journeyGlueStrings.firstObject.line;
 
+                // Hack for final game action,
+                // where the verb is not lined up with the actor.
+                if (actorline == 2 && [_journeyGlueStrings.firstObject.title isEqualToString:@"Mix"])
+                    actorline = 4;
+
                 for (JourneyMenuItem *actor in _journeyVerbMenuItems.allValues) {
                     if (actor.line == actorline) {
                         messageText = actor.actor;
