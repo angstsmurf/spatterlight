@@ -914,22 +914,22 @@ static void journey_print_character_commands(bool CLEAR) {
 }
 
 bool journey_read_elvish(int actor) {
-    int COL = get_global(jg.COMMAND_OBJECT_COLUMN);
     journey_print_character_commands(true); // <CLEAR-FIELDS>
 
     user_store_byte(get_global(jg.E_LEXV), 0x14); // <PUTB ,E-LEXV 0 20>
     user_store_byte(get_global(jg.E_INBUF), 0x32); // <PUTB ,E-INBUF 0 50>
 
-    int LN = get_global(jg.COMMAND_START_LINE) + party_pcm(actor) - 1; // COMMAND-START-LINE
+    int line = get_global(jg.COMMAND_START_LINE) + party_pcm(actor) - 1; // COMMAND-START-LINE
 
-    move_v6_cursor(get_global(jg.CHR_COMMAND_COLUMN), LN);
+    move_v6_cursor(get_global(jg.CHR_COMMAND_COLUMN), line);
     glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
 
     int MAX = SCREEN_WIDTH_in_chars - get_global(jg.COMMAND_OBJECT_COLUMN) - 2;
 
-    uint16_t TBL = get_global(jg.E_TEMP); // <SET TBL ,E-TEMP>
+    uint16_t table = get_global(jg.E_TEMP);
 
-    uint16_t offset = journey_read_keyboard_line(COL, LN, TBL, MAX, true, nullptr);
+    int column = get_global(jg.COMMAND_OBJECT_COLUMN);
+    uint16_t offset = journey_read_keyboard_line(column, line, table, MAX, true, nullptr);
 
     journey_input_length = 0;
 
@@ -961,10 +961,10 @@ void journey_change_name() {
     
     int COL = get_global(jg.NAME_COLUMN); // NAME-COLUMN
     int LN = get_global(jg.COMMAND_START_LINE) + party_pcm(jo.TAG) - 1; // <SET LN <- <+ ,COMMAND-START-LINE <PARTY-PCM ,TAG>> 1>
-    uint16_t TBL = get_global(jg.NAME_TBL) + 2; // NAME-TBL
+    uint16_t table = get_global(jg.NAME_TBL) + 2;
 
     uint8_t key = 0;
-    uint16_t offset = journey_read_keyboard_line(COL, LN, TBL, MAX, false, &key);
+    uint16_t offset = journey_read_keyboard_line(COL, LN, table, MAX, false, &key);
 
     journey_input_length = 0;
 
@@ -976,7 +976,7 @@ void journey_change_name() {
         // Do the change
         internal_call(pack_routine(jr.REMOVE_TRAVEL_COMMAND));
 
-        public_encode_text(TBL, offset, get_global(jg.TAG_NAME)); //  <ZWSTR ,NAME-TBL .OFF 2 ,TAG-NAME>
+        public_encode_text(table, offset, get_global(jg.TAG_NAME)); //  <ZWSTR ,NAME-TBL .OFF 2 ,TAG-NAME>
 
         // Set which single letter key to use for selecting protagonist
         internal_put_prop(jo.TAG_OBJECT, ja.KBD, key); // <PUTP ,TAG-OBJECT ,P?KBD .KBD>
