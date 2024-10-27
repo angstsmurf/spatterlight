@@ -680,8 +680,8 @@ static int GET_COMMAND(int cmd) {
     return user_word(cmd);
 }
 
-static void PRINT_COMMAND(int cmd) {
-    print_handler(unpack_string(GET_COMMAND(cmd)), nullptr);
+static int PRINT_COMMAND(int cmd) {
+    return print_handler(unpack_string(GET_COMMAND(cmd)), nullptr);
 }
 
 static int GET_DESC(int obj) {
@@ -880,8 +880,7 @@ static void journey_print_character_commands(bool CLEAR) {
             for (int j = 0; j <= 2; j++) {
                 journey_erase_command_chars(LN, POS, COMMAND_WIDTH - 1);
 
-                if (should_print_command) {
-                    PRINT_COMMAND(word(BTBL + j * 2));
+                if (should_print_command && PRINT_COMMAND(word(BTBL + j * 2)) > 2) {
                     number_of_printed_verbs_and_objects++;
                 }
 
