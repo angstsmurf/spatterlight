@@ -47,8 +47,10 @@ static bool BORDER_FLAG, FONT3_FLAG;
 JourneyWords printed_journey_words[4];
 int number_of_printed_journey_words = 0;
 
+#define STRING_BUFFER_SIZE 15
+
 struct JourneyMenu {
-    char name[15];
+    char name[STRING_BUFFER_SIZE];
     struct JourneyMenu *submenu;
     int submenu_entries;
     int length;
@@ -395,7 +397,7 @@ int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
 
 
 int print_zstr_to_cstr(uint16_t addr, char *str) {
-    return print_long_zstr_to_cstr(addr, str, 15);
+    return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
 }
 
 
@@ -407,6 +409,10 @@ static int print_tag_route_to_str(char *str) {
     }
     const char *routestring = " route";
     for (int i = 0; i < 6; i++) {
+        if (name_length + i >= STRING_BUFFER_SIZE) {
+            fprintf(stderr, "Error: Tag name too long!\n");
+            return 0;
+        }
         str[name_length + i] = routestring[i];
     }
     str[name_length + 6] = 0;
@@ -416,7 +422,7 @@ static int print_tag_route_to_str(char *str) {
 static void create_journey_party_menu(void) {
     int object;
 
-    char str[15];
+    char str[STRING_BUFFER_SIZE];
     int stringlength = 0;
 
     int line = 0;
@@ -531,7 +537,7 @@ static void journey_create_menu(JourneyMenuType type, bool prsi) {
         // Add "glue words" such as "cast" "elevation" "at"
         for (int i = 0; i < number_of_printed_journey_words; i++) {
             JourneyWords *jword = &(printed_journey_words[i]);
-            char string[15];
+            char string[STRING_BUFFER_SIZE];
             int len = print_zstr_to_cstr(jword->str, string);
             if (len > 1) {
                 win_menuitem(kJMenuTypeGlue, jword->pcf, jword->pcm - 1, 0, string, len);
@@ -600,7 +606,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
 
     int start = input_column;
 
-    win_menuitem(kJMenuTypeTextEntry, x, from_command_start_line, elvish, nullptr, 15);
+    win_menuitem(kJMenuTypeTextEntry, x, from_command_start_line, elvish, nullptr, STRING_BUFFER_SIZE);
 
     uint8_t character;
 
@@ -900,7 +906,7 @@ static void journey_print_character_commands(bool CLEAR) {
     // Delete the Individual Commands menu when the columns to the right are empty
     // (and also update party menu)
     if (number_of_printed_party_members == 0 && number_of_printed_verbs_and_objects == 0) {
-        win_menuitem(kJMenuTypeDeleteMembers, 0, 0, false, nullptr, 15);
+        win_menuitem(kJMenuTypeDeleteMembers, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
         create_journey_party_menu();
     }
 
@@ -1313,7 +1319,7 @@ static void journey_reprint_partial_input(int x, int y, int length_so_far, int m
 }
 
 void journey_update_after_restore() {
-    win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, 15);
+    win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
     if (jo.START_LOC != 0 && ja.SEEN != 0) {
         internal_set_attr(jo.START_LOC, ja.SEEN);
     }
