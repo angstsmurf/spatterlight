@@ -43,9 +43,6 @@ void ERASE_COMMAND(void);
 void COMPLETE_DIAL_GRAPHICS(void);
 void TELL_AMOUNTS(void);
 
-extern int16_t selected_journey_line;
-extern int16_t selected_journey_column;
-
 typedef struct JourneyGlobals {
     uint8_t COMMAND_START_LINE; // G0e•
     uint8_t NAME_COLUMN; // Ga3•
