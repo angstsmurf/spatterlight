@@ -734,10 +734,7 @@ errorDescription:(NSString * __autoreleasing *)error
             [_journeyDialogMenuItems addObject:item];
             shouldStartNewJourneyDialogMenu = stopflag;
             if (stopflag) {
-                if (self.journeyMembersMenu == nil)
-                    return;
-
-                if (_journeyGlueStrings.count == 0) //|| _journeyVerbMenuItems.count == 0)
+                if (self.journeyMembersMenu == nil || _journeyGlueStrings.count == 0)
                     return;
 
                 NSString *messageText = @"";
