@@ -1300,6 +1300,9 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"Could not find Application Support folder. Error: %@",
                   error);
 
+        if (appSupportURL == nil)
+            return nil;
+
         Game *game = _game;
         NSString *detectedFormat = game.detectedFormat;
 
@@ -1333,10 +1336,15 @@ fprintf(stderr, "%s\n",                                                    \
                                relativeToURL:appSupportURL];
 
         if (_supportsAutorestore && _theme.autosave) {
-            [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
+            error = nil;
+            BOOL succeed  = [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
                                      withIntermediateDirectories:YES
                                                       attributes:nil
-                                                           error:NULL];
+                                                           error:&error];
+
+            if (!succeed || error != nil) {
+                NSLog(@"Error when creating appSupportDir: %@", error);
+            }
 
             NSString *dummyfilename = [game.metadata.title
                                        stringByAppendingPathExtension:@"txt"];
@@ -1352,12 +1360,13 @@ fprintf(stderr, "%s\n",                                                    \
             NSString *dummyfilepath =
             [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
 
-            BOOL succeed =
+            error = nil;
+            succeed =
             [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath]
                        atomically:YES
                          encoding:NSUTF8StringEncoding
                             error:&error];
-            if (!succeed) {
+            if (!succeed || error) {
                 NSLog(@"Failed to write dummy file to autosave directory. Error:%@",
                       error);
             }
