@@ -1606,6 +1606,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (weakSelf.gameID == kGameIsJourney)
             [weakSelf.journeyMenuHandler recreateDialog];
+
+        [self forceSpeech];
     }];
 }
 
@@ -1723,7 +1725,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turns > 1]) {
-                return;
+            return;
         }
 
         [self speakOnBecomingKey];
@@ -1894,7 +1896,6 @@ fprintf(stderr, "%s\n",                                                    \
                     [self forceSpeech];
                     [self speakNewText];
                 });
-
             }
             _shouldSpeakNewText = NO;
         }
@@ -4925,7 +4926,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         _shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
         if (_theme.vODelayOn && !_mustBeQuiet) {
-            [self speakMostRecentAfterDelay];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self speakMostRecentAfterDelay];
+            });
         }
     } else {
         _zmenu = nil;
@@ -5044,7 +5047,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (string.length == 0 || !_voiceOverActive)
         return;
 
-    if ([string isEqualToString: _lastSpokenString] &&_speechTimeStamp.timeIntervalSinceNow > -3) {
+    if ([string isEqualToString: _lastSpokenString] && _speechTimeStamp.timeIntervalSinceNow > -3.0) {
         return;
     }
 
