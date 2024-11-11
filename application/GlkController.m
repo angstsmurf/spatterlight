@@ -4958,15 +4958,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         return;
     }
 
-    // Hack to prevent interrupting text if the "interruption text" is the same as Spatterlight is speaking
-    // anyway (because we just became key window or the text was cleared)
-    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && sender == self && [mainWindow wantsFocus] &&
-        (_lastSpokenString == nil || ((GlkTextBufferWindow *)mainWindow).printPositionOnInput == 0)) {
-        if (_lastSpokenString == nil)
-            _lastSpokenString = ((GlkTextBufferWindow *)mainWindow).textview.string;
-        _speechTimeStamp = [NSDate date];
-    }
-
     if (_quoteBoxes.count) {
         _speechTimeStamp = [NSDate distantPast];
     }
