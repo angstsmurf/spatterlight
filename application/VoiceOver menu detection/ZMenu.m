@@ -628,7 +628,7 @@
 }
 
 - (void)speakSelectedLine {
-    [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0.4];
 }
 
 -(void)deferredSpeakSelectedLine:(id)sender {
