@@ -230,7 +230,7 @@
         return;
     }
 
-    [self performSelector:@selector(deferredSpeakCurrentField:) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(deferredSpeakCurrentField:) withObject:nil afterDelay:0.4];
 }
 
 -(void)deferredSpeakCurrentField:(id)sender {
@@ -283,7 +283,7 @@
     _speakingError = YES;
     GlkTextGridWindow *win = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
     [win flushDisplay];
-    [self performSelector:@selector(deferredSpeakError:) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(deferredSpeakError:) withObject:nil afterDelay:0.4];
 }
 
 - (void)deferredSpeakError:(id)sender {
