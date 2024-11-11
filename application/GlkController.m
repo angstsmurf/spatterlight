@@ -1890,8 +1890,11 @@ fprintf(stderr, "%s\n",                                                    \
         if (_voiceOverActive && !_mustBeQuiet) {
             [self checkZMenuAndSpeak:YES];
             if (!_zmenu && !_form) {
-                [self forceSpeech];
-                [self speakNewText];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self forceSpeech];
+                    [self speakNewText];
+                });
+
             }
             _shouldSpeakNewText = NO;
         }
@@ -4965,7 +4968,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         _speechTimeStamp = [NSDate distantPast];
     }
     [mainWindow setLastMove];
-    [mainWindow repeatLastMove:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [mainWindow repeatLastMove:nil];
+    });
 }
 
 - (void)speakMostRecentAfterDelay {
