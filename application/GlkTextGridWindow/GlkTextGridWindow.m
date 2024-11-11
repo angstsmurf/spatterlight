@@ -884,7 +884,7 @@
                && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
         // Don't echo keys if speak command setting is off
         if (glkctl.theme.vOSpeakCommand) {
-            [glkctl speakStringNow:string];
+            [glkctl speakStringNow:[string lowercaseString]];
         }
         glkctl.form.dontSpeakField = YES;
     }
