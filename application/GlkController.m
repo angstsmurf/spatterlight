@@ -1606,6 +1606,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (weakSelf.gameID == kGameIsJourney)
             [weakSelf.journeyMenuHandler recreateDialog];
+
+        [self forceSpeech];
     }];
 }
 
