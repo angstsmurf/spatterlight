@@ -4,9 +4,9 @@
 
 ## Interactive Fiction for macOS
 
-Spatterlight is a native Cocoa application that plays most parser-based interactive fiction game files: AGT, Adrift (except v5), AdvSys, Alan, Glulx, Hugo, Level 9, Magnetic Scrolls, TADS (text-only), and Z-code (except v6). See [Credits.rtf][credits] for more details.
+Spatterlight is a native Cocoa application that plays most parser-based interactive fiction game files: AGT, Adrift (except v5), AdvSys, Alan, Glulx, Hugo, Level 9, Magnetic Scrolls, Scott Adams, TADS (text-only), and Z-code. See [credits file][credits] for more details.
 
-[credits]: https://github.com/angstsmurf/spatterlight/blob/master/resources/Credits.txt "Credits.rtf: Credits for Spatterlight libraries"
+[credits]: https://github.com/angstsmurf/spatterlight/blob/master/resources/Credits.txt "Credits.txt: Credits for Spatterlight libraries"
 
 Download the latest release [here](https://github.com/angstsmurf/spatterlight/releases)!
 
@@ -17,12 +17,14 @@ Then report bugs on the [issues tracker][issues].
 <img src="readme_images/jigsaw.png" width="900">
 
 # Features
-- VoiceOver support
+- VoiceOver support. See [ACCESSIBILITY.md][accessibility] for documentation.
 - Themes
 - Per-game settings
 - Easy download of game info from Ifdb
 - Sounds, images and text colours
 - Autosave and autorestore for Glulx and Z-code games
+
+[accessibility]: https://github.com/angstsmurf/spatterlight/blob/master/ACCESSIBILITY.md "Documentation for using VoiceOver with Spatterlight"
 
 #
 
@@ -57,9 +59,11 @@ Questprobe 2 featuring Spider-Man (Atari ST): https://youtu.be/_wA7gEhTeZE
 
 Questprobe: Featuring Human Torch and the Thing (Atari ST): https://youtu.be/IK_KpdVIOIg
 
+Journey using VoiceOver: https://youtu.be/9jauDyUu6Ro
+
 # Compiling
 
-Building the current version has only been tried on macOS 11 Big Sur and Xcode 13. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.10 Yosemite, though.
+Building the current version has only been tried on macOS 15 Sequoia and Xcode 16. If you have success on earlier versions, please let me know! The resulting binary will still run on 10.13 High Sierra, though.
 
 Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button.
 
@@ -75,4 +79,4 @@ The Spatterlight application is released under the GNU Public License; the inter
 
 This is beta software! There is no warranty: use it at your own risk. You will need macOS 10.10 or higher for the latest version, but there are older versions compatible with older systems.
 
-Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson and the respective interpreter authors.
+Spatterlight was originally written by Tor Andersson. Copyright 2007-2024 by Tor Andersson and the respective interpreter authors.
