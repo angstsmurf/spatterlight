@@ -1725,7 +1725,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turns > 1]) {
-                return;
+            return;
         }
 
         [self speakOnBecomingKey];
@@ -1896,7 +1896,6 @@ fprintf(stderr, "%s\n",                                                    \
                     [self forceSpeech];
                     [self speakNewText];
                 });
-
             }
             _shouldSpeakNewText = NO;
         }
@@ -5048,7 +5047,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (string.length == 0 || !_voiceOverActive)
         return;
 
-    if ([string isEqualToString: _lastSpokenString] &&_speechTimeStamp.timeIntervalSinceNow > -3) {
+    if ([string isEqualToString: _lastSpokenString] && _speechTimeStamp.timeIntervalSinceNow > -3.0) {
         return;
     }
 
