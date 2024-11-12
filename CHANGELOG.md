@@ -1,6 +1,8 @@
 # Change log
 ## Unreleased
-- Adds improved support for Journey. It is now possible to resize the window and change graphics mode and interpreter number on-the-fly. Also adds elaborate VoiceOver support with menus and dialogs.
+- Fixes VoiceOver on macOS 15 Sequoia by adding and increasing some delays.
+- Adds improved support for *Journey*. It is now possible to resize the window and change graphics mode and interpreter number on-the-fly. All known versions and graphics formats are supported. Also adds elaborate VoiceOver support with menus and dialogs.
+- Documents VoiceOver support in the file [ACCESSIBILITY.md][accessibility]
 - Fixes mouse support in Bocfel for the v6 games.
 - Extends arrow key settings for Beyond Zork to the v6 games.
 - Makes the Old settings theme possible to delete.
@@ -8,10 +10,12 @@
 - Fixes a problem where the Z-machine interpreter number could be set to an illegal value.
 - Keeps track of moves even when VoiceOver is off.
 - The icons (not found, playing, paused, and stopped) in the status column of the games list are centered.
-- Turning autosave on and off during play now works as expected.
-- The timer slider in settings is more accessible with a correct value description.
-- Fixes sorting of game titles in the games list. Titles with numbers somewhere in the middle will now sort like in the Finder. 
+- Turning autosave on and off during play now should work as expected.
+- The timer slider in settings is more accessible, with a correct value description.
+- Fixes sorting of game titles in the games list. Titles with numbers somewhere in the middle will now sort just like in the Finder. 
 - Adds support for image descriptions in external blorb files.
+
+[accessibility]: https://github.com/angstsmurf/spatterlight/blob/master/ACCESSIBILITY.md "Documentation for using VoiceOver with Spatterlight"
 
 ## Release 1.2.5
 - A save file with a garbage single-character name would be written to the user directory when a save request was cancelled.
