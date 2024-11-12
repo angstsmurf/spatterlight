@@ -102,6 +102,17 @@ extern "C" {
 #include "util.h"
 #include "zterp.h"
 
+#ifdef __DJGPP__
+// For some reason, DJGPP does not expose std::round. Manually defining
+// std::round like this violates the C++ standard, but since it’s only
+// for DJGPP and is known to work with it, this beats compile failure.
+namespace std {
+double round(double x) {
+    return ::round(x);
+}
+}
+#endif
+
 // Somewhat ugly hack to get around the fact that some Glk functions may
 // not exist. These function calls should all be guarded (e.g.
 // if (have_unicode), with have_unicode being set iff GLK_MODULE_UNICODE
@@ -631,7 +642,15 @@ static void set_window_style(const Window *win)
 #ifdef SPATTERLIGHT
     if (!is_spatterlight_journey)
 #endif
+    // Colors are per-window in V6, but global in V5.
+    if (zversion == 6) {
         garglk_set_zcolors(gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
+    } else {
+        garglk_set_zcolors_stream(glk_window_get_stream(mainwin->id), gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
+        if (upperwin->id != nullptr) {
+            garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
+        }
+    }
 #else
     // Yes, there are three ways to indicate that a fixed-width font should be used.
     bool use_fixed_font = style.test(STYLE_FIXED) || curwin->font == Window::Font::Fixed || header_fixed_font;
@@ -3000,7 +3019,14 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             break;
 
         case evtype_Timer:
-            ZASSERT(timer != 0, "got unexpected evtype_Timer");
+            // Per Glk, timer events shouldn’t arrive after a call to
+            // glk_request_timer_events(0), but at least GlkOte/RemGlk
+            // can send such events, and the fix there may be a lot more
+            // difficult than simply ignoring spurious events here, so
+            // do that.
+            if (timer == 0) {
+                break;
+            }
 
             stop_timer();
 
