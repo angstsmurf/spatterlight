@@ -579,45 +579,6 @@ static std::vector<Patch> base_patches = {
             },
         }
     },
-
-    // Photograph attempts to set the name property of the photograph object with:
-    //
-    //     photo.name="";
-    //
-    // which compiles to
-    //
-    //      @put_prop "photograph" #01 s452
-    //
-    // i.e it tries use @put_prop to set the name property, which is not allowed in
-    // Bocfel, as @put_prop can only be used with properties of length 2 or 1, and
-    // the name property is 16 bytes.
-    // We just @nop out the entire line, but this leaves the disambiguation problem
-    // which the orginal line was meant to fix. Perhaps a better patch could be made?
-    //
-    {
-        "Photograph", "020926", 1, 0x256c,
-        {
-            {
-                0x12039, 6,
-                {0xe3, 0x53, 0x6b, 0x01, 0x77, 0xa8},
-                {0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4},
-            },
-        }
-    },
-
-    {
-        "Photograph", "040827", 1, 0xa664,
-        {
-            {
-                0x12e23, 6,
-                {0xe3, 0x53, 0x73, 0x01, 0x81, 0x24},
-                {0xb4, 0xb4, 0xb4, 0xb4, 0xb4, 0xb4},
-            },
-        }
-    },
-
-
-
 #endif
 };
 
