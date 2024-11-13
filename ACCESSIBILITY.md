@@ -16,7 +16,7 @@
 ## Introduction
 First of all, don't expect a smooth, predictable experience using VoiceOver. In particular, there is a tendency to read all the game text from the very beginning of the game, rather than just the latest move, which is what you would want most of the time. I've tried hard to fix this, but this is the best I can do.
 
-Also, to avoid annoying beeps, you want to switch off Details > Animate scrolling when using VoiceOver. It is the checkbox at the bottom of the Details tab.
+Also, to avoid annoying beeps, you may want to switch off Details > Animate scrolling when using VoiceOver. It is the checkbox at the bottom of the Details tab in the Settings window.
 
 With that out of the way, here are the VoiceOver features of Spatterlight.
 
