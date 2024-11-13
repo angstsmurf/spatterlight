@@ -85,29 +85,11 @@
 + (void)typeURL:(NSURL *)url intoFileDialog:(XCUIElement *)dialog {
     [dialog typeKey:@"g" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierShift];
 
-    if (@available(macOS 12, *)) {
         XCUIElement *sheet = dialog.sheets.firstMatch;
         XCTAssert([sheet waitForExistenceWithTimeout:5]);
 
-        XCUIElement *input = sheet.textFields.firstMatch;
-        XCTAssert([input waitForExistenceWithTimeout:5]);
-
-        [input typeText:url.path];
-        [input typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
-    } else {
-        XCUIElement *goButton = dialog.buttons[@"Go"];
-        XCTAssert(goButton.exists);
-
-        XCUIElement *sheet = dialog.sheets.firstMatch;
-        XCTAssert([sheet waitForExistenceWithTimeout:5]);
-
-        XCUIElement *input = sheet.comboBoxes.firstMatch;
-        XCTAssert([input waitForExistenceWithTimeout:5]);
-
-        [input typeText:url.path];
-        [goButton click];
-    }
-
+        [sheet typeText:url.path];
+        [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
 + (void)typeURL:(NSURL *)url intoApp:(XCUIApplication *)app {
@@ -120,11 +102,8 @@
 
     XCTAssert([sheet waitForExistenceWithTimeout:5]);
 
-    XCUIElement *input = sheet.textFields.firstMatch;
-    XCTAssert([input waitForExistenceWithTimeout:5]);
-
-    [input typeText:url.path];
-    [input typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
+    [sheet typeText:url.path];
+    [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
 + (NSString *)transcriptFromFile:(NSString *)fileName {
@@ -1822,7 +1801,7 @@
     if (!infoWin.exists)
         infoWin = app.windows[@"Curses Info"];
     XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeAny] elementBoundByIndex:4];
-    [infoWin click];
+//    [image click];
     [self forceClickElement:image];
     [infoWin.menuItems[@"saveImage:"] click];
 
@@ -1934,7 +1913,6 @@
 
     infoWin = app.windows[@"imagetest.gblorb Info"];
     image = [[infoWin childrenMatchingType:XCUIElementTypeAny] elementBoundByIndex:4];
-    [infoWin click];
     [self forceClickElement:image];
     [infoWin.menuItems[@"Select Image File…"] click];
 
