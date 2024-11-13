@@ -331,7 +331,8 @@ void process_instructions()
 
         current_instruction = pc;
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_arthur || is_spatterlight_journey) {
+            fprintf(stderr, "pc == 0x%04lx\n", pc);
             check_entrypoints(pc);
         }
 #endif
