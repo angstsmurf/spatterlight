@@ -1801,7 +1801,6 @@
     if (!infoWin.exists)
         infoWin = app.windows[@"Curses Info"];
     XCUIElement *image = [[infoWin childrenMatchingType:XCUIElementTypeAny] elementBoundByIndex:4];
-//    [image click];
     [self forceClickElement:image];
     [infoWin.menuItems[@"saveImage:"] click];
 
@@ -1932,7 +1931,7 @@
 }
 
 - (void)forceClickElement:(XCUIElement *)element {
-    XCUICoordinate *coordinate = [element coordinateWithNormalizedOffset:CGVectorMake(0.0, 0.0)];
+    XCUICoordinate *coordinate = [element coordinateWithNormalizedOffset:CGVectorMake(0.1, 0.1)];
     [coordinate rightClick];
 }
 
