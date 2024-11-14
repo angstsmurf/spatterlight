@@ -1,10 +1,10 @@
 # Change log
-## Unreleased
+## Release 1.2.7
 - Fixes VoiceOver on macOS 15 Sequoia by adding and increasing some delays.
 - Adds improved support for *Journey*. It is now possible to resize the window and change graphics mode and interpreter number on-the-fly. All known versions and graphics formats are supported. Also adds elaborate VoiceOver support with menus and dialogs.
 - Documents VoiceOver support in the file [ACCESSIBILITY.md][accessibility]
 - Fixes mouse support in Bocfel for the v6 games.
-- Extends arrow key settings for Beyond Zork to the v6 games.
+- Extends arrow key settings originally written for *Beyond Zork* to the v6 games.
 - Makes the Old settings theme possible to delete.
 - Duplicating a theme set as designated dark or light theme would make the copy designated dark or light theme as well.
 - Fixes a problem where the Z-machine interpreter number could be set to an illegal value.
