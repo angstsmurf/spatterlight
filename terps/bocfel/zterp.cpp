@@ -1056,16 +1056,19 @@ static void real_main(int argc, char **argv)
         // story or by the user, this will activate them.
         user_store_word(0x10, word(0x10));
 
-        if (zversion == 6 && options.warn_on_v6) {
 #ifdef SPATTERLIGHT
-            if (!is_spatterlight_journey)
+        if (!is_spatterlight_journey) {
 #endif
+        if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");
         }
 
 #ifdef ZTERP_GLK_BLORB
         if (zterp_blorb_expected_release != -1 && (header.release != zterp_blorb_expected_release || !std::equal(header.serial, header.serial + 6, zterp_blorb_expected_serial.begin()))) {
             show_message("Found a Blorb file, but it does not match the story file. Proceeding, but expect odd behavior.");
+        }
+#endif
+#ifdef SPATTERLIGHT
         }
 #endif
 
