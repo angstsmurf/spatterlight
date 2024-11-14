@@ -640,7 +640,7 @@ static void set_window_style(const Window *win)
     garglk_set_reversevideo(style.test(STYLE_REVERSE));
 
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_journey)
+    if (!is_spatterlight_journey) {
 #endif
     // Colors are per-window in V6, but global in V5.
     if (zversion == 6) {
@@ -651,6 +651,9 @@ static void set_window_style(const Window *win)
             garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
         }
     }
+#ifdef SPATTERLIGHT
+    }
+#endif
 #else
     // Yes, there are three ways to indicate that a fixed-width font should be used.
     bool use_fixed_font = style.test(STYLE_FIXED) || curwin->font == Window::Font::Fixed || header_fixed_font;
