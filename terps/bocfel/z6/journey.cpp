@@ -77,11 +77,11 @@ void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int h
 
     journey_image_width = width;
     journey_image_height = height;
-    journey_image_scale = (float)winwidth / ((float)width * (float)pixwidth) ;
+    journey_image_scale = (float)winwidth / ((float)width * pixwidth) ;
 
     if (height * journey_image_scale > winheight) {
         journey_image_scale = (float)winheight / height;
-        journey_image_x = (winwidth - width * journey_image_scale) / 2;
+        journey_image_x = (winwidth - width * journey_image_scale * pixwidth) / 2;
         journey_image_y = 0;
     } else {
         journey_image_x = 0;
@@ -136,6 +136,41 @@ static void journey_draw_title_image(void) {
     draw_inline_image(win, 160, x, y, scale, false);
 }
 
+int journey_draw_picture(int pic, winid_t journey_window, Window *win) {
+    int current_picture = pic;
+
+    if (current_picture == 44) {
+        current_picture = 116;
+    }
+
+    int width, height;
+    get_image_size(current_picture, &width, &height);
+    if (win->id && win->id->type != wintype_Graphics) {
+        fprintf(stderr, "Trying to draw image to non-graphics win (%d)", curwin->index);
+
+        if (journey_window == nullptr) {
+            journey_window = glk_window_open(JOURNEY_BG_GRID.id, winmethod_Left | winmethod_Fixed, gscreenw / 3, wintype_Graphics, 0);
+        }
+        if (JOURNEY_GRAPHICS_WIN.id != journey_window) {
+            fprintf(stderr, "windows[3].id != journey_window!\n");
+            if (JOURNEY_GRAPHICS_WIN.id != nullptr) {
+                gli_delete_window(windows[3].id);
+            }
+            JOURNEY_GRAPHICS_WIN.id = journey_window;
+        }
+        win = &windows[3];
+    }
+    if (win->id != nullptr) {
+        glk_window_clear(win->id);
+
+        float scale;
+        uint16_t x, y;
+        journey_adjust_image(current_picture, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
+        draw_inline_image(win->id, current_picture, x, y, scale, false);
+    }
+    return current_picture;
+}
+
 static void journey_font3_line(int LN, int CHR, int L, int R) {
     glk_set_style(style_BlockQuote);
     glk_window_move_cursor(curwin->id, 0, LN - 1);
@@ -152,8 +187,8 @@ static void journey_setup_windows(void) {
     int offset = 6;
     int text_window_left_edge;
 
-    int width, height;
-    bool result = get_image_size(2, &width, &height);
+    int width;
+    bool result = get_image_size(2, &width, nullptr);
     if (!result) {
         fprintf(stderr, "journey_setup_windows: Could not get size of image 2!\n");
         text_window_left_edge = 32;

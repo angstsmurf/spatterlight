@@ -12,13 +12,14 @@
 
 extern "C" {
 #include "glk.h"
-#ifdef SPATTERLIGHT
 #include "glkimp.h"
 #include "spatterlight-autosave.h"
-#endif
 }
 
+#include "screen.h"
+
 void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
+int journey_draw_picture(int pic, winid_t journey_window, Window *win);
 
 void journey_update_on_resize(void);
 void journey_update_after_restore(void);

@@ -4290,37 +4290,7 @@ void zdraw_picture()
     Window *win = curwin;
 
     if (is_spatterlight_journey) {
-        current_picture = pic;
-
-        if (current_picture == 44) {
-            current_picture = 116;
-        }
-
-        int width, height;
-        get_image_size(current_picture, &width, &height);
-        w = width; h = height;
-        if (win->id && win->id->type != wintype_Graphics) {
-            fprintf(stderr, "Trying to draw image to non-graphics win (%d)", curwin->index);
-
-            if (journey_window == nullptr) {
-                journey_window = glk_window_open(mainwin->id, winmethod_Left | winmethod_Fixed, gscreenw / 3, wintype_Graphics, 0);
-            } 
-            if (windows[3].id != journey_window) {
-                fprintf(stderr, "windows[3].id != journey_window!\n");
-                if (windows[3].id != nullptr) {
-                    gli_delete_window(windows[3].id);
-                }
-                windows[3].id = journey_window;
-            }
-            win = &windows[3];
-        }
-        if (win->id != nullptr) {
-            glk_window_clear(win->id);
-
-            float scale;
-            journey_adjust_image(current_picture, &x, &y, w, h, win->x_size, win->y_size, &scale, pixelwidth);
-            draw_inline_image(win->id, current_picture, x, y, scale, false);
-        }
+        current_picture = journey_draw_picture(pic, journey_window, win);
         return;
     }
 #endif
