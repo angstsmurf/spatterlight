@@ -103,10 +103,13 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 } else if ([node.name compare:@"description"] == 0 || [node.name compare:@"teaser"] == 0) {
                     metadata.blurb =
                         [self renderDescriptionElement:(NSXMLElement *)node];
+                    metadata.blurb =
+                    [metadata.blurb stringByDecodingXMLEntities];
+                    metadata.blurb = [metadata.blurb stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n\n"];
+
                     // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
                     metadata.blurb =
                         [metadata.blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-
                 }
             }
         }
