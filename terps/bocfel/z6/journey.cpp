@@ -136,7 +136,7 @@ static void journey_draw_title_image(void) {
     draw_inline_image(win, 160, x, y, scale, false);
 }
 
-int journey_draw_picture(int pic, winid_t journey_window, Window *win) {
+int journey_draw_picture(int pic, winid_t journey_window) {
     int current_picture = pic;
 
     if (current_picture == 44) {
@@ -145,6 +145,8 @@ int journey_draw_picture(int pic, winid_t journey_window, Window *win) {
 
     int width, height;
     get_image_size(current_picture, &width, &height);
+
+    Window *win = curwin;
     if (win->id && win->id->type != wintype_Graphics) {
         fprintf(stderr, "Trying to draw image to non-graphics win (%d)", curwin->index);
 
@@ -158,7 +160,7 @@ int journey_draw_picture(int pic, winid_t journey_window, Window *win) {
             }
             JOURNEY_GRAPHICS_WIN.id = journey_window;
         }
-        win = &windows[3];
+        win = &JOURNEY_GRAPHICS_WIN;
     }
     if (win->id != nullptr) {
         glk_window_clear(win->id);

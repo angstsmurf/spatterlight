@@ -4287,10 +4287,8 @@ void zdraw_picture()
     glui32 w, h;
 
 #ifdef SPATTERLIGHT
-    Window *win = curwin;
-
     if (is_spatterlight_journey) {
-        current_picture = journey_draw_picture(pic, journey_window, win);
+        current_picture = journey_draw_picture(pic, journey_window);
         return;
     }
 #endif
