@@ -4347,7 +4347,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                     // Finally, we extend the content view vertically if needed.
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = 0.1;
+                        context.duration = 0.2;
                         [localContentView animator].frame = [weakSelf contentFrameForFullscreen];
                     }
                      completionHandler:^{
