@@ -3174,7 +3174,9 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 break;
             }
 
+#ifdef SPATTERLIGHT
             flush_image_buffer();
+#endif
 
             stop_timer();
 
