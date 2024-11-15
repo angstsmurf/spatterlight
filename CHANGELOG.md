@@ -1,4 +1,8 @@
 # Change log
+
+## Unreleased
+- Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
+
 ## Release 1.2.7
 - Fixes VoiceOver on macOS 15 Sequoia by adding and increasing some delays.
 - Adds improved support for *Journey*. It is now possible to resize the window and change graphics mode and interpreter number on-the-fly. All known versions and graphics formats are supported. Also adds elaborate VoiceOver support with menus and dialogs.
