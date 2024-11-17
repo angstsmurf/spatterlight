@@ -695,6 +695,10 @@ enum  {
                 strongSelf.undoGroupingCount--;
             }
         }];
+
+        // This is the only way I have found to immediately enable the "Add to library…" button again.
+        // (Although the Apple header for validateVisibleItems says: "Typically you should not invoke this method.")
+        [strongSelf.windowController.window.toolbar validateVisibleItems];
     });
 }
 
