@@ -68,7 +68,11 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         getautosavedir(c);
         delete[] c;
     }
-    
+
+    if (autosavedir == NULL) {
+        return;
+    }
+
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
         NSFileManager *fileManager = [NSFileManager defaultManager];

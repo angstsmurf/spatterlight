@@ -85,11 +85,19 @@ void getautosavedir(char *file)
         NSString *gamepath = @(file);
         NSString *dirname = @(autosavedir);
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
-        dirname = [dirname stringByAppendingPathComponent:gamepath.signatureFromFile];
+
+        NSString *signature = gamepath.signatureFromFile;
+
+        if (signature.length == 0) {
+            NSLog(@"getautosavedir: Could not create file signature from file at \"%@\"", gamepath);
+            return;
+        }
+
+        dirname = [dirname stringByAppendingPathComponent:signature];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirname] withIntermediateDirectories:YES attributes:nil error:&error];
         if (error)
-            NSLog(@"Could not create autosave directory at %@. Error:%@",dirname,error);
+            NSLog(@"getautosavedir: Could not create autosave directory at %@. Error:%@",dirname,error);
 
         NSUInteger length = dirname.length;
         autosavedir = malloc(length + 1);

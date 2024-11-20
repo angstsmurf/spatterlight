@@ -1311,6 +1311,12 @@ fprintf(stderr, "%s\n",                                                    \
             return nil;
         }
 
+        NSString *signature = _gamefile.signatureFromFile;
+        if (signature.length == 0) {
+            NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
+            return nil;
+        }
+
         NSString *terpFolder =
         [gFolderMap[detectedFormat]
          stringByAppendingString:@" Files"];
@@ -1329,7 +1335,7 @@ fprintf(stderr, "%s\n",                                                    \
         [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
         dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
         dirstr = [dirstr
-                  stringByAppendingPathComponent:_gamefile.signatureFromFile];
+                  stringByAppendingPathComponent:signature];
         dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
 
         appSupportURL = [NSURL URLWithString:dirstr
@@ -1425,7 +1431,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)autoSaveOnExit {
-    if (_supportsAutorestore && _theme.autosave) {
+    if (_supportsAutorestore && _theme.autosave && self.appSupportDir.length) {
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
