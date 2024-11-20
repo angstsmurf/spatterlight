@@ -1313,8 +1313,11 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSString *signature = _gamefile.signatureFromFile;
         if (signature.length == 0) {
-            NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
-            return nil;
+            signature = game.hashTag;
+            if (signature.length == 0) {
+                NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
+                return nil;
+            }
         }
 
         NSString *terpFolder =
