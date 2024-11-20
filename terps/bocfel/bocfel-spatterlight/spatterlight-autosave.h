@@ -68,6 +68,7 @@ typedef struct library_state_data_struct {
     int errorwintag;
     int upperwintag;
     int graphicswintag;
+    int blorbfiletag;
 
     uint16_t routine;
     int queued_sound;
@@ -90,5 +91,7 @@ typedef struct library_state_data_struct {
 
 void recover_library_state(library_state_data *dat);
 void stash_library_state(library_state_data *dat);
+
+extern strid_t active_blorb_file_stream;
 
 #endif

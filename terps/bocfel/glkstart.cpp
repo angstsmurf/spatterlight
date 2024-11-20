@@ -205,6 +205,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #error Glk on this platform is not supported.
 #endif
 
+#ifdef SPATTERLIGHT
+
+// If we find a valid blorb file (which may be external  or the game file itself)
+// we keep track of it using this global. (The blorb file stream stays open during tha game,
+// but is closed and reopened during autorestore.)
+strid_t active_blorb_file_stream = nullptr;
+#endif
+
 // A Blorb file can contain the story file, or it can simply be an
 // external package of resources. Try loading the main story file first;
 // if it contains Blorb resources, use it. Otherwise, try to find a
@@ -217,7 +225,9 @@ static void load_resources()
         if (file != nullptr) {
             if (giblorb_set_resource_map(file) == giblorb_err_None) {
                 screen_load_scale_info(blorb_file);
-
+#ifdef SPATTERLIGHT
+                active_blorb_file_stream = file;
+#endif
                 return true;
             }
             glk_stream_close(file, nullptr);

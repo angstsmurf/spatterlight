@@ -5541,6 +5541,13 @@ void stash_library_state(library_state_data *dat)
         if (graphics_window.id())
             dat->graphicswintag = graphics_window.id()->tag;
 
+        // This is to make sure that the blorb file stream is
+        // properly reopened after autorestore
+        if (active_blorb_file_stream != nullptr) {
+            dat->blorbfiletag = active_blorb_file_stream->tag;
+        } else {
+            dat->blorbfiletag = 0;
+        }
         dat->last_random_seed = last_random_seed;
         dat->random_calls_count = random_calls_count;
         dat->screenmode = screenmode;
@@ -5570,6 +5577,9 @@ void recover_library_state(library_state_data *dat)
         statuswin.id = gli_window_for_tag(dat->statuswintag);
         errorwin = gli_window_for_tag(dat->errorwintag);
         graphics_window.set_id(gli_window_for_tag(dat->graphicswintag));
+
+        active_blorb_file_stream = gli_stream_for_tag(dat->blorbfiletag);
+
         for (int i = 0; i < 8; i++)
         {
             if (windows[i].id) {

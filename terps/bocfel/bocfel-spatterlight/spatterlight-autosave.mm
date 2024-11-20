@@ -140,59 +140,6 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     return;
 }
 
-static void load_resources(void)
-{
-    strid_t gamefile = NULL;
-    strid_t blorbfile = NULL;
-    
-    strid_t stream;
-    
-    for (stream = glk_stream_iterate(NULL, NULL); stream; stream = glk_stream_iterate(stream, NULL))
-    {
-        if (stream->filename != NULL && strcmp(stream->filename, game_file.c_str()) == 0)
-        {
-            gamefile = stream;
-            break;
-        }
-    }
-    if(gamefile != NULL)
-    {
-        if(giblorb_set_resource_map(gamefile) == giblorb_err_None)
-            return;
-        gamefile = NULL;
-    }
-    /* 7 for the worst case of needing to add .blorb to the end plus the
-     * null character.
-     */
-    size_t stringlength = strlen(game_file.c_str()) + 7;
-    char *filename = (char *)malloc(stringlength);
-    if(filename != NULL)
-    {
-        const char *exts[] = { ".blb", ".blorb" };
-        
-        strncpy(filename, game_file.c_str(), stringlength);
-        for(size_t i = 0; blorbfile == NULL && i < (sizeof exts) / (sizeof *exts); i++)
-        {
-            char *p = strrchr(filename, '.');
-            if(p != NULL) *p = 0;
-            strncat(filename, exts[i], 7);
-            
-            for (stream = glk_stream_iterate(NULL, NULL); stream; stream = glk_stream_iterate(stream, NULL))
-            {
-                if (stream->filename != NULL && strcmp(stream->filename, filename) == 0)
-                {
-                    blorbfile = stream;
-                    break;
-                }
-            }
-        }
-        free(filename);
-    }
-    
-    if (blorbfile != NULL)
-        giblorb_set_resource_map(blorbfile);
-}
-
 extern bool just_autorestored;
 
 // Restore an autosaved game, if one exists.
@@ -260,11 +207,40 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         [TempLibrary setExtraUnarchiveHook:nil];
         
         if (newlib) {
+            bool blorb_stream_was_active = (active_blorb_file_stream != nullptr);
+            char old_blorb_file_name[2048];
+            size_t old_name_length;
+            if (blorb_stream_was_active) {
+                old_name_length = strnlen(active_blorb_file_stream->filename, 2047) + 1;
+                strncpy(old_blorb_file_name, active_blorb_file_stream->filename, old_name_length + 1);
+                giblorb_unset_resource_map();
+                active_blorb_file_stream = nullptr;
+            }
             [newlib updateFromLibrary];
             recover_library_state(&library_state);
-            
-            load_resources();
-            
+
+            if (active_blorb_file_stream != nullptr && blorb_stream_was_active &&
+                strncmp(active_blorb_file_stream->filename, old_blorb_file_name, 2048) != 0) {
+                // If the autorestored stream file name doesn't match the one we opened before
+                // the autorestore, we need to close it (and reopen the old one below.)
+                glk_stream_close(active_blorb_file_stream, 0);
+                active_blorb_file_stream = nullptr;
+            }
+
+            // If there was a working, active blorb file, but there isn't anymore
+            // we just reopen the blorb file we used before the autorestore
+            if (active_blorb_file_stream == nullptr && blorb_stream_was_active) {
+                active_blorb_file_stream = glkunix_stream_open_pathname(old_blorb_file_name, 0, 0);
+            }
+
+            if (active_blorb_file_stream != nullptr) {
+                giblorb_err_t err = giblorb_set_resource_map(active_blorb_file_stream);
+                if (err != giblorb_err_None) {
+                    glk_stream_close(active_blorb_file_stream, 0);
+                    active_blorb_file_stream = nullptr;
+                }
+            }
+
             [newlib updateFromLibraryLate];
         } else { win_reset(); exit(0); }
         
@@ -291,6 +267,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:library_state.upperwintag forKey:@"bocfel_upperwintag"];
     [encoder encodeInt32:library_state.errorwintag forKey:@"bocfel_errorwintag"];
     [encoder encodeInt32:library_state.graphicswintag forKey:@"bocfel_graphicswintag"];
+    [encoder encodeInt32:library_state.blorbfiletag forKey:@"bocfel_blorbfiletag"];
     [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
     [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
@@ -332,6 +309,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.upperwintag = [decoder decodeInt32ForKey:@"bocfel_upperwintag"];
     library_state.errorwintag = [decoder decodeInt32ForKey:@"bocfel_errorwintag"];
     library_state.graphicswintag = [decoder decodeInt32ForKey:@"bocfel_graphicswintag"];
+    library_state.blorbfiletag = [decoder decodeInt32ForKey:@"bocfel_blorbfiletag"];
     library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
     library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];

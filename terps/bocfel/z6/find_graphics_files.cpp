@@ -18,6 +18,8 @@ extern "C" {
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
 
+extern strid_t active_blorb_file_stream;
+
 std::array<std::string, 7> found_graphics_files;
 
 // Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
@@ -48,8 +50,16 @@ void free_images(void) {
 
 void find_graphics_files(const std::string &file_name)
 {
-    auto set_map = [](const std::string &blorb_file) {
-        strid_t file = load_file(blorb_file);
+    auto set_map = [](std::string &blorb_file) {
+
+        strid_t file;
+        if (active_blorb_file_stream != nullptr) {
+            file = active_blorb_file_stream;
+            blorb_file = std::string(active_blorb_file_stream->filename);
+        } else {
+            file = load_file(blorb_file);
+            active_blorb_file_stream = file;
+        }
         if (file != nullptr) {
             if (giblorb_set_resource_map(file) == giblorb_err_None) {
                 found_graphics_files.at(kGraphicsFileBlorb) = blorb_file;
@@ -120,7 +130,7 @@ void find_graphics_files(const std::string &file_name)
 
     if (found_graphics_files.at(kGraphicsFileBlorb).size() == 0) {
         // Next, we look for external blorb files
-        for (const auto &ext : {".blb", ".blorb"}) {
+        for (const auto &ext : {".zlb", ".zblorb", ".blb", ".blorb"}) {
             std::string blorb_file = file_name;
             auto dot = blorb_file.rfind('.');
             if (dot != std::string::npos) {
@@ -130,7 +140,6 @@ void find_graphics_files(const std::string &file_name)
             }
 
             if (set_map(blorb_file)) {
-                found_graphics_files.at(kGraphicsFileBlorb) = blorb_file;
                 return;
             }
         }
@@ -151,7 +160,13 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
 }
 
 void extract_from_file(std::string path, GraphicsType type) {
-    strid_t file = load_file(path);
+    strid_t file = nullptr;
+    if (type == kGraphicsTypeBlorb) {
+        file = active_blorb_file_stream;
+    }
+    if (file == nullptr) {
+        file = load_file(path);
+    }
     if (file != nullptr) {
         glui32 file_length = 0;
         uint8_t *file_data;
@@ -172,7 +187,7 @@ void extract_from_file(std::string path, GraphicsType type) {
             image_count = extract_images(file_data, file_length, 1, 0, &raw_images, &pixversion, &graphics_type);
         }
 
-        if (type != kGraphicsTypeApple2)
+        if (type != kGraphicsTypeApple2 && type != kGraphicsTypeBlorb)
             glk_stream_close(file, nullptr);
 
         if (image_count == 0)
