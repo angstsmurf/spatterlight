@@ -386,11 +386,11 @@ extern NSArray *gGameFileTypes;
                 }
                 if (![path isEqualToString:game.path])
                 {
-                    NSLog(@"File location did not match for %@. Updating library with new file location (%@).", path.lastPathComponent, path);
+                    NSLog(@"File location did not match for %@ (previous path:%@). Updating library with new file location (%@).", path.lastPathComponent, game.path, path);
                     [game bookmarkForPath:path];
                 }
                 if (![game.detectedFormat isEqualToString:@(format)]) {
-                    NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", path.lastPathComponent, format);
+                    NSLog(@"Game format did not match for %@ (previous format: %@). Updating library with new detected format (%s).", path.lastPathComponent, game.detectedFormat, format);
                     game.detectedFormat = @(format);
                 }
                 if (blorb) {

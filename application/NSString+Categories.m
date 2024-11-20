@@ -82,7 +82,7 @@
         }
 
     } else
-        NSLog(@"signatureFromFile: File too small to make signature!");
+        NSLog(@"signatureFromFile: File \"%@\" too small to make a signature! Size: %ld bytes.", self, theData.length);
 
     free(bytes64);
     return [NSString stringWithString:hexString];
