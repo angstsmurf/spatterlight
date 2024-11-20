@@ -321,8 +321,11 @@ extern NSArray *gGameFileTypes;
     babel_release_ctx(ctx);
     free(ctx);
 
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [path.signatureFromFile isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
+    NSString *hash = path.signatureFromFile;
+    // Hack to differ between hacked versions of Zork I and Suspended
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [hash isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"]) {
         ifid = @"ZCODE-5-830222";
+    }
 
     if (([extension isEqualToString:@"dat"] &&
          !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
@@ -380,7 +383,7 @@ extern NSArray *gGameFileTypes;
             game = [TableViewController fetchGameForIFID:ifid inContext:context];
             if (game) {
                 if ([game.detectedFormat isEqualToString:@"glulx"])
-                    game.hashTag = path.signatureFromFile;
+                    game.hashTag = hash;
                 else if ([game.detectedFormat isEqualToString:@"zcode"]) {
                     [self addZCodeIDfromFile:path blorb:blorb toGame:game];
                 }
