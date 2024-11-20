@@ -10,6 +10,7 @@ char tempdir[BUFLEN] = "";
 static void setdefaultworkdir(char **string)
 {
     size_t length;
+    *string = NULL;
     @autoreleasepool {
 
         NSDictionary *gFolderMap = @{@"scare": @"SCARE",
@@ -37,6 +38,10 @@ static void setdefaultworkdir(char **string)
 
         if (error)
             NSLog(@"Could not find Application Support folder. Error: %@", error);
+
+        if (appSupportDir == nil) {
+            return;
+        }
 
         NSString *terpName = @(gli_program_name);
         NSString *firstWord = [terpName componentsSeparatedByString:@" "][0].lowercaseString;
@@ -77,13 +82,23 @@ void getautosavedir(char *file)
         return;
     }
 
+    char *tempstring;
+    setdefaultworkdir(&tempstring);
+
+    if (tempstring == NULL)
+        return;
+
     @autoreleasepool {
 
         NSError *error = nil;
 
-        setdefaultworkdir(&autosavedir);
         NSString *gamepath = @(file);
-        NSString *dirname = @(autosavedir);
+        NSString *dirname = @(tempstring);
+        free(tempstring);
+
+        if (dirname.length == 0)
+            return;
+
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
 
         NSString *signature = gamepath.signatureFromFile;
