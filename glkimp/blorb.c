@@ -37,8 +37,9 @@ giblorb_err_t giblorb_unset_resource_map(void)
             return err;
         }
         blorbmap = 0; /* NULL */
+        blorbfile = NULL;
     }
-    
+
     return giblorb_err_None;
 }
 
