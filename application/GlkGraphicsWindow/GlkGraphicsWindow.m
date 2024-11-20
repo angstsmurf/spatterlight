@@ -77,19 +77,6 @@
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
 }
 
-- (void)postRestoreAdjustments:(GlkWindow *)win {
-    GlkGraphicsWindow *gwin = (GlkGraphicsWindow *)win;
-    if (gwin.showingImage) {
-        GlkGraphicsWindow * __weak weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            GlkGraphicsWindow *strongSelf = weakSelf;
-            if (strongSelf && NSEqualSizes(strongSelf.frame.size, gwin.image.size)) {
-                strongSelf.image = gwin.image.copy;
-                strongSelf.needsDisplay = YES;
-            }
-        });
-    }
-}
 
 - (BOOL)isOpaque {
     return !transparent;
