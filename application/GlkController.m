@@ -424,6 +424,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
+
     lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
 
@@ -1823,6 +1824,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+
     if (_journeyMenuHandler) {
         [_journeyMenuHandler captureMembersMenu];
         [self.journeyMenuHandler hideJourneyMenus];
@@ -1832,7 +1834,6 @@ fprintf(stderr, "%s\n",                                                    \
         _game.autosaved = NO;
         [self deleteAutosaveFiles];
     }
-
 
     @try {
         [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
@@ -3158,7 +3159,8 @@ fprintf(stderr, "%s\n",                                                    \
         case NEXTEVENT:
             if (_windowsToRestore.count) {
                 for (GlkWindow *win in _windowsToRestore) {
-                    [_gwindows[@(win.name)] postRestoreAdjustments:win];
+                    if (![win isKindOfClass:[GlkGraphicsWindow class]])
+                        [_gwindows[@(win.name)] postRestoreAdjustments:win];
                 }
                 _windowsToRestore = nil;
             }
@@ -3867,7 +3869,7 @@ static BOOL pollMoreData(int fd) {
     [self flushDisplay];
     [task waitUntilExit];
 
-    if (task && task.terminationStatus != 0) {
+    if (task.terminationStatus != 0) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
