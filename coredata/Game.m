@@ -71,7 +71,7 @@
 - (void)bookmarkForPath:(NSString *)path {
 
     NSError* theError = nil;
-    NSURL* theURL = [NSURL fileURLWithPath:path];
+    NSURL* theURL = [NSURL fileURLWithPath:path isDirectory:NO];
 
     NSData* bookmark = [theURL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
                         includingResourceValuesForKeys:nil

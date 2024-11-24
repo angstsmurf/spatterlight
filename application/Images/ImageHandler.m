@@ -15,7 +15,7 @@
 }
 
 - (instancetype)initWithPath:(NSString *)path {
-    return [self initWithURL:[NSURL fileURLWithPath:path]];
+    return [self initWithURL:[NSURL fileURLWithPath:path isDirectory:NO]];
 }
 
 - (instancetype)initWithURL:(NSURL *)path {
@@ -220,7 +220,7 @@
 - (void)cacheImagesFromBlorb:(NSURL *)file {
     if (![Blorb isBlorbURL:file]) {
         NSString *newPath = [[file.path stringByDeletingPathExtension] stringByAppendingPathExtension:@"blb"];
-        file = [NSURL fileURLWithPath:newPath];
+        file = [NSURL fileURLWithPath:newPath isDirectory:NO];
     }
     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:file]];
     NSArray *resources = [blorb resourcesForUsage:PictureResource];

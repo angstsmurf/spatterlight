@@ -76,7 +76,7 @@
         
         URL = nil;
         if (str->filename)
-            URL = [NSURL fileURLWithPath:@(str->filename)];
+            URL = [NSURL fileURLWithPath:@(str->filename) isDirectory:NO];
         _file = str->file;
         
         /* for strtype_Memory and strtype_Resource. Separate pointers for

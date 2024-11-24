@@ -538,7 +538,7 @@
         // The receiver has passed us a URL where we are to write our data to.
 
         NSString *str = [sender stringForType:PasteboardFilePasteLocation];
-        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str];
+        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str isDirectory:YES];
         if (!destinationFolderURL) {
             NSLog(@"ERROR:- Receiver didn't tell us where to put the file?");
             return;
@@ -552,7 +552,7 @@
 
         NSString *fileName = [baseFileName stringByAppendingPathExtension:@"png"];
 
-        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName];
+        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName isDirectory:NO];
 
         NSUInteger index = 2;
 
@@ -561,7 +561,7 @@
         while ([[NSFileManager defaultManager] fileExistsAtPath:destinationFileURL.path]) {
             NSString *newFileName = [NSString stringWithFormat:@"%@ %ld", baseFileName, index];
             newFileName = [newFileName stringByAppendingPathExtension:@"png"];
-            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName];
+            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName isDirectory:NO];
             index++;
         }
 

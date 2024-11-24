@@ -598,8 +598,8 @@ fprintf(stderr, "%s\n",                                                    \
                 NSLog(@"Successfully used previous terp save");
             } else {
                 NSLog(@"Only restore UI state at first turn");
-                [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-                                     [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+                [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
+                                     [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO] ]];
                 restoredUIOnly = YES;
             }
 
@@ -984,7 +984,7 @@ fprintf(stderr, "%s\n",                                                    \
     dead = NO;
 
     if (_secureBookmark == nil) {
-        _secureBookmark = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:_gamefile]];
+        _secureBookmark = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:_gamefile isDirectory:NO]];
     }
 
     [task launch];
@@ -1372,7 +1372,7 @@ fprintf(stderr, "%s\n",                                                    \
 
             error = nil;
             succeed =
-            [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath]
+            [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath isDirectory:NO]
                        atomically:YES
                          encoding:NSUTF8StringEncoding
                             error:&error];
@@ -1413,15 +1413,15 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deleteAutosaveFiles {
     if (self.autosaveFileGUI == nil || self.autosaveFileTerp == nil)
         return;
-    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-                         [NSURL fileURLWithPath:self.autosaveFileTerp],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
+    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
+                         [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]  isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]  isDirectory:NO]]];
 }
 
 - (void)deleteFiles:(NSArray<NSURL *> *)urls {
@@ -3908,11 +3908,11 @@ static BOOL pollMoreData(int fd) {
     if (!restartingAlready)
         [self autoSaveOnExit];
 
-    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
+    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"] isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"] isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"] isDirectory:NO],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"] isDirectory:NO] ]];
 }
 
 - (void)queueEvent:(GlkEvent *)gevent {

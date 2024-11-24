@@ -110,9 +110,13 @@ void getautosavedir(char *file)
 
         dirname = [dirname stringByAppendingPathComponent:signature];
 
-        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirname] withIntermediateDirectories:YES attributes:nil error:&error];
-        if (error)
-            NSLog(@"getautosavedir: Could not create autosave directory at %@. Error:%@",dirname,error);
+        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirname isDirectory:YES] withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            NSLog(@"getautosavedir: Could not create autosave directory at \"%@\". Error:%@",dirname,error);
+            if (![[NSFileManager defaultManager] fileExistsAtPath:dirname]) {
+                return;
+            }
+        }
 
         NSUInteger length = dirname.length;
         autosavedir = malloc(length + 1);

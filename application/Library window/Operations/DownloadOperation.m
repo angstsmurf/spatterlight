@@ -77,7 +77,6 @@ typedef NS_ENUM(NSUInteger, OperationState) {
         _task = [session dataTaskWithURL:dataTaskURL
                                             completionHandler:^(NSData * _Nullable localData, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 
-
             DownloadOperation *strongSelf = weakSelf;
 
             /*

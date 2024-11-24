@@ -50,7 +50,7 @@
         _tag = ref->tag;
         _rock = ref->rock;
         if (ref->filename)
-            URL = [NSURL fileURLWithPath:@(ref->filename)];
+            URL = [NSURL fileURLWithPath:@(ref->filename) isDirectory:NO];
         else
             URL = nil;
         _filetype = ref->filetype;

@@ -53,7 +53,7 @@
         NSBundle *main = [NSBundle mainBundle];
         NSString *resourcePath = [main pathForResource:@"iFiction" ofType:@"plist"];
 
-        NSURL *plisturl = [NSURL fileURLWithPath:resourcePath];
+        NSURL *plisturl = [NSURL fileURLWithPath:resourcePath isDirectory:YES];
 
         _syntaxColorer = [[UKSyntaxColor alloc] initWithString:contents];
 

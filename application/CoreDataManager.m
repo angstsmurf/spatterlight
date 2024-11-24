@@ -112,7 +112,7 @@
 
 - (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL * __autoreleasing *)groupURL{
 
-    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
+    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
 
     NSURL *applicationFilesDirectory;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -155,7 +155,7 @@
         }
     }
 
-    *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:@"Spatterlight.storedata"];
+    *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
 
     NSURL *targetURL = *groupURL;
 
@@ -293,7 +293,7 @@
     NSArray *pathComponents = homeString.pathComponents;
     pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
     homeString = [[NSString pathWithComponents:pathComponents] stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
-    return [NSURL fileURLWithPath:homeString];
+    return [NSURL fileURLWithPath:homeString isDirectory:YES];
 }
 
 - (void)saveChanges {

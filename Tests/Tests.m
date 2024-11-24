@@ -173,7 +173,7 @@
         NSLog(@"Error: %@", error);
     error = nil;
 
-    NSURL *urlA = [tempFolderURL URLByAppendingPathComponent:@"StringA.txt"];
+    NSURL *urlA = [tempFolderURL URLByAppendingPathComponent:@"StringA.txt" isDirectory:NO];
     [stringA writeToURL:urlA atomically:NO encoding:NSUTF8StringEncoding error:&error];
 
     if (error)
@@ -182,7 +182,7 @@
         NSLog(@"Wrote file \"StringA.txt\" to %@", urlA.path);
     error = nil;
 
-    NSURL *urlB = [tempFolderURL URLByAppendingPathComponent:@"StringB.txt"];
+    NSURL *urlB = [tempFolderURL URLByAppendingPathComponent:@"StringB.txt" isDirectory:NO];
     [stringB writeToURL:urlB atomically:NO encoding:NSUTF8StringEncoding error:&error];
 
     if (error)

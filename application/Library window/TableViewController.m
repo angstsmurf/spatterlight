@@ -1850,7 +1850,7 @@ enum  {
                             void *context = get_babel_ctx();
                             const char *format = babel_init_ctx((char *)path.UTF8String, context);
                             if (format) {
-                                if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+                                if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
                                     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
                                     imgdata = blorb.coverImageData;
                                     game.metadata.coverArtURL = path;
@@ -2303,7 +2303,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     //Check if the file is in trash
     NSError *error = nil;
-    NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path] create:NO error:&error];
+    NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path isDirectory:NO] create:NO error:&error];
     if (error)
         NSLog(@"Error getting Trash path: %@", error);
     if (trashUrl && [path hasPrefix:trashUrl.path]) {

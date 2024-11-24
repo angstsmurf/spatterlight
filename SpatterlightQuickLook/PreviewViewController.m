@@ -86,7 +86,7 @@
 
             NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-            url = [url URLByAppendingPathComponent:@"Spatterlight.storedata"];
+            url = [url URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
 
             NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:url];
 

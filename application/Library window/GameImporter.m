@@ -365,7 +365,7 @@ extern NSArray *gGameFileTypes;
     [context performBlockAndWait:^{
         metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
 
-        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]] && !blorb)
+        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb)
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
 
         if (!metadata)
@@ -496,7 +496,7 @@ extern NSArray *gGameFileTypes;
 - (void)addZCodeIDfromFile:(NSString *)path blorb:(nullable Blorb *)blorb toGame:(Game *)game {
     BOOL found = NO;
     NSData *data = nil;
-    if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+    if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
         if (!blorb)
             blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
@@ -708,9 +708,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                                stringByAppendingPathComponent:@"SCREEN.DAT"];
 
     if ([filemanager fileExistsAtPath:screenDatPath]) {
-        NSURL *oldURL = [NSURL fileURLWithPath:screenDatPath];
+        NSURL *oldURL = [NSURL fileURLWithPath:screenDatPath isDirectory:NO];
         NSString *newURLpath = [tempFilePath stringByAppendingPathExtension:@"neo"];
-        NSURL *newURL =  [NSURL fileURLWithPath:newURLpath];
+        NSURL *newURL =  [NSURL fileURLWithPath:newURLpath isDirectory:NO];
 
         [filemanager
          copyItemAtURL:oldURL
@@ -783,7 +783,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
             dirURL =
-            [_libController.homepath URLByAppendingPathComponent:@"Converted"];
+            [_libController.homepath URLByAppendingPathComponent:@"Converted" isDirectory:YES];
 
             [filemanager createDirectoryAtURL:dirURL
                   withIntermediateDirectories:YES
@@ -792,14 +792,14 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
             cvtURL =
             [dirURL URLByAppendingPathComponent:
-             [@(buf) stringByAppendingPathExtension:@"agx"]];
+             [@(buf) stringByAppendingPathExtension:@"agx"] isDirectory:NO];
 
             babel_release_ctx(ctx);
             free(ctx);
 
             [filemanager removeItemAtURL:cvtURL error:nil];
 
-            NSURL *tmp = [NSURL fileURLWithPath:tempFilePath];
+            NSURL *tmp = [NSURL fileURLWithPath:tempFilePath isDirectory:NO];
 
             error = nil;
             status = [filemanager moveItemAtURL:tmp toURL:cvtURL error:&error];
@@ -823,9 +823,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
             if ([filemanager fileExistsAtPath:iconPath]) {
                 NSLog(@"Found icon file at: %@", iconPath);
-                NSURL *oldIconURL = [NSURL fileURLWithPath:iconPath];
+                NSURL *oldIconURL = [NSURL fileURLWithPath:iconPath isDirectory:NO];
                 NSString *newIconPath = [cvtURL.path.stringByDeletingPathExtension stringByAppendingPathExtension:@"ico"];
-                NSURL *newIconURL = [NSURL fileURLWithPath:newIconPath];
+                NSURL *newIconURL = [NSURL fileURLWithPath:newIconPath isDirectory:NO];
 
                 [filemanager removeItemAtURL:newIconURL error:nil];
 

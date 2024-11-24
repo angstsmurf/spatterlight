@@ -108,7 +108,7 @@
     pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
     homeString = [NSString pathWithComponents:pathComponents];
 
-    NSURL *homeURL = [NSURL fileURLWithPath:homeString]; // To get user home root
+    NSURL *homeURL = [NSURL fileURLWithPath:homeString isDirectory:YES]; // To get user home root
 
     if (![[FolderAccess getVolumeNameForURL:url] isEqualToString:[FolderAccess getVolumeNameForURL:homeURL]]) {
         pathComponents = url.path.pathComponents;
@@ -126,7 +126,7 @@
     if (parentDir.length < homeString.length)
         parentDir = homeString;
 
-    return [NSURL fileURLWithPath:parentDir];
+    return [NSURL fileURLWithPath:parentDir isDirectory:YES];
 }
 
 + (NSString *)getVolumeNameForURL:(NSURL *)url {
@@ -176,7 +176,7 @@
 
     NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-    url = [url URLByAppendingPathComponent:@"Bookmarks.dict"];
+    url = [url URLByAppendingPathComponent:@"Bookmarks.dict" isDirectory:NO];
     return url.path;
 }
 

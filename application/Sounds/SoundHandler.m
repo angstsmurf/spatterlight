@@ -21,7 +21,7 @@
 - (instancetype)initWithPath:(NSString *)path {
     self = [super init];
     if (self) {
-        _URL = [NSURL fileURLWithPath:path];
+        _URL = [NSURL fileURLWithPath:path isDirectory:NO];
         NSError *theError;
         _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
                    includingResourceValuesForKeys:nil
@@ -66,7 +66,7 @@
             NSString *newPath =
             [(_handler.glkctl.gamefile).stringByDeletingLastPathComponent stringByAppendingPathComponent:oldfilename];
             if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
-                _URL = [NSURL fileURLWithPath:newPath];
+                _URL = [NSURL fileURLWithPath:newPath isDirectory:NO];
                 _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
                            includingResourceValuesForKeys:nil
                                             relativeToURL:nil

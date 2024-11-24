@@ -305,7 +305,7 @@
     }
 
     else if (menuItem.action == @selector(reloadFromBlorb:)) {
-        return [Blorb isBlorbURL:[NSURL fileURLWithPath:_game.path]];
+        return [Blorb isBlorbURL:[NSURL fileURLWithPath:_game.path isDirectory:NO]];
     }
 
     else if (menuItem.action == @selector(saveImage:)) {
@@ -839,7 +839,7 @@
 
 - (NSURL *)destinationURL {
     if (_destinationURL == nil) {
-        _destinationURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"Drops"]];
+        _destinationURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"Drops"] isDirectory:YES];
         NSError *error = nil;
         if (![[NSFileManager defaultManager] createDirectoryAtURL:_destinationURL withIntermediateDirectories:YES attributes:nil error:&error]) {
             NSLog(@"Could not create temporary directory at %@: error: %@", _destinationURL.path, error);
@@ -943,7 +943,7 @@
         // The receiver has passed us a URL where we are to write our data to.
 
         NSString *str = [sender stringForType:PasteboardFilePasteLocation];
-        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str];
+        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str isDirectory:YES];
         if (!destinationFolderURL) {
             NSLog(@"ERROR:- Receiver didn't tell us where to put the file?");
             return;
@@ -957,7 +957,7 @@
 
         NSString *fileName = [baseFileName stringByAppendingPathExtension:@"png"];
 
-        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName];
+        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName isDirectory:NO];
 
         NSUInteger index = 2;
 
@@ -966,7 +966,7 @@
         while ([[NSFileManager defaultManager] fileExistsAtPath:destinationFileURL.path]) {
             NSString *newFileName = [NSString stringWithFormat:@"%@ %ld", baseFileName, index];
             newFileName = [newFileName stringByAppendingPathExtension:@"png"];
-            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName];
+            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName isDirectory:NO];
             index++;
         }
 
