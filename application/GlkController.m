@@ -2154,13 +2154,27 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSSize)contentSizeToCharCells:(NSSize)points {
     // Only _contentView, does not take border into account
     NSSize size;
-    Theme *theme = _theme;
-    size.width = round((points.width - (theme.gridMarginX + 5.0) * 2.0) / theme.cellWidth);
-    size.height = round((points.height - (theme.gridMarginY) * 2.0) / theme.cellHeight);
-    if (isnan(size.height) || isinf(size.height)) {
-        NSLog(@"ERROR: contentSizeToCharCells: Height is NaN!");
-        size.height = 1;
+    CGFloat cellWidth;
+    CGFloat cellHeight;
+    CGFloat gridMarginX;
+    CGFloat gridMarginY;
+    if (_theme == nil)
+        _theme = [Preferences currentTheme];
+    if (_theme == nil) {
+        cellWidth = 8.0;
+        cellHeight = 18.0;
+        gridMarginX = 5;
+        gridMarginY = 0;
+    } else {
+        cellWidth = _theme.cellWidth;
+        cellHeight = _theme.cellHeight;
+        gridMarginX = _theme.gridMarginX + 5;
+        gridMarginY = _theme.gridMarginY;
     }
+
+    size.width = round((points.width - gridMarginX * 2) / cellWidth);
+    size.height = round((points.height - gridMarginY * 2) / cellHeight);
+
     return size;
 }
 
