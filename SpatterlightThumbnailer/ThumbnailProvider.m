@@ -179,7 +179,7 @@
     void *context = get_babel_ctx();
     if (context == nil)
         return nil;
-    char *format = babel_init_ctx((char*)path.UTF8String, context);
+    char *format = babel_init_ctx((char*)path.fileSystemRepresentation, context);
     if (!format || !babel_get_authoritative_ctx(context))
     {
         babel_release_ctx(context);

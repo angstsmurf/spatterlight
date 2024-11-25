@@ -412,7 +412,7 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
             return;
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
 
-        strncpy(autosavename, [tmpgamepath UTF8String], sizeof autosavename);
+        strncpy(autosavename, tmpgamepath.fileSystemRepresentation, sizeof autosavename);
         autosavename[sizeof autosavename-1] = 0;
 
         frefid_t fref = gli_new_fileref(autosavename, fileusage_SavedGame, 1);

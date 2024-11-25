@@ -420,7 +420,7 @@
         NSString *newPath = [parent stringByAppendingPathComponent:filename];
         if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
             NSLog(@"TempStream reopenInternal: Changed path from %@ to %@ for stream %d.", URL.path, newPath, _tag);
-            path = newPath.UTF8String;
+            path = newPath.fileSystemRepresentation;
             if (str->filename != NULL)
                 free(str->filename);
             size_t len = strlen(path);

@@ -2565,7 +2565,7 @@ fprintf(stderr, "%s\n",                                                    \
              setObject:theDoc.path
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
-            s = (theDoc.path).UTF8String;
+            s = (theDoc.path).fileSystemRepresentation;
         } else
             s = "";
 
@@ -2596,7 +2596,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     write((int)sendfd, &reply, sizeof(struct message));
     if (reply.len)
-        write((int)sendfd, [_pendingSaveFilePath cStringUsingEncoding:NSUTF8StringEncoding], reply.len);
+        write((int)sendfd,_pendingSaveFilePath.fileSystemRepresentation, reply.len);
 
     waitforfilename = NO; /* we're all done, resume normal processing */
 
@@ -2699,7 +2699,7 @@ fprintf(stderr, "%s\n",                                                    \
              setObject:theFile.path
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
-            s = (theFile.path).UTF8String;
+            s = (theFile.path).fileSystemRepresentation;
             reply.len = strlen(s);
         } else {
             s = nil;

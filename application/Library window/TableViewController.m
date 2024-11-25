@@ -1848,7 +1848,7 @@ enum  {
                         } else {
                             NSString *path = (NSString *)[games valueForKey:ifid];
                             void *context = get_babel_ctx();
-                            const char *format = babel_init_ctx((char *)path.UTF8String, context);
+                            const char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
                             if (format) {
                                 if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
                                     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];

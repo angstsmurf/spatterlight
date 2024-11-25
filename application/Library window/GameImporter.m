@@ -278,7 +278,7 @@ extern NSArray *gGameFileTypes;
     }
 
     void *ctx = get_babel_ctx();
-    format = babel_init_ctx((char*)path.UTF8String, ctx);
+    format = babel_init_ctx((char*)path.fileSystemRepresentation, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx))
     {
         babel_release_ctx(ctx);
