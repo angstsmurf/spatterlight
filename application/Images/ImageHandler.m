@@ -217,23 +217,36 @@
     return NO;
 }
 
-- (void)cacheImagesFromBlorb:(NSURL *)file {
-    if (![Blorb isBlorbURL:file]) {
-        NSString *newPath = [[file.path stringByDeletingPathExtension] stringByAppendingPathExtension:@"blb"];
-        file = [NSURL fileURLWithPath:newPath isDirectory:NO];
-    }
-    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:file]];
+- (void)cacheImagesFromBlorbData:(NSData *)blorbData path:(NSString *)path {
+    Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
     NSArray *resources = [blorb resourcesForUsage:PictureResource];
     for (BlorbResource *res in resources) {
         NSInteger resno = res.number;
         NSData *data = [blorb dataForResource:res];
-        ImageResource *imgres = [[ImageResource alloc] initWithFilename:file.path offset:res.start length:data.length];
+        ImageResource *imgres = [[ImageResource alloc] initWithFilename:path offset:res.start length:data.length];
         imgres.data = data;
         imgres.a11yDescription = res.descriptiontext;
         _resources[@(resno)] = imgres;
         _imageDescriptions[@(resno)] = res.descriptiontext;
-//        if (res.descriptiontext)
-//            NSLog(@"Cached image %ld with path: %@ offset: %u length: %ld text:%@", resno, file.path, res.start, data.length, res.descriptiontext);
+        //        if (res.descriptiontext)
+        //            NSLog(@"Cached image %ld with path: %@ offset: %u length: %ld text:%@", resno, file.path, res.start, data.length, res.descriptiontext);
+    }
+}
+
+- (void)cacheImagesFromBlorbURL:(NSURL *)file withData:(NSData *)blorbData {
+    if (![Blorb isBlorbURL:file]) {
+        NSString *newPath = [[file.path stringByDeletingPathExtension] stringByAppendingPathExtension:@"blb"];
+        file = [NSURL fileURLWithPath:newPath isDirectory:NO];
+
+        NSFileCoordinator *coordinator = [NSFileCoordinator new];
+
+        NSError *error = nil;
+
+        [coordinator coordinateReadingItemAtURL:file options:NSFileCoordinatorReadingWithoutChanges error:&error byAccessor:^(NSURL * _Nonnull newURL) {
+            [self cacheImagesFromBlorbData:[NSData dataWithContentsOfURL:newURL] path:newURL.path];
+        }];
+    } else {
+        [self cacheImagesFromBlorbData:blorbData path:file.path];
     }
 }
 

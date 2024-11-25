@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableDictionary <NSString *, ImageFile *> *files;
 @property NSMutableDictionary <NSNumber *, NSString *> *imageDescriptions;
 
-- (void)cacheImagesFromBlorb:(NSURL *)file;
+- (void)cacheImagesFromBlorbURL:(NSURL *)file withData:(NSData *)data;
 @property (readonly, nonatomic, copy) NSString *lastImageLabel;
 
 - (BOOL)handleFindImageNumber:(NSInteger)resno;

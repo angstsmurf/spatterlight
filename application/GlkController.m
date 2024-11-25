@@ -285,7 +285,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    [_imageHandler cacheImagesFromBlorb:url];
+    [_imageHandler cacheImagesFromBlorbURL:_gameFileURL withData:_gameData];
 
     _terpname = terpname_;
 
