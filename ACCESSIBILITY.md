@@ -116,7 +116,7 @@ https://youtu.be/9jauDyUu6Ro
 
 You can't tell from the video which buttons are pressed, but you can hear what results (and problems) to expect. It may not be apparent, but at many places in the video I use the Speak Last Move shortcut, sometimes repeatedly, to force VoiceOver to start speaking the results of the latest action.
 
-As an added bonus I created [a blorb file][blorb] where the placeholder image descriptions from the `dev-r46` prototype are added to every image, so that when you navigate the VoiceOver cursor to the graphics window, the image description will be read. These descriptions are usually not helpful and may not accurately describe the images, but some people might still enjoy them.
+As an added bonus I created [a blorb file][blorb] where the placeholder image descriptions from the `dev-r46` prototype are added to every image, so that when you navigate the VoiceOver cursor to the graphics window, the image description will be read. These descriptions are usually not helpful and may not accurately describe the images, but some people might still enjoy them. Note that the blorb file has to be renamed to match the game file name, in order for the descriptions to work.
 
 [blorb]: https://www.ifarchive.org/if-archive/infocom/media/blorb/Journey%20%28with%20descriptions%29.blb "Blorb file containing all the images for Journey with descriptions. Should be renamed to match the game file."
 
