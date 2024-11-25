@@ -278,8 +278,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self detectGame:game.ifid];
     }
 
-    NSURL *url = game.urlForBookmark;
-    _gamefile = url.path;
+    _gamefile = _gameFileURL.path;
 
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
         [self.window performClose:nil];
@@ -984,7 +983,7 @@ fprintf(stderr, "%s\n",                                                    \
     dead = NO;
 
     if (_secureBookmark == nil) {
-        _secureBookmark = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:_gamefile isDirectory:NO]];
+        _secureBookmark = [FolderAccess grantAccessToFile:_gameFileURL];
     }
 
     [task launch];
