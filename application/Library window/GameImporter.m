@@ -245,8 +245,10 @@ extern NSArray *gGameFileTypes;
         return nil;
     }
 
-    if ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"]) {
-        blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+    NSData *fileData = nil;
+    if ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"] || [extension isEqualToString:@"zblorb"] || [extension isEqualToString:@"zbl"]) {
+        fileData = [NSData dataWithContentsOfFile:path];
+        blorb = [[Blorb alloc] initWithData:fileData];
         BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
         if (!executable) {
             if (report) {
@@ -362,11 +364,15 @@ extern NSArray *gGameFileTypes;
 
     TableViewController *libController = _libController;
 
+    NSData __block *blockdata = fileData;
     [context performBlockAndWait:^{
         metadata = [TableViewController fetchMetadataForIFID:ifid inContext:context];
 
-        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb)
-            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb) {
+            if (blockdata == nil)
+                blockdata = [NSData dataWithContentsOfFile:path];
+            blorb = [[Blorb alloc] initWithData:blockdata];
+        }
 
         if (!metadata)
         {
