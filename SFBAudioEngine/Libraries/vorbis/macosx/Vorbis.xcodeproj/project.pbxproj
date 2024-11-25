@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -530,7 +530,8 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1610;
 			};
 			buildConfigurationList = 730F23F3091827B200AB638C /* Build configuration list for PBXProject "Vorbis" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -676,7 +677,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
-				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -710,7 +710,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
-				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -748,6 +747,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
@@ -794,6 +794,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX__;
@@ -833,7 +834,6 @@
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -852,7 +852,6 @@
 				PRODUCT_NAME = vorbis;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -876,7 +875,6 @@
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -898,7 +896,6 @@
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = vorbisenc;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -924,8 +921,6 @@
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = "";
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -949,8 +944,6 @@
 				PRODUCT_NAME = vorbisfile;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
