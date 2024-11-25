@@ -70,6 +70,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     }
 
     if (autosavedir == NULL) {
+        win_showerror(@"Could not create autosave directory name.".UTF8String);
         return;
     }
 
@@ -164,7 +165,7 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         
         NSString *dirname = @(autosavedir);
         if (!dirname.length) {
-            win_showerror(@"Could not create autosave folder name.".UTF8String);
+            win_showerror(@"Could not create autosave directory name.".UTF8String);
             return false;
         }
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
