@@ -1,6 +1,5 @@
 //
 //  DownloadOperation.m
-//  DownloadOperationQueue
 //
 //  Created by Administrator on 2021-10-21.
 //
@@ -18,8 +17,6 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 @property NSURLSessionDataTask *task;
 
 @property (atomic) OperationState state;
-
-@property dispatch_queue_t stateQueue;
 
 @end
 
@@ -71,7 +68,6 @@ typedef NS_ENUM(NSUInteger, OperationState) {
 
     if (self) {
         _state = kReady;
-        _stateQueue = dispatch_queue_create("net.ccxvii.spatterlight.rw.state", DISPATCH_QUEUE_CONCURRENT);
         DownloadOperation __weak *weakSelf = self;
         // use weak self to prevent retain cycle
         _task = [session dataTaskWithURL:dataTaskURL
