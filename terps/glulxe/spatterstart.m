@@ -234,6 +234,8 @@ static void spatterglk_game_autorestore(void)
 
         TempLibrary *newlib = nil;
         getautosavedir(gamefile->filename);
+        if (autosavedir == NULL)
+            return;
         NSString *dirname = @(autosavedir);
         if (dirname.length == 0)
             return;
@@ -251,7 +253,7 @@ static void spatterglk_game_autorestore(void)
             if ([[NSFileManager defaultManager] isDeletableFileAtPath:glksavepath]) {
                 BOOL success = [[NSFileManager defaultManager] removeItemAtPath:glksavepath error:&error];
                 if (!success) {
-                    NSLog(@"Error removing Glk autosave: %@", error);
+                    NSLog(@"glulxe spatterglk_game_autorestore: Error removing Glk autosave: %@", error);
                 }
             }
             return;
@@ -407,6 +409,9 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
             return;
 
         getautosavedir(gamefile->filename);
+        if (autosavedir == NULL) {
+            return;
+        }
         NSString *dirname = @(autosavedir);
         if (!dirname)
             return;
