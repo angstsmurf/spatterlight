@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OpenGameOperation : NSOperation
 
+- (instancetype)initWithURL:(NSURL *)gameFileURL completionHandler:(nullable void (^)(NSData * _Nullable,  NSURL * _Nullable))completionHandler;
+
 @end
 
 NS_ASSUME_NONNULL_END

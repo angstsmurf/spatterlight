@@ -573,6 +573,7 @@
 		C344B2CD26E4DA87004B0A8F /* SFBAudioEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C344B2C926E4D9B4004B0A8F /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
 		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
+		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
 		C354AA68274CD8D900C8D01D /* adv01.dat in Resources */ = {isa = PBXBuildFile; fileRef = C354AA67274CD8D900C8D01D /* adv01.dat */; };
@@ -2830,6 +2831,8 @@
 		C349B4DB28803A7C00D99943 /* parseinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
 		C34DF53F26A1FFDE007AD7D3 /* IFZoomID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFZoomID.h; sourceTree = "<group>"; };
 		C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFZoomID.m; sourceTree = "<group>"; };
+		C34E570D2CF3941200A8DC2B /* OpenGameOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGameOperation.h; sourceTree = "<group>"; };
+		C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGameOperation.m; sourceTree = "<group>"; };
 		C34F1FA61ED85E06002AB38B /* gi_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gi_debug.c; sourceTree = "<group>"; };
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
 		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
@@ -5368,6 +5371,8 @@
 				C30135BD27219AC60006B85C /* DownloadOperation.m */,
 				C341A49D272B265100A46ED4 /* ComparisonOperation.h */,
 				C341A49F272B265100A46ED4 /* ComparisonOperation.m */,
+				C34E570D2CF3941200A8DC2B /* OpenGameOperation.h */,
+				C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -7284,6 +7289,7 @@
 				C3AD648F261769DB008614C5 /* MarginImage.m in Sources */,
 				C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */,
 				C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */,
+				C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */,
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
 				6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */,
