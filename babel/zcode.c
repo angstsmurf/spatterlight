@@ -85,9 +85,9 @@ static uint16_t checksum(unsigned char *sf, int32 extent)
 }
 
 static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
-
+#ifdef DEBUG
     fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(sf, extent));
-
+#endif
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
