@@ -44,6 +44,75 @@
     ];
 }
 
+- (NSString *)signature {
+    NSMutableString *hexString = [NSMutableString string];
+    Byte *bytes64 = (Byte *)malloc(64);
+
+    if (self.length > 64) {
+        [self getBytes:bytes64 length:64];
+
+        if (bytes64[0] == 'F' && bytes64[1] == 'O' && bytes64[2] == 'R' &&
+            bytes64[3] == 'M' && bytes64[8] == 'I' && bytes64[9] == 'F' &&
+            bytes64[10] == 'R' && bytes64[11] == 'S') {
+            // Game file seems to be a Blorb
+
+            if (!(bytes64[12] == 'R' && bytes64[13] == 'I' &&
+                  bytes64[14] == 'd' && bytes64[15] == 'x'))
+                NSLog(@"signatureFromFile: Missing RIdx index header in Blorb!");
+
+            int chunkLength = bytes64[16] << 24 | (bytes64[17] & 0xff) << 16 |
+            (bytes64[18] & 0xff) << 8 | (bytes64[19] & 0xff);
+
+            int numRes = bytes64[20] << 24 | (bytes64[21] & 0xff) << 16 |
+            (bytes64[22] & 0xff) << 8 | (bytes64[23] & 0xff);
+
+            if (chunkLength != 4 + numRes * 12)
+                NSLog(@"signatureFromFile: Chunk length wrong! Should be 4 + "
+                      @"number of resources * 12 (%d)!",
+                      4 + numRes * 12);
+
+            Byte *bytes12 = (Byte *)malloc(12);
+
+            int execStart = 0;
+            for (NSUInteger i = 24; i <= (NSUInteger)chunkLength + 8 && i < self.length - 12; i += 12) {
+                [self getBytes:bytes12 range:NSMakeRange(i, 12)];
+                if (bytes12[0] == 'E' && bytes12[1] == 'x' && bytes12[2] == 'e' && bytes12[3] == 'c') {
+                    execStart = bytes12[8] << 24 | (bytes12[9] & 0xff) << 16 |
+                    (bytes12[10] & 0xff) << 8 |
+                    (bytes12[11] & 0xff);
+                    // Found Exec index at offset i.
+                    // Executable chunk starts at execStart.
+                    break;
+                }
+            }
+
+            free(bytes12);
+
+            if (execStart > 0) {
+                if (execStart + 8 + 64 <= (int)self.length) {
+                    [self getBytes:bytes64
+                                range:NSMakeRange((NSUInteger)execStart + 8, 64)];
+                } else
+                    NSLog(@"signatureFromFile: Executable chunk too small to "
+                          @"make signature!");
+            } else
+                NSLog(@"signatureFromFile: Found no executable index chunk!");
+
+        } // Not a blorb
+
+        hexString = [NSMutableString stringWithCapacity:(64 * 2)];
+
+        for (int i = 0; i < 64; ++i) {
+            [hexString appendFormat:@"%02x", (unsigned int)bytes64[i]];
+        }
+
+    } else
+        NSLog(@"dataFromFile: Data too small to make a signature! Size: %ld bytes.", self.length);
+
+    free(bytes64);
+    return [NSString stringWithString:hexString];
+}
+
 - (BOOL)isPlaceHolderImage {
     return [self.md5String isEqualToString:@"1855A829466C301CD8113475E8E643BC"];
 }

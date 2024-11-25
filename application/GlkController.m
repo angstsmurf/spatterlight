@@ -35,7 +35,7 @@
 #import "Image.h"
 
 #import "NSColor+integer.h"
-#import "NSString+Categories.h"
+#import "NSData+Categories.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -1312,7 +1312,7 @@ fprintf(stderr, "%s\n",                                                    \
             return nil;
         }
 
-        NSString *signature = _gamefile.signatureFromFile;
+        NSString *signature = _gameData.signature;
         if (signature.length == 0) {
             signature = game.hashTag;
             if (signature.length == 0) {

@@ -13,6 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull md5String;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull sha256String;
+
+// Computes the game signature, which is a 64-character string unique to the
+// game. (In fact it is just the first 64 bytes of the game file, encoded as
+// hexadecimal digits.)
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull signature;
 @property (NS_NONATOMIC_IOSONLY, getter=isPlaceHolderImage, readonly) BOOL placeHolderImage;
 @property (NS_NONATOMIC_IOSONLY, getter=isPNG, readonly) BOOL PNG;
 @property (NS_NONATOMIC_IOSONLY, getter=isJPEG, readonly) BOOL JPEG;
