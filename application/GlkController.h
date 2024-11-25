@@ -87,6 +87,10 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
 
+@property NSData *gameData;
+@property NSURL *gameFileURL;
+@property NSAlert *slowReadAlert;
+
 typedef enum kGameIdentity : NSUInteger {
     kGameIsGeneric,
     kGameIsAdrianMole,
