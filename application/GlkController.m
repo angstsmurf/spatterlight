@@ -1886,6 +1886,9 @@ fprintf(stderr, "%s\n",                                                    \
                 }
         }
         [Preferences changeCurrentGlkController:remainingGameSession];
+        if (remainingGameSession) {
+            [remainingGameSession.window makeKeyAndOrderFront:nil];
+        }
     }
 
     if (timer) {
