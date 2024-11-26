@@ -286,8 +286,16 @@ fprintf(stderr, "%s\n",                                                    \
 
     _gamefile = _gameFileURL.path;
 
+    // This may happen if the game file is deleted (or the drive it is on
+    // is disconnected) after a game has started, and the game is then reset,
+    // or if Spatterlight tries to autorestore a game at startup.
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
-        [self.window performClose:nil];
+        game.found = NO;
+        if (windowRestoredBySystem) {
+            [self.window performClose:nil];
+        } else {
+            [self showGameFileGoneAlert];
+        }
         return;
     }
 
@@ -1069,6 +1077,17 @@ fprintf(stderr, "%s\n",                                                    \
     block();
 }
 
+- (void)showGameFileGoneAlert {
+    NSAlert *anAlert = [[NSAlert alloc] init];
+    anAlert.messageText = [NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", nil), self.gamefile.lastPathComponent];
+
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.window performClose:nil];
+        });
+    }];
+}
+
 #pragma mark Autorestore
 
 - (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView
@@ -1837,6 +1856,7 @@ fprintf(stderr, "%s\n",                                                    \
         _coverController = nil;
     }
     [self autoSaveOnExit];
+    self.window = nil;
     [_soundHandler stopAllAndCleanUp];
 
     if (_journeyMenuHandler) {
