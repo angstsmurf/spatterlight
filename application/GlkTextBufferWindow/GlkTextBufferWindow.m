@@ -517,9 +517,20 @@ fprintf(stderr, "%s\n",                                                    \
         [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
 
     if (self.quoteBox && restoredWin.quoteBox == nil) {
-        [self.quoteBox removeFromSuperview];
-        [self.glkctl.quoteBoxes removeObject:self.quoteBox];
-        self.quoteBox = nil;
+        GlkTextGridWindow *view = self.quoteBox;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.glkctl.quoteBoxes removeObject:view];
+            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                context.duration = 1;
+                view.animator.alphaValue = 0;
+            } completionHandler:^{
+                view.hidden = YES;
+                view.alphaValue = 1;
+                [view removeFromSuperview];
+                view.glkctl = nil;
+                self.quoteBox = nil;
+            }];
+        });
     }
 }
 

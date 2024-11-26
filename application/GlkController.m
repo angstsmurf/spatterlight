@@ -1176,7 +1176,7 @@ fprintf(stderr, "%s\n",                                                    \
                     [_quoteBoxes addObject:quotebox];
                     quotebox.glkctl = self;
                     quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
-                    if (restoredController.numberOfPrintsAndClears > quotebox.quoteboxAddedOnPAC)
+                    if (restoredController.numberOfPrintsAndClears > quotebox.quoteboxAddedOnPAC + 2)
                         quotebox.quoteboxHasBeenShown = YES;
                     NSInteger diff = _numberOfPrintsAndClears - restoredController.numberOfPrintsAndClears;
                     quotebox.quoteboxAddedOnPAC += diff ;
