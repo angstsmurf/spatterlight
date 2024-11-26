@@ -23,13 +23,15 @@
 
 @property BOOL hasNewText;
 
+@property BOOL quoteboxHasBeenShown;
+
 // For Bureacracy form accessibility
 @property NSDate *keyPressTimeStamp;
 @property NSString *lastKeyPress;
 @property NSUInteger lastForm;
 
 @property NSSize quoteboxSize;
-@property NSInteger quoteboxAddedOnTurn;
+@property NSInteger quoteboxAddedOnPAC;
 @property NSUInteger quoteboxVerticalOffset;
 @property (weak) NSScrollView *quoteboxParent;
 

@@ -129,6 +129,9 @@ typedef enum kGameIdentity : NSUInteger {
 @property ZMenu *zmenu;
 @property BOOL shouldCheckForMenu;
 
+@property NSDate *windowShownTimestamp;
+@property NSInteger numberOfPrintsAndClears;
+
 // shouldSpeakNewText only applies to the call to
 // speakNewText in flushDisplay.
 

@@ -244,6 +244,11 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    _numberOfPrintsAndClears = 0;
+
+    if (!shouldReset)
+        _windowShownTimestamp = [NSDate distantFuture];
+
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
     _imageHandler = [ImageHandler new];
@@ -720,6 +725,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
     lastSizeInChars = [self contentSizeToCharCells:_gameView.frame.size];
     [self showWindow:nil];
+    self.windowShownTimestamp = [NSDate date];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
         _gameView.autoresizingMask =
@@ -1169,8 +1175,10 @@ fprintf(stderr, "%s\n",                                                    \
                     [_quoteBoxes addObject:quotebox];
                     quotebox.glkctl = self;
                     quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
-                    NSInteger diff = _turns - restoredController.turns;
-                    quotebox.quoteboxAddedOnTurn += diff;
+                    if (restoredController.numberOfPrintsAndClears > quotebox.quoteboxAddedOnPAC)
+                        quotebox.quoteboxHasBeenShown = YES;
+                    NSInteger diff = _numberOfPrintsAndClears - restoredController.numberOfPrintsAndClears;
+                    quotebox.quoteboxAddedOnPAC += diff ;
                 }
             }
 
@@ -1257,6 +1265,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Now we can actually show the window
     [self showWindow:nil];
+    _windowShownTimestamp = [NSDate date];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
     if (_startingInFullscreen)
@@ -1494,6 +1503,7 @@ fprintf(stderr, "%s\n",                                                    \
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
         _turns = [decoder decodeIntegerForKey:@"turns"];
+        _numberOfPrintsAndClears = [decoder decodeIntegerForKey:@"printsAndClears"];
 
         _oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
 
@@ -1560,6 +1570,7 @@ fprintf(stderr, "%s\n",                                                    \
                  forKey:@"fullscreen"];
 
     [encoder encodeInteger:_turns forKey:@"turns"];
+    [encoder encodeInteger:_numberOfPrintsAndClears forKey:@"printsAndClears"];
     [encoder encodeObject:_theme.name forKey:@"oldThemeName"];
 
     [encoder encodeBool:_showingCoverImage forKey:@"showingCoverImage"];
@@ -3202,23 +3213,31 @@ fprintf(stderr, "%s\n",                                                    \
                 _turns++;
             }
 
-            if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || (_turns == 0 && _quoteBoxes.lastObject.quoteboxAddedOnTurn == -1) || _quoteBoxes.count > 1)) {
-                GlkTextGridWindow *view = _quoteBoxes.firstObject;
-                [_quoteBoxes removeObjectAtIndex:0];
-                ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
-                view.quoteboxParent = nil;
-                if (_quoteBoxes.count == 0) {
-                    _quoteBoxes = nil;
+            if (_quoteBoxes.count) {
+                if (_numberOfPrintsAndClears - _quoteBoxes.lastObject.quoteboxAddedOnPAC > 1 ||
+                    _quoteBoxes.count > 1) {
+                    GlkTextGridWindow *view = _quoteBoxes.firstObject;
+                    if (view.quoteboxHasBeenShown || _quoteBoxes.count > 1) {
+                        [_quoteBoxes removeObjectAtIndex:0];
+                        ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
+                        view.quoteboxParent = nil;
+                        if (_quoteBoxes.count == 0) {
+                            _quoteBoxes = nil;
+                        }
+                        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                            context.duration = 1;
+                            view.animator.alphaValue = 0;
+                        } completionHandler:^{
+                            view.hidden = YES;
+                            view.alphaValue = 1;
+                            [view removeFromSuperview];
+                            view.glkctl = nil;
+                        }];
+                    }
                 }
-                [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-                    context.duration = 1;
-                    view.animator.alphaValue = 0;
-                } completionHandler:^{
-                    view.hidden = YES;
-                    view.alphaValue = 1;
-                    [view removeFromSuperview];
-                    view.glkctl = nil;
-                }];
+                if (!_quoteBoxes.firstObject.quoteboxHasBeenShown) {
+                    _quoteBoxes.firstObject.quoteboxAddedOnPAC = _numberOfPrintsAndClears;
+                }
             }
 
             [self flushDisplay];
@@ -3475,6 +3494,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case CLRWIN:
+            _numberOfPrintsAndClears++;
             if (reqWin) {
                 [reqWin clear];
                 _shouldCheckForMenu = YES;
@@ -3519,6 +3539,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case PRINT:
+            _numberOfPrintsAndClears++;
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
@@ -4538,6 +4559,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
                   display:NO];
     [self showWindow:nil];
+    _windowShownTimestamp = [NSDate date];
     [self.window makeKeyAndOrderFront:nil];
 
     _gameView.frame = [self contentFrameForWindowed];

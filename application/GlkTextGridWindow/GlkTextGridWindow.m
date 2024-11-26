@@ -204,7 +204,7 @@
         maxInputLength = (NSUInteger)[decoder decodeIntForKey:@"maxInputLength"];
 
         _quoteboxSize = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"quoteboxSize"]).sizeValue;
-        _quoteboxAddedOnTurn = [decoder decodeIntegerForKey:@"quoteboxAddedOnTurn"];
+        _quoteboxAddedOnPAC = [decoder decodeIntegerForKey:@"quoteboxAddedOnTurn"];
         _quoteboxVerticalOffset = (NSUInteger)[decoder decodeIntegerForKey:@"quoteboxVerticalOffset"];
     }
     return self;
@@ -239,7 +239,7 @@
     [encoder encodeObject: _bufferTextStorage forKey:@"bufferTextStorage"];
 
     [encoder encodeObject:@(_quoteboxSize) forKey:@"quoteboxSize"];
-    [encoder encodeInteger:_quoteboxAddedOnTurn forKey:@"quoteboxAddedOnTurn"];
+    [encoder encodeInteger:_quoteboxAddedOnPAC forKey:@"quoteboxAddedOnTurn"];
     [encoder encodeInteger:(NSInteger)_quoteboxVerticalOffset forKey:@"quoteboxVerticalOffset"];
 }
 
@@ -1581,7 +1581,7 @@
     [glkctl.quoteBoxes addObject:box];
     lowerView.quoteBox = box;
     box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedOnTurn = glkctl.turns;
+    box.quoteboxAddedOnPAC = glkctl.numberOfPrintsAndClears;
     box.quoteboxParent = superView.enclosingScrollView;
     [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
 }
@@ -1630,7 +1630,10 @@
         self.animator.alphaValue = 1;
     } completionHandler:^{
         self.alphaValue = 1;
-        self.quoteboxAddedOnTurn = self.glkctl.turns - 1;
+        self.quoteboxAddedOnPAC = self.glkctl.numberOfPrintsAndClears - 1;
+        if ([self.glkctl.windowShownTimestamp timeIntervalSinceNow] < -0.1) {
+            self.quoteboxHasBeenShown = YES;
+        }
     }];
 }
 
