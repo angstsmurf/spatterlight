@@ -515,6 +515,12 @@ fprintf(stderr, "%s\n",                                                    \
         [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
     else
         [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
+
+    if (self.quoteBox && restoredWin.quoteBox == nil) {
+        [self.quoteBox removeFromSuperview];
+        [self.glkctl.quoteBoxes removeObject:self.quoteBox];
+        self.quoteBox = nil;
+    }
 }
 
 - (void)deferredScrollPosition:(id)sender {
