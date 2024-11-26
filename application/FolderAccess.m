@@ -41,9 +41,9 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-    _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
-    accessCount = 0;
-    _active = NO;
+        _bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+        accessCount = 0;
+        _active = NO;
     }
     return self;
 }
@@ -52,17 +52,32 @@
     [encoder encodeObject:_bookmark forKey:@"bookmark"];
 }
 
++ (BOOL)needsPermissionForURL:(NSURL *)url
+{
+    if ( !url ) {
+        return NO;
+    }
+    NSError *error = nil;
+    BOOL reachable = [url checkResourceIsReachableAndReturnError:&error];
+    if ( !reachable ) {
+        //Could not reach path (may not be an error; if file does not exist this is expected behavior
+        return NO;
+    }
+
+    return ![[NSFileManager defaultManager] isReadableFileAtPath:url.path];
+}
+
 + (void)askForAccessToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block {
 
     NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
     if (bookmarkURL) {
-        if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+        if (![FolderAccess needsPermissionForURL:bookmarkURL]) {
             [FolderAccess storeBookmark:bookmarkURL];
             [FolderAccess saveBookmarks];
         } else {
 
             [FolderAccess grantAccessToFolder:bookmarkURL];
-            if (![[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+            if ([FolderAccess needsPermissionForURL:bookmarkURL]) {
 
                 NSOpenPanel *openPanel = [NSOpenPanel openPanel];
                 openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
@@ -84,6 +99,24 @@
     }
 
     block();
+}
+
++ (void)forceAccessDialogToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
+    openPanel.prompt = NSLocalizedString(@"Authorize", nil);
+    openPanel.canChooseFiles = NO;
+    openPanel.canChooseDirectories = YES;
+    openPanel.canCreateDirectories = NO;
+    openPanel.directoryURL = url;
+    NSModalResponse result = [openPanel runModal];
+    if (result == NSModalResponseOK) {
+        NSURL *blockURL = openPanel.URL;
+        [FolderAccess storeBookmark:blockURL];
+        [FolderAccess saveBookmarks];
+        block();
+    }
+    return;
 }
 
 + (NSURL *)grantAccessToFile:(NSURL *)url {
@@ -164,7 +197,7 @@
     NSURL *secureURL = [FolderAccess restoreURL:folderURL];
     if (secureURL)
         folderURL = secureURL;
-    if ([[NSFileManager defaultManager] isReadableFileAtPath:folderURL.path])
+    if (![FolderAccess needsPermissionForURL:folderURL])
         return folderURL;
     return nil;
 }
@@ -229,7 +262,7 @@
 }
 
 - (void)resetCountIfNotReadable:(NSURL *)url {
-    if (accessCount != 0 && ![[NSFileManager defaultManager] isReadableFileAtPath:url.path]) {
+    if (accessCount != 0 && [FolderAccess needsPermissionForURL:url]) {
         NSLog(@"Secure url %@: Access count was %ld but path was not readable!", url.path, accessCount);
         accessCount = 0;
     }
@@ -243,7 +276,7 @@
             return nil;
     } else {
         url = controlURL;
-        if (![[NSFileManager defaultManager] isReadableFileAtPath:url.path]) {
+        if ([FolderAccess needsPermissionForURL:url]) {
             NSLog(@"askToAccess: already accessing %@ (accessCount = %ld) but the file there is NOT readable!", url.path, accessCount);
         }
     }

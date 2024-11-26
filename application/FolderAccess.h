@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)deleteBookmarks;
 + (void)storeBookmark:(NSURL *)url;
 + (void)releaseBookmark:(NSURL *)url;
++ (BOOL)needsPermissionForURL:(NSURL *)url;
++ (void)forceAccessDialogToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
 
 + (void)askForAccessToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
 

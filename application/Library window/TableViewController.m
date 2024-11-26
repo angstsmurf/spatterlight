@@ -2378,22 +2378,27 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 [blockgctl.slowReadAlert.window close];
                 blockgctl.slowReadAlert = nil;
 
-                weakSelf.gameSessions[ifid] = blockgctl;
-
-                blockGame.lastPlayed = [NSDate date];
-
-                blockgctl.gameData = newData;
-                blockgctl.gameFileURL = newURL;
-
-                [blockgctl runTerp:terp withGame:blockGame reset:NO winRestore:systemWindowRestoration];
-
-                [((AppDelegate *)NSApp.delegate)
-                 addToRecents:@[ newURL ]];
-
-                if ([Blorb isBlorbURL:newURL]) {
-                    Blorb *blorb = [[Blorb alloc] initWithData:newData];
-                    GameImporter *importer = [[GameImporter alloc] initWithLibController:weakSelf];
-                    [importer updateImageFromBlorb:blorb inGame:blockGame];
+                if (newData.length == 0) {
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    alert.messageText = NSLocalizedString(@"Failed to open the game.", nil);
+                    alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent];
+                    [alert runModal];
+                } else {
+                    weakSelf.gameSessions[ifid] = blockgctl;
+                    blockGame.lastPlayed = [NSDate date];
+                    blockgctl.gameData = newData;
+                    blockgctl.gameFileURL = newURL;
+                    
+                    [blockgctl runTerp:terp withGame:blockGame reset:NO winRestore:systemWindowRestoration];
+                    
+                    [((AppDelegate *)NSApp.delegate)
+                     addToRecents:@[ newURL ]];
+                    
+                    if ([Blorb isBlorbURL:newURL]) {
+                        Blorb *blorb = [[Blorb alloc] initWithData:newData];
+                        GameImporter *importer = [[GameImporter alloc] initWithLibController:weakSelf];
+                        [importer updateImageFromBlorb:blorb inGame:blockGame];
+                    }
                 }
             });
         }];
@@ -2402,7 +2407,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (gctl.gameData == nil) {
-
                 gctl.slowReadAlert = [[NSAlert alloc] init];
                 NSAlert __weak *alert = gctl.slowReadAlert;
                 alert.messageText =

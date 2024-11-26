@@ -36,6 +36,7 @@
 
 #import "NSColor+integer.h"
 #import "NSData+Categories.h"
+#import "NSString+Categories.h"
 
 #include "glkimp.h"
 #include "protocol.h"
@@ -1014,12 +1015,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSURL *bookmarkURL = [FolderAccess suitableDirectoryForURL:url];
     if (bookmarkURL) {
-        if ([[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+        if (![FolderAccess needsPermissionForURL:bookmarkURL]) {
             [FolderAccess storeBookmark:bookmarkURL];
             [FolderAccess saveBookmarks];
         } else {
             [FolderAccess restoreURL:bookmarkURL];
-            if (![[NSFileManager defaultManager] isReadableFileAtPath:bookmarkURL.path]) {
+            if ([FolderAccess needsPermissionForURL:bookmarkURL]) {
 
                 if (!dialogFlag) {
                     double delayInSeconds = 0.5;
@@ -1324,8 +1325,11 @@ fprintf(stderr, "%s\n",                                                    \
         if (signature.length == 0) {
             signature = game.hashTag;
             if (signature.length == 0) {
-                NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
-                return nil;
+                signature = _gamefile.signatureFromFile;
+                if (signature.length == 0) {
+                    NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", _gamefile);
+                    return nil;
+                }
             }
         }
 

@@ -8,6 +8,7 @@
 #import "GlkController.h"
 #import "Game.h"
 #import "OpenGameOperation.h"
+#import "FolderAccess.h"
 
 typedef NS_ENUM(NSUInteger, OperationState) {
     kReady,
@@ -119,13 +120,13 @@ typedef NS_ENUM(NSUInteger, OperationState) {
             return;
         }
 
+        NSError *error = nil;
         /*
          don't run completionHandler if data is null or zero bytes
          */
-        NSData *fileData = [NSData dataWithContentsOfURL:newURL];
-        if (fileData.length == 0) {
-            strongSelf.state = kFinished;
-            return;
+        NSData *fileData = [NSData dataWithContentsOfURL:newURL options:NSDataReadingMappedIfSafe error:&error];
+        if (error != nil) {
+            NSLog(@"Error: %@", error);
         }
 
         /*
@@ -133,13 +134,25 @@ typedef NS_ENUM(NSUInteger, OperationState) {
          pass the result gotten in coordinateReadingItemAtURL's completionHandler to the
          custom completionHandler
          */
-        if (_completionHandler) {
-            _completionHandler(fileData, newURL);
+        if (strongSelf.completionHandler) {
+            if (fileData.length == 0 && error != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [FolderAccess forceAccessDialogToURL:newURL andThenRunBlock:^{
+                        NSError *innerError = nil;
+                        NSData *blockdata = [NSData dataWithContentsOfURL:newURL options:NSDataReadingMappedIfSafe error:&innerError];
+                        if (innerError != nil)
+                            NSLog(@"Error: %@", innerError);
+                        strongSelf.completionHandler(blockdata, newURL);
+                    }];
+                });
+            } else {
+                strongSelf.completionHandler(fileData, newURL);
+            }
         }
 
         /*
          set the operation state to finished once
-         the download task is completed or have error
+         the file read operation is completed or have error
          */
         strongSelf.state = kFinished;
     }];
