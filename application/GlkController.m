@@ -311,10 +311,12 @@ fprintf(stderr, "%s\n",                                                    \
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
 
     NSInteger i;
+
     for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
         [nullarray addObject:[NSNull null]];
     _gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     _bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+
     for (i = 0 ; i < style_NUMSTYLES ; i ++) {
         [_gridStyleHints addObject:[nullarray mutableCopy]];
         [_bufferStyleHints addObject:[nullarray mutableCopy]];
