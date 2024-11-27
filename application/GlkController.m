@@ -4672,13 +4672,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (frame.size.width < kMinimumWindowWidth)
         frame.size.width = kMinimumWindowWidth;
     if (frame.size.height < kMinimumWindowHeight)
-        frame.size.width = kMinimumWindowHeight;
+        frame.size.height = kMinimumWindowHeight;
 
     NSRect windowframe = self.window.frame;
     if (windowframe.size.width < kMinimumWindowWidth)
         windowframe.size.width = kMinimumWindowWidth;
     if (windowframe.size.height < kMinimumWindowHeight)
-        windowframe.size.width = kMinimumWindowHeight;
+        windowframe.size.height = kMinimumWindowHeight;
     if (!NSEqualRects(self.window.frame, windowframe))
         [self.window setFrame:windowframe display:YES];
 
