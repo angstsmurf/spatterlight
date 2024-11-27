@@ -603,8 +603,13 @@
     _textview.textContainerInset =
         NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
-    NSUInteger newcols = (NSUInteger)round((frame.size.width -
-                                            (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
+    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0)
+        return;
+
+    CGFloat margins = (_textview.textContainerInset.width + container.lineFragmentPadding) * 2;
+    if (margins > frame.size.width)
+        margins = 0;
+    NSUInteger newcols = (NSUInteger)round((frame.size.width - margins) /
                                            self.theme.cellWidth);
 
     CGFloat containerInsetHeight = _textview.textContainerInset.height * 2;
