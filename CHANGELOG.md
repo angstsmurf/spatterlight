@@ -3,10 +3,11 @@
 ## Unreleased
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
 - Fixes reading files managed by the File Provider API, such as those on Google Drive. Mostly by opening a lot of dialogs asking the user for permission to read files.
-- More file access happens on background threads, so if a file is offline (or on a very slow external disk or local network) the app won't be unresponsive while it downloads. If the access takes more than a couple of seconds, perhaps because there is no internet connection, a dialog will appear asking if the user wants to cancel the operation.
+- More file access happens on background threads, so if a file is offline (or on a very slow external media or local network) the app won't be unresponsive while it downloads. If the access takes more than a couple of seconds, perhaps because there is no internet connection, a dialog will appear asking if the user wants to cancel the operation.
 - A blank window would appear if a file had become inaccessible or deleted between starting a game and resetting, or between closing the app and autorestoring at startup. If a game file can't be found on reset, a dialog will now inform about this before closing the window.
 - The single-blorb version of *Journey* now displays graphics again.
 - Quote boxes in Z-code games were not properly autorestored. They would also sometimes fade away too soon during play. 
+- The game window was allowed to have zero height.
 
 ## Release 1.2.7
 - Fixes VoiceOver on macOS 15 Sequoia by adding and increasing some delays.
