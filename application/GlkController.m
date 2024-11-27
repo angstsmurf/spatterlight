@@ -285,13 +285,17 @@ fprintf(stderr, "%s\n",                                                    \
     // is disconnected) after a game has started, and the game is then reset,
     // or if Spatterlight tries to autorestore a game at startup.
     if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
-        game.found = NO;
-        if (windowRestoredBySystem) {
-            [self.window performClose:nil];
-        } else {
-            [self showGameFileGoneAlert];
+        _gameFileURL = [game urlForBookmark];
+        _gamefile = _gameFileURL.path;
+        if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
+            game.found = NO;
+            if (windowRestoredBySystem) {
+                [self.window performClose:nil];
+            } else {
+                [self showGameFileGoneAlert];
+            }
+            return;
         }
-        return;
     }
 
     [_imageHandler cacheImagesFromBlorbURL:_gameFileURL withData:_gameData];
