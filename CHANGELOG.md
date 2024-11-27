@@ -8,6 +8,7 @@
 - The single-blorb version of *Journey* now displays graphics again.
 - Quote boxes in Z-code games were not properly autorestored. They would also sometimes fade away too soon during play. 
 - The game window was allowed to have zero height.
+- The "Add games to library" button and menu item stayed greyed out after importing games on Sequoia.
 
 ## Release 1.2.7
 - Fixes VoiceOver on macOS 15 Sequoia by adding and increasing some delays.
