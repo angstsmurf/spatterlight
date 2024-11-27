@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
         /*
          don't run completionHandler if data is null or zero bytes
          */
-        NSData *fileData = [NSData dataWithContentsOfURL:newURL options:NSDataReadingMappedIfSafe error:&error];
+        NSData *fileData = [NSData dataWithContentsOfURL:newURL options:0 error:&error];
         if (error != nil) {
             NSLog(@"Error: %@", error);
         }
@@ -135,21 +135,32 @@ typedef NS_ENUM(NSUInteger, OperationState) {
          custom completionHandler
          */
         if (strongSelf.completionHandler) {
-            if (fileData.length == 0 && error != nil) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [FolderAccess forceAccessDialogToURL:newURL andThenRunBlock:^{
-                        NSError *innerError = nil;
-                        NSData *blockdata = [NSData dataWithContentsOfURL:newURL options:NSDataReadingMappedIfSafe error:&innerError];
-                        if (innerError != nil)
-                            NSLog(@"Error: %@", innerError);
-                        strongSelf.completionHandler(blockdata, newURL);
-                    }];
-                });
-            } else {
+            BOOL fileIsThere = [newURL checkResourceIsReachableAndReturnError:nil];
+            if (fileData.length == 0 && fileIsThere) {
+
+                NSURL *secureURL = [FolderAccess forceRestoreURL:newURL];
+                if (secureURL) {
+                    error = nil;
+                    fileData = [NSData dataWithContentsOfURL:secureURL options:0 error:&error];
+                    newURL = secureURL;
+                }
+
+                if (fileData.length == 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [FolderAccess forceAccessDialogToURL:newURL andThenRunBlock:^{
+                            NSError *innerError = nil;
+                            NSData *blockdata = [NSData dataWithContentsOfURL:newURL options:0 error:&innerError];
+                            if (innerError != nil)
+                                NSLog(@"Error: %@", innerError);
+                            strongSelf.completionHandler(blockdata, newURL);
+                        }];
+                    });
+                }
+            }
+            if (fileData.length != 0 || fileIsThere == NO) {
                 strongSelf.completionHandler(fileData, newURL);
             }
         }
-
         /*
          set the operation state to finished once
          the file read operation is completed or have error

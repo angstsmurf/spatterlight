@@ -75,7 +75,6 @@
             [FolderAccess storeBookmark:bookmarkURL];
             [FolderAccess saveBookmarks];
         } else {
-
             [FolderAccess grantAccessToFolder:bookmarkURL];
             if ([FolderAccess needsPermissionForURL:bookmarkURL]) {
 
@@ -259,6 +258,30 @@
             globalBookmarks[storedURL] = storedAccess;
     }
     return storedURL;
+}
+
++ (NSURL *)forceRestoreURL:(NSURL *)url {
+    FolderAccess *storedAccess = globalBookmarks[url];
+    if (!storedAccess) {
+        NSLog(@"No stored data for URL %@", url.path);
+        return nil;
+    }
+    [storedAccess forceResetCount];
+    NSURL *storedURL = [storedAccess askToAccess];
+    if (![storedURL isEqual:url]) {
+        if (!storedURL)
+            NSLog(@"storedURL is nil! Could not access %@!", url.path);
+
+        NSLog(@"Bookmark is stale! File has moved from %@ to %@!", url.path, storedURL.path);
+        globalBookmarks[url] = nil;
+        if (storedURL)
+            globalBookmarks[storedURL] = storedAccess;
+    }
+    return storedURL;
+}
+
+- (void)forceResetCount {
+    accessCount = 0;
 }
 
 - (void)resetCountIfNotReadable:(NSURL *)url {

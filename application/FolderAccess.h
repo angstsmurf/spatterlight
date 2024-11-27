@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)releaseBookmark:(NSURL *)url;
 + (BOOL)needsPermissionForURL:(NSURL *)url;
 + (void)forceAccessDialogToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
++ (NSURL *)forceRestoreURL:(NSURL *)url;
 
 + (void)askForAccessToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
 
