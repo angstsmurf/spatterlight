@@ -545,8 +545,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     uint16_t dictionary = word(memory, 0x08);
     uint32_t static_start = word(memory, 0x0e);
 
-    if (dictionary != 0 && dictionary < static_start)
-    {   // corrupted story: dictionary is not in static memory
+    // corrupted story: dictionary is not in static memory
+    if (dictionary != 0 && dictionary < static_start) {
         return NO;
     }
 
@@ -554,10 +554,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     int zversion = memory[0x00];
     unsigned long propsize = (zversion <= 3 ? 62UL : 126UL);
 
+    // corrupted story: object table is not in dynamic memory
     if(objects < 64 ||
-       objects + propsize > static_start)
-    {
-        // corrupted story: object table is not in dynamic memory
+       objects + propsize > static_start) {
         return NO;
     }
 
