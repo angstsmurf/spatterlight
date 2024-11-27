@@ -222,12 +222,12 @@
         _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
         for (SoundFile *file in _files.allValues)
             file.handler = self;
-        _resources = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"resources"];
+        _resources = _resources = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [SoundResource class], nil] forKey:@"resources"];
         if (_resources)
             for (SoundResource *res in _resources.allValues) {
                 res.soundFile = _files[res.filename];
             }
-        _glkchannels = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gchannels"];
+        _glkchannels = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [GlkSoundChannel class], nil] forKey:@"gchannels"];
         _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
     }
     return self;
