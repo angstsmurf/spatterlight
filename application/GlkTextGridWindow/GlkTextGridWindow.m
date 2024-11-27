@@ -1581,17 +1581,18 @@
     [glkctl.quoteBoxes addObject:box];
     lowerView.quoteBox = box;
     box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedOnPAC = glkctl.numberOfPrintsAndClears;
+    box.quoteboxAddedOnPAC = 0;
+    glkctl.numberOfPrintsAndClears = 0;
     box.quoteboxParent = superView.enclosingScrollView;
     [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
 }
 
 - (void)quoteboxAdjustSize:(id)sender {
-    NSScrollView *quoteboxParent = _quoteboxParent;
+
     GlkController *glkctl = self.glkctl;
+    NSScrollView *quoteboxParent = _quoteboxParent;
 
     if (quoteboxParent == nil) {
-        NSLog(@"_quoteboxParent nil!");
         return;
     }
     NSTextView *textView = quoteboxParent.documentView;
@@ -1630,10 +1631,6 @@
         self.animator.alphaValue = 1;
     } completionHandler:^{
         self.alphaValue = 1;
-        self.quoteboxAddedOnPAC = self.glkctl.numberOfPrintsAndClears - 1;
-        if ([self.glkctl.windowShownTimestamp timeIntervalSinceNow] < -0.1) {
-            self.quoteboxHasBeenShown = YES;
-        }
     }];
 }
 
