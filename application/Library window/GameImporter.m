@@ -281,8 +281,7 @@ extern NSArray *gGameFileTypes;
 
     void *ctx = get_babel_ctx();
     format = babel_init_ctx((char*)path.fileSystemRepresentation, ctx);
-    if (!format || !babel_get_authoritative_ctx(ctx))
-    {
+    if (!format || !babel_get_authoritative_ctx(ctx)) {
         babel_release_ctx(ctx);
         free(ctx);
         if (report) {
@@ -300,8 +299,7 @@ extern NSArray *gGameFileTypes;
     if (s) format = s+1;
 
     rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
-    if (rv <= 0)
-    {
+    if (rv <= 0) {
         babel_release_ctx(ctx);
         free(ctx);
         if (report) {
@@ -393,8 +391,7 @@ extern NSArray *gGameFileTypes;
                 else if ([game.detectedFormat isEqualToString:@"zcode"]) {
                     [self addZCodeIDfromFile:path blorb:blorb toGame:game];
                 }
-                if (![path isEqualToString:game.path])
-                {
+                if (![path isEqualToString:game.path]) {
                     NSLog(@"File location did not match for %@ (previous path:%@). Updating library with new file location (%@).", path.lastPathComponent, game.path, path);
                     [game bookmarkForPath:path];
                 }
@@ -412,8 +409,7 @@ extern NSArray *gGameFileTypes;
             }
         }
 
-        if (!metadata)
-        {
+        if (!metadata) {
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];
@@ -423,23 +419,18 @@ extern NSArray *gGameFileTypes;
 
         if (!metadata.format)
             metadata.format = @(format);
-        if (!metadata.title || metadata.title.length == 0)
-        {
+        if (!metadata.title || metadata.title.length == 0) {
             metadata.title = path.lastPathComponent;
         }
 
-        if (!metadata.cover)
-        {
+        if (!metadata.cover) {
             NSURL *imgURL = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:libController.imageDir];
             NSData *img = [[NSData alloc] initWithContentsOfURL:imgURL];
-            if (img)
-            {
+            if (img) {
                 NSLog(@"Found cover image in image directory for game %@", metadata.title);
                 metadata.coverArtURL = imgURL.path;
                 [IFDBDownloader insertImageData:img inMetadata:metadata];
-            }
-            else
-            {
+            } else {
                 if (blorb) {
                     NSData *imageData = blorb.coverImageData;
                     if (imageData) {
@@ -560,8 +551,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         return NO;
     }
 
+    // corrupted story: dynamic memory too small
     if (static_start < 64UL + 480UL + propsize) {
-        // corrupted story: dynamic memory too small
         return NO;
     }
     return YES;
@@ -738,15 +729,13 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     NSFileManager *filemanager = [NSFileManager defaultManager];
 
-
-    NSURL *desktopURL = [NSURL fileURLWithPath:origpath
+    NSURL *gameFileURL = [NSURL fileURLWithPath:origpath
                                    isDirectory:NO];
-
 
     NSURL *temporaryDirectoryURL = [filemanager
                                     URLForDirectory:NSItemReplacementDirectory
                                     inDomain:NSUserDomainMask
-                                    appropriateForURL:desktopURL
+                                    appropriateForURL:gameFileURL
                                     create:YES
                                     error:&error];
 
@@ -769,7 +758,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     task.launchPath = exepath;
     task.arguments = @[ @"-o", tempFilePath, origpath ];
 
-    [FolderAccess askForAccessToURL:desktopURL andThenRunBlock:^{}];
+    [FolderAccess askForAccessToURL:gameFileURL andThenRunBlock:^{}];
 
     [task launch];
     [task waitUntilExit];
