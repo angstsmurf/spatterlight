@@ -274,9 +274,9 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (_theme.nohacks) {
-        [self resetGameDetection];
+        [self resetGameIdentification];
     } else {
-        [self detectGame:game.ifid];
+        [self identifyGame:game.ifid];
     }
 
     _gamefile = _gameFileURL.path;
@@ -784,7 +784,7 @@ fprintf(stderr, "%s\n",                                                    \
     restoredController = nil;
 }
 
-- (void)detectGame:(NSString *)ifid {
+- (void)identifyGame:(NSString *)ifid {
     NSString *l9Substring = nil;
     if (ifid.length >= 10)
         l9Substring = [ifid substringToIndex:10];
@@ -896,7 +896,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)resetGameDetection {
+- (void)resetGameIdentification {
     _gameID = kGameIsGeneric;
 }
 
@@ -2279,9 +2279,9 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if (theme.nohacks) {
-        [self resetGameDetection];
+        [self resetGameIdentification];
     } else {
-        [self detectGame:_game.ifid];
+        [self identifyGame:_game.ifid];
     }
 
     if (theme.vOSpeakMenu == kVOMenuNone) { // "Check for menu" was switched off
