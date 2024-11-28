@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)releaseBookmark:(NSURL *)url;
 + (BOOL)needsPermissionForURL:(NSURL *)url;
 + (void)forceAccessDialogToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
-+ (NSURL *)forceRestoreURL:(NSURL *)url;
++ (nullable NSURL *)forceRestoreURL:(NSURL *)url;
 
 + (void)askForAccessToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block;
 
-+ (NSURL *)grantAccessToFile:(NSURL *)url;
++ (nullable NSURL *)grantAccessToFile:(NSURL *)url;
 + (nullable NSURL *)grantAccessToFolder:(NSURL *)url;
 
 + (NSURL *)suitableDirectoryForURL:(NSURL *)url;
