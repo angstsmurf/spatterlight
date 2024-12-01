@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.3
 - Fixes the decoding of certain characters in game descriptions downloaded from IFDB.
 - Fixes reading files managed by the File Provider API, such as those on Google Drive. Mostly by opening a lot of dialogs asking the user for permission to read files.
 - More file access happens on background threads, so if a file is offline (or on a very slow external media or local network) the app won't be unresponsive while it downloads. If the access takes more than a couple of seconds, perhaps because there is no internet connection, a dialog will appear asking if the user wants to cancel the operation.
