@@ -19,8 +19,10 @@
 
 - (NSString *)signatureFromFile {
     NSMutableString *hexString = [NSMutableString string];
+    NSError * error = nil;
     NSData *theData =
-    [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:self isDirectory:NO]];
+    [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:self isDirectory:NO]
+                          options:NSDataReadingMappedAlways error:&error];
     Byte *bytes64 = (Byte *)malloc(64);
 
     if (theData.length > 64) {
