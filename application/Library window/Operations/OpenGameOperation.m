@@ -120,13 +120,10 @@ typedef NS_ENUM(NSUInteger, OperationState) {
             return;
         }
 
-        NSError *error = nil;
-        /*
-         don't run completionHandler if data is null or zero bytes
-         */
-        NSData *fileData = [NSData dataWithContentsOfURL:newURL options:0 error:&error];
-        if (error != nil) {
-            NSLog(@"Error: %@", error);
+        NSError *fileAccessError = nil;
+        NSData *fileData = [NSData dataWithContentsOfURL:newURL options:0 error:&fileAccessError];
+        if (fileAccessError != nil) {
+            NSLog(@"Error: %@", fileAccessError);
         }
 
         /*
@@ -135,29 +132,43 @@ typedef NS_ENUM(NSUInteger, OperationState) {
          custom completionHandler
          */
         if (strongSelf.completionHandler) {
-            BOOL fileIsThere = [newURL checkResourceIsReachableAndReturnError:nil];
-            if (fileData.length == 0 && fileIsThere) {
+            BOOL fileNotFound = YES;
+            /*
+             If there was no file access error given, there is no point in asking for permission.
+             Presumably the file really is zero bytes.
+             */
+            if (fileAccessError != nil) {
+                /*
+                 Also no point in asking for permission if the file isn't there anymore.
+                 Cocoa error domain code 260 means "The file couldn’t be opened because there is no such file."
+                 */
+                fileNotFound = fileAccessError.domain == NSCocoaErrorDomain && fileAccessError.code == 260;
+                if (!fileNotFound) {
+                    NSURL *secureURL = [FolderAccess forceRestoreURL:newURL];
+                    if (secureURL) {
+                        fileAccessError = nil;
+                        fileData = [NSData dataWithContentsOfURL:secureURL options:NSDataReadingMappedIfSafe
+                                                           error:&fileAccessError];
+                        newURL = secureURL;
+                    }
 
-                NSURL *secureURL = [FolderAccess forceRestoreURL:newURL];
-                if (secureURL) {
-                    error = nil;
-                    fileData = [NSData dataWithContentsOfURL:secureURL options:0 error:&error];
-                    newURL = secureURL;
-                }
-
-                if (fileData.length == 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [FolderAccess forceAccessDialogToURL:newURL andThenRunBlock:^{
-                            NSError *innerError = nil;
-                            NSData *blockdata = [NSData dataWithContentsOfURL:newURL options:0 error:&innerError];
-                            if (innerError != nil)
-                                NSLog(@"Error: %@", innerError);
-                            strongSelf.completionHandler(blockdata, newURL);
-                        }];
-                    });
+                    if (fileAccessError != nil) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [FolderAccess forceAccessDialogToURL:newURL andThenRunBlock:^{
+                                NSError *innerError = nil;
+                                NSData *blockdata = [NSData dataWithContentsOfURL:newURL options:NSDataReadingMappedIfSafe error:&innerError];
+                                if (innerError != nil)
+                                    NSLog(@"Error: %@", innerError);
+                                strongSelf.completionHandler(blockdata, newURL);
+                            }];
+                        });
+                    }
                 }
             }
-            if (fileData.length != 0 || fileIsThere == NO) {
+            /*
+             Run the completionHandler here if we didn't run the file permission dialog above.
+             */
+            if (fileNotFound || fileAccessError == nil) {
                 strongSelf.completionHandler(fileData, newURL);
             }
         }
