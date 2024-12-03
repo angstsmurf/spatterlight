@@ -67,7 +67,7 @@
             (bytes64[22] & 0xff) << 8 | (bytes64[23] & 0xff);
 
             if (chunkLength != 4 + numRes * 12)
-                NSLog(@"signatureFromFile: Chunk length wrong! Should be 4 + "
+                NSLog(@"signature: Chunk length wrong! Should be 4 + "
                       @"number of resources * 12 (%d)!",
                       4 + numRes * 12);
 
@@ -93,10 +93,10 @@
                     [self getBytes:bytes64
                                 range:NSMakeRange((NSUInteger)execStart + 8, 64)];
                 } else
-                    NSLog(@"signatureFromFile: Executable chunk too small to "
+                    NSLog(@"signature: Executable chunk too small to "
                           @"make signature!");
             } else
-                NSLog(@"signatureFromFile: Found no executable index chunk!");
+                NSLog(@"signature: Found no executable index chunk in data!");
 
         } // Not a blorb
 
@@ -107,7 +107,7 @@
         }
 
     } else
-        NSLog(@"dataFromFile: Data too small to make a signature! Size: %ld bytes.", self.length);
+        NSLog(@"signature: Data too small to make a signature! Size: %ld bytes.", self.length);
 
     free(bytes64);
     return [NSString stringWithString:hexString];
