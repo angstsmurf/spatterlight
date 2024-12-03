@@ -134,8 +134,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
         if (strongSelf.completionHandler) {
             BOOL fileNotFound = YES;
             /*
-             If there was no file access error given, there is no point in asking for permission.
-             Presumably the file really is zero bytes.
+             If there was no file access error, there is no point in asking for permission.
              */
             if (fileAccessError != nil) {
                 /*
@@ -166,7 +165,7 @@ typedef NS_ENUM(NSUInteger, OperationState) {
                 }
             }
             /*
-             Run the completionHandler here if we didn't run the file permission dialog above.
+             Run the completionHandler here if we didn't ask for file permission above.
              */
             if (fileNotFound || fileAccessError == nil) {
                 strongSelf.completionHandler(fileData, newURL);
