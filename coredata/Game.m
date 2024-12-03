@@ -61,6 +61,9 @@
     if (theError != nil) {
 
         NSLog(@"Game urlForBookmark: Error! %@", theError);
+        if (self.path.length) {
+            NSLog(@"Path: %@", self.path);
+        }
         self.found = NO;
         return nil;
     }
