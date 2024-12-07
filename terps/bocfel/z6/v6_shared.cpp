@@ -577,23 +577,25 @@ static void redraw_hints_windows(void) {
     upperwin_background = monochrome_white;
     upperwin_foreground = monochrome_black;
 
-    if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga) {
-        upperwin_background = 0x826766;
-    } else if (graphics_type == kGraphicsTypeEGA) {
-        upperwin_background = 0xd47fd4;
-    } else if ((graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) && is_game(Game::Arthur)) {
-        upperwin_background = monochrome_black;
-        upperwin_foreground = monochrome_white;
-    } else if (graphics_type == kGraphicsTypeMacBW) {
-        upperwin_background = monochrome_black;
-        upperwin_foreground = monochrome_white;
-    }
-    if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeApple2) {
-        upperwin_foreground = 0xffffff;
-        if (upperwin_background == 0xffffff)
-            upperwin_foreground = user_selected_background;
-        if (upperwin_foreground == 0xffffff)
-            upperwin_foreground = 0;
+    if (!is_spatterlight_arthur) {
+        if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga) {
+            upperwin_background = 0x826766;
+        } else if (graphics_type == kGraphicsTypeEGA) {
+            upperwin_background = 0xd47fd4;
+        } else if ((graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) && is_game(Game::Arthur)) {
+            upperwin_background = monochrome_black;
+            upperwin_foreground = monochrome_white;
+        } else if (graphics_type == kGraphicsTypeMacBW) {
+            upperwin_background = monochrome_black;
+            upperwin_foreground = monochrome_white;
+        }
+        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeApple2) {
+            upperwin_foreground = 0xffffff;
+            if (upperwin_background == 0xffffff)
+                upperwin_foreground = user_selected_background;
+            if (upperwin_foreground == 0xffffff)
+                upperwin_foreground = 0;
+        }
     }
 
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
@@ -640,6 +642,10 @@ static void redraw_hints_windows(void) {
     V6_STATUS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
     win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
+
+    if (is_spatterlight_arthur) {
+        height = V6_STATUS_WINDOW.y_size + gcellh;
+    }
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
         height = V6_STATUS_WINDOW.y_size + 1;
@@ -1168,6 +1174,9 @@ void DO_HINTS(void) {
         hints = 0xbe99;
     } else if (is_game(Game::Arthur)) {
         hints = 0x9778;
+        clear_image_buffer();
+        if (current_graphics_buf_win)
+            glk_window_clear(current_graphics_buf_win);
     }
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
