@@ -3342,6 +3342,12 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             } else if (ev.win == graphics_window.id()) {
                 zterp_mouse_click(ev.val1 / graphics_window.ratio(), ev.val2 / graphics_window.ratio());
 #endif
+#ifdef SPATTERLIGHT
+            } else if (screenmode == MODE_HINTS && ev.win == windows[0].id) {
+                // We add the upper window height if
+                // click was in the lower window.
+                zterp_mouse_click(ev.val1 + 1, ev.val2 + 4);
+#endif
             }
 
 #ifdef SPATTERLIGHT
