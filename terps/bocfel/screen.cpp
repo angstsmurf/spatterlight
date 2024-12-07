@@ -3343,16 +3343,35 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 zterp_mouse_click(ev.val1 / graphics_window.ratio(), ev.val2 / graphics_window.ratio());
 #endif
             }
+
+#ifdef SPATTERLIGHT
+            uint8_t clicktype;
+
+            if (curwin->last_click_x == ev.val1 && curwin->last_click_y == ev.val2)
+                clicktype = ZSCII_CLICK_DOUBLE;
+            else
+                clicktype = ZSCII_CLICK_SINGLE;
+            curwin->last_click_x = ev.val1;
+            curwin->last_click_y = ev.val2;
+#endif
             status = InputStatus::Received;
 
             switch (input.type) {
             case Input::Type::Char:
+#ifdef SPATTERLIGHT
+                input.key = clicktype;
+#else
                 input.key = ZSCII_CLICK_SINGLE;
+#endif
                 break;
             case Input::Type::Line:
                 glk_cancel_line_event(curwin->id, &ev);
                 input.len = ev.val1;
+#ifdef SPATTERLIGHT
+                input.term = clicktype;
+#else
                 input.term = ZSCII_CLICK_SINGLE;
+#endif
                 break;
             }
 
