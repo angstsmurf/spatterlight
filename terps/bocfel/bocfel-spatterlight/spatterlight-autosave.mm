@@ -285,6 +285,13 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.current_input_mode forKey:@"bocfel_current_input_mode"];
     [encoder encodeInt32:(int32_t)library_state.current_input_length forKey:@"bocfel_current_input_length"];
 
+    [encoder encodeInt32:(int32_t)library_state.current_graphics_win_tag forKey:@"bocfel_current_graphics_win_tag"];
+    [encoder encodeInt32:(int32_t)library_state.graphics_fg_tag forKey:@"bocfel_graphics_fg_tag"];
+    [encoder encodeInt32:(int32_t)library_state.stored_upper_tag forKey:@"bocfel_stored_upper_tag"];
+    [encoder encodeInt32:(int32_t)library_state.stored_lower_tag forKey:@"bocfel_stored_lower_tag"];
+    [encoder encodeInt32:(int32_t)library_state.hints_depth forKey:@"bocfel_hints_depth"];
+    [encoder encodeInt32:(int32_t)library_state.slideshow_pic forKey:@"bocfel_slideshow_pic"];
+
     if (library_state.number_of_journey_words > 0) {
         NSMutableArray<NSArray *> *tempMutArray = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_journey_words];
 
@@ -326,6 +333,13 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.selected_journey_column = [decoder decodeInt32ForKey:@"bocfel_selected_journey_column"];
     library_state.current_input_mode = (inputMode)[decoder decodeInt32ForKey:@"bocfel_current_input_mode"];
     library_state.current_input_length = [decoder decodeInt32ForKey:@"bocfel_current_input_length"];
+
+    library_state.current_graphics_win_tag = [decoder decodeInt32ForKey:@"bocfel_current_graphics_win_tag"];;
+    library_state.graphics_fg_tag = [decoder decodeInt32ForKey:@"bocfel_graphics_fg_tag"];
+    library_state.stored_upper_tag = [decoder decodeInt32ForKey:@"bocfel_stored_upper_tag"];
+    library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
+    library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
+    library_state.slideshow_pic = [decoder decodeInt32ForKey:@"bocfel_slideshow_pic"];
 
     NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
     library_state.number_of_journey_words = tempArray.count;
