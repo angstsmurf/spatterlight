@@ -93,10 +93,13 @@ void extract_palette(ImageStruct *image) {
 
 static char *create_temp_tiff_file_name(void) {
     fileref_t *fileref = glk_fileref_create_temp(fileusage_Data, NULL);
+    if (fileref == nullptr)
+        return nullptr;
     const char *filename = glkunix_fileref_get_filename(fileref);
     size_t filenamelength = strlen(filename);
     char *tiffname = (char *)malloc(filenamelength + 6);
     memcpy(tiffname, filename, filenamelength + 1);
+    glk_fileref_delete_file(fileref);
     glk_fileref_destroy(fileref);
     strncat(tiffname, ".tiff", 5);
     return tiffname;
@@ -105,19 +108,25 @@ static char *create_temp_tiff_file_name(void) {
 extern glui32 user_selected_background;
 
 void flush_bitmap(winid_t winid) {
-    if (winid->type != wintype_Graphics)
+    if (winid == nullptr)
+        return;
+    if (winid->type != wintype_Graphics) {
         fprintf(stderr, "ERROR: window is not graphics\n");
+    }
     if (pixmap == nullptr) {
         fprintf(stderr, "flush_bitmap: No pixmap\n");
         return;
     }
 
+    glk_window_set_background_color(winid, user_selected_background);
+    glk_window_clear(winid);
+
     char *filename = create_temp_tiff_file_name();
+    if (filename == nullptr)
+        return;
     writeToTIFF(filename, pixmap, pixlength, hw_screenwidth);
     win_purgeimage(600, filename, pixlength);
     free(filename);
-    glk_window_set_background_color(winid, user_selected_background);
-    glk_window_clear(winid);
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (4 * hw_screenwidth * hw_screenwidth));
 }
 
@@ -192,70 +201,6 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
             break;
         } else if (*(smallbitmap + i + 3) != 0) {
             memcpy(pixptr, smallbitmap + i, 4);
-        }
-    }
-}
-
-void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height) {
-
-    int xpos, ypos;
-
-    int stride = width * 4;
-
-    if (x < 0)
-        x = 0;
-
-    int screenwidth = (int)hw_screenwidth;
-
-    if (x > screenwidth)
-        x = screenwidth - width;
-
-    int newsize = screenwidth * (y + height) * 4;
-
-    // Extend large bitmap downward if necessary
-    if (pixlength < newsize) {
-        uint8_t *temp = (uint8_t *)calloc(1, newsize);
-        memcpy(temp, pixmap, pixlength);
-        pixlength = newsize;
-        free(pixmap);
-        pixmap = temp;
-    }
-
-    uint8_t *pixptr;
-
-    int rectsize = width * height * 4;
-
-    uint8_t r, g, b;
-    r = (color >> 16) & 0xff;
-    g = (color >> 8) & 0xff;
-    b = color & 0xff;
-
-    for (int i = 0; i < rectsize; i += 4) {
-
-        ypos = y + i / stride;
-
-        if (ypos < 0) {
-            continue;
-        }
-
-        xpos = x + (i % stride) / 4;
-
-        // Clip at left and right edges
-        if (xpos < x || xpos >= width + x)
-            continue;
-        if (ypos >= height + y || ypos < y)
-            break;
-
-        pixptr = pixmap + ((ypos * screenwidth + xpos) * 4);
-
-        // halt if we are at end
-        if (pixptr - pixmap + 3 > pixlength || i + 3 > rectsize) {
-            break;
-        } else {
-            *(pixptr) = r;
-            *(pixptr + 1) = g;
-            *(pixptr + 2) = b;
-            *(pixptr + 3) = 0xff;
         }
     }
 }
@@ -440,6 +385,10 @@ static uint8_t *decompress_image(ImageStruct *image) {
 }
 
 void ensure_pixmap(winid_t winid) {
+    if (winid == nullptr) {
+        fprintf(stderr, "ensure_pixmap called with a null winid!\n");
+        return;
+    }
     if (pixmap == nullptr) {
         win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
         glk_window_set_background_color(winid, user_selected_background);
@@ -449,6 +398,10 @@ void ensure_pixmap(winid_t winid) {
 }
 
 void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+    if (*pixmap == nullptr) {
+        fprintf(stderr, "draw_to_pixmap called with a nullptr pixmap!\n");
+        return;
+    }
     uint8_t *result = decompress_image(image);
     if (result != nullptr) {
         extract_palette(image);
@@ -479,6 +432,9 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     int32_t pixmapsize = image->width * image->height * 4;
 
     char *filename = create_temp_tiff_file_name();
+
+    if (filename == nullptr)
+        return nullptr;
 
     if (flipped) {
         result = flip_bitmap(image, result);
@@ -517,6 +473,33 @@ void draw_to_pixmap_unscaled_flipped(int image, int x, int y) {
         draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
 }
 
+uint8_t *copy_lines_from_bitmap(int y, int height, size_t *size) {
+
+    *size = 0;
+    int stride = hw_screenwidth * 4;
+    int startpos = y * stride;
+    if (startpos > pixlength)
+        return nullptr;
+    *size = height * stride;
+    if (startpos + *size > pixlength)
+        *size = pixlength - startpos;
+    uint8_t *result = (uint8_t *)malloc(*size);
+    memcpy(result, pixmap + startpos, *size);
+
+    return result;
+}
+
+void erase_lines_in_bitmap(int y, int height) {
+    int stride = hw_screenwidth * 4;
+    int startpos = y * stride;
+    if (startpos > pixlength)
+        return;
+    size_t size = height * stride;
+    if (startpos + size > pixlength)
+        size = pixlength - startpos;
+    bzero(pixmap + startpos, size);
+}
+
 extern int arthur_pic_top_margin;
 
 extern bool showing_wide_arthur_room_image;
@@ -526,6 +509,7 @@ extern glui32 current_picture;
 void draw_arthur_side_images(winid_t winid) {
     ensure_pixmap(winid);
 
+    adjust_arthur_top_margin();
     int top_margin = arthur_pic_top_margin;
     int left_margin = 0;
     int left_offset = 0;
@@ -548,20 +532,64 @@ void draw_arthur_side_images(winid_t winid) {
         }
     }
 
-    // 54 is top border image
+    // 54 is top "banner" image (framing the room image)
 
+    int image_height;
+    get_image_size(54, nullptr, &image_height);
+    float hw_screenheight = image_height + top_margin;
+
+    int stride = hw_screenwidth * 4;
+    int actual_pixmap_height = pixlength / stride;
+
+    if (hw_screenheight < actual_pixmap_height)
+        erase_lines_in_bitmap(hw_screenheight, actual_pixmap_height - hw_screenheight);
     draw_to_pixmap_unscaled(54, left_margin, top_margin);
+
+    if (showing_wide_arthur_room_image) {
+        arthur_draw_room_image(current_picture);
+    }
 
     int x_margin = 0, y_margin = 0;
     get_image_size(100, &x_margin, &y_margin);
 
-    // images 170 and 171 are side bar images
+    // images 170 and 171 are side "banner pole" images
 
     draw_to_pixmap_unscaled(170, left_margin + 1 + left_offset, y_margin + top_margin - 2);
     draw_to_pixmap_unscaled(171, hw_screenwidth - x_margin + right_offset, y_margin + top_margin - 2);
 
-    if (showing_wide_arthur_room_image) {
-        arthur_draw_room_image(current_picture);
+    get_image_size(170, nullptr, &image_height);
+
+    if (image_height)
+        hw_screenheight = y_margin + top_margin - 2 + image_height;
+
+    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
+
+    int desired_height = ceil(gscreenh / factor - arthur_pic_top_margin - 1);
+
+    if (desired_height > hw_screenheight) {
+        int place_to_cut = hw_screenheight * 0.9;
+
+        size_t linessize;
+        uint8_t *two_lines_to_repeat = copy_lines_from_bitmap(place_to_cut, 2, &linessize);
+
+        size_t footsize = 0;
+        int height_of_foot = hw_screenheight - place_to_cut;
+        if (graphics_type == kGraphicsTypeAmiga)
+            height_of_foot -= top_margin;
+        uint8_t *foot = copy_lines_from_bitmap(place_to_cut, height_of_foot, &footsize);
+        int repetitions = (desired_height - place_to_cut - height_of_foot) / 2;
+
+        int ypos = place_to_cut + 2;
+        erase_lines_in_bitmap(ypos, hw_screenheight - ypos);
+
+        for (int i = 0; i < repetitions; i++) {
+            draw_bitmap_on_bitmap(two_lines_to_repeat, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+            ypos += 2;
+        }
+        free(two_lines_to_repeat);
+
+        draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        free(foot);
     }
 
     flush_bitmap(winid);
