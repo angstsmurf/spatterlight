@@ -20,6 +20,9 @@ extern "C" {
 
 extern strid_t active_blorb_file_stream;
 
+extern bool is_spatterlight_journey;
+extern bool is_spatterlight_arthur;
+
 std::array<std::string, 7> found_graphics_files;
 
 // Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
@@ -346,7 +349,11 @@ void find_and_load_z6_graphics(void) {
     size_t dotpos = file_name.rfind('.');
 
     if (delimiterpos != std::string::npos) {
-        file_name.replace(delimiterpos, dotpos - delimiterpos, "/journey");
+        if (is_spatterlight_journey) {
+            file_name.replace(delimiterpos, dotpos - delimiterpos, "/journey");
+        } else if (is_spatterlight_arthur) {
+            file_name.replace(delimiterpos, dotpos - delimiterpos, "/arthur");
+        }
         if (file_name != game_file) {
             find_graphics_files(file_name);
         }
