@@ -16,18 +16,14 @@
 #include "zterp.h"
 #include "v6_specific.h"
 
+#include "arthur.hpp"
+
 //#include "shogun.hpp"
 //#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
 #define DEFINITIONS_WINDOW windows[2]
-
-enum EntryNameType {
-    HINT_TOPIC,
-    HINT_QUESTION,
-    HINT_HINT
-};
 
 int margin_images[100];
 int number_of_margin_images = 0;
@@ -89,14 +85,7 @@ void print_right_justified_number(int number) {
 #pragma mark DEFINITIONS SCREEN
 
 #define DEFINITIONS_WIDTH 30 // FLEN in original source
-#define ARTHUR_K_HINT_ITEMS 0x432e
 #define ARTHUR_LAST_OBJECT 0x137
-
-//static int line_clicked(void) {
-//    uint16_t mouse_click_addr = header.extension_table + 2;
-//    int y = word(mouse_click_addr + 2);
-//    return y;
-//}
 
 static void print_reverse_video_space(void) {
     garglk_set_reversevideo(1);
@@ -492,9 +481,18 @@ void V_DEFINE(void) {
 
 #pragma mark HINTS SCREEN
 
-//void DISPLAY_BORDER(BorderType border);
+winid_t stored_gridwin = nullptr;
+winid_t stored_bufferwin = nullptr;
+
+uint8_t hint_chapter_global_idx = 0;
+uint8_t hint_quest_global_idx = 0;
+
+uint16_t hints_table_addr = 0;
+
 
 static int16_t select_hint_by_mouse(int16_t *chr) {
+    glk_request_mouse_event(V6_STATUS_WINDOW.id);
+    glk_request_mouse_event(V6_TEXT_BUFFER_WINDOW.id);
 
     *chr = internal_read_char();
 
@@ -546,27 +544,33 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
 glsi32 upperwin_foreground = zcolor_Default; // black
 glsi32 upperwin_background = zcolor_Default; // white
 
-// Returns the argument unchanged
-// unless the game is Arthur
+
+//  Returns the argument unchanged
+//  unless the game is Arthur
+//  (which has contextual hints)
+
 static uint16_t index_to_line(uint16_t index) {
     if (is_game(Game::Arthur)) {
-        uint16_t max = user_word(ARTHUR_K_HINT_ITEMS);
+        uint16_t max = user_word(at.K_HINT_ITEMS);
         for (int i = 1; i <= max; i++) {
-            if (user_word(ARTHUR_K_HINT_ITEMS + i * 2) == index)
+            if (user_word(at.K_HINT_ITEMS + i * 2) == index)
                 return i;
         }
-        return user_word(ARTHUR_K_HINT_ITEMS + 2);
+        return user_word(at.K_HINT_ITEMS + 2);
     }
     return index;
 }
 
-// Feturns the argument unchanged
-// unless the game is Arthur
+
+//  Feturns the argument unchanged
+//  unless the game is Arthur
+//  (which has contextual hints)
+
 static uint16_t line_to_index(uint16_t line) {
     if (is_game(Game::Arthur)) {
-        uint16_t max = user_word(ARTHUR_K_HINT_ITEMS);
+        uint16_t max = user_word(at.K_HINT_ITEMS);
         if (line > 1 && line <= max)
-            return (user_word(ARTHUR_K_HINT_ITEMS + line * 2));
+            return (user_word(at.K_HINT_ITEMS + line * 2));
         return 1;
     }
     return line;
@@ -596,6 +600,9 @@ static void redraw_hints_windows(void) {
             if (upperwin_foreground == 0xffffff)
                 upperwin_foreground = 0;
         }
+    } else {
+        upperwin_background = user_selected_background;
+        upperwin_foreground = user_selected_foreground;
     }
 
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
@@ -637,9 +644,11 @@ static void redraw_hints_windows(void) {
 //        }
     }
 
-    v6_delete_win(&V6_STATUS_WINDOW);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
-    V6_STATUS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    if (stored_gridwin == nullptr) {
+        v6_remap_win(&V6_STATUS_WINDOW, wintype_TextGrid, &stored_gridwin);
+    }
+    V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
     win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 
@@ -655,27 +664,29 @@ static void redraw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-    glk_set_window(V6_STATUS_WINDOW.id);
+    set_current_window(&V6_STATUS_WINDOW);
     garglk_set_zcolors(upperwin_foreground, upperwin_background);
     glk_window_clear(V6_STATUS_WINDOW.id);
     win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 }
 
 static void init_hint_screen(void) {
-//    z0_erase_screen();
-//    shogun_erase_screen();
-    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    //    z0_erase_screen();
+    //    shogun_erase_screen();
+
     V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_REVERSE);
-    V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
-    V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gfgcol);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gbgcol);
-    v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
-//    V6_TEXT_BUFFER_WINDOW.attribute &= ~1; // remove any wrapping
+    if (is_spatterlight_arthur) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    } else {
+        V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
+        V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gfgcol);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gbgcol);
+    }
 
-    gli_delete_window(V6_STATUS_WINDOW.id);
-    V6_STATUS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
-
+    if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextGrid)
+        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
     redraw_hints_windows();
 }
 
@@ -709,7 +720,7 @@ static void left_line(const char *str, int line) {
     glk_put_string(const_cast<char *>(str));
 }
 
-EntryNameType hints_depth = HINT_TOPIC;
+HintsDepthType hints_depth = HINT_TOPIC;
 
 static void hint_title(const char *title, int length) {
     winid_t win = V6_STATUS_WINDOW.id;
@@ -738,7 +749,6 @@ static void hint_title(const char *title, int length) {
     right_line("Q to resume story.", 3, 18);
 }
 
-uint16_t hints = 0xe9fe;
 
 uint16_t h_chapt_num = 1;
 uint16_t h_quest_num = 1;
@@ -755,7 +765,7 @@ static bool rt_see_qst(int16_t obj) {
 }
 
 static uint16_t hint_question_name(uint16_t question) {
-    uint16_t result = user_word(hints + h_chapt_num * 2);
+    uint16_t result = user_word(hints_table_addr + h_chapt_num * 2);
     uint16_t base_address = user_word(result + (question + 1) * 2);
 
     if (is_game(Game::Arthur)) {
@@ -777,7 +787,7 @@ static bool arthur_is_topic_in_context(uint16_t topic) {
 }
 
 static uint16_t hint_topic_name(uint16_t chapter) {
-    uint16_t topic = user_word(hints + chapter * 2);
+    uint16_t topic = user_word(hints_table_addr + chapter * 2);
 
     if (is_game(Game::Arthur) && !arthur_is_topic_in_context(topic))
         return 0;
@@ -785,23 +795,29 @@ static uint16_t hint_topic_name(uint16_t chapter) {
     return user_word(topic + 2);
 }
 
-static int hint_put_up_frobs(uint16_t mx, uint16_t st) {
+static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t x = 0;
     uint16_t y = 0;
     glui32 width, height;
 
     // Find a way to change background color without deleting the window
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    if (!is_spatterlight_arthur) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    }
+
+    if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
+        stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
+        win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
+    }
     v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
-    glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     uint16_t str;
     int number_of_entries = 0;
-    for (int i = st; i <= mx; i++) {
+    for (int i = start; i <= max; i++) {
         if (hints_depth == HINT_TOPIC) {
             str = hint_topic_name(i);
         } else {
@@ -811,7 +827,7 @@ static int hint_put_up_frobs(uint16_t mx, uint16_t st) {
             continue;
         number_of_entries++;
         if (is_game(Game::Arthur)) {
-            store_word(ARTHUR_K_HINT_ITEMS + number_of_entries * 2, i);
+            store_word(at.K_HINT_ITEMS + number_of_entries * 2, i);
         }
         glk_window_move_cursor(V6_TEXT_BUFFER_WINDOW.id, x, y);
         print_handler(unpack_string(str), nullptr);
@@ -823,7 +839,7 @@ static int hint_put_up_frobs(uint16_t mx, uint16_t st) {
         }
     }
     if (is_game(Game::Arthur)) {
-        store_word(ARTHUR_K_HINT_ITEMS, number_of_entries); // the first word of a table contains the length
+        store_word(at.K_HINT_ITEMS, number_of_entries); // the first word of a table contains the length
     }
     return number_of_entries;
 }
@@ -856,18 +872,18 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
     return x;
 }
 
-
-void print_number(int number);
-
 int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
-static uint16_t seen_hints_table = 0xe9d2;
+uint16_t seen_hints_table_addr = 0xe9d2;
 
 static int16_t get_seen_hints(void) {
-    //    Byte table to use for showing questions already seen.
-    //    Actually a nibble table. The high four bits of each byte are for
-    //    odd question numbers; the low four bits are for even question numbers.
-    int16_t cv = user_word(seen_hints_table + (h_chapt_num - 1) * 2);
+
+    // seen_hints_table_addr points to a byte table that keeps track of
+    // how many hints have been shown for a particular question.
+    // Actually a nibble table. The high four bits of each byte store
+    // odd question numbers; the low four bits store even question numbers.
+
+    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
     int16_t address = cv + (h_quest_num - 1) / 2;
     int16_t seen = user_byte(address);
     bool odd = ((h_quest_num & 1) == 1);
@@ -877,10 +893,10 @@ static int16_t get_seen_hints(void) {
     return seen & 0xf;
 }
 
-// Store the index of the last seen hint
-// into nibble table
+// Store the index of the last shown
+// hint in the nibble table
 static void store_hints_seen(uint8_t value) {
-    int16_t cv = user_word(seen_hints_table + (h_chapt_num - 1) * 2);
+    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
     int16_t address = cv + (h_quest_num - 1) / 2;
     uint8_t seen = user_byte(address);
     bool odd = ((h_quest_num & 1) == 1);
@@ -897,10 +913,10 @@ static void store_hints_seen(uint8_t value) {
 
 static int16_t display_actual_hints(int16_t *hints_base_address) {
 
-    int16_t h = user_word(user_word(hints + h_chapt_num * 2) + (h_quest_num + 1) * 2);
+    int16_t h = user_word(user_word(hints_table_addr + h_chapt_num * 2) + (h_quest_num + 1) * 2);
     char str[64];
 
-    int offset = is_game(Game::Arthur) ? 4 : 2;
+    int offset = is_spatterlight_arthur ? 4 : 2;
 
     int length = print_long_zstr_to_cstr(user_word(h + offset), str, 64);
     hint_title(str, length);
@@ -909,7 +925,7 @@ static int16_t display_actual_hints(int16_t *hints_base_address) {
     int16_t max = user_word(h) - 1;
 
     if (seen == max) {
-        // Remove "Return for a hint." if there are no more hints.
+        // Remove the text "Return for a hint" if there are no more hints.
         right_line("                  ", 2, 18);
     }
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
@@ -920,28 +936,38 @@ static int16_t display_actual_hints(int16_t *hints_base_address) {
 }
 
 static bool display_hints(void) {
-
     hints_depth = HINT_HINT;
 
     if (is_game(Game::Shogun)) {
-        seen_hints_table = 0xbe6d;
-    } else if (is_game(Game::Arthur)) {
-        seen_hints_table = 0x973a;
+        seen_hints_table_addr = 0xbe6d;
     }
 
     int16_t hints_base_address;
-    int16_t max = display_actual_hints(&hints_base_address);
 
-    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
-    if (user_selected_background != gbgcol) {
+    if (user_selected_background != gbgcol && !is_spatterlight_arthur) {
         V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
         V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
     }
-    v6_remap_win_to_buffer(&V6_TEXT_BUFFER_WINDOW);
+    if (V6_TEXT_BUFFER_WINDOW.id && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
+        v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    }
+    if (V6_TEXT_BUFFER_WINDOW.id != stored_bufferwin) {
+        if (stored_bufferwin != nullptr) {
+            V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
+            v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+        } else {
+            v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextBuffer, &stored_bufferwin);
+        }
+        glk_window_clear(stored_bufferwin);
+        glk_set_window(stored_bufferwin);
+    }
+
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
     garglk_set_zcolors(user_selected_foreground, user_selected_background);
+
+    int16_t max = display_actual_hints(&hints_base_address);
 
     int16_t seen = get_seen_hints();
 
@@ -999,19 +1025,25 @@ static bool display_hints(void) {
         }
     }
 
-    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
+        stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
+        win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
+    }
     v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
+    glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+
+    hints_depth = HINT_QUESTION;
 
     return result;
 }
 
-static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, EntryNameType name_routine, bool *exit_hint_menu);
+static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDepthType name_routine, bool *exit_hint_menu);
 
 static int display_questions(void) {
     char str[30];
-    int length = print_long_zstr_to_cstr(user_word(user_word(hints + h_chapt_num * 2) + 2), str, 30);
+    int length = print_long_zstr_to_cstr(user_word(user_word(hints_table_addr + h_chapt_num * 2) + 2), str, 30);
     hint_title(str, length);
-    uint16_t max = user_word(user_word(hints + h_chapt_num * 2)) - 1;
+    uint16_t max = user_word(user_word(hints_table_addr + h_chapt_num * 2)) - 1;
     int number_of_entries = hint_put_up_frobs(max, 1);
     hint_new_cursor(index_to_line(h_quest_num), true);
     return number_of_entries;
@@ -1023,23 +1055,23 @@ static bool hint_pick_question(void) {
     bool outer_loop = true;
 
     while (outer_loop) {
-
         hints_depth = HINT_QUESTION;
 
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         uint16_t max = display_questions();
-
         outer_loop = hint_inner_menu_loop(&h_quest_num, max, HINT_QUESTION, &result);
     }
     hints_depth = HINT_TOPIC;
     return result;
 }
 
-static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, EntryNameType local_menu_depth, bool *exit_hint_menu) {
+static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDepthType local_menu_depth, bool *exit_hint_menu) {
     bool loop = true;
     bool outer_loop = true;
     bool done = true;
     uint16_t selected_line = index_to_line(*index);
     glui32 column_height;
+
     while (loop) {
         uint16_t new_selection = selected_line;
         *index = line_to_index(selected_line);
@@ -1123,7 +1155,11 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, EntryNam
             hint_new_cursor(new_selection, false);
             hint_new_cursor(selected_line, true);
             if (local_menu_depth == HINT_TOPIC) {
-                h_quest_num = line_to_index(1);
+                h_quest_num = 1;
+                set_global(hint_quest_global_idx, 1);
+                set_global(hint_chapter_global_idx, line_to_index(selected_line));
+            } else {
+                set_global(hint_quest_global_idx, line_to_index(selected_line));
             }
         }
     }
@@ -1136,7 +1172,7 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, EntryNam
 
 static int display_topics(void) {
     hint_title(const_cast<char *>(" InvisiClues (tm) "), 18);
-    int number_of_entries = hint_put_up_frobs(user_word(hints), 1);
+    int number_of_entries = hint_put_up_frobs(user_word(hints_table_addr), 1);
     hint_new_cursor(index_to_line(h_chapt_num), true);
     return number_of_entries;
 }
@@ -1156,61 +1192,102 @@ void redraw_hint_screen_on_resize(void) {
     }
 }
 
-#define H_CHAPT_NUM 0x94
-#define H_QUEST_NUM 0x1b
+V6ScreenMode stored_mode = MODE_NORMAL;
 
 // Shared between Zork Zero, Shogun, and Arthur
 void DO_HINTS(void) {
-    if (is_game(Game::Shogun)) {
-        uint16_t old_chapt = h_chapt_num;
-        h_chapt_num = get_global(H_CHAPT_NUM);
-        // Don't try to preserve question number if
-        // chapter number has changed
-        if (h_chapt_num != old_chapt) {
-            h_quest_num = 1;
+    if (stored_mode == MODE_NORMAL)
+        stored_mode = screenmode;
+
+    if (is_game(Game::Shogun) || is_spatterlight_arthur) {
+        if (is_spatterlight_arthur) {
+            clear_image_buffer();
+            if (current_graphics_buf_win)
+                glk_window_clear(current_graphics_buf_win);
+            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+            if (windows[2].id != nullptr) {
+                v6_delete_win(&windows[2]);
+            }
         } else {
-            h_quest_num = get_global(H_QUEST_NUM);
+            hints_table_addr = 0xbe99;
         }
-        hints = 0xbe99;
-    } else if (is_game(Game::Arthur)) {
-        hints = 0x9778;
-        clear_image_buffer();
-        if (current_graphics_buf_win)
-            glk_window_clear(current_graphics_buf_win);
+
+        h_chapt_num = get_global(hint_chapter_global_idx);
+        h_quest_num = get_global(hint_quest_global_idx);
+        }
+
+    if (!is_spatterlight_arthur) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-
     screenmode = MODE_HINTS;
-    hints_depth = HINT_TOPIC;
     garglk_set_reversevideo(0);
     init_hint_screen();
 
+    int number_of_entries;
     bool outer_loop = true;
 
     while (outer_loop) {
-        int number_of_entries = display_topics();
-        outer_loop = hint_inner_menu_loop(&h_chapt_num, number_of_entries, HINT_TOPIC, nullptr);
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
+        // Unless we are autorestoring (and this is the first iteration of the loop),
+        // hints_depth will be HINT_TOPIC
+        switch (hints_depth) {
+            case HINT_QUESTION:
+                display_questions();
+                outer_loop = hint_pick_question();
+                break;
+            case HINT_HINT:
+                display_actual_hints(nullptr);
+                outer_loop = display_hints();
+                break;
+            case HINT_TOPIC:
+                number_of_entries = display_topics();
+                outer_loop = hint_inner_menu_loop(&h_chapt_num, number_of_entries, HINT_TOPIC, nullptr);
+                break;
+        }
     }
 
-    v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    if (is_spatterlight_arthur) {
+        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_TextColor);
+        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+    } else {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gbgcol);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gfgcol);
+    }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gbgcol);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gfgcol);
+    // If we autorestore into showing hint and press Q to exit,
+    // V6_STATUS_WINDOW.id will still be the actual status grid window
+    // and equal to stored_gridwin
+    if (stored_gridwin && V6_STATUS_WINDOW.id != stored_gridwin) {
+        v6_delete_win(&V6_STATUS_WINDOW);
+        V6_STATUS_WINDOW.id = stored_gridwin;
+    }
+    v6_sizewin(&V6_STATUS_WINDOW);
 
-    v6_delete_win(&V6_STATUS_WINDOW);
-    V6_STATUS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
-    v6_remap_win_to_buffer(&V6_TEXT_BUFFER_WINDOW);
-    screenmode = MODE_NORMAL;
-//    if (is_game(Game::ZorkZero)) {
-//        z0_update_on_resize();
-//    } else if (is_game(Game::Shogun)) {
-//        set_global(H_CHAPT_NUM, h_chapt_num);
-//        set_global(H_QUEST_NUM, h_quest_num);
-//        internal_call(pack_routine(0x183a4)); // V-REFRESH
-//    } else {
-//        return;
-//    }
+    if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
+        v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+    }
+
+    V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
+    stored_bufferwin = nullptr;
+    v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
+    screenmode = stored_mode;
+    stored_mode = MODE_NORMAL;
+
+    stored_gridwin = nullptr;
+    stored_bufferwin = nullptr;
+
+    hints_depth = HINT_TOPIC;
+
+    //    if (is_game(Game::ZorkZero)) {
+    //        z0_update_on_resize();
+    //    } else if (is_game(Game::Shogun)) {
+    //        internal_call(pack_routine(0x183a4)); // V-REFRESH
+    //    }
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
 }
@@ -1249,3 +1326,6 @@ void after_V_COLOR(void) {
     window_change();
 }
 
+#pragma mark Empty functions used by entrypoints code
+
+void DISPLAY_HINT(void) {}

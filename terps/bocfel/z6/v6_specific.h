@@ -65,4 +65,12 @@ enum V6ScreenMode {
 
 extern V6ScreenMode screenmode;
 
+enum HintsDepthType {
+    HINT_TOPIC,
+    HINT_QUESTION,
+    HINT_HINT
+};
+
+extern HintsDepthType hints_depth;
+
 #endif /* z6_specific_h */
