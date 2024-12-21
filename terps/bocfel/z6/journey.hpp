@@ -20,9 +20,6 @@ void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int h
 int journey_draw_picture(int pic, winid_t journey_window);
 
 void journey_update_on_resize(void);
-void journey_update_after_restore(void);
-void journey_update_after_autorestore(void);
-bool journey_autorestore_internal_read_char_hacks(void);
 
 void after_INTRO(void);
 void REFRESH_SCREEN(void);
@@ -138,6 +135,9 @@ extern JourneyAttributes ja;
 
 void stash_journey_state(library_state_data *dat);
 void recover_journey_state(library_state_data *dat);
+
+void journey_update_after_restore(void);
+bool journey_autorestore_internal_read_char_hacks(void);
 
 void journey_pre_save_hacks(void);
 void journey_post_save_hacks(void);
