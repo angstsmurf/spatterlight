@@ -89,7 +89,12 @@
 
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
-    [self.glkctl setBorderColor:[NSColor colorFromInteger:bgnd] fromWindow:self];
+    NSColor *color = [NSColor colorFromInteger:bgnd];
+    [self.glkctl setBorderColor:color fromWindow:self];
+    if (transparent)
+        self.layer.backgroundColor = NSColor.clearColor.CGColor;
+    else
+        self.layer.backgroundColor = color.CGColor;
 }
 
 - (void)recalcBackground {
