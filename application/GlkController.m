@@ -4166,7 +4166,7 @@ again:
         if (win.framePending)
             windowsize = win.pendingFrame.size;
         CGFloat winarea = windowsize.width * windowsize.height;
-        if (winarea > largestSize) {
+        if (winarea >= largestSize) {
             largestSize = winarea;
             largestWin = win;
         }
