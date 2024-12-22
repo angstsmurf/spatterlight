@@ -1917,8 +1917,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (windowdirty && !changedBorderThisTurn) {
         GlkWindow *largest = [self largestWindow];
-        if (largest)
+        if (largest) {
             [largest recalcBackground];
+        }
         windowdirty = NO;
     }
     changedBorderThisTurn = NO;
@@ -4136,7 +4137,6 @@ again:
         return;
     }
 
-//    NSLog(@"Trying to set border color to %06lx", (long)color.integerColor);
     if (color.integerColor == 0xffff)
         NSLog(@"Wrong color?");
 
