@@ -198,12 +198,17 @@ void v6_restore_hacks(void);
 bool v6_switch_to_allowed_interpreter_number(void);
 void v6_delete_win(Window *win);
 void v6_delete_glk_win(winid_t win);
+void v6_remap_win(Window *win, int type, winid_t *stored_win);
 void v6_remap_win_to_grid(Window *win);
 void v6_remap_win_to_buffer(Window *win);
-void update_user_defined_colors(void);
+void update_user_defined_colours(void);
 void flush_image_buffer(void);
 
-void journey_sync_upperwin_size(glui32 width, glui32 height);
+void v6_sync_upperwin_size(glui32 width, glui32 height);
+void v6_get_and_sync_upperwin_size(void);
+
+void update_arthur_colours(void);
+
 
 void window_change(void);
 void set_current_window(Window *window);

@@ -1310,19 +1310,16 @@ void V_COLOR(void) {
 //static void window_change(void);
 
 void after_V_COLOR(void) {
-    fprintf(stderr, "after V-COLOR\n");
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
 
-    fprintf(stderr, "Value of fg global variable: %d Value of bg global variable: %d\n", get_global(fg_global_idx), get_global(bg_global_idx));
+    update_user_defined_colours();
 
-    update_user_defined_colors();
+    V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
+    V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
+    V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
+    V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
 
-    fprintf(stderr, "after_V_COLOR: user_selected_foreground:0x%x user_selected_background: 0x%x\n", user_selected_foreground, user_selected_background);
-
-    //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-    //    v6_delete_win(mainwin);
-    //    mainwin->id = v6_new_glk_window(wintype_TextBuffer);
-    //    v6_sizewin(mainwin);
-    //    win_setbgnd(mainwin->id->peer, user_selected_background);
     window_change();
 }
 

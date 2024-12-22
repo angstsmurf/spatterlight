@@ -8,6 +8,12 @@
 #ifndef arthur_hpp
 #define arthur_hpp
 
+extern "C" {
+#include "glk.h"
+#include "glkimp.h"
+#include "spatterlight-autosave.h"
+}
+
 #include <stdio.h>
 bool is_arthur_map_image(int picnum);
 
@@ -17,18 +23,29 @@ void arthur_adjust_windows(void);
 void arthur_toggle_slideshow_windows(void);
 void arthur_change_current_window(void);
 void arthur_hotkeys(uint8_t key);
+void arthur_move_cursor(int16_t y, int16_t x, winid_t win);
 
 void RT_UPDATE_PICT_WINDOW(void);
 void RT_UPDATE_INVT_WINDOW(void);
 void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
+void RT_UPDATE_DESC_WINDOW(void);
 
 void ARTHUR_UPDATE_STATUS_LINE(void);
-void INIT_STATUS_LINE(void);
-void after_INIT_STATUS_LINE(void);
+void arthur_INIT_STATUS_LINE(void);
+void RT_AUTHOR_OFF(void);
 
 bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y);
 void arthur_draw_room_image(int picnum);
+
+void arthur_update_after_restore(void);
+void arthur_update_after_autorestore(void);
+
+bool arthur_autorestore_internal_read_char_hacks(void);
+void arthur_close_and_reopen_front_graphics_window(void);
+
+void stash_arthur_state(library_state_data *dat);
+void recover_arthur_state(library_state_data *dat);
 
 extern int arthur_text_top_margin;
 
@@ -51,13 +68,13 @@ typedef struct ArthurGlobals {
 extern ArthurGlobals ag;
 
 typedef struct ArthurRoutines {
-    uint32_t UPDATE_STATUS_LINE; //
-    uint32_t RT_UPDATE_PICT_WINDOW; // •
-    uint32_t RT_UPDATE_INVT_WINDOW; // •
-    uint32_t RT_UPDATE_STAT_WINDOW; // 0x1951c•
-    uint32_t RT_UPDATE_MAP_WINDOW; // 0x78a0•
-    uint32_t RT_UPDATE_DESC_WINDOW; // 0x78a0•
-    uint32_t REFRESH_SCREEN; // 0x676c•
+    uint32_t UPDATE_STATUS_LINE;
+    uint32_t RT_UPDATE_PICT_WINDOW;
+    uint32_t RT_UPDATE_INVT_WINDOW;
+    uint32_t RT_UPDATE_STAT_WINDOW;
+    uint32_t RT_UPDATE_MAP_WINDOW;
+    uint32_t RT_UPDATE_DESC_WINDOW;
+    uint32_t REFRESH_SCREEN;
 } ArthurRoutines;
 
 extern ArthurRoutines ar;
