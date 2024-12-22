@@ -1333,22 +1333,8 @@ void glk_window_clear(window_t *win)
         gli_strict_warning("window_clear: window has pending line request");
         return;
     }
-    
-    switch (win->type)
-    {
-        case wintype_TextBuffer:
-            win_clear(win->peer);
-            break;
-        case wintype_TextGrid:
-            win_clear(win->peer);
-            break;
-        case wintype_Graphics:
-            win_fillrect(win->peer, win->background,
-                         0, 0,
-                         win->bbox.x1 - win->bbox.x0,
-                         win->bbox.y1 - win->bbox.y0);
-            break;
-    }
+
+    win_clear(win->peer);
 }
 
 void glk_window_move_cursor(window_t *win, glui32 xpos, glui32 ypos)
