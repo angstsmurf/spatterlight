@@ -97,7 +97,11 @@
 }
 
 - (void)clear {
-    NSLog(@"GlkGraphicsWindow %ld clear", self.name);
+    if (NSEqualSizes(NSZeroSize, _image.size)) {
+        NSLog(@"GlkGraphicsWindow %ld clear: Image is zero size, so bailing", self.name);
+        return;
+    }
+    [_image lockFocus];
     NSColor *color;
     if (transparent)
         color = NSColor.clearColor;
@@ -106,9 +110,13 @@
 
     [color setFill];
     NSRectFill(self.bounds);
+    [_image unlockFocus];
     _showingImage = NO;
     subImages = nil;
-    dirty = YES;
+    dirtyRects = [NSMutableArray new];
+    // Unless we do this, the background in Arthur is never cleared.
+    // Adding self bounds to the dirtyRects array instead does not seem to work.
+    self.needsDisplay = YES;
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
