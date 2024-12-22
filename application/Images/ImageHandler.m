@@ -331,6 +331,14 @@
         return;
 
     [_imageCache removeObjectForKey:@(resno)];
+    ImageResource *resource = _resources[@(resno)];
+    NSError *error = nil;
+    if (![Blorb isBlorbURL:resource.imageFile.URL]) {
+        [[NSFileManager defaultManager] removeItemAtURL:resource.imageFile.URL error:&error];
+        if (error) {
+            NSLog(@"purgeImage: %@", error);
+        }
+    }
     _resources[@(resno)] = nil;
 
     if (!replacementPath) {
