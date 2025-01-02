@@ -415,7 +415,7 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent, int recindex)
             filename = "WAXWORKS";
             break;
         default:
-            fprintf(stderr, "Error!\n");
+            fprintf(stderr, "mysterious_menu2: Unhandled case!\n");
             break;
     }
 

@@ -362,7 +362,7 @@ void Mysterious64Sysmess(void)
     for (int i = 1; i <= 6; i++) {
         dictword = MemAlloc(len + 1);
         strncpy(dictword, sys[i - 1], GameHeader.WordLength);
-        dictword[len] = '\0';
+        dictword[len] = 0;
         Nouns[i] = dictword;
     }
 

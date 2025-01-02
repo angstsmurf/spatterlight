@@ -372,7 +372,7 @@ static uint8_t *LoadTitleScreen(void)
         buf[offset++] = '\n';
     }
 
-    buf[offset] = '\0';
+    buf[offset] = 0;
     uint8_t *result = MemAlloc(offset + 1);
     memcpy(result, buf, offset + 1);
     return result;

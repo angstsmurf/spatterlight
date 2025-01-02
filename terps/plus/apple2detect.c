@@ -396,7 +396,7 @@ void LookForApple2Images(void)
         Images[created].DiskOffset = list[ct].offset;
         created++;
         if (created > count) {
-            fprintf(stderr, "Error!\n");
+            fprintf(stderr, "LookForApple2Images: Error!\n");
             created--;
             break;
         }
