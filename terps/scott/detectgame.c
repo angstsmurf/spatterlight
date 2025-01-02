@@ -41,10 +41,10 @@ struct dictionaryKey {
 };
 
 struct dictionaryKey dictKeys[] = {
-    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO\0", 8 },
-    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO\0", 7 },
-    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN\0", 17 }, // Claymorgue
-    { FOUR_LETTER_COMPRESSED, "aUTOgO\0", 7 },
+    { FOUR_LETTER_UNCOMPRESSED, "AUTO\0GO", 8 },
+    { THREE_LETTER_UNCOMPRESSED, "AUT\0GO", 7 },
+    { FIVE_LETTER_UNCOMPRESSED, "GO\0\0\0\0*CROSS*RUN", 17 }, // Claymorgue
+    { FOUR_LETTER_COMPRESSED, "aUTOgO", 7 },
     { GERMAN_C64, "gEHENSTEIGE", 11 }, // Gremlins German C64
     { GERMAN, "\xc7"
               "EHENSTEIGE",
