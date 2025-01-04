@@ -1189,7 +1189,13 @@ int IsMysterious(void)
 {
     for (int i = 0; games[i].Title != NULL; i++) {
         if (games[i].subtype & MYSTERIOUS) {
-            if (games[i].number_of_items == GameHeader.NumItems && games[i].number_of_actions == GameHeader.NumActions && games[i].number_of_words == GameHeader.NumWords && games[i].number_of_rooms == GameHeader.NumRooms && games[i].max_carried == GameHeader.MaxCarry && games[i].word_length == GameHeader.WordLength && games[i].number_of_messages == GameHeader.NumMessages)
+            if (games[i].number_of_items == GameHeader.NumItems &&
+                games[i].number_of_actions == GameHeader.NumActions &&
+                games[i].number_of_words == GameHeader.NumWords &&
+                games[i].number_of_rooms == GameHeader.NumRooms &&
+                games[i].max_carried == GameHeader.MaxCarry &&
+                games[i].word_length == GameHeader.WordLength &&
+                games[i].number_of_messages == GameHeader.NumMessages)
                 return 1;
         }
     }
