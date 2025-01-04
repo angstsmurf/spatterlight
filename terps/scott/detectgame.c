@@ -469,8 +469,9 @@ GameIDType TryLoadingOld(struct GameInfo info, int dict_start)
             &tr, &wl, &lt, &mn, &trm))
         return UNKNOWN_GAME;
 
-    if (ni != info.number_of_items || na != info.number_of_actions || nw != info.number_of_words || nr != info.number_of_rooms || mc != info.max_carried) {
-        //        debug_print("Non-matching header\n");
+    if (ni != info.number_of_items || na != info.number_of_actions ||
+        nw != info.number_of_words || nr != info.number_of_rooms ||
+        mc != info.max_carried) {
         return UNKNOWN_GAME;
     }
 
