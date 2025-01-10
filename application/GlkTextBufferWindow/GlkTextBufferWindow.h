@@ -53,8 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollWheelchanged:(NSEvent *)event;
 
+// Only used by JourneyMenuHandler
 - (NSString *)lastMoveString;
 
+- (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;
+
+// Only used by JourneyMenuHandler
 @property NSInteger lastNewTextOnTurn;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;

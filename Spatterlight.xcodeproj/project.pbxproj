@@ -585,6 +585,7 @@
 		C354AA74274D096500C8D01D /* grail.blorb in Resources */ = {isa = PBXBuildFile; fileRef = C354AA73274D096500C8D01D /* grail.blorb */; };
 		C354C6DD275791C000EBB449 /* t23run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DC275791C000EBB449 /* t23run.cpp */; };
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
+		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
@@ -2848,6 +2849,8 @@
 		C354AA73274D096500C8D01D /* grail.blorb */ = {isa = PBXFileReference; lastKnownFileType = file; path = grail.blorb; sourceTree = "<group>"; };
 		C354C6DC275791C000EBB449 /* t23run.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t23run.cpp; path = glk/t23run.cpp; sourceTree = "<group>"; };
 		C354C6DE275791ED00EBB449 /* t2indlg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2indlg.c; path = glk/t2indlg.c; sourceTree = "<group>"; };
+		C359499C2D2C39EB008F6551 /* InfocomV6MenuHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfocomV6MenuHandler.h; sourceTree = "<group>"; };
+		C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfocomV6MenuHandler.m; sourceTree = "<group>"; };
 		C35978C325DA14A6004B1448 /* iFictionPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFictionPreviewController.h; sourceTree = "<group>"; };
 		C35978C425DA14A6004B1448 /* iFictionPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iFictionPreviewController.m; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
@@ -5392,6 +5395,8 @@
 				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
 				C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */,
 				C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */,
+				C359499C2D2C39EB008F6551 /* InfocomV6MenuHandler.h */,
+				C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */,
 			);
 			path = "VoiceOver menu detection";
 			sourceTree = "<group>";
@@ -7299,6 +7304,7 @@
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				C3AD648F261769DB008614C5 /* MarginImage.m in Sources */,
+				C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */,
 				C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */,
 				C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */,
 				C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */,

@@ -29,6 +29,7 @@
 #import "TableViewController.h"
 #import "ZMenu.h"
 #import "JourneyMenuHandler.h"
+#import "InfocomV6MenuHandler.h"
 
 #import "Game.h"
 #import "Theme.h"
@@ -248,6 +249,7 @@ fprintf(stderr, "%s\n",                                                    \
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
     _imageHandler = [ImageHandler new];
+    _infocomV6MenuHandler = nil;
 
     // We could use separate versioning for GUI and interpreter autosaves,
     // but it is probably simpler this way
@@ -1932,8 +1934,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
-        if (![win isKindOfClass:[GlkGraphicsWindow class]] &&
-            (!_voiceOverActive || _mustBeQuiet)) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
             [win setLastMove];
         }
     }
@@ -3185,6 +3186,14 @@ fprintf(stderr, "%s\n",                                                    \
     return _journeyMenuHandler;
 }
 
+- (nullable InfocomV6MenuHandler *)infocomV6MenuHandler {
+    if (_infocomV6MenuHandler == nil) {
+
+        _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithDelegate:self];
+    }
+    return _infocomV6MenuHandler;
+}
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
@@ -3854,7 +3863,11 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case MENUITEM: {
-            [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
+            if (self.gameID == kGameIsJourney) {
+                [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(req->a4 == 1) text:(char *)buf length:(NSUInteger)req->len];
+            } else {
+                [self.infocomV6MenuHandler handleMenuItemOfType:(InfocomV6MenuType)req->a1 index:(NSUInteger)req->a2 total:(NSUInteger)req->a3 text:(char *)buf length:(NSUInteger)req->len];
+            }
             break;
         }
 
@@ -4936,6 +4949,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 }
 
+- (BOOL)showingInfocomV6Menu {
+    return (_infocomV6MenuHandler != nil);
+}
+
 #pragma mark Speak new text
 
 - (void)speakNewText {
@@ -5019,7 +5036,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // If sender == self, never announce "No last move to speak!"
 - (IBAction)speakMostRecent:(id)sender {
     if (_zmenu) {
-        NSString *menuString = [_zmenu menuLineStringWithTitle:YES Index:YES total:YES instructions:YES];
+        NSString *menuString = [_zmenu menuLineStringWithTitle:YES index:YES total:YES instructions:YES];
         _zmenu.haveSpokenMenu = YES;
         [self speakString:menuString];
         return;

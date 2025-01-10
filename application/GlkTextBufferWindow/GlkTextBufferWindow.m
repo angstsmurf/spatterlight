@@ -18,6 +18,7 @@
 #import "MarginImage.h"
 #import "BufferTextView.h"
 #import "GridTextView.h"
+#import "InfocomV6MenuHandler.h"
 #include "glkimp.h"
 
 
@@ -2028,6 +2029,12 @@ replacementString:(id)repl {
         _printPositionOnInput = 0;
         return NO;
     }
+
+    if (self.glkctl.showingInfocomV6Menu) {
+        [self.glkctl.infocomV6MenuHandler updateMoveRanges:self];
+        return YES;
+    }
+
     NSRange allText = NSMakeRange(0, maxlength);
     NSRange currentMove = allText;
 
@@ -2089,17 +2096,17 @@ replacementString:(id)repl {
     }
 
     // Strip command line if the speak command setting is off
-    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0)
-    {
+    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0 && !self.glkctl.showingInfocomV6Menu) {
         NSUInteger promptIndex = range.location - 1;
         if ([textstorage.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [textstorage.string characterAtIndex:promptIndex - 1] == '>')) {
             NSRange foundRange = [string rangeOfString:@"\n"];
-            if (foundRange.location != NSNotFound)
-            {
+            if (foundRange.location != NSNotFound) {
                 string = [string substringFromIndex:foundRange.location].mutableCopy;
             }
         }
     }
+
+
     return string;
 }
 
@@ -2155,8 +2162,7 @@ replacementString:(id)repl {
 - (void)speakNext {
     //    NSLog(@"GlkTextBufferWindow %ld speakNext:", self.name);
     [self setLastMove];
-    if (!self.moveRanges.count)
-    {
+    if (!self.moveRanges.count) {
         return;
     }
 
@@ -2182,6 +2188,17 @@ replacementString:(id)repl {
     [glkctl speakStringNow:textstorage.string];
 }
 
+- (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings {
+    self.moveRanges = [[NSMutableArray<NSValue *> alloc] initWithCapacity:menuStrings.count];
+    moveRangeIndex = menuStrings.count - 1;
+    [self flushDisplay];
+    for (NSString *str in menuStrings) {
+        NSRange range = [textstorage.string rangeOfString:str];
+        if (range.location != NSNotFound) {
+            [self.moveRanges addObject:[NSValue valueWithRange:range]];
+        }
+    }
+}
 
 #pragma mark Accessibility
 

@@ -784,12 +784,9 @@ void win_purgeimage(glui32 resno, const char *filename, int reslen)
     }
 }
 
-void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
+void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *str, int len)
 {
     win_flush();
-
-    if (len <= 1 || len > 15)
-        return;
 
     if (str == NULL)
         len = 0;

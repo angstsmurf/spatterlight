@@ -28,6 +28,7 @@ void refresh_margin_images(void);
 
 void DO_HINTS(void);
 void DISPLAY_HINT(void);
+void RT_SEE_QST(void);
 
 extern uint8_t fg_global_idx, bg_global_idx;
 extern uint8_t hint_chapter_global_idx, hint_quest_global_idx;
@@ -37,6 +38,8 @@ extern winid_t stored_gridwin, stored_bufferwin;
 
 extern uint16_t h_chapt_num;
 extern uint16_t h_quest_num;
+
+extern InfocomV6MenuType hints_depth;
 
 void V_COLOR(void);
 void after_V_COLOR(void);

@@ -178,7 +178,17 @@ typedef enum JourneyMenuType {
     kJMenuTypeDeleteAll
 } JourneyMenuType;
 
-void win_menuitem(JourneyMenuType type, glui32 column, glui32 line, glui32 stopflag, char *str, int len);
+typedef enum InfocomV6MenuType {
+    kV6MenuNone,
+    kV6MenuTypeTopic,
+    kV6MenuTypeQuestion,
+    kV6MenuTypeHint,
+    kV6MenuSelectionChanged,
+    kV6MenuTitle,
+    kV6MenuExited,
+} InfocomV6MenuType;
+
+void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *str, int len);
 
 void gli_close_all_file_streams(void);
 

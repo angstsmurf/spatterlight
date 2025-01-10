@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)speakSelectedLine;
 - (void)deferredSpeakSelectedLine:(id)sender;
 
-- (NSString *)menuLineStringWithTitle:(BOOL)title Index:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions;
+- (NSString *)menuLineStringWithTitle:(BOOL)title index:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger findSelectedLine;
 

@@ -495,7 +495,7 @@
         NSString *string = strings[currentItemIndex];
         string = [string stringByTrimmingCharactersInSet:charset];
         // Strip command line if the speak command setting is off
-        if (!_glkctl.theme.vOSpeakCommand) {
+        if (!_glkctl.theme.vOSpeakCommand && !_glkctl.showingInfocomV6Menu) {
             NSUInteger promptIndex = searchResult.targetRange.location;
             if (promptIndex != 0)
                 promptIndex--;

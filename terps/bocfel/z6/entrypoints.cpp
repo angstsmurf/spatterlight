@@ -187,6 +187,16 @@ static std::vector<EntryPoint> entrypoints = {
         DISPLAY_HINT
     },
 
+    {
+        Game::Arthur,
+        "RT-SEE-QST",
+        { 0xa0, 0x01, 0xc1, 0x22, 0x00, 0x01, 0x48 },
+        0,
+        0,
+        false,
+        RT_SEE_QST
+    },
+
 #pragma mark Journey
 
     {
@@ -672,6 +682,8 @@ void find_arthur_globals(void) {
             if (start != -1) {
                 fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
             }
+        } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
+            ar.RT_SEE_QST = entrypoint.found_at_address - 1;
         }
 
     }

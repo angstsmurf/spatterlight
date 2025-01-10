@@ -489,8 +489,23 @@ uint8_t hint_quest_global_idx = 0;
 
 uint16_t hints_table_addr = 0;
 
+glsi32 upperwin_foreground = zcolor_Default; // black
+glsi32 upperwin_background = zcolor_Default; // white
+
+InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
+
+uint16_t h_chapt_num = 1;
+uint16_t h_quest_num = 1;
+
+// HINT-COUNTS in original source
+// 0xe9d2 is value for Zork Zero release 393
+uint16_t seen_hints_table_addr = 0xe9d2;
+
+int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
 static int16_t select_hint_by_mouse(int16_t *chr) {
+    glk_cancel_char_event(V6_STATUS_WINDOW.id);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
     glk_request_mouse_event(V6_STATUS_WINDOW.id);
     glk_request_mouse_event(V6_TEXT_BUFFER_WINDOW.id);
 
@@ -540,10 +555,6 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
 
     return y;
 }
-
-glsi32 upperwin_foreground = zcolor_Default; // black
-glsi32 upperwin_background = zcolor_Default; // white
-
 
 //  Returns the argument unchanged
 //  unless the game is Arthur
@@ -664,7 +675,7 @@ static void redraw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-    set_current_window(&V6_STATUS_WINDOW);
+    glk_set_window(V6_STATUS_WINDOW.id);
     garglk_set_zcolors(upperwin_foreground, upperwin_background);
     glk_window_clear(V6_STATUS_WINDOW.id);
     win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
@@ -720,48 +731,39 @@ static void left_line(const char *str, int line) {
     glk_put_string(const_cast<char *>(str));
 }
 
-HintsDepthType hints_depth = HINT_TOPIC;
-
 static void hint_title(const char *title, int length) {
+    if (hints_depth != kV6MenuTypeHint)
+        win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
     winid_t win = V6_STATUS_WINDOW.id;
     glk_set_window(win);
     garglk_set_zcolors(upperwin_foreground, upperwin_background);
     glk_window_clear(win);
     center_line(title, 1, length, true);
 
-    if (hints_depth != HINT_HINT) {
+    if (hints_depth != kV6MenuTypeHint) {
         left_line("N for next item.", 2);
-        left_line("P for previous item", 3);
+        left_line("P for previous item.", 3);
     }
 
-    if (hints_depth != HINT_TOPIC) {
+    if (hints_depth != kV6MenuTypeTopic) {
         center_line("M for hint menu.", 2, 16, false);
     }
     if (mouse_available()) {
         center_line("(Or use mouse.)", 3, 16, false);
     }
 
-    if (hints_depth == HINT_HINT)
+    if (hints_depth == kV6MenuTypeHint)
         right_line("Return for a hint.", 2, 18);
     else
         right_line("Return for hints.", 2, 17);
 
     right_line("Q to resume story.", 3, 18);
+
+    win_menuitem(kV6MenuTitle, 0, hints_depth, 0, const_cast<char *>(title), length);
 }
 
-
-uint16_t h_chapt_num = 1;
-uint16_t h_quest_num = 1;
-
-// We could use the original function here instead
 static bool rt_see_qst(int16_t obj) {
-    if (obj == 0)
-        return true;
-    if (obj < 0 || obj > ARTHUR_LAST_OBJECT)
-        return (internal_call(obj) == 1);
-    if (internal_get_parent(obj) == 0xba) // obj in ROOMS
-        return (internal_test_attr(obj, 0x26)); // seenbit
-    return (internal_test_attr(obj, 0x27));  // touchbit
+    return (internal_call_with_arg(pack_routine(ar.RT_SEE_QST), obj) == 1);
 }
 
 static uint16_t hint_question_name(uint16_t question) {
@@ -795,6 +797,50 @@ static uint16_t hint_topic_name(uint16_t chapter) {
     return user_word(topic + 2);
 }
 
+static int16_t get_seen_hints(void) {
+
+    // seen_hints_table_addr points to a byte table that keeps track of
+    // how many hints have been shown for a particular question.
+    // Actually a nibble table. The high four bits of each byte store
+    // odd question numbers; the low four bits store even question numbers.
+
+    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
+    int16_t address = cv + (h_quest_num - 1) / 2;
+    int16_t seen = user_byte(address);
+    bool odd = ((h_quest_num & 1) == 1);
+    if (odd) {
+        seen = seen >> 4;
+    }
+    return seen & 0xf;
+}
+
+
+static void send_menuitem(uint16_t str, int max) {
+    char string[4000];
+    int length = print_long_zstr_to_cstr(str, string, 4000);
+    glk_put_string(string);
+    int index;
+    switch (hints_depth) {
+        case kV6MenuTypeQuestion:
+            index = h_quest_num - 1;
+            break;
+        case kV6MenuTypeTopic:
+            index = h_chapt_num - 1;
+            break;
+        case kV6MenuTypeHint:
+            index = get_seen_hints() - 1;
+            break;
+        default:
+            fprintf(stderr, "send_menuitem: Illegal menu type!\n");
+            return;
+    }
+    if (index >= max)
+        index = max - 1;
+    win_menuitem(hints_depth, index, max, 0, string, length);
+}
+
+
+
 static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t x = 0;
     uint16_t y = 0;
@@ -809,6 +855,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
         win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
+        V6_TEXT_BUFFER_WINDOW.id = nullptr;
     }
     v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
@@ -818,7 +865,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t str;
     int number_of_entries = 0;
     for (int i = start; i <= max; i++) {
-        if (hints_depth == HINT_TOPIC) {
+        if (hints_depth == kV6MenuTypeTopic) {
             str = hint_topic_name(i);
         } else {
             str = hint_question_name(i);
@@ -830,7 +877,8 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
             store_word(at.K_HINT_ITEMS + number_of_entries * 2, i);
         }
         glk_window_move_cursor(V6_TEXT_BUFFER_WINDOW.id, x, y);
-        print_handler(unpack_string(str), nullptr);
+        send_menuitem(str, number_of_entries);
+
         y++;
         V6_TEXT_BUFFER_WINDOW.x = 1;
         if (y == height) {
@@ -862,7 +910,7 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
 
     uint16_t index = line_to_index(pos);
     uint16_t string_address;
-    if (hints_depth == HINT_TOPIC) {
+    if (hints_depth == kV6MenuTypeTopic) {
         string_address = hint_topic_name(index);
     } else {
         string_address = hint_question_name(index);
@@ -870,27 +918,6 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
     print_handler(unpack_string(string_address), nullptr);
     garglk_set_reversevideo(0);
     return x;
-}
-
-int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
-
-uint16_t seen_hints_table_addr = 0xe9d2;
-
-static int16_t get_seen_hints(void) {
-
-    // seen_hints_table_addr points to a byte table that keeps track of
-    // how many hints have been shown for a particular question.
-    // Actually a nibble table. The high four bits of each byte store
-    // odd question numbers; the low four bits store even question numbers.
-
-    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
-    int16_t address = cv + (h_quest_num - 1) / 2;
-    int16_t seen = user_byte(address);
-    bool odd = ((h_quest_num & 1) == 1);
-    if (odd) {
-        seen = seen >> 4;
-    }
-    return seen & 0xf;
 }
 
 // Store the index of the last shown
@@ -911,7 +938,7 @@ static void store_hints_seen(uint8_t value) {
     store_byte(address, value);
 }
 
-static int16_t display_actual_hints(int16_t *hints_base_address) {
+static int16_t init_hints(int16_t *hints_base_address) {
 
     int16_t h = user_word(user_word(hints_table_addr + h_chapt_num * 2) + (h_quest_num + 1) * 2);
     char str[64];
@@ -935,17 +962,16 @@ static int16_t display_actual_hints(int16_t *hints_base_address) {
     return max;
 }
 
-static bool display_hints(void) {
-    hints_depth = HINT_HINT;
+static bool display_hints(bool only_refresh) {
+    hints_depth = kV6MenuTypeHint;
 
-    if (is_game(Game::Shogun)) {
-        seen_hints_table_addr = 0xbe6d;
-    }
+    win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     int16_t hints_base_address;
 
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+
     if (user_selected_background != gbgcol && !is_spatterlight_arthur) {
         V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
         V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
@@ -960,16 +986,21 @@ static bool display_hints(void) {
         } else {
             v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextBuffer, &stored_bufferwin);
         }
-        glk_window_clear(stored_bufferwin);
-        glk_set_window(stored_bufferwin);
     }
+
+    int16_t max = init_hints(&hints_base_address);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
 
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
     garglk_set_zcolors(user_selected_foreground, user_selected_background);
 
-    int16_t max = display_actual_hints(&hints_base_address);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     int16_t seen = get_seen_hints();
+
+    if (seen <= 1) {
+        win_menuitem(kV6MenuTypeHint, 0, max - 1, 0, 0, 0);
+    }
 
     bool done = false;
     bool result = false;
@@ -979,7 +1010,10 @@ static bool display_hints(void) {
     for (cnt = is_game(Game::Arthur) ? 1 : 0; cnt <= max; cnt++) {
         store_hints_seen(cnt);
         if (cnt == max) {
-            glk_put_string(const_cast<char *>("[No more hints.]\n"));
+            char *str = const_cast<char *>("[No more hints.]\n");
+            glk_put_string(str);
+            win_menuitem(kV6MenuTypeHint, max, max - 1, 0, str, 17);
+
             // Remove "Return for a hint."
             right_line("                  ", 2, 18);
         } else {
@@ -987,7 +1021,11 @@ static bool display_hints(void) {
             glk_put_char('>');
             glk_put_char(UNICODE_SPACE);
         }
+        set_current_window(&V6_TEXT_BUFFER_WINDOW);
         if (cnt >= seen) {
+            if (only_refresh) {
+                return false;
+            }
             bool loop = true;
             while (loop) {
                 int16_t chr;
@@ -1020,7 +1058,8 @@ static bool display_hints(void) {
         }
 
         if (cnt < max) {
-            print_handler(unpack_string(user_word(hints_base_address + (cnt + 2) * 2)), nullptr);
+            int16_t str = user_word(hints_base_address + (cnt + 2) * 2);
+            send_menuitem(str, max - 1);
             glk_put_char(UNICODE_LINEFEED);
         }
     }
@@ -1028,16 +1067,17 @@ static bool display_hints(void) {
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
         win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
+        V6_TEXT_BUFFER_WINDOW.id = nullptr;
     }
     v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
     glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
 
-    hints_depth = HINT_QUESTION;
+    hints_depth = kV6MenuTypeQuestion;
 
     return result;
 }
 
-static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDepthType name_routine, bool *exit_hint_menu);
+static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV6MenuType name_routine, bool *exit_hint_menu);
 
 static int display_questions(void) {
     char str[30];
@@ -1055,17 +1095,17 @@ static bool hint_pick_question(void) {
     bool outer_loop = true;
 
     while (outer_loop) {
-        hints_depth = HINT_QUESTION;
+        hints_depth = kV6MenuTypeQuestion;
 
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         uint16_t max = display_questions();
-        outer_loop = hint_inner_menu_loop(&h_quest_num, max, HINT_QUESTION, &result);
+        outer_loop = hint_inner_menu_loop(&h_quest_num, max, kV6MenuTypeQuestion, &result);
     }
-    hints_depth = HINT_TOPIC;
+    hints_depth = kV6MenuTypeTopic;
     return result;
 }
 
-static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDepthType local_menu_depth, bool *exit_hint_menu) {
+static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV6MenuType local_menu_depth, bool *exit_hint_menu) {
     bool loop = true;
     bool outer_loop = true;
     bool done = true;
@@ -1087,7 +1127,7 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDep
                 break;
             case 'm':
             case 'M':
-                if (local_menu_depth == HINT_QUESTION) {
+                if (local_menu_depth == kV6MenuTypeQuestion) {
                     loop = false;
                     outer_loop = false;
                 } else {
@@ -1140,10 +1180,10 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDep
             case ZSCII_NEWLINE:
             case UNICODE_LINEFEED:
             case ZSCII_SPACE:
-                if (local_menu_depth == HINT_TOPIC) {
+                if (local_menu_depth == kV6MenuTypeTopic) {
                     outer_loop = hint_pick_question();
                 } else {
-                    outer_loop = display_hints();
+                    outer_loop = display_hints(false);
                     done = outer_loop;
                 }
                 loop = false;
@@ -1154,7 +1194,10 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, HintsDep
         if (selected_line != new_selection) {
             hint_new_cursor(new_selection, false);
             hint_new_cursor(selected_line, true);
-            if (local_menu_depth == HINT_TOPIC) {
+
+            win_menuitem(kV6MenuSelectionChanged, selected_line - 1, 0, 0, nullptr, 0);
+
+            if (local_menu_depth == kV6MenuTypeTopic) {
                 h_quest_num = 1;
                 set_global(hint_quest_global_idx, 1);
                 set_global(hint_chapter_global_idx, line_to_index(selected_line));
@@ -1180,10 +1223,10 @@ static int display_topics(void) {
 void redraw_hint_screen_on_resize(void) {
     redraw_hints_windows();
     switch (hints_depth) {
-        case HINT_HINT:
-            display_actual_hints(nullptr);
+        case kV6MenuTypeHint:
+            display_hints(true);
             break;
-        case HINT_QUESTION:
+        case kV6MenuTypeQuestion:
             display_questions();
             break;
         default:
@@ -1192,12 +1235,16 @@ void redraw_hint_screen_on_resize(void) {
     }
 }
 
-V6ScreenMode stored_mode = MODE_NORMAL;
-
 // Shared between Zork Zero, Shogun, and Arthur
 void DO_HINTS(void) {
-    if (stored_mode == MODE_NORMAL)
-        stored_mode = screenmode;
+
+    // Screenmode will be MODE_HINTS on autorestore,
+    // and we need to store the mode we were in before
+    // entering hint screen.
+    if (is_spatterlight_arthur)
+        arthur_sync_screenmode();
+
+    V6ScreenMode stored_mode = screenmode;
 
     if (is_game(Game::Shogun) || is_spatterlight_arthur) {
         if (is_spatterlight_arthur) {
@@ -1232,20 +1279,22 @@ void DO_HINTS(void) {
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
         // Unless we are autorestoring (and this is the first iteration of the loop),
-        // hints_depth will be HINT_TOPIC
+        // hints_depth will be kV6MenuTypeTopic
         switch (hints_depth) {
-            case HINT_QUESTION:
+            case kV6MenuTypeQuestion:
                 display_questions();
                 outer_loop = hint_pick_question();
                 break;
-            case HINT_HINT:
-                display_actual_hints(nullptr);
-                outer_loop = display_hints();
+            case kV6MenuTypeHint:
+                outer_loop = display_hints(false);
                 break;
-            case HINT_TOPIC:
+            case kV6MenuTypeTopic:
                 number_of_entries = display_topics();
-                outer_loop = hint_inner_menu_loop(&h_chapt_num, number_of_entries, HINT_TOPIC, nullptr);
+                outer_loop = hint_inner_menu_loop(&h_chapt_num, number_of_entries, kV6MenuTypeTopic, nullptr);
                 break;
+            default:
+                fprintf(stderr, "DO_HINTS: Illegal hints_depth value!\n");
+                return;
         }
     }
 
@@ -1276,12 +1325,13 @@ void DO_HINTS(void) {
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     screenmode = stored_mode;
-    stored_mode = MODE_NORMAL;
 
     stored_gridwin = nullptr;
     stored_bufferwin = nullptr;
 
-    hints_depth = HINT_TOPIC;
+    hints_depth = kV6MenuTypeTopic;
+
+    win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     //    if (is_game(Game::ZorkZero)) {
     //        z0_update_on_resize();
@@ -1326,3 +1376,4 @@ void after_V_COLOR(void) {
 #pragma mark Empty functions used by entrypoints code
 
 void DISPLAY_HINT(void) {}
+void RT_SEE_QST(void) {}

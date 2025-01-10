@@ -5905,7 +5905,7 @@ void recover_library_state(library_state_data *dat)
             zterp_rand();
 
         screenmode = dat->screenmode;
-        hints_depth = (HintsDepthType)dat->hints_depth;
+        hints_depth = (InfocomV6MenuType)dat->hints_depth;
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;

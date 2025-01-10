@@ -607,7 +607,7 @@ errorDescription:(NSString * __autoreleasing *)error
         return;
     }
 
-    unichar cstring[20];
+    unichar cstring[len];
     for (NSUInteger i = 0; i < len; i++) {
         cstring[i] = (unichar)buf[i];
     }
@@ -782,7 +782,7 @@ errorDescription:(NSString * __autoreleasing *)error
             }
             break;
         default:
-            NSLog(@"Error!");
+            NSLog(@"handleMenuItemOfType: Unhandled switch case!");
             break;
     }
 }
