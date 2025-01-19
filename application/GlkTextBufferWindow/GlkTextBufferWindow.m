@@ -1486,14 +1486,14 @@ replacementString:(id)repl {
 - (void)showInsertionPoint {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
+        if (currentZColor)
+            color = [NSColor colorFromInteger: currentZColor.fg];
         if (textstorage.length && [color isEqualToColor:_textview.backgroundColor]) {
             if (fence <= textstorage.length && fence > 0)
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:fence - 1 effectiveRange:nil];
             else
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil];
         }
-        if (!color)
-            color = self.theme.bufferNormal.color;
         _textview.insertionPointColor = color;
     }
 }
