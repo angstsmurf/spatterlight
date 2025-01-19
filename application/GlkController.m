@@ -1934,7 +1934,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win flushDisplay];
-        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] &&
+            (!_voiceOverActive || _mustBeQuiet)) {
             [win setLastMove];
         }
     }
