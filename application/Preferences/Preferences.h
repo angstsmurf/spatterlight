@@ -164,6 +164,7 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (strong) IBOutlet NSButton *hardDarkCheckbox;
 @property (strong) IBOutlet NSButton *hardLightCheckbox;
 @property (strong) IBOutlet NSButton *scottAdamsFlickerCheckbox;
+@property (strong) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 
 @property DummyTextView *dummyTextView;
 

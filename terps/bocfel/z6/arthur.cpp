@@ -597,18 +597,23 @@ void RT_AUTHOR_OFF(void) {
         if (user_word(addr) % width_in_chars == 0)
             lines--;
     }
-    set_global(ag.GL_AUTHOR_SIZE, lines);
 
-    int height = gcellh * lines + 2 * ggridmarginy;
+    if (!gli_zmachine_no_err_win) {
+        set_global(ag.GL_AUTHOR_SIZE, lines);
 
-    v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, gscreenh - height + 1, V6_TEXT_BUFFER_WINDOW.x_size, height);
+        int height = gcellh * lines + 2 * ggridmarginy;
 
-    V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin - height + 1;
-    v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+        v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, gscreenh - height + 1, V6_TEXT_BUFFER_WINDOW.x_size, height);
 
-    win_setbgnd(ARTHUR_ERROR_WINDOW.id->peer, user_selected_foreground);
-    glk_window_clear(ARTHUR_ERROR_WINDOW.id);
-    glk_set_window(ARTHUR_ERROR_WINDOW.id);
+        V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin - height + 1;
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+
+        win_setbgnd(ARTHUR_ERROR_WINDOW.id->peer, user_selected_foreground);
+        glk_window_clear(ARTHUR_ERROR_WINDOW.id);
+        glk_set_window(ARTHUR_ERROR_WINDOW.id);
+    } else {
+        glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+    }
 
     if (header.release > 41) {
         for (uint16_t count = user_word(addr); count != 0; count = user_word(addr)) {

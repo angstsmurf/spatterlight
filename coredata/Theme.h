@@ -118,6 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t winSpacingY;
 @property (nonatomic) int32_t zMachineTerp;
 @property (nullable, nonatomic, copy) NSString *zMachineLetter;
+@property (nonatomic) BOOL zMachineNoErrWin;
 
 @property (nonatomic) double vOHackDelay;
 @property (nonatomic) BOOL vODelayOn;
@@ -127,7 +128,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) kZ6GraphicsPrefsType z6GraphicsType;
 @property (nonatomic) BOOL z6Colorize1Bit;
-@property (nonatomic) BOOL z6Simulate16Color;
 
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;

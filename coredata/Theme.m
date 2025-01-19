@@ -74,6 +74,7 @@
 @dynamic winSpacingY;
 @dynamic zMachineTerp;
 @dynamic zMachineLetter;
+@dynamic zMachineNoErrWin;
 @dynamic vOHackDelay;
 @dynamic vODelayOn;
 @dynamic vOSpeakCommand;
@@ -81,7 +82,6 @@
 @dynamic vOSpeakMenu;
 @dynamic z6GraphicsType;
 @dynamic z6Colorize1Bit;
-@dynamic z6Simulate16Color;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;

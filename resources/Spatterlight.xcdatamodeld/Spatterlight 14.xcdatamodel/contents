@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="14">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24B91" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="14">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -164,8 +164,8 @@
         <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="z6Colorize1Bit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="z6GraphicsType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="z6Simulate16Color" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="zMachineLetter" optional="YES" attributeType="String" defaultValueString="S"/>
+        <attribute name="zMachineNoErrWin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" minValueString="1" maxValueString="11" defaultValueString="4" usesScalarValueType="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle"/>
         <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufBlock" inverseEntity="GlkStyle"/>

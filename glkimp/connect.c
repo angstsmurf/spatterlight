@@ -61,9 +61,9 @@ int gli_sa_palette = 0;
 int gli_slowdraw = 0;
 int gli_flicker = 0;
 int gli_zmachine_terp = 0;
+int gli_zmachine_no_err_win = 0;
 int gli_z6_graphics = 0;
 int gli_z6_colorize = 0;
-int gli_z6_sim_16_cols = 0;
 
 int gli_block_rearrange = 0;
 
@@ -851,7 +851,7 @@ again:
                 gli_zmachine_terp == settings->zmachine_terp &&
                 gli_z6_graphics == settings->z6_graphics &&
                 gli_z6_colorize == settings->z6_colorize &&
-                gli_z6_sim_16_cols == settings->z6_sim_16_cols &&
+                gli_zmachine_no_err_win == settings->zmachine_no_err_win &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -883,11 +883,11 @@ again:
             gli_slowdraw = settings->slowdraw;
             gli_flicker = settings->flicker;
             gli_zmachine_terp = settings->zmachine_terp;
+            gli_zmachine_no_err_win = settings->zmachine_no_err_win;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
             gli_z6_graphics = settings->z6_graphics;
             gli_z6_colorize = settings->z6_colorize;
-            gli_z6_sim_16_cols = settings->z6_sim_16_cols;
             if (!gli_block_rearrange)
                 gli_windows_rearrange();
             break;

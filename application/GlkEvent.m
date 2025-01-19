@@ -266,9 +266,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->slowdraw = (int)theme.slowDrawing;
         settings->flicker = (int)theme.flicker;
         settings->zmachine_terp = (int)theme.zMachineTerp;
+        settings->zmachine_terp = (int)theme.zMachineNoErrWin;
         settings->z6_graphics = (int)theme.z6GraphicsType;
         settings->z6_colorize = (int)theme.z6Colorize1Bit;
-        settings->z6_sim_16_cols = (int)theme.z6Simulate16Color;
+        settings->zmachine_no_err_win = (int)theme.zMachineNoErrWin;
 
         settings->force_arrange = _forced;
 

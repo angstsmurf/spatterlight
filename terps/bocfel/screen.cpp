@@ -1159,7 +1159,7 @@ void show_message(const char *fmt, ...)
         glk_put_char_stream(glk_window_get_stream(errorwin), LATIN1_LINEFEED);
     } else {
 #ifdef SPATTERLIGHT
-        if (!is_spatterlight_journey && !is_spatterlight_arthur) {
+        if (!is_spatterlight_journey && !is_spatterlight_arthur && !gli_zmachine_no_err_win) {
             errorwin = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, error_lines = 2, wintype_TextBuffer, 0);
         }
 #else
