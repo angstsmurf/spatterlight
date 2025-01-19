@@ -192,17 +192,17 @@ int journey_draw_picture(int pic, winid_t journey_window) {
     return current_picture;
 }
 
-static void journey_font3_line(int LN, int CHR, int L, int R) {
+static void journey_font3_line(int line, int character, int left, int right) {
     glk_set_style(style_BlockQuote);
-    glk_window_move_cursor(curwin->id, 0, LN - 1);
-    glk_put_char(L);
+    glk_window_move_cursor(curwin->id, 0, line - 1);
+    glk_put_char(left);
     for (int i = 1; i < screen_width_in_chars - 1; i++)
-        glk_put_char(CHR);
-    glk_put_char(R);
+        glk_put_char(character);
+    glk_put_char(right);
     glk_set_style(style_Normal);
 }
 
-static int journey_refresh_character_command_area(int16_t LN);
+static int journey_refresh_character_command_area(int16_t line);
 
 static void journey_setup_windows(void) {
     int offset = 6;
@@ -216,7 +216,10 @@ static void journey_setup_windows(void) {
     } else {
         int picture_width = round((float)width * imagescalex);
 
-        if (options.int_number == INTERP_APPLE_IIC || options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_APPLE_IIGS || options.int_number == INTERP_MSDOS) {
+        if (options.int_number == INTERP_APPLE_IIC ||
+            options.int_number == INTERP_APPLE_IIE ||
+            options.int_number == INTERP_APPLE_IIGS ||
+            options.int_number == INTERP_MSDOS) {
             offset = 3;
         }
         if (options.int_number != INTERP_AMIGA) {
@@ -241,7 +244,7 @@ static void journey_adjust_windows(bool restoring);
 static void update_screen_size(void) {
     glk_window_get_size(JOURNEY_BG_GRID.id, &screen_width_in_chars, &screen_height_in_chars);
     if (screen_width_in_chars == 0 || screen_height_in_chars == 0) {
-        fprintf(stderr, "Error!\n");
+        fprintf(stderr, "Journey update_screen_size: screen size 0!\n");
         screen_width_in_chars = (gscreenw - ggridmarginx * 2) / gcellw;
         screen_height_in_chars = (gscreenh - ggridmarginy * 2) / gcellh;
     }
@@ -291,10 +294,12 @@ static void update_internal_globals(void) {
 
         // Whether to use Font 3. True for Amiga and Mac, false for MS DOS and Apple II
         set_global(jg.FONT3_FLAG, global_font_3_flag ? 1 : 0);
+
         // FWC-FLAG (fixed-width commands) tells whether to switch font when printing in command window,
         // i.e. whether there is a separate proportional font used elsewhere.
         // Always the same as FONT3-FLAG, and used interchangably in the original ZIL code.
         set_global(jg.FWC_FLAG, global_font_3_flag ? 1 : 0);
+
         // Whether to have a border around the image. BLACK_PICTURE_BORDER is only false on IBM PC
         set_global(jg.BLACK_PICTURE_BORDER, black_picture_border);
     }
@@ -372,7 +377,6 @@ static bool bad_character(uint8_t c, bool elvish) {
     return true;
 }
 
-
 static void underscore_or_square() {
     if (global_font_3_flag) {
         glk_put_char('_');
@@ -405,20 +409,11 @@ static void journey_move_cursor(int column, int line) {
     glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
 }
 
-//void debug_print_str(uint8_t c);
-
-//static void debug_PRINT_STRING(uint16_t str) {
-//    print_handler(unpack_string(str), debug_print_str);
-//}
-
-static int GET_COMMAND(int cmd);
-
 static char *string_buf_ptr = nullptr;
 static int string_buf_pos = 0;
 static int string_maxlen = 0;
 
 static void print_to_string_buffer(uint8_t c) {
-
     if (string_buf_pos < string_maxlen)
         string_buf_ptr[string_buf_pos++] = c;
 }
