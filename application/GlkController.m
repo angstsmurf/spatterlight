@@ -76,13 +76,7 @@ fprintf(stderr, "%s\n",                                                    \
 ////    "wintype_Blank",    "wintype_TextBuffer",
 ////    "wintype_TextGrid", "wintype_Graphics"};
 //
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
-////
+
 // static const char *stylehintnames[] =
 //{
 //    "stylehint_Indentation", "stylehint_ParaIndentation",
@@ -206,6 +200,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
+
 @property NSURL *saveDir;
 
 @end
@@ -3502,7 +3497,6 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
