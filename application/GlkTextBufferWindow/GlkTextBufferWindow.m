@@ -878,15 +878,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
-
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-//    NSLog(@"printToWindow:\"%@\" style:%s", str, stylenames[stylevalue]);
 
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
@@ -896,7 +888,6 @@ fprintf(stderr, "%s\n",                                                    \
             stylevalue = style_Normal;
         }
     }
-    //    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -919,11 +910,10 @@ fprintf(stderr, "%s\n",                                                    \
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
             if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                // If the style has reverseColor hint set, we apply the zcolors in reverse
                 attributes = [currentZColor reversedAttributes:attributes];
-                //            NSLog(@"Because the style has reverseColor hint, we apply the zcolors in reverse");
             } else {
                 attributes = [currentZColor coloredAttributes:attributes];
-                //            NSLog(@"We apply the zcolors normally");
             }
         }
     }
@@ -1241,7 +1231,6 @@ fprintf(stderr, "%s\n",                                                    \
               attributes:_inputAttributes];
 
     [textstorage appendAttributedString:att];
-
     _textview.editable = YES;
 
     line_request = YES;
