@@ -78,7 +78,6 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width)
         return;
     }
 
-    fprintf(stderr, "writeToTIFF: filename: %s\n", name);
     writetiff(fptr, data, (uint32_t)size, width);
 
     fclose(fptr);

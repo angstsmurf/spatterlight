@@ -1237,7 +1237,6 @@ void redraw_hint_screen_on_resize(void) {
 
 // Shared between Zork Zero, Shogun, and Arthur
 void DO_HINTS(void) {
-
     // Screenmode will be MODE_HINTS on autorestore,
     // and we need to store the mode we were in before
     // entering hint screen.
@@ -1345,14 +1344,14 @@ void DO_HINTS(void) {
 #pragma mark Color change
 
 void V_COLOR(void) {
-    fprintf(stderr, "V-COLOR\n");
     int fg = get_global(fg_global_idx);
     int bg = get_global(bg_global_idx);
-    fprintf(stderr, "V_COLOR: fg: 0x%x (%d) bg 0x%x (%d)\n", fg, fg, bg, bg);
     if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
+        fprintf(stderr, "get_global(fg_global_idx) is %d!\n", fg);
         set_global(fg_global_idx, 1);
     }
     if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
+        fprintf(stderr, "get_global(bg_global_idx) is %d!\n", bg);
         set_global(bg_global_idx, 1);
     }
 }

@@ -463,20 +463,16 @@ void RT_UPDATE_INVT_WINDOW(void) {
 }
 
 void RT_UPDATE_STAT_WINDOW(void) {
-    fprintf(stderr, "RT_UPDATE_STAT_WINDOW\n");
     screenmode = MODE_STATUS;
 }
 
 void RT_UPDATE_MAP_WINDOW(void) {
-    fprintf(stderr, "RT_UPDATE_MAP_WINDOW\n");
     screenmode = MODE_MAP;
     glk_request_mouse_event(graphics_bg_glk);
 }
 
 void RT_UPDATE_DESC_WINDOW(void) {
-    fprintf(stderr, "RT_UPDATE_DESC_WINDOW\n");
     screenmode = MODE_ROOM_DESC;
-
 }
 
 

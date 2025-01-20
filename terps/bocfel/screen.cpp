@@ -1037,7 +1037,6 @@ static void put_char_u(uint16_t c)
 
 void put_char(uint8_t c)
 {
-    fprintf(stderr, "%c", c);
     put_char_base(c, false);
 }
 
@@ -1299,9 +1298,6 @@ void set_current_window(Window *window)
     if (window->id != nullptr) {
         fprintf(stderr, "set_current_window peer %d (index %d)\n", window->id->peer, window->index);
         glk_set_window(window->id);
-    } else {
-        fprintf(stderr, "set_current_window index %d (no glk win)\n", window->index);
-    }
     curwin = window;
 
 #ifdef ZTERP_GLK
@@ -1732,7 +1728,6 @@ int print_handler(uint32_t addr, void (*outc)(uint8_t))
 
 void zprint()
 {
-    fprintf(stderr, "zprint\n");
     pc += print_handler(pc, nullptr);
 }
 
@@ -2027,7 +2022,6 @@ void zjourney_dial()
 
 void zerase_window()
 {
-    fprintf(stderr, "zerase_window %d\n", as_signed(zargs[0]));
 #ifdef ZTERP_GLK
 
 #ifndef SPATTERLIGHT
@@ -3089,7 +3083,6 @@ static uint8_t zscii_from_glk(glui32 key)
 #endif
 
 void flush_image_buffer(void) {
-    fprintf(stderr, "flush_image_buffer\n");
     if (is_spatterlight_arthur || is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
             current_graphics_buf_win = graphics_bg_glk;
