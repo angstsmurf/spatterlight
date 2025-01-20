@@ -549,8 +549,6 @@ void win_sizeimage(glui32 *width, glui32 *height)
 
 void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height)
 {
-    fprintf(stderr, "win_drawimage: name: %d x:%d y:%d width:%d height:%d\n", name, x, y, width, height);
-
     win_flush();
     if (gli_enable_graphics)
     {
