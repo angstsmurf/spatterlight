@@ -45,7 +45,6 @@ window_t *gli_new_window(glui32 type, glui32 rock)
                 free(win);
                 return 0;
             }
-            fprintf(stderr, "gli_new_window: created new text grid window with peer %d\n", win->peer);
             break;
         case wintype_TextBuffer:
             win->peer = win_newwin(wintype_TextBuffer);
@@ -55,7 +54,6 @@ window_t *gli_new_window(glui32 type, glui32 rock)
                 free(win);
                 return 0;
             }
-            fprintf(stderr, "gli_new_window: created new text buffer window with peer %d\n", win->peer);
             break;
         case wintype_Graphics:
             win->background = 0x00ffffff;
@@ -66,7 +64,6 @@ window_t *gli_new_window(glui32 type, glui32 rock)
                 free(win);
                 return 0;
             }
-            fprintf(stderr, "gli_new_window: created new graphics window with peer %d\n", win->peer);
             break;
         case wintype_Pair:
             break;
@@ -156,8 +153,6 @@ void gli_delete_window(window_t *win)
             win_delwin(win->peer);
             break;
     }
-
-    fprintf(stderr, "gli_delete_window: deleting a window with tag %d, peer %d and type %s\n", win->tag, win->peer, wintype);
 
     if (gli_unregister_obj) {
         (*gli_unregister_obj)(win, gidisp_Class_Window, win->disprock);
@@ -729,7 +724,6 @@ void glk_set_window(window_t *win)
         glk_stream_set_current(NULL);
     else {
         glk_stream_set_current(win->str);
-        fprintf(stderr, "glk_set_window: set current to window with peer %d\n", win->peer);
     }
 }
 
@@ -1054,8 +1048,6 @@ void glk_request_char_event_uni(window_t *win)
         return;
     }
 
-    fprintf(stderr, "glk_request_char_event_uni peer %d\n", win->peer);
-
     if (win->line_request)
     {
         gli_strict_warning("request_char_event_uni: window already has keyboard request");
@@ -1090,8 +1082,6 @@ void glk_request_line_event_uni(window_t *win, glui32 *buf, glui32 maxlen, glui3
         gli_strict_warning("request_line_event: invalid ref");
         return;
     }
-
-    fprintf(stderr, "glk_request_line_event_uni peer %d\n", win->peer);
 
     if (win->char_request || win->line_request)
     {
@@ -1191,8 +1181,6 @@ void glk_request_mouse_event(window_t *win)
         return;
     }
 
-    fprintf(stderr, "glk_request_mouse_event peer %d\n", win->peer);
-
     switch (win->type)
     {
         case wintype_TextGrid:
@@ -1215,8 +1203,6 @@ void glk_cancel_char_event(window_t *win)
         gli_strict_warning("cancel_char_event: invalid ref");
         return;
     }
-
-    fprintf(stderr, "glk_cancel_char_event peer %d\n", win->peer);
 
     switch (win->type)
     {
@@ -1272,8 +1258,6 @@ void glk_cancel_mouse_event(window_t *win)
         gli_strict_warning("cancel_mouse_event: invalid ref");
         return;
     }
-
-    fprintf(stderr, "glk_cancel_mouse_event peer %d\n", win->peer);
 
     switch (win->type) {
         case wintype_TextGrid:
