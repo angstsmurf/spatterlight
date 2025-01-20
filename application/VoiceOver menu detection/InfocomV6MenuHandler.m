@@ -68,7 +68,6 @@
     if (type == kV6MenuTitle) {
         _title = str;
         hintDepth = (InfocomV6MenuType)total;
-        NSLog(@"InfocomV6MenuHandler setting title to \"%@\"", _title);
     } else {
         hintDepth = type;
         if (total > 0) {
@@ -83,8 +82,6 @@
                 [_menuItems removeLastObject];
             }
             [_menuItems addObject:str];
-
-            NSLog(@"InfocomV6MenuHandler adding menuItem %ld, \"%@\"", _menuItems.count, str);
         }
     }
 }
@@ -113,9 +110,6 @@
         instructionString = [instructionString stringByAppendingString:@"You can review the hints by stepping through moves."];
     }
 
-    NSLog(@"constructMenuInstructionString: _selectedLine: %ld _numberOfItems: %ld", _selectedLine, _numberOfItems);
-
-    NSLog(@"constructMenuInstructionString: \"%@\"", instructionString);
     return instructionString;
 }
 
