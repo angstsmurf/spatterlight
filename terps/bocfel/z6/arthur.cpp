@@ -584,7 +584,7 @@ void RT_AUTHOR_OFF(void) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
 
-    if (ARTHUR_ERROR_WINDOW.id == nullptr)
+    if (ARTHUR_ERROR_WINDOW.id == nullptr && !gli_zmachine_no_err_win)
         ARTHUR_ERROR_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
 
     int lines;
