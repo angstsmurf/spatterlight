@@ -161,13 +161,12 @@
         //NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
+            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
         keyName = gGridStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
-//        NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
+            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
 	}
 }
 
