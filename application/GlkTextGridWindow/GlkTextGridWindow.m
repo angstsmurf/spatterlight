@@ -1503,8 +1503,8 @@
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
     CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
-    if (isMonaco)
-        yscale *= 1.5;
+    if (isMonaco && self.glkctl.gameID == kGameIsJourney)
+        yscale *= 1.2;
     [transform scaleXBy:1 yBy:yscale];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];

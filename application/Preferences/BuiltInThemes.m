@@ -287,7 +287,7 @@
     if (exists && !force)
         return classicTheme;
 
-    classicTheme.bZAdjustment = 0;
+    classicTheme.bZAdjustment = 4;
 
     classicTheme.dashes = NO;
     classicTheme.defaultRows = 50;
