@@ -5567,6 +5567,36 @@ void init_screen(bool first_run)
 
 #ifdef SPATTERLIGHT
     int i = 0;
+
+    uint8_t fg = SPATTERLIGHT_CURRENT_FOREGROUND;
+    uint8_t bg = SPATTERLIGHT_CURRENT_BACKGROUND;
+
+    if (is_spatterlight_arthur) {
+        if (first_run) {
+            user_selected_foreground = gfgcol;
+            user_selected_background = gbgcol;
+            update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
+            update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
+        }
+
+        update_arthur_colours();
+    }
+
+    if (is_spatterlight_arthur && !first_run) {
+        fg = find_index_of_true_colour(user_selected_foreground);
+        bg = find_index_of_true_colour(user_selected_background);
+
+        v6_define_window(upperwin, 0, 0, 0, 0);
+    }
+
+    Color fgcolor = Color(Color::Mode::ANSI, fg);
+    Color bgcolor = Color(Color::Mode::ANSI, bg);
+
+    if (zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol) {
+        fgcolor = Color();
+        bgcolor = Color();
+    }
+
 #endif
 
     for (auto &window : windows) {
