@@ -58,6 +58,7 @@ extern "C" {
 #include "arthur.hpp"
 #include "random.h"
 #include "v6_specific.h"
+#include "v6_shared.hpp"
 
 extern long last_random_seed;
 extern int random_calls_count;
@@ -2269,10 +2270,12 @@ bool v6_switch_to_allowed_interpreter_number(void) {
     return true;
 }
 
-bool just_autorestored = false;
+bool v6_autorestore_hacks_needed = false;
+bool v6_read_hacks_needed = false;
 
 void v6_restore_hacks(void) {
-    if (just_autorestored) {
+    if (v6_autorestore_hacks_needed) {
+        v6_autorestore_hacks_needed = false;
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
         store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
         if (is_spatterlight_arthur)
@@ -3609,8 +3612,8 @@ void zread_char()
 
     flush_image_buffer();
 
-    if (just_autorestored) {
-        just_autorestored = false;
+    if (v6_read_hacks_needed) {
+        v6_read_hacks_needed = false;
         if ((is_spatterlight_journey && journey_autorestore_internal_read_char_hacks()) ||
             (is_spatterlight_arthur && arthur_autorestore_internal_read_char_hacks())
             ) {

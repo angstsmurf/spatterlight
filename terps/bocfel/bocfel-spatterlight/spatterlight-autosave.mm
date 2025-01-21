@@ -145,7 +145,8 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     return;
 }
 
-extern bool just_autorestored;
+extern bool v6_autorestore_hacks_needed;
+extern bool v6_read_hacks_needed;
 
 // Restore an autosaved game, if one exists.
 // Returns true if the game was restored successfully, false if not.
@@ -251,7 +252,8 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         
     }
     
-    just_autorestored = true;
+    v6_autorestore_hacks_needed = true;
+    v6_read_hacks_needed = true;
 
     return true;
 }
