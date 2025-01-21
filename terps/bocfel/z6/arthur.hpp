@@ -20,9 +20,7 @@ bool is_arthur_map_image(int picnum);
 void adjust_arthur_top_margin(void);
 void arthur_update_on_resize(void);
 void arthur_adjust_windows(void);
-void arthur_toggle_slideshow_windows(void);
-void arthur_change_current_window(void);
-void arthur_hotkeys(uint8_t key);
+void arthur_erase_window(int16_t index);
 void arthur_move_cursor(int16_t y, int16_t x, winid_t win);
 
 void RT_UPDATE_PICT_WINDOW(void);
@@ -50,8 +48,6 @@ void arthur_sync_screenmode(void);
 
 void stash_arthur_state(library_state_data *dat);
 void recover_arthur_state(library_state_data *dat);
-
-extern int arthur_text_top_margin;
 
 typedef struct ArthurGlobals {
     uint8_t UPDATE; // G0e•

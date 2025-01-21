@@ -29,6 +29,17 @@ ArthurGlobals ag;
 ArthurRoutines ar;
 ArthurTables at;
 
+#define K_PIC_TITLE 1
+
+#define K_PIC_SWORD 2
+#define K_PIC_SWORD_MERLIN 3
+
+#define K_PIC_ENDGAME 84
+#define K_PIC_ANGRY_DEMON 85
+
+#define K_PIC_BANNER_MARGIN 100
+#define K_MAP_SCROLL 137
+
 extern Window *mainwin, *curwin;
 
 #define ARTHUR_GRAPHICS_BG windows[7]
@@ -39,10 +50,12 @@ extern int current_picture;
 
 bool showing_wide_arthur_room_image = false;
 
-int arthur_text_top_margin = -1;
+static int arthur_text_top_margin = -1;
+static int arthur_x_margin = 0;
+
 int arthur_pic_top_margin = 0;
 
-bool is_arthur_stamp_image(int picnum) {
+static bool is_arthur_stamp_image(int picnum) {
     switch (picnum) {
         case 6:
         case 9:
@@ -96,21 +109,17 @@ bool is_arthur_map_image(int picnum) {
     return (picnum >= 105 && picnum <= 153);
 }
 
-
-#define K_PIC_BANNER_MARGIN 100
-#define K_MAP_SCROLL 137
-
 void adjust_arthur_top_margin(void) {
-    int mapheight, borderheight;
-    get_image_size(K_MAP_SCROLL, nullptr, &mapheight); // Get height of map background image
+    int mapheight, borderheight, margin;
+    get_image_size(K_MAP_SCROLL, &margin, &mapheight); // Get height of map background image
     get_image_size(K_PIC_BANNER_MARGIN, nullptr, &borderheight); // Get height of border measuring dummy image
     float y_margin = mapheight * imagescaley;
     arthur_text_top_margin = ceil(y_margin / gcellh) * gcellh;
     arthur_pic_top_margin = arthur_text_top_margin / imagescaley - borderheight - 4;
     if (arthur_pic_top_margin < 0)
         arthur_pic_top_margin = 0;
-    fprintf(stderr, "Arthur text top: %d\n", arthur_text_top_margin);
-    fprintf(stderr, "Arthur pic top: %d\n", arthur_pic_top_margin);
+    arthur_x_margin = margin * imagescalex;
+
 }
 
 
@@ -183,7 +192,25 @@ enum kArthurWindowType {
     K_WIN_PICT = 5
 };
 
+static std::string modestrings[] = {
+    "MODE_NORMAL",
+    "MODE_SLIDESHOW",
+    "MODE_MAP",
+    "MODE_INVENTORY",
+    "MODE_STATUS",
+    "MODE_ROOM_DESC",
+    "MODE_NO_GRAPHICS",
+    "MODE_Z0_GAME",
+    "MODE_HINTS",
+    "MODE_CREDITS",
+    "MODE_DEFINE",
+    "MODE_SHOGUN_MENU",
+    "MODE_SHOGUN_MAZE",
+    "MODE_INITIAL_QUESTION"
+};
+
 void arthur_sync_screenmode(void) {
+    fprintf(stderr, "arthur_sync_screenmode()\n");
     kArthurWindowType window_type = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
     switch (window_type) {
         case K_WIN_NONE:
@@ -222,27 +249,42 @@ void arthur_sync_screenmode(void) {
 void arthur_update_on_resize(void) {
     adjust_arthur_top_margin();
 
-    // We delete Arthur error window on resize
-    if (ARTHUR_ERROR_WINDOW.id && ARTHUR_ERROR_WINDOW.id->type == wintype_TextGrid) {
-        v6_delete_win(&ARTHUR_ERROR_WINDOW);
+    int screenheight = gscreenh;
+    if (ARTHUR_ERROR_WINDOW.id != nullptr) {
+        int error_window_height = get_global(ag.GL_AUTHOR_SIZE);
+        if (error_window_height == 0)
+            error_window_height = 1;
+        screenheight -= (gcellh * error_window_height + 2 * ggridmarginy);
     }
+
+    if (screenmode == MODE_INITIAL_QUESTION)
+        return;
+
     if (screenmode != MODE_SLIDESHOW) {
         if (screenmode != MODE_NO_GRAPHICS) {
-            fprintf(stderr, "adjusting margins in window_change\n");
             int x_margin = 0, y_margin = 0;
             get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
+
+            if (screenmode == MODE_MAP) {
+                ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 0;
+                ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
+                ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
+            }
 
             x_margin *= imagescalex;
             y_margin *= imagescaley;
 
-            if (screenmode != MODE_HINTS)
+            if (screenmode != MODE_HINTS) {
                 V6_STATUS_WINDOW.y_origin = arthur_text_top_margin;
+            }
 
             int width_in_chars = ((float)(gscreenw - 2 * x_margin) / gcellw);
             V6_STATUS_WINDOW.x_size = width_in_chars * gcellw;
             V6_STATUS_WINDOW.x_origin = (gscreenw - V6_STATUS_WINDOW.x_size) / 2;
-            if (graphics_type == kGraphicsTypeApple2)
-                V6_STATUS_WINDOW.x_size -= gcellw;
+            if (graphics_type == kGraphicsTypeApple2) {
+                V6_STATUS_WINDOW.x_origin += imagescalex;
+            }
+
             mainwin->x_origin = V6_STATUS_WINDOW.x_origin;
             mainwin->x_size = V6_STATUS_WINDOW.x_size;
 
@@ -254,7 +296,7 @@ void arthur_update_on_resize(void) {
                 mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
             }
 
-            mainwin->y_size = gscreenh - mainwin->y_origin;
+            mainwin->y_size = screenheight - mainwin->y_origin - 1;
 
             v6_sizewin(&V6_STATUS_WINDOW);
             v6_sizewin(mainwin);
@@ -266,21 +308,38 @@ void arthur_update_on_resize(void) {
                 return;
             }
 
-            if (screenmode != MODE_MAP) {
-                ARTHUR_ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin;
+            if (screenmode == MODE_STATUS || screenmode == MODE_INVENTORY || screenmode == MODE_ROOM_DESC) {
+                ARTHUR_ROOM_GRAPHIC_WIN.x_origin = V6_STATUS_WINDOW.x_origin;
                 ARTHUR_ROOM_GRAPHIC_WIN.x_size = V6_STATUS_WINDOW.x_size;
-                v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
+                ARTHUR_ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin - 1;
+                glui32 wintype;
+                if (screenmode == MODE_ROOM_DESC) {
+                    wintype = wintype_TextBuffer;
+                } else {
+                    wintype = wintype_TextGrid;
+                }
+                if (ARTHUR_ROOM_GRAPHIC_WIN.id == nullptr || ARTHUR_ROOM_GRAPHIC_WIN.id->type != wintype) {
+                    if (ARTHUR_ROOM_GRAPHIC_WIN.id != nullptr) {
+                        gli_delete_window(ARTHUR_ROOM_GRAPHIC_WIN.id);
+                        ARTHUR_ROOM_GRAPHIC_WIN.id = nullptr;
+                    }
+                    v6_remap_win(&ARTHUR_ROOM_GRAPHIC_WIN, wintype, nullptr);
+                } else {
+                    v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
+                }
+            } else {
+                v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
             }
 
             v6_get_and_sync_upperwin_size();
 
             if (screenmode == MODE_NORMAL) {
-                glk_window_fill_rect(current_graphics_buf_win, user_selected_background, 0, 0, gscreenw, gscreenh);
                 clear_image_buffer();
                 internal_call_with_arg(pack_routine(ar.RT_UPDATE_PICT_WINDOW), 1);
                 draw_arthur_side_images(current_graphics_buf_win);
                 if (showing_wide_arthur_room_image)
                     arthur_draw_room_image(current_picture);
+                flush_bitmap(current_graphics_buf_win);
             } else if (screenmode == MODE_INVENTORY) {
                 internal_call_with_arg(pack_routine(ar.RT_UPDATE_INVT_WINDOW), 1);
             } else if (screenmode == MODE_STATUS) {
@@ -288,17 +347,26 @@ void arthur_update_on_resize(void) {
             } else if (screenmode == MODE_MAP) {
                 set_global(ag.GL_MAP_GRID_Y, 0);
                 internal_call_with_arg(pack_routine(ar.RT_UPDATE_MAP_WINDOW), 1);
+                flush_bitmap(current_graphics_buf_win);
             }
-
         } else {
-            V6_STATUS_WINDOW.x_size = gscreenw;
-            V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-            v6_sizewin(&V6_STATUS_WINDOW);
+            v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, gcellh + 2 * ggridmarginy);
+            v6_define_window(mainwin, 1, V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size, gscreenw, screenheight - mainwin->y_origin - 1);
+            v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
         }
 
         set_global(ag.UPDATE, 0);
         internal_call(pack_routine(ar.UPDATE_STATUS_LINE));
+
+        if (ARTHUR_ERROR_WINDOW.id != nullptr) {
+            v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, screenheight + 1, V6_TEXT_BUFFER_WINDOW.x_size, gscreenh - screenheight);
+        }
     } else {
+        // We are showing a fullscreen image
+        v6_define_window(mainwin, 1, 1, gscreenw, gscreenh);
+
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         glk_window_clear(current_graphics_buf_win);
         if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
             float scale = draw_centered_title_image(K_PIC_SWORD);
@@ -306,130 +374,6 @@ void arthur_update_on_resize(void) {
         } else {
             draw_centered_title_image(last_slideshow_pic);
         }
-    }
-    flush_bitmap(current_graphics_buf_win);
-}
-
-
-
-// Only called when set_current_window is called with 2,
-// I when the room graphics window is set to current
-// EDIT: Now called after INIT-STATUS-LINE
-void arthur_adjust_windows(void) {
-//    arthur_sync_screenmode();
-    int x_margin;
-    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr); // Get width of dummy "margin" image
-    if (screenmode != MODE_SLIDESHOW && screenmode != MODE_NO_GRAPHICS && screenmode != MODE_HINTS) {
-        fprintf(stderr, "adjusting margins in adjust_arthur_windows\n");
-        adjust_arthur_top_margin();
-        V6_STATUS_WINDOW.y_origin = arthur_text_top_margin;
-        int width_in_chars = ((float)(gscreenw - 2 * x_margin * imagescalex) / gcellw);
-        V6_STATUS_WINDOW.x_size = width_in_chars * gcellw;
-        V6_STATUS_WINDOW.x_origin = (gscreenw - V6_STATUS_WINDOW.x_size) / 2;
-        if (graphics_type == kGraphicsTypeApple2)
-            V6_STATUS_WINDOW.x_origin += imagescalex;
-        mainwin->x_size = V6_STATUS_WINDOW.x_size;
-        mainwin->x_origin = V6_STATUS_WINDOW.x_origin;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = V6_STATUS_WINDOW.x_origin;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_size = V6_STATUS_WINDOW.x_size;
-        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-        mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
-        mainwin->y_size = gscreenh - mainwin->y_origin - 1;
-        v6_sizewin(&V6_STATUS_WINDOW);
-        v6_sizewin(mainwin);
-        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 1;
-        ARTHUR_ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin;
-    }
-    if (screenmode == MODE_INVENTORY || screenmode == MODE_STATUS) {
-        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 1;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = V6_STATUS_WINDOW.x_origin;
-        if (ARTHUR_ROOM_GRAPHIC_WIN.id && ARTHUR_ROOM_GRAPHIC_WIN.id->type != wintype_TextGrid) {
-            v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-        }
-        v6_remap_win_to_grid(&ARTHUR_ROOM_GRAPHIC_WIN);
-
-    } else if (screenmode == MODE_HINTS) {
-        win_setbgnd(mainwin->id->peer, user_selected_background);
-        mainwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        mainwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        return;
-    } else if (screenmode == MODE_MAP) {
-        int mapheight;
-        get_image_size(K_MAP_SCROLL, nullptr, &mapheight); // Get height of map background image
-        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 1;
-        ARTHUR_ROOM_GRAPHIC_WIN.y_size = mapheight;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
-        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-    } else if (screenmode == MODE_ROOM_DESC) {
-        if (ARTHUR_ROOM_GRAPHIC_WIN.id && ARTHUR_ROOM_GRAPHIC_WIN.id->type != wintype_TextBuffer) {
-            v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-        }
-
-        v6_remap_win_to_buffer(&ARTHUR_ROOM_GRAPHIC_WIN);
-    } else if (screenmode == MODE_NO_GRAPHICS) {
-        V6_STATUS_WINDOW.x_origin = 1;
-        V6_STATUS_WINDOW.y_origin = 1;
-        V6_STATUS_WINDOW.x_size = gscreenw;
-        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-        mainwin->x_size = gscreenw;
-        mainwin->x_origin = 1;
-        mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
-        mainwin->y_size = gscreenh - mainwin->y_origin - 1;
-        v6_sizewin(&V6_STATUS_WINDOW);
-        v6_sizewin(mainwin);
-        clear_image_buffer();
-        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-    } else if (ARTHUR_ROOM_GRAPHIC_WIN.id) {
-        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-    }
-    v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
-}
-
-void arthur_toggle_slideshow_windows(void) {
-    if (current_graphics_buf_win == graphics_fg_glk) {
-        current_graphics_buf_win = nullptr;
-        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
-    } else if (current_graphics_buf_win == nullptr) {
-        current_graphics_buf_win = graphics_fg_glk;
-        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
-    } else {
-        fprintf(stderr, "arthur_toggle_slideshow_windows: ERROR!\n");
-    }
-}
-
-void arthur_change_current_window(void) {
-    if (curwin == &ARTHUR_ROOM_GRAPHIC_WIN) {
-        arthur_adjust_windows();
-
-        // Handle Arthur bottom "error window"
-    } else if (curwin == &ARTHUR_ERROR_WINDOW && get_global(ag.GL_AUTHOR_SIZE) != 0) {
-        if (curwin->id && curwin->id->type != wintype_TextGrid && curwin != &windows[1]) {
-            v6_delete_win(curwin);
-        }
-        curwin->y_origin = gscreenh - 2 * (gcellh + ggridmarginy);
-        curwin->y_size = gcellh + 2 * ggridmarginy;
-        if (curwin->id == nullptr) {
-            v6_remap_win_to_grid(curwin);
-        }
-        //            curwin->fg_color = Color(Color::Mode::ANSI, get_global((fg_global_idx)));
-        //            curwin->bg_color = Color(Color::Mode::ANSI, get_global((bg_global_idx)));
-
-        fprintf(stderr, "internal fg:%d internal bg: %d\n", get_global(fg_global_idx), get_global(bg_global_idx));
-        curwin->style.flip(STYLE_REVERSE);
-//        glui32 bgcol = gsfgcol;
-        glui32 zfgcol = get_global(fg_global_idx);
-        curwin->fg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        curwin->bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        if (zfgcol > 1) {
-//            bgcol = zcolor_map[zfgcol];
-            curwin->fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-            curwin->bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        }
-//        if (curwin->id->type == wintype_Graphics)
-//            glk_window_set_background_color(curwin->id, bgcol);
-        mainwin->y_size = curwin->y_origin - mainwin->y_origin;
-        v6_sizewin(mainwin);
     }
 }
 
@@ -443,18 +387,22 @@ void arthur_move_cursor(int16_t y, int16_t x, winid_t win) {
 }
 
 void RT_UPDATE_PICT_WINDOW(void) {
-    if (screenmode == MODE_SLIDESHOW) {
+    if (screenmode == MODE_SLIDESHOW || screenmode == MODE_INITIAL_QUESTION) {
         screenmode = MODE_NORMAL;
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
         current_graphics_buf_win = graphics_bg_glk;
         windows[7].id = graphics_bg_glk;
+        arthur_update_on_resize();
         v6_get_and_sync_upperwin_size();
     }
 }
 
 void RT_UPDATE_INVT_WINDOW(void) {
-    fprintf(stderr, "RT_UPDATE_INVT_WINDOW\n");
     screenmode = MODE_INVENTORY;
+    if (ARTHUR_ROOM_GRAPHIC_WIN.id) {
+        glk_set_window(ARTHUR_ROOM_GRAPHIC_WIN.id);
+        glk_set_style(style_Subheader);
+    }
 }
 
 void RT_UPDATE_STAT_WINDOW(void) {
@@ -470,68 +418,34 @@ void RT_UPDATE_DESC_WINDOW(void) {
     screenmode = MODE_ROOM_DESC;
 }
 
-
-
 void arthur_INIT_STATUS_LINE(void) {
-    if (get_global(ag.GL_WINDOW_TYPE) == 0) { // <EQUAL? ,GL-WINDOW-TYPE ,K-WIN-NONE>
-        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-        V6_STATUS_WINDOW.y_origin = 1;
-        V6_STATUS_WINDOW.x_origin = 1;
-        V6_STATUS_WINDOW.x_size = gscreenw;
-        v6_sizewin(&V6_STATUS_WINDOW);
-        V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_size + 1;
-        V6_TEXT_BUFFER_WINDOW.x_origin = 1;
-        V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
-        V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
-        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
-    } else {
-        int M;
-        if (!get_image_size(0x64, &M, nullptr)) { // <PICINF ,K-PIC-BANNER-MARGIN ,K-WIN-TBL>
-            M = gcellw * 3;
-        }
-        int W = gscreenw - 2 * M;
-        int L = M + 1;
-        int N = gscreenh / 2;
-        N = floor(N / gcellh) * gcellh + 1;
-        V6_TEXT_BUFFER_WINDOW.y_origin = N + gcellh ;
-        V6_TEXT_BUFFER_WINDOW.x_origin = L;
-        V6_TEXT_BUFFER_WINDOW.x_size = W;
-        V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
-        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
-        V6_STATUS_WINDOW.y_origin = N;
-        V6_STATUS_WINDOW.x_origin = L;
-        V6_STATUS_WINDOW.x_size = W;
-        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-        v6_sizewin(&V6_STATUS_WINDOW);
+    arthur_update_on_resize();
 
-        // Window 2 is the small room graphics window at top, not including banners
-        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 1;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = L;
-        if (header.release > 41) {
-            set_global(ag.WINDOW_2_X, L - 1); // <SETG WINDOW-2-X <- .L 1>>
-            set_global(ag.WINDOW_2_Y, 0); //  <SETG WINDOW-2-Y 0>
-        }
-        ARTHUR_ROOM_GRAPHIC_WIN.y_size = N - 1;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_size = W;
-
-        // Windows 5 and 6 are left and right banners, but are only used when erasing
-        // banner graphics. The actual banners are drawn to window 7 (S-FULL).
-        windows[5].y_origin = 1;
-        windows[5].x_origin = 1;
-        windows[5].y_size = gscreenh;
-        windows[5].x_size = M;
-
-        windows[6].y_origin = 1;
-        windows[6].x_origin = L + W;
-        windows[6].y_size = gscreenh;
-        windows[6].x_size = M;
-
-        // Window 7 (S-FULL) is the standard V6 fullscreen window
-        windows[7].y_origin = 1;
-        windows[7].x_origin = 1;
-        windows[7].y_size = gscreenh;
-        windows[7].x_size = gscreenw;
+    int M;
+    if (!get_image_size(K_PIC_BANNER_MARGIN, &M, nullptr)) { // <PICINF ,K-PIC-BANNER-MARGIN ,K-WIN-TBL>
+        M = gcellw * 3;
     }
+    int W = gscreenw - 2 * M;
+    int L = M + 1;
+
+    // Windows 5 and 6 are left and right banners, but are only used when erasing
+    // banner graphics. The actual banners are drawn to window 7 (S-FULL).
+    windows[5].y_origin = 1;
+    windows[5].x_origin = 1;
+    windows[5].y_size = gscreenh;
+    windows[5].x_size = M;
+
+    windows[6].y_origin = 1;
+    windows[6].x_origin = L + W;
+    windows[6].y_size = gscreenh;
+    windows[6].x_size = M;
+
+    // Window 7 (S-FULL) is the standard V6 fullscreen window
+    windows[7].y_origin = 1;
+    windows[7].x_origin = 1;
+    windows[7].y_size = gscreenh;
+    windows[7].x_size = gscreenw;
+
     glk_set_window(V6_STATUS_WINDOW.id);
     glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
 
@@ -550,12 +464,7 @@ void arthur_INIT_STATUS_LINE(void) {
     set_global(ag.GL_SL_HIDE, 0);
     set_global(ag.GL_SL_TIME, 0);
     set_global(ag.GL_SL_FORM, 0);
-    arthur_adjust_windows();
 }
-
-void ARTHUR_UPDATE_STATUS_LINE(void) {}
-
-void UPDATE_STATUS_LINE(void) {}
 
 int count_lines(uint32_t table) {
     int lines = 0;
@@ -628,18 +537,16 @@ void RT_AUTHOR_OFF(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
-#define K_PIC_ENDGAME 84
-#define K_PIC_ANGRY_DEMON 85
-
 bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
 
     // Fullscreen images
     if ((picnum >= 1 && picnum <= 3) || picnum == K_PIC_ENDGAME || picnum == K_PIC_ANGRY_DEMON) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_bg_glk) {
             current_graphics_buf_win = graphics_fg_glk;
-            glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-            win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         }
+        
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         screenmode = MODE_SLIDESHOW;
         glk_request_mouse_event(current_graphics_buf_win);
         if (picnum != K_PIC_SWORD_MERLIN) {
@@ -680,34 +587,38 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
     return true;
 }
 
-void arthur_hotkeys(uint8_t key) {
-    // Delete Arthur error window
-    v6_delete_glk_win(ARTHUR_ERROR_WINDOW.id);
+void arthur_erase_window(int16_t index) {
+    if (!is_spatterlight_arthur)
+        return;
 
-    if (key != ZSCII_NEWLINE) {
-        switch(key) {
-            case ZSCII_F1:
-                screenmode = MODE_NORMAL;
-                break;
-            case ZSCII_F2:
-                screenmode = MODE_MAP;
-                glk_request_mouse_event(graphics_bg_glk);
-                break;
-            case ZSCII_F3:
-                screenmode = MODE_INVENTORY;
-                break;
-            case ZSCII_F4:
-                screenmode = MODE_STATUS;
-                break;
-            case ZSCII_F5:
-                screenmode = MODE_ROOM_DESC;
-                break;
-            case ZSCII_F6:
-                screenmode = MODE_NO_GRAPHICS;
-                break;
-            default:
-                break;
-        }
+    switch (index) {
+        case -1:
+            if (screenmode == MODE_SLIDESHOW) {
+                clear_image_buffer();
+                glk_window_set_background_color(graphics_bg_glk, user_selected_background);
+                glk_window_clear(graphics_bg_glk);
+                glk_window_set_background_color(graphics_fg_glk, user_selected_background);
+                glk_window_clear(graphics_fg_glk);
+                if (last_slideshow_pic != K_PIC_ENDGAME && last_slideshow_pic != K_PIC_ANGRY_DEMON) {
+                    screenmode = MODE_INITIAL_QUESTION;
+                } else {
+                    screenmode = MODE_NORMAL;
+                }
+                current_graphics_buf_win = nullptr;
+                win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+            } else if (screenmode == MODE_INITIAL_QUESTION) {
+                screenmode = MODE_SLIDESHOW;
+            }
+            v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
+            break;
+        case 2:
+            clear_image_buffer();
+            break;
+        case 3:
+            v6_delete_win(&ARTHUR_ERROR_WINDOW);
+            break;
+        default:
+            break;
     }
 }
 
@@ -779,15 +690,24 @@ void arthur_update_after_restore(void) {
 }
 
 void arthur_close_and_reopen_front_graphics_window(void) {
-    if (graphics_fg_glk)
+    if (graphics_fg_glk) {
+        if (current_graphics_buf_win == graphics_fg_glk) {
+            current_graphics_buf_win = nullptr;
+        }
         gli_delete_window(graphics_fg_glk);
+    }
     graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
     if (screenmode == MODE_SLIDESHOW) {
         win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
         current_graphics_buf_win = graphics_fg_glk;
+        glk_request_mouse_event(graphics_fg_glk);
     } else {
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
-        current_graphics_buf_win = graphics_bg_glk;
+        if (screenmode == MODE_INITIAL_QUESTION) {
+            current_graphics_buf_win = nullptr;
+        } else {
+            current_graphics_buf_win = graphics_bg_glk;
+        }
     }
 }
 
@@ -835,7 +755,7 @@ static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
     { ZSCII_F6, {K_WIN_NONE, MODE_NO_GRAPHICS} },
 };
 
-void hot_key(uint8_t key) {
+static void hot_key(uint8_t key) {
 
     if (screenmode == MODE_HINTS || screenmode == MODE_SLIDESHOW)
         return;
@@ -863,3 +783,6 @@ bool arthur_autorestore_internal_read_char_hacks(void) {
     }
     return false;
 }
+
+void ARTHUR_UPDATE_STATUS_LINE(void) {}
+void UPDATE_STATUS_LINE(void) {}
