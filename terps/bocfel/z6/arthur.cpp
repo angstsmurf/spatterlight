@@ -300,14 +300,9 @@ void arthur_update_on_resize(void) {
         internal_call(pack_routine(ar.UPDATE_STATUS_LINE));
     } else {
         glk_window_clear(current_graphics_buf_win);
-        clear_image_buffer();
-        ensure_pixmap(current_graphics_buf_win);
-        mainwin->x_size = gscreenw;
-        mainwin->y_size = gscreenh;
-        v6_sizewin(mainwin);
-        if (last_slideshow_pic == 3) {
-            draw_centered_title_image(2);
-            draw_centered_title_image(3);
+        if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
+            float scale = draw_centered_title_image(K_PIC_SWORD);
+            draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
         } else {
             draw_centered_title_image(last_slideshow_pic);
         }
@@ -647,10 +642,13 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
         }
         screenmode = MODE_SLIDESHOW;
         glk_request_mouse_event(current_graphics_buf_win);
-        if (picnum != 3)
-            clear_image_buffer();
-        ensure_pixmap(current_graphics_buf_win);
-        draw_centered_title_image(picnum);
+        if (picnum != K_PIC_SWORD_MERLIN) {
+            glk_window_clear(current_graphics_buf_win);
+            draw_centered_title_image(picnum);
+        } else {
+            float scale = draw_centered_title_image(K_PIC_SWORD);
+            draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
+        }
         return true;
     }
 

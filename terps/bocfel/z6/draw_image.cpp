@@ -69,8 +69,7 @@ static uint8_t *pixmap = nullptr;
 
 static int pixlength = hw_screenwidth * 200 * 4;
 
-void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width)
-{
+void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
     FILE *fptr = fopen(name, "w");
 
     if (fptr == NULL) {
@@ -391,7 +390,6 @@ void ensure_pixmap(winid_t winid) {
     if (pixmap == nullptr) {
         win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
         glk_window_set_background_color(winid, user_selected_background);
-        glk_window_clear(winid);
         pixmap = (uint8_t *)calloc(1, pixlength);
     }
 }
@@ -594,22 +592,46 @@ void draw_arthur_side_images(winid_t winid) {
     flush_bitmap(winid);
 }
 
+extern winid_t current_graphics_buf_win;
 
 void clear_image_buffer(void) {
     if (pixmap != nullptr) {
         free(pixmap);
+        glk_window_clear(current_graphics_buf_win);
         pixmap = nullptr;
     }
 }
 
 int last_slideshow_pic = -1;
 
-void draw_centered_title_image(int picnum) {
-    int x, y, width, height;
-    get_image_size(picnum, &width, &height);
-    ZASSERT(width <= hw_screenwidth, "image too wide");
-    x = (hw_screenwidth - width) / 2;
-    y = (gscreenh / imagescaley - height) / 2;
-    draw_to_pixmap_unscaled(picnum, x, y);
+extern bool is_spatterlight_arthur;
+#define K_PIC_SWORD_MERLIN 3
+
+void draw_centered_image(int picnum, float scale, int width, int height) {
+    int x, y;
+    if (width == 0 || height == 0) {
+        get_image_size(picnum, &width, &height);
+        if (width == 0 || height == 0) {
+            return;
+        }
+    }
+
+    x = (gscreenw - width * scale * pixelwidth) / 2;
+    y = (gscreenh - height * scale) / 2;
+    draw_inline_image(current_graphics_buf_win, picnum, x, y, scale, false);
     last_slideshow_pic = picnum;
+}
+
+float draw_centered_title_image(int picnum) {
+    int width, height;
+    get_image_size(picnum, &width, &height);
+
+    float scale = (float)gscreenw / (width * pixelwidth);
+
+    if (height * scale > gscreenh) {
+        scale = (float)gscreenh / height;
+    }
+
+    draw_centered_image(picnum, scale, width, height);
+    return scale;
 }
