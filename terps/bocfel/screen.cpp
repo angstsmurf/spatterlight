@@ -4790,7 +4790,13 @@ void zget_wind_prop()
         val = win->x_origin;
         break;
     case 2:  // y size
-        val = win->y_size; //val = word(0x24) * font_height;
+        if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
+            glui32 h;
+            glk_window_get_size(win->id, nullptr, &h);
+            val = h;
+        } else {
+            val = win->y_size;
+        }
         break;
     case 3:  // x size
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
