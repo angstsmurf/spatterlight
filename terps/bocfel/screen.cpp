@@ -3377,7 +3377,10 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 4);
             } else if (ev.win->type == wintype_Graphics) {
                 adjust_image_scale();
-                zterp_mouse_click(ev.val1 / imagescalex - 1, ev.val2 / imagescaley - 1);
+                int16_t y = round((ev.val2) / imagescaley) - 1;
+                if (y < 3)
+                    y = 3;
+                zterp_mouse_click(round(ev.val1 / imagescalex) - 1, y);
 #endif
 #ifdef ZTERP_GLK_GRAPHICS
             } else if (ev.win == graphics_window.id()) {
