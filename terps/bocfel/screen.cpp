@@ -1377,7 +1377,7 @@ static void update_delayed()
 
 static void clear_window(Window *window)
 {
-    if (window->id == nullptr) {
+    if (window->id == nullptr || window->id->type == wintype_Graphics) {
         return;
     }
 
@@ -2032,14 +2032,10 @@ void zerase_window()
         return;
     }
 #endif
+#else
+    arthur_erase_window(zargs[0]);
 #endif
 
-    if (is_spatterlight_arthur && zargs[0] == 2) {
-        clear_image_buffer();
-        if (current_graphics_buf_win) {
-            glk_window_clear(current_graphics_buf_win);
-        }
-    }
     int32_t arg0 = as_signed(zargs[0]);
     switch (arg0) {
     case -2:
@@ -2049,17 +2045,6 @@ void zerase_window()
         break;
     case -1:
         close_upper_window();
-
-        if (is_spatterlight_arthur) {
-            if (screenmode == MODE_SLIDESHOW) {
-                clear_image_buffer();
-                arthur_toggle_slideshow_windows();
-            } else if (screenmode == MODE_INITIAL_QUESTION) {
-                screenmode = MODE_SLIDESHOW;
-            } //else if (screenmode == MODE_NO_GRAPHICS) {
-                v6_delete_win(&windows[2]);
-            //}
-        }
         // fallthrough
     case 0:
         // 8.7.3.2.1 says V5+ should have the cursor set to 1, 1 of the
