@@ -2322,15 +2322,25 @@ void v6_remap_win(Window *win, int type, winid_t *stored_win) {
 
 
 void v6_remap_win_to_grid(Window *win) {
-    if (win->id && win->id->type == wintype_TextGrid) {
-        return;
+    if (win->id) {
+        if (win->id->type == wintype_TextGrid) {
+            return;
+        } else {
+            gli_delete_window(win->id);
+            win->id = nullptr;
+        }
     }
     v6_remap_win(win, wintype_TextGrid, nullptr);
 }
 
 void v6_remap_win_to_buffer(Window *win) {
-    if (win->id && win->id->type == wintype_TextBuffer) {
-        return;
+    if (win->id) {
+        if (win->id->type == wintype_TextBuffer) {
+            return;
+        } else {
+            gli_delete_window(win->id);
+            win->id = nullptr;
+        }
     }
     v6_remap_win(win, wintype_TextBuffer, nullptr);
 }
