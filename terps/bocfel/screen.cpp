@@ -3493,9 +3493,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 
 #ifdef ZTERP_GLK_GRAPHICS
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_arthur) {
-            arthur_hotkeys(input.term);
-        } else
+        if (!is_spatterlight_arthur)
 #endif
         if (arthur_hack && input.term == ZSCII_F6) {
             graphics_window.destroy();
@@ -4755,7 +4753,7 @@ void zpicture_data()
 void zget_wind_prop()
 {
     uint8_t font_width = 1, font_height = 1;
-    uint16_t val;
+    uint16_t val = 0;
     Window *win;
 
 #ifdef ZTERP_GLK_GRAPHICS
@@ -5622,11 +5620,11 @@ void init_screen(bool first_run)
     // version 6) to the main window, allowing all output (text and
     // graphics) to be seen. Things could get pretty jumbled but it’s
     // not inherently worse than a chunk of output missing.
-    //#ifdef SPATTERLIGHT
+#ifdef SPATTERLIGHT
     if (options.redirect_v6_windows && !is_spatterlight_journey && !is_spatterlight_arthur) {
-        //#else
-        //        if (options.redirect_v6_windows) {
-        //#endif
+#else
+        if (options.redirect_v6_windows) {
+#endif
         for (int i = 2; i < 8; i++) {
             windows[i].id = windows[0].id;
         }
