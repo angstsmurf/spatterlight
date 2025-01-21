@@ -977,7 +977,7 @@ static bool display_hints(bool only_refresh) {
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
 
-    if (user_selected_background != gbgcol && !is_spatterlight_arthur) {
+    if (!is_spatterlight_arthur &&user_selected_background != gbgcol) {
         V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
         V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
     }

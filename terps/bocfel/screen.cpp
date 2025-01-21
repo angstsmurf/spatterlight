@@ -565,6 +565,8 @@ void update_user_defined_colours(void) {
     if (user_selected_background == zcolor_Default) {
         user_selected_background = gbgcol;
     }
+    update_color(SPATTERLIGHT_CURRENT_FOREGROUND, user_selected_foreground);
+    update_color(SPATTERLIGHT_CURRENT_BACKGROUND, user_selected_background);
 }
 
 int find_index_of_true_colour(glui32 col) {
@@ -575,8 +577,6 @@ int find_index_of_true_colour(glui32 col) {
     return 0;
 }
 
-glui32 darkest(glui32 col1, glui32 col2);
-
 void update_arthur_colours(void) {
     uint8_t fgidx = find_index_of_true_colour(user_selected_foreground);
     uint8_t bgidx = find_index_of_true_colour(user_selected_background);
@@ -586,15 +586,6 @@ void update_arthur_colours(void) {
         set_global(bg_global_idx, bgidx);
         update_color(SPATTERLIGHT_CURRENT_FOREGROUND, user_selected_foreground);
         update_color(SPATTERLIGHT_CURRENT_BACKGROUND, user_selected_background);
-
-        if (gli_z6_colorize && (gli_z6_graphics == kGraphicsTypeMacBW || gli_z6_graphics == kGraphicsTypeCGA)) {
-            monochrome_black = darkest(user_selected_foreground, user_selected_background);
-            if (monochrome_black == user_selected_foreground) {
-                monochrome_white = user_selected_background;
-            } else {
-                monochrome_white = user_selected_foreground;
-            }
-        }
     }
 }
 
@@ -602,7 +593,7 @@ void update_arthur_colours(void) {
 
 void update_color(int which, unsigned long color)
 {
-    if (which < 2 || which > 12) {
+    if (which < 2 || which > SPATTERLIGHT_CURRENT_BACKGROUND) {
         return;
     }
 
@@ -2615,18 +2606,26 @@ double perceived_brightness(glui32 col) {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-glui32 darkest(glui32 col1, glui32 col2) {
-    if (perceived_brightness(col1) >= perceived_brightness(col2))
-        return col2;
-    else
-        return col1;
-}
-
 glui32 brightest(glui32 col1, glui32 col2) {
     if (perceived_brightness(col1) < perceived_brightness(col2))
         return col2;
     else
         return col1;
+}
+
+void update_monochrome_colours(void) {
+    if (gli_z6_colorize &&
+        (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
+        monochrome_white = brightest(user_selected_foreground, user_selected_background);
+        if (monochrome_white == user_selected_background) {
+            monochrome_black = user_selected_foreground;
+        } else {
+            monochrome_black = user_selected_background;
+        }
+    } else {
+        monochrome_black = 0;
+        monochrome_white = 0xffffff;
+    }
 }
 
 #pragma mark window change on resize events
@@ -2747,14 +2746,8 @@ void window_change()
             }
 
             // if this is Zork Zero, the below is already done in update_z0_colors()
-            if (gli_z6_colorize &&
-                (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW)) {
-                monochrome_black = darkest(user_selected_foreground, user_selected_background);
-                monochrome_white = brightest(user_selected_foreground, user_selected_background);
-            } else {
-                monochrome_black = 0;
-                monochrome_white = 0xffffff;
-            }
+            update_user_defined_colours();
+            update_monochrome_colours();
             //            }
 
 
@@ -5587,26 +5580,12 @@ void init_screen(bool first_run)
 
 #ifdef SPATTERLIGHT
         if (is_spatterlight_journey || is_spatterlight_arthur) {
-
-            if (is_spatterlight_arthur) {
-                update_arthur_colours();
-            }
-
             window.index = i++;
             window.style.reset();
-            uint8_t fg = SPATTERLIGHT_CURRENT_FOREGROUND;
-            uint8_t bg = SPATTERLIGHT_CURRENT_BACKGROUND;
-            if (is_spatterlight_arthur && !first_run) {
-                fg = find_index_of_true_colour(user_selected_foreground);
-                bg = find_index_of_true_colour(user_selected_background);
-            }
-            if (!(zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol)) {
-                window.fg_color = Color();
-                window.bg_color = Color();
-            } else {
-                window.fg_color = Color(Color::Mode::ANSI, fg);
-                window.bg_color = Color(Color::Mode::ANSI, bg);
-            }
+
+            window.fg_color = fgcolor;
+            window.bg_color = bgcolor;
+
             window.y = 1;
             window.x = 1;
             window.x_origin = 1;
@@ -5655,14 +5634,7 @@ void init_screen(bool first_run)
         }
 #ifdef SPATTERLIGHT
     } else {
-        if (gli_z6_colorize && (gli_z6_graphics == kGraphicsTypeMacBW || gli_z6_graphics == kGraphicsTypeCGA)) {
-            monochrome_black = darkest(user_selected_foreground, user_selected_background);
-            if (monochrome_black == user_selected_foreground) {
-                monochrome_white = user_selected_background;
-            } else {
-                monochrome_white = user_selected_foreground;
-            }
-        }
+        update_monochrome_colours();
 #endif
     }
 
