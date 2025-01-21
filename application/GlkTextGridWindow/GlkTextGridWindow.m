@@ -1569,12 +1569,6 @@
     }];
 
     GlkController *glkctl = self.glkctl;
-    if (!glkctl.quoteBoxes)
-        glkctl.quoteBoxes = [[NSMutableArray alloc] init];
-
-    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
-    box.quoteboxSize = NSMakeSize(width, height);
-    [box makeTransparent];
 
     GlkTextBufferWindow *lowerView;
 
@@ -1585,17 +1579,30 @@
 
     NSTextView *superView = lowerView.textview;
 
-    [box.textview.textStorage setAttributedString:quoteAttStr];
+    if (glkctl.theme.zMachineNoErrWin) {
+        [lowerView putString:quoteAttStr.string style:style_Preformatted];
+    }
 
-    box.alphaValue = 0;
+    if (glkctl.theme.quoteBox) {
+        if (!glkctl.quoteBoxes)
+            glkctl.quoteBoxes = [[NSMutableArray alloc] init];
 
-    [glkctl.quoteBoxes addObject:box];
-    lowerView.quoteBox = box;
-    box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedOnPAC = 0;
-    glkctl.numberOfPrintsAndClears = 0;
-    box.quoteboxParent = superView.enclosingScrollView;
-    [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
+        GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
+        box.quoteboxSize = NSMakeSize(width, height);
+        [box makeTransparent];
+
+        [box.textview.textStorage setAttributedString:quoteAttStr];
+
+        box.alphaValue = 0;
+
+        [glkctl.quoteBoxes addObject:box];
+        lowerView.quoteBox = box;
+        box.quoteboxVerticalOffset = linesToSkip;
+        box.quoteboxAddedOnPAC = 0;
+        glkctl.numberOfPrintsAndClears = 0;
+        box.quoteboxParent = superView.enclosingScrollView;
+        [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
+    }
 }
 
 - (void)quoteboxAdjustSize:(id)sender {
