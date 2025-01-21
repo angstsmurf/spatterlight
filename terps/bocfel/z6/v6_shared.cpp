@@ -1341,37 +1341,6 @@ void DO_HINTS(void) {
     glk_put_string(const_cast<char*>("Back to the story...\n"));
 }
 
-#pragma mark Color change
-
-void V_COLOR(void) {
-    int fg = get_global(fg_global_idx);
-    int bg = get_global(bg_global_idx);
-    if (fg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
-        fprintf(stderr, "get_global(fg_global_idx) is %d!\n", fg);
-        set_global(fg_global_idx, 1);
-    }
-    if (bg >= SPATTERLIGHT_CURRENT_FOREGROUND) {
-        fprintf(stderr, "get_global(bg_global_idx) is %d!\n", bg);
-        set_global(bg_global_idx, 1);
-    }
-}
-
-//static void window_change(void);
-
-void after_V_COLOR(void) {
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-
-    update_user_defined_colours();
-
-    V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
-    V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
-    V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
-    V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
-
-    window_change();
-}
-
 #pragma mark Empty functions used by entrypoints code
 
 void DISPLAY_HINT(void) {}

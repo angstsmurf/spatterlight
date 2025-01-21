@@ -30,6 +30,8 @@ void RT_UPDATE_INVT_WINDOW(void);
 void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
 void RT_UPDATE_DESC_WINDOW(void);
+void RT_HOT_KEY(void);
+void RT_COLOR_ALL_WINDOWS(void);
 
 void ARTHUR_UPDATE_STATUS_LINE(void);
 void arthur_INIT_STATUS_LINE(void);
@@ -44,6 +46,8 @@ void arthur_update_after_autorestore(void);
 bool arthur_autorestore_internal_read_char_hacks(void);
 void arthur_close_and_reopen_front_graphics_window(void);
 
+void arthur_sync_screenmode(void);
+
 void stash_arthur_state(library_state_data *dat);
 void recover_arthur_state(library_state_data *dat);
 
@@ -55,8 +59,6 @@ typedef struct ArthurGlobals {
     uint8_t GL_MAP_GRID_Y; // Ga3•
     uint8_t GL_WINDOW_TYPE; // Ga3•
     uint8_t GL_AUTHOR_SIZE;
-    uint8_t WINDOW_2_X;
-    uint8_t WINDOW_2_Y;
     uint8_t GL_TIME_WIDTH;
     uint8_t GL_SL_HERE;
     uint8_t GL_SL_VEH;
@@ -74,7 +76,7 @@ typedef struct ArthurRoutines {
     uint32_t RT_UPDATE_STAT_WINDOW;
     uint32_t RT_UPDATE_MAP_WINDOW;
     uint32_t RT_UPDATE_DESC_WINDOW;
-    uint32_t REFRESH_SCREEN;
+    uint32_t RT_SEE_QST;
 } ArthurRoutines;
 
 extern ArthurRoutines ar;

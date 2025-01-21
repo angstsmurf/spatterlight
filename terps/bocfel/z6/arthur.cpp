@@ -741,20 +741,41 @@ void recover_arthur_state(library_state_data *dat) {
     last_slideshow_pic = dat->slideshow_pic;
 }
 
+void update_monochrome_colours(void);
+
+void RT_COLOR_ALL_WINDOWS(void) {
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+
+    if (fg == DEFAULT_COLOUR) {
+        fg = SPATTERLIGHT_CURRENT_FOREGROUND;
+    }
+    if (bg == DEFAULT_COLOUR) {
+        bg = SPATTERLIGHT_CURRENT_BACKGROUND;
+    }
+
+    update_user_defined_colours();
+
+    for (auto &window : windows) {
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
+        winid_t glkwin = window.id;
+        if (glkwin != nullptr) {
+            if (glkwin->type == wintype_Graphics) {
+                glk_window_set_background_color(glkwin, user_selected_background);
+                glk_window_clear(glkwin);
+            } else {
+                glk_set_window(glkwin);
+                garglk_set_zcolors(user_selected_foreground, user_selected_background);
+            }
+        }
+    }
+    update_monochrome_colours();
+}
+
 
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
-    update_user_defined_colours();
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-    fprintf(stderr, "arthur_update_after_restore: fg:%d bg:%d\n", fg, bg);
-    ARTHUR_ROOM_GRAPHIC_WIN.fg_color = Color(Color::Mode::ANSI, fg);
-    ARTHUR_ROOM_GRAPHIC_WIN.bg_color = Color(Color::Mode::ANSI, bg);
-    ARTHUR_ERROR_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
-    ARTHUR_ERROR_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
-    after_V_COLOR();
-    glk_window_set_background_color(graphics_bg_glk, user_selected_background);
-    glk_window_clear(graphics_bg_glk);
 }
 
 void arthur_close_and_reopen_front_graphics_window(void) {
@@ -770,17 +791,70 @@ void arthur_close_and_reopen_front_graphics_window(void) {
     }
 }
 
-
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
     arthur_close_and_reopen_front_graphics_window();
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
-    ARTHUR_ROOM_GRAPHIC_WIN.fg_color = Color(Color::Mode::ANSI, fg);
-    ARTHUR_ROOM_GRAPHIC_WIN.bg_color = Color(Color::Mode::ANSI, bg);
-    ARTHUR_ERROR_WINDOW.fg_color = Color(Color::Mode::ANSI, fg);
-    ARTHUR_ERROR_WINDOW.bg_color = Color(Color::Mode::ANSI, bg);
-    after_V_COLOR();
+    if (fg == DEFAULT_COLOUR) {
+        fg = SPATTERLIGHT_CURRENT_FOREGROUND;
+        user_selected_foreground = gfgcol;
+    }
+    if (bg == DEFAULT_COLOUR) {
+        bg = SPATTERLIGHT_CURRENT_BACKGROUND;
+        user_selected_background = gbgcol;
+    }
+
+    Color fg_color = Color(Color::Mode::ANSI, fg);
+    Color bg_color = Color(Color::Mode::ANSI, bg);
+
+    for (auto &window : windows) {
+        window.fg_color = fg_color;
+        window.bg_color = bg_color;
+    }
+
+    if (current_graphics_buf_win) {
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+        glk_window_clear(current_graphics_buf_win);
+    }
+
+    window_change();
+}
+
+struct HotKeyDict {
+    kArthurWindowType wintype;
+    V6ScreenMode mode;
+};
+
+static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
+    { ZSCII_F1, {K_WIN_PICT, MODE_NORMAL}      },
+    { ZSCII_F2, {K_WIN_MAP,  MODE_MAP}         },
+    { ZSCII_F3, {K_WIN_INVT, MODE_INVENTORY}   },
+    { ZSCII_F4, {K_WIN_STAT, MODE_STATUS}      },
+    { ZSCII_F5, {K_WIN_DESC, MODE_ROOM_DESC}   },
+    { ZSCII_F6, {K_WIN_NONE, MODE_NO_GRAPHICS} },
+};
+
+void hot_key(uint8_t key) {
+
+    if (screenmode == MODE_HINTS || screenmode == MODE_SLIDESHOW)
+        return;
+
+    HotKeyDict hotkey = hotkeys[key];
+
+    kArthurWindowType oldwintype = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
+    kArthurWindowType newwintype = hotkey.wintype;
+
+    if (oldwintype != newwintype) {
+        set_global(ag.GL_WINDOW_TYPE, newwintype);
+        screenmode = hotkey.mode;
+        arthur_update_on_resize();
+    }
+}
+
+
+void RT_HOT_KEY(void) {
+    hot_key(variable(1));
 }
 
 bool arthur_autorestore_internal_read_char_hacks(void) {

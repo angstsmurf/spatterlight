@@ -63,7 +63,6 @@ static std::vector<EntryPoint> entrypoints = {
         ARTHUR_UPDATE_STATUS_LINE
     },
 
-
     {
         Game::Arthur,
         "RT-AUTHOR-OFF",
@@ -76,35 +75,33 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Arthur,
-        "V-COLOR",
-        { 0xc1, 0x95, WILDCARD, 0x09, 0x02, 0x0a, 0x69},
+        "RT-COLOR-ALL-WINDOWS",
+        { 0x0d, 0x01, 0x00, 0xeb, 0xbf, 0x01, 0x7b, WILDCARD, 0x8f},
         0,
         0,
-        false,
-        V_COLOR
+        true,
+        RT_COLOR_ALL_WINDOWS
     },
 
     {
         Game::Arthur,
-        "V-COLOR alt",
-        { 0xa0, WILDCARD, 0x00, WILDCARD, 0x0d, WILDCARD, WILDCARD, 0xb2, 0x10, 0xca},
+        "RT-HOT-KEY",
+        {0xff, 0x7f, 0x02, 0xc7, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0xff, 0x7f, 0x03, 0xc5 },
         0,
         0,
-        false,
-        V_COLOR
+        true,
+        RT_HOT_KEY
     },
 
     {
         Game::Arthur,
-        "after V-COLOR",
-        {},
+        "RT-HOT-KEY alt",
+        {0xff, 0x7f, 0x02, 0xc7, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x41, 0x01, 0x85, 0x52 },
         0,
         0,
-        false,
-        after_V_COLOR
+        true,
+        RT_HOT_KEY
     },
-
-
 
     {
         Game::Arthur,
@@ -579,43 +576,21 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
 
 void find_arthur_globals(void) {
     int start = 0;
-    int color_return_address = 0;
-//    int mac_ii_return_address = 0;
     for (auto &entrypoint : entrypoints) {
-        if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x02, 0x4b, 0x0d, WILDCARD, 0x09, 0x0d, WILDCARD, 0x02}, { &bg_global_idx, &fg_global_idx, }, entrypoint.found_at_address, 300);
+        if (entrypoint.fn == RT_COLOR_ALL_WINDOWS && entrypoint.found_at_address != 0) {
+
+            start = find_globals_in_pattern({ 0xeb, 0xbf, 0x01, 0x7b, WILDCARD, WILDCARD}, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 100);
             fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
-            for (int i = start; i < memory_size - 12; i++) {
-                if (memory[i] == 0xb8 || memory[i] == 0xb0 ) {
-                    color_return_address = i;
-                    break;
-                }
-            }
-        } else if (entrypoint.fn == after_V_COLOR && color_return_address != 0) {
-            entrypoint.found_at_address = color_return_address;
-            fprintf(stderr, "after_V_COLOR at: 0x%x\n", entrypoint.found_at_address);
-            //        } else if (entrypoint.fn == MAC_II && entrypoint.found_at_address != 0) {
-            //            start = entrypoint.found_at_address;
-            //            for (int i = start; i < memory_size - 12; i++) {
-            //                if (memory[i] == 0xb1) {
-            //                    mac_ii_return_address = i - 6;
-            //                    break;
-            //                }
-            //            }
-            //        } else if (entrypoint.fn == after_MAC_II && mac_ii_return_address != 0) {
-            //            entrypoint.found_at_address = mac_ii_return_address;
-            //            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({0xb0, WILDCARD, 0x00, 0x71}, {&ag.GL_WINDOW_TYPE}, entrypoint.found_at_address, 100);
-            start = find_globals_in_pattern({0xbe, 0x10, 0x5b, 0x02, 0x01, 0x04, 0x55, 0x04, 0x01, WILDCARD, 0x0d, WILDCARD, 0x00}, {&ag.WINDOW_2_X, &ag.WINDOW_2_Y}, start, 300);
             if (start == -1) {
-                fprintf(stderr, "Error!\n");
+                fprintf(stderr, "Error! Did not find ag.GL_WINDOW_TYPE!\n");
                 start = entrypoint.found_at_address;
             }
 
             start = find_globals_in_pattern({0xf1, 0x7f, 0x00, 0x0d, 0x56, 0x00, 0xef, 0x5f, 0x01, 0x01}, {&ag.GL_TIME_WIDTH }, start, 300);
             if (start == -1) {
-                fprintf(stderr, "Error!\n");
+                fprintf(stderr, "Error! Did not find ag.GL_TIME_WIDTH\n");
                 start = entrypoint.found_at_address;
             }
 
@@ -628,7 +603,7 @@ void find_arthur_globals(void) {
                 0xb0}, {&ag.GL_SL_HERE, &ag.GL_SL_VEH, &ag.GL_SL_HIDE, &ag.GL_SL_TIME, &ag.GL_SL_FORM }, start, 300);
 
             if (start == -1) {
-                fprintf(stderr, "Error!\n");
+                fprintf(stderr, "Error! Did not find global in pattern!\n");
             }
 
 
@@ -639,6 +614,22 @@ void find_arthur_globals(void) {
             ar.RT_UPDATE_PICT_WINDOW = entrypoint.found_at_address - 1;
         } else if (entrypoint.fn == RT_UPDATE_INVT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_INVT_WINDOW = entrypoint.found_at_address - 1;
+
+            // Patch to to fix second vertical bar not being drawn at certain sizes.
+            // The purpose of the original code seems to be to avoid drawing at third bar at the right edge
+            // but instead it skips the second bar if the window width in characters is evenly divisible by 3.
+            // Not sure if it is broken in the original as well or if it is due to us measuring window width
+            // differently.
+
+            // We just patch the line that adds 1 to the width to subtract 1 instead.
+
+            // ADD (SP)+,#01 -> -(SP) becomes
+            // SUB (SP)+,#01 -> -(SP)
+            start = find_pattern_in_mem({0x54, 0x00, 0x01, 0x00}, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                store_byte(start, 0x55);
+            }
+
         } else if (entrypoint.fn == RT_UPDATE_STAT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_STAT_WINDOW = entrypoint.found_at_address - 1;
         } else if (entrypoint.fn == RT_UPDATE_DESC_WINDOW && entrypoint.found_at_address != 0) {
@@ -685,7 +676,6 @@ void find_arthur_globals(void) {
         } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
             ar.RT_SEE_QST = entrypoint.found_at_address - 1;
         }
-
     }
 }
 
@@ -796,7 +786,7 @@ void find_journey_globals(void) {
 
             offset = find_values_in_pattern({ 0xed, 0x7f, WILDCARD, 0xb0}, {&ja.buffer_window_index}, entrypoint.found_at_address, 500);
             if (offset == -1) {
-                fprintf(stderr, "Error!\n");
+                fprintf(stderr, "Error! Did not find values in pattern!\n");
                 offset = entrypoint.found_at_address;
             }
             for (int i = offset; i < memory_size - 12; i++) {

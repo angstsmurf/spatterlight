@@ -41,9 +41,6 @@ extern uint16_t h_quest_num;
 
 extern InfocomV6MenuType hints_depth;
 
-void V_COLOR(void);
-void after_V_COLOR(void);
-
 #define V6_TEXT_BUFFER_WINDOW windows[0]
 #define V6_STATUS_WINDOW windows[1]
 
