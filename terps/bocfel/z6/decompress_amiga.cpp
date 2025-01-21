@@ -41,7 +41,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
                     j++;
 
                 if (j > image->datasize) {
-                    fprintf(stderr, "Read %d bytes, which is out of range (expected data size: %zu). Something is wrong.\n", j, image->datasize);
+                    fprintf(stderr, "decompress_amiga: Read %d bytes, which is out of range (expected data size: %zu). Something is wrong.\n", j, image->datasize);
                     free(buffer);
                     return nullptr;
                 }
