@@ -2713,8 +2713,6 @@ void window_change()
                         if (image_count > 0) {
                             found = true;
                             graphics_type = kGraphicsTypeApple2;
-//                            options.int_number = INTERP_APPLE_IIE;
-//                            store_byte(0x1e, options.int_number);
                             hw_screenwidth = 140;
                             pixelwidth = 2.0;
                         }
@@ -2744,7 +2742,6 @@ void window_change()
 
             if (current_graphics_buf_win) {
                 glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-                glk_window_clear(current_graphics_buf_win);
             }
 
             if (is_spatterlight_arthur) {
@@ -3073,6 +3070,9 @@ void flush_image_buffer(void) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
             current_graphics_buf_win = graphics_bg_glk;
         }
+
+        if (screenmode == MODE_SLIDESHOW)
+            return;
 
         if (is_spatterlight_arthur && screenmode == MODE_ROOM_DESC) {
             internal_call_with_arg(pack_routine(ar.RT_UPDATE_DESC_WINDOW), 1);
