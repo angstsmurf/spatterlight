@@ -481,6 +481,8 @@ void V_DEFINE(void) {
 
 #pragma mark HINTS SCREEN
 
+// Shared between Zork Zero, Shogun, and Arthur
+
 winid_t stored_gridwin = nullptr;
 winid_t stored_bufferwin = nullptr;
 
@@ -696,8 +698,10 @@ static void init_hint_screen(void) {
         glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gbgcol);
     }
 
-    if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextGrid)
+    if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextGrid) {
+        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+    }
     redraw_hints_windows();
 }
 
@@ -852,6 +856,8 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
         glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
     }
 
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
         win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
@@ -860,7 +866,6 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     uint16_t str;
     int number_of_entries = 0;
@@ -1235,7 +1240,6 @@ void redraw_hint_screen_on_resize(void) {
     }
 }
 
-// Shared between Zork Zero, Shogun, and Arthur
 void DO_HINTS(void) {
     // Screenmode will be MODE_HINTS on autorestore,
     // and we need to store the mode we were in before
