@@ -1286,17 +1286,11 @@ static
 #endif
 void set_current_window(Window *window)
 {
-    fprintf(stderr, "set_current_window windows[%d] previous curwin: %d\n", window->index, curwin->index);
-    if (window->id != nullptr) {
-        fprintf(stderr, "set_current_window peer %d (index %d)\n", window->id->peer, window->index);
-        glk_set_window(window->id);
     curwin = window;
 
 #ifdef ZTERP_GLK
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_arthur) {
-        arthur_change_current_window();
-    } else if (!is_spatterlight_journey)
+    if (!is_spatterlight_journey)
 #endif
     if (curwin == upperwin && upperwin->id != nullptr) {
         upperwin->x = upperwin->y = 0;
