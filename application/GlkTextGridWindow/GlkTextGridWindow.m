@@ -941,12 +941,6 @@
         return;
     }
 
-    NSColor *fgcol = attrDict[NSForegroundColorAttributeName];
-    NSColor *bgcol = attrDict[NSBackgroundColorAttributeName];
-    BOOL reverseColor = [self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)];
-
-//    NSLog(@"GlkTextGridWindow %ld Printing at position %ld, %ld: \"%@\" style:%@ zcolor:%@ reverse video: %@ fg:%lx bg:%lx stylehint_ReverseColor:%@", self.name, xpos, ypos, string, gGridStyleNames[stylevalue], currentZColor, self.currentReverseVideo ? @"YES" : @"NO", [fgcol integerColor], [bgcol integerColor], reverseColor ? @"YES" : @"NO");
-
     // Check for newlines in string to write
     NSUInteger x;
     for (x = 0; x < length; x++) {
