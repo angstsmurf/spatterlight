@@ -674,7 +674,12 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
-//void win_sound_notify(glui32 snd, glui32 notify)
+void win_refresh(int name, float xscale, float yscale)
+{
+    win_flush();
+    sendmsg(REFRESH, name, (int)(xscale * 1000), (int)(yscale * 1000), 0, 0, 0, NULL);
+}
+
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG

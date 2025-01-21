@@ -19,6 +19,7 @@
 #import "BufferTextView.h"
 #import "GridTextView.h"
 #import "InfocomV6MenuHandler.h"
+#import "ImageHandler.h"
 #include "glkimp.h"
 
 
@@ -1690,6 +1691,41 @@ replacementString:(id)repl {
         NSString *filename = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
         [attachment dragTextAttachmentFrom:view event:event filename:filename inRect:rect];
     }
+}
+
+- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
+
+    if (xscale == 0 || yscale == 0)
+        return;
+    NSLog(@"GlkTextBufferWindow %ld updateMarginImages", self.name);
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+
+        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
+        if (cell.align != imagealign_MarginLeft &&  cell.align != imagealign_MarginRight)
+            return;
+
+
+        MarginImage *mimg = cell.marginImage;
+
+        NSUInteger index = [container.marginImages indexOfObject:mimg];
+        if (index == NSNotFound) {
+            return;
+        }
+        [container.marginImages removeObject:mimg];
+        if ([self.glkctl.imageHandler handleFindImageNumber:mimg.index]) {
+            NSImage *img = self.glkctl.imageHandler.lastimage;
+            img = [self scaleImage:img size:NSMakeSize(img.size.width * xscale, img.size.height * yscale)];
+            [container addImage:img index:mimg.index alignment:mimg.alignment at:mimg.pos linkid:0];
+            cell.marginImage = container.marginImages.lastObject;
+        }
+    }];
 }
 
 #pragma mark Hyperlinks

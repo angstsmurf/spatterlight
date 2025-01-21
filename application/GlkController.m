@@ -55,7 +55,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",
+//    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
 //    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
 //    "TIMER",           "INITCHAR",         "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
@@ -3854,6 +3854,15 @@ fprintf(stderr, "%s\n",                                                    \
                           withReplacement:nil
                                      size:0];
             }
+            break;
+
+        case REFRESH:
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
+                reqWin.styleHints = _bufferStyleHints;
+                if (req->a2 > 0)
+                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+            }
+            [reqWin prefsDidChange];
             break;
 
         case MENUITEM: {

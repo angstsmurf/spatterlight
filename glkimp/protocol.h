@@ -83,6 +83,7 @@ enum
     CLEARHINT,
     STYLEMEASURE,
     SETBGND,
+    REFRESH,
     SETTITLE,
     AUTOSAVE,
     RESET,

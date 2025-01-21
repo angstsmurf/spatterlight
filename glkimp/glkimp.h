@@ -118,6 +118,11 @@ void win_cancelmouse(int name);
 //  against the Glk spec, to change the background on-the-fly
 // of buffer and grid windows.
 void win_setbgnd(int name, glui32 color);
+
+// Redraw a buffer window with current styles,
+// against the Glk spec.
+void win_refresh(int name, float xscale, float yscale);
+
 void win_clear(int name);
 void win_moveto(int name, int x, int y);
 
