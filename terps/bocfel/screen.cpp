@@ -581,7 +581,7 @@ void update_arthur_colours(void) {
     uint8_t fgidx = find_index_of_true_colour(user_selected_foreground);
     uint8_t bgidx = find_index_of_true_colour(user_selected_background);
 
-    if (fgidx > 1 && fgidx < SPATTERLIGHT_CURRENT_FOREGROUND) {
+    if (fgidx > DEFAULT_COLOUR && fgidx < SPATTERLIGHT_CURRENT_FOREGROUND) {
         set_global(fg_global_idx, fgidx);
         set_global(bg_global_idx, bgidx);
         update_color(SPATTERLIGHT_CURRENT_FOREGROUND, user_selected_foreground);
@@ -593,7 +593,7 @@ void update_arthur_colours(void) {
 
 void update_color(int which, unsigned long color)
 {
-    if (which < 2 || which > SPATTERLIGHT_CURRENT_BACKGROUND) {
+    if (which <= DEFAULT_COLOUR || which >= SPATTERLIGHT_CURRENT_BACKGROUND) {
         return;
     }
 
