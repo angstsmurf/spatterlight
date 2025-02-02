@@ -875,8 +875,10 @@
         } else return;
     }
 
-    if (cols == 0 || rows == 0 || length == 0)
+    if (cols == 0 || rows == 0 || length == 0) {
+        NSLog(@"GlkTextGridWindow printToWindow: (cols == 0 || rows == 0 || length == 0). bailing.");
         return;
+    }
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -904,6 +906,7 @@
 
     startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
+        NSLog(@"GlkTextGridWindow printToWindow: Outside visible range! startpos:%ld textstoragelength:%ld", startpos, textstoragelength);
         // We are outside window visible range!
         // Do nothing
         return;
