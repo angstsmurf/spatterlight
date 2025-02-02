@@ -2080,7 +2080,7 @@ void zerase_window()
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
 #ifdef SPATTERLIGHT
     // Hack to set upper window background to current background color.
-    if (!is_spatterlight_journey)
+    if (!is_spatterlight_journey && !is_spatterlight_arthur)
     win_setbgnd(upperwin->id->peer, gargoyle_color(style_window()->bg_color));
 #endif
     set_current_style();
