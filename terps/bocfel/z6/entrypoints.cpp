@@ -932,7 +932,7 @@ void find_entrypoints(void) {
 
 void check_entrypoints(uint32_t pc) {
     for (auto &entrypoint : entrypoints) {
-        if (is_game(entrypoint.game) && pc == entrypoint.found_at_address) {
+        if (pc == entrypoint.found_at_address) {
             (entrypoint.fn)();
         }
     }
