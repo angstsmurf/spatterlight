@@ -257,7 +257,7 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
             if (index + 3 >= size * 4 + paddedwidth)
                 break;
             uint8_t *ptr = &pixmap[index];
-            if (byte >> (7-j) & 1) {
+            if (byte >> (7 - j) & 1) {
                 *ptr++ = monochrome_white >> 16;
                 *ptr++ = (monochrome_white >> 8) & 0xff;
                 *ptr++ = monochrome_white & 0xff;
