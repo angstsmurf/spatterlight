@@ -36,17 +36,13 @@
 
 - (void)handleMenuItemOfType:(InfocomV6MenuType)type index:(NSUInteger)index total:(NSUInteger)total text:(char *)buf length:(NSUInteger)len {
 
-    NSLog(@"InfocomV6MenuHandler handleMenuItemOfType:%u index:%lu total:%lu", type, index, total);
-
     _selectedLine = index;
     hasUpdatedMoveRanges = NO;
 
     if (type == kV6MenuSelectionChanged) {
         _delegate.zmenu.haveSpokenMenu = YES;
-        NSLog(@"InfocomV6MenuHandler handleMenuItemOfType kV6MenuSelectionChanged.");
         return;
     } else if (type == kV6MenuExited) {
-        NSLog(@"InfocomV6MenuHandler handleMenuItemOfType kV6MenuExited. Deleting menuitems");
         _delegate.zmenu.haveSpokenMenu = NO;
         _delegate.infocomV6MenuHandler = nil;
         return;
