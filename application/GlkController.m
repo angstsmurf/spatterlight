@@ -3857,11 +3857,19 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case REFRESH:
+//            This updates an existing window on-the-fly with the styles
+//            that normally would only be applied to a new window.
+//            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
-                reqWin.styleHints = _bufferStyleHints;
+                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_bufferStyleHints];
                 if (req->a2 > 0)
                     [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+            } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
+                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_gridStyleHints];
+            } else {
+                break;
             }
+            [self flushDisplay];
             [reqWin prefsDidChange];
             break;
 
