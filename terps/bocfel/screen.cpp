@@ -5568,8 +5568,8 @@ void init_screen(bool first_run)
 #ifdef SPATTERLIGHT
     int i = 0;
 
-    uint8_t fg = SPATTERLIGHT_CURRENT_FOREGROUND;
-    uint8_t bg = SPATTERLIGHT_CURRENT_BACKGROUND;
+    uint8_t fg = DEFAULT_COLOUR;
+    uint8_t bg = DEFAULT_COLOUR;
 
     if (is_spatterlight_arthur) {
         if (first_run) {
@@ -5577,24 +5577,34 @@ void init_screen(bool first_run)
             user_selected_background = gbgcol;
             update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
             update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
+        } else {
+            update_arthur_colours();
         }
-
-        update_arthur_colours();
     }
 
-    if (is_spatterlight_arthur && !first_run) {
-        fg = find_index_of_true_colour(user_selected_foreground);
-        bg = find_index_of_true_colour(user_selected_background);
+    bool colours_are_default = (first_run ||
+                                (user_selected_foreground == gfgcol &&
+                                 user_selected_background == gbgcol));
 
+    if (is_spatterlight_arthur && !first_run) {
+        if (!colours_are_default) {
+            fg = find_index_of_true_colour(user_selected_foreground);
+            bg = find_index_of_true_colour(user_selected_background);
+        }
+
+        // On restart, a blank status window will remain on top,
+        // so we hide it here.
         v6_define_window(upperwin, 0, 0, 0, 0);
     }
 
-    Color fgcolor = Color(Color::Mode::ANSI, fg);
-    Color bgcolor = Color(Color::Mode::ANSI, bg);
+    Color fgcolor, bgcolor;
 
-    if (zcolor_map[SPATTERLIGHT_CURRENT_FOREGROUND] == gfgcol && zcolor_map[SPATTERLIGHT_CURRENT_BACKGROUND] == gbgcol) {
+    if (colours_are_default) {
         fgcolor = Color();
         bgcolor = Color();
+    } else {
+        fgcolor = Color(Color::Mode::ANSI, fg);
+        bgcolor = Color(Color::Mode::ANSI, bg);
     }
 
 #endif
@@ -5735,6 +5745,11 @@ void init_screen(bool first_run)
                 win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
                 current_graphics_buf_win = nullptr;
                 windows[7].id = graphics_bg_glk;
+
+                glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+                glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
+                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
             }
         } // first run
 
