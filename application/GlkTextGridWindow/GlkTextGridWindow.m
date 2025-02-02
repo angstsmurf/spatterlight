@@ -578,11 +578,11 @@
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
-
     GlkController *glkctl = self.glkctl;
 
-    if (glkctl.ignoreResizes)
+    if (glkctl.ignoreResizes) {
         return;
+    }
 
     NSUInteger r;
 
@@ -597,14 +597,15 @@
     if (glkctl) {
         screensize = glkctl.window.screen.visibleFrame.size;
         if (frame.size.height > screensize.height)
-        frame.size.height = glkctl.gameView.frame.size.height;
+            frame.size.height = glkctl.gameView.frame.size.height;
     }
 
     _textview.textContainerInset =
-        NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+    NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
-    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0)
+    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0) {
         return;
+    }
 
     CGFloat margins = (_textview.textContainerInset.width + container.lineFragmentPadding) * 2;
     if (margins > frame.size.width)
@@ -642,8 +643,9 @@
 
     if ((NSInteger)newcols > 0 && (NSInteger)newrows > 0) {
 
-        if (self.inLiveResize && newcols < cols)
+        if (self.inLiveResize && newcols < cols) {
             return;
+        }
 
         _selectedRow = _restoredSelection.location / (cols + 1);
         _selectedCol = _restoredSelection.location % (cols + 1);
