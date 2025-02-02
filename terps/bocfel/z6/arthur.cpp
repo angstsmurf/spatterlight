@@ -495,8 +495,21 @@ void RT_AUTHOR_OFF(void) {
 
     uint32_t addr = at.K_DIROUT_TBL;
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
+    if (get_global(fg_global_idx) == DEFAULT_COLOUR) {
+        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_TextColor);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
+    } else {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
+    }
+
+
+    ARTHUR_ERROR_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+    ARTHUR_ERROR_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
+    ARTHUR_ERROR_WINDOW.style.reset(STYLE_REVERSE);
+    v6_delete_win(&ARTHUR_ERROR_WINDOW);
 
     if (ARTHUR_ERROR_WINDOW.id == nullptr && !gli_zmachine_no_err_win)
         ARTHUR_ERROR_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
@@ -521,8 +534,6 @@ void RT_AUTHOR_OFF(void) {
 
         V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin - height + 1;
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
-
-        win_setbgnd(ARTHUR_ERROR_WINDOW.id->peer, user_selected_foreground);
         glk_window_clear(ARTHUR_ERROR_WINDOW.id);
         glk_set_window(ARTHUR_ERROR_WINDOW.id);
     } else {
@@ -545,8 +556,10 @@ void RT_AUTHOR_OFF(void) {
         }
     }
 
-    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
-    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_TextColor);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_ReverseColor);
 
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
