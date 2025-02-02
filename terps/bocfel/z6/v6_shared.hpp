@@ -34,7 +34,7 @@ extern uint8_t fg_global_idx, bg_global_idx;
 extern uint8_t hint_chapter_global_idx, hint_quest_global_idx;
 extern uint16_t hints_table_addr;
 extern uint16_t seen_hints_table_addr;
-extern winid_t stored_gridwin, stored_bufferwin;
+extern winid_t stored_bufferwin;
 
 extern uint16_t h_chapt_num;
 extern uint16_t h_quest_num;

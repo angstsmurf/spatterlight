@@ -483,7 +483,8 @@ void V_DEFINE(void) {
 
 // Shared between Zork Zero, Shogun, and Arthur
 
-winid_t stored_gridwin = nullptr;
+// To keep track of the main buffer window while
+// using a grid for the hints menu
 winid_t stored_bufferwin = nullptr;
 
 uint8_t hint_chapter_global_idx = 0;
@@ -558,9 +559,12 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
     return y;
 }
 
-//  Returns the argument unchanged
-//  unless the game is Arthur
-//  (which has contextual hints)
+
+//  Arthur has contextual hints that
+//  might not be shown, so the internal index of
+//  a hint might not match its line on-screen.
+//  If the game is not Arthur, these two functions
+//  return the argument unchanged
 
 static uint16_t index_to_line(uint16_t index) {
     if (is_game(Game::Arthur)) {
@@ -574,11 +578,6 @@ static uint16_t index_to_line(uint16_t index) {
     return index;
 }
 
-
-//  Feturns the argument unchanged
-//  unless the game is Arthur
-//  (which has contextual hints)
-
 static uint16_t line_to_index(uint16_t line) {
     if (is_game(Game::Arthur)) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
@@ -589,10 +588,10 @@ static uint16_t line_to_index(uint16_t line) {
     return line;
 }
 
-static void redraw_hints_windows(void) {
+static void draw_hints_windows(void) {
 
-    upperwin_background = monochrome_white;
-    upperwin_foreground = monochrome_black;
+    upperwin_foreground = user_selected_foreground;
+    upperwin_background = user_selected_background;
 
     if (!is_spatterlight_arthur) {
         if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga) {
@@ -613,16 +612,21 @@ static void redraw_hints_windows(void) {
             if (upperwin_foreground == 0xffffff)
                 upperwin_foreground = 0;
         }
-    } else {
-        upperwin_background = user_selected_background;
-        upperwin_foreground = user_selected_foreground;
     }
 
-    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-    garglk_set_zcolors(user_selected_foreground, user_selected_background);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, upperwin_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
 
-    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-//    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
+    if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
+        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+    } else if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
+        v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+        V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+    }
 
     int width = 1;
     int status_x = 0;
@@ -657,13 +661,10 @@ static void redraw_hints_windows(void) {
 //        }
     }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
-    if (stored_gridwin == nullptr) {
-        v6_remap_win(&V6_STATUS_WINDOW, wintype_TextGrid, &stored_gridwin);
-    }
-    V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
-    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
+
+    V6_STATUS_WINDOW.x = 0;
+    V6_STATUS_WINDOW.y = 0;
 
     if (is_spatterlight_arthur) {
         height = V6_STATUS_WINDOW.y_size + gcellh;
@@ -677,32 +678,14 @@ static void redraw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-    glk_set_window(V6_STATUS_WINDOW.id);
-    garglk_set_zcolors(upperwin_foreground, upperwin_background);
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+
     glk_window_clear(V6_STATUS_WINDOW.id);
-    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
-}
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
-static void init_hint_screen(void) {
-    //    z0_erase_screen();
-    //    shogun_erase_screen();
-
-    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_REVERSE);
-    if (is_spatterlight_arthur) {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-    } else {
-        V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_BACKGROUND);
-        V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, SPATTERLIGHT_CURRENT_FOREGROUND);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gfgcol);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gbgcol);
-    }
-
-    if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextGrid) {
-        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
-    }
-    redraw_hints_windows();
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
+    glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
 }
 
 static void center_line(const char *str, int line, int length, bool reverse) {
@@ -740,7 +723,6 @@ static void hint_title(const char *title, int length) {
         win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
     winid_t win = V6_STATUS_WINDOW.id;
     glk_set_window(win);
-    garglk_set_zcolors(upperwin_foreground, upperwin_background);
     glk_window_clear(win);
     center_line(title, 1, length, true);
 
@@ -850,22 +832,14 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t y = 0;
     glui32 width, height;
 
-    // Find a way to change background color without deleting the window
-    if (!is_spatterlight_arthur) {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-    }
-
-    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
-        stored_bufferwin = V6_TEXT_BUFFER_WINDOW.id;
-        win_sizewin(stored_bufferwin->peer, 0, 0, 0, 0);
-        V6_TEXT_BUFFER_WINDOW.id = nullptr;
+        glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
+        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+        glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+
     }
-    v6_remap_win_to_grid(&V6_TEXT_BUFFER_WINDOW);
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
-    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
 
     uint16_t str;
     int number_of_entries = 0;
@@ -974,31 +948,13 @@ static bool display_hints(bool only_refresh) {
 
     int16_t hints_base_address;
 
-    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
-
-    if (!is_spatterlight_arthur &&user_selected_background != gbgcol) {
-        V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-    }
     if (V6_TEXT_BUFFER_WINDOW.id && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
         v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+        V6_TEXT_BUFFER_WINDOW.id = gli_new_window(wintype_TextBuffer, 0);
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     }
-    if (V6_TEXT_BUFFER_WINDOW.id != stored_bufferwin) {
-        if (stored_bufferwin != nullptr) {
-            V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
-            v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
-        } else {
-            v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextBuffer, &stored_bufferwin);
-        }
-    }
-
     int16_t max = init_hints(&hints_base_address);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
-
-    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-    garglk_set_zcolors(user_selected_foreground, user_selected_background);
-
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     int16_t seen = get_seen_hints();
@@ -1226,7 +1182,8 @@ static int display_topics(void) {
 }
 
 void redraw_hint_screen_on_resize(void) {
-    redraw_hints_windows();
+    draw_hints_windows();
+    glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
     switch (hints_depth) {
         case kV6MenuTypeHint:
             display_hints(true);
@@ -1254,26 +1211,20 @@ void DO_HINTS(void) {
             clear_image_buffer();
             if (current_graphics_buf_win)
                 glk_window_clear(current_graphics_buf_win);
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-            if (windows[2].id != nullptr) {
-                v6_delete_win(&windows[2]);
-            }
+
+            // Delete the topmost window used by Arthur in its status,
+            // inventory, and room description modes.
+            v6_delete_win(&windows[2]);
         } else {
+            // Set for Shogun (delete if set in entrypoints)
             hints_table_addr = 0xbe99;
         }
-
         h_chapt_num = get_global(hint_chapter_global_idx);
         h_quest_num = get_global(hint_quest_global_idx);
-        }
-
-    if (!is_spatterlight_arthur) {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     }
 
     screenmode = MODE_HINTS;
-    garglk_set_reversevideo(0);
-    init_hint_screen();
+    draw_hints_windows();
 
     int number_of_entries;
     bool outer_loop = true;
@@ -1301,35 +1252,22 @@ void DO_HINTS(void) {
         }
     }
 
-    if (is_spatterlight_arthur) {
-        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_TextColor);
-        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
-    } else {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, gbgcol);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, gfgcol);
-    }
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_TextColor);
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 
-    // If we autorestore into showing hint and press Q to exit,
-    // V6_STATUS_WINDOW.id will still be the actual status grid window
-    // and equal to stored_gridwin
-    if (stored_gridwin && V6_STATUS_WINDOW.id != stored_gridwin) {
-        v6_delete_win(&V6_STATUS_WINDOW);
-        V6_STATUS_WINDOW.id = stored_gridwin;
-    }
     v6_sizewin(&V6_STATUS_WINDOW);
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
 
-    if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
+    if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextBuffer) {
         v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+        V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
     }
 
-    V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
-    stored_bufferwin = nullptr;
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     screenmode = stored_mode;
 
-    stored_gridwin = nullptr;
     stored_bufferwin = nullptr;
 
     hints_depth = kV6MenuTypeTopic;
@@ -1343,6 +1281,7 @@ void DO_HINTS(void) {
     //    }
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
+    glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
 }
 
 #pragma mark Empty functions used by entrypoints code

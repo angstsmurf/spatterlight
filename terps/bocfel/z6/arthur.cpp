@@ -633,8 +633,6 @@ void stash_arthur_state(library_state_data *dat) {
         dat->current_graphics_win_tag = current_graphics_buf_win->tag;
     if (graphics_fg_glk)
         dat->graphics_fg_tag = graphics_fg_glk->tag;
-    if (stored_gridwin)
-        dat->stored_upper_tag = stored_gridwin->tag;
     if (stored_bufferwin)
         dat->stored_lower_tag = stored_bufferwin->tag;
     dat->slideshow_pic = last_slideshow_pic;
@@ -647,7 +645,6 @@ void recover_arthur_state(library_state_data *dat) {
 
     current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
     graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
-    stored_gridwin = gli_window_for_tag(dat->stored_upper_tag);
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
     last_slideshow_pic = dat->slideshow_pic;
 }

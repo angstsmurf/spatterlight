@@ -91,7 +91,6 @@ typedef struct library_state_data_struct {
     int current_graphics_win_tag;
     int graphics_fg_tag;
 
-    int stored_upper_tag;
     int stored_lower_tag;
 
     int hints_depth;

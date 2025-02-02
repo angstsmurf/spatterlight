@@ -289,7 +289,6 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
 
     [encoder encodeInt32:(int32_t)library_state.current_graphics_win_tag forKey:@"bocfel_current_graphics_win_tag"];
     [encoder encodeInt32:(int32_t)library_state.graphics_fg_tag forKey:@"bocfel_graphics_fg_tag"];
-    [encoder encodeInt32:(int32_t)library_state.stored_upper_tag forKey:@"bocfel_stored_upper_tag"];
     [encoder encodeInt32:(int32_t)library_state.stored_lower_tag forKey:@"bocfel_stored_lower_tag"];
     [encoder encodeInt32:(int32_t)library_state.hints_depth forKey:@"bocfel_hints_depth"];
     [encoder encodeInt32:(int32_t)library_state.slideshow_pic forKey:@"bocfel_slideshow_pic"];
@@ -338,7 +337,6 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
 
     library_state.current_graphics_win_tag = [decoder decodeInt32ForKey:@"bocfel_current_graphics_win_tag"];;
     library_state.graphics_fg_tag = [decoder decodeInt32ForKey:@"bocfel_graphics_fg_tag"];
-    library_state.stored_upper_tag = [decoder decodeInt32ForKey:@"bocfel_stored_upper_tag"];
     library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
     library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
     library_state.slideshow_pic = [decoder decodeInt32ForKey:@"bocfel_slideshow_pic"];
