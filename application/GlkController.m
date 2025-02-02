@@ -2891,27 +2891,29 @@ fprintf(stderr, "%s\n",                                                    \
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
                          result:(NSInteger *)result {
-    Theme *theme = _theme;
-    if ([gwindow getStyleVal:style hint:hint value:result])
-        return YES;
-    else {
-        if (hint == stylehint_TextColor) {
-            if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = (theme.bufferNormal.color).integerColor;
-            else
-                *result = (theme.gridNormal.color).integerColor;
 
-            return YES;
+    if (hint == stylehint_TextColor || hint == stylehint_BackColor) {
+        NSMutableDictionary *attributes = [gwindow getCurrentAttributesForStyle:style];
+        NSColor *color = nil;
+        if (hint == stylehint_TextColor) {
+            color = attributes[NSForegroundColorAttributeName];
         }
         if (hint == stylehint_BackColor) {
-            if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = theme.bufferBackground.integerColor;
-            else
-                *result = theme.gridBackground.integerColor;
+            color = attributes[NSBackgroundColorAttributeName];
+            if (!color) {
+                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]] ? _theme.bufferBackground : _theme.gridBackground;
+            }
+        }
 
+        if (color) {
+            *result = color.integerColor;
             return YES;
         }
     }
+
+    if ([gwindow getStyleVal:style hint:hint value:result])
+        return YES;
+
     return NO;
 }
 
