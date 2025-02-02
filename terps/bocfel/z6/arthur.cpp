@@ -249,6 +249,14 @@ void arthur_sync_screenmode(void) {
 void arthur_update_on_resize(void) {
     adjust_arthur_top_margin();
 
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
+
+    if (ARTHUR_ROOM_GRAPHIC_WIN.id && ARTHUR_ROOM_GRAPHIC_WIN.id->type == wintype_TextGrid)
+        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
+
     int screenheight = gscreenh;
     if (ARTHUR_ERROR_WINDOW.id != nullptr) {
         int error_window_height = get_global(ag.GL_AUTHOR_SIZE);
@@ -261,6 +269,10 @@ void arthur_update_on_resize(void) {
         return;
 
     if (screenmode != MODE_SLIDESHOW) {
+        if (current_graphics_buf_win && screenmode != MODE_NORMAL) {
+            glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+            glk_window_clear(current_graphics_buf_win);
+        }
         if (screenmode != MODE_NO_GRAPHICS) {
             int x_margin = 0, y_margin = 0;
             get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
@@ -276,6 +288,7 @@ void arthur_update_on_resize(void) {
 
             if (screenmode != MODE_HINTS) {
                 V6_STATUS_WINDOW.y_origin = arthur_text_top_margin;
+                win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
             }
 
             int width_in_chars = ((float)(gscreenw - 2 * x_margin) / gcellw);
@@ -327,6 +340,7 @@ void arthur_update_on_resize(void) {
                 } else {
                     v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
                 }
+                win_setbgnd(ARTHUR_ROOM_GRAPHIC_WIN.id->peer, user_selected_background);
             } else {
                 v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
             }
@@ -655,26 +669,50 @@ void RT_COLOR_ALL_WINDOWS(void) {
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
 
-    if (fg == DEFAULT_COLOUR) {
-        fg = SPATTERLIGHT_CURRENT_FOREGROUND;
-    }
-    if (bg == DEFAULT_COLOUR) {
-        bg = SPATTERLIGHT_CURRENT_BACKGROUND;
-    }
-
     update_user_defined_colours();
 
+    Color fg_color, bg_color;
+
+    if (fg == DEFAULT_COLOUR) {
+        fg_color = Color();
+    } else {
+        fg_color = Color(Color::Mode::ANSI, fg);
+    }
+
+    if (bg == DEFAULT_COLOUR) {
+        bg_color = Color();
+    } else {
+        bg_color = Color(Color::Mode::ANSI, bg);
+    }
+
     for (auto &window : windows) {
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
+        window.fg_color = fg_color;
+        window.bg_color = bg_color;
         winid_t glkwin = window.id;
         if (glkwin != nullptr) {
             if (glkwin->type == wintype_Graphics) {
                 glk_window_set_background_color(glkwin, user_selected_background);
                 glk_window_clear(glkwin);
             } else {
+                if (glkwin->type == wintype_TextBuffer) {
+                    win_setbgnd(glkwin->peer, user_selected_background);
+                }
+
                 glk_set_window(glkwin);
-                garglk_set_zcolors(user_selected_foreground, user_selected_background);
+
+                // Colours may be set to default (1) if this is called from the SAVE routine
+                glsi32 zcolfg, zcolbg;
+                if (fg == DEFAULT_COLOUR)
+                    zcolfg = zcolor_Default;
+                else
+                    zcolfg = user_selected_foreground;
+
+                if (bg == DEFAULT_COLOUR)
+                    zcolbg = zcolor_Default;
+                else
+                    zcolbg = user_selected_background;
+
+                garglk_set_zcolors(zcolfg, zcolbg);
             }
         }
     }
@@ -714,11 +752,9 @@ void arthur_update_after_autorestore(void) {
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
     if (fg == DEFAULT_COLOUR) {
-        fg = SPATTERLIGHT_CURRENT_FOREGROUND;
         user_selected_foreground = gfgcol;
     }
     if (bg == DEFAULT_COLOUR) {
-        bg = SPATTERLIGHT_CURRENT_BACKGROUND;
         user_selected_background = gbgcol;
     }
 
