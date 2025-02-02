@@ -1,7 +1,7 @@
 #include "glkimp.h"
 #include "protocol.h"
 
-#define DEBUG
+//#define DEBUG
 
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
 #define RBUFSIZE (GLKBUFSIZE / sizeof(struct fillrect))
