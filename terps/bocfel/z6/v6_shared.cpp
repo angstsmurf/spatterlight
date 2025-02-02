@@ -492,8 +492,8 @@ uint8_t hint_quest_global_idx = 0;
 
 uint16_t hints_table_addr = 0;
 
-glsi32 upperwin_foreground = zcolor_Default; // black
-glsi32 upperwin_background = zcolor_Default; // white
+glui32 upperwin_foreground = zcolor_Default; // black
+glui32 upperwin_background = zcolor_Default; // white
 
 InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
 
