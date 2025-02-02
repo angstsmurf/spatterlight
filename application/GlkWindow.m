@@ -151,10 +151,12 @@ fprintf(stderr, "%s\n",                                                    \
     NSArray *hintsForStyle = _styleHints[style];
 
     valObj = hintsForStyle[hint];
-    if ([valObj isNotEqualTo:[NSNull null]])
+    if ([valObj isNotEqualTo:[NSNull null]]) {
         *value = valObj.integerValue;
+        return YES;
+    }
 
-    return [valObj isNotEqualTo:[NSNull null]];
+    return NO;
 }
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol {
