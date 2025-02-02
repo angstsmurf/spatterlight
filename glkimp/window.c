@@ -122,21 +122,14 @@ void gli_delete_window(window_t *win)
     if (gli_rootwin == win)
         gli_rootwin = NULL;
 
-    const char *wintype;
-
     switch (win->type)
     {
         case wintype_Blank:
-            wintype = "blank";
             break;
         case wintype_Pair:
-            wintype = "pair";
             break;
         case wintype_TextBuffer:
-            wintype = "buffer";
         case wintype_TextGrid:
-            if (win->type == wintype_TextGrid)
-                wintype = "grid";
             win_delwin(win->peer);
             if (win->line.buf)
             {
@@ -149,7 +142,6 @@ void gli_delete_window(window_t *win)
             }
             break;
         case wintype_Graphics:
-            wintype = "graphics";
             win_delwin(win->peer);
             break;
     }
