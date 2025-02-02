@@ -898,42 +898,13 @@
         ypos += xpos / cols;
         xpos = xpos % cols;
     }
-    NSMutableDictionary *attrDict = [styles[stylevalue] mutableCopy];
-
-    if (!attrDict)
-        NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
+    NSMutableDictionary *attrDict = [self getCurrentAttributesForStyle:stylevalue];
 
     startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
         return;
-    }
-
-    if (currentZColor) {
-        attrDict[@"ZColor"] = currentZColor;
-        if (self.theme.doStyles) {
-            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                attrDict = [currentZColor reversedAttributes:attrDict];
-                //  If the style has the reverseColor hint set, we apply the zcolors in reverse
-            } else {
-                attrDict = [currentZColor coloredAttributes:attrDict];
-                // Otherwise we apply the zcolors normally");
-            }
-        }
-    }
-
-    if (self.currentReverseVideo) {
-        attrDict[@"ReverseVideo"] = @(YES);
-        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-            // If the current colours are not already reversed by stylehint_ReverseColor,
-            // we reverse the colours here
-            attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
-        }
-    }
-
-    if (self.currentHyperlink) {
-        attrDict[NSLinkAttributeName] = @(self.currentHyperlink);
     }
 
     if (ypos > rows) {

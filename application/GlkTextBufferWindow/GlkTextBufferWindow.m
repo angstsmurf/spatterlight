@@ -905,31 +905,8 @@ fprintf(stderr, "%s\n",                                                    \
         storedNewline = nil;
     }
 
-    NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
+    NSMutableDictionary *attributes = [self getCurrentAttributesForStyle:stylevalue];
 
-    if (currentZColor) {
-        attributes[@"ZColor"] = currentZColor;
-        if (self.theme.doStyles) {
-            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                // If the style has reverseColor hint set, we apply the zcolors in reverse
-                attributes = [currentZColor reversedAttributes:attributes];
-            } else {
-                attributes = [currentZColor coloredAttributes:attributes];
-            }
-        }
-    }
-
-    if (self.currentReverseVideo) {
-        attributes[@"ReverseVideo"] = @(YES);
-        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-            // Current style has stylehint_ReverseColor unset, so we reverse colors
-            attributes = [self reversedAttributes:attributes background:self.theme.bufferBackground];
-        }
-    }
-
-    if (self.currentHyperlink) {
-        attributes[NSLinkAttributeName] = @(self.currentHyperlink);
-    }
 
     if (str.length > 1) {
         unichar c = [str characterAtIndex:str.length - 1];

@@ -87,6 +87,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (NSMutableAttributedString *)applyReverseOnly:(NSMutableAttributedString *)attStr;
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
+- (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue;
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n;
 - (void)drawImage:(NSImage *)buf
