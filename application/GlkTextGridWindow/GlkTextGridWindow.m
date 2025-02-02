@@ -850,6 +850,7 @@
         }
     }
     _textview.selectedRange = selectedRange;
+    [self recalcBackground];
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
