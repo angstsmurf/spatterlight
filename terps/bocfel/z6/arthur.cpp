@@ -768,12 +768,11 @@ static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
     { ZSCII_F6, {K_WIN_NONE, MODE_NO_GRAPHICS} },
 };
 
-static void hot_key(uint8_t key) {
-
+void RT_HOT_KEY(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SLIDESHOW)
         return;
 
-    HotKeyDict hotkey = hotkeys[key];
+    HotKeyDict hotkey = hotkeys[variable(1)];
 
     kArthurWindowType oldwintype = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
     kArthurWindowType newwintype = hotkey.wintype;
@@ -783,11 +782,6 @@ static void hot_key(uint8_t key) {
         screenmode = hotkey.mode;
         arthur_update_on_resize();
     }
-}
-
-
-void RT_HOT_KEY(void) {
-    hot_key(variable(1));
 }
 
 bool arthur_autorestore_internal_read_char_hacks(void) {
