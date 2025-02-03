@@ -581,7 +581,11 @@ void update_arthur_colours(void) {
 
 void update_color(int which, unsigned long color)
 {
+#ifdef SPATTERLIGHT
     if (which <= DEFAULT_COLOUR || which >= SPATTERLIGHT_CURRENT_BACKGROUND) {
+#else
+    if (which < 2 || which > 12) {
+#endif
         return;
     }
 
@@ -1359,7 +1363,11 @@ static void update_delayed()
 
 static void clear_window(Window *window)
 {
+#ifdef SPATTERLIGHT
     if (window->id == nullptr || window->id->type == wintype_Graphics) {
+#else
+    if (window->id == nullptr) {
+#endif
         return;
     }
 
@@ -1405,7 +1413,6 @@ static void resize_upper_window(long nlines, bool from_game)
             update_delayed();
 #endif
         }
-
         saw_input = false;
 
         // §8.6.1.1.2
@@ -2018,8 +2025,12 @@ void zerase_window()
     arthur_erase_window(zargs[0]);
 #endif
 
+#ifdef SPATTERLIGHT
     int32_t arg0 = as_signed(zargs[0]);
     switch (arg0) {
+#else
+    switch (as_signed(zargs[0])) {
+#endif
     case -2:
         for (auto &window : windows) {
             clear_window(&window);
@@ -2254,9 +2265,6 @@ void v6_delete_glk_win(winid_t glkwin) {
     if (graphics_bg_glk == glkwin) {
         graphics_bg_glk = nullptr;
     }
-    //    if (buffer_win_glk == glkwin) {
-    //        buffer_win_glk = nullptr;
-    //    }
 
     if (current_graphics_buf_win == glkwin) {
         current_graphics_buf_win = nullptr;
@@ -2415,7 +2423,6 @@ void zset_true_colour()
         set_current_style();
     }
 }
-
 
 // V6 has per-window styles, but all others have a global style; in this
 // case, track styles via the main window.
@@ -2615,8 +2622,10 @@ static
 void window_change()
 {
 #ifdef ZTERP_GLK_GRAPHICS
+#ifdef SPATTERLIGHT
     if (!is_spatterlight_arthur)
-        graphics_window.destroy();
+#endif
+    graphics_window.destroy();
 #ifndef SPATTERLIGHT
     close_journey_window();
 #endif
@@ -3053,6 +3062,7 @@ static uint8_t zscii_from_glk(glui32 key)
 }
 #endif
 
+#ifdef SPATTERLIGHT
 void flush_image_buffer(void) {
     if (is_spatterlight_arthur || is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
@@ -3071,6 +3081,7 @@ void flush_image_buffer(void) {
         }
     }
 }
+#endif
 
 // Attempt to read input from the user. The input type can be either a
 // single character or a full line. If “timer” is not zero, a timer is
@@ -3735,7 +3746,9 @@ static bool read_handler()
     uint16_t timer = 0;
     uint16_t routine = zargs[3];
 
+#ifdef SPATTERLIGHT
     flush_image_buffer();
+#endif
 
     if (options.autosave && !in_interrupt()) {
 #ifdef SPATTERLIGHT
@@ -4768,6 +4781,7 @@ void zget_wind_prop()
         val = win->x_origin;
         break;
     case 2:  // y size
+#ifdef SPATTERLIGHT
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
             glui32 h;
             glk_window_get_size(win->id, nullptr, &h);
@@ -4775,8 +4789,12 @@ void zget_wind_prop()
         } else {
             val = win->y_size;
         }
+#else
+        val = word(0x24) * font_height;
+#endif
         break;
     case 3:  // x size
+#ifdef SPATTERLIGHT
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
             glui32 w;
             glk_window_get_size(win->id, &w, NULL);
@@ -4787,8 +4805,11 @@ void zget_wind_prop()
             if (win->id == nullptr)
             val = win->x_size; // word(0x22) * font_width;
         } else {
-            val = word(0x22) * font_width;
+#endif
+        val = word(0x22) * font_width;
+#ifdef SPATTERLIGHT
         }
+#endif
         break;
     case 4:  // y cursor
         val = 0;
@@ -4812,7 +4833,7 @@ void zget_wind_prop()
         val = win->style.to_ulong();
         break;
     case 11: // colour data
-        val = (0 << 8) | 9;
+        val = (win->bg_color.as_zcolor() << 8) | win->fg_color.as_zcolor();
         break;
     case 12: // font number
         val = static_cast<uint16_t>(win->font);
@@ -4845,13 +4866,16 @@ void zget_wind_prop()
 void zprint_form()
 {
     Window *saved = curwin;
-
+#ifdef SPATTERLIGHT
     if (!is_spatterlight_arthur) {
+#endif
     curwin = mainwin;
 #ifdef ZTERP_GLK
     glk_set_window(mainwin->id);
 #endif
+#ifdef SPATTERLIGHT
     }
+#endif
 
     uint32_t addr = zargs[0];
     for (uint16_t count = user_word(addr); count != 0; count = user_word(addr)) {
@@ -4863,12 +4887,16 @@ void zprint_form()
 
         addr += 2 + count;
     }
+#ifdef SPATTERLIGHT
     if (!is_spatterlight_arthur) {
-    curwin = saved;
-#ifdef ZTERP_GLK
-    glk_set_window(curwin->id);
 #endif
+        curwin = saved;
+#ifdef ZTERP_GLK
+        glk_set_window(curwin->id);
+#endif
+#ifdef SPATTERLIGHT
     }
+#endif
 }
 
 void zmake_menu()

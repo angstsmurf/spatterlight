@@ -323,6 +323,10 @@ void internal_put_prop(uint16_t object, uint16_t property, uint16_t value)
     }
 }
 
+int16_t internal_get_parent(int16_t obj) {
+    return (parent_of(obj));
+}
+
 #endif
 
 #undef ATTR_BIT
@@ -363,10 +367,6 @@ void zget_child()
 
     store(child);
     branch_if(child != 0);
-}
-
-int16_t internal_get_parent(int16_t obj) {
-    return (parent_of(obj));
 }
 
 void zget_parent()

@@ -580,7 +580,11 @@ void find_arthur_globals(void) {
         if (entrypoint.fn == RT_COLOR_ALL_WINDOWS && entrypoint.found_at_address != 0) {
 
             start = find_globals_in_pattern({ 0xeb, 0xbf, 0x01, 0x7b, WILDCARD, WILDCARD}, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 100);
-            fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+            if (start == -1) {
+                fprintf(stderr, "Error! Could not find color globals!\n");
+            } else {
+                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+            }
         } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({0xb0, WILDCARD, 0x00, 0x71}, {&ag.GL_WINDOW_TYPE}, entrypoint.found_at_address, 100);
             if (start == -1) {

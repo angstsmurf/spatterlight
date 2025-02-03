@@ -110,6 +110,7 @@ private:
             } catch (...) {
                 // If the locale is invalid, don’t worry about it.
             }
+
             formatted_time << std::put_time(lt, "%c");
 
             return formatted_time.str();
