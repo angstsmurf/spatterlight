@@ -918,9 +918,9 @@
         return;
     }
 
-    // Check for newlines in string to write
-    NSUInteger x;
-    for (x = 0; x < length; x++) {
+    // Check for newlines in string to write.
+    // length - 1 because we don't care about newlines at the very end.
+    for (NSUInteger x = 0; x < length - 1; x++) {
         if ([string characterAtIndex:x] == '\n' ||
             [string characterAtIndex:x] == '\r') {
             [self printToWindow:[string substringToIndex:x] style:stylevalue];
