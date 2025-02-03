@@ -202,25 +202,7 @@ enum kArthurWindowType {
     K_WIN_PICT = 5
 };
 
-static std::string modestrings[] = {
-    "MODE_NORMAL",
-    "MODE_SLIDESHOW",
-    "MODE_MAP",
-    "MODE_INVENTORY",
-    "MODE_STATUS",
-    "MODE_ROOM_DESC",
-    "MODE_NO_GRAPHICS",
-    "MODE_Z0_GAME",
-    "MODE_HINTS",
-    "MODE_CREDITS",
-    "MODE_DEFINE",
-    "MODE_SHOGUN_MENU",
-    "MODE_SHOGUN_MAZE",
-    "MODE_INITIAL_QUESTION"
-};
-
 void arthur_sync_screenmode(void) {
-    fprintf(stderr, "arthur_sync_screenmode()\n");
     kArthurWindowType window_type = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
     switch (window_type) {
         case K_WIN_NONE:
@@ -244,16 +226,16 @@ void arthur_sync_screenmode(void) {
     }
 }
 
-// Window 0 (S-TEXT) is the standard V6 text buffer window
-// Window 1 (S-WINDOW) is the standard V6 status window
+// Window 0 (S-TEXT) is the standard V6 text buffer window (V6_TEXT_BUFFER_WINDOW)
+// Window 1 (S-WINDOW) is the standard V6 status window (V6_STATUS_WINDOW)
 
-// Window 2 is the small room graphics window at top, not including banners
-// Window 3 is the inverted error window at the bottom
+// Window 2 is the small room graphics window at top, not including banners (ARTHUR_ROOM_GRAPHIC_WIN)
+// Window 3 is the inverted error window at the bottom (ARTHUR_ERROR_WINDOW)
 
 // Windows 5 and 6 are left and right banners, but are only used when erasing
 // banner graphics. The banners are drawn to window S-FULL (7)
 
-// Window 7 (S-FULL) is the standard V6 fullscreen window
+// Window 7 (S-FULL) is the standard V6 fullscreen window (ARTHUR_GRAPHICS_BG)
 
 // Called on window_changed();
 void arthur_update_on_resize(void) {
@@ -515,7 +497,6 @@ void RT_AUTHOR_OFF(void) {
         glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     }
 
-
     ARTHUR_ERROR_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
     ARTHUR_ERROR_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
     ARTHUR_ERROR_WINDOW.style.reset(STYLE_REVERSE);
@@ -568,7 +549,6 @@ void RT_AUTHOR_OFF(void) {
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_ReverseColor);
 
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
