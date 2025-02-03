@@ -168,8 +168,7 @@ extern winid_t graphics_fg_glk;
 
 struct Window {
     Style style;
-    //    Color fg_color = Color(), bg_color = Color();
-    Color fg_color = Color(Color::Mode::ANSI, 13), bg_color = Color(Color::Mode::ANSI, 14);
+    Color fg_color = Color(), bg_color = Color();
     enum class Font { Query, Normal, Picture, Character, Fixed } font = Font::Normal;
 
     winid_t id = nullptr;

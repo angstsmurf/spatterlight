@@ -694,23 +694,9 @@ void RT_COLOR_ALL_WINDOWS(void) {
 
     update_user_defined_colours();
 
-    Color fg_color, bg_color;
-
-    if (fg == DEFAULT_COLOUR) {
-        fg_color = Color();
-    } else {
-        fg_color = Color(Color::Mode::ANSI, fg);
-    }
-
-    if (bg == DEFAULT_COLOUR) {
-        bg_color = Color();
-    } else {
-        bg_color = Color(Color::Mode::ANSI, bg);
-    }
-
     for (auto &window : windows) {
-        window.fg_color = fg_color;
-        window.bg_color = bg_color;
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
         winid_t glkwin = window.id;
         if (glkwin != nullptr) {
             if (glkwin->type == wintype_Graphics) {
@@ -774,19 +760,10 @@ void arthur_update_after_autorestore(void) {
     arthur_close_and_reopen_front_graphics_window();
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
-    if (fg == DEFAULT_COLOUR) {
-        user_selected_foreground = gfgcol;
-    }
-    if (bg == DEFAULT_COLOUR) {
-        user_selected_background = gbgcol;
-    }
-
-    Color fg_color = Color(Color::Mode::ANSI, fg);
-    Color bg_color = Color(Color::Mode::ANSI, bg);
 
     for (auto &window : windows) {
-        window.fg_color = fg_color;
-        window.bg_color = bg_color;
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
     }
 
     if (current_graphics_buf_win) {
