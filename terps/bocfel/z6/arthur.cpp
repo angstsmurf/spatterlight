@@ -37,8 +37,19 @@ ArthurTables at;
 #define K_PIC_ENDGAME 84
 #define K_PIC_ANGRY_DEMON 85
 
+#define K_PIC_BANNER 54
 #define K_PIC_BANNER_MARGIN 100
 #define K_MAP_SCROLL 137
+
+#define K_PIC_CHURCHYARD 4
+#define K_PIC_PARADE_AREA 17
+#define K_PIC_AIR_SCENE 163
+
+#define K_PIC_ISLAND_DOOR 158
+#define K_PIC_ISLAND_DOOR_OFF 159
+
+#define K_PIC_STONE_2 9
+
 
 extern Window *mainwin, *curwin;
 
@@ -119,21 +130,17 @@ void adjust_arthur_top_margin(void) {
     if (arthur_pic_top_margin < 0)
         arthur_pic_top_margin = 0;
     arthur_x_margin = margin * imagescalex;
-
 }
 
 
 void arthur_draw_room_image(int picnum) {
     int x, y, width, height;
-    // K-PIC-CHURCHYARD=4
-    // K-PIC-PARADE-AREA=17
-    // K-PIC-AIR-SCENE=163
 
-    if (picnum == 17 || picnum == 163) {
+    if (picnum == K_PIC_PARADE_AREA || picnum == K_PIC_AIR_SCENE) {
         get_image_size(picnum, &width, &height);
         showing_wide_arthur_room_image = true;
     } else {
-        get_image_size(4, &width, &height);
+        get_image_size(K_PIC_CHURCHYARD, &width, &height);
         showing_wide_arthur_room_image = false;
     }
 
@@ -150,13 +157,16 @@ void arthur_draw_room_image(int picnum) {
     }
 
     if (is_arthur_stamp_image(picnum)) {
-        //    K-PIC-ISLAND-DOOR=158
-        if (picnum == 158)
-            get_image_size(159, &width, &height);
+        // All pictures have an offset (dummy) image. It usually is the one
+        // before the actual picture, i.e. picture index - 1, except for the one of
+        // the island door (K-PIC-ISLAND-DOOR is 158 and K-PIC-ISLAND-DOOR-OFF is 159.)
+        if (picnum == K_PIC_ISLAND_DOOR)
+            get_image_size(K_PIC_ISLAND_DOOR_OFF, &width, &height);
         else
             get_image_size(picnum - 1, &width, &height);
 
-        if (picnum == 9 && graphics_type == kGraphicsTypeAmiga)
+        // The Amiga version of the stone image seems to have an incorrect offset
+        if (picnum == K_PIC_STONE_2 && graphics_type == kGraphicsTypeAmiga)
             width -= 4;
 
         x += width;
@@ -605,7 +615,7 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
             arthur_draw_map_image(picnum, x, y);
             return true;
         }
-    } else if (picnum == 54) { // Border image, drawn in flush_image_buffer()
+    } else if (picnum == K_PIC_BANNER) { // Border image, drawn in flush_image_buffer()
         screenmode = MODE_NORMAL;
         return true;
     }
