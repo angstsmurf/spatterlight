@@ -561,7 +561,7 @@ void update_user_defined_colours(void) {
 }
 
 int find_index_of_true_colour(glui32 col) {
-    for (int i = 1; i <= TRANSPARENT_COLOUR; i++) {
+    for (int i = 1; i < TRANSPARENT_COLOUR; i++) {
         if (zcolor_map[i] == col)
             return i;
     }
