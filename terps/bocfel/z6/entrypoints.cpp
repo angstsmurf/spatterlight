@@ -43,16 +43,6 @@ static std::vector<EntryPoint> entrypoints = {
         arthur_INIT_STATUS_LINE,
     },
 
-//    {
-//        Game::Arthur,
-//        "after INIT-STATUS-LINE",
-//        { 0xef, 0x5f, 0x01, 0x01, 0xeb, 0x7f, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0x0d, WILDCARD, 0x00, 0xb0 },
-//        0x16,
-//        0,
-//        false,
-//        after_INIT_STATUS_LINE
-//    },
-
     {
         Game::Arthur,
         "UPDATE-STATUS-LINE",
