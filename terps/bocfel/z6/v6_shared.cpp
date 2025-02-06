@@ -1256,7 +1256,6 @@ void DO_HINTS(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 
     v6_sizewin(&V6_STATUS_WINDOW);
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
 
     if (V6_TEXT_BUFFER_WINDOW.id->type != wintype_TextBuffer) {
         v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
@@ -1282,6 +1281,8 @@ void DO_HINTS(void) {
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
+
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
 }
 
 #pragma mark Empty functions used by entrypoints code
