@@ -1177,8 +1177,8 @@ static void journey_print_columns(bool party, bool is_second_noun) {
         object = user_word(table + 2 * i);
         journey_erase_command_chars(line, column, command_width - 1);
         if (party) {
-            if (object == jo.TAG_ROUTE_COMMAND // TAG-ROUTE-COMMAND
-                && get_global(jg.TAG_NAME_LENGTH) // TAG-NAME-LENGTH (G1b)
+            if (object == jo.TAG_ROUTE_COMMAND
+                && get_global(jg.TAG_NAME_LENGTH)
                 != 0) {
                 TAG_ROUTE_PRINT();
             } else {
@@ -1190,8 +1190,8 @@ static void journey_print_columns(bool party, bool is_second_noun) {
         line++;
         if (i % 5 == 0) {
             // Move to the next column
-            column += command_width; // COMMAND-WIDTH (Gb8)
-            line = get_global(jg.COMMAND_START_LINE); // COMMAND-START-LINE (G0e)
+            column += command_width;
+            line = get_global(jg.COMMAND_START_LINE);
         }
     }
     journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1);
@@ -1275,8 +1275,8 @@ static int journey_refresh_character_command_area(int16_t line) {
 }
 
 void REFRESH_CHARACTER_COMMAND_AREA(void) {
-    int LN = variable(1);
-    journey_refresh_character_command_area(LN);
+    int line = variable(1);
+    journey_refresh_character_command_area(line);
 }
 
 static void journey_reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
@@ -1636,8 +1636,8 @@ void journey_update_after_restore() {
     journey_current_input = INPUT_PARTY;
     JOURNEY_BG_GRID.x = 0;
     JOURNEY_BG_GRID.y = 0;
-    set_global(jg.CHRH, 1); // GLOBAL CHRH
-    set_global(jg.CHRV, 1); // GLOBAL CHRV
+    set_global(jg.CHRH, 1);
+    set_global(jg.CHRV, 1);
     journey_setup_windows();
     journey_adjust_windows(true);
 }
