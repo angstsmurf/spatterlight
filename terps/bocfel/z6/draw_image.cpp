@@ -114,7 +114,6 @@ void flush_bitmap(winid_t winid) {
         fprintf(stderr, "ERROR: window is not graphics\n");
     }
     if (pixmap == nullptr) {
-        fprintf(stderr, "flush_bitmap: No pixmap\n");
         return;
     }
 
