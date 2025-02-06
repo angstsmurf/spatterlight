@@ -978,5 +978,8 @@ void check_entrypoints(uint32_t pc) {
         if (pc == entrypoint.found_at_address) {
             (entrypoint.fn)();
         }
+        if (entrypoint.found_at_address > pc) {
+            break;
+        }
     }
 }
