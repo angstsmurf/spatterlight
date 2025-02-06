@@ -88,8 +88,16 @@
 }
 
 - (void)setBgColor:(NSInteger)bc {
-    bgnd = bc;
-    NSColor *color = [NSColor colorFromInteger:bgnd];
+    if (bc == zcolor_Current)
+        return;
+    NSColor *color;
+    if (bc == zcolor_Default) {
+        color = self.glkctl.theme.bufferBackground;
+        bgnd = color.integerColor;
+    } else {
+        bgnd = bc;
+        color = [NSColor colorFromInteger:bgnd];
+    }
     [self.glkctl setBorderColor:color fromWindow:self];
     if (transparent)
         self.layer.backgroundColor = NSColor.clearColor.CGColor;
