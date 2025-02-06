@@ -24,6 +24,8 @@ int image_count;
 
 extern int current_image;
 
+bool image_needs_redraw = true;
+
 enum PaletteColours {
     RED   = 0,
     GREEN = 1,

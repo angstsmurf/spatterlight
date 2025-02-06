@@ -3074,10 +3074,13 @@ void flush_image_buffer(void) {
 
         if (is_spatterlight_arthur && screenmode == MODE_ROOM_DESC) {
             internal_call_with_arg(pack_routine(ar.RT_UPDATE_DESC_WINDOW), 1);
-        } else if (is_spatterlight_arthur && screenmode == MODE_NORMAL) {
-            draw_arthur_side_images(graphics_bg_glk);
-        } else if (current_graphics_buf_win != nullptr) {
-            flush_bitmap(current_graphics_buf_win);
+        } else if (image_needs_redraw) {
+            if (is_spatterlight_arthur && screenmode == MODE_NORMAL) {
+                draw_arthur_side_images(graphics_bg_glk);
+            } else if (current_graphics_buf_win != nullptr) {
+                flush_bitmap(current_graphics_buf_win);
+            }
+            image_needs_redraw = false;
         }
     }
 }
@@ -4511,6 +4514,7 @@ void zdraw_picture()
     glui32 w, h;
 
 #ifdef SPATTERLIGHT
+    image_needs_redraw = true;
     if (is_spatterlight_journey) {
         current_picture = journey_draw_picture(pic, journey_window);
         return;

@@ -239,6 +239,7 @@ void arthur_sync_screenmode(void) {
 
 // Called on window_changed();
 void arthur_update_on_resize(void) {
+    image_needs_redraw = true;
     adjust_arthur_top_margin();
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);

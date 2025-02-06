@@ -38,4 +38,6 @@ extern int last_slideshow_pic;
 extern int32_t monochrome_black;
 extern int32_t monochrome_white;
 
+extern bool image_needs_redraw;
+
 #endif /* draw_image_hpp */
