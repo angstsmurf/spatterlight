@@ -543,8 +543,11 @@ static glui32 zcolor_map[] = {
 glui32 user_selected_foreground = 0, user_selected_background = 0xffffff;
 
 void update_user_defined_colours(void) {
-    if (fg_global_idx == 0 || bg_global_idx == 0)
+    if (fg_global_idx == 0 || bg_global_idx == 0) {
+        user_selected_foreground = gfgcol;
+        user_selected_background = gbgcol;
         return;
+    }
     user_selected_foreground = zcolor_map[get_global(fg_global_idx)];
     user_selected_background = zcolor_map[get_global(bg_global_idx)];
     if (user_selected_foreground == zcolor_Default) {
