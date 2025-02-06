@@ -977,8 +977,6 @@ void glk_request_char_event(window_t *win)
         return;
     }
 
-    fprintf(stderr, "glk_request_char_event peer %d\n", win->peer);
-
     if (win->char_request || win->line_request)
     {
         gli_strict_warning("request_char_event: window already has keyboard request");
@@ -1225,8 +1223,6 @@ void glk_cancel_line_event(window_t *win, event_t *ev)
         gli_strict_warning("cancel_line_event: invalid ref");
         return;
     }
-
-    fprintf(stderr, "glk_cancel_line_event peer %d\n", win->peer);
 
     switch (win->type)
     {
