@@ -1288,3 +1288,4 @@ void DO_HINTS(void) {
 
 void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
+void V_COLOR(void) {}

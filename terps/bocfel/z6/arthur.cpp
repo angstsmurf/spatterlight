@@ -669,13 +669,14 @@ void recover_arthur_state(library_state_data *dat) {
 
 void update_monochrome_colours(void);
 
-void RT_COLOR_ALL_WINDOWS(void) {
+void after_V_COLOR(void) {
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
 
     update_user_defined_colours();
 
     for (auto &window : windows) {
+        // These will already be correctly set unless we are called from the after restore routine
         window.fg_color = Color(Color::Mode::ANSI, fg);
         window.bg_color = Color(Color::Mode::ANSI, bg);
         winid_t glkwin = window.id;
@@ -690,7 +691,7 @@ void RT_COLOR_ALL_WINDOWS(void) {
 
                 glk_set_window(glkwin);
 
-                // Colours may be set to default (1) if this is called from the SAVE routine
+                // Colours may be set to default (1) if this is called from the after restore routine
                 glsi32 zcolfg, zcolbg;
                 if (fg == DEFAULT_COLOUR)
                     zcolfg = zcolor_Default;
@@ -707,11 +708,13 @@ void RT_COLOR_ALL_WINDOWS(void) {
         }
     }
     update_monochrome_colours();
+    arthur_update_on_resize();
 }
 
 
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
+    after_V_COLOR();
 }
 
 void arthur_close_and_reopen_front_graphics_window(void) {

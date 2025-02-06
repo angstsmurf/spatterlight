@@ -75,12 +75,22 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Arthur,
-        "RT-COLOR-ALL-WINDOWS",
-        { 0x0d, 0x01, 0x00, 0xeb, 0xbf, 0x01, 0x7b, WILDCARD, 0x8f},
+        "V-COLOR",
+        { 0x41, WILDCARD, 0x03, 0x00, WILDCARD, 0x88, WILDCARD, WILDCARD, 0x00 },
         0,
         0,
-        true,
-        RT_COLOR_ALL_WINDOWS
+        false,
+        V_COLOR
+    },
+
+    {
+        Game::Arthur,
+        "after V-COLOR",
+        {},
+        0,
+        0,
+        false,
+        after_V_COLOR
     },
 
     {
@@ -574,17 +584,27 @@ int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     return last_match_offset;
 }
 
+static uint32_t end_of_color_addr = 0;
+
 void find_arthur_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
-        if (entrypoint.fn == RT_COLOR_ALL_WINDOWS && entrypoint.found_at_address != 0) {
 
-            start = find_globals_in_pattern({ 0xeb, 0xbf, 0x01, 0x7b, WILDCARD, WILDCARD}, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 100);
+        if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x09, 0x0d, WILDCARD, 0x02}, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
             if (start == -1) {
                 fprintf(stderr, "Error! Could not find color globals!\n");
             } else {
                 fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+                start = find_pattern_in_mem({0xb8}, start, 200);
+                if (start != -1) {
+                    end_of_color_addr = start;
+                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
+                }
             }
+        } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
+            entrypoint.found_at_address = end_of_color_addr;
+            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({0xb0, WILDCARD, 0x00, 0x71}, {&ag.GL_WINDOW_TYPE}, entrypoint.found_at_address, 100);
             if (start == -1) {

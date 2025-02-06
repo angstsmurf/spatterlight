@@ -30,6 +30,8 @@ void DO_HINTS(void);
 void DISPLAY_HINT(void);
 void RT_SEE_QST(void);
 
+void V_COLOR(void);
+
 extern uint8_t fg_global_idx, bg_global_idx;
 extern uint8_t hint_chapter_global_idx, hint_quest_global_idx;
 extern uint16_t hints_table_addr;
