@@ -718,7 +718,6 @@ void after_V_COLOR(void) {
     arthur_update_on_resize();
 }
 
-
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
     after_V_COLOR();
@@ -821,3 +820,4 @@ void ARTHUR_UPDATE_STATUS_LINE(void) {
 }
 
 void UPDATE_STATUS_LINE(void) {}
+void RT_TH_EXCALIBUR(void) {}

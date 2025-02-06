@@ -165,6 +165,16 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Arthur,
+        "RT-TH-EXCALIBUR",
+        { 0x54, 0x00, 0x01, 0x00, 0xef, 0xaf, 0x04, 0x00, 0xf1, 0x7f, 0x02 },
+        0,
+        0,
+        false,
+        RT_TH_EXCALIBUR
+    },
+
+    {
+        Game::Arthur,
         "DO-HINTS",
         { 0xf1, 0x7f, 0x00, 0xef, 0x1f, 0xff, 0xff, 0x00,  0x88, WILDCARD, WILDCARD, 0x02},
         0,
@@ -636,6 +646,15 @@ void find_arthur_globals(void) {
             ag.UPDATE = memory[ar.UPDATE_STATUS_LINE + 0xd] - 0x10;
         } else if (entrypoint.fn == RT_UPDATE_PICT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_PICT_WINDOW = entrypoint.found_at_address - 1;
+        } else if (entrypoint.fn == RT_TH_EXCALIBUR && entrypoint.found_at_address != 0) {
+            start = find_pattern_in_mem({0xf1, 0x7f, 0x02}, entrypoint.found_at_address, 300);
+            if (start != -1) {
+                // Patch <HLIGHT ,H-BOLD> to bold fixed-width, which we have
+                // mapped to style_User1, (set to bold, centered text) which
+                // matches the style of the original centered "THE END" text.
+
+                memory[start + 2] = 0x0a;
+            }
         } else if (entrypoint.fn == RT_UPDATE_INVT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_INVT_WINDOW = entrypoint.found_at_address - 1;
 
