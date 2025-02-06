@@ -3867,6 +3867,9 @@ static bool read_handler()
         }
     }
 
+#ifdef SPATTERLIGHT
+    if (!is_spatterlight_arthur)
+#endif
     for (int i = 0; i < input.len; i++) {
         transcribe(input.line[i]);
         if (streams.test(OSTREAM_RECORD)) {
@@ -3881,6 +3884,9 @@ static bool read_handler()
         transcribe('m');
     }
 
+#ifdef SPATTERLIGHT
+    if (!is_spatterlight_arthur)
+#endif
     transcribe(UNICODE_LINEFEED);
     if (streams.test(OSTREAM_RECORD)) {
         scriptio->putc(UNICODE_LINEFEED);
