@@ -29,6 +29,7 @@
 #import "TableViewController.h"
 #import "ZMenu.h"
 #import "JourneyMenuHandler.h"
+#import "InfocomV6MenuHandler.h"
 
 #import "Game.h"
 #import "Theme.h"
@@ -54,7 +55,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
 //    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
 //    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",
+//    "STYLEMEASURE",    "SETBGND",          "REFRESH",     "SETTITLE",
 //    "AUTOSAVE",        "RESET",            "BANNERCOLS",  "BANNERLINES",
 //    "TIMER",           "INITCHAR",         "CANCELCHAR",
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
@@ -75,13 +76,7 @@ fprintf(stderr, "%s\n",                                                    \
 ////    "wintype_Blank",    "wintype_TextBuffer",
 ////    "wintype_TextGrid", "wintype_Graphics"};
 //
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
-////
+
 // static const char *stylehintnames[] =
 //{
 //    "stylehint_Indentation", "stylehint_ParaIndentation",
@@ -205,6 +200,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
+
 @property NSURL *saveDir;
 
 @end
@@ -248,6 +244,7 @@ fprintf(stderr, "%s\n",                                                    \
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
     _imageHandler = [ImageHandler new];
+    _infocomV6MenuHandler = nil;
 
     // We could use separate versioning for GUI and interpreter autosaves,
     // but it is probably simpler this way
@@ -1917,8 +1914,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (windowdirty && !changedBorderThisTurn) {
         GlkWindow *largest = [self largestWindow];
-        if (largest)
+        if (largest) {
             [largest recalcBackground];
+        }
         windowdirty = NO;
     }
     changedBorderThisTurn = NO;
@@ -2893,27 +2891,29 @@ fprintf(stderr, "%s\n",                                                    \
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
                          result:(NSInteger *)result {
-    Theme *theme = _theme;
-    if ([gwindow getStyleVal:style hint:hint value:result])
-        return YES;
-    else {
-        if (hint == stylehint_TextColor) {
-            if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = (theme.bufferNormal.color).integerColor;
-            else
-                *result = (theme.gridNormal.color).integerColor;
 
-            return YES;
+    if (hint == stylehint_TextColor || hint == stylehint_BackColor) {
+        NSMutableDictionary *attributes = [gwindow getCurrentAttributesForStyle:style];
+        NSColor *color = nil;
+        if (hint == stylehint_TextColor) {
+            color = attributes[NSForegroundColorAttributeName];
         }
         if (hint == stylehint_BackColor) {
-            if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = theme.bufferBackground.integerColor;
-            else
-                *result = theme.gridBackground.integerColor;
+            color = attributes[NSBackgroundColorAttributeName];
+            if (!color) {
+                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]] ? _theme.bufferBackground : _theme.gridBackground;
+            }
+        }
 
+        if (color) {
+            *result = color.integerColor;
             return YES;
         }
     }
+
+    if ([gwindow getStyleVal:style hint:hint value:result])
+        return YES;
+
     return NO;
 }
 
@@ -3033,7 +3033,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     str = [NSString stringWithCharacters:buf length:len];
-//    NSLog(@"\"%@\"", str);
     [gwindow putString:str style:style];
     free(buf);
 }
@@ -3182,6 +3181,14 @@ fprintf(stderr, "%s\n",                                                    \
         _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
     }
     return _journeyMenuHandler;
+}
+
+- (nullable InfocomV6MenuHandler *)infocomV6MenuHandler {
+    if (_infocomV6MenuHandler == nil) {
+
+        _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithDelegate:self];
+    }
+    return _infocomV6MenuHandler;
 }
 
 - (BOOL)handleRequest:(struct message *)req
@@ -3491,7 +3498,6 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-//                NSLog(@"Resize window %ld (%@) to %@", reqWin.name, reqWin.className, NSStringFromRect(rect));
                 reqWin.frame = rect;
 
                 NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
@@ -3852,8 +3858,29 @@ fprintf(stderr, "%s\n",                                                    \
             }
             break;
 
+        case REFRESH:
+//            This updates an existing window on-the-fly with the styles
+//            that normally would only be applied to a new window.
+//            It can also update any inline images.
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
+                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_bufferStyleHints];
+                if (req->a2 > 0)
+                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+            } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
+                reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_gridStyleHints];
+            } else {
+                break;
+            }
+            [self flushDisplay];
+            [reqWin prefsDidChange];
+            break;
+
         case MENUITEM: {
-            [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(BOOL)req->a4 == 1 text:(char *)buf length:(NSUInteger)req->len];
+            if (self.gameID == kGameIsJourney) {
+                [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(req->a4 == 1) text:(char *)buf length:(NSUInteger)req->len];
+            } else {
+                [self.infocomV6MenuHandler handleMenuItemOfType:(InfocomV6MenuType)req->a1 index:(NSUInteger)req->a2 total:(NSUInteger)req->a3 text:(char *)buf length:(NSUInteger)req->len];
+            }
             break;
         }
 
@@ -4136,7 +4163,6 @@ again:
         return;
     }
 
-//    NSLog(@"Trying to set border color to %06lx", (long)color.integerColor);
     if (color.integerColor == 0xffff)
         NSLog(@"Wrong color?");
 
@@ -4166,7 +4192,7 @@ again:
         if (win.framePending)
             windowsize = win.pendingFrame.size;
         CGFloat winarea = windowsize.width * windowsize.height;
-        if (winarea > largestSize) {
+        if (winarea >= largestSize) {
             largestSize = winarea;
             largestWin = win;
         }
@@ -4936,6 +4962,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 }
 
+- (BOOL)showingInfocomV6Menu {
+    return (_infocomV6MenuHandler != nil);
+}
+
 #pragma mark Speak new text
 
 - (void)speakNewText {
@@ -5019,7 +5049,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // If sender == self, never announce "No last move to speak!"
 - (IBAction)speakMostRecent:(id)sender {
     if (_zmenu) {
-        NSString *menuString = [_zmenu menuLineStringWithTitle:YES Index:YES total:YES instructions:YES];
+        NSString *menuString = [_zmenu menuLineStringWithTitle:YES index:YES total:YES instructions:YES];
         _zmenu.haveSpokenMenu = YES;
         [self speakString:menuString];
         return;

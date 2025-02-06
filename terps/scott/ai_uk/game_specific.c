@@ -362,38 +362,36 @@ void Mysterious64Sysmess(void)
     for (int i = 1; i <= 6; i++) {
         dictword = MemAlloc(len + 1);
         strncpy(dictword, sys[i - 1], GameHeader.WordLength);
-        dictword[len] = '\0';
+        dictword[len] = 0;
         Nouns[i] = dictword;
     }
 
-    Nouns[0] = "ANY\0";
+    Nouns[0] = "ANY";
 
     switch (CurrentGame) {
     case BATON_C64:
-        Nouns[79] = "CAST\0";
-        Verbs[79] = ".\0";
+        Nouns[79] = "CAST";
+        Verbs[79] = ".";
         GameHeader.NumWords = 79;
         break;
     case TIME_MACHINE_C64:
-        Verbs[86] = ".\0";
+        Verbs[86] = ".";
         break;
     case ARROW1_C64:
-        Nouns[82] = ".\0";
+    case PERSEUS_C64:
+        Nouns[82] = ".";
         break;
     case ARROW2_C64:
-        Verbs[80] = ".\0";
+        Verbs[80] = ".";
         break;
     case PULSAR7_C64:
-        Nouns[102] = ".\0";
+        Nouns[102] = ".";
         break;
     case CIRCUS_C64:
-        Nouns[96] = ".\0";
+        Nouns[96] = ".";
         break;
     case FEASIBILITY_C64:
-        Nouns[80] = ".\0";
-        break;
-    case PERSEUS_C64:
-        Nouns[82] = ".\0";
+        Nouns[80] = ".";
         break;
     default:
         break;

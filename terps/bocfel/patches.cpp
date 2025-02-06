@@ -1,18 +1,6 @@
 // Copyright 2017-2021 Chris Spiegel.
 //
-// This file is part of Bocfel.
-//
-// Bocfel is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License, version
-// 2 or 3, as published by the Free Software Foundation.
-//
-// Bocfel is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Bocfel. If not, see <http://www.gnu.org/licenses/>.
+// SPDX-License-Identifier: MIT
 
 #include <algorithm>
 #include <cstring>
@@ -406,6 +394,36 @@ static std::vector<Patch> base_patches = {
         }
     },
 
+    // Journey doubles up the word “essence” when examining Praxix’s
+    // pouch: originally the game printed short descriptions when the
+    // screen was narrow enough, which didn't include the word
+    // “essence”, so it always just printed out an extra “essence”,
+    // knowing that it wasn't shown. However, release 51 changed this so
+    // that the long descriptions, which included “essence”, were
+    // unconditionally printed in this circumstance; but the extra
+    // “essence” remained. This patches out the printing of that extra
+    // word by replacing it with @nop.
+    {
+        "Journey", "890522", 51, 0x4f59,
+        {{ 0x9d9f, 3, {0xb2, 0x80, 0x3e}, {0xb4, 0xb4, 0xb4} }},
+    },
+    {
+        "Journey", "890526", 54, 0x5707,
+        {{ 0x9e2f, 3, {0xb2, 0x80, 0x3e}, {0xb4, 0xb4, 0xb4} }},
+    },
+    {
+        "Journey", "890616", 77, 0xb136,
+        {{ 0xa09f, 3, {0xb2, 0x80, 0x3e}, {0xb4, 0xb4, 0xb4} }},
+    },
+    {
+        "Journey", "890627", 79, 0xff04,
+        {{ 0xa10b, 3, {0xb2, 0x80, 0x3e}, {0xb4, 0xb4, 0xb4} }},
+    },
+    {
+        "Journey", "890706", 83, 0xd2b8,
+        {{ 0xa0ef, 3, {0xb2, 0x80, 0x3e}, {0xb4, 0xb4, 0xb4} }},
+    },
+
     // This is in a routine which iterates over all attributes of an
     // object, but due to an off-by-one error, attribute 48 (0x30) is
     // included, which is not valid, as the last attribute is 47 (0x2f);
@@ -616,9 +634,69 @@ static std::vector<Patch> v6_patches = {
             {
                 0x10e76, 20,
                 {0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+#ifdef SPATTERLIGHT
+                {0xf6, 0x53, 0x01, 0x03, 0x20, 0x7d, 0x00, 0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xb4}
+#else
                 {0xf6, 0x53, 0x01, 0x0a, 0x20, 0x7d, 0x00, 0xda, 0x1f, 0x3d, 0xb1, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x20, 0x7d, 0x00, 0xb4}
+#endif
             },
 
+#ifdef SPATTERLIGHT
+        }
+    },
+    {
+        "Arthur", "890502", 40, 0x2f5d,
+        {
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n         #1a824 #03
+            // <CURSET -1> ;"Make cursor go away."     |   set_cursor      #ffff
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char       #01 #96 #118e8 -> -(SP)
+            // <CURSET -2> ;"Make cursor come back."   |   set_cursor      #fffe
+            //
+            // is replaced with:
+            //
+            // <INPUT 1 10 ,RT-STOP-READ>              |   read_char        #01 #0a #118e8 -> -(SP)
+            // <RT-CENTER-PIC ,K-PIC-SWORD-MERLIN>     |   call_2n          #1a824 #03
+            // <INPUT 1 150 ,RT-STOP-READ>             |   read_char        #01 #96 #118e8 -> -(SP)
+            // <NOOP>                                  |   nop
+            {
+                0x10cc4, 20,
+                {0xda, 0x1f, 0x44, 0xcf, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x00, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0x00, 0x00, 0xda, 0x1f, 0x44, 0xcf, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x00, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890504", 41, 0xa406,
+        {
+            {
+                0x10cc8, 20,
+                {0xda, 0x1f, 0x44, 0xd2, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x01, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0x01, 0x00, 0xda, 0x1f, 0x44, 0xd2, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0x01, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890606", 54, 0x8e4a,
+        {
+            {
+                0x11418, 20,
+                {0xda, 0x1f, 0x49, 0xae, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x21, 0xd4, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x21, 0xd4, 0x00, 0xda, 0x1f, 0x49, 0xae, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x21, 0xd4, 0x00, 0xb4}
+            }
+        },
+    },
+    {
+        "Arthur", "890622", 63, 0x45eb,
+        {
+            {
+                0x1147e, 20,
+                {0xda, 0x1f, 0x3f, 0x2e, 0x03, 0xef, 0x3f, 0xff, 0xff, 0xf6, 0x53, 0x01, 0x96, 0x22, 0x04, 0x00, 0xef, 0x3f, 0xff, 0xfe},
+                {0xf6, 0x53, 0x01, 0x03, 0x22, 0x04, 0x00, 0xda, 0x1f, 0x3f, 0x2e, 0x03, 0xf6, 0x53, 0x01, 0x96, 0x22, 0x04, 0x00, 0xb4}
+            }
+        },
+    },
+
+#else
             // Parser messages are meant to be displayed on the bottom
             // of the screen, but since Bocfel doesn’t have real V6
             // window support, the messages are displayed inline as with
@@ -633,7 +711,9 @@ static std::vector<Patch> v6_patches = {
             { 0x1124b, 3, {0x7b, 0x0d, 0x0c}, {0xb4, 0xb4, 0xb4} },
             { 0x11257, 3, {0x7b, 0x0c, 0x0d}, {0xb4, 0xb4, 0xb4} },
         },
+
     },
+#endif
 
     {
         "Shogun", "890706", 322, 0x5c88,

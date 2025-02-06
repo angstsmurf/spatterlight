@@ -74,6 +74,7 @@
 @dynamic winSpacingY;
 @dynamic zMachineTerp;
 @dynamic zMachineLetter;
+@dynamic zMachineNoErrWin;
 @dynamic vOHackDelay;
 @dynamic vODelayOn;
 @dynamic vOSpeakCommand;
@@ -81,7 +82,6 @@
 @dynamic vOSpeakMenu;
 @dynamic z6GraphicsType;
 @dynamic z6Colorize1Bit;
-@dynamic z6Simulate16Color;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -161,13 +161,12 @@
         //NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
+            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
         keyName = gGridStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
-//        NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
+            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
 	}
 }
 

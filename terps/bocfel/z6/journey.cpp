@@ -127,8 +127,27 @@ static void journey_draw_title_image(void) {
         fprintf(stderr, "draw_journey_title_image: glk window error!\n");
         return;
     }
+
+    // Resize and recolour all three windows, as they might be
+    // visible behind each other when resizing.
+    // Window size also determines which window background color
+    // is copied to the border.
+    win_setbgnd(JOURNEY_BG_GRID.id->peer, monochrome_black);
+    JOURNEY_BG_GRID.x_size = gscreenw;
+    JOURNEY_BG_GRID.y_size = gscreenh;
+    v6_sizewin(&JOURNEY_BG_GRID);
+
+    win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
+    journey_text_buffer->x_size = gscreenw;
+    journey_text_buffer->y_size = gscreenh;
+    v6_sizewin(journey_text_buffer);
+
     glk_window_set_background_color(win, monochrome_black);
+    JOURNEY_GRAPHICS_WIN.x_size = gscreenw;
+    JOURNEY_GRAPHICS_WIN.y_size = gscreenh;
+    v6_sizewin(&JOURNEY_GRAPHICS_WIN);
     glk_window_clear(win);
+
     win_setbgnd(-1, monochrome_black);
 
     get_image_size(160, &width, &height);
@@ -173,17 +192,17 @@ int journey_draw_picture(int pic, winid_t journey_window) {
     return current_picture;
 }
 
-static void journey_font3_line(int LN, int CHR, int L, int R) {
+static void journey_font3_line(int line, int character, int left, int right) {
     glk_set_style(style_BlockQuote);
-    glk_window_move_cursor(curwin->id, 0, LN - 1);
-    glk_put_char(L);
+    glk_window_move_cursor(curwin->id, 0, line - 1);
+    glk_put_char(left);
     for (int i = 1; i < screen_width_in_chars - 1; i++)
-        glk_put_char(CHR);
-    glk_put_char(R);
+        glk_put_char(character);
+    glk_put_char(right);
     glk_set_style(style_Normal);
 }
 
-static int journey_refresh_character_command_area(int16_t LN);
+static int journey_refresh_character_command_area(int16_t line);
 
 static void journey_setup_windows(void) {
     int offset = 6;
@@ -197,7 +216,10 @@ static void journey_setup_windows(void) {
     } else {
         int picture_width = round((float)width * imagescalex);
 
-        if (options.int_number == INTERP_APPLE_IIC || options.int_number == INTERP_APPLE_IIE || options.int_number == INTERP_APPLE_IIGS || options.int_number == INTERP_MSDOS) {
+        if (options.int_number == INTERP_APPLE_IIC ||
+            options.int_number == INTERP_APPLE_IIE ||
+            options.int_number == INTERP_APPLE_IIGS ||
+            options.int_number == INTERP_MSDOS) {
             offset = 3;
         }
         if (options.int_number != INTERP_AMIGA) {
@@ -222,7 +244,7 @@ static void journey_adjust_windows(bool restoring);
 static void update_screen_size(void) {
     glk_window_get_size(JOURNEY_BG_GRID.id, &screen_width_in_chars, &screen_height_in_chars);
     if (screen_width_in_chars == 0 || screen_height_in_chars == 0) {
-        fprintf(stderr, "Error!\n");
+        fprintf(stderr, "Journey update_screen_size: screen size 0!\n");
         screen_width_in_chars = (gscreenw - ggridmarginx * 2) / gcellw;
         screen_height_in_chars = (gscreenh - ggridmarginy * 2) / gcellh;
     }
@@ -230,7 +252,7 @@ static void update_screen_size(void) {
     set_global(jg.SCREEN_WIDTH, screen_width_in_chars);
     set_global(jg.SCREEN_HEIGHT, screen_height_in_chars);
 
-    journey_sync_upperwin_size(screen_width_in_chars, screen_height_in_chars);
+    v6_sync_upperwin_size(screen_width_in_chars, screen_height_in_chars);
 }
 
 
@@ -272,10 +294,12 @@ static void update_internal_globals(void) {
 
         // Whether to use Font 3. True for Amiga and Mac, false for MS DOS and Apple II
         set_global(jg.FONT3_FLAG, global_font_3_flag ? 1 : 0);
+
         // FWC-FLAG (fixed-width commands) tells whether to switch font when printing in command window,
         // i.e. whether there is a separate proportional font used elsewhere.
         // Always the same as FONT3-FLAG, and used interchangably in the original ZIL code.
         set_global(jg.FWC_FLAG, global_font_3_flag ? 1 : 0);
+
         // Whether to have a border around the image. BLACK_PICTURE_BORDER is only false on IBM PC
         set_global(jg.BLACK_PICTURE_BORDER, black_picture_border);
     }
@@ -353,7 +377,6 @@ static bool bad_character(uint8_t c, bool elvish) {
     return true;
 }
 
-
 static void underscore_or_square() {
     if (global_font_3_flag) {
         glk_put_char('_');
@@ -362,7 +385,7 @@ static void underscore_or_square() {
     }
 }
 
-static void move_v6_cursor(int column, int line) {
+static void journey_move_cursor(int column, int line) {
     if (column < 1)
         column = 0;
     else
@@ -386,20 +409,11 @@ static void move_v6_cursor(int column, int line) {
     glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
 }
 
-//void debug_print_str(uint8_t c);
-
-//static void debug_PRINT_STRING(uint16_t str) {
-//    print_handler(unpack_string(str), debug_print_str);
-//}
-
-static int GET_COMMAND(int cmd);
-
 static char *string_buf_ptr = nullptr;
 static int string_buf_pos = 0;
 static int string_maxlen = 0;
 
 static void print_to_string_buffer(uint8_t c) {
-
     if (string_buf_pos < string_maxlen)
         string_buf_ptr[string_buf_pos++] = c;
 }
@@ -492,13 +506,13 @@ static void create_submenu(JourneyMenu *m, int object, int objectindex) {
     }
 }
 
-static void journey_create_menu(JourneyMenuType type, bool praxix_special_input) {
+static void journey_create_menu(JourneyMenuType type, bool is_second_noun) {
 
     struct JourneyMenu menu[10];
 
     int table, table_count;
     if (type == kJMenuTypeObjects) {
-        table = get_global(jg.O_TABLE) + (praxix_special_input ? 10 : 0);
+        table = get_global(jg.O_TABLE) + (is_second_noun ? 10 : 0);
         table_count = user_word(table);
     } else {
         table = get_global(jg.PARTY);
@@ -545,7 +559,7 @@ static void journey_create_menu(JourneyMenuType type, bool praxix_special_input)
                     }
                     create_submenu(&menu[menu_counter], object, i);
                 } else {
-                    m->column = 3 + ((menu_counter > 4 || praxix_special_input) ? 1 : 0);
+                    m->column = 3 + ((menu_counter > 4 || is_second_noun) ? 1 : 0);
                 }
                 menu_counter++;
                 if (menu_counter > 10)
@@ -586,7 +600,7 @@ static void journey_create_menu(JourneyMenuType type, bool praxix_special_input)
 static void journey_draw_cursor(void) {
     if (input_column > screen_width_in_chars - 1)
         return;
-    move_v6_cursor(input_column, input_line);
+    journey_move_cursor(input_column, input_line);
 
     if (global_font_3_flag)
         garglk_set_reversevideo(1);
@@ -601,7 +615,7 @@ static void journey_draw_cursor(void) {
         garglk_set_reversevideo(1);
 
 
-    move_v6_cursor(input_column, input_line);
+    journey_move_cursor(input_column, input_line);
 }
 
 static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max, bool elvish, uint8_t *kbd) {
@@ -613,7 +627,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
     from_command_start_line = y - get_global(jg.COMMAND_START_LINE);
 
     set_current_window(&JOURNEY_BG_GRID);
-    move_v6_cursor(x, input_line);
+    journey_move_cursor(x, input_line);
 
     if (!global_font_3_flag) {
         garglk_set_reversevideo(1);
@@ -623,7 +637,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
         underscore_or_square();
     }
 
-    move_v6_cursor(input_column, input_line);
+    journey_move_cursor(input_column, input_line);
 
     int start = input_column;
 
@@ -643,10 +657,10 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
                 continue;
             } else {
                 if (input_column < screen_width_in_chars - 1) {
-                    move_v6_cursor(input_column, input_line);
+                    journey_move_cursor(input_column, input_line);
                     underscore_or_square();
                 } else {
-                    move_v6_cursor(screen_width_in_chars - 1, input_line);
+                    journey_move_cursor(screen_width_in_chars - 1, input_line);
                     underscore_or_square();
                 }
                 input_column--;
@@ -672,7 +686,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
             }
 
             if (input_column < screen_width_in_chars) {
-                move_v6_cursor(input_column, input_line);
+                journey_move_cursor(input_column, input_line);
                 put_char(character);
             }
             user_store_byte(table + journey_input_length, character);
@@ -683,7 +697,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
     }
 
     if (elvish) {
-        move_v6_cursor(start, input_line);
+        journey_move_cursor(start, input_line);
         for (int i = 0; i < max_length; i++) {
             put_char(UNICODE_SPACE);
         }
@@ -749,9 +763,9 @@ static int PRINT_DESC(int obj, bool cmd) {
 
 static void journey_erase_command_chars(int line, int column, int num_spaces) {
     if (options.int_number == INTERP_MSDOS) {
-        move_v6_cursor(column - 1, line);
+        journey_move_cursor(column - 1, line);
     } else {
-        move_v6_cursor(column, line);
+        journey_move_cursor(column, line);
     }
 
     bool in_rightmost_column = (column > screen_width_in_chars * 0.7);
@@ -780,7 +794,7 @@ static void journey_erase_command_chars(int line, int column, int num_spaces) {
     }
 
 
-    move_v6_cursor(column, line);
+    journey_move_cursor(column, line);
 }
 
 
@@ -830,15 +844,15 @@ static void journey_print_character_commands(bool clear) {
             if (screen_width_in_chars < 55) { // (<L? ,SCREEN-WIDTH ,8-WIDTH
 
                 if (namewidth - namelength - 2 < SHORT_ARROW_WIDTH) {
-                    move_v6_cursor(name_right_edge - NO_ARROW_WIDTH, line);
+                    journey_move_cursor(name_right_edge - NO_ARROW_WIDTH, line);
                     glk_put_string(const_cast<char*>(">"));
                 } else {
-                    move_v6_cursor(name_right_edge - SHORT_ARROW_WIDTH, line);
+                    journey_move_cursor(name_right_edge - SHORT_ARROW_WIDTH, line);
                     glk_put_string(const_cast<char*>("->"));
                 }
 
             } else {
-                move_v6_cursor(name_right_edge - LONG_ARROW_WIDTH, line);
+                journey_move_cursor(name_right_edge - LONG_ARROW_WIDTH, line);
                 glk_put_string(const_cast<char*>("-->"));
             }
             number_of_printed_party_members++;
@@ -907,7 +921,7 @@ bool journey_read_elvish(int actor) {
 
     int line = get_global(jg.COMMAND_START_LINE) + party_pcm(actor) - 1;
 
-    move_v6_cursor(get_global(jg.CHR_COMMAND_COLUMN), line);
+    journey_move_cursor(get_global(jg.CHR_COMMAND_COLUMN), line);
     glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
 
     int MAX = screen_width_in_chars - get_global(jg.COMMAND_OBJECT_COLUMN) - 2;
@@ -991,7 +1005,7 @@ void journey_init_screen(void) {
     if (global_border_flag) {
         journey_font3_line(1, H_LINE, 47, 48);
         int x = screen_width_in_chars / 2 - 2;
-        move_v6_cursor(x, 1);
+        journey_move_cursor(x, 1);
         glk_put_string(const_cast<char*>("JOURNEY"));
     }
 
@@ -1005,7 +1019,7 @@ void journey_init_screen(void) {
     int line;
     for (line = get_global(jg.TOP_SCREEN_LINE); line != command_start_line - 1; line++) {
         if (!global_border_flag) {
-            move_v6_cursor(text_window_left_edge - 1, line);
+            journey_move_cursor(text_window_left_edge - 1, line);
             if (global_font_3_flag) {
                 glk_set_style(style_BlockQuote);
                 glk_put_char(THIN_V_LINE);
@@ -1017,11 +1031,11 @@ void journey_init_screen(void) {
             }
         } else {
             glk_set_style(style_BlockQuote);
-            move_v6_cursor(0, line);
+            journey_move_cursor(0, line);
             glk_put_char(THIN_V_LINE);
-            move_v6_cursor(text_window_left_edge - 1, line);
+            journey_move_cursor(text_window_left_edge - 1, line);
             glk_put_char(THIN_V_LINE);
-            move_v6_cursor(screen_width_in_chars, line);
+            journey_move_cursor(screen_width_in_chars, line);
             glk_put_char(40);
             glk_set_style(style_Normal);
         }
@@ -1035,7 +1049,7 @@ void journey_init_screen(void) {
             journey_font3_line(line, H_LINE, H_LINE, H_LINE);
         }
     } else {
-        move_v6_cursor(0, line);
+        journey_move_cursor(0, line);
         garglk_set_reversevideo(1);
         for (int i = 0; i < screen_width_in_chars; i++)
             glk_put_char(UNICODE_SPACE);
@@ -1057,14 +1071,14 @@ void journey_init_screen(void) {
 
     // Print "The Party" centered over the name column
     int x = get_global(jg.NAME_COLUMN) + (name_width - width) / 2 - 1;
-    move_v6_cursor(x, line);
+    journey_move_cursor(x, line);
     glk_put_string(const_cast<char*>("The Party"));
 
     // Print "Individual Commands" centered in the empty space to the right of "The Party" text
     width = 19; // WIDTH = TEXT_WIDTH("Individual Commands");
 
     int character_command_column = get_global(jg.CHR_COMMAND_COLUMN);
-    move_v6_cursor(character_command_column + (screen_width_in_chars - character_command_column - width) / 2 + (global_font_3_flag ? 1 : 0),  line);
+    journey_move_cursor(character_command_column + (screen_width_in_chars - character_command_column - width) / 2 + (global_font_3_flag ? 1 : 0),  line);
 
     glk_put_string(const_cast<char*>("Individual Commands"));
 
@@ -1137,10 +1151,10 @@ void ERASE_COMMAND(void) {
     glk_window_move_cursor(curwin->id, curwin->x, curwin->y);
 }
 
-static void journey_print_columns(bool party, bool praxix_special_input) {
+static void journey_print_columns(bool party, bool is_second_noun) {
 
-//  praxix_special_input is used when requesting a target for a spell,
-//  and only accepts input in the rightmost column.
+//  is_second_noun is true for things like requesting the target of a spell,
+//  It means we should print a selectable list of objects in the rightmost column.
 
     int column, table, object;
     int line = get_global(jg.COMMAND_START_LINE);
@@ -1152,9 +1166,9 @@ static void journey_print_columns(bool party, bool praxix_special_input) {
         column = get_global(jg.PARTY_COMMAND_COLUMN);
         table = get_global(jg.PARTY_COMMANDS);
     } else  {
-        column = get_global(jg.COMMAND_OBJECT_COLUMN) + (praxix_special_input ? command_width : 0);
-        table = get_global(jg.O_TABLE) + (praxix_special_input ? 10 : 0);
-        journey_create_menu(kJMenuTypeObjects, praxix_special_input);
+        column = get_global(jg.COMMAND_OBJECT_COLUMN) + (is_second_noun ? command_width : 0);
+        table = get_global(jg.O_TABLE) + (is_second_noun ? 10 : 0);
+        journey_create_menu(kJMenuTypeObjects, is_second_noun);
     }
 
     int table_count = user_word(table);
@@ -1163,8 +1177,8 @@ static void journey_print_columns(bool party, bool praxix_special_input) {
         object = user_word(table + 2 * i);
         journey_erase_command_chars(line, column, command_width - 1);
         if (party) {
-            if (object == jo.TAG_ROUTE_COMMAND // TAG-ROUTE-COMMAND
-                && get_global(jg.TAG_NAME_LENGTH) // TAG-NAME-LENGTH (G1b)
+            if (object == jo.TAG_ROUTE_COMMAND
+                && get_global(jg.TAG_NAME_LENGTH)
                 != 0) {
                 TAG_ROUTE_PRINT();
             } else {
@@ -1176,8 +1190,8 @@ static void journey_print_columns(bool party, bool praxix_special_input) {
         line++;
         if (i % 5 == 0) {
             // Move to the next column
-            column += command_width; // COMMAND-WIDTH (Gb8)
-            line = get_global(jg.COMMAND_START_LINE); // COMMAND-START-LINE (G0e)
+            column += command_width;
+            line = get_global(jg.COMMAND_START_LINE);
         }
     }
     journey_refresh_character_command_area(get_global(jg.COMMAND_START_LINE) - 1);
@@ -1211,12 +1225,12 @@ static int journey_refresh_character_command_area(int16_t line) {
 
     while (++line < commands_bottom_line) {
         int16_t position = 1;
-        move_v6_cursor(position, line);
+        journey_move_cursor(position, line);
         while (position <= screen_width_in_chars) {
             if (global_font_3_flag) {
                 if (position != 1 && position < screen_width_in_chars - 5) {
                     glk_set_style(style_BlockQuote);
-                    move_v6_cursor(position, line);
+                    journey_move_cursor(position, line);
                     if (position == command_width || position == command_width + 1 || position == command_width + name_width + 1 || position == command_width + name_width) {
                         glk_put_char(THICK_V_LINE);
                     } else {
@@ -1225,12 +1239,12 @@ static int journey_refresh_character_command_area(int16_t line) {
                     glk_set_style(style_Normal);
                 } else if (position == 1 && global_border_flag) {
                     glk_set_style(style_BlockQuote);
-                    move_v6_cursor(position, line);
+                    journey_move_cursor(position, line);
                     glk_put_char(THIN_V_LINE);
                     glk_set_style(style_Normal);
                 }
             } else if (position != 1 && position < screen_width_in_chars - 5) {
-                move_v6_cursor(position - 1, line);
+                journey_move_cursor(position - 1, line);
                 garglk_set_reversevideo(1);
                 glk_put_char(UNICODE_SPACE);
                 garglk_set_reversevideo(0);
@@ -1240,7 +1254,7 @@ static int journey_refresh_character_command_area(int16_t line) {
                 position += name_width;
             } else {
                 if (get_global(jg.COMMAND_WIDTH_PIX) == 0) {
-                    move_v6_cursor(get_global(jg.PARTY_COMMAND_COLUMN), line);
+                    journey_move_cursor(get_global(jg.PARTY_COMMAND_COLUMN), line);
                 }
                 position += command_width;
             }
@@ -1248,7 +1262,7 @@ static int journey_refresh_character_command_area(int16_t line) {
 
         if (global_border_flag) {
             glk_set_style(style_BlockQuote);
-            move_v6_cursor(screen_width_in_chars, line);
+            journey_move_cursor(screen_width_in_chars, line);
             glk_put_char(40); // Draw right border char (40)
             glk_set_style(style_Normal);
         }
@@ -1261,43 +1275,12 @@ static int journey_refresh_character_command_area(int16_t line) {
 }
 
 void REFRESH_CHARACTER_COMMAND_AREA(void) {
-    int LN = variable(1);
-    journey_refresh_character_command_area(LN);
-}
-
-void stash_journey_state(library_state_data *dat) {
-    if (!dat)
-        return;
-
-    dat->selected_journey_line = selected_journey_line;
-    dat->selected_journey_column = selected_journey_column;
-    dat->current_input_mode = journey_current_input;
-    dat->current_input_length = journey_input_length;
-    dat->number_of_journey_words = number_of_printed_journey_words;
-    for (int i = 0; i < number_of_printed_journey_words; i++) {
-        dat->journey_words[i].str = printed_journey_words[i].str;
-        dat->journey_words[i].pcf = printed_journey_words[i].pcf;
-        dat->journey_words[i].pcm = printed_journey_words[i].pcm;
-    }
-}
-
-void recover_journey_state(library_state_data *dat) {
-    if (!dat)
-        return;
-    selected_journey_line = dat->selected_journey_line;
-    selected_journey_column = dat->selected_journey_column;
-    journey_current_input = dat->current_input_mode;
-    journey_input_length = dat->current_input_length;
-    number_of_printed_journey_words = dat->number_of_journey_words;
-    for (int i = 0; i < number_of_printed_journey_words; i++) {
-        printed_journey_words[i].str = dat->journey_words[i].str;
-        printed_journey_words[i].pcf = dat->journey_words[i].pcf;
-        printed_journey_words[i].pcm = dat->journey_words[i].pcm;
-    }
+    int line = variable(1);
+    journey_refresh_character_command_area(line);
 }
 
 static void journey_reprint_partial_input(int x, int y, int length_so_far, int max_length, int16_t table_address) {
-    move_v6_cursor(x, y);
+    journey_move_cursor(x, y);
     glk_set_style(style_Normal);
     if (!global_font_3_flag) {
         garglk_set_reversevideo(1);
@@ -1320,44 +1303,6 @@ static void journey_reprint_partial_input(int x, int y, int length_so_far, int m
     }
 
     garglk_set_reversevideo(0);
-}
-
-void journey_update_after_restore() {
-    win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
-    if (jo.START_LOC != 0 && ja.SEEN != 0) {
-        internal_set_attr(jo.START_LOC, ja.SEEN);
-    }
-    screenmode = MODE_NORMAL;
-    journey_current_input = INPUT_PARTY;
-    JOURNEY_BG_GRID.x = 0;
-    JOURNEY_BG_GRID.y = 0;
-    set_global(jg.CHRH, 1); // GLOBAL CHRH
-    set_global(jg.CHRV, 1); // GLOBAL CHRV
-    journey_setup_windows();
-    journey_adjust_windows(true);
-}
-
-void journey_update_after_autorestore() {
-    // Do not redraw
-    store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
-}
-
-bool journey_autorestore_internal_read_char_hacks(void) {
-    update_screen_size();
-    if (screenmode == MODE_SLIDESHOW) {
-        if (jo.START_LOC != 0 && ja.SEEN != 0) {
-            internal_clear_attr(jo.START_LOC, ja.SEEN);
-        }
-        screenmode = MODE_INITIAL_QUESTION;
-        return true;
-    }
-
-    if (screenmode == MODE_NORMAL &&
-        (journey_current_input == INPUT_NAME ||
-         journey_current_input == INPUT_ELVISH)) {
-        return true;
-    }
-    return false;
 }
 
 
@@ -1440,7 +1385,7 @@ static void journey_adjust_windows(bool restoring) {
             if (journey_current_input == INPUT_NAME ) {
                 journey_reprint_partial_input(get_global(jg.NAME_COLUMN), get_global(jg.COMMAND_START_LINE) + from_command_start_line, journey_input_length, max_length, input_table);
             } else if (journey_current_input == INPUT_ELVISH ) {
-                move_v6_cursor(get_global(jg.CHR_COMMAND_COLUMN), get_global(jg.COMMAND_START_LINE) + from_command_start_line);
+                journey_move_cursor(get_global(jg.CHR_COMMAND_COLUMN), get_global(jg.COMMAND_START_LINE) + from_command_start_line);
                 glk_put_string_stream(JOURNEY_BG_GRID.id->str, const_cast<char*>("says..."));
                 journey_reprint_partial_input(get_global(jg.COMMAND_OBJECT_COLUMN), get_global(jg.COMMAND_START_LINE) + from_command_start_line, journey_input_length, max_length - 1, input_table);
             } else {
@@ -1568,6 +1513,7 @@ void INIT_SCREEN(void) {
         // Show title image and wait for key press
         if (journey_text_buffer == NULL)
             journey_text_buffer = &windows[ja.buffer_window_index];
+        win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
         glk_window_clear(journey_text_buffer->id);
         screenmode = MODE_SLIDESHOW;
         // We do a fake resize event to draw the title image
@@ -1576,9 +1522,12 @@ void INIT_SCREEN(void) {
         glk_request_char_event(curwin->id);
         internal_read_char();
         screenmode = MODE_CREDITS;
+        win_setbgnd(JOURNEY_BG_GRID.id->peer, zcolor_Default);
+        win_setbgnd(journey_text_buffer->id->peer, zcolor_Default);
+
+        glk_window_set_background_color(JOURNEY_GRAPHICS_WIN.id, monochrome_black);
         glk_window_clear(JOURNEY_GRAPHICS_WIN.id);
         journey_adjust_windows(false);
-        win_setbgnd(-1, user_selected_background);
     } else if (screenmode != MODE_CREDITS){
         journey_init_screen();
     }
@@ -1634,11 +1583,6 @@ void journey_update_on_resize(void) {
         JOURNEY_GRAPHICS_WIN.y_size = 0;
         v6_sizewin(&JOURNEY_GRAPHICS_WIN);
     } else if (screenmode == MODE_SLIDESHOW) {
-        JOURNEY_GRAPHICS_WIN.x_size = gscreenw;
-        JOURNEY_GRAPHICS_WIN.y_size = gscreenh;
-
-        v6_sizewin(&JOURNEY_GRAPHICS_WIN);
-
         journey_draw_title_image();
     } else {
         journey_adjust_windows(false);
@@ -1648,9 +1592,77 @@ void journey_update_on_resize(void) {
     }
 }
 
+#pragma mark Restoring
+
+void stash_journey_state(library_state_data *dat) {
+    if (!dat)
+        return;
+
+    dat->selected_journey_line = selected_journey_line;
+    dat->selected_journey_column = selected_journey_column;
+    dat->current_input_mode = journey_current_input;
+    dat->current_input_length = journey_input_length;
+    dat->number_of_journey_words = number_of_printed_journey_words;
+    for (int i = 0; i < number_of_printed_journey_words; i++) {
+        dat->journey_words[i].str = printed_journey_words[i].str;
+        dat->journey_words[i].pcf = printed_journey_words[i].pcf;
+        dat->journey_words[i].pcm = printed_journey_words[i].pcm;
+    }
+}
+
+void recover_journey_state(library_state_data *dat) {
+    if (!dat)
+        return;
+    selected_journey_line = dat->selected_journey_line;
+    selected_journey_column = dat->selected_journey_column;
+    journey_current_input = dat->current_input_mode;
+    journey_input_length = dat->current_input_length;
+    number_of_printed_journey_words = dat->number_of_journey_words;
+    for (int i = 0; i < number_of_printed_journey_words; i++) {
+        printed_journey_words[i].str = dat->journey_words[i].str;
+        printed_journey_words[i].pcf = dat->journey_words[i].pcf;
+        printed_journey_words[i].pcm = dat->journey_words[i].pcm;
+    }
+}
+
+void journey_update_after_restore() {
+    win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
+    // Why is this needed? If set, we won't show title image in INIT_SCREEN(),
+    // but when does this cause problems?
+    if (jo.START_LOC != 0 && ja.SEEN != 0) {
+        internal_set_attr(jo.START_LOC, ja.SEEN);
+    }
+    screenmode = MODE_NORMAL;
+    journey_current_input = INPUT_PARTY;
+    JOURNEY_BG_GRID.x = 0;
+    JOURNEY_BG_GRID.y = 0;
+    set_global(jg.CHRH, 1);
+    set_global(jg.CHRV, 1);
+    journey_setup_windows();
+    journey_adjust_windows(true);
+}
+
+bool journey_autorestore_internal_read_char_hacks(void) {
+    update_screen_size();
+    if (screenmode == MODE_SLIDESHOW) {
+        if (jo.START_LOC != 0 && ja.SEEN != 0) {
+            internal_clear_attr(jo.START_LOC, ja.SEEN);
+        }
+        screenmode = MODE_INITIAL_QUESTION;
+        return true;
+    }
+
+    if (screenmode == MODE_NORMAL &&
+        (journey_current_input == INPUT_NAME ||
+         journey_current_input == INPUT_ELVISH)) {
+        return true;
+    }
+    return false;
+}
+
+// Try to make the save file Frotz compatible.
+// Still haven't worked out quite how to do this.
 void journey_pre_save_hacks(void) {
-    // Try to make the save file Frotz compatible.
-    // Still haven't worked out how to do this.
     set_global(jg.CHRH, 0x08);
     set_global(jg.CHRV, 0x10);
     if (jg.NAME_WIDTH_PIX != 0)
@@ -1661,6 +1673,7 @@ void journey_pre_save_hacks(void) {
     set_global(jg.SCREEN_WIDTH, 0x50);
 }
 
+// Try to make save files from Frotz compatible.
 void journey_post_save_hacks(void) {
     if (jg.INTERPRETER != 0)
         set_global(jg.INTERPRETER, options.int_number);

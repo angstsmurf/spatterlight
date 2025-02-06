@@ -279,7 +279,6 @@
         // Hack for placeholder images, which only have dimensions, no content.
         NSInteger width = ((const unsigned char *)(_resources[@(resno)].data.bytes))[3] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[2] * 0x100;
         NSInteger height = ((const unsigned char *)(_resources[@(resno)].data.bytes))[7] + ((const unsigned char *)(_resources[@(resno)].data.bytes))[6] * 0x100;
-        NSLog(@"handleLoadImageNumber: Found placeholder image %ld with width %ld and height %ld", resno, width, height);
 
         // No size must be 0, or both will be, so we add a "rounding error"
         _lastimage = [[NSImage alloc] initWithSize:NSMakeSize(width + 0.01, height + 0.01)];
@@ -331,6 +330,14 @@
         return;
 
     [_imageCache removeObjectForKey:@(resno)];
+    ImageResource *resource = _resources[@(resno)];
+    NSError *error = nil;
+    if (![Blorb isBlorbURL:resource.imageFile.URL]) {
+        [[NSFileManager defaultManager] removeItemAtURL:resource.imageFile.URL error:&error];
+        if (error) {
+            NSLog(@"purgeImage: %@", error);
+        }
+    }
     _resources[@(resno)] = nil;
 
     if (!replacementPath) {

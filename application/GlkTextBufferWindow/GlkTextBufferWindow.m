@@ -18,6 +18,8 @@
 #import "MarginImage.h"
 #import "BufferTextView.h"
 #import "GridTextView.h"
+#import "InfocomV6MenuHandler.h"
+#import "ImageHandler.h"
 #include "glkimp.h"
 
 
@@ -877,15 +879,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
-
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-//    NSLog(@"printToWindow:\"%@\" style:%s", str, stylenames[stylevalue]);
 
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
@@ -895,7 +889,6 @@ fprintf(stderr, "%s\n",                                                    \
             stylevalue = style_Normal;
         }
     }
-    //    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -912,32 +905,8 @@ fprintf(stderr, "%s\n",                                                    \
         storedNewline = nil;
     }
 
-    NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
+    NSMutableDictionary *attributes = [self getCurrentAttributesForStyle:stylevalue];
 
-    if (currentZColor) {
-        attributes[@"ZColor"] = currentZColor;
-        if (self.theme.doStyles) {
-            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                attributes = [currentZColor reversedAttributes:attributes];
-                //            NSLog(@"Because the style has reverseColor hint, we apply the zcolors in reverse");
-            } else {
-                attributes = [currentZColor coloredAttributes:attributes];
-                //            NSLog(@"We apply the zcolors normally");
-            }
-        }
-    }
-
-    if (self.currentReverseVideo) {
-        attributes[@"ReverseVideo"] = @(YES);
-        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-            // Current style has stylehint_ReverseColor unset, so we reverse colors
-            attributes = [self reversedAttributes:attributes background:self.theme.bufferBackground];
-        }
-    }
-
-    if (self.currentHyperlink) {
-        attributes[NSLinkAttributeName] = @(self.currentHyperlink);
-    }
 
     if (str.length > 1) {
         unichar c = [str characterAtIndex:str.length - 1];
@@ -1240,7 +1209,6 @@ fprintf(stderr, "%s\n",                                                    \
               attributes:_inputAttributes];
 
     [textstorage appendAttributedString:att];
-
     _textview.editable = YES;
 
     line_request = YES;
@@ -1485,14 +1453,14 @@ replacementString:(id)repl {
 - (void)showInsertionPoint {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
+        if (currentZColor)
+            color = [NSColor colorFromInteger: currentZColor.fg];
         if (textstorage.length && [color isEqualToColor:_textview.backgroundColor]) {
             if (fence <= textstorage.length && fence > 0)
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:fence - 1 effectiveRange:nil];
             else
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil];
         }
-        if (!color)
-            color = self.theme.bufferNormal.color;
         _textview.insertionPointColor = color;
     }
 }
@@ -1700,6 +1668,41 @@ replacementString:(id)repl {
         NSString *filename = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
         [attachment dragTextAttachmentFrom:view event:event filename:filename inRect:rect];
     }
+}
+
+- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
+
+    if (xscale == 0 || yscale == 0)
+        return;
+    NSLog(@"GlkTextBufferWindow %ld updateMarginImages", self.name);
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+
+        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
+        if (cell.align != imagealign_MarginLeft &&  cell.align != imagealign_MarginRight)
+            return;
+
+
+        MarginImage *mimg = cell.marginImage;
+
+        NSUInteger index = [container.marginImages indexOfObject:mimg];
+        if (index == NSNotFound) {
+            return;
+        }
+        [container.marginImages removeObject:mimg];
+        if ([self.glkctl.imageHandler handleFindImageNumber:mimg.index]) {
+            NSImage *img = self.glkctl.imageHandler.lastimage;
+            img = [self scaleImage:img size:NSMakeSize(img.size.width * xscale, img.size.height * yscale)];
+            [container addImage:img index:mimg.index alignment:mimg.alignment at:mimg.pos linkid:0];
+            cell.marginImage = container.marginImages.lastObject;
+        }
+    }];
 }
 
 #pragma mark Hyperlinks
@@ -2028,6 +2031,12 @@ replacementString:(id)repl {
         _printPositionOnInput = 0;
         return NO;
     }
+
+    if (self.glkctl.showingInfocomV6Menu) {
+        [self.glkctl.infocomV6MenuHandler updateMoveRanges:self];
+        return YES;
+    }
+
     NSRange allText = NSMakeRange(0, maxlength);
     NSRange currentMove = allText;
 
@@ -2089,17 +2098,17 @@ replacementString:(id)repl {
     }
 
     // Strip command line if the speak command setting is off
-    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0)
-    {
+    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0 && !self.glkctl.showingInfocomV6Menu) {
         NSUInteger promptIndex = range.location - 1;
         if ([textstorage.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [textstorage.string characterAtIndex:promptIndex - 1] == '>')) {
             NSRange foundRange = [string rangeOfString:@"\n"];
-            if (foundRange.location != NSNotFound)
-            {
+            if (foundRange.location != NSNotFound) {
                 string = [string substringFromIndex:foundRange.location].mutableCopy;
             }
         }
     }
+
+
     return string;
 }
 
@@ -2155,8 +2164,7 @@ replacementString:(id)repl {
 - (void)speakNext {
     //    NSLog(@"GlkTextBufferWindow %ld speakNext:", self.name);
     [self setLastMove];
-    if (!self.moveRanges.count)
-    {
+    if (!self.moveRanges.count) {
         return;
     }
 
@@ -2182,6 +2190,17 @@ replacementString:(id)repl {
     [glkctl speakStringNow:textstorage.string];
 }
 
+- (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings {
+    self.moveRanges = [[NSMutableArray<NSValue *> alloc] initWithCapacity:menuStrings.count];
+    moveRangeIndex = menuStrings.count - 1;
+    [self flushDisplay];
+    for (NSString *str in menuStrings) {
+        NSRange range = [textstorage.string rangeOfString:str];
+        if (range.location != NSNotFound) {
+            [self.moveRanges addObject:[NSValue valueWithRange:range]];
+        }
+    }
+}
 
 #pragma mark Accessibility
 

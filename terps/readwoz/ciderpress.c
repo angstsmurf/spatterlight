@@ -1737,7 +1737,6 @@ static DIError ProDOSOpen(A2File *pOpenFile)
     pOpenFile->fOffset = 0;
 
 bail:
-//    delete pOpenFile;
     return dierr;
 }
 
@@ -2350,7 +2349,7 @@ bail:
  *
  * NOTE: supposedly DOS stops reading the catalog track when it finds the
  * first entry with a 00 byte, which is why deleted files use ff.  If so,
- * it *might* make sense to mimic this behavior, though on a health disk
+ * it *might* make sense to mimic this behavior, though on a healthy disk
  * we shouldn't be finding garbage anyway.
  *
  * Fills out "fCatalogSectors" as it works.
