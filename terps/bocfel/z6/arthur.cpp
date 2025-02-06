@@ -802,5 +802,22 @@ bool arthur_autorestore_internal_read_char_hacks(void) {
     return false;
 }
 
-void ARTHUR_UPDATE_STATUS_LINE(void) {}
+void ARTHUR_UPDATE_STATUS_LINE(void) {
+    // We must always redraw the entire status bar,
+    // or stray letters will be left behind
+
+    glk_set_window(V6_STATUS_WINDOW.id);
+    glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
+    glui32 width;
+    glk_window_get_size(V6_STATUS_WINDOW.id, &width, nullptr);
+    garglk_set_reversevideo(1);
+    for (int i = 0; i < width; i++)
+        glk_put_char(' ');
+    set_global(ag.GL_SL_FORM, 99);
+    set_global(ag.GL_SL_VEH, 0);
+    set_global(ag.GL_SL_HERE, 0);
+    set_global(ag.GL_SL_HIDE, 0);
+    set_global(ag.GL_SL_TIME, 0);
+}
+
 void UPDATE_STATUS_LINE(void) {}
