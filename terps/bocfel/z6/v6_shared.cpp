@@ -247,7 +247,7 @@ void z0_erase_screen(void) {
 //        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 //    if (V6_STATUS_WINDOW.id != nullptr)
 //        glk_window_clear(V6_STATUS_WINDOW.id);
-//    glk_window_clear(graphics_win_glk);
+//    glk_window_clear(graphics_bg_glk);
 }
 
 
@@ -293,7 +293,7 @@ void V_DEFINE(void) {
 //        fkeys = 0x4dc8;
 //    }
 //
-//    win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
+//    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
 //    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
 //    v6_delete_win(&V6_STATUS_WINDOW);
 //    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);

@@ -363,18 +363,20 @@ uint16_t internal_call_with_args(uint16_t routine, uint16_t number_of_args, uint
     return pop_stack();
 }
 
-
 uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg)
 {
     uint16_t args[1] = { arg };
     return internal_call_with_args(routine, 1, args);
 }
 
-
 uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2)
 {
     uint16_t args[2] = { arg1 , arg2 };
     return internal_call_with_args(routine, 2, args);
+}
+
+uint16_t internal_arg_count(void) {
+    return CURRENT_FRAME->nargs;
 }
 #endif
 
@@ -1296,6 +1298,30 @@ static std::shared_ptr<IO> open_savefile(SaveType savetype, IO::Mode mode)
         return nullptr;
     }
 }
+
+#ifdef SPATTERLIGHT
+bool super_hacky_shogun_menu_save(SaveType savetype, SaveOpcode saveopcode)
+{
+
+    auto savefile = open_savefile(savetype, IO::Mode::WriteOnly);
+
+    if (savefile == nullptr) {
+        return false;
+    }
+
+    uint32_t stored_pc = pc;
+    pc--;
+
+    if (!save_quetzal(*savefile, savetype, saveopcode, true)) {
+        warning("error while writing save file");
+        pc = stored_pc;
+        return false;
+    }
+
+    pc = stored_pc;
+    return true;
+}
+#endif
 
 // Perform all aspects of a save, apart from storing/branching.
 // Returns true if the save was success, false if not.

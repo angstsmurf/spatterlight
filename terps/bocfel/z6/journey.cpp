@@ -156,14 +156,12 @@ static void journey_draw_title_image(void) {
 }
 
 int journey_draw_picture(int pic, winid_t journey_window) {
-    int current_picture = pic;
-
-    if (current_picture == 44) {
-        current_picture = 116;
+    if (pic == 44) {
+        pic = 116;
     }
 
     int width, height;
-    get_image_size(current_picture, &width, &height);
+    get_image_size(pic, &width, &height);
 
     Window *win = curwin;
     if (win->id && win->id->type != wintype_Graphics) {
@@ -186,10 +184,10 @@ int journey_draw_picture(int pic, winid_t journey_window) {
 
         float scale;
         uint16_t x, y;
-        journey_adjust_image(current_picture, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
-        draw_inline_image(win->id, current_picture, x, y, scale, false);
+        journey_adjust_image(pic, &x, &y, width, height, win->x_size, win->y_size, &scale, pixelwidth);
+        draw_inline_image(win->id, pic, x, y, scale, false);
     }
-    return current_picture;
+    return pic;
 }
 
 static void journey_font3_line(int line, int character, int left, int right) {

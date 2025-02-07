@@ -854,7 +854,6 @@ static bool apply_patch(const Replacement &r)
     if (r.addr >= header.static_start &&
         r.addr + r.n < memory_size &&
         std::memcmp(&memory[r.addr], r.in.data(), r.n) == 0) {
-
         std::memcpy(&memory[r.addr], r.out.data(), r.n);
 
         return true;
@@ -869,7 +868,7 @@ static void apply_patches(const std::vector<Patch> &patches)
         if (std::memcmp(patch.serial, header.serial, sizeof header.serial) == 0 &&
             patch.release == header.release &&
             patch.checksum == header.checksum) {
-
+            fprintf(stderr, "Applying patch for %s at 0x%x\n", patch.title.c_str(), patch.replacements[0].addr);
             for (const auto &replacement : patch.replacements) {
                 if (replacement.active()) {
                     apply_patch(replacement);

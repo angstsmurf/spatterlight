@@ -2282,7 +2282,6 @@ void v6_delete_glk_win(winid_t glkwin) {
     gli_delete_window(glkwin);
 }
 
-
 void v6_delete_win(Window *win) {
     if (win == nullptr || win->id == nullptr)
         return;
@@ -2343,8 +2342,6 @@ void v6_remap_win_to_buffer(Window *win) {
     }
     v6_remap_win(win, wintype_TextBuffer, nullptr);
 }
-
-
 
 #endif
 

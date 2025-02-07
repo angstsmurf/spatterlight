@@ -160,7 +160,7 @@ void zbuffer_screen();
 #ifdef SPATTERLIGHT
 
 extern GraphicsType graphics_type;
-extern bool centeredText;
+//extern bool centeredText;
 
 extern winid_t current_graphics_buf_win;
 extern winid_t graphics_bg_glk;
@@ -189,6 +189,8 @@ extern bool is_spatterlight_journey;
 extern bool is_spatterlight_arthur;
 extern std::array<Window, 8> windows;
 
+extern glui32 current_picture;
+
 uint8_t internal_read_char(void);
 int count_characters_in_zstring(uint16_t str);
 void v6_sizewin(Window *win);
@@ -207,8 +209,6 @@ void v6_sync_upperwin_size(glui32 width, glui32 height);
 void v6_get_and_sync_upperwin_size(void);
 
 void update_arthur_colours(void);
-
-
 void window_change(void);
 void set_current_window(Window *window);
 void transcribe(uint32_t c);
