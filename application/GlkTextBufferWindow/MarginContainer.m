@@ -73,12 +73,10 @@
 }
 
 - (void)addImage:(NSImage *)image
-           index:(NSInteger)index
        alignment:(NSInteger)alignment
               at:(NSUInteger)pos
           linkid:(NSUInteger)linkid {
     MarginImage *mi = [[MarginImage alloc] initWithImage:image
-                                                   index:index
                                                alignment:alignment
                                                   linkId:linkid
                                                       at:pos
@@ -310,11 +308,9 @@
 
 - (void)drawRect:(NSRect)rect {
     BufferTextView *textview = (BufferTextView *)self.textView;
-    GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)textview.delegate;
     NSSize inset = textview.textContainerInset;
     NSSize size;
     NSRect bounds;
-    BOOL extendflag = NO;
     CGFloat extendneeded = 0;
 
     MarginImage *image;
@@ -331,12 +327,10 @@
             // Check if we need to add padding to increase textview height to
             // accommodate for low image
             if (textview.frame.size.height <= NSMaxY(bounds)) {
-
                 textview.bottomPadding =
                     NSMaxY(bounds) - textview.frame.size.height + inset.height;
                 extendneeded = textview.bottomPadding;
                 [textview setFrameSize:textview.frame.size];
-                extendflag = YES;
             }
             // Check if padding is still needed
             else if (textview.frame.size.height - textview.bottomPadding <=
@@ -358,15 +352,6 @@
                              hints:nil];
             }
         }
-    }
-    // If we were at the bottom before, scroll to bottom of extended area so
-    // that we are still at bottom
-    if (extendflag && bufwin.scrolledToBottom) {
-        NSScrollView *scrollview = textview.enclosingScrollView;
-        CGFloat newY = NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds);
-        NSRect newbounds = scrollview.contentView.bounds;
-        newbounds.origin.y = newY;
-        scrollview.contentView.bounds = newbounds;
     }
 
     // Remove bottom padding if it is not needed any more

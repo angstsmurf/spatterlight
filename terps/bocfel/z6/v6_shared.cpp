@@ -14,28 +14,41 @@
 #include "stack.h"
 #include "unicode.h"
 #include "zterp.h"
+#include "options.h"
 #include "v6_specific.h"
 
 #include "arthur.hpp"
-
-//#include "shogun.hpp"
+#include "shogun.hpp"
 //#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
 
 #define DEFINITIONS_WINDOW windows[2]
 
+#define ROSE_TAUPE 0x826766
+#define BROWN 0xd47fd4
+
 int margin_images[100];
 int number_of_margin_images = 0;
 
+void shift_margin_image_list(void) {
+    fprintf(stderr, "More than 100 margin images! Shifting list, forgetting the first margin image (%d)\n", margin_images[0]);
+    for (int i = 1; i < number_of_margin_images; i++) {
+       margin_images[i] = margin_images[i - 1];
+    }
+    number_of_margin_images = 99;
+}
+
 void add_margin_image_to_list(int image) {
+    if (number_of_margin_images >= 100) {
+        shift_margin_image_list();
+    }
     for (int i = 0; i < number_of_margin_images; i++) {
         if (margin_images[i] == image) {
             // We have already added this image to the list
             return;
         }
     }
-    fprintf(stderr, "z0_add_margin_image: Adding margin image %d to the update list\n", image);
     margin_images[number_of_margin_images] = image;
     number_of_margin_images++;
 }
@@ -81,6 +94,54 @@ void print_right_justified_number(int number) {
     print_number(number);
 }
 
+#pragma mark Print Z string to C string
+
+static char *string_buf_ptr = nullptr;
+static int string_buf_pos = 0;
+static int string_maxlen = 0;
+
+static void print_to_string_buffer(uint8_t c) {
+    if (string_buf_pos < string_maxlen)
+        string_buf_ptr[string_buf_pos++] = c;
+}
+
+int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
+    int length = count_characters_in_zstring(addr);
+    if (length < 2)
+        return 0;
+    string_buf_ptr = str;
+    string_buf_pos = 0;
+    string_maxlen = maxlen;
+    print_handler(unpack_string(addr), print_to_string_buffer);
+    str[length] = 0;
+    return length;
+}
+
+int print_zstr_to_cstr(uint16_t addr, char *str) {
+    return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
+}
+
+void v6_close_and_reopen_front_graphics_window(void) {
+    if (graphics_fg_glk) {
+        if (current_graphics_buf_win == graphics_fg_glk) {
+            current_graphics_buf_win = nullptr;
+        }
+        gli_delete_window(graphics_fg_glk);
+    }
+    graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
+    if (screenmode == MODE_SLIDESHOW) {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
+        current_graphics_buf_win = graphics_fg_glk;
+        glk_request_mouse_event(graphics_fg_glk);
+    } else {
+        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+        if (screenmode == MODE_INITIAL_QUESTION) {
+            current_graphics_buf_win = nullptr;
+        } else {
+            current_graphics_buf_win = graphics_bg_glk;
+        }
+    }
+}
 
 #pragma mark DEFINITIONS SCREEN
 
@@ -93,14 +154,14 @@ static void print_reverse_video_space(void) {
     garglk_set_reversevideo(0);
 }
 
-// <CONSTANT FKEYS <PLTABLE !.L>>>
-static uint16_t fkeys = 0xce2a;
+uint16_t fkeys_table_addr = 0xce2a;
+uint16_t fnames_table_addr = 0x4b57;
 
 // Return width of the widest user-defined command
 static int soft_commands_width(void) {
     int widest = 0;
-    int num_commands = user_word(fkeys) / 2;
-    int fkey = fkeys + 2;
+    int num_commands = user_word(fkeys_table_addr) / 2;
+    int fkey = fkeys_table_addr + 2;
     int16_t fdef;
     for (int i = 0; i < num_commands; i++) {
         int16_t temp = user_word(fkey);
@@ -155,17 +216,10 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
 // Print a single define menu line.
 // Either a function key name + an editable command
 // or a hard-coded menu item such as Save Definitions.
-static void display_soft(int function_key, int index, bool inverse) {
-
-    uint16_t fnames;
-
-    if (is_game(Game::Shogun)) {
-        fnames = 0x4b57;
-    } else {
-        fnames = 0xcd55;
-    }
-
+static void display_soft(int function_key, int index, bool inverse, bool send_menu) {
     int fdef, y;
+    char str[60];
+    int len = 0;
     fdef = user_word(function_key + 2);
     y = index + 1;
     if ((int16_t)user_word(function_key) < 0) { // hard-coded menu item
@@ -176,20 +230,25 @@ static void display_soft(int function_key, int index, bool inverse) {
                 garglk_set_reversevideo(1);
             }
             print_center_table(y, user_word(fdef));
+            if (send_menu) {
+                len = print_long_zstr_to_cstr(user_word(fdef), str, 40);
+                win_menuitem(kV6MenuTypeDefine, index - 1, 18, 0, str, len);
+            }
         }
     } else {
         glk_window_move_cursor(DEFINITIONS_WINDOW.id, 0, y);
         DEFINITIONS_WINDOW.x = 1;
         DEFINITIONS_WINDOW.y = y * gcellh + 1;
 
-        uint16_t key_name_string = scan_table(user_word(function_key), fnames, user_word(fnames - 2), false);
+        uint16_t key_name_string = scan_table(user_word(function_key), fnames_table_addr, user_word(fnames_table_addr - 2), false);
         if (key_name_string != 0) {
             if (inverse) {
                 garglk_set_reversevideo(0);
             } else {
                 garglk_set_reversevideo(1);
             }
-            print_handler(unpack_string(user_word(key_name_string + 2)), nullptr);
+            len = print_long_zstr_to_cstr(user_word(key_name_string + 2), str, 60);
+            glk_put_string(str);
             garglk_set_reversevideo(0);
             glk_put_char(UNICODE_SPACE);
             if (inverse) {
@@ -197,13 +256,23 @@ static void display_soft(int function_key, int index, bool inverse) {
             }
         }
         int string_length = user_byte(fdef);
+
+        // For VoiceOver
+        str[len++] = ':';
+        str[len++] = ' ';
+
         for (int i = 0; i < string_length; i++) {
             uint8_t c = user_byte(fdef + 2 + i);
             if (c == ZSCII_NEWLINE)
-                glk_put_char('|');
-            else
-                glk_put_char(c);
+                c = '|';
+            glk_put_char(c);
+            str[len++] = c; // For VoiceOver
         }
+
+        // For VoiceOver
+        if (send_menu)
+            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, user_byte(fdef + 1) + 5);
+
         glsi32 x = user_byte(fdef + 1) + 4;
 
         // Print cursor if this is the selected line
@@ -216,10 +285,11 @@ static void display_soft(int function_key, int index, bool inverse) {
     garglk_set_reversevideo(0);
 }
 
-static int global_define_line = 0;
+int global_define_line = 0;
 
 static void display_softs(void) {
-    uint16_t number_of_lines = user_word(fkeys) / 2;
+    fprintf(stderr, "display_softs\n");
+    uint16_t number_of_lines = user_word(fkeys_table_addr) / 2;
     winid_t win = DEFINITIONS_WINDOW.id;
     glk_set_window(win);
     glui32 width;
@@ -228,49 +298,62 @@ static void display_softs(void) {
     if (xpos < 0)
         xpos = 0;
     glk_window_move_cursor(win, xpos, 0);
-    glk_put_string(const_cast<char*>("Function Keys"));
-    uint16_t function_key = fkeys + 2;
+    char *function_keys_string = const_cast<char*>("Function Keys");
+    glk_put_string(function_keys_string);
+    win_menuitem(kV6MenuTitle, 0, kV6MenuTypeDefine, 0, function_keys_string, 13);
+    uint16_t function_key = fkeys_table_addr + 2;
     for (int i = 0; i < number_of_lines; i++) {
-        display_soft(function_key, i, (i != global_define_line));
+        display_soft(function_key, i, (i != global_define_line), true);
         function_key = function_key + 4;
     }
 }
 
 void z0_erase_screen(void) {
-//    clear_image_buffer();
-//    clear_margin_image_list();
-//    if (z0_right_status_window != nullptr) {
-//        gli_delete_window(z0_right_status_window);
-//        z0_right_status_window = nullptr;
-//    }
-//    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
-//        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-//    if (V6_STATUS_WINDOW.id != nullptr)
-//        glk_window_clear(V6_STATUS_WINDOW.id);
-//    glk_window_clear(graphics_win_glk);
+    //    clear_image_buffer();
+    //    clear_margin_image_list();
+    //    if (z0_right_status_window != nullptr) {
+    //        gli_delete_window(z0_right_status_window);
+    //        z0_right_status_window = nullptr;
+    //    }
+    //    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+    //        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    //    if (V6_STATUS_WINDOW.id != nullptr)
+    //        glk_window_clear(V6_STATUS_WINDOW.id);
+    //    glk_window_clear(graphics_bg_glk);
 }
 
+void send_edited_menu_line(uint8_t chr) {
+    win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
+}
 
 void adjust_definitions_window(void) {
-    uint8_t SCRH = byte(0x21);
-    uint8_t SCRV = byte(0x20);
 
-    uint16_t fkey = fkeys + 2 + 4 * global_define_line;
-    uint16_t fdef = user_word(fkey + 2);
+    uint16_t fkey = fkeys_table_addr + 2 + 4 * global_define_line;
 
-    int16_t left = (SCRH - user_byte(fdef)) / 2;
-    int16_t linmax = user_word(fkeys) / 2;
+    int x_size = (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx;
+    if (x_size > gscreenw)
+        x_size = gscreenw;
+
+    int left = (gscreenw - x_size) / 2;
+    int16_t linmax = user_word(fkeys_table_addr) / 2;
+    int y_size = (linmax + 1) * gcellh + 2 * ggridmarginy;
+    if (y_size > gscreenh)
+        x_size = gscreenh;
+    int top = (gscreenh - y_size) / 2;
 
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 
-    v6_delete_win(&DEFINITIONS_WINDOW);
-    DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    if (DEFINITIONS_WINDOW.id == nullptr) {
+        DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    } else {
+        win_refresh(DEFINITIONS_WINDOW.id->peer, 0, 0);
+    }
 
-    v6_define_window( &DEFINITIONS_WINDOW, gcellw * left - ggridmarginx, gcellh * (SCRV - linmax) / 2 - ggridmarginy, (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx, (linmax + 1) * gcellh + 2 * ggridmarginy);
+    v6_define_window( &DEFINITIONS_WINDOW, left, top, x_size, y_size);
 
-    glk_set_window(DEFINITIONS_WINDOW.id);
+    set_current_window(&DEFINITIONS_WINDOW);
     win_setbgnd(DEFINITIONS_WINDOW.id->peer, user_selected_background);
     glk_request_mouse_event(DEFINITIONS_WINDOW.id);
 
@@ -278,205 +361,218 @@ void adjust_definitions_window(void) {
 
     // Print selected line a second time
     // just to move the cursor into position
-    display_soft(fkey, global_define_line, false);
+    display_soft(fkey, global_define_line, false, false);
+    win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 }
 
 // Shared between Zork Zero and Shogun
 void V_DEFINE(void) {
-//    int linmax;
-//    uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
-//
+    int linmax;
+    uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
+
 //    if (is_game(Game::ZorkZero)) {
-//        fkeys = 0xce2a;
-//        update_user_defined_colors();
-//    } else { // Game is Shogun
-//        fkeys = 0x4dc8;
+//        fkeys_table_addr = 0xce2a;
+//        update_user_defined_colours();
 //    }
-//
-//    win_sizewin(graphics_win_glk->peer, 0, 0, gscreenw, gscreenh);
-//    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
-//    v6_delete_win(&V6_STATUS_WINDOW);
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-//    screenmode = MODE_DEFINE;
-//
-//    fkey = fkeys + 2;
-//    fdef = user_word(fkey + 2);
-//    linmax = user_word(fkeys) / 2;
-//
-//    global_define_line = 0;
-//
-//    adjust_definitions_window();
-//
-//    z0_erase_screen();
-//
-//    winid_t gwin = DEFINITIONS_WINDOW.id;
-//
-//    bool finished = false;
-//
-//    while (!finished)  {
-//        int16_t new_line = global_define_line;
-//        uint16_t chr = read_char();
-//        switch (chr) {
-//            case ZSCII_CLICK_SINGLE:
-//                // fallthrough
-//            case ZSCII_CLICK_DOUBLE:
-//                glk_request_mouse_event(gwin);
-//                clicked_line = line_clicked();
-//                if (clicked_line <= 1) {
-//                    break;
-//                }
-//                new_line = clicked_line - 2;
-//
-//                // Deselect the old line and select the clicked one.
-//                // This is identical to the code at the end of the input loop
-//                // but must be repeated here in order to make the double click
-//                // below apply to the right line
-//                if (global_define_line != new_line) {
-//                    display_soft(fkey, global_define_line, true);
-//                    fkey = fkeys + 2 + 4 * new_line;
-//                    display_soft(fkey, new_line, false);
-//                    global_define_line = new_line;
-//                    fdef = user_word(fkey + 2);
-//                }
-//
-//                // if we double clicked a command (as opposed to a definition)
-//                // we fall through and treat it as ZSCII_NEWLINE.
-//                // Otherwise we break.
-//                if (!(chr == ZSCII_CLICK_DOUBLE && (int16_t)user_word(fkey) < 0)) {
-//                    break;
-//                }
-//                // fallthrough
-//            case ZSCII_NEWLINE:
-//                // if we are on a static command, run the associated routine
-//                if ((int16_t)user_word(fkey) < 0) {
-//                    if (internal_call(user_word(fdef + 2))) {
-//                        // Exit menu if the call returns true
-//                        finished = true;
-//                    } else {
-//                        // Otherwise select EXIT (bottom line)
-//                        display_softs();
-//                        new_line = linmax - 1;
-//                    }
-//                    break;
-//                }
-//
-//                // If we are not on a static command, we fall through
-//                // and treat ZSCII_NEWLINE as ZSCII_DOWN.
-//
-//                // fallthrough
-//            case ZSCII_DOWN:
-//            case ZSCII_KEY2:
-//                new_line++;
-//                if (new_line < linmax) {
-//                    // Skip the blank line between definitions
-//                    // and commands
-//                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
-//                        new_line++;
-//                } else {
-//                    new_line = 0;
-//                }
-//                break;
-//
-//            case ZSCII_UP:
-//            case ZSCII_KEY8:
-//                new_line--;
-//                if (new_line >= 0) {
-//                    // Skip the blank line between definitions
-//                    // and commands
-//                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
-//                        new_line--;
-//                } else {
-//                    new_line = linmax - 1;
-//                }
-//                break;
-//
-//            default:
-//                // If the user pressed a function key, move to the corresponding line
-//                pressed_fkey = scan_table(chr, fkeys + 2, user_word(fkeys), false);
-//                if (pressed_fkey) {
-//                    new_line = (pressed_fkey - fkeys) / 4;
-//                    // skip text editing if we are on a static command line
-//                } else if ((int16_t)user_word(fkey) >= 0) {
-//                    if (chr == ZSCII_BACKSPACE || chr == 127) {
-//                        length = user_byte(fdef + 1);
-//                        if (length != 0) {
-//                            length--;
-//                            store_byte(fdef + 1, length);
-//                            store_byte(fdef + length + 2, ZSCII_SPACE);
-//                            // print cursor at new position
-//                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
-//                            if (length + 1 < user_byte(fdef)) {
-//                                print_reverse_video_space();
-//                            }
-//                            glk_put_char(UNICODE_SPACE);
-//                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
-//                        } else {
-//                            win_beep(1);
-//                        }
-//                    } else if (chr >= ZSCII_SPACE && chr < 127) {
-//                        length = user_byte(fdef + 1);
-//                        if (length + 1 >= user_byte(fdef)) {
-//                            win_beep(1);
-//                            // If the command has ZSCII_NEWLINE at the end, allow no more characters
-//                        } else if (scan_table(ZSCII_NEWLINE, fdef + 2, user_byte(fdef + 1), true) != 0) {
-//                            win_beep(1);
-//                        } else {
-//                            if (chr == '|' || chr == '!') {
-//                                chr = ZSCII_NEWLINE;
-//                            }
-//                            // store new length
-//                            store_byte(fdef + 1, length + 1);
-//
-//                            // make lowercase
-//                            if (chr >= 'A' && chr <= 'Z')
-//                                chr += 32;
-//
-//                            // add the typed character to the end of the definition string
-//                            store_byte(fdef + length + 2, chr);
-//                            // and print it
-//                            if (chr == ZSCII_NEWLINE) {
-//                                glk_put_char('|');
-//                            } else {
-//                                glk_put_char(chr);
-//                            }
-//                            // print cursor at the new position if we are not at max
-//                            if (length + 2 < user_byte(fdef)) {
-//                                print_reverse_video_space();
-//                                glk_window_move_cursor(gwin, length + 5, global_define_line + 1);
-//                            } else {
-//                                // print cursor at end of line if we are at max
-//                                glk_window_move_cursor(gwin, user_byte(fdef) + 3, global_define_line + 1);
-//                                print_reverse_video_space();
-//                            }
-//                        }
-//                    } else {
-//                        win_beep(1);
-//                    }
-//                } else {
-//                    win_beep(1);
-//                }
-//                break;
-//        }
-//
-//        // Deselect the old line
-//        // and select the new one
-//        if (global_define_line != new_line) {
-//            display_soft(fkey, global_define_line, true);
-//            display_soft(fkeys + 2 + 4 * new_line, new_line, false);
-//            global_define_line = new_line;
-//            fkey = fkeys + 2 + 4 * global_define_line;
-//            fdef = user_word(fkey + 2);
-//        }
-//    };
-//
-//    v6_delete_win(&DEFINITIONS_WINDOW);
-//    screenmode = MODE_NORMAL;
-//    if (is_game(Game::ZorkZero)) {
-//        z0_update_on_resize();
-//    } else {
-//        // Game is Shogun
-//        internal_call(pack_routine(0x183a4)); // V-REFRESH
-//    }
+
+    glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
+
+    clear_image_buffer();
+    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+    glk_window_clear(graphics_bg_glk);
+
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 0, 0, 0, 0);
+    v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
+    screenmode = MODE_DEFINE;
+
+    fkey = fkeys_table_addr + 2 + 4 * global_define_line;
+    fdef = user_word(fkey + 2);
+
+    linmax = user_word(fkeys_table_addr) / 2;
+
+    adjust_definitions_window();
+
+    z0_erase_screen();
+
+    winid_t gwin = DEFINITIONS_WINDOW.id;
+
+    bool finished = false;
+
+    while (!finished)  {
+        int16_t new_line = global_define_line;
+        uint16_t chr = internal_read_char();
+        switch (chr) {
+            case ZSCII_CLICK_SINGLE:
+                // fallthrough
+            case ZSCII_CLICK_DOUBLE:
+                glk_request_mouse_event(gwin);
+                clicked_line = word(header.extension_table + 4);
+                if (clicked_line <= 1) {
+                    break;
+                }
+                new_line = clicked_line - 2;
+
+                // Deselect the old line and select the clicked one.
+                // This is identical to the code at the end of the input loop,
+                // but must be repeated here in order to make the double click
+                // apply to the right line
+                if (global_define_line != new_line) {
+                    display_soft(fkey, global_define_line, true, false);
+                    fkey = fkeys_table_addr + 2 + 4 * new_line;
+                    display_soft(fkey, new_line, false, false);
+                    global_define_line = new_line;
+                    fdef = user_word(fkey + 2);
+                }
+
+                // if we double clicked a command (as opposed to a definition)
+                // we fall through and treat it as ZSCII_NEWLINE.
+                // Otherwise we break.
+                if (!(chr == ZSCII_CLICK_DOUBLE && (int16_t)user_word(fkey) < 0)) {
+                    break;
+                }
+                // fallthrough
+            case ZSCII_NEWLINE:
+                // if we are on a static command, run the associated routine
+                if ((int16_t)user_word(fkey) < 0) {
+                    if (internal_call(user_word(fdef + 2))) {
+                        // Exit menu if the call returns true
+                        finished = true;
+                    } else {
+                        // Otherwise select EXIT (bottom line).
+                        // (We send a kV6MenuExited here to make sure that the VoiceOver menu is up-to-date)
+                        win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
+                        display_softs();
+                        new_line = linmax - 1;
+                    }
+                    break;
+                }
+
+                // If we are not on a static command, we fall through
+                // and treat ZSCII_NEWLINE as ZSCII_DOWN.
+
+                // fallthrough
+            case ZSCII_DOWN:
+            case ZSCII_KEY2:
+                new_line++;
+                if (new_line < linmax) {
+                    // Skip the blank line between definitions
+                    // and commands
+                    if (user_word(fkeys_table_addr + 4 + 4 * new_line) == 0)
+                        new_line++;
+                } else {
+                    new_line = 0;
+                }
+                break;
+
+            case ZSCII_UP:
+            case ZSCII_KEY8:
+                new_line--;
+                if (new_line >= 0) {
+                    // Skip the blank line between definitions
+                    // and commands
+                    if (user_word(fkeys_table_addr + 4 + 4 * new_line) == 0)
+                        new_line--;
+                } else {
+                    new_line = linmax - 1;
+                }
+                break;
+
+            default:
+                // If the user pressed a function key, move to the corresponding line
+                pressed_fkey = scan_table(chr, fkeys_table_addr + 2, user_word(fkeys_table_addr), false);
+                if (pressed_fkey) {
+                    new_line = (pressed_fkey - fkeys_table_addr) / 4;
+                    // skip text editing if we are on a static command line
+                } else if ((int16_t)user_word(fkey) >= 0) {
+                    if (chr == ZSCII_BACKSPACE || chr == 127) {
+                        length = user_byte(fdef + 1);
+                        if (length != 0) {
+                            length--;
+                            store_byte(fdef + 1, length);
+                            store_byte(fdef + length + 2, ZSCII_SPACE);
+                            // print cursor at new position
+                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
+                            if (length + 1 < user_byte(fdef)) {
+                                print_reverse_video_space();
+                            }
+                            glk_put_char(UNICODE_SPACE);
+                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
+                            send_edited_menu_line(0);
+                        } else {
+                            win_beep(1);
+                        }
+                    } else if (chr >= ZSCII_SPACE && chr < 127) {
+                        length = user_byte(fdef + 1);
+                        if (length + 1 >= user_byte(fdef)) {
+                            win_beep(1);
+                            // If the command has ZSCII_NEWLINE at the end, allow no more characters
+                        } else if (scan_table(ZSCII_NEWLINE, fdef + 2, user_byte(fdef + 1), true) != 0) {
+                            win_beep(1);
+                        } else {
+                            if (chr == '|' || chr == '!') {
+                                chr = ZSCII_NEWLINE;
+                            }
+                            // store new length
+                            store_byte(fdef + 1, length + 1);
+
+                            // make lowercase
+                            if (chr >= 'A' && chr <= 'Z')
+                                chr += 32;
+
+                            // add the typed character to the end of the definition string
+                            store_byte(fdef + length + 2, chr);
+                            // and print it
+                            if (chr == ZSCII_NEWLINE) {
+                                chr = '|';
+                            }
+                            glk_put_char(chr);
+                            send_edited_menu_line(chr);
+                            // print cursor at the new position if we are not at max
+                            if (length + 2 < user_byte(fdef)) {
+                                print_reverse_video_space();
+                                glk_window_move_cursor(gwin, length + 5, global_define_line + 1);
+                            } else {
+                                // print cursor at end of line if we are at max
+                                glk_window_move_cursor(gwin, user_byte(fdef) + 3, global_define_line + 1);
+                                print_reverse_video_space();
+                            }
+                        }
+                    } else {
+                        win_beep(1);
+                    }
+                } else {
+                    win_beep(1);
+                }
+                break;
+        }
+
+        // Deselect the old line
+        // and select the new one
+        if (global_define_line != new_line) {
+            display_soft(fkey, global_define_line, true, true);
+            display_soft(fkeys_table_addr + 2 + 4 * new_line, new_line, false, false);
+            global_define_line = new_line;
+            win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
+            fkey = fkeys_table_addr + 2 + 4 * global_define_line;
+            fdef = user_word(fkey + 2);
+        }
+    };
+
+    v6_delete_win(&DEFINITIONS_WINDOW);
+    screenmode = MODE_NORMAL;
+    global_define_line = 0;
+
+    win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
+
+    if (is_game(Game::ZorkZero)) {
+        //        z0_update_on_resize();
+    } else {
+        // Game is Shogun
+        internal_call(pack_routine(sr.V_REFRESH));
+        shogun_update_on_resize();
+    }
 }
 
 #pragma mark HINTS SCREEN
@@ -492,19 +588,18 @@ uint8_t hint_quest_global_idx = 0;
 
 uint16_t hints_table_addr = 0;
 
-glui32 upperwin_foreground = zcolor_Default; // black
-glui32 upperwin_background = zcolor_Default; // white
+static glui32 upperwin_foreground = zcolor_Default; // black
+static glui32 upperwin_background = zcolor_Default; // white
 
 InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
 
-uint16_t h_chapt_num = 1;
-uint16_t h_quest_num = 1;
+static uint16_t h_chapt_num = 1;
+static uint16_t h_quest_num = 1;
 
 // HINT-COUNTS in original source
 // 0xe9d2 is value for Zork Zero release 393
+// It is changed in entrypoints.cpp
 uint16_t seen_hints_table_addr = 0xe9d2;
-
-int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
 static int16_t select_hint_by_mouse(int16_t *chr) {
     glk_cancel_char_event(V6_STATUS_WINDOW.id);
@@ -567,7 +662,7 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
 //  return the argument unchanged
 
 static uint16_t index_to_line(uint16_t index) {
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
         for (int i = 1; i <= max; i++) {
             if (user_word(at.K_HINT_ITEMS + i * 2) == index)
@@ -579,7 +674,7 @@ static uint16_t index_to_line(uint16_t index) {
 }
 
 static uint16_t line_to_index(uint16_t line) {
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
         if (line > 1 && line <= max)
             return (user_word(at.K_HINT_ITEMS + line * 2));
@@ -588,37 +683,51 @@ static uint16_t line_to_index(uint16_t line) {
     return line;
 }
 
+
 static void draw_hints_windows(void) {
+
+    update_user_defined_colours();
 
     upperwin_foreground = user_selected_foreground;
     upperwin_background = user_selected_background;
 
+    bool is_macintosh = (graphics_type == kGraphicsTypeMacBW || (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga));
+
     if (!is_spatterlight_arthur) {
-        if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga) {
-            upperwin_background = 0x826766;
-        } else if (graphics_type == kGraphicsTypeEGA) {
-            upperwin_background = 0xd47fd4;
-        } else if ((graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) && is_game(Game::Arthur)) {
-            upperwin_background = monochrome_black;
-            upperwin_foreground = monochrome_white;
-        } else if (graphics_type == kGraphicsTypeMacBW) {
-            upperwin_background = monochrome_black;
-            upperwin_foreground = monochrome_white;
-        }
-        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeApple2) {
-            upperwin_foreground = 0xffffff;
-            if (upperwin_background == 0xffffff)
+        switch (graphics_type) {
+            case kGraphicsTypeVGA:
+            case kGraphicsTypeBlorb:
+            case kGraphicsTypeAmiga:
+                upperwin_background = ROSE_TAUPE;
+                break;
+            case kGraphicsTypeEGA:
+                upperwin_background = BROWN;
+                break;
+            case kGraphicsTypeMacBW:
+            case kGraphicsTypeCGA:
+            case kGraphicsTypeApple2:
                 upperwin_foreground = user_selected_background;
-            if (upperwin_foreground == 0xffffff)
-                upperwin_foreground = 0;
+                upperwin_background = user_selected_foreground;
+            case kGraphicsTypeNoGraphics:
+                break;
+        }
+        if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+            upperwin_foreground = 0;
+        } else if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeBlorb) {
+            upperwin_foreground = 0xffffff;
+            if (upperwin_background == 0xffffff) {
+                upperwin_foreground = user_selected_background;
+                if (upperwin_foreground == 0xffffff)
+                    upperwin_foreground = 0;
+            }
         }
     }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, upperwin_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
+    if (is_spatterlight_arthur || (upperwin_background != ROSE_TAUPE && upperwin_background != BROWN))
+        win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 
-    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
-    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 
     if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
@@ -628,47 +737,50 @@ static void draw_hints_windows(void) {
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     }
 
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
     int width = 1;
     int status_x = 0;
-    int height = V6_STATUS_WINDOW.y_size + gcellh;
-
-    if (is_game(Game::ZorkZero)) {
-//        // Global BORDER-ON, false if in text-only mode
-//        bool text_only_mode = (get_global(0x83) == 0);
-//        if (!text_only_mode) {
-//            DISPLAY_BORDER(HINT_BORDER);
-//            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-//            width = width * imagescalex;
-//            height = height * imagescaley;
-//        }
-    } else if (is_game(Game::Shogun)) {
-//        shogun_display_border(P_HINT_BORDER);
-//        if (graphics_type == kGraphicsTypeApple2) {
-//            width = 0;
-//            int a2_graphical_banner_height;
-//            get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
-//            height += a2_graphical_banner_height;
-//        } else {
-//            get_image_size(P_HINT_LOC, &width, &height);
-//            if (graphics_type == kGraphicsTypeCGA) {
-//                width += 3;
-//            }
-//            width *= imagescalex;
-//            height *= imagescaley;
-//            if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
-//                status_x = width;
-//            }
-//        }
-    }
-
-    v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
     V6_STATUS_WINDOW.x = 0;
     V6_STATUS_WINDOW.y = 0;
 
+    int height = gcellh * 4 + ggridmarginy * 2;
+
+//    if (is_game(Game::ZorkZero)) {
+//        //        // Global BORDER-ON, false if in text-only mode
+//        //        bool text_only_mode = (get_global(0x83) == 0);
+//        //        if (!text_only_mode) {
+//        //            DISPLAY_BORDER(HINT_BORDER);
+//        //            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+//        //            width = width * imagescalex;
+//        //            height = height * imagescaley;
+//        //        } else
+
     if (is_spatterlight_arthur) {
-        height = V6_STATUS_WINDOW.y_size + gcellh;
+        win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+    } else if (is_spatterlight_shogun) {
+        if (graphics_type == kGraphicsTypeApple2) {
+            int bannerheight;
+            get_image_size(P_HINT_BORDER, nullptr, &bannerheight);
+            height += (bannerheight + 2) * imagescaley - gcellh;
+        } else {
+            get_image_size(P_HINT_LOC, &width, &height);
+            if (graphics_type == kGraphicsTypeCGA) {
+                width += 3;
+            } else if (graphics_type == kGraphicsTypeAmiga) {
+                height += 1;
+            }
+            width *= imagescalex;
+            height *= imagescaley;
+            if (!is_macintosh) {
+                status_x = width;
+            }
+        }
     }
+
+    v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
         height = V6_STATUS_WINDOW.y_size + 1;
@@ -678,7 +790,6 @@ static void draw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
 
     glk_window_clear(V6_STATUS_WINDOW.id);
@@ -686,6 +797,10 @@ static void draw_hints_windows(void) {
 
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
     glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+
+    if (is_spatterlight_shogun) {
+        shogun_display_border(P_HINT_BORDER);
+    }
 }
 
 static void center_line(const char *str, int line, int length, bool reverse) {
@@ -695,10 +810,17 @@ static void center_line(const char *str, int line, int length, bool reverse) {
     if (length > width)
         width = length;
     glk_window_move_cursor(win, (width - length) / 2, line - 1);
-    if (reverse)
+    if (reverse) {
+        if (is_spatterlight_shogun) {
+            garglk_set_zcolors(upperwin_foreground, upperwin_background);
+        }
         garglk_set_reversevideo(1);
+    }
     glk_put_string(const_cast<char *>(str));
     garglk_set_reversevideo(0);
+    if (is_spatterlight_shogun) {
+        garglk_set_zcolors(upperwin_foreground, zcolor_Default);
+    }
 }
 
 static void right_line(const char *str, int line, int length) {
@@ -777,7 +899,7 @@ static bool arthur_is_topic_in_context(uint16_t topic) {
 static uint16_t hint_topic_name(uint16_t chapter) {
     uint16_t topic = user_word(hints_table_addr + chapter * 2);
 
-    if (is_game(Game::Arthur) && !arthur_is_topic_in_context(topic))
+    if (is_spatterlight_arthur && !arthur_is_topic_in_context(topic))
         return 0;
 
     return user_word(topic + 2);
@@ -787,7 +909,7 @@ static int16_t get_seen_hints(void) {
 
     // seen_hints_table_addr points to a byte table that keeps track of
     // how many hints have been shown for a particular question.
-    // Actually a nibble table. The high four bits of each byte store
+    // It is actually a nibble table where the high four bits of each byte store
     // odd question numbers; the low four bits store even question numbers.
 
     int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
@@ -835,8 +957,8 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
-
     }
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
@@ -852,7 +974,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
         if (str == 0)
             continue;
         number_of_entries++;
-        if (is_game(Game::Arthur)) {
+        if (is_spatterlight_arthur) {
             store_word(at.K_HINT_ITEMS + number_of_entries * 2, i);
         }
         glk_window_move_cursor(V6_TEXT_BUFFER_WINDOW.id, x, y);
@@ -865,7 +987,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
             x = width / 2;
         }
     }
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         store_word(at.K_HINT_ITEMS, number_of_entries); // the first word of a table contains the length
     }
     return number_of_entries;
@@ -960,7 +1082,7 @@ static bool display_hints(bool only_refresh) {
     int16_t seen = get_seen_hints();
 
     if (seen <= 1) {
-        win_menuitem(kV6MenuTypeHint, 0, max - 1, 0, 0, 0);
+        win_menuitem(kV6MenuTypeHint, 0, max - 1, 0, nullptr, 0);
     }
 
     bool done = false;
@@ -1206,7 +1328,10 @@ void DO_HINTS(void) {
 
     V6ScreenMode stored_mode = screenmode;
 
-    if (is_game(Game::Shogun) || is_spatterlight_arthur) {
+    glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
+
+    if (is_spatterlight_shogun || is_spatterlight_arthur) {
+        v6_delete_win(&windows[2]);
         if (is_spatterlight_arthur) {
             clear_image_buffer();
             if (current_graphics_buf_win)
@@ -1214,14 +1339,14 @@ void DO_HINTS(void) {
 
             // Delete the topmost window used by Arthur in its status,
             // inventory, and room description modes.
-            v6_delete_win(&windows[2]);
         } else {
-            // Set for Shogun (delete if set in entrypoints)
-            hints_table_addr = 0xbe99;
+            v6_delete_win(&windows[4]);
+            v6_delete_win(&windows[5]);
         }
-        h_chapt_num = get_global(hint_chapter_global_idx);
-        h_quest_num = get_global(hint_quest_global_idx);
     }
+
+    h_chapt_num = get_global(hint_chapter_global_idx);
+    h_quest_num = get_global(hint_quest_global_idx);
 
     screenmode = MODE_HINTS;
     draw_hints_windows();
@@ -1267,22 +1392,86 @@ void DO_HINTS(void) {
 
     screenmode = stored_mode;
 
+    if (screenmode == MODE_HINTS)
+        screenmode = MODE_NORMAL;
+
     stored_bufferwin = nullptr;
 
     hints_depth = kV6MenuTypeTopic;
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
-    //    if (is_game(Game::ZorkZero)) {
-    //        z0_update_on_resize();
-    //    } else if (is_game(Game::Shogun)) {
-    //        internal_call(pack_routine(0x183a4)); // V-REFRESH
-    //    }
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+
+    if (is_game(Game::ZorkZero)) {
+        //        z0_update_on_resize();
+    } else if (is_spatterlight_shogun) {
+        internal_call(pack_routine(sr.V_REFRESH));
+        shogun_update_on_resize();
+    }
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
+}
 
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+#pragma mark Credits
+
+void V_CREDITS(void) {
+    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+}
+
+void after_V_CREDITS(void) {
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
+}
+
+void update_monochrome_colours(void);
+
+void after_V_COLOR(void) {
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+
+    update_user_defined_colours();
+
+    for (auto &window : windows) {
+        // These will already be correctly set unless we are called from the after restore routine
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
+        winid_t glkwin = window.id;
+        if (glkwin != nullptr) {
+            if (glkwin->type == wintype_Graphics) {
+                glk_window_set_background_color(glkwin, user_selected_background);
+                glk_window_clear(glkwin);
+            } else {
+                if (glkwin->type == wintype_TextBuffer) {
+                    win_setbgnd(glkwin->peer, user_selected_background);
+                }
+
+                glk_set_window(glkwin);
+
+                // Colours may be set to default (1) if this is called from the after restore routine
+                glsi32 zcolfg, zcolbg;
+                if (fg == DEFAULT_COLOUR)
+                    zcolfg = zcolor_Default;
+                else
+                    zcolfg = user_selected_foreground;
+
+                if (bg == DEFAULT_COLOUR)
+                    zcolbg = zcolor_Default;
+                else
+                    zcolbg = user_selected_background;
+
+                garglk_set_zcolors(zcolfg, zcolbg);
+            }
+        }
+    }
+    update_monochrome_colours();
+    if (is_spatterlight_arthur) {
+        arthur_update_on_resize();
+    } else if (is_spatterlight_shogun) {
+        shogun_update_on_resize();
+    }
 }
 
 #pragma mark Empty functions used by entrypoints code
@@ -1290,3 +1479,8 @@ void DO_HINTS(void) {
 void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
 void V_COLOR(void) {}
+void V_REFRESH(void) {}
+void V_BOW(void) {}
+void MAZE_F(void) {}
+void DESCRIBE_ROOM(void) {}
+void DESCRIBE_OBJECTS(void) {}

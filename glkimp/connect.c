@@ -62,6 +62,7 @@ int gli_slowdraw = 0;
 int gli_flicker = 0;
 int gli_zmachine_terp = 0;
 int gli_zmachine_no_err_win = 0;
+int gli_voiceover_on = 0;
 int gli_z6_graphics = 0;
 int gli_z6_colorize = 0;
 
@@ -855,6 +856,7 @@ again:
                 gli_z6_graphics == settings->z6_graphics &&
                 gli_z6_colorize == settings->z6_colorize &&
                 gli_zmachine_no_err_win == settings->zmachine_no_err_win &&
+                gli_voiceover_on == settings->voiceover_on &&
                 gli_determinism == settings->determinism &&
                 gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
@@ -887,6 +889,7 @@ again:
             gli_flicker = settings->flicker;
             gli_zmachine_terp = settings->zmachine_terp;
             gli_zmachine_no_err_win = settings->zmachine_no_err_win;
+            gli_voiceover_on = settings->voiceover_on;
             gli_sa_inventory = settings->sa_inventory;
             gli_sa_palette = settings->sa_palette;
             gli_z6_graphics = settings->z6_graphics;

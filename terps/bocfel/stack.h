@@ -27,11 +27,6 @@ uint16_t *stack_top_element();
 void start_v6();
 #ifdef ZTERP_GLK
 uint16_t internal_call(uint16_t routine);
-#ifdef SPATTERLIGHT
-uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg);
-uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2);
-uint16_t internal_call_with_args(uint16_t routine, uint16_t number_of_args, uint16_t *args);
-#endif
 #endif
 void do_return(uint16_t retval);
 
@@ -87,6 +82,13 @@ void zrestore();
 
 void zcall_store();
 void zcall_nostore();
+
+#ifdef SPATTERLIGHT
+uint16_t internal_call_with_arg(uint16_t routine, uint16_t arg);
+uint16_t internal_call_with_2_args(uint16_t routine, uint16_t arg1, uint16_t arg2);
+uint16_t internal_call_with_args(uint16_t routine, uint16_t number_of_args, uint16_t *args);
+uint16_t internal_arg_count(void);
+#endif
 
 #define zcall		zcall_store
 #define zcall_1n	zcall_nostore

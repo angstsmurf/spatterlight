@@ -125,7 +125,8 @@
     NSRectFill(self.bounds);
     [_image unlockFocus];
     _showingImage = NO;
-    subImages = nil;
+    if (subImages)
+        [subImages removeAllObjects];
     dirtyRects = [NSMutableArray new];
     // Unless we do this, the background in Arthur is never cleared.
     // Adding self bounds to the dirtyRects array instead does not seem to work.
@@ -429,7 +430,6 @@
                 return ((SubImage *)object).accessibilityLabel.length > 0;
             }]];
         } else {
-            NSLog(@"GlkGraphicsWindow images: returning %ld subimages", subImages.count);
             return subImages;
         }
     } else if (self.theme.vOSpeakImages == kVOImageAll && _showingImage) {
@@ -486,10 +486,6 @@
         char_request = NO;
         return;
     }
-}
-
-- (BOOL)isAccessibilityElement {
-    return YES;
 }
 
 - (NSArray *)accessibilityChildren {

@@ -59,7 +59,7 @@ extern int gli_zmachine_terp;
 extern int gli_z6_graphics;
 extern int gli_z6_colorize;
 extern int gli_zmachine_no_err_win;
-
+extern int gli_voiceover_on;
 
 extern glui32 tagcounter;
 extern glui32 lasteventtype;
@@ -188,7 +188,10 @@ typedef enum InfocomV6MenuType {
     kV6MenuTypeTopic,
     kV6MenuTypeQuestion,
     kV6MenuTypeHint,
+    kV6MenuTypeDefine,
+    kV6MenuTypeShogun,
     kV6MenuSelectionChanged,
+    kV6MenuCurrentItemChanged,
     kV6MenuTitle,
     kV6MenuExited,
 } InfocomV6MenuType;

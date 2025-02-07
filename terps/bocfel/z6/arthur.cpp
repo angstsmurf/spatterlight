@@ -5,19 +5,13 @@
 //  Created by Administrator on 2023-07-18.
 //
 
-extern "C" {
-#include "glk.h"
-#include "glkimp.h"
-}
-
 #include "draw_image.hpp"
-#include "entrypoints.hpp"
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
 #include "screen.h"
-#include "zterp.h"
 #include "unicode.h"
+#include "zterp.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
 
@@ -53,11 +47,8 @@ ArthurTables at;
 
 extern Window *mainwin, *curwin;
 
-#define ARTHUR_GRAPHICS_BG windows[7]
 #define ARTHUR_ROOM_GRAPHIC_WIN windows[2]
 #define ARTHUR_ERROR_WINDOW windows[3]
-
-extern int current_picture;
 
 bool showing_wide_arthur_room_image = false;
 
@@ -235,7 +226,7 @@ void arthur_sync_screenmode(void) {
 // Windows 5 and 6 are left and right banners, but are only used when erasing
 // banner graphics. The banners are drawn to window S-FULL (7)
 
-// Window 7 (S-FULL) is the standard V6 fullscreen window (ARTHUR_GRAPHICS_BG)
+// Window 7 (S-FULL) is the standard V6 fullscreen window (V6_GRAPHICS_BG)
 
 // Called on window_changed();
 void arthur_update_on_resize(void) {
@@ -372,7 +363,6 @@ void arthur_update_on_resize(void) {
         // We are showing a fullscreen image
         v6_define_window(mainwin, 1, 1, gscreenw, gscreenh);
 
-        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         glk_window_clear(current_graphics_buf_win);
         if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
@@ -398,7 +388,7 @@ void RT_UPDATE_PICT_WINDOW(void) {
         screenmode = MODE_NORMAL;
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
         current_graphics_buf_win = graphics_bg_glk;
-        windows[7].id = graphics_bg_glk;
+        V6_GRAPHICS_BG.id = graphics_bg_glk;
         arthur_update_on_resize();
         v6_get_and_sync_upperwin_size();
     }
@@ -437,21 +427,12 @@ void arthur_INIT_STATUS_LINE(void) {
 
     // Windows 5 and 6 are left and right banners, but are only used when erasing
     // banner graphics. The actual banners are drawn to window 7 (S-FULL).
-    windows[5].y_origin = 1;
-    windows[5].x_origin = 1;
-    windows[5].y_size = gscreenh;
-    windows[5].x_size = M;
+    v6_define_window(&windows[5], 1, 1, M, gscreenh);
+    v6_define_window(&windows[6], L + W, 1, M, gscreenh);
 
-    windows[6].y_origin = 1;
-    windows[6].x_origin = L + W;
-    windows[6].y_size = gscreenh;
-    windows[6].x_size = M;
 
     // Window 7 (S-FULL) is the standard V6 fullscreen window
-    windows[7].y_origin = 1;
-    windows[7].x_origin = 1;
-    windows[7].y_size = gscreenh;
-    windows[7].x_size = gscreenw;
+    v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
 
     glk_set_window(V6_STATUS_WINDOW.id);
     glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
@@ -562,7 +543,6 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
         if (current_graphics_buf_win == nullptr || current_graphics_buf_win == graphics_bg_glk) {
             current_graphics_buf_win = graphics_fg_glk;
         }
-        
         glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         screenmode = MODE_SLIDESHOW;
@@ -674,80 +654,13 @@ void recover_arthur_state(library_state_data *dat) {
     last_slideshow_pic = dat->slideshow_pic;
 }
 
-void update_monochrome_colours(void);
-
-void after_V_COLOR(void) {
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-
-    update_user_defined_colours();
-
-    for (auto &window : windows) {
-        // These will already be correctly set unless we are called from the after restore routine
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
-        winid_t glkwin = window.id;
-        if (glkwin != nullptr) {
-            if (glkwin->type == wintype_Graphics) {
-                glk_window_set_background_color(glkwin, user_selected_background);
-                glk_window_clear(glkwin);
-            } else {
-                if (glkwin->type == wintype_TextBuffer) {
-                    win_setbgnd(glkwin->peer, user_selected_background);
-                }
-
-                glk_set_window(glkwin);
-
-                // Colours may be set to default (1) if this is called from the after restore routine
-                glsi32 zcolfg, zcolbg;
-                if (fg == DEFAULT_COLOUR)
-                    zcolfg = zcolor_Default;
-                else
-                    zcolfg = user_selected_foreground;
-
-                if (bg == DEFAULT_COLOUR)
-                    zcolbg = zcolor_Default;
-                else
-                    zcolbg = user_selected_background;
-
-                garglk_set_zcolors(zcolfg, zcolbg);
-            }
-        }
-    }
-    update_monochrome_colours();
-    arthur_update_on_resize();
-}
-
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
     after_V_COLOR();
 }
 
-void arthur_close_and_reopen_front_graphics_window(void) {
-    if (graphics_fg_glk) {
-        if (current_graphics_buf_win == graphics_fg_glk) {
-            current_graphics_buf_win = nullptr;
-        }
-        gli_delete_window(graphics_fg_glk);
-    }
-    graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
-    if (screenmode == MODE_SLIDESHOW) {
-        win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
-        current_graphics_buf_win = graphics_fg_glk;
-        glk_request_mouse_event(graphics_fg_glk);
-    } else {
-        win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
-        if (screenmode == MODE_INITIAL_QUESTION) {
-            current_graphics_buf_win = nullptr;
-        } else {
-            current_graphics_buf_win = graphics_bg_glk;
-        }
-    }
-}
-
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
-    arthur_close_and_reopen_front_graphics_window();
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
 
@@ -756,10 +669,7 @@ void arthur_update_after_autorestore(void) {
         window.bg_color = Color(Color::Mode::ANSI, bg);
     }
 
-    if (current_graphics_buf_win) {
-        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-        glk_window_clear(current_graphics_buf_win);
-    }
+    v6_close_and_reopen_front_graphics_window();
 
     window_change();
 }

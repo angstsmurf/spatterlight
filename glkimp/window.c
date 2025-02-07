@@ -1007,7 +1007,7 @@ void glk_request_line_event(window_t *win, char *buf, glui32 maxlen, glui32 init
         return;
     }
 
-    fprintf(stderr, "glk_request_line_event peer %d\n", win->peer);
+//    fprintf(stderr, "%s window %d requesting  line event\n", win->type == wintype_TextGrid ? "Grid" : "Buffer", win->peer);
 
     if (win->char_request || win->line_request)
     {

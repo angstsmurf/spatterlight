@@ -672,6 +672,7 @@
 		C3A3EA17284BAF0000C8A693 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A3EA16284BAF0000C8A693 /* graphics.c */; };
 		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
 		C3A9FD3327A6E56C0032C068 /* scottgameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */; };
+		C3ABCA532D553B8400BC4268 /* shogun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ABCA522D553B8400BC4268 /* shogun.cpp */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
 		C3AD640926176589008614C5 /* MarginContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD640826176589008614C5 /* MarginContainer.m */; };
 		C3AD642526176737008614C5 /* BufferTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD642426176737008614C5 /* BufferTextView.m */; };
@@ -2986,6 +2987,8 @@
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3227A6E56C0032C068 /* scottgameinfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottgameinfo.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3ABCA512D553B8400BC4268 /* shogun.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shogun.hpp; sourceTree = "<group>"; };
+		C3ABCA522D553B8400BC4268 /* shogun.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shogun.cpp; sourceTree = "<group>"; };
 		C3AD63D22617648D008614C5 /* MyAttachmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttachmentCell.h; sourceTree = "<group>"; };
 		C3AD63D32617648D008614C5 /* MyAttachmentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttachmentCell.m; sourceTree = "<group>"; };
 		C3AD640726176589008614C5 /* MarginContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarginContainer.h; sourceTree = "<group>"; };
@@ -5882,6 +5885,8 @@
 				C3824B792CAEF0A800D58EFC /* arthur.cpp */,
 				C3ED63602C6E1293000F90A8 /* journey.hpp */,
 				C3ED635F2C6E1293000F90A8 /* journey.cpp */,
+				C3ABCA512D553B8400BC4268 /* shogun.hpp */,
+				C3ABCA522D553B8400BC4268 /* shogun.cpp */,
 				C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */,
 				C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */,
 				C3ED63542C6E1192000F90A8 /* entrypoints.hpp */,
@@ -7124,6 +7129,7 @@
 				C319329D27E407700054FE2C /* spatterlight-autosave.mm in Sources */,
 				C30C57D72C68C31900C2AAAF /* options.cpp in Sources */,
 				6DB774C82458B9B300EDC671 /* meta.cpp in Sources */,
+				C3ABCA532D553B8400BC4268 /* shogun.cpp in Sources */,
 				6DB774C92458B9B300EDC671 /* objects.cpp in Sources */,
 				6DB774CA2458B9B300EDC671 /* osdep.cpp in Sources */,
 				6DB774CB2458B9B300EDC671 /* patches.cpp in Sources */,

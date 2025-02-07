@@ -145,9 +145,6 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     return;
 }
 
-extern bool v6_autorestore_hacks_needed;
-extern bool v6_read_hacks_needed;
-
 // Restore an autosaved game, if one exists.
 // Returns true if the game was restored successfully, false if not.
 bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
@@ -251,9 +248,6 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         } else { win_reset(); exit(0); }
         
     }
-    
-    v6_autorestore_hacks_needed = true;
-    v6_read_hacks_needed = true;
 
     return true;
 }
@@ -292,6 +286,13 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.stored_lower_tag forKey:@"bocfel_stored_lower_tag"];
     [encoder encodeInt32:(int32_t)library_state.hints_depth forKey:@"bocfel_hints_depth"];
     [encoder encodeInt32:(int32_t)library_state.slideshow_pic forKey:@"bocfel_slideshow_pic"];
+    [encoder encodeInt32:(int32_t)library_state.current_picture forKey:@"bocfel_current_picture"];
+
+    [encoder encodeInt32:(int32_t)library_state.shogun_menu forKey:@"bocfel_shogun_menu"];
+    [encoder encodeInt32:(int32_t)library_state.shogun_menu_selection forKey:@"bocfel_shogun_menu_selection"];
+    [encoder encodeInt32:(int32_t)library_state.define_line forKey:@"bocfel_define_line"];
+
+    [encoder encodeInt32:(int32_t)library_state.internal_read_char_hack forKey:@"internal_read_char_hack"];
 
     if (library_state.number_of_journey_words > 0) {
         NSMutableArray<NSArray *> *tempMutArray = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_journey_words];
@@ -302,6 +303,16 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         }
 
         [encoder encodeObject:tempMutArray forKey:@"bocfel_printed_journey_words"];
+    }
+
+    if (library_state.number_of_margin_images > 0) {
+        NSMutableArray<NSNumber *> *tempMutArray2 = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_margin_images];
+
+        for (int i = 0; i < library_state.number_of_margin_images; i++) {
+            [tempMutArray2 addObject:@(library_state.margin_images[i])];
+        }
+
+        [encoder encodeObject:tempMutArray2 forKey:@"bocfel_margin_images"];
     }
 
 }
@@ -340,6 +351,13 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
     library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
     library_state.slideshow_pic = [decoder decodeInt32ForKey:@"bocfel_slideshow_pic"];
+    library_state.current_picture = [decoder decodeInt32ForKey:@"bocfel_current_picture"];
+
+    library_state.shogun_menu = [decoder decodeInt32ForKey:@"bocfel_shogun_menu"];
+    library_state.shogun_menu_selection = [decoder decodeInt32ForKey:@"bocfel_shogun_menu_selection"];
+    library_state.define_line = [decoder decodeInt32ForKey:@"bocfel_define_line"];
+
+    library_state.internal_read_char_hack = [decoder decodeInt32ForKey:@"internal_read_char_hack"];
 
     NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
     library_state.number_of_journey_words = tempArray.count;
@@ -348,6 +366,15 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.journey_words[i].str = ((NSNumber *)[array objectAtIndex:0]).intValue;
         library_state.journey_words[i].pcf = ((NSNumber *)[array objectAtIndex:1]).intValue;
         library_state.journey_words[i].pcm = ((NSNumber *)[array objectAtIndex:2]).intValue;
+        i++;
+    }
+
+    NSArray<NSNumber *> *tempArray2 = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_margin_images"];
+    library_state.number_of_margin_images = tempArray2.count;
+    i = 0;
+
+    for (NSNumber *number in tempArray2) {
+        library_state.margin_images[i] = number.intValue;
         i++;
     }
 }

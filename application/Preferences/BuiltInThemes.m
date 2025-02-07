@@ -652,7 +652,15 @@
     dosTheme.bufferCellWidth = size.width;
 
     NSMutableDictionary *dict = [dosTheme.gridNormal.attributeDict mutableCopy];
-    dict[NSBaselineOffsetAttributeName] = @(-2);
+    dict[NSBaselineOffsetAttributeName] = @(0);
+
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    para.lineSpacing = 0;
+    para.paragraphSpacing = 0;
+    para.paragraphSpacingBefore = 0;
+    para.maximumLineHeight = 18.2;
+    dict[NSParagraphStyleAttributeName] = para;
+
     dosTheme.gridNormal.attributeDict = dict;
 
     [dosTheme populateStyles];

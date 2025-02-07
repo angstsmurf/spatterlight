@@ -197,15 +197,6 @@
         self.cellHeight = size.height;
     }
 
-    NSParagraphStyle *parastyle = self.gridNormal.attributeDict[NSParagraphStyleAttributeName];
-    if (parastyle && parastyle.maximumLineHeight == 0) {
-        NSMutableParagraphStyle *mutable = parastyle.mutableCopy;
-        mutable.maximumLineHeight = self.cellHeight;
-        NSMutableDictionary *mutAtt = self.gridNormal.attributeDict.mutableCopy;
-        mutAtt[NSParagraphStyleAttributeName] = mutable;
-        self.gridNormal.attributeDict = mutAtt;
-    }
-
     // We skip the first element (0), i.e. the Normal styles here
     for (NSUInteger i = 1; i < style_NUMSTYLES; i++)
 	{

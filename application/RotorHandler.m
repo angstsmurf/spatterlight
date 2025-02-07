@@ -24,6 +24,10 @@
 
 @implementation RotorHandler
 
+// The principle: Generate a list on-the-fly of all available elements, find the item that matches the parameters and return it as a NSAccessibilityCustomRotorItemResult with correct metadata.
+
+// The system repeatedly calls the resultForSearchParameters method of the current rotor with either a) the result of the last call or, if this is the first call or the last result was nil, b) empty result.
+// It keeps calling this until the results are equal to the first result, i.e. we have looped back to the start
 
 - (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
                       resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
@@ -97,7 +101,9 @@
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
+    NSLog(@"linksRotor: currentItem: %@", searchParameters.currentItem);
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
+    NSLog(@"linksRotor: direction: %ld", direction);
     NSString *filterText = searchParameters.filterString;
     NSRange currentRange = currentItemResult.targetRange;
 
@@ -114,12 +120,12 @@
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
             id targetTextView = ((GlkTextBufferWindow *)view).textview;
-            NSArray *links = view.links;
+            NSArray<NSValue *> *links = view.links;
 
             if (filterText.length && links.count) {
                 NSString __block *text = ((NSTextView *)targetTextView).string;
-                links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
-                    NSRange range = ((NSValue *)object).rangeValue;
+                links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSValue *object, NSDictionary *unused) {
+                    NSRange range = object.rangeValue;
                     NSString *subString = [text substringWithRange:range];
                     return ([subString localizedCaseInsensitiveContainsString:filterText]);
                 }]];
@@ -134,8 +140,12 @@
 
     currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
 
-    if (children.count == 0)
+    NSLog(@"linksRotor: %ld links in list. currentItemIndex: %ld", children.count, currentItemIndex);
+
+    if (children.count == 0) {
+        NSLog(@"linksRotor: searchResult nil because no valid links found");
         return nil;
+    }
 
     if (currentItemIndex == NSNotFound) {
         // Find the start or end element.
@@ -146,10 +156,11 @@
         }
     } else {
         if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0)
+            if (currentItemIndex == 0) {
                 currentItemIndex = NSNotFound;
-            else
+            } else {
                 currentItemIndex--;
+            }
         } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
             if (currentItemIndex == children.count - 1)
                 currentItemIndex = NSNotFound;
@@ -157,6 +168,8 @@
                 currentItemIndex++;
         }
     }
+
+    NSLog(@"linksRotor: currentItemIndex adjusted by search direction:%ld", currentItemIndex);
 
     if (currentItemIndex != NSNotFound) {
         NSRange textRange = children[currentItemIndex].rangeValue;
@@ -175,7 +188,10 @@
             searchResult.customLabel = [string substringWithRange:textRange];
         }
         searchResult.targetRange = textRange;
+
+        NSLog(@"searchResult.targetRange: %@", NSStringFromRange(searchResult.targetRange));
     }
+    NSLog(@"linksRotor searchResult:%@", searchResult);
     return searchResult;
 }
 
@@ -231,7 +247,7 @@
             }
         } else {
             NSString *string = win.accessibilityRoleDescription;
-            if (string.length && win.images.count && (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText])) {
+            if (string.length && ((GlkGraphicsWindow *)win).showingImage && (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText])) {
                 [children addObject:win];
                 [strings addObject:string.copy];
             }
@@ -307,6 +323,7 @@
     NSMutableArray *targetViews = [[NSMutableArray alloc] init];
 
     NSArray *allWindows = _glkctl.gwindows.allValues;
+
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkTextGridWindow class]]) {
             NSArray *viewimages = view.images;
@@ -337,7 +354,7 @@
         }
     }
 
-    if (!children.count) {
+    if (children.count == 0) {
         return nil;
     }
 
@@ -361,8 +378,15 @@
             }
             index++;
         }
-    } else {
-        currentItemIndex = [children indexOfObject:targetElement];
+    } else if ([targetElement isKindOfClass:[SubImage class]]){
+        for (id child in children) {
+            if ([child isKindOfClass:[SubImage class]]) {
+                if ([((SubImage *)child).uuid isEqualToString:((SubImage *)targetElement).uuid]) {
+                    currentItemIndex = [children indexOfObject:child];
+                    break;
+                }
+            }
+        }
     }
 
     if (currentItemIndex == NSNotFound) {
@@ -402,16 +426,26 @@
             BufferTextView *view = targetViews[currentItemIndex];
             NSTextAttachment *attachment = [view.textStorage attribute:NSAttachmentAttributeName atIndex:range.location effectiveRange:nil];
             MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+
+            // Because margin images are such a hack, VoiceOver does not
+            // understand that they have a size, so we have to add an extra
+            // character to the selection to make the view scroll to the image
+            // (VoiceOver knows that letters have a size.)
+            if (cell.alignment == imagealign_MarginLeft || cell.alignment == imagealign_MarginRight)
+                range.length++;
             NSRange allText = NSMakeRange(0, view.string.length);
             range = NSIntersectionRange(range, allText);
             searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:view];
             searchResult.targetRange = range;
             label = cell.customA11yLabel;
+            cell.pos = range.location;
         } else {
             searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetImage];
             label = ((SubImage *)targetImage).accessibilityLabel;
             searchResult.targetRange = NSMakeRange(0, 0);
         }
+        if (children.count > 1)
+            label = [label stringByAppendingFormat:@" (%ld)", currentItemIndex + 1];
         searchResult.customLabel = label;
     }
     return searchResult;

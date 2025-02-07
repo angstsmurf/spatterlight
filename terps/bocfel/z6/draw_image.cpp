@@ -14,15 +14,18 @@ extern "C" {
 #include "decompress_amiga.hpp"
 #include "decompress_vga.hpp"
 #include "writetiff.h"
+#include "memory.h"
 #include "util.h"
+#include "zterp.h"
 #include "arthur.hpp"
-
-#include "draw_image.hpp"
+#include "shogun.hpp"
+#include "v6_specific.h"
+#include "v6_specific.h"
 
 ImageStruct *raw_images;
 int image_count;
 
-extern int current_image;
+extern int current_picture;
 
 bool image_needs_redraw = true;
 
@@ -70,6 +73,47 @@ int palentries = 16;
 static uint8_t *pixmap = nullptr;
 
 static int pixlength = hw_screenwidth * 200 * 4;
+extern winid_t current_graphics_buf_win;
+
+extern glui32 user_selected_background;
+
+int32_t monochrome_black = 0;
+int32_t monochrome_white = 0xffffff;
+
+void ensure_pixmap(winid_t winid) {
+    if (winid == nullptr) {
+        fprintf(stderr, "ensure_pixmap called with a null winid!\n");
+        return;
+    }
+    if (pixmap == nullptr) {
+        win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
+        glk_window_set_background_color(winid, user_selected_background);
+        pixmap = (uint8_t *)calloc(1, pixlength);
+    }
+}
+
+//void fudge_for_apple_2_maze(bool on) {
+//    if (graphics_type == kGraphicsTypeApple2 && get_global(sg.MAZE_WIDTH) != 19) {
+//        if (screenmode != MODE_SHOGUN_MAZE)
+//            on = false;
+//        if (on) {
+//            if (hw_screenwidth == 280)
+//                return;
+//            hw_screenwidth = 280;
+//            pixelwidth = 1.0;
+//        } else {
+//            if (hw_screenwidth == 140)
+//                return;
+//            hw_screenwidth = 140;
+//            pixelwidth = 2.0;
+//        }
+//        pixlength = hw_screenwidth * 200 * 4;
+//        imagescalex = (float)gscreenw / hw_screenwidth;
+//        free(pixmap);
+//        pixmap = nullptr;
+//        ensure_pixmap(current_graphics_buf_win);
+//    }
+//}
 
 void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
     FILE *fptr = fopen(name, "w");
@@ -78,6 +122,8 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
         fprintf(stderr, "File open error!\n");
         return;
     }
+
+//    fprintf(stderr, "writeToTIFF: \"%s\"\n", name);
 
     writetiff(fptr, data, (uint32_t)size, width);
 
@@ -105,8 +151,6 @@ static char *create_temp_tiff_file_name(void) {
     return tiffname;
 }
 
-extern glui32 user_selected_background;
-
 void flush_bitmap(winid_t winid) {
     if (winid == nullptr)
         return;
@@ -114,11 +158,13 @@ void flush_bitmap(winid_t winid) {
         fprintf(stderr, "ERROR: window is not graphics\n");
     }
     if (pixmap == nullptr) {
+        glk_window_clear(winid);
         return;
     }
 
     glk_window_set_background_color(winid, user_selected_background);
-    glk_window_clear(winid);
+    if (image_needs_redraw)
+        glk_window_clear(winid);
 
     char *filename = create_temp_tiff_file_name();
     if (filename == nullptr)
@@ -127,6 +173,7 @@ void flush_bitmap(winid_t winid) {
     win_purgeimage(600, filename, pixlength);
     free(filename);
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (4 * hw_screenwidth * hw_screenwidth));
+    image_needs_redraw = false;
 }
 
 extern GraphicsType graphics_type;
@@ -149,6 +196,8 @@ bool get_image_size(int picnum, int *width, int *height) {
 
 static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int smallbitmapwidth, uint8_t **largebitmap, int *largebitmapsize, int largebitmapwidth, int x, int y, bool flipped) {
 
+    image_needs_redraw = true;
+    
     int xpos, ypos;
 
     int width = smallbitmapwidth;
@@ -195,11 +244,118 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
             break;
 
         pixptr = *largebitmap + ((ypos * largebitmapwidth + xpos) * 4);
-        // Skip transparent pixels
+
+        // Stop if we have reached the end
         if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
             break;
-        } else if (*(smallbitmap + i + 3) != 0) {
+        } else if (*(smallbitmap + i + 3) != 0) { // Skip transparent pixels
             memcpy(pixptr, smallbitmap + i, 4);
+        }
+    }
+}
+
+#define GET_RGB(p)    (((uint8_t)*(p) << 16) | ((uint8_t) *(p + 1) << 8) | *(p + 2))
+
+static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, uint8_t **largebitmap, int *largebitmapsize, int y) {
+
+    int xpos, ypos;
+
+    int width = hw_screenwidth;
+    int stride = width * 4;
+    int height = smallbitmapsize / stride;
+
+    uint8_t *pixptr;
+
+    for (int i = 0; i < smallbitmapsize; i += 4) {
+
+            ypos = y + i / stride;
+
+
+        if (ypos < 0) {
+            continue;
+        }
+
+        xpos = (i % stride) / 4;
+
+        // Clip at left and right edge
+        if (xpos < 0 || xpos >= width)
+            continue;
+        if (ypos >= height + y || ypos < y)
+            break;
+
+        pixptr = *largebitmap + ((ypos * width + xpos) * 4);
+
+        // Stop if we have reached the end
+        if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
+            break;
+        } else {
+            uint32_t source_rgb = GET_RGB(smallbitmap + i);
+            if (!(source_rgb == monochrome_white && *(smallbitmap + i + 3) == 0xff))
+                memcpy(pixptr, smallbitmap + i, 4);
+        }
+    }
+}
+
+void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height) {
+
+    int xpos, ypos;
+
+    int stride = width * 4;
+
+    if (x < 0)
+        x = 0;
+
+    int screenwidth = (int)hw_screenwidth;
+
+    if (x > screenwidth)
+        x = screenwidth - width;
+
+    int newsize = screenwidth * (y + height) * 4;
+
+    // Extend large bitmap downward if necessary
+    if (pixlength < newsize) {
+        uint8_t *temp = (uint8_t *)calloc(1, newsize);
+        memcpy(temp, pixmap, pixlength);
+        pixlength = newsize;
+        free(pixmap);
+        pixmap = temp;
+    }
+
+    uint8_t *pixptr;
+
+    int rectsize = width * height * 4;
+
+    uint8_t r, g, b;
+    r = (color >> 16) & 0xff;
+    g = (color >> 8) & 0xff;
+    b = color & 0xff;
+
+    for (int i = 0; i < rectsize; i += 4) {
+
+        ypos = y + i / stride;
+
+        if (ypos < 0) {
+            continue;
+        }
+
+        xpos = x + (i % stride) / 4;
+
+        // Clip at left and right edges
+        if (xpos < x || xpos >= width + x)
+            continue;
+        if (ypos >= height + y || ypos < y)
+            break;
+
+        pixptr = pixmap + ((ypos * screenwidth + xpos) * 4);
+
+        // Stop if we have reached the end
+        if (pixptr - pixmap + 3 > pixlength || i + 3 > rectsize) {
+            break;
+        } else {
+            *(pixptr) = r;
+            *(pixptr + 1) = g;
+            *(pixptr + 2) = b;
+            *(pixptr + 3) = 0xff;
         }
     }
 }
@@ -218,10 +374,6 @@ static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *bitmap) {
     free(bitmap);
     return flipped;
 }
-
-
-int32_t monochrome_black = 0;
-int32_t monochrome_white = 0xffffff;
 
 static uint8_t *draw_opaque_cga(ImageStruct *image) {
     if (image->data == nullptr)
@@ -293,7 +445,7 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     return result;
 }
 
-static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
+static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
     if (image->data == nullptr)
         return nullptr;
 
@@ -301,7 +453,7 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
 
     unsigned colours = 14;
 
-    if (image->palette != nullptr) {
+    if (image->palette != nullptr && use_previous_palette == false) {
         colours = image->palette[0];
         /* Fix for some buggy _Arthur_ pictures. */
         if (colours > 14)
@@ -320,7 +472,7 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
     } else if (image->type == kGraphicsTypeEGA) {
         memcpy(colourmap, ega_colormap, 16 * 3);
     } else {
-        // Image has no palette, copy previously used palette
+        // Copy previously used palette
         memcpy(&colourmap[2][RED], &global_palette[1], colours * 3);
     }
 
@@ -357,14 +509,14 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
     return pixmap;
 }
 
-static uint8_t *decompress_image(ImageStruct *image) {
+static uint8_t *decompress_image(ImageStruct *image, bool use_previous_palette) {
     uint8_t *result = nullptr;
     switch (image->type) {
         case kGraphicsTypeApple2:
             result = draw_apple2(image);
             break;
         case kGraphicsTypeBlorb:
-            result = draw_png(image);
+            result = draw_png(image, use_previous_palette);
             break;
         case kGraphicsTypeCGA:
             if (!image->transparency) {
@@ -375,7 +527,7 @@ static uint8_t *decompress_image(ImageStruct *image) {
         case kGraphicsTypeVGA:
         case kGraphicsTypeMacBW:
         case kGraphicsTypeAmiga:
-            result = draw_amiga_mac_cga_ega_vga(image);
+            result = draw_amiga_mac_cga_ega_vga(image, use_previous_palette);
             break;
         default:
             break;
@@ -383,29 +535,34 @@ static uint8_t *decompress_image(ImageStruct *image) {
     return result;
 }
 
-void ensure_pixmap(winid_t winid) {
-    if (winid == nullptr) {
-        fprintf(stderr, "ensure_pixmap called with a null winid!\n");
+
+void extract_palette_from_picnum(int picnum) {
+    ImageStruct *image = find_image(picnum);
+    if (image != nullptr) {
+        extract_palette(image);
+    }
+}
+
+void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
+    if (*pixmap == nullptr) {
+        fprintf(stderr, "draw_to_pixmap_palette_optional called with a nullptr pixmap!\n");
         return;
     }
-    if (pixmap == nullptr) {
-        win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_set_background_color(winid, user_selected_background);
-        pixmap = (uint8_t *)calloc(1, pixlength);
+    uint8_t *result = decompress_image(image, use_previous_palette);
+    if (result != nullptr) {
+        if (!use_previous_palette)
+            extract_palette(image);
+        draw_bitmap_on_bitmap(result, image->width * image->height * 4, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
+        free(result);
     }
 }
 
 void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
-    if (*pixmap == nullptr) {
-        fprintf(stderr, "draw_to_pixmap called with a nullptr pixmap!\n");
-        return;
-    }
-    uint8_t *result = decompress_image(image);
-    if (result != nullptr) {
-        extract_palette(image);
-        draw_bitmap_on_bitmap(result, image->width * image->height * 4, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
-        free(result);
-    }
+    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, false);
+}
+
+void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, true);
 }
 
 void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
@@ -422,7 +579,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     if (image == nullptr)
         return nullptr;
 
-    uint8_t *result = decompress_image(image);
+    uint8_t *result = decompress_image(image, false);
     if (result == nullptr)
         return nullptr;
 
@@ -465,10 +622,16 @@ void draw_to_pixmap_unscaled(int image, int x, int y) {
         draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
 }
 
-void draw_to_pixmap_unscaled_flipped(int image, int x, int y) {
+void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y) {
     ImageStruct *img = find_image(image);
     if (img != nullptr)
-        draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
+        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
+}
+
+void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y) {
+    ImageStruct *img = find_image(image);
+    if (img != nullptr)
+        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
 }
 
 uint8_t *copy_lines_from_bitmap(int y, int height, size_t *size) {
@@ -501,8 +664,6 @@ void erase_lines_in_bitmap(int y, int height) {
 extern int arthur_pic_top_margin;
 
 extern bool showing_wide_arthur_room_image;
-
-extern glui32 current_picture;
 
 void draw_arthur_side_images(winid_t winid) {
     ensure_pixmap(winid);
@@ -593,19 +754,101 @@ void draw_arthur_side_images(winid_t winid) {
     flush_bitmap(winid);
 }
 
+#define kTopCut 55
+#define kBottomCut 294
+#define kTotalHeight 298
+#define kStepHeight 20
+#define kOverlap 20
+
+void extend_mac_bw_hint_border(int desired_height) {
+
+    // We have already drawn the pillars once (kTotalHeight lines).
+    // Now we fill out the space below.
+    int lines_to_fill = desired_height - kTotalHeight;
+
+    if (lines_to_fill < kStepHeight) {
+        // If the remaining space is smaller than kStepHeight, we bail.
+        return;
+    }
+
+    size_t linessize;
+    int pillar_height = kTotalHeight - kTopCut;
+    int height_of_foot = kTotalHeight - kBottomCut;
+
+    // We copy the section we want the repeat
+    uint8_t *copied_pillars = copy_lines_from_bitmap(kTopCut, pillar_height, &linessize);
+
+    // And the "shadow" at the bottom
+    size_t footsize = 0;
+    uint8_t *foot = copy_lines_from_bitmap(kBottomCut, height_of_foot, &footsize);
+
+    int actual_height = pillar_height - kOverlap;
+    int ypos = kTotalHeight - kOverlap;
+
+    while (ypos + kOverlap < desired_height) {
+        if (ypos + actual_height > desired_height) {
+            // The next draw will overflow the desired height
+            int overflow = ypos + actual_height - desired_height;
+
+            // We cut off the repeated lines to make them fit
+            if (pillar_height - overflow > kStepHeight) {
+                // Round to "step height"
+                overflow += ((pillar_height - overflow) % kStepHeight);
+            }
+            pillar_height -= overflow;
+            actual_height -= overflow;
+            free(copied_pillars);
+            copied_pillars = copy_lines_from_bitmap(kTopCut, pillar_height, &linessize);
+        }
+        // Draw the pillars
+        draw_bitmap_on_bitmap(copied_pillars, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        ypos += actual_height;
+    }
+    free(copied_pillars);
+
+    // Draw the shadow
+    draw_hint_menu_feet_mac(foot, footsize, &pixmap, &pixlength, ypos - height_of_foot);
+    free(foot);
+
+    // Erase any garbage left at the bottom of the pixmap
+    int height_of_bitmap = (pixlength / 4) / hw_screenwidth;
+    erase_lines_in_bitmap(ypos, height_of_bitmap - ypos);
+}
+
+
+
+void extend_shogun_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
+    if (desired_height > lowest_drawn_pixel) {
+        size_t copysize;
+        int height = lowest_drawn_pixel - start_copy_from;
+        if (height < 1)
+            return;
+        uint8_t *bit_to_repeat = copy_lines_from_bitmap(start_copy_from, height, &copysize);
+        erase_lines_in_bitmap(lowest_drawn_pixel, desired_height - lowest_drawn_pixel);
+
+        while (lowest_drawn_pixel < desired_height) {
+            if (lowest_drawn_pixel + height > desired_height) {
+                height = desired_height - lowest_drawn_pixel;
+                copysize = hw_screenwidth * 4 * height;
+            }
+            draw_bitmap_on_bitmap(bit_to_repeat, copysize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, lowest_drawn_pixel, false);
+            lowest_drawn_pixel += height;
+        }
+        free(bit_to_repeat);
+    }
+}
+
 extern winid_t current_graphics_buf_win;
 
 void clear_image_buffer(void) {
     if (pixmap != nullptr) {
         free(pixmap);
-        glk_window_clear(current_graphics_buf_win);
         pixmap = nullptr;
     }
 }
 
 int last_slideshow_pic = -1;
 
-extern bool is_spatterlight_arthur;
 #define K_PIC_SWORD_MERLIN 3
 
 void draw_centered_image(int picnum, float scale, int width, int height) {

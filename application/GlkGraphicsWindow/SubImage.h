@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SubImage : NSAccessibilityElement
 
 @property NSRect frameRect;
+@property NSString *uuid;
 
 @end
 

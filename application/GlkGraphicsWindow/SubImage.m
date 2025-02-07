@@ -14,17 +14,27 @@
     return YES;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _uuid = [[NSUUID UUID] UUIDString];
+    }
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-    self.accessibilityLabel = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityLabel"];
-    _frameRect = [decoder decodeRectForKey:@"frameRect"];
+        self.accessibilityLabel = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityLabel"];
+        _frameRect = [decoder decodeRectForKey:@"frameRect"];
+        _uuid = [decoder decodeObjectForKey:@"UUID"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.accessibilityLabel forKey:@"accessibilityLabel"];
+    [encoder encodeObject:_uuid forKey:@"UUID"];
     [encoder encodeRect:_frameRect forKey:@"frameRect"];
 }
 

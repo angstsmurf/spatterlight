@@ -2,9 +2,11 @@
 #import "GlkController.h"
 #import "GlkTextGridWindow.h"
 
-#import "ZColor.h"
 #import "InputHistory.h"
+#import "MarginImage.h"
+#import "MyAttachmentCell.h"
 #import "Theme.h"
+#import "ZColor.h"
 
 #include "glkimp.h"
 
@@ -177,6 +179,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
+    if (((NSArray *)self.styleHints[stylevalue]).count == 0)
+        return attributes;
+
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
@@ -220,9 +225,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)grabFocus {
     // NSLog(@"grab focus in window %ld", self.name);
-    [self.window makeFirstResponder:self];
-    NSAccessibilityPostNotification(
-                                    self, NSAccessibilityFocusedUIElementChangedNotification);
+    if (self.window.firstResponder != self) {
+        [self.window makeFirstResponder:self];
+        NSAccessibilityPostNotification(
+                                        self, NSAccessibilityFocusedUIElementChangedNotification);
+    }
 }
 
 - (void)flushDisplay {
@@ -535,54 +542,62 @@ fprintf(stderr, "%s\n",                                                    \
             NSError *error = nil;
             BOOL writeResult = NO;
             if (fileFormat == kPlainText) {
+                NSCharacterSet *unwanted = [NSCharacterSet characterSetWithCharactersInString:@"\u00AD\0\uFFFC"];
+                NSString *string = [localTextStorage.string stringByTrimmingCharactersInSet:unwanted];
                 unichar nc = '\0';
                 NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
-                NSString *string = [localTextStorage.string stringByReplacingOccurrencesOfString:nullChar withString:@""];
+                string = [string stringByReplacingOccurrencesOfString:nullChar withString:@""];
                 if (![string hasSuffix:@"\n"])
                     string = [string stringByAppendingString:@"\n"];
                 writeResult = [string writeToURL:theFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
             } else {
-
                 NSMutableAttributedString *mutattstr =
                 [localTextStorage mutableCopy];
 
-                if (localTextView.backgroundColor)
-                    [mutattstr
-                     enumerateAttribute:NSBackgroundColorAttributeName
-                     inRange:NSMakeRange(0, mutattstr.length)
-                     options:0
-                     usingBlock:^(id value, NSRange range, BOOL *stop) {
-                        if (!value || [value isEqual:[NSColor textBackgroundColor]]) {
+                NSUInteger __block index = 1;
+
+                if (fileFormat == kRTFD) {
+                    [localTextStorage
+                     enumerateAttribute:NSAttachmentAttributeName
+                     inRange:NSMakeRange(0, localTextStorage.length)
+                     options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
+                     usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
+                        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+                        if (!cell)
+                            return;
+                        NSImage *image = cell.image;
+                        if (!image && cell.marginImage)
+                            image = cell.marginImage.image;
+                        if (image) {
+                            NSData *tiffdata = image.TIFFRepresentation;
+
+                            NSFileWrapper *wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
+                            wrapper.preferredFilename = [@"image " stringByAppendingFormat:@"%ld.tiff", index++];
+                            NSTextAttachment *newAttachment = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];
                             [mutattstr
-                             addAttribute:NSBackgroundColorAttributeName
-                             value:localTextView.backgroundColor
-                             range:range];
+                             addAttribute:NSAttachmentAttributeName value:newAttachment range:range];
                         }
                     }];
 
-
-                if (fileFormat == kRTFD) {
-                    NSFileWrapper *wrapper;
-                    wrapper = [mutattstr
+                    NSFileWrapper *wrapper = [mutattstr
                                RTFDFileWrapperFromRange:NSMakeRange(0, mutattstr.length)
                                documentAttributes:@{
-                        NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType
+                        NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType,
+                        NSBackgroundColorDocumentAttribute:localTextView.backgroundColor
                     }];
 
                     writeResult = [wrapper writeToURL:theFile
                                               options:
-                                   NSFileWrapperWritingAtomic |
-                                   NSFileWrapperWritingWithNameUpdating
-                                  originalContentsURL:nil
+                                   NSFileWrapperWritingAtomic                                  originalContentsURL:nil
                                                 error:&error];
+                    if (writeResult == NO) NSLog(@"Error: %@", error);
 
                 } else {
                     NSData *data = [mutattstr
-                                    RTFFromRange:NSMakeRange(0,
-                                                             mutattstr.length)
+                                    RTFFromRange:NSMakeRange(0, mutattstr.length)
                                     documentAttributes:@{
-                        NSDocumentTypeDocumentAttribute :
-                            NSRTFTextDocumentType
+                           NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType,
+                        NSBackgroundColorDocumentAttribute:localTextView.backgroundColor
                     }];
                     writeResult = [data writeToURL:theFile options:0 error:&error];
                 }

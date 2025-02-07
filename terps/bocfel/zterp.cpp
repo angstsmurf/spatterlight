@@ -167,13 +167,13 @@ static void initialize_games()
 #endif
         { Game::LurkingHorror, { "203-870506", "219-870912", "221-870918" } },
         { Game::Planetfall, { "1-830517", "20-830708", "26-831014", "29-840118", "37-851003", "39-880501" } },
-        { Game::Shogun, { "322-890706" } },
+        { Game::Shogun, { "278-890209", "278-890211", "279-890217", "280-890217", "281-890222", "282-890224", "283-890228", "284-890302", "286-890306", "288-890308", "289-890309", "290-890311", "291-890313", "292-890314", "295-890321", "311-890510", "320-890627", "321-890629", "322-890706" } },
         { Game::Stationfall, { "1-861017", "63-870218", "87-870326", "107-870430" } },
 #ifdef SPATTERLIGHT
         { Game::BeyondZork, { "1-870412", "1-870715", "47-870915", "49-870917", "51-870923", "57-871221", "60-880610" } },
         { Game::MadBomber, { "3-971123-caad" } },
 #endif
-        { Game::ZorkZero, { "393-890714" } },
+        { Game::ZorkZero, { "0-870831", "393-890714" } },
         { Game::MysteriousAdventures, mysterious },
     };
 
@@ -370,7 +370,7 @@ void write_header()
 
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_journey || is_spatterlight_arthur) {
+        if (is_spatterlight_v6) {
             v6_switch_to_allowed_interpreter_number();
         }
 #endif
@@ -689,9 +689,13 @@ static void process_story(IO &io, long offset)
         is_spatterlight_journey = true;
     } else if (is_game(Game::Arthur)) {
         is_spatterlight_arthur = true;
+    } else if (is_game(Game::Shogun)) {
+        is_spatterlight_shogun = true;
     }
-    if (is_spatterlight_journey || is_spatterlight_arthur)
+    if (is_spatterlight_journey || is_spatterlight_arthur || is_spatterlight_shogun) {
+        is_spatterlight_v6 = true;
         find_entrypoints();
+    }
 #endif
     if (zversion <= 3) {
         have_statuswin = create_statuswin();
@@ -1033,7 +1037,7 @@ static void real_main(int argc, char **argv)
     process_story(*story.io, story.offset);
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey || is_spatterlight_arthur) {
+    if (is_spatterlight_v6) {
         find_and_load_z6_graphics();
     }
 #endif
@@ -1051,7 +1055,7 @@ static void real_main(int argc, char **argv)
         user_store_word(0x10, word(0x10));
 
 #ifdef SPATTERLIGHT
-        if (!is_spatterlight_journey && !is_spatterlight_arthur) {
+        if (!is_spatterlight_v6) {
 #endif
         if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");

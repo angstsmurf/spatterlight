@@ -87,6 +87,8 @@ typedef struct library_state_data_struct {
     int current_input_length;
     int number_of_journey_words;
     struct JourneyWords journey_words[4];
+    int number_of_margin_images;
+    uint16_t margin_images[100];
 
     int current_graphics_win_tag;
     int graphics_fg_tag;
@@ -95,6 +97,15 @@ typedef struct library_state_data_struct {
 
     int hints_depth;
     int slideshow_pic;
+    int current_picture;
+
+    int define_line;
+
+    int shogun_menu;
+    int shogun_menu_selection;
+
+    int internal_read_char_hack;
+
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

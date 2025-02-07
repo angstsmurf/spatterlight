@@ -29,7 +29,6 @@ void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
 void RT_UPDATE_DESC_WINDOW(void);
 void RT_HOT_KEY(void);
-void after_V_COLOR(void);
 
 void ARTHUR_UPDATE_STATUS_LINE(void);
 void arthur_INIT_STATUS_LINE(void);
@@ -43,7 +42,6 @@ void arthur_update_after_restore(void);
 void arthur_update_after_autorestore(void);
 
 bool arthur_autorestore_internal_read_char_hacks(void);
-void arthur_close_and_reopen_front_graphics_window(void);
 
 void arthur_sync_screenmode(void);
 

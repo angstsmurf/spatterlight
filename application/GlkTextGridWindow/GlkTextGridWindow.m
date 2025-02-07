@@ -360,7 +360,7 @@
 
         GlkTextGridWindow * __weak weakSelf = self;
 
-         NSArray<NSDictionary *> __block *blockStyles = styles;
+        NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
@@ -510,7 +510,7 @@
      usingBlock:^(id value, NSRange range, BOOL *stop) {
 
         bgCol = (NSColor *)value;
-        if (bgCol && range.length + 2 > blocCols) {
+        if (bgCol && range.location < blocCols && range.length + 2 > blocCols) {
             if (NSMaxRange(range) > blockTextStorage.length - 3)
                 *stop = YES;
         } else {
@@ -550,7 +550,7 @@
     if (!transparent)
         [self checkForUglyBorder];
 
-    if (_pendingBackgroundCol && ![_pendingBackgroundCol isEqualToColor:_textview.backgroundColor]) {
+    if (_pendingBackgroundCol) {
         _textview.backgroundColor = _pendingBackgroundCol;
     }
     _pendingBackgroundCol = nil;
@@ -842,6 +842,13 @@
 //        [self recalcBackground];
 //    }
 
+    NSDictionary *attributes = [self getCurrentAttributesForStyle:style_Normal];
+    NSColor *background = attributes[NSBackgroundColorAttributeName];
+    if (background && bgnd != background.integerColor) {
+        bgnd = background.integerColor;
+        [self recalcBackground];
+    }
+
     if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
         if (_textview.textStorage.length) {
             selectedRange = NSMakeRange(_textview.textStorage.length - 1, 0);
@@ -850,7 +857,6 @@
         }
     }
     _textview.selectedRange = selectedRange;
-    [self recalcBackground];
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
@@ -861,7 +867,6 @@
 }
 
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
-    NSUInteger length = string.length;
     NSUInteger startpos;
     NSUInteger pos = 0;
 
@@ -876,8 +881,7 @@
         } else return;
     }
 
-    if (cols == 0 || rows == 0 || length == 0) {
-        NSLog(@"GlkTextGridWindow printToWindow: (cols == 0 || rows == 0 || length == 0). bailing.");
+    if (cols == 0 || rows == 0 || string.length == 0) {
         return;
     }
 
@@ -907,7 +911,6 @@
 
     startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
-        NSLog(@"GlkTextGridWindow printToWindow: Outside visible range! startpos:%ld textstoragelength:%ld", startpos, textstoragelength);
         // We are outside window visible range!
         // Do nothing
         return;
@@ -918,9 +921,9 @@
         return;
     }
 
-    // Check for newlines in string to write.
-    // length - 1 because we don't care about newlines at the very end.
-    for (NSUInteger x = 0; x < length - 1; x++) {
+    // Check for newlines in string to write
+    NSUInteger x;
+    for (x = 0; x < string.length; x++) {
         if ([string characterAtIndex:x] == '\n' ||
             [string characterAtIndex:x] == '\r') {
             [self printToWindow:[string substringToIndex:x] style:stylevalue];
@@ -933,7 +936,7 @@
     }
 
     // Write this string
-    while (pos < length) {
+    while (pos < string.length) {
         // Can't write if we've fallen off the end of the window
         if (((NSInteger)cols > -1 && ypos > textstoragelength / (cols + 1) ) || ypos > rows)
             break;
@@ -1484,9 +1487,6 @@
         NSLog(@"Failed to create Zork Font!");
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    para.maximumLineHeight = self.theme.cellHeight;
-    para.minimumLineHeight = self.theme.cellHeight;
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
 
     styles[style_BlockQuote] = beyondZorkStyle;

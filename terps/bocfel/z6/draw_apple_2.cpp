@@ -120,5 +120,7 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
 
 uint8_t *draw_apple2(ImageStruct *image) {
     uint8_t *result = decompress_apple2(image);
-    return deindex(result, image->width * image->height, image);
+    if (result)
+        return deindex(result, image->width * image->height, image);
+    return nullptr;
 }

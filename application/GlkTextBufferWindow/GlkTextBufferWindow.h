@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)padWithNewlines:(NSUInteger)lines;
 
 - (void)scrollWheelchanged:(NSEvent *)event;
-- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale;
+- (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale;
 
 // Only used by JourneyMenuHandler
 - (NSString *)lastMoveString;

@@ -858,7 +858,7 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-280-890217"] ||
                [ifid isEqualToString:@"ZCODE-281-890222"] ||
                [ifid isEqualToString:@"ZCODE-282-890224"] ||
-               [ifid isEqualToString:@"ZCODE-283-890238"] ||
+               [ifid isEqualToString:@"ZCODE-283-890228"] ||
                [ifid isEqualToString:@"ZCODE-284-890302"] ||
                [ifid isEqualToString:@"ZCODE-286-890306"] ||
                [ifid isEqualToString:@"ZCODE-288-890308"] ||
@@ -869,7 +869,7 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-295-890321"] ||
                [ifid isEqualToString:@"ZCODE-311-890510"] ||
                [ifid isEqualToString:@"ZCODE-320-890627"] ||
-               [ifid isEqualToString:@"ZCODE-321-891629"] ||
+               [ifid isEqualToString:@"ZCODE-321-890629"] ||
                [ifid isEqualToString:@"ZCODE-322-890706"]) {
         _gameID = kGameIsShogun;
     } else if ([ifid isEqualToString:@"ZCODE-142-890205"] ||
@@ -3350,7 +3350,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
             } else
-                NSLog(@"delwin: No window with name %d", req->a1);
+                NSLog(@"delwin called on a non-existant Glk window (%d)", req->a1);
 
             break;
 
@@ -3519,7 +3519,7 @@ fprintf(stderr, "%s\n",                                                    \
                 windowdirty = YES;
                 free(sizewin);
             } else
-                NSLog(@"sizwin: something went wrong.");
+                NSLog(@"sizwin called on a non-existant Glk window (%d)", req->a1);
             break;
 
         case CLRWIN:
@@ -3864,7 +3864,7 @@ fprintf(stderr, "%s\n",                                                    \
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_bufferStyleHints];
                 if (req->a2 > 0)
-                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+                    [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_gridStyleHints];
             } else {
@@ -4161,9 +4161,6 @@ again:
         _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
         return;
     }
-
-    if (color.integerColor == 0xffff)
-        NSLog(@"Wrong color?");
 
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         _borderView.layer.backgroundColor = color.CGColor;
@@ -4870,8 +4867,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                        context:(void *)context {
 
     if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
-        NSWorkspace * ws = [NSWorkspace sharedWorkspace];
-        _voiceOverActive = ws.voiceOverEnabled;
+        _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
         if (_voiceOverActive) { // VoiceOver was switched on
             // Don't speak or change menus unless we are the top game
             if ([Preferences.instance currentGame] == _game && !dead) {
@@ -4885,6 +4881,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         } else { // VoiceOver was switched off
             [_journeyMenuHandler hideJourneyMenus];
         }
+        // We send an event to let the interpreter know VoiceOver status.
+        // Only to Bocfel for now.
+        if ([_terpname isEqualToString:@"bocfel"])
+            [self sendArrangeEventWithFrame:_gameView.frame force:NO];
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
@@ -5152,9 +5152,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _speechTimeStamp = [NSDate date];
     _lastSpokenString = string;
 
-    NSString *charSetString = @"\u00A0 >\n_";
-    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@"\u00A0 >\n_\0\uFFFC"];
     newString = [newString stringByTrimmingCharactersInSet:charset];
+
+    unichar nc = '\0';
+    NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
+    newString = [newString stringByReplacingOccurrencesOfString:nullChar withString:@""];
 
     if (newString.length == 0)
         newString = string;
