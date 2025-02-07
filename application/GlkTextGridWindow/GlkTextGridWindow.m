@@ -842,6 +842,13 @@
 //        [self recalcBackground];
 //    }
 
+    NSDictionary *attributes = [self getCurrentAttributesForStyle:style_Normal];
+    NSColor *background = attributes[NSBackgroundColorAttributeName];
+    if (background && bgnd != background.integerColor) {
+        bgnd = background.integerColor;
+        [self recalcBackground];
+    }
+
     if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
         if (_textview.textStorage.length) {
             selectedRange = NSMakeRange(_textview.textStorage.length - 1, 0);
@@ -850,7 +857,6 @@
         }
     }
     _textview.selectedRange = selectedRange;
-    [self recalcBackground];
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {

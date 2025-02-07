@@ -16,8 +16,8 @@ extern "C" {
 #include "objects.h"
 #include "options.h"
 #include "screen.h"
-#include "zterp.h"
 #include "unicode.h"
+#include "zterp.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
 
@@ -56,8 +56,6 @@ extern Window *mainwin, *curwin;
 #define ARTHUR_GRAPHICS_BG windows[7]
 #define ARTHUR_ROOM_GRAPHIC_WIN windows[2]
 #define ARTHUR_ERROR_WINDOW windows[3]
-
-extern int current_picture;
 
 bool showing_wide_arthur_room_image = false;
 

@@ -22,7 +22,7 @@ extern "C" {
 ImageStruct *raw_images;
 int image_count;
 
-extern int current_image;
+extern int current_picture;
 
 bool image_needs_redraw = true;
 
@@ -195,11 +195,76 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
             break;
 
         pixptr = *largebitmap + ((ypos * largebitmapwidth + xpos) * 4);
-        // Skip transparent pixels
+
+        // Stop if we have reached the end
         if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
             break;
-        } else if (*(smallbitmap + i + 3) != 0) {
+        } else if (*(smallbitmap + i + 3) != 0) { // Skip transparent pixels
             memcpy(pixptr, smallbitmap + i, 4);
+        }
+    }
+}
+
+void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height) {
+
+    int xpos, ypos;
+
+    int stride = width * 4;
+
+    if (x < 0)
+        x = 0;
+
+    int screenwidth = (int)hw_screenwidth;
+
+    if (x > screenwidth)
+        x = screenwidth - width;
+
+    int newsize = screenwidth * (y + height) * 4;
+
+    // Extend large bitmap downward if necessary
+    if (pixlength < newsize) {
+        uint8_t *temp = (uint8_t *)calloc(1, newsize);
+        memcpy(temp, pixmap, pixlength);
+        pixlength = newsize;
+        free(pixmap);
+        pixmap = temp;
+    }
+
+    uint8_t *pixptr;
+
+    int rectsize = width * height * 4;
+
+    uint8_t r, g, b;
+    r = (color >> 16) & 0xff;
+    g = (color >> 8) & 0xff;
+    b = color & 0xff;
+
+    for (int i = 0; i < rectsize; i += 4) {
+
+        ypos = y + i / stride;
+
+        if (ypos < 0) {
+            continue;
+        }
+
+        xpos = x + (i % stride) / 4;
+
+        // Clip at left and right edges
+        if (xpos < x || xpos >= width + x)
+            continue;
+        if (ypos >= height + y || ypos < y)
+            break;
+
+        pixptr = pixmap + ((ypos * screenwidth + xpos) * 4);
+
+        // Stop if we have reached the end
+        if (pixptr - pixmap + 3 > pixlength || i + 3 > rectsize) {
+            break;
+        } else {
+            *(pixptr) = r;
+            *(pixptr + 1) = g;
+            *(pixptr + 2) = b;
+            *(pixptr + 3) = 0xff;
         }
     }
 }
@@ -501,8 +566,6 @@ void erase_lines_in_bitmap(int y, int height) {
 extern int arthur_pic_top_margin;
 
 extern bool showing_wide_arthur_room_image;
-
-extern glui32 current_picture;
 
 void draw_arthur_side_images(winid_t winid) {
     ensure_pixmap(winid);

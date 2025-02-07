@@ -907,7 +907,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSMutableDictionary *attributes = [self getCurrentAttributesForStyle:stylevalue];
 
-
     if (str.length > 1) {
         unichar c = [str characterAtIndex:str.length - 1];
         if (c == '\n') {
