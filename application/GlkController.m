@@ -852,8 +852,7 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-63-890622"] ||
                [ifid isEqualToString:@"ZCODE-74-890714"] ) {
         _gameID = kGameIsArthur;
-    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
-               [ifid isEqualToString:@"ZCODE-278-890209"] ||
+    } else if ([ifid isEqualToString:@"ZCODE-278-890209"] ||
                [ifid isEqualToString:@"ZCODE-278-890211"] ||
                [ifid isEqualToString:@"ZCODE-279-890217"] ||
                [ifid isEqualToString:@"ZCODE-280-890217"] ||
