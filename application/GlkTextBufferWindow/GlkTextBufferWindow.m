@@ -1224,18 +1224,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)recalcInputAttributes {
-    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Transparent) {
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-    }
-
-    if (currentZColor)
-        inputStyle[@"ZColor"] = currentZColor;
-    if (self.currentReverseVideo)
-        inputStyle[@"ReverseVideo"] = @(YES);
-
-    //    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
-    _inputAttributes = inputStyle;
+    _inputAttributes = [self getCurrentAttributesForStyle:style_Input];
 }
 
 - (NSString *)cancelLine {
