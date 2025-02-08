@@ -11,6 +11,8 @@
 
 #include "arthur.hpp"
 #include "journey.hpp"
+#include "shogun.hpp"
+
 #include "v6_shared.hpp"
 
 #include "entrypoints.hpp"

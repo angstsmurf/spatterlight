@@ -13,15 +13,13 @@ extern "C" {
 
 #include "zterp.h"
 #include "v6_image.h"
+#include "v6_specific.h"
 #include "extract_apple_2.h"
 
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
 
 extern strid_t active_blorb_file_stream;
-
-extern bool is_spatterlight_journey;
-extern bool is_spatterlight_arthur;
 
 std::array<std::string, 7> found_graphics_files;
 
@@ -353,6 +351,8 @@ void find_and_load_z6_graphics(void) {
             file_name.replace(delimiterpos, dotpos - delimiterpos, "/journey");
         } else if (is_spatterlight_arthur) {
             file_name.replace(delimiterpos, dotpos - delimiterpos, "/arthur");
+        } else if (is_spatterlight_shogun) {
+            file_name.replace(delimiterpos, dotpos - delimiterpos, "/shogun");
         }
         if (file_name != game_file) {
             find_graphics_files(file_name);

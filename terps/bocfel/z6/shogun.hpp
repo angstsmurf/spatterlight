@@ -9,11 +9,7 @@
 #define shogun_hpp
 
 #include <stdio.h>
-//bool is_shogun_inline_image(int picnum);
-//bool is_shogun_map_image(int picnum);
-//bool is_shogun_border_image(int picnum);
 
-//void adjust_shogun_window(void);
 void shogun_update_on_resize(void);
 void shogun_draw_title_image(void);
 void shogun_update_after_restore(void);

@@ -370,7 +370,7 @@ void write_header()
 
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_journey || is_spatterlight_arthur) {
+        if (is_spatterlight_v6) {
             v6_switch_to_allowed_interpreter_number();
         }
 #endif
@@ -689,9 +689,13 @@ static void process_story(IO &io, long offset)
         is_spatterlight_journey = true;
     } else if (is_game(Game::Arthur)) {
         is_spatterlight_arthur = true;
+    } else if (is_game(Game::Shogun)) {
+        is_spatterlight_shogun = true;
     }
-    if (is_spatterlight_journey || is_spatterlight_arthur)
+    if (is_spatterlight_journey || is_spatterlight_arthur || is_spatterlight_shogun) {
+        is_spatterlight_v6 = true;
         find_entrypoints();
+    }
 #endif
     if (zversion <= 3) {
         have_statuswin = create_statuswin();
@@ -1033,7 +1037,7 @@ static void real_main(int argc, char **argv)
     process_story(*story.io, story.offset);
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey || is_spatterlight_arthur) {
+    if (is_spatterlight_v6) {
         find_and_load_z6_graphics();
     }
 #endif
@@ -1051,7 +1055,7 @@ static void real_main(int argc, char **argv)
         user_store_word(0x10, word(0x10));
 
 #ifdef SPATTERLIGHT
-        if (!is_spatterlight_journey && !is_spatterlight_arthur) {
+        if (!is_spatterlight_v6) {
 #endif
         if (zversion == 6 && options.warn_on_v6) {
             show_message("Version 6 of the Z-machine is only partially supported. Be aware that the game might not function properly.");
