@@ -42,8 +42,9 @@ extern "C" {
 #include "entrypoints.hpp"
 #include "extract_apple_2.h"
 #include "find_graphics_files.hpp"
-#include "journey.hpp"
 #include "arthur.hpp"
+#include "journey.hpp"
+#include "shogun.hpp"
 #include "random.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
@@ -127,8 +128,10 @@ int lastx0 = 0, lasty0 = 0, lastx1 = 0, lasty1 = 0, lastpeer = -1;
 int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
 glui32 current_picture = 0;
-bool is_spatterlight_journey = false;
 bool is_spatterlight_arthur = false;
+bool is_spatterlight_journey = false;
+bool is_spatterlight_shogun = false;
+bool is_spatterlight_v6 = false;
 
 // Full-window size background or in front
 // Background during normal play with text windows on top,
@@ -1145,7 +1148,7 @@ void show_message(const char *fmt, ...)
         glk_put_char_stream(glk_window_get_stream(errorwin), LATIN1_LINEFEED);
     } else {
 #ifdef SPATTERLIGHT
-        if (!is_spatterlight_journey && !is_spatterlight_arthur && !gli_zmachine_no_err_win) {
+        if (!is_spatterlight_v6 && !gli_zmachine_no_err_win) {
             errorwin = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, error_lines = 2, wintype_TextBuffer, 0);
         }
 #else
@@ -1389,7 +1392,7 @@ static void resize_upper_window(long nlines, bool from_game)
 
 #ifdef SPATTERLIGHT
 
-    if (is_spatterlight_journey || is_spatterlight_arthur)
+    if (is_spatterlight_v6)
         return;
 
     // Hack to clear upper window when its height is set to 0.
@@ -2082,7 +2085,7 @@ void zerase_window()
     // glk_window_clear() kills reverse video in Gargoyle. Reapply style.
 #ifdef SPATTERLIGHT
     // Hack to set upper window background to current background color.
-    if (!is_spatterlight_journey && !is_spatterlight_arthur)
+    if (!is_spatterlight_v6)
     win_setbgnd(upperwin->id->peer, gargoyle_color(style_window()->bg_color));
 #endif
     set_current_style();
@@ -2250,13 +2253,16 @@ void v6_restore_hacks(void) {
         v6_autorestore_hacks_needed = false;
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
         store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
-        if (is_spatterlight_arthur)
+        if (is_spatterlight_arthur) {
             arthur_update_after_autorestore();
+        }
     } else {
         if (is_spatterlight_journey) {
             journey_update_after_restore();
         } else if (is_spatterlight_arthur) {
             arthur_update_after_restore();
+        } else if (is_spatterlight_shogun) {
+            shogun_update_after_restore();
         }
     }
 }
@@ -2674,13 +2680,12 @@ void window_change()
         }
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_journey  || is_spatterlight_arthur) {
+        if (is_spatterlight_v6) {
             v6_switch_to_allowed_interpreter_number();
         }
         store_byte(0x1e, options.int_number);
 
-        if (is_spatterlight_journey || is_spatterlight_arthur) {
-
+        if (is_spatterlight_v6) {
             glui32 w, h;
             glk_window_get_size(windows[1].id, &w, &h);
             upper_window_width = w;
@@ -2743,9 +2748,10 @@ void window_change()
 
             if (is_spatterlight_arthur) {
                 arthur_update_on_resize();
-            } else 
-                if (is_spatterlight_journey) {
+            } else if (is_spatterlight_journey) {
                 journey_update_on_resize();
+            } else if (is_spatterlight_shogun) {
+                shogun_update_on_resize();
             }
         }
 #endif
@@ -3064,7 +3070,7 @@ static uint8_t zscii_from_glk(glui32 key)
 
 #ifdef SPATTERLIGHT
 void flush_image_buffer(void) {
-    if (is_spatterlight_arthur || is_game(Game::ZorkZero) || is_game(Game::Shogun)) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun) {
         if (current_graphics_buf_win == nullptr && screenmode != MODE_SLIDESHOW) {
             current_graphics_buf_win = graphics_bg_glk;
         }
@@ -4651,7 +4657,7 @@ void zpicture_data()
 #ifdef ZTERP_GLK_GRAPHICS
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey || is_spatterlight_arthur) {
+    if (is_spatterlight_v6) {
 
         if (zargs[0] == 0) {
             // Return pixversion
@@ -5641,7 +5647,7 @@ void init_screen(bool first_run)
         window.font = Window::Font::Normal;
 
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_journey || is_spatterlight_arthur) {
+        if (is_spatterlight_v6) {
             window.index = i++;
             window.style.reset();
 
@@ -5687,7 +5693,7 @@ void init_screen(bool first_run)
     // graphics) to be seen. Things could get pretty jumbled but it’s
     // not inherently worse than a chunk of output missing.
 #ifdef SPATTERLIGHT
-    if (options.redirect_v6_windows && !is_spatterlight_journey && !is_spatterlight_arthur) {
+    if (options.redirect_v6_windows && !is_spatterlight_v6) {
 #else
         if (options.redirect_v6_windows) {
 #endif
@@ -5720,7 +5726,7 @@ void init_screen(bool first_run)
 #endif
 
 #ifdef SPATTERLIGHT
-    if (is_spatterlight_journey || is_spatterlight_arthur) {
+        if (is_spatterlight_v6) {
         gli_block_rearrange = 1;
         adjust_image_scale();
         glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Oblique);
@@ -5732,7 +5738,7 @@ void init_screen(bool first_run)
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
             get_image_size(1, &width, nullptr);
-            if ((is_spatterlight_arthur && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_game(Game::Shogun) && width == 479)) {
+            if ((is_spatterlight_arthur && width == 436) ||  (is_game(Game::ZorkZero) && width == 480) || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
                 hw_screenwidth = 480;
                 for (int i = 0; i < image_count; i++) {

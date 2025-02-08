@@ -16,6 +16,7 @@ extern "C" {
 #include "writetiff.h"
 #include "util.h"
 #include "arthur.hpp"
+#include "v6_specific.h"
 
 #include "draw_image.hpp"
 
@@ -668,7 +669,6 @@ void clear_image_buffer(void) {
 
 int last_slideshow_pic = -1;
 
-extern bool is_spatterlight_arthur;
 #define K_PIC_SWORD_MERLIN 3
 
 void draw_centered_image(int picnum, float scale, int width, int height) {

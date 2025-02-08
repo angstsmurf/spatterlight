@@ -185,8 +185,7 @@ struct Window {
 };
 
 extern glui32 user_selected_foreground, user_selected_background;
-extern bool is_spatterlight_journey;
-extern bool is_spatterlight_arthur;
+
 extern std::array<Window, 8> windows;
 
 extern glui32 current_picture;

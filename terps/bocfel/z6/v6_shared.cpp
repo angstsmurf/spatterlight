@@ -17,8 +17,7 @@
 #include "v6_specific.h"
 
 #include "arthur.hpp"
-
-//#include "shogun.hpp"
+#include "shogun.hpp"
 //#include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
