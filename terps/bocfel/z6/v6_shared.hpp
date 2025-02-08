@@ -32,6 +32,11 @@ void RT_SEE_QST(void);
 
 void V_COLOR(void);
 
+void V_DEFINE(void);
+
+void V_CREDITS(void);
+void after_V_CREDITS(void);
+
 extern uint8_t fg_global_idx, bg_global_idx;
 extern uint8_t hint_chapter_global_idx, hint_quest_global_idx;
 extern uint16_t hints_table_addr;

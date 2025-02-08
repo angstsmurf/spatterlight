@@ -236,17 +236,17 @@ static void display_softs(void) {
 }
 
 void z0_erase_screen(void) {
-//    clear_image_buffer();
-//    clear_margin_image_list();
-//    if (z0_right_status_window != nullptr) {
-//        gli_delete_window(z0_right_status_window);
-//        z0_right_status_window = nullptr;
-//    }
-//    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
-//        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-//    if (V6_STATUS_WINDOW.id != nullptr)
-//        glk_window_clear(V6_STATUS_WINDOW.id);
-//    glk_window_clear(graphics_bg_glk);
+    //    clear_image_buffer();
+    //    clear_margin_image_list();
+    //    if (z0_right_status_window != nullptr) {
+    //        gli_delete_window(z0_right_status_window);
+    //        z0_right_status_window = nullptr;
+    //    }
+    //    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+    //        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    //    if (V6_STATUS_WINDOW.id != nullptr)
+    //        glk_window_clear(V6_STATUS_WINDOW.id);
+    //    glk_window_clear(graphics_bg_glk);
 }
 
 
@@ -282,200 +282,200 @@ void adjust_definitions_window(void) {
 
 // Shared between Zork Zero and Shogun
 void V_DEFINE(void) {
-//    int linmax;
-//    uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
-//
-//    if (is_game(Game::ZorkZero)) {
-//        fkeys = 0xce2a;
-//        update_user_defined_colors();
-//    } else { // Game is Shogun
-//        fkeys = 0x4dc8;
-//    }
-//
-//    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
-//    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
-//    v6_delete_win(&V6_STATUS_WINDOW);
-//    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-//    screenmode = MODE_DEFINE;
-//
-//    fkey = fkeys + 2;
-//    fdef = user_word(fkey + 2);
-//    linmax = user_word(fkeys) / 2;
-//
-//    global_define_line = 0;
-//
-//    adjust_definitions_window();
-//
-//    z0_erase_screen();
-//
-//    winid_t gwin = DEFINITIONS_WINDOW.id;
-//
-//    bool finished = false;
-//
-//    while (!finished)  {
-//        int16_t new_line = global_define_line;
-//        uint16_t chr = read_char();
-//        switch (chr) {
-//            case ZSCII_CLICK_SINGLE:
-//                // fallthrough
-//            case ZSCII_CLICK_DOUBLE:
-//                glk_request_mouse_event(gwin);
-//                clicked_line = line_clicked();
-//                if (clicked_line <= 1) {
-//                    break;
-//                }
-//                new_line = clicked_line - 2;
-//
-//                // Deselect the old line and select the clicked one.
-//                // This is identical to the code at the end of the input loop
-//                // but must be repeated here in order to make the double click
-//                // below apply to the right line
-//                if (global_define_line != new_line) {
-//                    display_soft(fkey, global_define_line, true);
-//                    fkey = fkeys + 2 + 4 * new_line;
-//                    display_soft(fkey, new_line, false);
-//                    global_define_line = new_line;
-//                    fdef = user_word(fkey + 2);
-//                }
-//
-//                // if we double clicked a command (as opposed to a definition)
-//                // we fall through and treat it as ZSCII_NEWLINE.
-//                // Otherwise we break.
-//                if (!(chr == ZSCII_CLICK_DOUBLE && (int16_t)user_word(fkey) < 0)) {
-//                    break;
-//                }
-//                // fallthrough
-//            case ZSCII_NEWLINE:
-//                // if we are on a static command, run the associated routine
-//                if ((int16_t)user_word(fkey) < 0) {
-//                    if (internal_call(user_word(fdef + 2))) {
-//                        // Exit menu if the call returns true
-//                        finished = true;
-//                    } else {
-//                        // Otherwise select EXIT (bottom line)
-//                        display_softs();
-//                        new_line = linmax - 1;
-//                    }
-//                    break;
-//                }
-//
-//                // If we are not on a static command, we fall through
-//                // and treat ZSCII_NEWLINE as ZSCII_DOWN.
-//
-//                // fallthrough
-//            case ZSCII_DOWN:
-//            case ZSCII_KEY2:
-//                new_line++;
-//                if (new_line < linmax) {
-//                    // Skip the blank line between definitions
-//                    // and commands
-//                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
-//                        new_line++;
-//                } else {
-//                    new_line = 0;
-//                }
-//                break;
-//
-//            case ZSCII_UP:
-//            case ZSCII_KEY8:
-//                new_line--;
-//                if (new_line >= 0) {
-//                    // Skip the blank line between definitions
-//                    // and commands
-//                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
-//                        new_line--;
-//                } else {
-//                    new_line = linmax - 1;
-//                }
-//                break;
-//
-//            default:
-//                // If the user pressed a function key, move to the corresponding line
-//                pressed_fkey = scan_table(chr, fkeys + 2, user_word(fkeys), false);
-//                if (pressed_fkey) {
-//                    new_line = (pressed_fkey - fkeys) / 4;
-//                    // skip text editing if we are on a static command line
-//                } else if ((int16_t)user_word(fkey) >= 0) {
-//                    if (chr == ZSCII_BACKSPACE || chr == 127) {
-//                        length = user_byte(fdef + 1);
-//                        if (length != 0) {
-//                            length--;
-//                            store_byte(fdef + 1, length);
-//                            store_byte(fdef + length + 2, ZSCII_SPACE);
-//                            // print cursor at new position
-//                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
-//                            if (length + 1 < user_byte(fdef)) {
-//                                print_reverse_video_space();
-//                            }
-//                            glk_put_char(UNICODE_SPACE);
-//                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
-//                        } else {
-//                            win_beep(1);
-//                        }
-//                    } else if (chr >= ZSCII_SPACE && chr < 127) {
-//                        length = user_byte(fdef + 1);
-//                        if (length + 1 >= user_byte(fdef)) {
-//                            win_beep(1);
-//                            // If the command has ZSCII_NEWLINE at the end, allow no more characters
-//                        } else if (scan_table(ZSCII_NEWLINE, fdef + 2, user_byte(fdef + 1), true) != 0) {
-//                            win_beep(1);
-//                        } else {
-//                            if (chr == '|' || chr == '!') {
-//                                chr = ZSCII_NEWLINE;
-//                            }
-//                            // store new length
-//                            store_byte(fdef + 1, length + 1);
-//
-//                            // make lowercase
-//                            if (chr >= 'A' && chr <= 'Z')
-//                                chr += 32;
-//
-//                            // add the typed character to the end of the definition string
-//                            store_byte(fdef + length + 2, chr);
-//                            // and print it
-//                            if (chr == ZSCII_NEWLINE) {
-//                                glk_put_char('|');
-//                            } else {
-//                                glk_put_char(chr);
-//                            }
-//                            // print cursor at the new position if we are not at max
-//                            if (length + 2 < user_byte(fdef)) {
-//                                print_reverse_video_space();
-//                                glk_window_move_cursor(gwin, length + 5, global_define_line + 1);
-//                            } else {
-//                                // print cursor at end of line if we are at max
-//                                glk_window_move_cursor(gwin, user_byte(fdef) + 3, global_define_line + 1);
-//                                print_reverse_video_space();
-//                            }
-//                        }
-//                    } else {
-//                        win_beep(1);
-//                    }
-//                } else {
-//                    win_beep(1);
-//                }
-//                break;
-//        }
-//
-//        // Deselect the old line
-//        // and select the new one
-//        if (global_define_line != new_line) {
-//            display_soft(fkey, global_define_line, true);
-//            display_soft(fkeys + 2 + 4 * new_line, new_line, false);
-//            global_define_line = new_line;
-//            fkey = fkeys + 2 + 4 * global_define_line;
-//            fdef = user_word(fkey + 2);
-//        }
-//    };
-//
-//    v6_delete_win(&DEFINITIONS_WINDOW);
-//    screenmode = MODE_NORMAL;
-//    if (is_game(Game::ZorkZero)) {
-//        z0_update_on_resize();
-//    } else {
-//        // Game is Shogun
-//        internal_call(pack_routine(0x183a4)); // V-REFRESH
-//    }
+    int linmax;
+    uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
+
+    if (is_game(Game::ZorkZero)) {
+        fkeys = 0xce2a;
+        update_user_defined_colours();
+    } else { // Game is Shogun
+        fkeys = 0x4dc8;
+    }
+
+    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
+    v6_delete_win(&V6_STATUS_WINDOW);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
+    screenmode = MODE_DEFINE;
+
+    fkey = fkeys + 2;
+    fdef = user_word(fkey + 2);
+    linmax = user_word(fkeys) / 2;
+
+    global_define_line = 0;
+
+    adjust_definitions_window();
+
+    z0_erase_screen();
+
+    winid_t gwin = DEFINITIONS_WINDOW.id;
+
+    bool finished = false;
+
+    while (!finished)  {
+        int16_t new_line = global_define_line;
+        uint16_t chr = internal_read_char();
+        switch (chr) {
+            case ZSCII_CLICK_SINGLE:
+                // fallthrough
+            case ZSCII_CLICK_DOUBLE:
+                glk_request_mouse_event(gwin);
+                clicked_line = word(header.extension_table + 4);
+                if (clicked_line <= 1) {
+                    break;
+                }
+                new_line = clicked_line - 2;
+
+                // Deselect the old line and select the clicked one.
+                // This is identical to the code at the end of the input loop
+                // but must be repeated here in order to make the double click
+                // below apply to the right line
+                if (global_define_line != new_line) {
+                    display_soft(fkey, global_define_line, true);
+                    fkey = fkeys + 2 + 4 * new_line;
+                    display_soft(fkey, new_line, false);
+                    global_define_line = new_line;
+                    fdef = user_word(fkey + 2);
+                }
+
+                // if we double clicked a command (as opposed to a definition)
+                // we fall through and treat it as ZSCII_NEWLINE.
+                // Otherwise we break.
+                if (!(chr == ZSCII_CLICK_DOUBLE && (int16_t)user_word(fkey) < 0)) {
+                    break;
+                }
+                // fallthrough
+            case ZSCII_NEWLINE:
+                // if we are on a static command, run the associated routine
+                if ((int16_t)user_word(fkey) < 0) {
+                    if (internal_call(user_word(fdef + 2))) {
+                        // Exit menu if the call returns true
+                        finished = true;
+                    } else {
+                        // Otherwise select EXIT (bottom line)
+                        display_softs();
+                        new_line = linmax - 1;
+                    }
+                    break;
+                }
+
+                // If we are not on a static command, we fall through
+                // and treat ZSCII_NEWLINE as ZSCII_DOWN.
+
+                // fallthrough
+            case ZSCII_DOWN:
+            case ZSCII_KEY2:
+                new_line++;
+                if (new_line < linmax) {
+                    // Skip the blank line between definitions
+                    // and commands
+                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
+                        new_line++;
+                } else {
+                    new_line = 0;
+                }
+                break;
+
+            case ZSCII_UP:
+            case ZSCII_KEY8:
+                new_line--;
+                if (new_line >= 0) {
+                    // Skip the blank line between definitions
+                    // and commands
+                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
+                        new_line--;
+                } else {
+                    new_line = linmax - 1;
+                }
+                break;
+
+            default:
+                // If the user pressed a function key, move to the corresponding line
+                pressed_fkey = scan_table(chr, fkeys + 2, user_word(fkeys), false);
+                if (pressed_fkey) {
+                    new_line = (pressed_fkey - fkeys) / 4;
+                    // skip text editing if we are on a static command line
+                } else if ((int16_t)user_word(fkey) >= 0) {
+                    if (chr == ZSCII_BACKSPACE || chr == 127) {
+                        length = user_byte(fdef + 1);
+                        if (length != 0) {
+                            length--;
+                            store_byte(fdef + 1, length);
+                            store_byte(fdef + length + 2, ZSCII_SPACE);
+                            // print cursor at new position
+                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
+                            if (length + 1 < user_byte(fdef)) {
+                                print_reverse_video_space();
+                            }
+                            glk_put_char(UNICODE_SPACE);
+                            glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
+                        } else {
+                            win_beep(1);
+                        }
+                    } else if (chr >= ZSCII_SPACE && chr < 127) {
+                        length = user_byte(fdef + 1);
+                        if (length + 1 >= user_byte(fdef)) {
+                            win_beep(1);
+                            // If the command has ZSCII_NEWLINE at the end, allow no more characters
+                        } else if (scan_table(ZSCII_NEWLINE, fdef + 2, user_byte(fdef + 1), true) != 0) {
+                            win_beep(1);
+                        } else {
+                            if (chr == '|' || chr == '!') {
+                                chr = ZSCII_NEWLINE;
+                            }
+                            // store new length
+                            store_byte(fdef + 1, length + 1);
+
+                            // make lowercase
+                            if (chr >= 'A' && chr <= 'Z')
+                                chr += 32;
+
+                            // add the typed character to the end of the definition string
+                            store_byte(fdef + length + 2, chr);
+                            // and print it
+                            if (chr == ZSCII_NEWLINE) {
+                                glk_put_char('|');
+                            } else {
+                                glk_put_char(chr);
+                            }
+                            // print cursor at the new position if we are not at max
+                            if (length + 2 < user_byte(fdef)) {
+                                print_reverse_video_space();
+                                glk_window_move_cursor(gwin, length + 5, global_define_line + 1);
+                            } else {
+                                // print cursor at end of line if we are at max
+                                glk_window_move_cursor(gwin, user_byte(fdef) + 3, global_define_line + 1);
+                                print_reverse_video_space();
+                            }
+                        }
+                    } else {
+                        win_beep(1);
+                    }
+                } else {
+                    win_beep(1);
+                }
+                break;
+        }
+
+        // Deselect the old line
+        // and select the new one
+        if (global_define_line != new_line) {
+            display_soft(fkey, global_define_line, true);
+            display_soft(fkeys + 2 + 4 * new_line, new_line, false);
+            global_define_line = new_line;
+            fkey = fkeys + 2 + 4 * global_define_line;
+            fdef = user_word(fkey + 2);
+        }
+    };
+
+    v6_delete_win(&DEFINITIONS_WINDOW);
+    screenmode = MODE_NORMAL;
+    if (is_game(Game::ZorkZero)) {
+        //        z0_update_on_resize();
+    } else {
+        // Game is Shogun
+        internal_call(pack_routine(0x183a4)); // V-REFRESH
+    }
 }
 
 #pragma mark HINTS SCREEN
@@ -597,9 +597,6 @@ static void draw_hints_windows(void) {
             upperwin_background = 0x826766;
         } else if (graphics_type == kGraphicsTypeEGA) {
             upperwin_background = 0xd47fd4;
-        } else if ((graphics_type == kGraphicsTypeMacBW || graphics_type == kGraphicsTypeCGA) && is_game(Game::Arthur)) {
-            upperwin_background = monochrome_black;
-            upperwin_foreground = monochrome_white;
         } else if (graphics_type == kGraphicsTypeMacBW) {
             upperwin_background = monochrome_black;
             upperwin_foreground = monochrome_white;
@@ -641,23 +638,23 @@ static void draw_hints_windows(void) {
 //            height = height * imagescaley;
 //        }
     } else if (is_game(Game::Shogun)) {
-//        shogun_display_border(P_HINT_BORDER);
-//        if (graphics_type == kGraphicsTypeApple2) {
-//            width = 0;
-//            int a2_graphical_banner_height;
-//            get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
-//            height += a2_graphical_banner_height;
-//        } else {
-//            get_image_size(P_HINT_LOC, &width, &height);
-//            if (graphics_type == kGraphicsTypeCGA) {
-//                width += 3;
-//            }
-//            width *= imagescalex;
-//            height *= imagescaley;
-//            if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
-//                status_x = width;
-//            }
-//        }
+                shogun_display_border(P_HINT_BORDER);
+                if (graphics_type == kGraphicsTypeApple2) {
+                    width = 0;
+                    int a2_graphical_banner_height;
+                    get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
+                    height += a2_graphical_banner_height;
+                } else {
+                    get_image_size(P_HINT_LOC, &width, &height);
+                    if (graphics_type == kGraphicsTypeCGA) {
+                        width += 3;
+                    }
+                    width *= imagescalex;
+                    height *= imagescaley;
+                    if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+                        status_x = width;
+                    }
+                }
     }
 
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
@@ -1205,7 +1202,7 @@ void DO_HINTS(void) {
 
     V6ScreenMode stored_mode = screenmode;
 
-    if (is_game(Game::Shogun) || is_spatterlight_arthur) {
+    if (is_spatterlight_shogun || is_spatterlight_arthur) {
         if (is_spatterlight_arthur) {
             clear_image_buffer();
             if (current_graphics_buf_win)
@@ -1282,6 +1279,22 @@ void DO_HINTS(void) {
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+}
+
+#pragma mark Credits
+
+void V_CREDITS(void) {
+    //    if (!centeredText) {
+    //        centeredText = true;
+    //        set_current_style();
+    //    }
+}
+
+void after_V_CREDITS(void) {
+    //    if (centeredText) {
+    //        centeredText = false;
+    //        set_current_style();
+    //    }
 }
 
 #pragma mark Empty functions used by entrypoints code
