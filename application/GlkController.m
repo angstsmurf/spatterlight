@@ -858,7 +858,7 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-280-890217"] ||
                [ifid isEqualToString:@"ZCODE-281-890222"] ||
                [ifid isEqualToString:@"ZCODE-282-890224"] ||
-               [ifid isEqualToString:@"ZCODE-283-890238"] ||
+               [ifid isEqualToString:@"ZCODE-283-890228"] ||
                [ifid isEqualToString:@"ZCODE-284-890302"] ||
                [ifid isEqualToString:@"ZCODE-286-890306"] ||
                [ifid isEqualToString:@"ZCODE-288-890308"] ||
@@ -869,7 +869,7 @@ fprintf(stderr, "%s\n",                                                    \
                [ifid isEqualToString:@"ZCODE-295-890321"] ||
                [ifid isEqualToString:@"ZCODE-311-890510"] ||
                [ifid isEqualToString:@"ZCODE-320-890627"] ||
-               [ifid isEqualToString:@"ZCODE-321-891629"] ||
+               [ifid isEqualToString:@"ZCODE-321-890629"] ||
                [ifid isEqualToString:@"ZCODE-322-890706"]) {
         _gameID = kGameIsShogun;
     } else if ([ifid isEqualToString:@"ZCODE-142-890205"] ||
