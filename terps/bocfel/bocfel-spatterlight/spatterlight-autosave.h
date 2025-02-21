@@ -95,6 +95,12 @@ typedef struct library_state_data_struct {
 
     int hints_depth;
     int slideshow_pic;
+
+    int define_line;
+
+    int shogun_menu;
+    int shogun_menu_selection;
+
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

@@ -5,11 +5,6 @@
 //  Created by Administrator on 2023-07-21.
 //
 
-extern "C" {
-#include "glk.h"
-#include "glkimp.h"
-}
-
 #include "draw_image.hpp"
 #include "entrypoints.hpp"
 #include "memory.h"
@@ -25,7 +20,23 @@ extern "C" {
 
 extern float imagescalex, imagescaley;
 
-static int shogun_graphical_banner_width_left = 0;
+static int shogun_banner_width_left = 0;
+
+
+uint16_t current_menu_selection;
+uint16_t current_menu;
+ShogunBorderType current_border;
+
+static int maze_offset_x = 0;
+static int maze_offset_y = 0;
+static int maze_box_width = 0;
+static int maze_box_height = 0;
+
+ShogunGlobals sg;
+ShogunRoutines sr;
+ShogunTables st;
+ShogunMenus sm;
+ShogunObjects so;
 
 #define SHOGUN_MAZE_WINDOW windows[3]
 #define SHOGUN_MENU_WINDOW windows[2]
@@ -72,19 +83,19 @@ static int shogun_graphical_banner_width_left = 0;
 
 #define SCORE_FACTOR 5
 
-#define PART_MENU 0x4abe
-#define CONTINUE_MENU 0x4e26
-#define CONTINUE_AND_HINT_MENU 0x4e2e
+#define P_MAZE_BACKGROUND 44
+#define P_MAZE_BOX 45
 
-
+// This should just call shogun_update_on_resize()
 static void setup_text_and_status(int P) {
     if (P == 0)
         P = P_BORDER_LOC;
     int X, HIGH = gscreenh, WIDE = gscreenw, SLEFT = 0, SHIGH = STATUS_LINES * (gcellh + ggridmarginy), border_height;
 
     if (graphics_type != kGraphicsTypeApple2) {
-        v6_define_window(&V6_STATUS_WINDOW, shogun_graphical_banner_width_left, 1, gscreenw - shogun_graphical_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
+        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
     } else { // Apple 2
+        shogun_banner_width_left = 0;
         if (P == P_HINT_LOC) {
             get_image_size(P_HINT_BORDER, &X, &border_height);
             set_global(0x37, border_height);
@@ -135,7 +146,8 @@ static void update_status_line(bool interlude) {
 //    v6_delete_win(&V6_STATUS_WINDOW);
 //        V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
     winid_t gwin = V6_STATUS_WINDOW.id;
-        v6_sizewin(&V6_STATUS_WINDOW);
+    v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, (gcellh + ggridmarginy) * 2);
+    v6_get_and_sync_upperwin_size();
     set_current_window(&V6_STATUS_WINDOW);
     glk_window_get_size(gwin, &width, nullptr);
     garglk_set_reversevideo(0);
@@ -252,9 +264,6 @@ static uint16_t menu_width(uint16_t MENU) {
     return longest;
 }
 
-static uint16_t current_menu_selection;
-static uint16_t current_menu = PART_MENU;
-
 #define MAX_QUICKSEARCH 25
 
 static void print_quicksearch(char *typed) {
@@ -302,14 +311,17 @@ static void update_menu(void) {
     uint16_t cnt = user_word(current_menu); // first word of table is number of elements
     uint16_t width = menu_width(current_menu) * gcellw + 2 * ggridmarginx;
     uint16_t height = cnt * gcellh + 2 * ggridmarginy;
-    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_graphical_banner_width_left, windows[0].y_origin, gscreenw - shogun_graphical_banner_width_left * 2,  gscreenh - windows[0].y_origin - height);
+    if (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU) {
+        windows[0].y_origin = a2_graphical_banner_height;
+    }
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, windows[0].y_origin, gscreenw - shogun_banner_width_left * 2,  gscreenh - windows[0].y_origin - height);
     int menutop = gscreenh - height;
-    if (graphics_type == kGraphicsTypeApple2 && current_menu == PART_MENU) {
+    if (graphics_type == kGraphicsTypeApple2 && current_menu == sm.PART_MENU) {
         menutop -= a2_graphical_banner_height;
     }
     v6_define_window(&SHOGUN_MENU_WINDOW, (gscreenw - width) / 2, menutop, width, height);
 
-    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_graphical_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_graphical_banner_width_left * 2.0, height);
+    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, height);
     win_setbgnd(SHOGUN_MENU_BG_WIN.id->peer, user_selected_background);
     set_current_window(&SHOGUN_MENU_WINDOW);
     if (SHOGUN_MENU_WINDOW.id != nullptr)
@@ -432,7 +444,6 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
 }
 
 static uint16_t current_menu_message;
-#define CURRENT_BORDER 0x14
 
 static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
     screenmode = MODE_SHOGUN_MENU;
@@ -446,14 +457,14 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
     uint16_t L = user_word(MENU); // Number of entries
     set_global(0x9e, 1); // Set RESTORED? to true
     uint16_t menuheight = L * gcellh + 2 * ggridmarginy;
-    shogun_display_border((ShogunBorderType)get_global(CURRENT_BORDER));
+    shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 //    v6_delete_win(&SHOGUN_MENU_BG_WIN);
 //    SHOGUN_MENU_BG_WIN.id = v6_new_glk_window(wintype_TextGrid);
 
-    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_graphical_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_graphical_banner_width_left * 2.0, menuheight);
+    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, menuheight);
 
     SHOGUN_MENU_BG_WIN.x = 1;
     SHOGUN_MENU_BG_WIN.y = 1;
@@ -489,9 +500,9 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
         set_global(0x9e, 0); // Set RESTORED? to false
     }
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
-    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_graphical_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_graphical_banner_width_left * 2.0, gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin);
     screenmode = MODE_NORMAL;
-    shogun_display_border((ShogunBorderType)get_global(CURRENT_BORDER));
+    shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
     return result;
 }
 
@@ -500,6 +511,10 @@ void GET_FROM_MENU(void) {
 }
 
 void SCENE_SELECT(void) {
+    uint16_t menu = sm.PART_MENU;
+    if (internal_arg_count() > 0 && variable(1) == 1) {
+        menu = st.SCENE_NAMES;
+    }
     uint16_t result = 0;
     while (result == 0) {
         result = get_from_menu(0x48, 0x4abe, 0x1277, 1);
@@ -545,18 +560,53 @@ glui32 status_background_color(void) {
 
 #pragma mark Display border
 
-void shogun_display_border(ShogunBorderType border) {
-    if (border == 0) {
-        border = (ShogunBorderType)get_global(CURRENT_BORDER);
-        if (border == 0) {
-            border = P_BORDER;
-            set_global(CURRENT_BORDER, P_BORDER);
-        }
-    } else if (border != P_HINT_BORDER) {
-        set_global(CURRENT_BORDER, border);
+void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mode) {
+    // With Apple 2 graphics, the border is right below the status window
+    // (except at start menu screen)
+    int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
+    int width, height;
+    get_image_size(border, &width, &height);
+
+    a2_graphical_banner_height = (height + 1) * imagescaley;
+    // Draw banner at bottom and top if we are at start menu screen
+    // and using Apple 2 graphics
+    if (start_menu_mode) {
+        draw_to_pixmap_unscaled(border, 0, 0);
+        draw_to_pixmap_unscaled(border, 0, gscreenh / imagescaley - height);
+        flush_bitmap(current_graphics_buf_win);
+        return;
     }
 
-    bool start_menu_mode = (screenmode == MODE_SHOGUN_MENU && current_menu == PART_MENU);
+    draw_rectangle_on_bitmap(0xffffff, 0, border_top - 1, hw_screenwidth, height + 2);
+    draw_to_pixmap_unscaled(border, 0, border_top);
+    flush_bitmap(current_graphics_buf_win);
+}
+
+void shogun_display_border(ShogunBorderType border) {
+    bool start_menu_mode = (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU);
+
+    if (start_menu_mode) {
+        win_sizewin(V6_STATUS_WINDOW.id->peer, 0, 0, 0, 0);
+    }
+
+    if (get_global(sg.SCENE) == S_ERASMUS) {
+        border = (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
+    }
+
+    if (border == 0 && sg.CURRENT_BORDER != 0) {
+        border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
+    }
+
+    if (border == 0) {
+        border = P_BORDER;
+    }
+
+    if (screenmode == MODE_HINTS)
+        border = P_HINT_BORDER;
+
+    if (border != P_HINT_BORDER && sg.CURRENT_BORDER != 0) {
+        set_global(sg.CURRENT_BORDER, border);
+    }
 
     // Delete covering graphics window (which would show the title screen)
     if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
@@ -598,81 +648,98 @@ void shogun_display_border(ShogunBorderType border) {
             break;
     }
 
-    int Y = 0;
     int width, height;
-    int pixels_left = 0;
+    get_image_size(border, &width, &height);
+    int left_margin = 0;
+    int pillar_top = 0;
 
-    if (graphics_type == kGraphicsTypeApple2) {
-        get_image_size(border, nullptr, &height);
-        a2_graphical_banner_height = height * imagescaley;
-        // Draw banner at bottom and top if we are at start menu screen
-        // and using Apple 2 graphics
-        if (start_menu_mode) {
-            draw_to_pixmap_unscaled(border, 0, 0);
-            draw_to_pixmap_unscaled(border, 0, gscreenh / imagescaley - height);
-            return;
-        }
-    }  else { // Not Apple 2 graphics
-        if (border == P_HINT_BORDER) {
-            get_image_size(border, nullptr, &Y);
-            get_image_size(P_HINT_LOC, &width, &height);
+    if (border == P_HINT_BORDER) {
+        if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+            border_top = height;
+            pillar_top = border_top;
         } else {
-            get_image_size(P_BORDER_LOC, &width, &height);
+            get_image_size(P_HINT_LOC, nullptr, &pillar_top);
         }
-        pixels_left = width;
-        shogun_graphical_banner_width_left = ceil(width * imagescalex) + 1;
-        a2_graphical_banner_height = 0;
+    } else {
+        get_image_size(P_BORDER_LOC, &width, nullptr);
     }
-
-    // We draw a rectangle of status window color at the top to avoid
-    // visible gaps at the edges. (Except at the start menu, where
-    // there is no status window.)
-    if (!start_menu_mode && border != P_HINT_BORDER)
-        draw_rectangle_on_bitmap(status_background_color(), pixels_left, 0, hw_screenwidth - pixels_left * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+    left_margin = width;
+    shogun_banner_width_left = ceil(width * imagescalex) + 1;
+    a2_graphical_banner_height = 0;
 
     // Draw a line to mask background at rightmost pixels in CGA
     if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeCGA) {
         draw_rectangle_on_bitmap(monochrome_black, hw_screenwidth - 1, 0, 1, gscreenh / imagescaley);
     }
 
-    draw_to_pixmap_unscaled(border, 0, border_top);
+    draw_to_pixmap_unscaled(border, 0, 0);
 
+    float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
+    int desired_height = ceil(gscreenh / factor);
+
+    int lowest_drawn_line = height + border_top;
+    bool must_extend = (desired_height > lowest_drawn_line);
+
+    // BL won't be found
+    // unless we are drawing the hints border
+    // and graphics type is not Amiga or Mac B/W
     if (find_image(BL)) {
         get_image_size(BL, &width, &height);
-        draw_to_pixmap_unscaled(BL, 0, Y);
-        draw_to_pixmap_unscaled(BL, 0, Y + height);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, Y);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, Y + height);
-        return;
-    } else if (graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeMacBW) {
-        get_image_size(border, &width, &height);
-        if (border == P_BORDER) {
-            if (graphics_type == kGraphicsTypeMacBW) {
-                draw_to_pixmap_unscaled_flipped(border, 0, height);
-            } else {
-                draw_to_pixmap_unscaled_flipped(border, 0, height - 2);
+        draw_to_pixmap_unscaled(BL, 0, border_top);
+        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+        lowest_drawn_line = height + border_top;
+    } else {
+        // Amiga och Mac graphics contain both left and right borders
+        
+        if (must_extend && (graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeMacBW)) {
+            if (border == P_BORDER) {
+                if (graphics_type == kGraphicsTypeMacBW) {
+                    draw_to_pixmap_unscaled_flipped(border, 0, height);
+                    lowest_drawn_line = height * 2;
+                } else {
+                    draw_to_pixmap_unscaled_flipped(border, 0, height - 2);
+                    lowest_drawn_line = height * 2 - 2;
+                }
+            } else if (border == P_BORDER2) {
+                if (graphics_type == kGraphicsTypeMacBW) {
+                    draw_to_pixmap_unscaled(border, 0, height - 35);
+                    lowest_drawn_line = height * 2 - 35;
+                } else {
+                    draw_to_pixmap_unscaled(border, 0, height - 22);
+                    lowest_drawn_line = height * 2 - 22;
+                }
+            } else if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeMacBW) {
+                extend_mac_bw_hint_border(desired_height);
+                return;
             }
-        } else if (border == P_BORDER2) {
-            if (graphics_type == kGraphicsTypeMacBW) {
-                draw_to_pixmap_unscaled(border, 0, height - 35);
-            } else {
-                draw_to_pixmap_unscaled(border, 0, height - 22);
+        }
+        
+        if (find_image(BR)) {
+            get_image_size(BR, &width, &height);
+            if (graphics_type == kGraphicsTypeCGA) {
+                height -= 7;
+            }
+            if (must_extend)
+                draw_to_pixmap_unscaled_flipped(border, hw_screenwidth - width, border_top + height);
+            draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+            lowest_drawn_line = border_top + height;
+            if (must_extend) {
+                draw_to_pixmap_unscaled_flipped(BR, 0, border_top + height);
+                lowest_drawn_line += height;
+            }
+            if (graphics_type == kGraphicsTypeCGA) {
+                draw_to_pixmap_unscaled(border, 0, 0);
             }
         }
     }
+    extend_shogun_border(desired_height, lowest_drawn_line, pillar_top);
 
-    if (find_image(BR)) {
-        get_image_size(BR, &width, &height);
-        if (graphics_type == kGraphicsTypeCGA) {
-            height -= 7;
-        }
-        draw_to_pixmap_unscaled_flipped(border, hw_screenwidth - width, Y + height);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, Y);
-        draw_to_pixmap_unscaled_flipped(BR, 0, Y + height);
-        if (graphics_type == kGraphicsTypeCGA) {
-            draw_to_pixmap_unscaled(border, 0, 0);
-        }
-    }
+    // We draw a rectangle of status window color at the top to avoid
+    // visible gaps at the edges. (Except at the start menu, where
+    // there is no status window.)
+    if (!start_menu_mode && border != P_HINT_BORDER)
+        draw_rectangle_on_bitmap(status_background_color(), left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+    flush_bitmap(current_graphics_buf_win);
 }
 
 
@@ -886,6 +953,8 @@ void MAZE_MOUSE_F(void) {
     store_variable(1, maze_mouse_f());
 }
 
+#pragma mark Adjust windows
+
 static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
@@ -902,7 +971,7 @@ static void adjust_shogun_window(void) {
     } else {
 //        if (V6_STATUS_WINDOW.id == nullptr)
 //            V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
-        v6_define_window(&V6_STATUS_WINDOW, shogun_graphical_banner_width_left, 1, gscreenw - shogun_graphical_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
+        v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, 2 * (gcellh + ggridmarginy));
         V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
         V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
         V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
@@ -948,12 +1017,6 @@ void shogun_erase_screen(void) {
     }
 }
 
-void shogun_update_after_restore(void) {
-    shogun_erase_screen();
-    shogun_display_border(NO_BORDER); // Will automatically redraw last border
-    adjust_shogun_window();
-}
-
 void shogun_update_on_resize(void) {
     // Window 0: (S-TEXT) Text buffer, "main" window
     // Window 1: (S-STATUS) Status
@@ -961,7 +1024,7 @@ void shogun_update_on_resize(void) {
     // we can't line windows up with text in a buffer window
     // Window 3: (MAZE-WINDOW) Maze. This has no corresponding Glk window.
     // All maze graphics are actually drawn to the "full screen" background window (7).
-    // Window 4: (SHOGUN_CREST_WINDOW) Top graphics window used for ending P-CREST image.
+    // Window 4: (SHOGUN_CREST_WINDOW) Top graphics window only used for P-CREST image at the end of the game.
     // Window 5: Menu background, used for "You may choose to:" messages
     // Window 6: (S-BORDER) Horizontal Apple 2 graphic border
     // Window 7: (S-FULL) Full screen background, used by us for border graphics and maze
@@ -994,7 +1057,7 @@ void shogun_update_on_resize(void) {
 
         v6_sizewin(&SHOGUN_MAZE_WINDOW);
     } else {
-        shogun_display_border((ShogunBorderType)get_global(CURRENT_BORDER));
+        shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
         if (V6_TEXT_BUFFER_WINDOW.id) {
             refresh_margin_images();
             float yscalefactor = 2.0;
@@ -1004,7 +1067,7 @@ void shogun_update_on_resize(void) {
             win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
             win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         }
-        if (V6_TEXT_BUFFER_WINDOW.id != nullptr && !(current_menu == PART_MENU && screenmode == MODE_SHOGUN_MENU)) {
+        if (V6_TEXT_BUFFER_WINDOW.id != nullptr && !(current_menu == sm.PART_MENU && screenmode == MODE_SHOGUN_MENU)) {
             setup_text_and_status(P_BORDER_LOC);
             update_status_line(last_was_interlude);
         }
@@ -1030,3 +1093,70 @@ void shogun_display_inline_image(glui32 align) {
     draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, current_picture, align, current_picture, inline_scale, false);
     add_margin_image_to_list(current_picture);
 }
+
+#pragma mark Restoring
+
+//TODO: Merge with stash_arthur_state and recover_arthur_state
+
+void stash_shogun_state(library_state_data *dat) {
+    if (!dat)
+        return;
+
+
+    if (current_graphics_buf_win)
+        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
+    if (graphics_fg_glk)
+        dat->graphics_fg_tag = graphics_fg_glk->tag;
+    if (stored_bufferwin)
+        dat->stored_lower_tag = stored_bufferwin->tag;
+    dat->slideshow_pic = last_slideshow_pic;
+
+    dat->shogun_menu = current_menu;
+    dat->shogun_menu_selection = current_menu_selection;
+}
+
+void recover_shogun_state(library_state_data *dat) {
+    if (!dat)
+        return;
+
+    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
+    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
+    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+    last_slideshow_pic = dat->slideshow_pic;
+
+    current_menu = dat->shogun_menu;
+    current_menu_selection = dat->shogun_menu_selection;
+}
+
+void shogun_update_after_restore(void) {
+    screenmode = MODE_NORMAL;
+    shogun_erase_screen();
+    after_V_COLOR();
+}
+
+//TODO: Merge with arthur_update_after_autorestore
+void shogun_update_after_autorestore(void) {
+    update_user_defined_colours();
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+
+    for (auto &window : windows) {
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
+    }
+
+    if (current_graphics_buf_win) {
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+        glk_window_clear(current_graphics_buf_win);
+    }
+
+    window_change();
+}
+
+bool shogun_autorestore_internal_read_char_hacks(void) {
+    if (screenmode == MODE_HINTS || screenmode == MODE_SHOGUN_MENU || screenmode == MODE_DEFINE) {
+        return true;
+    }
+    return false;
+}
+
