@@ -293,6 +293,11 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.hints_depth forKey:@"bocfel_hints_depth"];
     [encoder encodeInt32:(int32_t)library_state.slideshow_pic forKey:@"bocfel_slideshow_pic"];
 
+    [encoder encodeInt32:(int32_t)library_state.shogun_menu forKey:@"bocfel_shogun_menu"];
+    [encoder encodeInt32:(int32_t)library_state.shogun_menu_selection forKey:@"bocfel_shogun_menu_selection"];
+    [encoder encodeInt32:(int32_t)library_state.define_line forKey:@"bocfel_define_line"];
+
+
     if (library_state.number_of_journey_words > 0) {
         NSMutableArray<NSArray *> *tempMutArray = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_journey_words];
 
@@ -340,6 +345,10 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.stored_lower_tag = [decoder decodeInt32ForKey:@"bocfel_stored_lower_tag"];
     library_state.hints_depth = [decoder decodeInt32ForKey:@"bocfel_hints_depth"];
     library_state.slideshow_pic = [decoder decodeInt32ForKey:@"bocfel_slideshow_pic"];
+
+    library_state.shogun_menu = [decoder decodeInt32ForKey:@"bocfel_shogun_menu"];
+    library_state.shogun_menu_selection = [decoder decodeInt32ForKey:@"bocfel_shogun_menu_selection"];
+    library_state.define_line = [decoder decodeInt32ForKey:@"bocfel_define_line"];
 
     NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
     library_state.number_of_journey_words = tempArray.count;

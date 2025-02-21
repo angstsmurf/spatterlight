@@ -30,6 +30,8 @@ void draw_to_pixmap_unscaled(int image, int x, int y);
 void draw_to_pixmap_unscaled_flipped(int image, int x, int y);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
+void extend_shogun_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
+void extend_mac_bw_hint_border(int desired_height);
 void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);

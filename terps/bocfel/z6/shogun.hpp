@@ -10,9 +10,20 @@
 
 #include <stdio.h>
 
+extern "C" {
+#include "glk.h"
+#include "glkimp.h"
+#include "spatterlight-autosave.h"
+}
+
+
 void shogun_update_on_resize(void);
 void shogun_draw_title_image(void);
 void shogun_update_after_restore(void);
+void shogun_update_after_autorestore(void);
+void stash_shogun_state(library_state_data *dat);
+void recover_shogun_state(library_state_data *dat);
+bool shogun_autorestore_internal_read_char_hacks(void);
 
 void SCENE_SELECT(void);
 void V_VERSION(void);
@@ -27,6 +38,7 @@ void INTERLUDE_STATUS_LINE(void);
 void CENTER_PIC_X(void);
 void CENTER_PIC(void);
 void MARGINAL_PIC(void);
+void V_REFRESH(void);
 
 void DISPLAY_MAZE(void);
 void DISPLAY_MAZE_PIC(void);
@@ -46,5 +58,66 @@ enum ShogunBorderType {
 void shogun_display_border(ShogunBorderType border);
 void shogun_display_inline_image(glui32 align);
 void shogun_erase_screen(void);
+
+typedef struct ShogunGlobals {
+    uint8_t SCENE;
+    uint8_t HERE;
+    uint8_t SCORE;
+    uint8_t MOVES;
+    uint8_t CURRENT_BORDER;
+    uint8_t WINNER;
+    uint8_t SHIP_DIRECTION;
+    uint8_t SHIP_COURSE;
+    uint8_t MAZE_MAP;
+    uint8_t MAZE_X;
+    uint8_t MAZE_Y;
+    uint8_t MAZE_WIDTH;
+    uint8_t MAZE_HEIGHT;
+    uint8_t MACHINE;
+    uint8_t FONT_X;
+    uint8_t FONT_Y;
+} ShogunGlobals;
+
+extern ShogunGlobals sg;
+
+typedef struct ShogunRoutines {
+    uint32_t UPDATE_STATUS_LINE;
+    uint32_t V_REFRESH;
+    uint32_t TELL_THE;
+    uint32_t TELL_DIRECTION;
+    uint32_t ADD_TO_INPUT;
+} ShogunRoutines;
+
+extern ShogunRoutines sr;
+
+typedef struct ShogunTables {
+    uint16_t K_DIROUT_TBL;
+    uint16_t K_HINT_ITEMS;
+    uint16_t SCENE_NAMES;
+    uint16_t MAZE_BOX_TABLE;
+} ShogunTables;
+
+extern ShogunTables st;
+
+typedef struct ShogunMenus {
+    uint8_t YOU_MAY_CHOOSE;
+    uint16_t PART_MENU;
+    uint16_t SCENE_SELECT_F;
+} ShogunMenus;
+
+extern ShogunMenus sm;
+
+typedef struct ShogunObjects {
+    uint8_t GALLEY;
+    uint8_t BRIDGE_OF_ERASMUS;
+    uint16_t WHEEL;
+    uint16_t GALLEY_WHEEL;
+    uint16_t NORTH;
+    uint16_t SOUTH;
+    uint16_t EAST;
+    uint16_t WEST;
+} ShogunObjects;
+
+extern ShogunObjects so;
 
 #endif /* shogun_hpp */

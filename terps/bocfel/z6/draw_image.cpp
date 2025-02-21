@@ -206,6 +206,48 @@ static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int
     }
 }
 
+#define GET_RGB(p)    (((uint8_t)*(p) << 16) | ((uint8_t) *(p + 1) << 8) | *(p + 2))
+
+static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, uint8_t **largebitmap, int *largebitmapsize, int y) {
+
+    int xpos, ypos;
+
+    int width = hw_screenwidth;
+    int stride = width * 4;
+    int height = smallbitmapsize / stride;
+
+    uint8_t *pixptr;
+
+    for (int i = 0; i < smallbitmapsize; i += 4) {
+
+            ypos = y + i / stride;
+
+
+        if (ypos < 0) {
+            continue;
+        }
+
+        xpos = (i % stride) / 4;
+
+        // Clip at left and right edge
+        if (xpos < 0 || xpos >= width)
+            continue;
+        if (ypos >= height + y || ypos < y)
+            break;
+
+        pixptr = *largebitmap + ((ypos * width + xpos) * 4);
+
+        // Stop if we have reached the end
+        if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
+            break;
+        } else {
+            uint32_t source_rgb = GET_RGB(smallbitmap + i);
+            if (!(source_rgb == monochrome_white && *(smallbitmap + i + 3) == 0xff))
+                memcpy(pixptr, smallbitmap + i, 4);
+        }
+    }
+}
+
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height) {
 
     int xpos, ypos;
@@ -655,6 +697,86 @@ void draw_arthur_side_images(winid_t winid) {
     }
 
     flush_bitmap(winid);
+}
+
+#define kTopCut 55
+#define kBottomCut 294
+#define kTotalHeight 298
+#define kStepHeight 20
+#define kOverlap 20
+
+extern winid_t current_graphics_buf_win;
+
+void extend_mac_bw_hint_border(int desired_height) {
+
+    int lines_to_fill = desired_height - kTotalHeight;
+
+    if (lines_to_fill < kStepHeight) {
+        flush_bitmap(current_graphics_buf_win);
+        return;
+    }
+
+    size_t linessize;
+    int num_lines = kTotalHeight - kTopCut;
+
+    int height_of_foot = kTotalHeight - kBottomCut;
+
+    if (num_lines - kOverlap > lines_to_fill) {
+        num_lines = lines_to_fill + kOverlap;
+        num_lines -= (num_lines - kOverlap) % kStepHeight;
+    }
+
+    // We copy the repeated part
+    uint8_t *copied_pillars = copy_lines_from_bitmap(kTopCut, num_lines, &linessize);
+
+
+    size_t footsize = 0;
+
+    uint8_t *foot = copy_lines_from_bitmap(kBottomCut, height_of_foot, &footsize);
+//    int repetitions = (desired_height - kTopCut - height_of_foot) / num_lines;
+
+    int ypos = kTotalHeight - kOverlap;
+//    erase_lines_in_bitmap(ypos, kTotalHeight - ypos);
+
+//    while(ypos < desired_height) {
+//        int remaining_lines = desired_height - ypos;
+//        remaining_lines -= remaining_lines % kStepHeight;
+//        if (remaining_lines < num_lines) {
+//            linessize = remaining_lines * hw_screenwidth * 4;
+//            num_lines = remaining_lines + kOverlap;
+//        }
+        draw_bitmap_on_bitmap(copied_pillars, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        ypos += num_lines;
+//    }
+    free(copied_pillars);
+
+    draw_hint_menu_feet_mac(foot, footsize, &pixmap, &pixlength, ypos - height_of_foot);
+
+    free(foot);
+    flush_bitmap(current_graphics_buf_win);
+}
+
+
+
+void extend_shogun_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
+    if (desired_height > lowest_drawn_pixel) {
+        size_t copysize;
+        int height = lowest_drawn_pixel - start_copy_from;
+        if (height < 1)
+            return;
+        uint8_t *bit_to_repeat = copy_lines_from_bitmap(start_copy_from, height, &copysize);
+        erase_lines_in_bitmap(lowest_drawn_pixel, desired_height - lowest_drawn_pixel);
+
+        while (lowest_drawn_pixel < desired_height) {
+            if (lowest_drawn_pixel + height > desired_height) {
+                height = desired_height - lowest_drawn_pixel;
+                copysize = hw_screenwidth * 4 * height;
+            }
+            draw_bitmap_on_bitmap(bit_to_repeat, copysize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, lowest_drawn_pixel, false);
+            lowest_drawn_pixel += height;
+        }
+        free(bit_to_repeat);
+    }
 }
 
 extern winid_t current_graphics_buf_win;

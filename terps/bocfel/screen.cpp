@@ -5845,6 +5845,9 @@ void init_screen(bool first_run)
 }
 
 #ifdef SPATTERLIGHT
+
+#pragma mark stash_library_state
+
 // This is called during an autosave. It saves the relations
 // between Bocfel specific structures and Glk objects, and also
 // any active sound commands.
@@ -5893,16 +5896,21 @@ void stash_library_state(library_state_data *dat)
         dat->random_calls_count = random_calls_count;
         dat->screenmode = screenmode;
         dat->hints_depth = (int)hints_depth;
+        dat->define_line = global_define_line;
 
         if (is_spatterlight_journey) {
             stash_journey_state(dat);
         } else if (is_spatterlight_arthur) {
             stash_arthur_state(dat);
+        } else if (is_spatterlight_shogun) {
+            stash_shogun_state(dat);
         }
 
         stash_library_sound_state(dat);
     }
 }
+
+#pragma mark recover_library_state
 
 // This is called during an autorestore. It recreatets the relations
 // between Bocfel specific structures and Glk objects, and any
@@ -5950,12 +5958,15 @@ void recover_library_state(library_state_data *dat)
 
         screenmode = dat->screenmode;
         hints_depth = (InfocomV6MenuType)dat->hints_depth;
+        global_define_line = dat->define_line;
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;
             recover_journey_state(dat);
         } else if (is_spatterlight_arthur) {
             recover_arthur_state(dat);
+        } else if (is_spatterlight_shogun) {
+            recover_shogun_state(dat);
         }
 
         recover_library_sound_state(dat);

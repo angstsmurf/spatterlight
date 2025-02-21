@@ -92,14 +92,14 @@ static void print_reverse_video_space(void) {
     garglk_set_reversevideo(0);
 }
 
-// <CONSTANT FKEYS <PLTABLE !.L>>>
-static uint16_t fkeys = 0xce2a;
+uint16_t fkeys_table_addr = 0xce2a;
+uint16_t fnames_table_addr = 0x4b57;
 
 // Return width of the widest user-defined command
 static int soft_commands_width(void) {
     int widest = 0;
-    int num_commands = user_word(fkeys) / 2;
-    int fkey = fkeys + 2;
+    int num_commands = user_word(fkeys_table_addr) / 2;
+    int fkey = fkeys_table_addr + 2;
     int16_t fdef;
     for (int i = 0; i < num_commands; i++) {
         int16_t temp = user_word(fkey);
@@ -155,15 +155,6 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
 // Either a function key name + an editable command
 // or a hard-coded menu item such as Save Definitions.
 static void display_soft(int function_key, int index, bool inverse) {
-
-    uint16_t fnames;
-
-    if (is_game(Game::Shogun)) {
-        fnames = 0x4b57;
-    } else {
-        fnames = 0xcd55;
-    }
-
     int fdef, y;
     fdef = user_word(function_key + 2);
     y = index + 1;
@@ -181,7 +172,7 @@ static void display_soft(int function_key, int index, bool inverse) {
         DEFINITIONS_WINDOW.x = 1;
         DEFINITIONS_WINDOW.y = y * gcellh + 1;
 
-        uint16_t key_name_string = scan_table(user_word(function_key), fnames, user_word(fnames - 2), false);
+        uint16_t key_name_string = scan_table(user_word(function_key), fnames_table_addr, user_word(fnames_table_addr - 2), false);
         if (key_name_string != 0) {
             if (inverse) {
                 garglk_set_reversevideo(0);
@@ -215,10 +206,11 @@ static void display_soft(int function_key, int index, bool inverse) {
     garglk_set_reversevideo(0);
 }
 
-static int global_define_line = 0;
+int global_define_line = 0;
 
 static void display_softs(void) {
-    uint16_t number_of_lines = user_word(fkeys) / 2;
+    fprintf(stderr, "display_softs\n");
+    uint16_t number_of_lines = user_word(fkeys_table_addr) / 2;
     winid_t win = DEFINITIONS_WINDOW.id;
     glk_set_window(win);
     glui32 width;
@@ -228,7 +220,7 @@ static void display_softs(void) {
         xpos = 0;
     glk_window_move_cursor(win, xpos, 0);
     glk_put_string(const_cast<char*>("Function Keys"));
-    uint16_t function_key = fkeys + 2;
+    uint16_t function_key = fkeys_table_addr + 2;
     for (int i = 0; i < number_of_lines; i++) {
         display_soft(function_key, i, (i != global_define_line));
         function_key = function_key + 4;
@@ -251,25 +243,33 @@ void z0_erase_screen(void) {
 
 
 void adjust_definitions_window(void) {
-    uint8_t SCRH = byte(0x21);
-    uint8_t SCRV = byte(0x20);
 
-    uint16_t fkey = fkeys + 2 + 4 * global_define_line;
-    uint16_t fdef = user_word(fkey + 2);
+    uint16_t fkey = fkeys_table_addr + 2 + 4 * global_define_line;
 
-    int16_t left = (SCRH - user_byte(fdef)) / 2;
-    int16_t linmax = user_word(fkeys) / 2;
+    int x_size = (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx;
+    if (x_size > gscreenw)
+        x_size = gscreenw;
+
+    int left = (gscreenw - x_size) / 2;
+    int16_t linmax = user_word(fkeys_table_addr) / 2;
+    int y_size = (linmax + 1) * gcellh + 2 * ggridmarginy;
+    if (y_size > gscreenh)
+        x_size = gscreenh;
+    int top = (gscreenh - y_size) / 2;
 
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 
-    v6_delete_win(&DEFINITIONS_WINDOW);
-    DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    if (DEFINITIONS_WINDOW.id == nullptr) {
+        DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    } else {
+        win_refresh(DEFINITIONS_WINDOW.id->peer, 0, 0);
+    }
 
-    v6_define_window( &DEFINITIONS_WINDOW, gcellw * left - ggridmarginx, gcellh * (SCRV - linmax) / 2 - ggridmarginy, (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx, (linmax + 1) * gcellh + 2 * ggridmarginy);
+    v6_define_window( &DEFINITIONS_WINDOW, left, top, x_size, y_size);
 
-    glk_set_window(DEFINITIONS_WINDOW.id);
+    set_current_window(&DEFINITIONS_WINDOW);
     win_setbgnd(DEFINITIONS_WINDOW.id->peer, user_selected_background);
     glk_request_mouse_event(DEFINITIONS_WINDOW.id);
 
@@ -285,24 +285,24 @@ void V_DEFINE(void) {
     int linmax;
     uint16_t fkey, fdef, clicked_line, pressed_fkey, length;
 
-    if (is_game(Game::ZorkZero)) {
-        fkeys = 0xce2a;
-        update_user_defined_colours();
-    } else { // Game is Shogun
-        fkeys = 0x4dc8;
-    }
+//    if (is_game(Game::ZorkZero)) {
+//        fkeys_table_addr = 0xce2a;
+//        update_user_defined_colours();
+//    }
 
+    clear_image_buffer();
     win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
-    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
-    v6_delete_win(&V6_STATUS_WINDOW);
+    glk_window_clear(graphics_bg_glk);
+
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 0, 0, 0, 0);
+    v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     screenmode = MODE_DEFINE;
 
-    fkey = fkeys + 2;
+    fkey = fkeys_table_addr + 2 + 4 * global_define_line;
     fdef = user_word(fkey + 2);
-    linmax = user_word(fkeys) / 2;
 
-    global_define_line = 0;
+    linmax = user_word(fkeys_table_addr) / 2;
 
     adjust_definitions_window();
 
@@ -332,7 +332,7 @@ void V_DEFINE(void) {
                 // below apply to the right line
                 if (global_define_line != new_line) {
                     display_soft(fkey, global_define_line, true);
-                    fkey = fkeys + 2 + 4 * new_line;
+                    fkey = fkeys_table_addr + 2 + 4 * new_line;
                     display_soft(fkey, new_line, false);
                     global_define_line = new_line;
                     fdef = user_word(fkey + 2);
@@ -369,7 +369,7 @@ void V_DEFINE(void) {
                 if (new_line < linmax) {
                     // Skip the blank line between definitions
                     // and commands
-                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
+                    if (user_word(fkeys_table_addr + 4 + 4 * new_line) == 0)
                         new_line++;
                 } else {
                     new_line = 0;
@@ -382,7 +382,7 @@ void V_DEFINE(void) {
                 if (new_line >= 0) {
                     // Skip the blank line between definitions
                     // and commands
-                    if (user_word(fkeys + 4 + 4 * new_line) == 0)
+                    if (user_word(fkeys_table_addr + 4 + 4 * new_line) == 0)
                         new_line--;
                 } else {
                     new_line = linmax - 1;
@@ -391,9 +391,9 @@ void V_DEFINE(void) {
 
             default:
                 // If the user pressed a function key, move to the corresponding line
-                pressed_fkey = scan_table(chr, fkeys + 2, user_word(fkeys), false);
+                pressed_fkey = scan_table(chr, fkeys_table_addr + 2, user_word(fkeys_table_addr), false);
                 if (pressed_fkey) {
-                    new_line = (pressed_fkey - fkeys) / 4;
+                    new_line = (pressed_fkey - fkeys_table_addr) / 4;
                     // skip text editing if we are on a static command line
                 } else if ((int16_t)user_word(fkey) >= 0) {
                     if (chr == ZSCII_BACKSPACE || chr == 127) {
@@ -461,20 +461,23 @@ void V_DEFINE(void) {
         // and select the new one
         if (global_define_line != new_line) {
             display_soft(fkey, global_define_line, true);
-            display_soft(fkeys + 2 + 4 * new_line, new_line, false);
+            display_soft(fkeys_table_addr + 2 + 4 * new_line, new_line, false);
             global_define_line = new_line;
-            fkey = fkeys + 2 + 4 * global_define_line;
+            fkey = fkeys_table_addr + 2 + 4 * global_define_line;
             fdef = user_word(fkey + 2);
         }
     };
 
     v6_delete_win(&DEFINITIONS_WINDOW);
     screenmode = MODE_NORMAL;
+    global_define_line = 0;
+
     if (is_game(Game::ZorkZero)) {
         //        z0_update_on_resize();
     } else {
         // Game is Shogun
-        internal_call(pack_routine(0x183a4)); // V-REFRESH
+        internal_call(pack_routine(sr.V_REFRESH));
+        shogun_update_on_resize();
     }
 }
 
@@ -496,11 +499,12 @@ glui32 upperwin_background = zcolor_Default; // white
 
 InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
 
-uint16_t h_chapt_num = 1;
-uint16_t h_quest_num = 1;
+static uint16_t h_chapt_num = 1;
+static uint16_t h_quest_num = 1;
 
 // HINT-COUNTS in original source
 // 0xe9d2 is value for Zork Zero release 393
+// It is changed in entrypoints.cpp
 uint16_t seen_hints_table_addr = 0xe9d2;
 
 int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
@@ -566,7 +570,7 @@ static int16_t select_hint_by_mouse(int16_t *chr) {
 //  return the argument unchanged
 
 static uint16_t index_to_line(uint16_t index) {
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
         for (int i = 1; i <= max; i++) {
             if (user_word(at.K_HINT_ITEMS + i * 2) == index)
@@ -578,7 +582,7 @@ static uint16_t index_to_line(uint16_t index) {
 }
 
 static uint16_t line_to_index(uint16_t line) {
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         uint16_t max = user_word(at.K_HINT_ITEMS);
         if (line > 1 && line <= max)
             return (user_word(at.K_HINT_ITEMS + line * 2));
@@ -587,7 +591,12 @@ static uint16_t line_to_index(uint16_t line) {
     return line;
 }
 
+void update_monochrome_colours(void);
+
 static void draw_hints_windows(void) {
+
+    update_user_defined_colours();
+    update_monochrome_colours();
 
     upperwin_foreground = user_selected_foreground;
     upperwin_background = user_selected_background;
@@ -1302,3 +1311,4 @@ void after_V_CREDITS(void) {
 void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
 void V_COLOR(void) {}
+void V_REFRESH(void) {}
