@@ -29,7 +29,6 @@ void RT_UPDATE_STAT_WINDOW(void);
 void RT_UPDATE_MAP_WINDOW(void);
 void RT_UPDATE_DESC_WINDOW(void);
 void RT_HOT_KEY(void);
-void after_V_COLOR(void);
 
 void ARTHUR_UPDATE_STATUS_LINE(void);
 void arthur_INIT_STATUS_LINE(void);

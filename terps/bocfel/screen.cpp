@@ -571,7 +571,7 @@ int find_index_of_true_colour(glui32 col) {
     return 0;
 }
 
-void update_arthur_colours(void) {
+void update_v6_colours(void) {
     uint8_t fgidx = find_index_of_true_colour(user_selected_foreground);
     uint8_t bgidx = find_index_of_true_colour(user_selected_background);
 
@@ -2257,6 +2257,8 @@ void v6_restore_hacks(void) {
         store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
         if (is_spatterlight_arthur) {
             arthur_update_after_autorestore();
+        } else if (is_spatterlight_shogun) {
+            shogun_update_after_autorestore();
         }
     } else {
         if (is_spatterlight_journey) {
@@ -2631,7 +2633,7 @@ void window_change()
 {
 #ifdef ZTERP_GLK_GRAPHICS
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_arthur)
+    if (!is_spatterlight_arthur && !is_spatterlight_shogun)
 #endif
     graphics_window.destroy();
 #ifndef SPATTERLIGHT
@@ -3608,7 +3610,8 @@ void zread_char()
     if (v6_read_hacks_needed) {
         v6_read_hacks_needed = false;
         if ((is_spatterlight_journey && journey_autorestore_internal_read_char_hacks()) ||
-            (is_spatterlight_arthur && arthur_autorestore_internal_read_char_hacks())
+            (is_spatterlight_arthur && arthur_autorestore_internal_read_char_hacks()) ||
+            (is_spatterlight_shogun && shogun_autorestore_internal_read_char_hacks())
             ) {
             store(0);
             return;
@@ -4819,8 +4822,7 @@ void zget_wind_prop()
             // We have to subtract one, or the rightmost character of the status bar
             // gets cut off during live resize. No idea why.
             val = w - 1;
-        } else if (is_spatterlight_arthur) {
-            if (win->id == nullptr)
+        } else if (is_spatterlight_arthur || is_spatterlight_shogun) {
             val = win->x_size; // word(0x22) * font_width;
         } else {
 #endif
@@ -5596,6 +5598,8 @@ void v6_get_and_sync_upperwin_size(void) {
 
 #endif
 
+#pragma mark init_screen
+
 void init_screen(bool first_run)
 {
 
@@ -5605,14 +5609,14 @@ void init_screen(bool first_run)
     uint8_t fg = DEFAULT_COLOUR;
     uint8_t bg = DEFAULT_COLOUR;
 
-    if (is_spatterlight_arthur) {
+    if (is_spatterlight_arthur || is_spatterlight_shogun) {
         if (first_run) {
             user_selected_foreground = gfgcol;
             user_selected_background = gbgcol;
             update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
             update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
         } else {
-            update_arthur_colours();
+            update_v6_colours();
         }
     }
 
@@ -5731,11 +5735,12 @@ void init_screen(bool first_run)
         if (is_spatterlight_v6) {
         gli_block_rearrange = 1;
         adjust_image_scale();
-        glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Oblique);
+        glk_stylehint_clear(wintype_TextBuffer, style_Note, stylehint_Oblique);
         glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Justification, stylehint_just_Centered);
-        glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_Justification, stylehint_just_Centered);
+        glk_stylehint_set(wintype_TextBuffer, style_Note, stylehint_Justification, stylehint_just_Centered);
         glk_stylehint_clear(wintype_TextBuffer, style_User1, stylehint_Proportional);
-        glk_stylehint_clear(wintype_TextBuffer, style_User2, stylehint_Proportional);
+        glk_stylehint_clear(wintype_TextBuffer, style_Note, stylehint_Proportional);
+        glk_stylehint_clear(wintype_TextBuffer, style_Note, stylehint_Weight);
 
         if (graphics_type == kGraphicsTypeAmiga) {
             int width;
@@ -5771,6 +5776,20 @@ void init_screen(bool first_run)
 
                 v6_sizewin(upperwin);
             } else if (is_spatterlight_arthur) {
+                graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
+                graphics_window.set_id(graphics_bg_glk);
+                mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
+                glk_set_echo_line_event(mainwin->id, 0);
+                upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
+                win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+                current_graphics_buf_win = nullptr;
+                windows[7].id = graphics_bg_glk;
+
+                glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+                glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
+                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
+            } else if (is_spatterlight_shogun) {
                 graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
                 graphics_window.set_id(graphics_bg_glk);
                 mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);

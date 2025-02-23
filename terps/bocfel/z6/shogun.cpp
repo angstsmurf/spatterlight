@@ -522,11 +522,13 @@ void SCENE_SELECT(void) {
 }
 
 void V_VERSION(void) {
-    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-//    centeredText = true;
-//    set_current_style();
-    screenmode = MODE_CREDITS;
+    V_CREDITS();
 }
+
+void after_V_VERSION(void) {
+    after_V_CREDITS();
+}
+
 
 // Checks whether we are running on an original
 // black and white Macintosh or a later one with
@@ -540,11 +542,6 @@ void MAC_II(void) {
 
 void after_MAC_II(void) {
     windows[7].x_size = gscreenw;
-}
-
-void after_V_VERSION(void) {
-//    centeredText = false;
-//    set_current_style();
 }
 
 glui32 status_background_color(void) {

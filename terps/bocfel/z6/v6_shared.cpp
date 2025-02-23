@@ -1293,17 +1293,61 @@ void DO_HINTS(void) {
 #pragma mark Credits
 
 void V_CREDITS(void) {
-    //    if (!centeredText) {
-    //        centeredText = true;
-    //        set_current_style();
-    //    }
+    glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
 void after_V_CREDITS(void) {
-    //    if (centeredText) {
-    //        centeredText = false;
-    //        set_current_style();
-    //    }
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_BOLD);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_ITALIC);
+    V6_TEXT_BUFFER_WINDOW.style.reset(STYLE_FIXED);
+}
+
+void update_monochrome_colours(void);
+
+void after_V_COLOR(void) {
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+
+    update_user_defined_colours();
+
+    for (auto &window : windows) {
+        // These will already be correctly set unless we are called from the after restore routine
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
+        winid_t glkwin = window.id;
+        if (glkwin != nullptr) {
+            if (glkwin->type == wintype_Graphics) {
+                glk_window_set_background_color(glkwin, user_selected_background);
+                glk_window_clear(glkwin);
+            } else {
+                if (glkwin->type == wintype_TextBuffer) {
+                    win_setbgnd(glkwin->peer, user_selected_background);
+                }
+
+                glk_set_window(glkwin);
+
+                // Colours may be set to default (1) if this is called from the after restore routine
+                glsi32 zcolfg, zcolbg;
+                if (fg == DEFAULT_COLOUR)
+                    zcolfg = zcolor_Default;
+                else
+                    zcolfg = user_selected_foreground;
+
+                if (bg == DEFAULT_COLOUR)
+                    zcolbg = zcolor_Default;
+                else
+                    zcolbg = user_selected_background;
+
+                garglk_set_zcolors(zcolfg, zcolbg);
+            }
+        }
+    }
+    update_monochrome_colours();
+    if (is_spatterlight_arthur) {
+        arthur_update_on_resize();
+    } else if (is_spatterlight_shogun) {
+        shogun_update_on_resize();
+    }
 }
 
 #pragma mark Empty functions used by entrypoints code

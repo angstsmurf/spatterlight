@@ -1532,7 +1532,7 @@ void INIT_SCREEN(void) {
 }
 
 void DIVIDER(void) {
-    glk_set_style(style_User2);
+    glk_set_style(style_Note);
     glk_put_string(const_cast<char*>("\n\n***\n\n"));
     transcribe(UNICODE_LINEFEED);
     transcribe(UNICODE_LINEFEED);
@@ -1554,7 +1554,7 @@ void WCENTER(void) {
     if (strcmp(str, "JOURNEY") == 0)
         glk_set_style(style_User1);
     else
-        glk_set_style(style_User2);
+        glk_set_style(style_Note);
     print_handler(unpack_string(stringnum), nullptr);
     glk_set_style(style_Normal);
 }
