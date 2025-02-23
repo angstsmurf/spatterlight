@@ -610,6 +610,8 @@ void shogun_display_border(ShogunBorderType border) {
 
     // Delete covering graphics window (which would show the title screen)
     if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
+        if (current_graphics_buf_win == graphics_fg_glk)
+            graphics_fg_glk = nullptr;
         v6_delete_glk_win(current_graphics_buf_win);
     }
 
@@ -624,10 +626,9 @@ void shogun_display_border(ShogunBorderType border) {
     ensure_pixmap(current_graphics_buf_win);
     int border_top = 0;
 
-    // With Apple 2 graphics, the border is right below the status window
-    // (except at start menu screen)
     if (graphics_type == kGraphicsTypeApple2) {
-        border_top = V6_STATUS_WINDOW.y_size / imagescaley;
+        shogun_display_apple_ii_border(border, start_menu_mode);
+        return;
     }
 
     int16_t BR = -1;
@@ -744,6 +745,8 @@ void shogun_display_border(ShogunBorderType border) {
 
 
 void shogun_DISPLAY_BORDER(void) {
+    if (screenmode == MODE_SLIDESHOW)
+        screenmode = MODE_SHOGUN_MENU;
     if (screenmode != MODE_HINTS && screenmode != MODE_SHOGUN_MENU)
         screenmode = MODE_NORMAL;
     shogun_display_border((ShogunBorderType)variable(1));
@@ -806,9 +809,18 @@ void MARGINAL_PIC(void) {
         inline_scale = (float)V6_TEXT_BUFFER_WINDOW.x_size / width;
     }
 
-    draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, right ? imagealign_MarginRight : imagealign_MarginLeft, picnum, inline_scale, false);
-    add_margin_image_to_list(picnum);
+    int margin;
+    get_image_size(P_BORDER_LOC, &margin, nullptr);
 
+    if (width >= hw_screenwidth - 2 * margin - 10) {
+        // We guess that this is a center image
+        draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, imagealign_InlineCenter, picnum, V6_TEXT_BUFFER_WINDOW.x_size / width, false);
+        glk_window_flow_break(V6_TEXT_BUFFER_WINDOW.id);
+        internal_read_char();
+    } else {
+        draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, right ? imagealign_MarginRight : imagealign_MarginLeft, picnum, inline_scale, false);
+    }
+    add_margin_image_to_list(picnum);
 }
 
 #define P_MAZE_BACKGROUND 44
