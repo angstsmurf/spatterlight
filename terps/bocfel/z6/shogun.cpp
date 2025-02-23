@@ -990,26 +990,22 @@ static void adjust_shogun_window(void) {
 }
 
 void shogun_draw_title_image(void) {
-    Window *win = &windows[7];
-    winid_t gwin = win->id;
-    if (gwin == nullptr) {
-        win->id = gli_new_window(wintype_Graphics, 0);
-        gwin = win->id;
-        glk_request_mouse_event(gwin);
-    }
-    v6_define_window(win, 1, 1, gscreenw, gscreenh);
+    if (graphics_fg_glk == nullptr)
+        graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
+    win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
+    current_graphics_buf_win = graphics_fg_glk;
+    
     int width, height;
     get_image_size(1, &width, &height);
     float scale = gscreenw / ((float)width * pixelwidth);
     int ypos = gscreenh - height * scale + 1;
     if (graphics_type == kGraphicsTypeMacBW)
         ypos += 2;
-    glk_window_set_background_color(gwin, monochrome_white);
-    glk_window_clear(gwin);
-    draw_inline_image(gwin, kShogunTitleImage, 0, ypos, scale, false);
+    glk_window_set_background_color(graphics_fg_glk, monochrome_white);
+    glk_window_clear(graphics_fg_glk);
+    draw_inline_image(graphics_fg_glk, kShogunTitleImage, 0, ypos, scale, false);
     screenmode = MODE_SLIDESHOW;
 }
-
 
 void shogun_erase_screen(void) {
     v6_delete_win(&SHOGUN_MENU_WINDOW);
@@ -1032,13 +1028,10 @@ void shogun_update_on_resize(void) {
     // Window 6: (S-BORDER) Horizontal Apple 2 graphic border
     // Window 7: (S-FULL) Full screen background, used by us for border graphics and maze
 
-    set_global(0x33, options.int_number); // GLOBAL MACHINE
+    set_global(sg.MACHINE, options.int_number); // GLOBAL MACHINE
 
-//    set_global(0x1f, byte(0x2d)); // GLOBAL FG-COLOR
-//    set_global(0xd7, byte(0x2c)); // GLOBAL BG-COLOR
-
-    set_global(0xa2, gcellw); // GLOBAL FONT-X
-    set_global(0xe9, gcellh); // GLOBAL FONT-Y
+    set_global(sg.FONT_X, 1); // GLOBAL FONT-X
+    set_global(sg.FONT_Y, 1); // GLOBAL FONT-Y
 
     if (screenmode == MODE_DEFINE) {
         adjust_definitions_window();
