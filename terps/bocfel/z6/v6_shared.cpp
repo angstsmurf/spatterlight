@@ -622,8 +622,12 @@ static void draw_hints_windows(void) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, upperwin_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
 
-    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
-    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+////    glk_window_clear(V6_STATUS_WINDOW.id);
+//    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
+
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
 
     if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
@@ -632,6 +636,9 @@ static void draw_hints_windows(void) {
         V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     }
+
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     int width = 1;
     int status_x = 0;
@@ -646,24 +653,23 @@ static void draw_hints_windows(void) {
 //            width = width * imagescalex;
 //            height = height * imagescaley;
 //        }
-    } else if (is_game(Game::Shogun)) {
-                shogun_display_border(P_HINT_BORDER);
-                if (graphics_type == kGraphicsTypeApple2) {
-                    width = 0;
-                    int a2_graphical_banner_height;
-                    get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
-                    height += a2_graphical_banner_height;
-                } else {
-                    get_image_size(P_HINT_LOC, &width, &height);
-                    if (graphics_type == kGraphicsTypeCGA) {
-                        width += 3;
-                    }
-                    width *= imagescalex;
-                    height *= imagescaley;
-                    if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
-                        status_x = width;
-                    }
-                }
+    } else if (is_spatterlight_shogun) {
+        if (graphics_type == kGraphicsTypeApple2) {
+            width = 0;
+            int a2_graphical_banner_height;
+            get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
+            height += a2_graphical_banner_height;
+        } else {
+            get_image_size(P_HINT_LOC, &width, &height);
+            if (graphics_type == kGraphicsTypeCGA) {
+                width += 3;
+            }
+            width *= imagescalex;
+            height *= imagescaley;
+            if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+                status_x = width;
+            }
+        }
     }
 
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
@@ -673,6 +679,10 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_arthur) {
         height = V6_STATUS_WINDOW.y_size + gcellh;
+    } else if (is_spatterlight_shogun && graphics_type == kGraphicsTypeApple2) {
+        int bannerheight;
+        get_image_size(P_HINT_BORDER, nullptr, &bannerheight);
+        height = V6_STATUS_WINDOW.y_size + bannerheight * imagescaley;
     }
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
@@ -683,14 +693,19 @@ static void draw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+//    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
 
     glk_window_clear(V6_STATUS_WINDOW.id);
+    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
     glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+
+    if (is_spatterlight_shogun) {
+        shogun_display_border(P_HINT_BORDER);
+    }
 }
 
 static void center_line(const char *str, int line, int length, bool reverse) {
@@ -782,7 +797,7 @@ static bool arthur_is_topic_in_context(uint16_t topic) {
 static uint16_t hint_topic_name(uint16_t chapter) {
     uint16_t topic = user_word(hints_table_addr + chapter * 2);
 
-    if (is_game(Game::Arthur) && !arthur_is_topic_in_context(topic))
+    if (is_spatterlight_arthur && !arthur_is_topic_in_context(topic))
         return 0;
 
     return user_word(topic + 2);
@@ -792,7 +807,7 @@ static int16_t get_seen_hints(void) {
 
     // seen_hints_table_addr points to a byte table that keeps track of
     // how many hints have been shown for a particular question.
-    // Actually a nibble table. The high four bits of each byte store
+    // It is actually a nibble table where the high four bits of each byte store
     // odd question numbers; the low four bits store even question numbers.
 
     int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
@@ -857,7 +872,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
         if (str == 0)
             continue;
         number_of_entries++;
-        if (is_game(Game::Arthur)) {
+        if (is_spatterlight_arthur) {
             store_word(at.K_HINT_ITEMS + number_of_entries * 2, i);
         }
         glk_window_move_cursor(V6_TEXT_BUFFER_WINDOW.id, x, y);
@@ -870,7 +885,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
             x = width / 2;
         }
     }
-    if (is_game(Game::Arthur)) {
+    if (is_spatterlight_arthur) {
         store_word(at.K_HINT_ITEMS, number_of_entries); // the first word of a table contains the length
     }
     return number_of_entries;
@@ -1212,6 +1227,7 @@ void DO_HINTS(void) {
     V6ScreenMode stored_mode = screenmode;
 
     if (is_spatterlight_shogun || is_spatterlight_arthur) {
+        v6_delete_win(&windows[2]);
         if (is_spatterlight_arthur) {
             clear_image_buffer();
             if (current_graphics_buf_win)
@@ -1219,10 +1235,9 @@ void DO_HINTS(void) {
 
             // Delete the topmost window used by Arthur in its status,
             // inventory, and room description modes.
-            v6_delete_win(&windows[2]);
         } else {
-            // Set for Shogun (delete if set in entrypoints)
-            hints_table_addr = 0xbe99;
+            v6_delete_win(&windows[4]);
+            v6_delete_win(&windows[5]);
         }
         h_chapt_num = get_global(hint_chapter_global_idx);
         h_quest_num = get_global(hint_quest_global_idx);
@@ -1272,17 +1287,21 @@ void DO_HINTS(void) {
 
     screenmode = stored_mode;
 
+    if (screenmode == MODE_HINTS)
+        screenmode = MODE_NORMAL;
+
     stored_bufferwin = nullptr;
 
     hints_depth = kV6MenuTypeTopic;
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
-    //    if (is_game(Game::ZorkZero)) {
-    //        z0_update_on_resize();
-    //    } else if (is_game(Game::Shogun)) {
-    //        internal_call(pack_routine(0x183a4)); // V-REFRESH
-    //    }
+    if (is_game(Game::ZorkZero)) {
+        //        z0_update_on_resize();
+    } else if (is_spatterlight_shogun) {
+        internal_call(pack_routine(sr.V_REFRESH));
+        shogun_update_on_resize();
+    }
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
