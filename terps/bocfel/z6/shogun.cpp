@@ -312,13 +312,20 @@ static void update_menu(void) {
     if (graphics_type == kGraphicsTypeApple2 && current_menu == sm.PART_MENU) {
         menutop -= a2_graphical_banner_height;
     }
+    if (SHOGUN_MENU_BG_WIN.id == nullptr) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+        SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextGrid, 0);
+        v6_delete_win(&SHOGUN_MENU_WINDOW);
+        SHOGUN_MENU_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
+    }
     v6_define_window(&SHOGUN_MENU_WINDOW, (gscreenw - width) / 2, menutop, width, height);
 
     v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, height);
     win_setbgnd(SHOGUN_MENU_BG_WIN.id->peer, user_selected_background);
     set_current_window(&SHOGUN_MENU_WINDOW);
-    if (SHOGUN_MENU_WINDOW.id != nullptr)
-        win_setbgnd(SHOGUN_MENU_WINDOW.id->peer, user_selected_background);
+    win_setbgnd(SHOGUN_MENU_WINDOW.id->peer, user_selected_background);
     garglk_set_zcolors(user_selected_foreground, user_selected_background);
     for (int i = 1; i <= cnt; i++) {
         if (i == current_menu_selection)
@@ -335,10 +342,8 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
     current_menu_selection = selection;
     uint16_t cnt = user_word(menu); // first word of table is number of elements
 
-//    v6_delete_win(&SHOGUN_MENU_WINDOW);
-//
-//    SHOGUN_MENU_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
-    
+    v6_delete_win(&SHOGUN_MENU_WINDOW);
+    SHOGUN_MENU_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
     update_menu();
     set_current_window(&SHOGUN_MENU_WINDOW);
     glk_request_mouse_event(SHOGUN_MENU_WINDOW.id);
@@ -348,7 +353,6 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
     int16_t y, new_selection;
     int type_pos = 0;
     char typed_letters[MAX_QUICKSEARCH + 1];
-    flush_image_buffer();
     bool finished = false;
     while (!finished) {
         uint16_t chr = internal_read_char();
@@ -432,16 +436,16 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
     }
     v6_delete_win(&SHOGUN_MENU_WINDOW);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
-    store_byte(0x49af, 60);
+    store_byte(0x49af, 60); // P-INBUF
     return selection;
 }
 
 static uint16_t current_menu_message;
 
-static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
+static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_selection) {
     screenmode = MODE_SHOGUN_MENU;
-    if (DEF == 0)
-        DEF = 1;
+    if (default_selection == 0)
+        default_selection = 1;
     if (MSG == 0) {
         fprintf(stderr, "Wut");
     }
@@ -454,8 +458,8 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-//    v6_delete_win(&SHOGUN_MENU_BG_WIN);
-//    SHOGUN_MENU_BG_WIN.id = v6_new_glk_window(wintype_TextGrid);
+    v6_delete_win(&SHOGUN_MENU_BG_WIN);
+    SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextGrid, 0);
 
     v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, menuheight);
 
@@ -468,7 +472,7 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
         garglk_set_zcolors(user_selected_foreground, user_selected_background);
         print_handler(unpack_string(MSG), nullptr);
-        result = menu_select(MENU, gscreenh - menuheight, DEF);
+        result = menu_select(MENU, gscreenh - menuheight, default_selection);
         if (result < 0)
             return result;
         if (user_word(0x8) & 1) { // Is transcripting on?
@@ -481,16 +485,19 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int DEF) {
         }
 
         uint16_t string_2 = user_word(MENU + 4);
-        if (result == 2 && user_byte(string_2) == 24) {
+        fprintf(stderr, "user_byte(string_2):%d\n", user_byte(string_2));
+        if (result == 2 && (user_byte(string_2) == 24 ||
+                            (header.release < 300 &&
+                             user_byte(string_2) == 23))) { // "SAVE this game position\n" is 24 characters
            bool success = super_hacky_shogun_menu_save(SaveType::Normal, SaveOpcode::None);
             if (success == false) {
                 fprintf(stderr, "Save failed\n");
             }
             result = 0;
         } else {
-            result = internal_call_with_arg(FCN, result);
+            result = internal_call_with_2_args(FCN, result, MENU);
         }
-        set_global(0x9e, 0); // Set RESTORED? to false
+//        set_global(0x9e, 0); // Set RESTORED? to false
     }
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin);
@@ -510,7 +517,7 @@ void SCENE_SELECT(void) {
     }
     uint16_t result = 0;
     while (result == 0) {
-        result = get_from_menu(0x48, 0x4abe, 0x1277, 1);
+        result = get_from_menu(sm.YOU_MAY_CHOOSE, menu, sm.SCENE_SELECT_F, 1);
     }
 }
 
