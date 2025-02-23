@@ -50,32 +50,11 @@ ShogunObjects so;
 #define P_HINT_BORDER_L 61
 #define P_HINT_BORDER_R 62
 
-
-//bool is_shogun_inline_image(int picnum) {
-//    return (picnum >= 7 && picnum <= 37);
-//}
-
-//bool is_shogun_map_image(int picnum) {
-//    return (picnum >= 38);
-//}
-
-//bool is_shogun_border_image(int picnum) {
-//    return ((picnum >= 3 && picnum <= 4) || picnum == 59 || picnum == 50);
-//}
-
-
 #define P_BORDER_LOC 2
 #define STATUS_LINES 2
 
-
 #define S_ERASMUS 1
 #define S_VOYAGE 6
-
-#define BRIDGE_OF_ERASMUS 0x39
-#define GALLEY 0x2b
-
-#define WHEEL 0x010d
-#define GALLEY_WHEEL 0x0166
 
 #define SUPPORTERBIT 0x08
 #define ONBIT 0x13
@@ -88,6 +67,13 @@ ShogunObjects so;
 
 // This should just call shogun_update_on_resize()
 static void setup_text_and_status(int P) {
+
+    if (screenmode == MODE_SHOGUN_MAZE && P != P_BORDER_LOC) {
+        screenmode = MODE_NORMAL;
+        image_needs_redraw = true;
+        shogun_display_border(current_border);
+    }
+
     if (P == 0)
         P = P_BORDER_LOC;
     int X, HIGH = gscreenh, WIDE = gscreenw, SLEFT = 0, SHIGH = STATUS_LINES * (gcellh + ggridmarginy), border_height;
@@ -116,7 +102,7 @@ static void setup_text_and_status(int P) {
     if (SHIGH < 0)
         SHIGH = 0;
 
-    v6_define_window(&windows[0], V6_STATUS_WINDOW.x_origin, imagescaley * 2 + SHIGH, V6_STATUS_WINDOW.x_size, HIGH - SHIGH);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, V6_STATUS_WINDOW.x_origin, imagescaley * 2 + SHIGH, V6_STATUS_WINDOW.x_size, HIGH - SHIGH);
 }
 
 void SETUP_TEXT_AND_STATUS(void) {
@@ -130,9 +116,6 @@ static void update_status_line(bool interlude) {
 
     last_was_interlude = interlude;
 
-    set_global(0x85, gcellw); //  Set global DIGIT-WIDTH to width of 0 in pixels
-    set_global(0x43, 10); // Set global SCORE-START to width in pixels of string "Score: " + 4 digits
-
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
     glui32 width;
@@ -143,8 +126,6 @@ static void update_status_line(bool interlude) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
 
-//    v6_delete_win(&V6_STATUS_WINDOW);
-//        V6_STATUS_WINDOW.id = v6_new_glk_window(wintype_TextGrid);
     winid_t gwin = V6_STATUS_WINDOW.id;
     v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, (gcellh + ggridmarginy) * 2);
     v6_get_and_sync_upperwin_size();
@@ -154,12 +135,25 @@ static void update_status_line(bool interlude) {
     V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
     garglk_set_zcolors(user_selected_background, user_selected_foreground);
     win_setbgnd(gwin->peer, user_selected_foreground);
-    glk_window_move_cursor(gwin, 0, 0);
-    uint16_t scene = get_global(0x7c);
-    uint16_t here = get_global(0x0a);
+    glk_window_clear(V6_STATUS_WINDOW.id);
+    uint16_t scene = get_global(sg.SCENE);
+    if (scene == 0) {
+        fprintf(stderr, "Scene is zero!\n");
+    }
+    uint16_t here = get_global(sg.HERE);
     if (scene != 0) {
-        print_handler(unpack_string(user_word(0xb94e + scene * 2)), nullptr); // table SCENE-NAMES
+        uint32_t addr = user_word(st.SCENE_NAMES + scene * 2);
+        if (header.release > 278) {
+            print_handler(unpack_string(addr), nullptr); // table SCENE-NAMES
+        } else {
+            uint8_t number_of_characters = byte(addr++);
+            for (uint16_t j = 0; j < number_of_characters; j++) {
+                put_char(user_byte(addr + j));
+            }
+        }
         glk_put_char(':');
+    } else if (scene == 0) {
+        fprintf(stderr, "Scene is zero! (%d)\n", scene);
     }
     if (options.int_number != INTERP_MACINTOSH) {
         glk_window_move_cursor(gwin, width / 2 - 3, 0);
@@ -167,42 +161,41 @@ static void update_status_line(bool interlude) {
     }
     glk_window_move_cursor(gwin, 0, 1);
     if (here != 0 && !interlude) {
-        set_global(0x15, here); // <SETG SHERE ,HERE>
-        if (here == GALLEY && (graphics_type == kGraphicsTypeApple2 || graphics_type == kGraphicsTypeAmiga)) {
+        if (here == so.GALLEY && (graphics_type == kGraphicsTypeApple2 || graphics_type == kGraphicsTypeAmiga)) {
             glk_put_string(const_cast<char*>("Galley"));
         } else {
             print_object(here, nullptr);
         }
-        uint16_t player_object = get_global(0xbf);
+        uint16_t player_object = get_global(sg.WINNER);
         int16_t tmp = internal_get_parent(player_object);
         if (internal_test_attr(tmp, VEHICLEBIT)) {
-            set_global(0x15, tmp);
             if (internal_test_attr(tmp, SUPPORTERBIT)) {
                 glk_put_string(const_cast<char*>(", on "));
             } else {
                 glk_put_string(const_cast<char*>(", in "));
             }
-            internal_call_with_arg(pack_routine(0x10ba8), tmp); //  <TELL THE .TMP>
+            internal_call_with_arg(pack_routine(sr.TELL_THE), tmp);
         }
 
-        if ((here == BRIDGE_OF_ERASMUS && internal_test_attr(WHEEL, ONBIT)) || (here == GALLEY && internal_test_attr(GALLEY_WHEEL, ONBIT))) {
+        if ((here == so.BRIDGE_OF_ERASMUS && internal_test_attr(so.WHEEL, ONBIT)) || (here == so.GALLEY && internal_test_attr(so.GALLEY_WHEEL, ONBIT))) {
             glk_put_string(const_cast<char*>("; course "));
-            internal_call_with_arg(pack_routine(0x19d1c), get_global(0x44));
+            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_DIRECTION));
+
             glk_put_string(const_cast<char*>("; wheel "));
-            internal_call_with_arg(pack_routine(0x19d1c), get_global(0xcc));
+            internal_call_with_arg(pack_routine(sr.TELL_DIRECTION), get_global(sg.SHIP_COURSE));
         }
 
     } else if (interlude) {
         glk_put_string(const_cast<char*>("Interlude"));
     }
 
-    glk_window_move_cursor(gwin, width - get_global(0x43), 0);
+    glk_window_move_cursor(gwin, width - 10, 0);
     glk_put_string(const_cast<char*>("Score:"));
-    int16_t tmp = get_global(0x66) * SCORE_FACTOR;
+    int16_t tmp = get_global(sg.SCORE) * SCORE_FACTOR;
     print_right_justified_number(tmp);
-    glk_window_move_cursor(gwin, width - get_global(0x43), 1);
+    glk_window_move_cursor(gwin, width - 10, 1);
     glk_put_string(const_cast<char*>("Moves:"));
-    print_right_justified_number(get_global(0xe5));
+    print_right_justified_number(get_global(sg.MOVES));
     set_current_window(&windows[0]);
 }
 
@@ -230,7 +223,7 @@ static void display_menu_line(uint16_t menu, uint16_t line, bool reverse) {
         glk_window_move_cursor(SHOGUN_MENU_WINDOW.id, 0, line - 1);
     SHOGUN_MENU_WINDOW.x = 1;
     SHOGUN_MENU_WINDOW.y = (line - 1) * gcellh + 1;
-    garglk_set_zcolors(user_selected_foreground, user_selected_background);
+//    garglk_set_zcolors(user_selected_foreground, user_selected_background);
     if (reverse)
         garglk_set_reversevideo(1);
     uint16_t string_address = user_word(menu + line * 2);
