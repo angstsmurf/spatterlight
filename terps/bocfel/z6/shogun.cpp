@@ -820,24 +820,12 @@ void MARGINAL_PIC(void) {
     add_margin_image_to_list(picnum);
 }
 
-#define P_MAZE_BACKGROUND 44
-#define P_MAZE_BOX 45
-
-#define XOFFSET 0xad
-#define YOFFSET 0x62
-
-#define MAZE_WIDTH 37
-#define MAZE_HEIGHT 17
-
-#define MAZE_BOX_TABLE 0x4f86
+#pragma mark Maze
 
 static void display_maze_pic(int pic, int x, int y) {
     if (pic != 0) {
-        int bx = user_word(MAZE_BOX_TABLE + 2);
-        int by = user_word(MAZE_BOX_TABLE);
-        int offx = get_global(XOFFSET);
-        int offy = get_global(YOFFSET);
-        draw_to_pixmap_unscaled(pic, offx + x * bx, offy + y * by);
+        draw_to_pixmap_unscaled(pic, maze_offset_x + x * maze_box_width, maze_offset_y + y * maze_box_height);
+        image_needs_redraw = true;
     }
  }
 
@@ -847,14 +835,21 @@ void DISPLAY_MAZE_PIC(void) {
 
 static void print_maze(void) {
     int offs = 0;
-    uint16_t MAZE_MAP = get_global(0x53);
-    int offx = get_global(XOFFSET);
-    int offy = get_global(YOFFSET);
-    draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, offx, offy);
-    for (int y = 0; y < MAZE_HEIGHT; y++) {
-        for (int x = 0; x < MAZE_WIDTH; x++, offs++) {
-            int M = user_byte(MAZE_MAP + offs) & 0x7f;
-            display_maze_pic(M, x, y);
+    uint16_t maze_map_table = get_global(sg.MAZE_MAP);
+    if (graphics_type == kGraphicsTypeBlorb) {
+        int width, height;
+        get_image_size(P_MAZE_BACKGROUND, &width, &height);
+        draw_rectangle_on_bitmap(0x717171, maze_offset_x, maze_offset_y, width, height);
+    } else {
+        draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, maze_offset_x, maze_offset_y);
+    }
+    int maze_height = get_global(sg.MAZE_HEIGHT);
+    int maze_width = get_global(sg.MAZE_WIDTH);
+
+    for (int y = 0; y < maze_height; y++) {
+        for (int x = 0; x < maze_width; x++, offs++) {
+            int maze_tile = user_byte(maze_map_table + offs) & 0x7f;
+            display_maze_pic(maze_tile, x, y);
         }
     }
 }
@@ -874,16 +869,13 @@ static void display_maze(bool clear) {
     if (clear)
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
-    int BY, BX;
-    get_image_size(P_MAZE_BOX, &BX, &BY);
-    store_word(MAZE_BOX_TABLE, BY);
-    store_word(MAZE_BOX_TABLE + 2, BX);
+    get_image_size(P_MAZE_BOX, &maze_box_width, &maze_box_height);
 
     int border_width;
     get_image_size(P_BORDER_LOC, &border_width, nullptr);
 
-    set_global(XOFFSET, border_width);
-    set_global(YOFFSET, status_height / imagescaley);
+    maze_offset_x = border_width;
+    maze_offset_y = status_height / imagescaley;
 
     SHOGUN_MAZE_WINDOW.x_origin = 0;
     SHOGUN_MAZE_WINDOW.y_origin = 0;
@@ -895,20 +887,20 @@ void DISPLAY_MAZE(void) {
     display_maze(true);
 }
 
-#define NORTH 0x4f64
-#define SOUTH 0x4f6a
-#define EAST 0x4f70
-#define WEST 0x4f75
+// The original source lets you move diagonally as
+// well, but as the maze has no diagonal passages,
+// it only means a lot of bumping into walls.
+// I think this way is more user-friendly.
 
 static int maze_mouse_f(void) {
     int16_t WX, WY;
     uint16_t DIR = 0;
     int BX, BY;
     get_image_size(P_MAZE_BOX, &BX, &BY);
-    uint16_t X = get_global(0x0b);
-    uint16_t Y = get_global(0xb1);
-    WY = get_global(YOFFSET) + Y * BY + BY / 2;
-    WX = get_global(XOFFSET) + X * BX + BX / 2;
+    uint16_t X = get_global(sg.MAZE_X);
+    uint16_t Y = get_global(sg.MAZE_Y);
+    WY = maze_offset_y + Y * BY + BY / 2;
+    WX = maze_offset_x + X * BX + BX / 2;
 
     uint16_t mouse_click_addr = header.extension_table + 2;
     int16_t mouse_x = word(mouse_click_addr) - 1;
@@ -921,37 +913,37 @@ static int maze_mouse_f(void) {
         if (WY < 0) { // top right
             WY = -WY;
             if (WX > WY) {
-                DIR = EAST;
+                DIR = so.EAST;
             } else {
-                DIR = NORTH;
+                DIR = so.NORTH;
             }
         } else { // bottom right
             if (WX > WY) {
-                DIR = EAST;
+                DIR = so.EAST;
             } else {
-                DIR = SOUTH;
+                DIR = so.SOUTH;
             }
         }
     } else if (WY < 0) { // top left
         WY = -WY;
         WX = -WX;
         if (WX > WY) {
-            DIR = WEST;
+            DIR = so.WEST;
         } else {
-            DIR = NORTH;
+            DIR = so.NORTH;
         }
     } else { // bottom left
         WX = -WX;
         if (WX > WY) {
-            DIR = WEST;
+            DIR = so.WEST;
         } else {
-            DIR = SOUTH;
+            DIR = so.SOUTH;
         }
     }
     if (WX <= BX / 2 && WY <= BY / 2)
         return 0;
     if (DIR != 0) {
-        internal_call_with_arg(pack_routine(0x11698), DIR);
+        internal_call_with_arg(pack_routine(sr.ADD_TO_INPUT), DIR);
         glk_put_char(UNICODE_LINEFEED);
         return 13;
     }
@@ -971,6 +963,8 @@ static void adjust_shogun_window(void) {
 
     if (graphics_type == kGraphicsTypeApple2) {
         V6_STATUS_WINDOW.y_size = 2 * (gcellh + ggridmarginy);
+        V6_STATUS_WINDOW.x_origin = 1;
+        V6_STATUS_WINDOW.x_size = gscreenw;
         v6_sizewin(&V6_STATUS_WINDOW);
         SHOGUN_A2_BORDER_WIN.y_origin = V6_STATUS_WINDOW.y_size + 1;
         SHOGUN_A2_BORDER_WIN.y_size = a2_graphical_banner_height;
