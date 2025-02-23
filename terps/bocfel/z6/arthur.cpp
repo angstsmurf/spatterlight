@@ -5,11 +5,6 @@
 //  Created by Administrator on 2023-07-18.
 //
 
-extern "C" {
-#include "glk.h"
-#include "glkimp.h"
-}
-
 #include "draw_image.hpp"
 #include "entrypoints.hpp"
 #include "memory.h"
@@ -670,50 +665,6 @@ void recover_arthur_state(library_state_data *dat) {
     graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
     last_slideshow_pic = dat->slideshow_pic;
-}
-
-void update_monochrome_colours(void);
-
-void after_V_COLOR(void) {
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-
-    update_user_defined_colours();
-
-    for (auto &window : windows) {
-        // These will already be correctly set unless we are called from the after restore routine
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
-        winid_t glkwin = window.id;
-        if (glkwin != nullptr) {
-            if (glkwin->type == wintype_Graphics) {
-                glk_window_set_background_color(glkwin, user_selected_background);
-                glk_window_clear(glkwin);
-            } else {
-                if (glkwin->type == wintype_TextBuffer) {
-                    win_setbgnd(glkwin->peer, user_selected_background);
-                }
-
-                glk_set_window(glkwin);
-
-                // Colours may be set to default (1) if this is called from the after restore routine
-                glsi32 zcolfg, zcolbg;
-                if (fg == DEFAULT_COLOUR)
-                    zcolfg = zcolor_Default;
-                else
-                    zcolfg = user_selected_foreground;
-
-                if (bg == DEFAULT_COLOUR)
-                    zcolbg = zcolor_Default;
-                else
-                    zcolbg = user_selected_background;
-
-                garglk_set_zcolors(zcolfg, zcolbg);
-            }
-        }
-    }
-    update_monochrome_colours();
-    arthur_update_on_resize();
 }
 
 void arthur_update_after_restore(void) {

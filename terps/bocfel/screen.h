@@ -207,7 +207,7 @@ void flush_image_buffer(void);
 void v6_sync_upperwin_size(glui32 width, glui32 height);
 void v6_get_and_sync_upperwin_size(void);
 
-void update_arthur_colours(void);
+void update_v6_colours(void);
 void window_change(void);
 void set_current_window(Window *window);
 void transcribe(uint32_t c);
