@@ -562,6 +562,10 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
     // (except at start menu screen)
     int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
     int width, height;
+
+    if (get_global(sg.SCENE) != 1 && border == P_BORDER2)
+        border = P_BORDER;
+    
     get_image_size(border, &width, &height);
 
     a2_graphical_banner_height = (height + 1) * imagescaley;
@@ -574,24 +578,29 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
         return;
     }
 
+    draw_rectangle_on_bitmap(user_selected_foreground, 0, 0, hw_screenwidth, border_top);
     draw_rectangle_on_bitmap(0xffffff, 0, border_top - 1, hw_screenwidth, height + 2);
     draw_to_pixmap_unscaled(border, 0, border_top);
     flush_bitmap(current_graphics_buf_win);
 }
 
+extern int margin_images[100];
+extern int number_of_margin_images;
+
 void shogun_display_border(ShogunBorderType border) {
+    if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
+        border = P_BORDER;
+    }
+    fprintf(stderr, "shogun_display_border: inital border val: %d\n", border);
     bool start_menu_mode = (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU);
 
-    if (start_menu_mode) {
-        win_sizewin(V6_STATUS_WINDOW.id->peer, 0, 0, 0, 0);
-    }
 
     if (get_global(sg.SCENE) == S_ERASMUS) {
         border = (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
     }
 
-    if (border == 0 && sg.CURRENT_BORDER != 0) {
-        border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
+    if (border == 0) {
+        border = current_border;
     }
 
     if (border == 0) {
@@ -601,8 +610,16 @@ void shogun_display_border(ShogunBorderType border) {
     if (screenmode == MODE_HINTS)
         border = P_HINT_BORDER;
 
-    if (border != P_HINT_BORDER && sg.CURRENT_BORDER != 0) {
-        set_global(sg.CURRENT_BORDER, border);
+    if (border != P_HINT_BORDER) {
+        if (sg.CURRENT_BORDER != 0)
+            set_global(sg.CURRENT_BORDER, border);
+        current_border = border;
+    }
+
+    if (number_of_margin_images > 0 && border != P_HINT_BORDER) {
+        extract_palette_from_picnum(margin_images[number_of_margin_images - 1]);
+    } else {
+        extract_palette_from_picnum(border);
     }
 
     // Delete covering graphics window (which would show the title screen)
@@ -613,15 +630,17 @@ void shogun_display_border(ShogunBorderType border) {
     }
 
     current_graphics_buf_win = graphics_bg_glk;
-    if (windows[7].id != current_graphics_buf_win) {
-        v6_delete_win(&windows[7]);
-        windows[7].id = current_graphics_buf_win;
-        v6_define_window(&windows[7], 1, 1, gscreenw, gscreenh);
+    if (V6_GRAPHICS_BG.id != current_graphics_buf_win) {
+        v6_delete_win(&V6_GRAPHICS_BG);
+        V6_GRAPHICS_BG.id = current_graphics_buf_win;
+        v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
     }
 
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
     int border_top = 0;
+
+    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
     if (graphics_type == kGraphicsTypeApple2) {
         shogun_display_apple_ii_border(border, start_menu_mode);
@@ -670,7 +689,7 @@ void shogun_display_border(ShogunBorderType border) {
         draw_rectangle_on_bitmap(monochrome_black, hw_screenwidth - 1, 0, 1, gscreenh / imagescaley);
     }
 
-    draw_to_pixmap_unscaled(border, 0, 0);
+    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
 
     float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
     int desired_height = ceil(gscreenh / factor);
@@ -692,23 +711,23 @@ void shogun_display_border(ShogunBorderType border) {
         if (must_extend && (graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeMacBW)) {
             if (border == P_BORDER) {
                 if (graphics_type == kGraphicsTypeMacBW) {
-                    draw_to_pixmap_unscaled_flipped(border, 0, height);
+                    draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, height);
                     lowest_drawn_line = height * 2;
                 } else {
-                    draw_to_pixmap_unscaled_flipped(border, 0, height - 2);
+                    draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, height - 2);
                     lowest_drawn_line = height * 2 - 2;
                 }
             } else if (border == P_BORDER2) {
                 if (graphics_type == kGraphicsTypeMacBW) {
-                    draw_to_pixmap_unscaled(border, 0, height - 35);
+                    draw_to_pixmap_unscaled_using_current_palette(border, 0, height - 35);
                     lowest_drawn_line = height * 2 - 35;
                 } else {
-                    draw_to_pixmap_unscaled(border, 0, height - 22);
+                    draw_to_pixmap_unscaled_using_current_palette(border, 0, height - 22);
                     lowest_drawn_line = height * 2 - 22;
                 }
             } else if (border == P_HINT_BORDER && graphics_type == kGraphicsTypeMacBW) {
                 extend_mac_bw_hint_border(desired_height);
-                return;
+                desired_height = 0;
             }
         }
         
@@ -718,11 +737,11 @@ void shogun_display_border(ShogunBorderType border) {
                 height -= 7;
             }
             if (must_extend)
-                draw_to_pixmap_unscaled_flipped(border, hw_screenwidth - width, border_top + height);
-            draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+                draw_to_pixmap_unscaled_flipped_using_current_palette(border, hw_screenwidth - width, border_top + height);
+            draw_to_pixmap_unscaled_using_current_palette(BR, hw_screenwidth - width, border_top);
             lowest_drawn_line = border_top + height;
             if (must_extend) {
-                draw_to_pixmap_unscaled_flipped(BR, 0, border_top + height);
+                draw_to_pixmap_unscaled_flipped_using_current_palette(BR, 0, border_top + height);
                 lowest_drawn_line += height;
             }
             if (graphics_type == kGraphicsTypeCGA) {
@@ -735,8 +754,29 @@ void shogun_display_border(ShogunBorderType border) {
     // We draw a rectangle of status window color at the top to avoid
     // visible gaps at the edges. (Except at the start menu, where
     // there is no status window.)
+    bool should_draw_covering_rectangle = false;
+
+    glui32 rectangle_color = user_selected_foreground;
     if (!start_menu_mode && border != P_HINT_BORDER)
-        draw_rectangle_on_bitmap(status_background_color(), left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+        should_draw_covering_rectangle = true;
+
+    if (border == P_HINT_BORDER ) {
+        left_margin = 0;
+        if (graphics_type == kGraphicsTypeMacBW) {
+            should_draw_covering_rectangle = true;
+            rectangle_color = monochrome_black;
+        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+            should_draw_covering_rectangle = true;
+            rectangle_color = 0x826766;
+        }
+        if (should_draw_covering_rectangle) {
+            left_margin = 0;
+        }
+    }
+
+    if (should_draw_covering_rectangle) {
+        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+    }
     flush_bitmap(current_graphics_buf_win);
 }
 
@@ -994,7 +1034,7 @@ void shogun_draw_title_image(void) {
         graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
     win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);
     current_graphics_buf_win = graphics_fg_glk;
-    
+    glk_request_mouse_event(graphics_fg_glk);
     int width, height;
     get_image_size(1, &width, &height);
     float scale = gscreenw / ((float)width * pixelwidth);
@@ -1005,6 +1045,7 @@ void shogun_draw_title_image(void) {
     glk_window_clear(graphics_fg_glk);
     draw_inline_image(graphics_fg_glk, kShogunTitleImage, 0, ypos, scale, false);
     screenmode = MODE_SLIDESHOW;
+    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, monochrome_white);
 }
 
 void shogun_erase_screen(void) {
@@ -1053,7 +1094,7 @@ void shogun_update_on_resize(void) {
 
         v6_sizewin(&SHOGUN_MAZE_WINDOW);
     } else {
-        shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
+        shogun_display_border(current_border);
         if (V6_TEXT_BUFFER_WINDOW.id) {
             refresh_margin_images();
             float yscalefactor = 2.0;
@@ -1105,7 +1146,7 @@ void stash_shogun_state(library_state_data *dat) {
         dat->graphics_fg_tag = graphics_fg_glk->tag;
     if (stored_bufferwin)
         dat->stored_lower_tag = stored_bufferwin->tag;
-    dat->slideshow_pic = last_slideshow_pic;
+    dat->slideshow_pic = current_border;
 
     dat->shogun_menu = current_menu;
     dat->shogun_menu_selection = current_menu_selection;
@@ -1118,7 +1159,7 @@ void recover_shogun_state(library_state_data *dat) {
     current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
     graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
-    last_slideshow_pic = dat->slideshow_pic;
+    current_border = (ShogunBorderType)dat->slideshow_pic;
 
     current_menu = dat->shogun_menu;
     current_menu_selection = dat->shogun_menu_selection;

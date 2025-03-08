@@ -83,7 +83,8 @@ static uint32_t read32be(uint8_t *ptr, int index) { return (static_cast<uint32_t
 static bool read_png(uint8_t *data, size_t datalength, struct png_chunk *chunks, int *dataidx, int *palidx) {
 
     *dataidx = -1;
-    *palidx = -1;
+    if (palidx != nullptr)
+        *palidx = -1;
 
     if (datalength <= 16)
         return false;
@@ -110,7 +111,7 @@ static bool read_png(uint8_t *data, size_t datalength, struct png_chunk *chunks,
         debug_png_print("Chunk %d is of type 0x%08x (%c%c%c%c)\n", i, chunks[i].type, ptr[4], ptr[5], ptr[6], ptr[7]);
         if (chunks[i].type == IFF::TypeID("IDAT").val())
             *dataidx = i;
-        if (chunks[i].type == IFF::TypeID("PLTE").val())
+        if (palidx != nullptr && chunks[i].type == IFF::TypeID("PLTE").val())
             *palidx = i;
         if (chunks[i].type == IFF::TypeID("gAMA").val()) {
 //            int gamma = read32be(ptr, 8);
@@ -212,9 +213,9 @@ static bool draw_indexed_png(uint8_t **pixmapptr, int *pixmapsize, int pixwidth,
 
     struct png_chunk chunks[64];
 
-    int dataidx, palidx, xpos, ypos;
+    int dataidx, xpos, ypos;
 
-    bool result = read_png(data, datasize, chunks, &dataidx, &palidx);
+    bool result = read_png(data, datasize, chunks, &dataidx, nullptr);
 
     if (!result)
         return false;
@@ -282,10 +283,11 @@ static bool draw_indexed_png(uint8_t **pixmapptr, int *pixmapsize, int pixwidth,
     return true;
 }
 
-uint8_t *draw_png(ImageStruct *image) {
+uint8_t *draw_png(ImageStruct *image, bool use_previous_palette) {
     int32_t pixmapsize = image->width * image->height * 4;
     uint8_t *pixmap = (uint8_t *)calloc(1, pixmapsize);
-    extract_palette(image);
+    if (!use_previous_palette)
+        extract_palette(image);
     if (draw_indexed_png(&pixmap, &pixmapsize, image->width, 0, 0, image->data, image->datasize, false) == false) {
         free(pixmap);
         pixmap = nullptr;

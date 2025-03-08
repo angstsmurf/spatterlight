@@ -401,7 +401,7 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     return result;
 }
 
-static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
+static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
     if (image->data == nullptr)
         return nullptr;
 
@@ -409,7 +409,7 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
 
     unsigned colours = 14;
 
-    if (image->palette != nullptr) {
+    if (image->palette != nullptr && use_previous_palette == false) {
         colours = image->palette[0];
         /* Fix for some buggy _Arthur_ pictures. */
         if (colours > 14)
@@ -428,7 +428,8 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
     } else if (image->type == kGraphicsTypeEGA) {
         memcpy(colourmap, ega_colormap, 16 * 3);
     } else {
-        // Image has no palette, copy previously used palette
+        // Copy previously used palette
+        fprintf(stderr, "draw_amiga_mac_cga_ega_vga: Using global palette for image %d\n", image->index);
         memcpy(&colourmap[2][RED], &global_palette[1], colours * 3);
     }
 
@@ -465,14 +466,14 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image) {
     return pixmap;
 }
 
-static uint8_t *decompress_image(ImageStruct *image) {
+static uint8_t *decompress_image(ImageStruct *image, bool use_previous_palette) {
     uint8_t *result = nullptr;
     switch (image->type) {
         case kGraphicsTypeApple2:
             result = draw_apple2(image);
             break;
         case kGraphicsTypeBlorb:
-            result = draw_png(image);
+            result = draw_png(image, use_previous_palette);
             break;
         case kGraphicsTypeCGA:
             if (!image->transparency) {
@@ -483,12 +484,20 @@ static uint8_t *decompress_image(ImageStruct *image) {
         case kGraphicsTypeVGA:
         case kGraphicsTypeMacBW:
         case kGraphicsTypeAmiga:
-            result = draw_amiga_mac_cga_ega_vga(image);
+            result = draw_amiga_mac_cga_ega_vga(image, use_previous_palette);
             break;
         default:
             break;
     }
     return result;
+}
+
+
+void extract_palette_from_picnum(int picnum) {
+    ImageStruct *image = find_image(picnum);
+    if (image != nullptr) {
+        extract_palette(image);
+    }
 }
 
 void ensure_pixmap(winid_t winid) {
@@ -503,17 +512,26 @@ void ensure_pixmap(winid_t winid) {
     }
 }
 
-void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
     if (*pixmap == nullptr) {
-        fprintf(stderr, "draw_to_pixmap called with a nullptr pixmap!\n");
+        fprintf(stderr, "draw_to_pixmap_palette_optional called with a nullptr pixmap!\n");
         return;
     }
-    uint8_t *result = decompress_image(image);
+    uint8_t *result = decompress_image(image, use_previous_palette);
     if (result != nullptr) {
-        extract_palette(image);
+        if (!use_previous_palette)
+            extract_palette(image);
         draw_bitmap_on_bitmap(result, image->width * image->height * 4, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
         free(result);
     }
+}
+
+void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, false);
+}
+
+void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, true);
 }
 
 void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
@@ -530,7 +548,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     if (image == nullptr)
         return nullptr;
 
-    uint8_t *result = decompress_image(image);
+    uint8_t *result = decompress_image(image, false);
     if (result == nullptr)
         return nullptr;
 
@@ -573,10 +591,16 @@ void draw_to_pixmap_unscaled(int image, int x, int y) {
         draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
 }
 
-void draw_to_pixmap_unscaled_flipped(int image, int x, int y) {
+void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y) {
     ImageStruct *img = find_image(image);
     if (img != nullptr)
-        draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
+        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
+}
+
+void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y) {
+    ImageStruct *img = find_image(image);
+    if (img != nullptr)
+        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
 }
 
 uint8_t *copy_lines_from_bitmap(int y, int height, size_t *size) {
