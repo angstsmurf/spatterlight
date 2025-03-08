@@ -537,22 +537,11 @@ void after_V_VERSION(void) {
 // and screen width is 640.
 // Used in V-COLOR and DO-COLOR.
 void MAC_II(void) {
-    windows[7].x_size = 640;
+    V6_GRAPHICS_BG.x_size = 640;
 }
 
 void after_MAC_II(void) {
-    windows[7].x_size = gscreenw;
-}
-
-glui32 status_background_color(void) {
-    if (graphics_type == kGraphicsTypeApple2) {
-        if (screenmode == MODE_HINTS || screenmode == MODE_DEFINE) {
-            return 0;
-        } else {
-            return 0xffffff;
-        }
-    }
-    return user_selected_foreground;
+    V6_GRAPHICS_BG.x_size = gscreenw;
 }
 
 #pragma mark Display border
