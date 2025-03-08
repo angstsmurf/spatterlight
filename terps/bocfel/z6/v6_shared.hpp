@@ -55,5 +55,8 @@ extern InfocomV6MenuType hints_depth;
 
 #define V6_TEXT_BUFFER_WINDOW windows[0]
 #define V6_STATUS_WINDOW windows[1]
+#define V6_GRAPHICS_BG windows[7]
+
+#define STRING_BUFFER_SIZE 15
 
 #endif /* v6_shared_hpp */

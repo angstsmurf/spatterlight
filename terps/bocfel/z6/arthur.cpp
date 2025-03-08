@@ -228,7 +228,7 @@ void arthur_sync_screenmode(void) {
 // Windows 5 and 6 are left and right banners, but are only used when erasing
 // banner graphics. The banners are drawn to window S-FULL (7)
 
-// Window 7 (S-FULL) is the standard V6 fullscreen window (ARTHUR_GRAPHICS_BG)
+// Window 7 (S-FULL) is the standard V6 fullscreen window (V6_GRAPHICS_BG)
 
 // Called on window_changed();
 void arthur_update_on_resize(void) {
@@ -391,7 +391,7 @@ void RT_UPDATE_PICT_WINDOW(void) {
         screenmode = MODE_NORMAL;
         win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
         current_graphics_buf_win = graphics_bg_glk;
-        windows[7].id = graphics_bg_glk;
+        V6_GRAPHICS_BG.id = graphics_bg_glk;
         arthur_update_on_resize();
         v6_get_and_sync_upperwin_size();
     }
@@ -430,21 +430,12 @@ void arthur_INIT_STATUS_LINE(void) {
 
     // Windows 5 and 6 are left and right banners, but are only used when erasing
     // banner graphics. The actual banners are drawn to window 7 (S-FULL).
-    windows[5].y_origin = 1;
-    windows[5].x_origin = 1;
-    windows[5].y_size = gscreenh;
-    windows[5].x_size = M;
+    v6_define_window(&windows[5], 1, 1, M, gscreenh);
+    v6_define_window(&windows[6], L + W, 1, M, gscreenh);
 
-    windows[6].y_origin = 1;
-    windows[6].x_origin = L + W;
-    windows[6].y_size = gscreenh;
-    windows[6].x_size = M;
 
     // Window 7 (S-FULL) is the standard V6 fullscreen window
-    windows[7].y_origin = 1;
-    windows[7].x_origin = 1;
-    windows[7].y_size = gscreenh;
-    windows[7].x_size = gscreenw;
+    v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
 
     glk_set_window(V6_STATUS_WINDOW.id);
     glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
