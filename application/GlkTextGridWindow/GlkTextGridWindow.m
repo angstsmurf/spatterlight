@@ -882,7 +882,6 @@
     }
 
     if (cols == 0 || rows == 0 || string.length == 0) {
-        NSLog(@"GlkTextGridWindow printToWindow: (cols == 0 || rows == 0 || length == 0). bailing.");
         return;
     }
 
@@ -912,7 +911,6 @@
 
     startpos = self.indexOfPos;
     if (startpos > textstoragelength) {
-        NSLog(@"GlkTextGridWindow printToWindow: Outside visible range! startpos:%ld textstoragelength:%ld", startpos, textstoragelength);
         // We are outside window visible range!
         // Do nothing
         return;
