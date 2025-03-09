@@ -867,7 +867,6 @@
 }
 
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
-    NSUInteger length = string.length;
     NSUInteger startpos;
     NSUInteger pos = 0;
 
@@ -882,7 +881,7 @@
         } else return;
     }
 
-    if (cols == 0 || rows == 0 || length == 0) {
+    if (cols == 0 || rows == 0 || string.length == 0) {
         NSLog(@"GlkTextGridWindow printToWindow: (cols == 0 || rows == 0 || length == 0). bailing.");
         return;
     }
@@ -939,7 +938,7 @@
     }
 
     // Write this string
-    while (pos < length) {
+    while (pos < string.length) {
         // Can't write if we've fallen off the end of the window
         if (((NSInteger)cols > -1 && ypos > textstoragelength / (cols + 1) ) || ypos > rows)
             break;
