@@ -510,7 +510,7 @@
      usingBlock:^(id value, NSRange range, BOOL *stop) {
 
         bgCol = (NSColor *)value;
-        if (bgCol && range.length + 2 > blocCols) {
+        if (bgCol && range.location < blocCols && range.length + 2 > blocCols) {
             if (NSMaxRange(range) > blockTextStorage.length - 3)
                 *stop = YES;
         } else {
@@ -550,7 +550,7 @@
     if (!transparent)
         [self checkForUglyBorder];
 
-    if (_pendingBackgroundCol && ![_pendingBackgroundCol isEqualToColor:_textview.backgroundColor]) {
+    if (_pendingBackgroundCol) {
         _textview.backgroundColor = _pendingBackgroundCol;
     }
     _pendingBackgroundCol = nil;
@@ -1101,6 +1101,8 @@
 - (void)initChar {
     char_request = YES;
     dirty = YES;
+
+    [self grabFocus];
 
     // Draw Bureaucracy form cursor
     if (self.glkctl.gameID == kGameIsBureaucracy) {

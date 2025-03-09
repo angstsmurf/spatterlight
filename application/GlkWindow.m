@@ -177,6 +177,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
+    if (((NSArray *)self.styleHints[stylevalue]).count == 0)
+        return attributes;
+
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
@@ -220,9 +223,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)grabFocus {
     // NSLog(@"grab focus in window %ld", self.name);
-    [self.window makeFirstResponder:self];
-    NSAccessibilityPostNotification(
-                                    self, NSAccessibilityFocusedUIElementChangedNotification);
+    if (self.window.firstResponder != self) {
+        [self.window makeFirstResponder:self];
+        NSAccessibilityPostNotification(
+                                        self, NSAccessibilityFocusedUIElementChangedNotification);
+    }
 }
 
 - (void)flushDisplay {
