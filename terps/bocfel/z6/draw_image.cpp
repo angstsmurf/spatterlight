@@ -730,55 +730,60 @@ void draw_arthur_side_images(winid_t winid) {
 #define kStepHeight 20
 #define kOverlap 20
 
-extern winid_t current_graphics_buf_win;
-
 void extend_mac_bw_hint_border(int desired_height) {
 
+    // We have already drawn the pillars once (kTotalHeight lines).
+    // Now we fill out the space below.
     int lines_to_fill = desired_height - kTotalHeight;
 
     if (lines_to_fill < kStepHeight) {
-        flush_bitmap(current_graphics_buf_win);
+        // If the remaining space is smaller than kStepHeight, we bail.
         return;
     }
 
     size_t linessize;
-    int num_lines = kTotalHeight - kTopCut;
-
+    int pillar_height = kTotalHeight - kTopCut;
     int height_of_foot = kTotalHeight - kBottomCut;
 
-    if (num_lines - kOverlap > lines_to_fill) {
-        num_lines = lines_to_fill + kOverlap;
-        num_lines -= (num_lines - kOverlap) % kStepHeight;
-    }
+    // We copy the section we want the repeat
+    uint8_t *copied_pillars = copy_lines_from_bitmap(kTopCut, pillar_height, &linessize);
 
-    // We copy the repeated part
-    uint8_t *copied_pillars = copy_lines_from_bitmap(kTopCut, num_lines, &linessize);
-
-
+    // And the "shadow" at the bottom
     size_t footsize = 0;
-
     uint8_t *foot = copy_lines_from_bitmap(kBottomCut, height_of_foot, &footsize);
-//    int repetitions = (desired_height - kTopCut - height_of_foot) / num_lines;
 
+    int actual_height = pillar_height - kOverlap;
     int ypos = kTotalHeight - kOverlap;
-//    erase_lines_in_bitmap(ypos, kTotalHeight - ypos);
 
-//    while(ypos < desired_height) {
-//        int remaining_lines = desired_height - ypos;
-//        remaining_lines -= remaining_lines % kStepHeight;
-//        if (remaining_lines < num_lines) {
-//            linessize = remaining_lines * hw_screenwidth * 4;
-//            num_lines = remaining_lines + kOverlap;
-//        }
+    while (ypos + kOverlap < desired_height) {
+        if (ypos + actual_height > desired_height) {
+            // The next draw will overflow the desired height
+            int overflow = ypos + actual_height - desired_height;
+
+            // We cut off the repeated lines to make them fit
+            if (pillar_height - overflow > kStepHeight) {
+                // Round to "step height"
+                overflow += ((pillar_height - overflow) % kStepHeight);
+            }
+            pillar_height -= overflow;
+            actual_height -= overflow;
+            free(copied_pillars);
+            copied_pillars = copy_lines_from_bitmap(kTopCut, pillar_height, &linessize);
+        }
+        // Draw the pillars
         draw_bitmap_on_bitmap(copied_pillars, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
-        ypos += num_lines;
-//    }
+        ypos += actual_height;
+    }
     free(copied_pillars);
 
+    // Draw the shadow
     draw_hint_menu_feet_mac(foot, footsize, &pixmap, &pixlength, ypos - height_of_foot);
 
     free(foot);
-    flush_bitmap(current_graphics_buf_win);
+
+    // Erase any garbage left at the bottom of the pixmap
+    int height_of_bitmap = (pixlength / 4) / hw_screenwidth;
+    erase_lines_in_bitmap(ypos, height_of_bitmap - ypos);
 }
 
 
