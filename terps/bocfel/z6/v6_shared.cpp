@@ -14,6 +14,7 @@
 #include "stack.h"
 #include "unicode.h"
 #include "zterp.h"
+#include "options.h"
 #include "v6_specific.h"
 
 #include "arthur.hpp"
@@ -79,6 +80,35 @@ void print_right_justified_number(int number) {
 
     print_number(number);
 }
+
+#pragma mark Print Z string to C string
+
+static char *string_buf_ptr = nullptr;
+static int string_buf_pos = 0;
+static int string_maxlen = 0;
+
+static void print_to_string_buffer(uint8_t c) {
+    if (string_buf_pos < string_maxlen)
+        string_buf_ptr[string_buf_pos++] = c;
+}
+
+int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
+    int length = count_characters_in_zstring(addr);
+    if (length < 2)
+        return 0;
+    string_buf_ptr = str;
+    string_buf_pos = 0;
+    string_maxlen = maxlen;
+    print_handler(unpack_string(addr), print_to_string_buffer);
+    str[length] = 0;
+    return length;
+}
+
+
+int print_zstr_to_cstr(uint16_t addr, char *str) {
+    return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
+}
+
 
 
 #pragma mark DEFINITIONS SCREEN
@@ -154,8 +184,10 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
 // Print a single define menu line.
 // Either a function key name + an editable command
 // or a hard-coded menu item such as Save Definitions.
-static void display_soft(int function_key, int index, bool inverse) {
+static void display_soft(int function_key, int index, bool inverse, bool send_menu) {
     int fdef, y;
+    char str[60];
+    int len = 0;
     fdef = user_word(function_key + 2);
     y = index + 1;
     if ((int16_t)user_word(function_key) < 0) { // hard-coded menu item
@@ -166,6 +198,10 @@ static void display_soft(int function_key, int index, bool inverse) {
                 garglk_set_reversevideo(1);
             }
             print_center_table(y, user_word(fdef));
+            if (send_menu) {
+                len = print_long_zstr_to_cstr(user_word(fdef), str, 40);
+                win_menuitem(kV6MenuTypeDefine, index - 1, 18, 0, str, len);
+            }
         }
     } else {
         glk_window_move_cursor(DEFINITIONS_WINDOW.id, 0, y);
@@ -179,7 +215,8 @@ static void display_soft(int function_key, int index, bool inverse) {
             } else {
                 garglk_set_reversevideo(1);
             }
-            print_handler(unpack_string(user_word(key_name_string + 2)), nullptr);
+            len = print_long_zstr_to_cstr(user_word(key_name_string + 2), str, 60);
+            glk_put_string(str);
             garglk_set_reversevideo(0);
             glk_put_char(UNICODE_SPACE);
             if (inverse) {
@@ -187,13 +224,23 @@ static void display_soft(int function_key, int index, bool inverse) {
             }
         }
         int string_length = user_byte(fdef);
+
+        // For VoiceOver
+        str[len++] = ':';
+        str[len++] = ' ';
+
         for (int i = 0; i < string_length; i++) {
             uint8_t c = user_byte(fdef + 2 + i);
             if (c == ZSCII_NEWLINE)
-                glk_put_char('|');
-            else
-                glk_put_char(c);
+                c = '|';
+            glk_put_char(c);
+            str[len++] = c; // For VoiceOver
         }
+
+        // For VoiceOver
+        if (send_menu)
+            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, user_byte(fdef + 1) + 5);
+
         glsi32 x = user_byte(fdef + 1) + 4;
 
         // Print cursor if this is the selected line
@@ -219,10 +266,12 @@ static void display_softs(void) {
     if (xpos < 0)
         xpos = 0;
     glk_window_move_cursor(win, xpos, 0);
-    glk_put_string(const_cast<char*>("Function Keys"));
+    char *function_keys_string = const_cast<char*>("Function Keys");
+    glk_put_string(function_keys_string);
+    win_menuitem(kV6MenuTitle, 0, kV6MenuTypeDefine, 0, function_keys_string, 13);
     uint16_t function_key = fkeys_table_addr + 2;
     for (int i = 0; i < number_of_lines; i++) {
-        display_soft(function_key, i, (i != global_define_line));
+        display_soft(function_key, i, (i != global_define_line), true);
         function_key = function_key + 4;
     }
 }
@@ -241,6 +290,9 @@ void z0_erase_screen(void) {
     //    glk_window_clear(graphics_bg_glk);
 }
 
+void send_edited_menu_line(uint8_t chr) {
+    win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
+}
 
 void adjust_definitions_window(void) {
 
@@ -277,7 +329,9 @@ void adjust_definitions_window(void) {
 
     // Print selected line a second time
     // just to move the cursor into position
-    display_soft(fkey, global_define_line, false);
+    display_soft(fkey, global_define_line, false, false);
+    win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 }
 
 // Shared between Zork Zero and Shogun
@@ -289,6 +343,8 @@ void V_DEFINE(void) {
 //        fkeys_table_addr = 0xce2a;
 //        update_user_defined_colours();
 //    }
+
+    glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
 
     clear_image_buffer();
     win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
@@ -327,13 +383,13 @@ void V_DEFINE(void) {
                 new_line = clicked_line - 2;
 
                 // Deselect the old line and select the clicked one.
-                // This is identical to the code at the end of the input loop
+                // This is identical to the code at the end of the input loop,
                 // but must be repeated here in order to make the double click
-                // below apply to the right line
+                // apply to the right line
                 if (global_define_line != new_line) {
-                    display_soft(fkey, global_define_line, true);
+                    display_soft(fkey, global_define_line, true, false);
                     fkey = fkeys_table_addr + 2 + 4 * new_line;
-                    display_soft(fkey, new_line, false);
+                    display_soft(fkey, new_line, false, false);
                     global_define_line = new_line;
                     fdef = user_word(fkey + 2);
                 }
@@ -352,7 +408,9 @@ void V_DEFINE(void) {
                         // Exit menu if the call returns true
                         finished = true;
                     } else {
-                        // Otherwise select EXIT (bottom line)
+                        // Otherwise select EXIT (bottom line).
+                        // (We send a kV6MenuExited here to make sure that the VoiceOver menu is up-to-date)
+                        win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
                         display_softs();
                         new_line = linmax - 1;
                     }
@@ -409,6 +467,7 @@ void V_DEFINE(void) {
                             }
                             glk_put_char(UNICODE_SPACE);
                             glk_window_move_cursor(gwin, length + 4, global_define_line + 1);
+                            send_edited_menu_line(0);
                         } else {
                             win_beep(1);
                         }
@@ -434,10 +493,10 @@ void V_DEFINE(void) {
                             store_byte(fdef + length + 2, chr);
                             // and print it
                             if (chr == ZSCII_NEWLINE) {
-                                glk_put_char('|');
-                            } else {
-                                glk_put_char(chr);
+                                chr = '|';
                             }
+                            glk_put_char(chr);
+                            send_edited_menu_line(chr);
                             // print cursor at the new position if we are not at max
                             if (length + 2 < user_byte(fdef)) {
                                 print_reverse_video_space();
@@ -460,9 +519,10 @@ void V_DEFINE(void) {
         // Deselect the old line
         // and select the new one
         if (global_define_line != new_line) {
-            display_soft(fkey, global_define_line, true);
-            display_soft(fkeys_table_addr + 2 + 4 * new_line, new_line, false);
+            display_soft(fkey, global_define_line, true, true);
+            display_soft(fkeys_table_addr + 2 + 4 * new_line, new_line, false, false);
             global_define_line = new_line;
+            win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
             fkey = fkeys_table_addr + 2 + 4 * global_define_line;
             fdef = user_word(fkey + 2);
         }
@@ -471,6 +531,8 @@ void V_DEFINE(void) {
     v6_delete_win(&DEFINITIONS_WINDOW);
     screenmode = MODE_NORMAL;
     global_define_line = 0;
+
+    win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     if (is_game(Game::ZorkZero)) {
         //        z0_update_on_resize();
@@ -980,7 +1042,7 @@ static bool display_hints(bool only_refresh) {
     int16_t seen = get_seen_hints();
 
     if (seen <= 1) {
-        win_menuitem(kV6MenuTypeHint, 0, max - 1, 0, 0, 0);
+        win_menuitem(kV6MenuTypeHint, 0, max - 1, 0, nullptr, 0);
     }
 
     bool done = false;

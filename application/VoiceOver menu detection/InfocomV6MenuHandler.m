@@ -16,6 +16,7 @@
 @interface InfocomV6MenuHandler () {
     InfocomV6MenuType hintDepth;
     BOOL hasUpdatedMoveRanges;
+    BOOL lastWasEdit;
 }
 @end
 
@@ -32,6 +33,15 @@
         hintDepth = kV6MenuNone;
     }
     return self;
+}
+
++ (NSString *)makeDefinitionStringVerbose:(NSString *)string {
+    unichar c = [string characterAtIndex:string.length - 1];
+    if (c == ' ')
+        string = [string stringByAppendingString:@"(space)"];
+    else if (c == '|')
+        string = [string stringByReplacingOccurrencesOfString:@"|" withString:@" (vertical line)"];
+    return string;
 }
 
 - (void)handleMenuItemOfType:(InfocomV6MenuType)type index:(NSUInteger)index total:(NSUInteger)total text:(char *)buf length:(NSUInteger)len {
@@ -52,13 +62,17 @@
         _menuItems = [NSMutableArray new];
     }
 
-    NSString *str;
+    NSString *str = @"";
     if (len > 0) {
         unichar cstring[len];
         for (NSUInteger i = 0; i < len; i++) {
             cstring[i] = (unichar)buf[i];
         }
         str = [NSString stringWithCharacters:cstring length:len];
+        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet illegalCharacterSet]];
+        if (type == kV6MenuTypeDefine) {
+            str = [InfocomV6MenuHandler makeDefinitionStringVerbose:str];
+        }
     }
 
     if (type == kV6MenuTitle) {
@@ -78,12 +92,41 @@
                 [_menuItems removeLastObject];
             }
             [_menuItems addObject:str];
+        } else if (type == kV6MenuCurrentItemChanged) {
+            // kV6MenuCurrentItemChanged means the player typed a character in a define menu.
+            // We overload the total parameter for the typed character
+            unichar c = (unichar)total;
+            // 0 means delete
+            str = _menuItems[_selectedLine];
+            str = [str stringByReplacingOccurrencesOfString:@" (space)" withString:@" "];
+            str = [str stringByReplacingOccurrencesOfString:@" (vertical line)" withString:@"|"];
+            if (c == 0) {
+                NSString *deleted = [str substringFromIndex:str.length - 1];
+                [_delegate speakString:[NSString stringWithFormat:@"Delete %@", deleted]];
+                str = [str substringToIndex:str.length - 1];
+            } else {
+                NSString *added = [NSString stringWithFormat:@"%c", c];
+                [_delegate speakString:added];
+                str = [str stringByAppendingString:added];
+            }
+
+            [_menuItems replaceObjectAtIndex:_selectedLine withObject:[InfocomV6MenuHandler makeDefinitionStringVerbose:str]];
+            lastWasEdit = YES;
         }
     }
 }
 
 - (NSString *)constructMenuInstructionString {
     NSString *instructionString = @"";
+
+    if (hintDepth == kV6MenuTypeShogun) {
+        return @"Use the up and down arrow keys or type the first letters to change selection. ";
+    }
+
+    if (hintDepth == kV6MenuTypeDefine) {
+        return @"Use the up and down arrow keys or press a function key, then type your definition. Vertical line means enter. ";
+    }
+
     if (hintDepth != kV6MenuTypeHint) {
         instructionString = @"N for next item. P for previous item. ";
     }
@@ -138,7 +181,6 @@
     }
 
     if (useIndex) {
-
         NSString *indexString;
 
         if (hintDepth == kV6MenuTypeHint && _menuItems.count == 0) {

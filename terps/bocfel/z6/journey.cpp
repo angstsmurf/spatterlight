@@ -16,6 +16,7 @@
 
 #include "draw_image.hpp"
 #include "v6_specific.h"
+#include "v6_shared.hpp"
 
 #include "journey.hpp"
 
@@ -60,8 +61,6 @@ static uint16_t from_command_start_line = 0;
 static uint16_t input_column = 0;
 static uint16_t input_line = 0;
 static uint16_t input_table = 0;
-
-#define STRING_BUFFER_SIZE 15
 
 struct JourneyMenu {
     char name[STRING_BUFFER_SIZE];
@@ -406,33 +405,6 @@ static void journey_move_cursor(int column, int line) {
 
     glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
 }
-
-static char *string_buf_ptr = nullptr;
-static int string_buf_pos = 0;
-static int string_maxlen = 0;
-
-static void print_to_string_buffer(uint8_t c) {
-    if (string_buf_pos < string_maxlen)
-        string_buf_ptr[string_buf_pos++] = c;
-}
-
-int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen) {
-    int length = count_characters_in_zstring(addr);
-    if (length < 2)
-        return 0;
-    string_buf_ptr = str;
-    string_buf_pos = 0;
-    string_maxlen = maxlen;
-    print_handler(unpack_string(addr), print_to_string_buffer);
-    str[length] = 0;
-    return length;
-}
-
-
-int print_zstr_to_cstr(uint16_t addr, char *str) {
-    return print_long_zstr_to_cstr(addr, str, STRING_BUFFER_SIZE);
-}
-
 
 static int print_tag_route_to_str(char *str) {
     int name_length = get_global(jg.TAG_NAME_LENGTH);

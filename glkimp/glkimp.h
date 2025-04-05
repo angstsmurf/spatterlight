@@ -189,7 +189,10 @@ typedef enum InfocomV6MenuType {
     kV6MenuTypeTopic,
     kV6MenuTypeQuestion,
     kV6MenuTypeHint,
+    kV6MenuTypeDefine,
+    kV6MenuTypeShogun,
     kV6MenuSelectionChanged,
+    kV6MenuCurrentItemChanged,
     kV6MenuTitle,
     kV6MenuExited,
 } InfocomV6MenuType;

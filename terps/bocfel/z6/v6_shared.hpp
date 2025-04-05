@@ -21,6 +21,7 @@ void print_number(int number);
 void print_right_justified_number(int number);
 
 extern int number_of_margin_images;
+extern int margin_images[100];
 
 void add_margin_image_to_list(int image);
 void clear_margin_image_list(void);
@@ -37,6 +38,9 @@ void V_DEFINE(void);
 
 void V_CREDITS(void);
 void after_V_CREDITS(void);
+
+int print_zstr_to_cstr(uint16_t addr, char *str);
+int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
 extern uint8_t fg_global_idx, bg_global_idx;
 
