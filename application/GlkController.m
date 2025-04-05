@@ -3350,7 +3350,7 @@ fprintf(stderr, "%s\n",                                                    \
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
             } else
-                NSLog(@"delwin: No window with name %d", req->a1);
+                NSLog(@"delwin called on a non-existant Glk window (%d)", req->a1);
 
             break;
 
@@ -3519,7 +3519,7 @@ fprintf(stderr, "%s\n",                                                    \
                 windowdirty = YES;
                 free(sizewin);
             } else
-                NSLog(@"sizwin: something went wrong.");
+                NSLog(@"sizwin called on a non-existant Glk window (%d)", req->a1);
             break;
 
         case CLRWIN:
