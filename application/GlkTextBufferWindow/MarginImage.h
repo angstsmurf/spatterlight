@@ -20,14 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong) NSImage *image;
 @property(readonly) NSInteger alignment;
-@property NSInteger index;
 @property NSUInteger pos;
 @property NSRect bounds;
 @property NSUInteger linkid;
+@property NSString *uuid;
 @property (weak) MarginContainer *container;
 
 - (instancetype)initWithImage:(NSImage *)animage
-                        index:(NSInteger)index
                     alignment:(NSInteger)analign
                        linkId:(NSUInteger)linkId
                            at:(NSUInteger)apos

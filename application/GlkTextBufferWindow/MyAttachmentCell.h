@@ -20,12 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) MarginImage *marginImage;
 @property NSUInteger pos;
 @property NSInteger align;
+@property NSInteger index;
+@property NSString *marginImgUUID;
+
 @property BOOL hasDescription;
 
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
-                           at:(NSUInteger)apos;
+                           at:(NSUInteger)apos
+                        index:(NSInteger)index;
+
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull customA11yLabel;
 - (void)dragTextAttachmentFrom:(NSTextView *)source event:(NSEvent *)event filename:(NSString *)filename inRect:(NSRect)frame;
 

@@ -73,12 +73,10 @@
 }
 
 - (void)addImage:(NSImage *)image
-           index:(NSInteger)index
        alignment:(NSInteger)alignment
               at:(NSUInteger)pos
           linkid:(NSUInteger)linkid {
     MarginImage *mi = [[MarginImage alloc] initWithImage:image
-                                                   index:index
                                                alignment:alignment
                                                   linkId:linkid
                                                       at:pos

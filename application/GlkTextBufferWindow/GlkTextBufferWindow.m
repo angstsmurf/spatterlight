@@ -503,14 +503,33 @@ fprintf(stderr, "%s\n",                                                    \
 
     _lastNewTextOnTurn = self.glkctl.turns;
 
+    NSMutableDictionary<NSString *, MyAttachmentCell *> *attachmentCells = [[NSMutableDictionary alloc] initWithCapacity:container.marginImages.count];
+
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
+        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+        if (cell) {
+            if (cell.align == imagealign_MarginLeft || cell.align == imagealign_MarginRight) {
+                if (cell.marginImgUUID != nil)
+                    attachmentCells[cell.marginImgUUID] = cell;
+            }
+            cell.pos = range.location;
+        }
+    }];
+
     for (MarginImage *img in container.marginImages) {
         img.container = container;
         img.accessibilityParent = _textview;
-        img.bounds = [img boundsWithLayout:layoutmanager];
-        NSTextAttachment *attachment = [textstorage attribute:NSAttachmentAttributeName atIndex:img.pos + 1 effectiveRange:nil];
-        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
-        cell.marginImage = img;
-        cell.accessibilityLabel = cell.customA11yLabel;
+        MyAttachmentCell *cell = attachmentCells[img.uuid];
+        if (cell) {
+            cell.marginImage = img;
+            img.pos = cell.pos;
+            img.bounds = [img boundsWithLayout:layoutmanager];
+            cell.accessibilityLabel = cell.customA11yLabel;
+        }
     }
 
     if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
@@ -1573,16 +1592,24 @@ replacementString:(id)repl {
     return dst;
 }
 
+- (NSTextAttachment *)textAttachmenWithImage:(NSImage *)image alignment:(NSInteger)alignment index:(NSInteger)index position:(NSUInteger)position {
+    NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    MyAttachmentCell *cell =
+    [[MyAttachmentCell alloc] initImageCell:image
+                               andAlignment:alignment
+                                  andAttStr:textstorage
+                                         at:position
+                                      index:index];
+    att.attachmentCell = cell;
+    return att;
+}
+
 - (void)drawImage:(NSImage *)image
              val1:(NSInteger)alignment
              val2:(NSInteger)index
             width:(NSInteger)w
            height:(NSInteger)h
             style:(NSUInteger)style {
-    NSTextAttachment *att;
-    NSFileWrapper *wrapper;
-    NSData *tiffdata;
-
     [self flushDisplay];
 
     if (storedNewline) {
@@ -1598,29 +1625,30 @@ replacementString:(id)repl {
 
     image = [self scaleImage:image size:NSMakeSize(w, h)];
 
-    tiffdata = image.TIFFRepresentation;
-
-    wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
-    wrapper.preferredFilename = @"image.tiff";
-    att = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];
+    if (textstorage.length == 0 && (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight)) {
+        [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\u00AD" attributes:styles[style]]];
+        _lastchar = '\n';
+    }
 
     MyAttachmentCell *cell =
     [[MyAttachmentCell alloc] initImageCell:image
                                andAlignment:alignment
                                   andAttStr:textstorage
-                                         at:textstorage.length];
+                                         at:textstorage.length
+                                      index:index];
 
     if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
-        if (textstorage.length == 0) {
-            [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:styles[style]]];
-        } else if (_lastchar != '\n' && textstorage.length) {
+        if (_lastchar != '\n') {
             NSLog(@"lastchar is not line break. Do not add margin image.");
+            return;
         }
 
-        [container addImage:image index:index alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
+        [container addImage:image alignment:alignment at:textstorage.length linkid:(NSUInteger)self.currentHyperlink];
         cell.marginImage = container.marginImages.lastObject;
+        cell.marginImgUUID = cell.marginImage.uuid;
     }
 
+    NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     att.attachmentCell = cell;
     NSAttributedString *attstr = [NSAttributedString
                                   attributedStringWithAttachment:att];
@@ -1658,38 +1686,51 @@ replacementString:(id)repl {
     }
 }
 
-- (void)updateMarginImagesWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
+- (void)updateImageAttachmentsWithXScale:(CGFloat)xscale yScale:(CGFloat)yscale {
 
     if (xscale == 0 || yscale == 0)
         return;
-    NSLog(@"GlkTextBufferWindow %ld updateMarginImages", self.name);
+
+    NSMutableDictionary<NSString *, MarginImage *> *marginImages = [[NSMutableDictionary alloc] initWithCapacity:container.marginImages.count];
+    for (MarginImage *marginImage in container.marginImages) {
+        marginImages[marginImage.uuid] = marginImage;
+    }
+
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:NSMakeRange(0, textstorage.length)
      options:0
-     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+     usingBlock:^(NSTextAttachment *value, NSRange subrange, BOOL *stop) {
         if (!value) {
             return;
         }
+        MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
 
-        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
-        if (cell.align != imagealign_MarginLeft &&  cell.align != imagealign_MarginRight)
-            return;
-
-
-        MarginImage *mimg = cell.marginImage;
-
-        NSUInteger index = [container.marginImages indexOfObject:mimg];
-        if (index == NSNotFound) {
-            return;
-        }
-        [container.marginImages removeObject:mimg];
-        if ([self.glkctl.imageHandler handleFindImageNumber:mimg.index]) {
-            NSImage *img = self.glkctl.imageHandler.lastimage;
+        NSImage *img = nil;
+        if (cell && [self.glkctl.imageHandler handleFindImageNumber:cell.index]) {
+            img = self.glkctl.imageHandler.lastimage;
             img = [self scaleImage:img size:NSMakeSize(img.size.width * xscale, img.size.height * yscale)];
-            [container addImage:img index:mimg.index alignment:mimg.alignment at:mimg.pos linkid:0];
-            cell.marginImage = container.marginImages.lastObject;
+        } else {
+            return;
         }
+
+        // Replace non-margin inline images (alignment imagealign_InlineUp, imagealign_InlineDown, or imagealign_InlineCenter)
+        if (cell.align != imagealign_MarginLeft && cell.align != imagealign_MarginRight) {
+            NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.align index:cell.index position:subrange.location];
+            [textstorage addAttribute:NSAttachmentAttributeName value:att range:subrange];
+            return;
+        }
+
+        MarginImage *mimg = marginImages[cell.marginImgUUID];
+        if (mimg == nil) {
+            NSLog(@"updateImageAttachments: Could not find margin image with uuid %@", cell.marginImgUUID);
+            return;
+        }
+
+        [container.marginImages removeObject:mimg];
+        [container addImage:img alignment:mimg.alignment at:subrange.location linkid:0];
+        cell.marginImage = container.marginImages.lastObject;
+        cell.marginImgUUID = cell.marginImage.uuid;
     }];
 }
 
@@ -2240,7 +2281,7 @@ replacementString:(id)repl {
 - (NSArray<NSValue *> *)images {
     if (self.theme.vOSpeakImages == kVOImageNone)
         return @[];
-    NSArray<NSValue *> *images = [self imagesInRange:_textview.accessibilityVisibleCharacterRange];
+    NSArray<NSValue *> *images = [self imagesInRange:NSMakeRange(0,_textview.string.length)];
     return images;
 }
 
@@ -2256,8 +2297,11 @@ replacementString:(id)repl {
         if (!value) {
             return;
         }
-        if (withDescOnly && !((MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell).hasDescription)
+        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
+        if (withDescOnly && cell.hasDescription == NO)
             return;
+        if (subrange.length < 2 && (cell.alignment == imagealign_MarginRight || cell.alignment == imagealign_MarginLeft))
+            subrange.length = 2;
         [images addObject:[NSValue valueWithRange:subrange]];
     }];
 
@@ -2270,7 +2314,7 @@ replacementString:(id)repl {
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:range
-     options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
+     options:0
      usingBlock:^(id value, NSRange subrange, BOOL *stop) {
         if (!value) {
             return;

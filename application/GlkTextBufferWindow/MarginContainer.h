@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithContainerSize:(NSSize)size;
 - (void)clearImages;
 - (void)addImage:(NSImage *)image
-           index:(NSInteger)index
        alignment:(NSInteger)alignment
               at:(NSUInteger)top
           linkid:(NSUInteger)linkid;

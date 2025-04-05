@@ -33,12 +33,17 @@
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)alignment
                     andAttStr:(NSAttributedString *)anattrstr
-                           at:(NSUInteger)apos {
-    self = [super initImageCell:image];
+                           at:(NSUInteger)apos
+                        index:(NSInteger)index {
+    if (alignment != imagealign_MarginLeft && alignment != imagealign_MarginRight)
+        self = [super initImageCell:image];
+    else
+        self = [super initImageCell:nil];
     if (self) {
         _align = alignment;
         _attrstr = anattrstr;
         _pos = apos;
+        _index = index;
         if (image.accessibilityDescription.length) {
             self.accessibilityLabel = image.accessibilityDescription;
             _hasDescription = YES;
@@ -52,7 +57,9 @@
     if (self) {
         _align = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
+        _marginImgUUID = [decoder decodeObjectOfClass:[NSString class] forKey:@"marginImgUUID"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
+        _index = [decoder decodeIntegerForKey:@"index"];
         lastXHeight = [decoder decodeDoubleForKey:@"lastXHeight"];
         lastAscender = [decoder decodeDoubleForKey:@"lastAscender"];
         _hasDescription = [decoder decodeBoolForKey:@"hasDescription"];
@@ -65,10 +72,12 @@
     [super encodeWithCoder:encoder];
     [encoder encodeInteger:_align forKey:@"align"];
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
+    [encoder encodeObject:_marginImgUUID forKey:@"marginImgUUID"];
     [encoder encodeObject:self.accessibilityLabel forKey:@"label"];
     [encoder encodeDouble:lastXHeight forKey:@"lastXHeight"];
     [encoder encodeDouble:lastAscender forKey:@"lastAscender"];
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
+    [encoder encodeInteger:_index forKey:@"index"];
     [encoder encodeBool:_hasDescription forKey:@"hasDescription"];
 }
 

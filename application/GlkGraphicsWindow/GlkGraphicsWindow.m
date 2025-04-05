@@ -125,7 +125,8 @@
     NSRectFill(self.bounds);
     [_image unlockFocus];
     _showingImage = NO;
-    subImages = nil;
+    if (subImages)
+        [subImages removeAllObjects];
     dirtyRects = [NSMutableArray new];
     // Unless we do this, the background in Arthur is never cleared.
     // Adding self bounds to the dirtyRects array instead does not seem to work.

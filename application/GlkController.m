@@ -3864,7 +3864,7 @@ fprintf(stderr, "%s\n",                                                    \
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_bufferStyleHints];
                 if (req->a2 > 0)
-                    [((GlkTextBufferWindow *)reqWin) updateMarginImagesWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
+                    [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [reqWin deepCopyOfStyleHintsArray:_gridStyleHints];
             } else {
