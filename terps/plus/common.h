@@ -12,6 +12,7 @@
 #include "glk.h"
 
 void *MemAlloc(size_t size);
+void *MyCalloc(size_t size);
 void Fatal(const char *x);
 void Output(const char *string);
 void OpenGraphicsWindow(void);

@@ -14,6 +14,9 @@
 
 #include "apple2draw.h"
 
+#define SCREEN_MEM_SIZE 0x2000
+#define MAX_SCREEN_ADDR 0x1fff
+
 extern int x, y, xlen, ylen, xoff, yoff, size;
 
 uint8_t *descrambletable = NULL;
@@ -23,9 +26,9 @@ static uint8_t lobyte = 0, hibyte = 0;
 
 void ClearApple2ScreenMem(void)
 {
-    if (!screenmem)
-        return;
-    memset(screenmem, 0, 0x2000);
+    if (screenmem) {
+        memset(screenmem, 0, SCREEN_MEM_SIZE);
+    }
 }
 
 static void AdvanceScreenByte(void)
@@ -37,12 +40,12 @@ static void AdvanceScreenByte(void)
 static int PutByte(uint8_t work, uint8_t work2)
 {
     AdvanceScreenByte();
-    if (hibyte * 0x100 + lobyte + x > 0x1fff)
+    if (hibyte * 0x100 + lobyte + x > MAX_SCREEN_ADDR)
         return 0;
     screenmem[hibyte * 0x100 + lobyte + x] = work;
     y++;
     AdvanceScreenByte();
-    if (hibyte * 0x100 + lobyte + x > 0x1fff)
+    if (hibyte * 0x100 + lobyte + x > MAX_SCREEN_ADDR)
         return 0;
     screenmem[hibyte * 0x100 + lobyte + x] = work2;
     y++;
@@ -56,26 +59,23 @@ static int PutByte(uint8_t work, uint8_t work2)
     return 1;
 }
 
-uint16_t CalcScreenAddress(uint8_t ypos)
+static uint16_t CalcScreenAddress(uint8_t ypos)
 {
     if (0xc0 + ypos >= 0x182)
         return 0;
-    uint16_t result = descrambletable[ypos] + descrambletable[0xc0 + ypos] * 0x100 - 0x2000;
-    if (result > 0x1fff)
+    uint16_t result = descrambletable[ypos] + descrambletable[0xc0 + ypos] * 0x100 - SCREEN_MEM_SIZE;
+    if (result > MAX_SCREEN_ADDR)
         return 0;
     return result;
 }
 
 int DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
 {
-
     if (screenmem == NULL) {
-        screenmem = MemAlloc(0x2000);
-        ClearApple2ScreenMem();
+        screenmem = MyCalloc(SCREEN_MEM_SIZE);
     }
 
     uint8_t *origptr = ptr;
-
     uint8_t *end_of_data = ptr + datasize;
 
     uint8_t xoff = *ptr++;
@@ -90,13 +90,8 @@ int DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
         return 0;
     }
 
-    while (1) {
+    while (ptr < end_of_data - 1) {
         uint8_t repeats = 1;
-
-        if (ptr >= end_of_data - 1) {
-            return ptr - origptr;
-        }
-
         uint8_t work1 = *ptr++;
         if (work1 == 0) {
             if (ptr > end_of_data - 3) {
@@ -126,6 +121,7 @@ int DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
             }
         }
     }
+    return ptr - origptr;
 }
 
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
@@ -134,8 +130,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
         return 0;
 
     if (screenmem == NULL) {
-        screenmem = MemAlloc(0x2000);
-        ClearApple2ScreenMem();
+        screenmem = MyCalloc(0x2000);
     }
 
     if (descrambletable) {
@@ -196,7 +191,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             work = *ptr++;
             work2 = *ptr++;
             for (i = 0; i < c + 1 && ptr - origptr < datasize; i++) {
-                if (PutByte(work, work2) == 0) {
+                if (!PutByte(work, work2)) {
                     debug_print("Reached end of screen memory at offset %lx\n", ptr - origptr);
                     return 1;
                 }
@@ -211,7 +206,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             for (i = 0; i < c + 1 && ptr - origptr < datasize - 1; i++) {
                 work = *ptr++;
                 work2 = *ptr++;
-                if (PutByte(work, work2) == 0) {
+                if (!PutByte(work, work2)) {
                     debug_print("Reached end of screen memory at offset %lx\n", ptr - origptr);
                     return 1;
                 }
@@ -236,14 +231,9 @@ int DrawApple2Image(USImage *image)
 
 static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color)
 {
-    xpos = xpos * pixel_size;
-    xpos += x_offset;
-
-    ypos = ypos * pixel_size;
-    ypos += y_offset;
-
-    glk_window_fill_rect(Graphics, color, xpos,
-        ypos, pixel_size, pixel_size);
+    xpos = xpos * pixel_size + x_offset;
+    ypos = ypos * pixel_size + y_offset;
+    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size, pixel_size);
 }
 
 /* The code below is borrowed from the MAME Apple 2 driver */

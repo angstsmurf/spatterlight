@@ -117,6 +117,14 @@ void *MemAlloc(size_t size)
     return (t);
 }
 
+void *MyCalloc(size_t size)
+{
+    void *t = (void *)calloc(1, size);
+    if (t == NULL)
+        Fatal("Out of memory");
+    return (t);
+}
+
 void SetBit(int bit)
 {
     BitFlags |= (uint64_t)1 << bit;

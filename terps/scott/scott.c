@@ -561,6 +561,14 @@ void *MemAlloc(int size)
     return (t);
 }
 
+void *MyCalloc(int size)
+{
+    void *t = (void *)calloc(1, size);
+    if (t == NULL)
+        Fatal("Out of memory");
+    return (t);
+}
+
 int RandomPercent(int n)
 {
     uint64_t rv = (uint64_t)rand() << 6;

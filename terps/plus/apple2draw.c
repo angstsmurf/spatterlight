@@ -14,13 +14,16 @@
 #include "glk.h"
 #include "graphics.h"
 
+#define SCREEN_MEM_SIZE 0x2000
+#define MAX_SCREEN_ADDR 0x1fff
+
 static uint8_t *screenmem = NULL;
 static uint8_t lobyte = 0, hibyte = 0;
 
 void ClearApple2ScreenMem(void)
 {
     if (screenmem)
-        memset(screenmem, 0, 0x2000);
+        memset(screenmem, 0, SCREEN_MEM_SIZE);
 }
 
 static void AdvanceScreenByte(void)
@@ -59,8 +62,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
     uint8_t *origptr = ptr;
 
     if (screenmem == NULL) {
-        screenmem = MemAlloc(0x2000);
-        ClearApple2ScreenMem();
+        screenmem = MyCalloc(SCREEN_MEM_SIZE);
     }
 
     x = 0;
@@ -107,7 +109,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             work = *ptr++;
             work2 = *ptr++;
             for (i = 0; i < c + 1 && ptr - origptr < size; i++) {
-                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                if (hibyte * 0x100 + lobyte + x > MAX_SCREEN_ADDR)
                     return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {
@@ -120,7 +122,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize)
             for (i = 0; i < c + 1 && ptr - origptr < size; i++) {
                 work = *ptr++;
                 work2 = *ptr++;
-                if (hibyte * 0x100 + lobyte + x > 0x1fff)
+                if (hibyte * 0x100 + lobyte + x > MAX_SCREEN_ADDR)
                     return 0;
                 PutByte(work, work2);
                 if (x > xlen || y > ylen) {

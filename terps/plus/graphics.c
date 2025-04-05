@@ -220,8 +220,6 @@ int DrawCloseup(int img)
     return result;
 }
 
-void ClearApple2ScreenMem(void);
-
 int DrawRoomImage(int roomimg)
 {
     LastImgType = IMG_ROOM;
