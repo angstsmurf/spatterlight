@@ -39,10 +39,16 @@ void CENTER_PIC_X(void);
 void CENTER_PIC(void);
 void MARGINAL_PIC(void);
 void V_REFRESH(void);
+void V_BOW(void);
+void after_BUILDMAZE(void);
 
 void DISPLAY_MAZE(void);
 void DISPLAY_MAZE_PIC(void);
+void MAZE_F(void);
 void MAZE_MOUSE_F(void);
+
+void DESCRIBE_ROOM(void);
+void DESCRIBE_OBJECTS(void);
 
 #define kShogunTitleImage 1
 
@@ -71,6 +77,8 @@ typedef struct ShogunGlobals {
     uint8_t MAZE_MAP;
     uint8_t MAZE_X;
     uint8_t MAZE_Y;
+    uint8_t MAZE_XSTART;
+    uint8_t MAZE_YSTART;
     uint8_t MAZE_WIDTH;
     uint8_t MAZE_HEIGHT;
     uint8_t MACHINE;
@@ -86,6 +94,8 @@ typedef struct ShogunRoutines {
     uint32_t TELL_THE;
     uint32_t TELL_DIRECTION;
     uint32_t ADD_TO_INPUT;
+    uint32_t DESCRIBE_ROOM;
+    uint32_t DESCRIBE_OBJECTS;
 } ShogunRoutines;
 
 extern ShogunRoutines sr;

@@ -1437,3 +1437,7 @@ void DISPLAY_HINT(void) {}
 void RT_SEE_QST(void) {}
 void V_COLOR(void) {}
 void V_REFRESH(void) {}
+void V_BOW(void) {}
+void MAZE_F(void) {}
+void DESCRIBE_ROOM(void) {}
+void DESCRIBE_OBJECTS(void) {}

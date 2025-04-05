@@ -578,17 +578,6 @@ static std::vector<EntryPoint> entrypoints = {
         shogun_UPDATE_STATUS_LINE
     },
 
-
-    {
-        Game::Shogun,
-        "INTERLUDE-STATUS-LINE",
-        { 0xc1, 0x95, WILDCARD, 0x02, 0x09, 0x0a, 0xdd },
-        0,
-        0,
-        true,
-        INTERLUDE_STATUS_LINE
-    },
-
     {
         Game::Shogun,
         "INTERLUDE-STATUS-LINE alt",
@@ -601,8 +590,28 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Shogun,
+        "INTERLUDE-STATUS-LINE",
+        { 0x01, 0x00, 0xb8, 0x02, 0xc1, 0x95, WILDCARD, 0x02, 0x09, 0x0a },
+        4,
+        0,
+        true,
+        INTERLUDE_STATUS_LINE
+    },
+
+    {
+        Game::Shogun,
+        "DISPLAY-BORDER alt 2",
+        { 0x2d, 0x01, WILDCARD, 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, 0x40, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x97, 0x01, 0x01, 0x01 },
+        -4,
+        0,
+        true,
+        shogun_DISPLAY_BORDER
+    },
+
+    {
+        Game::Shogun,
         "DISPLAY-BORDER",
-        { 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, 0x40, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x97, 0x01, 0x01, 0x01 },
+        { 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, WILDCARD, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x97, 0x01, 0x01, 0x01 },
         0,
         0,
         true,
@@ -612,8 +621,8 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "DISPLAY-BORDER alt",
-        { 0xff, 0x7f, 0x01, 0xc5, 0x2d, 0x01, WILDCARD, 0xff, 0x7f, 0x02, 0xc5 },
-        0,
+        { 0xb8, 0x04, 0xff, 0x7f, 0x01, 0xc5, 0x2d, 0x01 },
+        2,
         0,
         true,
         shogun_DISPLAY_BORDER
@@ -651,6 +660,26 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Shogun,
+        "DESCRIBE-ROOM",
+        { 0x02, 0xAB, 0x02, 0x04, 0xA0, WILDCARD, 0x51, 0xB2 },
+        4,
+        0,
+        false,
+        DESCRIBE_ROOM
+    },
+
+    {
+        Game::Shogun,
+        "DESCRIBE-OBJECTS",
+        { 0xBB, 0xB0, 0x04, 0xA3, WILDCARD, 0x03, 0xA2, WILDCARD, 0x01, 0xC2 },
+        3,
+        0,
+        false,
+        DESCRIBE_OBJECTS
+    },
+
+    {
+        Game::Shogun,
         "V-VERSION",
         { 0x0d, 0x02, 0x12, 0xa0, 0x01 },
         0,
@@ -681,11 +710,21 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "after V-CREDITS",
-        { 0xB0, 0x00, 0xC1, 0x8F },
+        { },
         0,
         0,
         false,
         after_V_CREDITS
+    },
+
+    {
+        Game::Shogun,
+        "V-BOW",
+        { 0x88, 0x2b, WILDCARD, 0x00, 0xa0, 0x00, 0xd5 },
+        0,
+        0,
+        false,
+        V_BOW
     },
 
     // Shared with Arthur
@@ -750,11 +789,30 @@ static std::vector<EntryPoint> entrypoints = {
         V_REFRESH
     },
 
+    {
+        Game::Shogun,
+        "MAZE-F",
+        { 0x06, 0x41, 0x01, 0x05, 0x00 },
+        1,
+        0,
+        false,
+        MAZE_F
+    },
+
+    {
+        Game::Shogun,
+        "MAZE-F alt",
+        { 0x07, 0x41, 0x01, 0x05, 0x00 },
+        1,
+        0,
+        false,
+        MAZE_F
+    },
 
     {
         Game::Shogun,
         "MAZE-MOUSE-F",
-        { 0xcf, 0x1f, 0x4f, WILDCARD, 0x01, 0x05 },
+        { 0xcf, 0x1f, WILDCARD, WILDCARD, 0x01, 0x05, 0xcf, 0x1f },
         0,
         0,
         false,
@@ -764,7 +822,7 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::Shogun,
         "DISPLAY-MAZE-PIC",
-        { 0xa0, 0x01, 0xc0, 0xcf, 0x1f, 0x4f, 0x86, 0x00, 0x04 },
+        { 0xa0, 0x01, 0xc0, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x04 },
         0,
         0,
         true,
@@ -789,6 +847,16 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         true,
         DISPLAY_MAZE
+    },
+
+    {
+        Game::Shogun,
+        "after BUILDMAZE",
+        { 0xe0, 0x29, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x00, 0x00, 0xb8 },
+        8,
+        0,
+        false,
+        after_BUILDMAZE
     },
 
     {
@@ -907,22 +975,22 @@ static uint32_t end_of_color_addr = 0;
 void find_arthur_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
-
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x09, 0x0d, WILDCARD, 0x02 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
             if (start == -1) {
                 fprintf(stderr, "Error! Could not find color globals!\n");
             } else {
-                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+//                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
                 start = find_pattern_in_mem({ 0xb8 }, start, 200);
                 if (start != -1) {
                     end_of_color_addr = start;
-                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
+//                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
                 }
             }
+            entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
-            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
+//            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xb0, WILDCARD, 0x00, 0x71 }, { &ag.GL_WINDOW_TYPE }, entrypoint.found_at_address, 100);
             if (start == -1) {
@@ -947,8 +1015,6 @@ void find_arthur_globals(void) {
             if (start == -1) {
                 fprintf(stderr, "Error! Did not find global in pattern!\n");
             }
-
-
         } else if (entrypoint.fn == ARTHUR_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
             ar.UPDATE_STATUS_LINE = entrypoint.found_at_address - 1;
             ag.UPDATE = memory[ar.UPDATE_STATUS_LINE + 0xd] - 0x10;
@@ -980,7 +1046,6 @@ void find_arthur_globals(void) {
             if (start != -1) {
                 store_byte(start, 0x55);
             }
-
         } else if (entrypoint.fn == RT_UPDATE_STAT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_STAT_WINDOW = entrypoint.found_at_address - 1;
         } else if (entrypoint.fn == RT_UPDATE_DESC_WINDOW && entrypoint.found_at_address != 0) {
@@ -993,39 +1058,39 @@ void find_arthur_globals(void) {
             if (start == -1) {
                 fprintf(stderr, "ERROR: Could not find ag.GL_AUTHOR_SIZE!!\n");
             } else {
-                fprintf(stderr, "ag.GL_AUTHOR_SIZE = 0x%x\n", ag.GL_AUTHOR_SIZE);
+//                fprintf(stderr, "ag.GL_AUTHOR_SIZE = 0x%x\n", ag.GL_AUTHOR_SIZE);
             }
             start = find_16_bit_values_in_pattern({ 0xd9, 0x0f, WILDCARD, WILDCARD, WILDCARD, WILDCARD }, { &at.K_DIROUT_TBL, &at.K_DIROUT_TBL, &at.K_DIROUT_TBL }, start, 100);
             if (start == -1) {
                 fprintf(stderr, "ERROR: Could not find at.K_DIROUT_TBL!!\n");
             } else {
-                fprintf(stderr, "at.K_DIROUT_TBL = 0x%x\n", at.K_DIROUT_TBL);
+//                fprintf(stderr, "at.K_DIROUT_TBL = 0x%x\n", at.K_DIROUT_TBL);
             }
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
             if (start != -1) {
-                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
+//                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
                 start = find_16_bit_values_in_pattern({ 0xd4, 0x1f, WILDCARD, WILDCARD, 0x02, 0x09, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x00 }, { &at.K_HINT_ITEMS, &at.K_HINT_ITEMS }, start, 300);
                 if (start != -1) {
-                    fprintf(stderr, "at.K_HINT_ITEMS = 0x%x\n", at.K_HINT_ITEMS);
+//                    fprintf(stderr, "at.K_HINT_ITEMS = 0x%x\n", at.K_HINT_ITEMS);
                     start = find_globals_in_pattern({ 0xf7, 0xab, WILDCARD, 0x09, 0x00, 0x04, 0xc2 }, { &hint_chapter_global_idx }, start, 100);
                     if (start != -1) {
-                        fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
+//                        fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
                         start = find_globals_in_pattern({ 0x2d, 0x04, 0x07, 0xda, 0x2f, WILDCARD, WILDCARD, 0x04, 0x0d, WILDCARD, 0x01 }, { &hint_quest_global_idx, &hint_quest_global_idx, &hint_quest_global_idx }, start, 200);
                         if (start != -1) {
-                            fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
+//                            fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
                         }
                     }
                 }
             }
-
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, entrypoint.found_at_address, 300);
             if (start != -1) {
-                fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
+//                fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
             }
         } else if (entrypoint.fn == RT_SEE_QST && entrypoint.found_at_address != 0) {
             ar.RT_SEE_QST = entrypoint.found_at_address - 1;
+            entrypoint.found_at_address = 0;
         }
     }
 }
@@ -1033,7 +1098,6 @@ void find_arthur_globals(void) {
 void find_journey_globals(void) {
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
-
             // Later versions of Journey change font by calling a routine named
             // CHANGE-FONT. (Earlier versions call the FONT/set_font opcode
             // directly.) This routine returns false unless the argument is 3 or 4,
@@ -1106,7 +1170,6 @@ void find_journey_globals(void) {
             } else {
                 find_globals_in_pattern({ 0x2d, 0x01, WILDCARD, 0x55, WILDCARD, 0x01, 0x00, 0x61, 0x01, 0x00, 0xdd, 0x55, WILDCARD, 0x01, 0x00 }, { &jg.TOP_SCREEN_LINE, &jg.COMMAND_START_LINE, &jg.TEXT_WINDOW_LEFT }, entrypoint.found_at_address, 200);
             }
-
         } else if (entrypoint.fn == PRINT_CHARACTER_COMMANDS && entrypoint.found_at_address != 0) {
             jg.UPDATE_FLAG = byte(entrypoint.found_at_address + 7) - 0x10;
             jr.FILL_CHARACTER_TBL = unpack_routine(word(entrypoint.found_at_address + 13));
@@ -1116,19 +1179,13 @@ void find_journey_globals(void) {
             uint32_t offset = find_globals_in_pattern({ 0xa0, WILDCARD, 0xc1, 0x0d }, { &jg.SMART_DEFAULT_FLAG }, entrypoint.found_at_address, 100);
 
             offset = find_routines_in_pattern({ 0x00, 0x8f, WILDCARD, WILDCARD, 0xb0 }, { &jr.SMART_DEFAULT }, offset, 100);
-
-
             find_globals_in_pattern({ WILDCARD, 0x41, 0x09, 0x78, 0x50 }, { &jg.NAME_WIDTH_PIX }, offset, 100);
-
             offset = find_globals_in_pattern({ 0xcd, 0xa0, WILDCARD, 0xd6 }, { &jg.SUBGROUP_MODE }, jr.FILL_CHARACTER_TBL + 1, 200);
 
             offset = find_values_in_pattern({ 0x4a, 0x02, WILDCARD, 0xd2 }, { &ja.SUBGROUP }, offset, 200);
             offset = find_values_in_pattern({ 0x4a, 0x02, WILDCARD, 0xce }, { &ja.SHADOW }, offset, 200);
             find_globals_in_pattern({ 0x6f, WILDCARD, 0x01, 0x03 }, { &jg.CHARACTER_INPUT_TBL }, offset, 200);
-
-
         } else if (entrypoint.fn == after_INTRO && entrypoint.found_at_address != 0) {
-
             uint8_t graphic = 0;
             uint32_t offset = find_values_in_pattern({ 0x00, 0x3a, WILDCARD, 0x00 }, { &graphic }, entrypoint.found_at_address - 0x20, 100);
             if (offset != -1) {
@@ -1149,7 +1206,6 @@ void find_journey_globals(void) {
         } else if (entrypoint.fn == ERASE_COMMAND && entrypoint.found_at_address != 0) {
             find_globals_in_pattern({ 0x01, 0xc5, 0x2d, 0x01,  WILDCARD }, { &jg.COMMAND_WIDTH_PIX }, entrypoint.found_at_address - 7, 50);
         } else if (entrypoint.fn == READ_ELVISH && entrypoint.found_at_address != 0) {
-
             uint32_t offset = find_pattern_in_mem({ 0x0d,  0x01,  WILDCARD, 0x2d, 0x05, WILDCARD }, entrypoint.found_at_address - 3, 100);
 
             // Change start of READ-ELVISH
@@ -1171,16 +1227,12 @@ void find_journey_globals(void) {
             jo.PRAXIX = praxix;
             jo.BERGON = word(offset - 1);
             find_routines_in_pattern({ 0xc1, 0x8f, WILDCARD, WILDCARD, 0xb0, 0xc1 }, { &jr.PARSE_ELVISH }, offset, 200);
-
-
         } else if (entrypoint.fn == CHANGE_NAME && entrypoint.found_at_address != 0) {
-
             uint32_t offset = find_pattern_in_mem({ 0x2d, 0x04, WILDCARD, 0x8f }, entrypoint.found_at_address - 0x10, 1);
             if (offset != -1) {
                 // Hack for later versions
                 store_byte(offset, 0xb0);
             }
-
             uint8_t tag = 0, dummy;
             offset = find_values_in_pattern({ WILDCARD, 0x00, 0x74, WILDCARD, 0x00, 0x00 }, { &tag, &dummy }, entrypoint.found_at_address, 200);
             jo.TAG = tag;
@@ -1247,34 +1299,50 @@ void find_journey_globals(void) {
 void find_shogun_globals(void) {
     int start = 0;
     int mac_ii_return_address = 0;
+    int credits_return_address = 0;
     bool found_scene_select_values = false;
+    bool found_border_values = false;
+
+    // Early versions (up to r288) will set text colours
+    // to black on white in their main routine.
+    // We change them to default here.
+    start = unpack_routine(header.pc); // We already know the address of the main routine
+    start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &fg_global_idx, &bg_global_idx }, start, 30);
+
+    if (start != -1) {
+        memory[start + 1] = 1;
+        memory[start - 2] = 1;
+    }
+
+
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
             if (start == -1) {
                 start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
-                if (start == -1) {
-                    fprintf(stderr, "Error! Could not find color globals!\n");
-                }
+
             }
 
             if (start != -1) {
-                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
-                start = find_pattern_in_mem({ 0xa0, 0x00, 0xc1 }, start, 200);
+//                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
+                start = find_pattern_in_mem({ 0xb0 }, start, 200);
 
                 if (start == -1) {
                     start = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 400);
                 }
                 if (start != -1) {
                     end_of_color_addr = start;
-                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
+//                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
                 } else {
                     fprintf(stderr, "Could not find return from routine V_COLOR!\n");
                 }
+            } else {
+                fprintf(stderr, "Error! Could not find color globals!\n");
             }
+            entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
-            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
+//            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == MAC_II && entrypoint.found_at_address != 0) {
             start = entrypoint.found_at_address;
             for (int i = start; i < memory_size - 12; i++) {
@@ -1285,12 +1353,19 @@ void find_shogun_globals(void) {
             }
         } else if (entrypoint.fn == after_MAC_II && mac_ii_return_address != 0) {
             entrypoint.found_at_address = mac_ii_return_address;
-            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
+//            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == GET_FROM_MENU && entrypoint.found_at_address != 0) {
             // RET L00
             memory[entrypoint.found_at_address] = 0xab;
             memory[entrypoint.found_at_address + 1] = 0x01;
         } else if ((entrypoint.fn == V_VERSION || entrypoint.fn == V_CREDITS) && entrypoint.found_at_address != 0) {
+
+            if (entrypoint.fn == V_CREDITS) {
+                start = find_pattern_in_mem({0xb0}, entrypoint.found_at_address, 100);
+                if (start != -1)
+                    credits_return_address = start;
+            }
+
             start = find_pattern_in_mem({ 0xf1, 0x7f, 0x02 }, entrypoint.found_at_address, 100);
             if (start != -1) {
                 // Patch <HLIGHT ,H-BOLD> to bold fixed-width, which we have
@@ -1307,24 +1382,24 @@ void find_shogun_globals(void) {
                 fprintf(stderr, "Error!\n");
             }
 
+        } else if (entrypoint.fn == after_V_CREDITS && credits_return_address != 0) {
+            entrypoint.found_at_address = credits_return_address;
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
             start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
             if (start != -1) {
-                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
+//                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
             }
 
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
-
             start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
             if (start != -1) {
-                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
+//                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
                 start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
                 if (start != -1) {
-                    fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
-
+//                    fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
                     start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
                     if (start != -1) {
-                        fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
+//                        fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
                     }
                 } else {
                     fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
@@ -1332,18 +1407,16 @@ void find_shogun_globals(void) {
             } else {
                 fprintf(stderr, "Error! Could not fin hint_quest_global_idx!\n");
             }
+            entrypoint.found_at_address = 0; // DISPLAY_HINT
         } else if (entrypoint.fn == V_DEFINE && entrypoint.found_at_address != 0) {
 
             start = find_16_bit_values_in_pattern({ 0xd4, 0x2f, WILDCARD, WILDCARD, 0x00, 0x06 }, { &fkeys_table_addr }, entrypoint.found_at_address, 300);
 
             if (start != -1) {
-                fprintf(stderr, "fkeys_table_addr = 0x%x\n", fkeys_table_addr);
-
+//                fprintf(stderr, "fkeys_table_addr = 0x%x\n", fkeys_table_addr);
                 start = find_16_bit_values_in_pattern({ 0xf7, 0x8b, 0x0b, WILDCARD, WILDCARD, 0x00, 0x08, 0x66 }, { &fnames_table_addr }, start, 1100);
                 if (start != -1) {
-                    fprintf(stderr, "fnames_table_addr = 0x%x\n", fnames_table_addr);
-
-
+//                    fprintf(stderr, "fnames_table_addr = 0x%x\n", fnames_table_addr);
                 }
             } else {
                 fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
@@ -1359,7 +1432,7 @@ void find_shogun_globals(void) {
                 sg.SCENE = memory[start + 8] - 0x10;
                 st.SCENE_NAMES = (memory[start + 6] << 8) | memory[start + 7];
 
-                fprintf(stderr, "sg.HERE = 0x%x sg.SCORE = 0x%x sg.MOVES = 0x%x sg.SCENE = 0x%x st.SCENE_NAMES = 0x%x\n", sg.HERE, sg.SCORE, sg.MOVES, sg.SCENE, st.SCENE_NAMES);
+//                fprintf(stderr, "sg.HERE = 0x%x sg.SCORE = 0x%x sg.MOVES = 0x%x sg.SCENE = 0x%x st.SCENE_NAMES = 0x%x\n", sg.HERE, sg.SCORE, sg.MOVES, sg.SCENE, st.SCENE_NAMES);
 
                 start = find_globals_in_pattern({ 0xc1, 0x97, WILDCARD, 0x01, 0x03, 0xe1 }, { &sg.MACHINE }, start, 300);
 
@@ -1367,12 +1440,12 @@ void find_shogun_globals(void) {
 
 
                 if (start != -1) {
-                    fprintf(stderr, "sg.MACHINE = 0x%x sg.WINNER = 0x%x\n", sg.MACHINE, sg.WINNER);
+//                    fprintf(stderr, "sg.MACHINE = 0x%x sg.WINNER = 0x%x\n", sg.MACHINE, sg.WINNER);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, 0x03, 0xc1, 0x97, 0x1a }, start, 200);
                     sr.TELL_THE =
                     unpack_routine(word(start + 2));
-                    fprintf(stderr, "sr.TELL_THE = 0x%x\n", sr.TELL_THE);
+//                    fprintf(stderr, "sr.TELL_THE = 0x%x\n", sr.TELL_THE);
 
                     start = find_values_in_pattern({0x41, 0x1a, WILDCARD, 0x48 }, { &so.BRIDGE_OF_ERASMUS }, start, 200);
 
@@ -1381,13 +1454,13 @@ void find_shogun_globals(void) {
                     start = find_16_bit_values_in_pattern({ 0xca, 0x1f, WILDCARD, WILDCARD, 0x13, 0x5c }, { &so.GALLEY_WHEEL }, start, 200);
 
                     so.GALLEY = memory[start - 4];
-                    fprintf(stderr, "so.BRIDGE_OF_ERASMUS = 0x%x so.GALLEY = 0x%x so.WHEEL == 0x%x so.GALLEY_WHEEL = 0x%x\n", so.BRIDGE_OF_ERASMUS, so.GALLEY, so.WHEEL, so.GALLEY_WHEEL);
+//                    fprintf(stderr, "so.BRIDGE_OF_ERASMUS = 0x%x so.GALLEY = 0x%x so.WHEEL == 0x%x so.GALLEY_WHEEL = 0x%x\n", so.BRIDGE_OF_ERASMUS, so.GALLEY, so.WHEEL, so.GALLEY_WHEEL);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x01, 0x46, 0x61 }, start, 200);
                     sr.TELL_DIRECTION = unpack_routine(word(start + 2));
                     sg.SHIP_COURSE = memory[start + 4] - 0x10;
                     sg.SHIP_DIRECTION = memory[start - 8] - 0x10;
-                    fprintf(stderr, "sr.TELL_DIRECTION = 0x%x sg.SHIP_COURSE = 0x%x sg.SHIP_DIRECTION = 0x%x\n", sr.TELL_DIRECTION, sg.SHIP_COURSE, sg.SHIP_DIRECTION);
+//                    fprintf(stderr, "sr.TELL_DIRECTION = 0x%x sg.SHIP_COURSE = 0x%x sg.SHIP_DIRECTION = 0x%x\n", sr.TELL_DIRECTION, sg.SHIP_COURSE, sg.SHIP_DIRECTION);
                 } else {
                     fprintf(stderr, "Error! Could not find sr.TELL_THE!\n");
                 }
@@ -1410,19 +1483,31 @@ void find_shogun_globals(void) {
                     start--;
                 }
                 sm.SCENE_SELECT_F = word(start + 3);
-                fprintf(stderr, "sm.YOU_MAY_CHOOSE = 0x%x sm.PART_MENU = 0x%x sm.SCENE_SELECT_F = 0x%x\n", sm.YOU_MAY_CHOOSE, sm.PART_MENU, sm.SCENE_SELECT_F);
+//                fprintf(stderr, "sm.YOU_MAY_CHOOSE = 0x%x sm.PART_MENU = 0x%x sm.SCENE_SELECT_F = 0x%x\n", sm.YOU_MAY_CHOOSE, sm.PART_MENU, sm.SCENE_SELECT_F);
                 found_scene_select_values = true;
 
                 start = find_globals_in_pattern({ 0x55, 0x01, 0x01, 0x00, 0x76, 0x00, WILDCARD, 0x00, 0x54, 0x00, 0x01, 0x00, 0xb8 }, { &sg.FONT_X }, start, 2000);
-                start = find_globals_in_pattern({ 0x55, 0x01, 0x01, 0x00, 0x76, 0x00, WILDCARD, 0x00, 0x54, 0x00, 0x01, 0x00, 0xb8 }, { &sg.FONT_Y }, start, 100);
-
-                fprintf(stderr, "FONT_X: 0x%x FONT_Y: 0x%x\n", sg.FONT_X, sg.FONT_Y);
+                if (start != -1) {
+                    start = find_globals_in_pattern({ 0x55, 0x01, 0x01, 0x00, 0x76, 0x00, WILDCARD, 0x00, 0x54, 0x00, 0x01, 0x00, 0xb8 }, { &sg.FONT_Y }, start, 100);
+                    if (start != -1) {
+//                        fprintf(stderr, "FONT_X: 0x%x FONT_Y: 0x%x\n", sg.FONT_X, sg.FONT_Y);
+                    } else {
+                        fprintf(stderr, "Error! Could not find FONT_X or !\n");
+                    }
+                }
 
             } else {
                 fprintf(stderr, "Error! Could not find sm.YOU_MAY_CHOOSE!\n");
             }
         } else if (entrypoint.fn == V_REFRESH && entrypoint.found_at_address != 0) {
             sr.V_REFRESH = entrypoint.found_at_address - 1;
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == DESCRIBE_ROOM && entrypoint.found_at_address != 0) {
+            sr.DESCRIBE_ROOM = entrypoint.found_at_address - 1;
+            entrypoint.found_at_address = 0;
+        } else if (entrypoint.fn == DESCRIBE_OBJECTS && entrypoint.found_at_address != 0) {
+            sr.DESCRIBE_OBJECTS = entrypoint.found_at_address - 1;
+            entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == MAZE_MOUSE_F && entrypoint.found_at_address != 0) {
 
             // RET L00
@@ -1432,7 +1517,7 @@ void find_shogun_globals(void) {
             start = find_globals_in_pattern({ 0x76, WILDCARD, 0x06, 0x00 }, { &sg.MAZE_Y }, entrypoint.found_at_address, 300);
             if (start != -1) {
                 start = find_globals_in_pattern({ 0x76, WILDCARD, 0x05, 0x00 }, { &sg.MAZE_X }, start + 1, 300);
-                fprintf(stderr, "sg.MAZE_X = 0x%x sg.MAZE_Y = 0x%x\n", sg.MAZE_X, sg.MAZE_Y);
+//                fprintf(stderr, "sg.MAZE_X = 0x%x sg.MAZE_Y = 0x%x\n", sg.MAZE_X, sg.MAZE_Y);
 
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x9f }, { &so.EAST }, start + 1, 300);
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x8f }, { &so.NORTH }, start + 1, 300);
@@ -1440,41 +1525,69 @@ void find_shogun_globals(void) {
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x67 }, { &so.SOUTH }, start + 1, 300);
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x43 }, { &so.WEST }, start + 1, 300);
 
-                fprintf(stderr, "so.NORTH = 0x%x so.EAST = 0x%x so.SOUTH = 0x%x so.WEST = 0x%x\n", so.NORTH, so.EAST, so.SOUTH, so.WEST);
+//                fprintf(stderr, "so.NORTH = 0x%x so.EAST = 0x%x so.SOUTH = 0x%x so.WEST = 0x%x\n", so.NORTH, so.EAST, so.SOUTH, so.WEST);
 
-                uint16_t fnc;
+                uint16_t fnc = 0;
                 start = find_16_bit_values_in_pattern({ 0xf9, 0x27, WILDCARD, WILDCARD, 0x02, 0x0d }, { &fnc }, start + 1, 300);
-
-                sr.ADD_TO_INPUT = unpack_routine(fnc);
-
-                fprintf(stderr, "sr.ADD_TO_INPUT = 0x%x\n", sr.ADD_TO_INPUT);
-
-                start = find_globals_in_pattern({ 0x70, WILDCARD, 0x00, 0x00 }, { &sg.MAZE_MAP }, start, 300);
-
                 if (start != -1) {
-                    fprintf(stderr, "sg.MAZE_MAP = 0x%x\n", sg.MAZE_MAP);
-                } else {
-                    fprintf(stderr, "Could not find sg.MAZE_MAP!\n");
-                }
+                    sr.ADD_TO_INPUT = unpack_routine(fnc);
+//                    fprintf(stderr, "sr.ADD_TO_INPUT = 0x%x\n", sr.ADD_TO_INPUT);
 
+                    start = find_globals_in_pattern({ 0x70, WILDCARD, 0x00, 0x00 }, { &sg.MAZE_MAP }, start, 300);
+
+                    if (start != -1) {
+//                        fprintf(stderr, "sg.MAZE_MAP = 0x%x\n", sg.MAZE_MAP);
+                    } else {
+                        fprintf(stderr, "Could not find sg.MAZE_MAP!\n");
+                    }
+                }
             } else {
                 fprintf(stderr, "Could not find sg.MAZE_MAP!\n");
             }
         } else if (entrypoint.fn == DISPLAY_MAZE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xbe, 0x05, 0x57, 0x2c, 0x01, 0x01, 0x62, 0x03, WILDCARD, 0x41, 0x0d, 0x04, 0x00, 0x62, 0x04, WILDCARD, 0x58 }, { &sg.MAZE_HEIGHT, &sg.MAZE_WIDTH }, entrypoint.found_at_address, 300);
 
-            fprintf(stderr, "sg.MAZE_HEIGHT = 0x%x sg.MAZE_WIDTH = 0x%x\n", sg.MAZE_HEIGHT, sg.MAZE_WIDTH);
-        } else if (entrypoint.fn == shogun_DISPLAY_BORDER && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x2d, 0x01, WILDCARD }, { &sg.CURRENT_BORDER }, entrypoint.found_at_address, 100);
+//            fprintf(stderr, "sg.MAZE_HEIGHT = 0x%x sg.MAZE_WIDTH = 0x%x\n", sg.MAZE_HEIGHT, sg.MAZE_WIDTH);
+        } else if (entrypoint.fn == MAZE_F && entrypoint.found_at_address != 0) {
+            start = find_globals_in_pattern({ 0xbb, 0x8c, 0x00, 0x17, 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD, 0xb2 }, { &sg.MAZE_XSTART, &sg.MAZE_YSTART }, entrypoint.found_at_address, 400);
+
+//            fprintf(stderr, "sg.MAZE_XSTART = 0x%x sg.MAZE_YSTART = 0x%x\n", sg.MAZE_XSTART, sg.MAZE_YSTART);
+            entrypoint.found_at_address = 0; // MAZE_F
+        } else if (entrypoint.fn == shogun_DISPLAY_BORDER && entrypoint.found_at_address != 0 && !found_border_values) {
+            start = find_globals_in_pattern({ 0x2d, 0x01, WILDCARD }, { &sg.CURRENT_BORDER }, entrypoint.found_at_address - 27, 100);
             if (start == -1) {
-                fprintf(stderr, "Could not fins sg.CURRENT_BORDER. Setting it to 0.\n");
+                fprintf(stderr, "Could not find sg.CURRENT_BORDER. Setting it to 0.\n");
                 sg.CURRENT_BORDER = 0;
             } else {
-                fprintf(stderr, "sg.CURRENT_BORDER = 0x%x\n", sg.CURRENT_BORDER);
+//                fprintf(stderr, "sg.CURRENT_BORDER = 0x%x\n", sg.CURRENT_BORDER);
+                found_border_values = true;
             }
+        } else if (entrypoint.fn == V_BOW && entrypoint.found_at_address != 0) {
+            // Versions 283 through 295 (a total of 9 versions) assign values to the variable that
+            // is referenced by variable 1, rather than to variable directly, as later versions do.
+            // This causes a crash when variable 1 is 0, which is usually (always?) the case.
+            // We fix this by replacing the dereference with a direct assignment, as per the
+            // later versions. This seems to have no ill side-effects.
+
+            start = find_pattern_in_mem({ 0x6d, 0x01, WILDCARD, 0x8c, 0x00 }, entrypoint.found_at_address, 100);
+            if (start != -1 && memory[start] == 0x6d) {
+                memory[start] = 0x2d;
+                fprintf(stderr, "Patched V-BOW offset 0x%x\n", start);
+                if (memory[start + 13] == 0x6d) {
+                    fprintf(stderr, "Patched V-BOW offset 0x%x\n", start + 9);
+                    memory[start + 13] = 0x2d;
+                }
+
+            }
+            entrypoint.found_at_address = 0; // V_BOW
         }
     }
 }
+
+static std::unordered_map<uint32_t, EntryPoint *> entrypoint_map;
+
+static uint32_t lowest_entrypoint = UINT32_MAX;
+static uint32_t highest_entrypoint = 0;
 
 void find_entrypoints(void) {
 
@@ -1510,17 +1623,28 @@ void find_entrypoints(void) {
     } else if (is_spatterlight_shogun) {
         find_shogun_globals();
     }
+
+    for (auto &entrypoint : entrypoints) {
+        if (entrypoint.found_at_address != 0) {
+            entrypoint_map[entrypoint.found_at_address] = &entrypoint;
+            if (entrypoint.found_at_address < lowest_entrypoint)
+                lowest_entrypoint = entrypoint.found_at_address;
+            if (entrypoint.found_at_address > highest_entrypoint)
+                highest_entrypoint = entrypoint.found_at_address;
+        }
+    }
+
 }
 
 
 void check_entrypoints(uint32_t pc) {
-    for (auto &entrypoint : entrypoints) {
-        if (pc == entrypoint.found_at_address) {
-            fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint.title.c_str(), pc);
-            (entrypoint.fn)();
-        }
-        if (entrypoint.found_at_address > pc) {
-            break;
-        }
-    }
+    if (pc > highest_entrypoint || pc < lowest_entrypoint)
+        return;
+    auto found = entrypoint_map.find(pc);
+
+    if (found != entrypoint_map.end()) {
+        EntryPoint *entrypoint = entrypoint_map.at(pc);
+        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
+        (entrypoint->fn)();
+   }
 }

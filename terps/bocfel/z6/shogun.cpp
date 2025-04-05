@@ -6,7 +6,6 @@
 //
 
 #include "draw_image.hpp"
-#include "entrypoints.hpp"
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
@@ -113,7 +112,6 @@ void SETUP_TEXT_AND_STATUS(void) {
 static bool last_was_interlude = false;
 
 static void update_status_line(bool interlude) {
-
     last_was_interlude = interlude;
 
     V6_STATUS_WINDOW.x = 1;
@@ -862,6 +860,23 @@ void DISPLAY_MAZE_PIC(void) {
     display_maze_pic(variable(1), variable(3), variable(2));
 }
 
+static void get_maze_width_and_height(int *width, int *height) {
+    if (sg.MAZE_WIDTH == 0) {
+        if (graphics_type == kGraphicsTypeApple2) {
+            *width = 0x12;
+        } else {
+            *width = 0x25;
+        }
+    } else {
+        *width = get_global(sg.MAZE_WIDTH);
+    }
+    if (sg.MAZE_HEIGHT == 0) {
+        *height = 0x11;
+    } else {
+        *height = get_global(sg.MAZE_HEIGHT);
+    }
+}
+
 static void print_maze(void) {
     int offs = 0;
     uint16_t maze_map_table = get_global(sg.MAZE_MAP);
@@ -982,6 +997,167 @@ static int maze_mouse_f(void) {
 void MAZE_MOUSE_F(void) {
     store_variable(1, maze_mouse_f());
 }
+
+# pragma mark Skip maze stuff
+
+#define P_MAZE_WALL 0x80
+#define P_MAZE_STREET 0
+
+
+typedef struct MazeExits {
+    uint8_t NORTH;
+    uint8_t EAST;
+    uint8_t SOUTH;
+    uint8_t WEST;
+} MazeExits;
+
+bool deadend(int i, MazeExits *me) {
+    int MAZE_WIDTH, MAZE_HEIGHT;
+
+    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
+
+    int MAZE_MAP = get_global(sg.MAZE_MAP);
+    int mazesize = MAZE_WIDTH * MAZE_HEIGHT;
+
+    int start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * MAZE_WIDTH;
+
+    int exits = 0;
+
+    if (i == start || memory[MAZE_MAP + i] != P_MAZE_STREET || i % MAZE_WIDTH == 0 || (i + 1) % MAZE_WIDTH == 0) { // skip left and right borders
+        return false;
+    }
+
+    me->NORTH = P_MAZE_WALL;
+    me->EAST = P_MAZE_WALL;
+    me->SOUTH = P_MAZE_WALL;
+    me->WEST = P_MAZE_WALL;
+
+    if (i > MAZE_WIDTH && memory[MAZE_MAP + (i - MAZE_WIDTH)] == P_MAZE_STREET) {
+        me->NORTH = P_MAZE_STREET;
+        exits++;
+    }
+    if (i < mazesize - 1 && memory[MAZE_MAP + i + 1] == P_MAZE_STREET) {
+        me->EAST = P_MAZE_STREET;
+        exits++;
+    }
+    if (i < mazesize - MAZE_WIDTH && memory[MAZE_MAP + i + MAZE_WIDTH] == P_MAZE_STREET) {
+        me->SOUTH = P_MAZE_STREET;
+        exits++;
+    }
+    if (i > 1 && memory[MAZE_MAP + i - 1] == P_MAZE_STREET) {
+        me->WEST = P_MAZE_STREET;
+        exits++;
+    }
+
+    return (exits == 1);
+}
+
+void debug_draw_maze(void) {
+    int MAZE_HEIGHT, MAZE_WIDTH;
+    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
+
+    int MAZE_MAP = get_global(sg.MAZE_MAP);
+
+    fprintf(stderr, "sg.MAZE_HEIGHT:%d\n", MAZE_HEIGHT);
+    fprintf(stderr, "sg.MAZE_WIDTH:%d\n", MAZE_WIDTH);
+    fprintf(stderr, "sg.MAZE_MAP:0x%x\n", MAZE_MAP);
+
+    int size = MAZE_WIDTH * MAZE_HEIGHT;
+
+    fprintf(stderr, "MAZE-MAP start address: 0x%x end: 0x%x\n", MAZE_MAP, MAZE_MAP + size);
+    for (int i = 0; i < size; i++) {
+        if (i % MAZE_WIDTH == 0)
+            fprintf(stderr, "\n");
+        uint8_t c = memory[MAZE_MAP + i];
+        if (c == 0)
+            fprintf(stderr, "0");
+        else if (c == 0x80) {
+            fprintf(stderr, "X");
+        } else {
+            fprintf(stderr, "?");
+        }
+    }
+    fprintf(stderr, "\n");
+}
+
+void simplify_maze(void) {
+    MazeExits me = {};
+
+    int MAZE_WIDTH, MAZE_HEIGHT;
+    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
+
+    int MAZE_MAP = get_global(sg.MAZE_MAP);
+
+    int mazesize = MAZE_WIDTH * (MAZE_HEIGHT - 1);
+    for (int i = MAZE_WIDTH + 1; i < mazesize; i++) { // Skip bottom and top borders
+        int pos = i;
+        while (deadend(pos, &me)) {
+            memory[MAZE_MAP + pos] =  P_MAZE_WALL;
+            if (me.EAST == P_MAZE_STREET)
+                pos++;
+            else if (me.WEST == P_MAZE_STREET)
+                pos--;
+            else if (me.NORTH == P_MAZE_STREET)
+                pos -= MAZE_WIDTH;
+            else if (me.SOUTH == P_MAZE_STREET)
+                pos += MAZE_WIDTH;
+        }
+    }
+}
+
+void transcribe_and_print_string(const char *str) {
+    glk_put_string(const_cast<char*>(str));
+    int i = 0;
+    while (i++ != 0) {
+        transcribe(str[i]);
+    }
+}
+
+bool dont_repeat_question_on_autorestore = false;
+
+void after_BUILDMAZE(void) {
+
+    // We skip asking about simplifying the maze if
+    // VoiceOver is off and we did not just autorestore to
+    // this prompt.
+    if (!gli_voiceover_on && !dont_repeat_question_on_autorestore)
+        return;
+
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
+    if (!dont_repeat_question_on_autorestore)
+        transcribe_and_print_string("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >");
+
+    dont_repeat_question_on_autorestore = false;
+
+    bool done = false;
+    while (!done) {
+        uint8_t c = internal_read_char();
+        glk_put_char(c);
+        transcribe(c);
+        transcribe_and_print_string("\n");
+        switch (c) {
+            case 'n':
+            case 'N':
+                transcribe_and_print_string("\n");
+                return;
+            case 'y':
+            case 'Y':
+                done = true;
+                break;
+            default:
+                transcribe_and_print_string("(Y is affirmative): >");
+        }
+    }
+
+    transcribe_and_print_string("\n");
+//    debug_draw_maze();
+    simplify_maze();
+//    fprintf(stderr, "After simplifying:\n");
+//    debug_draw_maze();
+
+    fprintf(stderr, "XSTART:%d YSTART:%d sg.MAZE_X:%d sg.MAZE_Y:%d\n", get_global(sg.MAZE_XSTART), get_global(sg.MAZE_YSTART), get_global(sg.MAZE_X), get_global(sg.MAZE_Y));
+}
+
 
 #pragma mark Adjust windows
 
