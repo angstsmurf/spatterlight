@@ -4162,9 +4162,6 @@ again:
         return;
     }
 
-    if (color.integerColor == 0xffff)
-        NSLog(@"Wrong color?");
-
     if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         _borderView.layer.backgroundColor = color.CGColor;
 

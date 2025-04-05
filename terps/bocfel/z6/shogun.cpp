@@ -483,7 +483,6 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         }
 
         uint16_t string_2 = user_word(MENU + 4);
-        fprintf(stderr, "user_byte(string_2):%d\n", user_byte(string_2));
         if (result == 2 && (user_byte(string_2) == 24 ||
                             (header.release < 300 &&
                              user_byte(string_2) == 23))) { // "SAVE this game position\n" is 24 characters

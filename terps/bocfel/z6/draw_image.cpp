@@ -80,6 +80,8 @@ void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
         return;
     }
 
+//    fprintf(stderr, "writeToTIFF: \"%s\"\n", name);
+
     writetiff(fptr, data, (uint32_t)size, width);
 
     fclose(fptr);
@@ -429,7 +431,6 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
         memcpy(colourmap, ega_colormap, 16 * 3);
     } else {
         // Copy previously used palette
-        fprintf(stderr, "draw_amiga_mac_cga_ega_vga: Using global palette for image %d\n", image->index);
         memcpy(&colourmap[2][RED], &global_palette[1], colours * 3);
     }
 

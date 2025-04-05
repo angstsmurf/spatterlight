@@ -35,7 +35,6 @@ void add_margin_image_to_list(int image) {
             return;
         }
     }
-    fprintf(stderr, "z0_add_margin_image: Adding margin image %d to the update list\n", image);
     margin_images[number_of_margin_images] = image;
     number_of_margin_images++;
 }

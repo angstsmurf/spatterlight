@@ -430,7 +430,6 @@
                 return ((SubImage *)object).accessibilityLabel.length > 0;
             }]];
         } else {
-            NSLog(@"GlkGraphicsWindow images: returning %ld subimages", subImages.count);
             return subImages;
         }
     } else if (self.theme.vOSpeakImages == kVOImageAll && _showingImage) {

@@ -868,7 +868,6 @@ static void apply_patches(const std::vector<Patch> &patches)
         if (std::memcmp(patch.serial, header.serial, sizeof header.serial) == 0 &&
             patch.release == header.release &&
             patch.checksum == header.checksum) {
-            fprintf(stderr, "Applying patch for %s at 0x%x\n", patch.title.c_str(), patch.replacements[0].addr);
             for (const auto &replacement : patch.replacements) {
                 if (replacement.active()) {
                     apply_patch(replacement);
