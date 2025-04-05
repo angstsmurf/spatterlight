@@ -8609,6 +8609,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fno-define-target-os-macros";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -8666,6 +8667,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-fno-define-target-os-macros";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
