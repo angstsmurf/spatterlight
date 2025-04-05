@@ -708,9 +708,9 @@ fprintf(stderr, "%s\n",                                                    \
 
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (inline images, hyperlinks, Z-colors and reverse video)
-            id image = attrs[@"NSAttachment"];
+            id image = attrs[NSAttachmentAttributeName];
             if (image) {
-                [backingStorage addAttribute: @"NSAttachment"
+                [backingStorage addAttribute: NSAttachmentAttributeName
                                        value: image
                                        range: NSMakeRange(range.location, 1)];
                 ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = backingStorage;
