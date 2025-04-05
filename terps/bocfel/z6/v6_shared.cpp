@@ -25,6 +25,9 @@
 
 #define DEFINITIONS_WINDOW windows[2]
 
+#define ROSE_TAUPE 0x826766
+#define BROWN 0xd47fd4
+
 int margin_images[100];
 int number_of_margin_images = 0;
 
@@ -566,8 +569,8 @@ uint8_t hint_quest_global_idx = 0;
 
 uint16_t hints_table_addr = 0;
 
-glui32 upperwin_foreground = zcolor_Default; // black
-glui32 upperwin_background = zcolor_Default; // white
+static glui32 upperwin_foreground = zcolor_Default; // black
+static glui32 upperwin_background = zcolor_Default; // white
 
 InfocomV6MenuType hints_depth = kV6MenuTypeTopic;
 
@@ -578,8 +581,6 @@ static uint16_t h_quest_num = 1;
 // 0xe9d2 is value for Zork Zero release 393
 // It is changed in entrypoints.cpp
 uint16_t seen_hints_table_addr = 0xe9d2;
-
-int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
 static int16_t select_hint_by_mouse(int16_t *chr) {
     glk_cancel_char_event(V6_STATUS_WINDOW.id);
@@ -663,40 +664,48 @@ static uint16_t line_to_index(uint16_t line) {
     return line;
 }
 
-void update_monochrome_colours(void);
 
 static void draw_hints_windows(void) {
 
     update_user_defined_colours();
-    update_monochrome_colours();
 
     upperwin_foreground = user_selected_foreground;
     upperwin_background = user_selected_background;
 
+    bool is_macintosh = (graphics_type == kGraphicsTypeMacBW || (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga));
+
     if (!is_spatterlight_arthur) {
-        if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeAmiga) {
-            upperwin_background = 0x826766;
-        } else if (graphics_type == kGraphicsTypeEGA) {
-            upperwin_background = 0xd47fd4;
-        } else if (graphics_type == kGraphicsTypeMacBW) {
-            upperwin_background = monochrome_black;
-            upperwin_foreground = monochrome_white;
-        }
-        if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeApple2) {
-            upperwin_foreground = 0xffffff;
-            if (upperwin_background == 0xffffff)
+        switch (graphics_type) {
+            case kGraphicsTypeVGA:
+            case kGraphicsTypeBlorb:
+            case kGraphicsTypeAmiga:
+                upperwin_background = ROSE_TAUPE;
+                break;
+            case kGraphicsTypeEGA:
+                upperwin_background = BROWN;
+                break;
+            case kGraphicsTypeMacBW:
+            case kGraphicsTypeCGA:
+            case kGraphicsTypeApple2:
                 upperwin_foreground = user_selected_background;
-            if (upperwin_foreground == 0xffffff)
-                upperwin_foreground = 0;
+                upperwin_background = user_selected_foreground;
+            case kGraphicsTypeNoGraphics:
+                break;
+        }
+        if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+            upperwin_foreground = 0;
+        } else if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeBlorb) {
+            upperwin_foreground = 0xffffff;
+            if (upperwin_background == 0xffffff) {
+                upperwin_foreground = user_selected_background;
+                if (upperwin_foreground == 0xffffff)
+                    upperwin_foreground = 0;
+            }
         }
     }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, upperwin_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, upperwin_background);
-
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
-////    glk_window_clear(V6_STATUS_WINDOW.id);
-//    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
+    if (is_spatterlight_arthur || (upperwin_background != ROSE_TAUPE && upperwin_background != BROWN))
+        win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
@@ -714,48 +723,45 @@ static void draw_hints_windows(void) {
 
     int width = 1;
     int status_x = 0;
-    int height = V6_STATUS_WINDOW.y_size + gcellh;
 
-    if (is_game(Game::ZorkZero)) {
-//        // Global BORDER-ON, false if in text-only mode
-//        bool text_only_mode = (get_global(0x83) == 0);
-//        if (!text_only_mode) {
-//            DISPLAY_BORDER(HINT_BORDER);
-//            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
-//            width = width * imagescalex;
-//            height = height * imagescaley;
-//        }
+    V6_STATUS_WINDOW.x = 0;
+    V6_STATUS_WINDOW.y = 0;
+
+    int height = gcellh * 4 + ggridmarginy * 2;
+
+//    if (is_game(Game::ZorkZero)) {
+//        //        // Global BORDER-ON, false if in text-only mode
+//        //        bool text_only_mode = (get_global(0x83) == 0);
+//        //        if (!text_only_mode) {
+//        //            DISPLAY_BORDER(HINT_BORDER);
+//        //            get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
+//        //            width = width * imagescalex;
+//        //            height = height * imagescaley;
+//        //        } else
+
+    if (is_spatterlight_arthur) {
+        win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     } else if (is_spatterlight_shogun) {
         if (graphics_type == kGraphicsTypeApple2) {
-            width = 0;
-            int a2_graphical_banner_height;
-            get_image_size(P_BORDER, nullptr, &a2_graphical_banner_height);
-            height += a2_graphical_banner_height;
+            int bannerheight;
+            get_image_size(P_HINT_BORDER, nullptr, &bannerheight);
+            height += (bannerheight + 2) * imagescaley - gcellh;
         } else {
             get_image_size(P_HINT_LOC, &width, &height);
             if (graphics_type == kGraphicsTypeCGA) {
                 width += 3;
+            } else if (graphics_type == kGraphicsTypeAmiga) {
+                height += 1;
             }
             width *= imagescalex;
             height *= imagescaley;
-            if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
+            if (!is_macintosh) {
                 status_x = width;
             }
         }
     }
 
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
-
-    V6_STATUS_WINDOW.x = 0;
-    V6_STATUS_WINDOW.y = 0;
-
-    if (is_spatterlight_arthur) {
-        height = V6_STATUS_WINDOW.y_size + gcellh;
-    } else if (is_spatterlight_shogun && graphics_type == kGraphicsTypeApple2) {
-        int bannerheight;
-        get_image_size(P_HINT_BORDER, nullptr, &bannerheight);
-        height = V6_STATUS_WINDOW.y_size + bannerheight * imagescaley;
-    }
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
         height = V6_STATUS_WINDOW.y_size + 1;
@@ -765,11 +771,9 @@ static void draw_hints_windows(void) {
 
     flush_bitmap(current_graphics_buf_win);
 
-//    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
 
     glk_window_clear(V6_STATUS_WINDOW.id);
-    win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
@@ -787,10 +791,17 @@ static void center_line(const char *str, int line, int length, bool reverse) {
     if (length > width)
         width = length;
     glk_window_move_cursor(win, (width - length) / 2, line - 1);
-    if (reverse)
+    if (reverse) {
+        if (is_spatterlight_shogun) {
+            garglk_set_zcolors(upperwin_foreground, upperwin_background);
+        }
         garglk_set_reversevideo(1);
+    }
     glk_put_string(const_cast<char *>(str));
     garglk_set_reversevideo(0);
+    if (is_spatterlight_shogun) {
+        garglk_set_zcolors(upperwin_foreground, zcolor_Default);
+    }
 }
 
 static void right_line(const char *str, int line, int length) {
@@ -927,8 +938,8 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
-
     }
     glk_window_get_size(V6_TEXT_BUFFER_WINDOW.id, &width, &height);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
@@ -1298,6 +1309,8 @@ void DO_HINTS(void) {
 
     V6ScreenMode stored_mode = screenmode;
 
+    glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
+
     if (is_spatterlight_shogun || is_spatterlight_arthur) {
         v6_delete_win(&windows[2]);
         if (is_spatterlight_arthur) {
@@ -1311,9 +1324,10 @@ void DO_HINTS(void) {
             v6_delete_win(&windows[4]);
             v6_delete_win(&windows[5]);
         }
-        h_chapt_num = get_global(hint_chapter_global_idx);
-        h_quest_num = get_global(hint_quest_global_idx);
     }
+
+    h_chapt_num = get_global(hint_chapter_global_idx);
+    h_quest_num = get_global(hint_quest_global_idx);
 
     screenmode = MODE_HINTS;
     draw_hints_windows();
@@ -1368,6 +1382,8 @@ void DO_HINTS(void) {
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
+
     if (is_game(Game::ZorkZero)) {
         //        z0_update_on_resize();
     } else if (is_spatterlight_shogun) {
@@ -1377,8 +1393,6 @@ void DO_HINTS(void) {
 
     glk_put_string(const_cast<char*>("Back to the story...\n"));
     glk_set_echo_line_event(V6_TEXT_BUFFER_WINDOW.id, 0);
-
-    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
 }
 
 #pragma mark Credits
