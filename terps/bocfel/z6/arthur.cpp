@@ -6,7 +6,6 @@
 //
 
 #include "draw_image.hpp"
-#include "entrypoints.hpp"
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
@@ -48,7 +47,6 @@ ArthurTables at;
 
 extern Window *mainwin, *curwin;
 
-#define ARTHUR_GRAPHICS_BG windows[7]
 #define ARTHUR_ROOM_GRAPHIC_WIN windows[2]
 #define ARTHUR_ERROR_WINDOW windows[3]
 
