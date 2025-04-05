@@ -28,7 +28,18 @@
 int margin_images[100];
 int number_of_margin_images = 0;
 
+void shift_margin_image_list(void) {
+    fprintf(stderr, "More than 100 margin images! Shifting list, forgetting the first margin image (%d)\n", margin_images[0]);
+    for (int i = 1; i < number_of_margin_images; i++) {
+       margin_images[i] = margin_images[i - 1];
+    }
+    number_of_margin_images = 99;
+}
+
 void add_margin_image_to_list(int image) {
+    if (number_of_margin_images >= 100) {
+        shift_margin_image_list();
+    }
     for (int i = 0; i < number_of_margin_images; i++) {
         if (margin_images[i] == image) {
             // We have already added this image to the list
