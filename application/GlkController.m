@@ -4870,8 +4870,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                        context:(void *)context {
 
     if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
-        NSWorkspace * ws = [NSWorkspace sharedWorkspace];
-        _voiceOverActive = ws.voiceOverEnabled;
+        _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
         if (_voiceOverActive) { // VoiceOver was switched on
             // Don't speak or change menus unless we are the top game
             if ([Preferences.instance currentGame] == _game && !dead) {
@@ -4885,6 +4884,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         } else { // VoiceOver was switched off
             [_journeyMenuHandler hideJourneyMenus];
         }
+        // We send an event to let the interpreter know VoiceOver status.
+        // Only to Bocfel for now.
+        if ([_terpname isEqualToString:@"bocfel"])
+            [self sendArrangeEventWithFrame:_gameView.frame force:NO];
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath

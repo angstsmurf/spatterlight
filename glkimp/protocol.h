@@ -50,6 +50,7 @@ struct settings_struct
     int flicker;
     int zmachine_terp;
     int zmachine_no_err_win;
+    int voiceover_on;
     int z6_graphics;
     int z6_colorize;
     int determinism;
