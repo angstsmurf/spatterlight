@@ -130,4 +130,6 @@ typedef struct ShogunObjects {
 
 extern ShogunObjects so;
 
+extern bool dont_repeat_question_on_autorestore;
+
 #endif /* shogun_hpp */

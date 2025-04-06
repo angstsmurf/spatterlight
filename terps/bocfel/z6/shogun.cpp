@@ -1400,6 +1400,10 @@ bool shogun_autorestore_internal_read_char_hacks(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SHOGUN_MENU || screenmode == MODE_DEFINE) {
         return true;
     }
+    if (screenmode == MODE_NORMAL) { // We can assume that we are answering the maze simplification question;
+        dont_repeat_question_on_autorestore = true;
+        return true;
+    }
     return false;
 }
 

@@ -3607,15 +3607,15 @@ void zread_char()
 
     flush_image_buffer();
 
-    if (v6_read_hacks_needed) {
-        v6_read_hacks_needed = false;
-        if ((is_spatterlight_journey && journey_autorestore_internal_read_char_hacks()) ||
-            (is_spatterlight_arthur && arthur_autorestore_internal_read_char_hacks()) ||
-            (is_spatterlight_shogun && shogun_autorestore_internal_read_char_hacks())
-            ) {
-            store(0);
-            return;
-        }
+    if (internal_read_char_hack) {
+        internal_read_char_hack = false;
+        if (is_spatterlight_journey)
+            journey_autorestore_internal_read_char_hacks();
+        else if (is_spatterlight_shogun)
+            shogun_autorestore_internal_read_char_hacks();
+        store(0);
+        dont_repeat_question_on_autorestore = false;
+        return;
     }
 #endif
     if (options.autosave && !in_interrupt()) {
