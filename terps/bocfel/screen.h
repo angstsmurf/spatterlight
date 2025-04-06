@@ -189,6 +189,7 @@ extern glui32 user_selected_foreground, user_selected_background;
 extern std::array<Window, 8> windows;
 
 extern glui32 current_picture;
+extern bool graphics_type_changed;
 
 uint8_t internal_read_char(void);
 int count_characters_in_zstring(uint16_t str);

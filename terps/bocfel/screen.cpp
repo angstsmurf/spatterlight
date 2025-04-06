@@ -2634,6 +2634,8 @@ void update_monochrome_colours(void) {
 #pragma mark window change on resize events
 #endif
 
+bool graphics_type_changed = true;
+
 #ifdef ZTERP_GLK
 #ifndef SPATTERLIGHT
 static
@@ -2717,7 +2719,8 @@ void window_change()
                 last_z6_preferred_graphics = gli_z6_graphics;
 //                no_size_change = false;
                 // We may have switched preferred graphics to the one we already fell back on
-                if (graphics_type != gli_z6_graphics) {
+                graphics_type_changed = (graphics_type != gli_z6_graphics);
+                if (graphics_type_changed) {
                     free_images();
                     image_count = 0;
 
