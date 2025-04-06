@@ -127,16 +127,22 @@ void *MyCalloc(size_t size)
 
 void SetBit(int bit)
 {
-    BitFlags |= (uint64_t)1 << bit;
+    if (bit < 64 && bit > 0) {
+        BitFlags |= (uint64_t)1 << bit;
+    }
 }
 
 void ResetBit(int bit)
 {
-    BitFlags &= ~((uint64_t)1 << bit);
+    if (bit < 64 && bit > 0) {
+        BitFlags &= ~((uint64_t)1 << bit);
+    }
 }
 
 int IsSet(int bit)
 {
+    if (bit >= 64 || bit < 0)
+        return 0;
     return ((BitFlags & ((uint64_t)1 << bit)) != 0);
 }
 
