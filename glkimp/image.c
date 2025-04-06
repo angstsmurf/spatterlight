@@ -8,7 +8,6 @@ static int loadimage(int image)
 {
     glui32 chunktype;
     FILE *file;
-    char *buf;
     long pos = 0;
     long len;
     char filename[PATH_MAX];
@@ -29,21 +28,15 @@ static int loadimage(int image)
             if (!file)
                 return FALSE;
         }
-        
-        fseek(file, 0, 2);
-        len = ftell(file);
-        pos = 0;
-        fseek(file, 0, 0);
-
-        buf = malloc(len);
-        if (!buf)
-        {
+        if (fseek(file, 0, SEEK_END) != 0) {
             fclose(file);
             return FALSE;
         }
-
-        fread(buf, len, 1, file);
-
+        len = ftell(file);
+        if (len == -1) {
+            fclose(file);
+            return FALSE;
+        }
         fclose(file);
     }
     else
