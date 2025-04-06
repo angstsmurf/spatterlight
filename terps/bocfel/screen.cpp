@@ -4556,6 +4556,17 @@ void zdraw_picture()
         if (arthur_display_picture(pic, x, y)) {
             return;
         }
+    } else if (is_spatterlight_shogun) {
+        current_picture = pic;
+        if (current_picture == kShogunTitleImage) {
+            shogun_draw_title_image();
+            return;
+        }
+        if (curwin->index == 0) {
+            // This should never happen
+            shogun_display_inline_image(imagealign_MarginRight);
+            return;
+        }
     }
 #endif
     if (glk_image_get_info(pic, &w, &h)) {
