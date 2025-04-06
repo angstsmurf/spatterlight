@@ -476,7 +476,6 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
 
     current_menu_message = MSG;
     current_menu = MENU;
-    uint16_t total_entries = user_word(MENU); // Number of entries
     shogun_display_border(current_border);
 
     if (gli_voiceover_on)
