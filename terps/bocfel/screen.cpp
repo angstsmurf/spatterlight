@@ -3405,6 +3405,8 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             } else if (ev.win == graphics_window.id()) {
                 zterp_mouse_click(ev.val1 / graphics_window.ratio(), ev.val2 / graphics_window.ratio());
 #endif
+            } else if (ev.win->type == wintype_TextGrid) {
+                zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
             }
 
 #ifdef SPATTERLIGHT
@@ -5982,7 +5984,7 @@ void recover_library_state(library_state_data *dat)
                 if (windows[i].id->tag == dat->upperwintag)
                 {
                     upperwin = &windows[i];
-                    if (mouse_available())
+                    if (mouse_available() && !is_spatterlight_v6)
                         glk_request_mouse_event(upperwin->id);
                 }
             }
