@@ -1099,7 +1099,6 @@
     char_request = YES;
     dirty = YES;
 
-    [self grabFocus];
 
     // Draw Bureaucracy form cursor
     if (self.glkctl.gameID == kGameIsBureaucracy) {
