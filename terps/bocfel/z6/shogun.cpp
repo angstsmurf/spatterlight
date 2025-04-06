@@ -1421,6 +1421,12 @@ void shogun_update_after_autorestore(void) {
     window_change();
 }
 
+void shogun_update_after_restart(void) {
+    // Get rid of ending crest graphics window
+    v6_delete_win(&SHOGUN_CREST_WINDOW);
+    current_menu_selection = 1;
+}
+
 bool shogun_autorestore_internal_read_char_hacks(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SHOGUN_MENU || screenmode == MODE_DEFINE) {
         return true;

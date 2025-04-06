@@ -5646,9 +5646,14 @@ void init_screen(bool first_run)
             bg = find_index_of_true_colour(user_selected_background);
         }
 
-        // On restart, a blank status window will remain on top,
-        // so we hide it here.
-        v6_define_window(upperwin, 0, 0, 0, 0);
+            if (is_spatterlight_arthur) {
+                // On restart, a blank status window will remain on top,
+                // so we hide it here.
+                v6_define_window(upperwin, 0, 0, 0, 0);
+            } else {
+                shogun_update_after_restart();
+            }
+        }
     }
 
     Color fgcolor, bgcolor;
