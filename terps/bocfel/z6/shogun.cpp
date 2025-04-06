@@ -1373,7 +1373,6 @@ void stash_shogun_state(library_state_data *dat) {
     if (!dat)
         return;
 
-
     if (current_graphics_buf_win)
         dat->current_graphics_win_tag = current_graphics_buf_win->tag;
     if (graphics_fg_glk)
@@ -1443,4 +1442,3 @@ bool shogun_autorestore_internal_read_char_hacks(void) {
     }
     return false;
 }
-
