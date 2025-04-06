@@ -214,31 +214,59 @@ void INTERLUDE_STATUS_LINE(void) {
 
 #pragma mark SHOGUN MENU
 
-static void display_menu_line(uint16_t menu, uint16_t line, bool reverse) {
+static uint16_t current_menu_message;
+
+static void print_menu_line_to_transcript(uint16_t menu, uint16_t result) {
+    output_stream(-1, 0);
+    put_char(ZSCII_SPACE);
+    uint16_t string_address = user_word(menu + result * 2);
+    uint8_t length = user_byte(string_address);
+    uint16_t chr = string_address + 1;
+    for (int i = 0; i < length; i++) {
+        uint16_t c = user_byte(chr++);
+        put_char(c);
+    }
+    put_char(ZSCII_NEWLINE);
+    put_char(ZSCII_NEWLINE);
+    output_stream(1, 0);
+}
+
+static void display_menu_line(uint16_t menu, uint16_t line, bool reverse, bool send_menu) {
+
+    if (SHOGUN_MENU_WINDOW.id == nullptr) {
+        return;
+    }
+
     if (line < 1)
         line = 1;
-    if (SHOGUN_MENU_WINDOW.id != nullptr)
-        glk_window_move_cursor(SHOGUN_MENU_WINDOW.id, 0, line - 1);
+    glk_window_move_cursor(SHOGUN_MENU_WINDOW.id, 0, line - 1);
     SHOGUN_MENU_WINDOW.x = 1;
     SHOGUN_MENU_WINDOW.y = (line - 1) * gcellh + 1;
-//    garglk_set_zcolors(user_selected_foreground, user_selected_background);
+    strid_t stream = glk_window_get_stream(SHOGUN_MENU_WINDOW.id);
     if (reverse)
-        garglk_set_reversevideo(1);
+        garglk_set_reversevideo_stream(stream, 1);
     uint16_t string_address = user_word(menu + line * 2);
     uint8_t length = user_byte(string_address);
     uint16_t chr = string_address + 1;
-    for (int i = 0; i < length; i++)
-        put_char(user_byte(chr++));
+    char str[40];
+    for (int i = 0; i < length; i++) {
+        uint16_t c = user_byte(chr++);
+        glk_put_char_stream(stream, c);
+        str[i] = c;
+    }
     if (reverse)
-        garglk_set_reversevideo(0);
+        garglk_set_reversevideo_stream(stream, 0);
+
+    if (send_menu)
+        win_menuitem(kV6MenuTypeShogun, line - 1, user_word(menu), 0, str, length);
 }
 
 static void select_line(uint16_t menu, uint16_t line) {
-    display_menu_line(menu, line, true);
+    display_menu_line(menu, line, true, false);
 }
 
 static void unselect_line(uint16_t menu, uint16_t line) {
-    display_menu_line(menu, line, false);
+    display_menu_line(menu, line, false, false);
 }
 
 // Returns width of the longest menu entry in characters
@@ -258,13 +286,12 @@ static uint16_t menu_width(uint16_t MENU) {
 #define MAX_QUICKSEARCH 25
 
 static void print_quicksearch(char *typed) {
-    glk_set_window(SHOGUN_MENU_BG_WIN.id);
+    strid_t stream = glk_window_get_stream(SHOGUN_MENU_BG_WIN.id);
     glk_window_move_cursor(SHOGUN_MENU_BG_WIN.id, 0, 1);
     for (int i = 0; i < MAX_QUICKSEARCH; i++)
-        glk_put_char(UNICODE_SPACE);
+        glk_put_char_stream(stream, UNICODE_SPACE);
     glk_window_move_cursor(SHOGUN_MENU_BG_WIN.id, 0, 1);
-    glk_put_string(typed);
-    glk_set_window(SHOGUN_MENU_WINDOW.id);
+    glk_put_string_stream(stream, typed);
 }
 
 // Quick search function
@@ -310,41 +337,44 @@ static void update_menu(void) {
     if (graphics_type == kGraphicsTypeApple2 && current_menu == sm.PART_MENU) {
         menutop -= a2_graphical_banner_height;
     }
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
     if (SHOGUN_MENU_BG_WIN.id == nullptr) {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
         SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextGrid, 0);
         v6_delete_win(&SHOGUN_MENU_WINDOW);
+    }
+    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, menutop, (gscreenw - width) / 2  - shogun_banner_width_left, height);
+
+    strid_t menubg = glk_window_get_stream(SHOGUN_MENU_BG_WIN.id);
+    win_refresh(SHOGUN_MENU_BG_WIN.id->peer, 0, 0);
+    win_setbgnd(SHOGUN_MENU_BG_WIN.id->peer, user_selected_background);
+    glk_window_clear(SHOGUN_MENU_BG_WIN.id);
+    char str[100];
+    print_long_zstr_to_cstr(current_menu_message, str, 100);
+    glk_put_string_stream(menubg, str);
+
+    if (SHOGUN_MENU_WINDOW.id == nullptr) {
         SHOGUN_MENU_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
     }
-    v6_define_window(&SHOGUN_MENU_WINDOW, (gscreenw - width) / 2, menutop, width, height);
 
-    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, height);
-    win_setbgnd(SHOGUN_MENU_BG_WIN.id->peer, user_selected_background);
-    set_current_window(&SHOGUN_MENU_WINDOW);
+    v6_define_window(&SHOGUN_MENU_WINDOW, (gscreenw - width) / 2, menutop, width, height);
+    win_refresh(SHOGUN_MENU_WINDOW.id->peer, 0, 0);
     win_setbgnd(SHOGUN_MENU_WINDOW.id->peer, user_selected_background);
-    garglk_set_zcolors(user_selected_foreground, user_selected_background);
+    strid_t menuwin = glk_window_get_stream(SHOGUN_MENU_WINDOW.id);
+    garglk_set_reversevideo_stream(menuwin, 0);
+    glk_window_clear(SHOGUN_MENU_WINDOW.id);
     for (int i = 1; i <= cnt; i++) {
-        if (i == current_menu_selection)
-            select_line(current_menu, i);
-        else
-            unselect_line(current_menu, i);
+        display_menu_line(current_menu, i, (i == current_menu_selection), true);
     }
 }
 
-static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
+static int menu_select(uint16_t menu, uint16_t selection) {
     if (selection == 0)
         selection = 1;
     current_menu = menu;
     current_menu_selection = selection;
     uint16_t cnt = user_word(menu); // first word of table is number of elements
-
-    v6_delete_win(&SHOGUN_MENU_WINDOW);
-    SHOGUN_MENU_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
     update_menu();
-    set_current_window(&SHOGUN_MENU_WINDOW);
-    glk_request_mouse_event(SHOGUN_MENU_WINDOW.id);
     SHOGUN_MENU_WINDOW.style.reset(STYLE_REVERSE);
 
     uint16_t mouse_click_addr = header.extension_table + 2;
@@ -352,7 +382,11 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
     int type_pos = 0;
     char typed_letters[MAX_QUICKSEARCH + 1];
     bool finished = false;
+    win_menuitem(kV6MenuSelectionChanged, selection - 1, 0, 0, nullptr, 0);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
+
     while (!finished) {
+        glk_request_mouse_event(SHOGUN_MENU_WINDOW.id);
         uint16_t chr = internal_read_char();
         int width = menu_width(current_menu);
         int x;
@@ -364,8 +398,6 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
                 if (x > 0 && y > 0 && x < width && y <= cnt) {
                     unselect_line(menu,
                                   selection);
-//                    if (y == selection)
-//                        chr = ZSCII_CLICK_DOUBLE;
                     selection = y;
                     if (chr == ZSCII_CLICK_DOUBLE) {
                         finished = true;
@@ -430,57 +462,49 @@ static int menu_select(uint16_t menu, uint16_t ypos, uint16_t selection) {
                 win_beep(1);
                 break;
         }
+        if (current_menu_selection != selection)
+            win_menuitem(kV6MenuSelectionChanged, selection - 1, 0, 0, nullptr, 0);
         current_menu_selection = selection;
     }
     v6_delete_win(&SHOGUN_MENU_WINDOW);
-    set_current_window(&V6_TEXT_BUFFER_WINDOW);
-    store_byte(0x49af, 60); // P-INBUF
     return selection;
 }
-
-static uint16_t current_menu_message;
 
 static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_selection) {
     screenmode = MODE_SHOGUN_MENU;
     if (default_selection == 0)
         default_selection = 1;
     if (MSG == 0) {
-        fprintf(stderr, "Wut");
+        fprintf(stderr, "get_from_menu() called without a menu message.\n");
     }
+
     current_menu_message = MSG;
     current_menu = MENU;
-    uint16_t L = user_word(MENU); // Number of entries
-    set_global(0x9e, 1); // Set RESTORED? to true
-    uint16_t menuheight = L * gcellh + 2 * ggridmarginy;
-    shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-    v6_delete_win(&SHOGUN_MENU_BG_WIN);
-    SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextGrid, 0);
+    uint16_t total_entries = user_word(MENU); // Number of entries
+    shogun_display_border(current_border);
 
-    v6_define_window(&SHOGUN_MENU_BG_WIN, shogun_banner_width_left, SHOGUN_MENU_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, menuheight);
+    if (gli_voiceover_on)
+        internal_read_char();
 
-    SHOGUN_MENU_BG_WIN.x = 1;
-    SHOGUN_MENU_BG_WIN.y = 1;
+    update_menu();
 
     uint16_t result = 0;
     while (result == 0) {
-        set_current_window(&SHOGUN_MENU_BG_WIN);
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
-        garglk_set_zcolors(user_selected_foreground, user_selected_background);
-        print_handler(unpack_string(MSG), nullptr);
-        result = menu_select(MENU, gscreenh - menuheight, default_selection);
-        if (result < 0)
-            return result;
-        if (user_word(0x8) & 1) { // Is transcripting on?
-            output_stream(-1, 0);
-            put_char(ZSCII_SPACE);
-            display_menu_line(MENU, result, false);
-            put_char(ZSCII_NEWLINE);
-            put_char(ZSCII_NEWLINE);
-            output_stream(1, 0);
+        char message[40];
+        int length = print_long_zstr_to_cstr(MSG, message, 40);
+        glk_put_string_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), message);
+        win_menuitem(kV6MenuTitle, 0, kV6MenuTypeShogun, 0, const_cast<char *>(message), length);
+
+        result = menu_select(MENU, default_selection);
+
+        win_menuitem(kV6MenuExited, 0, kV6MenuTypeShogun, 0, nullptr, 0);
+
+        if ((word(0x10) & FLAGS2_TRANSCRIPT) == FLAGS2_TRANSCRIPT) { // Is transcripting on?
+            print_menu_line_to_transcript(MENU, result);
         }
+
+        glk_window_clear(SHOGUN_MENU_BG_WIN.id);
 
         uint16_t string_2 = user_word(MENU + 4);
         if (result == 2 && (user_byte(string_2) == 24 ||
@@ -494,17 +518,32 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
         } else {
             result = internal_call_with_2_args(FCN, result, MENU);
         }
-//        set_global(0x9e, 0); // Set RESTORED? to false
     }
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2.0, gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin);
     screenmode = MODE_NORMAL;
-    shogun_display_border((ShogunBorderType)get_global(sg.CURRENT_BORDER));
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+    if (sg.CURRENT_BORDER != 0) {
+        current_border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
+    }
+
+    if (graphics_type != kGraphicsTypeApple2 && current_border == P_BORDER2) {
+        current_border = P_BORDER;
+        if (sg.CURRENT_BORDER != 0) {
+            set_global(sg.CURRENT_BORDER, P_BORDER);
+        }
+    }
+
+    shogun_display_border(current_border);
     return result;
 }
 
 void GET_FROM_MENU(void) {
-    store_variable(1, get_from_menu(variable(1), variable(2), variable(3), variable(4)));
+    // On autorestore, we want to re-select the saved selection
+    if (current_menu_selection == 0)
+        current_menu_selection = variable(4);
+    store_variable(1, get_from_menu(variable(1), variable(2), variable(3), current_menu_selection));
+    current_menu_selection = 0;
 }
 
 void SCENE_SELECT(void) {
@@ -512,10 +551,13 @@ void SCENE_SELECT(void) {
     if (internal_arg_count() > 0 && variable(1) == 1) {
         menu = st.SCENE_NAMES;
     }
+    if (current_menu_selection == 0)
+        current_menu_selection = variable(4);
     uint16_t result = 0;
     while (result == 0) {
-        result = get_from_menu(sm.YOU_MAY_CHOOSE, menu, sm.SCENE_SELECT_F, 1);
+        result = get_from_menu(sm.YOU_MAY_CHOOSE, menu, sm.SCENE_SELECT_F, current_menu_selection);
     }
+    current_menu_selection = 0;
 }
 
 void V_VERSION(void) {
