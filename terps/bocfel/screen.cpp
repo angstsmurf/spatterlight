@@ -1168,6 +1168,8 @@ void show_message(const char *fmt, ...)
         stream = glk_window_get_stream(errorwin);
         glk_set_style_stream(stream, style_Alert);
     } else {
+        if (mainwin->id->line_request)
+            return;
         stream = glk_window_get_stream(mainwin->id);
         message = "\n[" + message + "]\n";
     }
