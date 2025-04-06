@@ -22,7 +22,7 @@ extern float imagescalex, imagescaley;
 static int shogun_banner_width_left = 0;
 
 
-uint16_t current_menu_selection;
+uint16_t current_menu_selection = 0;
 uint16_t current_menu;
 ShogunBorderType current_border;
 
