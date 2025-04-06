@@ -843,7 +843,6 @@ extern winid_t current_graphics_buf_win;
 void clear_image_buffer(void) {
     if (pixmap != nullptr) {
         free(pixmap);
-        glk_window_clear(current_graphics_buf_win);
         pixmap = nullptr;
     }
 }
