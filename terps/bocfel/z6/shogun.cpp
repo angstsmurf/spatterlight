@@ -939,15 +939,22 @@ static void get_maze_width_and_height(int *width, int *height) {
 static void print_maze(void) {
     int offs = 0;
     uint16_t maze_map_table = get_global(sg.MAZE_MAP);
+    int width, height;
     if (graphics_type == kGraphicsTypeBlorb) {
-        int width, height;
         get_image_size(P_MAZE_BACKGROUND, &width, &height);
         draw_rectangle_on_bitmap(0x717171, maze_offset_x, maze_offset_y, width, height);
     } else {
         draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, maze_offset_x, maze_offset_y);
     }
-    int maze_height = get_global(sg.MAZE_HEIGHT);
-    int maze_width = get_global(sg.MAZE_WIDTH);
+
+    //    if (graphics_type == kGraphicsTypeApple2 && maze_width != 19) {
+    //        get_image_size(P_MAZE_BACKGROUND, &width, &height);
+    //        draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, maze_offset_x + width, maze_offset_y);
+    //    }
+
+    int maze_height, maze_width;
+
+    get_maze_width_and_height(&maze_width, &maze_height);
 
     for (int y = 0; y < maze_height; y++) {
         for (int x = 0; x < maze_width; x++, offs++) {
