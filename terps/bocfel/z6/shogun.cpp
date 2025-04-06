@@ -896,9 +896,13 @@ void MARGINAL_PIC(void) {
 
     if (width >= hw_screenwidth - 2 * margin - 10) {
         // We guess that this is a center image
-        draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, imagealign_InlineCenter, picnum, V6_TEXT_BUFFER_WINDOW.x_size / width, false);
+        glk_set_style(style_User1);
         glk_window_flow_break(V6_TEXT_BUFFER_WINDOW.id);
-        internal_read_char();
+        int x_size = V6_TEXT_BUFFER_WINDOW.x_size - 2 * gbuffermarginx;
+        draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, imagealign_InlineCenter, picnum, (float)x_size / (width * pixelwidth), false);
+        glk_set_style(style_Normal);
+        glk_put_char(UNICODE_LINEFEED);
+        glk_put_char(UNICODE_LINEFEED);
     } else {
         draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, right ? imagealign_MarginRight : imagealign_MarginLeft, picnum, inline_scale, false);
     }
