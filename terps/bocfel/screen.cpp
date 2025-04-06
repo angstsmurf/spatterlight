@@ -39,7 +39,6 @@ extern "C" {
 #ifdef SPATTERLIGHT
 #include "spatterlight-autosave.h"
 #include "draw_image.hpp"
-#include "entrypoints.hpp"
 #include "extract_apple_2.h"
 #include "find_graphics_files.hpp"
 #include "arthur.hpp"
@@ -2320,7 +2319,6 @@ void v6_remap_win(Window *win, int type, winid_t *stored_win) {
     }
 
     win->id = gli_new_window(type, 0);
-    win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
 
     if (win == curwin) {
         glk_set_window(win->id);
@@ -4810,6 +4808,7 @@ void zget_wind_prop()
     uint16_t val = 0;
     Window *win;
 
+#ifndef SPATTERLIGHT
 #ifdef ZTERP_GLK_GRAPHICS
     // This is the start of LEAVE-MAZE. This maybe should occur instead
     // during SETUP-TEXT-AND-STATUS but that would have to deal with
@@ -4821,6 +4820,7 @@ void zget_wind_prop()
     if (shogun_hack && current_instruction == 0x3d8a5) {
         graphics_window.destroy();
     }
+#endif
 #endif
 
     win = find_window(zargs[0]);
@@ -5641,6 +5641,10 @@ void init_screen(bool first_run)
     uint8_t fg = DEFAULT_COLOUR;
     uint8_t bg = DEFAULT_COLOUR;
 
+    bool colours_are_default = (first_run ||
+                                (user_selected_foreground == gfgcol &&
+                                 user_selected_background == gbgcol));
+
     if (is_spatterlight_arthur || is_spatterlight_shogun) {
         if (first_run) {
             user_selected_foreground = gfgcol;
@@ -5649,18 +5653,10 @@ void init_screen(bool first_run)
             update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
         } else {
             update_v6_colours();
-        }
-    }
-
-    bool colours_are_default = (first_run ||
-                                (user_selected_foreground == gfgcol &&
-                                 user_selected_background == gbgcol));
-
-    if (is_spatterlight_arthur && !first_run) {
-        if (!colours_are_default) {
-            fg = find_index_of_true_colour(user_selected_foreground);
-            bg = find_index_of_true_colour(user_selected_background);
-        }
+            if (!colours_are_default) {
+                fg = find_index_of_true_colour(user_selected_foreground);
+                bg = find_index_of_true_colour(user_selected_background);
+            }
 
             if (is_spatterlight_arthur) {
                 // On restart, a blank status window will remain on top,
@@ -5680,6 +5676,8 @@ void init_screen(bool first_run)
     } else {
         fgcolor = Color(Color::Mode::ANSI, fg);
         bgcolor = Color(Color::Mode::ANSI, bg);
+        store_byte(0x2c, bg);
+        store_byte(0x2d, fg);
     }
 
 #endif
@@ -5832,12 +5830,15 @@ void init_screen(bool first_run)
                 mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
                 glk_set_echo_line_event(mainwin->id, 0);
                 upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
+
+                win_maketransparent(upperwin->id->peer);
+
                 win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
                 current_graphics_buf_win = nullptr;
                 windows[7].id = graphics_bg_glk;
 
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-                glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+                glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
             }
@@ -5852,7 +5853,6 @@ void init_screen(bool first_run)
         // the main window will be small on restart
         mainwin->x_size = gscreenw;
         mainwin->y_size = gscreenh;
-
         v6_sizewin(mainwin);
 
         if (is_spatterlight_journey) {
@@ -6035,6 +6035,7 @@ void recover_library_state(library_state_data *dat)
         }
 
         recover_library_sound_state(dat);
+        v6_autorestore_hacks_needed = true;
     }
 }
 #endif
