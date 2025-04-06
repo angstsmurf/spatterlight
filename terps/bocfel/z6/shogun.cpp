@@ -1227,7 +1227,6 @@ void after_BUILDMAZE(void) {
 static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
-    V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
 
     if (graphics_type == kGraphicsTypeApple2) {
         V6_STATUS_WINDOW.y_size = 2 * (gcellh + ggridmarginy);
@@ -1238,6 +1237,7 @@ static void adjust_shogun_window(void) {
         SHOGUN_A2_BORDER_WIN.y_size = a2_graphical_banner_height;
         v6_sizewin(&SHOGUN_A2_BORDER_WIN);
         V6_TEXT_BUFFER_WINDOW.y_origin = SHOGUN_A2_BORDER_WIN.y_origin + SHOGUN_A2_BORDER_WIN.y_size;
+        V6_TEXT_BUFFER_WINDOW.x_size = gscreenw;
         V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
     } else {
 //        if (V6_STATUS_WINDOW.id == nullptr)
@@ -1247,12 +1247,14 @@ static void adjust_shogun_window(void) {
         V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
         V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
 
-        V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
-        V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         V6_TEXT_BUFFER_WINDOW.x_origin = V6_STATUS_WINDOW.x_origin;
         V6_TEXT_BUFFER_WINDOW.x_size = V6_STATUS_WINDOW.x_size;
     }
+
+    V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+    V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
+    win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+    
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
@@ -1348,7 +1350,7 @@ void shogun_update_on_resize(void) {
                 display_maze(false);
             }
         }
-        if (windows[4].id != nullptr) {
+        if (SHOGUN_CREST_WINDOW.id != nullptr) {
             CENTER_PIC();
         }
         flush_image_buffer();
