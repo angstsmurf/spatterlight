@@ -120,10 +120,6 @@ static void update_status_line(bool interlude) {
 
     update_user_defined_colours();
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
-
     winid_t gwin = V6_STATUS_WINDOW.id;
     v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, (gcellh + ggridmarginy) * 2);
     v6_get_and_sync_upperwin_size();
