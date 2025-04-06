@@ -1302,11 +1302,15 @@ void shogun_update_on_resize(void) {
     } else {
         shogun_display_border(current_border);
         if (V6_TEXT_BUFFER_WINDOW.id) {
-            refresh_margin_images();
-            float yscalefactor = 2.0;
-            if (graphics_type == kGraphicsTypeMacBW)
-                yscalefactor = imagescalex;
-            float xscalefactor = yscalefactor * pixelwidth;
+            float xscalefactor = 0;
+            float yscalefactor = 0;
+            if (graphics_type_changed) {
+                refresh_margin_images();
+                yscalefactor = 2.0;
+                if (graphics_type == kGraphicsTypeMacBW)
+                    yscalefactor = imagescalex;
+                xscalefactor = yscalefactor * pixelwidth;
+            }
             win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
             win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         }

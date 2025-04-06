@@ -1383,6 +1383,12 @@ static void clear_window(Window *window)
 
     glk_window_clear(window->id);
 
+#ifdef SPATTERLIGHT
+        if (window->id->type == wintype_TextBuffer) {
+            clear_margin_image_list();
+        }
+#endif
+
     window->x = window->y = 0;
 }
 #endif
@@ -5926,6 +5932,9 @@ void stash_library_state(library_state_data *dat)
         dat->define_line = global_define_line;
         dat->internal_read_char_hack = internal_read_char_hack ? 1 : 0;
 
+        for (int i = 0; i < number_of_margin_images; i++)
+            dat->margin_images[i] = margin_images[i];
+
         if (is_spatterlight_journey) {
             stash_journey_state(dat);
         } else if (is_spatterlight_arthur) {
@@ -5988,6 +5997,10 @@ void recover_library_state(library_state_data *dat)
         hints_depth = (InfocomV6MenuType)dat->hints_depth;
         global_define_line = dat->define_line;
         internal_read_char_hack = (dat->internal_read_char_hack == 1);
+
+        number_of_margin_images = dat->number_of_margin_images;
+        for (int i = 0; i < number_of_margin_images; i++)
+            margin_images[i] = dat->margin_images[i];
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;

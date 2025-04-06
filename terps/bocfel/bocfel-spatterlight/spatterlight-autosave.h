@@ -87,6 +87,8 @@ typedef struct library_state_data_struct {
     int current_input_length;
     int number_of_journey_words;
     struct JourneyWords journey_words[4];
+    int number_of_margin_images;
+    uint16_t margin_images[100];
 
     int current_graphics_win_tag;
     int graphics_fg_tag;

@@ -304,6 +304,16 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         [encoder encodeObject:tempMutArray forKey:@"bocfel_printed_journey_words"];
     }
 
+    if (library_state.number_of_margin_images > 0) {
+        NSMutableArray<NSNumber *> *tempMutArray2 = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_margin_images];
+
+        for (int i = 0; i < library_state.number_of_margin_images; i++) {
+            [tempMutArray2 addObject:@(library_state.margin_images[i])];
+        }
+
+        [encoder encodeObject:tempMutArray2 forKey:@"bocfel_margin_images"];
+    }
+
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
@@ -354,6 +364,15 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.journey_words[i].str = ((NSNumber *)[array objectAtIndex:0]).intValue;
         library_state.journey_words[i].pcf = ((NSNumber *)[array objectAtIndex:1]).intValue;
         library_state.journey_words[i].pcm = ((NSNumber *)[array objectAtIndex:2]).intValue;
+        i++;
+    }
+
+    NSArray<NSNumber *> *tempArray2 = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_margin_images"];
+    library_state.number_of_margin_images = tempArray2.count;
+    i = 0;
+
+    for (NSNumber *number in tempArray2) {
+        library_state.margin_images[i] = number.intValue;
         i++;
     }
 }
