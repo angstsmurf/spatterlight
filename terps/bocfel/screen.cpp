@@ -3893,7 +3893,7 @@ static bool read_handler()
     }
 
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_arthur)
+    if (!is_spatterlight_v6)
 #endif
     for (int i = 0; i < input.len; i++) {
         transcribe(input.line[i]);
@@ -3910,7 +3910,7 @@ static bool read_handler()
     }
 
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_arthur)
+    if (!is_spatterlight_v6)
 #endif
     transcribe(UNICODE_LINEFEED);
     if (streams.test(OSTREAM_RECORD)) {

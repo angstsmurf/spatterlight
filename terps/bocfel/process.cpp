@@ -319,7 +319,7 @@ void process_instructions()
 
         current_instruction = pc;
 #ifdef SPATTERLIGHT
-        if (is_spatterlight_arthur || is_spatterlight_journey) {
+        if (is_spatterlight_v6) {
             check_entrypoints(pc);
         }
 #endif
