@@ -145,9 +145,6 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     return;
 }
 
-extern bool v6_autorestore_hacks_needed;
-extern bool v6_read_hacks_needed;
-
 // Restore an autosaved game, if one exists.
 // Returns true if the game was restored successfully, false if not.
 bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
@@ -251,9 +248,6 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         } else { win_reset(); exit(0); }
         
     }
-    
-    v6_autorestore_hacks_needed = true;
-    v6_read_hacks_needed = true;
 
     return true;
 }
@@ -297,6 +291,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.shogun_menu_selection forKey:@"bocfel_shogun_menu_selection"];
     [encoder encodeInt32:(int32_t)library_state.define_line forKey:@"bocfel_define_line"];
 
+    [encoder encodeInt32:(int32_t)library_state.internal_read_char_hack forKey:@"internal_read_char_hack"];
 
     if (library_state.number_of_journey_words > 0) {
         NSMutableArray<NSArray *> *tempMutArray = [[NSMutableArray alloc] initWithCapacity:library_state.number_of_journey_words];
@@ -349,6 +344,8 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.shogun_menu = [decoder decodeInt32ForKey:@"bocfel_shogun_menu"];
     library_state.shogun_menu_selection = [decoder decodeInt32ForKey:@"bocfel_shogun_menu_selection"];
     library_state.define_line = [decoder decodeInt32ForKey:@"bocfel_define_line"];
+
+    library_state.internal_read_char_hack = [decoder decodeInt32ForKey:@"internal_read_char_hack"];
 
     NSArray<NSArray *> *tempArray = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_printed_journey_words"];
     library_state.number_of_journey_words = tempArray.count;

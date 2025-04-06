@@ -101,6 +101,8 @@ typedef struct library_state_data_struct {
     int shogun_menu;
     int shogun_menu_selection;
 
+    int internal_read_char_hack;
+
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

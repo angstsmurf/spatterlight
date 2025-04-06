@@ -51,6 +51,8 @@ extern "C" {
 
 extern long last_random_seed;
 extern int random_calls_count;
+
+static bool internal_read_char_hack = false;
 #endif
 
 #if defined(GLK_MODULE_IMAGE) && defined(ZTERP_GLK_BLORB)
@@ -2247,8 +2249,7 @@ bool v6_switch_to_allowed_interpreter_number(void) {
     return true;
 }
 
-bool v6_autorestore_hacks_needed = false;
-bool v6_read_hacks_needed = false;
+static bool v6_autorestore_hacks_needed = false;
 
 void v6_restore_hacks(void) {
     if (v6_autorestore_hacks_needed) {
@@ -3582,16 +3583,23 @@ uint8_t internal_read_char(void) {
     Input input;
     input.type = Input::Type::Char;
     glk_request_timer_events(0);
+    if (curwin->id->type != wintype_TextBuffer)
+        glk_request_mouse_event(curwin->id);
 
     glk_cancel_line_event(curwin->id, nullptr);
     glk_cancel_char_event(curwin->id);
 
+    internal_read_char_hack = true;
+
     if (options.autosave && !in_interrupt()) {
         spatterlight_do_autosave(SaveOpcode::None);
     }
-    if (!get_input(0, 0, input))
-        return 0;
-    return input.key;
+    uint8_t result = 0;
+    if (get_input(0, 0, input)) {
+        result = input.key;
+    }
+    internal_read_char_hack = false;
+    return result;
 }
 #endif
 
@@ -5916,6 +5924,7 @@ void stash_library_state(library_state_data *dat)
         dat->screenmode = screenmode;
         dat->hints_depth = (int)hints_depth;
         dat->define_line = global_define_line;
+        dat->internal_read_char_hack = internal_read_char_hack ? 1 : 0;
 
         if (is_spatterlight_journey) {
             stash_journey_state(dat);
@@ -5978,6 +5987,7 @@ void recover_library_state(library_state_data *dat)
         screenmode = dat->screenmode;
         hints_depth = (InfocomV6MenuType)dat->hints_depth;
         global_define_line = dat->define_line;
+        internal_read_char_hack = (dat->internal_read_char_hack == 1);
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;
