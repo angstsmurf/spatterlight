@@ -1560,8 +1560,11 @@ void find_shogun_globals(void) {
                 sg.CURRENT_BORDER = 0;
             } else {
 //                fprintf(stderr, "sg.CURRENT_BORDER = 0x%x\n", sg.CURRENT_BORDER);
-                found_border_values = true;
             }
+            start = entrypoint.found_at_address + 10;
+            if (byte(start) == 0xbe)
+                store_byte(start, 0xb0);
+            found_border_values = true;
         } else if (entrypoint.fn == V_BOW && entrypoint.found_at_address != 0) {
             // Versions 283 through 295 (a total of 9 versions) assign values to the variable that
             // is referenced by variable 1, rather than to variable directly, as later versions do.

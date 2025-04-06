@@ -195,6 +195,10 @@ static void update_status_line(bool interlude) {
     glk_put_string(const_cast<char*>("Moves:"));
     print_right_justified_number(get_global(sg.MOVES));
     set_current_window(&windows[0]);
+
+    if (graphics_type == kGraphicsTypeApple2 && current_border == P_BORDER2 && scene != S_ERASMUS) {
+        shogun_display_border(P_BORDER);
+    }
 }
 
 void shogun_UPDATE_STATUS_LINE(void) {
@@ -203,11 +207,7 @@ void shogun_UPDATE_STATUS_LINE(void) {
 
 void INTERLUDE_STATUS_LINE(void) {
     if (graphics_type != kGraphicsTypeApple2) {
-        if (find_image(P_BORDER2)) {
-            shogun_display_border(P_BORDER2);
-        } else if (find_image(P_BORDER)) {
-            shogun_display_border(P_BORDER);
-        }
+        shogun_display_border(P_BORDER2);
     }
     update_status_line(true);
 }
@@ -591,9 +591,8 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
     int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
     int width, height;
 
-    if (get_global(sg.SCENE) != 1 && border == P_BORDER2)
-        border = P_BORDER;
-    
+    // On Apple 2: P_BORDER is crests, P_BORDER2 is waves
+
     get_image_size(border, &width, &height);
 
     a2_graphical_banner_height = (height + 1) * imagescaley;
@@ -619,11 +618,9 @@ void shogun_display_border(ShogunBorderType border) {
     if (border != NO_BORDER  && border != P_BORDER && border != P_BORDER2 && border != P_HINT_BORDER) {
         border = P_BORDER;
     }
-    fprintf(stderr, "shogun_display_border: inital border val: %d\n", border);
     bool start_menu_mode = (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU);
 
-
-    if (get_global(sg.SCENE) == S_ERASMUS) {
+    if (get_global(sg.SCENE) == S_ERASMUS && current_menu == sm.PART_MENU) {
         border = (graphics_type == kGraphicsTypeApple2) ? P_BORDER2 : P_BORDER;
     }
 
@@ -639,21 +636,20 @@ void shogun_display_border(ShogunBorderType border) {
         border = P_HINT_BORDER;
 
     if (border != P_HINT_BORDER) {
-        if (sg.CURRENT_BORDER != 0)
+        if (sg.CURRENT_BORDER != 0) {
             set_global(sg.CURRENT_BORDER, border);
+        }
         current_border = border;
-    }
-
-    if (number_of_margin_images > 0 && border != P_HINT_BORDER) {
-        extract_palette_from_picnum(margin_images[number_of_margin_images - 1]);
-    } else {
-        extract_palette_from_picnum(border);
     }
 
     // Delete covering graphics window (which would show the title screen)
     if (current_graphics_buf_win != graphics_bg_glk && current_graphics_buf_win != nullptr) {
         if (current_graphics_buf_win == graphics_fg_glk)
             graphics_fg_glk = nullptr;
+        // Hack to avoid border changing color before image gets removed
+        image_needs_redraw = false;
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
+        glk_window_clear(current_graphics_buf_win);
         v6_delete_glk_win(current_graphics_buf_win);
     }
 
@@ -675,6 +671,22 @@ void shogun_display_border(ShogunBorderType border) {
         return;
     }
 
+    int width, height;
+    if (!get_image_size(border, &width, &height)) {
+        if (border == P_BORDER2) {
+            border = P_BORDER;
+            if (!get_image_size(border, &width, &height)) {
+                return;
+            }
+        }
+    }
+
+    if (number_of_margin_images > 0 && border != P_HINT_BORDER) {
+        extract_palette_from_picnum(margin_images[number_of_margin_images - 1]);
+    } else {
+        extract_palette_from_picnum(border);
+    }
+
     int16_t BR = -1;
     int16_t BL = -1;
     switch(border) {
@@ -693,8 +705,6 @@ void shogun_display_border(ShogunBorderType border) {
             break;
     }
 
-    int width, height;
-    get_image_size(border, &width, &height);
     int left_margin = 0;
     int pillar_top = 0;
 
@@ -702,8 +712,9 @@ void shogun_display_border(ShogunBorderType border) {
         if (graphics_type != kGraphicsTypeAmiga && graphics_type != kGraphicsTypeMacBW) {
             border_top = height;
             pillar_top = border_top;
+            get_image_size(P_HINT_LOC, &width, nullptr);
         } else {
-            get_image_size(P_HINT_LOC, nullptr, &pillar_top);
+            get_image_size(P_HINT_LOC, &width, &pillar_top);
         }
     } else {
         get_image_size(P_BORDER_LOC, &width, nullptr);
@@ -734,8 +745,9 @@ void shogun_display_border(ShogunBorderType border) {
         draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
         lowest_drawn_line = height + border_top;
     } else {
-        // Amiga och Mac graphics contain both left and right borders
-        
+        // Amiga och Mac border graphics are a single image with everything,
+        // not separated into top and sides
+
         if (must_extend && (graphics_type == kGraphicsTypeAmiga || graphics_type == kGraphicsTypeMacBW)) {
             if (border == P_BORDER) {
                 if (graphics_type == kGraphicsTypeMacBW) {
@@ -785,20 +797,21 @@ void shogun_display_border(ShogunBorderType border) {
     bool should_draw_covering_rectangle = false;
 
     glui32 rectangle_color = user_selected_foreground;
-    if (!start_menu_mode && border != P_HINT_BORDER)
+    if (!start_menu_mode && border != P_HINT_BORDER) {
         should_draw_covering_rectangle = true;
+    }
 
     if (border == P_HINT_BORDER ) {
-        left_margin = 0;
-        if (graphics_type == kGraphicsTypeMacBW) {
+        if (graphics_type == kGraphicsTypeCGA) {
             should_draw_covering_rectangle = true;
-            rectangle_color = monochrome_black;
-        } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
-            should_draw_covering_rectangle = true;
-            rectangle_color = 0x826766;
-        }
-        if (should_draw_covering_rectangle) {
+        } else {
             left_margin = 0;
+            if (graphics_type == kGraphicsTypeMacBW) {
+                should_draw_covering_rectangle = true;
+            } else if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
+                should_draw_covering_rectangle = true;
+                rectangle_color = 0x826766;
+            }
         }
     }
 
@@ -814,7 +827,11 @@ void shogun_DISPLAY_BORDER(void) {
         screenmode = MODE_SHOGUN_MENU;
     if (screenmode != MODE_HINTS && screenmode != MODE_SHOGUN_MENU)
         screenmode = MODE_NORMAL;
-    shogun_display_border((ShogunBorderType)variable(1));
+    if (internal_arg_count() > 0) {
+        shogun_display_border((ShogunBorderType)variable(1));
+    } else {
+        shogun_display_border(P_BORDER);
+    }
 }
 
 void CENTER_PIC_X(void) {
@@ -886,6 +903,7 @@ void MARGINAL_PIC(void) {
         draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, picnum, right ? imagealign_MarginRight : imagealign_MarginLeft, picnum, inline_scale, false);
     }
     add_margin_image_to_list(picnum);
+    shogun_display_border(current_border);
 }
 
 #pragma mark Maze
@@ -1377,6 +1395,9 @@ void recover_shogun_state(library_state_data *dat) {
 
 void shogun_update_after_restore(void) {
     screenmode = MODE_NORMAL;
+    if (sg.CURRENT_BORDER != 0)
+        current_border = (ShogunBorderType)get_global(sg.CURRENT_BORDER);
+    current_menu_selection = 0;
     shogun_erase_screen();
     after_V_COLOR();
 }
