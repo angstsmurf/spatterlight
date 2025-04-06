@@ -965,6 +965,7 @@ static void display_maze(bool clear) {
     screenmode = MODE_SHOGUN_MAZE;
     int height;
     get_image_size(P_MAZE_BACKGROUND, nullptr, &height);
+//    fudge_for_apple_2_maze(1);
     int maze_height = height * imagescaley;
 
     long status_height = V6_STATUS_WINDOW.y_size;

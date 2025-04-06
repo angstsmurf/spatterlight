@@ -38,6 +38,7 @@ void extend_mac_bw_hint_border(int desired_height);
 void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);
+//void fudge_for_apple_2_maze(bool on);
 
 extern int last_slideshow_pic;
 extern int32_t monochrome_black;

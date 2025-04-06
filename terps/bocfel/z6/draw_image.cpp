@@ -72,6 +72,30 @@ static uint8_t *pixmap = nullptr;
 
 static int pixlength = hw_screenwidth * 200 * 4;
 
+
+//void fudge_for_apple_2_maze(bool on) {
+//    if (graphics_type == kGraphicsTypeApple2 && get_global(sg.MAZE_WIDTH) != 19) {
+//        if (screenmode != MODE_SHOGUN_MAZE)
+//            on = false;
+//        if (on) {
+//            if (hw_screenwidth == 280)
+//                return;
+//            hw_screenwidth = 280;
+//            pixelwidth = 1.0;
+//        } else {
+//            if (hw_screenwidth == 140)
+//                return;
+//            hw_screenwidth = 140;
+//            pixelwidth = 2.0;
+//        }
+//        pixlength = hw_screenwidth * 200 * 4;
+//        imagescalex = (float)gscreenw / hw_screenwidth;
+//        free(pixmap);
+//        pixmap = nullptr;
+//        ensure_pixmap(current_graphics_buf_win);
+//    }
+//}
+
 void writeToTIFF(const char *name, uint8_t *data, size_t size, uint32_t width) {
     FILE *fptr = fopen(name, "w");
 
