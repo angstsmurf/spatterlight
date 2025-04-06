@@ -5152,9 +5152,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _speechTimeStamp = [NSDate date];
     _lastSpokenString = string;
 
-    NSString *charSetString = @"\u00A0 >\n_";
-    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@"\u00A0 >\n_\0\uFFFC"];
     newString = [newString stringByTrimmingCharactersInSet:charset];
+
+    unichar nc = '\0';
+    NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
+    newString = [newString stringByReplacingOccurrencesOfString:nullChar withString:@""];
 
     if (newString.length == 0)
         newString = string;
