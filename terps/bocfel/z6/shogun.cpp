@@ -1405,6 +1405,11 @@ void shogun_update_after_restore(void) {
     current_menu_selection = 0;
     shogun_erase_screen();
     after_V_COLOR();
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    uint16_t look = internal_call(pack_routine(sr.DESCRIBE_ROOM));
+    if (look) {
+        internal_call(pack_routine(sr.DESCRIBE_OBJECTS));
+    }
 }
 
 //TODO: Merge with arthur_update_after_autorestore
