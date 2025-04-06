@@ -1707,15 +1707,26 @@ replacementString:(id)repl {
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
 
         NSImage *img = nil;
+        BOOL imageIsMargin = (cell.align == imagealign_MarginLeft || cell.align == imagealign_MarginRight);
+
         if (cell && [self.glkctl.imageHandler handleFindImageNumber:cell.index]) {
+            CGFloat blockXScale = xscale;
+            CGFloat blockYScale = yscale;
+
             img = self.glkctl.imageHandler.lastimage;
-            img = [self scaleImage:img size:NSMakeSize(img.size.width * xscale, img.size.height * yscale)];
+            if (!imageIsMargin && cell.image && cell.image.size.width > scrollview.contentView.frame.size.width * 0.7) {
+                CGFloat width = scrollview.contentView.frame.size.width;
+                CGFloat factor = img.size.width * xscale / width;
+                blockXScale *= factor;
+                blockYScale *= factor;
+            }
+            img = [self scaleImage:img size:NSMakeSize(img.size.width * blockXScale, img.size.height * blockYScale)];
         } else {
             return;
         }
 
         // Replace non-margin inline images (alignment imagealign_InlineUp, imagealign_InlineDown, or imagealign_InlineCenter)
-        if (cell.align != imagealign_MarginLeft && cell.align != imagealign_MarginRight) {
+        if (!imageIsMargin) {
             NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.align index:cell.index position:subrange.location];
             [textstorage addAttribute:NSAttachmentAttributeName value:att range:subrange];
             return;
