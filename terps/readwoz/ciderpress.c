@@ -1321,7 +1321,7 @@ static int IsLinearBlocks(SectorOrder imageOrder, SectorOrder fsOrder)
      * mapping.  This holds true for reading ProDOS blocks from a ".po"
      * file or reading DOS sectors from a ".do" file.
      */
-    return (fsOrder == kPhysicalFormatSectors && fHasBlocks &&
+    return (fPhysical == kPhysicalFormatSectors && fHasBlocks &&
             imageOrder == fsOrder);
 }
 
