@@ -14,11 +14,13 @@ extern "C" {
 #include "decompress_amiga.hpp"
 #include "decompress_vga.hpp"
 #include "writetiff.h"
+#include "memory.h"
 #include "util.h"
+#include "zterp.h"
 #include "arthur.hpp"
+#include "shogun.hpp"
 #include "v6_specific.h"
-
-#include "draw_image.hpp"
+#include "v6_specific.h"
 
 ImageStruct *raw_images;
 int image_count;
@@ -71,7 +73,24 @@ int palentries = 16;
 static uint8_t *pixmap = nullptr;
 
 static int pixlength = hw_screenwidth * 200 * 4;
+extern winid_t current_graphics_buf_win;
 
+extern glui32 user_selected_background;
+
+int32_t monochrome_black = 0;
+int32_t monochrome_white = 0xffffff;
+
+void ensure_pixmap(winid_t winid) {
+    if (winid == nullptr) {
+        fprintf(stderr, "ensure_pixmap called with a null winid!\n");
+        return;
+    }
+    if (pixmap == nullptr) {
+        win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
+        glk_window_set_background_color(winid, user_selected_background);
+        pixmap = (uint8_t *)calloc(1, pixlength);
+    }
+}
 
 //void fudge_for_apple_2_maze(bool on) {
 //    if (graphics_type == kGraphicsTypeApple2 && get_global(sg.MAZE_WIDTH) != 19) {
@@ -132,8 +151,6 @@ static char *create_temp_tiff_file_name(void) {
     return tiffname;
 }
 
-extern glui32 user_selected_background;
-
 void flush_bitmap(winid_t winid) {
     if (winid == nullptr)
         return;
@@ -141,11 +158,13 @@ void flush_bitmap(winid_t winid) {
         fprintf(stderr, "ERROR: window is not graphics\n");
     }
     if (pixmap == nullptr) {
+        glk_window_clear(winid);
         return;
     }
 
     glk_window_set_background_color(winid, user_selected_background);
-    glk_window_clear(winid);
+    if (image_needs_redraw)
+        glk_window_clear(winid);
 
     char *filename = create_temp_tiff_file_name();
     if (filename == nullptr)
@@ -154,6 +173,7 @@ void flush_bitmap(winid_t winid) {
     win_purgeimage(600, filename, pixlength);
     free(filename);
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (4 * hw_screenwidth * hw_screenwidth));
+    image_needs_redraw = false;
 }
 
 extern GraphicsType graphics_type;
@@ -176,6 +196,8 @@ bool get_image_size(int picnum, int *width, int *height) {
 
 static void draw_bitmap_on_bitmap(uint8_t *smallbitmap, int smallbitmapsize, int smallbitmapwidth, uint8_t **largebitmap, int *largebitmapsize, int largebitmapwidth, int x, int y, bool flipped) {
 
+    image_needs_redraw = true;
+    
     int xpos, ypos;
 
     int width = smallbitmapwidth;
@@ -353,10 +375,6 @@ static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *bitmap) {
     return flipped;
 }
 
-
-int32_t monochrome_black = 0;
-int32_t monochrome_white = 0xffffff;
-
 static uint8_t *draw_opaque_cga(ImageStruct *image) {
     if (image->data == nullptr)
         return nullptr;
@@ -522,18 +540,6 @@ void extract_palette_from_picnum(int picnum) {
     ImageStruct *image = find_image(picnum);
     if (image != nullptr) {
         extract_palette(image);
-    }
-}
-
-void ensure_pixmap(winid_t winid) {
-    if (winid == nullptr) {
-        fprintf(stderr, "ensure_pixmap called with a null winid!\n");
-        return;
-    }
-    if (pixmap == nullptr) {
-        win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
-        glk_window_set_background_color(winid, user_selected_background);
-        pixmap = (uint8_t *)calloc(1, pixlength);
     }
 }
 
@@ -802,7 +808,6 @@ void extend_mac_bw_hint_border(int desired_height) {
 
     // Draw the shadow
     draw_hint_menu_feet_mac(foot, footsize, &pixmap, &pixlength, ypos - height_of_foot);
-
     free(foot);
 
     // Erase any garbage left at the bottom of the pixmap
