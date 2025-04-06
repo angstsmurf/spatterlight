@@ -849,26 +849,26 @@ void CENTER_PIC_X(void) {
 
 // Only used for final P-CREST image
 void CENTER_PIC(void) {
-    if (windows[4].id != nullptr && windows[4].id->type != wintype_Graphics) {
-        v6_delete_win(&windows[4]);
+    if (SHOGUN_CREST_WINDOW.id != nullptr && SHOGUN_CREST_WINDOW.id->type != wintype_Graphics) {
+        v6_delete_win(&SHOGUN_CREST_WINDOW);
     }
-    if (windows[4].id == nullptr) {
-        windows[4].id = gli_new_window(wintype_Graphics, 0);
+    if (SHOGUN_CREST_WINDOW.id == nullptr) {
+        SHOGUN_CREST_WINDOW.id = gli_new_window(wintype_Graphics, 0);
     }
     int width, height;
     get_image_size(P_CREST, &width, &height);
-    windows[4].y_size = height * imagescaley + 2 * gcellh;
-    windows[4].x_size = V6_TEXT_BUFFER_WINDOW.x_size;
-    windows[4].x_origin = V6_TEXT_BUFFER_WINDOW.x_origin;
-    V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_size + windows[4].y_size;
+    v6_define_window(&SHOGUN_CREST_WINDOW, V6_STATUS_WINDOW.x_origin, V6_STATUS_WINDOW.y_size + imagescaley * 2, V6_STATUS_WINDOW.x_size, height * imagescaley + 2 * gcellh);
+    V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_size + SHOGUN_CREST_WINDOW.y_size;
     V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
-    glk_window_set_background_color(windows[4].id, user_selected_background);
-    glk_window_clear(windows[4].id);
-    v6_sizewin(&windows[4]);
+    if (screenmode == MODE_SHOGUN_MENU) {
+        V6_TEXT_BUFFER_WINDOW.y_size -= SHOGUN_MENU_WINDOW.y_size;
+    }
+    glk_window_set_background_color(SHOGUN_CREST_WINDOW.id, user_selected_background);
+    glk_window_clear(SHOGUN_CREST_WINDOW.id);
     width *= imagescalex;
     height *= imagescaley;
 
-    draw_inline_image(windows[4].id, P_CREST, (windows[4].x_size - width) / 2, (windows[4].y_size - height) / 2, imagescaley, false);
+    draw_inline_image(SHOGUN_CREST_WINDOW.id, P_CREST, (SHOGUN_CREST_WINDOW.x_size - width) / 2, (SHOGUN_CREST_WINDOW.y_size - height) / 2, imagescaley, false);
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
 }
 
