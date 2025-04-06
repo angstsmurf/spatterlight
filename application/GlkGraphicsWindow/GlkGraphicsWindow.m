@@ -488,10 +488,6 @@
     }
 }
 
-- (BOOL)isAccessibilityElement {
-    return YES;
-}
-
 - (NSArray *)accessibilityChildren {
     NSArray *children = super.accessibilityChildren;
 
