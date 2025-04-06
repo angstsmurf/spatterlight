@@ -2455,6 +2455,7 @@ static void LookForSecondTOTGame(void)
     fseek(f, 0, SEEK_END);
     size_t filelength = ftell(f);
     if (filelength == -1) {
+        fclose(f);
         return;
     }
 

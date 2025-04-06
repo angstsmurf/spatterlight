@@ -174,20 +174,6 @@ uint16_t checksum(uint8_t *sf, uint32_t extent)
 
 static GameIDType DecrunchC64(uint8_t **sf, size_t *extent, struct c64rec entry);
 
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "w");
-
-    if (fptr == NULL) {
-        Fatal("File open error!");
-    }
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
-}
-
 static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
 {
     uint8_t *file = NULL;

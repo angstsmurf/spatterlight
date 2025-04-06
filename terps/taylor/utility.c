@@ -65,8 +65,10 @@ uint8_t *readFile(const char *name, size_t *size)
 
     fseek(f, 0, SEEK_END);
     *size = ftell(f);
-    if (*size == -1)
+    if (*size == -1) {
+        fclose(f);
         return NULL;
+    }
 
     uint8_t *data = MemAlloc(*size);
 

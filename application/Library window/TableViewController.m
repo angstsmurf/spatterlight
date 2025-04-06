@@ -2099,6 +2099,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     if (metadata.count == 0) {
+        fclose(fp);
         NSAlert *alert = [NSAlert new];
         alert.messageText = NSLocalizedString(@"No metadata found", nil);
         alert.informativeText = NSLocalizedString(@"No matching metadata to export was found in the library.", nil);

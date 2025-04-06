@@ -82,8 +82,10 @@ uint8_t *ReadFileIfExists(const char *name, size_t *size)
         return NULL;
 
     *size = GetFileLength(fptr);
-    if (*size < 1)
+    if (*size < 1) {
+        fclose(fptr);
         return NULL;
+    }
 
     uint8_t *result = MemAlloc(*size);
     fseek(fptr, 0, SEEK_SET);

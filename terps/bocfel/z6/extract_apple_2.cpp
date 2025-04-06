@@ -71,8 +71,10 @@ static uint8_t *data_from_woz(const char *filename, size_t filenamelen, int *gam
     *file_length = get_file_length(fp);
     if (*file_length == 0) {
         fprintf(stderr, "data_from_woz: file length 0!\n");
+        fclose(fp);
         return nullptr;
     }
+
     uint8_t *entire_file = (uint8_t *)malloc(*file_length);
     if (entire_file == NULL) {
         perror ("malloc");
