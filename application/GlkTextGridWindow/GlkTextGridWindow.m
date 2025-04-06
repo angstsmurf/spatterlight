@@ -360,7 +360,7 @@
 
         GlkTextGridWindow * __weak weakSelf = self;
 
-         NSArray<NSDictionary *> __block *blockStyles = styles;
+        NSArray<NSDictionary *> __block *blockStyles = styles;
 
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)

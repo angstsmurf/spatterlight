@@ -22,7 +22,6 @@
     return self;
 }
 
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
