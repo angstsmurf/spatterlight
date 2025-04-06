@@ -1432,6 +1432,9 @@ void shogun_update_after_autorestore(void) {
         glk_window_clear(current_graphics_buf_win);
     }
 
+    if (V6_TEXT_BUFFER_WINDOW.id != nullptr)
+        set_current_window(&V6_TEXT_BUFFER_WINDOW);
+
     window_change();
 }
 
