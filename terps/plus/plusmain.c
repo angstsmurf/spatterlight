@@ -129,6 +129,8 @@ void SetBit(int bit)
 {
     if (bit < 64 && bit > 0) {
         BitFlags |= (uint64_t)1 << bit;
+    } else {
+        fprintf(stderr, "SetBit: bit %d out of range!\n", bit);
     }
 }
 
@@ -136,13 +138,17 @@ void ResetBit(int bit)
 {
     if (bit < 64 && bit > 0) {
         BitFlags &= ~((uint64_t)1 << bit);
+    } else {
+        fprintf(stderr, "ResetBit: bit %d out of range!\n", bit);
     }
 }
 
 int IsSet(int bit)
 {
-    if (bit >= 64 || bit < 0)
+    if (bit >= 64 || bit < 0) {
+        fprintf(stderr, "IsSet: bit %d out of range!\n", bit);
         return 0;
+    }
     return ((BitFlags & ((uint64_t)1 << bit)) != 0);
 }
 
