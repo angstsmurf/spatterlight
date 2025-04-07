@@ -573,8 +573,7 @@ void Look(int transcript)
         DrawCurrentRoom();
     }
 
-    char *buf = MemAlloc(1000);
-    buf = memset(buf, 0, 1000);
+    char *buf = MyCalloc(1000);
     room_description_stream = glk_stream_open_memory(buf, 1000, filemode_Write, 0);
 
     Room *r;

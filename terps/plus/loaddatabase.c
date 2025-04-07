@@ -1030,8 +1030,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
     char tmp[1024];
     uint8_t length = *ptr++;
     if (length == 0 || length == 255) {
-        *string = MemAlloc(1);
-        (*string)[0] = 0;
+        *string = MyCalloc(1);
         *len = 0;
         return ptr;
     }
